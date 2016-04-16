@@ -3,14 +3,14 @@ import d3                              from 'd3';
 
 
 class Line extends Component {
-    shouldComponentUpdate(nextProps) {
+    renderD3(props) {
         const {
             data,
             xScale, yScale,
             interpolation,
             transitionDuration,
             transitionEasing
-        } = nextProps;
+        } = props;
 
         const element = d3.select(React.findDOMNode(this));
 
@@ -26,6 +26,14 @@ class Line extends Component {
             .ease(transitionEasing)
             .attr('d', line)
         ;
+    }
+
+    componentDidMount() {
+        this.renderD3(this.props);
+    }
+
+    shouldComponentUpdate(nextProps) {
+        this.renderD3(nextProps);
 
         return false;
     }

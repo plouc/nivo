@@ -5,7 +5,7 @@ import { degreesToRadians, findNeighbor } from '../../ArcUtils';
 
 
 class Pie extends Component {
-    shouldComponentUpdate(nextProps) {
+    renderD3(nextProps) {
         const {
             data,
             width, height,
@@ -15,6 +15,8 @@ class Pie extends Component {
             innerRadius,
             transitionDuration, transitionEasing,
         } = nextProps;
+
+        const identity = d => d.data[keyProp];
 
         const element   = d3.select(React.findDOMNode(this));
         const container = element.select('.chart__layout__pie__slices');
@@ -60,17 +62,17 @@ class Pie extends Component {
             };
         }
 
-        slices = slices.data(newData, d => d.data[keyProp]);
+        slices = slices.data(newData, identity);
         slices.enter().append('path')
             .attr('class', 'chart__layout__pie__slice')
             .style('fill', d => d.data.color)
             .each(function (d, i) {
-                this._current = findNeighbor(i, keyProp, previousData, newData) || _.assign({}, d, { endAngle: d.startAngle });
+                this._current = findNeighbor(i, identity, previousData, newData) || _.assign({}, d, { endAngle: d.startAngle });
             })
         ;
         slices.exit()
             .datum((d, i) => {
-                return findNeighbor(i, keyProp, newData, previousData) || d;
+                return findNeighbor(i, identity, newData, previousData) || d;
             })
             .transition()
             .duration(transitionDuration)
@@ -86,14 +88,31 @@ class Pie extends Component {
             .style('fill', d => d.data.color)
         ;
 
+        const pieContext = {
+            element,
+            pie,
+            arc, radius,
+            identity,
+            previousData, newData
+        };
+
         this.legends.forEach(legend => {
-            legend({ element, pie, arc, keyProp, data: newData, radius });
+            legend(pieContext);
         });
+    }
+
+    shouldComponentUpdate(nextProps) {
+        this.renderD3(nextProps);
 
         return false;
     }
 
+    componentDidMount() {
+        this.renderD3(this.props);
+    }
+
     componentWillMount() {
+        console.log('Pie.render()');
         const { children } = this.props;
 
         const legends = [];

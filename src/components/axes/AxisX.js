@@ -1,28 +1,29 @@
 import React, { Component, PropTypes } from 'react';
 import d3                              from 'd3';
 
-class AxisY extends Component {
-    shouldComponentUpdate(nextProps) {
+class AxisX extends Component {
+    renderD3(props) {
         const {
             orient,
-            yScale,
+            xScale,
             tickMode,
             tickPadding,
-            width,
+            height,
             transitionDuration,
             transitionEasing
-        } = nextProps;
+        } = props;
 
         const element = d3.select(React.findDOMNode(this));
+        element.attr('transform', `translate(0, ${height})`);
 
         const axis = d3.svg.axis()
-            .scale(yScale)
+            .scale(xScale)
             .tickPadding(tickPadding)
             .orient(orient)
         ;
 
         if (tickMode === 'grid') {
-            axis.tickSize(-width);
+            axis.tickSize(-height);
         }
 
         element
@@ -35,22 +36,32 @@ class AxisY extends Component {
         return false;
     }
 
+    componentDidMount() {
+        this.renderD3(this.props);
+    }
+
+    shouldComponentUpdate(nextProps) {
+        this.renderD3(nextProps);
+
+        return false;
+    }
+
     render() {
-        return <g className="chart__axis chart__axis--y"/>;
+        return <g className="chart__axis chart__axis--x"/>;
     }
 }
 
-AxisY.displayName = 'AxisY';
+AxisX.displayName = 'AxisX';
 
-AxisY.propTypes = {
-    orient:      PropTypes.oneOf(['left', 'right']).isRequired,
-    yScale:      PropTypes.func.isRequired,
+AxisX.propTypes = {
+    orient:      PropTypes.oneOf(['top', 'bottom']).isRequired,
+    xScale:      PropTypes.func.isRequired,
     tickMode:    PropTypes.oneOf(['normal', 'grid']).isRequired,
     tickPadding: PropTypes.number.isRequired
 };
 
-AxisY.defaultProps = {
-    orient:             'left',
+AxisX.defaultProps = {
+    orient:             'bottom',
     transitionDuration: 600,
     transitionEasing:   'cubic-out',
     tickMode:           'normal',
@@ -58,4 +69,4 @@ AxisY.defaultProps = {
 };
 
 
-export default AxisY;
+export default AxisX;

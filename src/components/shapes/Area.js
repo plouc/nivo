@@ -3,7 +3,7 @@ import d3                              from 'd3';
 
 
 class Area extends Component {
-    shouldComponentUpdate(nextProps) {
+    renderD3(props) {
         const {
             data,
             xScale, yScale,
@@ -11,7 +11,7 @@ class Area extends Component {
             interpolation,
             transitionDuration,
             transitionEasing
-        } = nextProps;
+        } = props;
 
         const element = d3.select(React.findDOMNode(this));
 
@@ -28,6 +28,14 @@ class Area extends Component {
             .ease(transitionEasing)
             .attr('d', area)
         ;
+    }
+
+    componentDidMount() {
+        this.renderD3(this.props);
+    }
+
+    shouldComponentUpdate(nextProps) {
+        this.renderD3(nextProps);
 
         return false;
     }

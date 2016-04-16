@@ -19,7 +19,6 @@ class Chart extends Component {
         } = this.props;
 
         const margin = _.assign({}, defaultMargin, this.props.margin);
-
         const width  = containerWidth  - margin.left - margin.right;
         const height = containerHeight - margin.top  - margin.bottom;
 

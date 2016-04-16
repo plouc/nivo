@@ -1,23 +1,24 @@
 import React, { Component, PropTypes } from 'react';
 import invariant                       from 'invariant';
 import d3                              from 'd3';
-import { midAngle }                    from '../../ArcUtils';
+import { midAngle, findNeighbor }      from '../../ArcUtils';
 
 
 class PieColumnLegends extends Component {
     static createLegendsFromReactElement(element) {
         const { props } = element;
 
-        return ({ element, arc, keyProp, pie, data, radius }) => {
+        // Receive context from Parent Pie component
+        return ({ element, arc, identity, pie, previousData, newData, radius }) => {
 
-            const labelFn = props.labelFn || (d => d.data[keyProp]);
+            const labelFn = props.labelFn || identity;
 
             const outerArc = d3.svg.arc()
                 .innerRadius(radius + props.radiusOffset)
                 .outerRadius(radius + props.radiusOffset)
             ;
 
-            let lines = element.selectAll('.line').data(data, d => d.data[keyProp]);
+            let lines = element.selectAll('.line').data(newData, identity);
             lines.enter()
                 .append('polyline')
                 .attr('stroke', '#fff')
@@ -39,7 +40,7 @@ class PieColumnLegends extends Component {
                 .remove()
             ;
 
-            let labels = element.selectAll('.column-label').data(data, d => d.data[keyProp]);
+            let labels = element.selectAll('.column-label').data(newData, identity);
             labels.enter()
                 .append('text')
                 .attr('fill', '#fff')
