@@ -5,7 +5,7 @@
 [![NPM version][npm-image]][npm-url]
 [![Dependencies][gemnasium-image]][gemnasium-url]
 
-[license-image]: https://img.shields.io/github/license/nivo/mozaik.svg?style=flat-square
+[license-image]: https://img.shields.io/github/license/plouc/nivo.svg?style=flat-square
 [license-url]: https://github.com/plouc/nivo/blob/master/LICENSE.md
 [npm-image]: https://img.shields.io/npm/v/nivo.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/nivo
