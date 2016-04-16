@@ -1,10 +1,11 @@
-# nivo
+![nivo][logo]
 
 [![License][license-image]][license-url]
 [![Travis CI][travis-image]][travis-url]
 [![NPM version][npm-image]][npm-url]
 [![Dependencies][gemnasium-image]][gemnasium-url]
 
+[logo]: https://raw.githubusercontent.com/plouc/nivo/master/nivo.png
 [license-image]: https://img.shields.io/github/license/nivo/mozaik.svg?style=flat-square
 [license-url]: https://github.com/plouc/nivo/blob/master/LICENSE.md
 [npm-image]: https://img.shields.io/npm/v/nivo.svg?style=flat-square
