@@ -1,7 +1,5 @@
 language: node_js
 node_js:
   - '5'
-before_install:
-  - npm install -g npm
 script:
   - npm run test
