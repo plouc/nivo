@@ -19,6 +19,8 @@ Use [d3 Pie layout](https://github.com/mbostock/d3/wiki/Pie-Layout).
 
 ##### PieSliceLegends
 
+![PieSliceLegends](https://raw.githubusercontent.com/plouc/nivo/master/doc/nivo-pie-legend-slice.png)
+
 ### Stack
 
 Use [d3 Stack layout](https://github.com/mbostock/d3/wiki/Stack-Layout)
