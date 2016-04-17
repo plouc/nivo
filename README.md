@@ -5,6 +5,11 @@
 [![NPM version][npm-image]][npm-url]
 [![Dependencies][gemnasium-image]][gemnasium-url]
 
+- [Layouts](#layouts)
+    - [Pie](#pie)
+    - [Stack](#stack)
+- [Colors](#colors)
+
 ## Layouts
 
 ### Pie
