@@ -21,6 +21,19 @@ Use [d3 Pie layout](https://github.com/mbostock/d3/wiki/Pie-Layout).
 import { Chart, Pie, PieColumnLegends } from 'nivo';
 ```
 
+###### properties
+
+key                | required | default  | description
+-------------------|----------|----------|----------------------------
+`labelFn`          | no       | *none*   |
+`radiusOffset`     | yes      | `16`     |
+`horizontalOffset` | yes      | `30`     |
+`textOffset`       | yes      | `10`     |
+`lineColor`        | yes      | `'none'` |
+`textColor`        | yes      | `'none'` |
+
+
+
 ##### PieRadialLegends
 
 <img alt="PieRadialLegends" src="https://raw.githubusercontent.com/plouc/nivo/master/doc/nivo-pie-legends-radial.png" width="80" height="80" />
