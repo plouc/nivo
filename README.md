@@ -15,6 +15,8 @@ Use [d3 Pie layout](https://github.com/mbostock/d3/wiki/Pie-Layout).
 
 ##### PieColumnLegends
 
+<img alt="PieRadialLegends" src="https://raw.githubusercontent.com/plouc/nivo/master/doc/nivo-pie-legend-column.png" width="80" height="80" />
+
 ##### PieRadialLegends
 
 <img alt="PieRadialLegends" src="https://raw.githubusercontent.com/plouc/nivo/master/doc/nivo-pie-legend-radial.png" width="80" height="80" />
