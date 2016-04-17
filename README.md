@@ -21,7 +21,7 @@ Use [d3 Pie layout](https://github.com/mbostock/d3/wiki/Pie-Layout).
 
 ##### PieSliceLegends
 
-<img alt="PieSliceLegends" src="https://raw.githubusercontent.com/plouc/nivo/master/doc/nivo-pie-legend-slice" width="80" height="80" />
+<img alt="PieSliceLegends" src="https://raw.githubusercontent.com/plouc/nivo/master/doc/nivo-pie-legend-slice.png" width="80" height="80" />
 
 ### Stack
 
