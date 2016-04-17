@@ -19,6 +19,16 @@ Use [d3 Pie layout](https://github.com/mbostock/d3/wiki/Pie-Layout).
 
 ```javascript
 import { Chart, Pie, PieColumnLegends } from 'nivo';
+
+// ...
+
+React.render((
+    <Chart>
+        <Pie data={data}>
+            <PieColumnLegends />
+        </Pie>
+    </Chart>
+), document.getElementById('pie'));
 ```
 
 ###### properties
