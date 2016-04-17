@@ -95,6 +95,8 @@ React.render((
 
 ##### Combining Pie legends
 
+<img alt="PieSliceLegends" src="https://raw.githubusercontent.com/plouc/nivo/master/doc/nivo-pie-legends-radial-slice.png" width="80" height="80" />
+
 You can combine different legends on a single pie, for example, you can have the value displayed on each pie slice plus a label outside it.
 Note that the `labelFn` of the `PieSliceLegends` is overridden in order to use data value instead of label.
 
