@@ -5,6 +5,16 @@
 [![NPM version][npm-image]][npm-url]
 [![Dependencies][gemnasium-image]][gemnasium-url]
 
+## Layouts
+
+### Pie
+
+Use [d3 Pie layout](https://github.com/mbostock/d3/wiki/Pie-Layout).
+
+### Stack
+
+Use [d3 Stack layout](https://github.com/mbostock/d3/wiki/Stack-Layout)
+
 ## Colors
 
 Beside highlighting data insgights, your dataviz should be pretty, right ?
