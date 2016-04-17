@@ -23,7 +23,7 @@ Use [d3 Pie layout](https://github.com/mbostock/d3/wiki/Pie-Layout).
 
 <img alt="PieColumnLegends" src="https://raw.githubusercontent.com/plouc/nivo/master/doc/nivo-pie-legends-column.png" width="80" height="80" />
 
-Distribute legends on left/right side of the pie.
+Distribute legends on left/right side of the pie with a link to the corresponding slice.
 
 ```javascript
 import { Chart, Pie, PieColumnLegends } from 'nivo';
@@ -76,7 +76,7 @@ React.render((
 
 <img alt="PieSliceLegends" src="https://raw.githubusercontent.com/plouc/nivo/master/doc/nivo-pie-legends-slice.png" width="80" height="80" />
 
-Distribute legends inside each pie slice. This component is useful to display a count on each pie slice,
+Distribute legends inside each pie slice. This component is useful to display data value on each pie slice,
 but won't work well with labels.
 
 ```javascript
@@ -96,6 +96,7 @@ React.render((
 ##### Combining Pie legends
 
 You can combine different legends on a single pie, for example, you can have the value displayed on each pie slice plus a label outside it.
+Note that the `labelFn` of the `PieSliceLegends` is overridden in order to use data value instead of label.
 
 ```javascript
 import { Chart, Pie, PieRadialLegends, PieSliceLegends } from 'nivo';
