@@ -7,6 +7,7 @@ class Stack extends Component {
         const {
             layers,
             width, height,
+            interpolation,
             transitionDuration, transitionEasing
         } = nextProps;
 
@@ -28,11 +29,12 @@ class Stack extends Component {
         ;
 
         const color = d3.scale.linear()
-            .range(["#aad", "#556"])
+            .domain([0, 0.5, 1])
+            .range(['#ba1300', '#c6482e', '#ff9068'])
         ;
 
         const area = d3.svg.area()
-            .interpolate('monotone')
+            .interpolate(interpolation)
             .x(d => xScale(d.x))
             .y0(d => yScale(d.y0))
             .y1(d => yScale(d.y0 + d.y))
@@ -98,6 +100,7 @@ Stack.propTypes = {
     layers:             array.isRequired,
     keyProp:            string.isRequired,
     valueProp:          string.isRequired,
+    interpolation:      PropTypes.string.isRequired,
     transitionDuration: number.isRequired,
     transitionEasing:   string.isRequired
 };
@@ -106,6 +109,7 @@ Stack.defaultProps = {
     sort:               null,
     keyProp:            'label',
     valueProp:          'value',
+    interpolation:      'monotone',
     transitionDuration: 1000,
     transitionEasing:   'cubic-out'
 };

@@ -1,17 +1,22 @@
 import React, { Component, PropTypes } from 'react';
 import invariant                       from 'invariant';
+import _                               from 'lodash';
 import d3                              from 'd3';
-import { midAngle, radiansToDegrees }  from '../../ArcUtils';
+import { findNeighbor, midAngle, radiansToDegrees }  from '../../ArcUtils';
+import { getColorStyleObject }         from '../../ColorUtils';
 
 
 class PieSliceLegends extends Component {
     static createLegendsFromReactElement(element) {
         const { props } = element;
 
-        return ({ element, keyProp, arc, data }) => {
-            let legends = element.selectAll('.slice-legend').data(data, d => d.data[keyProp]);
+        const badgeColorStyle = getColorStyleObject(props.badgeColor, 'fill');
+        const textColorStyle  = getColorStyleObject(props.textColor, 'fill');
 
-            const labelFn = props.labelFn || (d => d.data[keyProp]);
+        return ({ element, identity, arc, previousData, newData }) => {
+            let legends = element.selectAll('.slice-legend').data(newData, identity);
+
+            const labelFn = props.labelFn || identity;
 
             legends.enter()
                 .append('g')
@@ -21,23 +26,55 @@ class PieSliceLegends extends Component {
 
                     return `translate(${centroid[0]}, ${centroid[1]})`;
                 })
-                .each(function (d) {
-                    d3.select(this)
-                        .append('circle')
-                        .attr('fill', d3.rgb(d.data.color).darker(1).toString())
+                .style('opacity', 0)
+                .each(function (d, i) {
+                    this._current = findNeighbor(i, identity, previousData, newData) || _.assign({}, d, { endAngle: d.startAngle });
+                    const el = d3.select(this);
+
+                    el.append('circle')
                         .attr('r', props.radius)
                     ;
 
-                    d3.select(this)
-                        .append('text')
-                        .attr('fill', d => d.data.color)
+                    el.append('text')
                         .attr('text-anchor', 'middle')
                     ;
                 })
             ;
 
             legends
-                .attr('transform', d => {
+                .each(function (d) {
+                    d3.select(this).select('circle')
+                        .style(badgeColorStyle)
+                    ;
+
+                    d3.select(this).select('text')
+                        .style(textColorStyle)
+                        .text(labelFn(d))
+                    ;
+                })
+                .transition()
+                .duration(props.transitionDuration)
+                .ease(props.transitionEasing)
+                .style('opacity', 1)
+                .attrTween('transform', function (d) {
+                    const interpolate = d3.interpolate({
+                        startAngle: this._current.startAngle,
+                        endAngle:   this._current.endAngle
+                    }, d);
+
+                    return t => {
+                        const angles   = interpolate(t);
+                        const centroid = arc.centroid(angles);
+
+                        let transform = `translate(${centroid[0]}, ${centroid[1]})`;
+                        if (props.orient) {
+                            const angle = midAngle(angles);
+                            transform = `${transform} rotate(${radiansToDegrees(angle)}, 0, 0)`;
+                        }
+
+                        return transform;
+                    };
+                    /*
                     const centroid = arc.centroid(d);
                     let transform  = `translate(${centroid[0]}, ${centroid[1]})`;
 
@@ -47,20 +84,15 @@ class PieSliceLegends extends Component {
                     }
 
                     return transform;
-                })
-                .each(function (d) {
-                    d3.select(this).select('circle')
-                        .attr('fill', d3.rgb(d.data.color).darker(1).toString())
-                    ;
-
-                    d3.select(this).select('text')
-                        .attr('fill', d => d.data.color)
-                        .text(labelFn(d))
-                    ;
+                    */
                 })
             ;
 
             legends.exit()
+                .transition()
+                .duration(props.transitionDuration)
+                .ease(props.transitionEasing)
+                .style('opacity', 0)
                 .remove()
             ;
         };
@@ -74,17 +106,25 @@ class PieSliceLegends extends Component {
     }
 }
 
-const { number, bool, func } = PropTypes;
+const { number, string, bool, func, any } = PropTypes;
 
 PieSliceLegends.propTypes = {
-    labelFn: func,
-    radius:  number.isRequired,
-    orient:  bool.isRequired
+    labelFn:            func,
+    radius:             number.isRequired,
+    orient:             bool.isRequired,
+    transitionDuration: number.isRequired,
+    transitionEasing:   string.isRequired,
+    badgeColor:         any.isRequired,
+    textColor:          any.isRequired
 };
 
 PieSliceLegends.defaultProps = {
-    radius: 12,
-    orient: true
+    radius:             12,
+    orient:             true,
+    transitionDuration: 600,
+    transitionEasing:   'cubic-out',
+    badgeColor:         'none',
+    textColor:          'none'
 };
 
 

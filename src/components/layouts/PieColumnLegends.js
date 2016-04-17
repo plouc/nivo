@@ -2,11 +2,15 @@ import React, { Component, PropTypes } from 'react';
 import invariant                       from 'invariant';
 import d3                              from 'd3';
 import { midAngle, findNeighbor }      from '../../ArcUtils';
+import { getColorStyleObject }         from '../../ColorUtils';
 
 
 class PieColumnLegends extends Component {
     static createLegendsFromReactElement(element) {
         const { props } = element;
+
+        const lineColorStyle = getColorStyleObject(props.lineColor, 'stroke');
+        const textColorStyle = getColorStyleObject(props.textColor, 'fill');
 
         // Receive context from Parent Pie component
         return ({ element, arc, identity, pie, previousData, newData, radius }) => {
@@ -21,11 +25,11 @@ class PieColumnLegends extends Component {
             let lines = element.selectAll('.line').data(newData, identity);
             lines.enter()
                 .append('polyline')
-                .attr('stroke', '#fff')
                 .attr('fill', 'none')
                 .attr('class', 'line')
             ;
             lines
+                .style(lineColorStyle)
                 .attr('points', d => {
                     const p0 = arc.centroid(d);
                     const p1 = outerArc.centroid(d);
@@ -48,6 +52,7 @@ class PieColumnLegends extends Component {
             ;
             labels
                 .text(labelFn)
+                .style(textColorStyle)
                 .attr('text-anchor', d => {
                     return midAngle(d) < Math.PI ? 'start' : 'end';
                 })
@@ -74,19 +79,23 @@ class PieColumnLegends extends Component {
     }
 }
 
-const { number, func } = PropTypes;
+const { number, func, any } = PropTypes;
 
 PieColumnLegends.propTypes = {
     labelFn:          func,
     radiusOffset:     number.isRequired,
     horizontalOffset: number.isRequired,
-    textOffset:       number.isRequired
+    textOffset:       number.isRequired,
+    lineColor:        any.isRequired,
+    textColor:        any.isRequired
 };
 
 PieColumnLegends.defaultProps = {
     radiusOffset:     16,
     horizontalOffset: 30,
-    textOffset:       10
+    textOffset:       10,
+    lineColor:        'none',
+    textColor:        'none'
 };
 
 

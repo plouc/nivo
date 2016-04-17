@@ -43,6 +43,12 @@ class Pie extends Component {
         }));
 
         const color = d3.scale.category20();
+        /*
+        const color = d3.scale.linear()
+            .domain([0, data.length / 2, data.length])
+            .range(['#ba1300', '#c6482e', '#ff9068'])
+        ;
+        */
 
         let slices = container.selectAll('.chart__layout__pie__slice');
         const previousData = slices.data();
@@ -112,7 +118,6 @@ class Pie extends Component {
     }
 
     componentWillMount() {
-        console.log('Pie.render()');
         const { children } = this.props;
 
         const legends = [];
@@ -162,7 +167,7 @@ Pie.defaultProps = {
     startAngle:         0,
     endAngle:           360,
     padAngle:           0,
-    transitionDuration: 1000,
+    transitionDuration: 600,
     transitionEasing:   'cubic-out',
     innerRadius:        0
 };
