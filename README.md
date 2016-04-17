@@ -7,6 +7,7 @@
 
 - [Layouts](#layouts)
     - [Pie](#pie)
+        - [Pie Legends](#pie-legends)
     - [Stack](#stack)
 - [Colors](#colors)
 
@@ -16,7 +17,7 @@
 
 Use [d3 Pie layout](https://github.com/mbostock/d3/wiki/Pie-Layout).
 
-#### Legends
+#### Pie Legends
 
 ##### PieColumnLegends
 
@@ -79,6 +80,23 @@ import { Chart, Pie, PieSliceLegends } from 'nivo';
 React.render((
     <Chart>
         <Pie data={data}>
+            <PieSliceLegends />
+        </Pie>
+    </Chart>
+), document.getElementById('pie'));
+```
+
+##### Combining Pie legends
+
+```javascript
+import { Chart, Pie, PieColumnLegends, PieSliceLegends } from 'nivo';
+
+// ...
+
+React.render((
+    <Chart>
+        <Pie data={data}>
+            <PieColumnLegends />
             <PieSliceLegends />
         </Pie>
     </Chart>
