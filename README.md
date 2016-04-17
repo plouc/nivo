@@ -44,8 +44,8 @@ key                  | required | default     | description
 **radiusOffset**     | yes      | `16`        |
 **horizontalOffset** | yes      | `30`        |
 **textOffset**       | yes      | `10`        |
-**lineColor**        | yes      | `'none'`    |
-**textColor**        | yes      | `'none'`    |
+**lineColor**        | yes      | `'none'`    | see [colors](#colors)
+**textColor**        | yes      | `'none'`    | see [colors](#colors)
 
 
 
@@ -96,7 +96,7 @@ Beside highlighting data insights, your dataviz should be pretty, right ?
 
 A lot of components have a `*Color` property, but what can we pass to it ?
 
-- `none` will do nothing :)
+- `none` will do nothing, it's often the default, it's useful if you manage chart styles via external **css**
 - `inherit` will use color from parent context/component
 - `inherit:darker(.5)` will use parent context/component color, and apply [`darker`](https://github.com/mbostock/d3/wiki/Colors#rgb_darker) function on it with an amount of `.5`
 - `inherit:brighter(1)` will use parent context/component color, and apply [`brighter`](https://github.com/mbostock/d3/wiki/Colors#rgb_brighter) function on it with an amount of `1`
