@@ -37,6 +37,21 @@ React.render((
 ), document.getElementById('pie'));
 ```
 
+#### properties
+
+key                    | required | default   | description
+-----------------------|----------|-----------|----------------------------
+**sort**               | no       | `null`    |
+**data**               | yes      | —         |
+**keyProp**            | yes      | `'label'` |
+**valueProp**          | yes      | `'value'` |
+**startAngle**         | yes      | `0`       |
+**endAngle**           | yes      | `360`     |
+**padAngle**           | yes      | `0`       |
+**transitionDuration** | yes      |           |
+**transitionEasing**   | yes      |           |
+**innerRadius**        | yes      | `0        |
+
 #### Pie Legends
 
 ##### PieColumnLegends

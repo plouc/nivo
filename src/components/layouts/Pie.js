@@ -44,13 +44,7 @@ class Pie extends Component {
         }));
 
         const color = d3.scale.category20();
-        /*
-        const color = d3.scale.linear()
-            .domain([0, data.length / 2, data.length])
-            .range(['#ba1300', '#c6482e', '#ff9068'])
-        ;
-        */
-
+        
         let slices = container.selectAll('.chart__layout__pie__slice');
         const previousData = slices.data();
         const newData      = pie(data.map((d, i) => {
