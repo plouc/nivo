@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import invariant                       from 'invariant';
 import d3                              from 'd3';
+import Nivo                            from '../../Nivo';
 import { midAngle, radiansToDegrees }  from '../../ArcUtils';
 import { getColorGenerator }           from '../../ColorUtils';
 
@@ -129,8 +130,8 @@ PieRadialLegends.propTypes = {
 
 PieRadialLegends.defaultProps = {
     radiusOffset:       16,
-    transitionDuration: 600,
-    transitionEasing:   'cubic-out',
+    transitionDuration: Nivo.defaults.transitionDuration,
+    transitionEasing:   Nivo.defaults.transitionEasing,
     textColor:          'none'
 };
 

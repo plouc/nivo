@@ -1,6 +1,7 @@
 import React, { Component, PropTypes }    from 'react';
 import _                                  from 'lodash';
 import d3                                 from 'd3';
+import Nivo                               from '../../Nivo';
 import { degreesToRadians, findNeighbor } from '../../ArcUtils';
 
 
@@ -167,8 +168,8 @@ Pie.defaultProps = {
     startAngle:         0,
     endAngle:           360,
     padAngle:           0,
-    transitionDuration: 600,
-    transitionEasing:   'cubic-out',
+    transitionDuration: Nivo.defaults.transitionDuration,
+    transitionEasing:   Nivo.defaults.transitionEasing,
     innerRadius:        0
 };
 

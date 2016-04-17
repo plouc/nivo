@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import d3                              from 'd3';
+import Nivo                            from '../../Nivo';
 
 
 class Line extends Component {
@@ -56,8 +57,8 @@ Line.propTypes = {
 
 Line.defaultProps = {
     interpolation:      'linear',
-    transitionDuration: 600,
-    transitionEasing:   'cubic-out'
+    transitionDuration: Nivo.defaults.transitionDuration,
+    transitionEasing:   Nivo.defaults.transitionEasing
 };
 
 

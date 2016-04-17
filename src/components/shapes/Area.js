@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import d3                              from 'd3';
+import Nivo                            from '../../Nivo';
 
 
 class Area extends Component {
@@ -60,8 +61,8 @@ Area.propTypes = {
 
 Area.defaultProps = {
     interpolation:      'linear',
-    transitionDuration: 600,
-    transitionEasing:   'cubic-out'
+    transitionDuration: Nivo.defaults.transitionDuration,
+    transitionEasing:   Nivo.defaults.transitionEasing
 };
 
 

@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import invariant                       from 'invariant';
 import _                               from 'lodash';
 import d3                              from 'd3';
+import Nivo                            from '../../Nivo';
 import { findNeighbor, midAngle, radiansToDegrees }  from '../../ArcUtils';
 import { getColorStyleObject }         from '../../ColorUtils';
 
@@ -121,8 +122,8 @@ PieSliceLegends.propTypes = {
 PieSliceLegends.defaultProps = {
     radius:             12,
     orient:             true,
-    transitionDuration: 600,
-    transitionEasing:   'cubic-out',
+    transitionDuration: Nivo.defaults.transitionDuration,
+    transitionEasing:   Nivo.defaults.transitionEasing,
     badgeColor:         'none',
     textColor:          'none'
 };

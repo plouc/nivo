@@ -1,3 +1,4 @@
+export default          from './Nivo';
 export Chart            from './components/Chart';
 export Pie              from './components/layouts/Pie';
 export PieColumnLegends from './components/layouts/PieColumnLegends';

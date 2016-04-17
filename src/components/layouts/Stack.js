@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import d3                              from 'd3';
+import Nivo                            from '../../Nivo';
 
 
 class Stack extends Component {
@@ -110,8 +111,8 @@ Stack.defaultProps = {
     keyProp:            'label',
     valueProp:          'value',
     interpolation:      'monotone',
-    transitionDuration: 1000,
-    transitionEasing:   'cubic-out'
+    transitionDuration: Nivo.defaults.transitionDuration,
+    transitionEasing:   Nivo.defaults.transitionEasing
 };
 
 
