@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import invariant                       from 'invariant';
 import d3                              from 'd3';
+import _                               from 'lodash';
+import Nivo                            from '../../Nivo';
 import { midAngle, findNeighbor }      from '../../ArcUtils';
 import { getColorStyleObject }         from '../../ColorUtils';
 
@@ -27,17 +29,34 @@ class PieColumnLegends extends Component {
                 .append('polyline')
                 .attr('fill', 'none')
                 .attr('class', 'line')
+                .style('opacity', 0)
+                .each(function (d, i) {
+                    this._current = findNeighbor(i, identity, previousData, newData) || _.assign({}, d, { endAngle: d.startAngle });
+                })
             ;
             lines
+                .transition()
+                .duration(props.transitionDuration)
+                .ease(props.transitionEasing)
                 .style(lineColorStyle)
-                .attr('points', d => {
-                    const p0 = arc.centroid(d);
-                    const p1 = outerArc.centroid(d);
-                    const p2 = [0, p1[1]];
+                .style('opacity', 1)
+                .attrTween('points', function (d) {
+                    const interpolate = d3.interpolate({
+                        startAngle: this._current.startAngle,
+                        endAngle:   this._current.endAngle
+                    }, d);
 
-                    p2[0] = (radius + props.horizontalOffset) * (midAngle(d) < Math.PI ? 1 : -1);
+                    return t => {
+                        const angles = interpolate(t);
 
-                    return [p0, p1, p2];
+                        const p0 = arc.centroid(angles);
+                        const p1 = outerArc.centroid(angles);
+                        const p2 = [0, p1[1]];
+
+                        p2[0] = (radius + props.horizontalOffset) * (midAngle(angles) < Math.PI ? 1 : -1);
+
+                        return [p0, p1, p2];
+                    };
                 })
             ;
             lines.exit()
@@ -47,22 +66,39 @@ class PieColumnLegends extends Component {
             let labels = element.selectAll('.column-label').data(newData, identity);
             labels.enter()
                 .append('text')
-                .attr('fill', '#fff')
                 .attr('class', 'column-label')
+                .style('opacity', 0)
+                .each(function (d, i) {
+                    this._current = findNeighbor(i, identity, previousData, newData) || _.assign({}, d, { endAngle: d.startAngle });
+                })
             ;
             labels
                 .text(labelFn)
+                .transition()
+                .duration(props.transitionDuration)
+                .ease(props.transitionEasing)
                 .style(textColorStyle)
-                .attr('text-anchor', d => {
-                    return midAngle(d) < Math.PI ? 'start' : 'end';
-                })
-                .attr('transform', d => {
-                    const centroid = outerArc.centroid(d);
-                    const position = [0, centroid[1]];
+                .style('opacity', 1)
+                .attrTween('transform', function (d) {
+                    const interpolate = d3.interpolate({
+                        startAngle: this._current.startAngle,
+                        endAngle:   this._current.endAngle
+                    }, d);
 
-                    position[0] = (radius + props.horizontalOffset + props.textOffset) * (midAngle(d) < Math.PI ? 1 : -1);
+                    const el = d3.select(this);
 
-                    return `translate(${position[0]}, ${position[1]})`;
+                    return t => {
+                        const angles = interpolate(t);
+
+                        el.attr('text-anchor', midAngle(angles) < Math.PI ? 'start' : 'end');
+
+                        const centroid = outerArc.centroid(angles);
+                        const position = [0, centroid[1]];
+
+                        position[0] = (radius + props.horizontalOffset + props.textOffset) * (midAngle(angles) < Math.PI ? 1 : -1);
+
+                        return `translate(${position[0]}, ${position[1]})`;
+                    };
                 })
             ;
             labels.exit()
@@ -79,23 +115,27 @@ class PieColumnLegends extends Component {
     }
 }
 
-const { number, func, any } = PropTypes;
+const { number, string, func, any } = PropTypes;
 
 PieColumnLegends.propTypes = {
-    labelFn:          func,
-    radiusOffset:     number.isRequired,
-    horizontalOffset: number.isRequired,
-    textOffset:       number.isRequired,
-    lineColor:        any.isRequired,
-    textColor:        any.isRequired
+    labelFn:            func,
+    radiusOffset:       number.isRequired,
+    horizontalOffset:   number.isRequired,
+    textOffset:         number.isRequired,
+    transitionDuration: number.isRequired,
+    transitionEasing:   string.isRequired,
+    lineColor:          any.isRequired,
+    textColor:          any.isRequired
 };
 
 PieColumnLegends.defaultProps = {
-    radiusOffset:     16,
-    horizontalOffset: 30,
-    textOffset:       10,
-    lineColor:        'none',
-    textColor:        'none'
+    radiusOffset:       16,
+    horizontalOffset:   30,
+    textOffset:         10,
+    transitionDuration: Nivo.defaults.transitionDuration,
+    transitionEasing:   Nivo.defaults.transitionEasing,
+    lineColor:          'none',
+    textColor:          'none'
 };
 
 

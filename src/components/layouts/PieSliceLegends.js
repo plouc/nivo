@@ -75,17 +75,6 @@ class PieSliceLegends extends Component {
 
                         return transform;
                     };
-                    /*
-                    const centroid = arc.centroid(d);
-                    let transform  = `translate(${centroid[0]}, ${centroid[1]})`;
-
-                    if (props.orient) {
-                        const angle = midAngle(d);
-                        transform = `${transform} rotate(${radiansToDegrees(angle)}, 0, 0)`;
-                    }
-
-                    return transform;
-                    */
                 })
             ;
 
