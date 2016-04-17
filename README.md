@@ -15,6 +15,8 @@
 
 ### Pie
 
+<img alt="Pie" src="https://raw.githubusercontent.com/plouc/nivo/master/doc/nivo-pie.png" width="240" height="80" />
+
 Use [d3 Pie layout](https://github.com/mbostock/d3/wiki/Pie-Layout).
 
 ```javascript
