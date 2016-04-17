@@ -11,6 +11,14 @@
 
 Use [d3 Pie layout](https://github.com/mbostock/d3/wiki/Pie-Layout).
 
+#### Legends
+
+##### PieColumnLegends
+
+##### PieRadialLegends
+
+##### PieSliceLegends
+
 ### Stack
 
 Use [d3 Stack layout](https://github.com/mbostock/d3/wiki/Stack-Layout)
