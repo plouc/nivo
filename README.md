@@ -15,15 +15,27 @@ Use [d3 Pie layout](https://github.com/mbostock/d3/wiki/Pie-Layout).
 
 ##### PieColumnLegends
 
-<img alt="PieRadialLegends" src="https://raw.githubusercontent.com/plouc/nivo/master/doc/nivo-pie-legend-column.png" width="80" height="80" />
+<img alt="PieColumnLegends" src="https://raw.githubusercontent.com/plouc/nivo/master/doc/nivo-pie-legends-column.png" width="80" height="80" />
+
+```javascript
+import { Chart, Pie, PieColumnLegends } from 'nivo';
+```
 
 ##### PieRadialLegends
 
-<img alt="PieRadialLegends" src="https://raw.githubusercontent.com/plouc/nivo/master/doc/nivo-pie-legend-radial.png" width="80" height="80" />
+<img alt="PieRadialLegends" src="https://raw.githubusercontent.com/plouc/nivo/master/doc/nivo-pie-legends-radial.png" width="80" height="80" />
+
+```javascript
+import { Chart, Pie, PieRadialLegends } from 'nivo';
+```
 
 ##### PieSliceLegends
 
-<img alt="PieSliceLegends" src="https://raw.githubusercontent.com/plouc/nivo/master/doc/nivo-pie-legend-slice.png" width="80" height="80" />
+<img alt="PieSliceLegends" src="https://raw.githubusercontent.com/plouc/nivo/master/doc/nivo-pie-legends-slice.png" width="80" height="80" />
+
+```javascript
+import { Chart, Pie, PieSliceLegends } from 'nivo';
+```
 
 ### Stack
 
@@ -31,7 +43,7 @@ Use [d3 Stack layout](https://github.com/mbostock/d3/wiki/Stack-Layout)
 
 ## Colors
 
-Beside highlighting data insgights, your dataviz should be pretty, right ?
+Beside highlighting data insights, your dataviz should be pretty, right ?
 **nivo** provides an easy way to deal with colors, very useful when dealing with nested components.
 
 A lot of components have a `*Color` property, but what can we pass to it ?
