@@ -50,6 +50,16 @@ key                  | required | default     | description
 
 ```javascript
 import { Chart, Pie, PieRadialLegends } from 'nivo';
+
+// ...
+
+React.render((
+    <Chart>
+        <Pie data={data}>
+            <PieRadialLegends />
+        </Pie>
+    </Chart>
+), document.getElementById('pie'));
 ```
 
 ##### PieSliceLegends
@@ -58,6 +68,16 @@ import { Chart, Pie, PieRadialLegends } from 'nivo';
 
 ```javascript
 import { Chart, Pie, PieSliceLegends } from 'nivo';
+
+// ...
+
+React.render((
+    <Chart>
+        <Pie data={data}>
+            <PieSliceLegends />
+        </Pie>
+    </Chart>
+), document.getElementById('pie'));
 ```
 
 ### Stack
