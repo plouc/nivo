@@ -23,14 +23,14 @@ import { Chart, Pie, PieColumnLegends } from 'nivo';
 
 ###### properties
 
-key                | required | default  | description
--------------------|----------|----------|----------------------------
-`labelFn`          | no       | *none*   |
-`radiusOffset`     | yes      | `16`     |
-`horizontalOffset` | yes      | `30`     |
-`textOffset`       | yes      | `10`     |
-`lineColor`        | yes      | `'none'` |
-`textColor`        | yes      | `'none'` |
+key                  | required | default     | description
+---------------------|----------|-------------|----------------------------
+**labelFn**          | no       | `undefined` |
+**radiusOffset**     | yes      | `16`        |
+**horizontalOffset** | yes      | `30`        |
+**textOffset**       | yes      | `10`        |
+**lineColor**        | yes      | `'none'`    |
+**textColor**        | yes      | `'none'`    |
 
 
 
