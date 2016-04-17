@@ -5,6 +5,8 @@
 [![NPM version][npm-image]][npm-url]
 [![Dependencies][gemnasium-image]][gemnasium-url]
 
+**nivo** provides supercharged React components to easily build dataviz apps, it's built on d3.
+
 - [Layouts](#layouts)
     - [Pie](#pie)
         - [Legends](#pie-legends)
