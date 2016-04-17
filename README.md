@@ -7,7 +7,11 @@
 
 - [Layouts](#layouts)
     - [Pie](#pie)
-        - [Pie Legends](#pie-legends)
+        - [Legends](#pie-legends)
+            - [Column](#piecolumnlegends)
+            - [Radial](#pieradiallegends)
+            - [Slice](#pieslicelegends)
+            - [Combining](#combining-pie-legends)
     - [Stack](#stack)
 - [Colors](#colors)
 
