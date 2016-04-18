@@ -27,7 +27,8 @@
   "scripts": {
     "watch": "babel src --watch --out-dir lib",
     "test": "ava",
-    "test-cover": "nyc ava"
+    "test-cover": "nyc ava",
+    "watch:test": "ava --watch"
   },
   "ava": {
     "files": [
