@@ -10,3 +10,4 @@ export AxisX            from './components/axes/AxisX';
 export AxisY            from './components/axes/AxisY';
 export XYScales         from './components/scales/XYScales';
 export Stack            from './components/layouts/Stack';
+export TreeMap          from './components/layouts/TreeMap';
