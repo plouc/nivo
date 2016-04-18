@@ -7,6 +7,7 @@ class Stack extends Component {
     renderD3(nextProps) {
         const {
             layers,
+            offset,
             width, height,
             interpolation,
             transitionDuration, transitionEasing
@@ -16,12 +17,12 @@ class Stack extends Component {
             return;
         }
 
-        const stack = d3.layout.stack().offset('wiggle');
+        const stack = d3.layout.stack().offset(offset);
         const stacked = stack(layers);
 
         const xScale = d3.scale.linear()
             .range([0, width])
-            .domain([0, stacked[0].length])
+            .domain([0, stacked[0].length - 1])
         ;
 
         const yScale = d3.scale.linear()
@@ -29,10 +30,7 @@ class Stack extends Component {
             .domain([0, d3.max(stacked, layer => d3.max(layer, d => (d.y0 + d.y)))])
         ;
 
-        const color = d3.scale.linear()
-            .domain([0, 0.5, 1])
-            .range(['#ba1300', '#c6482e', '#ff9068'])
-        ;
+        const color = d3.scale.ordinal().range(['#ba1300', '#c6482e', '#ff9068', '#cd600f', '#ff9068', '#7b2113']);
 
         const area = d3.svg.area()
             .interpolate(interpolation)
@@ -47,7 +45,7 @@ class Stack extends Component {
         paths.enter().append('path')
             .attr('class', 'stack_area')
             .attr('d', area)
-            .style("fill", function() { return color(Math.random()); })
+            .style('fill', function() { return color(Math.random() * 6); })
         ;
 
         paths
@@ -92,13 +90,14 @@ class Stack extends Component {
     }
 }
 
-const { array, number, string, func } = PropTypes;
+const { array, number, string, func, oneOf } = PropTypes;
 
 Stack.propTypes = {
     width:              number.isRequired,
     height:             number.isRequired,
     sort:               func,
     layers:             array.isRequired,
+    offset:             oneOf(['silhouette', 'wiggle', 'expand', 'zero']).isRequired,
     keyProp:            string.isRequired,
     valueProp:          string.isRequired,
     interpolation:      PropTypes.string.isRequired,
@@ -108,6 +107,7 @@ Stack.propTypes = {
 
 Stack.defaultProps = {
     sort:               null,
+    offset:             'zero',
     keyProp:            'label',
     valueProp:          'value',
     interpolation:      'monotone',
