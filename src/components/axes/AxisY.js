@@ -4,8 +4,10 @@ import d3                              from 'd3';
 class AxisY extends Component {
     renderD3(props) {
         const {
-            orient,
             yScale,
+            tickCount,
+            tickFormat,
+            orient,
             tickMode,
             tickPadding,
             width,
@@ -19,7 +21,16 @@ class AxisY extends Component {
             .scale(yScale)
             .tickPadding(tickPadding)
             .orient(orient)
+            .tickFormat(d3.format('s'))
         ;
+
+        if (tickCount >= 0) {
+            axis.ticks(tickCount);
+        }
+
+        if (tickFormat) {
+            axis.tickFormat(d3.format(tickFormat));
+        }
 
         if (tickMode === 'grid') {
             axis.tickSize(-width);
@@ -55,6 +66,7 @@ AxisY.displayName = 'AxisY';
 AxisY.propTypes = {
     orient:      PropTypes.oneOf(['left', 'right']).isRequired,
     yScale:      PropTypes.func.isRequired,
+    tickCount:   PropTypes.number.isRequired,
     tickMode:    PropTypes.oneOf(['normal', 'grid']).isRequired,
     tickPadding: PropTypes.number.isRequired
 };
@@ -63,6 +75,7 @@ AxisY.defaultProps = {
     orient:             'left',
     transitionDuration: 600,
     transitionEasing:   'cubic-out',
+    tickCount:          -1,
     tickMode:           'normal',
     tickPadding:        3
 };
