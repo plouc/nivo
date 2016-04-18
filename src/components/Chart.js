@@ -1,14 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import Dimensions                      from 'react-dimensions';
 import _                               from 'lodash';
+import Nivo                            from '../Nivo';
 
-
-const defaultMargin = {
-    top:    0,
-    right:  0,
-    bottom: 0,
-    left:   0
-};
 
 class Chart extends Component {
     render() {
@@ -18,7 +12,7 @@ class Chart extends Component {
             children
         } = this.props;
 
-        const margin = _.assign({}, defaultMargin, this.props.margin);
+        const margin = _.assign({}, Nivo.defaults.margin, this.props.margin);
         const width  = containerWidth  - margin.left - margin.right;
         const height = containerHeight - margin.top  - margin.bottom;
 
@@ -48,7 +42,7 @@ Chart.propTypes = {
 };
 
 Chart.defaultProps = {
-    margin: {}
+    margin: Nivo.defaults.margin
 };
 
 
