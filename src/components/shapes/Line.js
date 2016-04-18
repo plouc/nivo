@@ -8,6 +8,7 @@ class Line extends Component {
         const {
             data,
             xScale, yScale,
+            xAccessor, yAccessor,
             interpolation,
             transitionDuration,
             transitionEasing
@@ -16,8 +17,8 @@ class Line extends Component {
         const element = d3.select(React.findDOMNode(this));
 
         const line = d3.svg.line()
-            .x((d, i) => xScale(i))
-            .y(d => yScale(d))
+            .x((d, i) => xScale(xAccessor(d, i)))
+            .y((d, i) => yScale(yAccessor(d, i)))
             .interpolate(interpolation)
         ;
 
@@ -46,19 +47,25 @@ class Line extends Component {
 
 Line.displayName = 'Line';
 
+const { array, func, string, number } = PropTypes;
+
 Line.propTypes = {
-    data:               PropTypes.array.isRequired,
-    xScale:             PropTypes.func.isRequired,
-    yScale:             PropTypes.func.isRequired,
-    interpolation:      PropTypes.string.isRequired,
-    transitionDuration: PropTypes.number.isRequired,
-    transitionEasing:   PropTypes.string.isRequired
+    data:               array.isRequired,
+    xScale:             func.isRequired,
+    yScale:             func.isRequired,
+    xAccessor:          func.isRequired,
+    yAccessor:          func.isRequired,
+    interpolation:      string.isRequired,
+    transitionDuration: number.isRequired,
+    transitionEasing:   string.isRequired
 };
 
 Line.defaultProps = {
+    xAccessor:          (d, i) => i,
+    yAccessor:          d => d,
     interpolation:      'linear',
     transitionDuration: Nivo.defaults.transitionDuration,
-    transitionEasing:   Nivo.defaults.transitionEasing
+    transitionEasing:   Nivo.defaults.transitionEasing,
 };
 
 
