@@ -7,7 +7,7 @@ export const getColorGenerator = instruction => {
     }
 
     if (instruction === 'inherit') {
-        return d => d.data.color;
+        return d => (d.color || d.data.color);
     }
 
     const inheritMatches = instruction.match(/inherit:(darker|brighter)\(([0-9.]+)\)/);
@@ -15,7 +15,7 @@ export const getColorGenerator = instruction => {
         const method = inheritMatches[1];
         const amount = inheritMatches[2];
 
-        return d => d3.rgb(d.data.color)[method](parseFloat(amount));
+        return d => d3.rgb(d.color || d.data.color)[method](parseFloat(amount));
     }
 
     throw new Error('Unable to determine color generator');
