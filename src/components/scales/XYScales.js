@@ -6,6 +6,7 @@ class XYScales extends Component {
     render() {
         const {
             data,
+            identityAccessor, valueAccessor,
             width, height,
             children
         } = this.props;
@@ -21,7 +22,7 @@ class XYScales extends Component {
 
         const yScale = d3.scale.linear()
             .range([height, 0])
-            .domain([0, d3.max(data)])
+            .domain([0, d3.max(data.map(valueAccessor))])
         ;
 
         return (
@@ -36,10 +37,19 @@ class XYScales extends Component {
 
 XYScales.displayName = 'XYScales';
 
+const { array, func, number } = PropTypes;
+
 XYScales.propTypes = {
-    data:   PropTypes.array.isRequired,
-    width:  PropTypes.number,
-    height: PropTypes.number
+    data:             array.isRequired,
+    identityAccessor: func.isRequired,
+    valueAccessor:    func.isRequired,
+    width:            number,
+    height:           number
+};
+
+XYScales.defaultProps = {
+    identityAccessor: (d, i) => i,
+    valueAccessor:    d => d
 };
 
 
