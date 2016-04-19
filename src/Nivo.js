@@ -1,6 +1,10 @@
+import d3 from 'd3';
+
+
 const defaults = {
     transitionDuration: 600,
     transitionEasing:   'cubic-out',
+    colorRange:         d3.scale.category20b(),
     margin:             {
         top:    0,
         right:  0,

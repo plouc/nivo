@@ -1,4 +1,5 @@
 import d3 from 'd3';
+import _  from 'lodash';
 
 
 export const getColorGenerator = instruction => {
@@ -31,4 +32,34 @@ export const getColorStyleObject = (instruction, property) => {
     }
 
     return style;
+};
+
+
+const d3CategoricalColors = {
+    d310:  d3.scale.category10(),
+    d320:  d3.scale.category20(),
+    d320b: d3.scale.category20b(),
+    d320c: d3.scale.category20c()
+};
+
+const dataColor = d => (d.color || d.data.color);
+
+export const getColorRange = instruction => {
+    if (instruction === 'data') {
+        return dataColor;
+    }
+
+    if (_.isFunction(instruction)) {
+        return instruction;
+    }
+
+    if (d3CategoricalColors[instruction]) {
+        return d3CategoricalColors[instruction];
+    }
+
+    if (_.isArray(instruction)) {
+        return d3.scale.ordinal().range(instruction);
+    }
+
+    throw new Error('Unable to determine color range');
 };
