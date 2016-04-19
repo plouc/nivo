@@ -1,6 +1,8 @@
-import React, { Component, PropTypes } from 'react';
-import d3                              from 'd3';
-import Nivo                            from '../../Nivo';
+import React, { Component, PropTypes }        from 'react';
+import d3                                     from 'd3';
+import Nivo                                   from '../../Nivo';
+import { lineInterpolation }                  from '../../PropTypes';
+import { getColorStyleObject, getColorRange } from '../../ColorUtils';
 
 
 class Stack extends Component {
@@ -10,6 +12,7 @@ class Stack extends Component {
             offset,
             width, height,
             interpolation,
+            colors,
             transitionDuration, transitionEasing
         } = nextProps;
 
@@ -30,7 +33,7 @@ class Stack extends Component {
             .domain([0, d3.max(stacked, layer => d3.max(layer, d => (d.y0 + d.y)))])
         ;
 
-        const color = d3.scale.ordinal().range(['#ba1300', '#c6482e', '#ff9068', '#cd600f', '#ff9068', '#7b2113']);
+        const color = getColorRange(colors);
 
         const area = d3.svg.area()
             .interpolate(interpolation)
@@ -83,14 +86,11 @@ class Stack extends Component {
     }
 
     render() {
-        return (
-            <g>
-            </g>
-        );
+        return <g />;
     }
 }
 
-const { array, number, string, func, oneOf } = PropTypes;
+const { array, number, string, func, any, oneOf } = PropTypes;
 
 Stack.propTypes = {
     width:              number.isRequired,
@@ -100,7 +100,8 @@ Stack.propTypes = {
     offset:             oneOf(['silhouette', 'wiggle', 'expand', 'zero']).isRequired,
     keyProp:            string.isRequired,
     valueProp:          string.isRequired,
-    interpolation:      PropTypes.string.isRequired,
+    interpolation:      lineInterpolation,
+    colors:             any.isRequired,
     transitionDuration: number.isRequired,
     transitionEasing:   string.isRequired
 };
@@ -112,7 +113,8 @@ Stack.defaultProps = {
     valueProp:          'value',
     interpolation:      'monotone',
     transitionDuration: Nivo.defaults.transitionDuration,
-    transitionEasing:   Nivo.defaults.transitionEasing
+    transitionEasing:   Nivo.defaults.transitionEasing,
+    colors:             Nivo.defaults.colorRange
 };
 
 

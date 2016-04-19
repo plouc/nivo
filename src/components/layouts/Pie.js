@@ -3,6 +3,7 @@ import _                                  from 'lodash';
 import d3                                 from 'd3';
 import Nivo                               from '../../Nivo';
 import { degreesToRadians, findNeighbor } from '../../ArcUtils';
+import { getColorRange }                  from '../../ColorUtils';
 
 
 class Pie extends Component {
@@ -13,6 +14,7 @@ class Pie extends Component {
             sort,
             keyProp, valueProp,
             startAngle, endAngle, padAngle,
+            colors,
             innerRadius,
             transitionDuration, transitionEasing,
         } = nextProps;
@@ -43,7 +45,7 @@ class Pie extends Component {
             endAngle:   degreesToRadians(endAngle)
         }));
 
-        const color = d3.scale.category20();
+        const color = getColorRange(colors);
         
         let slices = container.selectAll('.chart__layout__pie__slice');
         const previousData = slices.data();
@@ -138,7 +140,7 @@ class Pie extends Component {
     }
 }
 
-const { array, number, string, func } = PropTypes;
+const { array, number, string, func, any } = PropTypes;
 
 Pie.propTypes = {
     width:              number.isRequired,
@@ -150,6 +152,7 @@ Pie.propTypes = {
     startAngle:         number.isRequired,
     endAngle:           number.isRequired,
     padAngle:           number.isRequired,
+    colors:             any.isRequired,
     transitionDuration: number.isRequired,
     transitionEasing:   string.isRequired,
     innerRadius:        number.isRequired
@@ -164,7 +167,8 @@ Pie.defaultProps = {
     padAngle:           0,
     transitionDuration: Nivo.defaults.transitionDuration,
     transitionEasing:   Nivo.defaults.transitionEasing,
-    innerRadius:        0
+    innerRadius:        0,
+    colors:             Nivo.defaults.colorRange
 };
 
 

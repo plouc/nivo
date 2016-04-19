@@ -1,9 +1,9 @@
-import React, { Component, PropTypes } from 'react';
-import _                               from 'lodash';
-import d3                              from 'd3';
-import Dimensions                      from 'react-dimensions';
-import Nivo                            from '../../Nivo';
-import { getColorStyleObject }         from '../../ColorUtils';
+import React, { Component, PropTypes }        from 'react';
+import _                                      from 'lodash';
+import d3                                     from 'd3';
+import Dimensions                             from 'react-dimensions';
+import Nivo                                   from '../../Nivo';
+import { getColorStyleObject, getColorRange } from '../../ColorUtils';
 
 function nodePosition() {
     this
@@ -21,6 +21,7 @@ class TreeMap extends Component {
             mode,
             valueAccessor, labelFn,
             containerWidth, containerHeight,
+            colors,
             transitionDuration, transitionEasing
         } = nextProps;
 
@@ -50,8 +51,7 @@ class TreeMap extends Component {
             })
         ;
 
-        //const color = d3.scale.category20c();
-        const color = d3.scale.ordinal().range(['#ba1300', '#c6482e', '#ff9068', '#cd600f', '#ff9068', '#7b2113']);
+        const color = getColorRange(colors);
 
         const nodes = wrapper.datum(root).selectAll('.nivo_treemap_node').data(treemap.nodes);
 
@@ -125,9 +125,10 @@ TreeMap.propTypes = {
     valueAccessor:      func.isRequired,
     labelFn:            func.isRequired,
     mode:               oneOf(['squarify', 'slice', 'dice', 'slice-dice']),
+    colors:             any.isRequired,
+    borderColor:        any.isRequired,
     transitionDuration: number.isRequired,
     transitionEasing:   string.isRequired,
-    borderColor:        any.isRequired,
     margin:             shape({
         top:    number,
         right:  number,
@@ -143,7 +144,8 @@ TreeMap.defaultProps = {
     transitionDuration: Nivo.defaults.transitionDuration,
     transitionEasing:   Nivo.defaults.transitionEasing,
     margin:             Nivo.defaults.margin,
-    borderColor:        'none'
+    borderColor:        'none',
+    colors:             Nivo.defaults.colorRange
 };
 
 
