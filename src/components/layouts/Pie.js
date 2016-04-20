@@ -22,7 +22,7 @@ class Pie extends Component {
         const identity = d => d.data[keyProp];
 
         const element   = d3.select(React.findDOMNode(this));
-        const container = element.select('.chart__layout__pie__slices');
+        const container = element.select('.nivo_pie_slices');
 
         element.attr('transform', `translate(${width / 2}, ${height / 2})`);
 
@@ -34,20 +34,20 @@ class Pie extends Component {
             .padAngle(degreesToRadians(padAngle))
         ;
 
-        const radius = Math.min(width / 2, height / 2);
+        let radius = Math.min(width / 2, height / 2);
         const arc = d3.svg.arc()
             .outerRadius(radius)
             .innerRadius(radius * innerRadius)
         ;
 
-        element.select('.chart__layout__pie__outline').attr('d', arc({
+        const outline = element.select('.nivo_pie_outline').attr('d', arc({
             startAngle: degreesToRadians(startAngle),
             endAngle:   degreesToRadians(endAngle)
         }));
 
         const color = getColorRange(colors);
         
-        let slices = container.selectAll('.chart__layout__pie__slice');
+        let slices = container.selectAll('.nivo_pie_slice');
         const previousData = slices.data();
         const newData      = pie(data.map((d, i) => {
             if (!d.color) {
@@ -58,16 +58,15 @@ class Pie extends Component {
         }));
 
         function arcTween(a) {
-            var i = d3.interpolate(this._current, a);
+            const i = d3.interpolate(this._current, a);
             this._current = i(0);
-            return function (t) {
-                return arc(i(t));
-            };
+
+            return t => arc(i(t));
         }
 
         slices = slices.data(newData, identity);
         slices.enter().append('path')
-            .attr('class', 'chart__layout__pie__slice')
+            .attr('class', 'nivo_pie_slice')
             .style('fill', d => d.data.color)
             .each(function (d, i) {
                 this._current = findNeighbor(i, identity, previousData, newData) || _.assign({}, d, { endAngle: d.startAngle });
@@ -133,8 +132,8 @@ class Pie extends Component {
     render() {
         return (
             <g>
-                <path className="chart__layout__pie__outline" />
-                <g className="chart__layout__pie__slices" />
+                <path className="nivo_pie_outline" />
+                <g className="nivo_pie_slices" />
             </g>
         );
     }
