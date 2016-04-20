@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { findDOMNode }                 from 'react-dom';
 import d3                              from 'd3';
 import Nivo                            from '../../Nivo';
 
@@ -15,7 +16,7 @@ class Area extends Component {
             transitionEasing
         } = props;
 
-        const element = d3.select(React.findDOMNode(this));
+        const element = d3.select(findDOMNode(this));
 
         const area = d3.svg.area()
             .x((d, i) => xScale(xAccessor(d, i)))

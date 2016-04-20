@@ -1,4 +1,5 @@
 import React, { Component, PropTypes }        from 'react';
+import { findDOMNode }                        from 'react-dom';
 import d3                                     from 'd3';
 import Nivo                                   from '../../Nivo';
 import { lineInterpolation }                  from '../../PropTypes';
@@ -16,7 +17,7 @@ class RadialStack extends Component {
             transitionDuration, transitionEasing
         } = nextProps;
 
-        const element = d3.select(React.findDOMNode(this));
+        const element = d3.select(findDOMNode(this));
         element.attr('transform', `translate(${width / 2}, ${height / 2})`);
 
         const stack   = d3.layout.stack().offset(offset);

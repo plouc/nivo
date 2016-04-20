@@ -1,4 +1,5 @@
 import React, { Component, PropTypes }        from 'react';
+import { findDOMNode }                        from 'react-dom';
 import d3                                     from 'd3';
 import Nivo                                   from '../../Nivo';
 import { lineInterpolation }                  from '../../PropTypes';
@@ -42,7 +43,7 @@ class Stack extends Component {
             .y1(d => yScale(d.y0 + d.y))
         ;
 
-        const element = d3.select(React.findDOMNode(this));
+        const element = d3.select(findDOMNode(this));
         let paths = element.selectAll('.stack_area').data(stacked);
 
         paths.enter().append('path')

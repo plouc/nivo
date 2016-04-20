@@ -1,4 +1,5 @@
 import React, { Component, PropTypes }        from 'react';
+import { findDOMNode }                        from 'react-dom';
 import _                                      from 'lodash';
 import d3                                     from 'd3';
 import Dimensions                             from 'react-dimensions';
@@ -24,7 +25,7 @@ class Bubble extends Component {
         const width  = containerWidth  - margin.left - margin.right;
         const height = containerHeight - margin.top - margin.bottom;
 
-        const element = d3.select(React.findDOMNode(this)).attr({
+        const element = d3.select(findDOMNode(this)).attr({
             width:  containerWidth,
             height: containerHeight
         });

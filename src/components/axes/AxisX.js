@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { findDOMNode }                 from 'react-dom';
 import d3                              from 'd3';
 
 class AxisX extends Component {
@@ -13,7 +14,7 @@ class AxisX extends Component {
             transitionEasing
         } = props;
 
-        const element = d3.select(React.findDOMNode(this));
+        const element = d3.select(findDOMNode(this));
         element.attr('transform', `translate(0, ${height})`);
 
         const axis = d3.svg.axis()
