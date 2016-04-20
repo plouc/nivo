@@ -10,4 +10,6 @@ export AxisX            from './components/axes/AxisX';
 export AxisY            from './components/axes/AxisY';
 export XYScales         from './components/scales/XYScales';
 export Stack            from './components/layouts/Stack';
+export RadialStack      from './components/layouts/RadialStack';
 export TreeMap          from './components/layouts/TreeMap';
+export Bubble           from './components/layouts/Bubble';
