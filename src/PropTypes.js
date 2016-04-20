@@ -16,3 +16,11 @@ export const lineInterpolation = PropTypes.oneOf([
     'cardinal-closed', // a closed Cardinal spline, as in a loop.
     'monotone'         // cubic interpolation that preserves monotonicity in y.
 ]);
+
+
+export const margin = PropTypes.shape({
+    top:    PropTypes.number,
+    right:  PropTypes.number,
+    bottom: PropTypes.number,
+    left:   PropTypes.number
+}).isRequired;
