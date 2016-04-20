@@ -42,11 +42,24 @@ const d3CategoricalColors = {
     d320c: d3.scale.category20c()
 };
 
+export const nivoCategoricalColors = () => d3.scale.ordinal().range([
+    '#e8c1a0',
+    '#f47560',
+    '#f1e15b',
+    '#e8a838',
+    '#61cdbb',
+    '#97e3d5'
+]);
+
 const dataColor = d => (d.color || d.data.color);
 
 export const getColorRange = instruction => {
     if (instruction === 'data') {
         return dataColor;
+    }
+
+    if (instruction === 'nivo') {
+        return nivoCategoricalColors();
     }
 
     if (_.isFunction(instruction)) {

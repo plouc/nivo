@@ -1,5 +1,5 @@
-import d3 from 'd3';
-
+import d3                        from 'd3';
+import { nivoCategoricalColors } from './ColorUtils';
 
 const defaults = {
     transitionDuration: 600,
@@ -15,5 +15,8 @@ const defaults = {
 
 
 export default {
-    defaults
+    defaults,
+    colors: {
+        nivoCategoricalColors
+    }
 };
