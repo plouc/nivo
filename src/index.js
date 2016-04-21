@@ -13,3 +13,4 @@ export Stack            from './components/layouts/Stack';
 export RadialStack      from './components/layouts/RadialStack';
 export TreeMap          from './components/layouts/TreeMap';
 export Bubble           from './components/layouts/Bubble';
+export BubbleLegends    from './components/layouts/BubbleLegends';
