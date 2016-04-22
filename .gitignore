@@ -2,5 +2,5 @@ logs
 *.log
 node_modules
 .idea
-lib
+/lib
 npm-debug.log*
