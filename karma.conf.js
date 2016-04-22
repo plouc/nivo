@@ -14,8 +14,8 @@ module.exports = function (config) {
         }
     };
 
-    //var isCi        = process.env.CONTINUOUS_INTEGRATION === 'true';
-    //var runCoverage = process.env.COVERAGE === 'true' || isCi;
+    var isCi        = process.env.CONTINUOUS_INTEGRATION === 'true';
+    var runCoverage = false; //process.env.COVERAGE === 'true' || isCi;
 
     var coverageLoaders   = [];
     var coverageReporters = [];
