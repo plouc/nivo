@@ -1,13 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import invariant                       from 'invariant';
 import d3                              from 'd3';
-import Nivo                            from '../../Nivo';
-import { midAngle, radiansToDegrees }  from '../../ArcUtils';
-import { getColorGenerator }           from '../../ColorUtils';
+import Nivo                            from '../../../Nivo';
+import { midAngle, radiansToDegrees }  from '../../../ArcUtils';
+import { getColorGenerator }           from '../../../ColorUtils';
 
 
 class PieRadialLegends extends Component {
-    static createLegendsFromReactElement(element) {
+    static decoratePie(element) {
         const { props } = element;
 
         const color = getColorGenerator(props.textColor);

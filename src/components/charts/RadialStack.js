@@ -43,10 +43,10 @@ class RadialStack extends Component {
             .outerRadius(d => radius(d.y0 + d.y))
         ;
 
-        let paths = element.selectAll('.stack_area').data(stacked);
+        let paths = element.selectAll('.nivo_radial-stack_area').data(stacked);
 
         paths.enter().append('path')
-            .attr('class', 'stack_area')
+            .attr('class', 'nivo_radial-stack_area')
             .attr('d', area)
             .style('fill', function() { return color(Math.random() * 6); })
         ;
@@ -86,7 +86,7 @@ class RadialStack extends Component {
     }
 
     render() {
-        return <g />;
+        return <g className="nivo_radial-stack"/>;
     }
 }
 

@@ -21,7 +21,7 @@ class Stack extends Component {
             return;
         }
 
-        const stack = d3.layout.stack().offset(offset);
+        const stack   = d3.layout.stack().offset(offset);
         const stacked = stack(layers);
 
         const xScale = d3.scale.linear()
@@ -44,10 +44,10 @@ class Stack extends Component {
         ;
 
         const element = d3.select(findDOMNode(this));
-        let paths = element.selectAll('.stack_area').data(stacked);
+        let paths = element.selectAll('.nivo_stack_area').data(stacked);
 
         paths.enter().append('path')
-            .attr('class', 'stack_area')
+            .attr('class', 'nivo_stack_area')
             .attr('d', area)
             .style('fill', function() { return color(Math.random() * 6); })
         ;
@@ -87,7 +87,7 @@ class Stack extends Component {
     }
 
     render() {
-        return <g />;
+        return <g className="nivo_stack" />;
     }
 }
 

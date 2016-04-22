@@ -49,11 +49,11 @@ class Bubble extends Component {
         });
 
         const bubbled = bubble.nodes(flattened).filter(d => !d.children);
-        const nodes   = wrapper.selectAll('.bubble_node').data(bubbled);
+        const nodes   = wrapper.selectAll('.nivo_bubble_node').data(bubbled);
 
         nodes
             .enter().append('circle')
-            .attr('class', 'bubble_node')
+            .attr('class', 'nivo_bubble_node')
             .attr('r', 2)
             .style('fill', d => color(d.packageName))
             .attr('transform', d => `translate(${d.x},${d.y})`)

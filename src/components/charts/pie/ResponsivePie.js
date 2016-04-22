@@ -2,9 +2,9 @@ import React, { Component, PropTypes }    from 'react';
 import { findDOMNode }                    from 'react-dom';
 import _                                  from 'lodash';
 import d3                                 from 'd3';
-import Nivo                               from '../../Nivo';
-import { degreesToRadians, findNeighbor } from '../../ArcUtils';
-import { getColorRange }                  from '../../ColorUtils';
+import Nivo                               from '../../../Nivo';
+import { degreesToRadians, findNeighbor } from '../../../ArcUtils';
+import { getColorRange }                  from '../../../ColorUtils';
 
 
 class Pie extends Component {
