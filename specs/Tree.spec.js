@@ -34,7 +34,7 @@ describe('<Tree>', function () {
 
     it('should render a path for each link', done => {
         render((
-            <div style={{ width: 200, height: 200 }}>
+            <div style={{ width: 500, height: 300 }}>
                 <Tree
                     root={root}
                     direction="horizontal"
@@ -49,13 +49,13 @@ describe('<Tree>', function () {
                 expect(links.length).toBe(10);
 
                 done();
-            }, 4000);
+            }, 400);
         })
     });
 
     it(`should support 'horizontal-reverse' direction `, done => {
         render((
-            <div style={{ width: 200, height: 200 }}>
+            <div style={{ width: 500, height: 300 }}>
                 <Tree
                     root={root}
                     direction="horizontal-reverse"
@@ -70,13 +70,13 @@ describe('<Tree>', function () {
                 expect(links.length).toBe(10);
 
                 done();
-            }, 4000);
+            }, 400);
         })
     });
 
     it(`should support 'vertical' direction `, done => {
         render((
-            <div style={{ width: 200, height: 200 }}>
+            <div style={{ width: 500, height: 300 }}>
                 <Tree
                     root={root}
                     direction="vertical"
@@ -91,13 +91,13 @@ describe('<Tree>', function () {
                 expect(links.length).toBe(10);
 
                 done();
-            }, 4000);
+            }, 400);
         })
     });
 
     it(`should support 'vertical-reverse' direction `, done => {
         render((
-            <div style={{ width: 200, height: 200 }}>
+            <div style={{ width: 500, height: 300 }}>
                 <Tree
                     root={root}
                     direction="vertical-reverse"
@@ -112,7 +112,7 @@ describe('<Tree>', function () {
                 expect(links.length).toBe(10);
 
                 done();
-            }, 4000);
+            }, 400);
         })
     });
 });
