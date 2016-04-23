@@ -72,7 +72,7 @@ class Tree extends Component {
                 break;
         }
 
-        const wrapper = element.select('.nivo_bubble_wrapper').attr({
+        const wrapper = element.select('.nivo_tree_wrapper').attr({
             width,
             height,
             transform: `translate(${position[0]},${position[1]})`
@@ -83,13 +83,13 @@ class Tree extends Component {
         const nodes = cluster.nodes(root);
         const links = cluster.links(nodes);
 
-        const link = wrapper.selectAll('.nivo_dendrogram_link').data(links);
+        const link = wrapper.selectAll('.nivo_tree_link').data(links);
 
         link
             .enter().append('path')
             .attr('fill', 'none')
             .attr('stroke', '#000')
-            .attr('class', 'nivo_dendrogram_link')
+            .attr('class', 'nivo_tree_link')
             .attr('d', d => {
                 const o = { x: d.source.x, y: d.source.y };
 
@@ -109,11 +109,11 @@ class Tree extends Component {
             .remove()
         ;
 
-        const node = wrapper.selectAll('.nivo_dendrogram_node').data(nodes);
+        const node = wrapper.selectAll('.nivo_tree_node').data(nodes);
 
         const newNode = node
             .enter().append('g')
-            .attr('class', 'nivo_dendrogram_node')
+            .attr('class', 'nivo_tree_node')
             .attr('transform', d => {
                 let o = { x: d.x, y: d.y };
                 if (d.parent) {
@@ -166,13 +166,10 @@ class Tree extends Component {
         this.renderD3(this.props);
     }
 
-    componentWillMount() {
-    }
-
     render() {
         return (
-            <svg className="nivo_bubble">
-                <g className="nivo_bubble_wrapper" />
+            <svg className="nivo_tree">
+                <g className="nivo_tree_wrapper" />
             </svg>
         );
     }
