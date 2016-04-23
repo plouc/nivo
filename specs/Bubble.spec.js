@@ -48,7 +48,7 @@ describe('<Bubble>', function () {
                 expect(circles.length).toBe(8);
 
                 done();
-            }, 4000);
+            }, 400);
         })
     });
 });
