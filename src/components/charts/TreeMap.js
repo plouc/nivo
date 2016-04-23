@@ -1,4 +1,5 @@
 import React, { Component, PropTypes }        from 'react';
+import { findDOMNode }                        from 'react-dom';
 import _                                      from 'lodash';
 import d3                                     from 'd3';
 import Dimensions                             from 'react-dimensions';
@@ -41,7 +42,7 @@ class TreeMap extends Component {
             //.padding(10)
         ;
 
-        const element = d3.select(React.findDOMNode(this));
+        const element = d3.select(findDOMNode(this));
         const wrapper = element.select('.nivo_treemap_wrapper')
             .style({
                 top:    `${margin.top}px`,

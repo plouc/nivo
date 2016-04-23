@@ -1,4 +1,5 @@
 import React, { Component, PropTypes }        from 'react';
+import { findDOMNode }                        from 'react-dom';
 import _                                      from 'lodash';
 import d3                                     from 'd3';
 import Dimensions                             from 'react-dimensions';
@@ -23,7 +24,7 @@ class Bubble extends Component {
         const width  = containerWidth  - margin.left - margin.right;
         const height = containerHeight - margin.top - margin.bottom;
 
-        const element = d3.select(React.findDOMNode(this)).attr({
+        const element = d3.select(findDOMNode(this)).attr({
             width:  containerWidth,
             height: containerHeight
         });
@@ -48,11 +49,11 @@ class Bubble extends Component {
         });
 
         const bubbled = bubble.nodes(flattened).filter(d => !d.children);
-        const nodes   = wrapper.selectAll('.bubble_node').data(bubbled);
+        const nodes   = wrapper.selectAll('.nivo_bubble_node').data(bubbled);
 
         nodes
             .enter().append('circle')
-            .attr('class', 'bubble_node')
+            .attr('class', 'nivo_bubble_node')
             .attr('r', 2)
             .style('fill', d => color(d.packageName))
             .attr('transform', d => `translate(${d.x},${d.y})`)

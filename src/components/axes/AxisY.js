@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { findDOMNode }                 from 'react-dom';
 import d3                              from 'd3';
 
 class AxisY extends Component {
@@ -15,7 +16,7 @@ class AxisY extends Component {
             transitionEasing
         } = props;
 
-        const element = d3.select(React.findDOMNode(this));
+        const element = d3.select(findDOMNode(this));
 
         const axis = d3.svg.axis()
             .scale(yScale)

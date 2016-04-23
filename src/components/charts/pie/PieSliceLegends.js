@@ -1,14 +1,14 @@
-import React, { Component, PropTypes } from 'react';
-import invariant                       from 'invariant';
-import _                               from 'lodash';
-import d3                              from 'd3';
-import Nivo                            from '../../Nivo';
-import { findNeighbor, midAngle, radiansToDegrees }  from '../../ArcUtils';
-import { getColorStyleObject }         from '../../ColorUtils';
+import React, { Component, PropTypes }               from 'react';
+import invariant                                     from 'invariant';
+import _                                             from 'lodash';
+import d3                                            from 'd3';
+import Nivo                                          from '../../../Nivo';
+import { findNeighbor, midAngle, radiansToDegrees }  from '../../../ArcUtils';
+import { getColorStyleObject }                       from '../../../ColorUtils';
 
 
 class PieSliceLegends extends Component {
-    static createLegendsFromReactElement(element) {
+    static decoratePie(element) {
         const { props } = element;
 
         const badgeColorStyle = getColorStyleObject(props.badgeColor, 'fill');

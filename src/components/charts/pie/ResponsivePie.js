@@ -1,9 +1,10 @@
 import React, { Component, PropTypes }    from 'react';
+import { findDOMNode }                    from 'react-dom';
 import _                                  from 'lodash';
 import d3                                 from 'd3';
-import Nivo                               from '../../Nivo';
-import { degreesToRadians, findNeighbor } from '../../ArcUtils';
-import { getColorRange }                  from '../../ColorUtils';
+import Nivo                               from '../../../Nivo';
+import { degreesToRadians, findNeighbor } from '../../../ArcUtils';
+import { getColorRange }                  from '../../../ColorUtils';
 
 
 class Pie extends Component {
@@ -21,7 +22,7 @@ class Pie extends Component {
 
         const identity = d => d.data[keyProp];
 
-        const element   = d3.select(React.findDOMNode(this));
+        const element   = d3.select(findDOMNode(this));
         const container = element.select('.nivo_pie_slices');
 
         element.attr('transform', `translate(${width / 2}, ${height / 2})`);

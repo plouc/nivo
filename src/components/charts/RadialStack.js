@@ -1,4 +1,5 @@
 import React, { Component, PropTypes }        from 'react';
+import { findDOMNode }                        from 'react-dom';
 import d3                                     from 'd3';
 import Nivo                                   from '../../Nivo';
 import { lineInterpolation }                  from '../../PropTypes';
@@ -16,7 +17,7 @@ class RadialStack extends Component {
             transitionDuration, transitionEasing
         } = nextProps;
 
-        const element = d3.select(React.findDOMNode(this));
+        const element = d3.select(findDOMNode(this));
         element.attr('transform', `translate(${width / 2}, ${height / 2})`);
 
         const stack   = d3.layout.stack().offset(offset);
@@ -42,10 +43,10 @@ class RadialStack extends Component {
             .outerRadius(d => radius(d.y0 + d.y))
         ;
 
-        let paths = element.selectAll('.stack_area').data(stacked);
+        let paths = element.selectAll('.nivo_radial-stack_area').data(stacked);
 
         paths.enter().append('path')
-            .attr('class', 'stack_area')
+            .attr('class', 'nivo_radial-stack_area')
             .attr('d', area)
             .style('fill', function() { return color(Math.random() * 6); })
         ;
@@ -85,7 +86,7 @@ class RadialStack extends Component {
     }
 
     render() {
-        return <g />;
+        return <g className="nivo_radial-stack"/>;
     }
 }
 

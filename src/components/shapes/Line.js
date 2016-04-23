@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { findDOMNode }                 from 'react-dom';
 import d3                              from 'd3';
 import Nivo                            from '../../Nivo';
 
@@ -14,7 +15,7 @@ class Line extends Component {
             transitionEasing
         } = props;
 
-        const element = d3.select(React.findDOMNode(this));
+        const element = d3.select(findDOMNode(this));
 
         const line = d3.svg.line()
             .x((d, i) => xScale(xAccessor(d, i)))
