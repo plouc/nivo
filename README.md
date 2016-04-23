@@ -1,4 +1,4 @@
-<img alt="nivo" src="https://raw.githubusercontent.com/plouc/nivo/master/nivo.png" width="150" height="42" />
+<img alt="nivo" src="https://raw.githubusercontent.com/plouc/nivo/master/nivo.png" width="270" height="85" />
 
 [![License][license-image]][license-url]
 [![Travis CI][travis-image]][travis-url]
