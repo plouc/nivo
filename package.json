@@ -38,9 +38,9 @@
   "scripts": {
     "watch": "babel src --watch --out-dir lib",
     "watch-test": "ava --watch",
-    "test": "npm run test-node && npm run test-browser",
-    "test-node": "ava",
-    "test-browser": "karma start"
+    "test": "npm run test-unit && npm run test-func",
+    "test-unit": "ava",
+    "test-func": "karma start"
   },
   "ava": {
     "files": [
