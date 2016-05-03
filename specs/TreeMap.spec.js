@@ -1,10 +1,10 @@
 import expect, { spyOn }    from 'expect';
 import React, { Component } from 'react';
 import { render }           from 'react-dom';
-import { TreeMap }          from '../src/';
+import { TreeMapD3 }        from '../src/';
 
 
-describe('<TreeMap>', function () {
+describe('<TreeMapD3>', function () {
     this.timeout(10000);
 
     let node;
@@ -34,14 +34,13 @@ describe('<TreeMap>', function () {
 
     it('should render a treemap', done => {
         render((
-            <div style={{ width: 500, height: 300 }}>
-                <TreeMap
-                    root={root}
-                    valueAccessor={d => d.loc}
-                    colors="nivo"
-                    transitionDuration={0}
-                />
-            </div>
+            <TreeMapD3
+                root={root}
+                width={500} height={300}
+                valueAccessor={d => d.loc}
+                colors="nivo"
+                transitionDuration={0}
+            />
         ), node, () => {
             setTimeout(() => {
                 const nodes = node.getElementsByClassName('nivo_treemap_node');
@@ -56,15 +55,14 @@ describe('<TreeMap>', function () {
     ['squarify', 'slice', 'dice', 'slice-dice'].forEach(mode => {
         it(`should support "${mode}" mode`, done => {
             render((
-                <div style={{ width: 500, height: 300 }}>
-                    <TreeMap
-                        root={root}
-                        mode={mode}
-                        valueAccessor={d => d.loc}
-                        colors="nivo"
-                        transitionDuration={0}
-                    />
-                </div>
+                <TreeMapD3
+                    root={root}
+                    width={500} height={300}
+                    mode={mode}
+                    valueAccessor={d => d.loc}
+                    colors="nivo"
+                    transitionDuration={0}
+                />
             ), node, () => {
                 setTimeout(() => {
                     const nodes = node.getElementsByClassName('nivo_treemap_node');

@@ -28,6 +28,7 @@ describe('<Pie>', function () {
             <div style={{ width: 200, height: 200 }}>
                 <Chart>
                     <Pie
+                        width={400} height={400}
                         data={data}
                         colors="nivo"
                         transitionDuration={0}
@@ -50,6 +51,7 @@ describe('<Pie>', function () {
             <div style={{ width: 200, height: 200 }}>
                 <Chart>
                     <Pie
+                        width={400} height={400}
                         data={data}
                         colors="nivo"
                         innerRadius={0.9}

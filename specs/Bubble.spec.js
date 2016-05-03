@@ -1,10 +1,10 @@
 import expect, { spyOn }    from 'expect';
 import React, { Component } from 'react';
 import { render }           from 'react-dom';
-import { Bubble }           from '../src/';
+import { BubbleD3 }         from '../src/';
 
 
-describe('<Bubble>', function () {
+describe('<BubbleD3>', function () {
     this.timeout(10000);
 
     let node;
@@ -34,9 +34,11 @@ describe('<Bubble>', function () {
 
     it('should render a circle for each leaf', done => {
         render((
-            <div style={{ width: 200, height: 200 }}>
-                <Bubble
+            <div style={{ width: 400, height: 400 }}>
+                <BubbleD3
+                    width={400} height={400}
                     root={root}
+                    valueProperty="loc"
                     colors="nivo"
                     transitionDuration={0}
                 />
@@ -48,7 +50,7 @@ describe('<Bubble>', function () {
                 expect(circles.length).toBe(8);
 
                 done();
-            }, 400);
+            }, 4000);
         })
     });
 });

@@ -39,6 +39,7 @@ describe('<Tree>', function () {
                     root={root}
                     direction="horizontal"
                     colors="nivo"
+                    identity={d => `${d.parent ? d.parent.id : 'root'}.${d.id}`}
                     transitionDuration={0}
                 />
             </div>
@@ -60,6 +61,7 @@ describe('<Tree>', function () {
                     root={root}
                     direction="horizontal-reverse"
                     colors="nivo"
+                    identity={d => `${d.parent ? d.parent.id : 'root'}.${d.id}`}
                     transitionDuration={0}
                 />
             </div>
@@ -81,6 +83,7 @@ describe('<Tree>', function () {
                     root={root}
                     direction="vertical"
                     colors="nivo"
+                    identity={d => `${d.parent ? d.parent.id : 'root'}.${d.id}`}
                     transitionDuration={0}
                 />
             </div>
@@ -102,6 +105,7 @@ describe('<Tree>', function () {
                     root={root}
                     direction="vertical-reverse"
                     colors="nivo"
+                    identity={d => `${d.parent ? d.parent.id : 'root'}.${d.id}`}
                     transitionDuration={0}
                 />
             </div>

@@ -26,16 +26,13 @@ describe('<RadialStack>', function () {
     ['zero', 'wiggle', 'silhouette', 'expand'].forEach(offsetMode => {
         it(`should support "${offsetMode}" offset mode`, done => {
             render((
-                <div style={{ width: 200, height: 200 }}>
-                    <Chart>
-                        <RadialStack
-                            layers={data}
-                            offset={offsetMode}
-                            colors="nivo"
-                            transitionDuration={0}
-                        />
-                    </Chart>
-                </div>
+                <RadialStack
+                    layers={data}
+                    width={400} height={400}
+                    offset={offsetMode}
+                    colors="nivo"
+                    transitionDuration={0}
+                />
             ), node, () => {
                 setTimeout(() => {
                     const areas = node.getElementsByClassName('nivo_radial-stack_area');
