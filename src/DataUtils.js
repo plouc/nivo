@@ -1,21 +1,20 @@
-const recursiveFlattener = (stack, name, node) => {
+import _ from 'lodash';
+
+
+const recursiveFlattener = (stack, node, identityProperty, parentId) => {
     if (node.children) {
         node.children.forEach(child => {
-            recursiveFlattener(stack, node.name, child);
+            recursiveFlattener(stack, child, identityProperty, node[identityProperty]);
         });
     } else {
-        stack.push({
-            packageName: name,
-            className:   node.name,
-            value:       node.loc
-        });
+        stack.push(_.assign({}, node, { parentId }));
     }
 };
 
-export const flatten = root => {
+export const flatten = (root, identityProperty) => {
     const nodes = [];
 
-    recursiveFlattener(nodes, null, root);
+    recursiveFlattener(nodes, root, identityProperty);
 
     return { children: nodes };
 };

@@ -17,18 +17,18 @@ describe('<Tree>', function () {
         document.body.removeChild(node);
     });
 
-    const root = { name: 'nivo', children: [
-        { name: 'charts', children: [
-            { name: 'Pie',    loc: 74467 },
-            { name: 'Stack',  loc: 74467 },
-            { name: 'Tree',   loc: 74467 },
-            { name: 'Bubble', loc: 74467 }
+    const root = { id: 'nivo', children: [
+        { id: 'charts', children: [
+            { id: 'Pie',    loc: 74467 },
+            { id: 'Stack',  loc: 74467 },
+            { id: 'Tree',   loc: 74467 },
+            { id: 'Bubble', loc: 74467 }
         ]},
-        { name: 'utils', children: [
-            { name: 'Colors',    loc: 74467 },
-            { name: 'Arcs',      loc: 74467 },
-            { name: 'Data',      loc: 74467 },
-            { name: 'Animation', loc: 74467 }
+        { id: 'utils', children: [
+            { id: 'Colors',    loc: 74467 },
+            { id: 'Arcs',      loc: 74467 },
+            { id: 'Data',      loc: 74467 },
+            { id: 'Animation', loc: 74467 }
         ]}
     ]};
 

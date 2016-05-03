@@ -1,9 +1,21 @@
-import React, { Component, PropTypes }        from 'react';
-import { findDOMNode }                        from 'react-dom';
-import d3                                     from 'd3';
-import Nivo                                   from '../../Nivo';
-import { lineInterpolation }                  from '../../PropTypes';
-import { getColorStyleObject, getColorRange } from '../../ColorUtils';
+/*
+ * This file is part of the nivo library.
+ *
+ * (c) Raphaël Benitte
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+'use strict';
+
+import React, { Component, PropTypes } from 'react';
+import { findDOMNode }                 from 'react-dom';
+import d3                              from 'd3';
+import _                               from 'lodash';
+import Nivo                            from '../../../Nivo';
+import { lineInterpolation }           from '../../../PropTypes';
+import { getColorRange }               from '../../../ColorUtils';
+import { margin as marginPropType }    from '../../../PropTypes';
 
 
 class Stack extends Component {
@@ -11,15 +23,23 @@ class Stack extends Component {
         const {
             layers,
             offset,
-            width, height,
             interpolation,
             colors,
             transitionDuration, transitionEasing
         } = nextProps;
 
-        if (layers.length === 0) {
-            return;
-        }
+        const element = d3.select(findDOMNode(this));
+        const wrapper = element.select('.nivo_stack_wrapper');
+
+        const margin = _.assign({}, Nivo.defaults.margin, nextProps.margin);
+        const width  = nextProps.width - margin.left - margin.right;
+        const height = nextProps.height - margin.top - margin.bottom;
+
+        element.attr({
+            width:  nextProps.width,
+            height: nextProps.height
+        });
+        wrapper.attr('transform', `translate(${margin.left},${margin.top})`);
 
         const stack   = d3.layout.stack().offset(offset);
         const stacked = stack(layers);
@@ -43,13 +63,12 @@ class Stack extends Component {
             .y1(d => yScale(d.y0 + d.y))
         ;
 
-        const element = d3.select(findDOMNode(this));
-        let paths = element.selectAll('.nivo_stack_area').data(stacked);
+        let paths = wrapper.selectAll('.nivo_stack_area').data(stacked);
 
         paths.enter().append('path')
             .attr('class', 'nivo_stack_area')
             .attr('d', area)
-            .style('fill', function() { return color(Math.random() * 6); })
+            .style('fill', (d, i) => color(i))
         ;
 
         paths
@@ -57,6 +76,7 @@ class Stack extends Component {
             .duration(transitionDuration)
             .ease(transitionEasing)
             .attr('d', area)
+            .style('fill', (d, i) => color(i))
         ;
     }
 
@@ -71,23 +91,14 @@ class Stack extends Component {
     }
 
     componentWillMount() {
-        const { children } = this.props;
-
-        this.layers = [];
-
-        React.Children.forEach(children, element => {
-            if (React.isValidElement(element)) {
-                /*
-                if (element.type.createLegendsFromReactElement) {
-                    legends.push(element.type.createLegendsFromReactElement(element));
-                }
-                */
-            }
-        });
     }
 
     render() {
-        return <g className="nivo_stack" />;
+        return (
+            <svg ref="svg" className="nivo_stack">
+                <g className="nivo_stack_wrapper" />
+            </svg>
+        );
     }
 }
 
@@ -96,6 +107,7 @@ const { array, number, string, func, any, oneOf } = PropTypes;
 Stack.propTypes = {
     width:              number.isRequired,
     height:             number.isRequired,
+    margin:             marginPropType,
     sort:               func,
     layers:             array.isRequired,
     offset:             oneOf(['silhouette', 'wiggle', 'expand', 'zero']).isRequired,
@@ -108,6 +120,7 @@ Stack.propTypes = {
 };
 
 Stack.defaultProps = {
+    margin:             Nivo.defaults.margin,
     sort:               null,
     offset:             'zero',
     keyProp:            'label',

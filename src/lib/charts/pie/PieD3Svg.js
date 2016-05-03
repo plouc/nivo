@@ -27,7 +27,8 @@ const PieD3Svg = domRoot => {
                 width, height,
                 sort,
                 keyProp, valueProp,
-                startAngle, endAngle, padAngle,
+                startAngle, endAngle,
+                padAngle, cornerRadius,
                 colors,
                 innerRadius,
                 transitionDuration, transitionEasing
@@ -51,6 +52,7 @@ const PieD3Svg = domRoot => {
             arc
                 .outerRadius(radius)
                 .innerRadius(radius * innerRadius)
+                .cornerRadius(cornerRadius)
             ;
 
             outline.attr('d', arc({
@@ -102,6 +104,7 @@ const PieD3Svg = domRoot => {
                 .transition()
                 .duration(transitionDuration)
                 .ease(transitionEasing)
+                .style('fill', d => d.data.color)
                 .attrTween('d', arcTween)
             ;
 

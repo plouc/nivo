@@ -37,7 +37,7 @@ class PieColumnLegends extends Component {
                 .attr('class', 'line')
                 //.style('opacity', 0)
                 .each(function (d, i) {
-                    console.log('LINES ENTER');
+                    //console.log('LINES ENTER');
                     let startingArc = findNeighbor(i, identity, previousData, newData) || d;
 
                     this._current = startingArc;
@@ -46,7 +46,7 @@ class PieColumnLegends extends Component {
 
             lines
                 .each(function (d, i) {
-                    console.log('LINES UPDATE');
+                    //console.log('LINES UPDATE');
                 })
                 .transition()
                 .duration(transitionDuration)
@@ -164,7 +164,7 @@ class PieColumnLegends extends Component {
 
             labels.exit()
                 .each(function (d) {
-                    console.log('EXIT', labelFn(d));
+                    //console.log('EXIT', labelFn(d));
                 })
                 .remove()
             ;

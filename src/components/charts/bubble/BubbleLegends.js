@@ -1,24 +1,34 @@
+/*
+ * This file is part of the nivo library.
+ *
+ * (c) Raphaël Benitte
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+'use strict';
+
 import React, { Component, PropTypes } from 'react';
 import invariant                       from 'invariant';
-import Nivo                            from '../../Nivo';
-import { getColorStyleObject }         from '../../ColorUtils';
+import Nivo                            from '../../../Nivo';
+import { getColorStyleObject }         from '../../../ColorUtils';
 
 
 class BubbleLegends extends Component {
-    static createBubbleLegendsFromReactElement(element) {
+    static decorateBubble(element) {
         const { props } = element;
 
         const { textColor, labelAccessor, skipRadius } = props;
 
         const textColorStyle = getColorStyleObject(textColor, 'fill');
 
-        return ({ element, data, width, height, transitionDuration, transitionEasing }) => {
+        return ({ element, data, identity, transitionDuration, transitionEasing }) => {
 
             if (skipRadius > 0) {
                 data = data.filter(d => d.r >= skipRadius);
             }
 
-            const legends = element.selectAll('.bubble_legend').data(data);
+            const legends = element.selectAll('.bubble_legend').data(data, identity);
 
             legends.enter().append('text')
                 .attr('class', 'bubble_legend')
@@ -40,6 +50,10 @@ class BubbleLegends extends Component {
             ;
 
             legends.exit()
+                .transition()
+                .duration(transitionDuration)
+                .ease(transitionEasing)
+                .style('opacity', 0)
                 .remove()
             ;
         };

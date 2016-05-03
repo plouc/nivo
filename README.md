@@ -7,6 +7,23 @@
 
 **nivo** provides supercharged React components to easily build dataviz apps, it's built on top of d3.
 
+## Features
+
+- composable
+- highly customizable
+- animate everything
+- component playground
+- exhaustive documentation
+- isomorphic rendering (restricted to subset of components)
+- d3 and or React rendering (restricted to subset of components)
+
+## Credits
+
+- d3
+- react
+- react-motion
+- …
+
 
 [license-image]: https://img.shields.io/github/license/plouc/nivo.svg?style=flat-square
 [license-url]: https://github.com/plouc/nivo/blob/master/LICENSE.md
