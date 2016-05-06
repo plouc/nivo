@@ -13,46 +13,33 @@ import Nivo          from '../../../Nivo';
 import { margin }    from '../../../PropTypes';
 
 
-const { object, number, string, bool, func, any } = PropTypes;
+const { object, number, string, any } = PropTypes;
 
 
 /**
- * Bubble components propTypes.
+ * Bubble components common propTypes.
  *
  * @type {object}
  */
 export const bubblePropTypes = {
-    containerWidth:     number.isRequired, // populated by Dimensions HOC
-    containerHeight:    number.isRequired, // populated by Dimensions HOC
     margin,
     root:               object.isRequired, // data
     identityProperty:   string,
-    valueProperty:      string.isRequired,
+    value:              string.isRequired,
     padding:            number.isRequired,
-    enableFisheye:      bool.isRequired,
     colors:             any.isRequired,
-    stiffness:          number.isRequired, // react-motion
-    damping:            number.isRequired, // react-motion
-    transitionDuration: number.isRequired, // d3 transitions
-    transitionEasing:   string.isRequired, // d3 transitions
-    children:           func.isRequired    // for placeholders
 };
 
 
 /**
- * Bubble components defaultProps.
+ * Bubble components common defaultProps.
  *
  * @type {object}
  */
 export const bubbleDefaultProps = {
-    margin:             Nivo.defaults.margin,
-    identityProperty:   'name',
-    valueProperty:      'value',
-    padding:            1,
-    enableFisheye:      false,
-    colors:             Nivo.defaults.colorRange,
-    stiffness:          120,
-    damping:            10,
-    transitionDuration: Nivo.defaults.transitionDuration,
-    transitionEasing:   Nivo.defaults.transitionEasing
+    margin:           Nivo.defaults.margin,
+    identityProperty: 'name',
+    value:            'value',
+    padding:          1,
+    colors:           Nivo.defaults.colorRange,
 };

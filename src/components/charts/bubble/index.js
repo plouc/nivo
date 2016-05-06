@@ -8,7 +8,11 @@
  */
 'use strict';
 
-export Bubble             from './Bubble';
-export BubbleD3           from './BubbleD3';
-export BubblePlaceholders from './BubblePlaceholders';
-export BubbleLegends      from './BubbleLegends';
+
+export Bubble                       from './Bubble';
+export ResponsiveBubble             from './ResponsiveBubble';
+export BubbleD3                     from './BubbleD3';
+export ResponsiveBubbleD3           from './ResponsiveBubbleD3';
+export BubblePlaceholders           from './BubblePlaceholders';
+export ResponsiveBubblePlaceholders from './ResponsiveBubblePlaceholders';
+export BubbleLegends                from './BubbleLegends';

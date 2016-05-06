@@ -52,8 +52,8 @@ class TreeMapPlaceholders extends Component {
             style: {
                 x:      node.x + node.dx / 2,
                 y:      node.y + node.dy / 2,
-                width:  0,
-                height: 0
+                width:  1,
+                height: 1
             }
         }));
 

@@ -44,11 +44,11 @@ module.exports = function (config) {
         autoWatchBatchDelay: 1000,
 
         files: [
-            'specs/*.spec.js'
+            'specs/**/*.spec.js'
         ],
 
         preprocessors: {
-            'specs/*.spec.js': [ 'webpack', 'sourcemap' ]
+            'specs/**/*.spec.js': [ 'webpack', 'sourcemap' ]
         },
 
         webpack: {

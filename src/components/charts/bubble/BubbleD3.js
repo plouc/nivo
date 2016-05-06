@@ -8,10 +8,9 @@
  */
 'use strict';
 
-import React, { Component }                    from 'react';
+import React, { Component, PropTypes }         from 'react';
 import { findDOMNode }                         from 'react-dom';
 import _                                       from 'lodash';
-import Dimensions                              from 'react-dimensions';
 import { bubblePropTypes, bubbleDefaultProps } from './BubbleProps';
 import Nivo                                    from '../../../Nivo';
 import BubbleD3Svg                             from '../../../lib/charts/bubble/BubbleD3Svg';
@@ -38,16 +37,23 @@ class BubbleD3 extends Component {
     }
 
     render() {
-        return (
-            <div style={{ width: '100%', height: '100%', padding: 0, border: 0 }}>
-                <svg ref="svg" className="nivo_bubble" />
-            </div>
-        );
+        return <svg ref="svg" className="nivo_bubble" />;
     }
 }
 
-BubbleD3.propTypes    = _.omit(bubblePropTypes,    ['children', 'stiffness', 'damping']);
-BubbleD3.defaultProps = _.omit(bubbleDefaultProps, ['stiffness', 'damping']);
+const { number, string } = PropTypes;
+
+BubbleD3.propTypes = _.assign({}, bubblePropTypes, {
+    width:              number.isRequired,
+    height:             number.isRequired,
+    transitionDuration: number.isRequired,
+    transitionEasing:   string.isRequired,
+});
+
+BubbleD3.defaultProps = _.assign({}, bubbleDefaultProps, {
+    transitionDuration: Nivo.defaults.transitionDuration,
+    transitionEasing:   Nivo.defaults.transitionEasing,
+});
 
 
-export default Dimensions()(BubbleD3);
+export default BubbleD3;

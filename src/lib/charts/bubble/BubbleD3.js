@@ -20,10 +20,6 @@ import { flatten } from '../../../DataUtils';
  */
 const BubbleD3 = () => {
     const layout  = d3.layout.pack();
-    const fisheye = d3.fisheye.circular()
-        .radius(20)
-        .distortion(2)
-    ;
 
     return {
         /**
@@ -31,7 +27,6 @@ const BubbleD3 = () => {
          * @param {number}   width
          * @param {number}   height
          * @param {object}   root
-         * @param {boolean}  enableFisheye
          * @param {string}   identityProperty
          * @param {function} valueAccessor
          * @param {number}   padding
@@ -40,7 +35,6 @@ const BubbleD3 = () => {
         compute({
             width, height,
             root,
-            enableFisheye,
             identityProperty, valueAccessor,
             padding,
             color
@@ -52,24 +46,11 @@ const BubbleD3 = () => {
                 .padding(padding)
             ;
 
-            fisheye.focus({
-                x: width  / 2,
-                y: height / 2
-            });
-
             const flattened = flatten(root, identityProperty);
             const nodes     = layout.nodes(flattened)
                 .filter(d => !d.children)
                 .map(d => {
                     d.color = color(d.parentId);
-
-                    if (enableFisheye) {
-                        const distorted = fisheye(d);
-
-                        d.x = distorted.x;
-                        d.y = distorted.y;
-                        d.r = (distorted.z / 6) * d.r;
-                    }
 
                     return d;
                 })

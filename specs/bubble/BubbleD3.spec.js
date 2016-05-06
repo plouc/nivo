@@ -1,10 +1,10 @@
 import expect, { spyOn }    from 'expect';
 import React, { Component } from 'react';
 import { render }           from 'react-dom';
-import { BubbleD3 }         from '../src/';
+import { BubbleD3 }         from '../../src/';
 
 
-describe('<BubbleD3>', function () {
+describe('<BubbleD3 />', function () {
     this.timeout(10000);
 
     let node;
@@ -34,15 +34,13 @@ describe('<BubbleD3>', function () {
 
     it('should render a circle for each leaf', done => {
         render((
-            <div style={{ width: 400, height: 400 }}>
-                <BubbleD3
-                    width={400} height={400}
-                    root={root}
-                    valueProperty="loc"
-                    colors="nivo"
-                    transitionDuration={0}
-                />
-            </div>
+            <BubbleD3
+                width={400} height={400}
+                root={root}
+                value="loc"
+                colors="d310"
+                transitionDuration={0}
+            />
         ), node, () => {
             setTimeout(() => {
                 const circles = node.getElementsByClassName('nivo_bubble_node');

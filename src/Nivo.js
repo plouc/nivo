@@ -4,6 +4,8 @@ import { nivoCategoricalColors } from './ColorUtils';
 const defaults = {
     transitionDuration: 600,
     transitionEasing:   'cubic-out',
+    motionStiffness:    120,
+    motionDamping:      10,
     colorRange:         d3.scale.category20b(),
     margin:             {
         top:    0,

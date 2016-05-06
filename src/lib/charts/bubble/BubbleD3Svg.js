@@ -28,34 +28,32 @@ const BubbleD3Svg = domRoot => {
         draw(props) {
             const {
                 root,
-                identityProperty, valueProperty,
-                containerWidth, containerHeight, margin,
+                identityProperty, value,
+                width, height, margin,
                 padding,
                 colors,
                 transitionDuration, transitionEasing
             } = props;
 
             const identity      = d => d[identityProperty];
-            const valueAccessor = d => d[valueProperty];
+            const valueAccessor = d => d[value];
 
-            element.attr({
-                width:  containerWidth,
-                height: containerHeight
-            });
+            element.attr({ width, height });
 
-            const width  = containerWidth  - margin.left - margin.right;
-            const height = containerHeight - margin.top  - margin.bottom;
+            const useWidth  = width  - margin.left - margin.right;
+            const useHeight = height - margin.top  - margin.bottom;
 
             wrapper.attr({
-                width,
-                height,
+                width:     useWidth,
+                height:    useHeight,
                 transform: `translate(${margin.left},${margin.top})`
             });
 
             const color = getColorRange(colors);
 
             const bubbled   = bubble.compute({
-                width, height,
+                width:  useWidth,
+                height: useHeight,
                 root,
                 identityProperty, valueAccessor,
                 padding,
@@ -91,8 +89,8 @@ const BubbleD3Svg = domRoot => {
 
             const bubbleContext = {
                 element:  wrapper,
-                width,
-                height,
+                width:  useWidth,
+                height: useHeight,
                 rawData:  root,
                 identity,
                 valueAccessor,
