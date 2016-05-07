@@ -20,12 +20,12 @@
 ## Components
 
 - Bubble
-    - `<Bubble />`
-    - `<ResponsiveBubble />`
-    - `<BubbleD3 />`
-    - `<ResponsiveBubbleD3 />`
-    - `<BubblePlaceholders />`
-    - `<ResponsiveBubblePlaceholders />`
+    - [`<Bubble />`](https://plouc.github.io/nivo/#/bubble/react)
+    - [`<ResponsiveBubble />`](https://plouc.github.io/nivo/#/bubble/react)
+    - [`<BubbleD3 />`](https://plouc.github.io/nivo/#/bubble/d3)
+    - [`<ResponsiveBubbleD3 />`](https://plouc.github.io/nivo/#/bubble/d3)
+    - [`<BubblePlaceholders />`](https://plouc.github.io/nivo/#/bubble/placeholders)
+    - [`<ResponsiveBubblePlaceholders />`](https://plouc.github.io/nivo/#/bubble/placeholders)
 
 
 ## Credits
