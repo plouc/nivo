@@ -17,6 +17,17 @@
 - isomorphic rendering (restricted to subset of components)
 - d3 and or React rendering (restricted to subset of components)
 
+## Components
+
+- Bubble
+    - `<Bubble />`
+    - `<ResponsiveBubble />`
+    - `<BubbleD3 />`
+    - `<ResponsiveBubbleD3 />`
+    - `<BubblePlaceholders />`
+    - `<ResponsiveBubblePlaceholders />`
+
+
 ## Credits
 
 - d3
