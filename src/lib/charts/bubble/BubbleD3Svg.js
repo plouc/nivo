@@ -28,7 +28,7 @@ const BubbleD3Svg = domRoot => {
     return {
         draw(props) {
             const {
-                root,
+                data,
                 identityProperty, value,
                 width, height, margin,
                 padding,
@@ -58,7 +58,7 @@ const BubbleD3Svg = domRoot => {
             const bubbled   = bubble.compute({
                 width:  useWidth,
                 height: useHeight,
-                root,
+                data,
                 identityProperty, valueAccessor,
                 padding,
                 color
@@ -163,7 +163,7 @@ const BubbleD3Svg = domRoot => {
                 element:  wrapper,
                 width:  useWidth,
                 height: useHeight,
-                rawData:  root,
+                rawData:  data,
                 identity,
                 valueAccessor,
                 data:     bubbled,

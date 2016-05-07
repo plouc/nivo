@@ -25,7 +25,7 @@ export const bubblePropTypes = {
     width:              number.isRequired,
     height:             number.isRequired,
     margin,
-    root:               object.isRequired, // data
+    data:               object.isRequired,
     identityProperty:   string,
     value:              string.isRequired,
     padding:            number.isRequired,

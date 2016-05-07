@@ -48,6 +48,7 @@ const createNodes = ({ borderWidth, borderColor, label, labelFormat, labelSkipRa
                 renderedNodes.push(
                     <text
                         key={`${node.key}.text`}
+                        className="nivo_bubble_legend"
                         transform={`translate(${node.style.x},${node.style.y})`}
                         textAnchor={'middle'}
                         style={{

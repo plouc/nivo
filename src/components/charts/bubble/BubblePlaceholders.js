@@ -33,7 +33,7 @@ class BubblePlaceholders extends Component {
 
     render() {
         const {
-            root,
+            data,
             namespace,
             identityProperty, value,
             padding,
@@ -53,7 +53,7 @@ class BubblePlaceholders extends Component {
         const nodes = this.bubble.compute({
             width:  useWidth,
             height: useHeight,
-            root,
+            data,
             identityProperty, valueAccessor,
             padding,
             color

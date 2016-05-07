@@ -26,7 +26,7 @@ const BubbleD3 = () => {
          *
          * @param {number}   width
          * @param {number}   height
-         * @param {object}   root
+         * @param {object}   data
          * @param {string}   identityProperty
          * @param {function} valueAccessor
          * @param {number}   padding
@@ -34,7 +34,7 @@ const BubbleD3 = () => {
          */
         compute({
             width, height,
-            root,
+            data,
             identityProperty, valueAccessor,
             padding,
             color
@@ -46,7 +46,7 @@ const BubbleD3 = () => {
                 .padding(padding)
             ;
 
-            const flattened = flatten(root, identityProperty);
+            const flattened = flatten(data, identityProperty);
             const nodes     = layout.nodes(flattened)
                 .filter(d => !d.children)
                 .map(d => {

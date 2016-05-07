@@ -1,7 +1,18 @@
+/*
+ * This file is part of the nivo library.
+ *
+ * (c) Raphaël Benitte
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+'use strict';
+
 import expect, { spyOn }    from 'expect';
 import React, { Component } from 'react';
 import { render }           from 'react-dom';
 import { Bubble }           from '../../src/';
+import bubbleData           from './bubbleData';
 
 
 describe('<Bubble />', function () {
@@ -17,26 +28,11 @@ describe('<Bubble />', function () {
         document.body.removeChild(node);
     });
 
-    const root = { name: 'nivo', children: [
-        { name: 'charts', children: [
-            { name: 'Pie',    loc: 74467 },
-            { name: 'Stack',  loc: 74467 },
-            { name: 'Tree',   loc: 74467 },
-            { name: 'Bubble', loc: 74467 }
-        ]},
-        { name: 'utils', children: [
-            { name: 'Colors',    loc: 74467 },
-            { name: 'Arcs',      loc: 74467 },
-            { name: 'Data',      loc: 74467 },
-            { name: 'Animation', loc: 74467 }
-        ]}
-    ]};
-
     it('should render a circle for each leaf', done => {
         render((
             <Bubble
                 width={400} height={400}
-                root={root}
+                data={bubbleData}
                 value="loc"
                 colors="nivo"
                 transitionDuration={0}
@@ -45,7 +41,7 @@ describe('<Bubble />', function () {
             setTimeout(() => {
                 const circles = node.getElementsByClassName('nivo_bubble_node');
                 expect(circles).toNotBe(null);
-                expect(circles.length).toBe(8);
+                expect(circles.length).toBe(11);
 
                 done();
             }, 4000);
