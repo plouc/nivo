@@ -8,7 +8,7 @@
  */
 'use strict';
 
-import React, { Component, PropTypes }         from 'react';
+import React, { Component }                    from 'react';
 import { TransitionMotion, spring }            from 'react-motion';
 import d3                                      from 'd3';
 import _                                       from 'lodash';
@@ -38,7 +38,7 @@ class BubblePlaceholders extends Component {
             identityProperty, value,
             padding,
             colors,
-            stiffness, damping
+            motionStiffness, motionDamping
         } = this.props;
 
         const valueAccessor = d => d[value];
@@ -101,6 +101,9 @@ class BubblePlaceholders extends Component {
             containerProps.style = margin;
         }
 
+        const stiffness = motionStiffness;
+        const damping   = motionDamping;
+
         return React.createElement(wrapperTag, wrapperProps, (
             <TransitionMotion
                 willEnter={this.willEnter}
@@ -140,22 +143,26 @@ class BubblePlaceholders extends Component {
     }
 }
 
-const { number, func, oneOf } = PropTypes;
+BubblePlaceholders.propTypes = _.omit(bubblePropTypes, [
+    'borderWidth',
+    'borderColor',
+    'label',
+    'labelFormat',
+    'textColor',
+    'skipRadius',
+    'transitionDuration',
+    'transitionEasing',
+]);
 
-BubblePlaceholders.propTypes = _.assign({}, bubblePropTypes, {
-    namespace: oneOf(['html', 'svg']),
-    children:  func.isRequired,
-    width:     number.isRequired,
-    height:    number.isRequired,
-    stiffness: number.isRequired, // react-motion
-    damping:   number.isRequired, // react-motion
-});
-
-BubblePlaceholders.defaultProps = _.assign({}, bubbleDefaultProps, {
-    namespace: 'html',
-    stiffness: Nivo.defaults.motionStiffness,
-    damping:   Nivo.defaults.motionDamping,
-});
-
+BubblePlaceholders.defaultProps = _.omit(bubbleDefaultProps, [
+    'borderWidth',
+    'borderColor',
+    'label',
+    'labelFormat',
+    'textColor',
+    'skipRadius',
+    'transitionDuration',
+    'transitionEasing',
+]);
 
 export default BubblePlaceholders;

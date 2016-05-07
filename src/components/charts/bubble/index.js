@@ -15,4 +15,3 @@ export BubbleD3                     from './BubbleD3';
 export ResponsiveBubbleD3           from './ResponsiveBubbleD3';
 export BubblePlaceholders           from './BubblePlaceholders';
 export ResponsiveBubblePlaceholders from './ResponsiveBubblePlaceholders';
-export BubbleLegends                from './BubbleLegends';

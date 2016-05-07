@@ -8,7 +8,7 @@
  */
 'use strict';
 
-import React, { Component, PropTypes }         from 'react';
+import React, { Component }                    from 'react';
 import { findDOMNode }                         from 'react-dom';
 import _                                       from 'lodash';
 import { bubblePropTypes, bubbleDefaultProps } from './BubbleProps';
@@ -41,19 +41,18 @@ class BubbleD3 extends Component {
     }
 }
 
-const { number, string } = PropTypes;
+BubbleD3.propTypes = _.omit(bubblePropTypes, [
+    'children',
+    'namespace',
+    'motionStiffness',
+    'motionDamping',
+]);
 
-BubbleD3.propTypes = _.assign({}, bubblePropTypes, {
-    width:              number.isRequired,
-    height:             number.isRequired,
-    transitionDuration: number.isRequired,
-    transitionEasing:   string.isRequired,
-});
-
-BubbleD3.defaultProps = _.assign({}, bubbleDefaultProps, {
-    transitionDuration: Nivo.defaults.transitionDuration,
-    transitionEasing:   Nivo.defaults.transitionEasing,
-});
+BubbleD3.defaultProps = _.omit(bubbleDefaultProps, [
+    'namespace',
+    'motionStiffness',
+    'motionDamping',
+]);
 
 
 export default BubbleD3;

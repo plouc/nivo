@@ -8,16 +8,18 @@
  */
 'use strict';
 
-import React, { Component, PropTypes }         from 'react';
+import React, { Component }                    from 'react';
 import _                                       from 'lodash';
-import Nivo                                    from '../../../Nivo';
 import { getLabelGenerator }                   from '../../../lib/LabelHelper';
 import { bubblePropTypes, bubbleDefaultProps } from './BubbleProps';
 import BubblePlaceholders                      from './BubblePlaceholders';
+import { getColorGenerator }                   from '../../../ColorUtils';
 
 
-const createNodes = ({ label, labelFormat, skipRadius }) => {
-    const labelFn = getLabelGenerator(label, labelFormat);
+const createNodes = ({ borderWidth, borderColor, label, labelFormat, labelSkipRadius, labelTextColor }) => {
+    const labelFn       = getLabelGenerator(label, labelFormat);
+    const borderColorFn = getColorGenerator(borderColor);
+    const textColorFn   = getColorGenerator(labelTextColor);
     
     return nodes => {
         const renderedNodes = [];
@@ -29,14 +31,18 @@ const createNodes = ({ label, labelFormat, skipRadius }) => {
                     r={node.style.r}
                     className="nivo_bubble_node"
                     transform={`translate(${node.style.x},${node.style.y})`}
-                    style={{ fill: node.style.color }}
+                    style={{
+                        fill:        node.style.color,
+                        stroke:      borderColorFn(node.style),
+                        strokeWidth: borderWidth,
+                    }}
                 />
             );
         });
 
         nodes
             .filter(node => {
-                return skipRadius === 0 || node.data.r >= skipRadius;
+                return labelSkipRadius === 0 || node.data.r >= labelSkipRadius;
             })
             .forEach(node => {
                 renderedNodes.push(
@@ -44,6 +50,9 @@ const createNodes = ({ label, labelFormat, skipRadius }) => {
                         key={`${node.key}.text`}
                         transform={`translate(${node.style.x},${node.style.y})`}
                         textAnchor={'middle'}
+                        style={{
+                            fill: textColorFn(node.style)
+                        }}
                     >
                         {labelFn(node.data)}
                     </text>
@@ -69,25 +78,18 @@ class Bubble extends Component {
     }
 }
 
-const { number, string, any } = PropTypes;
+Bubble.propTypes = _.omit(bubblePropTypes, [
+    'children',
+    'namespace',
+    'transitionDuration',
+    'transitionEasing',
+]);
 
-Bubble.propTypes = _.assign({}, bubblePropTypes, {
-    label:       string.isRequired,
-    labelFormat: string,
-    textColor:   any.isRequired,
-    skipRadius:  number.isRequired,
-    width:       number.isRequired,
-    height:      number.isRequired,
-    stiffness:   number.isRequired, // react-motion
-    damping:     number.isRequired, // react-motion
-});
-
-Bubble.defaultProps = _.assign({}, bubbleDefaultProps, {
-    label:      'name',
-    skipRadius: 0,
-    stiffness:  Nivo.defaults.motionStiffness,
-    damping:    Nivo.defaults.motionDamping,
-});
+Bubble.defaultProps = _.omit(bubbleDefaultProps, [
+    'namespace',
+    'transitionDuration',
+    'transitionEasing',
+]);
 
 
 export default Bubble;
