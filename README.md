@@ -29,6 +29,12 @@
 - Stack
     - [`<Stack />`](https://plouc.github.io/nivo/#/stack)
     - [`<ResponsiveStack />`](https://plouc.github.io/nivo/#/stack)
+- TreeMap
+    - [`<TreeMapD3 />`](https://plouc.github.io/nivo/#/treemap/d3)
+    - [`<ResponsiveTreeMapD3 />`](https://plouc.github.io/nivo/#/treemap/d3)
+    - [`<TreeMapPlaceholders />`](https://plouc.github.io/nivo/#/treemap/placeholders)
+    - [`<ResponsiveTreeMapPlaceholders />`](https://plouc.github.io/nivo/#/treemap/placeholders)
+
 
 ## Credits
 
