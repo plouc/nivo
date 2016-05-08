@@ -16,6 +16,7 @@ import Nivo                            from '../../../Nivo';
 import { lineInterpolation }           from '../../../PropTypes';
 import { getColorRange }               from '../../../ColorUtils';
 import { margin as marginPropType }    from '../../../PropTypes';
+import decoratorsFromReactChildren     from '../../../lib/decoratorsFromReactChildren';
 
 
 class Stack extends Component {
@@ -78,19 +79,33 @@ class Stack extends Component {
             .attr('d', area)
             .style('fill', (d, i) => color(i))
         ;
+
+        const stackContext = {
+            element: wrapper,
+            width, height,
+            stacked,
+            xScale, yScale,
+            color,
+            transitionDuration, transitionEasing
+        };
+
+        this.decorators.forEach(decorator => {
+            decorator(stackContext);
+        });
     }
 
     shouldComponentUpdate(nextProps) {
+        this.decorators = decoratorsFromReactChildren(nextProps.children, 'decorateStack');
+
         this.renderD3(nextProps);
 
         return false;
     }
 
     componentDidMount() {
-        this.renderD3(this.props);
-    }
+        this.decorators = decoratorsFromReactChildren(this.props.children, 'decorateStack');
 
-    componentWillMount() {
+        this.renderD3(this.props);
     }
 
     render() {
