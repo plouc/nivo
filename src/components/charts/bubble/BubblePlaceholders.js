@@ -149,7 +149,7 @@ BubblePlaceholders.propTypes = _.omit(bubblePropTypes, [
     'label',
     'labelFormat',
     'labelTextColor',
-    'labelSkipRadius'
+    'labelSkipRadius',
     'labelTextDY',
     'transitionDuration',
     'transitionEasing',
