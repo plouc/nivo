@@ -38,9 +38,9 @@
 
 ## Credits
 
-- d3
-- react
-- react-motion
+- [d3](https://d3js.org/)
+- [react](https://facebook.github.io/react/)
+- [react-motion](https://github.com/chenglou/react-motion)
 - …
 
 
