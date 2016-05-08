@@ -60,6 +60,13 @@ class StackDots extends Component {
                 .style('pointer-events', 'all')
             ;
 
+            newSlices.selectAll('line').data(d => d).enter().append('line')
+                .attr('y1', d => yScale(d.y0 + d.y))
+                .attr('y2', d => yScale(d.y0))
+                .style('stroke-width', props.borderWidth)
+                .style('stroke', (d, i) => borderColorFn({ color: color(i) }))
+            ;
+
             newSlices.selectAll('circle').data(d => d).enter().append('circle')
                 .attr('r', props.radius)
                 .attr('transform', d => {
@@ -110,6 +117,17 @@ class StackDots extends Component {
                     return `translate(0,${yScale(d.y0 + d.y)})`;
                 })
                 .style('fill', (d, i) => colorFn({ color: color(i) }))
+                .style('stroke-width', props.borderWidth)
+                .style('stroke', (d, i) => borderColorFn({ color: color(i) }))
+            ;
+
+            elements
+                .selectAll('line').data(d => d)
+                .transition()
+                .duration(transitionDuration)
+                .ease(transitionEasing)
+                .attr('y1', d => yScale(d.y0 + d.y))
+                .attr('y2', d => yScale(d.y0))
                 .style('stroke-width', props.borderWidth)
                 .style('stroke', (d, i) => borderColorFn({ color: color(i) }))
             ;
