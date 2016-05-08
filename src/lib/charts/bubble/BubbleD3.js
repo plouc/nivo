@@ -31,6 +31,7 @@ const BubbleD3 = () => {
          * @param {function} valueAccessor
          * @param {number}   padding
          * @param {function} color
+         * @returns {array}
          */
         compute({
             width, height,

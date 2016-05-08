@@ -16,7 +16,10 @@ import BubblePlaceholders                      from './BubblePlaceholders';
 import { getColorGenerator }                   from '../../../ColorUtils';
 
 
-const createNodes = ({ borderWidth, borderColor, label, labelFormat, labelSkipRadius, labelTextColor }) => {
+const createNodes = ({
+    borderWidth, borderColor,
+    label, labelFormat, labelSkipRadius, labelTextColor, labelTextDY
+}) => {
     const labelFn       = getLabelGenerator(label, labelFormat);
     const borderColorFn = getColorGenerator(borderColor);
     const textColorFn   = getColorGenerator(labelTextColor);
@@ -51,6 +54,7 @@ const createNodes = ({ borderWidth, borderColor, label, labelFormat, labelSkipRa
                         className="nivo_bubble_legend"
                         transform={`translate(${node.style.x},${node.style.y})`}
                         textAnchor={'middle'}
+                        dy={labelTextDY}
                         style={{
                             fill: textColorFn(node.style)
                         }}

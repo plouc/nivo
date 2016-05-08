@@ -148,8 +148,9 @@ BubblePlaceholders.propTypes = _.omit(bubblePropTypes, [
     'borderColor',
     'label',
     'labelFormat',
-    'textColor',
-    'skipRadius',
+    'labelTextColor',
+    'labelSkipRadius'
+    'labelTextDY',
     'transitionDuration',
     'transitionEasing',
 ]);
@@ -159,8 +160,9 @@ BubblePlaceholders.defaultProps = _.omit(bubbleDefaultProps, [
     'borderColor',
     'label',
     'labelFormat',
-    'textColor',
-    'skipRadius',
+    'labelTextColor',
+    'labelSkipRadius',
+    'labelTextDY',
     'transitionDuration',
     'transitionEasing',
 ]);

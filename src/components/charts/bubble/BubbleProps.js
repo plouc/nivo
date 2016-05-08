@@ -40,6 +40,7 @@ export const bubblePropTypes = {
     label:              string.isRequired,
     labelFormat:        string,
     labelTextColor:     any.isRequired,
+    labelTextDY:        number.isRequired,
     labelSkipRadius:    number.isRequired,
     // transitions
     motionStiffness:    number.isRequired, // react-motion
@@ -68,6 +69,7 @@ export const bubbleDefaultProps = {
     // labels
     label:              'name',
     labelTextColor:     'inherit:darker(1)',
+    labelTextDY:        5,
     labelSkipRadius:    0,
     // transitions
     motionStiffness:    Nivo.defaults.motionStiffness,    // react-motion

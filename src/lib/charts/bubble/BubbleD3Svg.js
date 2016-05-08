@@ -34,7 +34,7 @@ const BubbleD3Svg = domRoot => {
                 padding,
                 colors,
                 borderWidth, borderColor,
-                label, labelFormat, labelSkipRadius, labelTextColor,
+                label, labelFormat, labelSkipRadius, labelTextColor, labelTextDY,
                 transitionDuration, transitionEasing
             } = props;
 
@@ -133,6 +133,7 @@ const BubbleD3Svg = domRoot => {
                 .style('opacity', 0)
                 .text(labelFn)
                 .attr('transform', d => `translate(${d.x},${d.y})`)
+                .attr('dy', labelTextDY)
             ;
 
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
@@ -146,6 +147,7 @@ const BubbleD3Svg = domRoot => {
                 .style(textColorStyle)
                 .style('opacity', 1)
                 .attr('transform', d => `translate(${d.x},${d.y})`)
+                .attr('dy', labelTextDY)
             ;
 
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
