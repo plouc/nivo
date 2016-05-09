@@ -29,7 +29,7 @@ describe('<Stack>', function () {
                 <div style={{ width: 200, height: 200 }}>
                     <Chart>
                         <Stack
-                            layers={data}
+                            data={data}
                             offset={offsetMode}
                             colors="nivo"
                             transitionDuration={0}

@@ -10,4 +10,4 @@
 
 export Stack           from './Stack';
 export ResponsiveStack from './ResponsiveStack';
-export StackDots       from './StackDots';
+export StackSlicer     from './StackSlicer';
