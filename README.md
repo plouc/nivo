@@ -29,7 +29,7 @@
 - Stack
     - [`<Stack />`](https://plouc.github.io/nivo/#/stack)
     - [`<ResponsiveStack />`](https://plouc.github.io/nivo/#/stack)
-    - [`<StackDots />`](https://plouc.github.io/nivo/#/stack)
+    - [`<StackSlicer />`](https://plouc.github.io/nivo/#/stack)
 - TreeMap
     - [`<TreeMapD3 />`](https://plouc.github.io/nivo/#/treemap/d3)
     - [`<ResponsiveTreeMapD3 />`](https://plouc.github.io/nivo/#/treemap/d3)

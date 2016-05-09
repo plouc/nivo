@@ -29,7 +29,7 @@ export const getColorGenerator = instruction => {
         return d => d3.rgb(d.color || d.data.color)[method](parseFloat(amount));
     }
 
-    throw new Error('Unable to determine color generator');
+    return instruction;
 };
 
 

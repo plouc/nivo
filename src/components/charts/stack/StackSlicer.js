@@ -19,7 +19,7 @@ const overTransitionDuration = 200;
 const overTransitionEasing   = 'linear';
 
 
-class StackDots extends Component {
+class StackSlicer extends Component {
     static decorateStack(element) {
         const { props } = element;
 
@@ -195,14 +195,14 @@ class StackDots extends Component {
     render() {
         invariant(
             false,
-            '<StackDots> element is for Stack configuration only and should not be rendered'
+            '<StackSlicer> element is for Stack configuration only and should not be rendered'
         );
     }
 }
 
 const { number, bool, any } = PropTypes;
 
-StackDots.propTypes = {
+StackSlicer.propTypes = {
     showOnOver:  bool.isRequired,
     radius:      number.isRequired,
     color:       any.isRequired,
@@ -210,7 +210,7 @@ StackDots.propTypes = {
     borderColor: any.isRequired
 };
 
-StackDots.defaultProps = {
+StackSlicer.defaultProps = {
     showOnOver:  false,
     radius:      4,
     color:       'inherit',
@@ -219,4 +219,4 @@ StackDots.defaultProps = {
 };
 
 
-export default StackDots;
+export default StackSlicer;
