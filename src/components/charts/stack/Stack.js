@@ -19,6 +19,22 @@ import { margin as marginPropType }         from '../../../PropTypes';
 import decoratorsFromReactChildren          from '../../../lib/decoratorsFromReactChildren';
 
 
+const findPrecedingLayer = (layers, index) => {
+    if (layers === null) {
+        return null;
+    }
+
+    for (let i = layers.length - 1; i >= 0; i--) {
+        const layer = layers[i];
+        if (layer.index < index) {
+            return layer;
+        }
+    }
+
+    return null;
+};
+
+
 class Stack extends Component {
     constructor(props) {
         super(props);
@@ -26,6 +42,8 @@ class Stack extends Component {
         this.state = {
             excludeLayers: []
         };
+
+        this.previousData = null;
     }
 
     renderD3(props, state) {
@@ -95,30 +113,70 @@ class Stack extends Component {
             .domain([0, d3.max(stacked, layer => d3.max(layer.values, d => (d.y0 + d.y)))])
         ;
 
+        filteredData = filteredData.map(layer => {
+            return _.assign(layer, {
+                values: layer.values.map(v => ({
+                    value:        v,
+                    interpolated: {
+                        x:  xScale(v.x),
+                        y0: yScale(v.y0),
+                        y:  yScale(v.y0 + v.y)
+                    }
+                }))
+            });
+        });
+
         const area = d3.svg.area()
             .interpolate(interpolation)
-            .x(d => xScale(d.x))
-            .y0(d => yScale(d.y0))
-            .y1(d => yScale(d.y0 + d.y))
+            .x(d => d.x)
+            .y0(d => d.y0)
+            .y1(d => d.y)
         ;
 
 
         // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
         // Areas
         // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
-        let paths = wrapper.selectAll('.nivo_stack_area').data(stacked, d => d.index);
+        let paths = wrapper.select('.nivo_stack_areas').selectAll('.nivo_stack_area').data(stacked, d => d.index);
 
         // ENTER
         paths.enter().append('path')
             .attr('class', 'nivo_stack_area')
-            .attr('d', d => area(d.values))
+            .attr('d', d => {
+                if (this.previousData === null) {
+                    return area(d.values.map(p => ({
+                        x:  p.interpolated.x,
+                        y0: yScale.range()[0],
+                        y:  yScale.range()[0],
+                    })));
+                }
+
+                const precedingLayer = findPrecedingLayer(this.previousData, d.index);
+
+                if (precedingLayer !== null) {
+                    return area(precedingLayer.values.map(p => ({
+                        x:  p.interpolated.x,
+                        y0: p.interpolated.y,
+                        y:  p.interpolated.y,
+                    })));
+                }
+
+                return area(d.values.map(p => ({
+                    x:  p.interpolated.x,
+                    y0: p.interpolated.y0,
+                    y:  p.interpolated.y0,
+                })));
+            })
             .style('fill', d => d.color)
         ;
 
         // UPDATE
         paths
             .on('click', d => {
-                this.setState({ excludeLayers: excludeLayers.concat([d.index]) });
+                // we cannot have no layer
+                if (filteredData.length > 1) {
+                    this.setState({ excludeLayers: excludeLayers.concat([d.index]) });
+                }
             })
             .on('mouseover', function (d) {
                 d3.select(this).style('fill', overColorFn);
@@ -132,7 +190,7 @@ class Stack extends Component {
             .transition()
             .duration(transitionDuration)
             .ease(transitionEasing)
-            .attr('d', d => area(d.values))
+            .attr('d', d => area(d.values.map(v => v.interpolated)))
             .style('fill', d => d.color)
         ;
 
@@ -142,13 +200,22 @@ class Stack extends Component {
             .duration(transitionDuration)
             .ease(transitionEasing)
             .attr('d', d => {
+                const precedingLayer = findPrecedingLayer(filteredData, d.index);
+
+                if (precedingLayer !== null) {
+                    return area(precedingLayer.values.map(p => ({
+                        x:  p.interpolated.x,
+                        y0: p.interpolated.y,
+                        y:  p.interpolated.y,
+                    })));
+                }
+
                 return area(d.values.map(p => ({
-                    x:  p.x,
-                    y0: p.y0,
-                    y:  0,
+                    x:  p.interpolated.x,
+                    y0: p.interpolated.y0,
+                    y:  p.interpolated.y0,
                 })));
             })
-            .style('opacity', 0)
             .remove()
         ;
 
@@ -199,6 +266,8 @@ class Stack extends Component {
         this.decorators.forEach(decorator => {
             decorator(stackContext);
         });
+
+        this.previousData = filteredData;
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -218,7 +287,9 @@ class Stack extends Component {
     render() {
         return (
             <svg ref="svg" className="nivo_stack">
-                <g className="nivo_stack_wrapper" />
+                <g className="nivo_stack_wrapper">
+                    <g className="nivo_stack_areas" />
+                </g>
             </svg>
         );
     }
