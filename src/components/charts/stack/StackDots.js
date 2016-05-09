@@ -10,8 +10,13 @@
 
 import React, { Component, PropTypes } from 'react';
 import invariant                       from 'invariant';
+import _                               from 'lodash';
 import d3                              from 'd3';
 import { getColorGenerator }           from '../../../ColorUtils';
+
+
+const overTransitionDuration = 200;
+const overTransitionEasing   = 'linear';
 
 
 class StackDots extends Component {
@@ -21,60 +26,45 @@ class StackDots extends Component {
         const colorFn        = getColorGenerator(props.color);
         const borderColorFn  = getColorGenerator(props.borderColor);
         const { showOnOver } = props;
+        const { onMouseOver, onMouseOut } = props;
 
         // Receive context from Parent Stack component
         return ({
-            element,
+            element, wrapper,
             stacked,
             width, height,
             xScale, yScale,
-            color,
             transitionDuration, transitionEasing
         }) => {
             const slices = [];
             stacked.forEach(layer => {
-                layer.forEach((datum, i) => {
+                layer.values.forEach((datum, i) => {
                     if (!slices[i]) {
                         slices[i] = [];
                     }
 
-                    slices[i].push(datum);
+                    slices[i].push(_.assign({}, datum, {
+                        index: layer.index,
+                        color: layer.color
+                    }));
                 });
             });
 
-            const elements = element.selectAll('.nivo_stack_slices').data(slices);
+            const elements = wrapper.selectAll('.nivo_stack_slices').data(slices);
 
             const newSlices = elements.enter().append('g')
                 .attr('class', 'nivo_stack_slices')
                 .attr('transform', (d, i) => `translate(${xScale(i)},0)`)
                 .style('opacity', showOnOver ? 0 : 1)
-                .style('cursor', 'pointer')
                 .style('pointer-events', 'all')
             ;
 
             newSlices.append('rect')
-                .attr('width', props.radius * 2 + 20)
+                .attr('width', props.radius * 2 + 10)
                 .attr('height', height)
-                .attr('transform', `translate(-${props.radius + 10},0)`)
+                .attr('transform', `translate(-${props.radius + 5},0)`)
                 .style('fill', 'none')
                 .style('pointer-events', 'all')
-            ;
-
-            newSlices.selectAll('line').data(d => d).enter().append('line')
-                .attr('y1', d => yScale(d.y0 + d.y))
-                .attr('y2', d => yScale(d.y0))
-                .style('stroke-width', props.borderWidth)
-                .style('stroke', (d, i) => borderColorFn({ color: color(i) }))
-            ;
-
-            newSlices.selectAll('circle').data(d => d).enter().append('circle')
-                .attr('r', props.radius)
-                .attr('transform', d => {
-                    return `translate(0,${yScale(d.y0 + d.y)})`;
-                })
-                .style('fill', (d, i) => colorFn({ color: color(i) }))
-                .style('stroke-width', props.borderWidth)
-                .style('stroke', (d, i) => borderColorFn({ color: color(i) }))
             ;
 
             elements
@@ -86,7 +76,8 @@ class StackDots extends Component {
 
                     d3.select(this)
                         .transition()
-                        .duration(100)
+                        .duration(overTransitionDuration)
+                        .ease(overTransitionEasing)
                         .style('opacity', 1)
                     ;
                 })
@@ -97,7 +88,8 @@ class StackDots extends Component {
 
                     d3.select(this)
                         .transition()
-                        .duration(100)
+                        .duration(overTransitionDuration)
+                        .ease(overTransitionEasing)
                         .style('opacity', 0)
                     ;
                 })
@@ -107,8 +99,78 @@ class StackDots extends Component {
                 .attr('transform', (d, i) => `translate(${xScale(i)},0)`)
             ;
 
-            elements
-                .selectAll('circle').data(d => d)
+
+            // —————————————————————————————————————————————————————————————————————————————————————————————————————————
+            // Lines
+            // —————————————————————————————————————————————————————————————————————————————————————————————————————————
+            const lines = elements.selectAll('line').data(d => d, d => d.index);
+
+            // ENTER
+            lines.enter().append('line')
+                .attr('y1', d => yScale(d.y0 + d.y))
+                .attr('y2', d => yScale(d.y0))
+                .style('stroke-width', props.borderWidth)
+                .style('stroke', borderColorFn)
+            ;
+
+            // UPDATE
+            lines
+                .transition()
+                .duration(transitionDuration)
+                .ease(transitionEasing)
+                .attr('y1', d => yScale(d.y0 + d.y))
+                .attr('y2', d => yScale(d.y0))
+                .style('stroke-width', props.borderWidth)
+                .style('stroke', borderColorFn)
+            ;
+
+            // EXIT
+            lines.exit()
+                .transition()
+                .duration(transitionDuration)
+                .ease(transitionEasing)
+                .attr('y1', d => yScale(d.y0))
+                .attr('y2', d => yScale(d.y0))
+                .style('opacity', 0)
+                .remove()
+            ;
+
+
+            // —————————————————————————————————————————————————————————————————————————————————————————————————————————
+            // Circles
+            // —————————————————————————————————————————————————————————————————————————————————————————————————————————
+            const circles = elements.selectAll('circle').data(d => d, d => d.index);
+
+            // ENTER
+            circles.enter().append('circle')
+                .attr('r', 0.1)
+                .style('cursor', 'pointer')
+                .attr('transform', d => {
+                    return `translate(0,${yScale(d.y0 + d.y)})`;
+                })
+                .style('fill', colorFn)
+                .style('stroke-width', props.borderWidth)
+                .style('stroke', borderColorFn)
+            ;
+
+            // UPDATE
+            circles
+                .on('mouseover', function (d) {
+                    d3.select(this)
+                        .transition()
+                        .duration(overTransitionDuration)
+                        .ease(overTransitionEasing)
+                        .attr('r', props.radius * 2)
+                    ;
+                })
+                .on('mouseout', function (d) {
+                    d3.select(this)
+                        .transition()
+                        .duration(overTransitionDuration)
+                        .ease(overTransitionEasing)
+                        .attr('r', props.radius)
+                    ;
+                })
                 .transition()
                 .duration(transitionDuration)
                 .ease(transitionEasing)
@@ -116,20 +178,19 @@ class StackDots extends Component {
                 .attr('transform', d => {
                     return `translate(0,${yScale(d.y0 + d.y)})`;
                 })
-                .style('fill', (d, i) => colorFn({ color: color(i) }))
+                .style('fill', colorFn)
                 .style('stroke-width', props.borderWidth)
-                .style('stroke', (d, i) => borderColorFn({ color: color(i) }))
+                .style('stroke', borderColorFn)
             ;
 
-            elements
-                .selectAll('line').data(d => d)
+            // EXIT
+            circles.exit()
                 .transition()
                 .duration(transitionDuration)
                 .ease(transitionEasing)
-                .attr('y1', d => yScale(d.y0 + d.y))
-                .attr('y2', d => yScale(d.y0))
-                .style('stroke-width', props.borderWidth)
-                .style('stroke', (d, i) => borderColorFn({ color: color(i) }))
+                .attr('r', 0.1)
+                .style('opacity', 0)
+                .remove()
             ;
         };
     }
@@ -149,7 +210,7 @@ StackDots.propTypes = {
     radius:      number.isRequired,
     color:       any.isRequired,
     borderWidth: number.isRequired,
-    borderColor: any.isRequired,
+    borderColor: any.isRequired
 };
 
 StackDots.defaultProps = {
