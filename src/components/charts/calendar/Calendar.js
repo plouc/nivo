@@ -21,9 +21,7 @@ import {
 } from '../../../constants/directions'
 
 
-const cellSize = 14;
-
-const monthPath = (t0, direction) => {
+const monthPath = (t0, cellSize, direction) => {
     const t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0); // first day of next month
     const d0 = t0.getDay();            // first day of month
     const w0 = d3.time.weekOfYear(t0); // first week of month
@@ -86,8 +84,8 @@ class Calendar extends Component {
         const wrapper = element.select('.nivo_calendar_wrapper');
 
         const margin = _.assign({}, Nivo.defaults.margin, props.margin);
-        const width  = props.width - margin.left - margin.right;
-        const height = props.height - margin.top - margin.bottom;
+        const width  = props.width  - margin.left - margin.right;
+        const height = props.height - margin.top  - margin.bottom;
 
         element.attr({
             width:  props.width,
@@ -95,9 +93,21 @@ class Calendar extends Component {
         });
         wrapper.attr('transform', `translate(${margin.left},${margin.top})`);
 
+        const startDate = new Date(2005, 0, 1);
+        const endDate   = new Date(2006, 0, 1);
 
-        const days   = d3.time.days(new Date(2005, 0, 1),   new Date(2006, 0, 1));
-        const months = d3.time.months(new Date(2005, 0, 1), new Date(2006, 0, 1));
+        const days   = d3.time.days(startDate, endDate);
+        const months = d3.time.months(startDate, endDate);
+
+        const weekCount = d3.time.weekOfYear(days[days.length - 1]);
+
+        let cellSize;
+        if (direction === DIRECTION_HORIZONTAL) {
+            cellSize = width / (weekCount + 1);
+        } else {
+            cellSize = height / (weekCount + 1);
+        }
+
 
         const rects = wrapper.selectAll('.nivo_calendar_day').data(days);
 
@@ -120,6 +130,8 @@ class Calendar extends Component {
             .duration(transitionDuration)
             .ease(transitionEasing)
             .delay(d => d3.time.dayOfYear(d) * transitionStaggering)
+            .attr('width', cellSize)
+            .attr('height', cellSize)
             .attr(rectPosition)
             .style({
                 opacity:        1,
@@ -139,7 +151,7 @@ class Calendar extends Component {
                 stroke:         monthBorderColor,
                 'stroke-width': monthBorderWidth,
             })
-            .attr('d', d => monthPath(d, direction))
+            .attr('d', d => monthPath(d, cellSize, direction))
         ;
 
         paths
@@ -151,7 +163,7 @@ class Calendar extends Component {
                 stroke:         monthBorderColor,
                 'stroke-width': monthBorderWidth,
             })
-            .attr('d', d => monthPath(d, direction))
+            .attr('d', d => monthPath(d, cellSize, direction))
         ;
 
         this.decorators.forEach(decorator => {
