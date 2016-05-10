@@ -48,6 +48,8 @@ const monthPathGenerator = (date, cellSize, daySpacing, direction) => {
  * @constructor
  */
 const CalendarLayout = () => {
+    // room for later persistent data
+
     return {
         /**
          * @param {number}      width
@@ -73,6 +75,7 @@ const CalendarLayout = () => {
             let   years    = d3.range(fromDate.getFullYear(), toDate.getFullYear() + 1);
             const maxWeeks = d3.max(years, year => d3.time.weeks(new Date(year, 0, 1), new Date(year + 1, 0, 1)).length) + 1;
 
+            // compute cellSize
             let cellSize;
             if (direction === DIRECTION_HORIZONTAL) {
                 const hCellSize = (width - daySpacing * (maxWeeks + 1)) / maxWeeks;

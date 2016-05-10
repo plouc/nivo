@@ -8,7 +8,9 @@
  */
 'use strict';
 
-export Calendar             from './Calendar';
-export ResponsiveCalendar   from './ResponsiveCalendar';
-export CalendarD3           from './CalendarD3';
-export ResponsiveCalendarD3 from './ResponsiveCalendarD3';
+export Calendar                 from './Calendar';
+export ResponsiveCalendar       from './ResponsiveCalendar';
+export CalendarD3               from './CalendarD3';
+export ResponsiveCalendarD3     from './ResponsiveCalendarD3';
+export CalendarCanvas           from './CalendarCanvas';
+export ResponsiveCalendarCanvas from './ResponsiveCalendarCanvas';
