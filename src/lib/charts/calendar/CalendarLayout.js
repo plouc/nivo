@@ -93,7 +93,7 @@ const CalendarLayout = () => {
                 days: days.map(dayDate => {
                     return _.assign({
                         date: dayDate,
-                        cellSize,
+                        size: cellSize,
                     }, cellPosition(dayDate));
                 }),
                 months: months.map(monthDate => {
