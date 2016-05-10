@@ -43,10 +43,25 @@ class Calendar extends Component {
     renderD3(props, state) {
         const {
             data,
+            direction,
             dayBorderWidth, dayBorderColor,
             monthBorderWidth, monthBorderColor,
-            transitionDuration, transitionEasing
+            transitionDuration, transitionEasing, transitionStaggering
         } = props;
+
+
+        let rectPosition;
+        if (direction === 'horizontal') {
+            rectPosition = {
+                x: d => d3.time.weekOfYear(d) * cellSize,
+                y: d => d.getDay() * cellSize,
+            };
+        } else {
+            rectPosition = {
+                x: d => d.getDay() * cellSize,
+                y: d => d3.time.weekOfYear(d) * cellSize,
+            };
+        }
 
         const element = d3.select(findDOMNode(this));
         const wrapper = element.select('.nivo_calendar_wrapper');
@@ -72,20 +87,20 @@ class Calendar extends Component {
             .attr('class', 'nivo_calendar_day')
             .attr('width', cellSize)
             .attr('height', cellSize)
-            .attr('x', d => d3.time.weekOfYear(d) * cellSize)
-            .attr('y', d => d.getDay() * cellSize)
+            .attr(rectPosition)
             .style({
                 fill:           'none',
                 stroke:         dayBorderColor,
                 'stroke-width': dayBorderWidth,
             })
-            //.datum(format)
         ;
 
         rects
             .transition()
             .duration(transitionDuration)
             .ease(transitionEasing)
+            .delay(d => d3.time.dayOfYear(d) * transitionStaggering)
+            .attr(rectPosition)
             .style({
                 stroke:         dayBorderColor,
                 'stroke-width': dayBorderWidth,
@@ -145,25 +160,29 @@ class Calendar extends Component {
 const { array, number, string, func, any, oneOf } = PropTypes;
 
 Calendar.propTypes = {
-    width:              number.isRequired,
-    height:             number.isRequired,
-    margin:             marginPropType,
-    dayBorderWidth:     number.isRequired,
-    dayBorderColor:     string.isRequired,
-    monthBorderWidth:   number.isRequired,
-    monthBorderColor:   string.isRequired,
-    transitionDuration: number.isRequired,
-    transitionEasing:   string.isRequired,
+    width:                number.isRequired,
+    height:               number.isRequired,
+    margin:               marginPropType,
+    direction:            oneOf(['horizontal', 'vertical']),
+    dayBorderWidth:       number.isRequired,
+    dayBorderColor:       string.isRequired,
+    monthBorderWidth:     number.isRequired,
+    monthBorderColor:     string.isRequired,
+    transitionDuration:   number.isRequired,
+    transitionEasing:     string.isRequired,
+    transitionStaggering: number.isRequired,
 };
 
 Calendar.defaultProps = {
-    margin:             Nivo.defaults.margin,
-    dayBorderWidth:     1,
-    dayBorderColor:     '#000',
-    monthBorderWidth:   2,
-    monthBorderColor:   '#000',
-    transitionDuration: Nivo.defaults.transitionDuration,
-    transitionEasing:   Nivo.defaults.transitionEasing,
+    margin:               Nivo.defaults.margin,
+    direction:            'horizontal',
+    dayBorderWidth:       1,
+    dayBorderColor:       '#000',
+    monthBorderWidth:     2,
+    monthBorderColor:     '#000',
+    transitionDuration:   Nivo.defaults.transitionDuration,
+    transitionEasing:     Nivo.defaults.transitionEasing,
+    transitionStaggering: 5,
 };
 
 
