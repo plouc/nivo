@@ -15,37 +15,11 @@ import _                                    from 'lodash';
 import Nivo                                 from '../../../Nivo';
 import { margin as marginPropType }         from '../../../PropTypes';
 import decoratorsFromReactChildren          from '../../../lib/decoratorsFromReactChildren';
+import CalendarLayout                       from '../../../lib/charts/calendar/CalendarLayout';
 import {
     DIRECTION_HORIZONTAL,
     DIRECTION_VERTICAL
 } from '../../../constants/directions'
-
-
-const monthPath = (t0, cellSize, direction) => {
-    const t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0); // first day of next month
-    const d0 = t0.getDay();            // first day of month
-    const w0 = d3.time.weekOfYear(t0); // first week of month
-    const d1 = t1.getDay();            // last day of month
-    const w1 = d3.time.weekOfYear(t1); // last week of month
-
-    if (direction === DIRECTION_HORIZONTAL) {
-        return [
-            `M${(w0 + 1) * cellSize},${d0 * cellSize}`,
-            `H${w0 * cellSize}V${7 * cellSize}`,
-            `H${w1 * cellSize}V${(d1 + 1) * cellSize}`,
-            `H${(w1 + 1) * cellSize}V0`,
-            `H${(w0 + 1) * cellSize}Z`
-        ].join('');
-    }
-
-    return [
-        `M${d0 * cellSize},${(w0 + 1) * cellSize}`,
-        `H0V${(w1 + 1) * cellSize}`,
-        `H${(d1 + 1) * cellSize}V${w1 * cellSize}`,
-        `H${7 * cellSize}V${w0 * cellSize}`,
-        `H${d0 * cellSize}Z`
-    ].join('');
-};
 
 
 const color = d3.scale.category20();
@@ -53,32 +27,15 @@ const color = d3.scale.category20();
 class Calendar extends Component {
     constructor(props) {
         super(props);
-
-        this.previousData = null;
     }
 
-    renderD3(props, state) {
+    renderD3(props) {
         const {
-            data,
             direction,
-            dayBorderWidth, dayBorderColor,
+            daySpacing, dayBorderWidth, dayBorderColor,
             monthBorderWidth, monthBorderColor,
             transitionDuration, transitionEasing, transitionStaggering
         } = props;
-
-
-        let rectPosition;
-        if (direction === DIRECTION_HORIZONTAL) {
-            rectPosition = {
-                x: d => d3.time.weekOfYear(d) * cellSize,
-                y: d => d.getDay() * cellSize,
-            };
-        } else {
-            rectPosition = {
-                x: d => d.getDay() * cellSize,
-                y: d => d3.time.weekOfYear(d) * cellSize,
-            };
-        }
 
         const element = d3.select(findDOMNode(this));
         const wrapper = element.select('.nivo_calendar_wrapper');
@@ -86,6 +43,7 @@ class Calendar extends Component {
         const margin = _.assign({}, Nivo.defaults.margin, props.margin);
         const width  = props.width  - margin.left - margin.right;
         const height = props.height - margin.top  - margin.bottom;
+        
 
         element.attr({
             width:  props.width,
@@ -93,33 +51,25 @@ class Calendar extends Component {
         });
         wrapper.attr('transform', `translate(${margin.left},${margin.top})`);
 
-        const startDate = new Date(2005, 0, 1);
-        const endDate   = new Date(2006, 0, 1);
-
-        const days   = d3.time.days(startDate, endDate);
-        const months = d3.time.months(startDate, endDate);
-
-        const weekCount = d3.time.weekOfYear(days[days.length - 1]);
-
-        let cellSize;
-        if (direction === DIRECTION_HORIZONTAL) {
-            cellSize = width / (weekCount + 1);
-        } else {
-            cellSize = height / (weekCount + 1);
-        }
+        const { days, months } = this.calendarLayout.compute({
+            width, height,
+            direction,
+            daySpacing
+        });
 
 
-        const rects = wrapper.selectAll('.nivo_calendar_day').data(days);
+        const rects = wrapper.selectAll('.nivo_calendar_day').data(days, d => d.date);
 
         rects
             .enter().append('rect')
             .attr('class', 'nivo_calendar_day')
-            .attr('width', cellSize)
-            .attr('height', cellSize)
-            .attr({ x: 0, y: 0 })
+            .attr('width', d => d.cellSize)
+            .attr('height', d => d.cellSize)
+            .attr('x', 0)
+            .attr('y', 0)
             .style({
                 opacity:        0,
-                fill:           '#fff',//d => color(d.getMonth()),
+                fill:           d => color(d.date.getMonth()),
                 stroke:         dayBorderColor,
                 'stroke-width': dayBorderWidth,
             })
@@ -129,20 +79,21 @@ class Calendar extends Component {
             .transition()
             .duration(transitionDuration)
             .ease(transitionEasing)
-            .delay(d => d3.time.dayOfYear(d) * transitionStaggering)
-            .attr('width', cellSize)
-            .attr('height', cellSize)
-            .attr(rectPosition)
+            .delay(d => d3.time.dayOfYear(d.date) * transitionStaggering)
+            .attr('width', d => d.cellSize)
+            .attr('height', d => d.cellSize)
+            .attr('x', d => d.x)
+            .attr('y', d => d.y)
             .style({
                 opacity:        1,
-                fill:           '#fff',//d => color(d.getMonth()),
+                fill:           d => color(d.date.getMonth()),
                 stroke:         dayBorderColor,
                 'stroke-width': dayBorderWidth,
             })
         ;
 
 
-        const paths = wrapper.selectAll('.nivo_calendar_month').data(months);
+        const paths = wrapper.selectAll('.nivo_calendar_month').data(months, d => d.date);
 
         paths.enter().append('path')
             .attr('class', 'nivo_calendar_month')
@@ -151,7 +102,7 @@ class Calendar extends Component {
                 stroke:         monthBorderColor,
                 'stroke-width': monthBorderWidth,
             })
-            .attr('d', d => monthPath(d, cellSize, direction))
+            .attr('d', d => d.path)
         ;
 
         paths
@@ -163,11 +114,15 @@ class Calendar extends Component {
                 stroke:         monthBorderColor,
                 'stroke-width': monthBorderWidth,
             })
-            .attr('d', d => monthPath(d, cellSize, direction))
+            .attr('d', d => d.path)
         ;
 
         this.decorators.forEach(decorator => {
         });
+    }
+
+    componentWillMount() {
+        this.calendarLayout = CalendarLayout();
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -193,13 +148,14 @@ class Calendar extends Component {
     }
 }
 
-const { array, number, string, func, any, oneOf } = PropTypes;
+const { number, string, oneOf } = PropTypes;
 
 Calendar.propTypes = {
     width:                number.isRequired,
     height:               number.isRequired,
     margin:               marginPropType,
     direction:            oneOf([DIRECTION_HORIZONTAL, DIRECTION_VERTICAL]),
+    daySpacing:           number.isRequired,
     dayBorderWidth:       number.isRequired,
     dayBorderColor:       string.isRequired,
     monthBorderWidth:     number.isRequired,
@@ -212,6 +168,7 @@ Calendar.propTypes = {
 Calendar.defaultProps = {
     margin:               Nivo.defaults.margin,
     direction:            DIRECTION_HORIZONTAL,
+    daySpacing:           0,
     dayBorderWidth:       1,
     dayBorderColor:       '#000',
     monthBorderWidth:     2,
