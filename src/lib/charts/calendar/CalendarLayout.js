@@ -50,58 +50,80 @@ const monthPathGenerator = (date, cellSize, daySpacing, direction) => {
 const CalendarLayout = () => {
     return {
         /**
-         * @param {number} width
-         * @param {number} height
-         * @param {string} direction
-         * @param {number} daySpacing
+         * @param {number}      width
+         * @param {number}      height
+         * @param {string|Date} from
+         * @param {string|Date} to
+         * @param {string}      direction
+         * @param {number}      yearSpacing
+         * @param {number}      daySpacing
          * @returns {object}
          */
         compute({
             width, height,
+            from, to,
             direction,
+            yearSpacing,
             daySpacing
         }) {
 
             // time related data
-            const startDate = new Date(2005, 0, 1);
-            const endDate   = new Date(2006, 0, 1);
-            const days      = d3.time.days(startDate, endDate);
-            const months    = d3.time.months(startDate, endDate);
-            const weekCount = d3.time.weekOfYear(days[days.length - 1]);
+            const fromDate = _.isDate(from) ? from : new Date(from);
+            const toDate   = _.isDate(to)   ? to   : new Date(to);
+            let   years    = d3.range(fromDate.getFullYear(), toDate.getFullYear() + 1);
+            const maxWeeks = d3.max(years, year => d3.time.weeks(new Date(year, 0, 1), new Date(year + 1, 0, 1)).length) + 1;
 
             let cellSize;
             if (direction === DIRECTION_HORIZONTAL) {
-                cellSize = (width - daySpacing * (weekCount + 2)) / (weekCount + 1);
+                const hCellSize = (width - daySpacing * (maxWeeks + 1)) / maxWeeks;
+                const vCellSize = (height - (years.length - 1) * yearSpacing - years.length * (8 * daySpacing)) / (years.length * 7);
+                cellSize = Math.min(hCellSize, vCellSize);
             } else {
-                cellSize = (height - daySpacing * (weekCount + 2)) / (weekCount + 1);
+                cellSize = (height - daySpacing * (maxWeeks + 1)) / maxWeeks;
             }
 
             let cellPosition;
             if (direction === DIRECTION_HORIZONTAL) {
-                cellPosition = d => ({
+                cellPosition = (d, yearIndex) => ({
                     x: d3.time.weekOfYear(d) * (cellSize + daySpacing) + daySpacing / 2,
-                    y: d.getDay() * (cellSize + daySpacing) + daySpacing / 2,
+                    y: d.getDay() * (cellSize + daySpacing) + daySpacing / 2 + yearIndex * (yearSpacing + 7 * cellSize + 8 * daySpacing),
                 });
             } else {
-                cellPosition = d => ({
-                    x: d.getDay() * (cellSize + daySpacing) + daySpacing / 2,
+                cellPosition = (d, yearIndex) => ({
+                    x: d.getDay() * (cellSize + daySpacing) + daySpacing / 2 + yearIndex * (yearSpacing + 7 * cellSize + 8 * daySpacing),
                     y: d3.time.weekOfYear(d) * (cellSize + daySpacing) + daySpacing / 2,
                 });
             }
 
+            let dayNodes   = [];
+            let monthNodes = [];
+            
+            years = years.forEach((year, i) => {
+                const yearStart = new Date(year, 0, 1);
+                const yearEnd   = new Date(year + 1, 0, 1);
+
+                dayNodes = dayNodes.concat(d3.time.days(yearStart, yearEnd)
+                    .map(dayDate => {
+                        return _.assign({
+                            date: dayDate,
+                            size: cellSize,
+                        }, cellPosition(dayDate, i));
+                    })
+                );
+
+                monthNodes = monthNodes.concat(d3.time.months(yearStart, yearEnd)
+                    .map(monthDate => {
+                        return {
+                            date: monthDate,
+                            path: monthPathGenerator(monthDate, cellSize, daySpacing, direction),
+                        };
+                    })
+                );
+            });
+
             return {
-                days: days.map(dayDate => {
-                    return _.assign({
-                        date: dayDate,
-                        size: cellSize,
-                    }, cellPosition(dayDate));
-                }),
-                months: months.map(monthDate => {
-                    return {
-                        date: monthDate,
-                        path: monthPathGenerator(monthDate, cellSize, daySpacing, direction),
-                    }
-                })
+                days:   dayNodes,
+                months: monthNodes,
             };
         }
     }

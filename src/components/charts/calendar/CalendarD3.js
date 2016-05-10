@@ -13,12 +13,11 @@ import { findDOMNode }                             from 'react-dom';
 import d3                                          from 'd3';
 import _                                           from 'lodash';
 import Nivo                                        from '../../../Nivo';
-import decoratorsFromReactChildren                 from '../../../lib/decoratorsFromReactChildren';
 import CalendarLayout                              from '../../../lib/charts/calendar/CalendarLayout';
 import { calendarPropTypes, calendarDefaultProps } from './CalendarProps';
 
 
-const color = d3.scale.category20();
+const color = d3.scale.category20b();
 
 class CalendarD3 extends Component {
     constructor(props) {
@@ -27,7 +26,9 @@ class CalendarD3 extends Component {
 
     renderD3(props) {
         const {
+            from, to,
             direction,
+            yearSpacing,
             daySpacing, dayBorderWidth, dayBorderColor,
             monthBorderWidth, monthBorderColor,
             transitionDuration, transitionEasing, transitionStaggering
@@ -49,29 +50,30 @@ class CalendarD3 extends Component {
 
         const { days, months } = this.calendarLayout.compute({
             width, height,
+            from, to,
             direction,
+            yearSpacing,
             daySpacing
         });
 
+        const dayNodes = wrapper.selectAll('.nivo_calendar_day').data(days, d => d.date);
 
-        const rects = wrapper.selectAll('.nivo_calendar_day').data(days, d => d.date);
-
-        rects
+        dayNodes
             .enter().append('rect')
-            .attr('class', 'nivo_calendar_day')
+            .attr('class', d => `nivo_calendar_day nivo_calendar_day-month-${d.date.getMonth()}`)
             .attr('width',  d => d.size)
             .attr('height', d => d.size)
             .attr('x', 0)
             .attr('y', 0)
             .style({
                 opacity:        0,
-                fill:           d => color(d.date.getMonth()),
+                fill:           d => color(`${d.date.getFullYear()}.${d.date.getMonth()}`),
                 stroke:         dayBorderColor,
                 'stroke-width': dayBorderWidth,
             })
         ;
 
-        rects
+        dayNodes
             .transition()
             .duration(transitionDuration)
             .ease(transitionEasing)
@@ -82,16 +84,16 @@ class CalendarD3 extends Component {
             .attr('y', d => d.y)
             .style({
                 opacity:        1,
-                fill:           d => color(d.date.getMonth()),
+                fill:           d => color(`${d.date.getFullYear()}.${d.date.getMonth()}`),
                 stroke:         dayBorderColor,
                 'stroke-width': dayBorderWidth,
             })
         ;
 
+        return;
+        const monthNodes = wrapper.selectAll('.nivo_calendar_month').data(months, d => d.date);
 
-        const paths = wrapper.selectAll('.nivo_calendar_month').data(months, d => d.date);
-
-        paths.enter().append('path')
+        monthNodes.enter().append('path')
             .attr('class', 'nivo_calendar_month')
             .style({
                 fill:   'none',
@@ -101,20 +103,17 @@ class CalendarD3 extends Component {
             .attr('d', d => d.path)
         ;
 
-        paths
+        monthNodes
             .transition()
             .duration(transitionDuration)
             .ease(transitionEasing)
-            .delay((d, i) => i * 30 * transitionStaggering)
+            .delay(d => (d.date.getMonth() + 1) * 30 * transitionStaggering)
             .style({
                 stroke:         monthBorderColor,
                 'stroke-width': monthBorderWidth,
             })
             .attr('d', d => d.path)
         ;
-
-        this.decorators.forEach(decorator => {
-        });
     }
 
     componentWillMount() {
@@ -122,16 +121,12 @@ class CalendarD3 extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        this.decorators = decoratorsFromReactChildren(nextProps.children, 'decorateCalendar');
-
         this.renderD3(nextProps, nextState);
 
         return false;
     }
 
     componentDidMount() {
-        this.decorators = decoratorsFromReactChildren(this.props.children, 'decorateCalendar');
-
         this.renderD3(this.props, this.state);
     }
 

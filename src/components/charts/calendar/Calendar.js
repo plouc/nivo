@@ -22,6 +22,7 @@ class Calendar extends Component {
 
     render() {
         const {
+            from, to,
             direction,
             daySpacing, dayBorderWidth, dayBorderColor,
             monthBorderWidth, monthBorderColor,
@@ -34,6 +35,7 @@ class Calendar extends Component {
 
         const { days, months } = this.calendarLayout.compute({
             width, height,
+            from, to,
             direction,
             daySpacing
         });
