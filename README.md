@@ -26,6 +26,8 @@
     - [`<ResponsiveBubbleD3 />`](https://plouc.github.io/nivo/#/bubble/d3)
     - [`<BubblePlaceholders />`](https://plouc.github.io/nivo/#/bubble/placeholders)
     - [`<ResponsiveBubblePlaceholders />`](https://plouc.github.io/nivo/#/bubble/placeholders)
+- Calendar
+    - [`<Calendar />`](https://plouc.github.io/nivo/#/calendar)
 - Stack
     - [`<Stack />`](https://plouc.github.io/nivo/#/stack)
     - [`<ResponsiveStack />`](https://plouc.github.io/nivo/#/stack)
