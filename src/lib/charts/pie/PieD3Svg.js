@@ -13,12 +13,13 @@ import { degreesToRadians, midAngle, findNeighbor } from '../../../ArcUtils';
 import { getColorRange }                            from '../../../ColorUtils';
 
 
-const PieD3Svg = domRoot => {
+const PieD3Svg = svg => {
 
     // DOM elements
-    const element    = d3.select(domRoot);
-    const outline    = element.append('path').attr('class', 'nivo_pie_outline');
-    const slices     = element.append('g').attr('class', 'nivo_pie_slices');
+    const element    = d3.select(svg);
+    const wrapper    = element.select('.nivo_pie_wrapper');
+    const outline    = wrapper.append('path').attr('class', 'nivo_pie_outline');
+    const slices     = wrapper.append('g').attr('class', 'nivo_pie_slices');
 
     // d3 generators
     const pie        = d3.layout.pie();
@@ -34,7 +35,7 @@ const PieD3Svg = domRoot => {
         draw(props) {
             const {
                 data,
-                width, height,
+                margin,
                 sort,
                 keyProp, valueProp,
                 startAngle, endAngle,
@@ -47,8 +48,18 @@ const PieD3Svg = domRoot => {
             const identity = d => d.data[keyProp];
             const color    = getColorRange(colors);
 
-            element.attr('transform', `translate(${width / 2}, ${height / 2})`);
+            // Resize root DOM element and position wrapper
+            element.attr({
+                width:  props.width,
+                height: props.height,
+            });
 
+            const width  = props.width  - margin.left - margin.right;
+            const height = props.height - margin.top  - margin.bottom;
+
+            wrapper.attr('transform', `translate(${props.width / 2}, ${props.height / 2})`);
+
+            // Pie layout settings update
             pie
                 .sort(sort)
                 .value(d => d[valueProp])
@@ -59,6 +70,7 @@ const PieD3Svg = domRoot => {
 
             let radius = Math.min(width / 2, height / 2);
 
+            // Arc generator settings update
             arc
                 .outerRadius(radius)
                 .innerRadius(radius * innerRadius)
@@ -74,14 +86,12 @@ const PieD3Svg = domRoot => {
 
             const newData = pie(data.map((d, i) => {
                 if (!d.color) {
-                    d.color = color(i);
+                    d.color = color(d[keyProp]);
                 }
 
                 return d;
             }));
-
-            //console.log(_.cloneDeep(newData));
-
+            
             function arcTween(a) {
                 const i = d3.interpolate(this._current, a);
                 this._current = i(0);
@@ -94,17 +104,61 @@ const PieD3Svg = domRoot => {
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
             // ENTER: creates new elements
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
+            console.log('———{ ENTER }———————————————————————————————');
             slice.enter().append('path')
                 .attr('class', 'nivo_pie_slice')
                 .style('fill', d => d.data.color)
                 .each(function (d, i) {
                     const angle = midAngle(d);
 
-                    this._current = findNeighbor(i, identity, previousData, newData) || _.assign({}, d, {
-                        startAngle: 0,
-                        endAngle:   0
-                    });
+                    console.log(`"${identity(d)}" enter`);
+
+                    // for seamless enter transitions,
+                    // we search for nearest slice to transition from
+                    const neighbor = findNeighbor(i, identity, previousData, newData);
+                    if (neighbor) {
+                        console.info(`found neighbor for entering "${identity(d)}"`);
+                        this._current = neighbor;
+                    } else {
+                        console.error(`no neighbor found for entering "${identity(d)}"`);
+                        // if no neighbor found, we start from 0
+                        this._current = _.assign({}, d, {
+                            startAngle: 0,
+                            endAngle:   0,
+                        });
+
+                        this._current = d;
+                    }
                 })
+            ;
+
+            // —————————————————————————————————————————————————————————————————————————————————————————————————————————
+            // EXIT: removes stale elements
+            // —————————————————————————————————————————————————————————————————————————————————————————————————————————
+            console.log('———{ EXIT }———————————————————————————————');
+            slice.exit()
+                .attr('class', 'nivo_exit')
+                .datum((d, i) => {
+                    console.log(`"${identity(d)}" exit`);
+
+                    // for seamless exit transitions,
+                    // we search for nearest slice to transition from
+                    const neighbor = findNeighbor(i, identity, newData, previousData);
+                    
+                    if (neighbor) {
+                        console.info(`found neighbor for exiting "${identity(d)}"`);
+                        return neighbor;
+                    }
+
+                    console.error(`no neighbor found for exiting "${identity(d)}"`);
+                    // if no neighbor found, we exit from current slice
+                    return d;
+                })
+                .transition()
+                .duration(transitionDuration)
+                .ease(transitionEasing)
+                .attrTween('d', arcTween)
+                .remove()
             ;
 
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
@@ -118,23 +172,12 @@ const PieD3Svg = domRoot => {
                 .attrTween('d', arcTween)
             ;
 
-            // —————————————————————————————————————————————————————————————————————————————————————————————————————————
-            // EXIT: removes stale elements
-            // —————————————————————————————————————————————————————————————————————————————————————————————————————————
-            slice.exit()
-                .attr('class', 'nivo_exit')
-                .datum((d, i) => {
-                    return findNeighbor(i, identity, newData, previousData) || d;
-                })
-                .transition()
-                .duration(transitionDuration)
-                .ease(transitionEasing)
-                .attrTween('d', arcTween)
-                .remove()
-            ;
 
+            // —————————————————————————————————————————————————————————————————————————————————————————————————————————
+            // Decorate
+            // —————————————————————————————————————————————————————————————————————————————————————————————————————————
             const pieContext = {
-                element,
+                element, wrapper,
                 pie, arc, radius,
                 identity, previousData, newData,
                 transitionDuration, transitionEasing

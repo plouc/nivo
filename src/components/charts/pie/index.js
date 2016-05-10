@@ -9,6 +9,7 @@
 'use strict';
 
 export Pie              from './Pie';
+export ResponsivePie    from './ResponsivePie';
 export PieColumnLegends from './PieColumnLegends';
 export PieRadialLegends from './PieRadialLegends';
 export PieSliceLegends  from './PieSliceLegends';

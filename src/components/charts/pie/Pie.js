@@ -18,7 +18,9 @@ import decoratorsFromReactChildren     from '../../../lib/decoratorsFromReactChi
 class Pie extends Component {
     shouldComponentUpdate(nextProps) {
         this.pie.decorate(decoratorsFromReactChildren(nextProps.children, 'decoratePie'));
-        this.pie.draw(nextProps);
+        this.pie.draw(_.assign({}, nextProps, {
+            margin: _.assign({}, Nivo.defaults.margin, nextProps.margin)
+        }));
 
         return false;
     }
@@ -26,11 +28,17 @@ class Pie extends Component {
     componentDidMount() {
         this.pie = PieD3Svg(findDOMNode(this));
         this.pie.decorate(decoratorsFromReactChildren(this.props.children, 'decoratePie'));
-        this.pie.draw(this.props);
+        this.pie.draw(_.assign({}, this.props, {
+            margin: _.assign({}, Nivo.defaults.margin, this.props.margin)
+        }));
     }
 
     render() {
-        return <g />;
+        return (
+            <svg className="nivo_pie">
+                <g className="nivo_pie_wrapper" />
+            </svg>
+        );
     }
 }
 
@@ -47,10 +55,10 @@ Pie.propTypes = {
     endAngle:           number.isRequired,
     padAngle:           number.isRequired,
     cornerRadius:       number.isRequired,
+    innerRadius:        number.isRequired,
     colors:             any.isRequired,
     transitionDuration: number.isRequired,
     transitionEasing:   string.isRequired,
-    innerRadius:        number.isRequired
 };
 
 Pie.defaultProps = {

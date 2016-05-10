@@ -24,8 +24,8 @@ class PieSliceLegends extends Component {
         const badgeColorStyle = getColorStyleObject(props.badgeColor, 'fill');
         const textColorStyle  = getColorStyleObject(props.textColor, 'fill');
 
-        return ({ element, identity, arc, previousData, newData }) => {
-            let legends = element.selectAll('.slice-legend').data(newData, identity);
+        return ({ wrapper, identity, arc, previousData, newData }) => {
+            let legends = wrapper.selectAll('.slice-legend').data(newData, identity);
 
             const labelFn = props.labelFn || identity;
 
@@ -56,7 +56,10 @@ class PieSliceLegends extends Component {
                 .each(function (d) {
                     d3.select(this).select('circle')
                         .style(badgeColorStyle)
+                        .attr('r', props.radius)
                     ;
+
+                    console.log(d);
 
                     d3.select(this).select('text')
                         .style(textColorStyle)

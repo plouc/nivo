@@ -17,6 +17,7 @@ import { lineInterpolation }                from '../../../PropTypes';
 import { getColorRange, getColorGenerator } from '../../../ColorUtils';
 import { margin as marginPropType }         from '../../../PropTypes';
 import decoratorsFromReactChildren          from '../../../lib/decoratorsFromReactChildren';
+import * as positions                       from '../../../constants/positions';
 
 
 const findPrecedingLayer = (layers, index) => {
@@ -52,6 +53,7 @@ class Stack extends Component {
             offset,
             interpolation,
             colors, overColor,
+            controlsPosition, controlsSpacing,
             transitionDuration, transitionEasing
         } = props;
 
@@ -221,9 +223,16 @@ class Stack extends Component {
 
 
         // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
-        // Hidden layers
+        // Hidden layers controls
         // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
-        const hiddenControls = wrapper.selectAll('.nivo_stack_hidden_control').data(hiddenData, d => d.index);
+        const controlsElement = wrapper.select('.nivo_stack_controls');
+        const hiddenControls  = controlsElement.selectAll('.nivo_stack_hidden_control').data(hiddenData, d => d.index);
+
+        const controlsWidth = hiddenControls.length * 40;
+
+        controlsElement
+            .attr('transform', `translate(${controlsSpacing},${controlsSpacing})`)
+        ;
 
         // ENTER
         hiddenControls.enter().append('circle')
@@ -289,6 +298,7 @@ class Stack extends Component {
             <svg ref="svg" className="nivo_stack">
                 <g className="nivo_stack_wrapper">
                     <g className="nivo_stack_areas" />
+                    <g className="nivo_stack_controls" />
                 </g>
             </svg>
         );
@@ -309,6 +319,15 @@ Stack.propTypes = {
     interpolation:      lineInterpolation,
     colors:             any.isRequired,
     overColor:          any.isRequired,
+    controlsPosition:   oneOf([
+        positions.POSITION_TOP,
+        positions.POSITION_TOP_RIGHT,
+        positions.POSITION_BOTTOM_RIGHT,
+        positions.POSITION_BOTTOM,
+        positions.POSITION_BOTTOM_LEFT,
+        positions.POSITION_TOP_LEFT,
+    ]).isRequired,
+    controlsSpacing:    number.isRequired,
     transitionDuration: number.isRequired,
     transitionEasing:   string.isRequired,
 };
@@ -324,6 +343,8 @@ Stack.defaultProps = {
     transitionEasing:   Nivo.defaults.transitionEasing,
     colors:             Nivo.defaults.colorRange,
     overColor:          'inherit:brighter(.5)',
+    controlsPosition:   positions.POSITION_TOP_RIGHT,
+    controlsSpacing:    15,
 };
 
 

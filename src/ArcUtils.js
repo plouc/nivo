@@ -26,6 +26,7 @@ export const radiansToDegrees = radians => 180 * radians / Math.PI;
  * @returns {{startAngle: *, endAngle: *}}
  */
 export const findNeighbor = (i, identity, prevData, newData) => {
+    console.log(`———> findNeighbor() for "${identity(newData[i])}" at ${i}`);
     const preceding = findPreceding(i, identity, prevData, newData);
     if (preceding) {
         return {
@@ -55,13 +56,16 @@ export const findNeighbor = (i, identity, prevData, newData) => {
  * @returns {*}
  */
 export const findPreceding = (i, identity, prevData, newData) => {
-    const m = prevData.length;
+    console.log(`———> findPreceding() for "${identity(newData[i])}" at ${i}`);
+    const prevDataLength = prevData.length;
 
     while (--i >= 0) {
         let k = identity(newData[i]);
+        console.log(`- preceding search in prevData for "${k}"`);
 
-        for (let j = 0; j < m; ++j) {
+        for (let j = 0; j < prevDataLength; ++j) {
             if (identity(prevData[j]) === k) {
+                console.info(`found preceding neighbor "${k}"`);
                 return prevData[j];
             }
         }
@@ -78,14 +82,18 @@ export const findPreceding = (i, identity, prevData, newData) => {
  * @returns {*}
  */
 export const findFollowing = (i, identity, prevData, newData) => {
-    const n = newData.length;
-    const m = prevData.length;
+    console.log(`———> findFollowing() for "${identity(newData[i])}" at ${i}`);
+    const newDataLength  = newData.length;
+    const prevDataLength = prevData.length;
 
-    while (++i < n) {
+    while (++i < newDataLength) {
         let k = identity(newData[i]);
 
-        for (let j = 0; j < m; ++j) {
+        console.log(`- following search in prevData for "${k}"`);
+
+        for (let j = 0; j < prevDataLength; ++j) {
             if (identity(prevData[j]) === k) {
+                console.info(`found following neighbor "${k}"`);
                 return prevData[j];
             }
         }
