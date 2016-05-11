@@ -62,6 +62,10 @@ describe('<CalendarD3 />', function () {
                 expect(months).toNotBe(null);
                 expect(months.length).toBe(12 * 2);
 
+                const monthLegends = node.getElementsByClassName('nivo_calendar_month_legend');
+                expect(monthLegends).toNotBe(null);
+                expect(monthLegends.length).toBe(12 * 2);
+
                 done();
             }, 400);
         })
