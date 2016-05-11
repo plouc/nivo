@@ -18,8 +18,6 @@ import { calendarPropTypes, calendarDefaultProps } from './CalendarProps';
 import { DIRECTION_HORIZONTAL }                    from '../../../constants/directions';
 
 
-const color = d3.scale.category20b();
-
 class CalendarD3 extends Component {
     constructor(props) {
         super(props);
@@ -54,7 +52,7 @@ class CalendarD3 extends Component {
         });
         wrapper.attr('transform', `translate(${margin.left},${margin.top})`);
 
-        const { years, months, days, cellSize } = this.calendarLayout.compute({
+        const { years, months, days } = this.calendarLayout.compute({
             width, height,
             from, to,
             direction,
@@ -76,7 +74,7 @@ class CalendarD3 extends Component {
             .attr('y', 0)
             .style({
                 opacity:        0,
-                fill:           d => color(`${d.date.getFullYear()}.${d.date.getMonth()}`),
+                fill:           'rgba(0, 0, 0, .15)',
                 stroke:         dayBorderColor,
                 'stroke-width': dayBorderWidth,
             })
@@ -93,7 +91,7 @@ class CalendarD3 extends Component {
             .attr('y', d => d.y)
             .style({
                 opacity:        1,
-                fill:           d => color(`${d.date.getFullYear()}.${d.date.getMonth()}`),
+                fill:           'rgba(0, 0, 0, .15)',
                 stroke:         dayBorderColor,
                 'stroke-width': dayBorderWidth,
             })
@@ -220,20 +218,20 @@ class CalendarD3 extends Component {
     render() {
         return (
             <svg className="nivo_calendar">
-                <rect className="debug" style={{ fill: '#fff' }} />
-                <g className="nivo_calendar_wrapper">
-                </g>
+                <g className="nivo_calendar_wrapper" />
             </svg>
         );
     }
 }
 
 CalendarD3.propTypes = _.omit(calendarPropTypes, [
+    'enableMotion',
     'motionStiffness',
     'motionDamping',
 ]);
 
 CalendarD3.defaultProps = _.omit(calendarDefaultProps, [
+    'enableMotion',
     'motionStiffness',
     'motionDamping',
 ]);

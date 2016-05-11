@@ -17,7 +17,7 @@ import {
 } from '../../../constants/directions';
 
 
-const { number, string, oneOf, oneOfType, instanceOf } = PropTypes;
+const { number, string, bool, oneOf, oneOfType, instanceOf } = PropTypes;
 
 
 /**
@@ -44,6 +44,7 @@ export const calendarPropTypes = {
     monthBorderColor:     string.isRequired,
     monthLegendOffset:    number.isRequired,
     // transitions
+    motion:               bool.isRequired,
     motionStiffness:      number.isRequired, // react-motion
     motionDamping:        number.isRequired, // react-motion
     transitionDuration:   number.isRequired, // d3 transitions
@@ -72,6 +73,7 @@ export const calendarDefaultProps = {
     monthBorderColor:     '#000',
     monthLegendOffset:    6,
     // transitions
+    motion:               false,
     motionStiffness:      Nivo.defaults.motionStiffness,    // react-motion
     motionDamping:        Nivo.defaults.motionDamping,      // react-motion
     transitionDuration:   Nivo.defaults.transitionDuration, // d3 transitions
