@@ -15,6 +15,7 @@ import _                                           from 'lodash';
 import Nivo                                        from '../../../Nivo';
 import CalendarLayout                              from '../../../lib/charts/calendar/CalendarLayout';
 import { calendarPropTypes, calendarDefaultProps } from './CalendarProps';
+import { DIRECTION_HORIZONTAL }                    from '../../../constants/directions';
 
 
 const color = d3.scale.category20b();
@@ -53,7 +54,7 @@ class CalendarD3 extends Component {
         });
         wrapper.attr('transform', `translate(${margin.left},${margin.top})`);
 
-        const { days, months } = this.calendarLayout.compute({
+        const { years, months, days, cellSize } = this.calendarLayout.compute({
             width, height,
             from, to,
             direction,
@@ -63,12 +64,60 @@ class CalendarD3 extends Component {
 
 
         // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
+        // Years
+        // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
+        const yearLegends = wrapper.selectAll('.nivo_calendar_year_legend').data(years);
+
+        const yearLabelRotation = direction === DIRECTION_HORIZONTAL ? -90 : 0;
+
+        yearLegends.enter()
+            .append('text')
+            .text(d => d)
+            .classed('nivo_calendar_year_legend', true)
+            .attr('text-anchor', 'middle')
+            .attr('transform', (d, i) => {
+                let x = 0;
+                let y = 0;
+
+                if (direction === DIRECTION_HORIZONTAL) {
+                    x = -8;
+                    y = (7 * (cellSize + daySpacing) + yearSpacing) * i + 3.5 * (cellSize + daySpacing);
+                } else {
+                    x = (7 * (cellSize + daySpacing) + yearSpacing) * i + 3.5 * (cellSize + daySpacing);
+                    y = -8;
+                }
+
+                return `translate(${x},${y}) rotate(${yearLabelRotation})`;
+            })
+        ;
+
+        yearLegends
+            .transition()
+            .duration(transitionDuration)
+            .ease(transitionEasing)
+            .attr('transform', (d, i) => {
+                let x = 0;
+                let y = 0;
+
+                if (direction === DIRECTION_HORIZONTAL) {
+                    x = -8;
+                    y = (7 * (cellSize + daySpacing) + yearSpacing) * i + 3.5 * (cellSize + daySpacing);
+                } else {
+                    x = (7 * (cellSize + daySpacing) + yearSpacing) * i + 3.5 * (cellSize + daySpacing);
+                    y = -8;
+                }
+
+                return `translate(${x},${y}) rotate(${yearLabelRotation})`;
+            })
+        ;
+
+        // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
         // Days
         // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
         const dayNodes = wrapper.selectAll('.nivo_calendar_day').data(days, d => d.date);
 
-        dayNodes
-            .enter().append('rect')
+        dayNodes.enter()
+            .append('rect')
             .attr('class', d => `nivo_calendar_day nivo_calendar_day-month-${d.date.getMonth()}`)
             .attr('width',  d => d.size)
             .attr('height', d => d.size)
@@ -105,9 +154,11 @@ class CalendarD3 extends Component {
         // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
         const monthNodes = wrapper.selectAll('.nivo_calendar_month').data(months, d => d.date);
 
-        monthNodes.enter().append('path')
+        monthNodes.enter()
+            .append('path')
             .attr('class', 'nivo_calendar_month')
             .style({
+                opacity:        0,
                 fill:           'none',
                 stroke:         monthBorderColor,
                 'stroke-width': monthBorderWidth,
@@ -121,6 +172,7 @@ class CalendarD3 extends Component {
             .ease(transitionEasing)
             .delay(d => (d.date.getMonth() + 1) * 30 * transitionStaggering)
             .style({
+                opacity:        1,
                 stroke:         monthBorderColor,
                 'stroke-width': monthBorderWidth,
             })
@@ -145,7 +197,7 @@ class CalendarD3 extends Component {
     render() {
         return (
             <svg className="nivo_calendar">
-                <rect className="debug" style={{ fill: 'rgba(255,0,0,.15)' }} />
+                <rect className="debug" style={{ fill: '#fff' }} />
                 <g className="nivo_calendar_wrapper">
                 </g>
             </svg>

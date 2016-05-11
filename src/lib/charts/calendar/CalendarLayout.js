@@ -110,14 +110,14 @@ const CalendarLayout = () => {
                 });
             }
 
-            let dayNodes   = [];
-            let monthNodes = [];
-            
-            years = years.forEach((year, i) => {
+            let days   = [];
+            let months = [];
+
+            years.forEach((year, i) => {
                 const yearStart = new Date(year, 0, 1);
                 const yearEnd   = new Date(year + 1, 0, 1);
 
-                dayNodes = dayNodes.concat(d3.time.days(yearStart, yearEnd)
+                days = days.concat(d3.time.days(yearStart, yearEnd)
                     .map(dayDate => {
                         return _.assign({
                             date: dayDate,
@@ -126,7 +126,7 @@ const CalendarLayout = () => {
                     })
                 );
 
-                monthNodes = monthNodes.concat(d3.time.months(yearStart, yearEnd)
+                months = months.concat(d3.time.months(yearStart, yearEnd)
                     .map(monthDate => {
                         return {
                             date: monthDate,
@@ -144,8 +144,10 @@ const CalendarLayout = () => {
             });
 
             return {
-                days:   dayNodes,
-                months: monthNodes,
+                years,
+                months,
+                days,
+                cellSize,
             };
         }
     }
