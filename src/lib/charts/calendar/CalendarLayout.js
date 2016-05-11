@@ -183,7 +183,7 @@ const CalendarLayout = () => {
             });
 
             days.forEach(day => {
-                day.color = '#eee';
+                day.color = '#fff';
                 data.forEach(dataDay => {
                     if (dataDay.day === day.day) {
                         day.color = color(dataDay.value);

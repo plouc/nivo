@@ -34,6 +34,11 @@ describe('<CalendarD3 />', function () {
                 margin={{ top: 30, right: 30, bottom: 30, left: 30 }}
                 from={new Date(2013, 3, 1)} to={new Date(2014, 7, 12)}
                 data={[]}
+                colorScale={{
+                    type:   'linear',
+                    domain: [0, 200, 400],
+                    range:  ['#fff', '#ff8c80', '#7f0e05']
+                }}
                 transitionDuration={0} transitionStaggering={0}
             />
         ), node, () => {
@@ -54,6 +59,11 @@ describe('<CalendarD3 />', function () {
                 margin={{ top: 30, right: 30, bottom: 30, left: 30 }}
                 from={new Date(2013, 3, 1)} to={new Date(2014, 7, 12)}
                 data={[]}
+                colorScale={{
+                    type:   'linear',
+                    domain: [0, 200, 400],
+                    range:  ['#fff', '#ff8c80', '#7f0e05']
+                }}
                 transitionDuration={0} transitionStaggering={0}
             />
         ), node, () => {
@@ -78,6 +88,11 @@ describe('<CalendarD3 />', function () {
                 margin={{ top: 30, right: 30, bottom: 30, left: 30 }}
                 from={new Date(2013, 3, 1)} to={new Date(2014, 7, 12)}
                 data={[]}
+                colorScale={{
+                    type:   'linear',
+                    domain: [0, 200, 400],
+                    range:  ['#fff', '#ff8c80', '#7f0e05']
+                }}
                 transitionDuration={0} transitionStaggering={0}
             />
         ), node, () => {
@@ -99,6 +114,11 @@ describe('<CalendarD3 />', function () {
                 from={new Date(2013, 3, 1)} to={new Date(2014, 7, 12)}
                 data={[]}
                 direction="vertical"
+                colorScale={{
+                    type:   'linear',
+                    domain: [0, 200, 400],
+                    range:  ['#fff', '#ff8c80', '#7f0e05']
+                }}
                 transitionDuration={0} transitionStaggering={0}
             />
         ), node, () => {
