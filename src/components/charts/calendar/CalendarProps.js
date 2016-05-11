@@ -8,16 +8,16 @@
  */
 'use strict';
 
-import { PropTypes } from 'react';
-import Nivo          from '../../../Nivo';
-import { margin }    from '../../../PropTypes';
+import { PropTypes }     from 'react';
+import Nivo              from '../../../Nivo';
+import { margin, scale } from '../../../PropTypes';
 import {
     DIRECTION_HORIZONTAL,
     DIRECTION_VERTICAL
 } from '../../../constants/directions';
 
 
-const { number, string, bool, oneOf, oneOfType, instanceOf } = PropTypes;
+const { number, string, bool, shape, oneOf, oneOfType, instanceOf, arrayOf } = PropTypes;
 
 
 /**
@@ -31,7 +31,12 @@ export const calendarPropTypes = {
     margin,
     from:                 oneOfType([string, instanceOf(Date)]).isRequired,
     to:                   oneOfType([string, instanceOf(Date)]).isRequired,
+    data:                 arrayOf(shape({
+        day:   string.isRequired,
+        value: number.isRequired,
+    })).isRequired,
     direction:            oneOf([DIRECTION_HORIZONTAL, DIRECTION_VERTICAL]),
+    colorScale:           scale.isRequired,
     // years
     yearSpacing:          number.isRequired,
     yearLegendOffset:     number.isRequired,

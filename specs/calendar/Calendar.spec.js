@@ -33,6 +33,7 @@ describe('<Calendar />', function () {
                 width={700} height={400}
                 margin={{ top: 30, right: 30, bottom: 30, left: 30 }}
                 from={new Date(2013, 3, 1)} to={new Date(2014, 7, 12)}
+                data={[]}
             />
         ), node, () => {
             setTimeout(() => {
@@ -51,6 +52,7 @@ describe('<Calendar />', function () {
                 width={700} height={400}
                 margin={{ top: 30, right: 30, bottom: 30, left: 30 }}
                 from={new Date(2013, 3, 1)} to={new Date(2014, 7, 12)}
+                data={[]}
             />
         ), node, () => {
             setTimeout(() => {
@@ -73,6 +75,7 @@ describe('<Calendar />', function () {
                 width={700} height={400}
                 margin={{ top: 30, right: 30, bottom: 30, left: 30 }}
                 from={new Date(2013, 3, 1)} to={new Date(2014, 7, 12)}
+                data={[]}
             />
         ), node, () => {
             setTimeout(() => {
@@ -91,6 +94,7 @@ describe('<Calendar />', function () {
                 width={400} height={700}
                 margin={{ top: 30, right: 30, bottom: 30, left: 30 }}
                 from={new Date(2013, 3, 1)} to={new Date(2014, 7, 12)}
+                data={[]}
                 direction="vertical"
             />
         ), node, () => {

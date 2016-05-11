@@ -110,6 +110,7 @@ class MotionCalendar extends Component {
                                     key={d.key}
                                     x={d.style.x} y={d.style.y}
                                     size={d.style.size}
+                                    color={d.data.color}
                                     borderWidth={dayBorderWidth} borderColor={dayBorderColor}
                                 />
                             ))}

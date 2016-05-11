@@ -10,6 +10,7 @@
 
 import d3                       from 'd3';
 import _                        from 'lodash';
+import scalePropToD3Scale       from '../../scalePropToD3Scale';
 import { DIRECTION_HORIZONTAL } from '../../../constants/directions';
 
 
@@ -81,7 +82,7 @@ const monthPathAndBBox = ({ date, cellSize, yearIndex, yearSpacing, daySpacing, 
  * @constructor
  */
 const CalendarLayout = () => {
-    // room for later persistent data
+    const dayFormat = d3.time.format('%Y-%m-%d');
 
     return {
         /**
@@ -89,7 +90,9 @@ const CalendarLayout = () => {
          * @param {number}      height
          * @param {string|Date} from
          * @param {string|Date} to
+         * @param {array}       data
          * @param {string}      direction
+         * @param {object}      colorScale
          * @param {number}      yearSpacing
          * @param {number}      daySpacing
          * @returns {object}
@@ -97,11 +100,14 @@ const CalendarLayout = () => {
         compute({
             width, height,
             from, to,
+            data,
             direction,
+            colorScale,
             yearSpacing,
             daySpacing
         }) {
-
+            const color = scalePropToD3Scale(colorScale);
+            
             // time related data
             const fromDate  = _.isDate(from) ? from : new Date(from);
             const toDate    = _.isDate(to)   ? to   : new Date(to);
@@ -143,7 +149,11 @@ const CalendarLayout = () => {
                 const yearEnd   = new Date(year + 1, 0, 1);
 
                 days = days.concat(d3.time.days(yearStart, yearEnd).map(dayDate => _.assign(
-                    { date: dayDate, size: cellSize },
+                    {
+                        date: dayDate,
+                        day:  dayFormat(dayDate),
+                        size: cellSize
+                    },
                     cellPosition(dayDate, i)
                 )));
 
@@ -170,6 +180,15 @@ const CalendarLayout = () => {
                         height: yearMonths[11].bbox.y - yearMonths[0].bbox.y + yearMonths[11].bbox.height,
                     },
                 })
+            });
+
+            days.forEach(day => {
+                day.color = '#eee';
+                data.forEach(dataDay => {
+                    if (dataDay.day === day.day) {
+                        day.color = color(dataDay.value);
+                    }
+                });
             });
 
             return { years, months, days, cellSize };

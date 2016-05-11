@@ -13,7 +13,7 @@ import React, { Component, PropTypes } from 'react';
 
 class CalendarDay extends Component {
     render() {
-        const { x, y, size, borderWidth, borderColor } = this.props;
+        const { x, y, size, color, borderWidth, borderColor } = this.props;
 
         return (
             <rect
@@ -21,7 +21,7 @@ class CalendarDay extends Component {
                 x={x} y={y}
                 width={size} height={size}
                 style={{
-                    fill:        'rgba(0, 0, 0, .15)',
+                    fill:        color,
                     strokeWidth: borderWidth,
                     stroke:      borderColor,
                 }}
@@ -36,6 +36,7 @@ CalendarDay.propTypes = {
     x:           number.isRequired,
     y:           number.isRequired,
     size:        number.isRequired,
+    color:       string.isRequired,
     borderWidth: number.isRequired,
     borderColor: string.isRequired,
 };

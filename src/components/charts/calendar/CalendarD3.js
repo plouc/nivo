@@ -26,7 +26,9 @@ class CalendarD3 extends Component {
     renderD3(props) {
         const {
             from, to,
+            data,
             direction,
+            colorScale,
             yearSpacing, yearLegendOffset,
             daySpacing, dayBorderWidth, dayBorderColor,
             monthBorderWidth, monthBorderColor, monthLegendOffset,
@@ -55,7 +57,9 @@ class CalendarD3 extends Component {
         const { years, months, days } = this.calendarLayout.compute({
             width, height,
             from, to,
+            data,
             direction,
+            colorScale,
             yearSpacing,
             daySpacing
         });
@@ -74,7 +78,7 @@ class CalendarD3 extends Component {
             .attr('y', 0)
             .style({
                 opacity:        0,
-                fill:           'rgba(0, 0, 0, .15)',
+                fill:           d => d.color,
                 stroke:         dayBorderColor,
                 'stroke-width': dayBorderWidth,
             })
@@ -91,7 +95,7 @@ class CalendarD3 extends Component {
             .attr('y', d => d.y)
             .style({
                 opacity:        1,
-                fill:           'rgba(0, 0, 0, .15)',
+                fill:           d => d.color,
                 stroke:         dayBorderColor,
                 'stroke-width': dayBorderWidth,
             })

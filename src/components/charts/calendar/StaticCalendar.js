@@ -34,6 +34,7 @@ class StaticCalendar extends Component {
                         key={d.date.toString()}
                         x={d.x} y={d.y}
                         size={d.size}
+                        color={d.color}
                         borderWidth={dayBorderWidth} borderColor={dayBorderColor}
                     />
                 ))}
