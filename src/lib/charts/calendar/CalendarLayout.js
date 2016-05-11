@@ -22,12 +22,11 @@ const monthPathGenerator = ({ date, cellSize, yearIndex, yearSpacing, daySpacing
 
     let xO = 0;
     let yO = 0;
-    if (yearIndex > 0) {
-        if (direction === DIRECTION_HORIZONTAL) {
-            yO = yearIndex * (cellSize * 7 + daySpacing * 8 + yearSpacing);
-        } else {
-            xO = yearIndex * (cellSize * 7 + daySpacing * 8 + yearSpacing);
-        }
+    const yearOffset = yearIndex * (7 * (cellSize + daySpacing) + yearSpacing);
+    if (direction === DIRECTION_HORIZONTAL) {
+        yO = yearOffset;
+    } else {
+        xO = yearOffset;
     }
 
     if (direction === DIRECTION_HORIZONTAL) {
@@ -88,11 +87,13 @@ const CalendarLayout = () => {
             // compute cellSize
             let cellSize;
             if (direction === DIRECTION_HORIZONTAL) {
-                const hCellSize = (width - daySpacing * (maxWeeks + 1)) / maxWeeks;
+                const hCellSize = (width - daySpacing * maxWeeks) / maxWeeks;
                 const vCellSize = (height - (years.length - 1) * yearSpacing - years.length * (8 * daySpacing)) / (years.length * 7);
                 cellSize = Math.min(hCellSize, vCellSize);
             } else {
-                cellSize = (height - daySpacing * (maxWeeks + 1)) / maxWeeks;
+                const hCellSize = (width - (years.length - 1) * yearSpacing - years.length * (8 * daySpacing)) / (years.length * 7);
+                const vCellSize = (height - daySpacing * maxWeeks) / maxWeeks;
+                cellSize = Math.min(hCellSize, vCellSize);
             }
 
             // determine day cells positioning function according to layout direction
@@ -100,11 +101,11 @@ const CalendarLayout = () => {
             if (direction === DIRECTION_HORIZONTAL) {
                 cellPosition = (d, yearIndex) => ({
                     x: d3.time.weekOfYear(d) * (cellSize + daySpacing) + daySpacing / 2,
-                    y: d.getDay() * (cellSize + daySpacing) + daySpacing / 2 + yearIndex * (yearSpacing + 7 * cellSize + 8 * daySpacing),
+                    y: d.getDay() * (cellSize + daySpacing) + daySpacing / 2 + yearIndex * (yearSpacing + 7 * (cellSize + daySpacing)),
                 });
             } else {
                 cellPosition = (d, yearIndex) => ({
-                    x: d.getDay() * (cellSize + daySpacing) + daySpacing / 2 + yearIndex * (yearSpacing + 7 * cellSize + 8 * daySpacing),
+                    x: d.getDay() * (cellSize + daySpacing) + daySpacing / 2 + yearIndex * (yearSpacing + 7 * (cellSize + daySpacing)),
                     y: d3.time.weekOfYear(d) * (cellSize + daySpacing) + daySpacing / 2,
                 });
             }

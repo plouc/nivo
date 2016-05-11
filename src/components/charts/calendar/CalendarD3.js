@@ -40,7 +40,12 @@ class CalendarD3 extends Component {
         const margin = _.assign({}, Nivo.defaults.margin, props.margin);
         const width  = props.width  - margin.left - margin.right;
         const height = props.height - margin.top  - margin.bottom;
-        
+
+        element.select('.debug')
+            .attr('transform', `translate(${margin.left},${margin.top})`)
+            .attr({ width, height })
+        ;
+
 
         element.attr({
             width:  props.width,
@@ -140,6 +145,7 @@ class CalendarD3 extends Component {
     render() {
         return (
             <svg className="nivo_calendar">
+                <rect className="debug" style={{ fill: 'rgba(255,0,0,.15)' }} />
                 <g className="nivo_calendar_wrapper">
                 </g>
             </svg>
