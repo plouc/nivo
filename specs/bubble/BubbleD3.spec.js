@@ -44,7 +44,7 @@ describe('<BubbleD3 />', function () {
                 expect(circles.length).toBe(11);
 
                 done();
-            }, 4000);
+            }, 400);
         })
     });
 });
