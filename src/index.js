@@ -17,6 +17,7 @@ export *         from './components/charts/stack/';
 export *         from './components/charts/radial-stack/';
 export *         from './components/charts/bubble/';
 export *         from './components/charts/treemap/';
+export *         from './components/charts/calendar/';
 export AreaShape from './components/shapes/Area';
 export LineShape from './components/shapes/Line';
 export AxisX     from './components/axes/AxisX';

@@ -10,8 +10,9 @@
 
 import { PropTypes } from 'react';
 
+const { number, string, array, shape, oneOf } = PropTypes;
 
-export const lineInterpolation = PropTypes.oneOf([
+export const lineInterpolation = oneOf([
     'linear',          // piecewise linear segments, as in a polyline.
     'linear-closed',   // close the linear segments to form a polygon.
     'step',            // alternate between horizontal and vertical segments, as in a step function.
@@ -27,10 +28,15 @@ export const lineInterpolation = PropTypes.oneOf([
     'monotone'         // cubic interpolation that preserves monotonicity in y.
 ]);
 
+export const scale = shape({
+    type:   string.isRequired,
+    domain: array.isRequired,
+    range:  array.isRequired
+});
 
-export const margin = PropTypes.shape({
-    top:    PropTypes.number,
-    right:  PropTypes.number,
-    bottom: PropTypes.number,
-    left:   PropTypes.number
+export const margin = shape({
+    top:    number,
+    right:  number,
+    bottom: number,
+    left:   number
 }).isRequired;
