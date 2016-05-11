@@ -31,8 +31,10 @@ export const calendarPropTypes = {
     margin,
     from:                 oneOfType([string, instanceOf(Date)]).isRequired,
     to:                   oneOfType([string, instanceOf(Date)]).isRequired,
-    yearSpacing:          number.isRequired,
     direction:            oneOf([DIRECTION_HORIZONTAL, DIRECTION_VERTICAL]),
+    // years
+    yearSpacing:          number.isRequired,
+    yearLegendOffset:     number.isRequired,
     // days
     daySpacing:           number.isRequired,
     dayBorderWidth:       number.isRequired,
@@ -40,6 +42,7 @@ export const calendarPropTypes = {
     // months
     monthBorderWidth:     number.isRequired,
     monthBorderColor:     string.isRequired,
+    monthLegendOffset:    number.isRequired,
     // transitions
     motionStiffness:      number.isRequired, // react-motion
     motionDamping:        number.isRequired, // react-motion
@@ -57,7 +60,9 @@ export const calendarPropTypes = {
 export const calendarDefaultProps = {
     margin:               Nivo.defaults.margin,
     direction:            DIRECTION_HORIZONTAL,
+    // years
     yearSpacing:          20,
+    yearLegendOffset:     10,
     // days
     daySpacing:           0,
     dayBorderWidth:       1,
@@ -65,6 +70,7 @@ export const calendarDefaultProps = {
     // months
     monthBorderWidth:     2,
     monthBorderColor:     '#000',
+    monthLegendOffset:    6,
     // transitions
     motionStiffness:      Nivo.defaults.motionStiffness,    // react-motion
     motionDamping:        Nivo.defaults.motionDamping,      // react-motion

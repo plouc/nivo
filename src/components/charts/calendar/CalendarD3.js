@@ -29,9 +29,9 @@ class CalendarD3 extends Component {
         const {
             from, to,
             direction,
-            yearSpacing,
+            yearSpacing, yearLegendOffset,
             daySpacing, dayBorderWidth, dayBorderColor,
-            monthBorderWidth, monthBorderColor,
+            monthBorderWidth, monthBorderColor, monthLegendOffset,
             transitionDuration, transitionEasing, transitionStaggering
         } = props;
 
@@ -144,10 +144,10 @@ class CalendarD3 extends Component {
             .attr('text-anchor', 'middle')
             .attr('transform', d => {
                 if (direction === DIRECTION_HORIZONTAL) {
-                    return `translate(${d.bbox.x + d.bbox.width / 2},${d.bbox.y - 8 - 10})`;
+                    return `translate(${d.bbox.x + d.bbox.width / 2},${d.bbox.y - monthLegendOffset})`;
                 }
 
-                return `translate(${d.bbox.x - 8 - 10},${d.bbox.y + d.bbox.height / 2}) rotate(-90)`;
+                return `translate(${d.bbox.x - monthLegendOffset},${d.bbox.y + d.bbox.height / 2}) rotate(-90)`;
             })
             .style('opacity', 0)
         ;
@@ -159,10 +159,10 @@ class CalendarD3 extends Component {
             .delay(d => (d.date.getMonth() + 1) * 30 * transitionStaggering)
             .attr('transform', d => {
                 if (direction === DIRECTION_HORIZONTAL) {
-                    return `translate(${d.bbox.x + d.bbox.width / 2},${d.bbox.y - 8})`;
+                    return `translate(${d.bbox.x + d.bbox.width / 2},${d.bbox.y - monthLegendOffset})`;
                 }
 
-                return `translate(${d.bbox.x - 8},${d.bbox.y + d.bbox.height / 2}) rotate(-90)`;
+                return `translate(${d.bbox.x - monthLegendOffset},${d.bbox.y + d.bbox.height / 2}) rotate(-90)`;
             })
             .style('opacity', 1)
         ;
@@ -185,11 +185,11 @@ class CalendarD3 extends Component {
                 let y = 0;
 
                 if (direction === DIRECTION_HORIZONTAL) {
-                    x = -8;
+                    x = -yearLegendOffset;
                     y = (7 * (cellSize + daySpacing) + yearSpacing) * i + 3.5 * (cellSize + daySpacing);
                 } else {
                     x = (7 * (cellSize + daySpacing) + yearSpacing) * i + 3.5 * (cellSize + daySpacing);
-                    y = -8;
+                    y = -yearLegendOffset;
                 }
 
                 return `translate(${x},${y}) rotate(${yearLabelRotation})`;
@@ -205,11 +205,11 @@ class CalendarD3 extends Component {
                 let y = 0;
 
                 if (direction === DIRECTION_HORIZONTAL) {
-                    x = -8;
+                    x = -yearLegendOffset;
                     y = (7 * (cellSize + daySpacing) + yearSpacing) * i + 3.5 * (cellSize + daySpacing);
                 } else {
                     x = (7 * (cellSize + daySpacing) + yearSpacing) * i + 3.5 * (cellSize + daySpacing);
-                    y = -8;
+                    y = -yearLegendOffset;
                 }
 
                 return `translate(${x},${y}) rotate(${yearLabelRotation})`;
