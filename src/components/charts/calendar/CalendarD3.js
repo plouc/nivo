@@ -56,6 +56,10 @@ class CalendarD3 extends Component {
             daySpacing
         });
 
+
+        // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
+        // Days
+        // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
         const dayNodes = wrapper.selectAll('.nivo_calendar_day').data(days, d => d.date);
 
         dayNodes
@@ -90,13 +94,16 @@ class CalendarD3 extends Component {
             })
         ;
 
-        return;
+
+        // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
+        // Months
+        // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
         const monthNodes = wrapper.selectAll('.nivo_calendar_month').data(months, d => d.date);
 
         monthNodes.enter().append('path')
             .attr('class', 'nivo_calendar_month')
             .style({
-                fill:   'none',
+                fill:           'none',
                 stroke:         monthBorderColor,
                 'stroke-width': monthBorderWidth,
             })
@@ -133,7 +140,8 @@ class CalendarD3 extends Component {
     render() {
         return (
             <svg className="nivo_calendar">
-                <g className="nivo_calendar_wrapper" />
+                <g className="nivo_calendar_wrapper">
+                </g>
             </svg>
         );
     }

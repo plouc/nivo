@@ -60,15 +60,8 @@ class CalendarCanvas extends Component {
             .attr('y', 0)
             .attr('size',  d => d.size)
             .attr('fillStyle', d => color(`${d.date.getFullYear()}.${d.date.getMonth()}`))
-
-            /*
-            .style({
-                opacity:        0,
-                fill:           ),
-                stroke:         dayBorderColor,
-                'stroke-width': dayBorderWidth,
-            })
-            */
+            .attr('strokeStyle', dayBorderColor)
+            .attr('lineWidth', dayBorderWidth)
         ;
 
         dayNodes
@@ -80,15 +73,8 @@ class CalendarCanvas extends Component {
             .attr('y', d => d.y)
             .attr('size',  d => d.size)
             .attr('fillStyle', d => color(`${d.date.getFullYear()}.${d.date.getMonth()}`))
-
-            /*
-            .style({
-                opacity:        1,
-                fill:           d => color(`${d.date.getFullYear()}.${d.date.getMonth()}`),
-                stroke:         dayBorderColor,
-                'stroke-width': dayBorderWidth,
-            })
-            */
+            .attr('strokeStyle', dayBorderColor)
+            .attr('lineWidth', dayBorderWidth)
         ;
     }
 
@@ -108,9 +94,12 @@ class CalendarCanvas extends Component {
             const node = d3.select(this);
 
             ctx.beginPath();
-            ctx.fillStyle = node.attr('fillStyle');
+            ctx.fillStyle   = node.attr('fillStyle');
+            ctx.strokeStyle = node.attr('strokeStyle');
+            ctx.lineWidth   = node.attr('lineWidth');
             ctx.rect(node.attr('x'), node.attr('y'), node.attr('size'), node.attr('size'));
             ctx.fill();
+            ctx.stroke();
             ctx.closePath();
 
         });
