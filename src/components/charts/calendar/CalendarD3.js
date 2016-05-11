@@ -62,9 +62,114 @@ class CalendarD3 extends Component {
             daySpacing
         });
 
+        // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
+        // Days
+        // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
+        const dayNodes = wrapper.selectAll('.nivo_calendar_day').data(days, d => d.date);
+
+        dayNodes.enter()
+            .append('rect')
+            .attr('class', d => `nivo_calendar_day nivo_calendar_day-month-${d.date.getMonth()}`)
+            .attr('width',  d => d.size)
+            .attr('height', d => d.size)
+            .attr('x', 0)
+            .attr('y', 0)
+            .style({
+                opacity:        0,
+                fill:           d => color(`${d.date.getFullYear()}.${d.date.getMonth()}`),
+                stroke:         dayBorderColor,
+                'stroke-width': dayBorderWidth,
+            })
+        ;
+
+        dayNodes
+            .transition()
+            .duration(transitionDuration)
+            .ease(transitionEasing)
+            .delay(d => d3.time.dayOfYear(d.date) * transitionStaggering)
+            .attr('width',  d => d.size)
+            .attr('height', d => d.size)
+            .attr('x', d => d.x)
+            .attr('y', d => d.y)
+            .style({
+                opacity:        1,
+                fill:           d => color(`${d.date.getFullYear()}.${d.date.getMonth()}`),
+                stroke:         dayBorderColor,
+                'stroke-width': dayBorderWidth,
+            })
+        ;
+
 
         // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
-        // Years
+        // Months
+        // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
+        const monthPaths = wrapper.selectAll('.nivo_calendar_month').data(months, d => d.date);
+
+        monthPaths.enter()
+            .append('path')
+            .attr('class', 'nivo_calendar_month')
+            .style({
+                opacity:        0,
+                fill:           'none',
+                stroke:         monthBorderColor,
+                'stroke-width': monthBorderWidth,
+            })
+            .attr('d', d => d.path)
+        ;
+
+        monthPaths
+            .transition()
+            .duration(transitionDuration)
+            .ease(transitionEasing)
+            .delay(d => (d.date.getMonth() + 1) * 30 * transitionStaggering)
+            .style({
+                opacity:        1,
+                stroke:         monthBorderColor,
+                'stroke-width': monthBorderWidth,
+            })
+            .attr('d', d => d.path)
+        ;
+
+
+        // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
+        // Month legends
+        // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
+        const monthLegends = wrapper.selectAll('.nivo_calendar_month_legend').data(months, d => d.date);
+        const monthLegendFormat = d3.time.format('%b');
+
+        monthLegends.enter()
+            .append('text')
+            .classed('nivo_calendar_month_legend', true)
+            .text(d => monthLegendFormat(d.date))
+            .attr('text-anchor', 'middle')
+            .attr('transform', d => {
+                if (direction === DIRECTION_HORIZONTAL) {
+                    return `translate(${d.bbox.x + d.bbox.width / 2},${d.bbox.y - 8 - 10})`;
+                }
+
+                return `translate(${d.bbox.x - 8 - 10},${d.bbox.y + d.bbox.height / 2}) rotate(-90)`;
+            })
+            .style('opacity', 0)
+        ;
+
+        monthLegends
+            .transition()
+            .duration(transitionDuration)
+            .ease(transitionEasing)
+            .delay(d => (d.date.getMonth() + 1) * 30 * transitionStaggering)
+            .attr('transform', d => {
+                if (direction === DIRECTION_HORIZONTAL) {
+                    return `translate(${d.bbox.x + d.bbox.width / 2},${d.bbox.y - 8})`;
+                }
+
+                return `translate(${d.bbox.x - 8},${d.bbox.y + d.bbox.height / 2}) rotate(-90)`;
+            })
+            .style('opacity', 1)
+        ;
+
+
+        // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
+        // Year legends
         // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
         const yearLegends = wrapper.selectAll('.nivo_calendar_year_legend').data(years);
 
@@ -109,74 +214,6 @@ class CalendarD3 extends Component {
 
                 return `translate(${x},${y}) rotate(${yearLabelRotation})`;
             })
-        ;
-
-        // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
-        // Days
-        // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
-        const dayNodes = wrapper.selectAll('.nivo_calendar_day').data(days, d => d.date);
-
-        dayNodes.enter()
-            .append('rect')
-            .attr('class', d => `nivo_calendar_day nivo_calendar_day-month-${d.date.getMonth()}`)
-            .attr('width',  d => d.size)
-            .attr('height', d => d.size)
-            .attr('x', 0)
-            .attr('y', 0)
-            .style({
-                opacity:        0,
-                fill:           d => color(`${d.date.getFullYear()}.${d.date.getMonth()}`),
-                stroke:         dayBorderColor,
-                'stroke-width': dayBorderWidth,
-            })
-        ;
-
-        dayNodes
-            .transition()
-            .duration(transitionDuration)
-            .ease(transitionEasing)
-            .delay(d => d3.time.dayOfYear(d.date) * transitionStaggering)
-            .attr('width',  d => d.size)
-            .attr('height', d => d.size)
-            .attr('x', d => d.x)
-            .attr('y', d => d.y)
-            .style({
-                opacity:        1,
-                fill:           d => color(`${d.date.getFullYear()}.${d.date.getMonth()}`),
-                stroke:         dayBorderColor,
-                'stroke-width': dayBorderWidth,
-            })
-        ;
-
-
-        // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
-        // Months
-        // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
-        const monthNodes = wrapper.selectAll('.nivo_calendar_month').data(months, d => d.date);
-
-        monthNodes.enter()
-            .append('path')
-            .attr('class', 'nivo_calendar_month')
-            .style({
-                opacity:        0,
-                fill:           'none',
-                stroke:         monthBorderColor,
-                'stroke-width': monthBorderWidth,
-            })
-            .attr('d', d => d.path)
-        ;
-
-        monthNodes
-            .transition()
-            .duration(transitionDuration)
-            .ease(transitionEasing)
-            .delay(d => (d.date.getMonth() + 1) * 30 * transitionStaggering)
-            .style({
-                opacity:        1,
-                stroke:         monthBorderColor,
-                'stroke-width': monthBorderWidth,
-            })
-            .attr('d', d => d.path)
         ;
     }
 
