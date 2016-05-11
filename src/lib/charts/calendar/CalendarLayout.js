@@ -13,6 +13,17 @@ import _                        from 'lodash';
 import { DIRECTION_HORIZONTAL } from '../../../constants/directions';
 
 
+/**
+ * Computes month path and bounding box.
+ *
+ * @param {Date}   date
+ * @param {number} cellSize
+ * @param {number} yearIndex
+ * @param {number} yearSpacing
+ * @param {number} daySpacing
+ * @param {string} direction
+ * @returns { { path: string, bbox: { x: number, y: number, width: number, height: number } } }
+ */
 const monthPathAndBBox = ({ date, cellSize, yearIndex, yearSpacing, daySpacing, direction }) => {
     const t1 = new Date(date.getFullYear(), date.getMonth() + 1, 0); // first day of next month
     const d0 = date.getDay();            // first day of month
@@ -92,19 +103,19 @@ const CalendarLayout = () => {
         }) {
 
             // time related data
-            const fromDate = _.isDate(from) ? from : new Date(from);
-            const toDate   = _.isDate(to)   ? to   : new Date(to);
-            let   years    = d3.range(fromDate.getFullYear(), toDate.getFullYear() + 1);
-            const maxWeeks = d3.max(years, year => d3.time.weeks(new Date(year, 0, 1), new Date(year + 1, 0, 1)).length) + 1;
+            const fromDate  = _.isDate(from) ? from : new Date(from);
+            const toDate    = _.isDate(to)   ? to   : new Date(to);
+            let   yearRange = d3.range(fromDate.getFullYear(), toDate.getFullYear() + 1);
+            const maxWeeks  = d3.max(yearRange, year => d3.time.weeks(new Date(year, 0, 1), new Date(year + 1, 0, 1)).length) + 1;
 
             // compute cellSize
             let cellSize;
             if (direction === DIRECTION_HORIZONTAL) {
                 const hCellSize = (width - daySpacing * maxWeeks) / maxWeeks;
-                const vCellSize = (height - (years.length - 1) * yearSpacing - years.length * (8 * daySpacing)) / (years.length * 7);
+                const vCellSize = (height - (yearRange.length - 1) * yearSpacing - yearRange.length * (8 * daySpacing)) / (yearRange.length * 7);
                 cellSize = Math.min(hCellSize, vCellSize);
             } else {
-                const hCellSize = (width - (years.length - 1) * yearSpacing - years.length * (8 * daySpacing)) / (years.length * 7);
+                const hCellSize = (width - (yearRange.length - 1) * yearSpacing - yearRange.length * (8 * daySpacing)) / (yearRange.length * 7);
                 const vCellSize = (height - daySpacing * maxWeeks) / maxWeeks;
                 cellSize = Math.min(hCellSize, vCellSize);
             }
@@ -123,45 +134,45 @@ const CalendarLayout = () => {
                 });
             }
 
-            let days   = [];
+            let years  = [];
             let months = [];
+            let days   = [];
 
-            years.forEach((year, i) => {
+            yearRange.forEach((year, i) => {
                 const yearStart = new Date(year, 0, 1);
                 const yearEnd   = new Date(year + 1, 0, 1);
 
-                days = days.concat(d3.time.days(yearStart, yearEnd)
-                    .map(dayDate => {
-                        return _.assign({
-                            date: dayDate,
-                            size: cellSize,
-                        }, cellPosition(dayDate, i));
-                    })
-                );
+                days = days.concat(d3.time.days(yearStart, yearEnd).map(dayDate => _.assign(
+                    { date: dayDate, size: cellSize },
+                    cellPosition(dayDate, i)
+                )));
 
-                months = months.concat(d3.time.months(yearStart, yearEnd)
-                    .map(monthDate => {
-                        return _.assign(
-                            { date: monthDate },
-                            monthPathAndBBox({
-                                date: monthDate,
-                                direction,
-                                yearIndex: i,
-                                yearSpacing,
-                                daySpacing,
-                                cellSize,
-                            })
-                        );
+                const yearMonths = d3.time.months(yearStart, yearEnd).map(monthDate => _.assign(
+                    { date: monthDate },
+                    monthPathAndBBox({
+                        date: monthDate,
+                        direction,
+                        yearIndex: i,
+                        yearSpacing,
+                        daySpacing,
+                        cellSize,
                     })
-                );
+                ));
+
+                months = months.concat(yearMonths);
+
+                years.push({
+                    year,
+                    bbox: {
+                        x:      yearMonths[0].bbox.x,
+                        y:      yearMonths[0].bbox.y,
+                        width:  yearMonths[11].bbox.x - yearMonths[0].bbox.x + yearMonths[11].bbox.width,
+                        height: yearMonths[11].bbox.y - yearMonths[0].bbox.y + yearMonths[11].bbox.height,
+                    },
+                })
             });
 
-            return {
-                years,
-                months,
-                days,
-                cellSize,
-            };
+            return { years, months, days, cellSize };
         }
     }
 };

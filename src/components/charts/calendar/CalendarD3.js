@@ -177,22 +177,15 @@ class CalendarD3 extends Component {
 
         yearLegends.enter()
             .append('text')
-            .text(d => d)
+            .text(d => d.year)
             .classed('nivo_calendar_year_legend', true)
             .attr('text-anchor', 'middle')
-            .attr('transform', (d, i) => {
-                let x = 0;
-                let y = 0;
-
+            .attr('transform', d => {
                 if (direction === DIRECTION_HORIZONTAL) {
-                    x = -yearLegendOffset;
-                    y = (7 * (cellSize + daySpacing) + yearSpacing) * i + 3.5 * (cellSize + daySpacing);
-                } else {
-                    x = (7 * (cellSize + daySpacing) + yearSpacing) * i + 3.5 * (cellSize + daySpacing);
-                    y = -yearLegendOffset;
+                    return `translate(${d.bbox.x - yearLegendOffset},${d.bbox.y + d.bbox.height / 2}) rotate(-90)`;
                 }
 
-                return `translate(${x},${y}) rotate(${yearLabelRotation})`;
+                return `translate(${d.bbox.x + d.bbox.width / 2},${d.bbox.y - yearLegendOffset})`;
             })
         ;
 
@@ -200,19 +193,12 @@ class CalendarD3 extends Component {
             .transition()
             .duration(transitionDuration)
             .ease(transitionEasing)
-            .attr('transform', (d, i) => {
-                let x = 0;
-                let y = 0;
-
+            .attr('transform', d => {
                 if (direction === DIRECTION_HORIZONTAL) {
-                    x = -yearLegendOffset;
-                    y = (7 * (cellSize + daySpacing) + yearSpacing) * i + 3.5 * (cellSize + daySpacing);
-                } else {
-                    x = (7 * (cellSize + daySpacing) + yearSpacing) * i + 3.5 * (cellSize + daySpacing);
-                    y = -yearLegendOffset;
+                    return `translate(${d.bbox.x - yearLegendOffset},${d.bbox.y + d.bbox.height / 2}) rotate(-90)`;
                 }
 
-                return `translate(${x},${y}) rotate(${yearLabelRotation})`;
+                return `translate(${d.bbox.x + d.bbox.width / 2},${d.bbox.y - yearLegendOffset})`;
             })
         ;
     }

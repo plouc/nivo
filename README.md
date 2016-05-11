@@ -31,8 +31,6 @@
     - [`<ResponsiveCalendar />`](https://plouc.github.io/nivo/#/calendar/react)
     - [`<CalendarD3 />`](https://plouc.github.io/nivo/#/calendar/d3)
     - [`<ResponsiveCalendarD3 />`](https://plouc.github.io/nivo/#/calendar/d3)
-    - [`<CalendarCanvas />`](https://plouc.github.io/nivo/#/calendar/canvas) :warning: experimental
-    - [`<ResponsiveCalendarCanvas />`](https://plouc.github.io/nivo/#/calendar/canvas) :warning: experimental
 - Stack
     - [`<Stack />`](https://plouc.github.io/nivo/#/stack)
     - [`<ResponsiveStack />`](https://plouc.github.io/nivo/#/stack)

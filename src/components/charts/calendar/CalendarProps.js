@@ -61,7 +61,7 @@ export const calendarDefaultProps = {
     margin:               Nivo.defaults.margin,
     direction:            DIRECTION_HORIZONTAL,
     // years
-    yearSpacing:          20,
+    yearSpacing:          30,
     yearLegendOffset:     10,
     // days
     daySpacing:           0,
