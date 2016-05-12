@@ -73,6 +73,42 @@ const monthPathAndBBox = ({ date, cellSize, yearIndex, yearSpacing, daySpacing, 
     return { path, bbox };
 };
 
+/**
+ * Creates a memoized version of monthPathAndBBox function.
+ */
+const memoMonthPathAndBBox = _.memoize(monthPathAndBBox, ({ date, cellSize, yearIndex, yearSpacing, daySpacing, direction }) => {
+    return `${date.toString()}.${cellSize}.${yearIndex}.${yearSpacing}.${daySpacing}.${direction}`;
+});
+
+/**
+ * Returns a function to Compute day cell position for horizontal layout.
+ *
+ * @param {number} cellSize
+ * @param {number} yearSpacing
+ * @param {number} daySpacing
+ * @returns { function(): { x: number, y: number } }
+ */
+const cellPositionHorizontal = (cellSize, yearSpacing, daySpacing) => {
+    return (d, yearIndex) => ({
+        x: d3.time.weekOfYear(d) * (cellSize + daySpacing) + daySpacing / 2,
+        y: d.getDay() * (cellSize + daySpacing) + daySpacing / 2 + yearIndex * (yearSpacing + 7 * (cellSize + daySpacing)),
+    });
+};
+
+/**
+ * Returns a function to Compute day cell position for vertical layout.
+ *
+ * @param {number} cellSize
+ * @param {number} yearSpacing
+ * @param {number} daySpacing
+ * @returns { function(): { x: number, y: number } }
+ */
+const cellPositionVertical = (cellSize, yearSpacing, daySpacing) => {
+    return (d, yearIndex) => ({
+        x: d.getDay() * (cellSize + daySpacing) + daySpacing / 2 + yearIndex * (yearSpacing + 7 * (cellSize + daySpacing)),
+        y: d3.time.weekOfYear(d) * (cellSize + daySpacing) + daySpacing / 2,
+    });
+};
 
 /**
  * This layout is responsible for computing Calendar chart data/positions….
@@ -129,15 +165,9 @@ const CalendarLayout = () => {
             // determine day cells positioning function according to layout direction
             let cellPosition;
             if (direction === DIRECTION_HORIZONTAL) {
-                cellPosition = (d, yearIndex) => ({
-                    x: d3.time.weekOfYear(d) * (cellSize + daySpacing) + daySpacing / 2,
-                    y: d.getDay() * (cellSize + daySpacing) + daySpacing / 2 + yearIndex * (yearSpacing + 7 * (cellSize + daySpacing)),
-                });
+                cellPosition = cellPositionHorizontal(cellSize, yearSpacing, daySpacing);
             } else {
-                cellPosition = (d, yearIndex) => ({
-                    x: d.getDay() * (cellSize + daySpacing) + daySpacing / 2 + yearIndex * (yearSpacing + 7 * (cellSize + daySpacing)),
-                    y: d3.time.weekOfYear(d) * (cellSize + daySpacing) + daySpacing / 2,
-                });
+                cellPosition = cellPositionVertical(cellSize, yearSpacing, daySpacing);
             }
 
             let years  = [];
@@ -159,7 +189,7 @@ const CalendarLayout = () => {
 
                 const yearMonths = d3.time.months(yearStart, yearEnd).map(monthDate => _.assign(
                     { date: monthDate },
-                    monthPathAndBBox({
+                    memoMonthPathAndBBox({
                         date: monthDate,
                         direction,
                         yearIndex: i,
