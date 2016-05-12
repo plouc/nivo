@@ -28,7 +28,7 @@ class CalendarD3 extends Component {
             from, to,
             data,
             direction,
-            colorScale,
+            colorScale, emptyColor,
             yearSpacing, yearLegendOffset,
             daySpacing, dayBorderWidth, dayBorderColor,
             monthBorderWidth, monthBorderColor, monthLegendOffset,
@@ -60,6 +60,7 @@ class CalendarD3 extends Component {
             data,
             direction,
             colorScale,
+            emptyColor,
             yearSpacing,
             daySpacing
         });

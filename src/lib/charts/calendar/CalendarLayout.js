@@ -159,6 +159,7 @@ const CalendarLayout = () => {
          * @param {array}       data
          * @param {string}      direction
          * @param {object}      colorScale
+         * @param {string}      emptyColor
          * @param {number}      yearSpacing
          * @param {number}      daySpacing
          * @returns {object}
@@ -169,6 +170,7 @@ const CalendarLayout = () => {
             data,
             direction,
             colorScale,
+            emptyColor,
             yearSpacing,
             daySpacing
         }) {
@@ -242,7 +244,7 @@ const CalendarLayout = () => {
             const color = scalePropToD3Scale(colorScale);
 
             days.forEach(day => {
-                day.color = '#fff';
+                day.color = emptyColor;
                 data.forEach(dataDay => {
                     if (dataDay.day === day.day) {
                         day.color = color(dataDay.value);

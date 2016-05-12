@@ -37,6 +37,7 @@ export const calendarPropTypes = {
     })).isRequired,
     direction:            oneOf([DIRECTION_HORIZONTAL, DIRECTION_VERTICAL]),
     colorScale:           scale.isRequired,
+    emptyColor:           string.isRequired,
     // years
     yearSpacing:          number.isRequired,
     yearLegendOffset:     number.isRequired,
@@ -66,6 +67,7 @@ export const calendarPropTypes = {
 export const calendarDefaultProps = {
     margin:               Nivo.defaults.margin,
     direction:            DIRECTION_HORIZONTAL,
+    emptyColor:           '#fff',
     // years
     yearSpacing:          30,
     yearLegendOffset:     10,

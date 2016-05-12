@@ -27,6 +27,7 @@ class Calendar extends Component {
             data,
             direction,
             colorScale,
+            emptyColor,
             yearSpacing, yearLegendOffset,
             daySpacing, dayBorderWidth, dayBorderColor,
             monthBorderWidth, monthBorderColor, monthLegendOffset,
@@ -43,6 +44,7 @@ class Calendar extends Component {
             data,
             direction,
             colorScale,
+            emptyColor,
             yearSpacing,
             daySpacing
         });
