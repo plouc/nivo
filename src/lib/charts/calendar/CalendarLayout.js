@@ -15,6 +15,33 @@ import { DIRECTION_HORIZONTAL } from '../../../constants/directions';
 
 
 /**
+ * Compute day cell size according to current context.
+ *
+ * @param {number} width
+ * @param {number} height
+ * @param {number} direction
+ * @param {array}  yearRange
+ * @param {number} yearSpacing
+ * @param {number} daySpacing
+ * @param {number} maxWeeks
+ * @returns {number}
+ */
+const computeCellSize = ({ width, height, direction, yearRange, yearSpacing, daySpacing, maxWeeks }) => {
+    let hCellSize;
+    let vCellSize;
+
+    if (direction === DIRECTION_HORIZONTAL) {
+        hCellSize = (width - daySpacing * maxWeeks) / maxWeeks;
+        vCellSize = (height - (yearRange.length - 1) * yearSpacing - yearRange.length * (8 * daySpacing)) / (yearRange.length * 7);
+    } else {
+        hCellSize = (width - (yearRange.length - 1) * yearSpacing - yearRange.length * (8 * daySpacing)) / (yearRange.length * 7);
+        vCellSize = (height - daySpacing * maxWeeks) / maxWeeks;
+    }
+
+    return Math.min(hCellSize, vCellSize);
+};
+
+/**
  * Computes month path and bounding box.
  *
  * @param {Date}   date
@@ -110,6 +137,11 @@ const cellPositionVertical = (cellSize, yearSpacing, daySpacing) => {
     });
 };
 
+
+// used for days range and data matching
+const dayFormat = d3.time.format('%Y-%m-%d');
+
+
 /**
  * This layout is responsible for computing Calendar chart data/positions….
  * It's used for all Calendar related chart components.
@@ -118,8 +150,6 @@ const cellPositionVertical = (cellSize, yearSpacing, daySpacing) => {
  * @constructor
  */
 const CalendarLayout = () => {
-    const dayFormat = d3.time.format('%Y-%m-%d');
-
     return {
         /**
          * @param {number}      width
@@ -142,25 +172,18 @@ const CalendarLayout = () => {
             yearSpacing,
             daySpacing
         }) {
-            const color = scalePropToD3Scale(colorScale);
-            
             // time related data
             const fromDate  = _.isDate(from) ? from : new Date(from);
             const toDate    = _.isDate(to)   ? to   : new Date(to);
             let   yearRange = d3.range(fromDate.getFullYear(), toDate.getFullYear() + 1);
             const maxWeeks  = d3.max(yearRange, year => d3.time.weeks(new Date(year, 0, 1), new Date(year + 1, 0, 1)).length) + 1;
 
+
+            // ——————————————————————————————————————————————————————————————————————————————————————————————————————
+            // Computes years/months/days
+            // ——————————————————————————————————————————————————————————————————————————————————————————————————————
             // compute cellSize
-            let cellSize;
-            if (direction === DIRECTION_HORIZONTAL) {
-                const hCellSize = (width - daySpacing * maxWeeks) / maxWeeks;
-                const vCellSize = (height - (yearRange.length - 1) * yearSpacing - yearRange.length * (8 * daySpacing)) / (yearRange.length * 7);
-                cellSize = Math.min(hCellSize, vCellSize);
-            } else {
-                const hCellSize = (width - (yearRange.length - 1) * yearSpacing - yearRange.length * (8 * daySpacing)) / (yearRange.length * 7);
-                const vCellSize = (height - daySpacing * maxWeeks) / maxWeeks;
-                cellSize = Math.min(hCellSize, vCellSize);
-            }
+            const cellSize = computeCellSize({ width, height, direction, yearRange, yearSpacing, daySpacing, maxWeeks });
 
             // determine day cells positioning function according to layout direction
             let cellPosition;
@@ -211,6 +234,12 @@ const CalendarLayout = () => {
                     },
                 })
             });
+
+
+            // ——————————————————————————————————————————————————————————————————————————————————————————————————————
+            // Computes days/data intersection
+            // ——————————————————————————————————————————————————————————————————————————————————————————————————————
+            const color = scalePropToD3Scale(colorScale);
 
             days.forEach(day => {
                 day.color = '#fff';
