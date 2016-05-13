@@ -29,6 +29,7 @@ const BubbleD3Svg = domRoot => {
         draw(props) {
             const {
                 data,
+                onBubbleClick,
                 identityProperty, value,
                 width, height, margin,
                 padding,
@@ -81,6 +82,7 @@ const BubbleD3Svg = domRoot => {
                 .style('stroke', borderColorFn)
                 .style('stroke-width', borderWidth)
                 .attr('transform', d => `translate(${d.x},${d.y})`)
+                .on('click', onBubbleClick)
             ;
 
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
@@ -105,6 +107,7 @@ const BubbleD3Svg = domRoot => {
                 .duration(transitionDuration)
                 .ease(transitionEasing)
                 .attr('transform', `translate(${width / 2},${height / 2})`)
+                .attr('r', 0)
                 .remove()
             ;
 
@@ -134,6 +137,7 @@ const BubbleD3Svg = domRoot => {
                 .text(labelFn)
                 .attr('transform', d => `translate(${d.x},${d.y})`)
                 .attr('dy', labelTextDY)
+                .on('click', onBubbleClick)
             ;
 
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————

@@ -26,6 +26,7 @@ export const bubblePropTypes = {
     height:             number.isRequired,
     margin,
     data:               object.isRequired,
+    onBubbleClick:      func.isRequired,
     identityProperty:   string,
     value:              string.isRequired,
     padding:            number.isRequired,
@@ -57,6 +58,7 @@ export const bubblePropTypes = {
  */
 export const bubbleDefaultProps = {
     margin:             Nivo.defaults.margin,
+    onBubbleClick:      () => {},
     identityProperty:   'name',
     value:              'value',
     padding:            1,
