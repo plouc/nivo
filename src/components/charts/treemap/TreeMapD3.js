@@ -72,10 +72,11 @@ class TreeMapD3 extends Component {
 
         const nodes = wrapper.datum(root).selectAll('.nivo_treemap_node').data(treemap.nodes);
 
-        const newNodes = nodes.enter().append('div')
+        nodes.enter().append('div')
             .classed('nivo_treemap_node', true)
             .classed('_is-parent', d => (d.children && d.children.length > 0))
             .classed('_is-child', d => (d.parent !== undefined && (!d.children || d.children.length === 0)))
+            .style('z-index', 10)
             .each(function (d) {
                 if (d.depth > 1 ) {
                     d.color = d3.rgb(d.parent.color).brighter(.2);
@@ -138,6 +139,17 @@ class TreeMapD3 extends Component {
                     .style('transform', transform)
                 ;
             })
+        ;
+
+        nodes.exit()
+            .style('z-index', 5)
+            .transition()
+            .duration(transitionDuration)
+            .ease(transitionEasing)
+            .style('width', '0px')
+            .style('height', '0px')
+            .style('opacity', 0)
+            .remove()
         ;
     }
 
