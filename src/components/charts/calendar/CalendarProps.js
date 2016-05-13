@@ -17,7 +17,7 @@ import {
 } from '../../../constants/directions';
 
 
-const { number, string, bool, shape, oneOf, oneOfType, instanceOf, arrayOf } = PropTypes;
+const { number, string, bool, func, shape, oneOf, oneOfType, instanceOf, arrayOf } = PropTypes;
 
 
 /**
@@ -35,6 +35,7 @@ export const calendarPropTypes = {
         day:   string.isRequired,
         value: number.isRequired,
     })).isRequired,
+    onDayClick:           func.isRequired,
     direction:            oneOf([DIRECTION_HORIZONTAL, DIRECTION_VERTICAL]),
     colorScale:           scale.isRequired,
     emptyColor:           string.isRequired,
@@ -67,6 +68,7 @@ export const calendarPropTypes = {
 export const calendarDefaultProps = {
     margin:               Nivo.defaults.margin,
     direction:            DIRECTION_HORIZONTAL,
+    onDayClick:           () => {},
     emptyColor:           '#fff',
     // years
     yearSpacing:          30,

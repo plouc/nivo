@@ -27,6 +27,7 @@ class CalendarD3 extends Component {
         const {
             from, to,
             data,
+            onDayClick,
             direction,
             colorScale, emptyColor,
             yearSpacing, yearLegendOffset,
@@ -83,6 +84,7 @@ class CalendarD3 extends Component {
                 stroke:         dayBorderColor,
                 'stroke-width': dayBorderWidth,
             })
+            .on('click', d => onDayClick(d))
         ;
 
         dayNodes

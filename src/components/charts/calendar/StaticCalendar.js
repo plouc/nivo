@@ -18,6 +18,7 @@ import CalendarMonthPath        from './CalendarMonthPath';
 class StaticCalendar extends Component {
     render() {
         const {
+            onDayClick,
             years, months, days,
             direction,
             yearLegendOffset,
@@ -32,6 +33,8 @@ class StaticCalendar extends Component {
                 {days.map(d => (
                     <CalendarDay
                         key={d.date.toString()}
+                        onClick={onDayClick}
+                        data={d}
                         x={d.x} y={d.y}
                         size={d.size}
                         color={d.color}

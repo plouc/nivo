@@ -25,6 +25,7 @@ class Calendar extends Component {
         const {
             from, to,
             data,
+            onDayClick,
             direction,
             colorScale,
             emptyColor,
@@ -53,6 +54,7 @@ class Calendar extends Component {
         if (motion === true) {
             calendar = (
                 <MotionCalendar
+                    onDayClick={onDayClick}
                     direction={direction}
                     years={years} months={months} days={days}
                     yearLegendOffset={yearLegendOffset}
@@ -64,6 +66,7 @@ class Calendar extends Component {
         } else {
             calendar = (
                 <StaticCalendar
+                    onDayClick={onDayClick}
                     direction={direction}
                     years={years} months={months} days={days}
                     yearLegendOffset={yearLegendOffset}

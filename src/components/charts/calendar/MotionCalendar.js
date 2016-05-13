@@ -85,6 +85,7 @@ const dayStyles = ({ days, stiffness, damping }) => {
 class MotionCalendar extends Component {
     render() {
         const {
+            onDayClick,
             years, months, days,
             direction,
             yearLegendOffset,
@@ -108,6 +109,8 @@ class MotionCalendar extends Component {
                             {interpolatedStyles.map(d => (
                                 <CalendarDay
                                     key={d.key}
+                                    onClick={onDayClick}
+                                    data={d.data}
                                     x={d.style.x} y={d.style.y}
                                     size={d.style.size}
                                     color={d.data.color}

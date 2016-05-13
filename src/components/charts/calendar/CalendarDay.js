@@ -12,11 +12,23 @@ import React, { Component, PropTypes } from 'react';
 
 
 class CalendarDay extends Component {
+    constructor(props) {
+        super(props);
+
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick() {
+        const { onClick, data } = this.props;
+        onClick(data);
+    }
+
     render() {
         const { x, y, size, color, borderWidth, borderColor } = this.props;
 
         return (
             <rect
+                onClick={this.handleClick}
                 className="nivo_calendar_day"
                 x={x} y={y}
                 width={size} height={size}
@@ -30,9 +42,11 @@ class CalendarDay extends Component {
     }
 }
 
-const { number, string } = PropTypes;
+const { number, string, object, func } = PropTypes;
 
 CalendarDay.propTypes = {
+    onClick:     func.isRequired,
+    data:        object.isRequired,
     x:           number.isRequired,
     y:           number.isRequired,
     size:        number.isRequired,
