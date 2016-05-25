@@ -105,10 +105,11 @@ class StackSlicer extends Component {
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
             // Lines
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
-            const lines = elements.selectAll('line').data(d => d.values, d => d.index);
+            const lines = elements.selectAll('.nivo_stack_slicer_line').data(d => d.values, d => d.index);
 
             // ENTER
             lines.enter().append('line')
+                .attr('class', 'nivo_stack_slicer_line')
                 .attr('y1', d => d.interpolated.y)
                 .attr('y2', d => d.interpolated.y0)
                 .style('stroke-width', props.lineWidth)
@@ -141,10 +142,11 @@ class StackSlicer extends Component {
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
             // Circles
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
-            const circles = elements.selectAll('circle').data(d => d.values, d => d.index);
+            const circles = elements.selectAll('.nivo_stack_slicer_dot').data(d => d.values, d => d.index);
 
             // ENTER
             circles.enter().append('circle')
+                .attr('class', 'nivo_stack_slicer_dot')
                 .attr('r', 0.1)
                 .style('cursor', 'pointer')
                 .attr('transform', d => `translate(0,${d.interpolated.y})`)

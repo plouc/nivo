@@ -31,6 +31,10 @@
     - [`<ResponsiveCalendar />`](https://plouc.github.io/nivo/#/calendar/react)
     - [`<CalendarD3 />`](https://plouc.github.io/nivo/#/calendar/d3)
     - [`<ResponsiveCalendarD3 />`](https://plouc.github.io/nivo/#/calendar/d3)
+- Pie
+    - [`<Pie />`](https://plouc.github.io/nivo/#/pie)
+    - [`<ResponsivePie />`](https://plouc.github.io/nivo/#/pie)
+    - [`<PieSliceLegends />`](https://plouc.github.io/nivo/#/pie)
 - Stack
     - [`<Stack />`](https://plouc.github.io/nivo/#/stack)
     - [`<ResponsiveStack />`](https://plouc.github.io/nivo/#/stack)

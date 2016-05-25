@@ -27,7 +27,7 @@ class PieColumnLegends extends Component {
 
         // Receive context from Parent Pie component
         return ({
-            element,
+            element, wrapper,
             previousData, newData, identity,
             arc, pie, radius,
             transitionDuration, transitionEasing
@@ -40,7 +40,7 @@ class PieColumnLegends extends Component {
                 .outerRadius(radius + props.radiusOffset)
             ;
 
-            let lines = element.selectAll('.line').data(newData, identity);
+            let lines = wrapper.selectAll('.line').data(newData, identity);
             lines.enter()
                 .append('polyline')
                 .attr('fill', 'none')
