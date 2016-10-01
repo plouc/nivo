@@ -1,73 +1,81 @@
 /*
  * This file is part of the nivo library.
  *
- * (c) Raphaël Benitte
+ * (c) 2016 Raphaël Benitte
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict';
+'use strict'
 
-import React, { Component }                    from 'react';
-import _                                       from 'lodash';
-import { getLabelGenerator }                   from '../../../lib/LabelHelper';
-import { bubblePropTypes, bubbleDefaultProps } from './BubbleProps';
-import BubblePlaceholders                      from './BubblePlaceholders';
-import { getColorGenerator }                   from '../../../ColorUtils';
+import React, { Component }                    from 'react'
+import _                                       from 'lodash'
+import { convertLabel }                        from '../../../lib/propertiesConverters'
+import { bubblePropTypes, bubbleDefaultProps } from './BubbleProps'
+import BubblePlaceholders                      from './BubblePlaceholders'
+import { getColorGenerator }                   from '../../../ColorUtils'
 
 
 const createNodes = ({
     borderWidth, borderColor,
-    label, labelFormat, labelSkipRadius, labelTextColor, labelTextDY
+    enableLabel,
+    label: _label,
+    labelFormat,
+    labelSkipRadius,
+    labelTextColor,
+    labelTextDY,
 }) => {
-    const labelFn       = getLabelGenerator(label, labelFormat);
-    const borderColorFn = getColorGenerator(borderColor);
-    const textColorFn   = getColorGenerator(labelTextColor);
+    const label         = convertLabel(_label, labelFormat)
+    const borderColorFn = getColorGenerator(borderColor)
+    const textColorFn   = getColorGenerator(labelTextColor)
     
     return nodes => {
-        const renderedNodes = [];
-
-        nodes.forEach(node => {
-            renderedNodes.push(
-                <circle
-                    key={`${node.key}.circle`}
-                    r={node.style.r}
-                    className="nivo_bubble_node"
-                    transform={`translate(${node.style.x},${node.style.y})`}
-                    style={{
-                        fill:        node.style.color,
-                        stroke:      borderColorFn(node.style),
-                        strokeWidth: borderWidth,
-                    }}
-                />
-            );
-        });
+        const renderedNodes = []
 
         nodes
-            .filter(node => {
-                return labelSkipRadius === 0 || node.data.r >= labelSkipRadius;
-            })
+            .filter(node => node.style.r > 0)
             .forEach(node => {
                 renderedNodes.push(
-                    <text
-                        key={`${node.key}.text`}
-                        className="nivo_bubble_legend"
+                    <circle
+                        key={`${node.key}.circle`}
+                        r={node.style.r}
+                        className="nivo_bubble_node"
                         transform={`translate(${node.style.x},${node.style.y})`}
-                        textAnchor={'middle'}
-                        dy={labelTextDY}
                         style={{
-                            fill: textColorFn(node.style)
+                            fill:        node.style.color,
+                            stroke:      borderColorFn(node.style),
+                            strokeWidth: borderWidth,
                         }}
-                    >
-                        {labelFn(node.data)}
-                    </text>
-                );
+                    />
+                )
             })
-        ;
 
-        return renderedNodes;
-    };
-};
+        if (enableLabel === true) {
+            nodes
+                .filter(node => {
+                    return node.data.height === 0 && (labelSkipRadius === 0 || node.data.r >= labelSkipRadius)
+                })
+                .forEach(node => {
+                    renderedNodes.push(
+                        <text
+                            key={`${node.key}.text`}
+                            className="nivo_bubble_legend"
+                            transform={`translate(${node.style.x},${node.style.y})`}
+                            textAnchor={'middle'}
+                            dy={labelTextDY}
+                            style={{
+                                fill: textColorFn(node.style),
+                            }}
+                        >
+                            {label(node.data.data)}
+                        </text>
+                    )
+                })
+        }
+
+        return renderedNodes
+    }
+}
 
 
 class Bubble extends Component {
@@ -79,7 +87,7 @@ class Bubble extends Component {
             >
                 {createNodes(this.props)}
             </BubblePlaceholders>
-        );
+        )
     }
 }
 
@@ -88,13 +96,13 @@ Bubble.propTypes = _.omit(bubblePropTypes, [
     'namespace',
     'transitionDuration',
     'transitionEasing',
-]);
+])
 
 Bubble.defaultProps = _.omit(bubbleDefaultProps, [
     'namespace',
     'transitionDuration',
     'transitionEasing',
-]);
+])
 
 
-export default Bubble;
+export default Bubble

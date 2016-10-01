@@ -1,0 +1,6 @@
+src
+.travis.yml
+.babelrc
+npm-debug.log*
+.DS_Store
+ISSUE_TEMPLATE.md

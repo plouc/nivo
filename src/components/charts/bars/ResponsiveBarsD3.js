@@ -8,24 +8,24 @@
  */
 'use strict';
 
-import React, { Component, PropTypes } from 'react'
-import TreeMapD3                       from './TreeMapD3'
-import Dimensions                      from 'react-dimensions'
+import React, { Component, PropTypes } from 'react';
+import Dimensions                      from 'react-dimensions';
+import BarsD3                          from './BarsD3';
 
 
-class ResponsiveTreeMapD3 extends Component {
+class ResponsiveBarsD3 extends Component {
     render() {
-        const { containerWidth, containerHeight } = this.props
+        const { containerWidth, containerHeight } = this.props;
 
         return (
-            <TreeMapD3
+            <BarsD3
                 width={containerWidth}
                 height={containerHeight}
                 {...this.props}
             />
-        )
+        );
     }
 }
 
 
-export default Dimensions()(ResponsiveTreeMapD3)
+export default Dimensions()(ResponsiveBarsD3);

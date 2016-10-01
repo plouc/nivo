@@ -1,151 +1,164 @@
 /*
  * This file is part of the nivo library.
  *
- * (c) Raphaël Benitte
+ * (c) 2016 Raphaël Benitte
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict';
+'use strict'
 
-import React, { Component }                    from 'react';
-import { TransitionMotion, spring }            from 'react-motion';
-import d3                                      from 'd3';
-import _                                       from 'lodash';
-import Nivo                                    from '../../../Nivo';
-import { getColorRange }                       from '../../../ColorUtils';
-import BubbleD3                                from '../../../lib/charts/bubble/BubbleD3';
-import { bubblePropTypes, bubbleDefaultProps } from './BubbleProps';
+import React, { Component }                    from 'react'
+import { TransitionMotion, spring }            from 'react-motion'
+import { rgb }                                 from 'd3'
+import _                                       from 'lodash'
+import Nivo                                    from '../../../Nivo'
+import { getColorRange, extractRGB }           from '../../../ColorUtils'
+import BubbleHelper                            from '../../../lib/charts/bubble/BubbleHelper'
+import { convertGetter }                       from '../../../lib/propertiesConverters'
+import { bubblePropTypes, bubbleDefaultProps } from './BubbleProps'
 
 
 class BubblePlaceholders extends Component {
     componentWillMount() {
-        this.bubble = BubbleD3();
+        this.bubble = BubbleHelper()
     }
 
-    willEnter(d) {
-        return { r: spring(0) };
+    willEnter({ data: node }) {
+        return {
+            r: 0,
+            x: node.x,
+            y: node.y,
+            ...extractRGB(node.color),
+        }
     }
 
-    willLeave() {
-        return { r: spring(0) };
+    willLeave(styleThatLeft) {
+        console.log('styleThatLeft', styleThatLeft)
+        return {
+            r: spring(0),
+            x: spring(styleThatLeft.data.x),
+            y: spring(styleThatLeft.data.y),
+        }
     }
 
     render() {
         const {
-            data,
+            root,
+            leavesOnly,
             namespace,
-            identityProperty, value,
+            width: _width,
+            height: _height,
+            identity: _identity,
+            value: _value,
             padding,
             colors,
-            motionStiffness, motionDamping
-        } = this.props;
+            animate,
+            motionStiffness, motionDamping,
+            children,
+        } = this.props
 
-        const valueAccessor = d => d[value];
-        const color         = getColorRange(colors);
+        const identity = convertGetter(_identity)
+        const value    = convertGetter(_value)
 
-        const width     = this.props.width;
-        const height    = this.props.height;
-        const margin    = _.assign({}, Nivo.defaults.margin, this.props.margin);
-        const useWidth  = width  - margin.left - margin.right;
-        const useHeight = height - margin.top  - margin.bottom;
+        const color    = getColorRange(colors)
+
+        const margin   = Object.assign({}, Nivo.defaults.margin, this.props.margin)
+        const width    = _width  - margin.left - margin.right
+        const height   = _height - margin.top  - margin.bottom
 
         const nodes = this.bubble.compute({
-            width:  useWidth,
-            height: useHeight,
-            data,
-            identityProperty, valueAccessor,
+            width,
+            height,
+            root,
+            leavesOnly,
+            identity, value,
             padding,
-            color
-        });
+            color,
+        })
 
-        const defaultStyles = nodes.map(b => {
-            const color = d3.rgb(b.color);
+        let wrapperTag
+        let containerTag
 
-            return {
-                key:   b[identityProperty],
-                data:  b,
-                style: {
-                    r:      1,
-                    x:      b.x,
-                    y:      b.y,
-                    colorR: color.r,
-                    colorG: color.g,
-                    colorB: color.b,
-                }
-            };
-        });
-
-        let wrapperTag;
-        let containerTag;
-
-        const wrapperProps   = {};
-        const containerProps = {};
+        const wrapperProps   = {}
+        const containerProps = {}
 
         if (namespace === 'svg') {
-            wrapperTag   = 'svg';
-            containerTag = 'g';
+            wrapperTag   = 'svg'
+            containerTag = 'g'
 
-            wrapperProps.width       = width;
-            wrapperProps.height      = height;
-            containerProps.transform = `translate(${margin.left},${margin.top})`;
+            wrapperProps.width       = _width
+            wrapperProps.height      = _height
+            containerProps.transform = `translate(${margin.left},${margin.top})`
         } else {
-            wrapperTag   = 'div';
-            containerTag = 'div';
+            wrapperTag   = 'div'
+            containerTag = 'div'
 
             wrapperProps.style = {
                 position: 'relative',
-                width,
-                height
-            };
-            containerProps.style = margin;
+                width:    _width,
+                height:   _height,
+            }
+            containerProps.style = margin
         }
 
-        const stiffness = motionStiffness;
-        const damping   = motionDamping;
+        if (animate === false) {
+            return React.createElement(wrapperTag, wrapperProps,
+                React.createElement(
+                    containerTag,
+                    containerProps,
+                    children(nodes.map(node => {
+                        return {
+                            key:   node.data.key,
+                            data:  node,
+                            style: _.pick(node, ['r', 'x', 'y', 'color']),
+                        }
+                    }))
+                )
+            )
+        }
+
+        const stiffness = motionStiffness
+        const damping   = motionDamping
 
         return React.createElement(wrapperTag, wrapperProps, (
             <TransitionMotion
                 willEnter={this.willEnter}
                 willLeave={this.willLeave}
-                defaultStyles={defaultStyles}
                 styles={nodes.map(b => {
-                    const color = d3.rgb(b.color);
-
                     return {
-                        key:   b[identityProperty],
+                        key:   b.data.key,
                         data:  b,
                         style: {
-                            r:      spring(b.r, { stiffness, damping }),
-                            x:      spring(b.x, { stiffness, damping }),
-                            y:      spring(b.y, { stiffness, damping }),
-                            colorR: spring(color.r, { stiffness, damping, precision: 1 }),
-                            colorG: spring(color.g, { stiffness, damping, precision: 1 }),
-                            colorB: spring(color.b, { stiffness, damping, precision: 1 }),
+                            r: spring(b.r, { stiffness, damping }),
+                            x: spring(b.x, { stiffness, damping }),
+                            y: spring(b.y, { stiffness, damping }),
+                            ...extractRGB(b.color, { stiffness, damping }),
                         }
-                    };
+                    }
                 })}
             >
                 {interpolatedStyles => {
                     return React.createElement(
                         containerTag,
                         containerProps,
-                        this.props.children(interpolatedStyles.map(interpolatedStyle => {
-                            const { colorR, colorG, colorB } = interpolatedStyle.style;
-                            interpolatedStyle.style.color = `rgb(${Math.round(colorR)},${Math.round(colorG)},${Math.round(colorB)})`;
+                        children(interpolatedStyles.map(interpolatedStyle => {
+                            const { colorR, colorG, colorB } = interpolatedStyle.style
+                            interpolatedStyle.style.color = `rgb(${Math.round(colorR)},${Math.round(colorG)},${Math.round(colorB)})`
 
-                            return interpolatedStyle;
+                            return interpolatedStyle
                         }))
                     );
                 }}
             </TransitionMotion>
-        ));
+        ))
     }
 }
 
 BubblePlaceholders.propTypes = _.omit(bubblePropTypes, [
     'borderWidth',
     'borderColor',
+    'enableLabel',
     'label',
     'labelFormat',
     'labelTextColor',
@@ -153,11 +166,12 @@ BubblePlaceholders.propTypes = _.omit(bubblePropTypes, [
     'labelTextDY',
     'transitionDuration',
     'transitionEasing',
-]);
+])
 
 BubblePlaceholders.defaultProps = _.omit(bubbleDefaultProps, [
     'borderWidth',
     'borderColor',
+    'enableLabel',
     'label',
     'labelFormat',
     'labelTextColor',
@@ -165,6 +179,7 @@ BubblePlaceholders.defaultProps = _.omit(bubbleDefaultProps, [
     'labelTextDY',
     'transitionDuration',
     'transitionEasing',
-]);
+])
 
-export default BubblePlaceholders;
+
+export default BubblePlaceholders

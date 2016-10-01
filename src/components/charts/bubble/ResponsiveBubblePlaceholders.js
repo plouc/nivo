@@ -1,21 +1,21 @@
 /*
  * This file is part of the nivo library.
  *
- * (c) Raphaël Benitte
+ * (c) 2016 Raphaël Benitte
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict';
+'use strict'
 
-import React, { Component, PropTypes } from 'react';
-import Dimensions                      from 'react-dimensions';
-import BubblePlaceholders              from './BubblePlaceholders';
+import React, { Component, PropTypes } from 'react'
+import Dimensions                      from 'react-dimensions'
+import BubblePlaceholders              from './BubblePlaceholders'
 
 
 class ResponsiveBubblePlaceholders extends Component {
     render() {
-        const { containerWidth, containerHeight } = this.props;
+        const { containerWidth, containerHeight } = this.props
 
         return (
             <BubblePlaceholders
@@ -23,9 +23,9 @@ class ResponsiveBubblePlaceholders extends Component {
                 height={containerHeight}
                 {...this.props}
             />
-        );
+        )
     }
 }
 
 
-export default Dimensions()(ResponsiveBubblePlaceholders);
+export default Dimensions()(ResponsiveBubblePlaceholders)

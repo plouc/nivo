@@ -9,16 +9,16 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react'
-import TreeMapD3                       from './TreeMapD3'
+import TreeMap                         from './TreeMap'
 import Dimensions                      from 'react-dimensions'
 
 
-class ResponsiveTreeMapD3 extends Component {
+class ResponsiveTreeMap extends Component {
     render() {
         const { containerWidth, containerHeight } = this.props
 
         return (
-            <TreeMapD3
+            <TreeMap
                 width={containerWidth}
                 height={containerHeight}
                 {...this.props}
@@ -28,4 +28,4 @@ class ResponsiveTreeMapD3 extends Component {
 }
 
 
-export default Dimensions()(ResponsiveTreeMapD3)
+export default Dimensions()(ResponsiveTreeMap)

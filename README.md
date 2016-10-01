@@ -5,42 +5,47 @@
 [![NPM version][npm-image]][npm-url]
 [![Dependencies][gemnasium-image]][gemnasium-url]
 
-**nivo** provides supercharged React components to easily build dataviz apps, it's built on top of d3.
+**nivo** provides supercharged React components to easily build dataviz apps,
+it's built on top of d3.
 
 ## Features
 
+- use d3 v4
 - composable
 - highly customizable
-- animate everything
-- component playground
-- exhaustive documentation
-- isomorphic rendering (restricted to subset of components)
-- d3 and or React rendering (restricted to subset of components)
+- motion/transitions
+- [component playground](https://plouc.github.io/nivo/)
+- [exhaustive documentation](https://plouc.github.io/nivo/)
+- isomorphic rendering
+- support for SVG and HTML
+- placeholder components for advanced customization
+- [server side rendering API](https://github.com/plouc/nivo-api)
 
 ## Components
 
+- Bars
+    - [`<Bars />`](https://plouc.github.io/nivo/#/bars/react)
+    - [`<ResponsiveBars />`](https://plouc.github.io/nivo/#/bars/react)
+- Line
+    - [`<Line />`](https://plouc.github.io/nivo/#/line/react)
+    - [`<ResponsiveLine />`](https://plouc.github.io/nivo/#/line/react)
 - Bubble
     - [`<Bubble />`](https://plouc.github.io/nivo/#/bubble/react)
     - [`<ResponsiveBubble />`](https://plouc.github.io/nivo/#/bubble/react)
-    - [`<BubbleD3 />`](https://plouc.github.io/nivo/#/bubble/d3)
-    - [`<ResponsiveBubbleD3 />`](https://plouc.github.io/nivo/#/bubble/d3)
     - [`<BubblePlaceholders />`](https://plouc.github.io/nivo/#/bubble/placeholders)
     - [`<ResponsiveBubblePlaceholders />`](https://plouc.github.io/nivo/#/bubble/placeholders)
-- Calendar
-    - [`<Calendar />`](https://plouc.github.io/nivo/#/calendar/react)
-    - [`<ResponsiveCalendar />`](https://plouc.github.io/nivo/#/calendar/react)
-    - [`<CalendarD3 />`](https://plouc.github.io/nivo/#/calendar/d3)
-    - [`<ResponsiveCalendarD3 />`](https://plouc.github.io/nivo/#/calendar/d3)
-- Stack
-    - [`<Stack />`](https://plouc.github.io/nivo/#/stack)
-    - [`<ResponsiveStack />`](https://plouc.github.io/nivo/#/stack)
-    - [`<StackSlicer />`](https://plouc.github.io/nivo/#/stack)
 - TreeMap
-    - [`<TreeMapD3 />`](https://plouc.github.io/nivo/#/treemap/d3)
-    - [`<ResponsiveTreeMapD3 />`](https://plouc.github.io/nivo/#/treemap/d3)
+    - [`<TreeMap />`](https://plouc.github.io/nivo/#/treemap/react)
+    - [`<ResponsiveTreeMap />`](https://plouc.github.io/nivo/#/treemap/react)
     - [`<TreeMapPlaceholders />`](https://plouc.github.io/nivo/#/treemap/placeholders)
     - [`<ResponsiveTreeMapPlaceholders />`](https://plouc.github.io/nivo/#/treemap/placeholders)
 
+## Repositories
+
+- [nivo](https://github.com/plouc/nivo) - the nivo library
+- [nivo-api](https://github.com/plouc/nivo-api) - the nivo http api
+- [nivo-generators](https://github.com/plouc/nivo-generators) - the data generators used for nivo-website and http API samples
+- [nivo-website](https://github.com/plouc/nivo-website) - the source for the nivo website
 
 ## Credits
 

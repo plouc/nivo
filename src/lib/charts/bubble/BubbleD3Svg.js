@@ -11,7 +11,7 @@
 import d3                                                        from 'd3';
 import BubbleD3                                                  from './BubbleD3';
 import { getColorRange, getColorGenerator, getColorStyleObject } from '../../../ColorUtils';
-import { getLabelGenerator }                                     from '../../LabelHelper';
+import { convertLabel }                                          from '../../propertiesConverters';
 
 
 const BubbleD3Svg = domRoot => {
@@ -115,7 +115,7 @@ const BubbleD3Svg = domRoot => {
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
             // LABELS
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
-            const labelFn        = getLabelGenerator(label, labelFormat);
+            const labelFn        = convertLabel(label, labelFormat);
             const textColorStyle = getColorStyleObject(labelTextColor, 'fill');
 
 

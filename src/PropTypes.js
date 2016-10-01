@@ -1,16 +1,16 @@
 /*
  * This file is part of the nivo library.
  *
- * (c) Raphaël Benitte
+ * (c) 2016 Raphaël Benitte
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict';
+'use strict'
 
-import { PropTypes } from 'react';
+import { PropTypes } from 'react'
 
-const { number, string, array, shape, oneOf } = PropTypes;
+const { number, string, array, shape, oneOf } = PropTypes
 
 export const lineInterpolation = oneOf([
     'linear',          // piecewise linear segments, as in a polyline.
@@ -26,17 +26,17 @@ export const lineInterpolation = oneOf([
     'cardinal-open',   // an open Cardinal spline; may not intersect the start or end, but will intersect other control points.
     'cardinal-closed', // a closed Cardinal spline, as in a loop.
     'monotone'         // cubic interpolation that preserves monotonicity in y.
-]);
+])
 
 export const scale = shape({
     type:   string.isRequired,
     domain: array.isRequired,
-    range:  array.isRequired
-});
+    range:  array.isRequired,
+})
 
 export const margin = shape({
     top:    number,
     right:  number,
     bottom: number,
-    left:   number
-}).isRequired;
+    left:   number,
+}).isRequired

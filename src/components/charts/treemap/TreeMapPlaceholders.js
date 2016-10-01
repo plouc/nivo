@@ -1,76 +1,125 @@
 /*
  * This file is part of the nivo library.
  *
- * (c) Raphaël Benitte
+ * (c) 2016 Raphaël Benitte
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict';
+'use strict'
 
-import React, { Component }                      from 'react';
-import { findDOMNode }                           from 'react-dom';
-import _                                         from 'lodash';
-import { TransitionMotion, spring }              from 'react-motion';
-import { getColorStyleObject, getColorRange }    from '../../../ColorUtils';
-import Nivo                                      from '../../../Nivo';
-import TreeMapD3                                 from '../../../lib/charts/treemap/TreeMapD3';
-import { treeMapPropTypes, treeMapDefaultProps } from './TreeMapProps';
+import React, { Component }                      from 'react'
+import { findDOMNode }                           from 'react-dom'
+import _                                         from 'lodash'
+import { TransitionMotion, spring }              from 'react-motion'
+import Nivo                                      from '../../../Nivo'
+import TreeMapHelper                             from '../../../lib/charts/treemap/TreeMapHelper'
+import { convertGetter }                         from '../../../lib/propertiesConverters'
+import { treeMapPropTypes, treeMapDefaultProps } from './TreeMapProps'
+import { getColorRange, extractRGB }             from '../../../ColorUtils'
+import { rgb }                                   from 'd3'
 
 
 class TreeMapPlaceholders extends Component {
     componentWillMount() {
-        this.treemap = TreeMapD3();
+        this.treemap = TreeMapHelper()
+    }
+
+    willEnter({ data: node }) {
+        const width  = node.x1 - node.x0
+        const height = node.y1 - node.y0
+
+        return {
+            x:      node.x0 + width  / 2,
+            y:      node.y0 + height / 2,
+            width:  0,
+            height: 0,
+            ...extractRGB(node.color),
+        }
     }
 
     render() {
         const {
             root,
-            mode, padding,
-            enableFisheye,
-            identityProperty, valueAccessor,
+            tile,
+            leavesOnly,
+            innerPadding,
+            outerPadding,
+            identity: _identity,
+            value: _value,
+            animate,
+            motionStiffness,
+            motionDamping,
             colors,
-            stiffness, damping
-        } = this.props;
+        } = this.props
 
-        const margin = _.assign({}, Nivo.defaults.margin, this.props.margin);
+        const identity = convertGetter(_identity)
+        const value    = convertGetter(_value)
 
-        const width  = this.props.width  - margin.left - margin.right;
-        const height = this.props.height - margin.top  - margin.bottom;
+        const margin   = Object.assign({}, Nivo.defaults.margin, this.props.margin)
+        const width    = this.props.width  - margin.left - margin.right
+        const height   = this.props.height - margin.top  - margin.bottom
+
+        const color    = getColorRange(colors)
 
         const nodes = this.treemap.compute({
             width, height,
             root,
-            mode, padding,
-            enableFisheye,
-            identityProperty, valueAccessor
-        });
+            tile,
+            leavesOnly,
+            innerPadding, outerPadding,
+            identity, value,
+            color,
+        })
 
-        const defaultStyles = nodes.map(node => ({
-            key:   node[identityProperty],
-            data:  node,
-            style: {
-                x:      node.x + node.dx / 2,
-                y:      node.y + node.dy / 2,
-                width:  1,
-                height: 1
-            }
-        }));
-
-        return (
-            <div className="nivo_treemap" style={{ position: 'relative' }}>
-                <TransitionMotion
-                    defaultStyles={defaultStyles}
-                    styles={nodes.map(node => ({
-                        key:   node[identityProperty],
-                        data:  node,
-                        style: {
-                            x:      spring(node.x,  { stiffness, damping }),
-                            y:      spring(node.y,  { stiffness, damping }),
-                            width:  spring(node.dx, { stiffness, damping }),
-                            height: spring(node.dy, { stiffness, damping }),
-                        },
+        let content
+        if (animate === false) {
+            content = (
+                <div
+                    className="nivo_treemap_wrapper"
+                    style={{
+                        position: 'absolute',
+                        top:      margin.top,
+                        left:     margin.left,
+                    }}
+                >
+                    {this.props.children(nodes.map(node => {
+                        return {
+                            key:   node.key,
+                            data:  node,
+                            style: {
+                                x:      node.x0,
+                                y:      node.y0,
+                                width:  node.x1 - node.x0,
+                                height: node.y1 - node.y0,
+                                color:  node.color,
+                            },
+                        }
                     }))}
+                </div>
+            )
+        } else {
+            const springConfig = {
+                stiffness: motionStiffness,
+                damping:   motionDamping,
+            }
+
+            content = (
+                <TransitionMotion
+                    willEnter={this.willEnter}
+                    styles={nodes.map(node => {
+                        return {
+                            key:   node.data.key,
+                            data:  node,
+                            style: {
+                                x:      spring(node.x0, springConfig),
+                                y:      spring(node.y0, springConfig),
+                                width:  spring(node.x1 - node.x0, springConfig),
+                                height: spring(node.y1 - node.y0, springConfig),
+                                ...extractRGB(node.color, springConfig),
+                            },
+                        }
+                    })}
                 >
                     {interpolatedStyles => (
                         <div
@@ -81,17 +130,41 @@ class TreeMapPlaceholders extends Component {
                                 left:     margin.left,
                             }}
                         >
-                            {this.props.children(interpolatedStyles)}
+                            {this.props.children(interpolatedStyles.map(interpolatedStyle => {
+                                const { colorR, colorG, colorB } = interpolatedStyle.style
+                                interpolatedStyle.style.color = `rgb(${Math.round(colorR)},${Math.round(colorG)},${Math.round(colorB)})`
+
+                                return interpolatedStyle
+                            }))}
                         </div>
                     )}
                 </TransitionMotion>
+            )
+        }
+
+
+
+        return (
+            <div className="nivo_treemap" style={{ position: 'relative' }}>
+                {content}
             </div>
-        );
+        )
     }
 }
 
-TreeMapPlaceholders.propTypes    = _.omit(treeMapPropTypes,    ['orientLabels', 'skipVMin', 'transitionDuration', 'transitionEasing']);
-TreeMapPlaceholders.defaultProps = _.omit(treeMapDefaultProps, ['orientLabels', 'skipVMin', 'transitionDuration', 'transitionEasing']);
+TreeMapPlaceholders.propTypes    = _.omit(treeMapPropTypes, [
+    'orientLabels',
+    'skipVMin',
+    'transitionDuration',
+    'transitionEasing'
+])
+
+TreeMapPlaceholders.defaultProps = _.omit(treeMapDefaultProps, [
+    'orientLabels',
+    'skipVMin',
+    'transitionDuration',
+    'transitionEasing'
+])
 
 
-export default TreeMapPlaceholders;
+export default TreeMapPlaceholders

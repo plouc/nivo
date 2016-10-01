@@ -36,7 +36,7 @@ export const tilingMethods = {
  * @returns {{ compute: (function) }}
  * @constructor
  */
-const TreeMapD3 = () => {
+const TreeMapHelper = () => {
     const treemap = Treemap()
 
     return {
@@ -45,20 +45,22 @@ const TreeMapD3 = () => {
          * @param {number}   width
          * @param {number}   height
          * @param {object}   _root
+         * @param {boolean}  leavesOnly
          * @param {string}   tile
          * @param {number}   innerPadding
          * @param {number}   outerPadding
-         * @param {string}   identityProperty
-         * @param {function} valueAccessor
+         * @param {function} identity
+         * @param {function} value
          * @param {function} color
          */
         compute({
             width, height,
             root: _root,
+            leavesOnly,
             tile,
             innerPadding, outerPadding,
-            identityProperty, valueAccessor,
-            color
+            identity, value,
+            color,
         }) {
             treemap
                 .size([width, height])
@@ -68,13 +70,29 @@ const TreeMapD3 = () => {
                 .paddingOuter(outerPadding)
 
             const root = treemap(hierarchy(_root)
-                .sum(valueAccessor)
+                .sum(value)
             )
 
-            return root.leaves();
+            const nodes = leavesOnly ? root.leaves() : root.descendants()
+
+            return nodes
+                .map(d => {
+                    d.color = color(d.depth)
+                    /*
+                     if (d.depth > 1) {
+                     d.color = color(d.parentId)
+                     } else {
+                     d.color = color(identity(d.data))
+                     }
+                     */
+
+                    d.data.key = d.ancestors().map(a => identity(a.data)).join('.')
+
+                    return d
+                })
         }
     }
 }
 
 
-export default TreeMapD3
+export default TreeMapHelper

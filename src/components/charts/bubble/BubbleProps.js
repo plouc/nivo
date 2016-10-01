@@ -1,19 +1,19 @@
 /*
  * This file is part of the nivo library.
  *
- * (c) Raphaël Benitte
+ * (c) 2016 Raphaël Benitte
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict';
+'use strict'
 
-import { PropTypes } from 'react';
-import Nivo          from '../../../Nivo';
-import { margin }    from '../../../PropTypes';
+import { PropTypes } from 'react'
+import Nivo          from '../../../Nivo'
+import { margin }    from '../../../PropTypes'
 
 
-const { object, number, string, any, func, oneOf } = PropTypes;
+const { bool, object, number, string, any, func, oneOf } = PropTypes
 
 
 /**
@@ -25,9 +25,10 @@ export const bubblePropTypes = {
     width:              number.isRequired,
     height:             number.isRequired,
     margin,
-    data:               object.isRequired,
+    root:               object.isRequired,
+    leavesOnly:         bool.isRequired,
     onBubbleClick:      func.isRequired,
-    identityProperty:   string,
+    identity:           string.isRequired,
     value:              string.isRequired,
     padding:            number.isRequired,
     colors:             any.isRequired,
@@ -38,17 +39,19 @@ export const bubblePropTypes = {
     borderWidth:        number.isRequired,
     borderColor:        any.isRequired,
     // labels
+    enableLabel:        bool.isRequired,
     label:              string.isRequired,
     labelFormat:        string,
     labelTextColor:     any.isRequired,
     labelTextDY:        number.isRequired,
     labelSkipRadius:    number.isRequired,
     // transitions
+    animate:            bool.isRequired,
     motionStiffness:    number.isRequired, // react-motion
     motionDamping:      number.isRequired, // react-motion
     transitionDuration: number.isRequired, // d3 transitions
     transitionEasing:   string.isRequired, // d3 transitions
-};
+}
 
 
 /**
@@ -57,9 +60,10 @@ export const bubblePropTypes = {
  * @type {object}
  */
 export const bubbleDefaultProps = {
+    leavesOnly:         false,
     margin:             Nivo.defaults.margin,
     onBubbleClick:      () => {},
-    identityProperty:   'name',
+    identity:           'id',
     value:              'value',
     padding:            1,
     colors:             Nivo.defaults.colorRange,
@@ -69,13 +73,15 @@ export const bubbleDefaultProps = {
     borderWidth:        0,
     borderColor:        'inherit',
     // labels
-    label:              'name',
+    enableLabel:        true,
+    label:              'id',
     labelTextColor:     'inherit:darker(1)',
     labelTextDY:        5,
     labelSkipRadius:    0,
     // transitions
+    animate:            true,
     motionStiffness:    Nivo.defaults.motionStiffness,    // react-motion
     motionDamping:      Nivo.defaults.motionDamping,      // react-motion
     transitionDuration: Nivo.defaults.transitionDuration, // d3 transitions
     transitionEasing:   Nivo.defaults.transitionEasing,   // d3 transitions
-};
+}

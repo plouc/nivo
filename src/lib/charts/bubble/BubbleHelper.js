@@ -8,12 +8,15 @@
  */
 'use strict'
 
-import { flatten } from '../../../DataUtils'
 import {
     hierarchy,
-    pack,
+    pack as Pack,
 } from 'd3'
 
+
+const computePath = node => {
+
+}
 
 /**
  * This wrapper is responsible for computing bubble chart positions.
@@ -22,57 +25,62 @@ import {
  * @returns {{ compute: (function) }}
  * @constructor
  */
-const BubbleD3 = () => {
-    const layout  = pack()
+const BubbleHelper = () => {
+    const pack  = Pack()
 
     return {
         /**
          *
          * @param {number}   width
          * @param {number}   height
-         * @param {object}   data
-         * @param {string}   identityProperty
-         * @param {function} valueAccessor
+         * @param {object}   _root
+         * @param {boolean}  leavesOnly
+         * @param {function} identity
+         * @param {function} value
          * @param {number}   padding
          * @param {function} color
          * @returns {array}
          */
         compute({
             width, height,
-            data: _data,
-            identityProperty, valueAccessor,
+            root: _root,
+            leavesOnly,
+            identity, value,
             padding,
             color
         }) {
-            layout
-                //.value(valueAccessor)
-                //.sort(d => d.parentId)
+            pack
                 .size([width, height])
                 .padding(padding)
 
-            const data = hierarchy(_data)
-            layout(data)
+            const root = hierarchy(_root).sum(value)
 
-            console.log(data)
+            pack(root)
 
-            //const flattened = flatten(data, identityProperty)
-            const nodes     = data.descendants()
-                .filter(d => !d.children)
+
+
+            const nodes = leavesOnly ? root.leaves() : root.descendants()
+
+
+
+            return nodes
                 .map(d => {
-                    if (d.depth > 1) {
-                        d.color = color(d.parentId)
-                    } else {
-                        d.color = color(d[identityProperty])
-                    }
+                    d.color = color(d.depth)
+                    /*
+                     if (d.depth > 1) {
+                     d.color = color(d.parentId)
+                     } else {
+                     d.color = color(identity(d.data))
+                     }
+                     */
+
+                    d.data.key = d.ancestors().map(a => identity(a.data)).join('.')
 
                     return d
                 })
-            
-
-            return nodes
         }
     }
 }
 
 
-export default BubbleD3
+export default BubbleHelper

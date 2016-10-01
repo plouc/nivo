@@ -1,19 +1,20 @@
 /*
  * This file is part of the nivo library.
  *
- * (c) Raphaël Benitte
+ * (c) 2016 Raphaël Benitte
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict';
+'use strict'
 
-import React, { Component }                        from 'react';
-import Nivo                                        from '../../../Nivo';
-import CalendarLayout                              from '../../../lib/charts/calendar/CalendarLayout';
-import { calendarPropTypes, calendarDefaultProps } from './CalendarProps';
-import StaticCalendar                              from './StaticCalendar';
-import MotionCalendar                              from './MotionCalendar';
+import _                                           from 'lodash'
+import React, { Component }                        from 'react'
+import Nivo                                        from '../../../Nivo'
+import CalendarLayout                              from '../../../lib/charts/calendar/CalendarLayout'
+import { calendarPropTypes, calendarDefaultProps } from './CalendarProps'
+import StaticCalendar                              from './StaticCalendar'
+import MotionCalendar                              from './MotionCalendar'
 
 
 class Calendar extends Component {
