@@ -88,6 +88,7 @@ class BubblePlaceholders extends Component {
 
             wrapperProps.width       = _width
             wrapperProps.height      = _height
+            wrapperProps.xmlns       = 'http://www.w3.org/2000/svg'
             containerProps.transform = `translate(${margin.left},${margin.top})`
         } else {
             wrapperTag   = 'div'

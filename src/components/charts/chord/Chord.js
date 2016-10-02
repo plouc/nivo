@@ -58,7 +58,7 @@ class Chord extends Component {
         const arcs    = ribbons.groups
 
         return (
-            <svg className="nivo_chord" width={_width} height={_height}>
+            <svg xmlns="http://www.w3.org/2000/svg" className="nivo_chord" width={_width} height={_height}>
                 <g
                     className="nivo_chord_wrapper"
                     transform={`translate(${_width / 2},${_height / 2})`}

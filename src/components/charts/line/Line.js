@@ -104,7 +104,7 @@ class Line extends Component {
             .curve(curvePropMapping[curve])
 
         return (
-            <svg className="nivo_bars" width={_width} height={_height}>
+            <svg xmlns="http://www.w3.org/2000/svg" className="nivo_bars" width={_width} height={_height}>
                 <g
                     className="nivo_bars_wrapper"
                     transform={`translate(${margin.left},${margin.top})`}
