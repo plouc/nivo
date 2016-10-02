@@ -40,7 +40,7 @@ it's built on top of d3.
     - [`<TreeMapPlaceholders />`](https://plouc.github.io/nivo/#/treemap/placeholders)
     - [`<ResponsiveTreeMapPlaceholders />`](https://plouc.github.io/nivo/#/treemap/placeholders)
 - Chord
-    - [`<Chord />`](https://plouc.github.io/nivo/#/treemap/chord)
+    - [`<Chord />`](https://plouc.github.io/nivo/#/chord)
     - [`<ResponsiveChord />`](https://plouc.github.io/nivo/#/chord)
     
 
