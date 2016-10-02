@@ -1,5 +1,5 @@
 /*
- * This file is part of the nivo library.
+ * This file is part of the nivo project.
  *
  * (c) 2016 Raphaël Benitte
  *
@@ -36,6 +36,7 @@ export const treeMapPropTypes = {
     enableLabels:       bool.isRequired,
     orientLabels:       bool.isRequired,
     label:              oneOfType([string, func]).isRequired,
+    labelFormat:        string,
     labelSkipSize:      number.isRequired,
 
     innerPadding:       number.isRequired,

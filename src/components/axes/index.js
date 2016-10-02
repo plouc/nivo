@@ -8,5 +8,6 @@
  */
 'use strict'
 
-export Bars           from './Bars'
-export ResponsiveBars from './ResponsiveBars'
+
+export Axis from './Axis'
+export Grid from './Grid'

@@ -8,5 +8,6 @@
  */
 'use strict'
 
-export Bars           from './Bars'
-export ResponsiveBars from './ResponsiveBars'
+
+export Chord           from './Chord'
+export ResponsiveChord from './ResponsiveChord'

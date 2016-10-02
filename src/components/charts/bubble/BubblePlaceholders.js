@@ -1,5 +1,5 @@
 /*
- * This file is part of the nivo library.
+ * This file is part of the nivo project.
  *
  * (c) 2016 Raphaël Benitte
  *
@@ -34,7 +34,6 @@ class BubblePlaceholders extends Component {
     }
 
     willLeave(styleThatLeft) {
-        console.log('styleThatLeft', styleThatLeft)
         return {
             r: spring(0),
             x: spring(styleThatLeft.data.x),

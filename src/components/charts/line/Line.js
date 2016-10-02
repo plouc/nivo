@@ -1,5 +1,5 @@
 /*
- * This file is part of the nivo library.
+ * This file is part of the nivo project.
  *
  * (c) 2016 Raphaël Benitte
  *
@@ -214,7 +214,6 @@ Line.defaultProps = {
     motionStiffness:  Nivo.defaults.motionStiffness,
     motionDamping:    Nivo.defaults.motionDamping,
 }
-
 
 
 export default Line

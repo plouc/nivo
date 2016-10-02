@@ -1,7 +1,7 @@
 /*
  * This file is part of the nivo project.
  *
- * (c) 2016 Raphaël Benitte
+ * (c) Raphaël Benitte
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,15 +10,18 @@
 
 import React, { Component, PropTypes } from 'react'
 import Dimensions                      from 'react-dimensions'
-import Line                            from './Line'
+import Chord                           from './Chord'
 
 
-class ResponsiveLine extends Component {
+class ResponsiveChord extends Component {
     render() {
-        const { containerWidth, containerHeight } = this.props
+        const {
+            containerWidth,
+            containerHeight,
+        } = this.props
 
         return (
-            <Line
+            <Chord
                 width={containerWidth}
                 height={containerHeight}
                 {...this.props}
@@ -28,4 +31,4 @@ class ResponsiveLine extends Component {
 }
 
 
-export default Dimensions()(ResponsiveLine)
+export default Dimensions()(ResponsiveChord)

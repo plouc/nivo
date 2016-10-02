@@ -1,5 +1,5 @@
 /*
- * This file is part of the nivo library.
+ * This file is part of the nivo project.
  *
  * (c) Raphaël Benitte
  *

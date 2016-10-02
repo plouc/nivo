@@ -39,6 +39,10 @@ it's built on top of d3.
     - [`<ResponsiveTreeMap />`](https://plouc.github.io/nivo/#/treemap/react)
     - [`<TreeMapPlaceholders />`](https://plouc.github.io/nivo/#/treemap/placeholders)
     - [`<ResponsiveTreeMapPlaceholders />`](https://plouc.github.io/nivo/#/treemap/placeholders)
+- TreeMap
+    - [`<Chord />`](https://plouc.github.io/nivo/#/treemap/chord)
+    - [`<ResponsiveChord />`](https://plouc.github.io/nivo/#/chord)
+    
 
 ## Repositories
 
