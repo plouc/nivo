@@ -10,5 +10,7 @@
 
 export TreeMap                       from './TreeMap'
 export ResponsiveTreeMap             from './ResponsiveTreeMap'
+export TreeMapHTML                   from './TreeMapHTML'
+export ResponsiveTreeMapHTML         from './ResponsiveTreeMapHTML'
 export TreeMapPlaceholders           from './TreeMapPlaceholders'
 export ResponsiveTreeMapPlaceholders from './ResponsiveTreeMapPlaceholders'

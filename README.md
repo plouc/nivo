@@ -14,8 +14,8 @@ it's built on top of d3.
 - composable
 - highly customizable
 - motion/transitions
-- [component playground](https://plouc.github.io/nivo/)
-- [exhaustive documentation](https://plouc.github.io/nivo/)
+- [component playground](http://nivo.rocks)
+- [exhaustive documentation](http://nivo.rocks)
 - isomorphic rendering
 - support for SVG and HTML
 - placeholder components for advanced customization
@@ -24,25 +24,30 @@ it's built on top of d3.
 ## Components
 
 - Bars
-    - [`<Bars />`](https://plouc.github.io/nivo/#/bars/react)
-    - [`<ResponsiveBars />`](https://plouc.github.io/nivo/#/bars/react)
+    - [`<Bars />`](http://nivo.rocks/#/bars/react)
+    - [`<ResponsiveBars />`](http://nivo.rocks/#/bars/react)
 - Line
-    - [`<Line />`](https://plouc.github.io/nivo/#/line/react)
-    - [`<ResponsiveLine />`](https://plouc.github.io/nivo/#/line/react)
+    - [`<Line />`](http://nivo.rocks/#/line/react)
+    - [`<ResponsiveLine />`](http://nivo.rocks/#/line/react)
 - Bubble
-    - [`<Bubble />`](https://plouc.github.io/nivo/#/bubble/react)
-    - [`<ResponsiveBubble />`](https://plouc.github.io/nivo/#/bubble/react)
-    - [`<BubblePlaceholders />`](https://plouc.github.io/nivo/#/bubble/placeholders)
-    - [`<ResponsiveBubblePlaceholders />`](https://plouc.github.io/nivo/#/bubble/placeholders)
+    - [`<Bubble />`](http://nivo.rocks/#/bubble/react)
+    - [`<ResponsiveBubble />`](http://nivo.rocks/#/bubble/react)
+    - [`<BubblePlaceholders />`](http://nivo.rocks/#/bubble/placeholders)
+    - [`<ResponsiveBubblePlaceholders />`](http://nivo.rocks/#/bubble/placeholders)
 - TreeMap
-    - [`<TreeMap />`](https://plouc.github.io/nivo/#/treemap/react)
-    - [`<ResponsiveTreeMap />`](https://plouc.github.io/nivo/#/treemap/react)
-    - [`<TreeMapPlaceholders />`](https://plouc.github.io/nivo/#/treemap/placeholders)
-    - [`<ResponsiveTreeMapPlaceholders />`](https://plouc.github.io/nivo/#/treemap/placeholders)
+    - [`<TreeMap />`](http://nivo.rocks/#/treemap)
+    - [`<ResponsiveTreeMap />`](http://nivo.rocks/#/treemap)
+    - [`<TreeMapHTML />`](http://nivo.rocks/#/treemap/html)
+    - [`<ResponsiveTreeMapHTML />`](http://nivo.rocks/#/treemap/html)
+    - [`<TreeMapPlaceholders />`](http://nivo.rocks/#/treemap/placeholders)
+    - [`<ResponsiveTreeMapPlaceholders />`](http://nivo.rocks/#/treemap/placeholders)
 - Chord
-    - [`<Chord />`](https://plouc.github.io/nivo/#/chord)
-    - [`<ResponsiveChord />`](https://plouc.github.io/nivo/#/chord)
+    - [`<Chord />`](http://nivo.rocks/#/chord)
+    - [`<ResponsiveChord />`](http://nivo.rocks/#/chord)
+
+## Guides
     
+- [colors](http://nivo.rocks/#/guides/colors)    
 
 ## Repositories
 

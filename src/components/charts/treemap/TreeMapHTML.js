@@ -44,35 +44,38 @@ const createNodes = ({
                 node.style.height > node.style.width
 
             renderedNodes.push(
-                <g
+                <div
                     key={node.key}
                     className="nivo_treemap_node"
-                    transform={`translate(${node.style.x},${node.style.y})`}
+                    style={{
+                        boxSizing:      'border-box',
+                        position:       'absolute',
+                        top:            node.style.y,
+                        left:           node.style.x,
+                        width:          node.style.width,
+                        height:         node.style.height,
+                        background:     node.style.color,
+                        overflow:       'hidden',
+                        display:        'flex',
+                        alignItems:     'center',
+                        justifyContent: 'center',
+                        borderWidth:    borderWidth,
+                        borderStyle:    'solid',
+                        borderColor:    borderColorFn(node.data),
+                    }}
                 >
-                    <rect
-                        width={node.style.width}
-                        height={node.style.height}
-                        fill={node.style.color}
-                        stroke={borderColorFn(node.data)}
-                        strokeWidth={borderWidth}
-                    />
                     {shouldRenderLabel && (
-                        <g
-                            transform={`translate(${node.style.width / 2},${node.style.height / 2}) rotate(${rotate ? '-90' : '0'})`}
+                        <span
+                            className="nivo_treemap_node_label"
+                            style={{
+                                color:     textColorFn(node.data),
+                                transform: `rotate(${rotate ? '-90' : '0'}deg)`
+                            }}
                         >
-                            <text
-                                className="nivo_treemap_node_label"
-                                textAnchor="middle"
-                                dy="0.5em"
-                                style={{
-                                    fill: textColorFn(node.data),
-                                }}
-                            >
-                                {label(node.data.data)}
-                            </text>
-                        </g>
+                            {label(node.data.data)}
+                        </span>
                     )}
-                </g>
+                </div>
             )
         })
 
@@ -81,12 +84,12 @@ const createNodes = ({
 }
 
 
-class TreeMap extends Component {
+class TreeMapHTML extends Component {
     render() {
         return (
             <TreeMapPlaceholders
                 {...this.props}
-                namespace="svg"
+                namespace="html"
             >
                 {createNodes(this.props)}
             </TreeMapPlaceholders>
@@ -94,13 +97,13 @@ class TreeMap extends Component {
     }
 }
 
-TreeMap.propTypes = _.omit(treeMapPropTypes, [
+TreeMapHTML.propTypes = _.omit(treeMapPropTypes, [
     'children',
     'namespace',
 ])
 
-TreeMap.defaultProps = _.omit(treeMapDefaultProps, [
+TreeMapHTML.defaultProps = _.omit(treeMapDefaultProps, [
 ])
 
 
-export default TreeMap
+export default TreeMapHTML

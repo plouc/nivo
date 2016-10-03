@@ -52,7 +52,9 @@ export const treeMapPropTypes = {
     transitionDuration: number.isRequired, // d3 transitions
     transitionEasing:   string.isRequired, // d3 transitions
 
-    children:           func.isRequired,   // for placeholders
+    // placeholders
+    namespace:          oneOf(['html', 'svg']).isRequired,
+    children:           func.isRequired,
 }
 
 

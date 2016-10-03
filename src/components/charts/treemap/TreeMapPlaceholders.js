@@ -41,6 +41,9 @@ class TreeMapPlaceholders extends Component {
     render() {
         const {
             root,
+            namespace,
+            width: _width,
+            height: _height,
             tile,
             leavesOnly,
             innerPadding,
@@ -57,10 +60,40 @@ class TreeMapPlaceholders extends Component {
         const value    = convertGetter(_value)
 
         const margin   = Object.assign({}, Nivo.defaults.margin, this.props.margin)
-        const width    = this.props.width  - margin.left - margin.right
-        const height   = this.props.height - margin.top  - margin.bottom
+        const width    = _width  - margin.left - margin.right
+        const height   = _height - margin.top  - margin.bottom
 
         const color    = getColorRange(colors)
+
+        let wrapperTag
+        let containerTag
+
+        const wrapperProps   = {}
+        const containerProps = {}
+
+        if (namespace === 'svg') {
+            wrapperTag   = 'svg'
+            containerTag = 'g'
+
+            wrapperProps.width       = _width
+            wrapperProps.height      = _height
+            wrapperProps.xmlns       = 'http://www.w3.org/2000/svg'
+            containerProps.transform = `translate(${margin.left},${margin.top})`
+        } else {
+            wrapperTag   = 'div'
+            containerTag = 'div'
+
+            wrapperProps.style = {
+                position: 'relative',
+                width:    _width,
+                height:   _height,
+            }
+            containerProps.style = {
+                position: 'absolute',
+                top:      margin.top,
+                left:     margin.left
+            }
+        }
 
         const nodes = this.treemap.compute({
             width, height,
@@ -72,18 +105,12 @@ class TreeMapPlaceholders extends Component {
             color,
         })
 
-        let content
         if (animate === false) {
-            content = (
-                <div
-                    className="nivo_treemap_wrapper"
-                    style={{
-                        position: 'absolute',
-                        top:      margin.top,
-                        left:     margin.left,
-                    }}
-                >
-                    {this.props.children(nodes.map(node => {
+            return React.createElement(wrapperTag, wrapperProps,
+                React.createElement(
+                    containerTag,
+                    containerProps,
+                    this.props.children(nodes.map(node => {
                         return {
                             key:   node.key,
                             data:  node,
@@ -95,16 +122,17 @@ class TreeMapPlaceholders extends Component {
                                 color:  node.color,
                             },
                         }
-                    }))}
-                </div>
+                    }))
+                )
             )
-        } else {
-            const springConfig = {
-                stiffness: motionStiffness,
-                damping:   motionDamping,
-            }
+        }
 
-            content = (
+        const springConfig = {
+            stiffness: motionStiffness,
+            damping:   motionDamping,
+        }
+
+        return React.createElement(wrapperTag, wrapperProps, (
                 <TransitionMotion
                     willEnter={this.willEnter}
                     styles={nodes.map(node => {
@@ -122,37 +150,24 @@ class TreeMapPlaceholders extends Component {
                     })}
                 >
                     {interpolatedStyles => (
-                        <div
-                            className="nivo_treemap_wrapper"
-                            style={{
-                                position: 'absolute',
-                                top:      margin.top,
-                                left:     margin.left,
-                            }}
-                        >
-                            {this.props.children(interpolatedStyles.map(interpolatedStyle => {
+                        React.createElement(
+                            containerTag,
+                            containerProps,
+                            this.props.children(interpolatedStyles.map(interpolatedStyle => {
                                 const { colorR, colorG, colorB } = interpolatedStyle.style
                                 interpolatedStyle.style.color = `rgb(${Math.round(colorR)},${Math.round(colorG)},${Math.round(colorB)})`
 
                                 return interpolatedStyle
-                            }))}
-                        </div>
+                            }))
+                        )
                     )}
                 </TransitionMotion>
             )
-        }
-
-
-
-        return (
-            <div className="nivo_treemap" style={{ position: 'relative' }}>
-                {content}
-            </div>
         )
     }
 }
 
-TreeMapPlaceholders.propTypes    = _.omit(treeMapPropTypes, [
+TreeMapPlaceholders.propTypes = _.omit(treeMapPropTypes, [
     'orientLabels',
     'skipVMin',
     'transitionDuration',
