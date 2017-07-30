@@ -6,26 +6,43 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict'
+import React, { Component } from 'react'
+import Measure from 'react-measure'
+import BubblePlaceholders from './BubblePlaceholders'
 
-import React, { Component, PropTypes } from 'react'
-import Dimensions                      from 'react-dimensions'
-import BubblePlaceholders              from './BubblePlaceholders'
+export default class ResponsiveBubblePlaceholders extends Component {
+    state = {
+        dimensions: {
+            width: -1,
+            height: -1,
+        },
+    }
 
-
-class ResponsiveBubblePlaceholders extends Component {
     render() {
-        const { containerWidth, containerHeight } = this.props
+        const { width, height } = this.state.dimensions
+
+        const shouldRender = width > 0 && height > 0
 
         return (
-            <BubblePlaceholders
-                width={containerWidth}
-                height={containerHeight}
-                {...this.props}
-            />
+            <Measure
+                bounds
+                onResize={contentRect => {
+                    this.setState({ dimensions: contentRect.bounds })
+                }}
+            >
+                {({ measureRef }) =>
+                    <div
+                        ref={measureRef}
+                        style={{ width: '100%', height: '100%' }}
+                    >
+                        {shouldRender &&
+                            <BubblePlaceholders
+                                width={width}
+                                height={height}
+                                {...this.props}
+                            />}
+                    </div>}
+            </Measure>
         )
     }
 }
-
-
-export default Dimensions()(ResponsiveBubblePlaceholders)

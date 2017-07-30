@@ -6,203 +6,107 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import _ from 'lodash'
+import Nivo from '../../../Nivo'
+import { getColorRange } from '../../../ColorUtils'
+import { getAccessorFor } from '../../../lib/propertiesConverters'
+import BarItem from './BarItem'
+import BarItemLabel from './BarItemLabel'
 
-import React, { Component, PropTypes } from 'react'
-import _                               from 'lodash'
-import Nivo                            from '../../../Nivo'
-import { margin as marginPropType }    from '../../../PropTypes'
-import { getColorRange }               from '../../../ColorUtils'
-import { convertGetter }               from '../../../lib/propertiesConverters'
-import Axis                            from '../../axes/Axis'
-import Grid                            from '../../axes/Grid'
-import {
-    scaleBand,
-    scaleLinear,
-    stack,
-    max,
-} from 'd3'
+export default class Bars extends Component {
+    static propTypes = {
+        data: PropTypes.arrayOf(PropTypes.object),
+        colors: PropTypes.any.isRequired,
+        scales: PropTypes.object,
+        width: PropTypes.number.isRequired,
+        height: PropTypes.number.isRequired,
+        // labels
+        enableLabels: PropTypes.bool.isRequired,
+        // motion
+        animate: PropTypes.bool.isRequired,
+        motionStiffness: PropTypes.number.isRequired,
+        motionDamping: PropTypes.number.isRequired,
+    }
 
+    static defaultProps = {
+        colors: Nivo.defaults.colorRange,
+        // labels
+        enableLabels: true,
+        // motion
+        animate: true,
+        motionStiffness: Nivo.defaults.motionStiffness,
+        motionDamping: Nivo.defaults.motionDamping,
+    }
 
-class Bars extends Component {
     render() {
         const {
             data,
-            keys,
-            groupMode,
-            identity: _identity,
-            margin: _margin,
-            width: _width, height: _height,
-            spacing,
+            scales,
+            xScale: _xScale,
+            yScale: _yScale,
+            height,
             colors,
-            xAxis, xAxisOrientation, xAxisTickSize, xAxisTickPadding,
-            yAxis, yAxisOrientation, yAxisTickSize, yAxisTickPadding,
-            animate,
-            motionStiffness, motionDamping,
+            x: _x,
+            y: _y,
         } = this.props
 
-        const identity = convertGetter(_identity)
+        const xScale = scales[_xScale]
+        const yScale = scales[_yScale]
 
-        const margin   = Object.assign({}, Nivo.defaults.margin, _margin)
-        const width    = _width  - margin.left - margin.right
-        const height   = _height - margin.top - margin.bottom
+        const getXValue = getAccessorFor(_x)
+        const getYValue = getAccessorFor(_y)
 
-        const color    = getColorRange(colors)
-
-        const x = scaleBand()
-            .rangeRound([0, width])
-            .padding(spacing)
-
-        const y = scaleLinear()
-            .rangeRound([height, 0])
-
-        x.domain(data.map(identity))
+        const getColor = getColorRange(colors)
 
         const rects = []
+        data.forEach((d, i) => {
+            let x
+            let y
+            let barWidth
+            let barHeight
 
-        if (groupMode === 'stacked') {
-            const series = stack().keys(keys)(data)
+            const xValue = getXValue(d)
+            const yValue = getYValue(d)
 
-            y.domain([0, max(series[series.length - 1], d => d[1])])
+            if (xScale.bandwidth) {
+                barWidth = xScale.bandwidth()
+                x = xScale(xValue)
+            } else {
+                x = 0
+                barWidth = xScale(xValue)
+            }
 
-            series.forEach(serie => {
-                serie.forEach(d => {
-                    rects.push({
-                        key:    `${serie.key}.${identity(d.data)}`,
-                        x:      x(identity(d.data)),
-                        y:      y(d[1]),
-                        width:  x.bandwidth(),
-                        height: y(d[0]) - y(d[1]),
-                        color:  color(serie.key),
-                    })
+            if (yScale.bandwidth) {
+                barHeight = yScale.bandwidth()
+                y = yScale(getYValue(d))
+            } else {
+                if (Array.isArray(yValue)) {
+                    y = yScale(yValue[1])
+                    barHeight = yScale(yValue[0]) - y
+                } else {
+                    y = yScale(yValue)
+                    barHeight = height - y
+                }
+            }
+
+            if (barWidth > 0 && barHeight > 0) {
+                rects.push({
+                    key: `bar.${i}`,
+                    x,
+                    y,
+                    width: barWidth,
+                    height: barHeight,
+                    color: getColor(d),
                 })
-            })
-        } else {
-            y.domain([0, max(data, d => max(_.values(_.pick(d, keys))))])
-
-            const barWidth = x.bandwidth() / keys.length
-
-            data.forEach(bucket => {
-                let index = 0
-                _.forOwn(_.pick(bucket, keys), (value, key) => {
-                    rects.push({
-                        key:    `${key}.${identity(bucket)}`,
-                        x:      x(identity(bucket)) + barWidth * index,
-                        y:      y(value),
-                        width:  barWidth,
-                        height: height - y(value),
-                        color:  color(key),
-                    })
-                    index++
-                })
-            })
-        }
+            }
+        })
 
         return (
-            <svg xmlns="http://www.w3.org/2000/svg" className="nivo_bars" width={_width} height={_height}>
-                <g
-                    className="nivo_bars_wrapper"
-                    transform={`translate(${margin.left},${margin.top})`}
-                >
-                    <Grid
-                        width={width}
-                        height={height}
-                        xScale={x}
-                        yScale={y}
-                        animate={animate}
-                        motionStiffness={motionStiffness}
-                        motionDamping={motionDamping}
-                    />
-                    {rects.map(d => {
-                        return (
-                            <rect
-                                key={d.key}
-                                {..._.pick(d, ['x', 'y', 'width', 'height'])}
-                                style={{
-                                    fill: d.color,
-                                }}
-                            />
-                        )
-                    })}
-                    {xAxis && (
-                        <g transform={`translate(0,${xAxisOrientation === 'bottom' ? height : 0})`}>
-                            <Axis
-                                orient={xAxisOrientation}
-                                scale={x}
-                                tickSize={xAxisTickSize}
-                                tickPadding={xAxisTickPadding}
-                                animate={animate}
-                                motionStiffness={motionStiffness}
-                                motionDamping={motionDamping}
-                            />
-                        </g>
-                    )}
-                    {yAxis && (
-                        <g transform={`translate(${yAxisOrientation === 'right' ? width : 0},0)`}>
-                            <Axis
-                                orient={yAxisOrientation}
-                                scale={y}
-                                tickSize={yAxisTickSize}
-                                tickPadding={yAxisTickPadding}
-                                animate={animate}
-                                motionStiffness={motionStiffness}
-                                motionDamping={motionDamping}
-                            />
-                        </g>
-                    )}
-                </g>
-            </svg>
+            <g className="bars">
+                {rects.map(d => <BarItem {...d} key={d.key} />)}
+            </g>
         )
     }
 }
-
-const { number, bool, string, func, any, object, oneOf, oneOfType, arrayOf, shape } = PropTypes
-
-Bars.propTypes = {
-    width:            number.isRequired,
-    height:           number.isRequired,
-    margin:           marginPropType,
-    data:             arrayOf(object).isRequired,
-    keys:             arrayOf(string).isRequired,
-    identity:         oneOfType([string, func]).isRequired,
-    groupMode:        oneOf(['stacked', 'grouped']).isRequired,
-    spacing:          number,
-    colors:           any.isRequired,
-
-    // axes
-    xAxis:            bool.isRequired,
-    xAxisOrientation: oneOf(['top', 'bottom']).isRequired,
-    xAxisTickSize:    number,
-    xAxisTickPadding: number,
-    yAxis:            bool.isRequired,
-    yAxisOrientation: oneOf(['left', 'right']).isRequired,
-    yAxisTickSize:    number,
-    yAxisTickPadding: number,
-
-    // motion
-    animate:          PropTypes.bool.isRequired,
-    motionStiffness:  PropTypes.number.isRequired,
-    motionDamping:    PropTypes.number.isRequired,
-}
-
-Bars.defaultProps = {
-    margin:           Nivo.defaults.margin,
-    groupMode:        'stacked',
-    spacing:          0.1,
-    colors:           Nivo.defaults.colorRange,
-
-    // axes
-    xAxis:            true,
-    xAxisOrientation: 'bottom',
-    yAxis:            true,
-    yAxisOrientation: 'left',
-
-    // motion
-    animate:          true,
-    motionStiffness:  Nivo.defaults.motionStiffness,
-    motionDamping:    Nivo.defaults.motionDamping,
-}
-
-
-
-export default Bars

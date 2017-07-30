@@ -6,12 +6,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict'
-
-import React, { Component, PropTypes } from 'react'
-import Dimensions                      from 'react-dimensions'
-import Line                            from './Line'
-
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import Dimensions from 'react-dimensions'
+import Line from './Line'
 
 class ResponsiveLine extends Component {
     render() {
@@ -26,6 +24,5 @@ class ResponsiveLine extends Component {
         )
     }
 }
-
 
 export default Dimensions()(ResponsiveLine)

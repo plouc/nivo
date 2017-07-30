@@ -6,7 +6,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict';
 
 import {
     treemap as Treemap,
@@ -19,13 +18,12 @@ import {
     treemapResquarify,
 } from 'd3-hierarchy'
 
-
 export const tilingMethods = {
-    binary:     treemapBinary,
-    dice:       treemapDice,
-    slice:      treemapSlice,
-    sliceDice:  treemapSliceDice,
-    squarify:   treemapSquarify,
+    binary: treemapBinary,
+    dice: treemapDice,
+    slice: treemapSlice,
+    sliceDice: treemapSliceDice,
+    squarify: treemapSquarify,
     resquarify: treemapResquarify,
 }
 
@@ -53,12 +51,15 @@ const TreeMapD3 = () => {
          * @param {function} color
          */
         compute({
-            width, height,
+            width,
+            height,
             root: _root,
             tile,
-            innerPadding, outerPadding,
-            identityProperty, valueAccessor,
-            color
+            innerPadding,
+            outerPadding,
+            identityProperty,
+            valueAccessor,
+            color,
         }) {
             treemap
                 .size([width, height])
@@ -67,14 +68,11 @@ const TreeMapD3 = () => {
                 .paddingInner(innerPadding)
                 .paddingOuter(outerPadding)
 
-            const root = treemap(hierarchy(_root)
-                .sum(valueAccessor)
-            )
+            const root = treemap(hierarchy(_root).sum(valueAccessor))
 
-            return root.leaves();
-        }
+            return root.leaves()
+        },
     }
 }
-
 
 export default TreeMapD3

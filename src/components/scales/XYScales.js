@@ -6,61 +6,67 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict';
 
-import React, { Component, PropTypes } from 'react';
-import d3                              from 'd3';
-
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import d3 from 'd3'
 
 class XYScales extends Component {
     render() {
         const {
             data,
-            identityAccessor, valueAccessor,
-            width, height,
-            children
-        } = this.props;
+            identityAccessor,
+            valueAccessor,
+            width,
+            height,
+            children,
+        } = this.props
 
         if (React.Children.count(children) === 0) {
-            return null;
+            return null
         }
 
-        const xScale = d3.scale.linear()
+        const xScale = d3.scale
+            .linear()
             .range([0, width])
             .domain([0, data.length - 1])
-        ;
 
-        const yScale = d3.scale.linear()
+        const yScale = d3.scale
+            .linear()
             .range([height, 0])
             .domain([0, d3.max(data.map(valueAccessor))])
-        ;
 
         return (
             <g>
-                {React.Children.map(children, child => (
-                    React.cloneElement(child, { data: data.slice(), xScale, yScale, width, height })
-                ))}
+                {React.Children.map(children, child =>
+                    React.cloneElement(child, {
+                        data: data.slice(),
+                        xScale,
+                        yScale,
+                        width,
+                        height,
+                    })
+                )}
             </g>
-        );
+        )
     }
 }
 
-XYScales.displayName = 'XYScales';
+XYScales.displayName = 'XYScales'
 
-const { array, func, number } = PropTypes;
+const { array, func, number } = PropTypes
 
 XYScales.propTypes = {
-    data:             array.isRequired,
+    data: array.isRequired,
     identityAccessor: func.isRequired,
-    valueAccessor:    func.isRequired,
-    width:            number,
-    height:           number
-};
+    valueAccessor: func.isRequired,
+    width: number,
+    height: number,
+}
 
 XYScales.defaultProps = {
     identityAccessor: (d, i) => i,
-    valueAccessor:    d => d
-};
+    valueAccessor: d => d,
+}
 
-
-export default XYScales;
+export default XYScales

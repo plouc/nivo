@@ -6,16 +6,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict'
 
-import React, { Component }                      from 'react'
-import { findDOMNode }                           from 'react-dom'
-import _                                         from 'lodash'
-import { convertLabel }                          from '../../../lib/propertiesConverters'
+import React, { Component } from 'react'
+import { findDOMNode } from 'react-dom'
+import _ from 'lodash'
+import { convertLabel } from '../../../lib/propertiesConverters'
 import { treeMapPropTypes, treeMapDefaultProps } from './TreeMapProps'
-import TreeMapPlaceholders                       from './TreeMapPlaceholders'
-import { getColorGenerator }                     from '../../../ColorUtils'
-
+import TreeMapPlaceholders from './TreeMapPlaceholders'
+import { getColorGenerator } from '../../../ColorUtils'
 
 const createNodes = ({
     borderWidth,
@@ -27,19 +25,23 @@ const createNodes = ({
     labelSkipSize,
     labelTextColor,
 }) => {
-    const label         = convertLabel(_label, labelFormat)
+    const label = convertLabel(_label, labelFormat)
     const borderColorFn = getColorGenerator(borderColor)
-    const textColorFn   = getColorGenerator(labelTextColor)
+    const textColorFn = getColorGenerator(labelTextColor)
 
     return nodes => {
         const renderedNodes = []
 
         nodes.forEach(node => {
-            const shouldRenderLabel = enableLabels &&
+            const shouldRenderLabel =
+                enableLabels &&
                 node.data.height === 0 &&
-                (labelSkipSize === 0 || Math.min(node.style.width, node.style.height) > labelSkipSize)
+                (labelSkipSize === 0 ||
+                    Math.min(node.style.width, node.style.height) >
+                        labelSkipSize)
 
-            const rotate = shouldRenderLabel &&
+            const rotate =
+                shouldRenderLabel &&
                 orientLabels &&
                 node.style.height > node.style.width
 
@@ -56,9 +58,12 @@ const createNodes = ({
                         stroke={borderColorFn(node.data)}
                         strokeWidth={borderWidth}
                     />
-                    {shouldRenderLabel && (
+                    {shouldRenderLabel &&
                         <g
-                            transform={`translate(${node.style.width / 2},${node.style.height / 2}) rotate(${rotate ? '-90' : '0'})`}
+                            transform={`translate(${node.style.width / 2},${node
+                                .style.height / 2}) rotate(${rotate
+                                ? '-90'
+                                : '0'})`}
                         >
                             <text
                                 className="nivo_treemap_node_label"
@@ -70,8 +75,7 @@ const createNodes = ({
                             >
                                 {label(node.data.data)}
                             </text>
-                        </g>
-                    )}
+                        </g>}
                 </g>
             )
         })
@@ -80,27 +84,18 @@ const createNodes = ({
     }
 }
 
-
 class TreeMap extends Component {
     render() {
         return (
-            <TreeMapPlaceholders
-                {...this.props}
-                namespace="svg"
-            >
+            <TreeMapPlaceholders {...this.props} namespace="svg">
                 {createNodes(this.props)}
             </TreeMapPlaceholders>
         )
     }
 }
 
-TreeMap.propTypes = _.omit(treeMapPropTypes, [
-    'children',
-    'namespace',
-])
+TreeMap.propTypes = _.omit(treeMapPropTypes, ['children', 'namespace'])
 
-TreeMap.defaultProps = _.omit(treeMapDefaultProps, [
-])
-
+TreeMap.defaultProps = _.omit(treeMapDefaultProps, [])
 
 export default TreeMap

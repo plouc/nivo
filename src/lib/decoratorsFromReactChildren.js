@@ -6,24 +6,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict';
 
-import React from 'react';
-
+import React from 'react'
 
 const decoratorsFromReactChildren = (children, type) => {
-    const decorators = [];
+    const decorators = []
 
     React.Children.forEach(children, element => {
         if (React.isValidElement(element)) {
             if (element.type[type]) {
-                decorators.push(element.type[type](element));
+                decorators.push(element.type[type](element))
             }
         }
-    });
+    })
 
-    return decorators;
-};
+    return decorators
+}
 
-
-export default decoratorsFromReactChildren;
+export default decoratorsFromReactChildren

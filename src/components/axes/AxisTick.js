@@ -6,40 +6,45 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
-import React, { Component, PropTypes } from 'react'
+export default class AxisTick extends Component {
+    static propTypes = {
+        format: PropTypes.func,
+        theme: PropTypes.object.isRequired,
+    }
 
-
-class AxisTick extends Component {
     render() {
         const {
-            value,
-            x, y,
+            value: _value,
+            x,
+            y,
+            format,
             opacity,
             tickLine,
             textXY,
             textDY,
             textAnchor,
+            theme,
         } = this.props
 
+        let value = _value
+        if (format !== undefined) {
+            value = format(value)
+        }
+
         return (
-            <g
-                className="nivo_tick"
-                transform={`translate(${x},${y})`}
-                style={{ opacity }}
-            >
-                <line
-                    {...tickLine}
-                    className="nivo_tick_line"
-                    stroke="#000"
-                />
+            <g transform={`translate(${x},${y})`} style={{ opacity }}>
+                <line {...tickLine} stroke={theme.axis.tickColor} />
                 <text
                     {...textXY}
                     dy={textDY}
-                    className="nivo_tick_text"
                     textAnchor={textAnchor}
-                    style={{ fill: '#000' }}
+                    style={{
+                        fill: theme.axis.textColor,
+                        fontSize: theme.axis.fontSize,
+                    }}
                 >
                     {value}
                 </text>
@@ -47,13 +52,3 @@ class AxisTick extends Component {
         )
     }
 }
-
-AxisTick.propTypes = {
-}
-
-AxisTick.defaultProps = {
-}
-
-
-
-export default AxisTick

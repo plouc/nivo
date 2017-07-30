@@ -6,15 +6,31 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { TransitionMotion, spring } from 'react-motion'
+import Nivo from '../../Nivo'
+import GridLine from './GridLine'
 
-import React, { Component, PropTypes } from 'react'
-import { TransitionMotion, spring }    from 'react-motion'
-import Nivo                            from '../../Nivo'
-import GridLine                        from './GridLine'
+export default class GridLines extends Component {
+    static propTypes = {
+        type: PropTypes.oneOf(['x', 'y']).isRequired,
+        lines: PropTypes.arrayOf(
+            PropTypes.shape({
+                key: PropTypes.string.isRequired,
+                x1: PropTypes.number,
+                x2: PropTypes.number,
+                y1: PropTypes.number,
+                y2: PropTypes.number,
+            })
+        ).isRequired,
+        theme: PropTypes.object.isRequired,
+        // motion
+        animate: PropTypes.bool.isRequired,
+        motionStiffness: PropTypes.number.isRequired,
+        motionDamping: PropTypes.number.isRequired,
+    }
 
-
-class GridLines extends Component {
     constructor(props) {
         super(props)
 
@@ -27,10 +43,10 @@ class GridLines extends Component {
 
         return {
             opacity: 0,
-            x1:      type === 'x' ? 0 : style.x1.val,
-            x2:      type === 'x' ? 0 : style.x2.val,
-            y1:      type === 'y' ? 0 : style.y1.val,
-            y2:      type === 'y' ? 0 : style.y2.val,
+            x1: type === 'x' ? 0 : style.x1.val,
+            x2: type === 'x' ? 0 : style.x2.val,
+            y1: type === 'y' ? 0 : style.y1.val,
+            y2: type === 'y' ? 0 : style.y2.val,
         }
     }
 
@@ -38,15 +54,15 @@ class GridLines extends Component {
         const { motionStiffness, motionDamping } = this.props
         const springConfig = {
             stiffness: motionStiffness,
-            damping:   motionDamping,
+            damping: motionDamping,
         }
 
         return {
-            opacity: spring(0,            springConfig),
-            x1:      spring(style.x1.val, springConfig),
-            x2:      spring(style.x2.val, springConfig),
-            y1:      spring(style.y1.val, springConfig),
-            y2:      spring(style.y2.val, springConfig),
+            opacity: spring(0, springConfig),
+            x1: spring(style.x1.val, springConfig),
+            x2: spring(style.x2.val, springConfig),
+            y1: spring(style.y1.val, springConfig),
+            y2: spring(style.y2.val, springConfig),
         }
     }
 
@@ -54,20 +70,22 @@ class GridLines extends Component {
         const {
             lines,
             animate,
-            motionStiffness, motionDamping,
+            motionStiffness,
+            motionDamping,
+            theme,
         } = this.props
 
         if (!animate) {
             return (
                 <g>
-                    {lines.map(line => (<GridLine {...line} />))}
+                    {lines.map(line => <GridLine {...line} {...theme.grid} />)}
                 </g>
             )
         }
 
         const springConfig = {
             stiffness: motionStiffness,
-            damping:   motionDamping,
+            damping: motionDamping,
         }
 
         return (
@@ -76,18 +94,18 @@ class GridLines extends Component {
                 willLeave={this.willLeave}
                 styles={lines.map(line => {
                     return {
-                        key:   line.key,
+                        key: line.key,
                         style: {
-                            opacity: spring(1,            springConfig),
-                            x1:      spring(line.x1 || 0, springConfig),
-                            x2:      spring(line.x2 || 0, springConfig),
-                            y1:      spring(line.y1 || 0, springConfig),
-                            y2:      spring(line.y2 || 0, springConfig),
-                        }
+                            opacity: spring(1, springConfig),
+                            x1: spring(line.x1 || 0, springConfig),
+                            x2: spring(line.x2 || 0, springConfig),
+                            y1: spring(line.y1 || 0, springConfig),
+                            y2: spring(line.y2 || 0, springConfig),
+                        },
                     }
                 })}
             >
-                {interpolatedStyles => (
+                {interpolatedStyles =>
                     <g>
                         {interpolatedStyles.map(interpolatedStyle => {
                             const { key, style } = interpolatedStyle
@@ -95,38 +113,13 @@ class GridLines extends Component {
                             return (
                                 <GridLine
                                     key={key}
+                                    {...theme.grid}
                                     {...style}
                                 />
                             )
                         })}
-                    </g>
-                )}
+                    </g>}
             </TransitionMotion>
         )
     }
 }
-
-GridLines.propTypes = {
-    type:            PropTypes.oneOf(['x', 'y']).isRequired,
-    lines:           PropTypes.arrayOf(PropTypes.shape({
-        key: PropTypes.string.isRequired,
-        x1:  PropTypes.number,
-        x2:  PropTypes.number,
-        y1:  PropTypes.number,
-        y2:  PropTypes.number,
-    })).isRequired,
-    // motion
-    animate:         PropTypes.bool.isRequired,
-    motionStiffness: PropTypes.number.isRequired,
-    motionDamping:   PropTypes.number.isRequired,
-}
-
-GridLines.defaultProps = {
-    // motion
-    animate:         true,
-    motionStiffness: Nivo.defaults.motionStiffness,
-    motionDamping:   Nivo.defaults.motionDamping,
-}
-
-
-export default GridLines

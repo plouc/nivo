@@ -6,54 +6,63 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict';
-
-import React, { Component }     from 'react';
-import d3                       from 'd3';
-import { DIRECTION_HORIZONTAL } from '../../../constants/directions';
-import CalendarDay              from './CalendarDay';
-import CalendarMonthPath        from './CalendarMonthPath';
-
+import React, { Component } from 'react'
+import { timeFormat } from 'd3'
+import { DIRECTION_HORIZONTAL } from '../../../constants/directions'
+import CalendarDay from './CalendarDay'
+import CalendarMonthPath from './CalendarMonthPath'
 
 class StaticCalendar extends Component {
     render() {
         const {
             onDayClick,
-            years, months, days,
+            years,
+            months,
+            days,
             direction,
             yearLegendOffset,
-            dayBorderWidth, dayBorderColor,
-            monthBorderWidth, monthBorderColor, monthLegendOffset
-        } = this.props;
+            dayBorderWidth,
+            dayBorderColor,
+            monthBorderWidth,
+            monthBorderColor,
+            monthLegendOffset,
+        } = this.props
 
-        const monthLegendFormat = d3.time.format('%b');
+        const monthLegendFormat = timeFormat('%b')
 
         return (
             <g>
-                {days.map(d => (
+                {days.map(d =>
                     <CalendarDay
                         key={d.date.toString()}
                         onClick={onDayClick}
                         data={d}
-                        x={d.x} y={d.y}
+                        x={d.x}
+                        y={d.y}
                         size={d.size}
                         color={d.color}
-                        borderWidth={dayBorderWidth} borderColor={dayBorderColor}
+                        borderWidth={dayBorderWidth}
+                        borderColor={dayBorderColor}
                     />
-                ))}
-                {months.map(m => (
+                )}
+                {months.map(m =>
                     <CalendarMonthPath
                         key={m.date.toString()}
                         path={m.path}
-                        borderWidth={monthBorderWidth} borderColor={monthBorderColor}
+                        borderWidth={monthBorderWidth}
+                        borderColor={monthBorderColor}
                     />
-                ))}
+                )}
                 {months.map(month => {
-                    let transform;
+                    let transform
                     if (direction === DIRECTION_HORIZONTAL) {
-                        transform = `translate(${month.bbox.x + month.bbox.width / 2},${month.bbox.y - monthLegendOffset})`;
+                        transform = `translate(${month.bbox.x +
+                            month.bbox.width / 2},${month.bbox.y -
+                            monthLegendOffset})`
                     } else {
-                        transform =`translate(${month.bbox.x - monthLegendOffset},${month.bbox.y + month.bbox.height / 2}) rotate(-90)`;
+                        transform = `translate(${month.bbox.x -
+                            monthLegendOffset},${month.bbox.y +
+                            month.bbox.height / 2}) rotate(-90)`
                     }
 
                     return (
@@ -65,14 +74,18 @@ class StaticCalendar extends Component {
                         >
                             {monthLegendFormat(month.date)}
                         </text>
-                    );
+                    )
                 })}
                 {years.map(year => {
-                    let transform;
+                    let transform
                     if (direction === DIRECTION_HORIZONTAL) {
-                        transform = `translate(${year.bbox.x - yearLegendOffset},${year.bbox.y + year.bbox.height / 2}) rotate(-90)`;
+                        transform = `translate(${year.bbox.x -
+                            yearLegendOffset},${year.bbox.y +
+                            year.bbox.height / 2}) rotate(-90)`
                     } else {
-                        transform = `translate(${year.bbox.x + year.bbox.width / 2},${year.bbox.y - yearLegendOffset})`;
+                        transform = `translate(${year.bbox.x +
+                            year.bbox.width / 2},${year.bbox.y -
+                            yearLegendOffset})`
                     }
 
                     return (
@@ -84,14 +97,13 @@ class StaticCalendar extends Component {
                         >
                             {year.year}
                         </text>
-                    );
+                    )
                 })}
             </g>
-        );
+        )
     }
 }
 
-StaticCalendar.propTypes = {};
+StaticCalendar.propTypes = {}
 
-
-export default StaticCalendar;
+export default StaticCalendar

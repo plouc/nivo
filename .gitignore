@@ -3,4 +3,5 @@ logs
 node_modules
 .idea
 /lib
+/es
 npm-debug.log*

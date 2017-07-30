@@ -6,26 +6,44 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict'
 
-import React, { Component, PropTypes } from 'react'
-import TreeMapHTML                     from './TreeMapHTML'
-import Dimensions                      from 'react-dimensions'
+import React, { Component } from 'react'
+import TreeMapHTML from './TreeMapHTML'
+import Measure from 'react-measure'
 
+export default class ResponsiveTreeMapHTML extends Component {
+    state = {
+        dimensions: {
+            width: -1,
+            height: -1,
+        },
+    }
 
-class ResponsiveTreeMapHTML extends Component {
     render() {
-        const { containerWidth, containerHeight } = this.props
+        const { width, height } = this.state.dimensions
+
+        const shouldRender = width > 0 && height > 0
 
         return (
-            <TreeMapHTML
-                width={containerWidth}
-                height={containerHeight}
-                {...this.props}
-            />
+            <Measure
+                bounds
+                onResize={contentRect => {
+                    this.setState({ dimensions: contentRect.bounds })
+                }}
+            >
+                {({ measureRef }) =>
+                    <div
+                        ref={measureRef}
+                        style={{ width: '100%', height: '100%' }}
+                    >
+                        {shouldRender &&
+                            <TreeMapHTML
+                                width={width}
+                                height={height}
+                                {...this.props}
+                            />}
+                    </div>}
+            </Measure>
         )
     }
 }
-
-
-export default Dimensions()(ResponsiveTreeMapHTML)

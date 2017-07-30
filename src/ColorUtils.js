@@ -6,9 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict'
-
-import _          from 'lodash'
+import _ from 'lodash'
 import { spring } from 'react-motion'
 import {
     scaleOrdinal,
@@ -39,10 +37,12 @@ export const getColorGenerator = instruction => {
     }
 
     if (instruction === 'inherit') {
-        return d => (d.color || d.data.color)
+        return d => d.color || d.data.color
     }
 
-    const inheritMatches = instruction.match(/inherit:(darker|brighter)\(([0-9.]+)\)/)
+    const inheritMatches = instruction.match(
+        /inherit:(darker|brighter)\(([0-9.]+)\)/
+    )
     if (inheritMatches) {
         const method = inheritMatches[1]
         const amount = inheritMatches[2]
@@ -52,7 +52,6 @@ export const getColorGenerator = instruction => {
 
     return instruction
 }
-
 
 export const getColorStyleObject = (instruction, property) => {
     const style = {}
@@ -77,37 +76,47 @@ export const extractRGB = (_color, springConfig) => {
     }
 
     return {
-        colorR: spring(color.r, Object.assign({}, springConfig, { precision: 1 })),
-        colorG: spring(color.g, Object.assign({}, springConfig, { precision: 1 })),
-        colorB: spring(color.b, Object.assign({}, springConfig, { precision: 1 })),
+        colorR: spring(
+            color.r,
+            Object.assign({}, springConfig, { precision: 1 })
+        ),
+        colorG: spring(
+            color.g,
+            Object.assign({}, springConfig, { precision: 1 })
+        ),
+        colorB: spring(
+            color.b,
+            Object.assign({}, springConfig, { precision: 1 })
+        ),
     }
 }
 
 const d3Colors = {
-    d310:    scaleOrdinal(schemeCategory10),
-    d320:    scaleOrdinal(schemeCategory20),
-    d320b:   scaleOrdinal(schemeCategory20b),
-    d320c:   scaleOrdinal(schemeCategory20c),
-    accent:  scaleOrdinal(schemeAccent),
-    dark2:   scaleOrdinal(schemeDark2),
-    paired:  scaleOrdinal(schemePaired),
+    d310: scaleOrdinal(schemeCategory10),
+    d320: scaleOrdinal(schemeCategory20),
+    d320b: scaleOrdinal(schemeCategory20b),
+    d320c: scaleOrdinal(schemeCategory20c),
+    accent: scaleOrdinal(schemeAccent),
+    dark2: scaleOrdinal(schemeDark2),
+    paired: scaleOrdinal(schemePaired),
     pastel1: scaleOrdinal(schemePastel1),
     pastel2: scaleOrdinal(schemePastel2),
-    set1:    scaleOrdinal(schemeSet1),
-    set2:    scaleOrdinal(schemeSet2),
-    set3:    scaleOrdinal(schemeSet3),
+    set1: scaleOrdinal(schemeSet1),
+    set2: scaleOrdinal(schemeSet2),
+    set3: scaleOrdinal(schemeSet3),
 }
 
-export const nivoCategoricalColors = () => scaleOrdinal([
-    '#e8c1a0',
-    '#f47560',
-    '#f1e15b',
-    '#e8a838',
-    '#61cdbb',
-    '#97e3d5',
-])
+export const nivoCategoricalColors = () =>
+    scaleOrdinal([
+        '#e8c1a0',
+        '#f47560',
+        '#f1e15b',
+        '#e8a838',
+        '#61cdbb',
+        '#97e3d5',
+    ])
 
-const dataColor = d => (d.color || d.data.color)
+const dataColor = d => d.color || d.data.color
 
 export const getColorRange = instruction => {
     if (instruction === 'data') {
@@ -130,5 +139,5 @@ export const getColorRange = instruction => {
         return scaleOrdinal(instruction)
     }
 
-    throw new Error('Unable to determine color range')
+    return () => instruction
 }

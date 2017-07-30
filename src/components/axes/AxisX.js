@@ -6,11 +6,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict';
-
-import React, { Component, PropTypes } from 'react';
-import { findDOMNode }                 from 'react-dom';
-import d3                              from 'd3';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { findDOMNode } from 'react-dom'
+import d3 from 'd3'
 
 class AxisX extends Component {
     renderD3(props) {
@@ -21,20 +20,20 @@ class AxisX extends Component {
             tickPadding,
             height,
             transitionDuration,
-            transitionEasing
-        } = props;
+            transitionEasing,
+        } = props
 
-        const element = d3.select(findDOMNode(this));
-        element.attr('transform', `translate(0, ${height})`);
+        const element = d3.select(findDOMNode(this))
+        element.attr('transform', `translate(0, ${height})`)
 
-        const axis = d3.svg.axis()
+        const axis = d3.svg
+            .axis()
             .scale(xScale)
             .tickPadding(tickPadding)
             .orient(orient)
-        ;
 
         if (tickMode === 'grid') {
-            axis.tickSize(-height);
+            axis.tickSize(-height)
         }
 
         element
@@ -42,42 +41,40 @@ class AxisX extends Component {
             .duration(transitionDuration)
             .ease(transitionEasing)
             .call(axis)
-        ;
 
-        return false;
+        return false
     }
 
     componentDidMount() {
-        this.renderD3(this.props);
+        this.renderD3(this.props)
     }
 
     shouldComponentUpdate(nextProps) {
-        this.renderD3(nextProps);
+        this.renderD3(nextProps)
 
-        return false;
+        return false
     }
 
     render() {
-        return <g className="chart__axis chart__axis--x"/>;
+        return <g className="chart__axis chart__axis--x" />
     }
 }
 
-AxisX.displayName = 'AxisX';
+AxisX.displayName = 'AxisX'
 
 AxisX.propTypes = {
-    orient:      PropTypes.oneOf(['top', 'bottom']).isRequired,
-    xScale:      PropTypes.func.isRequired,
-    tickMode:    PropTypes.oneOf(['normal', 'grid']).isRequired,
-    tickPadding: PropTypes.number.isRequired
-};
+    orient: PropTypes.oneOf(['top', 'bottom']).isRequired,
+    xScale: PropTypes.func.isRequired,
+    tickMode: PropTypes.oneOf(['normal', 'grid']).isRequired,
+    tickPadding: PropTypes.number.isRequired,
+}
 
 AxisX.defaultProps = {
-    orient:             'bottom',
+    orient: 'bottom',
     transitionDuration: 600,
-    transitionEasing:   'cubic-out',
-    tickMode:           'normal',
-    tickPadding:        3
-};
+    transitionEasing: 'cubic-out',
+    tickMode: 'normal',
+    tickPadding: 3,
+}
 
-
-export default AxisX;
+export default AxisX

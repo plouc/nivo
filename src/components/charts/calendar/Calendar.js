@@ -6,84 +6,109 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict'
-
-import _                                           from 'lodash'
-import React, { Component }                        from 'react'
-import Nivo                                        from '../../../Nivo'
-import CalendarLayout                              from '../../../lib/charts/calendar/CalendarLayout'
+import _ from 'lodash'
+import React, { Component } from 'react'
+import Nivo from '../../../Nivo'
+import CalendarLayout from '../../../lib/charts/calendar/CalendarLayout'
 import { calendarPropTypes, calendarDefaultProps } from './CalendarProps'
-import StaticCalendar                              from './StaticCalendar'
-import MotionCalendar                              from './MotionCalendar'
-
+import StaticCalendar from './StaticCalendar'
+import MotionCalendar from './MotionCalendar'
 
 class Calendar extends Component {
     componentWillMount() {
-        this.calendarLayout = CalendarLayout();
+        this.calendarLayout = CalendarLayout()
     }
 
     render() {
         const {
-            from, to,
+            from,
+            to,
             data,
             onDayClick,
             direction,
             colorScale,
             emptyColor,
-            yearSpacing, yearLegendOffset,
-            daySpacing, dayBorderWidth, dayBorderColor,
-            monthBorderWidth, monthBorderColor, monthLegendOffset,
-            motion, motionStiffness, motionDamping
-        } = this.props;
+            yearSpacing,
+            yearLegendOffset,
+            daySpacing,
+            dayBorderWidth,
+            dayBorderColor,
+            monthBorderWidth,
+            monthBorderColor,
+            monthLegendOffset,
+            animate,
+            motionStiffness,
+            motionDamping,
+        } = this.props
 
-        const margin = _.assign({}, Nivo.defaults.margin, this.props.margin);
-        const width  = this.props.width  - margin.left - margin.right;
-        const height = this.props.height - margin.top  - margin.bottom;
+        const margin = _.assign({}, Nivo.defaults.margin, this.props.margin)
+        const width = this.props.width - margin.left - margin.right
+        const height = this.props.height - margin.top - margin.bottom
 
         const { years, months, days } = this.calendarLayout.compute({
-            width, height,
-            from, to,
+            width,
+            height,
+            from,
+            to,
             data,
             direction,
             colorScale,
             emptyColor,
             yearSpacing,
-            daySpacing
-        });
+            daySpacing,
+        })
 
-        let calendar;
-        if (motion === true) {
+        let calendar
+        if (animate === true) {
             calendar = (
                 <MotionCalendar
                     onDayClick={onDayClick}
                     direction={direction}
-                    years={years} months={months} days={days}
+                    years={years}
+                    months={months}
+                    days={days}
                     yearLegendOffset={yearLegendOffset}
-                    dayBorderWidth={dayBorderWidth} dayBorderColor={dayBorderColor}
-                    monthBorderWidth={monthBorderWidth} monthBorderColor={monthBorderColor} monthLegendOffset={monthLegendOffset}
-                    motionStiffness={motionStiffness} motionDamping={motionDamping}
+                    dayBorderWidth={dayBorderWidth}
+                    dayBorderColor={dayBorderColor}
+                    monthBorderWidth={monthBorderWidth}
+                    monthBorderColor={monthBorderColor}
+                    monthLegendOffset={monthLegendOffset}
+                    motionStiffness={motionStiffness}
+                    motionDamping={motionDamping}
                 />
-            );
+            )
         } else {
             calendar = (
                 <StaticCalendar
                     onDayClick={onDayClick}
                     direction={direction}
-                    years={years} months={months} days={days}
+                    years={years}
+                    months={months}
+                    days={days}
                     yearLegendOffset={yearLegendOffset}
-                    dayBorderWidth={dayBorderWidth} dayBorderColor={dayBorderColor}
-                    monthBorderWidth={monthBorderWidth} monthBorderColor={monthBorderColor} monthLegendOffset={monthLegendOffset}
+                    dayBorderWidth={dayBorderWidth}
+                    dayBorderColor={dayBorderColor}
+                    monthBorderWidth={monthBorderWidth}
+                    monthBorderColor={monthBorderColor}
+                    monthLegendOffset={monthLegendOffset}
                 />
-            );
+            )
         }
 
         return (
-            <svg className="nivo_calendar" style={{ width: this.props.width, height: this.props.height }}>
-                <g className="nivo_calendar_wrapper" transform={`translate(${margin.left},${margin.top})`}>
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="nivo_calendar"
+                style={{ width: this.props.width, height: this.props.height }}
+            >
+                <g
+                    className="nivo_calendar_wrapper"
+                    transform={`translate(${margin.left},${margin.top})`}
+                >
                     {calendar}
                 </g>
             </svg>
-        );
+        )
     }
 }
 
@@ -91,13 +116,12 @@ Calendar.propTypes = _.omit(calendarPropTypes, [
     'transitionDuration',
     'transitionEasing',
     'transitionStaggering',
-]);
+])
 
 Calendar.defaultProps = _.omit(calendarDefaultProps, [
     'transitionDuration',
     'transitionEasing',
     'transitionStaggering',
-]);
+])
 
-
-export default Calendar;
+export default Calendar

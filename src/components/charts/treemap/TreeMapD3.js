@@ -6,23 +6,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict'
 
-import React, { Component }                      from 'react'
-import { findDOMNode }                           from 'react-dom'
-import _                                         from 'lodash'
-import d3                                        from 'd3'
-import Nivo                                      from '../../../Nivo'
-import { getColorStyleObject, getColorRange }    from '../../../ColorUtils'
+import React, { Component } from 'react'
+import { findDOMNode } from 'react-dom'
+import _ from 'lodash'
+import d3 from 'd3'
+import Nivo from '../../../Nivo'
+import { getColorStyleObject, getColorRange } from '../../../ColorUtils'
 import { treeMapPropTypes, treeMapDefaultProps } from './TreeMapProps'
-import Treemap                                   from '../../../lib/charts/treemap/TreeMapD3'
-
+import Treemap from '../../../lib/charts/treemap/TreeMapD3'
 
 function nodePosition() {
-    this
-        .style('left',   d => `${d.x0}px`)
-        .style('top',    d => `${d.y0}px`)
-        .style('width',  d => `${Math.max(0, d.x1 - d.x0)}px`)
+    this.style('left', d => `${d.x0}px`)
+        .style('top', d => `${d.y0}px`)
+        .style('width', d => `${Math.max(0, d.x1 - d.x0)}px`)
         .style('height', d => `${Math.max(0, d.y1 - d.y0)}px`)
 }
 
@@ -36,57 +33,67 @@ class TreeMapD3 extends Component {
             root,
             tile,
             orientLabels,
-            innerPadding, outerPadding,
+            innerPadding,
+            outerPadding,
             skipVMin,
-            identityProperty, valueAccessor, labelFn,
+            identityProperty,
+            valueAccessor,
+            labelFn,
             colors,
-            transitionDuration, transitionEasing,
+            transitionDuration,
+            transitionEasing,
         } = this.props
 
-        const borderColorStyle = getColorStyleObject(nextProps.borderColor, 'color')
+        const borderColorStyle = getColorStyleObject(
+            nextProps.borderColor,
+            'color'
+        )
 
         const margin = _.assign({}, Nivo.defaults.margin, this.props.margin)
 
-        const width  = nextProps.width  - margin.left - margin.right
+        const width = nextProps.width - margin.left - margin.right
         const height = nextProps.height - margin.top - margin.bottom
 
         const _nodes = this.treemap.compute({
-            width, height,
+            width,
+            height,
             root,
             tile,
-            innerPadding, outerPadding,
-            identityProperty, valueAccessor
+            innerPadding,
+            outerPadding,
+            identityProperty,
+            valueAccessor,
         })
 
-        const element = d3.select(findDOMNode(this))
-            .style({
-                width:  nextProps.width,
-                height: nextProps.height
-            })
+        const element = d3.select(findDOMNode(this)).style({
+            width: nextProps.width,
+            height: nextProps.height,
+        })
 
-        const wrapper = element.select('.nivo_treemap_wrapper')
-            .style({
-                top:    `${margin.top}px`,
-                left:   `${margin.left}px`,
-                width:  `${width}px`,
-                height: `${height}px`,
-            })
+        const wrapper = element.select('.nivo_treemap_wrapper').style({
+            top: `${margin.top}px`,
+            left: `${margin.left}px`,
+            width: `${width}px`,
+            height: `${height}px`,
+        })
 
         const color = getColorRange(colors)
 
         const nodes = wrapper.selectAll('.nivo_treemap_node').data(_nodes)
 
-        nodes.enter().append('div')
+        nodes
+            .enter()
+            .append('div')
             .classed('nivo_treemap_node', true)
             .style('z-index', 10)
-            .each(function (d) {
-
+            .each(function(d) {
                 let p = d
                 while (p.depth > 1) p = p.parent
                 d.color = color(p.data.name)
 
-                const el    = d3.select(this)
-                const label = el.append('span')
+                const el = d3.select(this)
+                const label = el
+                    .append('span')
                     .attr('class', 'nivo_treemap_node_label')
                     .text(d.children ? '' : labelFn(d.data))
                     .style('transform', d => {
@@ -94,7 +101,7 @@ class TreeMapD3 extends Component {
                             return 'rotate(-90deg)'
                         }
 
-                        return 'rotate(0)';
+                        return 'rotate(0)'
                     })
 
                 if (orientLabels) {
@@ -105,17 +112,17 @@ class TreeMapD3 extends Component {
             })
             .style(borderColorStyle)
             .style({
-                overflow:          'hidden',
-                position:          'absolute',
-                display:           'flex',
-                'align-items':     'center',
+                overflow: 'hidden',
+                position: 'absolute',
+                display: 'flex',
+                'align-items': 'center',
                 'justify-content': 'center',
             })
             .call(nodePosition)
             .style('background', d => d.color)
 
         nodes
-            .each(function (d) {
+            .each(function(d) {
                 let p = d
                 while (p.depth > 1) p = p.parent
                 d.color = color(p.data.name)
@@ -126,16 +133,19 @@ class TreeMapD3 extends Component {
             .ease(transitionEasing)
             .style('background', d => d.color)
             .call(nodePosition)
-            .each(function (d) {
+            .each(function(d) {
                 const el = d3.select(this)
 
-                const transform = (orientLabels && d.dy > d.dx) ? 'rotate(-90deg)' : 'rotate(0deg)'
+                const transform =
+                    orientLabels && d.dy > d.dx
+                        ? 'rotate(-90deg)'
+                        : 'rotate(0deg)'
 
-                el.select('span')
-                    .style('transform', transform)
+                el.select('span').style('transform', transform)
             })
 
-        nodes.exit()
+        nodes
+            .exit()
             .style('z-index', 5)
             .transition()
             .duration(transitionDuration)
@@ -159,14 +169,20 @@ class TreeMapD3 extends Component {
     render() {
         return (
             <div className="nivo_treemap" style={{ position: 'relative' }}>
-                <div className="nivo_treemap_wrapper" style={{ position: 'absolute' }} />
+                <div
+                    className="nivo_treemap_wrapper"
+                    style={{ position: 'absolute' }}
+                />
             </div>
         )
     }
 }
 
-TreeMapD3.propTypes    = _.omit(treeMapPropTypes,    ['children', 'stiffness', 'damping'])
+TreeMapD3.propTypes = _.omit(treeMapPropTypes, [
+    'children',
+    'stiffness',
+    'damping',
+])
 TreeMapD3.defaultProps = _.omit(treeMapDefaultProps, ['stiffness', 'damping'])
-
 
 export default TreeMapD3

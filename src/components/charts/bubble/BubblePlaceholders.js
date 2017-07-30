@@ -6,18 +6,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict'
-
-import React, { Component }                    from 'react'
-import { TransitionMotion, spring }            from 'react-motion'
-import { rgb }                                 from 'd3'
-import _                                       from 'lodash'
-import Nivo                                    from '../../../Nivo'
-import { getColorRange, extractRGB }           from '../../../ColorUtils'
-import BubbleHelper                            from '../../../lib/charts/bubble/BubbleHelper'
-import { convertGetter }                       from '../../../lib/propertiesConverters'
+import React, { Component } from 'react'
+import { TransitionMotion, spring } from 'react-motion'
+import { rgb } from 'd3'
+import _ from 'lodash'
+import Nivo from '../../../Nivo'
+import { getColorRange, extractRGB } from '../../../ColorUtils'
+import BubbleHelper from '../../../lib/charts/bubble/BubbleHelper'
+import { convertGetter } from '../../../lib/propertiesConverters'
 import { bubblePropTypes, bubbleDefaultProps } from './BubbleProps'
-
 
 class BubblePlaceholders extends Component {
     componentWillMount() {
@@ -53,25 +50,31 @@ class BubblePlaceholders extends Component {
             padding,
             colors,
             animate,
-            motionStiffness, motionDamping,
+            motionStiffness,
+            motionDamping,
             children,
         } = this.props
 
         const identity = convertGetter(_identity)
-        const value    = convertGetter(_value)
+        const value = convertGetter(_value)
 
-        const color    = getColorRange(colors)
+        const color = getColorRange(colors)
 
-        const margin   = Object.assign({}, Nivo.defaults.margin, this.props.margin)
-        const width    = _width  - margin.left - margin.right
-        const height   = _height - margin.top  - margin.bottom
+        const margin = Object.assign(
+            {},
+            Nivo.defaults.margin,
+            this.props.margin
+        )
+        const width = _width - margin.left - margin.right
+        const height = _height - margin.top - margin.bottom
 
         const nodes = this.bubble.compute({
             width,
             height,
             root,
             leavesOnly,
-            identity, value,
+            identity,
+            value,
             padding,
             color,
         })
@@ -79,62 +82,70 @@ class BubblePlaceholders extends Component {
         let wrapperTag
         let containerTag
 
-        const wrapperProps   = {}
+        const wrapperProps = {}
         const containerProps = {}
 
         if (namespace === 'svg') {
-            wrapperTag   = 'svg'
+            wrapperTag = 'svg'
             containerTag = 'g'
 
-            wrapperProps.width       = _width
-            wrapperProps.height      = _height
-            wrapperProps.xmlns       = 'http://www.w3.org/2000/svg'
+            wrapperProps.width = _width
+            wrapperProps.height = _height
+            wrapperProps.xmlns = 'http://www.w3.org/2000/svg'
             containerProps.transform = `translate(${margin.left},${margin.top})`
         } else {
-            wrapperTag   = 'div'
+            wrapperTag = 'div'
             containerTag = 'div'
 
             wrapperProps.style = {
                 position: 'relative',
-                width:    _width,
-                height:   _height,
+                width: _width,
+                height: _height,
             }
-            containerProps.style = margin
+            containerProps.style = Object.assign({}, margin, {
+                position: 'absolute',
+            })
         }
 
         if (animate === false) {
-            return React.createElement(wrapperTag, wrapperProps,
+            return React.createElement(
+                wrapperTag,
+                wrapperProps,
                 React.createElement(
                     containerTag,
                     containerProps,
-                    children(nodes.map(node => {
-                        return {
-                            key:   node.data.key,
-                            data:  node,
-                            style: _.pick(node, ['r', 'x', 'y', 'color']),
-                        }
-                    }))
+                    children(
+                        nodes.map(node => {
+                            return {
+                                key: node.data.key,
+                                data: node,
+                                style: _.pick(node, ['r', 'x', 'y', 'color']),
+                            }
+                        })
+                    )
                 )
             )
         }
 
         const stiffness = motionStiffness
-        const damping   = motionDamping
+        const damping = motionDamping
 
-        return React.createElement(wrapperTag, wrapperProps, (
+        return React.createElement(
+            wrapperTag,
+            wrapperProps,
             <TransitionMotion
                 willEnter={this.willEnter}
                 willLeave={this.willLeave}
                 styles={nodes.map(b => {
                     return {
-                        key:   b.data.key,
-                        data:  b,
+                        key: b.data.key,
+                        data: b,
                         style: {
                             r: spring(b.r, { stiffness, damping }),
                             x: spring(b.x, { stiffness, damping }),
                             y: spring(b.y, { stiffness, damping }),
                             ...extractRGB(b.color, { stiffness, damping }),
-                        }
+                        },
                     }
                 })}
             >
@@ -142,16 +153,24 @@ class BubblePlaceholders extends Component {
                     return React.createElement(
                         containerTag,
                         containerProps,
-                        children(interpolatedStyles.map(interpolatedStyle => {
-                            const { colorR, colorG, colorB } = interpolatedStyle.style
-                            interpolatedStyle.style.color = `rgb(${Math.round(colorR)},${Math.round(colorG)},${Math.round(colorB)})`
+                        children(
+                            interpolatedStyles.map(interpolatedStyle => {
+                                const {
+                                    colorR,
+                                    colorG,
+                                    colorB,
+                                } = interpolatedStyle.style
+                                interpolatedStyle.style.color = `rgb(${Math.round(
+                                    colorR
+                                )},${Math.round(colorG)},${Math.round(colorB)})`
 
-                            return interpolatedStyle
-                        }))
-                    );
+                                return interpolatedStyle
+                            })
+                        )
+                    )
                 }}
             </TransitionMotion>
-        ))
+        )
     }
 }
 
@@ -180,6 +199,5 @@ BubblePlaceholders.defaultProps = _.omit(bubbleDefaultProps, [
     'transitionDuration',
     'transitionEasing',
 ])
-
 
 export default BubblePlaceholders

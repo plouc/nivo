@@ -6,76 +6,89 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict';
 
-import d3                                                        from 'd3';
-import BubbleD3                                                  from './BubbleD3';
-import { getColorRange, getColorGenerator, getColorStyleObject } from '../../../ColorUtils';
-import { convertLabel }                                          from '../../propertiesConverters';
-
+import d3 from 'd3'
+import BubbleD3 from './BubbleD3'
+import {
+    getColorRange,
+    getColorGenerator,
+    getColorStyleObject,
+} from '../../../ColorUtils'
+import { convertLabel } from '../../propertiesConverters'
 
 const BubbleD3Svg = domRoot => {
-
     // DOM elements
-    const element  = d3.select(domRoot);
-    const wrapper  = element.append('g').attr('class', 'nivo_bubble_wrapper');
+    const element = d3.select(domRoot)
+    const wrapper = element.append('g').attr('class', 'nivo_bubble_wrapper')
 
-    const bubble   = BubbleD3();
+    const bubble = BubbleD3()
 
     // an array to store decorator functions
-    let decorators = [];
+    let decorators = []
 
     return {
         draw(props) {
             const {
                 data,
                 onBubbleClick,
-                identityProperty, value,
-                width, height, margin,
+                identityProperty,
+                value,
+                width,
+                height,
+                margin,
                 padding,
                 colors,
-                borderWidth, borderColor,
-                label, labelFormat, labelSkipRadius, labelTextColor, labelTextDY,
-                transitionDuration, transitionEasing
-            } = props;
+                borderWidth,
+                borderColor,
+                label,
+                labelFormat,
+                labelSkipRadius,
+                labelTextColor,
+                labelTextDY,
+                transitionDuration,
+                transitionEasing,
+            } = props
 
-            const identity      = d => d[identityProperty];
-            const valueAccessor = d => d[value];
+            const identity = d => d[identityProperty]
+            const valueAccessor = d => d[value]
 
-            element.attr({ width, height });
+            element.attr({ width, height })
 
-            const useWidth  = width  - margin.left - margin.right;
-            const useHeight = height - margin.top  - margin.bottom;
+            const useWidth = width - margin.left - margin.right
+            const useHeight = height - margin.top - margin.bottom
 
             wrapper.attr({
-                width:     useWidth,
-                height:    useHeight,
-                transform: `translate(${margin.left},${margin.top})`
-            });
+                width: useWidth,
+                height: useHeight,
+                transform: `translate(${margin.left},${margin.top})`,
+            })
 
-            const color         = getColorRange(colors);
-            const borderColorFn = getColorGenerator(borderColor);
+            const color = getColorRange(colors)
+            const borderColorFn = getColorGenerator(borderColor)
 
-            const bubbled   = bubble.compute({
-                width:  useWidth,
+            const bubbled = bubble.compute({
+                width: useWidth,
                 height: useHeight,
                 data,
-                identityProperty, valueAccessor,
+                identityProperty,
+                valueAccessor,
                 padding,
-                color
-            });
-
+                color,
+            })
 
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
             // NODES
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
-            const nodes = wrapper.selectAll('.nivo_bubble_node').data(bubbled, identity);
+            const nodes = wrapper
+                .selectAll('.nivo_bubble_node')
+                .data(bubbled, identity)
 
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
             // ENTER: creates new nodes
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
             nodes
-                .enter().append('circle')
+                .enter()
+                .append('circle')
                 .attr('class', 'nivo_bubble_node')
                 .attr('r', 2)
                 .style('fill', d => d.color)
@@ -83,7 +96,6 @@ const BubbleD3Svg = domRoot => {
                 .style('stroke-width', borderWidth)
                 .attr('transform', d => `translate(${d.x},${d.y})`)
                 .on('click', onBubbleClick)
-            ;
 
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
             // UPDATE: updates existing nodes
@@ -97,39 +109,40 @@ const BubbleD3Svg = domRoot => {
                 .style('stroke-width', borderWidth)
                 .attr('r', d => d.r)
                 .attr('transform', d => `translate(${d.x},${d.y})`)
-            ;
 
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
             // EXIT: removes stale nodes
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
-            nodes.exit()
+            nodes
+                .exit()
                 .transition()
                 .duration(transitionDuration)
                 .ease(transitionEasing)
                 .attr('transform', `translate(${width / 2},${height / 2})`)
                 .attr('r', 0)
                 .remove()
-            ;
-
 
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
             // LABELS
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
-            const labelFn        = convertLabel(label, labelFormat);
-            const textColorStyle = getColorStyleObject(labelTextColor, 'fill');
+            const labelFn = convertLabel(label, labelFormat)
+            const textColorStyle = getColorStyleObject(labelTextColor, 'fill')
 
-
-            let legendsData = bubbled;
+            let legendsData = bubbled
             if (labelSkipRadius > 0) {
-                legendsData = bubbled.filter(d => d.r >= labelSkipRadius);
+                legendsData = bubbled.filter(d => d.r >= labelSkipRadius)
             }
 
-            const legends = wrapper.selectAll('.nivo_bubble_legend').data(legendsData, identity);
+            const legends = wrapper
+                .selectAll('.nivo_bubble_legend')
+                .data(legendsData, identity)
 
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
             // ENTER: creates new labels
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
-            legends.enter().append('text')
+            legends
+                .enter()
+                .append('text')
                 .attr('class', 'nivo_bubble_legend')
                 .style('text-anchor', 'middle')
                 .style(textColorStyle)
@@ -138,7 +151,6 @@ const BubbleD3Svg = domRoot => {
                 .attr('transform', d => `translate(${d.x},${d.y})`)
                 .attr('dy', labelTextDY)
                 .on('click', onBubbleClick)
-            ;
 
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
             // UPDATE: updates existing labels
@@ -152,41 +164,39 @@ const BubbleD3Svg = domRoot => {
                 .style('opacity', 1)
                 .attr('transform', d => `translate(${d.x},${d.y})`)
                 .attr('dy', labelTextDY)
-            ;
 
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
             // EXIT: removes stale labels
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
-            legends.exit()
+            legends
+                .exit()
                 .transition()
                 .duration(transitionDuration)
                 .ease(transitionEasing)
                 .style('opacity', 0)
                 .remove()
-            ;
 
             const bubbleContext = {
-                element:  wrapper,
-                width:  useWidth,
+                element: wrapper,
+                width: useWidth,
                 height: useHeight,
-                rawData:  data,
+                rawData: data,
                 identity,
                 valueAccessor,
-                data:     bubbled,
+                data: bubbled,
                 transitionDuration,
-                transitionEasing
-            };
+                transitionEasing,
+            }
 
             decorators.forEach(decorator => {
-                decorator(bubbleContext);
-            });
+                decorator(bubbleContext)
+            })
         },
 
         decorate(newDecorators = []) {
-            decorators = newDecorators;
-        }
-    };
-};
+            decorators = newDecorators
+        },
+    }
+}
 
-
-export default BubbleD3Svg;
+export default BubbleD3Svg

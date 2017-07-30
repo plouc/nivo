@@ -1,6 +1,6 @@
 {
   "name": "nivo",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0-alpha.8",
   "author": {
     "name": "Raphaël Benitte",
     "url": "https://github.com/plouc"
@@ -10,9 +10,11 @@
     "d3": "4.2.6",
     "d3-scale-chromatic": "1.0.2",
     "invariant": "2.2.1",
-    "lodash": "4.11.1",
+    "lodash": "4.16.3",
+    "prop-types": "^15.5.10",
     "react-dimensions": "1.3.0",
-    "react-motion": "0.4.5"
+    "react-measure": "^2.0.2",
+    "react-motion": "^0.5.0"
   },
   "devDependencies": {
     "ava": "0.14.0",
@@ -21,6 +23,7 @@
     "babel-preset-es2015": "6.6.0",
     "babel-preset-react": "6.5.0",
     "babel-preset-stage-0": "6.5.0",
+    "cross-env": "^5.0.1",
     "expect": "1.18.0",
     "karma": "0.13.22",
     "karma-chrome-launcher": "0.2.3",
@@ -29,22 +32,27 @@
     "karma-sourcemap-loader": "0.3.7",
     "karma-webpack": "1.7.0",
     "mocha": "2.4.5",
-    "react": "15.3.2",
-    "react-dom": "15.3.2",
+    "prettier": "^1.5.3",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
     "webpack": "1.13.0"
   },
   "peerDependencies": {
-    "react": "^15.0.0"
+    "react": "^15.4.1"
   },
-  "main": "lib",
+  "main": "./lib/index.js",
+  "module": "es/index.js",
+  "jsnext:main": "es/index.js",
   "scripts": {
-    "watch": "babel src --watch --out-dir lib",
     "watch-test": "ava --watch",
     "test": "npm run test-unit && npm run test-func",
     "test-unit": "ava",
     "test-func": "karma start",
-    "build": "rm -rf lib/* && babel src --no-comments --out-dir lib",
-    "prebublish": "npm run build"
+    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib",
+    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es",
+    "build": "npm run build:commonjs && npm run build:es",
+    "prebublish": "npm run build",
+    "format": "prettier --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --write 'src/**/*.js' 'specs/**/*.js' 'test/**/*.js'"
   },
   "ava": {
     "files": [

@@ -6,17 +6,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict'
 
-import {
-    hierarchy,
-    pack as Pack,
-} from 'd3'
+import { hierarchy, pack as Pack } from 'd3'
 
-
-const computePath = node => {
-
-}
+const computePath = node => {}
 
 /**
  * This wrapper is responsible for computing bubble chart positions.
@@ -26,7 +19,7 @@ const computePath = node => {
  * @constructor
  */
 const BubbleHelper = () => {
-    const pack  = Pack()
+    const pack = Pack()
 
     return {
         /**
@@ -42,31 +35,26 @@ const BubbleHelper = () => {
          * @returns {array}
          */
         compute({
-            width, height,
+            width,
+            height,
             root: _root,
             leavesOnly,
-            identity, value,
+            identity,
+            value,
             padding,
-            color
+            color,
         }) {
-            pack
-                .size([width, height])
-                .padding(padding)
+            pack.size([width, height]).padding(padding)
 
             const root = hierarchy(_root).sum(value)
 
             pack(root)
 
-
-
             const nodes = leavesOnly ? root.leaves() : root.descendants()
 
-
-
-            return nodes
-                .map(d => {
-                    d.color = color(d.depth)
-                    /*
+            return nodes.map(d => {
+                d.color = color(d.depth)
+                /*
                      if (d.depth > 1) {
                      d.color = color(d.parentId)
                      } else {
@@ -74,13 +62,12 @@ const BubbleHelper = () => {
                      }
                      */
 
-                    d.data.key = d.ancestors().map(a => identity(a.data)).join('.')
+                d.data.key = d.ancestors().map(a => identity(a.data)).join('.')
 
-                    return d
-                })
-        }
+                return d
+            })
+        },
     }
 }
-
 
 export default BubbleHelper

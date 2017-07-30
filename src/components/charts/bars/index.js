@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict'
-
-export Bars           from './Bars'
-export ResponsiveBars from './ResponsiveBars'
+export Bar from './Bar'
+export Bars from './Bars'
+export ResponsiveBar from './ResponsiveBar'
+export BarGroup from './BarGroup'

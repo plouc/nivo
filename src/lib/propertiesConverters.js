@@ -6,13 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict'
 
 import _ from 'lodash'
-import {
-    format,
-} from 'd3'
-
+import { format } from 'd3'
 
 export const convertLabel = (_label, labelFormat) => {
     if (_.isFunction(_label)) {
@@ -44,3 +40,6 @@ export const convertGetter = _property => {
 
     return d => _.get(d, _property)
 }
+
+export const getAccessorFor = directive =>
+    _.isFunction(directive) ? directive : d => d[directive]

@@ -6,16 +6,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict';
 
-import React, { Component, PropTypes } from 'react';
-import Stack                           from './Stack';
-import Dimensions                      from 'react-dimensions';
-
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import Stack from './Stack'
+import Dimensions from 'react-dimensions'
 
 class ResponsiveStack extends Component {
     render() {
-        const { containerWidth, containerHeight } = this.props;
+        const { containerWidth, containerHeight } = this.props
 
         return (
             <Stack
@@ -23,9 +22,8 @@ class ResponsiveStack extends Component {
                 height={containerHeight}
                 {...this.props}
             />
-        );
+        )
     }
 }
 
-
-export default Dimensions()(ResponsiveStack);
+export default Dimensions()(ResponsiveStack)

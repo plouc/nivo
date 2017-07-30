@@ -6,14 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict'
 
 import { flatten } from '../../../DataUtils'
-import {
-    hierarchy,
-    pack,
-} from 'd3'
-
+import { hierarchy, pack } from 'd3'
 
 /**
  * This wrapper is responsible for computing bubble chart positions.
@@ -23,7 +18,7 @@ import {
  * @constructor
  */
 const BubbleD3 = () => {
-    const layout  = pack()
+    const layout = pack()
 
     return {
         /**
@@ -38,11 +33,13 @@ const BubbleD3 = () => {
          * @returns {array}
          */
         compute({
-            width, height,
+            width,
+            height,
             data: _data,
-            identityProperty, valueAccessor,
+            identityProperty,
+            valueAccessor,
             padding,
-            color
+            color,
         }) {
             layout
                 //.value(valueAccessor)
@@ -53,26 +50,20 @@ const BubbleD3 = () => {
             const data = hierarchy(_data)
             layout(data)
 
-            console.log(data)
-
             //const flattened = flatten(data, identityProperty)
-            const nodes     = data.descendants()
-                .filter(d => !d.children)
-                .map(d => {
-                    if (d.depth > 1) {
-                        d.color = color(d.parentId)
-                    } else {
-                        d.color = color(d[identityProperty])
-                    }
+            const nodes = data.descendants().filter(d => !d.children).map(d => {
+                if (d.depth > 1) {
+                    d.color = color(d.parentId)
+                } else {
+                    d.color = color(d[identityProperty])
+                }
 
-                    return d
-                })
-            
+                return d
+            })
 
             return nodes
-        }
+        },
     }
 }
-
 
 export default BubbleD3

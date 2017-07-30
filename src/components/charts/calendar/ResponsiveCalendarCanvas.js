@@ -6,16 +6,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict';
-
-import React, { Component, PropTypes } from 'react';
-import CalendarCanvas                  from './CalendarCanvas';
-import Dimensions                      from 'react-dimensions';
-
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import CalendarCanvas from './CalendarCanvas'
+import Dimensions from 'react-dimensions'
 
 class ResponsiveCalendarCanvas extends Component {
     render() {
-        const { containerWidth, containerHeight } = this.props;
+        const { containerWidth, containerHeight } = this.props
 
         return (
             <CalendarCanvas
@@ -23,9 +21,8 @@ class ResponsiveCalendarCanvas extends Component {
                 height={containerHeight}
                 {...this.props}
             />
-        );
+        )
     }
 }
 
-
-export default Dimensions()(ResponsiveCalendarCanvas);
+export default Dimensions()(ResponsiveCalendarCanvas)

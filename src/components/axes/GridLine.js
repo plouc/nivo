@@ -6,18 +6,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict'
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import React, { PropTypes } from 'react'
-
-
-const GridLine = props => (
-    <line
-        {...props}
-        className="nivo_grid_line"
-        stroke="#ddd"
-    />
-)
+const GridLine = props => <line {...props} />
 
 GridLine.propTypes = {
     x1: PropTypes.number.isRequired,
@@ -32,6 +24,5 @@ GridLine.defaultProps = {
     y1: 0,
     y2: 0,
 }
-
 
 export default GridLine

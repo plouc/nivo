@@ -6,9 +6,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict'
 
-import { PropTypes } from 'react'
+import PropTypes from 'prop-types'
 import {
     curveBasis,
     curveBasisClosed,
@@ -30,26 +29,25 @@ import {
     curveStepBefore,
 } from 'd3'
 
-
 export const curvePropMapping = {
-    basis:            curveBasis,
-    basisClosed:      curveBasisClosed,
-    basisOpen:        curveBasisOpen,
-    bundle:           curveBundle,
-    cardinal:         curveCardinal,
-    cardinalClosed:   curveCardinalClosed,
-    cardinalOpen:     curveCardinalOpen,
-    catmullRom:       curveCatmullRom,
+    basis: curveBasis,
+    basisClosed: curveBasisClosed,
+    basisOpen: curveBasisOpen,
+    bundle: curveBundle,
+    cardinal: curveCardinal,
+    cardinalClosed: curveCardinalClosed,
+    cardinalOpen: curveCardinalOpen,
+    catmullRom: curveCatmullRom,
     catmullRomClosed: curveCatmullRomClosed,
-    catmullRomOpen:   curveCatmullRomOpen,
-    linear:           curveLinear,
-    linearClosed:     curveLinearClosed,
-    monotoneX:        curveMonotoneX,
-    monotoneY:        curveMonotoneY,
-    natural:          curveNatural,
-    step:             curveStep,
-    stepAfter:        curveStepAfter,
-    stepBefore:       curveStepBefore,
+    catmullRomOpen: curveCatmullRomOpen,
+    linear: curveLinear,
+    linearClosed: curveLinearClosed,
+    monotoneX: curveMonotoneX,
+    monotoneY: curveMonotoneY,
+    natural: curveNatural,
+    step: curveStep,
+    stepAfter: curveStepAfter,
+    stepBefore: curveStepBefore,
 }
 
 export const curvePropKeys = Object.keys(curvePropMapping)

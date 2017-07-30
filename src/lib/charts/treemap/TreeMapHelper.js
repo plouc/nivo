@@ -6,7 +6,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-'use strict';
 
 import {
     treemap as Treemap,
@@ -19,13 +18,12 @@ import {
     treemapResquarify,
 } from 'd3-hierarchy'
 
-
 export const tilingMethods = {
-    binary:     treemapBinary,
-    dice:       treemapDice,
-    slice:      treemapSlice,
-    sliceDice:  treemapSliceDice,
-    squarify:   treemapSquarify,
+    binary: treemapBinary,
+    dice: treemapDice,
+    slice: treemapSlice,
+    sliceDice: treemapSliceDice,
+    squarify: treemapSquarify,
     resquarify: treemapResquarify,
 }
 
@@ -54,12 +52,15 @@ const TreeMapHelper = () => {
          * @param {function} color
          */
         compute({
-            width, height,
+            width,
+            height,
             root: _root,
             leavesOnly,
             tile,
-            innerPadding, outerPadding,
-            identity, value,
+            innerPadding,
+            outerPadding,
+            identity,
+            value,
             color,
         }) {
             treemap
@@ -69,16 +70,13 @@ const TreeMapHelper = () => {
                 .paddingInner(innerPadding)
                 .paddingOuter(outerPadding)
 
-            const root = treemap(hierarchy(_root)
-                .sum(value)
-            )
+            const root = treemap(hierarchy(_root).sum(value))
 
             const nodes = leavesOnly ? root.leaves() : root.descendants()
 
-            return nodes
-                .map(d => {
-                    d.color = color(d.depth)
-                    /*
+            return nodes.map(d => {
+                d.color = color(d.depth)
+                /*
                      if (d.depth > 1) {
                      d.color = color(d.parentId)
                      } else {
@@ -86,13 +84,12 @@ const TreeMapHelper = () => {
                      }
                      */
 
-                    d.data.key = d.ancestors().map(a => identity(a.data)).join('.')
+                d.data.key = d.ancestors().map(a => identity(a.data)).join('.')
 
-                    return d
-                })
-        }
+                return d
+            })
+        },
     }
 }
-
 
 export default TreeMapHelper

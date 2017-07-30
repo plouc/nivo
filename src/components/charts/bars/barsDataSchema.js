@@ -1,6 +1,5 @@
 const barsDataSchema = {
-    type: 'array'
-};
+    type: 'array',
+}
 
-
-export default barsDataSchema;
+export default barsDataSchema
