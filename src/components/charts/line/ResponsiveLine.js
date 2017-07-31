@@ -1,28 +1,22 @@
 /*
  * This file is part of the nivo project.
  *
- * (c) 2016 Raphaël Benitte
+ * Copyright 2016-present, Raphaël Benitte.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import Dimensions from 'react-dimensions'
+import ResponsiveWrapper from '../ResponsiveWrapper'
 import Line from './Line'
 
-class ResponsiveLine extends Component {
+export default class ResponsiveLine extends Component {
     render() {
-        const { containerWidth, containerHeight } = this.props
-
         return (
-            <Line
-                width={containerWidth}
-                height={containerHeight}
-                {...this.props}
-            />
+            <ResponsiveWrapper>
+                {({ width, height }) =>
+                    <Line width={width} height={height} {...this.props} />}
+            </ResponsiveWrapper>
         )
     }
 }
-
-export default Dimensions()(ResponsiveLine)
