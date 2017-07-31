@@ -1,52 +1,25 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import _ from 'lodash'
+import { merge } from 'lodash'
+import { TransitionMotion, spring } from 'react-motion'
 import Nivo, { defaultTheme } from '../../../Nivo'
 import { margin as marginPropType } from '../../../PropTypes'
 import { getColorRange } from '../../../ColorUtils'
+import {
+    generateGroupedBars,
+    generateStackedBars,
+} from '../../../lib/charts/bar'
 import SvgWrapper from '../SvgWrapper'
 import Axis from '../../axes/Axis'
 import Grid from '../../axes/Grid'
 import BarItem from './BarItem'
 import BarItemLabel from './BarItemLabel'
-import { scaleBand, scaleLinear, stack } from 'd3'
 
 const axisPropType = PropTypes.shape({
     tickSize: PropTypes.number,
     tickPadding: PropTypes.number,
     format: PropTypes.func,
 })
-
-const getAxis = (
-    axes,
-    scale,
-    position,
-    width,
-    height,
-    theme,
-    { animate, motionStiffness, motionDamping }
-) => {
-    if (!axes[position]) return null
-
-    const axis = axes[position]
-
-    return (
-        <Axis
-            key={position}
-            width={width}
-            height={height}
-            position={position}
-            scale={scale}
-            format={axis.format}
-            tickSize={axis.tickSize}
-            tickPadding={axis.tickPadding}
-            theme={theme}
-            animate={animate}
-            motionStiffness={motionStiffness}
-            motionDamping={motionDamping}
-        />
-    )
-}
 
 export default class Bar extends Component {
     static propTypes = {
@@ -142,125 +115,68 @@ export default class Bar extends Component {
         const width = _width - margin.left - margin.right
         const height = _height - margin.top - margin.bottom
 
-        const theme = _.merge({}, defaultTheme, _theme)
+        const theme = merge({}, defaultTheme, _theme)
         const color = getColorRange(colors)
-
-        // determining x scale
-        const xLengths = _.uniq(data.map(({ data }) => data.length))
-        if (xLengths.length > 1) {
-            throw new Error(
-                [
-                    `Found inconsitent data for x,`,
-                    `expecting all series to have same length`,
-                    `but found: ${xLengths.join(', ')}`,
-                ].join(' ')
-            )
-        }
-        const xScale = scaleBand()
-            .rangeRound([0, width])
-            .domain(data[0].data.map(({ x }) => x))
-            .padding(xPadding)
-
-        // determining y scale, depending on `groupMode`
-        let maxY
-        if (groupMode === 'stacked') {
-            maxY = _.max(
-                _.range(xLengths).map(i =>
-                    _.sumBy(data, serie => serie.data[i].y)
-                )
-            )
-        } else if (groupMode === 'grouped') {
-            maxY = _.maxBy(
-                data.reduce((acc, serie) => [...acc, ...serie.data], []),
-                'y'
-            ).y
-        } else {
-            throw new TypeError(
-                [
-                    `'${groupMode}' is not a valid group mode,`,
-                    `must be one of: 'grouped', 'stacked'`,
-                ].join(' ')
-            )
-        }
-        const yScale = scaleLinear().rangeRound([height, 0]).domain([0, maxY])
-
-        const rects = []
-        if (groupMode === 'grouped') {
-            data.forEach(({ id, data: serie }, serieIndex) => {
-                serie.forEach(d => {
-                    const barWidth = xScale.bandwidth() / data.length
-                    const x = xScale(d.x) + barWidth * serieIndex
-                    const y = yScale(d.y)
-                    const barHeight = height - y
-
-                    const value = d.y
-
-                    if (barWidth > 0 && barHeight > 0) {
-                        rects.push({
-                            key: `${id}.${d.x}`,
-                            value,
-                            x,
-                            y,
-                            width: barWidth,
-                            height: barHeight,
-                            color: color(id),
-                        })
-                    }
-                })
-            })
-        } else if (groupMode === 'stacked') {
-            const stackedData = data.map(({ id }) => ({
-                id,
-                data: [],
-            }))
-            _.range(xLengths).forEach(index => {
-                data.forEach(({ data: serie }, serieIndex) => {
-                    const d = serie[index]
-
-                    let y0 = 0
-                    let y1 = d.y
-                    if (serieIndex > 0) {
-                        y0 = stackedData[serieIndex - 1].data[index].y1
-                        y1 = d.y + y0
-                    }
-
-                    stackedData[serieIndex].data[index] = Object.assign({}, d, {
-                        y0,
-                        y1,
-                    })
-                })
-            })
-
-            console.log(stackedData)
-
-            stackedData.forEach(({ id, data: serie }) => {
-                serie.forEach(d => {
-                    const x = xScale(d.x)
-                    const barWidth = xScale.bandwidth()
-                    const y = yScale(d.y1)
-                    const barHeight = yScale(d.y0) - y
-
-                    const value = d.y
-
-                    if (barWidth > 0 && barHeight > 0) {
-                        rects.push({
-                            key: `${id}.${d.x}`,
-                            value,
-                            x,
-                            y,
-                            width: barWidth,
-                            height: barHeight,
-                            color: color(id),
-                        })
-                    }
-                })
-            })
-        }
 
         const motionProps = {
             animate,
             motionDamping,
             motionStiffness,
+        }
+
+        let result
+        if (groupMode === 'grouped') {
+            result = generateGroupedBars(data, width, height, color, {
+                xPadding,
+            })
+        } else if (groupMode === 'stacked') {
+            result = generateStackedBars(data, width, height, color, {
+                xPadding,
+            })
+        }
+
+        let bars
+        if (animate === true) {
+            bars = (
+                <TransitionMotion
+                    /*
+                    willEnter={this.willEnter}
+                    willLeave={this.willLeave}
+                    */
+                    styles={result.bars.map(bar => {
+                        return {
+                            key: bar.key,
+                            data: {
+                                color: bar.color,
+                                value: bar.value,
+                            },
+                            style: {
+                                x: spring(bar.x, motionProps),
+                                y: spring(bar.y, motionProps),
+                                width: spring(bar.width, motionProps),
+                                height: spring(bar.height, motionProps),
+                            },
+                        }
+                    })}
+                >
+                    {interpolatedStyles =>
+                        <g>
+                            {interpolatedStyles.map(
+                                ({ key, style, data: { value, color } }) =>
+                                    <BarItem
+                                        key={key}
+                                        x={style.x}
+                                        y={style.y}
+                                        width={style.width}
+                                        height={style.height}
+                                        color={color}
+                                    />
+                            )}
+                        </g>}
+                </TransitionMotion>
+            )
+        } else {
+            bars = result.bars.map(d => <BarItem key={d.key} {...d} />)
         }
 
         return (
@@ -269,18 +185,33 @@ export default class Bar extends Component {
                     theme={theme}
                     width={width}
                     height={height}
-                    xScale={enableGridX ? xScale : null}
-                    yScale={enableGridY ? yScale : null}
+                    xScale={enableGridX ? result.xScale : null}
+                    yScale={enableGridY ? result.yScale : null}
                 />
-                {['left', 'right'].map(position =>
-                    getAxis(axes, yScale, position, width, height, theme, motionProps)
-                )}
-                {['top', 'bottom'].map(position =>
-                    getAxis(axes, xScale, position, width, height, theme, motionProps)
-                )}
-                {rects.map(d => <BarItem key={d.key} {...d} />)}
+                {['top', 'right', 'bottom', 'left'].map(position => {
+                    if (!axes[position]) return null
+
+                    const axis = axes[position]
+                    const scale = ['top', 'bottom'].includes(position)
+                        ? result.xScale
+                        : result.yScale
+
+                    return (
+                        <Axis
+                            theme={theme}
+                            {...motionProps}
+                            {...axis}
+                            key={position}
+                            width={width}
+                            height={height}
+                            position={position}
+                            scale={scale}
+                        />
+                    )
+                })}
+                {bars}
                 {enableLabels &&
-                    rects.map(d => <BarItemLabel {...d} key={d.key} />)}
+                    result.bars.map(d => <BarItemLabel {...d} key={d.key} />)}
             </SvgWrapper>
         )
     }

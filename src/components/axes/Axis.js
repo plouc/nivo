@@ -9,7 +9,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
-import { max } from 'd3'
 import Nivo from '../../Nivo'
 import AxisTick from './AxisTick'
 

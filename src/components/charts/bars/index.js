@@ -7,6 +7,4 @@
  * file that was distributed with this source code.
  */
 export Bar from './Bar'
-export Bars from './Bars'
 export ResponsiveBar from './ResponsiveBar'
-export BarGroup from './BarGroup'

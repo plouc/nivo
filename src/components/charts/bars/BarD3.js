@@ -16,7 +16,7 @@ import { getColorRange, getColorGenerator } from '../../../ColorUtils'
 import { margin as marginPropType } from '../../../PropTypes'
 import decoratorsFromReactChildren from '../../../lib/decoratorsFromReactChildren'
 
-class BarsD3 extends Component {
+class BarD3 extends Component {
     renderD3(props) {
         const {
             groupMode,
