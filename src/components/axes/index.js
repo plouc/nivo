@@ -7,4 +7,5 @@
  * file that was distributed with this source code.
  */
 export Axis from './Axis'
+export Axes from './Axes'
 export Grid from './Grid'

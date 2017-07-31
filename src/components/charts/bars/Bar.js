@@ -10,16 +10,10 @@ import {
     generateStackedBars,
 } from '../../../lib/charts/bar'
 import SvgWrapper from '../SvgWrapper'
-import Axis from '../../axes/Axis'
+import Axes from '../../axes/Axes'
 import Grid from '../../axes/Grid'
 import BarItem from './BarItem'
 import BarItemLabel from './BarItemLabel'
-
-const axisPropType = PropTypes.shape({
-    tickSize: PropTypes.number,
-    tickPadding: PropTypes.number,
-    format: PropTypes.func,
-})
 
 export default class Bar extends Component {
     static propTypes = {
@@ -50,12 +44,7 @@ export default class Bar extends Component {
         xPadding: PropTypes.number.isRequired,
 
         // axes
-        axes: PropTypes.shape({
-            top: axisPropType,
-            right: axisPropType,
-            bottom: axisPropType,
-            left: axisPropType,
-        }),
+        axes: PropTypes.object.isRequired,
         enableGridX: PropTypes.bool.isRequired,
         enableGridY: PropTypes.bool.isRequired,
 
@@ -81,8 +70,12 @@ export default class Bar extends Component {
         xPadding: 0.1,
         enableLabels: true,
         axes: {
-            left: {},
-            bottom: {},
+            left: {
+                enabled: true,
+            },
+            bottom: {
+                enabled: true,
+            },
         },
         enableGridX: false,
         enableGridY: true,
@@ -187,28 +180,16 @@ export default class Bar extends Component {
                     height={height}
                     xScale={enableGridX ? result.xScale : null}
                     yScale={enableGridY ? result.yScale : null}
+                    {...motionProps}
                 />
-                {['top', 'right', 'bottom', 'left'].map(position => {
-                    if (!axes[position]) return null
-
-                    const axis = axes[position]
-                    const scale = ['top', 'bottom'].includes(position)
-                        ? result.xScale
-                        : result.yScale
-
-                    return (
-                        <Axis
-                            theme={theme}
-                            {...motionProps}
-                            {...axis}
-                            key={position}
-                            width={width}
-                            height={height}
-                            position={position}
-                            scale={scale}
-                        />
-                    )
-                })}
+                <Axes
+                    axes={axes}
+                    xScale={result.xScale}
+                    yScale={result.yScale}
+                    width={width}
+                    height={height}
+                    theme={theme}
+                />
                 {bars}
                 {enableLabels &&
                     result.bars.map(d => <BarItemLabel {...d} key={d.key} />)}

@@ -23,9 +23,12 @@ export default class Grid extends Component {
     static propTypes = {
         width: PropTypes.number.isRequired,
         height: PropTypes.number.isRequired,
+
         xScale: PropTypes.func,
         yScale: PropTypes.func,
+
         theme: PropTypes.object.isRequired,
+
         // motion
         animate: PropTypes.bool.isRequired,
         motionStiffness: PropTypes.number.isRequired,
@@ -43,7 +46,6 @@ export default class Grid extends Component {
         const {
             width,
             height,
-            scales,
             xScale,
             yScale,
             theme,
