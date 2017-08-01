@@ -67,13 +67,7 @@ export default class GridLines extends Component {
     }
 
     render() {
-        const {
-            lines,
-            animate,
-            motionStiffness,
-            motionDamping,
-            theme,
-        } = this.props
+        const { lines, animate, motionStiffness, motionDamping, theme } = this.props
 
         if (!animate) {
             return (
@@ -110,13 +104,7 @@ export default class GridLines extends Component {
                         {interpolatedStyles.map(interpolatedStyle => {
                             const { key, style } = interpolatedStyle
 
-                            return (
-                                <GridLine
-                                    key={key}
-                                    {...theme.grid}
-                                    {...style}
-                                />
-                            )
+                            return <GridLine key={key} {...theme.grid} {...style} />
                         })}
                     </g>}
             </TransitionMotion>

@@ -40,9 +40,7 @@ export const getColorGenerator = instruction => {
         return d => d.color || d.data.color
     }
 
-    const inheritMatches = instruction.match(
-        /inherit:(darker|brighter)\(([0-9.]+)\)/
-    )
+    const inheritMatches = instruction.match(/inherit:(darker|brighter)\(([0-9.]+)\)/)
     if (inheritMatches) {
         const method = inheritMatches[1]
         const amount = inheritMatches[2]
@@ -76,18 +74,9 @@ export const extractRGB = (_color, springConfig) => {
     }
 
     return {
-        colorR: spring(
-            color.r,
-            Object.assign({}, springConfig, { precision: 1 })
-        ),
-        colorG: spring(
-            color.g,
-            Object.assign({}, springConfig, { precision: 1 })
-        ),
-        colorB: spring(
-            color.b,
-            Object.assign({}, springConfig, { precision: 1 })
-        ),
+        colorR: spring(color.r, Object.assign({}, springConfig, { precision: 1 })),
+        colorG: spring(color.g, Object.assign({}, springConfig, { precision: 1 })),
+        colorB: spring(color.b, Object.assign({}, springConfig, { precision: 1 })),
     }
 }
 
@@ -107,14 +96,7 @@ const d3Colors = {
 }
 
 export const nivoCategoricalColors = () =>
-    scaleOrdinal([
-        '#e8c1a0',
-        '#f47560',
-        '#f1e15b',
-        '#e8a838',
-        '#61cdbb',
-        '#97e3d5',
-    ])
+    scaleOrdinal(['#e8c1a0', '#f47560', '#f1e15b', '#e8a838', '#61cdbb', '#97e3d5'])
 
 const dataColor = d => d.color || d.data.color
 

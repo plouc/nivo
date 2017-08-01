@@ -15,13 +15,7 @@ class ResponsiveCalendarCanvas extends Component {
     render() {
         const { containerWidth, containerHeight } = this.props
 
-        return (
-            <CalendarCanvas
-                width={containerWidth}
-                height={containerHeight}
-                {...this.props}
-            />
-        )
+        return <CalendarCanvas width={containerWidth} height={containerHeight} {...this.props} />
     }
 }
 

@@ -32,15 +32,7 @@ const BubbleD3 = () => {
          * @param {function} color
          * @returns {array}
          */
-        compute({
-            width,
-            height,
-            data: _data,
-            identityProperty,
-            valueAccessor,
-            padding,
-            color,
-        }) {
+        compute({ width, height, data: _data, identityProperty, valueAccessor, padding, color }) {
             layout
                 //.value(valueAccessor)
                 //.sort(d => d.parentId)

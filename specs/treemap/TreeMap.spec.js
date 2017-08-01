@@ -53,9 +53,7 @@ describe('<TreeMapD3>', function() {
             node,
             () => {
                 setTimeout(() => {
-                    const nodes = node.getElementsByClassName(
-                        'nivo_treemap_node'
-                    )
+                    const nodes = node.getElementsByClassName('nivo_treemap_node')
                     expect(nodes).toNotBe(null)
                     expect(nodes.length).toBe(11)
 
@@ -79,9 +77,7 @@ describe('<TreeMapD3>', function() {
                 node,
                 () => {
                     setTimeout(() => {
-                        const nodes = node.getElementsByClassName(
-                            'nivo_treemap_node'
-                        )
+                        const nodes = node.getElementsByClassName('nivo_treemap_node')
                         expect(nodes).toNotBe(null)
                         expect(nodes.length).toBe(11)
 

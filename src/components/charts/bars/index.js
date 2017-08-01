@@ -6,5 +6,5 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-export Bar from './Bar'
-export ResponsiveBar from './ResponsiveBar'
+export { default as Bar } from './Bar'
+export { default as ResponsiveBar } from './ResponsiveBar'

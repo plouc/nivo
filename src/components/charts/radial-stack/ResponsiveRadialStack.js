@@ -16,13 +16,7 @@ class ResponsiveRadialStack extends Component {
     render() {
         const { containerWidth, containerHeight } = this.props
 
-        return (
-            <RadialStack
-                width={containerWidth}
-                height={containerHeight}
-                {...this.props}
-            />
-        )
+        return <RadialStack width={containerWidth} height={containerHeight} {...this.props} />
     }
 }
 

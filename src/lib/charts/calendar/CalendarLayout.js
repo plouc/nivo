@@ -10,16 +10,7 @@
 import _ from 'lodash'
 import scalePropToD3Scale from '../../scalePropToD3Scale'
 import { DIRECTION_HORIZONTAL } from '../../../constants/directions'
-import {
-    timeFormat,
-    timeDays,
-    timeWeek,
-    timeWeeks,
-    timeMonths,
-    timeYear,
-    range,
-    max,
-} from 'd3'
+import { timeFormat, timeDays, timeWeek, timeWeeks, timeMonths, timeYear, range, max } from 'd3'
 
 /**
  * Compute day cell size according to current context.
@@ -48,15 +39,11 @@ const computeCellSize = ({
     if (direction === DIRECTION_HORIZONTAL) {
         hCellSize = (width - daySpacing * maxWeeks) / maxWeeks
         vCellSize =
-            (height -
-                (yearRange.length - 1) * yearSpacing -
-                yearRange.length * (8 * daySpacing)) /
+            (height - (yearRange.length - 1) * yearSpacing - yearRange.length * (8 * daySpacing)) /
             (yearRange.length * 7)
     } else {
         hCellSize =
-            (width -
-                (yearRange.length - 1) * yearSpacing -
-                yearRange.length * (8 * daySpacing)) /
+            (width - (yearRange.length - 1) * yearSpacing - yearRange.length * (8 * daySpacing)) /
             (yearRange.length * 7)
         vCellSize = (height - daySpacing * maxWeeks) / maxWeeks
     }
@@ -75,14 +62,7 @@ const computeCellSize = ({
  * @param {string} direction
  * @returns { { path: string, bbox: { x: number, y: number, width: number, height: number } } }
  */
-const monthPathAndBBox = ({
-    date,
-    cellSize,
-    yearIndex,
-    yearSpacing,
-    daySpacing,
-    direction,
-}) => {
+const monthPathAndBBox = ({ date, cellSize, yearIndex, yearSpacing, daySpacing, direction }) => {
     const t1 = new Date(date.getFullYear(), date.getMonth() + 1, 0) // first day of next month
     const d0 = date.getDay() // first day of month
     const w0 = timeWeek.count(timeYear(date), date) // first week of month
@@ -103,12 +83,9 @@ const monthPathAndBBox = ({
     let bbox = { x: xO, y: yO, width: 0, height: 0 }
     if (direction === DIRECTION_HORIZONTAL) {
         path = [
-            `M${xO + (w0 + 1) * (cellSize + daySpacing)},${yO +
-                d0 * (cellSize + daySpacing)}`,
-            `H${xO + w0 * (cellSize + daySpacing)}V${yO +
-                7 * (cellSize + daySpacing)}`,
-            `H${xO + w1 * (cellSize + daySpacing)}V${yO +
-                (d1 + 1) * (cellSize + daySpacing)}`,
+            `M${xO + (w0 + 1) * (cellSize + daySpacing)},${yO + d0 * (cellSize + daySpacing)}`,
+            `H${xO + w0 * (cellSize + daySpacing)}V${yO + 7 * (cellSize + daySpacing)}`,
+            `H${xO + w1 * (cellSize + daySpacing)}V${yO + (d1 + 1) * (cellSize + daySpacing)}`,
             `H${xO + (w1 + 1) * (cellSize + daySpacing)}V${yO}`,
             `H${xO + (w0 + 1) * (cellSize + daySpacing)}Z`,
         ].join('')
@@ -118,13 +95,10 @@ const monthPathAndBBox = ({
         bbox.height = 7 * (cellSize + daySpacing)
     } else {
         path = [
-            `M${xO + d0 * (cellSize + daySpacing)},${yO +
-                (w0 + 1) * (cellSize + daySpacing)}`,
+            `M${xO + d0 * (cellSize + daySpacing)},${yO + (w0 + 1) * (cellSize + daySpacing)}`,
             `H${xO}V${yO + (w1 + 1) * (cellSize + daySpacing)}`,
-            `H${xO + (d1 + 1) * (cellSize + daySpacing)}V${yO +
-                w1 * (cellSize + daySpacing)}`,
-            `H${xO + 7 * (cellSize + daySpacing)}V${yO +
-                w0 * (cellSize + daySpacing)}`,
+            `H${xO + (d1 + 1) * (cellSize + daySpacing)}V${yO + w1 * (cellSize + daySpacing)}`,
+            `H${xO + 7 * (cellSize + daySpacing)}V${yO + w0 * (cellSize + daySpacing)}`,
             `H${xO + d0 * (cellSize + daySpacing)}Z`,
         ].join('')
 
@@ -230,18 +204,11 @@ const CalendarLayout = () => {
             // time related data
             const fromDate = _.isDate(from) ? from : new Date(from)
             const toDate = _.isDate(to) ? to : new Date(to)
-            let yearRange = range(
-                fromDate.getFullYear(),
-                toDate.getFullYear() + 1
-            )
+            let yearRange = range(fromDate.getFullYear(), toDate.getFullYear() + 1)
             const maxWeeks =
                 max(
                     yearRange,
-                    year =>
-                        timeWeeks(
-                            new Date(year, 0, 1),
-                            new Date(year + 1, 0, 1)
-                        ).length
+                    year => timeWeeks(new Date(year, 0, 1), new Date(year + 1, 0, 1)).length
                 ) + 1
 
             // ——————————————————————————————————————————————————————————————————————————————————————————————————————
@@ -261,17 +228,9 @@ const CalendarLayout = () => {
             // determine day cells positioning function according to layout direction
             let cellPosition
             if (direction === DIRECTION_HORIZONTAL) {
-                cellPosition = cellPositionHorizontal(
-                    cellSize,
-                    yearSpacing,
-                    daySpacing
-                )
+                cellPosition = cellPositionHorizontal(cellSize, yearSpacing, daySpacing)
             } else {
-                cellPosition = cellPositionVertical(
-                    cellSize,
-                    yearSpacing,
-                    daySpacing
-                )
+                cellPosition = cellPositionVertical(cellSize, yearSpacing, daySpacing)
             }
 
             let years = []
@@ -295,10 +254,7 @@ const CalendarLayout = () => {
                     )
                 )
 
-                const yearMonths = timeMonths(
-                    yearStart,
-                    yearEnd
-                ).map(monthDate =>
+                const yearMonths = timeMonths(yearStart, yearEnd).map(monthDate =>
                     _.assign(
                         { date: monthDate },
                         memoMonthPathAndBBox({

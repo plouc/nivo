@@ -28,12 +28,15 @@ export const bubblePropTypes = {
     value: string.isRequired,
     padding: number.isRequired,
     colors: any.isRequired,
+
     // placeholders
     namespace: oneOf(['html', 'svg']),
     children: func.isRequired,
+
     // border
     borderWidth: number.isRequired,
     borderColor: any.isRequired,
+
     // labels
     enableLabel: bool.isRequired,
     label: string.isRequired,
@@ -41,6 +44,7 @@ export const bubblePropTypes = {
     labelTextColor: any.isRequired,
     labelTextDY: number.isRequired,
     labelSkipRadius: number.isRequired,
+
     // transitions
     animate: bool.isRequired,
     motionStiffness: number.isRequired, // react-motion
@@ -62,17 +66,21 @@ export const bubbleDefaultProps = {
     value: 'value',
     padding: 1,
     colors: Nivo.defaults.colorRange,
+
     // placeholders
     namespace: 'html',
+
     // border
     borderWidth: 0,
     borderColor: 'inherit',
+
     // labels
     enableLabel: true,
     label: 'id',
     labelTextColor: 'inherit:darker(1)',
     labelTextDY: 5,
     labelSkipRadius: 0,
+
     // transitions
     animate: true,
     motionStiffness: Nivo.defaults.motionStiffness, // react-motion

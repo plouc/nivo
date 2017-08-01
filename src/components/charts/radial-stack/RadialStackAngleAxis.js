@@ -16,13 +16,7 @@ import makeLabel, { LABEL_POSITION_TOP } from '../../../lib/charts/labels'
 
 class RadialStackAngleAxis extends Component {
     static decorateRadialStack({
-        props: {
-            labelPosition,
-            labelRotation,
-            labelOffset,
-            labelPaddingX,
-            labelPaddingY,
-        },
+        props: { labelPosition, labelRotation, labelOffset, labelPaddingX, labelPaddingY },
     }) {
         const radialLine = d3.svg.line.radial().interpolate('cardinal-closed')
         /*
@@ -43,9 +37,7 @@ class RadialStackAngleAxis extends Component {
             let wrapper = element.select('.nivo_radial-axis')
             if (wrapper.node() === null) {
                 //wrapper = element.append('g')
-                wrapper = element
-                    .insert('g', ':first-child')
-                    .attr('class', 'nivo_radial-axis')
+                wrapper = element.insert('g', ':first-child').attr('class', 'nivo_radial-axis')
             }
 
             /*
@@ -65,9 +57,7 @@ class RadialStackAngleAxis extends Component {
             ;
             */
 
-            const lines = wrapper
-                .selectAll('.nivo_radial-axis_tick')
-                .data(stacked[0], d => d.x)
+            const lines = wrapper.selectAll('.nivo_radial-axis_tick').data(stacked[0], d => d.x)
 
             const newLine = lines
                 .enter()
@@ -81,41 +71,29 @@ class RadialStackAngleAxis extends Component {
                 .attr('x1', innerRadius)
                 .attr('x2', outerRadius)
 
-            newLine
-                .append('g')
-                .attr('transform', `translate(${outerRadius},0)`)
-                .each(function(d) {
-                    const el = d3.select(this)
+            newLine.append('g').attr('transform', `translate(${outerRadius},0)`).each(function(d) {
+                const el = d3.select(this)
 
-                    el
-                        .append('g')
-                        .attr('transform', d => `rotate(${labelRotation})`)
-                        .call(
-                            makeLabel({
-                                text: d.x,
-                                position: labelPosition,
-                                labelOffset,
-                                labelPaddingX,
-                                labelPaddingY,
-                            })
-                        )
-                })
+                el.append('g').attr('transform', d => `rotate(${labelRotation})`).call(
+                    makeLabel({
+                        text: d.x,
+                        position: labelPosition,
+                        labelOffset,
+                        labelPaddingX,
+                        labelPaddingY,
+                    })
+                )
+            })
 
             lines
                 .transition()
                 .duration(transitionDuration)
                 .ease(transitionEasing)
-                .attr(
-                    'transform',
-                    d => `rotate(${radiansToDegrees(angle(d.x)) - 90})`
-                )
+                .attr('transform', d => `rotate(${radiansToDegrees(angle(d.x)) - 90})`)
                 .each(function(d) {
                     const el = d3.select(this)
 
-                    d3
-                        .transition(el.select('line'))
-                        .attr('x1', innerRadius)
-                        .attr('x2', outerRadius)
+                    d3.transition(el.select('line')).attr('x1', innerRadius).attr('x2', outerRadius)
 
                     el
                         .select('g')

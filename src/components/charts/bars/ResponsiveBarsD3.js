@@ -14,8 +14,7 @@ export default class ResponsiveBarD3 extends Component {
     render() {
         return (
             <ResponsiveWrapper>
-                {({ width, height }) =>
-                    <BarD3 width={width} height={height} {...this.props} />}
+                {({ width, height }) => <BarD3 width={width} height={height} {...this.props} />}
             </ResponsiveWrapper>
         )
     }

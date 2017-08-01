@@ -57,9 +57,7 @@ class CalendarCanvas extends Component {
             daySpacing,
         })
 
-        const dayNodes = this.container
-            .selectAll('custom.rect')
-            .data(days, d => d.date)
+        const dayNodes = this.container.selectAll('custom.rect').data(days, d => d.date)
 
         dayNodes
             .enter()
@@ -68,9 +66,7 @@ class CalendarCanvas extends Component {
             .attr('x', 0)
             .attr('y', 0)
             .attr('size', d => d.size)
-            .attr('fillStyle', d =>
-                color(`${d.date.getFullYear()}.${d.date.getMonth()}`)
-            )
+            .attr('fillStyle', d => color(`${d.date.getFullYear()}.${d.date.getMonth()}`))
             .attr('strokeStyle', dayBorderColor)
             .attr('lineWidth', dayBorderWidth)
 
@@ -82,9 +78,7 @@ class CalendarCanvas extends Component {
             .attr('x', d => d.x)
             .attr('y', d => d.y)
             .attr('size', d => d.size)
-            .attr('fillStyle', d =>
-                color(`${d.date.getFullYear()}.${d.date.getMonth()}`)
-            )
+            .attr('fillStyle', d => color(`${d.date.getFullYear()}.${d.date.getMonth()}`))
             .attr('strokeStyle', dayBorderColor)
             .attr('lineWidth', dayBorderWidth)
     }
@@ -107,12 +101,7 @@ class CalendarCanvas extends Component {
             ctx.fillStyle = node.attr('fillStyle')
             ctx.strokeStyle = node.attr('strokeStyle')
             ctx.lineWidth = node.attr('lineWidth')
-            ctx.rect(
-                node.attr('x'),
-                node.attr('y'),
-                node.attr('size'),
-                node.attr('size')
-            )
+            ctx.rect(node.attr('x'), node.attr('y'), node.attr('size'), node.attr('size'))
             ctx.fill()
             ctx.stroke()
             ctx.closePath()
@@ -147,14 +136,8 @@ class CalendarCanvas extends Component {
     }
 }
 
-CalendarCanvas.propTypes = _.omit(calendarPropTypes, [
-    'motionStiffness',
-    'motionDamping',
-])
+CalendarCanvas.propTypes = _.omit(calendarPropTypes, ['motionStiffness', 'motionDamping'])
 
-CalendarCanvas.defaultProps = _.omit(calendarDefaultProps, [
-    'motionStiffness',
-    'motionDamping',
-])
+CalendarCanvas.defaultProps = _.omit(calendarDefaultProps, ['motionStiffness', 'motionDamping'])
 
 export default CalendarCanvas

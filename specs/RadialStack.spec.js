@@ -56,9 +56,7 @@ describe('<RadialStack>', function() {
                 node,
                 () => {
                     setTimeout(() => {
-                        const areas = node.getElementsByClassName(
-                            'nivo_radial-stack_area'
-                        )
+                        const areas = node.getElementsByClassName('nivo_radial-stack_area')
                         expect(areas).toNotBe(null)
                         expect(areas.length).toBe(data.length)
 

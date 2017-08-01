@@ -13,23 +13,13 @@ import d3 from 'd3'
 
 class XYScales extends Component {
     render() {
-        const {
-            data,
-            identityAccessor,
-            valueAccessor,
-            width,
-            height,
-            children,
-        } = this.props
+        const { data, identityAccessor, valueAccessor, width, height, children } = this.props
 
         if (React.Children.count(children) === 0) {
             return null
         }
 
-        const xScale = d3.scale
-            .linear()
-            .range([0, width])
-            .domain([0, data.length - 1])
+        const xScale = d3.scale.linear().range([0, width]).domain([0, data.length - 1])
 
         const yScale = d3.scale
             .linear()

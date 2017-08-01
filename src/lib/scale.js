@@ -11,11 +11,7 @@ export const scaleTypes = [SCALE_LINEAR, SCALE_BAND, SCALE_POINT]
 export const scalePropTypes = {
     type: PropTypes.oneOf(scaleTypes).isRequired,
     axis: PropTypes.oneOf(['x', 'y']).isRequired,
-    dataKey: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-        PropTypes.func,
-    ]),
+    dataKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.func]),
     aggregate: PropTypes.array,
     maxOf: PropTypes.array,
     padding: PropTypes.number,
@@ -25,12 +21,7 @@ export const scalesPropType = (props, propName, componentName) => {
     const scales = props[propName]
 
     _.forOwn(scales, (scale, id) => {
-        PropTypes.checkPropTypes(
-            scalePropTypes,
-            scale,
-            `\`${propName}.${id}\``,
-            componentName
-        )
+        PropTypes.checkPropTypes(scalePropTypes, scale, `\`${propName}.${id}\``, componentName)
     })
 }
 
@@ -56,9 +47,7 @@ export const createScale = (
     let scale
     switch (type) {
         case SCALE_LINEAR:
-            scale = scaleLinear()
-                .rangeRound(range)
-                .domain([0, _.max(data.map(mapper))])
+            scale = scaleLinear().rangeRound(range).domain([0, _.max(data.map(mapper))])
             break
 
         case SCALE_BAND:

@@ -7,4 +7,4 @@
  * file that was distributed with this source code.
  */
 
-export Scale from './Scale'
+export { default as Scale } from './Scale'

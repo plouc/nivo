@@ -67,8 +67,7 @@ class Chord extends Component {
 
                             return (
                                 <path
-                                    key={`ribbon.${d.source.index}.${d.target
-                                        .index}`}
+                                    key={`ribbon.${d.source.index}.${d.target.index}`}
                                     className="nivo_chord_ribbon"
                                     d={ribbon(d)}
                                     fill={c}

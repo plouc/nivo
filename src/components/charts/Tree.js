@@ -65,8 +65,7 @@ const computeLabelPositions = ({
     leafLabelPosition,
 }) => {
     rootLabelPosition = rootLabelPosition || labelPositions.root[direction]
-    intermediateLabelPosition =
-        intermediateLabelPosition || labelPositions.intermediate[direction]
+    intermediateLabelPosition = intermediateLabelPosition || labelPositions.intermediate[direction]
     leafLabelPosition = leafLabelPosition || labelPositions.leaf[direction]
 
     return {
@@ -104,8 +103,7 @@ const computeLabelRotations = ({
     leafLabelRotation,
 }) => {
     rootLabelRotation = rootLabelRotation || labelRotations.root[direction]
-    intermediateLabelRotation =
-        intermediateLabelRotation || labelRotations.intermediate[direction]
+    intermediateLabelRotation = intermediateLabelRotation || labelRotations.intermediate[direction]
     leafLabelRotation = leafLabelRotation || labelRotations.leaf[direction]
 
     return {
@@ -183,12 +181,8 @@ class Tree extends Component {
                 break
         }
 
-        const wrapper = element
-            .select('.nivo_tree_wrapper')
-            .attr({ width, height })
-        const previousNodes = _.cloneDeep(
-            wrapper.selectAll('.nivo_tree_circle').data()
-        )
+        const wrapper = element.select('.nivo_tree_wrapper').attr({ width, height })
+        const previousNodes = _.cloneDeep(wrapper.selectAll('.nivo_tree_circle').data())
 
         wrapper
             //.transition()
@@ -260,9 +254,7 @@ class Tree extends Component {
         // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
         // Circles
         // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
-        const circle = wrapper
-            .selectAll('.nivo_tree_circle')
-            .data(nodes, identity)
+        const circle = wrapper.selectAll('.nivo_tree_circle').data(nodes, identity)
 
         circle
             .enter()
@@ -285,9 +277,7 @@ class Tree extends Component {
         // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
         // Labels
         // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
-        const label = wrapper
-            .selectAll('.nivo_tree_label')
-            .data(nodes, identity)
+        const label = wrapper.selectAll('.nivo_tree_label').data(nodes, identity)
 
         const {
             rootLabelPosition,
@@ -407,12 +397,8 @@ Tree.propTypes = {
     root: object.isRequired,
     identity: func.isRequired,
     labelFn: func.isRequired,
-    direction: oneOf([
-        'horizontal',
-        'horizontal-reverse',
-        'vertical',
-        'vertical-reverse',
-    ]).isRequired,
+    direction: oneOf(['horizontal', 'horizontal-reverse', 'vertical', 'vertical-reverse'])
+        .isRequired,
     colors: any.isRequired,
     nodeRadius: number.isRequired,
     transitionDuration: number.isRequired,

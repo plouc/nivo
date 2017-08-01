@@ -15,9 +15,7 @@ import decoratorsFromReactChildren from '../../../lib/decoratorsFromReactChildre
 
 class Pie extends Component {
     shouldComponentUpdate(nextProps) {
-        this.pie.decorate(
-            decoratorsFromReactChildren(nextProps.children, 'decoratePie')
-        )
+        this.pie.decorate(decoratorsFromReactChildren(nextProps.children, 'decoratePie'))
         this.pie.draw(nextProps)
 
         return false
@@ -25,9 +23,7 @@ class Pie extends Component {
 
     componentDidMount() {
         this.pie = PieD3Svg(findDOMNode(this))
-        this.pie.decorate(
-            decoratorsFromReactChildren(this.props.children, 'decoratePie')
-        )
+        this.pie.decorate(decoratorsFromReactChildren(this.props.children, 'decoratePie'))
         this.pie.draw(this.props)
     }
 

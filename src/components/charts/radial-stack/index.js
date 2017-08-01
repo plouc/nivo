@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-export RadialStack from './RadialStack'
-export ResponsiveRadialStack from './ResponsiveRadialStack'
-export RadialStackRadiusAxis from './RadialStackRadiusAxis'
-export RadialStackAngleAxis from './RadialStackAngleAxis'
+export { default as RadialStack } from './RadialStack'
+export { default as ResponsiveRadialStack } from './ResponsiveRadialStack'
+export { default as RadialStackRadiusAxis } from './RadialStackRadiusAxis'
+export { default as RadialStackAngleAxis } from './RadialStackAngleAxis'

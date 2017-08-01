@@ -15,13 +15,7 @@ class ResponsiveCalendarD3 extends Component {
     render() {
         const { containerWidth, containerHeight } = this.props
 
-        return (
-            <CalendarD3
-                width={containerWidth}
-                height={containerHeight}
-                {...this.props}
-            />
-        )
+        return <CalendarD3 width={containerWidth} height={containerHeight} {...this.props} />
     }
 }
 

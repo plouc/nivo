@@ -14,8 +14,7 @@ export default class ResponsiveBar extends Component {
     render() {
         return (
             <ResponsiveWrapper>
-                {({ width, height }) =>
-                    <Bar width={width} height={height} {...this.props} />}
+                {({ width, height }) => <Bar width={width} height={height} {...this.props} />}
             </ResponsiveWrapper>
         )
     }

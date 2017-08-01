@@ -43,11 +43,7 @@ class Voronoi extends Component {
         const links = voronoi.links(data)
 
         return (
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width={_width}
-                height={_height}
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" width={_width} height={_height}>
                 <g transform={`translate(${margin.left},${margin.top})`}>
                     {enableLinks &&
                         links.map(l => {
@@ -76,15 +72,7 @@ class Voronoi extends Component {
                         })}
                     {enableSites &&
                         data.map(d => {
-                            return (
-                                <circle
-                                    r="2.5"
-                                    cx={d[0]}
-                                    cy={d[1]}
-                                    fill="#F00"
-                                    stroke="none"
-                                />
-                            )
+                            return <circle r="2.5" cx={d[0]} cy={d[1]} fill="#F00" stroke="none" />
                         })}
                 </g>
             </svg>

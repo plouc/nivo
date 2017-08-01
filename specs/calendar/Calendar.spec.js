@@ -44,9 +44,7 @@ describe('<Calendar />', function() {
             node,
             () => {
                 setTimeout(() => {
-                    const days = node.getElementsByClassName(
-                        'nivo_calendar_day'
-                    )
+                    const days = node.getElementsByClassName('nivo_calendar_day')
                     expect(days).toNotBe(null)
                     expect(days.length).toBe(365 * 2)
 
@@ -74,15 +72,11 @@ describe('<Calendar />', function() {
             node,
             () => {
                 setTimeout(() => {
-                    const months = node.getElementsByClassName(
-                        'nivo_calendar_month'
-                    )
+                    const months = node.getElementsByClassName('nivo_calendar_month')
                     expect(months).toNotBe(null)
                     expect(months.length).toBe(12 * 2)
 
-                    const monthLegends = node.getElementsByClassName(
-                        'nivo_calendar_month_legend'
-                    )
+                    const monthLegends = node.getElementsByClassName('nivo_calendar_month_legend')
                     expect(monthLegends).toNotBe(null)
                     expect(monthLegends.length).toBe(12 * 2)
 
@@ -110,9 +104,7 @@ describe('<Calendar />', function() {
             node,
             () => {
                 setTimeout(() => {
-                    const legends = node.getElementsByClassName(
-                        'nivo_calendar_year_legend'
-                    )
+                    const legends = node.getElementsByClassName('nivo_calendar_year_legend')
                     expect(legends).toNotBe(null)
                     expect(legends.length).toBe(2)
 
@@ -141,9 +133,7 @@ describe('<Calendar />', function() {
             node,
             () => {
                 setTimeout(() => {
-                    const days = node.getElementsByClassName(
-                        'nivo_calendar_day'
-                    )
+                    const days = node.getElementsByClassName('nivo_calendar_day')
                     expect(days).toNotBe(null)
                     expect(days.length).toBe(365 * 2)
 

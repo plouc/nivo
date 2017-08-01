@@ -9,11 +9,7 @@
 
 import d3 from 'd3'
 import BubbleD3 from './BubbleD3'
-import {
-    getColorRange,
-    getColorGenerator,
-    getColorStyleObject,
-} from '../../../ColorUtils'
+import { getColorRange, getColorGenerator, getColorStyleObject } from '../../../ColorUtils'
 import { convertLabel } from '../../propertiesConverters'
 
 const BubbleD3Svg = domRoot => {
@@ -79,9 +75,7 @@ const BubbleD3Svg = domRoot => {
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
             // NODES
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
-            const nodes = wrapper
-                .selectAll('.nivo_bubble_node')
-                .data(bubbled, identity)
+            const nodes = wrapper.selectAll('.nivo_bubble_node').data(bubbled, identity)
 
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
             // ENTER: creates new nodes
@@ -133,9 +127,7 @@ const BubbleD3Svg = domRoot => {
                 legendsData = bubbled.filter(d => d.r >= labelSkipRadius)
             }
 
-            const legends = wrapper
-                .selectAll('.nivo_bubble_legend')
-                .data(legendsData, identity)
+            const legends = wrapper.selectAll('.nivo_bubble_legend').data(legendsData, identity)
 
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
             // ENTER: creates new labels

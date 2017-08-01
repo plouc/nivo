@@ -14,8 +14,7 @@ export default class ResponsiveLine extends Component {
     render() {
         return (
             <ResponsiveWrapper>
-                {({ width, height }) =>
-                    <Line width={width} height={height} {...this.props} />}
+                {({ width, height }) => <Line width={width} height={height} {...this.props} />}
             </ResponsiveWrapper>
         )
     }

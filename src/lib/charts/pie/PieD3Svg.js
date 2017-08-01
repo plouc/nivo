@@ -60,10 +60,7 @@ const PieD3Svg = domRoot => {
 
             let radius = Math.min(width / 2, height / 2)
 
-            arc
-                .outerRadius(radius)
-                .innerRadius(radius * innerRadius)
-                .cornerRadius(cornerRadius)
+            arc.outerRadius(radius).innerRadius(radius * innerRadius).cornerRadius(cornerRadius)
 
             outline.attr(
                 'd',

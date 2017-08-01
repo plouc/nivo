@@ -41,5 +41,4 @@ export const convertGetter = _property => {
     return d => _.get(d, _property)
 }
 
-export const getAccessorFor = directive =>
-    _.isFunction(directive) ? directive : d => d[directive]
+export const getAccessorFor = directive => (_.isFunction(directive) ? directive : d => d[directive])

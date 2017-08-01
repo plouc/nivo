@@ -59,12 +59,9 @@ export default class Axes extends Component {
                     if (!axes[position]) return null
 
                     const axis = axes[position]
-                    if (axis.enabled !== undefined && axis.enabled === false)
-                        return null
+                    if (axis.enabled !== undefined && axis.enabled === false) return null
 
-                    const scale = horizontalPositions.includes(position)
-                        ? xScale
-                        : yScale
+                    const scale = horizontalPositions.includes(position) ? xScale : yScale
 
                     return (
                         <Axis

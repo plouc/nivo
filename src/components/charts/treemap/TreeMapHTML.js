@@ -37,13 +37,9 @@ const createNodes = ({
                 enableLabels &&
                 node.data.height === 0 &&
                 (labelSkipSize === 0 ||
-                    Math.min(node.style.width, node.style.height) >
-                        labelSkipSize)
+                    Math.min(node.style.width, node.style.height) > labelSkipSize)
 
-            const rotate =
-                shouldRenderLabel &&
-                orientLabels &&
-                node.style.height > node.style.width
+            const rotate = shouldRenderLabel && orientLabels && node.style.height > node.style.width
 
             renderedNodes.push(
                 <div

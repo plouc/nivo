@@ -24,8 +24,7 @@ export default class Axis extends Component {
         width: PropTypes.number.isRequired,
         height: PropTypes.number.isRequired,
         orient: PropTypes.oneOf(['top', 'right', 'bottom', 'left']),
-        position: PropTypes.oneOf(['top', 'right', 'bottom', 'left'])
-            .isRequired,
+        position: PropTypes.oneOf(['top', 'right', 'bottom', 'left']).isRequired,
         scale: PropTypes.func.isRequired,
         // ticks
         tickSize: PropTypes.number.isRequired,

@@ -51,8 +51,7 @@ const createNodes = ({
                 .filter(node => {
                     return (
                         node.data.height === 0 &&
-                        (labelSkipRadius === 0 ||
-                            node.data.r >= labelSkipRadius)
+                        (labelSkipRadius === 0 || node.data.r >= labelSkipRadius)
                     )
                 })
                 .forEach(node => {
@@ -60,8 +59,7 @@ const createNodes = ({
                         <text
                             key={`${node.key}.text`}
                             className="nivo_bubble_legend"
-                            transform={`translate(${node.style.x},${node.style
-                                .y})`}
+                            transform={`translate(${node.style.x},${node.style.y})`}
                             textAnchor={'middle'}
                             dy={labelTextDY}
                             style={{

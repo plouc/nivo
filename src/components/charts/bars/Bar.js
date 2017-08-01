@@ -5,10 +5,7 @@ import { TransitionMotion, spring } from 'react-motion'
 import Nivo, { defaultTheme } from '../../../Nivo'
 import { margin as marginPropType } from '../../../PropTypes'
 import { getColorRange } from '../../../ColorUtils'
-import {
-    generateGroupedBars,
-    generateStackedBars,
-} from '../../../lib/charts/bar'
+import { generateGroupedBars, generateStackedBars } from '../../../lib/charts/bar'
 import SvgWrapper from '../SvgWrapper'
 import Axes from '../../axes/Axes'
 import Grid from '../../axes/Grid'
@@ -23,14 +20,8 @@ export default class Bar extends Component {
                 id: PropTypes.string.isRequired,
                 data: PropTypes.arrayOf(
                     PropTypes.shape({
-                        x: PropTypes.oneOfType([
-                            PropTypes.number,
-                            PropTypes.string,
-                        ]).isRequired,
-                        y: PropTypes.oneOfType([
-                            PropTypes.number,
-                            PropTypes.string,
-                        ]).isRequired,
+                        x: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+                        y: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
                     })
                 ).isRequired,
             })
@@ -154,16 +145,15 @@ export default class Bar extends Component {
                 >
                     {interpolatedStyles =>
                         <g>
-                            {interpolatedStyles.map(
-                                ({ key, style, data: { value, color } }) =>
-                                    <BarItem
-                                        key={key}
-                                        x={style.x}
-                                        y={style.y}
-                                        width={style.width}
-                                        height={style.height}
-                                        color={color}
-                                    />
+                            {interpolatedStyles.map(({ key, style, data: { value, color } }) =>
+                                <BarItem
+                                    key={key}
+                                    x={style.x}
+                                    y={style.y}
+                                    width={style.width}
+                                    height={style.height}
+                                    color={color}
+                                />
                             )}
                         </g>}
                 </TransitionMotion>
@@ -191,8 +181,7 @@ export default class Bar extends Component {
                     theme={theme}
                 />
                 {bars}
-                {enableLabels &&
-                    result.bars.map(d => <BarItemLabel {...d} key={d.key} />)}
+                {enableLabels && result.bars.map(d => <BarItemLabel {...d} key={d.key} />)}
             </SvgWrapper>
         )
     }

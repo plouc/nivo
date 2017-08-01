@@ -40,9 +40,7 @@ describe('<BubbleD3 />', function() {
             node,
             () => {
                 setTimeout(() => {
-                    const circles = node.getElementsByClassName(
-                        'nivo_bubble_node'
-                    )
+                    const circles = node.getElementsByClassName('nivo_bubble_node')
                     expect(circles).toNotBe(null)
                     expect(circles.length).toBe(11)
 

@@ -38,3 +38,9 @@ export const margin = shape({
     bottom: number,
     left: number,
 }).isRequired
+
+export const motion = {
+    animate: PropTypes.bool.isRequired,
+    motionStiffness: PropTypes.number.isRequired,
+    motionDamping: PropTypes.number.isRequired,
+}

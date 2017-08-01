@@ -32,16 +32,9 @@ export default class ResponsiveTreeMapHTML extends Component {
                 }}
             >
                 {({ measureRef }) =>
-                    <div
-                        ref={measureRef}
-                        style={{ width: '100%', height: '100%' }}
-                    >
+                    <div ref={measureRef} style={{ width: '100%', height: '100%' }}>
                         {shouldRender &&
-                            <TreeMapHTML
-                                width={width}
-                                height={height}
-                                {...this.props}
-                            />}
+                            <TreeMapHTML width={width} height={height} {...this.props} />}
                     </div>}
             </Measure>
         )

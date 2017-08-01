@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-export default from './Nivo'
+export { default as Nivo } from './Nivo'
 export * from './components/charts/bars/'
 export * from './components/charts/line/'
 export * from './components/charts/bubble/'
@@ -18,5 +18,5 @@ export * from './components/charts/voronoi/'
 export * from './components/axes/'
 export * from './components/scales/'
 export * from './properties/curve'
-export Chart from './components/charts/Chart'
-export ResponsiveChart from './components/charts/ResponsiveChart'
+export { default as Chart } from './components/charts/Chart'
+export { default as ResponsiveChart } from './components/charts/ResponsiveChart'

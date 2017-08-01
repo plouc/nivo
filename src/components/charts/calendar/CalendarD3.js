@@ -76,18 +76,12 @@ class CalendarD3 extends Component {
         // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
         // Days
         // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
-        const dayNodes = wrapper
-            .selectAll('.nivo_calendar_day')
-            .data(days, d => d.date)
+        const dayNodes = wrapper.selectAll('.nivo_calendar_day').data(days, d => d.date)
 
         dayNodes
             .enter()
             .append('rect')
-            .attr(
-                'class',
-                d =>
-                    `nivo_calendar_day nivo_calendar_day-month-${d.date.getMonth()}`
-            )
+            .attr('class', d => `nivo_calendar_day nivo_calendar_day-month-${d.date.getMonth()}`)
             .attr('width', d => d.size)
             .attr('height', d => d.size)
             .attr('x', 0)
@@ -119,9 +113,7 @@ class CalendarD3 extends Component {
         // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
         // Months
         // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
-        const monthPaths = wrapper
-            .selectAll('.nivo_calendar_month')
-            .data(months, d => d.date)
+        const monthPaths = wrapper.selectAll('.nivo_calendar_month').data(months, d => d.date)
 
         monthPaths
             .enter()
@@ -163,8 +155,8 @@ class CalendarD3 extends Component {
             .attr('text-anchor', 'middle')
             .attr('transform', d => {
                 if (direction === DIRECTION_HORIZONTAL) {
-                    return `translate(${d.bbox.x + d.bbox.width / 2},${d.bbox
-                        .y - monthLegendOffset})`
+                    return `translate(${d.bbox.x + d.bbox.width / 2},${d.bbox.y -
+                        monthLegendOffset})`
                 }
 
                 return `translate(${d.bbox.x - monthLegendOffset},${d.bbox.y +
@@ -179,8 +171,8 @@ class CalendarD3 extends Component {
             .delay(d => (d.date.getMonth() + 1) * 30 * transitionStaggering)
             .attr('transform', d => {
                 if (direction === DIRECTION_HORIZONTAL) {
-                    return `translate(${d.bbox.x + d.bbox.width / 2},${d.bbox
-                        .y - monthLegendOffset})`
+                    return `translate(${d.bbox.x + d.bbox.width / 2},${d.bbox.y -
+                        monthLegendOffset})`
                 }
 
                 return `translate(${d.bbox.x - monthLegendOffset},${d.bbox.y +
@@ -191,9 +183,7 @@ class CalendarD3 extends Component {
         // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
         // Year legends
         // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
-        const yearLegends = wrapper
-            .selectAll('.nivo_calendar_year_legend')
-            .data(years)
+        const yearLegends = wrapper.selectAll('.nivo_calendar_year_legend').data(years)
 
         const yearLabelRotation = direction === DIRECTION_HORIZONTAL ? -90 : 0
 
@@ -205,13 +195,11 @@ class CalendarD3 extends Component {
             .attr('text-anchor', 'middle')
             .attr('transform', d => {
                 if (direction === DIRECTION_HORIZONTAL) {
-                    return `translate(${d.bbox.x - yearLegendOffset},${d.bbox
-                        .y +
+                    return `translate(${d.bbox.x - yearLegendOffset},${d.bbox.y +
                         d.bbox.height / 2}) rotate(-90)`
                 }
 
-                return `translate(${d.bbox.x + d.bbox.width / 2},${d.bbox.y -
-                    yearLegendOffset})`
+                return `translate(${d.bbox.x + d.bbox.width / 2},${d.bbox.y - yearLegendOffset})`
             })
 
         yearLegends
@@ -220,13 +208,11 @@ class CalendarD3 extends Component {
             .ease(transitionEasing)
             .attr('transform', d => {
                 if (direction === DIRECTION_HORIZONTAL) {
-                    return `translate(${d.bbox.x - yearLegendOffset},${d.bbox
-                        .y +
+                    return `translate(${d.bbox.x - yearLegendOffset},${d.bbox.y +
                         d.bbox.height / 2}) rotate(-90)`
                 }
 
-                return `translate(${d.bbox.x + d.bbox.width / 2},${d.bbox.y -
-                    yearLegendOffset})`
+                return `translate(${d.bbox.x + d.bbox.width / 2},${d.bbox.y - yearLegendOffset})`
             })
     }
 

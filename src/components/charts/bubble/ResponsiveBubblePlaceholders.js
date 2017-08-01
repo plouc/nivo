@@ -31,16 +31,9 @@ export default class ResponsiveBubblePlaceholders extends Component {
                 }}
             >
                 {({ measureRef }) =>
-                    <div
-                        ref={measureRef}
-                        style={{ width: '100%', height: '100%' }}
-                    >
+                    <div ref={measureRef} style={{ width: '100%', height: '100%' }}>
                         {shouldRender &&
-                            <BubblePlaceholders
-                                width={width}
-                                height={height}
-                                {...this.props}
-                            />}
+                            <BubblePlaceholders width={width} height={height} {...this.props} />}
                     </div>}
             </Measure>
         )

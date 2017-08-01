@@ -44,10 +44,7 @@ class TreeMapD3 extends Component {
             transitionEasing,
         } = this.props
 
-        const borderColorStyle = getColorStyleObject(
-            nextProps.borderColor,
-            'color'
-        )
+        const borderColorStyle = getColorStyleObject(nextProps.borderColor, 'color')
 
         const margin = _.assign({}, Nivo.defaults.margin, this.props.margin)
 
@@ -136,10 +133,7 @@ class TreeMapD3 extends Component {
             .each(function(d) {
                 const el = d3.select(this)
 
-                const transform =
-                    orientLabels && d.dy > d.dx
-                        ? 'rotate(-90deg)'
-                        : 'rotate(0deg)'
+                const transform = orientLabels && d.dy > d.dx ? 'rotate(-90deg)' : 'rotate(0deg)'
 
                 el.select('span').style('transform', transform)
             })
@@ -169,20 +163,13 @@ class TreeMapD3 extends Component {
     render() {
         return (
             <div className="nivo_treemap" style={{ position: 'relative' }}>
-                <div
-                    className="nivo_treemap_wrapper"
-                    style={{ position: 'absolute' }}
-                />
+                <div className="nivo_treemap_wrapper" style={{ position: 'absolute' }} />
             </div>
         )
     }
 }
 
-TreeMapD3.propTypes = _.omit(treeMapPropTypes, [
-    'children',
-    'stiffness',
-    'damping',
-])
+TreeMapD3.propTypes = _.omit(treeMapPropTypes, ['children', 'stiffness', 'damping'])
 TreeMapD3.defaultProps = _.omit(treeMapDefaultProps, ['stiffness', 'damping'])
 
 export default TreeMapD3

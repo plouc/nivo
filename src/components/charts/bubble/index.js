@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-export Bubble from './Bubble'
-export ResponsiveBubble from './ResponsiveBubble'
-export BubblePlaceholders from './BubblePlaceholders'
-export ResponsiveBubblePlaceholders from './ResponsiveBubblePlaceholders'
+export { default as Bubble } from './Bubble'
+export { default as ResponsiveBubble } from './ResponsiveBubble'
+export { default as BubblePlaceholders } from './BubblePlaceholders'
+export { default as ResponsiveBubblePlaceholders } from './ResponsiveBubblePlaceholders'

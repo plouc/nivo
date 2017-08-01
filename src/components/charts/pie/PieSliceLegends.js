@@ -23,9 +23,7 @@ class PieSliceLegends extends Component {
         const textColorStyle = getColorStyleObject(props.textColor, 'fill')
 
         return ({ element, identity, arc, previousData, newData }) => {
-            let legends = element
-                .selectAll('.slice-legend')
-                .data(newData, identity)
+            let legends = element.selectAll('.slice-legend').data(newData, identity)
 
             const labelFn = props.labelFn || identity
 
@@ -54,11 +52,7 @@ class PieSliceLegends extends Component {
                 .each(function(d) {
                     d3.select(this).select('circle').style(badgeColorStyle)
 
-                    d3
-                        .select(this)
-                        .select('text')
-                        .style(textColorStyle)
-                        .text(labelFn(d))
+                    d3.select(this).select('text').style(textColorStyle).text(labelFn(d))
                 })
                 .transition()
                 .duration(props.transitionDuration)
@@ -80,9 +74,7 @@ class PieSliceLegends extends Component {
                         let transform = `translate(${centroid[0]}, ${centroid[1]})`
                         if (props.orient) {
                             const angle = midAngle(angles)
-                            transform = `${transform} rotate(${radiansToDegrees(
-                                angle
-                            )}, 0, 0)`
+                            transform = `${transform} rotate(${radiansToDegrees(angle)}, 0, 0)`
                         }
 
                         return transform

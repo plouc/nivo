@@ -21,10 +21,7 @@ const RADIAL_STACK_DECORATOR = 'decorateRadialStack'
 class RadialStack extends Component {
     shouldComponentUpdate(nextProps) {
         this.radialStack.decorate(
-            decoratorsFromReactChildren(
-                nextProps.children,
-                RADIAL_STACK_DECORATOR
-            )
+            decoratorsFromReactChildren(nextProps.children, RADIAL_STACK_DECORATOR)
         )
         this.radialStack.draw(
             _.assign({}, nextProps, {
@@ -38,10 +35,7 @@ class RadialStack extends Component {
     componentDidMount() {
         this.radialStack = RadialStackD3Svg(findDOMNode(this))
         this.radialStack.decorate(
-            decoratorsFromReactChildren(
-                this.props.children,
-                RADIAL_STACK_DECORATOR
-            )
+            decoratorsFromReactChildren(this.props.children, RADIAL_STACK_DECORATOR)
         )
         this.radialStack.draw(
             _.assign({}, this.props, {

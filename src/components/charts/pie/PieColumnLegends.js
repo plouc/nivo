@@ -51,8 +51,7 @@ class PieColumnLegends extends Component {
                 //.style('opacity', 0)
                 .each(function(d, i) {
                     //console.log('LINES ENTER');
-                    let startingArc =
-                        findNeighbor(i, identity, previousData, newData) || d
+                    let startingArc = findNeighbor(i, identity, previousData, newData) || d
 
                     this._current = startingArc
                 })
@@ -92,9 +91,7 @@ class PieColumnLegends extends Component {
                 .remove()
 
             return
-            let labels = element
-                .selectAll('.column-label')
-                .data(newData, identity)
+            let labels = element.selectAll('.column-label').data(newData, identity)
             labels
                 .enter()
                 .append('g')
@@ -109,28 +106,20 @@ class PieColumnLegends extends Component {
 
                     let labelBackground
                     if (props.badgeMode) {
-                        labelBackground = el
-                            .append('rect')
-                            .style(badgeColorStyle)
-                            .attr({
-                                rx: props.badgeBorderRadius,
-                                ry: props.badgeBorderRadius,
-                            })
+                        labelBackground = el.append('rect').style(badgeColorStyle).attr({
+                            rx: props.badgeBorderRadius,
+                            ry: props.badgeBorderRadius,
+                        })
                     }
 
-                    const labelText = el
-                        .append('text')
-                        .text(labelFn)
-                        .style(textColorStyle)
+                    const labelText = el.append('text').text(labelFn).style(textColorStyle)
                     const labelBBox = labelText[0][0].getBBox()
 
                     console.log(labelBBox)
 
                     if (props.badgeMode) {
-                        const badgeWidth =
-                            labelBBox.width + props.badgePaddingX * 2
-                        const badgeHeight =
-                            labelBBox.height + props.badgePaddingY * 2
+                        const badgeWidth = labelBBox.width + props.badgePaddingX * 2
+                        const badgeHeight = labelBBox.height + props.badgePaddingY * 2
 
                         labelBackground.attr({
                             transform: `translate(0,${badgeHeight / 2 * -1})`,
@@ -171,18 +160,13 @@ class PieColumnLegends extends Component {
                     return t => {
                         const angles = interpolate(t)
 
-                        el.attr(
-                            'text-anchor',
-                            midAngle(angles) < Math.PI ? 'start' : 'end'
-                        )
+                        el.attr('text-anchor', midAngle(angles) < Math.PI ? 'start' : 'end')
 
                         const centroid = outerArc.centroid(angles)
                         const position = [0, centroid[1]]
 
                         position[0] =
-                            (radius +
-                                props.horizontalOffset +
-                                props.textOffset) *
+                            (radius + props.horizontalOffset + props.textOffset) *
                             (midAngle(angles) < Math.PI ? 1 : -1)
 
                         return `translate(${position[0]},${position[1]})`

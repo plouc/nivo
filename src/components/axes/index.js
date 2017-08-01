@@ -6,6 +6,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-export Axis from './Axis'
-export Axes from './Axes'
-export Grid from './Grid'
+export { default as Axis } from './Axis'
+export { default as Axes } from './Axes'
+export { default as Grid } from './Grid'

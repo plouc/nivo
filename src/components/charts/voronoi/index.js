@@ -7,5 +7,5 @@
  * file that was distributed with this source code.
  */
 
-export Voronoi from './Voronoi'
-export ResponsiveVoronoi from './ResponsiveVoronoi'
+export { default as Voronoi } from './Voronoi'
+export { default as ResponsiveVoronoi } from './ResponsiveVoronoi'

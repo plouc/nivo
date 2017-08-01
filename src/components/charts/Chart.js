@@ -34,10 +34,7 @@ export default class Chart extends Component {
         height: PropTypes.number.isRequired,
         margin: marginPropType,
         // composition
-        children: PropTypes.oneOfType([
-            PropTypes.arrayOf(PropTypes.node),
-            PropTypes.node,
-        ]),
+        children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
         // data
         data: PropTypes.arrayOf(PropTypes.object).isRequired,
         // motion
@@ -93,12 +90,7 @@ export default class Chart extends Component {
 
         React.Children.forEach(children, (child, i) => {
             if (child.type === Scale) {
-                scales[child.props.id] = Scale.create(
-                    child.props,
-                    data,
-                    width,
-                    height
-                )
+                scales[child.props.id] = Scale.create(child.props, data, width, height)
             } else {
                 const item = React.cloneElement(child, {
                     ...child.props,
@@ -115,11 +107,7 @@ export default class Chart extends Component {
         })
 
         return (
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width={_width}
-                height={_height}
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" width={_width} height={_height}>
                 <g transform={`translate(${margin.left},${margin.top})`}>
                     {axes}
                     {items}

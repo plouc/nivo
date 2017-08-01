@@ -31,30 +31,15 @@ const StackD3 = () => {
          * @param {function} color
          * @returns {array}
          */
-        compute({
-            width,
-            height,
-            data,
-            identityProperty,
-            valueAccessor,
-            padding,
-            color,
-        }) {
-            layout
-                .value(valueAccessor)
-                .sort(null)
-                .size([width, height])
-                .padding(padding)
+        compute({ width, height, data, identityProperty, valueAccessor, padding, color }) {
+            layout.value(valueAccessor).sort(null).size([width, height]).padding(padding)
 
             const flattened = flatten(data, identityProperty)
-            const nodes = layout
-                .nodes(flattened)
-                .filter(d => !d.children)
-                .map(d => {
-                    d.color = color(d.parentId)
+            const nodes = layout.nodes(flattened).filter(d => !d.children).map(d => {
+                d.color = color(d.parentId)
 
-                    return d
-                })
+                return d
+            })
 
             return nodes
         },

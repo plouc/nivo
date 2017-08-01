@@ -28,9 +28,7 @@ class PieRadialLegends extends Component {
                 .innerRadius(radius + props.radiusOffset)
                 .outerRadius(radius + props.radiusOffset)
 
-            let labels = element
-                .selectAll('.radial-label')
-                .data(newData, identity)
+            let labels = element.selectAll('.radial-label').data(newData, identity)
             labels
                 .enter()
                 .append('g')
@@ -53,18 +51,12 @@ class PieRadialLegends extends Component {
                     el
                         .select('text')
                         .text(labelFn)
-                        .attr(
-                            'text-anchor',
-                            d => (midAngle(d) < Math.PI ? 'start' : 'end')
-                        )
+                        .attr('text-anchor', d => (midAngle(d) < Math.PI ? 'start' : 'end'))
                         .transition()
                         .duration(props.transitionDuration)
                         .ease(props.transitionEasing)
                         .style(styles)
-                        .attr(
-                            'transform',
-                            `translate(${radius + props.radiusOffset}, 0)`
-                        )
+                        .attr('transform', `translate(${radius + props.radiusOffset}, 0)`)
                 })
                 .transition()
                 .duration(props.transitionDuration)
@@ -85,10 +77,7 @@ class PieRadialLegends extends Component {
                         .duration(props.transitionDuration)
                         .ease(props.transitionEasing)
                         .style('opacity', 0)
-                        .attr(
-                            'transform',
-                            `translate(${radius + props.radiusOffset + 50}, 0)`
-                        )
+                        .attr('transform', `translate(${radius + props.radiusOffset + 50}, 0)`)
                 })
                 .transition()
                 .duration(0)

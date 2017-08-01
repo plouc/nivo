@@ -27,14 +27,7 @@ class StackSlicer extends Component {
         const { showOnOver } = props
 
         // Receive context from Parent Stack component
-        return ({
-            wrapper,
-            stacked,
-            width,
-            height,
-            transitionDuration,
-            transitionEasing,
-        }) => {
+        return ({ wrapper, stacked, width, height, transitionDuration, transitionEasing }) => {
             const slices = []
             stacked.forEach(layer => {
                 layer.values.forEach((datum, i) => {
@@ -54,9 +47,7 @@ class StackSlicer extends Component {
                 })
             })
 
-            const elements = wrapper
-                .selectAll('.nivo_stack_slices')
-                .data(slices)
+            const elements = wrapper.selectAll('.nivo_stack_slices').data(slices)
 
             const newSlices = elements
                 .enter()
@@ -108,9 +99,7 @@ class StackSlicer extends Component {
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
             // Lines
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
-            const lines = elements
-                .selectAll('line')
-                .data(d => d.values, d => d.index)
+            const lines = elements.selectAll('line').data(d => d.values, d => d.index)
 
             // ENTER
             lines
@@ -145,9 +134,7 @@ class StackSlicer extends Component {
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
             // Circles
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
-            const circles = elements
-                .selectAll('circle')
-                .data(d => d.values, d => d.index)
+            const circles = elements.selectAll('circle').data(d => d.values, d => d.index)
 
             // ENTER
             circles

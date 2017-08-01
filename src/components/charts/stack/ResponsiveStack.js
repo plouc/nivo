@@ -16,13 +16,7 @@ class ResponsiveStack extends Component {
     render() {
         const { containerWidth, containerHeight } = this.props
 
-        return (
-            <Stack
-                width={containerWidth}
-                height={containerHeight}
-                {...this.props}
-            />
-        )
+        return <Stack width={containerWidth} height={containerHeight} {...this.props} />
     }
 }
 

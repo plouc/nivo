@@ -13,13 +13,7 @@ import { DIRECTION_HORIZONTAL } from '../../../constants/directions'
 import CalendarDay from './CalendarDay'
 import CalendarMonthPath from './CalendarMonthPath'
 
-const yearLegendStyles = ({
-    years,
-    direction,
-    yearLegendOffset,
-    stiffness,
-    damping,
-}) => {
+const yearLegendStyles = ({ years, direction, yearLegendOffset, stiffness, damping }) => {
     return years.map(year => {
         let rotation
         let x, y
@@ -45,13 +39,7 @@ const yearLegendStyles = ({
     })
 }
 
-const monthLegendStyles = ({
-    months,
-    direction,
-    monthLegendOffset,
-    stiffness,
-    damping,
-}) => {
+const monthLegendStyles = ({ months, direction, monthLegendOffset, stiffness, damping }) => {
     return months.map(month => {
         let rotation
         let x, y
@@ -116,9 +104,7 @@ class MotionCalendar extends Component {
 
         return (
             <g>
-                <TransitionMotion
-                    styles={dayStyles({ days, stiffness, damping })}
-                >
+                <TransitionMotion styles={dayStyles({ days, stiffness, damping })}>
                     {interpolatedStyles =>
                         <g>
                             {interpolatedStyles.map(d =>
@@ -151,8 +137,8 @@ class MotionCalendar extends Component {
                                 <text
                                     key={d.key}
                                     className="nivo_calendar_month_legend"
-                                    transform={`translate(${d.style.x},${d.style
-                                        .y}) rotate(${d.style.rotation})`}
+                                    transform={`translate(${d.style.x},${d.style.y}) rotate(${d
+                                        .style.rotation})`}
                                     textAnchor="middle"
                                 >
                                     {monthLegendFormat(d.data.date)}
@@ -175,8 +161,8 @@ class MotionCalendar extends Component {
                                 <text
                                     key={d.key}
                                     className="nivo_calendar_year_legend"
-                                    transform={`translate(${d.style.x},${d.style
-                                        .y}) rotate(${d.style.rotation})`}
+                                    transform={`translate(${d.style.x},${d.style.y}) rotate(${d
+                                        .style.rotation})`}
                                     textAnchor="middle"
                                 >
                                     {d.data.year}

@@ -16,13 +16,7 @@ export const LABEL_POSITION_RIGHT = 'right'
 export const LABEL_POSITION_BOTTOM = 'bottom'
 export const LABEL_POSITION_LEFT = 'left'
 
-const labelMaker = ({
-    text,
-    position,
-    labelOffset,
-    labelPaddingX,
-    labelPaddingY,
-}) => {
+const labelMaker = ({ text, position, labelOffset, labelPaddingX, labelPaddingY }) => {
     return g => {
         let labelBackground = g.select('rect')
         let labelText = g.select('text')
@@ -32,10 +26,7 @@ const labelMaker = ({
             labelText = g.append('text')
         }
 
-        labelText
-            .attr('alignment-baseline', 'text-before-edge')
-            .style('fill', '#fff')
-            .text(text)
+        labelText.attr('alignment-baseline', 'text-before-edge').style('fill', '#fff').text(text)
 
         const textBBox = labelText.node().getBBox()
 
@@ -95,9 +86,7 @@ const labelMaker = ({
             transform: `translate(${bgX},${bgY})`,
         })
 
-        d3
-            .transition(labelText)
-            .attr('transform', `translate(${textX},${textY})`)
+        d3.transition(labelText).attr('transform', `translate(${textX},${textY})`)
     }
 }
 

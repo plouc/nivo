@@ -9,22 +9,9 @@
 import PropTypes from 'prop-types'
 import Nivo from '../../../Nivo'
 import { margin, scale } from '../../../PropTypes'
-import {
-    DIRECTION_HORIZONTAL,
-    DIRECTION_VERTICAL,
-} from '../../../constants/directions'
+import { DIRECTION_HORIZONTAL, DIRECTION_VERTICAL } from '../../../constants/directions'
 
-const {
-    number,
-    string,
-    bool,
-    func,
-    shape,
-    oneOf,
-    oneOfType,
-    instanceOf,
-    arrayOf,
-} = PropTypes
+const { number, string, bool, func, shape, oneOf, oneOfType, instanceOf, arrayOf } = PropTypes
 
 /**
  * Calendar components propTypes.

@@ -26,21 +26,13 @@ class AxisX extends Component {
         const element = d3.select(findDOMNode(this))
         element.attr('transform', `translate(0, ${height})`)
 
-        const axis = d3.svg
-            .axis()
-            .scale(xScale)
-            .tickPadding(tickPadding)
-            .orient(orient)
+        const axis = d3.svg.axis().scale(xScale).tickPadding(tickPadding).orient(orient)
 
         if (tickMode === 'grid') {
             axis.tickSize(-height)
         }
 
-        element
-            .transition()
-            .duration(transitionDuration)
-            .ease(transitionEasing)
-            .call(axis)
+        element.transition().duration(transitionDuration).ease(transitionEasing).call(axis)
 
         return false
     }

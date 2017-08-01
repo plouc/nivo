@@ -16,13 +16,7 @@ class ResponsiveTreeMapD3 extends Component {
     render() {
         const { containerWidth, containerHeight } = this.props
 
-        return (
-            <TreeMapD3
-                width={containerWidth}
-                height={containerHeight}
-                {...this.props}
-            />
-        )
+        return <TreeMapD3 width={containerWidth} height={containerHeight} {...this.props} />
     }
 }
 

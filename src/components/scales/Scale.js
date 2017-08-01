@@ -16,21 +16,12 @@ export default class Scale extends Component {
         id: PropTypes.string.isRequired,
         type: PropTypes.oneOf(['linear', 'point', 'band']).isRequired,
         padding: PropTypes.number,
-        dataKey: PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.number,
-            PropTypes.func,
-        ]),
+        dataKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.func]),
         aggregate: PropTypes.array,
         maxOf: PropTypes.array,
     }
 
-    static create(
-        { type, axis, dataKey: key, aggregate, maxOf, padding },
-        data,
-        width,
-        height
-    ) {
+    static create({ type, axis, dataKey: key, aggregate, maxOf, padding }, data, width, height) {
         let mapper
         if (Array.isArray(aggregate)) {
             mapper = d => _.sum(aggregate.map(k => d[k]))
@@ -47,9 +38,7 @@ export default class Scale extends Component {
         let scale
         switch (type) {
             case 'linear':
-                scale = scaleLinear()
-                    .rangeRound(range)
-                    .domain([0, _.max(data.map(mapper))])
+                scale = scaleLinear().rangeRound(range).domain([0, _.max(data.map(mapper))])
                 break
 
             case 'band':

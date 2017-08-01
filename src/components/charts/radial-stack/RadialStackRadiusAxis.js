@@ -17,16 +17,8 @@ class RadialStackRadiusAxis extends Component {
     static decorateRadialStack({ props: { angleData } }) {
         const axis = d3.svg.axis()
 
-        return ({
-            element,
-            angle,
-            radius,
-            transitionDuration,
-            transitionEasing,
-        }) => {
-            let wrapper = d3.select(
-                `.nivo_radial-stack_radius-axis-${angleData}`
-            )
+        return ({ element, angle, radius, transitionDuration, transitionEasing }) => {
+            let wrapper = d3.select(`.nivo_radial-stack_radius-axis-${angleData}`)
             if (wrapper.node() === null) {
                 wrapper = element
                     .append('g')
@@ -40,16 +32,9 @@ class RadialStackRadiusAxis extends Component {
             const scale = radius.copy()
             axis.scale(scale).ticks(3)
 
-            wrapper.attr(
-                'transform',
-                d => `rotate(${radiansToDegrees(angle(angleData))})`
-            )
+            wrapper.attr('transform', d => `rotate(${radiansToDegrees(angle(angleData))})`)
 
-            wrapper
-                .transition()
-                .duration(transitionDuration)
-                .ease(transitionEasing)
-                .call(axis)
+            wrapper.transition().duration(transitionDuration).ease(transitionEasing).call(axis)
         }
     }
 

@@ -46,11 +46,7 @@ class AxisY extends Component {
             axis.tickSize(-width)
         }
 
-        element
-            .transition()
-            .duration(transitionDuration)
-            .ease(transitionEasing)
-            .call(axis)
+        element.transition().duration(transitionDuration).ease(transitionEasing).call(axis)
 
         return false
     }

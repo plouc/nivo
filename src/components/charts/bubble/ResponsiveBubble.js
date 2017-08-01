@@ -31,16 +31,8 @@ export default class ResponsiveBubble extends Component {
                 }}
             >
                 {({ measureRef }) =>
-                    <div
-                        ref={measureRef}
-                        style={{ width: '100%', height: '100%' }}
-                    >
-                        {shouldRender &&
-                            <Bubble
-                                width={width}
-                                height={height}
-                                {...this.props}
-                            />}
+                    <div ref={measureRef} style={{ width: '100%', height: '100%' }}>
+                        {shouldRender && <Bubble width={width} height={height} {...this.props} />}
                     </div>}
             </Measure>
         )

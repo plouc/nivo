@@ -56,12 +56,10 @@ class StaticCalendar extends Component {
                 {months.map(month => {
                     let transform
                     if (direction === DIRECTION_HORIZONTAL) {
-                        transform = `translate(${month.bbox.x +
-                            month.bbox.width / 2},${month.bbox.y -
-                            monthLegendOffset})`
+                        transform = `translate(${month.bbox.x + month.bbox.width / 2},${month.bbox
+                            .y - monthLegendOffset})`
                     } else {
-                        transform = `translate(${month.bbox.x -
-                            monthLegendOffset},${month.bbox.y +
+                        transform = `translate(${month.bbox.x - monthLegendOffset},${month.bbox.y +
                             month.bbox.height / 2}) rotate(-90)`
                     }
 
@@ -79,12 +77,10 @@ class StaticCalendar extends Component {
                 {years.map(year => {
                     let transform
                     if (direction === DIRECTION_HORIZONTAL) {
-                        transform = `translate(${year.bbox.x -
-                            yearLegendOffset},${year.bbox.y +
+                        transform = `translate(${year.bbox.x - yearLegendOffset},${year.bbox.y +
                             year.bbox.height / 2}) rotate(-90)`
                     } else {
-                        transform = `translate(${year.bbox.x +
-                            year.bbox.width / 2},${year.bbox.y -
+                        transform = `translate(${year.bbox.x + year.bbox.width / 2},${year.bbox.y -
                             yearLegendOffset})`
                     }
 

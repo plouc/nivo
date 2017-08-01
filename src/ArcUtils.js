@@ -88,5 +88,4 @@ export const findFollowing = (i, identity, prevData, newData) => {
     }
 }
 
-export const midAngle = arc =>
-    arc.startAngle + (arc.endAngle - arc.startAngle) / 2
+export const midAngle = arc => arc.startAngle + (arc.endAngle - arc.startAngle) / 2

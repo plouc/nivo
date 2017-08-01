@@ -98,18 +98,12 @@ class Stack extends Component {
 
         const stacked = stack(filteredData)
 
-        const xScale = d3.scale
-            .linear()
-            .range([0, width])
-            .domain([0, stacked[0].values.length - 1])
+        const xScale = d3.scale.linear().range([0, width]).domain([0, stacked[0].values.length - 1])
 
         const yScale = d3.scale
             .linear()
             .range([height, 0])
-            .domain([
-                0,
-                d3.max(stacked, layer => d3.max(layer.values, d => d.y0 + d.y)),
-            ])
+            .domain([0, d3.max(stacked, layer => d3.max(layer.values, d => d.y0 + d.y))])
 
         filteredData = filteredData.map(layer => {
             return _.assign(layer, {
@@ -124,12 +118,7 @@ class Stack extends Component {
             })
         })
 
-        const area = d3.svg
-            .area()
-            .interpolate(interpolation)
-            .x(d => d.x)
-            .y0(d => d.y0)
-            .y1(d => d.y)
+        const area = d3.svg.area().interpolate(interpolation).x(d => d.x).y0(d => d.y0).y1(d => d.y)
 
         // —————————————————————————————————————————————————————————————————————————————————————————————————————————————
         // Areas
@@ -155,10 +144,7 @@ class Stack extends Component {
                     )
                 }
 
-                const precedingLayer = findPrecedingLayer(
-                    this.previousData,
-                    d.index
-                )
+                const precedingLayer = findPrecedingLayer(this.previousData, d.index)
 
                 if (precedingLayer !== null) {
                     return area(
@@ -255,9 +241,7 @@ class Stack extends Component {
         hiddenControls
             .on('click', d => {
                 this.setState({
-                    excludeLayers: excludeLayers.filter(
-                        index => index !== d.index
-                    ),
+                    excludeLayers: excludeLayers.filter(index => index !== d.index),
                 })
             })
             .transition()
@@ -295,10 +279,7 @@ class Stack extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        this.decorators = decoratorsFromReactChildren(
-            nextProps.children,
-            'decorateStack'
-        )
+        this.decorators = decoratorsFromReactChildren(nextProps.children, 'decorateStack')
 
         this.renderD3(nextProps, nextState)
 
@@ -306,10 +287,7 @@ class Stack extends Component {
     }
 
     componentDidMount() {
-        this.decorators = decoratorsFromReactChildren(
-            this.props.children,
-            'decorateStack'
-        )
+        this.decorators = decoratorsFromReactChildren(this.props.children, 'decorateStack')
 
         this.renderD3(this.props, this.state)
     }

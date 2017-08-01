@@ -47,8 +47,7 @@ const RadialStackD3Svg = domRoot => {
 
             element.attr(
                 'transform',
-                `translate(${width / 2 + margin.left}, ${height / 2 +
-                    margin.top})`
+                `translate(${width / 2 + margin.left}, ${height / 2 + margin.top})`
             )
 
             stack.offset(offset)
@@ -60,10 +59,7 @@ const RadialStackD3Svg = domRoot => {
             const outerRadius = Math.min(width, height) / 2
             radius
                 .range([outerRadius * innerRadius, outerRadius])
-                .domain([
-                    0,
-                    d3.max(stacked, layer => d3.max(layer, d => d.y0 + d.y)),
-                ])
+                .domain([0, d3.max(stacked, layer => d3.max(layer, d => d.y0 + d.y))])
 
             const color = getColorRange(colors)
 
@@ -72,9 +68,7 @@ const RadialStackD3Svg = domRoot => {
                 .innerRadius(d => radius(d.y0))
                 .outerRadius(d => radius(d.y0 + d.y))
 
-            let paths = element
-                .selectAll('.nivo_radial-stack_area')
-                .data(stacked)
+            let paths = element.selectAll('.nivo_radial-stack_area').data(stacked)
 
             // —————————————————————————————————————————————————————————————————————————————————————————————————————————
             // ENTER: creates new elements

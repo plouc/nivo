@@ -31,10 +31,7 @@ export const getXScale = (data, width) => {
  * @returns {Function}
  */
 export const getYScale = (data, height) => {
-    const maxY = maxBy(
-        data.reduce((acc, serie) => [...acc, ...serie.data], []),
-        'y'
-    ).y
+    const maxY = maxBy(data.reduce((acc, serie) => [...acc, ...serie.data], []), 'y').y
 
     return scaleLinear().rangeRound([height, 0]).domain([0, maxY])
 }
@@ -47,11 +44,7 @@ export const getYScale = (data, height) => {
  * @param {number}         height
  */
 export const getStackedYScale = (data, xScale, height) => {
-    const maxY = max(
-        range(xScale.domain().length).map(i =>
-            sumBy(data, serie => serie.data[i].y)
-        )
-    )
+    const maxY = max(range(xScale.domain().length).map(i => sumBy(data, serie => serie.data[i].y)))
 
     return scaleLinear().rangeRound([height, 0]).domain([0, maxY])
 }
@@ -62,19 +55,23 @@ export const getStackedYScale = (data, xScale, height) => {
  * @param {Array.<Object>} data
  * @param {number}         width
  * @param {number}         height
+ * @param {Function}       color
  * @return {{ xScale: Function, yScale: Function, lines: Array.<Object> }}
  */
-export const generateLines = (data, width, height) => {
+export const generateLines = (data, width, height, color) => {
     const xScale = getXScale(data, width)
     const yScale = getYScale(data, height)
 
     const lines = data.map(({ id, data: serie }) => ({
         id,
-        points: serie.map(d => Object.assign({}, d, {
-            value: d.y,
-            x: xScale(d.x),
-            y: yScale(d.y),
-        }))
+        color: color(id),
+        points: serie.map(d =>
+            Object.assign({}, d, {
+                value: d.y,
+                x: xScale(d.x),
+                y: yScale(d.y),
+            })
+        ),
     }))
 
     return { xScale, yScale, lines }
@@ -86,9 +83,10 @@ export const generateLines = (data, width, height) => {
  * @param {Array.<Object>} data
  * @param {number}         width
  * @param {number}         height
+ * @param {Function}       color
  * @return {{ xScale: Function, yScale: Function, lines: Array.<Object> }}
  */
-export const generateStackedLines = (data, width, height) => {
+export const generateStackedLines = (data, width, height, color) => {
     const xScale = getXScale(data, width)
     const yScale = getStackedYScale(data, xScale, height)
 
@@ -99,31 +97,32 @@ export const generateStackedLines = (data, width, height) => {
             ...acc,
             {
                 id,
-                points: serie.map((d, i) => {
-                    if (!previousPoints) {
+                color: color(id),
+                points: serie
+                    .map((d, i) => {
+                        if (!previousPoints) {
+                            return Object.assign({}, d, {
+                                value: d.y,
+                                x: d.x,
+                                y: d.y,
+                            })
+                        }
+
                         return Object.assign({}, d, {
                             value: d.y,
                             x: d.x,
-                            y: d.y,
+                            y: d.y + previousPoints[i].accY,
                         })
-                    }
-
-                    return Object.assign({}, d, {
-                        value: d.y,
-                        x: d.x,
-                        y: d.y + previousPoints[i].accY,
                     })
-                }).map(d => ({
-                    value: d.value,
-                    accY: d.y,
-                    x: xScale(d.x),
-                    y: yScale(d.y),
-                }))
-            }
+                    .map(d => ({
+                        value: d.value,
+                        accY: d.y,
+                        x: xScale(d.x),
+                        y: yScale(d.y),
+                    })),
+            },
         ]
     }, [])
-
-    console.log(lines)
 
     return { xScale, yScale, lines }
 }

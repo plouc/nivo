@@ -34,16 +34,7 @@ const BubbleHelper = () => {
          * @param {function} color
          * @returns {array}
          */
-        compute({
-            width,
-            height,
-            root: _root,
-            leavesOnly,
-            identity,
-            value,
-            padding,
-            color,
-        }) {
+        compute({ width, height, root: _root, leavesOnly, identity, value, padding, color }) {
             pack.size([width, height]).padding(padding)
 
             const root = hierarchy(_root).sum(value)

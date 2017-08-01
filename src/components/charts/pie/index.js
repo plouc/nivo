@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-export Pie from './Pie'
-export PieColumnLegends from './PieColumnLegends'
-export PieRadialLegends from './PieRadialLegends'
-export PieSliceLegends from './PieSliceLegends'
+export { default as Pie } from './Pie'
+export { default as PieColumnLegends } from './PieColumnLegends'
+export { default as PieRadialLegends } from './PieRadialLegends'
+export { default as PieSliceLegends } from './PieSliceLegends'

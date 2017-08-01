@@ -53,10 +53,7 @@ test(`getColorGenerator() 'inherit:brighter(*)' should support floats`, t => {
     const color = '#FF0000'
 
     t.is(typeof colorGenerator, 'function')
-    t.deepEqual(
-        colorGenerator({ data: { color } }),
-        d3.rgb(color).brighter(0.3)
-    )
+    t.deepEqual(colorGenerator({ data: { color } }), d3.rgb(color).brighter(0.3))
 })
 
 test(`getColorGenerator() should return directive if no match found`, t => {

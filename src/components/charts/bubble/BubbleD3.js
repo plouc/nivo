@@ -16,9 +16,7 @@ import decoratorsFromReactChildren from '../../../lib/decoratorsFromReactChildre
 
 class BubbleD3 extends Component {
     renderChart(props) {
-        this.bubble.decorate(
-            decoratorsFromReactChildren(props.children, 'decorateBubble')
-        )
+        this.bubble.decorate(decoratorsFromReactChildren(props.children, 'decorateBubble'))
         this.bubble.draw(
             _.assign({}, props, {
                 margin: _.assign({}, Nivo.defaults.margin, props.margin),

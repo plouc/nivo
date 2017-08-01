@@ -15,13 +15,7 @@ class ResponsiveBubbleD3 extends Component {
     render() {
         const { containerWidth, containerHeight } = this.props
 
-        return (
-            <BubbleD3
-                width={containerWidth}
-                height={containerHeight}
-                {...this.props}
-            />
-        )
+        return <BubbleD3 width={containerWidth} height={containerHeight} {...this.props} />
     }
 }
 

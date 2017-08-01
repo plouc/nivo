@@ -60,11 +60,7 @@ class BubblePlaceholders extends Component {
 
         const color = getColorRange(colors)
 
-        const margin = Object.assign(
-            {},
-            Nivo.defaults.margin,
-            this.props.margin
-        )
+        const margin = Object.assign({}, Nivo.defaults.margin, this.props.margin)
         const width = _width - margin.left - margin.right
         const height = _height - margin.top - margin.bottom
 
@@ -155,11 +151,7 @@ class BubblePlaceholders extends Component {
                         containerProps,
                         children(
                             interpolatedStyles.map(interpolatedStyle => {
-                                const {
-                                    colorR,
-                                    colorG,
-                                    colorB,
-                                } = interpolatedStyle.style
+                                const { colorR, colorG, colorB } = interpolatedStyle.style
                                 interpolatedStyle.style.color = `rgb(${Math.round(
                                     colorR
                                 )},${Math.round(colorG)},${Math.round(colorB)})`

@@ -49,10 +49,7 @@ class Pie extends Component {
             .padAngle(degreesToRadians(padAngle))
 
         let radius = Math.min(width / 2, height / 2)
-        const arc = d3.svg
-            .arc()
-            .outerRadius(radius)
-            .innerRadius(radius * innerRadius)
+        const arc = d3.svg.arc().outerRadius(radius).innerRadius(radius * innerRadius)
 
         const outline = element.select('.nivo_pie_outline').attr(
             'd',
@@ -144,9 +141,7 @@ class Pie extends Component {
         React.Children.forEach(children, element => {
             if (React.isValidElement(element)) {
                 if (element.type.createLegendsFromReactElement) {
-                    legends.push(
-                        element.type.createLegendsFromReactElement(element)
-                    )
+                    legends.push(element.type.createLegendsFromReactElement(element))
                 }
             }
         })

@@ -35,10 +35,7 @@ export const getXScale = (data, width, padding) => {
  * @returns {Function}
  */
 export const getGroupedYScale = (data, height) => {
-    const maxY = maxBy(
-        data.reduce((acc, serie) => [...acc, ...serie.data], []),
-        'y'
-    ).y
+    const maxY = maxBy(data.reduce((acc, serie) => [...acc, ...serie.data], []), 'y').y
 
     return scaleLinear().rangeRound([height, 0]).domain([0, maxY])
 }
@@ -51,11 +48,7 @@ export const getGroupedYScale = (data, height) => {
  * @param {number}         height
  */
 export const getStackedYScale = (data, xScale, height) => {
-    const maxY = max(
-        range(xScale.domain().length).map(i =>
-            sumBy(data, serie => serie.data[i].y)
-        )
-    )
+    const maxY = max(range(xScale.domain().length).map(i => sumBy(data, serie => serie.data[i].y)))
 
     return scaleLinear().rangeRound([height, 0]).domain([0, maxY])
 }
@@ -70,13 +63,7 @@ export const getStackedYScale = (data, xScale, height) => {
  * @param {number}         xPadding
  * @return {{ xScale: Function, yScale: Function, bars: Array.<Object> }}
  */
-export const generateGroupedBars = (
-    data,
-    width,
-    height,
-    color,
-    { xPadding = 0 } = {}
-) => {
+export const generateGroupedBars = (data, width, height, color, { xPadding = 0 } = {}) => {
     const xScale = getXScale(data, width, xPadding)
     const yScale = getGroupedYScale(data, height)
 
@@ -117,13 +104,7 @@ export const generateGroupedBars = (
  * @param {number}         xPadding
  * @return {{ xScale: Function, yScale: Function, bars: Array.<Object> }}
  */
-export const generateStackedBars = (
-    data,
-    width,
-    height,
-    color,
-    { xPadding = 0 } = {}
-) => {
+export const generateStackedBars = (data, width, height, color, { xPadding = 0 } = {}) => {
     const xScale = getXScale(data, width, xPadding)
     const yScale = getStackedYScale(data, xScale, height)
 

@@ -37,13 +37,9 @@ const createNodes = ({
                 enableLabels &&
                 node.data.height === 0 &&
                 (labelSkipSize === 0 ||
-                    Math.min(node.style.width, node.style.height) >
-                        labelSkipSize)
+                    Math.min(node.style.width, node.style.height) > labelSkipSize)
 
-            const rotate =
-                shouldRenderLabel &&
-                orientLabels &&
-                node.style.height > node.style.width
+            const rotate = shouldRenderLabel && orientLabels && node.style.height > node.style.width
 
             renderedNodes.push(
                 <g
@@ -60,10 +56,8 @@ const createNodes = ({
                     />
                     {shouldRenderLabel &&
                         <g
-                            transform={`translate(${node.style.width / 2},${node
-                                .style.height / 2}) rotate(${rotate
-                                ? '-90'
-                                : '0'})`}
+                            transform={`translate(${node.style.width / 2},${node.style.height /
+                                2}) rotate(${rotate ? '-90' : '0'})`}
                         >
                             <text
                                 className="nivo_treemap_node_label"

@@ -77,10 +77,7 @@ class BarD3 extends Component {
 
         const maxGroupLength = d3.max(props.data, d => d.values.length)
 
-        const yScale = d3.scale
-            .linear()
-            .rangeRound([height, 0])
-            .domain([0, maxYValue])
+        const yScale = d3.scale.linear().rangeRound([height, 0]).domain([0, maxYValue])
 
         const color = getColorRange(colors)
 
@@ -95,9 +92,7 @@ class BarD3 extends Component {
                 }
             } else {
                 rendered = {
-                    x:
-                        xScale(d.x) +
-                        d.stackIndex * xScale.rangeBand() / maxGroupLength,
+                    x: xScale(d.x) + d.stackIndex * xScale.rangeBand() / maxGroupLength,
                     y: yScale(d.y),
                     width: xScale.rangeBand() / maxGroupLength,
                     height: height - yScale(d.y),
@@ -114,9 +109,7 @@ class BarD3 extends Component {
 
         //console.log(data);
 
-        const rects = wrapper
-            .selectAll('.nivo_bars_bar')
-            .data(data, d => `${d.xId}${d.id}`)
+        const rects = wrapper.selectAll('.nivo_bars_bar').data(data, d => `${d.xId}${d.id}`)
 
         rects
             .enter()
@@ -163,10 +156,7 @@ class BarD3 extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        this.decorators = decoratorsFromReactChildren(
-            nextProps.children,
-            'decorateBars'
-        )
+        this.decorators = decoratorsFromReactChildren(nextProps.children, 'decorateBars')
 
         this.renderD3(nextProps, nextState)
 
@@ -174,10 +164,7 @@ class BarD3 extends Component {
     }
 
     componentDidMount() {
-        this.decorators = decoratorsFromReactChildren(
-            this.props.children,
-            'decorateBars'
-        )
+        this.decorators = decoratorsFromReactChildren(this.props.children, 'decorateBars')
 
         this.renderD3(this.props, this.state)
     }
@@ -191,16 +178,7 @@ class BarD3 extends Component {
     }
 }
 
-const {
-    number,
-    string,
-    func,
-    any,
-    oneOf,
-    oneOfType,
-    arrayOf,
-    shape,
-} = PropTypes
+const { number, string, func, any, oneOf, oneOfType, arrayOf, shape } = PropTypes
 
 BarsD3.propTypes = {
     width: number.isRequired,

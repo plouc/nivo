@@ -37,9 +37,7 @@ describe('<Stack>', function() {
                 node,
                 () => {
                     setTimeout(() => {
-                        const areas = node.getElementsByClassName(
-                            'nivo_stack_area'
-                        )
+                        const areas = node.getElementsByClassName('nivo_stack_area')
                         expect(areas).toNotBe(null)
                         expect(areas.length).toBe(data.length)
 

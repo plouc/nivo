@@ -7,6 +7,6 @@
  * file that was distributed with this source code.
  */
 
-export Stack from './Stack'
-export ResponsiveStack from './ResponsiveStack'
-export StackSlicer from './StackSlicer'
+export { default as Stack } from './Stack'
+export { default as ResponsiveStack } from './ResponsiveStack'
+export { default as StackSlicer } from './StackSlicer'

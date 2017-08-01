@@ -16,11 +16,7 @@ describe('<Pie>', function() {
         document.body.removeChild(node)
     })
 
-    const data = [
-        { label: 'a', value: 2 },
-        { label: 'b', value: 2 },
-        { label: 'c', value: 2 },
-    ]
+    const data = [{ label: 'a', value: 2 }, { label: 'b', value: 2 }, { label: 'c', value: 2 }]
 
     it('should render a slice for each datum', done => {
         render(

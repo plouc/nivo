@@ -11,16 +11,14 @@ import PropTypes from 'prop-types'
 import { merge } from 'lodash'
 import { line } from 'd3'
 import Nivo, { defaultTheme } from '../../../Nivo'
-import { margin as marginPropType } from '../../../PropTypes'
-import { getColorRange } from '../../../ColorUtils'
+import { margin as marginPropType, motion as motionPropTypes } from '../../../PropTypes'
+import { getColorRange, getColorGenerator } from '../../../ColorUtils'
 import SvgWrapper from '../SvgWrapper'
-import {
-    generateLines,
-    generateStackedLines,
-} from '../../../lib/charts/line'
+import { generateLines, generateStackedLines } from '../../../lib/charts/line'
 import { curvePropMapping, curvePropType } from '../../../properties/curve'
 import Axes from '../../axes/Axes'
 import Grid from '../../axes/Grid'
+import LineMarkers from './LineMarkers'
 
 export default class Line extends Component {
     static propTypes = {
@@ -30,14 +28,8 @@ export default class Line extends Component {
                 id: PropTypes.string.isRequired,
                 data: PropTypes.arrayOf(
                     PropTypes.shape({
-                        x: PropTypes.oneOfType([
-                            PropTypes.number,
-                            PropTypes.string,
-                        ]).isRequired,
-                        y: PropTypes.oneOfType([
-                            PropTypes.number,
-                            PropTypes.string,
-                        ]).isRequired,
+                        x: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+                        y: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
                     })
                 ).isRequired,
             })
@@ -46,6 +38,7 @@ export default class Line extends Component {
         stacked: PropTypes.bool.isRequired,
         curve: curvePropType.isRequired,
 
+        // dimensions
         width: PropTypes.number.isRequired,
         height: PropTypes.number.isRequired,
         margin: marginPropType,
@@ -55,19 +48,29 @@ export default class Line extends Component {
         enableGridX: PropTypes.bool.isRequired,
         enableGridY: PropTypes.bool.isRequired,
 
+        // markers
+        enableMarkers: PropTypes.bool.isRequired,
+        markersSize: PropTypes.number.isRequired,
+        markersColor: PropTypes.any.isRequired,
+        markersBorderWidth: PropTypes.number.isRequired,
+        markersBorderColor: PropTypes.any.isRequired,
+
+        // theming
         theme: PropTypes.object.isRequired,
         colors: PropTypes.any.isRequired,
 
         // motion
-        animate: PropTypes.bool.isRequired,
-        motionStiffness: PropTypes.number.isRequired,
-        motionDamping: PropTypes.number.isRequired,
+        ...motionPropTypes,
     }
 
     static defaultProps = {
         stacked: false,
         curve: 'linear',
+
+        // dimensions
         margin: Nivo.defaults.margin,
+
+        // axes
         axes: {
             left: {
                 enabled: true,
@@ -78,8 +81,19 @@ export default class Line extends Component {
         },
         enableGridX: true,
         enableGridY: true,
+
+        // markers
+        enableMarkers: true,
+        markersSize: 6,
+        markersColor: 'inherit',
+        markersBorderWidth: 0,
+        markersBorderColor: 'inherit',
+
+        // theming
         colors: Nivo.defaults.colorRange,
         theme: {},
+
+        // motion
         animate: true,
         motionStiffness: Nivo.defaults.motionStiffness,
         motionDamping: Nivo.defaults.motionDamping,
@@ -90,14 +104,29 @@ export default class Line extends Component {
             data,
             stacked,
             curve,
+
+            // dimensions
             margin: _margin,
             width: _width,
             height: _height,
+
+            // axes
             axes,
             enableGridX,
             enableGridY,
+
+            // markers
+            enableMarkers,
+            markersSize,
+            markersColor,
+            markersBorderWidth,
+            markersBorderColor,
+
+            // theming
             theme: _theme,
             colors,
+
+            // motion
             animate,
             motionStiffness,
             motionDamping,
@@ -118,17 +147,28 @@ export default class Line extends Component {
 
         let result
         if (stacked === true) {
-            result = generateStackedLines(data, width, height)
+            result = generateStackedLines(data, width, height, color)
         } else {
-            result = generateLines(data, width, height)
+            result = generateLines(data, width, height, color)
         }
 
-        const lineGenerator = line()
-            .x(d => d.x)
-            .y(d => d.y)
-            .curve(curvePropMapping[curve])
+        const lineGenerator = line().x(d => d.x).y(d => d.y).curve(curvePropMapping[curve])
 
         const { xScale, yScale, lines } = result
+
+        let markers = null
+        if (enableMarkers === true) {
+            markers = (
+                <LineMarkers
+                    lines={lines}
+                    size={markersSize}
+                    color={getColorGenerator(markersColor)}
+                    borderWidth={markersBorderWidth}
+                    borderColor={getColorGenerator(markersBorderColor)}
+                    {...motionProps}
+                />
+            )
+        }
 
         return (
             <SvgWrapper width={_width} height={_height} margin={margin}>
@@ -148,15 +188,16 @@ export default class Line extends Component {
                     height={height}
                     theme={theme}
                 />
-                {lines.map(({ id, points }) => (
+                {lines.map(({ id, color: lineColor, points }) =>
                     <path
                         key={id}
                         d={lineGenerator(points)}
                         fill="none"
                         strokeWidth={2}
-                        stroke={color(id)}
+                        stroke={lineColor}
                     />
-                ))}
+                )}
+                {markers}
             </SvgWrapper>
         )
     }
