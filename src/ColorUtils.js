@@ -50,7 +50,7 @@ export const getColorGenerator = instruction => {
         return d => rgb(d.color || d.data.color)[method](parseFloat(amount))
     }
 
-    return instruction
+    return () => instruction
 }
 
 export const getColorStyleObject = (instruction, property) => {
