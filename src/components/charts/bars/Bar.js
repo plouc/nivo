@@ -1,9 +1,17 @@
+/*
+ * This file is part of the nivo project.
+ *
+ * Copyright 2016-present, Raphaël Benitte.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { merge } from 'lodash'
 import { TransitionMotion, spring } from 'react-motion'
 import Nivo, { defaultTheme } from '../../../Nivo'
-import { margin as marginPropType } from '../../../PropTypes'
+import { margin as marginPropType, motion as motionPropTypes } from '../../../PropTypes'
 import { getColorRange } from '../../../ColorUtils'
 import { generateGroupedBars, generateStackedBars } from '../../../lib/charts/bar'
 import SvgWrapper from '../SvgWrapper'
@@ -49,9 +57,7 @@ export default class Bar extends Component {
         colors: PropTypes.any.isRequired,
 
         // motion
-        animate: PropTypes.bool.isRequired,
-        motionStiffness: PropTypes.number.isRequired,
-        motionDamping: PropTypes.number.isRequired,
+        ...motionPropTypes,
     }
 
     static defaultProps = {
@@ -179,6 +185,7 @@ export default class Bar extends Component {
                     width={width}
                     height={height}
                     theme={theme}
+                    {...motionProps}
                 />
                 {bars}
                 {enableLabels && result.bars.map(d => <BarItemLabel {...d} key={d.key} />)}

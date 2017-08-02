@@ -8,6 +8,7 @@
  */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { motion as motionPropTypes } from '../../PropTypes'
 import Axis from './Axis'
 
 const horizontalPositions = ['top', 'bottom']
@@ -36,6 +37,9 @@ export default class Axes extends Component {
         }).isRequired,
 
         theme: PropTypes.object.isRequired,
+
+        // motion
+        ...motionPropTypes,
     }
 
     static defaultProps = {}

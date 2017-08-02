@@ -9,12 +9,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
+import { motion as motionPropTypes } from '../../PropTypes'
 import Nivo from '../../Nivo'
 import AxisTick from './AxisTick'
 
 const center = scale => {
     let offset = scale.bandwidth() / 2
-    if (scale.round()) offset = Math.round(offset)
+    if (scale.round()) {
+        offset = Math.round(offset)
+    }
 
     return d => scale(d) + offset
 }
@@ -26,28 +29,31 @@ export default class Axis extends Component {
         orient: PropTypes.oneOf(['top', 'right', 'bottom', 'left']),
         position: PropTypes.oneOf(['top', 'right', 'bottom', 'left']).isRequired,
         scale: PropTypes.func.isRequired,
+
         // ticks
         tickSize: PropTypes.number.isRequired,
         tickPadding: PropTypes.number.isRequired,
         format: PropTypes.func,
+
         // legend
         legend: PropTypes.string,
         legendPosition: PropTypes.oneOf(['start', 'center', 'end']).isRequired,
         legendOffset: PropTypes.number.isRequired,
         theme: PropTypes.object.isRequired,
+
         // motion
-        animate: PropTypes.bool.isRequired,
-        motionStiffness: PropTypes.number.isRequired,
-        motionDamping: PropTypes.number.isRequired,
+        ...motionPropTypes,
     }
 
     static defaultProps = {
         // ticks
         tickSize: 5,
         tickPadding: 5,
+
         // legend
         legendPosition: 'end',
         legendOffset: 0,
+
         // motion
         animate: true,
         motionStiffness: Nivo.defaults.motionStiffness,
@@ -62,9 +68,7 @@ export default class Axis extends Component {
         }
     }
 
-    willLeave(styleThatLeft) {
-        const { style } = styleThatLeft
-
+    willLeave({ style }) {
         return {
             opacity: spring(0),
             x: spring(style.x.val),
@@ -180,17 +184,33 @@ export default class Axis extends Component {
             ...translate(v),
         }))
 
-        const springConfig = {
-            stiffness: motionStiffness,
-            damping: motionDamping,
-        }
+        let tickElements
+        if (!animate) {
+            tickElements = (
+                <g>
+                    {ticks.map(tick =>
+                        <AxisTick
+                            key={tick.key}
+                            value={tick.key}
+                            format={format}
+                            tickLine={tickLine}
+                            textXY={textXY}
+                            textDY={textDY}
+                            textAnchor={textAnchor}
+                            theme={theme}
+                            x={tick.x}
+                            y={tick.y}
+                        />
+                    )}
+                </g>
+            )
+        } else {
+            const springConfig = {
+                stiffness: motionStiffness,
+                damping: motionDamping,
+            }
 
-        return (
-            <g
-                className={`nivo__axis nivo__axis--${_position}  nivo__axis--orient-${orient}`}
-                transform={`translate(${x},${y})`}
-            >
-                {legend}
+            tickElements = (
                 <TransitionMotion
                     willEnter={this.willEnter}
                     willLeave={this.willLeave}
@@ -208,24 +228,31 @@ export default class Axis extends Component {
                 >
                     {interpolatedStyles =>
                         <g>
-                            {interpolatedStyles.map(interpolatedStyle => {
-                                const { key, style } = interpolatedStyle
-                                return (
-                                    <AxisTick
-                                        key={key}
-                                        value={key}
-                                        format={format}
-                                        tickLine={tickLine}
-                                        textXY={textXY}
-                                        textDY={textDY}
-                                        textAnchor={textAnchor}
-                                        theme={theme}
-                                        {...style}
-                                    />
-                                )
-                            })}
+                            {interpolatedStyles.map(({ key, style }) =>
+                                <AxisTick
+                                    key={key}
+                                    value={key}
+                                    format={format}
+                                    tickLine={tickLine}
+                                    textXY={textXY}
+                                    textDY={textDY}
+                                    textAnchor={textAnchor}
+                                    theme={theme}
+                                    {...style}
+                                />
+                            )}
                         </g>}
                 </TransitionMotion>
+            )
+        }
+
+        return (
+            <g
+                className={`nivo__axis nivo__axis--${_position}  nivo__axis--orient-${orient}`}
+                transform={`translate(${x},${y})`}
+            >
+                {legend}
+                {tickElements}
             </g>
         )
     }

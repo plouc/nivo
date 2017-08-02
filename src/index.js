@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  */
 
-export { default as Nivo } from './Nivo'
+import Nivo from './Nivo'
+
+export default Nivo
 export * from './components/charts/bars/'
 export * from './components/charts/line/'
 export * from './components/charts/bubble/'

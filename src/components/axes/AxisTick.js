@@ -13,6 +13,13 @@ export default class AxisTick extends Component {
     static propTypes = {
         format: PropTypes.func,
         theme: PropTypes.object.isRequired,
+        x: PropTypes.number.isRequired,
+        y: PropTypes.number.isRequired,
+        opacity: PropTypes.number.isRequired,
+    }
+
+    static defaultProps = {
+        opacity: 1,
     }
 
     render() {
@@ -20,8 +27,8 @@ export default class AxisTick extends Component {
             value: _value,
             x,
             y,
-            format,
             opacity,
+            format,
             tickLine,
             textXY,
             textDY,
