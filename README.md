@@ -82,10 +82,9 @@ Several libraries already exist for React d3 integration, but just a few provide
 - [react-motion](https://github.com/chenglou/react-motion)
 - …
 
-
 [license-image]: https://img.shields.io/github/license/plouc/nivo.svg?style=flat-square
 [license-url]: https://github.com/plouc/nivo/blob/master/LICENSE.md
-[npm-image]: [npm-image]: https://img.shields.io/npm/v/nivo.svg?style=flat-square
+[npm-image]: https://img.shields.io/npm/v/nivo.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/nivo
 [travis-image]: https://img.shields.io/travis/plouc/nivo.svg?style=flat-square
 [travis-url]: https://travis-ci.org/plouc/nivo
