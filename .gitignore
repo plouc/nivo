@@ -1,7 +1,7 @@
-logs
-*.log
-node_modules
+.DS_Store
 .idea
+*.log*
+node_modules
 /lib
 /es
-npm-debug.log*
+/coverage
