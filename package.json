@@ -49,7 +49,8 @@
     "mocha": "^3.5.0",
     "prettier": "^1.5.3",
     "react": "^15.4.1",
-    "react-dom": "^15.4.1"
+    "react-dom": "^15.4.1",
+    "validate-commit-msg": "^2.14.0"
   },
   "peerDependencies": {
     "react": "^15.6.1"
@@ -63,14 +64,48 @@
     "build:commonjs": "cross-env NODE_ENV=commonjs babel src --out-dir lib",
     "build:es": "cross-env NODE_ENV=es babel src --out-dir es",
     "build": "npm run build:commonjs && npm run build:es",
-    "prebublishOnly": "npm run build",
     "fmt": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --color --write \"{src,specs,test}/**/*.js\"",
-    "fmt:check": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --list-different \"{src,specs,test}/**/*.js\""
+    "fmt:check": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --list-different \"{src,specs,test}/**/*.js\"",
+    "version": "echo ${npm_package_version}",
+    "prebublishOnly": "npm run build",
+    "precommit": "lint-staged",
+    "commitmsg": "validate-commit-msg"
   },
   "lint-staged": {
     "*.js": [
       "fmt",
       "git add"
     ]
+  },
+  "config": {
+    "validate-commit-msg": {
+      "types": [
+        "feat",
+        "fix",
+        "docs",
+        "style",
+        "refactor",
+        "perf",
+        "test",
+        "build",
+        "ci",
+        "chore",
+        "revert"
+      ],
+      "scope": {
+        "required": true,
+        "allowed": [
+          "*"
+        ],
+        "validate": false,
+        "multiple": false
+      },
+      "warnOnFail": false,
+      "maxSubjectLength": 80,
+      "subjectPattern": ".+",
+      "subjectPatternErrorMsg": "subject does not match subject pattern!",
+      "helpMessage": "",
+      "autoFix": false
+    }
   }
 }

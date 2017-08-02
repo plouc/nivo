@@ -726,6 +726,10 @@ color-name@^1.1.1:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.3.tgz#a7d0558bd89c42f795dd42328f740831ca53bc25"
 
+colors@~0.6.0-1:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/colors/-/colors-0.6.2.tgz#2423fe6678ac0c5dae8852e5d0e5be08c997abcc"
+
 combined-stream@^1.0.5, combined-stream@~1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/combined-stream/-/combined-stream-1.0.5.tgz#938370a57b4a51dea2c77c15d5c5fdf895164009"
@@ -742,6 +746,10 @@ commander@2.9.0:
   dependencies:
     graceful-readlink ">= 1.0.0"
 
+commander@~2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.1.0.tgz#d121bbae860d9992a3d517ba96f56588e47c6781"
+
 concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
@@ -753,6 +761,10 @@ console-control-strings@^1.0.0, console-control-strings@~1.1.0:
 content-type-parser@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/content-type-parser/-/content-type-parser-1.0.1.tgz#c3e56988c53c65127fb46d4032a3a900246fdc94"
+
+conventional-commit-types@^2.0.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/conventional-commit-types/-/conventional-commit-types-2.2.0.tgz#5db95739d6c212acbe7b6f656a11b940baa68946"
 
 convert-source-map@^1.1.0, convert-source-map@^1.4.0:
   version "1.5.0"
@@ -1292,6 +1304,10 @@ fill-range@^2.1.0:
     repeat-element "^1.1.2"
     repeat-string "^1.5.2"
 
+find-parent-dir@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/find-parent-dir/-/find-parent-dir-0.3.0.tgz#33c44b429ab2b2f0646299c5f9f718f376ff8d54"
+
 find-up@^1.0.0:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/find-up/-/find-up-1.1.2.tgz#6b2e9822b1a2ce0a60ab64d610eccad53cb24d0f"
@@ -1304,6 +1320,13 @@ find-up@^2.1.0:
   resolved "https://registry.yarnpkg.com/find-up/-/find-up-2.1.0.tgz#45d1b7e506c717ddd482775a2b77920a3c0c57a7"
   dependencies:
     locate-path "^2.0.0"
+
+findup@0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/findup/-/findup-0.1.5.tgz#8ad929a3393bac627957a7e5de4623b06b0e2ceb"
+  dependencies:
+    colors "~0.6.0-1"
+    commander "~2.1.0"
 
 for-in@^1.0.1:
   version "1.0.2"
@@ -2974,6 +2997,10 @@ sax@^1.2.1:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
 
+semver-regex@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/semver-regex/-/semver-regex-1.0.0.tgz#92a4969065f9c70c694753d55248fc68f8f652c9"
+
 "semver@2 || 3 || 4 || 5", semver@^5.3.0:
   version "5.4.1"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.4.1.tgz#e059c09d8571f0540823733433505d3a2f00b18e"
@@ -3269,6 +3296,15 @@ v8flags@^2.0.10:
   resolved "https://registry.yarnpkg.com/v8flags/-/v8flags-2.1.1.tgz#aab1a1fa30d45f88dd321148875ac02c0b55e5b4"
   dependencies:
     user-home "^1.1.1"
+
+validate-commit-msg@^2.14.0:
+  version "2.14.0"
+  resolved "https://registry.yarnpkg.com/validate-commit-msg/-/validate-commit-msg-2.14.0.tgz#e5383691012cbb270dcc0bc2a4effebe14890eac"
+  dependencies:
+    conventional-commit-types "^2.0.0"
+    find-parent-dir "^0.3.0"
+    findup "0.1.5"
+    semver-regex "1.0.0"
 
 validate-npm-package-license@^3.0.1:
   version "3.0.1"
