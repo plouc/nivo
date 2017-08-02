@@ -18,10 +18,8 @@
     "react-motion": "^0.5.0"
   },
   "devDependencies": {
-    "ava": "0.14.0",
     "babel-cli": "^6.24.1",
-    "babel-core": "^6.25.0",
-    "babel-loader": "^6.2.4",
+    "babel-jest": "^20.0.3",
     "babel-plugin-check-es2015-constants": "^6.22.0",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-istanbul": "^4.1.4",
@@ -46,30 +44,22 @@
     "cross-env": "^5.0.1",
     "expect": "1.18.0",
     "husky": "^0.14.3",
-    "karma": "0.13.22",
-    "karma-chrome-launcher": "0.2.3",
-    "karma-mocha": "0.2.2",
-    "karma-mocha-reporter": "2.0.2",
-    "karma-sourcemap-loader": "0.3.7",
-    "karma-webpack": "1.7.0",
+    "jest": "^20.0.4",
     "lint-staged": "^4.0.2",
-    "mocha": "2.4.5",
+    "mocha": "^3.5.0",
     "prettier": "^1.5.3",
     "react": "^15.4.1",
-    "react-dom": "^15.4.1",
-    "webpack": "1.13.0"
+    "react-dom": "^15.4.1"
   },
   "peerDependencies": {
-    "react": "^15.4.1"
+    "react": "^15.6.1"
   },
   "main": "./lib/index.js",
   "module": "es/index.js",
   "jsnext:main": "es/index.js",
   "scripts": {
-    "watch-test": "ava --watch",
-    "test": "npm run test-unit && npm run test-func",
-    "test-unit": "ava",
-    "test-func": "karma start",
+    "test": "npm run test:unit",
+    "test:unit": "jest --verbose ./test",
     "build:commonjs": "cross-env NODE_ENV=commonjs babel src --out-dir lib",
     "build:es": "cross-env NODE_ENV=es babel src --out-dir es",
     "build": "npm run build:commonjs && npm run build:es",
@@ -82,16 +72,5 @@
       "fmt",
       "git add"
     ]
-  },
-  "ava": {
-    "files": [
-      "test/**/*.test.js"
-    ],
-    "tap": false,
-    "failFast": true,
-    "require": [
-      "babel-register"
-    ],
-    "babel": "inherit"
   }
 }
