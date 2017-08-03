@@ -68,8 +68,8 @@ export const generateGroupedBars = (data, width, height, color, { xPadding = 0 }
     const yScale = getGroupedYScale(data, height)
 
     const bars = []
-    data.forEach(({ id, data: serie }, serieIndex) => {
-        serie.forEach(d => {
+    data.forEach((serie, serieIndex) => {
+        serie.data.forEach(d => {
             const barWidth = xScale.bandwidth() / data.length
             const x = xScale(d.x) + barWidth * serieIndex
             const y = yScale(d.y)
@@ -79,13 +79,13 @@ export const generateGroupedBars = (data, width, height, color, { xPadding = 0 }
 
             if (barWidth > 0 && barHeight > 0) {
                 bars.push({
-                    key: `${id}.${d.x}`,
+                    key: `${serie.id}.${d.x}`,
                     value,
                     x,
                     y,
                     width: barWidth,
                     height: barHeight,
-                    color: color(id),
+                    color: color({ ...d, serie }),
                 })
             }
         })
@@ -108,8 +108,8 @@ export const generateStackedBars = (data, width, height, color, { xPadding = 0 }
     const xScale = getXScale(data, width, xPadding)
     const yScale = getStackedYScale(data, xScale, height)
 
-    const stackedData = data.map(({ id }) => ({
-        id,
+    const stackedData = data.map(serie => ({
+        ...serie,
         data: [],
     }))
 
@@ -132,8 +132,8 @@ export const generateStackedBars = (data, width, height, color, { xPadding = 0 }
     })
 
     const bars = []
-    stackedData.forEach(({ id, data: serie }) => {
-        serie.forEach(d => {
+    stackedData.forEach(serie => {
+        serie.data.forEach(d => {
             const x = xScale(d.x)
             const barWidth = xScale.bandwidth()
             const y = yScale(d.y1)
@@ -143,13 +143,13 @@ export const generateStackedBars = (data, width, height, color, { xPadding = 0 }
 
             if (barWidth > 0 && barHeight > 0) {
                 bars.push({
-                    key: `${id}.${d.x}`,
+                    key: `${serie.id}.${d.x}`,
                     value,
                     x,
                     y,
                     width: barWidth,
                     height: barHeight,
-                    color: color(id),
+                    color: color({ ...d, serie }),
                 })
             }
         })

@@ -9,10 +9,8 @@
 
 import PropTypes from 'prop-types'
 import Nivo from '../../../Nivo'
-import { margin } from '../../../PropTypes'
+import { margin, motion } from '../../../PropTypes'
 import { tilingMethods } from '../../../lib/charts/treemap/TreeMapD3'
-
-const { object, number, string, bool, func, any, oneOf, oneOfType } = PropTypes
 
 /**
  * TreeMap components propTypes.
@@ -20,38 +18,43 @@ const { object, number, string, bool, func, any, oneOf, oneOfType } = PropTypes
  * @type {object}
  */
 export const treeMapPropTypes = {
-    width: number.isRequired, // for non responsive components
-    height: number.isRequired, // for non responsive components
+    root: PropTypes.object.isRequired, // data
+
+    // dimensions
+    width: PropTypes.number.isRequired, // for non responsive components
+    height: PropTypes.number.isRequired, // for non responsive components
     margin,
-    root: object.isRequired, // data
-    leavesOnly: bool.isRequired,
-    value: oneOfType([string, func]).isRequired,
-    identity: oneOfType([string, func]).isRequired,
-    tile: oneOf(Object.keys(tilingMethods)),
+
+    leavesOnly: PropTypes.bool.isRequired,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    identity: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    tile: PropTypes.oneOf(Object.keys(tilingMethods)),
+
+    innerPadding: PropTypes.number.isRequired,
+    outerPadding: PropTypes.number.isRequired,
 
     // labels
-    enableLabels: bool.isRequired,
-    orientLabels: bool.isRequired,
-    label: oneOfType([string, func]).isRequired,
-    labelFormat: string,
-    labelSkipSize: number.isRequired,
+    enableLabels: PropTypes.bool.isRequired,
+    orientLabels: PropTypes.bool.isRequired,
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    labelFormat: PropTypes.string,
+    labelSkipSize: PropTypes.number.isRequired,
 
-    innerPadding: number.isRequired,
-    outerPadding: number.isRequired,
-    colors: any.isRequired,
+    // theming
+    colors: PropTypes.any.isRequired,
+    colorBy: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
 
-    borderWidth: number.isRequired,
-    borderColor: any.isRequired,
+    borderWidth: PropTypes.number.isRequired,
+    borderColor: PropTypes.any.isRequired,
+
     // transitions
-    animate: bool.isRequired,
-    motionStiffness: number.isRequired, // react-motion
-    motionDamping: number.isRequired, // react-motion
-    transitionDuration: number.isRequired, // d3 transitions
-    transitionEasing: string.isRequired, // d3 transitions
+    ...motion,
+    transitionDuration: PropTypes.number.isRequired, // d3 transitions
+    transitionEasing: PropTypes.string.isRequired, // d3 transitions
 
     // placeholders
-    namespace: oneOf(['html', 'svg']).isRequired,
-    children: func.isRequired,
+    namespace: PropTypes.oneOf(['html', 'svg']).isRequired,
+    children: PropTypes.func.isRequired,
 }
 
 /**
@@ -78,7 +81,8 @@ export const treeMapDefaultProps = {
 
     borderWidth: 0,
     borderColor: 'inherit',
-    // transitions
+
+    // motion
     animate: true,
     transitionDuration: Nivo.defaults.transitionDuration,
     transitionEasing: Nivo.defaults.transitionEasing,
@@ -86,4 +90,5 @@ export const treeMapDefaultProps = {
     motionDamping: 10,
 
     colors: Nivo.defaults.colorRange,
+    colorBy: 'depth',
 }

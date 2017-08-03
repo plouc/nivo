@@ -6,7 +6,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import _ from 'lodash'
@@ -15,8 +14,7 @@ import Nivo from '../../../Nivo'
 import TreeMapHelper from '../../../lib/charts/treemap/TreeMapHelper'
 import { convertGetter } from '../../../lib/propertiesConverters'
 import { treeMapPropTypes, treeMapDefaultProps } from './TreeMapProps'
-import { getColorRange, extractRGB } from '../../../ColorUtils'
-import { rgb } from 'd3'
+import { getColorsGenerator, extractRGB } from '../../../ColorUtils'
 
 class TreeMapPlaceholders extends Component {
     componentWillMount() {
@@ -52,6 +50,7 @@ class TreeMapPlaceholders extends Component {
             motionStiffness,
             motionDamping,
             colors,
+            colorBy,
         } = this.props
 
         const identity = convertGetter(_identity)
@@ -61,7 +60,7 @@ class TreeMapPlaceholders extends Component {
         const width = _width - margin.left - margin.right
         const height = _height - margin.top - margin.bottom
 
-        const color = getColorRange(colors)
+        const color = getColorsGenerator(colors, colorBy)
 
         let wrapperTag
         let containerTag
@@ -104,6 +103,7 @@ class TreeMapPlaceholders extends Component {
             identity,
             value,
             color,
+            colorBy,
         })
 
         if (animate === false) {

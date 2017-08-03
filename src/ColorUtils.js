@@ -101,25 +101,39 @@ export const nivoCategoricalColors = () =>
 const dataColor = d => d.color || d.data.color
 
 export const getColorRange = instruction => {
-    if (instruction === 'data') {
-        return dataColor
-    }
+    if (instruction === 'data') return dataColor
 
-    if (instruction === 'nivo') {
-        return nivoCategoricalColors()
-    }
+    if (instruction === 'nivo') return nivoCategoricalColors()
 
-    if (_.isFunction(instruction)) {
-        return instruction
-    }
+    if (_.isFunction(instruction)) return instruction
 
-    if (d3Colors[instruction]) {
-        return d3Colors[instruction]
-    }
+    if (d3Colors[instruction]) return d3Colors[instruction]
 
-    if (_.isArray(instruction)) {
-        return scaleOrdinal(instruction)
-    }
+    if (_.isArray(instruction)) return scaleOrdinal(instruction)
 
     return () => instruction
+}
+
+export const getColorsGenerator = (colors, colorBy) => {
+    // skip range, color should be bound to data
+    if (_.isFunction(colorBy)) return d => colorBy(d)
+
+    let scale
+    let getColorId = d => _.get(d, colorBy)
+
+    if (colors === 'nivo') {
+        // use default nivo categorical colors
+        scale = nivoCategoricalColors()
+    } else if (d3Colors[colors]) {
+        // use predefined d3 colors
+        scale = d3Colors[colors]
+    } else if (_.isArray(colors)) {
+        // user defined color range
+        scale = scaleOrdinal(colors)
+    } else {
+        // just use provided value, all elements will have identical color
+        return d => colors
+    }
+
+    return d => scale(getColorId(d))
 }

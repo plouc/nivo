@@ -11,12 +11,29 @@ import { TransitionMotion, spring } from 'react-motion'
 import { rgb } from 'd3'
 import _ from 'lodash'
 import Nivo from '../../../Nivo'
-import { getColorRange, extractRGB } from '../../../ColorUtils'
+import { getColorsGenerator, extractRGB } from '../../../ColorUtils'
 import BubbleHelper from '../../../lib/charts/bubble/BubbleHelper'
 import { convertGetter } from '../../../lib/propertiesConverters'
 import { bubblePropTypes, bubbleDefaultProps } from './BubbleProps'
 
-class BubblePlaceholders extends Component {
+const ignoreProps = [
+    'borderWidth',
+    'borderColor',
+    'enableLabel',
+    'label',
+    'labelFormat',
+    'labelTextColor',
+    'labelSkipRadius',
+    'labelTextDY',
+    'transitionDuration',
+    'transitionEasing',
+]
+
+export default class BubblePlaceholders extends Component {
+    static propTypes = _.omit(bubblePropTypes, ignoreProps)
+
+    static defaultProps = _.omit(bubbleDefaultProps, ignoreProps)
+
     componentWillMount() {
         this.bubble = BubbleHelper()
     }
@@ -49,6 +66,7 @@ class BubblePlaceholders extends Component {
             value: _value,
             padding,
             colors,
+            colorBy,
             animate,
             motionStiffness,
             motionDamping,
@@ -57,8 +75,7 @@ class BubblePlaceholders extends Component {
 
         const identity = convertGetter(_identity)
         const value = convertGetter(_value)
-
-        const color = getColorRange(colors)
+        const color = getColorsGenerator(colors, colorBy)
 
         const margin = Object.assign({}, Nivo.defaults.margin, this.props.margin)
         const width = _width - margin.left - margin.right
@@ -73,6 +90,7 @@ class BubblePlaceholders extends Component {
             value,
             padding,
             color,
+            colorBy,
         })
 
         let wrapperTag
@@ -103,7 +121,7 @@ class BubblePlaceholders extends Component {
             })
         }
 
-        if (animate === false) {
+        if (!animate) {
             return React.createElement(
                 wrapperTag,
                 wrapperProps,
@@ -123,8 +141,10 @@ class BubblePlaceholders extends Component {
             )
         }
 
-        const stiffness = motionStiffness
-        const damping = motionDamping
+        const motionProps = {
+            stiffness: motionStiffness,
+            damping: motionDamping,
+        }
 
         return React.createElement(
             wrapperTag,
@@ -137,10 +157,10 @@ class BubblePlaceholders extends Component {
                         key: b.data.key,
                         data: b,
                         style: {
-                            r: spring(b.r, { stiffness, damping }),
-                            x: spring(b.x, { stiffness, damping }),
-                            y: spring(b.y, { stiffness, damping }),
-                            ...extractRGB(b.color, { stiffness, damping }),
+                            r: spring(b.r, motionProps),
+                            x: spring(b.x, motionProps),
+                            y: spring(b.y, motionProps),
+                            ...extractRGB(b.color, motionProps),
                         },
                     }
                 })}
@@ -165,31 +185,3 @@ class BubblePlaceholders extends Component {
         )
     }
 }
-
-BubblePlaceholders.propTypes = _.omit(bubblePropTypes, [
-    'borderWidth',
-    'borderColor',
-    'enableLabel',
-    'label',
-    'labelFormat',
-    'labelTextColor',
-    'labelSkipRadius',
-    'labelTextDY',
-    'transitionDuration',
-    'transitionEasing',
-])
-
-BubblePlaceholders.defaultProps = _.omit(bubbleDefaultProps, [
-    'borderWidth',
-    'borderColor',
-    'enableLabel',
-    'label',
-    'labelFormat',
-    'labelTextColor',
-    'labelSkipRadius',
-    'labelTextDY',
-    'transitionDuration',
-    'transitionEasing',
-])
-
-export default BubblePlaceholders

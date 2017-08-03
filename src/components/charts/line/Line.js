@@ -12,7 +12,7 @@ import { merge } from 'lodash'
 import { line } from 'd3'
 import Nivo, { defaultTheme } from '../../../Nivo'
 import { margin as marginPropType, motion as motionPropTypes } from '../../../PropTypes'
-import { getColorRange, getColorGenerator } from '../../../ColorUtils'
+import { getColorsGenerator, getColorGenerator } from '../../../ColorUtils'
 import SvgWrapper from '../SvgWrapper'
 import { generateLines, generateStackedLines } from '../../../lib/charts/line'
 import { curvePropMapping, curvePropType } from '../../../properties/curve'
@@ -58,6 +58,7 @@ export default class Line extends Component {
         // theming
         theme: PropTypes.object.isRequired,
         colors: PropTypes.any.isRequired,
+        colorBy: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
         // motion
         ...motionPropTypes,
@@ -90,8 +91,9 @@ export default class Line extends Component {
         markersBorderColor: 'inherit',
 
         // theming
-        colors: Nivo.defaults.colorRange,
         theme: {},
+        colors: Nivo.defaults.colorRange,
+        colorBy: 'id',
 
         // motion
         animate: true,
@@ -125,6 +127,7 @@ export default class Line extends Component {
             // theming
             theme: _theme,
             colors,
+            colorBy,
 
             // motion
             animate,
@@ -137,7 +140,7 @@ export default class Line extends Component {
         const height = _height - margin.top - margin.bottom
 
         const theme = merge({}, defaultTheme, _theme)
-        const color = getColorRange(colors)
+        const color = getColorsGenerator(colors, colorBy)
 
         const motionProps = {
             animate,
@@ -187,6 +190,7 @@ export default class Line extends Component {
                     width={width}
                     height={height}
                     theme={theme}
+                    {...motionProps}
                 />
                 {lines.map(({ id, color: lineColor, points }) =>
                     <path

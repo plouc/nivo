@@ -76,7 +76,20 @@ const createNodes = ({
     }
 }
 
-class Bubble extends Component {
+export default class Bubble extends Component {
+    static propTypes = _.omit(bubblePropTypes, [
+        'children',
+        'namespace',
+        'transitionDuration',
+        'transitionEasing',
+    ])
+
+    static defaultProps = _.omit(bubbleDefaultProps, [
+        'namespace',
+        'transitionDuration',
+        'transitionEasing',
+    ])
+
     render() {
         return (
             <BubblePlaceholders {...this.props} namespace="svg">
@@ -85,18 +98,3 @@ class Bubble extends Component {
         )
     }
 }
-
-Bubble.propTypes = _.omit(bubblePropTypes, [
-    'children',
-    'namespace',
-    'transitionDuration',
-    'transitionEasing',
-])
-
-Bubble.defaultProps = _.omit(bubbleDefaultProps, [
-    'namespace',
-    'transitionDuration',
-    'transitionEasing',
-])
-
-export default Bubble

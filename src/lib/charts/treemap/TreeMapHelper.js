@@ -39,7 +39,6 @@ const TreeMapHelper = () => {
 
     return {
         /**
-         *
          * @param {number}   width
          * @param {number}   height
          * @param {object}   _root
@@ -75,14 +74,7 @@ const TreeMapHelper = () => {
             const nodes = leavesOnly ? root.leaves() : root.descendants()
 
             return nodes.map(d => {
-                d.color = color(d.depth)
-                /*
-                     if (d.depth > 1) {
-                     d.color = color(d.parentId)
-                     } else {
-                     d.color = color(identity(d.data))
-                     }
-                     */
+                d.color = color({ ...d.data, depth: d.depth })
 
                 d.data.key = d.ancestors().map(a => identity(a.data)).join('.')
 

@@ -8,9 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import Nivo from '../../../Nivo'
-import { margin } from '../../../PropTypes'
-
-const { bool, object, number, string, any, func, oneOf } = PropTypes
+import { margin, motion } from '../../../PropTypes'
 
 /**
  * Bubble components propTypes.
@@ -18,39 +16,43 @@ const { bool, object, number, string, any, func, oneOf } = PropTypes
  * @type {object}
  */
 export const bubblePropTypes = {
-    width: number.isRequired,
-    height: number.isRequired,
+    root: PropTypes.object.isRequired,
+
+    // dimensions
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
     margin,
-    root: object.isRequired,
-    leavesOnly: bool.isRequired,
-    onBubbleClick: func.isRequired,
-    identity: string.isRequired,
-    value: string.isRequired,
-    padding: number.isRequired,
-    colors: any.isRequired,
+
+    leavesOnly: PropTypes.bool.isRequired,
+    onBubbleClick: PropTypes.func.isRequired,
+    identity: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+    padding: PropTypes.number.isRequired,
+
+    // theming
+    colors: PropTypes.any.isRequired,
+    colorBy: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
 
     // placeholders
-    namespace: oneOf(['html', 'svg']),
-    children: func.isRequired,
+    namespace: PropTypes.oneOf(['html', 'svg']),
+    children: PropTypes.func.isRequired,
 
     // border
-    borderWidth: number.isRequired,
-    borderColor: any.isRequired,
+    borderWidth: PropTypes.number.isRequired,
+    borderColor: PropTypes.any.isRequired,
 
     // labels
-    enableLabel: bool.isRequired,
-    label: string.isRequired,
-    labelFormat: string,
-    labelTextColor: any.isRequired,
-    labelTextDY: number.isRequired,
-    labelSkipRadius: number.isRequired,
+    enableLabel: PropTypes.bool.isRequired,
+    label: PropTypes.string.isRequired,
+    labelFormat: PropTypes.string,
+    labelTextColor: PropTypes.any.isRequired,
+    labelTextDY: PropTypes.number.isRequired,
+    labelSkipRadius: PropTypes.number.isRequired,
 
     // transitions
-    animate: bool.isRequired,
-    motionStiffness: number.isRequired, // react-motion
-    motionDamping: number.isRequired, // react-motion
-    transitionDuration: number.isRequired, // d3 transitions
-    transitionEasing: string.isRequired, // d3 transitions
+    ...motion,
+    transitionDuration: PropTypes.number.isRequired, // d3 transitions
+    transitionEasing: PropTypes.string.isRequired, // d3 transitions
 }
 
 /**
@@ -59,13 +61,18 @@ export const bubblePropTypes = {
  * @type {object}
  */
 export const bubbleDefaultProps = {
-    leavesOnly: false,
+    // dimensions
     margin: Nivo.defaults.margin,
+
+    leavesOnly: false,
     onBubbleClick: () => {},
     identity: 'id',
     value: 'value',
     padding: 1,
+
+    // theming
     colors: Nivo.defaults.colorRange,
+    colorBy: 'depth',
 
     // placeholders
     namespace: 'html',

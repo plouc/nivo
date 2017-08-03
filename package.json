@@ -1,6 +1,12 @@
 {
   "name": "nivo",
   "version": "0.1.0",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/plouc/nivo/blob/master/LICENSE.md"
+    }
+  ],
   "author": {
     "name": "Raphaël Benitte",
     "url": "https://github.com/plouc"

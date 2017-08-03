@@ -12,7 +12,7 @@ import { merge } from 'lodash'
 import { TransitionMotion, spring } from 'react-motion'
 import Nivo, { defaultTheme } from '../../../Nivo'
 import { margin as marginPropType, motion as motionPropTypes } from '../../../PropTypes'
-import { getColorRange } from '../../../ColorUtils'
+import { getColorsGenerator } from '../../../ColorUtils'
 import { generateGroupedBars, generateStackedBars } from '../../../lib/charts/bar'
 import SvgWrapper from '../SvgWrapper'
 import Axes from '../../axes/Axes'
@@ -53,8 +53,10 @@ export default class Bar extends Component {
         // interactions
         onClick: PropTypes.func,
 
+        // theming
         theme: PropTypes.object.isRequired,
         colors: PropTypes.any.isRequired,
+        colorBy: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
         // motion
         ...motionPropTypes,
@@ -63,7 +65,6 @@ export default class Bar extends Component {
     static defaultProps = {
         margin: Nivo.defaults.margin,
         groupMode: 'stacked',
-        colors: Nivo.defaults.colorRange,
         xPadding: 0.1,
         enableLabels: true,
         axes: {
@@ -76,7 +77,13 @@ export default class Bar extends Component {
         },
         enableGridX: false,
         enableGridY: true,
+
+        // theming
         theme: {},
+        colors: Nivo.defaults.colorRange,
+        colorBy: 'serie.id',
+
+        // motion
         animate: true,
         motionStiffness: Nivo.defaults.motionStiffness,
         motionDamping: Nivo.defaults.motionDamping,
@@ -89,13 +96,18 @@ export default class Bar extends Component {
             margin: _margin,
             width: _width,
             height: _height,
-            colors,
             xPadding,
             axes,
             enableGridX,
             enableGridY,
             enableLabels,
+
+            // theming
             theme: _theme,
+            colors,
+            colorBy,
+
+            // motion
             animate,
             motionStiffness,
             motionDamping,
@@ -106,7 +118,7 @@ export default class Bar extends Component {
         const height = _height - margin.top - margin.bottom
 
         const theme = merge({}, defaultTheme, _theme)
-        const color = getColorRange(colors)
+        const color = getColorsGenerator(colors, colorBy)
 
         const motionProps = {
             animate,

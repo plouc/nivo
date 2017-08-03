@@ -9,8 +9,6 @@
 
 import { hierarchy, pack as Pack } from 'd3'
 
-const computePath = node => {}
-
 /**
  * This wrapper is responsible for computing bubble chart positions.
  * It's used for all Bubble related chart components.
@@ -44,14 +42,12 @@ const BubbleHelper = () => {
             const nodes = leavesOnly ? root.leaves() : root.descendants()
 
             return nodes.map(d => {
-                d.color = color(d.depth)
-                /*
-                     if (d.depth > 1) {
-                     d.color = color(d.parentId)
-                     } else {
-                     d.color = color(identity(d.data))
-                     }
-                     */
+                d.color = color({ ...d.data, depth: d.depth })
+                // if (d.depth > 1) {
+                //     d.color = color(d.parentId)
+                // } else {
+                //     d.color = color(identity(d.data))
+                // }
 
                 d.data.key = d.ancestors().map(a => identity(a.data)).join('.')
 

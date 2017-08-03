@@ -86,10 +86,16 @@ export default class Axis extends Component {
             tickSize,
             tickPadding,
             format,
+
+            // legend
             legend: _legend,
             legendPosition,
             legendOffset,
+
+            // theming
             theme,
+
+            // motion
             animate,
             motionStiffness,
             motionDamping,

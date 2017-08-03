@@ -10,8 +10,9 @@
 import Nivo from './Nivo'
 
 export default Nivo
-export * from './components/charts/bars/'
+export * from './components/charts/bar/'
 export * from './components/charts/line/'
+export * from './components/charts/pie/'
 export * from './components/charts/bubble/'
 export * from './components/charts/treemap/'
 export * from './components/charts/chord/'

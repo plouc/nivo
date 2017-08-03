@@ -90,15 +90,17 @@ export const generateStackedLines = (data, width, height, color) => {
     const xScale = getXScale(data, width)
     const yScale = getStackedYScale(data, xScale, height)
 
-    const lines = data.reduce((acc, { id, data: serie }, serieIndex) => {
+    const lines = data.reduce((acc, serie, serieIndex) => {
         const previousPoints = serieIndex === 0 ? null : acc[serieIndex - 1].points
+
+        const { id, data: serieData } = serie
 
         return [
             ...acc,
             {
                 id,
-                color: color(id),
-                points: serie
+                color: color(serie),
+                points: serieData
                     .map((d, i) => {
                         if (!previousPoints) {
                             return Object.assign({}, d, {
@@ -115,6 +117,7 @@ export const generateStackedLines = (data, width, height, color) => {
                         })
                     })
                     .map(d => ({
+                        key: d.x,
                         value: d.value,
                         accY: d.y,
                         x: xScale(d.x),
