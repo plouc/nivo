@@ -8,9 +8,9 @@
  */
 
 import _ from 'lodash'
-import scalePropToD3Scale from '../../scalePropToD3Scale'
 import { DIRECTION_HORIZONTAL } from '../../../constants/directions'
-import { timeFormat, timeDays, timeWeek, timeWeeks, timeMonths, timeYear, range, max } from 'd3'
+import { timeFormat } from 'd3-time-format'
+import { timeDays, timeWeek, timeWeeks, timeMonths, timeYear } from 'd3-time'
 
 /**
  * Compute day cell size according to current context.
@@ -204,9 +204,9 @@ const CalendarLayout = () => {
             // time related data
             const fromDate = _.isDate(from) ? from : new Date(from)
             const toDate = _.isDate(to) ? to : new Date(to)
-            let yearRange = range(fromDate.getFullYear(), toDate.getFullYear() + 1)
+            let yearRange = _.range(fromDate.getFullYear(), toDate.getFullYear() + 1)
             const maxWeeks =
-                max(
+                _.max(
                     yearRange,
                     year => timeWeeks(new Date(year, 0, 1), new Date(year + 1, 0, 1)).length
                 ) + 1

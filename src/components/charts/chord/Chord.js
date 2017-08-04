@@ -11,8 +11,9 @@ import PropTypes from 'prop-types'
 import Nivo from '../../../Nivo'
 import { margin as marginPropType } from '../../../PropTypes'
 import { getColorRange } from '../../../ColorUtils'
-
-import { chord as d3Chord, arc as Arc, ribbon as Ribbon, rgb } from 'd3'
+import { chord as d3Chord, ribbon as Ribbon } from 'd3-chord'
+import { arc as Arc } from 'd3-shape'
+import { rgb } from 'd3-color'
 
 class Chord extends Component {
     render() {

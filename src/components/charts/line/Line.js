@@ -9,7 +9,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { merge } from 'lodash'
-import { line } from 'd3'
+import { line } from 'd3-shape'
 import Nivo, { defaultTheme } from '../../../Nivo'
 import { margin as marginPropType, motion as motionPropTypes } from '../../../PropTypes'
 import { getColorsGenerator, getColorGenerator } from '../../../ColorUtils'

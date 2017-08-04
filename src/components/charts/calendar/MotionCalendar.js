@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React, { Component } from 'react'
-import d3 from 'd3'
+import { timeFormat } from 'd3-time-format'
 import { TransitionMotion, spring } from 'react-motion'
 import { DIRECTION_HORIZONTAL } from '../../../constants/directions'
 import CalendarDay from './CalendarDay'
@@ -97,7 +97,7 @@ class MotionCalendar extends Component {
             motionDamping,
         } = this.props
 
-        const monthLegendFormat = d3.time.format('%b')
+        const monthLegendFormat = timeFormat('%b')
 
         const stiffness = motionStiffness
         const damping = motionDamping

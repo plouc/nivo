@@ -7,16 +7,18 @@
  * file that was distributed with this source code.
  */
 import React, { Component } from 'react'
-import _ from 'lodash'
 import PropTypes from 'prop-types'
 import { merge } from 'lodash'
 import { Motion, TransitionMotion, spring } from 'react-motion'
 import Nivo, { defaultTheme } from '../../../Nivo'
 import { margin as marginPropType, motion as motionPropTypes } from '../../../PropTypes'
-import { getColorsGenerator } from '../../../ColorUtils'
+import { getColorsGenerator, getInheritedColorGenerator } from '../../../ColorUtils'
+import { getLabelGenerator } from '../../../lib/propertiesConverters'
 import { degreesToRadians } from '../../../ArcUtils'
 import SvgWrapper from '../SvgWrapper'
-import * as d3 from 'd3'
+import { pie as d3Pie, arc as d3Arc } from 'd3-shape'
+import PieRadialLabels from './PieRadialLabels'
+import PieSlicesLabels from './PieSlicesLabels'
 
 export default class Pie extends Component {
     static propTypes = {
@@ -24,7 +26,6 @@ export default class Pie extends Component {
             PropTypes.shape({
                 id: PropTypes.string.isRequired,
                 value: PropTypes.number.isRequired,
-                label: PropTypes.string,
             })
         ).isRequired,
 
@@ -36,6 +37,26 @@ export default class Pie extends Component {
         innerRadius: PropTypes.number.isRequired,
         padAngle: PropTypes.number.isRequired,
         cornerRadius: PropTypes.number.isRequired,
+
+        // border
+        borderWidth: PropTypes.number.isRequired,
+        borderColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+
+        // radial labels
+        enableRadialLabels: PropTypes.bool.isRequired,
+        radialLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+        radialLabelsTextXOffset: PropTypes.number,
+        radialLabelsTextColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+        radialLabelsLinkOffset: PropTypes.number,
+        radialLabelsLinkDiagonalLength: PropTypes.number,
+        radialLabelsLinkHorizontalLength: PropTypes.number,
+        radialLabelsLinkStrokeWidth: PropTypes.number,
+        radialLabelsLinkColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+
+        // slices labels
+        enableSlicesLabels: PropTypes.bool.isRequired,
+        sliceLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+        slicesLabelsTextColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
         // theming
         theme: PropTypes.object.isRequired,
@@ -53,6 +74,21 @@ export default class Pie extends Component {
         innerRadius: 0,
         padAngle: 0,
         cornerRadius: 0,
+
+        // border
+        borderWidth: 0,
+        borderColor: 'inherit:darker(1)',
+
+        // radial labels
+        enableRadialLabels: true,
+        radialLabel: 'id',
+        radialLabelsTextColor: 'theme',
+        radialLabelsLinkColor: 'theme',
+
+        // slices labels
+        enableSlicesLabels: true,
+        sliceLabel: 'value',
+        slicesLabelsTextColor: 'theme',
 
         // theming
         theme: {},
@@ -78,6 +114,26 @@ export default class Pie extends Component {
             padAngle: _padAngle,
             cornerRadius,
 
+            // border
+            borderWidth,
+            borderColor: _borderColor,
+
+            // radial labels
+            enableRadialLabels,
+            radialLabel,
+            radialLabelsLinkOffset,
+            radialLabelsLinkDiagonalLength,
+            radialLabelsLinkHorizontalLength,
+            radialLabelsLinkStrokeWidth,
+            radialLabelsTextXOffset,
+            radialLabelsTextColor,
+            radialLabelsLinkColor,
+
+            // slices labels
+            enableSlicesLabels,
+            sliceLabel,
+            slicesLabelsTextColor,
+
             // theming
             theme: _theme,
             colors,
@@ -99,6 +155,7 @@ export default class Pie extends Component {
 
         const theme = merge({}, defaultTheme, _theme)
         const color = getColorsGenerator(colors, colorBy)
+        const borderColor = getInheritedColorGenerator(_borderColor)
 
         const motionProps = {
             animate,
@@ -106,14 +163,30 @@ export default class Pie extends Component {
             motionStiffness,
         }
 
-        const radius = 160
+        const radialLabelsProps = {
+            label: getLabelGenerator(radialLabel),
+            linkOffset: radialLabelsLinkOffset,
+            linkDiagonalLength: radialLabelsLinkDiagonalLength,
+            linkHorizontalLength: radialLabelsLinkHorizontalLength,
+            linkStrokeWidth: radialLabelsLinkStrokeWidth,
+            textXOffset: radialLabelsTextXOffset,
+            textColor: getInheritedColorGenerator(radialLabelsTextColor, 'axis.textColor'),
+            linkColor: getInheritedColorGenerator(radialLabelsLinkColor, 'axis.tickColor'),
+        }
+
+        const slicesLabelsProps = {
+            label: getLabelGenerator(sliceLabel),
+            textColor: getInheritedColorGenerator(slicesLabelsTextColor, 'axis.textColor'),
+        }
+
+        const radius = Math.min(width, height) / 2
         const innerRadius = radius * Math.min(_innerRadius, 1)
 
-        const pie = d3.pie()
+        const pie = d3Pie()
         pie.value(d => d.value)
 
-        const arc = d3.arc()
-        arc.outerRadius(160)
+        const arc = d3Arc()
+        arc.outerRadius(radius)
 
         return (
             <SvgWrapper width={_width} height={_height} margin={margin}>
@@ -132,19 +205,44 @@ export default class Pie extends Component {
                             .cornerRadius(interpolatingStyle.cornerRadius)
                             .innerRadius(interpolatingStyle.innerRadius)
 
+                        const arcsData = interpolatedPie(data).map(d => ({
+                            ...d,
+                            data: {
+                                ...d.data,
+                                color: color(d.data),
+                            },
+                        }))
+
                         return (
                             <g
                                 transform={`translate(${interpolatingStyle.centerX}, ${interpolatingStyle.centerY})`}
                             >
-                                {interpolatedPie(data).map(d => {
+                                {arcsData.map(d => {
                                     return (
                                         <path
                                             key={d.data.id}
                                             d={interpolatedArc(d)}
-                                            fill={color(d.data)}
+                                            fill={d.data.color}
+                                            strokeWidth={borderWidth}
+                                            stroke={borderColor(d.data)}
                                         />
                                     )
                                 })}
+                                {enableSlicesLabels &&
+                                    <PieSlicesLabels
+                                        data={arcsData}
+                                        radius={radius}
+                                        innerRadius={interpolatingStyle.innerRadius}
+                                        theme={theme}
+                                        {...slicesLabelsProps}
+                                    />}
+                                {enableRadialLabels &&
+                                    <PieRadialLabels
+                                        data={arcsData}
+                                        radius={radius}
+                                        theme={theme}
+                                        {...radialLabelsProps}
+                                    />}
                             </g>
                         )
                     }}

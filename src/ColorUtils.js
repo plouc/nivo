@@ -8,14 +8,14 @@
  */
 import _ from 'lodash'
 import { spring } from 'react-motion'
+import { rgb } from 'd3-color'
 import {
     scaleOrdinal,
     schemeCategory10,
     schemeCategory20,
     schemeCategory20b,
     schemeCategory20c,
-    rgb,
-} from 'd3'
+} from 'd3-scale'
 import {
     schemeAccent,
     schemeDark2,
@@ -136,4 +136,43 @@ export const getColorsGenerator = (colors, colorBy) => {
     }
 
     return d => scale(getColorId(d))
+}
+
+/**
+ * Memoize both color generator & color generator result.
+ */
+const memoizedColorModifier = _.memoize((method, _amount) => {
+    const amount = parseFloat(_amount)
+
+    return _.memoize(d => rgb(d.color)[method](amount), d => d.color)
+}, (method, amount) => `${method}.${amount}`)
+
+const noneGenerator = () => 'none'
+const inheritGenerator = d => d.color
+
+/**
+ * @param {string|Function} instruction
+ * @param {string}          [themeKey]
+ * @return {Function}
+ */
+export const getInheritedColorGenerator = (instruction, themeKey) => {
+    if (instruction === 'none') return noneGenerator
+
+    if (_.isFunction(instruction)) return instruction
+
+    if (instruction === 'theme') {
+        return (d, theme) => _.get(theme, themeKey)
+    }
+
+    if (instruction === 'inherit') return inheritGenerator
+
+    const inheritMatches = instruction.match(/inherit:(darker|brighter)\(([0-9.]+)\)/)
+    if (inheritMatches) {
+        const method = inheritMatches[1]
+        const amount = inheritMatches[2]
+
+        return memoizedColorModifier(method, amount)
+    }
+
+    return () => instruction
 }

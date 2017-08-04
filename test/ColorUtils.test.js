@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import * as d3 from 'd3'
+import { rgb } from 'd3-color'
 import { getColorGenerator, getColorsGenerator } from '../src/ColorUtils'
 
 describe('getColorGenerator()', () => {
@@ -27,7 +27,7 @@ describe('getColorGenerator()', () => {
         const color = '#FF0000'
 
         expect(typeof colorGenerator).toBe('function')
-        expect(colorGenerator({ data: { color } })).toEqual(d3.rgb(color).darker(1))
+        expect(colorGenerator({ data: { color } })).toEqual(rgb(color).darker(1))
     })
 
     it(`'inherit:darker(*)' should support floats`, () => {
@@ -35,7 +35,7 @@ describe('getColorGenerator()', () => {
         const color = '#FF0000'
 
         expect(typeof colorGenerator).toBe('function')
-        expect(colorGenerator({ data: { color } })).toEqual(d3.rgb(color).darker(0.3))
+        expect(colorGenerator({ data: { color } })).toEqual(rgb(color).darker(0.3))
     })
 
     it(`should return a function to use brighter 'data.color' if 'inherit:brighter(*)' provided`, () => {
@@ -43,7 +43,7 @@ describe('getColorGenerator()', () => {
         const color = '#FF0000'
 
         expect(typeof colorGenerator).toBe('function')
-        expect(colorGenerator({ data: { color } })).toEqual(d3.rgb(color).brighter(1))
+        expect(colorGenerator({ data: { color } })).toEqual(rgb(color).brighter(1))
     })
 
     it(`'inherit:brighter(*)' should support floats`, () => {
@@ -51,7 +51,7 @@ describe('getColorGenerator()', () => {
         const color = '#FF0000'
 
         expect(typeof colorGenerator).toBe('function')
-        expect(colorGenerator({ data: { color } })).toEqual(d3.rgb(color).brighter(0.3))
+        expect(colorGenerator({ data: { color } })).toEqual(rgb(color).brighter(0.3))
     })
 
     it(`should return directive if no match found`, () => {

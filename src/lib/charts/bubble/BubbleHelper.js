@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import { hierarchy, pack as Pack } from 'd3'
+import { hierarchy, pack as Pack } from 'd3-hierarchy'
 
 /**
  * This wrapper is responsible for computing bubble chart positions.

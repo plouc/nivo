@@ -8,7 +8,7 @@
  */
 import React, { Component } from 'react'
 import { TransitionMotion, spring } from 'react-motion'
-import { rgb } from 'd3'
+import { rgb } from 'd3-color'
 import _ from 'lodash'
 import Nivo from '../../../Nivo'
 import { getColorsGenerator, extractRGB } from '../../../ColorUtils'

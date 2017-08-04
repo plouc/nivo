@@ -10,7 +10,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Nivo from '../../../Nivo'
-import { voronoi as VoronoiGenerator } from 'd3'
+import { voronoi as VoronoiGenerator } from 'd3-voronoi'
 
 class Voronoi extends Component {
     render() {

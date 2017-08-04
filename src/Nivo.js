@@ -6,8 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-import { scaleOrdinal } from 'd3'
+import { scaleOrdinal } from 'd3-scale'
 import { schemeSet3 } from 'd3-scale-chromatic'
 import { nivoCategoricalColors } from './ColorUtils'
 

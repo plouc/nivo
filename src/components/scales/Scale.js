@@ -9,7 +9,7 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { scaleLinear, scaleBand, scalePoint } from 'd3'
+import { scaleLinear, scaleBand, scalePoint } from 'd3-scale'
 
 export default class Scale extends Component {
     static propTypes = {

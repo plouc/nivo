@@ -1,5 +1,5 @@
 import { range, max, maxBy, sumBy, uniq } from 'lodash'
-import { scaleBand, scaleLinear } from 'd3'
+import { scaleBand, scaleLinear } from 'd3-scale'
 
 /**
  * Generates X scale.

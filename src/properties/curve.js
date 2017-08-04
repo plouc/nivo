@@ -27,7 +27,7 @@ import {
     curveStep,
     curveStepAfter,
     curveStepBefore,
-} from 'd3'
+} from 'd3-shape'
 
 export const curvePropMapping = {
     basis: curveBasis,

@@ -1,6 +1,6 @@
 {
   "name": "nivo",
-  "version": "0.1.0",
+  "version": "0.6.0",
   "licenses": [
     {
       "type": "MIT",
@@ -13,8 +13,16 @@
   },
   "keywords": [],
   "dependencies": {
-    "d3": "^4.10.0",
+    "d3-chord": "^1.0.4",
+    "d3-color": "^1.0.3",
+    "d3-format": "^1.2.0",
+    "d3-hierarchy": "^1.1.5",
+    "d3-scale": "^1.0.6",
     "d3-scale-chromatic": "^1.1.1",
+    "d3-shape": "^1.2.0",
+    "d3-time": "^1.0.7",
+    "d3-time-format": "^2.0.5",
+    "d3-voronoi": "^1.1.2",
     "invariant": "^2.2.2",
     "lodash": "^4.17.4",
     "lodash-es": "^4.17.4",
@@ -74,7 +82,7 @@
     "fmt": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --color --write \"{src,specs,test}/**/*.js\"",
     "fmt:check": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --list-different \"{src,specs,test}/**/*.js\"",
     "version": "echo ${npm_package_version}",
-    "prebublishOnly": "npm test && npm run build",
+    "prepublishOnly": "npm test && npm run build",
     "precommit": "lint-staged",
     "commitmsg": "validate-commit-msg"
   },

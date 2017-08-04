@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React, { Component } from 'react'
-import { timeFormat } from 'd3'
+import { timeFormat } from 'd3-time-format'
 import { DIRECTION_HORIZONTAL } from '../../../constants/directions'
 import CalendarDay from './CalendarDay'
 import CalendarMonthPath from './CalendarMonthPath'

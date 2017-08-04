@@ -43,7 +43,7 @@ export const bubblePropTypes = {
 
     // labels
     enableLabel: PropTypes.bool.isRequired,
-    label: PropTypes.string.isRequired,
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     labelFormat: PropTypes.string,
     labelTextColor: PropTypes.any.isRequired,
     labelTextDY: PropTypes.number.isRequired,
