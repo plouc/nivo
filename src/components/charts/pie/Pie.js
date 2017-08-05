@@ -14,7 +14,7 @@ import Nivo, { defaultTheme } from '../../../Nivo'
 import { marginPropType, motionPropTypes } from '../../../props'
 import { getColorsGenerator, getInheritedColorGenerator } from '../../../lib/colorUtils'
 import { getLabelGenerator } from '../../../lib/propertiesConverters'
-import { degreesToRadians } from '../../../lib/arcUtils'
+import { degreesToRadians, radiansToDegrees } from '../../../lib/arcUtils'
 import SvgWrapper from '../SvgWrapper'
 import { pie as d3Pie, arc as d3Arc } from 'd3-shape'
 import PieRadialLabels from './PieRadialLabels'
@@ -57,7 +57,7 @@ export default class Pie extends Component {
         // slices labels
         enableSlicesLabels: PropTypes.bool.isRequired,
         sliceLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-        sliceLabelsSkipAngle: PropTypes.number,
+        slicesLabelsSkipAngle: PropTypes.number,
         slicesLabelsTextColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
         // theming
@@ -135,7 +135,7 @@ export default class Pie extends Component {
             // slices labels
             enableSlicesLabels,
             sliceLabel,
-            sliceLabelsSkipAngle,
+            slicesLabelsSkipAngle,
             slicesLabelsTextColor,
 
             // theming
@@ -181,7 +181,7 @@ export default class Pie extends Component {
 
         const slicesLabelsProps = {
             label: getLabelGenerator(sliceLabel),
-            skipAngle: sliceLabelsSkipAngle,
+            skipAngle: slicesLabelsSkipAngle,
             textColor: getInheritedColorGenerator(slicesLabelsTextColor, 'axis.textColor'),
         }
 
@@ -211,13 +211,19 @@ export default class Pie extends Component {
                             .cornerRadius(interpolatingStyle.cornerRadius)
                             .innerRadius(interpolatingStyle.innerRadius)
 
-                        const arcsData = interpolatedPie(data).map(d => ({
-                            ...d,
-                            data: {
-                                ...d.data,
-                                color: color(d.data),
-                            },
-                        }))
+                        const arcsData = interpolatedPie(data).map(d => {
+                            const angle = d.endAngle - d.startAngle
+
+                            return {
+                                ...d,
+                                angle,
+                                angleDegrees: radiansToDegrees(angle),
+                                data: {
+                                    ...d.data,
+                                    color: color(d.data),
+                                },
+                            }
+                        })
 
                         return (
                             <g

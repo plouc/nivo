@@ -32,13 +32,13 @@ export default class PieSlicesLabels extends Component {
     }
 
     render() {
-        const { data, label, radius, innerRadius, textColor, theme } = this.props
+        const { data, label, radius, skipAngle, innerRadius, textColor, theme } = this.props
 
         const centerRadius = innerRadius + (radius - innerRadius) / 2
 
         return (
             <g>
-                {data.map(d => {
+                {data.filter(d => skipAngle === 0 || d.angleDegrees > skipAngle).map(d => {
                     const angle = midAngle(d) - Math.PI / 2
                     const position = positionFromAngle(angle, centerRadius)
 

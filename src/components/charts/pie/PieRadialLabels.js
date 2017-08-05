@@ -48,6 +48,7 @@ export default class PieRadialLabels extends Component {
             data,
             label,
             radius,
+            skipAngle,
             linkOffset,
             linkDiagonalLength,
             linkHorizontalLength,
@@ -60,7 +61,7 @@ export default class PieRadialLabels extends Component {
 
         return (
             <g>
-                {data.map(d => {
+                {data.filter(d => skipAngle === 0 || d.angleDegrees > skipAngle).map(d => {
                     const angle = midAngle(d) - Math.PI / 2
                     const positionA = positionFromAngle(angle, radius + linkOffset)
                     const positionB = positionFromAngle(
