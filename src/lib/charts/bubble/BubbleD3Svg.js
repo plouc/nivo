@@ -9,7 +9,7 @@
 
 import d3 from 'd3'
 import BubbleD3 from './BubbleD3'
-import { getColorRange, getColorGenerator, getColorStyleObject } from '../../../ColorUtils'
+import { getColorRange, getColorGenerator, getColorStyleObject } from '../../../lib/colorUtils'
 import { convertLabel } from '../../propertiesConverters'
 
 const BubbleD3Svg = domRoot => {

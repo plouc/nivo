@@ -11,10 +11,10 @@ import PropTypes from 'prop-types'
 import { merge } from 'lodash'
 import { Motion, TransitionMotion, spring } from 'react-motion'
 import Nivo, { defaultTheme } from '../../../Nivo'
-import { margin as marginPropType, motion as motionPropTypes } from '../../../PropTypes'
-import { getColorsGenerator, getInheritedColorGenerator } from '../../../ColorUtils'
+import { marginPropType, motionPropTypes } from '../../../props'
+import { getColorsGenerator, getInheritedColorGenerator } from '../../../lib/colorUtils'
 import { getLabelGenerator } from '../../../lib/propertiesConverters'
-import { degreesToRadians } from '../../../ArcUtils'
+import { degreesToRadians } from '../../../lib/arcUtils'
 import SvgWrapper from '../SvgWrapper'
 import { pie as d3Pie, arc as d3Arc } from 'd3-shape'
 import PieRadialLabels from './PieRadialLabels'
@@ -45,6 +45,7 @@ export default class Pie extends Component {
         // radial labels
         enableRadialLabels: PropTypes.bool.isRequired,
         radialLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+        radialLabelsSkipAngle: PropTypes.number,
         radialLabelsTextXOffset: PropTypes.number,
         radialLabelsTextColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
         radialLabelsLinkOffset: PropTypes.number,
@@ -56,6 +57,7 @@ export default class Pie extends Component {
         // slices labels
         enableSlicesLabels: PropTypes.bool.isRequired,
         sliceLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+        sliceLabelsSkipAngle: PropTypes.number,
         slicesLabelsTextColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
         // theming
@@ -121,6 +123,7 @@ export default class Pie extends Component {
             // radial labels
             enableRadialLabels,
             radialLabel,
+            radialLabelsSkipAngle,
             radialLabelsLinkOffset,
             radialLabelsLinkDiagonalLength,
             radialLabelsLinkHorizontalLength,
@@ -132,6 +135,7 @@ export default class Pie extends Component {
             // slices labels
             enableSlicesLabels,
             sliceLabel,
+            sliceLabelsSkipAngle,
             slicesLabelsTextColor,
 
             // theming
@@ -165,6 +169,7 @@ export default class Pie extends Component {
 
         const radialLabelsProps = {
             label: getLabelGenerator(radialLabel),
+            skipAngle: radialLabelsSkipAngle,
             linkOffset: radialLabelsLinkOffset,
             linkDiagonalLength: radialLabelsLinkDiagonalLength,
             linkHorizontalLength: radialLabelsLinkHorizontalLength,
@@ -176,6 +181,7 @@ export default class Pie extends Component {
 
         const slicesLabelsProps = {
             label: getLabelGenerator(sliceLabel),
+            skipAngle: sliceLabelsSkipAngle,
             textColor: getInheritedColorGenerator(slicesLabelsTextColor, 'axis.textColor'),
         }
 

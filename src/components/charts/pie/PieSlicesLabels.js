@@ -10,11 +10,12 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { merge } from 'lodash'
 import { Motion, TransitionMotion, spring } from 'react-motion'
-import { midAngle, positionFromAngle } from '../../../ArcUtils'
+import { midAngle, positionFromAngle } from '../../../lib/arcUtils'
 
 export default class PieSlicesLabels extends Component {
     static propTypes = {
         label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+        skipAngle: PropTypes.number.isRequired,
         radius: PropTypes.number.isRequired,
         innerRadius: PropTypes.number.isRequired,
         textColor: PropTypes.func.isRequired,
@@ -26,7 +27,9 @@ export default class PieSlicesLabels extends Component {
         }).isRequired,
     }
 
-    static defaultProps = {}
+    static defaultProps = {
+        skipAngle: 0,
+    }
 
     render() {
         const { data, label, radius, innerRadius, textColor, theme } = this.props

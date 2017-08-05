@@ -8,7 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import Nivo from '../../../Nivo'
-import { margin, scale } from '../../../PropTypes'
+import { marginPropType, scalePropType } from '../../../props'
 import { DIRECTION_HORIZONTAL, DIRECTION_VERTICAL } from '../../../constants/directions'
 
 const { number, string, bool, func, shape, oneOf, oneOfType, instanceOf, arrayOf } = PropTypes
@@ -21,7 +21,7 @@ const { number, string, bool, func, shape, oneOf, oneOfType, instanceOf, arrayOf
 export const calendarPropTypes = {
     width: number.isRequired,
     height: number.isRequired,
-    margin,
+    margin: marginPropType,
     from: oneOfType([string, instanceOf(Date)]).isRequired,
     to: oneOfType([string, instanceOf(Date)]).isRequired,
     data: arrayOf(
@@ -32,7 +32,7 @@ export const calendarPropTypes = {
     ).isRequired,
     onDayClick: func.isRequired,
     direction: oneOf([DIRECTION_HORIZONTAL, DIRECTION_VERTICAL]),
-    colorScale: scale.isRequired,
+    colorScale: scalePropType.isRequired,
     emptyColor: string.isRequired,
     // years
     yearSpacing: number.isRequired,

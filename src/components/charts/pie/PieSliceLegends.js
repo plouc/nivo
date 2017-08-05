@@ -12,8 +12,8 @@ import invariant from 'invariant'
 import _ from 'lodash'
 import d3 from 'd3'
 import Nivo from '../../../Nivo'
-import { findNeighbor, midAngle, radiansToDegrees } from '../../../ArcUtils'
-import { getColorStyleObject } from '../../../ColorUtils'
+import { findNeighbor, midAngle, radiansToDegrees } from '../../../lib/arcUtils'
+import { getColorStyleObject } from '../../../lib/colorUtils'
 
 class PieSliceLegends extends Component {
     static decoratePie(element) {

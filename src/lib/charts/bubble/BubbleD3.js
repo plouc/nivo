@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-import { flatten } from '../../../DataUtils'
+import { flatten } from '../../../lib/dataUtils'
 import { hierarchy, pack } from 'd3'
 
 /**

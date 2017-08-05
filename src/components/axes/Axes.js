@@ -8,7 +8,7 @@
  */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { motion as motionPropTypes } from '../../PropTypes'
+import { motionPropTypes } from '../../props'
 import Axis from './Axis'
 
 const horizontalPositions = ['top', 'bottom']

@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { rgb } from 'd3-color'
-import { getColorGenerator, getColorsGenerator } from '../src/ColorUtils'
+import { getColorGenerator, getColorsGenerator } from '../../src/lib/colorUtils'
 
 describe('getColorGenerator()', () => {
     it(`should return 'none' if 'none' provided`, () => {

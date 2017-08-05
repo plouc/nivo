@@ -12,7 +12,7 @@ import { findDOMNode } from 'react-dom'
 import _ from 'lodash'
 import d3 from 'd3'
 import Nivo from '../../../Nivo'
-import { getColorStyleObject, getColorRange } from '../../../ColorUtils'
+import { getColorStyleObject, getColorRange } from '../../../lib/colorUtils'
 import { treeMapPropTypes, treeMapDefaultProps } from './TreeMapProps'
 import Treemap from '../../../lib/charts/treemap/TreeMapD3'
 

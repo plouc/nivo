@@ -9,7 +9,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
-import { motion as motionPropTypes } from '../../../PropTypes'
+import { motionPropTypes } from '../../../props'
 
 export default class LineMarkers extends Component {
     static propTypes = {

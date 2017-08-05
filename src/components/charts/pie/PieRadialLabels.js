@@ -9,7 +9,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Motion, TransitionMotion, spring } from 'react-motion'
-import { midAngle, positionFromAngle } from '../../../ArcUtils'
+import { midAngle, positionFromAngle } from '../../../lib/arcUtils'
 import { line } from 'd3-shape'
 
 const lineGenerator = line().x(d => d.x).y(d => d.y)
@@ -17,6 +17,7 @@ const lineGenerator = line().x(d => d.x).y(d => d.y)
 export default class PieRadialLabels extends Component {
     static propTypes = {
         label: PropTypes.func.isRequired,
+        skipAngle: PropTypes.number.isRequired,
         radius: PropTypes.number.isRequired,
         linkOffset: PropTypes.number.isRequired,
         linkDiagonalLength: PropTypes.number.isRequired,
@@ -34,6 +35,7 @@ export default class PieRadialLabels extends Component {
     }
 
     static defaultProps = {
+        skipAngle: 0,
         linkOffset: 0,
         linkDiagonalLength: 16,
         linkHorizontalLength: 24,

@@ -13,7 +13,7 @@ import _ from 'lodash'
 import { convertLabel } from '../../../lib/propertiesConverters'
 import { treeMapPropTypes, treeMapDefaultProps } from './TreeMapProps'
 import TreeMapPlaceholders from './TreeMapPlaceholders'
-import { getColorGenerator } from '../../../ColorUtils'
+import { getColorGenerator } from '../../../lib/colorUtils'
 
 const createNodes = ({
     borderWidth,

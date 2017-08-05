@@ -9,7 +9,7 @@
 
 import PropTypes from 'prop-types'
 import Nivo from '../../../Nivo'
-import { margin, motion } from '../../../PropTypes'
+import { marginPropType, motionPropTypes } from '../../../props'
 import { tilingMethods } from '../../../lib/charts/treemap/TreeMapD3'
 
 /**
@@ -23,7 +23,7 @@ export const treeMapPropTypes = {
     // dimensions
     width: PropTypes.number.isRequired, // for non responsive components
     height: PropTypes.number.isRequired, // for non responsive components
-    margin,
+    margin: marginPropType,
 
     leavesOnly: PropTypes.bool.isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
@@ -48,7 +48,7 @@ export const treeMapPropTypes = {
     borderColor: PropTypes.any.isRequired,
 
     // transitions
-    ...motion,
+    ...motionPropTypes,
     transitionDuration: PropTypes.number.isRequired, // d3 transitions
     transitionEasing: PropTypes.string.isRequired, // d3 transitions
 

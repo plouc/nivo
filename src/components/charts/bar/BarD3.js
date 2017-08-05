@@ -12,8 +12,8 @@ import { findDOMNode } from 'react-dom'
 import d3 from 'd3'
 import _ from 'lodash'
 import Nivo from '../../../Nivo'
-import { getColorRange, getColorGenerator } from '../../../ColorUtils'
-import { margin as marginPropType } from '../../../PropTypes'
+import { getColorRange, getColorGenerator } from '../../../lib/colorUtils'
+import { marginPropType } from '../../../props'
 import decoratorsFromReactChildren from '../../../lib/decoratorsFromReactChildren'
 
 class BarD3 extends Component {

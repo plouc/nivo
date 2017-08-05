@@ -8,7 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import Nivo from '../../../Nivo'
-import { margin, motion } from '../../../PropTypes'
+import { marginPropType, motionPropTypes } from '../../../props'
 
 /**
  * Bubble components propTypes.
@@ -21,7 +21,7 @@ export const bubblePropTypes = {
     // dimensions
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
-    margin,
+    margin: marginPropType,
 
     leavesOnly: PropTypes.bool.isRequired,
     onBubbleClick: PropTypes.func.isRequired,
@@ -50,7 +50,7 @@ export const bubblePropTypes = {
     labelSkipRadius: PropTypes.number.isRequired,
 
     // transitions
-    ...motion,
+    ...motionPropTypes,
     transitionDuration: PropTypes.number.isRequired, // d3 transitions
     transitionEasing: PropTypes.string.isRequired, // d3 transitions
 }

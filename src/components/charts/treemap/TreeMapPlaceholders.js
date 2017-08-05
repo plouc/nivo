@@ -14,7 +14,7 @@ import Nivo from '../../../Nivo'
 import TreeMapHelper from '../../../lib/charts/treemap/TreeMapHelper'
 import { convertGetter } from '../../../lib/propertiesConverters'
 import { treeMapPropTypes, treeMapDefaultProps } from './TreeMapProps'
-import { getColorsGenerator, extractRGB } from '../../../ColorUtils'
+import { getColorsGenerator, extractRGB } from '../../../lib/colorUtils'
 
 class TreeMapPlaceholders extends Component {
     componentWillMount() {

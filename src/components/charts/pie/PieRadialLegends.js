@@ -11,8 +11,8 @@ import PropTypes from 'prop-types'
 import invariant from 'invariant'
 import d3 from 'd3'
 import Nivo from '../../../Nivo'
-import { midAngle, radiansToDegrees } from '../../../ArcUtils'
-import { getColorGenerator } from '../../../ColorUtils'
+import { midAngle, radiansToDegrees } from '../../../lib/arcUtils'
+import { getColorGenerator } from '../../../lib/colorUtils'
 
 class PieRadialLegends extends Component {
     static decoratePie(element) {

@@ -8,8 +8,8 @@
  */
 
 import d3 from 'd3'
-import { degreesToRadians, midAngle, findNeighbor } from '../../../ArcUtils'
-import { getColorRange } from '../../../ColorUtils'
+import { degreesToRadians, midAngle, findNeighbor } from '../../../lib/arcUtils'
+import { getColorRange } from '../../../lib/colorUtils'
 
 const PieD3Svg = domRoot => {
     // DOM elements

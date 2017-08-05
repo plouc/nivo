@@ -11,7 +11,7 @@ import _ from 'lodash'
 import { convertLabel } from '../../../lib/propertiesConverters'
 import { bubblePropTypes, bubbleDefaultProps } from './BubbleProps'
 import BubblePlaceholders from './BubblePlaceholders'
-import { getColorGenerator } from '../../../ColorUtils'
+import { getColorGenerator } from '../../../lib/colorUtils'
 
 const createNodes = ({
     borderWidth,

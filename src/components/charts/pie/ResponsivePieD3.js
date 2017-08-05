@@ -12,8 +12,8 @@ import { findDOMNode } from 'react-dom'
 import _ from 'lodash'
 import d3 from 'd3'
 import Nivo from '../../../Nivo'
-import { degreesToRadians, findNeighbor } from '../../../ArcUtils'
-import { getColorRange } from '../../../ColorUtils'
+import { degreesToRadians, findNeighbor } from '../../../lib/arcUtils'
+import { getColorRange } from '../../../lib/colorUtils'
 
 class Pie extends Component {
     renderD3(nextProps) {

@@ -12,8 +12,8 @@ import invariant from 'invariant'
 import d3 from 'd3'
 import _ from 'lodash'
 import Nivo from '../../../Nivo'
-import { midAngle, findNeighbor } from '../../../ArcUtils'
-import { getColorStyleObject } from '../../../ColorUtils'
+import { midAngle, findNeighbor } from '../../../lib/arcUtils'
+import { getColorStyleObject } from '../../../lib/colorUtils'
 
 class PieColumnLegends extends Component {
     static decoratePie(element) {
