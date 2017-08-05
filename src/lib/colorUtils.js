@@ -144,7 +144,7 @@ export const getColorsGenerator = (colors, colorBy) => {
 const memoizedColorModifier = _.memoize((method, _amount) => {
     const amount = parseFloat(_amount)
 
-    return _.memoize(d => rgb(d.color)[method](amount), d => d.color)
+    return _.memoize(d => rgb(d.color)[method](amount).toString(), d => d.color)
 }, (method, amount) => `${method}.${amount}`)
 
 const noneGenerator = () => 'none'

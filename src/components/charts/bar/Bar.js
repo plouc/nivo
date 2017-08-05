@@ -12,7 +12,7 @@ import { merge } from 'lodash'
 import { TransitionMotion, spring } from 'react-motion'
 import Nivo, { defaultTheme } from '../../../Nivo'
 import { marginPropType, motionPropTypes } from '../../../props'
-import { getColorsGenerator } from '../../../lib/colorUtils'
+import { getColorsGenerator, getInheritedColorGenerator } from '../../../lib/colorUtils'
 import { generateGroupedBars, generateStackedBars } from '../../../lib/charts/bar'
 import SvgWrapper from '../SvgWrapper'
 import Axes from '../../axes/Axes'
@@ -49,6 +49,7 @@ export default class Bar extends Component {
 
         // labels
         enableLabels: PropTypes.bool.isRequired,
+        labelsTextColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
 
         // interactions
         onClick: PropTypes.func,
@@ -66,7 +67,6 @@ export default class Bar extends Component {
         margin: Nivo.defaults.margin,
         groupMode: 'stacked',
         xPadding: 0.1,
-        enableLabels: true,
         axes: {
             left: {
                 enabled: true,
@@ -77,6 +77,11 @@ export default class Bar extends Component {
         },
         enableGridX: false,
         enableGridY: true,
+
+        // labels
+        enableLabels: true,
+        labelsLinkColor: 'theme',
+        labelsTextColor: 'theme',
 
         // theming
         theme: {},
@@ -100,7 +105,11 @@ export default class Bar extends Component {
             axes,
             enableGridX,
             enableGridY,
+
+            // labels
             enableLabels,
+            labelsLinkColor: _labelsLinkColor,
+            labelsTextColor: _labelsTextColor,
 
             // theming
             theme: _theme,
@@ -119,6 +128,8 @@ export default class Bar extends Component {
 
         const theme = merge({}, defaultTheme, _theme)
         const color = getColorsGenerator(colors, colorBy)
+        const labelsLinkColor = getInheritedColorGenerator(_labelsLinkColor, 'axis.tickColor')
+        const labelsTextColor = getInheritedColorGenerator(_labelsTextColor, 'axis.textColor')
 
         const motionProps = {
             animate,
@@ -200,7 +211,15 @@ export default class Bar extends Component {
                     {...motionProps}
                 />
                 {bars}
-                {enableLabels && result.bars.map(d => <BarItemLabel {...d} key={d.key} />)}
+                {enableLabels &&
+                    result.bars.map(d =>
+                        <BarItemLabel
+                            {...d}
+                            key={d.key}
+                            linkColor={labelsLinkColor(d, theme)}
+                            textColor={labelsTextColor(d, theme)}
+                        />
+                    )}
             </SvgWrapper>
         )
     }

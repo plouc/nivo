@@ -18,13 +18,14 @@ export default class BarItemLabel extends Component {
         y: PropTypes.number.isRequired,
         width: PropTypes.number.isRequired,
         height: PropTypes.number.isRequired,
-        color: PropTypes.string.isRequired,
+        linkColor: PropTypes.string.isRequired,
+        textColor: PropTypes.string.isRequired,
     }
 
     static defaultProps = {}
 
     render() {
-        const { x: _x, y: _y, width, height, color, value } = this.props
+        const { x: _x, y: _y, width, height, linkColor, textColor, value } = this.props
 
         let x = _x
         let y = _y
@@ -35,7 +36,7 @@ export default class BarItemLabel extends Component {
             textX = -13
             textAnchor = 'end'
             y = _y + height / 2
-            line = <line stroke={color} x1={0} x2={-10} y1={0} y2={0} />
+            line = <line style={{ stroke: linkColor }} x1={0} x2={-10} y1={0} y2={0} />
         } else {
             textX = 0
             textAnchor = 'middle'
@@ -46,7 +47,7 @@ export default class BarItemLabel extends Component {
         return (
             <g transform={`translate(${x},${y})`} className="nivo_bar_legend">
                 {line}
-                <text x={textX} textAnchor={textAnchor} dy="0.5em">
+                <text x={textX} textAnchor={textAnchor} dy="0.5em" style={{ fill: textColor }}>
                     {value}
                 </text>
             </g>
