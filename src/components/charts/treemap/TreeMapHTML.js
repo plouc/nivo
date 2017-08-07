@@ -10,10 +10,10 @@
 import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import _ from 'lodash'
-import { convertLabel } from '../../../lib/propertiesConverters'
+import { getLabelGenerator } from '../../../lib/propertiesConverters'
 import { treeMapPropTypes, treeMapDefaultProps } from './TreeMapProps'
 import TreeMapPlaceholders from './TreeMapPlaceholders'
-import { getColorGenerator } from '../../../lib/colorUtils'
+import { getInheritedColorGenerator } from '../../../lib/colorUtils'
 
 const createNodes = ({
     borderWidth,
@@ -25,9 +25,9 @@ const createNodes = ({
     labelSkipSize,
     labelTextColor,
 }) => {
-    const label = convertLabel(_label, labelFormat)
-    const borderColorFn = getColorGenerator(borderColor)
-    const textColorFn = getColorGenerator(labelTextColor)
+    const label = getLabelGenerator(_label, labelFormat)
+    const borderColorFn = getInheritedColorGenerator(borderColor)
+    const textColorFn = getInheritedColorGenerator(labelTextColor)
 
     return nodes => {
         const renderedNodes = []
@@ -35,7 +35,6 @@ const createNodes = ({
         nodes.forEach(node => {
             const shouldRenderLabel =
                 enableLabels &&
-                node.data.height === 0 &&
                 (labelSkipSize === 0 ||
                     Math.min(node.style.width, node.style.height) > labelSkipSize)
 

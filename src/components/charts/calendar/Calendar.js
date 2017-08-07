@@ -9,12 +9,25 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 import Nivo from '../../../Nivo'
+import SvgWrapper from '../SvgWrapper'
 import CalendarLayout from '../../../lib/charts/calendar/CalendarLayout'
 import { calendarPropTypes, calendarDefaultProps } from './CalendarProps'
 import StaticCalendar from './StaticCalendar'
 import MotionCalendar from './MotionCalendar'
 
-class Calendar extends Component {
+export default class Calendar extends Component {
+    static propTypes = _.omit(calendarPropTypes, [
+        'transitionDuration',
+        'transitionEasing',
+        'transitionStaggering',
+    ])
+
+    static defaultProps = _.omit(calendarDefaultProps, [
+        'transitionDuration',
+        'transitionEasing',
+        'transitionStaggering',
+    ])
+
     componentWillMount() {
         this.calendarLayout = CalendarLayout()
     }
@@ -41,7 +54,7 @@ class Calendar extends Component {
             motionDamping,
         } = this.props
 
-        const margin = _.assign({}, Nivo.defaults.margin, this.props.margin)
+        const margin = Object.assign({}, Nivo.defaults.margin, this.props.margin)
         const width = this.props.width - margin.left - margin.right
         const height = this.props.height - margin.top - margin.bottom
 
@@ -96,32 +109,9 @@ class Calendar extends Component {
         }
 
         return (
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="nivo_calendar"
-                style={{ width: this.props.width, height: this.props.height }}
-            >
-                <g
-                    className="nivo_calendar_wrapper"
-                    transform={`translate(${margin.left},${margin.top})`}
-                >
-                    {calendar}
-                </g>
-            </svg>
+            <SvgWrapper width={this.props.width} height={this.props.height} margin={margin}>
+                {calendar}
+            </SvgWrapper>
         )
     }
 }
-
-Calendar.propTypes = _.omit(calendarPropTypes, [
-    'transitionDuration',
-    'transitionEasing',
-    'transitionStaggering',
-])
-
-Calendar.defaultProps = _.omit(calendarDefaultProps, [
-    'transitionDuration',
-    'transitionEasing',
-    'transitionStaggering',
-])
-
-export default Calendar

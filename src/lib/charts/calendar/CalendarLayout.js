@@ -204,11 +204,13 @@ const CalendarLayout = () => {
             // time related data
             const fromDate = _.isDate(from) ? from : new Date(from)
             const toDate = _.isDate(to) ? to : new Date(to)
+
             let yearRange = _.range(fromDate.getFullYear(), toDate.getFullYear() + 1)
             const maxWeeks =
                 _.max(
-                    yearRange,
-                    year => timeWeeks(new Date(year, 0, 1), new Date(year + 1, 0, 1)).length
+                    yearRange.map(
+                        year => timeWeeks(new Date(year, 0, 1), new Date(year + 1, 0, 1)).length
+                    )
                 ) + 1
 
             // ——————————————————————————————————————————————————————————————————————————————————————————————————————

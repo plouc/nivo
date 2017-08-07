@@ -10,14 +10,14 @@
 import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import _ from 'lodash'
-import { convertLabel } from '../../../lib/propertiesConverters'
+import { getLabelGenerator } from '../../../lib/propertiesConverters'
 import { treeMapPropTypes, treeMapDefaultProps } from './TreeMapProps'
 import TreeMapPlaceholders from './TreeMapPlaceholders'
-import { getColorGenerator } from '../../../lib/colorUtils'
+import { getInheritedColorGenerator } from '../../../lib/colorUtils'
 
 const createNodes = ({
     borderWidth,
-    borderColor,
+    borderColor: _borderColor,
     enableLabels,
     label: _label,
     labelFormat,
@@ -25,9 +25,9 @@ const createNodes = ({
     labelSkipSize,
     labelTextColor,
 }) => {
-    const label = convertLabel(_label, labelFormat)
-    const borderColorFn = getColorGenerator(borderColor)
-    const textColorFn = getColorGenerator(labelTextColor)
+    const label = getLabelGenerator(_label, labelFormat)
+    const borderColor = getInheritedColorGenerator(_borderColor)
+    const textColor = getInheritedColorGenerator(labelTextColor)
 
     return nodes => {
         const renderedNodes = []
@@ -35,7 +35,6 @@ const createNodes = ({
         nodes.forEach(node => {
             const shouldRenderLabel =
                 enableLabels &&
-                node.data.height === 0 &&
                 (labelSkipSize === 0 ||
                     Math.min(node.style.width, node.style.height) > labelSkipSize)
 
@@ -51,7 +50,7 @@ const createNodes = ({
                         width={node.style.width}
                         height={node.style.height}
                         fill={node.style.color}
-                        stroke={borderColorFn(node.data)}
+                        stroke={borderColor(node.data)}
                         strokeWidth={borderWidth}
                     />
                     {shouldRenderLabel &&
@@ -64,10 +63,10 @@ const createNodes = ({
                                 textAnchor="middle"
                                 dy="0.5em"
                                 style={{
-                                    fill: textColorFn(node.data),
+                                    fill: textColor(node.data),
                                 }}
                             >
-                                {label(node.data.data)}
+                                {label(node.data)}
                             </text>
                         </g>}
                 </g>
