@@ -50,7 +50,7 @@ const createNodes = ({
                         width={node.style.width}
                         height={node.style.height}
                         fill={node.style.color}
-                        stroke={borderColor(node.data)}
+                        stroke={borderColor({ ...node.data, color: node.style.color })}
                         strokeWidth={borderWidth}
                     />
                     {shouldRenderLabel &&
@@ -63,7 +63,7 @@ const createNodes = ({
                                 textAnchor="middle"
                                 dy="0.5em"
                                 style={{
-                                    fill: textColor(node.data),
+                                    fill: textColor({ ...node.data, color: node.style.color }),
                                 }}
                             >
                                 {label(node.data)}

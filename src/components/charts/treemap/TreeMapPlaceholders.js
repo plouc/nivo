@@ -11,17 +11,27 @@ import { findDOMNode } from 'react-dom'
 import _ from 'lodash'
 import { TransitionMotion, spring } from 'react-motion'
 import Nivo from '../../../Nivo'
-import TreeMapHelper from '../../../lib/charts/treemap/TreeMapHelper'
+import { computeTreeMap } from '../../../lib/charts/treemap/TreeMapHelper'
 import { convertGetter } from '../../../lib/propertiesConverters'
 import { treeMapPropTypes, treeMapDefaultProps } from './TreeMapProps'
 import { getColorsGenerator, extractRGB } from '../../../lib/colorUtils'
 
-class TreeMapPlaceholders extends Component {
-    componentWillMount() {
-        this.treemap = TreeMapHelper()
-    }
+export default class TreeMapPlaceholders extends Component {
+    static propTypes = _.omit(treeMapPropTypes, [
+        'orientLabels',
+        'skipVMin',
+        'transitionDuration',
+        'transitionEasing',
+    ])
 
-    willEnter({ data: node }) {
+    static defaultProps = _.omit(treeMapDefaultProps, [
+        'orientLabels',
+        'skipVMin',
+        'transitionDuration',
+        'transitionEasing',
+    ])
+
+    nodeWillEnter({ data: node }) {
         const width = node.x1 - node.x0
         const height = node.y1 - node.y0
 
@@ -92,7 +102,7 @@ class TreeMapPlaceholders extends Component {
             }
         }
 
-        const nodes = this.treemap.compute({
+        const nodes = computeTreeMap({
             width,
             height,
             root,
@@ -141,11 +151,11 @@ class TreeMapPlaceholders extends Component {
             wrapperTag,
             wrapperProps,
             <TransitionMotion
-                willEnter={this.willEnter}
+                willEnter={this.nodeWillEnter}
                 styles={nodes.map(node => {
                     return {
                         key: node.data.key,
-                        data: node,
+                        data: node.data,
                         style: {
                             x: spring(node.x0, springConfig),
                             y: spring(node.y0, springConfig),
@@ -184,19 +194,3 @@ class TreeMapPlaceholders extends Component {
         )
     }
 }
-
-TreeMapPlaceholders.propTypes = _.omit(treeMapPropTypes, [
-    'orientLabels',
-    'skipVMin',
-    'transitionDuration',
-    'transitionEasing',
-])
-
-TreeMapPlaceholders.defaultProps = _.omit(treeMapDefaultProps, [
-    'orientLabels',
-    'skipVMin',
-    'transitionDuration',
-    'transitionEasing',
-])
-
-export default TreeMapPlaceholders

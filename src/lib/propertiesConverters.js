@@ -25,8 +25,6 @@ export const convertLabel = (_label, labelFormat) => {
     return data => {
         let labelOutput = label(data)
 
-        console.log('labelOutput', labelOutput)
-
         if (formatter) {
             labelOutput = formatter(labelOutput)
         }

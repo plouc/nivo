@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 
+import _ from 'lodash'
 import {
     treemap as Treemap,
     hierarchy,
@@ -28,60 +29,45 @@ export const tilingMethods = {
 }
 
 /**
- * This wrapper is responsible for computing treemap chart positions.
- * It's used for all TreeMap related chart components.
- *
- * @returns {{ compute: (function) }}
- * @constructor
+ * @param {number}   width
+ * @param {number}   height
+ * @param {object}   _root
+ * @param {boolean}  leavesOnly
+ * @param {string}   tile
+ * @param {number}   innerPadding
+ * @param {number}   outerPadding
+ * @param {function} identity
+ * @param {function} value
+ * @param {function} color
  */
-const TreeMapHelper = () => {
+export const computeTreeMap = ({
+    width,
+    height,
+    root: _root,
+    leavesOnly,
+    tile,
+    innerPadding,
+    outerPadding,
+    identity,
+    value,
+    color,
+}) => {
     const treemap = Treemap()
+        .size([width, height])
+        .tile(tilingMethods[tile])
+        .round(true)
+        .paddingInner(innerPadding)
+        .paddingOuter(outerPadding)
 
-    return {
-        /**
-         * @param {number}   width
-         * @param {number}   height
-         * @param {object}   _root
-         * @param {boolean}  leavesOnly
-         * @param {string}   tile
-         * @param {number}   innerPadding
-         * @param {number}   outerPadding
-         * @param {function} identity
-         * @param {function} value
-         * @param {function} color
-         */
-        compute({
-            width,
-            height,
-            root: _root,
-            leavesOnly,
-            tile,
-            innerPadding,
-            outerPadding,
-            identity,
-            value,
-            color,
-        }) {
-            treemap
-                .size([width, height])
-                .tile(tilingMethods[tile])
-                .round(true)
-                .paddingInner(innerPadding)
-                .paddingOuter(outerPadding)
+    const root = treemap(hierarchy(_root).sum(value))
 
-            const root = treemap(hierarchy(_root).sum(value))
+    const nodes = leavesOnly ? root.leaves() : root.descendants()
 
-            const nodes = leavesOnly ? root.leaves() : root.descendants()
+    return nodes.map(d => {
+        d.color = color({ ...d.data, depth: d.depth })
 
-            return nodes.map(d => {
-                d.color = color({ ...d.data, depth: d.depth })
+        d.data.key = d.ancestors().map(a => identity(a.data)).join('.')
 
-                d.data.key = d.ancestors().map(a => identity(a.data)).join('.')
-
-                return d
-            })
-        },
-    }
+        return d
+    })
 }
-
-export default TreeMapHelper

@@ -58,18 +58,18 @@ const createNodes = ({
                         justifyContent: 'center',
                         borderWidth: borderWidth,
                         borderStyle: 'solid',
-                        borderColor: borderColorFn(node.data),
+                        borderColor: borderColorFn({ ...node.data, color: node.style.color }),
                     }}
                 >
                     {shouldRenderLabel &&
                         <span
                             className="nivo_treemap_node_label"
                             style={{
-                                color: textColorFn(node.data),
+                                color: textColorFn({ ...node.data, color: node.style.color }),
                                 transform: `rotate(${rotate ? '-90' : '0'}deg)`,
                             }}
                         >
-                            {label(node.data.data)}
+                            {label(node.data)}
                         </span>}
                 </div>
             )
@@ -79,7 +79,11 @@ const createNodes = ({
     }
 }
 
-class TreeMapHTML extends Component {
+export default class TreeMapHTML extends Component {
+    static propTypes = _.omit(treeMapPropTypes, ['children', 'namespace'])
+
+    static defaultProps = _.omit(treeMapDefaultProps, [])
+
     render() {
         return (
             <TreeMapPlaceholders {...this.props} namespace="html">
@@ -88,9 +92,3 @@ class TreeMapHTML extends Component {
         )
     }
 }
-
-TreeMapHTML.propTypes = _.omit(treeMapPropTypes, ['children', 'namespace'])
-
-TreeMapHTML.defaultProps = _.omit(treeMapDefaultProps, [])
-
-export default TreeMapHTML
