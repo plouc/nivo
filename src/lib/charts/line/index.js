@@ -49,20 +49,31 @@ export const getStackedYScale = (data, xScale, height) => {
     return scaleLinear().rangeRound([height, 0]).domain([0, maxY])
 }
 
+export const getStackedScales = (data, width, height) => {
+    const xScale = getXScale(data, width)
+    const yScale = getStackedYScale(data, xScale, height)
+
+    return { xScale, yScale }
+}
+
+export const getScales = (data, width, height) => {
+    const xScale = getXScale(data, width)
+    const yScale = getYScale(data, height)
+
+    return { xScale, yScale }
+}
+
 /**
  * Generates x/y scales & lines for line chart.
  *
  * @param {Array.<Object>} data
- * @param {number}         width
- * @param {number}         height
+ * @param {Function}       xScale
+ * @param {Function}       yScale
  * @param {Function}       color
  * @return {{ xScale: Function, yScale: Function, lines: Array.<Object> }}
  */
-export const generateLines = (data, width, height, color) => {
-    const xScale = getXScale(data, width)
-    const yScale = getYScale(data, height)
-
-    const lines = data.map(serie => {
+export const generateLines = (data, xScale, yScale, color) =>
+    data.map(serie => {
         const { id, data: serieData } = serie
 
         return {
@@ -78,23 +89,17 @@ export const generateLines = (data, width, height, color) => {
         }
     })
 
-    return { xScale, yScale, lines }
-}
-
 /**
  * Generates x/y scales & lines for stacked line chart.
  *
  * @param {Array.<Object>} data
- * @param {number}         width
- * @param {number}         height
+ * @param {Function}       xScale
+ * @param {Function}       yScale
  * @param {Function}       color
  * @return {{ xScale: Function, yScale: Function, lines: Array.<Object> }}
  */
-export const generateStackedLines = (data, width, height, color) => {
-    const xScale = getXScale(data, width)
-    const yScale = getStackedYScale(data, xScale, height)
-
-    const lines = data.reduce((acc, serie, serieIndex) => {
+export const generateStackedLines = (data, xScale, yScale, color) =>
+    data.reduce((acc, serie, serieIndex) => {
         const previousPoints = serieIndex === 0 ? null : acc[serieIndex - 1].points
 
         const { id, data: serieData } = serie
@@ -130,6 +135,3 @@ export const generateStackedLines = (data, width, height, color) => {
             },
         ]
     }, [])
-
-    return { xScale, yScale, lines }
-}

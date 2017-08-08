@@ -6,10 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { range, max, maxBy, sumBy, uniq, memoize, isEqual } from 'lodash'
+import { max, isEqual, merge } from 'lodash'
 import React from 'react'
 import PropTypes from 'prop-types'
-import { merge } from 'lodash'
 import Nivo, { defaultTheme } from '../../../Nivo'
 import { marginPropType, motionPropTypes, closedCurvePropType } from '../../../props'
 import { getColorsGenerator } from '../../../lib/colorUtils'
@@ -20,6 +19,7 @@ import RadarGrid from './RadarGrid'
 import RadarMarkers from './RadarMarkers'
 import compose from 'recompose/compose'
 import withPropsOnChange from 'recompose/withPropsOnChange'
+import defaultProps from 'recompose/defaultProps'
 
 const Radar = ({
     facets,
@@ -181,36 +181,36 @@ export const RadarDefaultProps = {
     motionDamping: Nivo.defaults.motionDamping,
 }
 
-Radar.defaultProps = RadarDefaultProps
-
 const enhance = compose(
+    defaultProps(RadarDefaultProps),
     withPropsOnChange(['theme'], props => ({ theme: merge({}, defaultTheme, props.theme) })),
+    withPropsOnChange(['colors', 'colorBy'], ({ colors, colorBy }) => ({
+        color: getColorsGenerator(colors, colorBy),
+    })),
     withPropsOnChange(
         (props, nextProps) =>
             props.facets !== nextProps.facets ||
             props.data !== nextProps.data ||
-            props.color !== nextProps.color ||
-            props.colorBy !== nextProps.colorBy ||
             props.width !== nextProps.width ||
-            !_.isEqual(props.margin, nextProps.margin),
-        props => {
-            const color = getColorsGenerator(props.colors, props.colorBy)
-            const maxValue = max(props.data.reduce((acc, serie) => [...acc, ...serie.data], []))
+            props.color !== nextProps.color ||
+            !isEqual(props.margin, nextProps.margin),
+        ({ facets, data, color, width: _width, height: _height, margin: _margin }) => {
+            const maxValue = max(data.reduce((acc, serie) => [...acc, ...serie.data], []))
 
-            const margin = Object.assign({}, Nivo.defaults.margin, props.margin)
-            const width = props.width - margin.left - margin.right
-            const height = props.height - margin.top - margin.bottom
+            const margin = Object.assign({}, Nivo.defaults.margin, _margin)
+            const width = _width - margin.left - margin.right
+            const height = _height - margin.top - margin.bottom
 
             const radius = Math.min(width, height) / 2
             const radiusScale = scaleLinear().range([0, radius]).domain([0, maxValue])
 
             return {
-                data: props.data.map(d => Object.assign({}, d, { color: color(d) })),
+                data: data.map(d => Object.assign({}, d, { color: color(d) })),
                 radius,
                 radiusScale,
                 centerX: width / 2,
                 centerY: height / 2,
-                angleStep: Math.PI * 2 / props.facets.length,
+                angleStep: Math.PI * 2 / facets.length,
             }
         }
     )

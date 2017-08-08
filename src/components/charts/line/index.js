@@ -7,4 +7,5 @@
  * file that was distributed with this source code.
  */
 export { default as Line } from './Line'
+export * from './Line'
 export { default as ResponsiveLine } from './ResponsiveLine'
