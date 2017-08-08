@@ -861,7 +861,7 @@ d3-hierarchy@^1.1.5:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/d3-hierarchy/-/d3-hierarchy-1.1.5.tgz#a1c845c42f84a206bcf1c01c01098ea4ddaa7a26"
 
-d3-interpolate@1:
+d3-interpolate@1, d3-interpolate@^1.1.5:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/d3-interpolate/-/d3-interpolate-1.1.5.tgz#69e099ff39214716e563c9aec3ea9d1ea4b8a79f"
   dependencies:

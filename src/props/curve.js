@@ -53,3 +53,7 @@ export const curvePropMapping = {
 export const curvePropKeys = Object.keys(curvePropMapping)
 
 export const curvePropType = PropTypes.oneOf(curvePropKeys)
+
+export const closedCurvePropKeys = curvePropKeys.filter(c => c.endsWith('Closed'))
+
+export const closedCurvePropType = PropTypes.oneOf(closedCurvePropKeys)

@@ -33,8 +33,9 @@ export const defaultTheme = {
         legendFontSize: '11px',
     },
     grid: {
-        stroke: '#000',
-        strokeDasharray: '3,6',
+        stroke: '#ddd',
+        strokeWidth: 1,
+        strokeDasharray: '',
     },
 }
 

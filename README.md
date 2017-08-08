@@ -29,17 +29,26 @@ Several libraries already exist for React d3 integration, but just a few provide
 - Bar
     - [`<Bar />`](http://nivo.rocks/#/bar)
     - [`<ResponsiveBar />`](http://nivo.rocks/#/bar)
-- Line
-    - [`<Line />`](http://nivo.rocks/#/line)
-    - [`<ResponsiveLine />`](http://nivo.rocks/#/line)
-- Pie
-    - [`<Pie />`](http://nivo.rocks/#/pie)
-    - [`<ResponsivePie />`](http://nivo.rocks/#/pie)    
 - Bubble
     - [`<Bubble />`](http://nivo.rocks/#/bubble)
     - [`<ResponsiveBubble />`](http://nivo.rocks/#/bubble)
     - [`<BubblePlaceholders />`](http://nivo.rocks/#/bubble/placeholders)
     - [`<ResponsiveBubblePlaceholders />`](http://nivo.rocks/#/bubble/placeholders)
+- Calendar
+    - [`<Calendar />`](http://nivo.rocks/#/calendar)
+    - [`<ResponsiveCalendar />`](http://nivo.rocks/#/calendar)
+- Chord
+    - [`<Chord />`](http://nivo.rocks/#/chord)
+    - [`<ResponsiveChord />`](http://nivo.rocks/#/chord)            
+- Line
+    - [`<Line />`](http://nivo.rocks/#/line)
+    - [`<ResponsiveLine />`](http://nivo.rocks/#/line)
+- Pie
+    - [`<Pie />`](http://nivo.rocks/#/pie)
+    - [`<ResponsivePie />`](http://nivo.rocks/#/pie)
+- Radar
+    - [`<Radar />`](http://nivo.rocks/#/radar)
+    - [`<ResponsiveRadar />`](http://nivo.rocks/#/radar)            
 - TreeMap
     - [`<TreeMap />`](http://nivo.rocks/#/treemap)
     - [`<ResponsiveTreeMap />`](http://nivo.rocks/#/treemap)
@@ -47,21 +56,18 @@ Several libraries already exist for React d3 integration, but just a few provide
     - [`<ResponsiveTreeMapHTML />`](http://nivo.rocks/#/treemap/html)
     - [`<TreeMapPlaceholders />`](http://nivo.rocks/#/treemap/placeholders)
     - [`<ResponsiveTreeMapPlaceholders />`](http://nivo.rocks/#/treemap/placeholders)
-- Calendar
-    - [`<Calendar />`](http://nivo.rocks/#/calendar)
-    - [`<ResponsiveCalendar />`](http://nivo.rocks/#/calendar)    
-- Chord
-    - [`<Chord />`](http://nivo.rocks/#/chord)
-    - [`<ResponsiveChord />`](http://nivo.rocks/#/chord)
+- Voronoi
+    - [`<Voronoi />`](http://nivo.rocks/#/voronoi)
+    - [`<ResponsiveVoronoi />`](http://nivo.rocks/#/voronoi)            
 
 ## [HTTP API](https://github.com/plouc/nivo-api)
 
 - [`<Bar />`](https://nivo-api.herokuapp.com/samples/bar)
+- [`<Bubble />`](https://nivo-api.herokuapp.com/samples/bubble)
+- [`<Chord />`](https://nivo-api.herokuapp.com/samples/chord)
 - [`<Line />`](https://nivo-api.herokuapp.com/samples/line)
 - [`<Pie />`](https://nivo-api.herokuapp.com/samples/pie)
-- [`<Bubble />`](https://nivo-api.herokuapp.com/samples/bubble)
 - [`<TreeMap />`](https://nivo-api.herokuapp.com/samples/treemap)
-- [`<Chord />`](https://nivo-api.herokuapp.com/samples/chord)
 
 ## Guides
     
