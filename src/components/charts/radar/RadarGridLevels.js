@@ -7,114 +7,112 @@
  * file that was distributed with this source code.
  */
 import { range } from 'lodash'
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { merge } from 'lodash'
+import pure from 'recompose/pure'
 import { TransitionMotion, spring } from 'react-motion'
 import { motionPropTypes } from '../../../props'
 import { lineRadial, curveLinearClosed } from 'd3-shape'
 
 const levelWillEnter = () => ({ r: 0 })
 
-export default class RadarGridLevels extends Component {
-    static propTypes = {
-        shape: PropTypes.oneOf(['circular', 'linear']).isRequired,
-        radii: PropTypes.arrayOf(PropTypes.number).isRequired,
-        angleStep: PropTypes.number.isRequired,
-        dataLength: PropTypes.number.isRequired,
+const RadarGridLevels = ({
+    shape,
+    radii,
+    angleStep,
+    dataLength,
 
-        theme: PropTypes.object.isRequired,
+    theme,
 
-        // motion
-        ...motionPropTypes,
+    // motion
+    animate,
+    motionStiffness,
+    motionDamping,
+}) => {
+    const springConfig = {
+        motionDamping,
+        motionStiffness,
     }
 
-    render() {
-        const {
-            shape,
-            radii,
-            angleStep,
-            dataLength,
+    const levelsTransitionProps = {
+        willEnter: levelWillEnter,
+        willLeave: () => ({ r: spring(0, springConfig) }),
+        styles: radii.map((r, i) => ({
+            key: `level.${i}`,
+            style: {
+                r: spring(r, springConfig),
+            },
+        })),
+    }
 
-            theme,
-
-            // motion
-            animate,
-            motionStiffness,
-            motionDamping,
-        } = this.props
-
-        const springConfig = {
-            motionDamping,
-            motionStiffness,
-        }
-
-        const levelsTransitionProps = {
-            willEnter: levelWillEnter,
-            willLeave: () => ({ r: spring(0, springConfig) }),
-            styles: radii.map((r, i) => ({
-                key: `level.${i}`,
-                style: {
-                    r: spring(r, springConfig),
-                },
-            })),
-        }
-
-        if (shape === 'circular') {
-            if (animate !== true) {
-                return (
-                    <g>
-                        {radii.map((r, i) =>
-                            <circle key={`level.${i}`} fill="none" r={r} {...theme.grid} />
-                        )}
-                    </g>
-                )
-            }
-
-            return (
-                <TransitionMotion {...levelsTransitionProps}>
-                    {interpolatedStyles =>
-                        <g>
-                            {interpolatedStyles.map(({ key, style, data }) =>
-                                <circle key={key} fill="none" r={style.r} {...theme.grid} />
-                            )}
-                        </g>}
-                </TransitionMotion>
-            )
-        }
-
-        const radarLineGenerator = lineRadial().angle(i => i * angleStep).curve(curveLinearClosed)
-
-        const points = range(dataLength)
-
+    if (shape === 'circular') {
         if (animate !== true) {
             return (
                 <g>
-                    {range(radii).map((radius, i) =>
-                        <path
-                            key={`level.${i}`}
-                            fill="none"
-                            d={radarLineGenerator.radius(radius)(points)}
-                            {...theme.grid}
-                        />
+                    {radii.map((r, i) =>
+                        <circle key={`level.${i}`} fill="none" r={r} {...theme.grid} />
                     )}
                 </g>
             )
         }
+
         return (
             <TransitionMotion {...levelsTransitionProps}>
                 {interpolatedStyles =>
                     <g>
                         {interpolatedStyles.map(({ key, style, data }) =>
-                            <path
-                                key={key}
-                                fill="none"
-                                d={radarLineGenerator.radius(style.r)(points)}
-                                {...theme.grid}
-                            />
+                            <circle key={key} fill="none" r={style.r} {...theme.grid} />
                         )}
                     </g>}
             </TransitionMotion>
         )
     }
+
+    const radarLineGenerator = lineRadial().angle(i => i * angleStep).curve(curveLinearClosed)
+
+    const points = range(dataLength)
+
+    if (animate !== true) {
+        return (
+            <g>
+                {range(radii).map((radius, i) =>
+                    <path
+                        key={`level.${i}`}
+                        fill="none"
+                        d={radarLineGenerator.radius(radius)(points)}
+                        {...theme.grid}
+                    />
+                )}
+            </g>
+        )
+    }
+    return (
+        <TransitionMotion {...levelsTransitionProps}>
+            {interpolatedStyles =>
+                <g>
+                    {interpolatedStyles.map(({ key, style, data }) =>
+                        <path
+                            key={key}
+                            fill="none"
+                            d={radarLineGenerator.radius(style.r)(points)}
+                            {...theme.grid}
+                        />
+                    )}
+                </g>}
+        </TransitionMotion>
+    )
 }
+
+RadarGridLevels.propTypes = {
+    shape: PropTypes.oneOf(['circular', 'linear']).isRequired,
+    radii: PropTypes.arrayOf(PropTypes.number).isRequired,
+    angleStep: PropTypes.number.isRequired,
+    dataLength: PropTypes.number.isRequired,
+
+    theme: PropTypes.object.isRequired,
+
+    // motion
+    ...motionPropTypes,
+}
+
+export default pure(RadarGridLevels)

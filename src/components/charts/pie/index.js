@@ -8,6 +8,3 @@
  */
 export { default as Pie } from './Pie'
 export { default as ResponsivePie } from './ResponsivePie'
-//export { default as PieColumnLegends } from './PieColumnLegends'
-//export { default as PieRadialLegends } from './PieRadialLegends'
-//export { default as PieSliceLegends } from './PieSliceLegends'

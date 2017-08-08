@@ -10,7 +10,7 @@
 // credit to Tanner Linsey from this issue on react motion repository:
 // https://github.com/chenglou/react-motion/issues/153
 
-import React, { Component } from 'react'
+import React, { Component, PureComponent } from 'react'
 import { Motion, spring } from 'react-motion'
 import { interpolate } from 'd3-interpolate'
 
@@ -25,7 +25,7 @@ const enhancedSpring = (value, config) => {
     return spring(value, config)
 }
 
-export default class SmartMotion extends Component {
+export default class SmartMotion extends PureComponent {
     oldValues = {}
     newInters = {}
     currentStepValues = {}

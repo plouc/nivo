@@ -6,11 +6,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { range } from 'lodash'
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { merge } from 'lodash'
 import { TransitionMotion, spring } from 'react-motion'
+import pure from 'recompose/pure'
 import { motionPropTypes } from '../../../props'
 import { positionFromAngle, radiansToDegrees } from '../../../lib/arcUtils'
 
@@ -21,104 +20,101 @@ const textAnchorFromAngle = _angle => {
     return 'start'
 }
 
-export default class RadarGridLabels extends Component {
-    static propTypes = {
-        radius: PropTypes.number.isRequired,
-        angles: PropTypes.arrayOf(PropTypes.number).isRequired,
+const RadarGridLabels = ({
+    radius,
+    angles,
+    facets,
+    labelOffset,
 
-        facets: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
-            .isRequired,
-        labelOffset: PropTypes.number.isRequired,
+    theme,
 
-        theme: PropTypes.object.isRequired,
-
-        // motion
-        ...motionPropTypes,
+    // motion
+    animate,
+    motionStiffness,
+    motionDamping,
+}) => {
+    const springConfig = {
+        motionDamping,
+        motionStiffness,
     }
 
-    render() {
-        const {
-            radius,
-            angles,
-            facets,
-            labelOffset,
+    const labels = facets.map((facet, i) => {
+        const position = positionFromAngle(angles[i], radius + labelOffset)
+        const textAnchor = textAnchorFromAngle(angles[i])
 
-            theme,
-
-            // motion
-            animate,
-            motionStiffness,
-            motionDamping,
-        } = this.props
-
-        const springConfig = {
-            motionDamping,
-            motionStiffness,
+        return {
+            key: `label.${i}`,
+            label: facet,
+            textAnchor,
+            ...position,
         }
+    })
 
-        const labels = facets.map((facet, i) => {
-            const position = positionFromAngle(angles[i], radius + labelOffset)
-            const textAnchor = textAnchorFromAngle(angles[i])
+    if (animate !== true) {
+        return (
+            <g>
+                {labels.map(label =>
+                    <text
+                        style={{
+                            fill: theme.axis.textColor,
+                            fontSize: theme.axis.fontSize,
+                        }}
+                        dy="0.5em"
+                        {...label}
+                    >
+                        {label.label}
+                    </text>
+                )}
+            </g>
+        )
+    }
 
-            return {
-                key: `label.${i}`,
-                label: facet,
-                textAnchor,
-                ...position,
-            }
-        })
-
-        if (animate !== true) {
-            return (
+    return (
+        <TransitionMotion
+            styles={labels.map(label => ({
+                key: label.key,
+                data: {
+                    label: label.label,
+                    textAnchor: label.textAnchor,
+                },
+                style: {
+                    x: spring(label.x, springConfig),
+                    y: spring(label.y, springConfig),
+                },
+            }))}
+        >
+            {interpolatedStyles =>
                 <g>
-                    {labels.map(label =>
+                    {interpolatedStyles.map(({ key, style, data }) =>
                         <text
+                            key={key}
+                            dy="0.5em"
+                            textAnchor={data.textAnchor}
                             style={{
                                 fill: theme.axis.textColor,
                                 fontSize: theme.axis.fontSize,
                             }}
-                            dy="0.5em"
-                            {...label}
+                            {...style}
                         >
-                            {label.label}
+                            {data.label}
                         </text>
                     )}
-                </g>
-            )
-        }
-
-        return (
-            <TransitionMotion
-                styles={labels.map(label => ({
-                    key: label.key,
-                    data: {
-                        label: label.label,
-                        textAnchor: label.textAnchor,
-                    },
-                    style: {
-                        x: spring(label.x, springConfig),
-                        y: spring(label.y, springConfig),
-                    },
-                }))}
-            >
-                {interpolatedStyles =>
-                    <g>
-                        {interpolatedStyles.map(({ key, style, data }) =>
-                            <text
-                                key={key}
-                                dy="0.5em"
-                                textAnchor={data.textAnchor}
-                                style={{
-                                    fill: theme.axis.textColor,
-                                    fontSize: theme.axis.fontSize,
-                                }}
-                                {...style}
-                            >
-                                {data.label}
-                            </text>
-                        )}
-                    </g>}
-            </TransitionMotion>
-        )
-    }
+                </g>}
+        </TransitionMotion>
+    )
 }
+
+RadarGridLabels.propTypes = {
+    radius: PropTypes.number.isRequired,
+    angles: PropTypes.arrayOf(PropTypes.number).isRequired,
+
+    facets: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
+    labelOffset: PropTypes.number.isRequired,
+
+    theme: PropTypes.object.isRequired,
+
+    // motion
+    ...motionPropTypes,
+}
+
+export default pure(RadarGridLabels)

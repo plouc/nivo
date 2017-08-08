@@ -8,7 +8,3 @@
  */
 export { default as Calendar } from './Calendar'
 export { default as ResponsiveCalendar } from './ResponsiveCalendar'
-//export CalendarD3               from './CalendarD3'
-//export ResponsiveCalendarD3     from './ResponsiveCalendarD3'
-//export CalendarCanvas           from './CalendarCanvas'
-//export ResponsiveCalendarCanvas from './ResponsiveCalendarCanvas'

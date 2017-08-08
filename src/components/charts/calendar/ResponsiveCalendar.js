@@ -6,16 +6,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component } from 'react'
+import React from 'react'
 import ResponsiveWrapper from '../ResponsiveWrapper'
 import Calendar from './Calendar'
 
-export default class ResponsiveCalendar extends Component {
-    render() {
-        return (
-            <ResponsiveWrapper>
-                {({ width, height }) => <Calendar width={width} height={height} {...this.props} />}
-            </ResponsiveWrapper>
-        )
-    }
-}
+const ResponsiveCalendar = props =>
+    <ResponsiveWrapper>
+        {({ width, height }) => <Calendar width={width} height={height} {...props} />}
+    </ResponsiveWrapper>
+
+export default ResponsiveCalendar

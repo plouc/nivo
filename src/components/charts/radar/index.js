@@ -7,5 +7,6 @@
  * file that was distributed with this source code.
  */
 export { default as Radar } from './Radar'
+export * from './Radar'
 export { default as ResponsiveRadar } from './ResponsiveRadar'
 export { default as RadarMarkers } from './RadarMarkers'
