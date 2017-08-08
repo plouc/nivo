@@ -42,8 +42,11 @@ export default class Line extends Component {
         height: PropTypes.number.isRequired,
         margin: marginPropType,
 
-        // axes
-        axes: PropTypes.object.isRequired,
+        // axes & grid
+        axisTop: PropTypes.object,
+        axisRight: PropTypes.object,
+        axisBottom: PropTypes.object,
+        axisLeft: PropTypes.object,
         enableGridX: PropTypes.bool.isRequired,
         enableGridY: PropTypes.bool.isRequired,
 
@@ -70,16 +73,10 @@ export default class Line extends Component {
         // dimensions
         margin: Nivo.defaults.margin,
 
-        // axes
-        axes: {
-            left: {
-                enabled: true,
-            },
-            bottom: {
-                enabled: true,
-            },
-        },
-        enableGridX: true,
+        // axes & grid
+        axisBottom: {},
+        axisLeft: {},
+        enableGridX: false,
         enableGridY: true,
 
         // markers
@@ -111,8 +108,11 @@ export default class Line extends Component {
             width: _width,
             height: _height,
 
-            // axes
-            axes,
+            // axes & grid
+            axisTop,
+            axisRight,
+            axisBottom,
+            axisLeft,
             enableGridX,
             enableGridY,
 
@@ -183,12 +183,15 @@ export default class Line extends Component {
                     {...motionProps}
                 />
                 <Axes
-                    axes={axes}
                     xScale={xScale}
                     yScale={yScale}
                     width={width}
                     height={height}
                     theme={theme}
+                    top={axisTop}
+                    right={axisRight}
+                    bottom={axisBottom}
+                    left={axisLeft}
                     {...motionProps}
                 />
                 {lines.map(({ id, color: lineColor, points }) =>

@@ -9,17 +9,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { motionPropTypes } from '../../props'
-import Axis from './Axis'
+import Axis, { axisPropType } from './Axis'
 
 const horizontalPositions = ['top', 'bottom']
 const verticalPositions = ['left', 'right']
 const positions = [...horizontalPositions, ...verticalPositions]
-
-const axisPropType = PropTypes.shape({
-    tickSize: PropTypes.number,
-    tickPadding: PropTypes.number,
-    format: PropTypes.func,
-})
 
 export default class Axes extends Component {
     static propTypes = {
@@ -29,12 +23,10 @@ export default class Axes extends Component {
         width: PropTypes.number.isRequired,
         height: PropTypes.number.isRequired,
 
-        axes: PropTypes.shape({
-            top: axisPropType,
-            right: axisPropType,
-            bottom: axisPropType,
-            left: axisPropType,
-        }).isRequired,
+        top: axisPropType,
+        right: axisPropType,
+        bottom: axisPropType,
+        left: axisPropType,
 
         theme: PropTypes.object.isRequired,
 
@@ -50,12 +42,17 @@ export default class Axes extends Component {
             yScale,
             width,
             height,
-            axes,
+            top,
+            right,
+            bottom,
+            left,
             theme,
             animate,
             motionStiffness,
             motionDamping,
         } = this.props
+
+        const axes = { top, right, bottom, left }
 
         return (
             <g>

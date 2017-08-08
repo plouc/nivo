@@ -22,12 +22,29 @@ const center = scale => {
     return d => scale(d) + offset
 }
 
+const axisPositions = ['top', 'right', 'bottom', 'left']
+const legendPositions = ['start', 'center', 'end']
+
+export const axisPropType = PropTypes.shape({
+    orient: PropTypes.oneOf(axisPositions),
+
+    // ticks
+    tickSize: PropTypes.number,
+    tickPadding: PropTypes.number,
+    format: PropTypes.func,
+
+    // legend
+    legend: PropTypes.string,
+    legendPosition: PropTypes.oneOf(legendPositions),
+    legendOffset: PropTypes.number,
+})
+
 export default class Axis extends Component {
     static propTypes = {
         width: PropTypes.number.isRequired,
         height: PropTypes.number.isRequired,
-        orient: PropTypes.oneOf(['top', 'right', 'bottom', 'left']),
-        position: PropTypes.oneOf(['top', 'right', 'bottom', 'left']).isRequired,
+        orient: PropTypes.oneOf(axisPositions),
+        position: PropTypes.oneOf(axisPositions).isRequired,
         scale: PropTypes.func.isRequired,
 
         // ticks
@@ -37,8 +54,9 @@ export default class Axis extends Component {
 
         // legend
         legend: PropTypes.string,
-        legendPosition: PropTypes.oneOf(['start', 'center', 'end']).isRequired,
+        legendPosition: PropTypes.oneOf(legendPositions).isRequired,
         legendOffset: PropTypes.number.isRequired,
+
         theme: PropTypes.object.isRequired,
 
         // motion

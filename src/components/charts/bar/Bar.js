@@ -42,8 +42,11 @@ export default class Bar extends Component {
         margin: marginPropType,
         xPadding: PropTypes.number.isRequired,
 
-        // axes
-        axes: PropTypes.object.isRequired,
+        // axes & grid
+        axisTop: PropTypes.object,
+        axisRight: PropTypes.object,
+        axisBottom: PropTypes.object,
+        axisLeft: PropTypes.object,
         enableGridX: PropTypes.bool.isRequired,
         enableGridY: PropTypes.bool.isRequired,
 
@@ -67,14 +70,10 @@ export default class Bar extends Component {
         margin: Nivo.defaults.margin,
         groupMode: 'stacked',
         xPadding: 0.1,
-        axes: {
-            left: {
-                enabled: true,
-            },
-            bottom: {
-                enabled: true,
-            },
-        },
+
+        // axes & grid
+        axisBottom: {},
+        axisLeft: {},
         enableGridX: false,
         enableGridY: true,
 
@@ -102,7 +101,12 @@ export default class Bar extends Component {
             width: _width,
             height: _height,
             xPadding,
-            axes,
+
+            // axes & grid
+            axisTop,
+            axisRight,
+            axisBottom,
+            axisLeft,
             enableGridX,
             enableGridY,
 
@@ -152,10 +156,6 @@ export default class Bar extends Component {
         if (animate === true) {
             bars = (
                 <TransitionMotion
-                    /*
-                    willEnter={this.willEnter}
-                    willLeave={this.willLeave}
-                    */
                     styles={result.bars.map(bar => {
                         return {
                             key: bar.key,
@@ -202,12 +202,15 @@ export default class Bar extends Component {
                     {...motionProps}
                 />
                 <Axes
-                    axes={axes}
                     xScale={result.xScale}
                     yScale={result.yScale}
                     width={width}
                     height={height}
                     theme={theme}
+                    top={axisTop}
+                    right={axisRight}
+                    bottom={axisBottom}
+                    left={axisLeft}
                     {...motionProps}
                 />
                 {bars}
