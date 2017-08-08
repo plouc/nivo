@@ -62,17 +62,21 @@ export const generateLines = (data, width, height, color) => {
     const xScale = getXScale(data, width)
     const yScale = getYScale(data, height)
 
-    const lines = data.map(({ id, data: serie }) => ({
-        id,
-        color: color(id),
-        points: serie.map(d =>
-            Object.assign({}, d, {
-                value: d.y,
-                x: xScale(d.x),
-                y: yScale(d.y),
-            })
-        ),
-    }))
+    const lines = data.map(serie => {
+        const { id, data: serieData } = serie
+
+        return {
+            id,
+            color: color(serie),
+            points: serieData.map(d =>
+                Object.assign({}, d, {
+                    value: d.y,
+                    x: xScale(d.x),
+                    y: yScale(d.y),
+                })
+            ),
+        }
+    })
 
     return { xScale, yScale, lines }
 }
