@@ -224,7 +224,7 @@ export const LineDefaultProps = {
     // axes & grid
     axisBottom: {},
     axisLeft: {},
-    enableGridX: false,
+    enableGridX: true,
     enableGridY: true,
 
     // markers
@@ -237,7 +237,7 @@ export const LineDefaultProps = {
 
     // theming
     theme: {},
-    colors: Nivo.defaults.colorRange,
+    colors: 'nivo',
     colorBy: 'id',
 
     // motion

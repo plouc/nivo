@@ -32,6 +32,7 @@
     "recompose": "^0.24.0"
   },
   "devDependencies": {
+    "@storybook/addon-knobs": "^3.2.0",
     "@storybook/react": "^3.2.3",
     "babel-cli": "^6.24.1",
     "babel-jest": "^20.0.3",
@@ -57,7 +58,9 @@
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "cross-env": "^5.0.2",
+    "gh-pages": "^1.0.0",
     "husky": "^0.14.3",
+    "import": "^0.0.6",
     "jest": "^20.0.4",
     "lint-staged": "^4.0.2",
     "mocha": "^3.5.0",
@@ -90,7 +93,8 @@
     "precommit": "lint-staged",
     "commitmsg": "validate-commit-msg",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "storybook:build": "build-storybook",
+    "storybook:publish": "npm run storybook:build && gh-pages -d storybook-static -r git@github.com:plouc/nivo.git -b gh-pages -e storybook"
   },
   "lint-staged": {
     "*.js": [

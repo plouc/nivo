@@ -2,6 +2,7 @@ import React from 'react'
 
 import { storiesOf } from '@storybook/react'
 import { generateDrinkStats } from 'nivo-generators'
+import '../style.css'
 import { Bar } from '../../src'
 
 const commonProperties = {
@@ -14,20 +15,11 @@ const commonProperties = {
 
 storiesOf('Bar', module)
     .addDecorator(story =>
-        <div
-            style={{
-                position: 'absolute',
-                width: '100%',
-                height: '100%',
-                top: 0,
-                left: 0,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-            }}
-        >
+        <div className="wrapper">
             {story()}
         </div>
     )
     .add('stacked', () => <Bar {...commonProperties} />)
     .add('grouped', () => <Bar {...commonProperties} groupMode="grouped" />)
+    .add('using data serie color', () => <Bar {...commonProperties} colorBy={d => d.serie.color} />)
+    .add('using data datum color', () => <Bar {...commonProperties} colorBy={d => d.color} />)

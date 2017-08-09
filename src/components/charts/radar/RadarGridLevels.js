@@ -75,7 +75,7 @@ const RadarGridLevels = ({
     if (animate !== true) {
         return (
             <g>
-                {range(radii).map((radius, i) =>
+                {radii.map((radius, i) =>
                     <path
                         key={`level.${i}`}
                         fill="none"
@@ -86,6 +86,7 @@ const RadarGridLevels = ({
             </g>
         )
     }
+
     return (
         <TransitionMotion {...levelsTransitionProps}>
             {interpolatedStyles =>
