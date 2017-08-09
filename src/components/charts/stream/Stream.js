@@ -26,8 +26,9 @@ import {
     stackOffsetPropType,
     stackOffsetFromProp,
 } from '../../../props'
-import { getColorsGenerator } from '../../../lib/colorUtils'
+import { getColorRange } from '../../../lib/colorUtils'
 import SvgWrapper from '../SvgWrapper'
+import Container from '../Container'
 import Axes from '../../axes/Axes'
 import Grid from '../../axes/Grid'
 import StreamLayers from './StreamLayers'
@@ -37,6 +38,8 @@ const stackMax = layers => max(layers.reduce((acc, layer) => [...acc, ...layer.m
 
 const Stream = ({
     data,
+    keys,
+
     order,
     offsetType,
     curve,
@@ -59,26 +62,19 @@ const Stream = ({
     // theming
     theme,
     color,
+    fillOpacity,
 
     // motion
     animate,
     motionStiffness,
     motionDamping,
 }) => {
-    const keys = range(5)
-
     const stack = d3Stack()
         .keys(keys)
         .offset(stackOffsetFromProp(offsetType))
         .order(stackOrderFromProp(order))
 
     const layers = stack(data)
-
-    /*
-    console.log('DATA', data)
-    console.log('KEYS', keys)
-    console.log('LAYERS', layers)
-    */
 
     const minValue = stackMin(layers)
     const maxValue = stackMax(layers)
@@ -92,6 +88,13 @@ const Stream = ({
         .y1(d => yScale(d[1]))
         .curve(curveFromProp(curve))
 
+    const enhancedLayers = layers.map((layer, i) => ({
+        id: keys[i],
+        layer,
+        path: area(layer),
+        color: color(i),
+    }))
+
     const motionProps = {
         animate,
         motionDamping,
@@ -99,43 +102,46 @@ const Stream = ({
     }
 
     return (
-        <SvgWrapper width={fullWidth} height={fullHeight} margin={margin}>
-            <Grid
-                theme={theme}
-                width={width}
-                height={height}
-                xScale={enableGridX ? xScale : null}
-                yScale={enableGridY ? yScale : null}
-                {...motionProps}
-            />
-            <StreamLayers
-                layers={layers.map((layer, i) => ({
-                    layer,
-                    path: area(layer),
-                    color: color(i),
-                }))}
-                area={area}
-                {...motionProps}
-            />
-            <Axes
-                xScale={xScale}
-                yScale={yScale.domain([0, Math.abs(minValue) + Math.abs(maxValue)])}
-                width={width}
-                height={height}
-                theme={theme}
-                top={axisTop}
-                right={axisRight}
-                bottom={axisBottom}
-                left={axisLeft}
-                {...motionProps}
-            />
-        </SvgWrapper>
+        <Container>
+            {({ showTooltip, hideTooltip }) =>
+                <SvgWrapper width={fullWidth} height={fullHeight} margin={margin}>
+                    <Grid
+                        theme={theme}
+                        width={width}
+                        height={height}
+                        xScale={enableGridX ? xScale : null}
+                        yScale={enableGridY ? yScale : null}
+                        {...motionProps}
+                    />
+                    <StreamLayers
+                        layers={enhancedLayers}
+                        area={area}
+                        fillOpacity={fillOpacity}
+                        showTooltip={showTooltip}
+                        hideTooltip={hideTooltip}
+                        {...motionProps}
+                    />
+                    <Axes
+                        xScale={xScale}
+                        yScale={yScale.domain([0, Math.abs(minValue) + Math.abs(maxValue)])}
+                        width={width}
+                        height={height}
+                        theme={theme}
+                        top={axisTop}
+                        right={axisRight}
+                        bottom={axisBottom}
+                        left={axisLeft}
+                        {...motionProps}
+                    />
+                </SvgWrapper>}
+        </Container>
     )
 }
 
 Stream.propTypes = {
     // data
     data: PropTypes.arrayOf(PropTypes.object).isRequired,
+    keys: PropTypes.array.isRequired,
 
     order: stackOrderPropType.isRequired,
     offsetType: stackOffsetPropType.isRequired,
@@ -157,7 +163,7 @@ Stream.propTypes = {
     // theming
     theme: PropTypes.object.isRequired,
     colors: PropTypes.any.isRequired,
-    colorBy: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    fillOpacity: PropTypes.number.isRequired,
     color: PropTypes.func.isRequired,
 
     // motion
@@ -167,7 +173,7 @@ Stream.propTypes = {
 export const StreamDefaultProps = {
     order: 'none',
     offsetType: 'wiggle',
-    curve: 'monotoneX',
+    curve: 'catmullRom',
 
     // dimensions
     margin: Nivo.defaults.margin,
@@ -180,7 +186,7 @@ export const StreamDefaultProps = {
     // theming
     theme: {},
     colors: 'nivo',
-    colorBy: 'id',
+    fillOpacity: 1,
 
     // motion
     animate: true,
@@ -191,8 +197,8 @@ export const StreamDefaultProps = {
 const enhance = compose(
     defaultProps(StreamDefaultProps),
     withPropsOnChange(['theme'], ({ theme }) => ({ theme: merge({}, defaultTheme, theme) })),
-    withPropsOnChange(['colors', 'colorBy'], ({ colors, colorBy }) => ({
-        color: getColorsGenerator(colors, d => Nivo.defaults.colorRange(d)),
+    withPropsOnChange(['colors'], ({ colors, colorBy }) => ({
+        color: getColorRange(colors),
     })),
     withPropsOnChange(
         (props, nextProps) =>

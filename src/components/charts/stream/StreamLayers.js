@@ -13,6 +13,10 @@ import SmartMotion from '../../SmartMotion'
 
 const StreamLayers = ({
     layers,
+    fillOpacity,
+
+    showTooltip,
+    hideTooltip,
 
     // motion
     animate,
@@ -22,7 +26,21 @@ const StreamLayers = ({
     if (animate !== true) {
         return (
             <g>
-                {layers.map(({ path, color }, i) => <path key={i} d={path} fill={color} />)}
+                {layers.map(({ id, path, color }, i) =>
+                    <path
+                        key={i}
+                        onMouseMove={e => {
+                            showTooltip(id, e)
+                        }}
+                        onMouseEnter={e => {
+                            showTooltip(id, e)
+                        }}
+                        onMouseLeave={hideTooltip}
+                        d={path}
+                        fill={color}
+                        fillOpacity={fillOpacity}
+                    />
+                )}
             </g>
         )
     }
@@ -34,15 +52,26 @@ const StreamLayers = ({
 
     return (
         <g>
-            {layers.map(({ path, color }, i) =>
+            {layers.map(({ id, path, color }, i) =>
                 <SmartMotion
                     key={i}
                     style={spring => ({
                         d: spring(path, springConfig),
                         fill: spring(color, springConfig),
+                        fillOpacity: spring(fillOpacity, springConfig),
                     })}
                 >
-                    {style => <path {...style} />}
+                    {style =>
+                        <path
+                            onMouseMove={e => {
+                                showTooltip(id, e)
+                            }}
+                            onMouseEnter={e => {
+                                showTooltip(id, e)
+                            }}
+                            onMouseLeave={hideTooltip}
+                            {...style}
+                        />}
                 </SmartMotion>
             )}
         </g>
@@ -51,6 +80,7 @@ const StreamLayers = ({
 
 StreamLayers.propTypes = {
     area: PropTypes.func.isRequired,
+    fillOpacity: PropTypes.number.isRequired,
 
     // motion
     ...motionPropTypes,
