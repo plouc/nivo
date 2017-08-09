@@ -185,7 +185,7 @@ export const RadarDefaultProps = {
 
     // theming
     theme: {},
-    colors: Nivo.defaults.colorRange,
+    colors: 'nivo',
     colorBy: 'id',
     fillOpacity: 0.15,
 

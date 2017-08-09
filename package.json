@@ -1,6 +1,6 @@
 {
   "name": "nivo",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "licenses": [
     {
       "type": "MIT",
@@ -32,6 +32,7 @@
     "recompose": "^0.24.0"
   },
   "devDependencies": {
+    "@storybook/react": "^3.2.3",
     "babel-cli": "^6.24.1",
     "babel-jest": "^20.0.3",
     "babel-plugin-check-es2015-constants": "^6.22.0",
@@ -60,6 +61,7 @@
     "jest": "^20.0.4",
     "lint-staged": "^4.0.2",
     "mocha": "^3.5.0",
+    "nivo-generators": "^0.3.0",
     "prettier": "^1.5.3",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
@@ -81,12 +83,14 @@
     "build:es": "cross-env NODE_ENV=es babel src --out-dir es",
     "build:es:watch": "npm run build:es -- --watch",
     "build": "npm run build:commonjs && npm run build:es",
-    "fmt": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --color --write \"{src,specs,test}/**/*.js\"",
-    "fmt:check": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --list-different \"{src,specs,test}/**/*.js\"",
+    "fmt": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --color --write \"{src,specs,test,.storybook,stories}/**/*.js\"",
+    "fmt:check": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --list-different \"{src,specs,test,.storybook,stories}/**/*.js\"",
     "version": "echo ${npm_package_version}",
     "prepublishOnly": "npm test && npm run build",
     "precommit": "lint-staged",
-    "commitmsg": "validate-commit-msg"
+    "commitmsg": "validate-commit-msg",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "lint-staged": {
     "*.js": [

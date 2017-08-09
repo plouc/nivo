@@ -84,7 +84,7 @@ export default class Bar extends Component {
 
         // theming
         theme: {},
-        colors: Nivo.defaults.colorRange,
+        colors: 'nivo',
         colorBy: 'serie.id',
 
         // motion
