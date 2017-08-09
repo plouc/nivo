@@ -6,8 +6,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 import PropTypes from 'prop-types'
+import without from 'lodash/without'
 import {
     curveBasis,
     curveBasisClosed,
@@ -57,3 +57,20 @@ export const curvePropType = PropTypes.oneOf(curvePropKeys)
 export const closedCurvePropKeys = curvePropKeys.filter(c => c.endsWith('Closed'))
 
 export const closedCurvePropType = PropTypes.oneOf(closedCurvePropKeys)
+
+export const curveFromProp = prop => curvePropMapping[prop]
+
+// Safe curves to be used with area shape generator
+export const areaCurvePropKeys = without(
+    curvePropKeys,
+    'bundle',
+    'basisClosed',
+    'basisOpen',
+    'cardinalClosed',
+    'cardinalOpen',
+    'catmullRomClosed',
+    'catmullRomOpen',
+    'linearClosed'
+)
+
+export const areaCurvePropType = PropTypes.oneOf(areaCurvePropKeys)
