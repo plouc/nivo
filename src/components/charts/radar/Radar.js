@@ -53,6 +53,10 @@ const Radar = ({
     markersColor,
     markersBorderWidth,
     markersBorderColor,
+    enableMarkersLabel,
+    markersLabel,
+    markersLabelFormat,
+    markersLabelYOffset,
 
     // theming
     theme,
@@ -94,6 +98,7 @@ const Radar = ({
                 />
                 {enableMarkers &&
                     <RadarMarkers
+                        facets={facets}
                         data={data}
                         radiusScale={radiusScale}
                         angleStep={angleStep}
@@ -101,6 +106,11 @@ const Radar = ({
                         color={markersColor}
                         borderWidth={markersBorderWidth}
                         borderColor={markersBorderColor}
+                        enableLabel={enableMarkersLabel}
+                        label={markersLabel}
+                        labelFormat={markersLabelFormat}
+                        labelYOffset={markersLabelYOffset}
+                        theme={theme}
                         {...motionProps}
                     />}
             </g>
@@ -140,6 +150,10 @@ Radar.propTypes = {
     markersColor: PropTypes.any,
     markersBorderWidth: PropTypes.number,
     markersBorderColor: PropTypes.any,
+    enableMarkersLabel: PropTypes.bool,
+    markersLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    markersLabelFormat: PropTypes.string,
+    markersLabelYOffset: PropTypes.number,
 
     // theming
     theme: PropTypes.object.isRequired,

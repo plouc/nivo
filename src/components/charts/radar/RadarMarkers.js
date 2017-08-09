@@ -12,9 +12,13 @@ import { TransitionMotion, spring } from 'react-motion'
 import { motionPropTypes } from '../../../props'
 import { getInheritedColorGenerator } from '../../../lib/colorUtils'
 import { positionFromAngle } from '../../../lib/arcUtils'
+import { getLabelGenerator } from '../../../lib/propertiesConverters'
+import MarkersItem from '../../markers/MarkersItem'
 
 export default class RadarMarkers extends Component {
     static propTypes = {
+        facets: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
+            .isRequired,
         data: PropTypes.arrayOf(
             PropTypes.shape({
                 id: PropTypes.string.isRequired,
@@ -28,6 +32,21 @@ export default class RadarMarkers extends Component {
         color: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
         borderWidth: PropTypes.number.isRequired,
         borderColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+
+        // labels
+        enableLabel: PropTypes.bool.isRequired,
+        label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+        labelFormat: PropTypes.string,
+        labelYOffset: PropTypes.number,
+
+        // theming
+        theme: PropTypes.shape({
+            markers: PropTypes.shape({
+                textColor: PropTypes.string.isRequired,
+                fontSize: PropTypes.string.isRequired,
+            }).isRequired,
+        }).isRequired,
+
         ...motionPropTypes,
     }
 
@@ -37,13 +56,14 @@ export default class RadarMarkers extends Component {
         borderWidth: 0,
         borderColor: 'inherit',
 
-        animate: true,
-        motionStiffness: 90,
-        motionDamping: 15,
+        // labels
+        enableLabel: false,
+        label: 'value',
     }
 
     render() {
         const {
+            facets,
             data,
             radiusScale,
             angleStep,
@@ -51,6 +71,15 @@ export default class RadarMarkers extends Component {
             color,
             borderWidth,
             borderColor,
+
+            // labels
+            enableLabel,
+            label,
+            labelFormat,
+            labelYOffset,
+
+            // theming
+            theme,
 
             // motion
             animate,
@@ -60,6 +89,7 @@ export default class RadarMarkers extends Component {
 
         const fillColor = getInheritedColorGenerator(color)
         const strokeColor = getInheritedColorGenerator(borderColor)
+        const getLabel = getLabelGenerator(label, labelFormat)
 
         const points = data.reduce((acc, serie) => {
             const { id, data: serieData } = serie
@@ -67,74 +97,74 @@ export default class RadarMarkers extends Component {
             return [
                 ...acc,
                 ...serieData.map((d, i) => {
+                    const pointData = { value: d, serie, facet: facets[i] }
+
                     return {
                         key: `${id}.${i}`,
                         fill: fillColor(serie),
                         stroke: strokeColor(serie),
                         ...positionFromAngle(angleStep * i - Math.PI / 2, radiusScale(d)),
+                        ...pointData,
+                        label: enableLabel ? getLabel(pointData) : null,
                     }
                 }),
             ]
         }, [])
 
-        let circles
-        if (animate === true) {
-            const springConfig = {
-                motionDamping,
-                motionStiffness,
-            }
-
-            circles = (
-                <TransitionMotion
-                    styles={points.map(point => {
-                        return {
-                            key: point.key,
-                            data: {
-                                fill: point.fill,
-                                stroke: point.stroke,
-                            },
-                            style: {
-                                x: spring(point.x, springConfig),
-                                y: spring(point.y, springConfig),
-                                size: spring(size, springConfig),
-                            },
-                        }
-                    })}
-                >
-                    {interpolatedStyles =>
-                        <g>
-                            {interpolatedStyles.map(({ key, style, data }) =>
-                                <circle
-                                    key={key}
-                                    cx={style.x}
-                                    cy={style.y}
-                                    r={style.size / 2}
-                                    fill={data.fill}
-                                    stroke={data.stroke}
-                                    strokeWidth={borderWidth}
-                                />
-                            )}
-                        </g>}
-                </TransitionMotion>
-            )
-        } else {
-            circles = points.map(point =>
-                <circle
-                    key={point.key}
-                    cx={point.x}
-                    cy={point.y}
-                    r={size / 2}
-                    fill={point.fill}
-                    stroke={point.stroke}
-                    strokeWidth={borderWidth}
-                />
+        if (animate !== true) {
+            return (
+                <g>
+                    {points.map(point =>
+                        <MarkersItem
+                            key={point.key}
+                            x={point.x}
+                            y={point.y}
+                            size={size}
+                            color={point.fill}
+                            borderWidth={borderWidth}
+                            borderColor={point.stroke}
+                            label={point.label}
+                            labelYOffset={labelYOffset}
+                            theme={theme}
+                        />
+                    )}
+                </g>
             )
         }
 
+        const springConfig = {
+            motionDamping,
+            motionStiffness,
+        }
+
         return (
-            <g>
-                {circles}
-            </g>
+            <TransitionMotion
+                styles={points.map(point => ({
+                    key: point.key,
+                    data: point,
+                    style: {
+                        x: spring(point.x, springConfig),
+                        y: spring(point.y, springConfig),
+                        size: spring(size, springConfig),
+                    },
+                }))}
+            >
+                {interpolatedStyles =>
+                    <g>
+                        {interpolatedStyles.map(({ key, style, data: point }) =>
+                            <MarkersItem
+                                key={key}
+                                {...style}
+                                color={point.fill}
+                                borderWidth={borderWidth}
+                                borderColor={point.stroke}
+                                label={point.label}
+                                labelYOffset={labelYOffset}
+                                theme={theme}
+                            />
+                        )}
+                    </g>}
+            </TransitionMotion>
         )
     }
 }

@@ -37,6 +37,10 @@ export const defaultTheme = {
         strokeWidth: 1,
         strokeDasharray: '',
     },
+    markers: {
+        textColor: '#000',
+        fontSize: '11px',
+    },
 }
 
 export default {

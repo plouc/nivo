@@ -10,6 +10,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
 import { motionPropTypes } from '../../../props'
+import { getLabelGenerator } from '../../../lib/propertiesConverters'
+import MarkersItem from '../../markers/MarkersItem'
 
 export default class LineMarkers extends Component {
     static propTypes = {
@@ -22,13 +24,29 @@ export default class LineMarkers extends Component {
         color: PropTypes.func.isRequired,
         borderWidth: PropTypes.number.isRequired,
         borderColor: PropTypes.func.isRequired,
+
+        // labels
+        enableLabel: PropTypes.bool.isRequired,
+        label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+        labelFormat: PropTypes.string,
+        labelYOffset: PropTypes.number,
+
+        // theming
+        theme: PropTypes.shape({
+            markers: PropTypes.shape({
+                textColor: PropTypes.string.isRequired,
+                fontSize: PropTypes.string.isRequired,
+            }).isRequired,
+        }).isRequired,
+
+        // motion
         ...motionPropTypes,
     }
 
     static defaultProps = {
-        animate: true,
-        motionStiffness: 90,
-        motionDamping: 15,
+        // labels
+        enableLabel: false,
+        label: 'y',
     }
 
     render() {
@@ -38,84 +56,103 @@ export default class LineMarkers extends Component {
             color,
             borderWidth,
             borderColor,
+
+            // labels
+            enableLabel,
+            label,
+            labelFormat,
+            labelYOffset,
+
+            // theming
+            theme,
+
+            // motion
             animate,
             motionStiffness,
             motionDamping,
         } = this.props
+
+        const getLabel = getLabelGenerator(label, labelFormat)
 
         const points = lines.reduce((acc, line) => {
             const { id, points } = line
 
             return [
                 ...acc,
-                ...points.map(point => ({
-                    key: `${id}.${point.x}`,
-                    x: point.x,
-                    y: point.y,
-                    fill: color(line),
-                    stroke: borderColor(line),
-                })),
+                ...points.map(point => {
+                    const pointData = {
+                        serie: { id },
+                        x: point.key,
+                        y: point.value,
+                    }
+
+                    return {
+                        key: `${id}.${point.x}`,
+                        x: point.x,
+                        y: point.y,
+                        fill: color(line),
+                        stroke: borderColor(line),
+                        label: enableLabel ? getLabel(pointData) : null,
+                    }
+                }),
             ]
         }, [])
 
-        let circles
-        if (animate === true) {
-            const springConfig = {
-                motionDamping,
-                motionStiffness,
-            }
-
-            circles = (
-                <TransitionMotion
-                    styles={points.map(point => {
-                        return {
-                            key: point.key,
-                            data: {
-                                fill: point.fill,
-                                stroke: point.stroke,
-                            },
-                            style: {
-                                x: spring(point.x, springConfig),
-                                y: spring(point.y, springConfig),
-                                size: spring(size, springConfig),
-                            },
-                        }
-                    })}
-                >
-                    {interpolatedStyles =>
-                        <g>
-                            {interpolatedStyles.map(({ key, style, data }) =>
-                                <circle
-                                    key={key}
-                                    cx={style.x}
-                                    cy={style.y}
-                                    r={style.size / 2}
-                                    fill={data.fill}
-                                    stroke={data.stroke}
-                                    strokeWidth={borderWidth}
-                                />
-                            )}
-                        </g>}
-                </TransitionMotion>
+        if (animate !== true) {
+            return (
+                <g>
+                    {points.map(point =>
+                        <MarkersItem
+                            key={point.key}
+                            x={point.x}
+                            y={point.y}
+                            size={size}
+                            color={point.fill}
+                            borderWidth={borderWidth}
+                            borderColor={point.stroke}
+                            label={point.label}
+                            labelYOffset={labelYOffset}
+                            theme={theme}
+                        />
+                    )}
+                </g>
             )
-        } else {
-            circles = points.map(point =>
-                <circle
-                    key={point.key}
-                    cx={point.x}
-                    cy={point.y}
-                    r={size / 2}
-                    fill={point.fill}
-                    stroke={point.stroke}
-                    strokeWidth={borderWidth}
-                />
-            )
+        }
+        const springConfig = {
+            motionDamping,
+            motionStiffness,
         }
 
         return (
-            <g>
-                {circles}
-            </g>
+            <TransitionMotion
+                styles={points.map(point => {
+                    return {
+                        key: point.key,
+                        data: point,
+                        style: {
+                            x: spring(point.x, springConfig),
+                            y: spring(point.y, springConfig),
+                            size: spring(size, springConfig),
+                        },
+                    }
+                })}
+            >
+                {interpolatedStyles =>
+                    <g>
+                        {interpolatedStyles.map(({ key, style, data: point }) =>
+                            <MarkersItem
+                                key={key}
+                                {...style}
+                                color={point.fill}
+                                borderWidth={borderWidth}
+                                borderColor={point.stroke}
+                                label={point.label}
+                                labelYOffset={labelYOffset}
+                                theme={theme}
+                            />
+                        )}
+                    </g>}
+            </TransitionMotion>
         )
     }
 }

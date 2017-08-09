@@ -10,7 +10,7 @@
 import _ from 'lodash'
 import { format } from 'd3-format'
 
-export const convertLabel = (_label, labelFormat) => {
+export const getLabelGenerator = (_label, labelFormat) => {
     if (_.isFunction(_label)) {
         return _label
     }
@@ -32,8 +32,6 @@ export const convertLabel = (_label, labelFormat) => {
         return labelOutput
     }
 }
-
-export const getLabelGenerator = convertLabel
 
 export const convertGetter = _property => {
     if (_.isFunction(_property)) {

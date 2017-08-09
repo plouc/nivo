@@ -8,7 +8,7 @@
  */
 import React, { Component } from 'react'
 import _ from 'lodash'
-import { convertLabel } from '../../../lib/propertiesConverters'
+import { getLabelGenerator } from '../../../lib/propertiesConverters'
 import { bubblePropTypes, bubbleDefaultProps } from './BubbleProps'
 import BubblePlaceholders from './BubblePlaceholders'
 import { getColorGenerator } from '../../../lib/colorUtils'
@@ -23,7 +23,7 @@ const createNodes = ({
     labelTextColor,
     labelTextDY,
 }) => {
-    const label = convertLabel(_label, labelFormat)
+    const label = getLabelGenerator(_label, labelFormat)
     const borderColorFn = getColorGenerator(borderColor)
     const textColorFn = getColorGenerator(labelTextColor)
 

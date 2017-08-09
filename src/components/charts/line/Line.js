@@ -57,6 +57,10 @@ const Line = ({
     markersColor,
     markersBorderWidth,
     markersBorderColor,
+    enableMarkersLabel,
+    markersLabel,
+    markersLabelFormat,
+    markersLabelYOffset,
 
     // theming
     theme,
@@ -89,6 +93,11 @@ const Line = ({
                 color={getInheritedColorGenerator(markersColor)}
                 borderWidth={markersBorderWidth}
                 borderColor={getInheritedColorGenerator(markersBorderColor)}
+                enableLabel={enableMarkersLabel}
+                label={markersLabel}
+                labelFormat={markersLabelFormat}
+                labelYOffset={markersLabelYOffset}
+                theme={theme}
                 {...motionProps}
             />
         )
@@ -193,6 +202,7 @@ Line.propTypes = {
     markersColor: PropTypes.any.isRequired,
     markersBorderWidth: PropTypes.number.isRequired,
     markersBorderColor: PropTypes.any.isRequired,
+    enableMarkersLabel: PropTypes.bool.isRequired,
 
     // theming
     theme: PropTypes.object.isRequired,
@@ -223,6 +233,7 @@ export const LineDefaultProps = {
     markersColor: 'inherit',
     markersBorderWidth: 0,
     markersBorderColor: 'inherit',
+    enableMarkersLabel: false,
 
     // theming
     theme: {},
