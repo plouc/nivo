@@ -98,6 +98,7 @@ export default class PieRadialLabels extends Component {
                             <g transform={`translate(${labelPosition.x}, ${labelPosition.y})`}>
                                 <text
                                     textAnchor={textAnchor}
+                                    dy="0.3em"
                                     style={{
                                         fill: textColor(d.data, theme),
                                         fontSize: theme.axis.fontSize,

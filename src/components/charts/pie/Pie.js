@@ -94,7 +94,7 @@ export default class Pie extends Component {
 
         // theming
         theme: {},
-        colors: Nivo.defaults.colorRange,
+        colors: 'nivo',
         colorBy: 'id',
 
         // motion

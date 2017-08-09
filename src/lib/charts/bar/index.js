@@ -69,7 +69,7 @@ export const generateGroupedBars = (data, width, height, color, { xPadding = 0 }
 
     const bars = []
     data.forEach((serie, serieIndex) => {
-        serie.data.forEach(d => {
+        serie.data.forEach((d, i) => {
             const barWidth = xScale.bandwidth() / data.length
             const x = xScale(d.x) + barWidth * serieIndex
             const y = yScale(d.y)
@@ -79,7 +79,7 @@ export const generateGroupedBars = (data, width, height, color, { xPadding = 0 }
 
             if (barWidth > 0 && barHeight > 0) {
                 bars.push({
-                    key: `${serie.id}.${d.x}`,
+                    key: `${serie.id}.${i}`,
                     value,
                     x,
                     y,
@@ -133,7 +133,7 @@ export const generateStackedBars = (data, width, height, color, { xPadding = 0 }
 
     const bars = []
     stackedData.forEach(serie => {
-        serie.data.forEach(d => {
+        serie.data.forEach((d, i) => {
             const x = xScale(d.x)
             const barWidth = xScale.bandwidth()
             const y = yScale(d.y1)
@@ -143,7 +143,7 @@ export const generateStackedBars = (data, width, height, color, { xPadding = 0 }
 
             if (barWidth > 0 && barHeight > 0) {
                 bars.push({
-                    key: `${serie.id}.${d.x}`,
+                    key: `${serie.id}.${i}`,
                     value,
                     x,
                     y,
