@@ -48,7 +48,10 @@ Several libraries already exist for React d3 integration, but just a few provide
     - [`<ResponsivePie />`](http://nivo.rocks/#/pie)
 - Radar
     - [`<Radar />`](http://nivo.rocks/#/radar)
-    - [`<ResponsiveRadar />`](http://nivo.rocks/#/radar)            
+    - [`<ResponsiveRadar />`](http://nivo.rocks/#/radar)
+- Stream
+    - [`<Stream />`](http://nivo.rocks/#/stream)
+    - [`<ResponsiveStream />`](http://nivo.rocks/#/stream)                
 - TreeMap
     - [`<TreeMap />`](http://nivo.rocks/#/treemap)
     - [`<ResponsiveTreeMap />`](http://nivo.rocks/#/treemap)
