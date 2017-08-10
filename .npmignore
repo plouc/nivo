@@ -1,6 +1,28 @@
-src
-.travis.yml
-.babelrc
-npm-debug.log*
+# src (will be transpiled)
+/src
+
+# logs
+*.log*
+
+# OSX
 .DS_Store
-ISSUE_TEMPLATE.md
+
+# github
+/.github
+
+# config/build
+/build
+.babelrc
+
+# storybook
+/.storybook
+/stories
+/storybook-static
+
+# test
+.travis.yml
+/coverage
+/test
+
+# assets
+nivo.png
