@@ -15,6 +15,7 @@ import { marginPropType, motionPropTypes } from '../../../props'
 import { getColorsGenerator, getInheritedColorGenerator } from '../../../lib/colorUtils'
 import { getLabelGenerator } from '../../../lib/propertiesConverters'
 import { degreesToRadians, radiansToDegrees } from '../../../lib/arcUtils'
+import Container from '../Container'
 import SvgWrapper from '../SvgWrapper'
 import { pie as d3Pie, arc as d3Arc } from 'd3-shape'
 import PieRadialLabels from './PieRadialLabels'
@@ -67,6 +68,8 @@ export default class Pie extends Component {
 
         // motion
         ...motionPropTypes,
+
+        isInteractive: PropTypes.bool,
     }
 
     static defaultProps = {
@@ -147,6 +150,8 @@ export default class Pie extends Component {
             animate,
             motionStiffness,
             motionDamping,
+
+            isInteractive,
         } = this.props
 
         const margin = Object.assign({}, Nivo.defaults.margin, _margin)
@@ -195,71 +200,81 @@ export default class Pie extends Component {
         arc.outerRadius(radius)
 
         return (
-            <SvgWrapper width={_width} height={_height} margin={margin}>
-                <Motion
-                    style={{
-                        centerX: spring(centerX, motionProps),
-                        centerY: spring(centerY, motionProps),
-                        innerRadius: spring(innerRadius),
-                        padAngle: spring(padAngle, motionProps),
-                        cornerRadius: spring(cornerRadius, motionProps),
-                    }}
-                >
-                    {interpolatingStyle => {
-                        const interpolatedPie = pie.padAngle(interpolatingStyle.padAngle)
-                        const interpolatedArc = arc
-                            .cornerRadius(interpolatingStyle.cornerRadius)
-                            .innerRadius(interpolatingStyle.innerRadius)
+            <Container isInteractive={isInteractive}>
+                {({ showTooltip, hideTooltip }) =>
+                    <SvgWrapper width={_width} height={_height} margin={margin}>
+                        <Motion
+                            style={{
+                                centerX: spring(centerX, motionProps),
+                                centerY: spring(centerY, motionProps),
+                                innerRadius: spring(innerRadius),
+                                padAngle: spring(padAngle, motionProps),
+                                cornerRadius: spring(cornerRadius, motionProps),
+                            }}
+                        >
+                            {interpolatingStyle => {
+                                const interpolatedPie = pie.padAngle(interpolatingStyle.padAngle)
+                                const interpolatedArc = arc
+                                    .cornerRadius(interpolatingStyle.cornerRadius)
+                                    .innerRadius(interpolatingStyle.innerRadius)
 
-                        const arcsData = interpolatedPie(data).map(d => {
-                            const angle = d.endAngle - d.startAngle
+                                const arcsData = interpolatedPie(data).map(d => {
+                                    const angle = d.endAngle - d.startAngle
 
-                            return {
-                                ...d,
-                                angle,
-                                angleDegrees: radiansToDegrees(angle),
-                                data: {
-                                    ...d.data,
-                                    color: color(d.data),
-                                },
-                            }
-                        })
+                                    return {
+                                        ...d,
+                                        angle,
+                                        angleDegrees: radiansToDegrees(angle),
+                                        data: {
+                                            ...d.data,
+                                            color: color(d.data),
+                                        },
+                                    }
+                                })
 
-                        return (
-                            <g
-                                transform={`translate(${interpolatingStyle.centerX}, ${interpolatingStyle.centerY})`}
-                            >
-                                {arcsData.map(d => {
-                                    return (
-                                        <path
-                                            key={d.data.id}
-                                            d={interpolatedArc(d)}
-                                            fill={d.data.color}
-                                            strokeWidth={borderWidth}
-                                            stroke={borderColor(d.data)}
-                                        />
-                                    )
-                                })}
-                                {enableSlicesLabels &&
-                                    <PieSlicesLabels
-                                        data={arcsData}
-                                        radius={radius}
-                                        innerRadius={interpolatingStyle.innerRadius}
-                                        theme={theme}
-                                        {...slicesLabelsProps}
-                                    />}
-                                {enableRadialLabels &&
-                                    <PieRadialLabels
-                                        data={arcsData}
-                                        radius={radius}
-                                        theme={theme}
-                                        {...radialLabelsProps}
-                                    />}
-                            </g>
-                        )
-                    }}
-                </Motion>
-            </SvgWrapper>
+                                return (
+                                    <g
+                                        transform={`translate(${interpolatingStyle.centerX}, ${interpolatingStyle.centerY})`}
+                                    >
+                                        {arcsData.map(d => {
+                                            const handleTooltip = e => {
+                                                showTooltip(`${d.data.label}: ${d.data.value}`, e)
+                                            }
+
+                                            return (
+                                                <path
+                                                    key={d.data.id}
+                                                    d={interpolatedArc(d)}
+                                                    fill={d.data.color}
+                                                    strokeWidth={borderWidth}
+                                                    stroke={borderColor(d.data)}
+                                                    onMouseEnter={handleTooltip}
+                                                    onMouseMove={handleTooltip}
+                                                    onMouseLeave={hideTooltip}
+                                                />
+                                            )
+                                        })}
+                                        {enableSlicesLabels &&
+                                            <PieSlicesLabels
+                                                data={arcsData}
+                                                radius={radius}
+                                                innerRadius={interpolatingStyle.innerRadius}
+                                                theme={theme}
+                                                {...slicesLabelsProps}
+                                            />}
+                                        {enableRadialLabels &&
+                                            <PieRadialLabels
+                                                data={arcsData}
+                                                radius={radius}
+                                                theme={theme}
+                                                {...radialLabelsProps}
+                                            />}
+                                    </g>
+                                )
+                            }}
+                        </Motion>
+                    </SvgWrapper>}
+            </Container>
         )
     }
 }

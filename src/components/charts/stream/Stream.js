@@ -68,6 +68,8 @@ const Stream = ({
     animate,
     motionStiffness,
     motionDamping,
+
+    isInteractive,
 }) => {
     const stack = d3Stack()
         .keys(keys)
@@ -102,7 +104,7 @@ const Stream = ({
     }
 
     return (
-        <Container>
+        <Container isInteractive={isInteractive}>
             {({ showTooltip, hideTooltip }) =>
                 <SvgWrapper width={fullWidth} height={fullHeight} margin={margin}>
                     <Grid
@@ -168,6 +170,8 @@ Stream.propTypes = {
 
     // motion
     ...motionPropTypes,
+
+    isInteractive: PropTypes.bool,
 }
 
 export const StreamDefaultProps = {

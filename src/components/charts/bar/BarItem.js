@@ -6,26 +6,41 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
+import pure from 'recompose/pure'
 
-class BarItem extends Component {
-    render() {
-        const { x, y, width, height, color } = this.props
-
-        return (
-            <rect
-                className="nivo_bar_rect"
-                x={x}
-                y={y}
-                width={width}
-                height={height}
-                style={{
-                    fill: color,
-                }}
-            />
-        )
+const BarItem = ({
+    serie,
+    xValue,
+    yValue,
+    x,
+    y,
+    width,
+    height,
+    color,
+    showTooltip,
+    hideTooltip,
+}) => {
+    const handleTooltip = e => {
+        showTooltip(`${serie.id} - ${xValue}: ${yValue}`, e)
     }
+
+    return (
+        <rect
+            className="nivo_bar_rect"
+            x={x}
+            y={y}
+            width={width}
+            height={height}
+            style={{
+                fill: color,
+            }}
+            onMouseEnter={handleTooltip}
+            onMouseMove={handleTooltip}
+            onMouseLeave={hideTooltip}
+        />
+    )
 }
 
 BarItem.propTypes = {
@@ -35,8 +50,9 @@ BarItem.propTypes = {
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
     color: PropTypes.string.isRequired,
+
+    showTooltip: PropTypes.func.isRequired,
+    hideTooltip: PropTypes.func.isRequired,
 }
 
-BarItem.defaultProps = {}
-
-export default BarItem
+export default pure(BarItem)

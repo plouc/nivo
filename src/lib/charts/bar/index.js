@@ -75,12 +75,12 @@ export const generateGroupedBars = (data, width, height, color, { xPadding = 0 }
             const y = yScale(d.y)
             const barHeight = height - y
 
-            const value = d.y
-
             if (barWidth > 0 && barHeight > 0) {
                 bars.push({
                     key: `${serie.id}.${i}`,
-                    value,
+                    serie,
+                    xValue: d.x,
+                    yValue: d.y,
                     x,
                     y,
                     width: barWidth,
@@ -139,12 +139,12 @@ export const generateStackedBars = (data, width, height, color, { xPadding = 0 }
             const y = yScale(d.y1)
             const barHeight = yScale(d.y0) - y
 
-            const value = d.y
-
             if (barWidth > 0 && barHeight > 0) {
                 bars.push({
                     key: `${serie.id}.${i}`,
-                    value,
+                    serie,
+                    xValue: d.x,
+                    yValue: d.y,
                     x,
                     y,
                     width: barWidth,

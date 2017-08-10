@@ -12,6 +12,10 @@ import { merge } from 'lodash'
 import { Motion, TransitionMotion, spring } from 'react-motion'
 import { midAngle, positionFromAngle } from '../../../lib/arcUtils'
 
+const sliceStyle = {
+    pointerEvents: 'none',
+}
+
 export default class PieSlicesLabels extends Component {
     static propTypes = {
         label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
@@ -43,7 +47,11 @@ export default class PieSlicesLabels extends Component {
                     const position = positionFromAngle(angle, centerRadius)
 
                     return (
-                        <g key={d.data.id} transform={`translate(${position.x}, ${position.y})`}>
+                        <g
+                            key={d.data.id}
+                            transform={`translate(${position.x}, ${position.y})`}
+                            style={sliceStyle}
+                        >
                             <text
                                 textAnchor="middle"
                                 style={{

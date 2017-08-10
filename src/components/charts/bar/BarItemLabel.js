@@ -11,9 +11,14 @@ import PropTypes from 'prop-types'
 
 const safeSize = 20
 
+const labelStyle = {
+    pointerEvents: 'none',
+}
+
 export default class BarItemLabel extends Component {
     static propTypes = {
-        value: PropTypes.number.isRequired,
+        xValue: PropTypes.any.isRequired,
+        yValue: PropTypes.number.isRequired,
         x: PropTypes.number.isRequired,
         y: PropTypes.number.isRequired,
         width: PropTypes.number.isRequired,
@@ -25,7 +30,7 @@ export default class BarItemLabel extends Component {
     static defaultProps = {}
 
     render() {
-        const { x: _x, y: _y, width, height, linkColor, textColor, value } = this.props
+        const { x: _x, y: _y, width, height, linkColor, textColor, yValue } = this.props
 
         let x = _x
         let y = _y
@@ -45,10 +50,10 @@ export default class BarItemLabel extends Component {
         }
 
         return (
-            <g transform={`translate(${x},${y})`} className="nivo_bar_legend">
+            <g transform={`translate(${x},${y})`} className="nivo_bar_legend" style={labelStyle}>
                 {line}
                 <text x={textX} textAnchor={textAnchor} dy="0.5em" style={{ fill: textColor }}>
-                    {value}
+                    {yValue}
                 </text>
             </g>
         )
