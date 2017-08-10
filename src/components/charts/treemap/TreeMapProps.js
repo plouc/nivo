@@ -89,6 +89,6 @@ export const treeMapDefaultProps = {
     motionStiffness: 120,
     motionDamping: 10,
 
-    colors: Nivo.defaults.colorRange,
+    colors: 'nivo',
     colorBy: 'depth',
 }

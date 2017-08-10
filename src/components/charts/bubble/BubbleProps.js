@@ -71,7 +71,7 @@ export const bubbleDefaultProps = {
     padding: 1,
 
     // theming
-    colors: Nivo.defaults.colorRange,
+    colors: 'nivo',
     colorBy: 'depth',
 
     // placeholders

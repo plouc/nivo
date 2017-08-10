@@ -134,7 +134,7 @@ Chord.defaultProps = {
     arcBorderWidth: 1,
 
     // colors
-    colors: Nivo.defaults.colorRange,
+    colors: 'nivo',
 }
 
 export default Chord
