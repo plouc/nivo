@@ -27,7 +27,7 @@ export const stackOrderPropMapping = {
     descending: stackOrderDescending,
     insideOut: stackOrderInsideOut,
     none: stackOrderNone,
-    revers: stackOrderReverse,
+    reverse: stackOrderReverse,
 }
 
 export const stackOrderPropKeys = Object.keys(stackOrderPropMapping)

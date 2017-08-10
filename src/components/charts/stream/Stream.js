@@ -123,7 +123,7 @@ const Stream = ({
                     />
                     <Axes
                         xScale={xScale}
-                        yScale={yScale.domain([0, Math.abs(minValue) + Math.abs(maxValue)])}
+                        yScale={yScale}
                         width={width}
                         height={height}
                         theme={theme}
