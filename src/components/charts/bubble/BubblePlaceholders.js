@@ -123,22 +123,28 @@ export default class BubblePlaceholders extends Component {
         }
 
         if (!animate) {
-            return React.createElement(
-                wrapperTag,
-                wrapperProps,
-                React.createElement(
-                    containerTag,
-                    containerProps,
-                    children(
-                        nodes.map(node => {
-                            return {
-                                key: node.data.key,
-                                data: node,
-                                style: _.pick(node, ['r', 'x', 'y', 'color']),
-                            }
-                        })
-                    )
-                )
+            return (
+                <Container isInteractive={isInteractive}>
+                    {({ showTooltip, hideTooltip }) =>
+                        React.createElement(
+                            wrapperTag,
+                            wrapperProps,
+                            React.createElement(
+                                containerTag,
+                                containerProps,
+                                children(
+                                    nodes.map(node => {
+                                        return {
+                                            key: node.data.key,
+                                            data: node,
+                                            style: _.pick(node, ['r', 'x', 'y', 'color']),
+                                        }
+                                    }),
+                                    { showTooltip, hideTooltip }
+                                )
+                            )
+                        )}
+                </Container>
             )
         }
 

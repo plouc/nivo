@@ -10,7 +10,7 @@ import withPropsOnChange from 'recompose/withPropsOnChange'
 import { getColorsGenerator } from '../lib/colorUtils'
 
 /**
- * This HOC takes watch colors related props change
+ * This HOC watch colors related props change
  * and returns the corresponding color generator function.
  * Using it prevent from having a new ref each time
  * we pass through the component, useful for shallow comparison.
