@@ -14,9 +14,11 @@ import compose from 'recompose/compose'
 import pure from 'recompose/pure'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import defaultProps from 'recompose/defaultProps'
-import Nivo, { defaultTheme } from '../../../Nivo'
+import Nivo from '../../../Nivo'
 import { marginPropType, motionPropTypes, curvePropMapping, curvePropType } from '../../../props'
-import { getColorsGenerator, getInheritedColorGenerator } from '../../../lib/colorUtils'
+import { getInheritedColorGenerator } from '../../../lib/colorUtils'
+import { withTheme, withColors, withMargin } from '../../../hocs'
+import Container from '../Container'
 import SvgWrapper from '../SvgWrapper'
 import {
     getScales,
@@ -24,14 +26,15 @@ import {
     generateLines,
     generateStackedLines,
 } from '../../../lib/charts/line'
-import SmartMotion from '../../SmartMotion'
 import Axes from '../../axes/Axes'
 import Grid from '../../axes/Grid'
+import LineLines from './LineLines'
+import LineSlices from './LineSlices'
 import LineMarkers from './LineMarkers'
 
 const Line = ({
     data,
-    stacked,
+    lines,
     lineGenerator,
     xScale,
     yScale,
@@ -40,8 +43,8 @@ const Line = ({
     margin,
     width,
     height,
-    fullWidth,
-    fullHeight,
+    outerWidth,
+    outerHeight,
 
     // axes & grid
     axisTop,
@@ -64,24 +67,19 @@ const Line = ({
 
     // theming
     theme,
-    color,
+    colors,
 
     // motion
     animate,
     motionStiffness,
     motionDamping,
+
+    isInteractive,
 }) => {
     const motionProps = {
         animate,
         motionDamping,
         motionStiffness,
-    }
-
-    let lines
-    if (stacked === true) {
-        lines = generateStackedLines(data, xScale, yScale, color)
-    } else {
-        lines = generateLines(data, xScale, yScale, color)
     }
 
     let markers = null
@@ -103,62 +101,43 @@ const Line = ({
         )
     }
 
-    let lineNodes
-    if (animate === true) {
-        const springConfig = {
-            stiffness: motionStiffness,
-            damping: motionDamping,
-        }
-
-        lineNodes = lines.map(({ id, color: lineColor, points }) =>
-            <SmartMotion
-                key={id}
-                style={spring => ({
-                    d: spring(lineGenerator(points), springConfig),
-                    stroke: spring(lineColor, springConfig),
-                })}
-            >
-                {style =>
-                    <path key={id} d={style.d} fill="none" strokeWidth={2} stroke={style.stroke} />}
-            </SmartMotion>
-        )
-    } else {
-        lineNodes = lines.map(({ id, color: lineColor, points }) =>
-            <path
-                key={id}
-                d={lineGenerator(points)}
-                fill="none"
-                strokeWidth={2}
-                stroke={lineColor}
-            />
-        )
-    }
-
     return (
-        <SvgWrapper width={fullWidth} height={fullHeight} margin={margin}>
-            <Grid
-                theme={theme}
-                width={width}
-                height={height}
-                xScale={enableGridX ? xScale : null}
-                yScale={enableGridY ? yScale : null}
-                {...motionProps}
-            />
-            <Axes
-                xScale={xScale}
-                yScale={yScale}
-                width={width}
-                height={height}
-                theme={theme}
-                top={axisTop}
-                right={axisRight}
-                bottom={axisBottom}
-                left={axisLeft}
-                {...motionProps}
-            />
-            {lineNodes}
-            {markers}
-        </SvgWrapper>
+        <Container isInteractive={isInteractive}>
+            {({ showTooltip, hideTooltip }) =>
+                <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
+                    <Grid
+                        theme={theme}
+                        width={width}
+                        height={height}
+                        xScale={enableGridX ? xScale : null}
+                        yScale={enableGridY ? yScale : null}
+                        {...motionProps}
+                    />
+                    <Axes
+                        xScale={xScale}
+                        yScale={yScale}
+                        width={width}
+                        height={height}
+                        theme={theme}
+                        top={axisTop}
+                        right={axisRight}
+                        bottom={axisBottom}
+                        left={axisLeft}
+                        {...motionProps}
+                    />
+                    <LineLines lines={lines} lineGenerator={lineGenerator} {...motionProps} />
+                    {false &&
+                        <LineSlices
+                            data={data}
+                            xScale={xScale}
+                            height={height}
+                            showTooltip={showTooltip}
+                            hideTooltip={hideTooltip}
+                            colors={colors}
+                        />}
+                    {markers}
+                </SvgWrapper>}
+        </Container>
     )
 }
 
@@ -187,6 +166,8 @@ Line.propTypes = {
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
     margin: marginPropType,
+    outerWidth: PropTypes.number.isRequired,
+    outerHeight: PropTypes.number.isRequired,
 
     // axes & grid
     axisTop: PropTypes.object,
@@ -208,18 +189,17 @@ Line.propTypes = {
     theme: PropTypes.object.isRequired,
     colors: PropTypes.any.isRequired,
     colorBy: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    color: PropTypes.func.isRequired,
+    getColor: PropTypes.func.isRequired,
 
     // motion
     ...motionPropTypes,
+
+    isInteractive: PropTypes.bool.isRequired,
 }
 
 export const LineDefaultProps = {
     stacked: false,
     curve: 'linear',
-
-    // dimensions
-    margin: Nivo.defaults.margin,
 
     // axes & grid
     axisBottom: {},
@@ -244,29 +224,25 @@ export const LineDefaultProps = {
     animate: true,
     motionStiffness: Nivo.defaults.motionStiffness,
     motionDamping: Nivo.defaults.motionDamping,
+
+    isInteractive: true,
 }
 
 const enhance = compose(
     defaultProps(LineDefaultProps),
-    withPropsOnChange(['theme'], ({ theme }) => ({ theme: merge({}, defaultTheme, theme) })),
+    withTheme(),
+    withColors(),
+    withMargin(),
     withPropsOnChange(['curve'], ({ curve }) => ({
         lineGenerator: line().x(d => d.x).y(d => d.y).curve(curvePropMapping[curve]),
-    })),
-    withPropsOnChange(['colors', 'colorBy'], ({ colors, colorBy }) => ({
-        color: getColorsGenerator(colors, colorBy),
     })),
     withPropsOnChange(
         (props, nextProps) =>
             props.data !== nextProps.data ||
             props.stacked !== nextProps.stacked ||
             props.width !== nextProps.width ||
-            props.height !== nextProps.height ||
-            !isEqual(props.margin, nextProps.margin),
-        ({ data, stacked, width: fullWidth, height: fullHeight, margin: _margin }) => {
-            const margin = Object.assign({}, Nivo.defaults.margin, _margin)
-            const width = fullWidth - margin.left - margin.right
-            const height = fullHeight - margin.top - margin.bottom
-
+            props.height !== nextProps.height,
+        ({ data, stacked, width, height, margin }) => {
             let scales
             if (stacked === true) {
                 scales = getStackedScales(data, width, height)
@@ -278,10 +254,21 @@ const enhance = compose(
                 margin,
                 width,
                 height,
-                fullWidth,
-                fullHeight,
                 ...scales,
             }
+        }
+    ),
+    withPropsOnChange(
+        ['getColor', 'xScale', 'yScale'],
+        ({ data, stacked, xScale, yScale, getColor }) => {
+            let lines
+            if (stacked === true) {
+                lines = generateStackedLines(data, xScale, yScale, getColor)
+            } else {
+                lines = generateLines(data, xScale, yScale, getColor)
+            }
+
+            return { lines }
         }
     ),
     pure

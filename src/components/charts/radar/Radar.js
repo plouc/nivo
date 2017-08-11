@@ -9,15 +9,16 @@
 import { max, isEqual, merge } from 'lodash'
 import React from 'react'
 import PropTypes from 'prop-types'
-import Nivo, { defaultTheme } from '../../../Nivo'
+import Nivo from '../../../Nivo'
 import { marginPropType, motionPropTypes, closedCurvePropType } from '../../../props'
-import { getColorsGenerator } from '../../../lib/colorUtils'
+import { withTheme, withColors, withCurve, withMargin } from '../../../hocs'
 import SvgWrapper from '../SvgWrapper'
 import { scaleLinear } from 'd3-scale'
 import RadarShapes from './RadarShapes'
 import RadarGrid from './RadarGrid'
 import RadarMarkers from './RadarMarkers'
 import compose from 'recompose/compose'
+import pure from 'recompose/pure'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import defaultProps from 'recompose/defaultProps'
 
@@ -25,7 +26,7 @@ const Radar = ({
     facets,
     data,
 
-    curve,
+    curveInterpolator,
 
     radius,
     radiusScale,
@@ -35,8 +36,8 @@ const Radar = ({
     centerX,
     centerY,
     margin,
-    width,
-    height,
+    outerWidth,
+    outerHeight,
 
     // border
     borderWidth,
@@ -74,7 +75,7 @@ const Radar = ({
     }
 
     return (
-        <SvgWrapper width={width} height={height} margin={margin}>
+        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
             <g transform={`translate(${centerX}, ${centerY})`}>
                 <RadarGrid
                     levels={gridLevels}
@@ -90,7 +91,7 @@ const Radar = ({
                     data={data}
                     radiusScale={radiusScale}
                     angleStep={angleStep}
-                    curve={curve}
+                    curveInterpolator={curveInterpolator}
                     borderWidth={borderWidth}
                     borderColor={borderColor}
                     fillOpacity={fillOpacity}
@@ -129,6 +130,7 @@ Radar.propTypes = {
     ).isRequired,
 
     curve: closedCurvePropType.isRequired,
+    curveInterpolator: PropTypes.func.isRequired,
 
     // dimensions
     width: PropTypes.number.isRequired,
@@ -159,16 +161,16 @@ Radar.propTypes = {
     theme: PropTypes.object.isRequired,
     colors: PropTypes.any.isRequired,
     colorBy: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    getColor: PropTypes.func.isRequired,
     fillOpacity: PropTypes.number.isRequired,
 
     // motion
     ...motionPropTypes,
+
+    isInteractive: PropTypes.bool.isRequired,
 }
 
 export const RadarDefaultProps = {
-    // dimensions
-    margin: Nivo.defaults.margin,
-
     curve: 'linearClosed',
 
     // border
@@ -193,33 +195,31 @@ export const RadarDefaultProps = {
     animate: true,
     motionStiffness: Nivo.defaults.motionStiffness,
     motionDamping: Nivo.defaults.motionDamping,
+
+    isInteractive: true,
 }
 
 const enhance = compose(
     defaultProps(RadarDefaultProps),
-    withPropsOnChange(['theme'], props => ({ theme: merge({}, defaultTheme, props.theme) })),
-    withPropsOnChange(['colors', 'colorBy'], ({ colors, colorBy }) => ({
-        color: getColorsGenerator(colors, colorBy),
-    })),
+    withTheme(),
+    withColors(),
+    withCurve(),
+    withMargin(),
     withPropsOnChange(
         (props, nextProps) =>
             props.facets !== nextProps.facets ||
             props.data !== nextProps.data ||
             props.width !== nextProps.width ||
-            props.color !== nextProps.color ||
-            !isEqual(props.margin, nextProps.margin),
-        ({ facets, data, color, width: _width, height: _height, margin: _margin }) => {
+            props.height !== nextProps.height ||
+            props.getColor !== nextProps.getColor,
+        ({ facets, data, getColor, width, height }) => {
             const maxValue = max(data.reduce((acc, serie) => [...acc, ...serie.data], []))
-
-            const margin = Object.assign({}, Nivo.defaults.margin, _margin)
-            const width = _width - margin.left - margin.right
-            const height = _height - margin.top - margin.bottom
 
             const radius = Math.min(width, height) / 2
             const radiusScale = scaleLinear().range([0, radius]).domain([0, maxValue])
 
             return {
-                data: data.map(d => Object.assign({}, d, { color: color(d) })),
+                data: data.map(d => Object.assign({}, d, { color: getColor(d) })),
                 radius,
                 radiusScale,
                 centerX: width / 2,
@@ -227,7 +227,8 @@ const enhance = compose(
                 angleStep: Math.PI * 2 / facets.length,
             }
         }
-    )
+    ),
+    pure
 )
 
 export default enhance(Radar)

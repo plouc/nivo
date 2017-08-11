@@ -24,7 +24,13 @@ const MarkersItem = ({
 }) => {
     return (
         <g transform={`translate(${x}, ${y})`}>
-            <circle r={size / 2} fill={color} stroke={borderColor} strokeWidth={borderWidth} />
+            <circle
+                r={size / 2}
+                fill={color}
+                stroke={borderColor}
+                strokeWidth={borderWidth}
+                style={{ pointerEvents: 'none' }}
+            />
             {label &&
                 <text
                     textAnchor={labelTextAnchor}
@@ -32,6 +38,7 @@ const MarkersItem = ({
                     style={{
                         fontSize: theme.markers.fontSize,
                         fill: theme.markers.textColor,
+                        pointerEvents: 'none',
                     }}
                 >
                     {label}

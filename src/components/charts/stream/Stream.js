@@ -15,17 +15,17 @@ import compose from 'recompose/compose'
 import pure from 'recompose/pure'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import defaultProps from 'recompose/defaultProps'
-import Nivo, { defaultTheme } from '../../../Nivo'
+import Nivo from '../../../Nivo'
 import {
     marginPropType,
     motionPropTypes,
     areaCurvePropType,
-    curveFromProp,
     stackOrderPropType,
     stackOrderFromProp,
     stackOffsetPropType,
     stackOffsetFromProp,
 } from '../../../props'
+import { withTheme, withCurve, withMargin } from '../../../hocs'
 import { getColorRange } from '../../../lib/colorUtils'
 import SvgWrapper from '../SvgWrapper'
 import Container from '../Container'
@@ -42,14 +42,14 @@ const Stream = ({
 
     order,
     offsetType,
-    curve,
+    curveInterpolator,
 
     // dimensions
     margin,
     width,
     height,
-    fullWidth,
-    fullHeight,
+    outerWidth,
+    outerHeight,
 
     // axes & grid
     axisTop,
@@ -61,7 +61,7 @@ const Stream = ({
 
     // theming
     theme,
-    color,
+    getColor,
     fillOpacity,
 
     // motion
@@ -88,13 +88,13 @@ const Stream = ({
         .x((d, i) => xScale(i))
         .y0(d => yScale(d[0]))
         .y1(d => yScale(d[1]))
-        .curve(curveFromProp(curve))
+        .curve(curveInterpolator)
 
     const enhancedLayers = layers.map((layer, i) => ({
         id: keys[i],
         layer,
         path: area(layer),
-        color: color(i),
+        color: getColor(i),
     }))
 
     const motionProps = {
@@ -106,7 +106,7 @@ const Stream = ({
     return (
         <Container isInteractive={isInteractive}>
             {({ showTooltip, hideTooltip }) =>
-                <SvgWrapper width={fullWidth} height={fullHeight} margin={margin}>
+                <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
                     <Grid
                         theme={theme}
                         width={width}
@@ -148,11 +148,14 @@ Stream.propTypes = {
     order: stackOrderPropType.isRequired,
     offsetType: stackOffsetPropType.isRequired,
     curve: areaCurvePropType.isRequired,
+    curveInterpolator: PropTypes.func.isRequired,
 
     // dimensions
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
     margin: marginPropType,
+    outerWidth: PropTypes.number.isRequired,
+    outerHeight: PropTypes.number.isRequired,
 
     // axes & grid
     axisTop: PropTypes.object,
@@ -166,7 +169,7 @@ Stream.propTypes = {
     theme: PropTypes.object.isRequired,
     colors: PropTypes.any.isRequired,
     fillOpacity: PropTypes.number.isRequired,
-    color: PropTypes.func.isRequired,
+    getColor: PropTypes.func.isRequired,
 
     // motion
     ...motionPropTypes,
@@ -178,9 +181,6 @@ export const StreamDefaultProps = {
     order: 'none',
     offsetType: 'wiggle',
     curve: 'catmullRom',
-
-    // dimensions
-    margin: Nivo.defaults.margin,
 
     // axes & grid
     axisBottom: {},
@@ -200,31 +200,12 @@ export const StreamDefaultProps = {
 
 const enhance = compose(
     defaultProps(StreamDefaultProps),
-    withPropsOnChange(['theme'], ({ theme }) => ({ theme: merge({}, defaultTheme, theme) })),
-    withPropsOnChange(['colors'], ({ colors, colorBy }) => ({
-        color: getColorRange(colors),
+    withTheme(),
+    withCurve(),
+    withMargin(),
+    withPropsOnChange(['colors'], ({ colors }) => ({
+        getColor: getColorRange(colors),
     })),
-    withPropsOnChange(
-        (props, nextProps) =>
-            props.data !== nextProps.data ||
-            props.stacked !== nextProps.stacked ||
-            props.width !== nextProps.width ||
-            props.height !== nextProps.height ||
-            !isEqual(props.margin, nextProps.margin),
-        ({ data, width: fullWidth, height: fullHeight, margin: _margin }) => {
-            const margin = Object.assign({}, Nivo.defaults.margin, _margin)
-            const width = fullWidth - margin.left - margin.right
-            const height = fullHeight - margin.top - margin.bottom
-
-            return {
-                margin,
-                width,
-                height,
-                fullWidth,
-                fullHeight,
-            }
-        }
-    ),
     pure
 )
 

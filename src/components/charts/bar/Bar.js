@@ -10,9 +10,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { merge } from 'lodash'
 import { TransitionMotion, spring } from 'react-motion'
-import Nivo, { defaultTheme } from '../../../Nivo'
+import pure from 'recompose/pure'
+import defaultProps from 'recompose/defaultProps'
+import compose from 'recompose/compose'
+import Nivo from '../../../Nivo'
 import { marginPropType, motionPropTypes } from '../../../props'
-import { getColorsGenerator, getInheritedColorGenerator } from '../../../lib/colorUtils'
+import { withTheme, withColors, withMargin } from '../../../hocs'
+import { getInheritedColorGenerator } from '../../../lib/colorUtils'
 import { generateGroupedBars, generateStackedBars } from '../../../lib/charts/bar'
 import Container from '../Container'
 import SvgWrapper from '../SvgWrapper'
@@ -24,9 +28,12 @@ import BarItemLabel from './BarItemLabel'
 const Bar = ({
     data,
     groupMode,
-    margin: _margin,
-    width: _width,
-    height: _height,
+
+    margin,
+    width,
+    height,
+    outerWidth,
+    outerHeight,
     xPadding,
 
     // axes & grid
@@ -43,9 +50,8 @@ const Bar = ({
     labelsTextColor: _labelsTextColor,
 
     // theming
-    theme: _theme,
-    colors,
-    colorBy,
+    theme,
+    getColor,
 
     // motion
     animate,
@@ -54,12 +60,6 @@ const Bar = ({
 
     isInteractive,
 }) => {
-    const margin = Object.assign({}, Nivo.defaults.margin, _margin)
-    const width = _width - margin.left - margin.right
-    const height = _height - margin.top - margin.bottom
-
-    const theme = merge({}, defaultTheme, _theme)
-    const color = getColorsGenerator(colors, colorBy)
     const labelsLinkColor = getInheritedColorGenerator(_labelsLinkColor, 'axis.tickColor')
     const labelsTextColor = getInheritedColorGenerator(_labelsTextColor, 'axis.textColor')
 
@@ -71,11 +71,11 @@ const Bar = ({
 
     let result
     if (groupMode === 'grouped') {
-        result = generateGroupedBars(data, width, height, color, {
+        result = generateGroupedBars(data, width, height, getColor, {
             xPadding,
         })
     } else if (groupMode === 'stacked') {
-        result = generateStackedBars(data, width, height, color, {
+        result = generateStackedBars(data, width, height, getColor, {
             xPadding,
         })
     }
@@ -126,7 +126,7 @@ const Bar = ({
                 }
 
                 return (
-                    <SvgWrapper width={_width} height={_height} margin={margin}>
+                    <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
                         <Grid
                             theme={theme}
                             width={width}
@@ -183,6 +183,8 @@ Bar.propTypes = {
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
     margin: marginPropType,
+    outerWidth: PropTypes.number.isRequired,
+    outerHeight: PropTypes.number.isRequired,
     xPadding: PropTypes.number.isRequired,
 
     // axes & grid
@@ -204,6 +206,7 @@ Bar.propTypes = {
     theme: PropTypes.object.isRequired,
     colors: PropTypes.any.isRequired,
     colorBy: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    getColor: PropTypes.func.isRequired,
 
     // motion
     ...motionPropTypes,
@@ -211,7 +214,7 @@ Bar.propTypes = {
     isInteractive: PropTypes.bool,
 }
 
-Bar.defaultProps = {
+export const BarDefaultProps = {
     margin: Nivo.defaults.margin,
     groupMode: 'stacked',
     xPadding: 0.1,
@@ -238,4 +241,14 @@ Bar.defaultProps = {
     motionDamping: Nivo.defaults.motionDamping,
 }
 
-export default Bar
+Bar.defaultProps = BarDefaultProps
+
+const enhance = compose(
+    defaultProps(BarDefaultProps),
+    withTheme(),
+    withColors(),
+    withMargin(),
+    pure
+)
+
+export default enhance(Bar)

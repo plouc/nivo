@@ -14,7 +14,7 @@ import pure from 'recompose/pure'
 import PropTypes from 'prop-types'
 import { merge } from 'lodash'
 import { Motion } from 'react-motion'
-import { motionPropTypes, curvePropMapping, closedCurvePropType } from '../../../props'
+import { motionPropTypes } from '../../../props'
 import { getInheritedColorGenerator } from '../../../lib/colorUtils'
 import SmartMotion from '../../SmartMotion'
 import { lineRadial } from 'd3-shape'
@@ -97,7 +97,7 @@ RadarShapes.propTypes = {
     radiusScale: PropTypes.func.isRequired,
     angleStep: PropTypes.number.isRequired,
 
-    curve: closedCurvePropType.isRequired,
+    curveInterpolator: PropTypes.func.isRequired,
     lineGenerator: PropTypes.func.isRequired,
 
     // border
@@ -116,12 +116,12 @@ const enhance = compose(
         borderColor: getInheritedColorGenerator(props.borderColor),
     })),
     withPropsOnChange(
-        ['radiusScale', 'angleStep', 'curve'],
-        ({ radiusScale, angleStep, curve }) => ({
+        ['radiusScale', 'angleStep', 'curveInterpolator'],
+        ({ radiusScale, angleStep, curveInterpolator }) => ({
             lineGenerator: lineRadial()
                 .radius(d => radiusScale(d))
                 .angle((d, i) => i * angleStep)
-                .curve(curvePropMapping[curve]),
+                .curve(curveInterpolator),
         })
     ),
     pure
