@@ -8,10 +8,10 @@
  */
 import React, { Component } from 'react'
 import { TransitionMotion, spring } from 'react-motion'
-import { rgb } from 'd3-color'
 import _ from 'lodash'
 import Nivo from '../../../Nivo'
 import { getColorsGenerator, extractRGB } from '../../../lib/colorUtils'
+import Container from '../Container'
 import BubbleHelper from '../../../lib/charts/bubble/BubbleHelper'
 import { convertGetter } from '../../../lib/propertiesConverters'
 import { bubblePropTypes, bubbleDefaultProps } from './BubbleProps'
@@ -71,6 +71,7 @@ export default class BubblePlaceholders extends Component {
             motionStiffness,
             motionDamping,
             children,
+            isInteractive,
         } = this.props
 
         const identity = convertGetter(_identity)
@@ -146,42 +147,52 @@ export default class BubblePlaceholders extends Component {
             damping: motionDamping,
         }
 
-        return React.createElement(
-            wrapperTag,
-            wrapperProps,
-            <TransitionMotion
-                willEnter={this.willEnter}
-                willLeave={this.willLeave}
-                styles={nodes.map(b => {
-                    return {
-                        key: b.data.key,
-                        data: b,
-                        style: {
-                            r: spring(b.r, motionProps),
-                            x: spring(b.x, motionProps),
-                            y: spring(b.y, motionProps),
-                            ...extractRGB(b.color, motionProps),
-                        },
-                    }
-                })}
-            >
-                {interpolatedStyles => {
-                    return React.createElement(
-                        containerTag,
-                        containerProps,
-                        children(
-                            interpolatedStyles.map(interpolatedStyle => {
-                                const { colorR, colorG, colorB } = interpolatedStyle.style
-                                interpolatedStyle.style.color = `rgb(${Math.round(
-                                    colorR
-                                )},${Math.round(colorG)},${Math.round(colorB)})`
+        return (
+            <Container isInteractive={isInteractive}>
+                {({ showTooltip, hideTooltip }) =>
+                    React.createElement(
+                        wrapperTag,
+                        wrapperProps,
+                        <TransitionMotion
+                            willEnter={this.willEnter}
+                            willLeave={this.willLeave}
+                            styles={nodes.map(b => {
+                                return {
+                                    key: b.data.key,
+                                    data: b,
+                                    style: {
+                                        r: spring(b.r, motionProps),
+                                        x: spring(b.x, motionProps),
+                                        y: spring(b.y, motionProps),
+                                        ...extractRGB(b.color, motionProps),
+                                    },
+                                }
+                            })}
+                        >
+                            {interpolatedStyles => {
+                                return React.createElement(
+                                    containerTag,
+                                    containerProps,
+                                    children(
+                                        interpolatedStyles.map(interpolatedStyle => {
+                                            const {
+                                                colorR,
+                                                colorG,
+                                                colorB,
+                                            } = interpolatedStyle.style
+                                            interpolatedStyle.style.color = `rgb(${Math.round(
+                                                colorR
+                                            )},${Math.round(colorG)},${Math.round(colorB)})`
 
-                                return interpolatedStyle
-                            })
-                        )
-                    )
-                }}
-            </TransitionMotion>
+                                            return interpolatedStyle
+                                        }),
+                                        { showTooltip, hideTooltip }
+                                    )
+                                )
+                            }}
+                        </TransitionMotion>
+                    )}
+            </Container>
         )
     }
 }

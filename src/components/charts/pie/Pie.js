@@ -20,6 +20,7 @@ import SvgWrapper from '../SvgWrapper'
 import { pie as d3Pie, arc as d3Arc } from 'd3-shape'
 import PieRadialLabels from './PieRadialLabels'
 import PieSlicesLabels from './PieSlicesLabels'
+import BasicTooltip from '../../tooltip/BasicTooltip'
 
 export default class Pie extends Component {
     static propTypes = {
@@ -237,9 +238,16 @@ export default class Pie extends Component {
                                         transform={`translate(${interpolatingStyle.centerX}, ${interpolatingStyle.centerY})`}
                                     >
                                         {arcsData.map(d => {
-                                            const handleTooltip = e => {
-                                                showTooltip(`${d.data.label}: ${d.data.value}`, e)
-                                            }
+                                            const handleTooltip = e =>
+                                                showTooltip(
+                                                    <BasicTooltip
+                                                        id={d.data.label}
+                                                        value={d.data.value}
+                                                        enableChip={true}
+                                                        color={d.data.color}
+                                                    />,
+                                                    e
+                                                )
 
                                             return (
                                                 <path

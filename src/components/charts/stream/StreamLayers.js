@@ -10,6 +10,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { motionPropTypes } from '../../../props'
 import SmartMotion from '../../SmartMotion'
+import BasicTooltip from '../../tooltip/BasicTooltip'
 
 const StreamLayers = ({
     layers,
@@ -26,21 +27,21 @@ const StreamLayers = ({
     if (animate !== true) {
         return (
             <g>
-                {layers.map(({ id, path, color }, i) =>
-                    <path
-                        key={i}
-                        onMouseMove={e => {
-                            showTooltip(id, e)
-                        }}
-                        onMouseEnter={e => {
-                            showTooltip(id, e)
-                        }}
-                        onMouseLeave={hideTooltip}
-                        d={path}
-                        fill={color}
-                        fillOpacity={fillOpacity}
-                    />
-                )}
+                {layers.map(({ id, path, color }, i) => {
+                    const handleTooltip = e =>
+                        showTooltip(<BasicTooltip id={id} enableChip={true} color={color} />, e)
+                    return (
+                        <path
+                            key={i}
+                            onMouseMove={handleTooltip}
+                            onMouseEnter={handleTooltip}
+                            onMouseLeave={hideTooltip}
+                            d={path}
+                            fill={color}
+                            fillOpacity={fillOpacity}
+                        />
+                    )
+                })}
             </g>
         )
     }
@@ -52,28 +53,28 @@ const StreamLayers = ({
 
     return (
         <g>
-            {layers.map(({ id, path, color }, i) =>
-                <SmartMotion
-                    key={i}
-                    style={spring => ({
-                        d: spring(path, springConfig),
-                        fill: spring(color, springConfig),
-                        fillOpacity: spring(fillOpacity, springConfig),
-                    })}
-                >
-                    {style =>
-                        <path
-                            onMouseMove={e => {
-                                showTooltip(id, e)
-                            }}
-                            onMouseEnter={e => {
-                                showTooltip(id, e)
-                            }}
-                            onMouseLeave={hideTooltip}
-                            {...style}
-                        />}
-                </SmartMotion>
-            )}
+            {layers.map(({ id, path, color }, i) => {
+                const handleTooltip = e =>
+                    showTooltip(<BasicTooltip id={id} enableChip={true} color={color} />, e)
+                return (
+                    <SmartMotion
+                        key={i}
+                        style={spring => ({
+                            d: spring(path, springConfig),
+                            fill: spring(color, springConfig),
+                            fillOpacity: spring(fillOpacity, springConfig),
+                        })}
+                    >
+                        {style =>
+                            <path
+                                onMouseMove={handleTooltip}
+                                onMouseEnter={handleTooltip}
+                                onMouseLeave={hideTooltip}
+                                {...style}
+                            />}
+                    </SmartMotion>
+                )
+            })}
         </g>
     )
 }

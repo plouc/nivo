@@ -9,9 +9,10 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 import { getLabelGenerator } from '../../../lib/propertiesConverters'
+import { getColorGenerator } from '../../../lib/colorUtils'
 import { bubblePropTypes, bubbleDefaultProps } from './BubbleProps'
 import BubblePlaceholders from './BubblePlaceholders'
-import { getColorGenerator } from '../../../lib/colorUtils'
+import BasicTooltip from '../../tooltip/BasicTooltip'
 
 const createNodes = ({
     borderWidth,
@@ -27,16 +28,30 @@ const createNodes = ({
     const borderColorFn = getColorGenerator(borderColor)
     const textColorFn = getColorGenerator(labelTextColor)
 
-    return nodes => {
+    return (nodes, { showTooltip, hideTooltip }) => {
         const renderedNodes = []
 
         nodes.filter(node => node.style.r > 0).forEach(node => {
+            const handleTooltip = e =>
+                showTooltip(
+                    <BasicTooltip
+                        id={node.data.data.name}
+                        value={node.data.value}
+                        enableChip={true}
+                        color={node.style.color}
+                    />,
+                    e
+                )
+
             renderedNodes.push(
                 <circle
                     key={`${node.key}.circle`}
                     r={node.style.r}
                     className="nivo_bubble_node"
                     transform={`translate(${node.style.x},${node.style.y})`}
+                    onMouseEnter={handleTooltip}
+                    onMouseMove={handleTooltip}
+                    onMouseLeave={hideTooltip}
                     style={{
                         fill: node.style.color,
                         stroke: borderColorFn(node.style),
@@ -64,6 +79,7 @@ const createNodes = ({
                             dy={labelTextDY}
                             style={{
                                 fill: textColorFn(node.style),
+                                pointerEvents: 'none',
                             }}
                         >
                             {label(node.data.data)}

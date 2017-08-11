@@ -9,6 +9,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
+import BasicTooltip from '../../tooltip/BasicTooltip'
 
 const BarItem = ({
     serie,
@@ -22,9 +23,16 @@ const BarItem = ({
     showTooltip,
     hideTooltip,
 }) => {
-    const handleTooltip = e => {
-        showTooltip(`${serie.id} - ${xValue}: ${yValue}`, e)
-    }
+    const handleTooltip = e =>
+        showTooltip(
+            <BasicTooltip
+                id={`${serie.id} - ${xValue}`}
+                value={yValue}
+                enableChip={true}
+                color={color}
+            />,
+            e
+        )
 
     return (
         <rect
