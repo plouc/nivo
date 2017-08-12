@@ -185,7 +185,6 @@ Stream.propTypes = {
     enableGridY: PropTypes.bool.isRequired,
 
     // theming
-    theme: PropTypes.object.isRequired,
     colors: PropTypes.any.isRequired,
     fillOpacity: PropTypes.number.isRequired,
     getColor: PropTypes.func.isRequired,
@@ -208,7 +207,6 @@ export const StreamDefaultProps = {
     enableGridY: false,
 
     // theming
-    theme: {},
     colors: 'nivo',
     fillOpacity: 1,
 

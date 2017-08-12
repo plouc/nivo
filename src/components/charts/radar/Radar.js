@@ -66,6 +66,9 @@ const Radar = ({
     animate,
     motionStiffness,
     motionDamping,
+
+    // interactivity
+    isInteractive,
 }) => {
     const motionProps = {
         animate,
@@ -176,6 +179,7 @@ export const RadarDefaultProps = {
     // theming
     fillOpacity: 0.15,
 
+    // interactivity
     isInteractive: true,
 }
 
