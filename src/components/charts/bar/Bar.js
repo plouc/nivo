@@ -197,7 +197,6 @@ Bar.propTypes = {
     onClick: PropTypes.func,
 
     // theming
-    theme: PropTypes.object.isRequired,
     colors: PropTypes.any.isRequired,
     colorBy: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     getColor: PropTypes.func.isRequired,
@@ -222,7 +221,6 @@ export const BarDefaultProps = {
     labelsTextColor: 'theme',
 
     // theming
-    theme: {},
     colors: 'nivo',
     colorBy: 'serie.id',
 
