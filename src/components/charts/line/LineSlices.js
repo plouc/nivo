@@ -7,23 +7,40 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
+import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
 import LineSlicesItem from './LineSlicesItem'
 
-const LineSlices = ({ data, xScale, height, showTooltip, hideTooltip }) => {
-    return (
-        <g>
-            {data[0].data.map(({ x }) =>
-                <LineSlicesItem
-                    key={x}
-                    x={xScale(x)}
-                    height={height}
-                    showTooltip={showTooltip}
-                    hideTooltip={hideTooltip}
-                />
-            )}
-        </g>
-    )
+const LineSlices = ({ slices, height, showTooltip, hideTooltip }) =>
+    <g>
+        {slices.map(slice =>
+            <LineSlicesItem
+                key={slice.id}
+                slice={slice}
+                height={height}
+                showTooltip={showTooltip}
+                hideTooltip={hideTooltip}
+            />
+        )}
+    </g>
+
+LineSlices.propTypes = {
+    slices: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.string.isRequired,
+            x: PropTypes.number.isRequired,
+            points: PropTypes.arrayOf(
+                PropTypes.shape({
+                    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+                    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+                    color: PropTypes.string.isRequired,
+                })
+            ).isRequired,
+        })
+    ).isRequired,
+    height: PropTypes.number.isRequired,
+    showTooltip: PropTypes.func.isRequired,
+    hideTooltip: PropTypes.func.isRequired,
 }
 
 export default pure(LineSlices)

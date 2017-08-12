@@ -19,12 +19,11 @@ export default class LineSlicesItem extends PureComponent {
 
     handleMouseEnter = e => {
         this.setState({ isHover: true })
-        this.props.showTooltip(
+
+        const { slice, showTooltip } = this.props
+        showTooltip(
             <TableTooltip
-                rows={[
-                    [<Chip color="#F00" />, 'a', 'cool'],
-                    [<Chip color="#F0F" />, 'b', 'not cool'],
-                ]}
+                rows={slice.points.map(p => [<Chip color={p.color} />, p.id, p.value])}
             />,
             e
         )
@@ -36,11 +35,11 @@ export default class LineSlicesItem extends PureComponent {
     }
 
     render() {
-        const { x, height } = this.props
+        const { slice, height } = this.props
         const { isHover } = this.state
 
         return (
-            <g transform={`translate(${x}, 0)`}>
+            <g transform={`translate(${slice.x}, 0)`}>
                 {isHover &&
                     <line
                         x1={0}
@@ -48,7 +47,7 @@ export default class LineSlicesItem extends PureComponent {
                         y1={0}
                         y2={height}
                         stroke="#000"
-                        strokeOpacity={0.5}
+                        strokeOpacity={0.35}
                         strokeWidth={1}
                     />}
                 <rect

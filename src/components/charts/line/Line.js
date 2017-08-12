@@ -8,7 +8,7 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { merge, isEqual } from 'lodash'
+import { sortBy } from 'lodash'
 import { line } from 'd3-shape'
 import compose from 'recompose/compose'
 import pure from 'recompose/pure'
@@ -33,11 +33,11 @@ import LineSlices from './LineSlices'
 import LineMarkers from './LineMarkers'
 
 const Line = ({
-    data,
     lines,
     lineGenerator,
     xScale,
     yScale,
+    slices,
 
     // dimensions
     margin,
@@ -67,7 +67,6 @@ const Line = ({
 
     // theming
     theme,
-    colors,
 
     // motion
     animate,
@@ -80,25 +79,6 @@ const Line = ({
         animate,
         motionDamping,
         motionStiffness,
-    }
-
-    let markers = null
-    if (enableMarkers === true) {
-        markers = (
-            <LineMarkers
-                lines={lines}
-                size={markersSize}
-                color={getInheritedColorGenerator(markersColor)}
-                borderWidth={markersBorderWidth}
-                borderColor={getInheritedColorGenerator(markersBorderColor)}
-                enableLabel={enableMarkersLabel}
-                label={markersLabel}
-                labelFormat={markersLabelFormat}
-                labelYOffset={markersLabelYOffset}
-                theme={theme}
-                {...motionProps}
-            />
-        )
     }
 
     return (
@@ -126,16 +106,27 @@ const Line = ({
                         {...motionProps}
                     />
                     <LineLines lines={lines} lineGenerator={lineGenerator} {...motionProps} />
-                    {false &&
+                    {isInteractive &&
                         <LineSlices
-                            data={data}
-                            xScale={xScale}
+                            slices={slices}
                             height={height}
                             showTooltip={showTooltip}
                             hideTooltip={hideTooltip}
-                            colors={colors}
                         />}
-                    {markers}
+                    {enableMarkers &&
+                        <LineMarkers
+                            lines={lines}
+                            size={markersSize}
+                            color={getInheritedColorGenerator(markersColor)}
+                            borderWidth={markersBorderWidth}
+                            borderColor={getInheritedColorGenerator(markersBorderColor)}
+                            enableLabel={enableMarkersLabel}
+                            label={markersLabel}
+                            labelFormat={markersLabelFormat}
+                            labelYOffset={markersLabelYOffset}
+                            theme={theme}
+                            {...motionProps}
+                        />}
                 </SvgWrapper>}
         </Container>
     )
@@ -158,6 +149,9 @@ Line.propTypes = {
     stacked: PropTypes.bool.isRequired,
     curve: curvePropType.isRequired,
     lineGenerator: PropTypes.func.isRequired,
+
+    lines: PropTypes.array.isRequired,
+    slices: PropTypes.array.isRequired,
 
     xScale: PropTypes.func.isRequired,
     yScale: PropTypes.func.isRequired,
@@ -268,7 +262,25 @@ const enhance = compose(
                 lines = generateLines(data, xScale, yScale, getColor)
             }
 
-            return { lines }
+            const slices = xScale.domain().map((id, i) => {
+                let points = sortBy(
+                    lines.map(line => ({
+                        id: line.id,
+                        value: line.points[i].value,
+                        y: line.points[i].y,
+                        color: line.color,
+                    })),
+                    'y'
+                )
+
+                return {
+                    id,
+                    x: xScale(id),
+                    points,
+                }
+            })
+
+            return { lines, slices }
         }
     ),
     pure

@@ -79,6 +79,7 @@ export const generateLines = (data, xScale, yScale, color) =>
         return {
             id,
             color: color(serie),
+            data: serie,
             points: serieData.map(d =>
                 Object.assign({}, d, {
                     value: d.y,
@@ -109,6 +110,7 @@ export const generateStackedLines = (data, xScale, yScale, color) =>
             {
                 id,
                 color: color(serie),
+                data: serie,
                 points: serieData
                     .map((d, i) => {
                         if (!previousPoints) {
