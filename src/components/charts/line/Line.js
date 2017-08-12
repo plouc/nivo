@@ -73,7 +73,11 @@ const Line = ({
     motionStiffness,
     motionDamping,
 
+    // interactivity
     isInteractive,
+
+    // stackTooltip
+    enableStackTooltip,
 }) => {
     const motionProps = {
         animate,
@@ -107,6 +111,7 @@ const Line = ({
                     />
                     <LineLines lines={lines} lineGenerator={lineGenerator} {...motionProps} />
                     {isInteractive &&
+                        enableStackTooltip &&
                         <LineSlices
                             slices={slices}
                             height={height}
@@ -188,7 +193,11 @@ Line.propTypes = {
     // motion
     ...motionPropTypes,
 
+    // interactivity
     isInteractive: PropTypes.bool.isRequired,
+
+    // stack tooltip
+    enableStackTooltip: PropTypes.bool.isRequired,
 }
 
 export const LineDefaultProps = {
@@ -219,7 +228,11 @@ export const LineDefaultProps = {
     motionStiffness: Nivo.defaults.motionStiffness,
     motionDamping: Nivo.defaults.motionDamping,
 
+    // interactivity
     isInteractive: true,
+
+    // stack tooltip
+    enableStackTooltip: true,
 }
 
 const enhance = compose(
