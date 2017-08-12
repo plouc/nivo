@@ -15,17 +15,14 @@ import compose from 'recompose/compose'
 import pure from 'recompose/pure'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import defaultProps from 'recompose/defaultProps'
-import Nivo from '../../../Nivo'
 import {
-    marginPropType,
-    motionPropTypes,
     areaCurvePropType,
     stackOrderPropType,
     stackOrderFromProp,
     stackOffsetPropType,
     stackOffsetFromProp,
 } from '../../../props'
-import { withTheme, withCurve, withMargin } from '../../../hocs'
+import { withTheme, withCurve, withDimensions, withMotion } from '../../../hocs'
 import { getColorRange } from '../../../lib/colorUtils'
 import SvgWrapper from '../SvgWrapper'
 import Container from '../Container'
@@ -179,13 +176,6 @@ Stream.propTypes = {
     curve: areaCurvePropType.isRequired,
     areaGenerator: PropTypes.func.isRequired,
 
-    // dimensions
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-    margin: marginPropType,
-    outerWidth: PropTypes.number.isRequired,
-    outerHeight: PropTypes.number.isRequired,
-
     // axes & grid
     axisTop: PropTypes.object,
     axisRight: PropTypes.object,
@@ -199,9 +189,6 @@ Stream.propTypes = {
     colors: PropTypes.any.isRequired,
     fillOpacity: PropTypes.number.isRequired,
     getColor: PropTypes.func.isRequired,
-
-    // motion
-    ...motionPropTypes,
 
     // interactivity
     isInteractive: PropTypes.bool,
@@ -225,11 +212,6 @@ export const StreamDefaultProps = {
     colors: 'nivo',
     fillOpacity: 1,
 
-    // motion
-    animate: true,
-    motionStiffness: Nivo.defaults.motionStiffness,
-    motionDamping: Nivo.defaults.motionDamping,
-
     // interactivity
     isInteractive: true,
 
@@ -241,7 +223,8 @@ const enhance = compose(
     defaultProps(StreamDefaultProps),
     withTheme(),
     withCurve(),
-    withMargin(),
+    withDimensions(),
+    withMotion(),
     withPropsOnChange(['curveInterpolator'], ({ curveInterpolator }) => ({
         areaGenerator: area()
             .x(({ x }) => x)

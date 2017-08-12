@@ -8,5 +8,6 @@
  */
 export { default as withColors } from './withColors'
 export { default as withCurve } from './withCurve'
-export { default as withMargin } from './withMargin'
+export { default as withDimensions } from './withDimensions'
+export { default as withMotion } from './withMotion'
 export { default as withTheme } from './withTheme'

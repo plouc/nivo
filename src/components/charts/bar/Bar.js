@@ -13,9 +13,7 @@ import { TransitionMotion, spring } from 'react-motion'
 import pure from 'recompose/pure'
 import defaultProps from 'recompose/defaultProps'
 import compose from 'recompose/compose'
-import Nivo from '../../../Nivo'
-import { marginPropType, motionPropTypes } from '../../../props'
-import { withTheme, withColors, withMargin } from '../../../hocs'
+import { withTheme, withColors, withDimensions, withMotion } from '../../../hocs'
 import { getInheritedColorGenerator } from '../../../lib/colorUtils'
 import { generateGroupedBars, generateStackedBars } from '../../../lib/charts/bar'
 import Container from '../Container'
@@ -181,11 +179,6 @@ Bar.propTypes = {
 
     groupMode: PropTypes.oneOf(['stacked', 'grouped']).isRequired,
 
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-    margin: marginPropType,
-    outerWidth: PropTypes.number.isRequired,
-    outerHeight: PropTypes.number.isRequired,
     xPadding: PropTypes.number.isRequired,
 
     // axes & grid
@@ -209,15 +202,11 @@ Bar.propTypes = {
     colorBy: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     getColor: PropTypes.func.isRequired,
 
-    // motion
-    ...motionPropTypes,
-
     // interactivity
     isInteractive: PropTypes.bool,
 }
 
 export const BarDefaultProps = {
-    margin: Nivo.defaults.margin,
     groupMode: 'stacked',
     xPadding: 0.1,
 
@@ -237,11 +226,6 @@ export const BarDefaultProps = {
     colors: 'nivo',
     colorBy: 'serie.id',
 
-    // motion
-    animate: true,
-    motionStiffness: Nivo.defaults.motionStiffness,
-    motionDamping: Nivo.defaults.motionDamping,
-
     // interactivity
     isInteractive: true,
 }
@@ -252,7 +236,8 @@ const enhance = compose(
     defaultProps(BarDefaultProps),
     withTheme(),
     withColors(),
-    withMargin(),
+    withDimensions(),
+    withMotion(),
     pure
 )
 

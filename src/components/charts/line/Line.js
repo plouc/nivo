@@ -14,10 +14,9 @@ import compose from 'recompose/compose'
 import pure from 'recompose/pure'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import defaultProps from 'recompose/defaultProps'
-import Nivo from '../../../Nivo'
-import { marginPropType, motionPropTypes, curveFromProp, lineCurvePropType } from '../../../props'
+import { curveFromProp, lineCurvePropType } from '../../../props'
 import { getInheritedColorGenerator } from '../../../lib/colorUtils'
-import { withTheme, withColors, withMargin } from '../../../hocs'
+import { withTheme, withColors, withDimensions, withMotion } from '../../../hocs'
 import Container from '../Container'
 import SvgWrapper from '../SvgWrapper'
 import {
@@ -161,13 +160,6 @@ Line.propTypes = {
     xScale: PropTypes.func.isRequired,
     yScale: PropTypes.func.isRequired,
 
-    // dimensions
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-    margin: marginPropType,
-    outerWidth: PropTypes.number.isRequired,
-    outerHeight: PropTypes.number.isRequired,
-
     // axes & grid
     axisTop: PropTypes.object,
     axisRight: PropTypes.object,
@@ -189,9 +181,6 @@ Line.propTypes = {
     colors: PropTypes.any.isRequired,
     colorBy: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     getColor: PropTypes.func.isRequired,
-
-    // motion
-    ...motionPropTypes,
 
     // interactivity
     isInteractive: PropTypes.bool.isRequired,
@@ -223,11 +212,6 @@ export const LineDefaultProps = {
     colors: 'nivo',
     colorBy: 'id',
 
-    // motion
-    animate: true,
-    motionStiffness: Nivo.defaults.motionStiffness,
-    motionDamping: Nivo.defaults.motionDamping,
-
     // interactivity
     isInteractive: true,
 
@@ -239,7 +223,8 @@ const enhance = compose(
     defaultProps(LineDefaultProps),
     withTheme(),
     withColors(),
-    withMargin(),
+    withDimensions(),
+    withMotion(),
     withPropsOnChange(['curve'], ({ curve }) => ({
         lineGenerator: line().x(d => d.x).y(d => d.y).curve(curveFromProp(curve)),
     })),

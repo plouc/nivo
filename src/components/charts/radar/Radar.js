@@ -9,9 +9,8 @@
 import { max, isEqual, merge } from 'lodash'
 import React from 'react'
 import PropTypes from 'prop-types'
-import Nivo from '../../../Nivo'
-import { marginPropType, motionPropTypes, closedCurvePropType } from '../../../props'
-import { withTheme, withColors, withCurve, withMargin } from '../../../hocs'
+import { closedCurvePropType } from '../../../props'
+import { withTheme, withColors, withCurve, withDimensions, withMotion } from '../../../hocs'
 import SvgWrapper from '../SvgWrapper'
 import { scaleLinear } from 'd3-scale'
 import RadarShapes from './RadarShapes'
@@ -132,11 +131,6 @@ Radar.propTypes = {
     curve: closedCurvePropType.isRequired,
     curveInterpolator: PropTypes.func.isRequired,
 
-    // dimensions
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-    margin: marginPropType,
-
     // border
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
@@ -164,9 +158,6 @@ Radar.propTypes = {
     getColor: PropTypes.func.isRequired,
     fillOpacity: PropTypes.number.isRequired,
 
-    // motion
-    ...motionPropTypes,
-
     isInteractive: PropTypes.bool.isRequired,
 }
 
@@ -191,11 +182,6 @@ export const RadarDefaultProps = {
     colorBy: 'id',
     fillOpacity: 0.15,
 
-    // motion
-    animate: true,
-    motionStiffness: Nivo.defaults.motionStiffness,
-    motionDamping: Nivo.defaults.motionDamping,
-
     isInteractive: true,
 }
 
@@ -204,7 +190,8 @@ const enhance = compose(
     withTheme(),
     withColors(),
     withCurve(),
-    withMargin(),
+    withDimensions(),
+    withMotion(),
     withPropsOnChange(
         (props, nextProps) =>
             props.facets !== nextProps.facets ||
