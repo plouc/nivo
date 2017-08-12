@@ -15,7 +15,7 @@ import pure from 'recompose/pure'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import defaultProps from 'recompose/defaultProps'
 import Nivo from '../../../Nivo'
-import { marginPropType, motionPropTypes, curvePropMapping, curvePropType } from '../../../props'
+import { marginPropType, motionPropTypes, curveFromProp, lineCurvePropType } from '../../../props'
 import { getInheritedColorGenerator } from '../../../lib/colorUtils'
 import { withTheme, withColors, withMargin } from '../../../hocs'
 import Container from '../Container'
@@ -152,7 +152,7 @@ Line.propTypes = {
     ).isRequired,
 
     stacked: PropTypes.bool.isRequired,
-    curve: curvePropType.isRequired,
+    curve: lineCurvePropType.isRequired,
     lineGenerator: PropTypes.func.isRequired,
 
     lines: PropTypes.array.isRequired,
@@ -202,7 +202,7 @@ Line.propTypes = {
 
 export const LineDefaultProps = {
     stacked: false,
-    curve: 'linear',
+    curve: lineCurvePropType.isRequired,
 
     // axes & grid
     axisBottom: {},
@@ -241,7 +241,7 @@ const enhance = compose(
     withColors(),
     withMargin(),
     withPropsOnChange(['curve'], ({ curve }) => ({
-        lineGenerator: line().x(d => d.x).y(d => d.y).curve(curvePropMapping[curve]),
+        lineGenerator: line().x(d => d.x).y(d => d.y).curve(curveFromProp(curve)),
     })),
     withPropsOnChange(
         (props, nextProps) =>
