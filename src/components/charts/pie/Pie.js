@@ -232,10 +232,6 @@ Pie.propTypes = {
     slicesLabelsSkipAngle: PropTypes.number,
     slicesLabelsTextColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
-    // theming
-    colors: PropTypes.any.isRequired,
-    colorBy: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-
     // interactivity
     isInteractive: PropTypes.bool,
 }
@@ -259,10 +255,6 @@ export const PieDefaultProps = {
     enableSlicesLabels: true,
     sliceLabel: 'value',
     slicesLabelsTextColor: 'theme',
-
-    // theming
-    colors: 'nivo',
-    colorBy: 'id',
 
     // interactivity
     isInteractive: true,

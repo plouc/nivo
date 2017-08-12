@@ -24,13 +24,13 @@ import Nivo from '../Nivo'
  */
 export default () =>
     compose(
+        defaultProps({
+            margin: Nivo.defaults.margin,
+        }),
         setPropTypes({
             width: PropTypes.number.isRequired,
             height: PropTypes.number.isRequired,
             margin: marginPropType,
-        }),
-        defaultProps({
-            margin: Nivo.defaults.margin,
         }),
         withPropsOnChange(
             (props, nextProps) =>

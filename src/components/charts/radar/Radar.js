@@ -152,8 +152,6 @@ Radar.propTypes = {
     markersLabelYOffset: PropTypes.number,
 
     // theming
-    colors: PropTypes.any.isRequired,
-    colorBy: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     getColor: PropTypes.func.isRequired,
     fillOpacity: PropTypes.number.isRequired,
 
@@ -176,8 +174,6 @@ export const RadarDefaultProps = {
     enableMarkers: true,
 
     // theming
-    colors: 'nivo',
-    colorBy: 'id',
     fillOpacity: 0.15,
 
     isInteractive: true,

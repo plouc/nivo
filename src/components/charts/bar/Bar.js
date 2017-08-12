@@ -197,8 +197,6 @@ Bar.propTypes = {
     onClick: PropTypes.func,
 
     // theming
-    colors: PropTypes.any.isRequired,
-    colorBy: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     getColor: PropTypes.func.isRequired,
 
     // interactivity
@@ -220,10 +218,6 @@ export const BarDefaultProps = {
     labelsLinkColor: 'theme',
     labelsTextColor: 'theme',
 
-    // theming
-    colors: 'nivo',
-    colorBy: 'serie.id',
-
     // interactivity
     isInteractive: true,
 }
@@ -233,7 +227,7 @@ Bar.defaultProps = BarDefaultProps
 const enhance = compose(
     defaultProps(BarDefaultProps),
     withTheme(),
-    withColors(),
+    withColors({ defaultColorBy: 'serie.id' }),
     withDimensions(),
     withMotion(),
     pure

@@ -177,8 +177,6 @@ Line.propTypes = {
     enableMarkersLabel: PropTypes.bool.isRequired,
 
     // theming
-    colors: PropTypes.any.isRequired,
-    colorBy: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     getColor: PropTypes.func.isRequired,
 
     // interactivity
