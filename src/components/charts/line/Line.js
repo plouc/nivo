@@ -202,7 +202,7 @@ Line.propTypes = {
 
 export const LineDefaultProps = {
     stacked: false,
-    curve: lineCurvePropType.isRequired,
+    curve: 'linear',
 
     // axes & grid
     axisBottom: {},
