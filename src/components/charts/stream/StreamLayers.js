@@ -80,7 +80,6 @@ const StreamLayers = ({
 }
 
 StreamLayers.propTypes = {
-    area: PropTypes.func.isRequired,
     fillOpacity: PropTypes.number.isRequired,
 
     // motion

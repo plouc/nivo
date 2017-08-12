@@ -8,8 +8,8 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { merge, isEqual, min, max, range } from 'lodash'
-import { stack as d3Stack, area as d3Area } from 'd3-shape'
+import { min, max, range, sortBy } from 'lodash'
+import { stack as d3Stack, area } from 'd3-shape'
 import { scaleLinear, scalePoint } from 'd3-scale'
 import compose from 'recompose/compose'
 import pure from 'recompose/pure'
@@ -32,6 +32,7 @@ import Container from '../Container'
 import Axes from '../../axes/Axes'
 import Grid from '../../axes/Grid'
 import StreamLayers from './StreamLayers'
+import StreamSlices from './StreamSlices'
 
 const stackMin = layers => min(layers.reduce((acc, layer) => [...acc, ...layer.map(d => d[0])], []))
 const stackMax = layers => max(layers.reduce((acc, layer) => [...acc, ...layer.map(d => d[1])], []))
@@ -42,7 +43,7 @@ const Stream = ({
 
     order,
     offsetType,
-    curveInterpolator,
+    areaGenerator,
 
     // dimensions
     margin,
@@ -71,6 +72,9 @@ const Stream = ({
 
     // interactivity
     isInteractive,
+
+    // stack tooltip
+    enableStackTooltip,
 }) => {
     const stack = d3Stack()
         .keys(keys)
@@ -85,17 +89,34 @@ const Stream = ({
     const xScale = scalePoint().domain(range(data.length)).range([0, width])
     const yScale = scaleLinear().domain([minValue, maxValue]).range([height, 0])
 
-    const area = d3Area()
-        .x((d, i) => xScale(i))
-        .y0(d => yScale(d[0]))
-        .y1(d => yScale(d[1]))
-        .curve(curveInterpolator)
+    const enhancedLayers = layers.map((points, i) => {
+        const layer = points.map(([y1, y2], i) => ({
+            index: i,
+            value: y2 - y1,
+            x: xScale(i),
+            y1: yScale(y1),
+            y2: yScale(y2),
+        }))
 
-    const enhancedLayers = layers.map((layer, i) => ({
-        id: keys[i],
-        layer,
-        path: area(layer),
-        color: getColor(i),
+        return {
+            id: keys[i],
+            layer,
+            path: areaGenerator(layer),
+            color: getColor(i),
+        }
+    })
+
+    const slices = range(data.length).map(i => ({
+        index: i,
+        x: enhancedLayers[0].layer[i].x,
+        stack: sortBy(
+            enhancedLayers.map(layer => ({
+                id: layer.id,
+                color: layer.color,
+                ...layer.layer[i],
+            })),
+            'y2'
+        ),
     }))
 
     const motionProps = {
@@ -118,7 +139,6 @@ const Stream = ({
                     />
                     <StreamLayers
                         layers={enhancedLayers}
-                        area={area}
                         fillOpacity={fillOpacity}
                         showTooltip={showTooltip}
                         hideTooltip={hideTooltip}
@@ -136,6 +156,14 @@ const Stream = ({
                         left={axisLeft}
                         {...motionProps}
                     />
+                    {isInteractive &&
+                        enableStackTooltip &&
+                        <StreamSlices
+                            slices={slices}
+                            height={height}
+                            showTooltip={showTooltip}
+                            hideTooltip={hideTooltip}
+                        />}
                 </SvgWrapper>}
         </Container>
     )
@@ -149,7 +177,7 @@ Stream.propTypes = {
     order: stackOrderPropType.isRequired,
     offsetType: stackOffsetPropType.isRequired,
     curve: areaCurvePropType.isRequired,
-    curveInterpolator: PropTypes.func.isRequired,
+    areaGenerator: PropTypes.func.isRequired,
 
     // dimensions
     width: PropTypes.number.isRequired,
@@ -177,6 +205,9 @@ Stream.propTypes = {
 
     // interactivity
     isInteractive: PropTypes.bool,
+
+    // stack tooltip
+    enableStackTooltip: PropTypes.bool.isRequired,
 }
 
 export const StreamDefaultProps = {
@@ -201,6 +232,9 @@ export const StreamDefaultProps = {
 
     // interactivity
     isInteractive: true,
+
+    // stack tooltip
+    enableStackTooltip: true,
 }
 
 const enhance = compose(
@@ -208,6 +242,13 @@ const enhance = compose(
     withTheme(),
     withCurve(),
     withMargin(),
+    withPropsOnChange(['curveInterpolator'], ({ curveInterpolator }) => ({
+        areaGenerator: area()
+            .x(({ x }) => x)
+            .y0(({ y1 }) => y1)
+            .y1(({ y2 }) => y2)
+            .curve(curveInterpolator),
+    })),
     withPropsOnChange(['colors'], ({ colors }) => ({
         getColor: getColorRange(colors),
     })),
