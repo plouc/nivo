@@ -69,6 +69,7 @@ const Stream = ({
     motionStiffness,
     motionDamping,
 
+    // interactivity
     isInteractive,
 }) => {
     const stack = d3Stack()
@@ -174,6 +175,7 @@ Stream.propTypes = {
     // motion
     ...motionPropTypes,
 
+    // interactivity
     isInteractive: PropTypes.bool,
 }
 
@@ -196,6 +198,9 @@ export const StreamDefaultProps = {
     animate: true,
     motionStiffness: Nivo.defaults.motionStiffness,
     motionDamping: Nivo.defaults.motionDamping,
+
+    // interactivity
+    isInteractive: true,
 }
 
 const enhance = compose(

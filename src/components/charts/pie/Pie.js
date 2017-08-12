@@ -70,6 +70,7 @@ export default class Pie extends Component {
         // motion
         ...motionPropTypes,
 
+        // interactivity
         isInteractive: PropTypes.bool,
     }
 
@@ -105,6 +106,9 @@ export default class Pie extends Component {
         animate: true,
         motionStiffness: Nivo.defaults.motionStiffness,
         motionDamping: Nivo.defaults.motionDamping,
+
+        // interactivity
+        isInteractive: true,
     }
 
     render() {
@@ -152,6 +156,7 @@ export default class Pie extends Component {
             motionStiffness,
             motionDamping,
 
+            // interactivity
             isInteractive,
         } = this.props
 

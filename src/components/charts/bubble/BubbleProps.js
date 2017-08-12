@@ -53,6 +53,9 @@ export const bubblePropTypes = {
     ...motionPropTypes,
     transitionDuration: PropTypes.number.isRequired, // d3 transitions
     transitionEasing: PropTypes.string.isRequired, // d3 transitions
+
+    // interactivity
+    isInteractive: PropTypes.bool.isRequired,
 }
 
 /**
@@ -94,4 +97,7 @@ export const bubbleDefaultProps = {
     motionDamping: Nivo.defaults.motionDamping, // react-motion
     transitionDuration: Nivo.defaults.transitionDuration, // d3 transitions
     transitionEasing: Nivo.defaults.transitionEasing, // d3 transitions
+
+    // interactivity
+    isInteractive: true,
 }

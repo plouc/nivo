@@ -58,6 +58,7 @@ const Bar = ({
     motionStiffness,
     motionDamping,
 
+    // interactivity
     isInteractive,
 }) => {
     const labelsLinkColor = getInheritedColorGenerator(_labelsLinkColor, 'axis.tickColor')
@@ -211,6 +212,7 @@ Bar.propTypes = {
     // motion
     ...motionPropTypes,
 
+    // interactivity
     isInteractive: PropTypes.bool,
 }
 
@@ -239,6 +241,9 @@ export const BarDefaultProps = {
     animate: true,
     motionStiffness: Nivo.defaults.motionStiffness,
     motionDamping: Nivo.defaults.motionDamping,
+
+    // interactivity
+    isInteractive: true,
 }
 
 Bar.defaultProps = BarDefaultProps
