@@ -18,15 +18,22 @@ const verticalPositions = ['left', 'right']
 const positions = [...horizontalPositions, ...verticalPositions]
 
 const Axes = ({
+    // generic
     xScale,
     yScale,
     width,
     height,
+
+    // axes
     top,
     right,
     bottom,
     left,
+
+    // theming
     theme,
+
+    // motion
     animate,
     motionStiffness,
     motionDamping,
@@ -63,17 +70,19 @@ const Axes = ({
 }
 
 Axes.propTypes = {
+    // generic
     xScale: PropTypes.func.isRequired,
     yScale: PropTypes.func.isRequired,
-
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
 
+    // axes
     top: axisPropType,
     right: axisPropType,
     bottom: axisPropType,
     left: axisPropType,
 
+    // theming
     theme: PropTypes.object.isRequired,
 
     // motion

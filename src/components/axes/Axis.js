@@ -10,7 +10,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import compose from 'recompose/compose'
 import pure from 'recompose/pure'
-import shouldUpdate from 'recompose/shouldUpdate'
 import { TransitionMotion, spring } from 'react-motion'
 import { withMotion } from '../../hocs'
 import AxisTick from './AxisTick'
@@ -33,6 +32,7 @@ export const axisPropType = PropTypes.shape({
     // ticks
     tickSize: PropTypes.number,
     tickPadding: PropTypes.number,
+    tickRotation: PropTypes.number,
     format: PropTypes.func,
 
     // legend
@@ -54,13 +54,17 @@ const willLeave = springConfig => ({ style }) => ({
 })
 
 const Axis = ({
+    // generic
     scale,
     width,
     height,
     position: _position,
     orient: _orient,
+
+    // ticks
     tickSize,
     tickPadding,
+    tickRotation,
     format,
 
     // legend
@@ -99,6 +103,16 @@ const Axis = ({
 
         textAnchor = 'middle'
         textDY = orient === 'top' ? '0em' : '0.71em'
+        if ((orient === 'bottom' && tickRotation < 0) || (orient === 'top' && tickRotation > 0)) {
+            textAnchor = 'end'
+            textDY = '0.32em'
+        } else if (
+            (orient === 'bottom' && tickRotation > 0) ||
+            (orient === 'top' && tickRotation < 0)
+        ) {
+            textAnchor = 'start'
+            textDY = '0.32em'
+        }
         textXY.y = (tickSize + tickPadding) * (orient === 'bottom' ? 1 : -1)
 
         tickLine.y2 = tickSize * (orient === 'bottom' ? 1 : -1)
@@ -175,6 +189,7 @@ const Axis = ({
                         value={tick.key}
                         format={format}
                         tickLine={tickLine}
+                        rotate={tickRotation}
                         textXY={textXY}
                         textDY={textDY}
                         textAnchor={textAnchor}
@@ -215,6 +230,7 @@ const Axis = ({
                                 value={key}
                                 format={format}
                                 tickLine={tickLine}
+                                rotate={tickRotation}
                                 textXY={textXY}
                                 textDY={textDY}
                                 textAnchor={textAnchor}
@@ -239,6 +255,7 @@ const Axis = ({
 }
 
 Axis.propTypes = {
+    // generic
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
     orient: PropTypes.oneOf(axisPositions),
@@ -248,6 +265,7 @@ Axis.propTypes = {
     // ticks
     tickSize: PropTypes.number.isRequired,
     tickPadding: PropTypes.number.isRequired,
+    tickRotation: PropTypes.number.isRequired,
     format: PropTypes.func,
 
     // legend
@@ -255,6 +273,7 @@ Axis.propTypes = {
     legendPosition: PropTypes.oneOf(legendPositions).isRequired,
     legendOffset: PropTypes.number.isRequired,
 
+    // theming
     theme: PropTypes.object.isRequired,
 }
 
@@ -262,19 +281,13 @@ Axis.defaultProps = {
     // ticks
     tickSize: 5,
     tickPadding: 5,
+    tickRotation: 0,
 
     // legend
     legendPosition: 'end',
     legendOffset: 0,
 }
 
-const enhance = compose(
-    withMotion(),
-    shouldUpdate((props, nextProps) => {
-        //console.log('=> scale', props.scale === nextProps.scale)
-        return true
-    }),
-    pure
-)
+const enhance = compose(withMotion(), pure)
 
 export default enhance(Axis)
