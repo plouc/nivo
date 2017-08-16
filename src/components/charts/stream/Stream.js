@@ -37,9 +37,9 @@ const stackMax = layers => max(layers.reduce((acc, layer) => [...acc, ...layer.m
 const Stream = ({
     data,
     keys,
-
-    order,
-    offsetType,
+    xScale,
+    yScale,
+    layers,
     areaGenerator,
 
     // dimensions
@@ -73,19 +73,6 @@ const Stream = ({
     // stack tooltip
     enableStackTooltip,
 }) => {
-    const stack = d3Stack()
-        .keys(keys)
-        .offset(stackOffsetFromProp(offsetType))
-        .order(stackOrderFromProp(order))
-
-    const layers = stack(data)
-
-    const minValue = stackMin(layers)
-    const maxValue = stackMax(layers)
-
-    const xScale = scalePoint().domain(range(data.length)).range([0, width])
-    const yScale = scaleLinear().domain([minValue, maxValue]).range([height, 0])
-
     const enhancedLayers = layers.map((points, i) => {
         const layer = points.map(([y1, y2], i) => ({
             index: i,
@@ -171,6 +158,10 @@ Stream.propTypes = {
     data: PropTypes.arrayOf(PropTypes.object).isRequired,
     keys: PropTypes.array.isRequired,
 
+    stack: PropTypes.func.isRequired,
+    xScale: PropTypes.func.isRequired,
+    yScale: PropTypes.func.isRequired,
+
     order: stackOrderPropType.isRequired,
     offsetType: stackOffsetPropType.isRequired,
     curve: areaCurvePropType.isRequired,
@@ -233,6 +224,24 @@ const enhance = compose(
     withPropsOnChange(['colors'], ({ colors }) => ({
         getColor: getColorRange(colors),
     })),
+    withPropsOnChange(['keys', 'offsetType', 'order'], ({ keys, offsetType, order }) => ({
+        stack: d3Stack()
+            .keys(keys)
+            .offset(stackOffsetFromProp(offsetType))
+            .order(stackOrderFromProp(order)),
+    })),
+    withPropsOnChange(['stack', 'data', 'width', 'height'], ({ stack, data, width, height }) => {
+        const layers = stack(data)
+
+        const minValue = stackMin(layers)
+        const maxValue = stackMax(layers)
+
+        return {
+            layers,
+            xScale: scalePoint().domain(range(data.length)).range([0, width]),
+            yScale: scaleLinear().domain([minValue, maxValue]).range([height, 0]),
+        }
+    }),
     pure
 )
 

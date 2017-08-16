@@ -8,10 +8,11 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
+import compose from 'recompose/compose'
 import pure from 'recompose/pure'
+import shouldUpdate from 'recompose/shouldUpdate'
 import { TransitionMotion, spring } from 'react-motion'
-import { motionPropTypes } from '../../props'
-import Nivo from '../../Nivo'
+import { withMotion } from '../../hocs'
 import AxisTick from './AxisTick'
 
 const center = scale => {
@@ -255,9 +256,6 @@ Axis.propTypes = {
     legendOffset: PropTypes.number.isRequired,
 
     theme: PropTypes.object.isRequired,
-
-    // motion
-    ...motionPropTypes,
 }
 
 Axis.defaultProps = {
@@ -268,11 +266,15 @@ Axis.defaultProps = {
     // legend
     legendPosition: 'end',
     legendOffset: 0,
-
-    // motion
-    animate: true,
-    motionStiffness: Nivo.defaults.motionStiffness,
-    motionDamping: Nivo.defaults.motionDamping,
 }
 
-export default pure(Axis)
+const enhance = compose(
+    withMotion(),
+    shouldUpdate((props, nextProps) => {
+        //console.log('=> scale', props.scale === nextProps.scale)
+        return true
+    }),
+    pure
+)
+
+export default enhance(Axis)
