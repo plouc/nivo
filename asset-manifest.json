@@ -1,8 +1,8 @@
 {
-  "main.css": "static/css/main.565b16cb.css",
-  "main.css.map": "static/css/main.565b16cb.css.map",
-  "main.js": "static/js/main.8977b62d.js",
-  "main.js.map": "static/js/main.8977b62d.js.map",
+  "main.css": "static/css/main.460febb1.css",
+  "main.css.map": "static/css/main.460febb1.css.map",
+  "main.js": "static/js/main.1846416a.js",
+  "main.js.map": "static/js/main.1846416a.js.map",
   "static/media/color-picker-panel-board-saturation.svg": "static/media/color-picker-panel-board-saturation.3d915d6f.svg",
   "static/media/color-picker-panel-board-value.svg": "static/media/color-picker-panel-board-value.b86e2b2e.svg",
   "static/media/color-picker-panel-ribbon.svg": "static/media/color-picker-panel-ribbon.faa01d71.svg",
@@ -12,6 +12,8 @@
   "static/media/nivo-chart-icon-chord-red.png": "static/media/nivo-chart-icon-chord-red.ee0032e7.png",
   "static/media/nivo-chart-icon-radar-grey.png": "static/media/nivo-chart-icon-radar-grey.29d6d5b9.png",
   "static/media/nivo-chart-icon-radar-red.png": "static/media/nivo-chart-icon-radar-red.0a419021.png",
+  "static/media/nivo-chart-icon-sunburst-grey.png": "static/media/nivo-chart-icon-sunburst-grey.7539086e.png",
+  "static/media/nivo-chart-icon-sunburst-red.png": "static/media/nivo-chart-icon-sunburst-red.5d9152c2.png",
   "static/media/react-logo-grey.png": "static/media/react-logo-grey.47d701aa.png",
   "static/media/react-logo-red.png": "static/media/react-logo-red.f43291e4.png"
 }
