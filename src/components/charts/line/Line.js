@@ -85,7 +85,7 @@ const Line = ({
     }
 
     return (
-        <Container isInteractive={isInteractive}>
+        <Container isInteractive={isInteractive} theme={theme}>
             {({ showTooltip, hideTooltip }) =>
                 <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
                     <Grid
@@ -116,6 +116,7 @@ const Line = ({
                             height={height}
                             showTooltip={showTooltip}
                             hideTooltip={hideTooltip}
+                            theme={theme}
                         />}
                     {enableMarkers &&
                         <LineMarkers

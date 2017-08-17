@@ -74,6 +74,7 @@ export const bubbleDefaultProps = {
     padding: 1,
 
     // theming
+    theme: {},
     colors: 'nivo',
     colorBy: 'depth',
 

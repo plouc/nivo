@@ -15,18 +15,13 @@ const containerStyle = {
 
 const tooltipStyle = {
     position: 'absolute',
-    background: '#FFF',
     zIndex: 10,
     top: 0,
     left: 0,
-    borderRadius: '2px',
-    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.25)',
-    padding: '5px 9px',
-    fontSize: '14px',
 }
 
-const Tooltip = ({ x, y, children }) =>
-    <div style={{ ...tooltipStyle, top: y, left: x }}>
+const Tooltip = ({ x, y, children, theme }) =>
+    <div style={{ ...tooltipStyle, top: y, left: x, ...theme.tooltip }}>
         {children}
     </div>
 
@@ -39,6 +34,7 @@ export default class Container extends Component {
     static propTypes = {
         children: PropTypes.func.isRequired,
         isInteractive: PropTypes.bool.isRequired,
+        theme: PropTypes.object.isRequired,
     }
 
     static defaultProps = {
@@ -69,7 +65,7 @@ export default class Container extends Component {
     }
 
     render() {
-        const { children, isInteractive } = this.props
+        const { children, isInteractive, theme } = this.props
         const { isTooltipVisible, tooltipContent, tooltipX, tooltipY } = this.state
 
         if (!isInteractive) return children(noop)
@@ -86,7 +82,7 @@ export default class Container extends Component {
                     hideTooltip: this.hideTooltip,
                 })}
                 {isTooltipVisible &&
-                    <Tooltip x={tooltipX} y={tooltipY}>
+                    <Tooltip x={tooltipX} y={tooltipY} theme={theme}>
                         {tooltipContent}
                     </Tooltip>}
             </div>

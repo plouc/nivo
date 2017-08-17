@@ -113,7 +113,7 @@ const Pie = ({
     arc.outerRadius(radius)
 
     return (
-        <Container isInteractive={isInteractive}>
+        <Container isInteractive={isInteractive} theme={theme}>
             {({ showTooltip, hideTooltip }) =>
                 <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
                     <Motion

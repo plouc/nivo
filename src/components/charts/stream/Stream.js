@@ -110,7 +110,7 @@ const Stream = ({
     }
 
     return (
-        <Container isInteractive={isInteractive}>
+        <Container isInteractive={isInteractive} theme={theme}>
             {({ showTooltip, hideTooltip }) =>
                 <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
                     <Grid
@@ -147,6 +147,7 @@ const Stream = ({
                             height={height}
                             showTooltip={showTooltip}
                             hideTooltip={hideTooltip}
+                            theme={theme}
                         />}
                 </SvgWrapper>}
         </Container>

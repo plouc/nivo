@@ -48,13 +48,17 @@ StreamSlicesItem.propTypes = {
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
     isHover: PropTypes.bool.isRequired,
+    theme: PropTypes.object.isRequired,
 }
 
 const enhance = compose(
     withState('isHover', 'setIsHover', false),
-    withPropsOnChange(['slice'], ({ slice }) => ({
+    withPropsOnChange(['slice', 'theme'], ({ slice, theme }) => ({
         tooltip: (
-            <TableTooltip rows={slice.stack.map(p => [<Chip color={p.color} />, p.id, p.value])} />
+            <TableTooltip
+                theme={theme}
+                rows={slice.stack.map(p => [<Chip color={p.color} />, p.id, p.value])}
+            />
         ),
     })),
     withHandlers({

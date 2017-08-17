@@ -83,7 +83,7 @@ const Bar = ({
     }
 
     return (
-        <Container isInteractive={isInteractive}>
+        <Container isInteractive={isInteractive} theme={theme}>
             {({ showTooltip, hideTooltip }) => {
                 let bars
                 if (animate === true) {

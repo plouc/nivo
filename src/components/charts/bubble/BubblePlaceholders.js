@@ -7,9 +7,10 @@
  * file that was distributed with this source code.
  */
 import React, { Component } from 'react'
+import { merge } from 'lodash'
 import { TransitionMotion, spring } from 'react-motion'
 import _ from 'lodash'
-import Nivo from '../../../Nivo'
+import Nivo, { defaultTheme } from '../../../Nivo'
 import { getColorsGenerator, extractRGB } from '../../../lib/colorUtils'
 import Container from '../Container'
 import BubbleHelper from '../../../lib/charts/bubble/BubbleHelper'
@@ -65,6 +66,7 @@ export default class BubblePlaceholders extends Component {
             identity: _identity,
             value: _value,
             padding,
+            theme: _theme,
             colors,
             colorBy,
             animate,
@@ -77,6 +79,7 @@ export default class BubblePlaceholders extends Component {
         const identity = convertGetter(_identity)
         const value = convertGetter(_value)
         const color = getColorsGenerator(colors, colorBy)
+        const theme = merge({}, defaultTheme, _theme)
 
         const margin = Object.assign({}, Nivo.defaults.margin, this.props.margin)
         const width = _width - margin.left - margin.right
@@ -124,7 +127,7 @@ export default class BubblePlaceholders extends Component {
 
         if (!animate) {
             return (
-                <Container isInteractive={isInteractive}>
+                <Container isInteractive={isInteractive} theme={theme}>
                     {({ showTooltip, hideTooltip }) =>
                         React.createElement(
                             wrapperTag,
@@ -154,7 +157,7 @@ export default class BubblePlaceholders extends Component {
         }
 
         return (
-            <Container isInteractive={isInteractive}>
+            <Container isInteractive={isInteractive} theme={theme}>
                 {({ showTooltip, hideTooltip }) =>
                     React.createElement(
                         wrapperTag,

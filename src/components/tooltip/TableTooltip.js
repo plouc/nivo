@@ -11,25 +11,20 @@ import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
 
 const tableStyle = {
-    fontSize: '14px',
     width: '100%',
     borderCollapse: 'collapse',
 }
 
-const cellStyle = {
-    padding: '3px 5px',
-}
-
-const TableTooltip = ({ rows }) => {
+const TableTooltip = ({ rows, theme }) => {
     if (!rows.length) return null
 
     return (
-        <table style={tableStyle}>
+        <table style={{ ...tableStyle, ...theme.tooltip.table }}>
             <tbody>
                 {rows.map((row, i) =>
                     <tr key={i}>
                         {row.map((column, j) =>
-                            <td key={j} style={cellStyle}>
+                            <td key={j} style={theme.tooltip.tableCell}>
                                 {column}
                             </td>
                         )}
@@ -42,6 +37,7 @@ const TableTooltip = ({ rows }) => {
 
 TableTooltip.propTypes = {
     rows: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.node)).isRequired,
+    theme: PropTypes.object.isRequired,
 }
 
 TableTooltip.defaultProps = {}

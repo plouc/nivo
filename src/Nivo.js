@@ -41,6 +41,20 @@ export const defaultTheme = {
         textColor: '#000',
         fontSize: '11px',
     },
+    tooltip: {
+        background: 'white',
+        color: 'inherit',
+        fontSize: 'inherit',
+        borderRadius: '2px',
+        boxShadow: '0 1px 2px rgba(0, 0, 0, 0.25)',
+        padding: '5px 9px',
+        table: {
+            fontSize: 'inherit',
+        },
+        tableCell: {
+            padding: '3px 5px',
+        },
+    },
 }
 
 export default {

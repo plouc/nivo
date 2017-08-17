@@ -14,7 +14,7 @@ import pure from 'recompose/pure'
 import { chord as d3Chord, ribbon as Ribbon } from 'd3-chord'
 import { arc as Arc } from 'd3-shape'
 import { rgb } from 'd3-color'
-import { withDimensions } from '../../../hocs'
+import { withTheme, withDimensions } from '../../../hocs'
 import { getColorRange } from '../../../lib/colorUtils'
 import Container from '../Container'
 import SvgWrapper from '../SvgWrapper'
@@ -38,6 +38,7 @@ const Chord = ({
     arcBorderWidth,
 
     // theming
+    theme,
     colors,
 
     // interactivity
@@ -62,7 +63,7 @@ const Chord = ({
     const arcs = ribbons.groups
 
     return (
-        <Container isInteractive={isInteractive}>
+        <Container isInteractive={isInteractive} theme={theme}>
             {({ showTooltip, hideTooltip }) => {
                 return (
                     <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
@@ -144,6 +145,6 @@ export const ChordDefaultProps = {
     isInteractive: true,
 }
 
-const enhance = compose(defaultProps(ChordDefaultProps), withDimensions(), pure)
+const enhance = compose(defaultProps(ChordDefaultProps), withTheme(), withDimensions(), pure)
 
 export default enhance(Chord)
