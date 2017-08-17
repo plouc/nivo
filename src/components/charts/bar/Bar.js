@@ -12,10 +12,12 @@ import { merge } from 'lodash'
 import { TransitionMotion, spring } from 'react-motion'
 import compose from 'recompose/compose'
 import defaultProps from 'recompose/defaultProps'
+import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
 import { withTheme, withColors, withDimensions, withMotion } from '../../../hocs'
 import { getInheritedColorGenerator } from '../../../lib/colorUtils'
 import { generateGroupedBars, generateStackedBars } from '../../../lib/charts/bar'
+import { getAccessorFor } from '../../../lib/propertiesConverters'
 import Container from '../Container'
 import SvgWrapper from '../SvgWrapper'
 import Axes from '../../axes/Axes'
@@ -25,7 +27,11 @@ import BarItemLabel from './BarItemLabel'
 
 const Bar = ({
     data,
+    getIndex,
+    keys,
+
     groupMode,
+    layout,
 
     margin,
     width,
@@ -44,8 +50,8 @@ const Bar = ({
 
     // labels
     enableLabels,
-    labelsLinkColor: _labelsLinkColor,
-    labelsTextColor: _labelsTextColor,
+    getLabelsLinkColor,
+    getLabelsTextColor,
 
     // theming
     theme,
@@ -59,9 +65,6 @@ const Bar = ({
     // interactivity
     isInteractive,
 }) => {
-    const labelsLinkColor = getInheritedColorGenerator(_labelsLinkColor, 'axis.tickColor')
-    const labelsTextColor = getInheritedColorGenerator(_labelsTextColor, 'axis.textColor')
-
     const motionProps = {
         animate,
         motionDamping,
@@ -70,11 +73,11 @@ const Bar = ({
 
     let result
     if (groupMode === 'grouped') {
-        result = generateGroupedBars(data, width, height, getColor, {
+        result = generateGroupedBars(layout, data, getIndex, keys, width, height, getColor, {
             xPadding,
         })
     } else if (groupMode === 'stacked') {
-        result = generateStackedBars(data, width, height, getColor, {
+        result = generateStackedBars(layout, data, getIndex, keys, width, height, getColor, {
             xPadding,
         })
     }
@@ -151,9 +154,8 @@ const Bar = ({
                             result.bars.map(d =>
                                 <BarItemLabel
                                     {...d}
-                                    key={d.key}
-                                    linkColor={labelsLinkColor(d, theme)}
-                                    textColor={labelsTextColor(d, theme)}
+                                    textColor={getLabelsTextColor(d, theme)}
+                                    linkColor={getLabelsLinkColor(d, theme)}
                                 />
                             )}
                     </SvgWrapper>
@@ -165,19 +167,13 @@ const Bar = ({
 
 Bar.propTypes = {
     // data
-    data: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            data: PropTypes.arrayOf(
-                PropTypes.shape({
-                    x: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-                    y: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-                })
-            ).isRequired,
-        })
-    ).isRequired,
+    data: PropTypes.arrayOf(PropTypes.object).isRequired,
+    indexBy: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    getIndex: PropTypes.func.isRequired, // computed
+    keys: PropTypes.arrayOf(PropTypes.string).isRequired,
 
     groupMode: PropTypes.oneOf(['stacked', 'grouped']).isRequired,
+    layout: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
 
     xPadding: PropTypes.number.isRequired,
 
@@ -192,6 +188,9 @@ Bar.propTypes = {
     // labels
     enableLabels: PropTypes.bool.isRequired,
     labelsTextColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    getLabelsTextColor: PropTypes.func.isRequired, // computed
+    labelsLinkColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    getLabelsLinkColor: PropTypes.func.isRequired, // computed
 
     // interactions
     onClick: PropTypes.func,
@@ -204,7 +203,12 @@ Bar.propTypes = {
 }
 
 export const BarDefaultProps = {
+    indexBy: 'id',
+    keys: ['value'],
+
     groupMode: 'stacked',
+    layout: 'vertical',
+
     xPadding: 0.1,
 
     // axes & grid
@@ -227,9 +231,18 @@ Bar.defaultProps = BarDefaultProps
 const enhance = compose(
     defaultProps(BarDefaultProps),
     withTheme(),
-    withColors({ defaultColorBy: 'serie.id' }),
+    withColors(),
     withDimensions(),
     withMotion(),
+    withPropsOnChange(['indexBy'], ({ indexBy }) => ({
+        getIndex: getAccessorFor(indexBy),
+    })),
+    withPropsOnChange(['labelsTextColor'], ({ labelsTextColor }) => ({
+        getLabelsTextColor: getInheritedColorGenerator(labelsTextColor, 'axis.textColor'),
+    })),
+    withPropsOnChange(['labelsLinkColor'], ({ labelsLinkColor }) => ({
+        getLabelsLinkColor: getInheritedColorGenerator(labelsLinkColor, 'axis.tickColor'),
+    })),
     pure
 )
 

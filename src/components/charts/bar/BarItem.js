@@ -11,23 +11,12 @@ import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
 import BasicTooltip from '../../tooltip/BasicTooltip'
 
-const BarItem = ({
-    serie,
-    xValue,
-    yValue,
-    x,
-    y,
-    width,
-    height,
-    color,
-    showTooltip,
-    hideTooltip,
-}) => {
+const BarItem = ({ data, x, y, width, height, color, showTooltip, hideTooltip }) => {
     const handleTooltip = e =>
         showTooltip(
             <BasicTooltip
-                id={`${serie.id} - ${xValue}`}
-                value={yValue}
+                id={`${data.id} - ${data.indexValue}`}
+                value={data.value}
                 enableChip={true}
                 color={color}
             />,
@@ -52,12 +41,16 @@ const BarItem = ({
 }
 
 BarItem.propTypes = {
-    //value:  PropTypes.number.isRequired,
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
     color: PropTypes.string.isRequired,
+    data: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        value: PropTypes.number.isRequired,
+        indexValue: PropTypes.string.isRequired,
+    }).isRequired,
 
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,

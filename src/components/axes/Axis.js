@@ -244,10 +244,7 @@ const Axis = ({
     }
 
     return (
-        <g
-            className={`nivo__axis nivo__axis--${_position}  nivo__axis--orient-${orient}`}
-            transform={`translate(${x},${y})`}
-        >
+        <g transform={`translate(${x},${y})`}>
             {legend}
             {tickElements}
         </g>
