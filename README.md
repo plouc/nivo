@@ -68,12 +68,14 @@ Several libraries already exist for React d3 integration, but just a few provide
 
 ## [HTTP API](https://github.com/plouc/nivo-api)
 
-- [`<Bar />`](https://nivo-api.herokuapp.com/samples/bar)
-- [`<Bubble />`](https://nivo-api.herokuapp.com/samples/bubble)
-- [`<Chord />`](https://nivo-api.herokuapp.com/samples/chord)
-- [`<Line />`](https://nivo-api.herokuapp.com/samples/line)
-- [`<Pie />`](https://nivo-api.herokuapp.com/samples/pie)
-- [`<TreeMap />`](https://nivo-api.herokuapp.com/samples/treemap)
+- [`<Bar />`](https://nivo-api.herokuapp.com/samples/bar.svg)
+- [`<Bubble />`](https://nivo-api.herokuapp.com/samples/bubble.svg)
+- [`<Chord />`](https://nivo-api.herokuapp.com/samples/chord.svg)
+- [`<Line />`](https://nivo-api.herokuapp.com/samples/line.svg)
+- [`<Pie />`](https://nivo-api.herokuapp.com/samples/pie.svg)
+- [`<Radar />`](https://nivo-api.herokuapp.com/samples/radar.svg)
+- [`<Sunburst />`](https://nivo-api.herokuapp.com/samples/sunburst.svg)
+- [`<TreeMap />`](https://nivo-api.herokuapp.com/samples/treemap.svg)
 
 ## Guides
     
