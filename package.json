@@ -1,6 +1,6 @@
 {
   "name": "nivo",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "licenses": [
     {
       "type": "MIT",
@@ -85,7 +85,7 @@
     "build:commonjs:watch": "npm run build:commonjs -- --watch",
     "build:es": "cross-env NODE_ENV=es babel src --out-dir es",
     "build:es:watch": "npm run build:es -- --watch",
-    "build": "npm run build:commonjs && npm run build:es",
+    "build": "rm -rf es && rm -rf lib && npm run build:commonjs && npm run build:es",
     "fmt": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --color --write \"{src,specs,test,.storybook,stories}/**/*.js\"",
     "fmt:check": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --list-different \"{src,specs,test,.storybook,stories}/**/*.js\"",
     "version": "echo ${npm_package_version}",
