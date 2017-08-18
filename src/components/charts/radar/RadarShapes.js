@@ -21,6 +21,8 @@ import { lineRadial } from 'd3-shape'
 
 const RadarShapes = ({
     data,
+    keys,
+    colorByKey,
     lineGenerator,
 
     // border
@@ -38,19 +40,16 @@ const RadarShapes = ({
     if (animate !== true) {
         return (
             <g>
-                {data.map(serie => {
-                    const { id, color, data: serieData } = serie
-
+                {keys.map(key => {
                     return (
-                        <g key={id}>
-                            <path
-                                d={lineGenerator(serieData)}
-                                fill={color}
-                                fillOpacity={fillOpacity}
-                                stroke={borderColor(serie)}
-                                strokeWidth={borderWidth}
-                            />
-                        </g>
+                        <path
+                            key={key}
+                            d={lineGenerator(data.map(d => d[key]))}
+                            fill={colorByKey[key]}
+                            fillOpacity={fillOpacity}
+                            stroke={borderColor({ key, color: colorByKey[key] })}
+                            strokeWidth={borderWidth}
+                        />
                     )
                 })}
             </g>
@@ -64,16 +63,17 @@ const RadarShapes = ({
 
     return (
         <g>
-            {data.map(serie => {
-                const { id, color, data: serieData } = serie
-
+            {keys.map(key => {
                 return (
                     <SmartMotion
-                        key={id}
+                        key={key}
                         style={spring => ({
-                            d: spring(lineGenerator(serieData), springConfig),
-                            fill: spring(color, springConfig),
-                            stroke: spring(borderColor(serie), springConfig),
+                            d: spring(lineGenerator(data.map(d => d[key])), springConfig),
+                            fill: spring(colorByKey[key], springConfig),
+                            stroke: spring(
+                                borderColor({ key, color: colorByKey[key] }),
+                                springConfig
+                            ),
                         })}
                     >
                         {style =>
@@ -87,12 +87,9 @@ const RadarShapes = ({
 
 RadarShapes.propTypes = {
     // data
-    data: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            data: PropTypes.arrayOf(PropTypes.number).isRequired,
-        })
-    ).isRequired,
+    data: PropTypes.arrayOf(PropTypes.object).isRequired,
+    keys: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
+    colorByKey: PropTypes.object.isRequired,
 
     radiusScale: PropTypes.func.isRequired,
     angleStep: PropTypes.number.isRequired,

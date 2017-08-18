@@ -4057,9 +4057,9 @@ negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
-nivo-generators@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/nivo-generators/-/nivo-generators-0.4.0.tgz#31e3296064a259c0c5588b59c09c560b495f5f2e"
+nivo-generators@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/nivo-generators/-/nivo-generators-0.6.0.tgz#ff7dfad1b7583947ed0a1699a99408286507149d"
   dependencies:
     d3-time "^1.0.7"
     d3-time-format "^2.0.5"

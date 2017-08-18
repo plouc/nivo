@@ -23,7 +23,7 @@ const textAnchorFromAngle = _angle => {
 const RadarGridLabels = ({
     radius,
     angles,
-    facets,
+    indices,
     labelOffset,
 
     theme,
@@ -38,13 +38,13 @@ const RadarGridLabels = ({
         motionStiffness,
     }
 
-    const labels = facets.map((facet, i) => {
+    const labels = indices.map((index, i) => {
         const position = positionFromAngle(angles[i], radius + labelOffset)
         const textAnchor = textAnchorFromAngle(angles[i])
 
         return {
             key: `label.${i}`,
-            label: facet,
+            label: index,
             textAnchor,
             ...position,
         }
@@ -108,7 +108,8 @@ RadarGridLabels.propTypes = {
     radius: PropTypes.number.isRequired,
     angles: PropTypes.arrayOf(PropTypes.number).isRequired,
 
-    facets: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
+    indices: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
+        .isRequired,
     labelOffset: PropTypes.number.isRequired,
 
     theme: PropTypes.object.isRequired,

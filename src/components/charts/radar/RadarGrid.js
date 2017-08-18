@@ -18,7 +18,7 @@ import RadialGridLabels from './RadarGridLabels'
 import RadarGridLevels from './RadarGridLevels'
 
 const RadarGrid = ({
-    facets,
+    indices,
     shape,
     radius,
     radii,
@@ -58,14 +58,14 @@ const RadarGrid = ({
                 shape={shape}
                 radii={radii}
                 angleStep={angleStep}
-                dataLength={facets.length}
+                dataLength={indices.length}
                 theme={theme}
                 {...motionProps}
             />
             <RadialGridLabels
                 radius={radius}
                 angles={angles}
-                facets={facets}
+                indices={indices}
                 labelOffset={labelOffset}
                 theme={theme}
                 {...motionProps}
@@ -75,7 +75,8 @@ const RadarGrid = ({
 }
 
 RadarGrid.propTypes = {
-    facets: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
+    indices: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
+        .isRequired,
     shape: PropTypes.oneOf(['circular', 'linear']).isRequired,
     radius: PropTypes.number.isRequired,
     angleStep: PropTypes.number.isRequired,
@@ -89,9 +90,9 @@ RadarGrid.propTypes = {
 }
 
 const enhance = compose(
-    withPropsOnChange(['facets', 'levels', 'radius', 'angleStep'], props => ({
+    withPropsOnChange(['indices', 'levels', 'radius', 'angleStep'], props => ({
         radii: range(props.levels).map(i => props.radius / props.levels * (i + 1)).reverse(),
-        angles: range(props.facets.length).map(i => i * props.angleStep - Math.PI / 2),
+        angles: range(props.indices.length).map(i => i * props.angleStep - Math.PI / 2),
     })),
     pure
 )

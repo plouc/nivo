@@ -64,7 +64,7 @@
     "jest": "^20.0.4",
     "lint-staged": "^4.0.2",
     "mocha": "^3.5.0",
-    "nivo-generators": "^0.4.0",
+    "nivo-generators": "^0.6.0",
     "prettier": "^1.5.3",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",

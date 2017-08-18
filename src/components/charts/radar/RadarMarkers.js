@@ -17,15 +17,13 @@ import MarkersItem from '../../markers/MarkersItem'
 
 export default class RadarMarkers extends Component {
     static propTypes = {
-        facets: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
+        data: PropTypes.arrayOf(PropTypes.object).isRequired,
+        keys: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
             .isRequired,
-        data: PropTypes.arrayOf(
-            PropTypes.shape({
-                id: PropTypes.string.isRequired,
-                color: PropTypes.string.isRequired,
-                data: PropTypes.arrayOf(PropTypes.number).isRequired,
-            })
-        ),
+        getIndex: PropTypes.func.isRequired,
+
+        colorByKey: PropTypes.object.isRequired,
+
         radiusScale: PropTypes.func.isRequired,
         angleStep: PropTypes.number.isRequired,
         size: PropTypes.number.isRequired,
@@ -63,8 +61,12 @@ export default class RadarMarkers extends Component {
 
     render() {
         const {
-            facets,
             data,
+            keys,
+            getIndex,
+
+            colorByKey,
+
             radiusScale,
             angleStep,
             size,
@@ -91,24 +93,28 @@ export default class RadarMarkers extends Component {
         const strokeColor = getInheritedColorGenerator(borderColor)
         const getLabel = getLabelGenerator(label, labelFormat)
 
-        const points = data.reduce((acc, serie) => {
-            const { id, data: serieData } = serie
+        const points = data.reduce((acc, datum, i) => {
+            const index = getIndex(datum)
+            keys.forEach(key => {
+                const pointData = {
+                    index,
+                    key,
+                    value: datum[key],
+                    color: colorByKey[key],
+                }
+                acc.push({
+                    key: `${key}.${index}`,
+                    label: enableLabel ? getLabel(pointData) : null,
+                    style: {
+                        fill: fillColor(pointData),
+                        stroke: strokeColor(pointData),
+                        ...positionFromAngle(angleStep * i - Math.PI / 2, radiusScale(datum[key])),
+                    },
+                    data: pointData,
+                })
+            })
 
-            return [
-                ...acc,
-                ...serieData.map((d, i) => {
-                    const pointData = { value: d, serie, facet: facets[i] }
-
-                    return {
-                        key: `${id}.${i}`,
-                        fill: fillColor(serie),
-                        stroke: strokeColor(serie),
-                        ...positionFromAngle(angleStep * i - Math.PI / 2, radiusScale(d)),
-                        ...pointData,
-                        label: enableLabel ? getLabel(pointData) : null,
-                    }
-                }),
-            ]
+            return acc
         }, [])
 
         if (animate !== true) {
@@ -117,12 +123,12 @@ export default class RadarMarkers extends Component {
                     {points.map(point =>
                         <MarkersItem
                             key={point.key}
-                            x={point.x}
-                            y={point.y}
+                            x={point.style.x}
+                            y={point.style.y}
                             size={size}
-                            color={point.fill}
+                            color={point.style.fill}
                             borderWidth={borderWidth}
-                            borderColor={point.stroke}
+                            borderColor={point.style.stroke}
                             label={point.label}
                             labelYOffset={labelYOffset}
                             theme={theme}
@@ -143,8 +149,8 @@ export default class RadarMarkers extends Component {
                     key: point.key,
                     data: point,
                     style: {
-                        x: spring(point.x, springConfig),
-                        y: spring(point.y, springConfig),
+                        x: spring(point.style.x, springConfig),
+                        y: spring(point.style.y, springConfig),
                         size: spring(size, springConfig),
                     },
                 }))}
@@ -155,9 +161,9 @@ export default class RadarMarkers extends Component {
                             <MarkersItem
                                 key={key}
                                 {...style}
-                                color={point.fill}
+                                color={point.style.fill}
                                 borderWidth={borderWidth}
-                                borderColor={point.stroke}
+                                borderColor={point.style.stroke}
                                 label={point.label}
                                 labelYOffset={labelYOffset}
                                 theme={theme}

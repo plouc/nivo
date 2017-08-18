@@ -9,6 +9,10 @@
 import { max, isEqual, merge } from 'lodash'
 import React from 'react'
 import PropTypes from 'prop-types'
+import compose from 'recompose/compose'
+import pure from 'recompose/pure'
+import withPropsOnChange from 'recompose/withPropsOnChange'
+import defaultProps from 'recompose/defaultProps'
 import { closedCurvePropType } from '../../../props'
 import { withTheme, withColors, withCurve, withDimensions, withMotion } from '../../../hocs'
 import SvgWrapper from '../SvgWrapper'
@@ -16,14 +20,13 @@ import { scaleLinear } from 'd3-scale'
 import RadarShapes from './RadarShapes'
 import RadarGrid from './RadarGrid'
 import RadarMarkers from './RadarMarkers'
-import compose from 'recompose/compose'
-import pure from 'recompose/pure'
-import withPropsOnChange from 'recompose/withPropsOnChange'
-import defaultProps from 'recompose/defaultProps'
+import { getAccessorFor } from '../../../lib/propertiesConverters'
 
 const Radar = ({
-    facets,
     data,
+    keys,
+    getIndex,
+    indices,
 
     curveInterpolator,
 
@@ -61,6 +64,7 @@ const Radar = ({
     // theming
     theme,
     fillOpacity,
+    colorByKey,
 
     // motion
     animate,
@@ -85,12 +89,14 @@ const Radar = ({
                     radius={radius}
                     angleStep={angleStep}
                     theme={theme}
-                    facets={facets}
+                    indices={indices}
                     labelOffset={gridLabelOffset}
                     {...motionProps}
                 />
                 <RadarShapes
                     data={data}
+                    keys={keys}
+                    colorByKey={colorByKey}
                     radiusScale={radiusScale}
                     angleStep={angleStep}
                     curveInterpolator={curveInterpolator}
@@ -101,11 +107,13 @@ const Radar = ({
                 />
                 {enableMarkers &&
                     <RadarMarkers
-                        facets={facets}
                         data={data}
+                        keys={keys}
+                        getIndex={getIndex}
                         radiusScale={radiusScale}
                         angleStep={angleStep}
                         size={markersSize}
+                        colorByKey={colorByKey}
                         color={markersColor}
                         borderWidth={markersBorderWidth}
                         borderColor={markersBorderColor}
@@ -123,16 +131,15 @@ const Radar = ({
 
 Radar.propTypes = {
     // data
-    facets: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
-    data: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            data: PropTypes.arrayOf(PropTypes.number).isRequired,
-        })
-    ).isRequired,
+    data: PropTypes.arrayOf(PropTypes.object).isRequired,
+    keys: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
+    indexBy: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]).isRequired,
+    getIndex: PropTypes.func.isRequired, // computed
+    indices: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
+        .isRequired, // computed
 
     curve: closedCurvePropType.isRequired,
-    curveInterpolator: PropTypes.func.isRequired,
+    curveInterpolator: PropTypes.func.isRequired, // computed
 
     // border
     borderWidth: PropTypes.number.isRequired,
@@ -155,9 +162,11 @@ Radar.propTypes = {
     markersLabelYOffset: PropTypes.number,
 
     // theming
-    getColor: PropTypes.func.isRequired,
+    getColor: PropTypes.func.isRequired, // computed
+    colorByKey: PropTypes.object.isRequired, // computed
     fillOpacity: PropTypes.number.isRequired,
 
+    // interactivity
     isInteractive: PropTypes.bool.isRequired,
 }
 
@@ -186,30 +195,44 @@ export const RadarDefaultProps = {
 const enhance = compose(
     defaultProps(RadarDefaultProps),
     withTheme(),
-    withColors(),
+    withColors({
+        defaultColorBy: 'key',
+    }),
     withCurve(),
     withDimensions(),
     withMotion(),
+    withPropsOnChange(['indexBy'], ({ indexBy }) => ({
+        getIndex: getAccessorFor(indexBy),
+    })),
+    withPropsOnChange(['data', 'getIndex'], ({ data, getIndex }) => ({
+        indices: data.map(getIndex),
+    })),
+    withPropsOnChange(['keys', 'getColor'], ({ keys, getColor }) => ({
+        colorByKey: keys.reduce((mapping, key, index) => {
+            mapping[key] = getColor({ key, index })
+            return mapping
+        }, {}),
+    })),
     withPropsOnChange(
         (props, nextProps) =>
-            props.facets !== nextProps.facets ||
+            props.keys !== nextProps.keys ||
+            props.indexBy !== nextProps.indexBy ||
             props.data !== nextProps.data ||
             props.width !== nextProps.width ||
-            props.height !== nextProps.height ||
-            props.getColor !== nextProps.getColor,
-        ({ facets, data, getColor, width, height }) => {
-            const maxValue = max(data.reduce((acc, serie) => [...acc, ...serie.data], []))
+            props.height !== nextProps.height,
+        ({ data, keys, width, height }) => {
+            const maxValue = max(data.reduce((acc, d) => [...acc, ...keys.map(key => d[key])], []))
 
             const radius = Math.min(width, height) / 2
             const radiusScale = scaleLinear().range([0, radius]).domain([0, maxValue])
 
             return {
-                data: data.map(d => Object.assign({}, d, { color: getColor(d) })),
+                data,
                 radius,
                 radiusScale,
                 centerX: width / 2,
                 centerY: height / 2,
-                angleStep: Math.PI * 2 / facets.length,
+                angleStep: Math.PI * 2 / data.length,
             }
         }
     ),

@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, select } from '@storybook/addon-knobs'
-import { generateSerie, randColor } from 'nivo-generators'
+import { generateWinesTastes } from 'nivo-generators'
 import '../style.css'
 import { Radar } from '../../src'
 
@@ -9,13 +9,8 @@ const commonProperties = {
     width: 600,
     height: 600,
     margin: { top: 80, right: 80, bottom: 80, left: 80 },
-    facets: ['fruity', 'bitter', 'heavy', 'strong', 'sunny'],
-    //colors: 'nivo',
-    data: ['chardonay', 'carmenere', 'syrah'].map(id => ({
-        id,
-        color: randColor(),
-        data: generateSerie(5),
-    })),
+    ...generateWinesTastes(),
+    indexBy: 'taste',
     animate: true,
 }
 
