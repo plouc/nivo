@@ -22,7 +22,6 @@ const createNodes = ({
     labelFormat,
     labelSkipRadius,
     labelTextColor,
-    labelTextDY,
 }) => {
     const label = getLabelGenerator(_label, labelFormat)
     const borderColorFn = getColorGenerator(borderColor)
@@ -47,7 +46,6 @@ const createNodes = ({
                 <circle
                     key={`${node.key}.circle`}
                     r={node.style.r}
-                    className="nivo_bubble_node"
                     transform={`translate(${node.style.x},${node.style.y})`}
                     onMouseEnter={handleTooltip}
                     onMouseMove={handleTooltip}
@@ -73,10 +71,9 @@ const createNodes = ({
                     renderedNodes.push(
                         <text
                             key={`${node.key}.text`}
-                            className="nivo_bubble_legend"
                             transform={`translate(${node.style.x},${node.style.y})`}
-                            textAnchor={'middle'}
-                            dy={labelTextDY}
+                            textAnchor="middle"
+                            alignmentBaseline="central"
                             style={{
                                 fill: textColorFn(node.style),
                                 pointerEvents: 'none',

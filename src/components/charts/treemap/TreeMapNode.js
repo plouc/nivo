@@ -42,7 +42,7 @@ const TreeMapNode = ({
         {hasLabel &&
             <text
                 textAnchor="middle"
-                dy="0.5em"
+                alignmentBaseline="central"
                 style={{ fill: labelTextColor, pointerEvents: 'none' }}
                 transform={`translate(${width / 2},${height / 2}) rotate(${labelRotation})`}
             >
