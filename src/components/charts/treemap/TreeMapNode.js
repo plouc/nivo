@@ -11,6 +11,7 @@ import PropTypes from 'prop-types'
 import compose from 'recompose/compose'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
+import BasicTooltip from '../../tooltip/BasicTooltip'
 
 const TreeMapNode = ({
     x,
@@ -24,6 +25,8 @@ const TreeMapNode = ({
     label,
     labelRotation,
     labelTextColor,
+    showTooltip,
+    hideTooltip,
 }) =>
     <g transform={`translate(${x},${y})`}>
         <rect
@@ -32,7 +35,9 @@ const TreeMapNode = ({
             fill={color}
             strokeWidth={borderWidth}
             stroke={borderColor}
-            //onMouseEnter={e => showTooltip('crap', e)}
+            onMouseEnter={showTooltip}
+            onMouseMove={showTooltip}
+            onMouseLeave={hideTooltip}
         />
         {hasLabel &&
             <text
@@ -46,6 +51,10 @@ const TreeMapNode = ({
     </g>
 
 TreeMapNode.propTypes = {
+    id: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
+    dataColor: PropTypes.string.isRequired,
+
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
     width: PropTypes.number.isRequired,
@@ -69,6 +78,18 @@ const enhance = compose(
     withPropsOnChange(['orientLabel', 'width', 'height'], ({ orientLabel, width, height }) => ({
         labelRotation: orientLabel && height > width ? -90 : 0,
     })),
+    withPropsOnChange(
+        ['id', 'value', 'dataColor', 'showTooltip'],
+        ({ id, value, dataColor, showTooltip }) => {
+            const tooltip = (
+                <BasicTooltip id={id} value={value} enableChip={true} color={dataColor} />
+            )
+
+            return {
+                showTooltip: e => showTooltip(tooltip, e),
+            }
+        }
+    ),
     pure
 )
 

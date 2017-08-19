@@ -12,8 +12,9 @@ import { TransitionMotion, spring } from 'react-motion'
 import compose from 'recompose/compose'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
-import { computeTreeMap } from '../../../lib/charts/treemap/TreeMapHelper'
+import { treemap } from 'd3-hierarchy'
 import { getAccessorFor } from '../../../lib/propertiesConverters'
+import { treeMapTileFromProp } from '../../../props'
 import { treeMapPropTypes, treeMapDefaultProps } from './TreeMapProps'
 import { withHierarchy, withDimensions, withTheme, withColors, withMotion } from '../../../hocs'
 import { extractRGB } from '../../../lib/colorUtils'
@@ -38,16 +39,12 @@ const TreeMapPlaceholders = ({
 
     namespace,
 
-    width,
-    height,
     margin,
     outerWidth,
     outerHeight,
 
-    tile,
+    treemap,
     leavesOnly,
-    innerPadding,
-    outerPadding,
 
     // motion
     animate,
@@ -93,16 +90,18 @@ const TreeMapPlaceholders = ({
         }
     }
 
-    const nodes = computeTreeMap({
-        width,
-        height,
-        root,
-        tile,
-        leavesOnly,
-        innerPadding,
-        outerPadding,
-        getIdentity,
-        getColor,
+    treemap(root)
+
+    let nodes = leavesOnly ? root.leaves() : root.descendants()
+    nodes = nodes.map(d => {
+        d.color = getColor({ ...d.data, depth: d.depth })
+
+        d.data.id = getIdentity(d.data)
+        d.data.value = d.value
+        d.data.color = d.color
+        d.data.key = d.ancestors().map(a => getIdentity(a.data)).join('.')
+
+        return d
     })
 
     return (
@@ -221,6 +220,17 @@ const enhance = compose(
     withPropsOnChange(['identity'], ({ identity }) => ({
         getIdentity: getAccessorFor(identity),
     })),
+    withPropsOnChange(
+        ['width', 'height', 'tile', 'innerPadding', 'outerPadding'],
+        ({ width, height, tile, innerPadding, outerPadding }) => ({
+            treemap: treemap()
+                .size([width, height])
+                .tile(treeMapTileFromProp(tile))
+                .round(true)
+                .paddingInner(innerPadding)
+                .paddingOuter(outerPadding),
+        })
+    ),
     pure
 )
 

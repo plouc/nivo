@@ -29,3 +29,4 @@ export const motionPropTypes = {
 
 export * from './curve'
 export * from './stack'
+export * from './treeMap'

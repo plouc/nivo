@@ -13,10 +13,10 @@ import _ from 'lodash'
 import compose from 'recompose/compose'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
+import { pack } from 'd3-hierarchy'
 import { withHierarchy, withTheme, withColors, withDimensions, withMotion } from '../../../hocs'
 import { extractRGB } from '../../../lib/colorUtils'
 import Container from '../Container'
-import { computeBubble } from '../../../lib/charts/bubble/BubbleHelper'
 import { getAccessorFor } from '../../../lib/propertiesConverters'
 import { bubblePropTypes, bubbleDefaultProps } from './BubbleProps'
 
@@ -53,8 +53,7 @@ const BubblePlaceholders = ({
     leavesOnly,
     namespace,
 
-    width,
-    height,
+    pack,
     margin,
     outerWidth,
     outerHeight,
@@ -71,14 +70,20 @@ const BubblePlaceholders = ({
     children,
     isInteractive,
 }) => {
-    const nodes = computeBubble({
-        width,
-        height,
-        root,
-        leavesOnly,
-        getIdentity,
-        padding,
-        getColor,
+    pack(root)
+
+    let nodes = leavesOnly ? root.leaves() : root.descendants()
+    nodes = nodes.map(d => {
+        d.color = getColor({ ...d.data, depth: d.depth })
+        // if (d.depth > 1) {
+        //     d.color = color(d.parentId)
+        // } else {
+        //     d.color = color(identity(d.data))
+        // }
+
+        d.data.key = d.ancestors().map(a => getIdentity(a.data)).join('.')
+
+        return d
     })
 
     let wrapperTag
@@ -196,11 +201,12 @@ const enhance = compose(
     withDimensions(),
     withTheme(),
     withMotion(),
-    withColors({
-        defaultColorBy: 'depth',
-    }),
+    withColors({ defaultColorBy: 'depth' }),
     withPropsOnChange(['identity'], ({ identity }) => ({
         getIdentity: getAccessorFor(identity),
+    })),
+    withPropsOnChange(['width', 'height', 'padding'], ({ width, height, padding }) => ({
+        pack: pack().size([width, height]).padding(padding),
     })),
     pure
 )

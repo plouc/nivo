@@ -8,13 +8,8 @@
  */
 import PropTypes from 'prop-types'
 import Nivo from '../../../Nivo'
-import { tilingMethods } from '../../../lib/charts/treemap/TreeMapD3'
+import { treeMapTilePropType } from '../../../props'
 
-/**
- * TreeMap components propTypes.
- *
- * @type {object}
- */
 export const treeMapPropTypes = {
     // data
     // `root` managed by `withHierarchy()` HOC
@@ -23,7 +18,7 @@ export const treeMapPropTypes = {
     // dimensions managed by `withDimensions()` HOC
 
     leavesOnly: PropTypes.bool.isRequired,
-    tile: PropTypes.oneOf(Object.keys(tilingMethods)),
+    tile: treeMapTilePropType.isRequired,
 
     innerPadding: PropTypes.number.isRequired,
     outerPadding: PropTypes.number.isRequired,
@@ -51,11 +46,6 @@ export const treeMapPropTypes = {
     children: PropTypes.func.isRequired,
 }
 
-/**
- * TreeMap components defaultProps.
- *
- * @type {object}
- */
 export const treeMapDefaultProps = {
     // data
     identity: 'id',

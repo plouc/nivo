@@ -34,6 +34,9 @@ const createNodesRenderer = ({
         return (
             <TreeMapNode
                 key={node.key}
+                id={node.data.id}
+                value={node.data.value}
+                dataColor={node.data.color}
                 {...node.style}
                 borderWidth={borderWidth}
                 borderColor={getBorderColor({ ...node.data, color: node.style.color })}

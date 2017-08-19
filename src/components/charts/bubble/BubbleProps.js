@@ -10,11 +10,6 @@ import PropTypes from 'prop-types'
 import Nivo from '../../../Nivo'
 import { marginPropType, motionPropTypes } from '../../../props'
 
-/**
- * Bubble components propTypes.
- *
- * @type {object}
- */
 export const bubblePropTypes = {
     // data
     // `root` managed by `withHierarchy()` HOC
@@ -53,11 +48,6 @@ export const bubblePropTypes = {
     isInteractive: PropTypes.bool.isRequired,
 }
 
-/**
- * Bubble components defaultProps.
- *
- * @type {object}
- */
 export const bubbleDefaultProps = {
     // data
     identity: 'id',
