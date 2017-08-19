@@ -15,12 +15,14 @@ import withPropsOnChange from 'recompose/withPropsOnChange'
 import defaultProps from 'recompose/defaultProps'
 import { closedCurvePropType } from '../../../props'
 import { withTheme, withColors, withCurve, withDimensions, withMotion } from '../../../hocs'
-import SvgWrapper from '../SvgWrapper'
 import { scaleLinear } from 'd3-scale'
+import { getAccessorFor } from '../../../lib/propertiesConverters'
+import Container from '../Container'
+import SvgWrapper from '../SvgWrapper'
 import RadarShapes from './RadarShapes'
 import RadarGrid from './RadarGrid'
+import RadarTooltip from './RadarTooltip'
 import RadarMarkers from './RadarMarkers'
-import { getAccessorFor } from '../../../lib/propertiesConverters'
 
 const Radar = ({
     data,
@@ -81,51 +83,66 @@ const Radar = ({
     }
 
     return (
-        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
-            <g transform={`translate(${centerX}, ${centerY})`}>
-                <RadarGrid
-                    levels={gridLevels}
-                    shape={gridShape}
-                    radius={radius}
-                    angleStep={angleStep}
-                    theme={theme}
-                    indices={indices}
-                    labelOffset={gridLabelOffset}
-                    {...motionProps}
-                />
-                <RadarShapes
-                    data={data}
-                    keys={keys}
-                    colorByKey={colorByKey}
-                    radiusScale={radiusScale}
-                    angleStep={angleStep}
-                    curveInterpolator={curveInterpolator}
-                    borderWidth={borderWidth}
-                    borderColor={borderColor}
-                    fillOpacity={fillOpacity}
-                    {...motionProps}
-                />
-                {enableMarkers &&
-                    <RadarMarkers
-                        data={data}
-                        keys={keys}
-                        getIndex={getIndex}
-                        radiusScale={radiusScale}
-                        angleStep={angleStep}
-                        size={markersSize}
-                        colorByKey={colorByKey}
-                        color={markersColor}
-                        borderWidth={markersBorderWidth}
-                        borderColor={markersBorderColor}
-                        enableLabel={enableMarkersLabel}
-                        label={markersLabel}
-                        labelFormat={markersLabelFormat}
-                        labelYOffset={markersLabelYOffset}
-                        theme={theme}
-                        {...motionProps}
-                    />}
-            </g>
-        </SvgWrapper>
+        <Container isInteractive={isInteractive} theme={theme}>
+            {({ showTooltip, hideTooltip }) =>
+                <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
+                    <g transform={`translate(${centerX}, ${centerY})`}>
+                        <RadarGrid
+                            levels={gridLevels}
+                            shape={gridShape}
+                            radius={radius}
+                            angleStep={angleStep}
+                            theme={theme}
+                            indices={indices}
+                            labelOffset={gridLabelOffset}
+                            {...motionProps}
+                        />
+                        <RadarShapes
+                            data={data}
+                            keys={keys}
+                            colorByKey={colorByKey}
+                            radiusScale={radiusScale}
+                            angleStep={angleStep}
+                            curveInterpolator={curveInterpolator}
+                            borderWidth={borderWidth}
+                            borderColor={borderColor}
+                            fillOpacity={fillOpacity}
+                            {...motionProps}
+                        />
+                        {isInteractive &&
+                            <RadarTooltip
+                                data={data}
+                                keys={keys}
+                                getIndex={getIndex}
+                                colorByKey={colorByKey}
+                                radius={radius}
+                                angleStep={angleStep}
+                                theme={theme}
+                                showTooltip={showTooltip}
+                                hideTooltip={hideTooltip}
+                            />}
+                        {enableMarkers &&
+                            <RadarMarkers
+                                data={data}
+                                keys={keys}
+                                getIndex={getIndex}
+                                radiusScale={radiusScale}
+                                angleStep={angleStep}
+                                size={markersSize}
+                                colorByKey={colorByKey}
+                                color={markersColor}
+                                borderWidth={markersBorderWidth}
+                                borderColor={markersBorderColor}
+                                enableLabel={enableMarkersLabel}
+                                label={markersLabel}
+                                labelFormat={markersLabelFormat}
+                                labelYOffset={markersLabelYOffset}
+                                theme={theme}
+                                {...motionProps}
+                            />}
+                    </g>
+                </SvgWrapper>}
+        </Container>
     )
 }
 

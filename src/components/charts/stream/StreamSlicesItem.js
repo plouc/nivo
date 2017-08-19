@@ -14,9 +14,7 @@ import withState from 'recompose/withState'
 import withHandlers from 'recompose/withHandlers'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import TableTooltip from '../../tooltip/TableTooltip'
-
-const Chip = ({ color }) =>
-    <span style={{ display: 'block', width: '12px', height: '12px', background: color }} />
+import Chip from '../../tooltip/Chip'
 
 const StreamSlicesItem = ({ slice, height, showTooltip, hideTooltip, isHover }) =>
     <g transform={`translate(${slice.x}, 0)`}>

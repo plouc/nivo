@@ -15,27 +15,31 @@ const tableStyle = {
     borderCollapse: 'collapse',
 }
 
-const TableTooltip = ({ rows, theme }) => {
+const TableTooltip = ({ title, rows, theme }) => {
     if (!rows.length) return null
 
     return (
-        <table style={{ ...tableStyle, ...theme.tooltip.table }}>
-            <tbody>
-                {rows.map((row, i) =>
-                    <tr key={i}>
-                        {row.map((column, j) =>
-                            <td key={j} style={theme.tooltip.tableCell}>
-                                {column}
-                            </td>
-                        )}
-                    </tr>
-                )}
-            </tbody>
-        </table>
+        <div>
+            {title && title}
+            <table style={{ ...tableStyle, ...theme.tooltip.table }}>
+                <tbody>
+                    {rows.map((row, i) =>
+                        <tr key={i}>
+                            {row.map((column, j) =>
+                                <td key={j} style={theme.tooltip.tableCell}>
+                                    {column}
+                                </td>
+                            )}
+                        </tr>
+                    )}
+                </tbody>
+            </table>
+        </div>
     )
 }
 
 TableTooltip.propTypes = {
+    title: PropTypes.node,
     rows: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.node)).isRequired,
     theme: PropTypes.object.isRequired,
 }
