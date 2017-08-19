@@ -9,27 +9,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
+import Chip from './Chip'
 
 const tooltipStyle = {
     display: 'flex',
     alignItems: 'center',
 }
 
-const chipStyle = {
-    display: 'block',
-    width: '16px',
-    height: '16px',
-    marginRight: '9px',
-    borderRadius: '2px',
-}
-
 const textStyle = {
     whiteSpace: 'pre',
+    marginLeft: 7,
 }
 
 const BasicTooltip = ({ id, value, enableChip, color }) =>
     <div style={tooltipStyle}>
-        {enableChip && <span style={{ ...chipStyle, background: color }} />}
+        {enableChip && <Chip color={color} />}
         {value !== undefined
             ? <span style={textStyle}>
                   {id}: <strong>{value}</strong>

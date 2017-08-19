@@ -6,10 +6,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 import PropTypes from 'prop-types'
 import Nivo from '../../../Nivo'
-import { marginPropType, motionPropTypes } from '../../../props'
 import { tilingMethods } from '../../../lib/charts/treemap/TreeMapD3'
 
 /**
@@ -18,16 +16,13 @@ import { tilingMethods } from '../../../lib/charts/treemap/TreeMapD3'
  * @type {object}
  */
 export const treeMapPropTypes = {
-    root: PropTypes.object.isRequired, // data
+    // data
+    // `root` managed by `withHierarchy()` HOC
+    identity: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
 
-    // dimensions
-    width: PropTypes.number.isRequired, // for non responsive components
-    height: PropTypes.number.isRequired, // for non responsive components
-    margin: marginPropType,
+    // dimensions managed by `withDimensions()` HOC
 
     leavesOnly: PropTypes.bool.isRequired,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
-    identity: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     tile: PropTypes.oneOf(Object.keys(tilingMethods)),
 
     innerPadding: PropTypes.number.isRequired,
@@ -41,14 +36,13 @@ export const treeMapPropTypes = {
     labelSkipSize: PropTypes.number.isRequired,
 
     // theming
-    colors: PropTypes.any.isRequired,
-    colorBy: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    // theme managed by `withTheme()` HOC
+    // colors managed by `withColors()` HOC
 
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.any.isRequired,
 
     // transitions
-    ...motionPropTypes,
     transitionDuration: PropTypes.number.isRequired, // d3 transitions
     transitionEasing: PropTypes.string.isRequired, // d3 transitions
 
@@ -63,10 +57,11 @@ export const treeMapPropTypes = {
  * @type {object}
  */
 export const treeMapDefaultProps = {
-    leavesOnly: false,
+    // data
+    identity: 'id',
+
     tile: 'squarify',
-    value: 'value',
-    identity: 'name',
+    leavesOnly: false,
 
     // labels
     enableLabels: true,
@@ -75,7 +70,6 @@ export const treeMapDefaultProps = {
     labelSkipSize: 0,
     labelTextColor: 'inherit:darker(1)',
 
-    margin: Nivo.defaults.margin,
     innerPadding: 0,
     outerPadding: 0,
 
@@ -83,12 +77,6 @@ export const treeMapDefaultProps = {
     borderColor: 'inherit',
 
     // motion
-    animate: true,
     transitionDuration: Nivo.defaults.transitionDuration,
     transitionEasing: Nivo.defaults.transitionEasing,
-    motionStiffness: 120,
-    motionDamping: 10,
-
-    colors: 'nivo',
-    colorBy: 'depth',
 }

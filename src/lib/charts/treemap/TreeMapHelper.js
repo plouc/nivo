@@ -6,11 +6,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-import _ from 'lodash'
 import {
     treemap as Treemap,
-    hierarchy,
     treemapBinary,
     treemapDice,
     treemapSlice,
@@ -36,9 +33,8 @@ export const tilingMethods = {
  * @param {string}   tile
  * @param {number}   innerPadding
  * @param {number}   outerPadding
- * @param {function} identity
- * @param {function} value
- * @param {function} color
+ * @param {function} getIdentity,
+ * @param {function} getColor
  */
 export const computeTreeMap = ({
     width,
@@ -48,9 +44,8 @@ export const computeTreeMap = ({
     tile,
     innerPadding,
     outerPadding,
-    identity,
-    value,
-    color,
+    getIdentity,
+    getColor,
 }) => {
     const treemap = Treemap()
         .size([width, height])
@@ -59,14 +54,15 @@ export const computeTreeMap = ({
         .paddingInner(innerPadding)
         .paddingOuter(outerPadding)
 
-    const root = treemap(hierarchy(_root).sum(value))
+    const root = treemap(_root)
 
     const nodes = leavesOnly ? root.leaves() : root.descendants()
 
     return nodes.map(d => {
-        d.color = color({ ...d.data, depth: d.depth })
+        d.color = getColor({ ...d.data, depth: d.depth })
 
-        d.data.key = d.ancestors().map(a => identity(a.data)).join('.')
+        d.data.color = d.color
+        d.data.key = d.ancestors().map(a => getIdentity(a.data)).join('.')
 
         return d
     })

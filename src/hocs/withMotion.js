@@ -13,8 +13,6 @@ import setPropTypes from 'recompose/setPropTypes'
 import { motionPropTypes } from '../props'
 import Nivo from '../Nivo'
 
-/**
- */
 export default () =>
     compose(
         setPropTypes(motionPropTypes),

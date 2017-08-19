@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 export { default as TreeMap } from './TreeMap'
+export * from './TreeMap'
 export { default as ResponsiveTreeMap } from './ResponsiveTreeMap'
 export { default as TreeMapHTML } from './TreeMapHTML'
 export { default as ResponsiveTreeMapHTML } from './ResponsiveTreeMapHTML'

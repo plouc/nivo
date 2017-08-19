@@ -9,5 +9,6 @@
 export { default as withColors } from './withColors'
 export { default as withCurve } from './withCurve'
 export { default as withDimensions } from './withDimensions'
+export { default as withHierarchy } from './withHierarchy'
 export { default as withMotion } from './withMotion'
 export { default as withTheme } from './withTheme'

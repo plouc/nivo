@@ -6,55 +6,47 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-import { hierarchy, pack as Pack } from 'd3-hierarchy'
+import { pack as Pack } from 'd3-hierarchy'
 
 /**
- * This wrapper is responsible for computing bubble chart positions.
+ * Computing bubble chart positions.
  * It's used for all Bubble related chart components.
  *
- * @returns {{ compute: (function) }}
- * @constructor
+ * @param {number}   width
+ * @param {number}   height
+ * @param {object}   _root
+ * @param {boolean}  leavesOnly
+ * @param {function} getIdentity
+ * @param {number}   padding
+ * @param {function} getColor
+ * @returns {array}
  */
-const BubbleHelper = () => {
+export const computeBubble = ({
+    width,
+    height,
+    root: _root,
+    leavesOnly,
+    getIdentity,
+    padding,
+    getColor,
+}) => {
     const pack = Pack()
+    pack.size([width, height]).padding(padding)
 
-    return {
-        /**
-         *
-         * @param {number}   width
-         * @param {number}   height
-         * @param {object}   _root
-         * @param {boolean}  leavesOnly
-         * @param {function} identity
-         * @param {function} value
-         * @param {number}   padding
-         * @param {function} color
-         * @returns {array}
-         */
-        compute({ width, height, root: _root, leavesOnly, identity, value, padding, color }) {
-            pack.size([width, height]).padding(padding)
+    const root = pack(_root)
 
-            const root = hierarchy(_root).sum(value)
+    const nodes = leavesOnly ? root.leaves() : root.descendants()
 
-            pack(root)
+    return nodes.map(d => {
+        d.color = getColor({ ...d.data, depth: d.depth })
+        // if (d.depth > 1) {
+        //     d.color = color(d.parentId)
+        // } else {
+        //     d.color = color(identity(d.data))
+        // }
 
-            const nodes = leavesOnly ? root.leaves() : root.descendants()
+        d.data.key = d.ancestors().map(a => getIdentity(a.data)).join('.')
 
-            return nodes.map(d => {
-                d.color = color({ ...d.data, depth: d.depth })
-                // if (d.depth > 1) {
-                //     d.color = color(d.parentId)
-                // } else {
-                //     d.color = color(identity(d.data))
-                // }
-
-                d.data.key = d.ancestors().map(a => identity(a.data)).join('.')
-
-                return d
-            })
-        },
-    }
+        return d
+    })
 }
-
-export default BubbleHelper

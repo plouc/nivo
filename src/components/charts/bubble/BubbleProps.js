@@ -16,22 +16,18 @@ import { marginPropType, motionPropTypes } from '../../../props'
  * @type {object}
  */
 export const bubblePropTypes = {
-    root: PropTypes.object.isRequired,
+    // data
+    // `root` managed by `withHierarchy()` HOC
+    identity: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
 
-    // dimensions
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-    margin: marginPropType,
+    // dimensions managed by `withDimensions()` HOC
 
     leavesOnly: PropTypes.bool.isRequired,
-    onBubbleClick: PropTypes.func.isRequired,
-    identity: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
     padding: PropTypes.number.isRequired,
 
     // theming
-    colors: PropTypes.any.isRequired,
-    colorBy: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    // theme managed by `withTheme()` HOC
+    // colors managed by `withColors()` HOC
 
     // placeholders
     namespace: PropTypes.oneOf(['html', 'svg']),
@@ -50,7 +46,6 @@ export const bubblePropTypes = {
     labelSkipRadius: PropTypes.number.isRequired,
 
     // transitions
-    ...motionPropTypes,
     transitionDuration: PropTypes.number.isRequired, // d3 transitions
     transitionEasing: PropTypes.string.isRequired, // d3 transitions
 
@@ -64,19 +59,11 @@ export const bubblePropTypes = {
  * @type {object}
  */
 export const bubbleDefaultProps = {
-    // dimensions
-    margin: Nivo.defaults.margin,
+    // data
+    identity: 'id',
 
     leavesOnly: false,
-    onBubbleClick: () => {},
-    identity: 'id',
-    value: 'value',
     padding: 1,
-
-    // theming
-    theme: {},
-    colors: 'nivo',
-    colorBy: 'depth',
 
     // placeholders
     namespace: 'html',
@@ -93,9 +80,6 @@ export const bubbleDefaultProps = {
     labelSkipRadius: 0,
 
     // transitions
-    animate: true,
-    motionStiffness: Nivo.defaults.motionStiffness, // react-motion
-    motionDamping: Nivo.defaults.motionDamping, // react-motion
     transitionDuration: Nivo.defaults.transitionDuration, // d3 transitions
     transitionEasing: Nivo.defaults.transitionEasing, // d3 transitions
 

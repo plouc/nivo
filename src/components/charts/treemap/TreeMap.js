@@ -6,89 +6,69 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-import React, { Component } from 'react'
-import { findDOMNode } from 'react-dom'
+import React from 'react'
 import _ from 'lodash'
+import compose from 'recompose/compose'
+import withPropsOnChange from 'recompose/withPropsOnChange'
+import pure from 'recompose/pure'
 import { getLabelGenerator } from '../../../lib/propertiesConverters'
+import { getInheritedColorGenerator } from '../../../lib/colorUtils'
 import { treeMapPropTypes, treeMapDefaultProps } from './TreeMapProps'
 import TreeMapPlaceholders from './TreeMapPlaceholders'
-import { getInheritedColorGenerator } from '../../../lib/colorUtils'
+import TreeMapNode from './TreeMapNode'
 
-const createNodes = ({
+const createNodesRenderer = ({
     borderWidth,
-    borderColor: _borderColor,
+    getBorderColor,
     enableLabels,
-    label: _label,
-    labelFormat,
+    getLabel,
     orientLabels,
     labelSkipSize,
-    labelTextColor,
-}) => {
-    const label = getLabelGenerator(_label, labelFormat)
-    const borderColor = getInheritedColorGenerator(_borderColor)
-    const textColor = getInheritedColorGenerator(labelTextColor)
+    getLabelTextColor,
+}) => (nodes, { showTooltip, hideTooltip }) =>
+    nodes.map(node => {
+        const hasLabel =
+            enableLabels &&
+            (labelSkipSize === 0 || Math.min(node.style.width, node.style.height) > labelSkipSize)
 
-    return nodes => {
-        const renderedNodes = []
-
-        nodes.forEach(node => {
-            const shouldRenderLabel =
-                enableLabels &&
-                (labelSkipSize === 0 ||
-                    Math.min(node.style.width, node.style.height) > labelSkipSize)
-
-            const rotate = shouldRenderLabel && orientLabels && node.style.height > node.style.width
-
-            renderedNodes.push(
-                <g
-                    key={node.key}
-                    className="nivo_treemap_node"
-                    transform={`translate(${node.style.x},${node.style.y})`}
-                >
-                    <rect
-                        width={node.style.width}
-                        height={node.style.height}
-                        fill={node.style.color}
-                        stroke={borderColor({ ...node.data, color: node.style.color })}
-                        strokeWidth={borderWidth}
-                    />
-                    {shouldRenderLabel &&
-                        <g
-                            transform={`translate(${node.style.width / 2},${node.style.height /
-                                2}) rotate(${rotate ? '-90' : '0'})`}
-                        >
-                            <text
-                                className="nivo_treemap_node_label"
-                                textAnchor="middle"
-                                dy="0.5em"
-                                style={{
-                                    fill: textColor({ ...node.data, color: node.style.color }),
-                                }}
-                            >
-                                {label(node.data)}
-                            </text>
-                        </g>}
-                </g>
-            )
-        })
-
-        return renderedNodes
-    }
-}
-
-class TreeMap extends Component {
-    render() {
         return (
-            <TreeMapPlaceholders {...this.props} namespace="svg">
-                {createNodes(this.props)}
-            </TreeMapPlaceholders>
+            <TreeMapNode
+                key={node.key}
+                {...node.style}
+                borderWidth={borderWidth}
+                borderColor={getBorderColor({ ...node.data, color: node.style.color })}
+                hasLabel={hasLabel}
+                label={hasLabel ? getLabel(node.data) : ''}
+                orientLabel={orientLabels}
+                labelTextColor={getLabelTextColor({ ...node.data, color: node.style.color })}
+                showTooltip={showTooltip}
+                hideTooltip={hideTooltip}
+            />
         )
-    }
-}
+    })
+
+const TreeMap = props =>
+    <TreeMapPlaceholders {...props} namespace="svg">
+        {createNodesRenderer(props)}
+    </TreeMapPlaceholders>
 
 TreeMap.propTypes = _.omit(treeMapPropTypes, ['children', 'namespace'])
 
-TreeMap.defaultProps = _.omit(treeMapDefaultProps, [])
+export const TreeMapDefaultProps = _.omit(treeMapDefaultProps, [])
 
-export default TreeMap
+TreeMap.defaultProps = TreeMapDefaultProps
+
+const enhance = compose(
+    withPropsOnChange(['label', 'labelFormat'], ({ label, labelFormat }) => ({
+        getLabel: getLabelGenerator(label, labelFormat),
+    })),
+    withPropsOnChange(['borderColor'], ({ borderColor }) => ({
+        getBorderColor: getInheritedColorGenerator(borderColor),
+    })),
+    withPropsOnChange(['labelTextColor'], ({ labelTextColor }) => ({
+        getLabelTextColor: getInheritedColorGenerator(labelTextColor),
+    })),
+    pure
+)
+
+export default enhance(TreeMap)
