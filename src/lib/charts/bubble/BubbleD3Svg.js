@@ -9,7 +9,11 @@
 
 import d3 from 'd3'
 import BubbleD3 from './BubbleD3'
-import { getColorRange, getColorGenerator, getColorStyleObject } from '../../../lib/colorUtils'
+import {
+    getColorRange,
+    getInheritedColorGenerator,
+    getColorStyleObject,
+} from '../../../lib/colorUtils'
 import { convertLabel } from '../../propertiesConverters'
 
 const BubbleD3Svg = domRoot => {
@@ -60,7 +64,7 @@ const BubbleD3Svg = domRoot => {
             })
 
             const color = getColorRange(colors)
-            const borderColorFn = getColorGenerator(borderColor)
+            const borderColorFn = getInheritedColorGenerator(borderColor)
 
             const bubbled = bubble.compute({
                 width: useWidth,

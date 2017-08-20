@@ -32,12 +32,4 @@ export const getLabelGenerator = (_label, labelFormat) => {
     }
 }
 
-export const convertGetter = _property => {
-    if (_.isFunction(_property)) {
-        return _property
-    }
-
-    return d => _.get(d, _property)
-}
-
 export const getAccessorFor = directive => (_.isFunction(directive) ? directive : d => d[directive])

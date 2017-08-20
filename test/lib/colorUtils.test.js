@@ -7,56 +7,56 @@
  * file that was distributed with this source code.
  */
 import { rgb } from 'd3-color'
-import { getColorGenerator, getColorsGenerator } from '../../src/lib/colorUtils'
+import { getInheritedColorGenerator, getColorsGenerator } from '../../src/lib/colorUtils'
 
-describe('getColorGenerator()', () => {
+describe('getInheritedColorGenerator()', () => {
     it(`should return 'none' if 'none' provided`, () => {
-        expect(getColorGenerator('none')).toBe('none')
+        expect(getInheritedColorGenerator('none')()).toBe('none')
     })
 
     it(`should return a function to use 'data.color' if 'inherit' provided`, () => {
-        const colorGenerator = getColorGenerator('inherit')
+        const colorGenerator = getInheritedColorGenerator('inherit')
         const color = '#FF0000'
 
         expect(typeof colorGenerator).toBe('function')
-        expect(colorGenerator({ data: { color } })).toBe(color)
+        expect(colorGenerator({ color })).toBe(color)
     })
 
     it(`should return a function to use darker 'data.color' if 'inherit:darker(*)' provided`, () => {
-        const colorGenerator = getColorGenerator('inherit:darker(1)')
+        const colorGenerator = getInheritedColorGenerator('inherit:darker(1)')
         const color = '#FF0000'
 
         expect(typeof colorGenerator).toBe('function')
-        expect(colorGenerator({ data: { color } })).toEqual(rgb(color).darker(1))
+        expect(colorGenerator({ color })).toEqual(rgb(color).darker(1).toString())
     })
 
     it(`'inherit:darker(*)' should support floats`, () => {
-        const colorGenerator = getColorGenerator('inherit:darker(.3)')
+        const colorGenerator = getInheritedColorGenerator('inherit:darker(.3)')
         const color = '#FF0000'
 
         expect(typeof colorGenerator).toBe('function')
-        expect(colorGenerator({ data: { color } })).toEqual(rgb(color).darker(0.3))
+        expect(colorGenerator({ color })).toEqual(rgb(color).darker(0.3).toString())
     })
 
     it(`should return a function to use brighter 'data.color' if 'inherit:brighter(*)' provided`, () => {
-        const colorGenerator = getColorGenerator('inherit:brighter(1)')
+        const colorGenerator = getInheritedColorGenerator('inherit:brighter(1)')
         const color = '#FF0000'
 
         expect(typeof colorGenerator).toBe('function')
-        expect(colorGenerator({ data: { color } })).toEqual(rgb(color).brighter(1))
+        expect(colorGenerator({ color })).toEqual(rgb(color).brighter(1).toString())
     })
 
     it(`'inherit:brighter(*)' should support floats`, () => {
-        const colorGenerator = getColorGenerator('inherit:brighter(.3)')
+        const colorGenerator = getInheritedColorGenerator('inherit:brighter(.3)')
         const color = '#FF0000'
 
         expect(typeof colorGenerator).toBe('function')
-        expect(colorGenerator({ data: { color } })).toEqual(rgb(color).brighter(0.3))
+        expect(colorGenerator({ color })).toEqual(rgb(color).brighter(0.3).toString())
     })
 
     it(`should return directive if no match found`, () => {
         const color = '#F00'
-        const colorGenerator = getColorGenerator(color)
+        const colorGenerator = getInheritedColorGenerator(color)
 
         expect(typeof colorGenerator).toBe('function')
         expect(colorGenerator()).toBe(color)
