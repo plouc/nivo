@@ -66,7 +66,7 @@ export const bubbleDefaultProps = {
     enableLabel: true,
     label: 'id',
     labelTextColor: 'inherit:darker(1)',
-    labelSkipRadius: 0,
+    labelSkipRadius: 8,
 
     // interactivity
     isInteractive: true,

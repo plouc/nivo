@@ -13,8 +13,8 @@ import { nivoCategoricalColors } from './lib/colorUtils'
 const defaults = {
     transitionDuration: 600,
     transitionEasing: 'cubic-out',
-    motionStiffness: 120,
-    motionDamping: 10,
+    motionStiffness: 90,
+    motionDamping: 13,
     colorRange: scaleOrdinal(schemeSet3),
     margin: {
         top: 0,
