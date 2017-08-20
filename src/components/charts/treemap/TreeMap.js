@@ -9,6 +9,7 @@
 import React from 'react'
 import _ from 'lodash'
 import compose from 'recompose/compose'
+import defaultProps from 'recompose/defaultProps'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
 import { getLabelGenerator } from '../../../lib/propertiesConverters'
@@ -59,9 +60,8 @@ TreeMap.propTypes = _.omit(treeMapPropTypes, ['children', 'namespace'])
 
 export const TreeMapDefaultProps = _.omit(treeMapDefaultProps, [])
 
-TreeMap.defaultProps = TreeMapDefaultProps
-
 const enhance = compose(
+    defaultProps(TreeMapDefaultProps),
     withPropsOnChange(['label', 'labelFormat'], ({ label, labelFormat }) => ({
         getLabel: getLabelGenerator(label, labelFormat),
     })),
