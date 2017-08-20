@@ -102,6 +102,7 @@ const BubblePlaceholders = ({
 }) => {
     // assign a unique id depending on node path to each node
     root.each(node => {
+        node.id = getIdentity(node.data)
         node.uid = computeNodeUID(node, getIdentity)
     })
 

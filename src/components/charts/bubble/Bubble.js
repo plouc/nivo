@@ -31,16 +31,17 @@ const createNodes = ({
         const renderedNodes = []
 
         nodes.filter(node => node.style.r > 0).forEach(node => {
-            const handleTooltip = e =>
+            const handleTooltip = e => {
                 showTooltip(
                     <BasicTooltip
-                        id={node.data.data.name}
+                        id={node.data.id}
                         value={node.data.value}
                         enableChip={true}
                         color={node.style.color}
                     />,
                     e
                 )
+            }
 
             renderedNodes.push(
                 <circle
