@@ -12,10 +12,12 @@ import { TransitionMotion, spring } from 'react-motion'
 import _ from 'lodash'
 import compose from 'recompose/compose'
 import withPropsOnChange from 'recompose/withPropsOnChange'
+import withStateHandlers from 'recompose/withStateHandlers'
 import pure from 'recompose/pure'
 import { pack } from 'd3-hierarchy'
 import { withHierarchy, withTheme, withColors, withDimensions, withMotion } from '../../../hocs'
 import { extractRGB } from '../../../lib/colorUtils'
+import noop from '../../../lib/noop'
 import Container from '../Container'
 import { getAccessorFor } from '../../../lib/propertiesConverters'
 import { bubblePropTypes, bubbleDefaultProps } from './BubbleProps'
@@ -33,6 +35,9 @@ const ignoreProps = [
     'transitionEasing',
 ]
 
+const computeNodeUID = (node, getIdentity) =>
+    node.ancestors().map(ancestor => getIdentity(ancestor.data)).join('.')
+
 const nodeWillEnter = ({ data: node }) => ({
     r: 0,
     x: node.x,
@@ -46,6 +51,20 @@ const nodeWillLeave = styleThatLeft => ({
     y: spring(styleThatLeft.data.y),
 })
 
+const computeZoom = (nodes, currentNodeUid, width, height) => {
+    const currentNode = nodes.find(({ uid }) => uid === currentNodeUid)
+    if (currentNode) {
+        const ratio = Math.min(width, height) / (currentNode.r * 2)
+        const offsetX = width / 2 - currentNode.x * ratio
+        const offsetY = height / 2 - currentNode.y * ratio
+        nodes.forEach(node => {
+            node.r = node.r * ratio
+            node.x = node.x * ratio + offsetX
+            node.y = node.y * ratio + offsetY
+        })
+    }
+}
+
 const BubblePlaceholders = ({
     root,
     getIdentity,
@@ -54,37 +73,55 @@ const BubblePlaceholders = ({
     namespace,
 
     pack,
+
+    // dimensions
+    width,
+    height,
     margin,
     outerWidth,
     outerHeight,
-
-    padding,
 
     // theming
     theme,
     getColor,
 
+    // motion
     animate,
     motionStiffness,
     motionDamping,
-    children,
+
+    // interactivity
     isInteractive,
+
+    children,
+
+    // zooming
+    isZoomable,
+    zoomToNode,
+    currentNodeUid,
 }) => {
+    // assign a unique id depending on node path to each node
+    root.each(node => {
+        node.uid = computeNodeUID(node, getIdentity)
+    })
+
     pack(root)
 
     let nodes = leavesOnly ? root.leaves() : root.descendants()
-    nodes = nodes.map(d => {
-        d.color = getColor({ ...d.data, depth: d.depth })
+    nodes = nodes.map(node => {
+        node.color = getColor({ ...node.data, depth: node.depth })
         // if (d.depth > 1) {
         //     d.color = color(d.parentId)
         // } else {
         //     d.color = color(identity(d.data))
         // }
 
-        d.data.key = d.ancestors().map(a => getIdentity(a.data)).join('.')
+        node.data.key = node.ancestors().map(a => getIdentity(a.data)).join('.')
 
-        return d
+        return node
     })
+
+    if (currentNodeUid) computeZoom(nodes, currentNodeUid, width, height)
 
     let wrapperTag
     let containerTag
@@ -178,6 +215,13 @@ const BubblePlaceholders = ({
                                             colorR
                                         )},${Math.round(colorG)},${Math.round(colorB)})`
 
+                                        if (isInteractive && isZoomable) {
+                                            interpolatedStyle.zoom = () =>
+                                                zoomToNode(interpolatedStyle.data.uid)
+                                        } else {
+                                            interpolatedStyle.zoom = noop
+                                        }
+
                                         return interpolatedStyle
                                     }),
                                     { showTooltip, hideTooltip }
@@ -208,6 +252,20 @@ const enhance = compose(
     withPropsOnChange(['width', 'height', 'padding'], ({ width, height, padding }) => ({
         pack: pack().size([width, height]).padding(padding),
     })),
+    withStateHandlers(
+        ({ currentNodeUid = null }) => ({
+            currentNodeUid,
+        }),
+        {
+            zoomToNode: ({ currentNodeUid }) => uid => {
+                if (uid === currentNodeUid) {
+                    return { currentNodeUid: null }
+                }
+
+                return { currentNodeUid: uid }
+            },
+        }
+    ),
     pure
 )
 

@@ -50,6 +50,7 @@ const createNodes = ({
                     onMouseEnter={handleTooltip}
                     onMouseMove={handleTooltip}
                     onMouseLeave={hideTooltip}
+                    onClick={node.zoom}
                     style={{
                         fill: node.style.color,
                         stroke: borderColorFn(node.style),

@@ -8,6 +8,7 @@
  */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import noop from '../../lib/noop'
 
 const containerStyle = {
     position: 'relative',
@@ -25,9 +26,9 @@ const Tooltip = ({ x, y, children, theme }) =>
         {children}
     </div>
 
-const noop = {
-    showTooltip: () => {},
-    hideTooltip: () => {},
+const noopHandlers = {
+    showTooltip: noop,
+    hideTooltip: noop,
 }
 
 export default class Container extends Component {
@@ -68,7 +69,7 @@ export default class Container extends Component {
         const { children, isInteractive, theme } = this.props
         const { isTooltipVisible, tooltipContent, tooltipX, tooltipY } = this.state
 
-        if (!isInteractive) return children(noop)
+        if (!isInteractive) return children(noopHandlers)
 
         return (
             <div
