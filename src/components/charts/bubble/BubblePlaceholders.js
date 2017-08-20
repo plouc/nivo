@@ -163,13 +163,15 @@ const BubblePlaceholders = ({
                             containerTag,
                             containerProps,
                             children(
-                                nodes.map(node => {
-                                    return {
-                                        key: node.data.key,
-                                        data: node,
-                                        style: _.pick(node, ['r', 'x', 'y', 'color']),
-                                    }
-                                }),
+                                nodes.map(node => ({
+                                    key: node.data.key,
+                                    data: node,
+                                    style: _.pick(node, ['r', 'x', 'y', 'color']),
+                                    zoom:
+                                        isInteractive && isZoomable
+                                            ? () => zoomToNode(node.uid)
+                                            : noop,
+                                })),
                                 { showTooltip, hideTooltip }
                             )
                         )
