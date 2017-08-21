@@ -256,4 +256,7 @@ const enhance = compose(
     pure
 )
 
-export default enhance(Radar)
+const enhancedRadar = enhance(Radar)
+enhancedRadar.displayName = 'enhance(Radar)'
+
+export default enhancedRadar

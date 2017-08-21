@@ -268,4 +268,7 @@ const enhance = compose(
     pure
 )
 
-export default enhance(Pie)
+const enhancedPie = enhance(Pie)
+enhancedPie.displayName = 'enhance(Pie)'
+
+export default enhancedPie

@@ -74,4 +74,7 @@ const enhance = compose(
     pure
 )
 
-export default enhance(TreeMap)
+const enhancedTreeMap = enhance(TreeMap)
+enhancedTreeMap.displayName = 'enhance(TreeMap)'
+
+export default enhancedTreeMap

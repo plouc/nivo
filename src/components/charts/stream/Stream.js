@@ -246,4 +246,7 @@ const enhance = compose(
     pure
 )
 
-export default enhance(Stream)
+const enhancedStream = enhance(Stream)
+enhancedStream.displayName = 'enhance(Stream)'
+
+export default enhancedStream

@@ -139,17 +139,10 @@ const Line = ({
 
 Line.propTypes = {
     // data
-    data: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            data: PropTypes.arrayOf(
-                PropTypes.shape({
-                    x: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-                    y: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-                })
-            ).isRequired,
-        })
-    ).isRequired,
+    data: PropTypes.arrayOf(PropTypes.object).isRequired,
+    indexBy: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    getIndex: PropTypes.func.isRequired, // computed
+    keys: PropTypes.arrayOf(PropTypes.string).isRequired,
 
     stacked: PropTypes.bool.isRequired,
     curve: lineCurvePropType.isRequired,
@@ -188,6 +181,9 @@ Line.propTypes = {
 }
 
 export const LineDefaultProps = {
+    indexBy: 'id',
+    keys: ['value'],
+
     stacked: false,
     curve: 'linear',
 
@@ -281,4 +277,7 @@ const enhance = compose(
     pure
 )
 
-export default enhance(Line)
+const enhancedLine = enhance(Line)
+enhancedLine.displayName = 'enhance(Line)'
+
+export default enhancedLine

@@ -116,4 +116,7 @@ const enhance = compose(
     pure
 )
 
-export default enhance(Bubble)
+const enhancedBubble = enhance(Bubble)
+enhancedBubble.displayName = 'enhance(Bubble)'
+
+export default enhancedBubble
