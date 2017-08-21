@@ -40,26 +40,49 @@ stories.add('linear grid shape', () =>
     />
 )
 
-stories.add('with markers label', () =>
+stories.add('with dot label', () =>
     <Radar
         {...commonProperties}
         curve={select('curve', curveOptions, 'linearClosed')}
         gridShape="linear"
-        markersSize={10}
-        markersBorderColor="#fff"
-        markersBorderWidth={2}
-        enableMarkersLabel={true}
+        dotSize={10}
+        dotBorderColor="#fff"
+        dotBorderWidth={2}
+        enableDotLabel={true}
         gridLabelOffset={36}
     />
 )
 
-stories.add('abusing markers label', () =>
+stories.add('abusing dots', () =>
     <Radar
         {...commonProperties}
         curve={select('curve', curveOptions, 'catmullRomClosed')}
-        markersSize={32}
-        markersLabelYOffset={3}
-        enableMarkersLabel={true}
+        dotSize={32}
+        enableDotLabel={true}
+        dotLabelYOffset={3}
+        gridLabelOffset={36}
+    />
+)
+
+const CustomSymbol = ({ size, color, borderWidth, borderColor }) =>
+    <rect
+        transform={`rotate(45) translate(${size * -0.5}, ${size * -0.5})`}
+        width={size}
+        height={size}
+        fill={color}
+        strokeWidth={borderWidth}
+        fillOpacity={1}
+        stroke={borderColor}
+    />
+
+stories.add('custom dot symbol', () =>
+    <Radar
+        {...commonProperties}
+        curve={select('curve', curveOptions, 'catmullRomClosed')}
+        dotSize={18}
+        dotSymbol={CustomSymbol}
+        dotBorderWidth={1}
+        dotBorderColor="inherit:darker(0.3)"
         gridLabelOffset={36}
     />
 )

@@ -55,6 +55,7 @@ const Line = ({
 
     // dots
     enableDots,
+    dotSymbol,
     dotSize,
     dotColor,
     dotBorderWidth,
@@ -121,6 +122,7 @@ const Line = ({
                     {enableDots &&
                         <LineDots
                             lines={lines}
+                            symbol={dotSymbol}
                             size={dotSize}
                             color={getInheritedColorGenerator(dotColor)}
                             borderWidth={dotBorderWidth}
@@ -175,6 +177,7 @@ Line.propTypes = {
 
     // dots
     enableDots: PropTypes.bool.isRequired,
+    dotSymbol: PropTypes.func,
     dotSize: PropTypes.number.isRequired,
     dotColor: PropTypes.any.isRequired,
     dotBorderWidth: PropTypes.number.isRequired,

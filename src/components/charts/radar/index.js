@@ -9,4 +9,4 @@
 export { default as Radar } from './Radar'
 export * from './Radar'
 export { default as ResponsiveRadar } from './ResponsiveRadar'
-export { default as RadarMarkers } from './RadarMarkers'
+export { default as RadarDots } from './RadarDots'

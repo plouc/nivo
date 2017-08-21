@@ -14,6 +14,7 @@ import DotsItemSymbol from './DotsItemSymbol'
 const DotsItem = ({
     x,
     y,
+    symbol,
     size,
     color,
     borderWidth,
@@ -24,19 +25,19 @@ const DotsItem = ({
     theme,
 }) =>
     <g transform={`translate(${x}, ${y})`} style={{ pointerEvents: 'none' }}>
-        <DotsItemSymbol
-            size={size}
-            color={color}
-            borderWidth={borderWidth}
-            borderColor={borderColor}
-        />
+        {React.createElement(symbol, {
+            size: size,
+            color: color,
+            borderWidth: borderWidth,
+            borderColor: borderColor,
+        })}
         {label &&
             <text
                 textAnchor={labelTextAnchor}
                 y={labelYOffset}
                 style={{
-                    fontSize: theme.markers.fontSize,
-                    fill: theme.markers.textColor,
+                    fontSize: theme.dots.fontSize,
+                    fill: theme.dots.textColor,
                 }}
             >
                 {label}
@@ -54,6 +55,8 @@ DotsItem.propTypes = {
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.string.isRequired,
 
+    symbol: PropTypes.func.isRequired,
+
     // label
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     labelTextAnchor: PropTypes.oneOf(['start', 'middle', 'end']),
@@ -61,7 +64,7 @@ DotsItem.propTypes = {
 
     // theming
     theme: PropTypes.shape({
-        markers: PropTypes.shape({
+        dots: PropTypes.shape({
             textColor: PropTypes.string.isRequired,
             fontSize: PropTypes.string.isRequired,
         }).isRequired,
@@ -69,6 +72,9 @@ DotsItem.propTypes = {
 }
 
 export const DotsItemDefaultProps = {
+    symbol: DotsItemSymbol,
+
+    // label
     labelTextAnchor: 'middle',
     labelYOffset: -12,
 }

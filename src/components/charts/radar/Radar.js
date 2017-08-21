@@ -22,7 +22,7 @@ import SvgWrapper from '../SvgWrapper'
 import RadarShapes from './RadarShapes'
 import RadarGrid from './RadarGrid'
 import RadarTooltip from './RadarTooltip'
-import RadarMarkers from './RadarMarkers'
+import RadarDots from './RadarDots'
 
 const Radar = ({
     data,
@@ -52,16 +52,17 @@ const Radar = ({
     gridShape,
     gridLabelOffset,
 
-    // markers
-    enableMarkers,
-    markersSize,
-    markersColor,
-    markersBorderWidth,
-    markersBorderColor,
-    enableMarkersLabel,
-    markersLabel,
-    markersLabelFormat,
-    markersLabelYOffset,
+    // dots
+    enableDots,
+    dotSymbol,
+    dotSize,
+    dotColor,
+    dotBorderWidth,
+    dotBorderColor,
+    enableDotLabel,
+    dotLabel,
+    dotLabelFormat,
+    dotLabelYOffset,
 
     // theming
     theme,
@@ -121,22 +122,23 @@ const Radar = ({
                                 showTooltip={showTooltip}
                                 hideTooltip={hideTooltip}
                             />}
-                        {enableMarkers &&
-                            <RadarMarkers
+                        {enableDots &&
+                            <RadarDots
                                 data={data}
                                 keys={keys}
                                 getIndex={getIndex}
                                 radiusScale={radiusScale}
                                 angleStep={angleStep}
-                                size={markersSize}
+                                symbol={dotSymbol}
+                                size={dotSize}
                                 colorByKey={colorByKey}
-                                color={markersColor}
-                                borderWidth={markersBorderWidth}
-                                borderColor={markersBorderColor}
-                                enableLabel={enableMarkersLabel}
-                                label={markersLabel}
-                                labelFormat={markersLabelFormat}
-                                labelYOffset={markersLabelYOffset}
+                                color={dotColor}
+                                borderWidth={dotBorderWidth}
+                                borderColor={dotBorderColor}
+                                enableLabel={enableDotLabel}
+                                label={dotLabel}
+                                labelFormat={dotLabelFormat}
+                                labelYOffset={dotLabelYOffset}
                                 theme={theme}
                                 {...motionProps}
                             />}
@@ -167,16 +169,17 @@ Radar.propTypes = {
     gridShape: PropTypes.oneOf(['circular', 'linear']),
     gridLabelOffset: PropTypes.number,
 
-    // markers
-    enableMarkers: PropTypes.bool.isRequired,
-    markersSize: PropTypes.number,
-    markersColor: PropTypes.any,
-    markersBorderWidth: PropTypes.number,
-    markersBorderColor: PropTypes.any,
-    enableMarkersLabel: PropTypes.bool,
-    markersLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    markersLabelFormat: PropTypes.string,
-    markersLabelYOffset: PropTypes.number,
+    // dots
+    enableDots: PropTypes.bool.isRequired,
+    dotSymbol: PropTypes.func,
+    dotSize: PropTypes.number,
+    dotColor: PropTypes.any,
+    dotBorderWidth: PropTypes.number,
+    dotBorderColor: PropTypes.any,
+    enableDotLabel: PropTypes.bool,
+    dotLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    dotLabelFormat: PropTypes.string,
+    dotLabelYOffset: PropTypes.number,
 
     // theming
     getColor: PropTypes.func.isRequired, // computed
@@ -199,8 +202,8 @@ export const RadarDefaultProps = {
     gridShape: 'circular',
     gridLabelOffset: 16,
 
-    // markers
-    enableMarkers: true,
+    // dots
+    enableDots: true,
 
     // theming
     fillOpacity: 0.15,

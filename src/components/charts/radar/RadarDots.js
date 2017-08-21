@@ -13,9 +13,9 @@ import { motionPropTypes } from '../../../props'
 import { getInheritedColorGenerator } from '../../../lib/colorUtils'
 import { positionFromAngle } from '../../../lib/arcUtils'
 import { getLabelGenerator } from '../../../lib/propertiesConverters'
-import MarkersItem from '../../markers/MarkersItem'
+import DotsItem from '../../dots/DotsItem'
 
-export default class RadarMarkers extends Component {
+export default class RadarDots extends Component {
     static propTypes = {
         data: PropTypes.arrayOf(PropTypes.object).isRequired,
         keys: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
@@ -26,6 +26,8 @@ export default class RadarMarkers extends Component {
 
         radiusScale: PropTypes.func.isRequired,
         angleStep: PropTypes.number.isRequired,
+
+        symbol: PropTypes.func,
         size: PropTypes.number.isRequired,
         color: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
         borderWidth: PropTypes.number.isRequired,
@@ -39,7 +41,7 @@ export default class RadarMarkers extends Component {
 
         // theming
         theme: PropTypes.shape({
-            markers: PropTypes.shape({
+            dots: PropTypes.shape({
                 textColor: PropTypes.string.isRequired,
                 fontSize: PropTypes.string.isRequired,
             }).isRequired,
@@ -69,6 +71,8 @@ export default class RadarMarkers extends Component {
 
             radiusScale,
             angleStep,
+
+            symbol,
             size,
             color,
             borderWidth,
@@ -121,10 +125,11 @@ export default class RadarMarkers extends Component {
             return (
                 <g>
                     {points.map(point =>
-                        <MarkersItem
+                        <DotsItem
                             key={point.key}
                             x={point.style.x}
                             y={point.style.y}
+                            symbol={symbol}
                             size={size}
                             color={point.style.fill}
                             borderWidth={borderWidth}
@@ -158,9 +163,10 @@ export default class RadarMarkers extends Component {
                 {interpolatedStyles =>
                     <g>
                         {interpolatedStyles.map(({ key, style, data: point }) =>
-                            <MarkersItem
+                            <DotsItem
                                 key={key}
                                 {...style}
+                                symbol={symbol}
                                 color={point.style.fill}
                                 borderWidth={borderWidth}
                                 borderColor={point.style.stroke}

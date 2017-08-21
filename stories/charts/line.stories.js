@@ -49,7 +49,7 @@ stories.add('with dot label', () =>
     />
 )
 
-stories.add('abusing dot label', () =>
+stories.add('abusing dots', () =>
     <Line
         {...commonProperties}
         stacked={boolean('stacked', true)}
@@ -57,6 +57,32 @@ stories.add('abusing dot label', () =>
         enableDotLabel={true}
         dotSize={26}
         dotLabelYOffset={3}
+        axisLeft={{
+            tickSize: 10,
+        }}
+    />
+)
+
+const CustomSymbol = ({ size, color, borderWidth, borderColor }) =>
+    <rect
+        transform={`rotate(45) translate(${size * -0.5}, ${size * -0.5})`}
+        width={size}
+        height={size}
+        fill={color}
+        strokeWidth={borderWidth}
+        fillOpacity={1}
+        stroke={borderColor}
+    />
+
+stories.add('custom dot symbol', () =>
+    <Line
+        {...commonProperties}
+        stacked={boolean('stacked', true)}
+        curve={select('curve', curveOptions, 'monotoneX')}
+        dotSymbol={CustomSymbol}
+        dotSize={12}
+        dotBorderWidth={1}
+        dotBorderColor="inherit:darker(0.3)"
         axisLeft={{
             tickSize: 10,
         }}

@@ -15,6 +15,8 @@ import DotsItem from '../../dots/DotsItem'
 
 const LineDots = ({
     lines,
+
+    symbol,
     size,
     color,
     borderWidth,
@@ -68,6 +70,7 @@ const LineDots = ({
                         key={point.key}
                         x={point.x}
                         y={point.y}
+                        symbol={symbol}
                         size={size}
                         color={point.fill}
                         borderWidth={borderWidth}
@@ -105,6 +108,7 @@ const LineDots = ({
                         <DotsItem
                             key={key}
                             {...style}
+                            symbol={symbol}
                             color={point.fill}
                             borderWidth={borderWidth}
                             borderColor={point.stroke}
@@ -124,6 +128,8 @@ LineDots.propTypes = {
             id: PropTypes.string.isRequired,
         })
     ),
+
+    symbol: PropTypes.func,
     size: PropTypes.number.isRequired,
     color: PropTypes.func.isRequired,
     borderWidth: PropTypes.number.isRequired,
@@ -137,7 +143,7 @@ LineDots.propTypes = {
 
     // theming
     theme: PropTypes.shape({
-        markers: PropTypes.shape({
+        dots: PropTypes.shape({
             textColor: PropTypes.string.isRequired,
             fontSize: PropTypes.string.isRequired,
         }).isRequired,
