@@ -40,6 +40,22 @@ stories.add('grouped horizontal', () =>
     />
 )
 
+stories.add('with marker', () =>
+    <Bar
+        {...commonProperties}
+        xPadding={0.4}
+        markers={[
+            {
+                axis: 'y',
+                value: 300,
+                style: { stroke: '#b0413e', strokeWidth: 2 },
+                legend: 'y marker at 300',
+                legendOrientation: 'vertical',
+            },
+        ]}
+    />
+)
+
 stories.add('using custom colorBy', () =>
     <Bar {...commonProperties} colorBy={({ id, data }) => data[`${id}Color`]} />
 )

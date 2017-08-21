@@ -25,6 +25,7 @@ import {
     generateLines,
     generateStackedLines,
 } from '../../../lib/charts/line'
+import CartesianMarkers from '../../cartesian/markers/CartesianMarkers'
 import Axes from '../../axes/Axes'
 import Grid from '../../axes/Grid'
 import LineLines from './LineLines'
@@ -65,6 +66,9 @@ const Line = ({
     dotLabelFormat,
     dotLabelYOffset,
 
+    // markers
+    markers,
+
     // theming
     theme,
 
@@ -96,6 +100,14 @@ const Line = ({
                         xScale={enableGridX ? xScale : null}
                         yScale={enableGridY ? yScale : null}
                         {...motionProps}
+                    />
+                    <CartesianMarkers
+                        markers={markers}
+                        width={width}
+                        height={height}
+                        xScale={xScale}
+                        yScale={yScale}
+                        theme={theme}
                     />
                     <Axes
                         xScale={xScale}
@@ -183,6 +195,15 @@ Line.propTypes = {
     dotBorderWidth: PropTypes.number.isRequired,
     dotBorderColor: PropTypes.any.isRequired,
     enableDotLabel: PropTypes.bool.isRequired,
+
+    // markers
+    markers: PropTypes.arrayOf(
+        PropTypes.shape({
+            axis: PropTypes.oneOf(['x', 'y']).isRequired,
+            value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+            style: PropTypes.object,
+        })
+    ),
 
     // theming
     getColor: PropTypes.func.isRequired,

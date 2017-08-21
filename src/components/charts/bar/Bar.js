@@ -20,8 +20,9 @@ import { generateGroupedBars, generateStackedBars } from '../../../lib/charts/ba
 import { getAccessorFor } from '../../../lib/propertiesConverters'
 import Container from '../Container'
 import SvgWrapper from '../SvgWrapper'
-import Axes from '../../axes/Axes'
 import Grid from '../../axes/Grid'
+import CartesianMarkers from '../../cartesian/markers/CartesianMarkers'
+import Axes from '../../axes/Axes'
 import BarItem from './BarItem'
 import BarItemLabel from './BarItemLabel'
 
@@ -52,6 +53,9 @@ const Bar = ({
     enableLabels,
     getLabelsLinkColor,
     getLabelsTextColor,
+
+    // markers
+    markers,
 
     // theming
     theme,
@@ -136,6 +140,14 @@ const Bar = ({
                             xScale={enableGridX ? result.xScale : null}
                             yScale={enableGridY ? result.yScale : null}
                             {...motionProps}
+                        />
+                        <CartesianMarkers
+                            markers={markers}
+                            width={width}
+                            height={height}
+                            xScale={result.xScale}
+                            yScale={result.yScale}
+                            theme={theme}
                         />
                         <Axes
                             xScale={result.xScale}
