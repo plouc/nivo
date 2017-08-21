@@ -18,6 +18,7 @@ import { pack } from 'd3-hierarchy'
 import { withHierarchy, withTheme, withColors, withDimensions, withMotion } from '../../../hocs'
 import { extractRGB } from '../../../lib/colorUtils'
 import noop from '../../../lib/noop'
+import { computeNodePath } from '../../../lib/hierarchy'
 import Container from '../Container'
 import { getAccessorFor } from '../../../lib/propertiesConverters'
 import { bubblePropTypes, bubbleDefaultProps } from './BubbleProps'
@@ -35,9 +36,6 @@ const ignoreProps = [
     'transitionEasing',
 ]
 
-const computeNodeUID = (node, getIdentity) =>
-    node.ancestors().map(ancestor => getIdentity(ancestor.data)).join('.')
-
 const nodeWillEnter = ({ data: node }) => ({
     r: 0,
     x: node.x,
@@ -51,8 +49,8 @@ const nodeWillLeave = styleThatLeft => ({
     y: spring(styleThatLeft.data.y),
 })
 
-const computeZoom = (nodes, currentNodeUid, width, height) => {
-    const currentNode = nodes.find(({ uid }) => uid === currentNodeUid)
+const computeZoom = (nodes, currentNodePath, width, height) => {
+    const currentNode = nodes.find(({ path }) => path === currentNodePath)
     if (currentNode) {
         const ratio = Math.min(width, height) / (currentNode.r * 2)
         const offsetX = width / 2 - currentNode.x * ratio
@@ -98,12 +96,12 @@ const BubblePlaceholders = ({
     // zooming
     isZoomable,
     zoomToNode,
-    currentNodeUid,
+    currentNodePath,
 }) => {
     // assign a unique id depending on node path to each node
     root.each(node => {
         node.id = getIdentity(node.data)
-        node.uid = computeNodeUID(node, getIdentity)
+        node.path = computeNodePath(node, getIdentity)
     })
 
     pack(root)
@@ -117,12 +115,10 @@ const BubblePlaceholders = ({
         //     d.color = color(identity(d.data))
         // }
 
-        node.data.key = node.ancestors().map(a => getIdentity(a.data)).join('.')
-
         return node
     })
 
-    if (currentNodeUid) computeZoom(nodes, currentNodeUid, width, height)
+    if (currentNodePath) computeZoom(nodes, currentNodePath, width, height)
 
     let wrapperTag
     let containerTag
@@ -164,12 +160,12 @@ const BubblePlaceholders = ({
                             containerProps,
                             children(
                                 nodes.map(node => ({
-                                    key: node.data.key,
+                                    key: node.path,
                                     data: node,
                                     style: _.pick(node, ['r', 'x', 'y', 'color']),
                                     zoom:
                                         isInteractive && isZoomable
-                                            ? () => zoomToNode(node.uid)
+                                            ? () => zoomToNode(node.path)
                                             : noop,
                                 })),
                                 { showTooltip, hideTooltip }
@@ -194,15 +190,15 @@ const BubblePlaceholders = ({
                     <TransitionMotion
                         willEnter={nodeWillEnter}
                         willLeave={nodeWillLeave}
-                        styles={nodes.map(b => {
+                        styles={nodes.map(node => {
                             return {
-                                key: b.data.key,
-                                data: b,
+                                key: node.path,
+                                data: node,
                                 style: {
-                                    r: spring(b.r, motionProps),
-                                    x: spring(b.x, motionProps),
-                                    y: spring(b.y, motionProps),
-                                    ...extractRGB(b.color, motionProps),
+                                    r: spring(node.r, motionProps),
+                                    x: spring(node.x, motionProps),
+                                    y: spring(node.y, motionProps),
+                                    ...extractRGB(node.color, motionProps),
                                 },
                             }
                         })}
@@ -220,7 +216,7 @@ const BubblePlaceholders = ({
 
                                         if (isInteractive && isZoomable) {
                                             interpolatedStyle.zoom = () =>
-                                                zoomToNode(interpolatedStyle.data.uid)
+                                                zoomToNode(interpolatedStyle.data.path)
                                         } else {
                                             interpolatedStyle.zoom = noop
                                         }
@@ -256,16 +252,13 @@ const enhance = compose(
         pack: pack().size([width, height]).padding(padding),
     })),
     withStateHandlers(
-        ({ currentNodeUid = null }) => ({
-            currentNodeUid,
+        ({ currentNodePath = null }) => ({
+            currentNodePath,
         }),
         {
-            zoomToNode: ({ currentNodeUid }) => uid => {
-                if (uid === currentNodeUid) {
-                    return { currentNodeUid: null }
-                }
-
-                return { currentNodeUid: uid }
+            zoomToNode: ({ currentNodePath }) => path => {
+                if (path === currentNodePath) return { currentNodePath: null }
+                return { currentNodePath: path }
             },
         }
     ),
