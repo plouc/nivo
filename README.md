@@ -49,6 +49,9 @@ Several libraries already exist for React d3 integration, but just a few provide
 - Radar
     - [`<Radar />`](http://nivo.rocks/#/radar)
     - [`<ResponsiveRadar />`](http://nivo.rocks/#/radar)
+- Sankey
+    - [`<Sankey />`](http://nivo.rocks/#/sankey)
+    - [`<ResponsiveSankey />`](http://nivo.rocks/#/sankey)               
 - Stream
     - [`<Stream />`](http://nivo.rocks/#/stream)
     - [`<ResponsiveStream />`](http://nivo.rocks/#/stream)           
@@ -62,7 +65,7 @@ Several libraries already exist for React d3 integration, but just a few provide
     - [`<ResponsiveTreeMapHTML />`](http://nivo.rocks/#/treemap/html)
     - [`<TreeMapPlaceholders />`](http://nivo.rocks/#/treemap/placeholders)
     - [`<ResponsiveTreeMapPlaceholders />`](http://nivo.rocks/#/treemap/placeholders)
-- Voronoi
+- Voronoi `experimental`
     - [`<Voronoi />`](http://nivo.rocks/#/voronoi)
     - [`<ResponsiveVoronoi />`](http://nivo.rocks/#/voronoi)            
 
