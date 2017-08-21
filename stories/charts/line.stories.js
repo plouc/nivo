@@ -37,26 +37,26 @@ stories.add('with custom curve', () =>
     <Line {...commonProperties} stacked={true} curve="monotoneX" />
 )
 
-stories.add('with markers label', () =>
+stories.add('with dot label', () =>
     <Line
         {...commonProperties}
         stacked={boolean('stacked', true)}
         curve={select('curve', curveOptions, 'linear')}
-        enableMarkersLabel={true}
-        markersSize={10}
-        markersBorderColor="#fff"
-        markersBorderWidth={2}
+        enableDotLabel={true}
+        dotSize={10}
+        dotBorderColor="#fff"
+        dotBorderWidth={2}
     />
 )
 
-stories.add('abusing markers label', () =>
+stories.add('abusing dot label', () =>
     <Line
         {...commonProperties}
         stacked={boolean('stacked', true)}
         curve={select('curve', curveOptions, 'monotoneX')}
-        enableMarkersLabel={true}
-        markersSize={26}
-        markersLabelYOffset={3}
+        enableDotLabel={true}
+        dotSize={26}
+        dotLabelYOffset={3}
         axisLeft={{
             tickSize: 10,
         }}
@@ -69,9 +69,84 @@ stories.add('using data colors', () =>
         stacked={boolean('stacked', true)}
         curve={select('curve', curveOptions, 'linear')}
         colorBy={d => d.color}
-        enableMarkersLabel={true}
-        markersSize={10}
-        markersBorderColor="#fff"
-        markersBorderWidth={2}
+        enableDotLabel={true}
+        dotSize={10}
+        dotBorderColor="#fff"
+        dotBorderWidth={2}
+    />
+)
+
+stories.add('with custom min/max Y', () =>
+    <Line
+        {...commonProperties}
+        data={[
+            {
+                id: 'fake corp. A',
+                data: [
+                    0.5,
+                    0.6,
+                    0.8,
+                    0.7,
+                    0.8,
+                    0.5,
+                    0.2,
+                    0.3,
+                    0.4,
+                    0.5,
+                    0.5,
+                    0.1,
+                    -0.2,
+                    -0.6,
+                    -0.1,
+                    0,
+                    0.1,
+                    -0.1,
+                    -0.4,
+                    -0.6,
+                    -0.5,
+                    0.2,
+                    0.5,
+                    0.6,
+                    0.6,
+                ].map((y, i) => ({ x: `#${i}`, y })),
+            },
+            {
+                id: 'fake corp. B',
+                data: [
+                    0.9,
+                    0.5,
+                    0.6,
+                    0.5,
+                    0.4,
+                    0.3,
+                    -0.1,
+                    -0.5,
+                    -0.4,
+                    -0.4,
+                    -0.1,
+                    -0.3,
+                    -0.2,
+                    0.1,
+                    0.1,
+                    0.3,
+                    0.4,
+                    0.5,
+                    0.4,
+                    0.6,
+                    0.5,
+                    0.7,
+                    0.8,
+                    0.4,
+                    0.3,
+                ].map((y, i) => ({ x: `#${i}`, y })),
+            },
+        ]}
+        stacked={false}
+        curve={select('curve', curveOptions, 'monotoneX')}
+        dotSize={8}
+        dotBorderColor="#fff"
+        dotBorderWidth={2}
+        minY={-1}
+        maxY={1}
     />
 )

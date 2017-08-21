@@ -29,7 +29,7 @@ import Axes from '../../axes/Axes'
 import Grid from '../../axes/Grid'
 import LineLines from './LineLines'
 import LineSlices from './LineSlices'
-import LineMarkers from './LineMarkers'
+import LineDots from './LineDots'
 
 const Line = ({
     lines,
@@ -53,16 +53,16 @@ const Line = ({
     enableGridX,
     enableGridY,
 
-    // markers
-    enableMarkers,
-    markersSize,
-    markersColor,
-    markersBorderWidth,
-    markersBorderColor,
-    enableMarkersLabel,
-    markersLabel,
-    markersLabelFormat,
-    markersLabelYOffset,
+    // dots
+    enableDots,
+    dotSize,
+    dotColor,
+    dotBorderWidth,
+    dotBorderColor,
+    enableDotLabel,
+    dotLabel,
+    dotLabelFormat,
+    dotLabelYOffset,
 
     // theming
     theme,
@@ -118,17 +118,17 @@ const Line = ({
                             hideTooltip={hideTooltip}
                             theme={theme}
                         />}
-                    {enableMarkers &&
-                        <LineMarkers
+                    {enableDots &&
+                        <LineDots
                             lines={lines}
-                            size={markersSize}
-                            color={getInheritedColorGenerator(markersColor)}
-                            borderWidth={markersBorderWidth}
-                            borderColor={getInheritedColorGenerator(markersBorderColor)}
-                            enableLabel={enableMarkersLabel}
-                            label={markersLabel}
-                            labelFormat={markersLabelFormat}
-                            labelYOffset={markersLabelYOffset}
+                            size={dotSize}
+                            color={getInheritedColorGenerator(dotColor)}
+                            borderWidth={dotBorderWidth}
+                            borderColor={getInheritedColorGenerator(dotBorderColor)}
+                            enableLabel={enableDotLabel}
+                            label={dotLabel}
+                            labelFormat={dotLabelFormat}
+                            labelYOffset={dotLabelYOffset}
                             theme={theme}
                             {...motionProps}
                         />}
@@ -139,10 +139,17 @@ const Line = ({
 
 Line.propTypes = {
     // data
-    data: PropTypes.arrayOf(PropTypes.object).isRequired,
-    indexBy: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
-    getIndex: PropTypes.func.isRequired, // computed
-    keys: PropTypes.arrayOf(PropTypes.string).isRequired,
+    data: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.string.isRequired,
+            data: PropTypes.arrayOf(
+                PropTypes.shape({
+                    x: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+                    y: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+                })
+            ).isRequired,
+        })
+    ).isRequired,
 
     stacked: PropTypes.bool.isRequired,
     curve: lineCurvePropType.isRequired,
@@ -151,8 +158,12 @@ Line.propTypes = {
     lines: PropTypes.array.isRequired,
     slices: PropTypes.array.isRequired,
 
-    xScale: PropTypes.func.isRequired,
-    yScale: PropTypes.func.isRequired,
+    minY: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.oneOf(['auto'])])
+        .isRequired,
+    maxY: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.oneOf(['auto'])])
+        .isRequired,
+    xScale: PropTypes.func.isRequired, // computed
+    yScale: PropTypes.func.isRequired, // computed
 
     // axes & grid
     axisTop: PropTypes.object,
@@ -162,13 +173,13 @@ Line.propTypes = {
     enableGridX: PropTypes.bool.isRequired,
     enableGridY: PropTypes.bool.isRequired,
 
-    // markers
-    enableMarkers: PropTypes.bool.isRequired,
-    markersSize: PropTypes.number.isRequired,
-    markersColor: PropTypes.any.isRequired,
-    markersBorderWidth: PropTypes.number.isRequired,
-    markersBorderColor: PropTypes.any.isRequired,
-    enableMarkersLabel: PropTypes.bool.isRequired,
+    // dots
+    enableDots: PropTypes.bool.isRequired,
+    dotSize: PropTypes.number.isRequired,
+    dotColor: PropTypes.any.isRequired,
+    dotBorderWidth: PropTypes.number.isRequired,
+    dotBorderColor: PropTypes.any.isRequired,
+    enableDotLabel: PropTypes.bool.isRequired,
 
     // theming
     getColor: PropTypes.func.isRequired,
@@ -187,19 +198,23 @@ export const LineDefaultProps = {
     stacked: false,
     curve: 'linear',
 
+    // scales
+    minY: 0,
+    maxY: 'auto',
+
     // axes & grid
     axisBottom: {},
     axisLeft: {},
     enableGridX: true,
     enableGridY: true,
 
-    // markers
-    enableMarkers: true,
-    markersSize: 6,
-    markersColor: 'inherit',
-    markersBorderWidth: 0,
-    markersBorderColor: 'inherit',
-    enableMarkersLabel: false,
+    // dots
+    enableDots: true,
+    dotSize: 6,
+    dotColor: 'inherit',
+    dotBorderWidth: 0,
+    dotBorderColor: 'inherit',
+    enableDotLabel: false,
 
     // theming
     colors: 'nivo',
@@ -222,17 +237,14 @@ const enhance = compose(
         lineGenerator: line().x(d => d.x).y(d => d.y).curve(curveFromProp(curve)),
     })),
     withPropsOnChange(
-        (props, nextProps) =>
-            props.data !== nextProps.data ||
-            props.stacked !== nextProps.stacked ||
-            props.width !== nextProps.width ||
-            props.height !== nextProps.height,
-        ({ data, stacked, width, height, margin }) => {
+        ['data', 'stacked', 'width', 'height', 'minY', 'maxY'],
+        ({ data, stacked, width, height, margin, minY, maxY }) => {
             let scales
+            const args = { data, width, height, minY, maxY }
             if (stacked === true) {
-                scales = getStackedScales(data, width, height)
+                scales = getStackedScales(args)
             } else {
-                scales = getScales(data, width, height)
+                scales = getScales(args)
             }
 
             return {

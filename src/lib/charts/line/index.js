@@ -1,4 +1,4 @@
-import { range, max, maxBy, sumBy, uniq } from 'lodash'
+import { range, min, max, maxBy, sumBy, uniq } from 'lodash'
 import { scalePoint, scaleLinear } from 'd3-scale'
 
 /**
@@ -28,12 +28,22 @@ export const getXScale = (data, width) => {
  *
  * @param {Array.<Object>} data
  * @param {number}         height
+ * @param {number|string}  minValue
+ * @param {number|string}  maxValue
  * @returns {Function}
  */
-export const getYScale = (data, height) => {
-    const maxY = maxBy(data.reduce((acc, serie) => [...acc, ...serie.data], []), 'y').y
+export const getYScale = (data, height, minValue, maxValue) => {
+    let minY = minValue
+    if (minValue === 'auto') {
+        minY = min(data.map(serie => min(serie.data.map(d => d.y))))
+    }
 
-    return scaleLinear().rangeRound([height, 0]).domain([0, maxY])
+    let maxY = maxValue
+    if (maxValue === 'auto') {
+        maxY = max(data.map(serie => max(serie.data.map(d => d.y))))
+    }
+
+    return scaleLinear().rangeRound([height, 0]).domain([minY, maxY])
 }
 
 /**
@@ -42,23 +52,54 @@ export const getYScale = (data, height) => {
  * @param {Array.<Object>} data
  * @param {Object}         xScale
  * @param {number}         height
+ * @param {number|string}  minValue
+ * @param {number|string}  maxValue
+ * @returns {Function}
  */
-export const getStackedYScale = (data, xScale, height) => {
-    const maxY = max(range(xScale.domain().length).map(i => sumBy(data, serie => serie.data[i].y)))
+export const getStackedYScale = (data, xScale, height, minValue, maxValue) => {
+    let minY = minValue
+    if (minValue === 'auto') {
+        minY = min(data.map(serie => min(serie.data.map(d => d.y))))
+    }
 
-    return scaleLinear().rangeRound([height, 0]).domain([0, maxY])
+    let maxY = maxValue
+    if (maxValue === 'auto') {
+        maxY = max(range(xScale.domain().length).map(i => sumBy(data, serie => serie.data[i].y)))
+    }
+
+    return scaleLinear().rangeRound([height, 0]).domain([minY, maxY])
 }
 
-export const getStackedScales = (data, width, height) => {
+/**
+ * Generates stacked x/y scales.
+ *
+ * @param {Array}         data
+ * @param {number}        width
+ * @param {number}        height
+ * @param {number|string} minY
+ * @param {number|string} maxY
+ * @return {{ xScale: Function, yScale: Function }}
+ */
+export const getStackedScales = ({ data, width, height, minY, maxY }) => {
     const xScale = getXScale(data, width)
-    const yScale = getStackedYScale(data, xScale, height)
+    const yScale = getStackedYScale(data, xScale, height, minY, maxY)
 
     return { xScale, yScale }
 }
 
-export const getScales = (data, width, height) => {
+/**
+ * Generates non stacked x/ scales
+ *
+ * @param {Array}         data
+ * @param {number}        width
+ * @param {number}        height
+ * @param {number|string} minY
+ * @param {number|string} maxY
+ * @return {{ xScale: Function, yScale: Function }}
+ */
+export const getScales = ({ data, width, height, minY, maxY }) => {
     const xScale = getXScale(data, width)
-    const yScale = getYScale(data, height)
+    const yScale = getYScale(data, height, minY, maxY)
 
     return { xScale, yScale }
 }
