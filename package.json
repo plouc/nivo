@@ -7,6 +7,10 @@
       "url": "https://github.com/plouc/nivo/blob/master/LICENSE.md"
     }
   ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/plouc/nivo"
+  },
   "author": {
     "name": "Raphaël Benitte",
     "url": "https://github.com/plouc"
