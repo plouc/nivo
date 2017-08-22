@@ -61,6 +61,9 @@ export const defaultTheme = {
             padding: '3px 5px',
         },
     },
+    sankey: {
+        label: {},
+    },
 }
 
 export default {

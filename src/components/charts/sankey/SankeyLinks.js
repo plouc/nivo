@@ -19,6 +19,7 @@ const SankeyLinks = ({
 
     // links
     linkOpacity,
+    linkContract,
     getLinkColor,
 
     // motion
@@ -34,7 +35,7 @@ const SankeyLinks = ({
                         key={`${link.source.id}.${link.target.id}`}
                         fill="none"
                         d={getLinkPath(link)}
-                        strokeWidth={Math.max(1, link.width)}
+                        strokeWidth={Math.max(1, link.width - linkContract * 2)}
                         stroke={getLinkColor(link)}
                         strokeOpacity={linkOpacity}
                     />
@@ -55,7 +56,10 @@ const SankeyLinks = ({
                     key={`${link.source.id}.${link.target.id}`}
                     style={spring => ({
                         d: spring(getLinkPath(link), springConfig),
-                        strokeWidth: spring(Math.max(1, link.width), springConfig),
+                        strokeWidth: spring(
+                            Math.max(1, link.width - linkContract * 2),
+                            springConfig
+                        ),
                         stroke: spring(getLinkColor(link), springConfig),
                         strokeOpacity: spring(linkOpacity, springConfig),
                     })}
@@ -82,6 +86,7 @@ SankeyLinks.propTypes = {
 
     // links
     linkOpacity: PropTypes.number.isRequired,
+    linkContract: PropTypes.number.isRequired,
     getLinkColor: PropTypes.func.isRequired,
 }
 

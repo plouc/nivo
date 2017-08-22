@@ -18,7 +18,6 @@ const SankeyNodes = ({
     nodes,
 
     // nodes
-    getColor,
     nodeOpacity,
     nodeBorderWidth,
     getNodeBorderColor,
@@ -32,19 +31,17 @@ const SankeyNodes = ({
         return (
             <g>
                 {nodes.map(node => {
-                    const color = getColor(node)
-
                     return (
                         <rect
                             key={node.id}
-                            x={node.x0}
-                            y={node.y0}
-                            height={node.y1 - node.y0}
-                            width={node.x1 - node.x0}
-                            fill={color}
+                            x={node.x}
+                            y={node.y}
+                            height={node.height}
+                            width={node.width}
+                            fill={node.color}
                             fillOpacity={nodeOpacity}
                             strokeWidth={nodeBorderWidth}
-                            stroke={getNodeBorderColor({ ...node, color })}
+                            stroke={getNodeBorderColor(node)}
                         />
                     )
                 })}
@@ -60,17 +57,15 @@ const SankeyNodes = ({
     return (
         <TransitionMotion
             styles={nodes.map(node => {
-                const color = getColor(node)
-
                 return {
                     key: node.id,
                     data: node,
                     style: {
-                        x: spring(node.x0, springProps),
-                        y: spring(node.y0, springProps),
-                        width: spring(node.x1 - node.x0, springProps),
-                        height: spring(node.y1 - node.y0, springProps),
-                        ...extractRGB(color, springProps),
+                        x: spring(node.x, springProps),
+                        y: spring(node.y, springProps),
+                        width: spring(node.width, springProps),
+                        height: spring(node.height, springProps),
+                        ...extractRGB(node.color, springProps),
                     },
                 }
             })}
@@ -106,14 +101,13 @@ SankeyNodes.propTypes = {
     nodes: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-            x0: PropTypes.number.isRequired,
-            x1: PropTypes.number.isRequired,
-            y0: PropTypes.number.isRequired,
-            x1: PropTypes.number.isRequired,
+            x: PropTypes.number.isRequired,
+            y: PropTypes.number.isRequired,
+            width: PropTypes.number.isRequired,
+            height: PropTypes.number.isRequired,
         })
     ).isRequired,
 
-    getColor: PropTypes.func.isRequired,
     nodeOpacity: PropTypes.number.isRequired,
     nodeBorderWidth: PropTypes.number.isRequired,
     getNodeBorderColor: PropTypes.func.isRequired,

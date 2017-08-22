@@ -137,6 +137,10 @@ export const getInheritedColorGenerator = (instruction, themeKey) => {
     if (_.isFunction(instruction)) return instruction
 
     if (instruction === 'theme') {
+        if (!themeKey) {
+            throw new Error(`Cannot use 'theme' directive without providing 'themeKey'`)
+        }
+
         return (d, theme) => _.get(theme, themeKey)
     }
 

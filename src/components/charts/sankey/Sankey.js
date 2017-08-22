@@ -13,17 +13,21 @@ import compose from 'recompose/compose'
 import defaultProps from 'recompose/defaultProps'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
-import { withColors, withTheme, withDimensions, withMotion } from '../../../hocs'
+import { sankey as d3Sankey } from 'd3-sankey'
 import { getInheritedColorGenerator } from '../../../lib/colorUtils'
+import { withColors, withTheme, withDimensions, withMotion } from '../../../hocs'
+import { sankeyAlignmentPropType, sankeyAlignmentFromProp } from '../../../props'
 import SvgWrapper from '../SvgWrapper'
-import { sankey as d3Sankey, sankeyLinkHorizontal } from 'd3-sankey'
 import SankeyNodes from './SankeyNodes'
 import SankeyLinks from './SankeyLinks'
+import SankeyLabels from './SankeyLabels'
 
-const getLinkPath = sankeyLinkHorizontal()
+const getId = d => d.id
 
 const Sankey = ({
     data: _data,
+
+    align,
 
     // dimensions
     margin,
@@ -37,13 +41,22 @@ const Sankey = ({
     nodeWidth,
     nodePadding,
     nodeBorderWidth,
-    getNodeBorderColor,
+    getNodeBorderColor, // computed
 
     // links
     linkOpacity,
+    linkContract,
     getLinkColor,
 
+    // labels
+    enableLabels,
+    labelPosition,
+    labelPadding,
+    labelOrientation,
+    getLabelTextColor, // computed
+
     // theming
+    theme,
     getColor, // computed
 
     // motion
@@ -55,13 +68,23 @@ const Sankey = ({
     isInteractive,
 }) => {
     const sankey = d3Sankey()
+        .nodeAlign(sankeyAlignmentFromProp(align))
         .nodeWidth(nodeWidth)
         .nodePadding(nodePadding)
         .size([width, height])
-        .nodeId(d => d.id)
+        .nodeId(getId)
 
+    // deep clone is required as the sankey diagram mutates data
     const data = cloneDeep(_data)
     sankey(data)
+
+    data.nodes.forEach(node => {
+        node.color = getColor(node)
+        node.x = node.x0
+        node.y = node.y0
+        node.width = node.x1 - node.x0
+        node.height = node.y1 - node.y0
+    })
 
     const motionProps = {
         animate,
@@ -73,18 +96,29 @@ const Sankey = ({
         <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
             <SankeyLinks
                 links={data.links}
+                linkContract={linkContract}
                 linkOpacity={linkOpacity}
                 getLinkColor={getLinkColor}
                 {...motionProps}
             />
             <SankeyNodes
                 nodes={data.nodes}
-                getColor={getColor}
                 nodeOpacity={nodeOpacity}
                 nodeBorderWidth={nodeBorderWidth}
                 getNodeBorderColor={getNodeBorderColor}
                 {...motionProps}
             />
+            {enableLabels &&
+                <SankeyLabels
+                    nodes={data.nodes}
+                    width={width}
+                    labelPosition={labelPosition}
+                    labelPadding={labelPadding}
+                    labelOrientation={labelOrientation}
+                    getLabelTextColor={getLabelTextColor}
+                    theme={theme}
+                    {...motionProps}
+                />}
         </SvgWrapper>
     )
 }
@@ -104,6 +138,8 @@ Sankey.propTypes = {
         ).isRequired,
     }).isRequired,
 
+    align: sankeyAlignmentPropType.isRequired,
+
     // nodes
     nodeOpacity: PropTypes.number.isRequired,
     nodeWidth: PropTypes.number.isRequired,
@@ -113,12 +149,23 @@ Sankey.propTypes = {
 
     // links
     linkOpacity: PropTypes.number.isRequired,
+    linkContract: PropTypes.number.isRequired,
+
+    // labels
+    enableLabels: PropTypes.bool.isRequired,
+    labelPosition: PropTypes.oneOf(['inside', 'outside']).isRequired,
+    labelPadding: PropTypes.number.isRequired,
+    labelOrientation: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
+    labelTextColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    getLabelTextColor: PropTypes.func.isRequired, // computed
 
     // interactivity
     isInteractive: PropTypes.bool.isRequired,
 }
 
 export const SankeyDefaultProps = {
+    align: 'center',
+
     // nodes
     nodeOpacity: 0.65,
     nodeWidth: 12,
@@ -128,6 +175,14 @@ export const SankeyDefaultProps = {
 
     // links
     linkOpacity: 0.25,
+    linkContract: 0,
+
+    // labels
+    enableLabels: true,
+    labelPosition: 'inside',
+    labelPadding: 9,
+    labelOrientation: 'horizontal',
+    labelTextColor: 'inherit:darker(0.5)',
 
     // interactivity
     isInteractive: true,
@@ -146,6 +201,9 @@ const enhance = compose(
     withMotion(),
     withPropsOnChange(['nodeBorderColor'], ({ nodeBorderColor }) => ({
         getNodeBorderColor: getInheritedColorGenerator(nodeBorderColor),
+    })),
+    withPropsOnChange(['labelTextColor'], ({ labelTextColor }) => ({
+        getLabelTextColor: getInheritedColorGenerator(labelTextColor),
     })),
     pure
 )
