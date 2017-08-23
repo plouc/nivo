@@ -234,12 +234,7 @@ const enhance = compose(
         }, {}),
     })),
     withPropsOnChange(
-        (props, nextProps) =>
-            props.keys !== nextProps.keys ||
-            props.indexBy !== nextProps.indexBy ||
-            props.data !== nextProps.data ||
-            props.width !== nextProps.width ||
-            props.height !== nextProps.height,
+        ['keys', 'indexBy', 'data', 'width', 'height'],
         ({ data, keys, width, height }) => {
             const maxValue = max(data.reduce((acc, d) => [...acc, ...keys.map(key => d[key])], []))
 

@@ -77,6 +77,7 @@ Several libraries already exist for React d3 integration, but just a few provide
 - [`<Line />`](https://nivo-api.herokuapp.com/samples/line.svg)
 - [`<Pie />`](https://nivo-api.herokuapp.com/samples/pie.svg)
 - [`<Radar />`](https://nivo-api.herokuapp.com/samples/radar.svg)
+- [`<Sankey />`](https://nivo-api.herokuapp.com/samples/sankey.svg)
 - [`<Sunburst />`](https://nivo-api.herokuapp.com/samples/sunburst.svg)
 - [`<TreeMap />`](https://nivo-api.herokuapp.com/samples/treemap.svg)
 

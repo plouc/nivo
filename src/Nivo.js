@@ -48,12 +48,19 @@ export const defaultTheme = {
         fontSize: '11px',
     },
     tooltip: {
-        background: 'white',
-        color: 'inherit',
-        fontSize: 'inherit',
-        borderRadius: '2px',
-        boxShadow: '0 1px 2px rgba(0, 0, 0, 0.25)',
-        padding: '5px 9px',
+        container: {
+            display: 'flex',
+            alignItems: 'center',
+            background: 'white',
+            color: 'inherit',
+            fontSize: 'inherit',
+            borderRadius: '2px',
+            boxShadow: '0 1px 2px rgba(0, 0, 0, 0.25)',
+            padding: '5px 9px',
+        },
+        basic: {
+            whiteSpace: 'pre',
+        },
         table: {
             fontSize: 'inherit',
         },

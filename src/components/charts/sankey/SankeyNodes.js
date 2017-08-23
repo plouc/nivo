@@ -8,17 +8,19 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { cloneDeep } from 'lodash'
 import pure from 'recompose/pure'
 import { TransitionMotion, spring } from 'react-motion'
 import { extractRGB } from '../../../lib/colorUtils'
 import { motionPropTypes } from '../../../props'
+import SankeyNodesItem from './SankeyNodesItem'
 
 const SankeyNodes = ({
     nodes,
 
     // nodes
+    nodePaddingX,
     nodeOpacity,
+    nodeHoverOpacity,
     nodeBorderWidth,
     getNodeBorderColor,
 
@@ -26,25 +28,33 @@ const SankeyNodes = ({
     animate,
     motionDamping,
     motionStiffness,
+
+    showTooltip,
+    hideTooltip,
+
+    theme,
 }) => {
     if (!animate) {
         return (
             <g>
-                {nodes.map(node => {
-                    return (
-                        <rect
-                            key={node.id}
-                            x={node.x}
-                            y={node.y}
-                            height={node.height}
-                            width={node.width}
-                            fill={node.color}
-                            fillOpacity={nodeOpacity}
-                            strokeWidth={nodeBorderWidth}
-                            stroke={getNodeBorderColor(node)}
-                        />
-                    )
-                })}
+                {nodes.map(node =>
+                    <SankeyNodesItem
+                        key={node.id}
+                        node={node}
+                        x={node.x}
+                        y={node.y}
+                        width={node.width}
+                        height={node.height}
+                        color={node.color}
+                        opacity={nodeOpacity}
+                        hoverOpacity={nodeHoverOpacity}
+                        borderWidth={nodeBorderWidth}
+                        borderColor={getNodeBorderColor(node)}
+                        showTooltip={showTooltip}
+                        hideTooltip={hideTooltip}
+                        theme={theme}
+                    />
+                )}
             </g>
         )
     }
@@ -72,23 +82,28 @@ const SankeyNodes = ({
         >
             {interpolatedStyles =>
                 <g>
-                    {interpolatedStyles.map(({ key, style, data }) => {
+                    {interpolatedStyles.map(({ key, style, data: node }) => {
                         const { colorR, colorG, colorB } = style
                         const color = `rgb(${Math.round(colorR)},${Math.round(colorG)},${Math.round(
                             colorB
                         )})`
 
                         return (
-                            <rect
+                            <SankeyNodesItem
                                 key={key}
+                                node={node}
                                 x={style.x}
                                 y={style.y}
                                 width={Math.max(style.width, 0)}
                                 height={Math.max(style.height, 0)}
-                                fill={color}
-                                fillOpacity={nodeOpacity}
-                                strokeWidth={nodeBorderWidth}
-                                stroke={getNodeBorderColor({ ...data, color })}
+                                color={color}
+                                opacity={nodeOpacity}
+                                hoverOpacity={nodeHoverOpacity}
+                                borderWidth={nodeBorderWidth}
+                                borderColor={getNodeBorderColor({ ...node, color })}
+                                showTooltip={showTooltip}
+                                hideTooltip={hideTooltip}
+                                theme={theme}
                             />
                         )
                     })}
@@ -105,14 +120,22 @@ SankeyNodes.propTypes = {
             y: PropTypes.number.isRequired,
             width: PropTypes.number.isRequired,
             height: PropTypes.number.isRequired,
+            color: PropTypes.string.isRequired,
         })
     ).isRequired,
 
+    nodePaddingX: PropTypes.number.isRequired,
     nodeOpacity: PropTypes.number.isRequired,
+    nodeHoverOpacity: PropTypes.number.isRequired,
     nodeBorderWidth: PropTypes.number.isRequired,
     getNodeBorderColor: PropTypes.func.isRequired,
 
+    theme: PropTypes.object.isRequired,
+
     ...motionPropTypes,
+
+    showTooltip: PropTypes.func.isRequired,
+    hideTooltip: PropTypes.func.isRequired,
 }
 
 export default pure(SankeyNodes)

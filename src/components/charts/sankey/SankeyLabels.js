@@ -116,7 +116,11 @@ const SankeyLabels = ({
                                 transform={`translate(${style.x}, ${style.y}) rotate(${style.rotation})`}
                                 alignmentBaseline="central"
                                 textAnchor={data.textAnchor}
-                                style={{ ...theme.sankey.label, fill: color }}
+                                style={{
+                                    ...theme.sankey.label,
+                                    fill: color,
+                                    pointerEvents: 'none',
+                                }}
                             >
                                 {data.id}
                             </text>

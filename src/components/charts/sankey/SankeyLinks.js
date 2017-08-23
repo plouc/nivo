@@ -10,7 +10,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
 import { sankeyLinkHorizontal } from 'd3-sankey'
+import { motionPropTypes } from '../../../props'
 import SmartMotion from '../../SmartMotion'
+import SankeyLinksItem from './SankeyLinksItem'
 
 const getLinkPath = sankeyLinkHorizontal()
 
@@ -19,25 +21,35 @@ const SankeyLinks = ({
 
     // links
     linkOpacity,
+    linkHoverOpacity,
     linkContract,
-    getLinkColor,
 
     // motion
     animate,
     motionDamping,
     motionStiffness,
+
+    showTooltip,
+    hideTooltip,
+
+    theme,
 }) => {
     if (animate !== true) {
         return (
             <g>
                 {links.map(link =>
-                    <path
+                    <SankeyLinksItem
                         key={`${link.source.id}.${link.target.id}`}
-                        fill="none"
-                        d={getLinkPath(link)}
-                        strokeWidth={Math.max(1, link.width - linkContract * 2)}
-                        stroke={getLinkColor(link)}
-                        strokeOpacity={linkOpacity}
+                        link={link}
+                        path={getLinkPath(link)}
+                        width={Math.max(1, link.width - linkContract * 2)}
+                        color={link.color}
+                        opacity={linkOpacity}
+                        hoverOpacity={linkHoverOpacity}
+                        contract={linkContract}
+                        showTooltip={showTooltip}
+                        hideTooltip={hideTooltip}
+                        theme={theme}
                     />
                 )}
             </g>
@@ -55,16 +67,22 @@ const SankeyLinks = ({
                 <SmartMotion
                     key={`${link.source.id}.${link.target.id}`}
                     style={spring => ({
-                        d: spring(getLinkPath(link), springConfig),
-                        strokeWidth: spring(
-                            Math.max(1, link.width - linkContract * 2),
-                            springConfig
-                        ),
-                        stroke: spring(getLinkColor(link), springConfig),
-                        strokeOpacity: spring(linkOpacity, springConfig),
+                        path: spring(getLinkPath(link), springConfig),
+                        width: spring(Math.max(1, link.width - linkContract * 2), springConfig),
+                        color: spring(link.color, springConfig),
+                        opacity: spring(linkOpacity, springConfig),
+                        contract: spring(linkContract, springConfig),
                     })}
                 >
-                    {style => <path fill="none" {...style} />}
+                    {style =>
+                        <SankeyLinksItem
+                            link={link}
+                            {...style}
+                            hoverOpacity={linkHoverOpacity}
+                            showTooltip={showTooltip}
+                            hideTooltip={hideTooltip}
+                            theme={theme}
+                        />}
                 </SmartMotion>
             )}
         </g>
@@ -81,13 +99,21 @@ SankeyLinks.propTypes = {
                 id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
             }).isRequired,
             width: PropTypes.number.isRequired,
+            color: PropTypes.string.isRequired,
         })
     ).isRequired,
 
     // links
     linkOpacity: PropTypes.number.isRequired,
+    linkHoverOpacity: PropTypes.number.isRequired,
     linkContract: PropTypes.number.isRequired,
-    getLinkColor: PropTypes.func.isRequired,
+
+    theme: PropTypes.object.isRequired,
+
+    ...motionPropTypes,
+
+    showTooltip: PropTypes.func.isRequired,
+    hideTooltip: PropTypes.func.isRequired,
 }
 
 export default pure(SankeyLinks)

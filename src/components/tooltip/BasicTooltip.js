@@ -11,33 +11,32 @@ import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
 import Chip from './Chip'
 
-const tooltipStyle = {
-    display: 'flex',
-    alignItems: 'center',
-}
+const chipStyle = { marginRight: 7 }
 
-const textStyle = {
-    whiteSpace: 'pre',
-    marginLeft: 7,
-}
-
-const BasicTooltip = ({ id, value, enableChip, color }) =>
-    <div style={tooltipStyle}>
-        {enableChip && <Chip color={color} />}
+const BasicTooltip = ({ id, value, enableChip, color, theme }) =>
+    <div style={theme.tooltip.container}>
+        {enableChip && <Chip color={color} style={chipStyle} />}
         {value !== undefined
-            ? <span style={textStyle}>
+            ? <span style={theme.tooltip.basic}>
                   {id}: <strong>{value}</strong>
               </span>
-            : <span style={textStyle}>
+            : <span style={theme.tooltip.basic}>
                   {id}
               </span>}
     </div>
 
 BasicTooltip.propTypes = {
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    id: PropTypes.node.isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     enableChip: PropTypes.bool.isRequired,
     color: PropTypes.string,
+
+    theme: PropTypes.shape({
+        tooltip: PropTypes.shape({
+            container: PropTypes.object.isRequired,
+            basic: PropTypes.object.isRequired,
+        }).isRequired,
+    }).isRequired,
 }
 
 BasicTooltip.defaultProps = {
