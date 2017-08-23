@@ -168,7 +168,7 @@ const BubblePlaceholders = ({
                                             ? () => zoomToNode(node.path)
                                             : noop,
                                 })),
-                                { showTooltip, hideTooltip }
+                                { showTooltip, hideTooltip, theme }
                             )
                         )
                     )}
@@ -223,7 +223,7 @@ const BubblePlaceholders = ({
 
                                         return interpolatedStyle
                                     }),
-                                    { showTooltip, hideTooltip }
+                                    { showTooltip, hideTooltip, theme }
                                 )
                             )
                         }}

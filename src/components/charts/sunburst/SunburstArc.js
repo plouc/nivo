@@ -31,13 +31,14 @@ SunburstArc.propTypes = {
     borderColor: PropTypes.string.isRequired,
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
+    theme: PropTypes.object.isRequired,
 }
 
 const enhance = compose(
     withPropsOnChange(['node', 'arcGenerator'], ({ node, arcGenerator }) => ({
         path: arcGenerator(node),
     })),
-    withPropsOnChange(['node', 'showTooltip'], ({ node, showTooltip }) => ({
+    withPropsOnChange(['node', 'showTooltip', 'theme'], ({ node, showTooltip, theme }) => ({
         showTooltip: e => {
             showTooltip(
                 <BasicTooltip
@@ -45,6 +46,7 @@ const enhance = compose(
                     enableChip={true}
                     color={node.data.color}
                     value={`${node.data.percentage.toFixed(2)}%`}
+                    theme={theme}
                 />,
                 e
             )

@@ -19,7 +19,7 @@ const TableTooltip = ({ title, rows, theme }) => {
     if (!rows.length) return null
 
     return (
-        <div>
+        <div style={theme.tooltip.container}>
             {title && title}
             <table style={{ ...tableStyle, ...theme.tooltip.table }}>
                 <tbody>
@@ -41,7 +41,13 @@ const TableTooltip = ({ title, rows, theme }) => {
 TableTooltip.propTypes = {
     title: PropTypes.node,
     rows: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.node)).isRequired,
-    theme: PropTypes.object.isRequired,
+    theme: PropTypes.shape({
+        tooltip: PropTypes.shape({
+            container: PropTypes.object.isRequired,
+            table: PropTypes.object.isRequired,
+            tableCell: PropTypes.object.isRequired,
+        }).isRequired,
+    }).isRequired,
 }
 
 TableTooltip.defaultProps = {}

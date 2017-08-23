@@ -26,7 +26,7 @@ const createNodesRenderer = ({
     orientLabels,
     labelSkipSize,
     getLabelTextColor,
-}) => (nodes, { showTooltip, hideTooltip }) =>
+}) => (nodes, { showTooltip, hideTooltip, theme }) =>
     nodes.map(node => {
         const hasLabel =
             enableLabels &&
@@ -47,6 +47,7 @@ const createNodesRenderer = ({
                 labelTextColor={getLabelTextColor({ ...node.data, color: node.style.color })}
                 showTooltip={showTooltip}
                 hideTooltip={hideTooltip}
+                theme={theme}
             />
         )
     })

@@ -126,6 +126,7 @@ const Stream = ({
                         fillOpacity={fillOpacity}
                         showTooltip={showTooltip}
                         hideTooltip={hideTooltip}
+                        theme={theme}
                         {...motionProps}
                     />
                     <Axes

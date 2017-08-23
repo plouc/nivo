@@ -157,6 +157,7 @@ const Pie = ({
                                                     value={d.data.value}
                                                     enableChip={true}
                                                     color={d.data.color}
+                                                    theme={theme}
                                                 />,
                                                 e
                                             )

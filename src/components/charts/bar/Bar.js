@@ -115,6 +115,7 @@ const Bar = ({
                                             {...style}
                                             showTooltip={showTooltip}
                                             hideTooltip={hideTooltip}
+                                            theme={theme}
                                         />
                                     )}
                                 </g>}
@@ -127,6 +128,7 @@ const Bar = ({
                             {...d}
                             showTooltip={showTooltip}
                             hideTooltip={hideTooltip}
+                            theme={theme}
                         />
                     )
                 }

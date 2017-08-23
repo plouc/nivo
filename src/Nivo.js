@@ -49,8 +49,6 @@ export const defaultTheme = {
     },
     tooltip: {
         container: {
-            display: 'flex',
-            alignItems: 'center',
             background: 'white',
             color: 'inherit',
             fontSize: 'inherit',
@@ -60,10 +58,10 @@ export const defaultTheme = {
         },
         basic: {
             whiteSpace: 'pre',
+            display: 'flex',
+            alignItems: 'center',
         },
-        table: {
-            fontSize: 'inherit',
-        },
+        table: {},
         tableCell: {
             padding: '3px 5px',
         },

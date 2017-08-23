@@ -128,7 +128,7 @@ const TreeMapPlaceholders = ({
                                         },
                                     }
                                 }),
-                                { showTooltip, hideTooltip }
+                                { showTooltip, hideTooltip, theme }
                             )
                         )
                     )
@@ -187,7 +187,7 @@ const TreeMapPlaceholders = ({
                                             },
                                         }
                                     }),
-                                    { showTooltip, hideTooltip }
+                                    { showTooltip, hideTooltip, theme }
                                 )
                             )}
                     </TransitionMotion>

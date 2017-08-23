@@ -15,14 +15,14 @@ const chipStyle = { marginRight: 7 }
 
 const BasicTooltip = ({ id, value, enableChip, color, theme }) =>
     <div style={theme.tooltip.container}>
-        {enableChip && <Chip color={color} style={chipStyle} />}
-        {value !== undefined
-            ? <span style={theme.tooltip.basic}>
-                  {id}: <strong>{value}</strong>
-              </span>
-            : <span style={theme.tooltip.basic}>
-                  {id}
-              </span>}
+        <div style={theme.tooltip.basic}>
+            {enableChip && <Chip color={color} style={chipStyle} />}
+            {value !== undefined
+                ? <span>
+                      {id}: <strong>{value}</strong>
+                  </span>
+                : id}
+        </div>
     </div>
 
 BasicTooltip.propTypes = {

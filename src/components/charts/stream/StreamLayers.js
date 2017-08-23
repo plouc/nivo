@@ -19,6 +19,8 @@ const StreamLayers = ({
     showTooltip,
     hideTooltip,
 
+    theme,
+
     // motion
     animate,
     motionStiffness,
@@ -29,7 +31,10 @@ const StreamLayers = ({
             <g>
                 {layers.map(({ id, path, color }, i) => {
                     const handleTooltip = e =>
-                        showTooltip(<BasicTooltip id={id} enableChip={true} color={color} />, e)
+                        showTooltip(
+                            <BasicTooltip id={id} enableChip={true} color={color} theme={theme} />,
+                            e
+                        )
                     return (
                         <path
                             key={i}
@@ -55,7 +60,10 @@ const StreamLayers = ({
         <g>
             {layers.map(({ id, path, color }, i) => {
                 const handleTooltip = e =>
-                    showTooltip(<BasicTooltip id={id} enableChip={true} color={color} />, e)
+                    showTooltip(
+                        <BasicTooltip id={id} enableChip={true} color={color} theme={theme} />,
+                        e
+                    )
                 return (
                     <SmartMotion
                         key={i}
@@ -81,6 +89,8 @@ const StreamLayers = ({
 
 StreamLayers.propTypes = {
     fillOpacity: PropTypes.number.isRequired,
+
+    theme: PropTypes.object.isRequired,
 
     // motion
     ...motionPropTypes,

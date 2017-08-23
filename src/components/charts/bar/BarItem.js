@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
 import BasicTooltip from '../../tooltip/BasicTooltip'
 
-const BarItem = ({ data, x, y, width, height, color, showTooltip, hideTooltip }) => {
+const BarItem = ({ data, x, y, width, height, color, showTooltip, hideTooltip, theme }) => {
     const handleTooltip = e =>
         showTooltip(
             <BasicTooltip
@@ -19,6 +19,7 @@ const BarItem = ({ data, x, y, width, height, color, showTooltip, hideTooltip })
                 value={data.value}
                 enableChip={true}
                 color={color}
+                theme={theme}
             />,
             e
         )
@@ -54,6 +55,10 @@ BarItem.propTypes = {
 
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
+
+    theme: PropTypes.shape({
+        tooltip: PropTypes.shape({}).isRequired,
+    }).isRequired,
 }
 
 export default pure(BarItem)

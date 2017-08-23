@@ -72,6 +72,8 @@ TreeMapNode.propTypes = {
 
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
+
+    theme: PropTypes.object.isRequired,
 }
 
 const enhance = compose(
@@ -79,10 +81,16 @@ const enhance = compose(
         labelRotation: orientLabel && height > width ? -90 : 0,
     })),
     withPropsOnChange(
-        ['id', 'value', 'dataColor', 'showTooltip'],
-        ({ id, value, dataColor, showTooltip }) => {
+        ['id', 'value', 'dataColor', 'showTooltip', 'theme'],
+        ({ id, value, dataColor, showTooltip, theme }) => {
             const tooltip = (
-                <BasicTooltip id={id} value={value} enableChip={true} color={dataColor} />
+                <BasicTooltip
+                    id={id}
+                    value={value}
+                    enableChip={true}
+                    color={dataColor}
+                    theme={theme}
+                />
             )
 
             return {

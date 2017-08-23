@@ -25,7 +25,7 @@ const createNodes = ({
     getLabel,
     labelSkipRadius,
     getLabelTextColor,
-}) => (nodes, { showTooltip, hideTooltip }) => {
+}) => (nodes, { showTooltip, hideTooltip, theme }) => {
     const renderedNodes = []
 
     nodes.filter(node => node.style.r > 0).forEach(node => {
@@ -36,6 +36,7 @@ const createNodes = ({
                     value={node.data.value}
                     enableChip={true}
                     color={node.style.color}
+                    theme={theme}
                 />,
                 e
             )

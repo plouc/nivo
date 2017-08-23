@@ -68,6 +68,7 @@ const Sunburst = ({
                                     borderColor={borderColor}
                                     showTooltip={showTooltip}
                                     hideTooltip={hideTooltip}
+                                    theme={theme}
                                 />
                             )}
                     </g>
