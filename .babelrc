@@ -42,7 +42,8 @@
     "transform-es2015-block-scoping",
     "transform-object-rest-spread",
     "transform-react-jsx",
-    "syntax-jsx"
+    "syntax-jsx",
+    "lodash"
   ],
   "env": {
     "commonjs": {
@@ -53,11 +54,6 @@
             "loose": true
           }
         ]
-      ]
-    },
-    "es": {
-      "plugins": [
-        "./build/use-lodash-es"
       ]
     },
     "test": {
