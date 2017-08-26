@@ -1,19 +1,11 @@
 {
-  "main.css": "static/css/main.9de43335.css",
-  "main.css.map": "static/css/main.9de43335.css.map",
-  "main.js": "static/js/main.c2223807.js",
-  "main.js.map": "static/js/main.c2223807.js.map",
+  "main.css": "static/css/main.5b9d08fe.css",
+  "main.css.map": "static/css/main.5b9d08fe.css.map",
+  "main.js": "static/js/main.f8548333.js",
+  "main.js.map": "static/js/main.f8548333.js.map",
   "static/media/color-picker-panel-board-saturation.svg": "static/media/color-picker-panel-board-saturation.3d915d6f.svg",
   "static/media/color-picker-panel-board-value.svg": "static/media/color-picker-panel-board-value.b86e2b2e.svg",
   "static/media/color-picker-panel-ribbon.svg": "static/media/color-picker-panel-ribbon.faa01d71.svg",
-  "static/media/nivo-chart-icon-bubble-grey.png": "static/media/nivo-chart-icon-bubble-grey.ee183397.png",
-  "static/media/nivo-chart-icon-bubble-red.png": "static/media/nivo-chart-icon-bubble-red.b4e1a56e.png",
-  "static/media/nivo-chart-icon-chord-grey.png": "static/media/nivo-chart-icon-chord-grey.e9a862fe.png",
-  "static/media/nivo-chart-icon-chord-red.png": "static/media/nivo-chart-icon-chord-red.ee0032e7.png",
-  "static/media/nivo-chart-icon-radar-grey.png": "static/media/nivo-chart-icon-radar-grey.29d6d5b9.png",
-  "static/media/nivo-chart-icon-radar-red.png": "static/media/nivo-chart-icon-radar-red.0a419021.png",
-  "static/media/nivo-chart-icon-sunburst-grey.png": "static/media/nivo-chart-icon-sunburst-grey.7539086e.png",
-  "static/media/nivo-chart-icon-sunburst-red.png": "static/media/nivo-chart-icon-sunburst-red.5d9152c2.png",
-  "static/media/react-logo-grey.png": "static/media/react-logo-grey.47d701aa.png",
-  "static/media/react-logo-red.png": "static/media/react-logo-red.f43291e4.png"
+  "static/media/icons.png": "static/media/icons.68d04811.png",
+  "static/media/icons@2x.png": "static/media/icons@2x.a6a4ad50.png"
 }
