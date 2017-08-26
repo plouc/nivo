@@ -27,6 +27,7 @@ export const motionPropTypes = {
     motionDamping: PropTypes.number.isRequired,
 }
 
+export * from './colors'
 export * from './curve'
 export * from './sankey'
 export * from './stack'

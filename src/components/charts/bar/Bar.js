@@ -15,7 +15,7 @@ import defaultProps from 'recompose/defaultProps'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
 import { withTheme, withColors, withDimensions, withMotion } from '../../../hocs'
-import { getInheritedColorGenerator } from '../../../lib/colorUtils'
+import { getInheritedColorGenerator } from '../../../lib/colors'
 import { generateGroupedBars, generateStackedBars } from '../../../lib/charts/bar'
 import { getAccessorFor } from '../../../lib/propertiesConverters'
 import Container from '../Container'
@@ -69,12 +69,6 @@ const Bar = ({
     // interactivity
     isInteractive,
 }) => {
-    const motionProps = {
-        animate,
-        motionDamping,
-        motionStiffness,
-    }
-
     let result
     if (groupMode === 'grouped') {
         result = generateGroupedBars(layout, data, getIndex, keys, width, height, getColor, {
@@ -84,6 +78,12 @@ const Bar = ({
         result = generateStackedBars(layout, data, getIndex, keys, width, height, getColor, {
             xPadding,
         })
+    }
+
+    const motionProps = {
+        animate,
+        motionDamping,
+        motionStiffness,
     }
 
     return (

@@ -11,7 +11,7 @@ import compose from 'recompose/compose'
 import setPropTypes from 'recompose/setPropTypes'
 import defaultProps from 'recompose/defaultProps'
 import withPropsOnChange from 'recompose/withPropsOnChange'
-import { getColorsGenerator } from '../lib/colorUtils'
+import { getColorsGenerator } from '../lib/colors'
 
 /**
  * This HOC watch colors related props change

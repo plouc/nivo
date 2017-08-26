@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
 import { cloneDeep } from 'lodash'
 import pure from 'recompose/pure'
 import { TransitionMotion, spring } from 'react-motion'
-import { extractRGB } from '../../../lib/colorUtils'
+import { colorMotionSpring, getInterpolatedColor } from '../../../lib/colors'
 import { motionPropTypes } from '../../../props'
 
 const SankeyLabels = ({
@@ -97,7 +97,7 @@ const SankeyLabels = ({
                         x: spring(label.x, springProps),
                         y: spring(label.y, springProps),
                         rotation: spring(labelRotation, springProps),
-                        ...extractRGB(label.color, springProps),
+                        ...colorMotionSpring(label.color, springProps),
                     },
                 }
             })}
@@ -105,10 +105,7 @@ const SankeyLabels = ({
             {interpolatedStyles =>
                 <g>
                     {interpolatedStyles.map(({ key, style, data }) => {
-                        const { colorR, colorG, colorB } = style
-                        const color = `rgb(${Math.round(colorR)},${Math.round(colorG)},${Math.round(
-                            colorB
-                        )})`
+                        const color = getInterpolatedColor(style)
 
                         return (
                             <text

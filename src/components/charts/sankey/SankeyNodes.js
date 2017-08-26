@@ -10,7 +10,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
 import { TransitionMotion, spring } from 'react-motion'
-import { extractRGB } from '../../../lib/colorUtils'
+import { colorMotionSpring, getInterpolatedColor } from '../../../lib/colors'
 import { motionPropTypes } from '../../../props'
 import SankeyNodesItem from './SankeyNodesItem'
 
@@ -75,7 +75,7 @@ const SankeyNodes = ({
                         y: spring(node.y, springProps),
                         width: spring(node.width, springProps),
                         height: spring(node.height, springProps),
-                        ...extractRGB(node.color, springProps),
+                        ...colorMotionSpring(node.color, springProps),
                     },
                 }
             })}
@@ -83,10 +83,7 @@ const SankeyNodes = ({
             {interpolatedStyles =>
                 <g>
                     {interpolatedStyles.map(({ key, style, data: node }) => {
-                        const { colorR, colorG, colorB } = style
-                        const color = `rgb(${Math.round(colorR)},${Math.round(colorG)},${Math.round(
-                            colorB
-                        )})`
+                        const color = getInterpolatedColor(style)
 
                         return (
                             <SankeyNodesItem

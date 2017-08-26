@@ -8,7 +8,7 @@
  */
 import { scaleOrdinal } from 'd3-scale'
 import { schemeSet3 } from 'd3-scale-chromatic'
-import { nivoCategoricalColors } from './lib/colorUtils'
+import { nivoCategoricalColors } from './lib/colors'
 
 const defaults = {
     transitionDuration: 600,

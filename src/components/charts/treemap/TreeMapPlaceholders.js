@@ -17,7 +17,7 @@ import { getAccessorFor } from '../../../lib/propertiesConverters'
 import { treeMapTileFromProp } from '../../../props'
 import { treeMapPropTypes, treeMapDefaultProps } from './TreeMapProps'
 import { withHierarchy, withDimensions, withTheme, withColors, withMotion } from '../../../hocs'
-import { extractRGB } from '../../../lib/colorUtils'
+import { colorMotionSpring } from '../../../lib/colors'
 import Container from '../Container'
 
 const nodeWillEnter = ({ data: node }) => {
@@ -29,7 +29,7 @@ const nodeWillEnter = ({ data: node }) => {
         y: node.y0 + height / 2,
         width: 0,
         height: 0,
-        ...extractRGB(node.color),
+        ...colorMotionSpring(node.color),
     }
 }
 
@@ -153,7 +153,7 @@ const TreeMapPlaceholders = ({
                                     y: spring(node.y0, springConfig),
                                     width: spring(node.x1 - node.x0, springConfig),
                                     height: spring(node.y1 - node.y0, springConfig),
-                                    ...extractRGB(node.color, springConfig),
+                                    ...colorMotionSpring(node.color, springConfig),
                                 },
                             }
                         })}

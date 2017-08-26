@@ -46,9 +46,10 @@ class Voronoi extends Component {
             <svg xmlns="http://www.w3.org/2000/svg" width={_width} height={_height}>
                 <g transform={`translate(${margin.left},${margin.top})`}>
                     {enableLinks &&
-                        links.map(l => {
+                        links.map((l, i) => {
                             return (
                                 <line
+                                    key={i}
                                     fill="none"
                                     stroke={linkColor}
                                     strokeWidth={linkWidth}
@@ -60,9 +61,10 @@ class Voronoi extends Component {
                             )
                         })}
                     {enablePolygons &&
-                        polygons.map(p => {
+                        polygons.map((p, i) => {
                             return (
                                 <path
+                                    key={i}
                                     fill="none"
                                     stroke={borderColor}
                                     strokeWidth={borderWidth}
@@ -71,8 +73,17 @@ class Voronoi extends Component {
                             )
                         })}
                     {enableSites &&
-                        data.map(d => {
-                            return <circle r="2.5" cx={d[0]} cy={d[1]} fill="#F00" stroke="none" />
+                        data.map((d, i) => {
+                            return (
+                                <circle
+                                    key={i}
+                                    r="2.5"
+                                    cx={d[0]}
+                                    cy={d[1]}
+                                    fill="#F00"
+                                    stroke="none"
+                                />
+                            )
                         })}
                 </g>
             </svg>

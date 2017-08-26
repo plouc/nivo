@@ -16,7 +16,7 @@ import withStateHandlers from 'recompose/withStateHandlers'
 import pure from 'recompose/pure'
 import { pack } from 'd3-hierarchy'
 import { withHierarchy, withTheme, withColors, withDimensions, withMotion } from '../../../hocs'
-import { extractRGB } from '../../../lib/colorUtils'
+import { colorMotionSpring, getInterpolatedColor } from '../../../lib/colors'
 import noop from '../../../lib/noop'
 import { computeNodePath } from '../../../lib/hierarchy'
 import Container from '../Container'
@@ -40,7 +40,7 @@ const nodeWillEnter = ({ data: node }) => ({
     r: 0,
     x: node.x,
     y: node.y,
-    ...extractRGB(node.color),
+    ...colorMotionSpring(node.color),
 })
 
 const nodeWillLeave = styleThatLeft => ({
@@ -198,7 +198,7 @@ const BubblePlaceholders = ({
                                     r: spring(node.r, motionProps),
                                     x: spring(node.x, motionProps),
                                     y: spring(node.y, motionProps),
-                                    ...extractRGB(node.color, motionProps),
+                                    ...colorMotionSpring(node.color, motionProps),
                                 },
                             }
                         })}
@@ -209,10 +209,9 @@ const BubblePlaceholders = ({
                                 containerProps,
                                 children(
                                     interpolatedStyles.map(interpolatedStyle => {
-                                        const { colorR, colorG, colorB } = interpolatedStyle.style
-                                        interpolatedStyle.style.color = `rgb(${Math.round(
-                                            colorR
-                                        )},${Math.round(colorG)},${Math.round(colorB)})`
+                                        interpolatedStyle.style.color = getInterpolatedColor(
+                                            interpolatedStyle.style
+                                        )
 
                                         if (isInteractive && isZoomable) {
                                             interpolatedStyle.zoom = () =>

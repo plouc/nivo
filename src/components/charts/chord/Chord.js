@@ -15,7 +15,7 @@ import { chord as d3Chord, ribbon as Ribbon } from 'd3-chord'
 import { arc as Arc } from 'd3-shape'
 import { rgb } from 'd3-color'
 import { withTheme, withDimensions } from '../../../hocs'
-import { getColorRange } from '../../../lib/colorUtils'
+import { getColorRange } from '../../../lib/colors'
 import Container from '../Container'
 import SvgWrapper from '../SvgWrapper'
 

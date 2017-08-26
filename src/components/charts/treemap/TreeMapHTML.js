@@ -11,7 +11,7 @@ import _ from 'lodash'
 import { getLabelGenerator } from '../../../lib/propertiesConverters'
 import { treeMapPropTypes, treeMapDefaultProps } from './TreeMapProps'
 import TreeMapPlaceholders from './TreeMapPlaceholders'
-import { getInheritedColorGenerator } from '../../../lib/colorUtils'
+import { getInheritedColorGenerator } from '../../../lib/colors'
 
 const createNodes = ({
     borderWidth,

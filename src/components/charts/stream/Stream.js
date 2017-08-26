@@ -23,7 +23,7 @@ import {
     stackOffsetFromProp,
 } from '../../../props'
 import { withTheme, withCurve, withDimensions, withMotion } from '../../../hocs'
-import { getColorRange } from '../../../lib/colorUtils'
+import { getColorRange } from '../../../lib/colors'
 import SvgWrapper from '../SvgWrapper'
 import Container from '../Container'
 import Axes from '../../axes/Axes'

@@ -15,7 +15,7 @@ import PropTypes from 'prop-types'
 import { merge } from 'lodash'
 import { Motion } from 'react-motion'
 import { motionPropTypes } from '../../../props'
-import { getInheritedColorGenerator } from '../../../lib/colorUtils'
+import { getInheritedColorGenerator } from '../../../lib/colors'
 import SmartMotion from '../../SmartMotion'
 import { lineRadial } from 'd3-shape'
 

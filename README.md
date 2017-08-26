@@ -39,7 +39,10 @@ Several libraries already exist for React d3 integration, but just a few provide
     - [`<ResponsiveCalendar />`](http://nivo.rocks/#/calendar)
 - Chord
     - [`<Chord />`](http://nivo.rocks/#/chord)
-    - [`<ResponsiveChord />`](http://nivo.rocks/#/chord)            
+    - [`<ResponsiveChord />`](http://nivo.rocks/#/chord)
+- HeatMap
+    - [`<HeatMap />`](http://nivo.rocks/#/heatmap)
+    - [`<ResponsiveHeatMap />`](http://nivo.rocks/#/heatmap)                
 - Line
     - [`<Line />`](http://nivo.rocks/#/line)
     - [`<ResponsiveLine />`](http://nivo.rocks/#/line)
@@ -74,6 +77,7 @@ Several libraries already exist for React d3 integration, but just a few provide
 - [`<Bar />`](https://nivo-api.herokuapp.com/samples/bar.svg)
 - [`<Bubble />`](https://nivo-api.herokuapp.com/samples/bubble.svg)
 - [`<Chord />`](https://nivo-api.herokuapp.com/samples/chord.svg)
+- [`<HeatMap />`](https://nivo-api.herokuapp.com/samples/heatmap.svg)
 - [`<Line />`](https://nivo-api.herokuapp.com/samples/line.svg)
 - [`<Pie />`](https://nivo-api.herokuapp.com/samples/pie.svg)
 - [`<Radar />`](https://nivo-api.herokuapp.com/samples/radar.svg)
