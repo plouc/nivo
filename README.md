@@ -13,14 +13,13 @@ Several libraries already exist for React d3 integration, but just a few provide
 ## Features
 
 - supports [d3 v4](https://github.com/d3/d3/blob/master/CHANGES.md)
-- composable
 - [responsive charts](http://nivo.rocks/#/components?term=responsive) (`<Responsive* />` components)
 - highly customizable
 - motion/transitions, even the non-d3 based components (DOM managed by React) support transitions within the help of [react-motion](https://github.com/chenglou/react-motion)
 - [component playground](http://nivo.rocks)
 - [exhaustive documentation](http://nivo.rocks)
 - isomorphic rendering
-- support for SVG and [HTML](http://nivo.rocks/#/components?term=html) (I'm also considering canvas support)
+- support for SVG and [HTML](http://nivo.rocks/#/components?term=html) and [canvas](http://nivo.rocks/#/components?term=canvas) (for a subset of components)
 - [placeholder components](http://nivo.rocks/#/components?term=placeholder) for advanced customization (`<*Placeholders />` components)
 - [server side rendering API](https://github.com/plouc/nivo-api)
 
@@ -29,6 +28,8 @@ Several libraries already exist for React d3 integration, but just a few provide
 - Bar
     - [`<Bar />`](http://nivo.rocks/#/bar)
     - [`<ResponsiveBar />`](http://nivo.rocks/#/bar)
+    - [`<BarCanvas />`](http://nivo.rocks/#/bar/canvas)
+    - [`<ResponsiveBarCanvas />`](http://nivo.rocks/#/bar/canvas)
 - Bubble
     - [`<Bubble />`](http://nivo.rocks/#/bubble)
     - [`<ResponsiveBubble />`](http://nivo.rocks/#/bubble)
@@ -42,7 +43,9 @@ Several libraries already exist for React d3 integration, but just a few provide
     - [`<ResponsiveChord />`](http://nivo.rocks/#/chord)
 - HeatMap
     - [`<HeatMap />`](http://nivo.rocks/#/heatmap)
-    - [`<ResponsiveHeatMap />`](http://nivo.rocks/#/heatmap)                
+    - [`<ResponsiveHeatMap />`](http://nivo.rocks/#/heatmap)
+    - [`<HeatMapCanvas />`](http://nivo.rocks/#/heatmap/canvas)
+    - [`<ResponsiveHeatMapCanvas />`](http://nivo.rocks/#/heatmap/canvas)
 - Line
     - [`<Line />`](http://nivo.rocks/#/line)
     - [`<ResponsiveLine />`](http://nivo.rocks/#/line)

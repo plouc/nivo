@@ -7,17 +7,10 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import PropTypes from 'prop-types'
-import { merge } from 'lodash'
 import { TransitionMotion, spring } from 'react-motion'
-import compose from 'recompose/compose'
-import defaultProps from 'recompose/defaultProps'
-import withPropsOnChange from 'recompose/withPropsOnChange'
-import pure from 'recompose/pure'
-import { withTheme, withColors, withDimensions, withMotion } from '../../../hocs'
-import { getInheritedColorGenerator } from '../../../lib/colors'
 import { generateGroupedBars, generateStackedBars } from '../../../lib/charts/bar'
-import { getAccessorFor } from '../../../lib/propertiesConverters'
+import enhance from './enhance'
+import { BarPropTypes } from './props'
 import Container from '../Container'
 import SvgWrapper from '../SvgWrapper'
 import Grid from '../../axes/Grid'
@@ -179,85 +172,6 @@ const Bar = ({
     )
 }
 
-Bar.propTypes = {
-    // data
-    data: PropTypes.arrayOf(PropTypes.object).isRequired,
-    indexBy: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
-    getIndex: PropTypes.func.isRequired, // computed
-    keys: PropTypes.arrayOf(PropTypes.string).isRequired,
-
-    groupMode: PropTypes.oneOf(['stacked', 'grouped']).isRequired,
-    layout: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
-
-    xPadding: PropTypes.number.isRequired,
-
-    // axes & grid
-    axisTop: PropTypes.object,
-    axisRight: PropTypes.object,
-    axisBottom: PropTypes.object,
-    axisLeft: PropTypes.object,
-    enableGridX: PropTypes.bool.isRequired,
-    enableGridY: PropTypes.bool.isRequired,
-
-    // labels
-    enableLabels: PropTypes.bool.isRequired,
-    labelsTextColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
-    getLabelsTextColor: PropTypes.func.isRequired, // computed
-    labelsLinkColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
-    getLabelsLinkColor: PropTypes.func.isRequired, // computed
-
-    // interactions
-    onClick: PropTypes.func,
-
-    // theming
-    getColor: PropTypes.func.isRequired,
-
-    // interactivity
-    isInteractive: PropTypes.bool,
-}
-
-export const BarDefaultProps = {
-    indexBy: 'id',
-    keys: ['value'],
-
-    groupMode: 'stacked',
-    layout: 'vertical',
-
-    xPadding: 0.1,
-
-    // axes & grid
-    axisBottom: {},
-    axisLeft: {},
-    enableGridX: false,
-    enableGridY: true,
-
-    // labels
-    enableLabels: true,
-    labelsLinkColor: 'theme',
-    labelsTextColor: 'theme',
-
-    // interactivity
-    isInteractive: true,
-}
-
-Bar.defaultProps = BarDefaultProps
-
-const enhance = compose(
-    defaultProps(BarDefaultProps),
-    withTheme(),
-    withColors(),
-    withDimensions(),
-    withMotion(),
-    withPropsOnChange(['indexBy'], ({ indexBy }) => ({
-        getIndex: getAccessorFor(indexBy),
-    })),
-    withPropsOnChange(['labelsTextColor'], ({ labelsTextColor }) => ({
-        getLabelsTextColor: getInheritedColorGenerator(labelsTextColor, 'axis.textColor'),
-    })),
-    withPropsOnChange(['labelsLinkColor'], ({ labelsLinkColor }) => ({
-        getLabelsLinkColor: getInheritedColorGenerator(labelsLinkColor, 'axis.tickColor'),
-    })),
-    pure
-)
+Bar.propTypes = BarPropTypes
 
 export default enhance(Bar)

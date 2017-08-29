@@ -7,5 +7,7 @@
  * file that was distributed with this source code.
  */
 export { default as HeatMap } from './HeatMap'
-export * from './HeatMap'
+export { default as HeatMapCanvas } from './HeatMapCanvas'
 export { default as ResponsiveHeatMap } from './ResponsiveHeatMap'
+export { default as ResponsiveHeatMapCanvas } from './ResponsiveHeatMapCanvas'
+export * from './props'
