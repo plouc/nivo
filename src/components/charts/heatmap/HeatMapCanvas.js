@@ -24,7 +24,12 @@ class HeatMapCanvas extends Component {
     }
 
     shouldComponentUpdate(props) {
-        if (this.props.isInteractive !== props.isInteractive || this.props.theme !== props.theme) {
+        if (
+            this.props.outerWidth !== props.outerWidth ||
+            this.props.outerHeight !== props.outerHeight ||
+            this.props.isInteractive !== props.isInteractive ||
+            this.props.theme !== props.theme
+        ) {
             return true
         } else {
             this.draw(props)
