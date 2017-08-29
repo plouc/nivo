@@ -9,8 +9,11 @@
 import React, { Component } from 'react'
 import { generateGroupedBars, generateStackedBars } from '../../../lib/charts/bar'
 import { renderAxes } from '../../../lib/canvas/axes'
+import Container from '../Container'
+import BasicTooltip from '../../tooltip/BasicTooltip'
 import { BarPropTypes } from './props'
 import enhance from './enhance'
+import { getRelativeCursor, cursorInRect } from '../../../lib/interactivity'
 
 class BarCanvas extends Component {
     componentDidMount() {
@@ -19,8 +22,17 @@ class BarCanvas extends Component {
     }
 
     shouldComponentUpdate(props) {
-        this.draw(props)
-        return false
+        if (this.props.isInteractive !== props.isInteractive || this.props.theme !== props.theme) {
+            return true
+        } else {
+            this.draw(props)
+            return false
+        }
+    }
+
+    componentDidUpdate() {
+        this.ctx = this.surface.getContext('2d')
+        this.draw(this.props)
     }
 
     draw(props) {
@@ -66,6 +78,8 @@ class BarCanvas extends Component {
             })
         }
 
+        this.bars = result.bars
+
         this.ctx.clearRect(0, 0, outerWidth, outerHeight)
         this.ctx.translate(margin.left, margin.top)
 
@@ -86,17 +100,60 @@ class BarCanvas extends Component {
         })
     }
 
+    handleMouseHover = event => {
+        if (!this.bars || !this.showTooltip) return
+
+        const [x, y] = getRelativeCursor(this.surface, event)
+
+        const { margin, theme } = this.props
+        const bar = this.bars.find(bar =>
+            cursorInRect(bar.x + margin.left, bar.y + margin.top, bar.width, bar.height, x, y)
+        )
+
+        if (bar !== undefined) {
+            this.showTooltip(
+                <BasicTooltip
+                    id={`${bar.data.id} - ${bar.data.indexValue}`}
+                    value={bar.data.value}
+                    enableChip={true}
+                    color={bar.color}
+                    theme={theme}
+                />,
+                event
+            )
+        } else {
+            this.hideTooltip()
+        }
+    }
+
+    handleMouseLeave = () => {
+        if (!this.hideTooltip) return
+        this.hideTooltip()
+    }
+
     render() {
-        const { outerWidth, outerHeight } = this.props
+        const { outerWidth, outerHeight, isInteractive, theme } = this.props
 
         return (
-            <canvas
-                ref={surface => {
-                    this.surface = surface
+            <Container isInteractive={isInteractive} theme={theme}>
+                {({ showTooltip, hideTooltip }) => {
+                    this.showTooltip = showTooltip
+                    this.hideTooltip = hideTooltip
+
+                    return (
+                        <canvas
+                            ref={surface => {
+                                this.surface = surface
+                            }}
+                            width={outerWidth}
+                            height={outerHeight}
+                            onMouseEnter={this.handleMouseHover}
+                            onMouseMove={this.handleMouseHover}
+                            onMouseLeave={this.handleMouseLeave}
+                        />
+                    )
                 }}
-                width={outerWidth}
-                height={outerHeight}
-            />
+            </Container>
         )
     }
 }
