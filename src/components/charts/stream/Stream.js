@@ -7,32 +7,15 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import PropTypes from 'prop-types'
 import { min, max, range, sortBy } from 'lodash'
-import { stack as d3Stack, area } from 'd3-shape'
-import { scaleLinear, scalePoint } from 'd3-scale'
-import compose from 'recompose/compose'
-import pure from 'recompose/pure'
-import withPropsOnChange from 'recompose/withPropsOnChange'
-import defaultProps from 'recompose/defaultProps'
-import {
-    areaCurvePropType,
-    stackOrderPropType,
-    stackOrderFromProp,
-    stackOffsetPropType,
-    stackOffsetFromProp,
-} from '../../../props'
-import { withTheme, withCurve, withDimensions, withMotion } from '../../../hocs'
-import { getColorRange } from '../../../lib/colors'
 import SvgWrapper from '../SvgWrapper'
 import Container from '../Container'
 import Axes from '../../axes/Axes'
 import Grid from '../../axes/Grid'
 import StreamLayers from './StreamLayers'
 import StreamSlices from './StreamSlices'
-
-const stackMin = layers => min(layers.reduce((acc, layer) => [...acc, ...layer.map(d => d[0])], []))
-const stackMax = layers => max(layers.reduce((acc, layer) => [...acc, ...layer.map(d => d[1])], []))
+import { StreamPropTypes } from './props'
+import enhance from './enhance'
 
 const Stream = ({
     data,
@@ -74,12 +57,12 @@ const Stream = ({
     enableStackTooltip,
 }) => {
     const enhancedLayers = layers.map((points, i) => {
-        const layer = points.map(([y1, y2], i) => ({
+        const layer = points.map((point, i) => ({
             index: i,
-            value: y2 - y1,
             x: xScale(i),
-            y1: yScale(y1),
-            y2: yScale(y2),
+            value: point.value,
+            y1: yScale(point[0]),
+            y2: yScale(point[1]),
         }))
 
         return {
@@ -155,97 +138,7 @@ const Stream = ({
     )
 }
 
-Stream.propTypes = {
-    // data
-    data: PropTypes.arrayOf(PropTypes.object).isRequired,
-    keys: PropTypes.array.isRequired,
-
-    stack: PropTypes.func.isRequired,
-    xScale: PropTypes.func.isRequired,
-    yScale: PropTypes.func.isRequired,
-
-    order: stackOrderPropType.isRequired,
-    offsetType: stackOffsetPropType.isRequired,
-    curve: areaCurvePropType.isRequired,
-    areaGenerator: PropTypes.func.isRequired,
-
-    // axes & grid
-    axisTop: PropTypes.object,
-    axisRight: PropTypes.object,
-    axisBottom: PropTypes.object,
-    axisLeft: PropTypes.object,
-    enableGridX: PropTypes.bool.isRequired,
-    enableGridY: PropTypes.bool.isRequired,
-
-    // theming
-    colors: PropTypes.any.isRequired,
-    fillOpacity: PropTypes.number.isRequired,
-    getColor: PropTypes.func.isRequired,
-
-    // interactivity
-    isInteractive: PropTypes.bool,
-
-    // stack tooltip
-    enableStackTooltip: PropTypes.bool.isRequired,
-}
-
-export const StreamDefaultProps = {
-    order: 'none',
-    offsetType: 'wiggle',
-    curve: 'catmullRom',
-
-    // axes & grid
-    axisBottom: {},
-    enableGridX: true,
-    enableGridY: false,
-
-    // theming
-    colors: 'nivo',
-    fillOpacity: 1,
-
-    // interactivity
-    isInteractive: true,
-
-    // stack tooltip
-    enableStackTooltip: true,
-}
-
-const enhance = compose(
-    defaultProps(StreamDefaultProps),
-    withTheme(),
-    withCurve(),
-    withDimensions(),
-    withMotion(),
-    withPropsOnChange(['curveInterpolator'], ({ curveInterpolator }) => ({
-        areaGenerator: area()
-            .x(({ x }) => x)
-            .y0(({ y1 }) => y1)
-            .y1(({ y2 }) => y2)
-            .curve(curveInterpolator),
-    })),
-    withPropsOnChange(['colors'], ({ colors }) => ({
-        getColor: getColorRange(colors),
-    })),
-    withPropsOnChange(['keys', 'offsetType', 'order'], ({ keys, offsetType, order }) => ({
-        stack: d3Stack()
-            .keys(keys)
-            .offset(stackOffsetFromProp(offsetType))
-            .order(stackOrderFromProp(order)),
-    })),
-    withPropsOnChange(['stack', 'data', 'width', 'height'], ({ stack, data, width, height }) => {
-        const layers = stack(data)
-
-        const minValue = stackMin(layers)
-        const maxValue = stackMax(layers)
-
-        return {
-            layers,
-            xScale: scalePoint().domain(range(data.length)).range([0, width]),
-            yScale: scaleLinear().domain([minValue, maxValue]).range([height, 0]),
-        }
-    }),
-    pure
-)
+Stream.propTypes = StreamPropTypes
 
 const enhancedStream = enhance(Stream)
 enhancedStream.displayName = 'enhance(Stream)'
