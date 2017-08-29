@@ -48,6 +48,7 @@ class BarCanvas extends Component {
             height,
             outerWidth,
             outerHeight,
+            pixelRatio,
             margin,
 
             // layout
@@ -65,8 +66,10 @@ class BarCanvas extends Component {
             getColor,
         } = props
 
-        this.surface.width = outerWidth
-        this.surface.height = outerHeight
+        this.surface.width = outerWidth * pixelRatio
+        this.surface.height = outerHeight * pixelRatio
+
+        this.ctx.scale(pixelRatio, pixelRatio)
 
         let result
         if (groupMode === 'grouped') {
@@ -132,7 +135,7 @@ class BarCanvas extends Component {
     }
 
     render() {
-        const { outerWidth, outerHeight, isInteractive, theme } = this.props
+        const { outerWidth, outerHeight, pixelRatio, isInteractive, theme } = this.props
 
         return (
             <Container isInteractive={isInteractive} theme={theme}>
@@ -141,8 +144,12 @@ class BarCanvas extends Component {
                         ref={surface => {
                             this.surface = surface
                         }}
-                        width={outerWidth}
-                        height={outerHeight}
+                        width={outerWidth * pixelRatio}
+                        height={outerHeight * pixelRatio}
+                        style={{
+                            width: outerWidth,
+                            height: outerHeight,
+                        }}
                         onMouseEnter={partial(this.handleMouseHover, showTooltip, hideTooltip)}
                         onMouseMove={partial(this.handleMouseHover, showTooltip, hideTooltip)}
                         onMouseLeave={partial(this.handleMouseLeave, hideTooltip)}

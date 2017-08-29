@@ -43,6 +43,9 @@ export const BarPropTypes = {
 
     // interactivity
     isInteractive: PropTypes.bool,
+
+    // canvas specific
+    pixelRatio: PropTypes.number.isRequired,
 }
 
 export const BarDefaultProps = {
@@ -67,4 +70,7 @@ export const BarDefaultProps = {
 
     // interactivity
     isInteractive: true,
+
+    // canvas specific
+    pixelRatio: window && window.devicePixelRatio ? window.devicePixelRatio : 1,
 }
