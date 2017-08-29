@@ -100,7 +100,7 @@ class HeatMapCanvas extends Component {
 
         const [x, y] = getRelativeCursor(this.surface, event)
 
-        const { margin, offsetX, offsetY, theme } = this.props
+        const { margin, offsetX, offsetY, theme, setCurrentNode } = this.props
         const node = this.nodes.find(node =>
             cursorInRect(
                 node.x + margin.left + offsetX - node.width / 2,
@@ -113,6 +113,7 @@ class HeatMapCanvas extends Component {
         )
 
         if (node !== undefined) {
+            setCurrentNode(node)
             showTooltip(
                 <BasicTooltip
                     id={`${node.yKey} - ${node.xKey}`}
@@ -124,11 +125,13 @@ class HeatMapCanvas extends Component {
                 event
             )
         } else {
+            setCurrentNode(null)
             hideTooltip()
         }
     }
 
     handleMouseLeave = hideTooltip => {
+        this.props.setCurrentNode(null)
         hideTooltip()
     }
 

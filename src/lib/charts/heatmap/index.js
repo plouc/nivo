@@ -6,6 +6,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+const isHoverTargetByType = {
+    cell: (node, current) => node.xKey === current.xKey && node.yKey === current.yKey,
+    row: (node, current) => node.yKey === current.yKey,
+    column: (node, current) => node.xKey === current.xKey,
+    rowColumn: (node, current) => node.xKey === current.xKey || node.yKey === current.yKey,
+}
+
 export const computeNodes = ({
     data,
     keys,
@@ -17,8 +25,15 @@ export const computeNodes = ({
     cellHeight,
     colorScale,
     getLabelTextColor,
-}) =>
-    data.reduce((acc, d) => {
+
+    currentNode,
+    hoverTarget,
+    cellHoverOpacity,
+    cellHoverOthersOpacity,
+}) => {
+    const isHoverTarget = isHoverTargetByType[hoverTarget]
+
+    return data.reduce((acc, d) => {
         keys.forEach(key => {
             const width = sizeScale ? Math.min(sizeScale(d[key]) * cellWidth, cellWidth) : cellWidth
             const height = sizeScale
@@ -36,12 +51,21 @@ export const computeNodes = ({
                 color: colorScale(d[key]),
             }
 
+            let opacity = 1
+            if (currentNode) {
+                opacity = isHoverTarget(node, currentNode)
+                    ? cellHoverOpacity
+                    : cellHoverOthersOpacity
+            }
+
             acc.push(
                 Object.assign(node, {
                     labelTextColor: getLabelTextColor(node),
+                    opacity,
                 })
             )
         })
 
         return acc
     }, [])
+}

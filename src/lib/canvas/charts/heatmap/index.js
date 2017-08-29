@@ -16,15 +16,21 @@
  * @param {number} width
  * @param {number} height
  * @param {string) color
+ * @param {number} opacity
  * @param {string} labelTextColor
  * @param {number} value
  */
-export const renderRect = (ctx, { x, y, width, height, color, labelTextColor, value }) => {
+export const renderRect = (ctx, { x, y, width, height, color, opacity, labelTextColor, value }) => {
+    ctx.save()
+    ctx.globalAlpha = opacity
+
     ctx.fillStyle = color
     ctx.fillRect(x - width / 2, y - height / 2, width, height)
 
     ctx.fillStyle = labelTextColor
     ctx.fillText(value, x, y)
+
+    ctx.restore()
 }
 
 /**
@@ -36,10 +42,17 @@ export const renderRect = (ctx, { x, y, width, height, color, labelTextColor, va
  * @param {number} width
  * @param {number} height
  * @param {string) color
+ * @param {number} opacity
  * @param {string} labelTextColor
  * @param {number} value
  */
-export const renderCircle = (ctx, { x, y, width, height, color, labelTextColor, value }) => {
+export const renderCircle = (
+    ctx,
+    { x, y, width, height, color, opacity, labelTextColor, value }
+) => {
+    ctx.save()
+    ctx.globalAlpha = opacity
+
     const radius = Math.min(width, height) / 2
 
     ctx.fillStyle = color
@@ -49,4 +62,6 @@ export const renderCircle = (ctx, { x, y, width, height, color, labelTextColor, 
 
     ctx.fillStyle = labelTextColor
     ctx.fillText(value, x, y)
+
+    ctx.restore()
 }

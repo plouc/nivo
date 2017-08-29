@@ -27,7 +27,6 @@ export const HeatMapPropTypes = {
     cellShape: PropTypes.oneOfType([PropTypes.oneOf(['rect', 'circle']), PropTypes.func])
         .isRequired,
     cellOpacity: PropTypes.number.isRequired,
-    cellHoverOpacity: PropTypes.number.isRequired,
     cellBorderWidth: PropTypes.number.isRequired,
     cellBorderColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     getCellBorderColor: PropTypes.func.isRequired, // computed
@@ -51,6 +50,9 @@ export const HeatMapPropTypes = {
 
     // interactivity
     isInteractive: PropTypes.bool,
+    hoverTarget: PropTypes.oneOf(['cell', 'row', 'column', 'rowColumn']).isRequired,
+    cellHoverOpacity: PropTypes.number.isRequired,
+    cellHoverOthersOpacity: PropTypes.number.isRequired,
 
     // canvas specific
     pixelRatio: PropTypes.number.isRequired,
@@ -69,7 +71,6 @@ export const HeatMapDefaultProps = {
     // cells
     cellShape: 'rect',
     cellOpacity: 0.85,
-    cellHoverOpacity: 1,
     cellBorderWidth: 0,
     cellBorderColor: 'inherit',
 
@@ -88,6 +89,9 @@ export const HeatMapDefaultProps = {
 
     // interactivity
     isInteractive: true,
+    hoverTarget: 'rowColumn',
+    cellHoverOpacity: 1,
+    cellHoverOthersOpacity: 0.35,
 
     // canvas specific
     pixelRatio: window && window.devicePixelRatio ? window.devicePixelRatio : 1,

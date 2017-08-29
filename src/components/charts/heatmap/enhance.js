@@ -10,6 +10,7 @@ import { min, max, isEqual } from 'lodash'
 import compose from 'recompose/compose'
 import defaultProps from 'recompose/defaultProps'
 import withPropsOnChange from 'recompose/withPropsOnChange'
+import withState from 'recompose/withState'
 import pure from 'recompose/pure'
 import { scaleOrdinal, scaleLinear } from 'd3-scale'
 import { withTheme, withDimensions, withMotion } from '../../../hocs'
@@ -27,6 +28,7 @@ const computeY = (row, cellHeight, padding) => {
 export default Component =>
     compose(
         defaultProps(HeatMapDefaultProps),
+        withState('currentNode', 'setCurrentNode', null),
         withTheme(),
         withDimensions(),
         withMotion(),
