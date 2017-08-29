@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import React, { Component } from 'react'
+import { partial } from 'lodash'
 import { generateGroupedBars, generateStackedBars } from '../../../lib/charts/bar'
 import { renderAxes } from '../../../lib/canvas/axes'
 import Container from '../Container'
@@ -100,8 +101,8 @@ class BarCanvas extends Component {
         })
     }
 
-    handleMouseHover = event => {
-        if (!this.bars || !this.showTooltip) return
+    handleMouseHover = (showTooltip, hideTooltip, event) => {
+        if (!this.bars) return
 
         const [x, y] = getRelativeCursor(this.surface, event)
 
@@ -111,7 +112,7 @@ class BarCanvas extends Component {
         )
 
         if (bar !== undefined) {
-            this.showTooltip(
+            showTooltip(
                 <BasicTooltip
                     id={`${bar.data.id} - ${bar.data.indexValue}`}
                     value={bar.data.value}
@@ -122,13 +123,12 @@ class BarCanvas extends Component {
                 event
             )
         } else {
-            this.hideTooltip()
+            hideTooltip()
         }
     }
 
-    handleMouseLeave = () => {
-        if (!this.hideTooltip) return
-        this.hideTooltip()
+    handleMouseLeave = hideTooltip => {
+        hideTooltip()
     }
 
     render() {
@@ -136,23 +136,17 @@ class BarCanvas extends Component {
 
         return (
             <Container isInteractive={isInteractive} theme={theme}>
-                {({ showTooltip, hideTooltip }) => {
-                    this.showTooltip = showTooltip
-                    this.hideTooltip = hideTooltip
-
-                    return (
-                        <canvas
-                            ref={surface => {
-                                this.surface = surface
-                            }}
-                            width={outerWidth}
-                            height={outerHeight}
-                            onMouseEnter={this.handleMouseHover}
-                            onMouseMove={this.handleMouseHover}
-                            onMouseLeave={this.handleMouseLeave}
-                        />
-                    )
-                }}
+                {({ showTooltip, hideTooltip }) =>
+                    <canvas
+                        ref={surface => {
+                            this.surface = surface
+                        }}
+                        width={outerWidth}
+                        height={outerHeight}
+                        onMouseEnter={partial(this.handleMouseHover, showTooltip, hideTooltip)}
+                        onMouseMove={partial(this.handleMouseHover, showTooltip, hideTooltip)}
+                        onMouseLeave={partial(this.handleMouseLeave, hideTooltip)}
+                    />}
             </Container>
         )
     }

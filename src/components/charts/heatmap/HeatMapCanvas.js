@@ -9,68 +9,13 @@
 import React, { Component } from 'react'
 import { partial } from 'lodash'
 import { renderAxes } from '../../../lib/canvas/axes'
+import { getRelativeCursor, cursorInRect } from '../../../lib/interactivity'
+import { renderRect, renderCircle } from '../../../lib/canvas/charts/heatmap'
+import { computeNodes } from '../../../lib/charts/heatmap'
+import BasicTooltip from '../../tooltip/BasicTooltip'
+import Container from '../Container'
 import { HeatMapPropTypes } from './props'
 import enhance from './enhance'
-
-const renderRect = (ctx, { x, y, width, height, color, labelTextColor, value }) => {
-    ctx.fillStyle = color
-    ctx.fillRect(x - width / 2, y - height / 2, width, height)
-
-    ctx.fillStyle = labelTextColor
-    ctx.fillText(value, x, y)
-}
-
-const renderCircle = (ctx, { x, y, width, height, color, labelTextColor, value }) => {
-    const radius = Math.min(width, height) / 2
-
-    ctx.fillStyle = color
-    ctx.beginPath()
-    ctx.arc(x, y, radius, 0, 2 * Math.PI)
-    ctx.fill()
-
-    ctx.fillStyle = labelTextColor
-    ctx.fillText(value, x, y)
-}
-
-const computeNodes = ({
-    data,
-    keys,
-    getIndex,
-    xScale,
-    yScale,
-    sizeScale,
-    cellWidth,
-    cellHeight,
-    colorScale,
-    getLabelTextColor,
-}) =>
-    data.reduce((acc, d) => {
-        keys.forEach(key => {
-            const width = sizeScale ? Math.min(sizeScale(d[key]) * cellWidth, cellWidth) : cellWidth
-            const height = sizeScale
-                ? Math.min(sizeScale(d[key]) * cellHeight, cellHeight)
-                : cellHeight
-
-            const node = {
-                xKey: key,
-                yKey: getIndex(d),
-                x: xScale(key),
-                y: yScale(getIndex(d)),
-                width,
-                height,
-                value: d[key],
-                color: colorScale(d[key]),
-            }
-
-            acc.push(
-                Object.assign(node, {
-                    labelTextColor: getLabelTextColor(node),
-                })
-            )
-        })
-
-        return acc
-    }, [])
 
 class HeatMapCanvas extends Component {
     componentDidMount() {
@@ -79,8 +24,17 @@ class HeatMapCanvas extends Component {
     }
 
     shouldComponentUpdate(props) {
-        this.draw(props)
-        return false
+        if (this.props.isInteractive !== props.isInteractive || this.props.theme !== props.theme) {
+            return true
+        } else {
+            this.draw(props)
+            return false
+        }
+    }
+
+    componentDidUpdate() {
+        this.ctx = this.surface.getContext('2d')
+        this.draw(this.props)
     }
 
     draw(props) {
@@ -129,19 +83,64 @@ class HeatMapCanvas extends Component {
         this.ctx.textBaseline = 'middle'
 
         nodes.forEach(renderNode)
+
+        this.nodes = nodes
+    }
+
+    handleMouseHover = (showTooltip, hideTooltip, event) => {
+        if (!this.nodes) return
+
+        const [x, y] = getRelativeCursor(this.surface, event)
+
+        const { margin, offsetX, offsetY, theme } = this.props
+        const node = this.nodes.find(node =>
+            cursorInRect(
+                node.x + margin.left + offsetX - node.width / 2,
+                node.y + margin.top + offsetY - node.height / 2,
+                node.width,
+                node.height,
+                x,
+                y
+            )
+        )
+
+        if (node !== undefined) {
+            showTooltip(
+                <BasicTooltip
+                    id={`${node.yKey} - ${node.xKey}`}
+                    value={node.value}
+                    enableChip={true}
+                    color={node.color}
+                    theme={theme}
+                />,
+                event
+            )
+        } else {
+            hideTooltip()
+        }
+    }
+
+    handleMouseLeave = hideTooltip => {
+        hideTooltip()
     }
 
     render() {
-        const { outerWidth, outerHeight } = this.props
+        const { outerWidth, outerHeight, isInteractive, theme } = this.props
 
         return (
-            <canvas
-                ref={surface => {
-                    this.surface = surface
-                }}
-                width={outerWidth}
-                height={outerHeight}
-            />
+            <Container isInteractive={isInteractive} theme={theme}>
+                {({ showTooltip, hideTooltip }) =>
+                    <canvas
+                        ref={surface => {
+                            this.surface = surface
+                        }}
+                        width={outerWidth}
+                        height={outerHeight}
+                        onMouseEnter={partial(this.handleMouseHover, showTooltip, hideTooltip)}
+                        onMouseMove={partial(this.handleMouseHover, showTooltip, hideTooltip)}
+                        onMouseLeave={partial(this.handleMouseLeave, hideTooltip)}
+                    />}
+            </Container>
         )
     }
 }
