@@ -103,7 +103,8 @@
   "lint-staged": {
     "*.js": [
       "fmt",
-      "git add"
+      "git add",
+      "jest --bail --findRelatedTests"
     ]
   },
   "config": {
