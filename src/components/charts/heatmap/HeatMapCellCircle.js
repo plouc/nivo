@@ -10,6 +10,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
 
+const style = { cursor: 'pointer' }
+
 const HeatMapCellCircle = ({
     value,
     x,
@@ -21,22 +23,33 @@ const HeatMapCellCircle = ({
     borderWidth,
     borderColor,
     textColor,
-}) => {
-    return (
-        <g transform={`translate(${x}, ${y})`}>
-            <circle
-                r={Math.min(width, height) / 2}
-                fill={color}
-                fillOpacity={opacity}
-                strokeWidth={borderWidth}
-                stroke={borderColor}
-            />
-            <text alignmentBaseline="central" textAnchor="middle" style={{ fill: textColor }}>
-                {value}
-            </text>
-        </g>
-    )
-}
+    onHover,
+    onLeave,
+}) =>
+    <g
+        transform={`translate(${x}, ${y})`}
+        style={style}
+        onMouseEnter={onHover}
+        onMouseMove={onHover}
+        onMouseLeave={onLeave}
+    >
+        <circle
+            r={Math.min(width, height) / 2}
+            fill={color}
+            fillOpacity={opacity}
+            strokeWidth={borderWidth}
+            stroke={borderColor}
+            strokeOpacity={opacity}
+        />
+        <text
+            alignmentBaseline="central"
+            textAnchor="middle"
+            style={{ fill: textColor }}
+            fillOpacity={opacity}
+        >
+            {value}
+        </text>
+    </g>
 
 HeatMapCellCircle.propTypes = {
     value: PropTypes.number.isRequired,
@@ -49,6 +62,8 @@ HeatMapCellCircle.propTypes = {
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.string.isRequired,
     textColor: PropTypes.string.isRequired,
+    onHover: PropTypes.func.isRequired,
+    onLeave: PropTypes.func.isRequired,
 }
 
 export default pure(HeatMapCellCircle)

@@ -12,7 +12,7 @@ import { renderAxes } from '../../../lib/canvas/axes'
 import { getRelativeCursor, cursorInRect } from '../../../lib/interactivity'
 import { renderRect, renderCircle } from '../../../lib/canvas/charts/heatmap'
 import { computeNodes } from '../../../lib/charts/heatmap'
-import BasicTooltip from '../../tooltip/BasicTooltip'
+import HeatMapCellTooltip from './HeatMapCellTooltip'
 import Container from '../Container'
 import { HeatMapPropTypes } from './props'
 import enhance from './enhance'
@@ -114,16 +114,7 @@ class HeatMapCanvas extends Component {
 
         if (node !== undefined) {
             setCurrentNode(node)
-            showTooltip(
-                <BasicTooltip
-                    id={`${node.yKey} - ${node.xKey}`}
-                    value={node.value}
-                    enableChip={true}
-                    color={node.color}
-                    theme={theme}
-                />,
-                event
-            )
+            showTooltip(<HeatMapCellTooltip node={node} theme={theme} />, event)
         } else {
             setCurrentNode(null)
             hideTooltip()
