@@ -10,6 +10,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
 
+const style = { cursor: 'pointer' }
+
 const HeatMapCellRect = ({
     value,
     x,
@@ -21,25 +23,36 @@ const HeatMapCellRect = ({
     borderWidth,
     borderColor,
     textColor,
-}) => {
-    return (
-        <g transform={`translate(${x}, ${y})`}>
-            <rect
-                x={width * -0.5}
-                y={height * -0.5}
-                width={width}
-                height={height}
-                fill={color}
-                fillOpacity={opacity}
-                strokeWidth={borderWidth}
-                stroke={borderColor}
-            />
-            <text alignmentBaseline="central" textAnchor="middle" style={{ fill: textColor }}>
-                {value}
-            </text>
-        </g>
-    )
-}
+    onHover,
+    onLeave,
+}) =>
+    <g
+        transform={`translate(${x}, ${y})`}
+        onMouseEnter={onHover}
+        onMouseMove={onHover}
+        onMouseLeave={onLeave}
+        style={style}
+    >
+        <rect
+            x={width * -0.5}
+            y={height * -0.5}
+            width={width}
+            height={height}
+            fill={color}
+            fillOpacity={opacity}
+            strokeWidth={borderWidth}
+            stroke={borderColor}
+            strokeOpacity={opacity}
+        />
+        <text
+            alignmentBaseline="central"
+            textAnchor="middle"
+            style={{ fill: textColor }}
+            fillOpacity={opacity}
+        >
+            {value}
+        </text>
+    </g>
 
 HeatMapCellRect.propTypes = {
     value: PropTypes.number.isRequired,
@@ -52,6 +65,8 @@ HeatMapCellRect.propTypes = {
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.string.isRequired,
     textColor: PropTypes.string.isRequired,
+    onHover: PropTypes.func.isRequired,
+    onLeave: PropTypes.func.isRequired,
 }
 
 export default pure(HeatMapCellRect)

@@ -15,6 +15,7 @@ const containerStyle = {
 }
 
 const tooltipStyle = {
+    pointerEvents: 'none',
     position: 'absolute',
     zIndex: 10,
     top: 0,
