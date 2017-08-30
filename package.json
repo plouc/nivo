@@ -63,14 +63,16 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "cross-env": "^5.0.5",
+    "enzyme": "^2.9.1",
     "gh-pages": "^1.0.0",
     "husky": "^0.14.3",
     "jest": "^20.0.4",
     "lint-staged": "^4.0.3",
     "nivo-generators": "^0.8.0",
     "prettier": "^1.5.3",
-    "react": "^15.4.1",
-    "react-dom": "^15.4.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-test-renderer": "^15.6.1",
     "validate-commit-msg": "^2.14.0"
   },
   "peerDependencies": {

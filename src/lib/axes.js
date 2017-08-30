@@ -11,7 +11,11 @@ const horizontalPositions = ['top', 'bottom']
 const verticalPositions = ['left', 'right']
 
 const centerScale = scale => {
-    let offset = scale.bandwidth() / 2
+    const bandwidth = scale.bandwidth()
+
+    if (bandwidth === 0) return scale
+
+    let offset = bandwidth / 2
     if (scale.round()) {
         offset = Math.round(offset)
     }
