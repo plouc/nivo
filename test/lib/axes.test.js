@@ -210,4 +210,66 @@ describe('computeAxisTicks()', () => {
             ).toMatchSnapshot()
         })
     })
+
+    describe('using canvas engine', () => {
+        it('should correctly map textAlign property', () => {
+            expect(
+                computeAxisTicks({
+                    scale: linearScale,
+                    width,
+                    height,
+                    position: 'right',
+                    engine: 'canvas',
+                }).textAlign
+            ).toBe('left')
+            expect(
+                computeAxisTicks({
+                    scale: linearScale,
+                    width,
+                    height,
+                    position: 'top',
+                    engine: 'canvas',
+                }).textAlign
+            ).toBe('center')
+            expect(
+                computeAxisTicks({
+                    scale: linearScale,
+                    width,
+                    height,
+                    position: 'left',
+                    engine: 'canvas',
+                }).textAlign
+            ).toBe('right')
+        })
+
+        it('should correctly map textBaseline property', () => {
+            expect(
+                computeAxisTicks({
+                    scale: linearScale,
+                    width,
+                    height,
+                    position: 'top',
+                    engine: 'canvas',
+                }).textBaseline
+            ).toBe('bottom')
+            expect(
+                computeAxisTicks({
+                    scale: linearScale,
+                    width,
+                    height,
+                    position: 'right',
+                    engine: 'canvas',
+                }).textBaseline
+            ).toBe('middle')
+            expect(
+                computeAxisTicks({
+                    scale: linearScale,
+                    width,
+                    height,
+                    position: 'bottom',
+                    engine: 'canvas',
+                }).textBaseline
+            ).toBe('top')
+        })
+    })
 })

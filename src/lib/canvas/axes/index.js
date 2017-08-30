@@ -35,6 +35,7 @@ export const renderAxis = (
         tickSize,
         tickPadding,
         tickRotation,
+        engine: 'canvas',
     })
 
     ctx.save()
