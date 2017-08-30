@@ -13,7 +13,7 @@ import { curveFromProp } from '../props'
  * This HOC transform d3 curve interpolation identifier
  * to its corresponding interpolator.
  */
-export default (srcKey = 'curve', destKey = 'curveInterpolator') =>
+export default ({ srcKey = 'curve', destKey = 'curveInterpolator' } = {}) =>
     withProps(props => ({
         [destKey]: curveFromProp(props[srcKey]),
     }))

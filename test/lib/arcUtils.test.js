@@ -6,8 +6,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import * as all from '../../src/index'
-
 import { midAngle } from '../../src/lib/arcUtils'
 
 test('midAngle() should compute center of given angles', () => {

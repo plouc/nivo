@@ -9,6 +9,13 @@
 import { spring } from 'react-motion'
 import { rgb } from 'd3-color'
 
+/**
+ * Decompose a color for use with react-motion.
+ *
+ * @param {string} _color
+ * @param {Object} _config
+ * @return {Object}
+ */
 export const colorMotionSpring = (_color, _config) => {
     const color = rgb(_color)
 
@@ -29,5 +36,13 @@ export const colorMotionSpring = (_color, _config) => {
     }
 }
 
+/**
+ * Re-assemble interpolated color components for easy use.
+ *
+ * @param {number} colorR
+ * @param {number} colorG
+ * @param {number} colorB
+ * @return {string}
+ */
 export const getInterpolatedColor = ({ colorR, colorG, colorB }) =>
     `rgb(${Math.round(colorR)},${Math.round(colorG)},${Math.round(colorB)})`
