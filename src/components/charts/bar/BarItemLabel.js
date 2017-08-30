@@ -8,7 +8,7 @@
  */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-
+import { getLabelGenerator } from '../../../lib/propertiesConverters'
 const safeSize = 20
 
 const labelStyle = {
@@ -26,12 +26,13 @@ export default class BarItemLabel extends Component {
         height: PropTypes.number.isRequired,
         linkColor: PropTypes.string.isRequired,
         textColor: PropTypes.string.isRequired,
+        getLabel: PropTypes.func.isRequired,
     }
 
     static defaultProps = {}
 
     render() {
-        const { x: _x, y: _y, width, height, linkColor, textColor, data } = this.props
+        const { x: _x, y: _y, width, height, getLabel, linkColor, textColor, data } = this.props
 
         let x = _x
         let y = _y
@@ -54,7 +55,7 @@ export default class BarItemLabel extends Component {
             <g transform={`translate(${x},${y})`} className="nivo_bar_legend" style={labelStyle}>
                 {line}
                 <text x={textX} textAnchor={textAnchor} dy="0.5em" style={{ fill: textColor }}>
-                    {data.value}
+                    {getLabel(data)}
                 </text>
             </g>
         )

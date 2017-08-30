@@ -10,26 +10,14 @@ import _ from 'lodash'
 import { format } from 'd3-format'
 
 export const getLabelGenerator = (_label, labelFormat) => {
-    if (_.isFunction(_label)) {
-        return _label
-    }
-
-    const label = d => _.get(d, _label)
-
+    const getRawLabel = _.isFunction(_label) ? _label : d => _.get(d, _label)
     let formatter
     if (labelFormat) {
-        formatter = format(labelFormat)
+        formatter = _.isFunction(labelFormat) ? labelFormat : format(labelFormat)
     }
 
-    return data => {
-        let labelOutput = label(data)
-
-        if (formatter) {
-            labelOutput = formatter(labelOutput)
-        }
-
-        return labelOutput
-    }
+    if (formatter) return d => formatter(getRawLabel(d))
+    return getRawLabel
 }
 
 export const getAccessorFor = directive => (_.isFunction(directive) ? directive : d => d[directive])

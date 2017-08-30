@@ -46,6 +46,9 @@ const Bar = ({
     enableLabels,
     getLabelsLinkColor,
     getLabelsTextColor,
+    label,
+    labelFormat,
+    getLabel,
 
     // markers
     markers,
@@ -161,6 +164,7 @@ const Bar = ({
                             result.bars.map(d =>
                                 <BarItemLabel
                                     {...d}
+                                    getLabel={getLabel}
                                     textColor={getLabelsTextColor(d, theme)}
                                     linkColor={getLabelsLinkColor(d, theme)}
                                 />

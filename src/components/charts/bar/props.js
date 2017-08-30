@@ -34,7 +34,9 @@ export const BarPropTypes = {
     getLabelsTextColor: PropTypes.func.isRequired, // computed
     labelsLinkColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     getLabelsLinkColor: PropTypes.func.isRequired, // computed
-
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    labelFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    getLabel: PropTypes.func,
     // interactions
     onClick: PropTypes.func,
 
@@ -67,7 +69,7 @@ export const BarDefaultProps = {
     enableLabels: true,
     labelsLinkColor: 'theme',
     labelsTextColor: 'theme',
-
+    label: 'value',
     // interactivity
     isInteractive: true,
 

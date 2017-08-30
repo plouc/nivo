@@ -2,7 +2,7 @@
  * This file is part of the nivo project.
  *
  * Copyright 2016-present, Raphaël Benitte.
- *
+ *d
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -14,6 +14,7 @@ import { withTheme, withColors, withDimensions, withMotion } from '../../../hocs
 import { getInheritedColorGenerator } from '../../../lib/colors'
 import { getAccessorFor } from '../../../lib/propertiesConverters'
 import { BarDefaultProps } from './props'
+import { getLabelGenerator } from '../../../lib/propertiesConverters'
 
 export default Component =>
     compose(
@@ -30,6 +31,9 @@ export default Component =>
         })),
         withPropsOnChange(['labelsLinkColor'], ({ labelsLinkColor }) => ({
             getLabelsLinkColor: getInheritedColorGenerator(labelsLinkColor, 'axis.tickColor'),
+        })),
+        withPropsOnChange(['label', 'labelFormat'], ({ label, labelFormat }) => ({
+            getLabel: getLabelGenerator(label, labelFormat),
         })),
         pure
     )(Component)
