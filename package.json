@@ -105,7 +105,7 @@
     "*.js": [
       "fmt",
       "git add",
-      "jest --bail --findRelatedTests"
+      "test"
     ]
   },
   "config": {
