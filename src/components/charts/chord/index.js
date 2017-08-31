@@ -8,3 +8,4 @@
  */
 export { default as Chord } from './Chord'
 export { default as ResponsiveChord } from './ResponsiveChord'
+export * from './props'

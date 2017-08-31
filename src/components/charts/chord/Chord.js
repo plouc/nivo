@@ -7,20 +7,17 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import PropTypes from 'prop-types'
-import compose from 'recompose/compose'
-import defaultProps from 'recompose/defaultProps'
-import pure from 'recompose/pure'
-import { chord as d3Chord, ribbon as Ribbon } from 'd3-chord'
-import { arc as Arc } from 'd3-shape'
-import { rgb } from 'd3-color'
-import { withTheme, withDimensions } from '../../../hocs'
 import { getColorRange } from '../../../lib/colors'
 import Container from '../Container'
 import SvgWrapper from '../SvgWrapper'
+import enhance from './enhance'
+import { ChordPropTypes } from './props'
+import ChordRibbons from './ChordRibbons'
+import ChordArcs from './ChordArcs'
 
 const Chord = ({
-    data,
+    matrix,
+    keys,
 
     // dimensions
     margin,
@@ -29,13 +26,14 @@ const Chord = ({
     outerWidth,
     outerHeight,
 
-    padAngle,
-    innerRadiusRatio,
-    innerRadiusOffset,
     ribbonOpacity,
     ribbonBorderWidth,
     arcOpacity,
     arcBorderWidth,
+
+    chord, // computed
+    arcGenerator, // computed
+    ribbonGenerator, // computed
 
     // theming
     theme,
@@ -43,24 +41,82 @@ const Chord = ({
 
     // interactivity
     isInteractive,
+    arcHoverOpacity,
+    arcHoverOthersOpacity,
+    ribbonHoverOpacity,
+    ribbonHoverOthersOpacity,
+
+    // motion
+    animate,
+    motionDamping,
+    motionStiffness,
+
+    currentArc,
+    setCurrentArc,
+    currentRibbon,
+    setCurrentRibbon,
 }) => {
     const centerX = width / 2
     const centerY = height / 2
 
     const color = getColorRange(colors)
 
-    const radius = Math.min(width, height) / 2
-    const arcInnerRadius = radius * innerRadiusRatio
-    const ribbonRadius = radius * (innerRadiusRatio - innerRadiusOffset)
+    const colorById = keys.reduce((acc, key) => {
+        acc[key] = color(key)
+        return acc
+    }, {})
 
-    const chord = d3Chord().padAngle(padAngle)
+    const ribbons = chord(matrix)
+    ribbons.forEach(ribbon => {
+        ribbon.source.id = keys[ribbon.source.index]
+        ribbon.source.color = colorById[ribbon.source.id]
+        ribbon.target.id = keys[ribbon.target.index]
+        ribbon.target.color = colorById[ribbon.target.id]
+        const ribbonKeys = [ribbon.source.id, ribbon.target.id]
+        ribbonKeys.sort()
+        ribbon.key = ribbonKeys.sort().join('.')
+    })
 
-    const arc = Arc().innerRadius(arcInnerRadius).outerRadius(radius)
+    const arcs = ribbons.groups.map(arc => {
+        arc.key = arc.id = keys[arc.index]
+        arc.color = colorById[arc.id]
+        return arc
+    })
 
-    const ribbon = Ribbon().radius(ribbonRadius)
+    let getArcOpacity = () => arcOpacity
+    let getRibbonOpacity = () => ribbonOpacity
+    if (isInteractive) {
+        if (currentArc) {
+            getArcOpacity = arc => {
+                if (arc.id === currentArc.id) return arcHoverOpacity
+                return arcHoverOthersOpacity
+            }
+            getRibbonOpacity = ribbon => {
+                if (ribbon.source.id === currentArc.id) return ribbonHoverOpacity
+                return ribbonHoverOthersOpacity
+            }
+        } else if (currentRibbon) {
+            getArcOpacity = arc => {
+                if (arc.id === currentRibbon.source.id || arc.id === currentRibbon.target.id)
+                    return arcHoverOpacity
+                return arcHoverOthersOpacity
+            }
+            getRibbonOpacity = ribbon => {
+                if (
+                    ribbon.source.id === currentRibbon.source.id &&
+                    ribbon.target.id === currentRibbon.target.id
+                )
+                    return ribbonHoverOpacity
+                return ribbonHoverOthersOpacity
+            }
+        }
+    }
 
-    const ribbons = chord(data)
-    const arcs = ribbons.groups
+    const motionProps = {
+        animate,
+        motionDamping,
+        motionStiffness,
+    }
 
     return (
         <Container isInteractive={isInteractive} theme={theme}>
@@ -68,40 +124,28 @@ const Chord = ({
                 return (
                     <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
                         <g transform={`translate(${centerX}, ${centerY})`}>
-                            <g>
-                                {ribbons.map(d => {
-                                    let c = rgb(color(d.source.index))
-                                    c = rgb(c.r, c.g, c.b, ribbonOpacity)
-
-                                    return (
-                                        <path
-                                            key={`ribbon.${d.source.index}.${d.target.index}`}
-                                            className="nivo_chord_ribbon"
-                                            d={ribbon(d)}
-                                            fill={c}
-                                            stroke={c}
-                                            strokeWidth={ribbonBorderWidth}
-                                        />
-                                    )
-                                })}
-                            </g>
-                            <g>
-                                {arcs.map(d => {
-                                    let c = rgb(color(d.index))
-                                    c = rgb(c.r, c.g, c.b, arcOpacity)
-
-                                    return (
-                                        <path
-                                            key={`arc.${d.index}`}
-                                            className="nivo_chord_arc"
-                                            d={arc(d)}
-                                            fill={c}
-                                            stroke={c}
-                                            strokeWidth={arcBorderWidth}
-                                        />
-                                    )
-                                })}
-                            </g>
+                            <ChordRibbons
+                                ribbons={ribbons}
+                                shapeGenerator={ribbonGenerator}
+                                borderWidth={ribbonBorderWidth}
+                                getOpacity={getRibbonOpacity}
+                                setCurrent={setCurrentRibbon}
+                                theme={theme}
+                                showTooltip={showTooltip}
+                                hideTooltip={hideTooltip}
+                                {...motionProps}
+                            />
+                            <ChordArcs
+                                arcs={arcs}
+                                shapeGenerator={arcGenerator}
+                                borderWidth={arcBorderWidth}
+                                getOpacity={getArcOpacity}
+                                setCurrent={setCurrentArc}
+                                theme={theme}
+                                showTooltip={showTooltip}
+                                hideTooltip={hideTooltip}
+                                {...motionProps}
+                            />
                         </g>
                     </SvgWrapper>
                 )
@@ -110,41 +154,6 @@ const Chord = ({
     )
 }
 
-Chord.propTypes = {
-    data: PropTypes.array.isRequired,
-
-    padAngle: PropTypes.number.isRequired,
-    innerRadiusRatio: PropTypes.number.isRequired,
-    innerRadiusOffset: PropTypes.number.isRequired,
-
-    ribbonOpacity: PropTypes.number.isRequired,
-    ribbonBorderWidth: PropTypes.number.isRequired,
-
-    // colors
-    colors: PropTypes.any.isRequired,
-
-    // interactivity
-    isInteractive: PropTypes.bool.isRequired,
-}
-
-export const ChordDefaultProps = {
-    padAngle: 0,
-    innerRadiusRatio: 0.9,
-    innerRadiusOffset: 0,
-
-    ribbonOpacity: 0.5,
-    ribbonBorderWidth: 1,
-
-    arcOpacity: 1,
-    arcBorderWidth: 1,
-
-    // colors
-    colors: 'nivo',
-
-    // interactivity
-    isInteractive: true,
-}
-
-const enhance = compose(defaultProps(ChordDefaultProps), withTheme(), withDimensions(), pure)
+Chord.propTypes = ChordPropTypes
 
 export default enhance(Chord)
