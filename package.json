@@ -30,7 +30,6 @@
     "d3-time-format": "^2.0.5",
     "d3-voronoi": "^1.1.2",
     "lodash": "^4.17.4",
-    "lodash-es": "^4.17.4",
     "prop-types": "^15.5.10",
     "react-measure": "^2.0.2",
     "react-motion": "^0.5.0",
