@@ -9,7 +9,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
-import Nivo from '../../Nivo'
 import GridLine from './GridLine'
 
 export default class GridLines extends Component {

@@ -7,7 +7,6 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
-import Nivo from '../../../Nivo'
 import { treeMapTilePropType } from '../../../props'
 
 export const treeMapPropTypes = {
@@ -37,10 +36,6 @@ export const treeMapPropTypes = {
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.any.isRequired,
 
-    // transitions
-    transitionDuration: PropTypes.number.isRequired, // d3 transitions
-    transitionEasing: PropTypes.string.isRequired, // d3 transitions
-
     // placeholders
     namespace: PropTypes.oneOf(['html', 'svg']).isRequired,
     children: PropTypes.func.isRequired,
@@ -65,8 +60,4 @@ export const treeMapDefaultProps = {
 
     borderWidth: 0,
     borderColor: 'inherit',
-
-    // motion
-    transitionDuration: Nivo.defaults.transitionDuration,
-    transitionEasing: Nivo.defaults.transitionEasing,
 }

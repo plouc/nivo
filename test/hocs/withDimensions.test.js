@@ -8,14 +8,14 @@
  */
 import React from 'react'
 import { shallow } from 'enzyme'
-import Nivo from '../../src/Nivo'
+import { defaultMargin } from '../../src/defaults'
 import withDimensions from '../../src/hocs/withDimensions'
 
 it('should add default margin', () => {
     const Sample = withDimensions()('div')
 
     const div = shallow(<Sample width={300} height={200} />).dive().find('div')
-    expect(div.prop('margin')).toEqual(Nivo.defaults.margin)
+    expect(div.prop('margin')).toEqual(defaultMargin)
 })
 
 it('should compute inner and outer dimensions', () => {

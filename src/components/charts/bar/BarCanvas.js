@@ -14,7 +14,7 @@ import Container from '../Container'
 import BasicTooltip from '../../tooltip/BasicTooltip'
 import { BarPropTypes } from './props'
 import enhance from './enhance'
-import { getRelativeCursor, cursorInRect } from '../../../lib/interactivity'
+import { getRelativeCursor, isCursorInRect } from '../../../lib/interactivity'
 
 class BarCanvas extends Component {
     componentDidMount() {
@@ -116,7 +116,7 @@ class BarCanvas extends Component {
 
         const { margin, theme } = this.props
         const bar = this.bars.find(bar =>
-            cursorInRect(bar.x + margin.left, bar.y + margin.top, bar.width, bar.height, x, y)
+            isCursorInRect(bar.x + margin.left, bar.y + margin.top, bar.width, bar.height, x, y)
         )
 
         if (bar !== undefined) {

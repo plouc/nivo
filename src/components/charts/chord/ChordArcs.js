@@ -9,11 +9,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
+import pure from 'recompose/pure'
 import { colorMotionSpring, getInterpolatedColor } from '../../../lib/colors'
-import BasicTooltip from '../../tooltip/BasicTooltip'
-
-const ArcTooltip = ({ arc, theme }) =>
-    <BasicTooltip id={arc.id} value={arc.value} color={arc.color} enableChip={true} theme={theme} />
+import ChordArcTooltip from './ChordArcTooltip'
 
 const ChordArcs = ({
     arcs,
@@ -31,7 +29,7 @@ const ChordArcs = ({
     motionStiffness,
 }) => {
     const commonProps = arc => {
-        const arcTooltip = <ArcTooltip arc={arc} theme={theme} />
+        const arcTooltip = <ChordArcTooltip arc={arc} theme={theme} />
 
         return {
             strokeWidth: arcBorderWidth,
@@ -74,6 +72,7 @@ const ChordArcs = ({
     const springConfig = {
         damping: motionDamping,
         stiffness: motionStiffness,
+        precision: 0.001,
     }
 
     return (
@@ -127,4 +126,4 @@ ChordArcs.propTypes = {
     hideTooltip: PropTypes.func.isRequired,
 }
 
-export default ChordArcs
+export default pure(ChordArcs)

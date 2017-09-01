@@ -11,7 +11,7 @@ import compose from 'recompose/compose'
 import setPropTypes from 'recompose/setPropTypes'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import { merge } from 'lodash'
-import { defaultTheme } from '../Nivo'
+import { defaultTheme } from '../defaults'
 
 /**
  * This HOC watch theme prop change

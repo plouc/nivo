@@ -9,7 +9,7 @@
 import React, { Component } from 'react'
 import { partial } from 'lodash'
 import { renderAxes } from '../../../lib/canvas/axes'
-import { getRelativeCursor, cursorInRect } from '../../../lib/interactivity'
+import { getRelativeCursor, isCursorInRect } from '../../../lib/interactivity'
 import { renderRect, renderCircle } from '../../../lib/canvas/charts/heatmap'
 import { computeNodes } from '../../../lib/charts/heatmap'
 import HeatMapCellTooltip from './HeatMapCellTooltip'
@@ -102,7 +102,7 @@ class HeatMapCanvas extends Component {
 
         const { margin, offsetX, offsetY, theme, setCurrentNode } = this.props
         const node = this.nodes.find(node =>
-            cursorInRect(
+            isCursorInRect(
                 node.x + margin.left + offsetX - node.width / 2,
                 node.y + margin.top + offsetY - node.height / 2,
                 node.width,

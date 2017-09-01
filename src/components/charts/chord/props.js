@@ -16,8 +16,22 @@ export const ChordPropTypes = {
     innerRadiusRatio: PropTypes.number.isRequired,
     innerRadiusOffset: PropTypes.number.isRequired,
 
+    // arcs
+    arcOpacity: PropTypes.number.isRequired,
+    arcBorderWidth: PropTypes.number.isRequired,
+
+    // ribbons
     ribbonOpacity: PropTypes.number.isRequired,
     ribbonBorderWidth: PropTypes.number.isRequired,
+
+    // labels
+    enableLabels: PropTypes.bool.isRequired,
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    getLabel: PropTypes.func.isRequired, // computed
+    labelOffset: PropTypes.number.isRequired,
+    labelRotation: PropTypes.number.isRequired,
+    labelTextColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    getLabelTextColor: PropTypes.func.isRequired, // computed
 
     // colors
     colors: PropTypes.any.isRequired,
@@ -28,6 +42,9 @@ export const ChordPropTypes = {
     arcHoverOthersOpacity: PropTypes.number.isRequired,
     ribbonHoverOpacity: PropTypes.number.isRequired,
     ribbonHoverOthersOpacity: PropTypes.number.isRequired,
+
+    // canvas specific
+    pixelRatio: PropTypes.number.isRequired,
 }
 
 export const ChordDefaultProps = {
@@ -35,11 +52,20 @@ export const ChordDefaultProps = {
     innerRadiusRatio: 0.9,
     innerRadiusOffset: 0,
 
+    // arcs
+    arcOpacity: 1,
+    arcBorderWidth: 1,
+
+    // ribbons
     ribbonOpacity: 0.5,
     ribbonBorderWidth: 1,
 
-    arcOpacity: 1,
-    arcBorderWidth: 1,
+    // labels
+    enableLabels: true,
+    label: 'id',
+    labelOffset: 12,
+    labelRotation: 0,
+    labelTextColor: 'inherit:darker(1)',
 
     // colors
     colors: 'nivo',
@@ -50,4 +76,7 @@ export const ChordDefaultProps = {
     arcHoverOthersOpacity: 0.15,
     ribbonHoverOpacity: 0.85,
     ribbonHoverOthersOpacity: 0.15,
+
+    // canvas specific
+    pixelRatio: window && window.devicePixelRatio ? window.devicePixelRatio : 1,
 }

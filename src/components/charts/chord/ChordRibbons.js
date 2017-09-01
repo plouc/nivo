@@ -8,39 +8,73 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
+import { mapValues } from 'lodash'
 import { TransitionMotion, spring } from 'react-motion'
+import pure from 'recompose/pure'
 import { colorMotionSpring, getInterpolatedColor } from '../../../lib/colors'
-import { midAngle } from '../../../lib/arcUtils'
+import { midAngle } from '../../../lib/polar'
 import TableTooltip from '../../tooltip/TableTooltip'
 import Chip from '../../tooltip/Chip'
 
-const ribbonWillEnter = ({ data: ribbon }) => {
-    const sourceMidAngle = midAngle(ribbon.source)
-    const targetMidAngle = midAngle(ribbon.target)
-
-    return {
-        sourceStartAngle: sourceMidAngle,
-        sourceEndAngle: sourceMidAngle,
-        targetStartAngle: targetMidAngle,
-        targetEndAngle: targetMidAngle,
-        opacity: 0,
-        ...colorMotionSpring(ribbon.source.color),
+/**
+ * Used to get ribbon angles, instead of using source and target arcs,
+ * we sort arcs by value to have smooth transitions, otherwise,
+ * if source|target arc value becomes greater than the other,
+ * the ribbon will be reversed.
+ *
+ * @param {Object}  source
+ * @param {Object}  target
+ * @param {boolean} useMiddleAngle
+ * @param {Object}  [springConfig]
+ * @return {Object}
+ */
+const getRibbonAngles = ({ source, target }, useMiddleAngle, springConfig) => {
+    let firstArc
+    let secondArc
+    if (source.startAngle < target.startAngle) {
+        firstArc = source
+        secondArc = target
+    } else {
+        firstArc = target
+        secondArc = source
     }
+
+    let angles
+    if (useMiddleAngle === true) {
+        const firstMiddleAngle = midAngle(firstArc)
+        const secondMiddleAngle = midAngle(secondArc)
+
+        angles = {
+            sourceStartAngle: firstMiddleAngle,
+            sourceEndAngle: firstMiddleAngle,
+            targetStartAngle: secondMiddleAngle,
+            targetEndAngle: secondMiddleAngle,
+        }
+    } else {
+        angles = {
+            sourceStartAngle: firstArc.startAngle,
+            sourceEndAngle: firstArc.endAngle,
+            targetStartAngle: secondArc.startAngle,
+            targetEndAngle: secondArc.endAngle,
+        }
+    }
+
+    if (!springConfig) return angles
+
+    return mapValues(angles, angle => spring(angle, springConfig))
 }
 
-const ribbonWillLeave = springConfig => ({ data: ribbon }) => {
-    const sourceMidAngle = midAngle(ribbon.source)
-    const targetMidAngle = midAngle(ribbon.target)
+const ribbonWillEnter = ({ data: ribbon }) => ({
+    ...getRibbonAngles(ribbon, true),
+    opacity: 0,
+    ...colorMotionSpring(ribbon.source.color),
+})
 
-    return {
-        sourceStartAngle: spring(sourceMidAngle, springConfig),
-        sourceEndAngle: spring(sourceMidAngle, springConfig),
-        targetStartAngle: spring(targetMidAngle, springConfig),
-        targetEndAngle: spring(targetMidAngle, springConfig),
-        opacity: 0,
-        ...colorMotionSpring(ribbon.source.color, springConfig),
-    }
-}
+const ribbonWillLeave = springConfig => ({ data: ribbon }) => ({
+    ...getRibbonAngles(ribbon, true, springConfig),
+    opacity: 0,
+    ...colorMotionSpring(ribbon.source.color, springConfig),
+})
 
 const ChordRibbons = ({
     ribbons,
@@ -121,6 +155,7 @@ const ChordRibbons = ({
     const springConfig = {
         damping: motionDamping,
         stiffness: motionStiffness,
+        precision: 0.001,
     }
 
     return (
@@ -132,10 +167,7 @@ const ChordRibbons = ({
                     key: ribbon.key,
                     data: ribbon,
                     style: {
-                        sourceStartAngle: spring(ribbon.source.startAngle, springConfig),
-                        sourceEndAngle: spring(ribbon.source.endAngle, springConfig),
-                        targetStartAngle: spring(ribbon.target.startAngle, springConfig),
-                        targetEndAngle: spring(ribbon.target.endAngle, springConfig),
+                        ...getRibbonAngles(ribbon, false, springConfig),
                         opacity: spring(getOpacity(ribbon), springConfig),
                         ...colorMotionSpring(ribbon.source.color, springConfig),
                     },
@@ -153,11 +185,17 @@ const ChordRibbons = ({
                                 d={shapeGenerator({
                                     source: {
                                         startAngle: style.sourceStartAngle,
-                                        endAngle: style.sourceEndAngle,
+                                        endAngle: Math.max(
+                                            style.sourceEndAngle,
+                                            style.sourceStartAngle
+                                        ),
                                     },
                                     target: {
                                         startAngle: style.targetStartAngle,
-                                        endAngle: style.targetEndAngle,
+                                        endAngle: Math.max(
+                                            style.targetEndAngle,
+                                            style.targetStartAngle
+                                        ),
                                     },
                                 })}
                                 fill={color}
@@ -184,4 +222,4 @@ ChordRibbons.propTypes = {
     hideTooltip: PropTypes.func.isRequired,
 }
 
-export default ChordRibbons
+export default pure(ChordRibbons)

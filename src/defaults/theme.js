@@ -6,24 +6,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { scaleOrdinal } from 'd3-scale'
-import { schemeSet3 } from 'd3-scale-chromatic'
-import { nivoCategoricalColors } from './lib/colors'
-
-const defaults = {
-    transitionDuration: 600,
-    transitionEasing: 'cubic-out',
-    motionStiffness: 90,
-    motionDamping: 13,
-    colorRange: scaleOrdinal(schemeSet3),
-    margin: {
-        top: 0,
-        right: 0,
-        bottom: 0,
-        left: 0,
-    },
-}
-
 export const defaultTheme = {
     axis: {
         textColor: '#000',
@@ -66,14 +48,10 @@ export const defaultTheme = {
             padding: '3px 5px',
         },
     },
+    labels: {
+        textColor: '#000',
+    },
     sankey: {
         label: {},
-    },
-}
-
-export default {
-    defaults,
-    colors: {
-        nivoCategoricalColors,
     },
 }

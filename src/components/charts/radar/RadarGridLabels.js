@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
 import pure from 'recompose/pure'
 import { motionPropTypes } from '../../../props'
-import { positionFromAngle, radiansToDegrees } from '../../../lib/arcUtils'
+import { positionFromAngle, radiansToDegrees } from '../../../lib/polar'
 
 const textAnchorFromAngle = _angle => {
     const angle = radiansToDegrees(_angle) + 90

@@ -14,7 +14,7 @@ import withPropsOnChange from 'recompose/withPropsOnChange'
 import withHandlers from 'recompose/withHandlers'
 import pure from 'recompose/pure'
 import { sortBy } from 'lodash'
-import { positionFromAngle } from '../../../lib/arcUtils'
+import { positionFromAngle } from '../../../lib/polar'
 import TableTooltip from '../../tooltip/TableTooltip'
 import Chip from '../../tooltip/Chip'
 

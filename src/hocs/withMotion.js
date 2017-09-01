@@ -13,15 +13,15 @@ import withPropsOnChange from 'recompose/withPropsOnChange'
 import setPropTypes from 'recompose/setPropTypes'
 import { spring } from 'react-motion'
 import { motionPropTypes } from '../props'
-import Nivo from '../Nivo'
+import { defaultMotionDamping, defaultMotionStiffness } from '../defaults'
 
 export default () =>
     compose(
         setPropTypes(motionPropTypes),
         defaultProps({
             animate: true,
-            motionDamping: Nivo.defaults.motionDamping,
-            motionStiffness: Nivo.defaults.motionStiffness,
+            motionDamping: defaultMotionDamping,
+            motionStiffness: defaultMotionStiffness,
         }),
         withPropsOnChange(
             ['motionDamping', 'motionStiffness'],

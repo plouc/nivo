@@ -8,7 +8,7 @@
  */
 import _ from 'lodash'
 import React, { Component } from 'react'
-import Nivo from '../../../Nivo'
+import { defaultMargin } from '../../../defaults'
 import SvgWrapper from '../SvgWrapper'
 import CalendarLayout from '../../../lib/charts/calendar/CalendarLayout'
 import { calendarPropTypes, calendarDefaultProps } from './CalendarProps'
@@ -54,7 +54,7 @@ export default class Calendar extends Component {
             motionDamping,
         } = this.props
 
-        const margin = Object.assign({}, Nivo.defaults.margin, this.props.margin)
+        const margin = Object.assign({}, defaultMargin, this.props.margin)
         const width = this.props.width - margin.left - margin.right
         const height = this.props.height - margin.top - margin.bottom
 

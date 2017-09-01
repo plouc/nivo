@@ -6,6 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+import { textPropsByEngine } from './bridge'
 
 const horizontalPositions = ['top', 'bottom']
 const verticalPositions = ['left', 'right']
@@ -21,33 +22,6 @@ const centerScale = scale => {
     }
 
     return d => scale(d) + offset
-}
-
-const textPropsByEngine = {
-    svg: {
-        align: {
-            left: 'start',
-            center: 'middle',
-            right: 'end',
-        },
-        baseline: {
-            top: 'before-edge',
-            center: 'central',
-            bottom: 'after-edge',
-        },
-    },
-    canvas: {
-        align: {
-            left: 'left',
-            center: 'center',
-            right: 'right',
-        },
-        baseline: {
-            top: 'top',
-            center: 'middle',
-            bottom: 'bottom',
-        },
-    },
 }
 
 /**

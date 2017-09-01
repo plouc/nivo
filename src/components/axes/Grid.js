@@ -9,7 +9,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
-import Nivo from '../../Nivo'
+import { defaultMotionDamping, defaultMotionStiffness } from '../../defaults'
 import GridLines from './GridLines'
 import { motionPropTypes } from '../../props'
 
@@ -110,8 +110,8 @@ Grid.propTypes = {
 Grid.defaultProps = {
     // motion
     animate: true,
-    motionStiffness: Nivo.defaults.motionStiffness,
-    motionDamping: Nivo.defaults.motionDamping,
+    motionStiffness: defaultMotionStiffness,
+    motionDamping: defaultMotionDamping,
 }
 
 export default pure(Grid)

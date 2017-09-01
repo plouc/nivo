@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { midAngle } from '../../src/lib/arcUtils'
+import { midAngle } from '../../../src/lib/polar/utils'
 
 test('midAngle() should compute center of given angles', () => {
     expect(midAngle({ startAngle: 0, endAngle: 90 })).toBe(45)

@@ -9,7 +9,7 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Nivo from '../../../Nivo'
+import { defaultMargin, defaultColorRange } from '../../../defaults'
 import { voronoi as VoronoiGenerator } from 'd3-voronoi'
 
 class Voronoi extends Component {
@@ -30,7 +30,7 @@ class Voronoi extends Component {
             linkColor,
         } = this.props
 
-        const margin = Object.assign({}, Nivo.defaults.margin, _margin)
+        const margin = Object.assign({}, defaultMargin, _margin)
         const width = _width - margin.left - margin.right
         const height = _height - margin.top - margin.bottom
 
@@ -114,7 +114,7 @@ Voronoi.defaultProps = {
     borderColor: '#000',
     linkWidth: 1,
     linkColor: '#bbb',
-    colors: Nivo.defaults.colorRange,
+    colors: defaultColorRange,
 }
 
 export default Voronoi

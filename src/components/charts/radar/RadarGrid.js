@@ -13,7 +13,7 @@ import compose from 'recompose/compose'
 import pure from 'recompose/pure'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import { motionPropTypes } from '../../../props'
-import { positionFromAngle } from '../../../lib/arcUtils'
+import { positionFromAngle } from '../../../lib/polar'
 import RadialGridLabels from './RadarGridLabels'
 import RadarGridLevels from './RadarGridLevels'
 

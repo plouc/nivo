@@ -7,9 +7,6 @@
  * file that was distributed with this source code.
  */
 
-import Nivo from './Nivo'
-
-export default Nivo
 export * from './components/charts/bar'
 export * from './components/charts/bubble'
 export * from './components/charts/calendar'
@@ -28,3 +25,4 @@ export * from './components/dots'
 export * from './constants'
 export * from './props'
 export * from './lib/colors'
+export * from './defaults'

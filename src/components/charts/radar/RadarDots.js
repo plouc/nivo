@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
 import { motionPropTypes } from '../../../props'
 import { getInheritedColorGenerator } from '../../../lib/colors'
-import { positionFromAngle } from '../../../lib/arcUtils'
+import { positionFromAngle } from '../../../lib/polar'
 import { getLabelGenerator } from '../../../lib/propertiesConverters'
 import DotsItem from '../../dots/DotsItem'
 
