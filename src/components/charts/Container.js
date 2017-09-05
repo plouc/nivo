@@ -51,14 +51,14 @@ export default class Container extends Component {
     }
 
     showTooltip = (content, event) => {
-        const { pageX, pageY } = event
+        const { clientX, clientY } = event
         const bounds = this.container.getBoundingClientRect()
 
         this.setState({
             isTooltipVisible: true,
             tooltipContent: content,
-            tooltipX: pageX - bounds.left + 20,
-            tooltipY: pageY - bounds.top,
+            tooltipX: clientX - bounds.left + 20,
+            tooltipY: clientY - bounds.top,
         })
     }
 
