@@ -22,6 +22,7 @@ const SankeyLinks = ({
     // links
     linkOpacity,
     linkHoverOpacity,
+    linkHoverOthersOpacity,
     linkContract,
 
     // motion
@@ -29,11 +30,22 @@ const SankeyLinks = ({
     motionDamping,
     motionStiffness,
 
+    // interactivity
     showTooltip,
     hideTooltip,
+    setCurrentLink,
+    currentNode,
+    currentLink,
+    isCurrentLink,
 
     theme,
 }) => {
+    const getOpacity = link => {
+        if (!currentNode && !currentLink) return linkOpacity
+        if (isCurrentLink(link)) return linkHoverOpacity
+        return linkHoverOthersOpacity
+    }
+
     if (animate !== true) {
         return (
             <g>
@@ -44,11 +56,11 @@ const SankeyLinks = ({
                         path={getLinkPath(link)}
                         width={Math.max(1, link.width - linkContract * 2)}
                         color={link.color}
-                        opacity={linkOpacity}
-                        hoverOpacity={linkHoverOpacity}
+                        opacity={getOpacity(link)}
                         contract={linkContract}
                         showTooltip={showTooltip}
                         hideTooltip={hideTooltip}
+                        setCurrent={setCurrentLink}
                         theme={theme}
                     />
                 )}
@@ -70,7 +82,7 @@ const SankeyLinks = ({
                         path: spring(getLinkPath(link), springConfig),
                         width: spring(Math.max(1, link.width - linkContract * 2), springConfig),
                         color: spring(link.color, springConfig),
-                        opacity: spring(linkOpacity, springConfig),
+                        opacity: spring(getOpacity(link), springConfig),
                         contract: spring(linkContract, springConfig),
                     })}
                 >
@@ -78,9 +90,9 @@ const SankeyLinks = ({
                         <SankeyLinksItem
                             link={link}
                             {...style}
-                            hoverOpacity={linkHoverOpacity}
                             showTooltip={showTooltip}
                             hideTooltip={hideTooltip}
+                            setCurrent={setCurrentLink}
                             theme={theme}
                         />}
                 </SmartMotion>
@@ -106,14 +118,19 @@ SankeyLinks.propTypes = {
     // links
     linkOpacity: PropTypes.number.isRequired,
     linkHoverOpacity: PropTypes.number.isRequired,
+    linkHoverOthersOpacity: PropTypes.number.isRequired,
     linkContract: PropTypes.number.isRequired,
 
     theme: PropTypes.object.isRequired,
 
     ...motionPropTypes,
 
+    // interactivity
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
+    setCurrentLink: PropTypes.func.isRequired,
+    currentLink: PropTypes.object,
+    isCurrentLink: PropTypes.func.isRequired,
 }
 
 export default pure(SankeyLinks)

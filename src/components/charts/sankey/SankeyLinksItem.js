@@ -42,25 +42,27 @@ const TooltipContent = ({ link }) =>
 
 const SankeyLinksItem = ({
     link,
+
     path,
     width,
     color,
     opacity,
-    hoverOpacity,
     contract,
-    showTooltip,
-    hideTooltip,
-    isHover,
+
+    // interactivity
+    handleMouseEnter,
+    handleMouseMove,
+    handleMouseLeave,
 }) =>
     <path
         fill="none"
         d={path}
         strokeWidth={Math.max(1, width - contract * 2)}
         stroke={color}
-        strokeOpacity={isHover ? hoverOpacity : opacity}
-        onMouseEnter={showTooltip}
-        onMouseMove={showTooltip}
-        onMouseLeave={hideTooltip}
+        strokeOpacity={opacity}
+        onMouseEnter={handleMouseEnter}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
     />
 
 SankeyLinksItem.propTypes = {
@@ -79,27 +81,30 @@ SankeyLinksItem.propTypes = {
     width: PropTypes.number.isRequired,
     color: PropTypes.string.isRequired,
     opacity: PropTypes.number.isRequired,
-    hoverOpacity: PropTypes.number.isRequired,
     contract: PropTypes.number.isRequired,
 
     theme: PropTypes.object.isRequired,
 
+    // interactivity
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
+    setCurrent: PropTypes.func.isRequired,
 }
 
 const enhance = compose(
-    withState('isHover', 'setIsHover', false),
     withPropsOnChange(['link', 'theme'], ({ link, theme }) => ({
         tooltip: <BasicTooltip id={<TooltipContent link={link} />} theme={theme} />,
     })),
     withHandlers({
-        showTooltip: ({ showTooltip, setIsHover, tooltip }) => e => {
-            setIsHover(true)
+        handleMouseEnter: ({ showTooltip, setCurrent, link, tooltip }) => e => {
+            setCurrent(link)
             showTooltip(tooltip, e)
         },
-        hideTooltip: ({ hideTooltip, setIsHover }) => () => {
-            setIsHover(false)
+        handleMouseMove: ({ showTooltip, tooltip }) => e => {
+            showTooltip(tooltip, e)
+        },
+        handleMouseLeave: ({ hideTooltip, setCurrent }) => () => {
+            setCurrent(null)
             hideTooltip()
         },
     }),

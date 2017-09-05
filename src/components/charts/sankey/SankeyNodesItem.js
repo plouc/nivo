@@ -25,14 +25,13 @@ const SankeyNodesItem = ({
 
     color,
     opacity,
-    hoverOpacity,
     borderWidth,
     borderColor,
 
-    showTooltip,
-    hideTooltip,
-
-    isHover,
+    // interactivity
+    handleMouseEnter,
+    handleMouseMove,
+    handleMouseLeave,
 }) =>
     <rect
         x={x}
@@ -40,12 +39,13 @@ const SankeyNodesItem = ({
         width={width}
         height={height}
         fill={color}
-        fillOpacity={isHover ? hoverOpacity : opacity}
+        fillOpacity={opacity}
         strokeWidth={borderWidth}
         stroke={borderColor}
-        onMouseEnter={showTooltip}
-        onMouseMove={showTooltip}
-        onMouseLeave={hideTooltip}
+        strokeOpacity={opacity}
+        onMouseEnter={handleMouseEnter}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
     />
 
 SankeyNodesItem.propTypes = {
@@ -61,28 +61,31 @@ SankeyNodesItem.propTypes = {
 
     color: PropTypes.string.isRequired,
     opacity: PropTypes.number.isRequired,
-    hoverOpacity: PropTypes.number.isRequired,
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.string.isRequired,
 
+    // interactivity
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
+    setCurrent: PropTypes.func.isRequired,
 
     theme: PropTypes.object.isRequired,
 }
 
 const enhance = compose(
-    withState('isHover', 'setIsHover', false),
     withPropsOnChange(['node', 'theme'], ({ node, theme }) => ({
         tooltip: <BasicTooltip id={node.id} enableChip={true} color={node.color} theme={theme} />,
     })),
     withHandlers({
-        showTooltip: ({ showTooltip, setIsHover, tooltip }) => e => {
-            setIsHover(true)
+        handleMouseEnter: ({ showTooltip, setCurrent, node, tooltip }) => e => {
+            setCurrent(node)
             showTooltip(tooltip, e)
         },
-        hideTooltip: ({ hideTooltip, setIsHover }) => () => {
-            setIsHover(false)
+        handleMouseMove: ({ showTooltip, tooltip }) => e => {
+            showTooltip(tooltip, e)
+        },
+        handleMouseLeave: ({ hideTooltip, setCurrent }) => () => {
+            setCurrent(null)
             hideTooltip()
         },
     }),

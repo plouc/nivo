@@ -7,22 +7,16 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import PropTypes from 'prop-types'
-import { cloneDeep } from 'lodash'
-import compose from 'recompose/compose'
-import defaultProps from 'recompose/defaultProps'
-import withState from 'recompose/withState'
-import withPropsOnChange from 'recompose/withPropsOnChange'
-import pure from 'recompose/pure'
+import { cloneDeep, uniq } from 'lodash'
 import { sankey as d3Sankey } from 'd3-sankey'
-import { getInheritedColorGenerator } from '../../../lib/colors'
-import { withColors, withTheme, withDimensions, withMotion } from '../../../hocs'
-import { sankeyAlignmentPropType, sankeyAlignmentFromProp } from '../../../props'
+import { sankeyAlignmentFromProp } from '../../../props'
 import SvgWrapper from '../SvgWrapper'
 import SankeyNodes from './SankeyNodes'
 import SankeyLinks from './SankeyLinks'
 import SankeyLabels from './SankeyLabels'
 import Container from '../Container'
+import { SankeyPropTypes } from './props'
+import enhance from './enhance'
 
 const getId = d => d.id
 
@@ -41,6 +35,7 @@ const Sankey = ({
     // nodes
     nodeOpacity,
     nodeHoverOpacity,
+    nodeHoverOthersOpacity,
     nodeWidth,
     nodePaddingX,
     nodePaddingY,
@@ -52,6 +47,7 @@ const Sankey = ({
     // links
     linkOpacity,
     linkHoverOpacity,
+    linkHoverOthersOpacity,
     linkContract,
     getLinkColor, // computed
     setCurrentLink, // injected
@@ -105,6 +101,32 @@ const Sankey = ({
         motionStiffness,
     }
 
+    let isCurrentNode = () => false
+    let isCurrentLink = () => false
+
+    if (currentLink) {
+        isCurrentNode = ({ id }) => id === currentLink.source.id || id === currentLink.target.id
+        isCurrentLink = ({ source, target }) =>
+            source.id === currentLink.source.id && target.id === currentLink.target.id
+    }
+
+    if (currentNode) {
+        let currentNodeIds = [currentNode.id]
+        data.links
+            .filter(
+                ({ source, target }) => source.id === currentNode.id || target.id === currentNode.id
+            )
+            .forEach(({ source, target }) => {
+                currentNodeIds.push(source.id)
+                currentNodeIds.push(target.id)
+            })
+
+        currentNodeIds = uniq(currentNodeIds)
+        isCurrentNode = ({ id }) => currentNodeIds.includes(id)
+        isCurrentLink = ({ source, target }) =>
+            source.id === currentNode.id || target.id === currentNode.id
+    }
+
     return (
         <Container isInteractive={isInteractive} theme={theme}>
             {({ showTooltip, hideTooltip }) =>
@@ -114,8 +136,13 @@ const Sankey = ({
                         linkContract={linkContract}
                         linkOpacity={linkOpacity}
                         linkHoverOpacity={linkHoverOpacity}
+                        linkHoverOthersOpacity={linkHoverOthersOpacity}
                         showTooltip={showTooltip}
                         hideTooltip={hideTooltip}
+                        setCurrentLink={setCurrentLink}
+                        currentNode={currentNode}
+                        currentLink={currentLink}
+                        isCurrentLink={isCurrentLink}
                         theme={theme}
                         {...motionProps}
                     />
@@ -124,10 +151,15 @@ const Sankey = ({
                         nodePaddingX={nodePaddingX}
                         nodeOpacity={nodeOpacity}
                         nodeHoverOpacity={nodeHoverOpacity}
+                        nodeHoverOthersOpacity={nodeHoverOthersOpacity}
                         nodeBorderWidth={nodeBorderWidth}
                         getNodeBorderColor={getNodeBorderColor}
                         showTooltip={showTooltip}
                         hideTooltip={hideTooltip}
+                        setCurrentNode={setCurrentNode}
+                        currentNode={currentNode}
+                        currentLink={currentLink}
+                        isCurrentNode={isCurrentNode}
                         theme={theme}
                         {...motionProps}
                     />
@@ -147,97 +179,6 @@ const Sankey = ({
     )
 }
 
-Sankey.propTypes = {
-    data: PropTypes.shape({
-        nodes: PropTypes.arrayOf(
-            PropTypes.shape({
-                id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-            })
-        ).isRequired,
-        links: PropTypes.arrayOf(
-            PropTypes.shape({
-                source: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-                target: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-            })
-        ).isRequired,
-    }).isRequired,
-
-    align: sankeyAlignmentPropType.isRequired,
-
-    // nodes
-    nodeOpacity: PropTypes.number.isRequired,
-    nodeHoverOpacity: PropTypes.number.isRequired,
-    nodeWidth: PropTypes.number.isRequired,
-    nodePaddingX: PropTypes.number.isRequired,
-    nodePaddingY: PropTypes.number.isRequired,
-    nodeBorderWidth: PropTypes.number.isRequired,
-    nodeBorderColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-
-    // links
-    linkOpacity: PropTypes.number.isRequired,
-    linkHoverOpacity: PropTypes.number.isRequired,
-    linkContract: PropTypes.number.isRequired,
-
-    // labels
-    enableLabels: PropTypes.bool.isRequired,
-    labelPosition: PropTypes.oneOf(['inside', 'outside']).isRequired,
-    labelPadding: PropTypes.number.isRequired,
-    labelOrientation: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
-    labelTextColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    getLabelTextColor: PropTypes.func.isRequired, // computed
-
-    // interactivity
-    isInteractive: PropTypes.bool.isRequired,
-}
-
-export const SankeyDefaultProps = {
-    align: 'center',
-
-    // nodes
-    nodeOpacity: 0.65,
-    nodeHoverOpacity: 1,
-    nodeWidth: 12,
-    nodePaddingX: 0,
-    nodePaddingY: 12,
-    nodeBorderWidth: 1,
-    nodeBorderColor: 'inherit:darker(0.5)',
-
-    // links
-    linkOpacity: 0.2,
-    linkHoverOpacity: 0.4,
-    linkContract: 0,
-
-    // labels
-    enableLabels: true,
-    labelPosition: 'inside',
-    labelPadding: 9,
-    labelOrientation: 'horizontal',
-    labelTextColor: 'inherit:darker(0.8)',
-
-    // interactivity
-    isInteractive: true,
-}
-
-const enhance = compose(
-    defaultProps(SankeyDefaultProps),
-    withState('currentNode', 'setCurrentNode', null),
-    withState('currentLink', 'setCurrentLink', null),
-    withColors(),
-    withColors({
-        colorByKey: 'linkColorBy',
-        destKey: 'getLinkColor',
-        defaultColorBy: 'source.id',
-    }),
-    withTheme(),
-    withDimensions(),
-    withMotion(),
-    withPropsOnChange(['nodeBorderColor'], ({ nodeBorderColor }) => ({
-        getNodeBorderColor: getInheritedColorGenerator(nodeBorderColor),
-    })),
-    withPropsOnChange(['labelTextColor'], ({ labelTextColor }) => ({
-        getLabelTextColor: getInheritedColorGenerator(labelTextColor),
-    })),
-    pure
-)
+Sankey.propTypes = SankeyPropTypes
 
 export default enhance(Sankey)
