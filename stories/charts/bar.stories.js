@@ -13,7 +13,7 @@ const commonProperties = {
     data: generateCountriesData(keys, { size: 7 }),
     indexBy: 'country',
     keys,
-    xPadding: 0.2,
+    padding: 0.2,
 }
 
 const stories = storiesOf('Bar', module).addDecorator(story =>

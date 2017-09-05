@@ -47,6 +47,8 @@ class BarCanvas extends Component {
             data,
             keys,
             getIndex,
+            minValue,
+            maxValue,
 
             // dimensions
             width,
@@ -59,7 +61,7 @@ class BarCanvas extends Component {
             // layout
             layout,
             groupMode,
-            xPadding,
+            padding,
 
             // axes
             axisTop,
@@ -76,16 +78,21 @@ class BarCanvas extends Component {
 
         this.ctx.scale(pixelRatio, pixelRatio)
 
-        let result
-        if (groupMode === 'grouped') {
-            result = generateGroupedBars(layout, data, getIndex, keys, width, height, getColor, {
-                xPadding,
-            })
-        } else if (groupMode === 'stacked') {
-            result = generateStackedBars(layout, data, getIndex, keys, width, height, getColor, {
-                xPadding,
-            })
+        const options = {
+            layout,
+            data,
+            getIndex,
+            keys,
+            minValue,
+            maxValue,
+            width,
+            height,
+            getColor,
+            padding,
         }
+
+        const result =
+            groupMode === 'grouped' ? generateGroupedBars(options) : generateStackedBars(options)
 
         this.bars = result.bars
 

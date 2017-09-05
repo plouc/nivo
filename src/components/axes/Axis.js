@@ -28,7 +28,7 @@ export const axisPropType = PropTypes.shape({
     tickSize: PropTypes.number,
     tickPadding: PropTypes.number,
     tickRotation: PropTypes.number,
-    format: PropTypes.func,
+    format: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 
     // legend
     legend: PropTypes.string,

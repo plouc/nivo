@@ -18,7 +18,9 @@ export const BarPropTypes = {
     groupMode: PropTypes.oneOf(['stacked', 'grouped']).isRequired,
     layout: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
 
-    xPadding: PropTypes.number.isRequired,
+    minValue: PropTypes.number.isRequired,
+    maxValue: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]).isRequired,
+    padding: PropTypes.number.isRequired,
 
     // axes & grid
     axisTop: PropTypes.object,
@@ -55,7 +57,9 @@ export const BarDefaultProps = {
     groupMode: 'stacked',
     layout: 'vertical',
 
-    xPadding: 0.1,
+    minValue: 0,
+    maxValue: 'auto',
+    padding: 0.1,
 
     // axes & grid
     axisBottom: {},

@@ -19,6 +19,34 @@ import Axes from '../../axes/Axes'
 import BarItem from './BarItem'
 import BarItemLabel from './BarItemLabel'
 
+const barWillEnterHorizontal = ({ style }) => ({
+    x: style.x.val,
+    y: style.y.val,
+    width: 0,
+    height: style.height.val,
+})
+
+const barWillEnterVertical = ({ style }) => ({
+    x: style.x.val,
+    y: style.y.val + style.height.val,
+    width: style.width.val,
+    height: 0,
+})
+
+const barWillLeaveHorizontal = springConfig => ({ style }) => ({
+    x: style.x,
+    y: style.y,
+    width: spring(0, springConfig),
+    height: style.height,
+})
+
+const barWillLeaveVertical = springConfig => ({ style }) => ({
+    x: style.x,
+    y: spring(style.y.val + style.height.val, springConfig),
+    width: style.width,
+    height: spring(0, springConfig),
+})
+
 const Bar = ({
     data,
     getIndex,
@@ -26,13 +54,15 @@ const Bar = ({
 
     groupMode,
     layout,
+    minValue,
+    maxValue,
 
     margin,
     width,
     height,
     outerWidth,
     outerHeight,
-    xPadding,
+    padding,
 
     // axes & grid
     axisTop,
@@ -62,15 +92,17 @@ const Bar = ({
     // interactivity
     isInteractive,
 }) => {
-    let result
-    if (groupMode === 'grouped') {
-        result = generateGroupedBars(layout, data, getIndex, keys, width, height, getColor, {
-            xPadding,
-        })
-    } else if (groupMode === 'stacked') {
-        result = generateStackedBars(layout, data, getIndex, keys, width, height, getColor, {
-            xPadding,
-        })
+    const options = {
+        layout,
+        data,
+        getIndex,
+        keys,
+        minValue,
+        maxValue,
+        width,
+        height,
+        getColor,
+        padding,
     }
 
     const motionProps = {
@@ -79,6 +111,19 @@ const Bar = ({
         motionStiffness,
     }
 
+    const springConfig = {
+        damping: motionDamping,
+        stiffness: motionStiffness,
+    }
+
+    const result =
+        groupMode === 'grouped' ? generateGroupedBars(options) : generateStackedBars(options)
+    let willEnter = layout === 'vertical' ? barWillEnterVertical : barWillEnterHorizontal
+    let willLeave =
+        layout === 'vertical'
+            ? barWillLeaveVertical(springConfig)
+            : barWillLeaveHorizontal(springConfig)
+
     return (
         <Container isInteractive={isInteractive} theme={theme}>
             {({ showTooltip, hideTooltip }) => {
@@ -86,6 +131,8 @@ const Bar = ({
                 if (animate === true) {
                     bars = (
                         <TransitionMotion
+                            willEnter={willEnter}
+                            willLeave={willLeave}
                             styles={result.bars.map(bar => {
                                 return {
                                     key: bar.key,
@@ -106,6 +153,8 @@ const Bar = ({
                                             key={key}
                                             {...data}
                                             {...style}
+                                            width={Math.max(style.width, 0)}
+                                            height={Math.max(style.height, 0)}
                                             showTooltip={showTooltip}
                                             hideTooltip={hideTooltip}
                                             theme={theme}
