@@ -28,6 +28,7 @@ const createNodes = ({
 }) => (nodes, { showTooltip, hideTooltip, theme }) => {
     const renderedNodes = []
 
+    // exclude nodes with negative radius
     nodes.filter(node => node.style.r > 0).forEach(node => {
         const handleTooltip = e => {
             showTooltip(
@@ -72,7 +73,8 @@ const createNodes = ({
                 renderedNodes.push(
                     <text
                         key={`${node.key}.text`}
-                        transform={`translate(${node.style.x},${node.style.y})`}
+                        transform={`translate(${node.style.x},${node.style.y}) scale(${node.style
+                            .scale})`}
                         textAnchor="middle"
                         alignmentBaseline="central"
                         style={{

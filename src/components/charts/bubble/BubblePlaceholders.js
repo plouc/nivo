@@ -36,17 +36,20 @@ const ignoreProps = [
     'transitionEasing',
 ]
 
-const nodeWillEnter = ({ data: node }) => ({
+const nodeWillEnter = ({ data }) => ({
+    scale: 0,
     r: 0,
-    x: node.x,
-    y: node.y,
-    ...colorMotionSpring(node.color),
+    x: data.x,
+    y: data.y,
+    ...colorMotionSpring(data.color),
 })
 
-const nodeWillLeave = styleThatLeft => ({
-    r: spring(0),
-    x: spring(styleThatLeft.data.x),
-    y: spring(styleThatLeft.data.y),
+const nodeWillLeave = springConfig => ({ data }) => ({
+    scale: spring(0, springConfig),
+    r: spring(0, springConfig),
+    x: spring(data.x, springConfig),
+    y: spring(data.y, springConfig),
+    ...colorMotionSpring(data.color, springConfig),
 })
 
 const computeZoom = (nodes, currentNodePath, width, height) => {
@@ -109,11 +112,6 @@ const BubblePlaceholders = ({
     let nodes = leavesOnly ? root.leaves() : root.descendants()
     nodes = nodes.map(node => {
         node.color = getColor({ ...node.data, depth: node.depth })
-        // if (d.depth > 1) {
-        //     d.color = color(d.parentId)
-        // } else {
-        //     d.color = color(identity(d.data))
-        // }
 
         return node
     })
@@ -162,7 +160,7 @@ const BubblePlaceholders = ({
                                 nodes.map(node => ({
                                     key: node.path,
                                     data: node,
-                                    style: _.pick(node, ['r', 'x', 'y', 'color']),
+                                    style: _.pick(node, ['scale', 'r', 'x', 'y', 'color']),
                                     zoom:
                                         isInteractive && isZoomable
                                             ? () => zoomToNode(node.path)
@@ -176,7 +174,7 @@ const BubblePlaceholders = ({
         )
     }
 
-    const motionProps = {
+    const springConfig = {
         stiffness: motionStiffness,
         damping: motionDamping,
     }
@@ -189,22 +187,22 @@ const BubblePlaceholders = ({
                     wrapperProps,
                     <TransitionMotion
                         willEnter={nodeWillEnter}
-                        willLeave={nodeWillLeave}
-                        styles={nodes.map(node => {
-                            return {
-                                key: node.path,
-                                data: node,
-                                style: {
-                                    r: spring(node.r, motionProps),
-                                    x: spring(node.x, motionProps),
-                                    y: spring(node.y, motionProps),
-                                    ...colorMotionSpring(node.color, motionProps),
-                                },
-                            }
-                        })}
+                        willLeave={nodeWillLeave(springConfig)}
+                        styles={nodes.map(node => ({
+                            key: node.path,
+                            data: node,
+                            style: {
+                                scale: spring(1, springConfig),
+                                r: spring(node.r, springConfig),
+                                x: spring(node.x, springConfig),
+                                y: spring(node.y, springConfig),
+                                opacity: spring(1, springConfig),
+                                ...colorMotionSpring(node.color, springConfig),
+                            },
+                        }))}
                     >
-                        {interpolatedStyles => {
-                            return React.createElement(
+                        {interpolatedStyles =>
+                            React.createElement(
                                 containerTag,
                                 containerProps,
                                 children(
@@ -224,8 +222,7 @@ const BubblePlaceholders = ({
                                     }),
                                     { showTooltip, hideTooltip, theme }
                                 )
-                            )
-                        }}
+                            )}
                     </TransitionMotion>
                 )}
         </Container>
