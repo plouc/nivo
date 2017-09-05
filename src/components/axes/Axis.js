@@ -8,7 +8,10 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
+import { isFunction } from 'lodash'
+import { format as d3Format } from 'd3-format'
 import compose from 'recompose/compose'
+import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
 import { TransitionMotion, spring } from 'react-motion'
 import { withMotion } from '../../hocs'
@@ -214,7 +217,7 @@ Axis.propTypes = {
     tickSize: PropTypes.number.isRequired,
     tickPadding: PropTypes.number.isRequired,
     tickRotation: PropTypes.number.isRequired,
-    format: PropTypes.func,
+    format: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 
     // legend
     legend: PropTypes.string,
@@ -236,6 +239,13 @@ Axis.defaultProps = {
     legendOffset: 0,
 }
 
-const enhance = compose(withMotion(), pure)
+const enhance = compose(
+    withMotion(),
+    withPropsOnChange(['format'], ({ format }) => {
+        if (!format || isFunction(format)) return { format }
+        return { format: d3Format(format) }
+    }),
+    pure
+)
 
 export default enhance(Axis)
