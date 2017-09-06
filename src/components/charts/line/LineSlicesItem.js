@@ -15,12 +15,13 @@ import withHandlers from 'recompose/withHandlers'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import TableTooltip from '../../tooltip/TableTooltip'
 
-const Chip = ({ color }) =>
+const Chip = ({ color }) => (
     <span style={{ display: 'block', width: '12px', height: '12px', background: color }} />
+)
 
-const LineSlicesItem = ({ slice, height, showTooltip, hideTooltip, isHover }) =>
+const LineSlicesItem = ({ slice, height, showTooltip, hideTooltip, isHover }) => (
     <g transform={`translate(${slice.x}, 0)`}>
-        {isHover &&
+        {isHover && (
             <line
                 x1={0}
                 x2={0}
@@ -29,7 +30,8 @@ const LineSlicesItem = ({ slice, height, showTooltip, hideTooltip, isHover }) =>
                 stroke="#000"
                 strokeOpacity={0.35}
                 strokeWidth={1}
-            />}
+            />
+        )}
         <rect
             x={-20}
             width={40}
@@ -41,6 +43,7 @@ const LineSlicesItem = ({ slice, height, showTooltip, hideTooltip, isHover }) =>
             onMouseLeave={hideTooltip}
         />
     </g>
+)
 
 LineSlicesItem.propTypes = {
     slice: PropTypes.object.isRequired,

@@ -32,7 +32,7 @@ const SankeyNodesItem = ({
     handleMouseEnter,
     handleMouseMove,
     handleMouseLeave,
-}) =>
+}) => (
     <rect
         x={x}
         y={y}
@@ -47,6 +47,7 @@ const SankeyNodesItem = ({
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
     />
+)
 
 SankeyNodesItem.propTypes = {
     node: PropTypes.shape({

@@ -12,7 +12,9 @@ import { Motion, TransitionMotion, spring } from 'react-motion'
 import { midAngle, positionFromAngle } from '../../../lib/polar'
 import { line } from 'd3-shape'
 
-const lineGenerator = line().x(d => d.x).y(d => d.y)
+const lineGenerator = line()
+    .x(d => d.x)
+    .y(d => d.y)
 
 export default class PieRadialLabels extends Component {
     static propTypes = {

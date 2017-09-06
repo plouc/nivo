@@ -23,31 +23,25 @@ const commonProperties = {
 
 const stories = storiesOf('Stream', module)
 
-stories
-    .addDecorator(story =>
-        <div className="wrapper">
-            {story()}
-        </div>
-    )
-    .addDecorator(withKnobs)
+stories.addDecorator(story => <div className="wrapper">{story()}</div>).addDecorator(withKnobs)
 
 stories.add('default', () => <Stream {...commonProperties} />)
 
-stories.add('full height (expand offset)', () =>
+stories.add('full height (expand offset)', () => (
     <Stream
         {...commonProperties}
         offsetType="expand"
         curve={select('curve', areaCurvePropKeys, 'catmullRom')}
     />
-)
+))
 
-stories.add('regular stacked chart', () =>
+stories.add('regular stacked chart', () => (
     <Stream
         {...commonProperties}
         offsetType="none"
         axisLeft={{}}
         curve={select('curve', areaCurvePropKeys, 'catmullRom')}
     />
-)
+))
 
 stories.add('custom curve', () => <Stream {...commonProperties} curve="step" />)

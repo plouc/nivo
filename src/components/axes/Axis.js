@@ -133,7 +133,7 @@ const Axis = ({
     if (!animate) {
         tickElements = (
             <g>
-                {ticks.map(tick =>
+                {ticks.map(tick => (
                     <AxisTick
                         key={tick.key}
                         value={tick.key}
@@ -149,7 +149,7 @@ const Axis = ({
                         x={tick.x}
                         y={tick.y}
                     />
-                )}
+                ))}
             </g>
         )
     } else {
@@ -174,9 +174,9 @@ const Axis = ({
                     }
                 })}
             >
-                {interpolatedStyles =>
+                {interpolatedStyles => (
                     <g>
-                        {interpolatedStyles.map(({ key, style, data: tick }) =>
+                        {interpolatedStyles.map(({ key, style, data: tick }) => (
                             <AxisTick
                                 key={key}
                                 value={key}
@@ -191,8 +191,9 @@ const Axis = ({
                                 theme={theme}
                                 {...style}
                             />
-                        )}
-                    </g>}
+                        ))}
+                    </g>
+                )}
             </TransitionMotion>
         )
     }

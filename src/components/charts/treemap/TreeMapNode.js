@@ -27,7 +27,7 @@ const TreeMapNode = ({
     labelTextColor,
     showTooltip,
     hideTooltip,
-}) =>
+}) => (
     <g transform={`translate(${x},${y})`}>
         <rect
             width={width}
@@ -39,7 +39,7 @@ const TreeMapNode = ({
             onMouseMove={showTooltip}
             onMouseLeave={hideTooltip}
         />
-        {hasLabel &&
+        {hasLabel && (
             <text
                 textAnchor="middle"
                 alignmentBaseline="central"
@@ -47,8 +47,10 @@ const TreeMapNode = ({
                 transform={`translate(${width / 2},${height / 2}) rotate(${labelRotation})`}
             >
                 {label}
-            </text>}
+            </text>
+        )}
     </g>
+)
 
 TreeMapNode.propTypes = {
     id: PropTypes.string.isRequired,

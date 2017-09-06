@@ -60,8 +60,12 @@ export default Component =>
 
                 return {
                     layers,
-                    xScale: scalePoint().domain(range(data.length)).range([0, width]),
-                    yScale: scaleLinear().domain([minValue, maxValue]).range([height, 0]),
+                    xScale: scalePoint()
+                        .domain(range(data.length))
+                        .range([0, width]),
+                    yScale: scaleLinear()
+                        .domain([minValue, maxValue])
+                        .range([height, 0]),
                 }
             }
         ),

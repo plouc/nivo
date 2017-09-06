@@ -166,7 +166,7 @@ class ChordCanvas extends Component {
 
         return (
             <Container isInteractive={isInteractive} theme={theme}>
-                {({ showTooltip, hideTooltip }) =>
+                {({ showTooltip, hideTooltip }) => (
                     <canvas
                         ref={surface => {
                             this.surface = surface
@@ -180,7 +180,8 @@ class ChordCanvas extends Component {
                         onMouseEnter={partial(this.handleMouseHover, showTooltip, hideTooltip)}
                         onMouseMove={partial(this.handleMouseHover, showTooltip, hideTooltip)}
                         onMouseLeave={partial(this.handleMouseLeave, hideTooltip)}
-                    />}
+                    />
+                )}
             </Container>
         )
     }

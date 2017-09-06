@@ -16,10 +16,6 @@ const commonProperties = {
 }
 
 storiesOf('Bubble', module)
-    .addDecorator(story =>
-        <div className="wrapper">
-            {story()}
-        </div>
-    )
+    .addDecorator(story => <div className="wrapper">{story()}</div>)
     .add('default', () => <Bubble {...commonProperties} />)
     .add('rendering leaves only', () => <Bubble {...commonProperties} leavesOnly={true} />)

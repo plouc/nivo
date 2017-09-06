@@ -52,7 +52,9 @@ export default Component =>
                 const innerRadius = radius * innerRadiusRatio
                 const ribbonRadius = radius * (innerRadiusRatio - innerRadiusOffset)
 
-                const arcGenerator = d3Arc().outerRadius(radius).innerRadius(innerRadius)
+                const arcGenerator = d3Arc()
+                    .outerRadius(radius)
+                    .innerRadius(innerRadius)
                 const ribbonGenerator = d3Ribbon().radius(ribbonRadius)
 
                 return { radius, innerRadius, arcGenerator, ribbonGenerator }

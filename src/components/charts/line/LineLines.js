@@ -25,7 +25,7 @@ const LineLines = ({
     if (animate !== true) {
         return (
             <g>
-                {lines.map(({ id, color: lineColor, points }) =>
+                {lines.map(({ id, color: lineColor, points }) => (
                     <path
                         key={id}
                         d={lineGenerator(points)}
@@ -33,7 +33,7 @@ const LineLines = ({
                         strokeWidth={2}
                         stroke={lineColor}
                     />
-                )}
+                ))}
             </g>
         )
     }
@@ -45,7 +45,7 @@ const LineLines = ({
 
     return (
         <g>
-            {lines.map(({ id, color: lineColor, points }) =>
+            {lines.map(({ id, color: lineColor, points }) => (
                 <SmartMotion
                     key={id}
                     style={spring => ({
@@ -53,16 +53,17 @@ const LineLines = ({
                         stroke: spring(lineColor, springConfig),
                     })}
                 >
-                    {style =>
+                    {style => (
                         <path
                             key={id}
                             d={style.d}
                             fill="none"
                             strokeWidth={2}
                             stroke={style.stroke}
-                        />}
+                        />
+                    )}
                 </SmartMotion>
-            )}
+            ))}
         </g>
     )
 }

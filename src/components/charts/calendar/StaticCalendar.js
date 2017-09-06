@@ -32,7 +32,7 @@ class StaticCalendar extends Component {
 
         return (
             <g>
-                {days.map(d =>
+                {days.map(d => (
                     <CalendarDay
                         key={d.date.toString()}
                         onClick={onDayClick}
@@ -44,15 +44,15 @@ class StaticCalendar extends Component {
                         borderWidth={dayBorderWidth}
                         borderColor={dayBorderColor}
                     />
-                )}
-                {months.map(m =>
+                ))}
+                {months.map(m => (
                     <CalendarMonthPath
                         key={m.date.toString()}
                         path={m.path}
                         borderWidth={monthBorderWidth}
                         borderColor={monthBorderColor}
                     />
-                )}
+                ))}
                 {months.map(month => {
                     let transform
                     if (direction === DIRECTION_HORIZONTAL) {

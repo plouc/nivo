@@ -124,7 +124,7 @@ export default class RadarDots extends Component {
         if (animate !== true) {
             return (
                 <g>
-                    {points.map(point =>
+                    {points.map(point => (
                         <DotsItem
                             key={point.key}
                             x={point.style.x}
@@ -138,7 +138,7 @@ export default class RadarDots extends Component {
                             labelYOffset={labelYOffset}
                             theme={theme}
                         />
-                    )}
+                    ))}
                 </g>
             )
         }
@@ -160,9 +160,9 @@ export default class RadarDots extends Component {
                     },
                 }))}
             >
-                {interpolatedStyles =>
+                {interpolatedStyles => (
                     <g>
-                        {interpolatedStyles.map(({ key, style, data: point }) =>
+                        {interpolatedStyles.map(({ key, style, data: point }) => (
                             <DotsItem
                                 key={key}
                                 {...style}
@@ -174,8 +174,9 @@ export default class RadarDots extends Component {
                                 labelYOffset={labelYOffset}
                                 theme={theme}
                             />
-                        )}
-                    </g>}
+                        ))}
+                    </g>
+                )}
             </TransitionMotion>
         )
     }

@@ -105,9 +105,9 @@ class MotionCalendar extends Component {
         return (
             <g>
                 <TransitionMotion styles={dayStyles({ days, stiffness, damping })}>
-                    {interpolatedStyles =>
+                    {interpolatedStyles => (
                         <g>
-                            {interpolatedStyles.map(d =>
+                            {interpolatedStyles.map(d => (
                                 <CalendarDay
                                     key={d.key}
                                     onClick={onDayClick}
@@ -119,8 +119,9 @@ class MotionCalendar extends Component {
                                     borderWidth={dayBorderWidth}
                                     borderColor={dayBorderColor}
                                 />
-                            )}
-                        </g>}
+                            ))}
+                        </g>
+                    )}
                 </TransitionMotion>
                 <TransitionMotion
                     styles={monthLegendStyles({
@@ -131,9 +132,9 @@ class MotionCalendar extends Component {
                         damping,
                     })}
                 >
-                    {interpolatedStyles =>
+                    {interpolatedStyles => (
                         <g>
-                            {interpolatedStyles.map(d =>
+                            {interpolatedStyles.map(d => (
                                 <text
                                     key={d.key}
                                     className="nivo_calendar_month_legend"
@@ -143,8 +144,9 @@ class MotionCalendar extends Component {
                                 >
                                     {monthLegendFormat(d.data.date)}
                                 </text>
-                            )}
-                        </g>}
+                            ))}
+                        </g>
+                    )}
                 </TransitionMotion>
                 <TransitionMotion
                     styles={yearLegendStyles({
@@ -155,9 +157,9 @@ class MotionCalendar extends Component {
                         damping,
                     })}
                 >
-                    {interpolatedStyles =>
+                    {interpolatedStyles => (
                         <g>
-                            {interpolatedStyles.map(d =>
+                            {interpolatedStyles.map(d => (
                                 <text
                                     key={d.key}
                                     className="nivo_calendar_year_legend"
@@ -167,8 +169,9 @@ class MotionCalendar extends Component {
                                 >
                                     {d.data.year}
                                 </text>
-                            )}
-                        </g>}
+                            ))}
+                        </g>
+                    )}
                 </TransitionMotion>
             </g>
         )

@@ -91,7 +91,7 @@ const Line = ({
 
     return (
         <Container isInteractive={isInteractive} theme={theme}>
-            {({ showTooltip, hideTooltip }) =>
+            {({ showTooltip, hideTooltip }) => (
                 <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
                     <Grid
                         theme={theme}
@@ -123,15 +123,16 @@ const Line = ({
                     />
                     <LineLines lines={lines} lineGenerator={lineGenerator} {...motionProps} />
                     {isInteractive &&
-                        enableStackTooltip &&
+                    enableStackTooltip && (
                         <LineSlices
                             slices={slices}
                             height={height}
                             showTooltip={showTooltip}
                             hideTooltip={hideTooltip}
                             theme={theme}
-                        />}
-                    {enableDots &&
+                        />
+                    )}
+                    {enableDots && (
                         <LineDots
                             lines={lines}
                             symbol={dotSymbol}
@@ -145,8 +146,10 @@ const Line = ({
                             labelYOffset={dotLabelYOffset}
                             theme={theme}
                             {...motionProps}
-                        />}
-                </SvgWrapper>}
+                        />
+                    )}
+                </SvgWrapper>
+            )}
         </Container>
     )
 }
@@ -258,7 +261,10 @@ const enhance = compose(
     withDimensions(),
     withMotion(),
     withPropsOnChange(['curve'], ({ curve }) => ({
-        lineGenerator: line().x(d => d.x).y(d => d.y).curve(curveFromProp(curve)),
+        lineGenerator: line()
+            .x(d => d.x)
+            .y(d => d.y)
+            .curve(curveFromProp(curve)),
     })),
     withPropsOnChange(
         ['data', 'stacked', 'width', 'height', 'minY', 'maxY'],

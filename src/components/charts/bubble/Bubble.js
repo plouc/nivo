@@ -91,10 +91,11 @@ const createNodes = ({
     return renderedNodes
 }
 
-const Bubble = props =>
+const Bubble = props => (
     <BubblePlaceholders {...props} namespace="svg">
         {createNodes(props)}
     </BubblePlaceholders>
+)
 
 Bubble.propTypes = _.omit(bubblePropTypes, [
     'children',

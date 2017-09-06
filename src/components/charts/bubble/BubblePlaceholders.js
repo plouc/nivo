@@ -245,7 +245,9 @@ const enhance = compose(
         getIdentity: getAccessorFor(identity),
     })),
     withPropsOnChange(['width', 'height', 'padding'], ({ width, height, padding }) => ({
-        pack: pack().size([width, height]).padding(padding),
+        pack: pack()
+            .size([width, height])
+            .padding(padding),
     })),
     withStateHandlers(
         ({ currentNodePath = null }) => ({

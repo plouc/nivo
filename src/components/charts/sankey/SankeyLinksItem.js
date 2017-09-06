@@ -30,7 +30,7 @@ const tooltipStyles = {
     },
 }
 
-const TooltipContent = ({ link }) =>
+const TooltipContent = ({ link }) => (
     <span style={tooltipStyles.container}>
         <Chip color={link.source.color} style={tooltipStyles.sourceChip} />
         <strong>{link.source.id}</strong>
@@ -39,6 +39,7 @@ const TooltipContent = ({ link }) =>
         <Chip color={link.target.color} style={tooltipStyles.targetChip} />
         <strong>{link.value}</strong>
     </span>
+)
 
 const SankeyLinksItem = ({
     link,
@@ -53,7 +54,7 @@ const SankeyLinksItem = ({
     handleMouseEnter,
     handleMouseMove,
     handleMouseLeave,
-}) =>
+}) => (
     <path
         fill="none"
         d={path}
@@ -64,6 +65,7 @@ const SankeyLinksItem = ({
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
     />
+)
 
 SankeyLinksItem.propTypes = {
     link: PropTypes.shape({

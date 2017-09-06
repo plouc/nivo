@@ -146,9 +146,9 @@ const Bar = ({
                                 }
                             })}
                         >
-                            {interpolatedStyles =>
+                            {interpolatedStyles => (
                                 <g>
-                                    {interpolatedStyles.map(({ key, style, data }) =>
+                                    {interpolatedStyles.map(({ key, style, data }) => (
                                         <BarItem
                                             key={key}
                                             {...data}
@@ -159,12 +159,13 @@ const Bar = ({
                                             hideTooltip={hideTooltip}
                                             theme={theme}
                                         />
-                                    )}
-                                </g>}
+                                    ))}
+                                </g>
+                            )}
                         </TransitionMotion>
                     )
                 } else {
-                    bars = result.bars.map(d =>
+                    bars = result.bars.map(d => (
                         <BarItem
                             key={d.key}
                             {...d}
@@ -172,7 +173,7 @@ const Bar = ({
                             hideTooltip={hideTooltip}
                             theme={theme}
                         />
-                    )
+                    ))
                 }
 
                 return (
@@ -207,13 +208,13 @@ const Bar = ({
                         />
                         {bars}
                         {enableLabels &&
-                            result.bars.map(d =>
+                            result.bars.map(d => (
                                 <BarItemLabel
                                     {...d}
                                     textColor={getLabelsTextColor(d, theme)}
                                     linkColor={getLabelsLinkColor(d, theme)}
                                 />
-                            )}
+                            ))}
                     </SvgWrapper>
                 )
             }}

@@ -32,7 +32,7 @@
     "lodash": "^4.17.4",
     "prop-types": "^15.5.10",
     "react-measure": "^2.0.2",
-    "react-motion": "^0.5.0",
+    "react-motion": "^0.5.1",
     "recompose": "^0.25.0"
   },
   "devDependencies": {
@@ -65,10 +65,10 @@
     "enzyme": "^2.9.1",
     "gh-pages": "^1.0.0",
     "husky": "^0.14.3",
-    "jest": "^20.0.4",
-    "lint-staged": "^4.0.3",
+    "jest": "^21.0.1",
+    "lint-staged": "^4.1.0",
     "nivo-generators": "0.9.3",
-    "prettier": "^1.5.3",
+    "prettier": "^1.6.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-test-renderer": "^15.6.1",

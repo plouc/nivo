@@ -76,8 +76,9 @@ const RadarShapes = ({
                             ),
                         })}
                     >
-                        {style =>
-                            <path fillOpacity={fillOpacity} strokeWidth={borderWidth} {...style} />}
+                        {style => (
+                            <path fillOpacity={fillOpacity} strokeWidth={borderWidth} {...style} />
+                        )}
                     </SmartMotion>
                 )
             })}

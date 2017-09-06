@@ -95,7 +95,7 @@ const Chord = ({
                                 hideTooltip={hideTooltip}
                                 {...motionProps}
                             />
-                            {enableLabels &&
+                            {enableLabels && (
                                 <ChordLabels
                                     arcs={arcs}
                                     radius={radius + labelOffset}
@@ -104,7 +104,8 @@ const Chord = ({
                                     getColor={getLabelTextColor}
                                     theme={theme}
                                     {...motionProps}
-                                />}
+                                />
+                            )}
                         </g>
                     </SvgWrapper>
                 )

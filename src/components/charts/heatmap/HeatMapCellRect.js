@@ -25,7 +25,7 @@ const HeatMapCellRect = ({
     textColor,
     onHover,
     onLeave,
-}) =>
+}) => (
     <g
         transform={`translate(${x}, ${y})`}
         onMouseEnter={onHover}
@@ -53,6 +53,7 @@ const HeatMapCellRect = ({
             {value}
         </text>
     </g>
+)
 
 HeatMapCellRect.propTypes = {
     value: PropTypes.number.isRequired,

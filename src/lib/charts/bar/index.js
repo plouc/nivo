@@ -12,7 +12,10 @@ import { stack } from 'd3-shape'
  * @returns {Function}
  */
 export const getIndexedScale = (data, getIndex, range, padding) =>
-    scaleBand().rangeRound(range).domain(data.map(getIndex)).padding(padding)
+    scaleBand()
+        .rangeRound(range)
+        .domain(data.map(getIndex))
+        .padding(padding)
 
 /**
  * Generates scale for grouped bar chart.
@@ -30,7 +33,9 @@ export const getGroupedScale = (data, keys, minValue, _maxValue, range) => {
         maxValue = max(data.reduce((acc, entry) => [...acc, ...keys.map(k => entry[k])], []))
     }
 
-    return scaleLinear().rangeRound(range).domain([minValue, maxValue])
+    return scaleLinear()
+        .rangeRound(range)
+        .domain([minValue, maxValue])
 }
 
 /**
@@ -49,7 +54,9 @@ export const getStackedScale = (data, keys, minValue, _maxValue, range) => {
         maxValue = max(data.map(d => sumBy(keys, key => d[key])))
     }
 
-    return scaleLinear().rangeRound(range).domain([minValue, maxValue])
+    return scaleLinear()
+        .rangeRound(range)
+        .domain([minValue, maxValue])
 }
 
 /**

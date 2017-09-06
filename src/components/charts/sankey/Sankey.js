@@ -129,7 +129,7 @@ const Sankey = ({
 
     return (
         <Container isInteractive={isInteractive} theme={theme}>
-            {({ showTooltip, hideTooltip }) =>
+            {({ showTooltip, hideTooltip }) => (
                 <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
                     <SankeyLinks
                         links={data.links}
@@ -163,7 +163,7 @@ const Sankey = ({
                         theme={theme}
                         {...motionProps}
                     />
-                    {enableLabels &&
+                    {enableLabels && (
                         <SankeyLabels
                             nodes={data.nodes}
                             width={width}
@@ -173,8 +173,10 @@ const Sankey = ({
                             getLabelTextColor={getLabelTextColor}
                             theme={theme}
                             {...motionProps}
-                        />}
-                </SvgWrapper>}
+                        />
+                    )}
+                </SvgWrapper>
+            )}
         </Container>
     )
 }

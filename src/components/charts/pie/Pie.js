@@ -114,7 +114,7 @@ const Pie = ({
 
     return (
         <Container isInteractive={isInteractive} theme={theme}>
-            {({ showTooltip, hideTooltip }) =>
+            {({ showTooltip, hideTooltip }) => (
                 <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
                     <Motion
                         style={{
@@ -175,26 +175,29 @@ const Pie = ({
                                             />
                                         )
                                     })}
-                                    {enableSlicesLabels &&
+                                    {enableSlicesLabels && (
                                         <PieSlicesLabels
                                             data={arcsData}
                                             radius={radius}
                                             innerRadius={interpolatingStyle.innerRadius}
                                             theme={theme}
                                             {...slicesLabelsProps}
-                                        />}
-                                    {enableRadialLabels &&
+                                        />
+                                    )}
+                                    {enableRadialLabels && (
                                         <PieRadialLabels
                                             data={arcsData}
                                             radius={radius}
                                             theme={theme}
                                             {...radialLabelsProps}
-                                        />}
+                                        />
+                                    )}
                                 </g>
                             )
                         }}
                     </Motion>
-                </SvgWrapper>}
+                </SvgWrapper>
+            )}
         </Container>
     )
 }

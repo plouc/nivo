@@ -31,10 +31,11 @@ export default class ResponsiveVoronoi extends Component {
                     this.setState({ dimensions: contentRect.bounds })
                 }}
             >
-                {({ measureRef }) =>
+                {({ measureRef }) => (
                     <div ref={measureRef} style={{ width: '100%', height: '100%' }}>
                         {shouldRender && <Voronoi width={width} height={height} {...this.props} />}
-                    </div>}
+                    </div>
+                )}
             </Measure>
         )
     }

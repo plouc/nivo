@@ -49,7 +49,7 @@ const SankeyLinks = ({
     if (animate !== true) {
         return (
             <g>
-                {links.map(link =>
+                {links.map(link => (
                     <SankeyLinksItem
                         key={`${link.source.id}.${link.target.id}`}
                         link={link}
@@ -63,7 +63,7 @@ const SankeyLinks = ({
                         setCurrent={setCurrentLink}
                         theme={theme}
                     />
-                )}
+                ))}
             </g>
         )
     }
@@ -75,7 +75,7 @@ const SankeyLinks = ({
 
     return (
         <g>
-            {links.map(link =>
+            {links.map(link => (
                 <SmartMotion
                     key={`${link.source.id}.${link.target.id}`}
                     style={spring => ({
@@ -86,7 +86,7 @@ const SankeyLinks = ({
                         contract: spring(linkContract, springConfig),
                     })}
                 >
-                    {style =>
+                    {style => (
                         <SankeyLinksItem
                             link={link}
                             {...style}
@@ -94,9 +94,10 @@ const SankeyLinks = ({
                             hideTooltip={hideTooltip}
                             setCurrent={setCurrentLink}
                             theme={theme}
-                        />}
+                        />
+                    )}
                 </SmartMotion>
-            )}
+            ))}
         </g>
     )
 }

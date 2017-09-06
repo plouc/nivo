@@ -15,7 +15,13 @@ import { rgb } from 'd3-color'
 const memoizedColorModifier = memoize((method, _amount) => {
     const amount = parseFloat(_amount)
 
-    return memoize(d => rgb(d.color)[method](amount).toString(), d => d.color)
+    return memoize(
+        d =>
+            rgb(d.color)
+                [method](amount)
+                .toString(),
+        d => d.color
+    )
 }, (method, amount) => `${method}.${amount}`)
 
 const noneGenerator = () => 'none'

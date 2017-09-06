@@ -23,7 +23,7 @@ const DotsItem = ({
     labelTextAnchor,
     labelYOffset,
     theme,
-}) =>
+}) => (
     <g transform={`translate(${x}, ${y})`} style={{ pointerEvents: 'none' }}>
         {React.createElement(symbol, {
             size: size,
@@ -31,7 +31,7 @@ const DotsItem = ({
             borderWidth: borderWidth,
             borderColor: borderColor,
         })}
-        {label &&
+        {label && (
             <text
                 textAnchor={labelTextAnchor}
                 y={labelYOffset}
@@ -41,8 +41,10 @@ const DotsItem = ({
                 }}
             >
                 {label}
-            </text>}
+            </text>
+        )}
     </g>
+)
 
 DotsItem.propTypes = {
     // position

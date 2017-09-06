@@ -65,7 +65,7 @@ const LineDots = ({
     if (animate !== true) {
         return (
             <g>
-                {points.map(point =>
+                {points.map(point => (
                     <DotsItem
                         key={point.key}
                         x={point.x}
@@ -79,7 +79,7 @@ const LineDots = ({
                         labelYOffset={labelYOffset}
                         theme={theme}
                     />
-                )}
+                ))}
             </g>
         )
     }
@@ -102,9 +102,9 @@ const LineDots = ({
                 }
             })}
         >
-            {interpolatedStyles =>
+            {interpolatedStyles => (
                 <g>
-                    {interpolatedStyles.map(({ key, style, data: point }) =>
+                    {interpolatedStyles.map(({ key, style, data: point }) => (
                         <DotsItem
                             key={key}
                             {...style}
@@ -116,8 +116,9 @@ const LineDots = ({
                             labelYOffset={labelYOffset}
                             theme={theme}
                         />
-                    )}
-                </g>}
+                    ))}
+                </g>
+            )}
         </TransitionMotion>
     )
 }

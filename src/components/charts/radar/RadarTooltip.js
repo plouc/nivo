@@ -23,7 +23,9 @@ const RadarTooltip = ({
     showTooltip,
     hideTooltip,
 }) => {
-    const arc = d3Arc().outerRadius(radius).innerRadius(0)
+    const arc = d3Arc()
+        .outerRadius(radius)
+        .innerRadius(0)
 
     const halfAngleStep = angleStep * 0.5
     let rootStartAngle = -halfAngleStep

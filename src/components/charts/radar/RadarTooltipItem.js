@@ -18,7 +18,7 @@ import { positionFromAngle } from '../../../lib/polar'
 import TableTooltip from '../../tooltip/TableTooltip'
 import Chip from '../../tooltip/Chip'
 
-const RadarTooltipItem = ({ path, tipX, tipY, showTooltip, hideTooltip, isHover }) =>
+const RadarTooltipItem = ({ path, tipX, tipY, showTooltip, hideTooltip, isHover }) => (
     <g>
         <line x1={0} y1={0} x2={tipX} y2={tipY} stroke="#000" strokeOpacity={isHover ? 0.35 : 0} />
         <path
@@ -30,6 +30,7 @@ const RadarTooltipItem = ({ path, tipX, tipY, showTooltip, hideTooltip, isHover 
             onMouseLeave={hideTooltip}
         />
     </g>
+)
 
 RadarTooltipItem.propTypes = {
     datum: PropTypes.oneOfType([PropTypes.object, PropTypes.array]).isRequired,
@@ -61,11 +62,7 @@ const enhance = compose(
         ({ datum, keys, index, colorByKey, theme }) => ({
             tooltip: (
                 <TableTooltip
-                    title={
-                        <strong>
-                            {index}
-                        </strong>
-                    }
+                    title={<strong>{index}</strong>}
                     rows={sortBy(
                         keys.map(key => [<Chip color={colorByKey[key]} />, key, datum[key]]),
                         '2'

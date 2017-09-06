@@ -10,9 +10,10 @@ import React from 'react'
 import ResponsiveWrapper from '../ResponsiveWrapper'
 import Line from './Line'
 
-const ResponsiveLine = props =>
+const ResponsiveLine = props => (
     <ResponsiveWrapper>
         {({ width, height }) => <Line width={width} height={height} {...props} />}
     </ResponsiveWrapper>
+)
 
 export default ResponsiveLine

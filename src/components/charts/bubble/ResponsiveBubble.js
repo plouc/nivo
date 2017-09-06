@@ -10,9 +10,10 @@ import React from 'react'
 import ResponsiveWrapper from '../ResponsiveWrapper'
 import Bubble from './Bubble'
 
-const ResponsiveBubble = props =>
+const ResponsiveBubble = props => (
     <ResponsiveWrapper>
         {({ width, height }) => <Bubble width={width} height={height} {...props} />}
     </ResponsiveWrapper>
+)
 
 export default ResponsiveBubble

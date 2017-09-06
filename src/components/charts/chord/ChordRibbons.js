@@ -98,16 +98,12 @@ const ChordRibbons = ({
                 rows={[
                     [
                         <Chip color={ribbon.source.color} />,
-                        <strong>
-                            {ribbon.source.id}
-                        </strong>,
+                        <strong>{ribbon.source.id}</strong>,
                         ribbon.source.value,
                     ],
                     [
                         <Chip color={ribbon.target.color} />,
-                        <strong>
-                            {ribbon.target.id}
-                        </strong>,
+                        <strong>{ribbon.target.id}</strong>,
                         ribbon.target.value,
                     ],
                 ]}
@@ -174,7 +170,7 @@ const ChordRibbons = ({
                 }
             })}
         >
-            {interpolatedStyles =>
+            {interpolatedStyles => (
                 <g>
                     {interpolatedStyles.map(({ key, style, data: ribbon }) => {
                         const color = getInterpolatedColor(style)
@@ -206,7 +202,8 @@ const ChordRibbons = ({
                             />
                         )
                     })}
-                </g>}
+                </g>
+            )}
         </TransitionMotion>
     )
 }

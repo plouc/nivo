@@ -72,7 +72,7 @@ const Grid = ({
 
     return (
         <g>
-            {xLines &&
+            {xLines && (
                 <GridLines
                     type="x"
                     lines={xLines}
@@ -80,8 +80,9 @@ const Grid = ({
                     animate={animate}
                     motionStiffness={motionStiffness}
                     motionDamping={motionDamping}
-                />}
-            {yLines &&
+                />
+            )}
+            {yLines && (
                 <GridLines
                     type="y"
                     lines={yLines}
@@ -89,7 +90,8 @@ const Grid = ({
                     animate={animate}
                     motionStiffness={motionStiffness}
                     motionDamping={motionDamping}
-                />}
+                />
+            )}
         </g>
     )
 }

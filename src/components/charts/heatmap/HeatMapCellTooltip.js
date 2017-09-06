@@ -10,7 +10,7 @@ import React from 'react'
 import pure from 'recompose/pure'
 import BasicTooltip from '../../tooltip/BasicTooltip'
 
-const HeatMapCellTooltip = ({ node, theme }) =>
+const HeatMapCellTooltip = ({ node, theme }) => (
     <BasicTooltip
         id={`${node.yKey} - ${node.xKey}`}
         value={node.value}
@@ -18,5 +18,6 @@ const HeatMapCellTooltip = ({ node, theme }) =>
         color={node.color}
         theme={theme}
     />
+)
 
 export default pure(HeatMapCellTooltip)

@@ -10,8 +10,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
 
-const Chip = ({ size, color, style }) =>
+const Chip = ({ size, color, style }) => (
     <span style={{ display: 'block', width: size, height: size, background: color, ...style }} />
+)
 
 Chip.propTypes = {
     size: PropTypes.number.isRequired,

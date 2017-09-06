@@ -10,9 +10,10 @@ import React from 'react'
 import ResponsiveWrapper from '../ResponsiveWrapper'
 import Bar from './Bar'
 
-const ResponsiveBar = props =>
+const ResponsiveBar = props => (
     <ResponsiveWrapper>
         {({ width, height }) => <Bar width={width} height={height} {...props} />}
     </ResponsiveWrapper>
+)
 
 export default ResponsiveBar

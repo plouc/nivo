@@ -10,9 +10,10 @@ import React from 'react'
 import ResponsiveWrapper from '../ResponsiveWrapper'
 import Pie from './Pie'
 
-const ResponsivePie = props =>
+const ResponsivePie = props => (
     <ResponsiveWrapper>
         {({ width, height }) => <Pie width={width} height={height} {...props} />}
     </ResponsiveWrapper>
+)
 
 export default ResponsivePie

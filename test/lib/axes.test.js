@@ -10,10 +10,16 @@ import { scaleLinear, scaleOrdinal, scalePoint, scaleBand } from 'd3-scale'
 import { computeAxisTicks } from '../../src/lib/axes'
 
 describe('computeAxisTicks()', () => {
-    const linearScale = scaleLinear().domain([0, 500]).range([0, 100])
+    const linearScale = scaleLinear()
+        .domain([0, 500])
+        .range([0, 100])
     const ordinalScale = scaleOrdinal([0, 10, 20, 30]).domain(['A', 'B', 'C', 'D'])
-    const pointScale = scalePoint().domain(['E', 'F', 'G', 'H']).range([0, 300])
-    const bandScale = scaleBand().domain(['I', 'J', 'K', 'L']).rangeRound([0, 400])
+    const pointScale = scalePoint()
+        .domain(['E', 'F', 'G', 'H'])
+        .range([0, 300])
+    const bandScale = scaleBand()
+        .domain(['I', 'J', 'K', 'L'])
+        .rangeRound([0, 400])
     const width = 600
     const height = 400
 

@@ -11,9 +11,9 @@ import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
 import LineSlicesItem from './LineSlicesItem'
 
-const LineSlices = ({ slices, height, showTooltip, hideTooltip, theme }) =>
+const LineSlices = ({ slices, height, showTooltip, hideTooltip, theme }) => (
     <g>
-        {slices.map(slice =>
+        {slices.map(slice => (
             <LineSlicesItem
                 key={slice.id}
                 slice={slice}
@@ -22,8 +22,9 @@ const LineSlices = ({ slices, height, showTooltip, hideTooltip, theme }) =>
                 hideTooltip={hideTooltip}
                 theme={theme}
             />
-        )}
+        ))}
     </g>
+)
 
 LineSlices.propTypes = {
     slices: PropTypes.arrayOf(

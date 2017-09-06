@@ -13,7 +13,7 @@ import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
 import BasicTooltip from '../../tooltip/BasicTooltip'
 
-const SunburstArc = ({ node, path, borderWidth, borderColor, showTooltip, hideTooltip }) =>
+const SunburstArc = ({ node, path, borderWidth, borderColor, showTooltip, hideTooltip }) => (
     <path
         d={path}
         fill={node.data.color}
@@ -23,6 +23,7 @@ const SunburstArc = ({ node, path, borderWidth, borderColor, showTooltip, hideTo
         onMouseMove={showTooltip}
         onMouseLeave={hideTooltip}
     />
+)
 
 SunburstArc.propTypes = {
     node: PropTypes.shape({}).isRequired,

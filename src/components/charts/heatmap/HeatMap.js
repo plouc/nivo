@@ -149,7 +149,7 @@ class HeatMap extends Component {
                                     })
                                 )}
 
-                            {animate === true &&
+                            {animate === true && (
                                 <TransitionMotion
                                     styles={nodes.map(node => {
                                         return {
@@ -202,7 +202,8 @@ class HeatMap extends Component {
                                             </g>
                                         )
                                     }}
-                                </TransitionMotion>}
+                                </TransitionMotion>
+                            )}
                         </SvgWrapper>
                     )
                 }}

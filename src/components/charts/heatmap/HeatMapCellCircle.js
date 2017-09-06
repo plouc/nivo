@@ -25,7 +25,7 @@ const HeatMapCellCircle = ({
     textColor,
     onHover,
     onLeave,
-}) =>
+}) => (
     <g
         transform={`translate(${x}, ${y})`}
         style={style}
@@ -50,6 +50,7 @@ const HeatMapCellCircle = ({
             {value}
         </text>
     </g>
+)
 
 HeatMapCellCircle.propTypes = {
     value: PropTypes.number.isRequired,

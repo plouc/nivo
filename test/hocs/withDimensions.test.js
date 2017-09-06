@@ -14,7 +14,9 @@ import withDimensions from '../../src/hocs/withDimensions'
 it('should add default margin', () => {
     const Sample = withDimensions()('div')
 
-    const div = shallow(<Sample width={300} height={200} />).dive().find('div')
+    const div = shallow(<Sample width={300} height={200} />)
+        .dive()
+        .find('div')
     expect(div.prop('margin')).toEqual(defaultMargin)
 })
 

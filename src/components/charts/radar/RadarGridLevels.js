@@ -49,57 +49,61 @@ const RadarGridLevels = ({
         if (animate !== true) {
             return (
                 <g>
-                    {radii.map((r, i) =>
+                    {radii.map((r, i) => (
                         <circle key={`level.${i}`} fill="none" r={r} {...theme.grid} />
-                    )}
+                    ))}
                 </g>
             )
         }
 
         return (
             <TransitionMotion {...levelsTransitionProps}>
-                {interpolatedStyles =>
+                {interpolatedStyles => (
                     <g>
-                        {interpolatedStyles.map(({ key, style, data }) =>
+                        {interpolatedStyles.map(({ key, style, data }) => (
                             <circle key={key} fill="none" r={style.r} {...theme.grid} />
-                        )}
-                    </g>}
+                        ))}
+                    </g>
+                )}
             </TransitionMotion>
         )
     }
 
-    const radarLineGenerator = lineRadial().angle(i => i * angleStep).curve(curveLinearClosed)
+    const radarLineGenerator = lineRadial()
+        .angle(i => i * angleStep)
+        .curve(curveLinearClosed)
 
     const points = range(dataLength)
 
     if (animate !== true) {
         return (
             <g>
-                {radii.map((radius, i) =>
+                {radii.map((radius, i) => (
                     <path
                         key={`level.${i}`}
                         fill="none"
                         d={radarLineGenerator.radius(radius)(points)}
                         {...theme.grid}
                     />
-                )}
+                ))}
             </g>
         )
     }
 
     return (
         <TransitionMotion {...levelsTransitionProps}>
-            {interpolatedStyles =>
+            {interpolatedStyles => (
                 <g>
-                    {interpolatedStyles.map(({ key, style, data }) =>
+                    {interpolatedStyles.map(({ key, style, data }) => (
                         <path
                             key={key}
                             fill="none"
                             d={radarLineGenerator.radius(style.r)(points)}
                             {...theme.grid}
                         />
-                    )}
-                </g>}
+                    ))}
+                </g>
+            )}
         </TransitionMotion>
     )
 }

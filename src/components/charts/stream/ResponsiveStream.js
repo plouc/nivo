@@ -10,9 +10,10 @@ import React from 'react'
 import ResponsiveWrapper from '../ResponsiveWrapper'
 import Stream from './Stream'
 
-const ResponsiveStream = props =>
+const ResponsiveStream = props => (
     <ResponsiveWrapper>
         {({ width, height }) => <Stream width={width} height={height} {...props} />}
     </ResponsiveWrapper>
+)
 
 export default ResponsiveStream

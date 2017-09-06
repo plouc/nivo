@@ -90,7 +90,7 @@ const ChordArcs = ({
                 }
             })}
         >
-            {interpolatedStyles =>
+            {interpolatedStyles => (
                 <g>
                     {interpolatedStyles.map(({ key, style, data: arc }) => {
                         const color = getInterpolatedColor(style)
@@ -110,7 +110,8 @@ const ChordArcs = ({
                             />
                         )
                     })}
-                </g>}
+                </g>
+            )}
         </TransitionMotion>
     )
 }

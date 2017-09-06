@@ -10,9 +10,10 @@ import React from 'react'
 import ResponsiveWrapper from '../ResponsiveWrapper'
 import Radar from './Radar'
 
-const ResponsiveRadar = props =>
+const ResponsiveRadar = props => (
     <ResponsiveWrapper>
         {({ width, height }) => <Radar width={width} height={height} {...props} />}
     </ResponsiveWrapper>
+)
 
 export default ResponsiveRadar

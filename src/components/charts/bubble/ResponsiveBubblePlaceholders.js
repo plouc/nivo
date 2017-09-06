@@ -10,9 +10,10 @@ import React from 'react'
 import ResponsiveWrapper from '../ResponsiveWrapper'
 import BubblePlaceholders from './BubblePlaceholders'
 
-const ResponsiveBubblePlaceholders = props =>
+const ResponsiveBubblePlaceholders = props => (
     <ResponsiveWrapper>
         {({ width, height }) => <BubblePlaceholders width={width} height={height} {...props} />}
     </ResponsiveWrapper>
+)
 
 export default ResponsiveBubblePlaceholders

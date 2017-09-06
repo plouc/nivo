@@ -18,27 +18,21 @@ const curveOptions = ['linear', 'monotoneX']
 
 const stories = storiesOf('Line', module)
 
-stories
-    .addDecorator(story =>
-        <div className="wrapper">
-            {story()}
-        </div>
-    )
-    .addDecorator(withKnobs)
+stories.addDecorator(story => <div className="wrapper">{story()}</div>).addDecorator(withKnobs)
 
-stories.add('default', () =>
+stories.add('default', () => (
     <Line {...commonProperties} curve={select('curve', curveOptions, 'linear')} />
-)
+))
 
-stories.add('stacked', () =>
+stories.add('stacked', () => (
     <Line {...commonProperties} stacked={true} curve={select('curve', curveOptions, 'linear')} />
-)
+))
 
-stories.add('with custom curve', () =>
+stories.add('with custom curve', () => (
     <Line {...commonProperties} stacked={true} curve="monotoneX" />
-)
+))
 
-stories.add('with dot label', () =>
+stories.add('with dot label', () => (
     <Line
         {...commonProperties}
         stacked={boolean('stacked', true)}
@@ -48,9 +42,9 @@ stories.add('with dot label', () =>
         dotBorderColor="#fff"
         dotBorderWidth={2}
     />
-)
+))
 
-stories.add('abusing dots', () =>
+stories.add('abusing dots', () => (
     <Line
         {...commonProperties}
         stacked={boolean('stacked', true)}
@@ -62,9 +56,9 @@ stories.add('abusing dots', () =>
             tickSize: 10,
         }}
     />
-)
+))
 
-const CustomSymbol = ({ size, color, borderWidth, borderColor }) =>
+const CustomSymbol = ({ size, color, borderWidth, borderColor }) => (
     <rect
         transform={`rotate(45) translate(${size * -0.5}, ${size * -0.5})`}
         width={size}
@@ -74,8 +68,9 @@ const CustomSymbol = ({ size, color, borderWidth, borderColor }) =>
         fillOpacity={1}
         stroke={borderColor}
     />
+)
 
-stories.add('custom dot symbol', () =>
+stories.add('custom dot symbol', () => (
     <Line
         {...commonProperties}
         stacked={boolean('stacked', true)}
@@ -88,9 +83,9 @@ stories.add('custom dot symbol', () =>
             tickSize: 10,
         }}
     />
-)
+))
 
-stories.add('using data colors', () =>
+stories.add('using data colors', () => (
     <Line
         {...commonProperties}
         stacked={boolean('stacked', true)}
@@ -101,9 +96,9 @@ stories.add('using data colors', () =>
         dotBorderColor="#fff"
         dotBorderWidth={2}
     />
-)
+))
 
-stories.add('with markers', () =>
+stories.add('with markers', () => (
     <Line
         {...commonProperties}
         stacked={true}
@@ -124,9 +119,9 @@ stories.add('with markers', () =>
             },
         ]}
     />
-)
+))
 
-stories.add('with custom min/max Y', () =>
+stories.add('with custom min/max Y', () => (
     <Line
         {...commonProperties}
         markers={[
@@ -208,4 +203,4 @@ stories.add('with custom min/max Y', () =>
         minY={-1}
         maxY={1}
     />
-)
+))

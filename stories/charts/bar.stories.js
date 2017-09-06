@@ -16,21 +16,19 @@ const commonProperties = {
     padding: 0.2,
 }
 
-const stories = storiesOf('Bar', module).addDecorator(story =>
-    <div className="wrapper">
-        {story()}
-    </div>
-)
+const stories = storiesOf('Bar', module).addDecorator(story => (
+    <div className="wrapper">{story()}</div>
+))
 
 stories.add('stacked', () => <Bar {...commonProperties} />)
 
-stories.add('stacked horizontal', () =>
+stories.add('stacked horizontal', () => (
     <Bar {...commonProperties} layout="horizontal" enableGridY={false} enableGridX={true} />
-)
+))
 
 stories.add('grouped', () => <Bar {...commonProperties} groupMode="grouped" />)
 
-stories.add('grouped horizontal', () =>
+stories.add('grouped horizontal', () => (
     <Bar
         {...commonProperties}
         groupMode="grouped"
@@ -38,9 +36,9 @@ stories.add('grouped horizontal', () =>
         enableGridY={false}
         enableGridX={true}
     />
-)
+))
 
-stories.add('with marker', () =>
+stories.add('with marker', () => (
     <Bar
         {...commonProperties}
         xPadding={0.4}
@@ -54,8 +52,8 @@ stories.add('with marker', () =>
             },
         ]}
     />
-)
+))
 
-stories.add('using custom colorBy', () =>
+stories.add('using custom colorBy', () => (
     <Bar {...commonProperties} colorBy={({ id, data }) => data[`${id}Color`]} />
-)
+))

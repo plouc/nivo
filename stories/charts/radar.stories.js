@@ -18,29 +18,23 @@ const curveOptions = ['linearClosed', 'basisClosed', 'catmullRomClosed', 'cardin
 
 const stories = storiesOf('Radar', module)
 
-stories
-    .addDecorator(story =>
-        <div className="wrapper">
-            {story()}
-        </div>
-    )
-    .addDecorator(withKnobs)
+stories.addDecorator(story => <div className="wrapper">{story()}</div>).addDecorator(withKnobs)
 
 stories.add('default', () => <Radar {...commonProperties} />)
 
-stories.add('with custom curve', () =>
+stories.add('with custom curve', () => (
     <Radar {...commonProperties} gridShape="linear" curve="catmullRomClosed" />
-)
+))
 
-stories.add('linear grid shape', () =>
+stories.add('linear grid shape', () => (
     <Radar
         {...commonProperties}
         gridShape="linear"
         curve={select('curve', curveOptions, 'linearClosed')}
     />
-)
+))
 
-stories.add('with dot label', () =>
+stories.add('with dot label', () => (
     <Radar
         {...commonProperties}
         curve={select('curve', curveOptions, 'linearClosed')}
@@ -51,9 +45,9 @@ stories.add('with dot label', () =>
         enableDotLabel={true}
         gridLabelOffset={36}
     />
-)
+))
 
-stories.add('abusing dots', () =>
+stories.add('abusing dots', () => (
     <Radar
         {...commonProperties}
         curve={select('curve', curveOptions, 'catmullRomClosed')}
@@ -62,9 +56,9 @@ stories.add('abusing dots', () =>
         dotLabelYOffset={3}
         gridLabelOffset={36}
     />
-)
+))
 
-const CustomSymbol = ({ size, color, borderWidth, borderColor }) =>
+const CustomSymbol = ({ size, color, borderWidth, borderColor }) => (
     <rect
         transform={`rotate(45) translate(${size * -0.5}, ${size * -0.5})`}
         width={size}
@@ -74,8 +68,9 @@ const CustomSymbol = ({ size, color, borderWidth, borderColor }) =>
         fillOpacity={1}
         stroke={borderColor}
     />
+)
 
-stories.add('custom dot symbol', () =>
+stories.add('custom dot symbol', () => (
     <Radar
         {...commonProperties}
         curve={select('curve', curveOptions, 'catmullRomClosed')}
@@ -85,4 +80,4 @@ stories.add('custom dot symbol', () =>
         dotBorderColor="inherit:darker(0.3)"
         gridLabelOffset={36}
     />
-)
+))

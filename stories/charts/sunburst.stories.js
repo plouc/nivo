@@ -17,16 +17,10 @@ const commonProperties = {
 
 const stories = storiesOf('Sunburst', module)
 
-stories
-    .addDecorator(story =>
-        <div className="wrapper">
-            {story()}
-        </div>
-    )
-    .addDecorator(withKnobs)
+stories.addDecorator(story => <div className="wrapper">{story()}</div>).addDecorator(withKnobs)
 
 stories.add('default', () => <Sunburst {...commonProperties} />)
 
-stories.add('with child color modifier', () =>
+stories.add('with child color modifier', () => (
     <Sunburst {...commonProperties} childColor="inherit:brighter(0.13)" />
-)
+))

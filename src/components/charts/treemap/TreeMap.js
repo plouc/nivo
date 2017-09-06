@@ -52,10 +52,11 @@ const createNodesRenderer = ({
         )
     })
 
-const TreeMap = props =>
+const TreeMap = props => (
     <TreeMapPlaceholders {...props} namespace="svg">
         {createNodesRenderer(props)}
     </TreeMapPlaceholders>
+)
 
 TreeMap.propTypes = _.omit(treeMapPropTypes, ['children', 'namespace'])
 

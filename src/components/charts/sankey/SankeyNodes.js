@@ -48,7 +48,7 @@ const SankeyNodes = ({
     if (!animate) {
         return (
             <g>
-                {nodes.map(node =>
+                {nodes.map(node => (
                     <SankeyNodesItem
                         key={node.id}
                         node={node}
@@ -65,7 +65,7 @@ const SankeyNodes = ({
                         setCurrent={setCurrentNode}
                         theme={theme}
                     />
-                )}
+                ))}
             </g>
         )
     }
@@ -92,7 +92,7 @@ const SankeyNodes = ({
                 }
             })}
         >
-            {interpolatedStyles =>
+            {interpolatedStyles => (
                 <g>
                     {interpolatedStyles.map(({ key, style, data: node }) => {
                         const color = getInterpolatedColor(style)
@@ -116,7 +116,8 @@ const SankeyNodes = ({
                             />
                         )
                     })}
-                </g>}
+                </g>
+            )}
         </TransitionMotion>
     )
 }

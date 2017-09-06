@@ -11,8 +11,9 @@ import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
 import BasicTooltip from '../../tooltip/BasicTooltip'
 
-const ChordArcTooltip = ({ arc, theme }) =>
+const ChordArcTooltip = ({ arc, theme }) => (
     <BasicTooltip id={arc.id} value={arc.value} color={arc.color} enableChip={true} theme={theme} />
+)
 
 ChordArcTooltip.propTypes = {
     arc: PropTypes.object.isRequired,

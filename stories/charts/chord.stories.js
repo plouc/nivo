@@ -13,30 +13,28 @@ const commonProperties = {
     xPadding: 0.2,
 }
 
-const stories = storiesOf('Chord', module).addDecorator(story =>
-    <div className="wrapper">
-        {story()}
-    </div>
-)
+const stories = storiesOf('Chord', module).addDecorator(story => (
+    <div className="wrapper">{story()}</div>
+))
 
 stories.add('default', () => <Chord {...commonProperties} />)
 
 stories.add('radial labels', () => <Chord {...commonProperties} labelRotation={-90} />)
 
 const customLabel = d => `${d.id} [${d.value}]`
-stories.add('custom labels text', () =>
+stories.add('custom labels text', () => (
     <Chord {...commonProperties} {...generateChordData({ size: 5 })} label={customLabel} />
-)
+))
 
-stories.add('angle padding', () =>
+stories.add('angle padding', () => (
     <Chord {...commonProperties} labelRotation={-90} padAngle={0.06} />
-)
+))
 
-stories.add('ribbons offset', () =>
+stories.add('ribbons offset', () => (
     <Chord {...commonProperties} labelRotation={-90} padAngle={0.02} innerRadiusOffset={0.02} />
-)
+))
 
-stories.add('alternative colors', () =>
+stories.add('alternative colors', () => (
     <Chord
         {...commonProperties}
         labelRotation={-90}
@@ -44,9 +42,9 @@ stories.add('alternative colors', () =>
         innerRadiusOffset={0.02}
         colors="d320b"
     />
-)
+))
 
-stories.add('putting labels inside arcs', () =>
+stories.add('putting labels inside arcs', () => (
     <Chord
         {...commonProperties}
         {...generateChordData({ size: 5 })}
@@ -56,4 +54,4 @@ stories.add('putting labels inside arcs', () =>
         labelOffset={-30}
         labelTextColor="inherit:darker(1.2)"
     />
-)
+))
