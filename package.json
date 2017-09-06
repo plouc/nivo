@@ -61,6 +61,7 @@
     "babel-plugin-transform-es2015-template-literals": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
+    "clog-cli": "^1.0.0",
     "cross-env": "^5.0.5",
     "enzyme": "^2.9.1",
     "gh-pages": "^1.0.0",
@@ -98,7 +99,8 @@
     "commitmsg": "validate-commit-msg",
     "storybook": "start-storybook -p 6006",
     "storybook:build": "build-storybook",
-    "storybook:publish": "npm run storybook:build && gh-pages -d storybook-static -r git@github.com:plouc/nivo.git -b gh-pages -e storybook"
+    "storybook:publish": "npm run storybook:build && gh-pages -d storybook-static -r git@github.com:plouc/nivo.git -b gh-pages -e storybook",
+    "changelog": "rm CHANGELOG.md && node scripts/generate-changelog.js"
   },
   "lint-staged": {
     "*.js": [

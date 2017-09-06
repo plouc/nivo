@@ -1683,6 +1683,10 @@ cliui@^3.2.0:
     strip-ansi "^3.0.1"
     wrap-ansi "^2.0.0"
 
+clog-cli@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/clog-cli/-/clog-cli-1.0.0.tgz#e5ee1f9f1baa4717585e1b67cbdf613189b73a27"
+
 clone@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/clone/-/clone-1.0.2.tgz#260b7a99ebb1edfe247538175f783243cb19d149"
