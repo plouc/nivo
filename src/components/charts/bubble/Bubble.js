@@ -14,7 +14,7 @@ import defaultProps from 'recompose/defaultProps'
 import pure from 'recompose/pure'
 import { getLabelGenerator } from '../../../lib/propertiesConverters'
 import { getInheritedColorGenerator } from '../../../lib/colors'
-import { bubblePropTypes, bubbleDefaultProps } from './BubbleProps'
+import { bubblePropTypes, bubbleDefaultProps } from './props'
 import BubblePlaceholders from './BubblePlaceholders'
 import BasicTooltip from '../../tooltip/BasicTooltip'
 
@@ -51,12 +51,10 @@ const createNodes = ({
                 onMouseEnter={handleTooltip}
                 onMouseMove={handleTooltip}
                 onMouseLeave={hideTooltip}
-                onClick={node.zoom}
-                style={{
-                    fill: node.style.color,
-                    stroke: getBorderColor(node.style),
-                    strokeWidth: borderWidth,
-                }}
+                onClick={node.onClick}
+                fill={node.style.color}
+                stroke={getBorderColor(node.style)}
+                strokeWidth={borderWidth}
             />
         )
     })

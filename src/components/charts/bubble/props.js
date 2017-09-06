@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
+import noop from '../../../lib/noop'
 
 export const bubblePropTypes = {
     // data
@@ -43,6 +44,7 @@ export const bubblePropTypes = {
 
     // interactivity
     isInteractive: PropTypes.bool.isRequired,
+    onClick: PropTypes.func.isRequired,
 
     // zooming
     isZoomable: PropTypes.bool.isRequired,
@@ -70,6 +72,7 @@ export const bubbleDefaultProps = {
 
     // interactivity
     isInteractive: true,
+    onClick: noop,
 
     // zooming
     isZoomable: true,

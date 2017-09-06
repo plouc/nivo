@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
+import noop from '../../../lib/noop'
 
 export const BarPropTypes = {
     // data
@@ -37,14 +38,12 @@ export const BarPropTypes = {
     labelsLinkColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     getLabelsLinkColor: PropTypes.func.isRequired, // computed
 
-    // interactions
-    onClick: PropTypes.func,
-
     // theming
     getColor: PropTypes.func.isRequired,
 
     // interactivity
     isInteractive: PropTypes.bool,
+    onClick: PropTypes.func.isRequired,
 
     // canvas specific
     pixelRatio: PropTypes.number.isRequired,
@@ -74,6 +73,7 @@ export const BarDefaultProps = {
 
     // interactivity
     isInteractive: true,
+    onClick: noop,
 
     // canvas specific
     pixelRatio: window && window.devicePixelRatio ? window.devicePixelRatio : 1,

@@ -8,10 +8,23 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
+import compose from 'recompose/compose'
+import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
 import BasicTooltip from '../../tooltip/BasicTooltip'
 
-const BarItem = ({ data, x, y, width, height, color, showTooltip, hideTooltip, theme }) => {
+const BarItem = ({
+    data,
+    x,
+    y,
+    width,
+    height,
+    color,
+    showTooltip,
+    hideTooltip,
+    onClick,
+    theme,
+}) => {
     const handleTooltip = e =>
         showTooltip(
             <BasicTooltip
@@ -26,32 +39,31 @@ const BarItem = ({ data, x, y, width, height, color, showTooltip, hideTooltip, t
 
     return (
         <rect
-            className="nivo_bar_rect"
             x={x}
             y={y}
             width={width}
             height={height}
-            style={{
-                fill: color,
-            }}
+            fill={color}
             onMouseEnter={handleTooltip}
             onMouseMove={handleTooltip}
             onMouseLeave={hideTooltip}
+            onClick={onClick}
         />
     )
 }
 
 BarItem.propTypes = {
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-    color: PropTypes.string.isRequired,
     data: PropTypes.shape({
         id: PropTypes.string.isRequired,
         value: PropTypes.number.isRequired,
         indexValue: PropTypes.string.isRequired,
     }).isRequired,
+
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+    color: PropTypes.string.isRequired,
 
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
@@ -61,4 +73,11 @@ BarItem.propTypes = {
     }).isRequired,
 }
 
-export default pure(BarItem)
+const enhance = compose(
+    withPropsOnChange(['data', 'onClick'], ({ data, onClick }) => ({
+        onClick: () => onClick(data),
+    })),
+    pure
+)
+
+export default enhance(BarItem)

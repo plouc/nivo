@@ -91,6 +91,7 @@ const Bar = ({
 
     // interactivity
     isInteractive,
+    onClick,
 }) => {
     const options = {
         layout,
@@ -133,18 +134,16 @@ const Bar = ({
                         <TransitionMotion
                             willEnter={willEnter}
                             willLeave={willLeave}
-                            styles={result.bars.map(bar => {
-                                return {
-                                    key: bar.key,
-                                    data: bar,
-                                    style: {
-                                        x: spring(bar.x, motionProps),
-                                        y: spring(bar.y, motionProps),
-                                        width: spring(bar.width, motionProps),
-                                        height: spring(bar.height, motionProps),
-                                    },
-                                }
-                            })}
+                            styles={result.bars.map(bar => ({
+                                key: bar.key,
+                                data: bar,
+                                style: {
+                                    x: spring(bar.x, motionProps),
+                                    y: spring(bar.y, motionProps),
+                                    width: spring(bar.width, motionProps),
+                                    height: spring(bar.height, motionProps),
+                                },
+                            }))}
                         >
                             {interpolatedStyles => (
                                 <g>
@@ -157,6 +156,7 @@ const Bar = ({
                                             height={Math.max(style.height, 0)}
                                             showTooltip={showTooltip}
                                             hideTooltip={hideTooltip}
+                                            onClick={onClick}
                                             theme={theme}
                                         />
                                     ))}
@@ -171,6 +171,7 @@ const Bar = ({
                             {...d}
                             showTooltip={showTooltip}
                             hideTooltip={hideTooltip}
+                            onClick={onClick}
                             theme={theme}
                         />
                     ))
