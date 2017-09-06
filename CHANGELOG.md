@@ -1,3 +1,13 @@
+<a name="v0.26.2"></a>
+## v0.26.2 (2017-09-06)
+
+
+#### Bug Fixes
+
+* **bubble**  fix bubble props export ([37067061](https://github.com/plouc/nivo/commit/37067061cf1d4353da4fed3dd60dabb61a449cf7))
+
+
+
 <a name="v0.26.1"></a>
 ## v0.26.1 (2017-09-06)
 
@@ -225,7 +235,9 @@
 
 #### Bug Fixes
 
-* **bubble**  add missing tooltip when using static bubble chart ([9faae318](https://github.com/plouc/nivo/commit/9faae318d23b6d74e65ecdac2d3a6812fd009102))
+* **bubble**
+  *  fix bubble props export ([37067061](https://github.com/plouc/nivo/commit/37067061cf1d4353da4fed3dd60dabb61a449cf7))
+  *  add missing tooltip when using static bubble chart ([9faae318](https://github.com/plouc/nivo/commit/9faae318d23b6d74e65ecdac2d3a6812fd009102))
 * **calendar**  fix regression on calendar ([b687ec84](https://github.com/plouc/nivo/commit/b687ec8483905da27989da4a91df3c7c78a61eec))
 * **canvas**  fix resizing when using canvas based components ([0d41f563](https://github.com/plouc/nivo/commit/0d41f563783d9ef0428808ff2439dd9e90042aee))
 * **color**  fix ColorUtils unit test ([bd9e03d3](https://github.com/plouc/nivo/commit/bd9e03d3cf6fa287e1f089259eb64f7846ac327e))
