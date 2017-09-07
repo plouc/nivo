@@ -13,17 +13,20 @@ import Chip from './Chip'
 
 const chipStyle = { marginRight: 7 }
 
-const BasicTooltip = ({ id, value, enableChip, color, theme }) =>
+const BasicTooltip = ({ id, value, enableChip, color, theme }) => (
     <div style={theme.tooltip.container}>
         <div style={theme.tooltip.basic}>
             {enableChip && <Chip color={color} style={chipStyle} />}
-            {value !== undefined
-                ? <span>
-                      {id}: <strong>{value}</strong>
-                  </span>
-                : id}
+            {value !== undefined ? (
+                <span>
+                    {id}: <strong>{value}</strong>
+                </span>
+            ) : (
+                id
+            )}
         </div>
     </div>
+)
 
 BasicTooltip.propTypes = {
     id: PropTypes.node.isRequired,

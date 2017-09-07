@@ -99,7 +99,10 @@ const TreeMapPlaceholders = ({
         d.data.id = getIdentity(d.data)
         d.data.value = d.value
         d.data.color = d.color
-        d.data.key = d.ancestors().map(a => getIdentity(a.data)).join('.')
+        d.data.key = d
+            .ancestors()
+            .map(a => getIdentity(a.data))
+            .join('.')
 
         return d
     })

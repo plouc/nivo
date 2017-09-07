@@ -28,7 +28,9 @@ export const getXScale = (data, width) => {
         )
     }
 
-    return scalePoint().range([0, width]).domain(data[0].data.map(({ x }) => x))
+    return scalePoint()
+        .range([0, width])
+        .domain(data[0].data.map(({ x }) => x))
 }
 
 /**
@@ -51,7 +53,9 @@ export const getYScale = (data, height, minValue, maxValue) => {
         maxY = max(data.map(serie => max(serie.data.map(d => d.y))))
     }
 
-    return scaleLinear().rangeRound([height, 0]).domain([minY, maxY])
+    return scaleLinear()
+        .rangeRound([height, 0])
+        .domain([minY, maxY])
 }
 
 /**
@@ -75,7 +79,9 @@ export const getStackedYScale = (data, xScale, height, minValue, maxValue) => {
         maxY = max(range(xScale.domain().length).map(i => sumBy(data, serie => serie.data[i].y)))
     }
 
-    return scaleLinear().rangeRound([height, 0]).domain([minY, maxY])
+    return scaleLinear()
+        .rangeRound([height, 0])
+        .domain([minY, maxY])
 }
 
 /**

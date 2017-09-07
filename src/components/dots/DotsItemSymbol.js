@@ -10,7 +10,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
 
-const DotsItemSymbol = ({ size, color, borderWidth, borderColor }) =>
+const DotsItemSymbol = ({ size, color, borderWidth, borderColor }) => (
     <circle
         r={size / 2}
         fill={color}
@@ -18,6 +18,7 @@ const DotsItemSymbol = ({ size, color, borderWidth, borderColor }) =>
         strokeWidth={borderWidth}
         style={{ pointerEvents: 'none' }}
     />
+)
 
 DotsItemSymbol.propTypes = {
     size: PropTypes.number.isRequired,

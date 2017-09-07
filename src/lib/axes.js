@@ -6,12 +6,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+import { textPropsByEngine } from './bridge'
 
 const horizontalPositions = ['top', 'bottom']
 const verticalPositions = ['left', 'right']
 
 const centerScale = scale => {
-    let offset = scale.bandwidth() / 2
+    const bandwidth = scale.bandwidth()
+
+    if (bandwidth === 0) return scale
+
+    let offset = bandwidth / 2
     if (scale.round()) {
         offset = Math.round(offset)
     }
@@ -37,6 +42,7 @@ const centerScale = scale => {
  * @param {number}   [tickSize=5]
  * @param {number}   [tickPadding=5]
  * @param {number}   [tickRotation=0]
+ * @parem {string}   [engine='svg']
  * @return {{ x: number, y: number, ticks: Array.<AxisTick>, textAlign: string, textBaseline: string }}
  */
 export const computeAxisTicks = ({
@@ -50,6 +56,8 @@ export const computeAxisTicks = ({
     tickPadding = 5,
     tickRotation = 0,
     //format,
+
+    engine = 'svg',
 }) => {
     let values
     if (scale.ticks) {
@@ -57,6 +65,8 @@ export const computeAxisTicks = ({
     } else {
         values = scale.domain()
     }
+
+    const textProps = textPropsByEngine[engine]
 
     const orient = _position
     const position = scale.bandwidth ? centerScale(scale) : scale
@@ -66,8 +76,8 @@ export const computeAxisTicks = ({
     let x = 0
     let y = 0
     let translate
-    let textAlign = 'center'
-    let textBaseline = 'middle'
+    let textAlign = textProps.align.center
+    let textBaseline = textProps.baseline.center
 
     if (horizontalPositions.includes(orient)) {
         translate = d => ({ x: position(d), y: 0 })
@@ -77,25 +87,25 @@ export const computeAxisTicks = ({
 
         if (orient === 'bottom') {
             y = height
-            textBaseline = 'top'
+            textBaseline = textProps.baseline.top
         } else {
-            textBaseline = 'bottom'
+            textBaseline = textProps.baseline.bottom
         }
 
         if (tickRotation === 0) {
-            textAlign = 'center'
+            textAlign = textProps.align.center
         } else if (
             (orient === 'bottom' && tickRotation < 0) ||
             (orient === 'top' && tickRotation > 0)
         ) {
-            textAlign = 'right'
-            textBaseline = 'middle'
+            textAlign = textProps.align.right
+            textBaseline = textProps.baseline.center
         } else if (
             (orient === 'bottom' && tickRotation > 0) ||
             (orient === 'top' && tickRotation < 0)
         ) {
-            textAlign = 'left'
-            textBaseline = 'middle'
+            textAlign = textProps.align.left
+            textBaseline = textProps.baseline.center
         }
     } else if (verticalPositions.includes(orient)) {
         translate = d => ({ x: 0, y: position(d) })
@@ -105,22 +115,19 @@ export const computeAxisTicks = ({
 
         if (orient === 'right') {
             x = width
-            textAlign = 'left'
+            textAlign = textProps.align.left
         } else {
-            textAlign = 'right'
+            textAlign = textProps.align.right
         }
     }
 
-    const ticks = values.map(value => {
-        const position = translate(value)
-
-        return {
-            value,
-            ...position,
-            ...line,
-            ...text,
-        }
-    })
+    const ticks = values.map(value => ({
+        key: value,
+        value,
+        ...translate(value),
+        ...line,
+        ...text,
+    }))
 
     return {
         x,

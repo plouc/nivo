@@ -85,7 +85,7 @@ const Radar = ({
 
     return (
         <Container isInteractive={isInteractive} theme={theme}>
-            {({ showTooltip, hideTooltip }) =>
+            {({ showTooltip, hideTooltip }) => (
                 <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
                     <g transform={`translate(${centerX}, ${centerY})`}>
                         <RadarGrid
@@ -110,7 +110,7 @@ const Radar = ({
                             fillOpacity={fillOpacity}
                             {...motionProps}
                         />
-                        {isInteractive &&
+                        {isInteractive && (
                             <RadarTooltip
                                 data={data}
                                 keys={keys}
@@ -121,8 +121,9 @@ const Radar = ({
                                 theme={theme}
                                 showTooltip={showTooltip}
                                 hideTooltip={hideTooltip}
-                            />}
-                        {enableDots &&
+                            />
+                        )}
+                        {enableDots && (
                             <RadarDots
                                 data={data}
                                 keys={keys}
@@ -141,9 +142,11 @@ const Radar = ({
                                 labelYOffset={dotLabelYOffset}
                                 theme={theme}
                                 {...motionProps}
-                            />}
+                            />
+                        )}
                     </g>
-                </SvgWrapper>}
+                </SvgWrapper>
+            )}
         </Container>
     )
 }
@@ -239,7 +242,9 @@ const enhance = compose(
             const maxValue = max(data.reduce((acc, d) => [...acc, ...keys.map(key => d[key])], []))
 
             const radius = Math.min(width, height) / 2
-            const radiusScale = scaleLinear().range([0, radius]).domain([0, maxValue])
+            const radiusScale = scaleLinear()
+                .range([0, radius])
+                .domain([0, maxValue])
 
             return {
                 data,

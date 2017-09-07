@@ -23,15 +23,15 @@ const TableTooltip = ({ title, rows, theme }) => {
             {title && title}
             <table style={{ ...tableStyle, ...theme.tooltip.table }}>
                 <tbody>
-                    {rows.map((row, i) =>
+                    {rows.map((row, i) => (
                         <tr key={i}>
-                            {row.map((column, j) =>
+                            {row.map((column, j) => (
                                 <td key={j} style={theme.tooltip.tableCell}>
                                     {column}
                                 </td>
-                            )}
+                            ))}
                         </tr>
-                    )}
+                    ))}
                 </tbody>
             </table>
         </div>

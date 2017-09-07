@@ -94,7 +94,7 @@ const Stream = ({
 
     return (
         <Container isInteractive={isInteractive} theme={theme}>
-            {({ showTooltip, hideTooltip }) =>
+            {({ showTooltip, hideTooltip }) => (
                 <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
                     <Grid
                         theme={theme}
@@ -125,15 +125,17 @@ const Stream = ({
                         {...motionProps}
                     />
                     {isInteractive &&
-                        enableStackTooltip &&
+                    enableStackTooltip && (
                         <StreamSlices
                             slices={slices}
                             height={height}
                             showTooltip={showTooltip}
                             hideTooltip={hideTooltip}
                             theme={theme}
-                        />}
-                </SvgWrapper>}
+                        />
+                    )}
+                </SvgWrapper>
+            )}
         </Container>
     )
 }

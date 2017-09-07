@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
+import noop from '../../../lib/noop'
 
 export const BarPropTypes = {
     // data
@@ -18,7 +19,9 @@ export const BarPropTypes = {
     groupMode: PropTypes.oneOf(['stacked', 'grouped']).isRequired,
     layout: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
 
-    xPadding: PropTypes.number.isRequired,
+    minValue: PropTypes.number.isRequired,
+    maxValue: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]).isRequired,
+    padding: PropTypes.number.isRequired,
 
     // axes & grid
     axisTop: PropTypes.object,
@@ -45,6 +48,7 @@ export const BarPropTypes = {
 
     // interactivity
     isInteractive: PropTypes.bool,
+    onClick: PropTypes.func.isRequired,
 
     // canvas specific
     pixelRatio: PropTypes.number.isRequired,
@@ -57,7 +61,9 @@ export const BarDefaultProps = {
     groupMode: 'stacked',
     layout: 'vertical',
 
-    xPadding: 0.1,
+    minValue: 0,
+    maxValue: 'auto',
+    padding: 0.1,
 
     // axes & grid
     axisBottom: {},
@@ -72,6 +78,7 @@ export const BarDefaultProps = {
     label: 'value',
     // interactivity
     isInteractive: true,
+    onClick: noop,
 
     // canvas specific
     pixelRatio: window && window.devicePixelRatio ? window.devicePixelRatio : 1,

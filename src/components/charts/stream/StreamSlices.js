@@ -11,9 +11,9 @@ import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
 import StreamSlicesItem from './StreamSlicesItem'
 
-const StreamSlices = ({ slices, height, showTooltip, hideTooltip, theme }) =>
+const StreamSlices = ({ slices, height, showTooltip, hideTooltip, theme }) => (
     <g>
-        {slices.map(slice =>
+        {slices.map(slice => (
             <StreamSlicesItem
                 key={slice.index}
                 slice={slice}
@@ -22,8 +22,9 @@ const StreamSlices = ({ slices, height, showTooltip, hideTooltip, theme }) =>
                 hideTooltip={hideTooltip}
                 theme={theme}
             />
-        )}
+        ))}
     </g>
+)
 
 StreamSlices.propTypes = {
     slices: PropTypes.arrayOf(

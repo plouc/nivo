@@ -10,9 +10,10 @@ import React from 'react'
 import ResponsiveWrapper from '../ResponsiveWrapper'
 import BarCanvas from './BarCanvas'
 
-const ResponsiveBarCanvas = props =>
+const ResponsiveBarCanvas = props => (
     <ResponsiveWrapper>
         {({ width, height }) => <BarCanvas width={width} height={height} {...props} />}
     </ResponsiveWrapper>
+)
 
 export default ResponsiveBarCanvas

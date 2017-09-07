@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { computeAxisTicks } from '../../axes'
-import { degreesToRadians } from '../../arcUtils'
+import { degreesToRadians } from '../../polar'
 
 const horizontalPositions = ['top', 'bottom']
 const positions = ['top', 'right', 'bottom', 'left']
@@ -35,6 +35,7 @@ export const renderAxis = (
         tickSize,
         tickPadding,
         tickRotation,
+        engine: 'canvas',
     })
 
     ctx.save()

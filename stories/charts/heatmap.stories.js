@@ -16,7 +16,7 @@ const CustomCell = ({
     borderWidth,
     borderColor,
     textColor,
-}) =>
+}) => (
     <g transform={`translate(${x}, ${y})`}>
         <path
             transform={`rotate(${value < 50 ? 180 : 0})`}
@@ -40,6 +40,7 @@ const CustomCell = ({
             {value}
         </text>
     </g>
+)
 
 const keys = [
     'hot dogs',
@@ -64,15 +65,13 @@ const commonProperties = {
     keys,
 }
 
-const stories = storiesOf('HeatMap', module).addDecorator(story =>
-    <div className="wrapper">
-        {story()}
-    </div>
-)
+const stories = storiesOf('HeatMap', module).addDecorator(story => (
+    <div className="wrapper">{story()}</div>
+))
 
 stories.add('default', () => <HeatMap {...commonProperties} />)
 
-stories.add('square cells', () =>
+stories.add('square cells', () => (
     <HeatMap
         {...commonProperties}
         forceSquare={true}
@@ -85,15 +84,15 @@ stories.add('square cells', () =>
             legendOffset: 36,
         }}
     />
-)
+))
 
-stories.add('circle cells', () =>
+stories.add('circle cells', () => (
     <HeatMap {...commonProperties} cellShape="circle" padding={2} enableGridY={true} />
-)
+))
 
 stories.add('alternative colors', () => <HeatMap {...commonProperties} colors="BrBG" />)
 
-stories.add('variable cell size', () =>
+stories.add('variable cell size', () => (
     <HeatMap
         {...commonProperties}
         colors="BuPu"
@@ -103,9 +102,9 @@ stories.add('variable cell size', () =>
         enableGridX={true}
         enableGridY={true}
     />
-)
+))
 
-stories.add('Custom cell component', () =>
+stories.add('Custom cell component', () => (
     <HeatMap
         {...commonProperties}
         cellShape={CustomCell}
@@ -113,4 +112,4 @@ stories.add('Custom cell component', () =>
         colors="GnBu"
         labelTextColor="inherit:darker(1.6)"
     />
-)
+))

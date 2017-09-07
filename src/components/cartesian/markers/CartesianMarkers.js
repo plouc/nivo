@@ -16,7 +16,7 @@ const CartesianMarkers = ({ markers, width, height, xScale, yScale, theme }) => 
 
     return (
         <g>
-            {markers.map((marker, i) =>
+            {markers.map((marker, i) => (
                 <CartesianMarkersItem
                     key={i}
                     {...marker}
@@ -25,7 +25,7 @@ const CartesianMarkers = ({ markers, width, height, xScale, yScale, theme }) => 
                     scale={marker.axis === 'y' ? yScale : xScale}
                     theme={theme}
                 />
-            )}
+            ))}
         </g>
     )
 }

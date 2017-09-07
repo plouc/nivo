@@ -10,9 +10,10 @@ import React from 'react'
 import ResponsiveWrapper from '../ResponsiveWrapper'
 import Sankey from './Sankey'
 
-const ResponsiveSankey = props =>
+const ResponsiveSankey = props => (
     <ResponsiveWrapper>
         {({ width, height }) => <Sankey width={width} height={height} {...props} />}
     </ResponsiveWrapper>
+)
 
 export default ResponsiveSankey

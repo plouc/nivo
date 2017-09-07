@@ -54,12 +54,12 @@ const Sunburst = ({
 }) => {
     return (
         <Container isInteractive={isInteractive} theme={theme}>
-            {({ showTooltip, hideTooltip }) =>
+            {({ showTooltip, hideTooltip }) => (
                 <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
                     <g transform={`translate(${centerX}, ${centerY})`}>
                         {nodes
                             .filter(node => node.depth > 0)
-                            .map((node, i) =>
+                            .map((node, i) => (
                                 <SunburstArc
                                     key={i}
                                     node={node}
@@ -70,9 +70,10 @@ const Sunburst = ({
                                     hideTooltip={hideTooltip}
                                     theme={theme}
                                 />
-                            )}
+                            ))}
                     </g>
-                </SvgWrapper>}
+                </SvgWrapper>
+            )}
         </Container>
     )
 }

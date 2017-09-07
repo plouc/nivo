@@ -9,7 +9,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
-import Nivo from '../../Nivo'
 import GridLine from './GridLine'
 
 export default class GridLines extends Component {
@@ -70,11 +69,7 @@ export default class GridLines extends Component {
         const { lines, animate, motionStiffness, motionDamping, theme } = this.props
 
         if (!animate) {
-            return (
-                <g>
-                    {lines.map(line => <GridLine {...line} {...theme.grid} />)}
-                </g>
-            )
+            return <g>{lines.map(line => <GridLine {...line} {...theme.grid} />)}</g>
         }
 
         const springConfig = {
@@ -99,14 +94,15 @@ export default class GridLines extends Component {
                     }
                 })}
             >
-                {interpolatedStyles =>
+                {interpolatedStyles => (
                     <g>
                         {interpolatedStyles.map(interpolatedStyle => {
                             const { key, style } = interpolatedStyle
 
                             return <GridLine key={key} {...theme.grid} {...style} />
                         })}
-                    </g>}
+                    </g>
+                )}
             </TransitionMotion>
         )
     }

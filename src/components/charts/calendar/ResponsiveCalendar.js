@@ -10,9 +10,10 @@ import React from 'react'
 import ResponsiveWrapper from '../ResponsiveWrapper'
 import Calendar from './Calendar'
 
-const ResponsiveCalendar = props =>
+const ResponsiveCalendar = props => (
     <ResponsiveWrapper>
         {({ width, height }) => <Calendar width={width} height={height} {...props} />}
     </ResponsiveWrapper>
+)
 
 export default ResponsiveCalendar

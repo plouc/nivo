@@ -10,9 +10,10 @@ import React from 'react'
 import ResponsiveWrapper from '../ResponsiveWrapper'
 import Chord from './Chord'
 
-const ResponsiveChord = props =>
+const ResponsiveChord = props => (
     <ResponsiveWrapper>
         {({ width, height }) => <Chord width={width} height={height} {...props} />}
     </ResponsiveWrapper>
+)
 
 export default ResponsiveChord

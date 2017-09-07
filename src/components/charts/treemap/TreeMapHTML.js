@@ -59,7 +59,7 @@ const createNodes = ({
                         borderColor: borderColorFn({ ...node.data, color: node.style.color }),
                     }}
                 >
-                    {shouldRenderLabel &&
+                    {shouldRenderLabel && (
                         <span
                             className="nivo_treemap_node_label"
                             style={{
@@ -68,7 +68,8 @@ const createNodes = ({
                             }}
                         >
                             {label(node.data)}
-                        </span>}
+                        </span>
+                    )}
                 </div>
             )
         })

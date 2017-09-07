@@ -10,9 +10,10 @@ import React from 'react'
 import ResponsiveWrapper from '../ResponsiveWrapper'
 import HeatMap from './HeatMap'
 
-const ResponsiveHeatMap = props =>
+const ResponsiveHeatMap = props => (
     <ResponsiveWrapper>
         {({ width, height }) => <HeatMap width={width} height={height} {...props} />}
     </ResponsiveWrapper>
+)
 
 export default ResponsiveHeatMap

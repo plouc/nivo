@@ -10,7 +10,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { merge } from 'lodash'
 import { Motion, TransitionMotion, spring } from 'react-motion'
-import { midAngle, positionFromAngle } from '../../../lib/arcUtils'
+import { midAngle, positionFromAngle } from '../../../lib/polar'
 
 const sliceStyle = {
     pointerEvents: 'none',

@@ -15,16 +15,16 @@ const containerStyle = {
 }
 
 const tooltipStyle = {
+    pointerEvents: 'none',
     position: 'absolute',
     zIndex: 10,
     top: 0,
     left: 0,
 }
 
-const Tooltip = ({ x, y, children, theme }) =>
-    <div style={{ ...tooltipStyle, top: y, left: x, ...theme.tooltip }}>
-        {children}
-    </div>
+const Tooltip = ({ x, y, children, theme }) => (
+    <div style={{ ...tooltipStyle, top: y, left: x, ...theme.tooltip }}>{children}</div>
+)
 
 const noopHandlers = {
     showTooltip: noop,
@@ -50,14 +50,14 @@ export default class Container extends Component {
     }
 
     showTooltip = (content, event) => {
-        const { pageX, pageY } = event
+        const { clientX, clientY } = event
         const bounds = this.container.getBoundingClientRect()
 
         this.setState({
             isTooltipVisible: true,
             tooltipContent: content,
-            tooltipX: pageX - bounds.left + 20,
-            tooltipY: pageY - bounds.top,
+            tooltipX: clientX - bounds.left + 20,
+            tooltipY: clientY - bounds.top,
         })
     }
 
@@ -82,10 +82,11 @@ export default class Container extends Component {
                     showTooltip: this.showTooltip,
                     hideTooltip: this.hideTooltip,
                 })}
-                {isTooltipVisible &&
+                {isTooltipVisible && (
                     <Tooltip x={tooltipX} y={tooltipY} theme={theme}>
                         {tooltipContent}
-                    </Tooltip>}
+                    </Tooltip>
+                )}
             </div>
         )
     }

@@ -21,6 +21,7 @@ export const computeNodes = ({
     xScale,
     yScale,
     sizeScale,
+    cellOpacity,
     cellWidth,
     cellHeight,
     colorScale,
@@ -41,6 +42,7 @@ export const computeNodes = ({
                 : cellHeight
 
             const node = {
+                key: `${key}.${getIndex(d)}`,
                 xKey: key,
                 yKey: getIndex(d),
                 x: xScale(key),
@@ -51,7 +53,7 @@ export const computeNodes = ({
                 color: colorScale(d[key]),
             }
 
-            let opacity = 1
+            let opacity = cellOpacity
             if (currentNode) {
                 opacity = isHoverTarget(node, currentNode)
                     ? cellHoverOpacity

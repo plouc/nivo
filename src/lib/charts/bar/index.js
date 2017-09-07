@@ -12,20 +12,30 @@ import { stack } from 'd3-shape'
  * @returns {Function}
  */
 export const getIndexedScale = (data, getIndex, range, padding) =>
-    scaleBand().rangeRound(range).domain(data.map(getIndex)).padding(padding)
+    scaleBand()
+        .rangeRound(range)
+        .domain(data.map(getIndex))
+        .padding(padding)
 
 /**
  * Generates scale for grouped bar chart.
  *
  * @param {Array.<Object>} data
  * @param {Array.<string>} keys
+ * @param {number}         minValue
+ * @param {number|string}  _maxValue
  * @param {Array.<number>} range
  * @returns {Function}
  */
-export const getGroupedScale = (data, keys, range) => {
-    const maxValue = max(data.reduce((acc, entry) => [...acc, ...keys.map(k => entry[k])], []))
+export const getGroupedScale = (data, keys, minValue, _maxValue, range) => {
+    let maxValue = _maxValue
+    if (maxValue === 'auto') {
+        maxValue = max(data.reduce((acc, entry) => [...acc, ...keys.map(k => entry[k])], []))
+    }
 
-    return scaleLinear().rangeRound(range).domain([0, maxValue])
+    return scaleLinear()
+        .rangeRound(range)
+        .domain([minValue, maxValue])
 }
 
 /**
@@ -33,12 +43,20 @@ export const getGroupedScale = (data, keys, range) => {
  *
  * @param {Array.<Object>} data
  * @param {Array.<string>} keys
+ * @param {number}         minValue
+ * @param {number|string}  _maxValue
  * @param {Array.<number>} range
+ * @returns {Function}
  */
-export const getStackedScale = (data, keys, range) => {
-    const maxValue = max(data.map(d => sumBy(keys, key => d[key])))
+export const getStackedScale = (data, keys, minValue, _maxValue, range) => {
+    let maxValue = _maxValue
+    if (maxValue === 'auto') {
+        maxValue = max(data.map(d => sumBy(keys, key => d[key])))
+    }
 
-    return scaleLinear().rangeRound(range).domain([0, maxValue])
+    return scaleLinear()
+        .rangeRound(range)
+        .domain([minValue, maxValue])
 }
 
 /**
@@ -47,23 +65,27 @@ export const getStackedScale = (data, keys, range) => {
  * @param {Array.<Object>} data
  * @param {Function}       getIndex
  * @param {Array.<string>} keys
+ * @param {number}         minValue
+ * @param {number}         maxValue
  * @param {number}         width
  * @param {number}         height
- * @param {Function}       color
- * @param {number}         xPadding
+ * @param {Function}       getColor
+ * @param {number}         [padding=0]
  * @return {{ xScale: Function, yScale: Function, bars: Array.<Object> }}
  */
-export const generateVerticalGroupedBars = (
+export const generateVerticalGroupedBars = ({
     data,
     getIndex,
     keys,
+    minValue,
+    maxValue,
     width,
     height,
-    color,
-    { xPadding = 0 } = {}
-) => {
-    const xScale = getIndexedScale(data, getIndex, [0, width], xPadding)
-    const yScale = getGroupedScale(data, keys, [height, 0])
+    getColor,
+    padding = 0,
+}) => {
+    const xScale = getIndexedScale(data, getIndex, [0, width], padding)
+    const yScale = getGroupedScale(data, keys, minValue, maxValue, [height, 0])
 
     const barWidth = xScale.bandwidth() / keys.length
 
@@ -91,7 +113,7 @@ export const generateVerticalGroupedBars = (
                         y,
                         width: barWidth,
                         height: barHeight,
-                        color: color(barData),
+                        color: getColor(barData),
                     })
                 }
             })
@@ -107,23 +129,27 @@ export const generateVerticalGroupedBars = (
  * @param {Array.<Object>} data
  * @param {Function}       getIndex
  * @param {Array.<string>} keys
+ * @param {number}         minValue
+ * @param {number}         maxValue
  * @param {number}         width
  * @param {number}         height
- * @param {Function}       color
- * @param {number}         xPadding
+ * @param {Function}       getColor
+ * @param {number}         [padding=0]
  * @return {{ xScale: Function, yScale: Function, bars: Array.<Object> }}
  */
-export const generateHorizontalGroupedBars = (
+export const generateHorizontalGroupedBars = ({
     data,
     getIndex,
     keys,
+    minValue,
+    maxValue,
     width,
     height,
-    color,
-    { xPadding = 0 } = {}
-) => {
-    const xScale = getGroupedScale(data, keys, [0, width])
-    const yScale = getIndexedScale(data, getIndex, [height, 0], xPadding)
+    getColor,
+    padding = 0,
+}) => {
+    const xScale = getGroupedScale(data, keys, minValue, maxValue, [0, width])
+    const yScale = getIndexedScale(data, getIndex, [height, 0], padding)
 
     const barHeight = yScale.bandwidth() / keys.length
 
@@ -151,7 +177,7 @@ export const generateHorizontalGroupedBars = (
                         y,
                         width: barWidth,
                         height: barHeight,
-                        color: color(barData),
+                        color: getColor(barData),
                     })
                 }
             })
@@ -164,13 +190,13 @@ export const generateHorizontalGroupedBars = (
 /**
  * Generates x/y scales & bars for grouped bar chart.
  *
- * @param {string} layout
+ * @param {Object} options
  * @return {{ xScale: Function, yScale: Function, bars: Array.<Object> }}
  */
-export const generateGroupedBars = (layout, ...args) =>
-    layout === 'vertical'
-        ? generateVerticalGroupedBars(...args)
-        : generateHorizontalGroupedBars(...args)
+export const generateGroupedBars = options =>
+    options.layout === 'vertical'
+        ? generateVerticalGroupedBars(options)
+        : generateHorizontalGroupedBars(options)
 
 /**
  * Generates x/y scales & bars for vertical stacked bar chart.
@@ -178,23 +204,27 @@ export const generateGroupedBars = (layout, ...args) =>
  * @param {Array.<Object>} data
  * @param {Function}       getIndex
  * @param {Array.<string>} keys
+ * @param {number}         minValue
+ * @param {number}         maxValue
  * @param {number}         width
  * @param {number}         height
  * @param {Function}       getColor
- * @param {number}         xPadding
+ * @param {number}         [padding=0]
  * @return {{ xScale: Function, yScale: Function, bars: Array.<Object> }}
  */
-export const generateVerticalStackedBars = (
+export const generateVerticalStackedBars = ({
     data,
     getIndex,
     keys,
+    minValue,
+    maxValue,
     width,
     height,
     getColor,
-    { xPadding = 0 } = {}
-) => {
-    const xScale = getIndexedScale(data, getIndex, [0, width], xPadding)
-    const yScale = getStackedScale(data, keys, [height, 0])
+    padding = 0,
+}) => {
+    const xScale = getIndexedScale(data, getIndex, [0, width], padding)
+    const yScale = getStackedScale(data, keys, minValue, maxValue, [height, 0])
 
     const stackedData = stack().keys(keys)(data)
 
@@ -242,23 +272,27 @@ export const generateVerticalStackedBars = (
  * @param {Array.<Object>} data
  * @param {Function}       getIndex
  * @param {Array.<string>} keys
+ * @param {number}         minValue
+ * @param {number}         maxValue
  * @param {number}         width
  * @param {number}         height
  * @param {Function}       getColor
- * @param {number}         xPadding
+ * @param {number}         [padding=0]
  * @return {{ xScale: Function, yScale: Function, bars: Array.<Object> }}
  */
-export const generateHorizontalStackedBars = (
+export const generateHorizontalStackedBars = ({
     data,
     getIndex,
     keys,
+    minValue,
+    maxValue,
     width,
     height,
     getColor,
-    { xPadding = 0 } = {}
-) => {
-    const xScale = getStackedScale(data, keys, [0, width])
-    const yScale = getIndexedScale(data, getIndex, [height, 0], xPadding)
+    padding = 0,
+}) => {
+    const xScale = getStackedScale(data, keys, minValue, maxValue, [0, width])
+    const yScale = getIndexedScale(data, getIndex, [height, 0], padding)
 
     const stackedData = stack().keys(keys)(data)
 
@@ -303,10 +337,10 @@ export const generateHorizontalStackedBars = (
 /**
  * Generates x/y scales & bars for stacked bar chart.
  *
- * @param {string} layout
+ * @param {Object} options
  * @return {{ xScale: Function, yScale: Function, bars: Array.<Object> }}
  */
-export const generateStackedBars = (layout, ...args) =>
-    layout === 'vertical'
-        ? generateVerticalStackedBars(...args)
-        : generateHorizontalStackedBars(...args)
+export const generateStackedBars = options =>
+    options.layout === 'vertical'
+        ? generateVerticalStackedBars(options)
+        : generateHorizontalStackedBars(options)

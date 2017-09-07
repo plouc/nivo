@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
 import pure from 'recompose/pure'
 import { motionPropTypes } from '../../../props'
-import { positionFromAngle, radiansToDegrees } from '../../../lib/arcUtils'
+import { positionFromAngle, radiansToDegrees } from '../../../lib/polar'
 
 const textAnchorFromAngle = _angle => {
     const angle = radiansToDegrees(_angle) + 90
@@ -53,7 +53,7 @@ const RadarGridLabels = ({
     if (animate !== true) {
         return (
             <g>
-                {labels.map(label =>
+                {labels.map(label => (
                     <text
                         style={{
                             fill: theme.axis.textColor,
@@ -64,7 +64,7 @@ const RadarGridLabels = ({
                     >
                         {label.label}
                     </text>
-                )}
+                ))}
             </g>
         )
     }
@@ -83,9 +83,9 @@ const RadarGridLabels = ({
                 },
             }))}
         >
-            {interpolatedStyles =>
+            {interpolatedStyles => (
                 <g>
-                    {interpolatedStyles.map(({ key, style, data }) =>
+                    {interpolatedStyles.map(({ key, style, data }) => (
                         <text
                             key={key}
                             dy="0.5em"
@@ -98,8 +98,9 @@ const RadarGridLabels = ({
                         >
                             {data.label}
                         </text>
-                    )}
-                </g>}
+                    ))}
+                </g>
+            )}
         </TransitionMotion>
     )
 }

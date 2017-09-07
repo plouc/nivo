@@ -8,20 +8,15 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
+import { isFunction } from 'lodash'
+import { format as d3Format } from 'd3-format'
 import compose from 'recompose/compose'
+import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
 import { TransitionMotion, spring } from 'react-motion'
 import { withMotion } from '../../hocs'
+import { computeAxisTicks } from '../../lib/axes'
 import AxisTick from './AxisTick'
-
-const center = scale => {
-    let offset = scale.bandwidth() / 2
-    if (scale.round()) {
-        offset = Math.round(offset)
-    }
-
-    return d => scale(d) + offset
-}
 
 const axisPositions = ['top', 'right', 'bottom', 'left']
 const legendPositions = ['start', 'center', 'end']
@@ -33,7 +28,7 @@ export const axisPropType = PropTypes.shape({
     tickSize: PropTypes.number,
     tickPadding: PropTypes.number,
     tickRotation: PropTypes.number,
-    format: PropTypes.func,
+    format: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 
     // legend
     legend: PropTypes.string,
@@ -80,55 +75,15 @@ const Axis = ({
     motionStiffness,
     motionDamping,
 }) => {
-    let values
-    if (scale.ticks) {
-        values = scale.ticks()
-    } else {
-        values = scale.domain()
-    }
-
-    const orient = _orient || _position
-    const position = scale.bandwidth ? center(scale) : scale
-
-    let x = 0
-    let y = 0
-    let translate
-    let textAnchor
-    let textDY
-    const tickLine = { x2: 0, y2: 0 }
-    const textXY = { x: 0, y: 0 }
-
-    if (['top', 'bottom'].includes(orient)) {
-        translate = d => ({ x: position(d), y: 0 })
-
-        textAnchor = 'middle'
-        textDY = orient === 'top' ? '0em' : '0.71em'
-        if ((orient === 'bottom' && tickRotation < 0) || (orient === 'top' && tickRotation > 0)) {
-            textAnchor = 'end'
-            textDY = '0.32em'
-        } else if (
-            (orient === 'bottom' && tickRotation > 0) ||
-            (orient === 'top' && tickRotation < 0)
-        ) {
-            textAnchor = 'start'
-            textDY = '0.32em'
-        }
-        textXY.y = (tickSize + tickPadding) * (orient === 'bottom' ? 1 : -1)
-
-        tickLine.y2 = tickSize * (orient === 'bottom' ? 1 : -1)
-
-        if (orient === 'bottom') y = height
-    } else if (['left', 'right'].includes(orient)) {
-        translate = d => ({ x: 0, y: position(d) })
-
-        textAnchor = orient === 'left' ? 'end' : 'start'
-        textDY = '0.32em'
-        textXY.x = (tickSize + tickPadding) * (orient === 'right' ? 1 : -1)
-
-        tickLine.x2 = tickSize * (orient === 'right' ? 1 : -1)
-
-        if (orient === 'right') x = width
-    }
+    const { x, y, ticks, textAlign, textBaseline } = computeAxisTicks({
+        width,
+        height,
+        scale,
+        position: _position,
+        tickSize,
+        tickPadding,
+        tickRotation,
+    })
 
     let legend = null
     if (_legend !== undefined) {
@@ -174,30 +129,27 @@ const Axis = ({
         )
     }
 
-    const ticks = values.map(v => ({
-        key: v,
-        ...translate(v),
-    }))
-
     let tickElements
     if (!animate) {
         tickElements = (
             <g>
-                {ticks.map(tick =>
+                {ticks.map(tick => (
                     <AxisTick
                         key={tick.key}
                         value={tick.key}
                         format={format}
-                        tickLine={tickLine}
+                        lineX={tick.lineX}
+                        lineY={tick.lineY}
                         rotate={tickRotation}
-                        textXY={textXY}
-                        textDY={textDY}
-                        textAnchor={textAnchor}
+                        textX={tick.textX}
+                        textY={tick.textY}
+                        textBaseline={textBaseline}
+                        textAnchor={textAlign}
                         theme={theme}
                         x={tick.x}
                         y={tick.y}
                     />
-                )}
+                ))}
             </g>
         )
     } else {
@@ -213,7 +165,7 @@ const Axis = ({
                 styles={ticks.map(tick => {
                     return {
                         key: `${tick.key}`,
-                        data: tick.key,
+                        data: tick,
                         style: {
                             opacity: spring(1, springConfig),
                             x: spring(tick.x, springConfig),
@@ -222,23 +174,26 @@ const Axis = ({
                     }
                 })}
             >
-                {interpolatedStyles =>
+                {interpolatedStyles => (
                     <g>
-                        {interpolatedStyles.map(({ key, style }) =>
+                        {interpolatedStyles.map(({ key, style, data: tick }) => (
                             <AxisTick
                                 key={key}
                                 value={key}
                                 format={format}
-                                tickLine={tickLine}
+                                lineX={tick.lineX}
+                                lineY={tick.lineY}
                                 rotate={tickRotation}
-                                textXY={textXY}
-                                textDY={textDY}
-                                textAnchor={textAnchor}
+                                textX={tick.textX}
+                                textY={tick.textY}
+                                textBaseline={textBaseline}
+                                textAnchor={textAlign}
                                 theme={theme}
                                 {...style}
                             />
-                        )}
-                    </g>}
+                        ))}
+                    </g>
+                )}
             </TransitionMotion>
         )
     }
@@ -263,7 +218,7 @@ Axis.propTypes = {
     tickSize: PropTypes.number.isRequired,
     tickPadding: PropTypes.number.isRequired,
     tickRotation: PropTypes.number.isRequired,
-    format: PropTypes.func,
+    format: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 
     // legend
     legend: PropTypes.string,
@@ -285,6 +240,13 @@ Axis.defaultProps = {
     legendOffset: 0,
 }
 
-const enhance = compose(withMotion(), pure)
+const enhance = compose(
+    withMotion(),
+    withPropsOnChange(['format'], ({ format }) => {
+        if (!format || isFunction(format)) return { format }
+        return { format: d3Format(format) }
+    }),
+    pure
+)
 
 export default enhance(Axis)

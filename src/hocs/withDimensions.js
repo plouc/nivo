@@ -13,7 +13,7 @@ import setPropTypes from 'recompose/setPropTypes'
 import defaultProps from 'recompose/defaultProps'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import { marginPropType } from '../props'
-import Nivo from '../Nivo'
+import { defaultMargin } from '../defaults'
 
 /**
  * This HOC watch width, height & margin props change
@@ -25,7 +25,7 @@ import Nivo from '../Nivo'
 export default () =>
     compose(
         defaultProps({
-            margin: Nivo.defaults.margin,
+            margin: defaultMargin,
         }),
         setPropTypes({
             width: PropTypes.number.isRequired,
@@ -38,7 +38,7 @@ export default () =>
                 props.height !== nextProps.height ||
                 !isEqual(props.margin, nextProps.margin),
             props => {
-                const margin = Object.assign({}, Nivo.defaults.margin, props.margin)
+                const margin = Object.assign({}, defaultMargin, props.margin)
 
                 return {
                     margin,

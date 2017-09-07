@@ -7,5 +7,5 @@
  * file that was distributed with this source code.
  */
 export { default as Sankey } from './Sankey'
-export * from './Sankey'
 export { default as ResponsiveSankey } from './ResponsiveSankey'
+export * from './props'

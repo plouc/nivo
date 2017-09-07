@@ -14,7 +14,7 @@ import Container from '../Container'
 import BasicTooltip from '../../tooltip/BasicTooltip'
 import { BarPropTypes } from './props'
 import enhance from './enhance'
-import { getRelativeCursor, cursorInRect } from '../../../lib/interactivity'
+import { getRelativeCursor, isCursorInRect } from '../../../lib/interactivity'
 
 class BarCanvas extends Component {
     componentDidMount() {
@@ -47,6 +47,8 @@ class BarCanvas extends Component {
             data,
             keys,
             getIndex,
+            minValue,
+            maxValue,
 
             // dimensions
             width,
@@ -59,7 +61,7 @@ class BarCanvas extends Component {
             // layout
             layout,
             groupMode,
-            xPadding,
+            padding,
 
             // axes
             axisTop,
@@ -76,16 +78,21 @@ class BarCanvas extends Component {
 
         this.ctx.scale(pixelRatio, pixelRatio)
 
-        let result
-        if (groupMode === 'grouped') {
-            result = generateGroupedBars(layout, data, getIndex, keys, width, height, getColor, {
-                xPadding,
-            })
-        } else if (groupMode === 'stacked') {
-            result = generateStackedBars(layout, data, getIndex, keys, width, height, getColor, {
-                xPadding,
-            })
+        const options = {
+            layout,
+            data,
+            getIndex,
+            keys,
+            minValue,
+            maxValue,
+            width,
+            height,
+            getColor,
+            padding,
         }
+
+        const result =
+            groupMode === 'grouped' ? generateGroupedBars(options) : generateStackedBars(options)
 
         this.bars = result.bars
 
@@ -116,7 +123,7 @@ class BarCanvas extends Component {
 
         const { margin, theme } = this.props
         const bar = this.bars.find(bar =>
-            cursorInRect(bar.x + margin.left, bar.y + margin.top, bar.width, bar.height, x, y)
+            isCursorInRect(bar.x + margin.left, bar.y + margin.top, bar.width, bar.height, x, y)
         )
 
         if (bar !== undefined) {
@@ -144,7 +151,7 @@ class BarCanvas extends Component {
 
         return (
             <Container isInteractive={isInteractive} theme={theme}>
-                {({ showTooltip, hideTooltip }) =>
+                {({ showTooltip, hideTooltip }) => (
                     <canvas
                         ref={surface => {
                             this.surface = surface
@@ -158,7 +165,8 @@ class BarCanvas extends Component {
                         onMouseEnter={partial(this.handleMouseHover, showTooltip, hideTooltip)}
                         onMouseMove={partial(this.handleMouseHover, showTooltip, hideTooltip)}
                         onMouseLeave={partial(this.handleMouseLeave, hideTooltip)}
-                    />}
+                    />
+                )}
             </Container>
         )
     }

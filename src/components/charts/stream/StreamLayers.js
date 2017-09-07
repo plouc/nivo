@@ -73,13 +73,14 @@ const StreamLayers = ({
                             fillOpacity: spring(fillOpacity, springConfig),
                         })}
                     >
-                        {style =>
+                        {style => (
                             <path
                                 onMouseMove={handleTooltip}
                                 onMouseEnter={handleTooltip}
                                 onMouseLeave={hideTooltip}
                                 {...style}
-                            />}
+                            />
+                        )}
                     </SmartMotion>
                 )
             })}

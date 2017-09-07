@@ -34,10 +34,11 @@ export default class ResponsiveWrapper extends Component {
                     this.setState({ dimensions: contentRect.bounds })
                 }}
             >
-                {({ measureRef }) =>
+                {({ measureRef }) => (
                     <div ref={measureRef} style={{ width: '100%', height: '100%' }}>
                         {shouldRender && this.props.children({ width, height })}
-                    </div>}
+                    </div>
+                )}
             </Measure>
         )
     }

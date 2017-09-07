@@ -13,7 +13,7 @@ import compose from 'recompose/compose'
 import pure from 'recompose/pure'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import { motionPropTypes } from '../../../props'
-import { positionFromAngle } from '../../../lib/arcUtils'
+import { positionFromAngle } from '../../../lib/polar'
 import RadialGridLabels from './RadarGridLabels'
 import RadarGridLevels from './RadarGridLevels'
 
@@ -91,7 +91,9 @@ RadarGrid.propTypes = {
 
 const enhance = compose(
     withPropsOnChange(['indices', 'levels', 'radius', 'angleStep'], props => ({
-        radii: range(props.levels).map(i => props.radius / props.levels * (i + 1)).reverse(),
+        radii: range(props.levels)
+            .map(i => props.radius / props.levels * (i + 1))
+            .reverse(),
         angles: range(props.indices.length).map(i => i * props.angleStep - Math.PI / 2),
     })),
     pure

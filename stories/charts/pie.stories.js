@@ -18,19 +18,13 @@ const commonProperties = {
 
 const stories = storiesOf('Pie', module)
 
-stories
-    .addDecorator(story =>
-        <div className="wrapper">
-            {story()}
-        </div>
-    )
-    .addDecorator(withKnobs)
+stories.addDecorator(story => <div className="wrapper">{story()}</div>).addDecorator(withKnobs)
 
 stories.add('default', () => <Pie {...commonProperties} />)
 
 stories.add('donut', () => <Pie {...commonProperties} innerRadius={0.6} />)
 
-stories.add('fancy slices', () =>
+stories.add('fancy slices', () => (
     <Pie
         {...commonProperties}
         innerRadius={0.6}
@@ -40,9 +34,9 @@ stories.add('fancy slices', () =>
         radialLabelsLinkStrokeWidth={3}
         radialLabelsTextColor="inherit:darker(1.2)"
     />
-)
+))
 
-stories.add('custom radial label', () =>
+stories.add('custom radial label', () => (
     <Pie
         {...commonProperties}
         innerRadius={0.6}
@@ -54,4 +48,4 @@ stories.add('custom radial label', () =>
         radialLabelsTextColor="inherit:darker(1.2)"
         enableSlicesLabels={false}
     />
-)
+))

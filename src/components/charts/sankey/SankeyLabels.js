@@ -102,7 +102,7 @@ const SankeyLabels = ({
                 }
             })}
         >
-            {interpolatedStyles =>
+            {interpolatedStyles => (
                 <g>
                     {interpolatedStyles.map(({ key, style, data }) => {
                         const color = getInterpolatedColor(style)
@@ -123,7 +123,8 @@ const SankeyLabels = ({
                             </text>
                         )
                     })}
-                </g>}
+                </g>
+            )}
         </TransitionMotion>
     )
 }

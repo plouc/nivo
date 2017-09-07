@@ -9,10 +9,10 @@
 import React, { Component } from 'react'
 import { partial } from 'lodash'
 import { renderAxes } from '../../../lib/canvas/axes'
-import { getRelativeCursor, cursorInRect } from '../../../lib/interactivity'
+import { getRelativeCursor, isCursorInRect } from '../../../lib/interactivity'
 import { renderRect, renderCircle } from '../../../lib/canvas/charts/heatmap'
 import { computeNodes } from '../../../lib/charts/heatmap'
-import BasicTooltip from '../../tooltip/BasicTooltip'
+import HeatMapCellTooltip from './HeatMapCellTooltip'
 import Container from '../Container'
 import { HeatMapPropTypes } from './props'
 import enhance from './enhance'
@@ -102,7 +102,7 @@ class HeatMapCanvas extends Component {
 
         const { margin, offsetX, offsetY, theme, setCurrentNode } = this.props
         const node = this.nodes.find(node =>
-            cursorInRect(
+            isCursorInRect(
                 node.x + margin.left + offsetX - node.width / 2,
                 node.y + margin.top + offsetY - node.height / 2,
                 node.width,
@@ -114,16 +114,7 @@ class HeatMapCanvas extends Component {
 
         if (node !== undefined) {
             setCurrentNode(node)
-            showTooltip(
-                <BasicTooltip
-                    id={`${node.yKey} - ${node.xKey}`}
-                    value={node.value}
-                    enableChip={true}
-                    color={node.color}
-                    theme={theme}
-                />,
-                event
-            )
+            showTooltip(<HeatMapCellTooltip node={node} theme={theme} />, event)
         } else {
             setCurrentNode(null)
             hideTooltip()
@@ -140,7 +131,7 @@ class HeatMapCanvas extends Component {
 
         return (
             <Container isInteractive={isInteractive} theme={theme}>
-                {({ showTooltip, hideTooltip }) =>
+                {({ showTooltip, hideTooltip }) => (
                     <canvas
                         ref={surface => {
                             this.surface = surface
@@ -154,7 +145,8 @@ class HeatMapCanvas extends Component {
                         onMouseEnter={partial(this.handleMouseHover, showTooltip, hideTooltip)}
                         onMouseMove={partial(this.handleMouseHover, showTooltip, hideTooltip)}
                         onMouseLeave={partial(this.handleMouseLeave, hideTooltip)}
-                    />}
+                    />
+                )}
             </Container>
         )
     }

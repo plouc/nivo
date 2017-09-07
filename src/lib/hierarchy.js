@@ -7,4 +7,7 @@
  * file that was distributed with this source code.
  */
 export const computeNodePath = (node, getIdentity) =>
-    node.ancestors().map(ancestor => getIdentity(ancestor.data)).join('.')
+    node
+        .ancestors()
+        .map(ancestor => getIdentity(ancestor.data))
+        .join('.')

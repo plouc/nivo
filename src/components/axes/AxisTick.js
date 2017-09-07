@@ -32,9 +32,11 @@ export default class AxisTick extends Component {
             opacity,
             rotate,
             format,
-            tickLine,
-            textXY,
-            textDY,
+            lineX,
+            lineY,
+            textX,
+            textY,
+            textBaseline,
             textAnchor,
             theme,
         } = this.props
@@ -46,11 +48,11 @@ export default class AxisTick extends Component {
 
         return (
             <g transform={`translate(${x},${y})`} style={{ opacity }}>
-                <line {...tickLine} stroke={theme.axis.tickColor} />
+                <line x1={0} x2={lineX} y1={0} y2={lineY} stroke={theme.axis.tickColor} />
                 <text
-                    dy={textDY}
+                    alignmentBaseline={textBaseline}
                     textAnchor={textAnchor}
-                    transform={`translate(${textXY.x},${textXY.y}) rotate(${rotate})`}
+                    transform={`translate(${textX},${textY}) rotate(${rotate})`}
                     style={{
                         fill: theme.axis.textColor,
                         fontSize: theme.axis.fontSize,

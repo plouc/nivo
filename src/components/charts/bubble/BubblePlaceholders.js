@@ -11,6 +11,7 @@ import { merge } from 'lodash'
 import { TransitionMotion, spring } from 'react-motion'
 import _ from 'lodash'
 import compose from 'recompose/compose'
+import defaultProps from 'recompose/defaultProps'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import withStateHandlers from 'recompose/withStateHandlers'
 import pure from 'recompose/pure'
@@ -21,7 +22,7 @@ import noop from '../../../lib/noop'
 import { computeNodePath } from '../../../lib/hierarchy'
 import Container from '../Container'
 import { getAccessorFor } from '../../../lib/propertiesConverters'
-import { bubblePropTypes, bubbleDefaultProps } from './BubbleProps'
+import { bubblePropTypes, bubbleDefaultProps } from './props'
 
 const ignoreProps = [
     'borderWidth',
@@ -36,17 +37,20 @@ const ignoreProps = [
     'transitionEasing',
 ]
 
-const nodeWillEnter = ({ data: node }) => ({
+const nodeWillEnter = ({ data }) => ({
+    scale: 0,
     r: 0,
-    x: node.x,
-    y: node.y,
-    ...colorMotionSpring(node.color),
+    x: data.x,
+    y: data.y,
+    ...colorMotionSpring(data.color),
 })
 
-const nodeWillLeave = styleThatLeft => ({
-    r: spring(0),
-    x: spring(styleThatLeft.data.x),
-    y: spring(styleThatLeft.data.y),
+const nodeWillLeave = springConfig => ({ data }) => ({
+    scale: spring(0, springConfig),
+    r: spring(0, springConfig),
+    x: spring(data.x, springConfig),
+    y: spring(data.y, springConfig),
+    ...colorMotionSpring(data.color, springConfig),
 })
 
 const computeZoom = (nodes, currentNodePath, width, height) => {
@@ -90,6 +94,7 @@ const BubblePlaceholders = ({
 
     // interactivity
     isInteractive,
+    onClick,
 
     children,
 
@@ -109,11 +114,6 @@ const BubblePlaceholders = ({
     let nodes = leavesOnly ? root.leaves() : root.descendants()
     nodes = nodes.map(node => {
         node.color = getColor({ ...node.data, depth: node.depth })
-        // if (d.depth > 1) {
-        //     d.color = color(d.parentId)
-        // } else {
-        //     d.color = color(identity(d.data))
-        // }
 
         return node
     })
@@ -148,6 +148,18 @@ const BubblePlaceholders = ({
         })
     }
 
+    let nodeOnClick = noop
+    if (isInteractive) {
+        if (isZoomable) {
+            nodeOnClick = node => () => {
+                onClick(node)
+                zoomToNode(node.path)
+            }
+        } else {
+            nodeOnClick = node => () => onClick(node)
+        }
+    }
+
     if (!animate) {
         return (
             <Container isInteractive={isInteractive} theme={theme}>
@@ -162,11 +174,8 @@ const BubblePlaceholders = ({
                                 nodes.map(node => ({
                                     key: node.path,
                                     data: node,
-                                    style: _.pick(node, ['r', 'x', 'y', 'color']),
-                                    zoom:
-                                        isInteractive && isZoomable
-                                            ? () => zoomToNode(node.path)
-                                            : noop,
+                                    style: _.pick(node, ['scale', 'r', 'x', 'y', 'color']),
+                                    onClick: nodeOnClick(node),
                                 })),
                                 { showTooltip, hideTooltip, theme }
                             )
@@ -176,7 +185,7 @@ const BubblePlaceholders = ({
         )
     }
 
-    const motionProps = {
+    const springConfig = {
         stiffness: motionStiffness,
         damping: motionDamping,
     }
@@ -189,22 +198,22 @@ const BubblePlaceholders = ({
                     wrapperProps,
                     <TransitionMotion
                         willEnter={nodeWillEnter}
-                        willLeave={nodeWillLeave}
-                        styles={nodes.map(node => {
-                            return {
-                                key: node.path,
-                                data: node,
-                                style: {
-                                    r: spring(node.r, motionProps),
-                                    x: spring(node.x, motionProps),
-                                    y: spring(node.y, motionProps),
-                                    ...colorMotionSpring(node.color, motionProps),
-                                },
-                            }
-                        })}
+                        willLeave={nodeWillLeave(springConfig)}
+                        styles={nodes.map(node => ({
+                            key: node.path,
+                            data: node,
+                            style: {
+                                scale: spring(1, springConfig),
+                                r: spring(node.r, springConfig),
+                                x: spring(node.x, springConfig),
+                                y: spring(node.y, springConfig),
+                                opacity: spring(1, springConfig),
+                                ...colorMotionSpring(node.color, springConfig),
+                            },
+                        }))}
                     >
-                        {interpolatedStyles => {
-                            return React.createElement(
+                        {interpolatedStyles =>
+                            React.createElement(
                                 containerTag,
                                 containerProps,
                                 children(
@@ -212,20 +221,15 @@ const BubblePlaceholders = ({
                                         interpolatedStyle.style.color = getInterpolatedColor(
                                             interpolatedStyle.style
                                         )
-
-                                        if (isInteractive && isZoomable) {
-                                            interpolatedStyle.zoom = () =>
-                                                zoomToNode(interpolatedStyle.data.path)
-                                        } else {
-                                            interpolatedStyle.zoom = noop
-                                        }
+                                        interpolatedStyle.onClick = nodeOnClick(
+                                            interpolatedStyle.data
+                                        )
 
                                         return interpolatedStyle
                                     }),
                                     { showTooltip, hideTooltip, theme }
                                 )
-                            )
-                        }}
+                            )}
                     </TransitionMotion>
                 )}
         </Container>
@@ -234,11 +238,8 @@ const BubblePlaceholders = ({
 
 BubblePlaceholders.propTypes = _.omit(bubblePropTypes, ignoreProps)
 
-export const BubblePlaceholdersDefaultProps = _.omit(bubbleDefaultProps, ignoreProps)
-
-BubblePlaceholders.defaultProps = BubblePlaceholdersDefaultProps
-
 const enhance = compose(
+    defaultProps(_.omit(bubbleDefaultProps, ignoreProps)),
     withHierarchy(),
     withDimensions(),
     withTheme(),
@@ -248,7 +249,9 @@ const enhance = compose(
         getIdentity: getAccessorFor(identity),
     })),
     withPropsOnChange(['width', 'height', 'padding'], ({ width, height, padding }) => ({
-        pack: pack().size([width, height]).padding(padding),
+        pack: pack()
+            .size([width, height])
+            .padding(padding),
     })),
     withStateHandlers(
         ({ currentNodePath = null }) => ({

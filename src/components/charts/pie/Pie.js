@@ -15,7 +15,7 @@ import defaultProps from 'recompose/defaultProps'
 import pure from 'recompose/pure'
 import { getInheritedColorGenerator } from '../../../lib/colors'
 import { getLabelGenerator } from '../../../lib/propertiesConverters'
-import { degreesToRadians, radiansToDegrees } from '../../../lib/arcUtils'
+import { degreesToRadians, radiansToDegrees } from '../../../lib/polar'
 import { withTheme, withDimensions, withColors } from '../../../hocs'
 import Container from '../Container'
 import SvgWrapper from '../SvgWrapper'
@@ -93,14 +93,14 @@ const Pie = ({
         linkHorizontalLength: radialLabelsLinkHorizontalLength,
         linkStrokeWidth: radialLabelsLinkStrokeWidth,
         textXOffset: radialLabelsTextXOffset,
-        textColor: getInheritedColorGenerator(radialLabelsTextColor, 'axis.textColor'),
+        textColor: getInheritedColorGenerator(radialLabelsTextColor, 'labels.textColor'),
         linkColor: getInheritedColorGenerator(radialLabelsLinkColor, 'axis.tickColor'),
     }
 
     const slicesLabelsProps = {
         label: getLabelGenerator(sliceLabel),
         skipAngle: slicesLabelsSkipAngle,
-        textColor: getInheritedColorGenerator(slicesLabelsTextColor, 'axis.textColor'),
+        textColor: getInheritedColorGenerator(slicesLabelsTextColor, 'labels.textColor'),
     }
 
     const radius = Math.min(width, height) / 2
@@ -114,7 +114,7 @@ const Pie = ({
 
     return (
         <Container isInteractive={isInteractive} theme={theme}>
-            {({ showTooltip, hideTooltip }) =>
+            {({ showTooltip, hideTooltip }) => (
                 <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
                     <Motion
                         style={{
@@ -175,26 +175,29 @@ const Pie = ({
                                             />
                                         )
                                     })}
-                                    {enableSlicesLabels &&
+                                    {enableSlicesLabels && (
                                         <PieSlicesLabels
                                             data={arcsData}
                                             radius={radius}
                                             innerRadius={interpolatingStyle.innerRadius}
                                             theme={theme}
                                             {...slicesLabelsProps}
-                                        />}
-                                    {enableRadialLabels &&
+                                        />
+                                    )}
+                                    {enableRadialLabels && (
                                         <PieRadialLabels
                                             data={arcsData}
                                             radius={radius}
                                             theme={theme}
                                             {...radialLabelsProps}
-                                        />}
+                                        />
+                                    )}
                                 </g>
                             )
                         }}
                     </Motion>
-                </SvgWrapper>}
+                </SvgWrapper>
+            )}
         </Container>
     )
 }

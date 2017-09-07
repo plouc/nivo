@@ -41,6 +41,8 @@ Several libraries already exist for React d3 integration, but just a few provide
 - Chord
     - [`<Chord />`](http://nivo.rocks/#/chord)
     - [`<ResponsiveChord />`](http://nivo.rocks/#/chord)
+    - [`<ChordCanvas />`](http://nivo.rocks/#/chord/canvas)
+    - [`<ResponsiveChordCanvas />`](http://nivo.rocks/#/chord/canvas)
 - HeatMap
     - [`<HeatMap />`](http://nivo.rocks/#/heatmap)
     - [`<ResponsiveHeatMap />`](http://nivo.rocks/#/heatmap)

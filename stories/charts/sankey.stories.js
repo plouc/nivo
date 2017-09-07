@@ -12,11 +12,9 @@ const commonProperties = {
     colors: 'd320b',
 }
 
-const stories = storiesOf('Sankey', module).addDecorator(story =>
-    <div className="wrapper">
-        {story()}
-    </div>
-)
+const stories = storiesOf('Sankey', module).addDecorator(story => (
+    <div className="wrapper">{story()}</div>
+))
 
 stories.add('default', () => <Sankey {...commonProperties} />)
 
@@ -24,12 +22,12 @@ stories.add('custom align (right)', () => <Sankey {...commonProperties} align="r
 
 stories.add('outside labels', () => <Sankey {...commonProperties} labelPosition="outside" />)
 
-stories.add('vertical labels', () =>
+stories.add('vertical labels', () => (
     <Sankey {...commonProperties} labelOrientation="vertical" labelPadding={20} />
-)
+))
 
-stories.add('nodes x padding', () =>
+stories.add('nodes x padding', () => (
     <Sankey {...commonProperties} nodePaddingX={6} nodeWidth={24} nodeBorderWidth={0} />
-)
+))
 
 stories.add('contracting links', () => <Sankey {...commonProperties} linkContract={10} />)

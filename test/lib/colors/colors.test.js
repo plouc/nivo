@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { rgb } from 'd3-color'
-import { getInheritedColorGenerator, getColorsGenerator } from '../../src/lib/colors'
+import { getInheritedColorGenerator, getColorsGenerator } from '../../../src/lib/colors'
 
 describe('getInheritedColorGenerator()', () => {
     it(`should return 'none' if 'none' provided`, () => {
@@ -27,7 +27,11 @@ describe('getInheritedColorGenerator()', () => {
         const color = '#FF0000'
 
         expect(typeof colorGenerator).toBe('function')
-        expect(colorGenerator({ color })).toEqual(rgb(color).darker(1).toString())
+        expect(colorGenerator({ color })).toEqual(
+            rgb(color)
+                .darker(1)
+                .toString()
+        )
     })
 
     it(`'inherit:darker(*)' should support floats`, () => {
@@ -35,7 +39,11 @@ describe('getInheritedColorGenerator()', () => {
         const color = '#FF0000'
 
         expect(typeof colorGenerator).toBe('function')
-        expect(colorGenerator({ color })).toEqual(rgb(color).darker(0.3).toString())
+        expect(colorGenerator({ color })).toEqual(
+            rgb(color)
+                .darker(0.3)
+                .toString()
+        )
     })
 
     it(`should return a function to use brighter 'data.color' if 'inherit:brighter(*)' provided`, () => {
@@ -43,7 +51,11 @@ describe('getInheritedColorGenerator()', () => {
         const color = '#FF0000'
 
         expect(typeof colorGenerator).toBe('function')
-        expect(colorGenerator({ color })).toEqual(rgb(color).brighter(1).toString())
+        expect(colorGenerator({ color })).toEqual(
+            rgb(color)
+                .brighter(1)
+                .toString()
+        )
     })
 
     it(`'inherit:brighter(*)' should support floats`, () => {
@@ -51,7 +63,11 @@ describe('getInheritedColorGenerator()', () => {
         const color = '#FF0000'
 
         expect(typeof colorGenerator).toBe('function')
-        expect(colorGenerator({ color })).toEqual(rgb(color).brighter(0.3).toString())
+        expect(colorGenerator({ color })).toEqual(
+            rgb(color)
+                .brighter(0.3)
+                .toString()
+        )
     })
 
     it(`should return directive if no match found`, () => {

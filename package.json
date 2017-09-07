@@ -1,6 +1,6 @@
 {
   "name": "nivo",
-  "version": "0.23.3",
+  "version": "0.26.3",
   "licenses": [
     {
       "type": "MIT",
@@ -30,10 +30,9 @@
     "d3-time-format": "^2.0.5",
     "d3-voronoi": "^1.1.2",
     "lodash": "^4.17.4",
-    "lodash-es": "^4.17.4",
     "prop-types": "^15.5.10",
     "react-measure": "^2.0.2",
-    "react-motion": "^0.5.0",
+    "react-motion": "^0.5.1",
     "recompose": "^0.25.0"
   },
   "devDependencies": {
@@ -62,15 +61,18 @@
     "babel-plugin-transform-es2015-template-literals": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
+    "clog-cli": "^1.0.0",
     "cross-env": "^5.0.5",
+    "enzyme": "^2.9.1",
     "gh-pages": "^1.0.0",
     "husky": "^0.14.3",
-    "jest": "^20.0.4",
-    "lint-staged": "^4.0.3",
-    "nivo-generators": "^0.8.0",
-    "prettier": "^1.5.3",
-    "react": "^15.4.1",
-    "react-dom": "^15.4.1",
+    "jest": "^21.0.1",
+    "lint-staged": "^4.1.0",
+    "nivo-generators": "0.9.3",
+    "prettier": "^1.6.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-test-renderer": "^15.6.1",
     "validate-commit-msg": "^2.14.0"
   },
   "peerDependencies": {
@@ -97,12 +99,14 @@
     "commitmsg": "validate-commit-msg",
     "storybook": "start-storybook -p 6006",
     "storybook:build": "build-storybook",
-    "storybook:publish": "npm run storybook:build && gh-pages -d storybook-static -r git@github.com:plouc/nivo.git -b gh-pages -e storybook"
+    "storybook:publish": "npm run storybook:build && gh-pages -d storybook-static -r git@github.com:plouc/nivo.git -b gh-pages -e storybook",
+    "changelog": "rm CHANGELOG.md && node scripts/generate-changelog.js"
   },
   "lint-staged": {
     "*.js": [
       "fmt",
-      "git add"
+      "git add",
+      "test"
     ]
   },
   "config": {

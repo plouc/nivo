@@ -7,4 +7,7 @@
  * file that was distributed with this source code.
  */
 export { default as Chord } from './Chord'
+export { default as ChordCanvas } from './ChordCanvas'
 export { default as ResponsiveChord } from './ResponsiveChord'
+export { default as ResponsiveChordCanvas } from './ResponsiveChordCanvas'
+export * from './props'

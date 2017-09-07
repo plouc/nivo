@@ -16,9 +16,9 @@ import withPropsOnChange from 'recompose/withPropsOnChange'
 import TableTooltip from '../../tooltip/TableTooltip'
 import Chip from '../../tooltip/Chip'
 
-const StreamSlicesItem = ({ slice, height, showTooltip, hideTooltip, isHover }) =>
+const StreamSlicesItem = ({ slice, height, showTooltip, hideTooltip, isHover }) => (
     <g transform={`translate(${slice.x}, 0)`}>
-        {isHover &&
+        {isHover && (
             <line
                 x1={0}
                 x2={0}
@@ -27,7 +27,8 @@ const StreamSlicesItem = ({ slice, height, showTooltip, hideTooltip, isHover }) 
                 stroke="#000"
                 strokeOpacity={0.35}
                 strokeWidth={1}
-            />}
+            />
+        )}
         <rect
             x={-20}
             width={40}
@@ -39,6 +40,7 @@ const StreamSlicesItem = ({ slice, height, showTooltip, hideTooltip, isHover }) 
             onMouseLeave={hideTooltip}
         />
     </g>
+)
 
 StreamSlicesItem.propTypes = {
     slice: PropTypes.object.isRequired,
