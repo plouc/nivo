@@ -169,7 +169,8 @@ const CartesianMarkersItem = ({
     scale,
     value,
     theme,
-    style,
+    lineStyle,
+    textStyle,
     legend,
     legendPosition,
     legendOffsetX,
@@ -205,6 +206,7 @@ const CartesianMarkersItem = ({
                 transform={`translate(${legendProps.x}, ${legendProps.y}) rotate(${legendProps.rotation})`}
                 textAnchor={legendProps.textAnchor}
                 alignmentBaseline="central"
+                style={textStyle}
             >
                 {legend}
             </text>
@@ -220,7 +222,7 @@ const CartesianMarkersItem = ({
                 y2={y2}
                 stroke={theme.markers.lineColor}
                 strokeWidth={theme.markers.lineStrokeWidth}
-                style={style}
+                style={lineStyle}
             />
             {legendNode}
         </g>
@@ -234,7 +236,8 @@ CartesianMarkersItem.propTypes = {
     axis: PropTypes.oneOf(['x', 'y']).isRequired,
     scale: PropTypes.func.isRequired,
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-    style: PropTypes.object,
+    lineStyle: PropTypes.object,
+    textStyle: PropTypes.object,
 
     legend: PropTypes.string,
     legendPosition: PropTypes.oneOf([

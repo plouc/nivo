@@ -12,9 +12,8 @@ import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
 import { withTheme, withColors, withDimensions, withMotion } from '../../../hocs'
 import { getInheritedColorGenerator } from '../../../lib/colors'
-import { getAccessorFor } from '../../../lib/propertiesConverters'
+import { getAccessorFor, getLabelGenerator } from '../../../lib/propertiesConverters'
 import { BarDefaultProps } from './props'
-import { getLabelGenerator } from '../../../lib/propertiesConverters'
 
 export default Component =>
     compose(
@@ -26,11 +25,14 @@ export default Component =>
         withPropsOnChange(['indexBy'], ({ indexBy }) => ({
             getIndex: getAccessorFor(indexBy),
         })),
-        withPropsOnChange(['labelsTextColor'], ({ labelsTextColor }) => ({
-            getLabelsTextColor: getInheritedColorGenerator(labelsTextColor, 'axis.textColor'),
+        withPropsOnChange(['label', 'labelFormat'], ({ label, labelFormat }) => ({
+            getLabel: getLabelGenerator(label, labelFormat),
         })),
-        withPropsOnChange(['labelsLinkColor'], ({ labelsLinkColor }) => ({
-            getLabelsLinkColor: getInheritedColorGenerator(labelsLinkColor, 'axis.tickColor'),
+        withPropsOnChange(['labelTextColor'], ({ labelTextColor }) => ({
+            getLabelTextColor: getInheritedColorGenerator(labelTextColor, 'axis.textColor'),
+        })),
+        withPropsOnChange(['labelLinkColor'], ({ labelLinkColor }) => ({
+            getLabelLinkColor: getInheritedColorGenerator(labelLinkColor, 'axis.tickColor'),
         })),
         withPropsOnChange(['label', 'labelFormat'], ({ label, labelFormat }) => ({
             getLabel: getLabelGenerator(label, labelFormat),

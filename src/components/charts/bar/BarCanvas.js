@@ -60,8 +60,10 @@ class BarCanvas extends Component {
 
             // layout
             layout,
+            reverse,
             groupMode,
             padding,
+            innerPadding,
 
             // axes
             axisTop,
@@ -80,6 +82,7 @@ class BarCanvas extends Component {
 
         const options = {
             layout,
+            reverse,
             data,
             getIndex,
             keys,
@@ -89,6 +92,7 @@ class BarCanvas extends Component {
             height,
             getColor,
             padding,
+            innerPadding,
         }
 
         const result =

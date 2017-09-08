@@ -8,6 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import noop from '../../../lib/noop'
+import BarItem from './BarItem'
 
 export const BarPropTypes = {
     // data
@@ -18,10 +19,12 @@ export const BarPropTypes = {
 
     groupMode: PropTypes.oneOf(['stacked', 'grouped']).isRequired,
     layout: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
+    reverse: PropTypes.bool.isRequired,
 
-    minValue: PropTypes.number.isRequired,
+    minValue: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]).isRequired,
     maxValue: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]).isRequired,
     padding: PropTypes.number.isRequired,
+    innerPadding: PropTypes.number.isRequired,
 
     // axes & grid
     axisTop: PropTypes.object,
@@ -31,20 +34,24 @@ export const BarPropTypes = {
     enableGridX: PropTypes.bool.isRequired,
     enableGridY: PropTypes.bool.isRequired,
 
+    // customization
+    barComponent: PropTypes.func.isRequired,
+
     // labels
-    enableLabels: PropTypes.bool.isRequired,
-    labelsTextColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
-    getLabelsTextColor: PropTypes.func.isRequired, // computed
-    labelsLinkColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
-    getLabelsLinkColor: PropTypes.func.isRequired, // computed
+    enableLabel: PropTypes.bool.isRequired,
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
-    labelFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
-    getLabel: PropTypes.func,
-    // interactions
-    onClick: PropTypes.func,
+    labelFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    getLabel: PropTypes.func.isRequired, // computed
+    labelSkipWidth: PropTypes.number.isRequired,
+    labelSkipHeight: PropTypes.number.isRequired,
+    labelTextColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    getLabelTextColor: PropTypes.func.isRequired, // computed
+    labelLinkColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    getLabelLinkColor: PropTypes.func.isRequired, // computed
 
     // theming
-    getColor: PropTypes.func.isRequired,
+    borderRadius: PropTypes.number.isRequired,
+    getColor: PropTypes.func.isRequired, // computed
 
     // interactivity
     isInteractive: PropTypes.bool,
@@ -60,10 +67,14 @@ export const BarDefaultProps = {
 
     groupMode: 'stacked',
     layout: 'vertical',
+    reverse: false,
 
-    minValue: 0,
+    minValue: 'auto',
     maxValue: 'auto',
     padding: 0.1,
+    innerPadding: 0,
+
+    borderRadius: 0,
 
     // axes & grid
     axisBottom: {},
@@ -71,11 +82,17 @@ export const BarDefaultProps = {
     enableGridX: false,
     enableGridY: true,
 
+    // customization
+    barComponent: BarItem,
+
     // labels
-    enableLabels: true,
-    labelsLinkColor: 'theme',
-    labelsTextColor: 'theme',
+    enableLabel: true,
     label: 'value',
+    labelSkipWidth: 0,
+    labelSkipHeight: 0,
+    labelLinkColor: 'theme',
+    labelTextColor: 'theme',
+
     // interactivity
     isInteractive: true,
     onClick: noop,

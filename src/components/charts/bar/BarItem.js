@@ -19,10 +19,17 @@ const BarItem = ({
     y,
     width,
     height,
+    borderRadius,
     color,
+
+    label,
+    shouldRenderLabel,
+    labelColor,
+
     showTooltip,
     hideTooltip,
     onClick,
+
     theme,
 }) => {
     const handleTooltip = e =>
@@ -38,17 +45,33 @@ const BarItem = ({
         )
 
     return (
-        <rect
-            x={x}
-            y={y}
-            width={width}
-            height={height}
-            fill={color}
-            onMouseEnter={handleTooltip}
-            onMouseMove={handleTooltip}
-            onMouseLeave={hideTooltip}
-            onClick={onClick}
-        />
+        <g transform={`translate(${x}, ${y})`}>
+            <rect
+                width={width}
+                height={height}
+                rx={borderRadius}
+                ry={borderRadius}
+                fill={color}
+                onMouseEnter={handleTooltip}
+                onMouseMove={handleTooltip}
+                onMouseLeave={hideTooltip}
+                onClick={onClick}
+            />
+            {shouldRenderLabel && (
+                <text
+                    x={width / 2}
+                    y={height / 2}
+                    textAnchor="middle"
+                    alignmentBaseline="central"
+                    style={{
+                        pointerEvents: 'none',
+                        fill: labelColor,
+                    }}
+                >
+                    {label}
+                </text>
+            )}
+        </g>
     )
 }
 
@@ -64,6 +87,11 @@ BarItem.propTypes = {
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
     color: PropTypes.string.isRequired,
+    borderRadius: PropTypes.number.isRequired,
+
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    shouldRenderLabel: PropTypes.bool.isRequired,
+    labelColor: PropTypes.string.isRequired,
 
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
@@ -75,7 +103,7 @@ BarItem.propTypes = {
 
 const enhance = compose(
     withPropsOnChange(['data', 'onClick'], ({ data, onClick }) => ({
-        onClick: () => onClick(data),
+        onClick: event => onClick(data, event),
     })),
     pure
 )

@@ -16,8 +16,6 @@ import SvgWrapper from '../SvgWrapper'
 import Grid from '../../axes/Grid'
 import CartesianMarkers from '../../cartesian/markers/CartesianMarkers'
 import Axes from '../../axes/Axes'
-import BarItem from './BarItem'
-import BarItemLabel from './BarItemLabel'
 
 const barWillEnterHorizontal = ({ style }) => ({
     x: style.x.val,
@@ -54,6 +52,7 @@ const Bar = ({
 
     groupMode,
     layout,
+    reverse,
     minValue,
     maxValue,
 
@@ -63,6 +62,7 @@ const Bar = ({
     outerWidth,
     outerHeight,
     padding,
+    innerPadding,
 
     // axes & grid
     axisTop,
@@ -72,13 +72,15 @@ const Bar = ({
     enableGridX,
     enableGridY,
 
+    // customization
+    barComponent,
+
     // labels
-    enableLabels,
-    getLabelsLinkColor,
-    getLabelsTextColor,
-    label,
-    labelFormat,
+    enableLabel,
     getLabel,
+    labelSkipWidth,
+    labelSkipHeight,
+    getLabelTextColor,
 
     // markers
     markers,
@@ -86,6 +88,7 @@ const Bar = ({
     // theming
     theme,
     getColor,
+    borderRadius,
 
     // motion
     animate,
@@ -98,6 +101,7 @@ const Bar = ({
 }) => {
     const options = {
         layout,
+        reverse,
         data,
         getIndex,
         keys,
@@ -107,7 +111,10 @@ const Bar = ({
         height,
         getColor,
         padding,
+        innerPadding,
     }
+    const result =
+        groupMode === 'grouped' ? generateGroupedBars(options) : generateStackedBars(options)
 
     const motionProps = {
         animate,
@@ -120,17 +127,33 @@ const Bar = ({
         stiffness: motionStiffness,
     }
 
-    const result =
-        groupMode === 'grouped' ? generateGroupedBars(options) : generateStackedBars(options)
-    let willEnter = layout === 'vertical' ? barWillEnterVertical : barWillEnterHorizontal
-    let willLeave =
+    const willEnter = layout === 'vertical' ? barWillEnterVertical : barWillEnterHorizontal
+    const willLeave =
         layout === 'vertical'
             ? barWillLeaveVertical(springConfig)
             : barWillLeaveHorizontal(springConfig)
 
+    const shouldRenderLabel = ({ width, height }) => {
+        if (!enableLabel) return false
+        if (labelSkipWidth > 0 && width < labelSkipWidth) return false
+        if (labelSkipHeight > 0 && height < labelSkipHeight) return false
+        return true
+    }
+
     return (
         <Container isInteractive={isInteractive} theme={theme}>
             {({ showTooltip, hideTooltip }) => {
+                const commonProps = {
+                    borderRadius,
+                    enableLabel,
+                    labelSkipWidth,
+                    labelSkipHeight,
+                    showTooltip,
+                    hideTooltip,
+                    onClick,
+                    theme,
+                }
+
                 let bars
                 if (animate === true) {
                     bars = (
@@ -150,34 +173,35 @@ const Bar = ({
                         >
                             {interpolatedStyles => (
                                 <g>
-                                    {interpolatedStyles.map(({ key, style, data }) => (
-                                        <BarItem
-                                            key={key}
-                                            {...data}
-                                            {...style}
-                                            width={Math.max(style.width, 0)}
-                                            height={Math.max(style.height, 0)}
-                                            showTooltip={showTooltip}
-                                            hideTooltip={hideTooltip}
-                                            onClick={onClick}
-                                            theme={theme}
-                                        />
-                                    ))}
+                                    {interpolatedStyles.map(({ key, style, data: bar }) => {
+                                        const baseProps = { ...bar, ...style }
+
+                                        return React.createElement(barComponent, {
+                                            key,
+                                            ...baseProps,
+                                            ...commonProps,
+                                            shouldRenderLabel: shouldRenderLabel(baseProps),
+                                            width: Math.max(style.width, 0),
+                                            height: Math.max(style.height, 0),
+                                            label: getLabel(bar.data),
+                                            labelColor: getLabelTextColor(baseProps, theme),
+                                        })
+                                    })}
                                 </g>
                             )}
                         </TransitionMotion>
                     )
                 } else {
-                    bars = result.bars.map(d => (
-                        <BarItem
-                            key={d.key}
-                            {...d}
-                            showTooltip={showTooltip}
-                            hideTooltip={hideTooltip}
-                            onClick={onClick}
-                            theme={theme}
-                        />
-                    ))
+                    bars = result.bars.map(d =>
+                        React.createElement(barComponent, {
+                            key: d.key,
+                            ...d,
+                            ...commonProps,
+                            label: getLabel(d),
+                            shouldRenderLabel: shouldRenderLabel(d),
+                            labelColor: getLabelTextColor(d, theme),
+                        })
+                    )
                 }
 
                 return (
@@ -189,14 +213,6 @@ const Bar = ({
                             xScale={enableGridX ? result.xScale : null}
                             yScale={enableGridY ? result.yScale : null}
                             {...motionProps}
-                        />
-                        <CartesianMarkers
-                            markers={markers}
-                            width={width}
-                            height={height}
-                            xScale={result.xScale}
-                            yScale={result.yScale}
-                            theme={theme}
                         />
                         <Axes
                             xScale={result.xScale}
@@ -211,15 +227,14 @@ const Bar = ({
                             {...motionProps}
                         />
                         {bars}
-                        {enableLabels &&
-                            result.bars.map(d => (
-                                <BarItemLabel
-                                    {...d}
-                                    getLabel={getLabel}
-                                    textColor={getLabelsTextColor(d, theme)}
-                                    linkColor={getLabelsLinkColor(d, theme)}
-                                />
-                            ))}
+                        <CartesianMarkers
+                            markers={markers}
+                            width={width}
+                            height={height}
+                            xScale={result.xScale}
+                            yScale={result.yScale}
+                            theme={theme}
+                        />
                     </SvgWrapper>
                 )
             }}

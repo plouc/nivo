@@ -107,14 +107,14 @@ stories.add('with markers', () => (
             {
                 axis: 'y',
                 value: 100,
-                style: { stroke: '#b0413e', strokeWidth: 2 },
+                lineStyle: { stroke: '#b0413e', strokeWidth: 2 },
                 legend: 'y marker',
                 legendOrientation: 'vertical',
             },
             {
                 axis: 'x',
                 value: data[0].data[5].x,
-                style: { stroke: '#b0413e', strokeWidth: 2 },
+                lineStyle: { stroke: '#b0413e', strokeWidth: 2 },
                 legend: 'x marker',
             },
         ]}
@@ -128,7 +128,7 @@ stories.add('with custom min/max Y', () => (
             {
                 axis: 'y',
                 value: 0,
-                style: { stroke: '#b0413e', strokeWidth: 1 },
+                lineStyle: { stroke: '#b0413e', strokeWidth: 1 },
                 legend: 'y marker at 0',
                 legendPosition: 'bottom-left',
             },
