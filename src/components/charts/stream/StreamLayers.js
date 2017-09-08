@@ -14,12 +14,16 @@ import BasicTooltip from '../../tooltip/BasicTooltip'
 
 const StreamLayers = ({
     layers,
-    fillOpacity,
 
+    // styling
+    fillOpacity,
+    borderWidth,
+    getBorderColor,
+    theme,
+
+    // interactivity
     showTooltip,
     hideTooltip,
-
-    theme,
 
     // motion
     animate,
@@ -29,12 +33,15 @@ const StreamLayers = ({
     if (animate !== true) {
         return (
             <g>
-                {layers.map(({ id, path, color }, i) => {
+                {layers.map((layer, i) => {
+                    const { id, path, color } = layer
+
                     const handleTooltip = e =>
                         showTooltip(
                             <BasicTooltip id={id} enableChip={true} color={color} theme={theme} />,
                             e
                         )
+
                     return (
                         <path
                             key={i}
@@ -44,6 +51,8 @@ const StreamLayers = ({
                             d={path}
                             fill={color}
                             fillOpacity={fillOpacity}
+                            stroke={getBorderColor(layer)}
+                            strokeWidth={borderWidth}
                         />
                     )
                 })}
@@ -58,12 +67,15 @@ const StreamLayers = ({
 
     return (
         <g>
-            {layers.map(({ id, path, color }, i) => {
+            {layers.map((layer, i) => {
+                const { id, path, color } = layer
+
                 const handleTooltip = e =>
                     showTooltip(
                         <BasicTooltip id={id} enableChip={true} color={color} theme={theme} />,
                         e
                     )
+
                 return (
                     <SmartMotion
                         key={i}
@@ -79,6 +91,8 @@ const StreamLayers = ({
                                 onMouseEnter={handleTooltip}
                                 onMouseLeave={hideTooltip}
                                 {...style}
+                                stroke={getBorderColor(layer)}
+                                strokeWidth={borderWidth}
                             />
                         )}
                     </SmartMotion>
@@ -90,7 +104,8 @@ const StreamLayers = ({
 
 StreamLayers.propTypes = {
     fillOpacity: PropTypes.number.isRequired,
-
+    borderWidth: PropTypes.number.isRequired,
+    getBorderColor: PropTypes.func.isRequired,
     theme: PropTypes.object.isRequired,
 
     // motion

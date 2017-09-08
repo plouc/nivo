@@ -164,10 +164,10 @@ const Bar = ({
                                 key: bar.key,
                                 data: bar,
                                 style: {
-                                    x: spring(bar.x, motionProps),
-                                    y: spring(bar.y, motionProps),
-                                    width: spring(bar.width, motionProps),
-                                    height: spring(bar.height, motionProps),
+                                    x: spring(bar.x, springConfig),
+                                    y: spring(bar.y, springConfig),
+                                    width: spring(bar.width, springConfig),
+                                    height: spring(bar.height, springConfig),
                                 },
                             }))}
                         >

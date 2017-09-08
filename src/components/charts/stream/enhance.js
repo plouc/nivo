@@ -16,7 +16,7 @@ import pure from 'recompose/pure'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import { stackOrderFromProp, stackOffsetFromProp } from '../../../props'
 import { withTheme, withCurve, withDimensions, withMotion } from '../../../hocs'
-import { getColorRange } from '../../../lib/colors'
+import { getColorRange, getInheritedColorGenerator } from '../../../lib/colors'
 import { StreamDefaultProps } from './props'
 
 const stackMin = layers => min(layers.reduce((acc, layer) => [...acc, ...layer.map(d => d[0])], []))
@@ -39,6 +39,9 @@ export default Component =>
         withPropsOnChange(['colors'], ({ colors }) => ({
             getColor: getColorRange(colors),
         })),
+        withPropsOnChange(['borderColor'], ({ borderColor }) => ({
+            getBorderColor: getInheritedColorGenerator(borderColor),
+        })),
         withPropsOnChange(['keys', 'offsetType', 'order'], ({ keys, offsetType, order }) => ({
             stack: d3Stack()
                 .keys(keys)
@@ -48,6 +51,7 @@ export default Component =>
         withPropsOnChange(
             ['stack', 'data', 'width', 'height'],
             ({ stack, data, width, height }) => {
+                console.log('compute')
                 const layers = stack(data)
                 layers.forEach(layer => {
                     layer.forEach(point => {

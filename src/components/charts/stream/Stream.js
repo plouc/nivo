@@ -40,10 +40,12 @@ const Stream = ({
     enableGridX,
     enableGridY,
 
-    // theming
+    // styling
     theme,
     getColor,
     fillOpacity,
+    borderWidth,
+    getBorderColor,
 
     // motion
     animate,
@@ -107,6 +109,8 @@ const Stream = ({
                     <StreamLayers
                         layers={enhancedLayers}
                         fillOpacity={fillOpacity}
+                        borderWidth={borderWidth}
+                        getBorderColor={getBorderColor}
                         showTooltip={showTooltip}
                         hideTooltip={hideTooltip}
                         theme={theme}

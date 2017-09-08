@@ -31,10 +31,15 @@ export const StreamPropTypes = {
     enableGridX: PropTypes.bool.isRequired,
     enableGridY: PropTypes.bool.isRequired,
 
+    // border
+    borderWidth: PropTypes.number.isRequired,
+    borderColor: PropTypes.any.isRequired,
+    getBorderColor: PropTypes.func.isRequired, // computed
+
     // theming
     colors: PropTypes.any.isRequired,
     fillOpacity: PropTypes.number.isRequired,
-    getColor: PropTypes.func.isRequired,
+    getColor: PropTypes.func.isRequired, // computed
 
     // interactivity
     isInteractive: PropTypes.bool,
@@ -52,6 +57,9 @@ export const StreamDefaultProps = {
     axisBottom: {},
     enableGridX: true,
     enableGridY: false,
+
+    borderWidth: 3,
+    borderColor: 'inherit:darker(1)',
 
     // theming
     colors: 'nivo',
