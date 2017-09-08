@@ -1,11 +1,23 @@
+<a name="v0.27.0"></a>
+## v0.27.0 (2017-09-08)
+
+
+#### Features
+
+* **bar**
+  *  improve bar components: ([640debc7](https://github.com/plouc/nivo/commit/640debc76de229261d9d9845c10aac18877578be))
+  *  add label format support for Bar (#45) ([c5a63c95](https://github.com/plouc/nivo/commit/c5a63c9517d4d0cfafd07df19800f9373e8db479))
+
+
+
 <a name="v0.26.3"></a>
-## v0.26.3 (2017-09-07)
+## v0.26.3 (2017-09-08)
 
 
 
 
 <a name="v0.26.2"></a>
-## v0.26.2 (2017-09-07)
+## v0.26.2 (2017-09-08)
 
 
 #### Bug Fixes
@@ -15,7 +27,7 @@
 
 
 <a name="v0.26.1"></a>
-## v0.26.1 (2017-09-07)
+## v0.26.1 (2017-09-08)
 
 
 #### Features
@@ -25,7 +37,7 @@
 
 
 <a name="v0.26.0"></a>
-## v0.26.0 (2017-09-07)
+## v0.26.0 (2017-09-08)
 
 
 #### Features
@@ -42,7 +54,7 @@
 
 
 <a name="v0.25.0"></a>
-## v0.25.0 (2017-09-07)
+## v0.25.0 (2017-09-08)
 
 
 #### Features
@@ -52,7 +64,7 @@
 
 
 <a name="v0.24.0"></a>
-## v0.24.0 (2017-09-07)
+## v0.24.0 (2017-09-08)
 
 
 #### Features
@@ -64,7 +76,7 @@
 
 
 <a name="v0.23.4"></a>
-## v0.23.4 (2017-09-07)
+## v0.23.4 (2017-09-08)
 
 
 #### Features
@@ -77,7 +89,7 @@
 
 
 <a name="v0.23.3"></a>
-## v0.23.3 (2017-09-07)
+## v0.23.3 (2017-09-08)
 
 
 #### Bug Fixes
@@ -87,7 +99,7 @@
 
 
 <a name="v0.23.2"></a>
-## v0.23.2 (2017-09-07)
+## v0.23.2 (2017-09-08)
 
 
 #### Features
@@ -97,7 +109,7 @@
 
 
 <a name="v0.23.1"></a>
-## v0.23.1 (2017-09-07)
+## v0.23.1 (2017-09-08)
 
 
 #### Features
@@ -108,7 +120,7 @@
 
 
 <a name="v0.23.0"></a>
-## v0.23.0 (2017-09-07)
+## v0.23.0 (2017-09-08)
 
 
 #### Bug Fixes
@@ -122,13 +134,13 @@
 
 
 <a name="v0.22.1"></a>
-## v0.22.1 (2017-09-07)
+## v0.22.1 (2017-09-08)
 
 
 
 
 <a name="v0.22.0"></a>
-## v0.22.0 (2017-09-07)
+## v0.22.0 (2017-09-08)
 
 
 #### Features
@@ -138,13 +150,13 @@
 
 
 <a name="v0.21.0"></a>
-## v0.21.0 (2017-09-07)
+## v0.21.0 (2017-09-08)
 
 
 
 
 <a name="v0.20.0"></a>
-## v0.20.0 (2017-09-07)
+## v0.20.0 (2017-09-08)
 
 
 #### Features
@@ -162,7 +174,7 @@
 
 
 <a name="v0.19.0"></a>
-## v0.19.0 (2017-09-07)
+## v0.19.0 (2017-09-08)
 
 
 #### Bug Fixes
@@ -172,7 +184,7 @@
 
 
 <a name="v0.18.0"></a>
-## v0.18.0 (2017-09-07)
+## v0.18.0 (2017-09-08)
 
 
 #### Features
@@ -189,13 +201,13 @@
 
 
 <a name="v0.17.0"></a>
-## v0.17.0 (2017-09-07)
+## v0.17.0 (2017-09-08)
 
 
 
 
 <a name="v0.16.0"></a>
-## v0.16.0 (2017-09-07)
+## v0.16.0 (2017-09-08)
 
 
 #### Features
@@ -206,7 +218,7 @@
 
 
 <a name="v0.15.0"></a>
-## v0.15.0 (2017-09-07)
+## v0.15.0 (2017-09-08)
 
 
 #### Features
@@ -216,7 +228,7 @@
 
 
 <a name="v0.14.0"></a>
-## v0.14.0 (2017-09-07)
+## v0.14.0 (2017-09-08)
 
 
 #### Features
@@ -226,7 +238,7 @@
 
 
 <a name="v0.13.0"></a>
-## v0.13.0 (2017-09-07)
+## v0.13.0 (2017-09-08)
 
 
 #### Features
@@ -236,7 +248,7 @@
 
 
 <a name="v0.12.0"></a>
-## v0.12.0 (2017-09-07)
+## v0.12.0 (2017-09-08)
 
 
 #### Features
@@ -250,6 +262,8 @@
   *  add AxisX component ([91399e6b](https://github.com/plouc/nivo/commit/91399e6bea18da6517789a0d76e0c0f3601b58bb))
 * **axis**  improve axis formatting support ([69269a60](https://github.com/plouc/nivo/commit/69269a6072314cb04cb300cd55602af8ccabaf3e))
 * **bar**
+  *  improve bar components: ([640debc7](https://github.com/plouc/nivo/commit/640debc76de229261d9d9845c10aac18877578be))
+  *  add label format support for Bar (#45) ([c5a63c95](https://github.com/plouc/nivo/commit/c5a63c9517d4d0cfafd07df19800f9373e8db479))
   *  add ability to define bar chart min/max value ([d9b9bdae](https://github.com/plouc/nivo/commit/d9b9bdaeff03cd16092bad47b34a0e570ce10c76))
   *  add tooltip support for BarCanvas ([946bb066](https://github.com/plouc/nivo/commit/946bb0661dad4bec32ddaa9d097f249bfb8a1bf6))
   *  add support for horizontal layout & change data format ([29a4b350](https://github.com/plouc/nivo/commit/29a4b350341c3745691509bc4f81c9eac74d36ee))
