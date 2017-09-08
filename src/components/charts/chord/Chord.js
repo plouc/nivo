@@ -25,12 +25,14 @@ const Chord = ({
 
     // arcs
     arcBorderWidth,
+    getArcBorderColor,
 
     // ribbons
     ribbonBorderWidth,
+    getRibbonBorderColor,
 
     // labels
-    enableLabels,
+    enableLabel,
     getLabel, // computed
     labelOffset,
     labelRotation,
@@ -77,6 +79,7 @@ const Chord = ({
                                 ribbons={ribbons}
                                 shapeGenerator={ribbonGenerator}
                                 borderWidth={ribbonBorderWidth}
+                                getBorderColor={getRibbonBorderColor}
                                 getOpacity={getRibbonOpacity}
                                 setCurrent={setCurrentRibbon}
                                 theme={theme}
@@ -88,6 +91,7 @@ const Chord = ({
                                 arcs={arcs}
                                 shapeGenerator={arcGenerator}
                                 borderWidth={arcBorderWidth}
+                                getBorderColor={getArcBorderColor}
                                 getOpacity={getArcOpacity}
                                 setCurrent={setCurrentArc}
                                 theme={theme}
@@ -95,7 +99,7 @@ const Chord = ({
                                 hideTooltip={hideTooltip}
                                 {...motionProps}
                             />
-                            {enableLabels && (
+                            {enableLabel && (
                                 <ChordLabels
                                     arcs={arcs}
                                     radius={radius + labelOffset}

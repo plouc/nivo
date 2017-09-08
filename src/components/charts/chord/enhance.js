@@ -147,5 +147,11 @@ export default Component =>
                 return { ribbons, arcs }
             }
         ),
+        withPropsOnChange(['arcBorderColor'], ({ arcBorderColor }) => ({
+            getArcBorderColor: getInheritedColorGenerator(arcBorderColor),
+        })),
+        withPropsOnChange(['ribbonBorderColor'], ({ ribbonBorderColor }) => ({
+            getRibbonBorderColor: getInheritedColorGenerator(ribbonBorderColor),
+        })),
         pure
     )(Component)

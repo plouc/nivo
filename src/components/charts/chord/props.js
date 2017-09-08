@@ -19,13 +19,17 @@ export const ChordPropTypes = {
     // arcs
     arcOpacity: PropTypes.number.isRequired,
     arcBorderWidth: PropTypes.number.isRequired,
+    arcBorderColor: PropTypes.any.isRequired,
+    getArcBorderColor: PropTypes.func.isRequired,
 
     // ribbons
     ribbonOpacity: PropTypes.number.isRequired,
     ribbonBorderWidth: PropTypes.number.isRequired,
+    ribbonBorderColor: PropTypes.any.isRequired,
+    getRibbonBorderColor: PropTypes.func.isRequired,
 
     // labels
-    enableLabels: PropTypes.bool.isRequired,
+    enableLabel: PropTypes.bool.isRequired,
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     getLabel: PropTypes.func.isRequired, // computed
     labelOffset: PropTypes.number.isRequired,
@@ -55,13 +59,15 @@ export const ChordDefaultProps = {
     // arcs
     arcOpacity: 1,
     arcBorderWidth: 1,
+    arcBorderColor: 'inherit:darker(0.4)',
 
     // ribbons
     ribbonOpacity: 0.5,
     ribbonBorderWidth: 1,
+    ribbonBorderColor: 'inherit:darker(0.4)',
 
     // labels
-    enableLabels: true,
+    enableLabel: true,
     label: 'id',
     labelOffset: 12,
     labelRotation: 0,

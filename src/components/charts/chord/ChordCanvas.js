@@ -52,7 +52,7 @@ class ChordCanvas extends Component {
             outerHeight,
 
             // labels
-            enableLabels,
+            enableLabel,
             getLabel, // computed
             labelOffset,
             labelRotation,
@@ -107,7 +107,7 @@ class ChordCanvas extends Component {
 
             this.ctx.restore()
 
-            if (enableLabels) {
+            if (enableLabel) {
                 const labelTextColor = getLabelTextColor(arc, theme)
                 const angle = midAngle(arc)
                 const props = getPolarLabelProps(radius + labelOffset, angle, labelRotation)

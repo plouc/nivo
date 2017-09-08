@@ -51,7 +51,6 @@ export default Component =>
         withPropsOnChange(
             ['stack', 'data', 'width', 'height'],
             ({ stack, data, width, height }) => {
-                console.log('compute')
                 const layers = stack(data)
                 layers.forEach(layer => {
                     layer.forEach(point => {

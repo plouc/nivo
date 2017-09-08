@@ -15,7 +15,8 @@ import ChordArcTooltip from './ChordArcTooltip'
 
 const ChordArcs = ({
     arcs,
-    arcBorderWidth,
+    borderWidth,
+    getBorderColor,
     getOpacity,
     shapeGenerator,
     theme,
@@ -32,7 +33,7 @@ const ChordArcs = ({
         const arcTooltip = <ChordArcTooltip arc={arc} theme={theme} />
 
         return {
-            strokeWidth: arcBorderWidth,
+            strokeWidth: borderWidth,
             onMouseEnter: e => {
                 setCurrent(arc)
                 showTooltip(arcTooltip, e)
@@ -59,7 +60,7 @@ const ChordArcs = ({
                             d={shapeGenerator(arc)}
                             fill={arc.color}
                             fillOpacity={opacity}
-                            stroke={arc.color}
+                            stroke={getBorderColor(arc)}
                             strokeOpacity={opacity}
                             {...commonProps(arc)}
                         />
@@ -104,7 +105,7 @@ const ChordArcs = ({
                                 })}
                                 fill={color}
                                 fillOpacity={style.opacity}
-                                stroke={color}
+                                stroke={getBorderColor({ ...arc, color })}
                                 strokeOpacity={style.opacity}
                                 {...commonProps(arc)}
                             />

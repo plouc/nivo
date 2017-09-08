@@ -79,7 +79,8 @@ const ribbonWillLeave = springConfig => ({ data: ribbon }) => ({
 const ChordRibbons = ({
     ribbons,
     shapeGenerator,
-    ribbonBorderWidth,
+    borderWidth,
+    getBorderColor,
     getOpacity,
     theme,
     setCurrent,
@@ -111,7 +112,7 @@ const ChordRibbons = ({
         )
 
         return {
-            strokeWidth: ribbonBorderWidth,
+            strokeWidth: borderWidth,
             onMouseEnter: e => {
                 setCurrent(ribbon)
                 showTooltip(ribbonTooltip, e)
@@ -138,7 +139,7 @@ const ChordRibbons = ({
                             d={shapeGenerator(ribbon)}
                             fill={ribbon.source.color}
                             fillOpacity={opacity}
-                            stroke={ribbon.source.color}
+                            stroke={getBorderColor({ ...ribbon, color: ribbon.source.color })}
                             strokeOpacity={opacity}
                             {...commonProps(ribbon)}
                         />
@@ -196,7 +197,7 @@ const ChordRibbons = ({
                                 })}
                                 fill={color}
                                 fillOpacity={style.opacity}
-                                stroke={color}
+                                stroke={getBorderColor({ ...ribbon, color })}
                                 strokeOpacity={style.opacity}
                                 {...commonProps(ribbon)}
                             />
@@ -212,6 +213,7 @@ ChordRibbons.propTypes = {
     ribbons: PropTypes.array.isRequired,
     shapeGenerator: PropTypes.func.isRequired,
     borderWidth: PropTypes.number.isRequired,
+    getBorderColor: PropTypes.func.isRequired,
     getOpacity: PropTypes.func.isRequired,
     setCurrent: PropTypes.func.isRequired,
     theme: PropTypes.object.isRequired,
