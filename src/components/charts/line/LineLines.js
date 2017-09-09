@@ -8,7 +8,6 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { merge, isEqual } from 'lodash'
 import pure from 'recompose/pure'
 import { motionPropTypes } from '../../../props'
 import SmartMotion from '../../SmartMotion'
@@ -16,6 +15,7 @@ import SmartMotion from '../../SmartMotion'
 const LineLines = ({
     lines,
     lineGenerator,
+    lineWidth,
 
     // motion
     animate,
@@ -30,7 +30,7 @@ const LineLines = ({
                         key={id}
                         d={lineGenerator(points)}
                         fill="none"
-                        strokeWidth={2}
+                        strokeWidth={lineWidth}
                         stroke={lineColor}
                     />
                 ))}
@@ -58,7 +58,7 @@ const LineLines = ({
                             key={id}
                             d={style.d}
                             fill="none"
-                            strokeWidth={2}
+                            strokeWidth={lineWidth}
                             stroke={style.stroke}
                         />
                     )}
@@ -69,6 +69,7 @@ const LineLines = ({
 }
 
 LineLines.propTypes = {
+    lineWidth: PropTypes.number.isRequired,
     // motion
     ...motionPropTypes,
 }

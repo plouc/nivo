@@ -7,14 +7,13 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import PropTypes from 'prop-types'
 import { sortBy } from 'lodash'
 import { line } from 'd3-shape'
 import compose from 'recompose/compose'
 import pure from 'recompose/pure'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import defaultProps from 'recompose/defaultProps'
-import { curveFromProp, lineCurvePropType } from '../../../props'
+import { curveFromProp } from '../../../props'
 import { getInheritedColorGenerator } from '../../../lib/colors'
 import { withTheme, withColors, withDimensions, withMotion } from '../../../hocs'
 import Container from '../Container'
@@ -31,6 +30,7 @@ import Grid from '../../axes/Grid'
 import LineLines from './LineLines'
 import LineSlices from './LineSlices'
 import LineDots from './LineDots'
+import { LinePropTypes, LineDefaultProps } from './props'
 
 const Line = ({
     lines,
@@ -53,6 +53,8 @@ const Line = ({
     axisLeft,
     enableGridX,
     enableGridY,
+
+    lineWidth,
 
     // dots
     enableDots,
@@ -121,7 +123,12 @@ const Line = ({
                         left={axisLeft}
                         {...motionProps}
                     />
-                    <LineLines lines={lines} lineGenerator={lineGenerator} {...motionProps} />
+                    <LineLines
+                        lines={lines}
+                        lineGenerator={lineGenerator}
+                        lineWidth={lineWidth}
+                        {...motionProps}
+                    />
                     {isInteractive &&
                     enableStackTooltip && (
                         <LineSlices
@@ -154,105 +161,7 @@ const Line = ({
     )
 }
 
-Line.propTypes = {
-    // data
-    data: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            data: PropTypes.arrayOf(
-                PropTypes.shape({
-                    x: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-                    y: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-                })
-            ).isRequired,
-        })
-    ).isRequired,
-
-    stacked: PropTypes.bool.isRequired,
-    curve: lineCurvePropType.isRequired,
-    lineGenerator: PropTypes.func.isRequired,
-
-    lines: PropTypes.array.isRequired,
-    slices: PropTypes.array.isRequired,
-
-    minY: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.oneOf(['auto'])])
-        .isRequired,
-    maxY: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.oneOf(['auto'])])
-        .isRequired,
-    xScale: PropTypes.func.isRequired, // computed
-    yScale: PropTypes.func.isRequired, // computed
-
-    // axes & grid
-    axisTop: PropTypes.object,
-    axisRight: PropTypes.object,
-    axisBottom: PropTypes.object,
-    axisLeft: PropTypes.object,
-    enableGridX: PropTypes.bool.isRequired,
-    enableGridY: PropTypes.bool.isRequired,
-
-    // dots
-    enableDots: PropTypes.bool.isRequired,
-    dotSymbol: PropTypes.func,
-    dotSize: PropTypes.number.isRequired,
-    dotColor: PropTypes.any.isRequired,
-    dotBorderWidth: PropTypes.number.isRequired,
-    dotBorderColor: PropTypes.any.isRequired,
-    enableDotLabel: PropTypes.bool.isRequired,
-
-    // markers
-    markers: PropTypes.arrayOf(
-        PropTypes.shape({
-            axis: PropTypes.oneOf(['x', 'y']).isRequired,
-            value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-            style: PropTypes.object,
-        })
-    ),
-
-    // theming
-    getColor: PropTypes.func.isRequired,
-
-    // interactivity
-    isInteractive: PropTypes.bool.isRequired,
-
-    // stack tooltip
-    enableStackTooltip: PropTypes.bool.isRequired,
-}
-
-export const LineDefaultProps = {
-    indexBy: 'id',
-    keys: ['value'],
-
-    stacked: false,
-    curve: 'linear',
-
-    // scales
-    minY: 0,
-    maxY: 'auto',
-
-    // axes & grid
-    axisBottom: {},
-    axisLeft: {},
-    enableGridX: true,
-    enableGridY: true,
-
-    // dots
-    enableDots: true,
-    dotSize: 6,
-    dotColor: 'inherit',
-    dotBorderWidth: 0,
-    dotBorderColor: 'inherit',
-    enableDotLabel: false,
-
-    // theming
-    colors: 'nivo',
-    colorBy: 'id',
-
-    // interactivity
-    isInteractive: true,
-
-    // stack tooltip
-    enableStackTooltip: true,
-}
+Line.propTypes = LinePropTypes
 
 const enhance = compose(
     defaultProps(LineDefaultProps),
