@@ -49,7 +49,7 @@ const StreamLayers = ({
                             onMouseEnter={handleTooltip}
                             onMouseLeave={hideTooltip}
                             d={path}
-                            fill={color}
+                            fill={layer.fill ? layer.fill : layer.color}
                             fillOpacity={fillOpacity}
                             stroke={getBorderColor(layer)}
                             strokeWidth={borderWidth}
@@ -91,6 +91,7 @@ const StreamLayers = ({
                                 onMouseEnter={handleTooltip}
                                 onMouseLeave={hideTooltip}
                                 {...style}
+                                fill={layer.fill ? layer.fill : style.fill}
                                 stroke={getBorderColor(layer)}
                                 strokeWidth={borderWidth}
                             />

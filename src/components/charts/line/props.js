@@ -63,9 +63,14 @@ export const LinePropTypes = {
         })
     ),
 
-    // theming
+    // styling
     getColor: PropTypes.func.isRequired,
     lineWidth: PropTypes.number.isRequired,
+    defs: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.string.isRequired,
+        })
+    ).isRequired,
 
     // interactivity
     isInteractive: PropTypes.bool.isRequired,
@@ -97,10 +102,11 @@ export const LineDefaultProps = {
     dotBorderColor: 'inherit',
     enableDotLabel: false,
 
-    // theming
+    // styling
     colors: 'nivo',
     colorBy: 'id',
     lineWidth: 2,
+    defs: [],
 
     // interactivity
     isInteractive: true,

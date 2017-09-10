@@ -15,13 +15,17 @@ Several libraries already exist for React d3 integration, but just a few provide
 - supports [d3 v4](https://github.com/d3/d3/blob/master/CHANGES.md)
 - [responsive charts](http://nivo.rocks/#/components?term=responsive) (`<Responsive* />` components)
 - highly customizable
-- motion/transitions, even the non-d3 based components (DOM managed by React) support transitions within the help of [react-motion](https://github.com/chenglou/react-motion)
+- motion/transitions, powered by [react-motion](https://github.com/chenglou/react-motion)
 - [component playground](http://nivo.rocks)
 - [exhaustive documentation](http://nivo.rocks)
 - isomorphic rendering
-- support for SVG and [HTML](http://nivo.rocks/#/components?term=html) and [canvas](http://nivo.rocks/#/components?term=canvas) (for a subset of components)
+- [SVG charts](http://nivo.rocks/#/components?filter=svg)
+- [HTML charts](http://nivo.rocks/#/components?filter=html) (for a restricted subset of components)
+- [Canvas charts](http://nivo.rocks/#/components?filter=canvas) (for a restricted subset of components)
 - [placeholder components](http://nivo.rocks/#/components?term=placeholder) for advanced customization (`<*Placeholders />` components)
 - [server side rendering API](https://github.com/plouc/nivo-api)
+- [SVG patterns](http://nivo.rocks/#/guides/patterns)
+- [Gradients](http://nivo.rocks/#/guides/gradients)
 
 ## Components
 

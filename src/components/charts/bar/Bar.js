@@ -8,6 +8,7 @@
  */
 import React from 'react'
 import { TransitionMotion, spring } from 'react-motion'
+import { bindDefs } from '../../../lib/defs'
 import { generateGroupedBars, generateStackedBars } from '../../../lib/charts/bar'
 import enhance from './enhance'
 import { BarPropTypes } from './props'
@@ -88,6 +89,8 @@ const Bar = ({
     // theming
     theme,
     getColor,
+    defs,
+    fill,
     borderRadius,
 
     // motion
@@ -139,6 +142,12 @@ const Bar = ({
         if (labelSkipHeight > 0 && height < labelSkipHeight) return false
         return true
     }
+
+    const boundDefs = bindDefs(defs, result.bars, fill, {
+        idKey: 'key',
+        dataKey: 'data',
+        targetKey: 'data.fill',
+    })
 
     return (
         <Container isInteractive={isInteractive} theme={theme}>
@@ -205,7 +214,12 @@ const Bar = ({
                 }
 
                 return (
-                    <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
+                    <SvgWrapper
+                        width={outerWidth}
+                        height={outerHeight}
+                        margin={margin}
+                        defs={boundDefs}
+                    >
                         <Grid
                             theme={theme}
                             width={width}

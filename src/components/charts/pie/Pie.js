@@ -7,22 +7,19 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import PropTypes from 'prop-types'
-import { merge } from 'lodash'
 import { Motion, TransitionMotion, spring } from 'react-motion'
-import compose from 'recompose/compose'
-import defaultProps from 'recompose/defaultProps'
-import pure from 'recompose/pure'
 import { getInheritedColorGenerator } from '../../../lib/colors'
 import { getLabelGenerator } from '../../../lib/propertiesConverters'
 import { degreesToRadians, radiansToDegrees } from '../../../lib/polar'
-import { withTheme, withDimensions, withColors } from '../../../hocs'
+import { bindDefs } from '../../../lib/defs'
 import Container from '../Container'
 import SvgWrapper from '../SvgWrapper'
 import { pie as d3Pie, arc as d3Arc } from 'd3-shape'
 import PieRadialLabels from './PieRadialLabels'
 import PieSlicesLabels from './PieSlicesLabels'
 import BasicTooltip from '../../tooltip/BasicTooltip'
+import { PiePropTypes } from './props'
+import enhance from './enhance'
 
 const Pie = ({
     data,
@@ -60,9 +57,11 @@ const Pie = ({
     slicesLabelsSkipAngle,
     slicesLabelsTextColor,
 
-    // theming
+    // styling
     theme,
     getColor,
+    defs,
+    fill,
 
     // motion
     animate,
@@ -112,10 +111,22 @@ const Pie = ({
     const arc = d3Arc()
     arc.outerRadius(radius)
 
+    const enhancedData = data.map(d => {
+        const color = getColor(d)
+        return { ...d, color }
+    })
+
+    const boundDefs = bindDefs(defs, enhancedData, fill)
+
     return (
         <Container isInteractive={isInteractive} theme={theme}>
             {({ showTooltip, hideTooltip }) => (
-                <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
+                <SvgWrapper
+                    width={outerWidth}
+                    height={outerHeight}
+                    margin={margin}
+                    defs={boundDefs}
+                >
                     <Motion
                         style={{
                             centerX: spring(centerX, motionProps),
@@ -131,17 +142,14 @@ const Pie = ({
                                 .cornerRadius(interpolatingStyle.cornerRadius)
                                 .innerRadius(interpolatingStyle.innerRadius)
 
-                            const arcsData = interpolatedPie(data).map(d => {
+                            const arcsData = interpolatedPie(enhancedData).map(d => {
                                 const angle = d.endAngle - d.startAngle
 
                                 return {
                                     ...d,
                                     angle,
                                     angleDegrees: radiansToDegrees(angle),
-                                    data: {
-                                        ...d.data,
-                                        color: getColor(d.data),
-                                    },
+                                    data: d.data,
                                 }
                             })
 
@@ -166,7 +174,7 @@ const Pie = ({
                                             <path
                                                 key={d.data.id}
                                                 d={interpolatedArc(d)}
-                                                fill={d.data.color}
+                                                fill={d.data.fill ? d.data.fill : d.data.color}
                                                 strokeWidth={borderWidth}
                                                 stroke={borderColor(d.data)}
                                                 onMouseEnter={handleTooltip}
@@ -202,75 +210,7 @@ const Pie = ({
     )
 }
 
-Pie.propTypes = {
-    data: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            value: PropTypes.number.isRequired,
-        })
-    ).isRequired,
-
-    innerRadius: PropTypes.number.isRequired,
-    padAngle: PropTypes.number.isRequired,
-    cornerRadius: PropTypes.number.isRequired,
-
-    // border
-    borderWidth: PropTypes.number.isRequired,
-    borderColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-
-    // radial labels
-    enableRadialLabels: PropTypes.bool.isRequired,
-    radialLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    radialLabelsSkipAngle: PropTypes.number,
-    radialLabelsTextXOffset: PropTypes.number,
-    radialLabelsTextColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    radialLabelsLinkOffset: PropTypes.number,
-    radialLabelsLinkDiagonalLength: PropTypes.number,
-    radialLabelsLinkHorizontalLength: PropTypes.number,
-    radialLabelsLinkStrokeWidth: PropTypes.number,
-    radialLabelsLinkColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-
-    // slices labels
-    enableSlicesLabels: PropTypes.bool.isRequired,
-    sliceLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    slicesLabelsSkipAngle: PropTypes.number,
-    slicesLabelsTextColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-
-    // interactivity
-    isInteractive: PropTypes.bool,
-}
-
-export const PieDefaultProps = {
-    innerRadius: 0,
-    padAngle: 0,
-    cornerRadius: 0,
-
-    // border
-    borderWidth: 0,
-    borderColor: 'inherit:darker(1)',
-
-    // radial labels
-    enableRadialLabels: true,
-    radialLabel: 'id',
-    radialLabelsTextColor: 'theme',
-    radialLabelsLinkColor: 'theme',
-
-    // slices labels
-    enableSlicesLabels: true,
-    sliceLabel: 'value',
-    slicesLabelsTextColor: 'theme',
-
-    // interactivity
-    isInteractive: true,
-}
-
-const enhance = compose(
-    defaultProps(PieDefaultProps),
-    withTheme(),
-    withDimensions(),
-    withColors(),
-    pure
-)
+Pie.propTypes = PiePropTypes
 
 const enhancedPie = enhance(Pie)
 enhancedPie.displayName = 'enhance(Pie)'

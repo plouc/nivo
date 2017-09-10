@@ -49,9 +49,21 @@ export const BarPropTypes = {
     labelLinkColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     getLabelLinkColor: PropTypes.func.isRequired, // computed
 
-    // theming
+    // styling
     borderRadius: PropTypes.number.isRequired,
     getColor: PropTypes.func.isRequired, // computed
+    defs: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.string.isRequired,
+        })
+    ).isRequired,
+    fill: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.string,
+            match: PropTypes.oneOfType([PropTypes.oneOf(['*']), PropTypes.object, PropTypes.func])
+                .isRequired,
+        })
+    ).isRequired,
 
     // interactivity
     isInteractive: PropTypes.bool,
@@ -92,6 +104,9 @@ export const BarDefaultProps = {
     labelSkipHeight: 0,
     labelLinkColor: 'theme',
     labelTextColor: 'theme',
+
+    defs: [],
+    fill: [],
 
     // interactivity
     isInteractive: true,

@@ -31,20 +31,28 @@ export const StreamPropTypes = {
     enableGridX: PropTypes.bool.isRequired,
     enableGridY: PropTypes.bool.isRequired,
 
-    // border
+    // styling
+    colors: PropTypes.any.isRequired,
+    fillOpacity: PropTypes.number.isRequired,
+    getColor: PropTypes.func.isRequired, // computed
+    defs: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.string.isRequired,
+        })
+    ).isRequired,
+    fill: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.string,
+            match: PropTypes.oneOfType([PropTypes.oneOf(['*']), PropTypes.object, PropTypes.func])
+                .isRequired,
+        })
+    ).isRequired,
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.any.isRequired,
     getBorderColor: PropTypes.func.isRequired, // computed
 
-    // theming
-    colors: PropTypes.any.isRequired,
-    fillOpacity: PropTypes.number.isRequired,
-    getColor: PropTypes.func.isRequired, // computed
-
     // interactivity
     isInteractive: PropTypes.bool,
-
-    // stack tooltip
     enableStackTooltip: PropTypes.bool.isRequired,
 }
 
@@ -58,12 +66,14 @@ export const StreamDefaultProps = {
     enableGridX: true,
     enableGridY: false,
 
-    borderWidth: 3,
+    borderWidth: 0,
     borderColor: 'inherit:darker(1)',
 
-    // theming
+    // styling
     colors: 'nivo',
     fillOpacity: 1,
+    defs: [],
+    fill: [],
 
     // interactivity
     isInteractive: true,

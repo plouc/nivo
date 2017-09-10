@@ -15,6 +15,7 @@ import BasicTooltip from '../../tooltip/BasicTooltip'
 
 const BarItem = ({
     data,
+
     x,
     y,
     width,
@@ -51,7 +52,7 @@ const BarItem = ({
                 height={height}
                 rx={borderRadius}
                 ry={borderRadius}
-                fill={color}
+                fill={data.fill ? data.fill : color}
                 onMouseEnter={handleTooltip}
                 onMouseMove={handleTooltip}
                 onMouseLeave={hideTooltip}

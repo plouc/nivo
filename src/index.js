@@ -6,7 +6,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 export * from './components/charts/bar'
 export * from './components/charts/bubble'
 export * from './components/charts/calendar'
@@ -22,6 +21,7 @@ export * from './components/charts/treemap'
 export * from './components/charts/voronoi'
 export * from './components/axes'
 export * from './components/dots'
+export * from './components/defs'
 export * from './constants'
 export * from './props'
 export * from './lib/colors'

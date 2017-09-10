@@ -8,6 +8,7 @@
  */
 import React from 'react'
 import { min, max, range, sortBy } from 'lodash'
+import { bindDefs } from '../../../lib/defs'
 import SvgWrapper from '../SvgWrapper'
 import Container from '../Container'
 import Axes from '../../axes/Axes'
@@ -46,6 +47,8 @@ const Stream = ({
     fillOpacity,
     borderWidth,
     getBorderColor,
+    defs,
+    fill,
 
     // motion
     animate,
@@ -94,10 +97,17 @@ const Stream = ({
         motionStiffness,
     }
 
+    const boundDefs = bindDefs(defs, enhancedLayers, fill)
+
     return (
         <Container isInteractive={isInteractive} theme={theme}>
             {({ showTooltip, hideTooltip }) => (
-                <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
+                <SvgWrapper
+                    width={outerWidth}
+                    height={outerHeight}
+                    margin={margin}
+                    defs={boundDefs}
+                >
                     <Grid
                         theme={theme}
                         width={width}
