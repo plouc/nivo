@@ -92,6 +92,8 @@ const Bar = ({
     defs,
     fill,
     borderRadius,
+    borderWidth,
+    getBorderColor,
 
     // motion
     animate,
@@ -154,6 +156,7 @@ const Bar = ({
             {({ showTooltip, hideTooltip }) => {
                 const commonProps = {
                     borderRadius,
+                    borderWidth,
                     enableLabel,
                     labelSkipWidth,
                     labelSkipHeight,
@@ -194,6 +197,7 @@ const Bar = ({
                                             height: Math.max(style.height, 0),
                                             label: getLabel(bar.data),
                                             labelColor: getLabelTextColor(baseProps, theme),
+                                            borderColor: getBorderColor(baseProps),
                                         })
                                     })}
                                 </g>
@@ -206,9 +210,10 @@ const Bar = ({
                             key: d.key,
                             ...d,
                             ...commonProps,
-                            label: getLabel(d),
+                            label: getLabel(d.data),
                             shouldRenderLabel: shouldRenderLabel(d),
                             labelColor: getLabelTextColor(d, theme),
+                            borderColor: getBorderColor(d),
                         })
                     )
                 }

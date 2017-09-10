@@ -22,6 +22,8 @@ const BarItem = ({
     height,
     borderRadius,
     color,
+    borderWidth,
+    borderColor,
 
     label,
     shouldRenderLabel,
@@ -53,6 +55,8 @@ const BarItem = ({
                 rx={borderRadius}
                 ry={borderRadius}
                 fill={data.fill ? data.fill : color}
+                strokeWidth={borderWidth}
+                stroke={borderColor}
                 onMouseEnter={handleTooltip}
                 onMouseMove={handleTooltip}
                 onMouseLeave={hideTooltip}
@@ -89,6 +93,8 @@ BarItem.propTypes = {
     height: PropTypes.number.isRequired,
     color: PropTypes.string.isRequired,
     borderRadius: PropTypes.number.isRequired,
+    borderWidth: PropTypes.number.isRequired,
+    borderColor: PropTypes.string.isRequired,
 
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     shouldRenderLabel: PropTypes.bool.isRequired,

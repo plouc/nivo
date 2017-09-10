@@ -37,5 +37,8 @@ export default Component =>
         withPropsOnChange(['label', 'labelFormat'], ({ label, labelFormat }) => ({
             getLabel: getLabelGenerator(label, labelFormat),
         })),
+        withPropsOnChange(['borderColor'], ({ borderColor }) => ({
+            getBorderColor: getInheritedColorGenerator(borderColor),
+        })),
         pure
     )(Component)

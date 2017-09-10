@@ -64,6 +64,9 @@ export const BarPropTypes = {
                 .isRequired,
         })
     ).isRequired,
+    borderWidth: PropTypes.number.isRequired,
+    borderColor: PropTypes.any.isRequired,
+    getBorderColor: PropTypes.func.isRequired,
 
     // interactivity
     isInteractive: PropTypes.bool,
@@ -107,6 +110,8 @@ export const BarDefaultProps = {
 
     defs: [],
     fill: [],
+    borderWidth: 0,
+    borderColor: 'inherit',
 
     // interactivity
     isInteractive: true,
