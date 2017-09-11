@@ -89,8 +89,6 @@ export const BarDefaultProps = {
     padding: 0.1,
     innerPadding: 0,
 
-    borderRadius: 0,
-
     // axes & grid
     axisBottom: {},
     axisLeft: {},
@@ -110,6 +108,7 @@ export const BarDefaultProps = {
 
     defs: [],
     fill: [],
+    borderRadius: 0,
     borderWidth: 0,
     borderColor: 'inherit',
 
@@ -118,5 +117,6 @@ export const BarDefaultProps = {
     onClick: noop,
 
     // canvas specific
-    pixelRatio: window && window.devicePixelRatio ? window.devicePixelRatio : 1,
+    pixelRatio:
+        global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
 }

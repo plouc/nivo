@@ -81,5 +81,6 @@ export const bubbleDefaultProps = {
     isZoomable: true,
 
     // canvas specific
-    pixelRatio: window && window.devicePixelRatio ? window.devicePixelRatio : 1,
+    pixelRatio:
+        global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
 }
