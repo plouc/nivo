@@ -1,3 +1,13 @@
+<a name="v0.28.1"></a>
+## v0.28.1 (2017-09-11)
+
+
+#### Bug Fixes
+
+* **window**  use global.window instead of window for node env ([bf1e6202](https://github.com/plouc/nivo/commit/bf1e6202d7c80310dccf2f8958cb7f8b02ab1c30))
+
+
+
 <a name="v0.28.0"></a>
 ## v0.28.0 (2017-09-11)
 
@@ -266,32 +276,6 @@
 ## v0.12.0 (2017-09-11)
 
 
-#### Bug Fixes
-
-* **bubble**
-  *  fix bubble props export ([37067061](https://github.com/plouc/nivo/commit/37067061cf1d4353da4fed3dd60dabb61a449cf7))
-  *  add missing tooltip when using static bubble chart ([9faae318](https://github.com/plouc/nivo/commit/9faae318d23b6d74e65ecdac2d3a6812fd009102))
-* **calendar**  fix regression on calendar ([b687ec84](https://github.com/plouc/nivo/commit/b687ec8483905da27989da4a91df3c7c78a61eec))
-* **canvas**  fix resizing when using canvas based components ([0d41f563](https://github.com/plouc/nivo/commit/0d41f563783d9ef0428808ff2439dd9e90042aee))
-* **color**  fix ColorUtils unit test ([bd9e03d3](https://github.com/plouc/nivo/commit/bd9e03d3cf6fa287e1f089259eb64f7846ac327e))
-* **ignores**  fix git ignore misconfiguration ([41e278a7](https://github.com/plouc/nivo/commit/41e278a7d3de59231339ec9eaff7a31e9f41f293))
-* **line**
-  *  fix default curve property ([4835a02a](https://github.com/plouc/nivo/commit/4835a02aa428d568691dd6a9e07c12b8145e78fb))
-  *  fix line chart color when animation disabled ([41e9e25f](https://github.com/plouc/nivo/commit/41e9e25f20600bf4bc44247bbe22df0d7be63019))
-* **react-dom**  use react-dom instead of react for DOM retrieval ([c0940876](https://github.com/plouc/nivo/commit/c0940876d14d97d62b38f2a6612c628e6ff382ca))
-* **readme**
-  *  fix readme badges links ([21a90289](https://github.com/plouc/nivo/commit/21a902899074e0e3ca8e296bdf88e09533e4bc39))
-  *  fix broken license link in readme ([a27a2117](https://github.com/plouc/nivo/commit/a27a21170e37ef0c1b4d286801ff11cdff2a17fd))
-* **rename**  Remove trailing layout component ([860c8e77](https://github.com/plouc/nivo/commit/860c8e77a1be5fcda746cb6f90e924da9e7dc6ab))
-* **stack**  fix broken Stack tests ([6ef978c4](https://github.com/plouc/nivo/commit/6ef978c45596d54c44011f3e91eba86cd41b7e80))
-* **stream**  fix stream stacked tooltip ([05fbcc9f](https://github.com/plouc/nivo/commit/05fbcc9fadf6d540f6788de5cb98072b92cdd103))
-* **svg**  fix svg for server side rendering ([ae77d432](https://github.com/plouc/nivo/commit/ae77d432d8079d910b9de54e433613dc55eab9fc))
-* **tests**  add missing webpack package ([9be90ace](https://github.com/plouc/nivo/commit/9be90acec37ca1bfec3a0d37a1a4deb6bb3dbec7))
-* **tooltip**  fix tooltip offset with scroll ([c320c23f](https://github.com/plouc/nivo/commit/c320c23f330e15607479d22224143811bfd3936b))
-* **travis**  use specific browser on travis for browser testing ([45d318ce](https://github.com/plouc/nivo/commit/45d318ce9b6ac8415d1d16034dcec55670ded162))
-* **treemap**  fix missing default props ([887cfcde](https://github.com/plouc/nivo/commit/887cfcde2fc9ecbeac24fa559203a6c2fe3dc40c))
-* **unit-tests**  fix broken unit tests ([321ef10d](https://github.com/plouc/nivo/commit/321ef10dfdae2b7d26b7c31b708c0684c55d0e5a))
-
 #### Features
 
 * **axes**
@@ -445,6 +429,33 @@
   *  add SVG based TreeMap ([de08c6b6](https://github.com/plouc/nivo/commit/de08c6b6e192801d8633e503e4dc478a004bc628))
   *  fix TreeMapD3 nodes exit ([9e02da4e](https://github.com/plouc/nivo/commit/9e02da4ec7553efc9a329cdc08e646469dbdf062))
   *  add TreeMap component ([d88e328f](https://github.com/plouc/nivo/commit/d88e328fedff7b42220208f3d16cb9ea1d40cea4))
+
+#### Bug Fixes
+
+* **bubble**
+  *  fix bubble props export ([37067061](https://github.com/plouc/nivo/commit/37067061cf1d4353da4fed3dd60dabb61a449cf7))
+  *  add missing tooltip when using static bubble chart ([9faae318](https://github.com/plouc/nivo/commit/9faae318d23b6d74e65ecdac2d3a6812fd009102))
+* **calendar**  fix regression on calendar ([b687ec84](https://github.com/plouc/nivo/commit/b687ec8483905da27989da4a91df3c7c78a61eec))
+* **canvas**  fix resizing when using canvas based components ([0d41f563](https://github.com/plouc/nivo/commit/0d41f563783d9ef0428808ff2439dd9e90042aee))
+* **color**  fix ColorUtils unit test ([bd9e03d3](https://github.com/plouc/nivo/commit/bd9e03d3cf6fa287e1f089259eb64f7846ac327e))
+* **ignores**  fix git ignore misconfiguration ([41e278a7](https://github.com/plouc/nivo/commit/41e278a7d3de59231339ec9eaff7a31e9f41f293))
+* **line**
+  *  fix default curve property ([4835a02a](https://github.com/plouc/nivo/commit/4835a02aa428d568691dd6a9e07c12b8145e78fb))
+  *  fix line chart color when animation disabled ([41e9e25f](https://github.com/plouc/nivo/commit/41e9e25f20600bf4bc44247bbe22df0d7be63019))
+* **react-dom**  use react-dom instead of react for DOM retrieval ([c0940876](https://github.com/plouc/nivo/commit/c0940876d14d97d62b38f2a6612c628e6ff382ca))
+* **readme**
+  *  fix readme badges links ([21a90289](https://github.com/plouc/nivo/commit/21a902899074e0e3ca8e296bdf88e09533e4bc39))
+  *  fix broken license link in readme ([a27a2117](https://github.com/plouc/nivo/commit/a27a21170e37ef0c1b4d286801ff11cdff2a17fd))
+* **rename**  Remove trailing layout component ([860c8e77](https://github.com/plouc/nivo/commit/860c8e77a1be5fcda746cb6f90e924da9e7dc6ab))
+* **stack**  fix broken Stack tests ([6ef978c4](https://github.com/plouc/nivo/commit/6ef978c45596d54c44011f3e91eba86cd41b7e80))
+* **stream**  fix stream stacked tooltip ([05fbcc9f](https://github.com/plouc/nivo/commit/05fbcc9fadf6d540f6788de5cb98072b92cdd103))
+* **svg**  fix svg for server side rendering ([ae77d432](https://github.com/plouc/nivo/commit/ae77d432d8079d910b9de54e433613dc55eab9fc))
+* **tests**  add missing webpack package ([9be90ace](https://github.com/plouc/nivo/commit/9be90acec37ca1bfec3a0d37a1a4deb6bb3dbec7))
+* **tooltip**  fix tooltip offset with scroll ([c320c23f](https://github.com/plouc/nivo/commit/c320c23f330e15607479d22224143811bfd3936b))
+* **travis**  use specific browser on travis for browser testing ([45d318ce](https://github.com/plouc/nivo/commit/45d318ce9b6ac8415d1d16034dcec55670ded162))
+* **treemap**  fix missing default props ([887cfcde](https://github.com/plouc/nivo/commit/887cfcde2fc9ecbeac24fa559203a6c2fe3dc40c))
+* **unit-tests**  fix broken unit tests ([321ef10d](https://github.com/plouc/nivo/commit/321ef10dfdae2b7d26b7c31b708c0684c55d0e5a))
+* **window**  use global.window instead of window for node env ([bf1e6202](https://github.com/plouc/nivo/commit/bf1e6202d7c80310dccf2f8958cb7f8b02ab1c30))
 
 
 
