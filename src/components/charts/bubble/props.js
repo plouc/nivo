@@ -48,6 +48,9 @@ export const bubblePropTypes = {
 
     // zooming
     isZoomable: PropTypes.bool.isRequired,
+
+    // canvas specific
+    pixelRatio: PropTypes.number.isRequired,
 }
 
 export const bubbleDefaultProps = {
@@ -76,4 +79,7 @@ export const bubbleDefaultProps = {
 
     // zooming
     isZoomable: true,
+
+    // canvas specific
+    pixelRatio: window && window.devicePixelRatio ? window.devicePixelRatio : 1,
 }
