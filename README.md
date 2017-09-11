@@ -12,20 +12,19 @@ Several libraries already exist for React d3 integration, but just a few provide
 
 ## Features
 
-- supports [d3 v4](https://github.com/d3/d3/blob/master/CHANGES.md)
-- [responsive charts](http://nivo.rocks/#/components?term=responsive) (`<Responsive* />` components)
-- highly customizable
-- motion/transitions, powered by [react-motion](https://github.com/chenglou/react-motion)
-- [component playground](http://nivo.rocks)
-- [exhaustive documentation](http://nivo.rocks)
-- isomorphic rendering
+- Highly customizable
+- Motion/transitions, powered by [react-motion](https://github.com/chenglou/react-motion)
+- [Component playground](http://nivo.rocks)
+- [Exhaustive documentation](http://nivo.rocks)
+- Isomorphic rendering
 - [SVG charts](http://nivo.rocks/#/components?filter=svg)
-- [HTML charts](http://nivo.rocks/#/components?filter=html) (for a restricted subset of components)
-- [Canvas charts](http://nivo.rocks/#/components?filter=canvas) (for a restricted subset of components)
-- [placeholder components](http://nivo.rocks/#/components?term=placeholder) for advanced customization (`<*Placeholders />` components)
+- [HTML charts](http://nivo.rocks/#/components?filter=html)
+- [Canvas charts](http://nivo.rocks/#/components?filter=canvas)
+- [placeholder components](http://nivo.rocks/#/components?q=placeholder) for advanced customization (`<*Placeholders />` components)
 - [server side rendering API](https://github.com/plouc/nivo-api)
 - [SVG patterns](http://nivo.rocks/#/guides/patterns)
 - [Gradients](http://nivo.rocks/#/guides/gradients)
+- [responsive charts](http://nivo.rocks/#/components?q=responsive)
 
 ## Components
 
