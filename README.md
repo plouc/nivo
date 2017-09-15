@@ -27,6 +27,10 @@ Several libraries already exist for React d3 integration, but just a few provide
 - [Gradients](http://nivo.rocks/#/guides/gradients)
 - [responsive charts](http://nivo.rocks/#/components?q=responsive)
 
+## Discussion
+
+Join the [nivo discord community](https://discord.gg/n7Ft74f).
+
 ## Components
 
 - Bar
