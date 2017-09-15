@@ -3,6 +3,7 @@
 [![License][license-image]][license-url]
 [![Travis CI][travis-image]][travis-url]
 [![NPM version][npm-image]][npm-url]
+[![nivo channel on discord](https://img.shields.io/badge/discord-nivo-61dafb.svg?style=flat-square)](https://discord.gg/n7Ft74f)
 [![Dependencies][gemnasium-image]][gemnasium-url]
 
 **nivo** provides supercharged React components to easily build dataviz apps,
