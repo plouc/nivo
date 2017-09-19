@@ -1,3 +1,14 @@
+<a name="v0.29.1"></a>
+## v0.29.1 (2017-09-19)
+
+
+#### Features
+
+* **tooltip**  improve positioning ([288657c7](https://github.com/plouc/nivo/commit/288657c7303af675077937f276ced26c38fe3003))
+* **treemap**  add TreeMapCanvas component ([e12a1268](https://github.com/plouc/nivo/commit/e12a1268e955442d6ba04f4e3921488c6830debc))
+
+
+
 <a name="v0.29.0"></a>
 ## v0.29.0 (2017-09-19)
 
@@ -76,16 +87,16 @@
 ## v0.26.0 (2017-09-19)
 
 
-#### Bug Fixes
-
-* **tooltip**  fix tooltip offset with scroll ([c320c23f](https://github.com/plouc/nivo/commit/c320c23f330e15607479d22224143811bfd3936b))
-
 #### Features
 
 * **axis**  improve axis formatting support ([69269a60](https://github.com/plouc/nivo/commit/69269a6072314cb04cb300cd55602af8ccabaf3e))
 * **bar**  add ability to define bar chart min/max value ([d9b9bdae](https://github.com/plouc/nivo/commit/d9b9bdaeff03cd16092bad47b34a0e570ce10c76))
 * **bubble**  fix bubble color transition ([675c6689](https://github.com/plouc/nivo/commit/675c66897f51b8b450a4d2b9f29c3985604bd38b))
 * **sankey**  improve sankey interactivity ([27a5ff54](https://github.com/plouc/nivo/commit/27a5ff54ff5c223afec2fb225b7105f7065ece1c))
+
+#### Bug Fixes
+
+* **tooltip**  fix tooltip offset with scroll ([c320c23f](https://github.com/plouc/nivo/commit/c320c23f330e15607479d22224143811bfd3936b))
 
 
 
@@ -459,10 +470,12 @@
 * **sunburst**  add Sunburst component ([a8c872a9](https://github.com/plouc/nivo/commit/a8c872a91e694721bb8a391483f9f0d9e4a15eff))
 * **theming**  fix tooltip theming ([9385dd67](https://github.com/plouc/nivo/commit/9385dd67ed8ec1d55ef12a84328b831be701edc2))
 * **tooltip**
+  *  improve positioning ([288657c7](https://github.com/plouc/nivo/commit/288657c7303af675077937f276ced26c38fe3003))
   *  add support for tooltip theming ([72f2f751](https://github.com/plouc/nivo/commit/72f2f751318323f2431641c970680db5d9c8f251))
   *  improve tooltip with global component ([631265d2](https://github.com/plouc/nivo/commit/631265d26ff6384c3fe8846fee2643897111a081))
   *  add support for tooltip on pie & bar charts ([abbd801d](https://github.com/plouc/nivo/commit/abbd801d68ed0fb66b7338769113e73e14814ee7))
 * **treemap**
+  *  add TreeMapCanvas component ([e12a1268](https://github.com/plouc/nivo/commit/e12a1268e955442d6ba04f4e3921488c6830debc))
   *  remove placeholders and improve svg & html flavors ([ff3734da](https://github.com/plouc/nivo/commit/ff3734da80e3396ec9cc00f477e13bfce83f1863))
   *  add support for tooltip on TreeMap components ([755783d8](https://github.com/plouc/nivo/commit/755783d880e73e5b74a0045fc2a467e97e2d72f8))
   *  get rid of data nesting when using animated treemap ([507dcb64](https://github.com/plouc/nivo/commit/507dcb646a1211af60a94aaf97db33749c0beef1))
