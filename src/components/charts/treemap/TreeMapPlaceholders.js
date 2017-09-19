@@ -7,18 +7,10 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import _ from 'lodash'
 import { TransitionMotion, spring } from 'react-motion'
-import compose from 'recompose/compose'
-import withPropsOnChange from 'recompose/withPropsOnChange'
-import pure from 'recompose/pure'
-import { treemap } from 'd3-hierarchy'
-import { getAccessorFor } from '../../../lib/propertiesConverters'
-import { treeMapTileFromProp } from '../../../props'
-import { treeMapPropTypes, treeMapDefaultProps } from './TreeMapProps'
-import { withHierarchy, withDimensions, withTheme, withColors, withMotion } from '../../../hocs'
 import { colorMotionSpring } from '../../../lib/colors'
 import Container from '../Container'
+import enhance from './enhance'
 
 const nodeWillEnter = ({ data: node }) => {
     const width = node.x1 - node.x0
@@ -200,41 +192,6 @@ const TreeMapPlaceholders = ({
     )
 }
 
-TreeMapPlaceholders.propTypes = _.omit(treeMapPropTypes, [
-    'orientLabels',
-    'skipVMin',
-    'transitionDuration',
-    'transitionEasing',
-])
-
-TreeMapPlaceholders.defaultProps = _.omit(treeMapDefaultProps, [
-    'orientLabels',
-    'skipVMin',
-    'transitionDuration',
-    'transitionEasing',
-])
-
-const enhance = compose(
-    withHierarchy(),
-    withDimensions(),
-    withColors({ defaultColorBy: 'depth' }),
-    withTheme(),
-    withMotion(),
-    withPropsOnChange(['identity'], ({ identity }) => ({
-        getIdentity: getAccessorFor(identity),
-    })),
-    withPropsOnChange(
-        ['width', 'height', 'tile', 'innerPadding', 'outerPadding'],
-        ({ width, height, tile, innerPadding, outerPadding }) => ({
-            treemap: treemap()
-                .size([width, height])
-                .tile(treeMapTileFromProp(tile))
-                .round(true)
-                .paddingInner(innerPadding)
-                .paddingOuter(outerPadding),
-        })
-    ),
-    pure
-)
+TreeMapPlaceholders.displayName = 'TreeMapPlaceholders'
 
 export default enhance(TreeMapPlaceholders)

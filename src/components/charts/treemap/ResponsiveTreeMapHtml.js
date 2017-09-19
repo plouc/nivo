@@ -8,12 +8,10 @@
  */
 import React from 'react'
 import ResponsiveWrapper from '../ResponsiveWrapper'
-import TreeMapHTML from './TreeMapHTML'
+import TreeMapHtml from './TreeMapHtml'
 
-const ResponsiveTreeMapHTML = props => (
+export default props => (
     <ResponsiveWrapper>
-        {({ width, height }) => <TreeMapHTML width={width} height={height} {...props} />}
+        {({ width, height }) => <TreeMapHtml width={width} height={height} {...props} />}
     </ResponsiveWrapper>
 )
-
-export default ResponsiveTreeMapHTML

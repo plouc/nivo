@@ -11,11 +11,10 @@ import { TransitionMotion, spring } from 'react-motion'
 import { colorMotionSpring, getInterpolatedColor } from '../../../lib/colors'
 import Container from '../Container'
 import enhance from './enhance'
-import { nodeWillEnter, nodeWillLeave } from './motion'
 import { getNodeHandlers } from './interactivity'
-import SvgWrapper from '../SvgWrapper'
+import { nodeWillEnter, nodeWillLeave } from './motion'
 
-const TreeMap = ({
+const TreeMapHtml = ({
     nodes,
     nodeComponent,
 
@@ -28,7 +27,6 @@ const TreeMap = ({
     theme,
     borderWidth,
     getBorderColor,
-    defs,
 
     // labels
     getLabelTextColor,
@@ -58,19 +56,24 @@ const TreeMap = ({
         })
 
     return (
-        <Container isInteractive={isInteractive} theme={theme}>
+        <Container theme={theme}>
             {({ showTooltip, hideTooltip }) => (
-                <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} defs={defs}>
+                <div
+                    style={{
+                        position: 'relative',
+                        width: outerWidth,
+                        height: outerHeight,
+                    }}
+                >
                     {!animate && (
-                        <g>
+                        <div style={{ position: 'absolute', top: margin.top, left: margin.left }}>
                             {nodes.map(node =>
                                 React.createElement(nodeComponent, {
                                     key: node.path,
                                     node,
                                     style: {
-                                        fill: node.fill,
-                                        x: node.x0,
-                                        y: node.y0,
+                                        x: node.x,
+                                        y: node.y,
                                         width: node.width,
                                         height: node.height,
                                         color: node.color,
@@ -82,7 +85,7 @@ const TreeMap = ({
                                     handlers: getHandlers(node, showTooltip, hideTooltip),
                                 })
                             )}
-                        </g>
+                        </div>
                     )}
                     {animate && (
                         <TransitionMotion
@@ -101,7 +104,13 @@ const TreeMap = ({
                             }))}
                         >
                             {interpolatedStyles => (
-                                <g>
+                                <div
+                                    style={{
+                                        position: 'absolute',
+                                        top: margin.top,
+                                        left: margin.left,
+                                    }}
+                                >
                                     {interpolatedStyles.map(({ style, data: node }) => {
                                         style.color = getInterpolatedColor(style)
 
@@ -119,16 +128,16 @@ const TreeMap = ({
                                             handlers: getHandlers(node, showTooltip, hideTooltip),
                                         })
                                     })}
-                                </g>
+                                </div>
                             )}
                         </TransitionMotion>
                     )}
-                </SvgWrapper>
+                </div>
             )}
         </Container>
     )
 }
 
-TreeMap.displayName = 'TreeMap'
+TreeMapHtml.displayName = 'TreeMapHtml'
 
-export default enhance(TreeMap)
+export default enhance(TreeMapHtml)

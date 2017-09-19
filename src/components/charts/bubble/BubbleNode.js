@@ -9,35 +9,35 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const BubbleHtmlItem = ({ node, style, handlers }) => {
+const BubbleNode = ({ node, style, handlers }) => {
     if (style.r <= 0) return null
 
     return (
-        <div
-            style={{
-                position: 'absolute',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                background: style.color,
-                color: style.labelTextColor,
-                borderWidth: style.borderWidth,
-                borderColor: style.borderColor,
-                top: style.y - style.r,
-                left: style.x - style.r,
-                width: style.r * 2,
-                height: style.r * 2,
-                borderStyle: 'solid',
-                borderRadius: style.r,
-            }}
-            {...handlers}
-        >
-            {node.label !== false && node.label}
-        </div>
+        <g transform={`translate(${style.x},${style.y})`}>
+            <circle
+                r={style.r}
+                {...handlers}
+                fill={style.fill ? style.fill : style.color}
+                stroke={style.borderColor}
+                strokeWidth={style.borderWidth}
+            />
+            {node.label !== false && (
+                <text
+                    textAnchor="middle"
+                    alignmentBaseline="central"
+                    style={{
+                        fill: style.labelTextColor,
+                        pointerEvents: 'none',
+                    }}
+                >
+                    {node.label}
+                </text>
+            )}
+        </g>
     )
 }
 
-BubbleHtmlItem.propTypes = {
+BubbleNode.propTypes = {
     node: PropTypes.object.isRequired,
     style: PropTypes.shape({
         r: PropTypes.number.isRequired,
@@ -52,4 +52,4 @@ BubbleHtmlItem.propTypes = {
     handlers: PropTypes.object.isRequired,
 }
 
-export default BubbleHtmlItem
+export default BubbleNode

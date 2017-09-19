@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 export { default as TreeMap } from './TreeMap'
-export * from './TreeMap'
 export { default as ResponsiveTreeMap } from './ResponsiveTreeMap'
-export { default as TreeMapHTML } from './TreeMapHTML'
-export { default as ResponsiveTreeMapHTML } from './ResponsiveTreeMapHTML'
+export { default as TreeMapHtml } from './TreeMapHtml'
+export { default as ResponsiveTreeMapHtml } from './ResponsiveTreeMapHtml'
 export { default as TreeMapPlaceholders } from './TreeMapPlaceholders'
 export { default as ResponsiveTreeMapPlaceholders } from './ResponsiveTreeMapPlaceholders'
+export * from './props'

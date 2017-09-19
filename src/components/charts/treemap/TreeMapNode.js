@@ -8,99 +8,52 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import compose from 'recompose/compose'
-import withPropsOnChange from 'recompose/withPropsOnChange'
-import pure from 'recompose/pure'
-import BasicTooltip from '../../tooltip/BasicTooltip'
 
-const TreeMapNode = ({
-    x,
-    y,
-    width,
-    height,
-    color,
-    borderWidth,
-    borderColor,
-    hasLabel,
-    label,
-    labelRotation,
-    labelTextColor,
-    showTooltip,
-    hideTooltip,
-}) => (
-    <g transform={`translate(${x},${y})`}>
-        <rect
-            width={width}
-            height={height}
-            fill={color}
-            strokeWidth={borderWidth}
-            stroke={borderColor}
-            onMouseEnter={showTooltip}
-            onMouseMove={showTooltip}
-            onMouseLeave={hideTooltip}
-        />
-        {hasLabel && (
-            <text
-                textAnchor="middle"
-                alignmentBaseline="central"
-                style={{ fill: labelTextColor, pointerEvents: 'none' }}
-                transform={`translate(${width / 2},${height / 2}) rotate(${labelRotation})`}
-            >
-                {label}
-            </text>
-        )}
-    </g>
-)
+const TreeMapNode = ({ style, node, handlers }) => {
+    if (style.width <= 0 || style.height <= 0) return null
 
-TreeMapNode.propTypes = {
-    id: PropTypes.string.isRequired,
-    value: PropTypes.number.isRequired,
-    dataColor: PropTypes.string.isRequired,
+    const rotate = node.label && style.orientLabel && style.height > style.width
 
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-    color: PropTypes.string.isRequired,
-
-    borderWidth: PropTypes.number.isRequired,
-    borderColor: PropTypes.string.isRequired,
-
-    hasLabel: PropTypes.bool.isRequired,
-    label: PropTypes.node,
-    orientLabel: PropTypes.bool.isRequired,
-    labelRotation: PropTypes.number.isRequired, // computed
-    labelTextColor: PropTypes.string.isRequired,
-
-    showTooltip: PropTypes.func.isRequired,
-    hideTooltip: PropTypes.func.isRequired,
-
-    theme: PropTypes.object.isRequired,
+    return (
+        <g transform={`translate(${style.x},${style.y})`}>
+            <rect
+                width={style.width}
+                height={style.height}
+                fill={style.fill ? style.fill : style.color}
+                strokeWidth={style.borderWidth}
+                stroke={style.borderColor}
+                {...handlers}
+            />
+            {node.label && (
+                <text
+                    textAnchor="middle"
+                    alignmentBaseline="central"
+                    style={{ fill: style.labelTextColor, pointerEvents: 'none' }}
+                    transform={`translate(${style.width / 2},${style.height / 2}) rotate(${rotate
+                        ? -90
+                        : 0})`}
+                >
+                    {node.label}
+                </text>
+            )}
+        </g>
+    )
 }
 
-const enhance = compose(
-    withPropsOnChange(['orientLabel', 'width', 'height'], ({ orientLabel, width, height }) => ({
-        labelRotation: orientLabel && height > width ? -90 : 0,
-    })),
-    withPropsOnChange(
-        ['id', 'value', 'dataColor', 'showTooltip', 'theme'],
-        ({ id, value, dataColor, showTooltip, theme }) => {
-            const tooltip = (
-                <BasicTooltip
-                    id={id}
-                    value={value}
-                    enableChip={true}
-                    color={dataColor}
-                    theme={theme}
-                />
-            )
+TreeMapNode.propTypes = {
+    node: PropTypes.object.isRequired,
+    style: PropTypes.shape({
+        x: PropTypes.number.isRequired,
+        y: PropTypes.number.isRequired,
+        width: PropTypes.number.isRequired,
+        height: PropTypes.number.isRequired,
+        color: PropTypes.string.isRequired,
+        borderWidth: PropTypes.number.isRequired,
+        borderColor: PropTypes.string.isRequired,
+        labelTextColor: PropTypes.string.isRequired,
+        orientLabel: PropTypes.bool.isRequired,
+    }).isRequired,
+    handlers: PropTypes.object.isRequired,
+}
 
-            return {
-                showTooltip: e => showTooltip(tooltip, e),
-            }
-        }
-    ),
-    pure
-)
-
-export default enhance(TreeMapNode)
+export default TreeMapNode
