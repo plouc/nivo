@@ -11,6 +11,7 @@ import { schemeSet3 } from 'd3-scale-chromatic'
 import { nivoCategoricalColors } from '../lib/colors'
 
 // motion
+export const defaultAnimate = true
 export const defaultMotionStiffness = 90
 export const defaultMotionDamping = 13
 

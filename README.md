@@ -100,7 +100,9 @@ Join the [nivo discord community](https://discord.gg/n7Ft74f).
 
 ## Guides
     
-- [colors](http://nivo.rocks/#/guides/colors)    
+- [colors](http://nivo.rocks/#/guides/colors)
+- [gradients](http://nivo.rocks/#/guides/gradients)
+- [patterns](http://nivo.rocks/#/guides/patterns)
 
 ## Repositories
 

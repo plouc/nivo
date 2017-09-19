@@ -10,10 +10,8 @@ import React from 'react'
 import ResponsiveWrapper from '../ResponsiveWrapper'
 import BubbleCanvas from './BubbleCanvas'
 
-const ResponsiveBubbleCanvas = props => (
+export default props => (
     <ResponsiveWrapper>
         {({ width, height }) => <BubbleCanvas width={width} height={height} {...props} />}
     </ResponsiveWrapper>
 )
-
-export default ResponsiveBubbleCanvas

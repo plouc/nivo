@@ -25,11 +25,22 @@ export const isMatchingDef = (predicate, node, dataKey) => {
     return false
 }
 
+/**
+ * Compute SVG defs.
+ *
+ * @param {Array}  defs
+ * @param {Array}  nodes
+ * @param {Array}  rules
+ * @param {string} dataKey
+ * @param {string} colorKey
+ * @param {string} targetKey
+ * @returns {Array}
+ */
 export const bindDefs = (
     defs,
     nodes,
     rules,
-    { idKey = 'id', dataKey, colorKey = 'color', targetKey = 'fill' } = {}
+    { dataKey, colorKey = 'color', targetKey = 'fill' } = {}
 ) => {
     let boundDefs = []
 

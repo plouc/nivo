@@ -146,7 +146,6 @@ const Bar = ({
     }
 
     const boundDefs = bindDefs(defs, result.bars, fill, {
-        idKey: 'key',
         dataKey: 'data',
         targetKey: 'data.fill',
     })

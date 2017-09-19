@@ -9,6 +9,7 @@
 import PropTypes from 'prop-types'
 import noop from '../../../lib/noop'
 import BarItem from './BarItem'
+import { defsPropTypes } from '../../../props'
 
 export const BarPropTypes = {
     // data
@@ -52,18 +53,7 @@ export const BarPropTypes = {
     // styling
     borderRadius: PropTypes.number.isRequired,
     getColor: PropTypes.func.isRequired, // computed
-    defs: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string.isRequired,
-        })
-    ).isRequired,
-    fill: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string,
-            match: PropTypes.oneOfType([PropTypes.oneOf(['*']), PropTypes.object, PropTypes.func])
-                .isRequired,
-        })
-    ).isRequired,
+    ...defsPropTypes,
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.any.isRequired,
     getBorderColor: PropTypes.func.isRequired,

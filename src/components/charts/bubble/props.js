@@ -8,24 +8,29 @@
  */
 import PropTypes from 'prop-types'
 import noop from '../../../lib/noop'
+import { defsPropTypes } from '../../../props'
+import BubbleItem from './BubbleItem'
+import BubbleHtmlItem from './BubbleHtmlItem'
 
-export const bubblePropTypes = {
+/*—————————————————————————————————————————————————————————————————————————————
+
+  Prop types
+
+—————————————————————————————————————————————————————————————————————————————*/
+
+const commonPropTypes = {
     // data
     // `root` managed by `withHierarchy()` HOC
     identity: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
 
     // dimensions managed by `withDimensions()` HOC
 
-    leavesOnly: PropTypes.bool.isRequired,
-    padding: PropTypes.number.isRequired,
-
-    // theming
+    // styling
     // theme managed by `withTheme()` HOC
     // colors managed by `withColors()` HOC
 
-    // placeholders
-    namespace: PropTypes.oneOf(['html', 'svg']),
-    children: PropTypes.func.isRequired,
+    leavesOnly: PropTypes.bool.isRequired,
+    padding: PropTypes.number.isRequired,
 
     // border
     borderWidth: PropTypes.number.isRequired,
@@ -38,30 +43,39 @@ export const bubblePropTypes = {
     labelTextColor: PropTypes.any.isRequired,
     labelSkipRadius: PropTypes.number.isRequired,
 
-    // transitions
-    transitionDuration: PropTypes.number.isRequired, // d3 transitions
-    transitionEasing: PropTypes.string.isRequired, // d3 transitions
-
     // interactivity
     isInteractive: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,
-
-    // zooming
     isZoomable: PropTypes.bool.isRequired,
+}
 
-    // canvas specific
+export const BubblePropTypes = {
+    ...commonPropTypes,
+    nodeComponent: PropTypes.func.isRequired,
+    ...defsPropTypes,
+}
+
+export const BubbleHtmlPropTypes = {
+    ...commonPropTypes,
+    nodeComponent: PropTypes.func.isRequired,
+}
+
+export const BubbleCanvasPropTypes = {
+    ...commonPropTypes,
     pixelRatio: PropTypes.number.isRequired,
 }
 
-export const bubbleDefaultProps = {
-    // data
+/*—————————————————————————————————————————————————————————————————————————————
+
+  Default props
+
+—————————————————————————————————————————————————————————————————————————————*/
+
+const commonDefaultProps = {
     identity: 'id',
 
     leavesOnly: false,
     padding: 1,
-
-    // placeholders
-    namespace: 'html',
 
     // border
     borderWidth: 0,
@@ -76,11 +90,23 @@ export const bubbleDefaultProps = {
     // interactivity
     isInteractive: true,
     onClick: noop,
-
-    // zooming
     isZoomable: true,
+}
 
-    // canvas specific
+export const BubbleDefaultProps = {
+    ...commonDefaultProps,
+    nodeComponent: BubbleItem,
+    defs: [],
+    fill: [],
+}
+
+export const BubbleHtmlDefaultProps = {
+    ...commonDefaultProps,
+    nodeComponent: BubbleHtmlItem,
+}
+
+export const BubbleCanvasDefaultProps = {
+    ...commonDefaultProps,
     pixelRatio:
         global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
 }

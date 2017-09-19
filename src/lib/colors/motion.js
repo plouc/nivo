@@ -13,7 +13,7 @@ import { rgb } from 'd3-color'
  * Decompose a color for use with react-motion.
  *
  * @param {string} _color
- * @param {Object} _config
+ * @param {Object} [_config]
  * @return {Object}
  */
 export const colorMotionSpring = (_color, _config) => {

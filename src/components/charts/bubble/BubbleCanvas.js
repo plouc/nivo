@@ -7,46 +7,9 @@
  * file that was distributed with this source code.
  */
 import React, { Component } from 'react'
-import { merge } from 'lodash'
-import { TransitionMotion, spring } from 'react-motion'
 import _ from 'lodash'
-import compose from 'recompose/compose'
-import defaultProps from 'recompose/defaultProps'
-import withPropsOnChange from 'recompose/withPropsOnChange'
-import withStateHandlers from 'recompose/withStateHandlers'
-import pure from 'recompose/pure'
-import { pack } from 'd3-hierarchy'
-import { withHierarchy, withTheme, withColors, withDimensions, withMotion } from '../../../hocs'
-import { computeNodePath } from '../../../lib/hierarchy'
 import Container from '../Container'
-import { getAccessorFor, getLabelGenerator } from '../../../lib/propertiesConverters'
-import { getInheritedColorGenerator } from '../../../lib/colors'
-import { bubblePropTypes, bubbleDefaultProps } from './props'
-
-const ignoreProps = [
-    'enableLabel',
-    'label',
-    'labelFormat',
-    'labelTextColor',
-    'labelSkipRadius',
-    'labelTextDY',
-    'transitionDuration',
-    'transitionEasing',
-]
-
-const computeZoom = (nodes, currentNodePath, width, height) => {
-    const currentNode = nodes.find(({ path }) => path === currentNodePath)
-    if (currentNode) {
-        const ratio = Math.min(width, height) / (currentNode.r * 2)
-        const offsetX = width / 2 - currentNode.x * ratio
-        const offsetY = height / 2 - currentNode.y * ratio
-        nodes.forEach(node => {
-            node.r = node.r * ratio
-            node.x = node.x * ratio + offsetX
-            node.y = node.y * ratio + offsetY
-        })
-    }
-}
+import enhance from './enhance'
 
 class BubbleCanvas extends Component {
     componentDidMount() {
@@ -61,23 +24,16 @@ class BubbleCanvas extends Component {
 
     draw(props) {
         const {
-            root,
-            getIdentity,
-            leavesOnly,
+            nodes,
 
             pixelRatio,
 
-            pack,
-
             // dimensions
-            width,
-            height,
             margin,
             outerWidth,
             outerHeight,
 
             // styling
-            getColor,
             borderWidth,
             getBorderColor,
 
@@ -92,25 +48,26 @@ class BubbleCanvas extends Component {
         this.surface.height = outerHeight * pixelRatio
 
         this.ctx.scale(pixelRatio, pixelRatio)
-
         this.ctx.clearRect(0, 0, outerWidth, outerHeight)
-
-        // assign a unique id depending on node path to each node
-        root.each(node => {
-            node.id = getIdentity(node.data)
-            node.path = computeNodePath(node, getIdentity)
-        })
-
-        pack(root)
-
-        let nodes = leavesOnly ? root.leaves() : root.descendants()
-        nodes = nodes.map(node => {
-            node.color = getColor({ ...node.data, depth: node.depth })
-
-            return node
-        })
-
         this.ctx.translate(margin.left, margin.top)
+
+        /*
+        Could be used to compute metaballs,
+        grouping nodes by depth + common parent
+        using marching squares, but it really is a bonus feature…
+
+        const maxDepth = _.maxBy(nodes, 'depth').depth
+        const nodesByDepth = _.range(maxDepth + 1).map(depth =>
+            _.values(
+                _.groupBy(nodes.filter(({ depth: nodeDepth }) => nodeDepth === depth), 'parent.id')
+            )
+        )
+        nodesByDepth.forEach(layer => {
+            layer.forEach(node => {
+                console.log(node)
+            })
+        })
+        */
 
         nodes.forEach(node => {
             this.ctx.save()
@@ -168,172 +125,6 @@ class BubbleCanvas extends Component {
     }
 }
 
-/*
-const BubbleCanvas = ({
-    root,
-    getIdentity,
-
-    leavesOnly,
-    namespace,
-
-    pack,
-
-    // dimensions
-    width,
-    height,
-    margin,
-    outerWidth,
-    outerHeight,
-
-    // theming
-    theme,
-    getColor,
-
-    // motion
-    animate,
-    motionStiffness,
-    motionDamping,
-
-    // interactivity
-    isInteractive,
-    onClick,
-
-    children,
-
-    // zooming
-    isZoomable,
-    zoomToNode,
-    currentNodePath,
-}) => {
-    // assign a unique id depending on node path to each node
-    root.each(node => {
-        node.id = getIdentity(node.data)
-        node.path = computeNodePath(node, getIdentity)
-    })
-
-    pack(root)
-
-    let nodes = leavesOnly ? root.leaves() : root.descendants()
-    nodes = nodes.map(node => {
-        node.color = getColor({ ...node.data, depth: node.depth })
-
-        return node
-    })
-
-    if (currentNodePath) computeZoom(nodes, currentNodePath, width, height)
-
-    let wrapperTag
-    let containerTag
-
-    const wrapperProps = {}
-    const containerProps = {}
-
-    if (namespace === 'svg') {
-        wrapperTag = 'svg'
-        containerTag = 'g'
-
-        wrapperProps.width = outerWidth
-        wrapperProps.height = outerHeight
-        wrapperProps.xmlns = 'http://www.w3.org/2000/svg'
-        containerProps.transform = `translate(${margin.left},${margin.top})`
-    } else {
-        wrapperTag = 'div'
-        containerTag = 'div'
-
-        wrapperProps.style = {
-            position: 'relative',
-            width: outerWidth,
-            height: outerHeight,
-        }
-        containerProps.style = Object.assign({}, margin, {
-            position: 'absolute',
-        })
-    }
-
-    let nodeOnClick = noop
-    if (isInteractive) {
-        if (isZoomable) {
-            nodeOnClick = node => () => {
-                onClick(node)
-                zoomToNode(node.path)
-            }
-        } else {
-            nodeOnClick = node => () => onClick(node)
-        }
-    }
-
-    if (!animate) {
-        return (
-            <Container isInteractive={isInteractive} theme={theme}>
-                {({ showTooltip, hideTooltip }) =>
-                    React.createElement(
-                        wrapperTag,
-                        wrapperProps,
-                        React.createElement(
-                            containerTag,
-                            containerProps,
-                            children(
-                                nodes.map(node => ({
-                                    key: node.path,
-                                    data: node,
-                                    style: _.pick(node, ['scale', 'r', 'x', 'y', 'color']),
-                                    onClick: nodeOnClick(node),
-                                })),
-                                { showTooltip, hideTooltip, theme }
-                            )
-                        )
-                    )}
-            </Container>
-        )
-    }
-
-    const springConfig = {
-        stiffness: motionStiffness,
-        damping: motionDamping,
-    }
-
-    return null
-}
-
-BubbleCanvas.propTypes = _.omit(bubblePropTypes, ignoreProps)
-*/
-
-const enhance = compose(
-    defaultProps(_.omit(bubbleDefaultProps, ignoreProps)),
-    withHierarchy(),
-    withDimensions(),
-    withTheme(),
-    withMotion(),
-    withColors({ defaultColorBy: 'depth' }),
-    withPropsOnChange(['identity'], ({ identity }) => ({
-        getIdentity: getAccessorFor(identity),
-    })),
-    withPropsOnChange(['label', 'labelFormat'], ({ label, labelFormat }) => ({
-        getLabel: getLabelGenerator(label, labelFormat),
-    })),
-    withPropsOnChange(['borderColor'], ({ borderColor }) => ({
-        getBorderColor: getInheritedColorGenerator(borderColor),
-    })),
-    withPropsOnChange(['labelTextColor'], ({ labelTextColor }) => ({
-        getLabelTextColor: getInheritedColorGenerator(labelTextColor),
-    })),
-    withPropsOnChange(['width', 'height', 'padding'], ({ width, height, padding }) => ({
-        pack: pack()
-            .size([width, height])
-            .padding(padding),
-    })),
-    withStateHandlers(
-        ({ currentNodePath = null }) => ({
-            currentNodePath,
-        }),
-        {
-            zoomToNode: ({ currentNodePath }) => path => {
-                if (path === currentNodePath) return { currentNodePath: null }
-                return { currentNodePath: path }
-            },
-        }
-    ),
-    pure
-)
+BubbleCanvas.displayName = 'BubbleCanvas'
 
 export default enhance(BubbleCanvas)
