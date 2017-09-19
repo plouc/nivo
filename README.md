@@ -81,6 +81,8 @@ Join the [nivo discord community](https://discord.gg/n7Ft74f).
     - [`<ResponsiveTreeMap/>`](http://nivo.rocks/#/treemap)
     - [`<TreeMapHTML/>`](http://nivo.rocks/#/treemap/html)
     - [`<ResponsiveTreeMapHTML/>`](http://nivo.rocks/#/treemap/html)
+    - [`<TreeMapCanvas/>`](http://nivo.rocks/#/treemap/canvas)
+    - [`<ResponsiveTreeMapCanvas/>`](http://nivo.rocks/#/treemap/canvas)
 - Voronoi `experimental`
     - [`<Voronoi/>`](http://nivo.rocks/#/voronoi)
     - [`<ResponsiveVoronoi/>`](http://nivo.rocks/#/voronoi)            
