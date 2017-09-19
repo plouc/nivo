@@ -7,14 +7,18 @@
  * file that was distributed with this source code.
  */
 import React, { Component } from 'react'
-import { partial } from 'lodash'
 import { generateGroupedBars, generateStackedBars } from '../../../lib/charts/bar'
 import { renderAxes } from '../../../lib/canvas/axes'
+import { getRelativeCursor, isCursorInRect } from '../../../lib/interactivity'
 import Container from '../Container'
 import BasicTooltip from '../../tooltip/BasicTooltip'
 import { BarPropTypes } from './props'
 import enhance from './enhance'
-import { getRelativeCursor, isCursorInRect } from '../../../lib/interactivity'
+
+const findNodeUnderCursor = (nodes, margin, x, y) =>
+    nodes.find(node =>
+        isCursorInRect(node.x + margin.left, node.y + margin.top, node.width, node.height, x, y)
+    )
 
 class BarCanvas extends Component {
     componentDidMount() {
@@ -120,15 +124,13 @@ class BarCanvas extends Component {
         })
     }
 
-    handleMouseHover = (showTooltip, hideTooltip, event) => {
+    handleMouseHover = (showTooltip, hideTooltip) => event => {
         if (!this.bars) return
 
+        const { margin, theme } = this.props
         const [x, y] = getRelativeCursor(this.surface, event)
 
-        const { margin, theme } = this.props
-        const bar = this.bars.find(bar =>
-            isCursorInRect(bar.x + margin.left, bar.y + margin.top, bar.width, bar.height, x, y)
-        )
+        const bar = findNodeUnderCursor(this.bars, margin, x, y)
 
         if (bar !== undefined) {
             showTooltip(
@@ -146,8 +148,18 @@ class BarCanvas extends Component {
         }
     }
 
-    handleMouseLeave = hideTooltip => {
+    handleMouseLeave = hideTooltip => () => {
         hideTooltip()
+    }
+
+    handleClick = event => {
+        if (!this.bars) return
+
+        const { margin, onClick } = this.props
+        const [x, y] = getRelativeCursor(this.surface, event)
+
+        const node = findNodeUnderCursor(this.bars, margin, x, y)
+        if (node !== undefined) onClick(node.data, event)
     }
 
     render() {
@@ -166,9 +178,10 @@ class BarCanvas extends Component {
                             width: outerWidth,
                             height: outerHeight,
                         }}
-                        onMouseEnter={partial(this.handleMouseHover, showTooltip, hideTooltip)}
-                        onMouseMove={partial(this.handleMouseHover, showTooltip, hideTooltip)}
-                        onMouseLeave={partial(this.handleMouseLeave, hideTooltip)}
+                        onMouseEnter={this.handleMouseHover(showTooltip, hideTooltip)}
+                        onMouseMove={this.handleMouseHover(showTooltip, hideTooltip)}
+                        onMouseLeave={this.handleMouseLeave(hideTooltip)}
+                        onClick={this.handleClick}
                     />
                 )}
             </Container>

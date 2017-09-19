@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import BasicTooltip from '../../tooltip/BasicTooltip'
+import TreeMapNodeTooltip from './TreeMapNodeTooltip'
 
 export const getNodeHandlers = (
     node,
@@ -16,16 +16,7 @@ export const getNodeHandlers = (
     if (!isInteractive) return {}
 
     const handleTooltip = e => {
-        showTooltip(
-            <BasicTooltip
-                id={node.id}
-                value={node.value}
-                enableChip={true}
-                color={node.color}
-                theme={theme}
-            />,
-            e
-        )
+        showTooltip(<TreeMapNodeTooltip node={node} theme={theme} />, e)
     }
 
     return {

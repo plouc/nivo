@@ -7,10 +7,18 @@
  * file that was distributed with this source code.
  */
 import React, { Component } from 'react'
+import { degreesToRadians } from '../../../lib/polar'
+import { getRelativeCursor, isCursorInRect } from '../../../lib/interactivity'
 import Container from '../Container'
 import enhance from './enhance'
+import TreeMapNodeTooltip from './TreeMapNodeTooltip'
 
-class BubbleCanvas extends Component {
+const findNodeUnderCursor = (nodes, margin, x, y) =>
+    nodes.find(node =>
+        isCursorInRect(node.x + margin.left, node.y + margin.top, node.width, node.height, x, y)
+    )
+
+class TreeMapCanvas extends Component {
     componentDidMount() {
         this.ctx = this.surface.getContext('2d')
         this.draw(this.props)
@@ -38,9 +46,8 @@ class BubbleCanvas extends Component {
 
             // labels
             enableLabel,
-            getLabel,
-            labelSkipRadius,
             getLabelTextColor,
+            orientLabel,
         } = props
 
         this.surface.width = outerWidth * pixelRatio
@@ -50,39 +57,14 @@ class BubbleCanvas extends Component {
         this.ctx.clearRect(0, 0, outerWidth, outerHeight)
         this.ctx.translate(margin.left, margin.top)
 
-        /*
-        Could be used to compute metaballs,
-        grouping nodes by depth + common parent
-        using marching squares, but it really is a bonus feature…
-
-        const maxDepth = _.maxBy(nodes, 'depth').depth
-        const nodesByDepth = _.range(maxDepth + 1).map(depth =>
-            _.values(
-                _.groupBy(nodes.filter(({ depth: nodeDepth }) => nodeDepth === depth), 'parent.id')
-            )
-        )
-        nodesByDepth.forEach(layer => {
-            layer.forEach(node => {
-                console.log(node)
-            })
-        })
-        */
-
         nodes.forEach(node => {
-            this.ctx.save()
+            this.ctx.fillStyle = node.color
+            this.ctx.fillRect(node.x, node.y, node.width, node.height)
 
             if (borderWidth > 0) {
                 this.ctx.strokeStyle = getBorderColor(node)
                 this.ctx.lineWidth = borderWidth
-            }
-
-            this.ctx.beginPath()
-            this.ctx.arc(node.x, node.y, node.r, 0, 2 * Math.PI)
-            this.ctx.fillStyle = node.color
-            this.ctx.fill()
-
-            if (borderWidth > 0) {
-                this.ctx.stroke()
+                this.ctx.strokeRect(node.x, node.y, node.width, node.height)
             }
         })
 
@@ -91,14 +73,52 @@ class BubbleCanvas extends Component {
             this.ctx.textBaseline = 'middle'
 
             // draw labels on top
-            nodes.filter(({ r }) => r > labelSkipRadius).forEach(node => {
-                const label = getLabel(node)
+            nodes.filter(({ label }) => label !== undefined).forEach(node => {
                 const labelTextColor = getLabelTextColor(node)
 
+                const rotate = orientLabel && node.height > node.width
+
+                this.ctx.save()
+                this.ctx.translate(node.x + node.width / 2, node.y + node.height / 2)
+                this.ctx.rotate(degreesToRadians(rotate ? -90 : 0))
+
                 this.ctx.fillStyle = labelTextColor
-                this.ctx.fillText(label, node.x, node.y)
+                this.ctx.fillText(node.label, 0, 0)
+
+                this.ctx.restore()
             })
         }
+    }
+
+    handleMouseHover = (showTooltip, hideTooltip) => event => {
+        const { isInteractive, nodes, margin, theme } = this.props
+
+        if (!isInteractive) return
+
+        const [x, y] = getRelativeCursor(this.surface, event)
+
+        const node = findNodeUnderCursor(nodes, margin, x, y)
+
+        if (node !== undefined) {
+            showTooltip(<TreeMapNodeTooltip node={node} theme={theme} />, event)
+        } else {
+            hideTooltip()
+        }
+    }
+
+    handleMouseLeave = hideTooltip => () => {
+        hideTooltip()
+    }
+
+    handleClick = event => {
+        const { isInteractive, nodes, margin, onClick } = this.props
+
+        if (!isInteractive) return
+
+        const [x, y] = getRelativeCursor(this.surface, event)
+
+        const node = findNodeUnderCursor(nodes, margin, x, y)
+        if (node !== undefined) onClick(node, event)
     }
 
     render() {
@@ -117,6 +137,10 @@ class BubbleCanvas extends Component {
                             width: outerWidth,
                             height: outerHeight,
                         }}
+                        onMouseEnter={this.handleMouseHover(showTooltip, hideTooltip)}
+                        onMouseMove={this.handleMouseHover(showTooltip, hideTooltip)}
+                        onMouseLeave={this.handleMouseLeave(hideTooltip)}
+                        onClick={this.handleClick}
                     />
                 )}
             </Container>
@@ -124,6 +148,6 @@ class BubbleCanvas extends Component {
     }
 }
 
-BubbleCanvas.displayName = 'BubbleCanvas'
+TreeMapCanvas.displayName = 'TreeMapCanvas'
 
-export default enhance(BubbleCanvas)
+export default enhance(TreeMapCanvas)
