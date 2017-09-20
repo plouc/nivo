@@ -12,6 +12,14 @@ import { gradientTypes, patternTypes } from '../components/defs'
 const gradientKeys = Object.keys(gradientTypes)
 const patternKeys = Object.keys(patternTypes)
 
+/**
+ * Check a node matches given def predicate.
+ *
+ * @param {string|Function|Object} predicate
+ * @param {Object}                 node
+ * @param {string}                 [dataKey] - Optional path to access node data
+ * @returns {boolean}
+ */
 export const isMatchingDef = (predicate, node, dataKey) => {
     if (predicate === '*') {
         return true
