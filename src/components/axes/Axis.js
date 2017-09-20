@@ -25,6 +25,7 @@ export const axisPropType = PropTypes.shape({
     orient: PropTypes.oneOf(axisPositions),
 
     // ticks
+    tickValues: PropTypes.array,
     tickSize: PropTypes.number,
     tickPadding: PropTypes.number,
     tickRotation: PropTypes.number,
@@ -42,10 +43,10 @@ const willEnter = () => ({
     y: 0,
 })
 
-const willLeave = springConfig => ({ style }) => ({
+const willLeave = springConfig => ({ style: { x, y } }) => ({
     opacity: spring(0, springConfig),
-    x: spring(style.x.val, springConfig),
-    y: spring(style.y.val, springConfig),
+    x: spring(x.val, springConfig),
+    y: spring(y.val, springConfig),
 })
 
 const Axis = ({
@@ -54,9 +55,10 @@ const Axis = ({
     width,
     height,
     position: _position,
-    orient: _orient,
 
     // ticks
+    tickValues,
+    tickCount,
     tickSize,
     tickPadding,
     tickRotation,
@@ -80,6 +82,8 @@ const Axis = ({
         height,
         scale,
         position: _position,
+        tickValues,
+        tickCount,
         tickSize,
         tickPadding,
         tickRotation,
@@ -210,11 +214,12 @@ Axis.propTypes = {
     // generic
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
-    orient: PropTypes.oneOf(axisPositions),
     position: PropTypes.oneOf(axisPositions).isRequired,
     scale: PropTypes.func.isRequired,
 
     // ticks
+    tickValues: PropTypes.array,
+    tickCount: PropTypes.number,
     tickSize: PropTypes.number.isRequired,
     tickPadding: PropTypes.number.isRequired,
     tickRotation: PropTypes.number.isRequired,
