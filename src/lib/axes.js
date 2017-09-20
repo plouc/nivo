@@ -35,14 +35,16 @@ const centerScale = scale => {
  */
 
 /**
- * @param {number}   width
- * @param {number}   height
- * @param {string}   _position
- * @param {Function} scale
- * @param {number}   [tickSize=5]
- * @param {number}   [tickPadding=5]
- * @param {number}   [tickRotation=0]
- * @parem {string}   [engine='svg']
+ * @param {number}                width
+ * @param {number}                height
+ * @param {string}                _position
+ * @param {Function}              scale
+ * @param {Array.<string|number>} [tickValues]
+ * @param {number}                [tickCount]
+ * @param {number}                [tickSize=5]
+ * @param {number}                [tickPadding=5]
+ * @param {number}                [tickRotation=0]
+ * @parem {string}                [engine='svg']
  * @return {{ x: number, y: number, ticks: Array.<AxisTick>, textAlign: string, textBaseline: string }}
  */
 export const computeAxisTicks = ({
@@ -52,6 +54,8 @@ export const computeAxisTicks = ({
     scale,
 
     // ticks
+    tickValues,
+    tickCount,
     tickSize = 5,
     tickPadding = 5,
     tickRotation = 0,
@@ -60,11 +64,9 @@ export const computeAxisTicks = ({
     engine = 'svg',
 }) => {
     let values
-    if (scale.ticks) {
-        values = scale.ticks()
-    } else {
-        values = scale.domain()
-    }
+    if (tickValues) values = tickValues
+    else if (scale.ticks) values = scale.ticks(tickCount)
+    else values = scale.domain()
 
     const textProps = textPropsByEngine[engine]
 
