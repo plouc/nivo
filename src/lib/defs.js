@@ -36,12 +36,12 @@ export const isMatchingDef = (predicate, node, dataKey) => {
 /**
  * Compute SVG defs.
  *
- * @param {Array}  defs
- * @param {Array}  nodes
- * @param {Array}  rules
- * @param {string} dataKey
- * @param {string} colorKey
- * @param {string} targetKey
+ * @param {Array.<Object>} defs               - Base SVG defs configs
+ * @param {Array.<Object>} nodes              - Data nodes to apply defs on
+ * @param {Array.<Object>} rules              - Rules used to conditionally apply defs on data nodes
+ * @param {string}         [dataKey]          - Path to node data, used for rule object query based predicate
+ * @param {string}         [colorKey='color'] - Node color path, required when inheritance is involved
+ * @param {string}         [targetKey='fill'] - Node target property to apply def ID on
  * @returns {Array}
  */
 export const bindDefs = (
@@ -52,7 +52,7 @@ export const bindDefs = (
 ) => {
     let boundDefs = []
 
-    // will hold gnerated variation ids,
+    // will hold generated variation ids,
     // to avoid generating multiple identical defs
     const generatedIds = {}
 
