@@ -74,6 +74,9 @@ const Axis = ({
     animate,
     motionStiffness,
     motionDamping,
+
+    // interactivity
+    onClick,
 }) => {
     const { x, y, ticks, textAlign, textBaseline } = computeAxisTicks({
         width,
@@ -140,6 +143,7 @@ const Axis = ({
                         format={format}
                         lineX={tick.lineX}
                         lineY={tick.lineY}
+                        onClick={onClick}
                         rotate={tickRotation}
                         textX={tick.textX}
                         textY={tick.textY}
@@ -183,6 +187,7 @@ const Axis = ({
                                 format={format}
                                 lineX={tick.lineX}
                                 lineY={tick.lineY}
+                                onClick={onClick}
                                 rotate={tickRotation}
                                 textX={tick.textX}
                                 textY={tick.textY}
@@ -227,6 +232,9 @@ Axis.propTypes = {
 
     // theming
     theme: PropTypes.object.isRequired,
+
+    // interactivity
+    onClick: PropTypes.func,
 }
 
 Axis.defaultProps = {

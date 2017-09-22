@@ -34,6 +34,7 @@ export default class AxisTick extends Component {
             format,
             lineX,
             lineY,
+            onClick,
             textX,
             textY,
             textBaseline,
@@ -46,8 +47,17 @@ export default class AxisTick extends Component {
             value = format(value)
         }
 
+        let gStyle = { opacity }
+        if (onClick) {
+            gStyle['cursor'] = 'pointer'
+        }
+
         return (
-            <g transform={`translate(${x},${y})`} style={{ opacity }}>
+            <g
+                transform={`translate(${x},${y})`}
+                style={gStyle}
+                onClick={onClick ? () => onClick(value) : undefined}
+            >
                 <line x1={0} x2={lineX} y1={0} y2={lineY} stroke={theme.axis.tickColor} />
                 <text
                     alignmentBaseline={textBaseline}
