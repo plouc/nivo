@@ -55,8 +55,8 @@ export default class AxisTick extends Component {
         return (
             <g
                 transform={`translate(${x},${y})`}
+                {...(onClick ? { onClick: () => onClick(value) } : {})}
                 style={gStyle}
-                onClick={onClick ? () => onClick(value) : undefined}
             >
                 <line x1={0} x2={lineX} y1={0} y2={lineY} stroke={theme.axis.tickColor} />
                 <text

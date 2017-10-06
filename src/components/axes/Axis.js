@@ -147,7 +147,6 @@ const Axis = ({
                         format={format}
                         lineX={tick.lineX}
                         lineY={tick.lineY}
-                        onClick={onClick}
                         rotate={tickRotation}
                         textX={tick.textX}
                         textY={tick.textY}
@@ -156,6 +155,7 @@ const Axis = ({
                         theme={theme}
                         x={tick.x}
                         y={tick.y}
+                        {...(onClick ? { onClick: () => onClick(value) } : {})}
                     />
                 ))}
             </g>
@@ -191,13 +191,13 @@ const Axis = ({
                                 format={format}
                                 lineX={tick.lineX}
                                 lineY={tick.lineY}
-                                onClick={onClick}
                                 rotate={tickRotation}
                                 textX={tick.textX}
                                 textY={tick.textY}
                                 textBaseline={textBaseline}
                                 textAnchor={textAlign}
                                 theme={theme}
+                                {...(onClick ? { onClick: () => onClick(value) } : {})}
                                 {...style}
                             />
                         ))}
