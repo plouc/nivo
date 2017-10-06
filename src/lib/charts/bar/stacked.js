@@ -10,6 +10,7 @@ import { flattenDepth, min, max } from 'lodash'
 import { scaleLinear } from 'd3-scale'
 import { stack, stackOffsetDiverging } from 'd3-shape'
 import { getIndexedScale } from './common'
+import groupBy from 'lodash/groupBy'
 
 /**
  * Generates scale for stacked bar chart.
@@ -36,6 +37,29 @@ export const getStackedScale = (data, _minValue, _maxValue, range) => {
     return scaleLinear()
         .rangeRound(range)
         .domain([minValue, maxValue])
+}
+
+function getSlices(bars, xScale) {
+    const groups = groupBy(bars, 'data.indexValue')
+
+    return xScale.domain().map(id => {
+        const groupBars = groups[id]
+
+        return {
+            id,
+            x: xScale(id),
+            width: groupBars[0].width,
+            bars: groupBars.map(bar => {
+                const { data: { id, value }, color } = bar
+
+                return {
+                    id,
+                    value,
+                    color,
+                }
+            }),
+        }
+    })
 }
 
 /**
@@ -121,7 +145,9 @@ export const generateVerticalStackedBars = ({
         })
     }
 
-    return { xScale, yScale, bars }
+    const slices = getSlices(bars, xScale)
+
+    return { xScale, yScale, bars, slices }
 }
 
 /**

@@ -17,6 +17,7 @@ import SvgWrapper from '../SvgWrapper'
 import Grid from '../../axes/Grid'
 import CartesianMarkers from '../../cartesian/markers/CartesianMarkers'
 import Axes from '../../axes/Axes'
+import BarSlices from './BarSlices'
 
 const barWillEnterHorizontal = ({ style }) => ({
     x: style.x.val,
@@ -103,6 +104,9 @@ const Bar = ({
     // interactivity
     isInteractive,
     onClick,
+
+    // stackTooltip
+    enableStackTooltip,
 }) => {
     const options = {
         layout,
@@ -245,6 +249,16 @@ const Bar = ({
                             {...motionProps}
                         />
                         {bars}
+                        {isInteractive &&
+                        enableStackTooltip && (
+                            <BarSlices
+                                slices={result.slices}
+                                height={height}
+                                showTooltip={showTooltip}
+                                hideTooltip={hideTooltip}
+                                theme={theme}
+                            />
+                        )}
                         <CartesianMarkers
                             markers={markers}
                             width={width}

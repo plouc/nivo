@@ -8,6 +8,7 @@ import '../style.css'
 import { Bar } from '../../src'
 
 const keys = ['hot dogs', 'burgers', 'sandwich', 'kebab', 'fries', 'donut']
+
 const commonProps = {
     width: 1000,
     height: 600,
