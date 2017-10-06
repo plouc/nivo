@@ -155,7 +155,7 @@ const Axis = ({
                         theme={theme}
                         x={tick.x}
                         y={tick.y}
-                        {...(onClick ? { onClick: () => onClick(value) } : {})}
+                        {...(onClick ? { onClick } : {})}
                     />
                 ))}
             </g>
@@ -197,7 +197,7 @@ const Axis = ({
                                 textBaseline={textBaseline}
                                 textAnchor={textAlign}
                                 theme={theme}
-                                {...(onClick ? { onClick: () => onClick(value) } : {})}
+                                {...(onClick ? { onClick } : {})}
                                 {...style}
                             />
                         ))}
