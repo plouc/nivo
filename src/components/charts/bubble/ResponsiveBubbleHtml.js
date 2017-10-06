@@ -8,12 +8,10 @@
  */
 import React from 'react'
 import ResponsiveWrapper from '../ResponsiveWrapper'
-import TreeMapHTML from './TreeMapHTML'
+import BubbleHtml from './BubbleHtml'
 
-const ResponsiveTreeMapHTML = props => (
+export default props => (
     <ResponsiveWrapper>
-        {({ width, height }) => <TreeMapHTML width={width} height={height} {...props} />}
+        {({ width, height }) => <BubbleHtml width={width} height={height} {...props} />}
     </ResponsiveWrapper>
 )
-
-export default ResponsiveTreeMapHTML

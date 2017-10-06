@@ -8,15 +8,13 @@
  */
 import React from 'react'
 import { TransitionMotion, spring } from 'react-motion'
-import pick from 'lodash/pick'
 import { colorMotionSpring, getInterpolatedColor } from '../../../lib/colors'
 import Container from '../Container'
 import enhance from './enhance'
-import { nodeWillEnter, nodeWillLeave } from './motion'
 import { getNodeHandlers } from './interactivity'
-import SvgWrapper from '../SvgWrapper'
+import { nodeWillEnter, nodeWillLeave } from './motion'
 
-const Bubble = ({
+const TreeMapHtml = ({
     nodes,
     nodeComponent,
 
@@ -29,10 +27,10 @@ const Bubble = ({
     theme,
     borderWidth,
     getBorderColor,
-    defs,
 
     // labels
     getLabelTextColor,
+    orientLabel,
 
     // motion
     animate,
@@ -42,8 +40,6 @@ const Bubble = ({
     // interactivity
     isInteractive,
     onClick,
-    isZoomable,
-    zoomToNode,
 }) => {
     const springConfig = {
         stiffness: motionStiffness,
@@ -56,32 +52,40 @@ const Bubble = ({
             onClick,
             showTooltip,
             hideTooltip,
-            isZoomable,
-            zoomToNode,
             theme,
         })
 
     return (
-        <Container isInteractive={isInteractive} theme={theme}>
+        <Container theme={theme}>
             {({ showTooltip, hideTooltip }) => (
-                <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} defs={defs}>
+                <div
+                    style={{
+                        position: 'relative',
+                        width: outerWidth,
+                        height: outerHeight,
+                    }}
+                >
                     {!animate && (
-                        <g>
+                        <div style={{ position: 'absolute', top: margin.top, left: margin.left }}>
                             {nodes.map(node =>
                                 React.createElement(nodeComponent, {
                                     key: node.path,
                                     node,
                                     style: {
-                                        ...pick(node, ['scale', 'r', 'x', 'y', 'color']),
-                                        fill: node.fill,
+                                        x: node.x,
+                                        y: node.y,
+                                        width: node.width,
+                                        height: node.height,
+                                        color: node.color,
                                         borderWidth,
                                         borderColor: getBorderColor(node),
                                         labelTextColor: getLabelTextColor(node),
+                                        orientLabel,
                                     },
                                     handlers: getHandlers(node, showTooltip, hideTooltip),
                                 })
                             )}
-                        </g>
+                        </div>
                     )}
                     {animate && (
                         <TransitionMotion
@@ -91,17 +95,22 @@ const Bubble = ({
                                 key: node.path,
                                 data: node,
                                 style: {
-                                    scale: spring(1, springConfig),
-                                    r: spring(node.r, springConfig),
                                     x: spring(node.x, springConfig),
                                     y: spring(node.y, springConfig),
-                                    opacity: spring(1, springConfig),
+                                    width: spring(node.width, springConfig),
+                                    height: spring(node.height, springConfig),
                                     ...colorMotionSpring(node.color, springConfig),
                                 },
                             }))}
                         >
                             {interpolatedStyles => (
-                                <g>
+                                <div
+                                    style={{
+                                        position: 'absolute',
+                                        top: margin.top,
+                                        left: margin.left,
+                                    }}
+                                >
                                     {interpolatedStyles.map(({ style, data: node }) => {
                                         style.color = getInterpolatedColor(style)
 
@@ -114,20 +123,21 @@ const Bubble = ({
                                                 borderWidth,
                                                 borderColor: getBorderColor(style),
                                                 labelTextColor: getLabelTextColor(style),
+                                                orientLabel,
                                             },
                                             handlers: getHandlers(node, showTooltip, hideTooltip),
                                         })
                                     })}
-                                </g>
+                                </div>
                             )}
                         </TransitionMotion>
                     )}
-                </SvgWrapper>
+                </div>
             )}
         </Container>
     )
 }
 
-Bubble.displayName = 'Bubble'
+TreeMapHtml.displayName = 'TreeMapHtml'
 
-export default enhance(Bubble)
+export default enhance(TreeMapHtml)

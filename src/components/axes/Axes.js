@@ -43,10 +43,9 @@ const Axes = ({
     return (
         <g>
             {positions.map(position => {
-                if (!axes[position]) return null
-
                 const axis = axes[position]
-                if (axis.enabled !== undefined && axis.enabled === false) return null
+
+                if (!axis) return null
 
                 const scale = horizontalPositions.includes(position) ? xScale : yScale
 

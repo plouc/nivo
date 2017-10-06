@@ -7,12 +7,15 @@
  * file that was distributed with this source code.
  */
 import { PatternDots } from './PatternDots'
+import { PatternLines } from './PatternLines'
 import { PatternSquares } from './PatternSquares'
 
 export const patternTypes = {
     patternDots: PatternDots,
+    patternLines: PatternLines,
     patternSquares: PatternSquares,
 }
 
 export * from './PatternDots'
+export * from './PatternLines'
 export * from './PatternSquares'

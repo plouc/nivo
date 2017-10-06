@@ -13,13 +13,13 @@ import withPropsOnChange from 'recompose/withPropsOnChange'
 import setPropTypes from 'recompose/setPropTypes'
 import { spring } from 'react-motion'
 import { motionPropTypes } from '../props'
-import { defaultMotionDamping, defaultMotionStiffness } from '../defaults'
+import { defaultAnimate, defaultMotionDamping, defaultMotionStiffness } from '../defaults'
 
 export default () =>
     compose(
         setPropTypes(motionPropTypes),
         defaultProps({
-            animate: true,
+            animate: defaultAnimate,
             motionDamping: defaultMotionDamping,
             motionStiffness: defaultMotionStiffness,
         }),

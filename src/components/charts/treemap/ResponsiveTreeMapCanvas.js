@@ -8,12 +8,10 @@
  */
 import React from 'react'
 import ResponsiveWrapper from '../ResponsiveWrapper'
-import TreeMapPlaceholders from './TreeMapPlaceholders'
+import TreeMapCanvas from './TreeMapCanvas'
 
-const ResponsiveTreeMapPlaceholders = props => (
+export default props => (
     <ResponsiveWrapper>
-        {({ width, height }) => <TreeMapPlaceholders width={width} height={height} {...props} />}
+        {({ width, height }) => <TreeMapCanvas width={width} height={height} {...props} />}
     </ResponsiveWrapper>
 )
-
-export default ResponsiveTreeMapPlaceholders

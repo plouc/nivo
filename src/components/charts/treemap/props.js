@@ -8,9 +8,9 @@
  */
 import PropTypes from 'prop-types'
 import noop from '../../../lib/noop'
-import { defsPropTypes } from '../../../props'
-import BubbleNode from './BubbleNode'
-import BubbleHtmlNode from './BubbleHtmlNode'
+import { treeMapTilePropType, defsPropTypes } from '../../../props'
+import TreeMapNode from './TreeMapNode'
+import TreeMapHtmlNode from './TreeMapHtmlNode'
 
 /*—————————————————————————————————————————————————————————————————————————————
 
@@ -30,37 +30,40 @@ const commonPropTypes = {
     // colors managed by `withColors()` HOC
 
     leavesOnly: PropTypes.bool.isRequired,
-    padding: PropTypes.number.isRequired,
-
-    // border
-    borderWidth: PropTypes.number.isRequired,
-    borderColor: PropTypes.any.isRequired,
+    tile: treeMapTilePropType.isRequired,
+    innerPadding: PropTypes.number.isRequired,
+    outerPadding: PropTypes.number.isRequired,
 
     // labels
     enableLabel: PropTypes.bool.isRequired,
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     labelFormat: PropTypes.string,
-    labelTextColor: PropTypes.any.isRequired,
-    labelSkipRadius: PropTypes.number.isRequired,
+    labelSkipSize: PropTypes.number.isRequired,
+    orientLabel: PropTypes.bool.isRequired,
+
+    // border
+    borderWidth: PropTypes.number.isRequired,
+    borderColor: PropTypes.any.isRequired,
 
     // interactivity
     isInteractive: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,
-    isZoomable: PropTypes.bool.isRequired,
 }
 
-export const BubblePropTypes = {
+export const TreeMapPropTypes = {
     ...commonPropTypes,
     nodeComponent: PropTypes.func.isRequired,
     ...defsPropTypes,
 }
 
-export const BubbleHtmlPropTypes = {
+export const TreeMapPlaceholdersPropTypes = TreeMapPropTypes
+
+export const TreeMapHtmlPropTypes = {
     ...commonPropTypes,
     nodeComponent: PropTypes.func.isRequired,
 }
 
-export const BubbleCanvasPropTypes = {
+export const TreeMapHtmlCanvasPropTypes = {
     ...commonPropTypes,
     pixelRatio: PropTypes.number.isRequired,
 }
@@ -72,40 +75,45 @@ export const BubbleCanvasPropTypes = {
 —————————————————————————————————————————————————————————————————————————————*/
 
 const commonDefaultProps = {
+    // data
     identity: 'id',
 
+    tile: 'squarify',
     leavesOnly: false,
-    padding: 1,
-
-    // border
-    borderWidth: 0,
-    borderColor: 'inherit',
 
     // labels
     enableLabel: true,
     label: 'id',
+    labelSkipSize: 0,
     labelTextColor: 'inherit:darker(1)',
-    labelSkipRadius: 8,
+    orientLabel: true,
+
+    innerPadding: 0,
+    outerPadding: 0,
+
+    borderWidth: 0,
+    borderColor: 'inherit',
 
     // interactivity
     isInteractive: true,
     onClick: noop,
-    isZoomable: true,
 }
 
-export const BubbleDefaultProps = {
+export const TreeMapDefaultProps = {
     ...commonDefaultProps,
-    nodeComponent: BubbleNode,
+    nodeComponent: TreeMapNode,
     defs: [],
     fill: [],
 }
 
-export const BubbleHtmlDefaultProps = {
+export const TreeMapPlaceholdersDefaultProps = TreeMapDefaultProps
+
+export const TreeMapHtmlDefaultProps = {
     ...commonDefaultProps,
-    nodeComponent: BubbleHtmlNode,
+    nodeComponent: TreeMapHtmlNode,
 }
 
-export const BubbleCanvasDefaultProps = {
+export const TreeMapCanvasDefaultProps = {
     ...commonDefaultProps,
     pixelRatio:
         global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,

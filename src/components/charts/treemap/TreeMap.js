@@ -7,76 +7,128 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import _ from 'lodash'
-import compose from 'recompose/compose'
-import defaultProps from 'recompose/defaultProps'
-import withPropsOnChange from 'recompose/withPropsOnChange'
-import pure from 'recompose/pure'
-import { getLabelGenerator } from '../../../lib/propertiesConverters'
-import { getInheritedColorGenerator } from '../../../lib/colors'
-import { treeMapPropTypes, treeMapDefaultProps } from './TreeMapProps'
-import TreeMapPlaceholders from './TreeMapPlaceholders'
-import TreeMapNode from './TreeMapNode'
+import { TransitionMotion, spring } from 'react-motion'
+import { colorMotionSpring, getInterpolatedColor } from '../../../lib/colors'
+import Container from '../Container'
+import enhance from './enhance'
+import { nodeWillEnter, nodeWillLeave } from './motion'
+import { getNodeHandlers } from './interactivity'
+import SvgWrapper from '../SvgWrapper'
 
-const createNodesRenderer = ({
+const TreeMap = ({
+    nodes,
+    nodeComponent,
+
+    // dimensions
+    margin,
+    outerWidth,
+    outerHeight,
+
+    // styling
+    theme,
     borderWidth,
     getBorderColor,
-    enableLabels,
-    getLabel,
-    orientLabels,
-    labelSkipSize,
+    defs,
+
+    // labels
     getLabelTextColor,
-}) => (nodes, { showTooltip, hideTooltip, theme }) =>
-    nodes.map(node => {
-        const hasLabel =
-            enableLabels &&
-            (labelSkipSize === 0 || Math.min(node.style.width, node.style.height) > labelSkipSize)
+    orientLabel,
 
-        return (
-            <TreeMapNode
-                key={node.key}
-                id={node.data.id}
-                value={node.data.value}
-                dataColor={node.data.color}
-                {...node.style}
-                borderWidth={borderWidth}
-                borderColor={getBorderColor({ ...node.data, color: node.style.color })}
-                hasLabel={hasLabel}
-                label={hasLabel ? getLabel(node.data) : ''}
-                orientLabel={orientLabels}
-                labelTextColor={getLabelTextColor({ ...node.data, color: node.style.color })}
-                showTooltip={showTooltip}
-                hideTooltip={hideTooltip}
-                theme={theme}
-            />
-        )
-    })
+    // motion
+    animate,
+    motionStiffness,
+    motionDamping,
 
-const TreeMap = props => (
-    <TreeMapPlaceholders {...props} namespace="svg">
-        {createNodesRenderer(props)}
-    </TreeMapPlaceholders>
-)
+    // interactivity
+    isInteractive,
+    onClick,
+}) => {
+    const springConfig = {
+        stiffness: motionStiffness,
+        damping: motionDamping,
+    }
 
-TreeMap.propTypes = _.omit(treeMapPropTypes, ['children', 'namespace'])
+    const getHandlers = (node, showTooltip, hideTooltip) =>
+        getNodeHandlers(node, {
+            isInteractive,
+            onClick,
+            showTooltip,
+            hideTooltip,
+            theme,
+        })
 
-export const TreeMapDefaultProps = _.omit(treeMapDefaultProps, [])
+    return (
+        <Container isInteractive={isInteractive} theme={theme}>
+            {({ showTooltip, hideTooltip }) => (
+                <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} defs={defs}>
+                    {!animate && (
+                        <g>
+                            {nodes.map(node =>
+                                React.createElement(nodeComponent, {
+                                    key: node.path,
+                                    node,
+                                    style: {
+                                        fill: node.fill,
+                                        x: node.x0,
+                                        y: node.y0,
+                                        width: node.width,
+                                        height: node.height,
+                                        color: node.color,
+                                        borderWidth,
+                                        borderColor: getBorderColor(node),
+                                        labelTextColor: getLabelTextColor(node),
+                                        orientLabel,
+                                    },
+                                    handlers: getHandlers(node, showTooltip, hideTooltip),
+                                })
+                            )}
+                        </g>
+                    )}
+                    {animate && (
+                        <TransitionMotion
+                            willEnter={nodeWillEnter}
+                            willLeave={nodeWillLeave(springConfig)}
+                            styles={nodes.map(node => ({
+                                key: node.path,
+                                data: node,
+                                style: {
+                                    x: spring(node.x, springConfig),
+                                    y: spring(node.y, springConfig),
+                                    width: spring(node.width, springConfig),
+                                    height: spring(node.height, springConfig),
+                                    ...colorMotionSpring(node.color, springConfig),
+                                },
+                            }))}
+                        >
+                            {interpolatedStyles => (
+                                <g>
+                                    {interpolatedStyles.map(({ style, data: node }) => {
+                                        style.color = getInterpolatedColor(style)
 
-const enhance = compose(
-    defaultProps(TreeMapDefaultProps),
-    withPropsOnChange(['label', 'labelFormat'], ({ label, labelFormat }) => ({
-        getLabel: getLabelGenerator(label, labelFormat),
-    })),
-    withPropsOnChange(['borderColor'], ({ borderColor }) => ({
-        getBorderColor: getInheritedColorGenerator(borderColor),
-    })),
-    withPropsOnChange(['labelTextColor'], ({ labelTextColor }) => ({
-        getLabelTextColor: getInheritedColorGenerator(labelTextColor),
-    })),
-    pure
-)
+                                        return React.createElement(nodeComponent, {
+                                            key: node.path,
+                                            node,
+                                            style: {
+                                                ...style,
+                                                fill: node.fill,
+                                                borderWidth,
+                                                borderColor: getBorderColor(style),
+                                                labelTextColor: getLabelTextColor(style),
+                                                orientLabel,
+                                            },
+                                            handlers: getHandlers(node, showTooltip, hideTooltip),
+                                        })
+                                    })}
+                                </g>
+                            )}
+                        </TransitionMotion>
+                    )}
+                </SvgWrapper>
+            )}
+        </Container>
+    )
+}
 
-const enhancedTreeMap = enhance(TreeMap)
-enhancedTreeMap.displayName = 'enhance(TreeMap)'
+TreeMap.displayName = 'TreeMap'
 
-export default enhancedTreeMap
+export default enhance(TreeMap)

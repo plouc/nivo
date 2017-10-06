@@ -67,6 +67,29 @@ describe('computeAxisTicks()', () => {
                 })
             ).toMatchSnapshot()
         })
+
+        it('should allow to customize tick values', () => {
+            const tickValues = [10, 20, 30]
+            const axis = computeAxisTicks({
+                scale: linearScale,
+                width,
+                height,
+                tickValues,
+                position: 'left',
+            })
+            expect(axis.ticks.map(({ value }) => value)).toEqual(tickValues)
+        })
+
+        it('should allow to customize tick count', () => {
+            const axis = computeAxisTicks({
+                scale: linearScale,
+                width,
+                height,
+                tickCount: 1,
+                position: 'left',
+            })
+            expect(axis.ticks.length).toBe(2)
+        })
     })
 
     describe('from ordinal scale', () => {

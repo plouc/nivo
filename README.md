@@ -1,4 +1,4 @@
-<img alt="nivo" src="https://raw.githubusercontent.com/plouc/nivo/master/nivo.png" width="216" height="68" />
+<img alt="nivo" src="https://raw.githubusercontent.com/plouc/nivo/master/nivo.png" width="216" height="68"/>
 
 [![License][license-image]][license-url]
 [![Travis CI][travis-image]][travis-url]
@@ -9,7 +9,8 @@
 **nivo** provides supercharged React components to easily build dataviz apps,
 it's built on top of d3.
 
-Several libraries already exist for React d3 integration, but just a few provide server side rendering ability and fully declarative charts.
+Several libraries already exist for React d3 integration,
+but just a few provide server side rendering ability and fully declarative charts.
 
 ## Features
 
@@ -21,7 +22,6 @@ Several libraries already exist for React d3 integration, but just a few provide
 - [SVG charts](http://nivo.rocks/#/components?filter=svg)
 - [HTML charts](http://nivo.rocks/#/components?filter=html)
 - [Canvas charts](http://nivo.rocks/#/components?filter=canvas)
-- [placeholder components](http://nivo.rocks/#/components?q=placeholder) for advanced customization (`<*Placeholders />` components)
 - [server side rendering API](https://github.com/plouc/nivo-api)
 - [SVG patterns](http://nivo.rocks/#/guides/patterns)
 - [Gradients](http://nivo.rocks/#/guides/gradients)
@@ -34,73 +34,77 @@ Join the [nivo discord community](https://discord.gg/n7Ft74f).
 ## Components
 
 - Bar
-    - [`<Bar />`](http://nivo.rocks/#/bar)
-    - [`<ResponsiveBar />`](http://nivo.rocks/#/bar)
-    - [`<BarCanvas />`](http://nivo.rocks/#/bar/canvas)
-    - [`<ResponsiveBarCanvas />`](http://nivo.rocks/#/bar/canvas)
+    - [`<Bar/>`](http://nivo.rocks/#/bar)
+    - [`<ResponsiveBar/>`](http://nivo.rocks/#/bar)
+    - [`<BarCanvas/>`](http://nivo.rocks/#/bar/canvas)
+    - [`<ResponsiveBarCanvas/>`](http://nivo.rocks/#/bar/canvas)
 - Bubble
-    - [`<Bubble />`](http://nivo.rocks/#/bubble)
-    - [`<ResponsiveBubble />`](http://nivo.rocks/#/bubble)
-    - [`<BubblePlaceholders />`](http://nivo.rocks/#/bubble/placeholders)
-    - [`<ResponsiveBubblePlaceholders />`](http://nivo.rocks/#/bubble/placeholders)
+    - [`<Bubble/>`](http://nivo.rocks/#/bubble)
+    - [`<ResponsiveBubble/>`](http://nivo.rocks/#/bubble)
+    - [`<BubbleHtml/>`](http://nivo.rocks/#/bubble/html)
+    - [`<ResponsiveBubbleHtml/>`](http://nivo.rocks/#/bubble/html)
+    - [`<BubbleCanvas/>`](http://nivo.rocks/#/bubble/canvas)
+    - [`<ResponsiveBubbleCanvas/>`](http://nivo.rocks/#/bubble/canvas)
 - Calendar
-    - [`<Calendar />`](http://nivo.rocks/#/calendar)
-    - [`<ResponsiveCalendar />`](http://nivo.rocks/#/calendar)
+    - [`<Calendar/>`](http://nivo.rocks/#/calendar)
+    - [`<ResponsiveCalendar/>`](http://nivo.rocks/#/calendar)
 - Chord
-    - [`<Chord />`](http://nivo.rocks/#/chord)
-    - [`<ResponsiveChord />`](http://nivo.rocks/#/chord)
-    - [`<ChordCanvas />`](http://nivo.rocks/#/chord/canvas)
-    - [`<ResponsiveChordCanvas />`](http://nivo.rocks/#/chord/canvas)
+    - [`<Chord/>`](http://nivo.rocks/#/chord)
+    - [`<ResponsiveChord/>`](http://nivo.rocks/#/chord)
+    - [`<ChordCanvas/>`](http://nivo.rocks/#/chord/canvas)
+    - [`<ResponsiveChordCanvas/>`](http://nivo.rocks/#/chord/canvas)
 - HeatMap
-    - [`<HeatMap />`](http://nivo.rocks/#/heatmap)
-    - [`<ResponsiveHeatMap />`](http://nivo.rocks/#/heatmap)
-    - [`<HeatMapCanvas />`](http://nivo.rocks/#/heatmap/canvas)
-    - [`<ResponsiveHeatMapCanvas />`](http://nivo.rocks/#/heatmap/canvas)
+    - [`<HeatMap/>`](http://nivo.rocks/#/heatmap)
+    - [`<ResponsiveHeatMap/>`](http://nivo.rocks/#/heatmap)
+    - [`<HeatMapCanvas/>`](http://nivo.rocks/#/heatmap/canvas)
+    - [`<ResponsiveHeatMapCanvas/>`](http://nivo.rocks/#/heatmap/canvas)
 - Line
-    - [`<Line />`](http://nivo.rocks/#/line)
-    - [`<ResponsiveLine />`](http://nivo.rocks/#/line)
+    - [`<Line/>`](http://nivo.rocks/#/line)
+    - [`<ResponsiveLine/>`](http://nivo.rocks/#/line)
 - Pie
-    - [`<Pie />`](http://nivo.rocks/#/pie)
-    - [`<ResponsivePie />`](http://nivo.rocks/#/pie)
+    - [`<Pie/>`](http://nivo.rocks/#/pie)
+    - [`<ResponsivePie/>`](http://nivo.rocks/#/pie)
 - Radar
-    - [`<Radar />`](http://nivo.rocks/#/radar)
-    - [`<ResponsiveRadar />`](http://nivo.rocks/#/radar)
+    - [`<Radar/>`](http://nivo.rocks/#/radar)
+    - [`<ResponsiveRadar/>`](http://nivo.rocks/#/radar)
 - Sankey
-    - [`<Sankey />`](http://nivo.rocks/#/sankey)
-    - [`<ResponsiveSankey />`](http://nivo.rocks/#/sankey)               
+    - [`<Sankey/>`](http://nivo.rocks/#/sankey)
+    - [`<ResponsiveSankey/>`](http://nivo.rocks/#/sankey)               
 - Stream
-    - [`<Stream />`](http://nivo.rocks/#/stream)
-    - [`<ResponsiveStream />`](http://nivo.rocks/#/stream)           
+    - [`<Stream/>`](http://nivo.rocks/#/stream)
+    - [`<ResponsiveStream/>`](http://nivo.rocks/#/stream)           
 - Sunburst
-    - [`<Sunburst />`](http://nivo.rocks/#/sunburst)
-    - [`<ResponsiveSunburst />`](http://nivo.rocks/#/sunburst)  
+    - [`<Sunburst/>`](http://nivo.rocks/#/sunburst)
+    - [`<ResponsiveSunburst/>`](http://nivo.rocks/#/sunburst)  
 - TreeMap
-    - [`<TreeMap />`](http://nivo.rocks/#/treemap)
-    - [`<ResponsiveTreeMap />`](http://nivo.rocks/#/treemap)
-    - [`<TreeMapHTML />`](http://nivo.rocks/#/treemap/html)
-    - [`<ResponsiveTreeMapHTML />`](http://nivo.rocks/#/treemap/html)
-    - [`<TreeMapPlaceholders />`](http://nivo.rocks/#/treemap/placeholders)
-    - [`<ResponsiveTreeMapPlaceholders />`](http://nivo.rocks/#/treemap/placeholders)
+    - [`<TreeMap/>`](http://nivo.rocks/#/treemap)
+    - [`<ResponsiveTreeMap/>`](http://nivo.rocks/#/treemap)
+    - [`<TreeMapHTML/>`](http://nivo.rocks/#/treemap/html)
+    - [`<ResponsiveTreeMapHTML/>`](http://nivo.rocks/#/treemap/html)
+    - [`<TreeMapCanvas/>`](http://nivo.rocks/#/treemap/canvas)
+    - [`<ResponsiveTreeMapCanvas/>`](http://nivo.rocks/#/treemap/canvas)
 - Voronoi `experimental`
-    - [`<Voronoi />`](http://nivo.rocks/#/voronoi)
-    - [`<ResponsiveVoronoi />`](http://nivo.rocks/#/voronoi)            
+    - [`<Voronoi/>`](http://nivo.rocks/#/voronoi)
+    - [`<ResponsiveVoronoi/>`](http://nivo.rocks/#/voronoi)            
 
 ## [HTTP API](https://github.com/plouc/nivo-api)
 
-- [`<Bar />`](https://nivo-api.herokuapp.com/samples/bar.svg)
-- [`<Bubble />`](https://nivo-api.herokuapp.com/samples/bubble.svg)
-- [`<Chord />`](https://nivo-api.herokuapp.com/samples/chord.svg)
-- [`<HeatMap />`](https://nivo-api.herokuapp.com/samples/heatmap.svg)
-- [`<Line />`](https://nivo-api.herokuapp.com/samples/line.svg)
-- [`<Pie />`](https://nivo-api.herokuapp.com/samples/pie.svg)
-- [`<Radar />`](https://nivo-api.herokuapp.com/samples/radar.svg)
-- [`<Sankey />`](https://nivo-api.herokuapp.com/samples/sankey.svg)
-- [`<Sunburst />`](https://nivo-api.herokuapp.com/samples/sunburst.svg)
-- [`<TreeMap />`](https://nivo-api.herokuapp.com/samples/treemap.svg)
+- [`<Bar/>`](https://nivo-api.herokuapp.com/samples/bar.svg)
+- [`<Bubble/>`](https://nivo-api.herokuapp.com/samples/bubble.svg)
+- [`<Chord/>`](https://nivo-api.herokuapp.com/samples/chord.svg)
+- [`<HeatMap/>`](https://nivo-api.herokuapp.com/samples/heatmap.svg)
+- [`<Line/>`](https://nivo-api.herokuapp.com/samples/line.svg)
+- [`<Pie/>`](https://nivo-api.herokuapp.com/samples/pie.svg)
+- [`<Radar/>`](https://nivo-api.herokuapp.com/samples/radar.svg)
+- [`<Sankey/>`](https://nivo-api.herokuapp.com/samples/sankey.svg)
+- [`<Sunburst/>`](https://nivo-api.herokuapp.com/samples/sunburst.svg)
+- [`<TreeMap/>`](https://nivo-api.herokuapp.com/samples/treemap.svg)
 
 ## Guides
     
-- [colors](http://nivo.rocks/#/guides/colors)    
+- [colors](http://nivo.rocks/#/guides/colors)
+- [gradients](http://nivo.rocks/#/guides/gradients)
+- [patterns](http://nivo.rocks/#/guides/patterns)
 
 ## Repositories
 

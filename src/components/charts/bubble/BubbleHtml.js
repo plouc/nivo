@@ -14,9 +14,8 @@ import Container from '../Container'
 import enhance from './enhance'
 import { nodeWillEnter, nodeWillLeave } from './motion'
 import { getNodeHandlers } from './interactivity'
-import SvgWrapper from '../SvgWrapper'
 
-const Bubble = ({
+const BubbleHtml = ({
     nodes,
     nodeComponent,
 
@@ -29,7 +28,6 @@ const Bubble = ({
     theme,
     borderWidth,
     getBorderColor,
-    defs,
 
     // labels
     getLabelTextColor,
@@ -64,16 +62,21 @@ const Bubble = ({
     return (
         <Container isInteractive={isInteractive} theme={theme}>
             {({ showTooltip, hideTooltip }) => (
-                <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} defs={defs}>
+                <div
+                    style={{
+                        position: 'relative',
+                        width: outerWidth,
+                        height: outerHeight,
+                    }}
+                >
                     {!animate && (
-                        <g>
+                        <div style={{ position: 'absolute', top: margin.top, left: margin.left }}>
                             {nodes.map(node =>
                                 React.createElement(nodeComponent, {
                                     key: node.path,
                                     node,
                                     style: {
                                         ...pick(node, ['scale', 'r', 'x', 'y', 'color']),
-                                        fill: node.fill,
                                         borderWidth,
                                         borderColor: getBorderColor(node),
                                         labelTextColor: getLabelTextColor(node),
@@ -81,7 +84,7 @@ const Bubble = ({
                                     handlers: getHandlers(node, showTooltip, hideTooltip),
                                 })
                             )}
-                        </g>
+                        </div>
                     )}
                     {animate && (
                         <TransitionMotion
@@ -101,7 +104,13 @@ const Bubble = ({
                             }))}
                         >
                             {interpolatedStyles => (
-                                <g>
+                                <div
+                                    style={{
+                                        position: 'absolute',
+                                        top: margin.top,
+                                        left: margin.left,
+                                    }}
+                                >
                                     {interpolatedStyles.map(({ style, data: node }) => {
                                         style.color = getInterpolatedColor(style)
 
@@ -110,7 +119,6 @@ const Bubble = ({
                                             node,
                                             style: {
                                                 ...style,
-                                                fill: node.fill,
                                                 borderWidth,
                                                 borderColor: getBorderColor(style),
                                                 labelTextColor: getLabelTextColor(style),
@@ -118,16 +126,16 @@ const Bubble = ({
                                             handlers: getHandlers(node, showTooltip, hideTooltip),
                                         })
                                     })}
-                                </g>
+                                </div>
                             )}
                         </TransitionMotion>
                     )}
-                </SvgWrapper>
+                </div>
             )}
         </Container>
     )
 }
 
-Bubble.displayName = 'Bubble'
+BubbleHtml.displayName = 'BubbleHtml'
 
-export default enhance(Bubble)
+export default enhance(BubbleHtml)

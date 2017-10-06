@@ -12,6 +12,14 @@ import { gradientTypes, patternTypes } from '../components/defs'
 const gradientKeys = Object.keys(gradientTypes)
 const patternKeys = Object.keys(patternTypes)
 
+/**
+ * Check a node matches given def predicate.
+ *
+ * @param {string|Function|Object} predicate
+ * @param {Object}                 node
+ * @param {string}                 [dataKey] - Optional path to access node data
+ * @returns {boolean}
+ */
 export const isMatchingDef = (predicate, node, dataKey) => {
     if (predicate === '*') {
         return true
@@ -25,15 +33,26 @@ export const isMatchingDef = (predicate, node, dataKey) => {
     return false
 }
 
+/**
+ * Compute SVG defs.
+ *
+ * @param {Array.<Object>} defs               - Base SVG defs configs
+ * @param {Array.<Object>} nodes              - Data nodes to apply defs on
+ * @param {Array.<Object>} rules              - Rules used to conditionally apply defs on data nodes
+ * @param {string}         [dataKey]          - Path to node data, used for rule object query based predicate
+ * @param {string}         [colorKey='color'] - Node color path, required when inheritance is involved
+ * @param {string}         [targetKey='fill'] - Node target property to apply def ID on
+ * @returns {Array}
+ */
 export const bindDefs = (
     defs,
     nodes,
     rules,
-    { idKey = 'id', dataKey, colorKey = 'color', targetKey = 'fill' } = {}
+    { dataKey, colorKey = 'color', targetKey = 'fill' } = {}
 ) => {
     let boundDefs = []
 
-    // will hold gnerated variation ids,
+    // will hold generated variation ids,
     // to avoid generating multiple identical defs
     const generatedIds = {}
 

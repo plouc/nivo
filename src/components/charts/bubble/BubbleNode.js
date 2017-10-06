@@ -9,29 +9,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const TreeMapNode = ({ style, node, handlers }) => {
-    if (style.width <= 0 || style.height <= 0) return null
-
-    const rotate = node.label && style.orientLabel && style.height > style.width
+const BubbleNode = ({ node, style, handlers }) => {
+    if (style.r <= 0) return null
 
     return (
         <g transform={`translate(${style.x},${style.y})`}>
-            <rect
-                width={style.width}
-                height={style.height}
-                fill={style.fill ? style.fill : style.color}
-                strokeWidth={style.borderWidth}
-                stroke={style.borderColor}
+            <circle
+                r={style.r}
                 {...handlers}
+                fill={style.fill ? style.fill : style.color}
+                stroke={style.borderColor}
+                strokeWidth={style.borderWidth}
             />
-            {node.label && (
+            {node.label !== false && (
                 <text
                     textAnchor="middle"
                     alignmentBaseline="central"
-                    style={{ fill: style.labelTextColor, pointerEvents: 'none' }}
-                    transform={`translate(${style.width / 2},${style.height / 2}) rotate(${rotate
-                        ? -90
-                        : 0})`}
+                    style={{
+                        fill: style.labelTextColor,
+                        pointerEvents: 'none',
+                    }}
                 >
                     {node.label}
                 </text>
@@ -40,20 +37,19 @@ const TreeMapNode = ({ style, node, handlers }) => {
     )
 }
 
-TreeMapNode.propTypes = {
+BubbleNode.propTypes = {
     node: PropTypes.object.isRequired,
     style: PropTypes.shape({
+        r: PropTypes.number.isRequired,
         x: PropTypes.number.isRequired,
         y: PropTypes.number.isRequired,
-        width: PropTypes.number.isRequired,
-        height: PropTypes.number.isRequired,
         color: PropTypes.string.isRequired,
+        fill: PropTypes.string,
         borderWidth: PropTypes.number.isRequired,
         borderColor: PropTypes.string.isRequired,
         labelTextColor: PropTypes.string.isRequired,
-        orientLabel: PropTypes.bool.isRequired,
     }).isRequired,
     handlers: PropTypes.object.isRequired,
 }
 
-export default TreeMapNode
+export default BubbleNode
