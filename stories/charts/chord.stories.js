@@ -55,3 +55,14 @@ stories.add('putting labels inside arcs', () => (
         labelTextColor="inherit:darker(1.2)"
     />
 ))
+
+stories.add('with formatted values', () => (
+    <Chord
+        {...commonProperties}
+        {...generateChordData({ size: 5 })}
+        tooltipFormat={value =>
+            `${Number(value).toLocaleString('ru-RU', {
+                minimumFractionDigits: 2,
+            })} ₽`}
+    />
+))

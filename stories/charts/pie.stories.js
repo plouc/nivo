@@ -49,3 +49,13 @@ stories.add('custom radial label', () => (
         enableSlicesLabels={false}
     />
 ))
+
+stories.add('with formatted values', () => (
+    <Pie
+        {...commonProperties}
+        tooltipFormat={value =>
+            `${Number(value).toLocaleString('ru-RU', {
+                minimumFractionDigits: 2,
+            })} ₽`}
+    />
+))

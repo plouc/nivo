@@ -51,3 +51,13 @@ stories.add('custom tooltip', () => (
         )}
     />
 ))
+
+stories.add('with formatted values', () => (
+    <Sankey
+        {...commonProperties}
+        tooltipFormat={value =>
+            `${Number(value).toLocaleString('ru-RU', {
+                minimumFractionDigits: 2,
+            })} ₽`}
+    />
+))

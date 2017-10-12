@@ -204,3 +204,20 @@ stories.add('with custom min/max Y', () => (
         maxY={1}
     />
 ))
+
+stories.add('with formatted values', () => (
+    <Line
+        {...commonProperties}
+        axisLeft={{
+            format: value =>
+                Number(value).toLocaleString('ru-RU', {
+                    minimumFractionDigits: 2,
+                }),
+        }}
+        curve="monotoneX"
+        tooltipFormat={value =>
+            `${Number(value).toLocaleString('ru-RU', {
+                minimumFractionDigits: 2,
+            })} ₽`}
+    />
+))

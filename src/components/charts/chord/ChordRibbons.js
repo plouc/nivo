@@ -8,8 +8,11 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { mapValues } from 'lodash'
+import { isFunction, mapValues } from 'lodash'
 import { TransitionMotion, spring } from 'react-motion'
+import { format as d3Format } from 'd3-format'
+import compose from 'recompose/compose'
+import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
 import { colorMotionSpring, getInterpolatedColor } from '../../../lib/colors'
 import { midAngle } from '../../../lib/polar'
@@ -83,6 +86,7 @@ const ChordRibbons = ({
     getBorderColor,
     getOpacity,
     theme,
+    tooltipFormat,
     setCurrent,
     showTooltip,
     hideTooltip,
@@ -100,12 +104,12 @@ const ChordRibbons = ({
                     [
                         <Chip color={ribbon.source.color} />,
                         <strong>{ribbon.source.id}</strong>,
-                        ribbon.source.value,
+                        tooltipFormat ? tooltipFormat(ribbon.source.value) : ribbon.source.value,
                     ],
                     [
                         <Chip color={ribbon.target.color} />,
                         <strong>{ribbon.target.id}</strong>,
-                        ribbon.target.value,
+                        tooltipFormat ? tooltipFormat(ribbon.target.value) : ribbon.target.value,
                     ],
                 ]}
             />
@@ -221,4 +225,12 @@ ChordRibbons.propTypes = {
     hideTooltip: PropTypes.func.isRequired,
 }
 
-export default pure(ChordRibbons)
+const enhance = compose(
+    withPropsOnChange(['tooltipFormat'], ({ tooltipFormat }) => {
+        if (!tooltipFormat || isFunction(tooltipFormat)) return { tooltipFormat }
+        return { tooltipFormat: d3Format(tooltipFormat) }
+    }),
+    pure
+)
+
+export default enhance(ChordRibbons)

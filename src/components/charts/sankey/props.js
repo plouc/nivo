@@ -61,6 +61,7 @@ export const SankeyPropTypes = {
     // interactivity
     isInteractive: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,
+    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 }
 
 export const SankeyDefaultProps = {

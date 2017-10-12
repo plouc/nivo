@@ -8,6 +8,8 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
+import { isFunction } from 'lodash'
+import { format as d3Format } from 'd3-format'
 import compose from 'recompose/compose'
 import withState from 'recompose/withState'
 import withPropsOnChange from 'recompose/withPropsOnChange'
@@ -58,19 +60,30 @@ RadarTooltipItem.propTypes = {
 const enhance = compose(
     withState('isHover', 'setIsHover', false),
     withPropsOnChange(
-        ['datum', 'keys', 'index', 'colorByKey', 'theme'],
-        ({ datum, keys, index, colorByKey, theme }) => ({
-            tooltip: (
-                <TableTooltip
-                    title={<strong>{index}</strong>}
-                    rows={sortBy(
-                        keys.map(key => [<Chip color={colorByKey[key]} />, key, datum[key]]),
-                        '2'
-                    ).reverse()}
-                    theme={theme}
-                />
-            ),
-        })
+        ['datum', 'keys', 'index', 'colorByKey', 'theme', 'tooltipFormat'],
+        ({ datum, keys, index, colorByKey, theme, tooltipFormat }) => {
+            const format =
+                !tooltipFormat || isFunction(tooltipFormat)
+                    ? tooltipFormat
+                    : d3Format(tooltipFormat)
+
+            return {
+                tooltip: (
+                    <TableTooltip
+                        title={<strong>{index}</strong>}
+                        rows={sortBy(
+                            keys.map(key => [
+                                <Chip color={colorByKey[key]} />,
+                                key,
+                                format ? format(datum[key]) : datum[key],
+                            ]),
+                            '2'
+                        ).reverse()}
+                        theme={theme}
+                    />
+                ),
+            }
+        }
     ),
     withPropsOnChange(
         ['startAngle', 'endAngle', 'radius', 'arcGenerator'],

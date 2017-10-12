@@ -81,6 +81,7 @@ const Line = ({
 
     // interactivity
     isInteractive,
+    tooltipFormat,
 
     // stackTooltip
     enableStackTooltip,
@@ -137,6 +138,7 @@ const Line = ({
                             showTooltip={showTooltip}
                             hideTooltip={hideTooltip}
                             theme={theme}
+                            tooltipFormat={tooltipFormat}
                         />
                     )}
                     {enableDots && (

@@ -8,31 +8,45 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
+import { isFunction } from 'lodash'
+import { format as d3Format } from 'd3-format'
+import compose from 'recompose/compose'
+import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
 import Chip from './Chip'
 
 const chipStyle = { marginRight: 7 }
 
-const BasicTooltip = ({ id, value, enableChip, color, theme }) => (
-    <div style={theme.tooltip.container}>
-        <div style={theme.tooltip.basic}>
-            {enableChip && <Chip color={color} style={chipStyle} />}
-            {value !== undefined ? (
-                <span>
-                    {id}: <strong>{value}</strong>
-                </span>
-            ) : (
-                id
-            )}
+const BasicTooltip = props => {
+    const { id, value: _value, format, enableChip, color, theme } = props
+
+    let value = _value
+    if (format !== undefined && value !== undefined) {
+        value = format(value)
+    }
+
+    return (
+        <div style={theme.tooltip.container}>
+            <div style={theme.tooltip.basic}>
+                {enableChip && <Chip color={color} style={chipStyle} />}
+                {value !== undefined ? (
+                    <span>
+                        {id}: <strong>{value}</strong>
+                    </span>
+                ) : (
+                    id
+                )}
+            </div>
         </div>
-    </div>
-)
+    )
+}
 
 BasicTooltip.propTypes = {
     id: PropTypes.node.isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     enableChip: PropTypes.bool.isRequired,
     color: PropTypes.string,
+    format: PropTypes.func,
 
     theme: PropTypes.shape({
         tooltip: PropTypes.shape({
@@ -46,4 +60,12 @@ BasicTooltip.defaultProps = {
     enableChip: false,
 }
 
-export default pure(BasicTooltip)
+const enhance = compose(
+    withPropsOnChange(['format'], ({ format }) => {
+        if (!format || isFunction(format)) return { format }
+        return { format: d3Format(format) }
+    }),
+    pure
+)
+
+export default enhance(BasicTooltip)

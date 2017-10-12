@@ -20,6 +20,7 @@ const ChordArcs = ({
     getOpacity,
     shapeGenerator,
     theme,
+    tooltipFormat,
     setCurrent,
     showTooltip,
     hideTooltip,
@@ -30,7 +31,7 @@ const ChordArcs = ({
     motionStiffness,
 }) => {
     const commonProps = arc => {
-        const arcTooltip = <ChordArcTooltip arc={arc} theme={theme} />
+        const arcTooltip = <ChordArcTooltip arc={arc} theme={theme} format={tooltipFormat} />
 
         return {
             strokeWidth: borderWidth,

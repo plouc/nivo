@@ -76,6 +76,7 @@ const Radar = ({
 
     // interactivity
     isInteractive,
+    tooltipFormat,
 }) => {
     const motionProps = {
         animate,
@@ -119,6 +120,7 @@ const Radar = ({
                                 radius={radius}
                                 angleStep={angleStep}
                                 theme={theme}
+                                tooltipFormat={tooltipFormat}
                                 showTooltip={showTooltip}
                                 hideTooltip={hideTooltip}
                             />
@@ -191,6 +193,7 @@ Radar.propTypes = {
 
     // interactivity
     isInteractive: PropTypes.bool.isRequired,
+    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 }
 
 export const RadarDefaultProps = {

@@ -20,6 +20,7 @@ const RadarTooltip = ({
     radius,
     angleStep,
     theme,
+    tooltipFormat,
     showTooltip,
     hideTooltip,
 }) => {
@@ -51,6 +52,7 @@ const RadarTooltip = ({
                         radius={radius}
                         arcGenerator={arc}
                         theme={theme}
+                        tooltipFormat={tooltipFormat}
                         showTooltip={showTooltip}
                         hideTooltip={hideTooltip}
                     />

@@ -102,6 +102,7 @@ const Bar = ({
 
     // interactivity
     isInteractive,
+    tooltipFormat,
     onClick,
 }) => {
     const options = {
@@ -163,6 +164,7 @@ const Bar = ({
                     hideTooltip,
                     onClick,
                     theme,
+                    tooltipFormat,
                 }
 
                 let bars

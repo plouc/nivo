@@ -11,7 +11,16 @@ import BasicTooltip from '../../tooltip/BasicTooltip'
 
 export const getNodeHandlers = (
     node,
-    { isInteractive, onClick, showTooltip, hideTooltip, isZoomable, zoomToNode, theme }
+    {
+        isInteractive,
+        onClick,
+        showTooltip,
+        hideTooltip,
+        isZoomable,
+        zoomToNode,
+        theme,
+        tooltipFormat,
+    }
 ) => {
     if (!isInteractive) return {}
 
@@ -23,6 +32,7 @@ export const getNodeHandlers = (
                 enableChip={true}
                 color={node.color}
                 theme={theme}
+                format={tooltipFormat}
             />,
             e
         )

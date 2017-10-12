@@ -59,6 +59,7 @@ export const PiePropTypes = {
 
     // interactivity
     isInteractive: PropTypes.bool,
+    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 }
 
 export const PieDefaultProps = {

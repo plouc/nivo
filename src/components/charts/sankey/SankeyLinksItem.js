@@ -30,14 +30,14 @@ const tooltipStyles = {
     },
 }
 
-const TooltipContent = ({ link }) => (
+const TooltipContent = ({ link, format }) => (
     <span style={tooltipStyles.container}>
         <Chip color={link.source.color} style={tooltipStyles.sourceChip} />
         <strong>{link.source.label}</strong>
         &nbsp;>&nbsp;
         <strong>{link.target.label}</strong>
         <Chip color={link.target.color} style={tooltipStyles.targetChip} />
-        <strong>{link.value}</strong>
+        <strong>{format ? format(link.value) : link.value}</strong>
     </span>
 )
 
@@ -99,16 +99,24 @@ SankeyLinksItem.propTypes = {
 }
 
 const enhance = compose(
-    withPropsOnChange(['link', 'theme', 'tooltip'], ({ link, theme, tooltip }) => {
-        if (tooltip) {
+    withPropsOnChange(
+        ['link', 'theme', 'tooltip', 'tooltipFormat'],
+        ({ link, theme, tooltip, tooltipFormat }) => {
+            if (tooltip) {
+                return {
+                    tooltip: <BasicTooltip id={tooltip(link)} enableChip={false} theme={theme} />,
+                }
+            }
             return {
-                tooltip: <BasicTooltip id={tooltip(link)} enableChip={false} theme={theme} />,
+                tooltip: (
+                    <BasicTooltip
+                        id={<TooltipContent format={tooltipFormat} link={link} />}
+                        theme={theme}
+                    />
+                ),
             }
         }
-        return {
-            tooltip: <BasicTooltip id={<TooltipContent link={link} />} theme={theme} />,
-        }
-    }),
+    ),
     withPropsOnChange(['onClick', 'link'], ({ onClick, link }) => ({
         onClick: event => onClick(link, event),
     })),

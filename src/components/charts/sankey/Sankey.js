@@ -77,6 +77,7 @@ const Sankey = ({
     // interactivity
     isInteractive,
     onClick,
+    tooltipFormat,
 }) => {
     const sankey = d3Sankey()
         .nodeAlign(sankeyAlignmentFromProp(align))
@@ -153,6 +154,7 @@ const Sankey = ({
                         onClick={onClick}
                         tooltip={linkTooltip}
                         theme={theme}
+                        tooltipFormat={tooltipFormat}
                         {...motionProps}
                     />
                     <SankeyNodes
@@ -172,6 +174,7 @@ const Sankey = ({
                         onClick={onClick}
                         tooltip={nodeTooltip}
                         theme={theme}
+                        tooltipFormat={tooltipFormat}
                         {...motionProps}
                     />
                     {enableLabels && (

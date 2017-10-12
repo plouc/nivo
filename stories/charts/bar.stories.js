@@ -162,3 +162,19 @@ stories.add('custom bar item', () => (
         labelTextColor="inherit:darker(1)"
     />
 ))
+
+stories.add('with formatted values', () => (
+    <Bar
+        {...commonProps}
+        axisLeft={{
+            format: value =>
+                Number(value).toLocaleString('ru-RU', {
+                    minimumFractionDigits: 2,
+                }),
+        }}
+        tooltipFormat={value =>
+            `${Number(value).toLocaleString('ru-RU', {
+                minimumFractionDigits: 2,
+            })} ₽`}
+    />
+))

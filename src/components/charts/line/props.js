@@ -75,6 +75,7 @@ export const LinePropTypes = {
     // interactivity
     isInteractive: PropTypes.bool.isRequired,
     enableStackTooltip: PropTypes.bool.isRequired,
+    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 }
 
 export const LineDefaultProps = {

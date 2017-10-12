@@ -113,3 +113,13 @@ stories.add('Custom cell component', () => (
         labelTextColor="inherit:darker(1.6)"
     />
 ))
+
+stories.add('with formatted values', () => (
+    <HeatMap
+        {...commonProperties}
+        tooltipFormat={value =>
+            `${Number(value).toLocaleString('ru-RU', {
+                minimumFractionDigits: 2,
+            })} ₽`}
+    />
+))

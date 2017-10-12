@@ -61,6 +61,7 @@ export const BarPropTypes = {
     // interactivity
     isInteractive: PropTypes.bool,
     onClick: PropTypes.func.isRequired,
+    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 
     // canvas specific
     pixelRatio: PropTypes.number.isRequired,

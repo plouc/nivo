@@ -8,6 +8,8 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
+import { isFunction } from 'lodash'
+import { format as d3Format } from 'd3-format'
 import compose from 'recompose/compose'
 import pure from 'recompose/pure'
 import withState from 'recompose/withState'
@@ -53,14 +55,23 @@ StreamSlicesItem.propTypes = {
 
 const enhance = compose(
     withState('isHover', 'setIsHover', false),
-    withPropsOnChange(['slice', 'theme'], ({ slice, theme }) => ({
-        tooltip: (
-            <TableTooltip
-                theme={theme}
-                rows={slice.stack.map(p => [<Chip color={p.color} />, p.id, p.value])}
-            />
-        ),
-    })),
+    withPropsOnChange(['slice', 'theme', 'tooltipFormat'], ({ slice, theme, tooltipFormat }) => {
+        const format =
+            !tooltipFormat || isFunction(tooltipFormat) ? tooltipFormat : d3Format(tooltipFormat)
+
+        return {
+            tooltip: (
+                <TableTooltip
+                    theme={theme}
+                    rows={slice.stack.map(p => [
+                        <Chip color={p.color} />,
+                        p.id,
+                        format ? format(p.value) : p.value,
+                    ])}
+                />
+            ),
+        }
+    }),
     withHandlers({
         showTooltip: ({ showTooltip, setIsHover, tooltip }) => e => {
             setIsHover(true)

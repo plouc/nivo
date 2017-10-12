@@ -54,6 +54,7 @@ export const StreamPropTypes = {
     // interactivity
     isInteractive: PropTypes.bool,
     enableStackTooltip: PropTypes.bool.isRequired,
+    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 }
 
 export const StreamDefaultProps = {

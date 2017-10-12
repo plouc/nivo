@@ -53,6 +53,7 @@ export const HeatMapPropTypes = {
     hoverTarget: PropTypes.oneOf(['cell', 'row', 'column', 'rowColumn']).isRequired,
     cellHoverOpacity: PropTypes.number.isRequired,
     cellHoverOthersOpacity: PropTypes.number.isRequired,
+    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 
     // canvas specific
     pixelRatio: PropTypes.number.isRequired,

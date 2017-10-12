@@ -57,6 +57,7 @@ const Stream = ({
 
     // interactivity
     isInteractive,
+    tooltipFormat,
 
     // stack tooltip
     enableStackTooltip,
@@ -146,6 +147,7 @@ const Stream = ({
                             showTooltip={showTooltip}
                             hideTooltip={hideTooltip}
                             theme={theme}
+                            tooltipFormat={tooltipFormat}
                         />
                     )}
                 </SvgWrapper>
