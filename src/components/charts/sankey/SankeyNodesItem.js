@@ -54,6 +54,7 @@ const SankeyNodesItem = ({
 SankeyNodesItem.propTypes = {
     node: PropTypes.shape({
         id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
         color: PropTypes.string.isRequired,
     }),
 
@@ -78,7 +79,9 @@ SankeyNodesItem.propTypes = {
 
 const enhance = compose(
     withPropsOnChange(['node', 'theme'], ({ node, theme }) => ({
-        tooltip: <BasicTooltip id={node.id} enableChip={true} color={node.color} theme={theme} />,
+        tooltip: (
+            <BasicTooltip id={node.label} enableChip={true} color={node.color} theme={theme} />
+        ),
     })),
     withPropsOnChange(['onClick', 'node'], ({ onClick, node }) => ({
         onClick: event => onClick(node, event),

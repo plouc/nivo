@@ -50,6 +50,9 @@ export const SankeyPropTypes = {
     labelOrientation: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
     labelTextColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     getLabelTextColor: PropTypes.func.isRequired, // computed
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    labelFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    getLabel: PropTypes.func.isRequired, // computed
 
     // interactivity
     isInteractive: PropTypes.bool.isRequired,
@@ -77,6 +80,7 @@ export const SankeyDefaultProps = {
 
     // labels
     enableLabels: true,
+    label: 'id',
     labelPosition: 'inside',
     labelPadding: 9,
     labelOrientation: 'horizontal',

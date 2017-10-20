@@ -35,3 +35,7 @@ stories.add('contracting links', () => <Sankey {...commonProperties} linkContrac
 stories.add('click listener (console)', () => (
     <Sankey {...commonProperties} onClick={(data, event) => console.log({ data, event })} />
 ))
+
+stories.add('label formatter', () => (
+    <Sankey {...commonProperties} label={node => `${node.id} 😁`} />
+))
