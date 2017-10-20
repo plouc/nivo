@@ -76,6 +76,9 @@ const Axis = ({
     animate,
     motionStiffness,
     motionDamping,
+
+    // interactivity
+    onClick,
 }) => {
     const { x, y, ticks, textAlign, textBaseline } = computeAxisTicks({
         width,
@@ -152,6 +155,7 @@ const Axis = ({
                         theme={theme}
                         x={tick.x}
                         y={tick.y}
+                        {...(onClick ? { onClick } : {})}
                     />
                 ))}
             </g>
@@ -193,6 +197,7 @@ const Axis = ({
                                 textBaseline={textBaseline}
                                 textAnchor={textAlign}
                                 theme={theme}
+                                {...(onClick ? { onClick } : {})}
                                 {...style}
                             />
                         ))}
@@ -232,6 +237,9 @@ Axis.propTypes = {
 
     // theming
     theme: PropTypes.object.isRequired,
+
+    // interactivity
+    onClick: PropTypes.func,
 }
 
 Axis.defaultProps = {
