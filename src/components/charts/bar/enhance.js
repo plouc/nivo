@@ -25,9 +25,6 @@ export default Component =>
         withPropsOnChange(['indexBy'], ({ indexBy }) => ({
             getIndex: getAccessorFor(indexBy),
         })),
-        withPropsOnChange(['label', 'labelFormat'], ({ label, labelFormat }) => ({
-            getLabel: getLabelGenerator(label, labelFormat),
-        })),
         withPropsOnChange(['labelTextColor'], ({ labelTextColor }) => ({
             getLabelTextColor: getInheritedColorGenerator(labelTextColor, 'axis.textColor'),
         })),
