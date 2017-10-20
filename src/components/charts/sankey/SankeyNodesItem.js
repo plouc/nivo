@@ -32,6 +32,7 @@ const SankeyNodesItem = ({
     handleMouseEnter,
     handleMouseMove,
     handleMouseLeave,
+    onClick,
 }) => (
     <rect
         x={x}
@@ -46,6 +47,7 @@ const SankeyNodesItem = ({
         onMouseEnter={handleMouseEnter}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
+        onClick={onClick}
     />
 )
 
@@ -69,6 +71,7 @@ SankeyNodesItem.propTypes = {
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
     setCurrent: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired,
 
     theme: PropTypes.object.isRequired,
 }
@@ -76,6 +79,9 @@ SankeyNodesItem.propTypes = {
 const enhance = compose(
     withPropsOnChange(['node', 'theme'], ({ node, theme }) => ({
         tooltip: <BasicTooltip id={node.id} enableChip={true} color={node.color} theme={theme} />,
+    })),
+    withPropsOnChange(['onClick', 'node'], ({ onClick, node }) => ({
+        onClick: event => onClick(node, event),
     })),
     withHandlers({
         handleMouseEnter: ({ showTooltip, setCurrent, node, tooltip }) => e => {

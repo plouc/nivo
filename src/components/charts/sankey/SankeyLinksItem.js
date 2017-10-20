@@ -54,6 +54,7 @@ const SankeyLinksItem = ({
     handleMouseEnter,
     handleMouseMove,
     handleMouseLeave,
+    onClick,
 }) => (
     <path
         fill="none"
@@ -64,6 +65,7 @@ const SankeyLinksItem = ({
         onMouseEnter={handleMouseEnter}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
+        onClick={onClick}
     />
 )
 
@@ -91,11 +93,15 @@ SankeyLinksItem.propTypes = {
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
     setCurrent: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired,
 }
 
 const enhance = compose(
     withPropsOnChange(['link', 'theme'], ({ link, theme }) => ({
         tooltip: <BasicTooltip id={<TooltipContent link={link} />} theme={theme} />,
+    })),
+    withPropsOnChange(['onClick', 'link'], ({ onClick, link }) => ({
+        onClick: event => onClick(link, event),
     })),
     withHandlers({
         handleMouseEnter: ({ showTooltip, setCurrent, link, tooltip }) => e => {

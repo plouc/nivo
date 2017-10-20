@@ -8,6 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import { sankeyAlignmentPropType } from '../../../props'
+import noop from '../../../lib/noop'
 
 export const SankeyPropTypes = {
     data: PropTypes.shape({
@@ -52,6 +53,7 @@ export const SankeyPropTypes = {
 
     // interactivity
     isInteractive: PropTypes.bool.isRequired,
+    onClick: PropTypes.func.isRequired,
 }
 
 export const SankeyDefaultProps = {
@@ -82,4 +84,5 @@ export const SankeyDefaultProps = {
 
     // interactivity
     isInteractive: true,
+    onClick: noop,
 }
