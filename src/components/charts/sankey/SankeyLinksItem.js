@@ -99,9 +99,16 @@ SankeyLinksItem.propTypes = {
 }
 
 const enhance = compose(
-    withPropsOnChange(['link', 'theme'], ({ link, theme }) => ({
-        tooltip: <BasicTooltip id={<TooltipContent link={link} />} theme={theme} />,
-    })),
+    withPropsOnChange(['link', 'theme', 'tooltip'], ({ link, theme, tooltip }) => {
+        if (tooltip) {
+            return {
+                tooltip: <BasicTooltip id={tooltip(link)} enableChip={false} theme={theme} />,
+            }
+        }
+        return {
+            tooltip: <BasicTooltip id={<TooltipContent link={link} />} theme={theme} />,
+        }
+    }),
     withPropsOnChange(['onClick', 'link'], ({ onClick, link }) => ({
         onClick: event => onClick(link, event),
     })),

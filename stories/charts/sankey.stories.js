@@ -39,3 +39,15 @@ stories.add('click listener (console)', () => (
 stories.add('label formatter', () => (
     <Sankey {...commonProperties} label={node => `${node.id} 😁`} />
 ))
+
+stories.add('custom tooltip', () => (
+    <Sankey
+        {...commonProperties}
+        nodeTooltip={node => <span>Custom tooltip for node: {node.label}</span>}
+        linkTooltip={node => (
+            <span>
+                Custom tooltip for link: {node.source.label} to {node.target.label}
+            </span>
+        )}
+    />
+))
