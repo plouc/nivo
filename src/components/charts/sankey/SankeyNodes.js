@@ -38,6 +38,7 @@ const SankeyNodes = ({
     isCurrentNode,
     onClick,
 
+    tooltip,
     theme,
 }) => {
     const getOpacity = node => {
@@ -65,6 +66,7 @@ const SankeyNodes = ({
                         hideTooltip={hideTooltip}
                         setCurrent={setCurrentNode}
                         onClick={onClick}
+                        tooltip={tooltip}
                         theme={theme}
                     />
                 ))}
@@ -115,6 +117,7 @@ const SankeyNodes = ({
                                 hideTooltip={hideTooltip}
                                 setCurrent={setCurrentNode}
                                 onClick={onClick}
+                                tooltip={tooltip}
                                 theme={theme}
                             />
                         )
@@ -145,6 +148,7 @@ SankeyNodes.propTypes = {
     getNodeBorderColor: PropTypes.func.isRequired,
 
     theme: PropTypes.object.isRequired,
+    tooltip: PropTypes.func,
 
     ...motionPropTypes,
 

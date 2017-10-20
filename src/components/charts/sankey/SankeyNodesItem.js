@@ -74,15 +74,23 @@ SankeyNodesItem.propTypes = {
     setCurrent: PropTypes.func.isRequired,
     onClick: PropTypes.func.isRequired,
 
+    tooltip: PropTypes.element.isRequired,
     theme: PropTypes.object.isRequired,
 }
 
 const enhance = compose(
-    withPropsOnChange(['node', 'theme'], ({ node, theme }) => ({
-        tooltip: (
-            <BasicTooltip id={node.label} enableChip={true} color={node.color} theme={theme} />
-        ),
-    })),
+    withPropsOnChange(['node', 'theme', 'tooltip'], ({ node, theme, tooltip }) => {
+        if (tooltip) {
+            return {
+                tooltip: <BasicTooltip id={tooltip(node)} enableChip={false} theme={theme} />,
+            }
+        }
+        return {
+            tooltip: (
+                <BasicTooltip id={node.label} enableChip={true} color={node.color} theme={theme} />
+            ),
+        }
+    }),
     withPropsOnChange(['onClick', 'node'], ({ onClick, node }) => ({
         onClick: event => onClick(node, event),
     })),

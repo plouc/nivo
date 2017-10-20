@@ -54,6 +54,10 @@ export const SankeyPropTypes = {
     labelFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     getLabel: PropTypes.func.isRequired, // computed
 
+    // tooltip
+    nodeTooltip: PropTypes.func,
+    linkTooltip: PropTypes.func,
+
     // interactivity
     isInteractive: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,

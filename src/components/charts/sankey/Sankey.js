@@ -65,6 +65,10 @@ const Sankey = ({
     theme,
     getColor, // computed
 
+    // tooltip
+    nodeTooltip,
+    linkTooltip,
+
     // motion
     animate,
     motionDamping,
@@ -147,6 +151,7 @@ const Sankey = ({
                         currentLink={currentLink}
                         isCurrentLink={isCurrentLink}
                         onClick={onClick}
+                        tooltip={linkTooltip}
                         theme={theme}
                         {...motionProps}
                     />
@@ -165,6 +170,7 @@ const Sankey = ({
                         currentLink={currentLink}
                         isCurrentNode={isCurrentNode}
                         onClick={onClick}
+                        tooltip={nodeTooltip}
                         theme={theme}
                         {...motionProps}
                     />

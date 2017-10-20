@@ -39,6 +39,7 @@ const SankeyLinks = ({
     isCurrentLink,
     onClick,
 
+    tooltip,
     theme,
 }) => {
     const getOpacity = link => {
@@ -63,6 +64,7 @@ const SankeyLinks = ({
                         hideTooltip={hideTooltip}
                         setCurrent={setCurrentLink}
                         onClick={onClick}
+                        tooltip={tooltip}
                         theme={theme}
                     />
                 ))}
@@ -96,6 +98,7 @@ const SankeyLinks = ({
                             hideTooltip={hideTooltip}
                             setCurrent={setCurrentLink}
                             onClick={onClick}
+                            tooltip={tooltip}
                             theme={theme}
                         />
                     )}
@@ -128,6 +131,7 @@ SankeyLinks.propTypes = {
     linkContract: PropTypes.number.isRequired,
 
     theme: PropTypes.object.isRequired,
+    tooltip: PropTypes.func,
 
     ...motionPropTypes,
 
