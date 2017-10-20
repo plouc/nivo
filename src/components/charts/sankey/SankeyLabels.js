@@ -55,6 +55,7 @@ const SankeyLabels = ({
 
         return {
             id: node.id,
+            label: node.label,
             x,
             y: node.y + node.height / 2,
             textAnchor,
@@ -74,7 +75,7 @@ const SankeyLabels = ({
                             transform={`translate(${label.x}, ${label.y}) rotate(${labelRotation})`}
                             style={{ ...theme.sankey.label, fill: label.color }}
                         >
-                            {label.id}
+                            {label.label}
                         </text>
                     )
                 })}
@@ -119,7 +120,7 @@ const SankeyLabels = ({
                                     pointerEvents: 'none',
                                 }}
                             >
-                                {data.id}
+                                {data.label}
                             </text>
                         )
                     })}
@@ -133,6 +134,7 @@ SankeyLabels.propTypes = {
     nodes: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+            label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
             x1: PropTypes.number.isRequired,
             x: PropTypes.number.isRequired,
             y: PropTypes.number.isRequired,

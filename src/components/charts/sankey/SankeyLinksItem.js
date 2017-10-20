@@ -33,9 +33,9 @@ const tooltipStyles = {
 const TooltipContent = ({ link }) => (
     <span style={tooltipStyles.container}>
         <Chip color={link.source.color} style={tooltipStyles.sourceChip} />
-        <strong>{link.source.id}</strong>
+        <strong>{link.source.label}</strong>
         &nbsp;>&nbsp;
-        <strong>{link.target.id}</strong>
+        <strong>{link.target.label}</strong>
         <Chip color={link.target.color} style={tooltipStyles.targetChip} />
         <strong>{link.value}</strong>
     </span>
@@ -73,9 +73,11 @@ SankeyLinksItem.propTypes = {
     link: PropTypes.shape({
         source: PropTypes.shape({
             id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+            label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
         }).isRequired,
         target: PropTypes.shape({
             id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+            label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
         }).isRequired,
         color: PropTypes.string.isRequired,
         value: PropTypes.number.isRequired,

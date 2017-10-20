@@ -110,9 +110,11 @@ SankeyLinks.propTypes = {
         PropTypes.shape({
             source: PropTypes.shape({
                 id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+                label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
             }).isRequired,
             target: PropTypes.shape({
                 id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+                label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
             }).isRequired,
             width: PropTypes.number.isRequired,
             color: PropTypes.string.isRequired,

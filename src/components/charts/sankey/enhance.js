@@ -12,6 +12,7 @@ import withState from 'recompose/withState'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
 import { getInheritedColorGenerator } from '../../../lib/colors'
+import { getLabelGenerator } from '../../../lib/propertiesConverters'
 import { withColors, withTheme, withDimensions, withMotion } from '../../../hocs'
 import { SankeyDefaultProps } from './props'
 
@@ -34,6 +35,9 @@ export default Component =>
         })),
         withPropsOnChange(['labelTextColor'], ({ labelTextColor }) => ({
             getLabelTextColor: getInheritedColorGenerator(labelTextColor),
+        })),
+        withPropsOnChange(['label', 'labelFormat'], ({ label, labelFormat }) => ({
+            getLabel: getLabelGenerator(label, labelFormat),
         })),
         pure
     )(Component)
