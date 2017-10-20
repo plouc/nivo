@@ -31,3 +31,7 @@ stories.add('nodes x padding', () => (
 ))
 
 stories.add('contracting links', () => <Sankey {...commonProperties} linkContract={10} />)
+
+stories.add('click listener (console)', () => (
+    <Sankey {...commonProperties} onClick={(data, event) => console.log({ data, event })} />
+))

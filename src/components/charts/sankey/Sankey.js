@@ -71,6 +71,7 @@ const Sankey = ({
 
     // interactivity
     isInteractive,
+    onClick,
 }) => {
     const sankey = d3Sankey()
         .nodeAlign(sankeyAlignmentFromProp(align))
@@ -143,6 +144,7 @@ const Sankey = ({
                         currentNode={currentNode}
                         currentLink={currentLink}
                         isCurrentLink={isCurrentLink}
+                        onClick={onClick}
                         theme={theme}
                         {...motionProps}
                     />
@@ -160,6 +162,7 @@ const Sankey = ({
                         currentNode={currentNode}
                         currentLink={currentLink}
                         isCurrentNode={isCurrentNode}
+                        onClick={onClick}
                         theme={theme}
                         {...motionProps}
                     />

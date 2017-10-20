@@ -36,6 +36,7 @@ const SankeyNodes = ({
     currentNode,
     currentLink,
     isCurrentNode,
+    onClick,
 
     theme,
 }) => {
@@ -63,6 +64,7 @@ const SankeyNodes = ({
                         showTooltip={showTooltip}
                         hideTooltip={hideTooltip}
                         setCurrent={setCurrentNode}
+                        onClick={onClick}
                         theme={theme}
                     />
                 ))}
@@ -112,6 +114,7 @@ const SankeyNodes = ({
                                 showTooltip={showTooltip}
                                 hideTooltip={hideTooltip}
                                 setCurrent={setCurrentNode}
+                                onClick={onClick}
                                 theme={theme}
                             />
                         )
@@ -152,6 +155,7 @@ SankeyNodes.propTypes = {
     currentNode: PropTypes.object,
     currentLink: PropTypes.object,
     isCurrentNode: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired,
 }
 
 export default pure(SankeyNodes)
