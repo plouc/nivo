@@ -16,6 +16,7 @@ export const PiePropTypes = {
         })
     ).isRequired,
 
+    sortByValue: PropTypes.bool.isRequired,
     innerRadius: PropTypes.number.isRequired,
     padAngle: PropTypes.number.isRequired,
     cornerRadius: PropTypes.number.isRequired,
@@ -61,6 +62,7 @@ export const PiePropTypes = {
 }
 
 export const PieDefaultProps = {
+    sortByValue: false,
     innerRadius: 0,
     padAngle: 0,
     cornerRadius: 0,

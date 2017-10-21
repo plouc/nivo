@@ -31,6 +31,7 @@ const Pie = ({
     outerWidth,
     outerHeight,
 
+    sortByValue,
     innerRadius: _innerRadius,
     padAngle: _padAngle,
     cornerRadius,
@@ -107,6 +108,7 @@ const Pie = ({
 
     const pie = d3Pie()
     pie.value(d => d.value)
+    if (sortByValue !== true) pie.sortValues(null)
 
     const arc = d3Arc()
     arc.outerRadius(radius)
