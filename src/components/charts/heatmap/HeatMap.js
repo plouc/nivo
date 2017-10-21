@@ -27,6 +27,13 @@ class HeatMap extends Component {
     handleNodeHover = (showTooltip, node, event) => {
         const { setCurrentNode, theme } = this.props
         setCurrentNode(node)
+
+        node.toolTipFormatter =
+            this.props.toolTipFormatter !== undefined ? this.props.toolTipFormatter : null
+        node.value =
+            node.toolTipFormatter !== null
+                ? new Function('return `' + node.toolTipFormatter + '`;').call(node)
+                : node.value
         showTooltip(<HeatMapCellTooltip node={node} theme={theme} />, event)
     }
 

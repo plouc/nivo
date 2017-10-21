@@ -63,6 +63,7 @@ const commonProperties = {
     data: generateCountriesData(keys, { size: 9, min: 0, max: 100 }),
     indexBy: 'country',
     keys,
+    toolTipFormatter: '${this.value}',
 }
 
 const stories = storiesOf('HeatMap', module).addDecorator(story => (
