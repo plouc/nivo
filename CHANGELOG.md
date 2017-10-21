@@ -1,11 +1,31 @@
+<a name="v0.30.0"></a>
+## v0.30.0 (2017-10-21)
+
+
+#### Features
+
+* **axes**  add onClick handler to axis ticks (#60) ([0c9efe4b](https://github.com/plouc/nivo/commit/0c9efe4bfac40bad090eb7fe74bb19164acd2859))
+* **interactivity**  add onClick support for Sankey (#75) ([a547917c](https://github.com/plouc/nivo/commit/a547917c721018b23d7a853368535cec9950cbfc))
+* **pie**  add ability to use default dataset order (#79) ([f4a261d3](https://github.com/plouc/nivo/commit/f4a261d34d8d41cce5688bc52cc5753f96322c19))
+* **react**  update required react version ([4b4865fc](https://github.com/plouc/nivo/commit/4b4865fcfd00eb29e43f8e61b8fa74c6485dd861))
+* **sankey**
+  *  Support complete configuration of the tooltips (#78) ([f3aecf6c](https://github.com/plouc/nivo/commit/f3aecf6c91a078af8f748613aaa1e79c820b5526))
+  *  Support configurable labels (#77) ([5ac962b1](https://github.com/plouc/nivo/commit/5ac962b1eb60982a99726b1b2909bb233281999c))
+
+#### Bug Fixes
+
+* **bar**  getLabel is defined twice (#76) ([4cfd3a11](https://github.com/plouc/nivo/commit/4cfd3a1121d8e7de1948a68eca805f20e94aa891))
+
+
+
 <a name="v0.29.4"></a>
-## v0.29.4 (2017-09-21)
+## v0.29.4 (2017-10-21)
 
 
 
 
 <a name="v0.29.3"></a>
-## v0.29.3 (2017-09-21)
+## v0.29.3 (2017-10-21)
 
 
 #### Features
@@ -15,13 +35,13 @@
 
 
 <a name="v0.29.2"></a>
-## v0.29.2 (2017-09-21)
+## v0.29.2 (2017-10-21)
 
 
 
 
 <a name="v0.29.1"></a>
-## v0.29.1 (2017-09-21)
+## v0.29.1 (2017-10-21)
 
 
 #### Features
@@ -32,7 +52,7 @@
 
 
 <a name="v0.29.0"></a>
-## v0.29.0 (2017-09-21)
+## v0.29.0 (2017-10-21)
 
 
 #### Features
@@ -43,7 +63,7 @@
 
 
 <a name="v0.28.1"></a>
-## v0.28.1 (2017-09-21)
+## v0.28.1 (2017-10-21)
 
 
 #### Bug Fixes
@@ -53,7 +73,7 @@
 
 
 <a name="v0.28.0"></a>
-## v0.28.0 (2017-09-21)
+## v0.28.0 (2017-10-21)
 
 
 #### Features
@@ -68,7 +88,7 @@
 
 
 <a name="v0.27.0"></a>
-## v0.27.0 (2017-09-21)
+## v0.27.0 (2017-10-21)
 
 
 #### Features
@@ -80,13 +100,13 @@
 
 
 <a name="v0.26.3"></a>
-## v0.26.3 (2017-09-21)
+## v0.26.3 (2017-10-21)
 
 
 
 
 <a name="v0.26.2"></a>
-## v0.26.2 (2017-09-21)
+## v0.26.2 (2017-10-21)
 
 
 #### Bug Fixes
@@ -96,7 +116,7 @@
 
 
 <a name="v0.26.1"></a>
-## v0.26.1 (2017-09-21)
+## v0.26.1 (2017-10-21)
 
 
 #### Features
@@ -106,7 +126,7 @@
 
 
 <a name="v0.26.0"></a>
-## v0.26.0 (2017-09-21)
+## v0.26.0 (2017-10-21)
 
 
 #### Features
@@ -123,7 +143,7 @@
 
 
 <a name="v0.25.0"></a>
-## v0.25.0 (2017-09-21)
+## v0.25.0 (2017-10-21)
 
 
 #### Features
@@ -133,7 +153,7 @@
 
 
 <a name="v0.24.0"></a>
-## v0.24.0 (2017-09-21)
+## v0.24.0 (2017-10-21)
 
 
 #### Features
@@ -145,7 +165,7 @@
 
 
 <a name="v0.23.4"></a>
-## v0.23.4 (2017-09-21)
+## v0.23.4 (2017-10-21)
 
 
 #### Features
@@ -158,7 +178,7 @@
 
 
 <a name="v0.23.3"></a>
-## v0.23.3 (2017-09-21)
+## v0.23.3 (2017-10-21)
 
 
 #### Bug Fixes
@@ -168,7 +188,7 @@
 
 
 <a name="v0.23.2"></a>
-## v0.23.2 (2017-09-21)
+## v0.23.2 (2017-10-21)
 
 
 #### Features
@@ -178,7 +198,7 @@
 
 
 <a name="v0.23.1"></a>
-## v0.23.1 (2017-09-21)
+## v0.23.1 (2017-10-21)
 
 
 #### Features
@@ -189,27 +209,27 @@
 
 
 <a name="v0.23.0"></a>
-## v0.23.0 (2017-09-21)
+## v0.23.0 (2017-10-21)
 
-
-#### Features
-
-* **canvas**  add canvas support for bar & heatmap ([94ad4d97](https://github.com/plouc/nivo/commit/94ad4d97229716a5ca6e189cd1a31b778385c977))
 
 #### Bug Fixes
 
 * **stream**  fix stream stacked tooltip ([05fbcc9f](https://github.com/plouc/nivo/commit/05fbcc9fadf6d540f6788de5cb98072b92cdd103))
 
+#### Features
+
+* **canvas**  add canvas support for bar & heatmap ([94ad4d97](https://github.com/plouc/nivo/commit/94ad4d97229716a5ca6e189cd1a31b778385c977))
+
 
 
 <a name="v0.22.1"></a>
-## v0.22.1 (2017-09-21)
+## v0.22.1 (2017-10-21)
 
 
 
 
 <a name="v0.22.0"></a>
-## v0.22.0 (2017-09-21)
+## v0.22.0 (2017-10-21)
 
 
 #### Features
@@ -219,13 +239,13 @@
 
 
 <a name="v0.21.0"></a>
-## v0.21.0 (2017-09-21)
+## v0.21.0 (2017-10-21)
 
 
 
 
 <a name="v0.20.0"></a>
-## v0.20.0 (2017-09-21)
+## v0.20.0 (2017-10-21)
 
 
 #### Features
@@ -243,7 +263,7 @@
 
 
 <a name="v0.19.0"></a>
-## v0.19.0 (2017-09-21)
+## v0.19.0 (2017-10-21)
 
 
 #### Bug Fixes
@@ -253,7 +273,7 @@
 
 
 <a name="v0.18.0"></a>
-## v0.18.0 (2017-09-21)
+## v0.18.0 (2017-10-21)
 
 
 #### Features
@@ -270,13 +290,13 @@
 
 
 <a name="v0.17.0"></a>
-## v0.17.0 (2017-09-21)
+## v0.17.0 (2017-10-21)
 
 
 
 
 <a name="v0.16.0"></a>
-## v0.16.0 (2017-09-21)
+## v0.16.0 (2017-10-21)
 
 
 #### Features
@@ -287,7 +307,7 @@
 
 
 <a name="v0.15.0"></a>
-## v0.15.0 (2017-09-21)
+## v0.15.0 (2017-10-21)
 
 
 #### Features
@@ -297,7 +317,7 @@
 
 
 <a name="v0.14.0"></a>
-## v0.14.0 (2017-09-21)
+## v0.14.0 (2017-10-21)
 
 
 #### Features
@@ -307,7 +327,7 @@
 
 
 <a name="v0.13.0"></a>
-## v0.13.0 (2017-09-21)
+## v0.13.0 (2017-10-21)
 
 
 #### Features
@@ -317,11 +337,12 @@
 
 
 <a name="v0.12.0"></a>
-## v0.12.0 (2017-09-21)
+## v0.12.0 (2017-10-21)
 
 
 #### Bug Fixes
 
+* **bar**  getLabel is defined twice (#76) ([4cfd3a11](https://github.com/plouc/nivo/commit/4cfd3a1121d8e7de1948a68eca805f20e94aa891))
 * **bubble**
   *  fix bubble props export ([37067061](https://github.com/plouc/nivo/commit/37067061cf1d4353da4fed3dd60dabb61a449cf7))
   *  add missing tooltip when using static bubble chart ([9faae318](https://github.com/plouc/nivo/commit/9faae318d23b6d74e65ecdac2d3a6812fd009102))
@@ -350,6 +371,7 @@
 #### Features
 
 * **axes**
+  *  add onClick handler to axis ticks (#60) ([0c9efe4b](https://github.com/plouc/nivo/commit/0c9efe4bfac40bad090eb7fe74bb19164acd2859))
   *  use same code for svg & canvas ticks ([c8c693a3](https://github.com/plouc/nivo/commit/c8c693a36ec415762d3150ab2f8f80e0dadda269))
   *  add ability to rotate axes tick label ([3921c2f1](https://github.com/plouc/nivo/commit/3921c2f17a7d7da159dde7c9fb25492e12dedd48))
   *  remove stale axes components & add proper props validation ([7fc0e4de](https://github.com/plouc/nivo/commit/7fc0e4def97ce16e39069eeadce120619d74c643))
@@ -438,6 +460,7 @@
   *  add HeatMap component ([425afdaa](https://github.com/plouc/nivo/commit/425afdaaa9e4c443316a551c690c208cc6385be7))
 * **hierarchy**  add withHierarchy() HOC ([99c2f789](https://github.com/plouc/nivo/commit/99c2f789b18450b58e05104c503708c33c7f6fc5))
 * **interactivity**
+  *  add onClick support for Sankey (#75) ([a547917c](https://github.com/plouc/nivo/commit/a547917c721018b23d7a853368535cec9950cbfc))
   *  add onClick support for Bar & Bubble ([a73af167](https://github.com/plouc/nivo/commit/a73af1679debb0211b73c1af814f28ccfb1a4ba7))
   *  add isInteractive property on multiple components ([16b7f4df](https://github.com/plouc/nivo/commit/16b7f4dfffe56b8936104c411b2e3e62c5b47e11))
 * **labels**  use alignmentBaseline instead of approximative dy ([10aa40fe](https://github.com/plouc/nivo/commit/10aa40fed76897e685bec28ea7947b6920a9cc1a))
@@ -454,6 +477,7 @@
   *  add support for markers on Line & Bar charts ([e36a7a2b](https://github.com/plouc/nivo/commit/e36a7a2bd2616bc4e4c2a4a927dfb14299ee9d4c))
   *  improve radar & line charts markers ([18c43473](https://github.com/plouc/nivo/commit/18c43473bb28764c4515dc12a9a8bf24f55e5b41))
 * **pie**
+  *  add ability to use default dataset order (#79) ([f4a261d3](https://github.com/plouc/nivo/commit/f4a261d34d8d41cce5688bc52cc5753f96322c19))
   *  add pie stories ([a123c899](https://github.com/plouc/nivo/commit/a123c899edb772fc2a49998f1f134925d6882c75))
   *  ad ability to skip label if slice angle is lower than given value ([c0aecaa2](https://github.com/plouc/nivo/commit/c0aecaa2bc141ee2d18e850b66c7888a9069cfdd))
   *  restore Pie chart ([7eb85964](https://github.com/plouc/nivo/commit/7eb8596408e9cc0d40ffddc8c0b3fc35119e4b1d))
@@ -463,8 +487,11 @@
   *  add support for tooltip on Radar component ([acd9a4f9](https://github.com/plouc/nivo/commit/acd9a4f9efdaf8ae801f1b70ea469745cdd3ecdb))
   *  simplify radar data format ([d56a9441](https://github.com/plouc/nivo/commit/d56a94416f53d2f1a86d80ae771866dd629557cb))
   *  add radar chart ([b0739b96](https://github.com/plouc/nivo/commit/b0739b96bb978bf6145a7752ff9d1da77e4918a9))
+* **react**  update required react version ([4b4865fc](https://github.com/plouc/nivo/commit/4b4865fcfd00eb29e43f8e61b8fa74c6485dd861))
 * **readial-stack**  add RadialStack component ([3fbebe52](https://github.com/plouc/nivo/commit/3fbebe5228b4edd8071f630250ed44e33d88299a))
 * **sankey**
+  *  Support complete configuration of the tooltips (#78) ([f3aecf6c](https://github.com/plouc/nivo/commit/f3aecf6c91a078af8f748613aaa1e79c820b5526))
+  *  Support configurable labels (#77) ([5ac962b1](https://github.com/plouc/nivo/commit/5ac962b1eb60982a99726b1b2909bb233281999c))
   *  improve sankey interactivity ([27a5ff54](https://github.com/plouc/nivo/commit/27a5ff54ff5c223afec2fb225b7105f7065ece1c))
   *  improve Sankey diagram ([aa5c8471](https://github.com/plouc/nivo/commit/aa5c84711d9653e6b1f24ea6346f2833344cf958))
   *  add support for label on Sankey diagram ([b90de33a](https://github.com/plouc/nivo/commit/b90de33ad818f86a0ed1a6af24bed831c221834c))
