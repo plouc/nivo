@@ -76,7 +76,7 @@
     "validate-commit-msg": "^2.14.0"
   },
   "peerDependencies": {
-    "react": "^15.6.1"
+    "react": ">= 15.6.1 < 17.0.0"
   },
   "main": "./lib/index.js",
   "module": "es/index.js",
