@@ -167,6 +167,7 @@ const Bar = ({
                     hideTooltip,
                     onClick,
                     theme,
+                    enableStackTooltip,
                 }
 
                 let bars
@@ -254,9 +255,11 @@ const Bar = ({
                             <BarSlices
                                 slices={result.slices}
                                 height={height}
+                                width={width}
                                 showTooltip={showTooltip}
                                 hideTooltip={hideTooltip}
                                 theme={theme}
+                                layout={layout}
                             />
                         )}
                         <CartesianMarkers

@@ -19,14 +19,11 @@ const Chip = ({ color }) => (
     <span style={{ display: 'block', width: '12px', height: '12px', background: color }} />
 )
 
-const BarSlicesItem = ({ slice, height, showTooltip, hideTooltip, isHover }) => (
-    <g transform={`translate(${slice.x}, 0)`}>
-        {isHover && (
-            <rect x={-5} width={slice.width + 10} height={height} fill="#000" fillOpacity={0.1} />
-        )}
+const BarSlicesItem = ({ slice, height, width, showTooltip, hideTooltip, isHover }) => (
+    <g transform={`translate(${slice.x}, ${slice.y})`}>
+        {isHover && <rect width={width} height={height} fill="#000" fillOpacity={0.1} />}
         <rect
-            x={0}
-            width={slice.width}
+            width={width}
             height={height}
             fill="#000"
             fillOpacity={0}
@@ -40,6 +37,7 @@ const BarSlicesItem = ({ slice, height, showTooltip, hideTooltip, isHover }) => 
 BarSlicesItem.propTypes = {
     slice: PropTypes.object.isRequired,
     height: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
     isHover: PropTypes.bool.isRequired,
