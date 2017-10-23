@@ -64,6 +64,9 @@ export const BarPropTypes = {
 
     // canvas specific
     pixelRatio: PropTypes.number.isRequired,
+
+    // stackTooltip
+    enableStackTooltip: PropTypes.bool.isRequired,
 }
 
 export const BarDefaultProps = {
@@ -109,4 +112,7 @@ export const BarDefaultProps = {
     // canvas specific
     pixelRatio:
         global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
+
+    // stackTooltip
+    enableStackTooltip: false,
 }

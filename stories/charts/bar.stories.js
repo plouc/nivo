@@ -8,6 +8,7 @@ import '../style.css'
 import { Bar } from '../../src'
 
 const keys = ['hot dogs', 'burgers', 'sandwich', 'kebab', 'fries', 'donut']
+
 const commonProps = {
     width: 1000,
     height: 600,
@@ -27,8 +28,20 @@ const stories = storiesOf('Bar', module).addDecorator(story => (
 
 stories.add('stacked', () => <Bar {...commonProps} />)
 
+stories.add('stacked with stack tooltip', () => <Bar {...commonProps} enableStackTooltip={true} />)
+
 stories.add('stacked horizontal', () => (
     <Bar {...commonProps} layout="horizontal" enableGridY={false} enableGridX={true} />
+))
+
+stories.add('stacked horizontal with stack tooltip', () => (
+    <Bar
+        {...commonProps}
+        layout="horizontal"
+        enableGridY={false}
+        enableGridX={true}
+        enableStackTooltip={true}
+    />
 ))
 
 stories.add('grouped', () => <Bar {...commonProps} groupMode="grouped" />)

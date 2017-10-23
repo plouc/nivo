@@ -34,18 +34,23 @@ const BarItem = ({
     onClick,
 
     theme,
+
+    enableStackTooltip,
 }) => {
-    const handleTooltip = e =>
-        showTooltip(
-            <BasicTooltip
-                id={`${data.id} - ${data.indexValue}`}
-                value={data.value}
-                enableChip={true}
-                color={color}
-                theme={theme}
-            />,
-            e
-        )
+    const handleTooltip = e => {
+        if (enableStackTooltip === false) {
+            showTooltip(
+                <BasicTooltip
+                    id={`${data.id} - ${data.indexValue}`}
+                    value={data.value}
+                    enableChip={true}
+                    color={color}
+                    theme={theme}
+                />,
+                e
+            )
+        }
+    }
 
     return (
         <g transform={`translate(${x}, ${y})`}>

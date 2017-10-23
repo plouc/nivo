@@ -10,6 +10,7 @@ import { flattenDepth, min, max } from 'lodash'
 import { scaleLinear } from 'd3-scale'
 import { stack, stackOffsetDiverging } from 'd3-shape'
 import { getIndexedScale } from './common'
+import groupBy from 'lodash/groupBy'
 
 /**
  * Generates scale for stacked bar chart.
@@ -36,6 +37,56 @@ export const getStackedScale = (data, _minValue, _maxValue, range) => {
     return scaleLinear()
         .rangeRound(range)
         .domain([minValue, maxValue])
+}
+
+function getVerticalSlices(bars, xScale) {
+    const groups = groupBy(bars, 'data.indexValue')
+
+    return xScale.domain().map(id => {
+        const groupBars = groups[id]
+
+        return {
+            id,
+            x: xScale(id),
+            y: 0,
+            width: groupBars[0].width,
+            bars: groupBars.map(bar => {
+                const { data: { id, value }, color } = bar
+
+                return {
+                    id,
+                    value,
+                    color,
+                }
+            }),
+        }
+    })
+}
+
+function getHorizontalSlices(bars, yScale) {
+    const groups = groupBy(bars, 'data.indexValue')
+
+    const res = yScale.domain().map(id => {
+        const groupBars = groups[id]
+
+        return {
+            id,
+            x: 0,
+            y: yScale(id),
+            height: groupBars[0].height,
+            bars: groupBars.map(bar => {
+                const { data: { id, value }, color } = bar
+
+                return {
+                    id,
+                    value,
+                    color,
+                }
+            }),
+        }
+    })
+
+    return res
 }
 
 /**
@@ -121,7 +172,9 @@ export const generateVerticalStackedBars = ({
         })
     }
 
-    return { xScale, yScale, bars }
+    const slices = getVerticalSlices(bars, xScale)
+
+    return { xScale, yScale, bars, slices }
 }
 
 /**
@@ -207,7 +260,9 @@ export const generateHorizontalStackedBars = ({
         })
     }
 
-    return { xScale, yScale, bars }
+    const slices = getHorizontalSlices(bars, yScale)
+
+    return { xScale, yScale, bars, slices }
 }
 
 /**
