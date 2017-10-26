@@ -81,3 +81,13 @@ stories.add('custom dot symbol', () => (
         gridLabelOffset={36}
     />
 ))
+
+stories.add('with formatted values', () => (
+    <Radar
+        {...commonProperties}
+        tooltipFormat={value =>
+            `${Number(value).toLocaleString('ru-RU', {
+                minimumFractionDigits: 2,
+            })} ₽`}
+    />
+))

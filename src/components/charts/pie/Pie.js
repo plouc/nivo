@@ -71,6 +71,7 @@ const Pie = ({
 
     // interactivity
     isInteractive,
+    tooltipFormat,
 }) => {
     const centerX = width / 2
     const centerY = height / 2
@@ -168,6 +169,7 @@ const Pie = ({
                                                     enableChip={true}
                                                     color={d.data.color}
                                                     theme={theme}
+                                                    format={tooltipFormat}
                                                 />,
                                                 e
                                             )

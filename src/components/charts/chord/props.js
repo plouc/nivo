@@ -46,6 +46,7 @@ export const ChordPropTypes = {
     arcHoverOthersOpacity: PropTypes.number.isRequired,
     ribbonHoverOpacity: PropTypes.number.isRequired,
     ribbonHoverOthersOpacity: PropTypes.number.isRequired,
+    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 
     // canvas specific
     pixelRatio: PropTypes.number.isRequired,

@@ -45,3 +45,13 @@ stories.add('regular stacked chart', () => (
 ))
 
 stories.add('custom curve', () => <Stream {...commonProperties} curve="step" />)
+
+stories.add('with formatted values', () => (
+    <Stream
+        {...commonProperties}
+        tooltipFormat={value =>
+            `${Number(value).toLocaleString('ru-RU', {
+                minimumFractionDigits: 2,
+            })} ₽`}
+    />
+))

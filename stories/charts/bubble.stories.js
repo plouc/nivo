@@ -19,3 +19,12 @@ storiesOf('Bubble', module)
     .addDecorator(story => <div className="wrapper">{story()}</div>)
     .add('default', () => <Bubble {...commonProperties} />)
     .add('rendering leaves only', () => <Bubble {...commonProperties} leavesOnly={true} />)
+    .add('with formatted values', () => (
+        <Bubble
+            {...commonProperties}
+            tooltipFormat={value =>
+                `${Number(value).toLocaleString('ru-RU', {
+                    minimumFractionDigits: 2,
+                })} ₽`}
+        />
+    ))

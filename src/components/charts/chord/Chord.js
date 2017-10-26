@@ -46,6 +46,7 @@ const Chord = ({
 
     // interactivity
     isInteractive,
+    tooltipFormat,
 
     // motion
     animate,
@@ -83,6 +84,7 @@ const Chord = ({
                                 getOpacity={getRibbonOpacity}
                                 setCurrent={setCurrentRibbon}
                                 theme={theme}
+                                tooltipFormat={tooltipFormat}
                                 showTooltip={showTooltip}
                                 hideTooltip={hideTooltip}
                                 {...motionProps}
@@ -95,6 +97,7 @@ const Chord = ({
                                 getOpacity={getArcOpacity}
                                 setCurrent={setCurrentArc}
                                 theme={theme}
+                                tooltipFormat={tooltipFormat}
                                 showTooltip={showTooltip}
                                 hideTooltip={hideTooltip}
                                 {...motionProps}

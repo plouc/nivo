@@ -32,6 +32,7 @@ const BarItem = ({
     showTooltip,
     hideTooltip,
     onClick,
+    tooltipFormat,
 
     theme,
 }) => {
@@ -43,6 +44,7 @@ const BarItem = ({
                 enableChip={true}
                 color={color}
                 theme={theme}
+                format={tooltipFormat}
             />,
             e
         )
@@ -100,6 +102,7 @@ BarItem.propTypes = {
     shouldRenderLabel: PropTypes.bool.isRequired,
     labelColor: PropTypes.string.isRequired,
 
+    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
 

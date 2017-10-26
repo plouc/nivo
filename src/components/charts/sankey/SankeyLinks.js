@@ -38,6 +38,7 @@ const SankeyLinks = ({
     currentLink,
     isCurrentLink,
     onClick,
+    tooltipFormat,
 
     tooltip,
     theme,
@@ -66,6 +67,7 @@ const SankeyLinks = ({
                         onClick={onClick}
                         tooltip={tooltip}
                         theme={theme}
+                        tooltipFormat={tooltipFormat}
                     />
                 ))}
             </g>
@@ -100,6 +102,7 @@ const SankeyLinks = ({
                             onClick={onClick}
                             tooltip={tooltip}
                             theme={theme}
+                            tooltipFormat={tooltipFormat}
                         />
                     )}
                 </SmartMotion>
