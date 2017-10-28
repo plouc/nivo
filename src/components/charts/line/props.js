@@ -25,6 +25,7 @@ export const LinePropTypes = {
 
     stacked: PropTypes.bool.isRequired,
     curve: lineCurvePropType.isRequired,
+    areaGenerator: PropTypes.func.isRequired,
     lineGenerator: PropTypes.func.isRequired,
 
     lines: PropTypes.array.isRequired,
@@ -65,6 +66,8 @@ export const LinePropTypes = {
 
     // styling
     getColor: PropTypes.func.isRequired,
+    enableArea: PropTypes.func.isRequired,
+    areaOpacity: PropTypes.number.isRequired,
     lineWidth: PropTypes.number.isRequired,
     defs: PropTypes.arrayOf(
         PropTypes.shape({
@@ -106,6 +109,8 @@ export const LineDefaultProps = {
     // styling
     colors: 'nivo',
     colorBy: 'id',
+    enableArea: false,
+    areaOpacity: 0.2,
     lineWidth: 2,
     defs: [],
 
