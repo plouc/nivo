@@ -121,6 +121,26 @@ stories.add('with markers', () => (
     />
 ))
 
+stories.add('with missing data', () => (
+    <Line
+        {...commonProperties}
+        curve="monotoneX"
+        data={[
+            {
+                id: 'fake corp. A',
+                data: [4, 8, 5, null, 2, 1, 4, null, 8, 9, 5].map((y, i) => ({ x: `#${i}`, y })),
+            },
+            {
+                id: 'fake corp. B',
+                data: [5, 9, 8, 6, 3, 1, 2, null, 5, 8, 4].map((y, i) => ({ x: `#${i}`, y })),
+            },
+        ]}
+        dotSize={8}
+        dotBorderColor="#fff"
+        dotBorderWidth={2}
+    />
+))
+
 stories.add('with custom min/max Y', () => (
     <Line
         {...commonProperties}

@@ -173,6 +173,7 @@ const enhance = compose(
     withMotion(),
     withPropsOnChange(['curve'], ({ curve }) => ({
         lineGenerator: line()
+            .defined(d => d.value !== null)
             .x(d => d.x)
             .y(d => d.y)
             .curve(curveFromProp(curve)),
