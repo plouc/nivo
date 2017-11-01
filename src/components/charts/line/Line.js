@@ -8,7 +8,7 @@
  */
 import React from 'react'
 import { sortBy } from 'lodash'
-import { line } from 'd3-shape'
+import { area, line } from 'd3-shape'
 import compose from 'recompose/compose'
 import pure from 'recompose/pure'
 import withPropsOnChange from 'recompose/withPropsOnChange'
@@ -27,6 +27,7 @@ import {
 import CartesianMarkers from '../../cartesian/markers/CartesianMarkers'
 import Axes from '../../axes/Axes'
 import Grid from '../../axes/Grid'
+import LineAreas from './LineAreas'
 import LineLines from './LineLines'
 import LineSlices from './LineSlices'
 import LineDots from './LineDots'
@@ -35,6 +36,7 @@ import { LinePropTypes, LineDefaultProps } from './props'
 const Line = ({
     lines,
     lineGenerator,
+    areaGenerator,
     xScale,
     yScale,
     slices,
@@ -55,6 +57,8 @@ const Line = ({
     enableGridY,
 
     lineWidth,
+    enableArea,
+    areaOpacity,
 
     // dots
     enableDots,
@@ -124,6 +128,14 @@ const Line = ({
                         left={axisLeft}
                         {...motionProps}
                     />
+                    {enableArea && (
+                        <LineAreas
+                            areaGenerator={areaGenerator}
+                            areaOpacity={areaOpacity}
+                            lines={lines}
+                            {...motionProps}
+                        />
+                    )}
                     <LineLines
                         lines={lines}
                         lineGenerator={lineGenerator}
@@ -171,7 +183,12 @@ const enhance = compose(
     withColors(),
     withDimensions(),
     withMotion(),
-    withPropsOnChange(['curve'], ({ curve }) => ({
+    withPropsOnChange(['curve', 'height'], ({ curve, height }) => ({
+        areaGenerator: area()
+            .x(d => d.x)
+            .y0(height)
+            .y1(d => d.y)
+            .curve(curveFromProp(curve)),
         lineGenerator: line()
             .defined(d => d.value !== null)
             .x(d => d.x)

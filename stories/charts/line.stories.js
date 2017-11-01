@@ -32,6 +32,36 @@ stories.add('with custom curve', () => (
     <Line {...commonProperties} stacked={true} curve="monotoneX" />
 ))
 
+stories.add('with area', () => (
+    <Line
+        {...commonProperties}
+        enableArea={true}
+        stacked={boolean('stacked', true)}
+        curve={select('curve', curveOptions, 'monotoneX')}
+        colorBy={d => d.color}
+        dotSize={8}
+        dotColor="#fff"
+        dotBorderWidth={2}
+        data={[
+            {
+                id: 'fake corp. A',
+                color: '#547687',
+                data: [0.4, 0.5, 0.7, 0.1, 0.2, 0.5, 0.6, 0.5].map((y, i) => ({ x: `#${i}`, y })),
+            },
+            {
+                id: 'fake corp. B',
+                color: '#7f98a5',
+                data: [0.5, 0.6, 0.8, 0.7, 0.8, 0.5, 0.2, 0.3].map((y, i) => ({ x: `#${i}`, y })),
+            },
+            {
+                id: 'fake corp. C',
+                color: '#a7bac3',
+                data: [0.9, 0.5, 0.6, 0.5, 0.4, 0.3, 0.1, 0.1].map((y, i) => ({ x: `#${i}`, y })),
+            },
+        ]}
+    />
+))
+
 stories.add('with dot label', () => (
     <Line
         {...commonProperties}
