@@ -66,7 +66,7 @@ export const LinePropTypes = {
 
     // styling
     getColor: PropTypes.func.isRequired,
-    enableArea: PropTypes.func.isRequired,
+    enableArea: PropTypes.bool.isRequired,
     areaOpacity: PropTypes.number.isRequired,
     lineWidth: PropTypes.number.isRequired,
     defs: PropTypes.arrayOf(
