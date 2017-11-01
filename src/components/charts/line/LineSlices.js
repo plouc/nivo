@@ -35,7 +35,7 @@ LineSlices.propTypes = {
             points: PropTypes.arrayOf(
                 PropTypes.shape({
                     id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-                    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+                    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
                     color: PropTypes.string.isRequired,
                 })
             ).isRequired,

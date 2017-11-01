@@ -43,7 +43,7 @@ const LineDots = ({
 
         return [
             ...acc,
-            ...points.map(point => {
+            ...points.filter(point => point.value !== null).map(point => {
                 const pointData = {
                     serie: { id },
                     x: point.key,
