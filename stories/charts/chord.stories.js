@@ -19,6 +19,10 @@ const stories = storiesOf('Chord', module).addDecorator(story => (
 
 stories.add('default', () => <Chord {...commonProperties} />)
 
+stories.add('onClick (console)', () => (
+    <Chord {...commonProperties} onClick={(data, event) => console.log({ data, event })} />
+))
+
 stories.add('radial labels', () => <Chord {...commonProperties} labelRotation={-90} />)
 
 const customLabel = d => `${d.id} [${d.value}]`
