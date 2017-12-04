@@ -6,33 +6,25 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component } from 'react'
+import React from 'react'
+import pure from 'recompose/pure'
 import PropTypes from 'prop-types'
 
-class CalendarMonthPath extends Component {
-    render() {
-        const { path, borderWidth, borderColor } = this.props
-
-        return (
-            <path
-                className="nivo_calendar_month"
-                d={path}
-                style={{
-                    fill: 'none',
-                    strokeWidth: borderWidth,
-                    stroke: borderColor,
-                }}
-            />
-        )
-    }
-}
-
-const { number, string } = PropTypes
+const CalendarMonthPath = ({ path, borderWidth, borderColor }) => (
+    <path
+        d={path}
+        style={{
+            fill: 'none',
+            strokeWidth: borderWidth,
+            stroke: borderColor,
+        }}
+    />
+)
 
 CalendarMonthPath.propTypes = {
-    path: string.isRequired,
-    borderWidth: number.isRequired,
-    borderColor: string.isRequired,
+    path: PropTypes.string.isRequired,
+    borderWidth: PropTypes.number.isRequired,
+    borderColor: PropTypes.string.isRequired,
 }
 
-export default CalendarMonthPath
+export default pure(CalendarMonthPath)
