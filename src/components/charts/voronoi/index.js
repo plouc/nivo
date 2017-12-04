@@ -9,3 +9,4 @@
 
 export { default as Voronoi } from './Voronoi'
 export { default as ResponsiveVoronoi } from './ResponsiveVoronoi'
+export * from './props'

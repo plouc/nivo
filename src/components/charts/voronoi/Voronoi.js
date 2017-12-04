@@ -7,114 +7,92 @@
  * file that was distributed with this source code.
  */
 
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { defaultMargin, defaultColorRange } from '../../../defaults'
+import React from 'react'
 import { voronoi as VoronoiGenerator } from 'd3-voronoi'
+import Container from '../Container'
+import SvgWrapper from '../SvgWrapper'
+import enhance from './enhance'
+import { VoronoiPropTypes } from './props'
 
-class Voronoi extends Component {
-    render() {
-        const {
-            data,
-            width: _width,
-            height: _height,
-            margin: _margin,
-            x,
-            y,
-            enableSites,
-            enableLinks,
-            enablePolygons,
-            borderWidth,
-            borderColor,
-            linkWidth,
-            linkColor,
-        } = this.props
+const Voronoi = ({
+    data,
 
-        const margin = Object.assign({}, defaultMargin, _margin)
-        const width = _width - margin.left - margin.right
-        const height = _height - margin.top - margin.bottom
+    // dimensions
+    margin,
+    width,
+    height,
+    outerWidth,
+    outerHeight,
 
-        const voronoi = VoronoiGenerator()
-            .x(d => d[x])
-            .y(d => d[y])
-            .extent([[0, 0], [width, height]])
+    // features
+    enableSites,
+    enableLinks,
+    enablePolygons,
 
-        const polygons = voronoi.polygons(data)
-        const links = voronoi.links(data)
+    // styling
+    theme,
+    borderWidth,
+    borderColor,
+    linkWidth,
+    linkColor,
+    siteSize,
+    siteColor,
+}) => {
+    const voronoi = VoronoiGenerator()
+        .x(d => d.x)
+        .y(d => d.y)
+        .extent([[0, 0], [width, height]])
 
-        return (
-            <svg xmlns="http://www.w3.org/2000/svg" width={_width} height={_height}>
-                <g transform={`translate(${margin.left},${margin.top})`}>
+    const polygons = voronoi.polygons(data)
+    const links = voronoi.links(data)
+
+    return (
+        <Container isInteractive={false} theme={theme}>
+            {({ showTooltip, hideTooltip }) => (
+                <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
                     {enableLinks &&
-                        links.map((l, i) => {
-                            return (
-                                <line
-                                    key={i}
-                                    fill="none"
-                                    stroke={linkColor}
-                                    strokeWidth={linkWidth}
-                                    x1={l.source[0]}
-                                    y1={l.source[1]}
-                                    x2={l.target[0]}
-                                    y2={l.target[1]}
-                                />
-                            )
-                        })}
+                        links.map(l => (
+                            <line
+                                key={`${l.source.id}.${l.target.id}`}
+                                fill="none"
+                                stroke={linkColor}
+                                strokeWidth={linkWidth}
+                                x1={l.source.x}
+                                y1={l.source.y}
+                                x2={l.target.x}
+                                y2={l.target.y}
+                            />
+                        ))}
                     {enablePolygons &&
-                        polygons.map((p, i) => {
-                            return (
-                                <path
-                                    key={i}
-                                    fill="none"
-                                    stroke={borderColor}
-                                    strokeWidth={borderWidth}
-                                    d={`M${p.join('L')}Z`}
-                                />
-                            )
-                        })}
+                        polygons.map(p => (
+                            <path
+                                key={p.data.id}
+                                fill="none"
+                                stroke={borderColor}
+                                strokeWidth={borderWidth}
+                                d={`M${p.join('L')}Z`}
+                                onClick={() => {
+                                    console.log(p.data)
+                                }}
+                            />
+                        ))}
                     {enableSites &&
-                        data.map((d, i) => {
-                            return (
-                                <circle
-                                    key={i}
-                                    r="2.5"
-                                    cx={d[0]}
-                                    cy={d[1]}
-                                    fill="#F00"
-                                    stroke="none"
-                                />
-                            )
-                        })}
-                </g>
-            </svg>
-        )
-    }
+                        data.map(d => (
+                            <circle
+                                key={d.id}
+                                r={siteSize / 2}
+                                cx={d.x}
+                                cy={d.y}
+                                fill={siteColor}
+                                stroke="none"
+                            />
+                        ))}
+                </SvgWrapper>
+            )}
+        </Container>
+    )
 }
 
-Voronoi.propTypes = {
-    enableSites: PropTypes.bool.isRequired,
-    enableLinks: PropTypes.bool.isRequired,
-    enablePolygons: PropTypes.bool.isRequired,
-    x: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    y: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    colors: PropTypes.any.isRequired,
-    borderWidth: PropTypes.number.isRequired,
-    borderColor: PropTypes.string.isRequired,
-    linkWidth: PropTypes.number.isRequired,
-    linkColor: PropTypes.string.isRequired,
-}
+Voronoi.propTypes = VoronoiPropTypes
 
-Voronoi.defaultProps = {
-    enableSites: true,
-    enableLinks: true,
-    enablePolygons: true,
-    x: 0,
-    y: 1,
-    borderWidth: 1,
-    borderColor: '#000',
-    linkWidth: 1,
-    linkColor: '#bbb',
-    colors: defaultColorRange,
-}
-
-export default Voronoi
+export default enhance(Voronoi)
