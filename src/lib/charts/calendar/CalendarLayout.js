@@ -284,6 +284,7 @@ const CalendarLayout = ({
         day.color = emptyColor
         data.forEach(dataDay => {
             if (dataDay.day === day.day) {
+                day.value = dataDay.value
                 day.color = colorScale(dataDay.value)
             }
         })

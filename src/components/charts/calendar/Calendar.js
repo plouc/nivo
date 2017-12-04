@@ -7,22 +7,24 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { minBy, maxBy } from 'lodash'
-import { scaleQuantize } from 'd3-scale'
 import computeCalendar from '../../../lib/charts/calendar/CalendarLayout'
 import { CalendarPropTypes } from './props'
-import StaticCalendar from './StaticCalendar'
+import { timeFormat } from 'd3-time-format'
+import { DIRECTION_HORIZONTAL } from '../../../constants/directions'
+import CalendarDay from './CalendarDay'
+import CalendarMonthPath from './CalendarMonthPath'
 import Container from '../Container'
 import SvgWrapper from '../SvgWrapper'
 import enhance from './enhance'
+
+const monthLegendFormat = timeFormat('%b')
 
 const Calendar = ({
     data,
     from,
     to,
 
-    domain,
-    colors,
+    colorScale,
 
     // dimensions
     margin,
@@ -31,7 +33,6 @@ const Calendar = ({
     outerWidth,
     outerHeight,
 
-    onDayClick,
     direction,
     emptyColor,
     yearSpacing,
@@ -44,18 +45,12 @@ const Calendar = ({
     monthLegendOffset,
 
     theme,
+
+    // interactivity
+    isInteractive,
+    tooltipFormat,
+    onClick,
 }) => {
-    let colorDomain
-    if (domain === 'auto') {
-        colorDomain = [minBy(data, 'value').value, maxBy(data, 'value').value]
-    } else {
-        colorDomain = [...domain]
-    }
-
-    const colorScale = scaleQuantize()
-        .domain(colorDomain)
-        .range(colors)
-
     const { years, months, days } = computeCalendar({
         width,
         height,
@@ -70,22 +65,77 @@ const Calendar = ({
     })
 
     return (
-        <Container isInteractive={false} theme={theme}>
+        <Container isInteractive={isInteractive} theme={theme}>
             {({ showTooltip, hideTooltip }) => (
                 <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
-                    <StaticCalendar
-                        onDayClick={onDayClick}
-                        direction={direction}
-                        years={years}
-                        months={months}
-                        days={days}
-                        yearLegendOffset={yearLegendOffset}
-                        dayBorderWidth={dayBorderWidth}
-                        dayBorderColor={dayBorderColor}
-                        monthBorderWidth={monthBorderWidth}
-                        monthBorderColor={monthBorderColor}
-                        monthLegendOffset={monthLegendOffset}
-                    />
+                    {days.map(d => (
+                        <CalendarDay
+                            key={d.date.toString()}
+                            data={d}
+                            x={d.x}
+                            y={d.y}
+                            size={d.size}
+                            color={d.color}
+                            borderWidth={dayBorderWidth}
+                            borderColor={dayBorderColor}
+                            showTooltip={showTooltip}
+                            hideTooltip={hideTooltip}
+                            tooltipFormat={tooltipFormat}
+                            theme={theme}
+                            onClick={onClick}
+                        />
+                    ))}
+                    {months.map(m => (
+                        <CalendarMonthPath
+                            key={m.date.toString()}
+                            path={m.path}
+                            borderWidth={monthBorderWidth}
+                            borderColor={monthBorderColor}
+                        />
+                    ))}
+                    {months.map(month => {
+                        let transform
+                        if (direction === DIRECTION_HORIZONTAL) {
+                            transform = `translate(${month.bbox.x + month.bbox.width / 2},${month
+                                .bbox.y - monthLegendOffset})`
+                        } else {
+                            transform = `translate(${month.bbox.x - monthLegendOffset},${month.bbox
+                                .y +
+                                month.bbox.height / 2}) rotate(-90)`
+                        }
+
+                        return (
+                            <text
+                                key={`${month.date.toString()}.legend`}
+                                className="nivo_calendar_month_legend"
+                                transform={transform}
+                                textAnchor="middle"
+                            >
+                                {monthLegendFormat(month.date)}
+                            </text>
+                        )
+                    })}
+                    {years.map(year => {
+                        let transform
+                        if (direction === DIRECTION_HORIZONTAL) {
+                            transform = `translate(${year.bbox.x - yearLegendOffset},${year.bbox.y +
+                                year.bbox.height / 2}) rotate(-90)`
+                        } else {
+                            transform = `translate(${year.bbox.x + year.bbox.width / 2},${year.bbox
+                                .y - yearLegendOffset})`
+                        }
+
+                        return (
+                            <text
+                                key={year.year}
+                                className="nivo_calendar_year_legend"
+                                transform={transform}
+                                textAnchor="middle"
+                            >
+                                {year.year}
+                            </text>
+                        )
+                    })}
                 </SvgWrapper>
             )}
         </Container>

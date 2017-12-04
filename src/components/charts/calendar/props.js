@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
+import noop from '../../../lib/noop'
 import { DIRECTION_HORIZONTAL, DIRECTION_VERTICAL } from '../../../constants/directions'
 
 /**
@@ -27,6 +28,7 @@ export const CalendarPropTypes = {
     domain: PropTypes.oneOfType([PropTypes.oneOf(['auto']), PropTypes.arrayOf(PropTypes.number)])
         .isRequired,
     colors: PropTypes.arrayOf(PropTypes.string).isRequired,
+    colorScale: PropTypes.func.isRequired,
 
     onDayClick: PropTypes.func.isRequired,
     direction: PropTypes.oneOf([DIRECTION_HORIZONTAL, DIRECTION_VERTICAL]),
@@ -45,6 +47,11 @@ export const CalendarPropTypes = {
     daySpacing: PropTypes.number.isRequired,
     dayBorderWidth: PropTypes.number.isRequired,
     dayBorderColor: PropTypes.string.isRequired,
+
+    // interactivity
+    isInteractive: PropTypes.bool,
+    onClick: PropTypes.func.isRequired,
+    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 }
 
 /**
@@ -73,4 +80,8 @@ export const CalendarDefaultProps = {
     daySpacing: 0,
     dayBorderWidth: 1,
     dayBorderColor: '#000',
+
+    // interactivity
+    isInteractive: true,
+    onClick: noop,
 }
