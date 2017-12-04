@@ -1,3 +1,15 @@
+<a name="v0.31.0"></a>
+## v0.31.0 (2017-12-04)
+
+
+#### Features
+
+* **calendar**
+  *  add support for tooltip ([149e664e](https://github.com/plouc/nivo/commit/149e664ee8b2360353c1861637c6046624b7e186))
+  *  remove support for motion and align code with other charts ([b9b47f75](https://github.com/plouc/nivo/commit/b9b47f757ff30e8b8f54c7368d891a40c99e2a3b))
+
+
+
 <a name="v0.30.1"></a>
 ## v0.30.1 (2017-12-04)
 
@@ -17,6 +29,10 @@
 ## v0.30.0 (2017-12-04)
 
 
+#### Bug Fixes
+
+* **bar**  getLabel is defined twice (#76) ([4cfd3a11](https://github.com/plouc/nivo/commit/4cfd3a1121d8e7de1948a68eca805f20e94aa891))
+
 #### Features
 
 * **axes**  add onClick handler to axis ticks (#60) ([0c9efe4b](https://github.com/plouc/nivo/commit/0c9efe4bfac40bad090eb7fe74bb19164acd2859))
@@ -26,10 +42,6 @@
 * **sankey**
   *  Support complete configuration of the tooltips (#78) ([f3aecf6c](https://github.com/plouc/nivo/commit/f3aecf6c91a078af8f748613aaa1e79c820b5526))
   *  Support configurable labels (#77) ([5ac962b1](https://github.com/plouc/nivo/commit/5ac962b1eb60982a99726b1b2909bb233281999c))
-
-#### Bug Fixes
-
-* **bar**  getLabel is defined twice (#76) ([4cfd3a11](https://github.com/plouc/nivo/commit/4cfd3a1121d8e7de1948a68eca805f20e94aa891))
 
 
 
@@ -144,16 +156,16 @@
 ## v0.26.0 (2017-12-04)
 
 
-#### Bug Fixes
-
-* **tooltip**  fix tooltip offset with scroll ([c320c23f](https://github.com/plouc/nivo/commit/c320c23f330e15607479d22224143811bfd3936b))
-
 #### Features
 
 * **axis**  improve axis formatting support ([69269a60](https://github.com/plouc/nivo/commit/69269a6072314cb04cb300cd55602af8ccabaf3e))
 * **bar**  add ability to define bar chart min/max value ([d9b9bdae](https://github.com/plouc/nivo/commit/d9b9bdaeff03cd16092bad47b34a0e570ce10c76))
 * **bubble**  fix bubble color transition ([675c6689](https://github.com/plouc/nivo/commit/675c66897f51b8b450a4d2b9f29c3985604bd38b))
 * **sankey**  improve sankey interactivity ([27a5ff54](https://github.com/plouc/nivo/commit/27a5ff54ff5c223afec2fb225b7105f7065ece1c))
+
+#### Bug Fixes
+
+* **tooltip**  fix tooltip offset with scroll ([c320c23f](https://github.com/plouc/nivo/commit/c320c23f330e15607479d22224143811bfd3936b))
 
 
 
@@ -227,13 +239,13 @@
 ## v0.23.0 (2017-12-04)
 
 
-#### Bug Fixes
-
-* **stream**  fix stream stacked tooltip ([05fbcc9f](https://github.com/plouc/nivo/commit/05fbcc9fadf6d540f6788de5cb98072b92cdd103))
-
 #### Features
 
 * **canvas**  add canvas support for bar & heatmap ([94ad4d97](https://github.com/plouc/nivo/commit/94ad4d97229716a5ca6e189cd1a31b778385c977))
+
+#### Bug Fixes
+
+* **stream**  fix stream stacked tooltip ([05fbcc9f](https://github.com/plouc/nivo/commit/05fbcc9fadf6d540f6788de5cb98072b92cdd103))
 
 
 
@@ -394,6 +406,8 @@
   *  move Bubble legends in a dedicated component ([c54116d5](https://github.com/plouc/nivo/commit/c54116d51736860799a838c6ec9feebfa291b700))
   *  init Bubble component ([0a8a3865](https://github.com/plouc/nivo/commit/0a8a3865bb0000181f9e6e7b19dce8ea4de2cd5f))
 * **calendar**
+  *  add support for tooltip ([149e664e](https://github.com/plouc/nivo/commit/149e664ee8b2360353c1861637c6046624b7e186))
+  *  remove support for motion and align code with other charts ([b9b47f75](https://github.com/plouc/nivo/commit/b9b47f757ff30e8b8f54c7368d891a40c99e2a3b))
   *  add onDayClick property to Calendar components ([ca947080](https://github.com/plouc/nivo/commit/ca947080b3ca8a886dcac22324c9b992e82b43b5))
   *  add ability to customize empty day color ([644cc8e3](https://github.com/plouc/nivo/commit/644cc8e333dc9fe51c4fce9dd6a9ddccbd9cd797))
   *  fix Calendar related tests ([4f358136](https://github.com/plouc/nivo/commit/4f3581362bb5746e1ddf403dcf7ba775359932d2))
