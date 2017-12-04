@@ -6,112 +6,92 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import _ from 'lodash'
-import React, { Component } from 'react'
-import { defaultMargin } from '../../../defaults'
-import SvgWrapper from '../SvgWrapper'
-import CalendarLayout from '../../../lib/charts/calendar/CalendarLayout'
-import { calendarPropTypes, calendarDefaultProps } from './CalendarProps'
+import React from 'react'
+import { minBy, maxBy } from 'lodash'
+import { scaleQuantize } from 'd3-scale'
+import computeCalendar from '../../../lib/charts/calendar/CalendarLayout'
+import { CalendarPropTypes } from './props'
 import StaticCalendar from './StaticCalendar'
-import MotionCalendar from './MotionCalendar'
+import Container from '../Container'
+import SvgWrapper from '../SvgWrapper'
+import enhance from './enhance'
 
-export default class Calendar extends Component {
-    static propTypes = _.omit(calendarPropTypes, [
-        'transitionDuration',
-        'transitionEasing',
-        'transitionStaggering',
-    ])
+const Calendar = ({
+    data,
+    from,
+    to,
 
-    static defaultProps = _.omit(calendarDefaultProps, [
-        'transitionDuration',
-        'transitionEasing',
-        'transitionStaggering',
-    ])
+    domain,
+    colors,
 
-    componentWillMount() {
-        this.calendarLayout = CalendarLayout()
+    // dimensions
+    margin,
+    width,
+    height,
+    outerWidth,
+    outerHeight,
+
+    onDayClick,
+    direction,
+    emptyColor,
+    yearSpacing,
+    yearLegendOffset,
+    daySpacing,
+    dayBorderWidth,
+    dayBorderColor,
+    monthBorderWidth,
+    monthBorderColor,
+    monthLegendOffset,
+
+    theme,
+}) => {
+    let colorDomain
+    if (domain === 'auto') {
+        colorDomain = [minBy(data, 'value').value, maxBy(data, 'value').value]
+    } else {
+        colorDomain = [...domain]
     }
 
-    render() {
-        const {
-            from,
-            to,
-            data,
-            onDayClick,
-            direction,
-            colorScale,
-            emptyColor,
-            yearSpacing,
-            yearLegendOffset,
-            daySpacing,
-            dayBorderWidth,
-            dayBorderColor,
-            monthBorderWidth,
-            monthBorderColor,
-            monthLegendOffset,
-            animate,
-            motionStiffness,
-            motionDamping,
-        } = this.props
+    const colorScale = scaleQuantize()
+        .domain(colorDomain)
+        .range(colors)
 
-        const margin = Object.assign({}, defaultMargin, this.props.margin)
-        const width = this.props.width - margin.left - margin.right
-        const height = this.props.height - margin.top - margin.bottom
+    const { years, months, days } = computeCalendar({
+        width,
+        height,
+        from,
+        to,
+        data,
+        direction,
+        colorScale,
+        emptyColor,
+        yearSpacing,
+        daySpacing,
+    })
 
-        const { years, months, days } = this.calendarLayout.compute({
-            width,
-            height,
-            from,
-            to,
-            data,
-            direction,
-            colorScale,
-            emptyColor,
-            yearSpacing,
-            daySpacing,
-        })
-
-        let calendar
-        if (animate === true) {
-            calendar = (
-                <MotionCalendar
-                    onDayClick={onDayClick}
-                    direction={direction}
-                    years={years}
-                    months={months}
-                    days={days}
-                    yearLegendOffset={yearLegendOffset}
-                    dayBorderWidth={dayBorderWidth}
-                    dayBorderColor={dayBorderColor}
-                    monthBorderWidth={monthBorderWidth}
-                    monthBorderColor={monthBorderColor}
-                    monthLegendOffset={monthLegendOffset}
-                    motionStiffness={motionStiffness}
-                    motionDamping={motionDamping}
-                />
-            )
-        } else {
-            calendar = (
-                <StaticCalendar
-                    onDayClick={onDayClick}
-                    direction={direction}
-                    years={years}
-                    months={months}
-                    days={days}
-                    yearLegendOffset={yearLegendOffset}
-                    dayBorderWidth={dayBorderWidth}
-                    dayBorderColor={dayBorderColor}
-                    monthBorderWidth={monthBorderWidth}
-                    monthBorderColor={monthBorderColor}
-                    monthLegendOffset={monthLegendOffset}
-                />
-            )
-        }
-
-        return (
-            <SvgWrapper width={this.props.width} height={this.props.height} margin={margin}>
-                {calendar}
-            </SvgWrapper>
-        )
-    }
+    return (
+        <Container isInteractive={false} theme={theme}>
+            {({ showTooltip, hideTooltip }) => (
+                <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
+                    <StaticCalendar
+                        onDayClick={onDayClick}
+                        direction={direction}
+                        years={years}
+                        months={months}
+                        days={days}
+                        yearLegendOffset={yearLegendOffset}
+                        dayBorderWidth={dayBorderWidth}
+                        dayBorderColor={dayBorderColor}
+                        monthBorderWidth={monthBorderWidth}
+                        monthBorderColor={monthBorderColor}
+                        monthLegendOffset={monthLegendOffset}
+                    />
+                </SvgWrapper>
+            )}
+        </Container>
+    )
 }
+
+Calendar.propTypes = CalendarPropTypes
+
+export default enhance(Calendar)

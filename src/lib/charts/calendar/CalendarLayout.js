@@ -171,141 +171,125 @@ const dayFormat = timeFormat('%Y-%m-%d')
  * This layout is responsible for computing Calendar chart data/positions….
  * It's used for all Calendar related chart components.
  *
- * @returns {{ compute: (function) }}
- * @constructor
+ * @param {number}      width
+ * @param {number}      height
+ * @param {string|Date} from
+ * @param {string|Date} to
+ * @param {array}       data
+ * @param {string}      direction
+ * @param {object}      colorScale
+ * @param {string}      emptyColor
+ * @param {number}      yearSpacing
+ * @param {number}      daySpacing
+ * @returns {object}
  */
-const CalendarLayout = () => {
-    return {
-        /**
-         * @param {number}      width
-         * @param {number}      height
-         * @param {string|Date} from
-         * @param {string|Date} to
-         * @param {array}       data
-         * @param {string}      direction
-         * @param {object}      colorScale
-         * @param {string}      emptyColor
-         * @param {number}      yearSpacing
-         * @param {number}      daySpacing
-         * @returns {object}
-         */
-        compute({
-            width,
-            height,
-            from,
-            to,
-            data,
-            direction,
-            colorScale,
-            emptyColor,
-            yearSpacing,
-            daySpacing,
-        }) {
-            // time related data
-            const fromDate = _.isDate(from) ? from : new Date(from)
-            const toDate = _.isDate(to) ? to : new Date(to)
+const CalendarLayout = ({
+    width,
+    height,
+    from,
+    to,
+    data,
+    direction,
+    colorScale,
+    emptyColor,
+    yearSpacing,
+    daySpacing,
+}) => {
+    // time related data
+    const fromDate = _.isDate(from) ? from : new Date(from)
+    const toDate = _.isDate(to) ? to : new Date(to)
 
-            let yearRange = _.range(fromDate.getFullYear(), toDate.getFullYear() + 1)
-            const maxWeeks =
-                _.max(
-                    yearRange.map(
-                        year => timeWeeks(new Date(year, 0, 1), new Date(year + 1, 0, 1)).length
-                    )
-                ) + 1
+    let yearRange = _.range(fromDate.getFullYear(), toDate.getFullYear() + 1)
+    const maxWeeks =
+        _.max(
+            yearRange.map(year => timeWeeks(new Date(year, 0, 1), new Date(year + 1, 0, 1)).length)
+        ) + 1
 
-            // ——————————————————————————————————————————————————————————————————————————————————————————————————————
-            // Computes years/months/days
-            // ——————————————————————————————————————————————————————————————————————————————————————————————————————
-            // compute cellSize
-            const cellSize = computeCellSize({
-                width,
-                height,
-                direction,
-                yearRange,
-                yearSpacing,
-                daySpacing,
-                maxWeeks,
-            })
+    // ——————————————————————————————————————————————————————————————————————————————————————————————————————
+    // Computes years/months/days
+    // ——————————————————————————————————————————————————————————————————————————————————————————————————————
+    // compute cellSize
+    const cellSize = computeCellSize({
+        width,
+        height,
+        direction,
+        yearRange,
+        yearSpacing,
+        daySpacing,
+        maxWeeks,
+    })
 
-            // determine day cells positioning function according to layout direction
-            let cellPosition
-            if (direction === DIRECTION_HORIZONTAL) {
-                cellPosition = cellPositionHorizontal(cellSize, yearSpacing, daySpacing)
-            } else {
-                cellPosition = cellPositionVertical(cellSize, yearSpacing, daySpacing)
-            }
-
-            let years = []
-            let months = []
-            let days = []
-
-            yearRange.forEach((year, i) => {
-                const yearStart = new Date(year, 0, 1)
-                const yearEnd = new Date(year + 1, 0, 1)
-
-                days = days.concat(
-                    timeDays(yearStart, yearEnd).map(dayDate =>
-                        _.assign(
-                            {
-                                date: dayDate,
-                                day: dayFormat(dayDate),
-                                size: cellSize,
-                            },
-                            cellPosition(dayDate, i)
-                        )
-                    )
-                )
-
-                const yearMonths = timeMonths(yearStart, yearEnd).map(monthDate =>
-                    _.assign(
-                        { date: monthDate },
-                        memoMonthPathAndBBox({
-                            date: monthDate,
-                            direction,
-                            yearIndex: i,
-                            yearSpacing,
-                            daySpacing,
-                            cellSize,
-                        })
-                    )
-                )
-
-                months = months.concat(yearMonths)
-
-                years.push({
-                    year,
-                    bbox: {
-                        x: yearMonths[0].bbox.x,
-                        y: yearMonths[0].bbox.y,
-                        width:
-                            yearMonths[11].bbox.x -
-                            yearMonths[0].bbox.x +
-                            yearMonths[11].bbox.width,
-                        height:
-                            yearMonths[11].bbox.y -
-                            yearMonths[0].bbox.y +
-                            yearMonths[11].bbox.height,
-                    },
-                })
-            })
-
-            // ——————————————————————————————————————————————————————————————————————————————————————————————————————
-            // Computes days/data intersection
-            // ——————————————————————————————————————————————————————————————————————————————————————————————————————
-            //const color = scalePropToD3Scale(colorScale)
-
-            days.forEach(day => {
-                day.color = emptyColor
-                data.forEach(dataDay => {
-                    if (dataDay.day === day.day) {
-                        //day.color = color(dataDay.value)
-                    }
-                })
-            })
-
-            return { years, months, days, cellSize }
-        },
+    // determine day cells positioning function according to layout direction
+    let cellPosition
+    if (direction === DIRECTION_HORIZONTAL) {
+        cellPosition = cellPositionHorizontal(cellSize, yearSpacing, daySpacing)
+    } else {
+        cellPosition = cellPositionVertical(cellSize, yearSpacing, daySpacing)
     }
+
+    let years = []
+    let months = []
+    let days = []
+
+    yearRange.forEach((year, i) => {
+        const yearStart = new Date(year, 0, 1)
+        const yearEnd = new Date(year + 1, 0, 1)
+
+        days = days.concat(
+            timeDays(yearStart, yearEnd).map(dayDate =>
+                _.assign(
+                    {
+                        date: dayDate,
+                        day: dayFormat(dayDate),
+                        size: cellSize,
+                    },
+                    cellPosition(dayDate, i)
+                )
+            )
+        )
+
+        const yearMonths = timeMonths(yearStart, yearEnd).map(monthDate =>
+            _.assign(
+                { date: monthDate },
+                memoMonthPathAndBBox({
+                    date: monthDate,
+                    direction,
+                    yearIndex: i,
+                    yearSpacing,
+                    daySpacing,
+                    cellSize,
+                })
+            )
+        )
+
+        months = months.concat(yearMonths)
+
+        years.push({
+            year,
+            bbox: {
+                x: yearMonths[0].bbox.x,
+                y: yearMonths[0].bbox.y,
+                width: yearMonths[11].bbox.x - yearMonths[0].bbox.x + yearMonths[11].bbox.width,
+                height: yearMonths[11].bbox.y - yearMonths[0].bbox.y + yearMonths[11].bbox.height,
+            },
+        })
+    })
+
+    // ——————————————————————————————————————————————————————————————————————————————————————————————————————
+    // Computes days/data intersection
+    // ——————————————————————————————————————————————————————————————————————————————————————————————————————
+    //const color = scalePropToD3Scale(colorScale)
+
+    days.forEach(day => {
+        day.color = emptyColor
+        data.forEach(dataDay => {
+            if (dataDay.day === day.day) {
+                day.color = colorScale(dataDay.value)
+            }
+        })
+    })
+
+    return { years, months, days, cellSize }
 }
 
 export default CalendarLayout
