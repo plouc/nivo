@@ -1,5 +1,5 @@
 import React from 'react';
-import { ResponsiveStream, patternDotsDef } from 'nivo'
+import { ResponsiveStream, patternDotsDef } from '@nivo/stream'
 import { generateCountriesData } from 'nivo-generators'
 import { colors } from '../../constants'
 

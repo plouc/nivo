@@ -24,7 +24,8 @@
     "react": ">= 15.6.1 < 17.0.0"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "prop-types": "*"
   },
   "scripts": {
     "build:commonjs": "rm -rf lib && cross-env NODE_ENV=commonjs babel src --out-dir lib",

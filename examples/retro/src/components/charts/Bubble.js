@@ -1,5 +1,5 @@
 import React from 'react'
-import { ResponsiveBubble } from 'nivo'
+import { ResponsiveBubble } from '@nivo/circle-packing'
 import { generateCountriesData } from 'nivo-generators'
 import { colors } from '../../constants'
 
