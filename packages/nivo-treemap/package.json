@@ -1,18 +1,18 @@
 {
   "name": "@nivo/treemap",
-  "version": "0.32.0-5",
+  "version": "0.32.0-7",
   "license": "MIT",
   "main": "./lib/index.js",
   "module": "es/index.js",
   "jsnext:main": "es/index.js",
   "dependencies": {
-    "@nivo/core": "0.32.0-5",
+    "@nivo/core": "0.32.0-7",
     "d3-hierarchy": "1.1.5",
     "react-motion": "^0.5.2",
     "recompose": "^0.26.0"
   },
   "devDependencies": {
-    "@nivo/babel-preset": "0.32.0-5",
+    "@nivo/babel-preset": "0.32.0-7",
     "babel-cli": "^6.26.0",
     "babel-jest": "^20.0.3",
     "cross-env": "^5.0.5",
@@ -21,8 +21,8 @@
     "react-dom": "^15.6.1"
   },
   "peerDependencies": {
-    "react": ">= 15.6.1 < 17.0.0",
-    "prop-types": "*"
+    "prop-types": "*",
+    "react": ">= 15.6.1 < 17.0.0"
   },
   "publishConfig": {
     "access": "public"
