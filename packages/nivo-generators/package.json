@@ -1,6 +1,6 @@
 {
   "name": "@nivo/generators",
-  "version": "0.32.0-1",
+  "version": "0.32.0-2",
   "licenses": [
     {
       "type": "MIT",
@@ -45,6 +45,9 @@
     "lodash.random": "^3.2.0",
     "lodash.range": "^3.2.0",
     "lodash.shuffle": "^4.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build:commonjs": "cross-env NODE_ENV=commonjs babel src --out-dir lib",
