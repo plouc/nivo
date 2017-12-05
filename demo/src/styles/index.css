@@ -1,0 +1,234 @@
+@import 'settings/colors.css';
+@import 'settings/dimensions.css';
+
+@import 'icons.css';
+@import 'layout.css';
+@import 'grid.css';
+@import 'nav.css';
+@import 'mini-nav.css';
+@import 'card.css';
+@import 'properties.css';
+@import 'table.css';
+@import 'header.css';
+@import 'home.css';
+@import 'charts.css';
+@import 'controls.css';
+@import 'chart-controls.css';
+@import 'components/components-filters.css';
+@import 'components/components-grid.css';
+@import 'components/components-search.css';
+@import 'components/component-properties.css';
+@import 'color-picker.css';
+@import 'api-client.css';
+@import 'components.css';
+@import 'mobile-nav.css';
+@import 'react-select.css';
+@import 'guides.css';
+@import 'tabs.css';
+@import 'mq.css';
+
+svg {
+    shape-rendering: auto; /* optimizeSpeed */
+}
+
+html,
+body {
+    margin: 0;
+    background: var(--main-background-color);
+    color: var(--main-text-color);
+    font-size: 16px;
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+a {
+    color: var(--links-color);
+    text-decoration: underline;
+}
+a code {
+    color: var(--links-color);
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 16px;
+}
+
+h1 {
+    font-size: 32px;
+    margin: 0 0 20px 0;
+    padding: 0;
+    font-weight: 300;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--title-text-color);
+}
+
+p {
+    margin: 15px 0;
+}
+p:first-child {
+    margin-top: 0;
+}
+
+.brand {
+    display: none;
+    background-image: url('../assets/nivo-logo.png');
+    width: var(--sidebar-width);
+    height: var(--header-height);
+    background-position: 15px center;
+    background-size: 40%;
+    background-repeat: no-repeat;
+    margin-left: 35px;
+}
+
+.dice-roll {
+    display: block;
+    padding: 8px 10px;
+    line-height: 1em;
+    border-radius: 2px;
+    background: #fff;
+    color: var(--accent-color);
+    cursor: pointer;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.12);
+    font-weight: 600;
+    font-size: 15px;
+    margin-top: 4px;
+    margin-left: 20px;
+    white-space: pre;
+}
+.dice-roll:hover {
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+    color: var(--accent-color-darker);
+}
+
+.unit {
+    color: #999;
+}
+
+code,
+.code,
+.unit,
+pre,
+.json-data_json textarea,
+.api-client_data,
+svg text,
+.component-properties__item__header,
+.component-properties__item__meta {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+}
+
+code,
+.code {
+    display: inline-block;
+    background: transparent;
+    color: var(--code-text-color);
+}
+
+.code-block {
+    display: block;
+}
+
+.code-number {
+    font-weight: 700;
+    color: var(--code-number-color);
+}
+
+.code-string {
+    color: var(--code-string-color);
+}
+
+.code-boolean {
+    color: var(--code-boolean-color);
+}
+
+.code-snippet,
+.chart_code {
+    position: relative;
+    padding: 7px 20px;
+    font-size: 13px;
+    line-height: 1.7em;
+    background: var(--code-background-color);
+    color: var(--code-text-color);
+}
+
+.json-data {
+    position: relative;
+    margin: 0 0 15px;
+    background: var(--code-background-color);
+    color: #ddd; /*code-text-color*/
+}
+
+.json-data_json {
+    height: 100%;
+}
+
+.json-data_json textarea {
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+    padding: 7px 12px;
+    background: var(--code-background-color);
+    color: #ddd;
+    border-width: 0;
+}
+
+.no-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.intro {
+    margin: 0;
+    content-margin: 30px 0;
+}
+
+.text-content {
+    font-size: 18px;
+    line-height: 1.64em;
+    font-weight: 400;
+}
+
+.text-content strong,
+.text-content a {
+    font-weight: 600;
+}
+
+.text-content h2 {
+    font-size: 24px;
+}
+
+.chart-description {
+    max-width: 600px;
+    margin-bottom: 40px;
+}
+
+.banner {
+    background: white;
+    margin-bottom: 40px;
+    padding: 20px;
+}

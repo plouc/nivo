@@ -1,0 +1,16 @@
+:root {
+    --header-height: 60px;
+    --sidebar-width: 260px;
+    --content-margin: 50px;
+    --mini-nav-width: 80px;
+    --mini-nav-item-size: 56px; /* if this value is updated, it has to be updated in the MiniNav component too */
+    --header-bottom-offset: 130px;
+
+    --control-switch-width: 36px;
+    --control-switch-height: 18px;
+    --control-switch-padding: 3px;
+    --control-switch-border-width: 0px;
+
+    --control-label-position-width: 8px;
+    --control-label-position-height: 8px;
+}

@@ -1,0 +1,84 @@
+.nav_toggle {
+    display: block;
+    height: var(--header-height);
+    cursor: pointer;
+    background-image: url('../assets/nivo-nav-bars.png');
+    background-size: 26px 26px;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: var(--header-background-color);
+    background-image: linear-gradient(-90deg, #dc5a32, #c44a67);
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    z-index: 10;
+}
+
+.HeaderNav {
+    position: absolute;
+    top: 0;
+    right: 50px;
+    height: var(--header-height);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.HeaderNav__Item {
+    color: var(--main-background-color);
+    text-decoration: none;
+    margin-left: 20px;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border-bottom: none;
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    padding: 6px 0;
+}
+
+.HeaderNav__Item__Sub {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: -15px;
+    background: #fff;
+    z-index: 1000;
+    border-radius: 2px;
+    padding: 10px 0;
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.2);
+}
+
+.HeaderNav__Item:hover .HeaderNav__Item__Sub {
+    display: block;
+}
+
+.HeaderNav__Item__Sub__Item {
+    display: block;
+    padding: 6px 15px;
+    line-height: 1em;
+    text-decoration: none;
+}
+
+.HeaderNav__Item__Sub__Item:hover {
+    background: var(--main-background-color);
+}
+
+.HeaderNav__Item svg {
+    font-size: 22px;
+}
+
+.HeaderNav__Item.active {
+    background: var(--main-background-color);
+}

@@ -1,0 +1,26 @@
+.tabs__menu {
+    display: flex;
+    padding-top: 1px;
+    background: #f0f3f4;
+    overflow-x: auto;
+    font-size: 15px;
+}
+
+.tabs__menu__item {
+    cursor: pointer;
+    margin-right: 1px;
+    padding: 9px 20px;
+    color: #aaa;
+    white-space: pre;
+    border-radius: 0;
+}
+
+.tabs__menu__item:hover {
+    color: var(--main-text-color);
+}
+
+.tabs__menu__item._is-active {
+    color: var(--main-text-color);
+    border-bottom-color: #fff;
+    background: #fff;
+}
