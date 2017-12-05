@@ -8,7 +8,7 @@
  */
 import React, { Component } from 'react'
 import Helmet from 'react-helmet'
-import { generateWinesTastes } from 'nivo-generators'
+import { generateWinesTastes } from '@nivo/generators'
 
 export default class PiePage extends Component {
     state = generateWinesTastes()

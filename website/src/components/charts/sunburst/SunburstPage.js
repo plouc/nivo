@@ -8,7 +8,7 @@
  */
 import React, { Component } from 'react'
 import Helmet from 'react-helmet'
-import { generateLibTree } from 'nivo-generators'
+import { generateLibTree } from '@nivo/generators'
 
 export default class SunburstPage extends Component {
     state = {

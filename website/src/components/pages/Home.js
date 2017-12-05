@@ -22,7 +22,7 @@ import {
     generateWinesTastes,
     generateSankeyData,
     generateChordData,
-} from 'nivo-generators'
+} from '@nivo/generators'
 import { ResponsiveSankey } from '@nivo/sankey'
 import { ResponsiveVoronoi } from '@nivo/voronoi'
 import { ResponsiveRadar } from '@nivo/radar'

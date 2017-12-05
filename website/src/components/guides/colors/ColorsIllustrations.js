@@ -2,7 +2,7 @@ import React from 'react'
 import { ResponsiveBar } from '@nivo/bar'
 import { ResponsiveStream } from '@nivo/stream'
 import { ResponsiveTreeMap } from '@nivo/treemap'
-import { generateCountriesData } from 'nivo-generators'
+import { generateCountriesData } from '@nivo/generators'
 
 const ColorsIllustrations = () => (
     <div className="banner">

@@ -8,7 +8,7 @@
  */
 import React, { Component } from 'react'
 import Helmet from 'react-helmet'
-import { generateProgrammingLanguageStats } from 'nivo-generators'
+import { generateProgrammingLanguageStats } from '@nivo/generators'
 
 const generateData = () => {
     return generateProgrammingLanguageStats(true, 9).map(d => ({

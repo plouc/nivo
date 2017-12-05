@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { generateSankeyData } from 'nivo-generators'
+import { generateSankeyData } from '@nivo/generators'
 import { Sankey } from '../es'
 
 const commonProperties = {

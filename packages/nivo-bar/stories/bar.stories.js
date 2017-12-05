@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withInfo } from '@storybook/addon-info'
-import { generateCountriesData, sets } from 'nivo-generators'
+import { generateCountriesData, sets } from '@nivo/generators'
 import range from 'lodash/range'
 import random from 'lodash/random'
 import { Bar } from '../es'

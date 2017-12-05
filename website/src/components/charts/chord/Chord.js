@@ -18,7 +18,7 @@ import config from '../../../config'
 import ComponentPropsDocumentation from '../../properties/ComponentPropsDocumentation'
 import properties from './props'
 import nivoTheme from '../../../nivoTheme'
-import { generateChordData } from 'nivo-generators'
+import { generateChordData } from '@nivo/generators'
 import propsMapper from './propsMapper'
 
 const MATRIX_SIZE = 5
