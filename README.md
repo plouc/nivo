@@ -5,6 +5,7 @@
 [![NPM version][npm-image]][npm-url]
 [![nivo channel on discord](https://img.shields.io/badge/discord-nivo-61dafb.svg?style=flat-square)](https://discord.gg/n7Ft74f)
 [![Dependencies][gemnasium-image]][gemnasium-url]
+[![styled with prettier][prettier-image]][prettier-url]
 
 **nivo** provides supercharged React components to easily build dataviz apps,
 it's built on top of d3.
@@ -131,9 +132,11 @@ Join the [nivo discord community](https://discord.gg/n7Ft74f).
 
 [license-image]: https://img.shields.io/github/license/plouc/nivo.svg?style=flat-square
 [license-url]: https://github.com/plouc/nivo/blob/master/LICENSE.md
-[npm-image]: https://img.shields.io/npm/v/nivo.svg?style=flat-square
-[npm-url]: https://www.npmjs.com/package/nivo
+[npm-image]: https://img.shields.io/npm/v/@nivo/core.svg?style=flat-square
+[npm-url]: https://www.npmjs.com/~nivo
 [travis-image]: https://img.shields.io/travis/plouc/nivo.svg?style=flat-square
 [travis-url]: https://travis-ci.org/plouc/nivo
+[prettier-image]: https://img.shields.io/badge/styled_with-prettier-ff69b4.svg?style=flat-square
+[prettier-url]: https://github.com/prettier/prettier
 [gemnasium-image]: https://img.shields.io/gemnasium/plouc/nivo.svg?style=flat-square
 [gemnasium-url]: https://gemnasium.com/plouc/nivo
