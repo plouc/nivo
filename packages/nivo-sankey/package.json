@@ -1,17 +1,17 @@
 {
   "name": "@nivo/sankey",
-  "version": "0.32.0-2",
+  "version": "0.32.0-3",
   "license": "MIT",
   "main": "./lib/index.js",
   "module": "es/index.js",
   "jsnext:main": "es/index.js",
   "dependencies": {
-    "@nivo/core": "0.32.0-2",
+    "@nivo/core": "0.32.0-3",
     "d3-sankey": "0.7.1",
     "recompose": "0.26.0"
   },
   "devDependencies": {
-    "@nivo/babel-preset": "0.32.0-2",
+    "@nivo/babel-preset": "0.32.0-3",
     "babel-cli": "^6.26.0",
     "babel-jest": "^20.0.3",
     "cross-env": "^5.0.5",
