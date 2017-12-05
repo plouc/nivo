@@ -21,24 +21,19 @@
     "@nivo/babel-preset": "^0.32.0-9",
     "lodash": "^4.17.4",
     "prop-types": "^15.5.10",
-    "puppeteer": "^0.13.0",
-    "react-motion": "^0.5.1"
+    "puppeteer": "^0.13.0"
   },
   "devDependencies": {
     "@storybook/addon-info": "^3.2.17",
     "@storybook/addon-knobs": "^3.2.17",
     "@storybook/react": "^3.2.17",
     "clog-cli": "^1.0.0",
-    "cross-env": "^5.0.5",
-    "enzyme": "^2.9.1",
     "gh-pages": "^1.0.0",
     "lerna": "^2.5.1",
     "lint-staged": "^4.1.0",
-    "nivo-generators": "0.9.3",
     "prettier": "^1.6.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-test-renderer": "^15.6.1",
     "validate-commit-msg": "^2.14.0"
   },
   "peerDependencies": {
@@ -48,10 +43,6 @@
   "module": "es/index.js",
   "jsnext:main": "es/index.js",
   "scripts": {
-    "test": "npm run test:unit",
-    "test:cover": "npm run test:unit:cover",
-    "test:unit": "jest --verbose ./test",
-    "test:unit:cover": "jest --verbose --coverage ./test",
     "fmt": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --color --write \"{src,specs,test,.storybook,stories}/**/*.js\"",
     "fmt:check": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --list-different \"{src,specs,test,.storybook,stories}/**/*.js\"",
     "disabledPrepublishOnly": "npm test && npm run build",

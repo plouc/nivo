@@ -18,4 +18,4 @@
 # test
 .travis.yml
 /coverage
-/test
+/tests
