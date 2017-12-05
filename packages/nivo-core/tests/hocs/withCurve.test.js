@@ -7,9 +7,12 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { shallow } from 'enzyme'
+import { configure, shallow } from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
 import { curveLinear, curveBasis, curveMonotoneY } from 'd3-shape'
 import withCurve from '../../src/hocs/withCurve'
+
+configure({ adapter: new Adapter() })
 
 it('should append d3 curve interpolator', () => {
     const Sample = withCurve()('div')

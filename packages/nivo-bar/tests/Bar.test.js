@@ -1,6 +1,6 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
-import Bar from '../../../../src/components/charts/bar/Bar'
+import Bar from '../src/Bar'
 
 it('should render a basic bar chart', () => {
     const component = renderer.create(

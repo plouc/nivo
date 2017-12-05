@@ -1,6 +1,6 @@
 SOURCES = packages
 
-.PHONY: help init packages-build packages-publish clean-all website website-build website-deploy storybook storybook-build storybook-deploy deploy-all
+.PHONY: help bootstrap init packages-build packages-publish clean-all website website-build website-deploy storybook storybook-build storybook-deploy deploy-all
 
 ########################################################################################################################
 #
@@ -35,16 +35,21 @@ help: ##prints help
 
 .DEFAULT_GOAL := help
 
+########################################################################################################################
+#
+# INIT
+#
+########################################################################################################################
+
+bootstrap: ##@init lerna bootstrap
+	@./node_modules/.bin/lerna bootstrap
+
 init: ##@init cleanup/install/bootstrap
 	@make clean-all
 	@yarn install
-	@./node_modules/.bin/lerna bootstrap
+	@make bootstrap
 	@make packages-build
 	@cd website && yarn install
-
-deploy-all: ##@deploy deploy website & storybook
-	@make website-deploy
-	@make storybook-deploy
 
 ########################################################################################################################
 #
@@ -76,6 +81,11 @@ endef
 # PACKAGES
 #
 ########################################################################################################################
+
+packages-test: ##@packages run tests for all packages
+	# stream can be used for a mire verbose output
+	#@./node_modules/.bin/lerna run --concurrency 1 --stream test
+	@./node_modules/.bin/lerna run --concurrency 1 test
 
 packages-build: ##@packages build all packages
 	@echo "${YELLOW}Building all packages${RESET}"
@@ -124,3 +134,8 @@ storybook-deploy: ##@storybook build and deploy storybook
 
 	@echo "${YELLOW}Deploying storybook${RESET}"
 	@./node_modules/.bin/gh-pages -d storybook-static -r git@github.com:plouc/nivo.git -b gh-pages -e storybook
+
+
+deploy-all: ##@deploy deploy website & storybook
+	@make website-deploy
+	@make storybook-deploy

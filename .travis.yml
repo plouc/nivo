@@ -3,9 +3,6 @@ node_js:
   - '8'
 script:
   - make init
+  - make packages-test
   - make website-build
   - make storybook-build
-  #- yarn run fmt:check
-  #- yarn run test:cover
-#after_success:
-#  - yarn run coverage
