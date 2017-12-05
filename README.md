@@ -12,6 +12,15 @@ it's built on top of d3.
 Several libraries already exist for React d3 integration,
 but just a few provide server side rendering ability and fully declarative charts.
 
+## Installation
+
+In order to use nivo, you must install the core package
+and then pick the packages according to the charts you wish to use.
+
+```
+yarn add @nivo/core @nivo/bar ...
+```
+
 ## Features
 
 - Highly customizable

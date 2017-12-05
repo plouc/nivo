@@ -1,6 +1,6 @@
 SOURCES = packages
 
-.PHONY: help init build-all clean-all demo demo-build demo-deploy storybook storybook-build storybook-deploy deploy-all
+.PHONY: help init build-all clean-all website website-build website-deploy storybook storybook-build storybook-deploy deploy-all
 
 ########################################################################################################################
 #
@@ -36,19 +36,20 @@ help: ##prints help
 .DEFAULT_GOAL := help
 
 init: ##@init cleanup/install/bootstrap
-	make clean-all
-	yarn install
-	./node_modules/.bin/lerna bootstrap
-	make build-all
+	@make clean-all
+	@yarn install
+	@./node_modules/.bin/lerna bootstrap
+	@make build-all
+	@cd website && yarn install
 
-deploy-all: ##@deploy deploy demo website & storybook
-	@make demo-deploy
+deploy-all: ##@deploy deploy website & storybook
+	@make website-deploy
 	@make storybook-deploy
 
 build-all: ##@build build all packages
 	@echo "${YELLOW}Building all packages${RESET}"
-	$(foreach source, $(SOURCES), $(call clean-source-lib, $(source)))
-	./node_modules/.bin/lerna run --ignore nivo-demo --ignore nivo-example-retro build
+	@$(foreach source, $(SOURCES), $(call clean-source-lib, $(source)))
+	@./node_modules/.bin/lerna run build
 
 ########################################################################################################################
 #
@@ -57,9 +58,11 @@ build-all: ##@build build all packages
 ########################################################################################################################
 
 clean-all: ##@cleanup uninstall node modules, remove transpiled code & lock files
-	rm -rf node_modules
-	rm -rf package-lock.json
-	$(foreach source, $(SOURCES), $(call clean-source-all, $(source)))
+	@rm -rf node_modules
+	@rm -rf package-lock.json
+	@$(foreach source, $(SOURCES), $(call clean-source-all, $(source)))
+	@rm -rf website/node_modules
+	@rm -rf website/package-lock.json
 
 define clean-source-lib
 	rm -rf $(1)/*/es
@@ -75,23 +78,23 @@ endef
 
 ########################################################################################################################
 #
-# DEMO
+# WEBSITE
 #
 ########################################################################################################################
 
-demo: ##@demo start demo in dev mode
-	@echo "${YELLOW}Starting demo${RESET}"
-	@cd demo && yarn start
+website: ##@website start website in dev mode
+	@echo "${YELLOW}Starting website dev server${RESET}"
+	@cd website && yarn start
 
-demo-build: ##@demo build demo
-	@echo "${YELLOW}Building demo${RESET}"
-	@cd demo && yarn build
+website-build: ##@website build website
+	@echo "${YELLOW}Building website${RESET}"
+	@cd website && yarn build
 
-demo-deploy: ##@demo build & deploy demo
-	@make demo-build
+website-deploy: ##@website build & deploy website
+	@make website-build
 
-	@echo "${YELLOW}Deploying demo${RESET}"
-	@./node_modules/.bin/gh-pages -d demo/build -r git@github.com:plouc/nivo.git -b gh-pages
+	@echo "${YELLOW}Deploying website${RESET}"
+	@./node_modules/.bin/gh-pages -d website/build -r git@github.com:plouc/nivo.git -b gh-pages
 
 ########################################################################################################################
 #
