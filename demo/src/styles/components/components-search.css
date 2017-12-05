@@ -1,0 +1,64 @@
+.ComponentsSearch {
+    position: relative;
+    width: 40%;
+}
+
+.ComponentsSearch__input {
+    width: 100%;
+    padding: 0 44px;
+    height: 42px;
+    line-height: 38px;
+    border: 1px solid #ddd;
+    font-size: inherit;
+    border-radius: 21px;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    box-shadow: none;
+}
+
+.ComponentsSearch__input:focus {
+    outline: 0;
+    border-color: var(--accent-color);
+    background: white;
+    cursor: auto;
+    color: var(--main-text-color);
+}
+
+.ComponentsSearch__input::-webkit-input-placeholder {
+    color: #999;
+}
+.ComponentsSearch__input:-ms-input-placeholder {
+    color: #999;
+}
+.ComponentsSearch__input::-moz-placeholder {
+    color: #999;
+}
+
+.ComponentsSearch__icon {
+    color: var(--accent-color);
+    font-size: 26px;
+    position: absolute;
+    top: 8px;
+    left: 12px;
+    cursor: pointer;
+}
+
+.ComponentsSearch__clear {
+    background: var(--accent-color);
+    color: #fff;
+    width: 26px;
+    height: 26px;
+    font-size: 18px;
+    border-radius: 13px;
+    position: absolute;
+    top: 8px;
+    right: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.ComponentsSearch__clear:hover {
+    background: var(--accent-color-darker);
+}

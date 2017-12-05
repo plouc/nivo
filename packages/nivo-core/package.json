@@ -1,0 +1,37 @@
+{
+  "name": "@nivo/core",
+  "version": "0.32.0-0",
+  "license": "MIT",
+  "main": "./lib/index.js",
+  "module": "es/index.js",
+  "jsnext:main": "es/index.js",
+  "dependencies": {
+    "d3-color": "1.0.3",
+    "d3-format": "1.2.0",
+    "d3-hierarchy": "1.1.5",
+    "d3-interpolate": "1.1.5",
+    "d3-scale": "1.0.6",
+    "d3-scale-chromatic": "1.1.1",
+    "d3-shape": "1.2.0",
+    "react-measure": "2.0.2"
+  },
+  "devDependencies": {
+    "@nivo/babel-preset": "0.32.0-0",
+    "babel-cli": "^6.26.0",
+    "babel-jest": "^20.0.3",
+    "cross-env": "^5.0.5",
+    "jest": "^21.0.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  },
+  "peerDependencies": {
+    "react": ">= 15.6.1 < 17.0.0"
+  },
+  "scripts": {
+    "build:commonjs": "rm -rf lib && cross-env NODE_ENV=commonjs babel src --out-dir lib",
+    "build:commonjs:watch": "npm run build:commonjs -- --watch",
+    "build:es": "rm -rf es && cross-env NODE_ENV=es babel src --out-dir es",
+    "build:es:watch": "npm run build:es -- --watch",
+    "build": "npm run build:commonjs && npm run build:es"
+  }
+}

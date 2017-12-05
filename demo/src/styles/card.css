@@ -1,0 +1,39 @@
+.card {
+    margin-bottom: 15px;
+    background: var(--card-background-color);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card._is-expanded {
+    margin-bottom: 30px;
+}
+
+.card._is-expanded .card_toggle {
+    transform: rotate(90deg);
+}
+
+.card__header {
+    height: 52px;
+    width: 100%;
+    position: relative;
+    padding: 0 24px;
+    cursor: pointer;
+    color: #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card__header h3 {
+    margin: 0 !important;
+    color: #000 !important;
+}
+
+.card__header svg {
+    font-size: 26px;
+    color: #bbb;
+}
+
+.card__header:hover svg {
+    color: #777;
+}

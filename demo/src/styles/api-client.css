@@ -1,0 +1,63 @@
+.api-client_submit {
+    display: block;
+    background-color: var(--accent-color);
+    color: #fff;
+    text-align: center;
+    padding: 12px 12px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.api-client_data {
+    width: 100%;
+    font-size: 14px;
+    min-height: 120px;
+    padding: 7px 12px;
+    background: var(--code-background-color);
+    color: var(--code-text-color);
+    border-width: 0;
+    resize: vertical;
+}
+
+.api-client_response-wrapper {
+    margin-bottom: 20px;
+}
+
+.api-client .code-snippet,
+.api-client_data {
+    border-top: 1px solid #e2e5e6;
+    overflow-x: auto;
+}
+
+.api-client_main {
+    width: 65.5%;
+}
+
+.api-client_preview,
+.api-client_response {
+    width: 46%;
+}
+
+.api-client_preview {
+    display: flex;
+    justify-content: center;
+}
+
+.api-client_aside {
+    width: 31%;
+}
+
+.api-client_main .grid {
+    align-items: center;
+}
+
+.api-client_preview p {
+    margin: 15px;
+    color: #777;
+}
+
+.api-client_preview img {
+    max-width: 100%;
+}

@@ -1,0 +1,86 @@
+.guide__header {
+    max-width: 800px;
+    margin: 0 auto 30px;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: white;
+}
+
+.guide__description {
+    max-width: 800px;
+    margin: 0 auto 50px;
+}
+
+/*
+ * Illustrations
+ */
+.guide__illustrations {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.guide__illustrations__item {
+    width: 31%;
+    height: 200px;
+    border: 2px solid #333;
+    background: var(--main-background-color);
+}
+
+.guide__illustrations__legend {
+    font-style: italic;
+    text-align: center;
+    width: 100%;
+    font-size: 14px;
+    margin-top: 10px;
+    color: #777;
+}
+
+/*
+ * Code example
+ */
+.guide__code {
+    background: white;
+    padding: 15px 25px;
+    font-size: 16px;
+    line-height: 26px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    margin: 30px 0 50px;
+    overflow-x: auto;
+}
+
+.guide__code__comment {
+    color: #999;
+}
+
+/*
+ * Samples
+ */
+.fill-sample {
+    display: flex;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.fill-sample__preview {
+    border: 2px solid #000;
+}
+
+.fill-sample__code {
+    flex: 1;
+    font-size: 13px;
+    margin: 0 0 0 30px;
+    line-height: 22px;
+}
+
+/*
+ * Table
+ */
+.guide__table {
+    background: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    margin: 15px auto 50px;
+    max-width: 800px;
+}

@@ -1,0 +1,513 @@
+.react-colorpicker-panel-inner {
+    position: relative;
+    border-radius: 4px;
+    box-shadow: 0 1px 5px #ccc;
+    border: 1px solid #ccc;
+    padding: 8px;
+}
+.react-colorpicker-panel-wrap {
+    margin: 5px 0 0;
+    height: 30px;
+    width: 100%;
+    position: relative;
+}
+.react-colorpicker-panel-wrap-preview {
+    position: absolute;
+    right: 0px;
+}
+.react-colorpicker-panel-wrap-ribbon {
+    position: absolute;
+    left: 0px;
+    top: 0;
+    right: 35px;
+    height: 12.5px;
+}
+.react-colorpicker-panel-wrap-alpha {
+    position: absolute;
+    left: 0px;
+    right: 35px;
+    bottom: 0;
+    height: 12.5px;
+}
+.react-colorpicker-trigger {
+    border: 1px solid #999;
+    display: inline-block;
+    padding: 2px;
+    border-radius: 2px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    box-shadow: 0 0 0 2px #fff inset;
+}
+.react-colorpicker-trigger-open {
+    box-shadow: 0px 0px 3px #999;
+}
+.react-colorpicker-panel {
+    width: 218px;
+    background-color: #fff;
+    box-sizing: border-box;
+    outline: none;
+    z-index: 9;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.react-colorpicker-panel * {
+    box-sizing: border-box;
+}
+.react-colorpicker-panel-open {
+    display: block;
+}
+.react-colorpicker-panel-close {
+    display: none;
+}
+.react-colorpicker-panel-preview {
+    height: 30px;
+    width: 30px;
+    overflow: hidden;
+    border-radius: 2px;
+    box-shadow: 0 0 2px #808080 inset;
+    background-image: url('../assets/color-picker-panel-preview.png');
+}
+.react-colorpicker-panel-preview span,
+.react-colorpicker-panel-preview input[type='color'] {
+    position: absolute;
+    display: block;
+    height: 100%;
+    width: 30px;
+    border-radius: 2px;
+}
+.react-colorpicker-panel-preview input[type='color'] {
+    opacity: 0;
+}
+.react-colorpicker-panel-board {
+    position: relative;
+    font-size: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.react-colorpicker-panel-board span {
+    position: absolute;
+    border-radius: 10px;
+    border: 1px solid #fff;
+    width: 9px;
+    height: 9px;
+    left: -999px;
+    top: -999px;
+    box-shadow: 0 0 1px rgba(120, 120, 120, 0.7);
+    z-index: 2;
+}
+.react-colorpicker-panel-board-hsv {
+    width: 200px;
+    height: 150px;
+    position: relative;
+    z-index: 1;
+    border-radius: 2px;
+}
+.react-colorpicker-panel-board-value {
+    border-radius: 2px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    background-image: url('../assets/color-picker-panel-board-value.svg');
+    background-image: -webkit-linear-gradient(top, transparent 0%, #000000 100%);
+    background-image: linear-gradient(to bottom, transparent 0%, #000000 100%);
+}
+.react-colorpicker-panel-board-saturation {
+    border-radius: 2px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    background-image: url('../assets/color-picker-panel-board-saturation.svg');
+    background-image: -webkit-linear-gradient(left, #ffffff 0%, transparent 100%);
+    background-image: linear-gradient(to right, #ffffff 0%, transparent 100%);
+}
+.react-colorpicker-panel-board-handler {
+    box-shadow: 0 0 2px #808080 inset;
+    border-radius: 2px;
+    cursor: crosshair;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+}
+.react-colorpicker-panel-ribbon {
+    position: relative;
+    height: 100%;
+    border-radius: 2px;
+    box-shadow: 0 0 2px #808080 inset;
+    background-image: url('../assets/color-picker-panel-ribbon.svg');
+    background-image: -webkit-linear-gradient(
+        left,
+        #ff0000 0%,
+        #ff9900 10%,
+        #cdff00 20%,
+        #35ff00 30%,
+        #00ff66 40%,
+        #00fffd 50%,
+        #0066ff 60%,
+        #3200ff 70%,
+        #cd00ff 80%,
+        #ff0099 90%,
+        #ff0000 100%
+    );
+    background-image: linear-gradient(
+        to right,
+        #ff0000 0%,
+        #ff9900 10%,
+        #cdff00 20%,
+        #35ff00 30%,
+        #00ff66 40%,
+        #00fffd 50%,
+        #0066ff 60%,
+        #3200ff 70%,
+        #cd00ff 80%,
+        #ff0099 90%,
+        #ff0000 100%
+    );
+}
+.react-colorpicker-panel-ribbon span {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    border: 1px solid #000000;
+    padding: 1px 0;
+    margin-left: -2px;
+    background-color: #fff;
+    border-radius: 3px;
+}
+.react-colorpicker-panel-ribbon-handler {
+    position: absolute;
+    width: 104%;
+    height: 100%;
+    left: -2%;
+    cursor: pointer;
+}
+.react-colorpicker-panel-alpha {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    border-radius: 2px;
+    background-image: url('../assets/color-picker-panel-alpha.png');
+    background-repeat: repeat;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.react-colorpicker-panel-alpha-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 2px;
+    box-shadow: 0 0 2px #808080 inset;
+}
+.react-colorpicker-panel-alpha span {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    border: 1px solid #000000;
+    padding: 1px 0;
+    margin-left: -2px;
+    background-color: #fff;
+    border-radius: 3px;
+}
+.react-colorpicker-panel-alpha-handler {
+    position: absolute;
+    width: 104%;
+    height: 100%;
+    left: -2%;
+    cursor: pointer;
+}
+.react-colorpicker-panel-params {
+    font-size: 12px;
+}
+.react-colorpicker-panel-params-input {
+    overflow: hidden;
+    padding: 2px 0;
+}
+.react-colorpicker-panel-params input {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+    text-align: center;
+    padding: 1px;
+    margin: 0;
+    float: left;
+    border-radius: 2px;
+    border: 1px solid #cacaca;
+}
+.react-colorpicker-panel-params-hex {
+    width: 52px;
+}
+.react-colorpicker-panel-params input[type='number'] {
+    margin-left: 5px;
+    width: 32px;
+}
+.react-colorpicker-panel-params input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+.react-colorpicker-panel-params-lable {
+    padding: 2px 0;
+    height: 22px;
+    line-height: 18px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.react-colorpicker-panel-params-lable label {
+    float: left;
+    text-align: center;
+}
+.react-colorpicker-panel-params-lable-hex {
+    width: 52px;
+}
+.react-colorpicker-panel-params-lable-number,
+.react-colorpicker-panel-params-lable-alpha {
+    margin-left: 5px;
+    width: 32px;
+}
+.react-colorpicker-panel-params-lable-number:hover {
+    border-radius: 2px;
+    background-color: #eee;
+    box-shadow: 0 0 0 1px #ccc inset;
+    cursor: pointer;
+}
+.react-colorpicker {
+    /*
+    font-family: Arial, "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Sans Serif",
+        "WenQuanYi Micro Hei", sans-serif;
+    */
+}
+.react-colorpicker-picker {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+    z-index: 1000;
+}
+.react-colorpicker-picker-slide-up-enter {
+    -webkit-animation-duration: 0.3s;
+    animation-duration: 0.3s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    display: block !important;
+    opacity: 0;
+    -webkit-animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
+    animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
+    -webkit-animation-play-state: paused;
+    animation-play-state: paused;
+}
+.react-colorpicker-picker-slide-up-appear {
+    -webkit-animation-duration: 0.3s;
+    animation-duration: 0.3s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    display: block !important;
+    opacity: 0;
+    -webkit-animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
+    animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
+    -webkit-animation-play-state: paused;
+    animation-play-state: paused;
+}
+.react-colorpicker-picker-slide-up-leave {
+    -webkit-animation-duration: 0.3s;
+    animation-duration: 0.3s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    display: block !important;
+    opacity: 1;
+    -webkit-animation-timing-function: cubic-bezier(0.6, 0.04, 0.98, 0.34);
+    animation-timing-function: cubic-bezier(0.6, 0.04, 0.98, 0.34);
+    -webkit-animation-play-state: paused;
+    animation-play-state: paused;
+}
+.react-colorpicker-picker-slide-up-enter.react-colorpicker-picker-slide-up-enter-active.react-colorpicker-picker-placement-bottomLeft,
+.react-colorpicker-picker-slide-up-enter.react-colorpicker-picker-slide-up-enter-active.react-colorpicker-picker-placement-bottomRight,
+.react-colorpicker-picker-slide-up-appear.react-colorpicker-picker-slide-up-appear-active.react-colorpicker-picker-placement-bottomLeft,
+.react-colorpicker-picker-slide-up-appear.react-colorpicker-picker-slide-up-appear-active.react-colorpicker-picker-placement-bottomRight {
+    -webkit-animation-name: rcColorPickerSlideUpIn;
+    animation-name: rcColorPickerSlideUpIn;
+    -webkit-animation-play-state: running;
+    animation-play-state: running;
+}
+.react-colorpicker-picker-slide-up-enter.react-colorpicker-picker-slide-up-enter-active.react-colorpicker-picker-placement-topLeft,
+.react-colorpicker-picker-slide-up-enter.react-colorpicker-picker-slide-up-enter-active.react-colorpicker-picker-placement-topRight,
+.react-colorpicker-picker-slide-up-appear.react-colorpicker-picker-slide-up-appear-active.react-colorpicker-picker-placement-topLeft,
+.react-colorpicker-picker-slide-up-appear.react-colorpicker-picker-slide-up-appear-active.react-colorpicker-picker-placement-topRight {
+    -webkit-animation-name: rcColorPickerSlideDownIn;
+    animation-name: rcColorPickerSlideDownIn;
+    -webkit-animation-play-state: running;
+    animation-play-state: running;
+}
+.react-colorpicker-picker-slide-up-leave.react-colorpicker-picker-slide-up-leave-active.react-colorpicker-picker-placement-bottomLeft,
+.react-colorpicker-picker-slide-up-leave.react-colorpicker-picker-slide-up-leave-active.react-colorpicker-picker-placement-bottomRight {
+    -webkit-animation-name: rcColorPickerSlideUpOut;
+    animation-name: rcColorPickerSlideUpOut;
+    -webkit-animation-play-state: running;
+    animation-play-state: running;
+}
+.react-colorpicker-picker-slide-up-leave.react-colorpicker-picker-slide-up-leave-active.react-colorpicker-picker-placement-topLeft,
+.react-colorpicker-picker-slide-up-leave.react-colorpicker-picker-slide-up-leave-active.react-colorpicker-picker-placement-topRight {
+    -webkit-animation-name: rcColorPickerSlideDownOut;
+    animation-name: rcColorPickerSlideDownOut;
+    -webkit-animation-play-state: running;
+    animation-play-state: running;
+}
+@-webkit-keyframes rcColorPickerSlideUpIn {
+    0% {
+        opacity: 0;
+        -webkit-transform-origin: 0% 0%;
+        transform-origin: 0% 0%;
+        -webkit-transform: scaleY(0);
+        transform: scaleY(0);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform-origin: 0% 0%;
+        transform-origin: 0% 0%;
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+    }
+}
+@keyframes rcColorPickerSlideUpIn {
+    0% {
+        opacity: 0;
+        -webkit-transform-origin: 0% 0%;
+        transform-origin: 0% 0%;
+        -webkit-transform: scaleY(0);
+        transform: scaleY(0);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform-origin: 0% 0%;
+        transform-origin: 0% 0%;
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+    }
+}
+@-webkit-keyframes rcColorPickerSlideUpOut {
+    0% {
+        opacity: 1;
+        -webkit-transform-origin: 0% 0%;
+        transform-origin: 0% 0%;
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform-origin: 0% 0%;
+        transform-origin: 0% 0%;
+        -webkit-transform: scaleY(0);
+        transform: scaleY(0);
+    }
+}
+@keyframes rcColorPickerSlideUpOut {
+    0% {
+        opacity: 1;
+        -webkit-transform-origin: 0% 0%;
+        transform-origin: 0% 0%;
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform-origin: 0% 0%;
+        transform-origin: 0% 0%;
+        -webkit-transform: scaleY(0);
+        transform: scaleY(0);
+    }
+}
+@-webkit-keyframes rcColorPickerSlideDownIn {
+    0% {
+        opacity: 0;
+        -webkit-transform-origin: 100% 100%;
+        transform-origin: 100% 100%;
+        -webkit-transform: scaleY(0);
+        transform: scaleY(0);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform-origin: 100% 100%;
+        transform-origin: 100% 100%;
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+    }
+}
+@keyframes rcColorPickerSlideDownIn {
+    0% {
+        opacity: 0;
+        -webkit-transform-origin: 100% 100%;
+        transform-origin: 100% 100%;
+        -webkit-transform: scaleY(0);
+        transform: scaleY(0);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform-origin: 100% 100%;
+        transform-origin: 100% 100%;
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+    }
+}
+@-webkit-keyframes rcColorPickerSlideDownOut {
+    0% {
+        opacity: 1;
+        -webkit-transform-origin: 100% 100%;
+        transform-origin: 100% 100%;
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform-origin: 100% 100%;
+        transform-origin: 100% 100%;
+        -webkit-transform: scaleY(0);
+        transform: scaleY(0);
+    }
+}
+@keyframes rcColorPickerSlideDownOut {
+    0% {
+        opacity: 1;
+        -webkit-transform-origin: 100% 100%;
+        transform-origin: 100% 100%;
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform-origin: 100% 100%;
+        transform-origin: 100% 100%;
+        -webkit-transform: scaleY(0);
+        transform: scaleY(0);
+    }
+}

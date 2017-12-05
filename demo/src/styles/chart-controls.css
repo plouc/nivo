@@ -1,0 +1,12 @@
+.chart-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-between;
+    padding: 15px 20px 0 20px;
+}
+
+.chart-controls_item {
+    width: 31%;
+    margin-bottom: 15px;
+}

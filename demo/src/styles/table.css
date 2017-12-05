@@ -1,0 +1,22 @@
+.table {
+    font-size: 14px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 9px 12px;
+}
+
+.table th {
+    text-transform: uppercase;
+    font-size: 13px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-weight: 500;
+}
+
+.table tbody tr:nth-child(even) {
+    background: var(--table-odd-background-color);
+}

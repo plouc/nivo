@@ -1,0 +1,116 @@
+.mini-nav {
+    position: fixed;
+    top: var(--header-height);
+    bottom: 0;
+    left: 0;
+    width: var(--mini-nav-width);
+    z-index: 30;
+    flex-direction: column;
+    align-items: center;
+    background: var(--mini-nav-background-color);
+}
+
+.mini-nav a {
+    border-bottom: none;
+}
+
+.mini-nav_icon {
+    display: block;
+    position: absolute;
+    top: 8px;
+    left: 20px;
+    transform: scale(0.76);
+    transform-origin: top left;
+}
+
+.mini-nav_item {
+    cursor: pointer;
+    display: block;
+    width: var(--mini-nav-width);
+    height: var(--mini-nav-item-size);
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate3d(0, 0, 0);
+}
+
+.mini-nav_item-nivo {
+    margin-bottom: 0;
+}
+
+.mini-nav_item:before {
+    content: '';
+    position: absolute;
+    display: block;
+    width: var(--mini-nav-item-size);
+    height: var(--mini-nav-item-size);
+    border-radius: 100%;
+    background: #ddd;
+    opacity: 0;
+    left: calc((var(--mini-nav-width) - var(--mini-nav-item-size)) / 2);
+    transform: scale(0.6);
+    transition: opacity 300ms, transform 300ms;
+}
+
+.mini-nav_item:hover:before {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.mini-nav_item:hover .mini-nav_item_label {
+    display: block;
+}
+
+.mini-nav_item_label {
+    display: none;
+    position: absolute;
+    left: 110%;
+    top: 50%;
+    font-size: 12px;
+    font-weight: normal;
+    white-space: pre;
+    background: #c6432d;
+    color: #fff;
+    text-decoration: none;
+    height: 22px;
+    line-height: 22px;
+    margin-top: -11px;
+    padding: 0 7px;
+    border-radius: 2px;
+}
+
+.mini-nav_item_feedback,
+.mini-nav_item .nivo-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: var(--mini-nav-width);
+    height: var(--mini-nav-item-size);
+}
+
+.mini-nav_item_feedback {
+    background: #ddd;
+    border-radius: 100%;
+    opacity: 0;
+    transform: scale(0.2);
+}
+
+@keyframes mini-nav-click {
+    0% {
+        opacity: 0;
+        transform: scale(0.2);
+    }
+    40% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.4);
+    }
+}
+
+.mini-nav_item.click .mini-nav_item_feedback {
+    animation: mini-nav-click linear 800ms;
+}

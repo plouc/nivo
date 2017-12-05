@@ -1,0 +1,28 @@
+.ComponentsFilters {
+    display: flex;
+    border: 2px solid var(--accent-color);
+    height: 42px;
+    border-radius: 2px;
+    overflow: hidden;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.ComponentsFilters__item {
+    line-height: 38px;
+    color: var(--accent-color);
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+    border-left: 1px solid var(--accent-color);
+    padding: 0 26px;
+}
+
+.ComponentsFilters__item:first-child {
+    border-left-width: 0;
+}
+
+.ComponentsFilters__item--active {
+    color: #fff;
+    background: var(--accent-color);
+}

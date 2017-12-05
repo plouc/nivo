@@ -1,0 +1,43 @@
+{
+  "name": "@nivo/babel-preset",
+  "version": "0.32.0-0",
+  "description": "nivo babel preset",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/plouc/nivo"
+  },
+  "author": {
+    "name": "Raphaël Benitte",
+    "url": "https://github.com/plouc"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-jest": "^20.0.3",
+    "babel-plugin-check-es2015-constants": "^6.22.0",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-istanbul": "^4.1.4",
+    "babel-plugin-lodash": "^3.2.11",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-es2015-arrow-functions": "^6.22.0",
+    "babel-plugin-transform-es2015-block-scoped-functions": "^6.22.0",
+    "babel-plugin-transform-es2015-block-scoping": "^6.26.0",
+    "babel-plugin-transform-es2015-classes": "^6.24.1",
+    "babel-plugin-transform-es2015-computed-properties": "^6.24.1",
+    "babel-plugin-transform-es2015-destructuring": "^6.23.0",
+    "babel-plugin-transform-es2015-function-name": "^6.24.1",
+    "babel-plugin-transform-es2015-literals": "^6.22.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+    "babel-plugin-transform-es2015-object-super": "^6.24.1",
+    "babel-plugin-transform-es2015-parameters": "^6.24.1",
+    "babel-plugin-transform-es2015-shorthand-properties": "^6.24.1",
+    "babel-plugin-transform-es2015-spread": "^6.22.0",
+    "babel-plugin-transform-es2015-template-literals": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1"
+  },
+  "scripts": {
+    "version": "echo ${npm_package_version}"
+  }
+}
