@@ -1,17 +1,17 @@
 {
   "name": "@nivo/heatmap",
-  "version": "0.32.0-1",
+  "version": "0.32.0-2",
   "license": "MIT",
   "main": "./lib/index.js",
   "module": "es/index.js",
   "jsnext:main": "es/index.js",
   "dependencies": {
-    "@nivo/core": "0.32.0-1",
+    "@nivo/core": "0.32.0-2",
     "d3-scale": "1.0.6",
     "recompose": "0.26.0"
   },
   "devDependencies": {
-    "@nivo/babel-preset": "0.32.0-1",
+    "@nivo/babel-preset": "0.32.0-2",
     "babel-cli": "^6.26.0",
     "babel-jest": "^20.0.3",
     "cross-env": "^5.0.5",
@@ -21,6 +21,9 @@
   },
   "peerDependencies": {
     "react": ">= 15.6.1 < 17.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build:commonjs": "rm -rf lib && cross-env NODE_ENV=commonjs babel src --out-dir lib",
