@@ -15,11 +15,10 @@ but just a few provide server side rendering ability and fully declarative chart
 
 ## Installation
 
-In order to use nivo, you must install the core package
-and then pick the packages according to the charts you wish to use.
+In order to use nivo, you just have to pick the scoped `@nivo` packages according to the charts you wish to use.
 
 ```
-yarn add @nivo/core @nivo/bar ...
+yarn add @nivo/bar @nivo/sankey ...
 ```
 
 ## Features
