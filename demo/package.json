@@ -35,7 +35,6 @@
         "nivo-generators": "0.9.3",
         "prop-types": "^15.5.10",
         "react": "16.0.0",
-        "react-colors-picker": "2.3.1",
         "react-dom": "^16.0.0",
         "react-helmet": "5.1.3",
         "react-icons": "^2.2.5",
@@ -43,7 +42,6 @@
         "react-responsive": "1.3.4",
         "react-router-dom": "^4.2.2",
         "react-select": "1.0.0-rc.10",
-        "react-syntax-highlighter": "^5.7.0",
         "styled-components": "^2.1.1",
         "url-search-params": "^0.10.0"
     },
