@@ -60,7 +60,7 @@ if (env === 'commonjs') {
 }
 
 if (env === 'es') {
-    plugins.push.apply(plugins, [require.resolve('./build/use-lodash-es')])
+    plugins.push.apply(plugins, [require.resolve('./use-lodash-es')])
 }
 
 if (env === 'test') {
