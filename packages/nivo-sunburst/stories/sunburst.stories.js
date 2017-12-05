@@ -1,8 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, boolean, select } from '@storybook/addon-knobs'
-//import '../style.css'
-import { Sunburst } from '../src'
+import { Sunburst } from '../es'
 import { generateLibTree } from 'nivo-generators'
 
 const commonProperties = {

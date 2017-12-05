@@ -1,9 +1,7 @@
 import React from 'react'
-
 import { storiesOf } from '@storybook/react'
 import { generateCountriesData } from 'nivo-generators'
-//import '../style.css'
-import { HeatMap } from '../src'
+import { HeatMap } from '../es'
 
 const CustomCell = ({
     value,

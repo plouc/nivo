@@ -1,9 +1,7 @@
 import React from 'react'
-
 import { storiesOf } from '@storybook/react'
 import { generateLibTree } from 'nivo-generators'
-//import '../style.css'
-import { Bubble } from '../src'
+import { Bubble } from '../es'
 
 const commonProperties = {
     width: 600,

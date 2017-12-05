@@ -18,13 +18,14 @@
   "keywords": [],
   "dependencies": {
     "@ekino/config": "^0.3.0",
-    "@storybook/addon-info": "^3.2.17",
+    "@nivo/babel-preset": "^0.32.0-9",
     "lodash": "^4.17.4",
     "prop-types": "^15.5.10",
     "puppeteer": "^0.13.0",
     "react-motion": "^0.5.1"
   },
   "devDependencies": {
+    "@storybook/addon-info": "^3.2.17",
     "@storybook/addon-knobs": "^3.2.17",
     "@storybook/react": "^3.2.17",
     "clog-cli": "^1.0.0",
@@ -53,11 +54,7 @@
     "test:unit:cover": "jest --verbose --coverage ./test",
     "fmt": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --color --write \"{src,specs,test,.storybook,stories}/**/*.js\"",
     "fmt:check": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --list-different \"{src,specs,test,.storybook,stories}/**/*.js\"",
-    "version": "echo ${npm_package_version}",
     "disabledPrepublishOnly": "npm test && npm run build",
-    "storybook": "start-storybook -p 6006",
-    "storybook:build": "build-storybook",
-    "storybook:publish": "npm run storybook:build && gh-pages -d storybook-static -r git@github.com:plouc/nivo.git -b gh-pages -e storybook",
     "changelog": "rm CHANGELOG.md && node scripts/generate-changelog.js"
   },
   "lint-staged": {
