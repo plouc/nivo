@@ -7,11 +7,7 @@
 # OSX
 .DS_Store
 
-# github
-/.github
-
 # config/build
-/build
 .babelrc
 
 # storybook
@@ -23,6 +19,3 @@
 .travis.yml
 /coverage
 /test
-
-# assets
-nivo.png

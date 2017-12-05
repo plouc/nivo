@@ -4,7 +4,8 @@ node_js:
   - '7'
   - '8'
 script:
-  - yarn run fmt:check
-  - yarn run test:cover
+  - make init
+  #- yarn run fmt:check
+  #- yarn run test:cover
 #after_success:
 #  - yarn run coverage

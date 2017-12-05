@@ -14,7 +14,8 @@
     "d3-scale-chromatic": "1.1.1",
     "d3-shape": "1.2.0",
     "react-measure": "^2.0.2",
-    "react-motion": "^0.5.2"
+    "react-motion": "^0.5.2",
+    "recompose": "^0.26.0"
   },
   "devDependencies": {
     "@nivo/babel-preset": "0.32.0-5",
@@ -26,6 +27,7 @@
     "react-dom": "^15.6.1"
   },
   "peerDependencies": {
+    "prop-types": "*",
     "react": ">= 15.6.1 < 17.0.0"
   },
   "publishConfig": {

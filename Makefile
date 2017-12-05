@@ -1,6 +1,6 @@
 SOURCES = packages
 
-.PHONY: help bootstrap build-all clean-all test
+.PHONY: help init build-all clean-all
 
 ########################################################################################################################
 #
@@ -51,7 +51,7 @@ build-all: ##@build build all packages
 #
 ########################################################################################################################
 
-clean-all: ##@cleanup
+clean-all: ##@cleanup uninstall node modules, remove transpiled code & lock files
 	rm -rf node_modules
 	rm -rf package-lock.json
 	$(foreach source, $(SOURCES), $(call clean-source-all, $(source)))
