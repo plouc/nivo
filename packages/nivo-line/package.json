@@ -1,12 +1,12 @@
 {
   "name": "@nivo/line",
-  "version": "0.32.0-9",
+  "version": "0.32.0-10",
   "license": "MIT",
   "main": "./lib/index.js",
   "module": "es/index.js",
   "jsnext:main": "es/index.js",
   "dependencies": {
-    "@nivo/core": "0.32.0-9",
+    "@nivo/core": "0.32.0-10",
     "d3-format": "^1.2.0",
     "d3-scale": "^1.0.6",
     "d3-shape": "^1.2.0",
@@ -14,7 +14,7 @@
     "recompose": "^0.26.0"
   },
   "devDependencies": {
-    "@nivo/babel-preset": "0.32.0-9",
+    "@nivo/babel-preset": "0.32.0-10",
     "babel-cli": "^6.26.0",
     "babel-jest": "^20.0.3",
     "cross-env": "^5.0.5",

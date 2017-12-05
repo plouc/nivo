@@ -1,6 +1,6 @@
 {
   "name": "@nivo/core",
-  "version": "0.32.0-9",
+  "version": "0.32.0-10",
   "license": "MIT",
   "main": "./lib/index.js",
   "module": "es/index.js",
@@ -18,7 +18,7 @@
     "recompose": "^0.26.0"
   },
   "devDependencies": {
-    "@nivo/babel-preset": "0.32.0-9",
+    "@nivo/babel-preset": "0.32.0-10",
     "babel-cli": "^6.26.0",
     "babel-jest": "^20.0.3",
     "cross-env": "^5.0.5",
