@@ -1,6 +1,6 @@
 SOURCES = packages
 
-.PHONY: help init build-all clean-all website website-build website-deploy storybook storybook-build storybook-deploy deploy-all
+.PHONY: help init packages-build packages-publish clean-all website website-build website-deploy storybook storybook-build storybook-deploy deploy-all
 
 ########################################################################################################################
 #
@@ -39,17 +39,12 @@ init: ##@init cleanup/install/bootstrap
 	@make clean-all
 	@yarn install
 	@./node_modules/.bin/lerna bootstrap
-	@make build-all
+	@make packages-build
 	@cd website && yarn install
 
 deploy-all: ##@deploy deploy website & storybook
 	@make website-deploy
 	@make storybook-deploy
-
-build-all: ##@build build all packages
-	@echo "${YELLOW}Building all packages${RESET}"
-	@$(foreach source, $(SOURCES), $(call clean-source-lib, $(source)))
-	@./node_modules/.bin/lerna run build
 
 ########################################################################################################################
 #
@@ -75,6 +70,21 @@ define clean-source-all
 	rm -rf $(1)/*/node_modules
 	rm -rf $(1)/*/package-lock.json
 endef
+
+########################################################################################################################
+#
+# PACKAGES
+#
+########################################################################################################################
+
+packages-build: ##@packages build all packages
+	@echo "${YELLOW}Building all packages${RESET}"
+	@$(foreach source, $(SOURCES), $(call clean-source-lib, $(source)))
+	@./node_modules/.bin/lerna run build
+
+packages-publish: ##@packages publish all packages
+	@echo "${YELLOW}Publishing packages${RESET}"
+	@./node_modules/.bin/lerna publish ---exact
 
 ########################################################################################################################
 #
