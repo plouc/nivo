@@ -203,7 +203,9 @@ const CartesianMarkersItem = ({
         })
         legendNode = (
             <text
-                transform={`translate(${legendProps.x}, ${legendProps.y}) rotate(${legendProps.rotation})`}
+                transform={`translate(${legendProps.x}, ${legendProps.y}) rotate(${
+                    legendProps.rotation
+                })`}
                 textAnchor={legendProps.textAnchor}
                 alignmentBaseline="central"
                 style={textStyle}

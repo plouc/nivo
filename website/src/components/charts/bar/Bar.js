@@ -180,7 +180,9 @@ export default class Bar extends Component {
                     The bar item component can be customized to render any valid SVG element, it
                     will receive current bar style, data and event handlers, the storybook offers an{' '}
                     <a
-                        href={`${config.storybookUrl}?selectedKind=Bar&selectedStory=custom%20bar%20item`}
+                        href={`${
+                            config.storybookUrl
+                        }?selectedKind=Bar&selectedStory=custom%20bar%20item`}
                         target="_blank"
                         rel="noopener noreferrer"
                     >

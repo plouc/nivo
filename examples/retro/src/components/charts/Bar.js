@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import { ResponsiveBar } from '@nivo/bar'
 import { generateCountriesData } from 'nivo-generators'
 import { colors } from '../../constants'
@@ -28,9 +28,7 @@ const Bar = () => (
             isInteractive={false}
             animate={false}
         />
-        <div className="Title">
-            BAR
-        </div>
+        <div className="Title">BAR</div>
     </div>
 )
 

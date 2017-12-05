@@ -25,7 +25,6 @@ const computeNodePath = (node, getIdentity) =>
         .map(ancestor => getIdentity(ancestor.data))
         .join('.')
 
-
 const commonEnhancers = [
     withHierarchy(),
     withDimensions(),

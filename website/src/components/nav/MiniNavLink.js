@@ -49,9 +49,9 @@ export default class MiniNavLink extends Component {
                     >
                         <span className="mini-nav_item_feedback" />
                         <span
-                            className={`mini-nav_icon sprite-icons-${className}-${match || isHover
-                                ? 'red'
-                                : 'grey'}`}
+                            className={`mini-nav_icon sprite-icons-${className}-${
+                                match || isHover ? 'red' : 'grey'
+                            }`}
                         />
                         <span className="mini-nav_item_label">{label}</span>
                     </Link>

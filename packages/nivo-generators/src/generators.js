@@ -101,12 +101,14 @@ exports.generateDayCounts = (from, to, maxSize = 0.9) => {
 
     const dayFormat = timeFormat('%Y-%m-%d')
 
-    return shuffle(days).slice(0, size).map(day => {
-        return {
-            day: dayFormat(day),
-            value: Math.round(Math.random() * 400),
-        }
-    })
+    return shuffle(days)
+        .slice(0, size)
+        .map(day => {
+            return {
+                day: dayFormat(day),
+                value: Math.round(Math.random() * 400),
+            }
+        })
 }
 
 exports.generateCountriesData = (keys, { size = 12, min = 0, max = 200, withColors = true } = {}) =>

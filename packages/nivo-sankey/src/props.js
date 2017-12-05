@@ -23,7 +23,6 @@ export const sankeyAlignmentPropType = PropTypes.oneOf(sankeyAlignmentPropKeys)
 
 export const sankeyAlignmentFromProp = prop => sankeyAlignmentPropMapping[prop]
 
-
 export const SankeyPropTypes = {
     data: PropTypes.shape({
         nodes: PropTypes.arrayOf(

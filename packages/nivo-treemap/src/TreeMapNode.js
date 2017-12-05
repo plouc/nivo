@@ -29,9 +29,9 @@ const TreeMapNode = ({ style, node, handlers }) => {
                     textAnchor="middle"
                     alignmentBaseline="central"
                     style={{ fill: style.labelTextColor, pointerEvents: 'none' }}
-                    transform={`translate(${style.width / 2},${style.height / 2}) rotate(${rotate
-                        ? -90
-                        : 0})`}
+                    transform={`translate(${style.width / 2},${style.height / 2}) rotate(${
+                        rotate ? -90 : 0
+                    })`}
                 >
                     {node.label}
                 </text>

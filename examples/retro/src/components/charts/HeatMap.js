@@ -12,7 +12,10 @@ const HeatMap = () => (
                 bottom: 1,
                 left: 1,
             }}
-            data={generateCountriesData(['rock', 'jazz', 'hip-hop', 'reggae', 'folk', 'soul', 'funk'], { size: 7 })}
+            data={generateCountriesData(
+                ['rock', 'jazz', 'hip-hop', 'reggae', 'folk', 'soul', 'funk'],
+                { size: 7 }
+            )}
             padding={6}
             colors={colors}
             indexBy="country"
@@ -28,11 +31,8 @@ const HeatMap = () => (
             animate={false}
             cellHoverOthersOpacity={0}
         />
-        <div className="Title">
-            HEATMAP
-        </div>
+        <div className="Title">HEATMAP</div>
     </div>
 )
 
 export default HeatMap
-

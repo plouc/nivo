@@ -76,7 +76,9 @@ const ChordLabels = ({
                         return (
                             <text
                                 key={key}
-                                transform={`translate(${props.x}, ${props.y}) rotate(${props.rotate})`}
+                                transform={`translate(${props.x}, ${props.y}) rotate(${
+                                    props.rotate
+                                })`}
                                 style={{ pointerEvents: 'none', fill: color }}
                                 textAnchor={props.align}
                                 alignmentBaseline={props.baseline}

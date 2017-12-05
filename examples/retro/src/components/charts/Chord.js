@@ -22,9 +22,7 @@ const Chord = () => (
             isInteractive={false}
             animate={false}
         />
-        <div className="Title">
-            CHORD
-        </div>
+        <div className="Title">CHORD</div>
     </div>
 )
 

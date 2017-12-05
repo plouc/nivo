@@ -14,7 +14,7 @@ const TreeMap = () => (
             }}
             root={{
                 country: 'root',
-                children: generateCountriesData(['value'], { size: 24 })
+                children: generateCountriesData(['value'], { size: 24 }),
             }}
             identity="country"
             value="value"
@@ -28,9 +28,7 @@ const TreeMap = () => (
             isInteractive={false}
             animate={false}
         />
-        <div className="Title">
-            TREEMAP
-        </div>
+        <div className="Title">TREEMAP</div>
     </div>
 )
 

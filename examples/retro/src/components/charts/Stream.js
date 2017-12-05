@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import { ResponsiveStream, patternDotsDef } from '@nivo/stream'
 import { generateCountriesData } from 'nivo-generators'
 import { colors } from '../../constants'
@@ -12,7 +12,10 @@ const Stream = () => (
                 bottom: 1.5,
                 left: 1.5,
             }}
-            data={generateCountriesData(['rock', 'jazz', 'hip-hop', 'reggae', 'folk', 'soul', 'funk'], { size: 7 })}
+            data={generateCountriesData(
+                ['rock', 'jazz', 'hip-hop', 'reggae', 'folk', 'soul', 'funk'],
+                { size: 7 }
+            )}
             keys={['rock', 'jazz', 'hip-hop', 'reggae', 'folk', 'soul', 'funk']}
             offsetType="none"
             colors={colors}
@@ -23,13 +26,9 @@ const Stream = () => (
             animate={false}
             borderWidth={3}
             borderColor="#000000"
-            defs={[
-                patternDotsDef('pattern')
-            ]}
+            defs={[patternDotsDef('pattern')]}
         />
-        <div className="Title">
-            STREAM
-        </div>
+        <div className="Title">STREAM</div>
     </div>
 )
 
