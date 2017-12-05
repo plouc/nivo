@@ -7,9 +7,9 @@
   "jsnext:main": "es/index.js",
   "dependencies": {
     "@nivo/core": "0.32.0-7",
-    "d3-scale": "1.0.6",
-    "d3-time": "1.0.7",
-    "d3-time-format": "2.0.5",
+    "d3-scale": "^1.0.6",
+    "d3-time": "^1.0.7",
+    "d3-time-format": "^2.0.5",
     "recompose": "^0.26.0"
   },
   "devDependencies": {
