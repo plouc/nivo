@@ -1,6 +1,6 @@
 {
   "name": "@nivo/core",
-  "version": "0.32.0-4",
+  "version": "0.32.0-5",
   "license": "MIT",
   "main": "./lib/index.js",
   "module": "es/index.js",
@@ -17,7 +17,7 @@
     "react-motion": "^0.5.2"
   },
   "devDependencies": {
-    "@nivo/babel-preset": "0.32.0-4",
+    "@nivo/babel-preset": "0.32.0-5",
     "babel-cli": "^6.26.0",
     "babel-jest": "^20.0.3",
     "cross-env": "^5.0.5",
