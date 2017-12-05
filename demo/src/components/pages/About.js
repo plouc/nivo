@@ -126,7 +126,7 @@ const About = () => (
                         >
                             nivo
                         </a>{' '}
-                        - the nivo library
+                        - nivo packages & website
                     </li>
                     <li>
                         <a
@@ -157,16 +157,6 @@ const About = () => (
                             nivo-generators
                         </a>{' '}
                         - the data generators used for nivo-website and http API samples
-                    </li>
-                    <li>
-                        <a
-                            href="https://github.com/plouc/nivo-website"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            nivo-website
-                        </a>{' '}
-                        - the source for the nivo website
                     </li>
                 </ul>
             </div>

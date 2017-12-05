@@ -5,8 +5,6 @@
     "description": "nivo demo",
     "author": "Raphaël Benitte <benitteraphael@gmail.com>",
     "devDependencies": {
-        "gh-pages": "^1.0.0",
-        "prettier": "^1.7.4",
         "react-scripts": "1.0.14",
         "source-map-explorer": "^1.5.0"
     },
@@ -51,7 +49,6 @@
         "analyze": "source-map-explorer build/static/js/main.*",
         "fmt": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --write 'src/**/*.js' 'src/**/*.css'",
         "fmt:check": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --list-different 'src/**/*.js' 'src/**/*.css'",
-        "demo:publish": "npm run build && gh-pages -d build -r git@github.com:plouc/nivo.git -b gh-pages",
         "sprites": "glue --img src/assets --css src/styles src/assets/icons"
     }
 }

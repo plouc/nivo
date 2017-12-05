@@ -1,6 +1,6 @@
 SOURCES = packages
 
-.PHONY: help init build-all clean-all
+.PHONY: help init build-all clean-all demo demo-build demo-deploy storybook storybook-build storybook-deploy deploy-all
 
 ########################################################################################################################
 #
@@ -41,7 +41,12 @@ init: ##@init cleanup/install/bootstrap
 	./node_modules/.bin/lerna bootstrap
 	make build-all
 
+deploy-all: ##@deploy deploy demo website & storybook
+	@make demo-deploy
+	@make storybook-deploy
+
 build-all: ##@build build all packages
+	@echo "${YELLOW}Building all packages${RESET}"
 	$(foreach source, $(SOURCES), $(call clean-source-lib, $(source)))
 	./node_modules/.bin/lerna run --ignore nivo-demo --ignore nivo-example-retro build
 
@@ -67,3 +72,42 @@ define clean-source-all
 	rm -rf $(1)/*/node_modules
 	rm -rf $(1)/*/package-lock.json
 endef
+
+########################################################################################################################
+#
+# DEMO
+#
+########################################################################################################################
+
+demo: ##@demo start demo in dev mode
+	@echo "${YELLOW}Starting demo${RESET}"
+	@cd demo && yarn start
+
+demo-build: ##@demo build demo
+	@echo "${YELLOW}Building demo${RESET}"
+	@cd demo && yarn build
+
+demo-deploy: ##@demo build & deploy demo
+	@make demo-build
+
+	@echo "${YELLOW}Deploying demo${RESET}"
+	@./node_modules/.bin/gh-pages -d demo/build -r git@github.com:plouc/nivo.git -b gh-pages
+
+########################################################################################################################
+#
+# STORYBOOK
+#
+########################################################################################################################
+
+storybook: ##@storybook start storybook in dev mode on port 6006
+	@./node_modules/.bin/start-storybook -p 6006
+
+storybook-build: ##@storybook build storybook
+	@echo "${YELLOW}Building storybook${RESET}"
+	@./node_modules/.bin/build-storybook
+
+storybook-deploy: ##@storybook build and deploy storybook
+	@make storybook-build
+
+	@echo "${YELLOW}Deploying storybook${RESET}"
+	@./node_modules/.bin/gh-pages -d storybook-static -r git@github.com:plouc/nivo.git -b gh-pages -e storybook

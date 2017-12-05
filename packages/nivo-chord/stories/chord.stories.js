@@ -1,9 +1,7 @@
 import React from 'react'
-
 import { storiesOf } from '@storybook/react'
 import { generateChordData } from 'nivo-generators'
-//import '../style.css'
-import { Chord } from '../src'
+import { Chord } from '../es'
 
 const commonProperties = {
     width: 600,

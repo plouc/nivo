@@ -2,8 +2,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, boolean, select } from '@storybook/addon-knobs'
 import { generateDrinkStats } from 'nivo-generators'
-//import '../style.css'
-import { Line } from '../src'
+import { Line } from '../es'
 
 const data = generateDrinkStats(18)
 const commonProperties = {

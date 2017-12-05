@@ -2,8 +2,8 @@ import React from 'react'
 import { range, random } from 'lodash'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, boolean, select } from '@storybook/addon-knobs'
-//import '../style.css'
-import { Stream, areaCurvePropKeys } from '../src'
+import { areaCurvePropKeys } from '@nivo/core'
+import { Stream } from '../es'
 
 const keys = ['Raoul', 'Josiane', 'Marcel', 'René', 'Paul', 'Jacques']
 
