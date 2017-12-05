@@ -8,7 +8,7 @@
  */
 import React, { Component } from 'react'
 import Helmet from 'react-helmet'
-import { generateDayCounts } from 'nivo-generators'
+import { generateDayCounts } from '@nivo/generators'
 
 class CalendarPage extends Component {
     constructor(props) {

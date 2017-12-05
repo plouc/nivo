@@ -9,9 +9,9 @@
   ],
   "description": "Data generators used for nivo-website and http API samples",
   "author": "Raphaël Benitte <benitteraphael@gmail.com>",
-  "main": "./lib/generators.js",
-  "module": "es/generators.js",
-  "jsnext:main": "es/generators.js",
+  "main": "./lib/index.js",
+  "module": "es/index.js",
+  "jsnext:main": "es/index.js",
   "engines": {
     "node": ">=6.0.0",
     "npm": ">=3.0.0"

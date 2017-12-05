@@ -3,7 +3,7 @@ import { linearGradientDef } from '@nivo/core'
 import { ResponsiveBar } from '@nivo/bar'
 import { ResponsiveStream } from '@nivo/stream'
 import { ResponsiveTreeMap } from '@nivo/treemap'
-import { generateCountriesData } from 'nivo-generators'
+import { generateCountriesData } from '@nivo/generators'
 
 const GradientsIllustrations = () => (
     <div className="banner">

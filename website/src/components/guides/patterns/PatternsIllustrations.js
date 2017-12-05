@@ -3,7 +3,7 @@ import { patternDotsDef, patternLinesDef, patternSquaresDef } from '@nivo/core'
 import { ResponsiveBar } from '@nivo/bar'
 import { ResponsiveStream } from '@nivo/stream'
 import { ResponsiveTreeMap } from '@nivo/treemap'
-import { generateCountriesData } from 'nivo-generators'
+import { generateCountriesData } from '@nivo/generators'
 
 const PatternsIllustrations = () => (
     <div className="banner">

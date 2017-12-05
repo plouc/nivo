@@ -10,7 +10,7 @@ import React, { Component } from 'react'
 import APIClient from '../../api-client/APIClient'
 import ChordControls from './ChordControls'
 import propsMapper from './propsMapper'
-import { generateChordData } from 'nivo-generators'
+import { generateChordData } from '@nivo/generators'
 
 const MATRIX_SIZE = 5
 
