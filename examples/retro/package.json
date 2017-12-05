@@ -1,6 +1,6 @@
 {
   "name": "nivo-example-retro",
-  "version": "0.32.0-2",
+  "version": "0.32.0-3",
   "private": true,
   "dependencies": {
     "nivo": "^0.27.0",
