@@ -132,10 +132,14 @@ export default class BarCanvas extends Component {
 
         const mappedSettings = propsMapper(settings)
 
-        const code = generateCode('BarCanvas', {
-            keys,
-            ...mappedSettings,
-        }, { pkg: '@nivo/bar' })
+        const code = generateCode(
+            'BarCanvas',
+            {
+                keys,
+                ...mappedSettings,
+            },
+            { pkg: '@nivo/bar' }
+        )
 
         const header = (
             <ChartHeader

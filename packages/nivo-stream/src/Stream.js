@@ -138,16 +138,16 @@ const Stream = ({
                         {...motionProps}
                     />
                     {isInteractive &&
-                    enableStackTooltip && (
-                        <StreamSlices
-                            slices={slices}
-                            height={height}
-                            showTooltip={showTooltip}
-                            hideTooltip={hideTooltip}
-                            theme={theme}
-                            tooltipFormat={tooltipFormat}
-                        />
-                    )}
+                        enableStackTooltip && (
+                            <StreamSlices
+                                slices={slices}
+                                height={height}
+                                showTooltip={showTooltip}
+                                hideTooltip={hideTooltip}
+                                theme={theme}
+                                tooltipFormat={tooltipFormat}
+                            />
+                        )}
                 </SvgWrapper>
             )}
         </Container>

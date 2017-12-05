@@ -166,8 +166,9 @@ class MiniNav extends Component {
                             {interpolatedStyles.map(item => {
                                 const style = {
                                     opacity: item.style.opacity,
-                                    transform: `translate3d(0,${item.style.top}px,0) scale(${item
-                                        .style.scale})`,
+                                    transform: `translate3d(0,${item.style.top}px,0) scale(${
+                                        item.style.scale
+                                    })`,
                                     zIndex: item.style.zIndex,
                                 }
 

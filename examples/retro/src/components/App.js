@@ -12,17 +12,17 @@ import Info from './Info'
 
 const App = () => (
     <div>
-        <Background/>
+        <Background />
         <div className="App">
-            <Bar/>
-            <Bubble/>
-            <div></div>
-            <Chord/>
-            <HeatMap/>
-            <Pie/>
-            <TreeMap/>
-            <Stream/>
-            <Info/>
+            <Bar />
+            <Bubble />
+            <div />
+            <Chord />
+            <HeatMap />
+            <Pie />
+            <TreeMap />
+            <Stream />
+            <Info />
         </div>
     </div>
 )

@@ -23,6 +23,7 @@ storiesOf('Bubble', module)
             tooltipFormat={value =>
                 `${Number(value).toLocaleString('ru-RU', {
                     minimumFractionDigits: 2,
-                })} ₽`}
+                })} ₽`
+            }
         />
     ))

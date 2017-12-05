@@ -8,7 +8,7 @@ const Bubble = () => (
         <ResponsiveBubble
             root={{
                 country: 'root',
-                children: generateCountriesData(['value'], { size: 24 })
+                children: generateCountriesData(['value'], { size: 24 }),
             }}
             identity="country"
             value="value"
@@ -22,9 +22,7 @@ const Bubble = () => (
             padding={6}
             isInteractive={false}
         />
-        <div className="Title">
-            BUBBLE
-        </div>
+        <div className="Title">BUBBLE</div>
     </div>
 )
 

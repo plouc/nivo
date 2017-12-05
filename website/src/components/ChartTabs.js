@@ -60,9 +60,9 @@ export default class ChartTabs extends Component {
 
         return (
             <div
-                className={`chart-tabs${mode.length > 0
-                    ? ` chart-tabs--${mode}`
-                    : ''} chart-tabs--${currentTab}`}
+                className={`chart-tabs${
+                    mode.length > 0 ? ` chart-tabs--${mode}` : ''
+                } chart-tabs--${currentTab}`}
             >
                 {content}
                 <div className="chart-tabs__menu">

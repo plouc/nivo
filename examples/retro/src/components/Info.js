@@ -7,9 +7,7 @@ const Info = () => (
             <a>twitter</a>
             <a>website</a>
         </div>
-        <h1 className="Brand">
-            nivo
-        </h1>
+        <h1 className="Brand">nivo</h1>
     </div>
 )
 

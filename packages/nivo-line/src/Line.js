@@ -17,12 +17,7 @@ import { curveFromProp } from '@nivo/core'
 import { getInheritedColorGenerator } from '@nivo/core'
 import { withTheme, withColors, withDimensions, withMotion } from '@nivo/core'
 import { Container, SvgWrapper } from '@nivo/core'
-import {
-    getScales,
-    getStackedScales,
-    generateLines,
-    generateStackedLines,
-} from './compute'
+import { getScales, getStackedScales, generateLines, generateStackedLines } from './compute'
 import { CartesianMarkers } from '@nivo/core'
 import { Axes, Grid } from '@nivo/core'
 import LineAreas from './LineAreas'
@@ -141,16 +136,16 @@ const Line = ({
                         {...motionProps}
                     />
                     {isInteractive &&
-                    enableStackTooltip && (
-                        <LineSlices
-                            slices={slices}
-                            height={height}
-                            showTooltip={showTooltip}
-                            hideTooltip={hideTooltip}
-                            theme={theme}
-                            tooltipFormat={tooltipFormat}
-                        />
-                    )}
+                        enableStackTooltip && (
+                            <LineSlices
+                                slices={slices}
+                                height={height}
+                                showTooltip={showTooltip}
+                                hideTooltip={hideTooltip}
+                                theme={theme}
+                                tooltipFormat={tooltipFormat}
+                            />
+                        )}
                     {enableDots && (
                         <LineDots
                             lines={lines}

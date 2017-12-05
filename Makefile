@@ -53,6 +53,24 @@ init: ##@init cleanup/install/bootstrap
 
 ########################################################################################################################
 #
+# GLOBAL
+#
+########################################################################################################################
+
+fmt: ##@global format code using prettier (js, css, md)
+	@./node_modules/.bin/prettier --color --write \
+		"packages/*/{src,stories,tests}/**/*.js" \
+		"packages/*/README.md" \
+		"website/src/**/*.{js,css}" \
+		"examples/*/src/**/*.{js,css}" \
+		"README.md"
+
+deploy-all: ##@global deploy website & storybook
+	@make website-deploy
+	@make storybook-deploy
+
+########################################################################################################################
+#
 # CLEANUP
 #
 ########################################################################################################################
@@ -134,8 +152,3 @@ storybook-deploy: ##@storybook build and deploy storybook
 
 	@echo "${YELLOW}Deploying storybook${RESET}"
 	@./node_modules/.bin/gh-pages -d storybook-static -r git@github.com:plouc/nivo.git -b gh-pages -e storybook
-
-
-deploy-all: ##@deploy deploy website & storybook
-	@make website-deploy
-	@make storybook-deploy

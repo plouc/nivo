@@ -110,7 +110,9 @@ const SankeyLabels = ({
                         return (
                             <text
                                 key={key}
-                                transform={`translate(${style.x}, ${style.y}) rotate(${style.rotation})`}
+                                transform={`translate(${style.x}, ${style.y}) rotate(${
+                                    style.rotation
+                                })`}
                                 alignmentBaseline="central"
                                 textAnchor={data.textAnchor}
                                 style={{

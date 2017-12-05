@@ -8,11 +8,7 @@
  */
 import React from 'react'
 import { Link } from 'react-router-dom'
-import {
-    areaCurvePropKeys,
-    stackOrderPropKeys,
-    stackOffsetPropKeys,
-} from '@nivo/core'
+import { areaCurvePropKeys, stackOrderPropKeys, stackOffsetPropKeys } from '@nivo/core'
 import { StreamDefaultProps as defaults } from '@nivo/stream'
 import {
     marginProperties,

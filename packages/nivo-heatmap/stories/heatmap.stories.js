@@ -118,6 +118,7 @@ stories.add('with formatted values', () => (
         tooltipFormat={value =>
             `${Number(value).toLocaleString('ru-RU', {
                 minimumFractionDigits: 2,
-            })} ₽`}
+            })} ₽`
+        }
     />
 ))

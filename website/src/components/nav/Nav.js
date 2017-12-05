@@ -34,7 +34,9 @@ class Nav extends Component {
                             >
                                 <span className="sidebar-icon_wrapper">
                                     <span
-                                        className={`sidebar-icon sprite-icons-${item.className}-grey`}
+                                        className={`sidebar-icon sprite-icons-${
+                                            item.className
+                                        }-grey`}
                                     />
                                 </span>
                                 <span>{item.label}</span>
@@ -53,7 +55,9 @@ class Nav extends Component {
                                     >
                                         <span className="sidebar-icon_wrapper-sub">
                                             <span
-                                                className={`sidebar-icon-sub sprite-icons-${child.className}-grey`}
+                                                className={`sidebar-icon-sub sprite-icons-${
+                                                    child.className
+                                                }-grey`}
                                             />
                                         </span>
                                         <span>{child.label}</span>

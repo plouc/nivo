@@ -157,7 +157,9 @@ const Pie = ({
 
                             return (
                                 <g
-                                    transform={`translate(${interpolatingStyle.centerX}, ${interpolatingStyle.centerY})`}
+                                    transform={`translate(${interpolatingStyle.centerX}, ${
+                                        interpolatingStyle.centerY
+                                    })`}
                                 >
                                     {arcsData.map(d => {
                                         const handleTooltip = e =>
