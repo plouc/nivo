@@ -33,57 +33,57 @@ Join the [nivo discord community](https://discord.gg/n7Ft74f).
 
 ## Components
 
-- Bar
+- Bar `@nivo/bar`
     - [`<Bar/>`](http://nivo.rocks/#/bar)
     - [`<ResponsiveBar/>`](http://nivo.rocks/#/bar)
     - [`<BarCanvas/>`](http://nivo.rocks/#/bar/canvas)
     - [`<ResponsiveBarCanvas/>`](http://nivo.rocks/#/bar/canvas)
-- Bubble
+- Bubble `@nivo/circle-packing`
     - [`<Bubble/>`](http://nivo.rocks/#/bubble)
     - [`<ResponsiveBubble/>`](http://nivo.rocks/#/bubble)
     - [`<BubbleHtml/>`](http://nivo.rocks/#/bubble/html)
     - [`<ResponsiveBubbleHtml/>`](http://nivo.rocks/#/bubble/html)
     - [`<BubbleCanvas/>`](http://nivo.rocks/#/bubble/canvas)
     - [`<ResponsiveBubbleCanvas/>`](http://nivo.rocks/#/bubble/canvas)
-- Calendar
+- Calendar `@nivo/calendar`
     - [`<Calendar/>`](http://nivo.rocks/#/calendar)
     - [`<ResponsiveCalendar/>`](http://nivo.rocks/#/calendar)
-- Chord
+- Chord `@nivo/chord`
     - [`<Chord/>`](http://nivo.rocks/#/chord)
     - [`<ResponsiveChord/>`](http://nivo.rocks/#/chord)
     - [`<ChordCanvas/>`](http://nivo.rocks/#/chord/canvas)
     - [`<ResponsiveChordCanvas/>`](http://nivo.rocks/#/chord/canvas)
-- HeatMap
+- HeatMap `@nivo/heatmap`
     - [`<HeatMap/>`](http://nivo.rocks/#/heatmap)
     - [`<ResponsiveHeatMap/>`](http://nivo.rocks/#/heatmap)
     - [`<HeatMapCanvas/>`](http://nivo.rocks/#/heatmap/canvas)
     - [`<ResponsiveHeatMapCanvas/>`](http://nivo.rocks/#/heatmap/canvas)
-- Line
+- Line `@nivo/line`
     - [`<Line/>`](http://nivo.rocks/#/line)
     - [`<ResponsiveLine/>`](http://nivo.rocks/#/line)
-- Pie
+- Pie `@nivo/pie`
     - [`<Pie/>`](http://nivo.rocks/#/pie)
     - [`<ResponsivePie/>`](http://nivo.rocks/#/pie)
-- Radar
+- Radar `@nivo/radar`
     - [`<Radar/>`](http://nivo.rocks/#/radar)
     - [`<ResponsiveRadar/>`](http://nivo.rocks/#/radar)
-- Sankey
+- Sankey `@nivo/sankey`
     - [`<Sankey/>`](http://nivo.rocks/#/sankey)
     - [`<ResponsiveSankey/>`](http://nivo.rocks/#/sankey)               
-- Stream
+- Stream `@nivo/stream`
     - [`<Stream/>`](http://nivo.rocks/#/stream)
     - [`<ResponsiveStream/>`](http://nivo.rocks/#/stream)           
-- Sunburst
+- Sunburst `@nivo/sunburst`
     - [`<Sunburst/>`](http://nivo.rocks/#/sunburst)
     - [`<ResponsiveSunburst/>`](http://nivo.rocks/#/sunburst)  
-- TreeMap
+- TreeMap `@nivo/treemap`
     - [`<TreeMap/>`](http://nivo.rocks/#/treemap)
     - [`<ResponsiveTreeMap/>`](http://nivo.rocks/#/treemap)
     - [`<TreeMapHTML/>`](http://nivo.rocks/#/treemap/html)
     - [`<ResponsiveTreeMapHTML/>`](http://nivo.rocks/#/treemap/html)
     - [`<TreeMapCanvas/>`](http://nivo.rocks/#/treemap/canvas)
     - [`<ResponsiveTreeMapCanvas/>`](http://nivo.rocks/#/treemap/canvas)
-- Voronoi `experimental`
+- Voronoi `@nivo/voronoi`
     - [`<Voronoi/>`](http://nivo.rocks/#/voronoi)
     - [`<ResponsiveVoronoi/>`](http://nivo.rocks/#/voronoi)            
 
