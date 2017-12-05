@@ -90,6 +90,7 @@ const ChordRibbons = ({
     setCurrent,
     showTooltip,
     hideTooltip,
+    onClick,
 
     // motion
     animate,
@@ -117,6 +118,7 @@ const ChordRibbons = ({
 
         return {
             strokeWidth: borderWidth,
+            onClick: event => onClick(ribbon, event),
             onMouseEnter: e => {
                 setCurrent(ribbon)
                 showTooltip(ribbonTooltip, e)

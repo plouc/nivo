@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
+import noop from '../../../lib/noop'
 
 export const ChordPropTypes = {
     matrix: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
@@ -41,6 +42,7 @@ export const ChordPropTypes = {
     colors: PropTypes.any.isRequired,
 
     // interactivity
+    onClick: PropTypes.func.isRequired,
     isInteractive: PropTypes.bool.isRequired,
     arcHoverOpacity: PropTypes.number.isRequired,
     arcHoverOthersOpacity: PropTypes.number.isRequired,
@@ -79,6 +81,7 @@ export const ChordDefaultProps = {
 
     // interactivity
     isInteractive: true,
+    onClick: noop,
     arcHoverOpacity: 1,
     arcHoverOthersOpacity: 0.15,
     ribbonHoverOpacity: 0.85,
