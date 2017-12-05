@@ -114,6 +114,11 @@ packages-publish: ##@packages publish all packages
 	@echo "${YELLOW}Publishing packages${RESET}"
 	@./node_modules/.bin/lerna publish ---exact
 
+package-build-watch-%: ##@packages build package (es flavor) on change, eg. `package-build-watch-bar`
+	@echo "${YELLOW}Running build watcher for package ${WHITE}${*}${RESET}"
+	@cd packages/nivo-${*} && yarn build:es:watch
+
+
 ########################################################################################################################
 #
 # WEBSITE

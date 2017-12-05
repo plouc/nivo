@@ -9,6 +9,7 @@
 import React from 'react'
 import { Container, SvgWrapper } from '@nivo/core'
 import enhance from './enhance'
+import setDisplayName from 'recompose/setDisplayName'
 import { ChordPropTypes } from './props'
 import ChordRibbons from './ChordRibbons'
 import ChordArcs from './ChordArcs'
@@ -122,4 +123,4 @@ const Chord = ({
 
 Chord.propTypes = ChordPropTypes
 
-export default enhance(Chord)
+export default setDisplayName('Chord')(enhance(Chord))
