@@ -7,7 +7,7 @@
   "jsnext:main": "es/index.js",
   "dependencies": {
     "@nivo/core": "0.32.0-7",
-    "d3-voronoi": "1.1.2",
+    "d3-voronoi": "^1.1.2",
     "recompose": "^0.26.0"
   },
   "devDependencies": {
