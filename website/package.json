@@ -1,8 +1,8 @@
 {
-    "name": "nivo-demo",
+    "name": "nivo-website",
     "version": "0.32.0-9",
     "private": true,
-    "description": "nivo demo",
+    "description": "nivo website",
     "author": "Raphaël Benitte <benitteraphael@gmail.com>",
     "devDependencies": {
         "react-scripts": "1.0.14",
