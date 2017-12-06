@@ -1,0 +1,20 @@
+# src (will be transpiled)
+/src
+
+# logs
+*.log*
+
+# OSX
+.DS_Store
+
+# config/build
+.babelrc
+
+# storybook
+/.storybook
+/stories
+/storybook-static
+
+# test
+/coverage
+/tests
