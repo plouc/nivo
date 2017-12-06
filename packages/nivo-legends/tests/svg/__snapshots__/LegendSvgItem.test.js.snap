@@ -1,0 +1,217 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should support bottom-to-top direction 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    fill="violet"
+    height={16}
+    width={16}
+    x={92}
+    y={20}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "black",
+      }
+    }
+    textAnchor="middle"
+    x={100}
+    y={14}
+  >
+    testing
+  </text>
+</g>
+`;
+
+exports[`should support bottom-to-top direction justified 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    fill="violet"
+    height={16}
+    width={16}
+    x={92}
+    y={20}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "black",
+      }
+    }
+    textAnchor="middle"
+    x={100}
+    y={0}
+  >
+    testing
+  </text>
+</g>
+`;
+
+exports[`should support left-to-right direction 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    fill="violet"
+    height={16}
+    width={16}
+    x={0}
+    y={10}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "middle",
+        "fill": "black",
+      }
+    }
+    textAnchor="start"
+    x={22}
+    y={18}
+  >
+    testing
+  </text>
+</g>
+`;
+
+exports[`should support left-to-right direction justified 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    fill="violet"
+    height={16}
+    width={16}
+    x={0}
+    y={10}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "middle",
+        "fill": "black",
+      }
+    }
+    textAnchor="end"
+    x={200}
+    y={18}
+  >
+    testing
+  </text>
+</g>
+`;
+
+exports[`should support right-to-left direction 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    fill="violet"
+    height={16}
+    width={16}
+    x={184}
+    y={10}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "middle",
+        "fill": "black",
+      }
+    }
+    textAnchor="end"
+    x={178}
+    y={18}
+  >
+    testing
+  </text>
+</g>
+`;
+
+exports[`should support right-to-left direction justified 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    fill="violet"
+    height={16}
+    width={16}
+    x={184}
+    y={10}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "middle",
+        "fill": "black",
+      }
+    }
+    textAnchor="start"
+    x={0}
+    y={18}
+  >
+    testing
+  </text>
+</g>
+`;
+
+exports[`should support top-to-bottom direction 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    fill="violet"
+    height={16}
+    width={16}
+    x={92}
+    y={0}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "black",
+      }
+    }
+    textAnchor="middle"
+    x={100}
+    y={22}
+  >
+    testing
+  </text>
+</g>
+`;
+
+exports[`should support top-to-bottom direction justified 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    fill="violet"
+    height={16}
+    width={16}
+    x={92}
+    y={0}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "black",
+      }
+    }
+    textAnchor="middle"
+    x={100}
+    y={36}
+  >
+    testing
+  </text>
+</g>
+`;
