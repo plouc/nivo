@@ -17,6 +17,11 @@ import pure from 'recompose/pure'
 import { colorMotionSpring, getInterpolatedColor } from '@nivo/core'
 import { midAngle } from '@nivo/core'
 import { TableTooltip, Chip } from '@nivo/core'
+import {
+    defaultAnimate,
+    defaultMotionDamping,
+    defaultMotionStiffness,
+} from '../../nivo-core/src/defaults'
 
 /**
  * Used to get ribbon angles, instead of using source and target arcs,
@@ -101,13 +106,13 @@ const ChordRibbons = ({
                 theme={theme}
                 rows={[
                     [
-                        <Chip color={ribbon.source.color} />,
-                        <strong>{ribbon.source.id}</strong>,
+                        <Chip key="chip" color={ribbon.source.color} />,
+                        <strong key="id">{ribbon.source.id}</strong>,
                         tooltipFormat ? tooltipFormat(ribbon.source.value) : ribbon.source.value,
                     ],
                     [
-                        <Chip color={ribbon.target.color} />,
-                        <strong>{ribbon.target.id}</strong>,
+                        <Chip key="chip" color={ribbon.target.color} />,
+                        <strong key="id">{ribbon.target.id}</strong>,
                         tooltipFormat ? tooltipFormat(ribbon.target.value) : ribbon.target.value,
                     ],
                 ]}
@@ -222,6 +227,10 @@ ChordRibbons.propTypes = {
     theme: PropTypes.object.isRequired,
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
+    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    animate: defaultAnimate,
+    motionDamping: defaultMotionDamping,
+    motionStiffness: defaultMotionStiffness,
 }
 
 const enhance = compose(

@@ -3,6 +3,7 @@ node_js:
   - '8'
 script:
   - make init
+  - make packages-lint
   - make packages-test
   - make website-build
   - make storybook-build

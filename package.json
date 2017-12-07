@@ -24,14 +24,15 @@
     "@storybook/react": "^3.2.17",
     "chalk": "^2.3.0",
     "clog-cli": "^1.0.0",
+    "eslint": "^4.12.1",
     "gh-pages": "^1.0.0",
     "lerna": "^2.5.1",
-    "prettier": "^1.6.1",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
     "lodash": "^4.17.4",
+    "prettier": "^1.6.1",
     "prop-types": "^15.5.10",
-    "puppeteer": "^0.13.0"
+    "puppeteer": "^0.13.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
   },
   "scripts": {
     "fmt": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --color --write \"{src,specs,test,.storybook,stories}/**/*.js\"",

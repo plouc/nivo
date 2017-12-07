@@ -25,6 +25,7 @@ const ChordArcTooltip = ({ arc, theme, format }) => (
 ChordArcTooltip.propTypes = {
     arc: PropTypes.object.isRequired,
     theme: PropTypes.object.isRequired,
+    format: PropTypes.func,
 }
 
 export default pure(ChordArcTooltip)

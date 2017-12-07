@@ -105,6 +105,7 @@ BarItem.propTypes = {
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
+    onClick: PropTypes.func,
 
     theme: PropTypes.shape({
         tooltip: PropTypes.shape({}).isRequired,

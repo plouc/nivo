@@ -89,6 +89,10 @@ endef
 #
 ########################################################################################################################
 
+packages-lint: ##@1 packages run eslint on packages
+	@echo "${YELLOW}Running eslint on all packages${RESET}"
+	@./node_modules/.bin/lerna run lint
+
 packages-test: ##@1 packages run tests for all packages
 	# stream can be used for a mire verbose output
 	#@./node_modules/.bin/lerna run --concurrency 1 --stream test

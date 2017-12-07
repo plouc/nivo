@@ -10,6 +10,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
 import { midAngle, getPolarLabelProps } from '@nivo/core'
+import {
+    defaultAnimate,
+    defaultMotionDamping,
+    defaultMotionStiffness,
+} from '../../nivo-core/src/defaults'
 
 const ChordLabels = ({
     arcs,
@@ -30,15 +35,17 @@ const ChordLabels = ({
                 {arcs.map(arc => {
                     const color = getColor(arc, theme)
                     const angle = midAngle(arc)
-                    const props = getPolarLabelProps(radius, angle, rotation)
+                    const textProps = getPolarLabelProps(radius, angle, rotation)
 
                     return (
                         <text
                             key={arc.key}
-                            transform={`translate(${props.x}, ${props.y}) rotate(${props.rotate})`}
+                            transform={`translate(${textProps.x}, ${textProps.y}) rotate(${
+                                textProps.rotate
+                            })`}
                             style={{ pointerEvents: 'none', fill: color }}
-                            textAnchor={props.align}
-                            alignmentBaseline={props.baseline}
+                            textAnchor={textProps.align}
+                            alignmentBaseline={textProps.baseline}
                         >
                             {getLabel(arc)}
                         </text>
@@ -71,17 +78,17 @@ const ChordLabels = ({
                 <g>
                     {interpolatedStyles.map(({ key, style, data: arc }) => {
                         const color = getColor(arc, theme)
-                        const props = getPolarLabelProps(radius, style.angle, rotation)
+                        const textProps = getPolarLabelProps(radius, style.angle, rotation)
 
                         return (
                             <text
                                 key={key}
-                                transform={`translate(${props.x}, ${props.y}) rotate(${
-                                    props.rotate
+                                transform={`translate(${textProps.x}, ${textProps.y}) rotate(${
+                                    textProps.rotate
                                 })`}
                                 style={{ pointerEvents: 'none', fill: color }}
-                                textAnchor={props.align}
-                                alignmentBaseline={props.baseline}
+                                textAnchor={textProps.align}
+                                alignmentBaseline={textProps.baseline}
                             >
                                 {getLabel(arc)}
                             </text>
@@ -100,6 +107,9 @@ ChordLabels.propTypes = {
     getLabel: PropTypes.func.isRequired,
     getColor: PropTypes.func.isRequired,
     theme: PropTypes.object.isRequired,
+    animate: defaultAnimate,
+    motionDamping: defaultMotionDamping,
+    motionStiffness: defaultMotionStiffness,
 }
 
 export default ChordLabels

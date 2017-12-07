@@ -10,8 +10,10 @@ import React from 'react'
 import { ResponsiveWrapper } from '@nivo/core'
 import BarCanvas from './BarCanvas'
 
-export default props => (
+const ResponsiveBarCanvas = props => (
     <ResponsiveWrapper>
         {({ width, height }) => <BarCanvas width={width} height={height} {...props} />}
     </ResponsiveWrapper>
 )
+
+export default ResponsiveBarCanvas

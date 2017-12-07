@@ -10,8 +10,10 @@ import React from 'react'
 import { ResponsiveWrapper } from '@nivo/core'
 import Calendar from './Calendar'
 
-export default props => (
+const ResponsiveCalendar = props => (
     <ResponsiveWrapper>
         {({ width, height }) => <Calendar width={width} height={height} {...props} />}
     </ResponsiveWrapper>
 )
+
+export default ResponsiveCalendar
