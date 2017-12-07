@@ -20,7 +20,7 @@ RESET  = $(shell printf "\33[0m")
 # A category can be added with @category
 HELP_HELPER = \
     %help; \
-    while(<>) { push @{$$help{$$2 // 'options'}}, [$$1, $$3] if /^([a-zA-Z\-\%]+)\s*:.*\#\#(?:@([a-zA-Z\-\%]+))?\s(.*)$$/ }; \
+    while(<>) { push @{$$help{$$2 // 'options'}}, [$$1, $$3] if /^([a-zA-Z\-\%]+)\s*:.*\#\#(?:@([a-zA-Z0-9\-\%_]+))?\s(.*)$$/ }; \
     print "usage: make [target]\n\n"; \
     for (sort keys %help) { \
     print "${WHITE}$$_:${RESET}\n"; \
@@ -37,14 +37,14 @@ help: ##prints help
 
 ########################################################################################################################
 #
-# INIT
+# GLOBAL
 #
 ########################################################################################################################
 
-bootstrap: ##@init lerna bootstrap
+bootstrap: ##@0-global lerna bootstrap
 	@./node_modules/.bin/lerna bootstrap
 
-init: ##@init cleanup/install/bootstrap
+init: ##@0-global cleanup/install/bootstrap
 	@make clean-all
 	@yarn install
 	@make bootstrap
@@ -52,13 +52,7 @@ init: ##@init cleanup/install/bootstrap
 	@make website-install
 	@make examples-install
 
-########################################################################################################################
-#
-# GLOBAL
-#
-########################################################################################################################
-
-fmt: ##@global format code using prettier (js, css, md)
+fmt: ##@0-global format code using prettier (js, css, md)
 	@./node_modules/.bin/prettier --color --write \
 		"packages/*/{src,stories,tests}/**/*.js" \
 		"packages/*/README.md" \
@@ -66,17 +60,11 @@ fmt: ##@global format code using prettier (js, css, md)
 		"examples/*/src/**/*.{js,css}" \
 		"README.md"
 
-deploy-all: ##@global deploy website & storybook
+deploy-all: ##@0-global deploy website & storybook
 	@make website-deploy
 	@make storybook-deploy
 
-########################################################################################################################
-#
-# CLEANUP
-#
-########################################################################################################################
-
-clean-all: ##@cleanup uninstall node modules, remove transpiled code & lock files
+clean-all: ##@0-global uninstall node modules, remove transpiled code & lock files
 	@rm -rf node_modules
 	@rm -rf package-lock.json
 	@$(foreach source, $(SOURCES), $(call clean-source-all, $(source)))
@@ -101,31 +89,31 @@ endef
 #
 ########################################################################################################################
 
-packages-test: ##@packages run tests for all packages
+packages-test: ##@1-packages run tests for all packages
 	# stream can be used for a mire verbose output
 	#@./node_modules/.bin/lerna run --concurrency 1 --stream test
 	@./node_modules/.bin/lerna run --concurrency 1 test
 
-packages-build: ##@packages build all packages
+packages-build: ##@1-packages build all packages
 	@echo "${YELLOW}Building all packages${RESET}"
 	@$(foreach source, $(SOURCES), $(call clean-source-lib, $(source)))
 	@./node_modules/.bin/lerna run build
 
-packages-publish: ##@packages publish all packages
+packages-publish: ##@1-packages publish all packages
 	@make packages-build
 
 	@echo "${YELLOW}Publishing packages${RESET}"
 	@./node_modules/.bin/lerna publish ---exact
 
-package-build-watch-%: ##@packages build package (es flavor) on change, eg. `package-build-watch-bar`
+package-build-watch-%: ##@1-packages build package (es flavor) on change, eg. `package-build-watch-bar`
 	@echo "${YELLOW}Running build watcher for package ${WHITE}${*}${RESET}"
 	@cd packages/nivo-${*} && yarn build:es:watch
 
-package-build-%: ##@packages build package (all flavors), eg. `package-build-bar`
+package-build-%: ##@1-packages build package (all flavors), eg. `package-build-bar`
 	@echo "${YELLOW}Build package ${WHITE}${*}${RESET}"
 	@cd packages/nivo-${*} && yarn build
 
-package-dev-%: ##@packages setup package for development, link to website, run watcher
+package-dev-%: ##@1-packages setup package for development, link to website, run watcher
 	@echo "${YELLOW}Preparing package ${WHITE}${*}${YELLOW} for development${RESET}"
 	@cd packages/nivo-${*} && yarn link
 	@cd website && yarn link @nivo/${*}
@@ -137,35 +125,35 @@ package-dev-%: ##@packages setup package for development, link to website, run w
 #
 ########################################################################################################################
 
-website-install: ##@website install website dependencies
+website-install: ##@2-website install website dependencies
 	@echo "${YELLOW}Installing website dependencies${RESET}"
 	@cd website && yarn install
 
-website: ##@website start website in dev mode
+website: ##@2-website start website in dev mode
 	@echo "${YELLOW}Starting website dev server${RESET}"
 	@cd website && yarn start
 
-website-build: ##@website build website
+website-build: ##@2-website build website
 	@echo "${YELLOW}Building website${RESET}"
 	@cd website && yarn build
 
-website-deploy: ##@website build & deploy website
+website-deploy: ##@2-website build & deploy website
 	@make website-build
 
 	@echo "${YELLOW}Deploying website${RESET}"
 	@./node_modules/.bin/gh-pages -d website/build -r git@github.com:plouc/nivo.git -b gh-pages
 
-website-audit: ##@website audit website build
+website-audit: ##@2-website audit website build
 	@cd website && yarn analyze
 
-website-links-ls: ##@website list linked packages
+website-links-ls: ##@2-website list linked packages
 	@echo "${YELLOW}Which packages are currently being linked to ${WHITE}website${YELLOW}?${RESET}"
 	@cd website; \
     find node_modules node_modules/\@* -depth 1 -type l -print | awk -F/ '{print $$(NF)}' | while read MODULE; do \
         echo "> linked package: ${WHITE}$${MODULE}${RESET}"; \
     done
 
-website-links-rm: ##@website unlink all linked packages
+website-links-rm: ##@2-website unlink all linked packages
 	@echo "${YELLOW}Unlinking all packages for ${WHITE}website${RESET}"
 	@cd website; \
     find node_modules node_modules/\@* -depth 1 -type l -print | awk -F/ '{print $$(NF)}' | while read MODULE; do \
@@ -179,14 +167,14 @@ website-links-rm: ##@website unlink all linked packages
 #
 ########################################################################################################################
 
-storybook: ##@storybook start storybook in dev mode on port 6006
+storybook: ##@3-storybook start storybook in dev mode on port 6006
 	@./node_modules/.bin/start-storybook -p 6006
 
-storybook-build: ##@storybook build storybook
+storybook-build: ##@3-storybook build storybook
 	@echo "${YELLOW}Building storybook${RESET}"
 	@./node_modules/.bin/build-storybook
 
-storybook-deploy: ##@storybook build and deploy storybook
+storybook-deploy: ##@3-storybook build and deploy storybook
 	@make storybook-build
 
 	@echo "${YELLOW}Deploying storybook${RESET}"
@@ -198,20 +186,20 @@ storybook-deploy: ##@storybook build and deploy storybook
 #
 ########################################################################################################################
 
-examples-install: ##@examples install all examples dependencies
+examples-install: ##@4-examples install all examples dependencies
 	@make example-install-retro
 
-example-install-%: ##@examples install example dependencies, eg. example-install-retro
+example-install-%: ##@4-examples install example dependencies, eg. example-install-retro
 	@echo "${YELLOW}Installing ${WHITE}${*}${YELLOW} example dependencies${RESET}"
 	@cd examples/${*} && yarn install
 
-example-start-%: ##@examples start example in dev mode, eg. example-start-retro
+example-start-%: ##@4-examples start example in dev mode, eg. example-start-retro
 	@echo "${YELLOW}Starting ${WHITE}${*}${YELLOW} example dev server${RESET}"
 	@cd examples/${*} && yarn start
 
-examples-build: ##@examples build all examples
+examples-build: ##@4-examples build all examples
 	@make example-build-retro
 
-example-build-%: ##@examples build an example, eg. example-build-retro
+example-build-%: ##@4-examples build an example, eg. example-build-retro
 	@echo "${YELLOW}Building ${WHITE}${*}${YELLOW} example${RESET}"
 	@cd examples/${*} && yarn build
