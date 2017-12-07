@@ -111,6 +111,8 @@ packages-build: ##@packages build all packages
 	@./node_modules/.bin/lerna run build
 
 packages-publish: ##@packages publish all packages
+	@make packages-build
+
 	@echo "${YELLOW}Publishing packages${RESET}"
 	@./node_modules/.bin/lerna publish ---exact
 
