@@ -5,7 +5,7 @@ exports[`should support bottom-to-top direction 1`] = `
   transform="translate(0,0)"
 >
   <rect
-    fill="violet"
+    fill="red"
     height={16}
     width={16}
     x={92}
@@ -20,7 +20,7 @@ exports[`should support bottom-to-top direction 1`] = `
     }
     textAnchor="middle"
     x={100}
-    y={14}
+    y={12}
   >
     testing
   </text>
@@ -32,7 +32,7 @@ exports[`should support bottom-to-top direction justified 1`] = `
   transform="translate(0,0)"
 >
   <rect
-    fill="violet"
+    fill="red"
     height={16}
     width={16}
     x={92}
@@ -59,7 +59,7 @@ exports[`should support left-to-right direction 1`] = `
   transform="translate(0,0)"
 >
   <rect
-    fill="violet"
+    fill="red"
     height={16}
     width={16}
     x={0}
@@ -73,7 +73,7 @@ exports[`should support left-to-right direction 1`] = `
       }
     }
     textAnchor="start"
-    x={22}
+    x={24}
     y={18}
   >
     testing
@@ -86,7 +86,7 @@ exports[`should support left-to-right direction justified 1`] = `
   transform="translate(0,0)"
 >
   <rect
-    fill="violet"
+    fill="red"
     height={16}
     width={16}
     x={0}
@@ -113,7 +113,7 @@ exports[`should support right-to-left direction 1`] = `
   transform="translate(0,0)"
 >
   <rect
-    fill="violet"
+    fill="red"
     height={16}
     width={16}
     x={184}
@@ -127,7 +127,7 @@ exports[`should support right-to-left direction 1`] = `
       }
     }
     textAnchor="end"
-    x={178}
+    x={176}
     y={18}
   >
     testing
@@ -140,7 +140,7 @@ exports[`should support right-to-left direction justified 1`] = `
   transform="translate(0,0)"
 >
   <rect
-    fill="violet"
+    fill="red"
     height={16}
     width={16}
     x={184}
@@ -167,7 +167,7 @@ exports[`should support top-to-bottom direction 1`] = `
   transform="translate(0,0)"
 >
   <rect
-    fill="violet"
+    fill="red"
     height={16}
     width={16}
     x={92}
@@ -182,7 +182,7 @@ exports[`should support top-to-bottom direction 1`] = `
     }
     textAnchor="middle"
     x={100}
-    y={22}
+    y={24}
   >
     testing
   </text>
@@ -194,7 +194,7 @@ exports[`should support top-to-bottom direction justified 1`] = `
   transform="translate(0,0)"
 >
   <rect
-    fill="violet"
+    fill="red"
     height={16}
     width={16}
     x={92}

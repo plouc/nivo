@@ -32,7 +32,7 @@ export default class HeatMap extends Component {
             margin: {
                 top: 100,
                 right: 60,
-                bottom: 30,
+                bottom: 60,
                 left: 60,
             },
 
@@ -189,6 +189,10 @@ export default class HeatMap extends Component {
                     >
                         the storybook
                     </a>.
+                </p>
+                <p className="description">
+                    See the <Link to="/guides/legends">dedicated guide</Link> on how to setup
+                    legends for this component.
                 </p>
             </div>
         )

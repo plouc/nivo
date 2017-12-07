@@ -118,6 +118,15 @@ package-build-watch-%: ##@packages build package (es flavor) on change, eg. `pac
 	@echo "${YELLOW}Running build watcher for package ${WHITE}${*}${RESET}"
 	@cd packages/nivo-${*} && yarn build:es:watch
 
+package-build-%: ##@packages build package (all flavors), eg. `package-build-bar`
+	@echo "${YELLOW}Build package ${WHITE}${*}${RESET}"
+	@cd packages/nivo-${*} && yarn build
+
+package-dev-%: ##@packages setup package for development, link to website, run watcher
+	@echo "${YELLOW}Preparing package ${WHITE}${*}${YELLOW} for development${RESET}"
+	@cd packages/nivo-${*} && yarn link
+	@cd website && yarn link @nivo/${*}
+	@make package-build-watch-${*}
 
 ########################################################################################################################
 #

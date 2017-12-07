@@ -10,14 +10,17 @@ import React, { Component } from 'react'
 import { partial } from 'lodash'
 import { TransitionMotion } from 'react-motion'
 import { colorMotionSpring, getInterpolatedColor } from '@nivo/core'
+import { Container, SvgWrapper } from '@nivo/core'
+import { Grid, Axes } from '@nivo/core'
+import setDisplayName from 'recompose/setDisplayName'
 import { HeatMapPropTypes } from './props'
 import computeNodes from './computeNodes'
 import enhance from './enhance'
-import { Container, SvgWrapper } from '@nivo/core'
-import { Grid, Axes } from '@nivo/core'
 import HeatMapCellRect from './HeatMapCellRect'
 import HeatMapCellCircle from './HeatMapCellCircle'
 import HeatMapCellTooltip from './HeatMapCellTooltip'
+
+import { scaleLinear } from 'd3-scale'
 
 class HeatMap extends Component {
     static propTypes = HeatMapPropTypes
@@ -39,6 +42,8 @@ class HeatMap extends Component {
             yScale,
             offsetX,
             offsetY,
+            minValue,
+            maxValue,
 
             margin,
             width,
@@ -65,6 +70,7 @@ class HeatMap extends Component {
 
             // theming
             theme,
+            colorScale,
 
             // motion
             animate,
@@ -92,6 +98,14 @@ class HeatMap extends Component {
             motionDamping,
             motionStiffness,
         }
+
+        const legendItems = scaleLinear()
+            .domain([minValue, maxValue])
+            .ticks(4)
+            .map(i => ({
+                label: i,
+                fill: colorScale(i),
+            }))
 
         return (
             <Container isInteractive={isInteractive} theme={theme}>
@@ -210,4 +224,4 @@ class HeatMap extends Component {
     }
 }
 
-export default enhance(HeatMap)
+export default setDisplayName('HeatMap')(enhance(HeatMap))

@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 import ChartHeader from '../../ChartHeader'
 import ChartTabs from '../../ChartTabs'
@@ -30,7 +31,7 @@ export default class Calendar extends Component {
             margin: {
                 top: 100,
                 right: 30,
-                bottom: 30,
+                bottom: 60,
                 left: 30,
             },
             direction: 'horizontal',
@@ -51,6 +52,18 @@ export default class Calendar extends Component {
 
             // interactivity
             isInteractive: true,
+
+            legends: [
+                {
+                    anchor: 'bottom-right',
+                    direction: 'row',
+                    translateY: 36,
+                    itemCount: 4,
+                    itemWidth: 34,
+                    itemHeight: 36,
+                    itemDirection: 'top-to-bottom',
+                },
+            ],
         },
     }
 
@@ -114,6 +127,10 @@ export default class Calendar extends Component {
                     <p>
                         This component is suitable for isomorphic rendering but require to use the{' '}
                         <code>Calendar</code> component not the <code>ResponsiveCalendar</code> one.
+                    </p>
+                    <p className="description">
+                        See the <Link to="/guides/legends">dedicated guide</Link> on how to setup
+                        legends for this component.
                     </p>
                 </div>
             </div>
