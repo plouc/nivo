@@ -1,6 +1,6 @@
 import React from 'react'
 import { ResponsiveTreeMap } from '@nivo/treemap'
-import { generateCountriesData } from 'nivo-generators'
+import { generateCountriesData } from '@nivo/generators'
 import { colors } from '../../constants'
 
 const TreeMap = () => (
