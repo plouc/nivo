@@ -8,6 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import { lineCurvePropType } from '@nivo/core'
+import { LegendPropShape } from '@nivo/legends'
 
 export const LinePropTypes = {
     // data
@@ -79,6 +80,10 @@ export const LinePropTypes = {
     isInteractive: PropTypes.bool.isRequired,
     enableStackTooltip: PropTypes.bool.isRequired,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+
+    legends: PropTypes.arrayOf(
+        PropTypes.shape(LegendPropShape)
+    ).isRequired,
 }
 
 export const LineDefaultProps = {
@@ -117,4 +122,6 @@ export const LineDefaultProps = {
     // interactivity
     isInteractive: true,
     enableStackTooltip: true,
+
+    legends: [],
 }

@@ -20,6 +20,7 @@ import { Container, SvgWrapper } from '@nivo/core'
 import { getScales, getStackedScales, generateLines, generateStackedLines } from './compute'
 import { CartesianMarkers } from '@nivo/core'
 import { Axes, Grid } from '@nivo/core'
+import { BoxLegendSvg } from '@nivo/legends'
 import LineAreas from './LineAreas'
 import LineLines from './LineLines'
 import LineSlices from './LineSlices'
@@ -82,6 +83,8 @@ const Line = ({
 
     // stackTooltip
     enableStackTooltip,
+
+    legends,
 }) => {
     const motionProps = {
         animate,
@@ -162,6 +165,22 @@ const Line = ({
                             {...motionProps}
                         />
                     )}
+                    {legends.map((legend, i) => {
+                        const legendData = lines.map(line => ({
+                            label: line.id,
+                            fill: line.color
+                        })).reverse()
+
+                        return (
+                            <BoxLegendSvg
+                                key={i}
+                                {...legend}
+                                containerWidth={width}
+                                containerHeight={height}
+                                data={legendData}
+                            />
+                        )
+                    })}
                 </SvgWrapper>
             )}
         </Container>
