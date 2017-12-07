@@ -93,5 +93,5 @@ export const PieDefaultProps = {
     // interactivity
     isInteractive: true,
 
-    legends: []
+    legends: [],
 }

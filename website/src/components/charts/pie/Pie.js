@@ -50,7 +50,10 @@ export default class Pie extends Component {
 
         const mappedSettings = propsMapper(settings)
 
-        const code = generateCode('Pie', mappedSettings, { pkg: '@nivo/pie', defaults: PieDefaultProps })
+        const code = generateCode('Pie', mappedSettings, {
+            pkg: '@nivo/pie',
+            defaults: PieDefaultProps,
+        })
 
         const header = (
             <ChartHeader
@@ -97,6 +100,10 @@ export default class Pie extends Component {
                     >
                         the storybook
                     </a>.
+                </p>
+                <p className="description">
+                    See the <Link to="/guides/legends">dedicated guide</Link> on how to setup
+                    legends for this component.
                 </p>
             </div>
         )

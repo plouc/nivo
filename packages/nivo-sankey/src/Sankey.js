@@ -10,6 +10,7 @@ import React from 'react'
 import { cloneDeep, uniq } from 'lodash'
 import { sankey as d3Sankey } from 'd3-sankey'
 import { Container, SvgWrapper } from '@nivo/core'
+import { BoxLegendSvg } from '@nivo/legends'
 import SankeyNodes from './SankeyNodes'
 import SankeyLinks from './SankeyLinks'
 import SankeyLabels from './SankeyLabels'
@@ -76,6 +77,8 @@ const Sankey = ({
     isInteractive,
     onClick,
     tooltipFormat,
+
+    legends,
 }) => {
     const sankey = d3Sankey()
         .nodeAlign(sankeyAlignmentFromProp(align))
@@ -100,6 +103,11 @@ const Sankey = ({
     data.links.forEach(link => {
         link.color = getLinkColor(link)
     })
+
+    const legendData = data.nodes.map(node => ({
+        label: node.label,
+        fill: node.color,
+    }))
 
     const motionProps = {
         animate,
@@ -187,6 +195,15 @@ const Sankey = ({
                             {...motionProps}
                         />
                     )}
+                    {legends.map((legend, i) => (
+                        <BoxLegendSvg
+                            key={i}
+                            {...legend}
+                            containerWidth={width}
+                            containerHeight={height}
+                            data={legendData}
+                        />
+                    ))}
                 </SvgWrapper>
             )}
         </Container>
