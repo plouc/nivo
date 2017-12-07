@@ -11,7 +11,7 @@ import { patternDotsDef, patternSquaresDef } from '@nivo/core'
 export default {
     margin: {
         top: 50,
-        right: 60,
+        right: 110,
         bottom: 50,
         left: 60,
     },
