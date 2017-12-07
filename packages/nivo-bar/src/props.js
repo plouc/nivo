@@ -9,6 +9,7 @@
 import PropTypes from 'prop-types'
 import { noop } from '@nivo/core'
 import { defsPropTypes } from '@nivo/core'
+import { LegendPropShape } from '@nivo/legends'
 import BarItem from './BarItem'
 
 export const BarPropTypes = {
@@ -65,6 +66,13 @@ export const BarPropTypes = {
 
     // canvas specific
     pixelRatio: PropTypes.number.isRequired,
+
+    legends: PropTypes.arrayOf(
+        PropTypes.shape({
+            dataFrom: PropTypes.oneOf(['indexes', 'keys']).isRequired,
+            ...LegendPropShape,
+        })
+    ).isRequired,
 }
 
 export const BarDefaultProps = {
@@ -110,4 +118,6 @@ export const BarDefaultProps = {
     // canvas specific
     pixelRatio:
         global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
+
+    legends: [],
 }

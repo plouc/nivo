@@ -31,12 +31,12 @@ export default class Bar extends Component {
 
             margin: {
                 top: 50,
-                right: 60,
+                right: 130,
                 bottom: 50,
                 left: 60,
             },
 
-            padding: 0.2,
+            padding: 0.3,
             innerPadding: 0,
             minValue: 'auto',
             maxValue: 'auto',
@@ -132,6 +132,19 @@ export default class Bar extends Component {
 
             // interactivity
             isInteractive: true,
+
+            legends: [
+                {
+                    dataFrom: 'keys',
+                    anchor: 'bottom-right',
+                    direction: 'column',
+                    translateX: 120,
+                    itemWidth: 100,
+                    itemHeight: 20,
+                    itemsSpacing: 2,
+                    symbolSize: 20,
+                },
+            ],
         },
     }
 
@@ -217,6 +230,15 @@ export default class Bar extends Component {
                     >
                         the storybook
                     </a>.
+                </p>
+                <p>
+                    See the <Link to="/guides/legends">dedicated guide</Link> on how to setup
+                    legends for this component.<br />
+                    However it requires an extra property for each legend configuration you pass to{' '}
+                    <code>legends</code> property: <code>dataFrom</code>, it defines how to compute
+                    legend's data and accept <code>indexes</code> or <code>keys</code>.<br />
+                    <code>indexes</code> is suitable for simple bar chart with a single data serie
+                    while <code>keys</code> may be used if you have several ones (groups).
                 </p>
             </div>
         )
