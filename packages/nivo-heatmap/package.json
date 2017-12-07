@@ -1,6 +1,6 @@
 {
   "name": "@nivo/heatmap",
-  "version": "0.33.0-3",
+  "version": "0.33.0-4",
   "license": "MIT",
   "main": "./lib/index.js",
   "module": "es/index.js",
