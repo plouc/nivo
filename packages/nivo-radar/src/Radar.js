@@ -13,11 +13,12 @@ import compose from 'recompose/compose'
 import pure from 'recompose/pure'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import defaultProps from 'recompose/defaultProps'
+import { scaleLinear } from 'd3-scale'
 import { closedCurvePropType } from '@nivo/core'
 import { withTheme, withColors, withCurve, withDimensions, withMotion } from '@nivo/core'
-import { scaleLinear } from 'd3-scale'
 import { getAccessorFor } from '@nivo/core'
 import { Container, SvgWrapper } from '@nivo/core'
+import { LegendPropShape, BoxLegendSvg } from '@nivo/legends'
 import RadarShapes from './RadarShapes'
 import RadarGrid from './RadarGrid'
 import RadarTooltip from './RadarTooltip'
@@ -39,6 +40,8 @@ const Radar = ({
     centerX,
     centerY,
     margin,
+    width,
+    height,
     outerWidth,
     outerHeight,
 
@@ -76,12 +79,19 @@ const Radar = ({
     // interactivity
     isInteractive,
     tooltipFormat,
+
+    legends,
 }) => {
     const motionProps = {
         animate,
         motionDamping,
         motionStiffness,
     }
+
+    const legendData = keys.map(key => ({
+        label: key,
+        fill: colorByKey[key],
+    }))
 
     return (
         <Container isInteractive={isInteractive} theme={theme}>
@@ -146,6 +156,15 @@ const Radar = ({
                             />
                         )}
                     </g>
+                    {legends.map((legend, i) => (
+                        <BoxLegendSvg
+                            key={i}
+                            {...legend}
+                            containerWidth={width}
+                            containerHeight={height}
+                            data={legendData}
+                        />
+                    ))}
                 </SvgWrapper>
             )}
         </Container>
@@ -193,6 +212,8 @@ Radar.propTypes = {
     // interactivity
     isInteractive: PropTypes.bool.isRequired,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+
+    legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
 }
 
 export const RadarDefaultProps = {
@@ -215,6 +236,8 @@ export const RadarDefaultProps = {
 
     // interactivity
     isInteractive: true,
+
+    legends: [],
 }
 
 const enhance = compose(

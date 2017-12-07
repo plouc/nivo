@@ -166,10 +166,12 @@ const Line = ({
                         />
                     )}
                     {legends.map((legend, i) => {
-                        const legendData = lines.map(line => ({
-                            label: line.id,
-                            fill: line.color
-                        })).reverse()
+                        const legendData = lines
+                            .map(line => ({
+                                label: line.id,
+                                fill: line.color,
+                            }))
+                            .reverse()
 
                         return (
                             <BoxLegendSvg
