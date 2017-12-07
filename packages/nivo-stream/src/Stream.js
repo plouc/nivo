@@ -152,10 +152,12 @@ const Stream = ({
                             />
                         )}
                     {legends.map((legend, i) => {
-                        const legendData = enhancedLayers.map(l => ({
-                            label: l.id,
-                            fill: l.color,
-                        })).reverse()
+                        const legendData = enhancedLayers
+                            .map(l => ({
+                                label: l.id,
+                                fill: l.color,
+                            }))
+                            .reverse()
 
                         return (
                             <BoxLegendSvg
