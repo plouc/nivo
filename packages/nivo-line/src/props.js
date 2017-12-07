@@ -81,9 +81,7 @@ export const LinePropTypes = {
     enableStackTooltip: PropTypes.bool.isRequired,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 
-    legends: PropTypes.arrayOf(
-        PropTypes.shape(LegendPropShape)
-    ).isRequired,
+    legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
 }
 
 export const LineDefaultProps = {

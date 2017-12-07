@@ -34,9 +34,9 @@ export default class Line extends Component {
                     itemWidth: 80,
                     itemHeight: 20,
                     symbolSize: 12,
-                    symbolShape: 'circle'
-                }
-            ]
+                    symbolShape: 'circle',
+                },
+            ],
         },
     }
 
@@ -52,7 +52,7 @@ export default class Line extends Component {
 
         const code = generateCode('Line', mappedSettings, {
             pkg: '@nivo/line',
-            defaults: LineDefaultProps
+            defaults: LineDefaultProps,
         })
 
         const header = (
@@ -99,6 +99,10 @@ export default class Line extends Component {
                     >
                         the storybook
                     </a>.
+                </p>
+                <p className="description">
+                    See the <Link to="/guides/legends">dedicated guide</Link> on how to setup
+                    legends for this component.
                 </p>
             </div>
         )
