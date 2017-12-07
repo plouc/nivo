@@ -1,0 +1,82 @@
+capture:
+    baseUrl: http://localhost:3000
+    pages:
+      - path: /#/bar
+        selector: .chart-tabs--chart
+        output: ./packages/nivo-bar/doc/bar.png
+
+      - path: /#/bar/canvas
+        selector: .chart-tabs--chart
+        output: ./packages/nivo-bar/doc/bar-canvas.png
+
+      - path: /#/calendar
+        selector: .chart-tabs--chart
+        output: ./packages/nivo-calendar/doc/calendar.png
+
+      - path: /#/chord
+        selector: .chart-tabs--chart
+        output: ./packages/nivo-chord/doc/chord.png
+
+      - path: /#/chord/canvas
+        selector: .chart-tabs--chart
+        output: ./packages/nivo-chord/doc/chord-canvas.png
+
+      - path: /#/bubble
+        selector: .chart-tabs--chart
+        output: ./packages/nivo-circle-packing/doc/bubble.png
+
+      - path: /#/bubble/html
+        selector: .chart-tabs--chart
+        output: ./packages/nivo-circle-packing/doc/bubble-html.png
+
+      - path: /#/bubble/canvas
+        selector: .chart-tabs--chart
+        output: ./packages/nivo-circle-packing/doc/bubble-canvas.png
+
+      - path: /#/heatmap
+        selector: .chart-tabs--chart
+        output: ./packages/nivo-heatmap/doc/heatmap.png
+
+      - path: /#/heatmap/canvas
+        selector: .chart-tabs--chart
+        output: ./packages/nivo-heatmap/doc/heatmap-canvas.png
+
+      - path: /#/line
+        selector: .chart-tabs--chart
+        output: ./packages/nivo-line/doc/line.png
+
+      - path: /#/pie
+        selector: .chart-tabs--chart
+        output: ./packages/nivo-pie/doc/pie.png
+
+      - path: /#/radar
+        selector: .chart-tabs--chart
+        output: ./packages/nivo-radar/doc/radar.png
+
+      - path: /#/sankey
+        selector: .chart-tabs--chart
+        output: ./packages/nivo-sankey/doc/sankey.png
+
+      - path: /#/stream
+        selector: .chart-tabs--chart
+        output: ./packages/nivo-stream/doc/stream.png
+
+      - path: /#/sunburst
+        selector: .chart-tabs--chart
+        output: ./packages/nivo-sunburst/doc/sunburst.png
+
+      - path: /#/treemap
+        selector: .chart-tabs--chart
+        output: ./packages/nivo-treemap/doc/treemap.png
+
+      - path: /#/treemap/html
+        selector: .chart-tabs--chart
+        output: ./packages/nivo-treemap/doc/treemap-html.png
+
+      - path: /#/treemap/canvas
+        selector: .chart-tabs--chart
+        output: ./packages/nivo-treemap/doc/treemap-canvas.png
+
+      - path: /#/voronoi
+        selector: .chart-tabs--chart
+        output: ./packages/nivo-voronoi/doc/voronoi.png
