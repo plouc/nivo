@@ -1,6 +1,6 @@
 SOURCES = packages
 
-.PHONY: help bootstrap init packages-build packages-publish clean-all website website-build website-deploy storybook storybook-build storybook-deploy deploy-all
+.PHONY: help bootstrap init packages-build packages-publish clean-all website-install website website-build website-deploy storybook storybook-build storybook-deploy deploy-all
 
 ########################################################################################################################
 #
@@ -49,7 +49,7 @@ init: ##@init cleanup/install/bootstrap
 	@yarn install
 	@make bootstrap
 	@make packages-build
-	@cd website && yarn install
+	@make website-install
 
 ########################################################################################################################
 #
@@ -136,6 +136,10 @@ package-dev-%: ##@packages setup package for development, link to website, run w
 #
 ########################################################################################################################
 
+website-install: ##@website install website dependencies
+	@echo "${YELLOW}INstalling website dependencies${RESET}"
+	@cd website && yarn install
+
 website: ##@website start website in dev mode
 	@echo "${YELLOW}Starting website dev server${RESET}"
 	@cd website && yarn start
@@ -166,7 +170,7 @@ website-links-rm: ##@website unlink all linked packages
     find node_modules node_modules/\@* -depth 1 -type l -print | awk -F/ '{print $$(NF)}' | while read MODULE; do \
         yarn unlink "@nivo/$${MODULE}"; \
     done
-	@cd website && yarn install
+	@make website-install
 
 ########################################################################################################################
 #
