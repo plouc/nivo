@@ -9,13 +9,14 @@
 import React from 'react'
 import { TransitionMotion, spring } from 'react-motion'
 import { bindDefs } from '@nivo/core'
+import { Container, SvgWrapper } from '@nivo/core'
+import { Grid, Axes } from '@nivo/core'
+import { CartesianMarkers } from '@nivo/core'
+import { BoxLegendSvg } from '@nivo/legends'
 import { generateGroupedBars, generateStackedBars } from './compute'
 import setDisplayName from 'recompose/setDisplayName'
 import enhance from './enhance'
 import { BarPropTypes } from './props'
-import { Container, SvgWrapper } from '@nivo/core'
-import { Grid, Axes } from '@nivo/core'
-import { CartesianMarkers } from '@nivo/core'
 
 const barWillEnterHorizontal = ({ style }) => ({
     x: style.x.val,
@@ -103,6 +104,8 @@ const Bar = ({
     isInteractive,
     tooltipFormat,
     onClick,
+
+    legends,
 }) => {
     const options = {
         layout,
@@ -149,6 +152,19 @@ const Bar = ({
         dataKey: 'data',
         targetKey: 'data.fill',
     })
+
+    const legendDataForKeys = result.bars
+        .filter(bar => bar.data.index === 0)
+        .map(bar => ({
+            label: bar.data.id,
+            fill: bar.data.fill ? bar.data.fill : bar.color,
+        }))
+        .reverse()
+
+    const legendDataForIndexes = result.bars.filter(bar => bar.data.id === keys[0]).map(bar => ({
+        label: bar.data.indexValue,
+        fill: bar.data.fill ? bar.data.fill : bar.color,
+    }))
 
     return (
         <Container isInteractive={isInteractive} theme={theme}>
@@ -254,6 +270,26 @@ const Bar = ({
                             yScale={result.yScale}
                             theme={theme}
                         />
+                        {legends.map((legend, i) => {
+                            let legendData
+                            if (legend.dataFrom === 'keys') {
+                                legendData = legendDataForKeys
+                            } else if (legend.dataFrom === 'indexes') {
+                                legendData = legendDataForIndexes
+                            }
+
+                            if (legendData === undefined) return null
+
+                            return (
+                                <BoxLegendSvg
+                                    key={i}
+                                    {...legend}
+                                    containerWidth={width}
+                                    containerHeight={height}
+                                    data={legendData}
+                                />
+                            )
+                        })}
                     </SvgWrapper>
                 )
             }}
