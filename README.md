@@ -40,61 +40,63 @@ yarn add @nivo/bar @nivo/sankey ...
 
 Join the [nivo discord community](https://discord.gg/n7Ft74f).
 
-## Components
+## Packages & components
 
-* Bar `@nivo/bar` [![@nivo/bar NPM version](https://img.shields.io/npm/v/@nivo/bar.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/bar)
-  * [`<Bar/>`](http://nivo.rocks/#/bar)
-  * [`<ResponsiveBar/>`](http://nivo.rocks/#/bar)
-  * [`<BarCanvas/>`](http://nivo.rocks/#/bar/canvas)
-  * [`<ResponsiveBarCanvas/>`](http://nivo.rocks/#/bar/canvas)
-* Bubble `@nivo/circle-packing` [![@nivo/circle-packing NPM version](https://img.shields.io/npm/v/@nivo/circle-packing.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/circle-packing)
-  * [`<Bubble/>`](http://nivo.rocks/#/bubble)
-  * [`<ResponsiveBubble/>`](http://nivo.rocks/#/bubble)
-  * [`<BubbleHtml/>`](http://nivo.rocks/#/bubble/html)
-  * [`<ResponsiveBubbleHtml/>`](http://nivo.rocks/#/bubble/html)
-  * [`<BubbleCanvas/>`](http://nivo.rocks/#/bubble/canvas)
-  * [`<ResponsiveBubbleCanvas/>`](http://nivo.rocks/#/bubble/canvas)
-* Calendar `@nivo/calendar` [![@nivo/calendar NPM version](https://img.shields.io/npm/v/@nivo/calendar.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/calendar)
-  * [`<Calendar/>`](http://nivo.rocks/#/calendar)
-  * [`<ResponsiveCalendar/>`](http://nivo.rocks/#/calendar)
-* Chord `@nivo/chord` [![@nivo/chord NPM version](https://img.shields.io/npm/v/@nivo/chord.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/chord)
-  * [`<Chord/>`](http://nivo.rocks/#/chord)
-  * [`<ResponsiveChord/>`](http://nivo.rocks/#/chord)
-  * [`<ChordCanvas/>`](http://nivo.rocks/#/chord/canvas)
-  * [`<ResponsiveChordCanvas/>`](http://nivo.rocks/#/chord/canvas)
-* HeatMap `@nivo/heatmap` [![@nivo/heatmap NPM version](https://img.shields.io/npm/v/@nivo/heatmap.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/heatmap)
-  * [`<HeatMap/>`](http://nivo.rocks/#/heatmap)
-  * [`<ResponsiveHeatMap/>`](http://nivo.rocks/#/heatmap)
-  * [`<HeatMapCanvas/>`](http://nivo.rocks/#/heatmap/canvas)
-  * [`<ResponsiveHeatMapCanvas/>`](http://nivo.rocks/#/heatmap/canvas)
-* Line `@nivo/line` [![@nivo/line NPM version](https://img.shields.io/npm/v/@nivo/line.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/line)
-  * [`<Line/>`](http://nivo.rocks/#/line)
-  * [`<ResponsiveLine/>`](http://nivo.rocks/#/line)
-* Pie `@nivo/pie` [![@nivo/pie NPM version](https://img.shields.io/npm/v/@nivo/pie.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/pie)
-  * [`<Pie/>`](http://nivo.rocks/#/pie)
-  * [`<ResponsivePie/>`](http://nivo.rocks/#/pie)
-* Radar `@nivo/radar` [![@nivo/radar NPM version](https://img.shields.io/npm/v/@nivo/radar.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/radar)
-  * [`<Radar/>`](http://nivo.rocks/#/radar)
-  * [`<ResponsiveRadar/>`](http://nivo.rocks/#/radar)
-* Sankey `@nivo/sankey` [![@nivo/sankey NPM version](https://img.shields.io/npm/v/@nivo/sankey.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/sankey)
-  * [`<Sankey/>`](http://nivo.rocks/#/sankey)
-  * [`<ResponsiveSankey/>`](http://nivo.rocks/#/sankey)
-* Stream `@nivo/stream` [![@nivo/stream NPM version](https://img.shields.io/npm/v/@nivo/stream.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/stream)
-  * [`<Stream/>`](http://nivo.rocks/#/stream)
-  * [`<ResponsiveStream/>`](http://nivo.rocks/#/stream)
-* Sunburst `@nivo/sunburst` [![@nivo/sunburst NPM version](https://img.shields.io/npm/v/@nivo/sunburst.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/sunburst)
-  * [`<Sunburst/>`](http://nivo.rocks/#/sunburst)
-  * [`<ResponsiveSunburst/>`](http://nivo.rocks/#/sunburst)
-* TreeMap `@nivo/treemap` [![@nivo/treemap NPM version](https://img.shields.io/npm/v/@nivo/treemap.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/treemap)
-  * [`<TreeMap/>`](http://nivo.rocks/#/treemap)
-  * [`<ResponsiveTreeMap/>`](http://nivo.rocks/#/treemap)
-  * [`<TreeMapHTML/>`](http://nivo.rocks/#/treemap/html)
-  * [`<ResponsiveTreeMapHTML/>`](http://nivo.rocks/#/treemap/html)
-  * [`<TreeMapCanvas/>`](http://nivo.rocks/#/treemap/canvas)
-  * [`<ResponsiveTreeMapCanvas/>`](http://nivo.rocks/#/treemap/canvas)
-* Voronoi `@nivo/voronoi` [![@nivo/voronoi NPM version](https://img.shields.io/npm/v/@nivo/voronoi.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/voronoi)
-  * [`<Voronoi/>`](http://nivo.rocks/#/voronoi)
-  * [`<ResponsiveVoronoi/>`](http://nivo.rocks/#/voronoi)
+| package                                                                                          |                                                                                                                                                                    |
+| :----------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`@nivo/bar`](https://github.com/plouc/nivo/tree/master/packages/nivo-bar)                       | [![@nivo/bar NPM version](https://img.shields.io/npm/v/@nivo/bar.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/bar)                                  |
+|                                                                                                  | [`<Bar/>`](http://nivo.rocks/#/bar)                                                                                                                                |
+|                                                                                                  | [`<ResponsiveBar/>`](http://nivo.rocks/#/bar)                                                                                                                      |
+|                                                                                                  | [`<BarCanvas/>`](http://nivo.rocks/#/bar/canvas)                                                                                                                   |
+|                                                                                                  | [`<ResponsiveBarCanvas/>`](http://nivo.rocks/#/bar/canvas)                                                                                                         |
+| [`@nivo/circle-packing`](https://github.com/plouc/nivo/tree/master/packages/nivo-circle-packing) | [![@nivo/circle-packing NPM version](https://img.shields.io/npm/v/@nivo/circle-packing.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/circle-packing) |
+|                                                                                                  | [`<Bubble/>`](http://nivo.rocks/#/bubble)                                                                                                                          |
+|                                                                                                  | [`<ResponsiveBubble/>`](http://nivo.rocks/#/bubble)                                                                                                                |
+|                                                                                                  | [`<BubbleHtml/>`](http://nivo.rocks/#/bubble/html)                                                                                                                 |
+|                                                                                                  | [`<ResponsiveBubbleHtml/>`](http://nivo.rocks/#/bubble/html)                                                                                                       |
+|                                                                                                  | [`<BubbleCanvas/>`](http://nivo.rocks/#/bubble/canvas)                                                                                                             |
+|                                                                                                  | [`<ResponsiveBubbleCanvas/>`](http://nivo.rocks/#/bubble/canvas)                                                                                                   |
+| [`@nivo/calendar`](https://github.com/plouc/nivo/tree/master/packages/nivo-calendar)             | [![@nivo/calendar NPM version](https://img.shields.io/npm/v/@nivo/calendar.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/calendar)                   |
+|                                                                                                  | [`<Calendar/>`](http://nivo.rocks/#/calendar)                                                                                                                      |
+|                                                                                                  | [`<ResponsiveCalendar/>`](http://nivo.rocks/#/calendar)                                                                                                            |
+| [`@nivo/chord`](https://github.com/plouc/nivo/tree/master/packages/nivo-chord)                   | [![@nivo/chord NPM version](https://img.shields.io/npm/v/@nivo/chord.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/chord)                            |
+|                                                                                                  | [`<Chord/>`](http://nivo.rocks/#/chord)                                                                                                                            |
+|                                                                                                  | [`<ResponsiveChord/>`](http://nivo.rocks/#/chord)                                                                                                                  |
+|                                                                                                  | [`<ChordCanvas/>`](http://nivo.rocks/#/chord/canvas)                                                                                                               |
+|                                                                                                  | [`<ResponsiveChordCanvas/>`](http://nivo.rocks/#/chord/canvas)                                                                                                     |
+| [`@nivo/heatmap`](https://github.com/plouc/nivo/tree/master/packages/nivo-heatmap)               | [![@nivo/heatmap NPM version](https://img.shields.io/npm/v/@nivo/heatmap.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/heatmap)                      |
+|                                                                                                  | [`<HeatMap/>`](http://nivo.rocks/#/heatmap)                                                                                                                        |
+|                                                                                                  | [`<ResponsiveHeatMap/>`](http://nivo.rocks/#/heatmap)                                                                                                              |
+|                                                                                                  | [`<HeatMapCanvas/>`](http://nivo.rocks/#/heatmap/canvas)                                                                                                           |
+|                                                                                                  | [`<ResponsiveHeatMapCanvas/>`](http://nivo.rocks/#/heatmap/canvas)                                                                                                 |
+| [`@nivo/line`](https://github.com/plouc/nivo/tree/master/packages/nivo-line)                     | [![@nivo/line NPM version](https://img.shields.io/npm/v/@nivo/line.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/line)                               |
+|                                                                                                  | [`<Line/>`](http://nivo.rocks/#/line)                                                                                                                              |
+|                                                                                                  | [`<ResponsiveLine/>`](http://nivo.rocks/#/line)                                                                                                                    |
+| [`@nivo/pie`](https://github.com/plouc/nivo/tree/master/packages/nivo-pie)                       | [![@nivo/pie NPM version](https://img.shields.io/npm/v/@nivo/pie.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/pie)                                  |
+|                                                                                                  | [`<Pie/>`](http://nivo.rocks/#/pie)                                                                                                                                |
+|                                                                                                  | [`<ResponsivePie/>`](http://nivo.rocks/#/pie)                                                                                                                      |
+| [`@nivo/radar`](https://github.com/plouc/nivo/tree/master/packages/nivo-radar)                   | [![@nivo/radar NPM version](https://img.shields.io/npm/v/@nivo/radar.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/radar)                            |
+|                                                                                                  | [`<Radar/>`](http://nivo.rocks/#/radar)                                                                                                                            |
+|                                                                                                  | [`<ResponsiveRadar/>`](http://nivo.rocks/#/radar)                                                                                                                  |
+| [`@nivo/sankey`](https://github.com/plouc/nivo/tree/master/packages/nivo-sankey)                 | [![@nivo/sankey NPM version](https://img.shields.io/npm/v/@nivo/sankey.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/sankey)                         |
+|                                                                                                  | [`<Sankey/>`](http://nivo.rocks/#/sankey)                                                                                                                          |
+|                                                                                                  | [`<ResponsiveSankey/>`](http://nivo.rocks/#/sankey)                                                                                                                |
+| [`@nivo/stream`](https://github.com/plouc/nivo/tree/master/packages/nivo-stream)                 | [![@nivo/stream NPM version](https://img.shields.io/npm/v/@nivo/stream.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/stream)                         |
+|                                                                                                  | [`<Stream/>`](http://nivo.rocks/#/stream)                                                                                                                          |
+|                                                                                                  | [`<ResponsiveStream/>`](http://nivo.rocks/#/stream)                                                                                                                |
+| [`@nivo/sunburst`](https://github.com/plouc/nivo/tree/master/packages/nivo-sunburst)             | [![@nivo/sunburst NPM version](https://img.shields.io/npm/v/@nivo/sunburst.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/sunburst)                   |
+|                                                                                                  | [`<Sunburst/>`](http://nivo.rocks/#/sunburst)                                                                                                                      |
+|                                                                                                  | [`<ResponsiveSunburst/>`](http://nivo.rocks/#/sunburst)                                                                                                            |
+| [`@nivo/treemap`](https://github.com/plouc/nivo/tree/master/packages/nivo-treemap)               | [![@nivo/treemap NPM version](https://img.shields.io/npm/v/@nivo/treemap.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/treemap)                      |
+|                                                                                                  | [`<TreeMap/>`](http://nivo.rocks/#/treemap)                                                                                                                        |
+|                                                                                                  | [`<ResponsiveTreeMap/>`](http://nivo.rocks/#/treemap)                                                                                                              |
+|                                                                                                  | [`<TreeMapHTML/>`](http://nivo.rocks/#/treemap/html)                                                                                                               |
+|                                                                                                  | [`<ResponsiveTreeMapHTML/>`](http://nivo.rocks/#/treemap/html)                                                                                                     |
+|                                                                                                  | [`<TreeMapCanvas/>`](http://nivo.rocks/#/treemap/canvas)                                                                                                           |
+|                                                                                                  | [`<ResponsiveTreeMapCanvas/>`](http://nivo.rocks/#/treemap/canvas)                                                                                                 |
+| [`@nivo/voronoi`](https://github.com/plouc/nivo/tree/master/packages/nivo-voronoi)               | [![@nivo/voronoi NPM version](https://img.shields.io/npm/v/@nivo/voronoi.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/voronoi)                      |
+|                                                                                                  | [`<Voronoi/>`](http://nivo.rocks/#/voronoi)                                                                                                                        |
+|                                                                                                  | [`<ResponsiveVoronoi/>`](http://nivo.rocks/#/voronoi)                                                                                                              |
 
 ## [HTTP API](https://github.com/plouc/nivo-api)
 
