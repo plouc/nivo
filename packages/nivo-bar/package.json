@@ -1,6 +1,6 @@
 {
   "name": "@nivo/bar",
-  "version": "0.33.0-2",
+  "version": "0.33.0-3",
   "license": "MIT",
   "main": "./lib/index.js",
   "module": "es/index.js",
