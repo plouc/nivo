@@ -112,6 +112,7 @@ Join the [nivo discord community](https://discord.gg/n7Ft74f).
 ## Guides
 
 * [colors](http://nivo.rocks/#/guides/colors)
+* [legends](http://nivo.rocks/#/guides/legends)
 * [gradients](http://nivo.rocks/#/guides/gradients)
 * [patterns](http://nivo.rocks/#/guides/patterns)
 
