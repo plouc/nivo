@@ -8,6 +8,7 @@
  */
 import React from 'react'
 import { Container, SvgWrapper } from '@nivo/core'
+import { BoxLegendSvg } from '@nivo/legends'
 import enhance from './enhance'
 import setDisplayName from 'recompose/setDisplayName'
 import { ChordPropTypes } from './props'
@@ -60,6 +61,8 @@ const Chord = ({
     setCurrentRibbon,
     getArcOpacity,
     getRibbonOpacity,
+
+    legends,
 }) => {
     const centerX = width / 2
     const centerY = height / 2
@@ -69,6 +72,11 @@ const Chord = ({
         motionDamping,
         motionStiffness,
     }
+
+    const legendData = arcs.map(arc => ({
+        label: arc.id,
+        fill: arc.color,
+    }))
 
     return (
         <Container isInteractive={isInteractive} theme={theme}>
@@ -114,6 +122,15 @@ const Chord = ({
                                 />
                             )}
                         </g>
+                        {legends.map((legend, i) => (
+                            <BoxLegendSvg
+                                key={i}
+                                {...legend}
+                                containerWidth={width}
+                                containerHeight={height}
+                                data={legendData}
+                            />
+                        ))}
                     </SvgWrapper>
                 )
             }}

@@ -30,7 +30,7 @@ export default class Chord extends Component {
             margin: {
                 top: 60,
                 right: 60,
-                bottom: 60,
+                bottom: 90,
                 left: 60,
             },
 
@@ -77,6 +77,18 @@ export default class Chord extends Component {
             animate: true,
             motionStiffness: 90,
             motionDamping: 7,
+
+            legends: [
+                {
+                    anchor: 'bottom',
+                    direction: 'row',
+                    translateY: 70,
+                    itemWidth: 80,
+                    itemHeight: 14,
+                    symbolSize: 14,
+                    symbolShape: 'circle',
+                },
+            ],
         },
     }
 
@@ -147,6 +159,10 @@ export default class Chord extends Component {
                         sample
                     </a>{' '}
                     or <Link to="/chord/api">try it using the API client</Link>.
+                </p>
+                <p className="description">
+                    See the <Link to="/guides/legends">dedicated guide</Link> on how to setup
+                    legends for this component.
                 </p>
             </div>
         )
