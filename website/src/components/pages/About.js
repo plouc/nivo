@@ -126,7 +126,25 @@ const About = () => (
                         >
                             nivo
                         </a>{' '}
-                        - nivo packages & website
+                        - nivo{' '}
+                        <a
+                            href="https://www.npmjs.com/~nivo"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            packages
+                        </a>,{' '}
+                        <a href="http://nivo.rocks" target="_blank" rel="noopener noreferrer">
+                            website
+                        </a>,{' '}
+                        <a
+                            href="http://nivo.rocks/storybook/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            storybook
+                        </a>{' '}
+                        and examples
                     </li>
                     <li>
                         <a
@@ -147,16 +165,6 @@ const About = () => (
                             nivo-api-docker
                         </a>{' '}
                         - a Docker image for the nivo http api
-                    </li>
-                    <li>
-                        <a
-                            href="https://github.com/plouc/nivo-generators"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            nivo-generators
-                        </a>{' '}
-                        - the data generators used for nivo-website and http API samples
                     </li>
                 </ul>
             </div>

@@ -14,7 +14,6 @@ import setDisplayName from 'recompose/setDisplayName'
 import enhance from './enhance'
 import { BarPropTypes } from './props'
 import { Container, SvgWrapper } from '@nivo/core'
-import { BoxLegendSvg } from '@nivo/legends'
 import { Grid, Axes } from '@nivo/core'
 import { CartesianMarkers } from '@nivo/core'
 
@@ -255,120 +254,6 @@ const Bar = ({
                             yScale={result.yScale}
                             theme={theme}
                         />
-                        <g transform={`translate(${-margin.left},${-margin.top})`}>
-                            <BoxLegendSvg
-                                containerWidth={outerWidth}
-                                containerHeight={outerHeight}
-                                itemWidth={100}
-                                itemHeight={24}
-                                direction="row"
-                                anchor="top"
-                                height={36}
-                                data={keys}
-                            />
-                            <BoxLegendSvg
-                                containerWidth={outerWidth}
-                                containerHeight={outerHeight}
-                                itemWidth={100}
-                                itemHeight={24}
-                                direction="column"
-                                anchor="top-right"
-                                height={36}
-                                data={keys}
-                            />
-                            <BoxLegendSvg
-                                containerWidth={outerWidth}
-                                containerHeight={outerHeight}
-                                itemWidth={100}
-                                itemHeight={24}
-                                direction="column"
-                                anchor="right"
-                                justify={true}
-                                height={36}
-                                data={keys}
-                            />
-                            <BoxLegendSvg
-                                containerWidth={outerWidth}
-                                containerHeight={outerHeight}
-                                itemWidth={64}
-                                itemHeight={42}
-                                direction="row"
-                                anchor="bottom"
-                                height={36}
-                                data={keys}
-                                itemDirection="top-to-bottom"
-                            />
-                            <BoxLegendSvg
-                                containerWidth={outerWidth}
-                                containerHeight={outerHeight}
-                                itemWidth={100}
-                                itemHeight={36}
-                                direction="column"
-                                anchor="bottom-right"
-                                itemDirection="bottom-to-top"
-                                height={36}
-                                data={keys}
-                            />
-                            <BoxLegendSvg
-                                containerWidth={outerWidth}
-                                containerHeight={outerHeight}
-                                itemWidth={100}
-                                itemHeight={24}
-                                margin={margin}
-                                direction="column"
-                                anchor="left"
-                                itemDirection="right-to-left"
-                                height={36}
-                                data={keys}
-                            />
-                            <BoxLegendSvg
-                                containerWidth={outerWidth}
-                                containerHeight={outerHeight}
-                                itemWidth={100}
-                                itemHeight={24}
-                                direction="column"
-                                anchor="bottom-left"
-                                itemDirection="right-to-left"
-                                justify={true}
-                                height={36}
-                                data={keys}
-                            />
-                            <BoxLegendSvg
-                                containerWidth={outerWidth}
-                                containerHeight={outerHeight}
-                                itemWidth={100}
-                                itemHeight={36}
-                                direction="column"
-                                anchor="top-left"
-                                itemDirection="top-to-bottom"
-                                height={36}
-                                data={keys}
-                            />
-                            <BoxLegendSvg
-                                containerWidth={outerWidth}
-                                containerHeight={outerHeight}
-                                itemWidth={100}
-                                itemHeight={42}
-                                direction="column"
-                                anchor="top"
-                                itemDirection="top-to-bottom"
-                                justify={true}
-                                height={36}
-                                data={keys}
-                            />
-                            <BoxLegendSvg
-                                containerWidth={outerWidth}
-                                containerHeight={outerHeight}
-                                itemWidth={100}
-                                itemHeight={42}
-                                direction="column"
-                                anchor="bottom"
-                                itemDirection="bottom-to-top"
-                                justify={true}
-                                height={36}
-                                data={keys}
-                            />
-                        </g>
                     </SvgWrapper>
                 )
             }}

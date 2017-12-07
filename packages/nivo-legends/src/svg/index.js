@@ -8,3 +8,4 @@
  */
 export { default as BoxLegendSvg } from './BoxLegendSvg'
 export { default as LegendSvg } from './LegendSvg'
+export { default as LegendSvgItem } from './LegendSvgItem'

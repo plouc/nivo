@@ -1,5 +1,6 @@
 {
   "name": "@nivo/legends",
+  "description": "legend components for nivo dataviz library",
   "version": "0.32.0",
   "license": "MIT",
   "main": "./lib/index.js",

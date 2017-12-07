@@ -218,6 +218,10 @@ export default class Bar extends Component {
                         the storybook
                     </a>.
                 </p>
+                <p className="description">
+                    See the <Link to="/guides/legends">dedicated guide</Link> on how to setup
+                    legends for this component.
+                </p>
             </div>
         )
 

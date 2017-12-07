@@ -14,36 +14,16 @@ import {
     DIRECTION_TOP_TO_BOTTOM,
     DIRECTION_BOTTOM_TO_TOP,
 } from '../constants'
+import { SymbolCircle, SymbolDiamond, SymbolSquare, SymbolTriangle } from './symbols'
+
+const symbolByShape = {
+    circle: SymbolCircle,
+    diamond: SymbolDiamond,
+    square: SymbolSquare,
+    triangle: SymbolTriangle,
+}
 
 class LegendSvgItem extends Component {
-    static propTypes = {
-        x: PropTypes.number.isRequired,
-        y: PropTypes.number.isRequired,
-        width: PropTypes.number.isRequired,
-        height: PropTypes.number.isRequired,
-
-        symbolSize: PropTypes.number.isRequired,
-        symbolSpacing: PropTypes.number.isRequired,
-
-        label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-        fill: PropTypes.string.isRequired,
-
-        direction: PropTypes.oneOf([
-            DIRECTION_LEFT_TO_RIGHT,
-            DIRECTION_RIGHT_TO_LEFT,
-            DIRECTION_TOP_TO_BOTTOM,
-            DIRECTION_BOTTOM_TO_TOP,
-        ]).isRequired,
-        justify: PropTypes.bool.isRequired,
-    }
-
-    static defaultProps = {
-        direction: DIRECTION_LEFT_TO_RIGHT,
-        justify: false,
-        symbolSize: 16,
-        symbolSpacing: 6,
-    }
-
     render() {
         const {
             x,
@@ -52,6 +32,7 @@ class LegendSvgItem extends Component {
             height,
             symbolSize,
             symbolSpacing,
+            symbolShape,
             label,
             fill,
             direction,
@@ -129,15 +110,11 @@ class LegendSvgItem extends Component {
                 break
         }
 
+        const Symbol = symbolByShape[symbolShape]
+
         return (
             <g transform={`translate(${x},${y})`}>
-                <rect
-                    x={symbolX}
-                    y={symbolY}
-                    fill="violet"
-                    width={symbolSize}
-                    height={symbolSize}
-                />
+                <Symbol x={symbolX} y={symbolY} size={symbolSize} fill={fill} />
                 <text
                     textAnchor={labelAnchor}
                     style={{ fill: 'black', alignmentBaseline: labelAlignment }}
@@ -148,6 +125,39 @@ class LegendSvgItem extends Component {
                 </text>
             </g>
         )
+    }
+
+    static propTypes = {
+        x: PropTypes.number.isRequired,
+        y: PropTypes.number.isRequired,
+        width: PropTypes.number.isRequired,
+        height: PropTypes.number.isRequired,
+
+        symbolSize: PropTypes.number.isRequired,
+        symbolSpacing: PropTypes.number.isRequired,
+        symbolShape: PropTypes.oneOfType([
+            PropTypes.oneOf(Object.keys(symbolByShape)),
+            PropTypes.func,
+        ]).isRequired,
+
+        label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        fill: PropTypes.string.isRequired,
+
+        direction: PropTypes.oneOf([
+            DIRECTION_LEFT_TO_RIGHT,
+            DIRECTION_RIGHT_TO_LEFT,
+            DIRECTION_TOP_TO_BOTTOM,
+            DIRECTION_BOTTOM_TO_TOP,
+        ]).isRequired,
+        justify: PropTypes.bool.isRequired,
+    }
+
+    static defaultProps = {
+        direction: DIRECTION_LEFT_TO_RIGHT,
+        justify: false,
+        symbolSize: 16,
+        symbolSpacing: 8,
+        symbolShape: 'square',
     }
 }
 

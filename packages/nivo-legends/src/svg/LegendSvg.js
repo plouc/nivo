@@ -9,6 +9,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import LegendSvgItem from './LegendSvgItem'
+import { computeDimensions } from '../compute'
 import {
     DIRECTION_COLUMN,
     DIRECTION_ROW,
@@ -24,9 +25,8 @@ const LegendSvg = ({
     // position/layout
     x,
     y,
-    width,
-    height,
     direction,
+    padding: _padding,
     justify,
 
     // items
@@ -36,30 +36,44 @@ const LegendSvg = ({
     itemsSpacing,
     symbolSize,
     symbolSpacing,
+    symbolShape,
 }) => {
+    const { width, height, padding } = computeDimensions({
+        itemCount: data.length,
+        itemWidth,
+        itemHeight,
+        itemsSpacing,
+        direction,
+        padding: _padding,
+    })
+
     let xStep = 0
     let yStep = 0
     if (direction === DIRECTION_ROW) {
-        xStep = itemWidth
+        xStep = itemWidth + itemsSpacing
     } else if (direction === DIRECTION_COLUMN) {
-        yStep = itemHeight
+        yStep = itemHeight + itemsSpacing
     }
 
     return (
         <g transform={`translate(${x},${y})`}>
+            {/*
             <rect fill="white" stroke="black" width={width} height={height} />
-            {data.map((d, i) => (
+            */}
+            {data.map(({ label, fill }, i) => (
                 <LegendSvgItem
                     key={i}
-                    x={i * xStep}
-                    y={i * yStep}
+                    x={i * xStep + padding.left}
+                    y={i * yStep + padding.top}
                     width={itemWidth}
                     height={itemHeight}
                     symbolSize={symbolSize}
                     symbolSpacing={symbolSpacing}
+                    symbolShape={symbolShape}
                     direction={itemDirection}
                     justify={justify}
-                    label={d}
+                    label={label}
+                    fill={fill}
                 />
             ))}
         </g>
@@ -67,14 +81,26 @@ const LegendSvg = ({
 }
 
 LegendSvg.propTypes = {
-    data: PropTypes.array.isRequired,
+    data: PropTypes.arrayOf(
+        PropTypes.shape({
+            label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+            fill: PropTypes.string.isRequired,
+        })
+    ).isRequired,
 
     // position/layout
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
     direction: PropTypes.oneOf([DIRECTION_COLUMN, DIRECTION_ROW]).isRequired,
+    padding: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.shape({
+            top: PropTypes.number,
+            right: PropTypes.number,
+            bottom: PropTypes.number,
+            left: PropTypes.number,
+        }),
+    ]).isRequired,
     justify: PropTypes.bool.isRequired,
 
     // items
@@ -89,11 +115,12 @@ LegendSvg.propTypes = {
     itemsSpacing: PropTypes.number.isRequired,
     symbolSize: PropTypes.number,
     symbolSpacing: PropTypes.number,
+    symbolShape: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 }
 
 LegendSvg.defaultProps = {
     // position/layout
-    direction: DIRECTION_COLUMN,
+    padding: 0,
     justify: false,
 
     // items
