@@ -11,6 +11,7 @@ import { min, max, range, sortBy } from 'lodash'
 import { bindDefs } from '@nivo/core'
 import { Container, SvgWrapper } from '@nivo/core'
 import { Axes, Grid } from '@nivo/core'
+import { BoxLegendSvg } from '@nivo/legends'
 import StreamLayers from './StreamLayers'
 import StreamSlices from './StreamSlices'
 import { StreamPropTypes } from './props'
@@ -59,6 +60,8 @@ const Stream = ({
 
     // stack tooltip
     enableStackTooltip,
+
+    legends,
 }) => {
     const enhancedLayers = layers.map((points, i) => {
         const layer = points.map((point, i) => ({
@@ -148,6 +151,22 @@ const Stream = ({
                                 tooltipFormat={tooltipFormat}
                             />
                         )}
+                    {legends.map((legend, i) => {
+                        const legendData = enhancedLayers.map(l => ({
+                            label: l.id,
+                            fill: l.color,
+                        })).reverse()
+
+                        return (
+                            <BoxLegendSvg
+                                key={i}
+                                {...legend}
+                                containerWidth={width}
+                                containerHeight={height}
+                                data={legendData}
+                            />
+                        )
+                    })}
                 </SvgWrapper>
             )}
         </Container>

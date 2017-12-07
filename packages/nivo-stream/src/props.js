@@ -8,6 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import { areaCurvePropType, stackOrderPropType, stackOffsetPropType } from '@nivo/core'
+import { LegendPropShape } from '@nivo/legends'
 
 export const StreamPropTypes = {
     // data
@@ -55,6 +56,8 @@ export const StreamPropTypes = {
     isInteractive: PropTypes.bool,
     enableStackTooltip: PropTypes.bool.isRequired,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+
+    legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
 }
 
 export const StreamDefaultProps = {
@@ -81,4 +84,6 @@ export const StreamDefaultProps = {
 
     // stack tooltip
     enableStackTooltip: true,
+
+    legends: [],
 }
