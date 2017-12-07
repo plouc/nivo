@@ -12,7 +12,7 @@ export default {
     height: 800,
 
     margin: {
-        top: 80,
+        top: 40,
         right: 80,
         bottom: 80,
         left: 80,
@@ -24,7 +24,7 @@ export default {
     cornerRadius: 3,
 
     // Styling
-    colors: 'nivo',
+    colors: 'd320c',
     colorBy: 'id',
 
     // border

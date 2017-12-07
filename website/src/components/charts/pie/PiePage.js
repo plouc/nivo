@@ -11,7 +11,7 @@ import Helmet from 'react-helmet'
 import { generateProgrammingLanguageStats } from '@nivo/generators'
 
 const generateData = () => {
-    return generateProgrammingLanguageStats(true, 9).map(d => ({
+    return generateProgrammingLanguageStats(true, 7).map(d => ({
         id: d.label,
         ...d,
     }))
