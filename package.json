@@ -16,74 +16,26 @@
     "url": "https://github.com/plouc"
   },
   "keywords": [],
-  "dependencies": {
+  "devDependencies": {
     "@ekino/config": "^0.3.0",
     "@nivo/babel-preset": "^0.32.0-9",
+    "@storybook/addon-info": "^3.2.17",
+    "@storybook/addon-knobs": "^3.2.17",
+    "@storybook/react": "^3.2.17",
+    "chalk": "^2.3.0",
+    "clog-cli": "^1.0.0",
+    "gh-pages": "^1.0.0",
+    "lerna": "^2.5.1",
+    "prettier": "^1.6.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
     "lodash": "^4.17.4",
     "prop-types": "^15.5.10",
     "puppeteer": "^0.13.0"
   },
-  "devDependencies": {
-    "@storybook/addon-info": "^3.2.17",
-    "@storybook/addon-knobs": "^3.2.17",
-    "@storybook/react": "^3.2.17",
-    "clog-cli": "^1.0.0",
-    "gh-pages": "^1.0.0",
-    "lerna": "^2.5.1",
-    "lint-staged": "^4.1.0",
-    "prettier": "^1.6.1",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "validate-commit-msg": "^2.14.0"
-  },
-  "peerDependencies": {
-    "react": ">= 15.6.1 < 17.0.0"
-  },
-  "main": "./lib/index.js",
-  "module": "es/index.js",
-  "jsnext:main": "es/index.js",
   "scripts": {
     "fmt": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --color --write \"{src,specs,test,.storybook,stories}/**/*.js\"",
     "fmt:check": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --list-different \"{src,specs,test,.storybook,stories}/**/*.js\"",
-    "disabledPrepublishOnly": "npm test && npm run build",
     "changelog": "rm CHANGELOG.md && node scripts/generate-changelog.js"
-  },
-  "lint-staged": {
-    "*.js": [
-      "fmt",
-      "git add",
-      "test"
-    ]
-  },
-  "config": {
-    "validate-commit-msg": {
-      "types": [
-        "feat",
-        "fix",
-        "docs",
-        "style",
-        "refactor",
-        "perf",
-        "test",
-        "build",
-        "ci",
-        "chore",
-        "revert"
-      ],
-      "scope": {
-        "required": true,
-        "allowed": [
-          "*"
-        ],
-        "validate": false,
-        "multiple": false
-      },
-      "warnOnFail": false,
-      "maxSubjectLength": 80,
-      "subjectPattern": ".+",
-      "subjectPatternErrorMsg": "subject does not match subject pattern!",
-      "helpMessage": "",
-      "autoFix": false
-    }
   }
 }
