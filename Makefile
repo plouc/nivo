@@ -1,6 +1,6 @@
 SOURCES = packages
 
-.PHONY: help bootstrap init packages-build packages-publish clean-all website-install website website-build website-deploy storybook storybook-build storybook-deploy deploy-all
+.PHONY: help bootstrap init packages-build packages-publish clean-all website-install website website-build website-deploy storybook storybook-build storybook-deploy deploy-all examples-install
 
 ########################################################################################################################
 #
@@ -50,6 +50,7 @@ init: ##@init cleanup/install/bootstrap
 	@make bootstrap
 	@make packages-build
 	@make website-install
+	@make examples-install
 
 ########################################################################################################################
 #
@@ -137,7 +138,7 @@ package-dev-%: ##@packages setup package for development, link to website, run w
 ########################################################################################################################
 
 website-install: ##@website install website dependencies
-	@echo "${YELLOW}INstalling website dependencies${RESET}"
+	@echo "${YELLOW}Installing website dependencies${RESET}"
 	@cd website && yarn install
 
 website: ##@website start website in dev mode
@@ -190,3 +191,20 @@ storybook-deploy: ##@storybook build and deploy storybook
 
 	@echo "${YELLOW}Deploying storybook${RESET}"
 	@./node_modules/.bin/gh-pages -d storybook-static -r git@github.com:plouc/nivo.git -b gh-pages -e storybook
+
+########################################################################################################################
+#
+# EXAMPLES
+#
+########################################################################################################################
+
+examples-install: ##@examples install all examples dependencies
+	@make example-install-retro
+
+example-install-%: ##@examples install example dependencies, eg. example-install-retro
+	@echo "${YELLOW}Installing ${WHITE}${*}${YELLOW} example dependencies${RESET}"
+	@cd examples/${*} && yarn install
+
+example-start-%: ##@examples start example in dev mode, eg. example-start-retro
+	@echo "${YELLOW}Starting ${WHITE}${*}${YELLOW} example dev server${RESET}"
+	@cd examples/${*} && yarn start
