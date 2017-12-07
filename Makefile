@@ -150,6 +150,24 @@ website-deploy: ##@website build & deploy website
 	@echo "${YELLOW}Deploying website${RESET}"
 	@./node_modules/.bin/gh-pages -d website/build -r git@github.com:plouc/nivo.git -b gh-pages
 
+website-audit: ##@website audit website build
+	@cd website && yarn analyze
+
+website-links-ls: ##@website list linked packages
+	@echo "${YELLOW}Which packages are currently being linked to ${WHITE}website${YELLOW}?${RESET}"
+	@cd website; \
+    find node_modules node_modules/\@* -depth 1 -type l -print | awk -F/ '{print $$(NF)}' | while read MODULE; do \
+        echo "> linked package: ${WHITE}$${MODULE}${RESET}"; \
+    done
+
+website-links-rm: ##@website unlink all linked packages
+	@echo "${YELLOW}Unlinking all packages for ${WHITE}website${RESET}"
+	@cd website; \
+    find node_modules node_modules/\@* -depth 1 -type l -print | awk -F/ '{print $$(NF)}' | while read MODULE; do \
+        yarn unlink "@nivo/$${MODULE}"; \
+    done
+	@cd website && yarn install
+
 ########################################################################################################################
 #
 # STORYBOOK
