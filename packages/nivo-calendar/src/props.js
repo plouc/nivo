@@ -8,6 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import { noop } from '@nivo/core'
+import { LegendPropShape } from '@nivo/legends'
 import { DIRECTION_HORIZONTAL, DIRECTION_VERTICAL } from './constants'
 
 /**
@@ -52,6 +53,13 @@ export const CalendarPropTypes = {
     isInteractive: PropTypes.bool,
     onClick: PropTypes.func.isRequired,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+
+    legends: PropTypes.arrayOf(
+        PropTypes.shape({
+            ...LegendPropShape,
+            itemCount: PropTypes.number,
+        })
+    ).isRequired,
 }
 
 /**
@@ -84,4 +92,6 @@ export const CalendarDefaultProps = {
     // interactivity
     isInteractive: true,
     onClick: noop,
+
+    legends: [],
 }

@@ -9,6 +9,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import LegendSvg from './LegendSvg'
+import { computeDimensions } from '../compute'
 import {
     DIRECTION_ROW,
     DIRECTION_COLUMN,
@@ -24,6 +25,7 @@ import {
     ANCHOR_BOTTOM_LEFT,
     ANCHOR_LEFT,
     ANCHOR_TOP_LEFT,
+    ANCHOR_CENTER,
 } from '../constants'
 
 const BoxLegendSvg = ({
@@ -31,8 +33,11 @@ const BoxLegendSvg = ({
 
     containerWidth,
     containerHeight,
+    translateX,
+    translateY,
     anchor,
     direction,
+    padding,
     justify,
 
     itemWidth,
@@ -41,48 +46,54 @@ const BoxLegendSvg = ({
     itemsSpacing,
     symbolSize,
     symbolSpacing,
+    symbolShape,
 }) => {
-    let x = 0
-    let y = 0
+    const { width, height } = computeDimensions({
+        itemCount: data.length,
+        itemWidth,
+        itemHeight,
+        itemsSpacing,
+        direction,
+        padding,
+    })
 
-    let width = itemWidth
-    let height = itemHeight
-    if (direction === DIRECTION_ROW) {
-        width = itemWidth * data.length
-    } else if (direction === DIRECTION_COLUMN) {
-        height = itemHeight * data.length
-    }
-
+    let x = translateX
+    let y = translateY
     switch (anchor) {
         case ANCHOR_TOP:
-            x = (containerWidth - width) / 2
+            x += (containerWidth - width) / 2
             break
 
         case ANCHOR_TOP_RIGHT:
-            x = containerWidth - width
+            x += containerWidth - width
             break
 
         case ANCHOR_RIGHT:
-            x = containerWidth - width
-            y = (containerHeight - height) / 2
+            x += containerWidth - width
+            y += (containerHeight - height) / 2
             break
 
         case ANCHOR_BOTTOM_RIGHT:
-            x = containerWidth - width
-            y = containerHeight - height
+            x += containerWidth - width
+            y += containerHeight - height
             break
 
         case ANCHOR_BOTTOM:
-            x = (containerWidth - width) / 2
-            y = containerHeight - height
+            x += (containerWidth - width) / 2
+            y += containerHeight - height
             break
 
         case ANCHOR_BOTTOM_LEFT:
-            y = containerHeight - height
+            y += containerHeight - height
             break
 
         case ANCHOR_LEFT:
-            y = (containerHeight - height) / 2
+            y += (containerHeight - height) / 2
+            break
+
+        case ANCHOR_CENTER:
+            x += (containerWidth - width) / 2
+            y += (containerHeight - height) / 2
             break
     }
 
@@ -91,9 +102,8 @@ const BoxLegendSvg = ({
             data={data}
             x={x}
             y={y}
-            width={width}
-            height={height}
             direction={direction}
+            padding={padding}
             justify={justify}
             itemWidth={itemWidth}
             itemHeight={itemHeight}
@@ -101,6 +111,7 @@ const BoxLegendSvg = ({
             itemsSpacing={itemsSpacing}
             symbolSize={symbolSize}
             symbolSpacing={symbolSpacing}
+            symbolShape={symbolShape}
         />
     )
 }
@@ -108,6 +119,8 @@ const BoxLegendSvg = ({
 BoxLegendSvg.propTypes = {
     containerWidth: PropTypes.number.isRequired,
     containerHeight: PropTypes.number.isRequired,
+    translateX: PropTypes.number.isRequired,
+    translateY: PropTypes.number.isRequired,
     anchor: PropTypes.oneOf([
         ANCHOR_TOP,
         ANCHOR_TOP_RIGHT,
@@ -117,8 +130,18 @@ BoxLegendSvg.propTypes = {
         ANCHOR_BOTTOM_LEFT,
         ANCHOR_LEFT,
         ANCHOR_TOP_LEFT,
+        ANCHOR_CENTER,
     ]).isRequired,
     direction: PropTypes.oneOf([DIRECTION_ROW, DIRECTION_COLUMN]).isRequired,
+    padding: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.shape({
+            top: PropTypes.number,
+            right: PropTypes.number,
+            bottom: PropTypes.number,
+            left: PropTypes.number,
+        }),
+    ]).isRequired,
     justify: PropTypes.bool,
 
     itemWidth: PropTypes.number.isRequired,
@@ -132,10 +155,14 @@ BoxLegendSvg.propTypes = {
     itemsSpacing: PropTypes.number.isRequired,
     symbolSize: PropTypes.number,
     symbolSpacing: PropTypes.number,
+    symbolShape: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 }
 
 BoxLegendSvg.defaultProps = {
-    itemsSpacing: 0,
+    translateX: 0,
+    translateY: 0,
+    itemsSpacing: LegendSvg.defaultProps.itemsSpacing,
+    padding: LegendSvg.defaultProps.padding,
 }
 
 export default BoxLegendSvg

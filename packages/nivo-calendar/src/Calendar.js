@@ -7,9 +7,10 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
+import { timeFormat } from 'd3-time-format'
+import { BoxLegendSvg } from '@nivo/legends'
 import computeCalendar from './computeCalendar'
 import { CalendarPropTypes } from './props'
-import { timeFormat } from 'd3-time-format'
 import { DIRECTION_HORIZONTAL } from './constants'
 import CalendarDay from './CalendarDay'
 import CalendarMonthPath from './CalendarMonthPath'
@@ -49,6 +50,8 @@ const Calendar = ({
     isInteractive,
     tooltipFormat,
     onClick,
+
+    legends,
 }) => {
     const { years, months, days } = computeCalendar({
         width,
@@ -133,6 +136,22 @@ const Calendar = ({
                             >
                                 {year.year}
                             </text>
+                        )
+                    })}
+                    {legends.map((legend, i) => {
+                        const legendData = colorScale.ticks(legend.itemCount).map(value => ({
+                            label: value,
+                            fill: colorScale(value),
+                        }))
+
+                        return (
+                            <BoxLegendSvg
+                                key={i}
+                                {...legend}
+                                containerWidth={width}
+                                containerHeight={height}
+                                data={legendData}
+                            />
                         )
                     })}
                 </SvgWrapper>

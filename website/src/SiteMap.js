@@ -54,6 +54,7 @@ import ChordAPI from './components/charts/chord/ChordAPI'
 import VoronoiPage from './components/charts/voronoi/VoronoiPage'
 import Voronoi from './components/charts/voronoi/Voronoi'
 import Colors from './components/guides/colors/Colors'
+import Legends from './components/guides/legends/Legends'
 import Gradients from './components/guides/gradients/Gradients'
 import Patterns from './components/guides/patterns/Patterns'
 import About from './components/pages/About'
@@ -410,6 +411,13 @@ const SITEMAP = [
                 label: 'Colors',
                 component: Colors,
                 description: 'Understanding nivo color related properties.',
+            },
+            {
+                className: 'legends',
+                path: '/guides/legends',
+                label: 'Legends',
+                component: Legends,
+                description: 'Adding legends to your nivo charts.',
             },
             {
                 className: 'gradients',
