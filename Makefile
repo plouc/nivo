@@ -208,3 +208,10 @@ example-install-%: ##@examples install example dependencies, eg. example-install
 example-start-%: ##@examples start example in dev mode, eg. example-start-retro
 	@echo "${YELLOW}Starting ${WHITE}${*}${YELLOW} example dev server${RESET}"
 	@cd examples/${*} && yarn start
+
+examples-build: ##@examples build all examples
+	@make example-build-retro
+
+example-build-%: ##@examples build an example, eg. example-build-retro
+	@echo "${YELLOW}Building ${WHITE}${*}${YELLOW} example${RESET}"
+	@cd examples/${*} && yarn build
