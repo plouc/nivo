@@ -10,7 +10,7 @@ import React, { Component } from 'react'
 import omit from 'lodash/omit'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
-import { ResponsiveLine } from '@nivo/line'
+import { ResponsiveLine, LineDefaultProps } from '@nivo/line'
 import ChartHeader from '../../ChartHeader'
 import ChartTabs from '../../ChartTabs'
 import LineControls from './LineControls'
@@ -24,7 +24,20 @@ import propsMapper from './propsMapper'
 
 export default class Line extends Component {
     state = {
-        settings: omit(defaultProps, ['width', 'height']),
+        settings: {
+            ...omit(defaultProps, ['width', 'height']),
+            legends: [
+                {
+                    anchor: 'bottom-right',
+                    direction: 'column',
+                    translateX: 100,
+                    itemWidth: 80,
+                    itemHeight: 20,
+                    symbolSize: 12,
+                    symbolShape: 'circle'
+                }
+            ]
+        },
     }
 
     handleSettingsUpdate = settings => {
@@ -37,7 +50,10 @@ export default class Line extends Component {
 
         const mappedSettings = propsMapper(settings)
 
-        const code = generateCode('Line', mappedSettings)
+        const code = generateCode('Line', mappedSettings, {
+            pkg: '@nivo/line',
+            defaults: LineDefaultProps
+        })
 
         const header = (
             <ChartHeader
