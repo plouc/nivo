@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 import { ResponsiveStream, StreamDefaultProps } from '@nivo/stream'
 import ChartHeader from '../../ChartHeader'
@@ -23,7 +24,20 @@ import propsMapper from './propsMapper'
 export default class Stream extends Component {
     state = {
         ...generateLightDataSet(),
-        settings: defaultProps,
+        settings: {
+            ...defaultProps,
+            legends: [
+                {
+                    anchor: 'bottom-right',
+                    direction: 'column',
+                    translateX: 100,
+                    itemWidth: 80,
+                    itemHeight: 20,
+                    symbolSize: 12,
+                    symbolShape: 'circle',
+                },
+            ],
+        },
     }
 
     handleSettingsUpdate = settings => {
@@ -57,6 +71,10 @@ export default class Stream extends Component {
                 <p className="description">Stream chart.</p>
                 <p className="description">
                     The responsive alternative of this component is <code>ResponsiveStream</code>.
+                </p>
+                <p className="description">
+                    See the <Link to="/guides/legends">dedicated guide</Link> on how to setup
+                    legends for this component.
                 </p>
             </div>
         )
