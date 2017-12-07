@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
+import { LegendPropShape } from '@nivo/legends'
 
 export const ChordPropTypes = {
     matrix: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
@@ -50,6 +51,8 @@ export const ChordPropTypes = {
 
     // canvas specific
     pixelRatio: PropTypes.number.isRequired,
+
+    legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
 }
 
 export const ChordDefaultProps = {
@@ -87,4 +90,6 @@ export const ChordDefaultProps = {
     // canvas specific
     pixelRatio:
         global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
+
+    legends: [],
 }
