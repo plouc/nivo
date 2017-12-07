@@ -10,10 +10,10 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import MediaQuery from 'react-responsive'
 import { Link } from 'react-router-dom'
+import { ResponsiveRadar } from '@nivo/radar'
 import ChartHeader from '../../ChartHeader'
 import ChartTabs from '../../ChartTabs'
 import RadarControls from './RadarControls'
-import { ResponsiveRadar } from '@nivo/radar'
 import generateCode from '../../../lib/generateChartCode'
 import ComponentPropsDocumentation from '../../properties/ComponentPropsDocumentation'
 import properties from './props'
@@ -67,6 +67,19 @@ export default class Radar extends Component {
             motionDamping: 15,
 
             isInteractive: true,
+
+            legends: [
+                {
+                    anchor: 'top-left',
+                    direction: 'column',
+                    translateX: -50,
+                    translateY: -40,
+                    itemWidth: 80,
+                    itemHeight: 20,
+                    symbolSize: 12,
+                    symbolShape: 'circle',
+                },
+            ],
         },
     }
 

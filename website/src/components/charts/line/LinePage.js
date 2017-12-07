@@ -10,7 +10,7 @@ import React, { Component } from 'react'
 import Helmet from 'react-helmet'
 import { generateDrinkStats } from '@nivo/generators'
 
-const generateData = () => generateDrinkStats(12)
+const generateData = () => generateDrinkStats(9)
 
 class LinePage extends Component {
     state = {
