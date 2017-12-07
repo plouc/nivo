@@ -25,9 +25,9 @@ export default class Sankey extends Component {
         settings: {
             margin: {
                 top: 40,
-                right: 60,
+                right: 160,
                 bottom: 40,
-                left: 60,
+                left: 50,
             },
 
             align: 'justify',
@@ -68,6 +68,19 @@ export default class Sankey extends Component {
 
             // interactivity
             isInteractive: true,
+
+            legends: [
+                {
+                    anchor: 'bottom-right',
+                    direction: 'column',
+                    translateX: 130,
+                    itemWidth: 100,
+                    itemHeight: 14,
+                    itemDirection: 'right-to-left',
+                    itemsSpacing: 2,
+                    symbolSize: 14,
+                },
+            ],
         },
     }
 
@@ -142,6 +155,10 @@ export default class Sankey extends Component {
                     >
                         the storybook
                     </a>.
+                </p>
+                <p className="description">
+                    See the <Link to="/guides/legends">dedicated guide</Link> on how to setup
+                    legends for this component.
                 </p>
             </div>
         )

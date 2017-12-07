@@ -9,6 +9,7 @@
 import PropTypes from 'prop-types'
 import { sankeyCenter, sankeyJustify, sankeyLeft, sankeyRight } from 'd3-sankey'
 import { noop } from '@nivo/core'
+import { LegendPropShape } from '@nivo/legends'
 
 export const sankeyAlignmentPropMapping = {
     center: sankeyCenter,
@@ -75,6 +76,8 @@ export const SankeyPropTypes = {
     isInteractive: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+
+    legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
 }
 
 export const SankeyDefaultProps = {
@@ -107,4 +110,6 @@ export const SankeyDefaultProps = {
     // interactivity
     isInteractive: true,
     onClick: noop,
+
+    legends: [],
 }

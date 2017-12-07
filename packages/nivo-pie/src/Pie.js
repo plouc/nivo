@@ -73,7 +73,7 @@ const Pie = ({
     isInteractive,
     tooltipFormat,
 
-    legends
+    legends,
 }) => {
     const centerX = width / 2
     const centerY = height / 2
@@ -118,12 +118,12 @@ const Pie = ({
 
     const enhancedData = data.map(d => ({
         ...d,
-        color: getColor(d)
+        color: getColor(d),
     }))
 
     const legendData = enhancedData.map(d => ({
         label: d.label,
-        fill: d.color
+        fill: d.color,
     }))
 
     const boundDefs = bindDefs(defs, enhancedData, fill)
