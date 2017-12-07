@@ -13,7 +13,7 @@ import MediaQuery from 'react-responsive'
 import ChartHeader from '../../ChartHeader'
 import ChartTabs from '../../ChartTabs'
 import PieControls from './PieControls'
-import { ResponsivePie } from '@nivo/pie'
+import { ResponsivePie, PieDefaultProps } from '@nivo/pie'
 import generateCode from '../../../lib/generateChartCode'
 import ComponentPropsDocumentation from '../../properties/ComponentPropsDocumentation'
 import properties from './props'
@@ -24,7 +24,20 @@ import defaultProps from './defaultProps'
 
 export default class Pie extends Component {
     state = {
-        settings: omit(defaultProps, ['width', 'height']),
+        settings: {
+            ...omit(defaultProps, ['width', 'height']),
+            legends: [
+                {
+                    anchor: 'bottom',
+                    direction: 'row',
+                    translateY: 56,
+                    itemWidth: 100,
+                    itemHeight: 14,
+                    symbolSize: 14,
+                    symbolShape: 'circle',
+                },
+            ],
+        },
     }
 
     handleSettingsUpdate = settings => {
@@ -37,7 +50,7 @@ export default class Pie extends Component {
 
         const mappedSettings = propsMapper(settings)
 
-        const code = generateCode('Pie', mappedSettings, { pkg: '@nivo/pie' })
+        const code = generateCode('Pie', mappedSettings, { pkg: '@nivo/pie', defaults: PieDefaultProps })
 
         const header = (
             <ChartHeader
@@ -90,7 +103,7 @@ export default class Pie extends Component {
 
         return (
             <div className="page_content grid">
-                <div className="chart-page_aside">
+                <div className="chart-page_main">
                     <MediaQuery query="(max-width: 1000px)">
                         {header}
                         {description}
@@ -98,18 +111,18 @@ export default class Pie extends Component {
                     <ChartTabs chartClass="pie" code={code} data={data}>
                         <ResponsivePie data={data} {...mappedSettings} theme={nivoTheme} />
                     </ChartTabs>
-                </div>
-                <div className="chart-page_main">
-                    <MediaQuery query="(min-width: 1000px)">
-                        {header}
-                        {description}
-                    </MediaQuery>
                     <PieControls
                         scope="Pie"
                         settings={settings}
                         onChange={this.handleSettingsUpdate}
                     />
                     <ComponentPropsDocumentation chartClass="Pie" properties={properties} />
+                </div>
+                <div className="chart-page_aside">
+                    <MediaQuery query="(min-width: 1000px)">
+                        {header}
+                        {description}
+                    </MediaQuery>
                 </div>
             </div>
         )

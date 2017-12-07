@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
+import { pie as d3Pie, arc as d3Arc } from 'd3-shape'
 import { Motion, TransitionMotion, spring } from 'react-motion'
 import { getInheritedColorGenerator } from '@nivo/core'
 import { getLabelGenerator } from '@nivo/core'
@@ -14,7 +15,7 @@ import { degreesToRadians, radiansToDegrees } from '@nivo/core'
 import { bindDefs } from '@nivo/core'
 import { Container, SvgWrapper } from '@nivo/core'
 import { BasicTooltip } from '@nivo/core'
-import { pie as d3Pie, arc as d3Arc } from 'd3-shape'
+import { BoxLegendSvg } from '@nivo/legends'
 import PieRadialLabels from './PieRadialLabels'
 import PieSlicesLabels from './PieSlicesLabels'
 import { PiePropTypes } from './props'
@@ -71,6 +72,8 @@ const Pie = ({
     // interactivity
     isInteractive,
     tooltipFormat,
+
+    legends
 }) => {
     const centerX = width / 2
     const centerY = height / 2
@@ -113,10 +116,15 @@ const Pie = ({
     const arc = d3Arc()
     arc.outerRadius(radius)
 
-    const enhancedData = data.map(d => {
-        const color = getColor(d)
-        return { ...d, color }
-    })
+    const enhancedData = data.map(d => ({
+        ...d,
+        color: getColor(d)
+    }))
+
+    const legendData = enhancedData.map(d => ({
+        label: d.label,
+        fill: d.color
+    }))
 
     const boundDefs = bindDefs(defs, enhancedData, fill)
 
@@ -209,6 +217,15 @@ const Pie = ({
                             )
                         }}
                     </Motion>
+                    {legends.map((legend, i) => (
+                        <BoxLegendSvg
+                            key={i}
+                            {...legend}
+                            containerWidth={width}
+                            containerHeight={height}
+                            data={legendData}
+                        />
+                    ))}
                 </SvgWrapper>
             )}
         </Container>
