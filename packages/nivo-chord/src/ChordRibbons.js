@@ -122,8 +122,8 @@ const ChordRibbons = ({
 
         return {
             strokeWidth: borderWidth,
-            onClick: event => onClick(ribbon, eve
-            onMouseEnter: e => {
+                onClick: event => onClick(ribbon, event),
+                onMouseEnter: e => {
                 setCurrent(ribbon)
                 showTooltip(ribbonTooltip, e)
             },

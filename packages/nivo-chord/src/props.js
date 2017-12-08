@@ -8,7 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import { LegendPropShape } from '@nivo/legends'
-import noop from '../../../lib/noop'
+import { noop } from '@nivo/core'
 
 export const ChordPropTypes = {
     matrix: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
