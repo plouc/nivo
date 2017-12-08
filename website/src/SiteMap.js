@@ -36,6 +36,9 @@ import BubbleAPI from './components/charts/bubble/BubbleAPI'
 import SankeyPage from './components/charts/sankey/SankeyPage'
 import Sankey from './components/charts/sankey/Sankey'
 import SankeyAPI from './components/charts/sankey/SankeyAPI'
+import ScatterPlotPage from './components/charts/scatterplot/ScatterPlotPage'
+import ScatterPlot from './components/charts/scatterplot/ScatterPlot'
+import ScatterPlotCanvas from './components/charts/scatterplot/ScatterPlotCanvas'
 import SunburstPage from './components/charts/sunburst/SunburstPage'
 import Sunburst from './components/charts/sunburst/Sunburst'
 import SunburstAPI from './components/charts/sunburst/SunburstAPI'
@@ -58,6 +61,7 @@ import Legends from './components/guides/legends/Legends'
 import Gradients from './components/guides/gradients/Gradients'
 import Patterns from './components/guides/patterns/Patterns'
 import About from './components/pages/About'
+import Faq from './components/pages/Faq'
 import Components from './components/components/Components'
 
 const SITEMAP = [
@@ -308,6 +312,29 @@ const SITEMAP = [
                 ],
             },
             {
+                className: 'scatterplot',
+                path: '/scatterplot',
+                label: 'ScatterPlot',
+                component: ScatterPlotPage,
+                children: [
+                    {
+                        className: 'react',
+                        path: '/',
+                        label: 'ScatterPlot',
+                        component: ScatterPlot,
+                        exact: true,
+                        tags: ['svg', 'isomorphic'],
+                    },
+                    {
+                        className: 'canvas',
+                        path: '/canvas',
+                        label: 'ScatterPlotCanvas',
+                        component: ScatterPlotCanvas,
+                        tags: ['canvas'],
+                    },
+                ],
+            },
+            {
                 className: 'stream',
                 path: '/stream',
                 label: 'Stream',
@@ -440,6 +467,12 @@ const SITEMAP = [
         // those items must not be nested
         children: [
             {
+                className: 'about',
+                path: '/about',
+                label: 'About',
+                component: About,
+            },
+            {
                 // component injected at the end of this file
                 // because of cyclic dependency
                 className: 'components',
@@ -451,10 +484,10 @@ const SITEMAP = [
                 label: 'Guides',
             },
             {
-                className: 'about',
-                path: '/about',
-                label: 'About',
-                component: About,
+                className: 'faq',
+                path: '/faq',
+                label: 'FAQ',
+                component: Faq,
             },
         ],
     },

@@ -7,7 +7,22 @@
  * file that was distributed with this source code.
  */
 import { isNumber, isPlainObject } from 'lodash'
-import { DIRECTION_COLUMN, DIRECTION_ROW } from './constants'
+import {
+    ANCHOR_BOTTOM,
+    ANCHOR_BOTTOM_LEFT,
+    ANCHOR_BOTTOM_RIGHT,
+    ANCHOR_CENTER,
+    ANCHOR_LEFT,
+    ANCHOR_RIGHT,
+    ANCHOR_TOP,
+    ANCHOR_TOP_RIGHT,
+    DIRECTION_BOTTOM_TO_TOP,
+    DIRECTION_COLUMN,
+    DIRECTION_LEFT_TO_RIGHT,
+    DIRECTION_RIGHT_TO_LEFT,
+    DIRECTION_ROW,
+    DIRECTION_TOP_TO_BOTTOM,
+} from './constants'
 
 const zeroPadding = {
     top: 0,
@@ -53,4 +68,147 @@ export const computeDimensions = ({
     }
 
     return { width, height, padding }
+}
+
+export const computePositionFromAnchor = ({
+    anchor,
+    translateX,
+    translateY,
+    containerWidth,
+    containerHeight,
+    width,
+    height,
+}) => {
+    let x = translateX
+    let y = translateY
+
+    switch (anchor) {
+        case ANCHOR_TOP:
+            x += (containerWidth - width) / 2
+            break
+
+        case ANCHOR_TOP_RIGHT:
+            x += containerWidth - width
+            break
+
+        case ANCHOR_RIGHT:
+            x += containerWidth - width
+            y += (containerHeight - height) / 2
+            break
+
+        case ANCHOR_BOTTOM_RIGHT:
+            x += containerWidth - width
+            y += containerHeight - height
+            break
+
+        case ANCHOR_BOTTOM:
+            x += (containerWidth - width) / 2
+            y += containerHeight - height
+            break
+
+        case ANCHOR_BOTTOM_LEFT:
+            y += containerHeight - height
+            break
+
+        case ANCHOR_LEFT:
+            y += (containerHeight - height) / 2
+            break
+
+        case ANCHOR_CENTER:
+            x += (containerWidth - width) / 2
+            y += (containerHeight - height) / 2
+            break
+    }
+
+    return { x, y }
+}
+
+export const computeItemLayout = ({
+    direction,
+    justify,
+    symbolSize,
+    symbolSpacing,
+    width,
+    height,
+}) => {
+    let symbolX
+    let symbolY
+
+    let labelX
+    let labelY
+    let labelAnchor
+    let labelAlignment
+
+    switch (direction) {
+        case DIRECTION_LEFT_TO_RIGHT:
+            symbolX = 0
+            symbolY = (height - symbolSize) / 2
+
+            labelY = height / 2
+            labelAlignment = 'middle'
+            if (justify === true) {
+                labelX = width
+                labelAnchor = 'end'
+            } else {
+                labelX = symbolSize + symbolSpacing
+                labelAnchor = 'start'
+            }
+            break
+
+        case DIRECTION_RIGHT_TO_LEFT:
+            symbolX = width - symbolSize
+            symbolY = (height - symbolSize) / 2
+
+            labelY = height / 2
+            labelAlignment = 'middle'
+            if (justify === true) {
+                labelX = 0
+                labelAnchor = 'start'
+            } else {
+                labelX = width - symbolSize - symbolSpacing
+                labelAnchor = 'end'
+            }
+            break
+
+        case DIRECTION_TOP_TO_BOTTOM:
+            symbolX = (width - symbolSize) / 2
+            symbolY = 0
+
+            labelX = width / 2
+
+            labelAnchor = 'middle'
+            if (justify === true) {
+                labelY = height
+                labelAlignment = 'baseline'
+            } else {
+                labelY = symbolSize + symbolSpacing
+                labelAlignment = 'hanging'
+            }
+            break
+
+        case DIRECTION_BOTTOM_TO_TOP:
+            symbolX = (width - symbolSize) / 2
+            symbolY = height - symbolSize
+
+            labelX = width / 2
+            labelAnchor = 'middle'
+            if (justify === true) {
+                labelY = 0
+                labelAlignment = 'hanging'
+            } else {
+                labelY = height - symbolSize - symbolSpacing
+                labelAlignment = 'baseline'
+            }
+            break
+    }
+
+    return {
+        symbolX,
+        symbolY,
+
+        labelX,
+        labelY,
+        labelAnchor,
+        labelAlignment,
+    }
 }

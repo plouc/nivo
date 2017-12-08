@@ -50,7 +50,7 @@ export default class Pie extends Component {
 
         const mappedSettings = propsMapper(settings)
 
-        const code = generateCode('Pie', mappedSettings, {
+        const code = generateCode('ResponsivePie', mappedSettings, {
             pkg: '@nivo/pie',
             defaults: PieDefaultProps,
         })

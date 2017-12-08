@@ -75,7 +75,7 @@ export default class BubbleHtml extends Component {
 
         const mappedSettings = propsMapper(settings)
 
-        const code = generateCode('BubbleHtml', mappedSettings, {
+        const code = generateCode('ResponsiveBubbleHtml', mappedSettings, {
             pkg: '@nivo/circle-packing',
             defaults: BubbleHtmlDefaultProps,
         })

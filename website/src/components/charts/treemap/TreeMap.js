@@ -84,7 +84,7 @@ export default class TreeMap extends Component {
 
         const mappedSettings = propsMapper(settings)
 
-        const code = generateCode('TreeMap', mappedSettings, {
+        const code = generateCode('ResponsiveTreeMap', mappedSettings, {
             pkg: '@nivo/treemap',
             defaults: TreeMapDefaultProps,
         })

@@ -57,6 +57,14 @@ capture:
         selector: .chart-tabs--chart
         output: ./packages/nivo-sankey/doc/sankey.png
 
+      - path: /#/scatterplot
+        selector: .chart-tabs--chart
+        output: ./packages/nivo-scatterplot/doc/scatterplot.png
+
+      - path: /#/scatterplot/canvas
+        selector: .chart-tabs--chart
+        output: ./packages/nivo-scatterplot/doc/scatterplot-canvas.png
+
       - path: /#/stream
         selector: .chart-tabs--chart
         output: ./packages/nivo-stream/doc/stream.png

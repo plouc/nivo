@@ -86,7 +86,7 @@ export default class Bubble extends Component {
 
         const mappedSettings = propsMapper(settings)
 
-        const code = generateCode('Bubble', mappedSettings, {
+        const code = generateCode('ResponsiveBubble', mappedSettings, {
             pkg: '@nivo/circle-packing',
             defaults: BubbleDefaultProps,
         })

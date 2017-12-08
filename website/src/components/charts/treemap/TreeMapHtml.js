@@ -85,14 +85,14 @@ export default class TreeMapHtml extends Component {
 
         const mappedSettings = propsMapper(settings)
 
-        const code = generateCode('TreeMapHTML', mappedSettings, {
+        const code = generateCode('ResponsiveTreeMapHtml', mappedSettings, {
             pkg: '@nivo/treemap',
             defaults: TreeMapDefaultProps,
         })
 
         const header = (
             <ChartHeader
-                chartClass="TreeMapHTML"
+                chartClass="TreeMapHtml"
                 tags={['hierarchy', 'html', 'isomorphic']}
                 diceRoll={this.diceRoll}
             />

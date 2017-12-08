@@ -6,11 +6,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { textPropsByEngine } from './bridge'
+import { textPropsByEngine } from '../bridge'
 
 const horizontalPositions = ['top', 'bottom']
 const verticalPositions = ['left', 'right']
 
+/**
+ * @param {Object} scale
+ *
+ * @return {Object} centered scale
+ */
 const centerScale = scale => {
     const bandwidth = scale.bandwidth()
 
@@ -22,6 +27,17 @@ const centerScale = scale => {
     }
 
     return d => scale(d) + offset
+}
+
+/**
+ * @param {Object} scale
+ * @param {number} [tickCount]
+ *
+ * @return {Array.<number|string>}
+ */
+const getScaleValues = (scale, tickCount) => {
+    if (scale.ticks) return scale.ticks(tickCount)
+    return scale.domain()
 }
 
 /**
@@ -38,13 +54,14 @@ const centerScale = scale => {
  * @param {number}                width
  * @param {number}                height
  * @param {string}                _position
- * @param {Function}              scale
+ * @param {Object}                scale
  * @param {Array.<string|number>} [tickValues]
  * @param {number}                [tickCount]
  * @param {number}                [tickSize=5]
  * @param {number}                [tickPadding=5]
  * @param {number}                [tickRotation=0]
  * @parem {string}                [engine='svg']
+ *
  * @return {{ x: number, y: number, ticks: Array.<AxisTick>, textAlign: string, textBaseline: string }}
  */
 export const computeAxisTicks = ({
@@ -63,10 +80,7 @@ export const computeAxisTicks = ({
 
     engine = 'svg',
 }) => {
-    let values
-    if (tickValues) values = tickValues
-    else if (scale.ticks) values = scale.ticks(tickCount)
-    else values = scale.domain()
+    const values = tickValues || getScaleValues(scale, tickCount)
 
     const textProps = textPropsByEngine[engine]
 
@@ -138,4 +152,39 @@ export const computeAxisTicks = ({
         textAlign,
         textBaseline,
     }
+}
+
+/**
+ * @param {number} width
+ * @param {number} height
+ * @param {Object} scale
+ * @param {string} axis
+ *
+ * @return {Array.<Object>}
+ */
+export const computeGridLines = ({ width, height, scale, axis }) => {
+    const values = getScaleValues(scale)
+
+    const position = scale.bandwidth ? centerScale(scale) : scale
+
+    let lines
+    if (axis === 'x') {
+        lines = values.map(v => ({
+            key: `${v}`,
+            x1: position(v),
+            x2: position(v),
+            y1: 0,
+            y2: height,
+        }))
+    } else if (axis === 'y') {
+        lines = values.map(v => ({
+            key: `${v}`,
+            x1: 0,
+            x2: width,
+            y1: position(v),
+            y2: position(v),
+        }))
+    }
+
+    return lines
 }

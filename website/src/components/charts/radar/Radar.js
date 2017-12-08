@@ -94,7 +94,7 @@ export default class Radar extends Component {
         const mappedSettings = propsMapper(settings)
 
         const code = generateCode(
-            'Radar',
+            'ResponsiveRadar',
             {
                 keys,
                 indexBy,

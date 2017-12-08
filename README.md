@@ -42,6 +42,9 @@ Join the [nivo discord community](https://discord.gg/n7Ft74f).
 
 ## Packages & components
 
+**nivo** is comprised of several packages/components, for a better overview of the available one,
+please try the [components explorer](http://nivo.rocks/#/components).
+
 | package                                                                                            | components                                                                                                                                                         |
 | :------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [**@nivo/bar**](https://github.com/plouc/nivo/tree/master/packages/nivo-bar)                       | [![@nivo/bar NPM version](https://img.shields.io/npm/v/@nivo/bar.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/bar)                                  |
@@ -81,6 +84,11 @@ Join the [nivo discord community](https://discord.gg/n7Ft74f).
 | [**@nivo/sankey**](https://github.com/plouc/nivo/tree/master/packages/nivo-sankey)                 | [![@nivo/sankey NPM version](https://img.shields.io/npm/v/@nivo/sankey.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/sankey)                         |
 |                                                                                                    | [Sankey](http://nivo.rocks/#/sankey)                                                                                                                               |
 |                                                                                                    | [ResponsiveSankey](http://nivo.rocks/#/sankey)                                                                                                                     |
+| [**@nivo/scatterplot**](https://github.com/plouc/nivo/tree/master/packages/nivo-scatterplot)       | [![@nivo/scatterplot NPM version](https://img.shields.io/npm/v/@nivo/scatterplot.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/scatterplot)          |
+|                                                                                                    | [ScatterPlot](http://nivo.rocks/#/scatterplot)                                                                                                                     |
+|                                                                                                    | [ResponsiveScatterPlot](http://nivo.rocks/#/scatterplot)                                                                                                           |
+|                                                                                                    | [ScatterPlotCanvas](http://nivo.rocks/#/scatterplot/canvas)                                                                                                        |
+|                                                                                                    | [ResponsiveScatterPlotCanvas](http://nivo.rocks/#/scatterplot/canvas)                                                                                              |
 | [**@nivo/stream**](https://github.com/plouc/nivo/tree/master/packages/nivo-stream)                 | [![@nivo/stream NPM version](https://img.shields.io/npm/v/@nivo/stream.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/stream)                         |
 |                                                                                                    | [Stream](http://nivo.rocks/#/stream)                                                                                                                               |
 |                                                                                                    | [ResponsiveStream](http://nivo.rocks/#/stream)                                                                                                                     |

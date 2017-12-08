@@ -106,7 +106,7 @@ export default class Chord extends Component {
         const mappedSettings = propsMapper(settings)
 
         const code = generateCode(
-            'Chord',
+            'ResponsiveChord',
             { keys, ...mappedSettings },
             {
                 pkg: '@nivo/chord',

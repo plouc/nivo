@@ -11,14 +11,8 @@ import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
 import { defaultMotionDamping, defaultMotionStiffness } from '../../defaults'
 import GridLines from './GridLines'
+import { computeGridLines } from '../../lib/cartesian/axes'
 import { motionPropTypes } from '../../props'
-
-const center = scale => {
-    let offset = scale.bandwidth() / 2
-    if (scale.round()) offset = Math.round(offset)
-
-    return d => scale(d) + offset
-}
 
 const Grid = ({
     width,
@@ -30,45 +24,23 @@ const Grid = ({
     motionStiffness,
     motionDamping,
 }) => {
-    let xLines
-    if (xScale) {
-        let xValues
-        if (xScale.ticks) {
-            xValues = xScale.ticks()
-        } else {
-            xValues = xScale.domain()
-        }
+    const xLines = xScale
+        ? computeGridLines({
+              width,
+              height,
+              scale: xScale,
+              axis: 'x',
+          })
+        : false
 
-        const xPosition = xScale.bandwidth ? center(xScale) : xScale
-
-        xLines = xValues.map(v => {
-            return {
-                key: `${v}`,
-                x1: xPosition(v),
-                x2: xPosition(v),
-                y2: height,
-            }
-        })
-    }
-
-    let yLines
-    if (yScale) {
-        let yValues
-        if (yScale.ticks) {
-            yValues = yScale.ticks()
-        } else {
-            yValues = yScale.domain()
-        }
-
-        const yPosition = yScale.bandwidth ? center(yScale) : yScale
-
-        yLines = yValues.map(v => ({
-            key: `${v}`,
-            x2: width,
-            y1: yPosition(v),
-            y2: yPosition(v),
-        }))
-    }
+    const yLines = yScale
+        ? computeGridLines({
+              width,
+              height,
+              scale: yScale,
+              axis: 'y',
+          })
+        : false
 
     return (
         <g>

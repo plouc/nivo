@@ -141,7 +141,7 @@ export default class HeatMap extends Component {
         const mappedSettings = propsMapper(settings)
 
         const code = generateCode(
-            'HeatMap',
+            'ResponsiveHeatMap',
             Object.assign({ keys }, mappedSettings, {
                 cellShape: isFunction(mappedSettings.cellShape)
                     ? 'Custom(props) => (…)'

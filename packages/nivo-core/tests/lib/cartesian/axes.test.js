@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { scaleLinear, scaleOrdinal, scalePoint, scaleBand } from 'd3-scale'
-import { computeAxisTicks } from '../../src/lib/axes'
+import { computeAxisTicks } from '../../../src/lib/cartesian/axes'
 
 describe('computeAxisTicks()', () => {
     const linearScale = scaleLinear()

@@ -9,7 +9,7 @@
 import React, { Component } from 'react'
 import Helmet from 'react-helmet'
 
-export default class BarsPage extends Component {
+export default class BarPage extends Component {
     handleDataUpdate = data => {
         this.setState({ data })
     }
@@ -18,7 +18,7 @@ export default class BarsPage extends Component {
         const { childRoutes } = this.props
 
         return (
-            <div className="inner-content bars_page">
+            <div className="inner-content bar_page">
                 <Helmet title="Bar components" />
                 {childRoutes.map(childRoute => {
                     return React.cloneElement(childRoute, {

@@ -53,7 +53,7 @@ export default class Stream extends Component {
 
         const mappedSettings = propsMapper(settings)
 
-        const code = generateCode('Stream', mappedSettings, {
+        const code = generateCode('ResponsiveStream', mappedSettings, {
             pkg: '@nivo/stream',
             defaults: StreamDefaultProps,
         })

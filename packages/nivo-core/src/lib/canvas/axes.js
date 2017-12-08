@@ -6,8 +6,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { computeAxisTicks } from '../../axes'
-import { degreesToRadians } from '../../polar'
+import { computeAxisTicks, computeGridLines } from '../cartesian/axes'
+import { degreesToRadians } from '../polar'
 
 const horizontalPositions = ['top', 'bottom']
 const positions = ['top', 'right', 'bottom', 'left']
@@ -24,7 +24,7 @@ export const renderAxisToCanvas = (
         tickSize = 5,
         tickPadding = 5,
         tickRotation = 0,
-        //format,
+        format,
     }
 ) => {
     const { x, y, ticks, textAlign, textBaseline } = computeAxisTicks({
@@ -49,10 +49,12 @@ export const renderAxisToCanvas = (
         ctx.lineTo(tick.x + tick.lineX, tick.y + tick.lineY)
         ctx.stroke()
 
+        const value = format !== undefined ? format(tick.value) : tick.value
+
         ctx.save()
         ctx.translate(tick.x + tick.textX, tick.y + tick.textY)
         ctx.rotate(degreesToRadians(tickRotation))
-        ctx.fillText(tick.value, 0, 0)
+        ctx.fillText(value, 0, 0)
         ctx.restore()
     })
 
@@ -89,5 +91,23 @@ export const renderAxesToCanvas = (
             position,
             scale,
         })
+    })
+}
+
+/**
+ * @param {CanvasRenderingContext2D} ctx
+ * @param {number}                   width
+ * @param {number}                   height
+ * @param {number}                   scale
+ * @param {('x'|'y')}                axis
+ */
+export const renderGridLinesToCanvas = (ctx, { width, height, scale, axis }) => {
+    const lines = computeGridLines({ width, height, scale, axis })
+
+    lines.forEach(line => {
+        ctx.beginPath()
+        ctx.moveTo(line.x1, line.y1)
+        ctx.lineTo(line.x2, line.y2)
+        ctx.stroke()
     })
 }

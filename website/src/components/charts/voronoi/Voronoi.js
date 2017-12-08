@@ -51,7 +51,7 @@ export default class Voronoi extends Component {
         const { data, diceRoll } = this.props
         const { settings } = this.state
 
-        const code = generateCode('Voronoi', settings, {
+        const code = generateCode('ResponsiveVoronoi', settings, {
             pkg: '@nivo/voronoi',
             defaults: VoronoiDefaultProps,
         })

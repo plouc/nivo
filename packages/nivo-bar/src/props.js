@@ -64,15 +64,15 @@ export const BarPropTypes = {
     onClick: PropTypes.func.isRequired,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 
-    // canvas specific
-    pixelRatio: PropTypes.number.isRequired,
-
     legends: PropTypes.arrayOf(
         PropTypes.shape({
             dataFrom: PropTypes.oneOf(['indexes', 'keys']).isRequired,
             ...LegendPropShape,
         })
     ).isRequired,
+
+    // canvas specific
+    pixelRatio: PropTypes.number.isRequired,
 }
 
 export const BarDefaultProps = {
@@ -115,9 +115,9 @@ export const BarDefaultProps = {
     isInteractive: true,
     onClick: noop,
 
+    legends: [],
+
     // canvas specific
     pixelRatio:
         global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
-
-    legends: [],
 }

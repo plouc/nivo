@@ -94,7 +94,7 @@ export default class Sankey extends Component {
 
         const mappedSettings = propsMapper(settings)
 
-        const code = generateCode('Sankey', mappedSettings, { pkg: '@nivo/sankey' })
+        const code = generateCode('ResponsiveSankey', mappedSettings, { pkg: '@nivo/sankey' })
 
         const header = (
             <ChartHeader

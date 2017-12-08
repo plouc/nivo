@@ -95,7 +95,7 @@ export default class ChordCanvas extends Component {
         const mappedSettings = propsMapper(settings)
 
         const code = generateCode(
-            'ChordCanvas',
+            'ResponsiveChordCanvas',
             { keys, ...mappedSettings },
             {
                 pkg: '@nivo/calendar',
