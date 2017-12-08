@@ -16,6 +16,11 @@ const stories = storiesOf('Chord', module)
 
 stories.add('default', withInfo()(() => <Chord {...commonProperties} />))
 
+stories.add('onClick (console)', () => (
+  //eslint-disable-next-line no-console
+  <Chord {...commonProperties} onClick={(data, event) => console.log({ data, event })} />
+))
+
 stories.add('radial labels', withInfo()(() => <Chord {...commonProperties} labelRotation={-90} />))
 
 const customLabel = d => `${d.id} [${d.value}]`
