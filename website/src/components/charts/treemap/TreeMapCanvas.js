@@ -79,7 +79,7 @@ export default class TreeMapCanvas extends Component {
 
         const mappedSettings = propsMapper(settings)
 
-        const code = generateCode('TreeMapCanvas', mappedSettings, {
+        const code = generateCode('ResponsiveTreeMapCanvas', mappedSettings, {
             pkg: '@nivo/treemap',
             defaults: TreeMapCanvasDefaultProps,
         })

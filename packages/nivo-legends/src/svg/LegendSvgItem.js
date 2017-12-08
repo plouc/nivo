@@ -14,6 +14,7 @@ import {
     DIRECTION_TOP_TO_BOTTOM,
     DIRECTION_BOTTOM_TO_TOP,
 } from '../constants'
+import { computeItemLayout } from '../compute'
 import { SymbolCircle, SymbolDiamond, SymbolSquare, SymbolTriangle } from './symbols'
 
 const symbolByShape = {
@@ -39,76 +40,16 @@ class LegendSvgItem extends Component {
             justify,
         } = this.props
 
-        let symbolX
-        let symbolY
-
-        let labelX
-        let labelY
-        let labelAnchor
-        let labelAlignment
-
-        switch (direction) {
-            case DIRECTION_LEFT_TO_RIGHT:
-                symbolX = 0
-                symbolY = (height - symbolSize) / 2
-
-                labelY = height / 2
-                labelAlignment = 'middle'
-                if (justify === true) {
-                    labelX = width
-                    labelAnchor = 'end'
-                } else {
-                    labelX = symbolSize + symbolSpacing
-                    labelAnchor = 'start'
-                }
-                break
-
-            case DIRECTION_RIGHT_TO_LEFT:
-                symbolX = width - symbolSize
-                symbolY = (height - symbolSize) / 2
-
-                labelY = height / 2
-                labelAlignment = 'middle'
-                if (justify === true) {
-                    labelX = 0
-                    labelAnchor = 'start'
-                } else {
-                    labelX = width - symbolSize - symbolSpacing
-                    labelAnchor = 'end'
-                }
-                break
-
-            case DIRECTION_TOP_TO_BOTTOM:
-                symbolX = (width - symbolSize) / 2
-                symbolY = 0
-
-                labelX = width / 2
-
-                labelAnchor = 'middle'
-                if (justify === true) {
-                    labelY = height
-                    labelAlignment = 'baseline'
-                } else {
-                    labelY = symbolSize + symbolSpacing
-                    labelAlignment = 'hanging'
-                }
-                break
-
-            case DIRECTION_BOTTOM_TO_TOP:
-                symbolX = (width - symbolSize) / 2
-                symbolY = height - symbolSize
-
-                labelX = width / 2
-                labelAnchor = 'middle'
-                if (justify === true) {
-                    labelY = 0
-                    labelAlignment = 'hanging'
-                } else {
-                    labelY = height - symbolSize - symbolSpacing
-                    labelAlignment = 'baseline'
-                }
-                break
-        }
+        const { symbolX, symbolY, labelX, labelY, labelAnchor, labelAlignment } = computeItemLayout(
+            {
+                direction,
+                justify,
+                symbolSize,
+                symbolSpacing,
+                width,
+                height,
+            }
+        )
 
         const Symbol = symbolByShape[symbolShape]
 

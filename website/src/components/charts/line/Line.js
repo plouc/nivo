@@ -50,7 +50,7 @@ export default class Line extends Component {
 
         const mappedSettings = propsMapper(settings)
 
-        const code = generateCode('Line', mappedSettings, {
+        const code = generateCode('ResponsiveLine', mappedSettings, {
             pkg: '@nivo/line',
             defaults: LineDefaultProps,
         })

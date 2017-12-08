@@ -15,7 +15,7 @@ import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
 import { TransitionMotion, spring } from 'react-motion'
 import { withMotion } from '../../hocs'
-import { computeAxisTicks } from '../../lib/axes'
+import { computeAxisTicks } from '../../lib/cartesian/axes'
 import AxisTick from './AxisTick'
 
 const axisPositions = ['top', 'right', 'bottom', 'left']

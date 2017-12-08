@@ -64,7 +64,7 @@ export default class Sunburst extends Component {
 
         const mappedSettings = propsMapper(settings)
 
-        const code = generateCode('Sunburst', mappedSettings, { pkg: '@nivo/sunburst' })
+        const code = generateCode('ResponsiveSunburst', mappedSettings, { pkg: '@nivo/sunburst' })
 
         const header = (
             <ChartHeader

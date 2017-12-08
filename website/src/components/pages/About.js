@@ -80,17 +80,6 @@ const About = () => (
                         </Link>
                     </li>
                     <li>
-                        <Link
-                            to={{
-                                pathname: '/components',
-                                search: '?q=placeholder',
-                            }}
-                        >
-                            Placeholder components
-                        </Link>{' '}
-                        for advanced customization
-                    </li>
-                    <li>
                         <a
                             href="https://github.com/plouc/nivo-api"
                             target="_blank"

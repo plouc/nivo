@@ -9,7 +9,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import LegendSvg from './LegendSvg'
-import { computeDimensions } from '../compute'
+import { computeDimensions, computePositionFromAnchor } from '../compute'
 import {
     DIRECTION_ROW,
     DIRECTION_COLUMN,
@@ -57,45 +57,15 @@ const BoxLegendSvg = ({
         padding,
     })
 
-    let x = translateX
-    let y = translateY
-    switch (anchor) {
-        case ANCHOR_TOP:
-            x += (containerWidth - width) / 2
-            break
-
-        case ANCHOR_TOP_RIGHT:
-            x += containerWidth - width
-            break
-
-        case ANCHOR_RIGHT:
-            x += containerWidth - width
-            y += (containerHeight - height) / 2
-            break
-
-        case ANCHOR_BOTTOM_RIGHT:
-            x += containerWidth - width
-            y += containerHeight - height
-            break
-
-        case ANCHOR_BOTTOM:
-            x += (containerWidth - width) / 2
-            y += containerHeight - height
-            break
-
-        case ANCHOR_BOTTOM_LEFT:
-            y += containerHeight - height
-            break
-
-        case ANCHOR_LEFT:
-            y += (containerHeight - height) / 2
-            break
-
-        case ANCHOR_CENTER:
-            x += (containerWidth - width) / 2
-            y += (containerHeight - height) / 2
-            break
-    }
+    const { x, y } = computePositionFromAnchor({
+        anchor,
+        translateX,
+        translateY,
+        containerWidth,
+        containerHeight,
+        width,
+        height,
+    })
 
     return (
         <LegendSvg

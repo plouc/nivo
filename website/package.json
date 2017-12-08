@@ -21,6 +21,7 @@
         "@nivo/pie": "0.33.0-4",
         "@nivo/radar": "0.33.0-4",
         "@nivo/sankey": "0.33.0-4",
+        "@nivo/scatterplot": "0.33.0-4",
         "@nivo/stream": "0.33.0-4",
         "@nivo/sunburst": "0.32.0",
         "@nivo/treemap": "0.32.0",

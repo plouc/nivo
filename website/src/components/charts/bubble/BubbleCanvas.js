@@ -93,7 +93,7 @@ export default class BubbleCanvas extends Component {
 
         const mappedSettings = propsMapper(settings)
 
-        const code = generateCode('BubbleCanvas', mappedSettings, {
+        const code = generateCode('ResponsiveBubbleCanvas', mappedSettings, {
             pkg: '@nivo/circle-packing',
             defaults: BubbleCanvasDefaultProps,
         })

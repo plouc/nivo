@@ -250,7 +250,7 @@ export default class Bar extends Component {
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="bar" code={code} data={data} mode="hozirontal">
+                    <ChartTabs chartClass="bar" code={code} data={data}>
                         <ResponsiveBar
                             data={data}
                             keys={keys}

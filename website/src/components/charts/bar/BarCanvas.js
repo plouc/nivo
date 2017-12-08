@@ -133,7 +133,7 @@ export default class BarCanvas extends Component {
         const mappedSettings = propsMapper(settings)
 
         const code = generateCode(
-            'BarCanvas',
+            'ResponsiveBarCanvas',
             {
                 keys,
                 ...mappedSettings,
@@ -142,11 +142,7 @@ export default class BarCanvas extends Component {
         )
 
         const header = (
-            <ChartHeader
-                chartClass="BarCanvas"
-                tags={['bar', 'canvas', 'experimental']}
-                diceRoll={this.diceRoll}
-            />
+            <ChartHeader chartClass="BarCanvas" tags={['bar', 'canvas']} diceRoll={this.diceRoll} />
         )
 
         const description = (
@@ -155,7 +151,7 @@ export default class BarCanvas extends Component {
                     A variation around the <Link to="/bar">Bar</Link> component. Well suited for
                     large data sets as it does not impact DOM tree depth and does not involve React
                     diffing stuff for children (not that useful when using canvas), however you'll
-                    lose the isomorphic ability and transitions (for now).
+                    lose the isomorphic ability and transitions.
                 </p>
                 <p className="description">
                     The responsive alternative of this component is <code>ResponsiveBarCanvas</code>.
