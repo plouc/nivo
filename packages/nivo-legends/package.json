@@ -1,7 +1,7 @@
 {
   "name": "@nivo/legends",
   "description": "legend components for nivo dataviz library",
-  "version": "0.33.0-6",
+  "version": "0.33.0-7",
   "license": "MIT",
   "main": "./lib/index.js",
   "module": "es/index.js",
@@ -10,7 +10,7 @@
     "recompose": "^0.26.0"
   },
   "devDependencies": {
-    "@nivo/babel-preset": "0.33.0-6",
+    "@nivo/babel-preset": "0.33.0-7",
     "babel-cli": "^6.26.0",
     "babel-jest": "^20.0.3",
     "cross-env": "^5.0.5",
