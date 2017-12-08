@@ -14,7 +14,7 @@ import {
     defaultAnimate,
     defaultMotionDamping,
     defaultMotionStiffness,
-} from '../../nivo-core/src/defaults'
+} from '@nivo/core'
 
 const ChordLabels = ({
     arcs,
