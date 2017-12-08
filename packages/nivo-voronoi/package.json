@@ -1,17 +1,17 @@
 {
   "name": "@nivo/voronoi",
-  "version": "0.33.0-5",
+  "version": "0.33.0-6",
   "license": "MIT",
   "main": "./lib/index.js",
   "module": "es/index.js",
   "jsnext:main": "es/index.js",
   "dependencies": {
-    "@nivo/core": "0.33.0-5",
+    "@nivo/core": "0.33.0-6",
     "d3-voronoi": "^1.1.2",
     "recompose": "^0.26.0"
   },
   "devDependencies": {
-    "@nivo/babel-preset": "0.33.0-5",
+    "@nivo/babel-preset": "0.33.0-6",
     "babel-cli": "^6.26.0",
     "babel-jest": "^20.0.3",
     "cross-env": "^5.0.5",
