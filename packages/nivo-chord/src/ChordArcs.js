@@ -29,6 +29,7 @@ const ChordArcs = ({
     setCurrent,
     showTooltip,
     hideTooltip,
+    onClick,
 
     // motion
     animate,
@@ -40,6 +41,7 @@ const ChordArcs = ({
 
         return {
             strokeWidth: borderWidth,
+            onClick: event => onClick(arc, event),
             onMouseEnter: e => {
                 setCurrent(arc)
                 showTooltip(arcTooltip, e)

@@ -48,6 +48,7 @@ const Chord = ({
     // interactivity
     isInteractive,
     tooltipFormat,
+    onClick,
 
     // motion
     animate,
@@ -95,6 +96,7 @@ const Chord = ({
                                 tooltipFormat={tooltipFormat}
                                 showTooltip={showTooltip}
                                 hideTooltip={hideTooltip}
+                                onClick={onClick}
                                 {...motionProps}
                             />
                             <ChordArcs
@@ -108,6 +110,7 @@ const Chord = ({
                                 tooltipFormat={tooltipFormat}
                                 showTooltip={showTooltip}
                                 hideTooltip={hideTooltip}
+                                onClick={onClick}
                                 {...motionProps}
                             />
                             {enableLabel && (
@@ -118,6 +121,7 @@ const Chord = ({
                                     getLabel={getLabel}
                                     getColor={getLabelTextColor}
                                     theme={theme}
+                                    onClick={onClick}
                                     {...motionProps}
                                 />
                             )}
