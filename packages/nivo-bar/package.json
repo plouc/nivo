@@ -1,21 +1,21 @@
 {
   "name": "@nivo/bar",
-  "version": "0.33.0-4",
+  "version": "0.33.0-5",
   "license": "MIT",
   "main": "./lib/index.js",
   "module": "es/index.js",
   "jsnext:main": "es/index.js",
   "dependencies": {
-    "@nivo/core": "0.32.0",
-    "@nivo/legends": "0.33.0-4",
+    "@nivo/core": "0.33.0-5",
+    "@nivo/legends": "0.33.0-5",
     "d3-scale": "^1.0.6",
     "d3-shape": "^1.2.0",
     "react-motion": "^0.5.2",
     "recompose": "^0.26.0"
   },
   "devDependencies": {
-    "@nivo/babel-preset": "0.32.0",
-    "@nivo/generators": "0.32.0",
+    "@nivo/babel-preset": "0.33.0-5",
+    "@nivo/generators": "0.33.0-5",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.0.3",
     "babel-jest": "^20.0.3",
