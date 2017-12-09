@@ -12,11 +12,7 @@ import { TransitionMotion, spring } from 'react-motion'
 import pure from 'recompose/pure'
 import { colorMotionSpring, getInterpolatedColor } from '@nivo/core'
 import ChordArcTooltip from './ChordArcTooltip'
-import {
-    defaultAnimate,
-    defaultMotionDamping,
-    defaultMotionStiffness,
-} from '@nivo/core'
+import { motionPropTypes } from '@nivo/core'
 
 const ChordArcs = ({
     arcs,
@@ -134,9 +130,7 @@ ChordArcs.propTypes = {
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-    animate: defaultAnimate,
-    motionDamping: defaultMotionDamping,
-    motionStiffness: defaultMotionStiffness,
+    ...motionPropTypes,
 }
 
 export default pure(ChordArcs)

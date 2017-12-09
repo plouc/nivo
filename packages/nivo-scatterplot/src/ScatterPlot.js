@@ -39,6 +39,9 @@ const ScatterPlot = ({
     theme,
     getColor,
 
+    // symbols,
+    symbolSize,
+
     // motion
     animate,
     motionStiffness,
@@ -67,89 +70,103 @@ const ScatterPlot = ({
         fill: getColor(serie),
     }))
 
-    const symbols = data.reduce((agg, serie) => {
-        return [
+    const symbols = data.reduce(
+        (agg, serie) => [
             ...agg,
-            ...serie.data.map(d => {
-                return {
-                    id: `${serie.id}.${d.id}`,
-                    x: xScale(d.x),
-                    y: yScale(d.y),
-                    color: getColor(serie),
-                    data: { ...d, serie: serie.id },
-                }
-            }),
-        ]
-    }, [])
+            ...serie.data.map(d => ({
+                id: `${serie.id}.${d.id}`,
+                x: xScale(d.x),
+                y: yScale(d.y),
+                color: getColor(serie),
+                data: { ...d, serie: serie.id },
+            })),
+        ],
+        []
+    )
 
     return (
         <Container isInteractive={isInteractive} theme={theme}>
-            {({ showTooltip, hideTooltip }) => {
-                return (
-                    <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
-                        <Grid
-                            theme={theme}
-                            width={width}
-                            height={height}
-                            xScale={enableGridX ? xScale : null}
-                            yScale={enableGridY ? yScale : null}
-                            {...motionProps}
-                        />
-                        <Axes
-                            xScale={xScale}
-                            yScale={yScale}
-                            width={width}
-                            height={height}
-                            theme={theme}
-                            top={axisTop}
-                            right={axisRight}
-                            bottom={axisBottom}
-                            left={axisLeft}
-                            {...motionProps}
-                        />
-                        {animate === true && (
-                            <TransitionMotion
-                                styles={symbols.map(symbol => ({
-                                    key: symbol.id,
-                                    data: symbol,
-                                    style: {
-                                        x: spring(symbol.x, springConfig),
-                                        y: spring(symbol.y, springConfig),
-                                    },
-                                }))}
-                            >
-                                {interpolatedStyles => (
-                                    <g>
-                                        {interpolatedStyles.map(({ key, style, data: symbol }) => (
-                                            <ScatterPlotItem
-                                                key={key}
-                                                x={style.x}
-                                                y={style.y}
-                                                color={symbol.color}
-                                                data={symbol.data}
-                                                showTooltip={showTooltip}
-                                                hideTooltip={hideTooltip}
-                                                tooltipFormat={tooltipFormat}
-                                                onClick={onClick}
-                                                theme={theme}
-                                            />
-                                        ))}
-                                    </g>
-                                )}
-                            </TransitionMotion>
-                        )}
-                        {legends.map((legend, i) => (
-                            <BoxLegendSvg
-                                key={i}
-                                {...legend}
-                                containerWidth={width}
-                                containerHeight={height}
-                                data={legendData}
+            {({ showTooltip, hideTooltip }) => (
+                <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
+                    <Grid
+                        theme={theme}
+                        width={width}
+                        height={height}
+                        xScale={enableGridX ? xScale : null}
+                        yScale={enableGridY ? yScale : null}
+                        {...motionProps}
+                    />
+                    <Axes
+                        xScale={xScale}
+                        yScale={yScale}
+                        width={width}
+                        height={height}
+                        theme={theme}
+                        top={axisTop}
+                        right={axisRight}
+                        bottom={axisBottom}
+                        left={axisLeft}
+                        {...motionProps}
+                    />
+                    {!animate &&
+                        symbols.map(symbol => (
+                            <ScatterPlotItem
+                                key={symbol.id}
+                                x={symbol.x}
+                                y={symbol.y}
+                                size={symbolSize}
+                                color={symbol.color}
+                                data={symbol.data}
+                                showTooltip={showTooltip}
+                                hideTooltip={hideTooltip}
+                                tooltipFormat={tooltipFormat}
+                                onClick={onClick}
+                                theme={theme}
                             />
                         ))}
-                    </SvgWrapper>
-                )
-            }}
+                    {animate === true && (
+                        <TransitionMotion
+                            styles={symbols.map(symbol => ({
+                                key: symbol.id,
+                                data: symbol,
+                                style: {
+                                    x: spring(symbol.x, springConfig),
+                                    y: spring(symbol.y, springConfig),
+                                },
+                            }))}
+                        >
+                            {interpolatedStyles => (
+                                <g>
+                                    {interpolatedStyles.map(({ key, style, data: symbol }) => (
+                                        <ScatterPlotItem
+                                            key={key}
+                                            x={style.x}
+                                            y={style.y}
+                                            size={symbolSize}
+                                            color={symbol.color}
+                                            data={symbol.data}
+                                            showTooltip={showTooltip}
+                                            hideTooltip={hideTooltip}
+                                            tooltipFormat={tooltipFormat}
+                                            onClick={onClick}
+                                            theme={theme}
+                                        />
+                                    ))}
+                                </g>
+                            )}
+                        </TransitionMotion>
+                    )}
+                    {legends.map((legend, i) => (
+                        <BoxLegendSvg
+                            key={i}
+                            {...legend}
+                            containerWidth={width}
+                            containerHeight={height}
+                            data={legendData}
+                        />
+                    ))}
+                </SvgWrapper>
+            )}
         </Container>
     )
 }

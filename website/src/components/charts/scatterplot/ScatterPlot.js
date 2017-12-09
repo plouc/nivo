@@ -34,6 +34,9 @@ export default class ScatterPlot extends Component {
             colors: 'nivo',
             colorBy: 'id',
 
+            // symbols
+            symbolSize: 6,
+
             // axes
             'enable axisTop': false,
             axisTop: {

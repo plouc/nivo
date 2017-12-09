@@ -45,6 +45,10 @@ export const ScatterPlotPropTypes = {
     enableGridX: PropTypes.bool.isRequired,
     enableGridY: PropTypes.bool.isRequired,
 
+    // symbols
+    symbolSize: PropTypes.number.isRequired,
+    symbolShape: PropTypes.oneOfType([PropTypes.oneOf(['circle', 'square'])]).isRequired,
+
     // styling
     getColor: PropTypes.func.isRequired,
 
@@ -73,6 +77,10 @@ export const ScatterPlotDefaultProps = {
     axisLeft: {},
     enableGridX: true,
     enableGridY: true,
+
+    // symbols
+    symbolSize: 6,
+    symbolShape: 'circle',
 
     // styling
     colors: 'nivo',

@@ -2,7 +2,7 @@ import { range, random } from 'lodash'
 
 const keys = ['group A', 'group B', 'group C', 'group D', 'group E']
 const ageRange = [0, 100]
-const weightRange = [4, 120]
+const weightRange = [0, 120]
 
 const generateData = size =>
     keys.map(key => ({
@@ -16,4 +16,4 @@ const generateData = size =>
 
 export const generateLightDataSet = () => generateData(50)
 
-export const generateHeavyDataSet = () => generateData(700)
+export const generateHeavyDataSet = () => generateData(800)

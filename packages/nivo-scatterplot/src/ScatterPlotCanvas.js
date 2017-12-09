@@ -17,7 +17,14 @@ import enhance from './enhance'
 
 const findNodeUnderCursor = (nodes, margin, x, y) =>
     nodes.find(node =>
-        isCursorInRect(node.x + margin.left, node.y + margin.top, node.width, node.height, x, y)
+        isCursorInRect(
+            node.x + margin.left - node.size / 2,
+            node.y + margin.top - node.size / 2,
+            node.size,
+            node.size,
+            x,
+            y
+        )
     )
 
 class ScatterPlotCanvas extends Component {
@@ -69,6 +76,9 @@ class ScatterPlotCanvas extends Component {
             enableGridX,
             enableGridY,
 
+            // symbols
+            symbolSize,
+
             // theming
             getColor,
 
@@ -111,12 +121,26 @@ class ScatterPlotCanvas extends Component {
             left: axisLeft,
         })
 
-        data.forEach(serie => {
-            serie.data.forEach(d => {
-                this.ctx.fillStyle = getColor(serie)
-                this.ctx.fillRect(xScale(d.x) - 2, yScale(d.y) - 2, 4, 4)
-            })
+        const items = data.reduce(
+            (agg, serie) => [
+                ...agg,
+                ...serie.data.map(d => ({
+                    x: xScale(d.x),
+                    y: yScale(d.y),
+                    size: symbolSize,
+                    color: getColor(serie),
+                    data: { ...d, serie: serie.id },
+                })),
+            ],
+            []
+        )
+
+        items.forEach(d => {
+            this.ctx.fillStyle = d.color
+            this.ctx.fillRect(d.x - symbolSize / 2, d.y - symbolSize / 2, symbolSize, symbolSize)
         })
+
+        this.items = items
 
         const legendData = data.map(serie => ({
             label: serie.id,
@@ -134,20 +158,19 @@ class ScatterPlotCanvas extends Component {
     }
 
     handleMouseHover = (showTooltip, hideTooltip) => event => {
-        if (!this.bars) return
+        if (!this.items) return
 
         const { margin, theme } = this.props
         const [x, y] = getRelativeCursor(this.surface, event)
 
-        const bar = findNodeUnderCursor(this.bars, margin, x, y)
-
-        if (bar !== undefined) {
+        const item = findNodeUnderCursor(this.items, margin, x, y)
+        if (item !== undefined) {
             showTooltip(
                 <BasicTooltip
-                    id={`${bar.data.id} - ${bar.data.indexValue}`}
-                    value={bar.data.value}
+                    id={item.data.serie}
+                    value={`x: ${item.data.x}, y: ${item.data.y}`}
                     enableChip={true}
-                    color={bar.color}
+                    color={item.color}
                     theme={theme}
                 />,
                 event
@@ -162,13 +185,13 @@ class ScatterPlotCanvas extends Component {
     }
 
     handleClick = event => {
-        if (!this.bars) return
+        if (!this.items) return
 
         const { margin, onClick } = this.props
         const [x, y] = getRelativeCursor(this.surface, event)
 
-        const node = findNodeUnderCursor(this.bars, margin, x, y)
-        if (node !== undefined) onClick(node.data, event)
+        const item = findNodeUnderCursor(this.items, margin, x, y)
+        if (item !== undefined) onClick(item.data, event)
     }
 
     render() {
