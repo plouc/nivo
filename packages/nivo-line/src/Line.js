@@ -58,9 +58,9 @@ const Line = ({
     enableDots,
     dotSymbol,
     dotSize,
-    dotColor,
+    getDotColor,
     dotBorderWidth,
-    dotBorderColor,
+    getDotBorderColor,
     enableDotLabel,
     dotLabel,
     dotLabelFormat,
@@ -154,9 +154,9 @@ const Line = ({
                             lines={lines}
                             symbol={dotSymbol}
                             size={dotSize}
-                            color={getInheritedColorGenerator(dotColor)}
+                            color={getDotColor}
                             borderWidth={dotBorderWidth}
-                            borderColor={getInheritedColorGenerator(dotBorderColor)}
+                            borderColor={getDotBorderColor}
                             enableLabel={enableDotLabel}
                             label={dotLabel}
                             labelFormat={dotLabelFormat}
@@ -259,6 +259,12 @@ const enhance = compose(
             return { lines, slices }
         }
     ),
+    withPropsOnChange(['dotColor'], ({ dotColor }) => ({
+        getDotColor: getInheritedColorGenerator(dotColor),
+    })),
+    withPropsOnChange(['dotBorderColor'], ({ dotBorderColor }) => ({
+        getDotBorderColor: getInheritedColorGenerator(dotBorderColor),
+    })),
     pure
 )
 
