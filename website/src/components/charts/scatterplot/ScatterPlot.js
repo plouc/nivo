@@ -10,6 +10,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 import { ResponsiveScatterPlot, ScatterPlotDefaultProps } from '@nivo/scatterplot'
+import config from '../../../config'
 import ChartHeader from '../../ChartHeader'
 import ChartTabs from '../../ChartTabs'
 import ScatterPlotControls from './ScatterPlotControls'
@@ -36,6 +37,7 @@ export default class ScatterPlot extends Component {
 
             // symbols
             symbolSize: 6,
+            symbolShape: 'circle',
 
             // axes
             'enable axisTop': false,
@@ -151,6 +153,18 @@ export default class ScatterPlot extends Component {
                     The responsive alternative of this component is{' '}
                     <code>ResponsiveScatterPlot</code>, it also offers another implementation, see{' '}
                     <Link to="/scatterplot/canvas">ScatterPlotCanvas</Link>.
+                </p>
+                <p className="description">
+                    You can also see more example usages in{' '}
+                    <a
+                        href={`${
+                            config.storybookUrl
+                        }?selectedKind=ScatterPlot&selectedStory=default`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        the storybook
+                    </a>.
                 </p>
                 <p className="description">
                     See the <Link to="/guides/legends">dedicated guide</Link> on how to setup
