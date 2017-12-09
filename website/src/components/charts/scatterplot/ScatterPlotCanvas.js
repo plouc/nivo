@@ -38,6 +38,7 @@ export default class ScatterPlotCanvas extends Component {
 
             // symbols
             symbolSize: 4,
+            symbolShape: 'circle',
 
             // axes
             'enable axisTop': false,

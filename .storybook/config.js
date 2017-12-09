@@ -22,6 +22,7 @@ function loadStories() {
     require('../packages/nivo-pie/stories/pie.stories')
     require('../packages/nivo-radar/stories/radar.stories')
     require('../packages/nivo-sankey/stories/sankey.stories')
+    require('../packages/nivo-scatterplot/stories/scatterplot.stories')
     require('../packages/nivo-stream/stories/stream.stories')
     require('../packages/nivo-sunburst/stories/sunburst.stories')
 }

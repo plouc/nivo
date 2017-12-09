@@ -11,6 +11,7 @@ import { TransitionMotion, spring } from 'react-motion'
 import { Container, SvgWrapper } from '@nivo/core'
 import { Grid, Axes } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
+import setDisplayName from 'recompose/setDisplayName'
 import enhance from './enhance'
 import { ScatterPlotPropTypes } from './props'
 import ScatterPlotItem from './ScatterPlotItem'
@@ -173,4 +174,4 @@ const ScatterPlot = ({
 
 ScatterPlot.propTypes = ScatterPlotPropTypes
 
-export default enhance(ScatterPlot)
+export default setDisplayName('ScatterPlot')(enhance(ScatterPlot))
