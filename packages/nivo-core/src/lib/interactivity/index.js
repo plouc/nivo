@@ -10,8 +10,8 @@
 export * from './detect'
 
 export const getRelativeCursor = (el, event) => {
-    const { pageX, pageY } = event
+    const { clientX, clientY } = event
     const bounds = el.getBoundingClientRect()
 
-    return [pageX - bounds.left, pageY - bounds.top]
+    return [clientX - bounds.left, clientY - bounds.top]
 }

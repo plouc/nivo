@@ -118,6 +118,20 @@ export default [
             ],
         },
     },
+    {
+        key: 'symbolSize',
+        scopes: '*',
+        description: `Symbol size (px).`,
+        required: false,
+        default: defaults.symbolSize,
+        type: `{number}`,
+        controlType: 'range',
+        controlGroup: 'Symbols',
+        controlOptions: {
+            min: 2,
+            max: 24,
+        },
+    },
     ...marginProperties,
     ...axesProperties,
     {

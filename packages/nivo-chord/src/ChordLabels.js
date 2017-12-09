@@ -10,11 +10,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
 import { midAngle, getPolarLabelProps } from '@nivo/core'
-import {
-    defaultAnimate,
-    defaultMotionDamping,
-    defaultMotionStiffness,
-} from '@nivo/core'
+import { motionPropTypes } from '@nivo/core'
 
 const ChordLabels = ({
     arcs,
@@ -107,9 +103,7 @@ ChordLabels.propTypes = {
     getLabel: PropTypes.func.isRequired,
     getColor: PropTypes.func.isRequired,
     theme: PropTypes.object.isRequired,
-    animate: defaultAnimate,
-    motionDamping: defaultMotionDamping,
-    motionStiffness: defaultMotionStiffness,
+    ...motionPropTypes,
 }
 
 export default ChordLabels

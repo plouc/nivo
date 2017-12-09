@@ -33,13 +33,11 @@ export default class ScatterPlotCanvas extends Component {
 
             pixelRatio: window && window.devicePixelRatio ? window.devicePixelRatio : 1,
 
-            minX: 0,
-            maxX: 'auto',
-            minY: 0,
-            maxY: 'auto',
-
             colors: 'nivo',
             colorBy: 'id',
+
+            // symbols
+            symbolSize: 4,
 
             // axes
             'enable axisTop': false,

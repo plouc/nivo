@@ -78,10 +78,6 @@ ScatterPlotItem.propTypes = {
     }).isRequired,
 }
 
-ScatterPlotItem.defaultProps = {
-    size: 6,
-}
-
 const enhance = compose(
     withPropsOnChange(['data', 'onClick'], ({ data, onClick }) => ({
         onClick: event => onClick(data, event),
