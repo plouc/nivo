@@ -6,6 +6,7 @@
   "module": "es/index.js",
   "jsnext:main": "es/index.js",
   "dependencies": {
+    "@nivo/axes": "0.33.0",
     "@nivo/core": "0.33.0",
     "@nivo/legends": "0.33.0",
     "d3-format": "^1.2.0",

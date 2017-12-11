@@ -9,7 +9,7 @@
 import React from 'react'
 import { TransitionMotion, spring } from 'react-motion'
 import { Container, SvgWrapper } from '@nivo/core'
-import { Grid, Axes } from '@nivo/core'
+import { Grid, Axes } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
 import setDisplayName from 'recompose/setDisplayName'
 import enhance from './enhance'

@@ -6,112 +6,110 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
+import compose from 'recompose/compose'
+import withPropsOnChange from 'recompose/withPropsOnChange'
+import pure from 'recompose/pure'
+import setDisplayName from 'recompose/setDisplayName'
 import { TransitionMotion, spring } from 'react-motion'
 import { motionPropTypes } from '@nivo/core'
 import { getLabelGenerator } from '@nivo/core'
 import { DotsItem } from '@nivo/core'
 
-export default class LineDots extends PureComponent {
-    static propTypes = {
-        lines: PropTypes.arrayOf(
-            PropTypes.shape({
-                id: PropTypes.string.isRequired,
-            })
-        ),
+const LineDots = ({
+    lines,
 
-        symbol: PropTypes.func,
-        size: PropTypes.number.isRequired,
-        color: PropTypes.func.isRequired,
-        borderWidth: PropTypes.number.isRequired,
-        borderColor: PropTypes.func.isRequired,
+    symbol,
+    size,
+    color,
+    borderWidth,
+    borderColor,
 
-        // labels
-        enableLabel: PropTypes.bool.isRequired,
-        label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
-        labelFormat: PropTypes.string,
-        labelYOffset: PropTypes.number,
+    // labels
+    enableLabel,
+    getLabel,
+    labelYOffset,
 
-        // theming
-        theme: PropTypes.shape({
-            dots: PropTypes.shape({
-                textColor: PropTypes.string.isRequired,
-                fontSize: PropTypes.string.isRequired,
-            }).isRequired,
-        }).isRequired,
+    // theming
+    theme,
 
-        // motion
-        ...motionPropTypes,
+    // motion
+    animate,
+    motionStiffness,
+    motionDamping,
+}) => {
+    const points = lines.reduce((acc, line) => {
+        const { id, points } = line
+
+        return [
+            ...acc,
+            ...points.filter(point => point.value !== null).map(point => {
+                const pointData = {
+                    serie: { id },
+                    x: point.key,
+                    y: point.value,
+                }
+
+                return {
+                    key: `${id}.${point.x}`,
+                    x: point.x,
+                    y: point.y,
+                    fill: color(line),
+                    stroke: borderColor(line),
+                    label: enableLabel ? getLabel(pointData) : null,
+                }
+            }),
+        ]
+    }, [])
+
+    if (animate !== true) {
+        return (
+            <g>
+                {points.map(point => (
+                    <DotsItem
+                        key={point.key}
+                        x={point.x}
+                        y={point.y}
+                        symbol={symbol}
+                        size={size}
+                        color={point.fill}
+                        borderWidth={borderWidth}
+                        borderColor={point.stroke}
+                        label={point.label}
+                        labelYOffset={labelYOffset}
+                        theme={theme}
+                    />
+                ))}
+            </g>
+        )
+    }
+    const springConfig = {
+        motionDamping,
+        motionStiffness,
     }
 
-    static defaultProps = {
-        // labels
-        enableLabel: false,
-        label: 'y',
-    }
-
-    render() {
-        const {
-            lines,
-
-            symbol,
-            size,
-            color,
-            borderWidth,
-            borderColor,
-
-            // labels
-            enableLabel,
-            label,
-            labelFormat,
-            labelYOffset,
-
-            // theming
-            theme,
-
-            // motion
-            animate,
-            motionStiffness,
-            motionDamping,
-        } = this.props
-
-        const getLabel = getLabelGenerator(label, labelFormat)
-
-        const points = lines.reduce((acc, line) => {
-            const { id, points } = line
-
-            return [
-                ...acc,
-                ...points.filter(point => point.value !== null).map(point => {
-                    const pointData = {
-                        serie: { id },
-                        x: point.key,
-                        y: point.value,
-                    }
-
-                    return {
-                        key: `${id}.${point.x}`,
-                        x: point.x,
-                        y: point.y,
-                        fill: color(line),
-                        stroke: borderColor(line),
-                        label: enableLabel ? getLabel(pointData) : null,
-                    }
-                }),
-            ]
-        }, [])
-
-        if (animate !== true) {
-            return (
+    return (
+        <TransitionMotion
+            styles={points.map(point => {
+                return {
+                    key: point.key,
+                    data: point,
+                    style: {
+                        x: spring(point.x, springConfig),
+                        y: spring(point.y, springConfig),
+                        size: spring(size, springConfig),
+                    },
+                }
+            })}
+        >
+            {interpolatedStyles => (
                 <g>
-                    {points.map(point => (
+                    {interpolatedStyles.map(({ key, style, data: point }) => (
                         <DotsItem
-                            key={point.key}
-                            x={point.x}
-                            y={point.y}
+                            key={key}
+                            {...style}
                             symbol={symbol}
-                            size={size}
                             color={point.fill}
                             borderWidth={borderWidth}
                             borderColor={point.stroke}
@@ -121,45 +119,53 @@ export default class LineDots extends PureComponent {
                         />
                     ))}
                 </g>
-            )
-        }
-        const springConfig = {
-            motionDamping,
-            motionStiffness,
-        }
-
-        return (
-            <TransitionMotion
-                styles={points.map(point => {
-                    return {
-                        key: point.key,
-                        data: point,
-                        style: {
-                            x: spring(point.x, springConfig),
-                            y: spring(point.y, springConfig),
-                            size: spring(size, springConfig),
-                        },
-                    }
-                })}
-            >
-                {interpolatedStyles => (
-                    <g>
-                        {interpolatedStyles.map(({ key, style, data: point }) => (
-                            <DotsItem
-                                key={key}
-                                {...style}
-                                symbol={symbol}
-                                color={point.fill}
-                                borderWidth={borderWidth}
-                                borderColor={point.stroke}
-                                label={point.label}
-                                labelYOffset={labelYOffset}
-                                theme={theme}
-                            />
-                        ))}
-                    </g>
-                )}
-            </TransitionMotion>
-        )
-    }
+            )}
+        </TransitionMotion>
+    )
 }
+
+LineDots.ropTypes = {
+    lines: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.string.isRequired,
+        })
+    ),
+
+    symbol: PropTypes.func,
+    size: PropTypes.number.isRequired,
+    color: PropTypes.func.isRequired,
+    borderWidth: PropTypes.number.isRequired,
+    borderColor: PropTypes.func.isRequired,
+
+    // labels
+    enableLabel: PropTypes.bool.isRequired,
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    labelFormat: PropTypes.string,
+    labelYOffset: PropTypes.number,
+
+    // theming
+    theme: PropTypes.shape({
+        dots: PropTypes.shape({
+            textColor: PropTypes.string.isRequired,
+            fontSize: PropTypes.string.isRequired,
+        }).isRequired,
+    }).isRequired,
+
+    // motion
+    ...motionPropTypes,
+}
+
+LineDots.defaultProps = {
+    // labels
+    enableLabel: false,
+    label: 'y',
+}
+
+const enhance = compose(
+    withPropsOnChange(['label', 'labelFormat'], ({ label, labelFormat }) => ({
+        getLabel: getLabelGenerator(label, labelFormat),
+    })),
+    pure
+)
+
+export default setDisplayName('LineDots')(enhance(LineDots))

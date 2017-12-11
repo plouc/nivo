@@ -18,15 +18,12 @@ export default {
         left: 60,
     },
 
-    minY: 'auto',
-    maxY: 'auto',
-
-    stacked: true,
     curve: 'linear',
 
     // axes
     'enable axisTop': false,
     axisTop: {
+        scale: 'x',
         orient: 'top',
         tickSize: 5,
         tickPadding: 5,
@@ -34,8 +31,9 @@ export default {
         legend: '',
         legendOffset: 36,
     },
-    'enable axisRight': false,
+    'enable axisRight': true,
     axisRight: {
+        scale: 'y2',
         orient: 'right',
         tickSize: 5,
         tickPadding: 5,
@@ -45,6 +43,7 @@ export default {
     },
     'enable axisBottom': true,
     axisBottom: {
+        scale: 'x',
         orient: 'bottom',
         tickSize: 5,
         tickPadding: 5,
@@ -55,6 +54,7 @@ export default {
     },
     'enable axisLeft': true,
     axisLeft: {
+        scale: 'y1',
         orient: 'left',
         tickSize: 5,
         tickPadding: 5,
@@ -83,7 +83,7 @@ export default {
     dotLabelYOffset: -12,
 
     // area
-    enableArea: false,
+    enableAreas: false,
     areaOpacity: 0.2,
 
     // motion

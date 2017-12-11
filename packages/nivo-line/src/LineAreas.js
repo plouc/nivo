@@ -6,72 +6,31 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
-import PropTypes from 'prop-types'
-import pure from 'recompose/pure'
-import { motionPropTypes } from '@nivo/core'
-import { SmartMotion } from '@nivo/core'
+import React, { PureComponent } from 'react'
+import compose from 'recompose/compose'
+import defaultProps from 'recompose/defaultProps'
+import withPropsOnChange from 'recompose/withPropsOnChange'
+import { area } from 'd3-shape'
+import { curveFromProp } from '@nivo/core'
 
-const LineAreas = ({
-    areaGenerator,
-    areaOpacity,
-    lines,
+const LinesAreas = ({ generator, children: render }) => render(generator)
 
-    // motion
-    animate,
-    motionStiffness,
-    motionDamping,
-}) => {
-    if (animate !== true) {
-        return (
-            <g>
-                {lines.map(({ id, color: areaColor, points }) => (
-                    <path
-                        key={id}
-                        d={areaGenerator(points)}
-                        fill={areaColor}
-                        fillOpacity={areaOpacity}
-                        strokeWidth={0}
-                    />
-                ))}
-            </g>
-        )
-    }
-
-    const springConfig = {
-        stiffness: motionStiffness,
-        damping: motionDamping,
-    }
-
-    return (
-        <g>
-            {lines.map(({ id, color: areaColor, points }) => (
-                <SmartMotion
-                    key={id}
-                    style={spring => ({
-                        d: spring(areaGenerator(points), springConfig),
-                        fill: spring(areaColor, springConfig),
-                    })}
-                >
-                    {style => (
-                        <path
-                            key={id}
-                            d={style.d}
-                            fill={areaColor}
-                            fillOpacity={areaOpacity}
-                            strokeWidth={0}
-                        />
-                    )}
-                </SmartMotion>
-            ))}
-        </g>
-    )
+LinesAreas.defaultProps = {
+    curve: 'linear',
 }
 
-LineAreas.propTypes = {
-    areaOpacity: PropTypes.number.isRequired,
-    // motion
-    ...motionPropTypes,
-}
+const enhance = compose(
+    defaultProps({
+        curve: 'linear',
+    }),
+    withPropsOnChange(['curve', 'height'], ({ curve, height }) => ({
+        generator: area()
+            .defined(d => d && d.x !== null && d.y !== null)
+            .x(d => d.x)
+            .y0(height)
+            .y1(d => d.y)
+            .curve(curveFromProp(curve)),
+    }))
+)
 
-export default pure(LineAreas)
+export default enhance(LinesAreas)

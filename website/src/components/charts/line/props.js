@@ -86,16 +86,6 @@ export default [
         },
     },
     {
-        key: 'stacked',
-        scopes: '*',
-        description: 'Enable/disable stacked mode.',
-        type: '{boolean}',
-        required: false,
-        default: defaults.stacked,
-        controlType: 'switch',
-        controlGroup: 'Base',
-    },
-    {
         key: 'curve',
         scopes: '*',
         description: (
@@ -117,43 +107,6 @@ export default [
             })),
         },
     },
-    {
-        key: 'minY',
-        scopes: '*',
-        description: 'Minimum y value.',
-        required: false,
-        default: defaults.minY,
-        type: '{number|string}',
-        controlType: 'switchableRange',
-        controlGroup: 'Base',
-        controlOptions: {
-            disabledValue: 'auto',
-            defaultValue: 0,
-            min: -100,
-            max: 100,
-        },
-    },
-    {
-        key: 'maxY',
-        scopes: '*',
-        description: 'Maximum y value.',
-        required: false,
-        default: defaults.maxY,
-        type: '{number|string}',
-        controlType: 'switchableRange',
-        controlGroup: 'Base',
-        controlOptions: {
-            disabledValue: 'auto',
-            defaultValue: 300,
-            min: 10,
-            max: 400,
-        },
-    },
-    /*##################################################################################################################
-
-        Style
-
-    ##################################################################################################################*/
     {
         key: 'colors',
         scopes: '*',
@@ -202,17 +155,17 @@ export default [
         },
     },
     {
-        key: 'enableArea',
+        key: 'enableAreas',
         scopes: '*',
         description: 'Enable/disable area below each line.',
         type: '{boolean}',
         required: false,
-        default: defaults.enableArea,
+        default: true,
         controlType: 'switch',
-        controlGroup: 'Style',
+        controlGroup: 'Areas',
     },
     {
-        key: 'areaOpacity',
+        key: 'areasOpacity',
         scopes: '*',
         description: 'Area opacity (0~1), depends on enableArea.',
         required: false,

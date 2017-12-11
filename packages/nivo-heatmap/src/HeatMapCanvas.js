@@ -8,7 +8,7 @@
  */
 import React, { Component } from 'react'
 import { partial } from 'lodash'
-import { renderAxesToCanvas } from '@nivo/core'
+import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { getRelativeCursor, isCursorInRect } from '@nivo/core'
 import { renderRect, renderCircle } from './canvas'
 import computeNodes from './computeNodes'
@@ -56,6 +56,9 @@ class HeatMapCanvas extends Component {
             xScale,
             yScale,
 
+            enableGridX,
+            enableGridY,
+
             cellShape,
         } = props
 
@@ -76,6 +79,23 @@ class HeatMapCanvas extends Component {
         this.ctx.clearRect(0, 0, outerWidth, outerHeight)
         this.ctx.translate(margin.left + offsetX, margin.top + offsetY)
 
+        this.ctx.strokeStyle = '#dddddd'
+        enableGridX &&
+            renderGridLinesToCanvas(this.ctx, {
+                width,
+                height,
+                scale: xScale,
+                axis: 'x',
+            })
+        enableGridY &&
+            renderGridLinesToCanvas(this.ctx, {
+                width,
+                height,
+                scale: yScale,
+                axis: 'y',
+            })
+
+        this.ctx.strokeStyle = '#000000'
         renderAxesToCanvas(this.ctx, {
             xScale,
             yScale,

@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@nivo/babel-preset@0.32.0-10":
-  version "0.32.0-10"
-  resolved "https://registry.yarnpkg.com/@nivo/babel-preset/-/babel-preset-0.32.0-10.tgz#4ac1ebef72a0670642259a5741930329b449a1ca"
+"@nivo/babel-preset@0.33.0":
+  version "0.33.0"
+  resolved "https://registry.yarnpkg.com/@nivo/babel-preset/-/babel-preset-0.33.0.tgz#2bfe061146c3f52c47eb98d89c284208017d82c0"
   dependencies:
     babel-cli "^6.26.0"
     babel-jest "^20.0.3"
@@ -680,6 +680,10 @@ cryptiles@2.x.x:
   resolved "https://registry.yarnpkg.com/cryptiles/-/cryptiles-2.0.5.tgz#3bdfecdc608147c1c67202fa291e7dca59eaa3b8"
   dependencies:
     boom "2.x.x"
+
+d3-ease@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/d3-ease/-/d3-ease-1.0.3.tgz#68bfbc349338a380c44d8acc4fbc3304aa2d8c0e"
 
 d3-time-format@^2.0.5:
   version "2.0.5"

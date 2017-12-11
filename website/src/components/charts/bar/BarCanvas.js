@@ -93,8 +93,8 @@ export default class BarCanvas extends Component {
                 legendOffset: -40,
             },
 
-            enableGridX: false,
-            enableGridY: true,
+            enableGridX: true,
+            enableGridY: false,
 
             // labels
             enableLabel: true,

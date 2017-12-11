@@ -30,7 +30,7 @@ const LineSlices = ({ slices, height, showTooltip, hideTooltip, theme, tooltipFo
 LineSlices.propTypes = {
     slices: PropTypes.arrayOf(
         PropTypes.shape({
-            id: PropTypes.string.isRequired,
+            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
             x: PropTypes.number.isRequired,
             points: PropTypes.arrayOf(
                 PropTypes.shape({

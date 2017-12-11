@@ -31,8 +31,8 @@
     "prettier": "^1.6.1",
     "prop-types": "^15.5.10",
     "puppeteer": "^0.13.0",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react": "16.2.0",
+    "react-dom": "16.2.0"
   },
   "scripts": {
     "fmt": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --color --write \"{src,specs,test,.storybook,stories}/**/*.js\"",

@@ -247,5 +247,46 @@ exports.generateWinesTastes = ({ randMin = 20, randMax = 120 } = {}) => {
     return { data, keys: wines }
 }
 
+const easingFunctions = require('d3-ease')
+const easingTypes = Object.keys(easingFunctions)
+
+exports.generatePointsSerie = ({
+    x0 = 0,
+    x1 = 100,
+    xStep = 1,
+    y0 = 0,
+    y1 = 100,
+    easing = 'easeLinear',
+    yRand = 0,
+    xGaps = [],
+}) => {
+    let easingType = easing
+    if (easing === 'random') {
+        easingType = easingTypes[random(0, easingTypes.length - 1)]
+    }
+    const easingFunction = easingFunctions[easingType]
+
+    const xDiff = x1 - x0
+    const yDiff = y1 - y0
+
+    return range(x0, x1 + xStep, xStep)
+        .map(i => {
+            const t = (i - x0) / xDiff
+
+            return {
+                x: i,
+                y: y0 + easingFunction(t) * yDiff + Math.random() * yRand,
+            }
+        })
+        .map(point => {
+            const xInGap = xGaps.some(([gapX0, gapX1]) => point.x > gapX0 && point.x < gapX1)
+
+            return {
+                x: point.x,
+                y: xInGap ? null : point.y,
+            }
+        })
+}
+
 exports.generateSankeyData = require('./sankey')
 exports.generateChordData = require('./chord')

@@ -7,14 +7,14 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
-import { lineCurvePropType } from '@nivo/core'
+import { lineCurvePropType, scalesPropType } from '@nivo/core'
 import { LegendPropShape } from '@nivo/legends'
 
 export const LinePropTypes = {
     // data
     data: PropTypes.arrayOf(
         PropTypes.shape({
-            id: PropTypes.string.isRequired,
+            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
             data: PropTypes.arrayOf(
                 PropTypes.shape({
                     x: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
@@ -23,6 +23,15 @@ export const LinePropTypes = {
             ).isRequired,
         })
     ).isRequired,
+
+    /*
+    scales: scalesPropType({
+        ids: PropTypes.oneOfType([
+            PropTypes.oneOf(['*']),
+            PropTypes.arrayOf(PropTypes.string),
+        ]).isRequired,
+    }),
+    */
 
     stacked: PropTypes.bool.isRequired,
     curve: lineCurvePropType.isRequired,

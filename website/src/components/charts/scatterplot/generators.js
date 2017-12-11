@@ -1,19 +1,25 @@
-import { range, random } from 'lodash'
+import { generatePointsSerie } from '@nivo/generators'
 
 const keys = ['group A', 'group B', 'group C', 'group D', 'group E']
-const ageRange = [0, 100]
-const weightRange = [0, 120]
 
-const generateData = size =>
+const generateData = (xStep, yRand) =>
     keys.map(key => ({
         id: key,
-        data: range(size).map(i => ({
+        data: generatePointsSerie({
+            x0: 0,
+            x1: 100,
+            xStep,
+            y0: 0,
+            y1: 120,
+            yRand,
+            easing: 'random',
+        }).map((p, i) => ({
             id: i,
-            x: random(ageRange[0], ageRange[1]),
-            y: random(weightRange[0], weightRange[1]),
+            ...p,
+            y: p.y < 0 ? 0 : p.y,
         })),
     }))
 
-export const generateLightDataSet = () => generateData(50)
+export const generateLightDataSet = () => generateData(2, 30)
 
-export const generateHeavyDataSet = () => generateData(800)
+export const generateHeavyDataSet = () => generateData(0.1, 70)

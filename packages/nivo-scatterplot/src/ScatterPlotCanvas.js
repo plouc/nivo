@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React, { Component } from 'react'
-import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/core'
+import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { getRelativeCursor, isCursorInRect } from '@nivo/core'
 import { Container } from '@nivo/core'
 import { BasicTooltip } from '@nivo/core'
