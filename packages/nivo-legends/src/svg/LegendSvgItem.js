@@ -36,6 +36,7 @@ class LegendSvgItem extends Component {
             symbolShape,
             label,
             fill,
+            textColor,
             direction,
             justify,
         } = this.props
@@ -58,7 +59,7 @@ class LegendSvgItem extends Component {
                 <Symbol x={symbolX} y={symbolY} size={symbolSize} fill={fill} />
                 <text
                     textAnchor={labelAnchor}
-                    style={{ fill: 'black', alignmentBaseline: labelAlignment }}
+                    style={{ fill: textColor, alignmentBaseline: labelAlignment }}
                     x={labelX}
                     y={labelY}
                 >
@@ -83,6 +84,7 @@ class LegendSvgItem extends Component {
 
         label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
         fill: PropTypes.string.isRequired,
+        textColor: PropTypes.string.isRequired,
 
         direction: PropTypes.oneOf([
             DIRECTION_LEFT_TO_RIGHT,
