@@ -37,6 +37,7 @@ const LegendSvg = ({
     symbolSize,
     symbolSpacing,
     symbolShape,
+    textColor,
 }) => {
     const { width, height, padding } = computeDimensions({
         itemCount: data.length,
@@ -74,6 +75,7 @@ const LegendSvg = ({
                     justify={justify}
                     label={label}
                     fill={fill}
+                    textColor={textColor}
                 />
             ))}
         </g>
@@ -116,6 +118,7 @@ LegendSvg.propTypes = {
     symbolSize: PropTypes.number,
     symbolSpacing: PropTypes.number,
     symbolShape: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    textColor: PropTypes.string.isRequired,
 }
 
 LegendSvg.defaultProps = {
