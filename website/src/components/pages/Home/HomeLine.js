@@ -9,18 +9,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { redColorRange } from '../../../colors'
-import range from 'lodash/range'
-import random from 'lodash/random'
-import { ResponsiveWrapper } from '@nivo/core'
-import {
-    generateDayCounts,
-    generateLibTree,
-    generateDrinkStats,
-    generateProgrammingLanguageStats,
-    generateCountriesData,
-    generateWinesTastes,
-} from '@nivo/generators'
-import {} from '@nivo/line'
+import { ResponsiveLineChartSvg } from '@nivo/line'
+import { generateDrinkStats } from '@nivo/generators'
 
 const colors = redColorRange
 
@@ -37,38 +27,29 @@ const homeTheme = {
     },
 }
 
-const commonAxes = {
-    axisLeft: {
-        tickSize: 4,
-        tickPadding: 2,
-    },
-    axisBottom: {
-        tickSize: 4,
-        tickPadding: 2,
-    },
-}
-
 const HomeLine = () => (
     <Link className="home_item" to="/line">
-        <ResponsiveWrapper>
-            {({ width, height }) => null}
-            {/*
-        <ResponsiveLine
+        <ResponsiveLineChartSvg
             margin={{ top: 10, bottom: 15, left: 24, right: 10 }}
             data={generateDrinkStats(12)}
-            stacked={true}
+            stacked={false}
             curve="monotoneX"
             theme={homeTheme}
             colors={colors}
             animate={false}
             isInteractive={false}
-            {...commonAxes}
+            axisLeft={{
+                tickSize: 4,
+                tickPadding: 2,
+            }}
+            axisBottom={{
+                tickSize: 4,
+                tickPadding: 2,
+            }}
             dotSize={7}
             dotBorderWidth={1}
             dotBorderColor="#e25d47"
         />
-        */}
-        </ResponsiveWrapper>
         <span className="home_item_label">
             <span>Line</span>
         </span>

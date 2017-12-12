@@ -49,7 +49,7 @@ export default [
         docScopes: '*',
         description: (
             <span>
-                not required if using&nbsp;<code>&lt;ResponsiveLine&nbsp;/&gt;</code>.
+                not required if using <code>Responsive*</code> components.
             </span>
         ),
         help: 'Chart width (px).',
@@ -70,7 +70,7 @@ export default [
         docScopes: '*',
         description: (
             <span>
-                not required if using&nbsp;<code>&lt;ResponsiveLine&nbsp;/&gt;</code>.
+                not required if using <code>Responsive*</code> components.
             </span>
         ),
         help: 'Chart height (px).',
@@ -155,7 +155,7 @@ export default [
         },
     },
     {
-        key: 'enableAreas',
+        key: 'enableArea',
         scopes: '*',
         description: 'Enable/disable area below each line.',
         type: '{boolean}',

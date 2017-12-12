@@ -2,12 +2,15 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, boolean, select } from '@storybook/addon-knobs'
 import { generateDrinkStats } from '@nivo/generators'
-import { Line } from '../es'
+import { LineChartSvg } from '../es'
+import Simple from './Simple'
+import DualYAxis from './DualYAxis'
+import EmptyValues from './EmptyValues'
 
 const data = generateDrinkStats(18)
 const commonProperties = {
     width: 900,
-    height: 360,
+    height: 420,
     margin: { top: 60, right: 80, bottom: 60, left: 80 },
     data,
     animate: true,
@@ -19,18 +22,22 @@ const stories = storiesOf('Line', module)
 
 stories.addDecorator(story => <div className="wrapper">{story()}</div>).addDecorator(withKnobs)
 
-stories.add('default', () => (
-    <Line {...commonProperties} curve={select('curve', curveOptions, 'linear')} />
-))
+stories.add('simple line chart', Simple)
+stories.add('dual y axis', DualYAxis)
+stories.add('empty values', EmptyValues)
 
+/*
 stories.add('stacked', () => (
     <Line {...commonProperties} stacked={true} curve={select('curve', curveOptions, 'linear')} />
 ))
+*/
 
 stories.add('with custom curve', () => (
-    <Line {...commonProperties} stacked={true} curve="monotoneX" />
+    <LineChartSvg {...commonProperties} stacked={false} curve="monotoneX" />
 ))
 
+
+/*
 stories.add('with area', () => (
     <Line
         {...commonProperties}
@@ -150,26 +157,6 @@ stories.add('with markers', () => (
     />
 ))
 
-stories.add('with missing data', () => (
-    <Line
-        {...commonProperties}
-        curve="monotoneX"
-        data={[
-            {
-                id: 'fake corp. A',
-                data: [4, 8, 5, null, 2, 1, 4, null, 8, 9, 5].map((y, i) => ({ x: `#${i}`, y })),
-            },
-            {
-                id: 'fake corp. B',
-                data: [5, 9, 8, 6, 3, 1, 2, null, 5, 8, 4].map((y, i) => ({ x: `#${i}`, y })),
-            },
-        ]}
-        dotSize={8}
-        dotBorderColor="#fff"
-        dotBorderWidth={2}
-    />
-))
-
 stories.add('with custom min/max Y', () => (
     <Line
         {...commonProperties}
@@ -271,3 +258,4 @@ stories.add('with formatted values', () => (
         }
     />
 ))
+*/

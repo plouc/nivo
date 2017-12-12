@@ -16,7 +16,6 @@ import random from 'lodash/random'
 import {
     generateDayCounts,
     generateLibTree,
-    generateDrinkStats,
     generateProgrammingLanguageStats,
     generateCountriesData,
     generateWinesTastes,
@@ -34,7 +33,6 @@ import { ResponsivePie } from '@nivo/pie'
 import { ResponsiveTreeMap } from '@nivo/treemap'
 import { ResponsiveStream } from '@nivo/stream'
 import { ResponsiveBar } from '@nivo/bar'
-import { ResponsiveLine } from '@nivo/line'
 import HomeLine from './HomeLine'
 
 const colors = redColorRange

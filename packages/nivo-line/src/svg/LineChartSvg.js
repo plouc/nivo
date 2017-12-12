@@ -33,6 +33,7 @@ const LineChartSvg = ({
     xScale,
     yScale,
     slices,
+    curve,
 
     // dimensions
     margin,
@@ -91,6 +92,11 @@ const LineChartSvg = ({
         motionStiffness,
     }
 
+    const legendData = lines.map(line => ({
+        label: line.id,
+        fill: line.color,
+    }))
+
     return (
         <Container isInteractive={isInteractive} theme={theme}>
             {({ showTooltip, hideTooltip }) => (
@@ -131,6 +137,7 @@ const LineChartSvg = ({
                                 xScale={xScale}
                                 yScale={yScale}
                                 height={height}
+                                curve={curve}
                                 style={{
                                     fill: line.color,
                                     fillOpacity: areaOpacity,
@@ -144,6 +151,7 @@ const LineChartSvg = ({
                             data={line.points}
                             xScale={xScale}
                             yScale={yScale}
+                            curve={curve}
                             size={lineWidth}
                             style={{
                                 stroke: line.color,
@@ -184,22 +192,15 @@ const LineChartSvg = ({
                                 {...motionProps}
                             />
                         ))}
-                    {legends.map((legend, i) => {
-                        const legendData = lines.map(line => ({
-                            label: line.id,
-                            fill: line.color,
-                        }))
-
-                        return (
-                            <BoxLegendSvg
-                                key={i}
-                                {...legend}
-                                containerWidth={width}
-                                containerHeight={height}
-                                data={legendData}
-                            />
-                        )
-                    })}
+                    {legends.map((legend, i) => (
+                        <BoxLegendSvg
+                            key={i}
+                            {...legend}
+                            containerWidth={width}
+                            containerHeight={height}
+                            data={legendData}
+                        />
+                    ))}
                 </SvgWrapper>
             )}
         </Container>

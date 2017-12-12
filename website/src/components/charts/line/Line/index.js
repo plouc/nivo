@@ -6,11 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component, Fragment } from 'react'
-import omit from 'lodash/omit'
+import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
-import { generatePointsSerie } from '@nivo/generators'
 import { LineDefaultProps, ResponsiveLineChartSvg } from '@nivo/line'
 import ChartHeader from '../../../ChartHeader'
 import ChartTabs from '../../../ChartTabs'
@@ -19,44 +17,14 @@ import generateCode from '../../../../lib/generateChartCode'
 import ComponentPropsDocumentation from '../../../properties/ComponentPropsDocumentation'
 import properties from '../props'
 import config from '../../../../config'
-import defaultProps from '../defaultProps'
 import propsMapper from '../propsMapper'
-
-const generateData = () => {
-    const keys = ['A', 'B', 'C', 'D', 'E']
-
-    return keys.map((key, i) => {
-        return {
-            id: key,
-            data: generatePointsSerie({
-                x1: 120,
-                xStep: 10,
-                y0: Math.random() * 80,
-                y1: Math.random() * 80,
-                yRand: 3,
-                easing: 'random',
-            }),
-        }
-    })
-}
+import defaultSettings from './defaultSettings'
+import generateData from './generateData'
 
 export default class LinePage extends Component {
     state = {
         data: generateData(),
-        settings: {
-            ...omit(defaultProps, ['width', 'height']),
-            legends: [
-                {
-                    anchor: 'bottom-right',
-                    direction: 'column',
-                    translateX: 100,
-                    itemWidth: 80,
-                    itemHeight: 20,
-                    symbolSize: 12,
-                    symbolShape: 'circle',
-                },
-            ],
-        },
+        settings: { ...defaultSettings },
     }
 
     diceRoll = () => {
@@ -96,7 +64,8 @@ export default class LinePage extends Component {
                     explicitly <i>defined</i> though, eg. <code>{'{ x: 10, y: null }'}</code>.
                 </p>
                 <p className="description">
-                    The responsive alternative of this component is <code>ResponsiveLine</code>.
+                    The responsive alternative of this component is{' '}
+                    <code>ResponsiveLineChartSvg</code>.
                 </p>
                 <p className="description">
                     This component is available in the{' '}
@@ -138,7 +107,7 @@ export default class LinePage extends Component {
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="line" code={'code'} data={data} mode="horizontal">
+                    <ChartTabs chartClass="line" code={code} data={data} mode="horizontal">
                         <ResponsiveLineChartSvg data={data} {...mappedSettings} />
                     </ChartTabs>
                     <LineControls
