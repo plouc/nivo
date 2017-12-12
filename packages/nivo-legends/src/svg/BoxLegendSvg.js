@@ -47,6 +47,7 @@ const BoxLegendSvg = ({
     symbolSize,
     symbolSpacing,
     symbolShape,
+    textColor,
 }) => {
     const { width, height } = computeDimensions({
         itemCount: data.length,
@@ -82,6 +83,7 @@ const BoxLegendSvg = ({
             symbolSize={symbolSize}
             symbolSpacing={symbolSpacing}
             symbolShape={symbolShape}
+            textColor={textColor}
         />
     )
 }
@@ -126,6 +128,7 @@ BoxLegendSvg.propTypes = {
     symbolSize: PropTypes.number,
     symbolSpacing: PropTypes.number,
     symbolShape: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    textColor: PropTypes.string.isRequired,
 }
 
 BoxLegendSvg.defaultProps = {
