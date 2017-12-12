@@ -12,17 +12,9 @@ import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 import { generatePointsSerie } from '@nivo/generators'
 import { ResponsiveWrapper } from '@nivo/core'
+import { Scales, LinearScaleX, LinearScaleY } from '@nivo/scales'
 import { XAxis, YAxis, Grid } from '@nivo/axes'
-import {
-    Line,
-    LineDefaultProps,
-    Scales,
-    LinearScaleX,
-    LinearScaleY,
-    Lines,
-    LineAreas,
-    LineArea,
-} from '@nivo/line'
+import { LineSvg, LineDefaultProps, Lines, LineAreas, LineAreaSvg } from '@nivo/line'
 import { defaultTheme } from '@nivo/core'
 import ChartHeader from '../../../ChartHeader'
 import ChartTabs from '../../../ChartTabs'
@@ -281,7 +273,7 @@ export default class LinePage extends Component {
                                                     >
                                                         {generator => (
                                                             <Fragment>
-                                                                <LineArea
+                                                                <LineAreaSvg
                                                                     generator={generator}
                                                                     data={data.c}
                                                                     xScale={scales.x}
@@ -291,17 +283,17 @@ export default class LinePage extends Component {
                                                                         fillOpacity: 0.1,
                                                                     }}
                                                                 />
-                                                                <LineArea
+                                                                <LineAreaSvg
                                                                     generator={generator}
                                                                     data={data.a}
                                                                     xScale={scales.x}
                                                                     yScale={scales.yAB}
                                                                     style={{
                                                                         fill: '#a8432d',
-                                                                        fillOpacity: 0.05,
+                                                                        fillOpacity: 0.03,
                                                                     }}
                                                                 />
-                                                                <LineArea
+                                                                <LineAreaSvg
                                                                     generator={generator}
                                                                     data={data.b}
                                                                     xScale={scales.x}
@@ -318,7 +310,7 @@ export default class LinePage extends Component {
                                                 <Lines curve={settings.curve}>
                                                     {generator => (
                                                         <Fragment>
-                                                            <Line
+                                                            <LineSvg
                                                                 generator={generator}
                                                                 data={data.c}
                                                                 xScale={scales.x}
@@ -330,7 +322,7 @@ export default class LinePage extends Component {
                                                                     strokeDasharray: '1 8',
                                                                 }}
                                                             />
-                                                            <Line
+                                                            <LineSvg
                                                                 generator={generator}
                                                                 data={data.a}
                                                                 xScale={scales.x}
@@ -340,7 +332,7 @@ export default class LinePage extends Component {
                                                                     strokeWidth: 1,
                                                                 }}
                                                             />
-                                                            <Line
+                                                            <LineSvg
                                                                 generator={generator}
                                                                 data={data.b}
                                                                 xScale={scales.x}

@@ -12,12 +12,10 @@ import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 import { generatePointsSerie } from '@nivo/generators'
 import { ResponsiveWrapper } from '@nivo/core'
+import { Scales, LinearScaleX, LinearScaleY } from '@nivo/scales'
 import { GridCanvas, XAxisCanvas, YAxisCanvas } from '@nivo/axes'
 import {
     LineDefaultProps,
-    Scales,
-    LinearScaleX,
-    LinearScaleY,
     Lines,
     LineAreas,
     CanvasWrapper,
