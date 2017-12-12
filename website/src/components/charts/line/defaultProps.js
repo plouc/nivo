@@ -83,7 +83,8 @@ export default {
     dotLabelYOffset: -12,
 
     // area
-    enableAreas: false,
+    enableArea: true,
+    enableAreas: true,
     areaOpacity: 0.2,
 
     // motion

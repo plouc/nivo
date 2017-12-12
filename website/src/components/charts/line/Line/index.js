@@ -11,11 +11,7 @@ import omit from 'lodash/omit'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 import { generatePointsSerie } from '@nivo/generators'
-import { ResponsiveWrapper } from '@nivo/core'
-import { Scales, LinearScaleX, LinearScaleY } from '@nivo/scales'
-import { XAxis, YAxis, Grid } from '@nivo/axes'
-import { LineSvg, LineDefaultProps, Lines, LineAreas, LineAreaSvg } from '@nivo/line'
-import { defaultTheme } from '@nivo/core'
+import { LineDefaultProps, ResponsiveLineChartSvg } from '@nivo/line'
 import ChartHeader from '../../../ChartHeader'
 import ChartTabs from '../../../ChartTabs'
 import LineControls from '../LineControls'
@@ -27,36 +23,21 @@ import defaultProps from '../defaultProps'
 import propsMapper from '../propsMapper'
 
 const generateData = () => {
-    const a = generatePointsSerie({
-        x1: 120,
-        xStep: 2,
-        y0: 10,
-        y1: 80,
-        yRand: 3,
-        easing: 'random',
-    })
+    const keys = ['A', 'B', 'C', 'D', 'E']
 
-    const b = generatePointsSerie({
-        x1: 90,
-        xStep: 1,
-        y0: 0,
-        y1: 42,
-        yRand: 12,
-        easing: 'random',
+    return keys.map((key, i) => {
+        return {
+            id: key,
+            data: generatePointsSerie({
+                x1: 120,
+                xStep: 10,
+                y0: Math.random() * 80,
+                y1: Math.random() * 80,
+                yRand: 3,
+                easing: 'random',
+            }),
+        }
     })
-
-    const c = generatePointsSerie({
-        x0: 5,
-        x1: 120,
-        xStep: 3,
-        y0: 24,
-        y1: 2,
-        yRand: 3,
-        easing: 'random',
-        xGaps: [[35, 45], [85, 95]],
-    })
-
-    return { a, b, c }
 }
 
 export default class LinePage extends Component {
@@ -91,14 +72,14 @@ export default class LinePage extends Component {
 
         const mappedSettings = propsMapper(settings)
 
-        const code = generateCode('ResponsiveLine', mappedSettings, {
+        const code = generateCode('ResponsiveLineChartSvg', mappedSettings, {
             pkg: '@nivo/line',
             defaults: LineDefaultProps,
         })
 
         const header = (
             <ChartHeader
-                chartClass="Line"
+                chartClass="LineChartSvg"
                 tags={['basic', 'isomorphic', 'api']}
                 diceRoll={this.diceRoll}
             />
@@ -158,198 +139,7 @@ export default class LinePage extends Component {
                         {description}
                     </MediaQuery>
                     <ChartTabs chartClass="line" code={'code'} data={data} mode="horizontal">
-                        <ResponsiveWrapper>
-                            {({ width, height }) => (
-                                <svg width={width} height={height}>
-                                    <Scales
-                                        scales={[
-                                            <LinearScaleX
-                                                id="x"
-                                                data={[data.a, data.b, data.c]}
-                                                width={
-                                                    width -
-                                                    settings.margin.left -
-                                                    settings.margin.right
-                                                }
-                                            />,
-                                            <LinearScaleY
-                                                id="yAB"
-                                                data={[data.a, data.b]}
-                                                axis="y"
-                                                height={
-                                                    height -
-                                                    settings.margin.top -
-                                                    settings.margin.bottom
-                                                }
-                                            />,
-                                            <LinearScaleY
-                                                id="yC"
-                                                data={[data.c]}
-                                                axis="y"
-                                                height={
-                                                    height -
-                                                    settings.margin.top -
-                                                    settings.margin.bottom
-                                                }
-                                            />,
-                                        ]}
-                                    >
-                                        {scales => (
-                                            <g
-                                                transform={`translate(${settings.margin.left}, ${
-                                                    settings.margin.top
-                                                })`}
-                                            >
-                                                <Grid
-                                                    width={
-                                                        width -
-                                                        settings.margin.left -
-                                                        settings.margin.right
-                                                    }
-                                                    height={
-                                                        height -
-                                                        settings.margin.top -
-                                                        settings.margin.bottom
-                                                    }
-                                                    xScale={settings.enableGridX ? scales.x : null}
-                                                    yScale={
-                                                        settings.enableGridY ? scales.yAB : null
-                                                    }
-                                                    theme={defaultTheme}
-                                                />
-                                                <XAxis
-                                                    width={
-                                                        width -
-                                                        settings.margin.left -
-                                                        settings.margin.right
-                                                    }
-                                                    height={
-                                                        height -
-                                                        settings.margin.top -
-                                                        settings.margin.bottom
-                                                    }
-                                                    scale={scales.x}
-                                                    position="bottom"
-                                                    theme={defaultTheme}
-                                                />
-                                                <YAxis
-                                                    width={
-                                                        width -
-                                                        settings.margin.left -
-                                                        settings.margin.right
-                                                    }
-                                                    height={
-                                                        height -
-                                                        settings.margin.top -
-                                                        settings.margin.bottom
-                                                    }
-                                                    scale={scales.yAB}
-                                                    position="left"
-                                                    theme={defaultTheme}
-                                                />
-                                                <YAxis
-                                                    width={
-                                                        width -
-                                                        settings.margin.left -
-                                                        settings.margin.right
-                                                    }
-                                                    height={
-                                                        height -
-                                                        settings.margin.top -
-                                                        settings.margin.bottom
-                                                    }
-                                                    scale={scales.yC}
-                                                    position="right"
-                                                    theme={defaultTheme}
-                                                />
-                                                {settings.enableAreas && (
-                                                    <LineAreas
-                                                        height={
-                                                            height -
-                                                            settings.margin.top -
-                                                            settings.margin.bottom
-                                                        }
-                                                        curve={settings.curve}
-                                                    >
-                                                        {generator => (
-                                                            <Fragment>
-                                                                <LineAreaSvg
-                                                                    generator={generator}
-                                                                    data={data.c}
-                                                                    xScale={scales.x}
-                                                                    yScale={scales.yC}
-                                                                    style={{
-                                                                        fill: '#1fa8ad',
-                                                                        fillOpacity: 0.1,
-                                                                    }}
-                                                                />
-                                                                <LineAreaSvg
-                                                                    generator={generator}
-                                                                    data={data.a}
-                                                                    xScale={scales.x}
-                                                                    yScale={scales.yAB}
-                                                                    style={{
-                                                                        fill: '#a8432d',
-                                                                        fillOpacity: 0.03,
-                                                                    }}
-                                                                />
-                                                                <LineAreaSvg
-                                                                    generator={generator}
-                                                                    data={data.b}
-                                                                    xScale={scales.x}
-                                                                    yScale={scales.yAB}
-                                                                    style={{
-                                                                        fill: '#ed705b',
-                                                                        fillOpacity: 0.1,
-                                                                    }}
-                                                                />
-                                                            </Fragment>
-                                                        )}
-                                                    </LineAreas>
-                                                )}
-                                                <Lines curve={settings.curve}>
-                                                    {generator => (
-                                                        <Fragment>
-                                                            <LineSvg
-                                                                generator={generator}
-                                                                data={data.c}
-                                                                xScale={scales.x}
-                                                                yScale={scales.yC}
-                                                                style={{
-                                                                    stroke: '#1fa8ad',
-                                                                    strokeWidth: 3,
-                                                                    strokeLinecap: 'round',
-                                                                    strokeDasharray: '1 8',
-                                                                }}
-                                                            />
-                                                            <LineSvg
-                                                                generator={generator}
-                                                                data={data.a}
-                                                                xScale={scales.x}
-                                                                yScale={scales.yAB}
-                                                                style={{
-                                                                    stroke: '#a8432d',
-                                                                    strokeWidth: 1,
-                                                                }}
-                                                            />
-                                                            <LineSvg
-                                                                generator={generator}
-                                                                data={data.b}
-                                                                xScale={scales.x}
-                                                                yScale={scales.yAB}
-                                                                style={{
-                                                                    stroke: '#ed705b',
-                                                                }}
-                                                            />
-                                                        </Fragment>
-                                                    )}
-                                                </Lines>
-                                            </g>
-                                        )}
-                                    </Scales>
-                                </svg>
-                            )}
-                        </ResponsiveWrapper>
+                        <ResponsiveLineChartSvg data={data} {...mappedSettings} />
                     </ChartTabs>
                     <LineControls
                         scope="Line"

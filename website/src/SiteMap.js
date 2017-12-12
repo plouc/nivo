@@ -229,7 +229,7 @@ const SITEMAP = [
                     {
                         className: 'react',
                         path: '/',
-                        label: 'Line',
+                        label: 'LineChartSvg',
                         component: Line,
                         exact: true,
                         tags: ['svg', 'isomorphic'],

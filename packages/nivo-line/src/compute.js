@@ -138,8 +138,8 @@ export const generateLines = (data, xScale, yScale, color) =>
             points: serieData.map(d =>
                 Object.assign({}, d, {
                     value: d.y,
-                    x: xScale(d.x),
-                    y: yScale(d.y),
+                    x: d.x,
+                    y: d.y,
                 })
             ),
         }

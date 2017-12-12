@@ -8,3 +8,5 @@
  */
 export { default as LineSvg } from './LineSvg'
 export { default as LineAreaSvg } from './LineAreaSvg'
+export { default as LineChartSvg } from './LineChartSvg'
+export { default as ResponsiveLineChartSvg } from './ResponsiveLineChartSvg'

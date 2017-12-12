@@ -8,16 +8,23 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
+import compose from 'recompose/compose'
+import defaultProps from 'recompose/defaultProps'
+import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
+import setDisplayName from 'recompose/setDisplayName'
+import { line } from 'd3-shape'
 import {
     SmartMotion,
     motionPropTypes,
     defaultAnimate,
     defaultMotionDamping,
     defaultMotionStiffness,
+    curvePropType,
+    curveFromProp,
 } from '@nivo/core'
 
-const Line = ({
+const LineSvg = ({
     data,
     generator,
     xScale,
@@ -55,7 +62,7 @@ const Line = ({
     )
 }
 
-Line.propTypes = {
+LineSvg.propTypes = {
     data: PropTypes.arrayOf(
         PropTypes.shape({
             x: PropTypes.number,
@@ -66,6 +73,8 @@ Line.propTypes = {
     xScale: PropTypes.func.isRequired,
     yScale: PropTypes.func.isRequired,
 
+    curve: curvePropType.isRequired,
+
     // style
     size: PropTypes.number.isRequired,
 
@@ -73,14 +82,26 @@ Line.propTypes = {
     ...motionPropTypes,
 }
 
-Line.defaultProps = {
-    // style
-    size: 2,
+const enhance = compose(
+    defaultProps({
+        curve: 'linear',
 
-    // motion
-    animate: defaultAnimate,
-    motionDamping: defaultMotionDamping,
-    motionStiffness: defaultMotionStiffness,
-}
+        // style
+        size: 2,
 
-export default pure(Line)
+        // motion
+        animate: defaultAnimate,
+        motionDamping: defaultMotionDamping,
+        motionStiffness: defaultMotionStiffness,
+    }),
+    withPropsOnChange(['curve'], ({ curve }) => ({
+        generator: line()
+            .defined(d => d && d.x !== null && d.y !== null)
+            .x(d => d.x)
+            .y(d => d.y)
+            .curve(curveFromProp(curve)),
+    })),
+    pure
+)
+
+export default setDisplayName('LineSvg')(enhance(LineSvg))

@@ -24,19 +24,8 @@ export const LinePropTypes = {
         })
     ).isRequired,
 
-    /*
-    scales: scalesPropType({
-        ids: PropTypes.oneOfType([
-            PropTypes.oneOf(['*']),
-            PropTypes.arrayOf(PropTypes.string),
-        ]).isRequired,
-    }),
-    */
-
     stacked: PropTypes.bool.isRequired,
     curve: lineCurvePropType.isRequired,
-    areaGenerator: PropTypes.func.isRequired,
-    lineGenerator: PropTypes.func.isRequired,
 
     lines: PropTypes.array.isRequired,
     slices: PropTypes.array.isRequired,
