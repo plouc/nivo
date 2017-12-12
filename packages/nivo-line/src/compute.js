@@ -20,8 +20,8 @@ import { scalePoint, scaleLinear } from 'd3-scale'
  */
 export const getXScale = (data, width, type) => {
     if (type === 'linear') {
-        const minX = min(data.map(({data}) => min(data.map(d => d.x))))
-        const maxX = max(data.map(({data}) => max(data.map(d => d.x))))
+        const minX = min(data.map(({ data }) => min(data.map(d => d.x))))
+        const maxX = max(data.map(({ data }) => max(data.map(d => d.x))))
 
         return scaleLinear()
             .range([0, width])

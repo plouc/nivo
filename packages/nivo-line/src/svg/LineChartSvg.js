@@ -152,7 +152,7 @@ const LineChartSvg = ({
                             xScale={xScale}
                             yScale={yScale}
                             curve={curve}
-                            size={lineWidth}
+                            lineWidth={lineWidth}
                             style={{
                                 stroke: line.color,
                             }}

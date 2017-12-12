@@ -20,6 +20,7 @@ import HeatMapAPI from './components/charts/heatmap/HeatMapAPI'
 import LinePage from './components/charts/line/LinePage'
 import Line from './components/charts/line/Line'
 import LineCanvas from './components/charts/line/LineCanvas'
+import LineComponents from './components/charts/line/Components'
 import LineAPI from './components/charts/line/LineAPI'
 import StreamPage from './components/charts/stream/StreamPage'
 import Stream from './components/charts/stream/Stream'
@@ -237,9 +238,16 @@ const SITEMAP = [
                     {
                         className: 'canvas',
                         path: '/canvas',
-                        label: 'LineCanvas',
+                        label: 'LineChartCanvas',
                         component: LineCanvas,
                         tags: ['canvas'],
+                    },
+                    {
+                        className: 'line',
+                        path: '/components',
+                        label: 'Components',
+                        component: LineComponents,
+                        tags: [],
                     },
                     {
                         className: 'api',

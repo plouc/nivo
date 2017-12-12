@@ -65,7 +65,8 @@ export default class LinePage extends Component {
                 </p>
                 <p className="description">
                     The responsive alternative of this component is{' '}
-                    <code>ResponsiveLineChartSvg</code>.
+                    <code>ResponsiveLineChartSvg</code>, it also offers another implementation, see{' '}
+                    <Link to="/line/canvas">LineChartCanvas</Link>.
                 </p>
                 <p className="description">
                     This component is available in the{' '}
@@ -92,6 +93,17 @@ export default class LinePage extends Component {
                     >
                         the storybook
                     </a>.
+                </p>
+                <p>
+                    For more advanced features (eg.{' '}
+                    <a
+                        href={`${config.storybookUrl}?selectedKind=Line&selectedStory=default`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        dual y axis
+                    </a>) or mixing with other chart types, you can also build your own chart using{' '}
+                    <code>@nivo/line</code> <Link to="/line/components">low level components</Link>.
                 </p>
                 <p className="description">
                     See the <Link to="/guides/legends">dedicated guide</Link> on how to setup

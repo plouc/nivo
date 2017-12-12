@@ -29,7 +29,7 @@ const LineSvg = ({
     generator,
     xScale,
     yScale,
-    size,
+    lineWidth,
     animate,
     motionDamping,
     motionStiffness,
@@ -43,7 +43,7 @@ const LineSvg = ({
     )
 
     if (animate !== true) {
-        return <path d={pathDef} fill="none" strokeWidth={size} {...props} />
+        return <path d={pathDef} fill="none" strokeWidth={lineWidth} {...props} />
     }
 
     const springConfig = {
@@ -57,7 +57,7 @@ const LineSvg = ({
                 d: spring(pathDef, springConfig),
             })}
         >
-            {style => <path d={style.d} fill="none" strokeWidth={size} {...props} />}
+            {style => <path d={style.d} fill="none" strokeWidth={lineWidth} {...props} />}
         </SmartMotion>
     )
 }
@@ -76,7 +76,7 @@ LineSvg.propTypes = {
     curve: curvePropType.isRequired,
 
     // style
-    size: PropTypes.number.isRequired,
+    lineWidth: PropTypes.number.isRequired,
 
     // motion
     ...motionPropTypes,
@@ -87,7 +87,7 @@ const enhance = compose(
         curve: 'linear',
 
         // style
-        size: 2,
+        lineWidth: 2,
 
         // motion
         animate: defaultAnimate,

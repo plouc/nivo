@@ -115,12 +115,7 @@ class LineChartCanvas extends Component {
         })
     }
 
-    renderLegends(ctx, {
-        lines,
-        legends,
-        width,
-        height,
-    }) {
+    renderLegends(ctx, { lines, legends, width, height }) {
         const legendData = lines.map(line => ({
             label: line.id,
             fill: line.color,
@@ -204,13 +199,14 @@ class LineChartCanvas extends Component {
             axisLeft,
         })
 
-        enableArea && this.renderAreas(this.ctx, {
-            lines,
-            generator: areaGenerator,
-            xScale,
-            yScale,
-            opacity: areaOpacity,
-        })
+        enableArea &&
+            this.renderAreas(this.ctx, {
+                lines,
+                generator: areaGenerator,
+                xScale,
+                yScale,
+                opacity: areaOpacity,
+            })
 
         this.renderLines(this.ctx, {
             lines,
