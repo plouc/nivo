@@ -44,6 +44,14 @@ export default [
         required: true,
     },
     {
+        key: 'xScaleType',
+        type: `{('linear'|'ordinal')}`,
+        scopes: '*',
+        default: defaults.xScaleType,
+        description: `Defines x scale type, if you have numeric data, then you should use 'linear', otherwise 'ordinal'`,
+        required: false,
+    },
+    {
         key: 'width',
         scopes: ['api'],
         docScopes: '*',
@@ -84,6 +92,16 @@ export default [
             max: 1000,
             step: 5,
         },
+    },
+    {
+        key: 'stacked',
+        scopes: '*',
+        description: 'Enable/disable stacked mode.',
+        type: '{boolean}',
+        required: false,
+        default: defaults.stacked,
+        controlType: 'switch',
+        controlGroup: 'Base',
     },
     {
         key: 'curve',
@@ -165,14 +183,14 @@ export default [
         controlGroup: 'Areas',
     },
     {
-        key: 'areasOpacity',
+        key: 'areaOpacity',
         scopes: '*',
         description: 'Area opacity (0~1), depends on enableArea.',
         required: false,
         default: defaults.areaOpacity,
         type: '{number}',
         controlType: 'range',
-        controlGroup: 'Style',
+        controlGroup: 'Areas',
         controlOptions: {
             min: 0,
             max: 1,

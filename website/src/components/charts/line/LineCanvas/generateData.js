@@ -9,16 +9,16 @@
 import { generatePointsSerie } from '@nivo/generators'
 
 export default () => {
-    const keys = ['A', 'B', 'C', 'D', 'E']
+    const keys = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N']
 
-    return keys.map(key => ({
+    return keys.map((key, i) => ({
         id: `item ${key}`,
         data: generatePointsSerie({
             x1: 200,
-            xStep: 10,
+            xStep: 0.5,
             y0: Math.random() * 80,
             y1: Math.random() * 80,
-            yRand: 3,
+            yRand: Math.random() * 3,
             easing: 'random',
         }),
     }))

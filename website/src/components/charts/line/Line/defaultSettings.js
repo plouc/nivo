@@ -20,6 +20,7 @@ export default {
     'enable axisTop': false,
     axisTop: {
         format: d => `${d} km`,
+        tickCount: 10,
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
@@ -39,6 +40,7 @@ export default {
     'enable axisBottom': true,
     axisBottom: {
         format: d => `${d} km`,
+        tickCount: 10,
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,

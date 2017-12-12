@@ -6,31 +6,44 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { range, min, max, maxBy, sumBy, uniq } from 'lodash'
+import { range, min, max, sumBy, uniq } from 'lodash'
 import { scalePoint, scaleLinear } from 'd3-scale'
 
 /**
  * Generates X scale.
  *
- * @param {Array.<Object>} data
- * @param {number}         width
+ * @param {Array.<Object>}       data
+ * @param {number}               width
+ * @param {('linear'|'ordinal')} type
+ *
  * @returns {Function}
  */
-export const getXScale = (data, width) => {
-    const xLengths = uniq(data.map(({ data }) => data.length))
-    if (xLengths.length > 1) {
-        throw new Error(
-            [
-                `Found inconsitent data for x,`,
-                `expecting all series to have same length`,
-                `but found: ${xLengths.join(', ')}`,
-            ].join(' ')
-        )
+export const getXScale = (data, width, type) => {
+    if (type === 'linear') {
+        const minX = min(data.map(({data}) => min(data.map(d => d.x))))
+        const maxX = max(data.map(({data}) => max(data.map(d => d.x))))
+
+        return scaleLinear()
+            .range([0, width])
+            .domain([minX, maxX])
+    } else if (type === 'ordinal') {
+        const xLengths = uniq(data.map(({ data }) => data.length))
+        if (xLengths.length > 1) {
+            throw new Error(
+                [
+                    `Found inconsitent data for x,`,
+                    `expecting all series to have same length`,
+                    `but found: ${xLengths.join(', ')}`,
+                ].join(' ')
+            )
+        }
+
+        return scalePoint()
+            .range([0, width])
+            .domain(data[0].data.map(({ x }) => x))
     }
 
-    return scalePoint()
-        .range([0, width])
-        .domain(data[0].data.map(({ x }) => x))
+    throw new TypeError(`Invalid scale type '${type}', must be one of: 'linear', 'ordinal'`)
 }
 
 /**
@@ -87,15 +100,17 @@ export const getStackedYScale = (data, xScale, height, minValue, maxValue) => {
 /**
  * Generates stacked x/y scales.
  *
- * @param {Array}         data
- * @param {number}        width
- * @param {number}        height
- * @param {number|string} minY
- * @param {number|string} maxY
+ * @param {Array}                data
+ * @param {number}               width
+ * @param {number}               height
+ * @param {number|string}        minY
+ * @param {number|string}        maxY
+ * @param {('linear'|'ordinal')} xScaleType
+ *
  * @return {{ xScale: Function, yScale: Function }}
  */
-export const getStackedScales = ({ data, width, height, minY, maxY }) => {
-    const xScale = getXScale(data, width)
+export const getStackedScales = ({ data, width, height, minY, maxY, xScaleType }) => {
+    const xScale = getXScale(data, width, xScaleType)
     const yScale = getStackedYScale(data, xScale, height, minY, maxY)
 
     return { xScale, yScale }
@@ -104,15 +119,17 @@ export const getStackedScales = ({ data, width, height, minY, maxY }) => {
 /**
  * Generates non stacked x/ scales
  *
- * @param {Array}         data
- * @param {number}        width
- * @param {number}        height
- * @param {number|string} minY
- * @param {number|string} maxY
+ * @param {Array}                data
+ * @param {number}               width
+ * @param {number}               height
+ * @param {number|string}        minY
+ * @param {number|string}        maxY
+ * @param {('linear'|'ordinal')} xScaleType
+ *
  * @return {{ xScale: Function, yScale: Function }}
  */
-export const getScales = ({ data, width, height, minY, maxY }) => {
-    const xScale = getXScale(data, width)
+export const getScales = ({ data, width, height, minY, maxY, xScaleType }) => {
+    const xScale = getXScale(data, width, xScaleType)
     const yScale = getYScale(data, height, minY, maxY)
 
     return { xScale, yScale }
@@ -152,6 +169,7 @@ export const generateLines = (data, xScale, yScale, color) =>
  * @param {Function}       xScale
  * @param {Function}       yScale
  * @param {Function}       color
+ *
  * @return {{ xScale: Function, yScale: Function, lines: Array.<Object> }}
  */
 export const generateStackedLines = (data, xScale, yScale, color) =>

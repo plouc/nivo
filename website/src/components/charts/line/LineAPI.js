@@ -7,11 +7,9 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import omit from 'lodash/omit'
 import APIClient from '../../api-client/APIClient'
 import LineControls from './LineControls'
 import propsMapper from './propsMapper'
-import defaultProps from './defaultProps'
 
 const LineAPI = ({ data }) => (
     <APIClient
@@ -21,13 +19,6 @@ const LineAPI = ({ data }) => (
         controls={LineControls}
         propsMapper={propsMapper}
         defaultProps={{
-            ...omit(defaultProps, [
-                'animate',
-                'motionDamping',
-                'motionStiffness',
-                'isInteractive',
-                'enableStackTooltip',
-            ]),
             data: JSON.stringify(data, null, '  '),
         }}
     />

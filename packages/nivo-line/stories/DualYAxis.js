@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { withInfo } from '@storybook/addon-info'
 import { LineSvg } from '../es'
 import { defaultTheme } from '@nivo/core'

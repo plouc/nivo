@@ -6,22 +6,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component, Fragment } from 'react'
-import omit from 'lodash/omit'
+import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
-import { generatePointsSerie } from '@nivo/generators'
-import { ResponsiveWrapper } from '@nivo/core'
-import { Scales, LinearScaleX, LinearScaleY } from '@nivo/scales'
-import { GridCanvas, XAxisCanvas, YAxisCanvas } from '@nivo/axes'
-import {
-    LineDefaultProps,
-    Lines,
-    LineAreas,
-    CanvasWrapper,
-    LineCanvas,
-    LineAreaCanvas,
-} from '@nivo/line'
+import { LineDefaultProps, ResponsiveLineChartCanvas } from '@nivo/line'
 import ChartHeader from '../../../ChartHeader'
 import ChartTabs from '../../../ChartTabs'
 import LineControls from '../LineControls'
@@ -29,25 +17,18 @@ import generateCode from '../../../../lib/generateChartCode'
 import ComponentPropsDocumentation from '../../../properties/ComponentPropsDocumentation'
 import properties from '../props'
 import config from '../../../../config'
-import defaultProps from '../defaultProps'
 import propsMapper from '../propsMapper'
+import generateData from './generateData'
+import defaultSettings from './defaultSettings'
 
 export default class LinePage extends Component {
     state = {
-        settings: {
-            ...omit(defaultProps, ['width', 'height']),
-            legends: [
-                {
-                    anchor: 'bottom-right',
-                    direction: 'column',
-                    translateX: 100,
-                    itemWidth: 80,
-                    itemHeight: 20,
-                    symbolSize: 12,
-                    symbolShape: 'circle',
-                },
-            ],
-        },
+        data: generateData(),
+        settings: { ...defaultSettings },
+    }
+
+    diceRoll = () => {
+        this.setState({ data: generateData() })
     }
 
     handleSettingsUpdate = settings => {
@@ -55,8 +36,7 @@ export default class LinePage extends Component {
     }
 
     render() {
-        const { /*data,*/ diceRoll } = this.props
-        const { settings } = this.state
+        const { data, settings } = this.state
 
         const mappedSettings = propsMapper(settings)
 
@@ -69,40 +49,9 @@ export default class LinePage extends Component {
             <ChartHeader
                 chartClass="Line"
                 tags={['basic', 'isomorphic', 'api']}
-                diceRoll={diceRoll}
+                diceRoll={this.diceRoll}
             />
         )
-
-        const dataA = generatePointsSerie({
-            x1: 120,
-            xStep: 0.5,
-            y0: 30,
-            y1: 80,
-            yRand: 2,
-            easing: 'random',
-        })
-
-        const dataB = generatePointsSerie({
-            x1: 90,
-            xStep: 0.2,
-            y0: 0,
-            y1: 42,
-            yRand: 4,
-            easing: 'random',
-        })
-
-        const dataC = generatePointsSerie({
-            x0: 15,
-            x1: 120,
-            xStep: 1,
-            y0: 24,
-            y1: 2,
-            yRand: 2,
-            easing: 'random',
-            xGaps: [[35, 45], [85, 95]],
-        })
-
-        const data = []
 
         const description = (
             <div className="chart-description">
@@ -158,157 +107,7 @@ export default class LinePage extends Component {
                         {description}
                     </MediaQuery>
                     <ChartTabs chartClass="line" code={''} data={data} mode="horizontal">
-                        <ResponsiveWrapper>
-                            {({ width, height }) => (
-                                <CanvasWrapper width={width} height={height} pixelRatio={2}>
-                                    {ctx => (
-                                        <Scales
-                                            scales={[
-                                                <LinearScaleX
-                                                    id="x"
-                                                    data={[dataA, dataB, dataC]}
-                                                    width={
-                                                        width -
-                                                        settings.margin.left -
-                                                        settings.margin.right
-                                                    }
-                                                />,
-                                                <LinearScaleY
-                                                    id="yAB"
-                                                    data={[dataA, dataB]}
-                                                    axis="y"
-                                                    height={
-                                                        height -
-                                                        settings.margin.top -
-                                                        settings.margin.bottom
-                                                    }
-                                                />,
-                                                <LinearScaleY
-                                                    id="yC"
-                                                    data={[dataC]}
-                                                    axis="y"
-                                                    height={
-                                                        height -
-                                                        settings.margin.top -
-                                                        settings.margin.bottom
-                                                    }
-                                                />,
-                                            ]}
-                                        >
-                                            {scales => (
-                                                <Fragment>
-                                                    <GridCanvas
-                                                        ctx={ctx}
-                                                        width={
-                                                            width -
-                                                            settings.margin.left -
-                                                            settings.margin.right
-                                                        }
-                                                        height={
-                                                            height -
-                                                            settings.margin.top -
-                                                            settings.margin.bottom
-                                                        }
-                                                        xScale={scales.x}
-                                                        yScale={scales.yAB}
-                                                    />
-                                                    <XAxisCanvas
-                                                        ctx={ctx}
-                                                        width={
-                                                            width -
-                                                            settings.margin.left -
-                                                            settings.margin.right
-                                                        }
-                                                        height={
-                                                            height -
-                                                            settings.margin.top -
-                                                            settings.margin.bottom
-                                                        }
-                                                        position="bottom"
-                                                        scale={scales.x}
-                                                    />
-                                                    <YAxisCanvas
-                                                        ctx={ctx}
-                                                        width={
-                                                            width -
-                                                            settings.margin.left -
-                                                            settings.margin.right
-                                                        }
-                                                        height={
-                                                            height -
-                                                            settings.margin.top -
-                                                            settings.margin.bottom
-                                                        }
-                                                        position="right"
-                                                        scale={scales.yAB}
-                                                    />
-                                                    <LineAreas
-                                                        height={
-                                                            height -
-                                                            settings.margin.top -
-                                                            settings.margin.bottom
-                                                        }
-                                                    >
-                                                        {generator => (
-                                                            <Fragment>
-                                                                <LineAreaCanvas
-                                                                    ctx={ctx}
-                                                                    generator={generator}
-                                                                    data={dataA}
-                                                                    xScale={scales.x}
-                                                                    yScale={scales.yAB}
-                                                                />
-                                                                <LineAreaCanvas
-                                                                    ctx={ctx}
-                                                                    generator={generator}
-                                                                    data={dataB}
-                                                                    xScale={scales.x}
-                                                                    yScale={scales.yAB}
-                                                                />
-                                                                <LineAreaCanvas
-                                                                    ctx={ctx}
-                                                                    generator={generator}
-                                                                    data={dataC}
-                                                                    xScale={scales.x}
-                                                                    yScale={scales.yC}
-                                                                />
-                                                            </Fragment>
-                                                        )}
-                                                    </LineAreas>
-                                                    <Lines ctx={ctx}>
-                                                        {generator => (
-                                                            <Fragment>
-                                                                <LineCanvas
-                                                                    ctx={ctx}
-                                                                    generator={generator}
-                                                                    data={dataA}
-                                                                    xScale={scales.x}
-                                                                    yScale={scales.yAB}
-                                                                />
-                                                                <LineCanvas
-                                                                    ctx={ctx}
-                                                                    generator={generator}
-                                                                    data={dataB}
-                                                                    xScale={scales.x}
-                                                                    yScale={scales.yAB}
-                                                                />
-                                                                <LineCanvas
-                                                                    ctx={ctx}
-                                                                    generator={generator}
-                                                                    data={dataC}
-                                                                    xScale={scales.x}
-                                                                    yScale={scales.yC}
-                                                                />
-                                                            </Fragment>
-                                                        )}
-                                                    </Lines>
-                                                </Fragment>
-                                            )}
-                                        </Scales>
-                                    )}
-                                </CanvasWrapper>
-                            )}
-                        </ResponsiveWrapper>
+                        <ResponsiveLineChartCanvas {...mappedSettings} data={data} pixelRatio={2} />
                     </ChartTabs>
                     <LineControls
                         scope="Line"

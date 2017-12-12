@@ -18,8 +18,8 @@ import ComponentPropsDocumentation from '../../../properties/ComponentPropsDocum
 import properties from '../props'
 import config from '../../../../config'
 import propsMapper from '../propsMapper'
-import defaultSettings from './defaultSettings'
 import generateData from './generateData'
+import defaultSettings from './defaultSettings'
 
 export default class LinePage extends Component {
     state = {

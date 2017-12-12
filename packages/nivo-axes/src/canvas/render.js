@@ -22,6 +22,8 @@ export const renderAxisToCanvas = (
         scale,
 
         // ticks
+        tickValues,
+        tickCount,
         tickSize = 5,
         tickPadding = 5,
         tickRotation = 0,
@@ -33,6 +35,8 @@ export const renderAxisToCanvas = (
         height,
         position,
         scale,
+        tickValues,
+        tickCount,
         tickSize,
         tickPadding,
         tickRotation,

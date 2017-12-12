@@ -6,5 +6,5 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-export { default as LineCanvas } from './LineCanvas'
-export { default as LineAreaCanvas } from './LineAreaCanvas'
+export { default as LineChartCanvas } from './LineChartCanvas'
+export { default as ResponsiveLineChartCanvas } from './ResponsiveLineChartCanvas'

@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
-import { lineCurvePropType, scalesPropType } from '@nivo/core'
+import { lineCurvePropType } from '@nivo/core'
 import { LegendPropShape } from '@nivo/legends'
 
 export const LinePropTypes = {
@@ -34,6 +34,8 @@ export const LinePropTypes = {
         .isRequired,
     maxY: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.oneOf(['auto'])])
         .isRequired,
+
+    xScaleType: PropTypes.oneOf(['linear', 'ordinal']).isRequired,
     xScale: PropTypes.func.isRequired, // computed
     yScale: PropTypes.func.isRequired, // computed
 
@@ -90,6 +92,7 @@ export const LineDefaultProps = {
     curve: 'linear',
 
     // scales
+    xScaleType: 'linear',
     minY: 0,
     maxY: 'auto',
 

@@ -7,8 +7,5 @@
  * file that was distributed with this source code.
  */
 export * from './props'
-export { default as Lines } from './Lines'
-export { default as LineAreas } from './LineAreas'
-export { default as CanvasWrapper } from './canvas/CanvasWrapper'
 export * from './svg'
 export * from './canvas'

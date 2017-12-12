@@ -36,7 +36,6 @@ stories.add('with custom curve', () => (
     <LineChartSvg {...commonProperties} stacked={false} curve="monotoneX" />
 ))
 
-
 /*
 stories.add('with area', () => (
     <Line

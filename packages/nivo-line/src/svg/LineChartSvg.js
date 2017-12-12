@@ -216,10 +216,10 @@ const enhance = compose(
     withDimensions(),
     withMotion(),
     withPropsOnChange(
-        ['data', 'stacked', 'width', 'height', 'minY', 'maxY'],
-        ({ data, stacked, width, height, margin, minY, maxY }) => {
+        ['data', 'stacked', 'width', 'height', 'minY', 'maxY', 'xScaleType'],
+        ({ data, stacked, width, height, margin, minY, maxY, xScaleType }) => {
             let scales
-            const args = { data, width, height, minY, maxY }
+            const args = { data, width, height, minY, maxY, xScaleType }
             if (stacked === true) {
                 scales = getStackedScales(args)
             } else {
