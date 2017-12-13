@@ -67,18 +67,21 @@ const properties = [
         type: '{boolean}',
         default: defaults.animate,
         required: false,
+        description: 'Enable/disable transitions.',
     },
     {
         key: 'motionDamping',
         type: '{number}',
         default: defaults.motionDamping,
         required: false,
+        description: 'Motion damping.',
     },
     {
         key: 'motionStiffness',
         type: '{number}',
-        default: defaults.motionDamping,
+        default: defaults.motionStiffness,
         required: false,
+        description: 'Motion stiffness.',
     },
 ]
 
@@ -103,7 +106,12 @@ export default class LineDotsSvgDocumentation extends PureComponent {
                         gridColumnGap: '20px',
                     }}
                 >
-                    <ComponentPropsDocumentation chartClass="LineDotsSvg" properties={properties} />
+                    <div>
+                        <ComponentPropsDocumentation
+                            chartClass="LineDotsSvg"
+                            properties={properties}
+                        />
+                    </div>
                     <LineChartSvg
                         data={data}
                         width={260}

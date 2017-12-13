@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
 import pure from 'recompose/pure'
@@ -52,7 +52,7 @@ const ChordArcs = ({
 
     if (animate !== true) {
         return (
-            <g>
+            <Fragment>
                 {arcs.map(arc => {
                     const opacity = getOpacity(arc)
 
@@ -68,7 +68,7 @@ const ChordArcs = ({
                         />
                     )
                 })}
-            </g>
+            </Fragment>
         )
     }
 
@@ -94,7 +94,7 @@ const ChordArcs = ({
             })}
         >
             {interpolatedStyles => (
-                <g>
+                <Fragment>
                     {interpolatedStyles.map(({ key, style, data: arc }) => {
                         const color = getInterpolatedColor(style)
 
@@ -113,7 +113,7 @@ const ChordArcs = ({
                             />
                         )
                     })}
-                </g>
+                </Fragment>
             )}
         </TransitionMotion>
     )

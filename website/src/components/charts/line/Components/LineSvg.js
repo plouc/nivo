@@ -52,6 +52,7 @@ const properties = [
         type: '{string}',
         default: defaults.curve,
         required: false,
+        description: 'Controls curve interpolation.',
     },
     {
         key: 'lineWidth',
@@ -65,18 +66,21 @@ const properties = [
         type: '{boolean}',
         default: defaults.animate,
         required: false,
+        description: 'Enable/disable transitions.',
     },
     {
         key: 'motionDamping',
         type: '{number}',
         default: defaults.motionDamping,
         required: false,
+        description: 'Motion damping.',
     },
     {
         key: 'motionStiffness',
         type: '{number}',
         default: defaults.motionStiffness,
         required: false,
+        description: 'Motion stiffness.',
     },
 ]
 
@@ -94,7 +98,9 @@ export default class LineSvgDocumentation extends PureComponent {
                         gridColumnGap: '30px',
                     }}
                 >
-                    <ComponentPropsDocumentation chartClass="LineSvg" properties={properties} />
+                    <div>
+                        <ComponentPropsDocumentation chartClass="LineSvg" properties={properties} />
+                    </div>
                     <LineChartSvg
                         data={data}
                         width={260}

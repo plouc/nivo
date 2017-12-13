@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { isFunction, mapValues } from 'lodash'
 import { TransitionMotion, spring } from 'react-motion'
@@ -133,7 +133,7 @@ const ChordRibbons = ({
 
     if (animate !== true) {
         return (
-            <g>
+            <Fragment>
                 {ribbons.map(ribbon => {
                     const opacity = getOpacity(ribbon)
 
@@ -149,7 +149,7 @@ const ChordRibbons = ({
                         />
                     )
                 })}
-            </g>
+            </Fragment>
         )
     }
 
@@ -176,7 +176,7 @@ const ChordRibbons = ({
             })}
         >
             {interpolatedStyles => (
-                <g>
+                <Fragment>
                     {interpolatedStyles.map(({ key, style, data: ribbon }) => {
                         const color = getInterpolatedColor(style)
 
@@ -207,7 +207,7 @@ const ChordRibbons = ({
                             />
                         )
                     })}
-                </g>
+                </Fragment>
             )}
         </TransitionMotion>
     )

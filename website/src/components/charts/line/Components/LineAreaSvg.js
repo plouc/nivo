@@ -52,30 +52,35 @@ const properties = [
         key: 'height',
         type: '{number}',
         required: true,
+        description: 'Used to define where to close the area on bottom (px).',
     },
     {
         key: 'curve',
         type: '{string}',
         default: defaults.curve,
         required: false,
+        description: 'Controls curve interpolation.',
     },
     {
         key: 'animate',
         type: '{boolean}',
         default: defaults.animate,
         required: false,
+        description: 'Enable/disable transitions.',
     },
     {
         key: 'motionDamping',
         type: '{number}',
         default: defaults.motionDamping,
         required: false,
+        description: 'Motion damping.',
     },
     {
         key: 'motionStiffness',
         type: '{number}',
         default: defaults.motionStiffness,
         required: false,
+        description: 'Motion stiffness.',
     },
 ]
 
@@ -93,7 +98,12 @@ export default class LineAreaSvgDocumentation extends PureComponent {
                         gridColumnGap: '20px',
                     }}
                 >
-                    <ComponentPropsDocumentation chartClass="LineAreaSvg" properties={properties} />
+                    <div>
+                        <ComponentPropsDocumentation
+                            chartClass="LineAreaSvg"
+                            properties={properties}
+                        />
+                    </div>
                     <LineChartSvg
                         data={data}
                         width={260}

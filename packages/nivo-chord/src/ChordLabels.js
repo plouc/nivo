@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
 import { midAngle, getPolarLabelProps } from '@nivo/core'
@@ -27,7 +27,7 @@ const ChordLabels = ({
 }) => {
     if (animate !== true) {
         return (
-            <g>
+            <Fragment>
                 {arcs.map(arc => {
                     const color = getColor(arc, theme)
                     const angle = midAngle(arc)
@@ -47,7 +47,7 @@ const ChordLabels = ({
                         </text>
                     )
                 })}
-            </g>
+            </Fragment>
         )
     }
 
@@ -71,7 +71,7 @@ const ChordLabels = ({
             })}
         >
             {interpolatedStyles => (
-                <g>
+                <Fragment>
                     {interpolatedStyles.map(({ key, style, data: arc }) => {
                         const color = getColor(arc, theme)
                         const textProps = getPolarLabelProps(radius, style.angle, rotation)
@@ -90,7 +90,7 @@ const ChordLabels = ({
                             </text>
                         )
                     })}
-                </g>
+                </Fragment>
             )}
         </TransitionMotion>
     )

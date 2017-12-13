@@ -1,0 +1,288 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should allow to disable labels 1`] = `
+<div
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={300}
+    width={500}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g
+      transform="translate(0,0)"
+    >
+      <g
+        transform="translate(250, 150)"
+      >
+        <path
+          d="M8.266365894244634e-15,-135A135,135,0,0,1,70.14383325478353,-115.34661961377596Q0,0,8.266365894244634e-15,-135Z"
+          fill="rgb(232,193,160)"
+          fillOpacity={0.5}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(201, 167, 139)"
+          strokeOpacity={0.5}
+          strokeWidth={1}
+        />
+        <path
+          d="M70.14383325478353,-115.34661961377596A135,135,0,0,1,134.68528384072278,9.212725804230578Q0,0,134.68528384072278,9.212725804230578Q0,0,70.14383325478353,-115.34661961377596Z"
+          fill="rgb(232,193,160)"
+          fillOpacity={0.5}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(201, 167, 139)"
+          strokeOpacity={0.5}
+          strokeWidth={1}
+        />
+        <path
+          d="M134.68528384072278,9.212725804230578Q0,0,-110.29093555640966,77.85184348550708A135,135,0,0,1,-132.1763518371136,-27.466561762105503Q0,0,134.68528384072278,9.212725804230578Z"
+          fill="rgb(241,225,91)"
+          fillOpacity={0.5}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(209, 195, 79)"
+          strokeOpacity={0.5}
+          strokeWidth={1}
+        />
+        <path
+          d="M134.68528384072278,9.212725804230578A135,135,0,0,1,-18.38249762799327,133.74260271490465Q0,0,134.68528384072278,9.212725804230578Z"
+          fill="rgb(244,117,96)"
+          fillOpacity={0.5}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(212, 101, 83)"
+          strokeOpacity={0.5}
+          strokeWidth={1}
+        />
+        <path
+          d="M-18.38249762799327,133.74260271490465A135,135,0,0,1,-110.29093555640966,77.85184348550708Q0,0,-132.1763518371136,-27.466561762105503Q0,0,-18.38249762799327,133.74260271490465Z"
+          fill="rgb(244,117,96)"
+          fillOpacity={0.5}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(212, 101, 83)"
+          strokeOpacity={0.5}
+          strokeWidth={1}
+        />
+        <path
+          d="M-132.1763518371136,-27.466561762105503A135,135,0,0,1,-2.4799097682733902e-14,-135Q0,0,-132.1763518371136,-27.466561762105503Z"
+          fill="rgb(241,225,91)"
+          fillOpacity={0.5}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(209, 195, 79)"
+          strokeOpacity={0.5}
+          strokeWidth={1}
+        />
+        <path
+          d="M9.184850993605149e-15,-150A150,150,0,0,1,149.65031537858087,10.236362004700641L134.68528384072278,9.212725804230578A135,135,0,0,0,8.266365894244634e-15,-135Z"
+          fill="rgb(232,193,160)"
+          fillOpacity={1}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(201, 167, 139)"
+          strokeOpacity={1}
+          strokeWidth={1}
+        />
+        <path
+          d="M149.65031537858087,10.236362004700641A150,150,0,0,1,-122.5454839515663,86.50204831723008L-110.29093555640966,77.85184348550708A135,135,0,0,0,134.68528384072278,9.212725804230578Z"
+          fill="rgb(244,117,96)"
+          fillOpacity={1}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(212, 101, 83)"
+          strokeOpacity={1}
+          strokeWidth={1}
+        />
+        <path
+          d="M-122.5454839515663,86.50204831723008A150,150,0,0,1,-2.7554552980815446e-14,-150L-2.4799097682733902e-14,-135A135,135,0,0,0,-110.29093555640966,77.85184348550708Z"
+          fill="rgb(241,225,91)"
+          fillOpacity={1}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(209, 195, 79)"
+          strokeOpacity={1}
+          strokeWidth={1}
+        />
+      </g>
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`should render a basic chord diagram 1`] = `
+<div
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={300}
+    width={500}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g
+      transform="translate(0,0)"
+    >
+      <g
+        transform="translate(250, 150)"
+      >
+        <path
+          d="M8.266365894244634e-15,-135A135,135,0,0,1,70.14383325478353,-115.34661961377596Q0,0,8.266365894244634e-15,-135Z"
+          fill="rgb(232,193,160)"
+          fillOpacity={0.5}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(201, 167, 139)"
+          strokeOpacity={0.5}
+          strokeWidth={1}
+        />
+        <path
+          d="M70.14383325478353,-115.34661961377596A135,135,0,0,1,134.68528384072278,9.212725804230578Q0,0,134.68528384072278,9.212725804230578Q0,0,70.14383325478353,-115.34661961377596Z"
+          fill="rgb(232,193,160)"
+          fillOpacity={0.5}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(201, 167, 139)"
+          strokeOpacity={0.5}
+          strokeWidth={1}
+        />
+        <path
+          d="M134.68528384072278,9.212725804230578Q0,0,-110.29093555640966,77.85184348550708A135,135,0,0,1,-132.1763518371136,-27.466561762105503Q0,0,134.68528384072278,9.212725804230578Z"
+          fill="rgb(241,225,91)"
+          fillOpacity={0.5}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(209, 195, 79)"
+          strokeOpacity={0.5}
+          strokeWidth={1}
+        />
+        <path
+          d="M134.68528384072278,9.212725804230578A135,135,0,0,1,-18.38249762799327,133.74260271490465Q0,0,134.68528384072278,9.212725804230578Z"
+          fill="rgb(244,117,96)"
+          fillOpacity={0.5}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(212, 101, 83)"
+          strokeOpacity={0.5}
+          strokeWidth={1}
+        />
+        <path
+          d="M-18.38249762799327,133.74260271490465A135,135,0,0,1,-110.29093555640966,77.85184348550708Q0,0,-132.1763518371136,-27.466561762105503Q0,0,-18.38249762799327,133.74260271490465Z"
+          fill="rgb(244,117,96)"
+          fillOpacity={0.5}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(212, 101, 83)"
+          strokeOpacity={0.5}
+          strokeWidth={1}
+        />
+        <path
+          d="M-132.1763518371136,-27.466561762105503A135,135,0,0,1,-2.4799097682733902e-14,-135Q0,0,-132.1763518371136,-27.466561762105503Z"
+          fill="rgb(241,225,91)"
+          fillOpacity={0.5}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(209, 195, 79)"
+          strokeOpacity={0.5}
+          strokeWidth={1}
+        />
+        <path
+          d="M9.184850993605149e-15,-150A150,150,0,0,1,149.65031537858087,10.236362004700641L134.68528384072278,9.212725804230578A135,135,0,0,0,8.266365894244634e-15,-135Z"
+          fill="rgb(232,193,160)"
+          fillOpacity={1}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(201, 167, 139)"
+          strokeOpacity={1}
+          strokeWidth={1}
+        />
+        <path
+          d="M149.65031537858087,10.236362004700641A150,150,0,0,1,-122.5454839515663,86.50204831723008L-110.29093555640966,77.85184348550708A135,135,0,0,0,134.68528384072278,9.212725804230578Z"
+          fill="rgb(244,117,96)"
+          fillOpacity={1}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(212, 101, 83)"
+          strokeOpacity={1}
+          strokeWidth={1}
+        />
+        <path
+          d="M-122.5454839515663,86.50204831723008A150,150,0,0,1,-2.7554552980815446e-14,-150L-2.4799097682733902e-14,-135A135,135,0,0,0,-110.29093555640966,77.85184348550708Z"
+          fill="rgb(241,225,91)"
+          fillOpacity={1}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(209, 195, 79)"
+          strokeOpacity={1}
+          strokeWidth={1}
+        />
+        <text
+          alignmentBaseline="after-edge"
+          style={
+            Object {
+              "fill": "rgb(162, 135, 112)",
+              "pointerEvents": "none",
+            }
+          }
+          textAnchor="middle"
+          transform="translate(118.39542621305611, -110.57360920142195) rotate(46.95652173913044)"
+        >
+          john
+        </text>
+        <text
+          alignmentBaseline="after-edge"
+          style={
+            Object {
+              "fill": "rgb(171, 82, 67)",
+              "pointerEvents": "none",
+            }
+          }
+          textAnchor="middle"
+          transform="translate(43.707076927437924, 155.9926005503435) rotate(164.34782608695653)"
+        >
+          raph
+        </text>
+        <text
+          alignmentBaseline="after-edge"
+          style={
+            Object {
+              "fill": "rgb(169, 158, 64)",
+              "pointerEvents": "none",
+            }
+          }
+          textAnchor="middle"
+          transform="translate(-143.83740538118477, -74.5305361124467) rotate(297.3913043478261)"
+        >
+          junko
+        </text>
+      </g>
+    </g>
+  </svg>
+</div>
+`;

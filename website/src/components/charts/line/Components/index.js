@@ -36,9 +36,9 @@ const Components = () => (
                     <strong>@nivo/line</strong> low level components
                 </h1>
             </div>
-            <LineDotsSvg data={sampleData} />
             <LineSvg data={sampleData} />
             <LineAreaSvg data={sampleData} />
+            <LineDotsSvg data={sampleData} />
         </div>
     </div>
 )

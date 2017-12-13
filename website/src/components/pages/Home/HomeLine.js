@@ -32,6 +32,7 @@ const HomeLine = () => (
         <ResponsiveLineChartSvg
             margin={{ top: 10, bottom: 15, left: 24, right: 10 }}
             data={generateDrinkStats(12)}
+            xScaleType="ordinal"
             stacked={false}
             curve="monotoneX"
             theme={homeTheme}
