@@ -15,8 +15,6 @@ import pure from 'recompose/pure'
 import { BasicTooltip } from '@nivo/core'
 
 const SankeyNodesItem = ({
-    node,
-
     x,
     y,
     width,
@@ -72,6 +70,9 @@ SankeyNodesItem.propTypes = {
     hideTooltip: PropTypes.func.isRequired,
     setCurrent: PropTypes.func.isRequired,
     onClick: PropTypes.func.isRequired,
+    handleMouseEnter: PropTypes.func.isRequired,
+    handleMouseMove: PropTypes.func.isRequired,
+    handleMouseLeave: PropTypes.func.isRequired,
 
     tooltip: PropTypes.element.isRequired,
     theme: PropTypes.object.isRequired,

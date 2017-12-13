@@ -1,0 +1,356 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should allow to disable labels 1`] = `
+<div
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={300}
+    width={500}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g
+      transform="translate(0,0)"
+    >
+      <g>
+        <path
+          d="M12,108.00000000000011C128,108.00000000000011,128,111.64598621738885,244,111.64598621738885"
+          fill="none"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(232, 193, 160)"
+          strokeOpacity={0.25}
+          strokeWidth={216}
+        />
+        <path
+          d="M12,264.0000000000001C128,264.0000000000001,128,255.64598621738884,244,255.64598621738884"
+          fill="none"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(244, 117, 96)"
+          strokeOpacity={0.25}
+          strokeWidth={72}
+        />
+        <path
+          d="M256,75.64598621738885C372,75.64598621738885,372,72.00000000000014,488,72.00000000000014"
+          fill="none"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(241, 225, 91)"
+          strokeOpacity={0.25}
+          strokeWidth={144}
+        />
+        <path
+          d="M256,219.64598621738884C372,219.64598621738884,372,228.0000000000001,488,228.0000000000001"
+          fill="none"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(241, 225, 91)"
+          strokeOpacity={0.25}
+          strokeWidth={144}
+        />
+      </g>
+      <g>
+        <rect
+          fill="rgb(232,193,160)"
+          fillOpacity={0.75}
+          height={216.00000000000003}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(194, 161, 134)"
+          strokeOpacity={0.75}
+          strokeWidth={1}
+          width={12}
+          x={0}
+          y={1.1013412404281553e-13}
+        />
+        <rect
+          fill="rgb(244,117,96)"
+          fillOpacity={0.75}
+          height={71.99999999999986}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(204, 98, 80)"
+          strokeOpacity={0.75}
+          strokeWidth={1}
+          width={12}
+          x={0}
+          y={228.00000000000014}
+        />
+        <rect
+          fill="rgb(241,225,91)"
+          fillOpacity={0.75}
+          height={288.00000000000017}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(202, 188, 76)"
+          strokeOpacity={0.75}
+          strokeWidth={1}
+          width={12}
+          x={244}
+          y={3.64598621738885}
+        />
+        <rect
+          fill="rgb(232,168,56)"
+          fillOpacity={0.75}
+          height={143.99999999999997}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(194, 141, 47)"
+          strokeOpacity={0.75}
+          strokeWidth={1}
+          width={12}
+          x={488}
+          y={1.4210854715202004e-13}
+        />
+        <rect
+          fill="rgb(97,205,187)"
+          fillOpacity={0.75}
+          height={143.9999999999999}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(81, 172, 156)"
+          strokeOpacity={0.75}
+          strokeWidth={1}
+          width={12}
+          x={488}
+          y={156.0000000000001}
+        />
+      </g>
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`should render a basic sankey diagram 1`] = `
+<div
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={300}
+    width={500}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g
+      transform="translate(0,0)"
+    >
+      <g>
+        <path
+          d="M12,108.00000000000011C128,108.00000000000011,128,111.64598621738885,244,111.64598621738885"
+          fill="none"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(232, 193, 160)"
+          strokeOpacity={0.25}
+          strokeWidth={216}
+        />
+        <path
+          d="M12,264.0000000000001C128,264.0000000000001,128,255.64598621738884,244,255.64598621738884"
+          fill="none"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(244, 117, 96)"
+          strokeOpacity={0.25}
+          strokeWidth={72}
+        />
+        <path
+          d="M256,75.64598621738885C372,75.64598621738885,372,72.00000000000014,488,72.00000000000014"
+          fill="none"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(241, 225, 91)"
+          strokeOpacity={0.25}
+          strokeWidth={144}
+        />
+        <path
+          d="M256,219.64598621738884C372,219.64598621738884,372,228.0000000000001,488,228.0000000000001"
+          fill="none"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(241, 225, 91)"
+          strokeOpacity={0.25}
+          strokeWidth={144}
+        />
+      </g>
+      <g>
+        <rect
+          fill="rgb(232,193,160)"
+          fillOpacity={0.75}
+          height={216.00000000000003}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(194, 161, 134)"
+          strokeOpacity={0.75}
+          strokeWidth={1}
+          width={12}
+          x={0}
+          y={1.1013412404281553e-13}
+        />
+        <rect
+          fill="rgb(244,117,96)"
+          fillOpacity={0.75}
+          height={71.99999999999986}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(204, 98, 80)"
+          strokeOpacity={0.75}
+          strokeWidth={1}
+          width={12}
+          x={0}
+          y={228.00000000000014}
+        />
+        <rect
+          fill="rgb(241,225,91)"
+          fillOpacity={0.75}
+          height={288.00000000000017}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(202, 188, 76)"
+          strokeOpacity={0.75}
+          strokeWidth={1}
+          width={12}
+          x={244}
+          y={3.64598621738885}
+        />
+        <rect
+          fill="rgb(232,168,56)"
+          fillOpacity={0.75}
+          height={143.99999999999997}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(194, 141, 47)"
+          strokeOpacity={0.75}
+          strokeWidth={1}
+          width={12}
+          x={488}
+          y={1.4210854715202004e-13}
+        />
+        <rect
+          fill="rgb(97,205,187)"
+          fillOpacity={0.75}
+          height={143.9999999999999}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          stroke="rgb(81, 172, 156)"
+          strokeOpacity={0.75}
+          strokeWidth={1}
+          width={12}
+          x={488}
+          y={156.0000000000001}
+        />
+      </g>
+      <g>
+        <text
+          alignmentBaseline="central"
+          style={
+            Object {
+              "fill": "rgb(174,145,120)",
+              "pointerEvents": "none",
+            }
+          }
+          textAnchor="start"
+          transform="translate(21, 108.00000000000013) rotate(0)"
+        >
+          john
+        </text>
+        <text
+          alignmentBaseline="central"
+          style={
+            Object {
+              "fill": "rgb(183,88,72)",
+              "pointerEvents": "none",
+            }
+          }
+          textAnchor="start"
+          transform="translate(21, 264.00000000000006) rotate(0)"
+        >
+          raph
+        </text>
+        <text
+          alignmentBaseline="central"
+          style={
+            Object {
+              "fill": "rgb(181,169,68)",
+              "pointerEvents": "none",
+            }
+          }
+          textAnchor="start"
+          transform="translate(265, 147.64598621738892) rotate(0)"
+        >
+          jane
+        </text>
+        <text
+          alignmentBaseline="central"
+          style={
+            Object {
+              "fill": "rgb(174,126,42)",
+              "pointerEvents": "none",
+            }
+          }
+          textAnchor="end"
+          transform="translate(479, 72.00000000000013) rotate(0)"
+        >
+          marcel
+        </text>
+        <text
+          alignmentBaseline="central"
+          style={
+            Object {
+              "fill": "rgb(73,154,141)",
+              "pointerEvents": "none",
+            }
+          }
+          textAnchor="end"
+          transform="translate(479, 228.00000000000006) rotate(0)"
+        >
+          raoul
+        </text>
+      </g>
+    </g>
+  </svg>
+</div>
+`;

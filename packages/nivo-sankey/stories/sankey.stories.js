@@ -32,6 +32,7 @@ stories.add('nodes x padding', () => (
 stories.add('contracting links', () => <Sankey {...commonProperties} linkContract={10} />)
 
 stories.add('click listener (console)', () => (
+    // eslint-disable-next-line no-console
     <Sankey {...commonProperties} onClick={(data, event) => console.log({ data, event })} />
 ))
 
