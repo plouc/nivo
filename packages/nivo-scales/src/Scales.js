@@ -10,26 +10,36 @@ import React, { Fragment } from 'react'
 import compose from 'recompose/compose'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import setDisplayName from 'recompose/setDisplayName'
+import pure from 'recompose/pure'
 import PropTypes from 'prop-types'
+import { LinearScalePropType, PointScalePropType } from './propsTypes'
+import { computeLinearScale, computePointScale } from './compute'
+
+const computeFunctionByType = {
+    linear: computeLinearScale,
+    point: computePointScale,
+}
 
 const Scales = ({ computedScales, children }) => <Fragment>{children(computedScales)}</Fragment>
 
 Scales.propTypes = {
     children: PropTypes.func.isRequired,
     computedScales: PropTypes.object.isRequired,
+    scales: PropTypes.arrayOf(PropTypes.oneOfType([LinearScalePropType, PointScalePropType]))
+        .isRequired,
 }
 
 const enhance = compose(
+    setDisplayName('Scales'),
     withPropsOnChange(['scales'], ({ scales }) => {
         const computedScales = {}
-        React.Children.forEach(scales, scale => {
-            const { id, data, ...scaleProps } = scale.props
-
-            computedScales[id] = scale.type.compute(id, data, scaleProps)
+        scales.forEach(scaleConfig => {
+            computedScales[scaleConfig.id] = computeFunctionByType[scaleConfig.type](scaleConfig)
         })
 
         return { computedScales }
-    })
+    }),
+    pure
 )
 
-export default setDisplayName('Scales')(enhance(Scales))
+export default enhance(Scales)

@@ -117,8 +117,6 @@ export default class LineDotsSvgDocumentation extends PureComponent {
                         width={260}
                         height={180}
                         margin={{ top: 4, right: 4, bottom: 4, left: 4 }}
-                        axisLeft={false}
-                        axisBottom={false}
                         enableDots={true}
                         dotSize={8}
                         dotColor={() => '#c6432d'}

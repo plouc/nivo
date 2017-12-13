@@ -36,6 +36,10 @@ const Components = () => (
                     <strong>@nivo/line</strong> low level components
                 </h1>
             </div>
+            <p className="description">
+                Those components may be used to compose your very own line chart or even build a
+                mixed chart type.
+            </p>
             <LineSvg data={sampleData} />
             <LineAreaSvg data={sampleData} />
             <LineDotsSvg data={sampleData} />

@@ -14,6 +14,9 @@ const commonProperties = {
     margin: { top: 60, right: 80, bottom: 60, left: 80 },
     data,
     animate: true,
+    xScale: { type: 'point' },
+    axisLeft: {},
+    axisBottom: {},
 }
 
 const curveOptions = ['linear', 'monotoneX']
@@ -26,19 +29,20 @@ stories.add('simple line chart', Simple)
 stories.add('dual y axis', DualYAxis)
 stories.add('empty values', EmptyValues)
 
-/*
 stories.add('stacked', () => (
-    <Line {...commonProperties} stacked={true} curve={select('curve', curveOptions, 'linear')} />
+    <LineChartSvg
+        {...commonProperties}
+        stacked={true}
+        curve={select('curve', curveOptions, 'linear')}
+    />
 ))
-*/
 
-stories.add('with custom curve', () => (
-    <LineChartSvg {...commonProperties} stacked={false} curve="monotoneX" />
+stories.add('custom curve', () => (
+    <LineChartSvg {...commonProperties} stacked={true} curve="monotoneX" />
 ))
 
-/*
-stories.add('with area', () => (
-    <Line
+stories.add('line area', () => (
+    <LineChartSvg
         {...commonProperties}
         enableArea={true}
         stacked={boolean('stacked', true)}
@@ -67,8 +71,8 @@ stories.add('with area', () => (
     />
 ))
 
-stories.add('with dot label', () => (
-    <Line
+stories.add('dot label', () => (
+    <LineChartSvg
         {...commonProperties}
         stacked={boolean('stacked', true)}
         curve={select('curve', curveOptions, 'linear')}
@@ -80,7 +84,7 @@ stories.add('with dot label', () => (
 ))
 
 stories.add('abusing dots', () => (
-    <Line
+    <LineChartSvg
         {...commonProperties}
         stacked={boolean('stacked', true)}
         curve={select('curve', curveOptions, 'monotoneX')}
@@ -106,7 +110,7 @@ const CustomSymbol = ({ size, color, borderWidth, borderColor }) => (
 )
 
 stories.add('custom dot symbol', () => (
-    <Line
+    <LineChartSvg
         {...commonProperties}
         stacked={boolean('stacked', true)}
         curve={select('curve', curveOptions, 'monotoneX')}
@@ -121,7 +125,7 @@ stories.add('custom dot symbol', () => (
 ))
 
 stories.add('using data colors', () => (
-    <Line
+    <LineChartSvg
         {...commonProperties}
         stacked={boolean('stacked', true)}
         curve={select('curve', curveOptions, 'linear')}
@@ -133,6 +137,7 @@ stories.add('using data colors', () => (
     />
 ))
 
+/*
 stories.add('with markers', () => (
     <Line
         {...commonProperties}

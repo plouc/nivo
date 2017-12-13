@@ -48,9 +48,9 @@ const LineDotsSvg = ({
     motionStiffness,
     motionDamping,
 }) => {
-    const points = data.points
+    const points = data.data
         .filter((p, i) => i % everyNth === 0 || i === data.points.length - 1)
-        .filter(point => point.value !== null)
+        .filter(point => point.x !== null && point.y !== null)
         .map(point => {
             const pointData = {
                 serie: { id: data.id },
@@ -130,8 +130,12 @@ const LineDotsSvg = ({
 LineDotsSvg.propTypes = {
     data: PropTypes.shape({
         id: PropTypes.string.isRequired,
-        x: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-        y: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+        data: PropTypes.arrayOf(
+            PropTypes.shape({
+                x: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+                y: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+            })
+        ),
     }),
     everyNth: PropTypes.number.isRequired,
     xScale: PropTypes.func.isRequired,

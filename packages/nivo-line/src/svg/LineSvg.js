@@ -65,7 +65,7 @@ const LineSvg = ({
 LineSvg.propTypes = {
     data: PropTypes.arrayOf(
         PropTypes.shape({
-            x: PropTypes.number,
+            x: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
             y: PropTypes.number,
         })
     ),

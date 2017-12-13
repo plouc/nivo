@@ -36,8 +36,8 @@ export const LinePropTypes = {
         .isRequired,
 
     xScaleType: PropTypes.oneOf(['linear', 'ordinal']).isRequired,
-    xScale: PropTypes.func.isRequired, // computed
-    yScale: PropTypes.func.isRequired, // computed
+    xScale: PropTypes.func, // computed
+    yScale: PropTypes.func, // computed
 
     // axes & grid
     axisTop: PropTypes.object,

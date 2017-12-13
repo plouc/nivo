@@ -2,7 +2,7 @@ import React from 'react'
 import { withInfo } from '@storybook/addon-info'
 import { LineSvg, LineAreaSvg } from '../es'
 import { defaultTheme } from '@nivo/core'
-import { Scales, LinearScale } from '@nivo/scales'
+import { Scales } from '@nivo/scales'
 import { Grid, XAxis, YAxis } from '@nivo/axes'
 
 const dataA = [
@@ -36,15 +36,16 @@ const height = outerHeight - margin.top - margin.bottom
 const EmptyValues = () => (
     <Scales
         scales={[
-            <LinearScale id="x" data={[dataA, dataB]} property="x" range={[0, width]} />,
-            <LinearScale
-                id="y"
-                data={[dataA, dataB]}
-                property="y"
-                range={[height, 0]}
-                min={0}
-                max={30}
-            />,
+            { id: 'x', type: 'linear', data: [dataA, dataB], property: 'x', range: [0, width] },
+            {
+                id: 'y',
+                type: 'linear',
+                data: [dataA, dataB],
+                property: 'y',
+                range: [height, 0],
+                min: 0,
+                max: 30,
+            },
         ]}
     >
         {scales => (

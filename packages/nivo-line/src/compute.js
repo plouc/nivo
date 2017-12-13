@@ -166,47 +166,35 @@ export const generateLines = (data, xScale, yScale, color) =>
  * Generates x/y scales & lines for stacked line chart.
  *
  * @param {Array.<Object>} data
- * @param {Function}       xScale
- * @param {Function}       yScale
- * @param {Function}       color
  *
  * @return {{ xScale: Function, yScale: Function, lines: Array.<Object> }}
  */
-export const generateStackedLines = (data, xScale, yScale, color) =>
+export const generateStackedLines = data =>
     data.reduce((acc, serie, serieIndex) => {
-        const previousPoints = serieIndex === 0 ? null : acc[serieIndex - 1].points
+        const previousPoints = serieIndex === 0 ? null : acc[serieIndex - 1].data
 
-        const { id, data: serieData } = serie
+        const { data: serieData } = serie
 
         return [
             ...acc,
             {
-                id,
-                color: color(serie),
-                data: serie,
-                points: serieData
-                    .map((d, i) => {
-                        if (!previousPoints) {
-                            return Object.assign({}, d, {
-                                value: d.y,
-                                x: d.x,
-                                y: d.y,
-                            })
-                        }
-
-                        return Object.assign({}, d, {
+                ...serie,
+                data: serieData.map((d, i) => {
+                    if (!previousPoints) {
+                        return {
+                            ...d,
                             value: d.y,
-                            x: d.x,
-                            y: d.y + previousPoints[i].accY,
-                        })
-                    })
-                    .map(d => ({
-                        key: d.x,
-                        value: d.value,
-                        accY: d.y,
-                        x: xScale(d.x),
-                        y: yScale(d.y),
-                    })),
+                        }
+                    }
+
+                    const previousY = previousPoints[i].y
+
+                    return {
+                        ...d,
+                        value: d.y,
+                        y: previousY === null || d.y === null ? null : d.y + previousY,
+                    }
+                }),
             },
         ]
     }, [])

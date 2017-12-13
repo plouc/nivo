@@ -15,7 +15,16 @@ const data = [
     },
 ]
 
-const Simple = () => <LineChartSvg width={900} height={420} margin={margin} data={data} />
+const Simple = () => (
+    <LineChartSvg
+        width={900}
+        height={420}
+        margin={margin}
+        data={data}
+        axisLeft={{}}
+        axisBottom={{}}
+    />
+)
 
 const documentation = `
 A simple line chart.

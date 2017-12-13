@@ -8,9 +8,17 @@
  */
 import getMin from 'lodash/min'
 import getMax from 'lodash/max'
-import { scaleLinear } from 'd3-scale'
+import uniq from 'lodash/uniq'
+import { scaleLinear, scalePoint } from 'd3-scale'
 
-export const computeLinearScale = (id, data, { min, max, property, range, stacked }) => {
+export const computeLinearScale = ({
+    data,
+    min = 'auto',
+    max = 'auto',
+    property,
+    range,
+    stacked = false,
+}) => {
     let allValues = data.reduce((agg, serie) => [...agg, ...serie.map(d => d[property])], [])
 
     const domainMin = min === 'auto' ? getMin(allValues) : min
@@ -38,4 +46,31 @@ export const computeLinearScale = (id, data, { min, max, property, range, stacke
     return scaleLinear()
         .domain([domainMin, domainMax])
         .range(range)
+}
+
+export const computePointScale = ({
+    data,
+    domain: _domain,
+    range,
+    property,
+    checkConsistency = false,
+}) => {
+    if (checkConsistency === true) {
+        const uniqLengths = uniq(data.map(({ data }) => data.length))
+        if (uniqLengths.length > 1) {
+            throw new Error(
+                [
+                    `Found inconsistent data for '${property}',`,
+                    `expecting all series to have same length`,
+                    `but found: ${uniqLengths.join(', ')}`,
+                ].join(' ')
+            )
+        }
+    }
+
+    const domain = _domain !== undefined ? _domain : data[0].map(d => d[property])
+
+    return scalePoint()
+        .range(range)
+        .domain(domain)
 }

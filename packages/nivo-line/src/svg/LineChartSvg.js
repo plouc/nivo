@@ -6,14 +6,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+/* eslint-disable react/prop-types */
 import React from 'react'
-import { sortBy } from 'lodash'
+import PropTypes from 'prop-types'
 import compose from 'recompose/compose'
 import pure from 'recompose/pure'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import defaultProps from 'recompose/defaultProps'
 import setDisplayName from 'recompose/setDisplayName'
 import {
+    lineCurvePropType,
     getInheritedColorGenerator,
     withTheme,
     withColors,
@@ -23,11 +25,10 @@ import {
     SvgWrapper,
     CartesianMarkers,
 } from '@nivo/core'
-import { Scales, LinearScale } from '@nivo/scales'
+import { Scales } from '@nivo/scales'
 import { Axes, Grid } from '@nivo/axes'
-import { BoxLegendSvg } from '@nivo/legends'
-import { getScales, getStackedScales, generateLines, generateStackedLines } from '../compute'
-import { LinePropTypes, LineDefaultProps } from '../props'
+import { LegendPropShape, BoxLegendSvg } from '@nivo/legends'
+import { generateStackedLines } from '../compute'
 import LineSvg from './LineSvg'
 import LineAreaSvg from './LineAreaSvg'
 import LineDotsSvg from './LineDotsSvg'
@@ -37,9 +38,13 @@ import LineSlices from './LineSlices'
 
 const LineChartSvg = ({
     data,
+
+    // scales
+    xScale: xScaleConfig,
+    yScale: yScaleConfig,
+
     stacked,
     lines,
-    slices,
     curve,
 
     // dimensions
@@ -105,20 +110,23 @@ const LineChartSvg = ({
         fill: line.color,
     }))
 
-    const scalesConfig = []
-    scalesConfig.push(
-        <LinearScale id="x" data={data.map(data => data.data)} property="x" range={[0, width]} />
-    )
-    scalesConfig.push(
-        <LinearScale
-            id="y"
-            data={data.map(data => data.data)}
-            property="y"
-            range={[height, 0]}
-            stacked={stacked}
-            stackBy="x"
-        />
-    )
+    const scalesConfig = [
+        {
+            ...xScaleConfig,
+            id: 'x',
+            property: 'x',
+            range: [0, width],
+            data: data.map(data => data.data),
+        },
+        {
+            ...yScaleConfig,
+            id: 'y',
+            property: 'y',
+            range: [height, 0],
+            stacked,
+            data: data.map(data => data.data),
+        },
+    ]
 
     return (
         <Scales scales={scalesConfig}>
@@ -158,7 +166,7 @@ const LineChartSvg = ({
                                 lines.map(line => (
                                     <LineAreaSvg
                                         key={line.id}
-                                        data={line.points}
+                                        data={line.data}
                                         xScale={scales.x}
                                         yScale={scales.y}
                                         height={height}
@@ -173,7 +181,7 @@ const LineChartSvg = ({
                             {lines.map(line => (
                                 <LineSvg
                                     key={line.id}
-                                    data={line.points}
+                                    data={line.data}
                                     xScale={scales.x}
                                     yScale={scales.y}
                                     curve={curve}
@@ -235,43 +243,135 @@ const LineChartSvg = ({
     )
 }
 
-LineChartSvg.propTypes = LinePropTypes
+LineChartSvg.propTypes = {
+    // data
+    data: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+            data: PropTypes.arrayOf(
+                PropTypes.shape({
+                    x: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+                    y: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+                })
+            ).isRequired,
+        })
+    ).isRequired,
+
+    // scales
+    xScale: PropTypes.object.isRequired,
+    yScale: PropTypes.object.isRequired,
+
+    stacked: PropTypes.bool.isRequired,
+    curve: lineCurvePropType.isRequired,
+
+    lines: PropTypes.array.isRequired,
+    slices: PropTypes.array.isRequired,
+
+    // axes & grid
+    axisTop: PropTypes.object,
+    axisRight: PropTypes.object,
+    axisBottom: PropTypes.object,
+    axisLeft: PropTypes.object,
+    enableGridX: PropTypes.bool.isRequired,
+    enableGridY: PropTypes.bool.isRequired,
+
+    // dots
+    enableDots: PropTypes.bool.isRequired,
+    dotsEveryNth: PropTypes.number.isRequired,
+    dotSymbol: PropTypes.func,
+    dotSize: PropTypes.number.isRequired,
+    dotColor: PropTypes.any.isRequired,
+    dotBorderWidth: PropTypes.number.isRequired,
+    dotBorderColor: PropTypes.any.isRequired,
+    enableDotLabel: PropTypes.bool.isRequired,
+
+    // markers
+    markers: PropTypes.arrayOf(
+        PropTypes.shape({
+            axis: PropTypes.oneOf(['x', 'y']).isRequired,
+            value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+            style: PropTypes.object,
+        })
+    ),
+
+    // styling
+    getColor: PropTypes.func.isRequired,
+    enableArea: PropTypes.bool.isRequired,
+    areaOpacity: PropTypes.number.isRequired,
+    lineWidth: PropTypes.number.isRequired,
+    defs: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.string.isRequired,
+        })
+    ).isRequired,
+
+    // interactivity
+    isInteractive: PropTypes.bool.isRequired,
+    enableStackTooltip: PropTypes.bool.isRequired,
+    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+
+    legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
+}
 
 const enhance = compose(
-    defaultProps(LineDefaultProps),
+    setDisplayName('LineChartSvg'),
+    defaultProps({
+        // scales
+        xScale: {
+            type: 'linear',
+        },
+        yScale: {
+            type: 'linear',
+            min: 0,
+        },
+
+        stacked: false,
+        curve: 'linear',
+
+        // axes & grid
+        enableGridX: true,
+        enableGridY: true,
+
+        // dots
+        enableDots: true,
+        dotsEveryNth: 1,
+        dotSize: 6,
+        dotColor: 'inherit',
+        dotBorderWidth: 0,
+        dotBorderColor: 'inherit',
+        enableDotLabel: false,
+
+        // styling
+        colors: 'nivo',
+        colorBy: 'id',
+        enableArea: false,
+        areaOpacity: 0.2,
+        lineWidth: 2,
+        defs: [],
+
+        // interactivity
+        isInteractive: true,
+        enableStackTooltip: true,
+
+        legends: [],
+    }),
     withTheme(),
     withColors(),
     withDimensions(),
     withMotion(),
-    withPropsOnChange(
-        ['data', 'stacked', 'width', 'height', 'minY', 'maxY', 'xScaleType'],
-        ({ data, stacked, width, height, margin, minY, maxY, xScaleType }) => {
-            let scales
-            const args = { data, width, height, minY, maxY, xScaleType }
-            if (stacked === true) {
-                scales = getStackedScales(args)
-            } else {
-                scales = getScales(args)
-            }
-
-            return {
-                margin,
-                width,
-                height,
-                ...scales,
-            }
+    withPropsOnChange(['data', 'stacked', 'getColor'], ({ data, stacked, getColor }) => {
+        let lines
+        if (stacked === true) {
+            lines = generateStackedLines(data).map(serie => ({ ...serie, color: getColor(serie) }))
+        } else {
+            lines = data.map(serie => ({
+                ...serie,
+                color: getColor(serie),
+            }))
         }
-    ),
-    withPropsOnChange(
-        ['getColor', 'xScale', 'yScale'],
-        ({ data, stacked, xScale, yScale, getColor }) => {
-            let lines
-            if (stacked === true) {
-                lines = generateStackedLines(data, xScale, yScale, getColor)
-            } else {
-                lines = generateLines(data, xScale, yScale, getColor)
-            }
 
+        const slices = []
+        /*
             const slices = xScale.domain().map((id, i) => {
                 let points = sortBy(
                     lines.map(line => ({
@@ -289,11 +389,11 @@ const enhance = compose(
                     points,
                 }
             })
+            */
 
-            return { lines, slices }
-        }
-    ),
+        return { lines, slices }
+    }),
     pure
 )
 
-export default setDisplayName('LineChartSvg')(enhance(LineChartSvg))
+export default enhance(LineChartSvg)
