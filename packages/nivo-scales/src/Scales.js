@@ -16,6 +16,7 @@ const Scales = ({ computedScales, children }) => <Fragment>{children(computedSca
 
 Scales.propTypes = {
     children: PropTypes.func.isRequired,
+    computedScales: PropTypes.object.isRequired,
 }
 
 const enhance = compose(
