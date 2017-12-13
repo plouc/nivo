@@ -10,6 +10,22 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import LineSvg from './LineSvg'
 import LineAreaSvg from './LineAreaSvg'
+import LineDotsSvg from './LineDotsSvg'
+
+const sampleData = [
+    {
+        id: 'default',
+        data: [
+            { x: 0, y: 10 },
+            { x: 10, y: 12 },
+            { x: 20, y: 16 },
+            { x: 30, y: 23 },
+            { x: 40, y: 27 },
+            { x: 50, y: 27 },
+            { x: 60, y: 25 },
+        ],
+    },
+]
 
 const Components = () => (
     <div className="inner-content">
@@ -20,8 +36,9 @@ const Components = () => (
                     <strong>@nivo/line</strong> low level components
                 </h1>
             </div>
-            <LineSvg />
-            <LineAreaSvg />
+            <LineDotsSvg data={sampleData} />
+            <LineSvg data={sampleData} />
+            <LineAreaSvg data={sampleData} />
         </div>
     </div>
 )

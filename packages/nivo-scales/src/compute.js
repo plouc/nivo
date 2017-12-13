@@ -10,32 +10,32 @@ import getMin from 'lodash/min'
 import getMax from 'lodash/max'
 import { scaleLinear } from 'd3-scale'
 
-export const computeLinearScale = (id, data, { min, max, axis, range }) => {
-    let domainMin = min
-    if (domainMin === 'auto') {
-        domainMin = getMin(data.map(serie => getMin(serie.map(d => d[axis]))))
-    }
+export const computeLinearScale = (id, data, { min, max, property, range, stacked }) => {
+    let allValues = data.reduce((agg, serie) => [...agg, ...serie.map(d => d[property])], [])
 
-    let domainMax = max
-    if (domainMax === 'auto') {
-        domainMax = getMax(data.map(serie => getMax(serie.map(d => d[axis]))))
+    const domainMin = min === 'auto' ? getMin(allValues) : min
+
+    if (stacked === true) {
+        allValues = data
+            .reduce(
+                (agg, serie) =>
+                    serie.map((d, i) => {
+                        const previousValue = agg[i]
+                        const value = d[property]
+
+                        // if a value is null, we discard the whole slice's stack
+                        if (previousValue === null || value === null) return null
+
+                        if (previousValue === undefined) return value
+                        return previousValue + value
+                    }),
+                []
+            )
+            .filter(d => d !== null)
     }
+    const domainMax = max === 'auto' ? getMax(allValues) : max
 
     return scaleLinear()
         .domain([domainMin, domainMax])
         .range(range)
 }
-
-export const computeLinearScaleX = (id, data, props) =>
-    computeLinearScale(id, data, {
-        ...props,
-        axis: 'x',
-        range: [0, props.width],
-    })
-
-export const computeLinearScaleY = (id, data, props) =>
-    computeLinearScale(id, data, {
-        ...props,
-        axis: 'y',
-        range: [props.height, 0],
-    })

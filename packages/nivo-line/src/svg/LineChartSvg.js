@@ -13,25 +13,32 @@ import pure from 'recompose/pure'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import defaultProps from 'recompose/defaultProps'
 import setDisplayName from 'recompose/setDisplayName'
-import { getInheritedColorGenerator } from '@nivo/core'
-import { withTheme, withColors, withDimensions, withMotion } from '@nivo/core'
-import { Container, SvgWrapper } from '@nivo/core'
-import { getScales, getStackedScales, generateLines, generateStackedLines } from '../compute'
-import { CartesianMarkers } from '@nivo/core'
+import {
+    getInheritedColorGenerator,
+    withTheme,
+    withColors,
+    withDimensions,
+    withMotion,
+    Container,
+    SvgWrapper,
+    CartesianMarkers,
+} from '@nivo/core'
+import { Scales, LinearScale } from '@nivo/scales'
 import { Axes, Grid } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
+import { getScales, getStackedScales, generateLines, generateStackedLines } from '../compute'
+import { LinePropTypes, LineDefaultProps } from '../props'
 import LineSvg from './LineSvg'
 import LineAreaSvg from './LineAreaSvg'
 import LineDotsSvg from './LineDotsSvg'
 /*
 import LineSlices from './LineSlices'
 */
-import { LinePropTypes, LineDefaultProps } from '../props'
 
 const LineChartSvg = ({
+    data,
+    stacked,
     lines,
-    xScale,
-    yScale,
     slices,
     curve,
 
@@ -56,6 +63,7 @@ const LineChartSvg = ({
 
     // dots
     enableDots,
+    dotsEveryNth,
     dotSymbol,
     dotSize,
     dotColor,
@@ -97,69 +105,86 @@ const LineChartSvg = ({
         fill: line.color,
     }))
 
+    const scalesConfig = []
+    scalesConfig.push(
+        <LinearScale id="x" data={data.map(data => data.data)} property="x" range={[0, width]} />
+    )
+    scalesConfig.push(
+        <LinearScale
+            id="y"
+            data={data.map(data => data.data)}
+            property="y"
+            range={[height, 0]}
+            stacked={stacked}
+            stackBy="x"
+        />
+    )
+
     return (
-        <Container isInteractive={isInteractive} theme={theme}>
-            {({ showTooltip, hideTooltip }) => (
-                <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
-                    <Grid
-                        theme={theme}
-                        width={width}
-                        height={height}
-                        xScale={enableGridX ? xScale : null}
-                        yScale={enableGridY ? yScale : null}
-                        {...motionProps}
-                    />
-                    <CartesianMarkers
-                        markers={markers}
-                        width={width}
-                        height={height}
-                        xScale={xScale}
-                        yScale={yScale}
-                        theme={theme}
-                    />
-                    <Axes
-                        xScale={xScale}
-                        yScale={yScale}
-                        width={width}
-                        height={height}
-                        theme={theme}
-                        top={axisTop}
-                        right={axisRight}
-                        bottom={axisBottom}
-                        left={axisLeft}
-                        {...motionProps}
-                    />
-                    {enableArea &&
-                        lines.map(line => (
-                            <LineAreaSvg
-                                key={line.id}
-                                data={line.points}
-                                xScale={xScale}
-                                yScale={yScale}
+        <Scales scales={scalesConfig}>
+            {scales => (
+                <Container isInteractive={isInteractive} theme={theme}>
+                    {({ showTooltip, hideTooltip }) => (
+                        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
+                            <Grid
+                                theme={theme}
+                                width={width}
                                 height={height}
-                                curve={curve}
-                                style={{
-                                    fill: line.color,
-                                    fillOpacity: areaOpacity,
-                                }}
+                                xScale={enableGridX ? scales.x : null}
+                                yScale={enableGridY ? scales.y : null}
                                 {...motionProps}
                             />
-                        ))}
-                    {lines.map(line => (
-                        <LineSvg
-                            key={line.id}
-                            data={line.points}
-                            xScale={xScale}
-                            yScale={yScale}
-                            curve={curve}
-                            lineWidth={lineWidth}
-                            style={{
-                                stroke: line.color,
-                            }}
-                            {...motionProps}
-                        />
-                    ))}
-                    {/*
+                            <CartesianMarkers
+                                markers={markers}
+                                width={width}
+                                height={height}
+                                xScale={scales.x}
+                                yScale={scales.y}
+                                theme={theme}
+                            />
+                            <Axes
+                                xScale={scales.x}
+                                yScale={scales.y}
+                                width={width}
+                                height={height}
+                                theme={theme}
+                                top={axisTop}
+                                right={axisRight}
+                                bottom={axisBottom}
+                                left={axisLeft}
+                                {...motionProps}
+                            />
+                            {enableArea &&
+                                lines.map(line => (
+                                    <LineAreaSvg
+                                        key={line.id}
+                                        data={line.points}
+                                        xScale={scales.x}
+                                        yScale={scales.y}
+                                        height={height}
+                                        curve={curve}
+                                        style={{
+                                            fill: line.color,
+                                            fillOpacity: areaOpacity,
+                                        }}
+                                        {...motionProps}
+                                    />
+                                ))}
+                            {lines.map(line => (
+                                <LineSvg
+                                    key={line.id}
+                                    data={line.points}
+                                    xScale={scales.x}
+                                    yScale={scales.y}
+                                    curve={curve}
+                                    lineWidth={lineWidth}
+                                    style={{
+                                        stroke: line.color,
+                                    }}
+                                    {...motionProps}
+                                />
+                            ))}
+                            {/*
                     {isInteractive &&
                         enableStackTooltip && (
                             <LineSlices
@@ -172,38 +197,41 @@ const LineChartSvg = ({
                             />
                         )}
                     */}
-                    {enableDots &&
-                        lines.map(line => (
-                            <LineDotsSvg
-                                key={line.id}
-                                data={line}
-                                xScale={xScale}
-                                yScale={yScale}
-                                symbol={dotSymbol}
-                                size={dotSize}
-                                color={getInheritedColorGenerator(dotColor)}
-                                borderWidth={dotBorderWidth}
-                                borderColor={getInheritedColorGenerator(dotBorderColor)}
-                                enableLabel={enableDotLabel}
-                                label={dotLabel}
-                                labelFormat={dotLabelFormat}
-                                labelYOffset={dotLabelYOffset}
-                                theme={theme}
-                                {...motionProps}
-                            />
-                        ))}
-                    {legends.map((legend, i) => (
-                        <BoxLegendSvg
-                            key={i}
-                            {...legend}
-                            containerWidth={width}
-                            containerHeight={height}
-                            data={legendData}
-                        />
-                    ))}
-                </SvgWrapper>
+                            {enableDots &&
+                                lines.map(line => (
+                                    <LineDotsSvg
+                                        key={line.id}
+                                        data={line}
+                                        everyNth={dotsEveryNth}
+                                        xScale={scales.x}
+                                        yScale={scales.y}
+                                        symbol={dotSymbol}
+                                        size={dotSize}
+                                        color={getInheritedColorGenerator(dotColor)}
+                                        borderWidth={dotBorderWidth}
+                                        borderColor={getInheritedColorGenerator(dotBorderColor)}
+                                        enableLabel={enableDotLabel}
+                                        label={dotLabel}
+                                        labelFormat={dotLabelFormat}
+                                        labelYOffset={dotLabelYOffset}
+                                        theme={theme}
+                                        {...motionProps}
+                                    />
+                                ))}
+                            {legends.map((legend, i) => (
+                                <BoxLegendSvg
+                                    key={i}
+                                    {...legend}
+                                    containerWidth={width}
+                                    containerHeight={height}
+                                    data={legendData}
+                                />
+                            ))}
+                        </SvgWrapper>
+                    )}
+                </Container>
             )}
-        </Container>
+        </Scales>
     )
 }
 

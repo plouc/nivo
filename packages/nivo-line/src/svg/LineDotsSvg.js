@@ -11,14 +11,21 @@ import PropTypes from 'prop-types'
 import compose from 'recompose/compose'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
+import defaultProps from 'recompose/defaultProps'
 import setDisplayName from 'recompose/setDisplayName'
 import { TransitionMotion, spring } from 'react-motion'
-import { motionPropTypes } from '@nivo/core'
-import { getLabelGenerator } from '@nivo/core'
-import { DotsItem } from '@nivo/core'
+import {
+    motionPropTypes,
+    defaultAnimate,
+    defaultMotionDamping,
+    defaultMotionStiffness,
+    getLabelGenerator,
+    DotsItem,
+} from '@nivo/core'
 
 const LineDotsSvg = ({
     data,
+    everyNth,
     xScale,
     yScale,
 
@@ -41,22 +48,25 @@ const LineDotsSvg = ({
     motionStiffness,
     motionDamping,
 }) => {
-    const points = data.points.filter(point => point.value !== null).map(point => {
-        const pointData = {
-            serie: { id: data.id },
-            x: point.key,
-            y: point.value,
-        }
+    const points = data.points
+        .filter((p, i) => i % everyNth === 0 || i === data.points.length - 1)
+        .filter(point => point.value !== null)
+        .map(point => {
+            const pointData = {
+                serie: { id: data.id },
+                x: point.key,
+                y: point.value,
+            }
 
-        return {
-            key: `${data.id}.${point.x}`,
-            x: xScale(point.x),
-            y: yScale(point.y),
-            fill: color(data),
-            stroke: borderColor(data),
-            label: enableLabel ? getLabel(pointData) : null,
-        }
-    })
+            return {
+                key: `${data.id}.${point.x}`,
+                x: xScale(point.x),
+                y: yScale(point.y),
+                fill: color(data),
+                stroke: borderColor(data),
+                label: enableLabel ? getLabel(pointData) : null,
+            }
+        })
 
     if (animate !== true) {
         return (
@@ -120,7 +130,10 @@ const LineDotsSvg = ({
 LineDotsSvg.propTypes = {
     data: PropTypes.shape({
         id: PropTypes.string.isRequired,
+        x: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+        y: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     }),
+    everyNth: PropTypes.number.isRequired,
     xScale: PropTypes.func.isRequired,
     yScale: PropTypes.func.isRequired,
 
@@ -148,17 +161,23 @@ LineDotsSvg.propTypes = {
     ...motionPropTypes,
 }
 
-LineDotsSvg.defaultProps = {
-    // labels
-    enableLabel: false,
-    label: 'y',
-}
-
 const enhance = compose(
+    setDisplayName('LineDotsSvg'),
+    defaultProps({
+        everyNth: 1,
+        size: 6,
+        enableLabel: false,
+        label: 'y',
+
+        // motion
+        animate: defaultAnimate,
+        motionDamping: defaultMotionDamping,
+        motionStiffness: defaultMotionStiffness,
+    }),
     withPropsOnChange(['label', 'labelFormat'], ({ label, labelFormat }) => ({
         getLabel: getLabelGenerator(label, labelFormat),
     })),
     pure
 )
 
-export default setDisplayName('LineDotsSvg')(enhance(LineDotsSvg))
+export default enhance(LineDotsSvg)

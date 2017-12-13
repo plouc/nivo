@@ -83,6 +83,7 @@ LineSvg.propTypes = {
 }
 
 const enhance = compose(
+    setDisplayName('LineSvg'),
     defaultProps({
         curve: 'linear',
 
@@ -104,4 +105,4 @@ const enhance = compose(
     pure
 )
 
-export default setDisplayName('LineSvg')(enhance(LineSvg))
+export default enhance(LineSvg)

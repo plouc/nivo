@@ -49,6 +49,7 @@ export const LinePropTypes = {
 
     // dots
     enableDots: PropTypes.bool.isRequired,
+    dotsEveryNth: PropTypes.number.isRequired,
     dotSymbol: PropTypes.func,
     dotSize: PropTypes.number.isRequired,
     dotColor: PropTypes.any.isRequired,
@@ -104,6 +105,7 @@ export const LineDefaultProps = {
 
     // dots
     enableDots: true,
+    dotsEveryNth: 1,
     dotSize: 6,
     dotColor: 'inherit',
     dotBorderWidth: 0,

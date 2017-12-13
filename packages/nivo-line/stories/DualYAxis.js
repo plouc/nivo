@@ -2,7 +2,7 @@ import React from 'react'
 import { withInfo } from '@storybook/addon-info'
 import { LineSvg } from '../es'
 import { defaultTheme } from '@nivo/core'
-import { Scales, LinearScaleX, LinearScaleY } from '@nivo/scales'
+import { Scales, LinearScale } from '@nivo/scales'
 import { Grid, XAxis, YAxis } from '@nivo/axes'
 import { LegendSvg } from '@nivo/legends'
 
@@ -35,9 +35,9 @@ const height = outerHeight - margin.top - margin.bottom
 const DualYAxis = () => (
     <Scales
         scales={[
-            <LinearScaleX id="x" data={[dataA, dataB]} width={width} />,
-            <LinearScaleY id="yA" data={[dataA]} height={height} min={0} />,
-            <LinearScaleY id="yB" data={[dataB]} height={height} min={0} />,
+            <LinearScale id="x" data={[dataA, dataB]} property="x" range={[0, width]} />,
+            <LinearScale id="yA" data={[dataA]} property="y" range={[height, 0]} min={0} />,
+            <LinearScale id="yB" data={[dataB]} property="y" range={[height, 0]} min={0} />,
         ]}
     >
         {scales => (

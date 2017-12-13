@@ -14,6 +14,7 @@ export default {
         left: 70,
     },
 
+    stacked: false,
     curve: 'linear',
 
     // axes
@@ -68,18 +69,20 @@ export default {
     lineWidth: 2,
 
     // dots
-    enableDots: false,
-    dotSize: 10,
+    enableDots: true,
+    dotsEveryNth: 1,
+    dotSize: 8,
     dotColor: { type: 'inherit:darker', gamma: 0.3 },
     dotBorderWidth: 2,
     dotBorderColor: { type: 'custom', color: '#ffffff' },
-    enableDotLabel: true,
+    enableDotLabel: false,
     dotLabel: 'y',
+    dotLabelFormat: '.1f',
     dotLabelYOffset: -12,
 
     // area
     enableArea: false,
-    areaOpacity: 0.2,
+    areaOpacity: 0.05,
 
     // motion
     animate: true,

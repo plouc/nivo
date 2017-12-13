@@ -7,5 +7,4 @@
  * file that was distributed with this source code.
  */
 export { default as Scales } from './Scales'
-export { default as LinearScaleX } from './LinearScaleX'
-export { default as LinearScaleY } from './LinearScaleY'
+export { default as LinearScale } from './LinearScale'

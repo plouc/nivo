@@ -8,24 +8,29 @@
  */
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { computeLinearScaleX } from './compute'
+import { computeLinearScale } from './compute'
 
-export default class LinearScaleX extends PureComponent {
+export default class LinearScale extends PureComponent {
     static propTypes = {
-        data: PropTypes.array,
-        scales: PropTypes.object, // private, from <Scales>
         id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        data: PropTypes.array,
+        property: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        scales: PropTypes.object, // private, from <Scales>
         min: PropTypes.oneOfType([PropTypes.oneOf(['auto']), PropTypes.number]).isRequired,
         max: PropTypes.oneOfType([PropTypes.oneOf(['auto']), PropTypes.number]).isRequired,
-        width: PropTypes.number.isRequired,
+        range: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
+            .isRequired,
+        stacked: PropTypes.bool.isRequired,
+        stackBy: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     }
 
     static defaultProps = {
         min: 'auto',
         max: 'auto',
+        stacked: false,
     }
 
-    static compute = computeLinearScaleX
+    static compute = computeLinearScale
 
     render() {
         return null
