@@ -9,14 +9,14 @@
 import React from 'react'
 import { Container, SvgWrapper } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
-import enhance from './enhance'
 import setDisplayName from 'recompose/setDisplayName'
-import { ChordPropTypes } from './props'
-import ChordRibbons from './ChordRibbons'
-import ChordArcs from './ChordArcs'
-import ChordLabels from './ChordLabels'
+import { ChordPropTypes } from '../props'
+import enhance from '../enhance'
+import ChordRibbonsSvg from './ChordRibbonsSvg'
+import ChordArcsSvg from './ChordArcsSvg'
+import ChordLabelsSvg from './ChordLabelsSvg'
 
-const Chord = ({
+const ChordSvg = ({
     // dimensions
     margin,
     width,
@@ -84,7 +84,7 @@ const Chord = ({
                 return (
                     <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
                         <g transform={`translate(${centerX}, ${centerY})`}>
-                            <ChordRibbons
+                            <ChordRibbonsSvg
                                 ribbons={ribbons}
                                 shapeGenerator={ribbonGenerator}
                                 borderWidth={ribbonBorderWidth}
@@ -97,7 +97,7 @@ const Chord = ({
                                 hideTooltip={hideTooltip}
                                 {...motionProps}
                             />
-                            <ChordArcs
+                            <ChordArcsSvg
                                 arcs={arcs}
                                 shapeGenerator={arcGenerator}
                                 borderWidth={arcBorderWidth}
@@ -111,7 +111,7 @@ const Chord = ({
                                 {...motionProps}
                             />
                             {enableLabel && (
-                                <ChordLabels
+                                <ChordLabelsSvg
                                     arcs={arcs}
                                     radius={radius + labelOffset}
                                     rotation={labelRotation}
@@ -138,6 +138,6 @@ const Chord = ({
     )
 }
 
-Chord.propTypes = ChordPropTypes
+ChordSvg.propTypes = ChordPropTypes
 
-export default setDisplayName('Chord')(enhance(Chord))
+export default setDisplayName('ChordSvg')(enhance(ChordSvg))

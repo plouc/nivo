@@ -25,7 +25,7 @@ import {
 import { ResponsiveSankey } from '@nivo/sankey'
 import { ResponsiveVoronoi } from '@nivo/voronoi'
 import { ResponsiveRadar } from '@nivo/radar'
-import { ResponsiveChord } from '@nivo/chord'
+import { ResponsiveChordSvg } from '@nivo/chord'
 import { ResponsiveCalendar } from '@nivo/calendar'
 import { ResponsiveBubble } from '@nivo/circle-packing'
 import { ResponsiveSunburst } from '@nivo/sunburst'
@@ -92,7 +92,7 @@ class Home extends Component {
                 <Helmet title="nivo" />
                 <MediaQuery query="(min-width: 1200px)" className="home_item">
                     <Link to="/chord">
-                        <ResponsiveChord
+                        <ResponsiveChordSvg
                             colors={colors}
                             padAngle={0.04}
                             innerRadiusRatio={0.94}
@@ -343,7 +343,7 @@ class Home extends Component {
                 </MediaQuery>
                 <MediaQuery query="(min-width: 1000px)" className="home_item">
                     <Link to="/chord">
-                        <ResponsiveChord
+                        <ResponsiveChordSvg
                             colors={colors}
                             padAngle={0.04}
                             innerRadiusRatio={0.94}

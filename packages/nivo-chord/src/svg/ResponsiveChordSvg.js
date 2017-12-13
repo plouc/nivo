@@ -8,12 +8,12 @@
  */
 import React from 'react'
 import { ResponsiveWrapper } from '@nivo/core'
-import Chord from './Chord'
+import ChordSvg from './ChordSvg'
 
-const ResponsiveChord = props => (
+const ResponsiveChordSvg = props => (
     <ResponsiveWrapper>
-        {({ width, height }) => <Chord width={width} height={height} {...props} />}
+        {({ width, height }) => <ChordSvg width={width} height={height} {...props} />}
     </ResponsiveWrapper>
 )
 
-export default ResponsiveChord
+export default ResponsiveChordSvg

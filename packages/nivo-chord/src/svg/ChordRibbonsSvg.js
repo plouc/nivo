@@ -79,7 +79,7 @@ const ribbonWillLeave = springConfig => ({ data: ribbon }) => ({
     ...colorMotionSpring(ribbon.source.color, springConfig),
 })
 
-const ChordRibbons = ({
+const ChordRibbonsSvg = ({
     ribbons,
     shapeGenerator,
     borderWidth,
@@ -213,7 +213,7 @@ const ChordRibbons = ({
     )
 }
 
-ChordRibbons.propTypes = {
+ChordRibbonsSvg.propTypes = {
     ribbons: PropTypes.array.isRequired,
     shapeGenerator: PropTypes.func.isRequired,
     borderWidth: PropTypes.number.isRequired,
@@ -235,4 +235,4 @@ const enhance = compose(
     pure
 )
 
-export default enhance(ChordRibbons)
+export default enhance(ChordRibbonsSvg)

@@ -9,7 +9,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
-import { ResponsiveChord } from '@nivo/chord'
+import { ResponsiveChordSvg } from '@nivo/chord'
 import ChartHeader from '../../ChartHeader'
 import ChartTabs from '../../ChartTabs'
 import ChordControls from './ChordControls'
@@ -106,7 +106,7 @@ export default class Chord extends Component {
         const mappedSettings = propsMapper(settings)
 
         const code = generateCode(
-            'ResponsiveChord',
+            'ResponsiveChordSvg',
             { keys, ...mappedSettings },
             {
                 pkg: '@nivo/chord',
@@ -116,7 +116,7 @@ export default class Chord extends Component {
 
         const header = (
             <ChartHeader
-                chartClass="Chord"
+                chartClass="ChordSvg"
                 tags={['relational', 'isomorphic', 'api']}
                 diceRoll={this.diceRoll}
             />
@@ -140,7 +140,7 @@ export default class Chord extends Component {
                     >
                         this block
                     </a>. The responsive alternative of this component is{' '}
-                    <code>ResponsiveChord</code>.
+                    <code>ResponsiveChordSvg</code>.
                 </p>
                 <p className="description">
                     This component is available in the{' '}
@@ -175,7 +175,7 @@ export default class Chord extends Component {
                         {description}
                     </MediaQuery>
                     <ChartTabs chartClass="chord" code={code} data={matrix}>
-                        <ResponsiveChord
+                        <ResponsiveChordSvg
                             matrix={matrix}
                             keys={keys}
                             {...mappedSettings}
@@ -193,7 +193,7 @@ export default class Chord extends Component {
                         settings={settings}
                         onChange={this.handleSettingsUpdate}
                     />
-                    <ComponentPropsDocumentation chartClass="Chord" properties={properties} />
+                    <ComponentPropsDocumentation chartClass="ChordSvg" properties={properties} />
                 </div>
             </div>
         )

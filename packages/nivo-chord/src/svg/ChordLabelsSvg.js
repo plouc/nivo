@@ -12,7 +12,7 @@ import { TransitionMotion, spring } from 'react-motion'
 import { midAngle, getPolarLabelProps } from '@nivo/core'
 import { motionPropTypes } from '@nivo/core'
 
-const ChordLabels = ({
+const ChordLabelsSvg = ({
     arcs,
     radius,
     rotation,
@@ -96,7 +96,7 @@ const ChordLabels = ({
     )
 }
 
-ChordLabels.propTypes = {
+ChordLabelsSvg.propTypes = {
     arcs: PropTypes.array.isRequired,
     radius: PropTypes.number.isRequired,
     rotation: PropTypes.number.isRequired,
@@ -106,4 +106,4 @@ ChordLabels.propTypes = {
     ...motionPropTypes,
 }
 
-export default ChordLabels
+export default ChordLabelsSvg

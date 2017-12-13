@@ -170,7 +170,7 @@ const SITEMAP = [
                     {
                         className: 'react',
                         path: '/',
-                        label: 'Chord',
+                        label: 'ChordSvg',
                         component: Chord,
                         exact: true,
                         tags: ['svg', 'relational', 'isomorphic'],
