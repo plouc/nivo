@@ -2,8 +2,14 @@
 
 [![version](https://img.shields.io/npm/v/@nivo/line.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/line)
 
-## Line
+## LineChartSvg
 
 [documentation](http://nivo.rocks/#/line)
 
-![Line](./doc/line.png)
+![LineChartSvg](./doc/line.png)
+
+## LineChartCanvas
+
+[documentation](http://nivo.rocks/#/line/canvas)
+
+![LineChartCanvas](./doc/line-canvas.png)
