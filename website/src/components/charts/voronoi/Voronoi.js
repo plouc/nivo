@@ -56,13 +56,7 @@ export default class Voronoi extends Component {
             defaults: VoronoiDefaultProps,
         })
 
-        const header = (
-            <ChartHeader
-                chartClass="Voronoi"
-                tags={['voronoi', 'experimental']}
-                diceRoll={diceRoll}
-            />
-        )
+        const header = <ChartHeader chartClass="Voronoi" tags={['voronoi', 'experimental']} />
 
         const description = (
             <div className="chart-description">
@@ -94,7 +88,7 @@ export default class Voronoi extends Component {
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="voronoi" code={code} data={data}>
+                    <ChartTabs chartClass="voronoi" code={code} data={data} diceRoll={diceRoll}>
                         <ResponsiveVoronoi
                             margin={{
                                 top: 20,

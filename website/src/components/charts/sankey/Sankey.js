@@ -96,13 +96,7 @@ export default class Sankey extends Component {
 
         const code = generateCode('ResponsiveSankey', mappedSettings, { pkg: '@nivo/sankey' })
 
-        const header = (
-            <ChartHeader
-                chartClass="Sankey"
-                tags={['relational', 'flow', 'api']}
-                diceRoll={randomizeLinkValues}
-            />
-        )
+        const header = <ChartHeader chartClass="Sankey" tags={['relational', 'flow', 'api']} />
 
         const description = (
             <div className="chart-description">
@@ -170,7 +164,12 @@ export default class Sankey extends Component {
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="sankey" code={code} data={data}>
+                    <ChartTabs
+                        chartClass="sankey"
+                        code={code}
+                        data={data}
+                        diceRoll={randomizeLinkValues}
+                    >
                         <ResponsiveSankey data={data} {...mappedSettings} theme={nivoTheme} />
                     </ChartTabs>
                     <SankeyControls

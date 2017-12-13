@@ -58,13 +58,7 @@ export default class Stream extends Component {
             defaults: StreamDefaultProps,
         })
 
-        const header = (
-            <ChartHeader
-                chartClass="Stream"
-                tags={['stacked', 'isomorphic']}
-                diceRoll={this.diceRoll}
-            />
-        )
+        const header = <ChartHeader chartClass="Stream" tags={['stacked', 'isomorphic']} />
 
         const description = (
             <div className="chart-description">
@@ -86,7 +80,13 @@ export default class Stream extends Component {
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="stream" mode="horizontal" code={code} data={data}>
+                    <ChartTabs
+                        chartClass="stream"
+                        mode="horizontal"
+                        code={code}
+                        data={data}
+                        diceRoll={this.diceRoll}
+                    >
                         <ResponsiveStream
                             data={data}
                             keys={keys}

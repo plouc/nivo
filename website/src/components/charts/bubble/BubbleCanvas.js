@@ -98,13 +98,7 @@ export default class BubbleCanvas extends Component {
             defaults: BubbleCanvasDefaultProps,
         })
 
-        const header = (
-            <ChartHeader
-                chartClass="BubbleCanvas"
-                tags={['hierarchy', 'canvas']}
-                diceRoll={diceRoll}
-            />
-        )
+        const header = <ChartHeader chartClass="BubbleCanvas" tags={['hierarchy', 'canvas']} />
 
         const description = (
             <div className="chart-description">
@@ -129,7 +123,13 @@ export default class BubbleCanvas extends Component {
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="bubble" code={code} data={root} nodeCount={NODE_COUNT}>
+                    <ChartTabs
+                        chartClass="bubble"
+                        code={code}
+                        data={root}
+                        nodeCount={NODE_COUNT}
+                        diceRoll={diceRoll}
+                    >
                         <ResponsiveBubbleCanvas
                             root={cloneDeep(root)}
                             {...mappedSettings}

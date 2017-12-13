@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { sortBy } from 'lodash'
 import { line, area } from 'd3-shape'
 import compose from 'recompose/compose'
@@ -15,10 +16,17 @@ import withPropsOnChange from 'recompose/withPropsOnChange'
 import defaultProps from 'recompose/defaultProps'
 import setDisplayName from 'recompose/setDisplayName'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
-import { withTheme, withColors, withDimensions, curveFromProp, Container } from '@nivo/core'
-import { renderLegendToCanvas } from '@nivo/legends'
-import { getScales, getStackedScales, generateLines, generateStackedLines } from '../compute'
-import { LinePropTypes, LineDefaultProps } from '../props'
+import {
+    withTheme,
+    withColors,
+    withDimensions,
+    curveFromProp,
+    Container,
+    lineCurvePropType,
+} from '@nivo/core'
+import { renderLegendToCanvas, LegendPropShape } from '@nivo/legends'
+import { generateStackedLines } from '../compute'
+import { scalesFromConfig } from '@nivo/scales'
 
 class LineChartCanvas extends Component {
     componentDidMount() {
@@ -86,7 +94,7 @@ class LineChartCanvas extends Component {
         lines.forEach(line => {
             ctx.beginPath()
             boundGenerator(
-                line.points.map(d => ({
+                line.data.map(d => ({
                     x: d.x !== null ? xScale(d.x) : null,
                     y: d.y !== null ? yScale(d.y) : null,
                 }))
@@ -104,7 +112,7 @@ class LineChartCanvas extends Component {
         lines.forEach(line => {
             ctx.beginPath()
             boundGenerator(
-                line.points.map(d => ({
+                line.data.map(d => ({
                     x: d.x !== null ? xScale(d.x) : null,
                     y: d.y !== null ? yScale(d.y) : null,
                 }))
@@ -122,7 +130,7 @@ class LineChartCanvas extends Component {
         }))
 
         legends.forEach(legend => {
-            renderLegendToCanvas(this.ctx, {
+            renderLegendToCanvas(ctx, {
                 ...legend,
                 data: legendData,
                 containerWidth: width,
@@ -251,76 +259,171 @@ class LineChartCanvas extends Component {
     }
 }
 
-LineChartCanvas.propTypes = LinePropTypes
+LineChartCanvas.propTypes = {
+    // data
+    data: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+            data: PropTypes.arrayOf(
+                PropTypes.shape({
+                    x: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+                    y: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+                })
+            ).isRequired,
+        })
+    ).isRequired,
+
+    stacked: PropTypes.bool.isRequired,
+    curve: lineCurvePropType.isRequired,
+
+    lines: PropTypes.array.isRequired,
+    slices: PropTypes.array.isRequired,
+
+    xScale: PropTypes.oneOfType([PropTypes.object, PropTypes.func]).isRequired,
+    yScale: PropTypes.oneOfType([PropTypes.object, PropTypes.func]).isRequired,
+
+    // axes & grid
+    axisTop: PropTypes.object,
+    axisRight: PropTypes.object,
+    axisBottom: PropTypes.object,
+    axisLeft: PropTypes.object,
+    enableGridX: PropTypes.bool.isRequired,
+    enableGridY: PropTypes.bool.isRequired,
+
+    // dots
+    enableDots: PropTypes.bool.isRequired,
+    dotsEveryNth: PropTypes.number.isRequired,
+    dotSymbol: PropTypes.func,
+    dotSize: PropTypes.number.isRequired,
+    dotColor: PropTypes.any.isRequired,
+    dotBorderWidth: PropTypes.number.isRequired,
+    dotBorderColor: PropTypes.any.isRequired,
+    enableDotLabel: PropTypes.bool.isRequired,
+
+    // markers
+    markers: PropTypes.arrayOf(
+        PropTypes.shape({
+            axis: PropTypes.oneOf(['x', 'y']).isRequired,
+            value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+            style: PropTypes.object,
+        })
+    ),
+
+    // styling
+    getColor: PropTypes.func.isRequired,
+    enableArea: PropTypes.bool.isRequired,
+    areaOpacity: PropTypes.number.isRequired,
+    lineWidth: PropTypes.number.isRequired,
+
+    // interactivity
+    isInteractive: PropTypes.bool.isRequired,
+    enableStackTooltip: PropTypes.bool.isRequired,
+    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+
+    legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
+}
 
 const enhance = compose(
-    defaultProps(LineDefaultProps),
+    setDisplayName('LineChartCanvas'),
+    defaultProps({
+        // scales
+        xScale: {
+            type: 'linear',
+        },
+        yScale: {
+            type: 'linear',
+            min: 0,
+        },
+
+        stacked: false,
+        curve: 'linear',
+
+        // grid
+        enableGridX: true,
+        enableGridY: true,
+
+        // dots
+        enableDots: true,
+        dotsEveryNth: 1,
+        dotSize: 6,
+        dotColor: 'inherit',
+        dotBorderWidth: 0,
+        dotBorderColor: 'inherit',
+        enableDotLabel: false,
+
+        // styling
+        colors: 'nivo',
+        colorBy: 'id',
+        enableArea: false,
+        areaOpacity: 0.2,
+        lineWidth: 2,
+        defs: [],
+
+        // interactivity
+        isInteractive: true,
+        enableStackTooltip: true,
+
+        legends: [],
+    }),
     withTheme(),
     withColors(),
     withDimensions(),
     withPropsOnChange(['curve', 'height'], ({ curve, height }) => ({
         areaGenerator: area()
+            .defined(d => d && d.x !== null && d.y !== null)
             .x(d => d.x)
             .y0(height)
             .y1(d => d.y)
             .curve(curveFromProp(curve)),
         lineGenerator: line()
-            .defined(d => d.value !== null)
+            .defined(d => d && d.x !== null && d.y !== null)
             .x(d => d.x)
             .y(d => d.y)
             .curve(curveFromProp(curve)),
     })),
     withPropsOnChange(
-        ['data', 'stacked', 'width', 'height', 'minY', 'maxY', 'xScaleType'],
-        ({ data, stacked, width, height, margin, minY, maxY, xScaleType }) => {
-            let scales
-            const args = { data, width, height, minY, maxY, xScaleType }
-            if (stacked === true) {
-                scales = getStackedScales(args)
-            } else {
-                scales = getScales(args)
-            }
+        ['data', 'stacked', 'width', 'height', 'xScale', 'yScale'],
+        ({ data, stacked, width, height, xScale, yScale }) => {
+            const scales = scalesFromConfig([
+                {
+                    ...xScale,
+                    id: 'x',
+                    property: 'x',
+                    range: [0, width],
+                    data: data.map(data => data.data),
+                },
+                {
+                    ...yScale,
+                    id: 'y',
+                    property: 'y',
+                    range: [height, 0],
+                    stacked,
+                    data: data.map(data => data.data),
+                },
+            ])
 
             return {
-                margin,
-                width,
-                height,
-                ...scales,
+                xScale: scales.x,
+                yScale: scales.y,
             }
         }
     ),
-    withPropsOnChange(
-        ['getColor', 'xScale', 'yScale'],
-        ({ data, stacked, xScale, yScale, getColor }) => {
-            let lines
-            if (stacked === true) {
-                lines = generateStackedLines(data, xScale, yScale, getColor)
-            } else {
-                lines = generateLines(data, xScale, yScale, getColor)
-            }
-
-            const slices = xScale.domain().map((id, i) => {
-                let points = sortBy(
-                    lines.map(line => ({
-                        id: line.id,
-                        value: line.points[i].value,
-                        y: line.points[i].y,
-                        color: line.color,
-                    })),
-                    'y'
-                )
-
-                return {
-                    id,
-                    x: xScale(id),
-                    points,
-                }
-            })
-
-            return { lines, slices }
+    withPropsOnChange(['data', 'stacked', 'getColor'], ({ data, stacked, getColor }) => {
+        let lines
+        if (stacked === true) {
+            lines = generateStackedLines(data).map(serie => ({ ...serie, color: getColor(serie) }))
+        } else {
+            lines = data.map(serie => ({
+                ...serie,
+                color: getColor(serie),
+            }))
         }
-    ),
+
+        const slices = []
+
+        return { lines, slices }
+    }),
     pure
 )
 
-export default setDisplayName('LineChartCanvas')(enhance(LineChartCanvas))
+export default enhance(LineChartCanvas)

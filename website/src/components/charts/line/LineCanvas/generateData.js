@@ -10,6 +10,11 @@ import { generatePointsSerie } from '@nivo/generators'
 
 export default () => {
     const keys = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N']
+    const gaps = {
+        C: [[50, 80]],
+        H: [[110, 140]],
+        L: [[130, 160]],
+    }
 
     return keys.map((key, i) => ({
         id: `item ${key}`,
@@ -20,6 +25,7 @@ export default () => {
             y1: Math.random() * 80,
             yRand: Math.random() * 3,
             easing: 'random',
+            xGaps: gaps[key] || [],
         }),
     }))
 }

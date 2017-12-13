@@ -115,11 +115,7 @@ export default class Chord extends Component {
         )
 
         const header = (
-            <ChartHeader
-                chartClass="ChordSvg"
-                tags={['relational', 'isomorphic', 'api']}
-                diceRoll={this.diceRoll}
-            />
+            <ChartHeader chartClass="ChordSvg" tags={['relational', 'isomorphic', 'api']} />
         )
 
         const description = (
@@ -174,7 +170,12 @@ export default class Chord extends Component {
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="chord" code={code} data={matrix}>
+                    <ChartTabs
+                        chartClass="chord"
+                        code={code}
+                        data={matrix}
+                        diceRoll={this.diceRoll}
+                    >
                         <ResponsiveChordSvg
                             matrix={matrix}
                             keys={keys}

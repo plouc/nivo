@@ -74,3 +74,17 @@ export const computePointScale = ({
         .range(range)
         .domain(domain)
 }
+
+const computeFunctionByType = {
+    linear: computeLinearScale,
+    point: computePointScale,
+}
+
+export const scalesFromConfig = scaleConfigs => {
+    const computedScales = {}
+    scaleConfigs.forEach(scaleConfig => {
+        computedScales[scaleConfig.id] = computeFunctionByType[scaleConfig.type](scaleConfig)
+    })
+
+    return computedScales
+}

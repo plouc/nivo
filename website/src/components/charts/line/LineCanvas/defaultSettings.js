@@ -14,6 +14,7 @@ export default {
         left: 70,
     },
 
+    stacked: false,
     curve: 'linear',
 
     // axes

@@ -91,11 +91,7 @@ export default class TreeMapHtml extends Component {
         })
 
         const header = (
-            <ChartHeader
-                chartClass="TreeMapHtml"
-                tags={['hierarchy', 'html', 'isomorphic']}
-                diceRoll={this.diceRoll}
-            />
+            <ChartHeader chartClass="TreeMapHtml" tags={['hierarchy', 'html', 'isomorphic']} />
         )
 
         const description = (
@@ -160,7 +156,12 @@ export default class TreeMapHtml extends Component {
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="treemap" code={code} data={root}>
+                    <ChartTabs
+                        chartClass="treemap"
+                        code={code}
+                        data={root}
+                        diceRoll={this.diceRoll}
+                    >
                         <ResponsiveTreeMapHtml
                             root={root}
                             {...mappedSettings}

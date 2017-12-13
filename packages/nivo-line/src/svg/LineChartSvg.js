@@ -328,7 +328,7 @@ const enhance = compose(
         stacked: false,
         curve: 'linear',
 
-        // axes & grid
+        // grid
         enableGridX: true,
         enableGridY: true,
 

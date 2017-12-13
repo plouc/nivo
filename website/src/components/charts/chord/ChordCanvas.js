@@ -104,11 +104,7 @@ export default class ChordCanvas extends Component {
         )
 
         const header = (
-            <ChartHeader
-                chartClass="ChordCanvas"
-                tags={['relational', 'canvas', 'experimental']}
-                diceRoll={this.diceRoll}
-            />
+            <ChartHeader chartClass="ChordCanvas" tags={['relational', 'canvas', 'experimental']} />
         )
 
         const description = (
@@ -138,6 +134,7 @@ export default class ChordCanvas extends Component {
                         code={code}
                         data={matrix}
                         nodeCount={MATRIX_SIZE * MATRIX_SIZE + MATRIX_SIZE}
+                        diceRoll={this.diceRoll}
                     >
                         <ResponsiveChordCanvas
                             matrix={matrix}

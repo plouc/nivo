@@ -13,12 +13,7 @@ import setDisplayName from 'recompose/setDisplayName'
 import pure from 'recompose/pure'
 import PropTypes from 'prop-types'
 import { LinearScalePropType, PointScalePropType } from './propsTypes'
-import { computeLinearScale, computePointScale } from './compute'
-
-const computeFunctionByType = {
-    linear: computeLinearScale,
-    point: computePointScale,
-}
+import { scalesFromConfig } from './compute'
 
 const Scales = ({ computedScales, children }) => <Fragment>{children(computedScales)}</Fragment>
 
@@ -31,14 +26,9 @@ Scales.propTypes = {
 
 const enhance = compose(
     setDisplayName('Scales'),
-    withPropsOnChange(['scales'], ({ scales }) => {
-        const computedScales = {}
-        scales.forEach(scaleConfig => {
-            computedScales[scaleConfig.id] = computeFunctionByType[scaleConfig.type](scaleConfig)
-        })
-
-        return { computedScales }
-    }),
+    withPropsOnChange(['scales'], ({ scales }) => ({
+        computedScales: scalesFromConfig(scales),
+    })),
     pure
 )
 

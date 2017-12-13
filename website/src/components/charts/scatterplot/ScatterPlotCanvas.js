@@ -133,13 +133,7 @@ export default class ScatterPlotCanvas extends Component {
             { pkg: '@nivo/scatterplot', defaults: ScatterPlotDefaultProps }
         )
 
-        const header = (
-            <ChartHeader
-                chartClass="ScatterPlotCanvas"
-                tags={['basic', 'canvas']}
-                diceRoll={this.diceRoll}
-            />
-        )
+        const header = <ChartHeader chartClass="ScatterPlotCanvas" tags={['basic', 'canvas']} />
 
         const description = (
             <div className="chart-description">
@@ -169,6 +163,7 @@ export default class ScatterPlotCanvas extends Component {
                         code={code}
                         data={data}
                         nodeCount={data.length * data[0].data.length}
+                        diceRoll={this.diceRoll}
                     >
                         <ResponsiveScatterPlotCanvas
                             data={data}

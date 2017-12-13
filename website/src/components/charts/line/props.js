@@ -9,12 +9,14 @@
 import React from 'react'
 import dedent from 'dedent-js'
 import { lineCurvePropKeys, DotsItemDefaultProps as dotDefaults } from '@nivo/core'
-import { LineDefaultProps as defaults } from '@nivo/line'
+import { LineChartSvg } from '@nivo/line'
 import {
     marginProperties,
     axesProperties,
     motionProperties,
 } from '../../../lib/componentProperties'
+
+const defaults = LineChartSvg.defaultProps
 
 const curveOptions = []
 lineCurvePropKeys.forEach((curve, i) => {

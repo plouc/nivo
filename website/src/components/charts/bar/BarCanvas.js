@@ -141,9 +141,7 @@ export default class BarCanvas extends Component {
             { pkg: '@nivo/bar' }
         )
 
-        const header = (
-            <ChartHeader chartClass="BarCanvas" tags={['bar', 'canvas']} diceRoll={this.diceRoll} />
-        )
+        const header = <ChartHeader chartClass="BarCanvas" tags={['bar', 'canvas']} />
 
         const description = (
             <div className="chart-description">
@@ -171,6 +169,7 @@ export default class BarCanvas extends Component {
                         code={code}
                         data={data}
                         nodeCount={data.length * keys.length}
+                        diceRoll={this.diceRoll}
                     >
                         <ResponsiveBarCanvas
                             data={data}

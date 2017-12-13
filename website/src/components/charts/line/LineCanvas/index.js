@@ -9,7 +9,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
-import { LineDefaultProps, ResponsiveLineChartCanvas } from '@nivo/line'
+import { ResponsiveLineChartCanvas, LineChartCanvas } from '@nivo/line'
 import ChartHeader from '../../../ChartHeader'
 import ChartTabs from '../../../ChartTabs'
 import LineControls from '../LineControls'
@@ -20,7 +20,7 @@ import propsMapper from '../propsMapper'
 import generateData from './generateData'
 import defaultSettings from './defaultSettings'
 
-export default class LinePage extends Component {
+export default class LineChartCanvasDemo extends Component {
     state = {
         data: generateData(),
         settings: { ...defaultSettings },
@@ -41,7 +41,7 @@ export default class LinePage extends Component {
 
         const code = generateCode('ResponsiveLineChartCanvas', mappedSettings, {
             pkg: '@nivo/line',
-            defaults: LineDefaultProps,
+            defaults: LineChartCanvas.defaultProps,
         })
 
         const header = (
@@ -74,7 +74,12 @@ export default class LinePage extends Component {
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="line" code={''} data={data} mode="horizontal">
+                    <ChartTabs
+                        chartClass="line"
+                        code={code}
+                        mode="horizontal"
+                        diceRoll={this.diceRoll}
+                    >
                         <ResponsiveLineChartCanvas {...mappedSettings} data={data} pixelRatio={2} />
                     </ChartTabs>
                     <LineControls

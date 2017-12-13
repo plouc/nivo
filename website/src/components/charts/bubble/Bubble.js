@@ -92,11 +92,7 @@ export default class Bubble extends Component {
         })
 
         const header = (
-            <ChartHeader
-                chartClass="Bubble"
-                tags={['hierarchy', 'svg', 'isomorphic', 'api']}
-                diceRoll={diceRoll}
-            />
+            <ChartHeader chartClass="Bubble" tags={['hierarchy', 'svg', 'isomorphic', 'api']} />
         )
 
         const description = (
@@ -156,7 +152,7 @@ export default class Bubble extends Component {
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="bubble" code={code} data={root}>
+                    <ChartTabs chartClass="bubble" code={code} data={root} diceRoll={diceRoll}>
                         <ResponsiveBubble
                             root={cloneDeep(root)}
                             {...mappedSettings}

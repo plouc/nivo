@@ -104,11 +104,7 @@ export default class Radar extends Component {
         )
 
         const header = (
-            <ChartHeader
-                chartClass="Radar"
-                tags={['radar', 'radial', 'circle', 'isomorphic']}
-                diceRoll={diceRoll}
-            />
+            <ChartHeader chartClass="Radar" tags={['radar', 'radial', 'circle', 'isomorphic']} />
         )
 
         const description = (
@@ -162,7 +158,7 @@ export default class Radar extends Component {
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="radar" code={code} data={data}>
+                    <ChartTabs chartClass="radar" code={code} data={data} diceRoll={diceRoll}>
                         <ResponsiveRadar
                             data={data}
                             keys={keys}

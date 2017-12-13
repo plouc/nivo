@@ -46,16 +46,11 @@ export default class LineChartSvgDemo extends Component {
         })
 
         const header = (
-            <ChartHeader
-                chartClass="LineChartSvg"
-                tags={['basic', 'isomorphic', 'api']}
-                diceRoll={this.diceRoll}
-            />
+            <ChartHeader chartClass="LineChartSvg" tags={['basic', 'isomorphic', 'api']} />
         )
 
         const description = (
             <div className="chart-description">
-                w
                 <p>
                     A line chart with stacking ability. Given an array of data series having an id
                     and a nested array of points (with x, y properties), it will compute the line
@@ -65,7 +60,7 @@ export default class LineChartSvgDemo extends Component {
                     config.
                 </p>
                 <p>
-                    This component also accept empty values, but please note that they must be
+                    This component also accepts empty values, but please note that they must be
                     explicitly <i>defined</i> though, eg. <code>{'{ x: 10, y: null }'}</code>. When{' '}
                     <code>stacked</code> is <code>true</code>, you must use consistent lengths, also
                     if one of the series contains some null values, all values for subsequent series
@@ -129,7 +124,13 @@ export default class LineChartSvgDemo extends Component {
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="line" code={code} data={data} mode="horizontal">
+                    <ChartTabs
+                        chartClass="line"
+                        code={code}
+                        data={data}
+                        mode="horizontal"
+                        diceRoll={this.diceRoll}
+                    >
                         <ResponsiveLineChartSvg data={data} {...mappedSettings} />
                     </ChartTabs>
                     <LineControls

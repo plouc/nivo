@@ -67,11 +67,7 @@ export default class Sunburst extends Component {
         const code = generateCode('ResponsiveSunburst', mappedSettings, { pkg: '@nivo/sunburst' })
 
         const header = (
-            <ChartHeader
-                chartClass="Sunburst"
-                tags={['hierarchy', 'radial', 'circle']}
-                diceRoll={diceRoll}
-            />
+            <ChartHeader chartClass="Sunburst" tags={['hierarchy', 'radial', 'circle']} />
         )
 
         const description = (
@@ -90,7 +86,7 @@ export default class Sunburst extends Component {
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="sunburst" code={code} data={data}>
+                    <ChartTabs chartClass="sunburst" code={code} data={data} diceRoll={diceRoll}>
                         <ResponsiveSunburst data={data} {...mappedSettings} theme={nivoTheme} />
                     </ChartTabs>
                 </div>

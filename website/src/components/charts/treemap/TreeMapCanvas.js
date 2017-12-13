@@ -84,13 +84,7 @@ export default class TreeMapCanvas extends Component {
             defaults: TreeMapCanvasDefaultProps,
         })
 
-        const header = (
-            <ChartHeader
-                chartClass="TreeMapCanvas"
-                tags={['hierarchy', 'canvas']}
-                diceRoll={this.diceRoll}
-            />
-        )
+        const header = <ChartHeader chartClass="TreeMapCanvas" tags={['hierarchy', 'canvas']} />
 
         const description = (
             <div className="chart-description">
@@ -134,7 +128,13 @@ export default class TreeMapCanvas extends Component {
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="treemap" code={code} data={root} nodeCount={nodeCount}>
+                    <ChartTabs
+                        chartClass="treemap"
+                        code={code}
+                        data={root}
+                        nodeCount={nodeCount}
+                        diceRoll={this.diceRoll}
+                    >
                         <ResponsiveTreeMapCanvas
                             root={root}
                             {...mappedSettings}
