@@ -83,7 +83,7 @@ export default class Voronoi extends Component {
 
         return (
             <div className="page_content grid">
-                <div className="chart-page_aside">
+                <div className="chart-page_main">
                     <MediaQuery query="(max-width: 1000px)">
                         {header}
                         {description}
@@ -100,18 +100,18 @@ export default class Voronoi extends Component {
                             {...settings}
                         />
                     </ChartTabs>
-                </div>
-                <div className="chart-page_main">
-                    <MediaQuery query="(min-width: 1000px)">
-                        {header}
-                        {description}
-                    </MediaQuery>
                     <VoronoiControls
                         scope="Voronoi"
                         settings={settings}
                         onChange={this.handleSettingsUpdate}
                     />
                     <ComponentPropsDocumentation chartClass="Voronoi" properties={properties} />
+                </div>
+                <div className="chart-page_aside">
+                    <MediaQuery query="(min-width: 1000px)">
+                        {header}
+                        {description}
+                    </MediaQuery>
                 </div>
             </div>
         )

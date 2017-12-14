@@ -17,12 +17,7 @@ export default class ChartTabs extends Component {
         data: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
         code: PropTypes.string.isRequired,
         nodeCount: PropTypes.number,
-        mode: PropTypes.string.isRequired,
         diceRoll: PropTypes.func,
-    }
-
-    static defaultProps = {
-        mode: '',
     }
 
     state = {
@@ -39,7 +34,7 @@ export default class ChartTabs extends Component {
     }
 
     render() {
-        const { chartClass, mode, data, code, children, diceRoll, nodeCount } = this.props
+        const { chartClass, data, code, children, diceRoll, nodeCount } = this.props
         const { tab: currentTab, hoverTab } = this.state
 
         let content
@@ -60,11 +55,7 @@ export default class ChartTabs extends Component {
         }
 
         return (
-            <div
-                className={`chart-tabs${
-                    mode.length > 0 ? ` chart-tabs--${mode}` : ''
-                } chart-tabs--${currentTab}`}
-            >
+            <div className={`chart-tabs chart-tabs--${currentTab}`}>
                 <div className="chart-tabs__menu">
                     {tabs.map(tab => {
                         const isCurrent = tab === currentTab

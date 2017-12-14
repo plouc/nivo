@@ -74,12 +74,7 @@ export default class LineChartCanvasDemo extends Component {
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs
-                        chartClass="line"
-                        code={code}
-                        mode="horizontal"
-                        diceRoll={this.diceRoll}
-                    >
+                    <ChartTabs chartClass="line" code={code} diceRoll={this.diceRoll}>
                         <ResponsiveLineChartCanvas {...mappedSettings} data={data} pixelRatio={2} />
                     </ChartTabs>
                     <LineControls

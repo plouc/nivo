@@ -151,7 +151,7 @@ export default class TreeMapHtml extends Component {
 
         return (
             <div className="page_content grid">
-                <div className="chart-page_aside">
+                <div className="chart-page_main">
                     <MediaQuery query="(max-width: 1000px)">
                         {header}
                         {description}
@@ -169,18 +169,18 @@ export default class TreeMapHtml extends Component {
                             onClick={this.handleNodeClick}
                         />
                     </ChartTabs>
-                </div>
-                <div className="chart-page_main">
-                    <MediaQuery query="(min-width: 1000px)">
-                        {header}
-                        {description}
-                    </MediaQuery>
                     <TreeMapControls
                         scope="TreeMapHTML"
                         settings={settings}
                         onChange={this.handleSettingsUpdate}
                     />
                     <ComponentPropsDocumentation chartClass="TreeMapHTML" properties={properties} />
+                </div>
+                <div className="chart-page_aside">
+                    <MediaQuery query="(min-width: 1000px)">
+                        {header}
+                        {description}
+                    </MediaQuery>
                 </div>
             </div>
         )

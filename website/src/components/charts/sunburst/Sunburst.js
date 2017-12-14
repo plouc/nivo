@@ -81,7 +81,7 @@ export default class Sunburst extends Component {
 
         return (
             <div className="page_content grid">
-                <div className="chart-page_aside">
+                <div className="chart-page_main">
                     <MediaQuery query="(max-width: 1000px)">
                         {header}
                         {description}
@@ -89,18 +89,18 @@ export default class Sunburst extends Component {
                     <ChartTabs chartClass="sunburst" code={code} data={data} diceRoll={diceRoll}>
                         <ResponsiveSunburst data={data} {...mappedSettings} theme={nivoTheme} />
                     </ChartTabs>
-                </div>
-                <div className="chart-page_main">
-                    <MediaQuery query="(min-width: 1000px)">
-                        {header}
-                        {description}
-                    </MediaQuery>
                     <SunburstControls
                         scope="Sunburst"
                         settings={settings}
                         onChange={this.handleSettingsUpdate}
                     />
                     <ComponentPropsDocumentation chartClass="Sunburst" properties={properties} />
+                </div>
+                <div className="chart-page_aside">
+                    <MediaQuery query="(min-width: 1000px)">
+                        {header}
+                        {description}
+                    </MediaQuery>
                 </div>
             </div>
         )

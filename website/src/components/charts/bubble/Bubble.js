@@ -147,7 +147,7 @@ export default class Bubble extends Component {
 
         return (
             <div className="page_content grid">
-                <div className="chart-page_aside">
+                <div className="chart-page_main">
                     <MediaQuery query="(max-width: 1000px)">
                         {header}
                         {description}
@@ -159,18 +159,18 @@ export default class Bubble extends Component {
                             theme={nivoTheme}
                         />
                     </ChartTabs>
-                </div>
-                <div className="chart-page_main">
-                    <MediaQuery query="(min-width: 1000px)">
-                        {header}
-                        {description}
-                    </MediaQuery>
                     <BubbleControls
                         scope="Bubble"
                         settings={settings}
                         onChange={this.handleSettingsUpdate}
                     />
                     <ComponentPropsDocumentation chartClass="Bubble" properties={properties} />
+                </div>
+                <div className="chart-page_aside">
+                    <MediaQuery query="(min-width: 1000px)">
+                        {header}
+                        {description}
+                    </MediaQuery>
                 </div>
             </div>
         )

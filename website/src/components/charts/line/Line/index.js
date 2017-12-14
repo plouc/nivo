@@ -124,13 +124,7 @@ export default class LineChartSvgDemo extends Component {
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs
-                        chartClass="line"
-                        code={code}
-                        data={data}
-                        mode="horizontal"
-                        diceRoll={this.diceRoll}
-                    >
+                    <ChartTabs chartClass="line" code={code} data={data} diceRoll={this.diceRoll}>
                         <ResponsiveLineChartSvg data={data} {...mappedSettings} />
                     </ChartTabs>
                     <LineControls
