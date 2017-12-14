@@ -71,7 +71,7 @@ export default {
     // dots
     enableDots: true,
     dotsEveryNth: 1,
-    dotSize: 8,
+    dotSize: 7,
     dotColor: { type: 'custom', color: '#ffffff' },
     dotBorderWidth: 2,
     dotBorderColor: { type: 'inherit' },

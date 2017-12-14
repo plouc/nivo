@@ -38,6 +38,7 @@ const LineDotsSvg = ({
     // labels
     enableLabel,
     getLabel,
+    labelColor,
     labelYOffset,
 
     // theming
@@ -65,6 +66,7 @@ const LineDotsSvg = ({
                 fill: color(data),
                 stroke: borderColor(data),
                 label: enableLabel ? getLabel(pointData) : null,
+                labelColor: labelColor(data),
             }
         })
 
@@ -82,6 +84,7 @@ const LineDotsSvg = ({
                         borderWidth={borderWidth}
                         borderColor={point.stroke}
                         label={point.label}
+                        labelColor={point.labelColor}
                         labelYOffset={labelYOffset}
                         theme={theme}
                     />
@@ -117,6 +120,7 @@ const LineDotsSvg = ({
                             borderWidth={borderWidth}
                             borderColor={point.stroke}
                             label={point.label}
+                            labelColor={point.labelColor}
                             labelYOffset={labelYOffset}
                             theme={theme}
                         />
@@ -151,6 +155,7 @@ LineDotsSvg.propTypes = {
     enableLabel: PropTypes.bool.isRequired,
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     labelFormat: PropTypes.string,
+    labelColor: PropTypes.func.isRequired,
     labelYOffset: PropTypes.number,
 
     // theming

@@ -21,6 +21,7 @@ const DotsItem = ({
     borderColor,
     label,
     labelTextAnchor,
+    labelColor,
     labelYOffset,
     theme,
 }) => (
@@ -37,7 +38,7 @@ const DotsItem = ({
                 y={labelYOffset}
                 style={{
                     fontSize: theme.dots.fontSize,
-                    fill: theme.dots.textColor,
+                    fill: labelColor ? labelColor : theme.dots.textColor,
                 }}
             >
                 {label}
@@ -61,6 +62,7 @@ DotsItem.propTypes = {
 
     // label
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    labelColor: PropTypes.string,
     labelTextAnchor: PropTypes.oneOf(['start', 'middle', 'end']),
     labelYOffset: PropTypes.number.isRequired,
 

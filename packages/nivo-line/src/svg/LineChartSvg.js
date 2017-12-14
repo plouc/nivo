@@ -77,6 +77,7 @@ const LineChartSvg = ({
     enableDotLabel,
     dotLabel,
     dotLabelFormat,
+    dotLabelColor,
     dotLabelYOffset,
 
     // markers
@@ -221,6 +222,7 @@ const LineChartSvg = ({
                                         enableLabel={enableDotLabel}
                                         label={dotLabel}
                                         labelFormat={dotLabelFormat}
+                                        labelColor={getInheritedColorGenerator(dotLabelColor)}
                                         labelYOffset={dotLabelYOffset}
                                         theme={theme}
                                         {...motionProps}

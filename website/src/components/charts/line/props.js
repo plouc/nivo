@@ -211,6 +211,21 @@ export default [
         controlGroup: 'Dots',
     },
     {
+        key: 'dotsEveryNth',
+        scopes: '*',
+        description:
+            'Allows you to only display every nth dot. May be used when you have a lot of points to improve legibility.',
+        type: '{number}',
+        required: false,
+        default: defaults.dotsEveryNth,
+        controlType: 'range',
+        controlGroup: 'Dots',
+        controlOptions: {
+            min: 1,
+            max: 20,
+        },
+    },
+    {
         key: 'dotSymbol',
         description:
             'Overrides default dot circle. The function will receive `size`, `color`, `borderWidth` and `borderColor` props and must return a valid SVG element.',

@@ -26,6 +26,9 @@ export default () => {
             yRand: 3,
             easing: 'random',
             xGaps: gaps[key] || [],
-        }),
+        }).map(d => ({
+            ...d,
+            y: d.y < 0 ? 0 : d.y,
+        })),
     }))
 }
