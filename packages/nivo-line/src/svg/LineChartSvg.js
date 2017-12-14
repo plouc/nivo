@@ -284,6 +284,8 @@ LineChartSvg.propTypes = {
     dotBorderWidth: PropTypes.number.isRequired,
     dotBorderColor: PropTypes.any.isRequired,
     enableDotLabel: PropTypes.bool.isRequired,
+    dotLabelColor: PropTypes.any.isRequired,
+    dotLabelYOffset: PropTypes.number.isRequired,
 
     // markers
     markers: PropTypes.arrayOf(
@@ -340,6 +342,8 @@ const enhance = compose(
         dotBorderWidth: 0,
         dotBorderColor: 'inherit',
         enableDotLabel: false,
+        dotLabelColor: () => '#000000',
+        dotLabelYOffset: -12,
 
         // styling
         colors: 'nivo',

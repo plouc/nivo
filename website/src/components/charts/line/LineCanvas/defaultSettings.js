@@ -8,7 +8,7 @@
  */
 export default {
     margin: {
-        top: 60,
+        top: 30,
         right: 110,
         bottom: 60,
         left: 70,
@@ -69,14 +69,17 @@ export default {
     lineWidth: 2,
 
     // dots
-    enableDots: false,
-    dotSize: 10,
-    dotColor: { type: 'inherit:darker', gamma: 0.3 },
-    dotBorderWidth: 2,
+    enableDots: true,
+    dotsEveryNth: 20,
+    dotSize: 6,
+    dotColor: { type: 'inherit' },
+    dotBorderWidth: 0,
     dotBorderColor: { type: 'custom', color: '#ffffff' },
-    enableDotLabel: true,
+    enableDotLabel: false,
     dotLabel: 'y',
-    dotLabelYOffset: -12,
+    dotLabelFormat: '.1f',
+    dotLabelColor: { type: 'inherit' },
+    dotLabelYOffset: -8,
 
     // area
     enableArea: false,

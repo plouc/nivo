@@ -8,7 +8,7 @@
  */
 export default {
     margin: {
-        top: 60,
+        top: 30,
         right: 110,
         bottom: 60,
         left: 70,
@@ -78,6 +78,7 @@ export default {
     enableDotLabel: false,
     dotLabel: 'y',
     dotLabelFormat: '.1f',
+    dotLabelColor: { type: 'custom', color: '#000000' },
     dotLabelYOffset: -12,
 
     // area

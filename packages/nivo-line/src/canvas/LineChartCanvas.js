@@ -6,9 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { sortBy } from 'lodash'
 import { line, area } from 'd3-shape'
 import compose from 'recompose/compose'
 import pure from 'recompose/pure'
@@ -23,6 +23,8 @@ import {
     curveFromProp,
     Container,
     lineCurvePropType,
+    getInheritedColorGenerator,
+    getLabelGenerator,
 } from '@nivo/core'
 import { renderLegendToCanvas, LegendPropShape } from '@nivo/legends'
 import { generateStackedLines } from '../compute'
@@ -123,6 +125,61 @@ class LineChartCanvas extends Component {
         })
     }
 
+    renderDots(
+        ctx,
+        {
+            lines,
+            xScale,
+            yScale,
+            everyNth,
+            size,
+            getColor,
+            borderWidth,
+            getBorderColor,
+            enableLabel,
+            getLabel,
+            getLabelColor,
+            labelYOffset,
+        }
+    ) {
+        ctx.textAlign = 'center'
+        //ctx.textBaseline = textBaseline
+
+        lines.forEach(line => {
+            line.data
+                .filter((p, i) => i % everyNth === 0 || i === line.data.length - 1)
+                .filter(point => point.x !== null && point.y !== null)
+                .forEach(point => {
+                    const pointData = {
+                        serie: { id: line.id },
+                        x: point.key,
+                        y: point.value,
+                    }
+
+                    const x = xScale(point.x)
+                    const y = yScale(point.y)
+                    const color = getColor(line)
+                    const borderColor = getBorderColor(line)
+
+                    ctx.beginPath()
+                    ctx.arc(x, y, size / 2, 0, 2 * Math.PI, false)
+                    ctx.fillStyle = color
+                    ctx.fill()
+
+                    if (borderWidth > 0) {
+                        ctx.lineWidth = borderWidth
+                        ctx.strokeStyle = borderColor
+                        ctx.stroke()
+                    }
+
+                    if (enableLabel === true) {
+                        ctx.fillStyle = getLabelColor(line)
+                        ctx.fillText(getLabel(pointData), x, y + labelYOffset)
+                    }
+                })
+        })
+    }
+
     renderLegends(ctx, { lines, legends, width, height }) {
         const legendData = lines.map(line => ({
             label: line.id,
@@ -170,11 +227,18 @@ class LineChartCanvas extends Component {
             enableGridX,
             enableGridY,
 
-            // symbols
-            symbolSize,
-
-            // theming
-            getColor,
+            // dots
+            enableDots,
+            dotsEveryNth,
+            dotSize,
+            dotColor,
+            dotBorderWidth,
+            dotBorderColor,
+            enableDotLabel,
+            dotLabel,
+            dotLabelFormat,
+            dotLabelColor,
+            dotLabelYOffset,
 
             legends,
         } = props
@@ -223,6 +287,22 @@ class LineChartCanvas extends Component {
             yScale,
             lineWidth,
         })
+
+        enableDots &&
+            this.renderDots(this.ctx, {
+                lines,
+                xScale,
+                yScale,
+                everyNth: dotsEveryNth,
+                size: dotSize,
+                getColor: getInheritedColorGenerator(dotColor),
+                borderWidth: dotBorderWidth,
+                getBorderColor: getInheritedColorGenerator(dotBorderColor),
+                enableLabel: enableDotLabel,
+                getLabel: getLabelGenerator(dotLabel, dotLabelFormat),
+                getLabelColor: getInheritedColorGenerator(dotLabelColor),
+                labelYOffset: dotLabelYOffset,
+            })
 
         this.renderLegends(this.ctx, {
             lines,
@@ -293,12 +373,13 @@ LineChartCanvas.propTypes = {
     // dots
     enableDots: PropTypes.bool.isRequired,
     dotsEveryNth: PropTypes.number.isRequired,
-    dotSymbol: PropTypes.func,
     dotSize: PropTypes.number.isRequired,
     dotColor: PropTypes.any.isRequired,
     dotBorderWidth: PropTypes.number.isRequired,
     dotBorderColor: PropTypes.any.isRequired,
     enableDotLabel: PropTypes.bool.isRequired,
+    dotLabelColor: PropTypes.any.isRequired,
+    dotLabelYOffset: PropTypes.number.isRequired,
 
     // markers
     markers: PropTypes.arrayOf(
@@ -350,6 +431,8 @@ const enhance = compose(
         dotBorderWidth: 0,
         dotBorderColor: 'inherit',
         enableDotLabel: false,
+        dotLabelColor: 'inherit',
+        dotLabelYOffset: -12,
 
         // styling
         colors: 'nivo',

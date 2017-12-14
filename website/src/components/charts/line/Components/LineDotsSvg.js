@@ -116,6 +116,7 @@ export default class LineDotsSvgDocumentation extends PureComponent {
                         data={data}
                         width={260}
                         height={180}
+                        yScale={{ type: 'linear', min: 0, max: 30 }}
                         margin={{ top: 4, right: 4, bottom: 4, left: 4 }}
                         enableDots={true}
                         dotSize={8}

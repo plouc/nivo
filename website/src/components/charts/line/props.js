@@ -232,19 +232,6 @@ export default [
         },
     },
     {
-        key: 'dotColor',
-        scopes: '*',
-        description: 'Method to compute dots color.',
-        type: '{string|Function}',
-        required: false,
-        default: defaults.dotColor,
-        controlType: 'color',
-        controlGroup: 'Dots',
-        controlOptions: {
-            withCustomColor: true,
-        },
-    },
-    {
         key: 'dotBorderWidth',
         description: 'Width of the dots border (px).',
         type: '{number}',
@@ -256,6 +243,19 @@ export default [
             unit: 'px',
             min: 0,
             max: 10,
+        },
+    },
+    {
+        key: 'dotColor',
+        scopes: '*',
+        description: 'Method to compute dots color.',
+        type: '{string|Function}',
+        required: false,
+        default: defaults.dotColor,
+        controlType: 'color',
+        controlGroup: 'Dots',
+        controlOptions: {
+            withCustomColor: true,
         },
     },
     {
@@ -294,6 +294,19 @@ export default [
                 label: choice,
                 value: choice,
             })),
+        },
+    },
+    {
+        key: 'dotLabelColor',
+        scopes: '*',
+        description: 'Method to compute dots label color.',
+        type: '{string|Function}',
+        required: false,
+        default: defaults.dotLabelColor,
+        controlType: 'color',
+        controlGroup: 'Dots',
+        controlOptions: {
+            withCustomColor: true,
         },
     },
     {

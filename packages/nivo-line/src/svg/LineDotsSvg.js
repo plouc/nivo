@@ -49,7 +49,7 @@ const LineDotsSvg = ({
     motionDamping,
 }) => {
     const points = data.data
-        .filter((p, i) => i % everyNth === 0 || i === data.points.length - 1)
+        .filter((p, i) => i % everyNth === 0 || i === data.data.length - 1)
         .filter(point => point.x !== null && point.y !== null)
         .map(point => {
             const pointData = {

@@ -106,6 +106,7 @@ export default class LineSvgDocumentation extends PureComponent {
                         width={260}
                         height={180}
                         margin={{ top: 4, right: 4, bottom: 4, left: 4 }}
+                        yScale={{ type: 'linear', min: 0, max: 30 }}
                         enableDots={false}
                         colors={['#c6432d']}
                     />

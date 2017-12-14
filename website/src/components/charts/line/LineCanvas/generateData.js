@@ -20,10 +20,10 @@ export default () => {
         id: `item ${key}`,
         data: generatePointsSerie({
             x1: 200,
-            xStep: 0.5,
+            xStep: 1,
             y0: Math.random() * 80,
             y1: Math.random() * 80,
-            yRand: Math.random() * 3,
+            yRand: Math.random() * 2,
             easing: 'random',
             xGaps: gaps[key] || [],
         }),

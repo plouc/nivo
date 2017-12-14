@@ -6,8 +6,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { range, min, max, sumBy, uniq } from 'lodash'
-import { scalePoint, scaleLinear } from 'd3-scale'
 
 /**
  * Generates x/y scales & lines for line chart.
