@@ -1,20 +1,23 @@
 {
   "name": "@nivo/calendar",
-  "version": "0.33.0",
+  "version": "0.33.1-0.34.0-0.0",
   "license": "MIT",
-  "main": "./lib/index.js",
-  "module": "es/index.js",
-  "jsnext:main": "es/index.js",
+  "main": "./index.js",
+  "files": [
+    "README.md",
+    "index.js",
+    "cjs/"
+  ],
   "dependencies": {
-    "@nivo/core": "0.33.0",
-    "@nivo/legends": "0.33.0",
+    "@nivo/core": "0.33.1-0.34.0-0.0",
+    "@nivo/legends": "0.33.1-0.34.0-0.0",
     "d3-scale": "^1.0.6",
     "d3-time": "^1.0.7",
     "d3-time-format": "^2.0.5",
     "recompose": "^0.26.0"
   },
   "devDependencies": {
-    "@nivo/babel-preset": "0.33.0",
+    "@nivo/babel-preset": "0.33.1-0.34.0-0.0",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.0.3",
     "babel-jest": "^20.0.3",
@@ -23,7 +26,12 @@
     "eslint-plugin-react": "^7.5.1",
     "jest": "^21.0.1",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "rollup": "^0.52.2",
+    "rollup-plugin-babel": "^3.0.2",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-prettier": "^0.3.0",
+    "rollup-plugin-strip-banner": "^0.2.0"
   },
   "peerDependencies": {
     "prop-types": "^15.5.10",
@@ -33,11 +41,6 @@
     "access": "public"
   },
   "scripts": {
-    "lint": "eslint src stories tests",
-    "build:commonjs": "rm -rf lib && cross-env NODE_ENV=commonjs babel src --out-dir lib",
-    "build:commonjs:watch": "npm run build:commonjs -- --watch",
-    "build:es": "rm -rf es && cross-env NODE_ENV=es babel src --out-dir es",
-    "build:es:watch": "npm run build:es -- --watch",
-    "build": "npm run build:commonjs && npm run build:es"
+    "lint": "eslint src stories tests"
   }
 }

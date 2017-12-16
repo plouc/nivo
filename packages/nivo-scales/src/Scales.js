@@ -12,16 +12,17 @@ import withPropsOnChange from 'recompose/withPropsOnChange'
 import setDisplayName from 'recompose/setDisplayName'
 import pure from 'recompose/pure'
 import PropTypes from 'prop-types'
-import { LinearScalePropType, PointScalePropType } from './propsTypes'
-import { scalesFromConfig } from './compute'
+import { LinearScalePropType, PointScalePropType, TimeScalePropType } from './propsTypes'
+import { scalesFromConfig } from './scaleByType'
 
 const Scales = ({ computedScales, children }) => <Fragment>{children(computedScales)}</Fragment>
 
 Scales.propTypes = {
     children: PropTypes.func.isRequired,
     computedScales: PropTypes.object.isRequired,
-    scales: PropTypes.arrayOf(PropTypes.oneOfType([LinearScalePropType, PointScalePropType]))
-        .isRequired,
+    scales: PropTypes.arrayOf(
+        PropTypes.oneOfType([LinearScalePropType, PointScalePropType, TimeScalePropType])
+    ).isRequired,
 }
 
 const enhance = compose(

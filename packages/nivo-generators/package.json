@@ -1,6 +1,6 @@
 {
   "name": "@nivo/generators",
-  "version": "0.33.0",
+  "version": "0.33.1-0.34.0-0.0",
   "licenses": [
     {
       "type": "MIT",
@@ -9,15 +9,18 @@
   ],
   "description": "Data generators used for nivo-website and http API samples",
   "author": "Raphaël Benitte <benitteraphael@gmail.com>",
-  "main": "./lib/index.js",
-  "module": "es/index.js",
-  "jsnext:main": "es/index.js",
+  "main": "./index.js",
+  "files": [
+    "README.md",
+    "index.js",
+    "cjs/"
+  ],
   "engines": {
     "node": ">=6.0.0",
     "npm": ">=3.0.0"
   },
   "devDependencies": {
-    "@nivo/babel-preset": "0.33.0",
+    "@nivo/babel-preset": "0.33.1-0.34.0-0.0",
     "babel-cli": "^6.26.0",
     "cross-env": "^5.0.5"
   },
@@ -32,11 +35,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "scripts": {
-    "build:commonjs": "rm -rf lib && cross-env NODE_ENV=commonjs babel src --out-dir lib",
-    "build:commonjs:watch": "npm run build:commonjs -- --watch",
-    "build:es": "rm -rf es && cross-env NODE_ENV=es babel src --out-dir es",
-    "build:es:watch": "npm run build:es -- --watch",
-    "build": "npm run build:commonjs && npm run build:es"
-  }
+  "scripts": {}
 }

@@ -1,13 +1,16 @@
 {
   "name": "@nivo/chord",
-  "version": "0.33.0",
+  "version": "0.33.1-0.34.0-0.0",
   "license": "MIT",
-  "main": "./lib/index.js",
-  "module": "es/index.js",
-  "jsnext:main": "es/index.js",
+  "main": "./index.js",
+  "files": [
+    "README.md",
+    "index.js",
+    "cjs/"
+  ],
   "dependencies": {
-    "@nivo/core": "0.33.0",
-    "@nivo/legends": "0.33.0",
+    "@nivo/core": "0.33.1-0.34.0-0.0",
+    "@nivo/legends": "0.33.1-0.34.0-0.0",
     "d3-chord": "^1.0.4",
     "d3-format": "^1.2.0",
     "d3-shape": "^1.2.0",
@@ -15,8 +18,8 @@
     "recompose": "^0.26.0"
   },
   "devDependencies": {
-    "@nivo/babel-preset": "0.33.0",
-    "@nivo/generators": "0.33.0",
+    "@nivo/babel-preset": "0.33.1-0.34.0-0.0",
+    "@nivo/generators": "0.33.1-0.34.0-0.0",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.0.3",
     "babel-jest": "^20.0.3",
@@ -38,11 +41,6 @@
   "scripts": {
     "lint": "eslint src stories tests",
     "test": "jest --verbose ./tests",
-    "test:cover": "jest --verbose --coverage ./tests",
-    "build:commonjs": "rm -rf lib && cross-env NODE_ENV=commonjs babel src --out-dir lib",
-    "build:commonjs:watch": "npm run build:commonjs -- --watch",
-    "build:es": "rm -rf es && cross-env NODE_ENV=es babel src --out-dir es",
-    "build:es:watch": "npm run build:es -- --watch",
-    "build": "npm run build:commonjs && npm run build:es"
+    "test:cover": "jest --verbose --coverage ./tests"
   }
 }
