@@ -87,6 +87,12 @@ const BoxLegendSvg = ({
 }
 
 BoxLegendSvg.propTypes = {
+    data: PropTypes.arrayOf(
+        PropTypes.shape({
+            label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+            fill: PropTypes.string.isRequired,
+        })
+    ).isRequired,
     containerWidth: PropTypes.number.isRequired,
     containerHeight: PropTypes.number.isRequired,
     translateX: PropTypes.number.isRequired,

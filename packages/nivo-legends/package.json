@@ -12,9 +12,12 @@
   "devDependencies": {
     "@nivo/babel-preset": "0.33.0",
     "babel-cli": "^6.26.0",
-    "babel-jest": "^20.0.3",
-    "cross-env": "^5.0.5",
-    "jest": "^21.0.1",
+    "babel-eslint": "^8.0.3",
+    "babel-jest": "^21.2.0",
+    "cross-env": "^5.1.1",
+    "eslint": "^4.12.1",
+    "eslint-plugin-react": "^7.5.1",
+    "jest": "^21.2.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-test-renderer": "^16.2.0"
@@ -27,6 +30,7 @@
     "access": "public"
   },
   "scripts": {
+    "lint": "eslint src stories tests",
     "test": "jest --verbose ./tests",
     "test:cover": "jest --verbose --coverage ./tests",
     "build:commonjs": "rm -rf lib && cross-env NODE_ENV=commonjs babel src --out-dir lib",
