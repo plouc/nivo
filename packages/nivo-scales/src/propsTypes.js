@@ -25,3 +25,12 @@ export const PointScalePropType = PropTypes.shape({
     domain: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
     range: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
 })
+
+export const TimeScalePropType = PropTypes.shape({
+    type: PropTypes.oneOf(['time']),
+    data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)).isRequired,
+    property: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    min: PropTypes.oneOfType([PropTypes.oneOf(['auto']), PropTypes.number]),
+    max: PropTypes.oneOfType([PropTypes.oneOf(['auto']), PropTypes.number]),
+    range: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
+})

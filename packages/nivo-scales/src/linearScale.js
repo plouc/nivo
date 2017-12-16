@@ -8,9 +8,20 @@
  */
 import getMin from 'lodash/min'
 import getMax from 'lodash/max'
-import uniq from 'lodash/uniq'
-import { scaleLinear, scalePoint } from 'd3-scale'
+import { scaleLinear } from 'd3-scale'
 
+/**
+ * Compute a linear scale from config and data set.
+ *
+ * @param {Array.<Array>}  data
+ * @param {'auto'|number}  min
+ * @param {'auto'|number}  max
+ * @param {string|number}  property
+ * @param {Array.<number>} range
+ * @param {boolean}        stacked
+ *
+ * @return {Object}
+ */
 export const computeLinearScale = ({
     data,
     min = 'auto',
@@ -46,45 +57,4 @@ export const computeLinearScale = ({
     return scaleLinear()
         .domain([domainMin, domainMax])
         .range(range)
-}
-
-export const computePointScale = ({
-    data,
-    domain: _domain,
-    range,
-    property,
-    checkConsistency = false,
-}) => {
-    if (checkConsistency === true) {
-        const uniqLengths = uniq(data.map(({ data }) => data.length))
-        if (uniqLengths.length > 1) {
-            throw new Error(
-                [
-                    `Found inconsistent data for '${property}',`,
-                    `expecting all series to have same length`,
-                    `but found: ${uniqLengths.join(', ')}`,
-                ].join(' ')
-            )
-        }
-    }
-
-    const domain = _domain !== undefined ? _domain : data[0].map(d => d[property])
-
-    return scalePoint()
-        .range(range)
-        .domain(domain)
-}
-
-const computeFunctionByType = {
-    linear: computeLinearScale,
-    point: computePointScale,
-}
-
-export const scalesFromConfig = scaleConfigs => {
-    const computedScales = {}
-    scaleConfigs.forEach(scaleConfig => {
-        computedScales[scaleConfig.id] = computeFunctionByType[scaleConfig.type](scaleConfig)
-    })
-
-    return computedScales
 }

@@ -32,8 +32,6 @@
   },
   "scripts": {
     "lint": "eslint src stories tests",
-    "test": "jest --verbose ./tests",
-    "test:cover": "jest --verbose --coverage ./tests",
     "build:commonjs": "rm -rf lib && cross-env NODE_ENV=commonjs babel src --out-dir lib",
     "build:commonjs:watch": "npm run build:commonjs -- --watch",
     "build:es": "rm -rf es && cross-env NODE_ENV=es babel src --out-dir es",
