@@ -1,6 +1,6 @@
 {
   "name": "@nivo/generators",
-  "version": "0.33.1-0.34.0-0.0",
+  "version": "0.34.0-1",
   "licenses": [
     {
       "type": "MIT",
@@ -20,7 +20,7 @@
     "npm": ">=3.0.0"
   },
   "devDependencies": {
-    "@nivo/babel-preset": "0.33.1-0.34.0-0.0",
+    "@nivo/babel-preset": "0.34.0-1",
     "babel-cli": "^6.26.0",
     "cross-env": "^5.0.5"
   },

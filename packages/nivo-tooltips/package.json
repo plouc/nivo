@@ -1,6 +1,6 @@
 {
   "name": "@nivo/tooltips",
-  "version": "0.33.1-0.34.0-0.0",
+  "version": "0.34.0-1",
   "license": "MIT",
   "main": "./index.js",
   "files": [
@@ -9,7 +9,7 @@
     "cjs/"
   ],
   "dependencies": {
-    "@nivo/core": "0.33.1-0.34.0-0.0",
+    "@nivo/core": "0.34.0-1",
     "d3-format": "^1.2.0",
     "d3-scale": "^1.0.6",
     "d3-shape": "^1.2.0",
@@ -17,8 +17,8 @@
     "recompose": "^0.26.0"
   },
   "devDependencies": {
-    "@nivo/babel-preset": "0.33.1-0.34.0-0.0",
-    "@nivo/generators": "0.33.1-0.34.0-0.0",
+    "@nivo/babel-preset": "0.34.0-1",
+    "@nivo/generators": "0.34.0-1",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.0.3",
     "babel-jest": "^20.0.3",
