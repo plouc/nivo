@@ -6,13 +6,10 @@ node_modules
 /storybook-static
 
 package-lock.json
-yarn.lock
 
 build
 
 /packages/*/cjs
-/packages/*/lib
-/packages/*/es
 
 *.lerna_backup
 

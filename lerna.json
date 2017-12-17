@@ -4,5 +4,6 @@
     "website",
     "packages/*"
   ],
-  "version": "0.34.0-1"
+  "version": "0.34.0-1",
+  "npmClient": "yarn"
 }
