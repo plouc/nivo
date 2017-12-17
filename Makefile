@@ -50,15 +50,15 @@ init: ##@0-global cleanup/install/bootstrap
 	@make bootstrap
 	@make packages-build
 	@make website-install
-	@make examples-install
+	#@make examples-install
 
 fmt: ##@0 global format code using prettier (js, css, md)
 	@./node_modules/.bin/prettier --color --write \
-		"packages/*/{src,stories,tests}/**/*.js" \
-		"packages/*/README.md" \
-		"website/src/**/*.{js,css}" \
-		"examples/*/src/**/*.{js,css}" \
-		"README.md"
+        "packages/*/{src,stories,tests}/**/*.js" \
+        "packages/*/README.md" \
+        "website/src/**/*.{js,css}" \
+        "examples/*/src/**/*.{js,css}" \
+        "README.md"
 
 deploy-all: ##@0-global deploy website & storybook
 	@make website-deploy
@@ -70,6 +70,7 @@ clean-all: ##@0 global uninstall node modules, remove transpiled code & lock fil
 	@$(foreach source, $(SOURCES), $(call clean-source-all, $(source)))
 	@rm -rf website/node_modules
 	@rm -rf website/package-lock.json
+	@rm -rf website/yarn.lock
 
 define clean-source-lib
 	rm -rf $(1)/*/cjs
@@ -87,22 +88,39 @@ endef
 #
 ########################################################################################################################
 
+package-lint-%: ##@1 packages run eslint on package
+	@echo "${YELLOW}Running eslint on package ${WHITE}@nivo/${*}${RESET}"
+	@./node_modules/.bin/eslint ./packages/nivo-${*}/{src,stories,tests}
+
 packages-lint: ##@1 packages run eslint on packages
 	@echo "${YELLOW}Running eslint on all packages${RESET}"
-	@./node_modules/.bin/lerna run lint
+	@./node_modules/.bin/eslint \
+        --ignore-pattern 'nivo-circle-packing' \
+        --ignore-pattern 'nivo-core' \
+        --ignore-pattern 'nivo-stream' \
+        --ignore-pattern 'nivo-sunburst' \
+        --ignore-pattern 'nivo-pie' \
+        --ignore-pattern 'nivo-radar' \
+        --ignore-pattern 'nivo-heatmap' \
+        --ignore-pattern 'nivo-treemap' \
+        --ignore-pattern 'nivo-voronoi' \
+        --ignore-pattern 'nivo-line' \
+        ./packages/*/{src,stories,tests}
+
+package-test-%: ##@1 packages run tests for a package
+	@./node_modules/.bin/jest ./packages/nivo-${*}/tests
 
 packages-test: ##@1 packages run tests for all packages
-	# stream can be used for a mire verbose output
-	#@./node_modules/.bin/lerna run --concurrency 1 --stream test
-	@./node_modules/.bin/lerna run --concurrency 1 test
+	@./node_modules/.bin/jest ./packages/*/tests
 
 package-build-%: ##@1 packages build a package
-	@echo "${YELLOW}Building package ${WHITE}${*}${RESET}"
+	@echo "${YELLOW}Building package ${WHITE}@nivo/${*}${RESET}"
 	@export PACKAGE=${*}; ./node_modules/.bin/rollup -c conf/rollup.config.js
 
 packages-build: ##@1 packages build all packages
 	@echo "${YELLOW}Building all packages${RESET}"
-	find ./packages -type d -name 'nivo-*' ! -path "*-babel-preset" \
+	@find ./packages -type d -name 'nivo-*' \
+        ! -path "*-babel-preset" \
         | awk -Fnivo- '{print $$NF}' \
         | xargs -I '{}' \
             sh -c 'PACKAGE={} make package-build-{}'
@@ -114,17 +132,23 @@ packages-publish: ##@1 packages publish all packages
 	@make packages-build
 
 	@echo "${YELLOW}Publishing packages${RESET}"
-	@./node_modules/.bin/lerna publish ---exact
+	@./node_modules/.bin/lerna publish ---exact --npm-tag=next
 
-package-build-watch-%: ##@1 packages build package (es flavor) on change, eg. `package-build-watch-bar`
-	@echo "${YELLOW}Running build watcher for package ${WHITE}${*}${RESET}"
-	@cd packages/nivo-${*} && yarn build:es:watch
+packages-publish-next: ##@1 packages publish all packages for @next npm tag
+	@make packages-build
+
+	@echo "${YELLOW}Publishing packages${RESET}"
+	@./node_modules/.bin/lerna publish ---exact --npm-tag=next
+
+package-watch-%: ##@1 packages build package (es flavor) on change, eg. `package-build-watch-bar`
+	@echo "${YELLOW}Running build watcher for package ${WHITE}@nivo/${*}${RESET}"
+	@export PACKAGE=${*}; ./node_modules/.bin/rollup -c conf/rollup.config.js -w
 
 package-dev-%: ##@1 packages setup package for development, link to website, run watcher
-	@echo "${YELLOW}Preparing package ${WHITE}${*}${YELLOW} for development${RESET}"
+	@echo "${YELLOW}Preparing package ${WHITE}@nivo/${*}${YELLOW} for development${RESET}"
 	@cd packages/nivo-${*} && yarn link
 	@cd website && yarn link @nivo/${*}
-	@make package-build-watch-${*}
+	@make package-watch-${*}
 
 ########################################################################################################################
 #

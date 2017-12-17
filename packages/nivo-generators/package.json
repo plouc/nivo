@@ -19,11 +19,6 @@
     "node": ">=6.0.0",
     "npm": ">=3.0.0"
   },
-  "devDependencies": {
-    "@nivo/babel-preset": "0.34.0-1",
-    "babel-cli": "^6.26.0",
-    "cross-env": "^5.0.5"
-  },
   "dependencies": {
     "d3-ease": "^1.0.3",
     "d3-time": "^1.0.7",
@@ -34,6 +29,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "scripts": {}
+  }
 }

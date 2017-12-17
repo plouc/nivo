@@ -6,5 +6,5 @@ script:
   - make packages-lint
   - make packages-test
   - make website-build
-  - make storybook-build
-  - make examples-build
+  #- make storybook-build
+  #- make examples-build
