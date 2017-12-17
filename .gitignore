@@ -10,6 +10,7 @@ yarn.lock
 
 build
 
+/packages/*/cjs
 /packages/*/lib
 /packages/*/es
 

@@ -32,7 +32,12 @@
     "prop-types": "^15.5.10",
     "puppeteer": "^0.13.0",
     "react": "16.2.0",
-    "react-dom": "16.2.0"
+    "react-dom": "16.2.0",
+    "rollup": "^0.52.2",
+    "rollup-plugin-babel": "^3.0.2",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-prettier": "^0.3.0",
+    "rollup-plugin-strip-banner": "^0.2.0"
   },
   "scripts": {
     "fmt": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --color --write \"{src,specs,test,.storybook,stories}/**/*.js\"",

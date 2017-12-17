@@ -48,21 +48,6 @@ const plugins = [
 
 const env = process.env.BABEL_ENV || process.env.NODE_ENV
 
-if (env === 'commonjs') {
-    plugins.push.apply(plugins, [
-        [
-            require.resolve('babel-plugin-transform-es2015-modules-commonjs'),
-            {
-                loose: true,
-            },
-        ],
-    ])
-}
-
-if (env === 'es') {
-    plugins.push.apply(plugins, [require.resolve('./use-lodash-es')])
-}
-
 if (env === 'test') {
     plugins.push.apply(plugins, [
         require.resolve('babel-plugin-istanbul'),
