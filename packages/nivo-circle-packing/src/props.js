@@ -12,12 +12,6 @@ import { defsPropTypes } from '@nivo/core'
 import BubbleNode from './BubbleNode'
 import BubbleHtmlNode from './BubbleHtmlNode'
 
-/*—————————————————————————————————————————————————————————————————————————————
-
-  Prop types
-
-—————————————————————————————————————————————————————————————————————————————*/
-
 const commonPropTypes = {
     // data
     // `root` managed by `withHierarchy()` HOC
@@ -35,12 +29,14 @@ const commonPropTypes = {
     // border
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.any.isRequired,
+    getBorderColor: PropTypes.func, // enhancer
 
     // labels
     enableLabel: PropTypes.bool.isRequired,
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     labelFormat: PropTypes.string,
     labelTextColor: PropTypes.any.isRequired,
+    getLabelTextColor: PropTypes.func, // enhancer
     labelSkipRadius: PropTypes.number.isRequired,
 
     // interactivity
@@ -65,12 +61,6 @@ export const BubbleCanvasPropTypes = {
     ...commonPropTypes,
     pixelRatio: PropTypes.number.isRequired,
 }
-
-/*—————————————————————————————————————————————————————————————————————————————
-
-  Default props
-
-—————————————————————————————————————————————————————————————————————————————*/
 
 const commonDefaultProps = {
     identity: 'id',

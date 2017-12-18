@@ -60,7 +60,21 @@ fmt: ##@0 global format code using prettier (js, css, md)
         "examples/*/src/**/*.{js,css}" \
         "README.md"
 
-deploy-all: ##@0-global deploy website & storybook
+fmt-check: ##@0 global check if files were all formatted using prettier
+	@echo "${YELLOW}Checking formatting${RESET}"
+	@./node_modules/.bin/prettier --color --list-different \
+        "packages/*/{src,stories,tests}/**/*.js" \
+        "packages/*/README.md" \
+        "website/src/**/*.{js,css}" \
+        "examples/*/src/**/*.{js,css}" \
+        "README.md"
+
+test: ##@0 global run all checks & tests
+	@make fmt-check
+	@make packages-lint
+	@make packages-test
+
+deploy-all: ##@0 global deploy website & storybook
 	@make website-deploy
 	@make storybook-deploy
 
@@ -92,10 +106,9 @@ package-lint-%: ##@1 packages run eslint on package
 	@echo "${YELLOW}Running eslint on package ${WHITE}@nivo/${*}${RESET}"
 	@./node_modules/.bin/eslint ./packages/nivo-${*}/{src,stories,tests}
 
-packages-lint: ##@1 packages run eslint on packages
+packages-lint: ##@1 packages run eslint on all packages
 	@echo "${YELLOW}Running eslint on all packages${RESET}"
 	@./node_modules/.bin/eslint \
-        --ignore-pattern 'nivo-circle-packing' \
         --ignore-pattern 'nivo-core' \
         --ignore-pattern 'nivo-stream' \
         --ignore-pattern 'nivo-sunburst' \
@@ -114,6 +127,7 @@ package-update-test-%: ##@1 packages run tests for a package and update its snap
 	@./node_modules/.bin/jest ./packages/nivo-${*}/tests -u
 
 packages-test: ##@1 packages run tests for all packages
+	@echo "${YELLOW}Running test suites for all packages${RESET}"
 	@./node_modules/.bin/jest ./packages/*/tests
 
 package-build-%: ##@1 packages build a package
