@@ -121,14 +121,14 @@ packages-lint: ##@1 packages run eslint on all packages
         ./packages/*/{src,stories,tests}
 
 package-test-%: ##@1 packages run tests for a package
-	@./node_modules/.bin/jest ./packages/nivo-${*}/tests
+	@./node_modules/.bin/jest --setupTestFrameworkScriptFile=raf/polyfill ./packages/nivo-${*}/tests
 
 package-update-test-%: ##@1 packages run tests for a package and update its snapshots
-	@./node_modules/.bin/jest ./packages/nivo-${*}/tests -u
+	@./node_modules/.bin/jest --setupTestFrameworkScriptFile=raf/polyfill ./packages/nivo-${*}/tests -u
 
 packages-test: ##@1 packages run tests for all packages
 	@echo "${YELLOW}Running test suites for all packages${RESET}"
-	@./node_modules/.bin/jest ./packages/*/tests
+	@./node_modules/.bin/jest --setupTestFrameworkScriptFile=raf/polyfill ./packages/*/tests
 
 package-build-%: ##@1 packages build a package
 	@echo "${YELLOW}Building package ${WHITE}@nivo/${*}${RESET}"
