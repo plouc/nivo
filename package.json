@@ -18,7 +18,7 @@
   "keywords": [],
   "devDependencies": {
     "@ekino/config": "^0.3.0",
-    "@nivo/babel-preset": "^0.32.0-9",
+    "@nivo/babel-preset": "^0.34.0-1",
     "@nivo/generators": "^0.34.0-1",
     "babel-eslint": "^8.0.3",
     "babel-jest": "^21.2.0",

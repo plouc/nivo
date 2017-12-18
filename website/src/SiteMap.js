@@ -61,6 +61,7 @@ import Voronoi from './components/charts/voronoi/Voronoi'
 import Colors from './components/guides/colors/Colors'
 import Legends from './components/guides/legends/Legends'
 import Gradients from './components/guides/gradients/Gradients'
+import Scales from './components/guides/scales'
 import Patterns from './components/guides/patterns/Patterns'
 import About from './components/pages/About'
 import Faq from './components/pages/Faq'
@@ -448,6 +449,13 @@ const SITEMAP = [
         label: 'Guides',
         // those items must not be nested
         children: [
+            {
+                className: 'scales',
+                path: '/guides/scales',
+                label: 'Scales',
+                component: Scales,
+                description: 'How to deal with scales in nivo.',
+            },
             {
                 className: 'colors',
                 path: '/guides/colors',
