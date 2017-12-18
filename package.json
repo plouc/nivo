@@ -19,9 +19,7 @@
   "devDependencies": {
     "@ekino/config": "^0.3.0",
     "@nivo/babel-preset": "^0.32.0-9",
-    "@storybook/addon-info": "^3.2.17",
-    "@storybook/addon-knobs": "^3.2.17",
-    "@storybook/react": "^3.2.17",
+    "@nivo/generators": "^0.34.0-1",
     "babel-eslint": "^8.0.3",
     "babel-jest": "^21.2.0",
     "chalk": "^2.3.0",
@@ -45,11 +43,10 @@
     "rollup-plugin-babel": "^3.0.2",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-prettier": "^0.3.0",
-    "rollup-plugin-strip-banner": "^0.2.0"
+    "rollup-plugin-strip-banner": "^0.2.0",
+    "source-map-explorer": "^1.5.0"
   },
   "scripts": {
-    "fmt": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --color --write \"{src,specs,test,.storybook,stories}/**/*.js\"",
-    "fmt:check": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --list-different \"{src,specs,test,.storybook,stories}/**/*.js\"",
     "changelog": "rm CHANGELOG.md && node scripts/generate-changelog.js"
   }
 }

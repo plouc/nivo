@@ -1,7 +1,7 @@
 import React from 'react'
 import { withInfo } from '@storybook/addon-info'
 import { generatePointsSerie } from '@nivo/generators'
-import { LineChartSvg } from '../es'
+import { LineChartSvg } from '@nivo/line'
 
 const margin = { top: 20, right: 160, bottom: 60, left: 80 }
 const data = [

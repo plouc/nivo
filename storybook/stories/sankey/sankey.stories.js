@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { generateSankeyData } from '@nivo/generators'
-import { Sankey } from '../es'
+import { Sankey } from '@nivo/sankey'
 
 const commonProperties = {
     width: 1100,

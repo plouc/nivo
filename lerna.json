@@ -2,6 +2,7 @@
   "lerna": "2.5.1",
   "packages": [
     "website",
+    "storybook",
     "packages/*",
     "examples/*"
   ],

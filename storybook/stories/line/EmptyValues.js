@@ -1,6 +1,6 @@
 import React from 'react'
 import { withInfo } from '@storybook/addon-info'
-import { LineSvg, LineAreaSvg } from '../es'
+import { LineSvg, LineAreaSvg } from '@nivo/line'
 import { defaultTheme } from '@nivo/core'
 import { Scales } from '@nivo/scales'
 import { Grid, XAxis, YAxis } from '@nivo/axes'

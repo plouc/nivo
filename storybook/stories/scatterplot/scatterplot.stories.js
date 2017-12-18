@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withInfo } from '@storybook/addon-info'
-import { ScatterPlot } from '../es'
+import { ScatterPlot } from '@nivo/scatterplot'
 
 const sampleData = [
     {

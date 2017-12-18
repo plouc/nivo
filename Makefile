@@ -49,23 +49,23 @@ init: ##@0-global cleanup/install/bootstrap
 	@yarn install
 	@make bootstrap
 	@make packages-build
-	@make website-install
-	@make examples-install
 
 fmt: ##@0 global format code using prettier (js, css, md)
 	@./node_modules/.bin/prettier --color --write \
-        "packages/*/{src,stories,tests}/**/*.js" \
+        "packages/*/{src,tests}/**/*.js" \
         "packages/*/README.md" \
         "website/src/**/*.{js,css}" \
+        "storybook/stories/**/*.{js,css}" \
         "examples/*/src/**/*.{js,css}" \
         "README.md"
 
 fmt-check: ##@0 global check if files were all formatted using prettier
 	@echo "${YELLOW}Checking formatting${RESET}"
 	@./node_modules/.bin/prettier --color --list-different \
-        "packages/*/{src,stories,tests}/**/*.js" \
+        "packages/*/{src,tests}/**/*.js" \
         "packages/*/README.md" \
         "website/src/**/*.{js,css}" \
+        "storybook/stories/**/*.{js,css}" \
         "examples/*/src/**/*.{js,css}" \
         "README.md"
 
@@ -73,6 +73,7 @@ test: ##@0 global run all checks & tests
 	@make fmt-check
 	@make packages-lint
 	@make packages-test
+	@make storybook-lint
 
 deploy-all: ##@0 global deploy website & storybook
 	@make website-deploy
@@ -104,7 +105,7 @@ endef
 
 package-lint-%: ##@1 packages run eslint on package
 	@echo "${YELLOW}Running eslint on package ${WHITE}@nivo/${*}${RESET}"
-	@./node_modules/.bin/eslint ./packages/nivo-${*}/{src,stories,tests}
+	@./node_modules/.bin/eslint ./packages/nivo-${*}/{src,tests}
 
 packages-lint: ##@1 packages run eslint on all packages
 	@echo "${YELLOW}Running eslint on all packages${RESET}"
@@ -118,7 +119,7 @@ packages-lint: ##@1 packages run eslint on all packages
         --ignore-pattern 'nivo-treemap' \
         --ignore-pattern 'nivo-voronoi' \
         --ignore-pattern 'nivo-line' \
-        ./packages/*/{src,stories,tests}
+        ./packages/*/{src,tests}
 
 package-test-%: ##@1 packages run tests for a package
 	@./node_modules/.bin/jest --setupTestFrameworkScriptFile=raf/polyfill ./packages/nivo-${*}/tests
@@ -178,25 +179,26 @@ package-dev-%: ##@1 packages setup package for development, link to website, run
 ########################################################################################################################
 
 website-install: ##@2 website install website dependencies
-	@echo "${YELLOW}Installing website dependencies${RESET}"
+	@echo "${YELLOW}Installing ${WHITE}website${YELLOW} dependencies${RESET}"
 	@cd website && yarn install
 
 website: ##@2 website start website in dev mode
-	@echo "${YELLOW}Starting website dev server${RESET}"
+	@echo "${YELLOW}Starting ${WHITE}website${YELLOW} dev server${RESET}"
 	@cd website && yarn start
 
 website-build: ##@2 website build website
-	@echo "${YELLOW}Building website${RESET}"
+	@echo "${YELLOW}Building ${WHITE}website${RESET}"
+	@make website-links-rm
 	@cd website && yarn build
 
 website-deploy: ##@2 website build & deploy website
 	@make website-build
 
-	@echo "${YELLOW}Deploying website${RESET}"
+	@echo "${YELLOW}Deploying ${WHITE}website${RESET}"
 	@./node_modules/.bin/gh-pages -d website/build -r git@github.com:plouc/nivo.git -b gh-pages
 
 website-audit: ##@2 website audit website build
-	@cd website && yarn analyze
+	@./node_modules/.bin/source-map-explorer website/build/static/js/main.*
 
 website-links-ls: ##@2 website list linked packages
 	@echo "${YELLOW}Which packages are currently being linked to ${WHITE}website${YELLOW}?${RESET}"
@@ -207,7 +209,7 @@ website-links-ls: ##@2 website list linked packages
 
 website-links-rm: ##@2 website unlink all linked packages
 	@echo "${YELLOW}Unlinking all packages for ${WHITE}website${RESET}"
-	@cd website; \
+	@-cd website; \
     find node_modules node_modules/\@* -depth 1 -type l -print | awk -F/ '{print $$(NF)}' | while read MODULE; do \
         yarn unlink "@nivo/$${MODULE}"; \
     done
@@ -219,18 +221,29 @@ website-links-rm: ##@2 website unlink all linked packages
 #
 ########################################################################################################################
 
+storybook-install: ##@3 storybook install storybook dependencies
+	@echo "${YELLOW}Installing ${WHITE}storybook${YELLOW} dependencies${RESET}"
+	@cd storybook && yarn install
+
 storybook: ##@3 storybook start storybook in dev mode on port 6006
-	@./node_modules/.bin/start-storybook -p 6006
+	@cd storybook && ./node_modules/.bin/start-storybook -p 6006
+
+storybook-lint: ##@3 storybook run eslint on stories
+	@echo "${YELLOW}Running eslint on stories${RESET}"
+	@./node_modules/.bin/eslint storybook/stories
 
 storybook-build: ##@3 storybook build storybook
 	@echo "${YELLOW}Building storybook${RESET}"
-	@./node_modules/.bin/build-storybook
+	@@cd storybook  && ./node_modules/.bin/build-storybook
 
 storybook-deploy: ##@3 storybook build and deploy storybook
 	@make storybook-build
 
 	@echo "${YELLOW}Deploying storybook${RESET}"
-	@./node_modules/.bin/gh-pages -d storybook-static -r git@github.com:plouc/nivo.git -b gh-pages -e storybook
+	@./node_modules/.bin/gh-pages -d storybook/storybook-static -r git@github.com:plouc/nivo.git -b gh-pages -e storybook
+
+storybook-audit: ##@3 storybook audit storybook build
+	@./node_modules/.bin/source-map-explorer storybook/storybook-static/static/preview.*
 
 ########################################################################################################################
 #
@@ -255,3 +268,6 @@ examples-build: ##@4 examples build all examples
 example-build-%: ##@4 examples build an example, eg. example-build-retro
 	@echo "${YELLOW}Building ${WHITE}${*}${YELLOW} example${RESET}"
 	@cd examples/${*} && yarn build
+
+example-audit-%: ##@4 examples audit an example build, eg. example-audit-retro
+	@./node_modules/.bin/source-map-explorer examples/${*}/build/static/js/main.*
