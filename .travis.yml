@@ -5,7 +5,7 @@ script:
   - make init --no-print-directory
   - make fmt-check --no-print-directory
   - make packages-lint --no-print-directory
-  - make packages-test --no-print-directory
+  - make packages-test-cover --no-print-directory
   - make website-build --no-print-directory
   #- make storybook-build --no-print-directory
-  #- make examples-build --no-print-directory
+  - make examples-build --no-print-directory

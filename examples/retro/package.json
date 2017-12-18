@@ -3,18 +3,20 @@
   "version": "0.32.0-9",
   "private": true,
   "dependencies": {
-    "@nivo/bar": "^0.33.0-4",
-    "@nivo/chord": "^0.33.0-4",
-    "@nivo/circle-packing": "^0.32.0",
-    "@nivo/core": "^0.32.0",
-    "@nivo/generators": "^0.32.0",
-    "@nivo/heatmap": "^0.33.0-4",
-    "@nivo/pie": "^0.33.0-4",
-    "@nivo/stream": "^0.33.0-4",
-    "@nivo/treemap": "^0.32.0",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-scripts": "1.0.13"
+    "@nivo/bar": "^0.34.0-1",
+    "@nivo/chord": "^0.34.0-1",
+    "@nivo/circle-packing": "^0.34.0-1",
+    "@nivo/core": "^0.34.0-1",
+    "@nivo/generators": "^0.34.0-1",
+    "@nivo/heatmap": "^0.34.0-1",
+    "@nivo/pie": "^0.34.0-1",
+    "@nivo/stream": "^0.34.0-1",
+    "@nivo/treemap": "^0.34.0-1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  },
+  "devDependencies": {
+    "react-scripts": "1.0.17"
   },
   "scripts": {
     "start": "react-scripts start",

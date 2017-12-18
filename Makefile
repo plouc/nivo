@@ -50,7 +50,7 @@ init: ##@0-global cleanup/install/bootstrap
 	@make bootstrap
 	@make packages-build
 	@make website-install
-	#@make examples-install
+	@make examples-install
 
 fmt: ##@0 global format code using prettier (js, css, md)
 	@./node_modules/.bin/prettier --color --write \
@@ -130,6 +130,10 @@ packages-test: ##@1 packages run tests for all packages
 	@echo "${YELLOW}Running test suites for all packages${RESET}"
 	@./node_modules/.bin/jest --setupTestFrameworkScriptFile=raf/polyfill ./packages/*/tests
 
+packages-test-cover: ##@1 packages run tests for all packages with code coverage
+	@echo "${YELLOW}Running test suites for all packages${RESET}"
+	@./node_modules/.bin/jest --coverage --setupTestFrameworkScriptFile=raf/polyfill ./packages/*/tests
+
 package-build-%: ##@1 packages build a package
 	@echo "${YELLOW}Building package ${WHITE}@nivo/${*}${RESET}"
 	@export PACKAGE=${*}; ./node_modules/.bin/rollup -c conf/rollup.config.js
@@ -149,7 +153,7 @@ packages-publish: ##@1 packages publish all packages
 	@make packages-build
 
 	@echo "${YELLOW}Publishing packages${RESET}"
-	@./node_modules/.bin/lerna publish ---exact --npm-tag=next
+	@./node_modules/.bin/lerna publish ---exact
 
 packages-publish-next: ##@1 packages publish all packages for @next npm tag
 	@make packages-build

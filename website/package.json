@@ -49,8 +49,6 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "analyze": "source-map-explorer build/static/js/main.*",
-        "fmt": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --write 'src/**/*.js' 'src/**/*.css'",
-        "fmt:check": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --list-different 'src/**/*.js' 'src/**/*.css'",
         "sprites": "glue --img src/assets --css src/styles src/assets/icons"
     }
 }

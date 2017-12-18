@@ -1,11 +1,11 @@
 import React from 'react'
-import { ResponsiveChord } from '@nivo/chord'
+import { ResponsiveChordSvg } from '@nivo/chord'
 import { generateChordData } from '@nivo/generators'
 import { colors } from '../../constants'
 
 const Chord = () => (
     <div>
-        <ResponsiveChord
+        <ResponsiveChordSvg
             {...generateChordData({ size: 5 })}
             enableLabel={false}
             margin={{
