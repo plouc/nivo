@@ -110,6 +110,9 @@ packages-lint: ##@1 packages run eslint on packages
 package-test-%: ##@1 packages run tests for a package
 	@./node_modules/.bin/jest ./packages/nivo-${*}/tests
 
+package-update-test-%: ##@1 packages run tests for a package and update its snapshots
+	@./node_modules/.bin/jest ./packages/nivo-${*}/tests -u
+
 packages-test: ##@1 packages run tests for all packages
 	@./node_modules/.bin/jest ./packages/*/tests
 

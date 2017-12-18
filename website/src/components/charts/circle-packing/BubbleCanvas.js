@@ -8,20 +8,29 @@
  */
 import React, { Component } from 'react'
 import cloneDeep from 'lodash/cloneDeep'
+import range from 'lodash/range'
+import random from 'lodash/random'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
-import { ResponsiveBubbleHtml, BubbleHtmlDefaultProps } from '@nivo/circle-packing'
+import { ResponsiveBubbleCanvas, BubbleCanvasDefaultProps } from '@nivo/circle-packing'
 import ChartHeader from '../../ChartHeader'
 import ChartTabs from '../../ChartTabs'
 import generateCode from '../../../lib/generateChartCode'
 import BubbleControls from './BubbleControls'
 import ComponentPropsDocumentation from '../../properties/ComponentPropsDocumentation'
 import properties from './props'
-import config from '../../../config'
 import nivoTheme from '../../../nivoTheme'
 import propsMapper from './propsMapper'
 
-export default class BubbleHtml extends Component {
+const NODE_COUNT = 2000
+
+const generateData = () =>
+    range(NODE_COUNT).map(i => ({
+        id: `node.${i}`,
+        value: random(10, 100000),
+    }))
+
+export default class BubbleCanvas extends Component {
     state = {
         settings: {
             margin: {
@@ -30,16 +39,20 @@ export default class BubbleHtml extends Component {
                 bottom: 20,
                 left: 20,
             },
-            identity: 'name',
-            value: 'loc',
+
+            pixelRatio: window && window.devicePixelRatio ? window.devicePixelRatio : 1,
+
+            identity: 'id',
+            value: 'value',
+
             colors: 'd320b',
-            colorBy: 'depth',
+            colorBy: 'id',
             padding: 1,
             leavesOnly: false,
 
             // labels
-            enableLabel: true,
-            label: 'id',
+            enableLabel: false,
+            label: 'name',
             labelSkipRadius: 10,
             labelTextColor: {
                 type: 'inherit:darker',
@@ -70,66 +83,36 @@ export default class BubbleHtml extends Component {
     }
 
     render() {
-        const { root, diceRoll } = this.props
+        const { diceRoll } = this.props
         const { settings } = this.state
+
+        const root = {
+            id: 'root',
+            children: generateData(),
+        }
 
         const mappedSettings = propsMapper(settings)
 
-        const code = generateCode('ResponsiveBubbleHtml', mappedSettings, {
+        const code = generateCode('ResponsiveBubbleCanvas', mappedSettings, {
             pkg: '@nivo/circle-packing',
-            defaults: BubbleHtmlDefaultProps,
+            defaults: BubbleCanvasDefaultProps,
+            dataKey: 'root',
         })
 
-        const header = (
-            <ChartHeader chartClass="BubbleHtml" tags={['hierarchy', 'html', 'isomorphic']} />
-        )
+        const header = <ChartHeader chartClass="BubbleCanvas" tags={['hierarchy', 'canvas']} />
 
         const description = (
             <div className="chart-description">
                 <p className="description">
-                    Bubble chart using circle packing with zooming ability. You can fully customize
-                    it using <code>nodeComponent</code> property to define your own node component,
-                    if you wish to do so you should have a look at{' '}
-                    <a
-                        href="https://github.com/plouc/nivo/blob/master/src/components/charts/bubble/BubbleHtmlNode.js"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        native HTML node component
-                    </a>{' '}
-                    for available properties.
+                    A variation around the <Link to="/bubble">Bubble</Link> component. Well suited
+                    for large data sets as it does not impact DOM tree depth and does not involve
+                    React diffing stuff for children (not that useful when using canvas), however
+                    you'll lose the isomorphic ability and transitions (for now).
                 </p>
                 <p className="description">
                     The responsive alternative of this component is{' '}
-                    <code>ResponsiveBubbleHtml</code>. It also offers various implementations, see{' '}
-                    <Link to="/bubble">Bubble</Link> and{' '}
-                    <Link to="/bubble/canvas">BubbleCanvas</Link>.
-                </p>
-                <p className="description">
-                    This component is available in the{' '}
-                    <a
-                        href="https://github.com/plouc/nivo-api"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        nivo-api
-                    </a>, see{' '}
-                    <a
-                        href={`${config.nivoApiUrl}/samples/bubble.svg`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        sample
-                    </a>{' '}
-                    or <Link to="/bubble/api">try it using the API client</Link>. You can also see
-                    more example usages in{' '}
-                    <a
-                        href={`${config.storybookUrl}?selectedKind=Bubble&selectedStory=default`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        the storybook
-                    </a>.
+                    <code>ResponsiveBubbleCanvas</code>. It also offers various implementations, see{' '}
+                    <Link to="/bubble">Bubble</Link> and <Link to="/bubble/html">BubbleHtml</Link>.
                 </p>
             </div>
         )
@@ -141,19 +124,28 @@ export default class BubbleHtml extends Component {
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="bubble" code={code} data={root} diceRoll={diceRoll}>
-                        <ResponsiveBubbleHtml
+                    <ChartTabs
+                        chartClass="bubble"
+                        code={code}
+                        data={root}
+                        nodeCount={NODE_COUNT}
+                        diceRoll={diceRoll}
+                    >
+                        <ResponsiveBubbleCanvas
                             root={cloneDeep(root)}
                             {...mappedSettings}
                             theme={nivoTheme}
                         />
                     </ChartTabs>
                     <BubbleControls
-                        scope="BubbleHtml"
+                        scope="BubbleCanvas"
                         settings={settings}
                         onChange={this.handleSettingsUpdate}
                     />
-                    <ComponentPropsDocumentation chartClass="BubbleHtml" properties={properties} />
+                    <ComponentPropsDocumentation
+                        chartClass="BubbleCanvas"
+                        properties={properties}
+                    />
                 </div>
                 <div className="chart-page_aside">
                     <MediaQuery query="(min-width: 1000px)">

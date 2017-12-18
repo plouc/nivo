@@ -10,8 +10,7 @@ import React, { Component } from 'react'
 import cloneDeep from 'lodash/cloneDeep'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
-import { ResponsiveBubble, BubbleDefaultProps } from '@nivo/circle-packing'
-import { patternLinesDef } from '@nivo/core'
+import { ResponsiveBubbleHtml, BubbleHtmlDefaultProps } from '@nivo/circle-packing'
 import ChartHeader from '../../ChartHeader'
 import ChartTabs from '../../ChartTabs'
 import generateCode from '../../../lib/generateChartCode'
@@ -22,7 +21,7 @@ import config from '../../../config'
 import nivoTheme from '../../../nivoTheme'
 import propsMapper from './propsMapper'
 
-export default class Bubble extends Component {
+export default class BubbleHtml extends Component {
     state = {
         settings: {
             margin: {
@@ -33,35 +32,25 @@ export default class Bubble extends Component {
             },
             identity: 'name',
             value: 'loc',
-            colors: 'nivo',
+            colors: 'd320b',
             colorBy: 'depth',
-            padding: 6,
+            padding: 1,
             leavesOnly: false,
 
             // labels
             enableLabel: true,
             label: 'id',
-            labelSkipRadius: 8,
+            labelSkipRadius: 10,
             labelTextColor: {
                 type: 'inherit:darker',
                 gamma: 0.8,
             },
 
-            borderWidth: 2,
+            borderWidth: 0,
             borderColor: {
-                type: 'inherit',
+                type: 'inherit:darker',
+                gamma: 0.3,
             },
-
-            defs: [
-                patternLinesDef('lines', {
-                    background: 'none',
-                    color: 'inherit',
-                    rotation: -45,
-                    lineWidth: 5,
-                    spacing: 8,
-                }),
-            ],
-            fill: [{ match: { depth: 1 }, id: 'lines' }],
 
             // motion
             animate: true,
@@ -86,13 +75,14 @@ export default class Bubble extends Component {
 
         const mappedSettings = propsMapper(settings)
 
-        const code = generateCode('ResponsiveBubble', mappedSettings, {
+        const code = generateCode('ResponsiveBubbleHtml', mappedSettings, {
             pkg: '@nivo/circle-packing',
-            defaults: BubbleDefaultProps,
+            defaults: BubbleHtmlDefaultProps,
+            dataKey: 'root',
         })
 
         const header = (
-            <ChartHeader chartClass="Bubble" tags={['hierarchy', 'svg', 'isomorphic', 'api']} />
+            <ChartHeader chartClass="BubbleHtml" tags={['hierarchy', 'html', 'isomorphic']} />
         )
 
         const description = (
@@ -102,18 +92,18 @@ export default class Bubble extends Component {
                     it using <code>nodeComponent</code> property to define your own node component,
                     if you wish to do so you should have a look at{' '}
                     <a
-                        href="https://github.com/plouc/nivo/blob/master/src/components/charts/bubble/BubbleNode.js"
+                        href="https://github.com/plouc/nivo/blob/master/src/components/charts/bubble/BubbleHtmlNode.js"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        native SVG node component
+                        native HTML node component
                     </a>{' '}
                     for available properties.
                 </p>
                 <p className="description">
-                    The responsive alternative of this component is <code>ResponsiveBubble</code>.
-                    It also offers various implementations, see{' '}
-                    <Link to="/bubble/html">BubbleHtml</Link> and{' '}
+                    The responsive alternative of this component is{' '}
+                    <code>ResponsiveBubbleHtml</code>. It also offers various implementations, see{' '}
+                    <Link to="/bubble">Bubble</Link> and{' '}
                     <Link to="/bubble/canvas">BubbleCanvas</Link>.
                 </p>
                 <p className="description">
@@ -153,18 +143,18 @@ export default class Bubble extends Component {
                         {description}
                     </MediaQuery>
                     <ChartTabs chartClass="bubble" code={code} data={root} diceRoll={diceRoll}>
-                        <ResponsiveBubble
+                        <ResponsiveBubbleHtml
                             root={cloneDeep(root)}
                             {...mappedSettings}
                             theme={nivoTheme}
                         />
                     </ChartTabs>
                     <BubbleControls
-                        scope="Bubble"
+                        scope="BubbleHtml"
                         settings={settings}
                         onChange={this.handleSettingsUpdate}
                     />
-                    <ComponentPropsDocumentation chartClass="Bubble" properties={properties} />
+                    <ComponentPropsDocumentation chartClass="BubbleHtml" properties={properties} />
                 </div>
                 <div className="chart-page_aside">
                     <MediaQuery query="(min-width: 1000px)">
