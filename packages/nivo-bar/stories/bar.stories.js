@@ -198,3 +198,13 @@ stories.add(
         />
     ))
 )
+
+stories.add(
+      'with formatted tooltip id',
+      withInfo()(() => (
+            <Bar
+                  {...commonProps}
+                  tooltipFormat={(id, value) => [`${id.toString().toUpperCase()} =>`, value] }
+            />
+      ))
+)

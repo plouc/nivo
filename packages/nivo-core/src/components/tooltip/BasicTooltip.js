@@ -21,8 +21,15 @@ const BasicTooltip = props => {
     const { id, value: _value, format, enableChip, color, theme } = props
 
     let value = _value
+    let idFormat = null
     if (format !== undefined && value !== undefined) {
-        value = format(value)
+        if (format.length === 1) {
+            value = format(value)
+        } else if (format.length === 2) {
+            const formattedValues = format(id, value) || [id, value]
+            idFormat = formattedValues[0]
+            value = formattedValues[1]
+        }
     }
 
     return (
@@ -31,7 +38,7 @@ const BasicTooltip = props => {
                 {enableChip && <Chip color={color} style={chipStyle} />}
                 {value !== undefined ? (
                     <span>
-                        {id}: <strong>{value}</strong>
+                      {idFormat === null ? `${id}: ` : idFormat}<strong>{value}</strong>
                     </span>
                 ) : (
                     id
