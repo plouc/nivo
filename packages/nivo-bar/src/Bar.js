@@ -153,13 +153,42 @@ const Bar = ({
         targetKey: 'data.fill',
     })
 
-    const legendDataForKeys = result.bars
-        .filter(bar => bar.data.index === 0)
-        .map(bar => ({
-            label: bar.data.id,
-            fill: bar.data.fill ? bar.data.fill : bar.color,
-        }))
-        .reverse()
+    // https://github.com/plouc/nivo/issues/111
+
+    // NOTE old code only gets keys from first bar, assuming it has all the values possible
+    // var legendDataForKeys = result.bars.filter(function (bar) {
+    //     return bar.data.index === 0;
+    // }).map(function (bar) {
+    //     return {
+    //         label: bar.data.id,
+    //         fill: bar.data.fill ? bar.data.fill : bar.color
+    //     };
+    // }).reverse();
+
+    // NOTE new code gets keys for each bar and then distills array to only unique items so legend is always complete
+    var legendDataForKeys = result.bars.map(function (bar) {
+      return {
+        label: bar.data.id,
+        fill: bar.data.fill ? bar.data.fill : bar.color
+      };
+    }).reverse();
+
+    // NOTE this ES5-compatible reduce method could be replaced with one-line using lodash _.uniqBy:
+    // legendDataForKeys = _.uniqBy(legendDataForKeys, 'label')
+    let uniqueLengedDataForKeys = [];
+    legendDataForKeys.reduce(function(p, c){
+      if(p[c.label] === undefined){
+        uniqueLengedDataForKeys.push(c);
+        p[c.label] = c.fill;
+      }
+      else if(c.fill > p[c.label]){
+        let o = uniqueLengedDataForKeys.find(x=> x.label === c.label);
+        o.fill = c.fill
+      }
+      return p;
+    }, {});
+
+    legendDataForKeys = uniqueLengedDataForKeys
 
     const legendDataForIndexes = result.bars.filter(bar => bar.data.id === keys[0]).map(bar => ({
         label: bar.data.indexValue,
