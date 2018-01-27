@@ -60,6 +60,10 @@ fmt: ##@0 global format code using prettier (js, css, md)
 		"examples/*/src/**/*.{js,css}" \
 		"README.md"
 
+test-all: ##@0 global run all checks/tests (packages, website & examples)
+	@make packages-lint
+	@make packages-test
+
 deploy-all: ##@0 global deploy website & storybook
 	@make website-deploy
 	@make storybook-deploy
