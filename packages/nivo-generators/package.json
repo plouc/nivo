@@ -9,9 +9,12 @@
   ],
   "description": "Data generators used for nivo-website and http API samples",
   "author": "Raphaël Benitte <benitteraphael@gmail.com>",
-  "main": "./lib/index.js",
-  "module": "es/index.js",
-  "jsnext:main": "es/index.js",
+  "main": "./index.js",
+  "files": [
+    "README.md",
+    "index.js",
+    "cjs/"
+  ],
   "engines": {
     "node": ">=6.0.0",
     "npm": ">=3.0.0"
@@ -32,10 +35,5 @@
     "access": "public"
   },
   "scripts": {
-    "build:commonjs": "rm -rf lib && cross-env NODE_ENV=commonjs babel src --out-dir lib",
-    "build:commonjs:watch": "npm run build:commonjs -- --watch",
-    "build:es": "rm -rf es && cross-env NODE_ENV=es babel src --out-dir es",
-    "build:es:watch": "npm run build:es -- --watch",
-    "build": "npm run build:commonjs && npm run build:es"
   }
 }
