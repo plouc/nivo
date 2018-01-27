@@ -15,16 +15,6 @@
     "react-motion": "^0.5.2",
     "recompose": "^0.26.0"
   },
-  "devDependencies": {
-    "@nivo/babel-preset": "0.33.0",
-    "@nivo/generators": "0.33.0",
-    "babel-cli": "^6.26.0",
-    "babel-jest": "^20.0.3",
-    "cross-env": "^5.0.5",
-    "jest": "^21.0.1",
-    "react": "16.2.0",
-    "react-dom": "16.2.0"
-  },
   "peerDependencies": {
     "prop-types": "^15.5.10",
     "react": ">= 16.2.0 < 17.0.0"

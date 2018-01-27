@@ -123,10 +123,19 @@ packages-lint: ##@1 packages run eslint on all packages
         --ignore-pattern 'nivo-generators' \
         ./packages/*/{src,tests}
 
+package-test-%: ##@1 packages run tests for a package
+	@./node_modules/.bin/jest --setupTestFrameworkScriptFile=raf/polyfill ./packages/nivo-${*}/tests
+
+package-update-test-%: ##@1 packages run tests for a package and update its snapshots
+	@./node_modules/.bin/jest --setupTestFrameworkScriptFile=raf/polyfill ./packages/nivo-${*}/tests -u
+
 packages-test: ##@1 packages run tests for all packages
-	# stream can be used for a mire verbose output
-	#@./node_modules/.bin/lerna run --concurrency 1 --stream test
-	@./node_modules/.bin/lerna run --concurrency 1 test
+	@echo "${YELLOW}Running test suites for all packages${RESET}"
+	@./node_modules/.bin/jest --setupTestFrameworkScriptFile=raf/polyfill ./packages/*/tests
+
+packages-test-cover: ##@1 packages run tests for all packages with code coverage
+	@echo "${YELLOW}Running test suites for all packages${RESET}"
+	@./node_modules/.bin/jest --coverage --setupTestFrameworkScriptFile=raf/polyfill ./packages/*/tests
 
 package-build-%: ##@1 packages build a package
 	@echo "${YELLOW}Building package ${WHITE}@nivo/${*}${RESET}"
