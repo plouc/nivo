@@ -32,16 +32,30 @@ const TooltipContent = ({ link, format }) => (
     <span style={tooltipStyles.container}>
         <Chip color={link.source.color} style={tooltipStyles.sourceChip} />
         <strong>{link.source.label}</strong>
-        &nbsp;>&nbsp;
+        {' > '}
         <strong>{link.target.label}</strong>
         <Chip color={link.target.color} style={tooltipStyles.targetChip} />
         <strong>{format ? format(link.value) : link.value}</strong>
     </span>
 )
 
-const SankeyLinksItem = ({
-    link,
+TooltipContent.propTypes = {
+    link: PropTypes.shape({
+        source: PropTypes.shape({
+            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+            label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        }).isRequired,
+        target: PropTypes.shape({
+            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+            label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        }).isRequired,
+        color: PropTypes.string.isRequired,
+        value: PropTypes.number.isRequired,
+    }).isRequired,
+    format: PropTypes.func,
+}
 
+const SankeyLinksItem = ({
     path,
     width,
     color,
@@ -94,6 +108,9 @@ SankeyLinksItem.propTypes = {
     hideTooltip: PropTypes.func.isRequired,
     setCurrent: PropTypes.func.isRequired,
     onClick: PropTypes.func.isRequired,
+    handleMouseEnter: PropTypes.func.isRequired,
+    handleMouseMove: PropTypes.func.isRequired,
+    handleMouseLeave: PropTypes.func.isRequired,
 }
 
 const enhance = compose(

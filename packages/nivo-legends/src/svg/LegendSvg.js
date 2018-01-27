@@ -39,6 +39,7 @@ const LegendSvg = ({
     symbolShape,
     textColor,
 }) => {
+    // eslint-disable-next-line no-unused-vars
     const { width, height, padding } = computeDimensions({
         itemCount: data.length,
         itemWidth,

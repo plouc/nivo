@@ -6,6 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react'
 import { Container } from '@nivo/core'
 import enhance from './enhance'
@@ -106,7 +107,7 @@ class BubbleCanvas extends Component {
 
         return (
             <Container isInteractive={isInteractive} theme={theme}>
-                {({ showTooltip, hideTooltip }) => (
+                {() => (
                     <canvas
                         ref={surface => {
                             this.surface = surface

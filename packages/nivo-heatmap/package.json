@@ -30,7 +30,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "scripts": {
   }
 }
