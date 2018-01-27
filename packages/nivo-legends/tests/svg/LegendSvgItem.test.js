@@ -23,6 +23,7 @@ const commonProps = {
     height: 36,
     label: 'testing',
     fill: 'red',
+    textColor: 'black',
 }
 
 const directions = [

@@ -129,6 +129,7 @@ LegendSvg.defaultProps = {
     // items
     itemDirection: DIRECTION_LEFT_TO_RIGHT,
     itemsSpacing: 0,
+    textColor: 'black',
 }
 
 export default LegendSvg
