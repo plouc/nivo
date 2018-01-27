@@ -12,8 +12,8 @@ import { getRelativeCursor, isCursorInRect } from '@nivo/core'
 import { Container } from '@nivo/core'
 import { BasicTooltip } from '@nivo/core'
 import { renderLegendToCanvas } from '@nivo/legends'
-import { ScatterPlotPropTypes } from './props'
-import enhance from './enhance'
+import { ScatterPlotPropTypes } from '../props'
+import enhance from '../enhance'
 
 const findNodeUnderCursor = (nodes, margin, x, y) =>
     nodes.find(node =>

@@ -8,12 +8,12 @@
  */
 import React from 'react'
 import { ResponsiveWrapper } from '@nivo/core'
-import ScatterPlot from './ScatterPlot'
+import ScatterPlotSvg from './ScatterPlotSvg'
 
-const ResponsiveScatterPlot = props => (
+const ResponsiveScatterPlotSvg = props => (
     <ResponsiveWrapper>
-        {({ width, height }) => <ScatterPlot width={width} height={height} {...props} />}
+        {({ width, height }) => <ScatterPlotSvg width={width} height={height} {...props} />}
     </ResponsiveWrapper>
 )
 
-export default ResponsiveScatterPlot
+export default ResponsiveScatterPlotSvg

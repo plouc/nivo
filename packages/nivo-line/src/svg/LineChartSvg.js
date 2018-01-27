@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 /* eslint-disable react/prop-types */
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import compose from 'recompose/compose'
 import pure from 'recompose/pure'
@@ -24,6 +24,8 @@ import {
     Container,
     SvgWrapper,
     CartesianMarkers,
+    SensorX,
+    IndicatorX,
 } from '@nivo/core'
 import { Scales } from '@nivo/scales'
 import { Axes, Grid } from '@nivo/axes'
@@ -32,217 +34,258 @@ import { generateStackedLines } from '../compute'
 import LineSvg from './LineSvg'
 import LineAreaSvg from './LineAreaSvg'
 import LineDotsSvg from './LineDotsSvg'
-/*
-import LineSlices from './LineSlices'
-*/
+import { withTooltip } from '@nivo/tooltips'
+import StackedTooltip from '../StackedTooltip'
 
-const LineChartSvg = ({
-    data,
-
-    // scales
-    xScale: xScaleConfig,
-    yScale: yScaleConfig,
-
-    stacked,
-    lines,
-    curve,
-
-    // dimensions
-    margin,
-    width,
-    height,
-    outerWidth,
-    outerHeight,
-
-    // axes & grid
-    axisTop,
-    axisRight,
-    axisBottom,
-    axisLeft,
-    enableGridX,
-    enableGridY,
-
-    lineWidth,
-    enableArea,
-    areaOpacity,
-
-    // dots
-    enableDots,
-    dotsEveryNth,
-    dotSymbol,
-    dotSize,
-    dotColor,
-    dotBorderWidth,
-    dotBorderColor,
-    enableDotLabel,
-    dotLabel,
-    dotLabelFormat,
-    dotLabelColor,
-    dotLabelYOffset,
-
-    // markers
-    markers,
-
-    // theming
-    theme,
-
-    // motion
-    animate,
-    motionStiffness,
-    motionDamping,
-
-    // interactivity
-    isInteractive,
-    tooltipFormat,
-
-    // stackTooltip
-    enableStackTooltip,
-
-    legends,
-}) => {
-    const motionProps = {
-        animate,
-        motionDamping,
-        motionStiffness,
+class LineChartSvg extends Component {
+    state = {
+        sensorX: null,
+        selectedPoints: []
     }
 
-    const legendData = lines.map(line => ({
-        label: line.id,
-        fill: line.color,
-    }))
+    handleSensor = ({ x, points }) => {
+        this.setState({
+            sensorX: x !== undefined ? x : null,
+            selectedPoints: points
+        })
 
-    const scalesConfig = [
-        {
-            ...xScaleConfig,
-            id: 'x',
-            property: 'x',
-            range: [0, width],
-            data: data.map(data => data.data),
-        },
-        {
-            ...yScaleConfig,
-            id: 'y',
-            property: 'y',
-            range: [height, 0],
+        const { showTooltip, hideTooltip, height } = this.props
+
+        if (points.length === 0) {
+            hideTooltip()
+        } else {
+            showTooltip((
+                <div>crap<br/>crap<br/>crap<br/>crap<br/>crap<br/>crap<br/>crap<br/>crap<br/>crap<br/>crap<br/>crap
+                </div>
+            ), {
+                position: {
+                    x,
+                    y: height / 2,
+                }
+            })
+        }
+    }
+
+    render() {
+        const {
+            data,
+
+            // scales
+            xScale: xScaleConfig,
+            yScale: yScaleConfig,
+
             stacked,
-            data: data.map(data => data.data),
-        },
-    ]
+            lines,
+            curve,
 
-    return (
-        <Scales scales={scalesConfig}>
-            {scales => (
-                <Container isInteractive={isInteractive} theme={theme}>
-                    {({ showTooltip, hideTooltip }) => (
-                        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
-                            <Grid
-                                theme={theme}
-                                width={width}
-                                height={height}
-                                xScale={enableGridX ? scales.x : null}
-                                yScale={enableGridY ? scales.y : null}
-                                {...motionProps}
-                            />
-                            <CartesianMarkers
-                                markers={markers}
-                                width={width}
-                                height={height}
+            // dimensions
+            margin,
+            width,
+            height,
+            outerWidth,
+            outerHeight,
+
+            // axes & grid
+            axisTop,
+            axisRight,
+            axisBottom,
+            axisLeft,
+            enableGridX,
+            enableGridY,
+
+            lineWidth,
+            enableArea,
+            areaOpacity,
+
+            // dots
+            enableDots,
+            dotsEveryNth,
+            dotSymbol,
+            dotSize,
+            dotColor,
+            dotBorderWidth,
+            dotBorderColor,
+            enableDotLabel,
+            dotLabel,
+            dotLabelFormat,
+            dotLabelColor,
+            dotLabelYOffset,
+
+            // markers
+            markers,
+
+            // theming
+            theme,
+
+            // motion
+            animate,
+            motionStiffness,
+            motionDamping,
+
+            // interactivity
+            isInteractive,
+            tooltipFormat,
+
+            // tooltips
+            enableTooltip,
+            tooltipIndicatorThickness,
+            tooltipIndicatorColor,
+            tooltipIndicatorStyle,
+
+            legends,
+        } = this.props
+
+        const motionProps = {
+            animate,
+            motionDamping,
+            motionStiffness,
+        }
+
+        const legendData = lines.map(line => ({
+            label: line.id,
+            fill:  line.color,
+        }))
+
+        const scalesConfig = [
+            {
+                ...xScaleConfig,
+                id:       'x',
+                property: 'x',
+                range:    [0, width],
+                data:     data.map(data => data.data),
+            },
+            {
+                ...yScaleConfig,
+                id:       'y',
+                property: 'y',
+                range:    [height, 0],
+                stacked,
+                data:     data.map(data => data.data),
+            },
+        ]
+
+        const { sensorX, selectedPoints } = this.state
+
+        return (
+            <Scales scales={scalesConfig}>
+                {scales => (
+                    <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
+                        <Grid
+                            theme={theme}
+                            width={width}
+                            height={height}
+                            xScale={enableGridX ? scales.x : null}
+                            yScale={enableGridY ? scales.y : null}
+                            {...motionProps}
+                        />
+                        <CartesianMarkers
+                            markers={markers}
+                            width={width}
+                            height={height}
+                            xScale={scales.x}
+                            yScale={scales.y}
+                            theme={theme}
+                        />
+                        <Axes
+                            xScale={scales.x}
+                            yScale={scales.y}
+                            width={width}
+                            height={height}
+                            theme={theme}
+                            top={axisTop}
+                            right={axisRight}
+                            bottom={axisBottom}
+                            left={axisLeft}
+                            {...motionProps}
+                        />
+                        {enableArea &&
+                        lines.map(line => (
+                            <LineAreaSvg
+                                key={line.id}
+                                data={line.data}
                                 xScale={scales.x}
                                 yScale={scales.y}
-                                theme={theme}
-                            />
-                            <Axes
-                                xScale={scales.x}
-                                yScale={scales.y}
-                                width={width}
                                 height={height}
-                                theme={theme}
-                                top={axisTop}
-                                right={axisRight}
-                                bottom={axisBottom}
-                                left={axisLeft}
+                                curve={curve}
+                                style={{
+                                    fill:        line.color,
+                                    fillOpacity: areaOpacity,
+                                }}
                                 {...motionProps}
                             />
-                            {enableArea &&
-                                lines.map(line => (
-                                    <LineAreaSvg
-                                        key={line.id}
-                                        data={line.data}
-                                        xScale={scales.x}
-                                        yScale={scales.y}
-                                        height={height}
-                                        curve={curve}
-                                        style={{
-                                            fill: line.color,
-                                            fillOpacity: areaOpacity,
-                                        }}
-                                        {...motionProps}
-                                    />
-                                ))}
-                            {lines.map(line => (
-                                <LineSvg
-                                    key={line.id}
-                                    data={line.data}
-                                    xScale={scales.x}
-                                    yScale={scales.y}
-                                    curve={curve}
-                                    lineWidth={lineWidth}
-                                    style={{
-                                        stroke: line.color,
-                                    }}
-                                    {...motionProps}
-                                />
-                            ))}
-                            {/*
-                    {isInteractive &&
-                        enableStackTooltip && (
-                            <LineSlices
-                                slices={slices}
-                                height={height}
-                                showTooltip={showTooltip}
-                                hideTooltip={hideTooltip}
-                                theme={theme}
-                                tooltipFormat={tooltipFormat}
+                        ))}
+                        {lines.map(line => (
+                            <LineSvg
+                                key={line.id}
+                                data={line.data}
+                                xScale={scales.x}
+                                yScale={scales.y}
+                                curve={curve}
+                                lineWidth={lineWidth}
+                                style={{
+                                    stroke: line.color,
+                                }}
+                                {...motionProps}
                             />
-                        )}
-                    */}
-                            {enableDots &&
-                                lines.map(line => (
-                                    <LineDotsSvg
-                                        key={line.id}
-                                        data={line}
-                                        everyNth={dotsEveryNth}
-                                        xScale={scales.x}
-                                        yScale={scales.y}
-                                        symbol={dotSymbol}
-                                        size={dotSize}
-                                        color={getInheritedColorGenerator(dotColor)}
-                                        borderWidth={dotBorderWidth}
-                                        borderColor={getInheritedColorGenerator(dotBorderColor)}
-                                        enableLabel={enableDotLabel}
-                                        label={dotLabel}
-                                        labelFormat={dotLabelFormat}
-                                        labelColor={getInheritedColorGenerator(dotLabelColor)}
-                                        labelYOffset={dotLabelYOffset}
-                                        theme={theme}
-                                        {...motionProps}
-                                    />
-                                ))}
-                            {legends.map((legend, i) => (
-                                <BoxLegendSvg
-                                    key={i}
-                                    {...legend}
-                                    containerWidth={width}
-                                    containerHeight={height}
-                                    data={legendData}
-                                />
-                            ))}
-                        </SvgWrapper>
-                    )}
-                </Container>
-            )}
-        </Scales>
-    )
+                        ))}
+                        {isInteractive && enableTooltip && <IndicatorX
+                            height={height}
+                            x={sensorX}
+                            color={tooltipIndicatorColor}
+                            thickness={tooltipIndicatorThickness}
+                            style={tooltipIndicatorStyle}
+                        />}
+                        {enableDots &&
+                        lines.map(line => (
+                            <LineDotsSvg
+                                key={line.id}
+                                data={line}
+                                everyNth={dotsEveryNth}
+                                xScale={scales.x}
+                                yScale={scales.y}
+                                symbol={dotSymbol}
+                                size={dotSize}
+                                color={getInheritedColorGenerator(dotColor)}
+                                borderWidth={dotBorderWidth}
+                                borderColor={getInheritedColorGenerator(dotBorderColor)}
+                                enableLabel={enableDotLabel}
+                                label={dotLabel}
+                                labelFormat={dotLabelFormat}
+                                labelColor={getInheritedColorGenerator(dotLabelColor)}
+                                labelYOffset={dotLabelYOffset}
+                                theme={theme}
+                                {...motionProps}
+                                effects={[
+                                    {
+                                        filter: d => {
+                                            return selectedPoints.includes(d.id)
+                                        },
+                                        size: 16,
+                                    }
+                                ]}
+                            />
+                        ))}
+                        {enableTooltip && <SensorX
+                            width={width}
+                            height={height}
+                            xScale={scales.x}
+                            data={lines}
+                            onMatch={this.handleSensor}
+                        />}
+                        {legends.map((legend, i) => (
+                            <BoxLegendSvg
+                                key={i}
+                                {...legend}
+                                containerWidth={width}
+                                containerHeight={height}
+                                data={legendData}
+                            />
+                        ))}
+                    </SvgWrapper>
+                )}
+            </Scales>
+        )
+    }
 }
 
 LineChartSvg.propTypes = {
@@ -267,7 +310,6 @@ LineChartSvg.propTypes = {
     curve: lineCurvePropType.isRequired,
 
     lines: PropTypes.array.isRequired,
-    slices: PropTypes.array.isRequired,
 
     // axes & grid
     axisTop: PropTypes.object,
@@ -314,6 +356,12 @@ LineChartSvg.propTypes = {
     enableStackTooltip: PropTypes.bool.isRequired,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 
+    // tooltips
+    enableTooltip: PropTypes.bool.isRequired,
+    tooltipIndicatorThickness: PropTypes.number.isRequired,
+    tooltipIndicatorColor: PropTypes.string.isRequired,
+    tooltipIndicatorStyle: PropTypes.object.isRequired,
+
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
 }
 
@@ -359,45 +407,43 @@ const enhance = compose(
         isInteractive: true,
         enableStackTooltip: true,
 
+        // tooltips
+        enableTooltip: true,
+        tooltipIndicatorThickness: 1,
+        tooltipIndicatorColor: '#000000',
+        tooltipIndicatorStyle: {},
+
         legends: [],
     }),
     withTheme(),
     withColors(),
     withDimensions(),
     withMotion(),
+    withTooltip(),
     withPropsOnChange(['data', 'stacked', 'getColor'], ({ data, stacked, getColor }) => {
         let lines
         if (stacked === true) {
-            lines = generateStackedLines(data).map(serie => ({ ...serie, color: getColor(serie) }))
+            lines = generateStackedLines(data)
+                .map(serie => ({
+                    ...serie,
+                    color: getColor(serie),
+                    data: serie.data.map((d, i) => ({
+                        ...d,
+                        id: `${serie.id}.${i}`
+                    }))
+                }))
         } else {
             lines = data.map(serie => ({
                 ...serie,
                 color: getColor(serie),
+                data: serie.data.map((d, i) => ({
+                    ...d,
+                    id: `${serie.id}.${i}`
+                }))
             }))
         }
 
-        const slices = []
-        /*
-            const slices = xScale.domain().map((id, i) => {
-                let points = sortBy(
-                    lines.map(line => ({
-                        id: line.id,
-                        value: line.points[i].value,
-                        y: line.points[i].y,
-                        color: line.color,
-                    })),
-                    'y'
-                )
-
-                return {
-                    id,
-                    x: xScale(id),
-                    points,
-                }
-            })
-            */
-
-        return { lines, slices }
+        return { lines }
     }),
     pure
 )

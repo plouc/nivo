@@ -94,6 +94,12 @@ export default {
     isInteractive: true,
     enableStackTooltip: true,
 
+    // tooltips
+    enableTooltip: true,
+    tooltipIndicatorThickness: 2,
+    tooltipIndicatorColor: 'rgb(198, 67, 45)',
+    tooltipIndicatorStyle: {},
+
     legends: [
         {
             anchor: 'bottom-right',

@@ -138,7 +138,7 @@ export default class ScatterPlotCanvas extends Component {
         const description = (
             <div className="chart-description">
                 <p className="description">
-                    A variation around the <Link to="/scatterplot">ScatterPlot</Link> component.
+                    A variation around the <Link to="/scatterplot">ScatterPlotSvg</Link> component.
                     Well suited for large data sets as it does not impact DOM tree depth and does
                     not involve React diffing stuff for children (not that useful when using
                     canvas), however you'll lose the isomorphic ability and transitions.
@@ -146,7 +146,7 @@ export default class ScatterPlotCanvas extends Component {
                 <p className="description">
                     The responsive alternative of this component is{' '}
                     <code>ResponsiveScatterPlotCanvas</code>, it also offers another implementation,
-                    see <Link to="/scatterplot">ScatterPlot</Link>.
+                    see <Link to="/scatterplot">ScatterPlotSvg</Link>.
                 </p>
             </div>
         )

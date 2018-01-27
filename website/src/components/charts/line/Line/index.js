@@ -128,11 +128,11 @@ export default class LineChartSvgDemo extends Component {
                         <ResponsiveLineChartSvg data={data} {...mappedSettings} />
                     </ChartTabs>
                     <LineControls
-                        scope="Line"
+                        scope="LineChartSvg"
                         settings={settings}
                         onChange={this.handleSettingsUpdate}
                     />
-                    <ComponentPropsDocumentation chartClass="Line" properties={properties} />
+                    <ComponentPropsDocumentation chartClass="LineChartSvg" properties={properties} />
                 </div>
                 <div className="chart-page_aside">
                     <MediaQuery query="(min-width: 1000px)">

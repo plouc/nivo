@@ -337,7 +337,7 @@ const SITEMAP = [
                     {
                         className: 'react',
                         path: '/',
-                        label: 'ScatterPlot',
+                        label: 'ScatterPlotSvg',
                         component: ScatterPlot,
                         exact: true,
                         tags: ['svg', 'isomorphic'],

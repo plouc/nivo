@@ -48,6 +48,8 @@ const LineDotsSvg = ({
     animate,
     motionStiffness,
     motionDamping,
+
+    effects,
 }) => {
     const points = data.data
         .filter((p, i) => i % everyNth === 0 || i === data.data.length - 1)
@@ -59,15 +61,27 @@ const LineDotsSvg = ({
                 y: point.value,
             }
 
-            return {
+            let pointProps = {
                 key: `${data.id}.${point.x}`,
                 x: xScale(point.x),
                 y: yScale(point.y),
+                size,
                 fill: color(data),
                 stroke: borderColor(data),
                 label: enableLabel ? getLabel(pointData) : null,
                 labelColor: labelColor(data),
             }
+
+            effects.forEach(({ filter, ...overrides }) => {
+                if (filter(point) === true) {
+                    pointProps = {
+                        ...pointProps,
+                        ...overrides
+                    }
+                }
+            })
+
+            return pointProps
         })
 
     if (animate !== true) {
@@ -79,7 +93,7 @@ const LineDotsSvg = ({
                         x={point.x}
                         y={point.y}
                         symbol={symbol}
-                        size={size}
+                        size={point.size}
                         color={point.fill}
                         borderWidth={borderWidth}
                         borderColor={point.stroke}
@@ -105,7 +119,7 @@ const LineDotsSvg = ({
                 style: {
                     x: spring(point.x, springConfig),
                     y: spring(point.y, springConfig),
-                    size: spring(size, springConfig),
+                    size: spring(point.size, springConfig),
                 },
             }))}
         >
@@ -136,6 +150,7 @@ LineDotsSvg.propTypes = {
         id: PropTypes.string.isRequired,
         data: PropTypes.arrayOf(
             PropTypes.shape({
+                id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
                 x: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
                 y: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
             })

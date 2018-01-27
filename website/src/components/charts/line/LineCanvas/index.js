@@ -78,11 +78,11 @@ export default class LineChartCanvasDemo extends Component {
                         <ResponsiveLineChartCanvas {...mappedSettings} data={data} pixelRatio={2} />
                     </ChartTabs>
                     <LineControls
-                        scope="Line"
+                        scope="LineChartCanvas"
                         settings={settings}
                         onChange={this.handleSettingsUpdate}
                     />
-                    <ComponentPropsDocumentation chartClass="Line" properties={properties} />
+                    <ComponentPropsDocumentation chartClass="LineChartCanvas" properties={properties} />
                 </div>
                 <div className="chart-page_aside">
                     <MediaQuery query="(min-width: 1000px)">

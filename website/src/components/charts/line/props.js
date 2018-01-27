@@ -242,7 +242,7 @@ export default [
         controlGroup: 'Dots',
         controlOptions: {
             unit: 'px',
-            min: 2,
+            min: 0,
             max: 20,
         },
     },
@@ -361,7 +361,7 @@ export default [
     },
     {
         key: 'isInteractive',
-        scopes: ['Line'],
+        scopes: ['LineChartSvg'],
         description: 'Enable/disable interactivity.',
         type: '{boolean}',
         required: false,
@@ -379,5 +379,47 @@ export default [
         controlType: 'switch',
         controlGroup: 'Interactivity',
     },
-    ...motionProperties(['Line'], defaults),
+    {
+        key: 'enableTooltip',
+        scopes: ['LineChartSvg', 'LineChartCanvas'],
+        description: `Enable/disable tooltip.`,
+        type: '{boolean}',
+        required: false,
+        default: defaults.enableTooltip,
+        controlType: 'switch',
+        controlGroup: 'Tooltips',
+    },
+    {
+        key: 'tooltipIndicatorThickness',
+        description: 'Tooltip indicator thickness (px) (line).',
+        type: '{number}',
+        required: false,
+        default: dotDefaults.tooltipIndicatorThickness,
+        controlType: 'range',
+        controlGroup: 'Tooltips',
+        controlOptions: {
+            unit: 'px',
+            min: 0.5,
+            max: 10,
+            step: 0.5
+        },
+    },
+    {
+        key: 'tooltipIndicatorColor',
+        scopes: ['LineChartSvg', 'LineChartCanvas'],
+        description: `Tooltip indicator color (line).`,
+        type: '{string}',
+        required: false,
+        default: defaults.tooltipIndicatorColor,
+        controlType: 'colorPicker',
+        controlGroup: 'Tooltips'
+    },
+    {
+        key: 'tooltipIndicatorStyle',
+        scopes: ['LineChartSvg', 'LineChartCanvas'],
+        description: `Tooltip indicator style override (line).`,
+        type: '{Object}',
+        required: false,
+    },
+    ...motionProperties(['LineChartSvg'], defaults),
 ]

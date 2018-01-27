@@ -59,7 +59,7 @@ export default {
     ],
     plugins: [
         stripBanner({
-            include: './src/**/*.js',
+            include: `./packages/nivo-${pkg}/src/**/*.js`,
         }),
         resolve({
             module: true,

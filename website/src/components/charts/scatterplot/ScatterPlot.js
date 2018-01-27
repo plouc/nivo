@@ -9,7 +9,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
-import { ResponsiveScatterPlot, ScatterPlotDefaultProps } from '@nivo/scatterplot'
+import { ResponsiveScatterPlotSvg, ScatterPlotDefaultProps } from '@nivo/scatterplot'
 import config from '../../../config'
 import ChartHeader from '../../ChartHeader'
 import ChartTabs from '../../ChartTabs'
@@ -129,14 +129,14 @@ export default class ScatterPlot extends Component {
         const mappedSettings = propsMapper(settings)
 
         const code = generateCode(
-            'ResponsiveScatterPlot',
+            'ResponsiveScatterPlotSvg',
             {
                 ...mappedSettings,
             },
             { pkg: '@nivo/scatterplot', defaults: ScatterPlotDefaultProps }
         )
 
-        const header = <ChartHeader chartClass="ScatterPlot" tags={['basic', 'isomorphic']} />
+        const header = <ChartHeader chartClass="ScatterPlotSvg" tags={['basic', 'isomorphic']} />
 
         const description = (
             <div className="chart-description">
@@ -145,7 +145,7 @@ export default class ScatterPlot extends Component {
                 </p>
                 <p className="description">
                     The responsive alternative of this component is{' '}
-                    <code>ResponsiveScatterPlot</code>, it also offers another implementation, see{' '}
+                    <code>ResponsiveScatterPlotSvg</code>, it also offers another implementation, see{' '}
                     <Link to="/scatterplot/canvas">ScatterPlotCanvas</Link>.
                 </p>
                 <p className="description">
@@ -180,7 +180,7 @@ export default class ScatterPlot extends Component {
                         data={data}
                         diceRoll={this.diceRoll}
                     >
-                        <ResponsiveScatterPlot
+                        <ResponsiveScatterPlotSvg
                             data={data}
                             {...mappedSettings}
                             theme={{
@@ -199,7 +199,7 @@ export default class ScatterPlot extends Component {
                         settings={settings}
                         onChange={this.handleSettingsUpdate}
                     />
-                    <ComponentPropsDocumentation chartClass="ScatterPlot" properties={properties} />
+                    <ComponentPropsDocumentation chartClass="ScatterPlotSvg" properties={properties} />
                 </div>
                 <div className="chart-page_aside">
                     <MediaQuery query="(min-width: 1000px)">
