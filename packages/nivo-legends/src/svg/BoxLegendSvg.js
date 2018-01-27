@@ -128,7 +128,7 @@ BoxLegendSvg.propTypes = {
     symbolSize: PropTypes.number,
     symbolSpacing: PropTypes.number,
     symbolShape: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    textColor: PropTypes.string.isRequired,
+    textColor: PropTypes.string,
 }
 
 BoxLegendSvg.defaultProps = {
