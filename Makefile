@@ -44,7 +44,7 @@ help: ##prints help
 bootstrap: ##@0 global lerna bootstrap
 	@./node_modules/.bin/lerna bootstrap
 
-init: ##@0-global cleanup/install/bootstrap
+init: ##@0 global cleanup/install/bootstrap
 	@make clean-all
 	@yarn install
 	@make bootstrap
@@ -60,7 +60,7 @@ fmt: ##@0 global format code using prettier (js, css, md)
 		"examples/*/src/**/*.{js,css}" \
 		"README.md"
 
-deploy-all: ##@0-global deploy website & storybook
+deploy-all: ##@0 global deploy website & storybook
 	@make website-deploy
 	@make storybook-deploy
 
