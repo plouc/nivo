@@ -60,7 +60,18 @@ fmt: ##@0 global format code using prettier (js, css, md)
 		"examples/*/src/**/*.{js,css}" \
 		"README.md"
 
+fmt-check: ##@0 global check if files were all formatted using prettier
+	@echo "${YELLOW}Checking formatting${RESET}"
+	@./node_modules/.bin/prettier --color --list-different \
+        "packages/*/{src,stories,tests}/**/*.js" \
+        "packages/*/README.md" \
+        "website/src/**/*.{js,css}" \
+        "storybook/stories/**/*.{js,css}" \
+        "examples/*/src/**/*.{js,css}" \
+        "README.md"
+
 test-all: ##@0 global run all checks/tests (packages, website & examples)
+	@make fmt-check
 	@make packages-lint
 	@make packages-test
 
@@ -102,10 +113,17 @@ packages-test: ##@1 packages run tests for all packages
 	#@./node_modules/.bin/lerna run --concurrency 1 --stream test
 	@./node_modules/.bin/lerna run --concurrency 1 test
 
+package-build-%: ##@1 packages build a package
+	@echo "${YELLOW}Building package ${WHITE}@nivo/${*}${RESET}"
+	@export PACKAGE=${*}; ./node_modules/.bin/rollup -c conf/rollup.config.js
+
 packages-build: ##@1 packages build all packages
 	@echo "${YELLOW}Building all packages${RESET}"
-	@$(foreach source, $(SOURCES), $(call clean-source-lib, $(source)))
-	@./node_modules/.bin/lerna run build
+	@find ./packages -type d -name 'nivo-*' \
+        ! -path "*-babel-preset" \
+        | awk -Fnivo- '{print $$NF}' \
+        | xargs -I '{}' \
+            sh -c 'PACKAGE={} make package-build-{}'
 
 packages-screenshots: ##@1 packages generate screenshots for packages readme (website dev server must be running)
 	@node scripts/capture.js
@@ -116,19 +134,21 @@ packages-publish: ##@1 packages publish all packages
 	@echo "${YELLOW}Publishing packages${RESET}"
 	@./node_modules/.bin/lerna publish ---exact
 
-package-build-watch-%: ##@1 packages build package (es flavor) on change, eg. `package-build-watch-bar`
-	@echo "${YELLOW}Running build watcher for package ${WHITE}${*}${RESET}"
-	@cd packages/nivo-${*} && yarn build:es:watch
+packages-publish-next: ##@1 packages publish all packages for @next npm tag
+	@make packages-build
 
-package-build-%: ##@1 packages build package (all flavors), eg. `package-build-bar`
-	@echo "${YELLOW}Build package ${WHITE}${*}${RESET}"
-	@cd packages/nivo-${*} && yarn build
+	@echo "${YELLOW}Publishing packages${RESET}"
+	@./node_modules/.bin/lerna publish ---exact --npm-tag=next
+
+package-watch-%: ##@1 packages build package (es flavor) on change, eg. `package-build-watch-bar`
+	@echo "${YELLOW}Running build watcher for package ${WHITE}@nivo/${*}${RESET}"
+	@export PACKAGE=${*}; ./node_modules/.bin/rollup -c conf/rollup.config.js -w
 
 package-dev-%: ##@1 packages setup package for development, link to website, run watcher
 	@echo "${YELLOW}Preparing package ${WHITE}${*}${YELLOW} for development${RESET}"
 	@cd packages/nivo-${*} && yarn link
 	@cd website && yarn link @nivo/${*}
-	@make package-build-watch-${*}
+	@make package-watch-${*}
 
 ########################################################################################################################
 #
