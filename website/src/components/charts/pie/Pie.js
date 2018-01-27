@@ -59,7 +59,6 @@ export default class Pie extends Component {
             <ChartHeader
                 chartClass="Pie"
                 tags={['basic', 'radial', 'circle', 'isomorphic', 'api']}
-                diceRoll={diceRoll}
             />
         )
 
@@ -115,7 +114,7 @@ export default class Pie extends Component {
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="pie" code={code} data={data}>
+                    <ChartTabs chartClass="pie" code={code} data={data} diceRoll={diceRoll}>
                         <ResponsivePie data={data} {...mappedSettings} theme={nivoTheme} />
                     </ChartTabs>
                     <PieControls

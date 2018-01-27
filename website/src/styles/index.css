@@ -105,22 +105,24 @@ p:first-child {
 }
 
 .dice-roll {
+    position: absolute;
+    top: 7px;
+    right: 10px;
     display: block;
     padding: 8px 10px;
+    height: 32px;
     line-height: 1em;
     border-radius: 2px;
     background: #fff;
     color: var(--accent-color);
     cursor: pointer;
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.12);
     font-weight: 600;
     font-size: 15px;
-    margin-top: 4px;
-    margin-left: 20px;
     white-space: pre;
 }
 .dice-roll:hover {
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
     color: var(--accent-color-darker);
 }
 

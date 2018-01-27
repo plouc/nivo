@@ -140,11 +140,7 @@ export default class HeatMap extends Component {
         )
 
         const header = (
-            <ChartHeader
-                chartClass="HeatMapCanvas"
-                tags={['heatmap', 'canvas', 'experimental']}
-                diceRoll={this.diceRoll}
-            />
+            <ChartHeader chartClass="HeatMapCanvas" tags={['heatmap', 'canvas', 'experimental']} />
         )
 
         const description = (
@@ -173,6 +169,7 @@ export default class HeatMap extends Component {
                         chartClass="heatmap"
                         code={code}
                         data={data}
+                        diceRoll={this.diceRoll}
                         nodeCount={data.length * keys.length}
                     >
                         <ResponsiveHeatMapCanvas

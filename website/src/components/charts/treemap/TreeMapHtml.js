@@ -91,11 +91,7 @@ export default class TreeMapHtml extends Component {
         })
 
         const header = (
-            <ChartHeader
-                chartClass="TreeMapHtml"
-                tags={['hierarchy', 'html', 'isomorphic']}
-                diceRoll={this.diceRoll}
-            />
+            <ChartHeader chartClass="TreeMapHtml" tags={['hierarchy', 'html', 'isomorphic']} />
         )
 
         const description = (
@@ -155,12 +151,17 @@ export default class TreeMapHtml extends Component {
 
         return (
             <div className="page_content grid">
-                <div className="chart-page_aside">
+                <div className="chart-page_main">
                     <MediaQuery query="(max-width: 1000px)">
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="treemap" code={code} data={root}>
+                    <ChartTabs
+                        chartClass="treemap"
+                        code={code}
+                        data={root}
+                        diceRoll={this.diceRoll}
+                    >
                         <ResponsiveTreeMapHtml
                             root={root}
                             {...mappedSettings}
@@ -168,18 +169,18 @@ export default class TreeMapHtml extends Component {
                             onClick={this.handleNodeClick}
                         />
                     </ChartTabs>
-                </div>
-                <div className="chart-page_main">
-                    <MediaQuery query="(min-width: 1000px)">
-                        {header}
-                        {description}
-                    </MediaQuery>
                     <TreeMapControls
                         scope="TreeMapHTML"
                         settings={settings}
                         onChange={this.handleSettingsUpdate}
                     />
                     <ComponentPropsDocumentation chartClass="TreeMapHTML" properties={properties} />
+                </div>
+                <div className="chart-page_aside">
+                    <MediaQuery query="(min-width: 1000px)">
+                        {header}
+                        {description}
+                    </MediaQuery>
                 </div>
             </div>
         )
