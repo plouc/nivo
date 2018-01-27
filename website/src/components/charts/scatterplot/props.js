@@ -156,7 +156,7 @@ export default [
     },
     {
         key: 'isInteractive',
-        scopes: ['ScatterPlot', 'ScatterPlotCanvas'],
+        scopes: ['ScatterPlotSvg', 'ScatterPlotCanvas'],
         description: 'Enable/disable interactivity.',
         type: '{boolean}',
         required: false,
@@ -166,10 +166,10 @@ export default [
     },
     {
         key: 'onClick',
-        scopes: ['ScatterPlot', 'ScatterPlotCanvas'],
+        scopes: ['ScatterPlotSvg', 'ScatterPlotCanvas'],
         description: 'onClick handler, it receives clicked bar data and mouse event.',
         type: '{Function}',
         required: false,
     },
-    ...motionProperties(['ScatterPlot'], defaults),
+    ...motionProperties(['ScatterPlotSvg'], defaults),
 ]

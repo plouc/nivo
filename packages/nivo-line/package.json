@@ -1,41 +1,30 @@
 {
   "name": "@nivo/line",
-  "version": "0.33.0",
+  "version": "0.34.0-1",
   "license": "MIT",
-  "main": "./lib/index.js",
-  "module": "es/index.js",
-  "jsnext:main": "es/index.js",
+  "main": "./index.js",
+  "files": [
+    "README.md",
+    "index.js",
+    "cjs/"
+  ],
   "dependencies": {
-    "@nivo/core": "0.33.0",
-    "@nivo/legends": "0.33.0",
+    "@nivo/axes": "0.34.0-1",
+    "@nivo/core": "0.34.0-1",
+    "@nivo/legends": "0.34.0-1",
+    "@nivo/scales": "0.34.0-1",
+    "@nivo/tooltips": "0.34.0-1",
     "d3-format": "^1.2.0",
     "d3-scale": "^1.0.6",
     "d3-shape": "^1.2.0",
     "react-motion": "^0.5.2",
     "recompose": "^0.26.0"
   },
-  "devDependencies": {
-    "@nivo/babel-preset": "0.33.0",
-    "@nivo/generators": "0.33.0",
-    "babel-cli": "^6.26.0",
-    "babel-jest": "^20.0.3",
-    "cross-env": "^5.0.5",
-    "jest": "^21.0.1",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1"
-  },
   "peerDependencies": {
     "prop-types": "^15.5.10",
-    "react": ">= 15.6.1 < 17.0.0"
+    "react": ">= 16.2.0 < 17.0.0"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "scripts": {
-    "build:commonjs": "rm -rf lib && cross-env NODE_ENV=commonjs babel src --out-dir lib",
-    "build:commonjs:watch": "npm run build:commonjs -- --watch",
-    "build:es": "rm -rf es && cross-env NODE_ENV=es babel src --out-dir es",
-    "build:es:watch": "npm run build:es -- --watch",
-    "build": "npm run build:commonjs && npm run build:es"
   }
 }

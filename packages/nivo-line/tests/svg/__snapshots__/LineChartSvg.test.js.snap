@@ -1,0 +1,1620 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render a basic line chart 1`] = `
+<div
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={300}
+    width={500}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g
+      transform="translate(0,0)"
+    >
+      <g>
+        <g>
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={41.666666666666664}
+            x2={41.666666666666664}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={83.33333333333333}
+            x2={83.33333333333333}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={125}
+            x2={125}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={166.66666666666666}
+            x2={166.66666666666666}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={208.33333333333334}
+            x2={208.33333333333334}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={250}
+            x2={250}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={291.6666666666667}
+            x2={291.6666666666667}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={333.3333333333333}
+            x2={333.3333333333333}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={375}
+            x2={375}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={416.6666666666667}
+            x2={416.6666666666667}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={458.3333333333333}
+            x2={458.3333333333333}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={500}
+            x2={500}
+            y1={0}
+            y2={300}
+          />
+        </g>
+        <g>
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={300}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={277.77777777777777}
+            y2={277.77777777777777}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={255.55555555555554}
+            y2={255.55555555555554}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={233.33333333333334}
+            y2={233.33333333333334}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={211.11111111111111}
+            y2={211.11111111111111}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={188.8888888888889}
+            y2={188.8888888888889}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={166.66666666666669}
+            y2={166.66666666666669}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={144.44444444444446}
+            y2={144.44444444444446}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={122.22222222222223}
+            y2={122.22222222222223}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={100}
+            y2={100}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={77.7777777777778}
+            y2={77.7777777777778}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={55.55555555555557}
+            y2={55.55555555555557}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={33.33333333333337}
+            y2={33.33333333333337}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={11.111111111111143}
+            y2={11.111111111111143}
+          />
+        </g>
+      </g>
+      <g />
+      <path
+        curve="linear"
+        d="M0,188.8888888888889L83.33333333333333,166.66666666666669L166.66666666666666,122.22222222222223L250,44.44444444444443L333.3333333333333,0L416.6666666666667,0L500,22.22222222222223"
+        fill="none"
+        strokeWidth={2}
+        style={
+          Object {
+            "stroke": "#e8c1a0",
+          }
+        }
+      />
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(0, 188.8888888888889)"
+      >
+        <circle
+          fill="#e8c1a0"
+          r={3}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(83.33333333333333, 166.66666666666669)"
+      >
+        <circle
+          fill="#e8c1a0"
+          r={3}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(166.66666666666666, 122.22222222222223)"
+      >
+        <circle
+          fill="#e8c1a0"
+          r={3}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(250, 44.44444444444443)"
+      >
+        <circle
+          fill="#e8c1a0"
+          r={3}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(333.3333333333333, 0)"
+      >
+        <circle
+          fill="#e8c1a0"
+          r={3}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(416.6666666666667, 0)"
+      >
+        <circle
+          fill="#e8c1a0"
+          r={3}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(500, 22.22222222222223)"
+      >
+        <circle
+          fill="#e8c1a0"
+          r={3}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`should render multiple lines 1`] = `
+<div
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={300}
+    width={500}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g
+      transform="translate(0,0)"
+    >
+      <g>
+        <g>
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={41.666666666666664}
+            x2={41.666666666666664}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={83.33333333333333}
+            x2={83.33333333333333}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={125}
+            x2={125}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={166.66666666666666}
+            x2={166.66666666666666}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={208.33333333333334}
+            x2={208.33333333333334}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={250}
+            x2={250}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={291.6666666666667}
+            x2={291.6666666666667}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={333.3333333333333}
+            x2={333.3333333333333}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={375}
+            x2={375}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={416.6666666666667}
+            x2={416.6666666666667}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={458.3333333333333}
+            x2={458.3333333333333}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={500}
+            x2={500}
+            y1={0}
+            y2={300}
+          />
+        </g>
+        <g>
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={300}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={277.77777777777777}
+            y2={277.77777777777777}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={255.55555555555554}
+            y2={255.55555555555554}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={233.33333333333334}
+            y2={233.33333333333334}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={211.11111111111111}
+            y2={211.11111111111111}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={188.8888888888889}
+            y2={188.8888888888889}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={166.66666666666669}
+            y2={166.66666666666669}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={144.44444444444446}
+            y2={144.44444444444446}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={122.22222222222223}
+            y2={122.22222222222223}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={100}
+            y2={100}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={77.7777777777778}
+            y2={77.7777777777778}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={55.55555555555557}
+            y2={55.55555555555557}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={33.33333333333337}
+            y2={33.33333333333337}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={11.111111111111143}
+            y2={11.111111111111143}
+          />
+        </g>
+      </g>
+      <g />
+      <path
+        curve="linear"
+        d="M0,188.8888888888889L83.33333333333333,166.66666666666669L166.66666666666666,122.22222222222223L250,44.44444444444443L333.3333333333333,0L416.6666666666667,0L500,22.22222222222223"
+        fill="none"
+        strokeWidth={2}
+        style={
+          Object {
+            "stroke": "#e8c1a0",
+          }
+        }
+      />
+      <path
+        curve="linear"
+        d="M0,200L83.33333333333333,222.22222222222223L166.66666666666666,244.44444444444446L250,177.77777777777777L333.3333333333333,111.11111111111111L416.6666666666667,44.44444444444443L500,11.111111111111143"
+        fill="none"
+        strokeWidth={2}
+        style={
+          Object {
+            "stroke": "#f47560",
+          }
+        }
+      />
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(0, 188.8888888888889)"
+      >
+        <circle
+          fill="#e8c1a0"
+          r={3}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(83.33333333333333, 166.66666666666669)"
+      >
+        <circle
+          fill="#e8c1a0"
+          r={3}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(166.66666666666666, 122.22222222222223)"
+      >
+        <circle
+          fill="#e8c1a0"
+          r={3}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(250, 44.44444444444443)"
+      >
+        <circle
+          fill="#e8c1a0"
+          r={3}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(333.3333333333333, 0)"
+      >
+        <circle
+          fill="#e8c1a0"
+          r={3}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(416.6666666666667, 0)"
+      >
+        <circle
+          fill="#e8c1a0"
+          r={3}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(500, 22.22222222222223)"
+      >
+        <circle
+          fill="#e8c1a0"
+          r={3}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(0, 200)"
+      >
+        <circle
+          fill="#f47560"
+          r={3}
+          stroke="#f47560"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(83.33333333333333, 222.22222222222223)"
+      >
+        <circle
+          fill="#f47560"
+          r={3}
+          stroke="#f47560"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(166.66666666666666, 244.44444444444446)"
+      >
+        <circle
+          fill="#f47560"
+          r={3}
+          stroke="#f47560"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(250, 177.77777777777777)"
+      >
+        <circle
+          fill="#f47560"
+          r={3}
+          stroke="#f47560"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(333.3333333333333, 111.11111111111111)"
+      >
+        <circle
+          fill="#f47560"
+          r={3}
+          stroke="#f47560"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(416.6666666666667, 44.44444444444443)"
+      >
+        <circle
+          fill="#f47560"
+          r={3}
+          stroke="#f47560"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(500, 11.111111111111143)"
+      >
+        <circle
+          fill="#f47560"
+          r={3}
+          stroke="#f47560"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`should support stacked mode 1`] = `
+<div
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={300}
+    width={500}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g
+      transform="translate(0,0)"
+    >
+      <g>
+        <g>
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={41.666666666666664}
+            x2={41.666666666666664}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={83.33333333333333}
+            x2={83.33333333333333}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={125}
+            x2={125}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={166.66666666666666}
+            x2={166.66666666666666}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={208.33333333333334}
+            x2={208.33333333333334}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={250}
+            x2={250}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={291.6666666666667}
+            x2={291.6666666666667}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={333.3333333333333}
+            x2={333.3333333333333}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={375}
+            x2={375}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={416.6666666666667}
+            x2={416.6666666666667}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={458.3333333333333}
+            x2={458.3333333333333}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={500}
+            x2={500}
+            y1={0}
+            y2={300}
+          />
+        </g>
+        <g>
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={300}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={270.5882352941176}
+            y2={270.5882352941176}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={241.1764705882353}
+            y2={241.1764705882353}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={211.76470588235293}
+            y2={211.76470588235293}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={182.3529411764706}
+            y2={182.3529411764706}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={152.94117647058823}
+            y2={152.94117647058823}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={123.52941176470588}
+            y2={123.52941176470588}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={94.11764705882354}
+            y2={94.11764705882354}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={64.70588235294119}
+            y2={64.70588235294119}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={35.29411764705884}
+            y2={35.29411764705884}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={5.882352941176464}
+            y2={5.882352941176464}
+          />
+        </g>
+      </g>
+      <g />
+      <path
+        curve="linear"
+        d="M0,241.1764705882353L83.33333333333333,229.41176470588235L166.66666666666666,205.88235294117646L250,164.7058823529412L333.3333333333333,141.1764705882353L416.6666666666667,141.1764705882353L500,152.94117647058823"
+        fill="none"
+        strokeWidth={2}
+        style={
+          Object {
+            "stroke": "#e8c1a0",
+          }
+        }
+      />
+      <path
+        curve="linear"
+        d="M0,188.23529411764707L83.33333333333333,188.23529411764707L166.66666666666666,176.47058823529414L250,100L333.3333333333333,41.176470588235304L416.6666666666667,5.882352941176464L500,0"
+        fill="none"
+        strokeWidth={2}
+        style={
+          Object {
+            "stroke": "#f47560",
+          }
+        }
+      />
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(0, 241.1764705882353)"
+      >
+        <circle
+          fill="#e8c1a0"
+          r={3}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(83.33333333333333, 229.41176470588235)"
+      >
+        <circle
+          fill="#e8c1a0"
+          r={3}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(166.66666666666666, 205.88235294117646)"
+      >
+        <circle
+          fill="#e8c1a0"
+          r={3}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(250, 164.7058823529412)"
+      >
+        <circle
+          fill="#e8c1a0"
+          r={3}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(333.3333333333333, 141.1764705882353)"
+      >
+        <circle
+          fill="#e8c1a0"
+          r={3}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(416.6666666666667, 141.1764705882353)"
+      >
+        <circle
+          fill="#e8c1a0"
+          r={3}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(500, 152.94117647058823)"
+      >
+        <circle
+          fill="#e8c1a0"
+          r={3}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(0, 188.23529411764707)"
+      >
+        <circle
+          fill="#f47560"
+          r={3}
+          stroke="#f47560"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(83.33333333333333, 188.23529411764707)"
+      >
+        <circle
+          fill="#f47560"
+          r={3}
+          stroke="#f47560"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(166.66666666666666, 176.47058823529414)"
+      >
+        <circle
+          fill="#f47560"
+          r={3}
+          stroke="#f47560"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(250, 100)"
+      >
+        <circle
+          fill="#f47560"
+          r={3}
+          stroke="#f47560"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(333.3333333333333, 41.176470588235304)"
+      >
+        <circle
+          fill="#f47560"
+          r={3}
+          stroke="#f47560"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(416.6666666666667, 5.882352941176464)"
+      >
+        <circle
+          fill="#f47560"
+          r={3}
+          stroke="#f47560"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+      <g
+        style={
+          Object {
+            "pointerEvents": "none",
+          }
+        }
+        transform="translate(500, 0)"
+      >
+        <circle
+          fill="#f47560"
+          r={3}
+          stroke="#f47560"
+          strokeWidth={0}
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+        />
+      </g>
+    </g>
+  </svg>
+</div>
+`;

@@ -1,0 +1,22 @@
+{
+  "name": "@nivo/scales",
+  "version": "0.34.0-1",
+  "license": "MIT",
+  "main": "./index.js",
+  "files": [
+    "README.md",
+    "index.js",
+    "cjs/"
+  ],
+  "dependencies": {
+    "d3-scale": "^1.0.6",
+    "recompose": "^0.26.0"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.5.10",
+    "react": ">= 16.2.0 < 17.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

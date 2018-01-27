@@ -19,6 +19,8 @@ import HeatMapCanvas from './components/charts/heatmap/HeatMapCanvas'
 import HeatMapAPI from './components/charts/heatmap/HeatMapAPI'
 import LinePage from './components/charts/line/LinePage'
 import Line from './components/charts/line/Line'
+import LineCanvas from './components/charts/line/LineCanvas'
+import LineComponents from './components/charts/line/Components'
 import LineAPI from './components/charts/line/LineAPI'
 import StreamPage from './components/charts/stream/StreamPage'
 import Stream from './components/charts/stream/Stream'
@@ -28,11 +30,11 @@ import PieAPI from './components/charts/pie/PieAPI'
 import RadarPage from './components/charts/radar/RadarPage'
 import Radar from './components/charts/radar/Radar'
 import RadarAPI from './components/charts/radar/RadarAPI'
-import BubblePage from './components/charts/bubble/BubblePage'
-import Bubble from './components/charts/bubble/Bubble'
-import BubbleHtml from './components/charts/bubble/BubbleHtml'
-import BubbleCanvas from './components/charts/bubble/BubbleCanvas'
-import BubbleAPI from './components/charts/bubble/BubbleAPI'
+import BubblePage from './components/charts/circle-packing/BubblePage'
+import Bubble from './components/charts/circle-packing/Bubble'
+import BubbleHtml from './components/charts/circle-packing/BubbleHtml'
+import BubbleCanvas from './components/charts/circle-packing/BubbleCanvas'
+import BubbleAPI from './components/charts/circle-packing/BubbleAPI'
 import SankeyPage from './components/charts/sankey/SankeyPage'
 import Sankey from './components/charts/sankey/Sankey'
 import SankeyAPI from './components/charts/sankey/SankeyAPI'
@@ -59,6 +61,7 @@ import Voronoi from './components/charts/voronoi/Voronoi'
 import Colors from './components/guides/colors/Colors'
 import Legends from './components/guides/legends/Legends'
 import Gradients from './components/guides/gradients/Gradients'
+import Scales from './components/guides/scales'
 import Patterns from './components/guides/patterns/Patterns'
 import About from './components/pages/About'
 import Faq from './components/pages/Faq'
@@ -168,7 +171,7 @@ const SITEMAP = [
                     {
                         className: 'react',
                         path: '/',
-                        label: 'Chord',
+                        label: 'ChordSvg',
                         component: Chord,
                         exact: true,
                         tags: ['svg', 'relational', 'isomorphic'],
@@ -228,10 +231,24 @@ const SITEMAP = [
                     {
                         className: 'react',
                         path: '/',
-                        label: 'Line',
+                        label: 'LineChartSvg',
                         component: Line,
                         exact: true,
                         tags: ['svg', 'isomorphic'],
+                    },
+                    {
+                        className: 'canvas',
+                        path: '/canvas',
+                        label: 'LineChartCanvas',
+                        component: LineCanvas,
+                        tags: ['canvas'],
+                    },
+                    {
+                        className: 'line',
+                        path: '/components',
+                        label: 'Components',
+                        component: LineComponents,
+                        tags: [],
                     },
                     {
                         className: 'api',
@@ -320,7 +337,7 @@ const SITEMAP = [
                     {
                         className: 'react',
                         path: '/',
-                        label: 'ScatterPlot',
+                        label: 'ScatterPlotSvg',
                         component: ScatterPlot,
                         exact: true,
                         tags: ['svg', 'isomorphic'],
@@ -432,6 +449,13 @@ const SITEMAP = [
         label: 'Guides',
         // those items must not be nested
         children: [
+            {
+                className: 'scales',
+                path: '/guides/scales',
+                label: 'Scales',
+                component: Scales,
+                description: 'How to deal with scales in nivo.',
+            },
             {
                 className: 'colors',
                 path: '/guides/colors',

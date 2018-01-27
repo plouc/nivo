@@ -174,13 +174,7 @@ export default class Bar extends Component {
             { pkg: '@nivo/bar', defaults: BarDefaultProps }
         )
 
-        const header = (
-            <ChartHeader
-                chartClass="Bar"
-                tags={['basic', 'isomorphic', 'api']}
-                diceRoll={this.diceRoll}
-            />
-        )
+        const header = <ChartHeader chartClass="Bar" tags={['basic', 'isomorphic', 'api']} />
 
         const description = (
             <div className="chart-description">
@@ -250,7 +244,7 @@ export default class Bar extends Component {
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="bar" code={code} data={data}>
+                    <ChartTabs chartClass="bar" code={code} data={data} diceRoll={this.diceRoll}>
                         <ResponsiveBar
                             data={data}
                             keys={keys}

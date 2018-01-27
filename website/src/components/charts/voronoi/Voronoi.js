@@ -56,13 +56,7 @@ export default class Voronoi extends Component {
             defaults: VoronoiDefaultProps,
         })
 
-        const header = (
-            <ChartHeader
-                chartClass="Voronoi"
-                tags={['voronoi', 'experimental']}
-                diceRoll={diceRoll}
-            />
-        )
+        const header = <ChartHeader chartClass="Voronoi" tags={['voronoi', 'experimental']} />
 
         const description = (
             <div className="chart-description">
@@ -89,12 +83,12 @@ export default class Voronoi extends Component {
 
         return (
             <div className="page_content grid">
-                <div className="chart-page_aside">
+                <div className="chart-page_main">
                     <MediaQuery query="(max-width: 1000px)">
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="voronoi" code={code} data={data}>
+                    <ChartTabs chartClass="voronoi" code={code} data={data} diceRoll={diceRoll}>
                         <ResponsiveVoronoi
                             margin={{
                                 top: 20,
@@ -106,18 +100,18 @@ export default class Voronoi extends Component {
                             {...settings}
                         />
                     </ChartTabs>
-                </div>
-                <div className="chart-page_main">
-                    <MediaQuery query="(min-width: 1000px)">
-                        {header}
-                        {description}
-                    </MediaQuery>
                     <VoronoiControls
                         scope="Voronoi"
                         settings={settings}
                         onChange={this.handleSettingsUpdate}
                     />
                     <ComponentPropsDocumentation chartClass="Voronoi" properties={properties} />
+                </div>
+                <div className="chart-page_aside">
+                    <MediaQuery query="(min-width: 1000px)">
+                        {header}
+                        {description}
+                    </MediaQuery>
                 </div>
             </div>
         )

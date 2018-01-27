@@ -13,7 +13,8 @@ import { getPropertiesGroupsControls } from '../../../lib/componentProperties'
 import properties from './props'
 
 const groupsByScope = {
-    Line: getPropertiesGroupsControls(properties, 'Line'),
+    LineChartSvg: getPropertiesGroupsControls(properties, 'LineChartSvg'),
+    LineChartCanvas: getPropertiesGroupsControls(properties, 'LineChartCanvas'),
     api: getPropertiesGroupsControls(properties, 'api'),
 }
 

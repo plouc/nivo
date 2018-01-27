@@ -8,7 +8,7 @@
  */
 import React, { Component } from 'react'
 import { generateGroupedBars, generateStackedBars } from './compute'
-import { renderAxesToCanvas } from '@nivo/core'
+import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { getRelativeCursor, isCursorInRect } from '@nivo/core'
 import { Container } from '@nivo/core'
 import { BasicTooltip } from '@nivo/core'
@@ -74,6 +74,8 @@ class BarCanvas extends Component {
             axisRight,
             axisBottom,
             axisLeft,
+            enableGridX,
+            enableGridY,
 
             // theming
             getColor,
@@ -107,6 +109,23 @@ class BarCanvas extends Component {
         this.ctx.clearRect(0, 0, outerWidth, outerHeight)
         this.ctx.translate(margin.left, margin.top)
 
+        this.ctx.strokeStyle = '#dddddd'
+        enableGridX &&
+            renderGridLinesToCanvas(this.ctx, {
+                width,
+                height,
+                scale: result.xScale,
+                axis: 'x',
+            })
+        enableGridY &&
+            renderGridLinesToCanvas(this.ctx, {
+                width,
+                height,
+                scale: result.yScale,
+                axis: 'y',
+            })
+
+        this.ctx.strokeStyle = '#000000'
         renderAxesToCanvas(this.ctx, {
             xScale: result.xScale,
             yScale: result.yScale,

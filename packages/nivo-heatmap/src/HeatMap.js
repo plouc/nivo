@@ -9,9 +9,10 @@
 import React, { Component } from 'react'
 import { partial } from 'lodash'
 import { TransitionMotion } from 'react-motion'
+import { scaleLinear } from 'd3-scale'
 import { colorMotionSpring, getInterpolatedColor } from '@nivo/core'
 import { Container, SvgWrapper } from '@nivo/core'
-import { Grid, Axes } from '@nivo/core'
+import { Grid, Axes } from '@nivo/axes'
 import setDisplayName from 'recompose/setDisplayName'
 import { HeatMapPropTypes } from './props'
 import computeNodes from './computeNodes'
@@ -19,8 +20,6 @@ import enhance from './enhance'
 import HeatMapCellRect from './HeatMapCellRect'
 import HeatMapCellCircle from './HeatMapCellCircle'
 import HeatMapCellTooltip from './HeatMapCellTooltip'
-
-import { scaleLinear } from 'd3-scale'
 
 class HeatMap extends Component {
     static propTypes = HeatMapPropTypes

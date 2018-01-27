@@ -45,6 +45,10 @@ capture:
         selector: .chart-tabs--chart
         output: ./packages/nivo-line/doc/line.png
 
+      - path: /#/line/canvas
+        selector: .chart-tabs--chart
+        output: ./packages/nivo-line/doc/line-canvas.png
+
       - path: /#/pie
         selector: .chart-tabs--chart
         output: ./packages/nivo-pie/doc/pie.png

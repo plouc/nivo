@@ -133,18 +133,12 @@ export default class ScatterPlotCanvas extends Component {
             { pkg: '@nivo/scatterplot', defaults: ScatterPlotDefaultProps }
         )
 
-        const header = (
-            <ChartHeader
-                chartClass="ScatterPlotCanvas"
-                tags={['basic', 'canvas']}
-                diceRoll={this.diceRoll}
-            />
-        )
+        const header = <ChartHeader chartClass="ScatterPlotCanvas" tags={['basic', 'canvas']} />
 
         const description = (
             <div className="chart-description">
                 <p className="description">
-                    A variation around the <Link to="/scatterplot">ScatterPlot</Link> component.
+                    A variation around the <Link to="/scatterplot">ScatterPlotSvg</Link> component.
                     Well suited for large data sets as it does not impact DOM tree depth and does
                     not involve React diffing stuff for children (not that useful when using
                     canvas), however you'll lose the isomorphic ability and transitions.
@@ -152,7 +146,7 @@ export default class ScatterPlotCanvas extends Component {
                 <p className="description">
                     The responsive alternative of this component is{' '}
                     <code>ResponsiveScatterPlotCanvas</code>, it also offers another implementation,
-                    see <Link to="/scatterplot">ScatterPlot</Link>.
+                    see <Link to="/scatterplot">ScatterPlotSvg</Link>.
                 </p>
             </div>
         )
@@ -169,6 +163,7 @@ export default class ScatterPlotCanvas extends Component {
                         code={code}
                         data={data}
                         nodeCount={data.length * data[0].data.length}
+                        diceRoll={this.diceRoll}
                     >
                         <ResponsiveScatterPlotCanvas
                             data={data}

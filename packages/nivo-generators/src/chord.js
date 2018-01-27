@@ -1,8 +1,8 @@
-const range = require('lodash.range')
-const random = require('lodash.random')
-const sets = require('./sets')
+import range from 'lodash.range'
+import random from 'lodash.random'
+import sets from './sets'
 
-module.exports = ({ keys = sets.names, size = 7, minValue = 0, maxValue = 2000 } = {}) => {
+export default ({ keys = sets.names, size = 7, minValue = 0, maxValue = 2000 } = {}) => {
     const maxSize = Math.min(keys.length, size)
     const selectedKeys = keys.slice(0, maxSize)
 

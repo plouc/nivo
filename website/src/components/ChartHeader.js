@@ -7,18 +7,11 @@ class ChartHeader extends Component {
     }
 
     render() {
-        const { chartClass, tags, diceRoll } = this.props
+        const { chartClass, tags } = this.props
 
         return (
             <div className="chart_header">
-                <h1 className="chart__title">
-                    {chartClass}
-                    {diceRoll && (
-                        <span className="dice-roll no-select" onClick={diceRoll}>
-                            roll the dice
-                        </span>
-                    )}
-                </h1>
+                <h1 className="chart__title">{chartClass}</h1>
                 <div className="component_meta">
                     {tags.map(tag => (
                         <span key={tag} className="component_meta_tag">
@@ -34,7 +27,6 @@ class ChartHeader extends Component {
 ChartHeader.propTypes = {
     chartClass: PropTypes.string.isRequired,
     tags: PropTypes.array.isRequired,
-    diceRoll: PropTypes.func,
 }
 
 ChartHeader.defaultProps = {

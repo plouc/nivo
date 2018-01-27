@@ -3,15 +3,13 @@
 *.log*
 node_modules
 /coverage
-/storybook-static
+storybook-static
 
 package-lock.json
-yarn.lock
 
 build
 
-/packages/*/lib
-/packages/*/es
+/packages/*/cjs
 
 *.lerna_backup
 

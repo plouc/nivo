@@ -84,13 +84,7 @@ export default class TreeMapCanvas extends Component {
             defaults: TreeMapCanvasDefaultProps,
         })
 
-        const header = (
-            <ChartHeader
-                chartClass="TreeMapCanvas"
-                tags={['hierarchy', 'canvas']}
-                diceRoll={this.diceRoll}
-            />
-        )
+        const header = <ChartHeader chartClass="TreeMapCanvas" tags={['hierarchy', 'canvas']} />
 
         const description = (
             <div className="chart-description">
@@ -129,12 +123,18 @@ export default class TreeMapCanvas extends Component {
 
         return (
             <div className="page_content grid">
-                <div className="chart-page_aside">
+                <div className="chart-page_main">
                     <MediaQuery query="(max-width: 1000px)">
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="treemap" code={code} data={root} nodeCount={nodeCount}>
+                    <ChartTabs
+                        chartClass="treemap"
+                        code={code}
+                        data={root}
+                        nodeCount={nodeCount}
+                        diceRoll={this.diceRoll}
+                    >
                         <ResponsiveTreeMapCanvas
                             root={root}
                             {...mappedSettings}
@@ -142,12 +142,6 @@ export default class TreeMapCanvas extends Component {
                             onClick={this.handleNodeClick}
                         />
                     </ChartTabs>
-                </div>
-                <div className="chart-page_main">
-                    <MediaQuery query="(min-width: 1000px)">
-                        {header}
-                        {description}
-                    </MediaQuery>
                     <TreeMapControls
                         scope="TreeMapCanvas"
                         settings={settings}
@@ -157,6 +151,12 @@ export default class TreeMapCanvas extends Component {
                         chartClass="TreeMapCanvas"
                         properties={properties}
                     />
+                </div>
+                <div className="chart-page_aside">
+                    <MediaQuery query="(min-width: 1000px)">
+                        {header}
+                        {description}
+                    </MediaQuery>
                 </div>
             </div>
         )

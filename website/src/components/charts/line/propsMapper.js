@@ -24,6 +24,7 @@ export default settingsMapper(
         axisLeft: mapAxis('left'),
         dotColor: mapInheritedColor,
         dotBorderColor: mapInheritedColor,
+        dotLabelColor: mapInheritedColor,
     },
     {
         exclude: ['enable axisTop', 'enable axisRight', 'enable axisBottom', 'enable axisLeft'],

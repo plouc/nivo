@@ -11,6 +11,7 @@ import compose from 'recompose/compose'
 import defaultProps from 'recompose/defaultProps'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import withStateHandlers from 'recompose/withStateHandlers'
+import setDisplayName from 'recompose/setDisplayName'
 import pure from 'recompose/pure'
 import { withHierarchy, withDimensions, withTheme, withMotion, withColors } from '@nivo/core'
 import { getAccessorFor, getLabelGenerator } from '@nivo/core'
@@ -114,6 +115,7 @@ export default Component => {
         case 'Bubble':
             return compose(
                 ...[
+                    setDisplayName(Component.displayName),
                     defaultProps(implDefaultProps),
                     ...commonEnhancers,
                     ...svgEnhancers,
@@ -124,11 +126,24 @@ export default Component => {
 
         case 'BubbleHtml':
             return compose(
-                ...[defaultProps(implDefaultProps), ...commonEnhancers, withMotion(), pure]
+                ...[
+                    setDisplayName(Component.displayName),
+                    defaultProps(implDefaultProps),
+                    ...commonEnhancers,
+                    withMotion(),
+                    pure,
+                ]
             )(Component)
 
         case 'BubbleCanvas':
-            return compose(...[defaultProps(implDefaultProps), ...commonEnhancers, pure])(Component)
+            return compose(
+                ...[
+                    setDisplayName(Component.displayName),
+                    defaultProps(implDefaultProps),
+                    ...commonEnhancers,
+                    pure,
+                ]
+            )(Component)
     }
 
     return Component

@@ -76,7 +76,7 @@ export default class Calendar extends Component {
     }
 
     render() {
-        const { data } = this.props
+        const { data, diceRoll } = this.props
         const { settings } = this.state
 
         const code = generateCode('ResponsiveCalendar', settings, {
@@ -92,7 +92,7 @@ export default class Calendar extends Component {
             <div className="page_content grid">
                 <div className="chart-page_main">
                     <MediaQuery query="(max-width: 1000px)">{header}</MediaQuery>
-                    <ChartTabs chartClass="calendar" code={code} data={data}>
+                    <ChartTabs chartClass="calendar" code={code} data={data} diceRoll={diceRoll}>
                         <ResponsiveCalendar
                             from={settings.from}
                             to={settings.to}

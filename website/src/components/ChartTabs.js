@@ -17,11 +17,7 @@ export default class ChartTabs extends Component {
         data: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
         code: PropTypes.string.isRequired,
         nodeCount: PropTypes.number,
-        mode: PropTypes.string.isRequired,
-    }
-
-    static defaultProps = {
-        mode: '',
+        diceRoll: PropTypes.func,
     }
 
     state = {
@@ -38,12 +34,12 @@ export default class ChartTabs extends Component {
     }
 
     render() {
-        const { chartClass, mode, data, code, children, nodeCount } = this.props
+        const { chartClass, data, code, children, diceRoll, nodeCount } = this.props
         const { tab: currentTab, hoverTab } = this.state
 
         let content
         if (currentTab === 'chart') {
-            content = children
+            content = <div className="chart-tabs__content">{children}</div>
         } else if (currentTab === 'code') {
             content = (
                 <div className="code-snippet">
@@ -59,46 +55,43 @@ export default class ChartTabs extends Component {
         }
 
         return (
-            <div
-                className={`chart-tabs${
-                    mode.length > 0 ? ` chart-tabs--${mode}` : ''
-                } chart-tabs--${currentTab}`}
-            >
-                {content}
+            <div className={`chart-tabs chart-tabs--${currentTab}`}>
                 <div className="chart-tabs__menu">
-                    <span
-                        className={`chart-tabs__menu__helper chart-tabs__menu__helper--${currentTab}`}
-                    >
-                        {hoverTab}
-                    </span>
-                    <div className="chart-tabs__menu__wrapper">
-                        {tabs.map(tab => {
-                            const icon = tab === 'chart' ? chartClass : tab
-                            const iconColor =
-                                tab === currentTab || hoverTab === tab ? 'red' : 'grey'
+                    {tabs.map(tab => {
+                        const isCurrent = tab === currentTab
+                        const icon = tab === 'chart' ? chartClass : tab
+                        const iconColor = isCurrent || hoverTab === tab ? 'red' : 'grey'
 
-                            return (
+                        return (
+                            <span
+                                key={tab}
+                                className={`chart-tabs__menu__item no-select ${
+                                    isCurrent ? 'chart-tabs__menu__item--current' : ''
+                                }`}
+                                onClick={() => {
+                                    this.handleTabToggle(tab)
+                                }}
+                                onMouseEnter={() => {
+                                    this.handleTabHover(tab)
+                                }}
+                                onMouseLeave={() => {
+                                    this.handleTabHover(null)
+                                }}
+                            >
                                 <span
-                                    key={tab}
-                                    className="chart-tabs__menu__item"
-                                    onClick={() => {
-                                        this.handleTabToggle(tab)
-                                    }}
-                                    onMouseEnter={() => {
-                                        this.handleTabHover(tab)
-                                    }}
-                                    onMouseLeave={() => {
-                                        this.handleTabHover(null)
-                                    }}
-                                >
-                                    <span
-                                        className={`chart-tabs__menu__item__icon sprite-icons-${icon}-${iconColor}`}
-                                    />
-                                </span>
-                            )
-                        })}
-                    </div>
+                                    className={`chart-tabs__menu__item__icon sprite-icons-${icon}-${iconColor}`}
+                                />
+                                {tab}
+                            </span>
+                        )
+                    })}
+                    {diceRoll && (
+                        <span className="dice-roll no-select" onClick={diceRoll}>
+                            roll the dice
+                        </span>
+                    )}
                 </div>
+                {content}
                 {currentTab === 'chart' &&
                     nodeCount !== undefined && (
                         <span className="chart-tabs__node-count">

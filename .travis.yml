@@ -2,9 +2,11 @@ language: node_js
 node_js:
   - '8'
 script:
-  - make init
-  - make packages-lint
-  - make packages-test
-  - make website-build
-  - make storybook-build
-  - make examples-build
+  - make init --no-print-directory
+  - make fmt-check --no-print-directory
+  - make packages-lint --no-print-directory
+  - make packages-test-cover --no-print-directory
+  - make website-build --no-print-directory
+  - make storybook-lint --no-print-directory
+  - make storybook-build --no-print-directory
+  - make examples-build --no-print-directory

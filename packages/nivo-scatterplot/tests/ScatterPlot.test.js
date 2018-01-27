@@ -10,7 +10,7 @@ const sampleData = [
     { id: 4, x: 40, y: 30 },
 ]
 
-it('should render a basic bar chart', () => {
+it('should render a basic scatterplot chart', () => {
     const component = renderer.create(
         <ScatterPlot width={500} height={300} data={[{ id: 'default', data: sampleData }]} />
     )

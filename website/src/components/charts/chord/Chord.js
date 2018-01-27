@@ -9,7 +9,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
-import { ResponsiveChord } from '@nivo/chord'
+import { ResponsiveChordSvg } from '@nivo/chord'
 import ChartHeader from '../../ChartHeader'
 import ChartTabs from '../../ChartTabs'
 import ChordControls from './ChordControls'
@@ -106,7 +106,7 @@ export default class Chord extends Component {
         const mappedSettings = propsMapper(settings)
 
         const code = generateCode(
-            'ResponsiveChord',
+            'ResponsiveChordSvg',
             { keys, ...mappedSettings },
             {
                 pkg: '@nivo/chord',
@@ -115,11 +115,7 @@ export default class Chord extends Component {
         )
 
         const header = (
-            <ChartHeader
-                chartClass="Chord"
-                tags={['relational', 'isomorphic', 'api']}
-                diceRoll={this.diceRoll}
-            />
+            <ChartHeader chartClass="ChordSvg" tags={['relational', 'isomorphic', 'api']} />
         )
 
         const description = (
@@ -140,7 +136,7 @@ export default class Chord extends Component {
                     >
                         this block
                     </a>. The responsive alternative of this component is{' '}
-                    <code>ResponsiveChord</code>.
+                    <code>ResponsiveChordSvg</code>.
                 </p>
                 <p className="description">
                     This component is available in the{' '}
@@ -169,31 +165,36 @@ export default class Chord extends Component {
 
         return (
             <div className="page_content grid">
-                <div className="chart-page_aside">
+                <div className="chart-page_main">
                     <MediaQuery query="(max-width: 1000px)">
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="chord" code={code} data={matrix}>
-                        <ResponsiveChord
+                    <ChartTabs
+                        chartClass="chord"
+                        code={code}
+                        data={matrix}
+                        diceRoll={this.diceRoll}
+                    >
+                        <ResponsiveChordSvg
                             matrix={matrix}
                             keys={keys}
                             {...mappedSettings}
                             theme={nivoTheme}
                         />
                     </ChartTabs>
-                </div>
-                <div className="chart-page_main">
-                    <MediaQuery query="(min-width: 1000px)">
-                        {header}
-                        {description}
-                    </MediaQuery>
                     <ChordControls
                         scope="Chord"
                         settings={settings}
                         onChange={this.handleSettingsUpdate}
                     />
-                    <ComponentPropsDocumentation chartClass="Chord" properties={properties} />
+                    <ComponentPropsDocumentation chartClass="ChordSvg" properties={properties} />
+                </div>
+                <div className="chart-page_aside">
+                    <MediaQuery query="(min-width: 1000px)">
+                        {header}
+                        {description}
+                    </MediaQuery>
                 </div>
             </div>
         )

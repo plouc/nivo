@@ -1,4 +1,4 @@
-module.exports = [
+export default [
     'php',
     'make',
     'javascript',

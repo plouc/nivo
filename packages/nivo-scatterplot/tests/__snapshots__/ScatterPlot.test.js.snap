@@ -2186,7 +2186,7 @@ exports[`should allow to render several series 1`] = `
 </div>
 `;
 
-exports[`should render a basic bar chart 1`] = `
+exports[`should render a basic scatterplot chart 1`] = `
 <div
   style={
     Object {

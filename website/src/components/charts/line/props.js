@@ -9,12 +9,14 @@
 import React from 'react'
 import dedent from 'dedent-js'
 import { lineCurvePropKeys, DotsItemDefaultProps as dotDefaults } from '@nivo/core'
-import { LineDefaultProps as defaults } from '@nivo/line'
+import { LineChartSvg } from '@nivo/line'
 import {
     marginProperties,
     axesProperties,
     motionProperties,
 } from '../../../lib/componentProperties'
+
+const defaults = LineChartSvg.defaultProps
 
 const curveOptions = []
 lineCurvePropKeys.forEach((curve, i) => {
@@ -44,12 +46,20 @@ export default [
         required: true,
     },
     {
+        key: 'xScaleType',
+        type: `{('linear'|'ordinal')}`,
+        scopes: '*',
+        default: defaults.xScaleType,
+        description: `Defines x scale type, if you have numeric data, then you should use 'linear', otherwise 'ordinal'`,
+        required: false,
+    },
+    {
         key: 'width',
         scopes: ['api'],
         docScopes: '*',
         description: (
             <span>
-                not required if using&nbsp;<code>&lt;ResponsiveLine&nbsp;/&gt;</code>.
+                not required if using <code>Responsive*</code> components.
             </span>
         ),
         help: 'Chart width (px).',
@@ -70,7 +80,7 @@ export default [
         docScopes: '*',
         description: (
             <span>
-                not required if using&nbsp;<code>&lt;ResponsiveLine&nbsp;/&gt;</code>.
+                not required if using <code>Responsive*</code> components.
             </span>
         ),
         help: 'Chart height (px).',
@@ -117,43 +127,6 @@ export default [
             })),
         },
     },
-    {
-        key: 'minY',
-        scopes: '*',
-        description: 'Minimum y value.',
-        required: false,
-        default: defaults.minY,
-        type: '{number|string}',
-        controlType: 'switchableRange',
-        controlGroup: 'Base',
-        controlOptions: {
-            disabledValue: 'auto',
-            defaultValue: 0,
-            min: -100,
-            max: 100,
-        },
-    },
-    {
-        key: 'maxY',
-        scopes: '*',
-        description: 'Maximum y value.',
-        required: false,
-        default: defaults.maxY,
-        type: '{number|string}',
-        controlType: 'switchableRange',
-        controlGroup: 'Base',
-        controlOptions: {
-            disabledValue: 'auto',
-            defaultValue: 300,
-            min: 10,
-            max: 400,
-        },
-    },
-    /*##################################################################################################################
-
-        Style
-
-    ##################################################################################################################*/
     {
         key: 'colors',
         scopes: '*',
@@ -207,9 +180,9 @@ export default [
         description: 'Enable/disable area below each line.',
         type: '{boolean}',
         required: false,
-        default: defaults.enableArea,
+        default: true,
         controlType: 'switch',
-        controlGroup: 'Style',
+        controlGroup: 'Areas',
     },
     {
         key: 'areaOpacity',
@@ -219,7 +192,7 @@ export default [
         default: defaults.areaOpacity,
         type: '{number}',
         controlType: 'range',
-        controlGroup: 'Style',
+        controlGroup: 'Areas',
         controlOptions: {
             min: 0,
             max: 1,
@@ -238,6 +211,21 @@ export default [
         controlGroup: 'Dots',
     },
     {
+        key: 'dotsEveryNth',
+        scopes: '*',
+        description:
+            'Allows you to only display every nth dot. May be used when you have a lot of points to improve legibility.',
+        type: '{number}',
+        required: false,
+        default: defaults.dotsEveryNth,
+        controlType: 'range',
+        controlGroup: 'Dots',
+        controlOptions: {
+            min: 1,
+            max: 20,
+        },
+    },
+    {
         key: 'dotSymbol',
         description:
             'Overrides default dot circle. The function will receive `size`, `color`, `borderWidth` and `borderColor` props and must return a valid SVG element.',
@@ -254,21 +242,8 @@ export default [
         controlGroup: 'Dots',
         controlOptions: {
             unit: 'px',
-            min: 2,
+            min: 0,
             max: 20,
-        },
-    },
-    {
-        key: 'dotColor',
-        scopes: '*',
-        description: 'Method to compute dots color.',
-        type: '{string|Function}',
-        required: false,
-        default: defaults.dotColor,
-        controlType: 'color',
-        controlGroup: 'Dots',
-        controlOptions: {
-            withCustomColor: true,
         },
     },
     {
@@ -283,6 +258,19 @@ export default [
             unit: 'px',
             min: 0,
             max: 10,
+        },
+    },
+    {
+        key: 'dotColor',
+        scopes: '*',
+        description: 'Method to compute dots color.',
+        type: '{string|Function}',
+        required: false,
+        default: defaults.dotColor,
+        controlType: 'color',
+        controlGroup: 'Dots',
+        controlOptions: {
+            withCustomColor: true,
         },
     },
     {
@@ -324,6 +312,19 @@ export default [
         },
     },
     {
+        key: 'dotLabelColor',
+        scopes: '*',
+        description: 'Method to compute dots label color.',
+        type: '{string|Function}',
+        required: false,
+        default: defaults.dotLabelColor,
+        controlType: 'color',
+        controlGroup: 'Dots',
+        controlOptions: {
+            withCustomColor: true,
+        },
+    },
+    {
         key: 'dotLabelYOffset',
         description: 'Label Y offset from dot shape (px).',
         type: '{number}',
@@ -360,7 +361,7 @@ export default [
     },
     {
         key: 'isInteractive',
-        scopes: ['Line'],
+        scopes: ['LineChartSvg'],
         description: 'Enable/disable interactivity.',
         type: '{boolean}',
         required: false,
@@ -378,5 +379,47 @@ export default [
         controlType: 'switch',
         controlGroup: 'Interactivity',
     },
-    ...motionProperties(['Line'], defaults),
+    {
+        key: 'enableTooltip',
+        scopes: ['LineChartSvg', 'LineChartCanvas'],
+        description: `Enable/disable tooltip.`,
+        type: '{boolean}',
+        required: false,
+        default: defaults.enableTooltip,
+        controlType: 'switch',
+        controlGroup: 'Tooltips',
+    },
+    {
+        key: 'tooltipIndicatorThickness',
+        description: 'Tooltip indicator thickness (px) (line).',
+        type: '{number}',
+        required: false,
+        default: dotDefaults.tooltipIndicatorThickness,
+        controlType: 'range',
+        controlGroup: 'Tooltips',
+        controlOptions: {
+            unit: 'px',
+            min: 0.5,
+            max: 10,
+            step: 0.5
+        },
+    },
+    {
+        key: 'tooltipIndicatorColor',
+        scopes: ['LineChartSvg', 'LineChartCanvas'],
+        description: `Tooltip indicator color (line).`,
+        type: '{string}',
+        required: false,
+        default: defaults.tooltipIndicatorColor,
+        controlType: 'colorPicker',
+        controlGroup: 'Tooltips'
+    },
+    {
+        key: 'tooltipIndicatorStyle',
+        scopes: ['LineChartSvg', 'LineChartCanvas'],
+        description: `Tooltip indicator style override (line).`,
+        type: '{Object}',
+        required: false,
+    },
+    ...motionProperties(['LineChartSvg'], defaults),
 ]

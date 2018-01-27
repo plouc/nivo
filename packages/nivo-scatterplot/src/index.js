@@ -6,8 +6,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-export { default as ScatterPlot } from './ScatterPlot'
-export { default as ResponsiveScatterPlot } from './ResponsiveScatterPlot'
-export { default as ScatterPlotCanvas } from './ScatterPlotCanvas'
-export { default as ResponsiveScatterPlotCanvas } from './ResponsiveScatterPlotCanvas'
+export * from './svg'
+export * from './canvas'
 export * from './props'
