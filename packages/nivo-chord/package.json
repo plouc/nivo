@@ -21,11 +21,8 @@
     "@nivo/babel-preset": "0.33.0",
     "@nivo/generators": "0.33.0",
     "babel-cli": "^6.26.0",
-    "babel-eslint": "^8.0.3",
     "babel-jest": "^20.0.3",
     "cross-env": "^5.0.5",
-    "eslint": "^4.12.1",
-    "eslint-plugin-react": "^7.5.1",
     "jest": "^21.0.1",
     "react": "16.2.0",
     "react-dom": "16.2.0"
@@ -36,8 +33,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "scripts": {
-    "lint": "eslint src stories tests"
   }
 }

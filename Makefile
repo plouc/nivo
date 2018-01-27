@@ -104,9 +104,24 @@ endef
 #
 ########################################################################################################################
 
-packages-lint: ##@1 packages run eslint on packages
+package-lint-%: ##@1 packages run eslint on package
+	@echo "${YELLOW}Running eslint on package ${WHITE}@nivo/${*}${RESET}"
+	@./node_modules/.bin/eslint ./packages/nivo-${*}/{src,tests}
+
+packages-lint: ##@1 packages run eslint on all packages
 	@echo "${YELLOW}Running eslint on all packages${RESET}"
-	@./node_modules/.bin/lerna run lint
+	@./node_modules/.bin/eslint \
+        --ignore-pattern 'nivo-core' \
+        --ignore-pattern 'nivo-stream' \
+        --ignore-pattern 'nivo-sunburst' \
+        --ignore-pattern 'nivo-pie' \
+        --ignore-pattern 'nivo-radar' \
+        --ignore-pattern 'nivo-heatmap' \
+        --ignore-pattern 'nivo-treemap' \
+        --ignore-pattern 'nivo-voronoi' \
+        --ignore-pattern 'nivo-line' \
+        --ignore-pattern 'nivo-generators' \
+        ./packages/*/{src,tests}
 
 packages-test: ##@1 packages run tests for all packages
 	# stream can be used for a mire verbose output

@@ -10,8 +10,10 @@ import React from 'react'
 import { ResponsiveWrapper } from '@nivo/core'
 import Sankey from './Sankey'
 
-export default props => (
+const ResponsiveSankey = props => (
     <ResponsiveWrapper>
         {({ width, height }) => <Sankey width={width} height={height} {...props} />}
     </ResponsiveWrapper>
 )
+
+export default ResponsiveSankey

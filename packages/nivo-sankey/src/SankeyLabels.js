@@ -8,7 +8,6 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { cloneDeep } from 'lodash'
 import pure from 'recompose/pure'
 import { TransitionMotion, spring } from 'react-motion'
 import { colorMotionSpring, getInterpolatedColor, motionPropTypes } from '@nivo/core'
