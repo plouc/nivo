@@ -55,13 +55,7 @@ export default class Line extends Component {
             defaults: LineDefaultProps,
         })
 
-        const header = (
-            <ChartHeader
-                chartClass="Line"
-                tags={['basic', 'isomorphic', 'api']}
-                diceRoll={diceRoll}
-            />
-        )
+        const header = <ChartHeader chartClass="Line" tags={['basic', 'isomorphic', 'api']} />
 
         const description = (
             <div className="chart-description">
@@ -114,7 +108,7 @@ export default class Line extends Component {
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="line" code={code} data={data} mode="horizontal">
+                    <ChartTabs chartClass="line" code={code} data={data} diceRoll={diceRoll}>
                         <ResponsiveLine data={data} {...mappedSettings} theme={nivoTheme} />
                     </ChartTabs>
                     <LineControls

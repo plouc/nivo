@@ -136,13 +136,7 @@ export default class ScatterPlot extends Component {
             { pkg: '@nivo/scatterplot', defaults: ScatterPlotDefaultProps }
         )
 
-        const header = (
-            <ChartHeader
-                chartClass="ScatterPlot"
-                tags={['basic', 'isomorphic']}
-                diceRoll={this.diceRoll}
-            />
-        )
+        const header = <ChartHeader chartClass="ScatterPlot" tags={['basic', 'isomorphic']} />
 
         const description = (
             <div className="chart-description">
@@ -180,7 +174,12 @@ export default class ScatterPlot extends Component {
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="scatterplot" code={code} data={data}>
+                    <ChartTabs
+                        chartClass="scatterplot"
+                        code={code}
+                        data={data}
+                        diceRoll={this.diceRoll}
+                    >
                         <ResponsiveScatterPlot
                             data={data}
                             {...mappedSettings}

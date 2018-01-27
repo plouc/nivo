@@ -76,5 +76,5 @@ export const LegendPropShape = {
     symbolSize: PropTypes.number,
     symbolSpacing: PropTypes.number,
     symbolShape: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    textColor: PropTypes.string
+    textColor: PropTypes.string,
 }

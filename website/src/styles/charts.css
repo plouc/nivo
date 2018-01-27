@@ -2,7 +2,7 @@
     width: 100%;
     position: relative;
     overflow: hidden;
-    height: 460px;
+    height: 510px;
     box-shadow: 0 16px 30px rgba(0, 0, 0, 0.1);
     margin-bottom: 40px;
     background: var(--card-background-color);
@@ -30,45 +30,47 @@
 }
 
 .chart-tabs__menu {
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 5;
-}
-
-.chart-tabs__menu__helper {
-    position: absolute;
-    right: 156px;
-    font-size: 14px;
-    line-height: 46px;
-    color: #666;
-    display: block;
-}
-
-.chart-tabs__menu__wrapper {
-    background-color: #fff;
-    border-bottom: 1px solid #eee;
-    border-left: 1px solid #eee;
-    height: 47px;
+    height: 46px;
+    background: #f0f3f4;
     display: flex;
-    width: 138px;
+    font-size: 15px;
+    color: #aaa;
+    position: relative;
 }
 
 .chart-tabs__menu__item {
     cursor: pointer;
-    width: 46px;
     height: 46px;
     display: block;
-    background-color: #fff;
-    overflow: hidden;
+    position: relative;
+    padding-left: 46px;
+    padding-right: 14px;
+    padding-top: 11px;
+}
+
+.chart-tabs__menu__item:hover {
+    color: var(--main-text-color);
+}
+
+.chart-tabs__menu__item--current {
+    background-color: white;
 }
 
 .chart-tabs__menu__item__icon {
+    position: absolute;
+    top: 0;
+    left: 0;
     display: block;
     transform: scale(0.44);
     transform-origin: top left;
-    background-color: #fff;
     margin: 12px 0 0 12px;
+}
+
+.chart-tabs__content {
+    position: absolute;
+    top: 46px;
+    bottom: 0;
+    width: 100%;
 }
 
 .chart_header {

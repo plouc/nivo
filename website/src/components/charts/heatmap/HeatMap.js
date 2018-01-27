@@ -150,9 +150,7 @@ export default class HeatMap extends Component {
             { pkg: '@nivo/heatmap ', defaults: HeatMapDefaultProps }
         )
 
-        const header = (
-            <ChartHeader chartClass="HeatMap" tags={['heatmap', 'svg']} diceRoll={this.diceRoll} />
-        )
+        const header = <ChartHeader chartClass="HeatMap" tags={['heatmap', 'svg']} />
 
         const description = (
             <div className="chart-description">
@@ -200,7 +198,12 @@ export default class HeatMap extends Component {
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="heatmap" code={code} data={data}>
+                    <ChartTabs
+                        chartClass="heatmap"
+                        code={code}
+                        data={data}
+                        diceRoll={this.diceRoll}
+                    >
                         <ResponsiveHeatMap
                             data={data}
                             keys={keys}
