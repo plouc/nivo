@@ -102,6 +102,16 @@
     babel-plugin-transform-object-rest-spread "^6.26.0"
     babel-plugin-transform-react-jsx "^6.24.1"
 
+"@nivo/generators@^0.33.0":
+  version "0.33.0"
+  resolved "https://registry.yarnpkg.com/@nivo/generators/-/generators-0.33.0.tgz#1e0c01fba6f637a839aa05cd364315bc3dbcc741"
+  dependencies:
+    d3-time "^1.0.7"
+    d3-time-format "^2.0.5"
+    lodash.random "^3.2.0"
+    lodash.range "^3.2.0"
+    lodash.shuffle "^4.2.0"
+
 "@storybook/addon-actions@^3.2.17":
   version "3.2.17"
   resolved "https://registry.yarnpkg.com/@storybook/addon-actions/-/addon-actions-3.2.17.tgz#e85d38f743125157fdaf6669708e089bc2008e50"
@@ -2617,6 +2627,16 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
+d3-time-format@^2.0.5:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/d3-time-format/-/d3-time-format-2.1.1.tgz#85b7cdfbc9ffca187f14d3c456ffda268081bb31"
+  dependencies:
+    d3-time "1"
+
+d3-time@1, d3-time@^1.0.7:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/d3-time/-/d3-time-1.0.8.tgz#dbd2d6007bf416fe67a76d17947b784bffea1e84"
+
 d@1:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/d/-/d-1.0.0.tgz#754bb5bfe55451da69a58b94d45f4c5b0462d58f"
@@ -4989,6 +5009,18 @@ lodash.memoize@^4.1.2:
 lodash.pick@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.pick/-/lodash.pick-4.4.0.tgz#52f05610fff9ded422611441ed1fc123a03001b3"
+
+lodash.random@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/lodash.random/-/lodash.random-3.2.0.tgz#96e24e763333199130d2c9e2fd57f91703cc262d"
+
+lodash.range@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/lodash.range/-/lodash.range-3.2.0.tgz#f461e588f66683f7eadeade513e38a69a565a15d"
+
+lodash.shuffle@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/lodash.shuffle/-/lodash.shuffle-4.2.0.tgz#145b5053cf875f6f5c2a33f48b6e9948c6ec7b4b"
 
 lodash.some@^4.6.0:
   version "4.6.0"

@@ -2,7 +2,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withInfo } from '@storybook/addon-info'
 import { generateChordData } from '@nivo/generators'
-import { Chord } from '../es'
+import { Chord } from '../index'
 
 const commonProperties = {
     width: 600,

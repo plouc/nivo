@@ -2,7 +2,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, select } from '@storybook/addon-knobs'
 import { generateProgrammingLanguageStats } from '@nivo/generators'
-import { Pie } from '../es'
+import { Pie } from '../index'
 
 const commonProperties = {
     width: 600,
