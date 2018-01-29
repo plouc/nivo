@@ -2,7 +2,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, select } from '@storybook/addon-knobs'
 import { generateWinesTastes } from '@nivo/generators'
-import { Radar } from '../es'
+import { Radar } from '../index'
 
 const commonProperties = {
     width: 600,

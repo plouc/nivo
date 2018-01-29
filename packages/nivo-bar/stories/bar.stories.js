@@ -4,7 +4,7 @@ import { withInfo } from '@storybook/addon-info'
 import { generateCountriesData, sets } from '@nivo/generators'
 import range from 'lodash/range'
 import random from 'lodash/random'
-import { Bar } from '../es'
+import { Bar } from '../index'
 
 const keys = ['hot dogs', 'burgers', 'sandwich', 'kebab', 'fries', 'donut']
 const commonProps = {
