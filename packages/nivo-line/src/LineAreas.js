@@ -25,7 +25,7 @@ const LineAreas = ({
     if (animate !== true) {
         return (
             <g>
-                {lines.map(({ id, color: areaColor, points }) => (
+                {lines.slice(0).reverse().map(({ id, color: areaColor, points }) => (
                     <path
                         key={id}
                         d={areaGenerator(points)}
@@ -45,7 +45,7 @@ const LineAreas = ({
 
     return (
         <g>
-            {lines.map(({ id, color: areaColor, points }) => (
+            {lines.slice(0).reverse().map(({ id, color: areaColor, points }) => (
                 <SmartMotion
                     key={id}
                     style={spring => ({
