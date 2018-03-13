@@ -20,8 +20,6 @@ import HeatMapCellRect from './HeatMapCellRect'
 import HeatMapCellCircle from './HeatMapCellCircle'
 import HeatMapCellTooltip from './HeatMapCellTooltip'
 
-import { scaleLinear } from 'd3-scale'
-
 class HeatMap extends Component {
     static propTypes = HeatMapPropTypes
 
@@ -42,8 +40,6 @@ class HeatMap extends Component {
             yScale,
             offsetX,
             offsetY,
-            minValue,
-            maxValue,
 
             margin,
             width,
@@ -65,12 +61,10 @@ class HeatMap extends Component {
             enableGridY,
 
             // labels
-            enableLabels,
             getLabelTextColor,
 
             // theming
             theme,
-            colorScale,
 
             // motion
             animate,
@@ -98,14 +92,6 @@ class HeatMap extends Component {
             motionDamping,
             motionStiffness,
         }
-
-        const legendItems = scaleLinear()
-            .domain([minValue, maxValue])
-            .ticks(4)
-            .map(i => ({
-                label: i,
-                fill: colorScale(i),
-            }))
 
         return (
             <Container isInteractive={isInteractive} theme={theme}>

@@ -10,8 +10,10 @@ import React from 'react'
 import { ResponsiveWrapper } from '@nivo/core'
 import HeatMap from './HeatMap'
 
-export default props => (
+const ResponsiveHeatMap = props => (
     <ResponsiveWrapper>
         {({ width, height }) => <HeatMap width={width} height={height} {...props} />}
     </ResponsiveWrapper>
 )
+
+export default ResponsiveHeatMap
