@@ -14,6 +14,7 @@ import { Container } from '@nivo/core'
 import { BasicTooltip } from '@nivo/core'
 import { BarPropTypes } from './props'
 import enhance from './enhance'
+import setDisplayName from 'recompose/setDisplayName'
 
 const findNodeUnderCursor = (nodes, margin, x, y) =>
     nodes.find(node =>
@@ -196,4 +197,4 @@ class BarCanvas extends Component {
 
 BarCanvas.propTypes = BarPropTypes
 
-export default enhance(BarCanvas)
+export default setDisplayName('BarCanvas')(enhance(BarCanvas))
