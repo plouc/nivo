@@ -198,3 +198,32 @@ stories.add(
         />
     ))
 )
+
+stories.add(
+    'custom tooltip',
+    withInfo()(() => (
+        <Bar
+            {...commonProps}
+            axisLeft={{
+                format: value =>
+                    Number(value).toLocaleString('ru-RU', {
+                        minimumFractionDigits: 2,
+                    }),
+            }}
+            tooltip={({ id, value, color }) => {
+                return (
+                    <strong style={{ color }}>
+                        {id}: {value}
+                    </strong>
+                )
+            }}
+            theme={{
+                tooltip: {
+                    container: {
+                        background: 'gray',
+                    },
+                },
+            }}
+        />
+    ))
+)

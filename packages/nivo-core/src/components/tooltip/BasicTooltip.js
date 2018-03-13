@@ -18,15 +18,17 @@ import Chip from './Chip'
 const chipStyle = { marginRight: 7 }
 
 const BasicTooltip = props => {
-    const { id, value: _value, format, enableChip, color, theme } = props
+    const { id, value: _value, format, enableChip, color, theme, renderContent } = props
 
-    let value = _value
-    if (format !== undefined && value !== undefined) {
-        value = format(value)
-    }
-
-    return (
-        <div style={theme.tooltip.container}>
+    let content
+    if (typeof renderContent === 'function') {
+        content = renderContent()
+    } else {
+        let value = _value
+        if (format !== undefined && value !== undefined) {
+            value = format(value)
+        }
+        content = (
             <div style={theme.tooltip.basic}>
                 {enableChip && <Chip color={color} style={chipStyle} />}
                 {value !== undefined ? (
@@ -37,8 +39,10 @@ const BasicTooltip = props => {
                     id
                 )}
             </div>
-        </div>
-    )
+        )
+    }
+
+    return <div style={theme.tooltip.container}>{content}</div>
 }
 
 BasicTooltip.propTypes = {
@@ -47,6 +51,7 @@ BasicTooltip.propTypes = {
     enableChip: PropTypes.bool.isRequired,
     color: PropTypes.string,
     format: PropTypes.func,
+    renderContent: PropTypes.func,
 
     theme: PropTypes.shape({
         tooltip: PropTypes.shape({

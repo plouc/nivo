@@ -103,6 +103,7 @@ const Bar = ({
     // interactivity
     isInteractive,
     tooltipFormat,
+    tooltip,
     onClick,
 
     legends,
@@ -180,6 +181,7 @@ const Bar = ({
                     onClick,
                     theme,
                     tooltipFormat,
+                    tooltip,
                 }
 
                 let bars

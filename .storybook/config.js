@@ -15,6 +15,7 @@ setDefaults({
 
 function loadStories() {
     require('../packages/nivo-bar/stories/bar.stories')
+    require('../packages/nivo-bar/stories/barCanvas.stories')
     require('../packages/nivo-chord/stories/chord.stories')
     require('../packages/nivo-circle-packing/stories/bubble.stories')
     require('../packages/nivo-heatmap/stories/heatmap.stories')
