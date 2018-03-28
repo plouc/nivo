@@ -25,15 +25,18 @@ const LineAreas = ({
     if (animate !== true) {
         return (
             <g>
-                {lines.slice(0).reverse().map(({ id, color: areaColor, points }) => (
-                    <path
-                        key={id}
-                        d={areaGenerator(points)}
-                        fill={areaColor}
-                        fillOpacity={areaOpacity}
-                        strokeWidth={0}
-                    />
-                ))}
+                {lines
+                    .slice(0)
+                    .reverse()
+                    .map(({ id, color: areaColor, points }) => (
+                        <path
+                            key={id}
+                            d={areaGenerator(points)}
+                            fill={areaColor}
+                            fillOpacity={areaOpacity}
+                            strokeWidth={0}
+                        />
+                    ))}
             </g>
         )
     }
@@ -45,25 +48,28 @@ const LineAreas = ({
 
     return (
         <g>
-            {lines.slice(0).reverse().map(({ id, color: areaColor, points }) => (
-                <SmartMotion
-                    key={id}
-                    style={spring => ({
-                        d: spring(areaGenerator(points), springConfig),
-                        fill: spring(areaColor, springConfig),
-                    })}
-                >
-                    {style => (
-                        <path
-                            key={id}
-                            d={style.d}
-                            fill={areaColor}
-                            fillOpacity={areaOpacity}
-                            strokeWidth={0}
-                        />
-                    )}
-                </SmartMotion>
-            ))}
+            {lines
+                .slice(0)
+                .reverse()
+                .map(({ id, color: areaColor, points }) => (
+                    <SmartMotion
+                        key={id}
+                        style={spring => ({
+                            d: spring(areaGenerator(points), springConfig),
+                            fill: spring(areaColor, springConfig),
+                        })}
+                    >
+                        {style => (
+                            <path
+                                key={id}
+                                d={style.d}
+                                fill={areaColor}
+                                fillOpacity={areaOpacity}
+                                strokeWidth={0}
+                            />
+                        )}
+                    </SmartMotion>
+                ))}
         </g>
     )
 }
