@@ -167,8 +167,6 @@ const Bar = ({
         fill: bar.data.fill ? bar.data.fill : bar.color,
     }))
 
-    console.log(markersBehindBars)
-
     return (
         <Container isInteractive={isInteractive} theme={theme}>
             {({ showTooltip, hideTooltip }) => {
