@@ -35,6 +35,8 @@ export const BarPropTypes = {
     axisLeft: PropTypes.object,
     enableGridX: PropTypes.bool.isRequired,
     enableGridY: PropTypes.bool.isRequired,
+    gridXValues: PropTypes.arrayOf(PropTypes.number),
+    gridYValues: PropTypes.arrayOf(PropTypes.number),
 
     // customization
     barComponent: PropTypes.func.isRequired,
@@ -50,6 +52,9 @@ export const BarPropTypes = {
     getLabelTextColor: PropTypes.func.isRequired, // computed
     labelLinkColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     getLabelLinkColor: PropTypes.func.isRequired, // computed
+
+    // markers
+    markersBehindBars: PropTypes.bool.isRequired,
 
     // styling
     borderRadius: PropTypes.number.isRequired,
@@ -104,6 +109,9 @@ export const BarDefaultProps = {
     labelSkipHeight: 0,
     labelLinkColor: 'theme',
     labelTextColor: 'theme',
+
+    // markers
+    markersBehindBars: false,
 
     defs: [],
     fill: [],

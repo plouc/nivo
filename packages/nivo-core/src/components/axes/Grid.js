@@ -19,6 +19,8 @@ const Grid = ({
     height,
     xScale,
     yScale,
+    xValues,
+    yValues,
     theme,
     animate,
     motionStiffness,
@@ -30,6 +32,7 @@ const Grid = ({
               height,
               scale: xScale,
               axis: 'x',
+              values: xValues,
           })
         : false
 
@@ -39,6 +42,7 @@ const Grid = ({
               height,
               scale: yScale,
               axis: 'y',
+              values: yValues,
           })
         : false
 
@@ -74,6 +78,8 @@ Grid.propTypes = {
 
     xScale: PropTypes.func,
     yScale: PropTypes.func,
+    xValues: PropTypes.arrayOf(PropTypes.number),
+    yValues: PropTypes.arrayOf(PropTypes.number),
 
     theme: PropTypes.object.isRequired,
 

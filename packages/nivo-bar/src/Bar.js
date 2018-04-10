@@ -72,6 +72,8 @@ const Bar = ({
     axisLeft,
     enableGridX,
     enableGridY,
+    gridXValues,
+    gridYValues,
 
     // customization
     barComponent,
@@ -85,6 +87,7 @@ const Bar = ({
 
     // markers
     markers,
+    markersBehindBars,
 
     // theming
     theme,
@@ -247,6 +250,8 @@ const Bar = ({
                             height={height}
                             xScale={enableGridX ? result.xScale : null}
                             yScale={enableGridY ? result.yScale : null}
+                            xValues={gridXValues}
+                            yValues={gridYValues}
                             {...motionProps}
                         />
                         <Axes
@@ -261,7 +266,7 @@ const Bar = ({
                             left={axisLeft}
                             {...motionProps}
                         />
-                        {bars}
+                        {(markersBehindBars) ? null : bars}
                         <CartesianMarkers
                             markers={markers}
                             width={width}
@@ -269,7 +274,8 @@ const Bar = ({
                             xScale={result.xScale}
                             yScale={result.yScale}
                             theme={theme}
-                        />
+                        />                        
+                        {(markersBehindBars) ? bars : null}
                         {legends.map((legend, i) => {
                             let legendData
                             if (legend.dataFrom === 'keys') {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withInfo } from '@storybook/addon-info'
+import { withKnobs, boolean } from '@storybook/addon-knobs'
 import { generateCountriesData, sets } from '@nivo/generators'
 import range from 'lodash/range'
 import random from 'lodash/random'
@@ -22,53 +22,50 @@ const commonProps = {
 
 const stories = storiesOf('Bar', module)
 
-stories.add('stacked', withInfo()(() => <Bar {...commonProps} />))
+stories.addDecorator(story => <div className="wrapper">{story()}</div>).addDecorator(withKnobs)
 
-stories.add(
-    'stacked horizontal',
-    withInfo()(() => (
-        <Bar {...commonProps} layout="horizontal" enableGridY={false} enableGridX={true} />
-    ))
-)
+stories.add('stacked', () => (
+    <Bar {...commonProps} />
+))
 
-stories.add('grouped', withInfo()(() => <Bar {...commonProps} groupMode="grouped" />))
+stories.add('stacked horizontal', () => (
+    <Bar {...commonProps} layout="horizontal" enableGridY={false} enableGridX={true} />
+))
 
-stories.add(
-    'grouped horizontal',
-    withInfo()(() => (
-        <Bar
-            {...commonProps}
-            groupMode="grouped"
-            layout="horizontal"
-            enableGridY={false}
-            enableGridX={true}
-        />
-    ))
-)
+stories.add('grouped', () => (
+    <Bar {...commonProps} groupMode="grouped" />
+))
 
-stories.add(
-    'with marker',
-    withInfo()(() => (
-        <Bar
-            {...commonProps}
-            padding={0.4}
-            markers={[
-                {
-                    axis: 'y',
-                    value: 300,
-                    lineStyle: { stroke: 'rgba(0, 0, 0, .35)', strokeWidth: 2 },
-                    legend: 'y marker at 300',
-                    legendOrientation: 'vertical',
-                },
-            ]}
-        />
-    ))
-)
+stories.add('grouped horizontal', () => (
+    <Bar
+        {...commonProps}
+        groupMode="grouped"
+        layout="horizontal"
+        enableGridY={false}
+        enableGridX={true}
+    />
+))
 
-stories.add(
-    'using custom colorBy',
-    withInfo()(() => <Bar {...commonProps} colorBy={({ id, data }) => data[`${id}Color`]} />)
-)
+stories.add('with marker', () => (
+    <Bar
+        {...commonProps}
+        padding={0.4}
+        markersBehindBars={boolean('markersBehindBars', false)}
+        markers={[
+            {
+                axis: 'y',
+                value: 300,
+                lineStyle: { stroke: 'rgba(0, 0, 0, .35)', strokeWidth: 2 },
+                legend: 'y marker at 300',
+                legendOrientation: 'vertical',
+            },
+        ]}
+    />
+))
+
+stories.add('using custom colorBy', () => (
+    <Bar {...commonProps} colorBy={({ id, data }) => data[`${id}Color`]} />
+))
 
 const divergingData = range(9).map(i => {
     let gain = random(0, 100)
@@ -136,65 +133,53 @@ const divergingCommonProps = {
     ],
 }
 
-stories.add(
-    'diverging stacked',
-    withInfo()(() => (
-        <Bar
-            {...divergingCommonProps}
-            keys={['gained <= 100$', 'gained > 100$', 'lost <= 100$', 'lost > 100$']}
-            padding={0.4}
-            colors={['#97e3d5', '#61cdbb', '#f47560', '#e25c3b']}
-            labelFormat={v => `${v}%`}
-        />
-    ))
-)
+stories.add('diverging stacked', () => (
+    <Bar
+        {...divergingCommonProps}
+        keys={['gained <= 100$', 'gained > 100$', 'lost <= 100$', 'lost > 100$']}
+        padding={0.4}
+        colors={['#97e3d5', '#61cdbb', '#f47560', '#e25c3b']}
+        labelFormat={v => `${v}%`}
+    />
+))
 
-stories.add(
-    'diverging grouped',
-    withInfo()(() => (
-        <Bar
-            {...divergingCommonProps}
-            keys={['gained > 100$', 'gained <= 100$', 'lost <= 100$', 'lost > 100$']}
-            groupMode="grouped"
-            padding={0.1}
-            colors={['#61cdbb', '#97e3d5', '#f47560', '#e25c3b']}
-            innerPadding={1}
-        />
-    ))
-)
+stories.add('diverging grouped', () => (
+    <Bar
+        {...divergingCommonProps}
+        keys={['gained > 100$', 'gained <= 100$', 'lost <= 100$', 'lost > 100$']}
+        groupMode="grouped"
+        padding={0.1}
+        colors={['#61cdbb', '#97e3d5', '#f47560', '#e25c3b']}
+        innerPadding={1}
+    />
+))
 
 const CustomBarComponent = ({ x, y, width, height, color }) => (
     <circle cx={x + width / 2} cy={y + height / 2} r={Math.min(width, height) / 2} fill={color} />
 )
 
-stories.add(
-    'custom bar item',
-    withInfo()(() => (
-        <Bar
-            {...commonProps}
-            innerPadding={4}
-            barComponent={CustomBarComponent}
-            labelTextColor="inherit:darker(1)"
-        />
-    ))
-)
+stories.add('custom bar item', () => (
+    <Bar
+        {...commonProps}
+        innerPadding={4}
+        barComponent={CustomBarComponent}
+        labelTextColor="inherit:darker(1)"
+    />
+))
 
-stories.add(
-    'with formatted values',
-    withInfo()(() => (
-        <Bar
-            {...commonProps}
-            axisLeft={{
-                format: value =>
-                    Number(value).toLocaleString('ru-RU', {
-                        minimumFractionDigits: 2,
-                    }),
-            }}
-            tooltipFormat={value =>
-                `${Number(value).toLocaleString('ru-RU', {
+stories.add('with formatted values', () => (
+    <Bar
+        {...commonProps}
+        axisLeft={{
+            format: value =>
+                Number(value).toLocaleString('ru-RU', {
                     minimumFractionDigits: 2,
-                })} ₽`
-            }
-        />
-    ))
-)
+                }),
+        }}
+        tooltipFormat={value =>
+            `${Number(value).toLocaleString('ru-RU', {
+                minimumFractionDigits: 2,
+            })} ₽`
+        }
+    />
+))
