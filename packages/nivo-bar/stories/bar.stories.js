@@ -24,17 +24,13 @@ const stories = storiesOf('Bar', module)
 
 stories.addDecorator(story => <div className="wrapper">{story()}</div>).addDecorator(withKnobs)
 
-stories.add('stacked', () => (
-    <Bar {...commonProps} />
-))
+stories.add('stacked', () => <Bar {...commonProps} />)
 
 stories.add('stacked horizontal', () => (
     <Bar {...commonProps} layout="horizontal" enableGridY={false} enableGridX={true} />
 ))
 
-stories.add('grouped', () => (
-    <Bar {...commonProps} groupMode="grouped" />
-))
+stories.add('grouped', () => <Bar {...commonProps} groupMode="grouped" />)
 
 stories.add('grouped horizontal', () => (
     <Bar

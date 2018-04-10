@@ -262,7 +262,7 @@ const Bar = ({
                             left={axisLeft}
                             {...motionProps}
                         />
-                        {(markersBehindBars) ? null : bars}
+                        {markersBehindBars ? null : bars}
                         <CartesianMarkers
                             markers={markers}
                             width={width}
@@ -270,8 +270,8 @@ const Bar = ({
                             xScale={result.xScale}
                             yScale={result.yScale}
                             theme={theme}
-                        />                        
-                        {(markersBehindBars) ? bars : null}
+                        />
+                        {markersBehindBars ? bars : null}
                         {legends.map((legend, i) => {
                             let legendData
                             if (legend.dataFrom === 'keys') {
