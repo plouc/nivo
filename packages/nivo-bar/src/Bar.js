@@ -85,6 +85,7 @@ const Bar = ({
 
     // markers
     markers,
+    markersBehindBars,
 
     // theming
     theme,
@@ -165,6 +166,8 @@ const Bar = ({
         label: bar.data.indexValue,
         fill: bar.data.fill ? bar.data.fill : bar.color,
     }))
+
+    console.log(markersBehindBars)
 
     return (
         <Container isInteractive={isInteractive} theme={theme}>
@@ -261,6 +264,7 @@ const Bar = ({
                             left={axisLeft}
                             {...motionProps}
                         />
+                        {(markersBehindBars) ? null : bars}
                         <CartesianMarkers
                             markers={markers}
                             width={width}
@@ -269,7 +273,7 @@ const Bar = ({
                             yScale={result.yScale}
                             theme={theme}
                         />                        
-                        {bars}
+                        {(markersBehindBars) ? bars : null}
                         {legends.map((legend, i) => {
                             let legendData
                             if (legend.dataFrom === 'keys') {

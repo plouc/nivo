@@ -51,6 +51,9 @@ export const BarPropTypes = {
     labelLinkColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     getLabelLinkColor: PropTypes.func.isRequired, // computed
 
+    // markers
+    markersBehindBars: PropTypes.bool.isRequired,
+
     // styling
     borderRadius: PropTypes.number.isRequired,
     getColor: PropTypes.func.isRequired, // computed
@@ -104,6 +107,9 @@ export const BarDefaultProps = {
     labelSkipHeight: 0,
     labelLinkColor: 'theme',
     labelTextColor: 'theme',
+
+    // markers
+    markersBehindBars: false,
 
     defs: [],
     fill: [],
