@@ -72,6 +72,8 @@ const Bar = ({
     axisLeft,
     enableGridX,
     enableGridY,
+    gridXValues,
+    gridYValues,
 
     // customization
     barComponent,
@@ -248,6 +250,8 @@ const Bar = ({
                             height={height}
                             xScale={enableGridX ? result.xScale : null}
                             yScale={enableGridY ? result.yScale : null}
+                            xValues={gridXValues}
+                            yValues={gridYValues}
                             {...motionProps}
                         />
                         <Axes
