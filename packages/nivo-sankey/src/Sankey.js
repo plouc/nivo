@@ -93,7 +93,7 @@ const Sankey = ({
 
     data.nodes.forEach(node => {
         node.color = getColor(node)
-        node.label = getLabel(node)
+        node.label = node.tag === undefined ? getLabel(node) : node.tag
         node.x = node.x0 + nodePaddingX
         node.y = node.y0
         node.width = Math.max(node.x1 - node.x0 - nodePaddingX * 2, 0)
