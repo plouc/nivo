@@ -53,10 +53,17 @@ export default class Stream extends Component {
 
         const mappedSettings = propsMapper(settings)
 
-        const code = generateCode('ResponsiveStream', mappedSettings, {
-            pkg: '@nivo/stream',
-            defaults: StreamDefaultProps,
-        })
+        const code = generateCode(
+            'ResponsiveStream',
+            {
+                keys,
+                ...mappedSettings,
+            },
+            {
+                pkg: '@nivo/stream',
+                defaults: StreamDefaultProps,
+            }
+        )
 
         const header = <ChartHeader chartClass="Stream" tags={['stacked', 'isomorphic']} />
 
