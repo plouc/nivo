@@ -10,7 +10,8 @@
     "cjs/"
   ],
   "dependencies": {
-    "recompose": "^0.26.0"
+    "recompose": "^0.26.0",
+    "lodash-es": "^4.17.4"
   },
   "peerDependencies": {
     "prop-types": "^15.5.10",

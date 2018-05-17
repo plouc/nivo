@@ -16,6 +16,7 @@
     "d3-scale": "^1.0.6",
     "d3-scale-chromatic": "^1.1.1",
     "d3-shape": "^1.2.0",
+    "lodash-es": "^4.17.4",
     "react-measure": "^2.0.2",
     "react-motion": "^0.5.2",
     "recompose": "^0.26.0"
