@@ -1,5 +1,5 @@
-import range from 'lodash.range'
-import random from 'lodash.random'
+import range from 'lodash/range'
+import random from 'lodash/random'
 import { names } from './sets'
 
 export default ({ keys = names, size = 7, minValue = 0, maxValue = 2000 } = {}) => {

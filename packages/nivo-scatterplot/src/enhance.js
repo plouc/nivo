@@ -7,7 +7,8 @@
  * file that was distributed with this source code.
  */
 import { scaleLinear } from 'd3-scale'
-import { minBy, maxBy } from 'lodash'
+import minBy from 'lodash/minBy'
+import maxBy from 'lodash/maxBy'
 import compose from 'recompose/compose'
 import defaultProps from 'recompose/defaultProps'
 import withPropsOnChange from 'recompose/withPropsOnChange'

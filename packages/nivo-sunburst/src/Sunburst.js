@@ -8,8 +8,8 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { merge, sortBy, cloneDeep } from 'lodash'
-import { Motion, TransitionMotion, spring } from 'react-motion'
+import sortBy from 'lodash/sortBy'
+import cloneDeep from 'lodash/cloneDeep'
 import compose from 'recompose/compose'
 import defaultProps from 'recompose/defaultProps'
 import withPropsOnChange from 'recompose/withPropsOnChange'

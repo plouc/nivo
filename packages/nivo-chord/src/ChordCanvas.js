@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React, { Component } from 'react'
-import { partial } from 'lodash'
+import partial from 'lodash/partial'
 import { midAngle, getPolarLabelProps, degreesToRadians } from '@nivo/core'
 import { getRelativeCursor, getHoveredArc } from '@nivo/core'
 import { Container } from '@nivo/core'

@@ -22,9 +22,7 @@
   "dependencies": {
     "d3-time": "^1.0.7",
     "d3-time-format": "^2.0.5",
-    "lodash.random": "^3.2.0",
-    "lodash.range": "^3.2.0",
-    "lodash.shuffle": "^4.2.0"
+    "lodash": "^4.17.4"
   },
   "publishConfig": {
     "access": "public"

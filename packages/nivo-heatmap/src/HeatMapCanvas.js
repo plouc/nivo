@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React, { Component } from 'react'
-import { partial } from 'lodash'
+import partial from 'lodash/partial'
 import { renderAxesToCanvas } from '@nivo/core'
 import { getRelativeCursor, isCursorInRect } from '@nivo/core'
 import { renderRect, renderCircle } from './canvas'

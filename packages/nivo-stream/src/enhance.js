@@ -7,7 +7,9 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { min, max, range, sortBy } from 'lodash'
+import min from 'lodash/min'
+import max from 'lodash/max'
+import range from 'lodash/range'
 import { stack as d3Stack, area } from 'd3-shape'
 import { scaleLinear, scalePoint } from 'd3-scale'
 import compose from 'recompose/compose'

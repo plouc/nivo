@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { max, isEqual, merge } from 'lodash'
+import max from 'lodash/max'
 import React from 'react'
 import PropTypes from 'prop-types'
 import compose from 'recompose/compose'

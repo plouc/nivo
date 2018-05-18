@@ -8,7 +8,7 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { isEqual } from 'lodash'
+import isEqual from 'lodash/isEqual'
 import shouldUpdate from 'recompose/shouldUpdate'
 import { motionPropTypes } from '../../props'
 import Axis, { axisPropType } from './Axis'

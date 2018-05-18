@@ -6,7 +6,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { isNumber, isPlainObject } from 'lodash'
+import isNumber from 'lodash/isNumber'
+import isPlainObject from 'lodash/isPlainObject'
 import {
     ANCHOR_BOTTOM,
     ANCHOR_BOTTOM_LEFT,

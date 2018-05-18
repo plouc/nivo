@@ -6,7 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { range, min, max } from 'lodash'
+import min from 'lodash/min'
+import max from 'lodash/max'
+import range from 'lodash/range'
 import { scaleLinear } from 'd3-scale'
 import { getIndexedScale } from './common'
 

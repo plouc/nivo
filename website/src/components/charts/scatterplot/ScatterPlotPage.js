@@ -6,7 +6,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { range, random } from 'lodash'
+import range from 'lodash/range'
+import random from 'lodash/random'
 import React, { Component } from 'react'
 import Helmet from 'react-helmet'
 

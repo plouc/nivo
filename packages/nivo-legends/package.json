@@ -10,6 +10,7 @@
     "cjs/"
   ],
   "dependencies": {
+    "lodash": "^4.17.4",
     "recompose": "^0.26.0"
   },
   "peerDependencies": {

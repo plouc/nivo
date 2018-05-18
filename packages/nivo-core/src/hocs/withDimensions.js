@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
-import { isEqual } from 'lodash'
+import isEqual from 'lodash/isEqual'
 import compose from 'recompose/compose'
 import setPropTypes from 'recompose/setPropTypes'
 import defaultProps from 'recompose/defaultProps'
