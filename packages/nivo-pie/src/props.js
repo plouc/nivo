@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
+import { noop } from '@nivo/core'
 import { LegendPropShape } from '@nivo/legends'
 
 export const PiePropTypes = {
@@ -60,6 +61,7 @@ export const PiePropTypes = {
 
     // interactivity
     isInteractive: PropTypes.bool,
+    onClick: PropTypes.func.isRequired,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
@@ -92,6 +94,7 @@ export const PieDefaultProps = {
 
     // interactivity
     isInteractive: true,
+    onClick: noop,
 
     legends: [],
 }

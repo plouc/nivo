@@ -44,6 +44,10 @@ export default class Pie extends Component {
         this.setState({ settings })
     }
 
+    handleNodeClick = (node, event) => {
+        alert(`${node.label}: ${node.value}\nclicked at x: ${event.clientX}, y: ${event.clientY}`)
+    }
+
     render() {
         const { data, diceRoll } = this.props
         const { settings } = this.state
@@ -115,7 +119,12 @@ export default class Pie extends Component {
                         {description}
                     </MediaQuery>
                     <ChartTabs chartClass="pie" code={code} data={data} diceRoll={diceRoll}>
-                        <ResponsivePie data={data} {...mappedSettings} theme={nivoTheme} />
+                        <ResponsivePie
+                            data={data}
+                            {...mappedSettings}
+                            theme={nivoTheme}
+                            onClick={this.handleNodeClick}
+                        />
                     </ChartTabs>
                     <PieControls
                         scope="Pie"

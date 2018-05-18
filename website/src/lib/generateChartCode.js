@@ -55,9 +55,18 @@ const generate = (
 
     const imports = [name, ...children.map(([c]) => c)].map(i => `import { ${i} } from '${pkg}'`)
 
+    let responsiveWarning = ''
+    if (name.indexOf('Responsive') === 0) {
+        responsiveWarning = [
+            ``,
+            `// make sure parent container have a defined height when using responsive component,`,
+            `// otherwise height will be 0 and no chart will be rendered.`,
+        ].join('\n')
+    }
+
     return `import { render } from 'react-dom'
 ${imports.join('\n')}
-
+${responsiveWarning}
 render((
     <${name}
         ${properties.join('\n        ')}
