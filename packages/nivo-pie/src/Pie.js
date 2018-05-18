@@ -8,14 +8,14 @@
  */
 import React from 'react'
 import { pie as d3Pie, arc as d3Arc } from 'd3-shape'
-import { Motion, TransitionMotion, spring } from 'react-motion'
+import { Motion, spring } from 'react-motion'
 import { getInheritedColorGenerator } from '@nivo/core'
 import { getLabelGenerator } from '@nivo/core'
 import { degreesToRadians, radiansToDegrees } from '@nivo/core'
 import { bindDefs } from '@nivo/core'
 import { Container, SvgWrapper } from '@nivo/core'
-import { BasicTooltip } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
+import PieSlice from './PieSlice'
 import PieRadialLabels from './PieRadialLabels'
 import PieSlicesLabels from './PieSlicesLabels'
 import { PiePropTypes } from './props'
@@ -71,6 +71,7 @@ const Pie = ({
 
     // interactivity
     isInteractive,
+    onClick,
     tooltipFormat,
 
     legends,
@@ -169,33 +170,21 @@ const Pie = ({
                                         interpolatingStyle.centerY
                                     })`}
                                 >
-                                    {arcsData.map(d => {
-                                        const handleTooltip = e =>
-                                            showTooltip(
-                                                <BasicTooltip
-                                                    id={d.data.label}
-                                                    value={d.data.value}
-                                                    enableChip={true}
-                                                    color={d.data.color}
-                                                    theme={theme}
-                                                    format={tooltipFormat}
-                                                />,
-                                                e
-                                            )
-
-                                        return (
-                                            <path
-                                                key={d.data.id}
-                                                d={interpolatedArc(d)}
-                                                fill={d.data.fill ? d.data.fill : d.data.color}
-                                                strokeWidth={borderWidth}
-                                                stroke={borderColor(d.data)}
-                                                onMouseEnter={handleTooltip}
-                                                onMouseMove={handleTooltip}
-                                                onMouseLeave={hideTooltip}
-                                            />
-                                        )
-                                    })}
+                                    {arcsData.map(d => (
+                                        <PieSlice
+                                            key={d.data.id}
+                                            data={d.data}
+                                            path={interpolatedArc(d)}
+                                            color={d.data.color}
+                                            fill={d.data.fill ? d.data.fill : d.data.color}
+                                            borderWidth={borderWidth}
+                                            borderColor={borderColor(d.data)}
+                                            showTooltip={showTooltip}
+                                            hideTooltip={hideTooltip}
+                                            theme={theme}
+                                            onClick={onClick}
+                                        />
+                                    ))}
                                     {enableSlicesLabels && (
                                         <PieSlicesLabels
                                             data={arcsData}
