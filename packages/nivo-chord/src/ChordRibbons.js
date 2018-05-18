@@ -8,7 +8,8 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { isFunction, mapValues } from 'lodash'
+import isFunction from 'lodash/isFunction'
+import mapValues from 'lodash/mapValues'
 import { TransitionMotion, spring } from 'react-motion'
 import { format as d3Format } from 'd3-format'
 import compose from 'recompose/compose'

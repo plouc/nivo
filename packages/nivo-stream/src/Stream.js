@@ -7,7 +7,8 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { min, max, range, sortBy } from 'lodash'
+import range from 'lodash/range'
+import sortBy from 'lodash/sortBy'
 import { bindDefs } from '@nivo/core'
 import { Container, SvgWrapper } from '@nivo/core'
 import { Axes, Grid } from '@nivo/core'

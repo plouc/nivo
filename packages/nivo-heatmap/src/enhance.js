@@ -6,7 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { min, max, isEqual } from 'lodash'
+import min from 'lodash/min'
+import max from 'lodash/max'
+import isEqual from 'lodash/isEqual'
 import compose from 'recompose/compose'
 import defaultProps from 'recompose/defaultProps'
 import withPropsOnChange from 'recompose/withPropsOnChange'

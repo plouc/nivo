@@ -7,7 +7,8 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { cloneDeep, uniq } from 'lodash'
+import cloneDeep from 'lodash/cloneDeep'
+import uniq from 'lodash/uniq'
 import { sankey as d3Sankey } from 'd3-sankey'
 import { Container, SvgWrapper } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'

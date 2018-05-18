@@ -6,7 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import _ from 'lodash'
+import get from 'lodash/get'
+import isFunction from 'lodash/isFunction'
+import isArray from 'lodash/isArray'
 import {
     scaleOrdinal,
     schemeCategory10,
@@ -50,21 +52,21 @@ export const getColorRange = instruction => {
 
     if (instruction === 'nivo') return nivoCategoricalColors()
 
-    if (_.isFunction(instruction)) return instruction
+    if (isFunction(instruction)) return instruction
 
     if (ordinalColorScales[instruction]) return ordinalColorScales[instruction]
 
-    if (_.isArray(instruction)) return scaleOrdinal(instruction)
+    if (isArray(instruction)) return scaleOrdinal(instruction)
 
     return () => instruction
 }
 
 export const getColorsGenerator = (colors, colorBy) => {
     // skip range, color should be bound to data
-    if (_.isFunction(colorBy)) return colorBy
+    if (isFunction(colorBy)) return colorBy
 
     let scale
-    let getColorId = d => _.get(d, colorBy)
+    let getColorId = d => get(d, colorBy)
 
     if (colors === 'nivo') {
         // use default nivo categorical colors
@@ -72,7 +74,7 @@ export const getColorsGenerator = (colors, colorBy) => {
     } else if (ordinalColorScales[colors]) {
         // use predefined d3 ordinal color scale
         scale = ordinalColorScales[colors]
-    } else if (_.isArray(colors)) {
+    } else if (isArray(colors)) {
         // user defined color range
         scale = scaleOrdinal(colors)
     } else {

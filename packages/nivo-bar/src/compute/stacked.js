@@ -6,7 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { flattenDepth, min, max } from 'lodash'
+import min from 'lodash/min'
+import max from 'lodash/max'
+import flattenDepth from 'lodash/flattenDepth'
 import { scaleLinear } from 'd3-scale'
 import { stack, stackOffsetDiverging } from 'd3-shape'
 import { getIndexedScale } from './common'

@@ -1,6 +1,6 @@
-import range from 'lodash.range'
-import random from 'lodash.random'
-import shuffle from 'lodash.shuffle'
+import range from 'lodash/range'
+import random from 'lodash/random'
+import shuffle from 'lodash/shuffle'
 import { randColor } from './color'
 import { names } from './sets'
 

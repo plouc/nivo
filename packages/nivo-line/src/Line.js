@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { sortBy } from 'lodash'
+import sortBy from 'lodash/sortBy'
 import { area, line } from 'd3-shape'
 import compose from 'recompose/compose'
 import pure from 'recompose/pure'

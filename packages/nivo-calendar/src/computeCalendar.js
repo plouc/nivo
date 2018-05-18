@@ -7,7 +7,11 @@
  * file that was distributed with this source code.
  */
 
-import _ from 'lodash'
+import memoize from 'lodash/memoize'
+import isDate from 'lodash/isDate'
+import range from 'lodash/range'
+import max from 'lodash/max'
+import assign from 'lodash/assign'
 import { DIRECTION_HORIZONTAL } from './constants'
 import { timeFormat } from 'd3-time-format'
 import { timeDays, timeWeek, timeWeeks, timeMonths, timeYear } from 'd3-time'
@@ -113,7 +117,7 @@ const monthPathAndBBox = ({ date, cellSize, yearIndex, yearSpacing, daySpacing, 
 /**
  * Creates a memoized version of monthPathAndBBox function.
  */
-const memoMonthPathAndBBox = _.memoize(
+const memoMonthPathAndBBox = memoize(
     monthPathAndBBox,
     ({ date, cellSize, yearIndex, yearSpacing, daySpacing, direction }) => {
         return `${date.toString()}.${cellSize}.${yearIndex}.${yearSpacing}.${daySpacing}.${direction}`
@@ -196,12 +200,12 @@ const CalendarLayout = ({
     daySpacing,
 }) => {
     // time related data
-    const fromDate = _.isDate(from) ? from : new Date(from)
-    const toDate = _.isDate(to) ? to : new Date(to)
+    const fromDate = isDate(from) ? from : new Date(from)
+    const toDate = isDate(to) ? to : new Date(to)
 
-    let yearRange = _.range(fromDate.getFullYear(), toDate.getFullYear() + 1)
+    let yearRange = range(fromDate.getFullYear(), toDate.getFullYear() + 1)
     const maxWeeks =
-        _.max(
+        max(
             yearRange.map(year => timeWeeks(new Date(year, 0, 1), new Date(year + 1, 0, 1)).length)
         ) + 1
 
@@ -237,7 +241,7 @@ const CalendarLayout = ({
 
         days = days.concat(
             timeDays(yearStart, yearEnd).map(dayDate =>
-                _.assign(
+                assign(
                     {
                         date: dayDate,
                         day: dayFormat(dayDate),
@@ -249,7 +253,7 @@ const CalendarLayout = ({
         )
 
         const yearMonths = timeMonths(yearStart, yearEnd).map(monthDate =>
-            _.assign(
+            assign(
                 { date: monthDate },
                 memoMonthPathAndBBox({
                     date: monthDate,

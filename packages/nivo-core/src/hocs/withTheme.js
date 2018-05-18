@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
 import compose from 'recompose/compose'
 import setPropTypes from 'recompose/setPropTypes'
 import withPropsOnChange from 'recompose/withPropsOnChange'
-import { merge } from 'lodash'
+import merge from 'lodash/merge'
 import { defaultTheme } from '../defaults'
 
 /**

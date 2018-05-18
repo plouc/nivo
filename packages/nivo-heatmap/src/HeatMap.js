@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React, { Component } from 'react'
-import { partial } from 'lodash'
+import partial from 'lodash/partial'
 import { TransitionMotion } from 'react-motion'
 import { colorMotionSpring, getInterpolatedColor } from '@nivo/core'
 import { Container, SvgWrapper } from '@nivo/core'

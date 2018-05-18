@@ -8,7 +8,8 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { isFunction, sortBy } from 'lodash'
+import isFunction from 'lodash/isFunction'
+import sortBy from 'lodash/sortBy'
 import { format as d3Format } from 'd3-format'
 import compose from 'recompose/compose'
 import withState from 'recompose/withState'

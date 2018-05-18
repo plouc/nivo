@@ -6,7 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { last, isArray, isFunction } from 'lodash'
+import last from 'lodash/last'
+import isArray from 'lodash/isArray'
+import isFunction from 'lodash/isFunction'
 import { scaleQuantize } from 'd3-scale'
 import {
     // Diverging

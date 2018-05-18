@@ -6,7 +6,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { range, min, max, maxBy, sumBy, uniq } from 'lodash'
+import range from 'lodash/range'
+import min from 'lodash/min'
+import max from 'lodash/max'
+import sumBy from 'lodash/sumBy'
+import uniq from 'lodash/uniq'
 import { scalePoint, scaleLinear } from 'd3-scale'
 
 /**
