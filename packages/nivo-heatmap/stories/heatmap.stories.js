@@ -122,3 +122,21 @@ stories.add('with formatted values', () => (
         }
     />
 ))
+
+stories.add('custom tooltip', () => (
+    <HeatMap
+        {...commonProperties}
+        tooltip={({ xKey, yKey, value, color }) => (
+            <strong style={{ color }}>
+                {xKey} / {yKey}: {value}
+            </strong>
+        )}
+        theme={{
+            tooltip: {
+                container: {
+                    background: 'gray',
+                },
+            },
+        }}
+    />
+))

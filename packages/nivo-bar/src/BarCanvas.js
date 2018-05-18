@@ -14,6 +14,7 @@ import { Container } from '@nivo/core'
 import { BasicTooltip } from '@nivo/core'
 import { BarPropTypes } from './props'
 import enhance from './enhance'
+import setDisplayName from 'recompose/setDisplayName'
 
 const findNodeUnderCursor = (nodes, margin, x, y) =>
     nodes.find(node =>
@@ -127,7 +128,7 @@ class BarCanvas extends Component {
     handleMouseHover = (showTooltip, hideTooltip) => event => {
         if (!this.bars) return
 
-        const { margin, theme } = this.props
+        const { margin, theme, tooltip } = this.props
         const [x, y] = getRelativeCursor(this.surface, event)
 
         const bar = findNodeUnderCursor(this.bars, margin, x, y)
@@ -140,6 +141,11 @@ class BarCanvas extends Component {
                     enableChip={true}
                     color={bar.color}
                     theme={theme}
+                    renderContent={
+                        typeof tooltip === 'function'
+                            ? tooltip.bind(null, { color: bar.color, ...bar.data })
+                            : null
+                    }
                 />,
                 event
             )
@@ -191,4 +197,4 @@ class BarCanvas extends Component {
 
 BarCanvas.propTypes = BarPropTypes
 
-export default enhance(BarCanvas)
+export default setDisplayName('BarCanvas')(enhance(BarCanvas))

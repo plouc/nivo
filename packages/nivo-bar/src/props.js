@@ -63,6 +63,7 @@ export const BarPropTypes = {
     isInteractive: PropTypes.bool,
     onClick: PropTypes.func.isRequired,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    tooltip: PropTypes.func,
 
     legends: PropTypes.arrayOf(
         PropTypes.shape({
