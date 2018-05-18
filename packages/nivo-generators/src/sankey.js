@@ -1,10 +1,10 @@
-const range = require('lodash.range')
-const random = require('lodash.random')
-const shuffle = require('lodash.shuffle')
-const color = require('./color')
-const sets = require('./sets')
+import range from 'lodash.range'
+import random from 'lodash.random'
+import shuffle from 'lodash.shuffle'
+import { randColor } from './color'
+import { names } from './sets'
 
-const availableNodes = sets.names.map(name => ({ id: name }))
+const availableNodes = names.map(name => ({ id: name }))
 
 const getNodeTargets = (id, links, currentPath) => {
     const targets = links.filter(({ source }) => source === id).map(({ target }) => {
@@ -43,10 +43,10 @@ const getNodesTargets = links =>
         return targetsById
     }, {})
 
-module.exports = ({ nodeCount, maxIterations = 3 } = {}) => {
+export default ({ nodeCount, maxIterations = 3 } = {}) => {
     const nodes = availableNodes.slice(0, nodeCount).map(node =>
         Object.assign({}, node, {
-            color: color.randColor(),
+            color: randColor(),
         })
     )
 
