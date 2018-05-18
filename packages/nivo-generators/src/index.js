@@ -1,15 +1,15 @@
-const range = require('lodash.range')
-const random = require('lodash.random')
-const shuffle = require('lodash.shuffle')
-const { timeDays } = require('d3-time')
-const { timeFormat } = require('d3-time-format')
-const color = require('./color')
-const sets = require('./sets')
+import range from 'lodash.range'
+import random from 'lodash.random'
+import shuffle from 'lodash.shuffle'
+import { timeDays } from 'd3-time'
+import { timeFormat } from 'd3-time-format'
+import * as color from './color'
+import * as sets from './sets'
 
-exports.sets = sets
-exports.randColor = color.randColor
+export { sets }
+export const randColor = color.randColor
 
-exports.generateProgrammingLanguageStats = (shouldShuffle = true, limit = -1) => {
+export const generateProgrammingLanguageStats = (shouldShuffle = true, limit = -1) => {
     let langs = sets.programmingLanguages
     if (shouldShuffle) {
         langs = shuffle(langs)
@@ -21,11 +21,11 @@ exports.generateProgrammingLanguageStats = (shouldShuffle = true, limit = -1) =>
     return langs.slice(0, limit).map(language => ({
         label: language,
         value: Math.round(Math.random() * 600),
-        color: exports.randColor(),
+        color: randColor(),
     }))
 }
 
-exports.uniqRand = generator => {
+export const uniqRand = generator => {
     const used = []
 
     return (...args) => {
@@ -40,16 +40,16 @@ exports.uniqRand = generator => {
     }
 }
 
-exports.randCountryCode = () => shuffle(sets.countryCodes)[0]
+export const randCountryCode = () => shuffle(sets.countryCodes)[0]
 
-exports.generateDrinkStats = (size = 16) => {
+export const generateDrinkStats = (size = 16) => {
     const rand = () => random(0, 60)
     const types = ['whisky', 'rhum', 'gin', 'vodka', 'cognac']
-    const country = exports.uniqRand(exports.randCountryCode)
+    const country = uniqRand(randCountryCode)
 
     const data = types.map(id => ({
         id,
-        color: exports.randColor(),
+        color: randColor(),
         data: [],
     }))
 
@@ -57,7 +57,7 @@ exports.generateDrinkStats = (size = 16) => {
         const x = country()
         types.forEach(id => {
             data.find(d => d.id === id).data.push({
-                color: exports.randColor(),
+                color: randColor(),
                 x,
                 y: rand(),
             })
@@ -67,7 +67,7 @@ exports.generateDrinkStats = (size = 16) => {
     return data
 }
 
-exports.generateSerie = (length = 20) => {
+export const generateSerie = (length = 20) => {
     const data = []
     const max = 100 + Math.random() * (Math.random() * 600)
 
@@ -78,13 +78,13 @@ exports.generateSerie = (length = 20) => {
     return data
 }
 
-exports.generateStackData = (size = 3) => {
+export const generateStackData = (size = 3) => {
     const length = 16
-    return range(size).map(() => exports.generateSerie(length).map((v, i) => ({ x: i, y: v })))
+    return range(size).map(() => generateSerie(length).map((v, i) => ({ x: i, y: v })))
 }
 
-exports.generateCountriesPopulation = size => {
-    const countryCode = exports.uniqRand(exports.randCountryCode())
+export const generateCountriesPopulation = size => {
+    const countryCode = uniqRand(randCountryCode())
 
     return range(size).map(() => ({
         country: countryCode(),
@@ -92,7 +92,7 @@ exports.generateCountriesPopulation = size => {
     }))
 }
 
-exports.generateDayCounts = (from, to, maxSize = 0.9) => {
+export const generateDayCounts = (from, to, maxSize = 0.9) => {
     const days = timeDays(from, to)
 
     const size =
@@ -111,7 +111,10 @@ exports.generateDayCounts = (from, to, maxSize = 0.9) => {
         })
 }
 
-exports.generateCountriesData = (keys, { size = 12, min = 0, max = 200, withColors = true } = {}) =>
+export const generateCountriesData = (
+    keys,
+    { size = 12, min = 0, max = 200, withColors = true } = {}
+) =>
     sets.countryCodes.slice(0, size).map(country => {
         const d = {
             country,
@@ -119,7 +122,7 @@ exports.generateCountriesData = (keys, { size = 12, min = 0, max = 200, withColo
         keys.forEach(key => {
             d[key] = random(min, max)
             if (withColors === true) {
-                d[`${key}Color`] = exports.randColor()
+                d[`${key}Color`] = randColor()
             }
         })
 
@@ -208,7 +211,7 @@ const libTreeItems = [
     ],
 ]
 
-exports.generateLibTree = (name = 'nivo', limit, children = libTreeItems) => {
+export const generateLibTree = (name = 'nivo', limit, children = libTreeItems) => {
     limit = limit || children.length
     if (limit > children.length) {
         limit = children.length
@@ -216,14 +219,14 @@ exports.generateLibTree = (name = 'nivo', limit, children = libTreeItems) => {
 
     const tree = {
         name,
-        color: exports.randColor(),
+        color: randColor(),
     }
     if (children && children.length > 0) {
         tree.children = range(limit).map((o, i) => {
             const leaf = children[i]
 
             // full path `${name}.${leaf[0]}`
-            return exports.generateLibTree(leaf[0], null, leaf[1] || [])
+            return generateLibTree(leaf[0], null, leaf[1] || [])
         })
     } else {
         tree.loc = Math.round(Math.random() * 200000)
@@ -234,7 +237,7 @@ exports.generateLibTree = (name = 'nivo', limit, children = libTreeItems) => {
 
 const wines = ['chardonay', 'carmenere', 'syrah']
 const wineTastes = ['fruity', 'bitter', 'heavy', 'strong', 'sunny']
-exports.generateWinesTastes = ({ randMin = 20, randMax = 120 } = {}) => {
+export const generateWinesTastes = ({ randMin = 20, randMax = 120 } = {}) => {
     const data = wineTastes.map(taste => {
         const d = { taste }
         wines.forEach(wine => {
@@ -247,5 +250,5 @@ exports.generateWinesTastes = ({ randMin = 20, randMax = 120 } = {}) => {
     return { data, keys: wines }
 }
 
-exports.generateSankeyData = require('./sankey')
-exports.generateChordData = require('./chord')
+export { default as generateSankeyData } from './sankey'
+export { default as generateChordData } from './chord'

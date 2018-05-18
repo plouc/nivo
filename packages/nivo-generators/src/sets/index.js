@@ -1,3 +1,3 @@
-exports.countryCodes = require('./countryCodes')
-exports.names = require('./names')
-exports.programmingLanguages = require('./programmingLanguages')
+export { default as countryCodes } from './countryCodes'
+export { default as names } from './names'
+export { default as programmingLanguages } from './programmingLanguages'

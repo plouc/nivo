@@ -1,1 +1,1 @@
-exports.randColor = () => `hsl(${Math.round(Math.random() * 360)}, 70%, 50%)`
+export const randColor = () => `hsl(${Math.round(Math.random() * 360)}, 70%, 50%)`
