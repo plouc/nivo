@@ -126,6 +126,12 @@ class HeatMapCanvas extends Component {
         hideTooltip()
     }
 
+    handleClick = event => {
+        if (!this.props.currentNode) return
+
+        this.props.onClick(this.props.currentNode, event)
+    }
+
     render() {
         const { outerWidth, outerHeight, pixelRatio, isInteractive, theme } = this.props
 
@@ -145,6 +151,7 @@ class HeatMapCanvas extends Component {
                         onMouseEnter={partial(this.handleMouseHover, showTooltip, hideTooltip)}
                         onMouseMove={partial(this.handleMouseHover, showTooltip, hideTooltip)}
                         onMouseLeave={partial(this.handleMouseLeave, hideTooltip)}
+                        onClick={this.handleClick}
                     />
                 )}
             </Container>

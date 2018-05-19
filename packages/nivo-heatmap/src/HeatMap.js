@@ -82,6 +82,7 @@ class HeatMap extends Component {
 
             // interactivity
             isInteractive,
+            onClick,
         } = this.props
 
         let Cell
@@ -140,6 +141,7 @@ class HeatMap extends Component {
                                 nodes.map(node =>
                                     React.createElement(Cell, {
                                         key: node.key,
+                                        data: node,
                                         value: node.value,
                                         x: node.x,
                                         y: node.y,
@@ -152,6 +154,7 @@ class HeatMap extends Component {
                                         textColor: getLabelTextColor(node),
                                         onHover: partial(onHover, node),
                                         onLeave,
+                                        onClick,
                                     })
                                 )}
 
@@ -184,6 +187,7 @@ class HeatMap extends Component {
 
                                                         return React.createElement(Cell, {
                                                             key,
+                                                            data: node,
                                                             value: node.value,
                                                             x: style.x,
                                                             y: style.y,
@@ -202,6 +206,7 @@ class HeatMap extends Component {
                                                             }),
                                                             onHover: partial(onHover, node),
                                                             onLeave,
+                                                            onClick,
                                                         })
                                                     }
                                                 )}
