@@ -1,6 +1,6 @@
 {
   "name": "@nivo/bar",
-  "version": "0.35.2",
+  "version": "0.36.0",
   "license": "MIT",
   "main": "./index.js",
   "files": [
@@ -9,7 +9,7 @@
     "cjs/"
   ],
   "dependencies": {
-    "@nivo/core": "0.35.2",
+    "@nivo/core": "0.36.0",
     "@nivo/legends": "0.35.2",
     "d3-scale": "^1.0.6",
     "d3-shape": "^1.2.0",
