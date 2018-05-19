@@ -135,6 +135,16 @@ export default class HeatMap extends Component {
         this.setState({ settings })
     }
 
+    handleNodeClick = (node, event) => {
+        alert(
+            `${node.yKey}.${node.xKey}: ${node.value}\nx: ${Math.round(node.x)}, y: ${Math.round(
+                node.y
+            )}, w: ${Math.round(node.width)}, h: ${Math.round(node.height)}\nclicked at x: ${
+                event.clientX
+            }, y: ${event.clientY}`
+        )
+    }
+
     render() {
         const { data, keys, settings } = this.state
 
@@ -208,6 +218,7 @@ export default class HeatMap extends Component {
                             data={data}
                             keys={keys}
                             {...mappedSettings}
+                            onClick={this.handleNodeClick}
                             theme={nivoTheme}
                         />
                     </ChartTabs>

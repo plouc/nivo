@@ -13,6 +13,7 @@ import pure from 'recompose/pure'
 const style = { cursor: 'pointer' }
 
 const HeatMapCellRect = ({
+    data,
     value,
     x,
     y,
@@ -25,12 +26,16 @@ const HeatMapCellRect = ({
     textColor,
     onHover,
     onLeave,
+    onClick,
 }) => (
     <g
         transform={`translate(${x}, ${y})`}
         onMouseEnter={onHover}
         onMouseMove={onHover}
         onMouseLeave={onLeave}
+        onClick={e => {
+            onClick(data, e)
+        }}
         style={style}
     >
         <rect
@@ -56,6 +61,7 @@ const HeatMapCellRect = ({
 )
 
 HeatMapCellRect.propTypes = {
+    data: PropTypes.object.isRequired,
     value: PropTypes.number.isRequired,
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
@@ -68,6 +74,7 @@ HeatMapCellRect.propTypes = {
     textColor: PropTypes.string.isRequired,
     onHover: PropTypes.func.isRequired,
     onLeave: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired,
 }
 
 export default pure(HeatMapCellRect)

@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
-import { quantizeColorScalePropType } from '@nivo/core'
+import { quantizeColorScalePropType, noop } from '@nivo/core'
 
 export const HeatMapPropTypes = {
     // data
@@ -50,6 +50,7 @@ export const HeatMapPropTypes = {
 
     // interactivity
     isInteractive: PropTypes.bool,
+    onClick: PropTypes.func.isRequired,
     hoverTarget: PropTypes.oneOf(['cell', 'row', 'column', 'rowColumn']).isRequired,
     cellHoverOpacity: PropTypes.number.isRequired,
     cellHoverOthersOpacity: PropTypes.number.isRequired,
@@ -91,6 +92,7 @@ export const HeatMapDefaultProps = {
 
     // interactivity
     isInteractive: true,
+    onClick: noop,
     hoverTarget: 'rowColumn',
     cellHoverOpacity: 1,
     cellHoverOthersOpacity: 0.35,

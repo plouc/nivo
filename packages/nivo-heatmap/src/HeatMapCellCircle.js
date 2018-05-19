@@ -13,6 +13,7 @@ import pure from 'recompose/pure'
 const style = { cursor: 'pointer' }
 
 const HeatMapCellCircle = ({
+    data,
     value,
     x,
     y,
@@ -25,6 +26,7 @@ const HeatMapCellCircle = ({
     textColor,
     onHover,
     onLeave,
+    onClick,
 }) => (
     <g
         transform={`translate(${x}, ${y})`}
@@ -32,6 +34,9 @@ const HeatMapCellCircle = ({
         onMouseEnter={onHover}
         onMouseMove={onHover}
         onMouseLeave={onLeave}
+        onClick={e => {
+            onClick(data, e)
+        }}
     >
         <circle
             r={Math.min(width, height) / 2}
@@ -53,6 +58,7 @@ const HeatMapCellCircle = ({
 )
 
 HeatMapCellCircle.propTypes = {
+    data: PropTypes.object.isRequired,
     value: PropTypes.number.isRequired,
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
@@ -65,6 +71,7 @@ HeatMapCellCircle.propTypes = {
     textColor: PropTypes.string.isRequired,
     onHover: PropTypes.func.isRequired,
     onLeave: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired,
 }
 
 export default pure(HeatMapCellCircle)
