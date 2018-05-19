@@ -76,6 +76,7 @@ export default class ComponentPropsList extends PureComponent {
                     return (
                         <div
                             key={prop.key}
+                            id={`prop-${prop.key}`}
                             className={`component-properties__item${
                                 compact ? ' component-properties__item--compact' : ''
                             }`}
