@@ -101,8 +101,8 @@ BarItem.propTypes = {
 }
 
 const enhance = compose(
-    withPropsOnChange(['data', 'onClick'], ({ data, onClick }) => ({
-        onClick: event => onClick(data, event),
+    withPropsOnChange(['data', 'color', 'onClick'], ({ data, color, onClick }) => ({
+        onClick: event => onClick({ color, ...data }, event),
     })),
     withPropsOnChange(
         ['data', 'color', 'theme', 'tooltip', 'tooltipFormat'],

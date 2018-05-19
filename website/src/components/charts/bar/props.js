@@ -8,6 +8,7 @@
  */
 import React from 'react'
 import { Link } from 'react-router-dom'
+import dedent from 'dedent-js'
 import { BarDefaultProps as defaults } from '@nivo/bar'
 import {
     marginProperties,
@@ -206,11 +207,11 @@ export default [
             max: 10,
         },
     },
-    /*—————————————————————————————————————————————————————————————————————————————
+    /*——————————————————————————————————————————————————————————————————————————
 
       Styling
 
-    —————————————————————————————————————————————————————————————————————————————*/
+    ————————————————————————————————————————————————————————————————————————————*/
     {
         key: 'colors',
         scopes: '*',
@@ -298,11 +299,11 @@ export default [
     },
     ...defsProperties(['Bar']),
     ...marginProperties,
-    /*—————————————————————————————————————————————————————————————————————————————
+    /*——————————————————————————————————————————————————————————————————————————
 
       Labels
 
-    —————————————————————————————————————————————————————————————————————————————*/
+    ————————————————————————————————————————————————————————————————————————————*/
     {
         key: 'enableLabel',
         scopes: '*',
@@ -377,6 +378,11 @@ export default [
         controlType: 'switch',
         controlGroup: 'Grid',
     },
+    /*——————————————————————————————————————————————————————————————————————————
+
+      Interactivity
+
+    ————————————————————————————————————————————————————————————————————————————*/
     {
         key: 'isInteractive',
         scopes: ['Bar', 'BarCanvas'],
@@ -388,11 +394,73 @@ export default [
         controlGroup: 'Interactivity',
     },
     {
-        key: 'onClick',
+        key: 'custom tooltip example',
         scopes: ['Bar', 'BarCanvas'],
-        description: 'onClick handler, it receives clicked bar data and mouse event.',
+        excludeFromDoc: true,
+        description: (
+            <span>
+                You can customize the tooltip using the <code>tooltip</code> property and{' '}
+                <code>theme.tooltip</code> object.
+            </span>
+        ),
+        type: '{boolean}',
+        controlType: 'switch',
+        controlGroup: 'Interactivity',
+    },
+    {
+        key: 'tooltip',
+        scopes: ['Bar', 'BarCanvas'],
         type: '{Function}',
         required: false,
+        description: (
+            <div>
+                A function allowing complete tooltip customisation, it must return a valid HTML
+                element and will receive the following data:
+                <pre className="code code-block">
+                    {dedent`
+                        {
+                            id:         {string|number},
+                            value:      {number},
+                            index:      {number},
+                            indexValue: {string|number},
+                            color:      {string},
+                            // datum associated to the current index (raw data)
+                            data:       {object}
+                        }
+                    `}
+                </pre>
+            </div>
+        ),
     },
+    {
+        key: 'onClick',
+        scopes: ['Bar', 'BarCanvas'],
+        type: '{Function}',
+        required: false,
+        description: (
+            <div>
+                onClick handler, will receive node data as first argument & event as second one. The
+                node data has the following shape:
+                <pre className="code code-block">
+                    {dedent`
+                        {
+                            id:         {string|number},
+                            value:      {number},
+                            index:      {number},
+                            indexValue: {string|number},
+                            color:      {string},
+                            // datum associated to the current index (raw data)
+                            data:       {object}
+                        }
+                    `}
+                </pre>
+            </div>
+        ),
+    },
+    /*——————————————————————————————————————————————————————————————————————————
+
+      Motion
+
+    ————————————————————————————————————————————————————————————————————————————*/
     ...motionProperties(['Bar'], defaults),
 ]

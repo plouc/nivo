@@ -25,17 +25,15 @@ stories.add(
     withInfo()(() => (
         <BarCanvas
             {...commonProps}
-            tooltip={({ id, value, color }) => {
-                return (
-                    <strong style={{ color }}>
-                        {id}: {value}
-                    </strong>
-                )
-            }}
+            tooltip={({ id, value, color }) => (
+                <strong style={{ color }}>
+                    {id}: {value}
+                </strong>
+            )}
             theme={{
                 tooltip: {
                     container: {
-                        background: 'gray',
+                        background: '#333',
                     },
                 },
             }}

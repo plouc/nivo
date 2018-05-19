@@ -7,7 +7,7 @@ export default class SwitchControl extends Component {
         label: PropTypes.string.isRequired,
         value: PropTypes.bool.isRequired,
         onChange: PropTypes.func.isRequired,
-        help: PropTypes.string.isRequired,
+        help: PropTypes.node.isRequired,
     }
 
     shouldComponentUpdate(nextProps) {

@@ -20,6 +20,10 @@ import nivoTheme from '../../../nivoTheme'
 import { generateHeavyDataSet as generateData } from './generators'
 import propsMapper from './propsMapper'
 
+const Tooltip = data => {
+    /* return custom tooltip */
+}
+
 export default class BarCanvas extends Component {
     state = {
         ...generateData(),
@@ -105,13 +109,12 @@ export default class BarCanvas extends Component {
                 gamma: 1.6,
             },
 
-            // motion
-            animate: true,
-            motionStiffness: 90,
-            motionDamping: 15,
-
             // interactivity
             isInteractive: true,
+            'custom tooltip example': false,
+            tooltip: null,
+
+            theme: nivoTheme,
         },
     }
 
@@ -137,6 +140,7 @@ export default class BarCanvas extends Component {
             {
                 keys,
                 ...mappedSettings,
+                tooltip: mappedSettings.tooltip ? Tooltip : undefined,
             },
             { pkg: '@nivo/bar' }
         )
@@ -175,7 +179,6 @@ export default class BarCanvas extends Component {
                             data={data}
                             keys={keys}
                             {...mappedSettings}
-                            theme={nivoTheme}
                             onClick={this.handleNodeClick}
                         />
                     </ChartTabs>
