@@ -16,7 +16,7 @@ import Nav from './components/nav/Nav'
 import MiniNav from './components/nav/MiniNav'
 import Home from './components/pages/Home'
 import Header from './components/Header'
-//import ScrollToTop from './components/ScrollToTop'
+import ScrollToTop from './components/ScrollToTop'
 //import MobileNav from './components/nav/mobile/MobileNav'
 import { getRoutes } from './SiteMap'
 import registerServiceWorker from './registerServiceWorker'
@@ -60,12 +60,12 @@ class App extends Component {
 
 render(
     <Router>
-        <div>
+        <ScrollToTop>
             <Switch>
                 <Route exact path="/" component={Home} />
                 <Route path="*" component={App} />
             </Switch>
-        </div>
+        </ScrollToTop>
     </Router>,
     document.getElementById('root')
 )
