@@ -73,9 +73,9 @@
     d3-time-format "^2.0.5"
     lodash "^4.17.4"
 
-"@nivo/heatmap@0.36.0":
-  version "0.36.0"
-  resolved "https://registry.yarnpkg.com/@nivo/heatmap/-/heatmap-0.36.0.tgz#6fd1f7016a405ee92674de5cd92b69fad1f20dbc"
+"@nivo/heatmap@0.37.0":
+  version "0.37.0"
+  resolved "https://registry.yarnpkg.com/@nivo/heatmap/-/heatmap-0.37.0.tgz#b1224451ec635a50b073866dd010dafdf32245c3"
   dependencies:
     "@nivo/core" "0.36.0"
     d3-scale "^1.0.6"
