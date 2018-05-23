@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { generateLibTree } from '@nivo/generators'
-import { Bubble } from '../index'
+import { TreeMapHtml } from '../index'
 import { withInfo } from '@storybook/addon-info'
 
 const commonProperties = {
@@ -14,24 +14,12 @@ const commonProperties = {
     labelSkipRadius: 16,
 }
 
-storiesOf('Bubble', module)
+storiesOf('TreeMapHtml', module)
     .addDecorator(story => <div className="wrapper">{story()}</div>)
-    .add('default', () => <Bubble {...commonProperties} />)
-    .add('rendering leaves only', () => <Bubble {...commonProperties} leavesOnly={true} />)
-    .add('with formatted values', () => (
-        <Bubble
-            {...commonProperties}
-            tooltipFormat={value =>
-                `${Number(value).toLocaleString('ru-RU', {
-                    minimumFractionDigits: 2,
-                })} ₽`
-            }
-        />
-    ))
     .add(
         'custom tooltip',
         withInfo()(() => (
-            <Bubble
+            <TreeMapHtml
                 {...commonProperties}
                 tooltip={({ id, value, color }) => (
                     <strong style={{ color }}>

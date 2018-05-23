@@ -43,6 +43,7 @@ const Bubble = ({
     isInteractive,
     onClick,
     tooltipFormat,
+    tooltip,
     isZoomable,
     zoomToNode,
 }) => {
@@ -61,6 +62,7 @@ const Bubble = ({
             zoomToNode,
             theme,
             tooltipFormat,
+            tooltip,
         })
 
     return (

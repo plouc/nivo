@@ -11,12 +11,19 @@ import TreeMapNodeTooltip from './TreeMapNodeTooltip'
 
 export const getNodeHandlers = (
     node,
-    { isInteractive, onClick, showTooltip, hideTooltip, theme }
+    {
+        isInteractive,
+        onClick,
+        showTooltip,
+        hideTooltip,
+        theme,
+        tooltip
+    }
 ) => {
     if (!isInteractive) return {}
 
     const handleTooltip = e => {
-        showTooltip(<TreeMapNodeTooltip node={node} theme={theme} />, e)
+        showTooltip(<TreeMapNodeTooltip node={node} theme={theme} tooltip={tooltip} />, e)
     }
 
     return {

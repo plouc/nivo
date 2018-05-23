@@ -10,13 +10,16 @@ import React from 'react'
 import pure from 'recompose/pure'
 import { BasicTooltip } from '@nivo/core'
 
-const TreeMapNodeTooltip = ({ node, theme }) => (
+const TreeMapNodeTooltip = ({ node, theme, tooltip }) => (
     <BasicTooltip
         id={node.id}
         value={node.value}
         enableChip={true}
         color={node.color}
         theme={theme}
+        renderContent={
+            typeof tooltip === 'function' ? tooltip.bind(null, { node, ...node }) : null
+        }
     />
 )
 

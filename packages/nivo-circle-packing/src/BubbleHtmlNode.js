@@ -14,6 +14,14 @@ const BubbleHtmlNode = ({ node, style, handlers }) => {
 
     return (
         <div
+            id={
+                (
+                    (node.data && node.data.id) ?
+                        node.data.id :
+                        // replace special characters with "-"
+                        node.id).replace(/[^\w]/gi, "-"
+                )
+            }
             style={{
                 position: 'absolute',
                 display: 'flex',
