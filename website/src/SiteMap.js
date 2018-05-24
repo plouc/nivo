@@ -58,6 +58,8 @@ import VoronoiPage from './components/charts/voronoi/VoronoiPage'
 import Voronoi from './components/charts/voronoi/Voronoi'
 import WafflePage from './components/charts/waffle/WafflePage'
 import Waffle from './components/charts/waffle/Waffle'
+import WaffleHtml from './components/charts/waffle/WaffleHtml'
+import WaffleCanvas from './components/charts/waffle/WaffleCanvas'
 import Colors from './components/guides/colors/Colors'
 import Legends from './components/guides/legends/Legends'
 import Gradients from './components/guides/gradients/Gradients'
@@ -429,7 +431,7 @@ const SITEMAP = [
                 ],
             },
             {
-                className: 'treemap',
+                className: 'waffle',
                 path: '/waffle',
                 label: 'Waffle',
                 component: WafflePage,
@@ -439,8 +441,22 @@ const SITEMAP = [
                         path: '/',
                         label: 'Waffle',
                         component: Waffle,
-                        isIndex: true,
+                        exact: true,
                         tags: ['svg', 'isomorphic'],
+                    },
+                    {
+                        className: 'html',
+                        path: '/html',
+                        label: 'WaffleHtml',
+                        component: WaffleHtml,
+                        tags: ['html', 'isomorphic'],
+                    },
+                    {
+                        className: 'canvas',
+                        path: '/canvas',
+                        label: 'WaffleCanvas',
+                        component: WaffleCanvas,
+                        tags: ['canvas'],
                     },
                 ],
             },

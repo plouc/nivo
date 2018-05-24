@@ -12,6 +12,8 @@ import { TransitionMotion, spring } from 'react-motion'
 import { Container, SvgWrapper } from '@nivo/core'
 import { WafflePropTypes } from './props'
 import enhance from './enhance'
+import { computeGrid } from './compute'
+import WaffleNode from './WaffleNode'
 
 const Waffle = ({
     // data
@@ -56,23 +58,10 @@ const Waffle = ({
     const cellCount = rows * columns
     const unit = total / cellCount
 
-    let cells = []
-    range(rows).forEach(row => {
-        range(columns).forEach(column => {
-            cells.push({
-                position: row * columns + column,
-                row,
-                column,
-                color: emptyColor,
-            })
-        })
+    const { cells, cellSize, origin } = computeGrid(width, height, rows, columns, padding)
+    cells.forEach(cell => {
+        cell.color = emptyColor
     })
-
-    const sizeX = (width - (columns - 1) * padding) / columns
-    const sizeY = (height - (rows - 1) * padding) / rows
-    const size = Math.min(sizeX, sizeY)
-    const originX = (width - (size * columns + padding * (columns - 1))) / 2
-    const originY = (height - (size * rows + padding * (rows - 1))) / 2
 
     let previous = 0
     data.forEach((datum, groupIndex) => {
@@ -93,20 +82,21 @@ const Waffle = ({
         <Container isInteractive={isInteractive} theme={theme}>
             {({ showTooltip, hideTooltip }) => (
                 <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} defs={defs}>
-                    <g transform={`translate(${originX}, ${originY})`}>
+                    <g transform={`translate(${origin.x}, ${origin.y})`}>
                         {cells.map(cell => {
                             //console.log(cell)
                             return (
-                                <rect
+                                <WaffleNode
                                     key={cell.position}
-                                    width={size}
-                                    height={size}
-                                    x={cell.column * (size + padding)}
-                                    y={cell.row * (size + padding)}
-                                    fill={cell.color}
-                                    strokeWidth={borderWidth}
-                                    stroke={getBorderColor(cell)}
+                                    position={cell.position}
+                                    size={cellSize}
+                                    x={cell.x}
+                                    y={cell.y}
+                                    color={cell.color}
                                     opacity={cell.data ? 1 : emptyOpacity}
+                                    borderWidth={borderWidth}
+                                    borderColor={getBorderColor(cell)}
+                                    data={cell.data}
                                     onClick={() => {
                                         console.table(cell)
                                     }}

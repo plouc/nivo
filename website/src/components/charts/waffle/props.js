@@ -40,8 +40,8 @@ export default [
         controlType: 'range',
         controlGroup: 'Base',
         controlOptions: {
-            min: 4,
-            max: 60,
+            min: 1,
+            max: 100,
         },
     },
     {
@@ -53,8 +53,8 @@ export default [
         controlType: 'range',
         controlGroup: 'Base',
         controlOptions: {
-            min: 4,
-            max: 60,
+            min: 1,
+            max: 100,
         },
     },
     {

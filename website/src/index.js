@@ -17,7 +17,6 @@ import MiniNav from './components/nav/MiniNav'
 import Home from './components/pages/Home'
 import Header from './components/Header'
 import ScrollToTop from './components/ScrollToTop'
-//import MobileNav from './components/nav/mobile/MobileNav'
 import { getRoutes } from './SiteMap'
 import registerServiceWorker from './registerServiceWorker'
 
@@ -48,7 +47,6 @@ class App extends Component {
                 <Helmet titleTemplate="%s | nivo" />
                 <Header onNavToggle={this.handleNavToggle} />
                 <MiniNav location={location} />
-                {/*<MobileNav />*/}
                 {nav && <Nav onNavClose={this.handleNavClose} />}
                 <div className="content">
                     <Switch>{getRoutes()}</Switch>
