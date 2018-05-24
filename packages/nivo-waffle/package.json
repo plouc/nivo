@@ -1,0 +1,24 @@
+{
+  "name": "@nivo/waffle",
+  "version": "0.36.0",
+  "license": "MIT",
+  "main": "./index.js",
+  "files": [
+    "README.md",
+    "index.js",
+    "cjs/"
+  ],
+  "dependencies": {
+    "@nivo/core": "0.36.0",
+    "lodash": "^4.17.4",
+    "react-motion": "^0.5.2",
+    "recompose": "^0.26.0"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.5.10",
+    "react": ">= 16.2.0 < 17.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

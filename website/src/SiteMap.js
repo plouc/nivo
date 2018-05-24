@@ -56,6 +56,8 @@ import ChordCanvas from './components/charts/chord/ChordCanvas'
 import ChordAPI from './components/charts/chord/ChordAPI'
 import VoronoiPage from './components/charts/voronoi/VoronoiPage'
 import Voronoi from './components/charts/voronoi/Voronoi'
+import WafflePage from './components/charts/waffle/WafflePage'
+import Waffle from './components/charts/waffle/Waffle'
 import Colors from './components/guides/colors/Colors'
 import Legends from './components/guides/legends/Legends'
 import Gradients from './components/guides/gradients/Gradients'
@@ -421,6 +423,22 @@ const SITEMAP = [
                         path: '/',
                         label: 'Voronoi',
                         component: Voronoi,
+                        isIndex: true,
+                        tags: ['svg', 'isomorphic'],
+                    },
+                ],
+            },
+            {
+                className: 'treemap',
+                path: '/waffle',
+                label: 'Waffle',
+                component: WafflePage,
+                children: [
+                    {
+                        className: 'react',
+                        path: '/',
+                        label: 'Waffle',
+                        component: Waffle,
                         isIndex: true,
                         tags: ['svg', 'isomorphic'],
                     },

@@ -26,6 +26,7 @@
         "@nivo/sunburst": "0.36.0",
         "@nivo/treemap": "0.36.0",
         "@nivo/voronoi": "0.36.0",
+        "@nivo/waffle": "0.36.0",
         "classnames": "2.2.4",
         "d3-scale": "^1.0.6",
         "d3-scale-chromatic": "^1.1.1",

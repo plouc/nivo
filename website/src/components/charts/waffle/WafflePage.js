@@ -10,9 +10,9 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import { Switch } from 'react-router-dom'
 
-const TreeMapPage = ({ childRoutes }) => (
+const WafflePage = ({ childRoutes }) => (
     <div className="inner-content">
-        <Helmet title="TreeMap components" />
+        <Helmet title="Waffle components" />
         <Switch>
             {childRoutes.map(childRoute => {
                 return React.cloneElement(childRoute, {
@@ -23,4 +23,4 @@ const TreeMapPage = ({ childRoutes }) => (
     </div>
 )
 
-export default TreeMapPage
+export default WafflePage
