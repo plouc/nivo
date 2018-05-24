@@ -9,6 +9,7 @@
 import compose from 'recompose/compose'
 import defaultProps from 'recompose/defaultProps'
 import withPropsOnChange from 'recompose/withPropsOnChange'
+import withState from 'recompose/withState'
 import pure from 'recompose/pure'
 import { withDimensions, withTheme, withMotion, withColors } from '@nivo/core'
 import { getInheritedColorGenerator } from '@nivo/core'
@@ -23,6 +24,7 @@ const commonEnhancers = [
     withPropsOnChange(['borderColor'], ({ borderColor }) => ({
         getBorderColor: getInheritedColorGenerator(borderColor),
     })),
+    withState('currentCell', 'setCurrentCell', null),
 ]
 
 export default Component => {

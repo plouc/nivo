@@ -85,7 +85,17 @@ export default class WaffleHtml extends Component {
     }
 
     handleNodeClick = (node, event) => {
-        alert(`${node.id}: ${node.value}\nclicked at x: ${event.clientX}, y: ${event.clientY}`)
+        if (node.data) {
+            alert(
+                `cell: ${node.position}\n${node.data.label}: ${node.data.value}\nclicked at x: ${
+                    event.clientX
+                }, y: ${event.clientY}`
+            )
+        } else {
+            alert(
+                `empty cell: ${node.position}\nclicked at x: ${event.clientX}, y: ${event.clientY}`
+            )
+        }
     }
 
     render() {
@@ -131,7 +141,13 @@ export default class WaffleHtml extends Component {
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="waffle" code={code} data={data} diceRoll={this.diceRoll}>
+                    <ChartTabs
+                        chartClass="waffle"
+                        code={code}
+                        data={data}
+                        diceRoll={this.diceRoll}
+                        nodeCount={settings.rows * settings.columns}
+                    >
                         <ResponsiveWaffleHtml
                             data={data}
                             {...mappedSettings}

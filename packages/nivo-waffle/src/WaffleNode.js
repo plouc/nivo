@@ -8,6 +8,7 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
+import pure from 'recompose/pure'
 
 const WaffleNode = ({
     position,
@@ -19,6 +20,8 @@ const WaffleNode = ({
     borderWidth,
     borderColor,
     data,
+    onHover,
+    onLeave,
     onClick,
 }) => {
     return (
@@ -31,8 +34,11 @@ const WaffleNode = ({
             strokeWidth={borderWidth}
             stroke={borderColor}
             opacity={opacity}
-            onClick={() => {
-                console.table({ position, color, ...data })
+            onMouseEnter={onHover}
+            onMouseMove={onHover}
+            onMouseLeave={onLeave}
+            onClick={event => {
+                onClick({ position, color, x, y, data }, event)
             }}
         />
     )
@@ -48,6 +54,8 @@ WaffleNode.propTypes = {
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.string.isRequired,
     data: PropTypes.object.isRequired,
+    onHover: PropTypes.func.isRequired,
+    onLeave: PropTypes.func.isRequired,
     onClick: PropTypes.func.isRequired,
 }
 WaffleNode.defaultProps = {
@@ -55,4 +63,4 @@ WaffleNode.defaultProps = {
 }
 WaffleNode.displayName = 'WaffleNode'
 
-export default WaffleNode
+export default pure(WaffleNode)

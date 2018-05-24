@@ -85,7 +85,17 @@ export default class Waffle extends Component {
     }
 
     handleNodeClick = (node, event) => {
-        alert(`${node.id}: ${node.value}\nclicked at x: ${event.clientX}, y: ${event.clientY}`)
+        if (node.data) {
+            alert(
+                `cell: ${node.position}\n${node.data.label}: ${node.data.value}\nclicked at x: ${
+                    event.clientX
+                }, y: ${event.clientY}`
+            )
+        } else {
+            alert(
+                `empty cell: ${node.position}\nclicked at x: ${event.clientX}, y: ${event.clientY}`
+            )
+        }
     }
 
     render() {
@@ -136,6 +146,7 @@ export default class Waffle extends Component {
                         code={code}
                         data={data}
                         diceRoll={this.diceRoll}
+                        nodeCount={settings.rows * settings.columns}
                     >
                         <ResponsiveWaffle
                             data={data}
