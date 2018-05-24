@@ -17,9 +17,7 @@ const TreeMapNodeTooltip = ({ node, theme, tooltip }) => (
         enableChip={true}
         color={node.color}
         theme={theme}
-        renderContent={
-            typeof tooltip === 'function' ? tooltip.bind(null, { node, ...node }) : null
-        }
+        renderContent={typeof tooltip === 'function' ? tooltip.bind(null, { node, ...node }) : null}
     />
 )
 

@@ -29,7 +29,7 @@ storiesOf('TreeMap', module)
                 theme={{
                     tooltip: {
                         container: {
-                            background: '#333'
+                            background: '#333',
                         },
                     },
                 }}

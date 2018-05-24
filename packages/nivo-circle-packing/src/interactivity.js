@@ -20,7 +20,7 @@ export const getNodeHandlers = (
         zoomToNode,
         theme,
         tooltipFormat,
-        tooltip
+        tooltip,
     }
 ) => {
     if (!isInteractive) return {}

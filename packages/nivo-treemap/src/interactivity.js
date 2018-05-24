@@ -11,14 +11,7 @@ import TreeMapNodeTooltip from './TreeMapNodeTooltip'
 
 export const getNodeHandlers = (
     node,
-    {
-        isInteractive,
-        onClick,
-        showTooltip,
-        hideTooltip,
-        theme,
-        tooltip
-    }
+    { isInteractive, onClick, showTooltip, hideTooltip, theme, tooltip }
 ) => {
     if (!isInteractive) return {}
 
