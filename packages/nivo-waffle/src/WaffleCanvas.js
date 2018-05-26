@@ -11,8 +11,8 @@ import range from 'lodash/range'
 import { Container } from '@nivo/core'
 import enhance from './enhance'
 import { WafflePropTypes } from './props'
-import { computeGrid } from './compute'
 import { isCursorInRect, getRelativeCursor } from '@nivo/core'
+import WaffleCellTooltip from './WaffleCellTooltip'
 
 const findCellUnderCursor = (cells, cellSize, origin, margin, x, y) =>
     cells.find(cell =>
@@ -43,8 +43,6 @@ class WaffleCanvas extends Component {
 
             // dimensions
             margin,
-            width,
-            height,
             outerWidth,
             outerHeight,
 
@@ -97,9 +95,41 @@ class WaffleCanvas extends Component {
     }
 
     handleMouseHover = (showTooltip, hideTooltip) => event => {
-        const { isInteractive, margin, theme } = this.props
+        const {
+            isInteractive,
+            margin,
+            theme,
+            cells,
+            cellSize,
+            origin,
+            tooltipFormat,
+            tooltip,
+        } = this.props
 
-        if (!isInteractive) return
+        if (!isInteractive || !cells) return
+
+        const [x, y] = getRelativeCursor(this.surface, event)
+        const cell = findCellUnderCursor(cells, cellSize, origin, margin, x, y)
+
+        if (cell !== undefined) {
+            if (!cell.data) {
+                hideTooltip()
+            } else {
+                showTooltip(
+                    <WaffleCellTooltip
+                        position={cell.position}
+                        row={cell.row}
+                        column={cell.column}
+                        color={cell.color}
+                        data={cell.data}
+                        theme={theme}
+                        tooltipFormat={tooltipFormat}
+                        tooltip={tooltip}
+                    />,
+                    event
+                )
+            }
+        }
     }
 
     handleMouseLeave = hideTooltip => () => {
@@ -112,7 +142,6 @@ class WaffleCanvas extends Component {
         if (!isInteractive || !cells) return
 
         const [x, y] = getRelativeCursor(this.surface, event)
-
         const cell = findCellUnderCursor(cells, cellSize, origin, margin, x, y)
         if (cell !== undefined) onClick(cell, event)
     }

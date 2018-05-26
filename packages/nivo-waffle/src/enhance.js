@@ -62,7 +62,18 @@ export default Component => {
     switch (Component.displayName) {
         case 'Waffle':
             return compose(
-                ...[defaultProps(implDefaultProps), ...commonEnhancers, withMotion(), pure]
+                ...[
+                    defaultProps(implDefaultProps),
+                    ...commonEnhancers,
+                    withMotion(),
+                    pure,
+                    withPropsOnChange(
+                        ['computedData', 'defs', 'fill'],
+                        ({ computedData, defs, fill }) => ({
+                            defs: bindDefs(defs, computedData, fill, { targetKey: 'fill' }),
+                        })
+                    ),
+                ]
             )(Component)
 
         case 'WaffleHtml':

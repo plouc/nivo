@@ -9,10 +9,12 @@
 import React, { Component, Fragment } from 'react'
 import partial from 'lodash/partial'
 import { TransitionMotion, spring } from 'react-motion'
-import { Container, BasicTooltip } from '@nivo/core'
+import { Container } from '@nivo/core'
 import enhance from './enhance'
 import { WafflePropTypes } from './props'
 import { applyDataToGrid } from './compute'
+import WaffleHtmlNode from './WaffleHtmlNode'
+import WaffleCellTooltip from './WaffleCellTooltip'
 
 class WaffleHtml extends Component {
     static propTypes = WafflePropTypes
@@ -25,18 +27,15 @@ class WaffleHtml extends Component {
         if (!cell.data) return
 
         showTooltip(
-            <BasicTooltip
-                id={cell.data.label}
-                value={cell.data.value}
-                enableChip={true}
+            <WaffleCellTooltip
+                position={cell.position}
+                row={cell.row}
+                column={cell.column}
                 color={cell.color}
+                data={cell.data}
                 theme={theme}
-                format={tooltipFormat}
-                renderContent={
-                    typeof tooltip === 'function'
-                        ? tooltip.bind(null, { color: cell.color, ...cell.data })
-                        : null
-                }
+                tooltipFormat={tooltipFormat}
+                tooltip={tooltip}
             />,
             event
         )
@@ -118,25 +117,20 @@ class WaffleHtml extends Component {
                                     return (
                                         <Fragment>
                                             {computedCells.map(cell => (
-                                                <div
+                                                <WaffleHtmlNode
                                                     key={cell.position}
-                                                    style={{
-                                                        position: 'absolute',
-                                                        top: cell.y,
-                                                        left: cell.x,
-                                                        width: cellSize,
-                                                        height: cellSize,
-                                                        background: cell.color,
-                                                        opacity: cell.data ? 1 : emptyOpacity,
-                                                        borderWidth,
-                                                        borderColor: getBorderColor(cell),
-                                                    }}
-                                                    onMouseEnter={partial(onHover, cell)}
-                                                    onMouseMove={partial(onHover, cell)}
-                                                    onMouseLeave={onLeave}
-                                                    onClick={e => {
-                                                        onClick(cell, e)
-                                                    }}
+                                                    position={cell.position}
+                                                    size={cellSize}
+                                                    x={cell.x}
+                                                    y={cell.y}
+                                                    color={cell.color}
+                                                    opacity={cell.data ? 1 : emptyOpacity}
+                                                    borderWidth={borderWidth}
+                                                    borderColor={getBorderColor(cell)}
+                                                    data={cell.data}
+                                                    onHover={partial(onHover, cell)}
+                                                    onLeave={onLeave}
+                                                    onClick={onClick}
                                                 />
                                             ))}
                                         </Fragment>
@@ -150,25 +144,20 @@ class WaffleHtml extends Component {
                         cellsRender = (
                             <Fragment>
                                 {computedCells.map(cell => (
-                                    <div
+                                    <WaffleHtmlNode
                                         key={cell.position}
-                                        style={{
-                                            position: 'absolute',
-                                            top: cell.y,
-                                            left: cell.x,
-                                            width: cellSize,
-                                            height: cellSize,
-                                            background: cell.color,
-                                            opacity: cell.data ? 1 : emptyOpacity,
-                                            borderWidth,
-                                            borderColor: getBorderColor(cell),
-                                        }}
-                                        onMouseEnter={partial(onHover, cell)}
-                                        onMouseMove={partial(onHover, cell)}
-                                        onMouseLeave={onLeave}
-                                        onClick={e => {
-                                            onClick(cell, e)
-                                        }}
+                                        position={cell.position}
+                                        size={cellSize}
+                                        x={cell.x}
+                                        y={cell.y}
+                                        color={cell.color}
+                                        opacity={cell.data ? 1 : emptyOpacity}
+                                        borderWidth={borderWidth}
+                                        borderColor={getBorderColor(cell)}
+                                        data={cell.data}
+                                        onHover={partial(onHover, cell)}
+                                        onLeave={onLeave}
+                                        onClick={onClick}
                                     />
                                 ))}
                             </Fragment>

@@ -13,6 +13,7 @@ import {
     defsProperties,
 } from '../../../lib/componentProperties'
 import { WaffleDefaultProps } from '@nivo/waffle'
+import dedent from 'dedent-js'
 
 const defaults = WaffleDefaultProps
 
@@ -25,10 +26,23 @@ export default [
         required: true,
     },
     {
-        key: 'root',
+        key: 'data',
         scopes: '*',
-        description: 'The hierarchical data object.',
-        type: '{Object}',
+        description: (
+            <div>
+                Chart data, which must conform to this structure:
+                <pre className="code code-block">
+                    {dedent`
+                        Array<{
+                            id:    {string|number},
+                            value: {number},
+                            label: {string|number},
+                        }>
+                    `}
+                </pre>
+            </div>
+        ),
+        type: '{Array<Object>}',
         required: true,
     },
     {
@@ -151,18 +165,14 @@ export default [
             'Property to use to determine node color. If a function is provided, it will receive current node data and must return a color.',
         type: '{string|Function}',
         required: false,
-        default: 'depth',
+        default: 'id',
         controlType: 'choices',
         controlGroup: 'Style',
         controlOptions: {
             choices: [
                 {
-                    label: 'depth',
-                    value: 'depth',
-                },
-                {
-                    label: 'name',
-                    value: 'name',
+                    label: 'id',
+                    value: 'id',
                 },
                 {
                     label: 'd => d.color',
@@ -242,6 +252,48 @@ export default [
         description: 'onClick handler, it receives clicked node data and style plus mouse event.',
         type: '{Function}',
         required: false,
+    },
+    {
+        key: 'custom tooltip example',
+        scopes: ['Waffle', 'WaffleHtml', 'WaffleCanvas'],
+        excludeFromDoc: true,
+        description: (
+            <span>
+                You can customize the tooltip using the <code>tooltip</code> property and{' '}
+                <code>theme.tooltip</code> object.
+            </span>
+        ),
+        type: '{boolean}',
+        controlType: 'switch',
+        controlGroup: 'Interactivity',
+    },
+    {
+        key: 'tooltip',
+        scopes: ['Waffle', 'WaffleHtml', 'WaffleCanvas'],
+        type: '{Function}',
+        required: false,
+        description: (
+            <div>
+                A function allowing complete tooltip customisation, it must return a valid HTML
+                element and will receive the following data:
+                <pre className="code code-block">
+                    {dedent`
+                        {
+                            id:         {string|number},
+                            value:      {number},
+                            label:      {string|number},
+                            color:      {string},
+                            position:   {number},
+                            row:        {number},
+                            column:     {number},
+                            groupIndex: {number},
+                            startAt:    {number},
+                            endAt:      {number},
+                        }
+                    `}
+                </pre>
+            </div>
+        ),
     },
     ...motionProperties(['Waffle', 'WaffleHtml'], defaults),
 ]

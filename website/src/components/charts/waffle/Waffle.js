@@ -24,16 +24,19 @@ const generateData = () => [
         id: 'men',
         label: 'men',
         value: Math.random() * 33,
+        color: '#468df3',
     },
     {
         id: 'women',
         label: 'women',
         value: Math.random() * 33,
+        color: '#ba72ff',
     },
     {
         id: 'children',
         label: 'children',
         value: Math.random() * 33,
+        color: '#a1cfff',
     },
 ]
 
@@ -48,7 +51,7 @@ export default class Waffle extends Component {
             rows: 18,
             columns: 14,
             fillDirection: 'bottom',
-            padding: 2,
+            padding: 1,
 
             margin: {
                 top: 10,
@@ -58,6 +61,7 @@ export default class Waffle extends Component {
             },
 
             // styling
+            theme: nivoTheme,
             emptyColor: '#cccccc',
             emptyOpacity: 1,
             colors: 'nivo',
@@ -73,7 +77,10 @@ export default class Waffle extends Component {
             motionStiffness: 90,
             motionDamping: 11,
 
+            // interactivity
             isInteractive: true,
+            'custom tooltip example': false,
+            tooltip: null,
         },
     }
 
@@ -104,10 +111,17 @@ export default class Waffle extends Component {
 
         const mappedSettings = propsMapper(settings)
 
-        const code = generateCode('ResponsiveWaffle', mappedSettings, {
-            pkg: '@nivo/waffle',
-            defaults: WaffleDefaultProps,
-        })
+        const code = generateCode(
+            'ResponsiveWaffle',
+            {
+                ...mappedSettings,
+                tooltip: mappedSettings.tooltip ? function CustomTooltip() {} : undefined,
+            },
+            {
+                pkg: '@nivo/waffle',
+                defaults: WaffleDefaultProps,
+            }
+        )
 
         const header = <ChartHeader chartClass="Waffle" tags={['svg', 'isomorphic']} />
 
@@ -143,7 +157,7 @@ export default class Waffle extends Component {
                         {description}
                     </MediaQuery>
                     <ChartTabs
-                        chartClass="treemap"
+                        chartClass="waffle"
                         code={code}
                         data={data}
                         diceRoll={this.diceRoll}
@@ -152,7 +166,6 @@ export default class Waffle extends Component {
                         <ResponsiveWaffle
                             data={data}
                             {...mappedSettings}
-                            theme={nivoTheme}
                             onClick={this.handleNodeClick}
                         />
                     </ChartTabs>

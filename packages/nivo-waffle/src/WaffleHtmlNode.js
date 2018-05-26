@@ -10,13 +10,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
 
-const WaffleNode = ({
+const WaffleHtmlNode = ({
     position,
     size,
     x,
     y,
     color,
-    fill,
     opacity,
     borderWidth,
     borderColor,
@@ -24,32 +23,38 @@ const WaffleNode = ({
     onHover,
     onLeave,
     onClick,
-}) => (
-    <rect
-        width={size}
-        height={size}
-        x={x}
-        y={y}
-        fill={fill || color}
-        strokeWidth={borderWidth}
-        stroke={borderColor}
-        opacity={opacity}
-        onMouseEnter={onHover}
-        onMouseMove={onHover}
-        onMouseLeave={onLeave}
-        onClick={event => {
-            onClick({ position, color, x, y, data }, event)
-        }}
-    />
-)
+}) => {
+    return (
+        <div
+            style={{
+                position: 'absolute',
+                top: y,
+                left: x,
+                width: size,
+                height: size,
+                background: color,
+                opacity,
+                boxSizing: 'content-box',
+                borderStyle: 'solid',
+                borderWidth: `${borderWidth}px`,
+                borderColor,
+            }}
+            onMouseEnter={onHover}
+            onMouseMove={onHover}
+            onMouseLeave={onLeave}
+            onClick={event => {
+                onClick({ position, color, x, y, data }, event)
+            }}
+        />
+    )
+}
 
-WaffleNode.propTypes = {
+WaffleHtmlNode.propTypes = {
     position: PropTypes.number.isRequired,
     size: PropTypes.number.isRequired,
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
     color: PropTypes.string.isRequired,
-    fill: PropTypes.string,
     opacity: PropTypes.number.isRequired,
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.string.isRequired,
@@ -58,9 +63,9 @@ WaffleNode.propTypes = {
     onLeave: PropTypes.func.isRequired,
     onClick: PropTypes.func.isRequired,
 }
-WaffleNode.defaultProps = {
+WaffleHtmlNode.defaultProps = {
     data: {},
 }
-WaffleNode.displayName = 'WaffleNode'
+WaffleHtmlNode.displayName = 'WaffleHtmlNode'
 
-export default pure(WaffleNode)
+export default pure(WaffleHtmlNode)

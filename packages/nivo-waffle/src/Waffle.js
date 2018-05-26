@@ -9,11 +9,12 @@
 import React, { Component, Fragment } from 'react'
 import partial from 'lodash/partial'
 import { TransitionMotion, spring } from 'react-motion'
-import { Container, SvgWrapper, BasicTooltip } from '@nivo/core'
+import { Container, SvgWrapper } from '@nivo/core'
 import { WafflePropTypes } from './props'
 import enhance from './enhance'
-import WaffleNode from './WaffleNode'
 import { applyDataToGrid } from './compute'
+import WaffleNode from './WaffleNode'
+import WaffleCellTooltip from './WaffleCellTooltip'
 
 export class Waffle extends Component {
     static propTypes = WafflePropTypes
@@ -26,18 +27,15 @@ export class Waffle extends Component {
         if (!cell.data) return
 
         showTooltip(
-            <BasicTooltip
-                id={cell.data.label}
-                value={cell.data.value}
-                enableChip={true}
+            <WaffleCellTooltip
+                position={cell.position}
+                row={cell.row}
+                column={cell.column}
                 color={cell.color}
+                data={cell.data}
                 theme={theme}
-                format={tooltipFormat}
-                renderContent={
-                    typeof tooltip === 'function'
-                        ? tooltip.bind(null, { color: cell.color, ...cell.data })
-                        : null
-                }
+                tooltipFormat={tooltipFormat}
+                tooltip={tooltip}
             />,
             event
         )
@@ -127,6 +125,7 @@ export class Waffle extends Component {
                                                     x={cell.x}
                                                     y={cell.y}
                                                     color={cell.color}
+                                                    fill={cell.data && cell.data.fill}
                                                     opacity={cell.data ? 1 : emptyOpacity}
                                                     borderWidth={borderWidth}
                                                     borderColor={getBorderColor(cell)}
@@ -154,6 +153,7 @@ export class Waffle extends Component {
                                         x={cell.x}
                                         y={cell.y}
                                         color={cell.color}
+                                        fill={cell.data && cell.data.fill}
                                         opacity={cell.data ? 1 : emptyOpacity}
                                         borderWidth={borderWidth}
                                         borderColor={getBorderColor(cell)}

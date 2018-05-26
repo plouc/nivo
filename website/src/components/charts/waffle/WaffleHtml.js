@@ -24,16 +24,19 @@ const generateData = () => [
         id: 'men',
         label: 'men',
         value: Math.random() * 33,
+        color: '#468df3',
     },
     {
         id: 'women',
         label: 'women',
         value: Math.random() * 33,
+        color: '#ba72ff',
     },
     {
         id: 'children',
         label: 'children',
         value: Math.random() * 33,
+        color: '#a1cfff',
     },
 ]
 
@@ -48,7 +51,7 @@ export default class WaffleHtml extends Component {
             rows: 18,
             columns: 14,
             fillDirection: 'bottom',
-            padding: 2,
+            padding: 1,
 
             margin: {
                 top: 10,
@@ -58,6 +61,7 @@ export default class WaffleHtml extends Component {
             },
 
             // styling
+            theme: nivoTheme,
             emptyColor: '#cccccc',
             emptyOpacity: 1,
             colors: 'set2',
@@ -74,6 +78,8 @@ export default class WaffleHtml extends Component {
             motionDamping: 11,
 
             isInteractive: true,
+            'custom tooltip example': false,
+            tooltip: null,
         },
     }
 
@@ -104,10 +110,17 @@ export default class WaffleHtml extends Component {
 
         const mappedSettings = propsMapper(settings)
 
-        const code = generateCode('ResponsiveWaffleHtml', mappedSettings, {
-            pkg: '@nivo/waffle',
-            defaults: WaffleDefaultProps,
-        })
+        const code = generateCode(
+            'ResponsiveWaffleHtml',
+            {
+                ...mappedSettings,
+                tooltip: mappedSettings.tooltip ? function CustomTooltip() {} : undefined,
+            },
+            {
+                pkg: '@nivo/waffle',
+                defaults: WaffleDefaultProps,
+            }
+        )
 
         const header = <ChartHeader chartClass="WaffleHtml" tags={['html', 'isomorphic']} />
 
@@ -155,7 +168,6 @@ export default class WaffleHtml extends Component {
                         <ResponsiveWaffleHtml
                             data={data}
                             {...mappedSettings}
-                            theme={nivoTheme}
                             onClick={this.handleNodeClick}
                         />
                     </ChartTabs>

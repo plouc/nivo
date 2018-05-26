@@ -46,6 +46,8 @@ export const WafflePropTypes = {
 
     // interactivity
     isInteractive: PropTypes.bool,
+    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    tooltip: PropTypes.func,
 
     // computed
     cellSize: PropTypes.number.isRequired,

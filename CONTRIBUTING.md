@@ -4,6 +4,8 @@
 - [development](#development)
   - [formatting](#formatting)
   - [linting](#linting)
+  - [screenshots](#screenshots)
+- [website](#website)
 - [deploy](#deploy)
 
 ## Setup
@@ -60,6 +62,31 @@ make package-lint-bar
 ```
 
 where `bar` is the name of the targeted nivo package.
+
+### Screenshots
+
+Each package comes with its own README, we use screenshots from the website
+in order to illustrate available package components.
+
+The script takes screenshots from the website using config defined in
+`conf/base.yaml`, if you added a new package, please update this config accordingly.
+
+To refresh the screenshots, please make sure the website is running on port `3000`,
+otherwise run:
+
+```
+make website
+```
+
+Then run the corresponding script:
+
+```
+make packages-screenshots
+```
+
+## Website
+
+The website is a CRA based application.
 
 ## Deploy
 

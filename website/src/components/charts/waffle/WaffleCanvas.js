@@ -21,19 +21,46 @@ import propsMapper from './propsMapper'
 
 const generateData = () => [
     {
-        id: 'men',
-        label: 'men',
-        value: Math.random() * 33,
+        id: 'car',
+        label: 'car',
+        value: Math.random() * 20,
+        color: '#eaafaf',
     },
     {
-        id: 'women',
-        label: 'women',
-        value: Math.random() * 33,
+        id: 'walk',
+        label: 'walk',
+        value: Math.random() * 20,
+        color: '#a2738c',
     },
     {
-        id: 'children',
-        label: 'children',
-        value: Math.random() * 33,
+        id: 'scooter',
+        label: 'scooter',
+        value: Math.random() * 20,
+        color: '#645c84',
+    },
+    {
+        id: 'bicycle',
+        label: 'bicycle',
+        value: Math.random() * 20,
+        color: '#427996',
+    },
+    {
+        id: 'e-bicycle',
+        label: 'e-bicycle',
+        value: Math.random() * 20,
+        color: '#42291c',
+    },
+    {
+        id: 'moto',
+        label: 'moto',
+        value: Math.random() * 20,
+        color: '#3f5468',
+    },
+    {
+        id: 'other',
+        label: 'other',
+        value: Math.random() * 20,
+        color: '#b8e4c9',
     },
 ]
 
@@ -44,12 +71,13 @@ export default class WaffleCanvas extends Component {
             pixelRatio: window && window.devicePixelRatio ? window.devicePixelRatio : 1,
 
             // data
-            total: 100,
+            total: 140,
 
             // layout
-            rows: 84,
-            columns: 68,
-            padding: 1,
+            rows: 36,
+            columns: 40,
+            fillDirection: 'bottom',
+            padding: 0.5,
 
             margin: {
                 top: 10,
@@ -59,9 +87,10 @@ export default class WaffleCanvas extends Component {
             },
 
             // styling
+            theme: nivoTheme,
             emptyColor: '#cccccc',
             emptyOpacity: 1,
-            colors: 'nivo',
+            colors: 'd320b',
             colorBy: 'id',
             borderWidth: 0,
             borderColor: {
@@ -70,6 +99,8 @@ export default class WaffleCanvas extends Component {
             },
 
             isInteractive: true,
+            'custom tooltip example': true,
+            tooltip: null,
         },
     }
 
@@ -100,10 +131,17 @@ export default class WaffleCanvas extends Component {
 
         const mappedSettings = propsMapper(settings)
 
-        const code = generateCode('ResponsiveWaffleCanvas', mappedSettings, {
-            pkg: '@nivo/waffle',
-            defaults: WaffleDefaultProps,
-        })
+        const code = generateCode(
+            'ResponsiveWaffleCanvas',
+            {
+                ...mappedSettings,
+                tooltip: mappedSettings.tooltip ? function CustomTooltip() {} : undefined,
+            },
+            {
+                pkg: '@nivo/waffle',
+                defaults: WaffleDefaultProps,
+            }
+        )
 
         const header = <ChartHeader chartClass="WaffleCanvas" tags={['canvas']} />
 
@@ -140,12 +178,11 @@ export default class WaffleCanvas extends Component {
                         <ResponsiveWaffleCanvas
                             data={data}
                             {...mappedSettings}
-                            theme={nivoTheme}
                             onClick={this.handleNodeClick}
                         />
                     </ChartTabs>
                     <WaffleControls
-                        scope="Waffle"
+                        scope="WaffleCanvas"
                         settings={settings}
                         onChange={this.handleSettingsUpdate}
                     />
