@@ -83,6 +83,9 @@ class WaffleCanvas extends Component {
         })
 
         cells.forEach(cell => {
+            this.ctx.save()
+            this.ctx.globalAlpha = cell.data ? 1 : emptyOpacity
+
             this.ctx.fillStyle = cell.color
             this.ctx.fillRect(cell.x + origin.x, cell.y + origin.y, cellSize, cellSize)
 
@@ -91,6 +94,8 @@ class WaffleCanvas extends Component {
                 this.ctx.lineWidth = borderWidth
                 this.ctx.strokeRect(cell.x + origin.x, cell.y + origin.y, cellSize, cellSize)
             }
+
+            this.ctx.restore()
         })
     }
 
@@ -111,28 +116,28 @@ class WaffleCanvas extends Component {
         const [x, y] = getRelativeCursor(this.surface, event)
         const cell = findCellUnderCursor(cells, cellSize, origin, margin, x, y)
 
-        if (cell !== undefined) {
-            if (!cell.data) {
-                hideTooltip()
-            } else {
-                showTooltip(
-                    <WaffleCellTooltip
-                        position={cell.position}
-                        row={cell.row}
-                        column={cell.column}
-                        color={cell.color}
-                        data={cell.data}
-                        theme={theme}
-                        tooltipFormat={tooltipFormat}
-                        tooltip={tooltip}
-                    />,
-                    event
-                )
-            }
+        if (cell !== undefined && cell.data) {
+            showTooltip(
+                <WaffleCellTooltip
+                    position={cell.position}
+                    row={cell.row}
+                    column={cell.column}
+                    color={cell.color}
+                    data={cell.data}
+                    theme={theme}
+                    tooltipFormat={tooltipFormat}
+                    tooltip={tooltip}
+                />,
+                event
+            )
+        } else {
+            hideTooltip()
         }
     }
 
     handleMouseLeave = hideTooltip => () => {
+        if (this.props.isInteractive !== true) return
+
         hideTooltip()
     }
 
