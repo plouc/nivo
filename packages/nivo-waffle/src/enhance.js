@@ -15,6 +15,7 @@ import { withDimensions, withTheme, withMotion, withColors } from '@nivo/core'
 import { getInheritedColorGenerator } from '@nivo/core'
 import { bindDefs } from '@nivo/core'
 import * as props from './props'
+import { computeGrid } from './compute'
 
 const commonEnhancers = [
     withDimensions(),
@@ -25,6 +26,34 @@ const commonEnhancers = [
         getBorderColor: getInheritedColorGenerator(borderColor),
     })),
     withState('currentCell', 'setCurrentCell', null),
+    withPropsOnChange(['rows', 'columns', 'total'], ({ rows, columns, total }) => ({
+        unit: total / (rows * columns),
+    })),
+    withPropsOnChange(
+        ['width', 'height', 'rows', 'columns', 'padding'],
+        ({ width, height, rows, columns, padding }) => {
+            return computeGrid(width, height, rows, columns, padding)
+        }
+    ),
+    withPropsOnChange(['data', 'unit', 'getColor'], ({ data, unit, getColor }) => {
+        let currentPosition = 0
+
+        return {
+            computedData: data.map((datum, groupIndex) => {
+                const enhancedDatum = {
+                    ...datum,
+                    groupIndex,
+                    startAt: currentPosition,
+                    endAt: currentPosition + Math.round(datum.value / unit),
+                    color: getColor(datum),
+                }
+
+                currentPosition = enhancedDatum.endAt
+
+                return enhancedDatum
+            }),
+        }
+    }),
 ]
 
 export default Component => {

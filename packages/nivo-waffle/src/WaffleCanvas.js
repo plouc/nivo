@@ -41,15 +41,6 @@ class WaffleCanvas extends Component {
         const {
             pixelRatio,
 
-            // data
-            total,
-            data,
-
-            // layout
-            rows,
-            columns,
-            padding,
-
             // dimensions
             margin,
             width,
@@ -63,6 +54,12 @@ class WaffleCanvas extends Component {
             emptyOpacity,
             borderWidth,
             getBorderColor,
+
+            // computed
+            cells,
+            cellSize,
+            origin,
+            computedData,
         } = props
 
         this.surface.width = outerWidth * pixelRatio
@@ -72,32 +69,19 @@ class WaffleCanvas extends Component {
         this.ctx.clearRect(0, 0, outerWidth, outerHeight)
         this.ctx.translate(margin.left, margin.top)
 
-        const cellCount = rows * columns
-        const unit = total / cellCount
-
-        const { cells, cellSize, origin } = computeGrid(width, height, rows, columns, padding)
-
-        this.cells = cells
-        this.cellSize = cellSize
-        this.origin = origin
-
         cells.forEach(cell => {
             cell.color = emptyColor
         })
 
-        let previous = 0
-        data.forEach((datum, groupIndex) => {
-            const startAt = previous
-            const endAt = startAt + Math.round(datum.value / unit)
-            range(startAt, endAt).forEach(position => {
+        computedData.forEach(datum => {
+            range(datum.startAt, datum.endAt).forEach(position => {
                 const cell = cells[position]
                 if (cell !== undefined) {
                     cell.data = datum
-                    cell.groupIndex = groupIndex
+                    cell.groupIndex = datum.groupIndex
                     cell.color = getColor(datum)
                 }
             })
-            previous = endAt
         })
 
         cells.forEach(cell => {
@@ -123,13 +107,13 @@ class WaffleCanvas extends Component {
     }
 
     handleClick = event => {
-        const { isInteractive, margin, onClick } = this.props
+        const { isInteractive, margin, onClick, cells, cellSize, origin } = this.props
 
-        if (!isInteractive || !this.cells) return
+        if (!isInteractive || !cells) return
 
         const [x, y] = getRelativeCursor(this.surface, event)
 
-        const cell = findCellUnderCursor(this.cells, this.cellSize, this.origin, margin, x, y)
+        const cell = findCellUnderCursor(cells, cellSize, origin, margin, x, y)
         if (cell !== undefined) onClick(cell, event)
     }
 

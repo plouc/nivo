@@ -6,123 +6,200 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
-import range from 'lodash/range'
-import { Container } from '@nivo/core'
+import React, { Component, Fragment } from 'react'
+import partial from 'lodash/partial'
+import { TransitionMotion, spring } from 'react-motion'
+import { Container, BasicTooltip } from '@nivo/core'
 import enhance from './enhance'
 import { WafflePropTypes } from './props'
-import { computeGrid } from './compute'
+import { applyDataToGrid } from './compute'
 
-const WaffleHtml = ({
-    // data
-    total,
-    data,
+class WaffleHtml extends Component {
+    static propTypes = WafflePropTypes
 
-    // layout
-    rows,
-    columns,
-    padding,
+    handleCellHover = (showTooltip, cell, event) => {
+        const { setCurrentCell, theme, tooltipFormat, tooltip } = this.props
 
-    // dimensions
-    margin,
-    width,
-    height,
-    outerWidth,
-    outerHeight,
+        setCurrentCell(cell)
 
-    // styling
-    getColor,
-    emptyColor,
-    emptyOpacity,
-    borderWidth,
-    getBorderColor,
-    theme,
-    defs,
+        if (!cell.data) return
 
-    // motion
-    animate,
-    motionStiffness,
-    motionDamping,
-
-    // interactivity
-    isInteractive,
-    onClick,
-}) => {
-    const springConfig = {
-        stiffness: motionStiffness,
-        damping: motionDamping,
+        showTooltip(
+            <BasicTooltip
+                id={cell.data.label}
+                value={cell.data.value}
+                enableChip={true}
+                color={cell.color}
+                theme={theme}
+                format={tooltipFormat}
+                renderContent={
+                    typeof tooltip === 'function'
+                        ? tooltip.bind(null, { color: cell.color, ...cell.data })
+                        : null
+                }
+            />,
+            event
+        )
     }
 
-    const cellCount = rows * columns
-    const unit = total / cellCount
+    handleCellLeave = hideTooltip => {
+        this.props.setCurrentCell(null)
+        hideTooltip()
+    }
 
-    const { cells, cellSize, origin } = computeGrid(width, height, rows, columns, padding)
-    cells.forEach(cell => {
-        cell.color = emptyColor
-    })
+    render() {
+        const {
+            // dimensions
+            margin,
+            outerWidth,
+            outerHeight,
 
-    let previous = 0
-    data.forEach((datum, groupIndex) => {
-        const startAt = previous
-        const endAt = startAt + Math.round(datum.value / unit)
-        range(startAt, endAt).forEach(position => {
-            const cell = cells[position]
-            if (cell !== undefined) {
-                cell.data = datum
-                cell.groupIndex = groupIndex
-                cell.color = getColor(datum)
-            }
+            // styling
+            emptyColor,
+            emptyOpacity,
+            borderWidth,
+            getBorderColor,
+            theme,
+
+            // motion
+            animate,
+            motionStiffness,
+            motionDamping,
+
+            // interactivity
+            isInteractive,
+            onClick,
+
+            // computed
+            cells,
+            cellSize,
+            origin,
+            computedData,
+        } = this.props
+
+        cells.forEach(cell => {
+            cell.color = emptyColor
         })
-        previous = endAt
-    })
 
-    return (
-        <Container theme={theme}>
-            {({ showTooltip, hideTooltip }) => (
-                <div
-                    style={{
-                        position: 'relative',
-                        width: outerWidth,
-                        height: outerHeight,
-                    }}
-                >
-                    <div
-                        style={{
-                            position: 'absolute',
-                            top: margin.top + origin.y,
-                            left: margin.left + origin.x,
-                        }}
-                    >
-                        {cells.map(cell => {
-                            //console.log(cell)
-                            return (
-                                <div
-                                    key={cell.position}
-                                    style={{
-                                        position: 'absolute',
-                                        top: cell.y,
-                                        left: cell.x,
-                                        width: cellSize,
-                                        height: cellSize,
-                                        background: cell.color,
-                                        opacity: cell.data ? 1 : emptyOpacity,
-                                        borderWidth,
-                                        borderColor: getBorderColor(cell),
-                                    }}
-                                    onClick={() => {
-                                        console.table(cell)
-                                    }}
-                                />
-                            )
-                        })}
-                    </div>
-                </div>
-            )}
-        </Container>
-    )
+        return (
+            <Container isInteractive={isInteractive} theme={theme}>
+                {({ showTooltip, hideTooltip }) => {
+                    const onHover = partial(this.handleCellHover, showTooltip)
+                    const onLeave = partial(this.handleCellLeave, hideTooltip)
+
+                    let cellsRender
+                    if (animate === true) {
+                        const springConfig = {
+                            stiffness: motionStiffness,
+                            damping: motionDamping,
+                        }
+
+                        cellsRender = (
+                            <TransitionMotion
+                                styles={computedData.map(datum => ({
+                                    key: datum.id,
+                                    data: datum,
+                                    style: {
+                                        startAt: spring(datum.startAt, springConfig),
+                                        endAt: spring(datum.endAt, springConfig),
+                                    },
+                                }))}
+                            >
+                                {interpolatedStyles => {
+                                    const computedCells = applyDataToGrid(
+                                        cells,
+                                        interpolatedStyles.map(s => ({
+                                            ...s.data,
+                                            startAt: Math.round(s.style.startAt),
+                                            endAt: Math.round(s.style.endAt),
+                                        }))
+                                    )
+
+                                    return (
+                                        <Fragment>
+                                            {computedCells.map(cell => (
+                                                <div
+                                                    key={cell.position}
+                                                    style={{
+                                                        position: 'absolute',
+                                                        top: cell.y,
+                                                        left: cell.x,
+                                                        width: cellSize,
+                                                        height: cellSize,
+                                                        background: cell.color,
+                                                        opacity: cell.data ? 1 : emptyOpacity,
+                                                        borderWidth,
+                                                        borderColor: getBorderColor(cell),
+                                                    }}
+                                                    onMouseEnter={partial(onHover, cell)}
+                                                    onMouseMove={partial(onHover, cell)}
+                                                    onMouseLeave={onLeave}
+                                                    onClick={e => {
+                                                        onClick(cell, e)
+                                                    }}
+                                                />
+                                            ))}
+                                        </Fragment>
+                                    )
+                                }}
+                            </TransitionMotion>
+                        )
+                    } else {
+                        const computedCells = applyDataToGrid(cells, computedData)
+
+                        cellsRender = (
+                            <Fragment>
+                                {computedCells.map(cell => (
+                                    <div
+                                        key={cell.position}
+                                        style={{
+                                            position: 'absolute',
+                                            top: cell.y,
+                                            left: cell.x,
+                                            width: cellSize,
+                                            height: cellSize,
+                                            background: cell.color,
+                                            opacity: cell.data ? 1 : emptyOpacity,
+                                            borderWidth,
+                                            borderColor: getBorderColor(cell),
+                                        }}
+                                        onMouseEnter={partial(onHover, cell)}
+                                        onMouseMove={partial(onHover, cell)}
+                                        onMouseLeave={onLeave}
+                                        onClick={e => {
+                                            onClick(cell, e)
+                                        }}
+                                    />
+                                ))}
+                            </Fragment>
+                        )
+                    }
+
+                    return (
+                        <div
+                            style={{
+                                position: 'relative',
+                                width: outerWidth,
+                                height: outerHeight,
+                            }}
+                        >
+                            <div
+                                style={{
+                                    position: 'absolute',
+                                    top: margin.top + origin.y,
+                                    left: margin.left + origin.x,
+                                }}
+                            >
+                                {cellsRender}
+                            </div>
+                        </div>
+                    )
+                }}
+            </Container>
+        )
+    }
 }
 
-WaffleHtml.propTypes = WafflePropTypes
 WaffleHtml.displayName = 'WaffleHtml'
 
 export default enhance(WaffleHtml)

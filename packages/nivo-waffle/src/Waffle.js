@@ -6,15 +6,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component } from 'react'
-import range from 'lodash/range'
+import React, { Component, Fragment } from 'react'
 import partial from 'lodash/partial'
 import { TransitionMotion, spring } from 'react-motion'
 import { Container, SvgWrapper, BasicTooltip } from '@nivo/core'
 import { WafflePropTypes } from './props'
 import enhance from './enhance'
-import { computeGrid } from './compute'
 import WaffleNode from './WaffleNode'
+import { applyDataToGrid } from './compute'
 
 export class Waffle extends Component {
     static propTypes = WafflePropTypes
@@ -51,24 +50,12 @@ export class Waffle extends Component {
 
     render() {
         const {
-            // data
-            total,
-            data,
-
-            // layout
-            rows,
-            columns,
-            padding,
-
             // dimensions
             margin,
-            width,
-            height,
             outerWidth,
             outerHeight,
 
             // styling
-            getColor,
             emptyColor,
             emptyOpacity,
             borderWidth,
@@ -84,34 +71,16 @@ export class Waffle extends Component {
             // interactivity
             isInteractive,
             onClick,
+
+            // computed
+            cells,
+            cellSize,
+            origin,
+            computedData,
         } = this.props
 
-        const springConfig = {
-            stiffness: motionStiffness,
-            damping: motionDamping,
-        }
-
-        const cellCount = rows * columns
-        const unit = total / cellCount
-
-        const { cells, cellSize, origin } = computeGrid(width, height, rows, columns, padding)
         cells.forEach(cell => {
             cell.color = emptyColor
-        })
-
-        let previous = 0
-        data.forEach((datum, groupIndex) => {
-            const startAt = previous
-            const endAt = startAt + Math.round(datum.value / unit)
-            range(startAt, endAt).forEach(position => {
-                const cell = cells[position]
-                if (cell !== undefined) {
-                    cell.data = datum
-                    cell.groupIndex = groupIndex
-                    cell.color = getColor(datum)
-                }
-            })
-            previous = endAt
         })
 
         return (
@@ -120,6 +89,84 @@ export class Waffle extends Component {
                     const onHover = partial(this.handleCellHover, showTooltip)
                     const onLeave = partial(this.handleCellLeave, hideTooltip)
 
+                    let cellsRender
+                    if (animate === true) {
+                        const springConfig = {
+                            stiffness: motionStiffness,
+                            damping: motionDamping,
+                        }
+
+                        cellsRender = (
+                            <TransitionMotion
+                                styles={computedData.map(datum => ({
+                                    key: datum.id,
+                                    data: datum,
+                                    style: {
+                                        startAt: spring(datum.startAt, springConfig),
+                                        endAt: spring(datum.endAt, springConfig),
+                                    },
+                                }))}
+                            >
+                                {interpolatedStyles => {
+                                    const computedCells = applyDataToGrid(
+                                        cells,
+                                        interpolatedStyles.map(s => ({
+                                            ...s.data,
+                                            startAt: Math.round(s.style.startAt),
+                                            endAt: Math.round(s.style.endAt),
+                                        }))
+                                    )
+
+                                    return (
+                                        <Fragment>
+                                            {computedCells.map(cell => (
+                                                <WaffleNode
+                                                    key={cell.position}
+                                                    position={cell.position}
+                                                    size={cellSize}
+                                                    x={cell.x}
+                                                    y={cell.y}
+                                                    color={cell.color}
+                                                    opacity={cell.data ? 1 : emptyOpacity}
+                                                    borderWidth={borderWidth}
+                                                    borderColor={getBorderColor(cell)}
+                                                    data={cell.data}
+                                                    onHover={partial(onHover, cell)}
+                                                    onLeave={onLeave}
+                                                    onClick={onClick}
+                                                />
+                                            ))}
+                                        </Fragment>
+                                    )
+                                }}
+                            </TransitionMotion>
+                        )
+                    } else {
+                        const computedCells = applyDataToGrid(cells, computedData)
+
+                        cellsRender = (
+                            <Fragment>
+                                {computedCells.map(cell => (
+                                    <WaffleNode
+                                        key={cell.position}
+                                        position={cell.position}
+                                        size={cellSize}
+                                        x={cell.x}
+                                        y={cell.y}
+                                        color={cell.color}
+                                        opacity={cell.data ? 1 : emptyOpacity}
+                                        borderWidth={borderWidth}
+                                        borderColor={getBorderColor(cell)}
+                                        data={cell.data}
+                                        onHover={partial(onHover, cell)}
+                                        onLeave={onLeave}
+                                        onClick={onClick}
+                                    />
+                                ))}
+                            </Fragment>
+                        )
+                    }
+
                     return (
                         <SvgWrapper
                             width={outerWidth}
@@ -127,28 +174,7 @@ export class Waffle extends Component {
                             margin={margin}
                             defs={defs}
                         >
-                            <g transform={`translate(${origin.x}, ${origin.y})`}>
-                                {cells.map(cell => {
-                                    //console.log(cell)
-                                    return (
-                                        <WaffleNode
-                                            key={cell.position}
-                                            position={cell.position}
-                                            size={cellSize}
-                                            x={cell.x}
-                                            y={cell.y}
-                                            color={cell.color}
-                                            opacity={cell.data ? 1 : emptyOpacity}
-                                            borderWidth={borderWidth}
-                                            borderColor={getBorderColor(cell)}
-                                            data={cell.data}
-                                            onHover={partial(onHover, cell)}
-                                            onLeave={onLeave}
-                                            onClick={onClick}
-                                        />
-                                    )
-                                })}
-                            </g>
+                            <g transform={`translate(${origin.x}, ${origin.y})`}>{cellsRender}</g>
                         </SvgWrapper>
                     )
                 }}

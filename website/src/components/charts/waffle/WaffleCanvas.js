@@ -109,7 +109,12 @@ export default class WaffleCanvas extends Component {
 
         const description = (
             <div className="chart-description">
-                <p className="description">A waffle component using canvas rendering.</p>
+                <p className="description">
+                    A variation around the <Link to="/waffle">Waffle</Link> component. Well suited
+                    for large data sets as it does not impact DOM tree depth and does not involve
+                    React diffing stuff for children (not that useful when using canvas), however
+                    you'll lose the isomorphic ability and transitions (for now).
+                </p>
                 <p className="description">
                     The responsive alternative of this component is{' '}
                     <code>ResponsiveWaffleHtml</code>, it also offers other implementations, see{' '}

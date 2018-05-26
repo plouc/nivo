@@ -58,6 +58,24 @@ export default [
         },
     },
     {
+        key: 'fillDirection',
+        scopes: '*',
+        description: `How to fill the waffle, must be one of: 'top', 'right', 'bottom', 'left'.`,
+        type: '{string}',
+        required: false,
+        default: defaults.fillDirection,
+        controlType: 'choices',
+        controlGroup: 'Base',
+        controlOptions: {
+            choices: [
+                { label: 'top', value: 'top' },
+                { label: 'right', value: 'right' },
+                { label: 'bottom', value: 'bottom' },
+                { label: 'left', value: 'left' },
+            ],
+        },
+    },
+    {
         key: 'padding',
         scopes: '*',
         type: 'number',
@@ -66,6 +84,7 @@ export default [
         controlType: 'range',
         controlGroup: 'Base',
         controlOptions: {
+            unit: 'px',
             min: 0,
             max: 10,
         },
@@ -180,7 +199,7 @@ export default [
     {
         key: 'borderWidth',
         scopes: '*',
-        description: 'Control node border width.',
+        description: 'Control cell border width.',
         type: '{number}',
         required: false,
         default: defaults.borderWidth,
@@ -195,7 +214,7 @@ export default [
     {
         key: 'borderColor',
         scopes: '*',
-        description: 'Method to compute border color.',
+        description: 'Method to compute cell border color.',
         type: '{string|Function}',
         required: false,
         default: defaults.borderColor,

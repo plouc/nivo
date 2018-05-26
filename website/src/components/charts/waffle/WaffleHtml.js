@@ -47,6 +47,7 @@ export default class WaffleHtml extends Component {
             // layout
             rows: 18,
             columns: 14,
+            fillDirection: 'bottom',
             padding: 2,
 
             margin: {
@@ -59,7 +60,7 @@ export default class WaffleHtml extends Component {
             // styling
             emptyColor: '#cccccc',
             emptyOpacity: 1,
-            colors: 'nivo',
+            colors: 'set2',
             colorBy: 'id',
             borderWidth: 0,
             borderColor: {
@@ -113,9 +114,12 @@ export default class WaffleHtml extends Component {
         const description = (
             <div className="chart-description">
                 <p className="description">
-                    A waffle component. You can fully customize it using <code>renderCell</code>{' '}
-                    property to define your own cell component, if you wish to do so you should have
-                    a look at{' '}
+                    A variation around the <Link to="/waffle">Waffle</Link> component, using HTML
+                    elements.
+                </p>
+                <p className="description">
+                    You can fully customize it using <code>renderCell</code> property to define your
+                    own cell component, if you wish to do so you should have a look at{' '}
                     <a
                         href="https://github.com/plouc/nivo/blob/master/src/components/charts/treemap/TreeMapNode.js"
                         target="_blank"

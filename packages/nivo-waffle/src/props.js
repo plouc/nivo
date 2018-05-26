@@ -22,6 +22,7 @@ export const WafflePropTypes = {
     // layout
     rows: PropTypes.number.isRequired,
     columns: PropTypes.number.isRequired,
+    fillDirection: PropTypes.oneOf(['top', 'right', 'bottom', 'left']).isRequired,
     padding: PropTypes.number.isRequired,
 
     // styling
@@ -45,10 +46,19 @@ export const WafflePropTypes = {
 
     // interactivity
     isInteractive: PropTypes.bool,
+
+    // computed
+    cellSize: PropTypes.number.isRequired,
+    cells: PropTypes.array.isRequired,
+    origin: PropTypes.shape({
+        x: PropTypes.number.isRequired,
+        y: PropTypes.number.isRequired,
+    }).isRequired,
 }
 
 export const WaffleDefaultProps = {
     // layout
+    fillDirection: 'bottom',
     padding: 2,
 
     // axes & grid

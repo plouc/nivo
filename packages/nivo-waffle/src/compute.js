@@ -38,3 +38,20 @@ export const computeGrid = (width, height, rows, columns, padding) => {
 
     return { cells, cellSize, origin }
 }
+
+export const applyDataToGrid = (_cells, data) => {
+    const cells = _cells.map(cell => ({ ...cell }))
+
+    data.forEach(datum => {
+        range(datum.startAt, datum.endAt).forEach(position => {
+            const cell = cells[position]
+            if (cell !== undefined) {
+                cell.data = datum
+                cell.groupIndex = datum.groupIndex
+                cell.color = datum.color
+            }
+        })
+    })
+
+    return cells
+}

@@ -13,7 +13,7 @@ import { getPropertiesGroupsControls } from '../../../lib/componentProperties'
 import properties from './props'
 
 const groupsByScope = {
-    Waffle: getPropertiesGroupsControls(properties, 'WaffleMap'),
+    Waffle: getPropertiesGroupsControls(properties, 'Waffle'),
     WaffleHTML: getPropertiesGroupsControls(properties, 'WaffleHtml'),
     WaffleCanvas: getPropertiesGroupsControls(properties, 'WaffleCanvas'),
     api: getPropertiesGroupsControls(properties, 'api'),

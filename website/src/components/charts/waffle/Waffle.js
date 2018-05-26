@@ -47,6 +47,7 @@ export default class Waffle extends Component {
             // layout
             rows: 18,
             columns: 14,
+            fillDirection: 'bottom',
             padding: 2,
 
             margin: {
