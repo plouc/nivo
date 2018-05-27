@@ -57,7 +57,7 @@ const commonEnhancers = [
 ]
 
 export default Component => {
-    const implDefaultProps = props.WaffleDefaultProps
+    const implDefaultProps = props[`${Component.displayName}DefaultProps`]
 
     switch (Component.displayName) {
         case 'Waffle':
@@ -66,13 +66,13 @@ export default Component => {
                     defaultProps(implDefaultProps),
                     ...commonEnhancers,
                     withMotion(),
-                    pure,
                     withPropsOnChange(
                         ['computedData', 'defs', 'fill'],
                         ({ computedData, defs, fill }) => ({
                             defs: bindDefs(defs, computedData, fill, { targetKey: 'fill' }),
                         })
                     ),
+                    pure,
                 ]
             )(Component)
 

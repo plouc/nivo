@@ -13,7 +13,6 @@ import { Container, SvgWrapper } from '@nivo/core'
 import { WafflePropTypes } from './props'
 import enhance from './enhance'
 import { applyDataToGrid } from './compute'
-import WaffleNode from './WaffleNode'
 import WaffleCellTooltip from './WaffleCellTooltip'
 
 export class Waffle extends Component {
@@ -54,6 +53,7 @@ export class Waffle extends Component {
             outerHeight,
 
             // styling
+            cellComponent,
             emptyColor,
             emptyOpacity,
             borderWidth,
@@ -117,24 +117,24 @@ export class Waffle extends Component {
 
                                     return (
                                         <Fragment>
-                                            {computedCells.map(cell => (
-                                                <WaffleNode
-                                                    key={cell.position}
-                                                    position={cell.position}
-                                                    size={cellSize}
-                                                    x={cell.x}
-                                                    y={cell.y}
-                                                    color={cell.color}
-                                                    fill={cell.data && cell.data.fill}
-                                                    opacity={cell.data ? 1 : emptyOpacity}
-                                                    borderWidth={borderWidth}
-                                                    borderColor={getBorderColor(cell)}
-                                                    data={cell.data}
-                                                    onHover={partial(onHover, cell)}
-                                                    onLeave={onLeave}
-                                                    onClick={onClick}
-                                                />
-                                            ))}
+                                            {computedCells.map(cell =>
+                                                React.createElement(cellComponent, {
+                                                    key: cell.position,
+                                                    position: cell.position,
+                                                    size: cellSize,
+                                                    x: cell.x,
+                                                    y: cell.y,
+                                                    color: cell.color,
+                                                    fill: cell.data && cell.data.fill,
+                                                    opacity: cell.data ? 1 : emptyOpacity,
+                                                    borderWidth,
+                                                    borderColor: getBorderColor(cell),
+                                                    data: cell.data,
+                                                    onHover: partial(onHover, cell),
+                                                    onLeave,
+                                                    onClick,
+                                                })
+                                            )}
                                         </Fragment>
                                     )
                                 }}
@@ -145,24 +145,24 @@ export class Waffle extends Component {
 
                         cellsRender = (
                             <Fragment>
-                                {computedCells.map(cell => (
-                                    <WaffleNode
-                                        key={cell.position}
-                                        position={cell.position}
-                                        size={cellSize}
-                                        x={cell.x}
-                                        y={cell.y}
-                                        color={cell.color}
-                                        fill={cell.data && cell.data.fill}
-                                        opacity={cell.data ? 1 : emptyOpacity}
-                                        borderWidth={borderWidth}
-                                        borderColor={getBorderColor(cell)}
-                                        data={cell.data}
-                                        onHover={partial(onHover, cell)}
-                                        onLeave={onLeave}
-                                        onClick={onClick}
-                                    />
-                                ))}
+                                {computedCells.map(cell =>
+                                    React.createElement(cellComponent, {
+                                        key: cell.position,
+                                        position: cell.position,
+                                        size: cellSize,
+                                        x: cell.x,
+                                        y: cell.y,
+                                        color: cell.color,
+                                        fill: cell.data && cell.data.fill,
+                                        opacity: cell.data ? 1 : emptyOpacity,
+                                        borderWidth,
+                                        borderColor: getBorderColor(cell),
+                                        data: cell.data,
+                                        onHover: partial(onHover, cell),
+                                        onLeave,
+                                        onClick,
+                                    })
+                                )}
                             </Fragment>
                         )
                     }

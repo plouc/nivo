@@ -149,6 +149,21 @@ export default [
 
     ————————————————————————————————————————————————————————————————————————————*/
     {
+        key: 'cellComponent',
+        scopes: ['Waffle', 'WaffleHtml'],
+        description: 'Override default cell component.',
+        type: '{Function}',
+        required: false,
+        controlType: 'choices',
+        controlGroup: 'Style',
+        controlOptions: {
+            choices: ['default', 'Custom(props) => (…)'].map(key => ({
+                label: key,
+                value: key,
+            })),
+        },
+    },
+    {
         key: 'colors',
         scopes: '*',
         description: 'Defines how to compute node color.',

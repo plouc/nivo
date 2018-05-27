@@ -62,6 +62,7 @@ export default class Waffle extends Component {
 
             // styling
             theme: nivoTheme,
+            cellComponent: 'default',
             emptyColor: '#cccccc',
             emptyOpacity: 1,
             colors: 'nivo',
@@ -109,13 +110,16 @@ export default class Waffle extends Component {
     render() {
         const { data, settings } = this.state
 
-        const mappedSettings = propsMapper(settings)
+        const mappedSettings = propsMapper(settings, { component: 'Waffle' })
 
         const code = generateCode(
             'ResponsiveWaffle',
             {
                 ...mappedSettings,
-                tooltip: mappedSettings.tooltip ? function CustomTooltip() {} : undefined,
+                cellComponent: mappedSettings.cellComponent
+                    ? 'CustomCell(props) => (…)'
+                    : undefined,
+                tooltip: mappedSettings.tooltip ? 'CustomTooltip(props) => (…)' : undefined,
             },
             {
                 pkg: '@nivo/waffle',
@@ -128,15 +132,15 @@ export default class Waffle extends Component {
         const description = (
             <div className="chart-description">
                 <p className="description">
-                    A waffle component. You can fully customize it using <code>renderCell</code>{' '}
+                    A waffle component. You can fully customize it using <code>cellComponent</code>{' '}
                     property to define your own cell component, if you wish to do so you should have
                     a look at{' '}
                     <a
-                        href="https://github.com/plouc/nivo/blob/master/src/components/charts/treemap/TreeMapNode.js"
+                        href="https://github.com/plouc/nivo/blob/master/packages/nivo-waffle/src/WaffleCell.js"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        native SVG node component
+                        native SVG component
                     </a>{' '}
                     for available properties.
                 </p>

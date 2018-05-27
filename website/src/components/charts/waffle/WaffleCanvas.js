@@ -135,7 +135,7 @@ export default class WaffleCanvas extends Component {
             'ResponsiveWaffleCanvas',
             {
                 ...mappedSettings,
-                tooltip: mappedSettings.tooltip ? function CustomTooltip() {} : undefined,
+                tooltip: mappedSettings.tooltip ? 'CustomTooltip(props) => (…)' : undefined,
             },
             {
                 pkg: '@nivo/waffle',

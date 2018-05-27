@@ -62,6 +62,7 @@ export default class WaffleHtml extends Component {
 
             // styling
             theme: nivoTheme,
+            cellComponent: 'default',
             emptyColor: '#cccccc',
             emptyOpacity: 1,
             colors: 'set2',
@@ -108,13 +109,16 @@ export default class WaffleHtml extends Component {
     render() {
         const { data, settings } = this.state
 
-        const mappedSettings = propsMapper(settings)
+        const mappedSettings = propsMapper(settings, { component: 'WaffleHtml' })
 
         const code = generateCode(
             'ResponsiveWaffleHtml',
             {
                 ...mappedSettings,
-                tooltip: mappedSettings.tooltip ? function CustomTooltip() {} : undefined,
+                cellComponent: mappedSettings.cellComponent
+                    ? 'CustomCell(props) => (…)'
+                    : undefined,
+                tooltip: mappedSettings.tooltip ? 'CustomTooltip(props) => (…)' : undefined,
             },
             {
                 pkg: '@nivo/waffle',
@@ -131,14 +135,14 @@ export default class WaffleHtml extends Component {
                     elements.
                 </p>
                 <p className="description">
-                    You can fully customize it using <code>renderCell</code> property to define your
-                    own cell component, if you wish to do so you should have a look at{' '}
+                    You can fully customize it using <code>cellComponent</code> property to define
+                    your own cell component, if you wish to do so you should have a look at{' '}
                     <a
-                        href="https://github.com/plouc/nivo/blob/master/src/components/charts/treemap/TreeMapNode.js"
+                        href="https://github.com/plouc/nivo/blob/master/packages/nivo-waffle/src/WaffleCellHtml.js"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        native HTML node component
+                        native HTML component
                     </a>{' '}
                     for available properties.
                 </p>

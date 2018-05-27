@@ -7,8 +7,11 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
+import { defsPropTypes } from '@nivo/core'
+import WaffleCell from './WaffleCell'
+import WaffleCellHtml from './WaffleCellHtml'
 
-export const WafflePropTypes = {
+const commonPropTypes = {
     // data
     total: PropTypes.number.isRequired,
     data: PropTypes.arrayOf(
@@ -28,18 +31,6 @@ export const WafflePropTypes = {
     // styling
     emptyColor: PropTypes.string.isRequired,
     emptyOpacity: PropTypes.number.isRequired,
-    defs: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string.isRequired,
-        })
-    ).isRequired,
-    fill: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string,
-            match: PropTypes.oneOfType([PropTypes.oneOf(['*']), PropTypes.object, PropTypes.func])
-                .isRequired,
-        })
-    ).isRequired,
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.any.isRequired,
     getBorderColor: PropTypes.func.isRequired, // computed
@@ -58,7 +49,23 @@ export const WafflePropTypes = {
     }).isRequired,
 }
 
-export const WaffleDefaultProps = {
+export const WafflePropTypes = {
+    ...commonPropTypes,
+    cellComponent: PropTypes.func.isRequired,
+    ...defsPropTypes,
+}
+
+export const WaffleHtmlPropTypes = {
+    ...commonPropTypes,
+    cellComponent: PropTypes.func.isRequired,
+}
+
+export const WaffleCanvasPropTypes = {
+    ...commonPropTypes,
+    pixelRatio: PropTypes.number.isRequired,
+}
+
+const commonDefaultProps = {
     // layout
     fillDirection: 'bottom',
     padding: 2,
@@ -86,4 +93,22 @@ export const WaffleDefaultProps = {
     enableStackTooltip: true,
 
     legends: [],
+}
+
+export const WaffleDefaultProps = {
+    ...commonDefaultProps,
+    cellComponent: WaffleCell,
+    defs: [],
+    fill: [],
+}
+
+export const WaffleHtmlDefaultProps = {
+    ...commonDefaultProps,
+    cellComponent: WaffleCellHtml,
+}
+
+export const WaffleCanvasDefaultProps = {
+    ...commonDefaultProps,
+    pixelRatio:
+        global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
 }

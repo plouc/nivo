@@ -10,7 +10,7 @@ import React, { Component } from 'react'
 import range from 'lodash/range'
 import { Container } from '@nivo/core'
 import enhance from './enhance'
-import { WafflePropTypes } from './props'
+import { WaffleCanvasPropTypes } from './props'
 import { isCursorInRect, getRelativeCursor } from '@nivo/core'
 import WaffleCellTooltip from './WaffleCellTooltip'
 
@@ -27,6 +27,8 @@ const findCellUnderCursor = (cells, cellSize, origin, margin, x, y) =>
     )
 
 class WaffleCanvas extends Component {
+    static propTypes = WaffleCanvasPropTypes
+
     componentDidMount() {
         this.ctx = this.surface.getContext('2d')
         this.draw(this.props)
@@ -178,7 +180,6 @@ class WaffleCanvas extends Component {
     }
 }
 
-WaffleCanvas.propTypes = WafflePropTypes
 WaffleCanvas.displayName = 'WaffleCanvas'
 
 export default enhance(WaffleCanvas)
