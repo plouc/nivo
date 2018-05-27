@@ -16,6 +16,7 @@ import WaffleControls from './WaffleControls'
 import generateCode from '../../../lib/generateChartCode'
 import ComponentPropsDocumentation from '../../properties/ComponentPropsDocumentation'
 import properties from './props'
+import config from '../../../config'
 import nivoTheme from '../../../nivoTheme'
 import propsMapper from './propsMapper'
 
@@ -145,6 +146,18 @@ export default class WaffleHtml extends Component {
                         native HTML component
                     </a>{' '}
                     for available properties.
+                </p>
+                <p className="description">
+                    You can also see more example usages in{' '}
+                    <a
+                        href={`${
+                            config.storybookUrl
+                        }?selectedKind=WaffleHtml&selectedStory=default`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        the storybook
+                    </a>.
                 </p>
                 <p className="description">
                     The responsive alternative of this component is{' '}

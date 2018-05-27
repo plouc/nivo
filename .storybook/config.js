@@ -29,6 +29,9 @@ function loadStories() {
     require('../packages/nivo-sunburst/stories/sunburst.stories')
     require('../packages/nivo-treemap/stories/treemap.stories')
     require('../packages/nivo-treemap/stories/treemapHtml.stories')
+    require('../packages/nivo-waffle/stories/waffle.stories')
+    require('../packages/nivo-waffle/stories/waffle-html.stories')
+    require('../packages/nivo-waffle/stories/waffle-canvas.stories')
 }
 
 configure(loadStories, module)

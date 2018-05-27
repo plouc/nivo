@@ -9,6 +9,7 @@
 import React, { Component, Fragment } from 'react'
 import partial from 'lodash/partial'
 import { TransitionMotion, spring } from 'react-motion'
+import setDisplayName from 'recompose/setDisplayName'
 import { Container, SvgWrapper } from '@nivo/core'
 import { WafflePropTypes } from './props'
 import enhance from './enhance'
@@ -185,4 +186,4 @@ export class Waffle extends Component {
 
 Waffle.displayName = 'Waffle'
 
-export default enhance(Waffle)
+export default setDisplayName(Waffle.displayName)(enhance(Waffle))

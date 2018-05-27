@@ -17,6 +17,7 @@ import generateCode from '../../../lib/generateChartCode'
 import ComponentPropsDocumentation from '../../properties/ComponentPropsDocumentation'
 import properties from './props'
 import nivoTheme from '../../../nivoTheme'
+import config from '../../../config'
 import propsMapper from './propsMapper'
 
 const generateData = () => [
@@ -99,7 +100,7 @@ export default class WaffleCanvas extends Component {
             },
 
             isInteractive: true,
-            'custom tooltip example': true,
+            'custom tooltip example': false,
             tooltip: null,
         },
     }
@@ -152,6 +153,18 @@ export default class WaffleCanvas extends Component {
                     for large data sets as it does not impact DOM tree depth and does not involve
                     React diffing stuff for children (not that useful when using canvas), however
                     you'll lose the isomorphic ability and transitions (for now).
+                </p>
+                <p className="description">
+                    You can also see more example usages in{' '}
+                    <a
+                        href={`${
+                            config.storybookUrl
+                        }?selectedKind=WaffleCanvas&selectedStory=default`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        the storybook
+                    </a>.
                 </p>
                 <p className="description">
                     The responsive alternative of this component is{' '}

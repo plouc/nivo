@@ -15,6 +15,7 @@ import ChartTabs from '../../ChartTabs'
 import WaffleControls from './WaffleControls'
 import generateCode from '../../../lib/generateChartCode'
 import ComponentPropsDocumentation from '../../properties/ComponentPropsDocumentation'
+import config from '../../../config'
 import properties from './props'
 import nivoTheme from '../../../nivoTheme'
 import propsMapper from './propsMapper'
@@ -143,6 +144,16 @@ export default class Waffle extends Component {
                         native SVG component
                     </a>{' '}
                     for available properties.
+                </p>
+                <p className="description">
+                    You can also see more example usages in{' '}
+                    <a
+                        href={`${config.storybookUrl}?selectedKind=Waffle&selectedStory=default`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        the storybook
+                    </a>.
                 </p>
                 <p className="description">
                     The responsive alternative of this component is <code>ResponsiveWaffle</code>,

@@ -8,6 +8,7 @@
  */
 import React, { Component } from 'react'
 import range from 'lodash/range'
+import setDisplayName from 'recompose/setDisplayName'
 import { Container } from '@nivo/core'
 import enhance from './enhance'
 import { WaffleCanvasPropTypes } from './props'
@@ -182,4 +183,4 @@ class WaffleCanvas extends Component {
 
 WaffleCanvas.displayName = 'WaffleCanvas'
 
-export default enhance(WaffleCanvas)
+export default setDisplayName(WaffleCanvas.displayName)(enhance(WaffleCanvas))
