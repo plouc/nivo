@@ -68,21 +68,14 @@ export const WaffleCanvasPropTypes = {
 const commonDefaultProps = {
     // layout
     fillDirection: 'bottom',
-    padding: 2,
-
-    // axes & grid
-    axisBottom: {},
-    enableGridX: true,
-    enableGridY: false,
-
-    borderWidth: 0,
-    borderColor: 'inherit:darker(1)',
+    padding: 1,
 
     // styling
     emptyColor: '#cccccc',
     emptyOpacity: 1,
+    borderWidth: 0,
+    borderColor: 'inherit:darker(1)',
     colors: 'nivo',
-    fillOpacity: 1,
     defs: [],
     fill: [],
 

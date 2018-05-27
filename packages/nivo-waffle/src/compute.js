@@ -15,21 +15,70 @@ export const computeCellSize = (width, height, rows, columns, padding) => {
     return Math.min(sizeX, sizeY)
 }
 
-export const computeGrid = (width, height, rows, columns, padding) => {
+export const computeGrid = (width, height, rows, columns, fillDirection, padding) => {
     const cellSize = computeCellSize(width, height, rows, columns, padding)
 
     const cells = []
-    range(rows).forEach(row => {
-        range(columns).forEach(column => {
-            cells.push({
-                position: row * columns + column,
-                row,
-                column,
-                x: column * (cellSize + padding),
-                y: row * (cellSize + padding),
+    switch (fillDirection) {
+        case 'top':
+            range(rows).forEach(row => {
+                range(columns).forEach(column => {
+                    cells.push({
+                        position: row * columns + column,
+                        row,
+                        column,
+                        x: column * (cellSize + padding),
+                        y: row * (cellSize + padding),
+                    })
+                })
             })
-        })
-    })
+            break
+
+        case 'bottom':
+            range(rows - 1, -1).forEach(row => {
+                range(columns).forEach(column => {
+                    cells.push({
+                        position: row * columns + column,
+                        row,
+                        column,
+                        x: column * (cellSize + padding),
+                        y: row * (cellSize + padding),
+                    })
+                })
+            })
+            break
+
+        case 'left':
+            range(columns).forEach(column => {
+                range(rows).forEach(row => {
+                    cells.push({
+                        position: row * columns + column,
+                        row,
+                        column,
+                        x: column * (cellSize + padding),
+                        y: row * (cellSize + padding),
+                    })
+                })
+            })
+            break
+
+        case 'right':
+            range(columns - 1, -1).forEach(column => {
+                range(rows - 1, -1).forEach(row => {
+                    cells.push({
+                        position: row * columns + column,
+                        row,
+                        column,
+                        x: column * (cellSize + padding),
+                        y: row * (cellSize + padding),
+                    })
+                })
+            })
+            break
+
+        default:
+            throw new Error(`Invalid fill direction provided: ${fillDirection}`)
+    }
 
     const origin = {
         x: (width - (cellSize * columns + padding * (columns - 1))) / 2,

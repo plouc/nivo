@@ -30,9 +30,9 @@ const commonEnhancers = [
         unit: total / (rows * columns),
     })),
     withPropsOnChange(
-        ['width', 'height', 'rows', 'columns', 'padding'],
-        ({ width, height, rows, columns, padding }) => {
-            return computeGrid(width, height, rows, columns, padding)
+        ['width', 'height', 'rows', 'columns', 'fillDirection', 'padding'],
+        ({ width, height, rows, columns, fillDirection, padding }) => {
+            return computeGrid(width, height, rows, columns, fillDirection, padding)
         }
     ),
     withPropsOnChange(['data', 'unit', 'getColor'], ({ data, unit, getColor }) => {
