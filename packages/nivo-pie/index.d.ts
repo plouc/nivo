@@ -1,27 +1,48 @@
 declare module '@nivo/pie' {
+    export class Pie extends React.Component<IPieProps & IDimensions>{}
+    export class ResponsivePie extends React.Component<IPieProps>{}
+
+    type LegendItemDirection =
+    | 'left-to-right'
+    | 'right-to-left'
+    | 'top-to-bottom'
+    | 'bottom-to-top';
+
+    type Anchor =
+        | 'top'
+        | 'top-right'
+        | 'right'
+        | 'bottom-right'
+        | 'bottom'
+        | 'bottom-left'
+        | 'left'
+        | 'top-left'
+        | 'center';
+
+    type LegendDirection = 'row' | 'column';
 
     interface INivoLegendItem {
 
         data: Array<{ label: string | number; fill: string; }>;
 
         // position & layout
-        anchor: 'top' | 'top-right' | 'right' | 'bottom-right' | 'bottom' | 'bottom-left' | 'left' | 'top-left' | 'center';
+        anchor: Anchor;
 
         translateX?: number;
         translateY?: number;
-        direction: 'row' | 'column';
+        direction: LegendDirection;
 
         // items
         itemWidth: number;
         itemHeight: number;
-        itemDirection?: 'left-to-right' | 'right-to-left' | 'top-to-bottom' | 'bottom-to-top',
+        itemDirection?: LegendItemDirection;
         itemsSpacing?: number;
         symbolSize?: number;
         symbolSpacing?: number;
         symbolShape: "circle" | "diamond" | "square" | "triangle", //Proptypes specifies this as string | func but source implements it as string only.
         textColor?: string;
     }
-
+    
     interface IPieDataItem {
         id: string;
         value: string;
@@ -68,11 +89,8 @@ declare module '@nivo/pie' {
         legends: Array<INivoLegendItem>;
     }
 
-    export class Pie extends React.Component<HeatMapTypes>{
-
-    }
-
-    export class ResponsivePie extends Pie {
-
+    interface IDimensions{
+        height: number;
+        width: number;
     }
 }
