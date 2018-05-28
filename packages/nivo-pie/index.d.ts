@@ -2,13 +2,13 @@ declare module '@nivo/pie' {
     export class Pie extends React.Component<IPieProps & IDimensions>{}
     export class ResponsivePie extends React.Component<IPieProps>{}
 
-    type LegendItemDirection =
+    export type LegendItemDirection =
     | 'left-to-right'
     | 'right-to-left'
     | 'top-to-bottom'
     | 'bottom-to-top';
 
-    type Anchor =
+    export type Anchor =
         | 'top'
         | 'top-right'
         | 'right'
@@ -19,9 +19,9 @@ declare module '@nivo/pie' {
         | 'top-left'
         | 'center';
 
-    type LegendDirection = 'row' | 'column';
+    export type LegendDirection = 'row' | 'column';
 
-    interface INivoLegendItem {
+    export interface INivoLegendItem {
 
         data: Array<{ label: string | number; fill: string; }>;
 
@@ -43,14 +43,14 @@ declare module '@nivo/pie' {
         textColor?: string;
     }
     
-    interface IPieDataItem {
+    export interface IPieDataItem {
         id: string;
         value: string;
     }
 
-    type SettingsGetterFunc = (dataSlize: IPieDataITem) => string;
+    export type SettingsGetterFunc = (dataSlize: IPieDataITem) => string;
 
-    interface IPieProps {
+    export interface IPieProps {
         data: Array<IPieDataItem>;
         sortByValue: bool;
         innerRadius: number;
@@ -89,7 +89,7 @@ declare module '@nivo/pie' {
         legends: Array<INivoLegendItem>;
     }
 
-    interface IDimensions{
+    export interface IDimensions{
         height: number;
         width: number;
     }
