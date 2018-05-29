@@ -20,6 +20,7 @@ export const getNodeHandlers = (
         zoomToNode,
         theme,
         tooltipFormat,
+        tooltip,
     }
 ) => {
     if (!isInteractive) return {}
@@ -33,6 +34,9 @@ export const getNodeHandlers = (
                 color={node.color}
                 theme={theme}
                 format={tooltipFormat}
+                renderContent={
+                    typeof tooltip === 'function' ? tooltip.bind(null, { node, ...node }) : null
+                }
             />,
             e
         )

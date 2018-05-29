@@ -43,6 +43,8 @@ const BubbleHtml = ({
     onClick,
     isZoomable,
     zoomToNode,
+    tooltipFormat,
+    tooltip,
 }) => {
     const springConfig = {
         stiffness: motionStiffness,
@@ -58,6 +60,8 @@ const BubbleHtml = ({
             isZoomable,
             zoomToNode,
             theme,
+            tooltipFormat,
+            tooltip,
         })
 
     return (

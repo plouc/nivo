@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { generateLibTree } from '@nivo/generators'
-import { Bubble } from '../index'
+import { BubbleHtml } from '../index'
 import { withInfo } from '@storybook/addon-info'
 
 const commonProperties = {
@@ -14,12 +14,12 @@ const commonProperties = {
     labelSkipRadius: 16,
 }
 
-storiesOf('Bubble', module)
+storiesOf('BubbleHtml', module)
     .addDecorator(story => <div className="wrapper">{story()}</div>)
-    .add('default', () => <Bubble {...commonProperties} />)
-    .add('rendering leaves only', () => <Bubble {...commonProperties} leavesOnly={true} />)
+    .add('default', () => <BubbleHtml {...commonProperties} />)
+    .add('rendering leaves only', () => <BubbleHtml {...commonProperties} leavesOnly={true} />)
     .add('with formatted values', () => (
-        <Bubble
+        <BubbleHtml
             {...commonProperties}
             tooltipFormat={value =>
                 `${Number(value).toLocaleString('ru-RU', {
@@ -31,7 +31,7 @@ storiesOf('Bubble', module)
     .add(
         'custom tooltip',
         withInfo()(() => (
-            <Bubble
+            <BubbleHtml
                 {...commonProperties}
                 tooltip={({ id, value, color }) => (
                     <strong style={{ color }}>
