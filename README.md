@@ -4,7 +4,6 @@
 [![Travis CI][travis-image]][travis-url]
 [![NPM version][npm-image]][npm-url]
 [![nivo channel on discord](https://img.shields.io/badge/discord-nivo-61dafb.svg?style=flat-square)](https://discord.gg/n7Ft74f)
-[![Dependencies][gemnasium-image]][gemnasium-url]
 [![styled with prettier][prettier-image]][prettier-url]
 
 **nivo** provides supercharged React components to easily build dataviz apps,
@@ -156,5 +155,3 @@ Components available through the HTTP rendering API.
 [travis-url]: https://travis-ci.org/plouc/nivo
 [prettier-image]: https://img.shields.io/badge/styled_with-prettier-ff69b4.svg?style=flat-square
 [prettier-url]: https://github.com/prettier/prettier
-[gemnasium-image]: https://img.shields.io/gemnasium/plouc/nivo.svg?style=flat-square
-[gemnasium-url]: https://gemnasium.com/plouc/nivo
