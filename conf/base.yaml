@@ -1,90 +1,102 @@
 capture:
     baseUrl: http://localhost:3000
     pages:
-      - path: /#/bar
+      - path: /bar
         selector: .chart-tabs--chart
         output: ./packages/nivo-bar/doc/bar.png
 
-      - path: /#/bar/canvas
+      - path: /bar/canvas
         selector: .chart-tabs--chart
         output: ./packages/nivo-bar/doc/bar-canvas.png
 
-      - path: /#/calendar
+      - path: /calendar
         selector: .chart-tabs--chart
         output: ./packages/nivo-calendar/doc/calendar.png
 
-      - path: /#/chord
+      - path: /chord
         selector: .chart-tabs--chart
         output: ./packages/nivo-chord/doc/chord.png
 
-      - path: /#/chord/canvas
+      - path: /chord/canvas
         selector: .chart-tabs--chart
         output: ./packages/nivo-chord/doc/chord-canvas.png
 
-      - path: /#/bubble
+      - path: /bubble
         selector: .chart-tabs--chart
         output: ./packages/nivo-circle-packing/doc/bubble.png
 
-      - path: /#/bubble/html
+      - path: /bubble/html
         selector: .chart-tabs--chart
         output: ./packages/nivo-circle-packing/doc/bubble-html.png
 
-      - path: /#/bubble/canvas
+      - path: /bubble/canvas
         selector: .chart-tabs--chart
         output: ./packages/nivo-circle-packing/doc/bubble-canvas.png
 
-      - path: /#/heatmap
+      - path: /heatmap
         selector: .chart-tabs--chart
         output: ./packages/nivo-heatmap/doc/heatmap.png
 
-      - path: /#/heatmap/canvas
+      - path: /heatmap/canvas
         selector: .chart-tabs--chart
         output: ./packages/nivo-heatmap/doc/heatmap-canvas.png
 
-      - path: /#/line
+      - path: /line
         selector: .chart-tabs--chart
         output: ./packages/nivo-line/doc/line.png
 
-      - path: /#/pie
+      - path: /pie
         selector: .chart-tabs--chart
         output: ./packages/nivo-pie/doc/pie.png
 
-      - path: /#/radar
+      - path: /radar
         selector: .chart-tabs--chart
         output: ./packages/nivo-radar/doc/radar.png
 
-      - path: /#/sankey
+      - path: /sankey
         selector: .chart-tabs--chart
         output: ./packages/nivo-sankey/doc/sankey.png
 
-      - path: /#/scatterplot
+      - path: /scatterplot
         selector: .chart-tabs--chart
         output: ./packages/nivo-scatterplot/doc/scatterplot.png
 
-      - path: /#/scatterplot/canvas
+      - path: /scatterplot/canvas
         selector: .chart-tabs--chart
         output: ./packages/nivo-scatterplot/doc/scatterplot-canvas.png
 
-      - path: /#/stream
+      - path: /stream
         selector: .chart-tabs--chart
         output: ./packages/nivo-stream/doc/stream.png
 
-      - path: /#/sunburst
+      - path: /sunburst
         selector: .chart-tabs--chart
         output: ./packages/nivo-sunburst/doc/sunburst.png
 
-      - path: /#/treemap
+      - path: /treemap
         selector: .chart-tabs--chart
         output: ./packages/nivo-treemap/doc/treemap.png
 
-      - path: /#/treemap/html
+      - path: /treemap/html
         selector: .chart-tabs--chart
         output: ./packages/nivo-treemap/doc/treemap-html.png
 
-      - path: /#/treemap/canvas
+      - path: /treemap/canvas
         selector: .chart-tabs--chart
         output: ./packages/nivo-treemap/doc/treemap-canvas.png
 
-      - path: /#/voronoi
+      - path: /voronoi
         selector: .chart-tabs--chart
         output: ./packages/nivo-voronoi/doc/voronoi.png
+
+      - path: /waffle
+        selector: .chart-tabs--chart
+        output: ./packages/nivo-waffle/doc/waffle.png
+
+      - path: /waffle/html
+        selector: .chart-tabs--chart
+        output: ./packages/nivo-waffle/doc/waffle-html.png
+
+      - path: /waffle/canvas
+        selector: .chart-tabs--chart
+        output: ./packages/nivo-waffle/doc/waffle-canvas.png

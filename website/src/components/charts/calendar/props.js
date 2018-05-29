@@ -20,7 +20,7 @@ export default [
                 Chart data, which must conform to this structure:
                 <pre className="code code-block">
                     {dedent`
-                        Array.<{
+                        Array<{
                             day:   {string} // format must be YYYY-MM-DD,
                             value: {number}
                         }>
@@ -28,7 +28,7 @@ export default [
                 </pre>
             </div>
         ),
-        type: '{Object}',
+        type: '{Array<Object>}',
         required: true,
     },
     {
