@@ -8,6 +8,17 @@
  */
 import range from 'lodash/range'
 
+/**
+ * Computes optimal cell size according to dimensions/layout/padding.
+ *
+ * @param {number} width
+ * @param {number} height
+ * @param {number} rows
+ * @param {number} columns
+ * @param {number} padding
+ *
+ * @return {number}
+ */
 export const computeCellSize = (width, height, rows, columns, padding) => {
     const sizeX = (width - (columns - 1) * padding) / columns
     const sizeY = (height - (rows - 1) * padding) / rows
@@ -15,6 +26,18 @@ export const computeCellSize = (width, height, rows, columns, padding) => {
     return Math.min(sizeX, sizeY)
 }
 
+/**
+ * Computes empty cells according to dimensions/layout/padding.
+ *
+ * @param {number}                        width
+ * @param {number}                        height
+ * @param {number}                        rows
+ * @param {number}                        columns
+ * @param {'top'|'right'|'bottom'|'left'} fillDirection
+ * @param {number}                        padding
+ *
+ * @return {{ cells: Array, cellSize: number, origin: { x: number, y: number } } }
+ */
 export const computeGrid = (width, height, rows, columns, fillDirection, padding) => {
     const cellSize = computeCellSize(width, height, rows, columns, padding)
 
