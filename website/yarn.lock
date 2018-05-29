@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@nivo/bar@0.36.0":
-  version "0.36.0"
-  resolved "https://registry.yarnpkg.com/@nivo/bar/-/bar-0.36.0.tgz#0142335dbfaa3756c68991058408957ac1dd06d9"
+"@nivo/bar@0.38.0":
+  version "0.38.0"
+  resolved "https://registry.yarnpkg.com/@nivo/bar/-/bar-0.38.0.tgz#5f837873925f578d87e029cdd7eae70ee974b84c"
   dependencies:
     "@nivo/core" "0.36.0"
     "@nivo/legends" "0.35.2"
@@ -39,9 +39,9 @@
     react-motion "^0.5.2"
     recompose "^0.26.0"
 
-"@nivo/circle-packing@0.36.0":
-  version "0.36.0"
-  resolved "https://registry.yarnpkg.com/@nivo/circle-packing/-/circle-packing-0.36.0.tgz#458202cf2558344bdf71d44af6cfa3f6b79da184"
+"@nivo/circle-packing@0.38.0":
+  version "0.38.0"
+  resolved "https://registry.yarnpkg.com/@nivo/circle-packing/-/circle-packing-0.38.0.tgz#c00b50b04f7bbb84498e7fd0ac15aaffbc25dd74"
   dependencies:
     "@nivo/core" "0.36.0"
     d3-hierarchy "^1.1.5"
@@ -73,9 +73,9 @@
     d3-time-format "^2.0.5"
     lodash "^4.17.4"
 
-"@nivo/heatmap@0.37.0":
-  version "0.37.0"
-  resolved "https://registry.yarnpkg.com/@nivo/heatmap/-/heatmap-0.37.0.tgz#b1224451ec635a50b073866dd010dafdf32245c3"
+"@nivo/heatmap@0.38.0":
+  version "0.38.0"
+  resolved "https://registry.yarnpkg.com/@nivo/heatmap/-/heatmap-0.38.0.tgz#191e412a63a916832a8a5e88225dc51cfb83c4fe"
   dependencies:
     "@nivo/core" "0.36.0"
     d3-scale "^1.0.6"
@@ -103,9 +103,9 @@
     react-motion "^0.5.2"
     recompose "^0.26.0"
 
-"@nivo/pie@0.36.0":
-  version "0.36.0"
-  resolved "https://registry.yarnpkg.com/@nivo/pie/-/pie-0.36.0.tgz#93d3d6985a1239d6eede4f28586e0fe4c136ca5d"
+"@nivo/pie@0.38.0":
+  version "0.38.0"
+  resolved "https://registry.yarnpkg.com/@nivo/pie/-/pie-0.38.0.tgz#ee318a388c95cff446af358f66a9bb3762ef62a4"
   dependencies:
     "@nivo/core" "0.36.0"
     "@nivo/legends" "0.35.2"
@@ -173,9 +173,9 @@
     react-motion "^0.5.2"
     recompose "^0.26.0"
 
-"@nivo/treemap@0.36.0":
-  version "0.36.0"
-  resolved "https://registry.yarnpkg.com/@nivo/treemap/-/treemap-0.36.0.tgz#ec88ff8da5a3d581537e2bd6adcf8f76d4a3bb48"
+"@nivo/treemap@0.38.0":
+  version "0.38.0"
+  resolved "https://registry.yarnpkg.com/@nivo/treemap/-/treemap-0.38.0.tgz#535e18cb4a35bbda2d358a41ebb65413ebe1c54e"
   dependencies:
     "@nivo/core" "0.36.0"
     d3-hierarchy "^1.1.5"
@@ -189,6 +189,15 @@
   dependencies:
     "@nivo/core" "0.36.0"
     d3-voronoi "^1.1.2"
+    recompose "^0.26.0"
+
+"@nivo/waffle@0.39.0":
+  version "0.39.0"
+  resolved "https://registry.yarnpkg.com/@nivo/waffle/-/waffle-0.39.0.tgz#abd82b314fa8dc72afadecb955e3d421fab3901a"
+  dependencies:
+    "@nivo/core" "0.36.0"
+    lodash "^4.17.4"
+    react-motion "^0.5.2"
     recompose "^0.26.0"
 
 abab@^1.0.3:
