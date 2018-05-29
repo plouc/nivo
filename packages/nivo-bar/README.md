@@ -4,12 +4,12 @@
 
 ## Bar
 
-[documentation](http://nivo.rocks/#/bar)
+[documentation](http://nivo.rocks/bar)
 
 ![Bar](./doc/bar.png)
 
 ## BarCanvas
 
-[documentation](http://nivo.rocks/#/bar/canvas)
+[documentation](http://nivo.rocks/bar/canvas)
 
 ![BarCanvas](./doc/bar-canvas.png)

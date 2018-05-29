@@ -4,18 +4,18 @@
 
 ## Bubble
 
-[documentation](http://nivo.rocks/#/bubble)
+[documentation](http://nivo.rocks/bubble)
 
 ![Bubble](./doc/bubble.png)
 
 ## BubbleHtml
 
-[documentation](http://nivo.rocks/#/bubble/html)
+[documentation](http://nivo.rocks/bubble/html)
 
 ![BubbleHtml](./doc/bubble-html.png)
 
 ## BubbleCanvas
 
-[documentation](http://nivo.rocks/#/bubble/canvas)
+[documentation](http://nivo.rocks/bubble/canvas)
 
 ![BubbleCanvas](./doc/bubble-canvas.png)

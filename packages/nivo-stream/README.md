@@ -4,6 +4,6 @@
 
 ## Stream
 
-[documentation](http://nivo.rocks/#/stream)
+[documentation](http://nivo.rocks/stream)
 
 ![Stream](./doc/stream.png)

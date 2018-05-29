@@ -4,12 +4,12 @@
 
 ## ScatterPlot
 
-[documentation](http://nivo.rocks/#/scatterplot)
+[documentation](http://nivo.rocks/scatterplot)
 
 ![ScatterPlot](./doc/scatterplot.png)
 
 ## ScatterPlotCanvas
 
-[documentation](http://nivo.rocks/#/scatterplot/canvas)
+[documentation](http://nivo.rocks/scatterplot/canvas)
 
 ![ScatterPlotCanvas](./doc/scatterplot-canvas.png)

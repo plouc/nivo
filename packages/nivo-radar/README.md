@@ -4,6 +4,6 @@
 
 ## Radar
 
-[documentation](http://nivo.rocks/#/radar)
+[documentation](http://nivo.rocks/radar)
 
 ![Radar](./doc/radar.png)
