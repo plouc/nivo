@@ -4,7 +4,14 @@ import Waffle from '../src/Waffle'
 
 it('should render a basic waffle chart in SVG', () => {
     const component = renderer.create(
-        <Waffle width={400} height={400} rows={10} columns={10} data={[{ id: 'one', value: 10 }]} />
+        <Waffle
+            width={400}
+            height={400}
+            rows={10}
+            columns={10}
+            total={100}
+            data={[{ id: 'one', label: 'one', value: 10 }]}
+        />
     )
 
     let tree = component.toJSON()
@@ -20,7 +27,8 @@ for (const fillMode of fillModes) {
                 height={400}
                 rows={10}
                 columns={10}
-                data={[{ id: 'one', value: 10 }]}
+                total={100}
+                data={[{ id: 'one', label: 'one', value: 10 }]}
                 fillDirection={fillMode}
             />
         )

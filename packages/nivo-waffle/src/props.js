@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
-import { defsPropTypes } from '@nivo/core'
+import { defsPropTypes, noop } from '@nivo/core'
 import WaffleCell from './WaffleCell'
 import WaffleCellHtml from './WaffleCellHtml'
 
@@ -81,6 +81,7 @@ const commonDefaultProps = {
 
     // interactivity
     isInteractive: true,
+    onClick: noop,
 
     // stack tooltip
     enableStackTooltip: true,

@@ -9,7 +9,8 @@ it('should render a basic waffle chart in HTML', () => {
             height={400}
             rows={10}
             columns={10}
-            data={[{ id: 'one', value: 10 }]}
+            total={100}
+            data={[{ id: 'one', label: 'one', value: 10 }]}
         />
     )
 
@@ -26,7 +27,8 @@ for (const fillMode of fillModes) {
                 height={400}
                 rows={10}
                 columns={10}
-                data={[{ id: 'one', value: 10 }]}
+                total={100}
+                data={[{ id: 'one', label: 'one', value: 10 }]}
                 fillDirection={fillMode}
             />
         )
