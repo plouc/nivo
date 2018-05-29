@@ -1,12 +1,12 @@
 declare module '@nivo/pie' {
-    export class Pie extends React.Component<PieProps & Dimensions>{}
-    export class ResponsivePie extends React.Component<PieProps>{}
+    export class Pie extends React.Component<Data & PieProps & Dimensions>{ }
+    export class ResponsivePie extends React.Component<Data & PieProps>{ }
 
     export type LegendItemDirection =
-    | 'left-to-right'
-    | 'right-to-left'
-    | 'top-to-bottom'
-    | 'bottom-to-top';
+        | 'left-to-right'
+        | 'right-to-left'
+        | 'top-to-bottom'
+        | 'bottom-to-top';
 
     export type Anchor =
         | 'top'
@@ -42,7 +42,7 @@ declare module '@nivo/pie' {
         symbolShape?: "circle" | "diamond" | "square" | "triangle", // default square
         textColor?: string; // default black
     }
-    
+
     export interface PieDataItem {
         id: string;
         value: string;
@@ -50,8 +50,9 @@ declare module '@nivo/pie' {
 
     export type SettingsGetterFunc = (dataSlize: PieDataItem) => string;
 
+    export type Data = { data: Array<PieDataItem> };
+
     export type PieProps = Partial<{
-        data: Array<PieDataItem>;
         sortByValue: boolean;
         innerRadius: number;
         padAngle: number;
@@ -79,7 +80,7 @@ declare module '@nivo/pie' {
         slicesLabelsSkipAngle: number;
         slicesLabelsTextColor: string | SettingsGetterFunc;
 
-        
+
         colors: string | string[] | Function;
         colorBy: string | Function;
 
@@ -95,7 +96,7 @@ declare module '@nivo/pie' {
         legends: Array<Legend>;
     }>;
 
-    export interface Dimensions{
+    export interface Dimensions {
         height: number;
         width: number;
     }
