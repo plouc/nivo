@@ -1,5 +1,3 @@
-import { FillDirection, WaffleCanvasProps, WaffleSvgProps } from "@nivo/waffle";
-
 declare module '@nivo/waffle' {
     export class Waffle extends React.Component<WaffleBaseProps & WaffleCommonProps & WaffleSvgProps & MotionProps & Dimensions>{}
     export class WaffleHtml extends React.Component<WaffleBaseProps & WaffleCommonProps & MotionProps & Dimensions>{}
