@@ -26,6 +26,9 @@ export default class Pie extends Component {
     state = {
         settings: {
             ...omit(defaultProps, ['width', 'height']),
+            'custom tooltip example': false,
+            tooltip: null,
+            theme: nivoTheme,
             legends: [
                 {
                     anchor: 'bottom',
@@ -122,7 +125,6 @@ export default class Pie extends Component {
                         <ResponsivePie
                             data={data}
                             {...mappedSettings}
-                            theme={nivoTheme}
                             onClick={this.handleNodeClick}
                         />
                     </ChartTabs>

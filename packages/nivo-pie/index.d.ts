@@ -89,7 +89,8 @@ declare module '@nivo/pie' {
 
         isInteractive: boolean;
         onClick: (dataSlize: PieDataItem, event: React.MouseEvent<SVGPathElement>) => void;
-        // tooltipFormat?: string | SettingsGetterFunc; No docs, no usage in source
+        tooltipFormat: string | Function;
+        tooltip: Function;
 
         theme: Theme;
 
