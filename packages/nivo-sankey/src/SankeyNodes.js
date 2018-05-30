@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
 import { TransitionMotion, spring } from 'react-motion'
@@ -48,7 +48,7 @@ const SankeyNodes = ({
 
     if (!animate) {
         return (
-            <g>
+            <Fragment>
                 {nodes.map(node => (
                     <SankeyNodesItem
                         key={node.id}
@@ -69,7 +69,7 @@ const SankeyNodes = ({
                         theme={theme}
                     />
                 ))}
-            </g>
+            </Fragment>
         )
     }
 
@@ -96,7 +96,7 @@ const SankeyNodes = ({
             })}
         >
             {interpolatedStyles => (
-                <g>
+                <Fragment>
                     {interpolatedStyles.map(({ key, style, data: node }) => {
                         const color = getInterpolatedColor(style)
 
@@ -121,7 +121,7 @@ const SankeyNodes = ({
                             />
                         )
                     })}
-                </g>
+                </Fragment>
             )}
         </TransitionMotion>
     )

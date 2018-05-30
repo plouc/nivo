@@ -6,11 +6,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
 import { sankeyLinkHorizontal } from 'd3-sankey'
 import { motionPropTypes, SmartMotion } from '@nivo/core'
+import { blendModePropType } from './props'
 import SankeyLinksItem from './SankeyLinksItem'
 
 const getLinkPath = sankeyLinkHorizontal()
@@ -23,6 +24,8 @@ const SankeyLinks = ({
     linkHoverOpacity,
     linkHoverOthersOpacity,
     linkContract,
+    linkBlendMode,
+    enableLinkGradient,
 
     // motion
     animate,
@@ -60,6 +63,8 @@ const SankeyLinks = ({
                         color={link.color}
                         opacity={getOpacity(link)}
                         contract={linkContract}
+                        blendMode={linkBlendMode}
+                        enableGradient={enableLinkGradient}
                         showTooltip={showTooltip}
                         hideTooltip={hideTooltip}
                         setCurrent={setCurrentLink}
@@ -79,7 +84,7 @@ const SankeyLinks = ({
     }
 
     return (
-        <g>
+        <Fragment>
             {links.map(link => (
                 <SmartMotion
                     key={`${link.source.id}.${link.target.id}`}
@@ -95,6 +100,8 @@ const SankeyLinks = ({
                         <SankeyLinksItem
                             link={link}
                             {...style}
+                            blendMode={linkBlendMode}
+                            enableGradient={enableLinkGradient}
                             showTooltip={showTooltip}
                             hideTooltip={hideTooltip}
                             setCurrent={setCurrentLink}
@@ -106,7 +113,7 @@ const SankeyLinks = ({
                     )}
                 </SmartMotion>
             ))}
-        </g>
+        </Fragment>
     )
 }
 
@@ -131,6 +138,8 @@ SankeyLinks.propTypes = {
     linkHoverOpacity: PropTypes.number.isRequired,
     linkHoverOthersOpacity: PropTypes.number.isRequired,
     linkContract: PropTypes.number.isRequired,
+    linkBlendMode: blendModePropType.isRequired,
+    enableLinkGradient: PropTypes.bool.isRequired,
 
     theme: PropTypes.object.isRequired,
     tooltip: PropTypes.func,

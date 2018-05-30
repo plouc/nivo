@@ -24,6 +24,25 @@ export const sankeyAlignmentPropType = PropTypes.oneOf(sankeyAlignmentPropKeys)
 
 export const sankeyAlignmentFromProp = prop => sankeyAlignmentPropMapping[prop]
 
+export const blendModePropType = PropTypes.oneOf([
+    'normal',
+    'multiply',
+    'screen',
+    'overlay',
+    'darken',
+    'lighten',
+    'color-dodge',
+    'color-burn',
+    'hard-light',
+    'soft-light',
+    'difference',
+    'exclusion',
+    'hue',
+    'saturation',
+    'color',
+    'luminosity',
+])
+
 export const SankeyPropTypes = {
     data: PropTypes.shape({
         nodes: PropTypes.arrayOf(
@@ -56,6 +75,8 @@ export const SankeyPropTypes = {
     linkHoverOpacity: PropTypes.number.isRequired,
     linkHoverOthersOpacity: PropTypes.number.isRequired,
     linkContract: PropTypes.number.isRequired,
+    linkBlendMode: blendModePropType.isRequired,
+    enableLinkGradient: PropTypes.bool.isRequired,
 
     // labels
     enableLabels: PropTypes.bool.isRequired,
@@ -98,6 +119,8 @@ export const SankeyDefaultProps = {
     linkHoverOpacity: 0.6,
     linkHoverOthersOpacity: 0.15,
     linkContract: 0,
+    linkBlendMode: 'multiply',
+    enableLinkGradient: false,
 
     // labels
     enableLabels: true,
