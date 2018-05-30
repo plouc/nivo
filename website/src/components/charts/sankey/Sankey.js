@@ -9,7 +9,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
-import { ResponsiveSankey } from '@nivo/sankey'
+import { ResponsiveSankey, SankeyDefaultProps as defaults } from '@nivo/sankey'
 import ChartHeader from '../../ChartHeader'
 import ChartTabs from '../../ChartTabs'
 import SankeyControls from './SankeyControls'
@@ -34,22 +34,24 @@ export default class Sankey extends Component {
             colors: 'd320b',
 
             // nodes
-            nodeOpacity: 0.75,
+            nodeOpacity: 1,
             nodeHoverOpacity: 1,
             nodeWidth: 18,
-            nodePaddingX: 4,
+            nodePaddingX: 0,
             nodePaddingY: 12,
-            nodeBorderWidth: 0,
+            nodeBorderWidth: 1,
             nodeBorderColor: {
                 type: 'inherit:darker',
-                gamma: 0.4,
+                gamma: 0.8,
             },
 
             // links
-            linkOpacity: 0.2,
+            linkOpacity: 0.25,
             linkHoverOpacity: 0.6,
             linkHoverOthersOpacity: 0.1,
             linkContract: 0,
+            linkBlendMode: 'multiply',
+            enableLinkGradient: true,
 
             // labels
             enableLabels: true,
@@ -58,7 +60,7 @@ export default class Sankey extends Component {
             labelPadding: 16,
             labelTextColor: {
                 type: 'inherit:darker',
-                gamma: 0.8,
+                gamma: 1,
             },
 
             // motion
@@ -94,7 +96,10 @@ export default class Sankey extends Component {
 
         const mappedSettings = propsMapper(settings)
 
-        const code = generateCode('ResponsiveSankey', mappedSettings, { pkg: '@nivo/sankey' })
+        const code = generateCode('ResponsiveSankey', mappedSettings, {
+            pkg: '@nivo/sankey',
+            defaults,
+        })
 
         const header = <ChartHeader chartClass="Sankey" tags={['relational', 'flow', 'api']} />
 

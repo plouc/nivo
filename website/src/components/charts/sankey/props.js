@@ -281,6 +281,60 @@ export default [
         },
     },
     {
+        key: 'linkBlendMode',
+        scopes: '*',
+        description: (
+            <span>
+                Defines CSS <code>mix-blend-mode</code> property for links, see{' '}
+                <a
+                    href="https://developer.mozilla.org/fr/docs/Web/CSS/mix-blend-mode"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    MDN documentation
+                </a>.
+            </span>
+        ),
+        type: '{string}',
+        required: false,
+        default: defaults.linkBlendMode,
+        controlType: 'choices',
+        controlGroup: 'Links',
+        controlOptions: {
+            choices: [
+                'normal',
+                'multiply',
+                'screen',
+                'overlay',
+                'darken',
+                'lighten',
+                'color-dodge',
+                'color-burn',
+                'hard-light',
+                'soft-light',
+                'difference',
+                'exclusion',
+                'hue',
+                'saturation',
+                'color',
+                'luminosity',
+            ].map(key => ({
+                label: key,
+                value: key,
+            })),
+        },
+    },
+    {
+        key: 'enableLinkGradient',
+        scopes: '*',
+        description: 'Enable/disable gradient from source/target nodes instead of plain color.',
+        type: '{boolean}',
+        required: false,
+        default: defaults.enableLinkGradient,
+        controlType: 'switch',
+        controlGroup: 'Links',
+    },
+    {
         key: 'enableLabels',
         scopes: '*',
         description: 'Enable/disable labels.',

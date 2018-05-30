@@ -6,13 +6,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import compose from 'recompose/compose'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import withHandlers from 'recompose/withHandlers'
 import pure from 'recompose/pure'
 import { BasicTooltip, Chip } from '@nivo/core'
+import { blendModePropType } from './props'
 
 const tooltipStyles = {
     container: {
@@ -61,24 +62,42 @@ const SankeyLinksItem = ({
     color,
     opacity,
     contract,
+    blendMode,
+    enableGradient,
 
     // interactivity
     handleMouseEnter,
     handleMouseMove,
     handleMouseLeave,
     onClick,
+
+    link,
 }) => (
-    <path
-        fill="none"
-        d={path}
-        strokeWidth={Math.max(1, width - contract * 2)}
-        stroke={color}
-        strokeOpacity={opacity}
-        onMouseEnter={handleMouseEnter}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        onClick={onClick}
-    />
+    <Fragment>
+        {enableGradient && (
+            <linearGradient
+                id={`${link.source.id}.${link.target.id}`}
+                gradientUnits="userSpaceOnUse"
+                x1={link.source.x}
+                x2={link.target.x}
+            >
+                <stop offset="0%" stopColor={link.source.color} />
+                <stop offset="100%" stopColor={link.target.color} />
+            </linearGradient>
+        )}
+        <path
+            fill="none"
+            d={path}
+            strokeWidth={Math.max(1, width - contract * 2)}
+            stroke={enableGradient ? `url(#${link.source.id}.${link.target.id})` : color}
+            strokeOpacity={opacity}
+            onMouseEnter={handleMouseEnter}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            onClick={onClick}
+            style={{ mixBlendMode: blendMode }}
+        />
+    </Fragment>
 )
 
 SankeyLinksItem.propTypes = {
@@ -86,10 +105,12 @@ SankeyLinksItem.propTypes = {
         source: PropTypes.shape({
             id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
             label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+            color: PropTypes.string.isRequired,
         }).isRequired,
         target: PropTypes.shape({
             id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
             label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+            color: PropTypes.string.isRequired,
         }).isRequired,
         color: PropTypes.string.isRequired,
         value: PropTypes.number.isRequired,
@@ -100,6 +121,8 @@ SankeyLinksItem.propTypes = {
     color: PropTypes.string.isRequired,
     opacity: PropTypes.number.isRequired,
     contract: PropTypes.number.isRequired,
+    blendMode: blendModePropType.isRequired,
+    enableGradient: PropTypes.bool.isRequired,
 
     theme: PropTypes.object.isRequired,
 

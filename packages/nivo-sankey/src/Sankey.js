@@ -49,6 +49,8 @@ const Sankey = ({
     linkHoverOpacity,
     linkHoverOthersOpacity,
     linkContract,
+    linkBlendMode,
+    enableLinkGradient,
     getLinkColor, // computed
     setCurrentLink, // injected
     currentLink, // injected
@@ -152,6 +154,8 @@ const Sankey = ({
                         linkOpacity={linkOpacity}
                         linkHoverOpacity={linkHoverOpacity}
                         linkHoverOthersOpacity={linkHoverOthersOpacity}
+                        linkBlendMode={linkBlendMode}
+                        enableLinkGradient={enableLinkGradient}
                         showTooltip={showTooltip}
                         hideTooltip={hideTooltip}
                         setCurrentLink={setCurrentLink}
