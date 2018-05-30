@@ -73,6 +73,7 @@ const Pie = ({
     isInteractive,
     onClick,
     tooltipFormat,
+    tooltip,
 
     legends,
 }) => {
@@ -181,6 +182,8 @@ const Pie = ({
                                             borderColor={borderColor(d.data)}
                                             showTooltip={showTooltip}
                                             hideTooltip={hideTooltip}
+                                            tooltipFormat={tooltipFormat}
+                                            tooltip={tooltip}
                                             theme={theme}
                                             onClick={onClick}
                                         />

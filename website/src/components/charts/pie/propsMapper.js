@@ -6,23 +6,73 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+import React from 'react'
+import styled from 'styled-components'
 import { settingsMapper, mapInheritedColor } from '../../../lib/settings'
 
-export default settingsMapper({
-    colorBy: value => {
-        if (value === 'd => d.color') return d => d.color
-        return value
+const TooltipWrapper = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 12px;
+`
+const TooltipKey = styled.span`
+    font-weight: 600;
+`
+const TooltipValue = styled.span``
+
+const CustomTooltip = data => {
+    return (
+        <TooltipWrapper style={{ color: data.color }}>
+            <TooltipKey>id</TooltipKey>
+            <TooltipValue>{data.id}</TooltipValue>
+            <TooltipKey>value</TooltipKey>
+            <TooltipValue>{data.value}</TooltipValue>
+            <TooltipKey>label</TooltipKey>
+            <TooltipValue>{data.label}</TooltipValue>
+            <TooltipKey>color</TooltipKey>
+            <TooltipValue>{data.color}</TooltipValue>
+        </TooltipWrapper>
+    )
+}
+
+export default settingsMapper(
+    {
+        colorBy: value => {
+            if (value === 'd => d.color') return d => d.color
+            return value
+        },
+        radialLabel: value => {
+            if (value === `d => \`\${d.id} (\${d.value})\``) return d => `${d.id} (${d.value})`
+            return value
+        },
+        sliceLabel: value => {
+            if (value === `d => \`\${d.id} (\${d.value})\``) return d => `${d.id} (${d.value})`
+            return value
+        },
+        borderColor: mapInheritedColor,
+        radialLabelsTextColor: mapInheritedColor,
+        radialLabelsLinkColor: mapInheritedColor,
+        slicesLabelsTextColor: mapInheritedColor,
+        tooltip: (value, values) => {
+            if (!values['custom tooltip example']) return null
+
+            return CustomTooltip
+        },
+        theme: (value, values) => {
+            if (!values['custom tooltip example']) return value
+
+            return {
+                ...values.theme,
+                tooltip: {
+                    container: {
+                        ...values.theme.tooltip.container,
+                        background: '#333',
+                    },
+                },
+            }
+        },
     },
-    radialLabel: value => {
-        if (value === `d => \`\${d.id} (\${d.value})\``) return d => `${d.id} (${d.value})`
-        return value
-    },
-    sliceLabel: value => {
-        if (value === `d => \`\${d.id} (\${d.value})\``) return d => `${d.id} (${d.value})`
-        return value
-    },
-    borderColor: mapInheritedColor,
-    radialLabelsTextColor: mapInheritedColor,
-    radialLabelsLinkColor: mapInheritedColor,
-    slicesLabelsTextColor: mapInheritedColor,
-})
+    {
+        exclude: ['custom tooltip example'],
+    }
+)
