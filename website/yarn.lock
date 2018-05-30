@@ -127,9 +127,9 @@
     react-motion "^0.5.2"
     recompose "^0.26.0"
 
-"@nivo/sankey@0.40.0":
-  version "0.40.0"
-  resolved "https://registry.yarnpkg.com/@nivo/sankey/-/sankey-0.40.0.tgz#4e871924985d0ee9385740b1744bc43acb85592e"
+"@nivo/sankey@0.41.0":
+  version "0.41.0"
+  resolved "https://registry.yarnpkg.com/@nivo/sankey/-/sankey-0.41.0.tgz#9cb430101eb5f77fb8b11b0dde2e386eb56da1cc"
   dependencies:
     "@nivo/core" "0.36.0"
     "@nivo/legends" "0.35.2"

@@ -20,7 +20,7 @@
         "@nivo/line": "0.40.0",
         "@nivo/pie": "0.40.0",
         "@nivo/radar": "0.40.0",
-        "@nivo/sankey": "0.40.0",
+        "@nivo/sankey": "0.41.0",
         "@nivo/scatterplot": "0.40.0",
         "@nivo/stream": "0.40.0",
         "@nivo/sunburst": "0.40.0",
