@@ -77,4 +77,3 @@ stories.add('custom tooltip', () => (
         }}
     />
 ))
-
