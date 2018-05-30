@@ -176,6 +176,7 @@ Radar.propTypes = {
     data: PropTypes.arrayOf(PropTypes.object).isRequired,
     keys: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
     indexBy: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]).isRequired,
+    maxValue: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]).isRequired,
     getIndex: PropTypes.func.isRequired, // computed
     indices: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
         .isRequired, // computed
@@ -217,6 +218,8 @@ Radar.propTypes = {
 }
 
 export const RadarDefaultProps = {
+    maxValue: 'auto',
+
     curve: 'linearClosed',
 
     // border
@@ -262,9 +265,12 @@ const enhance = compose(
         }, {}),
     })),
     withPropsOnChange(
-        ['keys', 'indexBy', 'data', 'width', 'height'],
-        ({ data, keys, width, height }) => {
-            const maxValue = max(data.reduce((acc, d) => [...acc, ...keys.map(key => d[key])], []))
+        ['keys', 'indexBy', 'data', 'maxValue', 'width', 'height'],
+        ({ data, keys, maxValue: _maxValue, width, height }) => {
+            const maxValue =
+                _maxValue !== 'auto'
+                    ? _maxValue
+                    : max(data.reduce((acc, d) => [...acc, ...keys.map(key => d[key])], []))
 
             const radius = Math.min(width, height) / 2
             const radiusScale = scaleLinear()
