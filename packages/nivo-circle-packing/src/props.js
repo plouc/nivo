@@ -48,6 +48,7 @@ const commonPropTypes = {
     onClick: PropTypes.func.isRequired,
     isZoomable: PropTypes.bool.isRequired,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    tooltip: PropTypes.func,
 }
 
 export const BubblePropTypes = {

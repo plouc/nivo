@@ -86,6 +86,7 @@ export default class TreeMapHtml extends Component {
         const mappedSettings = propsMapper(settings)
 
         const code = generateCode('ResponsiveTreeMapHtml', mappedSettings, {
+            dataKey: 'root',
             pkg: '@nivo/treemap',
             defaults: TreeMapDefaultProps,
         })

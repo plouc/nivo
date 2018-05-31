@@ -4,12 +4,12 @@
 
 ## HeatMap
 
-[documentation](http://nivo.rocks/#/heatmap)
+[documentation](http://nivo.rocks/heatmap)
 
 ![HeatMap](./doc/heatmap.png)
 
 ## HeatMapCanvas
 
-[documentation](http://nivo.rocks/#/heatmap/canvas)
+[documentation](http://nivo.rocks/heatmap/canvas)
 
 ![HeatmapCanvas](./doc/heatmap-canvas.png)

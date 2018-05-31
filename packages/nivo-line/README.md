@@ -4,6 +4,6 @@
 
 ## Line
 
-[documentation](http://nivo.rocks/#/line)
+[documentation](http://nivo.rocks/line)
 
 ![Line](./doc/line.png)

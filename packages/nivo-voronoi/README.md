@@ -4,6 +4,6 @@
 
 ## Voronoi
 
-[documentation](http://nivo.rocks/#/voronoi)
+[documentation](http://nivo.rocks/voronoi)
 
 ![Voronoi](./doc/voronoi.png)

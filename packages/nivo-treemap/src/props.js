@@ -48,6 +48,7 @@ const commonPropTypes = {
     // interactivity
     isInteractive: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,
+    tooltip: PropTypes.func,
 }
 
 export const TreeMapPropTypes = {

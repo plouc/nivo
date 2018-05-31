@@ -30,6 +30,8 @@ export default class Radar extends Component {
 
     state = {
         settings: {
+            maxValue: 'auto',
+
             margin: {
                 top: 70,
                 right: 80,

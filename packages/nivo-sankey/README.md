@@ -4,6 +4,6 @@
 
 ## Sankey
 
-[documentation](http://nivo.rocks/#/heatmap/sankey)
+[documentation](http://nivo.rocks/heatmap/sankey)
 
 ![Sankey](./doc/sankey.png)

@@ -1,12 +1,12 @@
 import omit from 'lodash/omit'
 import upperFirst from 'lodash/upperFirst'
 
-export const settingsMapper = (mapping, { exclude = [] } = {}) => settings => {
+export const settingsMapper = (mapping, { exclude = [] } = {}) => (settings, options = {}) => {
     const overrides = {}
 
     Object.keys(settings).forEach(key => {
         if (mapping[key]) {
-            overrides[key] = mapping[key](settings[key], settings)
+            overrides[key] = mapping[key](settings[key], settings, options)
         }
     })
 

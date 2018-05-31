@@ -4,7 +4,6 @@
 [![Travis CI][travis-image]][travis-url]
 [![NPM version][npm-image]][npm-url]
 [![nivo channel on discord](https://img.shields.io/badge/discord-nivo-61dafb.svg?style=flat-square)](https://discord.gg/n7Ft74f)
-[![Dependencies][gemnasium-image]][gemnasium-url]
 [![styled with prettier][prettier-image]][prettier-url]
 
 **nivo** provides supercharged React components to easily build dataviz apps,
@@ -105,6 +104,13 @@ please try the [components explorer](http://nivo.rocks/components).
 | [**@nivo/voronoi**](https://github.com/plouc/nivo/tree/master/packages/nivo-voronoi)               | [![@nivo/voronoi NPM version](https://img.shields.io/npm/v/@nivo/voronoi.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/voronoi)                      |
 |                                                                                                    | [Voronoi](http://nivo.rocks/voronoi)                                                                                                                               |
 |                                                                                                    | [ResponsiveVoronoi](http://nivo.rocks/voronoi)                                                                                                                     |
+| [**@nivo/waffle**](https://github.com/plouc/nivo/tree/master/packages/nivo-waffle)                 | [![@nivo/waffle NPM version](https://img.shields.io/npm/v/@nivo/waffle.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/waffle)                         |
+|                                                                                                    | [Waffle](http://nivo.rocks/waffle)                                                                                                                                 |
+|                                                                                                    | [ResponsiveWaffle](http://nivo.rocks/waffle)                                                                                                                       |
+|                                                                                                    | [WaffleHtml](http://nivo.rocks/waffle/html)                                                                                                                        |
+|                                                                                                    | [ResponsiveWaffleHtml](http://nivo.rocks/waffle/html)                                                                                                              |
+|                                                                                                    | [WaffleCanvas](http://nivo.rocks/waffle/canvas)                                                                                                                    |
+|                                                                                                    | [ResponsiveWaffleCanvas](http://nivo.rocks/waffle/canvas)                                                                                                          |
 
 ## [HTTP API](https://github.com/plouc/nivo-api)
 
@@ -149,5 +155,3 @@ Components available through the HTTP rendering API.
 [travis-url]: https://travis-ci.org/plouc/nivo
 [prettier-image]: https://img.shields.io/badge/styled_with-prettier-ff69b4.svg?style=flat-square
 [prettier-url]: https://github.com/prettier/prettier
-[gemnasium-image]: https://img.shields.io/gemnasium/plouc/nivo.svg?style=flat-square
-[gemnasium-url]: https://gemnasium.com/plouc/nivo

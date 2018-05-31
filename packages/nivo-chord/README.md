@@ -4,12 +4,12 @@
 
 ## Chord
 
-[documentation](http://nivo.rocks/#/chord)
+[documentation](http://nivo.rocks/chord)
 
 ![Chord](./doc/chord.png)
 
 ## ChordCanvas
 
-[documentation](http://nivo.rocks/#/chord/canvas)
+[documentation](http://nivo.rocks/chord/canvas)
 
 ![ChordCanvas](./doc/chord-canvas.png)

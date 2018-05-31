@@ -26,6 +26,7 @@ const PieSlice = ({
     hideTooltip,
     onClick,
     tooltipFormat,
+    tooltip,
 
     theme,
 }) => {
@@ -38,6 +39,9 @@ const PieSlice = ({
                 color={color}
                 theme={theme}
                 format={tooltipFormat}
+                renderContent={
+                    typeof tooltip === 'function' ? tooltip.bind(null, { color, ...data }) : null
+                }
             />,
             e
         )
@@ -70,6 +74,7 @@ PieSlice.propTypes = {
     borderColor: PropTypes.string.isRequired,
 
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    tooltip: PropTypes.func,
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
     onClick: PropTypes.func,

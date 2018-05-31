@@ -1,6 +1,6 @@
 {
   "name": "@nivo/scatterplot",
-  "version": "0.36.0",
+  "version": "0.40.0",
   "license": "MIT",
   "main": "./index.js",
   "files": [

@@ -7,10 +7,30 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
+import dedent from 'dedent-js'
 import { PieDefaultProps as defaults } from '@nivo/pie'
 import { marginProperties } from '../../../lib/componentProperties'
 
 export default [
+    {
+        key: 'data',
+        scopes: '*',
+        description: (
+            <div>
+                Chart data, which must conform to this structure:
+                <pre className="code code-block">
+                    {dedent`
+                        Array<{
+                            id:    {string|number},
+                            value: {number}
+                        }>
+                    `}
+                </pre>
+            </div>
+        ),
+        type: '{Array<Object>}',
+        required: true,
+    },
     {
         key: 'width',
         scopes: ['api'],
@@ -388,6 +408,42 @@ export default [
             'onClick handler for pie slices, it receives clicked slice data and mouse event.',
         type: '{Function}',
         required: false,
+    },
+    {
+        key: 'tooltip',
+        scopes: ['Pie'],
+        type: '{Function}',
+        required: false,
+        description: (
+            <div>
+                A function allowing complete tooltip customisation, it must return a valid HTML
+                element and will receive the following data:
+                <pre className="code code-block">
+                    {dedent`
+                        {
+                            id:    {string|number},
+                            value: {number},
+                            label: {string|number},
+                            color: {string}
+                        }
+                    `}
+                </pre>
+            </div>
+        ),
+    },
+    {
+        key: 'custom tooltip example',
+        scopes: ['Pie'],
+        excludeFromDoc: true,
+        description: (
+            <span>
+                You can customize the tooltip using the <code>tooltip</code> property and{' '}
+                <code>theme.tooltip</code> object.
+            </span>
+        ),
+        type: '{boolean}',
+        controlType: 'switch',
+        controlGroup: 'Interactivity',
     },
     /*
     ————————————————————————————————————————————————————————————————————————————

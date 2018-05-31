@@ -4,6 +4,6 @@
 
 ## Pie
 
-[documentation](http://nivo.rocks/#/pie)
+[documentation](http://nivo.rocks/pie)
 
 ![Pie](./doc/pie.png)

@@ -11,8 +11,8 @@ import Helmet from 'react-helmet'
 import { Switch } from 'react-router-dom'
 
 const TreeMapPage = ({ childRoutes }) => (
-    <div className="inner-content treemap_page">
-        <Helmet title="TreeMap component" />
+    <div className="inner-content">
+        <Helmet title="TreeMap components" />
         <Switch>
             {childRoutes.map(childRoute => {
                 return React.cloneElement(childRoute, {

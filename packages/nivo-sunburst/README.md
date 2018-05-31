@@ -4,6 +4,6 @@
 
 ## Sunburst
 
-[documentation](http://nivo.rocks/#/sunburst)
+[documentation](http://nivo.rocks/sunburst)
 
 ![Sunburst](./doc/sunburst.png)

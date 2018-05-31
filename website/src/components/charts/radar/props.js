@@ -67,6 +67,22 @@ export default [
         default: defaults.keys,
     },
     {
+        key: 'maxValue',
+        scopes: '*',
+        description: `Maximum value, if 'auto', will use max value from the provided data.`,
+        required: false,
+        default: defaults.maxValue,
+        type: '{number|string}',
+        controlType: 'switchableRange',
+        controlGroup: 'Base',
+        controlOptions: {
+            disabledValue: 'auto',
+            defaultValue: 200,
+            min: 0,
+            max: 1000,
+        },
+    },
+    {
         key: 'width',
         scopes: ['api'],
         docScopes: '*',

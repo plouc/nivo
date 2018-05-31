@@ -63,7 +63,9 @@ export const PiePropTypes = {
     isInteractive: PropTypes.bool,
     onClick: PropTypes.func.isRequired,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    tooltip: PropTypes.func,
 
+    // legends
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
 }
 

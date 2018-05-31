@@ -41,6 +41,8 @@ const TreeMap = ({
     // interactivity
     isInteractive,
     onClick,
+    tooltipFormat,
+    tooltip,
 }) => {
     const springConfig = {
         stiffness: motionStiffness,
@@ -54,6 +56,8 @@ const TreeMap = ({
             showTooltip,
             hideTooltip,
             theme,
+            tooltipFormat,
+            tooltip,
         })
 
     return (

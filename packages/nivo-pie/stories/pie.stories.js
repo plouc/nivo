@@ -49,7 +49,7 @@ stories.add('custom radial label', () => (
     />
 ))
 
-stories.add('with formatted values', () => (
+stories.add('formatted tooltip values', () => (
     <Pie
         {...commonProperties}
         tooltipFormat={value =>
@@ -57,5 +57,23 @@ stories.add('with formatted values', () => (
                 minimumFractionDigits: 2,
             })} ₽`
         }
+    />
+))
+
+stories.add('custom tooltip', () => (
+    <Pie
+        {...commonProperties}
+        tooltip={({ id, value, color }) => (
+            <strong style={{ color }}>
+                {id}: {value}
+            </strong>
+        )}
+        theme={{
+            tooltip: {
+                container: {
+                    background: '#333',
+                },
+            },
+        }}
     />
 ))
