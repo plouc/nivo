@@ -7,7 +7,6 @@
  * file that was distributed with this source code.
  */
 import React, { Component } from 'react'
-import omit from 'lodash/omit'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 import ChartHeader from '../../ChartHeader'
@@ -20,12 +19,59 @@ import properties from './props'
 import nivoTheme from '../../../nivoTheme'
 import config from '../../../config'
 import propsMapper from './propsMapper'
-import defaultProps from './defaultProps'
 
 export default class Pie extends Component {
     state = {
         settings: {
-            ...omit(defaultProps, ['width', 'height']),
+            margin: {
+                top: 40,
+                right: 80,
+                bottom: 80,
+                left: 80,
+            },
+
+            startAngle: 0,
+            endAngle: 360,
+            sortByValue: false,
+            innerRadius: 0.5,
+            padAngle: 0.7,
+            cornerRadius: 3,
+            fit: true,
+
+            // Styling
+            colors: 'nivo',
+            colorBy: 'id',
+
+            // border
+            borderWidth: 0,
+            borderColor: { type: 'inherit:darker', gamma: 0.6 },
+
+            // radial labels
+            enableRadialLabels: true,
+            radialLabel: 'id',
+            radialLabelsSkipAngle: 10,
+            radialLabelsTextXOffset: 6,
+            radialLabelsTextColor: { type: 'custom', color: '#333333' },
+            radialLabelsLinkOffset: 0,
+            radialLabelsLinkDiagonalLength: 16,
+            radialLabelsLinkHorizontalLength: 24,
+            radialLabelsLinkStrokeWidth: 1,
+            radialLabelsLinkColor: { type: 'inherit' },
+
+            // slice labels
+            enableSlicesLabels: true,
+            sliceLabel: 'value',
+            slicesLabelsSkipAngle: 10,
+            slicesLabelsTextColor: { type: 'custom', color: '#333333' },
+
+            // motion
+            animate: true,
+            motionStiffness: 90,
+            motionDamping: 15,
+
+            // isInteractive
+            isInteractive: true,
+
             'custom tooltip example': false,
             tooltip: null,
             theme: nivoTheme,

@@ -31,6 +31,7 @@ class Pie extends Component {
             startAngle,
             endAngle,
             padAngle,
+            fit,
             innerRadius,
             cornerRadius,
 
@@ -95,6 +96,7 @@ class Pie extends Component {
                 sortByValue={sortByValue}
                 startAngle={startAngle}
                 endAngle={endAngle}
+                fit={fit}
                 padAngle={padAngle}
                 innerRadius={innerRadius}
                 cornerRadius={cornerRadius}

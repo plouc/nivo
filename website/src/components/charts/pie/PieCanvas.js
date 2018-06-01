@@ -7,7 +7,6 @@
  * file that was distributed with this source code.
  */
 import React, { Component } from 'react'
-import omit from 'lodash/omit'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 import ChartHeader from '../../ChartHeader'
@@ -20,12 +19,61 @@ import properties from './props'
 import nivoTheme from '../../../nivoTheme'
 import config from '../../../config'
 import propsMapper from './propsMapper'
-import defaultProps from './defaultProps'
 
 export default class Pie extends Component {
     state = {
         settings: {
-            ...omit(defaultProps, ['width', 'height']),
+            margin: {
+                top: 40,
+                right: 80,
+                bottom: 80,
+                left: 80,
+            },
+
+            pixelRatio: window && window.devicePixelRatio ? window.devicePixelRatio : 1,
+
+            startAngle: 0,
+            endAngle: 360,
+            sortByValue: false,
+            innerRadius: 0.5,
+            padAngle: 0.7,
+            cornerRadius: 3,
+            fit: true,
+
+            // Styling
+            colors: 'nivo',
+            colorBy: 'id',
+
+            // border
+            borderWidth: 0,
+            borderColor: { type: 'inherit:darker', gamma: 0.6 },
+
+            // radial labels
+            enableRadialLabels: true,
+            radialLabel: 'id',
+            radialLabelsSkipAngle: 10,
+            radialLabelsTextXOffset: 6,
+            radialLabelsTextColor: { type: 'custom', color: '#333333' },
+            radialLabelsLinkOffset: 0,
+            radialLabelsLinkDiagonalLength: 16,
+            radialLabelsLinkHorizontalLength: 24,
+            radialLabelsLinkStrokeWidth: 1,
+            radialLabelsLinkColor: { type: 'inherit' },
+
+            // slice labels
+            enableSlicesLabels: true,
+            sliceLabel: 'value',
+            slicesLabelsSkipAngle: 10,
+            slicesLabelsTextColor: { type: 'custom', color: '#333333' },
+
+            // motion
+            animate: true,
+            motionStiffness: 90,
+            motionDamping: 15,
+
+            // isInteractive
+            isInteractive: true,
+
             'custom tooltip example': false,
             tooltip: null,
             theme: nivoTheme,
@@ -65,19 +113,18 @@ export default class Pie extends Component {
             defaults: PieDefaultProps,
         })
 
-        const header = <ChartHeader chartClass="Pie" tags={['canvas']} />
+        const header = <ChartHeader chartClass="PieCanvas" tags={['canvas']} />
 
         const description = (
             <div className="chart-description">
-                <p>
-                    Generates a pie chart from an array of data, each datum must have an id and a
-                    value property.<br />
-                    Note that margin object does not take radial labels into account,&nbsp; so you
-                    should adjust it to leave enough room for it.
+                <p className="description">
+                    A variation around the <Link to="/bar">Pie</Link> component. Well suited for
+                    large data sets as it does not impact DOM tree depth and does not involve React
+                    diffing stuff for children (not that useful when using canvas), however you'll
+                    lose the isomorphic ability and transitions.
                 </p>
                 <p className="description">
-                    The responsive alternative of this component is&nbsp;
-                    <code>ResponsivePie</code>.
+                    The responsive alternative of this component is <code>ResponsiveCanvasPie</code>.
                 </p>
                 <p className="description">
                     This component is available in the{' '}
@@ -98,7 +145,7 @@ export default class Pie extends Component {
                     or <Link to="/pie/api">try it using the API client</Link>. You can also see more
                     example usages in{' '}
                     <a
-                        href={`${config.storybookUrl}?selectedKind=Pie&selectedStory=default`}
+                        href={`${config.storybookUrl}?selectedKind=PieCanvas&selectedStory=default`}
                         target="_blank"
                         rel="noopener noreferrer"
                     >

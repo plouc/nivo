@@ -75,6 +75,20 @@ export default [
         },
     },
     {
+        key: 'pixelRatio',
+        scopes: ['PieCanvas'],
+        description: `Adjust pixel ratio, useful for HiDPI screens.`,
+        required: false,
+        default: 'Depends on device',
+        type: `{number}`,
+        controlType: 'range',
+        controlGroup: 'Base',
+        controlOptions: {
+            min: 1,
+            max: 2,
+        },
+    },
+    {
         key: 'startAngle',
         scopes: ['Pie', 'PieCanvas'],
         description: 'Start angle (deg.) useful to make gauges for example.',
@@ -105,6 +119,16 @@ export default [
             max: 360,
             step: 5,
         },
+    },
+    {
+        key: 'fit',
+        scopes: ['Pie', 'PieCanvas'],
+        description: `If 'true', pie will be omptimized to occupy more space when using partial pie.`,
+        type: '{boolean}',
+        required: false,
+        default: defaults.fit,
+        controlType: 'switch',
+        controlGroup: 'Base',
     },
     {
         key: 'innerRadius',
@@ -442,7 +466,7 @@ export default [
     */
     {
         key: 'isInteractive',
-        scopes: ['Pie'],
+        scopes: ['Pie', 'PieCanvas'],
         description: 'Enable/disable interactivity.',
         type: '{boolean}',
         required: false,
@@ -452,7 +476,7 @@ export default [
     },
     {
         key: 'onClick',
-        scopes: ['Pie'],
+        scopes: ['Pie', 'PieCanvas'],
         description:
             'onClick handler for pie slices, it receives clicked slice data and mouse event.',
         type: '{Function}',
@@ -460,7 +484,7 @@ export default [
     },
     {
         key: 'tooltip',
-        scopes: ['Pie'],
+        scopes: ['Pie', 'PieCanvas'],
         type: '{Function}',
         required: false,
         description: (
@@ -482,7 +506,7 @@ export default [
     },
     {
         key: 'custom tooltip example',
-        scopes: ['Pie'],
+        scopes: ['Pie', 'PieCanvas'],
         excludeFromDoc: true,
         description: (
             <span>

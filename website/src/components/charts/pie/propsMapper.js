@@ -55,7 +55,7 @@ export default settingsMapper(
         radialLabelsLinkColor: mapInheritedColor,
         slicesLabelsTextColor: mapInheritedColor,
         tooltip: (value, values) => {
-            if (!values['custom tooltip example']) return null
+            if (!values['custom tooltip example']) return undefined
 
             return CustomTooltip
         },
