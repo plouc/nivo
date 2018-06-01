@@ -24,6 +24,7 @@ import StreamPage from './components/charts/stream/StreamPage'
 import Stream from './components/charts/stream/Stream'
 import PiePage from './components/charts/pie/PiePage'
 import Pie from './components/charts/pie/Pie'
+import PieCanvas from './components/charts/pie/PieCanvas'
 import PieAPI from './components/charts/pie/PieAPI'
 import RadarPage from './components/charts/radar/RadarPage'
 import Radar from './components/charts/radar/Radar'
@@ -259,6 +260,14 @@ const SITEMAP = [
                         component: Pie,
                         exact: true,
                         tags: ['svg', 'isomorphic'],
+                    },
+                    {
+                        className: 'canvas',
+                        path: '/canvas',
+                        label: 'PieCanvas',
+                        component: PieCanvas,
+                        exact: true,
+                        tags: ['canvas'],
                     },
                     {
                         className: 'api',

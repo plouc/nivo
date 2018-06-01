@@ -6,9 +6,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { Motion, TransitionMotion, spring } from 'react-motion'
 import { midAngle, positionFromAngle } from '@nivo/core'
 import { line } from 'd3-shape'
 
@@ -62,8 +61,8 @@ export default class PieRadialLabels extends Component {
         } = this.props
 
         return (
-            <g>
-                {data.filter(d => skipAngle === 0 || d.angleDegrees > skipAngle).map(d => {
+            <Fragment>
+                {data.filter(d => skipAngle === 0 || d.angleDeg > skipAngle).map(d => {
                     const angle = midAngle(d) - Math.PI / 2
                     const positionA = positionFromAngle(angle, radius + linkOffset)
                     const positionB = positionFromAngle(
@@ -90,11 +89,11 @@ export default class PieRadialLabels extends Component {
                     }
 
                     return (
-                        <g key={d.data.id}>
+                        <Fragment key={d.data.id}>
                             <path
                                 d={lineGenerator([positionA, positionB, positionC])}
                                 fill="none"
-                                style={{ fill: 'none', stroke: linkColor(d.data, theme) }}
+                                style={{ fill: 'none', stroke: linkColor(d, theme) }}
                                 strokeWidth={linkStrokeWidth}
                             />
                             <g transform={`translate(${labelPosition.x}, ${labelPosition.y})`}>
@@ -109,10 +108,10 @@ export default class PieRadialLabels extends Component {
                                     {label(d.data)}
                                 </text>
                             </g>
-                        </g>
+                        </Fragment>
                     )
                 })}
-            </g>
+            </Fragment>
         )
     }
 }

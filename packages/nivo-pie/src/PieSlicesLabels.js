@@ -6,10 +6,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import merge from 'lodash/merge'
-import { Motion, TransitionMotion, spring } from 'react-motion'
 import { midAngle, positionFromAngle } from '@nivo/core'
 
 const sliceStyle = {
@@ -41,8 +39,8 @@ export default class PieSlicesLabels extends Component {
         const centerRadius = innerRadius + (radius - innerRadius) / 2
 
         return (
-            <g>
-                {data.filter(d => skipAngle === 0 || d.angleDegrees > skipAngle).map(d => {
+            <Fragment>
+                {data.filter(d => skipAngle === 0 || d.angleDeg > skipAngle).map(d => {
                     const angle = midAngle(d) - Math.PI / 2
                     const position = positionFromAngle(angle, centerRadius)
 
@@ -64,7 +62,7 @@ export default class PieSlicesLabels extends Component {
                         </g>
                     )
                 })}
-            </g>
+            </Fragment>
         )
     }
 }

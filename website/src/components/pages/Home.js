@@ -352,6 +352,7 @@ class Home extends Component {
                             nodePadding={12}
                             nodeBorderWidth={0}
                             linkOpacity={0.2}
+                            linkBlendMode="normal"
                             linkContract={1}
                             labelTextColor="inherit"
                         />
