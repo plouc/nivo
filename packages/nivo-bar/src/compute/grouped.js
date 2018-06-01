@@ -90,9 +90,8 @@ export const generateVerticalGroupedBars = ({
             range(xScale.domain().length).forEach(index => {
                 const x = xScale(getIndex(data[index])) + barWidth * i + innerPadding * i
                 const y = getY(data[index][key])
-                const barHeight = getHeight(data[index][key], y)
 
-                if (barWidth > 0 && barHeight > 0) {
+                if (barWidth > 0) {
                     const barData = {
                         id: key,
                         value: data[index][key],
@@ -107,7 +106,7 @@ export const generateVerticalGroupedBars = ({
                         x,
                         y,
                         width: barWidth,
-                        height: barHeight,
+                        height: getHeight(data[index][key], y),
                         color: getColor(barData),
                     })
                 }
@@ -169,25 +168,23 @@ export const generateHorizontalGroupedBars = ({
                 const y = yScale(getIndex(data[index])) + barHeight * i + innerPadding * i
                 const barWidth = getWidth(data[index][key], x)
 
-                if (barWidth > 0) {
-                    const barData = {
-                        id: key,
-                        value: data[index][key],
-                        index,
-                        indexValue: getIndex(data[index]),
-                        data: data[index],
-                    }
-
-                    bars.push({
-                        key: `${key}.${barData.indexValue}`,
-                        data: barData,
-                        x,
-                        y,
-                        width: barWidth,
-                        height: barHeight,
-                        color: getColor(barData),
-                    })
+                const barData = {
+                    id: key,
+                    value: data[index][key],
+                    index,
+                    indexValue: getIndex(data[index]),
+                    data: data[index],
                 }
+
+                bars.push({
+                    key: `${key}.${barData.indexValue}`,
+                    data: barData,
+                    x,
+                    y,
+                    width: barWidth,
+                    height: barHeight,
+                    color: getColor(barData),
+                })
             })
         })
     }

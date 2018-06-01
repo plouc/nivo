@@ -119,6 +119,8 @@ class BarCanvas extends Component {
             left: axisLeft,
         })
 
+        result.bars = result.bars.filter(bar => bar.height === 0)
+
         result.bars.forEach(({ x, y, color, width, height }) => {
             this.ctx.fillStyle = color
             this.ctx.fillRect(x, y, width, height)
