@@ -167,7 +167,8 @@ const Bar = ({
         fill: bar.data.fill ? bar.data.fill : bar.color,
     }))
 
-    result.bars = result.bars.filter(bar => bar.height === 0)
+    result.bars = result.bars
+        .filter(bar => (layout === 'vertical') ? (bar.height !== 0) : (bar.width !== 0)) 
 
     return (
         <Container isInteractive={isInteractive} theme={theme}>
