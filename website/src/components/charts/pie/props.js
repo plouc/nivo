@@ -7,9 +7,10 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
+import { Link } from 'react-router-dom'
 import dedent from 'dedent-js'
 import { PieDefaultProps as defaults } from '@nivo/pie'
-import { marginProperties } from '../../../lib/componentProperties'
+import { marginProperties, defsProperties } from '../../../lib/componentProperties'
 
 export default [
     {
@@ -74,6 +75,38 @@ export default [
         },
     },
     {
+        key: 'startAngle',
+        scopes: ['Pie', 'PieCanvas'],
+        description: 'Start angle (deg.) useful to make gauges for example.',
+        type: '{number}',
+        required: false,
+        default: defaults.startAngle,
+        controlType: 'range',
+        controlGroup: 'Base',
+        controlOptions: {
+            unit: 'degrees',
+            min: -180,
+            max: 360,
+            step: 5,
+        },
+    },
+    {
+        key: 'endAngle',
+        scopes: ['Pie', 'PieCanvas'],
+        description: 'End angle (deg.) useful to make gauges for example.',
+        type: '{number}',
+        required: false,
+        default: defaults.endAngle,
+        controlType: 'range',
+        controlGroup: 'Base',
+        controlOptions: {
+            unit: 'degrees',
+            min: -360,
+            max: 360,
+            step: 5,
+        },
+    },
+    {
         key: 'innerRadius',
         description: `Donut chart if greater than 0 (animated). Value should be between 0~1 as it's a ratio from original radius.`,
         type: '{number}',
@@ -120,6 +153,7 @@ export default [
     },
     {
         key: 'sortByValue',
+        scopes: ['Pie', 'PieCanvas'],
         description: `If 'true', arcs will be ordered according to their associated value.`,
         type: '{boolean}',
         required: false,
@@ -164,6 +198,21 @@ export default [
                 },
             ],
         },
+    },
+    ...defsProperties(['Pie', 'api']),
+    {
+        key: 'showcase pattern usage',
+        scopes: ['Pie', 'api'],
+        excludeFromDoc: true,
+        description: (
+            <span>
+                You can use <code>defs</code> and <code>fill</code> properties to use patterns, see{' '}
+                <Link to="/guides/patterns">dedicated guide</Link> for further information.
+            </span>
+        ),
+        type: '{boolean}',
+        controlType: 'switch',
+        controlGroup: 'Style',
     },
     {
         key: 'borderWidth',

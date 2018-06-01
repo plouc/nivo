@@ -14,6 +14,7 @@ import properties from './props'
 
 const groupsByScope = {
     Pie: getPropertiesGroupsControls(properties, 'Pie'),
+    PieCanvas: getPropertiesGroupsControls(properties, 'Pie'),
     api: getPropertiesGroupsControls(properties, 'api'),
 }
 

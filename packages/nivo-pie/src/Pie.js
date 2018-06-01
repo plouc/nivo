@@ -6,13 +6,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
-import { pie as d3Pie, arc as d3Arc } from 'd3-shape'
+import React, { Component } from 'react'
 import { Motion, spring } from 'react-motion'
+import setDisplayName from 'recompose/setDisplayName'
 import { getInheritedColorGenerator } from '@nivo/core'
 import { getLabelGenerator } from '@nivo/core'
-import { degreesToRadians, radiansToDegrees } from '@nivo/core'
-import { bindDefs } from '@nivo/core'
 import { Container, SvgWrapper } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
 import PieSlice from './PieSlice'
@@ -20,213 +18,269 @@ import PieRadialLabels from './PieRadialLabels'
 import PieSlicesLabels from './PieSlicesLabels'
 import { PiePropTypes } from './props'
 import enhance from './enhance'
+import PieLayout from './PieLayout'
 
-const Pie = ({
-    data,
+class Pie extends Component {
+    static propTypes = PiePropTypes
 
-    // dimensions
-    margin,
-    width,
-    height,
-    outerWidth,
-    outerHeight,
+    render() {
+        const {
+            data,
+            sortByValue,
 
-    sortByValue,
-    innerRadius: _innerRadius,
-    padAngle: _padAngle,
-    cornerRadius,
+            startAngle,
+            endAngle,
+            padAngle,
+            innerRadius,
+            cornerRadius,
 
-    // border
-    borderWidth,
-    borderColor: _borderColor,
+            // dimensions
+            margin,
+            width,
+            height,
+            outerWidth,
+            outerHeight,
 
-    // radial labels
-    enableRadialLabels,
-    radialLabel,
-    radialLabelsSkipAngle,
-    radialLabelsLinkOffset,
-    radialLabelsLinkDiagonalLength,
-    radialLabelsLinkHorizontalLength,
-    radialLabelsLinkStrokeWidth,
-    radialLabelsTextXOffset,
-    radialLabelsTextColor,
-    radialLabelsLinkColor,
+            colors,
+            colorBy,
 
-    // slices labels
-    enableSlicesLabels,
-    sliceLabel,
-    slicesLabelsSkipAngle,
-    slicesLabelsTextColor,
+            // border
+            borderWidth,
+            borderColor: _borderColor,
 
-    // styling
-    theme,
-    getColor,
-    defs,
-    fill,
+            // radial labels
+            enableRadialLabels,
+            radialLabel,
+            radialLabelsSkipAngle,
+            radialLabelsLinkOffset,
+            radialLabelsLinkDiagonalLength,
+            radialLabelsLinkHorizontalLength,
+            radialLabelsLinkStrokeWidth,
+            radialLabelsTextXOffset,
+            radialLabelsTextColor,
+            radialLabelsLinkColor,
 
-    // motion
-    animate,
-    motionStiffness,
-    motionDamping,
+            // slices labels
+            enableSlicesLabels,
+            sliceLabel,
+            slicesLabelsSkipAngle,
+            slicesLabelsTextColor,
 
-    // interactivity
-    isInteractive,
-    onClick,
-    tooltipFormat,
-    tooltip,
+            // styling
+            theme,
+            boundDefs,
 
-    legends,
-}) => {
-    const centerX = width / 2
-    const centerY = height / 2
+            // motion
+            animate,
+            motionStiffness,
+            motionDamping,
 
-    const padAngle = degreesToRadians(_padAngle)
+            // interactivity
+            isInteractive,
+            onClick,
+            tooltipFormat,
+            tooltip,
 
-    const borderColor = getInheritedColorGenerator(_borderColor)
+            legends,
+            legendData,
+        } = this.props
 
-    const motionProps = {
-        animate,
-        motionDamping,
-        motionStiffness,
-    }
+        const borderColor = getInheritedColorGenerator(_borderColor)
 
-    const radialLabelsProps = {
-        label: getLabelGenerator(radialLabel),
-        skipAngle: radialLabelsSkipAngle,
-        linkOffset: radialLabelsLinkOffset,
-        linkDiagonalLength: radialLabelsLinkDiagonalLength,
-        linkHorizontalLength: radialLabelsLinkHorizontalLength,
-        linkStrokeWidth: radialLabelsLinkStrokeWidth,
-        textXOffset: radialLabelsTextXOffset,
-        textColor: getInheritedColorGenerator(radialLabelsTextColor, 'labels.textColor'),
-        linkColor: getInheritedColorGenerator(radialLabelsLinkColor, 'axis.tickColor'),
-    }
-
-    const slicesLabelsProps = {
-        label: getLabelGenerator(sliceLabel),
-        skipAngle: slicesLabelsSkipAngle,
-        textColor: getInheritedColorGenerator(slicesLabelsTextColor, 'labels.textColor'),
-    }
-
-    const radius = Math.min(width, height) / 2
-    const innerRadius = radius * Math.min(_innerRadius, 1)
-
-    const pie = d3Pie()
-    pie.value(d => d.value)
-    if (sortByValue !== true) pie.sortValues(null)
-
-    const arc = d3Arc()
-    arc.outerRadius(radius)
-
-    const enhancedData = data.map(d => ({
-        ...d,
-        color: getColor(d),
-    }))
-
-    const legendData = enhancedData.map(d => ({
-        label: d.label,
-        fill: d.color,
-    }))
-
-    const boundDefs = bindDefs(defs, enhancedData, fill)
-
-    return (
-        <Container isInteractive={isInteractive} theme={theme}>
-            {({ showTooltip, hideTooltip }) => (
-                <SvgWrapper
-                    width={outerWidth}
-                    height={outerHeight}
-                    margin={margin}
-                    defs={boundDefs}
-                >
-                    <Motion
-                        style={{
-                            centerX: spring(centerX, motionProps),
-                            centerY: spring(centerY, motionProps),
-                            innerRadius: spring(innerRadius),
-                            padAngle: spring(padAngle, motionProps),
-                            cornerRadius: spring(cornerRadius, motionProps),
-                        }}
-                    >
-                        {interpolatingStyle => {
-                            const interpolatedPie = pie.padAngle(interpolatingStyle.padAngle)
-                            const interpolatedArc = arc
-                                .cornerRadius(interpolatingStyle.cornerRadius)
-                                .innerRadius(interpolatingStyle.innerRadius)
-
-                            const arcsData = interpolatedPie(enhancedData).map(d => {
-                                const angle = d.endAngle - d.startAngle
-
-                                return {
-                                    ...d,
-                                    angle,
-                                    angleDegrees: radiansToDegrees(angle),
-                                    data: d.data,
-                                }
-                            })
-
-                            return (
-                                <g
-                                    transform={`translate(${interpolatingStyle.centerX}, ${
-                                        interpolatingStyle.centerY
-                                    })`}
+        return (
+            <PieLayout
+                width={width}
+                height={height}
+                data={data}
+                sortByValue={sortByValue}
+                startAngle={startAngle}
+                endAngle={endAngle}
+                padAngle={padAngle}
+                innerRadius={innerRadius}
+                cornerRadius={cornerRadius}
+                colors={colors}
+                colorBy={colorBy}
+            >
+                {({ centerX, centerY, radius, innerRadius, arcs, arcGenerator }) => {
+                    //console.log(arcs)
+                    return (
+                        <Container isInteractive={isInteractive} theme={theme}>
+                            {({ showTooltip, hideTooltip }) => (
+                                <SvgWrapper
+                                    width={outerWidth}
+                                    height={outerHeight}
+                                    margin={margin}
+                                    //defs={boundDefs}
                                 >
-                                    {arcsData.map(d => (
-                                        <PieSlice
-                                            key={d.data.id}
-                                            data={d.data}
-                                            path={interpolatedArc(d)}
-                                            color={d.data.color}
-                                            fill={d.data.fill ? d.data.fill : d.data.color}
-                                            borderWidth={borderWidth}
-                                            borderColor={borderColor(d.data)}
-                                            showTooltip={showTooltip}
-                                            hideTooltip={hideTooltip}
-                                            tooltipFormat={tooltipFormat}
-                                            tooltip={tooltip}
-                                            theme={theme}
-                                            onClick={onClick}
-                                        />
-                                    ))}
-                                    {enableSlicesLabels && (
-                                        <PieSlicesLabels
-                                            data={arcsData}
-                                            radius={radius}
-                                            innerRadius={interpolatingStyle.innerRadius}
-                                            theme={theme}
-                                            {...slicesLabelsProps}
-                                        />
-                                    )}
-                                    {enableRadialLabels && (
-                                        <PieRadialLabels
-                                            data={arcsData}
-                                            radius={radius}
-                                            theme={theme}
-                                            {...radialLabelsProps}
-                                        />
-                                    )}
-                                </g>
-                            )
-                        }}
-                    </Motion>
-                    {legends.map((legend, i) => (
-                        <BoxLegendSvg
-                            key={i}
-                            {...legend}
-                            containerWidth={width}
-                            containerHeight={height}
-                            data={legendData}
-                        />
-                    ))}
-                </SvgWrapper>
-            )}
-        </Container>
-    )
+                                    <g transform={`translate(${centerX},${centerY})`}>
+                                        {arcs.map(arc => (
+                                            <PieSlice
+                                                key={arc.data.id}
+                                                data={arc.data}
+                                                path={arcGenerator(arc)}
+                                                color={arc.color}
+                                                fill={arc.color}
+                                                borderWidth={borderWidth}
+                                                borderColor={borderColor(arc)}
+                                                showTooltip={showTooltip}
+                                                hideTooltip={hideTooltip}
+                                                tooltipFormat={tooltipFormat}
+                                                tooltip={tooltip}
+                                                onClick={onClick}
+                                                theme={theme}
+                                            />
+                                        ))}
+                                        {enableRadialLabels && (
+                                            <PieRadialLabels
+                                                data={arcs}
+                                                radius={radius}
+                                                label={getLabelGenerator(radialLabel)}
+                                                skipAngle={radialLabelsSkipAngle}
+                                                linkOffset={radialLabelsLinkOffset}
+                                                linkDiagonalLength={radialLabelsLinkDiagonalLength}
+                                                linkHorizontalLength={
+                                                    radialLabelsLinkHorizontalLength
+                                                }
+                                                linkStrokeWidth={radialLabelsLinkStrokeWidth}
+                                                textXOffset={radialLabelsTextXOffset}
+                                                textColor={getInheritedColorGenerator(
+                                                    radialLabelsTextColor,
+                                                    'labels.textColor'
+                                                )}
+                                                linkColor={getInheritedColorGenerator(
+                                                    radialLabelsLinkColor,
+                                                    'axis.tickColor'
+                                                )}
+                                                theme={theme}
+                                            />
+                                        )}
+                                        {enableSlicesLabels && (
+                                            <PieSlicesLabels
+                                                data={arcs}
+                                                radius={radius}
+                                                innerRadius={innerRadius}
+                                                theme={theme}
+                                                label={getLabelGenerator(sliceLabel)}
+                                                skipAngle={slicesLabelsSkipAngle}
+                                                textColor={getInheritedColorGenerator(
+                                                    slicesLabelsTextColor,
+                                                    'labels.textColor'
+                                                )}
+                                            />
+                                        )}
+                                    </g>
+                                </SvgWrapper>
+                            )}
+                        </Container>
+                    )
+                }}
+            </PieLayout>
+        )
+
+        /*
+        const springConfig = {
+            motionDamping,
+            motionStiffness,
+            precision: 0.001,
+        }
+
+        const motionProps = {
+            animate,
+            ...springConfig,
+        }
+
+        const radialLabelsProps = {
+        }
+
+        const slicesLabelsProps = {
+            label: getLabelGenerator(sliceLabel),
+            skipAngle: slicesLabelsSkipAngle,
+            textColor: getInheritedColorGenerator(slicesLabelsTextColor, 'labels.textColor'),
+        }
+
+        return (
+            <Container isInteractive={isInteractive} theme={theme}>
+                {({ showTooltip, hideTooltip }) => (
+                    <SvgWrapper
+                        width={outerWidth}
+                        height={outerHeight}
+                        margin={margin}
+                        defs={boundDefs}
+                    >
+                        <Motion
+                            style={{
+                                centerX: spring(centerX, motionProps),
+                                centerY: spring(centerY, motionProps),
+                                innerRadius: spring(innerRadius),
+                                cornerRadius: spring(cornerRadius, motionProps),
+                            }}
+                        >
+                            {interpolatingStyle => {
+                                const interpolatedArc = arc
+                                    .cornerRadius(interpolatingStyle.cornerRadius)
+                                    .innerRadius(interpolatingStyle.innerRadius)
+
+                                return (
+                                    <g
+                                        transform={`translate(${interpolatingStyle.centerX}, ${
+                                            interpolatingStyle.centerY
+                                        })`}
+                                    >
+                                        {arcsData.map(d => {
+                                            return (
+                                                <PieSlice
+                                                    key={d.data.id}
+                                                    data={d.data}
+                                                    path={interpolatedArc(d)}
+                                                    color={d.data.color}
+                                                    fill={d.data.fill ? d.data.fill : d.data.color}
+                                                    borderWidth={borderWidth}
+                                                    borderColor={borderColor(d.data)}
+                                                    showTooltip={showTooltip}
+                                                    hideTooltip={hideTooltip}
+                                                    tooltipFormat={tooltipFormat}
+                                                    tooltip={tooltip}
+                                                    theme={theme}
+                                                    onClick={onClick}
+                                                />
+                                            )
+                                        })}
+                                        {enableSlicesLabels && (
+                                            <PieSlicesLabels
+                                                data={arcsData}
+                                                radius={radius}
+                                                innerRadius={interpolatingStyle.innerRadius}
+                                                theme={theme}
+                                                {...slicesLabelsProps}
+                                            />
+                                        )}
+                                        {enableRadialLabels && (
+                                            <PieRadialLabels
+                                                data={arcsData}
+                                                radius={radius}
+                                                theme={theme}
+                                                {...radialLabelsProps}
+                                            />
+                                        )}
+                                    </g>
+                                )
+                            }}
+                        </Motion>
+                        {legends.map((legend, i) => (
+                            <BoxLegendSvg
+                                key={i}
+                                {...legend}
+                                containerWidth={width}
+                                containerHeight={height}
+                                data={legendData}
+                            />
+                        ))}
+                    </SvgWrapper>
+                )}
+            </Container>
+        )
+        */
+    }
 }
 
-Pie.propTypes = PiePropTypes
-
-const enhancedPie = enhance(Pie)
-enhancedPie.displayName = 'enhance(Pie)'
-
-export default enhancedPie
+export default setDisplayName('Pie')(enhance(Pie))

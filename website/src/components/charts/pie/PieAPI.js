@@ -24,6 +24,9 @@ export default class PieAPI extends Component {
                 propsMapper={propsMapper}
                 defaultProps={{
                     ...omit(defaultProps, [
+                        'startAngle',
+                        'endAngle',
+                        'sortByValue',
                         'animate',
                         'motionDamping',
                         'motionStiffness',

@@ -18,13 +18,15 @@ export default {
         left: 80,
     },
 
+    startAngle: 0,
+    endAngle: 360,
     sortByValue: false,
     innerRadius: 0.5,
     padAngle: 0.7,
     cornerRadius: 3,
 
     // Styling
-    colors: 'd320c',
+    colors: 'nivo',
     colorBy: 'id',
 
     // border
