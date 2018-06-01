@@ -9,15 +9,18 @@
     "index.d.ts",
     "cjs/"
   ],
+  "types": "index.d.ts",
   "dependencies": {
     "@nivo/core": "0.36.0",
     "@nivo/legends": "0.35.2",
+    "@types/react": "^16.3.16",
     "d3-shape": "^1.2.0",
     "lodash": "^4.17.4",
     "react-motion": "^0.5.2",
     "recompose": "^0.26.0"
   },
   "peerDependencies": {
+    "@types/react": ">=16.3.16 < 17.0.0",
     "prop-types": "^15.5.10",
     "react": ">= 16.2.0 < 17.0.0"
   },

@@ -1,4 +1,7 @@
 declare module '@nivo/pie' {
+    import * as React from 'react';
+    import * as CSS from 'csstype';
+
     export class Pie extends React.Component<Data & PieProps & Dimensions>{ }
     export class ResponsivePie extends React.Component<Data & PieProps>{ }
 
@@ -23,13 +26,13 @@ declare module '@nivo/pie' {
 
     export type Legend = {
 
-        data: Array<{ label: string | number; fill: string; }>;
+        data?: Array<{ id: string | number; value: number; }>; //injected
 
         // position & layout
         anchor: Anchor;
 
-        translateX: number; // default 0
-        translateY: number; // default 0
+        translateX?: number; // default 0
+        translateY?: number; // default 0
         direction: LegendDirection;
 
         // items
@@ -45,9 +48,9 @@ declare module '@nivo/pie' {
 
     export interface PieDataItem {
         id: string;
-        value: string;
+        value: number;
     }
-
+ 
     export type SettingsGetterFunc = (dataSlize: PieDataItem) => string;
 
     export type Data = { data: Array<PieDataItem> };
@@ -95,6 +98,11 @@ declare module '@nivo/pie' {
         theme: Theme;
 
         legends: Array<Legend>;
+
+        // motion
+        animate: boolean;
+        motionDamping: number;
+        motionStiffness: number;
     }>;
 
     export interface Dimensions {
@@ -103,18 +111,51 @@ declare module '@nivo/pie' {
     }
 
     export type Theme = Partial<{
-        axis: React.CSSProperties;
-        grid: React.CSSProperties;
-        markers: React.CSSProperties;
-        dots: React.CSSProperties;
+        axis: Partial<{
+            textColor: CSS.ColorProperty;
+            fontSize: CSS.FontSizeProperty<string | 0>;
+            tickColor: CSS.ColorProperty;
+            legendColor: CSS.ColorProperty;
+            legendFontSize: CSS.FontSizeProperty<string | 0>;
+        }>,
+        grid: Partial<{
+            stroke: CSS.ColorProperty;
+            strokeWidth: number
+            strokeDasharray: string;
+        }>,
+        markers: Partial<{
+            lineColor: CSS.ColorProperty;
+            lineStrokeWidth: number;
+            textColor: CSS.ColorProperty;
+            fontSize: CSS.FontSizeProperty<string | 0>;
+        }>,
+        dots: Partial<{
+            textColor: CSS.ColorProperty;
+            fontSize: CSS.FontSizeProperty<string | 0>;
+        }>,
         tooltip: Partial<{
-            basic: React.CSSProperties;
-            container: React.CSSProperties;
-            table: React.CSSProperties;
-            tableCell: React.CSSProperties;
-        }>;
-        labels: React.CSSProperties;
-        sankey: Partial<{ label: React.CSSProperties }>;
+            container: Partial<{
+                background: CSS.ColorProperty;
+                color: CSS.ColorProperty;
+                fontSize: CSS.FontSizeProperty<string | 0>;
+                borderRadius: CSS.BorderRadiusProperty<string | 0>;
+                boxShadow: CSS.BoxShadowProperty;
+                padding: CSS.PaddingProperty<string | 0>;
+            }>,
+            basic: Partial<{
+                whiteSpace: CSS.WhiteSpaceProperty;
+                display: CSS.DisplayProperty;
+                alignItems: CSS.AlignItemsProperty;
+            }>,
+            table: any;
+            tableCell: {
+                padding: CSS.PaddingProperty<string | 0>;
+            }
+        }>,
+        labels: { textColor: CSS.ColorProperty; };
+        sankey: {
+            label: any
+        }
     }>
 
     export type Box = Partial<{
