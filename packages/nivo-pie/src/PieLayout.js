@@ -38,7 +38,7 @@ class PieLayout extends Component {
         radius: PropTypes.number.isRequired, // computed
         innerRadius: PropTypes.number.isRequired, // re-computed
         cornerRadius: PropTypes.number.isRequired,
-        boundingBox: PropTypes.shape({
+        debug: PropTypes.shape({
             points: PropTypes.array.isRequired,
             box: PropTypes.shape({
                 x: PropTypes.number.isRequired,
@@ -63,7 +63,7 @@ class PieLayout extends Component {
             centerY,
             radius,
             innerRadius,
-            boundingBox,
+            debug,
             children: render,
         } = this.props
 
@@ -78,7 +78,7 @@ class PieLayout extends Component {
             centerY,
             radius,
             innerRadius,
-            boundingBox,
+            debug,
         })
     }
 }
@@ -152,7 +152,7 @@ export const enhance = Component =>
                     radius,
                     innerRadius,
                     arcGenerator,
-                    boundingBox,
+                    debug: boundingBox,
                 }
             }
         ),

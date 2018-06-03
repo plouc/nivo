@@ -1,149 +1,142 @@
-declare module '@nivo/bar' {
-    export class Bar extends React.Component<Data & BarProps & Dimensions>{}
-    export class BarCanvas extends React.Component<Data & BarProps & Dimensions>{}
-    export class ResponsiveBar extends React.Component<Data & BarProps>{}
-    export class ResponsiveBarCanvas extends React.Component<Data & BarProps>{}
+import * as React from 'react'
+import { Dimensions, Box, Theme, MotionProps, ColorProps, GetColor, SvgDefsAndFill } from '@nivo/core'
+import { LegendProps } from '@nivo/legends'
 
-    export type Data = {
-        data: object[];
+declare module '@nivo/bar' {
+    export interface Data {
+        data: object[]
     }
 
-    export type BarProps = Partial<{
-        indexBy: string | Function;
-        keys: string[];
+    export interface BarDatum {
+        [key: string]: string | number
+    }
 
-        groupMode: 'stacked' | 'grouped';
-        layout: 'horizontal' | 'vertical';
-        reverse: boolean;
+    export type BarDatumWithColor = BarDatum & {
+        color: string
+    }
 
-        innerPadding: number;
-        minValue: number | 'auto';
-        margin: Box;
-        maxValue: number | 'auto';
-        padding: number;
+    export interface BarExtendedDatum {
+        id: string | number
+        value: number
+        index: number
+        indexValue: string | number
+        color: string
+        data: BarDatum
+    }
+
+    export type AccessorFunc = (datum: BarDatum) => string
+
+    export type IndexByFunc = (datum: BarDatum) => string | number
+
+    export type LabelFormatter = (label: string | number) => string | number
+
+    export type ValueFormatter = (value: number) => string | number
+
+    export type BarClickHandler = (datum: BarExtendedDatum, event: React.MouseEvent<HTMLCanvasElement>) => void
+
+    export type TooltipProp = React.StatelessComponent<BarExtendedDatum>
+
+    export interface BarItemProps {
+        data: {
+            id: string | number
+            value: number
+            indexValue: string | number
+        }
+        x: number
+        y: number
+        width: number
+        height: number
+        color: string
+        borderRadius: number
+        borderWidth: number
+        borderColor: string
+        label: string
+        shouldRenderLabel: boolean
+        labelColor: string
+        onClick: BarClickHandler
+        tooltipFormat: string | ValueFormatter
+        tooltip: TooltipProp
+        showTooltip: (tooltip: React.ReactNode, event: React.MouseEvent<HTMLCanvasElement>) => void
+        hideTooltip: () => void
+        theme: Theme
+    }
+
+    export type BarProps = ColorProps<BarDatum> & Partial<{
+        indexBy: string | IndexByFunc
+        keys: string[]
+
+        groupMode: 'stacked' | 'grouped'
+        layout: 'horizontal' | 'vertical'
+        reverse: boolean
+
+        innerPadding: number
+        minValue: number | 'auto'
+        margin: Box
+        maxValue: number | 'auto'
+        padding: number
 
         // axes & grid
-        axisBottom: Axis;
-        axisLeft: Axis;
-        axisRight: Axis;
-        axisTop: Axis;
-        enableGridX: boolean;
-        enableGridY: boolean;
+        axisBottom: Axis
+        axisLeft: Axis
+        axisRight: Axis
+        axisTop: Axis
+        enableGridX: boolean
+        enableGridY: boolean
 
         // customization
-        barComponent: Function;
-        colors: string | string[] | Function;
-        colorBy: string | Function;
+        barComponent: React.StatelessComponent<BarItemProps>
 
         // labels
-        enableLabel: boolean;
-        label: string | Function;
-        labelFormat: string | Function;
-        labelLinkColor: string | Function;
-        labelSkipWidth: number;
-        labelSkipHeight: number;
-        labelTextColor: string | Function;
+        enableLabel: boolean
+        label: string | AccessorFunc
+        labelFormat: string | LabelFormatter
+        labelLinkColor: string | GetColor<BarDatumWithColor>
+        labelSkipWidth: number
+        labelSkipHeight: number
+        labelTextColor: string | GetColor<BarDatumWithColor>
 
         // theming
-        borderRadius: number;
-        borderWidth: number;
-        defs: Array<{ id: string }>;
-        fill: Array<{ id?: string, match: object | Function | '*' }>;
-        theme: Theme;
+        borderRadius: number
+        borderWidth: number
+        theme: Theme
 
         // interactivity
-        isInteractive: boolean;
-        onClick: Function;
-        tooltip: Function;
-        tooltipFormat: string | Function;
+        isInteractive: boolean
+        tooltipFormat: string | ValueFormatter
+        tooltip: TooltipProp
 
-        // motion
-        animate: boolean;
-        motionDamping: number;
-        motionStiffness: number;
-
-        legends: Array<{ dataFrom: 'indexes' | 'keys' } & Legend>;
-
-        // canvas specific
-        pixelRatio: number;
+        legends: Array<{ dataFrom: 'indexes' | 'keys' } & LegendProps>
     }>
 
     export type Axis = Partial<{
-        format: string | Function;
-        legend: string;
-        legendOffset: number;
-        legendPosition: 'start' | 'center' | 'end';
-        orient: 'top' | 'right' | 'bottom' | 'left';
-        tickCount: number;
-        tickPadding: number;
-        tickRotation: number;
-        tickSize: number;
-        tickValues: (string | number)[];
+        format: string | LabelFormatter
+        legend: string
+        legendOffset: number
+        legendPosition: 'start' | 'center' | 'end'
+        orient: 'top' | 'right' | 'bottom' | 'left'
+        tickCount: number
+        tickPadding: number
+        tickRotation: number
+        tickSize: number
+        tickValues: string[] | number[]
     }>
 
-    export type Legend = {
-        // position & layout
-        anchor: Anchor;
-        direction: LegendDirection;
-        justify: boolean;
-        padding: number | Box;
-        translateX: number;
-        translateY: number;
+    export type BarSvgProps = Data
+        & BarProps
+        & MotionProps
+        & SvgDefsAndFill<BarDatum>
+        & Partial<{
+            onClick: (datum: BarExtendedDatum, event: React.MouseEvent<SVGRectElement>) => void
+        }>
 
-        // items
-        itemWidth: number;
-        itemHeight: number;
-        itemDirection: LegendItemDirection;
-        itemsSpacing: number;
-        symbolSize: number;
-        symbolSpacing: number;
-        symbolShape: string | Function;
-        textColor: string;
-    }
+    export class Bar extends React.Component<BarSvgProps & Dimensions> {}
+    export class ResponsiveBar extends React.Component<BarSvgProps> {}
 
-    export type Anchor =
-        | 'top'
-        | 'top-right'
-        | 'right'
-        | 'bottom-right'
-        | 'bottom'
-        | 'bottom-left'
-        | 'left'
-        | 'top-left'
-        | 'center'
-
-    export type LegendDirection = 'row' | 'column'
-
-    export type LegendItemDirection =
-        | 'left-to-right'
-        | 'right-to-left'
-        | 'top-to-bottom'
-        | 'bottom-to-top'
-
-    export type Box = Partial<{
-        bottom: number;
-        left: number;
-        right: number;
-        top: number;
+    export type BarCanvasProps = Data & BarProps & Partial<{
+        onClick: BarClickHandler
+        pixelRatio: number
     }>
 
-    export type Theme = Partial<{
-        axis: React.CSSProperties;
-        grid: React.CSSProperties;
-        markers: React.CSSProperties;
-        dots: React.CSSProperties;
-        tooltip: Partial<{
-            basic: React.CSSProperties;
-            container: React.CSSProperties;
-            table: React.CSSProperties;
-            tableCell: React.CSSProperties;
-        }>;
-        labels: React.CSSProperties;
-        sankey: Partial<{ label: React.CSSProperties }>;
-    }>
-
-    interface Dimensions {
-        height: number;
-        width: number;
-    }
+    export class BarCanvas extends React.Component<BarCanvasProps & Dimensions> {}
+    export class ResponsiveBarCanvas extends React.Component<BarCanvasProps> {}
 }

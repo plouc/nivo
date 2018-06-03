@@ -10,8 +10,10 @@ import React from 'react'
 import { ResponsiveWrapper } from '@nivo/core'
 import Pie from './Pie'
 
-export default props => (
+const ResponsivePie = props => (
     <ResponsiveWrapper>
         {({ width, height }) => <Pie width={width} height={height} {...props} />}
     </ResponsiveWrapper>
 )
+
+export default ResponsivePie

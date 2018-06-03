@@ -22,6 +22,7 @@ class PieCanvas extends Component {
             sortByValue,
             startAngle,
             endAngle,
+            fit,
             padAngle,
             innerRadius,
             cornerRadius,
@@ -40,6 +41,7 @@ class PieCanvas extends Component {
                 sortByValue={sortByValue}
                 startAngle={startAngle}
                 endAngle={endAngle}
+                fit={fit}
                 padAngle={padAngle}
                 innerRadius={innerRadius}
                 cornerRadius={cornerRadius}

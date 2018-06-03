@@ -12,7 +12,8 @@ import MediaQuery from 'react-responsive'
 import ChartHeader from '../../ChartHeader'
 import ChartTabs from '../../ChartTabs'
 import PieControls from './PieControls'
-import { ResponsivePie, PieDefaultProps, PieLayout } from '@nivo/pie'
+import { ResponsivePie, PieDefaultProps } from '@nivo/pie'
+import { generateProgrammingLanguageStats } from '@nivo/generators'
 import generateCode from '../../../lib/generateChartCode'
 import ComponentPropsDocumentation from '../../properties/ComponentPropsDocumentation'
 import properties from './props'
@@ -20,8 +21,16 @@ import nivoTheme from '../../../nivoTheme'
 import config from '../../../config'
 import propsMapper from './propsMapper'
 
+const DATASET_SIZE = 5
+const generateData = () =>
+    generateProgrammingLanguageStats(true, DATASET_SIZE).map(d => ({
+        id: d.label,
+        ...d,
+    }))
+
 export default class Pie extends Component {
     state = {
+        data: generateData(),
         settings: {
             margin: {
                 top: 40,
@@ -43,8 +52,8 @@ export default class Pie extends Component {
             colorBy: 'id',
 
             // border
-            borderWidth: 0,
-            borderColor: { type: 'inherit:darker', gamma: 0.6 },
+            borderWidth: 1,
+            borderColor: { type: 'inherit:darker', gamma: 0.2 },
 
             // radial labels
             enableRadialLabels: true,
@@ -92,6 +101,10 @@ export default class Pie extends Component {
         },
     }
 
+    diceRoll = () => {
+        this.setState({ data: generateData() })
+    }
+
     handleSettingsUpdate = settings => {
         this.setState({ settings })
     }
@@ -101,8 +114,7 @@ export default class Pie extends Component {
     }
 
     render() {
-        const { data, diceRoll } = this.props
-        const { settings } = this.state
+        const { data, settings } = this.state
 
         const mappedSettings = propsMapper(settings)
 
@@ -170,62 +182,12 @@ export default class Pie extends Component {
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="pie" code={code} data={data} diceRoll={diceRoll}>
+                    <ChartTabs chartClass="pie" code={code} data={data} diceRoll={this.diceRoll}>
                         <ResponsivePie
                             data={data}
                             {...mappedSettings}
                             onClick={this.handleNodeClick}
                         />
-                        {/*
-                        <svg width={360} height={360}>
-                            <PieLayout
-                                width={360}
-                                height={360}
-                                data={data}
-                                {...mappedSettings}
-                            >
-                                {(props) => {
-                                    return (
-                                        <g transform={`translate(${props.centerX},${props.centerY})`}>
-                                            {props.arcs.map(arc => {
-                                                return (
-                                                    <path
-                                                        key={arc.data.id}
-                                                        d={props.arcGenerator(arc)}
-                                                        fill={arc.color}
-                                                    />
-                                                )
-                                            })}
-                                        </g>
-                                    )
-                                }}
-                            </PieLayout>
-                            <PieLayout
-                                width={200}
-                                height={200}
-                                data={data}
-                                {...mappedSettings}
-                                colors="d320b"
-                            >
-                                {(props) => {
-                                    console.log(props)
-                                    return (
-                                        <g transform={`translate(${props.centerX + 80},${props.centerY + 80})`}>
-                                            {props.arcs.map(arc => {
-                                                return (
-                                                    <path
-                                                        key={arc.data.id}
-                                                        d={props.arcGenerator(arc)}
-                                                        fill={arc.color}
-                                                    />
-                                                )
-                                            })}
-                                        </g>
-                                    )
-                                }}
-                            </PieLayout>
-                        </svg>
-                        */}
                     </ChartTabs>
                     <PieControls
                         scope="Pie"

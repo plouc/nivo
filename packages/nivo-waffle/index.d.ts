@@ -1,78 +1,79 @@
+import * as React from 'react'
+import { Box, Theme, Dimensions, MotionProps, ColorProps, GetColor, SvgDefsAndFill } from '@nivo/core'
+
 declare module '@nivo/waffle' {
-    export class Waffle extends React.Component<WaffleBaseProps & WaffleCommonProps & WaffleSvgProps & MotionProps & Dimensions>{}
-    export class WaffleHtml extends React.Component<WaffleBaseProps & WaffleCommonProps & MotionProps & Dimensions>{}
-    export class WaffleCanvas extends React.Component<WaffleBaseProps & WaffleCommonProps & WaffleCanvasProps & Dimensions>{}
-    export class ResponsiveWaffle extends React.Component<WaffleBaseProps & WaffleCommonProps & WaffleSvgProps &MotionProps>{}
-    export class ResponsiveWaffleHtml extends React.Component<WaffleBaseProps & WaffleCommonProps & MotionProps>{}
-    export class ResponsiveWaffleCanvas extends React.Component<WaffleBaseProps & WaffleCommonProps & WaffleCanvasProps>{}
-
-    export type WaffleBaseProps = {
-        total: number;
-        data: object[];
-        rows: number;
-        columns: number;
-    }
-
-    export type FillDirection =
+    export type WaffleFillDirection =
         | 'top'
         | 'right'
         | 'bottom'
         | 'left'
 
-    export type WaffleCommonProps = Partial<{
+    export interface WaffleDatum {
+        id: string | number
+        value: number
+        label: string | number
+    }
+
+    export type WaffleTooltipData = WaffleDatum & {
+        color: string
+        position: number
+        row: number
+        column: number
+        groupIndex: number
+        startAt: number
+        endAt: number
+    }
+
+    export type ValueFormatter = (value: number) => string | number
+
+    export interface WaffleBaseProps {
+        total: number
+        data: object[]
+        rows: number
+        columns: number
+    }
+
+    export type WaffleCommonProps = ColorProps<WaffleDatum> & Partial<{
         // layout
-        margin: Box;
-        fillDirection: FillDirection;
-        padding: number;
+        margin: Box
+        fillDirection: WaffleFillDirection
+        padding: number
 
         // styling
-        theme: Theme;
-        colors: string | string[] | Function;
-        colorBy: string | Function;
-        emptyColor: string;
-        emptyOpacity: number;
-        borderWidth: number;
-        borderColor: string | Function;
+        theme: Theme
+        emptyColor: string
+        emptyOpacity: number
+        borderWidth: number
+        borderColor: string | GetColor<WaffleDatum>
 
         // interactivity
-        isInteractive: boolean;
-        tooltipFormat: string | Function;
-        tooltip: Function;
-        onClick: Function;
+        isInteractive: boolean
+        onClick: (datum: WaffleDatum, event: React.MouseEvent<HTMLCanvasElement>) => void
+        tooltipFormat: string | ValueFormatter
+        tooltip: React.StatelessComponent<WaffleTooltipData>
     }>
 
-    export type WaffleSvgProps = Partial<{
-        defs: Array<{ id: string }>;
-        fill: Array<{ id?: string, match: object | Function | '*' }>;
-    }>
+    export type WaffleSvgProps = WaffleBaseProps
+        & WaffleCommonProps
+        & MotionProps
+        & SvgDefsAndFill<WaffleDatum>
 
-    export type WaffleCanvasProps = Partial<{
-        pixelRatio: number;
-    }>
+    export class Waffle extends React.Component<WaffleSvgProps & Dimensions> {}
+    export class ResponsiveWaffle extends React.Component<WaffleSvgProps> {}
 
-    export type MotionProps = Partial<{
-        animate: boolean;
-        motionDamping: number;
-        motionStiffness: number;
-    }>
+    export type WaffleHtmlProps = WaffleBaseProps
+        & WaffleCommonProps
+        & MotionProps
 
-    export type Box = Partial<{
-        bottom: number;
-        left: number;
-        right: number;
-        top: number;
-    }>
+    export class WaffleHtml extends React.Component<WaffleHtmlProps & Dimensions> {}
+    export class ResponsiveWaffleHtml extends React.Component<WaffleHtmlProps> {}
 
-    export type Theme = Partial<{
-        tooltip: Partial<{
-            basic: React.CSSProperties;
-            container: React.CSSProperties;
-        }>;
-        labels: React.CSSProperties;
-    }>
+    export type WaffleCanvasProps = WaffleBaseProps
+        & WaffleCommonProps
+        & Partial<{
+            pixelRatio: number
+        }>
 
-    export type Dimensions = {
-        height: number;
-        width: number;
-    }
+    export class WaffleCanvas extends React.Component<WaffleCanvasProps & Dimensions> {}
+    export class ResponsiveWaffleCanvas extends React.Component<WaffleCanvasProps> {}
 }

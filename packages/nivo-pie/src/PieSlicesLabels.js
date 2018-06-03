@@ -9,6 +9,7 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { midAngle, positionFromAngle } from '@nivo/core'
+import { arcPropType } from './props'
 
 const sliceStyle = {
     pointerEvents: 'none',
@@ -16,6 +17,7 @@ const sliceStyle = {
 
 export default class PieSlicesLabels extends Component {
     static propTypes = {
+        arcs: PropTypes.arrayOf(arcPropType).isRequired,
         label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
         skipAngle: PropTypes.number.isRequired,
         radius: PropTypes.number.isRequired,
@@ -34,30 +36,30 @@ export default class PieSlicesLabels extends Component {
     }
 
     render() {
-        const { data, label, radius, skipAngle, innerRadius, textColor, theme } = this.props
+        const { arcs, label, radius, skipAngle, innerRadius, textColor, theme } = this.props
 
         const centerRadius = innerRadius + (radius - innerRadius) / 2
 
         return (
             <Fragment>
-                {data.filter(d => skipAngle === 0 || d.angleDeg > skipAngle).map(d => {
-                    const angle = midAngle(d) - Math.PI / 2
+                {arcs.filter(arc => skipAngle === 0 || arc.angleDeg > skipAngle).map(arc => {
+                    const angle = midAngle(arc) - Math.PI / 2
                     const position = positionFromAngle(angle, centerRadius)
 
                     return (
                         <g
-                            key={d.data.id}
+                            key={arc.data.id}
                             transform={`translate(${position.x}, ${position.y})`}
                             style={sliceStyle}
                         >
                             <text
                                 textAnchor="middle"
                                 style={{
-                                    fill: textColor(d.data, theme),
+                                    fill: textColor(arc.data, theme),
                                     fontSize: theme.axis.fontSize,
                                 }}
                             >
-                                {label(d.data)}
+                                {label(arc.data)}
                             </text>
                         </g>
                     )

@@ -15,7 +15,9 @@ import {
     getInheritedColorGenerator,
     Container,
 } from '@nivo/core'
+import { renderLegendToCanvas } from '@nivo/legends'
 import { arcPropType } from './props'
+import { drawSliceLabels, drawRadialLabels } from './canvas'
 import PieTooltip from './PieTooltip'
 
 class PieCanvasRenderer extends Component {
@@ -70,7 +72,7 @@ class PieCanvasRenderer extends Component {
 
     getArcFromMouse = event => {
         const [x, y] = getRelativeCursor(this.surface, event)
-        const { centerX, centerY, margin, radius, innerRadius, arcs, theme } = this.props
+        const { centerX, centerY, margin, radius, innerRadius, arcs } = this.props
 
         return getHoveredArc(
             margin.left + centerX,
@@ -105,7 +107,7 @@ class PieCanvasRenderer extends Component {
 
     handleClick = event => {
         const arc = this.getArcFromMouse(event)
-        if (arc !== undefined) this.props.onClick(arc.data, event)
+        if (arc) this.props.onClick(arc.data, event)
     }
 
     draw(props) {
@@ -114,22 +116,26 @@ class PieCanvasRenderer extends Component {
             arcGenerator,
 
             // layout
+            width,
+            height,
             centerX,
             centerY,
+            radius,
             outerWidth,
             outerHeight,
             pixelRatio,
             margin,
 
-            // slices labels
-            enableSlicesLabels,
-            sliceLabel,
-            slicesLabelsSkipAngle,
-            slicesLabelsTextColor,
+            borderWidth,
+            borderColor,
 
-            theme,
+            // labels
+            enableSlicesLabels,
+            enableRadialLabels,
 
             legends,
+
+            theme,
         } = props
 
         this.surface.width = outerWidth * pixelRatio
@@ -145,40 +151,71 @@ class PieCanvasRenderer extends Component {
         this.ctx.save()
         this.ctx.translate(centerX, centerY)
 
+        const getBorderColor = getInheritedColorGenerator(borderColor)
+
         arcs.forEach(arc => {
             this.ctx.beginPath()
-            arcGenerator(arc)
             this.ctx.fillStyle = arc.color
+            this.ctx.strokeStyle = getBorderColor({ ...arc.data, color: arc.color })
+            this.ctx.lineWidth = borderWidth
+            arcGenerator(arc)
             this.ctx.fill()
+            if (borderWidth > 0) this.ctx.stroke()
         })
 
         if (enableSlicesLabels === true) {
-            const getSliceLabel = getLabelGenerator(sliceLabel)
-            const getSliceLabelTextColor = getInheritedColorGenerator(
-                slicesLabelsTextColor,
-                'labels.textColor'
-            )
+            const { sliceLabel, slicesLabelsSkipAngle, slicesLabelsTextColor } = props
 
-            this.ctx.textAlign = 'center'
-            this.ctx.textBaseline = 'middle'
+            drawSliceLabels(this.ctx, arcs, {
+                arcGenerator,
+                skipAngle: slicesLabelsSkipAngle,
+                getLabel: getLabelGenerator(sliceLabel),
+                getTextColor: getInheritedColorGenerator(slicesLabelsTextColor, 'labels.textColor'),
+                theme,
+            })
+        }
 
-            arcs
-                .filter(arc => slicesLabelsSkipAngle === 0 || arc.angleDeg > slicesLabelsSkipAngle)
-                .forEach(arc => {
-                    const [centroidX, centroidY] = arcGenerator.centroid(arc)
+        if (enableRadialLabels === true) {
+            const {
+                radialLabel,
+                radialLabelsSkipAngle,
+                radialLabelsLinkOffset,
+                radialLabelsLinkStrokeWidth,
+                radialLabelsLinkDiagonalLength,
+                radialLabelsLinkHorizontalLength,
+                radialLabelsTextXOffset,
+                radialLabelsTextColor,
+                radialLabelsLinkColor,
+            } = props
 
-                    const sliceLabel = getSliceLabel(arc.data)
-                    const sliceLabelTextColor = getSliceLabelTextColor(arc, theme)
-
-                    this.ctx.save()
-                    this.ctx.translate(centroidX, centroidY)
-                    this.ctx.fillStyle = sliceLabelTextColor
-                    this.ctx.fillText(sliceLabel, 0, 0)
-                    this.ctx.restore()
-                })
+            drawRadialLabels(this.ctx, arcs, {
+                radius,
+                getLabel: getLabelGenerator(radialLabel),
+                skipAngle: radialLabelsSkipAngle,
+                linkOffset: radialLabelsLinkOffset,
+                linkDiagonalLength: radialLabelsLinkDiagonalLength,
+                linkHorizontalLength: radialLabelsLinkHorizontalLength,
+                linkStrokeWidth: radialLabelsLinkStrokeWidth,
+                textXOffset: radialLabelsTextXOffset,
+                getTextColor: getInheritedColorGenerator(radialLabelsTextColor, 'labels.textColor'),
+                getLinkColor: getInheritedColorGenerator(radialLabelsLinkColor, 'axis.tickColor'),
+                theme,
+            })
         }
 
         this.ctx.restore()
+
+        legends.forEach(legend => {
+            renderLegendToCanvas(this.ctx, {
+                ...legend,
+                data: arcs.map(arc => ({
+                    label: arc.data.id,
+                    fill: arc.color,
+                })),
+                containerWidth: width,
+                containerHeight: height,
+            })
+        })
     }
 
     render() {

@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "outDir": "./build",
+    "allowJs": true,
+    "target": "es2017",
+    "alwaysStrict": true,
+    "sourceMap": true,
+    "moduleResolution": "node"
+  },
+  "include": ["./packages/*/index.d.ts"]
+}

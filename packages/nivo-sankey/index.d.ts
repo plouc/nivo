@@ -1,3 +1,5 @@
+import * as React from 'react'
+
 declare module '@nivo/sankey' {
   export class Sankey extends React.Component<Data & SankeyProps & Dimensions>{}
   export class ResponsiveSankey extends React.Component<Data & SankeyProps>{}
