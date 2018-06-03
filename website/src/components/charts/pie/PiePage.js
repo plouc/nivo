@@ -8,33 +8,10 @@
  */
 import React, { Component } from 'react'
 import Helmet from 'react-helmet'
-import { generateProgrammingLanguageStats } from '@nivo/generators'
-
-const generateData = () => {
-    return generateProgrammingLanguageStats(true, 32).map(d => ({
-        id: d.label,
-        ...d,
-    }))
-}
 
 export default class PiePage extends Component {
-    state = {
-        data: generateData(),
-    }
-
-    diceRoll = () => {
-        this.setState({
-            data: generateData(),
-        })
-    }
-
-    handleDataUpdate = data => {
-        this.setState({ data })
-    }
-
     render() {
         const { childRoutes } = this.props
-        const { data } = this.state
 
         return (
             <div className="inner-content pie_page">
@@ -42,13 +19,7 @@ export default class PiePage extends Component {
                 {childRoutes.map(childRoute => {
                     return React.cloneElement(childRoute, {
                         component: null,
-                        render: () => (
-                            <childRoute.props.component
-                                data={data}
-                                diceRoll={this.diceRoll}
-                                onDataUpdate={this.handleDataUpdate}
-                            />
-                        ),
+                        render: () => <childRoute.props.component />,
                     })
                 })}
             </div>

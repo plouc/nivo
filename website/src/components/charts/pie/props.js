@@ -98,7 +98,7 @@ export default [
         controlType: 'range',
         controlGroup: 'Base',
         controlOptions: {
-            unit: 'degrees',
+            unit: 'deg.',
             min: -180,
             max: 360,
             step: 5,
@@ -114,7 +114,7 @@ export default [
         controlType: 'range',
         controlGroup: 'Base',
         controlOptions: {
-            unit: 'degrees',
+            unit: 'deg.',
             min: -360,
             max: 360,
             step: 5,
@@ -132,7 +132,7 @@ export default [
     },
     {
         key: 'innerRadius',
-        description: `Donut chart if greater than 0 (animated). Value should be between 0~1 as it's a ratio from original radius.`,
+        description: `Donut chart if greater than 0. Value should be between 0~1 as it's a ratio from original radius.`,
         type: '{number}',
         required: false,
         default: defaults.innerRadius,
@@ -147,14 +147,14 @@ export default [
     },
     {
         key: 'padAngle',
-        description: 'Padding (deg.) between each pie slice (animated).',
+        description: 'Padding (deg.) between each pie slice.',
         type: '{number}',
         required: false,
         default: defaults.padAngle,
         controlType: 'range',
         controlGroup: 'Base',
         controlOptions: {
-            unit: 'degrees',
+            unit: 'deg.',
             min: 0,
             max: 45,
             step: 1,
@@ -162,7 +162,7 @@ export default [
     },
     {
         key: 'cornerRadius',
-        description: 'Rounded slices (animated).',
+        description: 'Rounded slices.',
         type: '{number}',
         required: false,
         default: defaults.cornerRadius,
@@ -300,7 +300,7 @@ export default [
         controlType: 'range',
         controlGroup: 'Radial labels',
         controlOptions: {
-            unit: 'degrees',
+            unit: 'deg.',
             min: 0,
             max: 45,
             step: 1,
@@ -439,7 +439,7 @@ export default [
         controlType: 'range',
         controlGroup: 'Slices labels',
         controlOptions: {
-            unit: 'degrees',
+            unit: 'deg.',
             min: 0,
             max: 45,
             step: 1,
@@ -522,9 +522,9 @@ export default [
     ————————————————————————————————————————————————————————————————————————————
 
         Motion
+        not implemented yet :(
 
     ————————————————————————————————————————————————————————————————————————————
-    */
     {
         key: 'animate',
         scopes: ['Pie'],
@@ -562,4 +562,5 @@ export default [
             max: 40,
         },
     },
+    */
 ]

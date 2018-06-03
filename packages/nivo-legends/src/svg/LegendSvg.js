@@ -120,6 +120,9 @@ LegendSvg.propTypes = {
     symbolSpacing: PropTypes.number,
     symbolShape: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     textColor: PropTypes.string.isRequired,
+
+    // interactivity
+    onClick: PropTypes.func.isRequired,
 }
 
 LegendSvg.defaultProps = {
@@ -131,6 +134,9 @@ LegendSvg.defaultProps = {
     itemDirection: DIRECTION_LEFT_TO_RIGHT,
     itemsSpacing: 0,
     textColor: 'black',
+
+    // interactivity
+    onClick: () => {},
 }
 
 export default LegendSvg

@@ -7,12 +7,26 @@
  * file that was distributed with this source code.
  */
 import React, { Component } from 'react'
+import { generateProgrammingLanguageStats } from '@nivo/generators'
 import APIClient from '../../api-client/APIClient'
 import PieControls from './PieControls'
 import propsMapper from './propsMapper'
 
+const DATASET_SIZE = 12
+const generateData = () =>
+    generateProgrammingLanguageStats(true, DATASET_SIZE).map(d => ({
+        id: d.label,
+        ...d,
+    }))
+
 export default class PieAPI extends Component {
+    state = {
+        data: generateData(),
+    }
+
     render() {
+        const { data } = this.state
+
         return (
             <APIClient
                 componentName="Pie"
@@ -61,7 +75,7 @@ export default class PieAPI extends Component {
                     slicesLabelsSkipAngle: 10,
                     slicesLabelsTextColor: { type: 'custom', color: '#333333' },
 
-                    data: JSON.stringify(this.props.data, null, '  '),
+                    data: JSON.stringify(data, null, '  '),
                 }}
             />
         )

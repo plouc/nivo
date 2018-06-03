@@ -13,6 +13,7 @@ import ChartHeader from '../../ChartHeader'
 import ChartTabs from '../../ChartTabs'
 import PieControls from './PieControls'
 import { PieDefaultProps, ResponsivePieCanvas } from '@nivo/pie'
+import { generateProgrammingLanguageStats } from '@nivo/generators'
 import generateCode from '../../../lib/generateChartCode'
 import ComponentPropsDocumentation from '../../properties/ComponentPropsDocumentation'
 import properties from './props'
@@ -20,18 +21,27 @@ import nivoTheme from '../../../nivoTheme'
 import config from '../../../config'
 import propsMapper from './propsMapper'
 
+const DATASET_SIZE = 18
+const generateData = () =>
+    generateProgrammingLanguageStats(true, DATASET_SIZE).map(d => ({
+        id: d.label,
+        ...d,
+    }))
+
 export default class Pie extends Component {
     state = {
+        data: generateData(),
         settings: {
             margin: {
                 top: 40,
-                right: 80,
-                bottom: 80,
+                right: 200,
+                bottom: 40,
                 left: 80,
             },
 
             pixelRatio: window && window.devicePixelRatio ? window.devicePixelRatio : 1,
 
+            // layout
             startAngle: 0,
             endAngle: 360,
             sortByValue: false,
@@ -40,8 +50,8 @@ export default class Pie extends Component {
             cornerRadius: 3,
             fit: true,
 
-            // Styling
-            colors: 'nivo',
+            // styling
+            colors: 'd320b',
             colorBy: 'id',
 
             // border
@@ -82,16 +92,21 @@ export default class Pie extends Component {
             fill: [],
             legends: [
                 {
-                    anchor: 'bottom',
-                    direction: 'row',
-                    translateY: 56,
-                    itemWidth: 100,
-                    itemHeight: 18,
-                    symbolSize: 18,
+                    anchor: 'right',
+                    direction: 'column',
+                    translateX: 140,
+                    itemWidth: 60,
+                    itemHeight: 14,
+                    itemsSpacing: 2,
+                    symbolSize: 14,
                     symbolShape: 'circle',
                 },
             ],
         },
+    }
+
+    diceRoll = () => {
+        this.setState({ data: generateData() })
     }
 
     handleSettingsUpdate = settings => {
@@ -103,8 +118,7 @@ export default class Pie extends Component {
     }
 
     render() {
-        const { data, diceRoll } = this.props
-        const { settings } = this.state
+        const { data, settings } = this.state
 
         const mappedSettings = propsMapper(settings)
 
@@ -118,7 +132,7 @@ export default class Pie extends Component {
         const description = (
             <div className="chart-description">
                 <p className="description">
-                    A variation around the <Link to="/bar">Pie</Link> component. Well suited for
+                    A variation around the <Link to="/pie">Pie</Link> component. Well suited for
                     large data sets as it does not impact DOM tree depth and does not involve React
                     diffing stuff for children (not that useful when using canvas), however you'll
                     lose the isomorphic ability and transitions.
@@ -166,11 +180,10 @@ export default class Pie extends Component {
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="pie" code={code} data={data} diceRoll={diceRoll}>
+                    <ChartTabs chartClass="pie" code={code} data={data} diceRoll={this.diceRoll}>
                         <ResponsivePieCanvas
                             data={data}
                             {...mappedSettings}
-                            pixelRatio={2}
                             onClick={this.handleNodeClick}
                         />
                     </ChartTabs>

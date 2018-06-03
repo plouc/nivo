@@ -8,8 +8,10 @@
  */
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { midAngle, positionFromAngle } from '@nivo/core'
 import { line } from 'd3-shape'
+import { textPropsByEngine } from '@nivo/core'
+import { arcPropType } from './props'
+import { computeRadialLabels } from './compute'
 
 const lineGenerator = line()
     .x(d => d.x)
@@ -17,6 +19,7 @@ const lineGenerator = line()
 
 export default class PieRadialLabels extends Component {
     static propTypes = {
+        arcs: PropTypes.arrayOf(arcPropType).isRequired,
         label: PropTypes.func.isRequired,
         skipAngle: PropTypes.number.isRequired,
         radius: PropTypes.number.isRequired,
@@ -46,7 +49,7 @@ export default class PieRadialLabels extends Component {
 
     render() {
         const {
-            data,
+            arcs,
             label,
             radius,
             skipAngle,
@@ -60,58 +63,37 @@ export default class PieRadialLabels extends Component {
             theme,
         } = this.props
 
-        return (
-            <Fragment>
-                {data.filter(d => skipAngle === 0 || d.angleDeg > skipAngle).map(d => {
-                    const angle = midAngle(d) - Math.PI / 2
-                    const positionA = positionFromAngle(angle, radius + linkOffset)
-                    const positionB = positionFromAngle(
-                        angle,
-                        radius + linkOffset + linkDiagonalLength
-                    )
-                    let positionC
-                    let labelPosition
-                    let textAnchor
-                    if (angle + Math.PI / 2 < Math.PI) {
-                        positionC = { x: positionB.x + linkHorizontalLength, y: positionB.y }
-                        labelPosition = {
-                            x: positionB.x + linkHorizontalLength + textXOffset,
-                            y: positionB.y,
-                        }
-                        textAnchor = 'start'
-                    } else {
-                        positionC = { x: positionB.x - linkHorizontalLength, y: positionB.y }
-                        labelPosition = {
-                            x: positionB.x - linkHorizontalLength - textXOffset,
-                            y: positionB.y,
-                        }
-                        textAnchor = 'end'
-                    }
+        const labels = computeRadialLabels(arcs, {
+            getLabel: label,
+            radius,
+            skipAngle,
+            linkOffset,
+            linkDiagonalLength,
+            linkHorizontalLength,
+            textXOffset,
+        })
 
-                    return (
-                        <Fragment key={d.data.id}>
-                            <path
-                                d={lineGenerator([positionA, positionB, positionC])}
-                                fill="none"
-                                style={{ fill: 'none', stroke: linkColor(d, theme) }}
-                                strokeWidth={linkStrokeWidth}
-                            />
-                            <g transform={`translate(${labelPosition.x}, ${labelPosition.y})`}>
-                                <text
-                                    textAnchor={textAnchor}
-                                    dy="0.3em"
-                                    style={{
-                                        fill: textColor(d.data, theme),
-                                        fontSize: theme.axis.fontSize,
-                                    }}
-                                >
-                                    {label(d.data)}
-                                </text>
-                            </g>
-                        </Fragment>
-                    )
-                })}
+        return labels.map(label => (
+            <Fragment key={label.arc.data.id}>
+                <path
+                    d={lineGenerator(label.line)}
+                    fill="none"
+                    style={{ fill: 'none', stroke: linkColor(label.arc, theme) }}
+                    strokeWidth={linkStrokeWidth}
+                />
+                <g transform={`translate(${label.position.x}, ${label.position.y})`}>
+                    <text
+                        textAnchor={textPropsByEngine.svg.align[label.align]}
+                        dy="0.3em"
+                        style={{
+                            fill: textColor(label.arc.data, theme),
+                            fontSize: theme.axis.fontSize,
+                        }}
+                    >
+                        {label.text}
+                    </text>
+                </g>
             </Fragment>
-        )
+        ))
     }
 }

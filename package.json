@@ -23,6 +23,7 @@
     "@storybook/addon-info": "^3.4.5",
     "@storybook/addon-knobs": "^3.4.5",
     "@storybook/react": "^3.4.5",
+    "@types/react": "^16.3.16",
     "babel-eslint": "^8.2.1",
     "chalk": "^2.3.0",
     "clog-cli": "^1.0.0",
@@ -45,7 +46,9 @@
     "rollup-plugin-babel": "^3.0.3",
     "rollup-plugin-node-resolve": "^3.0.2",
     "rollup-plugin-prettier": "^0.4.0",
-    "rollup-plugin-strip-banner": "^0.2.0"
+    "rollup-plugin-strip-banner": "^0.2.0",
+    "tslint": "^5.10.0",
+    "typescript": "^2.9.1"
   },
   "scripts": {
     "fmt": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --color --write \"{src,specs,test,.storybook,stories}/**/*.js\"",

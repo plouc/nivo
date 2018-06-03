@@ -114,7 +114,6 @@ packages-lint: ##@1 packages run eslint on all packages
         --ignore-pattern 'nivo-core' \
         --ignore-pattern 'nivo-stream' \
         --ignore-pattern 'nivo-sunburst' \
-        --ignore-pattern 'nivo-pie' \
         --ignore-pattern 'nivo-radar' \
         --ignore-pattern 'nivo-heatmap' \
         --ignore-pattern 'nivo-treemap' \
@@ -122,6 +121,19 @@ packages-lint: ##@1 packages run eslint on all packages
         --ignore-pattern 'nivo-line' \
         --ignore-pattern 'nivo-generators' \
         ./packages/*/{src,tests}
+
+package-tslint-%: ##@1 packages run tslint on package
+	@echo "${YELLOW}Running tslint on package ${WHITE}@nivo/${*}${RESET}"
+	@./node_modules/.bin/tslint ./packages/nivo-${*}/index.d.ts
+
+packages-tslint: ##@1 packages run tslint on all packages
+	@echo "${YELLOW}Running tslint on all packages${RESET}"
+	@./node_modules/.bin/tslint \
+	    ./packages/nivo-bar/index.d.ts \
+	    ./packages/nivo-core/index.d.ts \
+	    ./packages/nivo-heatmap/index.d.ts \
+        ./packages/nivo-pie/index.d.ts \
+        ./packages/nivo-waffle/index.d.ts
 
 package-test-%: ##@1 packages run tests for a package
 	@./node_modules/.bin/jest --setupTestFrameworkScriptFile=raf/polyfill ./packages/nivo-${*}/tests

@@ -1,126 +1,79 @@
+import * as React from 'react'
+import { Box, Dimensions, Theme, MotionProps, ColorProps, GetColor, SvgDefsAndFill } from '@nivo/core'
+import { LegendProps } from '@nivo/legends'
+
 declare module '@nivo/pie' {
-    export class Pie extends React.Component<Data & PieProps & Dimensions>{ }
-    export class ResponsivePie extends React.Component<Data & PieProps>{ }
-
-    export type LegendItemDirection =
-        | 'left-to-right'
-        | 'right-to-left'
-        | 'top-to-bottom'
-        | 'bottom-to-top';
-
-    export type Anchor =
-        | 'top'
-        | 'top-right'
-        | 'right'
-        | 'bottom-right'
-        | 'bottom'
-        | 'bottom-left'
-        | 'left'
-        | 'top-left'
-        | 'center';
-
-    export type LegendDirection = 'row' | 'column';
-
-    export type Legend = {
-
-        data: Array<{ label: string | number; fill: string; }>;
-
-        // position & layout
-        anchor: Anchor;
-
-        translateX: number; // default 0
-        translateY: number; // default 0
-        direction: LegendDirection;
-
-        // items
-        itemWidth: number;
-        itemHeight: number;
-        itemDirection?: LegendItemDirection; // default left-to-right
-        itemsSpacing?: number; // default 0
-        symbolSize?: number; // default 16
-        symbolSpacing?: number; // default 8
-        symbolShape?: "circle" | "diamond" | "square" | "triangle", // default square
-        textColor?: string; // default black
+    export interface PieDatum {
+        id: string | number
+        value: number
+        [key: string]: string | number
     }
 
-    export interface PieDataItem {
-        id: string;
-        value: string;
+    export type PieDatumWithColor = PieDatum & {
+        color: string
     }
 
-    export type SettingsGetterFunc = (dataSlize: PieDataItem) => string;
+    export type AccessorFunc = (datum: PieDatum) => string
 
-    export type Data = { data: Array<PieDataItem> };
+    export type ValueFormatter = (value: number) => string | number
 
-    export type PieProps = Partial<{
-        sortByValue: boolean;
-        innerRadius: number;
-        padAngle: number;
-        cornerRadius: number;
+    export interface Data {
+        data: PieDatum[]
+    }
+
+    export type CommonPieProps = MotionProps & ColorProps<PieDatum> & Partial<{
+        margin: Box
+        sortByValue: boolean
+        innerRadius: number
+        padAngle: number
+        cornerRadius: number
+        startAngle: number
+        endAngle: number
+        fit: boolean
 
         // border
-        borderWidth: number;
-        borderColor: string | SettingsGetterFunc;
+        // styling
+        theme: Theme
+        borderWidth: number
+        borderColor: string | GetColor<PieDatum>
 
         // radial labels
-        enableRadialLabels: boolean;
-        radialLabel: string | SettingsGetterFunc;
-        radialLabelsSkipAngle: number;
-        radialLabelsTextXOffset: number;
-        radialLabelsTextColor: string | SettingsGetterFunc;
-        radialLabelsLinkOffset: number;
-        radialLabelsLinkDiagonalLength: number;
-        radialLabelsLinkHorizontalLength: number;
-        radialLabelsLinkStrokeWidth: number;
-        radialLabelsLinkColor: string | SettingsGetterFunc;
+        enableRadialLabels: boolean
+        radialLabel: string | AccessorFunc
+        radialLabelsSkipAngle: number
+        radialLabelsTextXOffset: number
+        radialLabelsTextColor: string | GetColor<PieDatumWithColor>
+        radialLabelsLinkOffset: number
+        radialLabelsLinkDiagonalLength: number
+        radialLabelsLinkHorizontalLength: number
+        radialLabelsLinkStrokeWidth: number
+        radialLabelsLinkColor: string | GetColor<PieDatumWithColor>
 
         // slices labels
-        enableSlicesLabels: boolean;
-        sliceLabel: string | SettingsGetterFunc;
-        slicesLabelsSkipAngle: number;
-        slicesLabelsTextColor: string | SettingsGetterFunc;
+        enableSlicesLabels: boolean
+        sliceLabel: string | AccessorFunc
+        slicesLabelsSkipAngle: number
+        slicesLabelsTextColor: string | GetColor<PieDatumWithColor>
 
+        // interactivity
+        isInteractive: boolean
+        onClick: (datum: PieDatum, event: React.MouseEvent<SVGPathElement>) => void
+        tooltipFormat: string | ValueFormatter
+        tooltip: React.StatelessComponent<PieDatumWithColor>
 
-        colors: string | string[] | Function;
-        colorBy: string | Function;
-
-        margin: Box;
-
-
-        isInteractive: boolean;
-        onClick: (dataSlize: PieDataItem, event: React.MouseEvent<SVGPathElement>) => void;
-        tooltipFormat: string | Function;
-        tooltip: Function;
-
-        theme: Theme;
-
-        legends: Array<Legend>;
-    }>;
-
-    export interface Dimensions {
-        height: number;
-        width: number;
-    }
-
-    export type Theme = Partial<{
-        axis: React.CSSProperties;
-        grid: React.CSSProperties;
-        markers: React.CSSProperties;
-        dots: React.CSSProperties;
-        tooltip: Partial<{
-            basic: React.CSSProperties;
-            container: React.CSSProperties;
-            table: React.CSSProperties;
-            tableCell: React.CSSProperties;
-        }>;
-        labels: React.CSSProperties;
-        sankey: Partial<{ label: React.CSSProperties }>;
+        legends: LegendProps[]
     }>
 
-    export type Box = Partial<{
-        bottom: number;
-        left: number;
-        right: number;
-        top: number;
+    export type PieSvgProps = Data & CommonPieProps & SvgDefsAndFill<PieDatum>
+
+    export class Pie extends React.Component<PieSvgProps & Dimensions> {}
+    export class ResponsivePie extends React.Component<PieSvgProps> {}
+
+    export type PieCanvasProps = Data & CommonPieProps & Partial<{
+        pixelRatio: number
     }>
+
+    export class PieCanvas extends React.Component<PieCanvasProps & Dimensions> {}
+    export class ResponsivePieCanvas extends React.Component<PieCanvasProps> {}
+
 }

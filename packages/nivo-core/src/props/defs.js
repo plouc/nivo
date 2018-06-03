@@ -16,7 +16,7 @@ export const defsPropTypes = {
     ).isRequired,
     fill: PropTypes.arrayOf(
         PropTypes.shape({
-            id: PropTypes.string,
+            id: PropTypes.string.isRequired,
             match: PropTypes.oneOfType([PropTypes.oneOf(['*']), PropTypes.object, PropTypes.func])
                 .isRequired,
         })

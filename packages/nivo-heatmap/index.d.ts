@@ -1,99 +1,100 @@
+import * as React from 'react'
+import { Dimensions, Box, MotionProps, ColorProps, GetColor, Theme } from '@nivo/core'
+
 declare module '@nivo/heatmap' {
-    export class ResponsiveHeatMapCanvas extends React.Component<HeatMapTypes>{
-
+    export interface HeatMapDatum {
+        [key: string]: string | number
     }
 
-    export class HeatMapCanvas extends React.Component<HeatMapTypes & Dimensions>{
-
+    export type HeatMapDatumWithColor = HeatMapDatum & {
+        color: string
     }
 
-    export class ResponsiveHeatMap extends React.Component<HeatMapTypes>{
+    export type IndexByFunc = (datum: HeatMapDatum) => string | number
 
+    export type ValueFormatter = (value: number) => string | number
+
+    export interface HeatMapData {
+        data: HeatMapDatum[]
+        indexBy?: string | IndexByFunc
+        keys?: string[]
+        minValue?: number | 'auto'
+        maxValue?: number | 'auto'
     }
 
-    export class HeatMap extends React.Component<HeatMapTypes & Dimensions>{
+    export type HeatMapCommonProps = ColorProps<HeatMapDatum> & Partial<{
+        forceSquare: boolean
+        sizeVariation: number
+        margin: Box
+        padding: number
 
+        // cells
+        cellShape: 'rect' | 'circle' | React.StatelessComponent<any>
+        cellOpacity: number
+        cellBorderWidth: number
+        cellBorderColor: string | GetColor<HeatMapDatumWithColor>
+
+        // axes & grid
+        axisTop: Axis
+        axisRight: Axis
+        axisBottom: Axis
+        axisLeft: Axis
+        enableGridX: boolean
+        enableGridY: boolean
+
+        // labels
+        enableLabels: boolean
+        labelTextColor: string | GetColor<HeatMapDatumWithColor>
+
+        // interactivity
+        isInteractive: boolean
+        hoverTarget: 'cell' | 'row' | 'column' | 'rowColumn'
+        cellHoverOpacity: number
+        cellHoverOthersOpacity: number
+        tooltipFormat: string | ValueFormatter
+
+        theme: Theme
+    }>
+
+    export interface NodeData {
+        key: string
+        value: number
+        x: number
+        xKey: string | number
+        y: number
+        yKey: string | number
+        width: number
+        height: number
+        opacity: number
     }
 
-    export type HeatMapTypes = {
-        //data
-        data: Array<object>;
-        indexBy?: string | Function;
-        keys?: Array<string>;
+    export type Axis = Partial<{
+        orient: string
+        legend: string
+        tickSize: number
+        tickPadding: number
+        tickRotation: number
+        legendOffset: number
+        legendPosition: string
+    }>
 
-        minValue?: number | 'auto';
-        maxValue?: number | 'auto';
+    export type HeatMapSvgProps = HeatMapData
+        & HeatMapCommonProps
+        & MotionProps
+        & Partial<{
+            onClick: (datum: NodeData, event: React.MouseEvent<SVGGElement>) => void
+        }>
 
-        forceSquare?: boolean;
-        sizeVariation?: number;
-        padding?: number;
+    export class HeatMap extends React.Component<HeatMapSvgProps & Dimensions> {}
+    export class ResponsiveHeatMap extends React.Component<HeatMapSvgProps> {}
 
-        //cells
-        cellShape?: 'rect'| 'circle' | Function;
-        cellOpacity?: number;
-        cellBorderWidth?: number;
-        cellBorderColor?: string | Function;
-        
-        //axes & grid
-        axisTop?: Axis;
-        axisRight?: Axis;
-        axisBottom?: Axis;
-        axisLeft?: Axis;
-        enableGridX?: boolean;
-        enableGridY?: boolean;
+    export type HeatMapCanvasProps = HeatMapData
+        & HeatMapCommonProps
+        & Partial<{
+            onClick: (datum: NodeData, event: React.MouseEvent<HTMLCanvasElement>) => void
+            pixelRatio: number
+        }>
 
-        //labels
-        enableLabels?: boolean;
-        labelTextColor?: string | Function;
-
-        //theming
-        colors?: string | Function | Array<string>;
-
-        //interactivity
-        isInteractive?: boolean;
-        onClick?: Function;
-        hoverTarget?: 'cell' | 'row' | 'column' | 'rowColumn';
-        cellHoverOpacity?: number;
-        cellHoverOthersOpacity?: number;
-        tooltipFormat?: string | Function;
-
-        animate?: boolean;
-        motionStiffness?: number;
-        motionDamping?: number;
-        margin?: Margin;
-    }
-
-    export type NodeData = {
-        key: string;
-        value: number;
-        x: number;
-        xKey: string | number;
-        y: number;
-        yKey: string | number;
-        width: number;
-        height: number;
-        opacity: number;
-    }
-
-    export type Axis = {
-        orient?: string;
-        legend?: string;
-        tickSize?: number;
-        tickPadding?: number;
-        tickRotation?: number;
-        legendOffset?: number;
-        legendPosition?: string;
-    }
-
-    export type Margin = {
-        top?: number;
-        right?: number;
-        bottom?: number;
-        left?: number;
-    }
-
-    interface Dimensions {
-        width: number;
-        height: number;
-    }
+    export class HeatMapCanvas extends React.Component<HeatMapCanvasProps & Dimensions> {}
+    export class ResponsiveHeatMapCanvas extends React.Component<HeatMapCanvasProps> {}
 }
