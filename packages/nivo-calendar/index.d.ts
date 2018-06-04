@@ -60,6 +60,7 @@ declare module '@nivo/calendar' {
 
         // tooltip
         tooltipFormat: (value: number) => string | number
+        tooltip: React.StatelessComponent<CalendarDayData>
 
         // legends
         legends: CalendarLegend[]

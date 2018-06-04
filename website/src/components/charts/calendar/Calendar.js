@@ -15,7 +15,14 @@ import generateCode from '../../../lib/generateChartCode'
 import CalendarControls from './CalendarControls'
 import { ResponsiveCalendar, CalendarDefaultProps } from '@nivo/calendar'
 import ComponentPropsDocumentation from '../../properties/ComponentPropsDocumentation'
+import nivoTheme from '../../../nivoTheme'
 import properties from './props'
+import propsMapper from './propsMapper'
+import config from '../../../config'
+
+const Tooltip = data => {
+    /* return custom tooltip */
+}
 
 export default class Calendar extends Component {
     state = {
@@ -52,6 +59,8 @@ export default class Calendar extends Component {
 
             // interactivity
             isInteractive: true,
+            'custom tooltip example': false,
+            tooltip: null,
 
             legends: [
                 {
@@ -64,6 +73,8 @@ export default class Calendar extends Component {
                     itemDirection: 'top-to-bottom',
                 },
             ],
+
+            theme: nivoTheme,
         },
     }
 
@@ -79,26 +90,79 @@ export default class Calendar extends Component {
         const { data } = this.props
         const { settings } = this.state
 
-        const code = generateCode('ResponsiveCalendar', settings, {
-            pkg: '@nivo/calendar',
-            defaults: CalendarDefaultProps,
-        })
+        const mappedSettings = propsMapper(settings)
+
+        const code = generateCode(
+            'ResponsiveCalendar',
+            {
+                ...mappedSettings,
+                tooltip: mappedSettings.tooltip ? Tooltip : undefined,
+            },
+            {
+                pkg: '@nivo/calendar',
+                defaults: CalendarDefaultProps,
+            }
+        )
 
         const header = (
             <ChartHeader chartClass="Calendar" tags={['calendar', 'react', 'isomorphic']} />
         )
 
+        const description = (
+            <div className="chart-description">
+                <p className="description">
+                    This component is heavily inspired by{' '}
+                    <a
+                        href="https://bl.ocks.org/mbostock/4063318"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        this block
+                    </a>.
+                </p>
+                <p>
+                    This component is suitable for isomorphic rendering but require to use the{' '}
+                    <code>Calendar</code> component not the <code>ResponsiveCalendar</code> one.
+                </p>
+                <p className="description">
+                    This component is available in the{' '}
+                    <a
+                        href="https://github.com/plouc/nivo-api"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        nivo-api
+                    </a>, you can <Link to="/calendar/api">try it using the API client</Link>. You
+                    can also see more example usages in{' '}
+                    <a
+                        href={`${config.storybookUrl}?selectedKind=Calendar&selectedStory=default`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        the storybook
+                    </a>.
+                </p>
+                <p className="description">
+                    See the <Link to="/guides/legends">dedicated guide</Link> on how to setup
+                    legends for this component.
+                </p>
+            </div>
+        )
+
         return (
             <div className="page_content grid">
                 <div className="chart-page_main">
-                    <MediaQuery query="(max-width: 1000px)">{header}</MediaQuery>
+                    <MediaQuery query="(max-width: 1000px)">
+                        {header}
+                        {description}
+                    </MediaQuery>
                     <ChartTabs chartClass="calendar" code={code} data={data}>
                         <ResponsiveCalendar
                             from={settings.from}
                             to={settings.to}
                             data={data}
                             onClick={this.handleNodeClick}
-                            {...settings}
+                            {...mappedSettings}
                         />
                     </ChartTabs>
                     <CalendarControls
@@ -109,29 +173,10 @@ export default class Calendar extends Component {
                     <ComponentPropsDocumentation chartClass="Calendar" properties={properties} />
                 </div>
                 <div className="chart-page_aside">
-                    <MediaQuery query="(min-width: 1000px)">{header}</MediaQuery>
-                    <p className="description">
-                        This component is heavily inspired by{' '}
-                        <a
-                            href="https://bl.ocks.org/mbostock/4063318"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            this block
-                        </a>.
-                    </p>
-                    <p className="description">
-                        This component renders the calendar using d3 only for computing positions.
-                        DOM mutations are managed by React.
-                    </p>
-                    <p>
-                        This component is suitable for isomorphic rendering but require to use the{' '}
-                        <code>Calendar</code> component not the <code>ResponsiveCalendar</code> one.
-                    </p>
-                    <p className="description">
-                        See the <Link to="/guides/legends">dedicated guide</Link> on how to setup
-                        legends for this component.
-                    </p>
+                    <MediaQuery query="(min-width: 1000px)">
+                        {header}
+                        {description}
+                    </MediaQuery>
                 </div>
             </div>
         )
