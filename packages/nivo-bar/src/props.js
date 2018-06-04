@@ -35,6 +35,8 @@ export const BarPropTypes = {
     axisLeft: PropTypes.object,
     enableGridX: PropTypes.bool.isRequired,
     enableGridY: PropTypes.bool.isRequired,
+    gridXValues: PropTypes.arrayOf(PropTypes.number),
+    gridYValues: PropTypes.arrayOf(PropTypes.number),
 
     // customization
     barComponent: PropTypes.func.isRequired,

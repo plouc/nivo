@@ -162,9 +162,13 @@ export const computeAxisTicks = ({
  *
  * @return {Array.<Object>}
  */
-export const computeGridLines = ({ width, height, scale, axis }) => {
-    const values = getScaleValues(scale)
-
+export const computeGridLines = ({
+    width,
+    height,
+    scale,
+    axis,
+    values = getScaleValues(scale),
+}) => {
     const position = scale.bandwidth ? centerScale(scale) : scale
 
     let lines
