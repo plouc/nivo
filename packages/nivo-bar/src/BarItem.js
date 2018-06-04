@@ -85,7 +85,7 @@ BarItem.propTypes = {
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.string.isRequired,
 
-    label: PropTypes.string.isRequired,
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     shouldRenderLabel: PropTypes.bool.isRequired,
     labelColor: PropTypes.string.isRequired,
 
