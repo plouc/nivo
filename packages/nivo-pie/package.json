@@ -1,6 +1,6 @@
 {
   "name": "@nivo/pie",
-  "version": "0.40.0",
+  "version": "0.42.0",
   "license": "MIT",
   "main": "./index.js",
   "files": [
@@ -10,8 +10,8 @@
     "cjs/"
   ],
   "dependencies": {
-    "@nivo/core": "0.36.0",
-    "@nivo/legends": "0.35.2",
+    "@nivo/core": "0.42.0",
+    "@nivo/legends": "0.42.0",
     "d3-shape": "^1.2.0",
     "lodash": "^4.17.4",
     "react-motion": "^0.5.2",
