@@ -61,3 +61,24 @@ stories.add(
     'vertical calendar',
     withInfo()(() => <Calendar direction="vertical" {...commonProps} height={600} />)
 )
+
+stories.add(
+    'custom tooltip',
+    withInfo()(() => (
+        <Calendar
+            tooltip={({ day, value, color }) => (
+                <strong style={{ color }}>
+                    {day}: {value}
+                </strong>
+            )}
+            theme={{
+                tooltip: {
+                    container: {
+                        background: '#333',
+                    },
+                },
+            }}
+            {...commonProps}
+        />
+    ))
+)

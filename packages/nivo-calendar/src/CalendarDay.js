@@ -53,6 +53,7 @@ CalendarDay.propTypes = {
     borderColor: PropTypes.string.isRequired,
 
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    tooltip: PropTypes.func,
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
 
@@ -66,8 +67,8 @@ const enhance = compose(
         onClick: event => onClick(data, event),
     })),
     withPropsOnChange(
-        ['data', 'color', 'showTooltip', 'theme', 'tooltipFormat'],
-        ({ data, color, showTooltip, theme, tooltipFormat }) => {
+        ['data', 'color', 'showTooltip', 'tooltipFormat', 'tooltip', 'theme'],
+        ({ data, color, showTooltip, tooltipFormat, tooltip, theme }) => {
             if (data.value === undefined) return { showTooltip: noop }
 
             return {
@@ -80,6 +81,11 @@ const enhance = compose(
                             color={color}
                             theme={theme}
                             format={tooltipFormat}
+                            renderContent={
+                                typeof tooltip === 'function'
+                                    ? tooltip.bind(null, { color, ...data })
+                                    : null
+                            }
                         />,
                         event
                     ),

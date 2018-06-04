@@ -55,6 +55,7 @@ const Calendar = ({
     // interactivity
     isInteractive,
     tooltipFormat,
+    tooltip,
     onClick,
 
     legends,
@@ -89,6 +90,7 @@ const Calendar = ({
                             showTooltip={showTooltip}
                             hideTooltip={hideTooltip}
                             tooltipFormat={tooltipFormat}
+                            tooltip={tooltip}
                             theme={theme}
                             onClick={onClick}
                         />

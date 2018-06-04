@@ -279,4 +279,43 @@ export default [
         type: '{Function}',
         required: false,
     },
+    {
+        key: 'custom tooltip example',
+        scopes: ['Calendar'],
+        excludeFromDoc: true,
+        description: (
+            <span>
+                You can customize the tooltip using the <code>tooltip</code> property and{' '}
+                <code>theme.tooltip</code> object.
+            </span>
+        ),
+        type: '{boolean}',
+        controlType: 'switch',
+        controlGroup: 'Interactivity',
+    },
+    {
+        key: 'tooltip',
+        scopes: ['Calendar'],
+        type: '{Function}',
+        required: false,
+        description: (
+            <div>
+                A function allowing complete tooltip customisation, it must return a valid HTML
+                element and will receive the following data:
+                <pre className="code code-block">
+                    {dedent`
+                        {
+                            day:   {string},
+                            date:  {Date},
+                            value: {number},
+                            color: {string},
+                            x:     {number},
+                            y:     {number},
+                            size:  {number}
+                        }
+                    `}
+                </pre>
+            </div>
+        ),
+    },
 ]
