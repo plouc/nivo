@@ -252,19 +252,19 @@ const CalendarLayout = ({
             )
         )
 
-        const yearMonths = timeMonths(yearStart, yearEnd).map(monthDate =>
-            assign(
-                { date: monthDate },
-                memoMonthPathAndBBox({
-                    date: monthDate,
-                    direction,
-                    yearIndex: i,
-                    yearSpacing,
-                    daySpacing,
-                    cellSize,
-                })
-            )
-        )
+        const yearMonths = timeMonths(yearStart, yearEnd).map(monthDate => ({
+            date: monthDate,
+            year: monthDate.getFullYear(),
+            month: monthDate.getMonth(),
+            ...memoMonthPathAndBBox({
+                date: monthDate,
+                direction,
+                yearIndex: i,
+                yearSpacing,
+                daySpacing,
+                cellSize,
+            }),
+        }))
 
         months = months.concat(yearMonths)
 

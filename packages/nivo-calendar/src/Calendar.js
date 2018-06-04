@@ -7,7 +7,6 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { timeFormat } from 'd3-time-format'
 import { BoxLegendSvg } from '@nivo/legends'
 import computeCalendar from './computeCalendar'
 import { CalendarPropTypes } from './props'
@@ -16,8 +15,6 @@ import CalendarDay from './CalendarDay'
 import CalendarMonthPath from './CalendarMonthPath'
 import { Container, SvgWrapper } from '@nivo/core'
 import enhance from './enhance'
-
-const monthLegendFormat = timeFormat('%b')
 
 const Calendar = ({
     data,
@@ -34,15 +31,23 @@ const Calendar = ({
     outerHeight,
 
     direction,
-    emptyColor,
+
+    // years
+    yearLegend,
     yearSpacing,
     yearLegendOffset,
-    daySpacing,
-    dayBorderWidth,
-    dayBorderColor,
+
+    // months
+    monthLegend,
     monthBorderWidth,
     monthBorderColor,
     monthLegendOffset,
+
+    // days
+    daySpacing,
+    dayBorderWidth,
+    dayBorderColor,
+    emptyColor,
 
     theme,
 
@@ -113,7 +118,7 @@ const Calendar = ({
                                 transform={transform}
                                 textAnchor="middle"
                             >
-                                {monthLegendFormat(month.date)}
+                                {monthLegend(month.year, month.month, month.date)}
                             </text>
                         )
                     })}
@@ -134,7 +139,7 @@ const Calendar = ({
                                 transform={transform}
                                 textAnchor="middle"
                             >
-                                {year.year}
+                                {yearLegend(year.year)}
                             </text>
                         )
                     })}
