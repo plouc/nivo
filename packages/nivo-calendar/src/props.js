@@ -31,7 +31,6 @@ export const CalendarPropTypes = {
     colors: PropTypes.arrayOf(PropTypes.string).isRequired,
     colorScale: PropTypes.func.isRequired,
 
-    onDayClick: PropTypes.func.isRequired,
     direction: PropTypes.oneOf([DIRECTION_HORIZONTAL, DIRECTION_VERTICAL]),
     emptyColor: PropTypes.string.isRequired,
 
@@ -57,7 +56,7 @@ export const CalendarPropTypes = {
     legends: PropTypes.arrayOf(
         PropTypes.shape({
             ...LegendPropShape,
-            itemCount: PropTypes.number,
+            itemCount: PropTypes.number.isRequired,
         })
     ).isRequired,
 }
@@ -72,7 +71,6 @@ export const CalendarDefaultProps = {
     colors: ['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560'],
 
     direction: DIRECTION_HORIZONTAL,
-    onDayClick: () => {},
     emptyColor: '#fff',
 
     // years

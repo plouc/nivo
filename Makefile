@@ -130,6 +130,7 @@ packages-tslint: ##@1 packages run tslint on all packages
 	@echo "${YELLOW}Running tslint on all packages${RESET}"
 	@./node_modules/.bin/tslint \
 	    ./packages/nivo-bar/index.d.ts \
+	    ./packages/nivo-calendar/index.d.ts \
 	    ./packages/nivo-core/index.d.ts \
 	    ./packages/nivo-heatmap/index.d.ts \
         ./packages/nivo-pie/index.d.ts \
