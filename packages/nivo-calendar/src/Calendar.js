@@ -8,6 +8,7 @@
  */
 import React from 'react'
 import { BoxLegendSvg } from '@nivo/legends'
+import setDisplayName from 'recompose/setDisplayName'
 import computeCalendar from './computeCalendar'
 import { CalendarPropTypes } from './props'
 import { DIRECTION_HORIZONTAL } from './constants'
@@ -167,4 +168,4 @@ const Calendar = ({
 
 Calendar.propTypes = CalendarPropTypes
 
-export default enhance(Calendar)
+export default setDisplayName('Calendar')(enhance(Calendar))
