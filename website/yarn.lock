@@ -2,36 +2,36 @@
 # yarn lockfile v1
 
 
-"@nivo/bar@0.40.0":
-  version "0.40.0"
-  resolved "https://registry.yarnpkg.com/@nivo/bar/-/bar-0.40.0.tgz#e59fa4772989fd6a5aa63dc5e5df9c28a63812c0"
+"@nivo/bar@0.42.0":
+  version "0.42.0"
+  resolved "https://registry.yarnpkg.com/@nivo/bar/-/bar-0.42.0.tgz#65814ce487f246a3ba98d25a5ff5e7b937a2c8a0"
   dependencies:
-    "@nivo/core" "0.36.0"
-    "@nivo/legends" "0.35.2"
+    "@nivo/core" "0.42.0"
+    "@nivo/legends" "0.42.0"
     d3-scale "^1.0.6"
     d3-shape "^1.2.0"
     lodash "^4.17.4"
     react-motion "^0.5.2"
     recompose "^0.26.0"
 
-"@nivo/calendar@0.40.0":
-  version "0.40.0"
-  resolved "https://registry.yarnpkg.com/@nivo/calendar/-/calendar-0.40.0.tgz#d245aa47e3d087b6f01fe5684e86da02538df4e5"
+"@nivo/calendar@0.42.0":
+  version "0.42.0"
+  resolved "https://registry.yarnpkg.com/@nivo/calendar/-/calendar-0.42.0.tgz#0c1b65b460abaa3156522c06f3d5bea21de8812b"
   dependencies:
-    "@nivo/core" "0.36.0"
-    "@nivo/legends" "0.35.2"
+    "@nivo/core" "0.42.0"
+    "@nivo/legends" "0.42.0"
     d3-scale "^1.0.6"
     d3-time "^1.0.7"
     d3-time-format "^2.0.5"
     lodash "^4.17.4"
     recompose "^0.26.0"
 
-"@nivo/chord@0.40.0":
-  version "0.40.0"
-  resolved "https://registry.yarnpkg.com/@nivo/chord/-/chord-0.40.0.tgz#ca852368fa9b1d3e392409ba83d40e2448fb62a8"
+"@nivo/chord@0.42.0":
+  version "0.42.0"
+  resolved "https://registry.yarnpkg.com/@nivo/chord/-/chord-0.42.0.tgz#8ef1ad5c4ce7f44c808faca1657127d514aec764"
   dependencies:
-    "@nivo/core" "0.36.0"
-    "@nivo/legends" "0.35.2"
+    "@nivo/core" "0.42.0"
+    "@nivo/legends" "0.42.0"
     d3-chord "^1.0.4"
     d3-format "^1.2.0"
     d3-shape "^1.2.0"
@@ -39,19 +39,19 @@
     react-motion "^0.5.2"
     recompose "^0.26.0"
 
-"@nivo/circle-packing@0.40.0":
-  version "0.40.0"
-  resolved "https://registry.yarnpkg.com/@nivo/circle-packing/-/circle-packing-0.40.0.tgz#f13e840a1b072502431faf3191a873944e4f20d7"
+"@nivo/circle-packing@0.42.0":
+  version "0.42.0"
+  resolved "https://registry.yarnpkg.com/@nivo/circle-packing/-/circle-packing-0.42.0.tgz#166a85acd5a2a5a8033c1f17e916776978d19e49"
   dependencies:
-    "@nivo/core" "0.36.0"
+    "@nivo/core" "0.42.0"
     d3-hierarchy "^1.1.5"
     lodash "^4.17.4"
     react-motion "^0.5.2"
     recompose "^0.26.0"
 
-"@nivo/core@0.36.0":
-  version "0.36.0"
-  resolved "https://registry.yarnpkg.com/@nivo/core/-/core-0.36.0.tgz#f111071790aa258bd7a035cf27646caf58a69567"
+"@nivo/core@0.42.0":
+  version "0.42.0"
+  resolved "https://registry.yarnpkg.com/@nivo/core/-/core-0.42.0.tgz#3a7a8c3ea288b3540afbaef1469f8124ed3c07b5"
   dependencies:
     d3-color "^1.0.3"
     d3-format "^1.2.0"
@@ -73,29 +73,29 @@
     d3-time-format "^2.0.5"
     lodash "^4.17.4"
 
-"@nivo/heatmap@0.40.0":
-  version "0.40.0"
-  resolved "https://registry.yarnpkg.com/@nivo/heatmap/-/heatmap-0.40.0.tgz#57a9c84b634dde0abe4fc7b9508364bab8106a8b"
+"@nivo/heatmap@0.42.0":
+  version "0.42.0"
+  resolved "https://registry.yarnpkg.com/@nivo/heatmap/-/heatmap-0.42.0.tgz#ac6f35e35d9374eb72943f65c8c1e8c05625788c"
   dependencies:
-    "@nivo/core" "0.36.0"
+    "@nivo/core" "0.42.0"
     d3-scale "^1.0.6"
     lodash "^4.17.4"
     react-motion "^0.5.2"
     recompose "^0.26.0"
 
-"@nivo/legends@0.35.2":
-  version "0.35.2"
-  resolved "https://registry.yarnpkg.com/@nivo/legends/-/legends-0.35.2.tgz#7b7866eb7ca0522cbe6ffd1355813c3ec4eaaf68"
+"@nivo/legends@0.42.0":
+  version "0.42.0"
+  resolved "https://registry.yarnpkg.com/@nivo/legends/-/legends-0.42.0.tgz#c6827dbb9c6e665c7956866fb5bfb583f8f8a764"
   dependencies:
     lodash "^4.17.4"
     recompose "^0.26.0"
 
-"@nivo/line@0.40.0":
-  version "0.40.0"
-  resolved "https://registry.yarnpkg.com/@nivo/line/-/line-0.40.0.tgz#c4917574c7fadd157d22479ec22496fb7360c6b2"
+"@nivo/line@0.42.0":
+  version "0.42.0"
+  resolved "https://registry.yarnpkg.com/@nivo/line/-/line-0.42.0.tgz#d052d063b3eb9b6f4481c9882508a52b6d1e5f85"
   dependencies:
-    "@nivo/core" "0.36.0"
-    "@nivo/legends" "0.35.2"
+    "@nivo/core" "0.42.0"
+    "@nivo/legends" "0.42.0"
     d3-format "^1.2.0"
     d3-scale "^1.0.6"
     d3-shape "^1.2.0"
@@ -103,23 +103,23 @@
     react-motion "^0.5.2"
     recompose "^0.26.0"
 
-"@nivo/pie@0.40.0":
-  version "0.40.0"
-  resolved "https://registry.yarnpkg.com/@nivo/pie/-/pie-0.40.0.tgz#b91ad6b484cfe3d914b6101c071111eaec46d0bf"
+"@nivo/pie@0.42.0":
+  version "0.42.0"
+  resolved "https://registry.yarnpkg.com/@nivo/pie/-/pie-0.42.0.tgz#cd3ba8afb628f0e3f498173c2064e5501d283b2c"
   dependencies:
-    "@nivo/core" "0.36.0"
-    "@nivo/legends" "0.35.2"
+    "@nivo/core" "0.42.0"
+    "@nivo/legends" "0.42.0"
     d3-shape "^1.2.0"
     lodash "^4.17.4"
     react-motion "^0.5.2"
     recompose "^0.26.0"
 
-"@nivo/radar@0.40.0":
-  version "0.40.0"
-  resolved "https://registry.yarnpkg.com/@nivo/radar/-/radar-0.40.0.tgz#afe82ade64234ffb22fbdfe631487707cd67641a"
+"@nivo/radar@0.42.0":
+  version "0.42.0"
+  resolved "https://registry.yarnpkg.com/@nivo/radar/-/radar-0.42.0.tgz#3b4c3bcb1221947ff0c6dba02b14a12a5fa8aef6"
   dependencies:
-    "@nivo/core" "0.36.0"
-    "@nivo/legends" "0.35.2"
+    "@nivo/core" "0.42.0"
+    "@nivo/legends" "0.42.0"
     d3-format "^1.2.0"
     d3-scale "^1.0.6"
     d3-shape "^1.2.0"
@@ -127,75 +127,75 @@
     react-motion "^0.5.2"
     recompose "^0.26.0"
 
-"@nivo/sankey@0.41.0":
-  version "0.41.0"
-  resolved "https://registry.yarnpkg.com/@nivo/sankey/-/sankey-0.41.0.tgz#9cb430101eb5f77fb8b11b0dde2e386eb56da1cc"
+"@nivo/sankey@0.42.0":
+  version "0.42.0"
+  resolved "https://registry.yarnpkg.com/@nivo/sankey/-/sankey-0.42.0.tgz#490e7cb0cd376a43735f8483018093b26e340c7e"
   dependencies:
-    "@nivo/core" "0.36.0"
-    "@nivo/legends" "0.35.2"
+    "@nivo/core" "0.42.0"
+    "@nivo/legends" "0.42.0"
     d3-sankey "^0.7.1"
     lodash "^4.17.4"
     react-motion "^0.5.2"
     recompose "^0.26.0"
 
-"@nivo/scatterplot@0.40.0":
-  version "0.40.0"
-  resolved "https://registry.yarnpkg.com/@nivo/scatterplot/-/scatterplot-0.40.0.tgz#404226f393d8a8c80f46798f7c7cf96628279fd2"
+"@nivo/scatterplot@0.42.0":
+  version "0.42.0"
+  resolved "https://registry.yarnpkg.com/@nivo/scatterplot/-/scatterplot-0.42.0.tgz#55b9b981a20967cc4d0b4da6f1d99d6e9387428a"
   dependencies:
-    "@nivo/core" "0.36.0"
-    "@nivo/legends" "0.35.2"
+    "@nivo/core" "0.42.0"
+    "@nivo/legends" "0.42.0"
     d3-scale "^1.0.6"
     d3-shape "^1.2.0"
     lodash "^4.17.4"
     react-motion "^0.5.2"
     recompose "^0.26.0"
 
-"@nivo/stream@0.40.0":
-  version "0.40.0"
-  resolved "https://registry.yarnpkg.com/@nivo/stream/-/stream-0.40.0.tgz#f2a4d21fef469f2bfd729c4f7f00610ccffd5fc4"
+"@nivo/stream@0.42.0":
+  version "0.42.0"
+  resolved "https://registry.yarnpkg.com/@nivo/stream/-/stream-0.42.0.tgz#d5aebfa2e08e9ebff7ce000ea99f8caa968874de"
   dependencies:
-    "@nivo/core" "0.36.0"
-    "@nivo/legends" "0.35.2"
+    "@nivo/core" "0.42.0"
+    "@nivo/legends" "0.42.0"
     d3-format "^1.2.0"
     d3-scale "^1.0.6"
     d3-shape "^1.2.0"
     lodash "^4.17.4"
     recompose "^0.26.0"
 
-"@nivo/sunburst@0.40.0":
-  version "0.40.0"
-  resolved "https://registry.yarnpkg.com/@nivo/sunburst/-/sunburst-0.40.0.tgz#ead9489f9812284e9c852ac8e9f51ae702ecc985"
+"@nivo/sunburst@0.42.0":
+  version "0.42.0"
+  resolved "https://registry.yarnpkg.com/@nivo/sunburst/-/sunburst-0.42.0.tgz#117773e78eb3fbd7a2919acd66a2ab0011cf8113"
   dependencies:
-    "@nivo/core" "0.36.0"
+    "@nivo/core" "0.42.0"
     d3-hierarchy "^1.1.5"
     d3-shape "^1.2.0"
     lodash "^4.17.4"
     react-motion "^0.5.2"
     recompose "^0.26.0"
 
-"@nivo/treemap@0.40.0":
-  version "0.40.0"
-  resolved "https://registry.yarnpkg.com/@nivo/treemap/-/treemap-0.40.0.tgz#d9c0f0d727dccd6a482f5e7fc25ed8e6cbe66e40"
+"@nivo/treemap@0.42.0":
+  version "0.42.0"
+  resolved "https://registry.yarnpkg.com/@nivo/treemap/-/treemap-0.42.0.tgz#3492c6625fc7f6672c4c5a286b51e80ba9e6f1d7"
   dependencies:
-    "@nivo/core" "0.36.0"
+    "@nivo/core" "0.42.0"
     d3-hierarchy "^1.1.5"
     lodash "^4.17.4"
     react-motion "^0.5.2"
     recompose "^0.26.0"
 
-"@nivo/voronoi@0.40.0":
-  version "0.40.0"
-  resolved "https://registry.yarnpkg.com/@nivo/voronoi/-/voronoi-0.40.0.tgz#44f9672ef6237e45c37fc0ece7e8232df86040f4"
+"@nivo/voronoi@0.42.0":
+  version "0.42.0"
+  resolved "https://registry.yarnpkg.com/@nivo/voronoi/-/voronoi-0.42.0.tgz#edeccab48d6cb396794688b5eb0fb8a9adec3e36"
   dependencies:
-    "@nivo/core" "0.36.0"
+    "@nivo/core" "0.42.0"
     d3-voronoi "^1.1.2"
     recompose "^0.26.0"
 
-"@nivo/waffle@0.40.0":
-  version "0.40.0"
-  resolved "https://registry.yarnpkg.com/@nivo/waffle/-/waffle-0.40.0.tgz#fe55ef45f5b8aae41b9d919991e75e42ebdbcd19"
+"@nivo/waffle@0.42.0":
+  version "0.42.0"
+  resolved "https://registry.yarnpkg.com/@nivo/waffle/-/waffle-0.42.0.tgz#da1c3494314f7495dedd5c16dfaa5f7ec2f88046"
   dependencies:
-    "@nivo/core" "0.36.0"
+    "@nivo/core" "0.42.0"
     lodash "^4.17.4"
     react-motion "^0.5.2"
     recompose "^0.26.0"
