@@ -39,12 +39,12 @@ declare module '@nivo/calendar' {
         margin: Box
 
         // years
-        yearLabel: (year: number) => string | number
+        yearLegend: (year: number) => string | number
         yearSpacing: number
         yearLegendOffset: number
 
         // months
-        monthLabel: (year: number, month: number) => string | number
+        monthLegend: (year: number, month: number, date: Date) => string | number
         monthBorderWidth: number
         monthBorderColor: string
         monthLegendOffset: number

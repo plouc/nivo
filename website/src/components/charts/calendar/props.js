@@ -145,6 +145,12 @@ export default [
     },
     // Years
     {
+        key: 'yearLegend',
+        description: `can be used to customize years label, returns 'YYYY' by default.`,
+        type: '{(year: number) => string | number}',
+        required: false,
+    },
+    {
         key: 'yearSpacing',
         description: 'define spacing between each year row/column depending on the direction.',
         type: '{number}',
@@ -174,6 +180,12 @@ export default [
         },
     },
     // Months
+    {
+        key: 'monthLegend',
+        description: `can be used to customize months label, returns abbreviated month name (english) by default. This can be used to use a different language`,
+        type: '{(year: number, month: number, date: Date) => string | number}',
+        required: false,
+    },
     {
         key: 'monthBorderWidth',
         description: 'width of month borders.',

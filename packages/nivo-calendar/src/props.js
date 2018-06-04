@@ -7,9 +7,12 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
+import { timeFormat } from 'd3-time-format'
 import { noop } from '@nivo/core'
 import { LegendPropShape } from '@nivo/legends'
 import { DIRECTION_HORIZONTAL, DIRECTION_VERTICAL } from './constants'
+
+const monthLabelFormat = timeFormat('%b')
 
 /**
  * Calendar components propTypes.
@@ -35,10 +38,12 @@ export const CalendarPropTypes = {
     emptyColor: PropTypes.string.isRequired,
 
     // years
+    yearLegend: PropTypes.func.isRequired,
     yearSpacing: PropTypes.number.isRequired,
     yearLegendOffset: PropTypes.number.isRequired,
 
     // months
+    monthLegend: PropTypes.func.isRequired,
     monthBorderWidth: PropTypes.number.isRequired,
     monthBorderColor: PropTypes.string.isRequired,
     monthLegendOffset: PropTypes.number.isRequired,
@@ -74,10 +79,12 @@ export const CalendarDefaultProps = {
     emptyColor: '#fff',
 
     // years
+    yearLegend: year => year,
     yearSpacing: 30,
     yearLegendOffset: 10,
 
     // months
+    monthLegend: (year, month, date) => monthLabelFormat(date),
     monthBorderWidth: 2,
     monthBorderColor: '#000',
     monthLegendOffset: 6,
