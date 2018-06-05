@@ -10,11 +10,14 @@ import isFunction from 'lodash/isFunction'
 import get from 'lodash/get'
 import { format } from 'd3-format'
 
+export const getValueFormatter = directive =>
+    isFunction(directive) ? directive : format(directive)
+
 export const getLabelGenerator = (_label, labelFormat) => {
     const getRawLabel = isFunction(_label) ? _label : d => get(d, _label)
     let formatter
     if (labelFormat) {
-        formatter = isFunction(labelFormat) ? labelFormat : format(labelFormat)
+        formatter = getValueFormatter(labelFormat)
     }
 
     if (formatter) return d => formatter(getRawLabel(d))

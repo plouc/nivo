@@ -95,9 +95,9 @@ export default () => (
                         key={anchor}
                         anchor={anchor}
                         data={[
-                            { label: anchor, fill: '#dc5a32' },
-                            { label: '...', fill: '#dc5a32' },
-                            { label: '...', fill: '#dc5a32' },
+                            { id: anchor, label: anchor, color: '#dc5a32' },
+                            { id: anchor, label: '...', color: '#dc5a32' },
+                            { id: anchor, label: '...', color: '#dc5a32' },
                         ]}
                     />
                 ))}
@@ -139,7 +139,11 @@ export default () => (
                         {...legendProps}
                         {...omit(example, ['translateX', 'translateY'])}
                         data={[
-                            { label: `${example.anchor} (regular)`, fill: 'rgb(232, 193, 160)' },
+                            {
+                                id: `${example.anchor} (regular)`,
+                                label: `${example.anchor} (regular)`,
+                                color: 'rgb(232, 193, 160)',
+                            },
                         ]}
                     />
                 ))}
@@ -149,13 +153,25 @@ export default () => (
                         {...legendProps}
                         {...example}
                         data={[
-                            { label: `${example.anchor} (translated)`, fill: '#dc5a32' },
-                            { label: `translateX: ${example.translateX}`, fill: '#dc5a32' },
-                            { label: `translateY: ${example.translateY}`, fill: '#dc5a32' },
+                            {
+                                id: `${example.anchor} (translated)`,
+                                label: `${example.anchor} (translated)`,
+                                color: '#dc5a32',
+                            },
+                            {
+                                id: `translateX: ${example.translateX}`,
+                                label: `translateX: ${example.translateX}`,
+                                color: '#dc5a32',
+                            },
+                            {
+                                id: `translateY: ${example.translateY}`,
+                                label: `translateY: ${example.translateY}`,
+                                color: '#dc5a32',
+                            },
                         ]}
                     />
                 ))}
-            </g>
+            </g>id: '',
         </svg>
     </div>
 )

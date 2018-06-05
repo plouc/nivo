@@ -8,7 +8,7 @@
  */
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import ChartControls from '../../controls/ChartControls'
+import ChartControlGroups from '../../controls/ChartControlGroups'
 import { getPropertiesGroupsControls } from '../../../lib/componentProperties'
 import properties from './props'
 
@@ -29,6 +29,8 @@ export default class LineControls extends PureComponent {
 
         const groups = groupsByScope[scope]
 
-        return <ChartControls ns="line" settings={settings} onChange={onChange} groups={groups} />
+        return (
+            <ChartControlGroups ns="line" settings={settings} onChange={onChange} groups={groups} />
+        )
     }
 }

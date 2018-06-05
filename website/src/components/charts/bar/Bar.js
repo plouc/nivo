@@ -144,11 +144,26 @@ export default class Bar extends Component {
                     dataFrom: 'keys',
                     anchor: 'bottom-right',
                     direction: 'column',
+                    justify: false,
                     translateX: 120,
+                    translateY: 0,
                     itemWidth: 100,
                     itemHeight: 20,
                     itemsSpacing: 2,
                     symbolSize: 20,
+                    itemDirection: 'left-to-right',
+                    opacity: 0.8,
+                    effects: [
+                        {
+                            match: 'hover',
+                            style: {
+                                opacity: 1,
+                                background: '#eeeeee',
+                                textColor: '#000000',
+                            },
+                        },
+                    ],
+                    onClick: data => console.log(data),
                 },
             ],
 

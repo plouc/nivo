@@ -8,6 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import { defsPropTypes, noop } from '@nivo/core'
+import { LegendPropShape } from '@nivo/legends'
 import WaffleCell from './WaffleCell'
 import WaffleCellHtml from './WaffleCellHtml'
 
@@ -53,6 +54,7 @@ export const WafflePropTypes = {
     ...commonPropTypes,
     cellComponent: PropTypes.func.isRequired,
     ...defsPropTypes,
+    legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
 }
 
 export const WaffleHtmlPropTypes = {
@@ -63,6 +65,7 @@ export const WaffleHtmlPropTypes = {
 export const WaffleCanvasPropTypes = {
     ...commonPropTypes,
     pixelRatio: PropTypes.number.isRequired,
+    legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
 }
 
 const commonDefaultProps = {
@@ -85,8 +88,6 @@ const commonDefaultProps = {
 
     // stack tooltip
     enableStackTooltip: true,
-
-    legends: [],
 }
 
 export const WaffleDefaultProps = {
@@ -94,6 +95,7 @@ export const WaffleDefaultProps = {
     cellComponent: WaffleCell,
     defs: [],
     fill: [],
+    legends: [],
 }
 
 export const WaffleHtmlDefaultProps = {
@@ -103,6 +105,7 @@ export const WaffleHtmlDefaultProps = {
 
 export const WaffleCanvasDefaultProps = {
     ...commonDefaultProps,
+    legends: [],
     pixelRatio:
         global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
 }

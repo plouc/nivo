@@ -15,13 +15,17 @@ import { Container, SvgWrapper } from '@nivo/core'
 import enhance from './enhance'
 import { nodeWillEnter, nodeWillLeave } from './motion'
 import { getNodeHandlers } from './interactivity'
+import BubbleLegends from './BubbleLegends'
 
 const Bubble = ({
     nodes,
     nodeComponent,
+    sizeScale,
 
     // dimensions
     margin,
+    width,
+    height,
     outerWidth,
     outerHeight,
 
@@ -46,6 +50,8 @@ const Bubble = ({
     tooltip,
     isZoomable,
     zoomToNode,
+
+    legends,
 }) => {
     const springConfig = {
         stiffness: motionStiffness,
@@ -126,6 +132,12 @@ const Bubble = ({
                             )}
                         </TransitionMotion>
                     )}
+                    <BubbleLegends
+                        containerWidth={width}
+                        containerHeight={height}
+                        sizeScale={sizeScale}
+                        legends={legends}
+                    />
                 </SvgWrapper>
             )}
         </Container>

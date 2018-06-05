@@ -27,6 +27,7 @@ import {
     ANCHOR_TOP_LEFT,
     ANCHOR_CENTER,
 } from '../constants'
+import { legendEffectsProp } from '../props'
 
 const BoxLegendSvg = ({
     data,
@@ -47,7 +48,17 @@ const BoxLegendSvg = ({
     symbolSize,
     symbolSpacing,
     symbolShape,
+    symbolBorderWidth,
+    symbolBorderColor,
+    background,
     textColor,
+    opacity,
+
+    effects,
+
+    onClick,
+    onMouseEnter,
+    onMouseLeave,
 }) => {
     const { width, height } = computeDimensions({
         itemCount: data.length,
@@ -83,7 +94,15 @@ const BoxLegendSvg = ({
             symbolSize={symbolSize}
             symbolSpacing={symbolSpacing}
             symbolShape={symbolShape}
+            background={background}
+            opacity={opacity}
+            symbolBorderWidth={symbolBorderWidth}
+            symbolBorderColor={symbolBorderColor}
             textColor={textColor}
+            effects={effects}
+            onClick={onClick}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
         />
     )
 }
@@ -91,8 +110,10 @@ const BoxLegendSvg = ({
 BoxLegendSvg.propTypes = {
     data: PropTypes.arrayOf(
         PropTypes.shape({
+            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
             label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-            fill: PropTypes.string.isRequired,
+            color: PropTypes.string.isRequired,
+            fill: PropTypes.string,
         })
     ).isRequired,
     containerWidth: PropTypes.number.isRequired,
@@ -134,7 +155,17 @@ BoxLegendSvg.propTypes = {
     symbolSize: PropTypes.number,
     symbolSpacing: PropTypes.number,
     symbolShape: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    symbolBorderWidth: PropTypes.number,
+    symbolBorderColor: PropTypes.string,
+    background: PropTypes.string,
     textColor: PropTypes.string,
+    opacity: PropTypes.number,
+    effects: legendEffectsProp.isRequired,
+
+    // interactivity
+    onClick: PropTypes.func,
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func,
 }
 
 BoxLegendSvg.defaultProps = {
@@ -142,6 +173,7 @@ BoxLegendSvg.defaultProps = {
     translateY: 0,
     itemsSpacing: LegendSvg.defaultProps.itemsSpacing,
     padding: LegendSvg.defaultProps.padding,
+    effects: [],
 }
 
 export default BoxLegendSvg

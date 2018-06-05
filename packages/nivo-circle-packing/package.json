@@ -10,7 +10,9 @@
   ],
   "dependencies": {
     "@nivo/core": "0.42.1",
+    "@nivo/legends": "0.42.0",
     "d3-hierarchy": "^1.1.5",
+    "d3-scale": "^1.0.6",
     "lodash": "^4.17.4",
     "react-motion": "^0.5.2",
     "recompose": "^0.26.0"

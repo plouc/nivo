@@ -22,8 +22,10 @@ class PieLegends extends Component {
         arcs: PropTypes.arrayOf(arcPropType).isRequired,
         data: PropTypes.arrayOf(
             PropTypes.shape({
+                id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
                 label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-                fill: PropTypes.string.isRequired,
+                color: PropTypes.string.isRequired,
+                fill: PropTypes.string,
             })
         ).isRequired,
         legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
@@ -48,8 +50,10 @@ export const enhance = Component =>
     compose(
         withPropsOnChange(['arcs'], ({ arcs }) => ({
             data: arcs.map(arc => ({
+                id: arc.data.id,
                 label: arc.data.id,
-                fill: arc.color,
+                color: arc.color,
+                fill: arc.fill,
             })),
         })),
         pure

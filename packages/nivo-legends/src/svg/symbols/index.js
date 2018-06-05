@@ -8,5 +8,6 @@
  */
 export { default as SymbolCircle } from './SymbolCircle'
 export { default as SymbolDiamond } from './SymbolDiamond'
+export { default as SymbolHalfCircle } from './SymbolHalfCircle'
 export { default as SymbolSquare } from './SymbolSquare'
 export { default as SymbolTriangle } from './SymbolTriangle'

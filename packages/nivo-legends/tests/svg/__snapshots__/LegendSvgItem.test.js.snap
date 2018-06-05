@@ -2,11 +2,36 @@
 
 exports[`should support bottom-to-top direction 1`] = `
 <g
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
   transform="translate(0,0)"
 >
   <rect
+    fill="transparent"
+    height={36}
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "cursor": "pointer",
+      }
+    }
+    width={200}
+  />
+  <rect
     fill="red"
     height={16}
+    stroke="#333333"
+    strokeWidth={0}
+    style={
+      Object {
+        "pointerEvents": "none",
+      }
+    }
     width={16}
     x={92}
     y={20}
@@ -16,6 +41,8 @@ exports[`should support bottom-to-top direction 1`] = `
       Object {
         "alignmentBaseline": "baseline",
         "fill": "black",
+        "pointerEvents": "none",
+        "userSelect": "none",
       }
     }
     textAnchor="middle"
@@ -29,11 +56,36 @@ exports[`should support bottom-to-top direction 1`] = `
 
 exports[`should support bottom-to-top direction justified 1`] = `
 <g
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
   transform="translate(0,0)"
 >
   <rect
+    fill="transparent"
+    height={36}
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "cursor": "pointer",
+      }
+    }
+    width={200}
+  />
+  <rect
     fill="red"
     height={16}
+    stroke="#333333"
+    strokeWidth={0}
+    style={
+      Object {
+        "pointerEvents": "none",
+      }
+    }
     width={16}
     x={92}
     y={20}
@@ -43,6 +95,8 @@ exports[`should support bottom-to-top direction justified 1`] = `
       Object {
         "alignmentBaseline": "hanging",
         "fill": "black",
+        "pointerEvents": "none",
+        "userSelect": "none",
       }
     }
     textAnchor="middle"
@@ -56,11 +110,36 @@ exports[`should support bottom-to-top direction justified 1`] = `
 
 exports[`should support left-to-right direction 1`] = `
 <g
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
   transform="translate(0,0)"
 >
   <rect
+    fill="transparent"
+    height={36}
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "cursor": "pointer",
+      }
+    }
+    width={200}
+  />
+  <rect
     fill="red"
     height={16}
+    stroke="#333333"
+    strokeWidth={0}
+    style={
+      Object {
+        "pointerEvents": "none",
+      }
+    }
     width={16}
     x={0}
     y={10}
@@ -70,6 +149,8 @@ exports[`should support left-to-right direction 1`] = `
       Object {
         "alignmentBaseline": "middle",
         "fill": "black",
+        "pointerEvents": "none",
+        "userSelect": "none",
       }
     }
     textAnchor="start"
@@ -83,11 +164,36 @@ exports[`should support left-to-right direction 1`] = `
 
 exports[`should support left-to-right direction justified 1`] = `
 <g
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
   transform="translate(0,0)"
 >
   <rect
+    fill="transparent"
+    height={36}
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "cursor": "pointer",
+      }
+    }
+    width={200}
+  />
+  <rect
     fill="red"
     height={16}
+    stroke="#333333"
+    strokeWidth={0}
+    style={
+      Object {
+        "pointerEvents": "none",
+      }
+    }
     width={16}
     x={0}
     y={10}
@@ -97,6 +203,8 @@ exports[`should support left-to-right direction justified 1`] = `
       Object {
         "alignmentBaseline": "middle",
         "fill": "black",
+        "pointerEvents": "none",
+        "userSelect": "none",
       }
     }
     textAnchor="end"
@@ -110,11 +218,36 @@ exports[`should support left-to-right direction justified 1`] = `
 
 exports[`should support right-to-left direction 1`] = `
 <g
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
   transform="translate(0,0)"
 >
   <rect
+    fill="transparent"
+    height={36}
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "cursor": "pointer",
+      }
+    }
+    width={200}
+  />
+  <rect
     fill="red"
     height={16}
+    stroke="#333333"
+    strokeWidth={0}
+    style={
+      Object {
+        "pointerEvents": "none",
+      }
+    }
     width={16}
     x={184}
     y={10}
@@ -124,6 +257,8 @@ exports[`should support right-to-left direction 1`] = `
       Object {
         "alignmentBaseline": "middle",
         "fill": "black",
+        "pointerEvents": "none",
+        "userSelect": "none",
       }
     }
     textAnchor="end"
@@ -137,11 +272,36 @@ exports[`should support right-to-left direction 1`] = `
 
 exports[`should support right-to-left direction justified 1`] = `
 <g
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
   transform="translate(0,0)"
 >
   <rect
+    fill="transparent"
+    height={36}
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "cursor": "pointer",
+      }
+    }
+    width={200}
+  />
+  <rect
     fill="red"
     height={16}
+    stroke="#333333"
+    strokeWidth={0}
+    style={
+      Object {
+        "pointerEvents": "none",
+      }
+    }
     width={16}
     x={184}
     y={10}
@@ -151,6 +311,8 @@ exports[`should support right-to-left direction justified 1`] = `
       Object {
         "alignmentBaseline": "middle",
         "fill": "black",
+        "pointerEvents": "none",
+        "userSelect": "none",
       }
     }
     textAnchor="start"
@@ -164,11 +326,36 @@ exports[`should support right-to-left direction justified 1`] = `
 
 exports[`should support top-to-bottom direction 1`] = `
 <g
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
   transform="translate(0,0)"
 >
   <rect
+    fill="transparent"
+    height={36}
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "cursor": "pointer",
+      }
+    }
+    width={200}
+  />
+  <rect
     fill="red"
     height={16}
+    stroke="#333333"
+    strokeWidth={0}
+    style={
+      Object {
+        "pointerEvents": "none",
+      }
+    }
     width={16}
     x={92}
     y={0}
@@ -178,6 +365,8 @@ exports[`should support top-to-bottom direction 1`] = `
       Object {
         "alignmentBaseline": "hanging",
         "fill": "black",
+        "pointerEvents": "none",
+        "userSelect": "none",
       }
     }
     textAnchor="middle"
@@ -191,11 +380,36 @@ exports[`should support top-to-bottom direction 1`] = `
 
 exports[`should support top-to-bottom direction justified 1`] = `
 <g
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
   transform="translate(0,0)"
 >
   <rect
+    fill="transparent"
+    height={36}
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    style={
+      Object {
+        "cursor": "pointer",
+      }
+    }
+    width={200}
+  />
+  <rect
     fill="red"
     height={16}
+    stroke="#333333"
+    strokeWidth={0}
+    style={
+      Object {
+        "pointerEvents": "none",
+      }
+    }
     width={16}
     x={92}
     y={0}
@@ -205,6 +419,8 @@ exports[`should support top-to-bottom direction justified 1`] = `
       Object {
         "alignmentBaseline": "baseline",
         "fill": "black",
+        "pointerEvents": "none",
+        "userSelect": "none",
       }
     }
     textAnchor="middle"

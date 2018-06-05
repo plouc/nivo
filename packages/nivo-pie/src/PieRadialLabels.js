@@ -88,6 +88,7 @@ export default class PieRadialLabels extends Component {
                         style={{
                             fill: textColor(label.arc.data, theme),
                             fontSize: theme.axis.fontSize,
+                            userSelect: 'none',
                         }}
                     >
                         {label.text}

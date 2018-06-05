@@ -11,6 +11,7 @@ import sortBy from 'lodash/sortBy'
 import { area, line } from 'd3-shape'
 import compose from 'recompose/compose'
 import pure from 'recompose/pure'
+import setDisplayName from 'recompose/setDisplayName'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import defaultProps from 'recompose/defaultProps'
 import { curveFromProp } from '@nivo/core'
@@ -168,8 +169,9 @@ const Line = ({
                     {legends.map((legend, i) => {
                         const legendData = lines
                             .map(line => ({
+                                id: line.id,
                                 label: line.id,
-                                fill: line.color,
+                                color: line.color,
                             }))
                             .reverse()
 
@@ -262,7 +264,4 @@ const enhance = compose(
     pure
 )
 
-const enhancedLine = enhance(Line)
-enhancedLine.displayName = 'enhance(Line)'
-
-export default enhancedLine
+export default setDisplayName('Line')(enhance(Line))

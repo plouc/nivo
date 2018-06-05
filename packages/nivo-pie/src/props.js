@@ -29,6 +29,8 @@ export const PiePropTypes = {
             value: PropTypes.number.isRequired,
         })
     ).isRequired,
+    hiddenIds: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
+        .isRequired,
 
     // layout
     startAngle: PropTypes.number.isRequired,
@@ -74,7 +76,6 @@ export const PiePropTypes = {
                 .isRequired,
         })
     ).isRequired,
-    //boundDefs: PropTypes.array.isRequired, // computed
 
     // interactivity
     isInteractive: PropTypes.bool,
@@ -87,17 +88,10 @@ export const PiePropTypes = {
 
     // legends
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
-    /*
-    legendData: PropTypes.arrayOf(
-        PropTypes.shape({
-            label: PropTypes.string.isRequired,
-            fill: PropTypes.string.isRequired,
-        })
-    ).isRequired,
-    */
 }
 
 export const PieDefaultProps = {
+    hiddenIds: [],
     sortByValue: false,
     innerRadius: 0,
     padAngle: 0,

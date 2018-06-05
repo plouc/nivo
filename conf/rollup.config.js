@@ -44,6 +44,7 @@ export default {
         'lodash/last',
         'lodash/merge',
         'lodash/pick',
+        'lodash/omit',
         'lodash/cloneDeep',
         'lodash/mapValues',
         'lodash/min',
@@ -74,6 +75,7 @@ export default {
         'recompose/withProps',
         'recompose/withHandlers',
         'recompose/pure',
+        'recompose/shallowEqual',
         'react-motion',
     ],
     plugins: [

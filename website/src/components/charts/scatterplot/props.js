@@ -12,6 +12,7 @@ import {
     marginProperties,
     axesProperties,
     motionProperties,
+    getLegendsProps,
 } from '../../../lib/componentProperties'
 
 export default [
@@ -170,6 +171,46 @@ export default [
         description: 'onClick handler, it receives clicked bar data and mouse event.',
         type: '{Function}',
         required: false,
+    },
+    {
+        key: 'legends',
+        scopes: ['ScatterPlot', 'ScatterPlotCanvas'],
+        type: '{Array<object>}',
+        description: `Optional chart's legends.`,
+        required: false,
+        controlGroup: 'Legends',
+        controlType: 'array',
+        controlOptions: {
+            props: getLegendsProps(),
+            shouldCreate: true,
+            addLabel: 'add legend',
+            shouldRemove: true,
+            defaults: {
+                anchor: 'top-right',
+                direction: 'column',
+                justify: false,
+                translateX: 130,
+                translateY: 0,
+                itemWidth: 100,
+                itemHeight: 20,
+                itemsSpacing: 5,
+                itemDirection: 'left-to-right',
+                symbolSize: 12,
+                symbolShape: 'circle',
+                opacity: 0.8,
+                effects: [
+                    {
+                        match: 'hover',
+                        style: {
+                            opacity: 1,
+                            background: '#eeeeee',
+                            textColor: '#000000',
+                        },
+                    },
+                ],
+                onClick: data => console.log(data),
+            },
+        },
     },
     ...motionProperties(['ScatterPlot'], defaults),
 ]

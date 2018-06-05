@@ -11,6 +11,7 @@ import {
     marginProperties,
     motionProperties,
     defsProperties,
+    getLegendsProps,
 } from '../../../lib/componentProperties'
 import { WaffleDefaultProps } from '@nivo/waffle'
 import dedent from 'dedent-js'
@@ -143,11 +144,6 @@ export default [
             max: 2,
         },
     },
-    /*——————————————————————————————————————————————————————————————————————————
-
-      Styling
-
-    ————————————————————————————————————————————————————————————————————————————*/
     {
         key: 'cellComponent',
         scopes: ['Waffle', 'WaffleHtml'],
@@ -309,6 +305,45 @@ export default [
                 </pre>
             </div>
         ),
+    },
+    {
+        key: 'legends',
+        scopes: ['Waffle', 'WaffleCanvas'],
+        type: '{Array<object>}',
+        description: `Optional chart's legends.`,
+        required: false,
+        controlGroup: 'Legends',
+        controlType: 'array',
+        controlOptions: {
+            props: getLegendsProps(),
+            shouldCreate: true,
+            addLabel: 'add legend',
+            shouldRemove: true,
+            defaults: {
+                anchor: 'bottom-left',
+                direction: 'column',
+                justify: false,
+                translateX: 0,
+                translateY: 0,
+                itemWidth: 100,
+                itemHeight: 24,
+                itemsSpacing: 6,
+                itemDirection: 'left-to-right',
+                symbolSize: 24,
+                opacity: 0.8,
+                effects: [
+                    {
+                        match: 'hover',
+                        style: {
+                            opacity: 1,
+                            background: '#eeeeee',
+                            textColor: '#000000',
+                        },
+                    },
+                ],
+                onClick: data => console.log(data),
+            },
+        },
     },
     ...motionProperties(['Waffle', 'WaffleHtml'], defaults),
 ]

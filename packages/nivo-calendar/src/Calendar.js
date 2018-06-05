@@ -148,8 +148,9 @@ const Calendar = ({
                     })}
                     {legends.map((legend, i) => {
                         const legendData = colorScale.ticks(legend.itemCount).map(value => ({
+                            id: value,
                             label: value,
-                            fill: colorScale(value),
+                            color: colorScale(value),
                         }))
 
                         return (

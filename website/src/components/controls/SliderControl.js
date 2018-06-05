@@ -26,8 +26,10 @@ export default class SliderControl extends Component {
             <div className="chart-controls_item">
                 <label className="control_label" htmlFor={id}>
                     {label}:&nbsp;
-                    <code className="code code-number">{value}</code>
-                    {unit && <span className="unit">&nbsp;{unit}</span>}
+                    <code className="code code-number">
+                        {value}
+                        {unit && <span className="unit">{unit}</span>}
+                    </code>
                 </label>
                 <input
                     id={id}

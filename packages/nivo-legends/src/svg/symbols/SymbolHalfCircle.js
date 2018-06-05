@@ -13,8 +13,9 @@ const style = {
     pointerEvents: 'none',
 }
 
-export default class SymbolTriangle extends PureComponent {
+export default class SymbolHalfCircle extends PureComponent {
     static propTypes = {
+        direction: PropTypes.oneOf(['upward', 'downward']).isRequired,
         x: PropTypes.number.isRequired,
         y: PropTypes.number.isRequired,
         size: PropTypes.number.isRequired,
@@ -25,23 +26,31 @@ export default class SymbolTriangle extends PureComponent {
 
     static defaultProps = {
         borderWidth: 0,
+        direction: 'upward',
     }
 
     render() {
-        const { x, y, size, fill, borderWidth, borderColor } = this.props
+        const { x, y, size, fill, borderWidth, borderColor, direction } = this.props
+
+        let translateY = y + size * 0.75
+        let arcDirection = '1,0'
+        if (direction === 'downward') {
+            translateY = y
+            arcDirection = '0,1'
+        }
 
         return (
-            <g transform={`translate(${x},${y})`}>
+            <g transform={`translate(${x},${translateY})`}>
                 <path
-                    fill={fill}
-                    stroke={borderColor}
-                    strokeWidth={borderWidth}
                     d={`
-                        M${size / 2} 0
-                        L${size} ${size}
-                        L0 ${size}
-                        L${size / 2} 0
+                        M0,0
+                        L${size},0
+                        A${size / 2},${size / 2} 1 ${arcDirection}
+                        0,0 z
                     `}
+                    strokeWidth={borderWidth}
+                    stroke={borderColor}
+                    fill={fill}
                     style={style}
                 />
             </g>

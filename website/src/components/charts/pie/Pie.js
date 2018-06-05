@@ -29,80 +29,114 @@ const generateData = () =>
     }))
 
 export default class Pie extends Component {
-    state = {
-        data: generateData(),
-        settings: {
-            margin: {
-                top: 40,
-                right: 80,
-                bottom: 80,
-                left: 80,
-            },
+    constructor(props) {
+        super(props)
 
-            startAngle: 0,
-            endAngle: 360,
-            sortByValue: false,
-            innerRadius: 0.5,
-            padAngle: 0.7,
-            cornerRadius: 3,
-            fit: true,
-
-            // Styling
-            colors: 'nivo',
-            colorBy: 'id',
-
-            // border
-            borderWidth: 1,
-            borderColor: { type: 'inherit:darker', gamma: 0.2 },
-
-            // radial labels
-            enableRadialLabels: true,
-            radialLabel: 'id',
-            radialLabelsSkipAngle: 10,
-            radialLabelsTextXOffset: 6,
-            radialLabelsTextColor: { type: 'custom', color: '#333333' },
-            radialLabelsLinkOffset: 0,
-            radialLabelsLinkDiagonalLength: 16,
-            radialLabelsLinkHorizontalLength: 24,
-            radialLabelsLinkStrokeWidth: 1,
-            radialLabelsLinkColor: { type: 'inherit' },
-
-            // slice labels
-            enableSlicesLabels: true,
-            sliceLabel: 'value',
-            slicesLabelsSkipAngle: 10,
-            slicesLabelsTextColor: { type: 'custom', color: '#333333' },
-
-            // motion
-            animate: true,
-            motionStiffness: 90,
-            motionDamping: 15,
-
-            // isInteractive
-            isInteractive: true,
-
-            'custom tooltip example': false,
-            tooltip: null,
-            theme: nivoTheme,
-            'showcase pattern usage': true,
-            defs: [],
-            fill: [],
-            legends: [
-                {
-                    anchor: 'bottom',
-                    direction: 'row',
-                    translateY: 56,
-                    itemWidth: 100,
-                    itemHeight: 18,
-                    symbolSize: 18,
-                    symbolShape: 'circle',
+        this.state = {
+            data: generateData(),
+            hiddenIds: [],
+            settings: {
+                margin: {
+                    top: 40,
+                    right: 80,
+                    bottom: 80,
+                    left: 80,
                 },
-            ],
-        },
+
+                startAngle: 0,
+                endAngle: 360,
+                sortByValue: false,
+                innerRadius: 0.5,
+                padAngle: 0.7,
+                cornerRadius: 3,
+                fit: true,
+
+                // Styling
+                colors: 'nivo',
+                colorBy: 'id',
+
+                // border
+                borderWidth: 1,
+                borderColor: { type: 'inherit:darker', gamma: 0.2 },
+
+                // radial labels
+                enableRadialLabels: true,
+                radialLabel: 'id',
+                radialLabelsSkipAngle: 10,
+                radialLabelsTextXOffset: 6,
+                radialLabelsTextColor: { type: 'custom', color: '#333333' },
+                radialLabelsLinkOffset: 0,
+                radialLabelsLinkDiagonalLength: 16,
+                radialLabelsLinkHorizontalLength: 24,
+                radialLabelsLinkStrokeWidth: 1,
+                radialLabelsLinkColor: { type: 'inherit' },
+
+                // slice labels
+                enableSlicesLabels: true,
+                sliceLabel: 'value',
+                slicesLabelsSkipAngle: 10,
+                slicesLabelsTextColor: { type: 'custom', color: '#333333' },
+
+                // motion
+                animate: true,
+                motionStiffness: 90,
+                motionDamping: 15,
+
+                // isInteractive
+                isInteractive: true,
+
+                'custom tooltip example': false,
+                tooltip: null,
+                theme: nivoTheme,
+                'showcase pattern usage': true,
+                defs: [],
+                fill: [],
+                legends: [
+                    {
+                        anchor: 'bottom',
+                        direction: 'row',
+                        justify: false,
+                        translateX: 0,
+                        translateY: 56,
+                        itemsSpacing: 5,
+                        itemWidth: 100,
+                        itemHeight: 24,
+                        itemDirection: 'left-to-right',
+                        symbolSize: 18,
+                        symbolShape: 'circle',
+                        opacity: 0.8,
+                        effects: [
+                            {
+                                match: 'hover',
+                                style: {
+                                    opacity: 1,
+                                    background: '#eeeeee',
+                                    textColor: '#000000',
+                                },
+                            },
+                        ],
+                        onClick: data => console.log(data),
+                    },
+                ],
+            },
+        }
+    }
+
+    handleLegendClick = data => {
+        let hiddenIds
+        if (this.state.hiddenIds.includes(data.id)) {
+            hiddenIds = this.state.hiddenIds.filter(id => id !== data.id)
+        } else {
+            hiddenIds = [...this.state.hiddenIds, data.id]
+        }
+        this.setState({ hiddenIds })
     }
 
     diceRoll = () => {
-        this.setState({ data: generateData() })
+        this.setState({
+            data: generateData(),
+            hiddenIds: [],
+        })
     }
 
     handleSettingsUpdate = settings => {

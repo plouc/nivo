@@ -95,7 +95,10 @@ export const renderLegendToCanvas = (
             }
         )
 
-        ctx.fillStyle = d.fill
+        // ctx.fillStyle = '#eee'
+        // ctx.fillRect(itemX, itemY, itemWidth, itemHeight)
+
+        ctx.fillStyle = d.color
         ctx.fillRect(itemX + symbolX, itemY + symbolY, symbolSize, symbolSize)
 
         ctx.textAlign = textPropsMapping.align[labelAnchor]

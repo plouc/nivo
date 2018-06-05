@@ -6,15 +6,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import get from 'lodash/get'
 import set from 'lodash/set'
 import merge from 'lodash/merge'
 import snakeCase from 'lodash/snakeCase'
 import pick from 'lodash/pick'
-import classNames from 'classnames'
-import CollapsibleCard from '../CollapsibleCard'
+import Select from 'react-select'
 import SliderControl from './SliderControl'
 import SwitchControl from './SwitchControl'
 import SwitchableSliderControl from './SwitchableSliderControl'
@@ -23,39 +22,21 @@ import QuantizeColorsControl from './QuantizeColorsControl'
 import ColorControl from './ColorControl'
 import ColorPickerControl from './ColorPickerControl'
 import TextControl from './TextControl'
-import Select from 'react-select'
+import ArrayControl from './ArrayControl'
+import { getPropertiesGroupControls } from '../../lib/componentProperties'
 
 export default class ChartControls extends Component {
     static propTypes = {
+        ns: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        controls: PropTypes.array.isRequired,
         settings: PropTypes.object.isRequired,
         onChange: PropTypes.func.isRequired,
-        groups: PropTypes.array.isRequired,
-        group: PropTypes.string,
-        ns: PropTypes.string.isRequired,
-        mapValues: PropTypes.object.isRequired,
+        isNested: PropTypes.bool.isRequired,
     }
 
     static defaultProps = {
-        mapValues: {},
-    }
-
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            openedGroup: props.group || 'Base',
-        }
-    }
-
-    mapValue = (key, value) => {
-        const { settings, mapValues } = this.props
-        const mapper = get(mapValues, key)
-        if (mapper === undefined) return value
-        return mapper(value, settings)
-    }
-
-    handleGroupToggle = groupName => {
-        this.setState({ openedGroup: groupName })
+        isNested: false,
     }
 
     handleSwitchUpdate = key => e => {
@@ -76,6 +57,11 @@ export default class ChartControls extends Component {
     handleDirectUpdate = key => value => {
         const { onChange, settings } = this.props
         onChange(merge({}, settings, set({}, key, value)))
+    }
+
+    handleArrayUpdate = key => value => {
+        const { onChange, settings } = this.props
+        onChange(set({ ...settings }, key, value))
     }
 
     handleSelectUpdate = key => value => {
@@ -215,55 +201,39 @@ export default class ChartControls extends Component {
                     </div>
                 )
 
+            case 'array':
+                return (
+                    <ArrayControl
+                        key={config.name}
+                        ns={ns}
+                        label={config.name}
+                        help={config.help}
+                        onChange={this.handleArrayUpdate(config.name)}
+                        value={get(settings, config.name)}
+                        props={getPropertiesGroupControls(config.props)}
+                        shouldCreate={config.shouldCreate}
+                        addLabel={config.addLabel}
+                        shouldRemove={config.shouldRemove}
+                        defaults={config.defaults}
+                    />
+                )
+
             default:
                 return null
         }
     }
 
     render() {
-        const { groups: _groups, scope } = this.props
-        const { openedGroup } = this.state
+        const { name, controls, isNested } = this.props
 
-        const groups = _groups.filter(group => {
-            return !group.scopes || group.scopes.includes(scope)
-        })
+        if (isNested === true) {
+            return <Fragment>{controls.map(control => this.renderControl(name, control))}</Fragment>
+        }
 
         return (
-            <CollapsibleCard title="Settings" expandedByDefault={true}>
-                <div className="tabs__menu">
-                    {groups.map(group => {
-                        return (
-                            <div
-                                key={group.name}
-                                className={classNames('no-select tabs__menu__item', {
-                                    '_is-active': openedGroup === group.name,
-                                })}
-                                onClick={() => {
-                                    this.handleGroupToggle(group.name)
-                                }}
-                            >
-                                {group.name}
-                            </div>
-                        )
-                    })}
-                </div>
-                {groups.map(group => {
-                    return (
-                        <div
-                            key={group.name}
-                            style={{
-                                display: openedGroup === group.name ? 'block' : 'none',
-                            }}
-                        >
-                            <div className="chart-controls">
-                                {group.controls.map(control =>
-                                    this.renderControl(group.name, control)
-                                )}
-                            </div>
-                        </div>
-                    )
-                })}
-            </CollapsibleCard>
+            <div className="chart-controls">
+                {controls.map(control => this.renderControl(name, control))}
+            </div>
         )
     }
 }

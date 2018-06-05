@@ -15,6 +15,7 @@ import {
     axesProperties,
     motionProperties,
     defsProperties,
+    getLegendsProps,
 } from '../../../lib/componentProperties'
 
 const curveOptions = []
@@ -26,11 +27,6 @@ areaCurvePropKeys.forEach((curve, i) => {
 })
 
 export default [
-    /*##################################################################################################################
-
-        Base
-
-    ##################################################################################################################*/
     {
         key: 'width',
         scopes: ['api'],
@@ -125,11 +121,6 @@ export default [
             })),
         },
     },
-    /*##################################################################################################################
-
-        Styling
-
-    ##################################################################################################################*/
     {
         key: 'colors',
         scopes: '*',
@@ -191,11 +182,6 @@ export default [
     ...defsProperties(['Stream']),
     ...marginProperties,
     ...axesProperties,
-    /*##################################################################################################################
-
-        Grid
-
-    ##################################################################################################################*/
     {
         key: 'enableGridX',
         scopes: '*',
@@ -216,11 +202,6 @@ export default [
         controlType: 'switch',
         controlGroup: 'Grid',
     },
-    /*##################################################################################################################
-
-        Interactivity
-
-    ##################################################################################################################*/
     {
         key: 'isInteractive',
         scopes: ['Stream'],
@@ -240,6 +221,46 @@ export default [
         default: defaults.enableStackTooltip,
         controlType: 'switch',
         controlGroup: 'Interactivity',
+    },
+    {
+        key: 'legends',
+        scopes: ['Stream'],
+        type: '{Array<object>}',
+        description: `Optional chart's legends.`,
+        required: false,
+        controlGroup: 'Legends',
+        controlType: 'array',
+        controlOptions: {
+            props: getLegendsProps(),
+            shouldCreate: true,
+            addLabel: 'add legend',
+            shouldRemove: true,
+            defaults: {
+                anchor: 'top-right',
+                direction: 'column',
+                justify: false,
+                translateX: 100,
+                translateY: 0,
+                itemWidth: 80,
+                itemHeight: 20,
+                itemsSpacing: 4,
+                itemDirection: 'left-to-right',
+                symbolSize: 12,
+                symbolShape: 'circle',
+                opacity: 0.8,
+                effects: [
+                    {
+                        match: 'hover',
+                        style: {
+                            opacity: 1,
+                            background: '#eeeeee',
+                            textColor: '#000000',
+                        },
+                    },
+                ],
+                onClick: data => console.log(data),
+            },
+        },
     },
     ...motionProperties(['Stream'], defaults),
 ]

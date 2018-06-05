@@ -9,3 +9,5 @@
 export { default as BoxLegendSvg } from './BoxLegendSvg'
 export { default as LegendSvg } from './LegendSvg'
 export { default as LegendSvgItem } from './LegendSvgItem'
+export { default as StackedSizeLegendSvg } from './StackedSizeLegendSvg'
+export { default as BoxStackedSizeLegendSvg } from './BoxStackedSizeLegendSvg'

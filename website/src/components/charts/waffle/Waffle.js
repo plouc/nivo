@@ -83,6 +83,33 @@ export default class Waffle extends Component {
             isInteractive: true,
             'custom tooltip example': false,
             tooltip: null,
+
+            legends: [
+                {
+                    anchor: 'bottom-right',
+                    direction: 'column',
+                    justify: false,
+                    translateX: 0,
+                    translateY: 0,
+                    itemWidth: 100,
+                    itemHeight: 24,
+                    itemsSpacing: 6,
+                    itemDirection: 'left-to-right',
+                    symbolSize: 24,
+                    opacity: 0.8,
+                    effects: [
+                        {
+                            match: 'hover',
+                            style: {
+                                opacity: 1,
+                                background: '#eeeeee',
+                                textColor: '#000000',
+                            },
+                        },
+                    ],
+                    onClick: data => console.log(data),
+                },
+            ],
         },
     }
 
@@ -160,6 +187,10 @@ export default class Waffle extends Component {
                     it also offers other implementations, see{' '}
                     <Link to="/waffle/html">WaffleHtml</Link> and{' '}
                     <Link to="/waffle/canvas">WaffleCanvas</Link>.
+                </p>
+                <p className="description">
+                    See the <Link to="/guides/legends">dedicated guide</Link> on how to setup
+                    legends for this component.
                 </p>
             </div>
         )

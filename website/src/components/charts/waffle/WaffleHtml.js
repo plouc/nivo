@@ -189,7 +189,7 @@ export default class WaffleHtml extends Component {
                         />
                     </ChartTabs>
                     <WaffleControls
-                        scope="Waffle"
+                        scope="WaffleHtml"
                         settings={settings}
                         onChange={this.handleSettingsUpdate}
                     />

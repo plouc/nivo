@@ -1,0 +1,9929 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should support 'circle' shape with 'bottom' anchor and 'bottom' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={250}
+    cy={300}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={250}
+    cy={400}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={500}
+    y1={250}
+    y2={520}
+  />
+  <circle
+    cx={500}
+    cy={250}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={500}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={450}
+    x2={450}
+    y1={300}
+    y2={520}
+  />
+  <circle
+    cx={450}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={450}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={350}
+    x2={350}
+    y1={400}
+    y2={520}
+  />
+  <circle
+    cx={350}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={350}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={500}
+    y={529}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={450}
+    y={529}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={350}
+    y={529}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'bottom' anchor and 'left' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={250}
+    cy={300}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={250}
+    cy={400}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={250}
+    x2={-20}
+    y1={0}
+    y2={0}
+  />
+  <circle
+    cx={250}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={250}
+    x2={-20}
+    y1={100}
+    y2={100}
+  />
+  <circle
+    cx={250}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={250}
+    x2={-20}
+    y1={300}
+    y2={300}
+  />
+  <circle
+    cx={250}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={0}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={100}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={300}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'bottom' anchor and 'right' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={250}
+    cy={300}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={250}
+    cy={400}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={250}
+    x2={520}
+    y1={0}
+    y2={0}
+  />
+  <circle
+    cx={250}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={250}
+    x2={520}
+    y1={100}
+    y2={100}
+  />
+  <circle
+    cx={250}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={250}
+    x2={520}
+    y1={300}
+    y2={300}
+  />
+  <circle
+    cx={250}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={0}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={100}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={300}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'bottom' anchor and 'top' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={250}
+    cy={300}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={250}
+    cy={400}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={500}
+    y1={250}
+    y2={-20}
+  />
+  <circle
+    cx={500}
+    cy={250}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={500}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={450}
+    x2={450}
+    y1={300}
+    y2={-20}
+  />
+  <circle
+    cx={450}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={450}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={350}
+    x2={350}
+    y1={400}
+    y2={-20}
+  />
+  <circle
+    cx={350}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={350}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={500}
+    y={-29}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={450}
+    y={-29}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={350}
+    y={-29}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'bottom-left' anchor and 'bottom' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={200}
+    cy={300}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={100}
+    cy={400}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={500}
+    y1={250}
+    y2={520}
+  />
+  <circle
+    cx={500}
+    cy={250}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={500}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={400}
+    x2={400}
+    y1={300}
+    y2={520}
+  />
+  <circle
+    cx={400}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={400}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={200}
+    x2={200}
+    y1={400}
+    y2={520}
+  />
+  <circle
+    cx={200}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={200}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={500}
+    y={529}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={400}
+    y={529}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={200}
+    y={529}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'bottom-left' anchor and 'left' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={200}
+    cy={300}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={100}
+    cy={400}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={250}
+    x2={-20}
+    y1={0}
+    y2={0}
+  />
+  <circle
+    cx={250}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={200}
+    x2={-20}
+    y1={100}
+    y2={100}
+  />
+  <circle
+    cx={200}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={100}
+    x2={-20}
+    y1={300}
+    y2={300}
+  />
+  <circle
+    cx={100}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={0}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={100}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={300}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'bottom-left' anchor and 'right' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={200}
+    cy={300}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={100}
+    cy={400}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={250}
+    x2={520}
+    y1={0}
+    y2={0}
+  />
+  <circle
+    cx={250}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={200}
+    x2={520}
+    y1={100}
+    y2={100}
+  />
+  <circle
+    cx={200}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={100}
+    x2={520}
+    y1={300}
+    y2={300}
+  />
+  <circle
+    cx={100}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={0}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={100}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={300}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'bottom-left' anchor and 'top' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={200}
+    cy={300}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={100}
+    cy={400}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={500}
+    y1={250}
+    y2={-20}
+  />
+  <circle
+    cx={500}
+    cy={250}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={500}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={400}
+    x2={400}
+    y1={300}
+    y2={-20}
+  />
+  <circle
+    cx={400}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={400}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={200}
+    x2={200}
+    y1={400}
+    y2={-20}
+  />
+  <circle
+    cx={200}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={200}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={500}
+    y={-29}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={400}
+    y={-29}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={200}
+    y={-29}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'bottom-right' anchor and 'bottom' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={300}
+    cy={300}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={400}
+    cy={400}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={0}
+    x2={0}
+    y1={250}
+    y2={520}
+  />
+  <circle
+    cx={0}
+    cy={250}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={0}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={100}
+    x2={100}
+    y1={300}
+    y2={520}
+  />
+  <circle
+    cx={100}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={100}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={300}
+    x2={300}
+    y1={400}
+    y2={520}
+  />
+  <circle
+    cx={300}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={300}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={0}
+    y={529}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={100}
+    y={529}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={300}
+    y={529}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'bottom-right' anchor and 'left' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={300}
+    cy={300}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={400}
+    cy={400}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={250}
+    x2={-20}
+    y1={0}
+    y2={0}
+  />
+  <circle
+    cx={250}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={300}
+    x2={-20}
+    y1={100}
+    y2={100}
+  />
+  <circle
+    cx={300}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={400}
+    x2={-20}
+    y1={300}
+    y2={300}
+  />
+  <circle
+    cx={400}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={0}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={100}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={300}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'bottom-right' anchor and 'right' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={300}
+    cy={300}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={400}
+    cy={400}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={250}
+    x2={520}
+    y1={0}
+    y2={0}
+  />
+  <circle
+    cx={250}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={300}
+    x2={520}
+    y1={100}
+    y2={100}
+  />
+  <circle
+    cx={300}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={400}
+    x2={520}
+    y1={300}
+    y2={300}
+  />
+  <circle
+    cx={400}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={0}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={100}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={300}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'bottom-right' anchor and 'top' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={300}
+    cy={300}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={400}
+    cy={400}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={0}
+    x2={0}
+    y1={250}
+    y2={-20}
+  />
+  <circle
+    cx={0}
+    cy={250}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={0}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={100}
+    x2={100}
+    y1={300}
+    y2={-20}
+  />
+  <circle
+    cx={100}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={100}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={300}
+    x2={300}
+    y1={400}
+    y2={-20}
+  />
+  <circle
+    cx={300}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={300}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={0}
+    y={-29}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={100}
+    y={-29}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={300}
+    y={-29}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'left' anchor and 'bottom' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={200}
+    cy={250}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={100}
+    cy={250}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={500}
+    y1={250}
+    y2={520}
+  />
+  <circle
+    cx={500}
+    cy={250}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={500}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={400}
+    x2={400}
+    y1={250}
+    y2={520}
+  />
+  <circle
+    cx={400}
+    cy={250}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={400}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={200}
+    x2={200}
+    y1={250}
+    y2={520}
+  />
+  <circle
+    cx={200}
+    cy={250}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={200}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={500}
+    y={529}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={400}
+    y={529}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={200}
+    y={529}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'left' anchor and 'left' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={200}
+    cy={250}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={100}
+    cy={250}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={250}
+    x2={-20}
+    y1={0}
+    y2={0}
+  />
+  <circle
+    cx={250}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={200}
+    x2={-20}
+    y1={50}
+    y2={50}
+  />
+  <circle
+    cx={200}
+    cy={50}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={50}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={100}
+    x2={-20}
+    y1={150}
+    y2={150}
+  />
+  <circle
+    cx={100}
+    cy={150}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={150}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={0}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={50}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={150}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'left' anchor and 'right' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={200}
+    cy={250}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={100}
+    cy={250}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={250}
+    x2={520}
+    y1={0}
+    y2={0}
+  />
+  <circle
+    cx={250}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={200}
+    x2={520}
+    y1={50}
+    y2={50}
+  />
+  <circle
+    cx={200}
+    cy={50}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={50}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={100}
+    x2={520}
+    y1={150}
+    y2={150}
+  />
+  <circle
+    cx={100}
+    cy={150}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={150}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={0}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={50}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={150}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'left' anchor and 'top' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={200}
+    cy={250}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={100}
+    cy={250}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={500}
+    y1={250}
+    y2={-20}
+  />
+  <circle
+    cx={500}
+    cy={250}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={500}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={400}
+    x2={400}
+    y1={250}
+    y2={-20}
+  />
+  <circle
+    cx={400}
+    cy={250}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={400}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={200}
+    x2={200}
+    y1={250}
+    y2={-20}
+  />
+  <circle
+    cx={200}
+    cy={250}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={200}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={500}
+    y={-29}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={400}
+    y={-29}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={200}
+    y={-29}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'right' anchor and 'bottom' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={300}
+    cy={250}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={400}
+    cy={250}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={0}
+    x2={0}
+    y1={250}
+    y2={520}
+  />
+  <circle
+    cx={0}
+    cy={250}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={0}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={100}
+    x2={100}
+    y1={250}
+    y2={520}
+  />
+  <circle
+    cx={100}
+    cy={250}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={100}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={300}
+    x2={300}
+    y1={250}
+    y2={520}
+  />
+  <circle
+    cx={300}
+    cy={250}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={300}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={0}
+    y={529}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={100}
+    y={529}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={300}
+    y={529}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'right' anchor and 'left' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={300}
+    cy={250}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={400}
+    cy={250}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={250}
+    x2={-20}
+    y1={0}
+    y2={0}
+  />
+  <circle
+    cx={250}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={300}
+    x2={-20}
+    y1={50}
+    y2={50}
+  />
+  <circle
+    cx={300}
+    cy={50}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={50}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={400}
+    x2={-20}
+    y1={150}
+    y2={150}
+  />
+  <circle
+    cx={400}
+    cy={150}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={150}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={0}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={50}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={150}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'right' anchor and 'right' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={300}
+    cy={250}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={400}
+    cy={250}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={250}
+    x2={520}
+    y1={0}
+    y2={0}
+  />
+  <circle
+    cx={250}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={300}
+    x2={520}
+    y1={50}
+    y2={50}
+  />
+  <circle
+    cx={300}
+    cy={50}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={50}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={400}
+    x2={520}
+    y1={150}
+    y2={150}
+  />
+  <circle
+    cx={400}
+    cy={150}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={150}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={0}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={50}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={150}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'right' anchor and 'top' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={300}
+    cy={250}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={400}
+    cy={250}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={0}
+    x2={0}
+    y1={250}
+    y2={-20}
+  />
+  <circle
+    cx={0}
+    cy={250}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={0}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={100}
+    x2={100}
+    y1={250}
+    y2={-20}
+  />
+  <circle
+    cx={100}
+    cy={250}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={100}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={300}
+    x2={300}
+    y1={250}
+    y2={-20}
+  />
+  <circle
+    cx={300}
+    cy={250}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={300}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={0}
+    y={-29}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={100}
+    y={-29}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={300}
+    y={-29}
+  />
+</g>
+`;
+
+exports[`should support 'circle' shape with 'top' anchor and 'bottom' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={250}
+    cy={200}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={250}
+    cy={100}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={500}
+    y1={250}
+    y2={520}
+  />
+  <circle
+    cx={500}
+    cy={250}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={500}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={450}
+    x2={450}
+    y1={200}
+    y2={520}
+  />
+  <circle
+    cx={450}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={450}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={350}
+    x2={350}
+    y1={100}
+    y2={520}
+  />
+  <circle
+    cx={350}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={350}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={500}
+    y={529}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={450}
+    y={529}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={350}
+    y={529}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'top' anchor and 'left' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={250}
+    cy={200}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={250}
+    cy={100}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={250}
+    x2={-20}
+    y1={500}
+    y2={500}
+  />
+  <circle
+    cx={250}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={250}
+    x2={-20}
+    y1={400}
+    y2={400}
+  />
+  <circle
+    cx={250}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={250}
+    x2={-20}
+    y1={200}
+    y2={200}
+  />
+  <circle
+    cx={250}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={500}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={400}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={200}
+  />
+</g>
+`;
+
+exports[`should support 'circle' shape with 'top' anchor and 'right' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={250}
+    cy={200}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={250}
+    cy={100}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={250}
+    x2={520}
+    y1={500}
+    y2={500}
+  />
+  <circle
+    cx={250}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={250}
+    x2={520}
+    y1={400}
+    y2={400}
+  />
+  <circle
+    cx={250}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={250}
+    x2={520}
+    y1={200}
+    y2={200}
+  />
+  <circle
+    cx={250}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={500}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={400}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={200}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'top' anchor and 'top' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={250}
+    cy={200}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={250}
+    cy={100}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={500}
+    y1={250}
+    y2={-20}
+  />
+  <circle
+    cx={500}
+    cy={250}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={500}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={450}
+    x2={450}
+    y1={200}
+    y2={-20}
+  />
+  <circle
+    cx={450}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={450}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={350}
+    x2={350}
+    y1={100}
+    y2={-20}
+  />
+  <circle
+    cx={350}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={350}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={500}
+    y={-29}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={450}
+    y={-29}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={350}
+    y={-29}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'top-left' anchor and 'bottom' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={200}
+    cy={200}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={100}
+    cy={100}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={500}
+    y1={250}
+    y2={520}
+  />
+  <circle
+    cx={500}
+    cy={250}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={500}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={400}
+    x2={400}
+    y1={200}
+    y2={520}
+  />
+  <circle
+    cx={400}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={400}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={200}
+    x2={200}
+    y1={100}
+    y2={520}
+  />
+  <circle
+    cx={200}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={200}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={500}
+    y={529}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={400}
+    y={529}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={200}
+    y={529}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'top-left' anchor and 'left' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={200}
+    cy={200}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={100}
+    cy={100}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={250}
+    x2={-20}
+    y1={500}
+    y2={500}
+  />
+  <circle
+    cx={250}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={200}
+    x2={-20}
+    y1={400}
+    y2={400}
+  />
+  <circle
+    cx={200}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={100}
+    x2={-20}
+    y1={200}
+    y2={200}
+  />
+  <circle
+    cx={100}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={500}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={400}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={200}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'top-left' anchor and 'right' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={200}
+    cy={200}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={100}
+    cy={100}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={250}
+    x2={520}
+    y1={500}
+    y2={500}
+  />
+  <circle
+    cx={250}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={200}
+    x2={520}
+    y1={400}
+    y2={400}
+  />
+  <circle
+    cx={200}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={100}
+    x2={520}
+    y1={200}
+    y2={200}
+  />
+  <circle
+    cx={100}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={500}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={400}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={200}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'top-left' anchor and 'top' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={200}
+    cy={200}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={100}
+    cy={100}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={500}
+    y1={250}
+    y2={-20}
+  />
+  <circle
+    cx={500}
+    cy={250}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={500}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={400}
+    x2={400}
+    y1={200}
+    y2={-20}
+  />
+  <circle
+    cx={400}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={400}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={200}
+    x2={200}
+    y1={100}
+    y2={-20}
+  />
+  <circle
+    cx={200}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={200}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={500}
+    y={-29}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={400}
+    y={-29}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={200}
+    y={-29}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'top-right' anchor and 'bottom' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={300}
+    cy={200}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={400}
+    cy={100}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={0}
+    x2={0}
+    y1={250}
+    y2={520}
+  />
+  <circle
+    cx={0}
+    cy={250}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={0}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={100}
+    x2={100}
+    y1={200}
+    y2={520}
+  />
+  <circle
+    cx={100}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={100}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={300}
+    x2={300}
+    y1={100}
+    y2={520}
+  />
+  <circle
+    cx={300}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={300}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={0}
+    y={529}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={100}
+    y={529}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={300}
+    y={529}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'top-right' anchor and 'left' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={300}
+    cy={200}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={400}
+    cy={100}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={250}
+    x2={-20}
+    y1={500}
+    y2={500}
+  />
+  <circle
+    cx={250}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={300}
+    x2={-20}
+    y1={400}
+    y2={400}
+  />
+  <circle
+    cx={300}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={400}
+    x2={-20}
+    y1={200}
+    y2={200}
+  />
+  <circle
+    cx={400}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={500}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={400}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={200}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'top-right' anchor and 'right' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={300}
+    cy={200}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={400}
+    cy={100}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={250}
+    x2={520}
+    y1={500}
+    y2={500}
+  />
+  <circle
+    cx={250}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={300}
+    x2={520}
+    y1={400}
+    y2={400}
+  />
+  <circle
+    cx={300}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={400}
+    x2={520}
+    y1={200}
+    y2={200}
+  />
+  <circle
+    cx={400}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={500}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={400}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={200}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'circle' shape with 'top-right' anchor and 'top' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <circle
+    cx={250}
+    cy={250}
+    r={250}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={300}
+    cy={200}
+    r={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <circle
+    cx={400}
+    cy={100}
+    r={100}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={0}
+    x2={0}
+    y1={250}
+    y2={-20}
+  />
+  <circle
+    cx={0}
+    cy={250}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={0}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={100}
+    x2={100}
+    y1={200}
+    y2={-20}
+  />
+  <circle
+    cx={100}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={100}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={300}
+    x2={300}
+    y1={100}
+    y2={-20}
+  />
+  <circle
+    cx={300}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={300}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={0}
+    y={-29}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={100}
+    y={-29}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={300}
+    y={-29}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'bottom' anchor and 'bottom' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={50}
+    y={100}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={150}
+    y={300}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={500}
+    y1={500}
+    y2={520}
+  />
+  <circle
+    cx={500}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={500}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={450}
+    x2={450}
+    y1={500}
+    y2={520}
+  />
+  <circle
+    cx={450}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={450}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={350}
+    x2={350}
+    y1={500}
+    y2={520}
+  />
+  <circle
+    cx={350}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={350}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={500}
+    y={529}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={450}
+    y={529}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={350}
+    y={529}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'bottom' anchor and 'left' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={50}
+    y={100}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={150}
+    y={300}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={0}
+    x2={-20}
+    y1={0}
+    y2={0}
+  />
+  <circle
+    cx={0}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={50}
+    x2={-20}
+    y1={100}
+    y2={100}
+  />
+  <circle
+    cx={50}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={150}
+    x2={-20}
+    y1={300}
+    y2={300}
+  />
+  <circle
+    cx={150}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={0}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={100}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={300}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'bottom' anchor and 'right' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={50}
+    y={100}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={150}
+    y={300}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={520}
+    y1={0}
+    y2={0}
+  />
+  <circle
+    cx={500}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={450}
+    x2={520}
+    y1={100}
+    y2={100}
+  />
+  <circle
+    cx={450}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={350}
+    x2={520}
+    y1={300}
+    y2={300}
+  />
+  <circle
+    cx={350}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={0}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={100}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={300}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'bottom' anchor and 'top' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={50}
+    y={100}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={150}
+    y={300}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={500}
+    y1={0}
+    y2={-20}
+  />
+  <circle
+    cx={500}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={500}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={450}
+    x2={450}
+    y1={100}
+    y2={-20}
+  />
+  <circle
+    cx={450}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={450}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={350}
+    x2={350}
+    y1={300}
+    y2={-20}
+  />
+  <circle
+    cx={350}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={350}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={500}
+    y={-29}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={450}
+    y={-29}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={350}
+    y={-29}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'bottom-left' anchor and 'bottom' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={0}
+    y={100}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={0}
+    y={300}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={500}
+    y1={500}
+    y2={520}
+  />
+  <circle
+    cx={500}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={500}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={400}
+    x2={400}
+    y1={500}
+    y2={520}
+  />
+  <circle
+    cx={400}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={400}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={200}
+    x2={200}
+    y1={500}
+    y2={520}
+  />
+  <circle
+    cx={200}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={200}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={500}
+    y={529}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={400}
+    y={529}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={200}
+    y={529}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'bottom-left' anchor and 'left' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={0}
+    y={100}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={0}
+    y={300}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={0}
+    x2={-20}
+    y1={0}
+    y2={0}
+  />
+  <circle
+    cx={0}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={0}
+    x2={-20}
+    y1={100}
+    y2={100}
+  />
+  <circle
+    cx={0}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={0}
+    x2={-20}
+    y1={300}
+    y2={300}
+  />
+  <circle
+    cx={0}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={0}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={100}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={300}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'bottom-left' anchor and 'right' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={0}
+    y={100}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={0}
+    y={300}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={520}
+    y1={0}
+    y2={0}
+  />
+  <circle
+    cx={500}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={400}
+    x2={520}
+    y1={100}
+    y2={100}
+  />
+  <circle
+    cx={400}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={200}
+    x2={520}
+    y1={300}
+    y2={300}
+  />
+  <circle
+    cx={200}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={0}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={100}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={300}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'bottom-left' anchor and 'top' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={0}
+    y={100}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={0}
+    y={300}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={500}
+    y1={0}
+    y2={-20}
+  />
+  <circle
+    cx={500}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={500}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={400}
+    x2={400}
+    y1={100}
+    y2={-20}
+  />
+  <circle
+    cx={400}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={400}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={200}
+    x2={200}
+    y1={300}
+    y2={-20}
+  />
+  <circle
+    cx={200}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={200}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={500}
+    y={-29}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={400}
+    y={-29}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={200}
+    y={-29}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'bottom-right' anchor and 'bottom' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={100}
+    y={100}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={300}
+    y={300}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={0}
+    x2={0}
+    y1={500}
+    y2={520}
+  />
+  <circle
+    cx={0}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={0}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={100}
+    x2={100}
+    y1={500}
+    y2={520}
+  />
+  <circle
+    cx={100}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={100}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={300}
+    x2={300}
+    y1={500}
+    y2={520}
+  />
+  <circle
+    cx={300}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={300}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={0}
+    y={529}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={100}
+    y={529}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={300}
+    y={529}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'bottom-right' anchor and 'left' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={100}
+    y={100}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={300}
+    y={300}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={0}
+    x2={-20}
+    y1={0}
+    y2={0}
+  />
+  <circle
+    cx={0}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={100}
+    x2={-20}
+    y1={100}
+    y2={100}
+  />
+  <circle
+    cx={100}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={300}
+    x2={-20}
+    y1={300}
+    y2={300}
+  />
+  <circle
+    cx={300}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={0}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={100}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={300}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'bottom-right' anchor and 'right' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={100}
+    y={100}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={300}
+    y={300}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={520}
+    y1={0}
+    y2={0}
+  />
+  <circle
+    cx={500}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={520}
+    y1={100}
+    y2={100}
+  />
+  <circle
+    cx={500}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={520}
+    y1={300}
+    y2={300}
+  />
+  <circle
+    cx={500}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={0}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={100}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={300}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'bottom-right' anchor and 'top' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={100}
+    y={100}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={300}
+    y={300}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={0}
+    x2={0}
+    y1={0}
+    y2={-20}
+  />
+  <circle
+    cx={0}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={0}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={100}
+    x2={100}
+    y1={100}
+    y2={-20}
+  />
+  <circle
+    cx={100}
+    cy={100}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={100}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={300}
+    x2={300}
+    y1={300}
+    y2={-20}
+  />
+  <circle
+    cx={300}
+    cy={300}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={300}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={0}
+    y={-29}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={100}
+    y={-29}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={300}
+    y={-29}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'left' anchor and 'bottom' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={0}
+    y={50}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={0}
+    y={150}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={500}
+    y1={500}
+    y2={520}
+  />
+  <circle
+    cx={500}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={500}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={400}
+    x2={400}
+    y1={450}
+    y2={520}
+  />
+  <circle
+    cx={400}
+    cy={450}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={400}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={200}
+    x2={200}
+    y1={350}
+    y2={520}
+  />
+  <circle
+    cx={200}
+    cy={350}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={200}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={500}
+    y={529}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={400}
+    y={529}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={200}
+    y={529}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'left' anchor and 'left' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={0}
+    y={50}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={0}
+    y={150}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={0}
+    x2={-20}
+    y1={0}
+    y2={0}
+  />
+  <circle
+    cx={0}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={0}
+    x2={-20}
+    y1={50}
+    y2={50}
+  />
+  <circle
+    cx={0}
+    cy={50}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={50}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={0}
+    x2={-20}
+    y1={150}
+    y2={150}
+  />
+  <circle
+    cx={0}
+    cy={150}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={150}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={0}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={50}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={150}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'left' anchor and 'right' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={0}
+    y={50}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={0}
+    y={150}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={520}
+    y1={0}
+    y2={0}
+  />
+  <circle
+    cx={500}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={400}
+    x2={520}
+    y1={50}
+    y2={50}
+  />
+  <circle
+    cx={400}
+    cy={50}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={50}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={200}
+    x2={520}
+    y1={150}
+    y2={150}
+  />
+  <circle
+    cx={200}
+    cy={150}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={150}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={0}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={50}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={150}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'left' anchor and 'top' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={0}
+    y={50}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={0}
+    y={150}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={500}
+    y1={0}
+    y2={-20}
+  />
+  <circle
+    cx={500}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={500}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={400}
+    x2={400}
+    y1={50}
+    y2={-20}
+  />
+  <circle
+    cx={400}
+    cy={50}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={400}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={200}
+    x2={200}
+    y1={150}
+    y2={-20}
+  />
+  <circle
+    cx={200}
+    cy={150}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={200}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={500}
+    y={-29}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={400}
+    y={-29}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={200}
+    y={-29}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'right' anchor and 'bottom' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={100}
+    y={50}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={300}
+    y={150}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={0}
+    x2={0}
+    y1={500}
+    y2={520}
+  />
+  <circle
+    cx={0}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={0}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={100}
+    x2={100}
+    y1={450}
+    y2={520}
+  />
+  <circle
+    cx={100}
+    cy={450}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={100}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={300}
+    x2={300}
+    y1={350}
+    y2={520}
+  />
+  <circle
+    cx={300}
+    cy={350}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={300}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={0}
+    y={529}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={100}
+    y={529}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={300}
+    y={529}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'right' anchor and 'left' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={100}
+    y={50}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={300}
+    y={150}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={0}
+    x2={-20}
+    y1={0}
+    y2={0}
+  />
+  <circle
+    cx={0}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={100}
+    x2={-20}
+    y1={50}
+    y2={50}
+  />
+  <circle
+    cx={100}
+    cy={50}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={50}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={300}
+    x2={-20}
+    y1={150}
+    y2={150}
+  />
+  <circle
+    cx={300}
+    cy={150}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={150}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={0}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={50}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={150}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'right' anchor and 'right' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={100}
+    y={50}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={300}
+    y={150}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={520}
+    y1={0}
+    y2={0}
+  />
+  <circle
+    cx={500}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={520}
+    y1={50}
+    y2={50}
+  />
+  <circle
+    cx={500}
+    cy={50}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={50}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={520}
+    y1={150}
+    y2={150}
+  />
+  <circle
+    cx={500}
+    cy={150}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={150}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={0}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={50}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={150}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'right' anchor and 'top' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={100}
+    y={50}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={300}
+    y={150}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={0}
+    x2={0}
+    y1={0}
+    y2={-20}
+  />
+  <circle
+    cx={0}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={0}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={100}
+    x2={100}
+    y1={50}
+    y2={-20}
+  />
+  <circle
+    cx={100}
+    cy={50}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={100}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={300}
+    x2={300}
+    y1={150}
+    y2={-20}
+  />
+  <circle
+    cx={300}
+    cy={150}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={300}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={0}
+    y={-29}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={100}
+    y={-29}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={300}
+    y={-29}
+  />
+</g>
+`;
+
+exports[`should support 'square' shape with 'top' anchor and 'bottom' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={50}
+    y={0}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={150}
+    y={0}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={500}
+    y1={500}
+    y2={520}
+  />
+  <circle
+    cx={500}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={500}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={450}
+    x2={450}
+    y1={400}
+    y2={520}
+  />
+  <circle
+    cx={450}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={450}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={350}
+    x2={350}
+    y1={200}
+    y2={520}
+  />
+  <circle
+    cx={350}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={350}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={500}
+    y={529}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={450}
+    y={529}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={350}
+    y={529}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'top' anchor and 'left' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={50}
+    y={0}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={150}
+    y={0}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={0}
+    x2={-20}
+    y1={500}
+    y2={500}
+  />
+  <circle
+    cx={0}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={50}
+    x2={-20}
+    y1={400}
+    y2={400}
+  />
+  <circle
+    cx={50}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={150}
+    x2={-20}
+    y1={200}
+    y2={200}
+  />
+  <circle
+    cx={150}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={500}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={400}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={200}
+  />
+</g>
+`;
+
+exports[`should support 'square' shape with 'top' anchor and 'right' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={50}
+    y={0}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={150}
+    y={0}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={520}
+    y1={500}
+    y2={500}
+  />
+  <circle
+    cx={500}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={450}
+    x2={520}
+    y1={400}
+    y2={400}
+  />
+  <circle
+    cx={450}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={350}
+    x2={520}
+    y1={200}
+    y2={200}
+  />
+  <circle
+    cx={350}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={500}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={400}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={200}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'top' anchor and 'top' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={50}
+    y={0}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={150}
+    y={0}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={500}
+    y1={0}
+    y2={-20}
+  />
+  <circle
+    cx={500}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={500}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={450}
+    x2={450}
+    y1={0}
+    y2={-20}
+  />
+  <circle
+    cx={450}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={450}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={350}
+    x2={350}
+    y1={0}
+    y2={-20}
+  />
+  <circle
+    cx={350}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={350}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={500}
+    y={-29}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={450}
+    y={-29}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={350}
+    y={-29}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'top-left' anchor and 'bottom' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={0}
+    y={0}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={500}
+    y1={500}
+    y2={520}
+  />
+  <circle
+    cx={500}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={500}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={400}
+    x2={400}
+    y1={400}
+    y2={520}
+  />
+  <circle
+    cx={400}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={400}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={200}
+    x2={200}
+    y1={200}
+    y2={520}
+  />
+  <circle
+    cx={200}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={200}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={500}
+    y={529}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={400}
+    y={529}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={200}
+    y={529}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'top-left' anchor and 'left' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={0}
+    y={0}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={0}
+    x2={-20}
+    y1={500}
+    y2={500}
+  />
+  <circle
+    cx={0}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={0}
+    x2={-20}
+    y1={400}
+    y2={400}
+  />
+  <circle
+    cx={0}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={0}
+    x2={-20}
+    y1={200}
+    y2={200}
+  />
+  <circle
+    cx={0}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={500}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={400}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={200}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'top-left' anchor and 'right' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={0}
+    y={0}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={520}
+    y1={500}
+    y2={500}
+  />
+  <circle
+    cx={500}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={400}
+    x2={520}
+    y1={400}
+    y2={400}
+  />
+  <circle
+    cx={400}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={200}
+    x2={520}
+    y1={200}
+    y2={200}
+  />
+  <circle
+    cx={200}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={500}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={400}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={200}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'top-left' anchor and 'top' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={0}
+    y={0}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={500}
+    y1={0}
+    y2={-20}
+  />
+  <circle
+    cx={500}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={500}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={400}
+    x2={400}
+    y1={0}
+    y2={-20}
+  />
+  <circle
+    cx={400}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={400}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={200}
+    x2={200}
+    y1={0}
+    y2={-20}
+  />
+  <circle
+    cx={200}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={200}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={500}
+    y={-29}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={400}
+    y={-29}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={200}
+    y={-29}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'top-right' anchor and 'bottom' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={100}
+    y={0}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={300}
+    y={0}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={0}
+    x2={0}
+    y1={500}
+    y2={520}
+  />
+  <circle
+    cx={0}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={0}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={100}
+    x2={100}
+    y1={400}
+    y2={520}
+  />
+  <circle
+    cx={100}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={100}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={300}
+    x2={300}
+    y1={200}
+    y2={520}
+  />
+  <circle
+    cx={300}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={300}
+    cy={520}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={0}
+    y={529}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={100}
+    y={529}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "hanging",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={300}
+    y={529}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'top-right' anchor and 'left' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={100}
+    y={0}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={300}
+    y={0}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={0}
+    x2={-20}
+    y1={500}
+    y2={500}
+  />
+  <circle
+    cx={0}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={100}
+    x2={-20}
+    y1={400}
+    y2={400}
+  />
+  <circle
+    cx={100}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={300}
+    x2={-20}
+    y1={200}
+    y2={200}
+  />
+  <circle
+    cx={300}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={-20}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={500}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={400}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="end"
+    x={-29}
+    y={200}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'top-right' anchor and 'right' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={100}
+    y={0}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={300}
+    y={0}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={520}
+    y1={500}
+    y2={500}
+  />
+  <circle
+    cx={500}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={500}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={520}
+    y1={400}
+    y2={400}
+  />
+  <circle
+    cx={500}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={400}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={500}
+    x2={520}
+    y1={200}
+    y2={200}
+  />
+  <circle
+    cx={500}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={520}
+    cy={200}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={500}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={400}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "central",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="start"
+    x={529}
+    y={200}
+  >
+    10
+  </text>
+</g>
+`;
+
+exports[`should support 'square' shape with 'top-right' anchor and 'top' labelPosition 1`] = `
+<g
+  transform="translate(0,0)"
+>
+  <rect
+    height={500}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={500}
+    x={0}
+    y={0}
+  />
+  <rect
+    height={400}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={400}
+    x={100}
+    y={0}
+  />
+  <rect
+    height={200}
+    stroke="#333333"
+    style={
+      Object {
+        "fill": "none",
+        "strokeWidth": 2,
+      }
+    }
+    width={200}
+    x={300}
+    y={0}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={0}
+    x2={0}
+    y1={0}
+    y2={-20}
+  />
+  <circle
+    cx={0}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={0}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={100}
+    x2={100}
+    y1={0}
+    y2={-20}
+  />
+  <circle
+    cx={100}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={100}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <line
+    stroke="#333333"
+    style={
+      Object {
+        "strokeWidth": 1,
+      }
+    }
+    x1={300}
+    x2={300}
+    y1={0}
+    y2={-20}
+  />
+  <circle
+    cx={300}
+    cy={0}
+    fill="#333333"
+    r={2}
+  />
+  <circle
+    cx={300}
+    cy={-20}
+    fill="#333333"
+    r={2}
+  />
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={0}
+    y={-29}
+  >
+    100
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={100}
+    y={-29}
+  >
+    30
+  </text>
+  <text
+    style={
+      Object {
+        "alignmentBaseline": "baseline",
+        "fill": "#333333",
+      }
+    }
+    textAnchor="middle"
+    x={300}
+    y={-29}
+  >
+    10
+  </text>
+</g>
+`;

@@ -74,12 +74,27 @@ export default class Radar extends Component {
                 {
                     anchor: 'top-left',
                     direction: 'column',
+                    justify: false,
                     translateX: -50,
                     translateY: -40,
-                    itemWidth: 80,
+                    itemsSpacing: 0,
+                    itemWidth: 100,
                     itemHeight: 20,
+                    itemDirection: 'left-to-right',
                     symbolSize: 12,
                     symbolShape: 'circle',
+                    opacity: 0.8,
+                    effects: [
+                        {
+                            match: 'hover',
+                            style: {
+                                opacity: 1,
+                                background: '#eeeeee',
+                                textColor: '#000000',
+                            },
+                        },
+                    ],
+                    onClick: data => console.log(data),
                 },
             ],
         },

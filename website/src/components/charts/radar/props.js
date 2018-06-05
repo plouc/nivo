@@ -11,7 +11,11 @@ import dedent from 'dedent-js'
 import { closedCurvePropKeys } from '@nivo/core'
 import { DotsItemDefaultProps as dotDefaults } from '@nivo/core'
 import { RadarDefaultProps as defaults, RadarDots } from '@nivo/radar'
-import { marginProperties, motionProperties } from '../../../lib/componentProperties'
+import {
+    getLegendsProps,
+    marginProperties,
+    motionProperties,
+} from '../../../lib/componentProperties'
 
 const dotsDefaults = RadarDots.defaultProps
 
@@ -391,6 +395,46 @@ export default [
         default: defaults.isInteractive,
         controlType: 'switch',
         controlGroup: 'Interactivity',
+    },
+    {
+        key: 'legends',
+        scopes: ['Radar'],
+        type: '{Array<object>}',
+        description: `Optional chart's legends.`,
+        required: false,
+        controlGroup: 'Legends',
+        controlType: 'array',
+        controlOptions: {
+            props: getLegendsProps(),
+            shouldCreate: true,
+            addLabel: 'add legend',
+            shouldRemove: true,
+            defaults: {
+                anchor: 'bottom-left',
+                direction: 'column',
+                justify: false,
+                translateX: -50,
+                translateY: -40,
+                itemsSpacing: 0,
+                itemWidth: 100,
+                itemHeight: 20,
+                itemDirection: 'left-to-right',
+                symbolSize: 12,
+                symbolShape: 'circle',
+                opacity: 0.8,
+                effects: [
+                    {
+                        match: 'hover',
+                        style: {
+                            opacity: 1,
+                            background: '#eeeeee',
+                            textColor: '#000000',
+                        },
+                    },
+                ],
+                onClick: data => console.log(data),
+            },
+        },
     },
     ...motionProperties(['Radar'], defaults),
 ]

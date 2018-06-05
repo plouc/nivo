@@ -8,13 +8,13 @@
  */
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import ChartControls from '../../controls/ChartControls'
+import ChartControlGroups from '../../controls/ChartControlGroups'
 import { getPropertiesGroupsControls } from '../../../lib/componentProperties'
 import properties from './props'
 
 const groupsByScope = {
     Waffle: getPropertiesGroupsControls(properties, 'Waffle'),
-    WaffleHTML: getPropertiesGroupsControls(properties, 'WaffleHtml'),
+    WaffleHtml: getPropertiesGroupsControls(properties, 'WaffleHtml'),
     WaffleCanvas: getPropertiesGroupsControls(properties, 'WaffleCanvas'),
     api: getPropertiesGroupsControls(properties, 'api'),
 }
@@ -32,7 +32,7 @@ export default class WaffleControls extends PureComponent {
         const groups = groupsByScope[scope]
 
         return (
-            <ChartControls
+            <ChartControlGroups
                 ns="waffle"
                 scope={scope}
                 settings={settings}

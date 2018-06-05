@@ -10,7 +10,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import dedent from 'dedent-js'
 import { PieDefaultProps as defaults } from '@nivo/pie'
-import { marginProperties, defsProperties } from '../../../lib/componentProperties'
+import { marginProperties, defsProperties, getLegendsProps } from '../../../lib/componentProperties'
 
 export default [
     {
@@ -32,6 +32,16 @@ export default [
         type: '{Array<Object>}',
         required: true,
     },
+    /*
+    {
+        key: 'hiddenIds',
+        scopes: '*',
+        type: '{Array<{number|string}}>}',
+        description: 'Hide some arcs by id, useful to implement data toggle.',
+        required: false,
+        default: defaults.hiddenIds,
+    },
+    */
     {
         key: 'width',
         scopes: ['api'],
@@ -98,7 +108,7 @@ export default [
         controlType: 'range',
         controlGroup: 'Base',
         controlOptions: {
-            unit: 'deg.',
+            unit: '°',
             min: -180,
             max: 360,
             step: 5,
@@ -114,7 +124,7 @@ export default [
         controlType: 'range',
         controlGroup: 'Base',
         controlOptions: {
-            unit: 'deg.',
+            unit: '°',
             min: -360,
             max: 360,
             step: 5,
@@ -139,7 +149,6 @@ export default [
         controlType: 'range',
         controlGroup: 'Base',
         controlOptions: {
-            unit: '(ratio)',
             min: 0,
             max: 0.95,
             step: 0.05,
@@ -154,7 +163,7 @@ export default [
         controlType: 'range',
         controlGroup: 'Base',
         controlOptions: {
-            unit: 'deg.',
+            unit: '°',
             min: 0,
             max: 45,
             step: 1,
@@ -185,13 +194,6 @@ export default [
         controlType: 'switch',
         controlGroup: 'Base',
     },
-    /*
-    ————————————————————————————————————————————————————————————————————————————
-
-        Styling
-
-    ————————————————————————————————————————————————————————————————————————————
-    */
     {
         key: 'colors',
         description: 'Defines color range.',
@@ -300,7 +302,7 @@ export default [
         controlType: 'range',
         controlGroup: 'Radial labels',
         controlOptions: {
-            unit: 'deg.',
+            unit: '°',
             min: 0,
             max: 45,
             step: 1,
@@ -311,7 +313,6 @@ export default [
         description: `Link offset from pie outer radius, useful to have links overlapping pie slices.`,
         type: '{number}',
         required: false,
-        //default: ,
         controlType: 'range',
         controlGroup: 'Radial labels',
         controlOptions: {
@@ -326,7 +327,6 @@ export default [
         description: `Link diagonal length.`,
         type: '{number}',
         required: false,
-        //default
         controlType: 'range',
         controlGroup: 'Radial labels',
         controlOptions: {
@@ -341,7 +341,6 @@ export default [
         description: `Links horizontal length.`,
         type: '{number}',
         required: false,
-        //default
         controlType: 'range',
         controlGroup: 'Radial labels',
         controlOptions: {
@@ -356,7 +355,6 @@ export default [
         description: `X offset from links' end.`,
         type: '{number}',
         required: false,
-        //default
         controlType: 'range',
         controlGroup: 'Radial labels',
         controlOptions: {
@@ -371,7 +369,6 @@ export default [
         description: 'Links stroke width.',
         type: '{number}',
         required: false,
-        //default
         controlType: 'range',
         controlGroup: 'Radial labels',
         controlOptions: {
@@ -439,7 +436,7 @@ export default [
         controlType: 'range',
         controlGroup: 'Slices labels',
         controlOptions: {
-            unit: 'deg.',
+            unit: '°',
             min: 0,
             max: 45,
             step: 1,
@@ -457,13 +454,6 @@ export default [
             withCustomColor: true,
         },
     },
-    /*
-    ————————————————————————————————————————————————————————————————————————————
-
-        Interactivity
-
-    ————————————————————————————————————————————————————————————————————————————
-    */
     {
         key: 'isInteractive',
         scopes: ['Pie', 'PieCanvas'],
@@ -518,49 +508,44 @@ export default [
         controlType: 'switch',
         controlGroup: 'Interactivity',
     },
-    /*
-    ————————————————————————————————————————————————————————————————————————————
-
-        Motion
-        not implemented yet :(
-
-    ————————————————————————————————————————————————————————————————————————————
     {
-        key: 'animate',
-        scopes: ['Pie'],
-        description: 'Enable/disable transitions.',
-        type: '{boolean}',
+        key: 'legends',
+        scopes: ['Pie', 'PieCanvas'],
+        type: '{Array<object>}',
+        description: `Optional chart's legends.`,
         required: false,
-        default: defaults.animate,
-        controlType: 'switch',
-        controlGroup: 'Motion',
-    },
-    {
-        key: 'motionStiffness',
-        scopes: ['Pie'],
-        description: 'Motion stiffness.',
-        type: '{number}',
-        required: false,
-        controlType: 'range',
-        controlGroup: 'Motion',
+        controlGroup: 'Legends',
+        controlType: 'array',
         controlOptions: {
-            min: 0,
-            max: 300,
-            step: 5,
+            props: getLegendsProps(),
+            shouldCreate: true,
+            addLabel: 'add legend',
+            shouldRemove: true,
+            defaults: {
+                anchor: 'left',
+                direction: 'column',
+                justify: false,
+                translateX: 0,
+                translateY: 0,
+                itemsSpacing: 0,
+                itemWidth: 100,
+                itemHeight: 18,
+                itemDirection: 'left-to-right',
+                symbolSize: 18,
+                symbolShape: 'square',
+                opacity: 0.8,
+                effects: [
+                    {
+                        match: 'hover',
+                        style: {
+                            opacity: 1,
+                            background: '#eeeeee',
+                            textColor: '#000000',
+                        },
+                    },
+                ],
+                onClick: data => console.log(data),
+            },
         },
     },
-    {
-        key: 'motionDamping',
-        scopes: ['Pie'],
-        description: 'Motion damping.',
-        type: '{number}',
-        required: false,
-        controlType: 'range',
-        controlGroup: 'Motion',
-        controlOptions: {
-            min: 0,
-            max: 40,
-        },
-    },
-    */
 ]

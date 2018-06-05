@@ -8,7 +8,7 @@ const itemsProps = {
     y: 0,
     width: 160,
     height: 40,
-    fill: '#dc5a32',
+    textColor: '#333',
 }
 
 export default () => (
@@ -37,7 +37,11 @@ export default () => (
                     <svg width={itemsProps.width} height={itemsProps.height}>
                         <LegendSvgItem
                             {...itemsProps}
-                            label={shape}
+                            data={{
+                                id: shape,
+                                label: shape,
+                                color: '#dc5a32',
+                            }}
                             direction={DIRECTION_LEFT_TO_RIGHT}
                             symbolShape={shape}
                         />

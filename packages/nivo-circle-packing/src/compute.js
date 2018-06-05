@@ -6,6 +6,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+import min from 'lodash/min'
+import max from 'lodash/max'
+import { scaleLinear } from 'd3-scale'
+
 const computeNodePath = (node, getIdentity) =>
     node
         .ancestors()
@@ -13,13 +17,23 @@ const computeNodePath = (node, getIdentity) =>
         .join('.')
 
 export const computeNodes = ({ root, pack, leavesOnly, getIdentity, getColor }) => {
+    pack(root)
+
+    const values = []
+    const sizes = []
+
     // assign a unique id depending on node path to each node
     root.each(node => {
+        values.push(node.value)
+        sizes.push(node.r * 2)
         node.id = getIdentity(node.data)
         node.path = computeNodePath(node, getIdentity)
     })
 
-    pack(root)
+    const sizeScale = scaleLinear()
+        .domain([min(values), max(values)])
+        .rangeRound([min(sizes), max(sizes)])
+        .nice()
 
     let nodes = leavesOnly ? root.leaves() : root.descendants()
     nodes = nodes.map(node => {
@@ -29,7 +43,7 @@ export const computeNodes = ({ root, pack, leavesOnly, getIdentity, getColor }) 
         return node
     })
 
-    return nodes
+    return { nodes, sizeScale }
 }
 
 export const computeZoom = (nodes, currentNodePath, width, height) => {

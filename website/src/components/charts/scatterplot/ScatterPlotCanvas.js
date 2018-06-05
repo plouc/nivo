@@ -98,6 +98,7 @@ export default class ScatterPlotCanvas extends Component {
                     anchor: 'bottom-right',
                     direction: 'column',
                     translateX: 130,
+                    translateY: 0,
                     itemWidth: 100,
                     itemHeight: 12,
                     itemsSpacing: 5,

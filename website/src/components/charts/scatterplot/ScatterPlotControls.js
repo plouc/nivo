@@ -8,7 +8,7 @@
  */
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import ChartControls from '../../controls/ChartControls'
+import ChartControlGroups from '../../controls/ChartControlGroups'
 import { getPropertiesGroupsControls } from '../../../lib/componentProperties'
 import properties from './props'
 
@@ -30,8 +30,8 @@ export default class ScatterPlotControls extends PureComponent {
         const groups = groupsByScope[scope]
 
         return (
-            <ChartControls
-                ns="bar"
+            <ChartControlGroups
+                ns="scatterplot"
                 scope={scope}
                 settings={settings}
                 onChange={onChange}

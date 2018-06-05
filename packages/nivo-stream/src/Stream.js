@@ -154,9 +154,11 @@ const Stream = ({
                         )}
                     {legends.map((legend, i) => {
                         const legendData = enhancedLayers
-                            .map(l => ({
-                                label: l.id,
-                                fill: l.color,
+                            .map(layer => ({
+                                id: layer.id,
+                                label: layer.id,
+                                color: layer.color,
+                                fill: layer.fill,
                             }))
                             .reverse()
 

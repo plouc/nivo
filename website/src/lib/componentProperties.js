@@ -127,19 +127,6 @@ export const axesProperties = [
             controlGroup: 'Axes',
             excludeFromDoc: true,
         },
-        //{
-        //    key: `axis${axisKey}.orient`,
-        //    description: `${axisKey} axis orientation.`,
-        //    type: '{string}',
-        //    controlType: 'choices',
-        //    controlGroup: 'Axes',
-        //    controlOptions: {
-        //        choices: orientations.map(orientation => ({
-        //            label: orientation,
-        //            value: orientation,
-        //        })),
-        //    },
-        //},
         {
             key: `axis${axisKey}.tickSize`,
             description: `${axisKey} axis tick size.`,
@@ -171,12 +158,11 @@ export const axesProperties = [
             controlType: 'range',
             controlGroup: 'Axes',
             controlOptions: {
-                unit: 'deg',
+                unit: '°',
                 min: -90,
                 max: 90,
             },
         },
-        //legendPosition: 'end',
         {
             key: `axis${axisKey}.legendOffset`,
             description: `${axisKey} axis legend offset from axis.`,
@@ -191,6 +177,136 @@ export const axesProperties = [
         },
     ]
 }, [])
+
+export const getLegendsProps = () => {
+    return [
+        {
+            key: 'anchor',
+            description: `Defines legend anchor relative to chart's viewport.`,
+            type: '{string}',
+            controlType: 'choices',
+            controlOptions: {
+                choices: [
+                    'top',
+                    'top-right',
+                    'right',
+                    'bottom-right',
+                    'bottom',
+                    'bottom-left',
+                    'left',
+                    'top-left',
+                    'center',
+                ].map(v => ({
+                    label: v,
+                    value: v,
+                })),
+            },
+        },
+        {
+            key: 'direction',
+            description: `Legend direction, must be one of 'column', 'row'.`,
+            type: `{'column'|'row'}`,
+            controlType: 'choices',
+            controlOptions: {
+                choices: [
+                    {
+                        label: 'column',
+                        value: 'column',
+                    },
+                    {
+                        label: 'row',
+                        value: 'row',
+                    },
+                ],
+            },
+        },
+        {
+            key: 'justify',
+            description: `Justify symbol and label.`,
+            controlType: 'switch',
+        },
+        {
+            key: 'translateX',
+            description: `Legend block x translation.`,
+            type: `{number}`,
+            controlType: 'range',
+            controlOptions: {
+                min: -200,
+                max: 200,
+                unit: 'px',
+            },
+        },
+        {
+            key: 'translateY',
+            description: `Legend block y translation.`,
+            type: `{number}`,
+            controlType: 'range',
+            controlOptions: {
+                min: -200,
+                max: 200,
+                unit: 'px',
+            },
+        },
+        {
+            key: 'itemWidth',
+            description: `Legend item width.`,
+            type: `{number}`,
+            controlType: 'range',
+            controlOptions: {
+                min: 10,
+                max: 200,
+                unit: 'px',
+            },
+        },
+        {
+            key: 'itemHeight',
+            description: `Legend item height.`,
+            type: `{number}`,
+            controlType: 'range',
+            controlOptions: {
+                min: 10,
+                max: 200,
+                unit: 'px',
+            },
+        },
+        {
+            key: 'itemsSpacing',
+            description: `Spacing between each item.`,
+            type: `{number}`,
+            controlType: 'range',
+            controlOptions: {
+                min: 0,
+                max: 60,
+                unit: 'px',
+            },
+        },
+        {
+            key: 'symbolSize',
+            description: `Item symbol size.`,
+            type: `{number}`,
+            controlType: 'range',
+            controlOptions: {
+                min: 2,
+                max: 60,
+                unit: 'px',
+            },
+        },
+        {
+            key: 'itemDirection',
+            description: `Item layout, must be one of 'left-to-right', 'right-to-left', 'top-to-bottom', 'bottom-to-top'.`,
+            type: `{string}`,
+            controlType: 'choices',
+            controlOptions: {
+                choices: ['left-to-right', 'right-to-left', 'top-to-bottom', 'bottom-to-top'].map(
+                    v => ({
+                        label: v,
+                        value: v,
+                    })
+                ),
+            },
+        },
+    ]
+}
 
 export const filterPropertyByScope = (requiredScope, forDocumentation = false) => property => {
     if (forDocumentation === false) {

@@ -47,8 +47,6 @@ export default class SankeyAPI extends Component {
 
                     // links
                     linkOpacity: 0.15,
-                    linkBlendMode: 'multiply',
-                    enableLinkGradient: true,
                     linkContract: 0,
 
                     // labels

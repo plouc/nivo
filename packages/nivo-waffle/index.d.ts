@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Box, Theme, Dimensions, MotionProps, ColorProps, GetColor, SvgDefsAndFill } from '@nivo/core'
+import { LegendProps } from '@nivo/legends'
 
 declare module '@nivo/waffle' {
     export type WaffleFillDirection =
@@ -57,6 +58,9 @@ declare module '@nivo/waffle' {
         & WaffleCommonProps
         & MotionProps
         & SvgDefsAndFill<WaffleDatum>
+        & {
+            legends: LegendProps[]
+        }
 
     export class Waffle extends React.Component<WaffleSvgProps & Dimensions> {}
     export class ResponsiveWaffle extends React.Component<WaffleSvgProps> {}
@@ -72,6 +76,7 @@ declare module '@nivo/waffle' {
         & WaffleCommonProps
         & Partial<{
             pixelRatio: number
+            legends: LegendProps[]
         }>
 
     export class WaffleCanvas extends React.Component<WaffleCanvasProps & Dimensions> {}

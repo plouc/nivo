@@ -9,7 +9,7 @@
 import React from 'react'
 import dedent from 'dedent-js'
 import { CalendarDefaultProps as defaults } from '@nivo/calendar'
-import { marginProperties } from '../../../lib/componentProperties'
+import { getLegendsProps, marginProperties } from '../../../lib/componentProperties'
 
 export default [
     {
@@ -179,7 +179,6 @@ export default [
             max: 60,
         },
     },
-    // Months
     {
         key: 'monthLegend',
         description: `can be used to customize months label, returns abbreviated month name (english) by default. This can be used to use a different language`,
@@ -223,7 +222,6 @@ export default [
         controlType: 'colorPicker',
         controlGroup: 'Months',
     },
-    // Days
     {
         key: 'daySpacing',
         description: 'define spacing between each day cell.',
@@ -317,5 +315,44 @@ export default [
                 </pre>
             </div>
         ),
+    },
+    {
+        key: 'legends',
+        scopes: ['Calendar'],
+        type: '{Array<object>}',
+        description: `Optional chart's legends.`,
+        required: false,
+        controlGroup: 'Legends',
+        controlType: 'array',
+        controlOptions: {
+            props: getLegendsProps(),
+            shouldCreate: true,
+            addLabel: 'add legend',
+            shouldRemove: true,
+            defaults: {
+                itemCount: 6,
+                anchor: 'bottom-left',
+                direction: 'row',
+                justify: false,
+                translateX: 0,
+                translateY: 0,
+                itemWidth: 60,
+                itemHeight: 20,
+                itemsSpacing: 5,
+                symbolSize: 20,
+                opacity: 0.8,
+                effects: [
+                    {
+                        match: 'hover',
+                        style: {
+                            opacity: 1,
+                            background: '#eeeeee',
+                            textColor: '#000000',
+                        },
+                    },
+                ],
+                onClick: data => console.log(data),
+            },
+        },
     },
 ]

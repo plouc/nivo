@@ -82,7 +82,7 @@ export default class WaffleCanvas extends Component {
 
             margin: {
                 top: 10,
-                right: 10,
+                right: 100,
                 bottom: 10,
                 left: 10,
             },
@@ -102,6 +102,20 @@ export default class WaffleCanvas extends Component {
             isInteractive: true,
             'custom tooltip example': false,
             tooltip: null,
+
+            legends: [
+                {
+                    anchor: 'bottom-right',
+                    direction: 'column',
+                    translateX: 80,
+                    translateY: 0,
+                    itemWidth: 80,
+                    itemHeight: 24,
+                    itemsSpacing: 6,
+                    symbolSize: 24,
+                    onClick: data => console.log(data),
+                },
+            ],
         },
     }
 
@@ -170,6 +184,10 @@ export default class WaffleCanvas extends Component {
                     The responsive alternative of this component is{' '}
                     <code>ResponsiveWaffleHtml</code>, it also offers other implementations, see{' '}
                     <Link to="/waffle">Waffle</Link> and <Link to="/waffle/html">WaffleHtml</Link>.
+                </p>
+                <p className="description">
+                    See the <Link to="/guides/legends">dedicated guide</Link> on how to setup
+                    legends for this component.
                 </p>
             </div>
         )

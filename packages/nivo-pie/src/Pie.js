@@ -35,6 +35,7 @@ class Pie extends Component {
     render() {
         const {
             data,
+            hiddenIds,
             sortByValue,
 
             startAngle,
@@ -97,6 +98,7 @@ class Pie extends Component {
                 width={width}
                 height={height}
                 data={data}
+                hiddenIds={hiddenIds}
                 sortByValue={sortByValue}
                 startAngle={startAngle}
                 endAngle={endAngle}

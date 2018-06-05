@@ -14,6 +14,7 @@ import {
     marginProperties,
     axesProperties,
     motionProperties,
+    getLegendsProps,
 } from '../../../lib/componentProperties'
 
 const curveOptions = []
@@ -149,11 +150,6 @@ export default [
             max: 400,
         },
     },
-    /*##################################################################################################################
-
-        Style
-
-    ##################################################################################################################*/
     {
         key: 'colors',
         scopes: '*',
@@ -377,6 +373,46 @@ export default [
         default: defaults.enableStackTooltip,
         controlType: 'switch',
         controlGroup: 'Interactivity',
+    },
+    {
+        key: 'legends',
+        scopes: ['Line'],
+        type: '{Array<object>}',
+        description: `Optional chart's legends.`,
+        required: false,
+        controlGroup: 'Legends',
+        controlType: 'array',
+        controlOptions: {
+            props: getLegendsProps(),
+            shouldCreate: true,
+            addLabel: 'add legend',
+            shouldRemove: true,
+            defaults: {
+                anchor: 'top-right',
+                direction: 'column',
+                justify: false,
+                translateX: 100,
+                translateY: 0,
+                itemsSpacing: 0,
+                itemWidth: 80,
+                itemHeight: 20,
+                itemDirection: 'left-to-right',
+                symbolSize: 12,
+                symbolShape: 'circle',
+                opacity: 0.8,
+                effects: [
+                    {
+                        match: 'hover',
+                        style: {
+                            opacity: 1,
+                            background: '#eeeeee',
+                            textColor: '#000000',
+                        },
+                    },
+                ],
+                onClick: data => console.log(data),
+            },
+        },
     },
     ...motionProperties(['Line'], defaults),
 ]

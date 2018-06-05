@@ -25,6 +25,20 @@ import {
     DIRECTION_TOP_TO_BOTTOM,
 } from './constants'
 
+export const legendEffectsProp = PropTypes.arrayOf(
+    PropTypes.shape({
+        match: PropTypes.oneOfType([PropTypes.oneOf(['hover'])]).isRequired,
+        style: PropTypes.shape({
+            background: PropTypes.string,
+            opacity: PropTypes.number,
+            textColor: PropTypes.string,
+            symbolSize: PropTypes.number,
+            symbolBorderWidth: PropTypes.number,
+            symbolBorderColor: PropTypes.string,
+        }).isRequired,
+    })
+)
+
 /**
  * The prop type is exported as a simple object instead of `PropTypes.shape`
  * to be able to add extra properties.
@@ -42,8 +56,10 @@ import {
 export const LegendPropShape = {
     data: PropTypes.arrayOf(
         PropTypes.shape({
+            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
             label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-            fill: PropTypes.string.isRequired,
+            color: PropTypes.string.isRequired,
+            fill: PropTypes.string,
         })
     ),
 
@@ -76,5 +92,16 @@ export const LegendPropShape = {
     symbolSize: PropTypes.number,
     symbolSpacing: PropTypes.number,
     symbolShape: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    symbolBorderWidth: PropTypes.number,
+    symbolBorderColor: PropTypes.string,
+    background: PropTypes.string,
     textColor: PropTypes.string,
+    opacity: PropTypes.number,
+
+    // interactivity
+    onClick: PropTypes.func,
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func,
+
+    effects: legendEffectsProp,
 }

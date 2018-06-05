@@ -63,11 +63,8 @@ const commonEnhancers = [
 
     withPropsOnChange(
         ['root', 'pack', 'leavesOnly', 'getIdentity', 'getColor'],
-        ({ root, pack, leavesOnly, getIdentity, getColor }) => {
-            const nodes = computeNodes({ root, pack, leavesOnly, getIdentity, getColor })
-
-            return { nodes }
-        }
+        ({ root, pack, leavesOnly, getIdentity, getColor }) =>
+            computeNodes({ root, pack, leavesOnly, getIdentity, getColor })
     ),
 
     withPropsOnChange(

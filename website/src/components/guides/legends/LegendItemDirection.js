@@ -19,7 +19,7 @@ const itemsProps = {
     y: 0,
     width: 160,
     height: 40,
-    fill: '#dc5a32',
+    textColor: '#333',
 }
 
 export default () => (
@@ -47,7 +47,11 @@ export default () => (
                     }}
                 >
                     <svg width={itemsProps.width} height={itemsProps.height}>
-                        <LegendSvgItem {...itemsProps} label={dir} direction={dir} />
+                        <LegendSvgItem
+                            {...itemsProps}
+                            data={{ id: dir, label: dir, color: '#dc5a32' }}
+                            direction={dir}
+                        />
                     </svg>
                 </div>
             ))}
@@ -74,7 +78,11 @@ export default () => (
                     }}
                 >
                     <svg key={dir} width={itemsProps.width} height={itemsProps.height}>
-                        <LegendSvgItem {...itemsProps} label={dir} direction={dir} justify={true} />
+                        <LegendSvgItem
+                            {...itemsProps}
+                            data={{ id: dir, label: dir, color: '#dc5a32' }}
+                            justify={true}
+                        />
                     </svg>
                 </div>
             ))}

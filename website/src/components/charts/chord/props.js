@@ -10,7 +10,11 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import dedent from 'dedent-js'
 import { ChordDefaultProps as defaults } from '@nivo/chord'
-import { marginProperties, motionProperties } from '../../../lib/componentProperties'
+import {
+    getLegendsProps,
+    marginProperties,
+    motionProperties,
+} from '../../../lib/componentProperties'
 
 export default [
     {
@@ -50,11 +54,6 @@ export default [
         required: true,
         type: '{Array.<string>}',
     },
-    /*##################################################################################################################
-
-        Base
-
-    ##################################################################################################################*/
     {
         key: 'width',
         scopes: ['api'],
@@ -160,11 +159,6 @@ export default [
             step: 0.01,
         },
     },
-    /*##################################################################################################################
-
-        Style
-
-    ##################################################################################################################*/
     {
         key: 'colors',
         scopes: '*',
@@ -263,11 +257,6 @@ export default [
         },
     },
     ...marginProperties,
-    /*##################################################################################################################
-
-        Labels
-
-    ##################################################################################################################*/
     {
         key: 'enableLabel',
         scopes: '*',
@@ -319,7 +308,7 @@ export default [
         controlType: 'range',
         controlGroup: 'Labels',
         controlOptions: {
-            unit: 'deg',
+            unit: '°',
             min: -180,
             max: 180,
             step: 5,
@@ -344,11 +333,6 @@ export default [
             withCustomColor: true,
         },
     },
-    /*##################################################################################################################
-
-        Interactivity
-
-    ##################################################################################################################*/
     {
         key: 'isInteractive',
         scopes: ['Chord', 'ChordCanvas'],
@@ -417,6 +401,46 @@ export default [
             min: 0,
             max: 1,
             step: 0.05,
+        },
+    },
+    {
+        key: 'legends',
+        scopes: ['Chord'],
+        type: '{Array<object>}',
+        description: `Optional chart's legends.`,
+        required: false,
+        controlGroup: 'Legends',
+        controlType: 'array',
+        controlOptions: {
+            props: getLegendsProps(),
+            shouldCreate: true,
+            addLabel: 'add legend',
+            shouldRemove: true,
+            defaults: {
+                itemCount: 6,
+                anchor: 'bottom-left',
+                direction: 'column',
+                justify: false,
+                translateX: 0,
+                translateY: 0,
+                itemWidth: 90,
+                itemHeight: 18,
+                itemsSpacing: 3,
+                itemDirection: 'left-to-right',
+                symbolSize: 18,
+                opacity: 0.8,
+                effects: [
+                    {
+                        match: 'hover',
+                        style: {
+                            opacity: 1,
+                            background: '#eeeeee',
+                            textColor: '#000000',
+                        },
+                    },
+                ],
+                onClick: data => console.log(data),
+            },
         },
     },
     ...motionProperties(['Chord'], defaults),

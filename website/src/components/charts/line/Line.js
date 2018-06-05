@@ -30,11 +30,27 @@ export default class Line extends Component {
                 {
                     anchor: 'bottom-right',
                     direction: 'column',
+                    justify: false,
                     translateX: 100,
+                    translateY: 0,
+                    itemsSpacing: 0,
                     itemWidth: 80,
                     itemHeight: 20,
+                    itemDirection: 'left-to-right',
                     symbolSize: 12,
                     symbolShape: 'circle',
+                    opacity: 0.8,
+                    effects: [
+                        {
+                            match: 'hover',
+                            style: {
+                                opacity: 1,
+                                background: '#eeeeee',
+                                textColor: '#000000',
+                            },
+                        },
+                    ],
+                    onClick: data => console.log(data),
                 },
             ],
         },

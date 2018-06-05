@@ -1,3 +1,5 @@
+import { LegendDatum, LegendStyle } from "@nivo/legends";
+
 declare module '@nivo/legends' {
     export type LegendAnchor =
         | 'top'
@@ -31,11 +33,28 @@ declare module '@nivo/legends' {
         | 'square'
         | 'triangle'
 
-    export type LegendProps = {
-        data?: Array<{
-            id: string | number
-            value: number
-        }>
+    export type LegendDatum = {
+        id: string | number
+        label: string | number
+        color: string
+        fill?: string
+    }
+
+    export type LegendStyle = Partial<{
+        background: string
+        opacity: number
+        textColor: string
+        symbolBorderWidth: number
+        symbolBorderColor: string
+    }>
+
+    export type LegendEffect = {
+        match: 'hover' | string[]
+        style: LegendStyle
+    }
+
+    export type LegendProps = LegendStyle & {
+        data?: LegendDatum[]
 
         // position & layout
         anchor: LegendAnchor
@@ -53,6 +72,12 @@ declare module '@nivo/legends' {
         symbolSize?: number
         symbolSpacing?: number
         symbolShape?: LegendSymbolShape | Function
-        textColor?: string
+
+        effects?: LegendEffect[]
+
+        // interactivity
+        onClick?: (datum: LegendDatum) => void
+        onMouseEnter?: (datum: LegendDatum) => void
+        onMouseLeave?: (datum: LegendDatum) => void
     }
 }

@@ -82,11 +82,27 @@ export default class Chord extends Component {
                 {
                     anchor: 'bottom',
                     direction: 'row',
+                    justify: false,
+                    translateX: 0,
                     translateY: 70,
+                    itemsSpacing: 5,
                     itemWidth: 80,
-                    itemHeight: 14,
+                    itemHeight: 24,
+                    itemDirection: 'left-to-right',
                     symbolSize: 14,
                     symbolShape: 'circle',
+                    opacity: 0.8,
+                    effects: [
+                        {
+                            match: 'hover',
+                            style: {
+                                opacity: 1,
+                                background: '#eeeeee',
+                                textColor: '#000000',
+                            },
+                        },
+                    ],
+                    onClick: data => console.log(data),
                 },
             ],
         },

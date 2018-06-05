@@ -10,6 +10,7 @@ import React, { Component } from 'react'
 import range from 'lodash/range'
 import setDisplayName from 'recompose/setDisplayName'
 import { Container } from '@nivo/core'
+import { renderLegendToCanvas } from '@nivo/legends'
 import enhance from './enhance'
 import { WaffleCanvasPropTypes } from './props'
 import { isCursorInRect, getRelativeCursor } from '@nivo/core'
@@ -46,6 +47,8 @@ class WaffleCanvas extends Component {
 
             // dimensions
             margin,
+            width,
+            height,
             outerWidth,
             outerHeight,
 
@@ -61,6 +64,8 @@ class WaffleCanvas extends Component {
             cellSize,
             origin,
             computedData,
+
+            legends,
         } = props
 
         this.surface.width = outerWidth * pixelRatio
@@ -99,6 +104,19 @@ class WaffleCanvas extends Component {
             }
 
             this.ctx.restore()
+        })
+
+        legends.forEach(legend => {
+            renderLegendToCanvas(this.ctx, {
+                ...legend,
+                data: computedData.map(datum => ({
+                    id: datum.id,
+                    label: datum.id,
+                    color: datum.color,
+                })),
+                containerWidth: width,
+                containerHeight: height,
+            })
         })
     }
 

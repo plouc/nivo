@@ -10,7 +10,11 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import dedent from 'dedent-js'
 import { SankeyDefaultProps as defaults, sankeyAlignmentPropKeys } from '@nivo/sankey'
-import { marginProperties, motionProperties } from '../../../lib/componentProperties'
+import {
+    getLegendsProps,
+    marginProperties,
+    motionProperties,
+} from '../../../lib/componentProperties'
 
 const alignOptions = []
 sankeyAlignmentPropKeys.forEach((align, i) => {
@@ -420,6 +424,45 @@ export default [
         default: defaults.isInteractive,
         controlType: 'switch',
         controlGroup: 'Interactivity',
+    },
+    {
+        key: 'legends',
+        scopes: ['Sankey'],
+        type: '{Array<object>}',
+        description: `Optional chart's legends.`,
+        required: false,
+        controlGroup: 'Legends',
+        controlType: 'array',
+        controlOptions: {
+            props: getLegendsProps(),
+            shouldCreate: true,
+            addLabel: 'add legend',
+            shouldRemove: true,
+            defaults: {
+                anchor: 'bottom-left',
+                direction: 'column',
+                justify: false,
+                translateX: 0,
+                translateY: 0,
+                itemWidth: 100,
+                itemHeight: 14,
+                itemDirection: 'right-to-left',
+                itemsSpacing: 2,
+                symbolSize: 14,
+                opacity: 0.8,
+                effects: [
+                    {
+                        match: 'hover',
+                        style: {
+                            opacity: 1,
+                            background: '#eeeeee',
+                            textColor: '#000000',
+                        },
+                    },
+                ],
+                onClick: data => console.log(data),
+            },
+        },
     },
     ...motionProperties(['Sankey'], defaults),
 ]

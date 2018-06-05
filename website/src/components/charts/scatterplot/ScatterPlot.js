@@ -96,12 +96,27 @@ export default class ScatterPlot extends Component {
                 {
                     anchor: 'bottom-right',
                     direction: 'column',
+                    justify: false,
                     translateX: 130,
+                    translateY: 0,
                     itemWidth: 100,
-                    itemHeight: 12,
+                    itemHeight: 20,
                     itemsSpacing: 5,
+                    itemDirection: 'left-to-right',
                     symbolSize: 12,
                     symbolShape: 'circle',
+                    opacity: 0.8,
+                    effects: [
+                        {
+                            match: 'hover',
+                            style: {
+                                opacity: 1,
+                                background: '#eeeeee',
+                                textColor: '#000000',
+                            },
+                        },
+                    ],
+                    onClick: data => console.log(data),
                 },
             ],
         },

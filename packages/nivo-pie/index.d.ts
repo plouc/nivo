@@ -23,6 +23,7 @@ declare module '@nivo/pie' {
 
     export type CommonPieProps = MotionProps & ColorProps<PieDatum> & Partial<{
         margin: Box
+        hiddenIds: string[] | number[]
         sortByValue: boolean
         innerRadius: number
         padAngle: number

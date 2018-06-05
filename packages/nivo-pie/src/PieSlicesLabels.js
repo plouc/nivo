@@ -57,6 +57,7 @@ export default class PieSlicesLabels extends Component {
                                 style={{
                                     fill: textColor(arc.data, theme),
                                     fontSize: theme.axis.fontSize,
+                                    userSelect: 'none',
                                 }}
                             >
                                 {label(arc.data)}

@@ -66,11 +66,27 @@ export default class Calendar extends Component {
                 {
                     anchor: 'bottom-right',
                     direction: 'row',
+                    justify: false,
+                    translateX: 0,
                     translateY: 36,
+                    itemsSpacing: 0,
                     itemCount: 4,
                     itemWidth: 34,
                     itemHeight: 36,
                     itemDirection: 'top-to-bottom',
+                    symbolSize: 16,
+                    opacity: 0.8,
+                    effects: [
+                        {
+                            match: 'hover',
+                            style: {
+                                opacity: 1,
+                                background: '#eeeeee',
+                                textColor: '#000000',
+                            },
+                        },
+                    ],
+                    onClick: data => console.log(data),
                 },
             ],
 

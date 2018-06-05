@@ -24,6 +24,8 @@ class PieLayout extends Component {
                 value: PropTypes.number.isRequired,
             })
         ).isRequired,
+        hiddenIds: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
+            .isRequired,
         width: PropTypes.number.isRequired,
         height: PropTypes.number.isRequired,
         fit: PropTypes.bool.isRequired,
@@ -84,6 +86,7 @@ class PieLayout extends Component {
 }
 
 export const PieLayoutDefaultProps = {
+    hiddenIds: [],
     fit: true,
     sortByValue: false,
     innerRadius: 0,
@@ -170,17 +173,27 @@ export const enhance = Component =>
                 return { pie }
             }
         ),
-        withPropsOnChange(['pie', 'data'], ({ pie, data }) => ({
-            arcs: pie(data).map(arc => {
-                const angle = Math.abs(arc.endAngle - arc.startAngle)
+        withPropsOnChange(['pie', 'data', 'hiddenIds'], ({ pie, data, hiddenIds }) => {
+            return {
+                arcs: pie(
+                    data.map(datum => {
+                        if (hiddenIds.includes(datum.id)) {
+                            return { ...datum, value: 0 }
+                        }
 
-                return {
-                    ...arc,
-                    angle,
-                    angleDeg: radiansToDegrees(angle),
-                }
-            }),
-        })),
+                        return datum
+                    })
+                ).map(arc => {
+                    const angle = Math.abs(arc.endAngle - arc.startAngle)
+
+                    return {
+                        ...arc,
+                        angle,
+                        angleDeg: radiansToDegrees(angle),
+                    }
+                }),
+            }
+        }),
         withPropsOnChange(['arcs', 'getColor'], ({ arcs, getColor }) => ({
             arcs: arcs.map(arc => ({
                 ...arc,

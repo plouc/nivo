@@ -73,6 +73,7 @@ fmt-check: ##@0 global check if files were all formatted using prettier
 test-all: ##@0 global run all checks/tests (packages, website & examples)
 	@make fmt-check
 	@make packages-lint
+	@make packages-tslint
 	@make packages-test
 
 deploy-all: ##@0 global deploy website & storybook

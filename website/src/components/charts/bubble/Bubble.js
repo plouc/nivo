@@ -29,7 +29,7 @@ export default class Bubble extends Component {
                 top: 20,
                 right: 20,
                 bottom: 20,
-                left: 20,
+                left: 200,
             },
             identity: 'name',
             value: 'loc',
@@ -73,6 +73,29 @@ export default class Bubble extends Component {
 
             // zooming
             isZoomable: true,
+
+            legends: [
+                {
+                    type: 'stackedSize',
+                    anchor: 'bottom-left',
+                    translateX: -180,
+                    itemCount: 4,
+                    clampSizes: [10, 140],
+                    shape: 'circle',
+                    format: '.2s',
+                    linkLength: 6,
+                    linkColor: '#555',
+                    linkStyle: {
+                        strokeDasharray: '2 2',
+                    },
+                    linkDotSize: 3,
+                    shapeColor: 'rgb(232,193,160)',
+                    shapeStyle: {
+                        fill: 'rgba(255, 255, 255, 0.35)',
+                        strokeWidth: 2,
+                    },
+                },
+            ],
         },
     }
 

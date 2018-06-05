@@ -89,8 +89,9 @@ const Radar = ({
     }
 
     const legendData = keys.map(key => ({
+        id: key,
         label: key,
-        fill: colorByKey[key],
+        color: colorByKey[key],
     }))
 
     return (
