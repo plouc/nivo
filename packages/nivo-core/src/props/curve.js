@@ -54,7 +54,12 @@ export const curvePropKeys = Object.keys(curvePropMapping)
 
 export const curvePropType = PropTypes.oneOf(curvePropKeys)
 
-export const closedCurvePropKeys = curvePropKeys.filter(c => c.endsWith('Closed'))
+function endsWith(str, suffix) {
+  // Workaround for IE11, which does not support string.endsWith
+  return str.indexOf(suffix, str.length - suffix.length) !== -1
+}
+
+export const closedCurvePropKeys = curvePropKeys.filter(c => endsWith(c, 'Closed'))
 
 export const closedCurvePropType = PropTypes.oneOf(closedCurvePropKeys)
 
