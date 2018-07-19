@@ -28,7 +28,7 @@ export default Component =>
                     colorDomain = [0, 0]
                 } else {
                     colorDomain = [minBy(data, 'value').value, maxBy(data, 'value').value]
-                }        
+                }
             } else {
                 colorDomain = [...domain]
             }
