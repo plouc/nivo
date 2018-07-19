@@ -24,7 +24,11 @@ export default Component =>
         withPropsOnChange(['data', 'domain', 'colors'], ({ data, domain, colors }) => {
             let colorDomain
             if (domain === 'auto') {
-                colorDomain = [minBy(data, 'value').value, maxBy(data, 'value').value]
+                if (data.length === 0) {
+                    colorDomain = [0, 0]
+                } else {
+                    colorDomain = [minBy(data, 'value').value, maxBy(data, 'value').value]
+                }
             } else {
                 colorDomain = [...domain]
             }
