@@ -51,6 +51,7 @@ const ScatterPlot = ({
     // interactivity
     isInteractive,
     tooltipFormat,
+    tooltip,
     onClick,
 
     legends,
@@ -121,6 +122,7 @@ const ScatterPlot = ({
                                 showTooltip={showTooltip}
                                 hideTooltip={hideTooltip}
                                 tooltipFormat={tooltipFormat}
+                                tooltip={tooltip}
                                 onClick={onClick}
                                 theme={theme}
                             />
@@ -149,6 +151,7 @@ const ScatterPlot = ({
                                             showTooltip={showTooltip}
                                             hideTooltip={hideTooltip}
                                             tooltipFormat={tooltipFormat}
+                                            tooltip={tooltip}
                                             onClick={onClick}
                                             theme={theme}
                                         />

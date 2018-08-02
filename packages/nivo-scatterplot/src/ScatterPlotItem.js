@@ -14,7 +14,7 @@ import pure from 'recompose/pure'
 import { BasicTooltip } from '@nivo/core'
 
 const ScatterPlotItem = ({
-    data,
+    data, // eslint-disable-line
 
     x,
     y,
@@ -24,22 +24,9 @@ const ScatterPlotItem = ({
     showTooltip,
     hideTooltip,
     onClick,
-    tooltipFormat,
-
-    theme,
+    tooltip,
 }) => {
-    const handleTooltip = e =>
-        showTooltip(
-            <BasicTooltip
-                id={data.serie}
-                value={`x: ${data.x}, y: ${data.y}`}
-                enableChip={true}
-                color={color}
-                theme={theme}
-                format={tooltipFormat}
-            />,
-            e
-        )
+    const handleTooltip = e => showTooltip(tooltip, e)
 
     return (
         <circle
@@ -72,6 +59,7 @@ ScatterPlotItem.propTypes = {
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
     onClick: PropTypes.func,
+    tooltip: PropTypes.element.isRequired,
 
     theme: PropTypes.shape({
         tooltip: PropTypes.shape({}).isRequired,
@@ -82,6 +70,26 @@ const enhance = compose(
     withPropsOnChange(['data', 'onClick'], ({ data, onClick }) => ({
         onClick: event => onClick(data, event),
     })),
+    withPropsOnChange(
+        ['data', 'color', 'theme', 'tooltip', 'tooltipFormat'],
+        ({ data, color, theme, tooltip, tooltipFormat }) => ({
+            tooltip: (
+                <BasicTooltip
+                    id={data.serie}
+                    value={`x: ${data.x}, y: ${data.y}`}
+                    enableChip={true}
+                    color={color}
+                    theme={theme}
+                    format={tooltipFormat}
+                    renderContent={
+                        typeof tooltip === 'function'
+                            ? tooltip.bind(null, { color, ...data })
+                            : null
+                    }
+                />
+            ),
+        })
+    ),
     pure
 )
 
