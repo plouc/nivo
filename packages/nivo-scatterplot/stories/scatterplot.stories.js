@@ -172,6 +172,11 @@ stories.add(
 )
 
 stories.add(
+    'symbol size function',
+    withInfo(importStatement)(() => <ScatterPlot {...commonProps} symbolSize={d => d.id + 5} />)
+)
+
+stories.add(
     'custom tooltip',
     withInfo(importStatement)(() => (
         <ScatterPlot

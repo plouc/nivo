@@ -41,7 +41,7 @@ const ScatterPlot = ({
     getColor,
 
     // symbols,
-    symbolSize,
+    getSymbolSize,
 
     // motion
     animate,
@@ -116,7 +116,7 @@ const ScatterPlot = ({
                                 key={symbol.id}
                                 x={symbol.x}
                                 y={symbol.y}
-                                size={symbolSize}
+                                size={getSymbolSize(symbol.data)}
                                 color={symbol.color}
                                 data={symbol.data}
                                 showTooltip={showTooltip}
@@ -145,7 +145,7 @@ const ScatterPlot = ({
                                             key={key}
                                             x={style.x}
                                             y={style.y}
-                                            size={symbolSize}
+                                            size={getSymbolSize(symbol.data)}
                                             color={symbol.color}
                                             data={symbol.data}
                                             showTooltip={showTooltip}

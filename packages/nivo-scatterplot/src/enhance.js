@@ -14,6 +14,7 @@ import defaultProps from 'recompose/defaultProps'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
 import { withTheme, withColors, withDimensions, withMotion } from '@nivo/core'
+import { getAccessorOrValue } from '@nivo/core'
 import { ScatterPlotDefaultProps } from './props'
 
 export const computeScales = ({ data, width, height, scales: _scales }) => {
@@ -62,6 +63,9 @@ export default Component =>
         withColors(),
         withDimensions(),
         withMotion(),
+        withPropsOnChange(['symbolSize'], ({ symbolSize }) => ({
+            getSymbolSize: getAccessorOrValue(symbolSize),
+        })),
         withPropsOnChange(['data', 'width', 'height', 'scales'], computeScales),
         pure
     )(Component)

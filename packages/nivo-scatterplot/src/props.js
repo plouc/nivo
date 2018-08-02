@@ -46,7 +46,7 @@ export const ScatterPlotPropTypes = {
     enableGridY: PropTypes.bool.isRequired,
 
     // symbols
-    symbolSize: PropTypes.number.isRequired,
+    symbolSize: PropTypes.oneOfType([PropTypes.func, PropTypes.number]).isRequired,
     symbolShape: PropTypes.oneOfType([PropTypes.oneOf(['circle', 'square'])]).isRequired,
 
     // styling
