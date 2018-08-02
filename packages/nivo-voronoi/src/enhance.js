@@ -14,4 +14,9 @@ import { withTheme, withDimensions } from '@nivo/core'
 import { VoronoiDefaultProps } from './props'
 
 export default Component =>
-    compose(defaultProps(VoronoiDefaultProps), withTheme(), withDimensions(), pure)(Component)
+    compose(
+        defaultProps(VoronoiDefaultProps),
+        withTheme(),
+        withDimensions(),
+        pure
+    )(Component)

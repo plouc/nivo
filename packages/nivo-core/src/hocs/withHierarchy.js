@@ -20,9 +20,12 @@ import { getAccessorFor } from '../lib/propertiesConverters'
  * Using it prevent from having a new ref each time
  * we pass through the component, useful for shallow comparison.
  */
-export default (
-    { srcKey = 'root', destKey = 'root', valueKey = 'value', valueDefault = 'value' } = {}
-) =>
+export default ({
+    srcKey = 'root',
+    destKey = 'root',
+    valueKey = 'value',
+    valueDefault = 'value',
+} = {}) =>
     compose(
         defaultProps({
             [valueKey]: valueDefault,
