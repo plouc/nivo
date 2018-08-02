@@ -170,3 +170,26 @@ stories.add(
     'symbol size',
     withInfo(importStatement)(() => <ScatterPlot {...commonProps} symbolSize={24} />)
 )
+
+stories.add(
+    'custom tooltip',
+    withInfo(importStatement)(() => (
+        <ScatterPlot
+            {...commonProps}
+            tooltip={({ id, serie, x, y, color }) => (
+                <span style={{ color }}>
+                    <strong>
+                        {id} ({serie})
+                    </strong>: {`x: ${x}, y: ${y}`}
+                </span>
+            )}
+            theme={{
+                tooltip: {
+                    container: {
+                        background: '#333',
+                    },
+                },
+            }}
+        />
+    ))
+)
