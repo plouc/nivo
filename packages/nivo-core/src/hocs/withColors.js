@@ -19,15 +19,13 @@ import { getColorsGenerator } from '../lib/colors'
  * Using it prevent from having a new ref each time
  * we pass through the component, useful for shallow comparison.
  */
-export default (
-    {
-        colorsKey = 'colors',
-        colorByKey = 'colorBy',
-        destKey = 'getColor',
-        defaultColors = 'nivo',
-        defaultColorBy = 'id',
-    } = {}
-) =>
+export default ({
+    colorsKey = 'colors',
+    colorByKey = 'colorBy',
+    destKey = 'getColor',
+    defaultColors = 'nivo',
+    defaultColorBy = 'id',
+} = {}) =>
     compose(
         defaultProps({
             [colorsKey]: defaultColors,

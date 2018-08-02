@@ -283,7 +283,7 @@ const enhance = compose(
                 radiusScale,
                 centerX: width / 2,
                 centerY: height / 2,
-                angleStep: Math.PI * 2 / data.length,
+                angleStep: (Math.PI * 2) / data.length,
             }
         }
     ),

@@ -167,7 +167,7 @@ const enhance = compose(
                 Object.assign(node.data, {
                     id: getIdentity(node.data),
                     value: node.value,
-                    percentage: 100 * node.value / total,
+                    percentage: (100 * node.value) / total,
                     depth: node.depth,
                     ancestor,
                 })
