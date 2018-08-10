@@ -271,3 +271,30 @@ stories.add('with formatted values', () => (
         }
     />
 ))
+
+stories.add('with custom tooltip', () => (
+    <Line
+        {...commonProperties}
+        enableStackTooltip={true}
+        curve={select('curve', curveOptions, 'linear')}
+        tooltip={slice => {
+            return (
+                <div>
+                    <h2>{slice.id}</h2>
+                    {slice.points.map((e, i) => (
+                        <p key={i}>
+                            <strong>{e.id}:</strong> {e.value}
+                        </p>
+                    ))}
+                </div>
+            )
+        }}
+        theme={{
+            tooltip: {
+                container: {
+                    border: '1px solid red',
+                },
+            },
+        }}
+    />
+))

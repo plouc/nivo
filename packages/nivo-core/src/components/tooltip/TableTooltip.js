@@ -15,27 +15,33 @@ const tableStyle = {
     borderCollapse: 'collapse',
 }
 
-const TableTooltip = ({ title, rows, theme }) => {
+const TableTooltip = ({ title, rows, theme, renderContent }) => {
     if (!rows.length) return null
 
-    return (
-        <div style={theme.tooltip.container}>
-            {title && title}
-            <table style={{ ...tableStyle, ...theme.tooltip.table }}>
-                <tbody>
-                    {rows.map((row, i) => (
-                        <tr key={i}>
-                            {row.map((column, j) => (
-                                <td key={j} style={theme.tooltip.tableCell}>
-                                    {column}
-                                </td>
-                            ))}
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-    )
+    let content
+    if (typeof renderContent === 'function') {
+        content = renderContent()
+    } else {
+        content = (
+            <div>
+                {title && title}
+                <table style={{ ...tableStyle, ...theme.tooltip.table }}>
+                    <tbody>
+                        {rows.map((row, i) => (
+                            <tr key={i}>
+                                {row.map((column, j) => (
+                                    <td key={j} style={theme.tooltip.tableCell}>
+                                        {column}
+                                    </td>
+                                ))}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        )
+    }
+    return <div style={theme.tooltip.container}>{content}</div>
 }
 
 TableTooltip.propTypes = {
@@ -48,6 +54,7 @@ TableTooltip.propTypes = {
             tableCell: PropTypes.object.isRequired,
         }).isRequired,
     }).isRequired,
+    renderContent: PropTypes.func,
 }
 
 TableTooltip.defaultProps = {}
