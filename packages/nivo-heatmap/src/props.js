@@ -47,6 +47,7 @@ export const HeatMapPropTypes = {
     // theming
     colors: quantizeColorScalePropType.isRequired,
     colorScale: PropTypes.func.isRequired, // computed
+    nanColor: PropTypes.string,
 
     // interactivity
     isInteractive: PropTypes.bool,
@@ -89,6 +90,7 @@ export const HeatMapDefaultProps = {
 
     // theming
     colors: 'nivo',
+    nanColor: '#000000',
 
     // interactivity
     isInteractive: true,

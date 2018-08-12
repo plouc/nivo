@@ -25,6 +25,7 @@ export default ({
     cellWidth,
     cellHeight,
     colorScale,
+    nanColor,
     getLabelTextColor,
 
     currentNode,
@@ -50,7 +51,7 @@ export default ({
                 width,
                 height,
                 value: d[key],
-                color: colorScale(d[key]),
+                color: isNaN(d[key]) ? nanColor : colorScale(d[key]),
             }
 
             let opacity = cellOpacity
