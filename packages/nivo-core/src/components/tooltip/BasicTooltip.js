@@ -33,7 +33,7 @@ const BasicTooltip = props => {
                 {enableChip && <Chip color={color} style={chipStyle} />}
                 {value !== undefined ? (
                     <span>
-                        {id}: <strong>{value}</strong>
+                        {id}: <strong>{isNaN(value) ? String(value) : value}</strong>
                     </span>
                 ) : (
                     id
