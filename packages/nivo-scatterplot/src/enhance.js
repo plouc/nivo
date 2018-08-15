@@ -19,11 +19,7 @@ import { ScatterPlotDefaultProps } from './props'
 
 export const computeScales = ({ data, width, height, scales: _scales }) => {
     const scales = _scales.map(scaleConfig => {
-        const {
-            id,
-            axis,
-            domain: [min, max],
-        } = scaleConfig
+        const { id, axis, domain: [min, max] } = scaleConfig
 
         let minValue = min
         let maxValue = max

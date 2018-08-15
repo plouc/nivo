@@ -10,9 +10,7 @@ class Components extends Component {
     constructor(props) {
         super(props)
 
-        const {
-            location: { search },
-        } = props
+        const { location: { search } } = props
 
         const params = new URLSearchParams(search)
         const term = params.get('q')
