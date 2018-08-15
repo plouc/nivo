@@ -132,8 +132,8 @@ export const enhance = Component =>
                     adjustedBox.x = (width - adjustedBox.width) / 2
                     adjustedBox.y = (height - adjustedBox.height) / 2
 
-                    centerX = ((centerX - box.x) / box.width) * box.width * ratio + adjustedBox.x
-                    centerY = ((centerY - box.y) / box.height) * box.height * ratio + adjustedBox.y
+                    centerX = (centerX - box.x) / box.width * box.width * ratio + adjustedBox.x
+                    centerY = (centerY - box.y) / box.height * box.height * ratio + adjustedBox.y
 
                     boundingBox = { box, ratio, points }
 

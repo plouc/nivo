@@ -42,10 +42,7 @@ class ColorControl extends Component {
     }
 
     handleGammaChange = e => {
-        const {
-            onChange,
-            value: { type },
-        } = this.props
+        const { onChange, value: { type } } = this.props
         const gamma = e.target.value
 
         this.setState({ gamma })
@@ -53,13 +50,7 @@ class ColorControl extends Component {
     }
 
     render() {
-        const {
-            value: { type, ...config },
-            label,
-            help,
-            withTheme,
-            withCustomColor,
-        } = this.props
+        const { value: { type, ...config }, label, help, withTheme, withCustomColor } = this.props
         const { gamma, color } = this.state
 
         const options = [
