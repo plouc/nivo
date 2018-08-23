@@ -139,7 +139,7 @@ LineDots.propTypes = {
     // labels
     enableLabel: PropTypes.bool.isRequired,
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
-    labelFormat: PropTypes.string,
+    labelFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     labelYOffset: PropTypes.number,
 
     // theming
