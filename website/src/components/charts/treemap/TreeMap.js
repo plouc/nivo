@@ -104,15 +104,17 @@ export default class TreeMap extends Component {
                         rel="noopener noreferrer"
                     >
                         d3-hierarchy.treemap
-                    </a>, see{' '}
+                    </a>
+                    , see{' '}
                     <a
                         href="http://bl.ocks.org/mbostock/6bbb0a7ff7686b124d80"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
                         this block
-                    </a>. You can fully customize it using <code>nodeComponent</code> property to
-                    define your own node component, if you wish to do so you should have a look at{' '}
+                    </a>
+                    . You can fully customize it using <code>nodeComponent</code> property to define
+                    your own node component, if you wish to do so you should have a look at{' '}
                     <a
                         href="https://github.com/plouc/nivo/blob/master/src/components/charts/treemap/TreeMapNode.js"
                         target="_blank"
@@ -136,7 +138,8 @@ export default class TreeMap extends Component {
                         rel="noopener noreferrer"
                     >
                         nivo-api
-                    </a>, see{' '}
+                    </a>
+                    , see{' '}
                     <a
                         href={`${config.nivoApiUrl}/samples/treemap`}
                         target="_blank"

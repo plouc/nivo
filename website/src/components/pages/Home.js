@@ -197,8 +197,9 @@ class Home extends Component {
                 </div>
                 <div className="home_item home_item-baseline">
                     <p>
-                        nivo provides a rich set of dataviz components,<br />built on top of the
-                        awesome d3 and Reactjs libraries.
+                        nivo provides a rich set of dataviz components,
+                        <br />
+                        built on top of the awesome d3 and Reactjs libraries.
                     </p>
                 </div>
                 <Link className="home_item" to="/stream">

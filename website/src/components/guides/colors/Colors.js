@@ -15,7 +15,8 @@ const Colors = () => (
         <div className="guide__description text-content">
             <h2>The colors property</h2>
             <p>
-                Beside highlighting data insights, your dataviz should be pretty, right?<br />
+                Beside highlighting data insights, your dataviz should be pretty, right?
+                <br />
                 nivo provides an easy way to deal with colors, very useful when using nested
                 components.
             </p>

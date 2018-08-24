@@ -76,7 +76,8 @@ class ColorsControl extends Component {
         return (
             <div className="control control-colors">
                 <label className="control_label">
-                    colors:&nbsp;<code className="code code-string">'{value}'</code>
+                    colors:&nbsp;
+                    <code className="code code-string">'{value}'</code>
                 </label>
                 <Select
                     options={colors.map(({ id, colors }) => ({

@@ -157,7 +157,8 @@ export default class WaffleHtml extends Component {
                         rel="noopener noreferrer"
                     >
                         the storybook
-                    </a>.
+                    </a>
+                    .
                 </p>
                 <p className="description">
                     The responsive alternative of this component is{' '}

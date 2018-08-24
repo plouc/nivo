@@ -52,9 +52,16 @@ export default class SwitchableSliderControl extends Component {
         return (
             <div className="chart-controls_item">
                 <span className="control_label">
-                    {label}:&nbsp;
+                    {label}
+                    :&nbsp;
                     {isSliderEnabled && <code className="code code-number">{value}</code>}
-                    {isSliderEnabled && unit && <span className="unit">&nbsp;{unit}</span>}
+                    {isSliderEnabled &&
+                        unit && (
+                            <span className="unit">
+                                &nbsp;
+                                {unit}
+                            </span>
+                        )}
                 </span>
                 <span style={{ display: 'flex', alignItems: 'center', marginBottom: 7 }}>
                     <span className="control-switch">

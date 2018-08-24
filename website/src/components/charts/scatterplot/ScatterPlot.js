@@ -163,7 +163,8 @@ export default class ScatterPlot extends Component {
                         rel="noopener noreferrer"
                     >
                         the storybook
-                    </a>.
+                    </a>
+                    .
                 </p>
                 <p className="description">
                     See the <Link to="/guides/legends">dedicated guide</Link> on how to setup

@@ -110,7 +110,7 @@ package-lint-%: ##@1 packages run eslint on package
 
 packages-lint: ##@1 packages run eslint on all packages
 	@echo "${YELLOW}Running eslint on all packages${RESET}"
-	@./node_modules/.bin/eslint ./packages/*/{src,tests}
+	@./node_modules/.bin/eslint "./packages/*/{src,tests}/**/*.js"
 
 package-tslint-%: ##@1 packages run tslint on package
 	@echo "${YELLOW}Running tslint on package ${WHITE}@nivo/${*}${RESET}"

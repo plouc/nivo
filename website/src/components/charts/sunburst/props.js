@@ -17,7 +17,8 @@ export default [
         docScopes: '*',
         description: (
             <span>
-                not required if using&nbsp;<code>&lt;ResponsiveSunburst&nbsp;/&gt;</code>.
+                not required if using&nbsp;
+                <code>&lt;ResponsiveSunburst&nbsp;/&gt;</code>.
             </span>
         ),
         help: 'Chart width.',
@@ -38,7 +39,8 @@ export default [
         docScopes: '*',
         description: (
             <span>
-                not required if using&nbsp;<code>&lt;ResponsiveSunburst&nbsp;/&gt;</code>.
+                not required if using&nbsp;
+                <code>&lt;ResponsiveSunburst&nbsp;/&gt;</code>.
             </span>
         ),
         help: 'Chart height.',
@@ -57,9 +59,9 @@ export default [
         key: 'identity',
         description: (
             <span>
-                define identity accessor, if string given, will use <code>node[value]</code>,<br />if
-                function given, it will be invoked for each node and will receive the node as first
-                argument, it must return the node identity (string).
+                define identity accessor, if string given, will use <code>node[value]</code>,<br />
+                if function given, it will be invoked for each node and will receive the node as
+                first argument, it must return the node identity (string).
             </span>
         ),
         type: '{string|Function}',
@@ -70,9 +72,9 @@ export default [
         key: 'value',
         description: (
             <span>
-                define value accessor, if string given, will use <code>node[value]</code>,<br />if
-                function given, it will be invoked for each node and will receive the node as first
-                argument, it must return the node value (number).
+                define value accessor, if string given, will use <code>node[value]</code>,<br />
+                if function given, it will be invoked for each node and will receive the node as
+                first argument, it must return the node value (number).
             </span>
         ),
         type: '{string|Function}',

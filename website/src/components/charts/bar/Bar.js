@@ -203,7 +203,8 @@ export default class Bar extends Component {
                         rel="noopener noreferrer"
                     >
                         example
-                    </a>.
+                    </a>
+                    .
                 </p>
                 <p className="description">
                     The responsive alternative of this component is <code>ResponsiveBar</code>.
@@ -216,7 +217,8 @@ export default class Bar extends Component {
                         rel="noopener noreferrer"
                     >
                         nivo-api
-                    </a>, see{' '}
+                    </a>
+                    , see{' '}
                     <a
                         href={`${config.nivoApiUrl}/samples/bar.svg`}
                         target="_blank"
@@ -232,11 +234,13 @@ export default class Bar extends Component {
                         rel="noopener noreferrer"
                     >
                         the storybook
-                    </a>.
+                    </a>
+                    .
                 </p>
                 <p>
                     See the <Link to="/guides/legends">dedicated guide</Link> on how to setup
-                    legends for this component.<br />
+                    legends for this component.
+                    <br />
                     However it requires an extra property for each legend configuration you pass to{' '}
                     <code>legends</code> property: <code>dataFrom</code>, it defines how to compute
                     legend's data and accept <code>indexes</code> or <code>keys</code>.<br />

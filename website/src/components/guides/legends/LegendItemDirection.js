@@ -26,7 +26,8 @@ export default () => (
     <div>
         <h2>Legend item direction</h2>
         <p>
-            The <code>itemDirection</code> property defines how symbol and label are positioned.<br />
+            The <code>itemDirection</code> property defines how symbol and label are positioned.
+            <br />
             You have 4 available directives:
         </p>
         <div

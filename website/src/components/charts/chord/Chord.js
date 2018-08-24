@@ -126,15 +126,16 @@ export default class Chord extends Component {
                         rel="noopener noreferrer"
                     >
                         d3-chord
-                    </a>, see{' '}
+                    </a>
+                    , see{' '}
                     <a
                         href="http://bl.ocks.org/mbostock/4062006"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
                         this block
-                    </a>. The responsive alternative of this component is{' '}
-                    <code>ResponsiveChord</code>.
+                    </a>
+                    . The responsive alternative of this component is <code>ResponsiveChord</code>.
                 </p>
                 <p className="description">
                     This component is available in the{' '}
@@ -144,7 +145,8 @@ export default class Chord extends Component {
                         rel="noopener noreferrer"
                     >
                         nivo-api
-                    </a>, see{' '}
+                    </a>
+                    , see{' '}
                     <a
                         href={`${config.nivoApiUrl}/samples/chord`}
                         target="_blank"

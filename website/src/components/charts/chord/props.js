@@ -61,7 +61,8 @@ export default [
         docScopes: '*',
         description: (
             <span>
-                not required if using&nbsp;<code>&lt;ResponsiveChord&nbsp;/&gt;</code>.<br />
+                not required if using&nbsp;
+                <code>&lt;ResponsiveChord&nbsp;/&gt;</code>.<br />
                 Also note that width does not include labels, so you should add enough margin to
                 display them.
             </span>
@@ -84,7 +85,8 @@ export default [
         docScopes: '*',
         description: (
             <span>
-                not required if using&nbsp;<code>&lt;ResponsiveChord&nbsp;/&gt;</code>.<br />
+                not required if using&nbsp;
+                <code>&lt;ResponsiveChord&nbsp;/&gt;</code>.<br />
                 Also note that height does not include labels, so you should add enough margin to
                 display them.
             </span>

@@ -30,7 +30,8 @@ export default [
         description: (
             <div>
                 Chart data. If using objects indexBy & keys should be strings, if using array they
-                should be numbers.<br />
+                should be numbers.
+                <br />
                 For example, given this config:
                 <pre className="code code-block">{dedent`
                 [
@@ -88,7 +89,8 @@ export default [
         docScopes: '*',
         description: (
             <span>
-                not required if using&nbsp;<code>&lt;ResponsiveRadar&nbsp;/&gt;</code>.
+                not required if using&nbsp;
+                <code>&lt;ResponsiveRadar&nbsp;/&gt;</code>.
             </span>
         ),
         help: 'Chart width.',
@@ -109,7 +111,8 @@ export default [
         docScopes: '*',
         description: (
             <span>
-                not required if using&nbsp;<code>&lt;ResponsiveRadar&nbsp;/&gt;</code>.
+                not required if using&nbsp;
+                <code>&lt;ResponsiveRadar&nbsp;/&gt;</code>.
             </span>
         ),
         help: 'Chart height.',
@@ -129,7 +132,8 @@ export default [
         scopes: '*',
         description: (
             <span>
-                Defines the curve factory to use for the line generator.<br />
+                Defines the curve factory to use for the line generator.
+                <br />
                 Must be one of: {curveOptions}.
             </span>
         ),
@@ -159,9 +163,11 @@ export default [
         key: 'colorBy',
         description: (
             <span>
-                Property to use to determine node color.<br />
+                Property to use to determine node color.
+                <br />
                 If a function is provided, it will receive current node data and must return a
-                color.<br />
+                color.
+                <br />
                 By default it will use the key of each serie and pick a color from colors according
                 to this key.
             </span>

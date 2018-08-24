@@ -156,7 +156,8 @@ export default class BarCanvas extends Component {
                     lose the isomorphic ability and transitions.
                 </p>
                 <p className="description">
-                    The responsive alternative of this component is <code>ResponsiveBarCanvas</code>.
+                    The responsive alternative of this component is <code>ResponsiveBarCanvas</code>
+                    .
                 </p>
             </div>
         )

@@ -14,17 +14,20 @@ import { rgb } from 'd3-color'
 /**
  * Memoize both color generator & color generator result.
  */
-const memoizedColorModifier = memoize((method, _amount) => {
-    const amount = parseFloat(_amount)
+const memoizedColorModifier = memoize(
+    (method, _amount) => {
+        const amount = parseFloat(_amount)
 
-    return memoize(
-        d =>
-            rgb(d.color)
-                [method](amount) // eslint-disable-line no-unexpected-multiline
-                .toString(),
-        d => d.color
-    )
-}, (method, amount) => `${method}.${amount}`)
+        return memoize(
+            d =>
+                rgb(d.color)
+                    [method](amount) // eslint-disable-line no-unexpected-multiline
+                    .toString(),
+            d => d.color
+        )
+    },
+    (method, amount) => `${method}.${amount}`
+)
 
 const noneGenerator = () => 'none'
 const inheritGenerator = d => d.color
