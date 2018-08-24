@@ -106,7 +106,7 @@ endef
 
 package-lint-%: ##@1 packages run eslint on package
 	@echo "${YELLOW}Running eslint on package ${WHITE}@nivo/${*}${RESET}"
-	@./node_modules/.bin/eslint ./packages/nivo-${*}/{src,tests}
+	@./node_modules/.bin/eslint ./packages/${*}/{src,tests}
 
 packages-lint: ##@1 packages run eslint on all packages
 	@echo "${YELLOW}Running eslint on all packages${RESET}"
@@ -114,23 +114,23 @@ packages-lint: ##@1 packages run eslint on all packages
 
 package-tslint-%: ##@1 packages run tslint on package
 	@echo "${YELLOW}Running tslint on package ${WHITE}@nivo/${*}${RESET}"
-	@./node_modules/.bin/tslint ./packages/nivo-${*}/index.d.ts
+	@./node_modules/.bin/tslint ./packages/${*}/index.d.ts
 
 packages-tslint: ##@1 packages run tslint on all packages
 	@echo "${YELLOW}Running tslint on all packages${RESET}"
 	@./node_modules/.bin/tslint \
-	    ./packages/nivo-bar/index.d.ts \
-	    ./packages/nivo-calendar/index.d.ts \
-	    ./packages/nivo-core/index.d.ts \
-	    ./packages/nivo-heatmap/index.d.ts \
-        ./packages/nivo-pie/index.d.ts \
-        ./packages/nivo-waffle/index.d.ts
+	    ./packages/bar/index.d.ts \
+	    ./packages/calendar/index.d.ts \
+	    ./packages/core/index.d.ts \
+	    ./packages/heatmap/index.d.ts \
+        ./packages/pie/index.d.ts \
+        ./packages/waffle/index.d.ts
 
 package-test-%: ##@1 packages run tests for a package
-	@./node_modules/.bin/jest --setupTestFrameworkScriptFile=raf/polyfill ./packages/nivo-${*}/tests
+	@./node_modules/.bin/jest --setupTestFrameworkScriptFile=raf/polyfill ./packages/${*}/tests
 
 package-update-test-%: ##@1 packages run tests for a package and update its snapshots
-	@./node_modules/.bin/jest --setupTestFrameworkScriptFile=raf/polyfill ./packages/nivo-${*}/tests -u
+	@./node_modules/.bin/jest --setupTestFrameworkScriptFile=raf/polyfill ./packages/${*}/tests -u
 
 packages-test: ##@1 packages run tests for all packages
 	@echo "${YELLOW}Running test suites for all packages${RESET}"
@@ -140,17 +140,15 @@ packages-test-cover: ##@1 packages run tests for all packages with code coverage
 	@echo "${YELLOW}Running test suites for all packages${RESET}"
 	@./node_modules/.bin/jest --coverage --setupTestFrameworkScriptFile=raf/polyfill ./packages/*/tests
 
+packages-build: ##@1 packages build all packages
+	@echo "${YELLOW}Building all packages${RESET}"
+	find ./packages -type d -maxdepth 1 ! -path ./packages ! -path ./packages/babel-preset \
+        | sed 's|^./packages/||' \
+        | xargs -I '{}' sh -c '$(MAKE) package-build-{}'
+
 package-build-%: ##@1 packages build a package
 	@echo "${YELLOW}Building package ${WHITE}@nivo/${*}${RESET}"
 	@export PACKAGE=${*}; ./node_modules/.bin/rollup -c conf/rollup.config.js
-
-packages-build: ##@1 packages build all packages
-	@echo "${YELLOW}Building all packages${RESET}"
-	@find ./packages -type d -name 'nivo-*' \
-        ! -path "*-babel-preset" \
-        | awk -Fnivo- '{print $$NF}' \
-        | xargs -I '{}' \
-            sh -c 'PACKAGE={} make package-build-{}'
 
 packages-screenshots: ##@1 packages generate screenshots for packages readme (website dev server must be running)
 	@node scripts/capture.js
@@ -173,7 +171,7 @@ package-watch-%: ##@1 packages build package (es flavor) on change, eg. `package
 
 package-dev-%: ##@1 packages setup package for development, link to website, run watcher
 	@echo "${YELLOW}Preparing package ${WHITE}${*}${YELLOW} for development${RESET}"
-	@cd packages/nivo-${*} && yarn link
+	@cd packages/${*} && yarn link
 	@cd website && yarn link @nivo/${*}
 	@$(MAKE) package-watch-${*}
 
