@@ -9,6 +9,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import LegendSvg from './LegendSvg'
+import { symbolPropTypes, interactivityPropTypes } from '../props'
 import { computeDimensions, computePositionFromAnchor } from '../compute'
 import {
     DIRECTION_ROW,
@@ -40,20 +41,33 @@ const BoxLegendSvg = ({
     padding,
     justify,
 
+    itemsSpacing,
     itemWidth,
     itemHeight,
     itemDirection,
-    itemsSpacing,
+    itemTextColor,
+    itemBackground,
+    itemOpacity,
+
+    // symbol
     symbolSize,
     symbolSpacing,
     symbolShape,
-    textColor,
+    symbolBorderWidth,
+    symbolBorderColor,
+
+    // interactivity
+    onClick,
+    onMouseEnter,
+    onMouseLeave,
+
+    effects,
 }) => {
     const { width, height } = computeDimensions({
         itemCount: data.length,
+        itemsSpacing,
         itemWidth,
         itemHeight,
-        itemsSpacing,
         direction,
         padding,
     })
@@ -76,14 +90,25 @@ const BoxLegendSvg = ({
             direction={direction}
             padding={padding}
             justify={justify}
+            effects={effects}
+            // item
+            itemsSpacing={itemsSpacing}
             itemWidth={itemWidth}
             itemHeight={itemHeight}
             itemDirection={itemDirection}
-            itemsSpacing={itemsSpacing}
+            itemTextColor={itemTextColor}
+            itemBackground={itemBackground}
+            itemOpacity={itemOpacity}
+            // symbol
             symbolSize={symbolSize}
             symbolSpacing={symbolSpacing}
             symbolShape={symbolShape}
-            textColor={textColor}
+            symbolBorderWidth={symbolBorderWidth}
+            symbolBorderColor={symbolBorderColor}
+            // interactivity
+            onClick={onClick}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
         />
     )
 }
@@ -91,6 +116,7 @@ const BoxLegendSvg = ({
 BoxLegendSvg.propTypes = {
     data: PropTypes.arrayOf(
         PropTypes.shape({
+            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
             label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
             fill: PropTypes.string.isRequired,
         })
@@ -131,10 +157,12 @@ BoxLegendSvg.propTypes = {
         DIRECTION_BOTTOM_TO_TOP,
     ]),
     itemsSpacing: PropTypes.number.isRequired,
-    symbolSize: PropTypes.number,
-    symbolSpacing: PropTypes.number,
-    symbolShape: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    textColor: PropTypes.string,
+    itemTextColor: PropTypes.string,
+    itemBackground: PropTypes.string,
+    itemOpacity: PropTypes.number,
+
+    ...symbolPropTypes,
+    ...interactivityPropTypes,
 }
 
 BoxLegendSvg.defaultProps = {

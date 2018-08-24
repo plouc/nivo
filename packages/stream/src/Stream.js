@@ -155,6 +155,7 @@ const Stream = ({
                     {legends.map((legend, i) => {
                         const legendData = enhancedLayers
                             .map(l => ({
+                                id: l.id,
                                 label: l.id,
                                 fill: l.color,
                             }))

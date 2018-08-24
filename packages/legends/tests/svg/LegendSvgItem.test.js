@@ -21,9 +21,11 @@ const commonProps = {
     y: 0,
     width: 200,
     height: 36,
-    label: 'testing',
-    fill: 'red',
-    textColor: 'black',
+    data: {
+        id: 'testing',
+        label: 'testing',
+        fill: 'red',
+    },
 }
 
 const directions = [

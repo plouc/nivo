@@ -148,7 +148,19 @@ export default class Bar extends Component {
                     itemWidth: 100,
                     itemHeight: 20,
                     itemsSpacing: 2,
+                    itemOpacity: 0.85,
                     symbolSize: 20,
+                    onClick: d => {
+                        alert(JSON.stringify(d, null, '    '))
+                    },
+                    effects: [
+                        {
+                            on: 'hover',
+                            style: {
+                                itemOpacity: 1,
+                            },
+                        },
+                    ],
                 },
             ],
 

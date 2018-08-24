@@ -33,8 +33,20 @@ export default class Stream extends Component {
                     translateX: 100,
                     itemWidth: 80,
                     itemHeight: 20,
+                    itemTextColor: '#999',
                     symbolSize: 12,
                     symbolShape: 'circle',
+                    onClick: d => {
+                        alert(JSON.stringify(d, null, '    '))
+                    },
+                    effects: [
+                        {
+                            on: 'hover',
+                            style: {
+                                itemTextColor: '#000',
+                            },
+                        },
+                    ],
                 },
             ],
         },

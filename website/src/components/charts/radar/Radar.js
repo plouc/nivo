@@ -78,8 +78,20 @@ export default class Radar extends Component {
                     translateY: -40,
                     itemWidth: 80,
                     itemHeight: 20,
+                    itemTextColor: '#999',
                     symbolSize: 12,
                     symbolShape: 'circle',
+                    onClick: d => {
+                        alert(JSON.stringify(d, null, '    '))
+                    },
+                    effects: [
+                        {
+                            on: 'hover',
+                            style: {
+                                itemTextColor: '#000',
+                            },
+                        },
+                    ],
                 },
             ],
         },

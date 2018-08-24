@@ -9,6 +9,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import LegendSvgItem from './LegendSvgItem'
+import { symbolPropTypes, interactivityPropTypes } from '../props'
 import { computeDimensions } from '../compute'
 import {
     DIRECTION_COLUMN,
@@ -28,16 +29,25 @@ const LegendSvg = ({
     direction,
     padding: _padding,
     justify,
-
+    effects,
     // items
     itemWidth,
     itemHeight,
     itemDirection,
     itemsSpacing,
+    itemTextColor,
+    itemBackground,
+    itemOpacity,
+    // symbol
     symbolSize,
     symbolSpacing,
     symbolShape,
-    textColor,
+    symbolBorderWidth,
+    symbolBorderColor,
+    // interactivity
+    onClick,
+    onMouseEnter,
+    onMouseLeave,
 }) => {
     // eslint-disable-next-line no-unused-vars
     const { width, height, padding } = computeDimensions({
@@ -59,24 +69,31 @@ const LegendSvg = ({
 
     return (
         <g transform={`translate(${x},${y})`}>
-            {/*
-            <rect fill="white" stroke="black" width={width} height={height} />
-            */}
-            {data.map(({ label, fill }, i) => (
+            {data.map((data, i) => (
                 <LegendSvgItem
                     key={i}
+                    data={data}
                     x={i * xStep + padding.left}
                     y={i * yStep + padding.top}
                     width={itemWidth}
                     height={itemHeight}
+                    direction={itemDirection}
+                    justify={justify}
+                    effects={effects}
+                    // item
+                    textColor={itemTextColor}
+                    background={itemBackground}
+                    opacity={itemOpacity}
+                    // symbol
                     symbolSize={symbolSize}
                     symbolSpacing={symbolSpacing}
                     symbolShape={symbolShape}
-                    direction={itemDirection}
-                    justify={justify}
-                    label={label}
-                    fill={fill}
-                    textColor={textColor}
+                    symbolBorderWidth={symbolBorderWidth}
+                    symbolBorderColor={symbolBorderColor}
+                    // interactivity
+                    onClick={onClick}
+                    onMouseEnter={onMouseEnter}
+                    onMouseLeave={onMouseLeave}
                 />
             ))}
         </g>
@@ -86,6 +103,7 @@ const LegendSvg = ({
 LegendSvg.propTypes = {
     data: PropTypes.arrayOf(
         PropTypes.shape({
+            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
             label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
             fill: PropTypes.string.isRequired,
         })
@@ -107,6 +125,7 @@ LegendSvg.propTypes = {
     justify: PropTypes.bool.isRequired,
 
     // items
+    itemsSpacing: PropTypes.number.isRequired,
     itemWidth: PropTypes.number.isRequired,
     itemHeight: PropTypes.number.isRequired,
     itemDirection: PropTypes.oneOf([
@@ -115,14 +134,12 @@ LegendSvg.propTypes = {
         DIRECTION_TOP_TO_BOTTOM,
         DIRECTION_BOTTOM_TO_TOP,
     ]).isRequired,
-    itemsSpacing: PropTypes.number.isRequired,
-    symbolSize: PropTypes.number,
-    symbolSpacing: PropTypes.number,
-    symbolShape: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    textColor: PropTypes.string.isRequired,
+    itemTextColor: PropTypes.string.isRequired,
+    itemBackground: PropTypes.string.isRequired,
+    itemOpacity: PropTypes.number.isRequired,
 
-    // interactivity
-    onClick: PropTypes.func.isRequired,
+    ...symbolPropTypes,
+    ...interactivityPropTypes,
 }
 
 LegendSvg.defaultProps = {
@@ -131,12 +148,11 @@ LegendSvg.defaultProps = {
     justify: false,
 
     // items
-    itemDirection: DIRECTION_LEFT_TO_RIGHT,
     itemsSpacing: 0,
-    textColor: 'black',
-
-    // interactivity
-    onClick: () => {},
+    itemDirection: DIRECTION_LEFT_TO_RIGHT,
+    itemTextColor: 'black',
+    itemBackground: 'transparent',
+    itemOpacity: 1,
 }
 
 export default LegendSvg

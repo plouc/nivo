@@ -6,18 +6,34 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { PureComponent } from 'react'
+import { symbolPropTypes, symbolDefaultProps } from './props'
 
-const SymbolSquare = ({ x, y, size, fill }) => (
-    <rect x={x} y={y} fill={fill} width={size} height={size} />
-)
+export default class SymbolSquare extends PureComponent {
+    static propTypes = {
+        ...symbolPropTypes,
+    }
 
-SymbolSquare.propTypes = {
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-    size: PropTypes.number.isRequired,
-    fill: PropTypes.string.isRequired,
+    static defaultProps = {
+        ...symbolDefaultProps,
+    }
+
+    render() {
+        const { x, y, size, fill, borderWidth, borderColor } = this.props
+
+        return (
+            <rect
+                x={x}
+                y={y}
+                fill={fill}
+                strokeWidth={borderWidth}
+                stroke={borderColor}
+                width={size}
+                height={size}
+                style={{
+                    pointerEvents: 'none',
+                }}
+            />
+        )
+    }
 }
-
-export default SymbolSquare

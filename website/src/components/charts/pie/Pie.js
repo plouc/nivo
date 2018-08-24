@@ -94,8 +94,20 @@ export default class Pie extends Component {
                     translateY: 56,
                     itemWidth: 100,
                     itemHeight: 18,
+                    itemTextColor: '#999',
                     symbolSize: 18,
                     symbolShape: 'circle',
+                    onClick: d => {
+                        alert(JSON.stringify(d, null, '    '))
+                    },
+                    effects: [
+                        {
+                            on: 'hover',
+                            style: {
+                                itemTextColor: '#000',
+                            },
+                        },
+                    ],
                 },
             ],
         },

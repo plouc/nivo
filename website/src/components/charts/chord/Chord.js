@@ -85,8 +85,20 @@ export default class Chord extends Component {
                     translateY: 70,
                     itemWidth: 80,
                     itemHeight: 14,
-                    symbolSize: 14,
+                    itemTextColor: '#999',
+                    symbolSize: 12,
                     symbolShape: 'circle',
+                    onClick: d => {
+                        alert(JSON.stringify(d, null, '    '))
+                    },
+                    effects: [
+                        {
+                            on: 'hover',
+                            style: {
+                                itemTextColor: '#000',
+                            },
+                        },
+                    ],
                 },
             ],
         },
