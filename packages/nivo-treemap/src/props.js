@@ -57,14 +57,12 @@ export const TreeMapPropTypes = {
     ...defsPropTypes,
 }
 
-export const TreeMapPlaceholdersPropTypes = TreeMapPropTypes
-
 export const TreeMapHtmlPropTypes = {
     ...commonPropTypes,
     nodeComponent: PropTypes.func.isRequired,
 }
 
-export const TreeMapHtmlCanvasPropTypes = {
+export const TreeMapCanvasPropTypes = {
     ...commonPropTypes,
     pixelRatio: PropTypes.number.isRequired,
 }
@@ -106,8 +104,6 @@ export const TreeMapDefaultProps = {
     defs: [],
     fill: [],
 }
-
-export const TreeMapPlaceholdersDefaultProps = TreeMapDefaultProps
 
 export const TreeMapHtmlDefaultProps = {
     ...commonDefaultProps,

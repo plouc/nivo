@@ -33,7 +33,7 @@ const RadarTooltip = ({
 
     return (
         <g>
-            {data.map((d, i) => {
+            {data.map(d => {
                 const index = getIndex(d)
                 const startAngle = rootStartAngle
                 const endAngle = startAngle + angleStep
@@ -75,6 +75,7 @@ RadarTooltip.propTypes = {
 
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
+    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 }
 
 export default pure(RadarTooltip)

@@ -60,7 +60,7 @@ const RadarGridLevels = ({
             <TransitionMotion {...levelsTransitionProps}>
                 {interpolatedStyles => (
                     <g>
-                        {interpolatedStyles.map(({ key, style, data }) => (
+                        {interpolatedStyles.map(({ key, style }) => (
                             <circle key={key} fill="none" r={style.r} {...theme.grid} />
                         ))}
                     </g>
@@ -94,7 +94,7 @@ const RadarGridLevels = ({
         <TransitionMotion {...levelsTransitionProps}>
             {interpolatedStyles => (
                 <g>
-                    {interpolatedStyles.map(({ key, style, data }) => (
+                    {interpolatedStyles.map(({ key, style }) => (
                         <path
                             key={key}
                             fill="none"

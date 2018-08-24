@@ -14,10 +14,17 @@ import pure from 'recompose/pure'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import defaultProps from 'recompose/defaultProps'
 import { scaleLinear } from 'd3-scale'
-import { closedCurvePropType } from '@nivo/core'
-import { withTheme, withColors, withCurve, withDimensions, withMotion } from '@nivo/core'
-import { getAccessorFor } from '@nivo/core'
-import { Container, SvgWrapper } from '@nivo/core'
+import {
+    closedCurvePropType,
+    withTheme,
+    withColors,
+    withCurve,
+    withDimensions,
+    withMotion,
+    getAccessorFor,
+    Container,
+    SvgWrapper,
+} from '@nivo/core'
 import { LegendPropShape, BoxLegendSvg } from '@nivo/legends'
 import RadarShapes from './RadarShapes'
 import RadarGrid from './RadarGrid'
@@ -39,11 +46,11 @@ const Radar = ({
     // dimensions
     centerX,
     centerY,
-    margin,
-    width,
-    height,
-    outerWidth,
-    outerHeight,
+    margin, // eslint-disable-line react/prop-types
+    width, // eslint-disable-line react/prop-types
+    height, // eslint-disable-line react/prop-types
+    outerWidth, // eslint-disable-line react/prop-types
+    outerHeight, // eslint-disable-line react/prop-types
 
     // border
     borderWidth,
@@ -67,14 +74,14 @@ const Radar = ({
     dotLabelYOffset,
 
     // theming
-    theme,
+    theme, // eslint-disable-line react/prop-types
     fillOpacity,
     colorByKey,
 
     // motion
-    animate,
-    motionStiffness,
-    motionDamping,
+    animate, // eslint-disable-line react/prop-types
+    motionStiffness, // eslint-disable-line react/prop-types
+    motionDamping, // eslint-disable-line react/prop-types
 
     // interactivity
     isInteractive,
@@ -180,6 +187,13 @@ Radar.propTypes = {
     getIndex: PropTypes.func.isRequired, // computed
     indices: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
         .isRequired, // computed
+
+    centerX: PropTypes.number.isRequired, // computed
+    centerY: PropTypes.number.isRequired, // computed
+
+    radius: PropTypes.number.isRequired, // computed
+    radiusScale: PropTypes.func.isRequired, // computed
+    angleStep: PropTypes.number.isRequired, // computed
 
     curve: closedCurvePropType.isRequired,
     curveInterpolator: PropTypes.func.isRequired, // computed

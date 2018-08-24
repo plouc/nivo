@@ -17,10 +17,15 @@ import withProps from 'recompose/withProps'
 import pure from 'recompose/pure'
 import { partition as Partition, hierarchy } from 'd3-hierarchy'
 import { arc } from 'd3-shape'
-import { getInheritedColorGenerator } from '@nivo/core'
-import { withTheme, withDimensions, withColors } from '@nivo/core'
-import { getAccessorFor } from '@nivo/core'
-import { Container, SvgWrapper } from '@nivo/core'
+import {
+    getInheritedColorGenerator,
+    withTheme,
+    withDimensions,
+    withColors,
+    getAccessorFor,
+    Container,
+    SvgWrapper,
+} from '@nivo/core'
 import SunburstArc from './SunburstArc'
 
 const getAncestor = node => {
@@ -33,11 +38,11 @@ const Sunburst = ({
     nodes,
 
     // dimensions
-    margin,
+    margin, // eslint-disable-line react/prop-types
     centerX,
     centerY,
-    outerWidth,
-    outerHeight,
+    outerWidth, // eslint-disable-line react/prop-types
+    outerHeight, // eslint-disable-line react/prop-types
 
     arcGenerator,
 
@@ -46,7 +51,7 @@ const Sunburst = ({
     borderColor,
 
     // theming
-    theme,
+    theme, // eslint-disable-line react/prop-types
 
     // interactivity
     isInteractive,

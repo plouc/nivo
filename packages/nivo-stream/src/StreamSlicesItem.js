@@ -63,7 +63,7 @@ const enhance = compose(
                 <TableTooltip
                     theme={theme}
                     rows={slice.stack.map(p => [
-                        <Chip color={p.color} />,
+                        <Chip key={p.id} color={p.color} />,
                         p.id,
                         format ? format(p.value) : p.value,
                     ])}

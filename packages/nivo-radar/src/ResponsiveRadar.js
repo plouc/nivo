@@ -10,8 +10,10 @@ import React from 'react'
 import { ResponsiveWrapper } from '@nivo/core'
 import Radar from './Radar'
 
-export default props => (
+const ResponsiveRadar = props => (
     <ResponsiveWrapper>
         {({ width, height }) => <Radar width={width} height={height} {...props} />}
     </ResponsiveWrapper>
 )
+
+export default ResponsiveRadar

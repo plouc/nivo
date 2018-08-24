@@ -46,7 +46,7 @@ const Voronoi = ({
 
     return (
         <Container isInteractive={false} theme={theme}>
-            {({ showTooltip, hideTooltip }) => (
+            {(/*{ showTooltip, hideTooltip }*/) => (
                 <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
                     {enableLinks &&
                         links.map(l => (
@@ -69,9 +69,6 @@ const Voronoi = ({
                                 stroke={borderColor}
                                 strokeWidth={borderWidth}
                                 d={`M${p.join('L')}Z`}
-                                onClick={() => {
-                                    console.log(p.data)
-                                }}
                             />
                         ))}
                     {enableSites &&

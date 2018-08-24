@@ -10,8 +10,10 @@ import React from 'react'
 import { ResponsiveWrapper } from '@nivo/core'
 import TreeMapHtml from './TreeMapHtml'
 
-export default props => (
+const ResponsiveTreeMapHtml = props => (
     <ResponsiveWrapper>
         {({ width, height }) => <TreeMapHtml width={width} height={height} {...props} />}
     </ResponsiveWrapper>
 )
+
+export default ResponsiveTreeMapHtml

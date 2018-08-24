@@ -82,7 +82,6 @@ const commonEnhancers = [
             return { nodes }
         }
     ),
-
     withPropsOnChange(
         ['enableLabel', 'nodes', 'getLabel', 'labelSkipSize'],
         ({ enableLabel, nodes, getLabel, labelSkipSize }) => {
@@ -111,14 +110,10 @@ const svgEnhancers = [
 ]
 
 export default Component => {
-    const implPropTypes = props[`${Component.displayName}PropTypes`]
     const implDefaultProps = props[`${Component.displayName}DefaultProps`]
-
-    Component.propTypes = implPropTypes
 
     switch (Component.displayName) {
         case 'TreeMap':
-        case 'TreeMapPlaceholders':
             return compose(
                 ...[
                     defaultProps(implDefaultProps),

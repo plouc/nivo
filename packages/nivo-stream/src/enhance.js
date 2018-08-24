@@ -6,7 +6,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
 import min from 'lodash/min'
 import max from 'lodash/max'
 import range from 'lodash/range'

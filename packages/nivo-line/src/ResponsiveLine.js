@@ -10,8 +10,10 @@ import React from 'react'
 import { ResponsiveWrapper } from '@nivo/core'
 import Line from './Line'
 
-export default props => (
+const ResponsiveLine = props => (
     <ResponsiveWrapper>
         {({ width, height }) => <Line width={width} height={height} {...props} />}
     </ResponsiveWrapper>
 )
+
+export default ResponsiveLine

@@ -15,6 +15,7 @@ import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
 import { TransitionMotion, spring } from 'react-motion'
 import { withMotion } from '../../hocs'
+import { motionPropTypes } from '../../props'
 import { computeAxisTicks } from '../../lib/cartesian/axes'
 import AxisTick from './AxisTick'
 
@@ -240,6 +241,8 @@ Axis.propTypes = {
 
     // interactivity
     onClick: PropTypes.func,
+
+    ...motionPropTypes,
 }
 
 Axis.defaultProps = {
