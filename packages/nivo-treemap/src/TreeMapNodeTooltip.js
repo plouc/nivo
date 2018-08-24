@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
+import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
 import { BasicTooltip } from '@nivo/core'
 
@@ -20,5 +21,15 @@ const TreeMapNodeTooltip = ({ node, theme, tooltip }) => (
         renderContent={typeof tooltip === 'function' ? tooltip.bind(null, { node, ...node }) : null}
     />
 )
+
+TreeMapNodeTooltip.propTypes = {
+    node: PropTypes.shape({
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        value: PropTypes.number.isRequired,
+        color: PropTypes.string.isRequired,
+    }).isRequired,
+    theme: PropTypes.object.isRequired,
+    tooltip: PropTypes.func,
+}
 
 export default pure(TreeMapNodeTooltip)

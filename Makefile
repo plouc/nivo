@@ -110,17 +110,7 @@ package-lint-%: ##@1 packages run eslint on package
 
 packages-lint: ##@1 packages run eslint on all packages
 	@echo "${YELLOW}Running eslint on all packages${RESET}"
-	@./node_modules/.bin/eslint \
-        --ignore-pattern 'nivo-core' \
-        --ignore-pattern 'nivo-stream' \
-        --ignore-pattern 'nivo-sunburst' \
-        --ignore-pattern 'nivo-radar' \
-        --ignore-pattern 'nivo-heatmap' \
-        --ignore-pattern 'nivo-treemap' \
-        --ignore-pattern 'nivo-voronoi' \
-        --ignore-pattern 'nivo-line' \
-        --ignore-pattern 'nivo-generators' \
-        ./packages/*/{src,tests}
+	@./node_modules/.bin/eslint ./packages/*/{src,tests}
 
 package-tslint-%: ##@1 packages run tslint on package
 	@echo "${YELLOW}Running tslint on package ${WHITE}@nivo/${*}${RESET}"

@@ -10,9 +10,10 @@
 // credit to Tanner Linsey from this issue on react motion repository:
 // https://github.com/chenglou/react-motion/issues/153
 
-import React, { Component, PureComponent } from 'react'
+import React, { PureComponent } from 'react'
 import { Motion, spring } from 'react-motion'
 import { interpolate } from 'd3-interpolate'
+import PropTypes from 'prop-types'
 
 const enhancedSpring = (value, config) => {
     if (typeof value !== 'number') {
@@ -31,6 +32,11 @@ export default class SmartMotion extends PureComponent {
     currentStepValues = {}
     stepValues = {}
     stepInterpolators = {}
+
+    static propTypes = {
+        children: PropTypes.func.isRequired,
+        style: PropTypes.func.isRequired,
+    }
 
     render() {
         const { style, children, ...rest } = this.props

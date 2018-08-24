@@ -55,6 +55,7 @@ const RadarGridLabels = ({
             <g>
                 {labels.map(label => (
                     <text
+                        key={label.key}
                         style={{
                             fill: theme.axis.textColor,
                             fontSize: theme.axis.fontSize,

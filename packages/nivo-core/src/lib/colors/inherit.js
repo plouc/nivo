@@ -20,7 +20,7 @@ const memoizedColorModifier = memoize((method, _amount) => {
     return memoize(
         d =>
             rgb(d.color)
-                [method](amount)
+                [method](amount) // eslint-disable-line no-unexpected-multiline
                 .toString(),
         d => d.color
     )

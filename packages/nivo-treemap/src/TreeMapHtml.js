@@ -10,6 +10,7 @@ import React from 'react'
 import { TransitionMotion, spring } from 'react-motion'
 import { colorMotionSpring, getInterpolatedColor } from '@nivo/core'
 import { Container } from '@nivo/core'
+import { TreeMapHtmlPropTypes } from './props'
 import enhance from './enhance'
 import { getNodeHandlers } from './interactivity'
 import { nodeWillEnter, nodeWillLeave } from './motion'
@@ -142,6 +143,7 @@ const TreeMapHtml = ({
     )
 }
 
+TreeMapHtml.propTypes = TreeMapHtmlPropTypes
 TreeMapHtml.displayName = 'TreeMapHtml'
 
 export default enhance(TreeMapHtml)

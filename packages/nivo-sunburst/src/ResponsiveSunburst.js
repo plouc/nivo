@@ -10,8 +10,10 @@ import React from 'react'
 import { ResponsiveWrapper } from '@nivo/core'
 import Sunburst from './Sunburst'
 
-export default props => (
+const ResponsiveSunburst = props => (
     <ResponsiveWrapper>
         {({ width, height }) => <Sunburst width={width} height={height} {...props} />}
     </ResponsiveWrapper>
 )
+
+export default ResponsiveSunburst

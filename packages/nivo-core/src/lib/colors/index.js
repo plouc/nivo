@@ -79,7 +79,7 @@ export const getColorsGenerator = (colors, colorBy) => {
         scale = scaleOrdinal(colors)
     } else {
         // just use provided value, all elements will have identical color
-        return d => colors
+        return () => colors
     }
 
     return d => scale(getColorId(d))

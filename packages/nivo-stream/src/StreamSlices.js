@@ -44,6 +44,7 @@ StreamSlices.propTypes = {
     height: PropTypes.number.isRequired,
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
+    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
     theme: PropTypes.object.isRequired,
 }
 

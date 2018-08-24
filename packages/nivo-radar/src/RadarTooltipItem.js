@@ -72,7 +72,7 @@ const enhance = compose(
                         title={<strong>{index}</strong>}
                         rows={sortBy(
                             keys.map(key => [
-                                <Chip color={colorByKey[key]} />,
+                                <Chip key={key} color={colorByKey[key]} />,
                                 key,
                                 format ? format(datum[key]) : datum[key],
                             ]),

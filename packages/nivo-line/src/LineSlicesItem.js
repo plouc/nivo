@@ -21,7 +21,11 @@ const Chip = ({ color }) => (
     <span style={{ display: 'block', width: '12px', height: '12px', background: color }} />
 )
 
-const LineSlicesItem = ({ slice, height, showTooltip, hideTooltip, isHover, tooltip }) => (
+Chip.propTypes = {
+    color: PropTypes.string.isRequired,
+}
+
+const LineSlicesItem = ({ slice, height, showTooltip, hideTooltip, isHover }) => (
     <g transform={`translate(${slice.x}, 0)`}>
         {isHover && (
             <line
@@ -75,7 +79,7 @@ const enhance = compose(
                         rows={slice.points
                             .filter(p => p.value !== null)
                             .map(p => [
-                                <Chip color={p.color} />,
+                                <Chip key={p.id} color={p.color} />,
                                 p.id,
                                 format ? format(p.value) : p.value,
                             ])}

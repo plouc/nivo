@@ -11,12 +11,20 @@ import PropTypes from 'prop-types'
 
 export default class AxisTick extends Component {
     static propTypes = {
+        value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
         format: PropTypes.func,
         theme: PropTypes.object.isRequired,
         x: PropTypes.number.isRequired,
         y: PropTypes.number.isRequired,
+        lineX: PropTypes.number.isRequired,
+        lineY: PropTypes.number.isRequired,
+        textX: PropTypes.number.isRequired,
+        textY: PropTypes.number.isRequired,
+        textBaseline: PropTypes.string.isRequired,
+        textAnchor: PropTypes.string.isRequired,
         opacity: PropTypes.number.isRequired,
         rotate: PropTypes.number.isRequired,
+        onClick: PropTypes.func,
     }
 
     static defaultProps = {
