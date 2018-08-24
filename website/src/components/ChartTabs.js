@@ -99,7 +99,8 @@ export default class ChartTabs extends Component {
                 {currentTab === 'chart' &&
                     nodeCount !== undefined && (
                         <span className="chart-tabs__node-count">
-                            <strong>{nodeCount}</strong>&nbsp;nodes
+                            <strong>{nodeCount}</strong>
+                            &nbsp;nodes
                         </span>
                     )}
             </div>

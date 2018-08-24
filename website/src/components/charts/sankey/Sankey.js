@@ -113,19 +113,21 @@ export default class Sankey extends Component {
                         rel="noopener noreferrer"
                     >
                         d3-sankey
-                    </a>, see{' '}
+                    </a>
+                    , see{' '}
                     <a
                         href="https://bl.ocks.org/mbostock/ca9a0bb7ba204d12974bca90acc507c0"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
                         this block
-                    </a>. The responsive alternative of this component is{' '}
-                    <code>ResponsiveSankey</code>.
+                    </a>
+                    . The responsive alternative of this component is <code>ResponsiveSankey</code>.
                 </p>
                 <p className="description">
                     Please be careful with the data you use for this chart as it does not support
-                    cyclic dependencies.<br />
+                    cyclic dependencies.
+                    <br />
                     For example, something like <code>A —> A</code> or <code>A —> B —> C —> A</code>{' '}
                     will crash.
                 </p>
@@ -137,7 +139,8 @@ export default class Sankey extends Component {
                         rel="noopener noreferrer"
                     >
                         nivo-api
-                    </a>, see{' '}
+                    </a>
+                    , see{' '}
                     <a
                         href={`${config.nivoApiUrl}/samples/sankey.svg`}
                         target="_blank"
@@ -153,7 +156,8 @@ export default class Sankey extends Component {
                         rel="noopener noreferrer"
                     >
                         the storybook
-                    </a>.
+                    </a>
+                    .
                 </p>
                 <p className="description">
                     See the <Link to="/guides/legends">dedicated guide</Link> on how to setup

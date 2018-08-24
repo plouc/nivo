@@ -38,7 +38,8 @@ export default [
         docScopes: '*',
         description: (
             <span>
-                not required if using&nbsp;<code>&lt;ResponsiveVoronoi&nbsp;/&gt;</code>.
+                not required if using&nbsp;
+                <code>&lt;ResponsiveVoronoi&nbsp;/&gt;</code>.
             </span>
         ),
         help: 'Chart width.',
@@ -59,7 +60,8 @@ export default [
         docScopes: '*',
         description: (
             <span>
-                not required if using&nbsp;<code>&lt;ResponsiveVoronoi&nbsp;/&gt;</code>.
+                not required if using&nbsp;
+                <code>&lt;ResponsiveVoronoi&nbsp;/&gt;</code>.
             </span>
         ),
         help: 'Chart height.',

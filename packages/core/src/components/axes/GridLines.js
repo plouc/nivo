@@ -69,7 +69,13 @@ export default class GridLines extends Component {
         const { lines, animate, motionStiffness, motionDamping, theme } = this.props
 
         if (!animate) {
-            return <g>{lines.map(line => <GridLine key={line.key} {...line} {...theme.grid} />)}</g>
+            return (
+                <g>
+                    {lines.map(line => (
+                        <GridLine key={line.key} {...line} {...theme.grid} />
+                    ))}
+                </g>
+            )
         }
 
         const springConfig = {

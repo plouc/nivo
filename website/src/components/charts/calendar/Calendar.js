@@ -118,7 +118,8 @@ export default class Calendar extends Component {
                         rel="noopener noreferrer"
                     >
                         this block
-                    </a>.
+                    </a>
+                    .
                 </p>
                 <p>
                     This component is suitable for isomorphic rendering but require to use the{' '}
@@ -132,15 +133,17 @@ export default class Calendar extends Component {
                         rel="noopener noreferrer"
                     >
                         nivo-api
-                    </a>, you can <Link to="/calendar/api">try it using the API client</Link>. You
-                    can also see more example usages in{' '}
+                    </a>
+                    , you can <Link to="/calendar/api">try it using the API client</Link>. You can
+                    also see more example usages in{' '}
                     <a
                         href={`${config.storybookUrl}?selectedKind=Calendar&selectedStory=default`}
                         target="_blank"
                         rel="noopener noreferrer"
                     >
                         the storybook
-                    </a>.
+                    </a>
+                    .
                 </p>
                 <p className="description">
                     See the <Link to="/guides/legends">dedicated guide</Link> on how to setup

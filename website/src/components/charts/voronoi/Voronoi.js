@@ -68,15 +68,17 @@ export default class Voronoi extends Component {
                         rel="noopener noreferrer"
                     >
                         d3-voronoi
-                    </a>, see{' '}
+                    </a>
+                    , see{' '}
                     <a
                         href="http://bl.ocks.org/mbostock/4060366"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
                         this block
-                    </a>. The responsive alternative of this component is{' '}
-                    <code>ResponsiveVoronoi</code>.
+                    </a>
+                    . The responsive alternative of this component is <code>ResponsiveVoronoi</code>
+                    .
                 </p>
             </div>
         )

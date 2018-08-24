@@ -24,7 +24,8 @@ export default class Gradients extends Component {
                         Defining gradients in nivo is a <strong>2 steps process</strong>, first
                         you'll have to declare available definitions (the same goes for{' '}
                         <Link to="/guides/patterns">patterns</Link>) using dedicated helpers or
-                        providing plain objects.<br />
+                        providing plain objects.
+                        <br />
                         Then you must define the rules to apply those definitions using the{' '}
                         <code className="code">fill</code> property.
                     </p>

@@ -128,7 +128,8 @@ export default class Radar extends Component {
                         rel="noopener noreferrer"
                     >
                         nivo-api
-                    </a>, see{' '}
+                    </a>
+                    , see{' '}
                     <a
                         href={`${config.nivoApiUrl}/samples/radar.svg`}
                         target="_blank"
@@ -144,7 +145,8 @@ export default class Radar extends Component {
                         rel="noopener noreferrer"
                     >
                         the storybook
-                    </a>.
+                    </a>
+                    .
                 </p>
                 <p className="description">
                     See the <Link to="/guides/legends">dedicated guide</Link> on how to setup

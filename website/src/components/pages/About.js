@@ -122,10 +122,12 @@ const About = () => (
                             rel="noopener noreferrer"
                         >
                             packages
-                        </a>,{' '}
+                        </a>
+                        ,{' '}
                         <a href="http://nivo.rocks" target="_blank" rel="noopener noreferrer">
                             website
-                        </a>,{' '}
+                        </a>
+                        ,{' '}
                         <a
                             href="http://nivo.rocks/storybook/"
                             target="_blank"

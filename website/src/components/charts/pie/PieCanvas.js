@@ -138,7 +138,8 @@ export default class Pie extends Component {
                     lose the isomorphic ability and transitions.
                 </p>
                 <p className="description">
-                    The responsive alternative of this component is <code>ResponsiveCanvasPie</code>.
+                    The responsive alternative of this component is <code>ResponsiveCanvasPie</code>
+                    .
                 </p>
                 <p className="description">
                     This component is available in the{' '}
@@ -148,7 +149,8 @@ export default class Pie extends Component {
                         rel="noopener noreferrer"
                     >
                         nivo-api
-                    </a>, see{' '}
+                    </a>
+                    , see{' '}
                     <a
                         href={`${config.nivoApiUrl}/samples/pie.svg`}
                         target="_blank"
@@ -164,7 +166,8 @@ export default class Pie extends Component {
                         rel="noopener noreferrer"
                     >
                         the storybook
-                    </a>.
+                    </a>
+                    .
                 </p>
                 <p className="description">
                     See the <Link to="/guides/legends">dedicated guide</Link> on how to setup

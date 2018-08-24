@@ -28,7 +28,8 @@ const Faq = () => (
                 <h4>Are nivo components SSR compliants?</h4>
                 <p>
                     Yes, sure! nivo was built with this requirement in mind from the very beginning,
-                    you even have an HTTP rendering API for most components :)<br />
+                    you even have an HTTP rendering API for most components :)
+                    <br />
                     Just make sure to use{' '}
                     <Link
                         to={{

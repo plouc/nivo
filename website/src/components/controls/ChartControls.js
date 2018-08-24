@@ -93,9 +93,9 @@ export default class ChartControls extends Component {
                 return (
                     <div className="chart-controls_item" key={config.name}>
                         <label className="control_label" htmlFor={id}>
-                            {config.name}:&nbsp;<code className="code code-string">
-                                '{get(settings, config.name)}'
-                            </code>
+                            {config.name}
+                            :&nbsp;
+                            <code className="code code-string">'{get(settings, config.name)}'</code>
                         </label>
                         <Select
                             id={id}

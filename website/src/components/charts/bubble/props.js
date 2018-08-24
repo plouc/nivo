@@ -27,9 +27,9 @@ export default [
         key: 'identity',
         description: (
             <span>
-                define value accessor, if string given, will use <code>datum[value]</code>,<br />if
-                function given, it will be invoked for each node and will receive the node as first
-                argument, it must return the node value.
+                define value accessor, if string given, will use <code>datum[value]</code>,<br />
+                if function given, it will be invoked for each node and will receive the node as
+                first argument, it must return the node value.
             </span>
         ),
         type: '{string|Function}',
@@ -40,9 +40,9 @@ export default [
         key: 'value',
         description: (
             <span>
-                define value accessor, if string given, will use <code>datum[value]</code>,<br />if
-                function given, it will be invoked for each node and will receive the node as first
-                argument, it must return the node value.
+                define value accessor, if string given, will use <code>datum[value]</code>,<br />
+                if function given, it will be invoked for each node and will receive the node as
+                first argument, it must return the node value.
             </span>
         ),
         type: '{string|Function}',
@@ -55,7 +55,8 @@ export default [
         docScopes: '*',
         description: (
             <span>
-                not required if using&nbsp;<code>&lt;ResponsiveBubble&nbsp;/&gt;</code>.
+                not required if using&nbsp;
+                <code>&lt;ResponsiveBubble&nbsp;/&gt;</code>.
             </span>
         ),
         type: '{number}',
@@ -75,7 +76,8 @@ export default [
         docScopes: '*',
         description: (
             <span>
-                not required if using&nbsp;<code>&lt;ResponsiveBubble&nbsp;/&gt;</code>.
+                not required if using&nbsp;
+                <code>&lt;ResponsiveBubble&nbsp;/&gt;</code>.
             </span>
         ),
         type: '{number}',
@@ -125,7 +127,8 @@ export default [
                     rel="noopener noreferrer"
                 >
                     official d3 documentation
-                </a>. Please be aware that when zoomed, this value will be affected by the zooming
+                </a>
+                . Please be aware that when zoomed, this value will be affected by the zooming
                 factor.
             </span>
         ),
@@ -265,7 +268,8 @@ export default [
                     rel="noopener noreferrer"
                 >
                     see d3.format() documentation
-                </a>.
+                </a>
+                .
             </span>
         ),
     },

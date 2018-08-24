@@ -29,7 +29,9 @@ export default [
         docScopes: '*',
         description: (
             <span>
-                Not required if using&nbsp;<code>Responsive*</code> component.<br />
+                Not required if using&nbsp;
+                <code>Responsive*</code> component.
+                <br />
                 Also note that width exclude left/right axes, please add margin to make sure they're
                 visible.
             </span>
@@ -52,7 +54,9 @@ export default [
         docScopes: '*',
         description: (
             <span>
-                Not required if using&nbsp;<code>Responsive*</code> component.<br />
+                Not required if using&nbsp;
+                <code>Responsive*</code> component.
+                <br />
                 Also note that width exclude top/bottom axes, please add margin to make sure they're
                 visible.
             </span>

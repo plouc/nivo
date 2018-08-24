@@ -52,7 +52,8 @@ export default [
         docScopes: '*',
         description: (
             <span>
-                not required if using&nbsp;<code>&lt;ResponsiveHeatMap&nbsp;/&gt;</code>.
+                not required if using&nbsp;
+                <code>&lt;ResponsiveHeatMap&nbsp;/&gt;</code>.
             </span>
         ),
         help: 'Chart width.',
@@ -73,7 +74,8 @@ export default [
         docScopes: '*',
         description: (
             <span>
-                not required if using&nbsp;<code>&lt;ResponsiveHeatMap&nbsp;/&gt;</code>.
+                not required if using&nbsp;
+                <code>&lt;ResponsiveHeatMap&nbsp;/&gt;</code>.
             </span>
         ),
         help: 'Chart height.',
@@ -380,11 +382,12 @@ export default [
         scopes: ['HeatMap', 'HeatMapCanvas'],
         description: (
             <div>
-                Defines hover behavior:<br />
-                - <strong>cell</strong>: highlight the current cell<br />
-                - <strong>row</strong>: highlight the current cell's row<br />
-                - <strong>column</strong>: highlight the current cell's column<br />
-                - <strong>rowColumn</strong>: highlight the current cell's row & column<br />
+                Defines hover behavior:
+                <br />- <strong>cell</strong>: highlight the current cell
+                <br />- <strong>row</strong>: highlight the current cell's row
+                <br />- <strong>column</strong>: highlight the current cell's column
+                <br />- <strong>rowColumn</strong>: highlight the current cell's row & column
+                <br />
             </div>
         ),
         help: 'Defines hover behavior.',

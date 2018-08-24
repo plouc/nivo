@@ -134,7 +134,8 @@ export default class Pie extends Component {
             <div className="chart-description">
                 <p>
                     Generates a pie chart from an array of data, each datum must have an id and a
-                    value property.<br />
+                    value property.
+                    <br />
                     Note that margin object does not take radial labels into account,&nbsp; so you
                     should adjust it to leave enough room for it.
                 </p>
@@ -150,7 +151,8 @@ export default class Pie extends Component {
                         rel="noopener noreferrer"
                     >
                         nivo-api
-                    </a>, see{' '}
+                    </a>
+                    , see{' '}
                     <a
                         href={`${config.nivoApiUrl}/samples/pie.svg`}
                         target="_blank"
@@ -166,7 +168,8 @@ export default class Pie extends Component {
                         rel="noopener noreferrer"
                     >
                         the storybook
-                    </a>.
+                    </a>
+                    .
                 </p>
                 <p className="description">
                     See the <Link to="/guides/legends">dedicated guide</Link> on how to setup

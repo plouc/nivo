@@ -49,7 +49,8 @@ export default [
         docScopes: '*',
         description: (
             <span>
-                not required if using&nbsp;<code>&lt;ResponsiveCalendar&nbsp;/&gt;</code>.
+                not required if using&nbsp;
+                <code>&lt;ResponsiveCalendar&nbsp;/&gt;</code>.
             </span>
         ),
         help: 'Chart width.',
@@ -70,7 +71,8 @@ export default [
         docScopes: '*',
         description: (
             <span>
-                not required if using&nbsp;<code>&lt;ResponsiveCalendar&nbsp;/&gt;</code>.
+                not required if using&nbsp;
+                <code>&lt;ResponsiveCalendar&nbsp;/&gt;</code>.
             </span>
         ),
         help: 'Chart height.',
@@ -125,7 +127,8 @@ export default [
         description: (
             <span>
                 An array of colors to be used in conjunction with <code>domain</code> to compute
-                days' color.<br />
+                days' color.
+                <br />
                 It applies to days having a value defined, otherwise, <code>emptyColor</code> will
                 be used.
             </span>

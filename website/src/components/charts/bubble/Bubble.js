@@ -124,7 +124,8 @@ export default class Bubble extends Component {
                         rel="noopener noreferrer"
                     >
                         nivo-api
-                    </a>, see{' '}
+                    </a>
+                    , see{' '}
                     <a
                         href={`${config.nivoApiUrl}/samples/bubble.svg`}
                         target="_blank"
@@ -140,7 +141,8 @@ export default class Bubble extends Component {
                         rel="noopener noreferrer"
                     >
                         the storybook
-                    </a>.
+                    </a>
+                    .
                 </p>
             </div>
         )

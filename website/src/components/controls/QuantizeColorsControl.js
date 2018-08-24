@@ -59,7 +59,8 @@ export default class QuantizeColorsControl extends Component {
         return (
             <div className="control control-colors">
                 <label className="control_label">
-                    colors:&nbsp;<code className="code code-string">'{value}'</code>
+                    colors:&nbsp;
+                    <code className="code code-string">'{value}'</code>
                 </label>
                 <Select
                     options={options.map(({ id, colors }) => ({

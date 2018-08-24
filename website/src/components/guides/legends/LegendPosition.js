@@ -62,7 +62,8 @@ export default () => (
     <div>
         <h2>Legend position</h2>
         <p>
-            The legend can be positioned in your chart area using the <code>anchor</code> property.<br />
+            The legend can be positioned in your chart area using the <code>anchor</code> property.
+            <br />
             You have 9 available directives:
         </p>
         <svg
@@ -105,7 +106,8 @@ export default () => (
         </svg>
         <p>
             The legend's anchor is relative to the inner chart area (with margin applied), but
-            depending on the chart type, you'll probably want to move it outside of this area.<br />
+            depending on the chart type, you'll probably want to move it outside of this area.
+            <br />
             That's where <code>translateX</code> & <code>translateY</code> come into play, allowing
             to adjust the legend position from its original anchor.
         </p>

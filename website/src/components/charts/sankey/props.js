@@ -52,7 +52,8 @@ export default [
         docScopes: '*',
         description: (
             <span>
-                not required if using&nbsp;<code>&lt;ResponsiveSankey&nbsp;/&gt;</code>.
+                not required if using&nbsp;
+                <code>&lt;ResponsiveSankey&nbsp;/&gt;</code>.
             </span>
         ),
         help: 'Chart width.',
@@ -73,7 +74,8 @@ export default [
         docScopes: '*',
         description: (
             <span>
-                not required if using&nbsp;<code>&lt;ResponsiveSankey&nbsp;/&gt;</code>.
+                not required if using&nbsp;
+                <code>&lt;ResponsiveSankey&nbsp;/&gt;</code>.
             </span>
         ),
         help: 'Chart height.',
@@ -100,7 +102,8 @@ export default [
                     rel="noopener noreferrer"
                 >
                     official d3 documentation
-                </a>.
+                </a>
+                .
             </span>
         ),
         help: 'Node alignment method.',
@@ -292,7 +295,8 @@ export default [
                     rel="noopener noreferrer"
                 >
                     MDN documentation
-                </a>.
+                </a>
+                .
             </span>
         ),
         type: '{string}',

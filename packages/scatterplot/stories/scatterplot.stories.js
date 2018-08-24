@@ -185,7 +185,8 @@ stories.add(
                 <span style={{ color }}>
                     <strong>
                         {id} ({serie})
-                    </strong>: {`x: ${x}, y: ${y}`}
+                    </strong>
+                    : {`x: ${x}, y: ${y}`}
                 </span>
             )}
             theme={{

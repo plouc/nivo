@@ -48,7 +48,8 @@ export default [
         docScopes: '*',
         description: (
             <span>
-                not required if using&nbsp;<code>&lt;ResponsiveBar&nbsp;/&gt;</code>.<br />
+                not required if using&nbsp;
+                <code>&lt;ResponsiveBar&nbsp;/&gt;</code>.<br />
                 Also note that width exclude left/right axes, please add margin to make sure they're
                 visible.
             </span>
@@ -71,7 +72,8 @@ export default [
         docScopes: '*',
         description: (
             <span>
-                not required if using&nbsp;<code>&lt;ResponsiveBar&nbsp;/&gt;</code>.<br />
+                not required if using&nbsp;
+                <code>&lt;ResponsiveBar&nbsp;/&gt;</code>.<br />
                 Also note that width exclude top/bottom axes, please add margin to make sure they're
                 visible.
             </span>

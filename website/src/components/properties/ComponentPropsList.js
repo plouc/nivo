@@ -67,9 +67,8 @@ export default class ComponentPropsList extends PureComponent {
                                     optional
                                 </span>
                             )}{' '}
-                            | default:&nbsp;{prop.default !== undefined
-                                ? defaultValue(prop.default)
-                                : '—'}
+                            | default:&nbsp;
+                            {prop.default !== undefined ? defaultValue(prop.default) : '—'}
                         </div>
                     )
 

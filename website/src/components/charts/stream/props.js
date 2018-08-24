@@ -37,7 +37,8 @@ export default [
         docScopes: '*',
         description: (
             <span>
-                not required if using&nbsp;<code>&lt;ResponsiveStream&nbsp;/&gt;</code>.
+                not required if using&nbsp;
+                <code>&lt;ResponsiveStream&nbsp;/&gt;</code>.
             </span>
         ),
         help: 'Chart width (px).',
@@ -58,7 +59,8 @@ export default [
         docScopes: '*',
         description: (
             <span>
-                not required if using&nbsp;<code>&lt;ResponsiveStream&nbsp;/&gt;</code>.
+                not required if using&nbsp;
+                <code>&lt;ResponsiveStream&nbsp;/&gt;</code>.
             </span>
         ),
         help: 'Chart height (px).',
@@ -108,7 +110,8 @@ export default [
         scopes: '*',
         description: (
             <span>
-                Defines the curve factory to use for the area generator.<br />
+                Defines the curve factory to use for the area generator.
+                <br />
                 Must be one of: {curveOptions}.
             </span>
         ),
