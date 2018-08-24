@@ -1,0 +1,1879 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render a basic line chart 1`] = `
+<div
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={300}
+    width={500}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g
+      transform="translate(0,0)"
+    >
+      <g>
+        <g>
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={125}
+            x2={125}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={250}
+            x2={250}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={375}
+            x2={375}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={500}
+            x2={500}
+            y1={0}
+            y2={300}
+          />
+        </g>
+        <g>
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={300}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={273}
+            y2={273}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={245}
+            y2={245}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={218}
+            y2={218}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={191}
+            y2={191}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={164}
+            y2={164}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={136}
+            y2={136}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={109}
+            y2={109}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={82}
+            y2={82}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={55}
+            y2={55}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={27}
+            y2={27}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={0}
+            y2={0}
+          />
+        </g>
+      </g>
+      <g>
+        <g
+          transform="translate(0,300)"
+        >
+          <g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(0,0)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={0}
+                y1={0}
+                y2={5}
+              />
+              <text
+                alignmentBaseline="before-edge"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="middle"
+                transform="translate(0,10) rotate(0)"
+              >
+                0
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(125,0)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={0}
+                y1={0}
+                y2={5}
+              />
+              <text
+                alignmentBaseline="before-edge"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="middle"
+                transform="translate(0,10) rotate(0)"
+              >
+                1
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(250,0)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={0}
+                y1={0}
+                y2={5}
+              />
+              <text
+                alignmentBaseline="before-edge"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="middle"
+                transform="translate(0,10) rotate(0)"
+              >
+                2
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(375,0)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={0}
+                y1={0}
+                y2={5}
+              />
+              <text
+                alignmentBaseline="before-edge"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="middle"
+                transform="translate(0,10) rotate(0)"
+              >
+                3
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(500,0)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={0}
+                y1={0}
+                y2={5}
+              />
+              <text
+                alignmentBaseline="before-edge"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="middle"
+                transform="translate(0,10) rotate(0)"
+              >
+                4
+              </text>
+            </g>
+          </g>
+        </g>
+        <g
+          transform="translate(0,0)"
+        >
+          <g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(0,300)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={-5}
+                y1={0}
+                y2={0}
+              />
+              <text
+                alignmentBaseline="central"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="end"
+                transform="translate(-10,0) rotate(0)"
+              >
+                0
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(0,273)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={-5}
+                y1={0}
+                y2={0}
+              />
+              <text
+                alignmentBaseline="central"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="end"
+                transform="translate(-10,0) rotate(0)"
+              >
+                1
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(0,245)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={-5}
+                y1={0}
+                y2={0}
+              />
+              <text
+                alignmentBaseline="central"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="end"
+                transform="translate(-10,0) rotate(0)"
+              >
+                2
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(0,218)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={-5}
+                y1={0}
+                y2={0}
+              />
+              <text
+                alignmentBaseline="central"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="end"
+                transform="translate(-10,0) rotate(0)"
+              >
+                3
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(0,191)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={-5}
+                y1={0}
+                y2={0}
+              />
+              <text
+                alignmentBaseline="central"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="end"
+                transform="translate(-10,0) rotate(0)"
+              >
+                4
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(0,164)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={-5}
+                y1={0}
+                y2={0}
+              />
+              <text
+                alignmentBaseline="central"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="end"
+                transform="translate(-10,0) rotate(0)"
+              >
+                5
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(0,136)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={-5}
+                y1={0}
+                y2={0}
+              />
+              <text
+                alignmentBaseline="central"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="end"
+                transform="translate(-10,0) rotate(0)"
+              >
+                6
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(0,109)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={-5}
+                y1={0}
+                y2={0}
+              />
+              <text
+                alignmentBaseline="central"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="end"
+                transform="translate(-10,0) rotate(0)"
+              >
+                7
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(0,82)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={-5}
+                y1={0}
+                y2={0}
+              />
+              <text
+                alignmentBaseline="central"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="end"
+                transform="translate(-10,0) rotate(0)"
+              >
+                8
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(0,55)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={-5}
+                y1={0}
+                y2={0}
+              />
+              <text
+                alignmentBaseline="central"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="end"
+                transform="translate(-10,0) rotate(0)"
+              >
+                9
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(0,27)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={-5}
+                y1={0}
+                y2={0}
+              />
+              <text
+                alignmentBaseline="central"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="end"
+                transform="translate(-10,0) rotate(0)"
+              >
+                10
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(0,0)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={-5}
+                y1={0}
+                y2={0}
+              />
+              <text
+                alignmentBaseline="central"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="end"
+                transform="translate(-10,0) rotate(0)"
+              >
+                11
+              </text>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g>
+        <path
+          d="M0,218L125,109L250,0L375,55L500,82"
+          fill="none"
+          stroke="rgb(232, 193, 160)"
+          strokeWidth={2}
+        />
+      </g>
+      <g>
+        <g
+          transform="translate(0, 0)"
+        >
+          <rect
+            fill="#000"
+            fillOpacity={0}
+            height={300}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseMove={[Function]}
+            width={40}
+            x={-20}
+          />
+        </g>
+        <g
+          transform="translate(125, 0)"
+        >
+          <rect
+            fill="#000"
+            fillOpacity={0}
+            height={300}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseMove={[Function]}
+            width={40}
+            x={-20}
+          />
+        </g>
+        <g
+          transform="translate(250, 0)"
+        >
+          <rect
+            fill="#000"
+            fillOpacity={0}
+            height={300}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseMove={[Function]}
+            width={40}
+            x={-20}
+          />
+        </g>
+        <g
+          transform="translate(375, 0)"
+        >
+          <rect
+            fill="#000"
+            fillOpacity={0}
+            height={300}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseMove={[Function]}
+            width={40}
+            x={-20}
+          />
+        </g>
+        <g
+          transform="translate(500, 0)"
+        >
+          <rect
+            fill="#000"
+            fillOpacity={0}
+            height={300}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseMove={[Function]}
+            width={40}
+            x={-20}
+          />
+        </g>
+      </g>
+      <g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(0, 218)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="#e8c1a0"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(125, 109)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="#e8c1a0"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(250, 0)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="#e8c1a0"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(375, 55)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="#e8c1a0"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(500, 82)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="#e8c1a0"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+      </g>
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`should support multiple lines 1`] = `
+<div
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={300}
+    width={500}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g
+      transform="translate(0,0)"
+    >
+      <g>
+        <g>
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={125}
+            x2={125}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={250}
+            x2={250}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={375}
+            x2={375}
+            y1={0}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={500}
+            x2={500}
+            y1={0}
+            y2={300}
+          />
+        </g>
+        <g>
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={300}
+            y2={300}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={273}
+            y2={273}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={245}
+            y2={245}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={218}
+            y2={218}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={191}
+            y2={191}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={164}
+            y2={164}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={136}
+            y2={136}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={109}
+            y2={109}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={82}
+            y2={82}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={55}
+            y2={55}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={27}
+            y2={27}
+          />
+          <line
+            opacity={1}
+            stroke="#ddd"
+            strokeDasharray=""
+            strokeWidth={1}
+            x1={0}
+            x2={500}
+            y1={0}
+            y2={0}
+          />
+        </g>
+      </g>
+      <g>
+        <g
+          transform="translate(0,300)"
+        >
+          <g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(0,0)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={0}
+                y1={0}
+                y2={5}
+              />
+              <text
+                alignmentBaseline="before-edge"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="middle"
+                transform="translate(0,10) rotate(0)"
+              >
+                0
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(125,0)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={0}
+                y1={0}
+                y2={5}
+              />
+              <text
+                alignmentBaseline="before-edge"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="middle"
+                transform="translate(0,10) rotate(0)"
+              >
+                1
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(250,0)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={0}
+                y1={0}
+                y2={5}
+              />
+              <text
+                alignmentBaseline="before-edge"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="middle"
+                transform="translate(0,10) rotate(0)"
+              >
+                2
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(375,0)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={0}
+                y1={0}
+                y2={5}
+              />
+              <text
+                alignmentBaseline="before-edge"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="middle"
+                transform="translate(0,10) rotate(0)"
+              >
+                3
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(500,0)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={0}
+                y1={0}
+                y2={5}
+              />
+              <text
+                alignmentBaseline="before-edge"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="middle"
+                transform="translate(0,10) rotate(0)"
+              >
+                4
+              </text>
+            </g>
+          </g>
+        </g>
+        <g
+          transform="translate(0,0)"
+        >
+          <g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(0,300)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={-5}
+                y1={0}
+                y2={0}
+              />
+              <text
+                alignmentBaseline="central"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="end"
+                transform="translate(-10,0) rotate(0)"
+              >
+                0
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(0,273)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={-5}
+                y1={0}
+                y2={0}
+              />
+              <text
+                alignmentBaseline="central"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="end"
+                transform="translate(-10,0) rotate(0)"
+              >
+                1
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(0,245)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={-5}
+                y1={0}
+                y2={0}
+              />
+              <text
+                alignmentBaseline="central"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="end"
+                transform="translate(-10,0) rotate(0)"
+              >
+                2
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(0,218)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={-5}
+                y1={0}
+                y2={0}
+              />
+              <text
+                alignmentBaseline="central"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="end"
+                transform="translate(-10,0) rotate(0)"
+              >
+                3
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(0,191)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={-5}
+                y1={0}
+                y2={0}
+              />
+              <text
+                alignmentBaseline="central"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="end"
+                transform="translate(-10,0) rotate(0)"
+              >
+                4
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(0,164)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={-5}
+                y1={0}
+                y2={0}
+              />
+              <text
+                alignmentBaseline="central"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="end"
+                transform="translate(-10,0) rotate(0)"
+              >
+                5
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(0,136)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={-5}
+                y1={0}
+                y2={0}
+              />
+              <text
+                alignmentBaseline="central"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="end"
+                transform="translate(-10,0) rotate(0)"
+              >
+                6
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(0,109)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={-5}
+                y1={0}
+                y2={0}
+              />
+              <text
+                alignmentBaseline="central"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="end"
+                transform="translate(-10,0) rotate(0)"
+              >
+                7
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(0,82)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={-5}
+                y1={0}
+                y2={0}
+              />
+              <text
+                alignmentBaseline="central"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="end"
+                transform="translate(-10,0) rotate(0)"
+              >
+                8
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(0,55)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={-5}
+                y1={0}
+                y2={0}
+              />
+              <text
+                alignmentBaseline="central"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="end"
+                transform="translate(-10,0) rotate(0)"
+              >
+                9
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(0,27)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={-5}
+                y1={0}
+                y2={0}
+              />
+              <text
+                alignmentBaseline="central"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="end"
+                transform="translate(-10,0) rotate(0)"
+              >
+                10
+              </text>
+            </g>
+            <g
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+              transform="translate(0,0)"
+            >
+              <line
+                stroke="#000"
+                x1={0}
+                x2={-5}
+                y1={0}
+                y2={0}
+              />
+              <text
+                alignmentBaseline="central"
+                style={
+                  Object {
+                    "fill": "#000",
+                    "fontSize": "11px",
+                  }
+                }
+                textAnchor="end"
+                transform="translate(-10,0) rotate(0)"
+              >
+                11
+              </text>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g>
+        <path
+          d="M0,218L125,109L250,0L375,55L500,82"
+          fill="none"
+          stroke="rgb(232, 193, 160)"
+          strokeWidth={2}
+        />
+        <path
+          d="M0,273L125,218L250,164L375,109L500,0"
+          fill="none"
+          stroke="rgb(244, 117, 96)"
+          strokeWidth={2}
+        />
+      </g>
+      <g>
+        <g
+          transform="translate(0, 0)"
+        >
+          <rect
+            fill="#000"
+            fillOpacity={0}
+            height={300}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseMove={[Function]}
+            width={40}
+            x={-20}
+          />
+        </g>
+        <g
+          transform="translate(125, 0)"
+        >
+          <rect
+            fill="#000"
+            fillOpacity={0}
+            height={300}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseMove={[Function]}
+            width={40}
+            x={-20}
+          />
+        </g>
+        <g
+          transform="translate(250, 0)"
+        >
+          <rect
+            fill="#000"
+            fillOpacity={0}
+            height={300}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseMove={[Function]}
+            width={40}
+            x={-20}
+          />
+        </g>
+        <g
+          transform="translate(375, 0)"
+        >
+          <rect
+            fill="#000"
+            fillOpacity={0}
+            height={300}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseMove={[Function]}
+            width={40}
+            x={-20}
+          />
+        </g>
+        <g
+          transform="translate(500, 0)"
+        >
+          <rect
+            fill="#000"
+            fillOpacity={0}
+            height={300}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseMove={[Function]}
+            width={40}
+            x={-20}
+          />
+        </g>
+      </g>
+      <g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(0, 218)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="#e8c1a0"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(125, 109)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="#e8c1a0"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(250, 0)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="#e8c1a0"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(375, 55)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="#e8c1a0"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(500, 82)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="#e8c1a0"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(0, 273)"
+        >
+          <circle
+            fill="#f47560"
+            r={3}
+            stroke="#f47560"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(125, 218)"
+        >
+          <circle
+            fill="#f47560"
+            r={3}
+            stroke="#f47560"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(250, 164)"
+        >
+          <circle
+            fill="#f47560"
+            r={3}
+            stroke="#f47560"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(375, 109)"
+        >
+          <circle
+            fill="#f47560"
+            r={3}
+            stroke="#f47560"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(500, 0)"
+        >
+          <circle
+            fill="#f47560"
+            r={3}
+            stroke="#f47560"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+      </g>
+    </g>
+  </svg>
+</div>
+`;

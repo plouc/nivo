@@ -70,7 +70,6 @@ const LineLines = ({
 
 LineLines.propTypes = {
     lineWidth: PropTypes.number.isRequired,
-    // motion
     ...motionPropTypes,
 }
 
