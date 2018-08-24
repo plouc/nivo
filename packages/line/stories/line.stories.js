@@ -88,15 +88,16 @@ stories.add('abusing dots', () => (
 ))
 
 const CustomSymbol = ({ size, color, borderWidth, borderColor }) => (
-    <rect
-        transform={`rotate(45) translate(${size * -0.5}, ${size * -0.5})`}
-        width={size}
-        height={size}
-        fill={color}
-        strokeWidth={borderWidth}
-        fillOpacity={1}
-        stroke={borderColor}
-    />
+    <g>
+        <circle fill="#fff" r={size / 2} strokeWidth={borderWidth} stroke={borderColor} />
+        <circle
+            r={size / 5}
+            strokeWidth={borderWidth}
+            stroke={borderColor}
+            fill={color}
+            fillOpacity={0.35}
+        />
+    </g>
 )
 
 stories.add('custom dot symbol', () => (
@@ -105,7 +106,7 @@ stories.add('custom dot symbol', () => (
         stacked={boolean('stacked', true)}
         curve={select('curve', curveOptions, 'monotoneX')}
         dotSymbol={CustomSymbol}
-        dotSize={12}
+        dotSize={16}
         dotBorderWidth={1}
         dotBorderColor="inherit:darker(0.3)"
         axisLeft={{
