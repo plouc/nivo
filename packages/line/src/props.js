@@ -14,7 +14,7 @@ export const LinePropTypes = {
     // data
     data: PropTypes.arrayOf(
         PropTypes.shape({
-            id: PropTypes.string.isRequired,
+            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
             data: PropTypes.arrayOf(
                 PropTypes.shape({
                     x: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
@@ -86,9 +86,6 @@ export const LinePropTypes = {
 }
 
 export const LineDefaultProps = {
-    indexBy: 'id',
-    keys: ['value'],
-
     stacked: false,
     curve: 'linear',
 

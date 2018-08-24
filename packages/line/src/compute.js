@@ -129,6 +129,7 @@ export const getScales = ({ data, width, height, minY, maxY }) => {
  * @param {Function}       xScale
  * @param {Function}       yScale
  * @param {Function}       color
+ *
  * @return {{ xScale: Function, yScale: Function, lines: Array.<Object> }}
  */
 export const generateLines = (data, xScale, yScale, color) =>

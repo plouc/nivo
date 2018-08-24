@@ -17,7 +17,7 @@ export const BarPropTypes = {
     data: PropTypes.arrayOf(PropTypes.object).isRequired,
     indexBy: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     getIndex: PropTypes.func.isRequired, // computed
-    keys: PropTypes.arrayOf(PropTypes.string).isRequired,
+    keys: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
 
     groupMode: PropTypes.oneOf(['stacked', 'grouped']).isRequired,
     layout: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
