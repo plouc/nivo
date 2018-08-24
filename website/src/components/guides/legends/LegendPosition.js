@@ -96,9 +96,9 @@ export default () => (
                         key={anchor}
                         anchor={anchor}
                         data={[
-                            { label: anchor, fill: '#dc5a32' },
-                            { label: '...', fill: '#dc5a32' },
-                            { label: '...', fill: '#dc5a32' },
+                            { id: 'a', label: anchor, fill: '#dc5a32' },
+                            { id: 'b', label: '...', fill: '#dc5a32' },
+                            { id: 'c', label: '...', fill: '#dc5a32' },
                         ]}
                     />
                 ))}
@@ -141,7 +141,11 @@ export default () => (
                         {...legendProps}
                         {...omit(example, ['translateX', 'translateY'])}
                         data={[
-                            { label: `${example.anchor} (regular)`, fill: 'rgb(232, 193, 160)' },
+                            {
+                                id: example.anchor,
+                                label: `${example.anchor} (regular)`,
+                                fill: 'rgb(232, 193, 160)',
+                            },
                         ]}
                     />
                 ))}
@@ -151,9 +155,17 @@ export default () => (
                         {...legendProps}
                         {...example}
                         data={[
-                            { label: `${example.anchor} (translated)`, fill: '#dc5a32' },
-                            { label: `translateX: ${example.translateX}`, fill: '#dc5a32' },
-                            { label: `translateY: ${example.translateY}`, fill: '#dc5a32' },
+                            { id: 'a', label: `${example.anchor} (translated)`, fill: '#dc5a32' },
+                            {
+                                id: 'b',
+                                label: `translateX: ${example.translateX}`,
+                                fill: '#dc5a32',
+                            },
+                            {
+                                id: 'c',
+                                label: `translateY: ${example.translateY}`,
+                                fill: '#dc5a32',
+                            },
                         ]}
                     />
                 ))}

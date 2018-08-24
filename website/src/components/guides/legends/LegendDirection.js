@@ -21,9 +21,9 @@ export default () => (
                 anchor="left"
                 direction="column"
                 data={[
-                    { label: `column`, fill: '#dc5a32' },
-                    { label: `column`, fill: '#dc5a32' },
-                    { label: `column`, fill: '#dc5a32' },
+                    { id: 'a', label: `column`, fill: '#dc5a32' },
+                    { id: 'b', label: `column`, fill: '#dc5a32' },
+                    { id: 'c', label: `column`, fill: '#dc5a32' },
                 ]}
             />
             <BoxLegendSvg
@@ -32,9 +32,9 @@ export default () => (
                 translateX={260}
                 direction="row"
                 data={[
-                    { label: `row`, fill: '#dc5a32' },
-                    { label: `row`, fill: '#dc5a32' },
-                    { label: `row`, fill: '#dc5a32' },
+                    { id: 'a', label: `row`, fill: '#dc5a32' },
+                    { id: 'b', label: `row`, fill: '#dc5a32' },
+                    { id: 'c', label: `row`, fill: '#dc5a32' },
                 ]}
             />
         </svg>
