@@ -45,12 +45,12 @@ bootstrap: ##@0 global lerna bootstrap
 	@./node_modules/.bin/lerna bootstrap
 
 init: ##@0 global cleanup/install/bootstrap
-	@make clean-all
+	@$(MAKE) clean-all
 	@yarn install
-	@make bootstrap
-	@make packages-build
-	@make website-install
-	@make examples-install
+	@$(MAKE) bootstrap
+	@$(MAKE) packages-build
+	@$(MAKE) website-install
+	@$(MAKE) examples-install
 
 fmt: ##@0 global format code using prettier (js, css, md)
 	@./node_modules/.bin/prettier --color --write \
@@ -71,13 +71,13 @@ fmt-check: ##@0 global check if files were all formatted using prettier
         "README.md"
 
 test-all: ##@0 global run all checks/tests (packages, website & examples)
-	@make fmt-check
-	@make packages-lint
-	@make packages-test
+	@$(MAKE) fmt-check
+	@$(MAKE) packages-lint
+	@$(MAKE) packages-test
 
 deploy-all: ##@0 global deploy website & storybook
-	@make website-deploy
-	@make storybook-deploy
+	@$(MAKE) website-deploy
+	@$(MAKE) storybook-deploy
 
 clean-all: ##@0 global uninstall node modules, remove transpiled code & lock files
 	@rm -rf node_modules
@@ -166,13 +166,13 @@ packages-screenshots: ##@1 packages generate screenshots for packages readme (we
 	@node scripts/capture.js
 
 packages-publish: ##@1 packages publish all packages
-	@make packages-build
+	@$(MAKE) packages-build
 
 	@echo "${YELLOW}Publishing packages${RESET}"
 	@./node_modules/.bin/lerna publish ---exact
 
 packages-publish-next: ##@1 packages publish all packages for @next npm tag
-	@make packages-build
+	@$(MAKE) packages-build
 
 	@echo "${YELLOW}Publishing packages${RESET}"
 	@./node_modules/.bin/lerna publish ---exact --npm-tag=next
@@ -185,7 +185,7 @@ package-dev-%: ##@1 packages setup package for development, link to website, run
 	@echo "${YELLOW}Preparing package ${WHITE}${*}${YELLOW} for development${RESET}"
 	@cd packages/nivo-${*} && yarn link
 	@cd website && yarn link @nivo/${*}
-	@make package-watch-${*}
+	@$(MAKE) package-watch-${*}
 
 ########################################################################################################################
 #
@@ -206,7 +206,7 @@ website-build: ##@2 website build website
 	@cd website && yarn build
 
 website-deploy: ##@2 website build & deploy website
-	@make website-build
+	@$(MAKE) website-build
 
 	@echo "${YELLOW}Deploying website${RESET}"
 	@./node_modules/.bin/gh-pages -d website/build -r git@github.com:plouc/nivo.git -b gh-pages
@@ -227,7 +227,7 @@ website-links-rm: ##@2 website unlink all linked packages
     find node_modules node_modules/\@* -depth 1 -type l -print | awk -F/ '{print $$(NF)}' | while read MODULE; do \
         yarn unlink "@nivo/$${MODULE}"; \
     done
-	@make website-install
+	@$(MAKE) website-install
 
 ########################################################################################################################
 #
@@ -243,7 +243,7 @@ storybook-build: ##@3 storybook build storybook
 	@./node_modules/.bin/build-storybook
 
 storybook-deploy: ##@3 storybook build and deploy storybook
-	@make storybook-build
+	@$(MAKE) storybook-build
 
 	@echo "${YELLOW}Deploying storybook${RESET}"
 	@./node_modules/.bin/gh-pages -d storybook-static -r git@github.com:plouc/nivo.git -b gh-pages -e storybook
@@ -255,7 +255,7 @@ storybook-deploy: ##@3 storybook build and deploy storybook
 ########################################################################################################################
 
 examples-install: ##@4 examples install all examples dependencies
-	@make example-install-retro
+	@$(MAKE) example-install-retro
 
 example-install-%: ##@4 examples install example dependencies, eg. example-install-retro
 	@echo "${YELLOW}Installing ${WHITE}${*}${YELLOW} example dependencies${RESET}"
@@ -266,7 +266,7 @@ example-start-%: ##@4 examples start example in dev mode, eg. example-start-retr
 	@cd examples/${*} && yarn start
 
 examples-build: ##@4 examples build all examples
-	@make example-build-retro
+	@$(MAKE) example-build-retro
 
 example-build-%: ##@4 examples build an example, eg. example-build-retro
 	@echo "${YELLOW}Building ${WHITE}${*}${YELLOW} example${RESET}"
