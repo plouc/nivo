@@ -67,10 +67,6 @@ export const ScatterPlotDefaultProps = {
         { id: 'x', axis: 'x', domain: [0, 'auto'] },
         { id: 'y', axis: 'y', domain: [0, 'auto'] },
     ],
-    minX: 0,
-    maxX: 'auto',
-    minY: 0,
-    maxY: 'auto',
 
     // axes & grid
     axisBottom: {},
