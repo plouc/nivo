@@ -92,6 +92,11 @@ export default class ScatterPlot extends Component {
             // interactivity
             isInteractive: true,
 
+            'custom tooltip example': false,
+            tooltip: null,
+
+            theme: nivoTheme,
+
             legends: [
                 {
                     anchor: 'bottom-right',
@@ -183,14 +188,6 @@ export default class ScatterPlot extends Component {
                         <ResponsiveScatterPlot
                             data={data}
                             {...mappedSettings}
-                            theme={{
-                                ...nivoTheme,
-                                grid: {
-                                    stroke: '#ccc',
-                                    strokeWidth: 1,
-                                    strokeDasharray: '6 6',
-                                },
-                            }}
                             onClick={this.handleNodeClick}
                         />
                     </ChartTabs>

@@ -13,6 +13,7 @@ import {
     axesProperties,
     motionProperties,
 } from '../../../lib/componentProperties'
+import dedent from 'dedent-js'
 
 export default [
     {
@@ -161,6 +162,43 @@ export default [
         type: '{boolean}',
         required: false,
         default: defaults.isInteractive,
+        controlType: 'switch',
+        controlGroup: 'Interactivity',
+    },
+    {
+        key: 'tooltip',
+        scopes: ['ScatterPlot'],
+        type: '{Function}',
+        required: false,
+        description: (
+            <div>
+                A function allowing complete tooltip customisation, it must return a valid HTML
+                element and will receive the following data:
+                <pre className="code code-block">
+                    {dedent`
+                        {
+                            id:    {string|number},
+                            serie: {string|number},
+                            color: {string},
+                            x:     {number},
+                            y:     {number},
+                        }
+                    `}
+                </pre>
+            </div>
+        ),
+    },
+    {
+        key: 'custom tooltip example',
+        scopes: ['ScatterPlot'],
+        excludeFromDoc: true,
+        description: (
+            <span>
+                You can customize the tooltip using the <code>tooltip</code> property and{' '}
+                <code>theme.tooltip</code> object.
+            </span>
+        ),
+        type: '{boolean}',
         controlType: 'switch',
         controlGroup: 'Interactivity',
     },

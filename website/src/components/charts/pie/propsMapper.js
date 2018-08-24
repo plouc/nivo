@@ -21,20 +21,18 @@ const TooltipKey = styled.span`
 `
 const TooltipValue = styled.span``
 
-const CustomTooltip = data => {
-    return (
-        <TooltipWrapper style={{ color: data.color }}>
-            <TooltipKey>id</TooltipKey>
-            <TooltipValue>{data.id}</TooltipValue>
-            <TooltipKey>value</TooltipKey>
-            <TooltipValue>{data.value}</TooltipValue>
-            <TooltipKey>label</TooltipKey>
-            <TooltipValue>{data.label}</TooltipValue>
-            <TooltipKey>color</TooltipKey>
-            <TooltipValue>{data.color}</TooltipValue>
-        </TooltipWrapper>
-    )
-}
+const CustomTooltip = data => (
+    <TooltipWrapper style={{ color: data.color }}>
+        <TooltipKey>id</TooltipKey>
+        <TooltipValue>{data.id}</TooltipValue>
+        <TooltipKey>value</TooltipKey>
+        <TooltipValue>{data.value}</TooltipValue>
+        <TooltipKey>label</TooltipKey>
+        <TooltipValue>{data.label}</TooltipValue>
+        <TooltipKey>color</TooltipKey>
+        <TooltipValue>{data.color}</TooltipValue>
+    </TooltipWrapper>
+)
 
 export default settingsMapper(
     {
