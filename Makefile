@@ -142,7 +142,7 @@ packages-test-cover: ##@1 packages run tests for all packages with code coverage
 
 packages-build: ##@1 packages build all packages
 	@echo "${YELLOW}Building all packages${RESET}"
-	find ./packages -type d -maxdepth 1 ! -path ./packages ! -path ./packages/babel-preset \
+	@find ./packages -type d -maxdepth 1 ! -path ./packages ! -path ./packages/babel-preset \
         | sed 's|^./packages/||' \
         | xargs -I '{}' sh -c '$(MAKE) package-build-{}'
 
