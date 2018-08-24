@@ -1,6 +1,6 @@
 {
   "name": "@nivo/core",
-  "version": "0.42.1",
+  "version": "0.44.0",
   "license": "MIT",
   "main": "./index.js",
   "files": [
