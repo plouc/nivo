@@ -21,7 +21,7 @@ const Chip = ({ color }) => (
     <span style={{ display: 'block', width: '12px', height: '12px', background: color }} />
 )
 
-const LineSlicesItem = ({ slice, height, showTooltip, hideTooltip, isHover }) => (
+const LineSlicesItem = ({ slice, height, showTooltip, hideTooltip, isHover, tooltip }) => (
     <g transform={`translate(${slice.x}, 0)`}>
         {isHover && (
             <line
@@ -54,34 +54,44 @@ LineSlicesItem.propTypes = {
     hideTooltip: PropTypes.func.isRequired,
     isHover: PropTypes.bool.isRequired,
     theme: PropTypes.object.isRequired,
+    tooltip: PropTypes.element,
 }
 
 const enhance = compose(
     withState('isHover', 'setIsHover', false),
-    withPropsOnChange(['slice', 'theme', 'tooltipFormat'], ({ slice, theme, tooltipFormat }) => {
-        const format =
-            !tooltipFormat || isFunction(tooltipFormat) ? tooltipFormat : d3Format(tooltipFormat)
-        const hasValues = slice.points.some(p => p.value !== null)
+    withPropsOnChange(
+        ['slice', 'theme', 'tooltip', 'tooltipFormat'],
+        ({ slice, theme, tooltip, tooltipFormat }) => {
+            const format =
+                !tooltipFormat || isFunction(tooltipFormat)
+                    ? tooltipFormat
+                    : d3Format(tooltipFormat)
+            const hasValues = slice.points.some(p => p.value !== null)
 
-        return {
-            tooltip: hasValues ? (
-                <TableTooltip
-                    theme={theme}
-                    rows={slice.points
-                        .filter(p => p.value !== null)
-                        .map(p => [
-                            <Chip color={p.color} />,
-                            p.id,
-                            format ? format(p.value) : p.value,
-                        ])}
-                />
-            ) : null,
+            return {
+                tooltipElement: hasValues ? (
+                    <TableTooltip
+                        theme={theme}
+                        rows={slice.points
+                            .filter(p => p.value !== null)
+                            .map(p => [
+                                <Chip color={p.color} />,
+                                p.id,
+                                format ? format(p.value) : p.value,
+                            ])}
+                        format={format}
+                        renderContent={
+                            typeof tooltip === 'function' ? tooltip.bind(null, { ...slice }) : null
+                        }
+                    />
+                ) : null,
+            }
         }
-    }),
+    ),
     withHandlers({
-        showTooltip: ({ showTooltip, setIsHover, tooltip }) => e => {
+        showTooltip: ({ showTooltip, setIsHover, tooltipElement }) => e => {
             setIsHover(true)
-            showTooltip(tooltip, e)
+            showTooltip(tooltipElement, e)
         },
         hideTooltip: ({ hideTooltip, setIsHover }) => () => {
             setIsHover(false)

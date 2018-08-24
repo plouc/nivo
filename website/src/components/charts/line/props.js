@@ -378,5 +378,13 @@ export default [
         controlType: 'switch',
         controlGroup: 'Interactivity',
     },
+    {
+        key: 'tooltip',
+        scopes: ['Line'],
+        description: `Method to create custom tooltip`,
+        type: '{Function}',
+        required: false,
+        default: defaults.tooltip,
+    },
     ...motionProperties(['Line'], defaults),
 ]
