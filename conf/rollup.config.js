@@ -5,9 +5,9 @@ import stripBanner from 'rollup-plugin-strip-banner'
 const pkg = process.env.PACKAGE
 
 export default {
-    input: `./packages/nivo-${pkg}/src/index.js`,
+    input: `./packages/${pkg}/src/index.js`,
     output: {
-        file: `./packages/nivo-${pkg}/cjs/nivo-${pkg}.js`,
+        file: `./packages/${pkg}/cjs/nivo-${pkg}.js`,
         format: 'cjs'
     },
     name: '@nivo/axes',
@@ -78,7 +78,7 @@ export default {
     ],
     plugins: [
         stripBanner({
-            include: `./packages/nivo-${pkg}/src/**/*.js`,
+            include: `./packages/${pkg}/src/**/*.js`,
         }),
         resolve({
             module: true,
