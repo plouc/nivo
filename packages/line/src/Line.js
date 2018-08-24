@@ -170,6 +170,7 @@ const Line = ({
                     {legends.map((legend, i) => {
                         const legendData = lines
                             .map(line => ({
+                                id: line.id,
                                 label: line.id,
                                 fill: line.color,
                             }))

@@ -33,8 +33,22 @@ export default class Line extends Component {
                     translateX: 100,
                     itemWidth: 80,
                     itemHeight: 20,
+                    itemOpacity: 0.75,
                     symbolSize: 12,
                     symbolShape: 'circle',
+                    symbolBorderColor: 'rgba(0, 0, 0, .5)',
+                    onClick: d => {
+                        alert(JSON.stringify(d, null, '    '))
+                    },
+                    effects: [
+                        {
+                            on: 'hover',
+                            style: {
+                                itemBackground: 'rgba(0, 0, 0, .03)',
+                                itemOpacity: 1,
+                            },
+                        },
+                    ],
                 },
             ],
         },

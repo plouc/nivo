@@ -26,6 +26,35 @@ import {
 } from './constants'
 
 /**
+ * This can be used to add effect on legends on interaction.
+ */
+export const legendEffectPropType = PropTypes.shape({
+    on: PropTypes.oneOfType([PropTypes.oneOf(['hover'])]).isRequired,
+    style: PropTypes.shape({
+        itemTextColor: PropTypes.string,
+        itemBackground: PropTypes.string,
+        itemOpacity: PropTypes.number,
+        symbolSize: PropTypes.number,
+        symbolBorderWidth: PropTypes.number,
+        symbolBorderColor: PropTypes.string,
+    }).isRequired,
+})
+
+export const symbolPropTypes = {
+    symbolSize: PropTypes.number,
+    symbolSpacing: PropTypes.number,
+    symbolShape: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    symbolBorderWidth: PropTypes.number,
+    symbolBorderColor: PropTypes.string,
+}
+
+export const interactivityPropTypes = {
+    onClick: PropTypes.func,
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func,
+}
+
+/**
  * The prop type is exported as a simple object instead of `PropTypes.shape`
  * to be able to add extra properties.
  *
@@ -63,7 +92,8 @@ export const LegendPropShape = {
     translateY: PropTypes.number,
     direction: PropTypes.oneOf([DIRECTION_ROW, DIRECTION_COLUMN]).isRequired,
 
-    // items
+    // item
+    itemsSpacing: PropTypes.number,
     itemWidth: PropTypes.number.isRequired,
     itemHeight: PropTypes.number.isRequired,
     itemDirection: PropTypes.oneOf([
@@ -72,9 +102,12 @@ export const LegendPropShape = {
         DIRECTION_TOP_TO_BOTTOM,
         DIRECTION_BOTTOM_TO_TOP,
     ]),
-    itemsSpacing: PropTypes.number,
-    symbolSize: PropTypes.number,
-    symbolSpacing: PropTypes.number,
-    symbolShape: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    textColor: PropTypes.string,
+    itemTextColor: PropTypes.string,
+    itemBackground: PropTypes.string,
+    itemOpacity: PropTypes.number,
+
+    ...symbolPropTypes,
+    ...interactivityPropTypes,
+
+    effects: PropTypes.arrayOf(legendEffectPropType),
 }

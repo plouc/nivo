@@ -156,12 +156,14 @@ const Bar = ({
     const legendDataForKeys = result.bars
         .filter(bar => bar.data.index === 0)
         .map(bar => ({
+            id: bar.data.id,
             label: bar.data.id,
             fill: bar.data.fill ? bar.data.fill : bar.color,
         }))
         .reverse()
 
     const legendDataForIndexes = result.bars.filter(bar => bar.data.id === keys[0]).map(bar => ({
+        id: bar.data.indexValue,
         label: bar.data.indexValue,
         fill: bar.data.fill ? bar.data.fill : bar.color,
     }))

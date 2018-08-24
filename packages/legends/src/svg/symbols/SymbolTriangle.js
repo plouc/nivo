@@ -6,28 +6,38 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { PureComponent } from 'react'
+import { symbolPropTypes, symbolDefaultProps } from './props'
 
-const SymbolTriangle = ({ x, y, size, fill }) => (
-    <g transform={`translate(${x},${y})`}>
-        <path
-            fill={fill}
-            d={`
+export default class SymbolTriangle extends PureComponent {
+    static propTypes = {
+        ...symbolPropTypes,
+    }
+
+    static defaultProps = {
+        ...symbolDefaultProps,
+    }
+
+    render() {
+        const { x, y, size, fill, borderWidth, borderColor } = this.props
+
+        return (
+            <g transform={`translate(${x},${y})`}>
+                <path
+                    d={`
                 M${size / 2} 0
                 L${size} ${size}
                 L0 ${size}
                 L${size / 2} 0
             `}
-        />
-    </g>
-)
-
-SymbolTriangle.propTypes = {
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-    size: PropTypes.number.isRequired,
-    fill: PropTypes.string.isRequired,
+                    fill={fill}
+                    strokeWidth={borderWidth}
+                    stroke={borderColor}
+                    style={{
+                        pointerEvents: 'none',
+                    }}
+                />
+            </g>
+        )
+    }
 }
-
-export default SymbolTriangle

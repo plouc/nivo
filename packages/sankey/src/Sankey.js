@@ -108,6 +108,7 @@ const Sankey = ({
     })
 
     const legendData = data.nodes.map(node => ({
+        id: node.id,
         label: node.label,
         fill: node.color,
     }))

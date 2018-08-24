@@ -6,18 +6,33 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { PureComponent } from 'react'
+import { symbolPropTypes, symbolDefaultProps } from './props'
 
-const SymbolCircle = ({ x, y, size, fill }) => (
-    <circle r={size / 2} cx={x + size / 2} cy={y + size / 2} fill={fill} />
-)
+export default class SymbolCircle extends PureComponent {
+    static propTypes = {
+        ...symbolPropTypes,
+    }
 
-SymbolCircle.propTypes = {
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-    size: PropTypes.number.isRequired,
-    fill: PropTypes.string.isRequired,
+    static defaultProps = {
+        ...symbolDefaultProps,
+    }
+
+    render() {
+        const { x, y, size, fill, borderWidth, borderColor } = this.props
+
+        return (
+            <circle
+                r={size / 2}
+                cx={x + size / 2}
+                cy={y + size / 2}
+                fill={fill}
+                strokeWidth={borderWidth}
+                stroke={borderColor}
+                style={{
+                    pointerEvents: 'none',
+                }}
+            />
+        )
+    }
 }
-
-export default SymbolCircle

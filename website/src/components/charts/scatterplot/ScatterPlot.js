@@ -105,8 +105,20 @@ export default class ScatterPlot extends Component {
                     itemWidth: 100,
                     itemHeight: 12,
                     itemsSpacing: 5,
+                    itemTextColor: '#999',
                     symbolSize: 12,
                     symbolShape: 'circle',
+                    onClick: d => {
+                        alert(JSON.stringify(d, null, '    '))
+                    },
+                    effects: [
+                        {
+                            on: 'hover',
+                            style: {
+                                itemTextColor: '#000',
+                            },
+                        },
+                    ],
                 },
             ],
         },

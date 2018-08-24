@@ -80,7 +80,19 @@ export default class Sankey extends Component {
                     itemHeight: 14,
                     itemDirection: 'right-to-left',
                     itemsSpacing: 2,
+                    itemTextColor: '#999',
                     symbolSize: 14,
+                    onClick: d => {
+                        alert(JSON.stringify(d, null, '    '))
+                    },
+                    effects: [
+                        {
+                            on: 'hover',
+                            style: {
+                                itemTextColor: '#000',
+                            },
+                        },
+                    ],
                 },
             ],
         },
