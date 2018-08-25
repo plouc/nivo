@@ -8,7 +8,7 @@
  */
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import ChartControls from '../../controls/ChartControls'
+import ChartControlGroups from '../../controls/ChartControlGroups'
 import { getPropertiesGroupsControls } from '../../../lib/componentProperties'
 import properties from './props'
 
@@ -31,8 +31,8 @@ export default class HeatMapControls extends PureComponent {
         const groups = groupsByScope[scope]
 
         return (
-            <ChartControls
-                ns="sankey"
+            <ChartControlGroups
+                ns="heatmap"
                 scope={scope}
                 settings={settings}
                 onChange={onChange}

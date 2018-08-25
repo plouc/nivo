@@ -11,6 +11,7 @@ import partial from 'lodash/partial'
 import { TransitionMotion, spring } from 'react-motion'
 import setDisplayName from 'recompose/setDisplayName'
 import { Container, SvgWrapper } from '@nivo/core'
+import { BoxLegendSvg } from '@nivo/legends'
 import { WafflePropTypes } from './props'
 import enhance from './enhance'
 import { applyDataToGrid } from './compute'
@@ -50,6 +51,8 @@ export class Waffle extends Component {
         const {
             // dimensions
             margin,
+            width,
+            height,
             outerWidth,
             outerHeight,
 
@@ -76,11 +79,19 @@ export class Waffle extends Component {
             cellSize,
             origin,
             computedData,
+
+            legends,
         } = this.props
 
         cells.forEach(cell => {
             cell.color = emptyColor
         })
+
+        const legendData = computedData.map(datum => ({
+            id: datum.id,
+            label: datum.id,
+            fill: datum.fill,
+        }))
 
         return (
             <Container isInteractive={isInteractive} theme={theme}>
@@ -176,6 +187,15 @@ export class Waffle extends Component {
                             defs={defs}
                         >
                             <g transform={`translate(${origin.x}, ${origin.y})`}>{cellsRender}</g>
+                            {legends.map((legend, i) => (
+                                <BoxLegendSvg
+                                    key={i}
+                                    {...legend}
+                                    containerWidth={width}
+                                    containerHeight={height}
+                                    data={legendData}
+                                />
+                            ))}
                         </SvgWrapper>
                     )
                 }}

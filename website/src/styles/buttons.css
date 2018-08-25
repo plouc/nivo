@@ -1,0 +1,28 @@
+.button {
+    display: block;
+    padding: 8px 10px;
+    height: 32px;
+    line-height: 1em;
+    border-radius: 2px;
+    background: #fff;
+    color: var(--accent-color);
+    cursor: pointer;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.12);
+    font-weight: 600;
+    font-size: 14px;
+    white-space: pre;
+    user-select: none;
+}
+.button:hover {
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+    color: var(--accent-color-darker);
+}
+.button--small {
+    height: 28px;
+    padding: 7px 8px;
+    font-size: 13px;
+    color: #555;
+}
+.button--small:hover {
+    color: #111;
+}

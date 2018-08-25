@@ -2,6 +2,7 @@
 @import 'settings/dimensions.css';
 
 @import 'icons.css';
+@import 'buttons.css';
 @import 'layout.css';
 @import 'grid.css';
 @import 'nav.css';
@@ -13,7 +14,6 @@
 @import 'home.css';
 @import 'charts.css';
 @import 'controls.css';
-@import 'chart-controls.css';
 @import 'components/components-filters.css';
 @import 'components/components-grid.css';
 @import 'components/components-search.css';
@@ -127,7 +127,9 @@ p:first-child {
 }
 
 .unit {
-    color: #999;
+    display: inline-block;
+    margin-left: 2px;
+    font-size: 12px;
 }
 
 code,

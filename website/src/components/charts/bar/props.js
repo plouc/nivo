@@ -15,6 +15,7 @@ import {
     axesProperties,
     motionProperties,
     defsProperties,
+    getLegendsProps,
 } from '../../../lib/componentProperties'
 
 export default [
@@ -209,11 +210,6 @@ export default [
             max: 10,
         },
     },
-    /*——————————————————————————————————————————————————————————————————————————
-
-      Styling
-
-    ————————————————————————————————————————————————————————————————————————————*/
     {
         key: 'colors',
         scopes: '*',
@@ -301,11 +297,6 @@ export default [
     },
     ...defsProperties(['Bar']),
     ...marginProperties,
-    /*——————————————————————————————————————————————————————————————————————————
-
-      Labels
-
-    ————————————————————————————————————————————————————————————————————————————*/
     {
         key: 'enableLabel',
         scopes: '*',
@@ -380,11 +371,6 @@ export default [
         controlType: 'switch',
         controlGroup: 'Grid',
     },
-    /*——————————————————————————————————————————————————————————————————————————
-
-      Interactivity
-
-    ————————————————————————————————————————————————————————————————————————————*/
     {
         key: 'isInteractive',
         scopes: ['Bar', 'BarCanvas'],
@@ -458,6 +444,36 @@ export default [
                 </pre>
             </div>
         ),
+    },
+    {
+        key: 'legends',
+        scopes: ['Bar'],
+        type: '{Array<object>}',
+        description: `Optional chart's legends.`,
+        controlGroup: 'Legends',
+        controlType: 'array',
+        controlOptions: {
+            props: getLegendsProps(),
+            shouldCreate: true,
+            addLabel: 'add legend',
+            shouldRemove: true,
+            defaults: {
+                dataFrom: 'keys',
+                anchor: 'top-left',
+                direction: 'column',
+                justify: false,
+                translateX: 0,
+                translateY: 0,
+                itemWidth: 100,
+                itemHeight: 20,
+                itemsSpacing: 0,
+                symbolSize: 20,
+                itemDirection: 'left-to-right',
+                onClick: data => {
+                    alert(JSON.stringify(data, null, '    '))
+                },
+            },
+        },
     },
     /*——————————————————————————————————————————————————————————————————————————
 

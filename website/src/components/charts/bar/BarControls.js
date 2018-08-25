@@ -8,7 +8,7 @@
  */
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import ChartControls from '../../controls/ChartControls'
+import ChartControlGroups from '../../controls/ChartControlGroups'
 import { getPropertiesGroupsControls } from '../../../lib/componentProperties'
 import properties from './props'
 
@@ -31,7 +31,7 @@ export default class BarControls extends PureComponent {
         const groups = groupsByScope[scope]
 
         return (
-            <ChartControls
+            <ChartControlGroups
                 ns="bar"
                 scope={scope}
                 settings={settings}
