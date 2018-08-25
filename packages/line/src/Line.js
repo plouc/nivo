@@ -172,7 +172,7 @@ const Line = ({
                             .map(line => ({
                                 id: line.id,
                                 label: line.id,
-                                fill: line.color,
+                                color: line.color,
                             }))
                             .reverse()
 

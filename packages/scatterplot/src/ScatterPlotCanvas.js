@@ -7,10 +7,14 @@
  * file that was distributed with this source code.
  */
 import React, { Component } from 'react'
-import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/core'
-import { getRelativeCursor, isCursorInRect } from '@nivo/core'
-import { Container } from '@nivo/core'
-import { BasicTooltip } from '@nivo/core'
+import {
+    renderAxesToCanvas,
+    renderGridLinesToCanvas,
+    getRelativeCursor,
+    isCursorInRect,
+    Container,
+    BasicTooltip,
+} from '@nivo/core'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { ScatterPlotPropTypes } from './props'
 import enhance from './enhance'
@@ -143,8 +147,9 @@ class ScatterPlotCanvas extends Component {
         this.items = items
 
         const legendData = data.map(serie => ({
+            id: serie.id,
             label: serie.id,
-            fill: getColor(serie),
+            color: getColor(serie),
         }))
 
         legends.forEach(legend => {

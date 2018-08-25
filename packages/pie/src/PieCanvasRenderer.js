@@ -209,8 +209,9 @@ class PieCanvasRenderer extends Component {
             renderLegendToCanvas(this.ctx, {
                 ...legend,
                 data: arcs.map(arc => ({
+                    id: arc.data.id,
                     label: arc.data.id,
-                    fill: arc.color,
+                    color: arc.color,
                 })),
                 containerWidth: width,
                 containerHeight: height,

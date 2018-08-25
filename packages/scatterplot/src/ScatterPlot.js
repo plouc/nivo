@@ -70,7 +70,7 @@ const ScatterPlot = ({
     const legendData = data.map(serie => ({
         id: serie.id,
         label: serie.id,
-        fill: getColor(serie),
+        color: getColor(serie),
     }))
 
     const symbols = data.reduce(
