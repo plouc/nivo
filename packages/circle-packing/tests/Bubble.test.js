@@ -1,9 +1,6 @@
 import React from 'react'
-import { configure, render } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
+import { render } from 'enzyme'
 import Bubble from '../src/Bubble'
-
-configure({ adapter: new Adapter() })
 
 const sampleData = {
     id: 'nivo',

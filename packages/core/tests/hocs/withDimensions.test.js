@@ -7,12 +7,9 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { configure, shallow } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
+import { shallow } from 'enzyme'
 import { defaultMargin } from '../../src/defaults'
 import withDimensions from '../../src/hocs/withDimensions'
-
-configure({ adapter: new Adapter() })
 
 it('should add default margin', () => {
     const Sample = withDimensions()('div')
