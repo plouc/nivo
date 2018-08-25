@@ -9,10 +9,10 @@
 import React, { Component } from 'react'
 import range from 'lodash/range'
 import setDisplayName from 'recompose/setDisplayName'
-import { Container } from '@nivo/core'
+import { isCursorInRect, getRelativeCursor, Container } from '@nivo/core'
+import { renderLegendToCanvas } from '@nivo/legends'
 import enhance from './enhance'
 import { WaffleCanvasPropTypes } from './props'
-import { isCursorInRect, getRelativeCursor } from '@nivo/core'
 import WaffleCellTooltip from './WaffleCellTooltip'
 
 const findCellUnderCursor = (cells, cellSize, origin, margin, x, y) =>
@@ -46,6 +46,8 @@ class WaffleCanvas extends Component {
 
             // dimensions
             margin,
+            width,
+            height,
             outerWidth,
             outerHeight,
 
@@ -61,6 +63,9 @@ class WaffleCanvas extends Component {
             cellSize,
             origin,
             computedData,
+            legendData,
+
+            legends,
         } = props
 
         this.surface.width = outerWidth * pixelRatio
@@ -99,6 +104,15 @@ class WaffleCanvas extends Component {
             }
 
             this.ctx.restore()
+        })
+
+        legends.forEach(legend => {
+            renderLegendToCanvas(this.ctx, {
+                ...legend,
+                data: legendData,
+                containerWidth: width,
+                containerHeight: height,
+            })
         })
     }
 

@@ -308,7 +308,7 @@ export default [
     },
     {
         key: 'legends',
-        scopes: ['Waffle'],
+        scopes: ['Waffle', 'WaffleCanvas'],
         type: '{Array<object>}',
         description: `Optional chart's legends.`,
         controlGroup: 'Legends',

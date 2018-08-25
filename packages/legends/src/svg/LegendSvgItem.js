@@ -15,7 +15,7 @@ import {
     DIRECTION_TOP_TO_BOTTOM,
     DIRECTION_BOTTOM_TO_TOP,
 } from '../constants'
-import { symbolPropTypes, interactivityPropTypes } from '../props'
+import { datumPropType, symbolPropTypes, interactivityPropTypes } from '../props'
 import { computeItemLayout } from '../compute'
 import { SymbolCircle, SymbolDiamond, SymbolSquare, SymbolTriangle } from './symbols'
 
@@ -28,11 +28,7 @@ const symbolByShape = {
 
 export default class LegendSvgItem extends Component {
     static propTypes = {
-        data: PropTypes.shape({
-            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-            label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-            fill: PropTypes.string,
-        }).isRequired,
+        data: datumPropType.isRequired,
 
         x: PropTypes.number.isRequired,
         y: PropTypes.number.isRequired,
@@ -191,7 +187,7 @@ export default class LegendSvgItem extends Component {
                     x: symbolX,
                     y: symbolY,
                     size: style.symbolSize || symbolSize,
-                    fill: data.fill,
+                    fill: data.fill || data.color,
                     borderWidth:
                         style.symbolBorderWidth !== undefined
                             ? style.symbolBorderWidth

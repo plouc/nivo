@@ -54,6 +54,13 @@ export const interactivityPropTypes = {
     onMouseLeave: PropTypes.func,
 }
 
+export const datumPropType = PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    color: PropTypes.string.isRequired,
+    fill: PropTypes.string,
+})
+
 /**
  * The prop type is exported as a simple object instead of `PropTypes.shape`
  * to be able to add extra properties.
@@ -69,12 +76,7 @@ export const interactivityPropTypes = {
  * ```
  */
 export const LegendPropShape = {
-    data: PropTypes.arrayOf(
-        PropTypes.shape({
-            label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-            fill: PropTypes.string.isRequired,
-        })
-    ),
+    data: PropTypes.arrayOf(datumPropType),
 
     // position & layout
     anchor: PropTypes.oneOf([
