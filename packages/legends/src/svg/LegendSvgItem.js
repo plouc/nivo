@@ -8,6 +8,7 @@
  */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { isFunction } from 'lodash'
 import {
     DIRECTION_LEFT_TO_RIGHT,
     DIRECTION_RIGHT_TO_LEFT,
@@ -63,9 +64,9 @@ export default class LegendSvgItem extends Component {
         opacity: 1,
 
         // symbol
+        symbolShape: 'square',
         symbolSize: 16,
         symbolSpacing: 8,
-        symbolShape: 'square',
         symbolBorderWidth: 0,
         symbolBorderColor: 'transparent',
 
@@ -134,9 +135,9 @@ export default class LegendSvgItem extends Component {
             background,
             opacity,
             // symbol
+            symbolShape,
             symbolSize,
             symbolSpacing,
-            symbolShape,
             symbolBorderWidth,
             symbolBorderColor,
             // interactivity
@@ -161,7 +162,12 @@ export default class LegendSvgItem extends Component {
             handler => handler !== undefined
         )
 
-        const Symbol = symbolByShape[symbolShape]
+        let Symbol
+        if (isFunction(symbolShape)) {
+            Symbol = symbolShape
+        } else {
+            Symbol = symbolByShape[symbolShape]
+        }
 
         return (
             <g
@@ -181,18 +187,17 @@ export default class LegendSvgItem extends Component {
                     onMouseEnter={this.handleMouseEnter}
                     onMouseLeave={this.handleMouseLeave}
                 />
-                <Symbol
-                    x={symbolX}
-                    y={symbolY}
-                    size={style.symbolSize || symbolSize}
-                    fill={data.fill}
-                    borderWidth={
+                {React.createElement(Symbol, {
+                    x: symbolX,
+                    y: symbolY,
+                    size: style.symbolSize || symbolSize,
+                    fill: data.fill,
+                    borderWidth:
                         style.symbolBorderWidth !== undefined
                             ? style.symbolBorderWidth
-                            : symbolBorderWidth
-                    }
-                    borderColor={style.symbolBorderColor || symbolBorderColor}
-                />
+                            : symbolBorderWidth,
+                    borderColor: style.symbolBorderColor || symbolBorderColor,
+                })}
                 <text
                     textAnchor={labelAnchor}
                     style={{

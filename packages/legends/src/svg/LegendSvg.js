@@ -39,9 +39,9 @@ const LegendSvg = ({
     itemBackground,
     itemOpacity,
     // symbol
+    symbolShape,
     symbolSize,
     symbolSpacing,
-    symbolShape,
     symbolBorderWidth,
     symbolBorderColor,
     // interactivity
@@ -85,9 +85,9 @@ const LegendSvg = ({
                     background={itemBackground}
                     opacity={itemOpacity}
                     // symbol
+                    symbolShape={symbolShape}
                     symbolSize={symbolSize}
                     symbolSpacing={symbolSpacing}
-                    symbolShape={symbolShape}
                     symbolBorderWidth={symbolBorderWidth}
                     symbolBorderColor={symbolBorderColor}
                     // interactivity

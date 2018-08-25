@@ -41,9 +41,9 @@ export const legendEffectPropType = PropTypes.shape({
 })
 
 export const symbolPropTypes = {
+    symbolShape: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     symbolSize: PropTypes.number,
     symbolSpacing: PropTypes.number,
-    symbolShape: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     symbolBorderWidth: PropTypes.number,
     symbolBorderColor: PropTypes.string,
 }
