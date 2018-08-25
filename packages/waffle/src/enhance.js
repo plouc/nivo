@@ -58,7 +58,8 @@ const commonEnhancers = [
         legendData: computedData.map(datum => ({
             id: datum.id,
             label: datum.id,
-            fill: datum.fill || datum.color,
+            color: datum.color,
+            fill: datum.fill,
         })),
     })),
 ]

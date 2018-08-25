@@ -75,7 +75,7 @@ export default class WaffleCanvas extends Component {
             total: 140,
 
             // layout
-            rows: 36,
+            rows: 40,
             columns: 40,
             fillDirection: 'bottom',
             padding: 0.5,
@@ -84,7 +84,7 @@ export default class WaffleCanvas extends Component {
                 top: 10,
                 right: 10,
                 bottom: 10,
-                left: 10,
+                left: 120,
             },
 
             // styling
@@ -102,6 +102,35 @@ export default class WaffleCanvas extends Component {
             isInteractive: true,
             'custom tooltip example': false,
             tooltip: null,
+
+            legends: [
+                {
+                    anchor: 'top-left',
+                    direction: 'column',
+                    justify: false,
+                    translateX: -100,
+                    translateY: 0,
+                    itemsSpacing: 4,
+                    itemWidth: 100,
+                    itemHeight: 20,
+                    itemDirection: 'left-to-right',
+                    itemOpacity: 1,
+                    itemTextColor: '#777',
+                    symbolSize: 20,
+                    onClick: data => {
+                        alert(JSON.stringify(data, null, '    '))
+                    },
+                    effects: [
+                        {
+                            on: 'hover',
+                            style: {
+                                itemTextColor: '#000',
+                                itemBackground: '#f7fafb',
+                            },
+                        },
+                    ],
+                },
+            ],
         },
     }
 

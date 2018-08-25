@@ -96,9 +96,9 @@ export default () => (
                         key={anchor}
                         anchor={anchor}
                         data={[
-                            { id: 'a', label: anchor, fill: '#dc5a32' },
-                            { id: 'b', label: '...', fill: '#dc5a32' },
-                            { id: 'c', label: '...', fill: '#dc5a32' },
+                            { id: 'a', label: anchor, color: '#dc5a32' },
+                            { id: 'b', label: '...', color: '#dc5a32' },
+                            { id: 'c', label: '...', color: '#dc5a32' },
                         ]}
                     />
                 ))}
@@ -144,7 +144,7 @@ export default () => (
                             {
                                 id: example.anchor,
                                 label: `${example.anchor} (regular)`,
-                                fill: 'rgb(232, 193, 160)',
+                                color: 'rgb(232, 193, 160)',
                             },
                         ]}
                     />
@@ -155,16 +155,20 @@ export default () => (
                         {...legendProps}
                         {...example}
                         data={[
-                            { id: 'a', label: `${example.anchor} (translated)`, fill: '#dc5a32' },
+                            {
+                                id: 'a',
+                                label: `${example.anchor} (translated)`,
+                                color: '#dc5a32',
+                            },
                             {
                                 id: 'b',
                                 label: `translateX: ${example.translateX}`,
-                                fill: '#dc5a32',
+                                color: '#dc5a32',
                             },
                             {
                                 id: 'c',
                                 label: `translateY: ${example.translateY}`,
-                                fill: '#dc5a32',
+                                color: '#dc5a32',
                             },
                         ]}
                     />

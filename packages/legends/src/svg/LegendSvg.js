@@ -9,7 +9,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import LegendSvgItem from './LegendSvgItem'
-import { symbolPropTypes, interactivityPropTypes } from '../props'
+import { datumPropType, symbolPropTypes, interactivityPropTypes } from '../props'
 import { computeDimensions } from '../compute'
 import {
     DIRECTION_COLUMN,
@@ -101,13 +101,7 @@ const LegendSvg = ({
 }
 
 LegendSvg.propTypes = {
-    data: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-            label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-            fill: PropTypes.string.isRequired,
-        })
-    ).isRequired,
+    data: PropTypes.arrayOf(datumPropType).isRequired,
 
     // position/layout
     x: PropTypes.number.isRequired,

@@ -26,7 +26,7 @@ const commonProps = {
     data: {
         id: 'testing',
         label: 'testing',
-        fill: 'red',
+        color: 'red',
     },
 }
 

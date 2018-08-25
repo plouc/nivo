@@ -11,7 +11,7 @@ const itemsProps = {
     height: 40,
     data: {
         id: 'demo',
-        fill: '#dc5a32',
+        color: '#dc5a32',
     },
 }
 

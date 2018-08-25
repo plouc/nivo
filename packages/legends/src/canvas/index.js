@@ -39,13 +39,16 @@ export const renderLegendToCanvas = (
         padding: _padding = LegendSvg.defaultProps.padding,
         justify = LegendSvgItem.defaultProps.justify,
 
+        // items
+        itemsSpacing = LegendSvg.defaultProps.itemsSpacing,
         itemWidth,
         itemHeight,
         itemDirection = LegendSvgItem.defaultProps.direction,
-        itemsSpacing = LegendSvg.defaultProps.itemsSpacing,
+        itemTextColor = LegendSvg.defaultProps.textColor,
+
+        // symbol
         symbolSize = LegendSvgItem.defaultProps.symbolSize,
         symbolSpacing = LegendSvgItem.defaultProps.symbolSpacing,
-        textColor = LegendSvg.defaultProps.textColor,
         // @todo add support for shapes
         // symbolShape = LegendSvgItem.defaultProps.symbolShape,
     }
@@ -95,12 +98,12 @@ export const renderLegendToCanvas = (
             }
         )
 
-        ctx.fillStyle = d.fill
+        ctx.fillStyle = d.color
         ctx.fillRect(itemX + symbolX, itemY + symbolY, symbolSize, symbolSize)
 
         ctx.textAlign = textPropsMapping.align[labelAnchor]
         ctx.textBaseline = textPropsMapping.baseline[labelAlignment]
-        ctx.fillStyle = textColor
+        ctx.fillStyle = itemTextColor
         ctx.fillText(d.label, itemX + labelX, itemY + labelY)
     })
 
