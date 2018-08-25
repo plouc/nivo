@@ -54,6 +54,13 @@ const commonEnhancers = [
             }),
         }
     }),
+    withPropsOnChange(['computedData'], ({ computedData }) => ({
+        legendData: computedData.map(datum => ({
+            id: datum.id,
+            label: datum.id,
+            fill: datum.fill || datum.color,
+        })),
+    })),
 ]
 
 export default Component => {

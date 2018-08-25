@@ -79,6 +79,7 @@ export class Waffle extends Component {
             cellSize,
             origin,
             computedData,
+            legendData,
 
             legends,
         } = this.props
@@ -86,12 +87,6 @@ export class Waffle extends Component {
         cells.forEach(cell => {
             cell.color = emptyColor
         })
-
-        const legendData = computedData.map(datum => ({
-            id: datum.id,
-            label: datum.id,
-            fill: datum.fill,
-        }))
 
         return (
             <Container isInteractive={isInteractive} theme={theme}>

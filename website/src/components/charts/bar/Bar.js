@@ -153,8 +153,8 @@ export default class Bar extends Component {
                     itemDirection: 'left-to-right',
                     itemOpacity: 0.85,
                     symbolSize: 20,
-                    onClick: d => {
-                        alert(JSON.stringify(d, null, '    '))
+                    onClick: data => {
+                        alert(JSON.stringify(data, null, '    '))
                     },
                     effects: [
                         {

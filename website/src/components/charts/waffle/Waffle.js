@@ -58,11 +58,10 @@ export default class Waffle extends Component {
                 top: 10,
                 right: 10,
                 bottom: 10,
-                left: 10,
+                left: 120,
             },
 
             // styling
-            theme: nivoTheme,
             cellComponent: 'default',
             emptyColor: '#cccccc',
             emptyOpacity: 1,
@@ -83,6 +82,37 @@ export default class Waffle extends Component {
             isInteractive: true,
             'custom tooltip example': false,
             tooltip: null,
+
+            legends: [
+                {
+                    anchor: 'top-left',
+                    direction: 'column',
+                    justify: false,
+                    translateX: -100,
+                    translateY: 0,
+                    itemsSpacing: 4,
+                    itemWidth: 100,
+                    itemHeight: 20,
+                    itemDirection: 'left-to-right',
+                    itemOpacity: 1,
+                    itemTextColor: '#777',
+                    symbolSize: 20,
+                    onClick: data => {
+                        alert(JSON.stringify(data, null, '    '))
+                    },
+                    effects: [
+                        {
+                            on: 'hover',
+                            style: {
+                                itemTextColor: '#000',
+                                itemBackground: '#f7fafb',
+                            },
+                        },
+                    ],
+                },
+            ],
+
+            theme: nivoTheme,
         },
     }
 
