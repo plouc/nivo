@@ -1,4 +1,5 @@
 import React from 'react'
+import dedent from 'dedent-js'
 import { LegendSvgItem, DIRECTION_LEFT_TO_RIGHT } from '@nivo/legends'
 
 const shapes = ['square', 'circle', 'triangle', 'diamond']
@@ -51,5 +52,25 @@ export default () => (
                 </div>
             ))}
         </div>
+        <p>
+            You can also use a custom shape passing a component to <code>symbolShape</code>:
+        </p>
+        <pre className="code-block guide__code">
+            {dedent`const CustomSymbolShape = ({
+                x, y, size, fill, borderWidth, borderColor
+            }) => (
+                <rect
+                    x={x}
+                    y={y}
+                    transform={\`rotate(45 \${size/2} \${size/2})\`}
+                    fill={fill}
+                    strokeWidth={borderWidth}
+                    stroke={borderColor}
+                    width={size}
+                    height={size}
+                    style={{ pointerEvents: 'none' }}
+                />
+            )`}
+        </pre>
     </div>
 )
