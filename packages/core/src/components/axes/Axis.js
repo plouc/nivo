@@ -33,7 +33,7 @@ export const axisPropType = PropTypes.shape({
     format: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 
     // legend
-    legend: PropTypes.string,
+    legend: PropTypes.node,
     legendPosition: PropTypes.oneOf(legendPositions),
     legendOffset: PropTypes.number,
 })
@@ -232,7 +232,7 @@ Axis.propTypes = {
     format: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 
     // legend
-    legend: PropTypes.string,
+    legend: PropTypes.node,
     legendPosition: PropTypes.oneOf(legendPositions).isRequired,
     legendOffset: PropTypes.number.isRequired,
 
