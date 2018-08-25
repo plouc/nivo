@@ -8,10 +8,13 @@
  */
 import React, { Component } from 'react'
 import { generateGroupedBars, generateStackedBars } from './compute'
-import { renderAxesToCanvas } from '@nivo/core'
-import { getRelativeCursor, isCursorInRect } from '@nivo/core'
-import { Container } from '@nivo/core'
-import { BasicTooltip } from '@nivo/core'
+import {
+    renderAxesToCanvas,
+    getRelativeCursor,
+    isCursorInRect,
+    Container,
+    BasicTooltip,
+} from '@nivo/core'
 import { BarPropTypes } from './props'
 import enhance from './enhance'
 import setDisplayName from 'recompose/setDisplayName'

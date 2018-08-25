@@ -157,7 +157,8 @@ const Stream = ({
                             .map(l => ({
                                 id: l.id,
                                 label: l.id,
-                                fill: l.color,
+                                color: l.color,
+                                fill: l.fill,
                             }))
                             .reverse()
 

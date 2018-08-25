@@ -76,7 +76,7 @@ const Chord = ({
     const legendData = arcs.map(arc => ({
         id: arc.id,
         label: arc.id,
-        fill: arc.color,
+        color: arc.color,
     }))
 
     return (
