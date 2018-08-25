@@ -128,14 +128,28 @@ packages-tslint: ##@1 packages run tslint on all packages
         ./packages/waffle/index.d.ts
 
 package-test-%: ##@1 packages run tests for a package
-	@./node_modules/.bin/jest --setupTestFrameworkScriptFile=raf/polyfill ./packages/${*}/tests
+	@./node_modules/.bin/jest \
+        --setupFiles=./setupTests.js \
+        --setupTestFrameworkScriptFile=raf/polyfill \
+        --env=jsdom \
+        --verbose \
+        ./packages/${*}/tests
 
 package-update-test-%: ##@1 packages run tests for a package and update its snapshots
-	@./node_modules/.bin/jest --setupTestFrameworkScriptFile=raf/polyfill ./packages/${*}/tests -u
+	@./node_modules/.bin/jest \
+        --setupFiles=./setupTests.js \
+        --setupTestFrameworkScriptFile=raf/polyfill \
+        --env=jsdom \
+        ./packages/${*}/tests \
+        -u
 
 packages-test: ##@1 packages run tests for all packages
 	@echo "${YELLOW}Running test suites for all packages${RESET}"
-	@./node_modules/.bin/jest --setupTestFrameworkScriptFile=raf/polyfill ./packages/*/tests
+	@./node_modules/.bin/jest \
+        --setupFiles=./setupTests.js \
+        --setupTestFrameworkScriptFile=raf/polyfill \
+        --env=jsdom \
+        ./packages/*/tests
 
 packages-test-cover: ##@1 packages run tests for all packages with code coverage
 	@echo "${YELLOW}Running test suites for all packages${RESET}"

@@ -8,7 +8,9 @@
  */
 import React from 'react'
 import renderer from 'react-test-renderer'
+import { mount } from 'enzyme'
 import LegendSvgItem from '../../src/svg/LegendSvgItem'
+import * as shapes from '../../src/svg/symbols'
 import {
     DIRECTION_LEFT_TO_RIGHT,
     DIRECTION_RIGHT_TO_LEFT,
@@ -50,5 +52,58 @@ directions.forEach(direction => {
 
         const tree = component.toJSON()
         expect(tree).toMatchSnapshot()
+    })
+})
+
+describe('symbolShape', () => {
+    it('should support circle shape', () => {
+        const wrapper = mount(
+            <svg>
+                <LegendSvgItem {...commonProps} symbolShape="circle" />
+            </svg>
+        )
+
+        expect(wrapper.find(shapes.SymbolCircle)).toHaveLength(1)
+    })
+
+    it('should support diamond shape', () => {
+        const wrapper = mount(
+            <svg>
+                <LegendSvgItem {...commonProps} symbolShape="diamond" />
+            </svg>
+        )
+
+        expect(wrapper.find(shapes.SymbolDiamond)).toHaveLength(1)
+    })
+
+    it('should support square shape', () => {
+        const wrapper = mount(
+            <svg>
+                <LegendSvgItem {...commonProps} symbolShape="square" />
+            </svg>
+        )
+
+        expect(wrapper.find(shapes.SymbolSquare)).toHaveLength(1)
+    })
+
+    it('should support triangle shape', () => {
+        const wrapper = mount(
+            <svg>
+                <LegendSvgItem {...commonProps} symbolShape="triangle" />
+            </svg>
+        )
+
+        expect(wrapper.find(shapes.SymbolTriangle)).toHaveLength(1)
+    })
+
+    it('should support custom shape', () => {
+        const CustomShape = () => <g />
+        const wrapper = mount(
+            <svg>
+                <LegendSvgItem {...commonProps} symbolShape={CustomShape} />
+            </svg>
+        )
+
+        expect(wrapper.find(CustomShape)).toHaveLength(1)
     })
 })

@@ -1,12 +1,9 @@
 import React from 'react'
-import { configure, mount } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
+import { mount } from 'enzyme'
 import { Axis } from '@nivo/core'
 import Line from '../src/Line'
 import LineSlicesItem from '../src/LineSlicesItem'
 import renderer from 'react-test-renderer'
-
-configure({ adapter: new Adapter() })
 
 it('should render a basic line chart', () => {
     const data = [
