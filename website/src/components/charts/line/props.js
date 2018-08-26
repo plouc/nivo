@@ -14,6 +14,7 @@ import {
     marginProperties,
     axesProperties,
     motionProperties,
+    getLegendsProps,
 } from '../../../lib/componentProperties'
 
 const curveOptions = []
@@ -33,9 +34,12 @@ export default [
                 Chart data, which must conform to this structure:
                 <pre className="code code-block">
                     {dedent`
-                        Array.<{
+                        Array<{
                             id: {string|number}
-                            data: Array.<{ x: {string|number}, y: {number} }}>
+                            data: Array<{
+                                x: {string|number}
+                                y: {string|number}
+                            }>
                         }>
                     `}
                 </pre>
@@ -388,6 +392,46 @@ export default [
         type: '{Function}',
         required: false,
         default: defaults.tooltip,
+    },
+    {
+        key: 'legends',
+        scopes: ['Line'],
+        type: '{Array<object>}',
+        description: `Optional chart's legends.`,
+        controlGroup: 'Legends',
+        controlType: 'array',
+        controlOptions: {
+            props: getLegendsProps(),
+            shouldCreate: true,
+            addLabel: 'add legend',
+            shouldRemove: true,
+            defaults: {
+                anchor: 'left',
+                direction: 'column',
+                justify: false,
+                translateX: 0,
+                translateY: 0,
+                itemWidth: 100,
+                itemHeight: 20,
+                itemsSpacing: 4,
+                symbolSize: 20,
+                symbolShape: 'circle',
+                itemDirection: 'left-to-right',
+                itemTextColor: '#777',
+                onClick: data => {
+                    alert(JSON.stringify(data, null, '    '))
+                },
+                effects: [
+                    {
+                        on: 'hover',
+                        style: {
+                            itemBackground: 'rgba(0, 0, 0, .03)',
+                            itemOpacity: 1,
+                        },
+                    },
+                ],
+            },
+        },
     },
     ...motionProperties(['Line'], defaults),
 ]
