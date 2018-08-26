@@ -49,6 +49,8 @@ const Line = ({
     axisLeft,
     enableGridX,
     enableGridY,
+    gridXValues,
+    gridYValues,
 
     lineWidth,
     enableArea,
@@ -103,6 +105,8 @@ const Line = ({
                         height={height}
                         xScale={enableGridX ? xScale : null}
                         yScale={enableGridY ? yScale : null}
+                        xValues={gridXValues}
+                        yValues={gridYValues}
                         {...motionProps}
                     />
                     <CartesianMarkers

@@ -37,8 +37,8 @@ export default [
                         Array<{
                             id: {string|number}
                             data: Array<{
-                                x: {string|number}
-                                y: {string|number}
+                                x: {number|string}
+                                y: {number|string}
                             }>
                         }>
                     `}
@@ -156,11 +156,6 @@ export default [
             max: 400,
         },
     },
-    /*##################################################################################################################
-
-        Style
-
-    ##################################################################################################################*/
     {
         key: 'colors',
         scopes: '*',
@@ -364,6 +359,20 @@ export default [
         default: defaults.enableGridY,
         controlType: 'switch',
         controlGroup: 'Grid',
+    },
+    {
+        key: 'gridXValues',
+        scopes: '*',
+        description: 'Specify values to use for vertical grid lines.',
+        type: 'Array<{number|string}>',
+        required: false,
+    },
+    {
+        key: 'gridYValues',
+        scopes: '*',
+        description: 'Specify values to use for horizontal grid lines.',
+        type: 'Array<{number|string}>',
+        required: false,
     },
     {
         key: 'isInteractive',

@@ -372,6 +372,20 @@ export default [
         controlGroup: 'Grid',
     },
     {
+        key: 'gridXValues',
+        scopes: '*',
+        description: 'Specify values to use for vertical grid lines.',
+        type: 'Array<{number|string}>',
+        required: false,
+    },
+    {
+        key: 'gridYValues',
+        scopes: '*',
+        description: 'Specify values to use for horizontal grid lines.',
+        type: 'Array<{number|string}>',
+        required: false,
+    },
+    {
         key: 'isInteractive',
         scopes: ['Bar', 'BarCanvas'],
         description: 'Enable/disable interactivity.',

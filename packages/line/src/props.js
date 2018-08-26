@@ -46,6 +46,8 @@ export const LinePropTypes = {
     axisLeft: PropTypes.object,
     enableGridX: PropTypes.bool.isRequired,
     enableGridY: PropTypes.bool.isRequired,
+    gridXValues: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])),
+    gridYValues: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])),
 
     // dots
     enableDots: PropTypes.bool.isRequired,
