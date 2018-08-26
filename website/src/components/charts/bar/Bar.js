@@ -16,6 +16,8 @@ import ChartTabs from '../../ChartTabs'
 import BarControls from './BarControls'
 import config from '../../../config'
 import generateCode from '../../../lib/generateChartCode'
+import Stories from '../../Stories'
+import { barStories } from './stories'
 import ComponentPropsDocumentation from '../../properties/ComponentPropsDocumentation'
 import properties from './props'
 import nivoTheme from '../../../nivoTheme'
@@ -241,16 +243,7 @@ export default class Bar extends Component {
                     >
                         sample
                     </a>{' '}
-                    or <Link to="/bar/api">try it using the API client</Link>. You can also see more
-                    example usages in{' '}
-                    <a
-                        href={`${config.storybookUrl}?selectedKind=Bar&selectedStory=stacked`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        the storybook
-                    </a>
-                    .
+                    or <Link to="/bar/api">try it using the API client</Link>.
                 </p>
                 <p>
                     See the <Link to="/guides/legends">dedicated guide</Link> on how to setup
@@ -264,6 +257,8 @@ export default class Bar extends Component {
                 </p>
             </div>
         )
+
+        const stories = <Stories stories={barStories} />
 
         return (
             <div className="page_content grid">
@@ -285,12 +280,14 @@ export default class Bar extends Component {
                         settings={settings}
                         onChange={this.handleSettingsUpdate}
                     />
+                    <MediaQuery query="(max-width: 1000px)">{stories}</MediaQuery>
                     <ComponentPropsDocumentation chartClass="Bar" properties={properties} />
                 </div>
                 <div className="chart-page_aside">
                     <MediaQuery query="(min-width: 1000px)">
                         {header}
                         {description}
+                        {stories}
                     </MediaQuery>
                 </div>
             </div>

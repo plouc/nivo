@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import CollapsibleCard from './CollapsibleCard'
 
-class ChartCode extends Component {
+export default class ChartCode extends Component {
     shouldComponentUpdate(nextProps) {
         if (nextProps.code === this.props.code) {
             return false
@@ -22,5 +22,3 @@ class ChartCode extends Component {
         )
     }
 }
-
-export default ChartCode

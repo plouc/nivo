@@ -15,6 +15,8 @@ import { patternLinesDef } from '@nivo/core'
 import ChartHeader from '../../ChartHeader'
 import ChartTabs from '../../ChartTabs'
 import generateCode from '../../../lib/generateChartCode'
+import Stories from '../../Stories'
+import { bubbleStories } from './stories'
 import BubbleControls from './BubbleControls'
 import ComponentPropsDocumentation from '../../properties/ComponentPropsDocumentation'
 import properties from './props'
@@ -147,6 +149,8 @@ export default class Bubble extends Component {
             </div>
         )
 
+        const stories = <Stories stories={bubbleStories} />
+
         return (
             <div className="page_content grid">
                 <div className="chart-page_main">
@@ -166,12 +170,14 @@ export default class Bubble extends Component {
                         settings={settings}
                         onChange={this.handleSettingsUpdate}
                     />
+                    <MediaQuery query="(max-width: 1000px)">{stories}</MediaQuery>
                     <ComponentPropsDocumentation chartClass="Bubble" properties={properties} />
                 </div>
                 <div className="chart-page_aside">
                     <MediaQuery query="(min-width: 1000px)">
                         {header}
                         {description}
+                        {stories}
                     </MediaQuery>
                 </div>
             </div>

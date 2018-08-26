@@ -21,17 +21,3 @@
     margin-right: 7px;
     margin-bottom: 7px;
 }
-
-/*
-.component_meta_tag:before {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 9px;
-    left: 7px;
-    width: 6px;
-    height: 6px;
-    border-radius: 3px;
-    background: var(--main-background-color);
-}
-*/
