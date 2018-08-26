@@ -47,6 +47,21 @@ export default [
         required: true,
     },
     {
+        key: 'hiddenIds',
+        scopes: '*',
+        type: 'Array<{string | number}>',
+        description: (
+            <div>
+                Hide parts of the data by id, this can be used to implement toggle. Note that the
+                datum will still be visible in legends, if you want to completely remove a datum
+                from the data set, you'll have to filter the data before passing it to the
+                component.
+            </div>
+        ),
+        required: false,
+        default: defaults.hiddenIds,
+    },
+    {
         key: 'rows',
         scopes: '*',
         type: 'number',

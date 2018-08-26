@@ -49,6 +49,8 @@ export class Waffle extends Component {
 
     render() {
         const {
+            hiddenIds,
+
             // dimensions
             margin,
             width,
@@ -119,7 +121,8 @@ export class Waffle extends Component {
                                             ...s.data,
                                             startAt: Math.round(s.style.startAt),
                                             endAt: Math.round(s.style.endAt),
-                                        }))
+                                        })),
+                                        hiddenIds
                                     )
 
                                     return (
@@ -148,7 +151,7 @@ export class Waffle extends Component {
                             </TransitionMotion>
                         )
                     } else {
-                        const computedCells = applyDataToGrid(cells, computedData)
+                        const computedCells = applyDataToGrid(cells, computedData, hiddenIds)
 
                         cellsRender = (
                             <Fragment>

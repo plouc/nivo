@@ -35,25 +35,38 @@ const commonEnhancers = [
             return computeGrid(width, height, rows, columns, fillDirection, padding)
         }
     ),
-    withPropsOnChange(['data', 'unit', 'getColor'], ({ data, unit, getColor }) => {
-        let currentPosition = 0
+    withPropsOnChange(
+        ['data', 'unit', 'getColor', 'hiddenIds'],
+        ({ data, unit, getColor, hiddenIds }) => {
+            let currentPosition = 0
 
-        return {
-            computedData: data.map((datum, groupIndex) => {
-                const enhancedDatum = {
-                    ...datum,
-                    groupIndex,
-                    startAt: currentPosition,
-                    endAt: currentPosition + Math.round(datum.value / unit),
-                    color: getColor(datum),
-                }
+            return {
+                computedData: data.map((datum, groupIndex) => {
+                    if (!hiddenIds.includes(datum.id)) {
+                        const enhancedDatum = {
+                            ...datum,
+                            groupIndex,
+                            startAt: currentPosition,
+                            endAt: currentPosition + Math.round(datum.value / unit),
+                            color: getColor(datum),
+                        }
 
-                currentPosition = enhancedDatum.endAt
+                        currentPosition = enhancedDatum.endAt
 
-                return enhancedDatum
-            }),
+                        return enhancedDatum
+                    }
+
+                    return {
+                        ...datum,
+                        groupIndex,
+                        startAt: currentPosition,
+                        endAt: currentPosition,
+                        color: getColor(datum),
+                    }
+                }),
+            }
         }
-    }),
+    ),
     withPropsOnChange(['computedData'], ({ computedData }) => ({
         legendData: computedData.map(datum => ({
             id: datum.id,

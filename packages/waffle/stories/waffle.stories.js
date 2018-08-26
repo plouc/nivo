@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
 import { withInfo } from '@storybook/addon-info'
 import { patternDotsDef, patternLinesDef } from '@nivo/core'
@@ -129,3 +129,58 @@ stories.add(
         />
     ))
 )
+
+class WaffleLegendToggle extends Component {
+    state = {
+        hiddenIds: [],
+    }
+
+    toggle = d => {
+        const { hiddenIds } = this.state
+        if (this.state.hiddenIds.includes(d.id)) {
+            this.setState({
+                hiddenIds: hiddenIds.filter(id => id !== d.id),
+            })
+        } else {
+            this.setState({
+                hiddenIds: [...hiddenIds, d.id],
+            })
+        }
+    }
+
+    render() {
+        const { hiddenIds } = this.state
+
+        return (
+            <Waffle
+                {...commonProps}
+                hiddenIds={hiddenIds}
+                margin={{ left: 110 }}
+                legends={[
+                    {
+                        anchor: 'left',
+                        direction: 'column',
+                        itemsSpacing: 4,
+                        itemWidth: 100,
+                        itemHeight: 20,
+                        symbolSize: 20,
+                        itemTextColor: '#555',
+                        translateX: -110,
+                        onClick: this.toggle,
+                        effects: [
+                            {
+                                on: 'hover',
+                                style: {
+                                    itemTextColor: '#000',
+                                    itemBackground: '#eee',
+                                },
+                            },
+                        ],
+                    },
+                ]}
+            />
+        )
+    }
+}
+
+stories.add('legend toggle', withInfo()(() => <WaffleLegendToggle />))

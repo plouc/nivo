@@ -22,6 +22,8 @@ const commonPropTypes = {
             value: PropTypes.number.isRequired,
         })
     ).isRequired,
+    hiddenIds: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
+        .isRequired,
 
     // layout
     rows: PropTypes.number.isRequired,
@@ -69,6 +71,8 @@ export const WaffleCanvasPropTypes = {
 }
 
 const commonDefaultProps = {
+    hiddenIds: [],
+
     // layout
     fillDirection: 'bottom',
     padding: 1,
@@ -85,9 +89,6 @@ const commonDefaultProps = {
     // interactivity
     isInteractive: true,
     onClick: noop,
-
-    // stack tooltip
-    enableStackTooltip: true,
 }
 
 export const WaffleDefaultProps = {
