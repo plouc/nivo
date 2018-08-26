@@ -258,6 +258,26 @@ export default [
         },
     },
     {
+        key: 'gridLabel',
+        type: '{Function}',
+        description: (
+            <div>
+                An optional function to override label rendering. It must return a{' '}
+                <strong>valid SVG element</strong> and will receive the following props:
+                <pre className="code code-block">{dedent`{
+                    id:     string
+                    # this can be used to determine the label layout,
+                    # if the element should be centered, left/right aligned
+                    anchor: 'start' | 'middle' | 'end'
+                    # angle in degrees
+                    angle:  number
+                }`}</pre>
+                The component will be wrapped inside a <code>g</code> element{' '}
+                <strong>already positioned</strong> where the default label would have been placed.
+            </div>
+        ),
+    },
+    {
         key: 'gridLabelOffset',
         description: 'Label offset from outer radius (px).',
         type: '{number}',

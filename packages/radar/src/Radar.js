@@ -59,6 +59,7 @@ const Radar = ({
     // grid
     gridLevels,
     gridShape,
+    gridLabel,
     gridLabelOffset,
 
     // dots
@@ -113,6 +114,7 @@ const Radar = ({
                             angleStep={angleStep}
                             theme={theme}
                             indices={indices}
+                            label={gridLabel}
                             labelOffset={gridLabelOffset}
                             {...motionProps}
                         />
@@ -206,6 +208,7 @@ Radar.propTypes = {
     // grid
     gridLevels: PropTypes.number,
     gridShape: PropTypes.oneOf(['circular', 'linear']),
+    gridLabel: PropTypes.func,
     gridLabelOffset: PropTypes.number,
 
     // dots

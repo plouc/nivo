@@ -15,6 +15,8 @@ import ChartHeader from '../../ChartHeader'
 import ChartTabs from '../../ChartTabs'
 import RadarControls from './RadarControls'
 import generateCode from '../../../lib/generateChartCode'
+import Stories from '../../Stories'
+import { radarStories } from './stories'
 import ComponentPropsDocumentation from '../../properties/ComponentPropsDocumentation'
 import properties from './props'
 import config from '../../../config'
@@ -149,16 +151,7 @@ export default class Radar extends Component {
                     >
                         sample
                     </a>{' '}
-                    or <Link to="/radar/api">try it using the API client</Link>. You can also see
-                    more example usages in{' '}
-                    <a
-                        href={`${config.storybookUrl}?selectedKind=Radar&selectedStory=default`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        the storybook
-                    </a>
-                    .
+                    or <Link to="/radar/api">try it using the API client</Link>.
                 </p>
                 <p className="description">
                     See the <Link to="/guides/legends">dedicated guide</Link> on how to setup
@@ -166,6 +159,8 @@ export default class Radar extends Component {
                 </p>
             </div>
         )
+
+        const stories = <Stories stories={radarStories} />
 
         return (
             <div className="page_content grid">
@@ -188,12 +183,14 @@ export default class Radar extends Component {
                         settings={settings}
                         onChange={this.handleSettingsUpdate}
                     />
+                    <MediaQuery query="(max-width: 1000px)">{stories}</MediaQuery>
                     <ComponentPropsDocumentation chartClass="Radar" properties={properties} />
                 </div>
                 <div className="chart-page_aside">
                     <MediaQuery query="(min-width: 1000px)">
                         {header}
                         {description}
+                        {stories}
                     </MediaQuery>
                 </div>
             </div>

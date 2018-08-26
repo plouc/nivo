@@ -91,3 +91,23 @@ stories.add('with formatted values', () => (
         }
     />
 ))
+
+const LabelComponent = ({ id, anchor }) => (
+    <g transform={`translate(${anchor === 'end' ? -60 : anchor === 'middle' ? -30 : 0}, -20)`}>
+        <text>{id}</text>
+        <text
+            y={24}
+            style={{
+                fontSize: 24,
+                fontWeight: 'bold',
+                fill: '#3a9896',
+            }}
+        >
+            +{Math.round(Math.random() * 100)}%
+        </text>
+    </g>
+)
+
+stories.add('custom label component', () => (
+    <Radar {...commonProperties} gridLabel={LabelComponent} />
+))

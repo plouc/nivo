@@ -20,15 +20,39 @@ const textAnchorFromAngle = _angle => {
     return 'start'
 }
 
+const renderLabel = (label, theme, labelComponent) => {
+    let labelNode
+    if (labelComponent === undefined) {
+        labelNode = (
+            <text
+                style={{
+                    fill: theme.axis.textColor,
+                    fontSize: theme.axis.fontSize,
+                }}
+                dy="0.5em"
+                textAnchor={label.anchor}
+            >
+                {label.id}
+            </text>
+        )
+    } else {
+        labelNode = React.createElement(labelComponent, label)
+    }
+
+    return (
+        <g key={label.id} transform={`translate(${label.x}, ${label.y})`}>
+            {labelNode}
+        </g>
+    )
+}
+
 const RadarGridLabels = ({
     radius,
     angles,
     indices,
+    label: labelComponent,
     labelOffset,
-
     theme,
-
-    // motion
     animate,
     motionStiffness,
     motionDamping,
@@ -43,41 +67,22 @@ const RadarGridLabels = ({
         const textAnchor = textAnchorFromAngle(angles[i])
 
         return {
-            key: `label.${i}`,
-            label: index,
-            textAnchor,
+            id: index,
+            angle: radiansToDegrees(angles[i]),
+            anchor: textAnchor,
             ...position,
         }
     })
 
     if (animate !== true) {
-        return (
-            <g>
-                {labels.map(label => (
-                    <text
-                        key={label.key}
-                        style={{
-                            fill: theme.axis.textColor,
-                            fontSize: theme.axis.fontSize,
-                        }}
-                        dy="0.5em"
-                        {...label}
-                    >
-                        {label.label}
-                    </text>
-                ))}
-            </g>
-        )
+        return <g>{labels.map(label => renderLabel(label, theme, labelComponent))}</g>
     }
 
     return (
         <TransitionMotion
             styles={labels.map(label => ({
-                key: label.key,
-                data: {
-                    label: label.label,
-                    textAnchor: label.textAnchor,
-                },
+                key: label.id,
+                data: label,
                 style: {
                     x: spring(label.x, springConfig),
                     y: spring(label.y, springConfig),
@@ -86,20 +91,7 @@ const RadarGridLabels = ({
         >
             {interpolatedStyles => (
                 <g>
-                    {interpolatedStyles.map(({ key, style, data }) => (
-                        <text
-                            key={key}
-                            dy="0.5em"
-                            textAnchor={data.textAnchor}
-                            style={{
-                                fill: theme.axis.textColor,
-                                fontSize: theme.axis.fontSize,
-                            }}
-                            {...style}
-                        >
-                            {data.label}
-                        </text>
-                    ))}
+                    {interpolatedStyles.map(({ data }) => renderLabel(data, theme, labelComponent))}
                 </g>
             )}
         </TransitionMotion>
@@ -109,14 +101,11 @@ const RadarGridLabels = ({
 RadarGridLabels.propTypes = {
     radius: PropTypes.number.isRequired,
     angles: PropTypes.arrayOf(PropTypes.number).isRequired,
-
     indices: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
         .isRequired,
+    label: PropTypes.func,
     labelOffset: PropTypes.number.isRequired,
-
     theme: PropTypes.object.isRequired,
-
-    // motion
     ...motionPropTypes,
 }
 

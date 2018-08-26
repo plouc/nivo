@@ -24,11 +24,9 @@ const RadarGrid = ({
     radii,
     angles,
     angleStep,
+    label,
     labelOffset,
-
     theme,
-
-    // motion
     animate,
     motionStiffness,
     motionDamping,
@@ -68,6 +66,7 @@ const RadarGrid = ({
                 indices={indices}
                 labelOffset={labelOffset}
                 theme={theme}
+                label={label}
                 {...motionProps}
             />
         </g>
@@ -80,12 +79,9 @@ RadarGrid.propTypes = {
     shape: PropTypes.oneOf(['circular', 'linear']).isRequired,
     radius: PropTypes.number.isRequired,
     angleStep: PropTypes.number.isRequired,
-
+    label: PropTypes.func,
     labelOffset: PropTypes.number.isRequired,
-
     theme: PropTypes.object.isRequired,
-
-    // motion
     ...motionPropTypes,
 }
 
