@@ -10,7 +10,7 @@ import React, { Component } from 'react'
 import { degreesToRadians } from '@nivo/core'
 import { getRelativeCursor, isCursorInRect } from '@nivo/core'
 import { Container } from '@nivo/core'
-import { TreeMapCanvasPropTypes, TreeMapHtmlPropTypes } from './props'
+import { TreeMapCanvasPropTypes } from './props'
 import enhance from './enhance'
 import TreeMapNodeTooltip from './TreeMapNodeTooltip'
 

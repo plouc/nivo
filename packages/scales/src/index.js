@@ -1,4 +1,23 @@
-export * from './series'
-export { default as linearScale } from './linearScale'
-export { default as pointScale } from './pointScale'
-export { default as timeScale } from './timeScale'
+/*
+ * This file is part of the nivo project.
+ *
+ * Copyright 2016-present, Raphaël Benitte.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+import PropTypes from 'prop-types'
+import { linearScalePropTypes } from './linearScale'
+import { pointScalePropTypes } from './pointScale'
+import { timeScalePropTypes } from './timeScale'
+
+export * from './compute'
+export * from './linearScale'
+export * from './pointScale'
+export * from './timeScale'
+
+export const scalePropType = PropTypes.oneOfType([
+    PropTypes.shape(linearScalePropTypes),
+    PropTypes.shape(pointScalePropTypes),
+    PropTypes.shape(timeScalePropTypes),
+])

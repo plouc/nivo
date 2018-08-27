@@ -14,6 +14,13 @@ export const lineStories = [
         },
     },
     {
+        label: 'time x scale',
+        link: {
+            kind: 'Line',
+            story: 'time x scale',
+        },
+    },
+    {
         label: 'custom dot symbol',
         link: {
             kind: 'Line',

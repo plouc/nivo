@@ -8,6 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import { lineCurvePropType } from '@nivo/core'
+import { scalePropType } from '@nivo/scales'
 import { LegendPropShape } from '@nivo/legends'
 
 export const LinePropTypes = {
@@ -23,21 +24,17 @@ export const LinePropTypes = {
         })
     ).isRequired,
 
-    xScale: PropTypes.func.isRequired, // computed
-    yScale: PropTypes.func.isRequired, // computed
+    xScale: scalePropType.isRequired,
+    yScale: scalePropType.isRequired,
 
-    stacked: PropTypes.bool.isRequired,
+    xy: PropTypes.object.isRequired,
+
     curve: lineCurvePropType.isRequired,
     areaGenerator: PropTypes.func.isRequired,
     lineGenerator: PropTypes.func.isRequired,
 
     lines: PropTypes.array.isRequired,
     slices: PropTypes.array.isRequired,
-
-    minY: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.oneOf(['auto'])])
-        .isRequired,
-    maxY: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.oneOf(['auto'])])
-        .isRequired,
 
     // axes & grid
     axisTop: PropTypes.object,
@@ -99,8 +96,6 @@ export const LineDefaultProps = {
         min: 0,
         max: 'auto',
     },
-    minY: 0,
-    maxY: 'auto',
 
     // axes & grid
     axisBottom: {},

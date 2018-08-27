@@ -39,7 +39,11 @@ const LineSlices = ({
 LineSlices.propTypes = {
     slices: PropTypes.arrayOf(
         PropTypes.shape({
-            id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+            id: PropTypes.oneOfType([
+                PropTypes.number,
+                PropTypes.string,
+                PropTypes.instanceOf(Date),
+            ]).isRequired,
             x: PropTypes.number.isRequired,
             points: PropTypes.arrayOf(
                 PropTypes.shape({
