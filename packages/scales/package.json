@@ -1,0 +1,19 @@
+{
+  "name": "@nivo/scales",
+  "version": "0.46.0",
+  "license": "MIT",
+  "main": "./index.js",
+  "files": [
+    "README.md",
+    "index.js",
+    "index.d.ts",
+    "cjs/"
+  ],
+  "dependencies": {
+    "d3-scale": "^2.1.2",
+    "lodash": "^4.17.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
