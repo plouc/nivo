@@ -26,8 +26,9 @@ import {
     Axes,
     Grid,
 } from '@nivo/core'
+import { prepareSeries } from '@nivo/scales'
 import { BoxLegendSvg } from '@nivo/legends'
-import { prepareSeries, computeScales, generateLines } from './compute'
+import { computeScales, generateLines } from './compute'
 import LineAreas from './LineAreas'
 import LineLines from './LineLines'
 import LineSlices from './LineSlices'

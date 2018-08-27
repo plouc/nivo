@@ -263,7 +263,6 @@ const enhance = compose(
         if (!format || isFunction(format)) {
             return { format }
         } else if (scale.type === 'time') {
-            console.log('timeFormat')
             const f = timeFormat(format)
             return { format: d => f(new Date(d)) }
         } else {
