@@ -16,6 +16,19 @@ const commonProperties = {
 
 const curveOptions = ['linear', 'monotoneX']
 
+const CustomSymbol = ({ size, color, borderWidth, borderColor }) => (
+    <g>
+        <circle fill="#fff" r={size / 2} strokeWidth={borderWidth} stroke={borderColor} />
+        <circle
+            r={size / 5}
+            strokeWidth={borderWidth}
+            stroke={borderColor}
+            fill={color}
+            fillOpacity={0.35}
+        />
+    </g>
+)
+
 const stories = storiesOf('Line', module)
 
 stories.addDecorator(story => <div className="wrapper">{story()}</div>).addDecorator(withKnobs)
@@ -210,19 +223,6 @@ stories.add(
     ))
 )
 
-const CustomSymbol = ({ size, color, borderWidth, borderColor }) => (
-    <g>
-        <circle fill="#fff" r={size / 2} strokeWidth={borderWidth} stroke={borderColor} />
-        <circle
-            r={size / 5}
-            strokeWidth={borderWidth}
-            stroke={borderColor}
-            fill={color}
-            fillOpacity={0.35}
-        />
-    </g>
-)
-
 stories.add(
     'custom dot symbol',
     withInfo()(() => (
@@ -324,7 +324,11 @@ stories.add(
 
 stories.add(
     'different serie lengths',
-    withInfo()(() => (
+    withInfo(`
+        Please note that when using stacked y scale with variable length/data holes,
+        if one of the y value is \`null\` all subsequent values will be skipped
+        as we cannot compute the sum. 
+    `)(() => (
         <Line
             {...commonProperties}
             data={[
@@ -336,6 +340,12 @@ stories.add(
                         { x: 2, y: 11 },
                         { x: 3, y: 12 },
                         { x: 4, y: 13 },
+                        { x: 5, y: null },
+                        { x: 6, y: 18 },
+                        { x: 7, y: 16 },
+                        { x: 8, y: 8 },
+                        { x: 9, y: 10 },
+                        { x: 10, y: 9 },
                     ],
                 },
                 {
@@ -346,16 +356,6 @@ stories.add(
                         { x: 5, y: 19 },
                         { x: 6, y: 20 },
                         { x: 7, y: 18 },
-                    ],
-                },
-                {
-                    id: 'fake corp. C',
-                    data: [
-                        { x: 6, y: 18 },
-                        { x: 7, y: 16 },
-                        { x: 8, y: 8 },
-                        { x: 9, y: 10 },
-                        { x: 10, y: 9 },
                     ],
                 },
             ]}
@@ -459,6 +459,92 @@ stories.add(
                 min: -1,
                 max: 1,
             }}
+        />
+    ))
+)
+
+stories.add(
+    'highlighting negative values',
+    withInfo()(() => (
+        <Line
+            {...commonProperties}
+            data={[
+                {
+                    id: 'a',
+                    data: [
+                        { x: 0, y: 0.7 },
+                        { x: 1, y: 0.9 },
+                        { x: 2, y: 0.8 },
+                        { x: 3, y: 0.6 },
+                        { x: 4, y: 0.3 },
+                        { x: 5, y: 0 },
+                    ],
+                },
+                {
+                    id: 'b',
+                    data: [
+                        { x: 5, y: 0 },
+                        { x: 6, y: -0.3 },
+                        { x: 7, y: -0.5 },
+                        { x: 8, y: -0.9 },
+                        { x: 9, y: -0.2 },
+                        { x: 10, y: -0.4 },
+                        { x: 11, y: 0 },
+                    ],
+                },
+                {
+                    id: 'c',
+                    data: [
+                        { x: 11, y: 0 },
+                        { x: 12, y: 0.4 },
+                        { x: 13, y: 0.6 },
+                        { x: 14, y: 0.5 },
+                        { x: 15, y: 0.3 },
+                        { x: 16, y: 0.4 },
+                        { x: 17, y: 0 },
+                    ],
+                },
+                {
+                    id: 'd',
+                    data: [
+                        { x: 17, y: 0 },
+                        { x: 18, y: -0.4 },
+                        { x: 19, y: -0.2 },
+                        { x: 20, y: -0.1 },
+                        { x: 21, y: -0.6 },
+                    ],
+                },
+            ]}
+            curve={select('curve', curveOptions, 'monotoneX')}
+            enableDotLabel={true}
+            dotSymbol={CustomSymbol}
+            dotSize={14}
+            dotBorderWidth={1}
+            dotBorderColor="inherit:darker(0.3)"
+            dotLabelYOffset={-20}
+            enableGridX={false}
+            colors={[
+                'rgb(97, 205, 187)',
+                'rgb(244, 117, 96)',
+                'rgb(97, 205, 187)',
+                'rgb(244, 117, 96)',
+            ]}
+            xScale={{
+                type: 'linear',
+            }}
+            yScale={{
+                type: 'linear',
+                stacked: false,
+                min: -1,
+                max: 1,
+            }}
+            markers={[
+                {
+                    axis: 'y',
+                    value: 0,
+                    lineStyle: { stroke: '#000', strokeWidth: 1 },
+                },
+            ]}
         />
     ))
 )

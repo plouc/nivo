@@ -82,8 +82,9 @@ export default class Line extends Component {
                 <p className="description">Line chart with stacking ability.</p>
                 <p>
                     Given an array of data series having an id and a nested array of points (with x,
-                    y properties), it will compute the line for each data serie.&nbsp; If stacked is
-                    true, y values will be automatically aggregated.
+                    y properties), it will compute the line for each data serie. All datum having
+                    null x or y will be treated as holes, thus portions of the corresponding line
+                    will be skipped.
                 </p>
                 <p className="description">
                     The responsive alternative of this component is <code>ResponsiveLine</code>.
@@ -105,16 +106,7 @@ export default class Line extends Component {
                     >
                         sample
                     </a>{' '}
-                    or <Link to="/line/api">try it using the API client</Link>. You can also see
-                    more example usages in{' '}
-                    <a
-                        href={`${config.storybookUrl}?selectedKind=Line&selectedStory=default`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        the storybook
-                    </a>
-                    .
+                    or <Link to="/line/api">try it using the API client</Link>.
                 </p>
                 <p className="description">
                     See the <Link to="/guides/legends">dedicated guide</Link> on how to setup
