@@ -14,7 +14,7 @@ const commonProperties = {
     animate: true,
 }
 
-const curveOptions = ['linear', 'monotoneX']
+const curveOptions = ['linear', 'monotoneX', 'step', 'stepBefore', 'stepAfter']
 
 const CustomSymbol = ({ size, color, borderWidth, borderColor }) => (
     <g>
@@ -59,7 +59,11 @@ stories.add(
     'linear x scale',
     withInfo(`
     By default, \`xScale\` is a point scale, but you can switch to linear using
-    the \`xScale.type\` property.
+    the \`xScale.type\` property. It supports irregular intervals while \`point\`
+    scale doesn't.
+    
+    If you want missing datums to appear as holes instead of connecting defined ones,
+    you should set their y value to \`null\`.
 `)(() => (
         <Line
             {...commonProperties}
@@ -88,12 +92,10 @@ stories.add(
 )
 
 stories.add(
-    'time series',
+    'time x scale',
     withInfo()(() => (
         <Line
             {...commonProperties}
-            curve="monotoneX"
-            height={700}
             data={[
                 {
                     id: 'fake corp. A',
@@ -102,26 +104,43 @@ stories.add(
                         { x: '2018-01-02', y: 5 },
                         { x: '2018-01-03', y: 11 },
                         { x: '2018-01-04', y: 9 },
-                        { x: '2018-01-05', y: 13 },
+                        { x: '2018-01-05', y: 12 },
                         { x: '2018-01-06', y: 16 },
-                        { x: '2018-01-07', y: 12 },
+                        { x: '2018-01-07', y: 13 },
+                        { x: '2018-01-08', y: 13 },
+                    ],
+                },
+                {
+                    id: 'fake corp. B',
+                    data: [
+                        { x: '2018-01-04', y: 14 },
+                        { x: '2018-01-05', y: 14 },
+                        { x: '2018-01-06', y: 15 },
+                        { x: '2018-01-07', y: 11 },
+                        { x: '2018-01-08', y: 10 },
+                        { x: '2018-01-09', y: 12 },
+                        { x: '2018-01-10', y: 9 },
+                        { x: '2018-01-11', y: 7 },
                     ],
                 },
             ]}
             xScale={{
                 type: 'time',
+                format: '%Y-%m-%d',
             }}
             yScale={{
                 type: 'linear',
-                stacked: boolean('stacked', true),
-            }}
-            margin={{
-                bottom: 400,
-                left: 100,
+                stacked: boolean('stacked', false),
             }}
             axisBottom={{
                 format: '%m/%d',
             }}
+            curve={select('curve', curveOptions, 'step')}
+            enableDotLabel={true}
+            dotSymbol={CustomSymbol}
+            dotSize={16}
+            dotBorderWidth={1}
+            dotBorderColor="inherit:darker(0.3)"
         />
     ))
 )

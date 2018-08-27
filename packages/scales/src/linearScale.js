@@ -7,18 +7,24 @@
  * file that was distributed with this source code.
  */
 import { scaleLinear } from 'd3-scale'
+import PropTypes from 'prop-types'
 
-export default ({ axis, min = 'auto', max = 'auto', stacked = false }, { width, height }, data) => {
-    const values = data[axis]
+export const linearScale = (
+    { axis, min = 'auto', max = 'auto', stacked = false },
+    xy,
+    width,
+    height
+) => {
+    const values = xy[axis]
     const size = axis === 'x' ? width : height
 
     let minValue = min
     if (min === 'auto') {
-        minValue = stacked === true ? values.stack.min : values.min
+        minValue = stacked === true ? values.stacked.min : values.min
     }
     let maxValue = max
     if (max === 'auto') {
-        maxValue = stacked === true ? values.stack.max : values.max
+        maxValue = stacked === true ? values.stacked.max : values.max
     }
 
     const scale = scaleLinear()
@@ -29,4 +35,11 @@ export default ({ axis, min = 'auto', max = 'auto', stacked = false }, { width, 
     scale.stacked = stacked
 
     return scale
+}
+
+export const linearScalePropTypes = {
+    type: PropTypes.oneOf(['linear']).isRequired,
+    min: PropTypes.oneOfType([PropTypes.oneOf(['auto']), PropTypes.number]),
+    max: PropTypes.oneOfType([PropTypes.oneOf(['auto']), PropTypes.number]),
+    stacked: PropTypes.bool,
 }

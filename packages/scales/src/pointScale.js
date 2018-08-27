@@ -7,9 +7,10 @@
  * file that was distributed with this source code.
  */
 import { scalePoint } from 'd3-scale'
+import PropTypes from 'prop-types'
 
-export default ({ axis }, { width, height }, data) => {
-    const values = data[axis]
+export const pointScale = ({ axis }, xy, width, height) => {
+    const values = xy[axis]
     const size = axis === 'x' ? width : height
 
     const scale = scalePoint()
@@ -19,4 +20,8 @@ export default ({ axis }, { width, height }, data) => {
     scale.type = 'point'
 
     return scale
+}
+
+export const pointScalePropTypes = {
+    type: PropTypes.oneOf(['point']).isRequired,
 }

@@ -7,19 +7,44 @@
  * file that was distributed with this source code.
  */
 import { scaleTime } from 'd3-scale'
-import first from 'lodash/first'
-import last from 'lodash/last'
+import { timeParse } from 'd3-time-format'
+import PropTypes from 'prop-types'
 
-export default ({ axis, min = 'auto', max = 'auto' }, { width, height }, data) => {
-    const values = data[axis]
+export const timeScale = (
+    { axis, format = 'native', min = 'auto', max = 'auto' },
+    xy,
+    width,
+    height
+) => {
+    const values = xy[axis]
     const size = axis === 'x' ? width : height
 
-    console.log(values)
+    const parseTime = format === 'native' ? undefined : timeParse(format)
+
+    let minValue = min
+    if (min === 'auto') {
+        minValue = values.min
+    } else if (format !== 'native') {
+        minValue = parseTime(values.min)
+    }
+
+    let maxValue = max
+    if (max === 'auto') {
+        maxValue = values.max
+    } else if (format !== 'native') {
+        maxValue = parseTime(values.max)
+    }
+
     const scale = scaleTime()
-        .domain([new Date(first(values.all)), new Date(last(values.all))])
+        .domain([minValue, maxValue])
         .range([0, size])
 
     scale.type = 'time'
 
     return scale
+}
+
+export const timeScalePropTypes = {
+    type: PropTypes.oneOf(['time']).isRequired,
+    format: PropTypes.string.isRequired,
 }

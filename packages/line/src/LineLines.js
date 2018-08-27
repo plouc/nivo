@@ -49,8 +49,16 @@ LineLines.propTypes = {
                     x: PropTypes.number,
                     y: PropTypes.number,
                     data: PropTypes.shape({
-                        x: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-                        y: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+                        x: PropTypes.oneOfType([
+                            PropTypes.string,
+                            PropTypes.number,
+                            PropTypes.instanceOf(Date),
+                        ]),
+                        y: PropTypes.oneOfType([
+                            PropTypes.string,
+                            PropTypes.number,
+                            PropTypes.instanceOf(Date),
+                        ]),
                     }).isRequired,
                 })
             ).isRequired,

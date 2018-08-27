@@ -26,9 +26,9 @@ import {
     Axes,
     Grid,
 } from '@nivo/core'
-import { prepareSeries } from '@nivo/scales'
+import { computeXYScalesForSeries } from '@nivo/scales'
 import { BoxLegendSvg } from '@nivo/legends'
-import { computeScales, generateLines } from './compute'
+import { generateLines } from './compute'
 import LineAreas from './LineAreas'
 import LineLines from './LineLines'
 import LineSlices from './LineSlices'
@@ -39,8 +39,7 @@ const Line = ({
     lines,
     lineGenerator,
     areaGenerator,
-    xScale,
-    yScale,
+    xy,
     slices,
 
     // dimensions
@@ -111,8 +110,8 @@ const Line = ({
                         theme={theme}
                         width={width}
                         height={height}
-                        xScale={enableGridX ? xScale : null}
-                        yScale={enableGridY ? yScale : null}
+                        xScale={enableGridX ? xy.x.scale : null}
+                        yScale={enableGridY ? xy.y.scale : null}
                         xValues={gridXValues}
                         yValues={gridYValues}
                         {...motionProps}
@@ -121,13 +120,13 @@ const Line = ({
                         markers={markers}
                         width={width}
                         height={height}
-                        xScale={xScale}
-                        yScale={yScale}
+                        xScale={xy.x.scale}
+                        yScale={xy.y.scale}
                         theme={theme}
                     />
                     <Axes
-                        xScale={xScale}
-                        yScale={yScale}
+                        xScale={xy.x.scale}
+                        yScale={xy.y.scale}
                         width={width}
                         height={height}
                         theme={theme}
@@ -224,51 +223,40 @@ const enhance = compose(
             .y(d => d.y)
             .curve(curveFromProp(curve)),
     })),
-    withPropsOnChange(['data'], ({ data }) => ({
-        enhancedData: prepareSeries(data),
-    })),
     withPropsOnChange(
-        ['enhancedData', 'width', 'height', 'xScale', 'yScale'],
-        ({ enhancedData, width, height, xScale, yScale }) =>
-            computeScales({
-                data: enhancedData,
-                width,
-                height,
-                xScale,
-                yScale,
-            })
+        ['data', 'xScale', 'yScale', 'width', 'height'],
+        ({ data, xScale, yScale, width, height }) => ({
+            xy: computeXYScalesForSeries(data, xScale, yScale, width, height),
+        })
     ),
-    withPropsOnChange(
-        ['getColor', 'xScale', 'yScale', 'enhancedData'],
-        ({ xScale, yScale, getColor, enhancedData }) => {
-            const lines = generateLines(enhancedData, xScale, yScale, getColor)
+    withPropsOnChange(['getColor', 'xy'], ({ getColor, xy }) => {
+        const lines = generateLines(xy, getColor)
 
-            const slices = enhancedData.x.sorted.map(x => {
-                let points = []
-                lines.forEach(line => {
-                    const datum = line.data.find(datum => datum.data.x === x)
-                    if (datum !== undefined && datum.x !== null && datum.y !== null) {
-                        points.push({
-                            id: line.id,
-                            x,
-                            y: datum.y,
-                            color: line.color,
-                            data: datum.data,
-                        })
-                    }
-                })
-                points = sortBy(points, 'y')
-
-                return {
-                    id: x,
-                    x: xScale(x),
-                    points,
+        const slices = xy.x.sorted.map(x => {
+            let points = []
+            lines.forEach(line => {
+                const datum = line.data.find(datum => datum.data.x === x)
+                if (datum !== undefined && datum.x !== null && datum.y !== null) {
+                    points.push({
+                        id: line.id,
+                        x,
+                        y: datum.y,
+                        color: line.color,
+                        data: datum.data,
+                    })
                 }
             })
+            points = sortBy(points, 'y')
 
-            return { lines, slices }
-        }
-    ),
+            return {
+                id: x,
+                x: xy.x.scale(x),
+                points,
+            }
+        })
+
+        return { lines, slices }
+    }),
     pure
 )
 
