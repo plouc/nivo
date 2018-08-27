@@ -11,18 +11,20 @@ import { lineCurvePropType } from '@nivo/core'
 import { LegendPropShape } from '@nivo/legends'
 
 export const LinePropTypes = {
-    // data
     data: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
             data: PropTypes.arrayOf(
                 PropTypes.shape({
-                    x: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-                    y: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+                    x: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+                    y: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
                 })
             ).isRequired,
         })
     ).isRequired,
+
+    xScale: PropTypes.func.isRequired, // computed
+    yScale: PropTypes.func.isRequired, // computed
 
     stacked: PropTypes.bool.isRequired,
     curve: lineCurvePropType.isRequired,
@@ -36,8 +38,6 @@ export const LinePropTypes = {
         .isRequired,
     maxY: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.oneOf(['auto'])])
         .isRequired,
-    xScale: PropTypes.func.isRequired, // computed
-    yScale: PropTypes.func.isRequired, // computed
 
     // axes & grid
     axisTop: PropTypes.object,
@@ -91,7 +91,14 @@ export const LineDefaultProps = {
     stacked: false,
     curve: 'linear',
 
-    // scales
+    xScale: {
+        type: 'point',
+    },
+    yScale: {
+        type: 'linear',
+        min: 0,
+        max: 'auto',
+    },
     minY: 0,
     maxY: 'auto',
 

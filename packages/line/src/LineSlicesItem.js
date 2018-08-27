@@ -58,7 +58,8 @@ LineSlicesItem.propTypes = {
     hideTooltip: PropTypes.func.isRequired,
     isHover: PropTypes.bool.isRequired,
     theme: PropTypes.object.isRequired,
-    tooltip: PropTypes.element,
+    tooltip: PropTypes.func,
+    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 }
 
 const enhance = compose(
@@ -70,7 +71,7 @@ const enhance = compose(
                 !tooltipFormat || isFunction(tooltipFormat)
                     ? tooltipFormat
                     : d3Format(tooltipFormat)
-            const hasValues = slice.points.some(p => p.value !== null)
+            const hasValues = slice.points.some(p => p.data.y !== null)
 
             return {
                 tooltipElement: hasValues ? (
@@ -81,7 +82,7 @@ const enhance = compose(
                             .map(p => [
                                 <Chip key={p.id} color={p.color} />,
                                 p.id,
-                                format ? format(p.value) : p.value,
+                                format ? format(p.data.y) : p.data.y,
                             ])}
                         format={format}
                         renderContent={

@@ -16,8 +16,6 @@ const LineAreas = ({
     areaGenerator,
     areaOpacity,
     lines,
-
-    // motion
     animate,
     motionStiffness,
     motionDamping,
@@ -28,10 +26,10 @@ const LineAreas = ({
                 {lines
                     .slice(0)
                     .reverse()
-                    .map(({ id, color: areaColor, points }) => (
+                    .map(({ id, data, color: areaColor }) => (
                         <path
                             key={id}
-                            d={areaGenerator(points)}
+                            d={areaGenerator(data)}
                             fill={areaColor}
                             fillOpacity={areaOpacity}
                             strokeWidth={0}
@@ -51,11 +49,11 @@ const LineAreas = ({
             {lines
                 .slice(0)
                 .reverse()
-                .map(({ id, color: areaColor, points }) => (
+                .map(({ id, data, color: areaColor }) => (
                     <SmartMotion
                         key={id}
                         style={spring => ({
-                            d: spring(areaGenerator(points), springConfig),
+                            d: spring(areaGenerator(data), springConfig),
                             fill: spring(areaColor, springConfig),
                         })}
                     >

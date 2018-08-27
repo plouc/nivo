@@ -13,14 +13,21 @@ import compose from 'recompose/compose'
 import pure from 'recompose/pure'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import defaultProps from 'recompose/defaultProps'
-import { curveFromProp } from '@nivo/core'
-import { getInheritedColorGenerator } from '@nivo/core'
-import { withTheme, withColors, withDimensions, withMotion } from '@nivo/core'
-import { Container, SvgWrapper } from '@nivo/core'
-import { getScales, getStackedScales, generateLines, generateStackedLines } from './compute'
-import { CartesianMarkers } from '@nivo/core'
-import { Axes, Grid } from '@nivo/core'
+import {
+    curveFromProp,
+    getInheritedColorGenerator,
+    withTheme,
+    withColors,
+    withDimensions,
+    withMotion,
+    Container,
+    SvgWrapper,
+    CartesianMarkers,
+    Axes,
+    Grid,
+} from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
+import { prepareSeries, computeScales, generateLines } from './compute'
 import LineAreas from './LineAreas'
 import LineLines from './LineLines'
 import LineSlices from './LineSlices'
@@ -211,54 +218,49 @@ const enhance = compose(
             .y1(d => d.y)
             .curve(curveFromProp(curve)),
         lineGenerator: line()
-            .defined(d => d.value !== null)
+            .defined(d => d.x !== null && d.y !== null)
             .x(d => d.x)
             .y(d => d.y)
             .curve(curveFromProp(curve)),
     })),
+    withPropsOnChange(['data'], ({ data }) => ({
+        enhancedData: prepareSeries(data),
+    })),
     withPropsOnChange(
-        ['data', 'stacked', 'width', 'height', 'minY', 'maxY'],
-        ({ data, stacked, width, height, margin, minY, maxY }) => {
-            let scales
-            const args = { data, width, height, minY, maxY }
-            if (stacked === true) {
-                scales = getStackedScales(args)
-            } else {
-                scales = getScales(args)
-            }
-
-            return {
-                margin,
+        ['enhancedData', 'width', 'height', 'xScale', 'yScale'],
+        ({ enhancedData, width, height, xScale, yScale }) =>
+            computeScales({
+                data: enhancedData,
                 width,
                 height,
-                ...scales,
-            }
-        }
+                xScale,
+                yScale,
+            })
     ),
     withPropsOnChange(
-        ['getColor', 'xScale', 'yScale'],
-        ({ data, stacked, xScale, yScale, getColor }) => {
-            let lines
-            if (stacked === true) {
-                lines = generateStackedLines(data, xScale, yScale, getColor)
-            } else {
-                lines = generateLines(data, xScale, yScale, getColor)
-            }
+        ['getColor', 'xScale', 'yScale', 'enhancedData'],
+        ({ xScale, yScale, getColor, enhancedData }) => {
+            const lines = generateLines(enhancedData, xScale, yScale, getColor)
 
-            const slices = xScale.domain().map((id, i) => {
-                let points = sortBy(
-                    lines.map(line => ({
-                        id: line.id,
-                        value: line.points[i].value,
-                        y: line.points[i].y,
-                        color: line.color,
-                    })),
-                    'y'
-                )
+            const slices = enhancedData.x.sorted.map(x => {
+                let points = []
+                lines.forEach(line => {
+                    const datum = line.data.find(datum => datum.data.x === x)
+                    if (datum !== undefined && datum.x !== null && datum.y !== null) {
+                        points.push({
+                            id: line.id,
+                            x,
+                            y: datum.y,
+                            color: line.color,
+                            data: datum.data,
+                        })
+                    }
+                })
+                points = sortBy(points, 'y')
 
                 return {
-                    id,
-                    x: xScale(id),
+                    id: x,
+                    x: xScale(x),
                     points,
                 }
             })

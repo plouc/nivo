@@ -10,7 +10,6 @@ import PropTypes from 'prop-types'
 import { LegendPropShape } from '@nivo/legends'
 
 export const ScatterPlotPropTypes = {
-    // data
     data: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.string.isRequired,

@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies, import/no-unresolved, import/extensions */
 
-import { configure } from '@storybook/react'
-import { setDefaults } from '@storybook/addon-info'
+import { configure, setAddon } from '@storybook/react'
+import infoAddon, { setDefaults } from '@storybook/addon-info'
 import './style.css'
 
 setDefaults({
@@ -12,6 +12,7 @@ setDefaults({
     maxPropArrayLength: 10000,
     maxPropStringLength: 10000
 })
+setAddon(infoAddon)
 
 function loadStories() {
     require('../packages/bar/stories/bar.stories')

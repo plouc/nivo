@@ -15,6 +15,8 @@ import ChartHeader from '../../ChartHeader'
 import ChartTabs from '../../ChartTabs'
 import LineControls from './LineControls'
 import generateCode from '../../../lib/generateChartCode'
+import Stories from '../../Stories'
+import { lineStories } from './stories'
 import ComponentPropsDocumentation from '../../properties/ComponentPropsDocumentation'
 import properties from './props'
 import config from '../../../config'
@@ -121,6 +123,8 @@ export default class Line extends Component {
             </div>
         )
 
+        const stories = <Stories stories={lineStories} />
+
         return (
             <div className="page_content grid">
                 <div className="chart-page_main">
@@ -136,12 +140,14 @@ export default class Line extends Component {
                         settings={settings}
                         onChange={this.handleSettingsUpdate}
                     />
+                    <MediaQuery query="(max-width: 1000px)">{stories}</MediaQuery>
                     <ComponentPropsDocumentation chartClass="Line" properties={properties} />
                 </div>
                 <div className="chart-page_aside">
                     <MediaQuery query="(min-width: 1000px)">
                         {header}
                         {description}
+                        {stories}
                     </MediaQuery>
                 </div>
             </div>
