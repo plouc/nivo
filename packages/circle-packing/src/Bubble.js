@@ -134,4 +134,7 @@ const Bubble = ({
 
 Bubble.displayName = 'Bubble'
 
-export default enhance(Bubble)
+const enhancedBubble = enhance(Bubble)
+enhancedBubble.displayName = 'Bubble'
+
+export default enhancedBubble

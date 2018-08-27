@@ -6,7 +6,7 @@ import { Sankey } from '../index'
 
 const commonProperties = {
     width: 900,
-    height: 500,
+    height: 400,
     margin: { top: 0, right: 80, bottom: 0, left: 80 },
     data: generateSankeyData({ nodeCount: 11, maxIterations: 2 }),
     colors: 'd310',

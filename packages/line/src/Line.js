@@ -273,6 +273,6 @@ const enhance = compose(
 )
 
 const enhancedLine = enhance(Line)
-enhancedLine.displayName = 'enhance(Line)'
+enhancedLine.displayName = 'Line'
 
 export default enhancedLine

@@ -181,6 +181,6 @@ const Stream = ({
 Stream.propTypes = StreamPropTypes
 
 const enhancedStream = enhance(Stream)
-enhancedStream.displayName = 'enhance(Stream)'
+enhancedStream.displayName = 'Stream'
 
 export default enhancedStream

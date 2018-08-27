@@ -13,6 +13,9 @@
     "d3-scale": "^2.1.2",
     "lodash": "^4.17.4"
   },
+  "peerDependencies": {
+    "prop-types": "^15.5.10"
+  },
   "publishConfig": {
     "access": "public"
   }
