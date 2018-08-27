@@ -52,7 +52,7 @@ export default class TreeMapHtml extends Component {
             orientLabel: true,
 
             // styling
-            colors: 'd320b',
+            colors: 'set2',
             colorBy: 'name',
             borderWidth: 0,
             borderColor: {

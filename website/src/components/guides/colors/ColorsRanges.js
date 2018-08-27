@@ -1,6 +1,6 @@
 import React from 'react'
-import { schemeCategory10, schemeCategory20, schemeCategory20b, schemeCategory20c } from 'd3-scale'
 import {
+    schemeCategory10,
     schemeAccent,
     schemeDark2,
     schemePaired,
@@ -52,15 +52,15 @@ const ColorsRanges = () => (
                     <td>
                         <p>
                             <a
-                                href="https://github.com/d3/d3-scale"
+                                href="https://github.com/d3/d3-scale-chromatic"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                d3-scale
+                                d3-scale-chromatic
                             </a>{' '}
                             package{' '}
                             <a
-                                href="https://github.com/d3/d3-scale#schemeCategory10"
+                                href="https://github.com/d3/d3-scale-chromatic#schemeCategory10"
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
@@ -69,111 +69,6 @@ const ColorsRanges = () => (
                             color scale.
                         </p>
                         {schemeCategory10.map(color => (
-                            <span
-                                style={{
-                                    display: 'inline-block',
-                                    background: color,
-                                    width: 18,
-                                    height: 18,
-                                }}
-                            />
-                        ))}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <code className="code-string">'d320'</code>
-                    </td>
-                    <td>
-                        <p>
-                            <a
-                                href="https://github.com/d3/d3-scale"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                d3-scale
-                            </a>{' '}
-                            package{' '}
-                            <a
-                                href="https://github.com/d3/d3-scale#schemeCategory20"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                schemeCategory20
-                            </a>{' '}
-                            color scale.
-                        </p>
-                        {schemeCategory20.map(color => (
-                            <span
-                                style={{
-                                    display: 'inline-block',
-                                    background: color,
-                                    width: 18,
-                                    height: 18,
-                                }}
-                            />
-                        ))}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <code className="code-string">'d320b'</code>
-                    </td>
-                    <td>
-                        <p>
-                            <a
-                                href="https://github.com/d3/d3-scale"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                d3-scale
-                            </a>{' '}
-                            package{' '}
-                            <a
-                                href="https://github.com/d3/d3-scale#schemeCategory20b"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                schemeCategory20b
-                            </a>{' '}
-                            color scale.
-                        </p>
-                        {schemeCategory20b.map(color => (
-                            <span
-                                style={{
-                                    display: 'inline-block',
-                                    background: color,
-                                    width: 18,
-                                    height: 18,
-                                }}
-                            />
-                        ))}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <code className="code-string">'d320c'</code>
-                    </td>
-                    <td>
-                        <p>
-                            <a
-                                href="https://github.com/d3/d3-scale"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                d3-scale
-                            </a>{' '}
-                            package{' '}
-                            <a
-                                href="https://github.com/d3/d3-scale#schemeCategory20c"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                schemeCategory20c
-                            </a>{' '}
-                            color scale.
-                        </p>
-                        {schemeCategory20c.map(color => (
                             <span
                                 style={{
                                     display: 'inline-block',

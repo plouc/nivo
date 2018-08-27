@@ -50,7 +50,7 @@ const ColorsIllustrations = () => (
                         country: 'root',
                         children: generateCountriesData(['value'], { size: 18 }),
                     }}
-                    colors="d320b"
+                    colors="paired"
                     identity="country"
                     value="value"
                     leavesOnly={true}

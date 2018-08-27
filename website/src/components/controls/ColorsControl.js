@@ -12,8 +12,8 @@ import PropTypes from 'prop-types'
 import { defaultCategoricalColors } from '@nivo/core'
 import Select from 'react-select'
 import ColorsControlItem from './ColorsControlItem'
-import { schemeCategory10, schemeCategory20, schemeCategory20b, schemeCategory20c } from 'd3-scale'
 import {
+    schemeCategory10,
     schemeAccent,
     schemeDark2,
     schemePaired,
@@ -27,9 +27,6 @@ import {
 const colors = [
     { id: 'nivo', colors: defaultCategoricalColors().range() },
     { id: 'd310', colors: schemeCategory10 },
-    { id: 'd320', colors: schemeCategory20 },
-    { id: 'd320b', colors: schemeCategory20b },
-    { id: 'd320c', colors: schemeCategory20c },
     { id: 'accent', colors: schemeAccent },
     { id: 'dark2', colors: schemeDark2 },
     { id: 'paired', colors: schemePaired },

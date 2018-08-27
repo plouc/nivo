@@ -9,14 +9,9 @@
 import get from 'lodash/get'
 import isFunction from 'lodash/isFunction'
 import isArray from 'lodash/isArray'
+import { scaleOrdinal } from 'd3-scale'
 import {
-    scaleOrdinal,
     schemeCategory10,
-    schemeCategory20,
-    schemeCategory20b,
-    schemeCategory20c,
-} from 'd3-scale'
-import {
     schemeAccent,
     schemeDark2,
     schemePaired,
@@ -29,9 +24,6 @@ import {
 
 const ordinalColorScales = {
     d310: scaleOrdinal(schemeCategory10),
-    d320: scaleOrdinal(schemeCategory20),
-    d320b: scaleOrdinal(schemeCategory20b),
-    d320c: scaleOrdinal(schemeCategory20c),
     accent: scaleOrdinal(schemeAccent),
     dark2: scaleOrdinal(schemeDark2),
     paired: scaleOrdinal(schemePaired),

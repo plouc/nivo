@@ -65,7 +65,7 @@ export default class ChordCanvas extends Component {
                 gamma: 1,
             },
 
-            colors: 'd320b',
+            colors: 'paired',
 
             // interactivity
             isInteractive: true,
