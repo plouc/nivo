@@ -20,8 +20,8 @@ const data = [
     },
 ]
 const commonProps = {
-    width: 460,
-    height: 600,
+    width: 900,
+    height: 500,
     total,
     data,
     rows: 48,
@@ -32,7 +32,7 @@ const stories = storiesOf('WaffleCanvas', module)
 
 stories.add('default', withInfo()(() => <WaffleCanvas {...commonProps} />))
 
-stories.add('colors', withInfo()(() => <WaffleCanvas {...commonProps} colors="d320b" />))
+stories.add('colors', withInfo()(() => <WaffleCanvas {...commonProps} colors="d310" />))
 
 stories.add(
     'using data color',
@@ -44,8 +44,8 @@ stories.add(
     withInfo()(() => (
         <WaffleCanvas
             {...commonProps}
-            width={600}
-            height={460}
+            width={900}
+            height={400}
             fillDirection="left"
             rows={36}
             columns={48}

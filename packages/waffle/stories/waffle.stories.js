@@ -21,8 +21,8 @@ const data = [
     },
 ]
 const commonProps = {
-    width: 460,
-    height: 600,
+    width: 900,
+    height: 500,
     total,
     data,
     rows: 24,
@@ -33,7 +33,7 @@ const stories = storiesOf('Waffle', module)
 
 stories.add('default', withInfo()(() => <Waffle {...commonProps} />))
 
-stories.add('colors', withInfo()(() => <Waffle {...commonProps} colors="d320b" />))
+stories.add('colors', withInfo()(() => <Waffle {...commonProps} colors="d310" />))
 
 stories.add(
     'using data color',
@@ -71,8 +71,8 @@ stories.add(
     withInfo()(() => (
         <Waffle
             {...commonProps}
-            width={600}
-            height={460}
+            width={900}
+            height={400}
             fillDirection="left"
             rows={18}
             columns={24}
@@ -155,17 +155,17 @@ class WaffleLegendToggle extends Component {
             <Waffle
                 {...commonProps}
                 hiddenIds={hiddenIds}
-                margin={{ left: 110 }}
+                margin={{ top: 40 }}
                 legends={[
                     {
-                        anchor: 'left',
-                        direction: 'column',
-                        itemsSpacing: 4,
+                        anchor: 'top',
+                        direction: 'row',
+                        translateY: -40,
+                        itemsSpacing: 10,
                         itemWidth: 100,
                         itemHeight: 20,
                         symbolSize: 20,
                         itemTextColor: '#555',
-                        translateX: -110,
                         onClick: this.toggle,
                         effects: [
                             {

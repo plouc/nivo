@@ -5,12 +5,55 @@ import infoAddon, { setDefaults } from '@storybook/addon-info'
 import './style.css'
 
 setDefaults({
-    header: false,
+    header: true,
     inline: true,
     propTables: false,
     maxPropObjectKeys: 10000,
     maxPropArrayLength: 10000,
-    maxPropStringLength: 10000
+    maxPropStringLength: 10000,
+    styles: {
+        infoBody: {
+            border: 'none',
+            borderRadius: 0,
+            padding: '0 30px 20px',
+            marginTop: '0',
+            marginBottom: '0',
+            boxShadow: 'none',
+        },
+        header: {
+            h1: {
+                fontSize: '28px',
+            },
+            h2: {
+                fontSize: '16px',
+            },
+        },
+        source: {
+            h1: {
+                fontSize: '22px',
+            },
+        },
+        /*
+        header: {
+    h1: {
+      margin: 0,
+      padding: 0,
+      fontSize: '35px',
+    },
+    h2: {
+      margin: '0 0 10px 0',
+      padding: 0,
+      fontWeight: 400,
+      fontSize: '22px',
+    },
+    body: {
+      borderBottom: '1px solid #eee',
+      paddingTop: 10,
+      marginBottom: 10,
+    },
+  },
+         */
+    },
 })
 setAddon(infoAddon)
 

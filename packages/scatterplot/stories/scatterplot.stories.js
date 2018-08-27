@@ -121,9 +121,9 @@ const sampleData = [
 ]
 
 const commonProps = {
-    width: 1000,
-    height: 600,
-    margin: { top: 60, right: 80, bottom: 80, left: 80 },
+    width: 900,
+    height: 500,
+    margin: { top: 20, right: 20, bottom: 80, left: 80 },
     symbolSize: 10,
     axisBottom: {
         format: d => `week ${d}`,

@@ -5,8 +5,8 @@ import { generateChordData } from '@nivo/generators'
 import { Chord } from '../index'
 
 const commonProperties = {
-    width: 600,
-    height: 600,
+    width: 900,
+    height: 500,
     margin: { top: 60, right: 80, bottom: 60, left: 80 },
     ...generateChordData({ size: 7 }),
     xPadding: 0.2,
@@ -46,7 +46,7 @@ stories.add(
             labelRotation={-90}
             padAngle={0.02}
             innerRadiusOffset={0.02}
-            colors="d320b"
+            colors="d310"
         />
     ))
 )
