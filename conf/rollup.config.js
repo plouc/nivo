@@ -8,9 +8,9 @@ export default {
     input: `./packages/${pkg}/src/index.js`,
     output: {
         file: `./packages/${pkg}/cjs/nivo-${pkg}.js`,
-        format: 'cjs'
+        format: 'cjs',
+        name: `@nivo/${pkg}`,
     },
-    name: '@nivo/axes',
     external: [
         '@nivo/axes',
         '@nivo/core',
@@ -63,6 +63,8 @@ export default {
         'lodash/isDate',
         'lodash/assign',
         'lodash/sumBy',
+        'lodash/first',
+        'lodash/last',
         'recompose/setDisplayName',
         'recompose/defaultProps',
         'recompose/withState',

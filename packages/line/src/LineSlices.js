@@ -54,7 +54,7 @@ LineSlices.propTypes = {
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
     theme: PropTypes.object.isRequired,
-    tooltip: PropTypes.element,
+    tooltip: PropTypes.func,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 }
 

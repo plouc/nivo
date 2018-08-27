@@ -10,6 +10,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import isFunction from 'lodash/isFunction'
 import { format as d3Format } from 'd3-format'
+import { timeFormat } from 'd3-time-format'
 import compose from 'recompose/compose'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
@@ -258,9 +259,16 @@ Axis.defaultProps = {
 
 const enhance = compose(
     withMotion(),
-    withPropsOnChange(['format'], ({ format }) => {
-        if (!format || isFunction(format)) return { format }
-        return { format: d3Format(format) }
+    withPropsOnChange(['format', 'scale'], ({ format, scale }) => {
+        if (!format || isFunction(format)) {
+            return { format }
+        } else if (scale.type === 'time') {
+            console.log('timeFormat')
+            const f = timeFormat(format)
+            return { format: d => f(new Date(d)) }
+        } else {
+            return { format: d3Format(format) }
+        }
     }),
     pure
 )

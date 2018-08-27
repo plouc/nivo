@@ -59,8 +59,8 @@ export default class BarAPI extends Component {
                     reverse: false,
 
                     // axes
-                    'enable axisTop': false,
                     axisTop: {
+                        enable: false,
                         orient: 'top',
                         tickSize: 5,
                         tickPadding: 5,
@@ -68,8 +68,8 @@ export default class BarAPI extends Component {
                         legend: '',
                         legendOffset: 36,
                     },
-                    'enable axisRight': false,
                     axisRight: {
+                        enable: false,
                         orient: 'right',
                         tickSize: 5,
                         tickPadding: 5,
@@ -77,8 +77,8 @@ export default class BarAPI extends Component {
                         legend: '',
                         legendOffset: 0,
                     },
-                    'enable axisBottom': true,
                     axisBottom: {
+                        enable: true,
                         orient: 'bottom',
                         tickSize: 5,
                         tickPadding: 5,
@@ -87,8 +87,8 @@ export default class BarAPI extends Component {
                         legendPosition: 'center',
                         legendOffset: 36,
                     },
-                    'enable axisLeft': true,
                     axisLeft: {
+                        enable: true,
                         orient: 'left',
                         tickSize: 5,
                         tickPadding: 5,

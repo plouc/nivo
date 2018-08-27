@@ -12,9 +12,9 @@
   "dependencies": {
     "@nivo/core": "^0.46.0",
     "@nivo/legends": "^0.46.0",
-    "d3-scale": "^1.0.6",
-    "d3-time": "^1.0.7",
-    "d3-time-format": "^2.0.5",
+    "d3-scale": "^2.1.2",
+    "d3-time": "^1.0.10",
+    "d3-time-format": "^2.1.3",
     "lodash": "^4.17.4",
     "recompose": "^0.26.0"
   },

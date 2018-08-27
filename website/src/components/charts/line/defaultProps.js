@@ -18,6 +18,16 @@ export default {
         left: 60,
     },
 
+    xScale: {
+        type: 'point',
+    },
+    yScale: {
+        type: 'linear',
+        stacked: true,
+        min: 'auto',
+        max: 'auto',
+    },
+
     minY: 'auto',
     maxY: 'auto',
 
@@ -25,8 +35,8 @@ export default {
     curve: 'linear',
 
     // axes
-    'enable axisTop': false,
     axisTop: {
+        enable: false,
         orient: 'top',
         tickSize: 5,
         tickPadding: 5,
@@ -34,8 +44,8 @@ export default {
         legend: '',
         legendOffset: 36,
     },
-    'enable axisRight': false,
     axisRight: {
+        enable: false,
         orient: 'right',
         tickSize: 5,
         tickPadding: 5,
@@ -43,8 +53,8 @@ export default {
         legend: '',
         legendOffset: 0,
     },
-    'enable axisBottom': true,
     axisBottom: {
+        enable: true,
         orient: 'bottom',
         tickSize: 5,
         tickPadding: 5,
@@ -53,8 +63,8 @@ export default {
         legendOffset: 36,
         legendPosition: 'center',
     },
-    'enable axisLeft': true,
     axisLeft: {
+        enable: true,
         orient: 'left',
         tickSize: 5,
         tickPadding: 5,

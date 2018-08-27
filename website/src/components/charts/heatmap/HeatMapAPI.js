@@ -50,8 +50,8 @@ export default class HeatMapAPI extends Component {
 
                     // axes
                     // axes
-                    'enable axisTop': true,
                     axisTop: {
+                        enable: true,
                         orient: 'top',
                         tickSize: 5,
                         tickPadding: 5,
@@ -59,8 +59,8 @@ export default class HeatMapAPI extends Component {
                         legend: '',
                         legendOffset: 36,
                     },
-                    'enable axisRight': false,
                     axisRight: {
+                        enable: false,
                         orient: 'right',
                         tickSize: 5,
                         tickPadding: 5,
@@ -69,8 +69,8 @@ export default class HeatMapAPI extends Component {
                         legendPosition: 'center',
                         legendOffset: 0,
                     },
-                    'enable axisBottom': false,
                     axisBottom: {
+                        enable: false,
                         orient: 'bottom',
                         tickSize: 5,
                         tickPadding: 5,
@@ -79,8 +79,8 @@ export default class HeatMapAPI extends Component {
                         legendPosition: 'center',
                         legendOffset: 36,
                     },
-                    'enable axisLeft': true,
                     axisLeft: {
+                        enable: true,
                         orient: 'left',
                         tickSize: 5,
                         tickPadding: 5,

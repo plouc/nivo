@@ -20,4 +20,4 @@ export const mapInheritedColor = ({ type, ...config }) => {
 }
 
 export const mapAxis = type => (value, settings) =>
-    settings[`enable axis${upperFirst(type)}`] ? value : undefined
+    settings[`axis${upperFirst(type)}`].enable ? omit(value, ['enable']) : undefined

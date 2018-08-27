@@ -39,24 +39,18 @@ const LineDots = ({
     const getLabel = getLabelGenerator(label, labelFormat)
 
     const points = lines.reduce((acc, line) => {
-        const { id, points } = line
+        const { id, data } = line
 
         return [
             ...acc,
-            ...points.filter(point => point.value !== null).map(point => {
-                const pointData = {
-                    serie: { id },
-                    x: point.key,
-                    y: point.value,
-                }
-
+            ...data.filter(datum => datum.x !== null && datum.y !== null).map(datum => {
                 return {
-                    key: `${id}.${point.x}`,
-                    x: point.x,
-                    y: point.y,
+                    key: `${id}.${datum.x}`,
+                    x: datum.x,
+                    y: datum.y,
                     fill: color(line),
                     stroke: borderColor(line),
-                    label: enableLabel ? getLabel(pointData) : null,
+                    label: enableLabel ? getLabel(datum.data) : null,
                 }
             }),
         ]

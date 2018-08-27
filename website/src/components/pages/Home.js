@@ -113,7 +113,7 @@ class Home extends Component {
                     <ResponsiveLine
                         margin={{ top: 10, bottom: 15, left: 24, right: 10 }}
                         data={generateDrinkStats(12)}
-                        stacked={true}
+                        yScale={{ type: 'linear', stacked: true }}
                         curve="monotoneX"
                         theme={homeTheme}
                         colors={colors}

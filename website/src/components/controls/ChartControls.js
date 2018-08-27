@@ -13,7 +13,9 @@ import set from 'lodash/set'
 import merge from 'lodash/merge'
 import snakeCase from 'lodash/snakeCase'
 import pick from 'lodash/pick'
+import omit from 'lodash/omit'
 import ArrayControl from './ArrayControl'
+import ObjectControl from './ObjectControl'
 import SliderControl from './SliderControl'
 import SwitchControl from './SwitchControl'
 import SwitchableSliderControl from './SwitchableSliderControl'
@@ -92,6 +94,20 @@ export default class ChartControls extends Component {
                     />
                 )
 
+            case 'object':
+                return (
+                    <ObjectControl
+                        key={config.name}
+                        ns={ns}
+                        label={config.name}
+                        help={config.help}
+                        onChange={this.handleArrayUpdate(config.name)}
+                        value={get(settings, config.name)}
+                        props={getPropertiesGroupControls(config.props)}
+                        defaults={config.defaults}
+                    />
+                )
+
             case 'choices':
                 return (
                     <div className="chart-controls_item" key={config.name}>
@@ -107,6 +123,7 @@ export default class ChartControls extends Component {
                             options={config.choices}
                             clearable={false}
                             onChange={this.handleSelectUpdate(config.name)}
+                            {...omit(config, ['name', 'help', 'type', 'choices'])}
                         />
                         <div className="control-help">{config.help}</div>
                     </div>

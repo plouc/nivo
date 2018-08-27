@@ -10,66 +10,54 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
 import { motionPropTypes } from '@nivo/core'
-import { SmartMotion } from '@nivo/core'
+import Line from './LineLine'
 
 const LineLines = ({
     lines,
     lineGenerator,
     lineWidth,
-
-    // motion
     animate,
     motionStiffness,
     motionDamping,
-}) => {
-    if (animate !== true) {
-        return (
-            <g>
-                {lines.map(({ id, color: lineColor, points }) => (
-                    <path
-                        key={id}
-                        d={lineGenerator(points)}
-                        fill="none"
-                        strokeWidth={lineWidth}
-                        stroke={lineColor}
-                    />
-                ))}
-            </g>
-        )
-    }
-
-    const springConfig = {
-        stiffness: motionStiffness,
-        damping: motionDamping,
-    }
-
-    return (
-        <g>
-            {lines.map(({ id, color: lineColor, points }) => (
-                <SmartMotion
+}) => (
+    <g>
+        {lines.map(({ id, data, color }) => {
+            return (
+                <Line
                     key={id}
-                    style={spring => ({
-                        d: spring(lineGenerator(points), springConfig),
-                        stroke: spring(lineColor, springConfig),
-                    })}
-                >
-                    {style => (
-                        <path
-                            key={id}
-                            d={style.d}
-                            fill="none"
-                            strokeWidth={lineWidth}
-                            stroke={style.stroke}
-                        />
-                    )}
-                </SmartMotion>
-            ))}
-        </g>
-    )
-}
+                    id={id}
+                    points={data}
+                    lineGenerator={lineGenerator}
+                    color={color}
+                    thickness={lineWidth}
+                    animate={animate}
+                    motionStiffness={motionStiffness}
+                    motionDamping={motionDamping}
+                />
+            )
+        })}
+    </g>
+)
 
 LineLines.propTypes = {
+    lines: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+            color: PropTypes.string.isRequired,
+            data: PropTypes.arrayOf(
+                PropTypes.shape({
+                    x: PropTypes.number,
+                    y: PropTypes.number,
+                    data: PropTypes.shape({
+                        x: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+                        y: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+                    }).isRequired,
+                })
+            ).isRequired,
+        })
+    ).isRequired,
     lineWidth: PropTypes.number.isRequired,
+    lineGenerator: PropTypes.func.isRequired,
     ...motionPropTypes,
 }
 
