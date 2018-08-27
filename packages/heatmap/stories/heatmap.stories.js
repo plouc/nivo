@@ -1,5 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
+import { withInfo } from '@storybook/addon-info'
 import { generateCountriesData } from '@nivo/generators'
 import { HeatMap } from '../index'
 
@@ -56,7 +57,7 @@ const keys = [
 ]
 const commonProperties = {
     width: 900,
-    height: 520,
+    height: 500,
     margin: { top: 60, right: 80, bottom: 60, left: 80 },
     data: generateCountriesData(keys, { size: 9, min: 0, max: 100 }),
     indexBy: 'country',
@@ -67,76 +68,94 @@ const stories = storiesOf('HeatMap', module).addDecorator(story => (
     <div className="wrapper">{story()}</div>
 ))
 
-stories.add('default', () => <HeatMap {...commonProperties} />)
+stories.add('default', withInfo()(() => <HeatMap {...commonProperties} />))
 
-stories.add('square cells', () => (
-    <HeatMap
-        {...commonProperties}
-        forceSquare={true}
-        axisTop={{
-            orient: 'top',
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: -55,
-            legend: '',
-            legendOffset: 36,
-        }}
-    />
-))
+stories.add(
+    'square cells',
+    withInfo()(() => (
+        <HeatMap
+            {...commonProperties}
+            forceSquare={true}
+            axisTop={{
+                orient: 'top',
+                tickSize: 5,
+                tickPadding: 5,
+                tickRotation: -55,
+                legend: '',
+                legendOffset: 36,
+            }}
+        />
+    ))
+)
 
-stories.add('circle cells', () => (
-    <HeatMap {...commonProperties} cellShape="circle" padding={2} enableGridY={true} />
-))
+stories.add(
+    'circle cells',
+    withInfo()(() => (
+        <HeatMap {...commonProperties} cellShape="circle" padding={2} enableGridY={true} />
+    ))
+)
 
-stories.add('alternative colors', () => <HeatMap {...commonProperties} colors="BrBG" />)
+stories.add('alternative colors', withInfo()(() => <HeatMap {...commonProperties} colors="BrBG" />))
 
-stories.add('variable cell size', () => (
-    <HeatMap
-        {...commonProperties}
-        colors="BuPu"
-        cellShape="circle"
-        padding={2}
-        sizeVariation={0.6}
-        enableGridX={true}
-        enableGridY={true}
-    />
-))
+stories.add(
+    'variable cell size',
+    withInfo()(() => (
+        <HeatMap
+            {...commonProperties}
+            colors="BuPu"
+            cellShape="circle"
+            padding={2}
+            sizeVariation={0.6}
+            enableGridX={true}
+            enableGridY={true}
+        />
+    ))
+)
 
-stories.add('Custom cell component', () => (
-    <HeatMap
-        {...commonProperties}
-        cellShape={CustomCell}
-        padding={4}
-        colors="GnBu"
-        labelTextColor="inherit:darker(1.6)"
-    />
-))
+stories.add(
+    'Custom cell component',
+    withInfo()(() => (
+        <HeatMap
+            {...commonProperties}
+            cellShape={CustomCell}
+            padding={4}
+            colors="GnBu"
+            labelTextColor="inherit:darker(1.6)"
+        />
+    ))
+)
 
-stories.add('with formatted values', () => (
-    <HeatMap
-        {...commonProperties}
-        tooltipFormat={value =>
-            `${Number(value).toLocaleString('ru-RU', {
-                minimumFractionDigits: 2,
-            })} ₽`
-        }
-    />
-))
+stories.add(
+    'with formatted values',
+    withInfo()(() => (
+        <HeatMap
+            {...commonProperties}
+            tooltipFormat={value =>
+                `${Number(value).toLocaleString('ru-RU', {
+                    minimumFractionDigits: 2,
+                })} ₽`
+            }
+        />
+    ))
+)
 
-stories.add('custom tooltip', () => (
-    <HeatMap
-        {...commonProperties}
-        tooltip={({ xKey, yKey, value, color }) => (
-            <strong style={{ color }}>
-                {xKey} / {yKey}: {value}
-            </strong>
-        )}
-        theme={{
-            tooltip: {
-                container: {
-                    background: 'gray',
+stories.add(
+    'custom tooltip',
+    withInfo()(() => (
+        <HeatMap
+            {...commonProperties}
+            tooltip={({ xKey, yKey, value, color }) => (
+                <strong style={{ color }}>
+                    {xKey} / {yKey}: {value}
+                </strong>
+            )}
+            theme={{
+                tooltip: {
+                    container: {
+                        background: 'gray',
+                    },
                 },
-            },
-        }}
-    />
-))
+            }}
+        />
+    ))
+)

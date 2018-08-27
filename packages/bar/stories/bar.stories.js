@@ -8,8 +8,8 @@ import { Bar } from '../index'
 
 const keys = ['hot dogs', 'burgers', 'sandwich', 'kebab', 'fries', 'donut']
 const commonProps = {
-    width: 1000,
-    height: 600,
+    width: 900,
+    height: 500,
     margin: { top: 60, right: 80, bottom: 60, left: 80 },
     data: generateCountriesData(keys, { size: 7 }),
     indexBy: 'country',

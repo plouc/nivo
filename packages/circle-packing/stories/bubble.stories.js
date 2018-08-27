@@ -1,12 +1,12 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
+import { withInfo } from '@storybook/addon-info'
 import { generateLibTree } from '@nivo/generators'
 import { Bubble } from '../index'
-import { withInfo } from '@storybook/addon-info'
 
 const commonProperties = {
-    width: 600,
-    height: 600,
+    width: 900,
+    height: 500,
     root: generateLibTree(),
     identity: 'name',
     value: 'loc',
@@ -16,18 +16,24 @@ const commonProperties = {
 
 storiesOf('Bubble', module)
     .addDecorator(story => <div className="wrapper">{story()}</div>)
-    .add('default', () => <Bubble {...commonProperties} />)
-    .add('rendering leaves only', () => <Bubble {...commonProperties} leavesOnly={true} />)
-    .add('with formatted values', () => (
-        <Bubble
-            {...commonProperties}
-            tooltipFormat={value =>
-                `${Number(value).toLocaleString('ru-RU', {
-                    minimumFractionDigits: 2,
-                })} ₽`
-            }
-        />
-    ))
+    .add('default', withInfo()(() => <Bubble {...commonProperties} />))
+    .add(
+        'rendering leaves only',
+        withInfo()(() => <Bubble {...commonProperties} leavesOnly={true} />)
+    )
+    .add(
+        'with formatted values',
+        withInfo()(() => (
+            <Bubble
+                {...commonProperties}
+                tooltipFormat={value =>
+                    `${Number(value).toLocaleString('ru-RU', {
+                        minimumFractionDigits: 2,
+                    })} ₽`
+                }
+            />
+        ))
+    )
     .add(
         'custom tooltip',
         withInfo()(() => (

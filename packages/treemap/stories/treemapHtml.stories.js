@@ -1,12 +1,12 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { generateLibTree } from '@nivo/generators'
-import { TreeMapHtml } from '../index'
 import { withInfo } from '@storybook/addon-info'
+import { TreeMapHtml } from '../index'
 
 const commonProperties = {
-    width: 600,
-    height: 600,
+    width: 900,
+    height: 400,
     root: generateLibTree(),
     identity: 'name',
     value: 'loc',

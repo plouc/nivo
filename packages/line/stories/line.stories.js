@@ -8,8 +8,8 @@ import { Line } from '../index'
 const data = generateDrinkStats(18)
 const commonProperties = {
     width: 900,
-    height: 360,
-    margin: { top: 60, right: 80, bottom: 60, left: 80 },
+    height: 400,
+    margin: { top: 20, right: 20, bottom: 60, left: 80 },
     data,
     animate: true,
 }
