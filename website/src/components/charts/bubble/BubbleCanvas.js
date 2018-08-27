@@ -45,7 +45,7 @@ export default class BubbleCanvas extends Component {
             identity: 'id',
             value: 'value',
 
-            colors: 'd320b',
+            colors: 'set3',
             colorBy: 'id',
             padding: 1,
             leavesOnly: false,

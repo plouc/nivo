@@ -51,7 +51,7 @@ export default class Pie extends Component {
             fit: true,
 
             // styling
-            colors: 'd320b',
+            colors: 'paired',
             colorBy: 'id',
 
             // border

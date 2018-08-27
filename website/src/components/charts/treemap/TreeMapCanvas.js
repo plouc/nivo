@@ -50,7 +50,7 @@ export default class TreeMapCanvas extends Component {
             orientLabel: true,
 
             // styling
-            colors: 'd320b',
+            colors: 'paired',
             colorBy: 'id',
             borderWidth: 1,
             borderColor: {

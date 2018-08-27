@@ -49,7 +49,7 @@ export default class BarCanvas extends Component {
             layout: 'horizontal',
             reverse: false,
 
-            colors: 'd320b',
+            colors: 'paired',
             colorBy: 'id',
             borderWidth: 0,
             borderColor: {

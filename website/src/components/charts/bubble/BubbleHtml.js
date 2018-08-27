@@ -32,7 +32,7 @@ export default class BubbleHtml extends Component {
             },
             identity: 'name',
             value: 'loc',
-            colors: 'd320b',
+            colors: 'paired',
             colorBy: 'depth',
             padding: 1,
             leavesOnly: false,
