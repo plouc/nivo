@@ -163,7 +163,7 @@ stories.add('multiple series', withInfo(importStatement)(() => <ScatterPlot {...
 
 stories.add(
     'alternative colors',
-    withInfo(importStatement)(() => <ScatterPlot {...commonProps} colors="d320b" />)
+    withInfo(importStatement)(() => <ScatterPlot {...commonProps} colors="d310" />)
 )
 
 stories.add(
