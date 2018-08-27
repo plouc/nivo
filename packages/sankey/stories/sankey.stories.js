@@ -4,11 +4,11 @@ import { generateSankeyData } from '@nivo/generators'
 import { Sankey } from '../index'
 
 const commonProperties = {
-    width: 1100,
-    height: 700,
+    width: 900,
+    height: 500,
     margin: { top: 0, right: 80, bottom: 0, left: 80 },
     data: generateSankeyData({ nodeCount: 11, maxIterations: 2 }),
-    colors: 'd320b',
+    colors: 'd310',
 }
 
 const stories = storiesOf('Sankey', module).addDecorator(story => (
