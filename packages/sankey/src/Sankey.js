@@ -17,6 +17,7 @@ import SankeyLinks from './SankeyLinks'
 import SankeyLabels from './SankeyLabels'
 import { SankeyPropTypes, sankeyAlignmentFromProp } from './props'
 import enhance from './enhance'
+import enhancedLine from '../../line/src/Line'
 
 const getId = d => d.id
 
@@ -217,5 +218,7 @@ const Sankey = ({
 }
 
 Sankey.propTypes = SankeyPropTypes
+const enhancedSankey = enhance(Sankey)
+enhancedSankey.displayName = 'Sankey'
 
-export default enhance(Sankey)
+export default enhancedSankey

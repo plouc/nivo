@@ -146,4 +146,7 @@ const TreeMapHtml = ({
 TreeMapHtml.propTypes = TreeMapHtmlPropTypes
 TreeMapHtml.displayName = 'TreeMapHtml'
 
-export default enhance(TreeMapHtml)
+const enhancedTreeMapHtml = enhance(TreeMapHtml)
+enhancedTreeMapHtml.displayName = 'TreeMapHtml'
+
+export default enhancedTreeMapHtml

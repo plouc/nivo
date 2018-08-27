@@ -136,4 +136,7 @@ const TreeMap = ({
 TreeMap.propTypes = TreeMapPropTypes
 TreeMap.displayName = 'TreeMap'
 
-export default enhance(TreeMap)
+const enhancedTreeMap = enhance(TreeMap)
+enhancedTreeMap.displayName = 'TreeMap'
+
+export default enhancedTreeMap

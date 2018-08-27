@@ -33,26 +33,6 @@ setDefaults({
                 fontSize: '22px',
             },
         },
-        /*
-        header: {
-    h1: {
-      margin: 0,
-      padding: 0,
-      fontSize: '35px',
-    },
-    h2: {
-      margin: '0 0 10px 0',
-      padding: 0,
-      fontWeight: 400,
-      fontSize: '22px',
-    },
-    body: {
-      borderBottom: '1px solid #eee',
-      paddingTop: 10,
-      marginBottom: 10,
-    },
-  },
-         */
     },
 })
 setAddon(infoAddon)

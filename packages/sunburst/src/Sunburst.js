@@ -189,6 +189,6 @@ const enhance = compose(
 )
 
 const enhancedSunburst = enhance(Sunburst)
-enhancedSunburst.displayName = 'enhance(Sunburst)'
+enhancedSunburst.displayName = 'Sunburst'
 
 export default enhancedSunburst

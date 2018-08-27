@@ -10,7 +10,7 @@ import React, { Component } from 'react'
 import { degreesToRadians } from '@nivo/core'
 import { getRelativeCursor, isCursorInRect } from '@nivo/core'
 import { Container } from '@nivo/core'
-import { TreeMapCanvasPropTypes } from './props'
+import { TreeMapCanvasPropTypes, TreeMapHtmlPropTypes } from './props'
 import enhance from './enhance'
 import TreeMapNodeTooltip from './TreeMapNodeTooltip'
 
@@ -152,4 +152,7 @@ class TreeMapCanvas extends Component {
 TreeMapCanvas.propTypes = TreeMapCanvasPropTypes
 TreeMapCanvas.displayName = 'TreeMapCanvas'
 
-export default enhance(TreeMapCanvas)
+const enhancedTreeMapCanvas = enhance(TreeMapCanvas)
+enhancedTreeMapCanvas.displayName = 'TreeMapCanvas'
+
+export default enhancedTreeMapCanvas

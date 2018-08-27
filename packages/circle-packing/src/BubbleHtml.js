@@ -143,4 +143,7 @@ const BubbleHtml = ({
 
 BubbleHtml.displayName = 'BubbleHtml'
 
-export default enhance(BubbleHtml)
+const enhancedBubbleHtml = enhance(BubbleHtml)
+enhancedBubbleHtml.displayName = 'BubbleHtml'
+
+export default enhancedBubbleHtml

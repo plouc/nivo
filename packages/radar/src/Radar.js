@@ -309,6 +309,6 @@ const enhance = compose(
 )
 
 const enhancedRadar = enhance(Radar)
-enhancedRadar.displayName = 'enhance(Radar)'
+enhancedRadar.displayName = 'Radar'
 
 export default enhancedRadar

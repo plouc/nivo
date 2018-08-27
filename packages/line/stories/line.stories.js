@@ -327,7 +327,7 @@ stories.add(
     withInfo(`
         Please note that when using stacked y scale with variable length/data holes,
         if one of the y value is \`null\` all subsequent values will be skipped
-        as we cannot compute the sum. 
+        as we cannot properly compute the sum. 
     `)(() => (
         <Line
             {...commonProperties}
