@@ -22,16 +22,13 @@ const LineDots = ({
     borderWidth,
     borderColor,
 
-    // labels
     enableLabel,
     label,
     labelFormat,
     labelYOffset,
 
-    // theming
     theme,
 
-    // motion
     animate,
     motionStiffness,
     motionDamping,
@@ -43,16 +40,18 @@ const LineDots = ({
 
         return [
             ...acc,
-            ...data.filter(datum => datum.x !== null && datum.y !== null).map(datum => {
-                return {
-                    key: `${id}.${datum.x}`,
-                    x: datum.x,
-                    y: datum.y,
-                    fill: color(line),
-                    stroke: borderColor(line),
-                    label: enableLabel ? getLabel(datum.data) : null,
-                }
-            }),
+            ...data
+                .filter(datum => datum.position.x !== null && datum.position.y !== null)
+                .map(datum => {
+                    return {
+                        key: `${id}.${datum.data.x}`,
+                        x: datum.position.x,
+                        y: datum.position.y,
+                        fill: color(line),
+                        stroke: borderColor(line),
+                        label: enableLabel ? getLabel(datum.data) : null,
+                    }
+                }),
         ]
     }, [])
 

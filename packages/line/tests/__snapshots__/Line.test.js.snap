@@ -3,6 +3,7 @@
 exports[`curve interpolation should support basis curve interpolation 1`] = `
 <svg
   height={300}
+  role="img"
   width={500}
   xmlns="http://www.w3.org/2000/svg"
 >
@@ -532,6 +533,7 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
 exports[`curve interpolation should support cardinal curve interpolation 1`] = `
 <svg
   height={300}
+  role="img"
   width={500}
   xmlns="http://www.w3.org/2000/svg"
 >
@@ -1061,6 +1063,7 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
 exports[`curve interpolation should support catmullRom curve interpolation 1`] = `
 <svg
   height={300}
+  role="img"
   width={500}
   xmlns="http://www.w3.org/2000/svg"
 >
@@ -1590,6 +1593,7 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
 exports[`curve interpolation should support linear curve interpolation 1`] = `
 <svg
   height={300}
+  role="img"
   width={500}
   xmlns="http://www.w3.org/2000/svg"
 >
@@ -2119,6 +2123,7 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
 exports[`curve interpolation should support monotoneX curve interpolation 1`] = `
 <svg
   height={300}
+  role="img"
   width={500}
   xmlns="http://www.w3.org/2000/svg"
 >
@@ -2648,6 +2653,7 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
 exports[`curve interpolation should support monotoneY curve interpolation 1`] = `
 <svg
   height={300}
+  role="img"
   width={500}
   xmlns="http://www.w3.org/2000/svg"
 >
@@ -3177,6 +3183,7 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
 exports[`curve interpolation should support natural curve interpolation 1`] = `
 <svg
   height={300}
+  role="img"
   width={500}
   xmlns="http://www.w3.org/2000/svg"
 >
@@ -3706,6 +3713,7 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
 exports[`curve interpolation should support step curve interpolation 1`] = `
 <svg
   height={300}
+  role="img"
   width={500}
   xmlns="http://www.w3.org/2000/svg"
 >
@@ -4235,6 +4243,7 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
 exports[`curve interpolation should support stepAfter curve interpolation 1`] = `
 <svg
   height={300}
+  role="img"
   width={500}
   xmlns="http://www.w3.org/2000/svg"
 >
@@ -4764,6 +4773,7 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
 exports[`curve interpolation should support stepBefore curve interpolation 1`] = `
 <svg
   height={300}
+  role="img"
   width={500}
   xmlns="http://www.w3.org/2000/svg"
 >
@@ -5300,6 +5310,7 @@ exports[`should render a basic line chart 1`] = `
 >
   <svg
     height={300}
+    role="img"
     width={500}
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -5997,78 +6008,7 @@ exports[`should render a basic line chart 1`] = `
           strokeWidth={2}
         />
       </g>
-      <g>
-        <g
-          transform="translate(0, 0)"
-        >
-          <rect
-            fill="#000"
-            fillOpacity={0}
-            height={300}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseMove={[Function]}
-            width={40}
-            x={-20}
-          />
-        </g>
-        <g
-          transform="translate(125, 0)"
-        >
-          <rect
-            fill="#000"
-            fillOpacity={0}
-            height={300}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseMove={[Function]}
-            width={40}
-            x={-20}
-          />
-        </g>
-        <g
-          transform="translate(250, 0)"
-        >
-          <rect
-            fill="#000"
-            fillOpacity={0}
-            height={300}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseMove={[Function]}
-            width={40}
-            x={-20}
-          />
-        </g>
-        <g
-          transform="translate(375, 0)"
-        >
-          <rect
-            fill="#000"
-            fillOpacity={0}
-            height={300}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseMove={[Function]}
-            width={40}
-            x={-20}
-          />
-        </g>
-        <g
-          transform="translate(500, 0)"
-        >
-          <rect
-            fill="#000"
-            fillOpacity={0}
-            height={300}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseMove={[Function]}
-            width={40}
-            x={-20}
-          />
-        </g>
-      </g>
+      <g />
       <g>
         <g
           style={
@@ -6186,6 +6126,7 @@ exports[`should support multiple lines 1`] = `
 >
   <svg
     height={300}
+    role="img"
     width={500}
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -6889,78 +6830,7 @@ exports[`should support multiple lines 1`] = `
           strokeWidth={2}
         />
       </g>
-      <g>
-        <g
-          transform="translate(0, 0)"
-        >
-          <rect
-            fill="#000"
-            fillOpacity={0}
-            height={300}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseMove={[Function]}
-            width={40}
-            x={-20}
-          />
-        </g>
-        <g
-          transform="translate(125, 0)"
-        >
-          <rect
-            fill="#000"
-            fillOpacity={0}
-            height={300}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseMove={[Function]}
-            width={40}
-            x={-20}
-          />
-        </g>
-        <g
-          transform="translate(250, 0)"
-        >
-          <rect
-            fill="#000"
-            fillOpacity={0}
-            height={300}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseMove={[Function]}
-            width={40}
-            x={-20}
-          />
-        </g>
-        <g
-          transform="translate(375, 0)"
-        >
-          <rect
-            fill="#000"
-            fillOpacity={0}
-            height={300}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseMove={[Function]}
-            width={40}
-            x={-20}
-          />
-        </g>
-        <g
-          transform="translate(500, 0)"
-        >
-          <rect
-            fill="#000"
-            fillOpacity={0}
-            height={300}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseMove={[Function]}
-            width={40}
-            x={-20}
-          />
-        </g>
-      </g>
+      <g />
       <g>
         <g
           style={

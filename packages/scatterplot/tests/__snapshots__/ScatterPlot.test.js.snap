@@ -10,6 +10,7 @@ exports[`should allow to customize symbol size 1`] = `
 >
   <svg
     height={300}
+    role="img"
     width={500}
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -1078,6 +1079,7 @@ exports[`should allow to render several series 1`] = `
 >
   <svg
     height={300}
+    role="img"
     width={500}
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -2196,6 +2198,7 @@ exports[`should render a basic bar chart 1`] = `
 >
   <svg
     height={300}
+    role="img"
     width={500}
     xmlns="http://www.w3.org/2000/svg"
   >

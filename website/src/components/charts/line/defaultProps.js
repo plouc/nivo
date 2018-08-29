@@ -94,6 +94,7 @@ export default {
 
     // area
     enableArea: false,
+    areaBaselineValue: 0,
     areaOpacity: 0.2,
 
     // motion

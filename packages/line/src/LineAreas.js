@@ -29,7 +29,7 @@ const LineAreas = ({
                     .map(({ id, data, color: areaColor }) => (
                         <path
                             key={id}
-                            d={areaGenerator(data)}
+                            d={areaGenerator(data.map(d => d.position))}
                             fill={areaColor}
                             fillOpacity={areaOpacity}
                             strokeWidth={0}
@@ -53,7 +53,7 @@ const LineAreas = ({
                     <SmartMotion
                         key={id}
                         style={spring => ({
-                            d: spring(areaGenerator(data), springConfig),
+                            d: spring(areaGenerator(data.map(d => d.position)), springConfig),
                             fill: spring(areaColor, springConfig),
                         })}
                     >

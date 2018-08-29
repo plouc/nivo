@@ -71,18 +71,18 @@ const enhance = compose(
                 !tooltipFormat || isFunction(tooltipFormat)
                     ? tooltipFormat
                     : d3Format(tooltipFormat)
-            const hasValues = slice.points.some(p => p.data.y !== null)
+            const hasValues = slice.data.some(d => d.position.x !== null && d.position.y !== null)
 
             return {
                 tooltipElement: hasValues ? (
                     <TableTooltip
                         theme={theme}
-                        rows={slice.points
-                            .filter(p => p.value !== null)
-                            .map(p => [
-                                <Chip key={p.id} color={p.color} />,
-                                p.id,
-                                format ? format(p.data.y) : p.data.y,
+                        rows={slice.data
+                            .filter(d => d.position.x !== null && d.position.y !== null)
+                            .map(d => [
+                                <Chip key={d.id} color={d.serie.color} />,
+                                d.serie.id,
+                                format ? format(d.data.y) : d.data.y,
                             ])}
                         format={format}
                         renderContent={

@@ -10,6 +10,7 @@ exports[`should allow grouped horizontal layout 1`] = `
 >
   <svg
     height={300}
+    role="img"
     width={500}
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -683,6 +684,7 @@ exports[`should allow grouped mode 1`] = `
 >
   <svg
     height={300}
+    role="img"
     width={500}
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -1486,6 +1488,7 @@ exports[`should allow horizontal layout 1`] = `
 >
   <svg
     height={300}
+    role="img"
     width={500}
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -2159,6 +2162,7 @@ exports[`should allow to disable labels 1`] = `
 >
   <svg
     height={300}
+    role="img"
     width={500}
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -2962,6 +2966,7 @@ exports[`should render a basic bar chart 1`] = `
 >
   <svg
     height={300}
+    role="img"
     width={500}
     xmlns="http://www.w3.org/2000/svg"
   >

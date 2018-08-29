@@ -26,7 +26,7 @@ const LineLines = ({
                 <Line
                     key={id}
                     id={id}
-                    points={data}
+                    points={data.map(d => d.position)}
                     lineGenerator={lineGenerator}
                     color={color}
                     thickness={lineWidth}
@@ -46,8 +46,6 @@ LineLines.propTypes = {
             color: PropTypes.string.isRequired,
             data: PropTypes.arrayOf(
                 PropTypes.shape({
-                    x: PropTypes.number,
-                    y: PropTypes.number,
                     data: PropTypes.shape({
                         x: PropTypes.oneOfType([
                             PropTypes.string,
@@ -59,6 +57,10 @@ LineLines.propTypes = {
                             PropTypes.number,
                             PropTypes.instanceOf(Date),
                         ]),
+                    }).isRequired,
+                    position: PropTypes.shape({
+                        x: PropTypes.number,
+                        y: PropTypes.number,
                     }).isRequired,
                 })
             ).isRequired,
