@@ -37,8 +37,8 @@ export default [
                         Array<{
                             id: {string|number}
                             data: Array<{
-                                x: {number|string}
-                                y: {number|string}
+                                x: {number|string|Date}
+                                y: {number|string|Date}
                             }>
                         }>
                     `}
@@ -254,6 +254,26 @@ export default [
         default: defaults.enableArea,
         controlType: 'switch',
         controlGroup: 'Style',
+    },
+    {
+        key: 'areaBaselineValue',
+        scopes: '*',
+        description: (
+            <div>
+                Define the value to be used for area baseline. Please note that this value isn't the
+                position of the baseline but the value used to compute it.
+            </div>
+        ),
+        type: '{number|string|Date}',
+        required: false,
+        default: defaults.areaBaselineValue,
+        controlType: 'range',
+        controlGroup: 'Style',
+        controlOptions: {
+            min: 0,
+            max: 200,
+            step: 10,
+        },
     },
     {
         key: 'areaOpacity',

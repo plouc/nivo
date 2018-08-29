@@ -17,8 +17,16 @@ export const LinePropTypes = {
             id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
             data: PropTypes.arrayOf(
                 PropTypes.shape({
-                    x: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-                    y: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+                    x: PropTypes.oneOfType([
+                        PropTypes.number,
+                        PropTypes.string,
+                        PropTypes.instanceOf(Date),
+                    ]),
+                    y: PropTypes.oneOfType([
+                        PropTypes.number,
+                        PropTypes.string,
+                        PropTypes.instanceOf(Date),
+                    ]),
                 })
             ).isRequired,
         })
@@ -27,14 +35,11 @@ export const LinePropTypes = {
     xScale: scalePropType.isRequired,
     yScale: scalePropType.isRequired,
 
-    xy: PropTypes.object.isRequired,
+    computedData: PropTypes.object.isRequired,
 
     curve: lineCurvePropType.isRequired,
     areaGenerator: PropTypes.func.isRequired,
     lineGenerator: PropTypes.func.isRequired,
-
-    lines: PropTypes.array.isRequired,
-    slices: PropTypes.array.isRequired,
 
     // axes & grid
     axisTop: PropTypes.object,
@@ -68,6 +73,11 @@ export const LinePropTypes = {
     getColor: PropTypes.func.isRequired,
     enableArea: PropTypes.bool.isRequired,
     areaOpacity: PropTypes.number.isRequired,
+    areaBaselineValue: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string,
+        PropTypes.instanceOf(Date),
+    ]).isRequired,
     lineWidth: PropTypes.number.isRequired,
     defs: PropTypes.arrayOf(
         PropTypes.shape({
@@ -115,6 +125,7 @@ export const LineDefaultProps = {
     colors: 'nivo',
     colorBy: 'id',
     enableArea: false,
+    areaBaselineValue: 0,
     areaOpacity: 0.2,
     lineWidth: 2,
     defs: [],

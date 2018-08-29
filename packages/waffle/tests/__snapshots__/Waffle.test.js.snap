@@ -10,6 +10,7 @@ exports[`should render a basic waffle chart in SVG 1`] = `
 >
   <svg
     height={400}
+    role="img"
     width={400}
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -1435,6 +1436,7 @@ exports[`should support bottom fill mode 1`] = `
 >
   <svg
     height={400}
+    role="img"
     width={400}
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -2860,6 +2862,7 @@ exports[`should support left fill mode 1`] = `
 >
   <svg
     height={400}
+    role="img"
     width={400}
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -4285,6 +4288,7 @@ exports[`should support right fill mode 1`] = `
 >
   <svg
     height={400}
+    role="img"
     width={400}
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -5710,6 +5714,7 @@ exports[`should support top fill mode 1`] = `
 >
   <svg
     height={400}
+    role="img"
     width={400}
     xmlns="http://www.w3.org/2000/svg"
   >

@@ -7,7 +7,6 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import sortBy from 'lodash/sortBy'
 import { area, line } from 'd3-shape'
 import compose from 'recompose/compose'
 import pure from 'recompose/pure'
@@ -26,9 +25,8 @@ import {
     Axes,
     Grid,
 } from '@nivo/core'
-import { computeXYScalesForSeries } from '@nivo/scales'
+import { computeXYScalesForSeries, computeYSlices } from '@nivo/scales'
 import { BoxLegendSvg } from '@nivo/legends'
-import { generateLines } from './compute'
 import LineAreas from './LineAreas'
 import LineLines from './LineLines'
 import LineSlices from './LineSlices'
@@ -36,20 +34,16 @@ import LineDots from './LineDots'
 import { LinePropTypes, LineDefaultProps } from './props'
 
 const Line = ({
-    lines,
+    computedData,
     lineGenerator,
     areaGenerator,
-    xy,
-    slices,
 
-    // dimensions
     margin,
     width,
     height,
     outerWidth,
     outerHeight,
 
-    // axes & grid
     axisTop,
     axisRight,
     axisBottom,
@@ -63,7 +57,6 @@ const Line = ({
     enableArea,
     areaOpacity,
 
-    // dots
     enableDots,
     dotSymbol,
     dotSize,
@@ -75,23 +68,17 @@ const Line = ({
     dotLabelFormat,
     dotLabelYOffset,
 
-    // markers
     markers,
 
-    // theming
     theme,
 
-    // motion
     animate,
     motionStiffness,
     motionDamping,
 
-    // interactivity
     isInteractive,
     tooltipFormat,
     tooltip,
-
-    // stackTooltip
     enableStackTooltip,
 
     legends,
@@ -110,8 +97,8 @@ const Line = ({
                         theme={theme}
                         width={width}
                         height={height}
-                        xScale={enableGridX ? xy.x.scale : null}
-                        yScale={enableGridY ? xy.y.scale : null}
+                        xScale={enableGridX ? computedData.xScale : null}
+                        yScale={enableGridY ? computedData.yScale : null}
                         xValues={gridXValues}
                         yValues={gridYValues}
                         {...motionProps}
@@ -120,13 +107,13 @@ const Line = ({
                         markers={markers}
                         width={width}
                         height={height}
-                        xScale={xy.x.scale}
-                        yScale={xy.y.scale}
+                        xScale={computedData.xScale}
+                        yScale={computedData.yScale}
                         theme={theme}
                     />
                     <Axes
-                        xScale={xy.x.scale}
-                        yScale={xy.y.scale}
+                        xScale={computedData.xScale}
+                        yScale={computedData.yScale}
                         width={width}
                         height={height}
                         theme={theme}
@@ -140,12 +127,12 @@ const Line = ({
                         <LineAreas
                             areaGenerator={areaGenerator}
                             areaOpacity={areaOpacity}
-                            lines={lines}
+                            lines={computedData.series}
                             {...motionProps}
                         />
                     )}
                     <LineLines
-                        lines={lines}
+                        lines={computedData.series}
                         lineGenerator={lineGenerator}
                         lineWidth={lineWidth}
                         {...motionProps}
@@ -153,7 +140,7 @@ const Line = ({
                     {isInteractive &&
                         enableStackTooltip && (
                             <LineSlices
-                                slices={slices}
+                                slices={computedData.slices}
                                 height={height}
                                 showTooltip={showTooltip}
                                 hideTooltip={hideTooltip}
@@ -164,7 +151,7 @@ const Line = ({
                         )}
                     {enableDots && (
                         <LineDots
-                            lines={lines}
+                            lines={computedData.series}
                             symbol={dotSymbol}
                             size={dotSize}
                             color={getInheritedColorGenerator(dotColor)}
@@ -179,7 +166,7 @@ const Line = ({
                         />
                     )}
                     {legends.map((legend, i) => {
-                        const legendData = lines
+                        const legendData = computedData.series
                             .map(line => ({
                                 id: line.id,
                                 label: line.id,
@@ -211,12 +198,7 @@ const enhance = compose(
     withColors(),
     withDimensions(),
     withMotion(),
-    withPropsOnChange(['curve', 'height'], ({ curve, height }) => ({
-        areaGenerator: area()
-            .x(d => d.x)
-            .y0(height)
-            .y1(d => d.y)
-            .curve(curveFromProp(curve)),
+    withPropsOnChange(['curve'], ({ curve }) => ({
         lineGenerator: line()
             .defined(d => d.x !== null && d.y !== null)
             .x(d => d.x)
@@ -226,37 +208,33 @@ const enhance = compose(
     withPropsOnChange(
         ['data', 'xScale', 'yScale', 'width', 'height'],
         ({ data, xScale, yScale, width, height }) => ({
-            xy: computeXYScalesForSeries(data, xScale, yScale, width, height),
+            computedData: computeXYScalesForSeries(data, xScale, yScale, width, height),
         })
     ),
-    withPropsOnChange(['getColor', 'xy'], ({ getColor, xy }) => {
-        const lines = generateLines(xy, getColor)
+    withPropsOnChange(['getColor', 'computedData'], ({ getColor, computedData: _computedData }) => {
+        const computedData = {
+            ..._computedData,
+            series: _computedData.series.map(serie => ({
+                ...serie,
+                color: getColor(serie),
+            })),
+        }
 
-        const slices = xy.x.sorted.map(x => {
-            let points = []
-            lines.forEach(line => {
-                const datum = line.data.find(datum => datum.data.x === x)
-                if (datum !== undefined && datum.x !== null && datum.y !== null) {
-                    points.push({
-                        id: line.id,
-                        x,
-                        y: datum.y,
-                        color: line.color,
-                        data: datum.data,
-                    })
-                }
-            })
-            points = sortBy(points, 'y')
+        computedData.slices = computeYSlices(computedData)
 
-            return {
-                id: x,
-                x: xy.x.scale(x),
-                points,
-            }
-        })
-
-        return { lines, slices }
+        return { computedData }
     }),
+    withPropsOnChange(
+        ['curve', 'computedData', 'areaBaselineValue'],
+        ({ curve, computedData, areaBaselineValue }) => ({
+            areaGenerator: area()
+                .defined(d => d.x !== null && d.y !== null)
+                .x(d => d.x)
+                .y1(d => d.y)
+                .curve(curveFromProp(curve))
+                .y0(computedData.yScale(areaBaselineValue)),
+        })
+    ),
     pure
 )
 

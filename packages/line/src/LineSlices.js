@@ -21,18 +21,20 @@ const LineSlices = ({
     tooltipFormat,
 }) => (
     <g>
-        {slices.map(slice => (
-            <LineSlicesItem
-                key={slice.id}
-                slice={slice}
-                height={height}
-                showTooltip={showTooltip}
-                hideTooltip={hideTooltip}
-                theme={theme}
-                tooltipFormat={tooltipFormat}
-                tooltip={tooltip}
-            />
-        ))}
+        {slices.map(slice => {
+            return (
+                <LineSlicesItem
+                    key={slice.id}
+                    slice={slice}
+                    height={height}
+                    showTooltip={showTooltip}
+                    hideTooltip={hideTooltip}
+                    theme={theme}
+                    tooltipFormat={tooltipFormat}
+                    tooltip={tooltip}
+                />
+            )
+        })}
     </g>
 )
 
@@ -45,11 +47,28 @@ LineSlices.propTypes = {
                 PropTypes.instanceOf(Date),
             ]).isRequired,
             x: PropTypes.number.isRequired,
-            points: PropTypes.arrayOf(
+            data: PropTypes.arrayOf(
                 PropTypes.shape({
-                    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-                    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-                    color: PropTypes.string.isRequired,
+                    normalized: PropTypes.shape({
+                        x: PropTypes.oneOfType([
+                            PropTypes.number,
+                            PropTypes.string,
+                            PropTypes.instanceOf(Date),
+                        ]),
+                        y: PropTypes.oneOfType([
+                            PropTypes.number,
+                            PropTypes.string,
+                            PropTypes.instanceOf(Date),
+                        ]),
+                    }),
+                    position: PropTypes.shape({
+                        x: PropTypes.number,
+                        y: PropTypes.number,
+                    }).isRequired,
+                    serie: PropTypes.shape({
+                        id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+                        color: PropTypes.string.isRequired,
+                    }).isRequired,
                 })
             ).isRequired,
         })

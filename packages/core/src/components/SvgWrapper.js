@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
 import { Defs } from './defs'
 
 const SvgWrapper = ({ width, height, margin, defs, children }) => (
-    <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height}>
+    <svg xmlns="http://www.w3.org/2000/svg" role="img" width={width} height={height}>
         <Defs defs={defs} />
         <g transform={`translate(${margin.left},${margin.top})`}>{children}</g>
     </svg>

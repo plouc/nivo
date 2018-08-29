@@ -21,6 +21,13 @@ export const lineStories = [
         },
     },
     {
+        label: 'real time chart',
+        link: {
+            kind: 'Line',
+            story: 'real time chart',
+        },
+    },
+    {
         label: 'custom dot symbol',
         link: {
             kind: 'Line',

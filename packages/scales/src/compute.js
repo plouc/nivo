@@ -9,27 +9,69 @@
 import uniq from 'lodash/uniq'
 import sortBy from 'lodash/sortBy'
 import last from 'lodash/last'
+import isDate from 'lodash/isDate'
 import { timeParse } from 'd3-time-format'
 import { linearScale } from './linearScale'
 import { pointScale } from './pointScale'
 import { timeScale } from './timeScale'
 
-export const computeXYScalesForSeries = (series, xScaleSpec, yScaleSpec, width, height) => {
-    let xy = generateSeriesXY(series, xScaleSpec, yScaleSpec)
+export const getOtherAxis = axis => (axis === 'x' ? 'y' : 'x')
 
-    if (xScaleSpec.stacked === true) xy = stackX(yScaleSpec.type, xy, xy.series)
-    if (yScaleSpec.stacked === true) xy = stackY(xScaleSpec.type, xy, xy.series)
+export const compareValues = (a, b) => a === b
+export const compareDateValues = (a, b) => a.getTime() === b.getTime()
+
+export const computeXYScalesForSeries = (_series, xScaleSpec, yScaleSpec, width, height) => {
+    const series = _series.map(serie => ({
+        ...serie,
+        data: serie.data.map(d => ({
+            data: d,
+            normalized: {
+                ...d,
+                x: d.x,
+                y: d.y,
+            },
+        })),
+    }))
+
+    let xy = generateSeriesXY(series, xScaleSpec, yScaleSpec)
+    if (xScaleSpec.stacked === true) {
+        stackX(yScaleSpec.type, xy, series)
+    }
+    if (yScaleSpec.stacked === true) {
+        stackY(xScaleSpec.type, xy, series)
+    }
+
+    const xScale = computeScale({ ...xScaleSpec, axis: 'x' }, xy, width, height)
+    const yScale = computeScale({ ...yScaleSpec, axis: 'y' }, xy, width, height)
+
+    series.forEach(serie => {
+        serie.data.forEach(d => {
+            d.position = {
+                x:
+                    xScale.stacked === true
+                        ? d.normalized.xStacked === null
+                            ? null
+                            : xScale(d.normalized.xStacked)
+                        : d.normalized.x === null
+                            ? null
+                            : xScale(d.normalized.x),
+                y:
+                    yScale.stacked === true
+                        ? d.normalized.yStacked === null
+                            ? null
+                            : yScale(d.normalized.yStacked)
+                        : d.normalized.y === null
+                            ? null
+                            : yScale(d.normalized.y),
+            }
+        })
+    })
 
     return {
         ...xy,
-        x: {
-            ...xy.x,
-            scale: computeScale({ ...xScaleSpec, axis: 'x' }, xy, width, height),
-        },
-        y: {
-            ...xy.y,
-            scale: computeScale({ ...yScaleSpec, axis: 'y' }, xy, width, height),
-        },
+        series,
+        xScale,
+        yScale,
     }
 }
 
@@ -39,149 +81,115 @@ export const computeScale = (spec, xy, width, height) => {
     else if (spec.type === 'time') return timeScale(spec, xy, width, height)
 }
 
-export const generateSeriesXY = (_series, xScaleSpec, yScaleSpec) => {
-    let series = _series
+export const generateSeriesXY = (series, xScaleSpec, yScaleSpec) => ({
+    x: generateSeriesAxis(series, 'x', xScaleSpec),
+    y: generateSeriesAxis(series, 'y', yScaleSpec),
+})
 
-    let allX = []
-    let allY = []
+export const generateSeriesAxis = (series, axis, scaleSpec) => {
+    if (scaleSpec.type === 'linear') {
+        series.forEach(serie => {
+            serie.data.forEach(d => {
+                d.normalized[axis] = d.data[axis] === null ? null : parseFloat(d.data[axis])
+            })
+        })
+    } else if (scaleSpec.type === 'time' && scaleSpec.format !== 'native') {
+        const parseTime = timeParse(scaleSpec.format)
+        series.forEach(serie => {
+            serie.data.forEach(d => {
+                d.normalized[axis] = d.data[axis] === null ? null : parseTime(d.data[axis])
+            })
+        })
+    }
 
+    let all = []
     series.forEach(serie => {
-        serie.data.forEach(({ x, y }) => {
-            allX.push(x)
-            allY.push(y)
+        serie.data.forEach(d => {
+            all.push(d.normalized[axis])
         })
     })
+    all = uniq(all)
 
-    allX = uniq(allX)
-    allY = uniq(allY)
-
-    let sortedX = allX
-    let minX
-    let maxX
-    if (xScaleSpec.type === 'linear') {
-        sortedX = sortBy(allX, v => v)
-        minX = Math.min(...allX)
-        maxX = Math.max(...allX)
-    } else if (xScaleSpec.type === 'time') {
-        if (xScaleSpec.format !== 'native') {
-            const parseXTime = timeParse(xScaleSpec.format)
-            allX = allX.map(v => parseXTime(v))
-            series = series.map(serie => ({
-                ...serie,
-                data: serie.data.map(d => ({
-                    ...d,
-                    x: parseXTime(d.x),
-                })),
-            }))
-        }
-        sortedX = allX
+    let min, max
+    if (scaleSpec.type === 'linear') {
+        all = sortBy(all, v => v)
+        min = Math.min(...all)
+        max = Math.max(...all)
+    } else if (scaleSpec.type === 'time') {
+        all = all
             .slice(0)
             .sort((a, b) => b - a)
             .reverse()
-        minX = sortedX[0]
-        maxX = last(sortedX)
+        min = all[0]
+        max = last(all)
+    } else {
+        min = all[0]
+        max = last(all)
     }
 
-    let sortedY = allY
-    let minY
-    let maxY
-    if (yScaleSpec.type === 'linear') {
-        sortedY = sortBy(allY, v => v)
-        minY = Math.min(...allY)
-        maxY = Math.max(...allY)
-    } else if (yScaleSpec.type === 'time') {
-        if (yScaleSpec.format !== 'native') {
-            const parseYTime = timeParse(yScaleSpec.format)
-            allY = allY.map(v => parseYTime(v))
-            series = series.map(serie => ({
-                ...serie,
-                data: serie.data.map(d => ({
-                    ...d,
-                    y: parseYTime(d.y),
-                })),
-            }))
-        }
-        sortedY = allY
-            .slice(0)
-            .sort((a, b) => b - a)
-            .reverse()
-        minY = sortedY[0]
-        maxY = last(sortedY)
-    }
-
-    return {
-        series,
-        x: {
-            all: allX,
-            sorted: sortedX,
-            min: minX,
-            max: maxX,
-        },
-        y: {
-            all: allY,
-            sorted: sortedY,
-            min: minY,
-            max: maxY,
-        },
-    }
+    return { all, min, max }
 }
 
-export const stackAxis = (axis, otherType, xy, _series) => {
-    const otherAxis = axis === 'x' ? 'y' : 'x'
+export const stackAxis = (axis, otherType, xy, series) => {
+    const otherAxis = getOtherAxis(axis)
 
-    const buckets = xy[otherAxis].sorted.map(v => ({
-        [otherAxis]: v,
-        [axis]: [],
-        stack: [],
-    }))
-    const series = _series.reduce((agg, serie) => [...agg, { ...serie, data: [] }], [])
-    const all = []
-
-    _series.forEach(serie => {
-        buckets.forEach(bucket => {
-            let predicate
-            if (otherType === 'time') {
-                predicate = d => d[otherAxis].getTime() === bucket[otherAxis].getTime()
-            } else {
-                predicate = d => d[otherAxis] === bucket[otherAxis]
-            }
-            const datum = serie.data.find(predicate)
+    let all = []
+    xy[otherAxis].all.forEach(v => {
+        const compare = isDate(v) ? compareDateValues : compareValues
+        const stack = []
+        series.forEach(serie => {
+            const datum = serie.data.find(d => compare(d.normalized[otherAxis], v))
             let value = null
             let stackValue = null
             if (datum !== undefined) {
-                value = datum[axis]
+                value = datum.normalized[axis]
                 if (value !== null) {
-                    const head = last(bucket.stack)
+                    const head = last(stack)
                     if (head === undefined) {
                         stackValue = value
                     } else if (head !== null) {
                         stackValue = head + value
                     }
                 }
+                datum.normalized[`${axis}Stacked`] = stackValue
             }
-            bucket[axis].push(value)
-            bucket.stack.push(stackValue)
+            stack.push(stackValue)
             all.push(stackValue)
-            series.find(({ id }) => id === serie.id).data.push({
-                [axis]: stackValue,
-                [otherAxis]: bucket[otherAxis],
-            })
         })
     })
+    all = all.filter(v => v !== null)
 
-    return {
-        ...xy,
-        [axis]: {
-            ...xy[axis],
-            stacked: {
-                buckets,
-                series,
-                min: Math.min(...all),
-                max: Math.max(...all),
-            },
-        },
-    }
+    xy[axis].minStacked = Math.min(...all)
+    xy[axis].maxStacked = Math.max(...all)
 }
 
 export const stackX = (xy, otherType, series) => stackAxis('x', xy, otherType, series)
 export const stackY = (xy, otherType, series) => stackAxis('y', xy, otherType, series)
+
+export const computeAxisSlices = (axis, data) => {
+    const otherAxis = getOtherAxis(axis)
+
+    return data[otherAxis].all.map(v => {
+        const slice = {
+            id: v,
+            [otherAxis]: data[`${otherAxis}Scale`](v),
+            data: [],
+        }
+        const compare = isDate(v) ? compareDateValues : compareValues
+        data.series.forEach(serie => {
+            const datum = serie.data.find(d => compare(d.normalized[otherAxis], v))
+            if (datum !== undefined) {
+                slice.data.push({
+                    ...datum,
+                    serie,
+                })
+            }
+        })
+        slice.data.reverse()
+
+        return slice
+    })
+}
+
+export const computeXSlices = data => computeAxisSlices('x', data)
+export const computeYSlices = data => computeAxisSlices('y', data)

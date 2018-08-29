@@ -11,7 +11,8 @@ import PropTypes from 'prop-types'
 
 export default class AxisTick extends Component {
     static propTypes = {
-        value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+        value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)])
+            .isRequired,
         format: PropTypes.func,
         theme: PropTypes.object.isRequired,
         x: PropTypes.number.isRequired,

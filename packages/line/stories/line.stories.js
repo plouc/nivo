@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { Component } from 'react'
+import range from 'lodash/range'
+import last from 'lodash/last'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, boolean, select } from '@storybook/addon-knobs'
 import { withInfo } from '@storybook/addon-info'
 import { generateDrinkStats } from '@nivo/generators'
+import * as time from 'd3-time'
+import { timeFormat } from 'd3-time-format'
 import { Line } from '../index'
 
 const data = generateDrinkStats(18)
@@ -133,7 +137,7 @@ stories.add(
                 stacked: boolean('stacked', false),
             }}
             axisBottom={{
-                format: '%m/%d',
+                format: '%b %d',
             }}
             curve={select('curve', curveOptions, 'step')}
             enableDotLabel={true}
@@ -144,6 +148,101 @@ stories.add(
         />
     ))
 )
+
+class RealTimeChart extends Component {
+    constructor(props) {
+        super(props)
+
+        const date = new Date()
+        date.setMinutes(0)
+        date.setSeconds(0)
+        date.setMilliseconds(0)
+
+        this.state = {
+            dataA: range(100).map(i => ({
+                x: time.timeMinute.offset(date, i * 30),
+                y: 10 + Math.round(Math.random() * 20),
+            })),
+            dataB: range(100).map(i => ({
+                x: time.timeMinute.offset(date, i * 30),
+                y: 30 + Math.round(Math.random() * 20),
+            })),
+            dataC: range(100).map(i => ({
+                x: time.timeMinute.offset(date, i * 30),
+                y: 60 + Math.round(Math.random() * 20),
+            })),
+        }
+
+        this.formatTime = timeFormat('%Y %b %d')
+    }
+
+    componentDidMount() {
+        this.timer = setInterval(this.next, 600)
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timer)
+    }
+
+    next = () => {
+        const dataA = this.state.dataA.slice(1)
+        dataA.push({
+            x: time.timeMinute.offset(last(dataA).x, 30),
+            y: 10 + Math.round(Math.random() * 20),
+        })
+        const dataB = this.state.dataB.slice(1)
+        dataB.push({
+            x: time.timeMinute.offset(last(dataB).x, 30),
+            y: 30 + Math.round(Math.random() * 20),
+        })
+        const dataC = this.state.dataC.slice(1)
+        dataC.push({
+            x: time.timeMinute.offset(last(dataC).x, 30),
+            y: 60 + Math.round(Math.random() * 20),
+        })
+
+        this.setState({ dataA, dataB, dataC })
+    }
+
+    render() {
+        const { dataA, dataB, dataC } = this.state
+
+        return (
+            <Line
+                {...commonProperties}
+                margin={{ top: 30, right: 50, bottom: 60, left: 50 }}
+                data={[
+                    { id: 'A', data: dataA },
+                    { id: 'B', data: dataB },
+                    { id: 'C', data: dataC },
+                ]}
+                xScale={{ type: 'time', format: 'native' }}
+                yScale={{ type: 'linear', max: 100 }}
+                axisTop={{
+                    format: '%H:%M',
+                }}
+                axisBottom={{
+                    format: '%H:%M',
+                    legend: `${this.formatTime(dataA[0].x)} ——— ${this.formatTime(last(dataA).x)}`,
+                    legendPosition: 'center',
+                    legendOffset: 46,
+                }}
+                axisRight={{}}
+                enableDots={false}
+                enableGridX={true}
+                curve="monotoneX"
+                animate={false}
+                isInteractive={false}
+                theme={{
+                    axis: { legendFontSize: 14 },
+                    grid: { stroke: '#ddd', strokeDasharray: '1 2' },
+                }}
+            />
+        )
+    }
+}
+
+stories.add('real time chart', withInfo()(() => <RealTimeChart />))
 
 stories.add(
     'custom curve interpolation',
@@ -223,26 +322,6 @@ stories.add(
 )
 
 stories.add(
-    'abusing dots',
-    withInfo()(() => (
-        <Line
-            {...commonProperties}
-            yScale={{
-                type: 'linear',
-                stacked: boolean('stacked', true),
-            }}
-            curve={select('curve', curveOptions, 'monotoneX')}
-            enableDotLabel={true}
-            dotSize={26}
-            dotLabelYOffset={3}
-            axisLeft={{
-                tickSize: 10,
-            }}
-        />
-    ))
-)
-
-stories.add(
     'custom dot symbol',
     withInfo()(() => (
         <Line
@@ -313,10 +392,11 @@ stories.add(
 
 stories.add(
     'holes in data',
-    withInfo()(() => (
+    withInfo(`
+        You can skip portions of the lines by setting y value to \`null\`.
+    `)(() => (
         <Line
             {...commonProperties}
-            curve="monotoneX"
             data={[
                 {
                     id: 'fake corp. A',
@@ -334,6 +414,7 @@ stories.add(
                 type: 'linear',
                 stacked: boolean('stacked', false),
             }}
+            curve={select('curve', curveOptions, 'monotoneX')}
             dotSize={8}
             dotBorderColor="#fff"
             dotBorderWidth={2}
@@ -484,12 +565,16 @@ stories.add(
 
 stories.add(
     'highlighting negative values',
-    withInfo()(() => (
+    withInfo(`
+        You can have two different line styles for a line if you split it into
+        two data set, one containing positive values and negative values filled with \`null\`
+        and the other having only negative values and positive ones replaced by \`null\`.
+    `)(() => (
         <Line
             {...commonProperties}
             data={[
                 {
-                    id: 'a',
+                    id: 'positive :)',
                     data: [
                         { x: 0, y: 0.7 },
                         { x: 1, y: 0.9 },
@@ -497,23 +582,11 @@ stories.add(
                         { x: 3, y: 0.6 },
                         { x: 4, y: 0.3 },
                         { x: 5, y: 0 },
-                    ],
-                },
-                {
-                    id: 'b',
-                    data: [
-                        { x: 5, y: 0 },
-                        { x: 6, y: -0.3 },
-                        { x: 7, y: -0.5 },
-                        { x: 8, y: -0.9 },
-                        { x: 9, y: -0.2 },
-                        { x: 10, y: -0.4 },
-                        { x: 11, y: 0 },
-                    ],
-                },
-                {
-                    id: 'c',
-                    data: [
+                        { x: 6, y: null },
+                        { x: 7, y: null },
+                        { x: 8, y: null },
+                        { x: 9, y: null },
+                        { x: 10, y: null },
                         { x: 11, y: 0 },
                         { x: 12, y: 0.4 },
                         { x: 13, y: 0.6 },
@@ -524,8 +597,20 @@ stories.add(
                     ],
                 },
                 {
-                    id: 'd',
+                    id: 'negative :(',
                     data: [
+                        { x: 5, y: 0 },
+                        { x: 6, y: -0.3 },
+                        { x: 7, y: -0.5 },
+                        { x: 8, y: -0.9 },
+                        { x: 9, y: -0.2 },
+                        { x: 10, y: -0.4 },
+                        { x: 11, y: 0 },
+                        { x: 12, y: null },
+                        { x: 13, y: null },
+                        { x: 14, y: null },
+                        { x: 15, y: null },
+                        { x: 16, y: null },
                         { x: 17, y: 0 },
                         { x: 18, y: -0.4 },
                         { x: 19, y: -0.2 },
@@ -542,12 +627,7 @@ stories.add(
             dotBorderColor="inherit:darker(0.3)"
             dotLabelYOffset={-20}
             enableGridX={false}
-            colors={[
-                'rgb(97, 205, 187)',
-                'rgb(244, 117, 96)',
-                'rgb(97, 205, 187)',
-                'rgb(244, 117, 96)',
-            ]}
+            colors={['rgb(97, 205, 187)', 'rgb(244, 117, 96)']}
             xScale={{
                 type: 'linear',
             }}
@@ -557,13 +637,8 @@ stories.add(
                 min: -1,
                 max: 1,
             }}
-            markers={[
-                {
-                    axis: 'y',
-                    value: 0,
-                    lineStyle: { stroke: '#000', strokeWidth: 1 },
-                },
-            ]}
+            enableArea={true}
+            areaOpacity={0.07}
         />
     ))
 )
@@ -618,22 +693,26 @@ stories.add(
                 type: 'linear',
                 stacked: boolean('stacked', true),
             }}
-            tooltip={slice => {
-                return (
-                    <div>
-                        <h2>{slice.id}</h2>
-                        {slice.points.map((e, i) => (
-                            <p key={i}>
-                                <strong>{e.id}:</strong> {e.y}
-                            </p>
-                        ))}
-                    </div>
-                )
-            }}
+            tooltip={slice => (
+                <div style={{ color: '#bbb' }}>
+                    <siv>{slice.id}</siv>
+                    {slice.data.map(d => (
+                        <div
+                            key={d.serie.id}
+                            style={{
+                                color: d.serie.color,
+                                padding: '3px 0',
+                            }}
+                        >
+                            <strong>{d.serie.id}</strong> [{d.data.y}]
+                        </div>
+                    ))}
+                </div>
+            )}
             theme={{
                 tooltip: {
                     container: {
-                        border: '1px solid red',
+                        background: '#333',
                     },
                 },
             }}
