@@ -1,6 +1,6 @@
 {
   "name": "@nivo/treemap",
-  "version": "0.47.0",
+  "version": "0.47.1",
   "license": "MIT",
   "main": "./index.js",
   "files": [
@@ -9,7 +9,7 @@
     "cjs/"
   ],
   "dependencies": {
-    "@nivo/core": "^0.47.0",
+    "@nivo/core": "^0.47.1",
     "d3-hierarchy": "^1.1.8",
     "lodash": "^4.17.4",
     "react-motion": "^0.5.2",
