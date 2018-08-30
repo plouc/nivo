@@ -1,6 +1,6 @@
 {
   "name": "@nivo/heatmap",
-  "version": "0.46.0",
+  "version": "0.47.0",
   "license": "MIT",
   "main": "./index.js",
   "files": [
@@ -10,7 +10,7 @@
     "cjs/"
   ],
   "dependencies": {
-    "@nivo/core": "^0.46.0",
+    "@nivo/core": "^0.47.0",
     "d3-scale": "^2.1.2",
     "lodash": "^4.17.4",
     "react-motion": "^0.5.2",
