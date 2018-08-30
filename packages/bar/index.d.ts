@@ -114,11 +114,10 @@ declare module '@nivo/bar' {
         legendOffset: number
         legendPosition: 'start' | 'center' | 'end'
         orient: 'top' | 'right' | 'bottom' | 'left'
-        tickCount: number
         tickPadding: number
         tickRotation: number
         tickSize: number
-        tickValues: string[] | number[]
+        tickValues: number | string[] | number[]
     }>
 
     export type BarSvgProps = Data

@@ -6,6 +6,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+import isArray from 'lodash/isArray'
+import isNumber from 'lodash/isNumber'
 import { textPropsByEngine } from '../bridge'
 
 const horizontalPositions = ['top', 'bottom']
@@ -51,16 +53,15 @@ const getScaleValues = (scale, tickCount) => {
  */
 
 /**
- * @param {number}                width
- * @param {number}                height
- * @param {string}                _position
- * @param {Object}                scale
- * @param {Array.<string|number>} [tickValues]
- * @param {number}                [tickCount]
- * @param {number}                [tickSize=5]
- * @param {number}                [tickPadding=5]
- * @param {number}                [tickRotation=0]
- * @parem {string}                [engine='svg']
+ * @param {number}                       width
+ * @param {number}                       height
+ * @param {string}                       _position
+ * @param {Object}                       scale
+ * @param {number|Array.<string|number>} [_tickValues]
+ * @param {number}                       [tickSize=5]
+ * @param {number}                       [tickPadding=5]
+ * @param {number}                       [tickRotation=0]
+ * @parem {string}                       [engine='svg']
  *
  * @return {{ x: number, y: number, ticks: Array.<AxisTick>, textAlign: string, textBaseline: string }}
  */
@@ -70,16 +71,16 @@ export const computeAxisTicks = ({
     position: _position,
     scale,
 
-    // ticks
-    tickValues,
-    tickCount,
+    tickValues: _tickValues,
     tickSize = 5,
     tickPadding = 5,
     tickRotation = 0,
-    //format,
 
     engine = 'svg',
 }) => {
+    const tickValues = isArray(_tickValues) ? _tickValues : undefined
+    const tickCount = isNumber(_tickValues) ? _tickValues : undefined
+
     const values = tickValues || getScaleValues(scale, tickCount)
 
     const textProps = textPropsByEngine[engine]

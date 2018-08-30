@@ -61,6 +61,7 @@ import WafflePage from './components/charts/waffle/WafflePage'
 import Waffle from './components/charts/waffle/Waffle'
 import WaffleHtml from './components/charts/waffle/WaffleHtml'
 import WaffleCanvas from './components/charts/waffle/WaffleCanvas'
+import Axes from './components/guides/axes/Axes'
 import Colors from './components/guides/colors/Colors'
 import Legends from './components/guides/legends/Legends'
 import Gradients from './components/guides/gradients/Gradients'
@@ -475,6 +476,13 @@ const SITEMAP = [
         label: 'Guides',
         // those items must not be nested
         children: [
+            {
+                className: 'axes',
+                path: '/guides/axes',
+                label: 'Axes',
+                component: Axes,
+                description: 'Configuring axes for nivo components.',
+            },
             {
                 className: 'colors',
                 path: '/guides/colors',

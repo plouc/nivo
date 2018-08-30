@@ -213,3 +213,13 @@
     width: 8px;
     height: 8px;
 }
+
+.control-text {
+    font-size: 14px;
+    color: inherit;
+    border-radius: 2px;
+    border: 1px solid #ccc;
+    padding: 7px 10px;
+    width: 100%;
+    display: block;
+}

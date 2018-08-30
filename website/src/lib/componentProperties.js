@@ -163,6 +163,12 @@ export const axesProperties = [
                         },
                     },
                     {
+                        key: `legend`,
+                        description: `${axisKey} axis legend.`,
+                        type: '{number}',
+                        controlType: 'text',
+                    },
+                    {
                         key: `legendOffset`,
                         description: `${axisKey} axis legend offset from axis.`,
                         type: '{number}',

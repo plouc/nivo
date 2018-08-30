@@ -85,7 +85,7 @@ describe('computeAxisTicks()', () => {
                 scale: linearScale,
                 width,
                 height,
-                tickCount: 1,
+                tickValues: 1,
                 position: 'left',
             })
             expect(axis.ticks.length).toBe(2)

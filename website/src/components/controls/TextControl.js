@@ -19,10 +19,16 @@ export default class TextControl extends Component {
 
         return (
             <div className="chart-controls_item">
-                <input id={id} type="text" value={value} onChange={onChange} />
-                <label htmlFor={id} />
-                &nbsp;
-                <label htmlFor={id}>{label}</label>
+                <label className="control_label" htmlFor={id}>
+                    {label}
+                </label>
+                <input
+                    id={id}
+                    type="text"
+                    className="control-text"
+                    value={value}
+                    onChange={onChange}
+                />
                 <div className="control-help">{help}</div>
             </div>
         )

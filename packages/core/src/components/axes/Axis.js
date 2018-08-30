@@ -26,8 +26,12 @@ const legendPositions = ['start', 'center', 'end']
 export const axisPropType = PropTypes.shape({
     orient: PropTypes.oneOf(axisPositions),
 
-    // ticks
-    tickValues: PropTypes.array,
+    tickValues: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.arrayOf(
+            PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)])
+        ),
+    ]),
     tickSize: PropTypes.number,
     tickPadding: PropTypes.number,
     tickRotation: PropTypes.number,
@@ -60,7 +64,6 @@ const Axis = ({
 
     // ticks
     tickValues,
-    tickCount,
     tickSize,
     tickPadding,
     tickRotation,
@@ -88,7 +91,6 @@ const Axis = ({
         scale,
         position: _position,
         tickValues,
-        tickCount,
         tickSize,
         tickPadding,
         tickRotation,
@@ -218,41 +220,38 @@ const Axis = ({
 }
 
 Axis.propTypes = {
-    // generic
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
     position: PropTypes.oneOf(axisPositions).isRequired,
     scale: PropTypes.func.isRequired,
 
-    // ticks
-    tickValues: PropTypes.array,
-    tickCount: PropTypes.number,
+    tickValues: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.arrayOf(
+            PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)])
+        ),
+    ]),
     tickSize: PropTypes.number.isRequired,
     tickPadding: PropTypes.number.isRequired,
     tickRotation: PropTypes.number.isRequired,
     format: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 
-    // legend
     legend: PropTypes.node,
     legendPosition: PropTypes.oneOf(legendPositions).isRequired,
     legendOffset: PropTypes.number.isRequired,
 
-    // theming
     theme: PropTypes.object.isRequired,
 
-    // interactivity
     onClick: PropTypes.func,
 
     ...motionPropTypes,
 }
 
 Axis.defaultProps = {
-    // ticks
     tickSize: 5,
     tickPadding: 5,
     tickRotation: 0,
 
-    // legend
     legendPosition: 'end',
     legendOffset: 0,
 }
