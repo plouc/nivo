@@ -42,7 +42,7 @@ const LineSlicesItem = ({ slice, height, showTooltip, hideTooltip, isHover }) =>
             x={-20}
             width={40}
             height={height}
-            fill="#000"
+            fill="#F00"
             fillOpacity={0}
             onMouseEnter={showTooltip}
             onMouseMove={showTooltip}

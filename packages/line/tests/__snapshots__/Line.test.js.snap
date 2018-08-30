@@ -6008,7 +6008,78 @@ exports[`should render a basic line chart 1`] = `
           strokeWidth={2}
         />
       </g>
-      <g />
+      <g>
+        <g
+          transform="translate(0, 0)"
+        >
+          <rect
+            fill="#F00"
+            fillOpacity={0}
+            height={300}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseMove={[Function]}
+            width={40}
+            x={-20}
+          />
+        </g>
+        <g
+          transform="translate(125, 0)"
+        >
+          <rect
+            fill="#F00"
+            fillOpacity={0}
+            height={300}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseMove={[Function]}
+            width={40}
+            x={-20}
+          />
+        </g>
+        <g
+          transform="translate(250, 0)"
+        >
+          <rect
+            fill="#F00"
+            fillOpacity={0}
+            height={300}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseMove={[Function]}
+            width={40}
+            x={-20}
+          />
+        </g>
+        <g
+          transform="translate(375, 0)"
+        >
+          <rect
+            fill="#F00"
+            fillOpacity={0}
+            height={300}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseMove={[Function]}
+            width={40}
+            x={-20}
+          />
+        </g>
+        <g
+          transform="translate(500, 0)"
+        >
+          <rect
+            fill="#F00"
+            fillOpacity={0}
+            height={300}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseMove={[Function]}
+            width={40}
+            x={-20}
+          />
+        </g>
+      </g>
       <g>
         <g
           style={
@@ -6830,7 +6901,78 @@ exports[`should support multiple lines 1`] = `
           strokeWidth={2}
         />
       </g>
-      <g />
+      <g>
+        <g
+          transform="translate(0, 0)"
+        >
+          <rect
+            fill="#F00"
+            fillOpacity={0}
+            height={300}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseMove={[Function]}
+            width={40}
+            x={-20}
+          />
+        </g>
+        <g
+          transform="translate(125, 0)"
+        >
+          <rect
+            fill="#F00"
+            fillOpacity={0}
+            height={300}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseMove={[Function]}
+            width={40}
+            x={-20}
+          />
+        </g>
+        <g
+          transform="translate(250, 0)"
+        >
+          <rect
+            fill="#F00"
+            fillOpacity={0}
+            height={300}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseMove={[Function]}
+            width={40}
+            x={-20}
+          />
+        </g>
+        <g
+          transform="translate(375, 0)"
+        >
+          <rect
+            fill="#F00"
+            fillOpacity={0}
+            height={300}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseMove={[Function]}
+            width={40}
+            x={-20}
+          />
+        </g>
+        <g
+          transform="translate(500, 0)"
+        >
+          <rect
+            fill="#F00"
+            fillOpacity={0}
+            height={300}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onMouseMove={[Function]}
+            width={40}
+            x={-20}
+          />
+        </g>
+      </g>
       <g>
         <g
           style={

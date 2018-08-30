@@ -1,3 +1,11 @@
+/*
+ * This file is part of the nivo project.
+ *
+ * Copyright 2016-present, Raphaël Benitte.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 import { generateSeriesAxis, stackAxis, computeAxisSlices } from '../src/compute'
 
 const axes = ['x', 'y']
@@ -37,17 +45,17 @@ describe('generateSeriesAxis', () => {
                             {
                                 id: 'A',
                                 data: [
-                                    { normalized: { [axis]: 'a' } },
-                                    { normalized: { [axis]: 'b' } },
-                                    { normalized: { [axis]: 'c' } },
+                                    { data: { [axis]: 'a' } },
+                                    { data: { [axis]: 'b' } },
+                                    { data: { [axis]: 'c' } },
                                 ],
                             },
                             {
                                 id: 'B',
                                 data: [
-                                    { normalized: { [axis]: 'c' } },
-                                    { normalized: { [axis]: 'd' } },
-                                    { normalized: { [axis]: 'e' } },
+                                    { data: { [axis]: 'c' } },
+                                    { data: { [axis]: 'd' } },
+                                    { data: { [axis]: 'e' } },
                                 ],
                             },
                         ],
@@ -64,17 +72,17 @@ describe('generateSeriesAxis', () => {
                             {
                                 id: 'A',
                                 data: [
-                                    { data: { [axis]: 0 }, normalized: {} },
-                                    { data: { [axis]: '1' }, normalized: {} },
-                                    { data: { [axis]: '02' }, normalized: {} },
+                                    { data: { [axis]: 0 } },
+                                    { data: { [axis]: '1' } },
+                                    { data: { [axis]: '02' } },
                                 ],
                             },
                             {
                                 id: 'B',
                                 data: [
-                                    { data: { [axis]: 2 }, normalized: {} },
-                                    { data: { [axis]: '3' }, normalized: {} },
-                                    { data: { [axis]: '04' }, normalized: {} },
+                                    { data: { [axis]: 2 } },
+                                    { data: { [axis]: '3' } },
+                                    { data: { [axis]: '04' } },
                                 ],
                             },
                         ],
@@ -91,17 +99,17 @@ describe('generateSeriesAxis', () => {
                             {
                                 id: 'A',
                                 data: [
-                                    { data: { [axis]: '1' }, normalized: {} },
-                                    { data: { [axis]: '02' }, normalized: {} },
-                                    { data: { [axis]: 0 }, normalized: {} },
+                                    { data: { [axis]: '1' } },
+                                    { data: { [axis]: '02' } },
+                                    { data: { [axis]: 0 } },
                                 ],
                             },
                             {
                                 id: 'B',
                                 data: [
-                                    { data: { [axis]: '04' }, normalized: {} },
-                                    { data: { [axis]: 2 }, normalized: {} },
-                                    { data: { [axis]: '3' }, normalized: {} },
+                                    { data: { [axis]: '04' } },
+                                    { data: { [axis]: 2 } },
+                                    { data: { [axis]: '3' } },
                                 ],
                             },
                         ],
@@ -119,16 +127,13 @@ describe('generateSeriesAxis', () => {
                                 id: 'A',
                                 data: [
                                     {
-                                        data: {},
-                                        normalized: { [axis]: new Date(2018, 3, 1, 0, 0, 0, 0) },
+                                        data: { [axis]: new Date(2018, 3, 1, 0, 0, 0, 0) },
                                     },
                                     {
-                                        data: {},
-                                        normalized: { [axis]: new Date(2018, 3, 2, 0, 0, 0, 0) },
+                                        data: { [axis]: new Date(2018, 3, 2, 0, 0, 0, 0) },
                                     },
                                     {
-                                        data: {},
-                                        normalized: { [axis]: new Date(2018, 3, 3, 0, 0, 0, 0) },
+                                        data: { [axis]: new Date(2018, 3, 3, 0, 0, 0, 0) },
                                     },
                                 ],
                             },
@@ -136,16 +141,13 @@ describe('generateSeriesAxis', () => {
                                 id: 'B',
                                 data: [
                                     {
-                                        data: {},
-                                        normalized: { [axis]: new Date(2018, 3, 4, 0, 0, 0, 0) },
+                                        data: { [axis]: new Date(2018, 3, 4, 0, 0, 0, 0) },
                                     },
                                     {
-                                        data: {},
-                                        normalized: { [axis]: new Date(2018, 3, 5, 0, 0, 0, 0) },
+                                        data: { [axis]: new Date(2018, 3, 5, 0, 0, 0, 0) },
                                     },
                                     {
-                                        data: {},
-                                        normalized: { [axis]: new Date(2018, 3, 6, 0, 0, 0, 0) },
+                                        data: { [axis]: new Date(2018, 3, 6, 0, 0, 0, 0) },
                                     },
                                 ],
                             },
@@ -164,16 +166,13 @@ describe('generateSeriesAxis', () => {
                                 id: 'A',
                                 data: [
                                     {
-                                        data: {},
-                                        normalized: { [axis]: new Date(2018, 3, 3, 0, 0, 0, 0) },
+                                        data: { [axis]: new Date(2018, 3, 3, 0, 0, 0, 0) },
                                     },
                                     {
-                                        data: {},
-                                        normalized: { [axis]: new Date(2018, 3, 1, 0, 0, 0, 0) },
+                                        data: { [axis]: new Date(2018, 3, 1, 0, 0, 0, 0) },
                                     },
                                     {
-                                        data: {},
-                                        normalized: { [axis]: new Date(2018, 3, 2, 0, 0, 0, 0) },
+                                        data: { [axis]: new Date(2018, 3, 2, 0, 0, 0, 0) },
                                     },
                                 ],
                             },
@@ -181,16 +180,13 @@ describe('generateSeriesAxis', () => {
                                 id: 'B',
                                 data: [
                                     {
-                                        data: {},
-                                        normalized: { [axis]: new Date(2018, 3, 6, 0, 0, 0, 0) },
+                                        data: { [axis]: new Date(2018, 3, 6, 0, 0, 0, 0) },
                                     },
                                     {
-                                        data: {},
-                                        normalized: { [axis]: new Date(2018, 3, 4, 0, 0, 0, 0) },
+                                        data: { [axis]: new Date(2018, 3, 4, 0, 0, 0, 0) },
                                     },
                                     {
-                                        data: {},
-                                        normalized: { [axis]: new Date(2018, 3, 5, 0, 0, 0, 0) },
+                                        data: { [axis]: new Date(2018, 3, 5, 0, 0, 0, 0) },
                                     },
                                 ],
                             },
@@ -210,15 +206,12 @@ describe('generateSeriesAxis', () => {
                                 data: [
                                     {
                                         data: { [axis]: '2018-4-1 0:0:0' },
-                                        normalized: {},
                                     },
                                     {
                                         data: { [axis]: '2018-4-2 0:0:0' },
-                                        normalized: {},
                                     },
                                     {
                                         data: { [axis]: '2018-4-3 0:0:0' },
-                                        normalized: {},
                                     },
                                 ],
                             },
@@ -227,15 +220,12 @@ describe('generateSeriesAxis', () => {
                                 data: [
                                     {
                                         data: { [axis]: '2018-4-4 0:0:0' },
-                                        normalized: {},
                                     },
                                     {
                                         data: { [axis]: '2018-4-5 0:0:0' },
-                                        normalized: {},
                                     },
                                     {
                                         data: { [axis]: '2018-4-6 0:0:0' },
-                                        normalized: {},
                                     },
                                 ],
                             },
@@ -255,15 +245,12 @@ describe('generateSeriesAxis', () => {
                                 data: [
                                     {
                                         data: { [axis]: '2018-4-3 0:0:0' },
-                                        normalized: {},
                                     },
                                     {
                                         data: { [axis]: '2018-4-1 0:0:0' },
-                                        normalized: {},
                                     },
                                     {
                                         data: { [axis]: '2018-4-2 0:0:0' },
-                                        normalized: {},
                                     },
                                 ],
                             },
@@ -272,15 +259,12 @@ describe('generateSeriesAxis', () => {
                                 data: [
                                     {
                                         data: { [axis]: '2018-4-6 0:0:0' },
-                                        normalized: {},
                                     },
                                     {
                                         data: { [axis]: '2018-4-4 0:0:0' },
-                                        normalized: {},
                                     },
                                     {
                                         data: { [axis]: '2018-4-5 0:0:0' },
-                                        normalized: {},
                                     },
                                 ],
                             },
@@ -310,17 +294,17 @@ describe('stackAxis', () => {
                     {
                         id: 'A',
                         data: [
-                            { normalized: { [otherAxis]: 'a', [axis]: 10 } },
-                            { normalized: { [otherAxis]: 'b', [axis]: 20 } },
-                            { normalized: { [otherAxis]: 'c', [axis]: 30 } },
+                            { data: { [otherAxis]: 'a', [axis]: 10 } },
+                            { data: { [otherAxis]: 'b', [axis]: 20 } },
+                            { data: { [otherAxis]: 'c', [axis]: 30 } },
                         ],
                     },
                     {
                         id: 'B',
                         data: [
-                            { normalized: { [otherAxis]: 'a', [axis]: 1 } },
-                            { normalized: { [otherAxis]: 'b', [axis]: 2 } },
-                            { normalized: { [otherAxis]: 'c', [axis]: 3 } },
+                            { data: { [otherAxis]: 'a', [axis]: 1 } },
+                            { data: { [otherAxis]: 'b', [axis]: 2 } },
+                            { data: { [otherAxis]: 'c', [axis]: 3 } },
                         ],
                     },
                 ]
@@ -332,21 +316,21 @@ describe('stackAxis', () => {
                         id: 'A',
                         data: [
                             {
-                                normalized: {
+                                data: {
                                     [otherAxis]: 'a',
                                     [axis]: 10,
                                     [`${axis}Stacked`]: 10,
                                 },
                             },
                             {
-                                normalized: {
+                                data: {
                                     [otherAxis]: 'b',
                                     [axis]: 20,
                                     [`${axis}Stacked`]: 20,
                                 },
                             },
                             {
-                                normalized: {
+                                data: {
                                     [otherAxis]: 'c',
                                     [axis]: 30,
                                     [`${axis}Stacked`]: 30,
@@ -357,9 +341,9 @@ describe('stackAxis', () => {
                     {
                         id: 'B',
                         data: [
-                            { normalized: { [otherAxis]: 'a', [axis]: 1, [`${axis}Stacked`]: 11 } },
-                            { normalized: { [otherAxis]: 'b', [axis]: 2, [`${axis}Stacked`]: 22 } },
-                            { normalized: { [otherAxis]: 'c', [axis]: 3, [`${axis}Stacked`]: 33 } },
+                            { data: { [otherAxis]: 'a', [axis]: 1, [`${axis}Stacked`]: 11 } },
+                            { data: { [otherAxis]: 'b', [axis]: 2, [`${axis}Stacked`]: 22 } },
+                            { data: { [otherAxis]: 'c', [axis]: 3, [`${axis}Stacked`]: 33 } },
                         ],
                     },
                 ])
@@ -376,17 +360,17 @@ describe('stackAxis', () => {
                     {
                         id: 'A',
                         data: [
-                            { normalized: { [otherAxis]: 1, [axis]: 10 } },
-                            { normalized: { [otherAxis]: 2, [axis]: 20 } },
-                            { normalized: { [otherAxis]: 3, [axis]: 30 } },
+                            { data: { [otherAxis]: 1, [axis]: 10 } },
+                            { data: { [otherAxis]: 2, [axis]: 20 } },
+                            { data: { [otherAxis]: 3, [axis]: 30 } },
                         ],
                     },
                     {
                         id: 'B',
                         data: [
-                            { normalized: { [otherAxis]: 1, [axis]: 1 } },
-                            { normalized: { [otherAxis]: 2, [axis]: 2 } },
-                            { normalized: { [otherAxis]: 3, [axis]: 3 } },
+                            { data: { [otherAxis]: 1, [axis]: 1 } },
+                            { data: { [otherAxis]: 2, [axis]: 2 } },
+                            { data: { [otherAxis]: 3, [axis]: 3 } },
                         ],
                     },
                 ]
@@ -397,17 +381,17 @@ describe('stackAxis', () => {
                     {
                         id: 'A',
                         data: [
-                            { normalized: { [otherAxis]: 1, [axis]: 10, [`${axis}Stacked`]: 10 } },
-                            { normalized: { [otherAxis]: 2, [axis]: 20, [`${axis}Stacked`]: 20 } },
-                            { normalized: { [otherAxis]: 3, [axis]: 30, [`${axis}Stacked`]: 30 } },
+                            { data: { [otherAxis]: 1, [axis]: 10, [`${axis}Stacked`]: 10 } },
+                            { data: { [otherAxis]: 2, [axis]: 20, [`${axis}Stacked`]: 20 } },
+                            { data: { [otherAxis]: 3, [axis]: 30, [`${axis}Stacked`]: 30 } },
                         ],
                     },
                     {
                         id: 'B',
                         data: [
-                            { normalized: { [otherAxis]: 1, [axis]: 1, [`${axis}Stacked`]: 11 } },
-                            { normalized: { [otherAxis]: 2, [axis]: 2, [`${axis}Stacked`]: 22 } },
-                            { normalized: { [otherAxis]: 3, [axis]: 3, [`${axis}Stacked`]: 33 } },
+                            { data: { [otherAxis]: 1, [axis]: 1, [`${axis}Stacked`]: 11 } },
+                            { data: { [otherAxis]: 2, [axis]: 2, [`${axis}Stacked`]: 22 } },
+                            { data: { [otherAxis]: 3, [axis]: 3, [`${axis}Stacked`]: 33 } },
                         ],
                     },
                 ])
@@ -429,19 +413,19 @@ describe('stackAxis', () => {
                         id: 'A',
                         data: [
                             {
-                                normalized: {
+                                data: {
                                     [otherAxis]: new Date(2018, 3, 1, 0, 0, 0, 0),
                                     [axis]: 10,
                                 },
                             },
                             {
-                                normalized: {
+                                data: {
                                     [otherAxis]: new Date(2018, 3, 2, 0, 0, 0, 0),
                                     [axis]: 20,
                                 },
                             },
                             {
-                                normalized: {
+                                data: {
                                     [otherAxis]: new Date(2018, 3, 3, 0, 0, 0, 0),
                                     [axis]: 30,
                                 },
@@ -452,19 +436,19 @@ describe('stackAxis', () => {
                         id: 'B',
                         data: [
                             {
-                                normalized: {
+                                data: {
                                     [otherAxis]: new Date(2018, 3, 1, 0, 0, 0, 0),
                                     [axis]: 1,
                                 },
                             },
                             {
-                                normalized: {
+                                data: {
                                     [otherAxis]: new Date(2018, 3, 2, 0, 0, 0, 0),
                                     [axis]: 2,
                                 },
                             },
                             {
-                                normalized: {
+                                data: {
                                     [otherAxis]: new Date(2018, 3, 3, 0, 0, 0, 0),
                                     [axis]: 3,
                                 },
@@ -480,21 +464,21 @@ describe('stackAxis', () => {
                         id: 'A',
                         data: [
                             {
-                                normalized: {
+                                data: {
                                     [otherAxis]: new Date(2018, 3, 1, 0, 0, 0, 0),
                                     [axis]: 10,
                                     [`${axis}Stacked`]: 10,
                                 },
                             },
                             {
-                                normalized: {
+                                data: {
                                     [otherAxis]: new Date(2018, 3, 2, 0, 0, 0, 0),
                                     [axis]: 20,
                                     [`${axis}Stacked`]: 20,
                                 },
                             },
                             {
-                                normalized: {
+                                data: {
                                     [otherAxis]: new Date(2018, 3, 3, 0, 0, 0, 0),
                                     [axis]: 30,
                                     [`${axis}Stacked`]: 30,
@@ -506,21 +490,21 @@ describe('stackAxis', () => {
                         id: 'B',
                         data: [
                             {
-                                normalized: {
+                                data: {
                                     [otherAxis]: new Date(2018, 3, 1, 0, 0, 0, 0),
                                     [axis]: 1,
                                     [`${axis}Stacked`]: 11,
                                 },
                             },
                             {
-                                normalized: {
+                                data: {
                                     [otherAxis]: new Date(2018, 3, 2, 0, 0, 0, 0),
                                     [axis]: 2,
                                     [`${axis}Stacked`]: 22,
                                 },
                             },
                             {
-                                normalized: {
+                                data: {
                                     [otherAxis]: new Date(2018, 3, 3, 0, 0, 0, 0),
                                     [axis]: 3,
                                     [`${axis}Stacked`]: 33,
@@ -542,17 +526,17 @@ describe('stackAxis', () => {
                     {
                         id: 'A',
                         data: [
-                            { normalized: { [otherAxis]: 1, [axis]: 10 } },
-                            { normalized: { [otherAxis]: 2, [axis]: null } },
-                            { normalized: { [otherAxis]: 3, [axis]: 30 } },
+                            { data: { [otherAxis]: 1, [axis]: 10 } },
+                            { data: { [otherAxis]: 2, [axis]: null } },
+                            { data: { [otherAxis]: 3, [axis]: 30 } },
                         ],
                     },
                     {
                         id: 'B',
                         data: [
-                            { normalized: { [otherAxis]: 1, [axis]: 1 } },
-                            { normalized: { [otherAxis]: 2, [axis]: 2 } },
-                            { normalized: { [otherAxis]: 3, [axis]: null } },
+                            { data: { [otherAxis]: 1, [axis]: 1 } },
+                            { data: { [otherAxis]: 2, [axis]: 2 } },
+                            { data: { [otherAxis]: 3, [axis]: null } },
                         ],
                     },
                 ]
@@ -566,24 +550,24 @@ describe('stackAxis', () => {
                     {
                         id: 'A',
                         data: [
-                            { normalized: { [otherAxis]: 1, [axis]: 10, [`${axis}Stacked`]: 10 } },
+                            { data: { [otherAxis]: 1, [axis]: 10, [`${axis}Stacked`]: 10 } },
                             {
-                                normalized: {
+                                data: {
                                     [otherAxis]: 2,
                                     [axis]: null,
                                     [`${axis}Stacked`]: null,
                                 },
                             },
-                            { normalized: { [otherAxis]: 3, [axis]: 30, [`${axis}Stacked`]: 30 } },
+                            { data: { [otherAxis]: 3, [axis]: 30, [`${axis}Stacked`]: 30 } },
                         ],
                     },
                     {
                         id: 'B',
                         data: [
-                            { normalized: { [otherAxis]: 1, [axis]: 1, [`${axis}Stacked`]: 11 } },
-                            { normalized: { [otherAxis]: 2, [axis]: 2, [`${axis}Stacked`]: null } },
+                            { data: { [otherAxis]: 1, [axis]: 1, [`${axis}Stacked`]: 11 } },
+                            { data: { [otherAxis]: 2, [axis]: 2, [`${axis}Stacked`]: null } },
                             {
-                                normalized: {
+                                data: {
                                     [otherAxis]: 3,
                                     [axis]: null,
                                     [`${axis}Stacked`]: null,
@@ -606,17 +590,17 @@ describe('computeAxisSlices', () => {
                 const serieA = {
                     id: 'A',
                     data: [
-                        { normalized: { [otherAxis]: 1, [axis]: 10, [`${axis}Stacked`]: 10 } },
-                        { normalized: { [otherAxis]: 2, [axis]: 20, [`${axis}Stacked`]: 20 } },
-                        { normalized: { [otherAxis]: 3, [axis]: 30, [`${axis}Stacked`]: 30 } },
+                        { data: { [otherAxis]: 1, [axis]: 10, [`${axis}Stacked`]: 10 } },
+                        { data: { [otherAxis]: 2, [axis]: 20, [`${axis}Stacked`]: 20 } },
+                        { data: { [otherAxis]: 3, [axis]: 30, [`${axis}Stacked`]: 30 } },
                     ],
                 }
                 const serieB = {
                     id: 'B',
                     data: [
-                        { normalized: { [otherAxis]: 1, [axis]: 1, [`${axis}Stacked`]: 11 } },
-                        { normalized: { [otherAxis]: 2, [axis]: 2, [`${axis}Stacked`]: 22 } },
-                        { normalized: { [otherAxis]: 3, [axis]: 3, [`${axis}Stacked`]: 33 } },
+                        { data: { [otherAxis]: 1, [axis]: 1, [`${axis}Stacked`]: 11 } },
+                        { data: { [otherAxis]: 2, [axis]: 2, [`${axis}Stacked`]: 22 } },
+                        { data: { [otherAxis]: 3, [axis]: 3, [`${axis}Stacked`]: 33 } },
                     ],
                 }
 

@@ -21,20 +21,18 @@ const LineSlices = ({
     tooltipFormat,
 }) => (
     <g>
-        {slices.map(slice => {
-            return (
-                <LineSlicesItem
-                    key={slice.id}
-                    slice={slice}
-                    height={height}
-                    showTooltip={showTooltip}
-                    hideTooltip={hideTooltip}
-                    theme={theme}
-                    tooltipFormat={tooltipFormat}
-                    tooltip={tooltip}
-                />
-            )
-        })}
+        {slices.map(slice => (
+            <LineSlicesItem
+                key={slice.id}
+                slice={slice}
+                height={height}
+                showTooltip={showTooltip}
+                hideTooltip={hideTooltip}
+                theme={theme}
+                tooltipFormat={tooltipFormat}
+                tooltip={tooltip}
+            />
+        ))}
     </g>
 )
 
@@ -49,7 +47,7 @@ LineSlices.propTypes = {
             x: PropTypes.number.isRequired,
             data: PropTypes.arrayOf(
                 PropTypes.shape({
-                    normalized: PropTypes.shape({
+                    data: PropTypes.shape({
                         x: PropTypes.oneOfType([
                             PropTypes.number,
                             PropTypes.string,
