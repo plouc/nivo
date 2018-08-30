@@ -7,11 +7,11 @@
  * file that was distributed with this source code.
  */
 import { scaleTime } from 'd3-scale'
-import { timeParse } from 'd3-time-format'
 import PropTypes from 'prop-types'
+import { createDateNormalizer, timePrecisions, TIME_PRECISION_MILLISECOND } from './timeHelpers'
 
 export const timeScale = (
-    { axis, format = 'native', min = 'auto', max = 'auto' },
+    { axis, format = 'native', precision = TIME_PRECISION_MILLISECOND, min = 'auto', max = 'auto' },
     xy,
     width,
     height
@@ -19,20 +19,20 @@ export const timeScale = (
     const values = xy[axis]
     const size = axis === 'x' ? width : height
 
-    const parseTime = format === 'native' ? undefined : timeParse(format)
+    const normalize = createDateNormalizer({ format, precision })
 
     let minValue = min
     if (min === 'auto') {
         minValue = values.min
     } else if (format !== 'native') {
-        minValue = parseTime(values.min)
+        minValue = normalize(values.min)
     }
 
     let maxValue = max
     if (max === 'auto') {
         maxValue = values.max
     } else if (format !== 'native') {
-        maxValue = parseTime(values.max)
+        maxValue = normalize(values.max)
     }
 
     const scale = scaleTime()
@@ -46,5 +46,6 @@ export const timeScale = (
 
 export const timeScalePropTypes = {
     type: PropTypes.oneOf(['time']).isRequired,
-    format: PropTypes.string.isRequired,
+    format: PropTypes.string,
+    precision: PropTypes.oneOf(timePrecisions),
 }

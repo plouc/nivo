@@ -131,6 +131,7 @@ stories.add(
             xScale={{
                 type: 'time',
                 format: '%Y-%m-%d',
+                precision: 'day',
             }}
             yScale={{
                 type: 'linear',
