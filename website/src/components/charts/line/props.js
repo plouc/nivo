@@ -178,8 +178,8 @@ export default [
                     controlOptions: {
                         disabledValue: 'auto',
                         defaultValue: 0,
-                        min: -100,
-                        max: 100,
+                        min: -2000,
+                        max: 2000,
                     },
                 },
                 {
@@ -190,9 +190,9 @@ export default [
                     controlType: 'switchableRange',
                     controlOptions: {
                         disabledValue: 'auto',
-                        defaultValue: 300,
-                        min: 10,
-                        max: 400,
+                        defaultValue: 1200,
+                        min: -2000,
+                        max: 2000,
                     },
                 },
             ],

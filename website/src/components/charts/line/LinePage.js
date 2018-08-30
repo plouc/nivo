@@ -8,9 +8,24 @@
  */
 import React, { Component } from 'react'
 import Helmet from 'react-helmet'
-import { generateDrinkStats } from '@nivo/generators'
+import { generateSeries } from '@nivo/generators'
 
-const generateData = () => generateDrinkStats(9)
+const generateData = () =>
+    generateSeries(
+        ['japan', 'france', 'us', 'germany', 'norway'],
+        [
+            'plane',
+            'helicopter',
+            'boat',
+            'train',
+            'subway',
+            'bus',
+            'car',
+            'moto',
+            'bicycle',
+            'others',
+        ]
+    )
 
 class LinePage extends Component {
     state = {

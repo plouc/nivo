@@ -42,7 +42,7 @@ export const uniqRand = generator => {
 
 export const randCountryCode = () => shuffle(sets.countryCodes)[0]
 
-export const generateDrinkStats = (size = 16) => {
+export const generateDrinkStats = (xSize = 16) => {
     const rand = () => random(0, 60)
     const types = ['whisky', 'rhum', 'gin', 'vodka', 'cognac']
     const country = uniqRand(randCountryCode)
@@ -53,7 +53,7 @@ export const generateDrinkStats = (size = 16) => {
         data: [],
     }))
 
-    range(size).forEach(() => {
+    range(xSize).forEach(() => {
         const x = country()
         types.forEach(id => {
             data.find(d => d.id === id).data.push({
@@ -67,16 +67,18 @@ export const generateDrinkStats = (size = 16) => {
     return data
 }
 
-export const generateSerie = (length = 20) => {
-    const data = []
+export const generateSerie = (xSize = 20) => {
     const max = 100 + Math.random() * (Math.random() * 600)
 
-    for (let i = 0; i < length; i++) {
-        data.push(Math.round(Math.random() * max))
-    }
-
-    return data
+    return range(xSize).map(() => Math.round(Math.random() * max))
 }
+
+export const generateSeries = (ids, xKeys) =>
+    ids.map(id => ({
+        id,
+        color: randColor(),
+        data: xKeys.map(x => ({ x, y: Math.round(Math.random() * 300) })),
+    }))
 
 export const generateStackData = (size = 3) => {
     const length = 16

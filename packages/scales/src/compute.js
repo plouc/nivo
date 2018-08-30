@@ -24,7 +24,7 @@ export const compareDateValues = (a, b) => a.getTime() === b.getTime()
 export const computeXYScalesForSeries = (_series, xScaleSpec, yScaleSpec, width, height) => {
     const series = _series.map(serie => ({
         ...serie,
-        data: serie.data.map(d => ({ data: d })),
+        data: serie.data.map(d => ({ data: { ...d } })),
     }))
 
     let xy = generateSeriesXY(series, xScaleSpec, yScaleSpec)
