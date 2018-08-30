@@ -34,6 +34,8 @@ import Bubble from './components/charts/bubble/Bubble'
 import BubbleHtml from './components/charts/bubble/BubbleHtml'
 import BubbleCanvas from './components/charts/bubble/BubbleCanvas'
 import BubbleAPI from './components/charts/bubble/BubbleAPI'
+import BulletPage from './components/charts/bullet/BulletPage'
+import Bullet from './components/charts/bullet/Bullet'
 import SankeyPage from './components/charts/sankey/SankeyPage'
 import Sankey from './components/charts/sankey/Sankey'
 import SankeyAPI from './components/charts/sankey/SankeyAPI'
@@ -139,6 +141,22 @@ const SITEMAP = [
                         label: 'Bubble API',
                         component: BubbleAPI,
                         tags: ['api', 'hierarchy'],
+                    },
+                ],
+            },
+            {
+                className: 'bullet',
+                path: '/bullet',
+                label: 'Bullet',
+                component: BulletPage,
+                children: [
+                    {
+                        className: 'react',
+                        path: '/',
+                        label: 'Bullet',
+                        component: Bullet,
+                        exact: true,
+                        tags: ['svg', 'isomorphic'],
                     },
                 ],
             },

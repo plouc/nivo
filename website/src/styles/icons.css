@@ -1,4 +1,4 @@
-/* glue: 0.13 hash: b9fdf3824b */
+/* glue: 0.13 hash: a318312f27 */
 .sprite-icons-waffle-red,
 .sprite-icons-waffle-grey,
 .sprite-icons-voronoi-red,
@@ -42,6 +42,8 @@
 .sprite-icons-canvas-grey,
 .sprite-icons-calendar-red,
 .sprite-icons-calendar-grey,
+.sprite-icons-bullet-red,
+.sprite-icons-bullet-grey,
 .sprite-icons-bubble-red,
 .sprite-icons-bubble-grey,
 .sprite-icons-bar-red,
@@ -310,38 +312,50 @@
     height: 52px;
 }
 
-.sprite-icons-bubble-red {
+.sprite-icons-bullet-red {
     background-position: -64px -364px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bubble-grey {
+.sprite-icons-bullet-grey {
     background-position: -124px -364px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bar-red {
+.sprite-icons-bubble-red {
     background-position: -184px -364px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bar-grey {
+.sprite-icons-bubble-grey {
     background-position: -244px -364px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-api-red {
+.sprite-icons-bar-red {
     background-position: -304px -364px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-api-grey {
+.sprite-icons-bar-grey {
     background-position: -364px -364px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-api-red {
+    background-position: -424px -4px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-api-grey {
+    background-position: -424px -64px;
     width: 52px;
     height: 52px;
 }
@@ -394,6 +408,8 @@
     .sprite-icons-canvas-grey,
     .sprite-icons-calendar-red,
     .sprite-icons-calendar-grey,
+    .sprite-icons-bullet-red,
+    .sprite-icons-bullet-grey,
     .sprite-icons-bubble-red,
     .sprite-icons-bubble-grey,
     .sprite-icons-bar-red,
@@ -401,9 +417,9 @@
     .sprite-icons-api-red,
     .sprite-icons-api-grey {
         background-image: url('../assets/icons.png');
-        -webkit-background-size: 420px 420px;
-        -moz-background-size: 420px 420px;
-        background-size: 420px 420px;
+        -webkit-background-size: 480px 420px;
+        -moz-background-size: 480px 420px;
+        background-size: 480px 420px;
     }
 }
 
@@ -455,6 +471,8 @@
     .sprite-icons-canvas-grey,
     .sprite-icons-calendar-red,
     .sprite-icons-calendar-grey,
+    .sprite-icons-bullet-red,
+    .sprite-icons-bullet-grey,
     .sprite-icons-bubble-red,
     .sprite-icons-bubble-grey,
     .sprite-icons-bar-red,
@@ -462,8 +480,8 @@
     .sprite-icons-api-red,
     .sprite-icons-api-grey {
         background-image: url('../assets/icons@2x.png');
-        -webkit-background-size: 420px 420px;
-        -moz-background-size: 420px 420px;
-        background-size: 420px 420px;
+        -webkit-background-size: 480px 420px;
+        -moz-background-size: 480px 420px;
+        background-size: 480px 420px;
     }
 }
