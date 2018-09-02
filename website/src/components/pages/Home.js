@@ -56,9 +56,15 @@ const generateStreamData = () =>
 
 const homeTheme = {
     axis: {
-        fontSize: '9px',
-        textColor: '#c6432d',
-        tickColor: '#c6432d',
+        ticks: {
+            line: {
+                stroke: '#c6432d',
+            },
+            text: {
+                fill: '#c6432d',
+                fontSize: '9px',
+            },
+        },
     },
     grid: {
         stroke: '#c6432d',

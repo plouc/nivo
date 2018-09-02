@@ -39,7 +39,11 @@ const ChordLabels = ({
                             transform={`translate(${textProps.x}, ${textProps.y}) rotate(${
                                 textProps.rotate
                             })`}
-                            style={{ pointerEvents: 'none', fill: color }}
+                            style={{
+                                ...theme.labels,
+                                pointerEvents: 'none',
+                                fill: color,
+                            }}
                             textAnchor={textProps.align}
                             alignmentBaseline={textProps.baseline}
                         >
@@ -82,7 +86,11 @@ const ChordLabels = ({
                                 transform={`translate(${textProps.x}, ${textProps.y}) rotate(${
                                     textProps.rotate
                                 })`}
-                                style={{ pointerEvents: 'none', fill: color }}
+                                style={{
+                                    ...theme.labels,
+                                    pointerEvents: 'none',
+                                    fill: color,
+                                }}
                                 textAnchor={textProps.align}
                                 alignmentBaseline={textProps.baseline}
                             >

@@ -120,6 +120,7 @@ const Calendar = ({
                                 className="nivo_calendar_month_legend"
                                 transform={transform}
                                 textAnchor="middle"
+                                style={theme.labels}
                             >
                                 {monthLegend(month.year, month.month, month.date)}
                             </text>
@@ -141,6 +142,7 @@ const Calendar = ({
                                 className="nivo_calendar_year_legend"
                                 transform={transform}
                                 textAnchor="middle"
+                                style={theme.labels}
                             >
                                 {yearLegend(year.year)}
                             </text>
@@ -160,6 +162,7 @@ const Calendar = ({
                                 containerWidth={width}
                                 containerHeight={height}
                                 data={legendData}
+                                theme={theme}
                             />
                         )
                     })}

@@ -96,16 +96,6 @@
     height: 240px;
 }
 
-svg text {
-    fill: var(--chart-meta-color);
-    font-size: 12px;
-}
-
-.tick line {
-    stroke-width: 0.5;
-    stroke: var(--chart-meta-color);
-}
-
 .chart__title {
     display: flex;
     align-items: center;

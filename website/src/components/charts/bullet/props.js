@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
+import dedent from 'dedent-js'
 import { BulletDefaultProps as defaults } from '@nivo/bullet'
 import { motionProperties } from '../../../lib/componentProperties'
 
@@ -14,8 +15,24 @@ export default [
     {
         key: 'data',
         scopes: '*',
-        description: 'Chart data.',
-        type: '{Array.<Object>}',
+        description: (
+            <div>
+                Chart data, which must conform to this structure:
+                <pre className="code code-block">
+                    {dedent`
+                        Array<{
+                            id:   {string|number}
+                            data: Array<{
+                                ranges:   number[]
+                                measures: number[]
+                                markers?: number[]
+                            }>
+                        }>
+                    `}
+                </pre>
+            </div>
+        ),
+        type: '{Array.<object>}',
         required: true,
     },
     {
@@ -90,7 +107,7 @@ export default [
     {
         key: 'spacing',
         scopes: '*',
-        description: 'define spacing between items.',
+        description: 'define spacing between items (px).',
         type: '{number}',
         required: false,
         default: defaults.spacing,
@@ -130,6 +147,19 @@ export default [
             min: 0,
             max: 2,
             step: 0.05,
+        },
+    },
+    {
+        key: 'axisPosition',
+        scopes: '*',
+        description: `Where to put axis, must be one of: 'before', 'after'.`,
+        type: '{string}',
+        required: false,
+        default: defaults.axisPosition,
+        controlType: 'choices',
+        controlGroup: 'Axes',
+        controlOptions: {
+            choices: [{ label: 'before', value: 'before' }, { label: 'after', value: 'after' }],
         },
     },
     ...motionProperties(['Bullet'], defaults),

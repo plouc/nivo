@@ -192,6 +192,7 @@ export class Waffle extends Component {
                                     containerWidth={width}
                                     containerHeight={height}
                                     data={legendData}
+                                    theme={theme}
                                 />
                             ))}
                         </SvgWrapper>

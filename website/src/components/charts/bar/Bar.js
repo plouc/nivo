@@ -80,7 +80,6 @@ export default class Bar extends Component {
                 gamma: 1.6,
             },
 
-            // axes
             axisTop: {
                 enable: false,
                 orient: 'top',
@@ -131,12 +130,10 @@ export default class Bar extends Component {
                 gamma: 1.6,
             },
 
-            // motion
             animate: true,
             motionStiffness: 90,
             motionDamping: 15,
 
-            // interactivity
             isInteractive: true,
             'custom tooltip example': false,
             tooltip: null,

@@ -168,6 +168,7 @@ const ScatterPlot = ({
                             containerWidth={width}
                             containerHeight={height}
                             data={legendData}
+                            theme={theme}
                         />
                     ))}
                 </SvgWrapper>

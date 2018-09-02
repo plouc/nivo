@@ -155,6 +155,7 @@ class HeatMap extends Component {
                                         onHover: partial(onHover, node),
                                         onLeave,
                                         onClick,
+                                        theme,
                                     })
                                 )}
 
@@ -207,6 +208,7 @@ class HeatMap extends Component {
                                                             onHover: partial(onHover, node),
                                                             onLeave,
                                                             onClick,
+                                                            theme,
                                                         })
                                                     }
                                                 )}

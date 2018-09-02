@@ -49,10 +49,10 @@ const generateBulletData = (
 
 const generateData = () => [
     generateBulletData('fake A', shuffle([100, 120, 140])[0]),
-    generateBulletData('fake B', 2, { float: true, measureCount: 2 }),
-    generateBulletData('fake C', shuffle([40, 60, 80])[0], { rangeCount: 5 }),
-    generateBulletData('fake D', 500000, { measureCount: 2 }),
-    generateBulletData('fake E', shuffle([9, 11, 13])[0], { markerCount: 2 }),
+    // generateBulletData('fake B', 2, { float: true, measureCount: 2 }),
+    // generateBulletData('fake C', shuffle([40, 60, 80])[0], { rangeCount: 5 }),
+    // generateBulletData('fake D', 500000, { measureCount: 2 }),
+    // generateBulletData('fake E', shuffle([9, 11, 13])[0], { markerCount: 2 }),
 ]
 
 export default class Bullet extends Component {
@@ -65,11 +65,15 @@ export default class Bullet extends Component {
                 bottom: 50,
                 left: 50,
             },
-            layout: 'horizontal',
+            layout: 'vertical',
             reverse: false,
             spacing: 40,
             measureSize: 0.4,
             markerSize: 0.6,
+            axisPosition: 'after',
+            animate: false,
+            motionStiffness: 90,
+            motionDamping: 12,
         },
     }
 

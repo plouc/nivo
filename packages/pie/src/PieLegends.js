@@ -12,6 +12,7 @@ import compose from 'recompose/compose'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
 import setDisplayName from 'recompose/setDisplayName'
+import { themePropType } from '@nivo/core'
 import { LegendPropShape, BoxLegendSvg } from '@nivo/legends'
 import { arcPropType } from './props'
 
@@ -22,10 +23,11 @@ class PieLegends extends Component {
         arcs: PropTypes.arrayOf(arcPropType).isRequired,
         data: PropTypes.arrayOf(PropTypes.object).isRequired,
         legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
+        theme: themePropType.isRequired,
     }
 
     render() {
-        const { width, height, legends, data } = this.props
+        const { width, height, legends, data, theme } = this.props
 
         return legends.map((legend, i) => (
             <BoxLegendSvg
@@ -34,6 +36,7 @@ class PieLegends extends Component {
                 containerWidth={width}
                 containerHeight={height}
                 data={data}
+                theme={theme}
             />
         ))
     }

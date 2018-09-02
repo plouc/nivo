@@ -84,6 +84,7 @@ const TreeMap = ({
                                         orientLabel,
                                     },
                                     handlers: getHandlers(node, showTooltip, hideTooltip),
+                                    theme,
                                 })
                             )}
                         </g>
@@ -121,6 +122,7 @@ const TreeMap = ({
                                                 orientLabel,
                                             },
                                             handlers: getHandlers(node, showTooltip, hideTooltip),
+                                            theme,
                                         })
                                     })}
                                 </g>

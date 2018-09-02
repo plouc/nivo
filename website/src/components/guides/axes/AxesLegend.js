@@ -7,8 +7,9 @@
  * file that was distributed with this source code.
  */
 import React, { Component, Fragment } from 'react'
-import { Axis, defaultTheme } from '@nivo/core'
+import { Axis } from '@nivo/core'
 import { linearXScale, linearYScale } from './scales'
+import theme from './theme'
 
 const axisPositions = ['start', 'center', 'end']
 
@@ -45,7 +46,7 @@ export default class AxesLegend extends Component {
                                         width={280}
                                         height={0}
                                         position="top"
-                                        theme={defaultTheme}
+                                        theme={theme}
                                         animate={false}
                                         motionStiffness={0}
                                         motionDamping={0}
@@ -64,7 +65,7 @@ export default class AxesLegend extends Component {
                                         width={0}
                                         height={160}
                                         position="left"
-                                        theme={defaultTheme}
+                                        theme={theme}
                                         animate={false}
                                         motionStiffness={0}
                                         motionDamping={0}

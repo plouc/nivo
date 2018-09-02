@@ -49,19 +49,19 @@ const BoxLegendSvg = ({
     itemBackground,
     itemOpacity,
 
-    // symbol
     symbolShape,
     symbolSize,
     symbolSpacing,
     symbolBorderWidth,
     symbolBorderColor,
 
-    // interactivity
     onClick,
     onMouseEnter,
     onMouseLeave,
 
     effects,
+
+    theme,
 }) => {
     const { width, height } = computeDimensions({
         itemCount: data.length,
@@ -91,7 +91,6 @@ const BoxLegendSvg = ({
             padding={padding}
             justify={justify}
             effects={effects}
-            // item
             itemsSpacing={itemsSpacing}
             itemWidth={itemWidth}
             itemHeight={itemHeight}
@@ -99,16 +98,15 @@ const BoxLegendSvg = ({
             itemTextColor={itemTextColor}
             itemBackground={itemBackground}
             itemOpacity={itemOpacity}
-            // symbol
             symbolShape={symbolShape}
             symbolSize={symbolSize}
             symbolSpacing={symbolSpacing}
             symbolBorderWidth={symbolBorderWidth}
             symbolBorderColor={symbolBorderColor}
-            // interactivity
             onClick={onClick}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
+            theme={theme}
         />
     )
 }

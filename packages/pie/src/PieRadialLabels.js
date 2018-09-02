@@ -86,6 +86,7 @@ export default class PieRadialLabels extends Component {
                         textAnchor={textPropsByEngine.svg.align[label.align]}
                         dy="0.3em"
                         style={{
+                            ...theme.labels,
                             fill: textColor(label.arc.data, theme),
                             fontSize: theme.axis.fontSize,
                         }}

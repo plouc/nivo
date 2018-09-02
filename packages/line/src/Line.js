@@ -181,6 +181,7 @@ const Line = ({
                                 containerWidth={width}
                                 containerHeight={height}
                                 data={legendData}
+                                theme={theme}
                             />
                         )
                     })}

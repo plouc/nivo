@@ -55,6 +55,7 @@ export default class PieSlicesLabels extends Component {
                             <text
                                 textAnchor="middle"
                                 style={{
+                                    ...theme.labels,
                                     fill: textColor(arc.data, theme),
                                     fontSize: theme.axis.fontSize,
                                 }}

@@ -9,6 +9,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
+import { themePropType } from '@nivo/core'
 
 const style = { cursor: 'pointer' }
 
@@ -27,6 +28,7 @@ const HeatMapCellCircle = ({
     onHover,
     onLeave,
     onClick,
+    theme,
 }) => (
     <g
         transform={`translate(${x}, ${y})`}
@@ -49,7 +51,10 @@ const HeatMapCellCircle = ({
         <text
             alignmentBaseline="central"
             textAnchor="middle"
-            style={{ fill: textColor }}
+            style={{
+                ...theme.labels,
+                fill: textColor,
+            }}
             fillOpacity={opacity}
         >
             {value}
@@ -72,6 +77,7 @@ HeatMapCellCircle.propTypes = {
     onHover: PropTypes.func.isRequired,
     onLeave: PropTypes.func.isRequired,
     onClick: PropTypes.func.isRequired,
+    theme: themePropType.isRequired,
 }
 
 export default pure(HeatMapCellCircle)
