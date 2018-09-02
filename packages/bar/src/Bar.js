@@ -219,6 +219,7 @@ const Bar = ({
                                             label: getLabel(bar.data),
                                             labelColor: getLabelTextColor(baseProps, theme),
                                             borderColor: getBorderColor(baseProps),
+                                            theme,
                                         })
                                     })}
                                 </g>
@@ -235,6 +236,7 @@ const Bar = ({
                             shouldRenderLabel: shouldRenderLabel(d),
                             labelColor: getLabelTextColor(d, theme),
                             borderColor: getBorderColor(d),
+                            theme,
                         })
                     )
                 }
@@ -294,6 +296,7 @@ const Bar = ({
                                     containerWidth={width}
                                     containerHeight={height}
                                     data={legendData}
+                                    theme={theme}
                                 />
                             )
                         })}

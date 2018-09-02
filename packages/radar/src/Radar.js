@@ -74,7 +74,6 @@ const Radar = ({
     dotLabelFormat,
     dotLabelYOffset,
 
-    // theming
     theme, // eslint-disable-line react/prop-types
     fillOpacity,
     colorByKey,
@@ -173,6 +172,7 @@ const Radar = ({
                             containerWidth={width}
                             containerHeight={height}
                             data={legendData}
+                            theme={theme}
                         />
                     ))}
                 </SvgWrapper>

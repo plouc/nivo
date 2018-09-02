@@ -130,16 +130,18 @@ export default class LegendSvgItem extends Component {
             textColor,
             background,
             opacity,
-            // symbol
+
             symbolShape,
             symbolSize,
             symbolSpacing,
             symbolBorderWidth,
             symbolBorderColor,
-            // interactivity
+
             onClick,
             onMouseEnter,
             onMouseLeave,
+
+            theme,
         } = this.props
         const { style } = this.state
 
@@ -197,6 +199,7 @@ export default class LegendSvgItem extends Component {
                 <text
                     textAnchor={labelAnchor}
                     style={{
+                        ...theme.legends.text,
                         fill: style.itemTextColor || textColor,
                         alignmentBaseline: labelAlignment,
                         pointerEvents: 'none',

@@ -7,8 +7,9 @@
  * file that was distributed with this source code.
  */
 import React, { Component, Fragment } from 'react'
-import { Axes, defaultTheme } from '@nivo/core'
+import { Axes } from '@nivo/core'
 import { linearXScale, linearYScale } from './scales'
+import theme from './theme'
 
 export default class AxesPosition extends Component {
     render() {
@@ -30,7 +31,7 @@ export default class AxesPosition extends Component {
                                     yScale={linearYScale}
                                     width={280}
                                     height={160}
-                                    theme={defaultTheme}
+                                    theme={theme}
                                     animate={false}
                                     motionStiffness={0}
                                     motionDamping={0}

@@ -30,7 +30,7 @@ const LegendSvg = ({
     padding: _padding,
     justify,
     effects,
-    // items
+
     itemWidth,
     itemHeight,
     itemDirection,
@@ -38,16 +38,18 @@ const LegendSvg = ({
     itemTextColor,
     itemBackground,
     itemOpacity,
-    // symbol
+
     symbolShape,
     symbolSize,
     symbolSpacing,
     symbolBorderWidth,
     symbolBorderColor,
-    // interactivity
+
     onClick,
     onMouseEnter,
     onMouseLeave,
+
+    theme,
 }) => {
     // eslint-disable-next-line no-unused-vars
     const { width, height, padding } = computeDimensions({
@@ -80,20 +82,18 @@ const LegendSvg = ({
                     direction={itemDirection}
                     justify={justify}
                     effects={effects}
-                    // item
                     textColor={itemTextColor}
                     background={itemBackground}
                     opacity={itemOpacity}
-                    // symbol
                     symbolShape={symbolShape}
                     symbolSize={symbolSize}
                     symbolSpacing={symbolSpacing}
                     symbolBorderWidth={symbolBorderWidth}
                     symbolBorderColor={symbolBorderColor}
-                    // interactivity
                     onClick={onClick}
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
+                    theme={theme}
                 />
             ))}
         </g>

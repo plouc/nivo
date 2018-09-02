@@ -83,6 +83,7 @@ const Bubble = ({
                                         labelTextColor: getLabelTextColor(node),
                                     },
                                     handlers: getHandlers(node, showTooltip, hideTooltip),
+                                    theme,
                                 })
                             )}
                         </g>
@@ -120,6 +121,7 @@ const Bubble = ({
                                                 labelTextColor: getLabelTextColor(style),
                                             },
                                             handlers: getHandlers(node, showTooltip, hideTooltip),
+                                            theme,
                                         })
                                     })}
                                 </g>

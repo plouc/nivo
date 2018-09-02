@@ -11,6 +11,7 @@ import PropTypes from 'prop-types'
 import isEqual from 'lodash/isEqual'
 import shouldUpdate from 'recompose/shouldUpdate'
 import { motionPropTypes } from '../../props'
+import { axisThemePropType } from '../../theming'
 import Axis, { axisPropType } from './Axis'
 
 const horizontalPositions = ['top', 'bottom']
@@ -69,22 +70,20 @@ const Axes = ({
 }
 
 Axes.propTypes = {
-    // generic
     xScale: PropTypes.func.isRequired,
     yScale: PropTypes.func.isRequired,
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
 
-    // axes
     top: axisPropType,
     right: axisPropType,
     bottom: axisPropType,
     left: axisPropType,
 
-    // theming
-    theme: PropTypes.object.isRequired,
+    theme: PropTypes.shape({
+        axis: axisThemePropType.isRequired,
+    }).isRequired,
 
-    // motion
     ...motionPropTypes,
 }
 

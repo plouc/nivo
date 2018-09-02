@@ -8,8 +8,9 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
+import { themePropType } from '@nivo/core'
 
-const BubbleNode = ({ node, style, handlers }) => {
+const BubbleNode = ({ node, style, handlers, theme }) => {
     if (style.r <= 0) return null
 
     return (
@@ -26,6 +27,7 @@ const BubbleNode = ({ node, style, handlers }) => {
                     textAnchor="middle"
                     alignmentBaseline="central"
                     style={{
+                        ...theme.labels,
                         fill: style.labelTextColor,
                         pointerEvents: 'none',
                     }}
@@ -50,6 +52,7 @@ BubbleNode.propTypes = {
         labelTextColor: PropTypes.string.isRequired,
     }).isRequired,
     handlers: PropTypes.object.isRequired,
+    theme: themePropType.isRequired,
 }
 
 export default BubbleNode

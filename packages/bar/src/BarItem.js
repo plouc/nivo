@@ -33,6 +33,8 @@ const BarItem = ({
     hideTooltip,
     onClick,
     tooltip,
+
+    theme,
 }) => {
     const handleTooltip = e => showTooltip(tooltip, e)
 
@@ -58,6 +60,7 @@ const BarItem = ({
                     textAnchor="middle"
                     alignmentBaseline="central"
                     style={{
+                        ...theme.labels,
                         pointerEvents: 'none',
                         fill: labelColor,
                     }}

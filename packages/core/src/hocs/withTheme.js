@@ -11,7 +11,7 @@ import compose from 'recompose/compose'
 import setPropTypes from 'recompose/setPropTypes'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import merge from 'lodash/merge'
-import { defaultTheme } from '../defaults'
+import { defaultTheme } from '../theming'
 
 /**
  * This HOC watch theme prop change

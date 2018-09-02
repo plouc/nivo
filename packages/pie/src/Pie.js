@@ -183,6 +183,7 @@ class Pie extends Component {
                                         height={height}
                                         arcs={arcs}
                                         legends={legends}
+                                        theme={theme}
                                     />
                                 </SvgWrapper>
                             )}

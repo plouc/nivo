@@ -18,6 +18,7 @@ import { TransitionMotion, spring } from 'react-motion'
 import { withMotion } from '../../hocs'
 import { motionPropTypes } from '../../props'
 import { computeAxisTicks } from '../../lib/cartesian/axes'
+import { axisThemePropType } from '../../theming'
 import AxisTick from './AxisTick'
 
 const axisPositions = ['top', 'right', 'bottom', 'left']
@@ -37,7 +38,6 @@ export const axisPropType = PropTypes.shape({
     tickRotation: PropTypes.number,
     format: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 
-    // legend
     legend: PropTypes.node,
     legendPosition: PropTypes.oneOf(legendPositions),
     legendOffset: PropTypes.number,
@@ -56,33 +56,27 @@ const willLeave = springConfig => ({ style: { x, y } }) => ({
 })
 
 const Axis = ({
-    // generic
     scale,
     width,
     height,
     position: _position,
 
-    // ticks
     tickValues,
     tickSize,
     tickPadding,
     tickRotation,
     format,
 
-    // legend
     legend: _legend,
     legendPosition,
     legendOffset,
 
-    // theming
     theme,
 
-    // motion
     animate,
     motionStiffness,
     motionDamping,
 
-    // interactivity
     onClick,
 }) => {
     const { x, y, ticks, textAlign, textBaseline } = computeAxisTicks({
@@ -96,6 +90,9 @@ const Axis = ({
         tickRotation,
     })
 
+    const isHorizontal = ['top', 'bottom'].includes(_position)
+    const isVertical = !isHorizontal
+
     let legend = null
     if (_legend !== undefined) {
         let legendX = 0
@@ -103,7 +100,7 @@ const Axis = ({
         let legendRotation = 0
         let textAnchor
 
-        if (['left', 'right'].includes(_position)) {
+        if (isVertical) {
             legendRotation = -90
             legendX = legendOffset
             if (legendPosition === 'start') {
@@ -130,10 +127,9 @@ const Axis = ({
 
         legend = (
             <text
-                fill={theme.axis.legendColor}
                 transform={`translate(${legendX}, ${legendY}) rotate(${legendRotation})`}
                 textAnchor={textAnchor}
-                style={{ fontSize: theme.axis.legendFontSize }}
+                style={theme.axis.legend}
             >
                 {_legend}
             </text>
@@ -215,6 +211,13 @@ const Axis = ({
         <g transform={`translate(${x},${y})`}>
             {legend}
             {tickElements}
+            <line
+                style={theme.axis.domain}
+                x1={0}
+                x2={isHorizontal ? width : 0}
+                y1={0}
+                y2={isHorizontal ? 0 : height}
+            />
         </g>
     )
 }
@@ -240,7 +243,9 @@ Axis.propTypes = {
     legendPosition: PropTypes.oneOf(legendPositions).isRequired,
     legendOffset: PropTypes.number.isRequired,
 
-    theme: PropTypes.object.isRequired,
+    theme: PropTypes.shape({
+        axis: axisThemePropType.isRequired,
+    }).isRequired,
 
     onClick: PropTypes.func,
 

@@ -9,6 +9,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
+import { themePropType } from '@nivo/core'
 
 const style = { cursor: 'pointer' }
 
@@ -27,6 +28,7 @@ const HeatMapCellRect = ({
     onHover,
     onLeave,
     onClick,
+    theme,
 }) => (
     <g
         transform={`translate(${x}, ${y})`}
@@ -52,7 +54,10 @@ const HeatMapCellRect = ({
         <text
             alignmentBaseline="central"
             textAnchor="middle"
-            style={{ fill: textColor }}
+            style={{
+                ...theme.labels,
+                fill: textColor,
+            }}
             fillOpacity={opacity}
         >
             {value}
@@ -75,6 +80,7 @@ HeatMapCellRect.propTypes = {
     onHover: PropTypes.func.isRequired,
     onLeave: PropTypes.func.isRequired,
     onClick: PropTypes.func.isRequired,
+    theme: themePropType.isRequired,
 }
 
 export default pure(HeatMapCellRect)

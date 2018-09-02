@@ -8,13 +8,13 @@
  */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { axisThemePropType } from '../../theming'
 
 export default class AxisTick extends Component {
     static propTypes = {
         value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)])
             .isRequired,
         format: PropTypes.func,
-        theme: PropTypes.object.isRequired,
         x: PropTypes.number.isRequired,
         y: PropTypes.number.isRequired,
         lineX: PropTypes.number.isRequired,
@@ -26,6 +26,9 @@ export default class AxisTick extends Component {
         opacity: PropTypes.number.isRequired,
         rotate: PropTypes.number.isRequired,
         onClick: PropTypes.func,
+        theme: PropTypes.shape({
+            axis: axisThemePropType.isRequired,
+        }).isRequired,
     }
 
     static defaultProps = {
@@ -67,15 +70,12 @@ export default class AxisTick extends Component {
                 {...(onClick ? { onClick: e => onClick(e, value) } : {})}
                 style={gStyle}
             >
-                <line x1={0} x2={lineX} y1={0} y2={lineY} stroke={theme.axis.tickColor} />
+                <line x1={0} x2={lineX} y1={0} y2={lineY} style={theme.axis.ticks.line} />
                 <text
                     alignmentBaseline={textBaseline}
                     textAnchor={textAnchor}
                     transform={`translate(${textX},${textY}) rotate(${rotate})`}
-                    style={{
-                        fill: theme.axis.textColor,
-                        fontSize: theme.axis.fontSize,
-                    }}
+                    style={theme.axis.ticks.text}
                 >
                     {value}
                 </text>
