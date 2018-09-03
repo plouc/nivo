@@ -273,3 +273,18 @@ stories.add(
         />
     ))
 )
+
+stories.add(
+    'enter/exit (check the console)',
+    withInfo()(() => (
+        <Bar
+            {...commonProps}
+            onMouseEnter={(data, e) => {
+                console.log({ is: 'mouseenter', data, event: e }) // eslint-disable-line
+            }}
+            onMouseLeave={(data, e) => {
+                console.log({ is: 'mouseleave', data, event: e }) // eslint-disable-line
+            }}
+        />
+    ))
+)

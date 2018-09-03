@@ -104,6 +104,8 @@ const Bar = ({
     isInteractive,
     tooltipFormat,
     tooltip,
+    onMouseEnter,
+    onMouseLeave,
     onClick,
 
     legends,
@@ -183,6 +185,8 @@ const Bar = ({
                     showTooltip,
                     hideTooltip,
                     onClick,
+                    onMouseEnter,
+                    onMouseLeave,
                     theme,
                     tooltipFormat,
                     tooltip,
