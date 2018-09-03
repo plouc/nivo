@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
+import { noop } from '@nivo/core'
 import { LegendPropShape } from '@nivo/legends'
 
 export const ScatterPlotPropTypes = {
@@ -53,7 +54,11 @@ export const ScatterPlotPropTypes = {
 
     // interactivity
     isInteractive: PropTypes.bool.isRequired,
+    onClick: PropTypes.func.isRequired,
+    onMouseEnter: PropTypes.func.isRequired,
+    onMouseLeave: PropTypes.func.isRequired,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    tooltip: PropTypes.func,
 
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
 
@@ -84,6 +89,9 @@ export const ScatterPlotDefaultProps = {
     // interactivity
     isInteractive: true,
     enableStackTooltip: true,
+    onClick: noop,
+    onMouseEnter: noop,
+    onMouseLeave: noop,
 
     legends: [],
 
