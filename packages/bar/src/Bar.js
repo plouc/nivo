@@ -104,9 +104,9 @@ const Bar = ({
     isInteractive,
     tooltipFormat,
     tooltip,
+    onClick,
     onMouseEnter,
     onMouseLeave,
-    onClick,
 
     legends,
 }) => {
