@@ -275,7 +275,7 @@ stories.add(
 )
 
 stories.add(
-    'enter/exit (check the console)',
+    'enter/exit (check console)',
     withInfo()(() => (
         <Bar
             {...commonProps}

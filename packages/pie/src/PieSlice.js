@@ -25,6 +25,8 @@ const PieSlice = ({
     showTooltip,
     hideTooltip,
     onClick,
+    onMouseEnter,
+    onMouseLeave,
     tooltipFormat,
     tooltip,
 
@@ -45,6 +47,14 @@ const PieSlice = ({
             />,
             e
         )
+    const handleMouseEnter = e => {
+        onMouseEnter(data, e)
+        handleTooltip(e)
+    }
+    const handleMouseLeave = e => {
+        onMouseLeave(data, e)
+        hideTooltip(e)
+    }
 
     return (
         <path
@@ -53,9 +63,9 @@ const PieSlice = ({
             fill={fill}
             strokeWidth={borderWidth}
             stroke={borderColor}
-            onMouseEnter={handleTooltip}
+            onMouseEnter={handleMouseEnter}
             onMouseMove={handleTooltip}
-            onMouseLeave={hideTooltip}
+            onMouseLeave={handleMouseLeave}
             onClick={onClick}
         />
     )
@@ -78,6 +88,8 @@ PieSlice.propTypes = {
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
     onClick: PropTypes.func,
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func,
 
     theme: PropTypes.shape({
         tooltip: PropTypes.shape({}).isRequired,
