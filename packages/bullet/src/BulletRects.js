@@ -13,7 +13,7 @@ import { TransitionMotion, spring } from 'react-motion'
 import compose from 'recompose/compose'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
-import { motionPropTypes } from '@nivo/core'
+import { motionPropTypes, colorMotionSpring, getInterpolatedColor } from '@nivo/core'
 import { computeRects } from './compute'
 
 class BulletRects extends Component {
@@ -106,13 +106,16 @@ class BulletRects extends Component {
                             y: spring(rect.y, springConfig),
                             width: spring(rect.width, springConfig),
                             height: spring(rect.height, springConfig),
+                            ...colorMotionSpring(rect.data.color, springConfig),
                         },
                     }))}
                 >
                     {interpolatedStyles => (
                         <Fragment>
-                            {interpolatedStyles.map(({ key, style, data }) =>
-                                React.createElement(component, {
+                            {interpolatedStyles.map(({ key, style, data }) => {
+                                const color = getInterpolatedColor(style)
+
+                                return React.createElement(component, {
                                     key,
                                     index: Number(key),
                                     data,
@@ -120,13 +123,13 @@ class BulletRects extends Component {
                                     y: style.y,
                                     width: Math.max(style.width, 0),
                                     height: Math.max(style.height, 0),
-                                    color: data.color,
+                                    color,
                                     onMouseEnter: partial(this.handleMouseEnter, data),
                                     onMouseMove: partial(this.handleMouseEnter, data),
                                     onMouseLeave: partial(this.handleMouseLeave, data),
                                     onClick: partial(this.handleClick, data),
                                 })
-                            )}
+                            })}
                         </Fragment>
                     )}
                 </TransitionMotion>
