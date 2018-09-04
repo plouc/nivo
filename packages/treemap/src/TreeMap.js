@@ -64,7 +64,13 @@ const TreeMap = ({
     return (
         <Container isInteractive={isInteractive} theme={theme}>
             {({ showTooltip, hideTooltip }) => (
-                <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} defs={defs}>
+                <SvgWrapper
+                    width={outerWidth}
+                    height={outerHeight}
+                    margin={margin}
+                    defs={defs}
+                    theme={theme}
+                >
                     {!animate && (
                         <g>
                             {nodes.map(node =>

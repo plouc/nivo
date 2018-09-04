@@ -49,14 +49,12 @@ class ChordCanvas extends Component {
         const {
             pixelRatio,
 
-            // dimensions
             width,
             height,
             margin,
             outerWidth,
             outerHeight,
 
-            // labels
             enableLabel,
             getLabel, // computed
             labelOffset,
@@ -66,7 +64,6 @@ class ChordCanvas extends Component {
             arcGenerator, // computed
             ribbonGenerator, // computed
 
-            // theming
             theme,
 
             ribbons, // computed
@@ -84,8 +81,11 @@ class ChordCanvas extends Component {
         const centerX = width / 2 + margin.left
         const centerY = height / 2 + margin.top
 
-        this.ctx.clearRect(0, 0, outerWidth, outerHeight)
+        this.ctx.fillStyle = theme.background
+        this.ctx.fillRect(0, 0, outerWidth, outerHeight)
         this.ctx.translate(centerX, centerY)
+
+        this.ctx.font = `${theme.labels.text.fontSize}px sans-serif`
 
         ribbonGenerator.context(this.ctx)
         ribbons.forEach(ribbon => {

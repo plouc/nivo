@@ -110,6 +110,7 @@ const Stream = ({
                     height={outerHeight}
                     margin={margin}
                     defs={boundDefs}
+                    theme={theme}
                 >
                     <Grid
                         theme={theme}

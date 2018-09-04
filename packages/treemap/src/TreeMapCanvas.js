@@ -36,26 +36,27 @@ class TreeMapCanvas extends Component {
 
             pixelRatio,
 
-            // dimensions
             margin,
             outerWidth,
             outerHeight,
 
-            // styling
             borderWidth,
             getBorderColor,
 
-            // labels
             enableLabel,
             getLabelTextColor,
             orientLabel,
+
+            theme,
         } = props
 
         this.surface.width = outerWidth * pixelRatio
         this.surface.height = outerHeight * pixelRatio
 
         this.ctx.scale(pixelRatio, pixelRatio)
-        this.ctx.clearRect(0, 0, outerWidth, outerHeight)
+
+        this.ctx.fillStyle = theme.background
+        this.ctx.fillRect(0, 0, outerWidth, outerHeight)
         this.ctx.translate(margin.left, margin.top)
 
         nodes.forEach(node => {
@@ -72,6 +73,7 @@ class TreeMapCanvas extends Component {
         if (enableLabel) {
             this.ctx.textAlign = 'center'
             this.ctx.textBaseline = 'middle'
+            this.ctx.font = `${theme.labels.text.fontSize}px sans-serif`
 
             // draw labels on top
             nodes.filter(({ label }) => label !== undefined).forEach(node => {

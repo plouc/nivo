@@ -51,14 +51,12 @@ class BarCanvas extends Component {
 
     draw(props) {
         const {
-            // data
             data,
             keys,
             getIndex,
             minValue,
             maxValue,
 
-            // dimensions
             width,
             height,
             outerWidth,
@@ -66,20 +64,18 @@ class BarCanvas extends Component {
             pixelRatio,
             margin,
 
-            // layout
             layout,
             reverse,
             groupMode,
             padding,
             innerPadding,
 
-            // axes
             axisTop,
             axisRight,
             axisBottom,
             axisLeft,
 
-            // theming
+            theme,
             getColor,
         } = props
 
@@ -108,7 +104,8 @@ class BarCanvas extends Component {
 
         this.bars = result.bars
 
-        this.ctx.clearRect(0, 0, outerWidth, outerHeight)
+        this.ctx.fillStyle = theme.background
+        this.ctx.fillRect(0, 0, outerWidth, outerHeight)
         this.ctx.translate(margin.left, margin.top)
 
         renderAxesToCanvas(this.ctx, {
@@ -120,6 +117,7 @@ class BarCanvas extends Component {
             right: axisRight,
             bottom: axisBottom,
             left: axisLeft,
+            theme,
         })
 
         result.bars.forEach(({ x, y, color, width, height }) => {

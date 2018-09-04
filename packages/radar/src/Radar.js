@@ -104,7 +104,7 @@ const Radar = ({
     return (
         <Container isInteractive={isInteractive} theme={theme}>
             {({ showTooltip, hideTooltip }) => (
-                <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
+                <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
                     <g transform={`translate(${centerX}, ${centerY})`}>
                         <RadarGrid
                             levels={gridLevels}

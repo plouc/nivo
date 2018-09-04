@@ -44,21 +44,18 @@ class WaffleCanvas extends Component {
         const {
             pixelRatio,
 
-            // dimensions
             margin,
             width,
             height,
             outerWidth,
             outerHeight,
 
-            // styling
             getColor,
             emptyColor,
             emptyOpacity,
             borderWidth,
             getBorderColor,
 
-            // computed
             cells,
             cellSize,
             origin,
@@ -66,13 +63,16 @@ class WaffleCanvas extends Component {
             legendData,
 
             legends,
+
+            theme,
         } = props
 
         this.surface.width = outerWidth * pixelRatio
         this.surface.height = outerHeight * pixelRatio
 
         this.ctx.scale(pixelRatio, pixelRatio)
-        this.ctx.clearRect(0, 0, outerWidth, outerHeight)
+        this.ctx.fillStyle = theme.background
+        this.ctx.fillRect(0, 0, outerWidth, outerHeight)
         this.ctx.translate(margin.left, margin.top)
 
         cells.forEach(cell => {

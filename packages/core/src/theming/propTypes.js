@@ -10,34 +10,65 @@ import PropTypes from 'prop-types'
 
 export const axisThemePropType = PropTypes.shape({
     domain: PropTypes.shape({
-        stroke: PropTypes.string.isRequired,
-        strokeWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-        strokeDasharray: PropTypes.string,
+        line: PropTypes.shape({
+            stroke: PropTypes.string.isRequired,
+            strokeWidth: PropTypes.number.isRequired,
+            strokeDasharray: PropTypes.string,
+        }).isRequired,
     }).isRequired,
     ticks: PropTypes.shape({
         line: PropTypes.shape({
             stroke: PropTypes.string.isRequired,
-            strokeWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+            strokeWidth: PropTypes.number.isRequired,
             strokeDasharray: PropTypes.string,
         }).isRequired,
         text: PropTypes.shape({
-            color: PropTypes.string.isRequired,
-            fontSize: PropTypes.string.isRequired,
+            fill: PropTypes.string.isRequired,
+            fontSize: PropTypes.number.isRequired,
         }).isRequired,
     }).isRequired,
     legend: PropTypes.shape({
-        fill: PropTypes.string.isRequired,
-        fontSize: PropTypes.string.isRequired,
+        text: PropTypes.shape({
+            fill: PropTypes.string.isRequired,
+            fontSize: PropTypes.number.isRequired,
+        }).isRequired,
     }).isRequired,
 })
 
 export const gridThemePropType = PropTypes.shape({
-    stroke: PropTypes.string.isRequired,
-    strokeWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-    strokeDasharray: PropTypes.string,
+    line: PropTypes.shape({
+        stroke: PropTypes.string.isRequired,
+        strokeWidth: PropTypes.number.isRequired,
+        strokeDasharray: PropTypes.string,
+    }).isRequired,
+})
+
+export const legendsThemePropType = PropTypes.shape({
+    text: PropTypes.shape({
+        fill: PropTypes.string.isRequired,
+        fontSize: PropTypes.number.isRequired,
+    }).isRequired,
+})
+
+export const labelsThemePropType = PropTypes.shape({
+    text: PropTypes.shape({
+        fill: PropTypes.string.isRequired,
+        fontSize: PropTypes.number.isRequired,
+    }).isRequired,
+})
+
+export const dotsThemePropType = PropTypes.shape({
+    text: PropTypes.shape({
+        fill: PropTypes.string.isRequired,
+        fontSize: PropTypes.number.isRequired,
+    }).isRequired,
 })
 
 export const themePropType = PropTypes.shape({
+    background: PropTypes.string.isRequired,
     axis: axisThemePropType.isRequired,
     grid: gridThemePropType.isRequired,
+    legends: legendsThemePropType.isRequired,
+    labels: labelsThemePropType.isRequired,
+    dots: dotsThemePropType.isRequired,
 })

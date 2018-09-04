@@ -92,7 +92,7 @@ const Line = ({
     return (
         <Container isInteractive={isInteractive} theme={theme}>
             {({ showTooltip, hideTooltip }) => (
-                <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
+                <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
                     <Grid
                         theme={theme}
                         width={width}

@@ -9,6 +9,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
+import { dotsThemePropType } from '../../theming'
 import DotsItemSymbol from './DotsItemSymbol'
 
 const DotsItem = ({
@@ -32,14 +33,7 @@ const DotsItem = ({
             borderColor: borderColor,
         })}
         {label && (
-            <text
-                textAnchor={labelTextAnchor}
-                y={labelYOffset}
-                style={{
-                    fontSize: theme.dots.fontSize,
-                    fill: theme.dots.textColor,
-                }}
-            >
+            <text textAnchor={labelTextAnchor} y={labelYOffset} style={theme.dots.text}>
                 {label}
             </text>
         )}
@@ -47,11 +41,9 @@ const DotsItem = ({
 )
 
 DotsItem.propTypes = {
-    // position
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
 
-    // style
     size: PropTypes.number.isRequired,
     color: PropTypes.string.isRequired,
     borderWidth: PropTypes.number.isRequired,
@@ -59,17 +51,12 @@ DotsItem.propTypes = {
 
     symbol: PropTypes.func.isRequired,
 
-    // label
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     labelTextAnchor: PropTypes.oneOf(['start', 'middle', 'end']),
     labelYOffset: PropTypes.number.isRequired,
 
-    // theming
     theme: PropTypes.shape({
-        dots: PropTypes.shape({
-            textColor: PropTypes.string.isRequired,
-            fontSize: PropTypes.string.isRequired,
-        }).isRequired,
+        dots: dotsThemePropType.isRequired,
     }).isRequired,
 }
 

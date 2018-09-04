@@ -8,7 +8,7 @@
  */
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { midAngle, positionFromAngle } from '@nivo/core'
+import { midAngle, positionFromAngle, labelsThemePropType } from '@nivo/core'
 import { arcPropType } from './props'
 
 const sliceStyle = {
@@ -24,10 +24,7 @@ export default class PieSlicesLabels extends Component {
         innerRadius: PropTypes.number.isRequired,
         textColor: PropTypes.func.isRequired,
         theme: PropTypes.shape({
-            axis: PropTypes.shape({
-                textColor: PropTypes.string.isRequired,
-                fontSize: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-            }).isRequired,
+            labels: labelsThemePropType.isRequired,
         }).isRequired,
     }
 
@@ -55,9 +52,8 @@ export default class PieSlicesLabels extends Component {
                             <text
                                 textAnchor="middle"
                                 style={{
-                                    ...theme.labels,
+                                    ...theme.labels.text,
                                     fill: textColor(arc.data, theme),
-                                    fontSize: theme.axis.fontSize,
                                 }}
                             >
                                 {label(arc.data)}

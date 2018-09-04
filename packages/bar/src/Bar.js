@@ -247,6 +247,7 @@ const Bar = ({
                         height={outerHeight}
                         margin={margin}
                         defs={boundDefs}
+                        theme={theme}
                     >
                         <Grid
                             theme={theme}

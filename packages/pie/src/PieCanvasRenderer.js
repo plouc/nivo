@@ -142,7 +142,8 @@ class PieCanvasRenderer extends Component {
         this.surface.height = outerHeight * pixelRatio
 
         this.ctx.scale(pixelRatio, pixelRatio)
-        this.ctx.clearRect(0, 0, outerWidth, outerHeight)
+        this.ctx.fillStyle = theme.background
+        this.ctx.fillRect(0, 0, outerWidth, outerHeight)
         this.ctx.save()
         this.ctx.translate(margin.left, margin.top)
 
@@ -170,7 +171,7 @@ class PieCanvasRenderer extends Component {
                 arcGenerator,
                 skipAngle: slicesLabelsSkipAngle,
                 getLabel: getLabelGenerator(sliceLabel),
-                getTextColor: getInheritedColorGenerator(slicesLabelsTextColor, 'labels.textColor'),
+                getTextColor: getInheritedColorGenerator(slicesLabelsTextColor, 'labels.text.fill'),
                 theme,
             })
         }
@@ -197,8 +198,11 @@ class PieCanvasRenderer extends Component {
                 linkHorizontalLength: radialLabelsLinkHorizontalLength,
                 linkStrokeWidth: radialLabelsLinkStrokeWidth,
                 textXOffset: radialLabelsTextXOffset,
-                getTextColor: getInheritedColorGenerator(radialLabelsTextColor, 'labels.textColor'),
-                getLinkColor: getInheritedColorGenerator(radialLabelsLinkColor, 'axis.tickColor'),
+                getTextColor: getInheritedColorGenerator(radialLabelsTextColor, 'labels.text.fill'),
+                getLinkColor: getInheritedColorGenerator(
+                    radialLabelsLinkColor,
+                    'axis.ticks.line.stroke'
+                ),
                 theme,
             })
         }

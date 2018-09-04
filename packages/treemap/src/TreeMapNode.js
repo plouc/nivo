@@ -30,7 +30,7 @@ const TreeMapNode = ({ style, node, handlers, theme }) => {
                     textAnchor="middle"
                     alignmentBaseline="central"
                     style={{
-                        ...theme.labels,
+                        ...theme.labels.text,
                         fill: style.labelTextColor,
                         pointerEvents: 'none',
                     }}

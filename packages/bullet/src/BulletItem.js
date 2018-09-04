@@ -268,7 +268,7 @@ class BulletItem extends Component {
                 {isString(title) ? (
                     <text
                         style={{
-                            ...theme.labels,
+                            ...theme.labels.text,
                             alignmentBaseline: 'central',
                             textAnchor: titleAlign,
                         }}

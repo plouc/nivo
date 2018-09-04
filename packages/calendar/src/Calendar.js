@@ -76,7 +76,7 @@ const Calendar = ({
     return (
         <Container isInteractive={isInteractive} theme={theme}>
             {({ showTooltip, hideTooltip }) => (
-                <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
+                <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
                     {days.map(d => (
                         <CalendarDay
                             key={d.date.toString()}
@@ -120,7 +120,7 @@ const Calendar = ({
                                 className="nivo_calendar_month_legend"
                                 transform={transform}
                                 textAnchor="middle"
-                                style={theme.labels}
+                                style={theme.labels.text}
                             >
                                 {monthLegend(month.year, month.month, month.date)}
                             </text>
@@ -142,7 +142,7 @@ const Calendar = ({
                                 className="nivo_calendar_year_legend"
                                 transform={transform}
                                 textAnchor="middle"
-                                style={theme.labels}
+                                style={theme.labels.text}
                             >
                                 {yearLegend(year.year)}
                             </text>

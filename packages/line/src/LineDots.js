@@ -9,9 +9,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
-import { motionPropTypes } from '@nivo/core'
-import { getLabelGenerator } from '@nivo/core'
-import { DotsItem } from '@nivo/core'
+import { motionPropTypes, getLabelGenerator, dotsThemePropType, DotsItem } from '@nivo/core'
 
 const LineDots = ({
     lines,
@@ -129,21 +127,15 @@ LineDots.propTypes = {
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.func.isRequired,
 
-    // labels
     enableLabel: PropTypes.bool.isRequired,
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     labelFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     labelYOffset: PropTypes.number,
 
-    // theming
     theme: PropTypes.shape({
-        dots: PropTypes.shape({
-            textColor: PropTypes.string.isRequired,
-            fontSize: PropTypes.string.isRequired,
-        }).isRequired,
+        dots: dotsThemePropType.isRequired,
     }).isRequired,
 
-    // motion
     ...motionPropTypes,
 }
 

@@ -9,10 +9,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
-import { motionPropTypes, getInheritedColorGenerator } from '@nivo/core'
-import { positionFromAngle } from '@nivo/core'
-import { getLabelGenerator } from '@nivo/core'
-import { DotsItem } from '@nivo/core'
+import {
+    motionPropTypes,
+    getInheritedColorGenerator,
+    dotsThemePropType,
+    positionFromAngle,
+    getLabelGenerator,
+    DotsItem,
+} from '@nivo/core'
 
 export default class RadarDots extends Component {
     static propTypes = {
@@ -32,18 +36,13 @@ export default class RadarDots extends Component {
         borderWidth: PropTypes.number.isRequired,
         borderColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
 
-        // labels
         enableLabel: PropTypes.bool.isRequired,
         label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
         labelFormat: PropTypes.string,
         labelYOffset: PropTypes.number,
 
-        // theming
         theme: PropTypes.shape({
-            dots: PropTypes.shape({
-                textColor: PropTypes.string.isRequired,
-                fontSize: PropTypes.string.isRequired,
-            }).isRequired,
+            dots: dotsThemePropType.isRequired,
         }).isRequired,
 
         ...motionPropTypes,
@@ -54,8 +53,6 @@ export default class RadarDots extends Component {
         color: 'inherit',
         borderWidth: 0,
         borderColor: 'inherit',
-
-        // labels
         enableLabel: false,
         label: 'value',
     }
@@ -77,16 +74,13 @@ export default class RadarDots extends Component {
             borderWidth,
             borderColor,
 
-            // labels
             enableLabel,
             label,
             labelFormat,
             labelYOffset,
 
-            // theming
             theme,
 
-            // motion
             animate,
             motionStiffness,
             motionDamping,

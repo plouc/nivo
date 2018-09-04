@@ -7,19 +7,17 @@
  * file that was distributed with this source code.
  */
 
-const defaultTextColor = '#333'
-const defaultFontSize = '11px'
+const defaultTextColor = '#333333'
+const defaultFontSize = 11
 
 export const defaultTheme = {
+    background: 'transparent',
     axis: {
-        textColor: '#000',
-        fontSize: '11px',
-        tickColor: '#000',
-        legendColor: '#000',
-        legendFontSize: '11px',
         domain: {
-            stroke: 'transparent',
-            strokeWidth: 1,
+            line: {
+                stroke: 'transparent',
+                strokeWidth: 1,
+            },
         },
         ticks: {
             line: {
@@ -27,13 +25,21 @@ export const defaultTheme = {
                 strokeWidth: 1,
             },
             text: {
-                color: defaultTextColor,
+                fill: defaultTextColor,
                 fontSize: defaultFontSize,
             },
         },
         legend: {
-            fill: defaultTextColor,
-            fontSize: defaultFontSize,
+            text: {
+                fill: defaultTextColor,
+                fontSize: defaultFontSize,
+            },
+        },
+    },
+    grid: {
+        line: {
+            stroke: '#ddd',
+            strokeWidth: 1,
         },
     },
     legends: {
@@ -42,9 +48,11 @@ export const defaultTheme = {
             fontSize: defaultFontSize,
         },
     },
-    grid: {
-        stroke: '#ddd',
-        strokeWidth: 1,
+    labels: {
+        text: {
+            fill: defaultTextColor,
+            fontSize: defaultFontSize,
+        },
     },
     markers: {
         lineColor: '#000',
@@ -53,8 +61,10 @@ export const defaultTheme = {
         fontSize: defaultFontSize,
     },
     dots: {
-        textColor: defaultTextColor,
-        fontSize: defaultFontSize,
+        text: {
+            fill: defaultTextColor,
+            fontSize: defaultFontSize,
+        },
     },
     tooltip: {
         container: {
@@ -74,9 +84,5 @@ export const defaultTheme = {
         tableCell: {
             padding: '3px 5px',
         },
-    },
-    labels: {
-        textColor: defaultTextColor,
-        fontSize: defaultFontSize,
     },
 }

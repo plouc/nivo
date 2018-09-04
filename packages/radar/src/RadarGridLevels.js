@@ -50,7 +50,7 @@ const RadarGridLevels = ({
             return (
                 <g>
                     {radii.map((r, i) => (
-                        <circle key={`level.${i}`} fill="none" r={r} {...theme.grid} />
+                        <circle key={`level.${i}`} fill="none" r={r} {...theme.grid.line} />
                     ))}
                 </g>
             )
@@ -61,7 +61,7 @@ const RadarGridLevels = ({
                 {interpolatedStyles => (
                     <g>
                         {interpolatedStyles.map(({ key, style }) => (
-                            <circle key={key} fill="none" r={style.r} {...theme.grid} />
+                            <circle key={key} fill="none" r={style.r} {...theme.grid.line} />
                         ))}
                     </g>
                 )}

@@ -1,3 +1,55 @@
+export const blackTheme = {
+    background: '#222',
+    axis: {
+        ticks: {
+            line: {
+                stroke: '#777',
+            },
+            text: {
+                fill: '#bbb',
+            },
+        },
+        legend: {
+            text: {
+                fill: '#eee',
+                fontSize: 12,
+                fontWeight: 500,
+            },
+        },
+    },
+    grid: {
+        line: {
+            stroke: '#444',
+        },
+    },
+    legends: {
+        text: {
+            fontSize: 12,
+            fill: '#eee',
+        },
+    },
+    tooltip: {
+        container: {
+            fontSize: '13px',
+            background: '#000',
+            color: '#ddd',
+        },
+    },
+    labels: {
+        text: {
+            fill: '#ddd',
+            fontSize: 12,
+            fontWeight: 500,
+        },
+    },
+    dots: {
+        text: {
+            fill: '#bbb',
+            fontSize: 12,
+        },
+    },
+}
+
 export default {
     axis: {
         ticks: {
@@ -14,7 +66,7 @@ export default {
     },
     legends: {
         text: {
-            fontSize: '12px',
+            fontSize: 12,
         },
     },
     tooltip: {
@@ -23,6 +75,8 @@ export default {
         },
     },
     labels: {
-        textColor: '#555',
+        text: {
+            fill: '#555',
+        },
     },
 }

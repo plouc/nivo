@@ -20,11 +20,12 @@ export const renderAxisToCanvas = (
         position,
         scale,
 
-        // ticks
         tickSize = 5,
         tickPadding = 5,
         tickRotation = 0,
         format,
+
+        theme,
     }
 ) => {
     const { x, y, ticks, textAlign, textBaseline } = computeAxisTicks({
@@ -42,8 +43,11 @@ export const renderAxisToCanvas = (
     ctx.translate(x, y)
     ctx.textAlign = textAlign
     ctx.textBaseline = textBaseline
+    ctx.font = `${theme.axis.ticks.text.fontSize}px sans-serif`
 
     ticks.forEach(tick => {
+        ctx.lineWidth = theme.axis.ticks.line.strokeWidth
+        ctx.strokeStyle = theme.axis.ticks.line.stroke
         ctx.beginPath()
         ctx.moveTo(tick.x, tick.y)
         ctx.lineTo(tick.x + tick.lineX, tick.y + tick.lineY)
@@ -54,6 +58,7 @@ export const renderAxisToCanvas = (
         ctx.save()
         ctx.translate(tick.x + tick.textX, tick.y + tick.textY)
         ctx.rotate(degreesToRadians(tickRotation))
+        ctx.fillStyle = theme.axis.ticks.text.fill
         ctx.fillText(value, 0, 0)
         ctx.restore()
     })
@@ -69,11 +74,12 @@ export const renderAxesToCanvas = (
         width,
         height,
 
-        // axes
         top,
         right,
         bottom,
         left,
+
+        theme,
     }
 ) => {
     const axes = { top, right, bottom, left }
@@ -90,6 +96,7 @@ export const renderAxesToCanvas = (
             height,
             position,
             scale,
+            theme,
         })
     })
 }

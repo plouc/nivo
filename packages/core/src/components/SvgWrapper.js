@@ -9,10 +9,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Defs } from './defs'
+import { themePropType } from '../theming'
 
-const SvgWrapper = ({ width, height, margin, defs, children }) => (
+const SvgWrapper = ({ width, height, margin, defs, children, theme }) => (
     <svg xmlns="http://www.w3.org/2000/svg" role="img" width={width} height={height}>
         <Defs defs={defs} />
+        <rect width={width} height={height} fill={theme.background} />
         <g transform={`translate(${margin.left},${margin.top})`}>{children}</g>
     </svg>
 )
@@ -26,6 +28,7 @@ SvgWrapper.propTypes = {
     }).isRequired,
     defs: PropTypes.array,
     children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
+    theme: themePropType.isRequired,
 }
 
 export default SvgWrapper

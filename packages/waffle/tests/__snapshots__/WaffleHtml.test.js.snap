@@ -14,6 +14,11 @@ exports[`should render a basic waffle chart in HTML 1`] = `
     width={400}
     xmlns="http://www.w3.org/2000/svg"
   >
+    <rect
+      fill="transparent"
+      height={400}
+      width={400}
+    />
     <g
       transform="translate(0,0)"
     >
@@ -1440,6 +1445,11 @@ exports[`should support bottom fill mode 1`] = `
     width={400}
     xmlns="http://www.w3.org/2000/svg"
   >
+    <rect
+      fill="transparent"
+      height={400}
+      width={400}
+    />
     <g
       transform="translate(0,0)"
     >
@@ -2866,6 +2876,11 @@ exports[`should support left fill mode 1`] = `
     width={400}
     xmlns="http://www.w3.org/2000/svg"
   >
+    <rect
+      fill="transparent"
+      height={400}
+      width={400}
+    />
     <g
       transform="translate(0,0)"
     >
@@ -4292,6 +4307,11 @@ exports[`should support right fill mode 1`] = `
     width={400}
     xmlns="http://www.w3.org/2000/svg"
   >
+    <rect
+      fill="transparent"
+      height={400}
+      width={400}
+    />
     <g
       transform="translate(0,0)"
     >
@@ -5718,6 +5738,11 @@ exports[`should support top fill mode 1`] = `
     width={400}
     xmlns="http://www.w3.org/2000/svg"
   >
+    <rect
+      fill="transparent"
+      height={400}
+      width={400}
+    />
     <g
       transform="translate(0,0)"
     >

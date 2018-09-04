@@ -120,6 +120,7 @@ class Pie extends Component {
                                     height={outerHeight}
                                     margin={margin}
                                     defs={boundDefs}
+                                    theme={theme}
                                 >
                                     <g transform={`translate(${centerX},${centerY})`}>
                                         {arcs.map(arc => (
@@ -154,11 +155,11 @@ class Pie extends Component {
                                                 textXOffset={radialLabelsTextXOffset}
                                                 textColor={getInheritedColorGenerator(
                                                     radialLabelsTextColor,
-                                                    'labels.textColor'
+                                                    'labels.text.fill'
                                                 )}
                                                 linkColor={getInheritedColorGenerator(
                                                     radialLabelsLinkColor,
-                                                    'axis.tickColor'
+                                                    'axis.ticks.line.stroke'
                                                 )}
                                                 theme={theme}
                                             />
@@ -173,7 +174,7 @@ class Pie extends Component {
                                                 skipAngle={slicesLabelsSkipAngle}
                                                 textColor={getInheritedColorGenerator(
                                                     slicesLabelsTextColor,
-                                                    'labels.textColor'
+                                                    'labels.text.fill'
                                                 )}
                                             />
                                         )}
