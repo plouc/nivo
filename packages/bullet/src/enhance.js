@@ -9,11 +9,10 @@
 import compose from 'recompose/compose'
 import defaultProps from 'recompose/defaultProps'
 import pure from 'recompose/pure'
-import { withDimensions, withTheme, withMotion, withColors } from '@nivo/core'
-import { getInheritedColorGenerator } from '@nivo/core'
+import { withDimensions, withTheme, withMotion } from '@nivo/core'
 import * as props from './props'
 
-const commonEnhancers = [withDimensions(), withColors({ defaultColorBy: 'id' }), withTheme()]
+const commonEnhancers = [withDimensions(), withTheme()]
 
 export default Component => {
     const implDefaultProps = props[`${Component.displayName}DefaultProps`]

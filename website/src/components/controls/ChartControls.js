@@ -25,6 +25,7 @@ import ColorControl from './ColorControl'
 import ColorPickerControl from './ColorPickerControl'
 import TextControl from './TextControl'
 import Select from 'react-select'
+import RadioControl from './RadioControl'
 import { getPropertiesGroupControls } from '../../lib/componentProperties'
 
 export default class ChartControls extends Component {
@@ -57,6 +58,11 @@ export default class ChartControls extends Component {
     }
 
     handleTextUpdate = key => e => {
+        const { onChange, settings } = this.props
+        onChange(merge({}, settings, set({}, key, e.target.value)))
+    }
+
+    handleRadioUpdate = key => e => {
         const { onChange, settings } = this.props
         onChange(merge({}, settings, set({}, key, e.target.value)))
     }
@@ -129,6 +135,19 @@ export default class ChartControls extends Component {
                     </div>
                 )
 
+            case 'radio':
+                return (
+                    <RadioControl
+                        key={config.name}
+                        id={id}
+                        label={config.name}
+                        choices={config.choices}
+                        value={get(settings, config.name)}
+                        onChange={this.handleRadioUpdate(config.name)}
+                        help={config.help}
+                    />
+                )
+
             case 'range':
                 return (
                     <SliderControl
@@ -189,8 +208,11 @@ export default class ChartControls extends Component {
                 return (
                     <div className="chart-controls_item" key={config.name}>
                         <ColorsControl
+                            label={config.name}
                             value={get(settings, config.name)}
+                            includeSequential={!!config.includeSequential}
                             onChange={this.handleDirectUpdate(config.name)}
+                            help={config.help}
                         />
                     </div>
                 )

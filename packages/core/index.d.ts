@@ -3,7 +3,7 @@ declare module '@nivo/core' {
     export type Colors =
         | string[]
         | 'nivo'
-        | 'd310'
+        | 'category10'
         | 'd320'
         | 'd320b'
         | 'd320c'

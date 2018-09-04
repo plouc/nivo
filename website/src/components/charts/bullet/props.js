@@ -21,7 +21,9 @@ export default [
                 <pre className="code code-block">
                     {dedent`
                         Array<{
-                            id:   {string|number}
+                            id:        {string|number}
+                            title?:    {ReactNode}
+                            subtitle?: {ReactNode}
                             data: Array<{
                                 ranges:   number[]
                                 measures: number[]
@@ -30,6 +32,8 @@ export default [
                         }>
                     `}
                 </pre>
+                If <code>title</code> is <code>undefined</code>, <code>id</code> will be used for{' '}
+                <code>title</code>.
             </div>
         ),
         type: '{Array.<object>}',
@@ -84,7 +88,7 @@ export default [
         type: '{string}',
         required: false,
         default: defaults.layout,
-        controlType: 'choices',
+        controlType: 'radio',
         controlGroup: 'Base',
         controlOptions: {
             choices: [
@@ -150,17 +154,214 @@ export default [
         },
     },
     {
+        key: 'rangeComponent',
+        scopes: ['Bullet'],
+        description: 'Custom component for ranges.',
+        type: '{Function}',
+        required: false,
+    },
+    {
+        key: 'rangeColors',
+        scopes: '*',
+        description: (
+            <div>
+                Defines colors for ranges, you can either use categorical colors:{' '}
+                <code>greens</code> or sequential form: <code>seq:green</code>.
+            </div>
+        ),
+        type: '{string|Function|Array}',
+        required: false,
+        default: defaults.rangeColors,
+        controlType: 'colors',
+        controlGroup: 'Style',
+        controlOptions: {
+            includeSequential: true,
+        },
+    },
+    {
+        key: 'measureComponent',
+        scopes: ['Bullet'],
+        description: 'Custom component for measures.',
+        type: '{Function}',
+        required: false,
+    },
+    {
+        key: 'measureColors',
+        scopes: '*',
+        description: (
+            <div>
+                Defines colors for measures, you can either use categorical colors:{' '}
+                <code>greens</code> or sequential form: <code>seq:green</code>.
+            </div>
+        ),
+        type: '{string|Function|Array}',
+        required: false,
+        default: defaults.measureColors,
+        controlType: 'colors',
+        controlGroup: 'Style',
+        controlOptions: {
+            includeSequential: true,
+        },
+    },
+    {
+        key: 'markerComponent',
+        scopes: ['Bullet'],
+        description: 'Custom component for markers.',
+        type: '{Function}',
+        required: false,
+    },
+    {
+        key: 'markerColors',
+        scopes: '*',
+        description: (
+            <div>
+                Defines colors for markers, you can either use categorical colors:{' '}
+                <code>greens</code> or sequential form: <code>seq:green</code>.
+            </div>
+        ),
+        type: '{string|Function|Array}',
+        required: false,
+        default: defaults.markerColors,
+        controlType: 'colors',
+        controlGroup: 'Style',
+        controlOptions: {
+            includeSequential: true,
+        },
+    },
+    {
         key: 'axisPosition',
         scopes: '*',
         description: `Where to put axis, must be one of: 'before', 'after'.`,
-        type: '{string}',
+        type: `{'before'|'after'}`,
         required: false,
         default: defaults.axisPosition,
-        controlType: 'choices',
+        controlType: 'radio',
         controlGroup: 'Axes',
         controlOptions: {
             choices: [{ label: 'before', value: 'before' }, { label: 'after', value: 'after' }],
         },
+    },
+    {
+        key: 'titlePosition',
+        scopes: '*',
+        description: `Where to put title, must be one of: 'before', 'after'.`,
+        type: `{'before'|'after'}`,
+        required: false,
+        default: defaults.titlePosition,
+        controlType: 'radio',
+        controlGroup: 'Title',
+        controlOptions: {
+            choices: [{ label: 'before', value: 'before' }, { label: 'after', value: 'after' }],
+        },
+    },
+    {
+        key: 'titleAlign',
+        scopes: '*',
+        description: `title alignment, must be one of: 'start', 'middle', 'end'.`,
+        type: `{'start'|'middle'|'end'}`,
+        required: false,
+        default: defaults.titleAlign,
+        controlType: 'choices',
+        controlGroup: 'Title',
+        controlOptions: {
+            choices: [
+                { label: 'start', value: 'start' },
+                { label: 'middle', value: 'middle' },
+                { label: 'end', value: 'end' },
+            ],
+        },
+    },
+    {
+        key: 'titleOffsetX',
+        scopes: '*',
+        description: 'title x offset (px) from bullet edge.',
+        type: '{number}',
+        required: false,
+        default: defaults.titleOffset,
+        controlType: 'range',
+        controlGroup: 'Title',
+        controlOptions: {
+            min: -100,
+            max: 100,
+            unit: 'px',
+        },
+    },
+    {
+        key: 'titleOffsetY',
+        scopes: '*',
+        description: 'title y offset (px) from bullet edge.',
+        type: '{number}',
+        required: false,
+        default: defaults.titleOffset,
+        controlType: 'range',
+        controlGroup: 'Title',
+        controlOptions: {
+            min: -100,
+            max: 100,
+            unit: 'px',
+        },
+    },
+    {
+        key: 'titleRotation',
+        scopes: '*',
+        description: 'title rotation (deg.).',
+        type: '{number}',
+        required: false,
+        default: defaults.titleRotation,
+        controlType: 'range',
+        controlGroup: 'Title',
+        controlOptions: {
+            min: -360,
+            max: 360,
+            step: 5,
+            unit: '°',
+        },
+    },
+    {
+        key: 'onRangeClick',
+        scopes: ['Bullet'],
+        type: '{Function}',
+        required: false,
+        description: (
+            <div>
+                onClick handler for ranges, will receive range data as first argument & event as
+                second one. The data has the following shape:
+                <pre className="code code-block">
+                    {dedent`{
+                        id:    {string},
+                        v0:    {number},
+                        v1:    {number},
+                        index: {number},
+                        color: {string},
+                    }`}
+                </pre>
+                <code>v1</code> is the value of the range while <code>v0</code> is the value of
+                previous range.
+            </div>
+        ),
+    },
+    {
+        key: 'onMeasureClick',
+        scopes: ['Bullet'],
+        type: '{Function}',
+        required: false,
+        description: (
+            <div>
+                onClick handler for measures, will receive measure data as first argument & event as
+                second one. The data has the following shape:
+                <pre className="code code-block">
+                    {dedent`{
+                        id:    {string},
+                        v0:    {number},
+                        v1:    {number},
+                        index: {number},
+                        color: {string},
+                    }`}
+                </pre>
+                <code>v1</code> is the value of the measure while <code>v0</code> is the value of
+                previous measure.
+            </div>
+        ),
     },
     ...motionProperties(['Bullet'], defaults),
 ]

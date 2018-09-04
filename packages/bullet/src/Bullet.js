@@ -21,16 +21,33 @@ export class Bullet extends Component {
         const {
             data,
 
+            layout,
             spacing,
             measureSize,
             markerSize,
             reverse,
+            axisPosition,
 
             margin,
             width,
             height,
             outerWidth,
             outerHeight,
+
+            titlePosition,
+            titleAlign,
+            titleOffsetX,
+            titleOffsetY,
+            titleRotation,
+
+            rangeComponent,
+            rangeColors,
+
+            measureComponent,
+            measureColors,
+
+            markerComponent,
+            markerColors,
 
             theme,
 
@@ -39,9 +56,17 @@ export class Bullet extends Component {
             motionDamping,
 
             isInteractive,
+            onRangeClick,
+            onMeasureClick,
+            onMarkerClick,
         } = this.props
 
-        const itemHeight = (height - spacing * (data.length - 1)) / data.length
+        let itemHeight
+        if (layout === 'horizontal') {
+            itemHeight = (height - spacing * (data.length - 1)) / data.length
+        } else {
+            itemHeight = (width - spacing * (data.length - 1)) / data.length
+        }
         const measureHeight = itemHeight * measureSize
         const markerHeight = itemHeight * markerSize
 
@@ -50,9 +75,13 @@ export class Bullet extends Component {
 
             const max = Math.max(...all)
 
-            const scale = scaleLinear()
-                .domain([0, max])
-                .range(reverse === true ? [width, 0] : [0, width])
+            const scale = scaleLinear().domain([0, max])
+
+            if (layout === 'horizontal') {
+                scale.range(reverse === true ? [width, 0] : [0, width])
+            } else {
+                scale.range(reverse === true ? [0, height] : [height, 0])
+            }
 
             return {
                 ...d,
@@ -74,16 +103,33 @@ export class Bullet extends Component {
                             <BulletItem
                                 key={d.id}
                                 {...d}
-                                x={0}
-                                y={itemHeight * i + spacing * i}
+                                layout={layout}
+                                reverse={reverse}
+                                x={layout === 'vertical' ? itemHeight * i + spacing * i : 0}
+                                y={layout === 'horizontal' ? itemHeight * i + spacing * i : 0}
                                 width={width}
                                 height={itemHeight}
+                                titlePosition={titlePosition}
+                                titleAlign={titleAlign}
+                                titleOffsetX={titleOffsetX}
+                                titleOffsetY={titleOffsetY}
+                                titleRotation={titleRotation}
                                 measureHeight={measureHeight}
                                 markerHeight={markerHeight}
+                                rangeComponent={rangeComponent}
+                                rangeColors={rangeColors}
+                                measureComponent={measureComponent}
+                                measureColors={measureColors}
+                                markerComponent={markerComponent}
+                                markerColors={markerColors}
                                 theme={theme}
+                                axisPosition={axisPosition}
                                 {...motionProps}
                                 showTooltip={showTooltip}
                                 hideTooltip={hideTooltip}
+                                onRangeClick={onRangeClick}
+                                onMeasureClick={onMeasureClick}
+                                onMarkerClick={onMarkerClick}
                             />
                         ))}
                     </SvgWrapper>

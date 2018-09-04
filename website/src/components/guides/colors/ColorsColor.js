@@ -12,13 +12,13 @@ const ColorsColor = () => (
             <tbody>
                 <tr>
                     <td>
-                        <code className="code-string">'inherit'</code>
+                        <code className="code-string">inherit</code>
                     </td>
                     <td>will use color from parent context/component</td>
                 </tr>
                 <tr>
                     <td>
-                        <code className="code-string">'inherit:darker(.5)'</code>
+                        <code className="code-string">inherit:darker(.5)</code>
                     </td>
                     <td>
                         will use parent context/component color, and apply{' '}
@@ -34,7 +34,7 @@ const ColorsColor = () => (
                 </tr>
                 <tr>
                     <td>
-                        <code className="code-string">'inherit:brighter(1)'</code>
+                        <code className="code-string">inherit:brighter(1)</code>
                     </td>
                     <td>
                         will use parent context/component color, and apply{' '}

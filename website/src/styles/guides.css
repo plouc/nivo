@@ -13,9 +13,6 @@
     margin: 0 auto 50px;
 }
 
-/*
- * Illustrations
- */
 .guide__illustrations {
     display: flex;
     flex-wrap: wrap;
@@ -38,9 +35,6 @@
     color: #777;
 }
 
-/*
- * Code example
- */
 .guide__code {
     background: white;
     padding: 15px 25px;
@@ -55,9 +49,6 @@
     color: #999;
 }
 
-/*
- * Samples
- */
 .fill-sample {
     display: flex;
     align-items: flex-start;
@@ -75,12 +66,23 @@
     line-height: 22px;
 }
 
-/*
- * Table
- */
 .guide__table {
     background: white;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     margin: 15px auto 50px;
     max-width: 800px;
+    padding: 10px;
+}
+
+.guide__table th {
+    padding: 5px 9px;
+    text-align: left;
+    font-weight: 500;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.guide__table td {
+    padding: 5px 9px;
 }

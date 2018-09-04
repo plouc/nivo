@@ -9,6 +9,7 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { mount } from 'enzyme'
+import { defaultTheme } from '@nivo/core'
 import LegendSvgItem from '../../src/svg/LegendSvgItem'
 import * as shapes from '../../src/svg/symbols'
 import {
@@ -23,6 +24,7 @@ const commonProps = {
     y: 0,
     width: 200,
     height: 36,
+    theme: defaultTheme,
     data: {
         id: 'testing',
         label: 'testing',

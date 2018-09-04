@@ -22,7 +22,6 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={0}
@@ -32,7 +31,6 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={62.5}
             x2={62.5}
@@ -42,7 +40,6 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={125}
             x2={125}
@@ -52,7 +49,6 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={187.5}
             x2={187.5}
@@ -62,7 +58,6 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={250}
             x2={250}
@@ -72,7 +67,6 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={312.5}
             x2={312.5}
@@ -82,7 +76,6 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={375}
             x2={375}
@@ -92,7 +85,6 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={437.5}
             x2={437.5}
@@ -102,7 +94,6 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={500}
             x2={500}
@@ -114,7 +105,6 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -124,7 +114,6 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -134,7 +123,6 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -144,7 +132,6 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -154,7 +141,6 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -164,7 +150,6 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -174,7 +159,6 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -184,7 +168,6 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -194,7 +177,6 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -204,7 +186,6 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -214,7 +195,6 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -224,7 +204,6 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -234,7 +213,6 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -244,7 +222,6 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -254,7 +231,6 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -264,7 +240,6 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -287,7 +262,12 @@ exports[`should allow to customize symbol size 1`] = `
               transform="translate(0,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={0}
                 y1={0}
@@ -297,7 +277,7 @@ exports[`should allow to customize symbol size 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -316,7 +296,12 @@ exports[`should allow to customize symbol size 1`] = `
               transform="translate(62.5,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={0}
                 y1={0}
@@ -326,7 +311,7 @@ exports[`should allow to customize symbol size 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -345,7 +330,12 @@ exports[`should allow to customize symbol size 1`] = `
               transform="translate(125,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={0}
                 y1={0}
@@ -355,7 +345,7 @@ exports[`should allow to customize symbol size 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -374,7 +364,12 @@ exports[`should allow to customize symbol size 1`] = `
               transform="translate(187.5,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={0}
                 y1={0}
@@ -384,7 +379,7 @@ exports[`should allow to customize symbol size 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -403,7 +398,12 @@ exports[`should allow to customize symbol size 1`] = `
               transform="translate(250,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={0}
                 y1={0}
@@ -413,7 +413,7 @@ exports[`should allow to customize symbol size 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -432,7 +432,12 @@ exports[`should allow to customize symbol size 1`] = `
               transform="translate(312.5,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={0}
                 y1={0}
@@ -442,7 +447,7 @@ exports[`should allow to customize symbol size 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -461,7 +466,12 @@ exports[`should allow to customize symbol size 1`] = `
               transform="translate(375,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={0}
                 y1={0}
@@ -471,7 +481,7 @@ exports[`should allow to customize symbol size 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -490,7 +500,12 @@ exports[`should allow to customize symbol size 1`] = `
               transform="translate(437.5,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={0}
                 y1={0}
@@ -500,7 +515,7 @@ exports[`should allow to customize symbol size 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -519,7 +534,12 @@ exports[`should allow to customize symbol size 1`] = `
               transform="translate(500,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={0}
                 y1={0}
@@ -529,7 +549,7 @@ exports[`should allow to customize symbol size 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -540,6 +560,18 @@ exports[`should allow to customize symbol size 1`] = `
               </text>
             </g>
           </g>
+          <line
+            style={
+              Object {
+                "stroke": "transparent",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={500}
+            y1={0}
+            y2={0}
+          />
         </g>
         <g
           transform="translate(0,0)"
@@ -554,7 +586,12 @@ exports[`should allow to customize symbol size 1`] = `
               transform="translate(0,300)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -564,7 +601,7 @@ exports[`should allow to customize symbol size 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -583,7 +620,12 @@ exports[`should allow to customize symbol size 1`] = `
               transform="translate(0,280)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -593,7 +635,7 @@ exports[`should allow to customize symbol size 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -612,7 +654,12 @@ exports[`should allow to customize symbol size 1`] = `
               transform="translate(0,260)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -622,7 +669,7 @@ exports[`should allow to customize symbol size 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -641,7 +688,12 @@ exports[`should allow to customize symbol size 1`] = `
               transform="translate(0,240)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -651,7 +703,7 @@ exports[`should allow to customize symbol size 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -670,7 +722,12 @@ exports[`should allow to customize symbol size 1`] = `
               transform="translate(0,220)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -680,7 +737,7 @@ exports[`should allow to customize symbol size 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -699,7 +756,12 @@ exports[`should allow to customize symbol size 1`] = `
               transform="translate(0,200)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -709,7 +771,7 @@ exports[`should allow to customize symbol size 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -728,7 +790,12 @@ exports[`should allow to customize symbol size 1`] = `
               transform="translate(0,180)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -738,7 +805,7 @@ exports[`should allow to customize symbol size 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -757,7 +824,12 @@ exports[`should allow to customize symbol size 1`] = `
               transform="translate(0,160)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -767,7 +839,7 @@ exports[`should allow to customize symbol size 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -786,7 +858,12 @@ exports[`should allow to customize symbol size 1`] = `
               transform="translate(0,140)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -796,7 +873,7 @@ exports[`should allow to customize symbol size 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -815,7 +892,12 @@ exports[`should allow to customize symbol size 1`] = `
               transform="translate(0,120)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -825,7 +907,7 @@ exports[`should allow to customize symbol size 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -844,7 +926,12 @@ exports[`should allow to customize symbol size 1`] = `
               transform="translate(0,100)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -854,7 +941,7 @@ exports[`should allow to customize symbol size 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -873,7 +960,12 @@ exports[`should allow to customize symbol size 1`] = `
               transform="translate(0,80.00000000000003)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -883,7 +975,7 @@ exports[`should allow to customize symbol size 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -902,7 +994,12 @@ exports[`should allow to customize symbol size 1`] = `
               transform="translate(0,60)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -912,7 +1009,7 @@ exports[`should allow to customize symbol size 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -931,7 +1028,12 @@ exports[`should allow to customize symbol size 1`] = `
               transform="translate(0,40)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -941,7 +1043,7 @@ exports[`should allow to customize symbol size 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -960,7 +1062,12 @@ exports[`should allow to customize symbol size 1`] = `
               transform="translate(0,20)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -970,7 +1077,7 @@ exports[`should allow to customize symbol size 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -989,7 +1096,12 @@ exports[`should allow to customize symbol size 1`] = `
               transform="translate(0,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -999,7 +1111,7 @@ exports[`should allow to customize symbol size 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -1010,6 +1122,18 @@ exports[`should allow to customize symbol size 1`] = `
               </text>
             </g>
           </g>
+          <line
+            style={
+              Object {
+                "stroke": "transparent",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={300}
+          />
         </g>
       </g>
       <g>
@@ -1091,7 +1215,6 @@ exports[`should allow to render several series 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={0}
@@ -1101,7 +1224,6 @@ exports[`should allow to render several series 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={62.5}
             x2={62.5}
@@ -1111,7 +1233,6 @@ exports[`should allow to render several series 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={125}
             x2={125}
@@ -1121,7 +1242,6 @@ exports[`should allow to render several series 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={187.5}
             x2={187.5}
@@ -1131,7 +1251,6 @@ exports[`should allow to render several series 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={250}
             x2={250}
@@ -1141,7 +1260,6 @@ exports[`should allow to render several series 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={312.5}
             x2={312.5}
@@ -1151,7 +1269,6 @@ exports[`should allow to render several series 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={375}
             x2={375}
@@ -1161,7 +1278,6 @@ exports[`should allow to render several series 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={437.5}
             x2={437.5}
@@ -1171,7 +1287,6 @@ exports[`should allow to render several series 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={500}
             x2={500}
@@ -1183,7 +1298,6 @@ exports[`should allow to render several series 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1193,7 +1307,6 @@ exports[`should allow to render several series 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1203,7 +1316,6 @@ exports[`should allow to render several series 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1213,7 +1325,6 @@ exports[`should allow to render several series 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1223,7 +1334,6 @@ exports[`should allow to render several series 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1233,7 +1343,6 @@ exports[`should allow to render several series 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1243,7 +1352,6 @@ exports[`should allow to render several series 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1253,7 +1361,6 @@ exports[`should allow to render several series 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1263,7 +1370,6 @@ exports[`should allow to render several series 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1273,7 +1379,6 @@ exports[`should allow to render several series 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1283,7 +1388,6 @@ exports[`should allow to render several series 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1293,7 +1397,6 @@ exports[`should allow to render several series 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1303,7 +1406,6 @@ exports[`should allow to render several series 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1313,7 +1415,6 @@ exports[`should allow to render several series 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1323,7 +1424,6 @@ exports[`should allow to render several series 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1333,7 +1433,6 @@ exports[`should allow to render several series 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1356,7 +1455,12 @@ exports[`should allow to render several series 1`] = `
               transform="translate(0,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={0}
                 y1={0}
@@ -1366,7 +1470,7 @@ exports[`should allow to render several series 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -1385,7 +1489,12 @@ exports[`should allow to render several series 1`] = `
               transform="translate(62.5,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={0}
                 y1={0}
@@ -1395,7 +1504,7 @@ exports[`should allow to render several series 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -1414,7 +1523,12 @@ exports[`should allow to render several series 1`] = `
               transform="translate(125,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={0}
                 y1={0}
@@ -1424,7 +1538,7 @@ exports[`should allow to render several series 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -1443,7 +1557,12 @@ exports[`should allow to render several series 1`] = `
               transform="translate(187.5,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={0}
                 y1={0}
@@ -1453,7 +1572,7 @@ exports[`should allow to render several series 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -1472,7 +1591,12 @@ exports[`should allow to render several series 1`] = `
               transform="translate(250,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={0}
                 y1={0}
@@ -1482,7 +1606,7 @@ exports[`should allow to render several series 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -1501,7 +1625,12 @@ exports[`should allow to render several series 1`] = `
               transform="translate(312.5,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={0}
                 y1={0}
@@ -1511,7 +1640,7 @@ exports[`should allow to render several series 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -1530,7 +1659,12 @@ exports[`should allow to render several series 1`] = `
               transform="translate(375,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={0}
                 y1={0}
@@ -1540,7 +1674,7 @@ exports[`should allow to render several series 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -1559,7 +1693,12 @@ exports[`should allow to render several series 1`] = `
               transform="translate(437.5,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={0}
                 y1={0}
@@ -1569,7 +1708,7 @@ exports[`should allow to render several series 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -1588,7 +1727,12 @@ exports[`should allow to render several series 1`] = `
               transform="translate(500,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={0}
                 y1={0}
@@ -1598,7 +1742,7 @@ exports[`should allow to render several series 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -1609,6 +1753,18 @@ exports[`should allow to render several series 1`] = `
               </text>
             </g>
           </g>
+          <line
+            style={
+              Object {
+                "stroke": "transparent",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={500}
+            y1={0}
+            y2={0}
+          />
         </g>
         <g
           transform="translate(0,0)"
@@ -1623,7 +1779,12 @@ exports[`should allow to render several series 1`] = `
               transform="translate(0,300)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -1633,7 +1794,7 @@ exports[`should allow to render several series 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -1652,7 +1813,12 @@ exports[`should allow to render several series 1`] = `
               transform="translate(0,280)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -1662,7 +1828,7 @@ exports[`should allow to render several series 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -1681,7 +1847,12 @@ exports[`should allow to render several series 1`] = `
               transform="translate(0,260)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -1691,7 +1862,7 @@ exports[`should allow to render several series 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -1710,7 +1881,12 @@ exports[`should allow to render several series 1`] = `
               transform="translate(0,240)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -1720,7 +1896,7 @@ exports[`should allow to render several series 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -1739,7 +1915,12 @@ exports[`should allow to render several series 1`] = `
               transform="translate(0,220)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -1749,7 +1930,7 @@ exports[`should allow to render several series 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -1768,7 +1949,12 @@ exports[`should allow to render several series 1`] = `
               transform="translate(0,200)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -1778,7 +1964,7 @@ exports[`should allow to render several series 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -1797,7 +1983,12 @@ exports[`should allow to render several series 1`] = `
               transform="translate(0,180)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -1807,7 +1998,7 @@ exports[`should allow to render several series 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -1826,7 +2017,12 @@ exports[`should allow to render several series 1`] = `
               transform="translate(0,160)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -1836,7 +2032,7 @@ exports[`should allow to render several series 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -1855,7 +2051,12 @@ exports[`should allow to render several series 1`] = `
               transform="translate(0,140)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -1865,7 +2066,7 @@ exports[`should allow to render several series 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -1884,7 +2085,12 @@ exports[`should allow to render several series 1`] = `
               transform="translate(0,120)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -1894,7 +2100,7 @@ exports[`should allow to render several series 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -1913,7 +2119,12 @@ exports[`should allow to render several series 1`] = `
               transform="translate(0,100)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -1923,7 +2134,7 @@ exports[`should allow to render several series 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -1942,7 +2153,12 @@ exports[`should allow to render several series 1`] = `
               transform="translate(0,80.00000000000003)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -1952,7 +2168,7 @@ exports[`should allow to render several series 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -1971,7 +2187,12 @@ exports[`should allow to render several series 1`] = `
               transform="translate(0,60)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -1981,7 +2202,7 @@ exports[`should allow to render several series 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -2000,7 +2221,12 @@ exports[`should allow to render several series 1`] = `
               transform="translate(0,40)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -2010,7 +2236,7 @@ exports[`should allow to render several series 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -2029,7 +2255,12 @@ exports[`should allow to render several series 1`] = `
               transform="translate(0,20)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -2039,7 +2270,7 @@ exports[`should allow to render several series 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -2058,7 +2289,12 @@ exports[`should allow to render several series 1`] = `
               transform="translate(0,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -2068,7 +2304,7 @@ exports[`should allow to render several series 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -2079,6 +2315,18 @@ exports[`should allow to render several series 1`] = `
               </text>
             </g>
           </g>
+          <line
+            style={
+              Object {
+                "stroke": "transparent",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={300}
+          />
         </g>
       </g>
       <g>
@@ -2210,7 +2458,6 @@ exports[`should render a basic bar chart 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={0}
@@ -2220,7 +2467,6 @@ exports[`should render a basic bar chart 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={62.5}
             x2={62.5}
@@ -2230,7 +2476,6 @@ exports[`should render a basic bar chart 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={125}
             x2={125}
@@ -2240,7 +2485,6 @@ exports[`should render a basic bar chart 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={187.5}
             x2={187.5}
@@ -2250,7 +2494,6 @@ exports[`should render a basic bar chart 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={250}
             x2={250}
@@ -2260,7 +2503,6 @@ exports[`should render a basic bar chart 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={312.5}
             x2={312.5}
@@ -2270,7 +2512,6 @@ exports[`should render a basic bar chart 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={375}
             x2={375}
@@ -2280,7 +2521,6 @@ exports[`should render a basic bar chart 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={437.5}
             x2={437.5}
@@ -2290,7 +2530,6 @@ exports[`should render a basic bar chart 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={500}
             x2={500}
@@ -2302,7 +2541,6 @@ exports[`should render a basic bar chart 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2312,7 +2550,6 @@ exports[`should render a basic bar chart 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2322,7 +2559,6 @@ exports[`should render a basic bar chart 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2332,7 +2568,6 @@ exports[`should render a basic bar chart 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2342,7 +2577,6 @@ exports[`should render a basic bar chart 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2352,7 +2586,6 @@ exports[`should render a basic bar chart 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2362,7 +2595,6 @@ exports[`should render a basic bar chart 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2372,7 +2604,6 @@ exports[`should render a basic bar chart 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2382,7 +2613,6 @@ exports[`should render a basic bar chart 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2392,7 +2622,6 @@ exports[`should render a basic bar chart 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2402,7 +2631,6 @@ exports[`should render a basic bar chart 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2412,7 +2640,6 @@ exports[`should render a basic bar chart 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2422,7 +2649,6 @@ exports[`should render a basic bar chart 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2432,7 +2658,6 @@ exports[`should render a basic bar chart 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2442,7 +2667,6 @@ exports[`should render a basic bar chart 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2452,7 +2676,6 @@ exports[`should render a basic bar chart 1`] = `
           <line
             opacity={1}
             stroke="#ddd"
-            strokeDasharray=""
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2475,7 +2698,12 @@ exports[`should render a basic bar chart 1`] = `
               transform="translate(0,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={0}
                 y1={0}
@@ -2485,7 +2713,7 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -2504,7 +2732,12 @@ exports[`should render a basic bar chart 1`] = `
               transform="translate(62.5,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={0}
                 y1={0}
@@ -2514,7 +2747,7 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -2533,7 +2766,12 @@ exports[`should render a basic bar chart 1`] = `
               transform="translate(125,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={0}
                 y1={0}
@@ -2543,7 +2781,7 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -2562,7 +2800,12 @@ exports[`should render a basic bar chart 1`] = `
               transform="translate(187.5,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={0}
                 y1={0}
@@ -2572,7 +2815,7 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -2591,7 +2834,12 @@ exports[`should render a basic bar chart 1`] = `
               transform="translate(250,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={0}
                 y1={0}
@@ -2601,7 +2849,7 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -2620,7 +2868,12 @@ exports[`should render a basic bar chart 1`] = `
               transform="translate(312.5,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={0}
                 y1={0}
@@ -2630,7 +2883,7 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -2649,7 +2902,12 @@ exports[`should render a basic bar chart 1`] = `
               transform="translate(375,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={0}
                 y1={0}
@@ -2659,7 +2917,7 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -2678,7 +2936,12 @@ exports[`should render a basic bar chart 1`] = `
               transform="translate(437.5,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={0}
                 y1={0}
@@ -2688,7 +2951,7 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -2707,7 +2970,12 @@ exports[`should render a basic bar chart 1`] = `
               transform="translate(500,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={0}
                 y1={0}
@@ -2717,7 +2985,7 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -2728,6 +2996,18 @@ exports[`should render a basic bar chart 1`] = `
               </text>
             </g>
           </g>
+          <line
+            style={
+              Object {
+                "stroke": "transparent",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={500}
+            y1={0}
+            y2={0}
+          />
         </g>
         <g
           transform="translate(0,0)"
@@ -2742,7 +3022,12 @@ exports[`should render a basic bar chart 1`] = `
               transform="translate(0,300)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -2752,7 +3037,7 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -2771,7 +3056,12 @@ exports[`should render a basic bar chart 1`] = `
               transform="translate(0,280)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -2781,7 +3071,7 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -2800,7 +3090,12 @@ exports[`should render a basic bar chart 1`] = `
               transform="translate(0,260)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -2810,7 +3105,7 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -2829,7 +3124,12 @@ exports[`should render a basic bar chart 1`] = `
               transform="translate(0,240)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -2839,7 +3139,7 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -2858,7 +3158,12 @@ exports[`should render a basic bar chart 1`] = `
               transform="translate(0,220)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -2868,7 +3173,7 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -2887,7 +3192,12 @@ exports[`should render a basic bar chart 1`] = `
               transform="translate(0,200)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -2897,7 +3207,7 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -2916,7 +3226,12 @@ exports[`should render a basic bar chart 1`] = `
               transform="translate(0,180)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -2926,7 +3241,7 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -2945,7 +3260,12 @@ exports[`should render a basic bar chart 1`] = `
               transform="translate(0,160)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -2955,7 +3275,7 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -2974,7 +3294,12 @@ exports[`should render a basic bar chart 1`] = `
               transform="translate(0,140)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -2984,7 +3309,7 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -3003,7 +3328,12 @@ exports[`should render a basic bar chart 1`] = `
               transform="translate(0,120)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -3013,7 +3343,7 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -3032,7 +3362,12 @@ exports[`should render a basic bar chart 1`] = `
               transform="translate(0,100)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -3042,7 +3377,7 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -3061,7 +3396,12 @@ exports[`should render a basic bar chart 1`] = `
               transform="translate(0,80.00000000000003)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -3071,7 +3411,7 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -3090,7 +3430,12 @@ exports[`should render a basic bar chart 1`] = `
               transform="translate(0,60)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -3100,7 +3445,7 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -3119,7 +3464,12 @@ exports[`should render a basic bar chart 1`] = `
               transform="translate(0,40)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -3129,7 +3479,7 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -3148,7 +3498,12 @@ exports[`should render a basic bar chart 1`] = `
               transform="translate(0,20)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -3158,7 +3513,7 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -3177,7 +3532,12 @@ exports[`should render a basic bar chart 1`] = `
               transform="translate(0,0)"
             >
               <line
-                stroke="#000"
+                style={
+                  Object {
+                    "stroke": "#777",
+                    "strokeWidth": 1,
+                  }
+                }
                 x1={0}
                 x2={-5}
                 y1={0}
@@ -3187,7 +3547,7 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "fill": "#000",
+                    "color": "#333",
                     "fontSize": "11px",
                   }
                 }
@@ -3198,6 +3558,18 @@ exports[`should render a basic bar chart 1`] = `
               </text>
             </g>
           </g>
+          <line
+            style={
+              Object {
+                "stroke": "transparent",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={300}
+          />
         </g>
       </g>
       <g>

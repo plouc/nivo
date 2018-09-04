@@ -6,40 +6,36 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
+import range from 'lodash/range'
 import PropTypes from 'prop-types'
-import { defaultCategoricalColors } from '@nivo/core'
+import { colorSchemeIds, colorSchemes, colorInterpolatorIds, colorInterpolators } from '@nivo/core'
 import Select from 'react-select'
 import ColorsControlItem from './ColorsControlItem'
-import {
-    schemeCategory10,
-    schemeAccent,
-    schemeDark2,
-    schemePaired,
-    schemePastel1,
-    schemePastel2,
-    schemeSet1,
-    schemeSet2,
-    schemeSet3,
-} from 'd3-scale-chromatic'
 
-const colors = [
-    { id: 'nivo', colors: defaultCategoricalColors().range() },
-    { id: 'd310', colors: schemeCategory10 },
-    { id: 'accent', colors: schemeAccent },
-    { id: 'dark2', colors: schemeDark2 },
-    { id: 'paired', colors: schemePaired },
-    { id: 'pastel1', colors: schemePastel1 },
-    { id: 'pastel2', colors: schemePastel2 },
-    { id: 'set1', colors: schemeSet1 },
-    { id: 'set2', colors: schemeSet2 },
-    { id: 'set3', colors: schemeSet3 },
-]
+const colors = colorSchemeIds.map(id => ({
+    id,
+    colors: colorSchemes[id],
+}))
 
-class ColorsControl extends Component {
-    shouldComponentUpdate(nextProps) {
-        return nextProps.value !== this.props.value
+const sequentialColors = colorInterpolatorIds.map(id => ({
+    id: `seq:${id}`,
+    colors: range(0, 1, 0.05).map(t => colorInterpolators[id](t)),
+}))
+
+export default class ColorsControl extends PureComponent {
+    static propTypes = {
+        label: PropTypes.string.isRequired,
+        onChange: PropTypes.func.isRequired,
+        value: PropTypes.string.isRequired,
+        includeSequential: PropTypes.bool.isRequired,
+        help: PropTypes.node.isRequired,
+    }
+
+    static defaultProps = {
+        label: 'colors',
+        help: 'Chart color range.',
+        includeSequential: false,
     }
 
     handleColorsChange = value => {
@@ -68,16 +64,22 @@ class ColorsControl extends Component {
     }
 
     render() {
-        const { value } = this.props
+        const { label, value, includeSequential, help } = this.props
+
+        let options = colors
+        if (includeSequential === true) {
+            options = options.concat(sequentialColors)
+        }
 
         return (
             <div className="control control-colors">
                 <label className="control_label">
-                    colors:&nbsp;
+                    {label}
+                    :&nbsp;
                     <code className="code code-string">'{value}'</code>
                 </label>
                 <Select
-                    options={colors.map(({ id, colors }) => ({
+                    options={options.map(({ id, colors }) => ({
                         label: id,
                         value: id,
                         colors,
@@ -88,15 +90,8 @@ class ColorsControl extends Component {
                     value={value}
                     clearable={false}
                 />
-                <div className="control-help">Chart color range.</div>
+                <div className="control-help">{help}</div>
             </div>
         )
     }
 }
-
-ColorsControl.propTypes = {
-    onChange: PropTypes.func.isRequired,
-    value: PropTypes.string.isRequired,
-}
-
-export default ColorsControl

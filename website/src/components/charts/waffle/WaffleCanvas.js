@@ -91,7 +91,7 @@ export default class WaffleCanvas extends Component {
             theme: nivoTheme,
             emptyColor: '#cccccc',
             emptyOpacity: 1,
-            colors: 'd310',
+            colors: 'category10',
             colorBy: 'id',
             borderWidth: 0,
             borderColor: {

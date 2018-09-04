@@ -79,7 +79,4 @@ export const defaultTheme = {
         textColor: defaultTextColor,
         fontSize: defaultFontSize,
     },
-    sankey: {
-        label: {},
-    },
 }

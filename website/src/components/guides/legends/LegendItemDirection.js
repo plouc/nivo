@@ -6,6 +6,7 @@ import {
     DIRECTION_TOP_TO_BOTTOM,
     DIRECTION_BOTTOM_TO_TOP,
 } from '@nivo/legends'
+import theme from '../../../nivoTheme'
 
 const itemDirections = [
     DIRECTION_LEFT_TO_RIGHT,
@@ -23,6 +24,7 @@ const itemsProps = {
         id: 'demo',
         color: '#dc5a32',
     },
+    theme,
 }
 
 export default () => (

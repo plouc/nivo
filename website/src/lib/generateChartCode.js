@@ -32,6 +32,7 @@ const generate = (
     forOwn(props, (_value, key) => {
         if (_value === undefined) return
         if (defaults && defaults[key] === _value) return
+        if (key === 'theme') return
 
         let value
         if (isPlainObject(_value)) {

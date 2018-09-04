@@ -1,11 +1,13 @@
 import React from 'react'
 import { BoxLegendSvg } from '@nivo/legends'
+import theme from '../../../nivoTheme'
 
 const legendProps = {
     containerWidth: 800,
     containerHeight: 90,
     itemWidth: 70,
     itemHeight: 24,
+    theme,
 }
 
 export default () => (

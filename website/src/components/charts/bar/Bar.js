@@ -24,7 +24,7 @@ import nivoTheme from '../../../nivoTheme'
 import { generateLightDataSet as generateData } from './generators'
 import propsMapper from './propsMapper'
 
-const Tooltip = data => {
+const Tooltip = () => {
     /* return custom tooltip */
 }
 

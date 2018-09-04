@@ -31,7 +31,7 @@ export default class Sankey extends Component {
             },
 
             align: 'justify',
-            colors: 'd310',
+            colors: 'category10',
 
             // nodes
             nodeOpacity: 1,
