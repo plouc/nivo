@@ -14,7 +14,6 @@ const commonProps = {
     width: 900,
     height: 360,
     margin: { top: 10, right: 30, bottom: 50, left: 110 },
-    titleWidth: 100,
     titleOffsetX: -80,
     data,
     spacing: 80,
