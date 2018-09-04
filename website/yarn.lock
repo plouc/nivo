@@ -14,9 +14,9 @@
     react-motion "^0.5.2"
     recompose "^0.26.0"
 
-"@nivo/bullet@0.48.0":
-  version "0.48.0"
-  resolved "https://registry.yarnpkg.com/@nivo/bullet/-/bullet-0.48.0.tgz#47a6727cd8132a233e7b2d21ce2d5cfb99bfb4cb"
+"@nivo/bullet@0.48.1":
+  version "0.48.1"
+  resolved "https://registry.yarnpkg.com/@nivo/bullet/-/bullet-0.48.1.tgz#dba6c4a9fedf76feaea1c97096b71e30a6b997a4"
   dependencies:
     "@nivo/core" "^0.48.0"
     "@nivo/legends" "^0.48.0"

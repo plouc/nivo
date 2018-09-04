@@ -9,7 +9,7 @@
     },
     "dependencies": {
         "@nivo/bar": "0.48.0",
-        "@nivo/bullet": "0.48.0",
+        "@nivo/bullet": "0.48.1",
         "@nivo/calendar": "0.48.0",
         "@nivo/chord": "0.48.0",
         "@nivo/circle-packing": "0.48.0",
