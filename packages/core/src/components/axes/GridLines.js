@@ -72,7 +72,7 @@ export default class GridLines extends Component {
             return (
                 <g>
                     {lines.map(line => (
-                        <GridLine key={line.key} {...line} {...theme.grid} />
+                        <GridLine key={line.key} {...line} {...theme.grid.line} />
                     ))}
                 </g>
             )
@@ -105,7 +105,7 @@ export default class GridLines extends Component {
                         {interpolatedStyles.map(interpolatedStyle => {
                             const { key, style } = interpolatedStyle
 
-                            return <GridLine key={key} {...theme.grid} {...style} />
+                            return <GridLine key={key} {...theme.grid.line} {...style} />
                         })}
                     </g>
                 )}

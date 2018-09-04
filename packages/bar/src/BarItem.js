@@ -60,7 +60,7 @@ const BarItem = ({
                     textAnchor="middle"
                     alignmentBaseline="central"
                     style={{
-                        ...theme.labels,
+                        ...theme.labels.text,
                         pointerEvents: 'none',
                         fill: labelColor,
                     }}

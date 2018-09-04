@@ -17,23 +17,5 @@ export default Component =>
         defaultProps(PieDefaultProps),
         withTheme(),
         withDimensions(),
-        /*
-        withPropsOnChange(
-            ['enhancedData', 'defs', 'fill'],
-            ({ enhancedData: _enhancedData, defs, fill }) => {
-                const enhancedData = _enhancedData.map(datum => ({ ...datum }))
-                const boundDefs = bindDefs(defs, enhancedData, fill)
-
-                return {
-                    enhancedData,
-                    boundDefs,
-                    legendData: enhancedData.map(datum => ({
-                        label: datum.label,
-                        fill: datum.fill || datum.color,
-                    })),
-                }
-            }
-        ),
-        */
         pure
     )(Component)

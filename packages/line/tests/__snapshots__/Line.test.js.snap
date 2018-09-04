@@ -7,6 +7,11 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
   width={500}
   xmlns="http://www.w3.org/2000/svg"
 >
+  <rect
+    fill="transparent"
+    height={300}
+    width={500}
+  />
   <g
     transform="translate(0,0)"
   >
@@ -40,8 +45,8 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -74,8 +79,8 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -108,8 +113,8 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -142,8 +147,8 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -176,8 +181,8 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -228,8 +233,8 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -262,8 +267,8 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -296,8 +301,8 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -330,8 +335,8 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -364,8 +369,8 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -398,8 +403,8 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -432,8 +437,8 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -466,8 +471,8 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -500,8 +505,8 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -534,8 +539,8 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -568,8 +573,8 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -602,8 +607,8 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -646,6 +651,11 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
   width={500}
   xmlns="http://www.w3.org/2000/svg"
 >
+  <rect
+    fill="transparent"
+    height={300}
+    width={500}
+  />
   <g
     transform="translate(0,0)"
   >
@@ -679,8 +689,8 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -713,8 +723,8 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -747,8 +757,8 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -781,8 +791,8 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -815,8 +825,8 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -867,8 +877,8 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -901,8 +911,8 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -935,8 +945,8 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -969,8 +979,8 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -1003,8 +1013,8 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -1037,8 +1047,8 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -1071,8 +1081,8 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -1105,8 +1115,8 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -1139,8 +1149,8 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -1173,8 +1183,8 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -1207,8 +1217,8 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -1241,8 +1251,8 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -1285,6 +1295,11 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
   width={500}
   xmlns="http://www.w3.org/2000/svg"
 >
+  <rect
+    fill="transparent"
+    height={300}
+    width={500}
+  />
   <g
     transform="translate(0,0)"
   >
@@ -1318,8 +1333,8 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -1352,8 +1367,8 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -1386,8 +1401,8 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -1420,8 +1435,8 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -1454,8 +1469,8 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -1506,8 +1521,8 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -1540,8 +1555,8 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -1574,8 +1589,8 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -1608,8 +1623,8 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -1642,8 +1657,8 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -1676,8 +1691,8 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -1710,8 +1725,8 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -1744,8 +1759,8 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -1778,8 +1793,8 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -1812,8 +1827,8 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -1846,8 +1861,8 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -1880,8 +1895,8 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -1924,6 +1939,11 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
   width={500}
   xmlns="http://www.w3.org/2000/svg"
 >
+  <rect
+    fill="transparent"
+    height={300}
+    width={500}
+  />
   <g
     transform="translate(0,0)"
   >
@@ -1957,8 +1977,8 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -1991,8 +2011,8 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -2025,8 +2045,8 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -2059,8 +2079,8 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -2093,8 +2113,8 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -2145,8 +2165,8 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -2179,8 +2199,8 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -2213,8 +2233,8 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -2247,8 +2267,8 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -2281,8 +2301,8 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -2315,8 +2335,8 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -2349,8 +2369,8 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -2383,8 +2403,8 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -2417,8 +2437,8 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -2451,8 +2471,8 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -2485,8 +2505,8 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -2519,8 +2539,8 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -2563,6 +2583,11 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
   width={500}
   xmlns="http://www.w3.org/2000/svg"
 >
+  <rect
+    fill="transparent"
+    height={300}
+    width={500}
+  />
   <g
     transform="translate(0,0)"
   >
@@ -2596,8 +2621,8 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -2630,8 +2655,8 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -2664,8 +2689,8 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -2698,8 +2723,8 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -2732,8 +2757,8 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -2784,8 +2809,8 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -2818,8 +2843,8 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -2852,8 +2877,8 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -2886,8 +2911,8 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -2920,8 +2945,8 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -2954,8 +2979,8 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -2988,8 +3013,8 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -3022,8 +3047,8 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -3056,8 +3081,8 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -3090,8 +3115,8 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -3124,8 +3149,8 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -3158,8 +3183,8 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -3202,6 +3227,11 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
   width={500}
   xmlns="http://www.w3.org/2000/svg"
 >
+  <rect
+    fill="transparent"
+    height={300}
+    width={500}
+  />
   <g
     transform="translate(0,0)"
   >
@@ -3235,8 +3265,8 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -3269,8 +3299,8 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -3303,8 +3333,8 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -3337,8 +3367,8 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -3371,8 +3401,8 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -3423,8 +3453,8 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -3457,8 +3487,8 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -3491,8 +3521,8 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -3525,8 +3555,8 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -3559,8 +3589,8 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -3593,8 +3623,8 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -3627,8 +3657,8 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -3661,8 +3691,8 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -3695,8 +3725,8 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -3729,8 +3759,8 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -3763,8 +3793,8 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -3797,8 +3827,8 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -3841,6 +3871,11 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
   width={500}
   xmlns="http://www.w3.org/2000/svg"
 >
+  <rect
+    fill="transparent"
+    height={300}
+    width={500}
+  />
   <g
     transform="translate(0,0)"
   >
@@ -3874,8 +3909,8 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -3908,8 +3943,8 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -3942,8 +3977,8 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -3976,8 +4011,8 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -4010,8 +4045,8 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -4062,8 +4097,8 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -4096,8 +4131,8 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -4130,8 +4165,8 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -4164,8 +4199,8 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -4198,8 +4233,8 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -4232,8 +4267,8 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -4266,8 +4301,8 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -4300,8 +4335,8 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -4334,8 +4369,8 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -4368,8 +4403,8 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -4402,8 +4437,8 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -4436,8 +4471,8 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -4480,6 +4515,11 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
   width={500}
   xmlns="http://www.w3.org/2000/svg"
 >
+  <rect
+    fill="transparent"
+    height={300}
+    width={500}
+  />
   <g
     transform="translate(0,0)"
   >
@@ -4513,8 +4553,8 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -4547,8 +4587,8 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -4581,8 +4621,8 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -4615,8 +4655,8 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -4649,8 +4689,8 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -4701,8 +4741,8 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -4735,8 +4775,8 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -4769,8 +4809,8 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -4803,8 +4843,8 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -4837,8 +4877,8 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -4871,8 +4911,8 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -4905,8 +4945,8 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -4939,8 +4979,8 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -4973,8 +5013,8 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -5007,8 +5047,8 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -5041,8 +5081,8 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -5075,8 +5115,8 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -5119,6 +5159,11 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
   width={500}
   xmlns="http://www.w3.org/2000/svg"
 >
+  <rect
+    fill="transparent"
+    height={300}
+    width={500}
+  />
   <g
     transform="translate(0,0)"
   >
@@ -5152,8 +5197,8 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -5186,8 +5231,8 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -5220,8 +5265,8 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -5254,8 +5299,8 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -5288,8 +5333,8 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -5340,8 +5385,8 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -5374,8 +5419,8 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -5408,8 +5453,8 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -5442,8 +5487,8 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -5476,8 +5521,8 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -5510,8 +5555,8 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -5544,8 +5589,8 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -5578,8 +5623,8 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -5612,8 +5657,8 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -5646,8 +5691,8 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -5680,8 +5725,8 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -5714,8 +5759,8 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -5758,6 +5803,11 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
   width={500}
   xmlns="http://www.w3.org/2000/svg"
 >
+  <rect
+    fill="transparent"
+    height={300}
+    width={500}
+  />
   <g
     transform="translate(0,0)"
   >
@@ -5791,8 +5841,8 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -5825,8 +5875,8 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -5859,8 +5909,8 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -5893,8 +5943,8 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -5927,8 +5977,8 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
               alignmentBaseline="before-edge"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="middle"
@@ -5979,8 +6029,8 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -6013,8 +6063,8 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -6047,8 +6097,8 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -6081,8 +6131,8 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -6115,8 +6165,8 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -6149,8 +6199,8 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -6183,8 +6233,8 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -6217,8 +6267,8 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -6251,8 +6301,8 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -6285,8 +6335,8 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -6319,8 +6369,8 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -6353,8 +6403,8 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
               alignmentBaseline="central"
               style={
                 Object {
-                  "color": "#333",
-                  "fontSize": "11px",
+                  "fill": "#333333",
+                  "fontSize": 11,
                 }
               }
               textAnchor="end"
@@ -6404,6 +6454,11 @@ exports[`should render a basic line chart 1`] = `
     width={500}
     xmlns="http://www.w3.org/2000/svg"
   >
+    <rect
+      fill="transparent"
+      height={300}
+      width={500}
+    />
     <g
       transform="translate(0,0)"
     >
@@ -6595,8 +6650,8 @@ exports[`should render a basic line chart 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -6629,8 +6684,8 @@ exports[`should render a basic line chart 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -6663,8 +6718,8 @@ exports[`should render a basic line chart 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -6697,8 +6752,8 @@ exports[`should render a basic line chart 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -6731,8 +6786,8 @@ exports[`should render a basic line chart 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -6783,8 +6838,8 @@ exports[`should render a basic line chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -6817,8 +6872,8 @@ exports[`should render a basic line chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -6851,8 +6906,8 @@ exports[`should render a basic line chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -6885,8 +6940,8 @@ exports[`should render a basic line chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -6919,8 +6974,8 @@ exports[`should render a basic line chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -6953,8 +7008,8 @@ exports[`should render a basic line chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -6987,8 +7042,8 @@ exports[`should render a basic line chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -7021,8 +7076,8 @@ exports[`should render a basic line chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -7055,8 +7110,8 @@ exports[`should render a basic line chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -7089,8 +7144,8 @@ exports[`should render a basic line chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -7123,8 +7178,8 @@ exports[`should render a basic line chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -7157,8 +7212,8 @@ exports[`should render a basic line chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -7383,6 +7438,11 @@ exports[`should support multiple lines 1`] = `
     width={500}
     xmlns="http://www.w3.org/2000/svg"
   >
+    <rect
+      fill="transparent"
+      height={300}
+      width={500}
+    />
     <g
       transform="translate(0,0)"
     >
@@ -7574,8 +7634,8 @@ exports[`should support multiple lines 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -7608,8 +7668,8 @@ exports[`should support multiple lines 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -7642,8 +7702,8 @@ exports[`should support multiple lines 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -7676,8 +7736,8 @@ exports[`should support multiple lines 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -7710,8 +7770,8 @@ exports[`should support multiple lines 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -7762,8 +7822,8 @@ exports[`should support multiple lines 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -7796,8 +7856,8 @@ exports[`should support multiple lines 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -7830,8 +7890,8 @@ exports[`should support multiple lines 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -7864,8 +7924,8 @@ exports[`should support multiple lines 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -7898,8 +7958,8 @@ exports[`should support multiple lines 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -7932,8 +7992,8 @@ exports[`should support multiple lines 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -7966,8 +8026,8 @@ exports[`should support multiple lines 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -8000,8 +8060,8 @@ exports[`should support multiple lines 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -8034,8 +8094,8 @@ exports[`should support multiple lines 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -8068,8 +8128,8 @@ exports[`should support multiple lines 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -8102,8 +8162,8 @@ exports[`should support multiple lines 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -8136,8 +8196,8 @@ exports[`should support multiple lines 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"

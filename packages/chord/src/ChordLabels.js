@@ -40,7 +40,7 @@ const ChordLabels = ({
                                 textProps.rotate
                             })`}
                             style={{
-                                ...theme.labels,
+                                ...theme.labels.text,
                                 pointerEvents: 'none',
                                 fill: color,
                             }}
@@ -87,7 +87,7 @@ const ChordLabels = ({
                                     textProps.rotate
                                 })`}
                                 style={{
-                                    ...theme.labels,
+                                    ...theme.labels.text,
                                     pointerEvents: 'none',
                                     fill: color,
                                 }}

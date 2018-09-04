@@ -116,6 +116,7 @@ class HeatMap extends Component {
                                 top: margin.top + offsetY,
                                 left: margin.left + offsetX,
                             })}
+                            theme={theme}
                         >
                             <Grid
                                 theme={theme}

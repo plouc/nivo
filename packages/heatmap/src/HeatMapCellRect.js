@@ -55,7 +55,7 @@ const HeatMapCellRect = ({
             alignmentBaseline="central"
             textAnchor="middle"
             style={{
-                ...theme.labels,
+                ...theme.labels.text,
                 fill: textColor,
             }}
             fillOpacity={opacity}

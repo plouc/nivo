@@ -129,7 +129,7 @@ const Axis = ({
             <text
                 transform={`translate(${legendX}, ${legendY}) rotate(${legendRotation})`}
                 textAnchor={textAnchor}
-                style={theme.axis.legend}
+                style={theme.axis.legend.text}
             >
                 {_legend}
             </text>
@@ -212,7 +212,7 @@ const Axis = ({
             {legend}
             {tickElements}
             <line
-                style={theme.axis.domain}
+                style={theme.axis.domain.line}
                 x1={0}
                 x2={isHorizontal ? width : 0}
                 y1={0}

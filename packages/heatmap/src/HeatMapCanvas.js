@@ -57,6 +57,8 @@ class HeatMapCanvas extends Component {
             yScale,
 
             cellShape,
+
+            theme,
         } = props
 
         this.surface.width = outerWidth * pixelRatio
@@ -73,7 +75,8 @@ class HeatMapCanvas extends Component {
 
         const nodes = computeNodes(props)
 
-        this.ctx.clearRect(0, 0, outerWidth, outerHeight)
+        this.ctx.fillStyle = theme.background
+        this.ctx.fillRect(0, 0, outerWidth, outerHeight)
         this.ctx.translate(margin.left + offsetX, margin.top + offsetY)
 
         renderAxesToCanvas(this.ctx, {
@@ -85,6 +88,7 @@ class HeatMapCanvas extends Component {
             right: props.axisRight,
             bottom: props.axisBottom,
             left: props.axisLeft,
+            theme,
         })
 
         this.ctx.textAlign = 'center'

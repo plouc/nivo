@@ -62,22 +62,21 @@ const homeTheme = {
             },
             text: {
                 fill: '#c6432d',
-                fontSize: '9px',
+                fontSize: 9,
             },
         },
     },
     grid: {
-        stroke: '#c6432d',
-        strokeWidth: 1,
-        strokeDasharray: '1,3',
-    },
-    sankey: {
-        label: {
-            fontSize: '9px',
+        line: {
+            stroke: '#c6432d',
+            strokeWidth: 1,
+            strokeDasharray: '1,3',
         },
     },
     labels: {
-        textColor: '#c6432d',
+        text: {
+            fill: '#c6432d',
+        },
     },
 }
 
@@ -266,6 +265,7 @@ class Home extends Component {
                         monthBorderColor="#C6432D"
                         colors={['#e96d5a', '#C6432D']}
                         isInteractive={false}
+                        theme={homeTheme}
                     />
                     <span className="home_item_label">
                         <span>Calendar documentation</span>

@@ -83,7 +83,12 @@ const Chord = ({
         <Container isInteractive={isInteractive} theme={theme}>
             {({ showTooltip, hideTooltip }) => {
                 return (
-                    <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
+                    <SvgWrapper
+                        width={outerWidth}
+                        height={outerHeight}
+                        margin={margin}
+                        theme={theme}
+                    >
                         <g transform={`translate(${centerX}, ${centerY})`}>
                             <ChordRibbons
                                 ribbons={ribbons}

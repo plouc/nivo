@@ -58,13 +58,11 @@ class ScatterPlotCanvas extends Component {
 
     draw(props) {
         const {
-            // data
             data,
 
             xScale,
             yScale,
 
-            // dimensions
             width,
             height,
             outerWidth,
@@ -72,7 +70,6 @@ class ScatterPlotCanvas extends Component {
             pixelRatio,
             margin,
 
-            // axes
             axisTop,
             axisRight,
             axisBottom,
@@ -80,10 +77,9 @@ class ScatterPlotCanvas extends Component {
             enableGridX,
             enableGridY,
 
-            // symbols
             symbolSize,
 
-            // theming
+            theme,
             getColor,
 
             legends,
@@ -94,7 +90,8 @@ class ScatterPlotCanvas extends Component {
 
         this.ctx.scale(pixelRatio, pixelRatio)
 
-        this.ctx.clearRect(0, 0, outerWidth, outerHeight)
+        this.ctx.fillStyle = theme.background
+        this.ctx.fillRect(0, 0, outerWidth, outerHeight)
         this.ctx.translate(margin.left, margin.top)
 
         this.ctx.strokeStyle = '#dddddd'
@@ -123,6 +120,7 @@ class ScatterPlotCanvas extends Component {
             right: axisRight,
             bottom: axisBottom,
             left: axisLeft,
+            theme,
         })
 
         const items = data.reduce(

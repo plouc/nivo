@@ -1,8 +1,10 @@
 export default {
     axis: {
         domain: {
-            stroke: '#777',
-            strokeWidth: 1,
+            line: {
+                stroke: '#777',
+                strokeWidth: 1,
+            },
         },
         ticks: {
             line: {
@@ -10,14 +12,16 @@ export default {
                 strokeWidth: 1,
             },
             text: {
-                color: '#000',
-                fontSize: '11px',
+                fill: '#000',
+                fontSize: 11,
             },
         },
         legend: {
-            fill: '#e25d47',
-            fontSize: '11px',
-            fontWeight: 'bold',
+            text: {
+                fill: '#e25d47',
+                fontSize: 11,
+                fontWeight: 'bold',
+            },
         },
     },
 }

@@ -98,7 +98,12 @@ export class Bullet extends Component {
         return (
             <Container isInteractive={isInteractive} theme={theme}>
                 {({ showTooltip, hideTooltip }) => (
-                    <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
+                    <SvgWrapper
+                        width={outerWidth}
+                        height={outerHeight}
+                        margin={margin}
+                        theme={theme}
+                    >
                         {enhancedData.map((d, i) => (
                             <BulletItem
                                 key={d.id}

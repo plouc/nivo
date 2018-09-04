@@ -28,16 +28,14 @@ class BubbleCanvas extends Component {
 
             pixelRatio,
 
-            // dimensions
             margin,
             outerWidth,
             outerHeight,
 
-            // styling
+            theme,
             borderWidth,
             getBorderColor,
 
-            // labels
             enableLabel,
             getLabel,
             labelSkipRadius,
@@ -48,7 +46,8 @@ class BubbleCanvas extends Component {
         this.surface.height = outerHeight * pixelRatio
 
         this.ctx.scale(pixelRatio, pixelRatio)
-        this.ctx.clearRect(0, 0, outerWidth, outerHeight)
+        this.ctx.fillStyle = theme.background
+        this.ctx.fillRect(0, 0, outerWidth, outerHeight)
         this.ctx.translate(margin.left, margin.top)
 
         /*
@@ -90,6 +89,7 @@ class BubbleCanvas extends Component {
         if (enableLabel) {
             this.ctx.textAlign = 'center'
             this.ctx.textBaseline = 'middle'
+            this.ctx.font = `${theme.labels.text.fontSize}px sans-serif`
 
             // draw labels on top
             nodes.filter(({ r }) => r > labelSkipRadius).forEach(node => {

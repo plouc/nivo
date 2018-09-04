@@ -14,6 +14,11 @@ exports[`should allow grouped horizontal layout 1`] = `
     width={500}
     xmlns="http://www.w3.org/2000/svg"
   >
+    <rect
+      fill="transparent"
+      height={300}
+      width={500}
+    />
     <g
       transform="translate(0,0)"
     >
@@ -77,8 +82,8 @@ exports[`should allow grouped horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -111,8 +116,8 @@ exports[`should allow grouped horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -145,8 +150,8 @@ exports[`should allow grouped horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -179,8 +184,8 @@ exports[`should allow grouped horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -213,8 +218,8 @@ exports[`should allow grouped horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -247,8 +252,8 @@ exports[`should allow grouped horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -281,8 +286,8 @@ exports[`should allow grouped horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -315,8 +320,8 @@ exports[`should allow grouped horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -349,8 +354,8 @@ exports[`should allow grouped horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -383,8 +388,8 @@ exports[`should allow grouped horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -417,8 +422,8 @@ exports[`should allow grouped horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -451,8 +456,8 @@ exports[`should allow grouped horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -485,8 +490,8 @@ exports[`should allow grouped horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -519,8 +524,8 @@ exports[`should allow grouped horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -553,8 +558,8 @@ exports[`should allow grouped horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -587,8 +592,8 @@ exports[`should allow grouped horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -639,8 +644,8 @@ exports[`should allow grouped horizontal layout 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -673,8 +678,8 @@ exports[`should allow grouped horizontal layout 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -707,8 +712,8 @@ exports[`should allow grouped horizontal layout 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -804,6 +809,11 @@ exports[`should allow grouped mode 1`] = `
     width={500}
     xmlns="http://www.w3.org/2000/svg"
   >
+    <rect
+      fill="transparent"
+      height={300}
+      width={500}
+    />
     <g
       transform="translate(0,0)"
     >
@@ -984,8 +994,8 @@ exports[`should allow grouped mode 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -1018,8 +1028,8 @@ exports[`should allow grouped mode 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -1052,8 +1062,8 @@ exports[`should allow grouped mode 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -1104,8 +1114,8 @@ exports[`should allow grouped mode 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -1138,8 +1148,8 @@ exports[`should allow grouped mode 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -1172,8 +1182,8 @@ exports[`should allow grouped mode 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -1206,8 +1216,8 @@ exports[`should allow grouped mode 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -1240,8 +1250,8 @@ exports[`should allow grouped mode 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -1274,8 +1284,8 @@ exports[`should allow grouped mode 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -1308,8 +1318,8 @@ exports[`should allow grouped mode 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -1342,8 +1352,8 @@ exports[`should allow grouped mode 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -1376,8 +1386,8 @@ exports[`should allow grouped mode 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -1410,8 +1420,8 @@ exports[`should allow grouped mode 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -1444,8 +1454,8 @@ exports[`should allow grouped mode 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -1478,8 +1488,8 @@ exports[`should allow grouped mode 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -1512,8 +1522,8 @@ exports[`should allow grouped mode 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -1546,8 +1556,8 @@ exports[`should allow grouped mode 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -1580,8 +1590,8 @@ exports[`should allow grouped mode 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -1614,8 +1624,8 @@ exports[`should allow grouped mode 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -1711,6 +1721,11 @@ exports[`should allow horizontal layout 1`] = `
     width={500}
     xmlns="http://www.w3.org/2000/svg"
   >
+    <rect
+      fill="transparent"
+      height={300}
+      width={500}
+    />
     <g
       transform="translate(0,0)"
     >
@@ -1774,8 +1789,8 @@ exports[`should allow horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -1808,8 +1823,8 @@ exports[`should allow horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -1842,8 +1857,8 @@ exports[`should allow horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -1876,8 +1891,8 @@ exports[`should allow horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -1910,8 +1925,8 @@ exports[`should allow horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -1944,8 +1959,8 @@ exports[`should allow horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -1978,8 +1993,8 @@ exports[`should allow horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -2012,8 +2027,8 @@ exports[`should allow horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -2046,8 +2061,8 @@ exports[`should allow horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -2080,8 +2095,8 @@ exports[`should allow horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -2114,8 +2129,8 @@ exports[`should allow horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -2148,8 +2163,8 @@ exports[`should allow horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -2182,8 +2197,8 @@ exports[`should allow horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -2216,8 +2231,8 @@ exports[`should allow horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -2250,8 +2265,8 @@ exports[`should allow horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -2284,8 +2299,8 @@ exports[`should allow horizontal layout 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -2336,8 +2351,8 @@ exports[`should allow horizontal layout 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -2370,8 +2385,8 @@ exports[`should allow horizontal layout 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -2404,8 +2419,8 @@ exports[`should allow horizontal layout 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -2501,6 +2516,11 @@ exports[`should allow to disable labels 1`] = `
     width={500}
     xmlns="http://www.w3.org/2000/svg"
   >
+    <rect
+      fill="transparent"
+      height={300}
+      width={500}
+    />
     <g
       transform="translate(0,0)"
     >
@@ -2681,8 +2701,8 @@ exports[`should allow to disable labels 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -2715,8 +2735,8 @@ exports[`should allow to disable labels 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -2749,8 +2769,8 @@ exports[`should allow to disable labels 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -2801,8 +2821,8 @@ exports[`should allow to disable labels 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -2835,8 +2855,8 @@ exports[`should allow to disable labels 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -2869,8 +2889,8 @@ exports[`should allow to disable labels 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -2903,8 +2923,8 @@ exports[`should allow to disable labels 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -2937,8 +2957,8 @@ exports[`should allow to disable labels 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -2971,8 +2991,8 @@ exports[`should allow to disable labels 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -3005,8 +3025,8 @@ exports[`should allow to disable labels 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -3039,8 +3059,8 @@ exports[`should allow to disable labels 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -3073,8 +3093,8 @@ exports[`should allow to disable labels 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -3107,8 +3127,8 @@ exports[`should allow to disable labels 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -3141,8 +3161,8 @@ exports[`should allow to disable labels 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -3175,8 +3195,8 @@ exports[`should allow to disable labels 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -3209,8 +3229,8 @@ exports[`should allow to disable labels 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -3243,8 +3263,8 @@ exports[`should allow to disable labels 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -3277,8 +3297,8 @@ exports[`should allow to disable labels 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -3311,8 +3331,8 @@ exports[`should allow to disable labels 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -3408,6 +3428,11 @@ exports[`should render a basic bar chart 1`] = `
     width={500}
     xmlns="http://www.w3.org/2000/svg"
   >
+    <rect
+      fill="transparent"
+      height={300}
+      width={500}
+    />
     <g
       transform="translate(0,0)"
     >
@@ -3588,8 +3613,8 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -3622,8 +3647,8 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -3656,8 +3681,8 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="before-edge"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="middle"
@@ -3708,8 +3733,8 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -3742,8 +3767,8 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -3776,8 +3801,8 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -3810,8 +3835,8 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -3844,8 +3869,8 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -3878,8 +3903,8 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -3912,8 +3937,8 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -3946,8 +3971,8 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -3980,8 +4005,8 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -4014,8 +4039,8 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -4048,8 +4073,8 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -4082,8 +4107,8 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -4116,8 +4141,8 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -4150,8 +4175,8 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -4184,8 +4209,8 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -4218,8 +4243,8 @@ exports[`should render a basic bar chart 1`] = `
                 alignmentBaseline="central"
                 style={
                   Object {
-                    "color": "#333",
-                    "fontSize": "11px",
+                    "fill": "#333333",
+                    "fontSize": 11,
                   }
                 }
                 textAnchor="end"
@@ -4264,10 +4289,9 @@ exports[`should render a basic bar chart 1`] = `
             alignmentBaseline="central"
             style={
               Object {
-                "fill": "#000",
-                "fontSize": "11px",
+                "fill": "#333333",
+                "fontSize": 11,
                 "pointerEvents": "none",
-                "textColor": "#333",
               }
             }
             textAnchor="middle"
@@ -4297,10 +4321,9 @@ exports[`should render a basic bar chart 1`] = `
             alignmentBaseline="central"
             style={
               Object {
-                "fill": "#000",
-                "fontSize": "11px",
+                "fill": "#333333",
+                "fontSize": 11,
                 "pointerEvents": "none",
-                "textColor": "#333",
               }
             }
             textAnchor="middle"
@@ -4330,10 +4353,9 @@ exports[`should render a basic bar chart 1`] = `
             alignmentBaseline="central"
             style={
               Object {
-                "fill": "#000",
-                "fontSize": "11px",
+                "fill": "#333333",
+                "fontSize": 11,
                 "pointerEvents": "none",
-                "textColor": "#333",
               }
             }
             textAnchor="middle"

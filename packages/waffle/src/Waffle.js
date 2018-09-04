@@ -183,6 +183,7 @@ export class Waffle extends Component {
                             height={outerHeight}
                             margin={margin}
                             defs={defs}
+                            theme={theme}
                         >
                             <g transform={`translate(${origin.x}, ${origin.y})`}>{cellsRender}</g>
                             {legends.map((legend, i) => (

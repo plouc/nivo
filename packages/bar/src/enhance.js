@@ -26,10 +26,10 @@ export default Component =>
             getIndex: getAccessorFor(indexBy),
         })),
         withPropsOnChange(['labelTextColor'], ({ labelTextColor }) => ({
-            getLabelTextColor: getInheritedColorGenerator(labelTextColor, 'axis.textColor'),
+            getLabelTextColor: getInheritedColorGenerator(labelTextColor, 'axis.ticks.text.fill'),
         })),
         withPropsOnChange(['labelLinkColor'], ({ labelLinkColor }) => ({
-            getLabelLinkColor: getInheritedColorGenerator(labelLinkColor, 'axis.tickColor'),
+            getLabelLinkColor: getInheritedColorGenerator(labelLinkColor, 'axis.ticks.line.stroke'),
         })),
         withPropsOnChange(['label', 'labelFormat'], ({ label, labelFormat }) => ({
             getLabel: getLabelGenerator(label, labelFormat),

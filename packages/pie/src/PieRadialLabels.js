@@ -9,7 +9,7 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { line } from 'd3-shape'
-import { textPropsByEngine } from '@nivo/core'
+import { textPropsByEngine, axisThemePropType, labelsThemePropType } from '@nivo/core'
 import { arcPropType } from './props'
 import { computeRadialLabels } from './compute'
 
@@ -31,10 +31,8 @@ export default class PieRadialLabels extends Component {
         textColor: PropTypes.func.isRequired,
         linkColor: PropTypes.func.isRequired,
         theme: PropTypes.shape({
-            axis: PropTypes.shape({
-                tickColor: PropTypes.string.isRequired,
-                fontSize: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-            }).isRequired,
+            axis: axisThemePropType.isRequired,
+            labels: labelsThemePropType.isRequired,
         }).isRequired,
     }
 
@@ -86,9 +84,8 @@ export default class PieRadialLabels extends Component {
                         textAnchor={textPropsByEngine.svg.align[label.align]}
                         dy="0.3em"
                         style={{
-                            ...theme.labels,
+                            ...theme.labels.text,
                             fill: textColor(label.arc.data, theme),
-                            fontSize: theme.axis.fontSize,
                         }}
                     >
                         {label.text}

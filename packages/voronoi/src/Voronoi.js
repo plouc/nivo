@@ -47,7 +47,7 @@ const Voronoi = ({
     return (
         <Container isInteractive={false} theme={theme}>
             {(/*{ showTooltip, hideTooltip }*/) => (
-                <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
+                <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
                     {enableLinks &&
                         links.map(l => (
                             <line

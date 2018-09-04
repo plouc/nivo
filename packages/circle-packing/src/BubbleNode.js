@@ -27,7 +27,7 @@ const BubbleNode = ({ node, style, handlers, theme }) => {
                     textAnchor="middle"
                     alignmentBaseline="central"
                     style={{
-                        ...theme.labels,
+                        ...theme.labels.text,
                         fill: style.labelTextColor,
                         pointerEvents: 'none',
                     }}
