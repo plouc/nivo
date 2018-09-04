@@ -1,6 +1,6 @@
 {
   "name": "@nivo/sunburst",
-  "version": "0.47.1",
+  "version": "0.48.0",
   "license": "MIT",
   "main": "./index.js",
   "files": [
@@ -9,7 +9,7 @@
     "cjs/"
   ],
   "dependencies": {
-    "@nivo/core": "^0.47.1",
+    "@nivo/core": "^0.48.0",
     "d3-hierarchy": "^1.1.8",
     "d3-shape": "^1.2.2",
     "lodash": "^4.17.4",

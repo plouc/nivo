@@ -1,6 +1,6 @@
 {
   "name": "@nivo/waffle",
-  "version": "0.47.1",
+  "version": "0.48.0",
   "license": "MIT",
   "main": "./index.js",
   "files": [
@@ -10,8 +10,8 @@
     "cjs/"
   ],
   "dependencies": {
-    "@nivo/core": "^0.47.1",
-    "@nivo/legends": "^0.47.0",
+    "@nivo/core": "^0.48.0",
+    "@nivo/legends": "^0.48.0",
     "lodash": "^4.17.4",
     "react-motion": "^0.5.2",
     "recompose": "^0.26.0"
