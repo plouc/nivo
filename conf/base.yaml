@@ -2,105 +2,105 @@ capture:
     baseUrl: http://localhost:3000
     pages:
       - path: /bar
-        selector: .chart-tabs--chart
+        selector: .chart-tabs__content
         output: ./packages/bar/doc/bar.png
 
       - path: /bar/canvas
-        selector: .chart-tabs--chart
+        selector: .chart-tabs__content
         output: ./packages/bar/doc/bar-canvas.png
 
       - path: /calendar
-        selector: .chart-tabs--chart
+        selector: .chart-tabs__content
         output: ./packages/calendar/doc/calendar.png
 
       - path: /chord
-        selector: .chart-tabs--chart
+        selector: .chart-tabs__content
         output: ./packages/chord/doc/chord.png
 
       - path: /chord/canvas
-        selector: .chart-tabs--chart
+        selector: .chart-tabs__content
         output: ./packages/chord/doc/chord-canvas.png
 
       - path: /bubble
-        selector: .chart-tabs--chart
+        selector: .chart-tabs__content
         output: ./packages/circle-packing/doc/bubble.png
 
       - path: /bubble/html
-        selector: .chart-tabs--chart
+        selector: .chart-tabs__content
         output: ./packages/circle-packing/doc/bubble-html.png
 
       - path: /bubble/canvas
-        selector: .chart-tabs--chart
+        selector: .chart-tabs__content
         output: ./packages/circle-packing/doc/bubble-canvas.png
 
       - path: /bullet
-        selector: .chart-tabs--chart
+        selector: .chart-tabs__content
         output: ./packages/bullet/doc/bullet.png
 
       - path: /heatmap
-        selector: .chart-tabs--chart
+        selector: .chart-tabs__content
         output: ./packages/heatmap/doc/heatmap.png
 
       - path: /heatmap/canvas
-        selector: .chart-tabs--chart
+        selector: .chart-tabs__content
         output: ./packages/heatmap/doc/heatmap-canvas.png
 
       - path: /line
-        selector: .chart-tabs--chart
+        selector: .chart-tabs__content
         output: ./packages/line/doc/line.png
 
       - path: /pie
-        selector: .chart-tabs--chart
+        selector: .chart-tabs__content
         output: ./packages/pie/doc/pie.png
 
       - path: /radar
-        selector: .chart-tabs--chart
+        selector: .chart-tabs__content
         output: ./packages/radar/doc/radar.png
 
       - path: /sankey
-        selector: .chart-tabs--chart
+        selector: .chart-tabs__content
         output: ./packages/sankey/doc/sankey.png
 
       - path: /scatterplot
-        selector: .chart-tabs--chart
+        selector: .chart-tabs__content
         output: ./packages/scatterplot/doc/scatterplot.png
 
       - path: /scatterplot/canvas
-        selector: .chart-tabs--chart
+        selector: .chart-tabs__content
         output: ./packages/scatterplot/doc/scatterplot-canvas.png
 
       - path: /stream
-        selector: .chart-tabs--chart
+        selector: .chart-tabs__content
         output: ./packages/stream/doc/stream.png
 
       - path: /sunburst
-        selector: .chart-tabs--chart
+        selector: .chart-tabs__content
         output: ./packages/sunburst/doc/sunburst.png
 
       - path: /treemap
-        selector: .chart-tabs--chart
+        selector: .chart-tabs__content
         output: ./packages/treemap/doc/treemap.png
 
       - path: /treemap/html
-        selector: .chart-tabs--chart
+        selector: .chart-tabs__content
         output: ./packages/treemap/doc/treemap-html.png
 
       - path: /treemap/canvas
-        selector: .chart-tabs--chart
+        selector: .chart-tabs__content
         output: ./packages/treemap/doc/treemap-canvas.png
 
       - path: /voronoi
-        selector: .chart-tabs--chart
+        selector: .chart-tabs__content
         output: ./packages/voronoi/doc/voronoi.png
 
       - path: /waffle
-        selector: .chart-tabs--chart
+        selector: .chart-tabs__content
         output: ./packages/waffle/doc/waffle.png
 
       - path: /waffle/html
-        selector: .chart-tabs--chart
+        selector: .chart-tabs__content
         output: ./packages/waffle/doc/waffle-html.png
 
       - path: /waffle/canvas
-        selector: .chart-tabs--chart
+        selector: .chart-tabs__content
         output: ./packages/waffle/doc/waffle-canvas.png
