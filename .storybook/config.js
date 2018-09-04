@@ -40,6 +40,7 @@ setAddon(infoAddon)
 function loadStories() {
     require('../packages/bar/stories/bar.stories')
     require('../packages/bar/stories/barCanvas.stories')
+    require('../packages/bullet/stories/bullet.stories')
     require('../packages/calendar/stories/calendar.stories')
     require('../packages/chord/stories/chord.stories')
     require('../packages/circle-packing/stories/bubble.stories')

@@ -112,7 +112,7 @@ export default [
         type: '{string}',
         required: false,
         default: defaults.groupMode,
-        controlType: 'choices',
+        controlType: 'radio',
         controlGroup: 'Base',
         controlOptions: {
             choices: [
@@ -128,7 +128,7 @@ export default [
         type: '{string}',
         required: false,
         default: defaults.layout,
-        controlType: 'choices',
+        controlType: 'radio',
         controlGroup: 'Base',
         controlOptions: {
             choices: [

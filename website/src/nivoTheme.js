@@ -5,7 +5,7 @@ export default {
                 stroke: '#889eae',
             },
             text: {
-                fill: '#889eae',
+                fill: '#6a7c89',
             },
         },
         legend: {

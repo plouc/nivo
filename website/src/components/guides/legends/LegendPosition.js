@@ -12,6 +12,7 @@ import {
     ANCHOR_LEFT,
     ANCHOR_CENTER,
 } from '@nivo/legends'
+import theme from '../../../nivoTheme'
 
 const anchors = [
     ANCHOR_TOP_LEFT,
@@ -100,6 +101,7 @@ export default () => (
                             { id: 'b', label: '...', color: '#dc5a32' },
                             { id: 'c', label: '...', color: '#dc5a32' },
                         ]}
+                        theme={theme}
                     />
                 ))}
             </g>
@@ -147,6 +149,7 @@ export default () => (
                                 color: 'rgb(232, 193, 160)',
                             },
                         ]}
+                        theme={theme}
                     />
                 ))}
                 {translateExamples.map((example, i) => (
@@ -171,6 +174,7 @@ export default () => (
                                 color: '#dc5a32',
                             },
                         ]}
+                        theme={theme}
                     />
                 ))}
             </g>

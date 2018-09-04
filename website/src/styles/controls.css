@@ -223,3 +223,43 @@
     width: 100%;
     display: block;
 }
+
+.control-radio {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 7px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    border-right-width: 0;
+    border-bottom-width: 0;
+}
+
+.control-radio-item {
+    cursor: pointer;
+    padding: 5px 10px;
+    white-space: nowrap;
+    text-align: center;
+    background: var(--main-background-color);
+    color: #888;
+    border: 1px solid #ccc;
+    border-top-width: 0;
+    border-left-width: 0;
+    user-select: none;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1) inset;
+}
+
+.control-radio-item:hover {
+    color: #333;
+}
+
+.control-radio-item._is-active {
+    background: #fff;
+    color: #000;
+    font-weight: 500;
+    box-shadow: none;
+}
+
+.control-radio-item input {
+    display: none;
+}

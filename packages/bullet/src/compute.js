@@ -6,124 +6,73 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import range from 'lodash/range'
+import last from 'lodash/last'
 
-/**
- * Computes optimal cell size according to dimensions/layout/padding.
- *
- * @param {number} width
- * @param {number} height
- * @param {number} rows
- * @param {number} columns
- * @param {number} padding
- *
- * @return {number}
- */
-export const computeCellSize = (width, height, rows, columns, padding) => {
-    const sizeX = (width - (columns - 1) * padding) / columns
-    const sizeY = (height - (rows - 1) * padding) / rows
+export const stackValues = (values, colorScale, useAverage = false) => {
+    const normalized = [...values].filter(v => v !== 0).sort((a, b) => a - b)
 
-    return Math.min(sizeX, sizeY)
+    return normalized.reduce((acc, v1, index) => {
+        const v0 = last(acc) !== undefined ? last(acc).v1 : 0
+        let sequentialValue = useAverage === true ? v0 + (v1 - v0) / 2 : v1
+
+        return [
+            ...acc,
+            {
+                index,
+                v0,
+                v1,
+                color: colorScale(colorScale.type === 'sequential' ? sequentialValue : index),
+            },
+        ]
+    }, [])
 }
 
-/**
- * Computes empty cells according to dimensions/layout/padding.
- *
- * @param {number}                        width
- * @param {number}                        height
- * @param {number}                        rows
- * @param {number}                        columns
- * @param {'top'|'right'|'bottom'|'left'} fillDirection
- * @param {number}                        padding
- *
- * @return {{ cells: Array, cellSize: number, origin: { x: number, y: number } } }
- */
-export const computeGrid = (width, height, rows, columns, fillDirection, padding) => {
-    const cellSize = computeCellSize(width, height, rows, columns, padding)
+export const getComputeRect = ({ layout, reverse, scale, height }) => {
+    if (layout === 'horizontal') {
+        if (reverse === true) {
+            return d => {
+                const x = scale(d.v1)
+                const w = scale(d.v0) - x
 
-    const cells = []
-    switch (fillDirection) {
-        case 'top':
-            range(rows).forEach(row => {
-                range(columns).forEach(column => {
-                    cells.push({
-                        position: row * columns + column,
-                        row,
-                        column,
-                        x: column * (cellSize + padding),
-                        y: row * (cellSize + padding),
-                    })
-                })
-            })
-            break
-
-        case 'bottom':
-            range(rows - 1, -1).forEach(row => {
-                range(columns).forEach(column => {
-                    cells.push({
-                        position: row * columns + column,
-                        row,
-                        column,
-                        x: column * (cellSize + padding),
-                        y: row * (cellSize + padding),
-                    })
-                })
-            })
-            break
-
-        case 'left':
-            range(columns).forEach(column => {
-                range(rows).forEach(row => {
-                    cells.push({
-                        position: row * columns + column,
-                        row,
-                        column,
-                        x: column * (cellSize + padding),
-                        y: row * (cellSize + padding),
-                    })
-                })
-            })
-            break
-
-        case 'right':
-            range(columns - 1, -1).forEach(column => {
-                range(rows - 1, -1).forEach(row => {
-                    cells.push({
-                        position: row * columns + column,
-                        row,
-                        column,
-                        x: column * (cellSize + padding),
-                        y: row * (cellSize + padding),
-                    })
-                })
-            })
-            break
-
-        default:
-            throw new Error(`Invalid fill direction provided: ${fillDirection}`)
-    }
-
-    const origin = {
-        x: (width - (cellSize * columns + padding * (columns - 1))) / 2,
-        y: (height - (cellSize * rows + padding * (rows - 1))) / 2,
-    }
-
-    return { cells, cellSize, origin }
-}
-
-export const applyDataToGrid = (_cells, data) => {
-    const cells = _cells.map(cell => ({ ...cell }))
-
-    data.forEach(datum => {
-        range(datum.startAt, datum.endAt).forEach(position => {
-            const cell = cells[position]
-            if (cell !== undefined) {
-                cell.data = datum
-                cell.groupIndex = datum.groupIndex
-                cell.color = datum.color
+                return { x, y: 0, width: w, height }
             }
-        })
+        }
+
+        return d => {
+            const x = scale(d.v0)
+            const w = scale(d.v1) - x
+
+            return { x, y: 0, width: w, height }
+        }
+    }
+
+    if (reverse === true) {
+        return d => {
+            const y = scale(d.v0)
+            const h = scale(d.v1) - y
+
+            return { x: 0, y, width: height, height: h }
+        }
+    }
+
+    return d => {
+        const y = scale(d.v1)
+        const h = scale(d.v0) - y
+
+        return { x: 0, y, width: height, height: h }
+    }
+}
+
+export const computeRects = ({ data, layout, reverse, scale, height }) => {
+    const computeRect = getComputeRect({
+        layout,
+        reverse,
+        scale,
+        height,
     })
 
-    return cells
+    return data.map(d => ({
+        data: d,
+        ...computeRect(d),
+    }))
 }

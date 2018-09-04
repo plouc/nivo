@@ -1,6 +1,7 @@
 import React from 'react'
 import dedent from 'dedent-js'
 import { LegendSvgItem, DIRECTION_LEFT_TO_RIGHT } from '@nivo/legends'
+import theme from '../../../nivoTheme'
 
 const shapes = ['square', 'circle', 'triangle', 'diamond']
 
@@ -47,6 +48,7 @@ export default () => (
                             }}
                             direction={DIRECTION_LEFT_TO_RIGHT}
                             symbolShape={shape}
+                            theme={theme}
                         />
                     </svg>
                 </div>

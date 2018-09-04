@@ -32,7 +32,7 @@ const stories = storiesOf('WaffleCanvas', module)
 
 stories.add('default', withInfo()(() => <WaffleCanvas {...commonProps} />))
 
-stories.add('colors', withInfo()(() => <WaffleCanvas {...commonProps} colors="d310" />))
+stories.add('colors', withInfo()(() => <WaffleCanvas {...commonProps} colors="category10" />))
 
 stories.add(
     'using data color',

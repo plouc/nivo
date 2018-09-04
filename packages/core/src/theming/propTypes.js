@@ -12,6 +12,7 @@ export const axisThemePropType = PropTypes.shape({
     domain: PropTypes.shape({
         stroke: PropTypes.string.isRequired,
         strokeWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+        strokeDasharray: PropTypes.string,
     }).isRequired,
     ticks: PropTypes.shape({
         line: PropTypes.shape({
@@ -38,5 +39,5 @@ export const gridThemePropType = PropTypes.shape({
 
 export const themePropType = PropTypes.shape({
     axis: axisThemePropType.isRequired,
-    grid: axisThemePropType.isRequired,
+    grid: gridThemePropType.isRequired,
 })

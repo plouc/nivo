@@ -46,7 +46,7 @@ stories.add(
             labelRotation={-90}
             padAngle={0.02}
             innerRadiusOffset={0.02}
-            colors="d310"
+            colors="category10"
         />
     ))
 )

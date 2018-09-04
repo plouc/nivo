@@ -23,7 +23,18 @@ const Colors = () => (
         </div>
         <ColorsIllustrations />
         <div className="guide__description text-content">
-            <h2>Available color ranges</h2>
+            <h2>Available color schemes</h2>
+            <p>
+                Almost all color schemes come from{' '}
+                <a
+                    href="https://github.com/d3/d3-scale-chromatic"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <code>d3-scale-chromatic</code>
+                </a>
+                .
+            </p>
         </div>
         <ColorsRanges />
         <div className="guide__description text-content">

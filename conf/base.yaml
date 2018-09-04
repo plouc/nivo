@@ -3,100 +3,104 @@ capture:
     pages:
       - path: /bar
         selector: .chart-tabs--chart
-        output: ./packages/nivo-bar/doc/bar.png
+        output: ./packages/bar/doc/bar.png
 
       - path: /bar/canvas
         selector: .chart-tabs--chart
-        output: ./packages/nivo-bar/doc/bar-canvas.png
+        output: ./packages/bar/doc/bar-canvas.png
 
       - path: /calendar
         selector: .chart-tabs--chart
-        output: ./packages/nivo-calendar/doc/calendar.png
+        output: ./packages/calendar/doc/calendar.png
 
       - path: /chord
         selector: .chart-tabs--chart
-        output: ./packages/nivo-chord/doc/chord.png
+        output: ./packages/chord/doc/chord.png
 
       - path: /chord/canvas
         selector: .chart-tabs--chart
-        output: ./packages/nivo-chord/doc/chord-canvas.png
+        output: ./packages/chord/doc/chord-canvas.png
 
       - path: /bubble
         selector: .chart-tabs--chart
-        output: ./packages/nivo-circle-packing/doc/bubble.png
+        output: ./packages/circle-packing/doc/bubble.png
 
       - path: /bubble/html
         selector: .chart-tabs--chart
-        output: ./packages/nivo-circle-packing/doc/bubble-html.png
+        output: ./packages/circle-packing/doc/bubble-html.png
 
       - path: /bubble/canvas
         selector: .chart-tabs--chart
-        output: ./packages/nivo-circle-packing/doc/bubble-canvas.png
+        output: ./packages/circle-packing/doc/bubble-canvas.png
+
+      - path: /bullet
+        selector: .chart-tabs--chart
+        output: ./packages/bullet/doc/bullet.png
 
       - path: /heatmap
         selector: .chart-tabs--chart
-        output: ./packages/nivo-heatmap/doc/heatmap.png
+        output: ./packages/heatmap/doc/heatmap.png
 
       - path: /heatmap/canvas
         selector: .chart-tabs--chart
-        output: ./packages/nivo-heatmap/doc/heatmap-canvas.png
+        output: ./packages/heatmap/doc/heatmap-canvas.png
 
       - path: /line
         selector: .chart-tabs--chart
-        output: ./packages/nivo-line/doc/line.png
+        output: ./packages/line/doc/line.png
 
       - path: /pie
         selector: .chart-tabs--chart
-        output: ./packages/nivo-pie/doc/pie.png
+        output: ./packages/pie/doc/pie.png
 
       - path: /radar
         selector: .chart-tabs--chart
-        output: ./packages/nivo-radar/doc/radar.png
+        output: ./packages/radar/doc/radar.png
 
       - path: /sankey
         selector: .chart-tabs--chart
-        output: ./packages/nivo-sankey/doc/sankey.png
+        output: ./packages/sankey/doc/sankey.png
 
       - path: /scatterplot
         selector: .chart-tabs--chart
-        output: ./packages/nivo-scatterplot/doc/scatterplot.png
+        output: ./packages/scatterplot/doc/scatterplot.png
 
       - path: /scatterplot/canvas
         selector: .chart-tabs--chart
-        output: ./packages/nivo-scatterplot/doc/scatterplot-canvas.png
+        output: ./packages/scatterplot/doc/scatterplot-canvas.png
 
       - path: /stream
         selector: .chart-tabs--chart
-        output: ./packages/nivo-stream/doc/stream.png
+        output: ./packages/stream/doc/stream.png
 
       - path: /sunburst
         selector: .chart-tabs--chart
-        output: ./packages/nivo-sunburst/doc/sunburst.png
+        output: ./packages/sunburst/doc/sunburst.png
 
       - path: /treemap
         selector: .chart-tabs--chart
-        output: ./packages/nivo-treemap/doc/treemap.png
+        output: ./packages/treemap/doc/treemap.png
 
       - path: /treemap/html
         selector: .chart-tabs--chart
-        output: ./packages/nivo-treemap/doc/treemap-html.png
+        output: ./packages/treemap/doc/treemap-html.png
 
       - path: /treemap/canvas
         selector: .chart-tabs--chart
-        output: ./packages/nivo-treemap/doc/treemap-canvas.png
+        output: ./packages/treemap/doc/treemap-canvas.png
 
       - path: /voronoi
         selector: .chart-tabs--chart
-        output: ./packages/nivo-voronoi/doc/voronoi.png
+        output: ./packages/voronoi/doc/voronoi.png
 
       - path: /waffle
         selector: .chart-tabs--chart
-        output: ./packages/nivo-waffle/doc/waffle.png
+        output: ./packages/waffle/doc/waffle.png
 
       - path: /waffle/html
         selector: .chart-tabs--chart
-        output: ./packages/nivo-waffle/doc/waffle-html.png
+        output: ./packages/waffle/doc/waffle-html.png
 
       - path: /waffle/canvas
         selector: .chart-tabs--chart
-        output: ./packages/nivo-waffle/doc/waffle-canvas.png
+        output: ./packages/waffle/doc/waffle-canvas.png

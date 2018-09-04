@@ -153,11 +153,7 @@ SankeyLabels.propTypes = {
     labelOrientation: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
     getLabelTextColor: PropTypes.func.isRequired,
 
-    theme: PropTypes.shape({
-        sankey: PropTypes.shape({
-            label: PropTypes.object.isRequired,
-        }).isRequired,
-    }).isRequired,
+    theme: PropTypes.object.isRequired,
 
     ...motionPropTypes,
 }
