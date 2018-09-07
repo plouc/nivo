@@ -2,11 +2,24 @@
   "name": "@nivo/scatterplot",
   "version": "0.48.0",
   "license": "MIT",
+  "author": {
+    "name": "Raphaël Benitte",
+    "url": "https://github.com/plouc"
+  },
+  "keywords": [
+    "nivo",
+    "dataviz",
+    "react",
+    "d3",
+    "charts",
+    "scatterplot"
+  ],
   "main": "./index.js",
   "files": [
     "README.md",
     "index.js",
-    "cjs/"
+    "cjs/",
+    "umd/"
   ],
   "dependencies": {
     "@nivo/core": "^0.48.0",

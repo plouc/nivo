@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React, { Component } from 'react'
-import { generateGroupedBars, generateStackedBars } from './compute'
+import setDisplayName from 'recompose/setDisplayName'
 import {
     renderAxesToCanvas,
     getRelativeCursor,
@@ -15,9 +15,9 @@ import {
     Container,
     BasicTooltip,
 } from '@nivo/core'
+import { generateGroupedBars, generateStackedBars } from './compute'
 import { BarPropTypes } from './props'
 import enhance from './enhance'
-import setDisplayName from 'recompose/setDisplayName'
 
 const findNodeUnderCursor = (nodes, margin, x, y) =>
     nodes.find(node =>

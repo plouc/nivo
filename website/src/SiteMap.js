@@ -22,6 +22,9 @@ import Line from './components/charts/line/Line'
 import LineAPI from './components/charts/line/LineAPI'
 import StreamPage from './components/charts/stream/StreamPage'
 import Stream from './components/charts/stream/Stream'
+import ParallelCoordinatesPage from './components/charts/parallel-coordinates/ParallelCoordinatesPage'
+import ParallelCoordinates from './components/charts/parallel-coordinates/ParallelCoordinates'
+import ParallelCoordinatesCanvas from './components/charts/parallel-coordinates/ParallelCoordinatesCanvas'
 import PiePage from './components/charts/pie/PiePage'
 import Pie from './components/charts/pie/Pie'
 import PieCanvas from './components/charts/pie/PieCanvas'
@@ -263,6 +266,29 @@ const SITEMAP = [
                         label: 'Line API',
                         component: LineAPI,
                         tags: ['api'],
+                    },
+                ],
+            },
+            {
+                className: 'parallel-coordinates',
+                path: '/parallel-coordinates',
+                label: 'ParallelCoordinates',
+                component: ParallelCoordinatesPage,
+                children: [
+                    {
+                        className: 'react',
+                        path: '/',
+                        label: 'ParallelCoordinates',
+                        component: ParallelCoordinates,
+                        exact: true,
+                        tags: ['svg', 'isomorphic'],
+                    },
+                    {
+                        className: 'canvas',
+                        path: '/canvas',
+                        label: 'ParallelCoordinatesCanvas',
+                        component: ParallelCoordinatesCanvas,
+                        tags: ['canvas'],
                     },
                 ],
             },

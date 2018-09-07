@@ -2,12 +2,25 @@
   "name": "@nivo/calendar",
   "version": "0.48.0",
   "license": "MIT",
+  "author": {
+    "name": "Raphaël Benitte",
+    "url": "https://github.com/plouc"
+  },
+  "keywords": [
+    "nivo",
+    "dataviz",
+    "react",
+    "d3",
+    "charts",
+    "calendar"
+  ],
   "main": "./index.js",
   "files": [
     "README.md",
     "index.js",
     "index.d.ts",
-    "cjs/"
+    "cjs/",
+    "umd/"
   ],
   "dependencies": {
     "@nivo/core": "^0.48.0",

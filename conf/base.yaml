@@ -49,6 +49,14 @@ capture:
         selector: .chart-tabs__content
         output: ./packages/line/doc/line.png
 
+      - path: /parallel-coordinates
+        selector: .chart-tabs__content
+        output: ./packages/parallel-coordinates/doc/parallel-coordinates.png
+
+      - path: /parallel-coordinates/canvas
+        selector: .chart-tabs__content
+        output: ./packages/parallel-coordinates/doc/parallel-coordinates-canvas.png
+
       - path: /pie
         selector: .chart-tabs__content
         output: ./packages/pie/doc/pie.png

@@ -26,6 +26,7 @@ export default class ArrayControl extends PureComponent {
         shouldRemove: PropTypes.bool.isRequired,
         removeLabel: PropTypes.string.isRequired,
         defaults: PropTypes.object.isRequired,
+        getItemTitle: PropTypes.func,
     }
 
     static defaultProps = {
@@ -92,6 +93,7 @@ export default class ArrayControl extends PureComponent {
             addLabel,
             shouldRemove,
             removeLabel,
+            getItemTitle,
         } = this.props
         const { activeItems } = this.state
 
@@ -117,8 +119,10 @@ export default class ArrayControl extends PureComponent {
                         >
                             <span>
                                 {activeItems.includes(index) && <OpenedIcon />}
-                                {!activeItems.includes(index) && <ClosedIcon />}
-                                {` ${label}[${index}]`}
+                                {!activeItems.includes(index) && <ClosedIcon />}{' '}
+                                {getItemTitle !== undefined
+                                    ? getItemTitle(index, item)
+                                    : `${label}[${index}]`}
                             </span>
                             {shouldRemove && (
                                 <span

@@ -1,9 +1,15 @@
-export const blackTheme = {
+export const darkTheme = {
     background: '#222',
     axis: {
+        domain: {
+            line: {
+                strokeWidth: 0,
+                stroke: '#bbb',
+            },
+        },
         ticks: {
             line: {
-                stroke: '#777',
+                stroke: '#bbb',
             },
             text: {
                 fill: '#bbb',
@@ -50,8 +56,14 @@ export const blackTheme = {
     },
 }
 
-export default {
+export const lightTheme = {
     axis: {
+        domain: {
+            line: {
+                strokeWidth: 0,
+                stroke: '#889eae',
+            },
+        },
         ticks: {
             line: {
                 stroke: '#889eae',
@@ -80,3 +92,5 @@ export default {
         },
     },
 }
+
+export default lightTheme

@@ -9,7 +9,7 @@
 import React from 'react'
 import dedent from 'dedent-js'
 import { BulletDefaultProps as defaults } from '@nivo/bullet'
-import { motionProperties } from '../../../lib/componentProperties'
+import { marginProperties, motionProperties } from '../../../lib/componentProperties'
 
 export default [
     {
@@ -153,6 +153,7 @@ export default [
             step: 0.05,
         },
     },
+    ...marginProperties,
     {
         key: 'rangeComponent',
         scopes: ['Bullet'],
