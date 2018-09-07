@@ -149,7 +149,10 @@ class Axis extends Component {
                 <text
                     transform={`translate(${legendX}, ${legendY}) rotate(${legendRotation})`}
                     textAnchor={textAnchor}
-                    style={theme.axis.legend.text}
+                    style={{
+                        alignmentBaseline: 'middle',
+                        ...theme.axis.legend.text,
+                    }}
                 >
                     {legend}
                 </text>

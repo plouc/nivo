@@ -67,7 +67,15 @@ export class ParallelCoordinates extends Component {
                             x={layout === 'horizontal' ? variablesScale(variable.key) : 0}
                             y={layout === 'horizontal' ? 0 : variablesScale(variable.key)}
                             scale={variable.scale}
-                            ticksPosition={axesTicksPosition}
+                            ticksPosition={variable.ticksPosition || axesTicksPosition}
+                            tickValues={variable.tickValues}
+                            tickSize={variable.tickSize}
+                            tickPadding={variable.tickPadding}
+                            tickRotation={variable.tickRotation}
+                            tickFormat={variable.tickFormat}
+                            legend={variable.legend}
+                            legendPosition={variable.legendPosition}
+                            legendOffset={variable.legendOffset}
                             theme={theme}
                             {...motionProps}
                         />

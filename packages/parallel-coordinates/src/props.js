@@ -11,6 +11,14 @@ import { themePropType, lineCurvePropType } from '@nivo/core'
 
 const commonVariablePropTypes = {
     key: PropTypes.string.isRequired,
+    ticksPosition: PropTypes.oneOf(['before', 'after']),
+    tickSize: PropTypes.number,
+    tickPadding: PropTypes.number,
+    tickRotation: PropTypes.number,
+    tickFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    legend: PropTypes.node,
+    legendPosition: PropTypes.oneOf(['start', 'middle', 'end']),
+    legendOffset: PropTypes.number,
 }
 
 export const commonPropTypes = {
@@ -25,12 +33,19 @@ export const commonPropTypes = {
                 values: PropTypes.arrayOf(
                     PropTypes.oneOfType([PropTypes.string, PropTypes.number])
                 ),
+                tickValues: PropTypes.arrayOf(
+                    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+                ),
             }),
             PropTypes.shape({
                 ...commonVariablePropTypes,
                 type: PropTypes.oneOf(['linear']).isRequired,
                 min: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]),
                 max: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]),
+                tickValues: PropTypes.oneOfType([
+                    PropTypes.number,
+                    PropTypes.arrayOf(PropTypes.number),
+                ]),
             }),
         ])
     ).isRequired,
