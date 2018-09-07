@@ -252,6 +252,7 @@ export const generateWinesTastes = ({ randMin = 20, randMax = 120 } = {}) => {
     return { data, keys: wines }
 }
 
-export { default as generateSankeyData } from './sankey'
-export { default as generateChordData } from './chord'
 export * from './bullet'
+export * from './chord'
+export * from './parallelCoordinates'
+export * from './sankey'

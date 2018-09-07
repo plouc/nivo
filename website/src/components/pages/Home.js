@@ -278,7 +278,7 @@ class Home extends Component {
                         margin={radarMargin}
                         theme={homeTheme}
                         colors={colors}
-                        curve="catmullRomClosed"
+                        curve="linearClosed"
                         dotSize={7}
                         dotBorderWidth={1}
                         dotBorderColor="#e25d47"

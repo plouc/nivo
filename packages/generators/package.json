@@ -8,12 +8,16 @@
     }
   ],
   "description": "Data generators used for nivo-website and http API samples",
-  "author": "Raphaël Benitte <benitteraphael@gmail.com>",
+  "author": {
+    "name": "Raphaël Benitte",
+    "url": "https://github.com/plouc"
+  },
   "main": "./index.js",
   "files": [
     "README.md",
     "index.js",
-    "cjs/"
+    "cjs/",
+    "umd/"
   ],
   "engines": {
     "node": ">=6.0.0",

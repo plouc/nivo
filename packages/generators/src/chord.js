@@ -2,7 +2,12 @@ import range from 'lodash/range'
 import random from 'lodash/random'
 import { names } from './sets'
 
-export default ({ keys = names, size = 7, minValue = 0, maxValue = 2000 } = {}) => {
+export const generateChordData = ({
+    keys = names,
+    size = 7,
+    minValue = 0,
+    maxValue = 2000,
+} = {}) => {
     const maxSize = Math.min(keys.length, size)
     const selectedKeys = keys.slice(0, maxSize)
 

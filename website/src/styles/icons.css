@@ -1,4 +1,4 @@
-/* glue: 0.13 hash: a318312f27 */
+/* glue: 0.13 hash: 1810c58904 */
 .sprite-icons-waffle-red,
 .sprite-icons-waffle-grey,
 .sprite-icons-voronoi-red,
@@ -21,6 +21,8 @@
 .sprite-icons-placeholders-grey,
 .sprite-icons-pie-red,
 .sprite-icons-pie-grey,
+.sprite-icons-parallel-coordinates-red,
+.sprite-icons-parallel-coordinates-grey,
 .sprite-icons-nivo-logo,
 .sprite-icons-nav-back-red,
 .sprite-icons-nav-back-grey,
@@ -186,176 +188,188 @@
     height: 52px;
 }
 
-.sprite-icons-nivo-logo {
+.sprite-icons-parallel-coordinates-red {
     background-position: -124px -244px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-nav-back-red {
+.sprite-icons-parallel-coordinates-grey {
     background-position: -184px -244px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-nav-back-grey {
+.sprite-icons-nivo-logo {
     background-position: -244px -244px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-line-red {
+.sprite-icons-nav-back-red {
     background-position: -304px -4px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-line-grey {
+.sprite-icons-nav-back-grey {
     background-position: -304px -64px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-html-red {
+.sprite-icons-line-red {
     background-position: -304px -124px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-html-grey {
+.sprite-icons-line-grey {
     background-position: -304px -184px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-heatmap-red {
+.sprite-icons-html-red {
     background-position: -304px -244px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-heatmap-grey {
+.sprite-icons-html-grey {
     background-position: -4px -304px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-data-red {
+.sprite-icons-heatmap-red {
     background-position: -64px -304px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-data-grey {
+.sprite-icons-heatmap-grey {
     background-position: -124px -304px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-colors-red {
+.sprite-icons-data-red {
     background-position: -184px -304px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-colors-grey {
+.sprite-icons-data-grey {
     background-position: -244px -304px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-code-red {
+.sprite-icons-colors-red {
     background-position: -304px -304px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-code-grey {
+.sprite-icons-colors-grey {
     background-position: -364px -4px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-chord-red {
+.sprite-icons-code-red {
     background-position: -364px -64px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-chord-grey {
+.sprite-icons-code-grey {
     background-position: -364px -124px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-canvas-red {
+.sprite-icons-chord-red {
     background-position: -364px -184px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-canvas-grey {
+.sprite-icons-chord-grey {
     background-position: -364px -244px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-calendar-red {
+.sprite-icons-canvas-red {
     background-position: -364px -304px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-calendar-grey {
+.sprite-icons-canvas-grey {
     background-position: -4px -364px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bullet-red {
+.sprite-icons-calendar-red {
     background-position: -64px -364px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bullet-grey {
+.sprite-icons-calendar-grey {
     background-position: -124px -364px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bubble-red {
+.sprite-icons-bullet-red {
     background-position: -184px -364px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bubble-grey {
+.sprite-icons-bullet-grey {
     background-position: -244px -364px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bar-red {
+.sprite-icons-bubble-red {
     background-position: -304px -364px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bar-grey {
+.sprite-icons-bubble-grey {
     background-position: -364px -364px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-api-red {
+.sprite-icons-bar-red {
     background-position: -424px -4px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-api-grey {
+.sprite-icons-bar-grey {
     background-position: -424px -64px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-api-red {
+    background-position: -424px -124px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-api-grey {
+    background-position: -424px -184px;
     width: 52px;
     height: 52px;
 }
@@ -387,6 +401,8 @@
     .sprite-icons-placeholders-grey,
     .sprite-icons-pie-red,
     .sprite-icons-pie-grey,
+    .sprite-icons-parallel-coordinates-red,
+    .sprite-icons-parallel-coordinates-grey,
     .sprite-icons-nivo-logo,
     .sprite-icons-nav-back-red,
     .sprite-icons-nav-back-grey,
@@ -450,6 +466,8 @@
     .sprite-icons-placeholders-grey,
     .sprite-icons-pie-red,
     .sprite-icons-pie-grey,
+    .sprite-icons-parallel-coordinates-red,
+    .sprite-icons-parallel-coordinates-grey,
     .sprite-icons-nivo-logo,
     .sprite-icons-nav-back-red,
     .sprite-icons-nav-back-grey,

@@ -1,0 +1,40 @@
+{
+  "name": "@nivo/parallel-coordinates",
+  "version": "0.48.0",
+  "license": "MIT",
+  "author": {
+    "name": "Raphaël Benitte",
+    "url": "https://github.com/plouc"
+  },
+  "keywords": [
+    "nivo",
+    "dataviz",
+    "react",
+    "d3",
+    "charts",
+    "parrallel-coordinates-chart"
+  ],
+  "main": "./index.js",
+  "files": [
+    "README.md",
+    "index.js",
+    "index.d.ts",
+    "cjs/",
+    "umd/"
+  ],
+  "dependencies": {
+    "@nivo/axes": "^0.48.0",
+    "@nivo/core": "^0.48.0",
+    "d3-scale": "^2.1.2",
+    "d3-shape": "^1.2.2",
+    "react-motion": "^0.5.2",
+    "recompose": "^0.26.0"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.5.10",
+    "react": ">= 16.2.0 < 17.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

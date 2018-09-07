@@ -3,12 +3,17 @@
   "description": "legend components for nivo dataviz library",
   "version": "0.48.0",
   "license": "MIT",
+  "author": {
+    "name": "Raphaël Benitte",
+    "url": "https://github.com/plouc"
+  },
   "main": "./index.js",
   "files": [
     "README.md",
     "index.js",
     "index.d.ts",
-    "cjs/"
+    "cjs/",
+    "umd/"
   ],
   "dependencies": {
     "lodash": "^4.17.4",

@@ -224,6 +224,11 @@
     display: block;
 }
 
+.control-text._is-disabled {
+    background: var(--main-background-color);
+    cursor: not-allowed;
+}
+
 .control-radio {
     display: grid;
     align-items: center;

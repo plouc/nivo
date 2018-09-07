@@ -147,9 +147,18 @@ svg text,
 
 code,
 .code {
-    display: inline-block;
-    background: transparent;
     color: var(--code-text-color);
+}
+
+.description code,
+.guide__description code,
+.component-properties__item__body code {
+    display: inline-block;
+    background: rgba(232, 193, 160, 0.25);
+    border-radius: 2px;
+    font-size: 0.9em;
+    padding: 5px 7px;
+    line-height: 1em;
 }
 
 .code-block {

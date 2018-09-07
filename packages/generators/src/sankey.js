@@ -43,7 +43,7 @@ const getNodesTargets = links =>
         return targetsById
     }, {})
 
-export default ({ nodeCount, maxIterations = 3 } = {}) => {
+export const generateSankeyData = ({ nodeCount, maxIterations = 3 } = {}) => {
     const nodes = availableNodes.slice(0, nodeCount).map(node =>
         Object.assign({}, node, {
             color: randColor(),

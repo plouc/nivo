@@ -31,7 +31,7 @@ const Colors = () => (
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    <code>d3-scale-chromatic</code>
+                    d3-scale-chromatic
                 </a>
                 .
             </p>

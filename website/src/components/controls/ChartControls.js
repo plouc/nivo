@@ -10,6 +10,7 @@ import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import get from 'lodash/get'
 import set from 'lodash/set'
+import isFunction from 'lodash/isFunction'
 import merge from 'lodash/merge'
 import snakeCase from 'lodash/snakeCase'
 import pick from 'lodash/pick'
@@ -27,6 +28,11 @@ import TextControl from './TextControl'
 import Select from 'react-select'
 import RadioControl from './RadioControl'
 import { getPropertiesGroupControls } from '../../lib/componentProperties'
+
+export const shouldRenderControl = (config, context) => {
+    if (!isFunction(config.when)) return true
+    return config.when(context)
+}
 
 export default class ChartControls extends Component {
     static propTypes = {
@@ -82,6 +88,10 @@ export default class ChartControls extends Component {
 
         const id = `${ns}-${snakeCase(groupName)}-${config.name}`
 
+        if (!shouldRenderControl(config, settings)) {
+            return null
+        }
+
         switch (config.type) {
             case 'array':
                 return (
@@ -97,6 +107,7 @@ export default class ChartControls extends Component {
                         addLabel={config.addLabel}
                         shouldRemove={config.shouldRemove}
                         defaults={config.defaults}
+                        getItemTitle={config.getItemTitle}
                     />
                 )
 
@@ -201,6 +212,7 @@ export default class ChartControls extends Component {
                         value={get(settings, config.name)}
                         onChange={this.handleTextUpdate(config.name)}
                         help={config.help}
+                        disabled={config.disabled}
                     />
                 )
 

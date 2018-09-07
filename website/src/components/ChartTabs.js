@@ -17,11 +17,13 @@ export default class ChartTabs extends Component {
         data: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
         code: PropTypes.string.isRequired,
         nodeCount: PropTypes.number,
+        nodeCountWording: PropTypes.string.isRequired,
         diceRoll: PropTypes.func,
     }
 
     static defaultProps = {
         mode: '',
+        nodeCountWording: 'nodes',
     }
 
     state = {
@@ -38,7 +40,15 @@ export default class ChartTabs extends Component {
     }
 
     render() {
-        const { chartClass, data, code, children, diceRoll, nodeCount } = this.props
+        const {
+            chartClass,
+            data,
+            code,
+            children,
+            diceRoll,
+            nodeCount,
+            nodeCountWording,
+        } = this.props
         const { tab: currentTab, hoverTab } = this.state
 
         let content
@@ -100,7 +110,8 @@ export default class ChartTabs extends Component {
                     nodeCount !== undefined && (
                         <span className="chart-tabs__node-count">
                             <strong>{nodeCount}</strong>
-                            &nbsp;nodes
+                            &nbsp;
+                            {nodeCountWording}
                         </span>
                     )}
             </div>
