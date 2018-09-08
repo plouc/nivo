@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { storiesOf } from '@storybook/react'
 import { withInfo } from '@storybook/addon-info'
 import { generateCountriesData, sets } from '@nivo/generators'
@@ -103,14 +103,14 @@ const divergingCommonProps = {
     },
     axisBottom: {
         legend: 'USERS',
-        legendPosition: 'center',
+        legendPosition: 'middle',
         legendOffset: 50,
         tickSize: 0,
         tickPadding: 12,
     },
     axisLeft: null,
     axisRight: {
-        format: v => `${Math.abs(v)}%`,
+        tickValueFormat: v => `${Math.abs(v)}%`,
     },
     markers: [
         {
@@ -185,10 +185,10 @@ stories.add(
         <Bar
             {...commonProps}
             axisLeft={{
-                format: value =>
-                    Number(value).toLocaleString('ru-RU', {
+                tickValueFormat: value =>
+                    `${Number(value).toLocaleString('ru-RU', {
                         minimumFractionDigits: 2,
-                    }),
+                    })} ₽`,
             }}
             tooltipFormat={value =>
                 `${Number(value).toLocaleString('ru-RU', {
@@ -205,7 +205,7 @@ stories.add(
         <Bar
             {...commonProps}
             axisLeft={{
-                format: value =>
+                tickValueFormat: value =>
                     Number(value).toLocaleString('ru-RU', {
                         minimumFractionDigits: 2,
                     }),
@@ -221,6 +221,54 @@ stories.add(
                         background: '#333',
                     },
                 },
+            }}
+        />
+    ))
+)
+
+stories.add(
+    'custom axis ticks',
+    withInfo(`
+        You can customize rendering of axis ticks using the corresponding axis \`renderTick\` property.
+    `)(() => (
+        <Bar
+            {...commonProps}
+            axisLeft={null}
+            axisBottom={{
+                renderTick: tick => (
+                    <g key={tick.key} transform={`translate(${tick.x},${tick.y + 22})`}>
+                        <rect
+                            x={-14}
+                            y={-6}
+                            rx={3}
+                            ry={3}
+                            width={28}
+                            height={24}
+                            fill="rgba(0, 0, 0, .05)"
+                        />
+                        <rect
+                            x={-12}
+                            y={-12}
+                            rx={2}
+                            ry={2}
+                            width={24}
+                            height={24}
+                            fill="rgb(232, 193, 160)"
+                        />
+                        <line stroke="rgb(232, 193, 160)" strokeWidth={1.5} y1={-22} y2={-12} />
+                        <text
+                            textAnchor="middle"
+                            alignmentBaseline="middle"
+                            style={{
+                                ...tick.theme.axis.ticks.text,
+                                fill: '#333',
+                                fontSize: 10,
+                            }}
+                        >
+                            {tick.value}
+                        </text>
+                    </g>
+                ),
             }}
         />
     ))

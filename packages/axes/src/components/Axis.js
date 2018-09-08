@@ -126,7 +126,7 @@ class Axis extends Component {
                 if (legendPosition === 'start') {
                     textAnchor = 'start'
                     legendY = length
-                } else if (legendPosition === 'center') {
+                } else if (legendPosition === 'middle') {
                     textAnchor = 'middle'
                     legendY = length / 2
                 } else if (legendPosition === 'end') {
@@ -136,7 +136,7 @@ class Axis extends Component {
                 legendY = legendOffset
                 if (legendPosition === 'start') {
                     textAnchor = 'start'
-                } else if (legendPosition === 'center') {
+                } else if (legendPosition === 'middle') {
                     textAnchor = 'middle'
                     legendX = length / 2
                 } else if (legendPosition === 'end') {

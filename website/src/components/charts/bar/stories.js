@@ -41,4 +41,11 @@ export const barStories = [
             story: 'custom tooltip',
         },
     },
+    {
+        label: 'Custom axis ticks',
+        link: {
+            kind: 'Bar',
+            story: 'custom axis ticks',
+        },
+    },
 ]

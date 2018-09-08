@@ -6,5 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+export { default as Axes } from './components/Axes'
 export { default as Axis } from './components/Axis'
 export * from './canvas'
+export * from './props'

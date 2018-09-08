@@ -7,13 +7,12 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
-import { noop } from '@nivo/core'
-import { defsPropTypes } from '@nivo/core'
+import { noop, defsPropTypes } from '@nivo/core'
+import { axisPropType } from '@nivo/axes'
 import { LegendPropShape } from '@nivo/legends'
 import BarItem from './BarItem'
 
 export const BarPropTypes = {
-    // data
     data: PropTypes.arrayOf(PropTypes.object).isRequired,
     indexBy: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     getIndex: PropTypes.func.isRequired, // computed
@@ -28,20 +27,17 @@ export const BarPropTypes = {
     padding: PropTypes.number.isRequired,
     innerPadding: PropTypes.number.isRequired,
 
-    // axes & grid
-    axisTop: PropTypes.object,
-    axisRight: PropTypes.object,
-    axisBottom: PropTypes.object,
-    axisLeft: PropTypes.object,
+    axisTop: axisPropType,
+    axisRight: axisPropType,
+    axisBottom: axisPropType,
+    axisLeft: axisPropType,
     enableGridX: PropTypes.bool.isRequired,
     enableGridY: PropTypes.bool.isRequired,
     gridXValues: PropTypes.arrayOf(PropTypes.number),
     gridYValues: PropTypes.arrayOf(PropTypes.number),
 
-    // customization
     barComponent: PropTypes.func.isRequired,
 
-    // labels
     enableLabel: PropTypes.bool.isRequired,
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     labelFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
@@ -53,7 +49,6 @@ export const BarPropTypes = {
     labelLinkColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     getLabelLinkColor: PropTypes.func.isRequired, // computed
 
-    // styling
     borderRadius: PropTypes.number.isRequired,
     getColor: PropTypes.func.isRequired, // computed
     ...defsPropTypes,
@@ -61,7 +56,6 @@ export const BarPropTypes = {
     borderColor: PropTypes.any.isRequired,
     getBorderColor: PropTypes.func.isRequired,
 
-    // interactivity
     isInteractive: PropTypes.bool,
     onClick: PropTypes.func.isRequired,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
@@ -91,16 +85,13 @@ export const BarDefaultProps = {
     padding: 0.1,
     innerPadding: 0,
 
-    // axes & grid
     axisBottom: {},
     axisLeft: {},
     enableGridX: false,
     enableGridY: true,
 
-    // customization
     barComponent: BarItem,
 
-    // labels
     enableLabel: true,
     label: 'value',
     labelSkipWidth: 0,
@@ -114,7 +105,6 @@ export const BarDefaultProps = {
     borderWidth: 0,
     borderColor: 'inherit',
 
-    // interactivity
     isInteractive: true,
     onClick: noop,
 

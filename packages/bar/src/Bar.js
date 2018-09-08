@@ -8,7 +8,8 @@
  */
 import React from 'react'
 import { TransitionMotion, spring } from 'react-motion'
-import { bindDefs, Container, SvgWrapper, Grid, Axes, CartesianMarkers } from '@nivo/core'
+import { bindDefs, Container, SvgWrapper, Grid, CartesianMarkers } from '@nivo/core'
+import { Axes } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
 import { generateGroupedBars, generateStackedBars } from './compute'
 import setDisplayName from 'recompose/setDisplayName'
