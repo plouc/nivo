@@ -1,10 +1,11 @@
 <img alt="nivo" src="https://raw.githubusercontent.com/plouc/nivo/master/nivo.png" width="216" height="68"/>
 
+[![Backers on Open Collective](https://opencollective.com/nivo/backers/badge.svg?style=flat-square)](#backers)
+[![Sponsors on Open Collective](https://opencollective.com/nivo/sponsors/badge.svg?style=flat-square)](#sponsors)
 [![License][license-image]][license-url]
 [![Travis CI][travis-image]][travis-url]
 [![NPM version][npm-image]][npm-url]
 [![nivo channel on discord](https://img.shields.io/badge/discord-nivo-61dafb.svg?style=flat-square)](https://discord.gg/n7Ft74f)
-[![styled with prettier][prettier-image]][prettier-url]
 
 **nivo** provides supercharged React components to easily build dataviz apps,
 it's built on top of d3.
@@ -41,8 +42,8 @@ Join the [nivo discord community](https://discord.gg/n7Ft74f).
 
 ## Packages & components
 
-**nivo** is comprised of several packages/components, for a better overview of the available one,
-please try the [components explorer](http://nivo.rocks/components).
+**nivo** is comprised of several packages/components, for a full list,
+please use the [components explorer](http://nivo.rocks/components).
 
 | package                                                                                                   | components                                                                                                                                                                           |
 | :-------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -143,6 +144,17 @@ Components available through the HTTP rendering API.
 -   [legends](http://nivo.rocks/guides/legends)
 -   [gradients](http://nivo.rocks/guides/gradients)
 -   [patterns](http://nivo.rocks/guides/patterns)
+
+## Backers
+
+Donations are welcome to help improving **nivo** [[Become a backer](https://opencollective.com/nivo#backer)]
+
+<a href="https://opencollective.com/nivo#backers" target="_blank"><img src="https://opencollective.com/nivo/backers.svg?width=890"></a>
+
+## Open Collective Sponsors
+
+Support this project by becoming a sponsor,
+your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/nivo#sponsor)]
 
 ## Repositories
 
