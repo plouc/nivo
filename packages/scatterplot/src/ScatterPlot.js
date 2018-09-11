@@ -9,7 +9,7 @@
 import React from 'react'
 import { TransitionMotion, spring } from 'react-motion'
 import { Container, SvgWrapper } from '@nivo/core'
-import { Grid, Axes } from '@nivo/core'
+import { Grid, Axes, CartesianMarkers } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
 import setDisplayName from 'recompose/setDisplayName'
 import enhance from './enhance'
@@ -35,6 +35,9 @@ const ScatterPlot = ({
     axisLeft,
     enableGridX,
     enableGridY,
+
+    // markers
+    markers,
 
     // theming
     theme,
@@ -161,6 +164,14 @@ const ScatterPlot = ({
                             )}
                         </TransitionMotion>
                     )}
+                    <CartesianMarkers
+                        markers={markers}
+                        width={width}
+                        height={height}
+                        xScale={xScale}
+                        yScale={yScale}
+                        theme={theme}
+                    />
                     {legends.map((legend, i) => (
                         <BoxLegendSvg
                             key={i}
