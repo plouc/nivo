@@ -8,7 +8,6 @@
  */
 import React from 'react'
 import { Route } from 'react-router-dom'
-
 import BarPage from './components/charts/bar/BarPage'
 import Bar from './components/charts/bar/Bar'
 import BarCanvas from './components/charts/bar/BarCanvas'
@@ -39,6 +38,8 @@ import BubbleCanvas from './components/charts/bubble/BubbleCanvas'
 import BubbleAPI from './components/charts/bubble/BubbleAPI'
 import BulletPage from './components/charts/bullet/BulletPage'
 import Bullet from './components/charts/bullet/Bullet'
+import DagPage from './components/charts/dag/DagPage'
+import Dag from './components/charts/dag/Dag'
 import SankeyPage from './components/charts/sankey/SankeyPage'
 import Sankey from './components/charts/sankey/Sankey'
 import SankeyAPI from './components/charts/sankey/SankeyAPI'
@@ -158,6 +159,22 @@ const SITEMAP = [
                         path: '/',
                         label: 'Bullet',
                         component: Bullet,
+                        exact: true,
+                        tags: ['svg', 'isomorphic'],
+                    },
+                ],
+            },
+            {
+                className: 'dag',
+                path: '/dag',
+                label: 'Dag',
+                component: DagPage,
+                children: [
+                    {
+                        className: 'react',
+                        path: '/',
+                        label: 'Dag',
+                        component: Dag,
                         exact: true,
                         tags: ['svg', 'isomorphic'],
                     },

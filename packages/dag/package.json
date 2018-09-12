@@ -1,0 +1,43 @@
+{
+  "name": "@nivo/dag",
+  "version": "0.49.0",
+  "license": "MIT",
+  "author": {
+    "name": "Raphaël Benitte",
+    "url": "https://github.com/plouc"
+  },
+  "keywords": [
+    "nivo",
+    "dataviz",
+    "react",
+    "d3",
+    "charts",
+    "d3-dag",
+    "dag"
+  ],
+  "main": "./index.js",
+  "files": [
+    "README.md",
+    "index.js",
+    "index.d.ts",
+    "cjs/",
+    "umd/"
+  ],
+  "dependencies": {
+    "@nivo/core": "0.49.0",
+    "d3-dag": "^0.1.1",
+    "fastpriorityqueue": "^0.6.1",
+    "javascript-lp-solver": "^0.4.5",
+    "lodash": "^4.17.4",
+    "quadprog-js": "^0.1.3",
+    "react-motion": "^0.5.2",
+    "recompose": "^0.26.0"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.5.10",
+    "react": ">= 16.2.0 < 17.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

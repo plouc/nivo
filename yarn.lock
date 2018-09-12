@@ -629,6 +629,14 @@
     babel-plugin-transform-object-rest-spread "^6.26.0"
     babel-plugin-transform-react-jsx "^6.24.1"
 
+"@nivo/generators@^0.48.0":
+  version "0.48.0"
+  resolved "https://registry.yarnpkg.com/@nivo/generators/-/generators-0.48.0.tgz#b7420dac3e4ed807e9d7c46ccba280a7976518b5"
+  dependencies:
+    d3-time "^1.0.10"
+    d3-time-format "^2.1.3"
+    lodash "^4.17.4"
+
 "@nodelib/fs.stat@^1.0.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.1.tgz#53f349bb986ab273d601175aa1b25a655ab90ee3"
@@ -3525,6 +3533,10 @@ d3-color@1, d3-color@^1.0.3:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/d3-color/-/d3-color-1.2.0.tgz#d1ea19db5859c86854586276ec892cf93148459a"
 
+d3-dag@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/d3-dag/-/d3-dag-0.1.1.tgz#06919c73e88d75573351a13b7297b1306b016344"
+
 d3-format@1:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/d3-format/-/d3-format-1.3.0.tgz#a3ac44269a2011cdb87c7b5693040c18cddfff11"
@@ -4586,6 +4598,10 @@ fast-memoize@^2.2.7:
 fastparse@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/fastparse/-/fastparse-1.1.1.tgz#d1e2643b38a94d7583b479060e6c4affc94071f8"
+
+fastpriorityqueue@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/fastpriorityqueue/-/fastpriorityqueue-0.6.1.tgz#a4ef79956d2e8c0a148fc00371c920db802c5e8f"
 
 faye-websocket@~0.11.0:
   version "0.11.1"
@@ -6077,6 +6093,10 @@ istanbul-reports@^1.3.0:
   resolved "https://registry.yarnpkg.com/istanbul-reports/-/istanbul-reports-1.3.0.tgz#2f322e81e1d9520767597dca3c20a0cce89a3554"
   dependencies:
     handlebars "^4.0.3"
+
+javascript-lp-solver@^0.4.5:
+  version "0.4.5"
+  resolved "https://registry.yarnpkg.com/javascript-lp-solver/-/javascript-lp-solver-0.4.5.tgz#597106f586b4843a4ce51c7e6dc8a91f8a929c3f"
 
 jest-changed-files@^23.4.2:
   version "23.4.2"
@@ -8466,6 +8486,10 @@ qs@^6.5.1, qs@~6.5.2:
 qs@~6.4.0:
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.4.0.tgz#13e26d28ad6b0ffaa91312cd3bf708ed351e7233"
+
+quadprog-js@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/quadprog-js/-/quadprog-js-0.1.3.tgz#1cc42eee6db8dd8884073c91c6bddae2eb86daef"
 
 query-string@^4.1.0:
   version "4.3.4"
