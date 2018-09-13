@@ -8,6 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import { LegendPropShape } from '@nivo/legends'
+import { AnnotationPropShape } from '@nivo/annotations'
 
 export const ScatterPlotPropTypes = {
     data: PropTypes.arrayOf(
@@ -57,6 +58,8 @@ export const ScatterPlotPropTypes = {
 
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
 
+    annotations: PropTypes.arrayOf(PropTypes.shape(AnnotationPropShape)),
+
     // canvas specific
     pixelRatio: PropTypes.number.isRequired,
 }
@@ -86,6 +89,8 @@ export const ScatterPlotDefaultProps = {
     enableStackTooltip: true,
 
     legends: [],
+
+    annotations: [],
 
     // canvas specific
     pixelRatio:

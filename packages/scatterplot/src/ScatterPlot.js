@@ -11,6 +11,7 @@ import { TransitionMotion, spring } from 'react-motion'
 import { Container, SvgWrapper } from '@nivo/core'
 import { Grid, Axes } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
+import { Annotation } from '@nivo/annotations'
 import setDisplayName from 'recompose/setDisplayName'
 import enhance from './enhance'
 import { ScatterPlotPropTypes } from './props'
@@ -55,6 +56,8 @@ const ScatterPlot = ({
     onClick,
 
     legends,
+
+    annotations,
 }) => {
     const motionProps = {
         animate,
@@ -161,6 +164,9 @@ const ScatterPlot = ({
                             )}
                         </TransitionMotion>
                     )}
+                    {annotations.map((annotation, i) => (
+                        <Annotation key={i} {...annotation} xScale={xScale} yScale={yScale} />
+                    ))}
                     {legends.map((legend, i) => (
                         <BoxLegendSvg
                             key={i}

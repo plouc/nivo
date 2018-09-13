@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a basic annotation 1`] = `
+<g
+  className="annotation label"
+  transform="translate(20, 64)"
+>
+  <g
+    className="annotation-connector"
+  >
+    <path
+      className="connector"
+      d="M0,0L30,30L30,30"
+      fill="none"
+      stroke="grey"
+    />
+  </g>
+  <g
+    className="annotation-subject"
+  />
+  <g
+    className="annotation-note"
+    transform="translate(30, 30)"
+  >
+    <g
+      className="annotation-note-content"
+      transform="translate(3,
+          0)"
+    >
+      <rect
+        className="annotation-note-bg"
+        fill="white"
+        fillOpacity="0"
+        height={0}
+        stroke="none"
+        width={0}
+        x={-0}
+        y={-0}
+      />
+      <text
+        className="annotation-note-label"
+        fill="grey"
+        y={0}
+      >
+        <tspan
+          dy=".8em"
+          x={0}
+        >
+          This is a noteworthy datapoint
+        </tspan>
+      </text>
+    </g>
+  </g>
+</g>
+`;
+
+exports[`renders a threshold line annotation 1`] = `
+<g
+  className="annotation label"
+  transform="translate(20, 64)"
+>
+  <g
+    className="annotation-connector"
+  >
+    <path
+      className="connector"
+      d="M0,0L30,30L30,30"
+      fill="none"
+      stroke="grey"
+    />
+  </g>
+  <g
+    className="annotation-subject"
+  />
+  <g
+    className="annotation-note"
+    transform="translate(30, 30)"
+  >
+    <g
+      className="annotation-note-content"
+      transform="translate(3,
+          0)"
+    >
+      <rect
+        className="annotation-note-bg"
+        fill="white"
+        fillOpacity="0"
+        height={0}
+        stroke="none"
+        width={0}
+        x={-0}
+        y={-0}
+      />
+      <text
+        className="annotation-note-label"
+        fill="grey"
+        y={0}
+      >
+        <tspan
+          dy=".8em"
+          x={0}
+        >
+          This is a noteworthy datapoint
+        </tspan>
+      </text>
+    </g>
+  </g>
+</g>
+`;

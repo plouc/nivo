@@ -120,6 +120,52 @@ const sampleData = [
     },
 ]
 
+const annotations = [
+    {
+        type: 'label',
+        x: 2,
+        y: 3.6,
+        dx: 30,
+        dy: 30,
+        note: {
+            label: 'This is one noteworthy datapoint',
+            orientation: 'leftRight',
+        },
+        connector: {
+            type: 'elbow',
+        },
+    },
+    {
+        type: 'label',
+        x: 7,
+        y: 4.8,
+        dx: 30,
+        dy: 30,
+        note: {
+            label: 'Another noteworthy datapoint',
+            orientation: 'leftRight',
+        },
+        connector: {
+            type: 'elbow',
+        },
+    },
+    {
+        type: 'xyThreshold',
+        x: 6.5, // value will be scaled with xScale
+        y: 2, // value will be scaled with yScale
+        dx: 30, // actual screen pxls
+        dy: 30, // actual screen pxls
+        note: {
+            label: 'This is the middle line',
+            orientation: 'leftRight',
+        },
+        subject: {
+            y1: -0.5, // value will be scaled with xScale
+            y2: 6, // value will be scaled with yScale
+        },
+    },
+]
+
 const commonProps = {
     width: 900,
     height: 500,
@@ -197,5 +243,12 @@ stories.add(
                 },
             }}
         />
+    ))
+)
+
+stories.add(
+    'annotations',
+    withInfo(importStatement)(() => (
+        <ScatterPlot {...commonProps} data={[sampleData[1]]} annotations={annotations} />
     ))
 )
