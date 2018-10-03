@@ -210,8 +210,9 @@ class Axis extends Component {
                         >
                             {interpolatedStyles => (
                                 <Fragment>
-                                    {interpolatedStyles.map(({ style, data: tick }) =>
+                                    {interpolatedStyles.map(({ style, data: tick }, tickIndex) =>
                                         renderTick({
+                                            tickIndex,
                                             format: tickValueFormat,
                                             textBaseline,
                                             textAnchor: textAlign,
