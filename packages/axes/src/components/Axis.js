@@ -162,8 +162,9 @@ class Axis extends Component {
         if (animate !== true) {
             return (
                 <g transform={`translate(${x},${y})`}>
-                    {ticks.map(tick =>
+                    {ticks.map(tick, tickIndex =>
                         renderTick({
+                            tickIndex,
                             format: tickValueFormat,
                             rotate: tickRotation,
                             textBaseline,
