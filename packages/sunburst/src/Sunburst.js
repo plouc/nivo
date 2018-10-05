@@ -8,6 +8,7 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
+import { noop } from '@nivo/core'
 import sortBy from 'lodash/sortBy'
 import cloneDeep from 'lodash/cloneDeep'
 import compose from 'recompose/compose'
@@ -49,6 +50,11 @@ const Sunburst = ({
     theme, // eslint-disable-line react/prop-types
 
     isInteractive,
+    tooltipFormat,
+    tooltip,
+    onClick,
+    onMouseEnter,
+    onMouseLeave,
 }) => {
     return (
         <Container isInteractive={isInteractive} theme={theme} animate={false}>
@@ -66,6 +72,11 @@ const Sunburst = ({
                                     borderColor={borderColor}
                                     showTooltip={showTooltip}
                                     hideTooltip={hideTooltip}
+                                    tooltipFormat={tooltipFormat}
+                                    tooltip={tooltip}
+                                    onClick={onClick}
+                                    onMouseEnter={onMouseEnter}
+                                    onMouseLeave={onMouseLeave}
                                     theme={theme}
                                 />
                             ))}
@@ -100,6 +111,11 @@ Sunburst.propTypes = {
     childColor: inheritedColorPropType.isRequired,
 
     isInteractive: PropTypes.bool,
+    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    tooltip: PropTypes.func,
+    onClick: PropTypes.func.isRequired,
+    onMouseEnter: PropTypes.func.isRequired,
+    onMouseLeave: PropTypes.func.isRequired,
 }
 
 export const SunburstDefaultProps = {
@@ -115,6 +131,9 @@ export const SunburstDefaultProps = {
     childColor: { from: 'color' },
 
     isInteractive: true,
+    onClick: noop,
+    onMouseEnter: noop,
+    onMouseLeave: noop,
 }
 
 const enhance = compose(
