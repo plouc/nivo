@@ -18,13 +18,21 @@ import withProps from 'recompose/withProps'
 import pure from 'recompose/pure'
 import { partition as Partition, hierarchy } from 'd3-hierarchy'
 import { arc } from 'd3-shape'
-import { withTheme, withDimensions, getAccessorFor, Container, SvgWrapper } from '@nivo/core'
+import {
+    withTheme,
+    withDimensions,
+    getAccessorFor,
+    getLabelGenerator,
+    Container,
+    SvgWrapper,
+} from '@nivo/core'
 import {
     getOrdinalColorScale,
     ordinalColorsPropType,
     inheritedColorPropType,
     getInheritedColorGenerator,
 } from '@nivo/colors'
+import SunburstLabels from './SunburstLabels'
 import SunburstArc from './SunburstArc'
 
 const getAncestor = node => {
@@ -47,6 +55,13 @@ const Sunburst = ({
     borderWidth,
     borderColor,
 
+    // slices labels
+    enableSlicesLabels,
+    getSliceLabel,
+    slicesLabelsSkipAngle,
+    slicesLabelsTextColor,
+
+    // theming
     theme, // eslint-disable-line react/prop-types
 
     isInteractive,
@@ -80,6 +95,18 @@ const Sunburst = ({
                                     theme={theme}
                                 />
                             ))}
+                        {enableSlicesLabels && (
+                            <SunburstLabels
+                                nodes={nodes}
+                                theme={theme}
+                                label={getSliceLabel}
+                                skipAngle={slicesLabelsSkipAngle}
+                                textColor={getInheritedColorGenerator(
+                                    slicesLabelsTextColor,
+                                    'labels.text.fill'
+                                )}
+                            />
+                        )}
                     </g>
                 </SvgWrapper>
             )}
@@ -110,6 +137,12 @@ Sunburst.propTypes = {
 
     childColor: inheritedColorPropType.isRequired,
 
+    // slices labels
+    enableSlicesLabels: PropTypes.bool.isRequired,
+    getSliceLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    slicesLabelsSkipAngle: PropTypes.number,
+    slicesLabelsTextColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+
     isInteractive: PropTypes.bool,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
     tooltip: PropTypes.func,
@@ -129,6 +162,11 @@ export const SunburstDefaultProps = {
     borderColor: 'white',
 
     childColor: { from: 'color' },
+
+    // slices labels
+    enableSlicesLabels: false,
+    sliceLabel: 'value',
+    slicesLabelsTextColor: 'theme',
 
     isInteractive: true,
     onClick: noop,
@@ -200,6 +238,9 @@ const enhance = compose(
             return { nodes }
         }
     ),
+    withPropsOnChange(['sliceLabel'], ({ sliceLabel }) => ({
+        getSliceLabel: getLabelGenerator(sliceLabel),
+    })),
     pure
 )
 
