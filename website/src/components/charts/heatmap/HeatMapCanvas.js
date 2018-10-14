@@ -146,7 +146,7 @@ export default class HeatMap extends Component {
                     ? 'Custom(props) => (…)'
                     : mappedSettings.cellShape,
             }),
-            { pkg: '@nivo/heatmap ' }
+            { pkg: '@nivo/heatmap' }
         )
 
         const header = (

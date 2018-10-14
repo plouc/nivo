@@ -157,7 +157,7 @@ export default class HeatMap extends Component {
                     ? 'Custom(props) => (…)'
                     : mappedSettings.cellShape,
             }),
-            { pkg: '@nivo/heatmap ', defaults: HeatMapDefaultProps }
+            { pkg: '@nivo/heatmap', defaults: HeatMapDefaultProps }
         )
 
         const header = <ChartHeader chartClass="HeatMap" tags={['heatmap', 'svg']} />
