@@ -162,8 +162,9 @@ class Axis extends Component {
         if (animate !== true) {
             return (
                 <g transform={`translate(${x},${y})`}>
-                    {ticks.map(tick =>
+                    {ticks.map((tick, tickIndex) =>
                         renderTick({
+                            tickIndex,
                             format: tickValueFormat,
                             rotate: tickRotation,
                             textBaseline,
@@ -210,8 +211,9 @@ class Axis extends Component {
                         >
                             {interpolatedStyles => (
                                 <Fragment>
-                                    {interpolatedStyles.map(({ style, data: tick }) =>
+                                    {interpolatedStyles.map(({ style, data: tick }, tickIndex) =>
                                         renderTick({
+                                            tickIndex,
                                             format: tickValueFormat,
                                             textBaseline,
                                             textAnchor: textAlign,
