@@ -1,6 +1,6 @@
 {
   "name": "@nivo/pie",
-  "version": "0.49.0",
+  "version": "0.50.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -23,8 +23,8 @@
     "umd/"
   ],
   "dependencies": {
-    "@nivo/core": "0.49.0",
-    "@nivo/legends": "0.49.0",
+    "@nivo/core": "0.50.0",
+    "@nivo/legends": "0.50.0",
     "d3-shape": "^1.2.2",
     "lodash": "^4.17.4",
     "react-motion": "^0.5.2",
