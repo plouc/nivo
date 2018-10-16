@@ -79,6 +79,8 @@ export const PiePropTypes = {
     // interactivity
     isInteractive: PropTypes.bool,
     onClick: PropTypes.func.isRequired,
+    onMouseEnter: PropTypes.func.isRequired,
+    onMouseLeave: PropTypes.func.isRequired,
 
     // tooltip
     lockTooltip: PropTypes.bool.isRequired,
@@ -130,6 +132,8 @@ export const PieDefaultProps = {
     // interactivity
     isInteractive: true,
     onClick: noop,
+    onMouseEnter: noop,
+    onMouseLeave: noop,
 
     // tooltip
     lockTooltip: true,

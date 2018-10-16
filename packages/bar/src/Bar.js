@@ -105,6 +105,8 @@ const Bar = ({
     tooltipFormat,
     tooltip,
     onClick,
+    onMouseEnter,
+    onMouseLeave,
 
     legends,
 }) => {
@@ -183,6 +185,8 @@ const Bar = ({
                     showTooltip,
                     hideTooltip,
                     onClick,
+                    onMouseEnter,
+                    onMouseLeave,
                     theme,
                     tooltipFormat,
                     tooltip,

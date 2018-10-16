@@ -58,6 +58,8 @@ export const BarPropTypes = {
 
     isInteractive: PropTypes.bool,
     onClick: PropTypes.func.isRequired,
+    onMouseEnter: PropTypes.func.isRequired,
+    onMouseLeave: PropTypes.func.isRequired,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
     tooltip: PropTypes.func,
 
@@ -107,6 +109,8 @@ export const BarDefaultProps = {
 
     isInteractive: true,
     onClick: noop,
+    onMouseEnter: noop,
+    onMouseLeave: noop,
 
     legends: [],
 

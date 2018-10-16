@@ -32,11 +32,21 @@ const BarItem = ({
     showTooltip,
     hideTooltip,
     onClick,
+    onMouseEnter,
+    onMouseLeave,
     tooltip,
 
     theme,
 }) => {
     const handleTooltip = e => showTooltip(tooltip, e)
+    const handleMouseEnter = e => {
+        onMouseEnter(data, e)
+        showTooltip(tooltip, e)
+    }
+    const handleMouseLeave = e => {
+        onMouseLeave(data, e)
+        hideTooltip(e)
+    }
 
     return (
         <g transform={`translate(${x}, ${y})`}>
@@ -48,9 +58,9 @@ const BarItem = ({
                 fill={data.fill ? data.fill : color}
                 strokeWidth={borderWidth}
                 stroke={borderColor}
-                onMouseEnter={handleTooltip}
+                onMouseEnter={handleMouseEnter}
                 onMouseMove={handleTooltip}
-                onMouseLeave={hideTooltip}
+                onMouseLeave={handleMouseLeave}
                 onClick={onClick}
             />
             {shouldRenderLabel && (
@@ -96,6 +106,8 @@ BarItem.propTypes = {
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
     onClick: PropTypes.func,
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func,
     tooltip: PropTypes.element.isRequired,
 
     theme: PropTypes.shape({

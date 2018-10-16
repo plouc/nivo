@@ -53,6 +53,8 @@ const ScatterPlot = ({
     tooltipFormat,
     tooltip,
     onClick,
+    onMouseEnter,
+    onMouseLeave,
 
     legends,
 }) => {
@@ -125,6 +127,8 @@ const ScatterPlot = ({
                                 tooltipFormat={tooltipFormat}
                                 tooltip={tooltip}
                                 onClick={onClick}
+                                onMouseEnter={onMouseEnter}
+                                onMouseLeave={onMouseLeave}
                                 theme={theme}
                             />
                         ))}
@@ -154,6 +158,8 @@ const ScatterPlot = ({
                                             tooltipFormat={tooltipFormat}
                                             tooltip={tooltip}
                                             onClick={onClick}
+                                            onMouseEnter={onMouseEnter}
+                                            onMouseLeave={onMouseLeave}
                                             theme={theme}
                                         />
                                     ))}

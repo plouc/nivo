@@ -24,9 +24,19 @@ const ScatterPlotItem = ({
     showTooltip,
     hideTooltip,
     onClick,
+    onMouseEnter,
+    onMouseLeave,
     tooltip,
 }) => {
     const handleTooltip = e => showTooltip(tooltip, e)
+    const handleMouseEnter = e => {
+        onMouseEnter(data, e)
+        showTooltip(tooltip, e)
+    }
+    const handleMouseLeave = e => {
+        onMouseLeave(data, e)
+        hideTooltip(e)
+    }
 
     return (
         <circle
@@ -34,9 +44,9 @@ const ScatterPlotItem = ({
             cy={y}
             r={size / 2}
             fill={color}
-            onMouseEnter={handleTooltip}
+            onMouseEnter={handleMouseEnter}
             onMouseMove={handleTooltip}
-            onMouseLeave={hideTooltip}
+            onMouseLeave={handleMouseLeave}
             onClick={onClick}
         />
     )
@@ -59,6 +69,8 @@ ScatterPlotItem.propTypes = {
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
     onClick: PropTypes.func,
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func,
     tooltip: PropTypes.element.isRequired,
 
     theme: PropTypes.shape({

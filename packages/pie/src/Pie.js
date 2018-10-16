@@ -84,6 +84,8 @@ class Pie extends Component {
             // interactivity
             isInteractive,
             onClick,
+            onMouseEnter,
+            onMouseLeave,
             tooltipFormat,
             tooltip,
 
@@ -137,6 +139,8 @@ class Pie extends Component {
                                                 tooltipFormat={tooltipFormat}
                                                 tooltip={tooltip}
                                                 onClick={onClick}
+                                                onMouseEnter={onMouseEnter}
+                                                onMouseLeave={onMouseLeave}
                                                 theme={theme}
                                             />
                                         ))}
