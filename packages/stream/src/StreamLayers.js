@@ -15,17 +15,14 @@ import { BasicTooltip } from '@nivo/core'
 const StreamLayers = ({
     layers,
 
-    // styling
     fillOpacity,
     borderWidth,
     getBorderColor,
     theme,
 
-    // interactivity
     showTooltip,
     hideTooltip,
 
-    // motion
     animate,
     motionStiffness,
     motionDamping,
@@ -108,8 +105,6 @@ StreamLayers.propTypes = {
     borderWidth: PropTypes.number.isRequired,
     getBorderColor: PropTypes.func.isRequired,
     theme: PropTypes.object.isRequired,
-
-    // motion
     ...motionPropTypes,
 }
 

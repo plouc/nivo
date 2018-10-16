@@ -41,7 +41,6 @@ export const LinePropTypes = {
     areaGenerator: PropTypes.func.isRequired,
     lineGenerator: PropTypes.func.isRequired,
 
-    // axes & grid
     axisTop: PropTypes.object,
     axisRight: PropTypes.object,
     axisBottom: PropTypes.object,
@@ -51,7 +50,6 @@ export const LinePropTypes = {
     gridXValues: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])),
     gridYValues: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])),
 
-    // dots
     enableDots: PropTypes.bool.isRequired,
     dotSymbol: PropTypes.func,
     dotSize: PropTypes.number.isRequired,
@@ -60,7 +58,6 @@ export const LinePropTypes = {
     dotBorderColor: PropTypes.any.isRequired,
     enableDotLabel: PropTypes.bool.isRequired,
 
-    // markers
     markers: PropTypes.arrayOf(
         PropTypes.shape({
             axis: PropTypes.oneOf(['x', 'y']).isRequired,
@@ -69,7 +66,6 @@ export const LinePropTypes = {
         })
     ),
 
-    // styling
     getColor: PropTypes.func.isRequired,
     enableArea: PropTypes.bool.isRequired,
     areaOpacity: PropTypes.number.isRequired,
@@ -85,7 +81,6 @@ export const LinePropTypes = {
         })
     ).isRequired,
 
-    // interactivity
     isInteractive: PropTypes.bool.isRequired,
     enableStackTooltip: PropTypes.bool.isRequired,
     tooltip: PropTypes.func,
@@ -107,13 +102,11 @@ export const LineDefaultProps = {
         max: 'auto',
     },
 
-    // axes & grid
     axisBottom: {},
     axisLeft: {},
     enableGridX: true,
     enableGridY: true,
 
-    // dots
     enableDots: true,
     dotSize: 6,
     dotColor: 'inherit',
@@ -121,7 +114,6 @@ export const LineDefaultProps = {
     dotBorderColor: 'inherit',
     enableDotLabel: false,
 
-    // styling
     colors: 'nivo',
     colorBy: 'id',
     enableArea: false,
@@ -130,7 +122,6 @@ export const LineDefaultProps = {
     lineWidth: 2,
     defs: [],
 
-    // interactivity
     isInteractive: true,
     enableStackTooltip: true,
 

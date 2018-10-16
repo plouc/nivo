@@ -9,15 +9,23 @@
 import min from 'lodash/min'
 import max from 'lodash/max'
 import range from 'lodash/range'
+import isFunction from 'lodash/isFunction'
 import { stack as d3Stack, area } from 'd3-shape'
 import { scaleLinear, scalePoint } from 'd3-scale'
 import compose from 'recompose/compose'
 import defaultProps from 'recompose/defaultProps'
 import pure from 'recompose/pure'
 import withPropsOnChange from 'recompose/withPropsOnChange'
-import { stackOrderFromProp, stackOffsetFromProp } from '@nivo/core'
-import { withTheme, withCurve, withDimensions, withMotion } from '@nivo/core'
-import { getColorRange, getInheritedColorGenerator } from '@nivo/core'
+import {
+    stackOrderFromProp,
+    stackOffsetFromProp,
+    withTheme,
+    withCurve,
+    withDimensions,
+    withMotion,
+    getColorRange,
+    getInheritedColorGenerator,
+} from '@nivo/core'
 import { StreamDefaultProps } from './props'
 
 const stackMin = layers => min(layers.reduce((acc, layer) => [...acc, ...layer.map(d => d[0])], []))
@@ -73,5 +81,17 @@ export default Component =>
                 }
             }
         ),
+        withPropsOnChange(['dotSize'], ({ dotSize }) => ({
+            getDotSize: isFunction(dotSize) ? dotSize : () => dotSize,
+        })),
+        withPropsOnChange(['dotColor'], ({ dotColor }) => ({
+            getDotColor: getInheritedColorGenerator(dotColor),
+        })),
+        withPropsOnChange(['dotBorderWidth'], ({ dotBorderWidth }) => ({
+            getDotBorderWidth: isFunction(dotBorderWidth) ? dotBorderWidth : () => dotBorderWidth,
+        })),
+        withPropsOnChange(['dotBorderColor'], ({ dotBorderColor }) => ({
+            getDotBorderColor: getInheritedColorGenerator(dotBorderColor),
+        })),
         pure
     )(Component)

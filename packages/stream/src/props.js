@@ -9,9 +9,9 @@
 import PropTypes from 'prop-types'
 import { areaCurvePropType, stackOrderPropType, stackOffsetPropType } from '@nivo/core'
 import { LegendPropShape } from '@nivo/legends'
+import StreamDotsItem from './StreamDotsItem'
 
 export const StreamPropTypes = {
-    // data
     data: PropTypes.arrayOf(PropTypes.object).isRequired,
     keys: PropTypes.array.isRequired,
 
@@ -24,7 +24,6 @@ export const StreamPropTypes = {
     curve: areaCurvePropType.isRequired,
     areaGenerator: PropTypes.func.isRequired,
 
-    // axes & grid
     axisTop: PropTypes.object,
     axisRight: PropTypes.object,
     axisBottom: PropTypes.object,
@@ -32,7 +31,6 @@ export const StreamPropTypes = {
     enableGridX: PropTypes.bool.isRequired,
     enableGridY: PropTypes.bool.isRequired,
 
-    // styling
     colors: PropTypes.any.isRequired,
     fillOpacity: PropTypes.number.isRequired,
     getColor: PropTypes.func.isRequired, // computed
@@ -52,7 +50,16 @@ export const StreamPropTypes = {
     borderColor: PropTypes.any.isRequired,
     getBorderColor: PropTypes.func.isRequired, // computed
 
-    // interactivity
+    enableDots: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]).isRequired,
+    renderDot: PropTypes.func.isRequired,
+    dotPosition: PropTypes.oneOf(['start', 'center', 'end']).isRequired,
+    dotSize: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
+    getDotSize: PropTypes.func.isRequired,
+    dotColor: PropTypes.any.isRequired,
+    dotBorderWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
+    getDotBorderWidth: PropTypes.func.isRequired,
+    dotBorderColor: PropTypes.any.isRequired,
+
     isInteractive: PropTypes.bool,
     enableStackTooltip: PropTypes.bool.isRequired,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
@@ -65,7 +72,6 @@ export const StreamDefaultProps = {
     offsetType: 'wiggle',
     curve: 'catmullRom',
 
-    // axes & grid
     axisBottom: {},
     enableGridX: true,
     enableGridY: false,
@@ -73,16 +79,21 @@ export const StreamDefaultProps = {
     borderWidth: 0,
     borderColor: 'inherit:darker(1)',
 
-    // styling
     colors: 'nivo',
     fillOpacity: 1,
     defs: [],
     fill: [],
 
-    // interactivity
+    enableDots: false,
+    dotPosition: 'center',
+    renderDot: StreamDotsItem,
+    dotSize: 6,
+    dotColor: 'inherit',
+    dotBorderWidth: 0,
+    dotBorderColor: 'inherit',
+
     isInteractive: true,
 
-    // stack tooltip
     enableStackTooltip: true,
 
     legends: [],
