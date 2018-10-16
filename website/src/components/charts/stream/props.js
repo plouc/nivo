@@ -26,11 +26,6 @@ areaCurvePropKeys.forEach((curve, i) => {
 })
 
 export default [
-    /*##################################################################################################################
-
-        Base
-
-    ##################################################################################################################*/
     {
         key: 'width',
         scopes: ['api'],
@@ -128,11 +123,6 @@ export default [
             })),
         },
     },
-    /*##################################################################################################################
-
-        Styling
-
-    ##################################################################################################################*/
     {
         key: 'colors',
         scopes: '*',
@@ -194,11 +184,6 @@ export default [
     ...defsProperties(['Stream']),
     ...marginProperties,
     ...axesProperties,
-    /*##################################################################################################################
-
-        Grid
-
-    ##################################################################################################################*/
     {
         key: 'enableGridX',
         scopes: '*',
@@ -219,11 +204,79 @@ export default [
         controlType: 'switch',
         controlGroup: 'Grid',
     },
-    /*##################################################################################################################
-
-        Interactivity
-
-    ##################################################################################################################*/
+    {
+        key: 'enableDots',
+        scopes: ['Stream'],
+        description: 'Enable/disable dots.',
+        type: '{boolean}',
+        required: false,
+        default: defaults.enableDots,
+        controlType: 'switch',
+        controlGroup: 'Dots',
+    },
+    {
+        key: 'renderDot',
+        scopes: ['Stream'],
+        description: 'Custom rendering function for dots.',
+        type: '{function}',
+        required: false,
+    },
+    {
+        key: 'dotSize',
+        help: 'Size of the dots (px)',
+        description:
+            'Size of the dots (px), it also accepts a function which can be used to make it vary according to the associated datum.',
+        type: '{number|Function}',
+        required: false,
+        default: defaults.dotSize,
+        controlType: 'range',
+        controlGroup: 'Dots',
+        controlOptions: {
+            unit: 'px',
+            min: 2,
+            max: 20,
+        },
+    },
+    {
+        key: 'dotColor',
+        description: 'Method to compute dots color.',
+        type: '{string|Function}',
+        required: false,
+        default: defaults.dotColor,
+        controlType: 'color',
+        controlGroup: 'Dots',
+        controlOptions: {
+            withCustomColor: true,
+        },
+    },
+    {
+        key: 'dotBorderWidth',
+        description:
+            'Width of the dots border (px), it also accepts a function which can be used to make it vary according to the associated datum.',
+        type: '{number|Function}',
+        required: false,
+        default: defaults.dotBorderWidth,
+        controlType: 'range',
+        controlGroup: 'Dots',
+        controlOptions: {
+            unit: 'px',
+            min: 0,
+            max: 10,
+        },
+    },
+    {
+        key: 'dotBorderColor',
+        scopes: '*',
+        description: 'Method to compute dots border color.',
+        type: '{string|Function}',
+        required: false,
+        default: defaults.dotBorderColor,
+        controlType: 'color',
+        controlGroup: 'Dots',
+        controlOptions: {
+            withCustomColor: true,
+        },
+    },
     {
         key: 'isInteractive',
         scopes: ['Stream'],

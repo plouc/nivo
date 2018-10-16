@@ -16,7 +16,6 @@ export default {
         left: 60,
     },
 
-    // axes
     axisTop: {
         enable: false,
         orient: 'top',
@@ -86,12 +85,16 @@ export default {
     ],
     fill: [{ match: { id: 'Paul' }, id: 'dots' }, { match: { id: 'Marcel' }, id: 'squares' }],
 
-    // motion
+    enableDots: false,
+    dotSize: 8,
+    dotColor: { type: 'inherit' },
+    dotBorderWidth: 2,
+    dotBorderColor: { type: 'inherit:brighter', gamma: 0.7 },
+
     animate: true,
     motionStiffness: 90,
     motionDamping: 15,
 
-    // interactivity
     isInteractive: true,
     enableStackTooltip: true,
 }

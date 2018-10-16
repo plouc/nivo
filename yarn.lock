@@ -629,6 +629,14 @@
     babel-plugin-transform-object-rest-spread "^6.26.0"
     babel-plugin-transform-react-jsx "^6.24.1"
 
+"@nivo/generators@^0.48.0":
+  version "0.48.0"
+  resolved "https://registry.yarnpkg.com/@nivo/generators/-/generators-0.48.0.tgz#b7420dac3e4ed807e9d7c46ccba280a7976518b5"
+  dependencies:
+    d3-time "^1.0.10"
+    d3-time-format "^2.1.3"
+    lodash "^4.17.4"
+
 "@nodelib/fs.stat@^1.0.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.1.tgz#53f349bb986ab273d601175aa1b25a655ab90ee3"

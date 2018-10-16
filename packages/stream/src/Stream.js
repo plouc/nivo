@@ -14,6 +14,7 @@ import { Container, SvgWrapper } from '@nivo/core'
 import { Axes, Grid } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
 import StreamLayers from './StreamLayers'
+import StreamDots from './StreamDots'
 import StreamSlices from './StreamSlices'
 import { StreamPropTypes } from './props'
 import enhance from './enhance'
@@ -26,14 +27,12 @@ const Stream = ({
     layers,
     areaGenerator,
 
-    // dimensions
     margin,
     width,
     height,
     outerWidth,
     outerHeight,
 
-    // axes & grid
     axisTop,
     axisRight,
     axisBottom,
@@ -41,7 +40,6 @@ const Stream = ({
     enableGridX,
     enableGridY,
 
-    // styling
     theme,
     getColor,
     fillOpacity,
@@ -50,16 +48,21 @@ const Stream = ({
     defs,
     fill,
 
-    // motion
+    enableDots,
+    dotPosition,
+    renderDot,
+    getDotSize,
+    getDotColor,
+    getDotBorderWidth,
+    getDotBorderColor,
+
     animate,
     motionStiffness,
     motionDamping,
 
-    // interactivity
     isInteractive,
     tooltipFormat,
 
-    // stack tooltip
     enableStackTooltip,
 
     legends,
@@ -142,6 +145,22 @@ const Stream = ({
                         left={axisLeft}
                         {...motionProps}
                     />
+                    {enableDots &&
+                        enhancedLayers.map(layer => (
+                            <StreamDots
+                                key={layer.id}
+                                id={layer.id}
+                                color={layer.color}
+                                data={layer.layer}
+                                renderDot={renderDot}
+                                position={dotPosition}
+                                getSize={getDotSize}
+                                getColor={getDotColor}
+                                getBorderWidth={getDotBorderWidth}
+                                getBorderColor={getDotBorderColor}
+                                {...motionProps}
+                            />
+                        ))}
                     {isInteractive &&
                         enableStackTooltip && (
                             <StreamSlices
