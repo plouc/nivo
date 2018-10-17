@@ -1,3 +1,6 @@
+import * as React from 'react'
+import { LegendMouseHandler, LegendMouseHandlerData } from "@nivo/legends";
+
 declare module '@nivo/legends' {
     export type LegendAnchor =
         | 'top'
@@ -31,13 +34,34 @@ declare module '@nivo/legends' {
         | 'square'
         | 'triangle'
 
-    export type LegendProps = {
+    export interface LegendMouseHandlerData {
+        id: string | number
+        label: string
+        color: string
+    }
+
+    export type LegendMouseHandler = (data: LegendMouseHandlerData, event: React.MouseEvent<any>) => void
+
+    export interface LegendEffect {
+        on: 'hover'
+        style: Partial<{
+            itemTextColor: string
+            itemBackground: string
+            itemOpacity: number
+            symbolSize: number
+            symbolBorderWidth: number
+            symbolBorderColor: string
+        }>
+    }
+
+    export interface LegendProps {
         data?: Array<{
             id: string | number
             value: number
+            color?: string
+            fill?: string
         }>
 
-        // position & layout
         anchor: LegendAnchor
         direction: LegendDirection
         justify?: boolean
@@ -45,14 +69,20 @@ declare module '@nivo/legends' {
         translateX?: number
         translateY?: number
 
-        // items
         itemWidth: number
         itemHeight: number
         itemDirection?: LegendItemDirection
         itemsSpacing?: number
+        itemOpacity?: number
         symbolSize?: number
         symbolSpacing?: number
-        symbolShape?: LegendSymbolShape | Function
+        symbolShape?: LegendSymbolShape | any
         textColor?: string
+
+        onClick?: LegendMouseHandler
+        onMouseEnter?: LegendMouseHandler
+        onMouseLeave?: LegendMouseHandler
+
+        effects?: LegendEffect[]
     }
 }

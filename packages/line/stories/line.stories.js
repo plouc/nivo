@@ -235,8 +235,8 @@ class RealTimeChart extends Component {
                 animate={false}
                 isInteractive={false}
                 theme={{
-                    axis: { legendFontSize: 14 },
-                    grid: { stroke: '#ddd', strokeDasharray: '1 2' },
+                    axis: { ticks: { text: { fontSize: 14 } } },
+                    grid: { line: { stroke: '#ddd', strokeDasharray: '1 2' } },
                 }}
             />
         )

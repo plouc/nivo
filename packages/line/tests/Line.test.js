@@ -1,6 +1,6 @@
 import React from 'react'
 import { mount } from 'enzyme'
-import { Axis } from '@nivo/core'
+import { Axis } from '@nivo/axes'
 import Line from '../src/Line'
 import LineSlicesItem from '../src/LineSlicesItem'
 import renderer from 'react-test-renderer'
@@ -64,8 +64,8 @@ it('should have left and bottom axis by default', () => {
 
     const axes = wrapper.find(Axis)
     expect(axes).toHaveLength(2)
-    expect(axes.at(0).prop('position')).toBe('bottom')
-    expect(axes.at(1).prop('position')).toBe('left')
+    expect(axes.at(0).prop('axis')).toBe('x')
+    expect(axes.at(1).prop('axis')).toBe('y')
 })
 
 describe('curve interpolation', () => {

@@ -50,7 +50,8 @@ CartesianMarkers.propTypes = {
         PropTypes.shape({
             axis: PropTypes.oneOf(['x', 'y']).isRequired,
             value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-            style: PropTypes.object,
+            lineStyle: PropTypes.object,
+            textStyle: PropTypes.object,
         })
     ),
 }

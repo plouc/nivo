@@ -18,6 +18,7 @@
   "files": [
     "README.md",
     "index.js",
+    "index.d.ts",
     "cjs/",
     "umd/"
   ],
