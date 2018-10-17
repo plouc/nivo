@@ -80,3 +80,44 @@ export const renderAxisToCanvas = (
 
     ctx.restore()
 }
+
+const positions = ['top', 'right', 'bottom', 'left']
+
+export const renderAxesToCanvas = (
+    ctx,
+    {
+        xScale,
+        yScale,
+        width,
+        height,
+
+        top,
+        right,
+        bottom,
+        left,
+
+        theme,
+    }
+) => {
+    const axes = { top, right, bottom, left }
+
+    positions.forEach(position => {
+        const axis = axes[position]
+
+        if (!axis) return null
+
+        const isXAxis = position === 'top' || position === 'bottom'
+        const ticksPosition = position === 'top' || position === 'left' ? 'before' : 'after'
+
+        renderAxisToCanvas(ctx, {
+            ...axis,
+            axis: isXAxis ? 'x' : 'y',
+            x: position === 'right' ? width : 0,
+            y: position === 'bottom' ? height : 0,
+            scale: isXAxis ? xScale : yScale,
+            length: isXAxis ? width : height,
+            ticksPosition,
+            theme,
+        })
+    })
+}

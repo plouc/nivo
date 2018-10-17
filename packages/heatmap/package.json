@@ -23,6 +23,7 @@
     "umd/"
   ],
   "dependencies": {
+    "@nivo/axes": "0.50.0",
     "@nivo/core": "0.50.0",
     "d3-scale": "^2.1.2",
     "lodash": "^4.17.4",

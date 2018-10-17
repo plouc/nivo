@@ -66,7 +66,7 @@ export default class HeatMapAPI extends Component {
                         tickPadding: 5,
                         tickRotation: 0,
                         legend: 'country',
-                        legendPosition: 'center',
+                        legendPosition: 'middle',
                         legendOffset: 0,
                     },
                     axisBottom: {
@@ -76,7 +76,7 @@ export default class HeatMapAPI extends Component {
                         tickPadding: 5,
                         tickRotation: 0,
                         legend: 'country',
-                        legendPosition: 'center',
+                        legendPosition: 'middle',
                         legendOffset: 36,
                     },
                     axisLeft: {
@@ -86,7 +86,7 @@ export default class HeatMapAPI extends Component {
                         tickPadding: 5,
                         tickRotation: 0,
                         legend: 'country',
-                        legendPosition: 'center',
+                        legendPosition: 'middle',
                         legendOffset: -40,
                     },
 

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Dimensions, Box, MotionProps, ColorProps, GetColor, Theme } from '@nivo/core'
+import { Axis } from '@nivo/axes'
 
 declare module '@nivo/heatmap' {
     export interface HeatMapDatum {
@@ -28,25 +29,22 @@ declare module '@nivo/heatmap' {
         margin: Box
         padding: number
 
-        // cells
         cellShape: 'rect' | 'circle' | React.StatelessComponent<any>
         cellOpacity: number
         cellBorderWidth: number
         cellBorderColor: string | GetColor<HeatMapDatumWithColor>
 
-        // axes & grid
         axisTop: Axis
         axisRight: Axis
         axisBottom: Axis
         axisLeft: Axis
+
         enableGridX: boolean
         enableGridY: boolean
 
-        // labels
         enableLabels: boolean
         labelTextColor: string | GetColor<HeatMapDatumWithColor>
 
-        // interactivity
         isInteractive: boolean
         hoverTarget: 'cell' | 'row' | 'column' | 'rowColumn'
         cellHoverOpacity: number
@@ -67,16 +65,6 @@ declare module '@nivo/heatmap' {
         height: number
         opacity: number
     }
-
-    export type Axis = Partial<{
-        orient: string
-        legend: string
-        tickSize: number
-        tickPadding: number
-        tickRotation: number
-        legendOffset: number
-        legendPosition: string
-    }>
 
     export type HeatMapSvgProps = HeatMapData
         & HeatMapCommonProps
