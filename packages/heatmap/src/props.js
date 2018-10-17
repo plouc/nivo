@@ -8,9 +8,9 @@
  */
 import PropTypes from 'prop-types'
 import { quantizeColorScalePropType, noop } from '@nivo/core'
+import { axisPropType } from '@nivo/axes'
 
 export const HeatMapPropTypes = {
-    // data
     data: PropTypes.arrayOf(PropTypes.object).isRequired,
     indexBy: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     getIndex: PropTypes.func.isRequired, // computed
@@ -23,7 +23,6 @@ export const HeatMapPropTypes = {
     sizeVariation: PropTypes.number.isRequired,
     padding: PropTypes.number.isRequired,
 
-    // cells
     cellShape: PropTypes.oneOfType([PropTypes.oneOf(['rect', 'circle']), PropTypes.func])
         .isRequired,
     cellOpacity: PropTypes.number.isRequired,
@@ -31,25 +30,22 @@ export const HeatMapPropTypes = {
     cellBorderColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     getCellBorderColor: PropTypes.func.isRequired, // computed
 
-    // axes & grid
-    axisTop: PropTypes.object,
-    axisRight: PropTypes.object,
-    axisBottom: PropTypes.object,
-    axisLeft: PropTypes.object,
+    axisTop: axisPropType,
+    axisRight: axisPropType,
+    axisBottom: axisPropType,
+    axisLeft: axisPropType,
+
     enableGridX: PropTypes.bool.isRequired,
     enableGridY: PropTypes.bool.isRequired,
 
-    // labels
     enableLabels: PropTypes.bool.isRequired,
     labelTextColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     getLabelTextColor: PropTypes.func.isRequired, // computed
 
-    // theming
     colors: quantizeColorScalePropType.isRequired,
     colorScale: PropTypes.func.isRequired, // computed
     nanColor: PropTypes.string,
 
-    // interactivity
     isInteractive: PropTypes.bool,
     onClick: PropTypes.func.isRequired,
     hoverTarget: PropTypes.oneOf(['cell', 'row', 'column', 'rowColumn']).isRequired,
@@ -58,7 +54,6 @@ export const HeatMapPropTypes = {
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
     tooltip: PropTypes.func,
 
-    // canvas specific
     pixelRatio: PropTypes.number.isRequired,
 }
 

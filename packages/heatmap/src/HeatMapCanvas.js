@@ -8,12 +8,11 @@
  */
 import React, { Component } from 'react'
 import partial from 'lodash/partial'
-import { renderAxesToCanvas } from '@nivo/core'
-import { getRelativeCursor, isCursorInRect } from '@nivo/core'
+import { Container, getRelativeCursor, isCursorInRect } from '@nivo/core'
+import { renderAxesToCanvas } from '@nivo/axes'
 import { renderRect, renderCircle } from './canvas'
 import computeNodes from './computeNodes'
 import HeatMapCellTooltip from './HeatMapCellTooltip'
-import { Container } from '@nivo/core'
 import { HeatMapPropTypes } from './props'
 import enhance from './enhance'
 
@@ -56,6 +55,11 @@ class HeatMapCanvas extends Component {
             xScale,
             yScale,
 
+            axisTop,
+            axisRight,
+            axisBottom,
+            axisLeft,
+
             cellShape,
 
             theme,
@@ -84,10 +88,10 @@ class HeatMapCanvas extends Component {
             yScale,
             width: width - offsetX * 2,
             height: height - offsetY * 2,
-            top: props.axisTop,
-            right: props.axisRight,
-            bottom: props.axisBottom,
-            left: props.axisLeft,
+            top: axisTop,
+            right: axisRight,
+            bottom: axisBottom,
+            left: axisLeft,
             theme,
         })
 
