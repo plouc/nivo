@@ -2,7 +2,7 @@
 .idea
 *.log*
 node_modules
-/coverage
+coverage
 /storybook-static
 
 package-lock.json

@@ -1,71 +1,52 @@
+import { CSSProperties } from 'react'
+
 declare module '@nivo/core' {
     export type GetColor<T> = (datum: T) => string
     export type Colors =
         | string[]
-        | 'nivo'
-        | 'category10'
-        | 'd320'
-        | 'd320b'
-        | 'd320c'
-        | 'accent'
-        | 'dark2'
-        | 'paired'
-        | 'pastel1'
-        | 'set1'
-        | 'set2'
-        | 'set3'
+        | string
     export interface ColorProps<T> {
-        colors: Colors
-        colorBy: string | GetColor<T>
+        colors?: Colors
+        colorBy?: string | GetColor<T>
     }
 
     export type Theme = Partial<{
+        background: string
         axis: Partial<{
-            textColor: string
-            fontSize: string | 0
-            tickColor: string
-            legendColor: string
-            legendFontSize: string | 0
-        }>,
+            domain: Partial<{
+                line: Partial<CSSProperties>
+            }>
+            ticks: Partial<{
+                line: Partial<CSSProperties>
+                text: Partial<CSSProperties>
+            }>
+            legend: Partial<{
+                text: Partial<CSSProperties>
+            }>
+        }>
         grid: Partial<{
-            stroke: string
-            strokeWidth: number
-            strokeDasharray: string
-        }>,
+            line: Partial<CSSProperties>
+        }>
+        legends: Partial<{
+            text: Partial<CSSProperties>
+        }>
+        labels: Partial<{
+            text: Partial<CSSProperties>
+        }>
         markers: Partial<{
             lineColor: string
             lineStrokeWidth: number
             textColor: string
             fontSize: string | 0
-        }>,
+        }>
         dots: Partial<{
-            textColor: string
-            fontSize: string | 0
-        }>,
+            text: Partial<CSSProperties>
+        }>
         tooltip: Partial<{
-            container: Partial<{
-                background: string
-                color: string
-                fontSize: string | 0
-                borderRadius: string | 0
-                boxShadow: string
-                padding: string | 0
-            }>,
-            basic: Partial<{
-                whiteSpace: string
-                display: string
-                alignItems: string
-            }>,
-            table: any;
-            tableCell: Partial<{
-                padding: string | 0
-            }>
-        }>,
-        labels: Partial<{
-            textColor: string
-        }>,
-        sankey: Partial<{
-            label: any
+            container: Partial<CSSProperties>
+            basic: Partial<CSSProperties>
+            table: Partial<CSSProperties>
+            tableCell: Partial<CSSProperties>
         }>
     }>
 
@@ -89,7 +70,10 @@ declare module '@nivo/core' {
 
     export type SvgFillMatcher<T> = (datum: T) => boolean
     export interface SvgDefsAndFill<T> {
-        defs: Array<{ id: string }>
-        fill: Array<{ id: string, match: object | SvgFillMatcher<T> | '*' }>
+        defs?: Array<{
+            id: string
+            [key: string]: any
+        }>
+        fill?: Array<{ id: string, match: object | SvgFillMatcher<T> | '*' }>
     }
 }

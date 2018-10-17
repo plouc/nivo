@@ -12,7 +12,7 @@ export const darkTheme = {
                 stroke: '#bbb',
             },
             text: {
-                fill: '#bbb',
+                fill: '#F00',
             },
         },
         legend: {

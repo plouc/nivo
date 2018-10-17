@@ -57,7 +57,7 @@ fmt: ##@0 global format code using prettier (js, css, md)
 		"packages/*/{src,stories,tests}/**/*.js" \
 		"packages/*/README.md" \
 		"website/src/**/*.{js,css}" \
-		"examples/*/src/**/*.{js,css}" \
+		"examples/*/src/**/*.{js,ts,tsx,css}" \
 		"README.md"
 
 fmt-check: ##@0 global check if files were all formatted using prettier
@@ -67,7 +67,7 @@ fmt-check: ##@0 global check if files were all formatted using prettier
         "packages/*/README.md" \
         "website/src/**/*.{js,css}" \
         "storybook/stories/**/*.{js,css}" \
-        "examples/*/src/**/*.{js,css}" \
+        "examples/*/src/**/*.{js,ts,tsx,css}" \
         "README.md"
 
 test-all: ##@0 global run all checks/tests (packages, website & examples)
@@ -188,6 +188,7 @@ package-dev-%: ##@1 packages setup package for development, link to website, run
 	@echo "${YELLOW}Preparing package ${WHITE}${*}${YELLOW} for development${RESET}"
 	@cd packages/${*} && yarn link
 	@cd website && yarn link @nivo/${*}
+	@cd examples/typescript && yarn link @nivo/${*}
 	@$(MAKE) package-watch-${*}
 
 ########################################################################################################################
@@ -259,6 +260,7 @@ storybook-deploy: ##@3 storybook build and deploy storybook
 
 examples-install: ##@4 examples install all examples dependencies
 	@$(MAKE) example-install-retro
+	@$(MAKE) example-install-typescript
 
 example-install-%: ##@4 examples install example dependencies, eg. example-install-retro
 	@echo "${YELLOW}Installing ${WHITE}${*}${YELLOW} example dependencies${RESET}"
@@ -270,6 +272,7 @@ example-start-%: ##@4 examples start example in dev mode, eg. example-start-retr
 
 examples-build: ##@4 examples build all examples
 	@$(MAKE) example-build-retro
+	@$(MAKE) example-build-typescript
 
 example-build-%: ##@4 examples build an example, eg. example-build-retro
 	@echo "${YELLOW}Building ${WHITE}${*}${YELLOW} example${RESET}"

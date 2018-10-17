@@ -34,7 +34,6 @@ export default {
     stacked: true,
     curve: 'linear',
 
-    // axes
     axisTop: {
         enable: false,
         orient: 'top',
@@ -61,7 +60,7 @@ export default {
         tickRotation: 0,
         legend: 'transportation',
         legendOffset: 36,
-        legendPosition: 'center',
+        legendPosition: 'middle',
     },
     axisLeft: {
         enable: true,
@@ -71,10 +70,9 @@ export default {
         tickRotation: 0,
         legend: 'count',
         legendOffset: -40,
-        legendPosition: 'center',
+        legendPosition: 'middle',
     },
 
-    // grid
     enableGridX: true,
     enableGridY: true,
 
@@ -82,7 +80,6 @@ export default {
     colorBy: 'id',
     lineWidth: 2,
 
-    // dots
     enableDots: true,
     dotSize: 10,
     dotColor: { type: 'inherit:darker', gamma: 0.3 },
@@ -92,17 +89,14 @@ export default {
     dotLabel: 'y',
     dotLabelYOffset: -12,
 
-    // area
     enableArea: false,
     areaBaselineValue: 0,
     areaOpacity: 0.2,
 
-    // motion
     animate: true,
     motionStiffness: 90,
     motionDamping: 15,
 
-    // interactivity
     isInteractive: true,
     enableStackTooltip: true,
 }
