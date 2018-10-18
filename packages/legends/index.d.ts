@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { LegendMouseHandler, LegendMouseHandlerData } from "@nivo/legends";
 
 declare module '@nivo/legends' {
     export type LegendAnchor =
@@ -22,17 +21,13 @@ declare module '@nivo/legends' {
         | 'bottom-to-top'
 
     export type Box = Partial<{
-        bottom: number;
-        left: number;
-        right: number;
-        top: number;
+        bottom: number
+        left: number
+        right: number
+        top: number
     }>
 
-    export type LegendSymbolShape =
-        | 'circle'
-        | 'diamond'
-        | 'square'
-        | 'triangle'
+    export type LegendSymbolShape = 'circle' | 'diamond' | 'square' | 'triangle'
 
     export interface LegendMouseHandlerData {
         id: string | number
@@ -40,7 +35,10 @@ declare module '@nivo/legends' {
         color: string
     }
 
-    export type LegendMouseHandler = (data: LegendMouseHandlerData, event: React.MouseEvent<any>) => void
+    export type LegendMouseHandler = (
+        data: LegendMouseHandlerData,
+        event: React.MouseEvent<any>
+    ) => void
 
     export interface LegendEffect {
         on: 'hover'
@@ -73,6 +71,8 @@ declare module '@nivo/legends' {
         itemHeight: number
         itemDirection?: LegendItemDirection
         itemsSpacing?: number
+        itemBackground?: string
+        itemTextColor?: string
         itemOpacity?: number
         symbolSize?: number
         symbolSpacing?: number

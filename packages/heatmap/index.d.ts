@@ -11,7 +11,7 @@ declare module '@nivo/heatmap' {
         color: string
     }
 
-    export type IndexByFunc = (datum: HeatMapDatum) => string | number
+    export type IndexByFunc = (datum: HeatMapDatum) => string | number
 
     export type ValueFormatter = (value: number) => string | number
 
@@ -23,36 +23,37 @@ declare module '@nivo/heatmap' {
         maxValue?: number | 'auto'
     }
 
-    export type HeatMapCommonProps = ColorProps<HeatMapDatum> & Partial<{
-        forceSquare: boolean
-        sizeVariation: number
-        margin: Box
-        padding: number
+    export type HeatMapCommonProps = ColorProps<HeatMapDatum> &
+        Partial<{
+            forceSquare: boolean
+            sizeVariation: number
+            margin: Box
+            padding: number
 
-        cellShape: 'rect' | 'circle' | React.StatelessComponent<any>
-        cellOpacity: number
-        cellBorderWidth: number
-        cellBorderColor: string | GetColor<HeatMapDatumWithColor>
+            cellShape: 'rect' | 'circle' | React.StatelessComponent<any>
+            cellOpacity: number
+            cellBorderWidth: number
+            cellBorderColor: string | GetColor<HeatMapDatumWithColor>
 
-        axisTop: Axis
-        axisRight: Axis
-        axisBottom: Axis
-        axisLeft: Axis
+            axisTop: Axis
+            axisRight: Axis
+            axisBottom: Axis
+            axisLeft: Axis
 
-        enableGridX: boolean
-        enableGridY: boolean
+            enableGridX: boolean
+            enableGridY: boolean
 
-        enableLabels: boolean
-        labelTextColor: string | GetColor<HeatMapDatumWithColor>
+            enableLabels: boolean
+            labelTextColor: string | GetColor<HeatMapDatumWithColor>
 
-        isInteractive: boolean
-        hoverTarget: 'cell' | 'row' | 'column' | 'rowColumn'
-        cellHoverOpacity: number
-        cellHoverOthersOpacity: number
-        tooltipFormat: string | ValueFormatter
+            isInteractive: boolean
+            hoverTarget: 'cell' | 'row' | 'column' | 'rowColumn'
+            cellHoverOpacity: number
+            cellHoverOthersOpacity: number
+            tooltipFormat: string | ValueFormatter
 
-        theme: Theme
-    }>
+            theme: Theme
+        }>
 
     export interface NodeData {
         key: string
@@ -66,19 +67,19 @@ declare module '@nivo/heatmap' {
         opacity: number
     }
 
-    export type HeatMapSvgProps = HeatMapData
-        & HeatMapCommonProps
-        & MotionProps
-        & Partial<{
+    export type HeatMapSvgProps = HeatMapData &
+        HeatMapCommonProps &
+        MotionProps &
+        Partial<{
             onClick: (datum: NodeData, event: React.MouseEvent<SVGGElement>) => void
         }>
 
     export class HeatMap extends React.Component<HeatMapSvgProps & Dimensions> {}
     export class ResponsiveHeatMap extends React.Component<HeatMapSvgProps> {}
 
-    export type HeatMapCanvasProps = HeatMapData
-        & HeatMapCommonProps
-        & Partial<{
+    export type HeatMapCanvasProps = HeatMapData &
+        HeatMapCommonProps &
+        Partial<{
             onClick: (datum: NodeData, event: React.MouseEvent<HTMLCanvasElement>) => void
             pixelRatio: number
         }>

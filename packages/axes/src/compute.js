@@ -8,6 +8,9 @@
  */
 import isNumber from 'lodash/isNumber'
 import isArray from 'lodash/isArray'
+import isFunction from 'lodash/isFunction'
+import { timeFormat } from 'd3-time-format'
+import { format as d3Format } from 'd3-format'
 import { textPropsByEngine } from '@nivo/core'
 
 export const centerScale = scale => {
@@ -106,4 +109,15 @@ export const computeCartesianTicks = ({
         textAlign,
         textBaseline,
     }
+}
+
+export const getFormatter = (format, scale) => {
+    if (!format || isFunction(format)) return format
+
+    if (scale.type === 'time') {
+        const f = timeFormat(format)
+        return d => f(new Date(d))
+    }
+
+    return d3Format(format)
 }

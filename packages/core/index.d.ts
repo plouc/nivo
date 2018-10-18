@@ -2,9 +2,7 @@ import { CSSProperties } from 'react'
 
 declare module '@nivo/core' {
     export type GetColor<T> = (datum: T) => string
-    export type Colors =
-        | string[]
-        | string
+    export type Colors = string[] | string
     export interface ColorProps<T> {
         colors?: Colors
         colorBy?: string | GetColor<T>
@@ -74,6 +72,14 @@ declare module '@nivo/core' {
             id: string
             [key: string]: any
         }>
-        fill?: Array<{ id: string, match: object | SvgFillMatcher<T> | '*' }>
+        fill?: Array<{ id: string; match: object | SvgFillMatcher<T> | '*' }>
+    }
+
+    export interface CartesianMarkerProps {
+        axis: 'x' | 'y'
+        value: string | number | Date
+        legend?: string
+        lineStyle?: Partial<CSSProperties>
+        textStyle?: Partial<CSSProperties>
     }
 }

@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { degreesToRadians } from './utils'
-import { computeCartesianTicks } from './compute'
+import { computeCartesianTicks, getFormatter } from './compute'
 
 export const renderAxisToCanvas = (
     ctx,
@@ -23,7 +23,7 @@ export const renderAxisToCanvas = (
         tickSize = 5,
         tickPadding = 5,
         tickRotation = 0,
-        tickValueFormat,
+        format,
 
         // @todo implement legend support
         // legend,
@@ -68,7 +68,7 @@ export const renderAxisToCanvas = (
         ctx.lineTo(tick.x + tick.lineX, tick.y + tick.lineY)
         ctx.stroke()
 
-        const value = tickValueFormat !== undefined ? tickValueFormat(tick.value) : tick.value
+        const value = format !== undefined ? format(tick.value) : tick.value
 
         ctx.save()
         ctx.translate(tick.x + tick.textX, tick.y + tick.textY)
@@ -108,13 +108,16 @@ export const renderAxesToCanvas = (
 
         const isXAxis = position === 'top' || position === 'bottom'
         const ticksPosition = position === 'top' || position === 'left' ? 'before' : 'after'
+        const scale = isXAxis ? xScale : yScale
+        const format = getFormatter(axis.format, scale)
 
         renderAxisToCanvas(ctx, {
             ...axis,
             axis: isXAxis ? 'x' : 'y',
             x: position === 'right' ? width : 0,
             y: position === 'bottom' ? height : 0,
-            scale: isXAxis ? xScale : yScale,
+            scale,
+            format,
             length: isXAxis ? width : height,
             ticksPosition,
             theme,

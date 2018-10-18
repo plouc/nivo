@@ -8,10 +8,10 @@
  */
 import React from 'react'
 import { TransitionMotion, spring } from 'react-motion'
-import { Container, SvgWrapper } from '@nivo/core'
-import { Grid, Axes, CartesianMarkers } from '@nivo/core'
-import { BoxLegendSvg } from '@nivo/legends'
 import setDisplayName from 'recompose/setDisplayName'
+import { Container, SvgWrapper, Grid, CartesianMarkers } from '@nivo/core'
+import { Axes } from '@nivo/axes'
+import { BoxLegendSvg } from '@nivo/legends'
 import enhance from './enhance'
 import { ScatterPlotPropTypes } from './props'
 import ScatterPlotItem from './ScatterPlotItem'
@@ -19,8 +19,7 @@ import ScatterPlotItem from './ScatterPlotItem'
 const ScatterPlot = ({
     data,
 
-    xScale,
-    yScale,
+    computedData,
 
     margin,
     width,
@@ -28,30 +27,25 @@ const ScatterPlot = ({
     outerWidth,
     outerHeight,
 
-    // axes & grid
     axisTop,
     axisRight,
     axisBottom,
     axisLeft,
+
     enableGridX,
     enableGridY,
 
-    // markers
     markers,
 
-    // theming
     theme,
     getColor,
 
-    // symbols,
     getSymbolSize,
 
-    // motion
     animate,
     motionStiffness,
     motionDamping,
 
-    // interactivity
     isInteractive,
     tooltipFormat,
     tooltip,
@@ -61,12 +55,13 @@ const ScatterPlot = ({
 
     legends,
 }) => {
+    const { xScale, yScale } = computedData
+
     const motionProps = {
         animate,
         motionDamping,
         motionStiffness,
     }
-
     const springConfig = {
         damping: motionDamping,
         stiffness: motionStiffness,
@@ -78,15 +73,15 @@ const ScatterPlot = ({
         color: getColor(serie),
     }))
 
-    const symbols = data.reduce(
+    const symbols = computedData.series.reduce(
         (agg, serie) => [
             ...agg,
-            ...serie.data.map(d => ({
-                id: `${serie.id}.${d.id}`,
-                x: xScale(d.x),
-                y: yScale(d.y),
+            ...serie.data.map((d, i) => ({
+                id: `${serie.id}.${i}`,
+                x: d.position.x,
+                y: d.position.y,
                 color: getColor(serie),
-                data: { ...d, serie: serie.id },
+                data: { ...d.data, serie: serie.id, id: `${serie.id}.${i}` },
             })),
         ],
         []

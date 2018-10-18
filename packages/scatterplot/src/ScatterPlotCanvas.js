@@ -8,13 +8,13 @@
  */
 import React, { Component } from 'react'
 import {
-    renderAxesToCanvas,
     renderGridLinesToCanvas,
     getRelativeCursor,
     isCursorInRect,
     Container,
     BasicTooltip,
 } from '@nivo/core'
+import { renderAxesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { ScatterPlotPropTypes } from './props'
 import enhance from './enhance'
@@ -60,8 +60,7 @@ class ScatterPlotCanvas extends Component {
         const {
             data,
 
-            xScale,
-            yScale,
+            computedData,
 
             width,
             height,
@@ -74,16 +73,19 @@ class ScatterPlotCanvas extends Component {
             axisRight,
             axisBottom,
             axisLeft,
+
             enableGridX,
             enableGridY,
 
-            symbolSize,
+            getSymbolSize,
 
             theme,
             getColor,
 
             legends,
         } = props
+
+        const { xScale, yScale } = computedData
 
         this.surface.width = outerWidth * pixelRatio
         this.surface.height = outerHeight * pixelRatio
@@ -123,23 +125,25 @@ class ScatterPlotCanvas extends Component {
             theme,
         })
 
-        const items = data.reduce(
+        const items = computedData.series.reduce(
             (agg, serie) => [
                 ...agg,
                 ...serie.data.map(d => ({
-                    x: xScale(d.x),
-                    y: yScale(d.y),
-                    size: symbolSize,
+                    x: d.position.x,
+                    y: d.position.y,
+                    size: getSymbolSize(d.data),
                     color: getColor(serie),
-                    data: { ...d, serie: serie.id },
+                    data: { ...d.data, serie: serie.id },
                 })),
             ],
             []
         )
 
         items.forEach(d => {
+            this.ctx.beginPath()
+            this.ctx.arc(d.x, d.y, d.size / 2, 0, 2 * Math.PI)
             this.ctx.fillStyle = d.color
-            this.ctx.fillRect(d.x - symbolSize / 2, d.y - symbolSize / 2, symbolSize, symbolSize)
+            this.ctx.fill()
         })
 
         this.items = items

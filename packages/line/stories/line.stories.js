@@ -225,7 +225,7 @@ class RealTimeChart extends Component {
                 axisBottom={{
                     format: '%H:%M',
                     legend: `${this.formatTime(dataA[0].x)} ——— ${this.formatTime(last(dataA).x)}`,
-                    legendPosition: 'center',
+                    legendPosition: 'middle',
                     legendOffset: 46,
                 }}
                 axisRight={{}}

@@ -7,7 +7,7 @@ declare module '@nivo/axes' {
         tickSize?: number
         tickPadding?: number
         tickRotation?: number
-        tickFormat?: any // PropTypes.oneOfType([PropTypes.func, PropTypes.string])
+        format?: any // PropTypes.oneOfType([PropTypes.func, PropTypes.string])
         renderTick?: (data: any) => React.ReactNode
         legend?: React.ReactNode
         legendPosition?: 'start' | 'middle' | 'end'

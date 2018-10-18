@@ -18,12 +18,15 @@
   "files": [
     "README.md",
     "index.js",
+    "index.d.ts",
     "cjs/",
     "umd/"
   ],
   "dependencies": {
+    "@nivo/axes": "0.50.0",
     "@nivo/core": "0.50.0",
     "@nivo/legends": "0.50.0",
+    "@nivo/scales": "0.50.0",
     "d3-scale": "^2.1.2",
     "d3-shape": "^1.2.2",
     "lodash": "^4.17.4",

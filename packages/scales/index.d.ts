@@ -1,26 +1,20 @@
 declare module '@nivo/scales' {
-    export type LinearScale = {
+    export interface LinearScale {
         type: 'linear'
         min?: 'auto' | number
         max?: 'auto' | number
         stacked?: boolean
     }
 
-    export type PointScale = {
+    export interface PointScale {
         type: 'point'
     }
 
-    export type TimeScale = {
+    export interface TimeScale {
         type: 'time'
         format?: string
-        precision?:
-            'millisecond' |
-            'second' |
-            'minute' |
-            'hour' |
-            'month' |
-            'year'
+        precision?: 'millisecond' | 'second' | 'minute' | 'hour' | 'month' | 'year'
     }
 
-    export type Scale = LinearScale | PointScale | TimeScale
+    export type Scale = LinearScale | PointScale | TimeScale
 }
