@@ -33,6 +33,9 @@ export default [
                         }>
                     `}
                 </pre>
+                Please not that you should adjust <code>xScale</code> and <code>yScale</code>{' '}
+                according to <code>x</code> and <code>y</code> type, for example if you use dates,
+                you should use a <code>time</code> scale.
             </div>
         ),
         required: true,
