@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Dimensions, Box, Theme, MotionProps, ColorProps, CartesianMarkerProps } from '@nivo/core'
 import { LegendProps } from '@nivo/legends'
 import { Scale } from '@nivo/scales'
-import { Axis } from '@nivo/axes'
+import { AxisProps } from '@nivo/axes'
 
 declare module '@nivo/line' {
     export interface LineDatum {
@@ -50,10 +50,10 @@ declare module '@nivo/line' {
 
         theme?: Theme
 
-        axisTop?: Axis
-        axisRight?: Axis
-        axisBottom?: Axis
-        axisLeft?: Axis
+        axisTop?: AxisProps
+        axisRight?: AxisProps
+        axisBottom?: AxisProps
+        axisLeft?: AxisProps
 
         enableGridX?: boolean
         enableGridY?: boolean
