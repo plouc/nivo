@@ -11,15 +11,17 @@ import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 import { ResponsiveScatterPlot, ScatterPlotDefaultProps } from '@nivo/scatterplot'
 import config from '../../../config'
+import nivoTheme from '../../../nivoTheme'
 import ChartHeader from '../../ChartHeader'
 import ChartTabs from '../../ChartTabs'
-import ScatterPlotControls from './ScatterPlotControls'
+import Stories from '../../Stories'
 import generateCode from '../../../lib/generateChartCode'
 import ComponentPropsDocumentation from '../../properties/ComponentPropsDocumentation'
+import ScatterPlotControls from './ScatterPlotControls'
 import properties from './props'
-import nivoTheme from '../../../nivoTheme'
 import propsMapper from './propsMapper'
 import { generateLightDataSet as generateData } from './generators'
+import { scatterPlotStories } from './stories'
 
 export default class ScatterPlot extends Component {
     state = {
@@ -30,6 +32,17 @@ export default class ScatterPlot extends Component {
                 right: 140,
                 bottom: 70,
                 left: 90,
+            },
+
+            xScale: {
+                type: 'linear',
+                min: 0,
+                max: 'auto',
+            },
+            yScale: {
+                type: 'linear',
+                min: 0,
+                max: 'auto',
             },
 
             colors: 'nivo',
@@ -65,7 +78,7 @@ export default class ScatterPlot extends Component {
                 tickPadding: 5,
                 tickRotation: 0,
                 legend: 'weight',
-                legendPosition: 'center',
+                legendPosition: 'middle',
                 legendOffset: 46,
                 format: d => `${d} kg`,
             },
@@ -76,7 +89,7 @@ export default class ScatterPlot extends Component {
                 tickPadding: 5,
                 tickRotation: 0,
                 legend: 'size',
-                legendPosition: 'center',
+                legendPosition: 'middle',
                 legendOffset: -60,
                 format: d => `${d} cm`,
             },
@@ -185,6 +198,8 @@ export default class ScatterPlot extends Component {
             </div>
         )
 
+        const stories = <Stories stories={scatterPlotStories} />
+
         return (
             <div className="page_content grid">
                 <div className="chart-page_main">
@@ -215,6 +230,7 @@ export default class ScatterPlot extends Component {
                     <MediaQuery query="(min-width: 1000px)">
                         {header}
                         {description}
+                        {stories}
                     </MediaQuery>
                 </div>
             </div>

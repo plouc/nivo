@@ -8,7 +8,9 @@
  */
 import PropTypes from 'prop-types'
 import { noop } from '@nivo/core'
+import { axisPropType } from '@nivo/axes'
 import { LegendPropShape } from '@nivo/legends'
+import { scalePropType } from '@nivo/scales'
 
 export const ScatterPlotPropTypes = {
     data: PropTypes.arrayOf(
@@ -16,40 +18,40 @@ export const ScatterPlotPropTypes = {
             id: PropTypes.string.isRequired,
             data: PropTypes.arrayOf(
                 PropTypes.shape({
-                    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-                    x: PropTypes.number.isRequired,
-                    y: PropTypes.number.isRequired,
+                    x: PropTypes.oneOfType([
+                        PropTypes.number,
+                        PropTypes.string,
+                        PropTypes.instanceOf(Date),
+                    ]).isRequired,
+                    y: PropTypes.oneOfType([
+                        PropTypes.number,
+                        PropTypes.string,
+                        PropTypes.instanceOf(Date),
+                    ]).isRequired,
                 })
             ).isRequired,
         })
     ).isRequired,
 
-    scales: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            axis: PropTypes.oneOf(['x', 'y']).isRequired,
-            domain: PropTypes.arrayOf(
-                PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])])
-            ).isRequired,
-        })
-    ).isRequired,
+    xScale: scalePropType.isRequired,
+    yScale: scalePropType.isRequired,
 
-    xScale: PropTypes.func.isRequired, // computed
-    yScale: PropTypes.func.isRequired, // computed
+    computedData: PropTypes.shape({
+        xScale: PropTypes.func.isRequired,
+        yScale: PropTypes.func.isRequired,
+    }).isRequired,
 
-    // axes & grid
-    axisTop: PropTypes.object,
-    axisRight: PropTypes.object,
-    axisBottom: PropTypes.object,
-    axisLeft: PropTypes.object,
+    axisTop: axisPropType,
+    axisRight: axisPropType,
+    axisBottom: axisPropType,
+    axisLeft: axisPropType,
+
     enableGridX: PropTypes.bool.isRequired,
     enableGridY: PropTypes.bool.isRequired,
 
-    // symbols
     symbolSize: PropTypes.oneOfType([PropTypes.func, PropTypes.number]).isRequired,
     symbolShape: PropTypes.oneOfType([PropTypes.oneOf(['circle', 'square'])]).isRequired,
 
-    // markers
     markers: PropTypes.arrayOf(
         PropTypes.shape({
             axis: PropTypes.oneOf(['x', 'y']).isRequired,
@@ -58,10 +60,8 @@ export const ScatterPlotPropTypes = {
         })
     ),
 
-    // styling
     getColor: PropTypes.func.isRequired,
 
-    // interactivity
     isInteractive: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,
     onMouseEnter: PropTypes.func.isRequired,
@@ -71,31 +71,32 @@ export const ScatterPlotPropTypes = {
 
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
 
-    // canvas specific
     pixelRatio: PropTypes.number.isRequired,
 }
 
 export const ScatterPlotDefaultProps = {
-    scales: [
-        { id: 'x', axis: 'x', domain: [0, 'auto'] },
-        { id: 'y', axis: 'y', domain: [0, 'auto'] },
-    ],
+    xScale: {
+        type: 'linear',
+        min: 0,
+        max: 'auto',
+    },
+    yScale: {
+        type: 'linear',
+        min: 0,
+        max: 'auto',
+    },
 
-    // axes & grid
     axisBottom: {},
     axisLeft: {},
     enableGridX: true,
     enableGridY: true,
 
-    // symbols
     symbolSize: 6,
     symbolShape: 'circle',
 
-    // styling
     colors: 'nivo',
     colorBy: 'id',
 
-    // interactivity
     isInteractive: true,
     enableStackTooltip: true,
     onClick: noop,
@@ -104,7 +105,6 @@ export const ScatterPlotDefaultProps = {
 
     legends: [],
 
-    // canvas specific
     pixelRatio:
         global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
 }

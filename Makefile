@@ -54,7 +54,8 @@ init: ##@0 global cleanup/install/bootstrap
 
 fmt: ##@0 global format code using prettier (js, css, md)
 	@./node_modules/.bin/prettier --color --write \
-		"packages/*/{src,stories,tests}/**/*.js" \
+		"packages/*/{src,stories,tests}/**/*.{js,ts}" \
+		"packages/*/index.d.ts" \
 		"packages/*/README.md" \
 		"website/src/**/*.{js,css}" \
 		"examples/*/src/**/*.{js,ts,tsx,css}" \
@@ -63,10 +64,10 @@ fmt: ##@0 global format code using prettier (js, css, md)
 fmt-check: ##@0 global check if files were all formatted using prettier
 	@echo "${YELLOW}Checking formatting${RESET}"
 	@./node_modules/.bin/prettier --color --list-different \
-        "packages/*/{src,stories,tests}/**/*.js" \
+        "packages/*/{src,stories,tests}/**/*.{js,ts}" \
+        "packages/*/index.d.ts" \
         "packages/*/README.md" \
         "website/src/**/*.{js,css}" \
-        "storybook/stories/**/*.{js,css}" \
         "examples/*/src/**/*.{js,ts,tsx,css}" \
         "README.md"
 
@@ -120,11 +121,17 @@ package-tslint-%: ##@1 packages run tslint on package
 packages-tslint: ##@1 packages run tslint on all packages
 	@echo "${YELLOW}Running tslint on all packages${RESET}"
 	@./node_modules/.bin/tslint \
+		./packages/axes/index.d.ts \
 	    ./packages/bar/index.d.ts \
 	    ./packages/calendar/index.d.ts \
 	    ./packages/core/index.d.ts \
 	    ./packages/heatmap/index.d.ts \
+	    ./packages/legends/index.d.ts \
+	    ./packages/line/index.d.ts \
         ./packages/pie/index.d.ts \
+        ./packages/sankey/index.d.ts \
+        ./packages/scales/index.d.ts \
+        ./packages/scatterplot/index.d.ts \
         ./packages/waffle/index.d.ts
 
 package-test-%: ##@1 packages run tests for a package

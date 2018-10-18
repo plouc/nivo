@@ -19,9 +19,125 @@ export default [
     {
         key: 'data',
         scopes: '*',
-        description: 'Chart data.',
-        type: '{Array.<Object>}',
+        description: (
+            <div>
+                Chart data, which must conform to this structure:
+                <pre className="code code-block">
+                    {dedent`
+                        Array<{
+                            id: {string|number}
+                            data: Array<{
+                                x: {number|string|Date}
+                                y: {number|string|Date}
+                            }>
+                        }>
+                    `}
+                </pre>
+            </div>
+        ),
         required: true,
+    },
+    {
+        key: 'xScale',
+        scopes: '*',
+        type: '{object}',
+        description: `X scale configuration.`,
+        controlGroup: 'Base',
+        controlType: 'object',
+        controlOptions: {
+            props: [
+                {
+                    key: 'type',
+                    description: `Scale type, supports linear, point and time scales.`,
+                    type: '{string}',
+                    controlType: 'choices',
+                    controlOptions: {
+                        disabled: true,
+                        choices: ['linear'].map(v => ({
+                            label: v,
+                            value: v,
+                        })),
+                    },
+                },
+                {
+                    key: 'min',
+                    description: 'Minimum scale value.',
+                    required: false,
+                    type: `{number|'auto'}`,
+                    controlType: 'switchableRange',
+                    controlOptions: {
+                        disabledValue: 'auto',
+                        defaultValue: 0,
+                        min: -2000,
+                        max: 2000,
+                    },
+                },
+                {
+                    key: 'max',
+                    description: 'Maximum scale value.',
+                    required: false,
+                    type: `{number|'auto'}`,
+                    controlType: 'switchableRange',
+                    controlOptions: {
+                        disabledValue: 'auto',
+                        defaultValue: 1200,
+                        min: -2000,
+                        max: 2000,
+                    },
+                },
+            ],
+        },
+    },
+    {
+        key: 'yScale',
+        scopes: '*',
+        type: '{object}',
+        description: `Y scale configuration.`,
+        controlGroup: 'Base',
+        controlType: 'object',
+        controlOptions: {
+            props: [
+                {
+                    key: 'type',
+                    description: `Scale type, supports linear, point and time scales.`,
+                    type: '{string}',
+                    controlType: 'choices',
+                    controlOptions: {
+                        disabled: true,
+                        choices: ['linear'].map(v => ({
+                            label: v,
+                            value: v,
+                        })),
+                    },
+                },
+                {
+                    key: 'min',
+                    description: 'Minimum scale value.',
+                    required: false,
+                    type: `{number|'auto'}`,
+                    controlType: 'switchableRange',
+                    controlOptions: {
+                        disabledValue: 'auto',
+                        defaultValue: 0,
+                        min: -2000,
+                        max: 2000,
+                    },
+                },
+                {
+                    key: 'max',
+                    description: 'Maximum scale value.',
+                    required: false,
+                    type: `{number|'auto'}`,
+                    controlType: 'switchableRange',
+                    controlOptions: {
+                        disabledValue: 'auto',
+                        defaultValue: 1200,
+                        min: -2000,
+                        max: 2000,
+                    },
+                },
+            ],
+        },
     },
     {
         key: 'width',
@@ -95,7 +211,7 @@ export default [
         required: false,
         default: 'nivo',
         controlType: 'colors',
-        controlGroup: 'Base',
+        controlGroup: 'Style',
     },
     {
         key: 'colorBy',
@@ -105,7 +221,7 @@ export default [
         required: false,
         default: 'id',
         controlType: 'choices',
-        controlGroup: 'Base',
+        controlGroup: 'Style',
         controlOptions: {
             choices: [
                 {

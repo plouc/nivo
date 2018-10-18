@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Dimensions, Box, Theme, MotionProps, ColorProps } from '@nivo/core'
+import { Dimensions, Box, Theme, MotionProps, ColorProps, CartesianMarkerProps } from '@nivo/core'
 import { LegendProps } from '@nivo/legends'
 import { Scale } from '@nivo/scales'
 import { Axis } from '@nivo/axes'
@@ -38,7 +38,14 @@ declare module '@nivo/line' {
 
         margin?: Box
 
-        curve?: 'linear' | 'monotoneX' | 'monotoneY' | 'natural' | 'stepBefore' | 'step' | 'stepAfter'
+        curve?:
+            | 'linear'
+            | 'monotoneX'
+            | 'monotoneY'
+            | 'natural'
+            | 'stepBefore'
+            | 'step'
+            | 'stepAfter'
         lineWidth?: number
 
         theme?: Theme
@@ -62,13 +69,7 @@ declare module '@nivo/line' {
         areaOpacity?: number
         areaBaselineValue?: number | string | Date
 
-        markers?: Array<{
-            axis: 'x' | 'y'
-            value: string | number | Date
-            legend?: string
-            lineStyle?: object
-            textStyle?: object
-        }>
+        markers?: CartesianMarkerProps[]
 
         isInteractive?: boolean
         enableStackTooltip?: boolean

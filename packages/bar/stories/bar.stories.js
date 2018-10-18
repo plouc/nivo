@@ -110,7 +110,7 @@ const divergingCommonProps = {
     },
     axisLeft: null,
     axisRight: {
-        tickValueFormat: v => `${Math.abs(v)}%`,
+        format: v => `${Math.abs(v)}%`,
     },
     markers: [
         {
@@ -185,7 +185,7 @@ stories.add(
         <Bar
             {...commonProps}
             axisLeft={{
-                tickValueFormat: value =>
+                format: value =>
                     `${Number(value).toLocaleString('ru-RU', {
                         minimumFractionDigits: 2,
                     })} ₽`,
@@ -205,7 +205,7 @@ stories.add(
         <Bar
             {...commonProps}
             axisLeft={{
-                tickValueFormat: value =>
+                format: value =>
                     Number(value).toLocaleString('ru-RU', {
                         minimumFractionDigits: 2,
                     }),

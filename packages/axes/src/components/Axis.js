@@ -8,16 +8,13 @@
  */
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import isFunction from 'lodash/isFunction'
-import { format as d3Format } from 'd3-format'
-import { timeFormat } from 'd3-time-format'
 import compose from 'recompose/compose'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
 import setDisplayName from 'recompose/setDisplayName'
 import { Motion, TransitionMotion, spring } from 'react-motion'
-import { computeCartesianTicks } from '../compute'
 import { withMotion, motionPropTypes, axisThemePropType } from '@nivo/core'
+import { computeCartesianTicks, getFormatter } from '../compute'
 import AxisTick from './AxisTick'
 
 const willEnter = () => ({
@@ -91,7 +88,7 @@ class Axis extends Component {
             tickSize,
             tickPadding,
             tickRotation,
-            tickValueFormat,
+            format,
             renderTick,
             legend,
             legendPosition,
@@ -165,7 +162,7 @@ class Axis extends Component {
                     {ticks.map((tick, tickIndex) =>
                         renderTick({
                             tickIndex,
-                            format: tickValueFormat,
+                            format,
                             rotate: tickRotation,
                             textBaseline,
                             textAnchor: textAlign,
@@ -214,7 +211,7 @@ class Axis extends Component {
                                     {interpolatedStyles.map(({ style, data: tick }, tickIndex) =>
                                         renderTick({
                                             tickIndex,
-                                            format: tickValueFormat,
+                                            format,
                                             textBaseline,
                                             textAnchor: textAlign,
                                             theme,
@@ -246,16 +243,9 @@ class Axis extends Component {
 
 const enhance = compose(
     withMotion(),
-    withPropsOnChange(['format', 'scale'], ({ format, scale }) => {
-        if (!format || isFunction(format)) {
-            return { format }
-        } else if (scale.type === 'time') {
-            const f = timeFormat(format)
-            return { format: d => f(new Date(d)) }
-        } else {
-            return { format: d3Format(format) }
-        }
-    }),
+    withPropsOnChange(['format', 'scale'], ({ format, scale }) => ({
+        format: getFormatter(format, scale),
+    })),
     pure
 )
 

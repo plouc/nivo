@@ -1,12 +1,16 @@
 import * as React from 'react'
-import { Box, Theme, Dimensions, MotionProps, ColorProps, GetColor, SvgDefsAndFill } from '@nivo/core'
+import {
+    Box,
+    Theme,
+    Dimensions,
+    MotionProps,
+    ColorProps,
+    GetColor,
+    SvgDefsAndFill,
+} from '@nivo/core'
 
 declare module '@nivo/waffle' {
-    export type WaffleFillDirection =
-        | 'top'
-        | 'right'
-        | 'bottom'
-        | 'left'
+    export type WaffleFillDirection = 'top' | 'right' | 'bottom' | 'left'
 
     export interface WaffleDatum {
         id: string | number
@@ -33,44 +37,43 @@ declare module '@nivo/waffle' {
         columns: number
     }
 
-    export type WaffleCommonProps = ColorProps<WaffleDatum> & Partial<{
-        // layout
-        margin: Box
-        fillDirection: WaffleFillDirection
-        padding: number
+    export type WaffleCommonProps = ColorProps<WaffleDatum> &
+        Partial<{
+            // layout
+            margin: Box
+            fillDirection: WaffleFillDirection
+            padding: number
 
-        // styling
-        theme: Theme
-        emptyColor: string
-        emptyOpacity: number
-        borderWidth: number
-        borderColor: string | GetColor<WaffleDatum>
+            // styling
+            theme: Theme
+            emptyColor: string
+            emptyOpacity: number
+            borderWidth: number
+            borderColor: string | GetColor<WaffleDatum>
 
-        // interactivity
-        isInteractive: boolean
-        onClick: (datum: WaffleDatum, event: React.MouseEvent<HTMLCanvasElement>) => void
-        tooltipFormat: string | ValueFormatter
-        tooltip: React.StatelessComponent<WaffleTooltipData>
-    }>
+            // interactivity
+            isInteractive: boolean
+            onClick: (datum: WaffleDatum, event: React.MouseEvent<HTMLCanvasElement>) => void
+            tooltipFormat: string | ValueFormatter
+            tooltip: React.StatelessComponent<WaffleTooltipData>
+        }>
 
-    export type WaffleSvgProps = WaffleBaseProps
-        & WaffleCommonProps
-        & MotionProps
-        & SvgDefsAndFill<WaffleDatum>
+    export type WaffleSvgProps = WaffleBaseProps &
+        WaffleCommonProps &
+        MotionProps &
+        SvgDefsAndFill<WaffleDatum>
 
     export class Waffle extends React.Component<WaffleSvgProps & Dimensions> {}
     export class ResponsiveWaffle extends React.Component<WaffleSvgProps> {}
 
-    export type WaffleHtmlProps = WaffleBaseProps
-        & WaffleCommonProps
-        & MotionProps
+    export type WaffleHtmlProps = WaffleBaseProps & WaffleCommonProps & MotionProps
 
     export class WaffleHtml extends React.Component<WaffleHtmlProps & Dimensions> {}
     export class ResponsiveWaffleHtml extends React.Component<WaffleHtmlProps> {}
 
-    export type WaffleCanvasProps = WaffleBaseProps
-        & WaffleCommonProps
-        & Partial<{
+    export type WaffleCanvasProps = WaffleBaseProps &
+        WaffleCommonProps &
+        Partial<{
             pixelRatio: number
         }>
 

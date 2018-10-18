@@ -12,7 +12,7 @@
                 "multiline": {
                     "objects": "always",
                     "arrays": "always",
-                    "functions": "always",
+                    "functions": "ignore",
                     "typeLiterals": "ignore"
                 },
                 "esSpecCompliant": true

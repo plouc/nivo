@@ -55,8 +55,10 @@ const ScatterPlotItem = ({
 ScatterPlotItem.propTypes = {
     data: PropTypes.shape({
         id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-        x: PropTypes.number.isRequired,
-        y: PropTypes.number.isRequired,
+        x: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.instanceOf(Date)])
+            .isRequired,
+        y: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.instanceOf(Date)])
+            .isRequired,
         serie: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     }).isRequired,
 

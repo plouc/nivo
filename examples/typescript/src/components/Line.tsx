@@ -68,6 +68,7 @@ export default class Line extends React.Component {
                         legend: 'whatever for x',
                         legendOffset: -40,
                         legendPosition: 'middle',
+                        format: (v: number) => `${v}`,
                     }}
                     enableGridX={true}
                     enableGridY={true}

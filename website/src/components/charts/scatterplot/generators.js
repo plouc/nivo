@@ -9,7 +9,6 @@ const generateData = size =>
     keys.map(key => ({
         id: key,
         data: range(size).map(i => ({
-            id: i,
             x: random(ageRange[0], ageRange[1]),
             y: random(weightRange[0], weightRange[1]),
         })),

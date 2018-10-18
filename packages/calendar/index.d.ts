@@ -68,9 +68,9 @@ declare module '@nivo/calendar' {
         theme: Theme
     }>
 
-    export type CalendarSvgProps = CalendarData
-        & CalendarCommonProps
-        & Partial<{
+    export type CalendarSvgProps = CalendarData &
+        CalendarCommonProps &
+        Partial<{
             onClick: (datum: CalendarDayData, event: React.MouseEvent<SVGRectElement>) => void
         }>
 
