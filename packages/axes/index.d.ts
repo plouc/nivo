@@ -1,8 +1,7 @@
 import * as React from 'react'
 
 declare module '@nivo/axes' {
-    export interface Axis {
-        // ticksPosition?: 'before' | 'after'
+    export interface AxisProps {
         tickValues?: number | number[] | string[] | Date[]
         tickSize?: number
         tickPadding?: number

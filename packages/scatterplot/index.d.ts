@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Dimensions, Box, Theme, MotionProps, CartesianMarkerProps } from '@nivo/core'
 import { LegendProps } from '@nivo/legends'
-import { Axis } from '@nivo/axes'
+import { AxisProps } from '@nivo/axes'
 import { Scale } from '@nivo/scales'
 
 declare module '@nivo/scatterplot' {
@@ -38,10 +38,10 @@ declare module '@nivo/scatterplot' {
 
         margin?: Box
 
-        axisTop?: Axis
-        axisRight?: Axis
-        axisBottom?: Axis
-        axisLeft?: Axis
+        axisTop?: AxisProps
+        axisRight?: AxisProps
+        axisBottom?: AxisProps
+        axisLeft?: AxisProps
 
         enableGridX?: boolean
         enableGridY?: boolean
@@ -58,12 +58,19 @@ declare module '@nivo/scatterplot' {
         tooltip?: (data: ScatterPlotDatum) => React.ReactNode
 
         legends?: LegendProps[]
+    }
 
+    export interface ScatterPlotSvgProps extends ScatterPlotProps, MotionProps {
         markers?: CartesianMarkerProps[]
     }
 
-    export interface ScatterPlotSvgProps extends ScatterPlotProps, MotionProps {}
-
     export class ScatterPlot extends React.Component<ScatterPlotSvgProps & Dimensions> {}
     export class ResponsiveScatterPlot extends React.Component<ScatterPlotSvgProps> {}
+
+    export interface ScatterPlotCanvasProps extends ScatterPlotProps {
+        pixelRatio?: number
+    }
+
+    export class ScatterPlotCanvas extends React.Component<ScatterPlotCanvasProps & Dimensions> {}
+    export class ResponsiveScatterPlotCanvas extends React.Component<ScatterPlotCanvasProps> {}
 }
