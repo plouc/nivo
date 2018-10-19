@@ -1,0 +1,18 @@
+component_id: base
+package: chord
+component: Chord
+tags:
+  - relational
+  - svg
+  - isomorphic
+description: |
+  Chord diagram, uses [d3-chord](https://github.com/d3/d3-chord),
+  see [this block](http://bl.ocks.org/mbostock/4062006).
+  The responsive alternative of this component is `ResponsiveChord`.
+
+  This component is available in the [nivo-api](https://github.com/plouc/nivo-api),
+  see [sample](/samples/chord) or
+  [try it using the API client](/chord/api).
+
+  See the [dedicated guide](/guides/legends) on how to setup
+  legends for this component.

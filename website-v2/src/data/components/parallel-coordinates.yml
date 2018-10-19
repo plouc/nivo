@@ -1,0 +1,19 @@
+component_id: base
+package: parallel-coordinates
+component: ParallelCoordinates
+tags:
+  - svg
+  - isomorphic
+description: |
+  Parallel coordinates chart, supports continuous numerical variables
+  and discrete values.
+
+  The responsive alternative of this component is `ResponsiveParallelCoordinates`,
+  it also offers another implementation,
+  see [ParallelCoordinatesCanvas](/parallel-coordinates/canvas).
+
+  The `@nivo/parallel-coordinates` package also exposes a
+  `ParallelCoordinatesLayout` component which can be used to build your
+  very own chart. You can see how it's used to build the
+  `ParallelCoordinates` component
+  [here](https://github.com/plouc/nivo/blob/master/packages/parallel-coordinates/src/ParallelCoordinates.js).

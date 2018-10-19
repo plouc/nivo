@@ -1,0 +1,18 @@
+component_id: base
+package: heatmap
+component: HeatMap
+tags:
+  - svg
+  - isomorphic
+description: |
+  An heat map matrix, you can chose between various colors scales or pass yours,
+  you also have the ability to change the cell shape for rectangle or circle and
+  even use a custom rendering function.
+
+  The responsive alternative of this component is `ResponsiveHeatMap`.
+
+  This component is available in the [nivo-api](https://github.com/plouc/nivo-api),
+  see [sample](/samples/heatmap.svg) or
+  [try it using the API client](/heatmap/api).
+  You can also see more example usages
+  in [the storybook](?selectedKind=HeatMap&selectedStory=default).

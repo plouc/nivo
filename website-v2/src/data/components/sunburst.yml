@@ -1,0 +1,8 @@
+component_id: base
+package: sunburst
+component: Sunburst
+tags:
+  - svg
+  - isomorphic
+description: |
+  The responsive alternative of this component is `ResponsiveSunburst`.

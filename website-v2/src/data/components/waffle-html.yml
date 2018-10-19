@@ -1,0 +1,41 @@
+component_id: html
+package: waffle
+component: WaffleHtml
+tags:
+  - html
+  - isomorphic
+description: |
+  A variation around the <Link to="/waffle">Waffle</Link> component, using HTML
+                      elements.
+                  </p>
+                  <p className="description">
+                      You can fully customize it using <code>cellComponent</code> property to define
+                      your own cell component, if you wish to do so you should have a look at{' '}
+                      <a
+                          href="https://github.com/plouc/nivo/blob/master/packages/nivo-waffle/src/WaffleCellHtml.js"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                      >
+                          native HTML component
+                      </a>{' '}
+                      for available properties.
+                  </p>
+                  <p className="description">
+                      You can also see more example usages in{' '}
+                      <a
+                          href={`${
+                              config.storybookUrl
+                          }?selectedKind=WaffleHtml&selectedStory=default`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                      >
+                          the storybook
+                      </a>
+                      .
+                  </p>
+                  <p className="description">
+                      The responsive alternative of this component is{' '}
+                      <code>ResponsiveWaffleHtml</code>, it also offers other implementations, see{' '}
+                      <Link to="/waffle">Waffle</Link> and{' '}
+                      <Link to="/waffle/canvas">WaffleCanvas</Link>.
+                  </p>

@@ -1,0 +1,193 @@
+- id:    bar
+  type:  package
+  children:
+    - id: base
+      props_id: bar
+      data_key: data
+    - id: canvas
+      props_id: bar
+      data_key: data
+    - id: api
+      props_id: bar
+      data_key: data
+
+- id: bullet
+  type: package
+  children:
+    - id: base
+      props_id: bullet
+      data_key: data
+
+- id: calendar
+  type: package
+  children:
+    - id: base
+      props_id: calendar
+      data_key: data
+    - id: api
+      props_id: calendar
+      data_key: data
+
+- id: chord
+  type: package
+  children:
+    - id: base
+      props_id: chord
+      data_key: matrix
+    - id: canvas
+      props_id: chord
+      data_key: matrix
+    - id: api
+      props_id: chord
+      data_key: matrix
+
+- id: heatmap
+  type: package
+  children:
+    - id: base
+      props_id: heatmap
+      data_key: data
+    - id: canvas
+      props_id: heatmap
+      data_key: data
+    - id: api
+      props_id: api
+      data_key: data
+
+- id: line
+  type: package
+  children:
+    - id: base
+      props_id: line
+      data_key: data
+    - id: api
+      props_id: line
+      data_key: data
+
+- id: parallel-coordinates
+  type: package
+  children:
+    - id: base
+      props_id: parallel-coordinates
+      data_key: data
+    - id: canvas
+      props_id: parallel-coordinates
+      data_key: data
+
+- id:   pie
+  type: package
+  children:
+    - id: base
+      props_id: pie
+      data_key: data
+    - id: canvas
+      props_id: pie
+      data_key: data
+    - id: api
+      props_id: pie
+      data_key: data
+
+- id: radar
+  type: package
+  children:
+    - id: base
+      props_id: radar
+      data_key: data
+    - id: api
+      props_id: radar
+      data_key: data
+
+- id: sankey
+  type: package
+  children:
+    - id: base
+      props_id: sankey
+      data_key: data
+    - id: api
+      props_id: sankey
+      data_key: data
+
+- id: scatterplot
+  type: package
+  children:
+    - id: base
+      props_id: scatterplot
+      data_key: data
+    - id: canvas
+      props_id: scatterplot
+      data_key: data
+
+- id: stream
+  type: package
+  children:
+    - id: base
+      props_id: stream
+      data_key: data
+
+- id:  sunburst
+  type: package
+  children:
+    - id: base
+      props_id: sunburst
+      data_key: data
+    - id: api
+      props_id: sunburst
+      data_key: data
+
+- id: treemap
+  type: package
+  children:
+    - id: base
+      props_id: treemap
+      data_key: root
+    - id: html
+      props_id: treemap
+      data_key: root
+    - id: canvas
+      props_id: treemap
+      data_key: root
+    - id: api
+      props_id: treemap
+      data_key: root
+
+- id: voronoi
+  type: package
+  children:
+    - id: base
+      props_id: voronoi
+      data_key: data
+
+- id: waffle
+  type: package
+  children:
+    - id: base
+      props_id: waffle
+      data_key: data
+    - id: html
+      props_id: waffle
+      data_key: data
+    - id: canvas
+      props_id: waffle
+      data_key: data
+
+- id: top-nav
+  children:
+    - label: About
+      path: /about
+    - label: Components
+      path: /components
+    - label: guides
+      children:
+        - label: Axes
+          path: /guides/axes
+        - label: Colors
+          path: /guides/colors
+        - label: Legends
+          path: /guides/legends
+        - label: Gradients
+          path: /guides/gradients
+        - label: Patterns
+          path: /guides/patterns
+    - label: FAQ
+      path: /faq
+

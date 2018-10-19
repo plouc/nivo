@@ -1,0 +1,28 @@
+component_id: base
+package: radar
+component: Radar
+tags:
+  - svg
+  - isomorphic
+description: |
+  Generates a radar chart from an array of data. Note that margin object does not
+  take grid labels into account, so you should adjust it to leave enough room
+  for it.
+
+  The responsive alternative of this component is `ResponsiveRadar`.
+
+  This component is available in the [nivo-api](https://github.com/plouc/nivo-api),
+  see [sample](/samples/radar.svg)
+  or [try it using the API client](/radar/api).
+
+  See the [dedicated guide](/guides/legends) on how to setup
+  legends for this component.
+stories:
+  - label: Formatting tooltip value
+    link:
+      kind: Radar
+      story: with formatted values
+  - label: Custom label component
+    link:
+      kind: Radar
+      story: custom label component

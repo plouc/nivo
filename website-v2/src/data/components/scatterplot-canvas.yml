@@ -1,0 +1,25 @@
+component_id: canvas
+package: scatterplot
+component: ScatterPlotCanvas
+tags:
+  - canvas
+description: |
+  A variation around the [ScatterPlot](/scatterplot) component.
+  Well suited for large data sets as it does not impact DOM tree depth,
+  however you'll lose the isomorphic ability and transitions.
+
+  The responsive alternative of this component is `ResponsiveScatterPlotCanvas`,
+  it also offers another implementation, see `ScatterPlot`.
+stories:
+  - label: Using time scales
+    link:
+      kind: ScatterPlotCanvas
+      story: using time scales
+  - label: Varying symbol size
+    link:
+      kind: ScatterPlotCanvas
+      story: varying symbol size
+  - label: Custom tooltip
+    link:
+      kind: ScatterPlotCanvas
+      story: custom tooltip

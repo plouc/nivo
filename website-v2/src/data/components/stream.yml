@@ -1,0 +1,14 @@
+component_id: base
+package: stream
+component: Stream
+tags:
+  - stacked
+  - svg
+  - isomorphic
+description: |
+  Stream chart.
+
+  The responsive alternative of this component is `ResponsiveStream`.
+
+  See the [dedicated guide](/guides/legends) on how to setup
+  legends for this component.

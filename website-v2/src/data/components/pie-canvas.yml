@@ -1,0 +1,18 @@
+component_id: canvas
+package: pie
+component: PieCanvas
+tags:
+  - fundamentals
+  - canvas
+
+description: |
+  A variation around the [Pie](/pie) component.
+  Well suited for large data sets as it does not impact DOM tree depth,
+  however you'll lose the isomorphic ability and transitions.
+
+  The responsive alternative of this component is `ResponsiveCanvasPie`.
+
+  See the [dedicated guide](/guides/legends) on how to setup
+  legends for this component.
+
+stories: []

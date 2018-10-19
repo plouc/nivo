@@ -1,0 +1,17 @@
+.stories__item {
+    padding: 9px 24px;
+    border-top: 1px solid #e2e5e6;
+    font-size: 14px;
+    line-height: 1.6em;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #000;
+    font-weight: 500;
+}
+
+.stories__item:hover {
+    background: #f7fafb;
+}

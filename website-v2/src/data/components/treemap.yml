@@ -1,0 +1,23 @@
+component_id: base
+package: treemap
+component: TreeMap
+tags:
+  - hierarchy
+  - svg
+  - isomorphic
+description: |
+  A tree map component using
+  [d3-hierarchy.treemap](https://github.com/d3/d3-hierarchy#treemap),
+  see [this block](http://bl.ocks.org/mbostock/6bbb0a7ff7686b124d80).
+  You can fully customize it using `nodeComponent` property to define
+  your own node component, if you wish to do so you should have a look
+  at [native SVG node component](https://github.com/plouc/nivo/blob/master/packages/treemap/src/TreeMapNode.js)
+  for available properties.
+
+  The responsive alternative of this component is `ResponsiveTreeMap`,
+  it also offers other implementations,
+  see [TreeMapHtml](/treemap/html) and [TreeMapCanvas](/treemap/canvas).
+
+  The `TreeMap` component is also available in the [nivo-api](https://github.com/plouc/nivo-api),
+  see [sample](/samples/treemap) or
+  [try it using the API client](/treemap/api).

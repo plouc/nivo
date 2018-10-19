@@ -1,0 +1,26 @@
+component_id: base
+package: pie
+component: Pie
+tags:
+  - fundamentals
+  - svg
+  - isomorphic
+
+description: |
+  Generates a pie chart from an array of data, each datum must have an id and a
+  value property.
+  Note that margin object does not take radial labels into account,&nbsp; so you
+  should adjust it to leave enough room for it.
+
+  The responsive alternative of this component is `ResponsivePie`.
+
+  This component is available in the [nivo-api](https://github.com/plouc/nivo-api),
+  see [sample](/samples/pie.svg)
+  or [try it using the API client](/pie/api).
+  You can also see more example usages in
+  [the storybook](?selectedKind=Pie&selectedStory=default).
+
+  See the [dedicated guide](/guides/legends) on how to setup
+  legends for this component.
+
+stories: []

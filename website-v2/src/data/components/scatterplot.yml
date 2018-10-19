@@ -1,0 +1,35 @@
+component_id: base
+package: scatterplot
+component: ScatterPlot
+tags:
+  - svg
+  - isomorphic
+description: |
+  A scatter plot chart, which can display several data series.
+
+  The responsive alternative of this component is `ResponsiveScatterPlot`,
+  it also offers another implementation,
+  see [ScatterPlotCanvas](/scatterplot/canvas).
+
+  You can also see more example usages in
+  [the storybook](?selectedKind=ScatterPlot&selectedStory=default).
+
+  See the [dedicated guide](/guides/legends) on how to setup
+  legends for this component.
+stories:
+  - label: Using time scales
+    link:
+      kind: ScatterPlot
+      story: using time scales
+  - label: Varying symbol size
+    link:
+      kind: ScatterPlot
+      story: varying symbol size
+  - label: Custom tooltip
+    link:
+      kind: ScatterPlot
+      story: custom tooltip
+  - label: Using mouse enter/leave
+    link:
+      kind: ScatterPlot
+      story: using mouse enter/leave

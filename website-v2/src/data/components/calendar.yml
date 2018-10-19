@@ -1,0 +1,19 @@
+component_id: base
+package: calendar
+component: Calendar
+tags:
+  - svg
+  - isomorphic
+description: |
+  This component is heavily inspired by [this block](https://bl.ocks.org/mbostock/4063318).
+
+  It is suitable for isomorphic rendering but require to use the
+  `Calendar` component not the `ResponsiveCalendar` one.
+
+  This component is available in the [nivo-api](https://github.com/plouc/nivo-api),
+  you can [try it using the API client](/calendar/api).
+  You can also see more example usages
+  in [the storybook](?selectedKind=Calendar&selectedStory=default).
+
+  See the [dedicated guide](/guides/legends) on how to setup
+  legends for this component.

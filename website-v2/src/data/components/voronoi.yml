@@ -1,0 +1,11 @@
+component_id: base
+package: voronoi
+component: Voronoi
+tags:
+  - experimental
+  - svg
+  - isomorphic
+description: |
+  Voronoi Tessellation, uses [d3-voronoi](https://github.com/d3/d3-voronoi),
+  see [this block](http://bl.ocks.org/mbostock/4060366).
+  The responsive alternative of this component is `ResponsiveVoronoi`.

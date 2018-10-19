@@ -1,0 +1,12 @@
+component_id: canvas
+package: parallel-coordinates
+component: ParallelCoordinatesCanvas
+tags:
+  - canvas
+description: |
+  A variation around the [ParallelCoordinates](/parallel-coordinates) component.
+  Well suited for large data sets as it does not impact DOM tree depth,
+  however you'll lose the isomorphic ability and transitions.
+
+  The responsive alternative of this component
+  is `ResponsiveParallelCoordinatesCanvas`.
