@@ -48,6 +48,10 @@ export const getNodeHandlers = (
             onClick(node, event)
             zoomToNode(node.path)
         }
+    } else {
+        clickHandler = event => {
+            onClick(node, event)
+        }
     }
 
     return {
