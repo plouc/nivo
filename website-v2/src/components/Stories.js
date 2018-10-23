@@ -6,9 +6,7 @@ import CollapsibleCard from './CollapsibleCard'
 
 const buildStoryLink = ({ kind, story }) =>
     //`${config.storybookUrl}?selectedKind=${encodeURIComponent(
-    `?selectedKind=${encodeURIComponent(
-        kind
-    )}&selectedStory=${encodeURIComponent(story)}`
+    `?selectedKind=${encodeURIComponent(kind)}&selectedStory=${encodeURIComponent(story)}`
 
 export default class Stories extends Component {
     static propTypes = {

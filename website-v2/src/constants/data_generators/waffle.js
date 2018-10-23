@@ -18,7 +18,7 @@ export const waffle = () => ({
             value: Math.random() * 33,
             color: '#a1cfff',
         },
-    ]
+    ],
 })
 
 export const waffleCanvas = () => ({

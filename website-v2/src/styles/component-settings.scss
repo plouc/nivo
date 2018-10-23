@@ -1,0 +1,156 @@
+.Settings {
+  position: fixed;
+  top: $header-height;
+  bottom: 0;
+  left: 0;
+  width: 280px;
+  background: white;
+  border-right: 1px solid #ccc;
+  z-index: 1000;
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-size: 12px;
+}
+
+.Settings_Group {
+  border-top: 1px solid #ccc;
+}
+
+.Settings_Group_Title {
+  border-bottom: 1px solid #ccc;
+  padding: 9px 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 12px;
+  line-height: 1em;
+}
+
+.Control {
+  padding: 3px 12px;
+  background: #f7fafb;
+}
+
+.Control .control_label {
+  margin: 0;
+}
+
+.SwitchControl {
+  display: grid;
+  grid-template-columns: 4fr 6fr;
+  cursor: pointer;
+  align-items: center;
+}
+
+.RangeControl {
+  display: grid;
+  grid-template-columns: 4fr 3fr 3fr;
+  grid-column-gap: 6px;
+}
+
+.RangeControl_Input {
+  width: 100%;
+  height: 28px;
+  position: relative;
+  font-size: 12px;
+}
+
+.RangeControl input[type=text] {
+  width: 100%;
+  font-size: 12px;
+  height: 28px;
+  padding: 0 5px;
+}
+
+.RangeControl input[type=range] {
+  width: 100%;
+}
+
+.RangeControl_Unit {
+  position: absolute;
+  line-height: 28px;
+  color: #999;
+  font-weight: 600;
+  top: 0;
+  right: 6px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.ChoicesControl {
+  display: grid;
+  grid-template-columns: 4fr 6fr;
+  grid-column-gap: 6px;
+  align-items: center;
+}
+
+.SwitchableRangeControl_Header {
+  padding: 3px 12px;
+  background: #f7fafb;
+  align-items: center;
+  display: grid;
+  grid-template-columns: 4fr 2fr 4fr;
+}
+
+.TextControl {
+  align-items: center;
+  display: grid;
+  grid-template-columns: 4fr 6fr;
+}
+
+.TextControl input[type=text] {
+  width: 100%;
+  font-size: 12px;
+  height: 28px;
+  padding: 0 5px;
+}
+
+.MarginControl {
+  display: grid;
+  grid-template-columns: 1fr 40px 1fr;
+  grid-column-gap: 12px;
+  grid-row-gap: 9px;
+  align-items: center;
+  justify-items: center;
+}
+
+.MarginControl_Box {
+  display: block;
+  width: 60px;
+  height: 28px;
+  border: 1px solid $accent-color-lighter;
+}
+
+.MarginControl_Box._top {
+  border-top: 3px solid $accent-color-darker;
+}
+
+.MarginControl_Box._right {
+  border-right: 3px solid $accent-color-darker;
+}
+
+.MarginControl_Box._bottom {
+  border-bottom: 3px solid $accent-color-darker;
+}
+
+.MarginControl_Box._left {
+  border-left: 3px solid $accent-color-darker;
+}
+
+.MarginControl input[type=text] {
+  width: 60px;
+  font-size: 12px;
+  height: 28px;
+  padding: 0 5px;
+}
+
+.RadioControl {
+  align-items: center;
+  display: grid;
+  grid-template-columns: 4fr 6fr;
+}
+
+.RadioControl_Choices {
+  display: grid;
+  justify-items: start;
+  align-items: center;
+}

@@ -10,7 +10,7 @@ const topNav = nav.find(({ id }) => id === 'top-nav')
 
 export default class Header extends Component {
     static propTypes = {
-        onNavToggle: PropTypes.func.isRequired,
+        // onNavToggle: PropTypes.func.isRequired,
     }
 
     render() {
@@ -24,7 +24,7 @@ export default class Header extends Component {
                     {topNav.children.map(child => {
                         if (child.children) {
                             return (
-                                <span key={child.id} className="HeaderNav__Item">
+                                <span key={child.label} className="HeaderNav__Item">
                                     {child.label}
                                     <span className="HeaderNav__Item__Sub">
                                         {child.children.map(subChild => (
@@ -42,11 +42,7 @@ export default class Header extends Component {
                         }
 
                         return (
-                            <Link
-                                key={child.id}
-                                className="HeaderNav__Item"
-                                to={child.path}
-                            >
+                            <Link key={child.path} className="HeaderNav__Item" to={child.path}>
                                 {child.label}
                             </Link>
                         )

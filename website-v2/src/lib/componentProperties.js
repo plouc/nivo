@@ -40,8 +40,8 @@ export const motionProperties = (scopes, defaults) => [
         type: '{boolean}',
         required: false,
         default: defaults.animate !== undefined ? defaults.animate : defaultAnimate,
-        controlType: 'switch',
-        controlGroup: 'Motion',
+        control: 'switch',
+        group: 'Motion',
     },
     {
         key: 'motionStiffness',
@@ -53,8 +53,8 @@ export const motionProperties = (scopes, defaults) => [
             defaults.motionStiffness !== undefined
                 ? defaults.motionStiffness
                 : defaultMotionStiffness,
-        controlType: 'range',
-        controlGroup: 'Motion',
+        control: 'range',
+        group: 'Motion',
         controlOptions: {
             min: 0,
             max: 300,
@@ -69,28 +69,14 @@ export const motionProperties = (scopes, defaults) => [
         required: false,
         default:
             defaults.motionDamping !== undefined ? defaults.motionDamping : defaultMotionDamping,
-        controlType: 'range',
-        controlGroup: 'Motion',
+        control: 'range',
+        group: 'Motion',
         controlOptions: {
             min: 0,
             max: 40,
         },
     },
 ]
-
-export const marginProperties = ['top', 'right', 'bottom', 'left'].map(marginType => ({
-    key: `margin.${marginType}`,
-    scopes: '*',
-    description: `${upperFirst(marginType)} margin (px).`,
-    type: '{number}',
-    controlType: 'range',
-    controlGroup: 'Margin',
-    controlOptions: {
-        unit: 'px',
-        min: 0,
-        max: 320,
-    },
-}))
 
 export const axesProperties = [
     {
@@ -316,18 +302,14 @@ export const getLegendsProps = () => [
 export const filterPropertyByScope = (requiredScope, forDocumentation = false) => property => {
     if (forDocumentation === false) {
         return (
-            property.scopes === undefined ||
-            property.scopes === '*' ||
-            property.scopes.includes(requiredScope)
+            !property.scopes || property.scopes === '*' || property.scopes.includes(requiredScope)
         )
     }
 
     const { docScopes } = property
     if (docScopes === undefined) {
         return (
-            property.scopes === undefined ||
-            property.scopes === '*' ||
-            property.scopes.includes(requiredScope)
+            !property.scopes || property.scopes === '*' || property.scopes.includes(requiredScope)
         )
     }
 
@@ -341,11 +323,11 @@ export const getPropertiesGroupControls = (properties, group, scope) => {
     const scopeFilter = filterPropertyByScope(scope)
 
     return properties
-        .filter(property => property.controlGroup === group && scopeFilter(property))
+        .filter(property => property.group === group && scopeFilter(property))
         .map(property => ({
             name: property.key,
             help: property.help || property.description,
-            type: property.controlType,
+            type: property.control,
             ...(property.controlOptions || {}),
         }))
 }
@@ -355,8 +337,8 @@ export const getPropertiesGroupsControls = (properties, scope) => {
 
     const groups = uniq(
         properties
-            .filter(property => property.controlGroup !== undefined && scopeFilter(property))
-            .map(property => property.controlGroup)
+            .filter(property => property.group && scopeFilter(property))
+            .map(property => property.group)
     )
 
     return groups.reduce((acc, group) => {

@@ -1,0 +1,402 @@
+props_id: heatmap
+props:
+  - key: data
+    description: |
+      Chart data.
+    type: '{Array.<Object>}'
+    required: true
+
+  - key: indexBy
+    description: |
+      Key to use to index the data, this key must exist in each data item.
+      You can also provide a function which will receive the data item
+      and must return the desired index
+    type: '{string|Function}'
+    required: false
+    default: defaults.indexBy
+
+  - key: keys
+    description: |
+      Keys to use to determine each serie.
+    type: '{Array.<string>}'
+    required: false
+    default: defaults.keys
+
+  - key: width
+    scopes:
+      - api
+    docScopes: '*'
+    description: |
+      Not required if using `ResponsiveHeatMap`.
+    help: |
+      Chart width.
+    type: '{number}'
+    required: true
+    control: range
+    group: Base
+    controlOptions:
+      unit: px
+      min: 100
+      max: 1200
+      step: 5
+
+  - key: height
+    scopes:
+      - api
+    docScopes: '*'
+    description: |
+      Not required if using `ResponsiveHeatMap`.
+    help: |
+      Chart height.
+    type: '{number}'
+    required: true
+    control: range
+    group: Base
+    controlOptions:
+      unit: px
+      min: 100
+      max: 1200
+      step: 5
+
+  - key: pixelRatio
+    scopes:
+      - HeatMapCanvas
+    description: |
+      Adjust pixel ratio, useful for HiDPI screens.
+    required: false
+    default: Depends on device
+    type: '{number}'
+    control: range
+    group: Base
+    controlOptions:
+      min: 1
+      max: 2
+
+  - key: minValue
+    description: |
+      Minimum value. If 'auto', will pick the lowest value in the provided data set.
+      Should be overriden if your data set does not contain desired lower bound value.
+    required: false
+    default: defaults.minValue
+    type: "{number|'auto'}"
+    control: switchableRange
+    group: Base
+    controlOptions:
+      disabledValue: auto
+      defaultValue: 0
+      min: -100
+      max: 100
+
+  - key: maxValue
+    description: |
+      Maximum value. If 'auto', will pick the highest value in the provided data set.
+      Should be overriden if your data set does not contain desired higher bound value.
+    required: false
+    default: defaults.maxValue
+    type: "{number|'auto'}"
+    control: switchableRange
+    group: Base
+    controlOptions:
+      disabledValue: auto
+      defaultValue: 100
+      min: -100
+      max: 100
+
+  - key: forceSquare
+    description: |
+      Force square cells (width = height).
+    required: false
+    default: defaults.forceSquare
+    type: '{boolean}'
+    control: switch
+    group: Base
+
+  - key: sizeVariation
+    description: |
+      Size variation (0~1), if value is 0 size won't be affected.
+      If you use for example the value 0.3, cell width/height
+      will vary between 0.7~1 according to its corresponding value.
+    required: false
+    default: defaults.sizeVariation
+    type: '{number}'
+    control: range
+    group: Base
+    controlOptions:
+      min: 0
+      max: 1
+      step: 0.02
+
+  - key: padding
+    description: |
+      Padding (px).
+    required: false
+    default: defaults.padding
+    type: '{number}'
+    control: range
+    group: Base
+    controlOptions:
+      min: 0
+      max: 36
+      unit: px
+
+  - key: margin
+    description: |
+      Control chart's margins
+    type: '{object}'
+    control: margin
+    group: Base
+
+ #        key: 'cellShape',
+ #        scopes: '*',
+ #        description: (
+ #            <div>
+ #                Cell shape, can be one of: 'rect', 'circle', if a function is provided, it must
+ #                return a valid SVG element and will receive the following props:
+ #                <pre className="code code-block">
+ #                    {dedent`
+ #                        {
+ #                            value:       {number},
+ #                            x:           {number},
+ #                            y:           {number},
+ #                            width:       {number},
+ #                            height:      {number},
+ #                            color:       {string},
+ #                            opacity:     {number},
+ #                            borderWidth: {number},
+ #                            borderColor: {string},
+ #                            textColor:   {string},
+ #                        }
+ #                    `}
+ #                </pre>
+ #            </div>
+ #        ),
+ #        help: `Cell shape, can be one of: 'rect', 'circle', if a function is provided, it must return a valid SVG element.`,
+ #        type: '{string|Function}',
+ #        required: false,
+ #        default: defaults.cellShape,
+ #        control: 'choices',
+ #        group: 'Style',
+ #        controlOptions: {
+ #            choices: ['rect', 'circle', 'Custom(props) => (…)'].map(key => ({
+ #                label: key,
+ #                value: key,
+
+  - key: colors
+    description: |
+      Defines color range.
+    type: '{string|Function|Array}'
+    required: false
+    default: nivo
+    control: quantizeColors
+    group: Style
+
+  - key: cellOpacity
+    description: |
+      Cell opacity (0~1).
+    required: false
+    default: defaults.cellOpacity
+    type: '{number}'
+    control: range
+    group: Style
+    controlOptions:
+      min: 0
+      max: 1
+      step: 0.05
+
+  - key: cellBorderWidth
+    description: |
+      Cell border width (px).
+    required: false
+    default: defaults.cellBorderWidth
+    type: '{number}'
+    control: range
+    group: Style
+    controlOptions:
+      unit: px
+      min: 0
+      max: 10
+
+  - key: cellBorderColor
+    description: |
+      How to compute cell border color,
+      [see dedicated documentation](/guides/colors).
+    help: |
+      Method to compute cell border color.
+    type: '{string|Function}'
+    required: false
+    default: defaults.cellBorderColor
+    control: color
+    group: Style
+    controlOptions:
+      withCustomColor: true
+
+  - key: enableLabels
+    description: |
+      Enable/disable labels.
+    type: '{boolean}'
+    required: false
+    default: defaults.enableLabels
+    control: switch
+    group: Labels
+
+  - key: labelTextColor
+    description: |
+      How to compute label text color,
+      [see dedicated documentation](/guides/colors).
+    help: |
+      Method to compute label text color.
+    type: '{string|Function}'
+    required: false
+    default: defaults.labelTextColor
+    control: color
+    group: Labels
+    controlOptions:
+      withCustomColor: true
+
+  - key: enableGridX
+    description: |
+      Enable/disable x grid.
+    type: '{boolean}'
+    required: false
+    default: defaults.enableGridX
+    control: switch
+    group: Grid
+
+  - key: enableGridY
+    description: |
+      Enable/disable y grid.
+    type: '{boolean}'
+    required: false
+    default: defaults.enableGridY
+    control: switch
+    group: Grid
+
+  - key: axisTop
+    description: |
+      Top axis configuration.
+    type: '{Axis}'
+    required: false
+    group: Axes
+    control: axis
+
+  - key: axisRight
+    description: |
+      Right axis configuration.
+    type: '{Axis}'
+    required: false
+    group: Axes
+    control: axis
+
+  - key: axisBottom
+    description: |
+      Bottom axis configuration.
+    type: '{Axis}'
+    required: false
+    group: Axes
+    control: axis
+
+  - key: axisLeft
+    description: |
+      Left axis configuration.
+    type: '{Axis}'
+    required: false
+    group: Axes
+    control: axis
+
+  - key: isInteractive
+    scopes:
+      - HeatMap
+      - HeatMapCanvas
+    description: Enable/disable interactivity.
+    type: '{boolean}'
+    required: false
+    default: defaults.isInteractive
+    control: switch
+    group: Interactivity
+
+ #        key: 'onClick',
+ #        scopes: ['HeatMap', 'HeatMapCanvas'],
+ #        type: '{Function}',
+ #        required: false,
+ #        description: (
+ #            <div>
+ #                onClick handler, will receive node data as first argument & event as second one. The
+ #                node data has the following shape:
+ #                <pre className="code code-block">
+ #                    {dedent`
+ #                        {
+ #                            key:        {string},
+ #                            value:      {number},
+ #                            x:          {number},
+ #                            xKey:       {string|number},
+ #                            y:          {number},
+ #                            yKey:       {string|number},
+ #                            width:      {number},
+ #                            height:     {number},
+ #                            opacity:    {number}
+ #                        }
+ #                    `}
+ #                </pre>
+ #            </div>
+
+  - key: hoverTarget
+    scopes:
+      - HeatMap
+      - HeatMapCanvas
+    description: |
+      Defines hover behavior:
+        - **cell**: highlight the current cell
+        - **row**: highlight the current cell's row
+        - **column**: highlight the current cell's column
+        - **rowColumn**: highlight the current cell's row & column
+    help: |
+      Defines hover behavior.
+    required: false
+    default: defaults.hoverTarget
+    type: '{number}'
+    control: choices
+    group: Interactivity
+    controlOptions:
+      choices:
+        - label: cell
+          value: cell
+        - label: row
+          value: row
+        - label: column
+          value: column
+        - label: rowColumn
+          value: rowColumn
+
+  - key: cellHoverOpacity
+    scopes:
+      - HeatMap
+      - HeatMapCanvas
+    description: |
+      Cell opacity on hover (0~1).
+    required: false
+    default: defaults.cellHoverOpacity
+    type: '{number}'
+    control: range
+    group: Interactivity
+    controlOptions:
+      min: 0
+      max: 1
+      step: 0.05
+
+  - key: cellHoverOthersOpacity
+    scopes:
+      - HeatMap
+      - HeatMapCanvas
+    description: |
+      Cell opacity when not hovered (0~1).
+    required: false
+    default: defaults.cellHoverOthersOpacity
+    type: '{number}'
+    control: range
+    group: Interactivity
+    controlOptions:
+      min: 0
+      max: 1
+      step: 0.05
+
+ #    ...motionProperties(['HeatMap'], defaults),

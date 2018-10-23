@@ -58,6 +58,7 @@ fmt: ##@0 global format code using prettier (js, css, md)
 		"packages/*/index.d.ts" \
 		"packages/*/README.md" \
 		"website/src/**/*.{js,css}" \
+		"website-v2/src/**/*.{js,css}" \
 		"examples/*/src/**/*.{js,ts,tsx,css}" \
 		"README.md"
 
@@ -68,6 +69,7 @@ fmt-check: ##@0 global check if files were all formatted using prettier
         "packages/*/index.d.ts" \
         "packages/*/README.md" \
         "website/src/**/*.{js,css}" \
+        "website-v2/src/**/*.{js,css}" \
         "examples/*/src/**/*.{js,ts,tsx,css}" \
         "README.md"
 

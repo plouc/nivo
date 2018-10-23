@@ -4,7 +4,10 @@ import { ResponsiveCalendar } from '@nivo/calendar'
 import { ResponsiveChord, ResponsiveChordCanvas } from '@nivo/chord'
 import { ResponsiveHeatMap, ResponsiveHeatMapCanvas } from '@nivo/heatmap'
 import { ResponsiveLine } from '@nivo/line'
-import { ResponsiveParallelCoordinates, ResponsiveParallelCoordinatesCanvas } from '@nivo/parallel-coordinates'
+import {
+    ResponsiveParallelCoordinates,
+    ResponsiveParallelCoordinatesCanvas,
+} from '@nivo/parallel-coordinates'
 import { ResponsivePie, ResponsivePieCanvas } from '@nivo/pie'
 import { ResponsiveRadar } from '@nivo/radar'
 import { ResponsiveSankey } from '@nivo/sankey'

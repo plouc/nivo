@@ -25,6 +25,7 @@ export const heatmap = {
         tickPadding: 5,
         tickRotation: -90,
         legend: '',
+        legendPosition: 'middle',
         legendOffset: 36,
     },
     axisRight: {
@@ -64,16 +65,16 @@ export const heatmap = {
     cellShape: 'rect',
     cellOpacity: 1,
     cellBorderWidth: 0,
-    // cellBorderColor: {
-    //     type: 'inherit:darker',
-    //     gamma: 0.4,
-    // },
+    cellBorderColor: {
+        type: 'inherit:darker',
+        gamma: 0.4,
+    },
 
     enableLabels: true,
-    // labelTextColor: {
-    //     type: 'inherit:darker',
-    //     gamma: 1.8,
-    // },
+    labelTextColor: {
+        type: 'inherit:darker',
+        gamma: 1.8,
+    },
 
     defs: [
         patternLinesDef('lines', {
@@ -86,12 +87,10 @@ export const heatmap = {
     ],
     fill: [{ match: d => false && d.value < 30, id: 'lines' }],
 
-    // motion
     animate: true,
     motionStiffness: 80,
     motionDamping: 9,
 
-    // interactivity
     isInteractive: true,
     hoverTarget: 'cell',
     cellHoverOpacity: 1,
@@ -165,16 +164,16 @@ export const heatmapCanvas = {
     cellShape: 'rect',
     cellOpacity: 1,
     cellBorderWidth: 0,
-    // cellBorderColor: {
-    //     type: 'inherit:darker',
-    //     gamma: 0.4,
-    // },
+    cellBorderColor: {
+        type: 'inherit:darker',
+        gamma: 0.4,
+    },
 
     enableLabels: true,
-    // labelTextColor: {
-    //     type: 'inherit:darker',
-    //     gamma: 1.4,
-    // },
+    labelTextColor: {
+        type: 'inherit:darker',
+        gamma: 1.4,
+    },
 
     animate: true,
     motionStiffness: 120,

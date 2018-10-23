@@ -37,6 +37,8 @@
     "react-dom": "^16.5.1",
     "react-icons": "^3.2.1",
     "react-markdown": "^4.0.3",
-    "react-responsive": "^5.0.0"
+    "react-responsive": "^5.0.0",
+    "react-select": "^2.1.0",
+    "styled-components": "^4.0.2"
   }
 }

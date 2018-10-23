@@ -1,0 +1,8 @@
+props_id: calendar
+props:
+  - key: margin
+    description: |
+      Control chart's margins
+    type: '{object}'
+    control: margin
+    group: Base

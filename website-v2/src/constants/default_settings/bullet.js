@@ -4,12 +4,12 @@ import theme from '../../styles/nivoTheme'
 export default {
     margin: {
         top: 50,
-            right: 90,
-            bottom: 50,
-            left: 90,
+        right: 90,
+        bottom: 50,
+        left: 90,
     },
     layout: BulletDefaultProps.layout,
-        reverse: BulletDefaultProps.reverse,
+    reverse: BulletDefaultProps.reverse,
     spacing: 46,
     titlePosition: BulletDefaultProps.titlePosition,
     titleAlign: 'start',

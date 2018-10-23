@@ -28,12 +28,12 @@ const About = () => (
                         >
                             nivo
                         </a>{' '}
-                        provides supercharged React components to easily build dataviz apps, it's built
-                        on top of d3.
+                        provides supercharged React components to easily build dataviz apps, it's
+                        built on top of d3.
                     </p>
                     <p>
-                        Several libraries already exist for React d3 integration, but just a few provide
-                        server side rendering ability and fully declarative charts.
+                        Several libraries already exist for React d3 integration, but just a few
+                        provide server side rendering ability and fully declarative charts.
                     </p>
                     <h2>Features</h2>
                     <ul>

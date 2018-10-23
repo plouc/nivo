@@ -10,5 +10,5 @@ export const sankey = () => ({
                 value: random(5, 200),
             })
         ),
-    })
+    }),
 })

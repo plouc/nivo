@@ -1,0 +1,381 @@
+props_id: sankey
+props:
+#{
+ #        key: 'data',
+ #        scopes: '*',
+ #        description: (
+ #            <div>
+ #                Chart data, which must conform to this structure:
+ #                <pre className="code code-block">
+ #                    {dedent`
+ #                        {
+ #                            nodes: Array.<{
+ #                                id: {string|number}
+ #                            }>,
+ #                            links: Array.<{
+ #                                source: {string|number}, // ref to node id
+ #                                target: {string|number}, // ref to node id
+ #                                value: {number}
+ #                            }}>
+ #                        }
+ #                    `}
+ #                </pre>
+ #            </div>
+ #        ),
+ #        type: '{Object}',
+ #        required: true,
+ #    },
+ #    {
+ #        key: 'width',
+ #        scopes: ['api'],
+ #        docScopes: '*',
+ #        description: (
+ #            <span>
+ #                not required if using&nbsp;
+ #                <code>&lt;ResponsiveSankey&nbsp;/&gt;</code>.
+ #            </span>
+ #        ),
+ #        help: 'Chart width.',
+ #        type: '{number}',
+ #        required: true,
+ #        control: 'range',
+ #        group: 'Base',
+ #        controlOptions: {
+ #            unit: 'px',
+ #            min: 100,
+ #            max: 1200,
+ #            step: 5,
+ #        },
+ #    },
+ #    {
+ #        key: 'height',
+ #        scopes: ['api'],
+ #        docScopes: '*',
+ #        description: (
+ #            <span>
+ #                not required if using&nbsp;
+ #                <code>&lt;ResponsiveSankey&nbsp;/&gt;</code>.
+ #            </span>
+ #        ),
+ #        help: 'Chart height.',
+ #        type: '{number}',
+ #        required: true,
+ #        control: 'range',
+ #        group: 'Base',
+ #        controlOptions: {
+ #            unit: 'px',
+ #            min: 100,
+ #            max: 1200,
+ #            step: 5,
+ #        },
+ #    },
+  - key: align
+    description: |
+      Defines node alignment method. Must be one of: {alignOptions},
+      see [official d3 documentation](https://github.com/d3/d3-sankey#alignments).
+    help: |
+      Node alignment method.
+    type: '{string}'
+    required: false
+    default: defaults.align
+    control: choices
+    group: Base
+    controlOptions:
+      choices:
+        - label: center
+          value: center
+        - label: justify
+          value: justify
+        - label: right
+          value: right
+        - label: left
+          value: left
+
+ #    {
+ #        key: 'colors',
+ #        scopes: '*',
+ #        description: 'Defines how to compute nodes color.',
+ #        type: '{string|Function|Array}',
+ #        required: false,
+ #        default: 'nivo',
+ #        control: 'colors',
+ #        group: 'Base',
+ #    },
+
+  - key: nodeWidth
+    description: |
+      Node width (px).
+    required: false
+    default: defaults.nodeWidth
+    type: '{number}'
+    control: range
+    group: Nodes
+    controlOptions:
+      unit: px
+      min: 2
+      max: 100
+
+  - key: nodeOpacity
+    description: |
+      Node opacity (0~1).
+    required: false
+    default: defaults.nodeOpacity
+    type: '{number}'
+    control: range
+    group: Nodes
+    controlOptions:
+      min: 0
+      max: 1
+      step: 0.05
+
+  - key: nodeHoverOpacity
+    scopes:
+      - Sankey
+    description: |
+      Node opacity on hover (0~1).
+    required: false
+    default: defaults.nodeHoverOpacity
+    type: '{number}'
+    control: range
+    group: Nodes
+    controlOptions:
+      min: 0
+      max: 1
+      step: 0.05
+
+  - key: nodePaddingX
+    description: |
+      Node x padding, distance from link, included in nodeWidth (px).
+    required: false
+    default: defaults.nodePaddingX
+    type: '{number}'
+    control: range
+    group: Nodes
+    controlOptions:
+      unit: px
+      min: 0
+      max: 20
+
+  - key: nodePaddingY
+    description: |
+      Node y padding, distance between nodes (px).
+    required: false
+    default: defaults.nodePaddingY
+    type: '{number}'
+    control: range
+    group: Nodes
+    controlOptions:
+      unit: px
+      min: 0
+      max: 60
+
+  - key: nodeBorderWidth
+    description: |
+      Node border width (px).
+    required: false
+    default: defaults.nodeBorderWidth
+    type: '{number}'
+    control: range
+    group: Nodes
+    controlOptions:
+      unit: px
+      min: 0
+      max: 10
+ #    {
+ #        key: 'nodeBorderColor',
+ #        scopes: '*',
+ #        description: (
+ #            <span>
+ #                how to compute node border color,{' '}
+ #                <Link to="/guides/colors">see dedicated documentation</Link>.
+ #            </span>
+ #        ),
+ #        help: 'Method to compute node border color.',
+ #        type: '{string|Function}',
+ #        required: false,
+ #        default: defaults.nodeBorderColor,
+ #        control: 'color',
+ #        group: 'Nodes',
+ #        controlOptions: {
+ #            withCustomColor: true,
+ #        },
+ #    },
+
+  - key: linkOpacity
+    description: |
+      Link opacity (0~1).
+    required: false
+    default: defaults.linkOpacity
+    type: '{number}'
+    control: range
+    group: Links
+    controlOptions:
+      min: 0
+      max: 1
+      step: 0.05
+
+  - key: linkHoverOpacity
+    scopes:
+      - Sankey
+    description: |
+      Link opacity on hover(0~1).
+    required: false
+    default: defaults.linkHoverOpacity
+    type: '{number}'
+    control: range
+    group: Links
+    controlOptions:
+      min: 0
+      max: 1
+      step: 0.05
+
+  - key: linkContract
+    description: |
+      Contract link width (px).
+    required: false
+    default: defaults.linkContract
+    type: '{number}'
+    control: range
+    group: Links
+    controlOptions:
+      unit: px
+      min: 0
+      max: 60
+
+  - key: linkBlendMode
+    description: |
+       Defines CSS <code>mix-blend-mode</code> property for links, see{' '}
+       <a
+           href="https://developer.mozilla.org/fr/docs/Web/CSS/mix-blend-mode"
+           target="_blank"
+           rel="noopener noreferrer"
+       >
+           MDN documentation
+       </a>.
+    type: '{string}'
+    required: false
+    default: defaults.linkBlendMode
+    control: choices
+    group: Links
+    controlOptions:
+    choices:
+      - label: normal
+        value: normal
+ #                'normal',
+ #                'multiply',
+ #                'screen',
+ #                'overlay',
+ #                'darken',
+ #                'lighten',
+ #                'color-dodge',
+ #                'color-burn',
+ #                'hard-light',
+ #                'soft-light',
+ #                'difference',
+ #                'exclusion',
+ #                'hue',
+ #                'saturation',
+ #                'color',
+ #                'luminosity',
+ #            ].map(key => ({
+ #                label: key,
+ #                value: key,
+ #            })),
+ #        },
+ #    },
+  - key: enableLinkGradient
+    description: |
+      Enable/disable gradient from source/target nodes instead of plain color.
+    type: '{boolean}'
+    required: false
+    default: defaults.enableLinkGradient
+    control: switch
+    group: Links
+
+  - key: enableLabels
+    description: |
+      Enable/disable labels.
+    type: '{boolean}'
+    required: false
+    default: defaults.enableLabels
+    control: switch
+    group: Labels
+
+  - key: labelPosition
+    description: |
+      Label position.
+    type: '{string}'
+    required: false
+    default: defaults.labelPosition
+    control: choices
+    group: Labels
+    controlOptions:
+      choices:
+        - label: inside
+          value: inside
+        - label: outside
+          value: outside
+ #    {
+ #        key: 'labelPadding',
+ #        scopes: '*',
+ #        description: 'Label padding from node (px).',
+ #        required: false,
+ #        default: defaults.labelPadding,
+ #        type: '{number}',
+ #        control: 'range',
+ #        group: 'Labels',
+ #        controlOptions: {
+ #            unit: 'px',
+ #            min: 0,
+ #            max: 60,
+ #        },
+ #    },
+ #    {
+ #        key: 'labelTextColor',
+ #        scopes: '*',
+ #        description: (
+ #            <span>
+ #                how to compute label text color,{' '}
+ #                <Link to="/guides/colors">see dedicated documentation</Link>.
+ #            </span>
+ #        ),
+ #        help: 'Method to compute label text color.',
+ #        type: '{string|Function}',
+ #        required: false,
+ #        default: defaults.labelTextColor,
+ #        control: 'color',
+ #        group: 'Labels',
+ #        controlOptions: {
+ #            withCustomColor: true,
+ #        },
+ #    },
+
+  - key: labelOrientation
+    description: |
+      Label orientation.
+    type: '{string}'
+    required: false
+    default: defaults.labelOrientation
+    control: choices
+    group: Labels
+    controlOptions:
+      choices:
+        - label: horizontal
+          value: horizontal
+        - label: vertical
+          value: vertical
+
+ #    ...marginProperties,
+
+  - key: isInteractive
+    scopes:
+      - Sankey
+    description: |
+      Enable/disable interactivity.
+    type: '{boolean}'
+    required: false
+    default: defaults.isInteractive
+    control: switch
+    group: Interactivity
+
+ #    ...motionProperties(['Sankey'], defaults),

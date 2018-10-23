@@ -1,0 +1,478 @@
+props_id: line
+props:
+  - key: data
+    description: |
+      Chart data, which must conform to this structure:
+      ```
+      Array<{
+          id: {string|number}
+          data: Array<{
+              x: {number|string|Date}
+              y: {number|string|Date}
+          }>
+      }>
+      ```
+    required: true
+
+  - key: width
+    scopes:
+      - api
+    docScopes: '*'
+    description: |
+      Not required if using `ResponsiveLine`.
+    help: |
+      Chart width (px).
+    type: '{number}'
+    required: true
+    control: range
+    group: Base
+    controlOptions:
+      unit: px
+      min: 100
+      max: 1000
+      step: 5
+
+  - key: height
+    scopes:
+      - api
+    docScopes: '*'
+    description: |
+      Not required if using `ResponsiveLine`.
+    help: Chart height (px).
+    type: '{number}'
+    required: true
+    control: range
+    group: Base
+    controlOptions:
+      unit: px
+      min: 100
+      max: 1000
+      step: 5
+
+  - key: curve
+    description: |
+      Defines the curve factory to use for the line generator.
+      Must be one of: {curveOptions}.
+    help: |
+      Curve interpolation.
+    type: '{string}'
+    required: false
+    default: defaults.curve
+    control: choices
+    group: Base
+    controlOptions:
+      choices:
+        - label: basis
+          value: basis
+        - label: cardinal
+          value: cardinal
+        - label: catmullRom
+          value: catmullRom
+        - label: linear
+          value: linear
+        - label: monotoneX
+          value: monotoneX
+        - label: monotoneY
+          value: monotoneY
+        - label: natural
+          value: natural
+        - label: step
+          value: step
+        - label: stepAfter
+          value: stepAfter
+        - label: stepBefore
+          value: stepBefore
+
+  - key: xScale
+    type: '{object}'
+    description: |
+      X scale configuration.
+    group: Base
+    control: object
+    controlOptions:
+      props:
+        - key: type
+          description: |
+            Scale type.
+          type: '{string}'
+          control: choices
+          controlOptions:
+            disabled: true
+            choices:
+              - label: linear
+                value: linear
+              - label: point
+                value: point
+
+  - key: yScale
+    type: '{Scale}'
+    description: |
+      Y scale configuration.
+    group: Base
+    control: object
+    controlOptions:
+      props:
+        - key: type
+          description: |
+            Scale type.
+          type: '{string}'
+          control: choices
+          controlOptions:
+            disabled: true
+            choices:
+              - label: linear
+                value: linear
+              - label: point
+                value: point
+
+        - key: stacked
+          description: |
+            Enable/disable stacked mode.
+          type: '{boolean}'
+          required: false
+          control: switch
+
+        - key: min
+          description: |
+            Minimum scale value.
+          required: false
+          type: "{number|'auto'}"
+          control: switchableRange
+          controlOptions:
+            disabledValue: auto
+            defaultValue: 0
+            min: -2000
+            max: 2000
+
+        - key: max
+          description: |
+            Maximum scale value.
+          required: false
+          type: "{number|'auto'}"
+          control: switchableRange
+          controlOptions:
+            disabledValue: auto
+            defaultValue: 1200
+            min: -2000
+            max: 2000
+
+  - key: margin
+    description: |
+      Control chart's margins
+    type: '{object}'
+    control: margin
+    group: Base
+
+  - key: colors
+    description: |
+      Defines color range.
+    type: '{string|Function|Array}'
+    required: false
+    default: defaults.colors
+    control: colors
+    group: Style
+
+  - key: colorBy
+    description: |
+      Property to use to determine node color.
+      If a function is provided, it will receive current node data
+      and must return a color.
+    required: false
+    default: defaults.colorBy
+    control: choices
+    group: Style
+    controlOptions:
+      choices:
+        - label: id
+          value: id
+        - label: 'd => d.color'
+          value: 'd => d.color'
+
+  - key: lineWidth
+    description: |
+      Line width (px).
+    type: '{number}'
+    required: false
+    default: defaults.lineWidth
+    control: range
+    group: Style
+    controlOptions:
+      unit: px
+      min: 1
+      max: 16
+
+  - key: enableArea
+    description: |
+      Enable/disable area below each line.
+    type: '{boolean}'
+    required: false
+    default: defaults.enableArea
+    control: switch
+    group: Style
+
+  - key: areaBaselineValue
+    description: |
+      Define the value to be used for area baseline.
+      Please note that this value isn't the
+      position of the baseline but the value used to compute it.
+    type: '{number|string|Date}'
+    required: false
+    default: defaults.areaBaselineValue
+    control: range
+    group: Style
+    controlOptions:
+      min: 0
+      max: 200
+      step: 10
+
+  - key: areaOpacity
+    description: |
+      Area opacity (0~1), depends on enableArea.
+    required: false
+    default: defaults.areaOpacity
+    type: '{number}'
+    control: range
+    group: Style
+    controlOptions:
+      min: 0
+      max: 1
+      step: 0.05
+
+  - key: enableDots
+    description: |
+      Enable/disable dots.
+    type: '{boolean}'
+    required: false
+    default: defaults.enableDots
+    control: switch
+    group: Dots
+
+  - key: dotSymbol
+    description: |
+      Overrides default dot circle.
+      The function will receive `size`, `color`, `borderWidth` and `borderColor` props
+      and must return a valid SVG element.
+    type: '{Function}'
+    required: false
+
+  - key: dotSize
+    description: |
+      Size of the dots (px).
+    type: '{number}'
+    required: false
+    default: defaults.dotSize
+    control: range
+    group: Dots
+    controlOptions:
+      unit: px
+      min: 2
+      max: 20
+
+  - key: dotColor
+    description: |
+      Method to compute dots color.
+    type: '{string|Function}'
+    required: false
+    default: defaults.dotColor
+    control: color
+    group: Dots
+    controlOptions:
+      withCustomColor: true
+
+  - key: dotBorderWidth
+    description: |
+      Width of the dots border (px).
+    type: '{number}'
+    required: false
+    default: defaults.dotBorderWidth
+    control: range
+    group: Dots
+    controlOptions:
+      unit: px
+      min: 0
+      max: 10
+
+  - key: dotBorderColor
+    description: |
+      Method to compute dots border color.
+    type: '{string|Function}'
+    required: false
+    default: defaults.dotBorderColor
+    control: color
+    group: Dots
+    controlOptions:
+      withCustomColor: true
+
+  - key: enableDotLabel
+    description: |
+      Enable/disable dots label.
+    type: '{boolean}'
+    required: false
+    default: defaults.enableDotLabel
+    control: switch
+    group: Dots
+
+  - key: dotLabel
+    description:
+      Property to use to determine dot label.
+      If a function is provided, it will receive current value
+      and serie and must return a label.
+    type: '{string}'
+    required: false
+    control: choices
+    group: Dots
+    controlOptions:
+      choices:
+        - label: y
+          value: y
+        - label: x
+          value: x
+        - label: 'd => `${d.x}: ${d.y}`'
+          value: 'd => `${d.x}: ${d.y}`'
+
+  - key: dotLabelYOffset
+    description: |
+      Label Y offset from dot shape (px).
+    type: '{number}'
+    required: false
+    default: dotDefaults.labelYOffset
+    control: range
+    group: Dots
+    controlOptions:
+      unit: px
+      min: -24
+      max: 24
+
+  - key: axisTop
+    description: |
+      Top axis configuration.
+    type: '{Axis}'
+    required: false
+    group: Axes
+    control: axis
+
+  - key: axisRight
+    description: |
+      Right axis configuration.
+    type: '{Axis}'
+    required: false
+    group: Axes
+    control: axis
+
+  - key: axisBottom
+    description: |
+      Bottom axis configuration.
+    type: '{Axis}'
+    required: false
+    group: Axes
+    control: axis
+
+  - key: axisLeft
+    description: |
+      Left axis configuration.
+    type: '{Axis}'
+    required: false
+    group: Axes
+    control: axis
+
+  - key: enableGridX
+    description: |
+      Enable/disable x grid.
+    type: '{boolean}'
+    required: false
+    default: defaults.enableGridX
+    control: switch
+    group: Grid
+
+  - key: gridXValues
+    description: |
+      Specify values to use for vertical grid lines.
+    type: 'Array<{number|string}>'
+    required: false
+
+  - key: enableGridY
+    description: |
+      Enable/disable y grid.
+    type: '{boolean}'
+    required: false
+    default: defaults.enableGridY
+    control: switch
+    group: Grid
+
+  - key: gridYValues
+    description: |
+      Specify values to use for horizontal grid lines.
+    type: 'Array<{number|string}>'
+    required: false
+
+  - key: isInteractive
+    scopes:
+      - Line
+    description: |
+      Enable/disable interactivity.
+    type: '{boolean}'
+    required: false
+    default: defaults.isInteractive
+    control: switch
+    group: Interactivity
+
+  - key: enableStackTooltip
+    scopes:
+      - Line
+    description: |
+      Enable/disable stack tooltip ('isInteractive' must also be 'true').
+    type: '{boolean}'
+    required: false
+    default: defaults.enableStackTooltip
+    control: switch
+    group: Interactivity
+
+  - key: tooltip
+    scopes:
+      - Line
+    description: |
+      Method to create custom tooltip
+    type: '{Function}'
+    required: false
+    default: defaults.tooltip
+
+ #        key: 'legends',
+ #        scopes: ['Line'],
+ #        type: '{Array<object>}',
+ #        description: `Optional chart's legends.`,
+ #        group: 'Legends',
+ #        control: 'array',
+ #        controlOptions: {
+ #            props: getLegendsProps(),
+ #            shouldCreate: true,
+ #            addLabel: 'add legend',
+ #            shouldRemove: true,
+ #            defaults: {
+ #                anchor: 'left',
+ #                direction: 'column',
+ #                justify: false,
+ #                translateX: 0,
+ #                translateY: 0,
+ #                itemWidth: 100,
+ #                itemHeight: 20,
+ #                itemsSpacing: 4,
+ #                symbolSize: 20,
+ #                symbolShape: 'circle',
+ #                itemDirection: 'left-to-right',
+ #                itemTextColor: '#777',
+ #                onClick: data => {
+ #                    alert(JSON.stringify(data, null, '    '))
+ #                },
+ #                effects: [
+ #                    {
+ #                        on: 'hover',
+ #                        style: {
+ #                            itemBackground: 'rgba(0, 0, 0, .03)',
+ #                            itemOpacity: 1,
+ #                        },
+ #                    },
+ #                ],
+ #            },
+ #        },
+
+  # motionProperties(['Line'], defaults),

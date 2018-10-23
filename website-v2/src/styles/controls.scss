@@ -1,0 +1,258 @@
+.chart-controls {
+    padding: 16px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 20px;
+    grid-row-gap: 16px;
+}
+
+.chart-controls_header {
+    grid-column: span 3;
+    margin: -16px -20px 0;
+    padding: 16px 20px;
+    border-bottom: 1px solid #eee;
+    font-weight: 600;
+    color: $accent-color-darker;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chart-controls_header svg {
+    cursor: pointer;
+}
+
+.chart-controls_sub-header {
+    grid-column: span 3;
+    margin: -16px -20px 0;
+    padding: 7px 20px;
+    background: #f0f3f4;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #999;
+    user-select: none;
+}
+
+.chart-controls_sub-header:hover {
+    color: $accent-color-darker;
+}
+
+.chart-controls_sub-header._is-active,
+.chart-controls_sub-header._is-active:hover {
+    color: #111;
+}
+
+.object-control_header {
+    padding: 5px 12px 7px;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: $accent-color;
+    user-select: none;
+    border-bottom: 1px solid #ddd;
+}
+
+.object-control_header .control-help {
+    margin: 0;
+}
+
+.object-control_header:hover {
+    color: $accent-color-darker;
+}
+
+.object-control_header._is-opened {
+    background: $main-background-color;
+}
+
+@media only screen and (min-width: 760px) and (max-width: 1400px) {
+    .chart-controls {
+        grid-template-columns: 1fr 1fr;
+    }
+    .chart-controls_header {
+        grid-column: span 2;
+    }
+    .chart-controls_sub-header {
+        grid-column: span 2;
+    }
+}
+
+@media only screen and (max-width: 760px) {
+    .chart-controls {
+        grid-template-columns: 1fr;
+        grid-row-gap: 0;
+        padding: 0;
+    }
+    .chart-controls_item {
+        padding: 16px;
+        border-bottom: 1px solid #eee;
+    }
+    .chart-controls_header {
+        grid-column: span 1;
+        margin: 0;
+        padding: 12px 16px;
+    }
+    .object-control_header,
+    .chart-controls_sub-header {
+        grid-column: span 1;
+        margin: 0;
+        padding: 7px 16px;
+    }
+    .chart-controls > *:last-child {
+        border-bottom-width: 0;
+    }
+}
+
+.chart-controls_item {
+}
+
+.control-switch {
+    display: inline-block;
+    vertical-align: text-bottom;
+    margin: 0 3px;
+}
+
+.cmn-toggle {
+    position: absolute;
+    margin-left: -9999px;
+    visibility: hidden;
+}
+
+.cmn-toggle + label {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    padding: 2px;
+    width: $control-switch-width;
+    height: $control-switch-height;
+    background-color: #e98473;
+    border-radius: $control-switch-height / 2;
+    transition: border-color 300ms, background-color 300ms;
+    border: $control-switch-border-width solid #d53b21;
+}
+
+.cmn-toggle + label:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: $control-switch-padding;
+    left: $control-switch-padding;
+    width: $control-switch-height - $control-switch-padding * 2 - $control-switch-border-width * 2;
+    height: $control-switch-height - $control-switch-padding * 2 - $control-switch-border-width * 2;
+    background-color: #fff;
+    border-radius: $control-switch-height - $control-switch-padding * 2 - $control-switch-border-width * 2;
+    transform: translate3d(0, 0, 0);
+    transition: transform 300ms;
+}
+
+.cmn-toggle:checked + label {
+    background-color: #6dc6b7;
+    border-color: #489a8c;
+}
+
+.cmn-toggle:checked + label:after {
+    transform: translate3d($control-switch-width - $control-switch-height, 0, 0);
+}
+
+.control_label {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 7px;
+}
+
+.chart-controls_item select {
+    width: 100%;
+}
+
+.control-help {
+    font-size: 12px;
+    color: #777;
+    margin: 7px 0;
+    line-height: 16px;
+}
+
+.colors_item_label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.colors_item-current {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.colors_item_colors {
+    display: flex;
+}
+
+.colors_item_colors_item {
+    width: 8px;
+    height: 8px;
+}
+
+.control-text {
+    font-size: 14px;
+    color: inherit;
+    border-radius: 2px;
+    border: 1px solid #ccc;
+    padding: 7px 10px;
+    width: 100%;
+    display: block;
+}
+
+.control-text._is-disabled {
+    background: $main-background-color;
+    cursor: not-allowed;
+}
+
+.control-radio {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 7px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    border-right-width: 0;
+    border-bottom-width: 0;
+}
+
+.control-radio-item {
+    cursor: pointer;
+    padding: 5px 10px;
+    white-space: nowrap;
+    text-align: center;
+    background: $main-background-color;
+    color: #888;
+    border: 1px solid #ccc;
+    border-top-width: 0;
+    border-left-width: 0;
+    user-select: none;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1) inset;
+}
+
+.control-radio-item:hover {
+    color: #333;
+}
+
+.control-radio-item._is-active {
+    background: #fff;
+    color: #000;
+    font-weight: 500;
+    box-shadow: none;
+}
+
+.control-radio-item input {
+    display: none;
+}

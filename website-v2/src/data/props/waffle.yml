@@ -31,8 +31,8 @@ props:
       please add margin to make sure they're visible.
     type: '{number}'
     required: true
-    controlType: range
-    controlGroup: Base
+    control: range
+    group: Base
     controlOptions:
       unit: px
       min: 100
@@ -50,8 +50,8 @@ props:
       please add margin to make sure they're visible.
     type: '{number}'
     required: true
-    controlType: range
-    controlGroup: Base
+    control: range
+    group: Base
     controlOptions:
       unit: px
       min: 100
@@ -65,8 +65,8 @@ props:
     required: false
     default: Depends on device
     type: '{number}'
-    controlType: range
-    controlGroup: Base
+    control: range
+    group: Base
     controlOptions:
       min: 1
       max: 2
@@ -77,8 +77,8 @@ props:
     type: '{string}'
     required: false
     default: defaults.groupMode
-    controlType: radio
-    controlGroup: Base
+    control: radio
+    group: Base
     controlOptions:
       choices:
         - label: stacked
@@ -91,8 +91,8 @@ props:
     type: '{string}'
     required: false
     default: defaults.layout
-    controlType: radio
-    controlGroup: Base
+    control: radio
+    group: Base
     controlOptions:
       choices:
         - label: horizontal
@@ -107,8 +107,8 @@ props:
     type: '{boolean}'
     required: false
     default: defaults.reverse
-    controlType: switch
-    controlGroup: base
+    control: switch
+    group: base
 
  #    {
  #        key: 'minValue',
@@ -117,8 +117,8 @@ props:
  #        required: false,
  #        default: defaults.minValue,
  #        type: '{number|string}',
- #        controlType: 'switchableRange',
- #        controlGroup: 'Base',
+ #        control: 'switchableRange',
+ #        group: 'Base',
  #        controlOptions: {
  #            disabledValue: 'auto',
  #            defaultValue: -1000,
@@ -133,8 +133,8 @@ props:
  #        required: false,
  #        default: defaults.maxValue,
  #        type: '{number|string}',
- #        controlType: 'switchableRange',
- #        controlGroup: 'Base',
+ #        control: 'switchableRange',
+ #        group: 'Base',
  #        controlOptions: {
  #            disabledValue: 'auto',
  #            defaultValue: 1000,
@@ -149,8 +149,8 @@ props:
  #        type: '{number}',
  #        required: false,
  #        default: defaults.padding,
- #        controlType: 'range',
- #        controlGroup: 'Base',
+ #        control: 'range',
+ #        group: 'Base',
  #        controlOptions: {
  #            min: 0,
  #            max: 0.9,
@@ -164,23 +164,28 @@ props:
  #        type: '{number}',
  #        required: false,
  #        default: defaults.innerPadding,
- #        controlType: 'range',
- #        controlGroup: 'Base',
+ #        control: 'range',
+ #        group: 'Base',
  #        controlOptions: {
  #            unit: 'px',
  #            min: 0,
  #            max: 10,
- #        },
- #    },
- #    {
+
+  - key: margin
+    description: |
+      Control chart's margins
+    type: '{object}'
+    control: margin
+    group: Base
+
  #        key: 'colors',
  #        scopes: '*',
  #        description: 'Defines color range.',
  #        type: '{string|Function|Array}',
  #        required: false,
  #        default: 'nivo',
- #        controlType: 'colors',
- #        controlGroup: 'Style',
+ #        control: 'colors',
+ #        group: 'Style',
  #    },
  #    {
  #        key: 'colorBy',
@@ -189,8 +194,8 @@ props:
  #            'Property to use to determine node color. If a function is provided, it will receive current node data and must return a color.',
  #        required: false,
  #        default: 'id',
- #        controlType: 'choices',
- #        controlGroup: 'Style',
+ #        control: 'choices',
+ #        group: 'Style',
  #        controlOptions: {
  #            choices: [
  #                {
@@ -215,8 +220,8 @@ props:
  #        type: '{number}',
  #        required: false,
  #        default: defaults.borderRadius,
- #        controlType: 'range',
- #        controlGroup: 'Style',
+ #        control: 'range',
+ #        group: 'Style',
  #        controlOptions: {
  #            unit: 'px',
  #            min: 0,
@@ -230,8 +235,8 @@ props:
  #        type: '{number}',
  #        required: false,
  #        default: defaults.borderWidth,
- #        controlType: 'range',
- #        controlGroup: 'Style',
+ #        control: 'range',
+ #        group: 'Style',
  #        controlOptions: {
  #            unit: 'px',
  #            min: 0,
@@ -251,8 +256,8 @@ props:
  #        type: '{string|Function}',
  #        required: false,
  #        default: defaults.borderColor,
- #        controlType: 'color',
- #        controlGroup: 'Style',
+ #        control: 'color',
+ #        group: 'Style',
  #        controlOptions: {
  #            withCustomColor: true,
  #        },
@@ -266,8 +271,8 @@ props:
  #        type: '{boolean}',
  #        required: false,
  #        default: defaults.enableLabel,
- #        controlType: 'switch',
- #        controlGroup: 'Labels',
+ #        control: 'switch',
+ #        group: 'Labels',
  #    },
  #    {
  #        key: 'labelSkipWidth',
@@ -276,8 +281,8 @@ props:
  #        type: '{number}',
  #        required: false,
  #        default: defaults.labelSkipWidth,
- #        controlType: 'range',
- #        controlGroup: 'Labels',
+ #        control: 'range',
+ #        group: 'Labels',
  #        controlOptions: {
  #            unit: 'px',
  #            min: 0,
@@ -291,8 +296,8 @@ props:
  #        type: '{number}',
  #        required: false,
  #        default: defaults.labelSkipHeight,
- #        controlType: 'range',
- #        controlGroup: 'Labels',
+ #        control: 'range',
+ #        group: 'Labels',
  #        controlOptions: {
  #            unit: 'px',
  #            min: 0,
@@ -306,8 +311,8 @@ props:
  #        type: '{string|Function}',
  #        required: false,
  #        default: defaults.labelTextColor,
- #        controlType: 'color',
- #        controlGroup: 'Labels',
+ #        control: 'color',
+ #        group: 'Labels',
  #        controlOptions: {
  #            withCustomColor: true,
  #        },
@@ -320,8 +325,8 @@ props:
  #        type: '{boolean}',
  #        required: false,
  #        default: defaults.enableGridX,
- #        controlType: 'switch',
- #        controlGroup: 'Grid',
+ #        control: 'switch',
+ #        group: 'Grid',
  #    },
  #    {
  #        key: 'enableGridY',
@@ -330,8 +335,8 @@ props:
  #        type: '{boolean}',
  #        required: false,
  #        default: defaults.enableGridY,
- #        controlType: 'switch',
- #        controlGroup: 'Grid',
+ #        control: 'switch',
+ #        group: 'Grid',
  #    },
  #    {
  #        key: 'gridXValues',
@@ -354,8 +359,8 @@ props:
  #        type: '{boolean}',
  #        required: false,
  #        default: defaults.isInteractive,
- #        controlType: 'switch',
- #        controlGroup: 'Interactivity',
+ #        control: 'switch',
+ #        group: 'Interactivity',
  #    },
  #    {
  #        key: 'custom tooltip example',
@@ -368,8 +373,8 @@ props:
  #            </span>
  #        ),
  #        type: '{boolean}',
- #        controlType: 'switch',
- #        controlGroup: 'Interactivity',
+ #        control: 'switch',
+ #        group: 'Interactivity',
  #    },
  #    {
  #        key: 'tooltip',
@@ -426,8 +431,8 @@ props:
  #        scopes: ['Bar'],
  #        type: '{Array<object>}',
  #        description: `Optional chart's legends.`,
- #        controlGroup: 'Legends',
- #        controlType: 'array',
+ #        group: 'Legends',
+ #        control: 'array',
  #        controlOptions: {
  #            props: getLegendsProps(),
  #            shouldCreate: true,

@@ -42,8 +42,8 @@ const Colors = () => (
             <div className="guide__description text-content">
                 <h2>Single color property</h2>
                 <p>
-                    A lot of components have a <code>*Color</code> property, but what can we pass to it
-                    ?
+                    A lot of components have a <code>*Color</code> property, but what can we pass to
+                    it ?
                 </p>
             </div>
             <ColorsColor />

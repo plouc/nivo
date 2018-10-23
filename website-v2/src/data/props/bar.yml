@@ -31,8 +31,8 @@ props:
       please add margin to make sure they're visible.
     type: '{number}'
     required: true
-    controlType: range
-    controlGroup: Base
+    control: range
+    group: Base
     controlOptions:
       unit: px
       min: 100
@@ -50,8 +50,8 @@ props:
       please add margin to make sure they're visible.
     type: '{number}'
     required: true
-    controlType: range
-    controlGroup: Base
+    control: range
+    group: Base
     controlOptions:
       unit: px
       min: 100
@@ -65,8 +65,8 @@ props:
     required: false
     default: Depends on device
     type: '{number}'
-    controlType: range
-    controlGroup: Base
+    control: range
+    group: Base
     controlOptions:
       min: 1
       max: 2
@@ -77,13 +77,14 @@ props:
     type: '{string}'
     required: false
     default: defaults.groupMode
-    controlType: radio
-    controlGroup: Base
+    control: radio
+    group: Base
     controlOptions:
       choices:
         - label: stacked
           value: stacked
         - label: grouped
+          value: grouped
 
   - key: layout
     description: |
@@ -91,14 +92,16 @@ props:
     type: '{string}'
     required: false
     default: defaults.layout
-    controlType: radio
-    controlGroup: Base
+    control: radio
+    group: Base
     controlOptions:
       choices:
         - label: horizontal
           value: horizontal
+          icon: bar-horizontal
         - label: vertical
           value: vertical
+          icon: bar-vertical
 
   - key: reverse
     description: |
@@ -107,271 +110,244 @@ props:
     type: '{boolean}'
     required: false
     default: defaults.reverse
-    controlType: switch
-    controlGroup: base
+    control: switch
+    group: Base
 
- #    {
- #        key: 'minValue',
- #        scopes: '*',
- #        description: `Minimum value, if 'auto', will use min value from the provided data.`,
- #        required: false,
- #        default: defaults.minValue,
- #        type: '{number|string}',
- #        controlType: 'switchableRange',
- #        controlGroup: 'Base',
- #        controlOptions: {
- #            disabledValue: 'auto',
- #            defaultValue: -1000,
- #            min: -1000,
- #            max: 0,
- #        },
- #    },
- #    {
- #        key: 'maxValue',
- #        scopes: '*',
- #        description: `Maximum value, if 'auto', will use max value from the provided data.`,
- #        required: false,
- #        default: defaults.maxValue,
- #        type: '{number|string}',
- #        controlType: 'switchableRange',
- #        controlGroup: 'Base',
- #        controlOptions: {
- #            disabledValue: 'auto',
- #            defaultValue: 1000,
- #            min: 0,
- #            max: 1000,
- #        },
- #    },
- #    {
- #        key: 'padding',
- #        scopes: '*',
- #        description: 'Padding between each bar (ratio).',
- #        type: '{number}',
- #        required: false,
- #        default: defaults.padding,
- #        controlType: 'range',
- #        controlGroup: 'Base',
- #        controlOptions: {
- #            min: 0,
- #            max: 0.9,
- #            step: 0.05,
- #        },
- #    },
- #    {
- #        key: 'innerPadding',
- #        scopes: '*',
- #        description: 'Padding between grouped/stacked bars (px).',
- #        type: '{number}',
- #        required: false,
- #        default: defaults.innerPadding,
- #        controlType: 'range',
- #        controlGroup: 'Base',
- #        controlOptions: {
- #            unit: 'px',
- #            min: 0,
- #            max: 10,
- #        },
- #    },
- #    {
- #        key: 'colors',
- #        scopes: '*',
- #        description: 'Defines color range.',
- #        type: '{string|Function|Array}',
- #        required: false,
- #        default: 'nivo',
- #        controlType: 'colors',
- #        controlGroup: 'Style',
- #    },
- #    {
- #        key: 'colorBy',
- #        scopes: '*',
- #        description:
- #            'Property to use to determine node color. If a function is provided, it will receive current node data and must return a color.',
- #        required: false,
- #        default: 'id',
- #        controlType: 'choices',
- #        controlGroup: 'Style',
- #        controlOptions: {
- #            choices: [
- #                {
- #                    label: 'id',
- #                    value: 'id',
- #                },
- #                {
- #                    label: 'index',
- #                    value: 'index',
- #                },
- #                {
- #                    label: `({ id, data }) => data[\`\${id}Color\`]`,
- #                    value: `({ id, data }) => data[\`\${id}Color\`]`,
- #                },
- #            ],
- #        },
- #    },
- #    {
- #        key: 'borderRadius',
- #        scopes: ['Bar', 'api'],
- #        description: 'Rectangle border radius (px).',
- #        type: '{number}',
- #        required: false,
- #        default: defaults.borderRadius,
- #        controlType: 'range',
- #        controlGroup: 'Style',
- #        controlOptions: {
- #            unit: 'px',
- #            min: 0,
- #            max: 36,
- #        },
- #    },
- #    {
- #        key: 'borderWidth',
- #        scopes: '*',
- #        description: 'Width of circle border.',
- #        type: '{number}',
- #        required: false,
- #        default: defaults.borderWidth,
- #        controlType: 'range',
- #        controlGroup: 'Style',
- #        controlOptions: {
- #            unit: 'px',
- #            min: 0,
- #            max: 10,
- #        },
- #    },
- #    {
- #        key: 'borderColor',
- #        scopes: '*',
- #        description: (
- #            <span>
- #                how to compute border color,{' '}
- #                <Link to="/guides/colors">see dedicated documentation</Link>.
- #            </span>
- #        ),
- #        help: 'Method to compute border color.',
- #        type: '{string|Function}',
- #        required: false,
- #        default: defaults.borderColor,
- #        controlType: 'color',
- #        controlGroup: 'Style',
- #        controlOptions: {
- #            withCustomColor: true,
- #        },
- #    },
+  - key: minValue
+    description: |
+      Minimum value, if 'auto', will use min value from the provided data.
+    required: false
+    default: defaults.minValue
+    type: '{number|string}'
+    control: switchableRange
+    group: Base
+    controlOptions:
+      disabledValue: auto
+      defaultValue: -1000
+      min: -1000
+      max: 0
+
+  - key: maxValue
+    description: |
+      Maximum value, if 'auto', will use max value from the provided data.
+    required: false
+    default: defaults.maxValue
+    type: '{number|string}'
+    control: switchableRange
+    group: Base
+    controlOptions:
+      disabledValue: auto
+      defaultValue: 1000
+      min: 0
+      max: 1000
+
+  - key: padding
+    description: |
+      Padding between each bar (ratio).
+    type: '{number}'
+    required: false
+    default: defaults.padding
+    control: range
+    group: Base
+    controlOptions:
+      min: 0
+      max: 0.9
+      step: 0.05
+
+  - key: innerPadding
+    description: |
+      Padding between grouped/stacked bars (px).
+    type: '{number}'
+    required: false
+    default: defaults.innerPadding
+    control: range
+    group: Base
+    controlOptions:
+      unit: px
+      min: 0
+      max: 10
+
+  - key: margin
+    description: |
+      Control chart's margins
+    type: '{object}'
+    control: margin
+    group: Base
+
+  - key: colors
+    description: |
+      Defines color range.
+    type: '{string|Function|Array}'
+    required: false
+    default: nivo
+    control: colors
+    group: Style
+
+  - key: colorBy
+    description: |
+      Property to use to determine node color.
+      If a function is provided, it will receive
+      current node data and must return a color.
+    required: false
+    default: id
+    control: choices
+    group: Style
+    controlOptions:
+      choices:
+        - label: id
+          value: id
+        - label: index
+          value: index
+        - label: "({ id, data }) => data[`${id}Color`]"
+          value: "({ id, data }) => data[`${id}Color`]"
+
+  - key: borderRadius
+    scopes:
+      - Bar
+      - api
+    description: |
+      Rectangle border radius (px).
+    type: '{number}'
+    required: false
+    default: defaults.borderRadius
+    control: range
+    group: Style
+    controlOptions:
+      unit: px
+      min: 0
+      max: 36
+
+  - key: borderWidth
+    description: |
+      Width of circle border.
+    type: '{number}'
+    required: false
+    default: defaults.borderWidth
+    control: range
+    group: Style
+    controlOptions:
+      unit: px
+      min: 0
+      max: 10
+
+  - key: borderColor
+    description: |
+      How to compute border color,
+      [see dedicated documentation](/guides/colors).
+    help: |
+      Method to compute border color.
+    type: '{string|Function}'
+    required: false
+    default: defaults.borderColor
+    control: color
+    group: Style
+    controlOptions:
+      withCustomColor: true
+
  #    ...defsProperties(['Bar']),
- #    ...marginProperties,
- #    {
- #        key: 'enableLabel',
- #        scopes: '*',
- #        description: 'Enable/disable labels.',
- #        type: '{boolean}',
- #        required: false,
- #        default: defaults.enableLabel,
- #        controlType: 'switch',
- #        controlGroup: 'Labels',
- #    },
- #    {
- #        key: 'labelSkipWidth',
- #        scopes: '*',
- #        description: 'Skip label if bar width is lower than provided value, ignored if 0 (px).',
- #        type: '{number}',
- #        required: false,
- #        default: defaults.labelSkipWidth,
- #        controlType: 'range',
- #        controlGroup: 'Labels',
- #        controlOptions: {
- #            unit: 'px',
- #            min: 0,
- #            max: 36,
- #        },
- #    },
- #    {
- #        key: 'labelSkipHeight',
- #        scopes: '*',
- #        description: 'Skip label if bar height is lower than provided value, ignored if 0 (px).',
- #        type: '{number}',
- #        required: false,
- #        default: defaults.labelSkipHeight,
- #        controlType: 'range',
- #        controlGroup: 'Labels',
- #        controlOptions: {
- #            unit: 'px',
- #            min: 0,
- #            max: 36,
- #        },
- #    },
- #    {
- #        key: 'labelTextColor',
- #        scopes: '*',
- #        description: 'Defines how to compute label text color.',
- #        type: '{string|Function}',
- #        required: false,
- #        default: defaults.labelTextColor,
- #        controlType: 'color',
- #        controlGroup: 'Labels',
- #        controlOptions: {
- #            withCustomColor: true,
- #        },
- #    },
+
+  - key: enableLabel
+    description: |
+      Enable/disable labels.
+    type: '{boolean}'
+    required: false
+    default: defaults.enableLabel
+    control: switch
+    group: Labels
+
+  - key: labelSkipWidth
+    description: |
+      Skip label if bar width is lower than provided value, ignored if 0 (px).
+    type: '{number}'
+    required: false
+    default: defaults.labelSkipWidth
+    control: range
+    group: Labels
+    controlOptions:
+      unit: px
+      min: 0
+      max: 36
+
+  - key: labelSkipHeight
+    description: |
+      Skip label if bar height is lower than provided value, ignored if 0 (px).
+    type: '{number}'
+    required: false
+    default: defaults.labelSkipHeight
+    control: range
+    group: Labels
+    controlOptions:
+      unit: px
+      min: 0
+      max: 36
+
+  - key: labelTextColor
+    description: |
+      Defines how to compute label text color.
+    type: '{string|Function}'
+    required: false
+    default: defaults.labelTextColor
+    control: color
+    group: Labels
+    controlOptions:
+      withCustomColor: true
+
  #    ...axesProperties,
- #    {
- #        key: 'enableGridX',
- #        scopes: '*',
- #        description: 'Enable/disable x grid.',
- #        type: '{boolean}',
- #        required: false,
- #        default: defaults.enableGridX,
- #        controlType: 'switch',
- #        controlGroup: 'Grid',
- #    },
- #    {
- #        key: 'enableGridY',
- #        scopes: '*',
- #        description: 'Enable/disable y grid.',
- #        type: '{boolean}',
- #        required: false,
- #        default: defaults.enableGridY,
- #        controlType: 'switch',
- #        controlGroup: 'Grid',
- #    },
- #    {
- #        key: 'gridXValues',
- #        scopes: '*',
- #        description: 'Specify values to use for vertical grid lines.',
- #        type: 'Array<{number|string}>',
- #        required: false,
- #    },
- #    {
- #        key: 'gridYValues',
- #        scopes: '*',
- #        description: 'Specify values to use for horizontal grid lines.',
- #        type: 'Array<{number|string}>',
- #        required: false,
- #    },
- #    {
- #        key: 'isInteractive',
- #        scopes: ['Bar', 'BarCanvas'],
- #        description: 'Enable/disable interactivity.',
- #        type: '{boolean}',
- #        required: false,
- #        default: defaults.isInteractive,
- #        controlType: 'switch',
- #        controlGroup: 'Interactivity',
- #    },
- #    {
- #        key: 'custom tooltip example',
- #        scopes: ['Bar', 'BarCanvas'],
- #        excludeFromDoc: true,
- #        description: (
- #            <span>
- #                You can customize the tooltip using the <code>tooltip</code> property and{' '}
- #                <code>theme.tooltip</code> object.
- #            </span>
- #        ),
- #        type: '{boolean}',
- #        controlType: 'switch',
- #        controlGroup: 'Interactivity',
- #    },
- #    {
+
+  - key: enableGridX
+    description: |
+      Enable/disable x grid.
+    type: '{boolean}'
+    required: false
+    default: defaults.enableGridX
+    control: switch
+    group: Grid
+
+  - key: gridXValues
+    description: |
+      Specify values to use for vertical grid lines.
+    type: 'Array<{number|string}>'
+    required: false
+
+  - key: enableGridY
+    description: |
+      Enable/disable y grid.
+    type: '{boolean}'
+    required: false
+    default: defaults.enableGridY
+    control: switch
+    group: Grid
+
+  - key: gridYValues
+    description: |
+      Specify values to use for horizontal grid lines.
+    type: 'Array<{number|string}>'
+    required: false
+
+  - key: isInteractive
+    scopes:
+      - Bar
+      - BarCanvas
+    description: |
+      Enable/disable interactivity.
+    type: '{boolean}'
+    required: false
+    default: defaults.isInteractive
+    control: switch
+    group: Interactivity
+
+  - key: custom tooltip
+    scopes:
+      - Bar
+      - BarCanvas
+    excludeFromDoc: true
+    description: |
+      You can customize the tooltip using the `tooltip`
+      property and `theme.tooltip` object.
+    type: '{boolean}'
+    control: switch
+    group: Interactivity
+
  #        key: 'tooltip',
  #        scopes: ['Bar', 'BarCanvas'],
  #        type: '{Function}',
@@ -426,8 +402,8 @@ props:
  #        scopes: ['Bar'],
  #        type: '{Array<object>}',
  #        description: `Optional chart's legends.`,
- #        controlGroup: 'Legends',
- #        controlType: 'array',
+ #        group: 'Legends',
+ #        control: 'array',
  #        controlOptions: {
  #            props: getLegendsProps(),
  #            shouldCreate: true,

@@ -22,15 +22,15 @@ const Faq = () => (
                 <div className="guide__description text-content">
                     <h4>Why should I use nivo instead of X?</h4>
                     <p>
-                        nivo provides quite high level components, so it should be used if you have no
-                        prior experience with d3 or want a quick/easy setup. Also its components can be
-                        easily tweaked by adjusting a few <i>knobs</i>, and offers various flavors for
-                        each chart types.
+                        nivo provides quite high level components, so it should be used if you have
+                        no prior experience with d3 or want a quick/easy setup. Also its components
+                        can be easily tweaked by adjusting a few <i>knobs</i>, and offers various
+                        flavors for each chart types.
                     </p>
                     <h4>Are nivo components SSR compliants?</h4>
                     <p>
-                        Yes, sure! nivo was built with this requirement in mind from the very beginning,
-                        you even have an HTTP rendering API for most components :)
+                        Yes, sure! nivo was built with this requirement in mind from the very
+                        beginning, you even have an HTTP rendering API for most components :)
                         <br />
                         Just make sure to use{' '}
                         <Link
@@ -54,8 +54,8 @@ const Faq = () => (
                     </p>
                     <h4>Can I use nivo with very large data set?</h4>
                     <p>
-                        Yes you can! SVG/HTML are not performing very well when dealing with thousands
-                        of nodes, that's why you have some{' '}
+                        Yes you can! SVG/HTML are not performing very well when dealing with
+                        thousands of nodes, that's why you have some{' '}
                         <Link
                             to={{
                                 pathname: '/components',

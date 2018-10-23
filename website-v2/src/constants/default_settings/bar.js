@@ -38,16 +38,13 @@ export const bar = {
             spacing: 10,
         }),
     ],
-    fill: [
-        { match: { id: 'fries' }, id: 'dots' },
-        { match: { id: 'sandwich' }, id: 'lines' },
-    ],
+    fill: [{ match: { id: 'fries' }, id: 'dots' }, { match: { id: 'sandwich' }, id: 'lines' }],
     borderRadius: 0,
     borderWidth: 0,
-    // borderColor: {
-    //     type: 'inherit:darker',
-    //     gamma: 1.6,
-    // },
+    borderColor: {
+        type: 'inherit:darker',
+        gamma: 1.6,
+    },
 
     axisTop: {
         enable: false,
@@ -90,17 +87,17 @@ export const bar = {
     enableLabel: true,
     labelSkipWidth: 12,
     labelSkipHeight: 12,
-    // labelTextColor: {
-    //     type: 'inherit:darker',
-    //     gamma: 1.6,
-    // },
+    labelTextColor: {
+        type: 'inherit:darker',
+        gamma: 1.6,
+    },
 
     animate: true,
     motionStiffness: 90,
     motionDamping: 15,
 
     isInteractive: true,
-    'custom tooltip example': false,
+    'custom tooltip': false,
     tooltip: null,
 
     legends: [
@@ -134,7 +131,7 @@ export const bar = {
     theme,
 }
 
-export const barCanvas =  {
+export const barCanvas = {
     indexBy: 'country',
 
     margin: {
@@ -158,10 +155,10 @@ export const barCanvas =  {
     colors: 'paired',
     colorBy: 'id',
     borderWidth: 0,
-    // borderColor: {
-    //     type: 'inherit:darker',
-    //     gamma: 1.6,
-    // },
+    borderColor: {
+        type: 'inherit:darker',
+        gamma: 1.6,
+    },
 
     axisTop: {
         enable: true,
@@ -169,6 +166,7 @@ export const barCanvas =  {
         tickPadding: 5,
         tickRotation: 0,
         legend: '',
+        legendPosition: 'middle',
         legendOffset: 36,
     },
     axisRight: {
@@ -177,6 +175,7 @@ export const barCanvas =  {
         tickPadding: 5,
         tickRotation: 0,
         legend: '',
+        legendPosition: 'middle',
         legendOffset: 0,
     },
     axisBottom: {
@@ -204,13 +203,13 @@ export const barCanvas =  {
     enableLabel: true,
     labelSkipWidth: 12,
     labelSkipHeight: 12,
-    // labelTextColor: {
-    //     type: 'inherit:darker',
-    //     gamma: 1.6,
-    // },
+    labelTextColor: {
+        type: 'inherit:darker',
+        gamma: 1.6,
+    },
 
     isInteractive: true,
-    'custom tooltip example': false,
+    'custom tooltip': false,
     tooltip: null,
 
     theme,

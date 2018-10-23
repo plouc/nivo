@@ -1,0 +1,280 @@
+props_id: stream
+props:
+#    {
+ #        key: 'width',
+ #        scopes: ['api'],
+ #        docScopes: '*',
+ #        description: (
+ #            <span>
+ #                not required if using&nbsp;
+ #                <code>&lt;ResponsiveStream&nbsp;/&gt;</code>.
+ #            </span>
+ #        ),
+ #        help: 'Chart width (px).',
+ #        type: '{number}',
+ #        required: true,
+ #        controlType: 'range',
+ #        controlGroup: 'Base',
+ #        controlOptions: {
+ #            unit: 'px',
+ #            min: 100,
+ #            max: 1000,
+ #            step: 5,
+ #        },
+ #    },
+ #    {
+ #        key: 'height',
+ #        scopes: ['api'],
+ #        docScopes: '*',
+ #        description: (
+ #            <span>
+ #                not required if using&nbsp;
+ #                <code>&lt;ResponsiveStream&nbsp;/&gt;</code>.
+ #            </span>
+ #        ),
+ #        help: 'Chart height (px).',
+ #        type: '{number}',
+ #        required: true,
+ #        controlType: 'range',
+ #        controlGroup: 'Base',
+ #        controlOptions: {
+ #            unit: 'px',
+ #            min: 100,
+ #            max: 1000,
+ #            step: 5,
+ #        },
+ #    },
+ #    {
+ #        key: 'offsetType',
+ #        scopes: '*',
+ #        description: 'Offset type.',
+ #        type: '{string}',
+ #        required: false,
+ #        controlType: 'choices',
+ #        controlGroup: 'Base',
+ #        controlOptions: {
+ #            choices: stackOffsetPropKeys.map(key => ({
+ #                label: key,
+ #                value: key,
+ #            })),
+ #        },
+ #    },
+  - key: order
+    description: |
+      Layers order.
+    type: '{string}'
+    required: false
+    control: choices
+    group: Base
+    controlOptions:
+      choices:
+        - label: ascending
+          value: ascending
+        - label: descending
+          value: descending
+        - label: insideOut
+          value: insideOut
+        - label: none
+          value: none
+        - label: reverse
+          value: reverse
+
+ #        key: 'curve',
+ #        scopes: '*',
+ #        description: (
+ #            <span>
+ #                Defines the curve factory to use for the area generator.
+ #                <br />
+ #                Must be one of: {curveOptions}.
+ #            </span>
+ #        ),
+ #        help: 'Curve interpolation.',
+ #        type: '{string}',
+ #        required: false,
+ #        default: defaults.curve,
+ #        controlType: 'choices',
+ #        controlGroup: 'Base',
+ #        controlOptions: {
+ #            choices: areaCurvePropKeys.map(key => ({
+ #                label: key,
+ #                value: key,
+ #            })),
+ #        },
+ #    },
+
+  - key: margin
+    description: |
+      Control chart's margins
+    type: '{object}'
+    control: margin
+    group: Base
+
+  - key: colors
+    description: |
+      Defines how to compute line color.
+    type: '{string|Function}'
+    required: false
+    default: defaults.colors
+    control: colors
+    group: Style
+
+  - key: fillOpacity
+    description: |
+      Layers fill opacity.
+    type: '{number}'
+    required: false
+    default: defaults.fillOpacity
+    control: range
+    group: Style
+    controlOptions:
+      min: 0
+      max: 1
+      step: 0.05
+
+  - key: borderWidth
+    scopes:
+      - Stream
+      - api
+    description: |
+      Width of layer border.
+    type: '{number}'
+    required: false
+    default: defaults.borderWidth
+    control: range
+    group: Style
+    controlOptions:
+      unit: px
+      min: 0
+      max: 10
+
+ #        key: 'borderColor',
+ #        scopes: ['Stream', 'api'],
+ #        description: (
+ #            <span>
+ #                how to compute border color,{' '}
+ #                <Link to="/guides/colors">see dedicated documentation</Link>.
+ #            </span>
+ #        ),
+ #        help: 'Method to compute layer border color.',
+ #        type: '{string|Function}',
+ #        required: false,
+ #        default: defaults.borderColor,
+ #        controlType: 'color',
+ #        controlGroup: 'Style',
+ #        controlOptions: {
+ #            withCustomColor: true,
+
+ #    ...defsProperties(['Stream']),
+ #    ...axesProperties,
+
+  - key: enableGridX
+    description: |
+      Enable/disable x grid.
+    type: '{boolean}'
+    required: false
+    default: defaults.enableGridX
+    control: switch
+    group: Grid
+
+  - key: enableGridY
+    description: |
+      Enable/disable y grid.
+    type: '{boolean}'
+    required: false
+    default: defaults.enableGridY
+    control: switch
+    group: Grid
+
+  - key: enableDots
+    scopes:
+      - Stream
+    description: |
+      Enable/disable dots.
+    type: '{boolean}'
+    required: false
+    default: defaults.enableDots
+    control: switch
+    group: Dots
+
+  - key: renderDot
+    scopes:
+      - Stream
+    description: |
+      Custom rendering function for dots.
+    type: '{function}'
+    required: false
+
+  - key: dotSize
+    help: |
+      Size of the dots (px)
+    description: |
+      Size of the dots (px), it also accepts a function
+      which can be used to make it vary according to the associated datum.
+    type: '{number|Function}'
+    required: false
+    default: defaults.dotSize
+    control: range
+    group: Dots
+    controlOptions:
+      unit: px
+      min: 2
+      max: 20
+
+ #        key: 'dotColor',
+ #        description: 'Method to compute dots color.',
+ #        type: '{string|Function}',
+ #        required: false,
+ #        default: defaults.dotColor,
+ #        controlType: 'color',
+ #        controlGroup: 'Dots',
+ #        controlOptions: {
+ #            withCustomColor: true,
+
+  - key: dotBorderWidth
+    description: |
+      Width of the dots border (px), it also accepts a function
+      which can be used to make it vary according to the associated datum.
+    type: '{number|Function}'
+    required: false
+    default: defaults.dotBorderWidth
+    control: range
+    group: Dots
+    controlOptions:
+      unit: px
+      min: 0
+      max: 10
+
+ #        key: 'dotBorderColor',
+ #        scopes: '*',
+ #        description: 'Method to compute dots border color.',
+ #        type: '{string|Function}',
+ #        required: false,
+ #        default: defaults.dotBorderColor,
+ #        controlType: 'color',
+ #        controlGroup: 'Dots',
+ #        controlOptions: {
+ #            withCustomColor: true,
+
+  - key: isInteractive
+    scopes:
+      - Stream
+    description: |
+      Enable/disable interactivity.
+    type: '{boolean}'
+    required: false
+    default: defaults.isInteractive
+    control: switch
+    group: Interactivity
+
+  - key: enableStackTooltip
+    scopes:
+      - Stream
+    description: |
+      Enable/disable stack tooltip ('isInteractive' must also be 'true').
+    type: '{boolean}'
+    required: false
+    default: defaults.enableStackTooltip
+    control: switch
+    group: Interactivity
+
+# motionProperties(['Stream'], defaults),
