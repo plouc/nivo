@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from 'enzyme'
+import { render, mount } from 'enzyme'
 import Bubble from '../src/Bubble'
 
 const sampleData = {
@@ -62,4 +62,27 @@ it(`should allow to skip labels using 'labelSkipRadius' if radius is lower than 
     )
 
     expect(wrapper.find('text').length).toBe(6)
+})
+
+it(`should send node data to onClick when 'isZoomable' is false`, () => {
+    const onClickHandler = jest.fn(node => node.data)
+    const wrapper = mount(
+        <Bubble
+            width={600}
+            height={600}
+            root={sampleData}
+            enableLabel={true}
+            labelSkipRadius={24}
+            isZoomable={false}
+            onClick={onClickHandler}
+        />
+    )
+
+    wrapper
+        .find('circle')
+        .at(0) //click the first <circle> (the root)
+        .simulate('click')
+
+    expect(onClickHandler.mock.calls.length).toBe(1)
+    expect(onClickHandler.mock.results[0].value).toEqual(sampleData)
 })
