@@ -24,6 +24,7 @@ const HeatMapCellCircle = ({
     opacity,
     borderWidth,
     borderColor,
+    enableLabel,
     textColor,
     onHover,
     onLeave,
@@ -48,17 +49,19 @@ const HeatMapCellCircle = ({
             stroke={borderColor}
             strokeOpacity={opacity}
         />
-        <text
-            alignmentBaseline="central"
-            textAnchor="middle"
-            style={{
-                ...theme.labels,
-                fill: textColor,
-            }}
-            fillOpacity={opacity}
-        >
-            {value}
-        </text>
+        {enableLabel && (
+            <text
+                alignmentBaseline="central"
+                textAnchor="middle"
+                style={{
+                    ...theme.labels,
+                    fill: textColor,
+                }}
+                fillOpacity={opacity}
+            >
+                {value}
+            </text>
+        )}
     </g>
 )
 
@@ -73,6 +76,7 @@ HeatMapCellCircle.propTypes = {
     opacity: PropTypes.number.isRequired,
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.string.isRequired,
+    enableLabel: PropTypes.bool.isRequired,
     textColor: PropTypes.string.isRequired,
     onHover: PropTypes.func.isRequired,
     onLeave: PropTypes.func.isRequired,

@@ -24,6 +24,7 @@ const HeatMapCellRect = ({
     opacity,
     borderWidth,
     borderColor,
+    enableLabel,
     textColor,
     onHover,
     onLeave,
@@ -51,17 +52,19 @@ const HeatMapCellRect = ({
             stroke={borderColor}
             strokeOpacity={opacity}
         />
-        <text
-            alignmentBaseline="central"
-            textAnchor="middle"
-            style={{
-                ...theme.labels.text,
-                fill: textColor,
-            }}
-            fillOpacity={opacity}
-        >
-            {value}
-        </text>
+        {enableLabel && (
+            <text
+                alignmentBaseline="central"
+                textAnchor="middle"
+                style={{
+                    ...theme.labels.text,
+                    fill: textColor,
+                }}
+                fillOpacity={opacity}
+            >
+                {value}
+            </text>
+        )}
     </g>
 )
 
@@ -76,6 +79,7 @@ HeatMapCellRect.propTypes = {
     opacity: PropTypes.number.isRequired,
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.string.isRequired,
+    enableLabel: PropTypes.bool.isRequired,
     textColor: PropTypes.string.isRequired,
     onHover: PropTypes.func.isRequired,
     onLeave: PropTypes.func.isRequired,

@@ -62,6 +62,8 @@ class HeatMapCanvas extends Component {
 
             cellShape,
 
+            enableLabels,
+
             theme,
         } = props
 
@@ -72,9 +74,9 @@ class HeatMapCanvas extends Component {
 
         let renderNode
         if (cellShape === 'rect') {
-            renderNode = partial(renderRect, this.ctx)
+            renderNode = partial(renderRect, this.ctx, { enableLabels })
         } else {
-            renderNode = partial(renderCircle, this.ctx)
+            renderNode = partial(renderCircle, this.ctx, { enableLabels })
         }
 
         const nodes = computeNodes(props)

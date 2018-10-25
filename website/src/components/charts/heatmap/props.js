@@ -283,7 +283,6 @@ export default [
       Labels
 
     ————————————————————————————————————————————————————————————————————————————*/
-    /*
     {
         key: 'enableLabels',
         scopes: '*',
@@ -294,7 +293,6 @@ export default [
         controlType: 'switch',
         controlGroup: 'Labels',
     },
-    */
     {
         key: 'labelTextColor',
         scopes: '*',

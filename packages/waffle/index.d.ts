@@ -39,19 +39,18 @@ declare module '@nivo/waffle' {
 
     export type WaffleCommonProps = ColorProps<WaffleDatum> &
         Partial<{
-            // layout
             margin: Box
             fillDirection: WaffleFillDirection
             padding: number
 
-            // styling
             theme: Theme
             emptyColor: string
             emptyOpacity: number
             borderWidth: number
             borderColor: string | GetColor<WaffleDatum>
 
-            // interactivity
+            enableLabels: boolean
+
             isInteractive: boolean
             onClick: (datum: WaffleDatum, event: React.MouseEvent<HTMLCanvasElement>) => void
             tooltipFormat: string | ValueFormatter
