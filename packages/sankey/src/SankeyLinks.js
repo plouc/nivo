@@ -10,8 +10,7 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
 import { sankeyLinkHorizontal } from 'd3-sankey'
-import { motionPropTypes, SmartMotion } from '@nivo/core'
-import { blendModePropType } from './props'
+import { motionPropTypes, SmartMotion, blendModePropType } from '@nivo/core'
 import SankeyLinksItem from './SankeyLinksItem'
 
 const getLinkPath = sankeyLinkHorizontal()
@@ -19,7 +18,6 @@ const getLinkPath = sankeyLinkHorizontal()
 const SankeyLinks = ({
     links,
 
-    // links
     linkOpacity,
     linkHoverOpacity,
     linkHoverOthersOpacity,
@@ -27,12 +25,10 @@ const SankeyLinks = ({
     linkBlendMode,
     enableLinkGradient,
 
-    // motion
     animate,
     motionDamping,
     motionStiffness,
 
-    // interactivity
     showTooltip,
     hideTooltip,
     setCurrentLink,

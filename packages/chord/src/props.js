@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
+import { blendModePropType } from '@nivo/core'
 import { LegendPropShape } from '@nivo/legends'
 
 export const ChordPropTypes = {
@@ -17,19 +18,17 @@ export const ChordPropTypes = {
     innerRadiusRatio: PropTypes.number.isRequired,
     innerRadiusOffset: PropTypes.number.isRequired,
 
-    // arcs
     arcOpacity: PropTypes.number.isRequired,
     arcBorderWidth: PropTypes.number.isRequired,
     arcBorderColor: PropTypes.any.isRequired,
     getArcBorderColor: PropTypes.func.isRequired,
 
-    // ribbons
     ribbonOpacity: PropTypes.number.isRequired,
     ribbonBorderWidth: PropTypes.number.isRequired,
     ribbonBorderColor: PropTypes.any.isRequired,
+    ribbonBlendMode: blendModePropType.isRequired,
     getRibbonBorderColor: PropTypes.func.isRequired,
 
-    // labels
     enableLabel: PropTypes.bool.isRequired,
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     getLabel: PropTypes.func.isRequired, // computed
@@ -38,10 +37,8 @@ export const ChordPropTypes = {
     labelTextColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     getLabelTextColor: PropTypes.func.isRequired, // computed
 
-    // colors
     colors: PropTypes.any.isRequired,
 
-    // interactivity
     isInteractive: PropTypes.bool.isRequired,
     arcHoverOpacity: PropTypes.number.isRequired,
     arcHoverOthersOpacity: PropTypes.number.isRequired,
@@ -49,7 +46,6 @@ export const ChordPropTypes = {
     ribbonHoverOthersOpacity: PropTypes.number.isRequired,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 
-    // canvas specific
     pixelRatio: PropTypes.number.isRequired,
 
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
@@ -60,34 +56,29 @@ export const ChordDefaultProps = {
     innerRadiusRatio: 0.9,
     innerRadiusOffset: 0,
 
-    // arcs
     arcOpacity: 1,
     arcBorderWidth: 1,
     arcBorderColor: 'inherit:darker(0.4)',
 
-    // ribbons
     ribbonOpacity: 0.5,
     ribbonBorderWidth: 1,
     ribbonBorderColor: 'inherit:darker(0.4)',
+    ribbonBlendMode: 'normal',
 
-    // labels
     enableLabel: true,
     label: 'id',
     labelOffset: 12,
     labelRotation: 0,
     labelTextColor: 'inherit:darker(1)',
 
-    // colors
     colors: 'nivo',
 
-    // interactivity
     isInteractive: true,
     arcHoverOpacity: 1,
     arcHoverOthersOpacity: 0.15,
     ribbonHoverOpacity: 0.85,
     ribbonHoverOthersOpacity: 0.15,
 
-    // canvas specific
     pixelRatio:
         global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
 

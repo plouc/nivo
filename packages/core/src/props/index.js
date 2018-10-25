@@ -27,6 +27,25 @@ export const motionPropTypes = {
     motionDamping: PropTypes.number.isRequired,
 }
 
+export const blendModePropType = PropTypes.oneOf([
+    'normal',
+    'multiply',
+    'screen',
+    'overlay',
+    'darken',
+    'lighten',
+    'color-dodge',
+    'color-burn',
+    'hard-light',
+    'soft-light',
+    'difference',
+    'exclusion',
+    'hue',
+    'saturation',
+    'color',
+    'luminosity',
+])
+
 export * from './colors'
 export * from './curve'
 export * from './defs'
