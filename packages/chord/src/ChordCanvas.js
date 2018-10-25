@@ -83,6 +83,9 @@ class ChordCanvas extends Component {
 
         this.ctx.fillStyle = theme.background
         this.ctx.fillRect(0, 0, outerWidth, outerHeight)
+
+        if (radius <= 0) return
+
         this.ctx.translate(centerX, centerY)
 
         this.ctx.font = `${theme.labels.text.fontSize}px sans-serif`

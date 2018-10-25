@@ -83,46 +83,50 @@ const Chord = ({
                         margin={margin}
                         theme={theme}
                     >
-                        <g transform={`translate(${centerX}, ${centerY})`}>
-                            <ChordRibbons
-                                ribbons={ribbons}
-                                shapeGenerator={ribbonGenerator}
-                                borderWidth={ribbonBorderWidth}
-                                getBorderColor={getRibbonBorderColor}
-                                getOpacity={getRibbonOpacity}
-                                blendMode={ribbonBlendMode}
-                                setCurrent={setCurrentRibbon}
-                                theme={theme}
-                                tooltipFormat={tooltipFormat}
-                                showTooltip={showTooltip}
-                                hideTooltip={hideTooltip}
-                                {...motionProps}
-                            />
-                            <ChordArcs
-                                arcs={arcs}
-                                shapeGenerator={arcGenerator}
-                                borderWidth={arcBorderWidth}
-                                getBorderColor={getArcBorderColor}
-                                getOpacity={getArcOpacity}
-                                setCurrent={setCurrentArc}
-                                theme={theme}
-                                tooltipFormat={tooltipFormat}
-                                showTooltip={showTooltip}
-                                hideTooltip={hideTooltip}
-                                {...motionProps}
-                            />
-                            {enableLabel && (
-                                <ChordLabels
+                        {radius > 0 && (
+                            <g transform={`translate(${centerX}, ${centerY})`}>
+                                {radius > 0 && (
+                                    <ChordRibbons
+                                        ribbons={ribbons}
+                                        shapeGenerator={ribbonGenerator}
+                                        borderWidth={ribbonBorderWidth}
+                                        getBorderColor={getRibbonBorderColor}
+                                        getOpacity={getRibbonOpacity}
+                                        blendMode={ribbonBlendMode}
+                                        setCurrent={setCurrentRibbon}
+                                        theme={theme}
+                                        tooltipFormat={tooltipFormat}
+                                        showTooltip={showTooltip}
+                                        hideTooltip={hideTooltip}
+                                        {...motionProps}
+                                    />
+                                )}
+                                <ChordArcs
                                     arcs={arcs}
-                                    radius={radius + labelOffset}
-                                    rotation={labelRotation}
-                                    getLabel={getLabel}
-                                    getColor={getLabelTextColor}
+                                    shapeGenerator={arcGenerator}
+                                    borderWidth={arcBorderWidth}
+                                    getBorderColor={getArcBorderColor}
+                                    getOpacity={getArcOpacity}
+                                    setCurrent={setCurrentArc}
                                     theme={theme}
+                                    tooltipFormat={tooltipFormat}
+                                    showTooltip={showTooltip}
+                                    hideTooltip={hideTooltip}
                                     {...motionProps}
                                 />
-                            )}
-                        </g>
+                                {enableLabel && (
+                                    <ChordLabels
+                                        arcs={arcs}
+                                        radius={radius + labelOffset}
+                                        rotation={labelRotation}
+                                        getLabel={getLabel}
+                                        getColor={getLabelTextColor}
+                                        theme={theme}
+                                        {...motionProps}
+                                    />
+                                )}
+                            </g>
+                        )}
                         {legends.map((legend, i) => (
                             <BoxLegendSvg
                                 key={i}
