@@ -12,8 +12,7 @@ import compose from 'recompose/compose'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import withHandlers from 'recompose/withHandlers'
 import pure from 'recompose/pure'
-import { BasicTooltip, Chip } from '@nivo/core'
-import { blendModePropType } from './props'
+import { BasicTooltip, Chip, blendModePropType } from '@nivo/core'
 
 const tooltipStyles = {
     container: {

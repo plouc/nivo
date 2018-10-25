@@ -8,7 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import { sankeyCenter, sankeyJustify, sankeyLeft, sankeyRight } from 'd3-sankey'
-import { noop } from '@nivo/core'
+import { noop, blendModePropType } from '@nivo/core'
 import { LegendPropShape } from '@nivo/legends'
 
 export const sankeyAlignmentPropMapping = {
@@ -23,25 +23,6 @@ export const sankeyAlignmentPropKeys = Object.keys(sankeyAlignmentPropMapping)
 export const sankeyAlignmentPropType = PropTypes.oneOf(sankeyAlignmentPropKeys)
 
 export const sankeyAlignmentFromProp = prop => sankeyAlignmentPropMapping[prop]
-
-export const blendModePropType = PropTypes.oneOf([
-    'normal',
-    'multiply',
-    'screen',
-    'overlay',
-    'darken',
-    'lighten',
-    'color-dodge',
-    'color-burn',
-    'hard-light',
-    'soft-light',
-    'difference',
-    'exclusion',
-    'hue',
-    'saturation',
-    'color',
-    'luminosity',
-])
 
 export const SankeyPropTypes = {
     data: PropTypes.shape({
@@ -60,7 +41,6 @@ export const SankeyPropTypes = {
 
     align: sankeyAlignmentPropType.isRequired,
 
-    // nodes
     nodeOpacity: PropTypes.number.isRequired,
     nodeHoverOpacity: PropTypes.number.isRequired,
     nodeHoverOthersOpacity: PropTypes.number.isRequired,
@@ -70,7 +50,6 @@ export const SankeyPropTypes = {
     nodeBorderWidth: PropTypes.number.isRequired,
     nodeBorderColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
-    // links
     linkOpacity: PropTypes.number.isRequired,
     linkHoverOpacity: PropTypes.number.isRequired,
     linkHoverOthersOpacity: PropTypes.number.isRequired,
@@ -78,7 +57,6 @@ export const SankeyPropTypes = {
     linkBlendMode: blendModePropType.isRequired,
     enableLinkGradient: PropTypes.bool.isRequired,
 
-    // labels
     enableLabels: PropTypes.bool.isRequired,
     labelPosition: PropTypes.oneOf(['inside', 'outside']).isRequired,
     labelPadding: PropTypes.number.isRequired,
@@ -89,11 +67,9 @@ export const SankeyPropTypes = {
     labelFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     getLabel: PropTypes.func.isRequired, // computed
 
-    // tooltip
     nodeTooltip: PropTypes.func,
     linkTooltip: PropTypes.func,
 
-    // interactivity
     isInteractive: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
@@ -104,7 +80,6 @@ export const SankeyPropTypes = {
 export const SankeyDefaultProps = {
     align: 'center',
 
-    // nodes
     nodeOpacity: 0.75,
     nodeHoverOpacity: 1,
     nodeHoverOthersOpacity: 0.15,
@@ -114,7 +89,6 @@ export const SankeyDefaultProps = {
     nodeBorderWidth: 1,
     nodeBorderColor: 'inherit:darker(0.5)',
 
-    // links
     linkOpacity: 0.25,
     linkHoverOpacity: 0.6,
     linkHoverOthersOpacity: 0.15,
@@ -122,7 +96,6 @@ export const SankeyDefaultProps = {
     linkBlendMode: 'multiply',
     enableLinkGradient: false,
 
-    // labels
     enableLabels: true,
     label: 'id',
     labelPosition: 'inside',
@@ -130,7 +103,6 @@ export const SankeyDefaultProps = {
     labelOrientation: 'horizontal',
     labelTextColor: 'inherit:darker(0.8)',
 
-    // interactivity
     isInteractive: true,
     onClick: noop,
 

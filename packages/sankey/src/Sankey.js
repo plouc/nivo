@@ -25,14 +25,12 @@ const Sankey = ({
 
     align,
 
-    // dimensions
     margin,
     width,
     height,
     outerWidth,
     outerHeight,
 
-    // nodes
     nodeOpacity,
     nodeHoverOpacity,
     nodeHoverOthersOpacity,
@@ -44,7 +42,6 @@ const Sankey = ({
     setCurrentNode, // injected
     currentNode, // injected
 
-    // links
     linkOpacity,
     linkHoverOpacity,
     linkHoverOthersOpacity,
@@ -55,7 +52,6 @@ const Sankey = ({
     setCurrentLink, // injected
     currentLink, // injected
 
-    // labels
     enableLabels,
     getLabel,
     labelPosition,
@@ -63,20 +59,16 @@ const Sankey = ({
     labelOrientation,
     getLabelTextColor, // computed
 
-    // theming
     theme,
     getColor, // computed
 
-    // tooltip
     nodeTooltip,
     linkTooltip,
 
-    // motion
     animate,
     motionDamping,
     motionStiffness,
 
-    // interactivity
     isInteractive,
     onClick,
     tooltipFormat,

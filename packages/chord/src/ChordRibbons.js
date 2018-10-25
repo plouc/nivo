@@ -15,10 +15,15 @@ import { format as d3Format } from 'd3-format'
 import compose from 'recompose/compose'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
-import { colorMotionSpring, getInterpolatedColor } from '@nivo/core'
-import { midAngle } from '@nivo/core'
-import { TableTooltip, Chip } from '@nivo/core'
-import { motionPropTypes } from '@nivo/core'
+import {
+    colorMotionSpring,
+    getInterpolatedColor,
+    blendModePropType,
+    midAngle,
+    TableTooltip,
+    Chip,
+    motionPropTypes,
+} from '@nivo/core'
 
 /**
  * Used to get ribbon angles, instead of using source and target arcs,
@@ -86,6 +91,7 @@ const ChordRibbons = ({
     borderWidth,
     getBorderColor,
     getOpacity,
+    blendMode,
     theme,
     tooltipFormat,
     setCurrent,
@@ -146,6 +152,7 @@ const ChordRibbons = ({
                             fillOpacity={opacity}
                             stroke={getBorderColor({ ...ribbon, color: ribbon.source.color })}
                             strokeOpacity={opacity}
+                            style={{ mixBlendMode: blendMode }}
                             {...commonProps(ribbon)}
                         />
                     )
@@ -204,6 +211,7 @@ const ChordRibbons = ({
                                 fillOpacity={style.opacity}
                                 stroke={getBorderColor({ ...ribbon, color })}
                                 strokeOpacity={style.opacity}
+                                style={{ mixBlendMode: blendMode }}
                                 {...commonProps(ribbon)}
                             />
                         )
@@ -220,6 +228,7 @@ ChordRibbons.propTypes = {
     borderWidth: PropTypes.number.isRequired,
     getBorderColor: PropTypes.func.isRequired,
     getOpacity: PropTypes.func.isRequired,
+    blendMode: blendModePropType.isRequired,
     setCurrent: PropTypes.func.isRequired,
     theme: PropTypes.object.isRequired,
     showTooltip: PropTypes.func.isRequired,

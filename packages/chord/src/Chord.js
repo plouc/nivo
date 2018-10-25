@@ -17,22 +17,19 @@ import ChordArcs from './ChordArcs'
 import ChordLabels from './ChordLabels'
 
 const Chord = ({
-    // dimensions
     margin,
     width,
     height,
     outerWidth,
     outerHeight,
 
-    // arcs
     arcBorderWidth,
     getArcBorderColor,
 
-    // ribbons
     ribbonBorderWidth,
+    ribbonBlendMode,
     getRibbonBorderColor,
 
-    // labels
     enableLabel,
     getLabel, // computed
     labelOffset,
@@ -42,14 +39,11 @@ const Chord = ({
     arcGenerator, // computed
     ribbonGenerator, // computed
 
-    // theming
     theme,
 
-    // interactivity
     isInteractive,
     tooltipFormat,
 
-    // motion
     animate,
     motionDamping,
     motionStiffness,
@@ -96,6 +90,7 @@ const Chord = ({
                                 borderWidth={ribbonBorderWidth}
                                 getBorderColor={getRibbonBorderColor}
                                 getOpacity={getRibbonOpacity}
+                                blendMode={ribbonBlendMode}
                                 setCurrent={setCurrentRibbon}
                                 theme={theme}
                                 tooltipFormat={tooltipFormat}
