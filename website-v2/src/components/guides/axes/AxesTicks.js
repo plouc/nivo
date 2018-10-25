@@ -7,12 +7,21 @@
  * file that was distributed with this source code.
  */
 import React, { Component, Fragment } from 'react'
-import { Axis } from '@nivo/core'
+import merge from 'lodash/merge'
+import { withTheme } from 'styled-components'
+import { Axis } from '@nivo/axes'
+import Banner from '../../Banner'
+import GuideIllustrations from '../GuideIllustrations'
 import { linearXScale, pointXScale, timeXScale } from './scales'
 import theme from './theme'
 
-export default class AxesTicks extends Component {
+class AxesTicks extends Component {
     render() {
+        const {
+            theme: { nivo: nivoTheme },
+        } = this.props
+        const finalTheme = merge({}, nivoTheme, theme)
+
         return (
             <Fragment>
                 <div className="guide__description text-content">
@@ -52,20 +61,18 @@ export default class AxesTicks extends Component {
                         </li>
                     </ul>
                 </div>
-                <div className="banner">
-                    <div
-                        className="guide__illustrations"
-                        style={{ justifyContent: 'center', alignItems: 'center' }}
-                    >
+                <Banner>
+                    <GuideIllustrations style={{ justifyContent: 'center', alignItems: 'center' }}>
                         <svg role="img" width={380} height={180}>
                             <g transform={`translate(50,40)`}>
                                 <Axis
+                                    axis="x"
                                     scale={pointXScale}
                                     tickValues={['A', 'C', 'E', 'G', 'I']}
                                     width={280}
                                     height={0}
                                     position="top"
-                                    theme={theme}
+                                    theme={finalTheme}
                                     animate={false}
                                     motionStiffness={0}
                                     motionDamping={0}
@@ -76,12 +83,13 @@ export default class AxesTicks extends Component {
                             </g>
                             <g transform={`translate(50,110)`}>
                                 <Axis
+                                    axis="x"
                                     scale={linearXScale}
                                     tickValues={[0, 20, 40, 60, 80]}
                                     width={280}
                                     height={0}
                                     position="top"
-                                    theme={theme}
+                                    theme={finalTheme}
                                     animate={false}
                                     motionStiffness={0}
                                     motionDamping={0}
@@ -92,6 +100,7 @@ export default class AxesTicks extends Component {
                             </g>
                             <g transform={`translate(50,180)`}>
                                 <Axis
+                                    axis="x"
                                     scale={timeXScale}
                                     tickValues={[
                                         new Date(2019, 0, 1, 0, 0, 0, 0),
@@ -101,7 +110,7 @@ export default class AxesTicks extends Component {
                                     width={280}
                                     height={0}
                                     position="top"
-                                    theme={theme}
+                                    theme={finalTheme}
                                     format="%Y/%m"
                                     animate={false}
                                     motionStiffness={0}
@@ -115,12 +124,13 @@ export default class AxesTicks extends Component {
                         <svg role="img" width={380} height={180}>
                             <g transform={`translate(50,110)`}>
                                 <Axis
+                                    axis="x"
                                     scale={linearXScale}
                                     tickValues={5}
                                     width={280}
                                     height={0}
                                     position="top"
-                                    theme={theme}
+                                    theme={finalTheme}
                                     animate={false}
                                     motionStiffness={0}
                                     motionDamping={0}
@@ -131,12 +141,13 @@ export default class AxesTicks extends Component {
                             </g>
                             <g transform={`translate(50,180)`}>
                                 <Axis
+                                    axis="x"
                                     scale={timeXScale}
                                     tickValues={5}
                                     width={280}
                                     height={0}
                                     position="top"
-                                    theme={theme}
+                                    theme={finalTheme}
                                     format="%Y/%m"
                                     animate={false}
                                     motionStiffness={0}
@@ -147,9 +158,11 @@ export default class AxesTicks extends Component {
                                 />
                             </g>
                         </svg>
-                    </div>
-                </div>
+                    </GuideIllustrations>
+                </Banner>
             </Fragment>
         )
     }
 }
+
+export default withTheme(AxesTicks)

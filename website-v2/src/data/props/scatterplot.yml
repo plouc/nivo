@@ -1,30 +1,22 @@
 props_id: scatterplot
 props:
-#    {
- #        key: 'data',
- #        scopes: '*',
- #        description: (
- #            <div>
- #                Chart data, which must conform to this structure:
- #                <pre className="code code-block">
- #                    {dedent`
- #                        Array<{
- #                            id: {string|number}
- #                            data: Array<{
- #                                x: {number|string|Date}
- #                                y: {number|string|Date}
- #                            }>
- #                        }>
- #                    `}
- #                </pre>
- #                Please not that you should adjust <code>xScale</code> and <code>yScale</code>{' '}
- #                according to <code>x</code> and <code>y</code> type, for example if you use dates,
- #                you should use a <code>time</code> scale.
- #            </div>
- #        ),
- #        required: true,
- #    },
- #    {
+  - key: data
+    description: |
+      Chart data, which must conform to this structure:
+      ```
+      Array<{
+          id: {string|number}
+          data: Array<{
+              x: {number|string|Date}
+              y: {number|string|Date}
+          }>
+      }>
+      ```
+      Please not that you should adjust `xScale` and `yScale`
+      according to `x` and `y` type, for example if you use dates,
+      you should use a `time` scale.
+    required: true
+
  #        key: 'xScale',
  #        scopes: '*',
  #        type: '{object}',
@@ -205,29 +197,23 @@ props:
     control: colors
     group: Style
 
- #        key: 'colorBy',
- #        scopes: '*',
- #        description:
- #            'Property to use to determine node color. If a function is provided, it will receive current node data and must return a color.',
- #        required: false,
- #        default: 'id',
- #        controlType: 'choices',
- #        controlGroup: 'Style',
- #        controlOptions: {
- #            choices: [
- #                {
- #                    label: 'id',
- #                    value: 'id',
- #                },
- #                {
- #                    label: 'index',
- #                    value: 'index',
- #                },
- #                {
- #                    label: `({ id, data }) => data[\`\${id}Color\`]`,
- #                    value: `({ id, data }) => data[\`\${id}Color\`]`,
- #                },
- #            ],
+  - key: colorBy
+    description: |
+      Property to use to determine node color.
+      If a function is provided, it will receive current node data
+      and must return a color.
+    required: false
+    default: id
+    control: choices
+    group: Style
+    controlOptions:
+      choices:
+        - label: id
+          value: id
+        - label: index
+          value: index
+        - label: '({ id, data }) => data[`${id}Color`]'
+          value: '({ id, data }) => data[`${id}Color`]'
 
   - key: symbolSize
     description: |
@@ -241,7 +227,6 @@ props:
       min: 2
       max: 24
 
- #    ...marginProperties,
  #    ...axesProperties,
 
   - key: enableGridX
@@ -274,47 +259,43 @@ props:
     control: switch
     group: Interactivity
 
- #        key: 'tooltip',
- #        scopes: ['ScatterPlot'],
- #        type: '{Function}',
- #        required: false,
- #        description: (
- #            <div>
- #                A function allowing complete tooltip customisation, it must return a valid HTML
- #                element and will receive the following data:
- #                <pre className="code code-block">
- #                    {dedent`
- #                        {
- #                            id:    {string|number},
- #                            serie: {string|number},
- #                            color: {string},
- #                            x:     {number},
- #                            y:     {number},
- #                        }
- #                    `}
- #                </pre>
- #            </div>
- #        ),
- #    },
- #    {
- #        key: 'custom tooltip example',
- #        scopes: ['ScatterPlot'],
- #        excludeFromDoc: true,
- #        description: (
- #            <span>
- #                You can customize the tooltip using the <code>tooltip</code> property and{' '}
- #                <code>theme.tooltip</code> object.
- #            </span>
- #        ),
- #        type: '{boolean}',
- #        controlType: 'switch',
- #        controlGroup: 'Interactivity',
- #    },
- #    {
- #        key: 'onClick',
- #        scopes: ['ScatterPlot', 'ScatterPlotCanvas'],
- #        description: 'onClick handler, it receives clicked bar data and mouse event.',
- #        type: '{Function}',
- #        required: false,
- #    },
- #    ...motionProperties(['ScatterPlot'], defaults),
+  - key: tooltip
+    scopes:
+      - ScatterPlot
+    type: '{Function}'
+    required: false
+    description: |
+      A function allowing complete tooltip customisation,
+      it must return a valid HTML element and
+      will receive the following data:
+      ```
+      {
+          id:    {string|number},
+          serie: {string|number},
+          color: {string},
+          x:     {number},
+          y:     {number},
+      }
+      ```
+
+  - key: custom tooltip example
+    scopes:
+      - ScatterPlot
+    excludeFromDoc: true
+    description: |
+      You can customize the tooltip using the `tooltip` property and
+      `theme.tooltip` object.
+    type: '{boolean}'
+    control: switch
+    group: Interactivity
+
+  - key: onClick
+    scopes:
+      - ScatterPlot
+      - ScatterPlotCanvas
+    description: |
+      onClick handler, it receives clicked bar data and mouse event.
+    type: '{Function}'
+    required: false
+
+ # motionProperties(['ScatterPlot'], defaults),

@@ -1,8 +1,264 @@
 props_id: treemap
 props:
+  - key: root
+    description: |
+      The hierarchical data object.
+    type: '{Object}'
+    required: true
+
+  - key: identity
+    description: |
+      The key or function to use to retrieve nodes identity.
+    type: '{string|Function}'
+    required: false
+    default: defaults.identity
+
+  - key: value
+    description: |
+      The key or function to use to retrieve nodes value.
+    type: '{string|Function}'
+    required: false
+    default: value
+
+  - key: width
+    scopes:
+      - api
+    docScopes: '*'
+    description: |
+      Not required if using responsive alternative
+      of the component `Responsive*`.
+    type: '{number}'
+    required: true
+
+  - key: height
+    scopes:
+      - api
+    docScopes: '*'
+    description: |
+      Not required if using responsive alternative
+      of the component `Responsive*`.
+    type: '{number}'
+    required: true
+
+  - key: pixelRatio
+    scopes:
+      - TreeMapCanvas
+    description: |
+      Adjust pixel ratio, useful for HiDPI screens.
+    required: false
+    default: Depends on device
+    type: '{number}'
+    control: range
+    group: Base
+    controlOptions:
+      min: 1
+      max: 2
+
+  - key: tile
+    description: |
+      Valid values are:
+      `'binary'`, `'squarify'`, `'slice'`, `'dice'`, `'sliceDice'`
+      or `'resquarify'`,
+      see [d3 documentation](https://github.com/mbostock/d3/wiki/Treemap-Layout#mode).
+    type: '{string}'
+    required: false
+    default: squarify
+    help: |
+      Strategy used to compute nodes.
+    control: choices
+    group: Base
+    controlOptions:
+      choices:
+        - label: binary
+          value: binary
+        - label: squarify
+          value: squarify
+        - label: slice
+          value: slice
+        - label: dice
+          value: dice
+        - label: sliceDice
+          value: sliceDice
+        - label: resquarify
+          value: resquarify
+
+  - key: leavesOnly
+    description: |
+      Only render leaf nodes (no parent).
+    type: '{boolean}'
+    required: false
+    default: defaults.leavesOnly
+    control: switch
+    group: Base
+
+  - key: innerPadding
+    description: |
+      Padding between parent and child node.
+    type: '{number}'
+    required: false
+    default: defaults.innerPadding
+    control: range
+    group: Base
+    controlOptions:
+      unit: px
+      min: 0
+      max: 32
+
+  - key: outerPadding
+    description: |
+      Padding between parent and child node.
+    type: '{number}'
+    required: false
+    default: defaults.outerPadding
+    control: range
+    group: Base
+    controlOptions:
+      unit: px
+      min: 0
+      max: 32
+
   - key: margin
     description: |
       Control chart's margins
     type: '{object}'
     control: margin
     group: Base
+
+  - key: colors
+    description: |
+      Defines how to compute node color.
+    type: '{string|Function|Array}'
+    required: false
+    default: nivo
+    control: colors
+    group: Style
+
+  - key: colorBy
+    description: |
+      Property to use to determine node color.
+      If a function is provided, it will receive current node data
+      and must return a color.
+    type: '{string|Function}'
+    required: false
+    default: depth
+    control: choices
+    group: Style
+    controlOptions:
+      choices:
+        - label: depth
+          value: depth
+        - label: name
+          value: name
+        - label: 'd => d.color'
+          value: 'd => d.color'
+
+  - key: borderWidth
+    description: |
+      Control node border width.
+    type: '{number}'
+    required: false
+    default: defaults.borderWidth
+    control: range
+    group: Style
+    controlOptions:
+      unit: px
+      min: 0
+      max: 10
+
+  - key: borderColor
+    description: |
+      Method to compute border color.
+    type: '{string|Function}'
+    required: false
+    default: defaults.borderColor
+    control: color
+    group: Style
+    controlOptions:
+      withCustomColor: true
+
+  - key: enableLabel
+    description: |
+      Enable/disable labels.
+    type: '{boolean}'
+    required: false
+    # default: true
+    control: switch
+    group: Labels
+
+  - key: label
+    description: |
+      Defines how to get label text,
+      can be a string (used to access current node data property)
+      or a function which will receive the actual node data
+      and must return the desired label.
+    type: '{string|Function}'
+    required: false
+    control: choices
+    group: Labels
+    controlOptions:
+      choices:
+        - label: loc
+          value: loc
+        - label: name
+          value: name
+        - label: 'd => `${d.name} (${d.loc})`'
+          value: 'd => `${d.name} (${d.loc})`'
+
+  - key: labelSkipSize
+    description: |
+      Skip label rendering if node minimal side length
+      is lower than given value, 0 to disable.
+    type: '{number}'
+    required: false
+    control: range
+    group: Labels
+    controlOptions:
+      unit: px
+      min: 0
+      max: 100
+
+  - key: orientLabel
+    description: |
+      Orient labels according to max node width/height.
+    type: '{boolean}'
+    required: false
+    control: switch
+    group: Labels
+
+  - key: labelTextColor
+    description: |
+      Method to compute label text color.
+    type: '{string|Function}'
+    required: false
+    control: color
+    group: Labels
+    controlOptions:
+      withCustomColor: true
+
+  - key: isInteractive
+    scopes:
+      - TreeMap
+      - TreeMapHTML
+      - TreeMapCanvas
+    description: |
+      Enable/disable interactivity.
+    type: '{boolean}'
+    required: false
+    default: defaults.isInteractive
+    control: switch
+    group: Interactivity
+
+  - key: onClick
+    scopes:
+      - TreeMap
+      - TreeMapHTML
+      - TreeMapCanvas
+    description: |
+      onClick handler, it receives
+      clicked node data and style plus mouse event.
+    type: '{Function}'
+    required: false
+
+
+# defsProperties(['TreeMap'])
+# motionProperties(['TreeMap', 'TreeMapHTML', 'TreeMapPlaceholders'], defaults),

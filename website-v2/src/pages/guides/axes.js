@@ -18,33 +18,37 @@ export default class Axes extends Component {
     render() {
         return (
             <GlobalLayout>
-                <div className="inner-content">
-                    {/* <Helmet title="Gradients" /> */}
-                    <div className="page_content">
-                        <div className="guide__header">
-                            <h1 className="page_header">Axes</h1>
+                {() => (
+                    <div className="inner-content">
+                        {/* <Helmet title="Gradients" /> */}
+                        <div className="page_content">
+                            <div className="guide__header">
+                                <h1 className="page_header">Axes</h1>
+                            </div>
                         </div>
+                        <div className="guide__description text-content">
+                            <h2>Using axes in nivo components</h2>
+                            <p>
+                                Axes are built on top of{' '}
+                                <a
+                                    href="https://github.com/d3/d3-scale"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    d3 scales
+                                </a>{' '}
+                                and use <code>@nivo/axes</code> package.
+                                <br />A lot of nivo components make use of it (
+                                <Link to="/bar">Bar</Link>, <Link to="/line">Line</Link>,{' '}
+                                <Link to="/scatterplot">ScatterPlot</Link>
+                                …).
+                            </p>
+                        </div>
+                        <AxesPosition />
+                        <AxesTicks />
+                        <AxesLegend />
                     </div>
-                    <div className="guide__description text-content">
-                        <h2>Using axes in nivo components</h2>
-                        <p>
-                            Axes are built on top of{' '}
-                            <a
-                                href="https://github.com/d3/d3-scale"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                d3 scales
-                            </a>
-                            . A lot of nivo components make use of it (<Link to="/bar">Bar</Link>,{' '}
-                            <Link to="/line">Line</Link>, <Link to="/scatterplot">ScatterPlot</Link>
-                            …).
-                        </p>
-                    </div>
-                    <AxesPosition />
-                    <AxesTicks />
-                    <AxesLegend />
-                </div>
+                )}
             </GlobalLayout>
         )
     }

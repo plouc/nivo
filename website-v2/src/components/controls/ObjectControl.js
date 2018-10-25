@@ -9,11 +9,34 @@
 import React, { PureComponent, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import ChartControls from './ChartControls'
+import styled from 'styled-components'
+import ControlsGroup from './ControlsGroup'
+
+const Header = styled.div`
+    padding: 5px 12px 7px;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: ${({ theme }) => theme.colors.accent};
+    user-select: none;
+    border-top: 1px solid ${({ theme }) => theme.colors.border};
+    border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+    opacity: ${({ isOpened }) => (isOpened ? 1 : 0.6)};
+
+    &:hover {
+    }
+
+    p {
+        margin: 0;
+    }
+`
 
 export default class ObjectControl extends PureComponent {
     static propTypes = {
-        ns: PropTypes.string.isRequired,
+        component: PropTypes.string.isRequired,
         label: PropTypes.string.isRequired,
         help: PropTypes.node.isRequired,
         onChange: PropTypes.func.isRequired,
@@ -36,25 +59,25 @@ export default class ObjectControl extends PureComponent {
     }
 
     render() {
-        const { ns, label, help, value, props, onChange } = this.props
+        const { component, label, help, value, props, onChange } = this.props
         const { isOpened } = this.state
 
         return (
             <Fragment>
-                <div
-                    className={classNames('object-control_header', {
-                        '_is-opened': isOpened,
-                    })}
-                    onClick={this.handleToggle}
-                >
+                <Header isOpened={isOpened} onClick={this.handleToggle}>
                     <div>
                         {label}
-                        <div className="control-help">{help}</div>
+                        <div
+                            dangerouslySetInnerHTML={{
+                                __html: help,
+                            }}
+                            className="control-help"
+                        />
                     </div>
-                </div>
+                </Header>
                 {isOpened && (
-                    <ChartControls
-                        ns={ns}
+                    <ControlsGroup
+                        component={component}
                         name={label}
                         controls={props}
                         settings={value}

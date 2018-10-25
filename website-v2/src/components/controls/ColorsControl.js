@@ -9,8 +9,8 @@
 import React, { PureComponent } from 'react'
 import range from 'lodash/range'
 import PropTypes from 'prop-types'
+import Select from './Select'
 import { colorSchemeIds, colorSchemes, colorInterpolatorIds, colorInterpolators } from '@nivo/core'
-import Select from 'react-select'
 import ColorsControlItem from './ColorsControlItem'
 
 const colors = colorSchemeIds.map(id => ({
@@ -66,31 +66,33 @@ export default class ColorsControl extends PureComponent {
     render() {
         const { label, value, includeSequential, help } = this.props
 
-        let options = colors
+        let allColors = colors
         if (includeSequential === true) {
-            options = options.concat(sequentialColors)
+            allColors = allColors.concat(sequentialColors)
         }
 
+        const options = allColors.map(({ id, colors }) => ({
+            label: id,
+            value: id,
+            colors,
+        }))
+
+        const selectedOption = options.find(o => o.value === value)
+
         return (
-            <div className="control control-colors">
-                <label className="control_label">
-                    {label}
-                    :&nbsp;
-                    <code className="code code-string">'{value}'</code>
-                </label>
-                <Select
-                    options={options.map(({ id, colors }) => ({
-                        label: id,
-                        value: id,
-                        colors,
-                    }))}
-                    optionRenderer={this.renderOption}
-                    valueRenderer={this.renderValue}
-                    onChange={this.handleColorsChange}
-                    value={value}
-                    clearable={false}
-                />
-                <div className="control-help">{help}</div>
+            <div className="Control">
+                <div className="ColorsControl">
+                    <label className="control_label">{label}</label>
+                    <Select
+                        options={options}
+                        optionRenderer={this.renderOption}
+                        valueRenderer={this.renderValue}
+                        onChange={this.handleColorsChange}
+                        value={selectedOption}
+                        clearable={false}
+                    />
+                </div>
+                {/*<div className="control-help">{help}</div>*/}
             </div>
         )
     }

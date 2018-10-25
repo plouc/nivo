@@ -5,13 +5,16 @@ module.exports = {
     plugins: [
         'gatsby-transformer-yaml',
         {
-            resolve: `gatsby-source-filesystem`,
+            resolve: 'gatsby-source-filesystem',
             options: {
-                name: `data`,
+                name: 'data',
                 path: `${__dirname}/src/data/`,
             }
         },
-        `gatsby-transformer-remark`,
+        'gatsby-plugin-react-helmet',
+        'gatsby-transformer-remark',
+        'gatsby-plugin-catch-links',
+        'gatsby-plugin-styled-components',
         'gatsby-plugin-sass',
     ],
 }

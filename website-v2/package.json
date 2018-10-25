@@ -8,6 +8,7 @@
     "serve": "gatsby serve"
   },
   "dependencies": {
+    "@nivo/axes": "^0.50.0",
     "@nivo/bar": "^0.50.0",
     "@nivo/bullet": "^0.50.0",
     "@nivo/calendar": "^0.50.0",
@@ -25,9 +26,13 @@
     "@nivo/treemap": "^0.50.0",
     "@nivo/voronoi": "^0.50.0",
     "@nivo/waffle": "^0.50.0",
+    "babel-plugin-styled-components": "^1.8.0",
     "dedent-js": "^1.0.1",
     "gatsby": "^2.0.0",
+    "gatsby-plugin-catch-links": "^2.0.5",
+    "gatsby-plugin-react-helmet": "^3.0.0",
     "gatsby-plugin-sass": "^2.0.1",
+    "gatsby-plugin-styled-components": "^3.0.0",
     "gatsby-source-filesystem": "^2.0.4",
     "gatsby-transformer-remark": "^2.1.7",
     "gatsby-transformer-yaml": "^2.1.3",
@@ -35,10 +40,12 @@
     "node-sass": "^4.9.4",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
+    "react-helmet": "^5.2.0",
     "react-icons": "^3.2.1",
     "react-markdown": "^4.0.3",
     "react-responsive": "^5.0.0",
     "react-select": "^2.1.0",
+    "remark-html": "^8.0.0",
     "styled-components": "^4.0.2"
   }
 }

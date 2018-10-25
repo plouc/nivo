@@ -125,7 +125,8 @@ export const scatterplotCanvas = {
         max: 'auto',
     },
 
-    pixelRatio: window && window.devicePixelRatio ? window.devicePixelRatio : 1,
+    pixelRatio:
+        typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
 
     colors: 'nivo',
     colorBy: 'id',

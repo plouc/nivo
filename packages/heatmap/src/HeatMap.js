@@ -54,26 +54,22 @@ class HeatMap extends Component {
             outerWidth,
             outerHeight,
 
-            // cells
             cellShape,
             cellBorderWidth,
             getCellBorderColor,
 
-            // axes & grid
             axisTop,
             axisRight,
             axisBottom,
             axisLeft,
+
             enableGridX,
             enableGridY,
 
-            // labels
             getLabelTextColor,
 
-            // theming
             theme,
 
-            // motion
             animate,
             motionStiffness,
             motionDamping,

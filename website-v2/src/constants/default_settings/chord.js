@@ -82,7 +82,8 @@ export const chordCanvas = {
         left: 60,
     },
 
-    pixelRatio: window && window.devicePixelRatio ? window.devicePixelRatio : 1,
+    pixelRatio:
+        typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
 
     padAngle: 0.006,
     innerRadiusRatio: 0.86,

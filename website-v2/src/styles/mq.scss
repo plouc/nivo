@@ -43,10 +43,6 @@
         margin: 0 15px 50px;
     }
 
-    .guide__illustrations__item {
-        height: 160px;
-    }
-
     .chart__title {
         justify-content: space-between;
     }
@@ -143,20 +139,6 @@
 
     .guide__description {
         margin: 0 15px 50px;
-    }
-
-    .guide__illustrations__item {
-        width: 80%;
-        height: 120px;
-        margin-top: 10px;
-    }
-    .guide__illustrations__item:first-child {
-        margin-top: 0;
-    }
-
-    .guide__code {
-        font-size: 14px;
-        line-height: 1.6em;
     }
 
     .fill-sample {

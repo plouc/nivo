@@ -1,6 +1,35 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import ControlsGroup from './ControlsGroup'
+import styled from 'styled-components'
+import ControlsGroup from '../controls/ControlsGroup'
+
+const Container = styled.div`
+    position: fixed;
+    top: ${({ theme }) => theme.headerHeight}px;
+    bottom: 0;
+    left: 0;
+    width: 280px;
+    background: ${({ theme }) => theme.colors.cardBackground};
+    color: ${({ theme }) => theme.colors.text};
+    border-right: 1px solid ${({ theme }) => theme.colors.border};
+    z-index: 1000;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-size: 12px;
+`
+
+const Group = styled.div`
+    border-top: 1px solid ${({ theme }) => theme.colors.border};
+`
+
+const Title = styled.div`
+    border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+    padding: 9px 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+    line-height: 1em;
+`
 
 export default class Settings extends Component {
     static propTypes = {
@@ -15,11 +44,11 @@ export default class Settings extends Component {
         const { component, settings, onChange, groups } = this.props
 
         return (
-            <div className="Settings">
+            <Container>
                 {groups.map(group => {
                     return (
-                        <div key={group.name} className="Settings_Group">
-                            <div className="Settings_Group_Title">{group.name}</div>
+                        <Group key={group.name}>
+                            <Title>{group.name}</Title>
                             <ControlsGroup
                                 component={component}
                                 name={group.name}
@@ -27,10 +56,10 @@ export default class Settings extends Component {
                                 settings={settings}
                                 onChange={onChange}
                             />
-                        </div>
+                        </Group>
                     )
                 })}
-            </div>
+            </Container>
         )
     }
 }

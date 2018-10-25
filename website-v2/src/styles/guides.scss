@@ -13,42 +13,6 @@
     margin: 0 auto 50px;
 }
 
-.guide__illustrations {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
-
-.guide__illustrations__item {
-    width: 31%;
-    height: 200px;
-    border: 2px solid #333;
-    background: $main-background-color;
-}
-
-.guide__illustrations__legend {
-    font-style: italic;
-    text-align: center;
-    width: 100%;
-    font-size: 14px;
-    margin-top: 10px;
-    color: #777;
-}
-
-.guide__code {
-    background: white;
-    padding: 15px 25px;
-    font-size: 16px;
-    line-height: 26px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-    margin: 30px 0 50px;
-    overflow-x: auto;
-}
-
-.guide__code__comment {
-    color: #999;
-}
-
 .fill-sample {
     display: flex;
     align-items: flex-start;

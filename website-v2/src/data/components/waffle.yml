@@ -5,32 +5,16 @@ tags:
   - svg
   - isomorphic
 description: |
-  A waffle component. You can fully customize it using <code>cellComponent</code>{' '}
-                      property to define your own cell component, if you wish to do so you should have
-                      a look at{' '}
-                      <a
-                          href="https://github.com/plouc/nivo/blob/master/packages/nivo-waffle/src/WaffleCell.js"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                      >
-                          native SVG component
-                      </a>{' '}
-                      for available properties.
-                  </p>
-                  <p className="description">
-                      You can also see more example usages in{' '}
-                      <a
-                          href={`${config.storybookUrl}?selectedKind=Waffle&selectedStory=default`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                      >
-                          the storybook
-                      </a>
-                      .
-                  </p>
-                  <p className="description">
-                      The responsive alternative of this component is <code>ResponsiveWaffle</code>,
-                      it also offers other implementations, see{' '}
-                      <Link to="/waffle/html">WaffleHtml</Link> and{' '}
-                      <Link to="/waffle/canvas">WaffleCanvas</Link>.
-                  </p>
+  A waffle component.
+  You can fully customize it using `cellComponent`
+  property to define your own cell component,
+  if you wish to do so you should have a look
+  at [native SVG component](https://github.com/plouc/nivo/blob/master/packages/nivo-waffle/src/WaffleCell.js)
+  for available properties.
+
+  You can also see more example usages in
+  [the storybook](?selectedKind=Waffle&selectedStory=default).
+
+  The responsive alternative of this component is `ResponsiveWaffle`,
+  it also offers other implementations,
+  see [WaffleHtml](/waffle/html) and [WaffleCanvas](/waffle/canvas).

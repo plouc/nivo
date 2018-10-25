@@ -9,7 +9,8 @@
 
 .content {
     margin-top: $header-height;
-    margin-left: $mini-nav-width;
+    //margin-left: $mini-nav-width;
+    margin-left: 260px;
     overflow-x: hidden;
 }
 
@@ -23,10 +24,6 @@
     background-size: 100% 150px;
     background-repeat: no-repeat;
     background-position: top left;
-}
-
-.chart_header {
-    height: 130px;
 }
 
 .chart_header code {

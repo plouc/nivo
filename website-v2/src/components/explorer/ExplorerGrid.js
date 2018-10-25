@@ -8,7 +8,28 @@
  */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 import ExplorerGridItem from './ExplorerGridItem'
+
+// .components__grid
+const Container = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+`
+
+const Empty = styled.div`
+    margin-top: 120px;
+    text-align: center;
+`
+
+const EmptyIcon = styled.span`
+    font-size: 64px;
+    display: block;
+    margin-bottom: 50px;
+    white-space: pre;
+    color: ${({ theme }) => theme.colors.accent};
+`
 
 const getFilterFunction = (term, filter) => {
     let predicates = []
@@ -47,15 +68,15 @@ export default class ExplorerGrid extends Component {
 
         if (items.length === 0) {
             return (
-                <div className="components__grid__empty">
-                    <span className="components__grid__empty__icon">{`¯\\_(ツ)_/¯`}</span>
+                <Empty>
+                    <EmptyIcon>{`¯\\_(ツ)_/¯`}</EmptyIcon>
                     <div>no result, sorry…</div>
-                </div>
+                </Empty>
             )
         }
 
         return (
-            <div className="components__grid">
+            <Container>
                 {items.map(item => (
                     <ExplorerGridItem
                         key={`${item.package}.${item.component_id}`}
@@ -68,7 +89,7 @@ export default class ExplorerGrid extends Component {
                         onClick={onClick}
                     />
                 ))}
-            </div>
+            </Container>
         )
     }
 }

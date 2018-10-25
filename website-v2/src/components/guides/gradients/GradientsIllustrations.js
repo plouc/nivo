@@ -1,14 +1,19 @@
 import React from 'react'
+import { withTheme } from 'styled-components'
 import { linearGradientDef } from '@nivo/core'
 import { ResponsiveBar } from '@nivo/bar'
 import { ResponsiveStream } from '@nivo/stream'
 import { ResponsiveTreeMap } from '@nivo/treemap'
 import { generateCountriesData } from '@nivo/generators'
+import Banner from '../../Banner'
+import GuideIllustrations from '../GuideIllustrations'
+import GuideIllustrationsItem from '../GuideIllustrationsItem'
+import GuideIllustrationsLegend from '../GuideIllustrationsLegend'
 
-const GradientsIllustrations = () => (
-    <div className="banner">
-        <div className="guide__illustrations">
-            <div className="guide__illustrations__item">
+const GradientsIllustrations = ({ theme }) => (
+    <Banner>
+        <GuideIllustrations>
+            <GuideIllustrationsItem>
                 <ResponsiveStream
                     margin={{ top: -2, right: -2, bottom: -2, left: -2 }}
                     data={generateCountriesData(['a', 'b', 'c'], { size: 9 })}
@@ -42,9 +47,10 @@ const GradientsIllustrations = () => (
                     ]}
                     isInteractive={false}
                     animate={false}
+                    theme={theme.nivo}
                 />
-            </div>
-            <div className="guide__illustrations__item">
+            </GuideIllustrationsItem>
+            <GuideIllustrationsItem>
                 <ResponsiveBar
                     margin={{ top: 15, right: 10, bottom: -2, left: 10 }}
                     data={generateCountriesData(['a'], { size: 7 })}
@@ -68,9 +74,10 @@ const GradientsIllustrations = () => (
                     borderColor="inherit:darker(0.2)"
                     isInteractive={false}
                     animate={false}
+                    theme={theme.nivo}
                 />
-            </div>
-            <div className="guide__illustrations__item">
+            </GuideIllustrationsItem>
+            <GuideIllustrationsItem>
                 <ResponsiveTreeMap
                     margin={{ top: -2, right: -2, bottom: -2, left: -2 }}
                     root={{
@@ -94,13 +101,14 @@ const GradientsIllustrations = () => (
                         ]),
                     ]}
                     fill={[{ match: '*', id: 'example2' }]}
+                    theme={theme.nivo}
                 />
-            </div>
-            <div className="guide__illustrations__legend">
+            </GuideIllustrationsItem>
+            <GuideIllustrationsLegend>
                 gradients applied to various nivo components.
-            </div>
-        </div>
-    </div>
+            </GuideIllustrationsLegend>
+        </GuideIllustrations>
+    </Banner>
 )
 
-export default GradientsIllustrations
+export default withTheme(GradientsIllustrations)

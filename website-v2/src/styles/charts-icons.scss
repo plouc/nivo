@@ -1,0 +1,15 @@
+$icons: code data bar bullet calendar chord heatmap line parallel-coordinates pie radar sankey scatterplot stream sunburst treemap voronoi waffle;
+
+@each $icon in $icons {
+  .chart-icon-#{$icon}-grey,
+  .chart-icon-#{$icon}-red {
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .chart-icon-#{$icon}-grey {
+    background-image: url("../static/icons/#{$icon}-grey.png");
+  }
+  .chart-icon-#{$icon}-red {
+    background-image: url("../static/icons/#{$icon}-red.png");
+  }
+}

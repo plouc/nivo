@@ -8,11 +8,9 @@ export default {
         },
         ticks: {
             line: {
-                stroke: '#777',
                 strokeWidth: 1,
             },
             text: {
-                fill: '#000',
                 fontSize: 11,
             },
         },

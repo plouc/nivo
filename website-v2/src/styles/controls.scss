@@ -46,31 +46,6 @@
     color: #111;
 }
 
-.object-control_header {
-    padding: 5px 12px 7px;
-    font-weight: 600;
-    cursor: pointer;
-    user-select: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: $accent-color;
-    user-select: none;
-    border-bottom: 1px solid #ddd;
-}
-
-.object-control_header .control-help {
-    margin: 0;
-}
-
-.object-control_header:hover {
-    color: $accent-color-darker;
-}
-
-.object-control_header._is-opened {
-    background: $main-background-color;
-}
-
 @media only screen and (min-width: 760px) and (max-width: 1400px) {
     .chart-controls {
         grid-template-columns: 1fr 1fr;
@@ -98,7 +73,6 @@
         margin: 0;
         padding: 12px 16px;
     }
-    .object-control_header,
     .chart-controls_sub-header {
         grid-column: span 1;
         margin: 0;
@@ -162,14 +136,6 @@
     transform: translate3d($control-switch-width - $control-switch-height, 0, 0);
 }
 
-.control_label {
-    display: block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-bottom: 7px;
-}
-
 .chart-controls_item select {
     width: 100%;
 }
@@ -179,6 +145,9 @@
     color: #777;
     margin: 7px 0;
     line-height: 16px;
+}
+.control-help p {
+    margin: 0;
 }
 
 .colors_item_label {

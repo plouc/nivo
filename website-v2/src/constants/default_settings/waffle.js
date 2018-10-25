@@ -104,7 +104,8 @@ export const waffleHtml = {
 }
 
 export const waffleCanvas = {
-    pixelRatio: window && window.devicePixelRatio ? window.devicePixelRatio : 1,
+    pixelRatio:
+        typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
 
     total: 140,
 

@@ -7,12 +7,20 @@
  * file that was distributed with this source code.
  */
 import React, { Component, Fragment } from 'react'
-import { Axes } from '@nivo/core'
+import merge from 'lodash/merge'
+import { withTheme } from 'styled-components'
+import { Axes } from '@nivo/axes'
+import Banner from '../../Banner'
+import GuideIllustrations from '../GuideIllustrations'
 import { linearXScale, linearYScale } from './scales'
 import theme from './theme'
 
-export default class AxesPosition extends Component {
+class AxesPosition extends Component {
     render() {
+        const {
+            theme: { nivo: nivoTheme },
+        } = this.props
+
         return (
             <Fragment>
                 <div className="guide__description text-content">
@@ -22,8 +30,8 @@ export default class AxesPosition extends Component {
                         <strong>(top|right|bottom|left)Axis</strong>.
                     </p>
                 </div>
-                <div className="banner">
-                    <div className="guide__illustrations">
+                <Banner>
+                    <GuideIllustrations>
                         <svg role="img" width={380} height={260}>
                             <g transform="translate(50,50)">
                                 <Axes
@@ -31,36 +39,38 @@ export default class AxesPosition extends Component {
                                     yScale={linearYScale}
                                     width={280}
                                     height={160}
-                                    theme={theme}
+                                    theme={merge({}, nivoTheme, theme)}
                                     animate={false}
                                     motionStiffness={0}
                                     motionDamping={0}
                                     top={{
                                         legend: 'axisTop',
-                                        legendPosition: 'center',
+                                        legendPosition: 'middle',
                                         legendOffset: -32,
                                     }}
                                     right={{
                                         legend: 'axisRight',
-                                        legendPosition: 'center',
+                                        legendPosition: 'middle',
                                         legendOffset: 42,
                                     }}
                                     bottom={{
                                         legend: 'axisBottom',
-                                        legendPosition: 'center',
+                                        legendPosition: 'middle',
                                         legendOffset: 38,
                                     }}
                                     left={{
                                         legend: 'axisLeft',
-                                        legendPosition: 'center',
+                                        legendPosition: 'middle',
                                         legendOffset: -36,
                                     }}
                                 />
                             </g>
                         </svg>
-                    </div>
-                </div>
+                    </GuideIllustrations>
+                </Banner>
             </Fragment>
         )
     }
 }
+
+export default withTheme(AxesPosition)

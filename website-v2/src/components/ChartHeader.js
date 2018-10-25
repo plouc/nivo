@@ -1,5 +1,25 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
+
+// .chart_header
+const Header = styled.div`
+    flex-direction: column;
+    color: #fff;
+    margin-bottom: 50px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    position: relative;
+    height: 130px;
+`
+
+// .chart__title
+const Title = styled.h1`
+    display: flex;
+    align-items: center;
+    width: 100%;
+`
 
 class ChartHeader extends Component {
     shouldComponentUpdate() {
@@ -10,8 +30,8 @@ class ChartHeader extends Component {
         const { chartClass, tags } = this.props
 
         return (
-            <div className="chart_header">
-                <h1 className="chart__title">{chartClass}</h1>
+            <Header>
+                <Title>{chartClass}</Title>
                 <div className="component_meta">
                     {tags.map(tag => (
                         <span key={tag} className="component_meta_tag">
@@ -19,7 +39,7 @@ class ChartHeader extends Component {
                         </span>
                     ))}
                 </div>
-            </div>
+            </Header>
         )
     }
 }

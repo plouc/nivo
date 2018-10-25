@@ -109,7 +109,8 @@ export const heatmapCanvas = {
         left: 60,
     },
 
-    pixelRatio: window && window.devicePixelRatio ? window.devicePixelRatio : 1,
+    pixelRatio:
+        typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
 
     minValue: 'auto',
     maxValue: 'auto',
@@ -169,7 +170,7 @@ export const heatmapCanvas = {
         gamma: 0.4,
     },
 
-    enableLabels: true,
+    enableLabels: false,
     labelTextColor: {
         type: 'inherit:darker',
         gamma: 1.4,

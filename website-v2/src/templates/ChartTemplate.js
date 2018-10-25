@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
+import omit from 'lodash/omit'
 import { graphql } from 'gatsby'
-import ReactMarkdown from 'react-markdown'
 import GlobalLayout from '../layouts/GlobalLayout'
+import generateCode from '../lib/generateChartCode'
 import ChartHeader from '../components/ChartHeader'
 import ChartTabs from '../components/ChartTabs'
 import ComponentPropsDoc from '../components/ComponentPropsDoc'
@@ -12,6 +13,7 @@ import componentsDataGenerators from '../constants/data_generators'
 import componentsDefaultSettings from '../constants/default_settings'
 import { getSettingsMapper } from '../constants/settings_mappers'
 import { getPropertiesGroupsControls } from '../lib/componentProperties'
+import ChartMeta from '../components/ChartMeta'
 
 export default class ChartTemplate extends Component {
     state = {}
@@ -26,8 +28,8 @@ export default class ChartTemplate extends Component {
             const settingsMapper = getSettingsMapper(pkg, component_id)
 
             return {
-                data: generateData(),
-                settings: { ...defaultSettings },
+                data: generateData ? generateData() : {},
+                settings: defaultSettings ? { ...defaultSettings } : {},
                 settingsMapper,
             }
         }
@@ -56,13 +58,30 @@ export default class ChartTemplate extends Component {
         const { info, props } = data
         const { data: chartData, settings, settingsMapper } = this.state
 
+        if (!info) {
+            console.error('NO INFO', pageContext)
+            return null
+        }
+
         const ChartComponent = componentsMapping[pkg][component_id]
         const mappedSettings = settingsMapper(settings)
 
+        const code = generateCode(
+            `Responsive${info.component}`,
+            {
+                ...omit(chartData, [data_key]),
+                ...mappedSettings,
+            },
+            { pkg: `@nivo/${pkg}`, defaults: {} }
+        )
+
         const description = (
-            <div className="chart-description">
-                <ReactMarkdown source={info.description} />
-            </div>
+            <div
+                className="chart-description"
+                dangerouslySetInnerHTML={{
+                    __html: info.description,
+                }}
+            />
         )
 
         let stories = null
@@ -72,7 +91,7 @@ export default class ChartTemplate extends Component {
 
         let settingsElement = null
         if (props && data && settings) {
-            const groups = getPropertiesGroupsControls(props.props, data.info.component)
+            const groups = getPropertiesGroupsControls(props.props, info.component)
             settingsElement = (
                 <Settings
                     component={info.component}
@@ -85,32 +104,45 @@ export default class ChartTemplate extends Component {
 
         return (
             <GlobalLayout>
-                {settingsElement}
-                <div className="inner-content bar_page">
-                    <div className="page_content grid">
-                        <div className="chart-page_main">
-                            {chartData && (
-                                <ChartTabs
-                                    chartClass="bar"
-                                    code={''}
-                                    data={chartData[data_key]}
-                                    diceRoll={this.diceRoll}
-                                >
-                                    <ChartComponent {...chartData} {...mappedSettings} />
-                                </ChartTabs>
-                            )}
-                            <ComponentPropsDoc
-                                component={info.component}
-                                properties={props ? props.props : []}
-                            />
+                {({ theme }) => (
+                    <Fragment>
+                        <ChartMeta
+                            location={this.props.location}
+                            package={pkg}
+                            component={info.component}
+                        />
+                        {settingsElement}
+                        <div className="inner-content bar_page">
+                            <div className="page_content grid">
+                                <div className="chart-page_main">
+                                    {chartData && (
+                                        <ChartTabs
+                                            chartClass={pkg}
+                                            code={code}
+                                            data={chartData[data_key]}
+                                            diceRoll={this.diceRoll}
+                                        >
+                                            <ChartComponent
+                                                {...chartData}
+                                                {...mappedSettings}
+                                                theme={theme.nivo}
+                                            />
+                                        </ChartTabs>
+                                    )}
+                                    <ComponentPropsDoc
+                                        component={info.component}
+                                        properties={props ? props.props : []}
+                                    />
+                                </div>
+                                <div className="chart-page_aside">
+                                    <ChartHeader chartClass={info.component} tags={info.tags} />
+                                    {description}
+                                    {stories}
+                                </div>
+                            </div>
                         </div>
-                        <div className="chart-page_aside">
-                            <ChartHeader chartClass={info.component} tags={info.tags} />
-                            {description}
-                            {stories}
-                        </div>
-                    </div>
-                </div>
+                    </Fragment>
+                )}
             </GlobalLayout>
         )
     }
@@ -150,6 +182,7 @@ export const query = graphql`
                     disabledValue
                     defaultValue
                     withCustomColor
+                    includeSequential
                     choices {
                         label
                         value

@@ -4,17 +4,14 @@
 @import 'normalize';
 
 @import 'layout';
-@import 'header';
 @import 'grid';
 @import 'controls';
 @import 'component-settings';
-@import 'card';
+@import 'charts-icons';
 @import 'tabs';
 @import 'charts';
-@import 'stories';
 @import 'components';
 @import 'component-props';
-@import 'explorer-grid';
 @import 'guides';
 @import 'home';
 @import 'mq';
@@ -28,8 +25,6 @@
 html,
 body {
   margin: 0;
-  background: $main-background-color;
-  color: $main-text-color;
   font-size: 16px;
   line-height: 1.6em;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif,
@@ -184,32 +179,4 @@ code,
 .chart-description {
   max-width: 600px;
   margin-bottom: 40px;
-}
-
-.banner {
-  background: white;
-  margin-bottom: 40px;
-  padding: 20px;
-}
-
-.dice-roll {
-  position: absolute;
-  top: 7px;
-  right: 10px;
-  display: block;
-  padding: 8px 10px;
-  height: 32px;
-  line-height: 1em;
-  border-radius: 2px;
-  background: #fff;
-  color: $accent-color;
-  cursor: pointer;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.12);
-  font-weight: 600;
-  font-size: 15px;
-  white-space: pre;
-}
-.dice-roll:hover {
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
-  color: $accent-color-darker;
 }

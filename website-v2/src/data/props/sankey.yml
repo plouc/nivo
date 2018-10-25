@@ -91,16 +91,21 @@ props:
         - label: left
           value: left
 
- #    {
- #        key: 'colors',
- #        scopes: '*',
- #        description: 'Defines how to compute nodes color.',
- #        type: '{string|Function|Array}',
- #        required: false,
- #        default: 'nivo',
- #        control: 'colors',
- #        group: 'Base',
- #    },
+  - key: colors
+    description: |
+      Defines how to compute nodes color.
+    type: '{string|Function|Array}'
+    required: false
+    default: nivo
+    control: colors
+    group: Base
+
+  - key: margin
+    description: |
+      Control chart's margins
+    type: '{object}'
+    control: margin
+    group: Base
 
   - key: nodeWidth
     description: |
@@ -181,25 +186,20 @@ props:
       unit: px
       min: 0
       max: 10
- #    {
- #        key: 'nodeBorderColor',
- #        scopes: '*',
- #        description: (
- #            <span>
- #                how to compute node border color,{' '}
- #                <Link to="/guides/colors">see dedicated documentation</Link>.
- #            </span>
- #        ),
- #        help: 'Method to compute node border color.',
- #        type: '{string|Function}',
- #        required: false,
- #        default: defaults.nodeBorderColor,
- #        control: 'color',
- #        group: 'Nodes',
- #        controlOptions: {
- #            withCustomColor: true,
- #        },
- #    },
+
+  - key: nodeBorderColor
+    description: |
+      How to compute node border color,
+      see [dedicated documentation](/guides/colors).
+    help: |
+      Method to compute node border color.
+    type: '{string|Function}'
+    required: false
+    default: defaults.nodeBorderColor
+    control: color
+    group: Nodes
+    controlOptions:
+      withCustomColor: true
 
   - key: linkOpacity
     description: |
@@ -258,12 +258,14 @@ props:
     control: choices
     group: Links
     controlOptions:
-    choices:
-      - label: normal
-        value: normal
- #                'normal',
- #                'multiply',
- #                'screen',
+      choices:
+        - label: normal
+          value: normal
+        - label: multiply
+          value: multiply
+        - label: screen
+          value: screen
+
  #                'overlay',
  #                'darken',
  #                'lighten',
@@ -315,40 +317,33 @@ props:
           value: inside
         - label: outside
           value: outside
- #    {
- #        key: 'labelPadding',
- #        scopes: '*',
- #        description: 'Label padding from node (px).',
- #        required: false,
- #        default: defaults.labelPadding,
- #        type: '{number}',
- #        control: 'range',
- #        group: 'Labels',
- #        controlOptions: {
- #            unit: 'px',
- #            min: 0,
- #            max: 60,
- #        },
- #    },
- #    {
- #        key: 'labelTextColor',
- #        scopes: '*',
- #        description: (
- #            <span>
- #                how to compute label text color,{' '}
- #                <Link to="/guides/colors">see dedicated documentation</Link>.
- #            </span>
- #        ),
- #        help: 'Method to compute label text color.',
- #        type: '{string|Function}',
- #        required: false,
- #        default: defaults.labelTextColor,
- #        control: 'color',
- #        group: 'Labels',
- #        controlOptions: {
- #            withCustomColor: true,
- #        },
- #    },
+
+  - key: labelPadding
+    description: |
+      Label padding from node (px).
+    required: false
+    default: defaults.labelPadding
+    type: '{number}'
+    control: range
+    group: Labels
+    controlOptions:
+      unit: px
+      min: 0
+      max: 60
+
+  - key: labelTextColor
+    description: |
+      How to compute label text color,
+      see [dedicated documentation](/guides/colors).
+    help: |
+      Method to compute label text color.
+    type: '{string|Function}'
+    required: false
+    default: defaults.labelTextColor
+    control: color
+    group: Labels
+    controlOptions:
+      withCustomColor: true
 
   - key: labelOrientation
     description: |
@@ -365,8 +360,6 @@ props:
         - label: vertical
           value: vertical
 
- #    ...marginProperties,
-
   - key: isInteractive
     scopes:
       - Sankey
@@ -378,4 +371,4 @@ props:
     control: switch
     group: Interactivity
 
- #    ...motionProperties(['Sankey'], defaults),
+# motionProperties(['Sankey'], defaults),

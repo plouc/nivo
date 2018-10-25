@@ -1,11 +1,23 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 import isPlainObject from 'lodash/isPlainObject'
 import isArray from 'lodash/isArray'
 import isString from 'lodash/isString'
 import isNumber from 'lodash/isNumber'
 import isBoolean from 'lodash/isBoolean'
 import isFunction from 'lodash/isFunction'
+
+const Item = styled.div`
+    padding: 12px 24px;
+    border-top: 1px solid ${({ theme }) => theme.colors.border};
+    font-size: 14px;
+    line-height: 1.6em;
+
+    &:nth-child(even) {
+        background: ${({ theme }) => theme.colors.cardAltBackground};
+    }
+`
 
 const defaultValue = value => {
     if (isPlainObject(value)) {
@@ -68,17 +80,17 @@ export default class ComponentPropsList extends PureComponent {
                                 </span>
                             )}{' '}
                             | default:&nbsp;
-                            {prop.default !== undefined ? defaultValue(prop.default) : '—'}
+                            {prop.default !== undefined && prop.default !== null
+                                ? defaultValue(prop.default)
+                                : '—'}
                         </div>
                     )
 
                     return (
-                        <div
+                        <Item
                             key={prop.key}
                             id={`prop-${prop.key}`}
-                            className={`component-properties__item${
-                                compact ? ' component-properties__item--compact' : ''
-                            }`}
+                            className={compact ? ' component-properties__item--compact' : ''}
                         >
                             <div className="component-properties__item__header">
                                 <span className="component-properties__item__key">
@@ -95,10 +107,13 @@ export default class ComponentPropsList extends PureComponent {
                                 {compact && meta}
                             </div>
                             {!compact && meta}
-                            <div className="component-properties__item__body">
-                                {prop.description}
-                            </div>
-                        </div>
+                            <div
+                                className="component-properties__item__body"
+                                dangerouslySetInnerHTML={{
+                                    __html: prop.description,
+                                }}
+                            />
+                        </Item>
                     )
                 })}
             </div>

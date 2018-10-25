@@ -105,7 +105,8 @@ export const parallelCoordinatesCanvas = {
     lineOpacity: 0.2,
     axesPlan: defaultProps.axesPlan,
     axesTicksPosition: defaultProps.axesTicksPosition,
-    pixelRatio: window && window.devicePixelRatio ? window.devicePixelRatio : 1,
+    pixelRatio:
+        typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
     theme: merge({}, theme, {
         axis: {
             ticks: {

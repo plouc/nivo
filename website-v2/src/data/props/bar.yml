@@ -1,5 +1,11 @@
 props_id: bar
 props:
+  - key: keys
+    description: Keys to use to determine each serie.
+    type: '{Array.<string>}'
+    required: false
+    default: defaults.keys
+
   - key: data
     description: Chart data.
     type: '{Array.<Object>}'
@@ -13,12 +19,6 @@ props:
     type: '{string|Function}'
     required: false
     default: defaults.indexBy
-
-  - key: keys
-    description: Keys to use to determine each serie.
-    type: '{Array.<string>}'
-    required: false
-    default: defaults.keys
 
   - key: width
     scopes:

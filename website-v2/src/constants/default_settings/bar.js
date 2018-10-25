@@ -141,7 +141,8 @@ export const barCanvas = {
         left: 60,
     },
 
-    pixelRatio: window && window.devicePixelRatio ? window.devicePixelRatio : 1,
+    pixelRatio:
+        typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
 
     padding: 0.15,
     innerPadding: 0,

@@ -4,12 +4,10 @@ component: WaffleCanvas
 tags:
   - canvas
 description: |
-  A variation around the <Link to="/waffle">Waffle</Link> component. Well suited
-                      for large data sets as it does not impact DOM tree depth and does not involve
-                      React diffing stuff for children (not that useful when using canvas), however
-                      you'll lose the isomorphic ability and transitions (for now).
-                  </p>
-                  <p className="description">
+  A variation around the [Waffle](/waffle) component.
+  Well suited for large data sets as it does not impact DOM tree depth,
+  however you'll lose the isomorphic ability and transitions (for now).
+
                       You can also see more example usages in{' '}
                       <a
                           href={`${

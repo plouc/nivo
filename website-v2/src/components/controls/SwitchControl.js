@@ -18,20 +18,23 @@ export default class SwitchControl extends Component {
         const { id, label, value, onChange, help } = this.props
 
         return (
-            <div className="chart-controls_item">
-                <span className="control-switch">
-                    <input
-                        className="cmn-toggle"
-                        id={id}
-                        type="checkbox"
-                        checked={value}
-                        onChange={onChange}
-                    />
-                    <label htmlFor={id} />
-                </span>
-                &nbsp;
-                <label htmlFor={id}>{label}</label>
-                <div className="control-help">{help}</div>
+            <div className="Control">
+                <div className="SwitchControl no-select">
+                    <label className="control_label" htmlFor={id}>
+                        {label}
+                    </label>
+                    <span className="control-switch">
+                        <input
+                            className="cmn-toggle"
+                            id={id}
+                            type="checkbox"
+                            checked={value}
+                            onChange={onChange}
+                        />
+                        <label htmlFor={id} />
+                    </span>
+                </div>
+                {/*<div className="control-help">{help}</div>*/}
             </div>
         )
     }

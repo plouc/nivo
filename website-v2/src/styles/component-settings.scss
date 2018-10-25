@@ -12,33 +12,13 @@
   font-size: 12px;
 }
 
-.Settings_Group {
-  border-top: 1px solid #ccc;
-}
-
-.Settings_Group_Title {
-  border-bottom: 1px solid #ccc;
-  padding: 9px 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  font-size: 12px;
-  line-height: 1em;
-}
-
 .Control {
   padding: 3px 12px;
-  background: #f7fafb;
-}
-
-.Control .control_label {
-  margin: 0;
+  //background: #f7fafb;
 }
 
 .SwitchControl {
-  display: grid;
-  grid-template-columns: 4fr 6fr;
   cursor: pointer;
-  align-items: center;
 }
 
 .RangeControl {
@@ -52,13 +32,6 @@
   height: 28px;
   position: relative;
   font-size: 12px;
-}
-
-.RangeControl input[type=text] {
-  width: 100%;
-  font-size: 12px;
-  height: 28px;
-  padding: 0 5px;
 }
 
 .RangeControl input[type=range] {
@@ -76,32 +49,12 @@
   pointer-events: none;
 }
 
-.ChoicesControl {
-  display: grid;
-  grid-template-columns: 4fr 6fr;
-  grid-column-gap: 6px;
-  align-items: center;
-}
-
 .SwitchableRangeControl_Header {
   padding: 3px 12px;
-  background: #f7fafb;
   align-items: center;
   display: grid;
   grid-template-columns: 4fr 2fr 4fr;
-}
-
-.TextControl {
-  align-items: center;
-  display: grid;
-  grid-template-columns: 4fr 6fr;
-}
-
-.TextControl input[type=text] {
-  width: 100%;
-  font-size: 12px;
-  height: 28px;
-  padding: 0 5px;
+  grid-column-gap: 6px;
 }
 
 .MarginControl {
@@ -138,19 +91,24 @@
 
 .MarginControl input[type=text] {
   width: 60px;
-  font-size: 12px;
-  height: 28px;
-  padding: 0 5px;
-}
-
-.RadioControl {
-  align-items: center;
-  display: grid;
-  grid-template-columns: 4fr 6fr;
 }
 
 .RadioControl_Choices {
   display: grid;
   justify-items: start;
   align-items: center;
+}
+
+.SwitchControl,
+.RadioControl,
+.ChoicesControl,
+.TextControl,
+.ColorsControl,
+.QuantizeColorsControl,
+.ColorControl_Selector,
+.ColorControl_Settings {
+  align-items: center;
+  display: grid;
+  grid-template-columns: 4fr 6fr;
+  grid-column-gap: 6px;
 }

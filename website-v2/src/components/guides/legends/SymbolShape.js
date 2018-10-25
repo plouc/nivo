@@ -2,6 +2,7 @@ import React from 'react'
 import dedent from 'dedent-js'
 import { LegendSvgItem, DIRECTION_LEFT_TO_RIGHT } from '@nivo/legends'
 import theme from '../../../styles/nivoTheme'
+import GuideCode from '../GuideCode'
 
 const shapes = ['square', 'circle', 'triangle', 'diamond']
 
@@ -57,7 +58,7 @@ export default () => (
         <p>
             You can also use a custom shape passing a component to <code>symbolShape</code>:
         </p>
-        <pre className="code-block guide__code">
+        <GuideCode className="code-block">
             {dedent`const CustomSymbolShape = ({
                 x, y, size, fill, borderWidth, borderColor
             }) => (
@@ -73,6 +74,6 @@ export default () => (
                     style={{ pointerEvents: 'none' }}
                 />
             )`}
-        </pre>
+        </GuideCode>
     </div>
 )

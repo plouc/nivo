@@ -83,7 +83,8 @@ export const pieCanvas = {
         left: 80,
     },
 
-    pixelRatio: window && window.devicePixelRatio ? window.devicePixelRatio : 1,
+    pixelRatio:
+        typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
 
     startAngle: 0,
     endAngle: 360,

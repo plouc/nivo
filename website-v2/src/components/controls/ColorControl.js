@@ -8,7 +8,7 @@
  */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Select from 'react-select'
+import Select from './Select'
 import { mapInheritedColor } from '../../lib/settings'
 
 const hasGammaModifier = type => ['inherit:darker', 'inherit:brighter'].includes(type)
@@ -72,30 +72,28 @@ class ColorControl extends Component {
         if (withCustomColor) options.unshift({ value: 'custom', label: 'custom' })
 
         return (
-            <div className="control control-color">
-                <label className="control_label">
-                    {label}:{' '}
-                    <code className="code code-string">
-                        '{mapInheritedColor({ type, ...config })}'
-                    </code>
-                </label>
-                <div>
+            <div className="Control">
+                <div className="ColorControl_Selector">
+                    <label className="control_label">{label}</label>
                     <Select
                         options={options}
                         onChange={this.handleTypeChange}
-                        value={type}
+                        value={{
+                            label: mapInheritedColor({ type, ...config }),
+                            value: type,
+                        }}
                         clearable={false}
                     />
                 </div>
                 {type === 'custom' && (
-                    <div>
-                        <div className="control-help">Color</div>
+                    <div className="ColorControl_Settings">
+                        <div className="control-help">custom color</div>
                         <input type="color" onChange={this.handleCustomColorChange} value={color} />
                     </div>
                 )}
                 {hasGammaModifier(type) && (
-                    <div>
-                        <div className="control-help">Adjust gamma.</div>
+                    <div className="ColorControl_Settings">
+                        <div className="control-help">adjust gamma</div>
                         <input
                             ref="gamma"
                             type="range"
@@ -107,7 +105,7 @@ class ColorControl extends Component {
                         />
                     </div>
                 )}
-                <div className="control-help">{help}</div>
+                {/*<div className="control-help">{help}</div>*/}
             </div>
         )
     }

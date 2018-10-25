@@ -1,14 +1,19 @@
 import React from 'react'
+import { withTheme } from 'styled-components'
 import { patternDotsDef, patternLinesDef, patternSquaresDef } from '@nivo/core'
 import { ResponsiveBar } from '@nivo/bar'
 import { ResponsiveStream } from '@nivo/stream'
 import { ResponsiveTreeMap } from '@nivo/treemap'
 import { generateCountriesData } from '@nivo/generators'
+import Banner from '../../Banner'
+import GuideIllustrations from '../GuideIllustrations'
+import GuideIllustrationsItem from '../GuideIllustrationsItem'
+import GuideIllustrationsLegend from '../GuideIllustrationsLegend'
 
-const PatternsIllustrations = () => (
-    <div className="banner">
-        <div className="guide__illustrations">
-            <div className="guide__illustrations__item">
+const PatternsIllustrations = ({ theme }) => (
+    <Banner>
+        <GuideIllustrations>
+            <GuideIllustrationsItem>
                 <ResponsiveStream
                     margin={{ top: -2, right: -2, bottom: -2, left: -2 }}
                     data={generateCountriesData(['a', 'b', 'c'], { size: 7 })}
@@ -50,9 +55,10 @@ const PatternsIllustrations = () => (
                     borderColor="#333"
                     isInteractive={false}
                     animate={false}
+                    theme={theme.nivo}
                 />
-            </div>
-            <div className="guide__illustrations__item">
+            </GuideIllustrationsItem>
+            <GuideIllustrationsItem>
                 <ResponsiveBar
                     margin={{ top: 15, right: -2, bottom: -2, left: -2 }}
                     data={generateCountriesData(['a'], { size: 7 })}
@@ -96,9 +102,10 @@ const PatternsIllustrations = () => (
                     borderColor="inherit"
                     isInteractive={false}
                     animate={false}
+                    theme={theme.nivo}
                 />
-            </div>
-            <div className="guide__illustrations__item">
+            </GuideIllustrationsItem>
+            <GuideIllustrationsItem>
                 <ResponsiveTreeMap
                     margin={{ top: -2, right: -2, bottom: -2, left: -2 }}
                     root={{
@@ -125,13 +132,14 @@ const PatternsIllustrations = () => (
                         }),
                     ]}
                     fill={[{ match: '*', id: 'example3.lines' }]}
+                    theme={theme.nivo}
                 />
-            </div>
-            <div className="guide__illustrations__legend">
+            </GuideIllustrationsItem>
+            <GuideIllustrationsLegend>
                 patterns applied to various nivo components.
-            </div>
-        </div>
-    </div>
+            </GuideIllustrationsLegend>
+        </GuideIllustrations>
+    </Banner>
 )
 
-export default PatternsIllustrations
+export default withTheme(PatternsIllustrations)

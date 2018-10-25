@@ -19,19 +19,19 @@ export const treemap = {
     label: 'loc',
     labelFormat: '.0s',
     labelSkipSize: 12,
-    // labelTextColor: {
-    //     type: 'inherit:darker',
-    //     gamma: 1.2,
-    // },
+    labelTextColor: {
+        type: 'inherit:darker',
+        gamma: 1.2,
+    },
     orientLabel: true,
 
     colors: 'nivo',
     colorBy: 'depth',
     borderWidth: 0,
-    // borderColor: {
-    //     type: 'inherit:darker',
-    //     gamma: 0.3,
-    // },
+    borderColor: {
+        type: 'inherit:darker',
+        gamma: 0.3,
+    },
 
     animate: true,
     motionStiffness: 90,
@@ -61,19 +61,19 @@ export const treemapHtml = {
     label: 'loc',
     labelFormat: '.0s',
     labelSkipSize: 12,
-    // labelTextColor: {
-    //     type: 'inherit:darker',
-    //     gamma: 1.2,
-    // },
+    labelTextColor: {
+        type: 'inherit:darker',
+        gamma: 1.2,
+    },
     orientLabel: true,
 
     colors: 'set2',
     colorBy: 'name',
     borderWidth: 0,
-    // borderColor: {
-    //     type: 'inherit:darker',
-    //     gamma: 0.3,
-    // },
+    borderColor: {
+        type: 'inherit:darker',
+        gamma: 0.3,
+    },
 
     animate: true,
     motionStiffness: 90,
@@ -97,24 +97,25 @@ export const treemapCanvas = {
         left: 10,
     },
 
-    pixelRatio: window && window.devicePixelRatio ? window.devicePixelRatio : 1,
+    pixelRatio:
+        typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
 
     enableLabel: true,
     labelFormat: '.0s',
     labelSkipSize: 18,
-    // labelTextColor: {
-    //     type: 'inherit:darker',
-    //     gamma: 1.6,
-    // },
+    labelTextColor: {
+        type: 'inherit:darker',
+        gamma: 1.6,
+    },
     orientLabel: true,
 
     colors: 'paired',
     colorBy: 'id',
     borderWidth: 1,
-    // borderColor: {
-    //     type: 'inherit:darker',
-    //     gamma: 0.8,
-    // },
+    borderColor: {
+        type: 'inherit:darker',
+        gamma: 0.8,
+    },
 
     isInteractive: true,
 

@@ -17,10 +17,10 @@ export const sankey = {
     nodePaddingX: 0,
     nodePaddingY: 12,
     nodeBorderWidth: 1,
-    // nodeBorderColor: {
-    //     type: 'inherit:darker',
-    //     gamma: 0.8,
-    // },
+    nodeBorderColor: {
+        type: 'inherit:darker',
+        gamma: 0.8,
+    },
 
     linkOpacity: 0.25,
     linkHoverOpacity: 0.6,
@@ -33,10 +33,10 @@ export const sankey = {
     labelPosition: 'outside',
     labelOrientation: 'vertical',
     labelPadding: 16,
-    // labelTextColor: {
-    //     type: 'inherit:darker',
-    //     gamma: 1,
-    // },
+    labelTextColor: {
+        type: 'inherit:darker',
+        gamma: 1,
+    },
 
     animate: true,
     motionStiffness: 120,

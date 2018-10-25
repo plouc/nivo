@@ -1,24 +1,25 @@
 import React from 'react'
+import GuideCode, { GuideCodeComment } from '../GuideCode'
 
 const GradientsExample = () => (
-    <pre className="code-block guide__code">
+    <GuideCode className="code-block">
         <span>{`import { linearGradientDef } from '@nivo/core'\n`}</span>
         <span>{`import { Stream } from '@nivo/stream'\n\n`}</span>
         <span>{`const MyChart = () => (\n`}</span>
         <span>{`  <Stream\n`}</span>
         {`    data={[`}
-        <span className="guide__code__comment">{`/*…*/`}</span>
+        <GuideCodeComment>{`/*…*/`}</GuideCodeComment>
         {`]}\n`}
         <span>{`    keys={['react', 'vue', 'elm']}\n`}</span>
         {`    `}
-        <span className="guide__code__comment">{`// defining gradients`}</span>
+        <GuideCodeComment>{`// defining gradients`}</GuideCodeComment>
         {'\n'}
         {`    defs={[\n`}
         {`      `}
-        <span className="guide__code__comment">{`// using helpers`}</span>
+        <GuideCodeComment>{`// using helpers`}</GuideCodeComment>
         {'\n'}
         {`      `}
-        <span className="guide__code__comment">{`// will inherit colors from current element`}</span>
+        <GuideCodeComment>{`// will inherit colors from current element`}</GuideCodeComment>
         {'\n'}
         {`      linearGradientDef('gradientA', [\n`}
         {`        { offset: 0, color: 'inherit' },\n`}
@@ -29,7 +30,7 @@ const GradientsExample = () => (
         {`        { offset: 100, color: 'inherit' },\n`}
         {`      ]),\n`}
         {`      `}
-        <span className="guide__code__comment">{`// using plain object`}</span>
+        <GuideCodeComment>{`// using plain object`}</GuideCodeComment>
         {'\n'}
         {`      {\n`}
         {`        id: 'gradientC',\n`}
@@ -41,28 +42,28 @@ const GradientsExample = () => (
         {`      },\n`}
         {`    ]}\n`}
         {`      `}
-        <span className="guide__code__comment">{`// defining rules to apply those patterns`}</span>
+        <GuideCodeComment>{`// defining rules to apply those patterns`}</GuideCodeComment>
         {'\n'}
         {`    fill={[\n`}
         {`      `}
-        <span className="guide__code__comment">{`// match using object query`}</span>
+        <GuideCodeComment>{`// match using object query`}</GuideCodeComment>
         {'\n'}
         {`      { match: { id: 'react' }, id: 'gradientA' },\n`}
         {`      `}
-        <span className="guide__code__comment">{`// match using function`}</span>
+        <GuideCodeComment>{`// match using function`}</GuideCodeComment>
         {'\n'}
         {`      { match: d => d.id === 'vue', id: 'gradientB' },\n`}
         {`      `}
-        <span className="guide__code__comment">{`// match all, will only affect 'elm' because once`}</span>
+        <GuideCodeComment>{`// match all, will only affect 'elm' because once`}</GuideCodeComment>
         {'\n'}
         {`      `}
-        <span className="guide__code__comment">{`// a rule match, others are skipped`}</span>
+        <GuideCodeComment>{`// a rule match, others are skipped`}</GuideCodeComment>
         {'\n'}
         {`      { match: '*', id: 'gradientC' },\n`}
         {`    ]}\n`}
         {`  />\n`}
         {`)`}
-    </pre>
+    </GuideCode>
 )
 
 export default GradientsExample
