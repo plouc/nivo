@@ -97,7 +97,7 @@ export default class HeatMap extends Component {
             },
 
             // labels
-            enableLabels: true,
+            enableLabels: false,
             labelTextColor: {
                 type: 'inherit:darker',
                 gamma: 1.4,

@@ -10,25 +10,32 @@
 /**
  * Render heatmap rect cell.
  *
- * @param {Object} ctx
- * @param {number} x
- * @param {number} y
- * @param {number} width
- * @param {number} height
- * @param {string) color
- * @param {number} opacity
- * @param {string} labelTextColor
- * @param {number} value
+ * @param {Object}  ctx
+ * @param {boolean} enableLabels
+ * @param {number}  x
+ * @param {number}  y
+ * @param {number}  width
+ * @param {number}  height
+ * @param {string)  color
+ * @param {number}  opacity
+ * @param {string}  labelTextColor
+ * @param {number}  value
  */
-export const renderRect = (ctx, { x, y, width, height, color, opacity, labelTextColor, value }) => {
+export const renderRect = (
+    ctx,
+    { enableLabels },
+    { x, y, width, height, color, opacity, labelTextColor, value }
+) => {
     ctx.save()
     ctx.globalAlpha = opacity
 
     ctx.fillStyle = color
     ctx.fillRect(x - width / 2, y - height / 2, width, height)
 
-    ctx.fillStyle = labelTextColor
-    ctx.fillText(value, x, y)
+    if (enableLabels === true) {
+        ctx.fillStyle = labelTextColor
+        ctx.fillText(value, x, y)
+    }
 
     ctx.restore()
 }
@@ -36,18 +43,20 @@ export const renderRect = (ctx, { x, y, width, height, color, opacity, labelText
 /**
  * Render heatmap circle cell.
  *
- * @param {Object} ctx
- * @param {number} x
- * @param {number} y
- * @param {number} width
- * @param {number} height
- * @param {string) color
- * @param {number} opacity
- * @param {string} labelTextColor
- * @param {number} value
+ * @param {Object}  ctx
+ * @param {boolean} enableLabels
+ * @param {number}  x
+ * @param {number}  y
+ * @param {number}  width
+ * @param {number}  height
+ * @param {string)  color
+ * @param {number}  opacity
+ * @param {string}  labelTextColor
+ * @param {number}  value
  */
 export const renderCircle = (
     ctx,
+    { enableLabels },
     { x, y, width, height, color, opacity, labelTextColor, value }
 ) => {
     ctx.save()
@@ -60,8 +69,10 @@ export const renderCircle = (
     ctx.arc(x, y, radius, 0, 2 * Math.PI)
     ctx.fill()
 
-    ctx.fillStyle = labelTextColor
-    ctx.fillText(value, x, y)
+    if (enableLabels === true) {
+        ctx.fillStyle = labelTextColor
+        ctx.fillText(value, x, y)
+    }
 
     ctx.restore()
 }

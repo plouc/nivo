@@ -68,6 +68,7 @@ class HeatMap extends Component {
             enableGridY,
 
             // labels
+            enableLabels,
             getLabelTextColor,
 
             // theming
@@ -151,6 +152,7 @@ class HeatMap extends Component {
                                         opacity: node.opacity,
                                         borderWidth: cellBorderWidth,
                                         borderColor: getCellBorderColor(node),
+                                        enableLabel: enableLabels,
                                         textColor: getLabelTextColor(node),
                                         onHover: partial(onHover, node),
                                         onLeave,
@@ -201,6 +203,7 @@ class HeatMap extends Component {
                                                                 ...node,
                                                                 color,
                                                             }),
+                                                            enableLabel: enableLabels,
                                                             textColor: getLabelTextColor({
                                                                 ...node,
                                                                 color,
