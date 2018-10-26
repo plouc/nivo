@@ -9,12 +9,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
-import { motionPropTypes } from '@nivo/core'
-import { SmartMotion } from '@nivo/core'
+import { motionPropTypes, SmartMotion, blendModePropType } from '@nivo/core'
 
 const LineAreas = ({
     areaGenerator,
     areaOpacity,
+    areaBlendMode,
     lines,
     animate,
     motionStiffness,
@@ -33,6 +33,9 @@ const LineAreas = ({
                             fill={areaColor}
                             fillOpacity={areaOpacity}
                             strokeWidth={0}
+                            style={{
+                                mixBlendMode: areaBlendMode,
+                            }}
                         />
                     ))}
             </g>
@@ -64,6 +67,7 @@ const LineAreas = ({
                                 fill={areaColor}
                                 fillOpacity={areaOpacity}
                                 strokeWidth={0}
+                                style={{ mixBlendMode: areaBlendMode }}
                             />
                         )}
                     </SmartMotion>
@@ -74,7 +78,7 @@ const LineAreas = ({
 
 LineAreas.propTypes = {
     areaOpacity: PropTypes.number.isRequired,
-    // motion
+    areaBlendMode: blendModePropType.isRequired,
     ...motionPropTypes,
 }
 

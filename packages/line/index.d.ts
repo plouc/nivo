@@ -67,6 +67,7 @@ declare module '@nivo/line' {
 
         enableArea?: boolean
         areaOpacity?: number
+        areaBlendMode?: string
         areaBaselineValue?: number | string | Date
 
         markers?: CartesianMarkerProps[]

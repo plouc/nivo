@@ -89,7 +89,8 @@ export default {
     dotLabel: 'y',
     dotLabelYOffset: -12,
 
-    enableArea: false,
+    enableArea: true,
+    areaBlendMode: 'normal',
     areaBaselineValue: 0,
     areaOpacity: 0.2,
 

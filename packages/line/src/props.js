@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
-import { lineCurvePropType } from '@nivo/core'
+import { lineCurvePropType, blendModePropType } from '@nivo/core'
 import { axisPropType } from '@nivo/axes'
 import { scalePropType } from '@nivo/scales'
 import { LegendPropShape } from '@nivo/legends'
@@ -71,6 +71,7 @@ export const LinePropTypes = {
     getColor: PropTypes.func.isRequired,
     enableArea: PropTypes.bool.isRequired,
     areaOpacity: PropTypes.number.isRequired,
+    areaBlendMode: blendModePropType.isRequired,
     areaBaselineValue: PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.string,
@@ -120,6 +121,7 @@ export const LineDefaultProps = {
     enableArea: false,
     areaBaselineValue: 0,
     areaOpacity: 0.2,
+    areaBlendMode: 'normal',
     lineWidth: 2,
     defs: [],
 

@@ -290,6 +290,51 @@ export default [
             step: 0.05,
         },
     },
+    {
+        key: 'areaBlendMode',
+        scopes: '*',
+        description: (
+            <span>
+                Defines CSS <code>mix-blend-mode</code> property for areas, see{' '}
+                <a
+                    href="https://developer.mozilla.org/fr/docs/Web/CSS/mix-blend-mode"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    MDN documentation
+                </a>
+                .
+            </span>
+        ),
+        type: '{string}',
+        required: false,
+        default: defaults.areaBlendMode,
+        controlType: 'choices',
+        controlGroup: 'Style',
+        controlOptions: {
+            choices: [
+                'normal',
+                'multiply',
+                'screen',
+                'overlay',
+                'darken',
+                'lighten',
+                'color-dodge',
+                'color-burn',
+                'hard-light',
+                'soft-light',
+                'difference',
+                'exclusion',
+                'hue',
+                'saturation',
+                'color',
+                'luminosity',
+            ].map(key => ({
+                label: key,
+                value: key,
+            })),
+        },
+    },
     ...marginProperties,
     {
         key: 'enableDots',

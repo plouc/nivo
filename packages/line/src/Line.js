@@ -56,6 +56,7 @@ const Line = ({
     lineWidth,
     enableArea,
     areaOpacity,
+    areaBlendMode,
 
     enableDots,
     dotSymbol,
@@ -127,6 +128,7 @@ const Line = ({
                         <LineAreas
                             areaGenerator={areaGenerator}
                             areaOpacity={areaOpacity}
+                            areaBlendMode={areaBlendMode}
                             lines={computedData.series}
                             {...motionProps}
                         />
