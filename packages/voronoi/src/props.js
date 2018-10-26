@@ -16,29 +16,36 @@ export const VoronoiPropTypes = {
             y: PropTypes.number.isRequired,
         })
     ).isRequired,
-    enablePolygons: PropTypes.bool.isRequired,
-    enableSites: PropTypes.bool.isRequired,
+
+    xDomain: PropTypes.arrayOf(PropTypes.number).isRequired,
+    yDomain: PropTypes.arrayOf(PropTypes.number).isRequired,
+
     enableLinks: PropTypes.bool.isRequired,
-    x: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    y: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    borderWidth: PropTypes.number.isRequired,
-    borderColor: PropTypes.string.isRequired,
-    linkWidth: PropTypes.number.isRequired,
-    linkColor: PropTypes.string.isRequired,
-    siteSize: PropTypes.number.isRequired,
-    siteColor: PropTypes.string.isRequired,
+    linkLineWidth: PropTypes.number.isRequired,
+    linkLineColor: PropTypes.string.isRequired,
+
+    enableCells: PropTypes.bool.isRequired,
+    cellLineWidth: PropTypes.number.isRequired,
+    cellLineColor: PropTypes.string.isRequired,
+
+    enablePoints: PropTypes.bool.isRequired,
+    pointSize: PropTypes.number.isRequired,
+    pointColor: PropTypes.string.isRequired,
+
+    delaunay: PropTypes.object.isRequired,
+    voronoi: PropTypes.object.isRequired,
 }
 
 export const VoronoiDefaultProps = {
-    enablePolygons: true,
-    enableSites: false,
     enableLinks: false,
-    x: 0,
-    y: 1,
-    borderWidth: 2,
-    borderColor: '#000',
-    linkWidth: 1,
-    linkColor: '#bbb',
-    siteSize: 4,
-    siteColor: '#666',
+    linkLineWidth: 1,
+    linkLineColor: '#bbb',
+
+    enableCells: true,
+    cellLineWidth: 2,
+    cellLineColor: '#000',
+
+    enablePoints: true,
+    pointSize: 4,
+    pointColor: '#666',
 }

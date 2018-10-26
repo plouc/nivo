@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { Component } from 'react'
+import omit from 'lodash/omit'
 import { storiesOf } from '@storybook/react'
 import { withInfo } from '@storybook/addon-info'
-import { ScatterPlot } from '../index'
+import { ScatterPlot, ResponsiveScatterPlot } from '../index'
 
 const sampleData = [
     {
@@ -129,7 +130,6 @@ const commonProps = {
         format: d => `week ${d}`,
     },
     axisLeft: {
-        tickSize: 16,
         format: d => `${d} kg`,
     },
     data: sampleData,
@@ -231,7 +231,7 @@ stories.add(
             tooltip={({ id, serie, x, y, color }) => (
                 <span style={{ color }}>
                     <strong>
-                        {id} ({serie})
+                        {id} ({serie.id})
                     </strong>
                     : {`x: ${x}, y: ${y}`}
                 </span>
@@ -245,6 +245,115 @@ stories.add(
             }}
         />
     ))
+)
+
+class SyncCharts extends Component {
+    state = {
+        pointId: null,
+    }
+
+    handleMouseMove = point => {
+        this.setState({ pointId: point.id })
+    }
+
+    handleMouseLeave = () => {
+        this.setState({ pointId: null })
+    }
+
+    getSymbolSize = d => {
+        const { pointId } = this.state
+        if (pointId !== null && pointId === d.id) return 46
+        return 8
+    }
+
+    render() {
+        return (
+            <div
+                style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 1fr',
+                }}
+            >
+                <div style={{ height: 400 }}>
+                    <ResponsiveScatterPlot
+                        {...omit(commonProps, ['width', 'height', 'legends'])}
+                        useMesh={true}
+                        debugMesh={true}
+                        colors="nivo"
+                        symbolSize={this.getSymbolSize}
+                        onMouseMove={this.handleMouseMove}
+                        onMouseLeave={this.handleMouseLeave}
+                        axisBottom={{
+                            tickRotation: -90,
+                            format: d => `week ${d}`,
+                        }}
+                    />
+                </div>
+                <div style={{ height: 400 }}>
+                    <ResponsiveScatterPlot
+                        {...omit(commonProps, ['width', 'height', 'legends'])}
+                        useMesh={true}
+                        debugMesh={true}
+                        colors="accent"
+                        symbolSize={this.getSymbolSize}
+                        onMouseMove={this.handleMouseMove}
+                        onMouseLeave={this.handleMouseLeave}
+                        axisLeft={null}
+                        axisBottom={{
+                            tickRotation: -90,
+                            format: d => `week ${d}`,
+                        }}
+                    />
+                </div>
+            </div>
+        )
+    }
+}
+
+stories.add(
+    'synchronizing charts',
+    withInfo({
+        source: false,
+        text: `
+            You can synchronize several charts using mouse handlers.
+            This example wraps 2 scatterplots in a parent component and
+            store current symbol id in a state which is then used to
+            determine symbol size, using \`onMouseMove\`, \`onMouseLeave\`
+            and a custom function for \`symbolSize\`.
+            
+            Note that \`useMesh\` and \`debugMesh\` are enabled on this example
+            hence the extra red lines displayed on the chart.
+            
+            The parent component's methods look like this:
+            
+            \`\`\`
+            handleMouseMove = point => {
+                this.setState({ pointId: point.id })
+            }
+            handleMouseLeave = () => {
+                this.setState({ pointId: null })
+            }
+            getSymbolSize = d => {
+                const { pointId } = this.state
+                if (pointId !== null && pointId === d.id) return 46
+                return 8
+            }
+            \`\`\`
+            
+            and the two scatterplots share those properties:
+            
+            \`\`\`
+            <ResponsiveScatterPlot
+                {/* other required props */}
+                symbolSize={this.getSymbolSize}
+                onMouseMove={this.handleMouseMove}
+                onMouseLeave={this.handleMouseLeave}
+            />
+            \`\`\`
+            
+            This approach can also be used to synchronize another chart type.
+        `,
+    })(() => <SyncCharts />)
 )
 
 stories.add(

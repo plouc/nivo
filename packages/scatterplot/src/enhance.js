@@ -13,23 +13,63 @@ import pure from 'recompose/pure'
 import { withTheme, withColors, withDimensions, withMotion } from '@nivo/core'
 import { computeXYScalesForSeries } from '@nivo/scales'
 import { getAccessorOrValue } from '@nivo/core'
+import { computeMeshPoints, computeMesh } from '@nivo/voronoi'
 import { ScatterPlotDefaultProps } from './props'
 
-export default Component =>
+const commonEnhancers = [
+    defaultProps(ScatterPlotDefaultProps),
+    withTheme(),
+    withColors(),
+    withDimensions(),
+    withMotion(),
+    withPropsOnChange(['symbolSize'], ({ symbolSize }) => ({
+        getSymbolSize: getAccessorOrValue(symbolSize),
+    })),
+    withPropsOnChange(
+        ['data', 'xScale', 'yScale', 'width', 'height'],
+        ({ data, xScale, yScale, width, height }) => {
+            const computedData = computeXYScalesForSeries(data, xScale, yScale, width, height)
+            const points = computedData.series.reduce(
+                (agg, serie) => [
+                    ...agg,
+                    ...serie.data.map((d, i) => ({
+                        id: `${serie.id}.${i}`,
+                        x: d.position.x,
+                        y: d.position.y,
+                        data: { ...d.data, serie, id: `${serie.id}.${i}` },
+                    })),
+                ],
+                []
+            )
+
+            return {
+                computedData,
+                points,
+            }
+        }
+    ),
+]
+
+export const enhanceSvg = Component =>
     compose(
-        defaultProps(ScatterPlotDefaultProps),
-        withTheme(),
-        withColors(),
-        withDimensions(),
-        withMotion(),
-        withPropsOnChange(['symbolSize'], ({ symbolSize }) => ({
-            getSymbolSize: getAccessorOrValue(symbolSize),
-        })),
+        ...commonEnhancers,
+        pure
+    )(Component)
+
+export const enhanceCanvas = Component =>
+    compose(
+        ...commonEnhancers,
         withPropsOnChange(
-            ['data', 'xScale', 'yScale', 'width', 'height'],
-            ({ data, xScale, yScale, width, height }) => ({
-                computedData: computeXYScalesForSeries(data, xScale, yScale, width, height),
-            })
+            ['points', 'width', 'height', 'debugMesh'],
+            ({ points, width, height, debugMesh }) => {
+                const points2d = computeMeshPoints({
+                    points,
+                    xAccessor: 'x',
+                    yAccessor: 'y',
+                }).points
+
+                return computeMesh({ points: points2d, width, height, debug: debugMesh })
+            }
         ),
         pure
     )(Component)

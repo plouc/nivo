@@ -25,7 +25,7 @@ const CustomTooltip = data => (
         <TooltipKey>id</TooltipKey>
         <TooltipValue>{data.id}</TooltipValue>
         <TooltipKey>serie</TooltipKey>
-        <TooltipValue>{data.serie}</TooltipValue>
+        <TooltipValue>{data.serie.id}</TooltipValue>
         <TooltipKey>color</TooltipKey>
         <TooltipValue>{data.color}</TooltipValue>
         <TooltipKey>x</TooltipKey>
@@ -37,11 +37,6 @@ const CustomTooltip = data => (
 
 export default settingsMapper(
     {
-        colorBy: value => {
-            if (value === `({ id, data }) => data[\`\${id}Color\`]`)
-                return ({ id, data }) => data[`${id}Color`]
-            return value
-        },
         axisTop: mapAxis('top'),
         axisRight: mapAxis('right'),
         axisBottom: mapAxis('bottom'),

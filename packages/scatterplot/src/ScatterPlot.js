@@ -6,189 +6,248 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { Component } from 'react'
 import { TransitionMotion, spring } from 'react-motion'
 import setDisplayName from 'recompose/setDisplayName'
 import { Container, SvgWrapper, Grid, CartesianMarkers } from '@nivo/core'
 import { Axes } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
-import enhance from './enhance'
+import { Mesh } from '@nivo/voronoi'
+import { enhanceSvg } from './enhance'
 import { ScatterPlotPropTypes } from './props'
 import ScatterPlotItem from './ScatterPlotItem'
+import ScatterPlotTooltip from './ScatterPlotTooltip'
 
-const ScatterPlot = ({
-    data,
+class ScatterPlot extends Component {
+    static propTypes = ScatterPlotPropTypes
 
-    computedData,
+    showTooltip = (showTooltip, point, event) => {
+        const { tooltipFormat, tooltip, theme, getColor } = this.props
 
-    margin,
-    width,
-    height,
-    outerWidth,
-    outerHeight,
-
-    axisTop,
-    axisRight,
-    axisBottom,
-    axisLeft,
-
-    enableGridX,
-    enableGridY,
-
-    markers,
-
-    theme,
-    getColor,
-
-    getSymbolSize,
-
-    animate,
-    motionStiffness,
-    motionDamping,
-
-    isInteractive,
-    tooltipFormat,
-    tooltip,
-    onClick,
-    onMouseEnter,
-    onMouseLeave,
-
-    legends,
-}) => {
-    const { xScale, yScale } = computedData
-
-    const motionProps = {
-        animate,
-        motionDamping,
-        motionStiffness,
-    }
-    const springConfig = {
-        damping: motionDamping,
-        stiffness: motionStiffness,
+        showTooltip(
+            <ScatterPlotTooltip
+                point={point}
+                color={getColor(point.data)}
+                format={tooltipFormat}
+                tooltip={tooltip}
+                theme={theme}
+            />,
+            event
+        )
     }
 
-    const legendData = data.map(serie => ({
-        id: serie.id,
-        label: serie.id,
-        color: getColor(serie),
-    }))
+    handleMouseEnter = showTooltip => (point, event) => {
+        const { isInteractive, onMouseEnter } = this.props
 
-    const symbols = computedData.series.reduce(
-        (agg, serie) => [
-            ...agg,
-            ...serie.data.map((d, i) => ({
-                id: `${serie.id}.${i}`,
-                x: d.position.x,
-                y: d.position.y,
-                color: getColor(serie),
-                data: { ...d.data, serie: serie.id, id: `${serie.id}.${i}` },
-            })),
-        ],
-        []
-    )
+        if (!isInteractive) return
 
-    return (
-        <Container isInteractive={isInteractive} theme={theme}>
-            {({ showTooltip, hideTooltip }) => (
-                <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
-                    <Grid
-                        theme={theme}
-                        width={width}
-                        height={height}
-                        xScale={enableGridX ? xScale : null}
-                        yScale={enableGridY ? yScale : null}
-                        {...motionProps}
-                    />
-                    <Axes
-                        xScale={xScale}
-                        yScale={yScale}
-                        width={width}
-                        height={height}
-                        theme={theme}
-                        top={axisTop}
-                        right={axisRight}
-                        bottom={axisBottom}
-                        left={axisLeft}
-                        {...motionProps}
-                    />
-                    {!animate &&
-                        symbols.map(symbol => (
-                            <ScatterPlotItem
-                                key={symbol.id}
-                                x={symbol.x}
-                                y={symbol.y}
-                                size={getSymbolSize(symbol.data)}
-                                color={symbol.color}
-                                data={symbol.data}
-                                showTooltip={showTooltip}
-                                hideTooltip={hideTooltip}
-                                tooltipFormat={tooltipFormat}
-                                tooltip={tooltip}
-                                onClick={onClick}
-                                onMouseEnter={onMouseEnter}
-                                onMouseLeave={onMouseLeave}
+        onMouseEnter && onMouseEnter(point, event)
+        this.showTooltip(showTooltip, point, event)
+    }
+
+    handleMouseMove = showTooltip => (point, event) => {
+        const { isInteractive, onMouseMove } = this.props
+
+        if (!isInteractive) return
+
+        onMouseMove && onMouseMove(point, event)
+        this.showTooltip(showTooltip, point, event)
+    }
+
+    handleMouseLeave = hideTooltip => (point, event) => {
+        const { isInteractive, onMouseLeave } = this.props
+
+        if (!isInteractive) return
+
+        onMouseLeave && onMouseLeave(point, event)
+        hideTooltip()
+    }
+
+    handleClick = (point, event) => {
+        const { isInteractive, onClick } = this.props
+        if (!isInteractive || onClick === undefined) return
+
+        onClick(point.data, event)
+    }
+
+    render() {
+        const {
+            data,
+
+            computedData,
+            points,
+
+            margin,
+            width,
+            height,
+            outerWidth,
+            outerHeight,
+
+            axisTop,
+            axisRight,
+            axisBottom,
+            axisLeft,
+
+            enableGridX,
+            enableGridY,
+
+            markers,
+
+            theme,
+            getSymbolSize,
+            getColor,
+
+            animate,
+            motionStiffness,
+            motionDamping,
+
+            isInteractive,
+            useMesh,
+            debugMesh,
+
+            legends,
+        } = this.props
+        const { xScale, yScale } = computedData
+
+        const motionProps = {
+            animate,
+            motionDamping,
+            motionStiffness,
+        }
+        const springConfig = {
+            damping: motionDamping,
+            stiffness: motionStiffness,
+        }
+
+        const legendData = data.map(serie => ({
+            id: serie.id,
+            label: serie.id,
+            color: getColor({ serie }),
+        }))
+
+        return (
+            <Container isInteractive={isInteractive} theme={theme}>
+                {({ showTooltip, hideTooltip }) => {
+                    const onMouseEnter = this.handleMouseEnter(showTooltip)
+                    const onMouseMove = this.handleMouseMove(showTooltip)
+                    const onMouseLeave = this.handleMouseLeave(hideTooltip)
+
+                    return (
+                        <SvgWrapper
+                            width={outerWidth}
+                            height={outerHeight}
+                            margin={margin}
+                            theme={theme}
+                        >
+                            <Grid
+                                theme={theme}
+                                width={width}
+                                height={height}
+                                xScale={enableGridX ? xScale : null}
+                                yScale={enableGridY ? yScale : null}
+                                {...motionProps}
+                            />
+                            <Axes
+                                xScale={xScale}
+                                yScale={yScale}
+                                width={width}
+                                height={height}
+                                theme={theme}
+                                top={axisTop}
+                                right={axisRight}
+                                bottom={axisBottom}
+                                left={axisLeft}
+                                {...motionProps}
+                            />
+                            {!animate &&
+                                points.map(point => (
+                                    <ScatterPlotItem
+                                        key={point.id}
+                                        point={point}
+                                        x={point.x}
+                                        y={point.y}
+                                        size={getSymbolSize(point.data)}
+                                        color={getColor(point.data)}
+                                        data={point.data}
+                                        onMouseEnter={onMouseEnter}
+                                        onMouseMove={onMouseMove}
+                                        onMouseLeave={onMouseLeave}
+                                        onClick={this.handleClick}
+                                        theme={theme}
+                                    />
+                                ))}
+                            {animate === true && (
+                                <TransitionMotion
+                                    styles={points.map(point => ({
+                                        key: point.id,
+                                        data: point,
+                                        style: {
+                                            x: spring(point.x, springConfig),
+                                            y: spring(point.y, springConfig),
+                                            size: spring(getSymbolSize(point.data), springConfig),
+                                        },
+                                    }))}
+                                >
+                                    {interpolatedStyles => (
+                                        <g>
+                                            {interpolatedStyles.map(
+                                                ({ key, style, data: point }) => (
+                                                    <ScatterPlotItem
+                                                        key={key}
+                                                        point={point}
+                                                        x={style.x}
+                                                        y={style.y}
+                                                        size={style.size}
+                                                        color={getColor(point.data)}
+                                                        onMouseEnter={onMouseEnter}
+                                                        onMouseMove={onMouseMove}
+                                                        onMouseLeave={onMouseLeave}
+                                                        onClick={this.handleClick}
+                                                        theme={theme}
+                                                    />
+                                                )
+                                            )}
+                                        </g>
+                                    )}
+                                </TransitionMotion>
+                            )}
+                            <CartesianMarkers
+                                markers={markers}
+                                width={width}
+                                height={height}
+                                xScale={xScale}
+                                yScale={yScale}
                                 theme={theme}
                             />
-                        ))}
-                    {animate === true && (
-                        <TransitionMotion
-                            styles={symbols.map(symbol => ({
-                                key: symbol.id,
-                                data: symbol,
-                                style: {
-                                    x: spring(symbol.x, springConfig),
-                                    y: spring(symbol.y, springConfig),
-                                },
-                            }))}
-                        >
-                            {interpolatedStyles => (
-                                <g>
-                                    {interpolatedStyles.map(({ key, style, data: symbol }) => (
-                                        <ScatterPlotItem
-                                            key={key}
-                                            x={style.x}
-                                            y={style.y}
-                                            size={getSymbolSize(symbol.data)}
-                                            color={symbol.color}
-                                            data={symbol.data}
-                                            showTooltip={showTooltip}
-                                            hideTooltip={hideTooltip}
-                                            tooltipFormat={tooltipFormat}
-                                            tooltip={tooltip}
-                                            onClick={onClick}
-                                            onMouseEnter={onMouseEnter}
-                                            onMouseLeave={onMouseLeave}
-                                            theme={theme}
-                                        />
-                                    ))}
-                                </g>
-                            )}
-                        </TransitionMotion>
-                    )}
-                    <CartesianMarkers
-                        markers={markers}
-                        width={width}
-                        height={height}
-                        xScale={xScale}
-                        yScale={yScale}
-                        theme={theme}
-                    />
-                    {legends.map((legend, i) => (
-                        <BoxLegendSvg
-                            key={i}
-                            {...legend}
-                            containerWidth={width}
-                            containerHeight={height}
-                            data={legendData}
-                            theme={theme}
-                        />
-                    ))}
-                </SvgWrapper>
-            )}
-        </Container>
-    )
+                            {isInteractive &&
+                                useMesh && (
+                                    <Mesh
+                                        points={points}
+                                        width={width}
+                                        height={height}
+                                        onMouseEnter={onMouseEnter}
+                                        onMouseMove={onMouseMove}
+                                        onMouseLeave={onMouseLeave}
+                                        onClick={this.handleClick}
+                                        debug={debugMesh}
+                                    />
+                                )}
+                            {legends.map((legend, i) => (
+                                <BoxLegendSvg
+                                    key={i}
+                                    {...legend}
+                                    containerWidth={width}
+                                    containerHeight={height}
+                                    data={legendData}
+                                    theme={theme}
+                                />
+                            ))}
+                        </SvgWrapper>
+                    )
+                }}
+            </Container>
+        )
+    }
 }
 
-ScatterPlot.propTypes = ScatterPlotPropTypes
-
-export default setDisplayName('ScatterPlot')(enhance(ScatterPlot))
+export default setDisplayName('ScatterPlot')(enhanceSvg(ScatterPlot))

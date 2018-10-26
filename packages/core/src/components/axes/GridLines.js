@@ -24,7 +24,7 @@ export default class GridLines extends Component {
             })
         ).isRequired,
         theme: PropTypes.object.isRequired,
-        // motion
+
         animate: PropTypes.bool.isRequired,
         motionStiffness: PropTypes.number.isRequired,
         motionDamping: PropTypes.number.isRequired,

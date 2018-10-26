@@ -7,81 +7,65 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { voronoi as VoronoiGenerator } from 'd3-voronoi'
 import { Container, SvgWrapper } from '@nivo/core'
 import enhance from './enhance'
 import { VoronoiPropTypes } from './props'
 
 const Voronoi = ({
-    data,
+    delaunay,
+    voronoi,
 
-    // dimensions
     margin,
-    width,
-    height,
     outerWidth,
     outerHeight,
 
-    // features
-    enableSites,
     enableLinks,
-    enablePolygons,
+    linkLineWidth,
+    linkLineColor,
 
-    // styling
+    enableCells,
+    cellLineWidth,
+    cellLineColor,
+
+    enablePoints,
+    pointSize,
+    pointColor,
+
     theme,
-    borderWidth,
-    borderColor,
-    linkWidth,
-    linkColor,
-    siteSize,
-    siteColor,
 }) => {
-    const voronoi = VoronoiGenerator()
-        .x(d => d.x)
-        .y(d => d.y)
-        .extent([[0, 0], [width, height]])
-
-    const polygons = voronoi.polygons(data)
-    const links = voronoi.links(data)
-
     return (
         <Container isInteractive={false} theme={theme}>
             {(/*{ showTooltip, hideTooltip }*/) => (
                 <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
-                    {enableLinks &&
-                        links.map(l => (
-                            <line
-                                key={`${l.source.id}.${l.target.id}`}
-                                fill="none"
-                                stroke={linkColor}
-                                strokeWidth={linkWidth}
-                                x1={l.source.x}
-                                y1={l.source.y}
-                                x2={l.target.x}
-                                y2={l.target.y}
-                            />
-                        ))}
-                    {enablePolygons &&
-                        polygons.map(p => (
-                            <path
-                                key={p.data.id}
-                                fill="none"
-                                stroke={borderColor}
-                                strokeWidth={borderWidth}
-                                d={`M${p.join('L')}Z`}
-                            />
-                        ))}
-                    {enableSites &&
-                        data.map(d => (
-                            <circle
-                                key={d.id}
-                                r={siteSize / 2}
-                                cx={d.x}
-                                cy={d.y}
-                                fill={siteColor}
-                                stroke="none"
-                            />
-                        ))}
+                    {enableLinks && (
+                        <path
+                            stroke={linkLineColor}
+                            strokeWidth={linkLineWidth}
+                            fill="none"
+                            d={delaunay.render()}
+                        />
+                    )}
+                    {enableCells && (
+                        <path
+                            d={voronoi.render()}
+                            fill="none"
+                            stroke={cellLineColor}
+                            strokeWidth={cellLineWidth}
+                        />
+                    )}
+                    {enablePoints && (
+                        <path
+                            stroke="none"
+                            fill={pointColor}
+                            d={delaunay.renderPoints(undefined, pointSize / 2)}
+                        />
+                    )}
+                    <path
+                        fill="none"
+                        stroke={cellLineColor}
+                        strokeWidth={cellLineWidth}
+                        d={voronoi.renderBounds()}
+                    />
                 </SvgWrapper>
             )}
         </Container>

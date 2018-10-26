@@ -321,7 +321,7 @@ export default [
         required: false,
         default: defaults.enableGridX,
         controlType: 'switch',
-        controlGroup: 'Grid',
+        controlGroup: 'Grid & Axes',
     },
     {
         key: 'enableGridY',
@@ -331,7 +331,7 @@ export default [
         required: false,
         default: defaults.enableGridY,
         controlType: 'switch',
-        controlGroup: 'Grid',
+        controlGroup: 'Grid & Axes',
     },
     ...axesProperties,
     /*——————————————————————————————————————————————————————————————————————————

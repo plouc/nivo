@@ -8,38 +8,21 @@
  */
 import React, { Component } from 'react'
 import Helmet from 'react-helmet'
-import range from 'lodash/range'
 
-const generateSites = () =>
-    range(100).map(id => ({ id, x: Math.random() * 500, y: Math.random() * 500 }))
-
-class VoronoiPage extends Component {
-    state = {
-        data: generateSites(),
-    }
-
-    diceRoll = () => {
-        this.setState({ data: generateSites() })
-    }
-
+export default class VoronoiPage extends Component {
     render() {
         const { childRoutes } = this.props
-        const { data } = this.state
 
         return (
             <div className="inner-content chord_page">
-                <Helmet title="Voronoi component" />
+                <Helmet title="@nivo/voronoi components" />
                 {childRoutes.map(childRoute => {
                     return React.cloneElement(childRoute, {
                         component: null,
-                        render: () => (
-                            <childRoute.props.component data={data} diceRoll={this.diceRoll} />
-                        ),
+                        render: () => <childRoute.props.component />,
                     })
                 })}
             </div>
         )
     }
 }
-
-export default VoronoiPage

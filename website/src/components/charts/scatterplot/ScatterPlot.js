@@ -46,13 +46,11 @@ export default class ScatterPlot extends Component {
             },
 
             colors: 'nivo',
-            colorBy: 'id',
+            colorBy: 'serie.id',
 
-            // symbols
             symbolSize: 6,
             symbolShape: 'circle',
 
-            // axes
             axisTop: {
                 enable: false,
                 orient: 'top',
@@ -97,13 +95,13 @@ export default class ScatterPlot extends Component {
             enableGridX: true,
             enableGridY: true,
 
-            // motion
             animate: true,
             motionStiffness: 90,
             motionDamping: 15,
 
-            // interactivity
             isInteractive: true,
+            useMesh: false,
+            debugMesh: false,
 
             'custom tooltip example': false,
             tooltip: null,
@@ -147,7 +145,7 @@ export default class ScatterPlot extends Component {
 
     handleNodeClick = (node, event) => {
         alert(
-            `${node.serie} (${node.id}): x: ${node.x}, y: ${node.y}\nclicked at x: ${
+            `serie: ${node.serie.id}, x: ${node.x}, y: ${node.y}\nclicked at x: ${
                 event.clientX
             }, y: ${event.clientY}`
         )
@@ -176,10 +174,8 @@ export default class ScatterPlot extends Component {
                 <p className="description">
                     The responsive alternative of this component is{' '}
                     <code>ResponsiveScatterPlot</code>, it also offers another implementation, see{' '}
-                    <Link to="/scatterplot/canvas">ScatterPlotCanvas</Link>.
-                </p>
-                <p className="description">
-                    You can also see more example usages in{' '}
+                    <Link to="/scatterplot/canvas">ScatterPlotCanvas</Link>. You can also see more
+                    example usages in{' '}
                     <a
                         href={`${
                             config.storybookUrl
@@ -190,6 +186,10 @@ export default class ScatterPlot extends Component {
                         the storybook
                     </a>
                     .
+                </p>
+                <p className="description">
+                    Alternatively, you can set <code>useMesh</code> to <code>true</code>
+                    to have finer interactions.
                 </p>
                 <p className="description">
                     See the <Link to="/guides/legends">dedicated guide</Link> on how to setup

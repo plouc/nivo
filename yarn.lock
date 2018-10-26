@@ -600,43 +600,6 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
-"@nivo/babel-preset@^0.32.0-9":
-  version "0.32.0"
-  resolved "https://registry.yarnpkg.com/@nivo/babel-preset/-/babel-preset-0.32.0.tgz#60a58eb223f97785d090a94455243ab9d6914ebd"
-  dependencies:
-    babel-cli "^6.26.0"
-    babel-jest "^20.0.3"
-    babel-plugin-check-es2015-constants "^6.22.0"
-    babel-plugin-external-helpers "^6.22.0"
-    babel-plugin-istanbul "^4.1.4"
-    babel-plugin-lodash "^3.2.11"
-    babel-plugin-syntax-jsx "^6.18.0"
-    babel-plugin-transform-class-properties "^6.24.1"
-    babel-plugin-transform-es2015-arrow-functions "^6.22.0"
-    babel-plugin-transform-es2015-block-scoped-functions "^6.22.0"
-    babel-plugin-transform-es2015-block-scoping "^6.26.0"
-    babel-plugin-transform-es2015-classes "^6.24.1"
-    babel-plugin-transform-es2015-computed-properties "^6.24.1"
-    babel-plugin-transform-es2015-destructuring "^6.23.0"
-    babel-plugin-transform-es2015-function-name "^6.24.1"
-    babel-plugin-transform-es2015-literals "^6.22.0"
-    babel-plugin-transform-es2015-modules-commonjs "^6.26.0"
-    babel-plugin-transform-es2015-object-super "^6.24.1"
-    babel-plugin-transform-es2015-parameters "^6.24.1"
-    babel-plugin-transform-es2015-shorthand-properties "^6.24.1"
-    babel-plugin-transform-es2015-spread "^6.22.0"
-    babel-plugin-transform-es2015-template-literals "^6.22.0"
-    babel-plugin-transform-object-rest-spread "^6.26.0"
-    babel-plugin-transform-react-jsx "^6.24.1"
-
-"@nivo/generators@^0.48.0":
-  version "0.48.0"
-  resolved "https://registry.yarnpkg.com/@nivo/generators/-/generators-0.48.0.tgz#b7420dac3e4ed807e9d7c46ccba280a7976518b5"
-  dependencies:
-    d3-time "^1.0.10"
-    d3-time-format "^2.1.3"
-    lodash "^4.17.4"
-
 "@nodelib/fs.stat@^1.0.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.1.tgz#53f349bb986ab273d601175aa1b25a655ab90ee3"
@@ -3533,6 +3496,12 @@ d3-color@1, d3-color@^1.0.3:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/d3-color/-/d3-color-1.2.0.tgz#d1ea19db5859c86854586276ec892cf93148459a"
 
+d3-delaunay@^4.1.5:
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/d3-delaunay/-/d3-delaunay-4.1.5.tgz#4318c6d28b22988d88d11650eda440318afe419a"
+  dependencies:
+    delaunator "^2.0.0"
+
 d3-format@1:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/d3-format/-/d3-format-1.3.0.tgz#a3ac44269a2011cdb87c7b5693040c18cddfff11"
@@ -3763,6 +3732,10 @@ del@^2.0.2:
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
     rimraf "^2.2.8"
+
+delaunator@^2.0.0:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/delaunator/-/delaunator-2.0.5.tgz#c2a9ba2cf3d5aaab8fa0aa3ae82426d3fc0aeaf5"
 
 delayed-stream@~1.0.0:
   version "1.0.0"

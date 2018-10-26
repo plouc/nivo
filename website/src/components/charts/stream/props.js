@@ -183,7 +183,6 @@ export default [
     },
     ...defsProperties(['Stream']),
     ...marginProperties,
-    ...axesProperties,
     {
         key: 'enableGridX',
         scopes: '*',
@@ -192,7 +191,7 @@ export default [
         required: false,
         default: defaults.enableGridX,
         controlType: 'switch',
-        controlGroup: 'Grid',
+        controlGroup: 'Grid & Axes',
     },
     {
         key: 'enableGridY',
@@ -202,8 +201,9 @@ export default [
         required: false,
         default: defaults.enableGridY,
         controlType: 'switch',
-        controlGroup: 'Grid',
+        controlGroup: 'Grid & Axes',
     },
+    ...axesProperties,
     {
         key: 'enableDots',
         scopes: ['Stream'],
