@@ -50,9 +50,12 @@ declare module '@nivo/scatterplot' {
         symbolShape?: 'circle' | 'square'
 
         isInteractive?: boolean
-        onClick?: ScatterPlotMouseHandler
+        useMesh?: boolean
+        debugMesh?: boolean
         onMouseEnter?: ScatterPlotMouseHandler
+        onMouseMove?: ScatterPlotMouseHandler
         onMouseLeave?: ScatterPlotMouseHandler
+        onClick?: ScatterPlotMouseHandler
 
         tooltipFormat?: TooltipFormatter
         tooltip?: (data: ScatterPlotDatum) => React.ReactNode

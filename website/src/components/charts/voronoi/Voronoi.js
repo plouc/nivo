@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import React, { Component } from 'react'
+import range from 'lodash/range'
 import MediaQuery from 'react-responsive'
 import { ResponsiveVoronoi, VoronoiDefaultProps } from '@nivo/voronoi'
 import ChartHeader from '../../ChartHeader'
@@ -16,6 +17,12 @@ import generateCode from '../../../lib/generateChartCode'
 import ComponentPropsDocumentation from '../../properties/ComponentPropsDocumentation'
 import properties from './props'
 
+const xDomain = [0, 100]
+const yDomain = [0, 100]
+
+const generateData = () =>
+    range(100).map(id => ({ id, x: Math.random() * xDomain[1], y: Math.random() * yDomain[1] }))
+
 export default class Voronoi extends Component {
     constructor(props) {
         super(props)
@@ -23,24 +30,39 @@ export default class Voronoi extends Component {
         this.handleSettingsUpdate = this.handleSettingsUpdate.bind(this)
 
         this.state = {
-            settings: Object.assign({}, Voronoi.defaultProps, {
+            data: generateData(),
+            settings: {
+                ...Voronoi.defaultProps,
+
+                xDomain,
+                yDomain,
+
                 margin: {
                     top: 1,
                     right: 1,
                     bottom: 1,
                     left: 1,
                 },
-                enablePolygons: true,
-                enableSites: true,
-                enableLinks: false,
-                borderWidth: 2,
-                borderColor: '#000000',
-                linkWidth: 1,
-                linkColor: '#bbbbbb',
-                siteSize: 4,
-                siteColor: '#c6432d',
-            }),
+
+                enableLinks: true,
+                linkLineWidth: 1,
+                linkLineColor: '#cccccc',
+
+                enableCells: true,
+                cellLineWidth: 2,
+                cellLineColor: '#c6432d',
+
+                enablePoints: true,
+                pointSize: 6,
+                pointColor: '#c6432d',
+            },
         }
+    }
+
+    diceRoll = () => {
+        this.setState({
+            data: generateData(),
+        })
     }
 
     handleSettingsUpdate(settings) {
@@ -48,8 +70,7 @@ export default class Voronoi extends Component {
     }
 
     render() {
-        const { data, diceRoll } = this.props
-        const { settings } = this.state
+        const { data, settings } = this.state
 
         const code = generateCode('ResponsiveVoronoi', settings, {
             pkg: '@nivo/voronoi',
@@ -61,21 +82,13 @@ export default class Voronoi extends Component {
         const description = (
             <div className="chart-description">
                 <p className="description">
-                    Voronoi Tessellation, uses{' '}
+                    Delaunay/Voronoi Tessellation, uses{' '}
                     <a
-                        href="https://github.com/d3/d3-voronoi"
+                        href="https://github.com/d3/d3-delaunay"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        d3-voronoi
-                    </a>
-                    , see{' '}
-                    <a
-                        href="http://bl.ocks.org/mbostock/4060366"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        this block
+                        d3-delaunay
                     </a>
                     . The responsive alternative of this component is <code>ResponsiveVoronoi</code>
                     .
@@ -90,7 +103,12 @@ export default class Voronoi extends Component {
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="voronoi" code={code} data={data} diceRoll={diceRoll}>
+                    <ChartTabs
+                        chartClass="voronoi"
+                        code={code}
+                        data={data}
+                        diceRoll={this.diceRoll}
+                    >
                         <ResponsiveVoronoi
                             margin={{
                                 top: 20,
@@ -99,6 +117,8 @@ export default class Voronoi extends Component {
                                 left: 20,
                             }}
                             data={data}
+                            xDomain={xDomain}
+                            yDomain={yDomain}
                             {...settings}
                         />
                     </ChartTabs>

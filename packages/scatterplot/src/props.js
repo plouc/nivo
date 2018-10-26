@@ -63,9 +63,14 @@ export const ScatterPlotPropTypes = {
     getColor: PropTypes.func.isRequired,
 
     isInteractive: PropTypes.bool.isRequired,
-    onClick: PropTypes.func.isRequired,
+    useMesh: PropTypes.bool.isRequired,
+    debugMesh: PropTypes.bool.isRequired,
+
     onMouseEnter: PropTypes.func.isRequired,
+    onMouseMove: PropTypes.func.isRequired,
     onMouseLeave: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired,
+
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
     tooltip: PropTypes.func,
 
@@ -95,13 +100,16 @@ export const ScatterPlotDefaultProps = {
     symbolShape: 'circle',
 
     colors: 'nivo',
-    colorBy: 'id',
+    colorBy: 'serie.id',
 
     isInteractive: true,
+    useMesh: false,
+    debugMesh: false,
     enableStackTooltip: true,
-    onClick: noop,
     onMouseEnter: noop,
+    onMouseMove: noop,
     onMouseLeave: noop,
+    onClick: noop,
 
     legends: [],
 

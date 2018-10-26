@@ -21,6 +21,13 @@ export const scatterPlotStories = [
         },
     },
     {
+        label: 'Synchronizing charts',
+        link: {
+            kind: 'ScatterPlot',
+            story: 'synchronizing charts',
+        },
+    },
+    {
         label: 'Using mouse enter/leave',
         link: {
             kind: 'ScatterPlot',

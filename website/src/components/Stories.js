@@ -26,7 +26,7 @@ export default class Stories extends Component {
         const { stories } = this.props
 
         return (
-            <CollapsibleCard title="Demos" expandedByDefault={true}>
+            <CollapsibleCard title="Recipes" expandedByDefault={true}>
                 {stories.map((story, i) => (
                     <a
                         key={i}

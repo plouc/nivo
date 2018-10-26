@@ -49,11 +49,9 @@ export default class ScatterPlotCanvas extends Component {
             colors: 'nivo',
             colorBy: 'id',
 
-            // symbols
             symbolSize: 4,
             symbolShape: 'circle',
 
-            // axes
             axisTop: {
                 enable: false,
                 orient: 'top',
@@ -98,13 +96,13 @@ export default class ScatterPlotCanvas extends Component {
             enableGridX: true,
             enableGridY: true,
 
-            // motion
             animate: true,
             motionStiffness: 90,
             motionDamping: 15,
 
-            // interactivity
             isInteractive: true,
+            useMesh: true,
+            debugMesh: false,
 
             legends: [
                 {
@@ -130,7 +128,11 @@ export default class ScatterPlotCanvas extends Component {
     }
 
     handleNodeClick = (node, event) => {
-        alert(`${node.id}: ${node.value}\nclicked at x: ${event.clientX}, y: ${event.clientY}`)
+        alert(
+            `serie: ${node.serie.id}, x: ${node.x}, y: ${node.y}\nclicked at x: ${
+                event.clientX
+            }, y: ${event.clientY}`
+        )
     }
 
     render() {

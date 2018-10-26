@@ -41,7 +41,15 @@ const colors = redColorRange
 const calendarFrom = new Date(2015, 3, 1)
 const calendarTo = new Date(2016, 5, 1)
 const calendarData = generateDayCounts(calendarFrom, calendarTo)
-const voronoiData = range(80).map(id => ({ id, x: Math.random() * 400, y: Math.random() * 200 }))
+const voronoi = {
+    xDomain: [0, 400],
+    yDomain: [0, 300],
+}
+voronoi.data = range(80).map(id => ({
+    id,
+    x: Math.random() * voronoi.xDomain[1],
+    y: Math.random() * voronoi.yDomain[1],
+}))
 
 const radarMargin = { top: 20, right: 40, bottom: 10, left: 40 }
 
@@ -291,15 +299,17 @@ class Home extends Component {
                 </Link>
                 <Link className="home_item" to="/voronoi">
                     <ResponsiveVoronoi
-                        data={voronoiData}
+                        data={voronoi.data}
+                        xDomain={voronoi.xDomain}
+                        yDomain={voronoi.yDomain}
                         margin={{ top: 1, right: 1, bottom: 1, left: 1 }}
-                        borderColor="#c6432d"
                         enableLinks={false}
-                        linkColor="#d6513e"
-                        enableSites={true}
-                        borderWidth={1}
-                        siteSize={3}
-                        siteColor="#c6432d"
+                        linkLineColor="#d6513e"
+                        cellLineColor="#c6432d"
+                        cellLineWidth={1}
+                        enablePoints={true}
+                        pointSize={3}
+                        pointColor="#c6432d"
                         animate={false}
                     />
                     <span className="home_item_label">

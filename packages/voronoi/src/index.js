@@ -8,4 +8,7 @@
  */
 export { default as Voronoi } from './Voronoi'
 export { default as ResponsiveVoronoi } from './ResponsiveVoronoi'
+export { default as Mesh } from './Mesh'
+export * from './computeMesh'
+export * from './meshCanvas'
 export * from './props'

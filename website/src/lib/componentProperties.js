@@ -119,7 +119,7 @@ export const axesProperties = [
             description: `${axisKey} axis configuration.`,
             type: '{object}',
             required: false,
-            controlGroup: 'Axes',
+            controlGroup: 'Grid & Axes',
             controlType: 'object',
             controlOptions: {
                 props: [
