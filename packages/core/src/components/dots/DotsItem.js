@@ -63,7 +63,6 @@ DotsItem.propTypes = {
 export const DotsItemDefaultProps = {
     symbol: DotsItemSymbol,
 
-    // label
     labelTextAnchor: 'middle',
     labelYOffset: -12,
 }

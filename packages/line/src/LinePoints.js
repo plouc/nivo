@@ -11,12 +11,11 @@ import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
 import { motionPropTypes, getLabelGenerator, dotsThemePropType, DotsItem } from '@nivo/core'
 
-const LineDots = ({
-    lines,
+const LinePoints = ({
+    points,
 
     symbol,
     size,
-    color,
     borderWidth,
     borderColor,
 
@@ -31,42 +30,22 @@ const LineDots = ({
     motionStiffness,
     motionDamping,
 }) => {
-    const getLabel = getLabelGenerator(label, labelFormat)
-
-    const points = lines.reduce((acc, line) => {
-        const { id, data } = line
-
-        return [
-            ...acc,
-            ...data
-                .filter(datum => datum.position.x !== null && datum.position.y !== null)
-                .map(datum => {
-                    return {
-                        key: `${id}.${datum.data.x}`,
-                        x: datum.position.x,
-                        y: datum.position.y,
-                        fill: color(line),
-                        stroke: borderColor(line),
-                        label: enableLabel ? getLabel(datum.data) : null,
-                    }
-                }),
-        ]
-    }, [])
+    const getLabel = enableLabel ? getLabelGenerator(label, labelFormat) : () => null
 
     if (animate !== true) {
         return (
             <g>
                 {points.map(point => (
                     <DotsItem
-                        key={point.key}
-                        x={point.x}
-                        y={point.y}
+                        key={point.id}
+                        x={point.position.x}
+                        y={point.position.y}
                         symbol={symbol}
                         size={size}
-                        color={point.fill}
+                        color={point.color}
                         borderWidth={borderWidth}
-                        borderColor={point.stroke}
-                        label={point.label}
+                        borderColor={borderColor(point)}
+                        label={getLabel(point.data)}
                         labelYOffset={labelYOffset}
                         theme={theme}
                     />
@@ -83,11 +62,11 @@ const LineDots = ({
         <TransitionMotion
             styles={points.map(point => {
                 return {
-                    key: point.key,
+                    key: point.id,
                     data: point,
                     style: {
-                        x: spring(point.x, springConfig),
-                        y: spring(point.y, springConfig),
+                        x: spring(point.position.x, springConfig),
+                        y: spring(point.position.y, springConfig),
                         size: spring(size, springConfig),
                     },
                 }
@@ -100,10 +79,10 @@ const LineDots = ({
                             key={key}
                             {...style}
                             symbol={symbol}
-                            color={point.fill}
+                            color={point.color}
                             borderWidth={borderWidth}
-                            borderColor={point.stroke}
-                            label={point.label}
+                            borderColor={borderColor(point)}
+                            label={getLabel(point.data)}
                             labelYOffset={labelYOffset}
                             theme={theme}
                         />
@@ -114,12 +93,30 @@ const LineDots = ({
     )
 }
 
-LineDots.propTypes = {
-    lines: PropTypes.arrayOf(
+LinePoints.propTypes = {
+    points: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.string.isRequired,
+            serieId: PropTypes.string.isRequired,
+            position: PropTypes.shape({
+                x: PropTypes.number.isRequired,
+                y: PropTypes.number.isRequired,
+            }).isRequired,
+            data: PropTypes.shape({
+                x: PropTypes.oneOfType([
+                    PropTypes.number,
+                    PropTypes.string,
+                    PropTypes.instanceOf(Date),
+                ]).isRequired,
+                y: PropTypes.oneOfType([
+                    PropTypes.number,
+                    PropTypes.string,
+                    PropTypes.instanceOf(Date),
+                ]).isRequired,
+            }).isRequired,
+            color: PropTypes.string.isRequired,
         })
-    ),
+    ).isRequired,
 
     symbol: PropTypes.func,
     size: PropTypes.number.isRequired,
@@ -139,10 +136,9 @@ LineDots.propTypes = {
     ...motionPropTypes,
 }
 
-LineDots.defaultProps = {
-    // labels
+LinePoints.defaultProps = {
     enableLabel: false,
     label: 'y',
 }
 
-export default LineDots
+export default LinePoints
