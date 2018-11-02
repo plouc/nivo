@@ -1,11 +1,14 @@
 {
-  "main.css": "static/css/main.baca44ac.css",
-  "main.css.map": "static/css/main.baca44ac.css.map",
-  "main.js": "static/js/main.18339835.js",
-  "main.js.map": "static/js/main.18339835.js.map",
-  "static/media/color-picker-panel-board-saturation.svg": "static/media/color-picker-panel-board-saturation.3d915d6f.svg",
-  "static/media/color-picker-panel-board-value.svg": "static/media/color-picker-panel-board-value.b86e2b2e.svg",
-  "static/media/color-picker-panel-ribbon.svg": "static/media/color-picker-panel-ribbon.faa01d71.svg",
-  "static/media/icons.png": "static/media/icons.5c20ba6e.png",
-  "static/media/icons@2x.png": "static/media/icons@2x.1b79679d.png"
+  "main.css": "/static/css/main.7385128e.chunk.css",
+  "main.js": "/static/js/main.98415950.chunk.js",
+  "main.js.map": "/static/js/main.98415950.chunk.js.map",
+  "static/js/1.10e55d1e.chunk.js": "/static/js/1.10e55d1e.chunk.js",
+  "static/js/1.10e55d1e.chunk.js.map": "/static/js/1.10e55d1e.chunk.js.map",
+  "runtime~main.js": "/static/js/runtime~main.229c360f.js",
+  "runtime~main.js.map": "/static/js/runtime~main.229c360f.js.map",
+  "static/media/index.css": "/static/media/icons.5c20ba6e.png",
+  "static/css/main.7385128e.chunk.css.map": "/static/css/main.7385128e.chunk.css.map",
+  "index.html": "/index.html",
+  "precache-manifest.fdfcc7a980453b28975c75c1f2895812.js": "/precache-manifest.fdfcc7a980453b28975c75c1f2895812.js",
+  "service-worker.js": "/service-worker.js"
 }
