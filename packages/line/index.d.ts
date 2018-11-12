@@ -76,6 +76,7 @@ declare module '@nivo/line' {
         enableStackTooltip?: boolean
 
         legends?: LegendProps[]
+        tooltip?(data: LineDatum): React.ReactNode
     }
 
     export interface LineSvgProps extends LineProps, MotionProps {}
