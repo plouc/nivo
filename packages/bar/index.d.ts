@@ -131,11 +131,22 @@ declare module '@nivo/bar' {
         tickValues: number | string[] | number[]
     }>
 
+    export enum BarLayerType {
+        Grid = 'grid',
+        Axes = 'axes',
+        Bars = 'bars',
+        Markers = 'markers',
+        Legends = 'legends',
+    }
+    export type BarCustomLayer = (props: any) => React.ReactNode
+    export type Layer = BarLayerType | BarCustomLayer
+
     export type BarSvgProps = Data &
         BarProps &
         MotionProps &
         SvgDefsAndFill<BarDatum> &
         Partial<{
+            layers: Layer[]
             onClick: (datum: BarExtendedDatum, event: React.MouseEvent<SVGRectElement>) => void
         }>
 

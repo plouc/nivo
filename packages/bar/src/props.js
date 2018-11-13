@@ -17,6 +17,12 @@ export const BarPropTypes = {
     indexBy: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     getIndex: PropTypes.func.isRequired, // computed
     keys: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
+    layers: PropTypes.arrayOf(
+        PropTypes.oneOfType([
+            PropTypes.oneOf(['grid', 'axes', 'bars', 'markers', 'legends']),
+            PropTypes.func,
+        ])
+    ).isRequired,
 
     groupMode: PropTypes.oneOf(['stacked', 'grouped']).isRequired,
     layout: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
@@ -77,6 +83,7 @@ export const BarPropTypes = {
 export const BarDefaultProps = {
     indexBy: 'id',
     keys: ['value'],
+    layers: ['grid', 'axes', 'bars', 'markers', 'legends'],
 
     groupMode: 'stacked',
     layout: 'vertical',
