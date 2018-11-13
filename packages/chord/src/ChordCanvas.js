@@ -88,7 +88,8 @@ class ChordCanvas extends Component {
 
         this.ctx.translate(centerX, centerY)
 
-        this.ctx.font = `${theme.labels.text.fontSize}px sans-serif`
+        this.ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily ||
+            'sans-serif'}`
 
         ribbonGenerator.context(this.ctx)
         ribbons.forEach(ribbon => {
