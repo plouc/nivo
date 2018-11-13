@@ -33,6 +33,7 @@ export default class Stories extends Component {
                         className="stories__item"
                         href={buildStoryLink(story.link)}
                         target="_blank"
+                        rel="noopener noreferrer"
                     >
                         {story.label}
                         <VisitIcon size={20} color="#bbb" />

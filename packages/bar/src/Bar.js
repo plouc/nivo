@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { Fragment } from 'react'
 import { TransitionMotion, spring } from 'react-motion'
 import { bindDefs, Container, SvgWrapper, Grid, CartesianMarkers } from '@nivo/core'
 import { Axes } from '@nivo/axes'
@@ -44,72 +44,67 @@ const barWillLeaveVertical = springConfig => ({ style }) => ({
     height: spring(0, springConfig),
 })
 
-const Bar = ({
-    data,
-    getIndex,
-    keys,
+const Bar = props => {
+    const {
+        data,
+        getIndex,
+        keys,
 
-    groupMode,
-    layout,
-    reverse,
-    minValue,
-    maxValue,
+        groupMode,
+        layout,
+        reverse,
+        minValue,
+        maxValue,
 
-    margin,
-    width,
-    height,
-    outerWidth,
-    outerHeight,
-    padding,
-    innerPadding,
+        margin,
+        width,
+        height,
+        outerWidth,
+        outerHeight,
+        padding,
+        innerPadding,
 
-    // axes & grid
-    axisTop,
-    axisRight,
-    axisBottom,
-    axisLeft,
-    enableGridX,
-    enableGridY,
-    gridXValues,
-    gridYValues,
+        axisTop,
+        axisRight,
+        axisBottom,
+        axisLeft,
+        enableGridX,
+        enableGridY,
+        gridXValues,
+        gridYValues,
 
-    // customization
-    barComponent,
+        layers,
+        barComponent,
 
-    // labels
-    enableLabel,
-    getLabel,
-    labelSkipWidth,
-    labelSkipHeight,
-    getLabelTextColor,
+        enableLabel,
+        getLabel,
+        labelSkipWidth,
+        labelSkipHeight,
+        getLabelTextColor,
 
-    // markers
-    markers,
+        markers,
 
-    // theming
-    theme,
-    getColor,
-    defs,
-    fill,
-    borderRadius,
-    borderWidth,
-    getBorderColor,
+        theme,
+        getColor,
+        defs,
+        fill,
+        borderRadius,
+        borderWidth,
+        getBorderColor,
 
-    // motion
-    animate,
-    motionStiffness,
-    motionDamping,
+        animate,
+        motionStiffness,
+        motionDamping,
 
-    // interactivity
-    isInteractive,
-    tooltipFormat,
-    tooltip,
-    onClick,
-    onMouseEnter,
-    onMouseLeave,
+        isInteractive,
+        tooltipFormat,
+        tooltip,
+        onClick,
+        onMouseEnter,
+        onMouseLeave,
 
-    legends,
-}) => {
+        legends,
+    } = props
     const options = {
         layout,
         reverse,
@@ -196,6 +191,7 @@ const Bar = ({
                 if (animate === true) {
                     bars = (
                         <TransitionMotion
+                            key="bars"
                             willEnter={willEnter}
                             willLeave={willLeave}
                             styles={result.bars.map(bar => ({
@@ -246,15 +242,10 @@ const Bar = ({
                     )
                 }
 
-                return (
-                    <SvgWrapper
-                        width={outerWidth}
-                        height={outerHeight}
-                        margin={margin}
-                        defs={boundDefs}
-                        theme={theme}
-                    >
+                const layerById = {
+                    grid: (
                         <Grid
+                            key="grid"
                             theme={theme}
                             width={width}
                             height={height}
@@ -264,7 +255,10 @@ const Bar = ({
                             yValues={gridYValues}
                             {...motionProps}
                         />
+                    ),
+                    axes: (
                         <Axes
+                            key="axes"
                             xScale={result.xScale}
                             yScale={result.yScale}
                             width={width}
@@ -276,8 +270,11 @@ const Bar = ({
                             left={axisLeft}
                             {...motionProps}
                         />
-                        {bars}
+                    ),
+                    bars,
+                    markers: (
                         <CartesianMarkers
+                            key="markers"
                             markers={markers}
                             width={width}
                             height={height}
@@ -285,26 +282,43 @@ const Bar = ({
                             yScale={result.yScale}
                             theme={theme}
                         />
-                        {legends.map((legend, i) => {
-                            let legendData
-                            if (legend.dataFrom === 'keys') {
-                                legendData = legendDataForKeys
-                            } else if (legend.dataFrom === 'indexes') {
-                                legendData = legendDataForIndexes
+                    ),
+                    legends: legends.map((legend, i) => {
+                        let legendData
+                        if (legend.dataFrom === 'keys') {
+                            legendData = legendDataForKeys
+                        } else if (legend.dataFrom === 'indexes') {
+                            legendData = legendDataForIndexes
+                        }
+
+                        if (legendData === undefined) return null
+
+                        return (
+                            <BoxLegendSvg
+                                key={i}
+                                {...legend}
+                                containerWidth={width}
+                                containerHeight={height}
+                                data={legendData}
+                                theme={theme}
+                            />
+                        )
+                    }),
+                }
+
+                return (
+                    <SvgWrapper
+                        width={outerWidth}
+                        height={outerHeight}
+                        margin={margin}
+                        defs={boundDefs}
+                        theme={theme}
+                    >
+                        {layers.map((layer, i) => {
+                            if (typeof layer === 'function') {
+                                return <Fragment key={i}>{layer({ ...props, ...result })}</Fragment>
                             }
-
-                            if (legendData === undefined) return null
-
-                            return (
-                                <BoxLegendSvg
-                                    key={i}
-                                    {...legend}
-                                    containerWidth={width}
-                                    containerHeight={height}
-                                    data={legendData}
-                                    theme={theme}
-                                />
-                            )
+                            return layerById[layer]
                         })}
                     </SvgWrapper>
                 )

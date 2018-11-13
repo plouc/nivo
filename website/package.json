@@ -48,7 +48,7 @@
     "url-search-params": "^0.10.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start",
     "build": "SKIP_PREFLIGHT_CHECK=true react-scripts build",
     "analyze": "source-map-explorer build/static/js/main.*",
     "fmt": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --write 'src/**/*.js' 'src/**/*.css'",
@@ -58,7 +58,7 @@
   "browserslist": [
     ">0.2%",
     "not dead",
-    "not ie <= 11",
+    "not ie < 11",
     "not op_mini all"
   ]
 }
