@@ -89,6 +89,8 @@ export const lightTheme = {
     labels: {
         text: {
             fill: '#555',
+            fontSize: 12,
+            fontWeight: 500,
         },
     },
 }
