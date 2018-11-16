@@ -97,7 +97,8 @@ export default [
         description: (
             <div>
                 Defines the order of layers, available layers are:
-                <code>thing A</code>, <code>thing B</code>.<br />
+                <code>grid</code>, <code>axes</code>, <code>bars</code>, <code>markers</code>,{' '}
+                <code>legends</code>.<br />
                 You can also use this to insert extra layers to the chart, this extra layer must be
                 a function which will receive the chart computed data and must return a valid SVG
                 element.

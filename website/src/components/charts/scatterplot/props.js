@@ -193,6 +193,22 @@ export default [
         },
     },
     {
+        key: 'layers',
+        scopes: ['ScatterPlot'],
+        description: (
+            <div>
+                Defines the order of layers, available layers are:
+                <code>grid</code>, <code>axes</code>, <code>points</code>, <code>markers</code>,{' '}
+                <code>mesh</code>, <code>legends</code>.<br />
+                You can also use this to insert extra layers to the chart, this extra layer must be
+                a function which will receive the chart computed data and must return a valid SVG
+                element.
+            </div>
+        ),
+        required: false,
+        default: defaults.layers,
+    },
+    {
         key: 'pixelRatio',
         scopes: ['ScatterPlotCanvas'],
         description: `Adjust pixel ratio, useful for HiDPI screens.`,
