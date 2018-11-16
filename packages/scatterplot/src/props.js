@@ -41,6 +41,13 @@ export const ScatterPlotPropTypes = {
         yScale: PropTypes.func.isRequired,
     }).isRequired,
 
+    layers: PropTypes.arrayOf(
+        PropTypes.oneOfType([
+            PropTypes.oneOf(['grid', 'axes', 'points', 'markers', 'mesh', 'legends']),
+            PropTypes.func,
+        ])
+    ).isRequired,
+
     axisTop: axisPropType,
     axisRight: axisPropType,
     axisBottom: axisPropType,
@@ -90,6 +97,8 @@ export const ScatterPlotDefaultProps = {
         min: 0,
         max: 'auto',
     },
+
+    layers: ['grid', 'axes', 'points', 'markers', 'mesh', 'legends'],
 
     axisBottom: {},
     axisLeft: {},

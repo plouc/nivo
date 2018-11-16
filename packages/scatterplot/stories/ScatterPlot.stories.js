@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import omit from 'lodash/omit'
+import { area, curveMonotoneX } from 'd3-shape'
 import { storiesOf } from '@storybook/react'
 import { withInfo } from '@storybook/addon-info'
 import { ScatterPlot, ResponsiveScatterPlot } from '../index'
@@ -367,6 +368,58 @@ stories.add(
             onMouseLeave={(data, e) => {
                 console.log({ is: 'mouseleave', data, event: e }) // eslint-disable-line
             }}
+        />
+    ))
+)
+
+const AreaLayer = ({ points, xScale, yScale }) => {
+    const areaGenerator = area()
+        .x(d => xScale(d.data.x))
+        .y0(d => yScale(d.data.low))
+        .y1(d => yScale(d.data.high))
+        .curve(curveMonotoneX)
+
+    return <path d={areaGenerator(points)} fill="rgba(232, 193, 160, .65)" />
+}
+
+stories.add(
+    'adding extra layers',
+    withInfo({
+        source: false,
+        text: `
+            You can use the layers property to add extra layers
+            to the scatterplot chart.
+        `,
+    })(() => (
+        <ScatterPlot
+            {...commonProps}
+            data={[
+                {
+                    id: 'things',
+                    data: [
+                        { x: 0, y: 3.3, low: 2.3, high: 4.2 },
+                        { x: 1, y: 3.5, low: 2.7, high: 4.1 },
+                        { x: 2, y: 3.8, low: 3.1, high: 4.6 },
+                        { x: 3, y: 4.1, low: 2.9, high: 4.5 },
+                        { x: 4, y: 4.4, low: 3.2, high: 5.1 },
+                        { x: 5, y: 4.7, low: 3.7, high: 5.4 },
+                        { x: 6, y: 4.9, low: 3.2, high: 5.8 },
+                        { x: 7, y: 5.2, low: 4.2, high: 6.1 },
+                        { x: 8, y: 5.4, low: 3.8, high: 6.7 },
+                        { x: 9, y: 5.6, low: 3.5, high: 7.1 },
+                        { x: 10, y: 5.8, low: 3.2, high: 6.8 },
+                        { x: 11, y: 6.0, low: 4, high: 7.2 },
+                        { x: 12, y: 6.2, low: 4.2, high: 9.1 },
+                        { x: 13, y: 6.4, low: 3.9, high: 9 },
+                    ],
+                },
+            ]}
+            yScale={{
+                type: 'linear',
+                max: 10,
+            }}
+            legends={[]}
+            layers={['grid', 'axes', AreaLayer, 'points', 'markers', 'mesh', 'legends']}
         />
     ))
 )
