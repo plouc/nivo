@@ -36,7 +36,7 @@ const names = [
 ]
 
 export const generateLightDataSet = () => ({
-    data: range(16).map(() =>
+    data: range(4).map(() =>
         names.slice(0, 6).reduce((layer, key) => {
             layer[key] = random(10, 200)
             return layer

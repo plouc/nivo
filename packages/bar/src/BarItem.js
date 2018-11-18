@@ -132,7 +132,7 @@ const enhance = compose(
                     format={tooltipFormat}
                     renderContent={
                         typeof tooltip === 'function'
-                            ? tooltip.bind(null, { color, ...data })
+                            ? tooltip.bind(null, { color, theme, ...data })
                             : null
                     }
                 />

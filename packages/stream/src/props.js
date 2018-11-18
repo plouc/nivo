@@ -61,8 +61,11 @@ export const StreamPropTypes = {
     dotBorderColor: PropTypes.any.isRequired,
 
     isInteractive: PropTypes.bool,
-    enableStackTooltip: PropTypes.bool.isRequired,
+    tooltipLabel: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    getTooltipLabel: PropTypes.func.isRequired,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    getTooltipValue: PropTypes.func.isRequired,
+    enableStackTooltip: PropTypes.bool.isRequired,
 
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
 }
