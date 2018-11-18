@@ -102,9 +102,10 @@ BarItem.propTypes = {
     shouldRenderLabel: PropTypes.bool.isRequired,
     labelColor: PropTypes.string.isRequired,
 
-    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
+    getTooltipLabel: PropTypes.func.isRequired,
+    tooltipFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     onClick: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
@@ -120,11 +121,11 @@ const enhance = compose(
         onClick: event => onClick({ color, ...data }, event),
     })),
     withPropsOnChange(
-        ['data', 'color', 'theme', 'tooltip', 'tooltipFormat'],
-        ({ data, color, theme, tooltip, tooltipFormat }) => ({
+        ['data', 'color', 'theme', 'tooltip', 'getTooltipLabel', 'tooltipFormat'],
+        ({ data, color, theme, tooltip, getTooltipLabel, tooltipFormat }) => ({
             tooltip: (
                 <BasicTooltip
-                    id={`${data.id} - ${data.indexValue}`}
+                    id={getTooltipLabel(data)}
                     value={data.value}
                     enableChip={true}
                     color={color}

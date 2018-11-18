@@ -28,7 +28,6 @@ export default class BarCanvas extends Component {
     state = {
         ...generateData(),
         settings: {
-            // data
             indexBy: 'country',
 
             margin: {
@@ -57,7 +56,6 @@ export default class BarCanvas extends Component {
                 gamma: 1.6,
             },
 
-            // axes
             axisTop: {
                 enable: true,
                 tickSize: 5,
@@ -96,7 +94,6 @@ export default class BarCanvas extends Component {
             enableGridX: false,
             enableGridY: true,
 
-            // labels
             enableLabel: true,
             labelSkipWidth: 12,
             labelSkipHeight: 12,
@@ -105,7 +102,6 @@ export default class BarCanvas extends Component {
                 gamma: 1.6,
             },
 
-            // interactivity
             isInteractive: true,
             'custom tooltip example': false,
             tooltip: null,

@@ -97,6 +97,7 @@ const Bar = props => {
         motionDamping,
 
         isInteractive,
+        getTooltipLabel,
         tooltipFormat,
         tooltip,
         onClick,
@@ -183,6 +184,7 @@ const Bar = props => {
                     onMouseEnter,
                     onMouseLeave,
                     theme,
+                    getTooltipLabel,
                     tooltipFormat,
                     tooltip,
                 }
