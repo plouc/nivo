@@ -11,7 +11,15 @@ import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
 import StreamSlicesItem from './StreamSlicesItem'
 
-const StreamSlices = ({ slices, height, showTooltip, hideTooltip, theme, tooltipFormat }) => (
+const StreamSlices = ({
+    slices,
+    height,
+    showTooltip,
+    hideTooltip,
+    theme,
+    getTooltipLabel,
+    getTooltipValue,
+}) => (
     <g>
         {slices.map(slice => (
             <StreamSlicesItem
@@ -21,7 +29,8 @@ const StreamSlices = ({ slices, height, showTooltip, hideTooltip, theme, tooltip
                 showTooltip={showTooltip}
                 hideTooltip={hideTooltip}
                 theme={theme}
-                tooltipFormat={tooltipFormat}
+                getTooltipLabel={getTooltipLabel}
+                getTooltipValue={getTooltipValue}
             />
         ))}
     </g>
@@ -44,7 +53,8 @@ StreamSlices.propTypes = {
     height: PropTypes.number.isRequired,
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
-    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    getTooltipLabel: PropTypes.func.isRequired,
+    getTooltipValue: PropTypes.func.isRequired,
     theme: PropTypes.object.isRequired,
 }
 

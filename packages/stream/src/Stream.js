@@ -61,8 +61,8 @@ const Stream = ({
     motionDamping,
 
     isInteractive,
-    tooltipFormat,
-
+    getTooltipValue,
+    getTooltipLabel,
     enableStackTooltip,
 
     legends,
@@ -130,6 +130,7 @@ const Stream = ({
                         getBorderColor={getBorderColor}
                         showTooltip={showTooltip}
                         hideTooltip={hideTooltip}
+                        getTooltipLabel={getTooltipLabel}
                         theme={theme}
                         {...motionProps}
                     />
@@ -169,7 +170,8 @@ const Stream = ({
                                 showTooltip={showTooltip}
                                 hideTooltip={hideTooltip}
                                 theme={theme}
-                                tooltipFormat={tooltipFormat}
+                                getTooltipValue={getTooltipValue}
+                                getTooltipLabel={getTooltipLabel}
                             />
                         )}
                     {legends.map((legend, i) => {

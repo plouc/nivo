@@ -8,8 +8,6 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import isFunction from 'lodash/isFunction'
-import { format as d3Format } from 'd3-format'
 import compose from 'recompose/compose'
 import pure from 'recompose/pure'
 import withState from 'recompose/withState'
@@ -48,29 +46,31 @@ StreamSlicesItem.propTypes = {
     height: PropTypes.number.isRequired,
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
+    getTooltipLabel: PropTypes.func.isRequired,
+    getTooltipValue: PropTypes.func.isRequired,
     isHover: PropTypes.bool.isRequired,
     theme: PropTypes.object.isRequired,
 }
 
 const enhance = compose(
     withState('isHover', 'setIsHover', false),
-    withPropsOnChange(['slice', 'theme', 'tooltipFormat'], ({ slice, theme, tooltipFormat }) => {
-        const format =
-            !tooltipFormat || isFunction(tooltipFormat) ? tooltipFormat : d3Format(tooltipFormat)
-
-        return {
-            tooltip: (
-                <TableTooltip
-                    theme={theme}
-                    rows={slice.stack.map(p => [
-                        <Chip key={p.id} color={p.color} />,
-                        p.id,
-                        format ? format(p.value) : p.value,
-                    ])}
-                />
-            ),
+    withPropsOnChange(
+        ['slice', 'theme', 'getTooltipLabel', 'getTooltipValue'],
+        ({ slice, theme, getTooltipLabel, getTooltipValue }) => {
+            return {
+                tooltip: (
+                    <TableTooltip
+                        theme={theme}
+                        rows={slice.stack.map(p => [
+                            <Chip key={p.id} color={p.color} />,
+                            getTooltipLabel(p),
+                            getTooltipValue(p),
+                        ])}
+                    />
+                ),
+            }
         }
-    }),
+    ),
     withHandlers({
         showTooltip: ({ showTooltip, setIsHover, tooltip }) => e => {
             setIsHover(true)
