@@ -61,7 +61,7 @@ export const StreamPropTypes = {
     dotBorderColor: PropTypes.any.isRequired,
 
     isInteractive: PropTypes.bool,
-    tooltipLabel: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    tooltipLabel: PropTypes.func,
     getTooltipLabel: PropTypes.func.isRequired,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
     getTooltipValue: PropTypes.func.isRequired,

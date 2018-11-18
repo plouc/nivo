@@ -129,7 +129,7 @@ class BarCanvas extends Component {
     handleMouseHover = (showTooltip, hideTooltip) => event => {
         if (!this.bars) return
 
-        const { margin, theme, tooltip } = this.props
+        const { margin, theme, tooltip, getTooltipLabel, tooltipFormat } = this.props
         const [x, y] = getRelativeCursor(this.surface, event)
 
         const bar = findNodeUnderCursor(this.bars, margin, x, y)
@@ -137,11 +137,12 @@ class BarCanvas extends Component {
         if (bar !== undefined) {
             showTooltip(
                 <BasicTooltip
-                    id={`${bar.data.id} - ${bar.data.indexValue}`}
+                    id={getTooltipLabel(bar.data)}
                     value={bar.data.value}
                     enableChip={true}
                     color={bar.color}
                     theme={theme}
+                    format={tooltipFormat}
                     renderContent={
                         typeof tooltip === 'function'
                             ? tooltip.bind(null, { color: bar.color, ...bar.data })

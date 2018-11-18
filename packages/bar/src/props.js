@@ -66,6 +66,8 @@ export const BarPropTypes = {
     onClick: PropTypes.func.isRequired,
     onMouseEnter: PropTypes.func.isRequired,
     onMouseLeave: PropTypes.func.isRequired,
+    tooltipLabel: PropTypes.func,
+    getTooltipLabel: PropTypes.func.isRequired,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
     tooltip: PropTypes.func,
 

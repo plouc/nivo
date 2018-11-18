@@ -37,5 +37,13 @@ export default Component =>
         withPropsOnChange(['borderColor'], ({ borderColor }) => ({
             getBorderColor: getInheritedColorGenerator(borderColor),
         })),
+        withPropsOnChange(['tooltipLabel'], ({ tooltipLabel }) => {
+            let getTooltipLabel = d => `${d.id} - ${d.indexValue}`
+            if (typeof tooltipLabel === 'function') {
+                getTooltipLabel = tooltipLabel
+            }
+
+            return { getTooltipLabel }
+        }),
         pure
     )(Component)
