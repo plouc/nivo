@@ -28,10 +28,6 @@ export default {
         max: 'auto',
     },
 
-    minY: 'auto',
-    maxY: 'auto',
-
-    stacked: true,
     curve: 'linear',
 
     axisTop: {

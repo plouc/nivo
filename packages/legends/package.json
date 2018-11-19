@@ -10,6 +10,7 @@
   "main": "./index.js",
   "files": [
     "README.md",
+    "LICENSE.md",
     "index.js",
     "index.d.ts",
     "cjs/",

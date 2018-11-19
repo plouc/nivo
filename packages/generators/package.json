@@ -15,6 +15,7 @@
   "main": "./index.js",
   "files": [
     "README.md",
+    "LICENSE.md",
     "index.js",
     "cjs/",
     "umd/"

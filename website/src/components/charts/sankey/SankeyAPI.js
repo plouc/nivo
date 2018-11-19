@@ -32,7 +32,7 @@ export default class SankeyAPI extends Component {
                     },
 
                     align: 'justify',
-                    colors: 'd320b',
+                    colors: 'paired',
 
                     // nodes
                     nodeOpacity: 0.75,

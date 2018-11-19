@@ -10,9 +10,16 @@ import React, { Component } from 'react'
 import APIClient from '../../api-client/APIClient'
 import TreeMapControls from './TreeMapControls'
 import propsMapper from './propsMapper'
+import { generateLightDataSet } from './generators'
 
 export default class TreeMapAPI extends Component {
+    state = {
+        ...generateLightDataSet(),
+    }
+
     render() {
+        const { root } = this.state
+
         return (
             <APIClient
                 componentName="TreeMap"
@@ -21,7 +28,7 @@ export default class TreeMapAPI extends Component {
                 controls={TreeMapControls}
                 propsMapper={propsMapper}
                 defaultProps={{
-                    root: JSON.stringify(this.props.root, null, '  '),
+                    root: JSON.stringify(root, null, '  '),
                     tile: 'squarify',
                     leavesOnly: false,
 

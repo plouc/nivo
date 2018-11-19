@@ -18,12 +18,12 @@ import config from '../../../config'
 import ComponentPropsDocumentation from '../../properties/ComponentPropsDocumentation'
 import properties from './props'
 import nivoTheme from '../../../nivoTheme'
-import { generateLightDataSet as generateData } from './generators'
+import { generateLightDataSet } from './generators'
 import propsMapper from './propsMapper'
 
 export default class TreeMap extends Component {
     state = {
-        ...generateData(),
+        ...generateLightDataSet(),
         settings: {
             identity: 'name',
             value: 'loc',
@@ -68,7 +68,7 @@ export default class TreeMap extends Component {
     }
 
     diceRoll = () => {
-        this.setState(generateData())
+        this.setState(generateLightDataSet())
     }
 
     handleSettingsUpdate = settings => {

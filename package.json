@@ -53,11 +53,10 @@
     "typescript": "^3.0.1"
   },
   "scripts": {
-    "fmt": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --color --write \"{src,specs,test,.storybook,stories}/**/*.js\"",
-    "fmt:check": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --list-different \"{src,specs,test,.storybook,stories}/**/*.js\"",
     "changelog": "rm CHANGELOG.md && node scripts/generate-changelog.js"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "api"
   ]
 }

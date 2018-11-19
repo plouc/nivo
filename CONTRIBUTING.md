@@ -1,5 +1,6 @@
 # Contributing
 
+- [requirements](#requirements)
 - [setup](#setup)
 - [development](#development)
   - [formatting](#formatting)
@@ -7,6 +8,12 @@
   - [screenshots](#screenshots)
 - [website](#website)
 - [deploy](#deploy)
+
+## Requirements
+
+- **Node.js**
+- **yarn**
+- **Make** (you also have the option to run the commands manually though)
 
 ## Setup
 
