@@ -1,6 +1,5 @@
 const puppeteer = require('puppeteer')
 const chalk = require('chalk')
-const _ = require('lodash')
 const config = require('@ekino/config')
 
 const capture = async (browser, baseUrl, { path, selector, output }) => {

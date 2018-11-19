@@ -59,6 +59,7 @@ fmt: ##@0 global format code using prettier (js, css, md)
 		"packages/*/README.md" \
 		"website/src/**/*.{js,css}" \
 		"examples/*/src/**/*.{js,ts,tsx,css}" \
+		"api/**/*.{js,ts,tsx}" \
 		"README.md"
 
 fmt-check: ##@0 global check if files were all formatted using prettier
@@ -69,6 +70,7 @@ fmt-check: ##@0 global check if files were all formatted using prettier
         "packages/*/README.md" \
         "website/src/**/*.{js,css}" \
         "examples/*/src/**/*.{js,ts,tsx,css}" \
+		"api/**/*.{js,ts,tsx}" \
         "README.md"
 
 test-all: ##@0 global run all checks/tests (packages, website & examples)
@@ -208,6 +210,9 @@ website-install: ##@2 website install website dependencies
 	@echo "${YELLOW}Installing website dependencies${RESET}"
 	@cd website && yarn install
 
+website-deps-up: ##@2 website interactive upgrade of website's dependencies
+	@yarn upgrade-interactive --latest
+
 website: ##@2 website start website in dev mode
 	@echo "${YELLOW}Starting website dev server${RESET}"
 	@cd website && yarn start
@@ -273,6 +278,9 @@ example-install-%: ##@4 examples install example dependencies, eg. example-insta
 	@echo "${YELLOW}Installing ${WHITE}${*}${YELLOW} example dependencies${RESET}"
 	@cd examples/${*} && yarn install
 
+example-deps-up-%: ##@4 examples interactive upgrade of example's dependencies
+	@cd examples/${*} && yarn upgrade-interactive --latest
+
 example-start-%: ##@4 examples start example in dev mode, eg. example-start-retro
 	@echo "${YELLOW}Starting ${WHITE}${*}${YELLOW} example dev server${RESET}"
 	@cd examples/${*} && yarn start
@@ -284,3 +292,18 @@ examples-build: ##@4 examples build all examples
 example-build-%: ##@4 examples build an example, eg. example-build-retro
 	@echo "${YELLOW}Building ${WHITE}${*}${YELLOW} example${RESET}"
 	@cd examples/${*} && yarn build
+
+########################################################################################################################
+#
+# API
+#
+########################################################################################################################
+
+api-dev: ##@5 API run API in dev mode (watcher)
+	@echo "${YELLOW}Starting API in dev mode${RESET}"
+	@cd api && yarn dev
+
+api: ##@5 API run API in regular mode (no watcher)
+	@echo "${YELLOW}Starting API${RESET}"
+	@cd api && yarn start
+
