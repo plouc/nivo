@@ -14,7 +14,9 @@ import {
     isCursorInRect,
     Container,
     BasicTooltip,
+    renderGridLinesToCanvas,
 } from '@nivo/core'
+import { renderLegendToCanvas } from '@nivo/legends'
 import { generateGroupedBars, generateStackedBars } from './compute'
 import { BarPropTypes } from './props'
 import enhance from './enhance'
@@ -77,6 +79,11 @@ class BarCanvas extends Component {
 
             theme,
             getColor,
+
+            legends,
+
+            enableGridX,
+            enableGridY,
         } = props
 
         this.surface.width = outerWidth * pixelRatio
@@ -107,6 +114,60 @@ class BarCanvas extends Component {
         this.ctx.fillStyle = theme.background
         this.ctx.fillRect(0, 0, outerWidth, outerHeight)
         this.ctx.translate(margin.left, margin.top)
+
+        this.ctx.strokeStyle = '#dddddd'
+        enableGridX &&
+            renderGridLinesToCanvas(this.ctx, {
+                width,
+                height,
+                scale: result.xScale,
+                axis: 'x',
+            })
+        enableGridY &&
+            renderGridLinesToCanvas(this.ctx, {
+                width,
+                height,
+                scale: result.yScale,
+                axis: 'y',
+            })
+
+        this.ctx.strokeStyle = '#dddddd'
+        const legendDataForKeys = result.bars
+            .filter(bar => bar.data.index === 0)
+            .map(bar => ({
+                id: bar.data.id,
+                label: bar.data.id,
+                color: bar.color,
+                fill: bar.data.fill,
+            }))
+            .reverse()
+        const legendDataForIndexes = result.bars
+            .filter(bar => bar.data.id === keys[0])
+            .map(bar => ({
+                id: bar.data.indexValue,
+                label: bar.data.indexValue,
+                color: bar.color,
+                fill: bar.data.fill,
+            }))
+
+        legends.forEach(legend => {
+            let legendData
+            if (legend.dataFrom === 'keys') {
+                legendData = legendDataForKeys
+            } else if (legend.dataFrom === 'indexes') {
+                legendData = legendDataForIndexes
+            }
+
+            if (legendData === undefined) return null
+            renderLegendToCanvas(this.ctx, {
+                ...legend,
+                data: legendData,
+                containerWidth: width,
+                containerHeight: height,
+                itemTextColor: "#999",
+                symbolSize: 16,
+            })
+        })
 
         renderAxesToCanvas(this.ctx, {
             xScale: result.xScale,
