@@ -164,7 +164,7 @@ class BarCanvas extends Component {
                 data: legendData,
                 containerWidth: width,
                 containerHeight: height,
-                itemTextColor: "#999",
+                itemTextColor: '#999',
                 symbolSize: 16,
             })
         })
