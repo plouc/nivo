@@ -92,6 +92,23 @@ export default [
         },
     },
     {
+        key: 'layers',
+        scopes: ['Line'],
+        description: (
+            <div>
+                Defines the order of layers, available layers are:
+                <code>grid</code>, <code>markers</code>, <code>axes</code>, <code>areas</code>,{' '}
+                <code>lines</code>, <code>slices</code>, <code>dots</code>, <code>legends</code>.
+                <br />
+                You can also use this to insert extra layers to the chart, this extra layer must be
+                a function which will receive the chart computed data and must return a valid SVG
+                element.
+            </div>
+        ),
+        required: false,
+        default: defaults.layers,
+    },
+    {
         key: 'curve',
         scopes: '*',
         description: (

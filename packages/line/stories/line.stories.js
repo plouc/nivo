@@ -5,6 +5,7 @@ import { storiesOf } from '@storybook/react'
 import { withKnobs, boolean, select } from '@storybook/addon-knobs'
 import { withInfo } from '@storybook/addon-info'
 import { generateDrinkStats } from '@nivo/generators'
+import { area, curveMonotoneX } from 'd3-shape'
 import * as time from 'd3-time'
 import { timeFormat } from 'd3-time-format'
 import { Line } from '../index'
@@ -717,6 +718,32 @@ stories.add(
                     },
                 },
             }}
+        />
+    ))
+)
+
+const AreaLayer = ({ computedData, xScale, yScale }) => {
+    const areaGenerator = area()
+        .x(d => xScale(d.data.x))
+        .y0(d => yScale(d.data.y - 10))
+        .y1(d => yScale(d.data.y + 10))
+        .curve(curveMonotoneX)
+
+    return <path d={areaGenerator(computedData.series[0].data)} fill="rgba(232, 193, 160, .65)" />
+}
+
+stories.add(
+    'custom layers',
+    withInfo({
+        source: false,
+        text: `
+					You can use the layers property to add extra layers
+					to the line chart.
+			`,
+    })(() => (
+        <Line
+            {...commonProperties}
+            layers={['grid', 'markers', 'areas', AreaLayer, 'lines', 'slices', 'dots', 'legends']}
         />
     ))
 )

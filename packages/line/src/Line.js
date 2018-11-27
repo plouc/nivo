@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { Fragment } from 'react'
 import { area, line } from 'd3-shape'
 import compose from 'recompose/compose'
 import pure from 'recompose/pure'
@@ -33,126 +33,173 @@ import LineSlices from './LineSlices'
 import LineDots from './LineDots'
 import { LinePropTypes, LineDefaultProps } from './props'
 
-const Line = ({
-    computedData,
-    lineGenerator,
-    areaGenerator,
+const Line = props => {
+    const {
+        computedData,
+        lineGenerator,
+        areaGenerator,
+        layers,
 
-    margin,
-    width,
-    height,
-    outerWidth,
-    outerHeight,
+        margin,
+        width,
+        height,
+        outerWidth,
+        outerHeight,
 
-    axisTop,
-    axisRight,
-    axisBottom,
-    axisLeft,
-    enableGridX,
-    enableGridY,
-    gridXValues,
-    gridYValues,
+        axisTop,
+        axisRight,
+        axisBottom,
+        axisLeft,
+        enableGridX,
+        enableGridY,
+        gridXValues,
+        gridYValues,
 
-    lineWidth,
-    enableArea,
-    areaOpacity,
-    areaBlendMode,
+        lineWidth,
+        enableArea,
+        areaOpacity,
+        areaBlendMode,
 
-    enableDots,
-    dotSymbol,
-    dotSize,
-    dotColor,
-    dotBorderWidth,
-    dotBorderColor,
-    enableDotLabel,
-    dotLabel,
-    dotLabelFormat,
-    dotLabelYOffset,
+        enableDots,
+        dotSymbol,
+        dotSize,
+        dotColor,
+        dotBorderWidth,
+        dotBorderColor,
+        enableDotLabel,
+        dotLabel,
+        dotLabelFormat,
+        dotLabelYOffset,
 
-    markers,
+        markers,
 
-    theme,
+        theme,
 
-    animate,
-    motionStiffness,
-    motionDamping,
+        animate,
+        motionStiffness,
+        motionDamping,
 
-    isInteractive,
-    tooltipFormat,
-    tooltip,
-    enableStackTooltip,
+        isInteractive,
+        tooltipFormat,
+        tooltip,
+        enableStackTooltip,
 
-    legends,
-}) => {
+        legends,
+    } = props
+
     const motionProps = {
         animate,
         motionDamping,
         motionStiffness,
     }
 
+    const legendData = computedData.series
+        .map(line => ({
+            id: line.id,
+            label: line.id,
+            color: line.color,
+        }))
+        .reverse()
+
     return (
         <Container isInteractive={isInteractive} theme={theme}>
-            {({ showTooltip, hideTooltip }) => (
-                <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
-                    <Grid
-                        theme={theme}
-                        width={width}
-                        height={height}
-                        xScale={enableGridX ? computedData.xScale : null}
-                        yScale={enableGridY ? computedData.yScale : null}
-                        xValues={gridXValues}
-                        yValues={gridYValues}
-                        {...motionProps}
-                    />
-                    <CartesianMarkers
-                        markers={markers}
-                        width={width}
-                        height={height}
-                        xScale={computedData.xScale}
-                        yScale={computedData.yScale}
-                        theme={theme}
-                    />
-                    <Axes
-                        xScale={computedData.xScale}
-                        yScale={computedData.yScale}
-                        width={width}
-                        height={height}
-                        theme={theme}
-                        top={axisTop}
-                        right={axisRight}
-                        bottom={axisBottom}
-                        left={axisLeft}
-                        {...motionProps}
-                    />
-                    {enableArea && (
+            {({ showTooltip, hideTooltip }) => {
+                const layerById = {
+                    grid: (
+                        <Grid
+                            key="grid"
+                            theme={theme}
+                            width={width}
+                            height={height}
+                            xScale={enableGridX ? computedData.xScale : null}
+                            yScale={enableGridY ? computedData.yScale : null}
+                            xValues={gridXValues}
+                            yValues={gridYValues}
+                            {...motionProps}
+                        />
+                    ),
+                    markers: (
+                        <CartesianMarkers
+                            key="markers"
+                            markers={markers}
+                            width={width}
+                            height={height}
+                            xScale={computedData.xScale}
+                            yScale={computedData.yScale}
+                            theme={theme}
+                        />
+                    ),
+                    axes: (
+                        <Axes
+                            key="axes"
+                            xScale={computedData.xScale}
+                            yScale={computedData.yScale}
+                            width={width}
+                            height={height}
+                            theme={theme}
+                            top={axisTop}
+                            right={axisRight}
+                            bottom={axisBottom}
+                            left={axisLeft}
+                            {...motionProps}
+                        />
+                    ),
+                    areas: null,
+                    lines: (
+                        <LineLines
+                            key="lines"
+                            lines={computedData.series}
+                            lineGenerator={lineGenerator}
+                            lineWidth={lineWidth}
+                            {...motionProps}
+                        />
+                    ),
+                    slices: null,
+                    dots: null,
+                    legends: legends.map((legend, i) => (
+                        <BoxLegendSvg
+                            key={i}
+                            {...legend}
+                            containerWidth={width}
+                            containerHeight={height}
+                            data={legendData}
+                            theme={theme}
+                        />
+                    )),
+                }
+
+                if (enableArea) {
+                    layerById.areas = (
                         <LineAreas
+                            key="areas"
                             areaGenerator={areaGenerator}
                             areaOpacity={areaOpacity}
                             areaBlendMode={areaBlendMode}
                             lines={computedData.series}
                             {...motionProps}
                         />
-                    )}
-                    <LineLines
-                        lines={computedData.series}
-                        lineGenerator={lineGenerator}
-                        lineWidth={lineWidth}
-                        {...motionProps}
-                    />
-                    {isInteractive &&
-                        enableStackTooltip && (
-                            <LineSlices
-                                slices={computedData.slices}
-                                height={height}
-                                showTooltip={showTooltip}
-                                hideTooltip={hideTooltip}
-                                theme={theme}
-                                tooltipFormat={tooltipFormat}
-                                tooltip={tooltip}
-                            />
-                        )}
-                    {enableDots && (
+                    )
+                }
+
+                if (isInteractive && enableStackTooltip) {
+                    layerById.slices = (
+                        <LineSlices
+                            key="slices"
+                            slices={computedData.slices}
+                            height={height}
+                            showTooltip={showTooltip}
+                            hideTooltip={hideTooltip}
+                            theme={theme}
+                            tooltipFormat={tooltipFormat}
+                            tooltip={tooltip}
+                        />
+                    )
+                }
+
+                if (enableDots) {
+                    layerById.dots = (
                         <LineDots
+                            key="dots"
                             lines={computedData.series}
                             symbol={dotSymbol}
                             size={dotSize}
@@ -166,29 +213,32 @@ const Line = ({
                             theme={theme}
                             {...motionProps}
                         />
-                    )}
-                    {legends.map((legend, i) => {
-                        const legendData = computedData.series
-                            .map(line => ({
-                                id: line.id,
-                                label: line.id,
-                                color: line.color,
-                            }))
-                            .reverse()
-
-                        return (
-                            <BoxLegendSvg
-                                key={i}
-                                {...legend}
-                                containerWidth={width}
-                                containerHeight={height}
-                                data={legendData}
-                                theme={theme}
-                            />
-                        )
-                    })}
-                </SvgWrapper>
-            )}
+                    )
+                }
+                return (
+                    <SvgWrapper
+                        width={outerWidth}
+                        height={outerHeight}
+                        margin={margin}
+                        theme={theme}
+                    >
+                        {layers.map((layer, i) => {
+                            if (typeof layer === 'function') {
+                                return (
+                                    <Fragment key={i}>
+                                        {layer({
+                                            ...props,
+                                            xScale: computedData.xScale,
+                                            yScale: computedData.yScale,
+                                        })}
+                                    </Fragment>
+                                )
+                            }
+                            return layerById[layer]
+                        })}
+                    </SvgWrapper>
+                )
+            }}
         </Container>
     )
 }
