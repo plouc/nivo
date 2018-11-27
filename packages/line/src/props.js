@@ -37,6 +37,21 @@ export const LinePropTypes = {
     yScale: scalePropType.isRequired,
 
     computedData: PropTypes.object.isRequired,
+    layers: PropTypes.arrayOf(
+        PropTypes.oneOfType([
+            PropTypes.oneOf([
+                'grid',
+                'markers',
+                'axes',
+                'areas',
+                'lines',
+                'slices',
+                'dots',
+                'legends',
+            ]),
+            PropTypes.func,
+        ])
+    ).isRequired,
 
     curve: lineCurvePropType.isRequired,
     areaGenerator: PropTypes.func.isRequired,
@@ -104,6 +119,7 @@ export const LineDefaultProps = {
         max: 'auto',
     },
 
+    layers: ['grid', 'markers', 'axes', 'areas', 'lines', 'slices', 'dots', 'legends'],
     axisBottom: {},
     axisLeft: {},
     enableGridX: true,
