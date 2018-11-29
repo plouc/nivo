@@ -598,7 +598,7 @@ const SITEMAP = [
             },
             {
                 className: 'storybook',
-                path: 'http://nivo.rocks/storybook/',
+                path: 'https://nivo.rocks/storybook/',
                 label: 'Storybook',
             },
             {

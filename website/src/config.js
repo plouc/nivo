@@ -13,5 +13,5 @@ module.exports = {
 
     // production
     nivoApiUrl: 'https://nivo-api.herokuapp.com',
-    storybookUrl: 'http://nivo.rocks/storybook/',
+    storybookUrl: 'https://nivo.rocks/storybook/',
 }

@@ -50,7 +50,7 @@ export default class Header extends Component {
                     })}
                     <a
                         className="HeaderNav__Item HeaderNav__Item--storybook"
-                        href="http://nivo.rocks/storybook/"
+                        href="https://nivo.rocks/storybook/"
                         target="_blank"
                         rel="noopener noreferrer"
                     >

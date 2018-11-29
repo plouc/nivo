@@ -124,12 +124,12 @@ const About = () => (
                             packages
                         </a>
                         ,{' '}
-                        <a href="http://nivo.rocks" target="_blank" rel="noopener noreferrer">
+                        <a href="https://nivo.rocks" target="_blank" rel="noopener noreferrer">
                             website
                         </a>
                         ,{' '}
                         <a
-                            href="http://nivo.rocks/storybook/"
+                            href="https://nivo.rocks/storybook/"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
