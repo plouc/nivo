@@ -709,9 +709,10 @@
     react-motion "^0.5.2"
     recompose "^0.26.0"
 
-"@nivo/bar@0.51.0":
-  version "0.51.0"
-  resolved "https://registry.yarnpkg.com/@nivo/bar/-/bar-0.51.0.tgz#8a6423be077677696ba01ed56c60b8a5f1fdae59"
+"@nivo/bar@0.51.6":
+  version "0.51.6"
+  resolved "https://registry.yarnpkg.com/@nivo/bar/-/bar-0.51.6.tgz#ee4a50fb31ad5ea735fea456db06970fda2a9094"
+  integrity sha512-JsvpoOIPo9XxrSNjc9JCzPkSkjQwY5yC0Y8hchmkLQqJkLlli9X6lEmuqctyO1E1fXbeYXkMvEr9DiIigUwLWg==
   dependencies:
     "@nivo/axes" "0.51.0"
     "@nivo/core" "0.51.0"
@@ -745,9 +746,10 @@
     lodash "^4.17.4"
     recompose "^0.26.0"
 
-"@nivo/chord@0.51.0":
-  version "0.51.0"
-  resolved "https://registry.yarnpkg.com/@nivo/chord/-/chord-0.51.0.tgz#896affcdc0db9c9216ea4275a928c5a83b897ace"
+"@nivo/chord@0.51.2":
+  version "0.51.2"
+  resolved "https://registry.yarnpkg.com/@nivo/chord/-/chord-0.51.2.tgz#b744e014d82a86f9ec295f24cd38d1cdad3b462a"
+  integrity sha512-L7ZThl8+jshIt3YhYNxUXSam4ealssP5AZz7O6hed2lJ9svyAUL9Eb5/iQcbefB6Cn8n9R4ImNpnT5kvWDUwAQ==
   dependencies:
     "@nivo/core" "0.51.0"
     "@nivo/legends" "0.51.0"
@@ -811,9 +813,10 @@
     lodash "^4.17.4"
     recompose "^0.26.0"
 
-"@nivo/line@0.51.0":
-  version "0.51.0"
-  resolved "https://registry.yarnpkg.com/@nivo/line/-/line-0.51.0.tgz#4d16a2a2b843103764dd74ee7832ca85f9b311fc"
+"@nivo/line@0.51.6":
+  version "0.51.6"
+  resolved "https://registry.yarnpkg.com/@nivo/line/-/line-0.51.6.tgz#801a01764b570f0b6e6e8fd287ca1a303f0c59d5"
+  integrity sha512-yhMP0JVJQT9EI9nmFjywOfB6oUbBfaygBaqn9P6pB0B+AYyFRn9FUGsNuB3pWCF5+X4EVAcIfuUutWtHW9mQfQ==
   dependencies:
     "@nivo/axes" "0.51.0"
     "@nivo/core" "0.51.0"
@@ -880,9 +883,10 @@
     d3-time-format "^2.1.3"
     lodash "^4.17.4"
 
-"@nivo/scatterplot@0.51.0":
-  version "0.51.0"
-  resolved "https://registry.yarnpkg.com/@nivo/scatterplot/-/scatterplot-0.51.0.tgz#8894eb67622b0d16f487fe21564e9925b0f157ae"
+"@nivo/scatterplot@0.51.3":
+  version "0.51.3"
+  resolved "https://registry.yarnpkg.com/@nivo/scatterplot/-/scatterplot-0.51.3.tgz#a33c62d97acc2faa5518db5acc162fbe9758bee4"
+  integrity sha512-dMV93wMCTIl+InlhUXI6mM2iOo0hljqNkiUVyR0RDB+6XbuAj272mT+00IyW/a6cv4BSeZQ6TtLFGM4u/ZEkiw==
   dependencies:
     "@nivo/axes" "0.51.0"
     "@nivo/core" "0.51.0"
@@ -895,9 +899,10 @@
     react-motion "^0.5.2"
     recompose "^0.26.0"
 
-"@nivo/stream@0.51.0":
-  version "0.51.0"
-  resolved "https://registry.yarnpkg.com/@nivo/stream/-/stream-0.51.0.tgz#f453242cf53d56e143ce9422f44a9e51ebdd8609"
+"@nivo/stream@0.51.5":
+  version "0.51.5"
+  resolved "https://registry.yarnpkg.com/@nivo/stream/-/stream-0.51.5.tgz#8da03cbba4535a6bb1e9670a422b68f9aee0f3fb"
+  integrity sha512-m6wnho4mM2X2oPmGAvx8Yc+qKaHWWKR5Rh+iQCKXbX1Ly/vxAw6eUzYvp1zPgZgbGUvFStxEcFM2dr4xUtnHAQ==
   dependencies:
     "@nivo/core" "0.51.0"
     "@nivo/legends" "0.51.0"
