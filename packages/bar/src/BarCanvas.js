@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React, { Component } from 'react'
-import uniqBy from "lodash/uniqBy"
+import uniqBy from 'lodash/uniqBy'
 import setDisplayName from 'recompose/setDisplayName'
 import {
     renderAxesToCanvas,
@@ -134,21 +134,26 @@ class BarCanvas extends Component {
 
         this.ctx.strokeStyle = '#dddddd'
 
-        const legendDataForKeys = uniqBy(result.bars
-            .map(bar => ({
-                id: bar.data.id,
-                label: bar.data.id,
-                color: bar.color,
-                fill: bar.data.fill,
-            }))
-            .reverse(), (({id}) => id))
-        const legendDataForIndexes = uniqBy(result.bars
-            .map(bar => ({
+        const legendDataForKeys = uniqBy(
+            result.bars
+                .map(bar => ({
+                    id: bar.data.id,
+                    label: bar.data.id,
+                    color: bar.color,
+                    fill: bar.data.fill,
+                }))
+                .reverse(),
+            ({ id }) => id
+        )
+        const legendDataForIndexes = uniqBy(
+            result.bars.map(bar => ({
                 id: bar.data.indexValue,
                 label: bar.data.indexValue,
                 color: bar.color,
                 fill: bar.data.fill,
-            })), (({id}) => id))
+            })),
+            ({ id }) => id
+        )
 
         legends.forEach(legend => {
             let legendData
