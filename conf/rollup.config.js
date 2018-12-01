@@ -2,12 +2,20 @@ import { camelCase, upperFirst } from 'lodash'
 import babel from 'rollup-plugin-babel'
 import resolve from 'rollup-plugin-node-resolve'
 import stripBanner from 'rollup-plugin-strip-banner'
+import cleanup from 'rollup-plugin-cleanup'
+import { uglify } from 'rollup-plugin-uglify'
+import { sizeSnapshot } from 'rollup-plugin-size-snapshot'
 
 const pkg = process.env.PACKAGE
+const isWatching = process.env.ROLLUP_WATCH !== undefined
+const env = process.env.BABEL_ENV || process.env.NODE_ENV
+const isEnvDevelopment = env === 'development'
+const isEnvProduction = env === 'production'
 
-const externals = [
-    'prop-types',
-]
+// console.log('isEnvDevelopment:', isEnvDevelopment)
+// console.log('isEnvProduction:', isEnvProduction)
+
+const externals = ['prop-types']
 
 const mapGlobal = name => {
     if (name.indexOf('@nivo') === 0) return 'nivo'
@@ -21,12 +29,13 @@ const mapGlobal = name => {
 
 const common = {
     input: `./packages/${pkg}/src/index.js`,
-    external: id => externals.includes(id)
-        || id.indexOf('react') === 0
-        || id.indexOf('d3') === 0
-        || id.indexOf('@nivo') === 0
-        || id.indexOf('lodash') === 0
-        || id.indexOf('recompose') === 0,
+    external: id =>
+        externals.includes(id) ||
+        id.indexOf('react') === 0 ||
+        id.indexOf('d3') === 0 ||
+        id.indexOf('@nivo') === 0 ||
+        id.indexOf('lodash') === 0 ||
+        id.indexOf('recompose') === 0,
 }
 
 const commonPlugins = [
@@ -43,15 +52,20 @@ const commonPlugins = [
     }),
     babel({
         exclude: 'node_modules/**',
-        plugins: ['external-helpers']
+        externalHelpers: true,
     }),
-]
+    isEnvProduction && cleanup(),
+    !isWatching && sizeSnapshot(),
+    isEnvProduction && uglify(),
+].filter(Boolean)
+
+const fileName = `nivo-${pkg}${isEnvProduction ? '.production.min' : '.development'}.js`
 
 export default [
     {
         ...common,
         output: {
-            file: `./packages/${pkg}/cjs/nivo-${pkg}.js`,
+            file: `./packages/${pkg}/cjs/${fileName}`,
             format: 'cjs',
             name: `@nivo/${pkg}`,
         },

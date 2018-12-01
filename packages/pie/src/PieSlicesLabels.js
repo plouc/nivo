@@ -39,28 +39,30 @@ export default class PieSlicesLabels extends Component {
 
         return (
             <Fragment>
-                {arcs.filter(arc => skipAngle === 0 || arc.angleDeg > skipAngle).map(arc => {
-                    const angle = midAngle(arc) - Math.PI / 2
-                    const position = positionFromAngle(angle, centerRadius)
+                {arcs
+                    .filter(arc => skipAngle === 0 || arc.angleDeg > skipAngle)
+                    .map(arc => {
+                        const angle = midAngle(arc) - Math.PI / 2
+                        const position = positionFromAngle(angle, centerRadius)
 
-                    return (
-                        <g
-                            key={arc.data.id}
-                            transform={`translate(${position.x}, ${position.y})`}
-                            style={sliceStyle}
-                        >
-                            <text
-                                textAnchor="middle"
-                                style={{
-                                    ...theme.labels.text,
-                                    fill: textColor(arc.data, theme),
-                                }}
+                        return (
+                            <g
+                                key={arc.data.id}
+                                transform={`translate(${position.x}, ${position.y})`}
+                                style={sliceStyle}
                             >
-                                {label(arc.data)}
-                            </text>
-                        </g>
-                    )
-                })}
+                                <text
+                                    textAnchor="middle"
+                                    style={{
+                                        ...theme.labels.text,
+                                        fill: textColor(arc.data, theme),
+                                    }}
+                                >
+                                    {label(arc.data)}
+                                </text>
+                            </g>
+                        )
+                    })}
             </Fragment>
         )
     }

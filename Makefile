@@ -54,7 +54,9 @@ init: ##@0 global cleanup/install/bootstrap
 
 fmt: ##@0 global format code using prettier (js, css, md)
 	@./node_modules/.bin/prettier --color --write \
+		"conf/*.{js,yaml}" \
 		"packages/*/{src,stories,tests}/**/*.{js,ts}" \
+		"packages/*/index.js" \
 		"packages/*/index.d.ts" \
 		"packages/*/README.md" \
 		"website/src/**/*.{js,css}" \
@@ -65,7 +67,9 @@ fmt: ##@0 global format code using prettier (js, css, md)
 fmt-check: ##@0 global check if files were all formatted using prettier
 	@echo "${YELLOW}Checking formatting${RESET}"
 	@./node_modules/.bin/prettier --color --list-different \
+		"conf/*.{js,yaml}" \
         "packages/*/{src,stories,tests}/**/*.{js,ts}" \
+		"packages/*/index.js" \
         "packages/*/index.d.ts" \
         "packages/*/README.md" \
         "website/src/**/*.{js,css}" \
@@ -170,28 +174,37 @@ packages-build: ##@1 packages build all packages
         | sed 's|^./packages/||' \
         | xargs -I '{}' sh -c '$(MAKE) package-build-{}'
 
+package-build-%-dev: ##@1 packages build a development package
+	@echo "${YELLOW}Building package ${WHITE}@nivo/${*}${RESET}"
+	@export PACKAGE=${*} NODE_ENV=development; ./node_modules/.bin/rollup -c conf/rollup.config.js
+
+package-build-%-prod: ##@1 packages build a production package
+	@echo "${YELLOW}Building package ${WHITE}@nivo/${*}${RESET}"
+	@export PACKAGE=${*} NODE_ENV=production; ./node_modules/.bin/rollup -c conf/rollup.config.js
+
 package-build-%: ##@1 packages build a package
 	@echo "${YELLOW}Building package ${WHITE}@nivo/${*}${RESET}"
-	@export PACKAGE=${*}; ./node_modules/.bin/rollup -c conf/rollup.config.js
+	@$(MAKE) package-build-${*}-dev
+	@$(MAKE) package-build-${*}-prod
 
 packages-screenshots: ##@1 packages generate screenshots for packages readme (website dev server must be running)
 	@node scripts/capture.js
 
 packages-publish: ##@1 packages publish all packages
-	@$(MAKE) packages-build
+	@$(MAKE) packages-build-prod
 
 	@echo "${YELLOW}Publishing packages${RESET}"
 	@./node_modules/.bin/lerna publish ---exact
 
 packages-publish-next: ##@1 packages publish all packages for @next npm tag
-	@$(MAKE) packages-build
+	@$(MAKE) packages-build-prod
 
 	@echo "${YELLOW}Publishing packages${RESET}"
 	@./node_modules/.bin/lerna publish ---exact --npm-tag=next
 
 package-watch-%: ##@1 packages build package (es flavor) on change, eg. `package-build-watch-bar`
 	@echo "${YELLOW}Running build watcher for package ${WHITE}@nivo/${*}${RESET}"
-	@export PACKAGE=${*}; ./node_modules/.bin/rollup -c conf/rollup.config.js -w
+	@export PACKAGE=${*} NODE_ENV=development; ./node_modules/.bin/rollup -c conf/rollup.config.js -w
 
 package-dev-%: ##@1 packages setup package for development, link to website, run watcher
 	@echo "${YELLOW}Preparing package ${WHITE}${*}${YELLOW} for development${RESET}"

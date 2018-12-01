@@ -18,7 +18,7 @@ import Home from './components/pages/Home'
 import Header from './components/Header'
 import ScrollToTop from './components/ScrollToTop'
 import { getRoutes } from './SiteMap'
-import registerServiceWorker from './registerServiceWorker'
+// import registerServiceWorker from './registerServiceWorker'
 
 class App extends Component {
     constructor(props) {
@@ -68,4 +68,4 @@ render(
     document.getElementById('root')
 )
 
-registerServiceWorker()
+// registerServiceWorker()

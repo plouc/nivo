@@ -54,10 +54,10 @@
     lodash "^4.17.4"
     recompose "^0.26.0"
 
-"@nivo/line@0.51.0":
-  version "0.51.0"
-  resolved "https://registry.yarnpkg.com/@nivo/line/-/line-0.51.0.tgz#4d16a2a2b843103764dd74ee7832ca85f9b311fc"
-  integrity sha512-emkRrcSaAFtbHjkEva5fEwEFCh7i18/F+y1QpWf7QoMpeYH0k7DahNfz7V+EzuCZeZASubR3xOR25O9eADzzUw==
+"@nivo/line@0.51.6":
+  version "0.51.6"
+  resolved "https://registry.yarnpkg.com/@nivo/line/-/line-0.51.6.tgz#801a01764b570f0b6e6e8fd287ca1a303f0c59d5"
+  integrity sha512-yhMP0JVJQT9EI9nmFjywOfB6oUbBfaygBaqn9P6pB0B+AYyFRn9FUGsNuB3pWCF5+X4EVAcIfuUutWtHW9mQfQ==
   dependencies:
     "@nivo/axes" "0.51.0"
     "@nivo/core" "0.51.0"
@@ -79,10 +79,10 @@
     d3-time-format "^2.1.3"
     lodash "^4.17.4"
 
-"@nivo/scatterplot@0.51.0":
-  version "0.51.0"
-  resolved "https://registry.yarnpkg.com/@nivo/scatterplot/-/scatterplot-0.51.0.tgz#8894eb67622b0d16f487fe21564e9925b0f157ae"
-  integrity sha512-PhuyH63odDRD6effodz81NIJUZtIz4YIpjlpCaIvpNaRAQH4CouIvDL9bbUVNC78uJgfNWbJIjV6B5Sn2fknwA==
+"@nivo/scatterplot@0.51.3":
+  version "0.51.3"
+  resolved "https://registry.yarnpkg.com/@nivo/scatterplot/-/scatterplot-0.51.3.tgz#a33c62d97acc2faa5518db5acc162fbe9758bee4"
+  integrity sha512-dMV93wMCTIl+InlhUXI6mM2iOo0hljqNkiUVyR0RDB+6XbuAj272mT+00IyW/a6cv4BSeZQ6TtLFGM4u/ZEkiw==
   dependencies:
     "@nivo/axes" "0.51.0"
     "@nivo/core" "0.51.0"
@@ -105,27 +105,29 @@
     d3-scale "^2.1.2"
     recompose "^0.26.0"
 
-"@types/jest@^23.3.5":
-  version "23.3.5"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.3.5.tgz#870a1434208b60603745bfd214fc3fc675142364"
+"@types/jest@^23.3.10":
+  version "23.3.10"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.3.10.tgz#4897974cc317bf99d4fe6af1efa15957fa9c94de"
+  integrity sha512-DC8xTuW/6TYgvEg3HEXS7cu9OijFqprVDXXiOcdOKZCU/5PJNLZU37VVvmZHdtMiGOa8wAA/We+JzbdxFzQTRQ==
 
 "@types/json5@^0.0.29":
   version "0.0.29"
   resolved "http://registry.npmjs.org/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
 
-"@types/node@*", "@types/node@^10.12.0":
-  version "10.12.0"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.0.tgz#ea6dcbddbc5b584c83f06c60e82736d8fbb0c235"
+"@types/node@^10.12.11":
+  version "10.12.11"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.11.tgz#715c476c99a5f6898a1ae61caf9825e43c03912e"
+  integrity sha512-3iIOhNiPGTdcUNVCv9e5G7GotfvJJe2pc9w2UgDXlUwnxSZ3RgcUocIU+xYm+rTU54jIKih998QE4dMOyMN1NQ==
 
 "@types/prop-types@*":
   version "15.5.6"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.5.6.tgz#9c03d3fed70a8d517c191b7734da2879b50ca26c"
 
-"@types/react-dom@^16.0.9":
-  version "16.0.9"
-  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.0.9.tgz#73ceb7abe6703822eab6600e65c5c52efd07fb91"
+"@types/react-dom@^16.0.11":
+  version "16.0.11"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.0.11.tgz#bd10ccb0d9260343f4b9a49d4f7a8330a5c1f081"
+  integrity sha512-x6zUx9/42B5Kl2Vl9HlopV8JF64wLpX3c+Pst9kc1HgzrsH+mkehe/zmHMQTplIrR48H2gpU7ZqurQolYu8XBA==
   dependencies:
-    "@types/node" "*"
     "@types/react" "*"
 
 "@types/react@*":
@@ -135,9 +137,10 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
-"@types/react@^16.4.17":
-  version "16.4.18"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.4.18.tgz#2e28a2e7f92d3fa7d6a65f2b73275c3e3138a13d"
+"@types/react@^16.7.11":
+  version "16.7.11"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.7.11.tgz#1743b82ea6a0c659467f0c7317c233edb1f10be9"
+  integrity sha512-KZvX2XjzBPz+Dh7cjgDzzLxUmg4k8CnCSsB1V2Vtt1YtSIGe1sfHp2+Htl3S5DzeKrHnioaDHTMN/fjAvnEsSg==
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
@@ -7171,9 +7174,10 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript@^3.1.3:
-  version "3.1.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.1.3.tgz#01b70247a6d3c2467f70c45795ef5ea18ce191d5"
+typescript@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.2.1.tgz#0b7a04b8cf3868188de914d9568bd030f0c56192"
+  integrity sha512-jw7P2z/h6aPT4AENXDGjcfHTu5CSqzsbZc6YlUIebTyBAq8XaKp78x7VcSh30xwSCcsu5irZkYZUSFP1MrAMbg==
 
 ua-parser-js@^0.7.18:
   version "0.7.18"

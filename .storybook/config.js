@@ -1,8 +1,24 @@
 /* eslint-disable import/no-extraneous-dependencies, import/no-unresolved, import/extensions */
 
-import { configure, setAddon } from '@storybook/react'
+import { configure, addDecorator, setAddon } from '@storybook/react'
 import infoAddon, { setDefaults } from '@storybook/addon-info'
+import { setOptions } from '@storybook/addon-options'
 import './style.css'
+
+addDecorator(
+    withOptions({
+        name: 'nivo',
+    url: 'https://github.com/plouc/nivo',
+      goFullScreen: false,
+      showAddonsPanel: true,
+      showSearchBox: false,
+      addonPanelInRight: true,
+      sortStoriesByKind: false,
+      hierarchySeparator: /\./,
+      hierarchyRootSeparator: /\|/,
+      enableShortcuts: true,
+    })
+  );
 
 setDefaults({
     header: true,

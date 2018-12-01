@@ -18,7 +18,7 @@
   ],
   "dependencies": {
     "lodash": "^4.17.4",
-    "recompose": "^0.26.0"
+    "recompose": "^0.30.0"
   },
   "peerDependencies": {
     "prop-types": "^15.5.10",

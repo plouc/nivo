@@ -7,6 +7,10 @@ parserOptions:
     jsx:                          true
     experimentalObjectRestSpread: true
 
+settings:
+  react:
+    version: 16.4
+
 env:
   browser: true
   es6:     true

@@ -162,12 +162,14 @@ const Bar = props => {
         }))
         .reverse()
 
-    const legendDataForIndexes = result.bars.filter(bar => bar.data.id === keys[0]).map(bar => ({
-        id: bar.data.indexValue,
-        label: bar.data.indexValue,
-        color: bar.color,
-        fill: bar.data.fill,
-    }))
+    const legendDataForIndexes = result.bars
+        .filter(bar => bar.data.id === keys[0])
+        .map(bar => ({
+            id: bar.data.indexValue,
+            label: bar.data.indexValue,
+            color: bar.color,
+            fill: bar.data.fill,
+        }))
 
     return (
         <Container isInteractive={isInteractive} theme={theme}>

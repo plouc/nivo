@@ -1,0 +1,442 @@
+{
+  "./packages/bar/cjs/nivo-bar.js": {
+    "bundled": 43038,
+    "minified": 23053,
+    "gzipped": 6303
+  },
+  "./packages/bar/umd/nivo-bar.js": {
+    "bundled": 45842,
+    "minified": 19732,
+    "gzipped": 6192
+  },
+  "./packages/sankey/cjs/nivo-sankey.js": {
+    "bundled": 34503,
+    "minified": 21663,
+    "gzipped": 4519
+  },
+  "./packages/sankey/umd/nivo-sankey.js": {
+    "bundled": 31651,
+    "minified": 14647,
+    "gzipped": 4131
+  },
+  "./packages/calendar/cjs/nivo-calendar.js": {
+    "bundled": 20077,
+    "minified": 11789,
+    "gzipped": 3531
+  },
+  "./packages/calendar/umd/nivo-calendar.js": {
+    "bundled": 22104,
+    "minified": 10432,
+    "gzipped": 3472
+  },
+  "./packages/core/cjs/nivo-core.js": {
+    "bundled": 99549,
+    "minified": 62219,
+    "gzipped": 14914
+  },
+  "./packages/core/umd/nivo-core.js": {
+    "bundled": 99835,
+    "minified": 43841,
+    "gzipped": 13393
+  },
+  "./packages/axes/cjs/nivo-axes.js": {
+    "bundled": 23846,
+    "minified": 12939,
+    "gzipped": 3828
+  },
+  "./packages/axes/umd/nivo-axes.js": {
+    "bundled": 24396,
+    "minified": 10093,
+    "gzipped": 3562
+  },
+  "./packages/legends/cjs/nivo-legends.js": {
+    "bundled": 33362,
+    "minified": 18918,
+    "gzipped": 4618
+  },
+  "./packages/legends/umd/nivo-legends.js": {
+    "bundled": 32847,
+    "minified": 13255,
+    "gzipped": 4165
+  },
+  "./packages/stream/cjs/nivo-stream.js": {
+    "bundled": 24693,
+    "minified": 15283,
+    "gzipped": 3985
+  },
+  "./packages/stream/umd/nivo-stream.js": {
+    "bundled": 25084,
+    "minified": 11800,
+    "gzipped": 3754
+  },
+  "./packages/circle-packing/cjs/nivo-circle-packing.js": {
+    "bundled": 27930,
+    "minified": 16466,
+    "gzipped": 4372
+  },
+  "./packages/circle-packing/umd/nivo-circle-packing.js": {
+    "bundled": 29677,
+    "minified": 13267,
+    "gzipped": 4178
+  },
+  "./packages/waffle/cjs/nivo-waffle.js": {
+    "bundled": 38144,
+    "minified": 20670,
+    "gzipped": 5144
+  },
+  "./packages/waffle/umd/nivo-waffle.js": {
+    "bundled": 40082,
+    "minified": 16703,
+    "gzipped": 4935
+  },
+  "./packages/scales/cjs/nivo-scales.js": {
+    "bundled": 13442,
+    "minified": 8390,
+    "gzipped": 2505
+  },
+  "./packages/scales/umd/nivo-scales.js": {
+    "bundled": 15684,
+    "minified": 6414,
+    "gzipped": 2339
+  },
+  "./packages/pie/cjs/nivo-pie.js": {
+    "bundled": 46122,
+    "minified": 26194,
+    "gzipped": 6329
+  },
+  "./packages/pie/umd/nivo-pie.js": {
+    "bundled": 45171,
+    "minified": 19409,
+    "gzipped": 5738
+  },
+  "./packages/parallel-coordinates/cjs/nivo-parallel-coordinates.js": {
+    "bundled": 25335,
+    "minified": 15174,
+    "gzipped": 3901
+  },
+  "./packages/parallel-coordinates/umd/nivo-parallel-coordinates.js": {
+    "bundled": 25591,
+    "minified": 11318,
+    "gzipped": 3651
+  },
+  "./packages/voronoi/cjs/nivo-voronoi.js": {
+    "bundled": 14953,
+    "minified": 9190,
+    "gzipped": 2899
+  },
+  "./packages/voronoi/umd/nivo-voronoi.js": {
+    "bundled": 16876,
+    "minified": 7485,
+    "gzipped": 2724
+  },
+  "./packages/line/cjs/nivo-line.js": {
+    "bundled": 26422,
+    "minified": 16850,
+    "gzipped": 4144
+  },
+  "./packages/line/umd/nivo-line.js": {
+    "bundled": 25613,
+    "minified": 12418,
+    "gzipped": 3846
+  },
+  "./packages/bullet/cjs/nivo-bullet.js": {
+    "bundled": 41637,
+    "minified": 24467,
+    "gzipped": 5235
+  },
+  "./packages/bullet/umd/nivo-bullet.js": {
+    "bundled": 39896,
+    "minified": 17190,
+    "gzipped": 4830
+  },
+  "./packages/scatterplot/cjs/nivo-scatterplot.js": {
+    "bundled": 31710,
+    "minified": 17553,
+    "gzipped": 4874
+  },
+  "./packages/scatterplot/umd/nivo-scatterplot.js": {
+    "bundled": 32694,
+    "minified": 14104,
+    "gzipped": 4661
+  },
+  "./packages/generators/cjs/nivo-generators.js": {
+    "bundled": 17159,
+    "minified": 10950,
+    "gzipped": 4001
+  },
+  "./packages/generators/umd/nivo-generators.js": {
+    "bundled": 19315,
+    "minified": 9648,
+    "gzipped": 3877
+  },
+  "./packages/heatmap/cjs/nivo-heatmap.js": {
+    "bundled": 33417,
+    "minified": 18705,
+    "gzipped": 5270
+  },
+  "./packages/heatmap/umd/nivo-heatmap.js": {
+    "bundled": 34894,
+    "minified": 15480,
+    "gzipped": 5083
+  },
+  "./packages/radar/cjs/nivo-radar.js": {
+    "bundled": 33298,
+    "minified": 20467,
+    "gzipped": 5111
+  },
+  "./packages/radar/umd/nivo-radar.js": {
+    "bundled": 30915,
+    "minified": 13761,
+    "gzipped": 4441
+  },
+  "./packages/chord/cjs/nivo-chord.js": {
+    "bundled": 35827,
+    "minified": 20358,
+    "gzipped": 5402
+  },
+  "./packages/chord/umd/nivo-chord.js": {
+    "bundled": 39613,
+    "minified": 17187,
+    "gzipped": 5202
+  },
+  "./packages/sunburst/cjs/nivo-sunburst.js": {
+    "bundled": 7780,
+    "minified": 5266,
+    "gzipped": 1633
+  },
+  "./packages/sunburst/umd/nivo-sunburst.js": {
+    "bundled": 8679,
+    "minified": 4301,
+    "gzipped": 1565
+  },
+  "./packages/treemap/cjs/nivo-treemap.js": {
+    "bundled": 30954,
+    "minified": 18607,
+    "gzipped": 5037
+  },
+  "./packages/treemap/umd/nivo-treemap.js": {
+    "bundled": 32089,
+    "minified": 14617,
+    "gzipped": 4712
+  },
+  "./packages/bar/cjs/nivo-bar.production.min.js": {
+    "bundled": 41872,
+    "minified": 22001,
+    "gzipped": 6167
+  },
+  "./packages/bar/cjs/nivo-bar.development.js": {
+    "bundled": 49036,
+    "minified": 24642,
+    "gzipped": 6558
+  },
+  "./packages/axes/cjs/nivo-axes.development.js": {
+    "bundled": 26052,
+    "minified": 14115,
+    "gzipped": 4027
+  },
+  "./packages/axes/cjs/nivo-axes.production.min.js": {
+    "bundled": 21848,
+    "minified": 11144,
+    "gzipped": 3608
+  },
+  "./packages/sankey/cjs/nivo-sankey.development.js": {
+    "bundled": 39454,
+    "minified": 24633,
+    "gzipped": 4881
+  },
+  "./packages/sankey/cjs/nivo-sankey.production.min.js": {
+    "bundled": 28629,
+    "minified": 16438,
+    "gzipped": 4141
+  },
+  "./packages/calendar/cjs/nivo-calendar.development.js": {
+    "bundled": 24458,
+    "minified": 12844,
+    "gzipped": 3713
+  },
+  "./packages/calendar/cjs/nivo-calendar.production.min.js": {
+    "bundled": 19271,
+    "minified": 11056,
+    "gzipped": 3441
+  },
+  "./packages/core/cjs/nivo-core.development.js": {
+    "bundled": 117271,
+    "minified": 68233,
+    "gzipped": 15637
+  },
+  "./packages/core/cjs/nivo-core.production.min.js": {
+    "bundled": 91460,
+    "minified": 55034,
+    "gzipped": 14049
+  },
+  "./packages/legends/cjs/nivo-legends.development.js": {
+    "bundled": 36075,
+    "minified": 20270,
+    "gzipped": 4844
+  },
+  "./packages/legends/cjs/nivo-legends.production.min.js": {
+    "bundled": 30461,
+    "minified": 16282,
+    "gzipped": 4392
+  },
+  "./packages/stream/cjs/nivo-stream.development.js": {
+    "bundled": 28432,
+    "minified": 17591,
+    "gzipped": 4298
+  },
+  "./packages/stream/cjs/nivo-stream.production.min.js": {
+    "bundled": 22350,
+    "minified": 13165,
+    "gzipped": 3771
+  },
+  "./packages/circle-packing/cjs/nivo-circle-packing.development.js": {
+    "bundled": 32574,
+    "minified": 18648,
+    "gzipped": 4678
+  },
+  "./packages/circle-packing/cjs/nivo-circle-packing.production.min.js": {
+    "bundled": 26956,
+    "minified": 15622,
+    "gzipped": 4279
+  },
+  "./packages/waffle/cjs/nivo-waffle.development.js": {
+    "bundled": 43101,
+    "minified": 23034,
+    "gzipped": 5472
+  },
+  "./packages/waffle/cjs/nivo-waffle.production.min.js": {
+    "bundled": 36642,
+    "minified": 19322,
+    "gzipped": 5040
+  },
+  "./packages/scales/cjs/nivo-scales.development.js": {
+    "bundled": 13594,
+    "minified": 8390,
+    "gzipped": 2505
+  },
+  "./packages/scales/cjs/nivo-scales.production.min.js": {
+    "bundled": 13442,
+    "minified": 8390,
+    "gzipped": 2505
+  },
+  "./packages/pie/cjs/nivo-pie.development.js": {
+    "bundled": 51196,
+    "minified": 28656,
+    "gzipped": 6677
+  },
+  "./packages/pie/cjs/nivo-pie.production.min.js": {
+    "bundled": 41831,
+    "minified": 22355,
+    "gzipped": 5926
+  },
+  "./packages/parallel-coordinates/cjs/nivo-parallel-coordinates.development.js": {
+    "bundled": 28195,
+    "minified": 16849,
+    "gzipped": 4141
+  },
+  "./packages/parallel-coordinates/cjs/nivo-parallel-coordinates.production.min.js": {
+    "bundled": 23330,
+    "minified": 13346,
+    "gzipped": 3727
+  },
+  "./packages/voronoi/cjs/nivo-voronoi.development.js": {
+    "bundled": 16595,
+    "minified": 10137,
+    "gzipped": 3073
+  },
+  "./packages/voronoi/cjs/nivo-voronoi.production.min.js": {
+    "bundled": 14230,
+    "minified": 8540,
+    "gzipped": 2790
+  },
+  "./packages/line/cjs/nivo-line.development.js": {
+    "bundled": 30982,
+    "minified": 19629,
+    "gzipped": 4512
+  },
+  "./packages/line/cjs/nivo-line.production.min.js": {
+    "bundled": 22872,
+    "minified": 13734,
+    "gzipped": 3844
+  },
+  "./packages/bullet/cjs/nivo-bullet.development.js": {
+    "bundled": 46683,
+    "minified": 26969,
+    "gzipped": 5558
+  },
+  "./packages/bullet/cjs/nivo-bullet.production.min.js": {
+    "bundled": 36529,
+    "minified": 19916,
+    "gzipped": 4903
+  },
+  "./packages/scatterplot/cjs/nivo-scatterplot.development.js": {
+    "bundled": 35152,
+    "minified": 19440,
+    "gzipped": 5147
+  },
+  "./packages/scatterplot/cjs/nivo-scatterplot.production.min.js": {
+    "bundled": 29896,
+    "minified": 15960,
+    "gzipped": 4723
+  },
+  "./packages/generators/cjs/nivo-generators.development.js": {
+    "bundled": 17223,
+    "minified": 10950,
+    "gzipped": 4001
+  },
+  "./packages/generators/cjs/nivo-generators.production.min.js": {
+    "bundled": 17159,
+    "minified": 10950,
+    "gzipped": 4001
+  },
+  "./packages/heatmap/cjs/nivo-heatmap.development.js": {
+    "bundled": 37227,
+    "minified": 20566,
+    "gzipped": 5547
+  },
+  "./packages/heatmap/cjs/nivo-heatmap.production.min.js": {
+    "bundled": 31553,
+    "minified": 17040,
+    "gzipped": 5082
+  },
+  "./packages/radar/cjs/nivo-radar.development.js": {
+    "bundled": 39728,
+    "minified": 24051,
+    "gzipped": 5546
+  },
+  "./packages/radar/cjs/nivo-radar.production.min.js": {
+    "bundled": 27627,
+    "minified": 15263,
+    "gzipped": 4506
+  },
+  "./packages/chord/cjs/nivo-chord.development.js": {
+    "bundled": 40918,
+    "minified": 23163,
+    "gzipped": 5778
+  },
+  "./packages/chord/cjs/nivo-chord.production.min.js": {
+    "bundled": 34248,
+    "minified": 18902,
+    "gzipped": 5255
+  },
+  "./packages/sunburst/cjs/nivo-sunburst.development.js": {
+    "bundled": 9047,
+    "minified": 5988,
+    "gzipped": 1778
+  },
+  "./packages/sunburst/cjs/nivo-sunburst.production.min.js": {
+    "bundled": 6602,
+    "minified": 4197,
+    "gzipped": 1461
+  },
+  "./packages/treemap/cjs/nivo-treemap.development.js": {
+    "bundled": 35339,
+    "minified": 21007,
+    "gzipped": 5361
+  },
+  "./packages/treemap/cjs/nivo-treemap.production.min.js": {
+    "bundled": 29422,
+    "minified": 17260,
+    "gzipped": 4884
+  }
+}

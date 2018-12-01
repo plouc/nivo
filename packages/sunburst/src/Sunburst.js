@@ -61,18 +61,20 @@ const Sunburst = ({
             {({ showTooltip, hideTooltip }) => (
                 <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
                     <g transform={`translate(${centerX}, ${centerY})`}>
-                        {nodes.filter(node => node.depth > 0).map((node, i) => (
-                            <SunburstArc
-                                key={i}
-                                node={node}
-                                arcGenerator={arcGenerator}
-                                borderWidth={borderWidth}
-                                borderColor={borderColor}
-                                showTooltip={showTooltip}
-                                hideTooltip={hideTooltip}
-                                theme={theme}
-                            />
-                        ))}
+                        {nodes
+                            .filter(node => node.depth > 0)
+                            .map((node, i) => (
+                                <SunburstArc
+                                    key={i}
+                                    node={node}
+                                    arcGenerator={arcGenerator}
+                                    borderWidth={borderWidth}
+                                    borderColor={borderColor}
+                                    showTooltip={showTooltip}
+                                    hideTooltip={hideTooltip}
+                                    theme={theme}
+                                />
+                            ))}
                     </g>
                 </SvgWrapper>
             )}

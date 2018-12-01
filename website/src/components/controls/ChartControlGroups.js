@@ -61,16 +61,18 @@ export default class ChartControlGroups extends Component {
                         )
                     })}
                 </div>
-                {groups.filter(group => openedGroup === group.name).map(group => (
-                    <ChartControls
-                        key={group.name}
-                        ns={ns}
-                        name={group.name}
-                        controls={group.controls}
-                        settings={settings}
-                        onChange={onChange}
-                    />
-                ))}
+                {groups
+                    .filter(group => openedGroup === group.name)
+                    .map(group => (
+                        <ChartControls
+                            key={group.name}
+                            ns={ns}
+                            name={group.name}
+                            controls={group.controls}
+                            settings={settings}
+                            onChange={onChange}
+                        />
+                    ))}
             </CollapsibleCard>
         )
     }
