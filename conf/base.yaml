@@ -65,6 +65,14 @@ capture:
         selector: .chart-tabs__content
         output: ./packages/radar/doc/radar.png
 
+      - path: /rose
+        selector: .chart-tabs__content
+        output: ./packages/rose/doc/rose.png
+
+      - path: /rose/canvas
+        selector: .chart-tabs__content
+        output: ./packages/rose/doc/rose-canvas.png
+
       - path: /sankey
         selector: .chart-tabs__content
         output: ./packages/sankey/doc/sankey.png

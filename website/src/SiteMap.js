@@ -32,6 +32,9 @@ import PieAPI from './components/charts/pie/PieAPI'
 import RadarPage from './components/charts/radar/RadarPage'
 import Radar from './components/charts/radar/Radar'
 import RadarAPI from './components/charts/radar/RadarAPI'
+import RosePage from './components/charts/rose/RosePage'
+import Rose from './components/charts/rose/Rose'
+import RoseCanvas from './components/charts/rose/RoseCanvas'
 import BubblePage from './components/charts/bubble/BubblePage'
 import Bubble from './components/charts/bubble/Bubble'
 import BubbleHtml from './components/charts/bubble/BubbleHtml'
@@ -343,6 +346,30 @@ const SITEMAP = [
                         label: 'Radar API',
                         component: RadarAPI,
                         tags: ['api'],
+                    },
+                ],
+            },
+            {
+                className: 'rose',
+                path: '/rose',
+                label: 'Rose',
+                component: RosePage,
+                children: [
+                    {
+                        className: 'rose',
+                        path: '/',
+                        label: 'Rose',
+                        component: Rose,
+                        exact: true,
+                        tags: ['polar', 'svg', 'isomorphic'],
+                    },
+                    {
+                        className: 'canvas',
+                        path: '/canvas',
+                        label: 'RoseCanvas',
+                        component: RoseCanvas,
+                        exact: true,
+                        tags: ['canvas'],
                     },
                 ],
             },
@@ -685,16 +712,6 @@ const allComponents = getSectionItems('Components').reduce((acc, item) => {
                 tags: child.tags || [],
             }
             acc.push(entry)
-
-            if (child.className !== 'api') {
-                acc.push(
-                    Object.assign({}, entry, {
-                        key: `${entry.key}.responsive`,
-                        label: `Responsive${child.label}`,
-                        tags: [...entry.tags, 'responsive'],
-                    })
-                )
-            }
         })
     }
 
