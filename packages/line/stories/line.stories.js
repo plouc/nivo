@@ -5,7 +5,7 @@ import { storiesOf } from '@storybook/react'
 import { withKnobs, boolean, select } from '@storybook/addon-knobs'
 import { withInfo } from '@storybook/addon-info'
 import { generateDrinkStats } from '@nivo/generators'
-import { area, curveMonotoneX } from 'd3-shape'
+import { line, area, curveMonotoneX } from 'd3-shape'
 import * as time from 'd3-time'
 import { timeFormat } from 'd3-time-format'
 import { Line } from '../index'
@@ -744,6 +744,60 @@ stories.add(
         <Line
             {...commonProperties}
             layers={['grid', 'markers', 'areas', AreaLayer, 'lines', 'slices', 'dots', 'legends']}
+        />
+    ))
+)
+
+const DashedLine = ({ computedData, xScale, yScale }) => {
+    const lineGenerator = line()
+        .x(({ data }) => xScale(data.x))
+        .y(({ data }) => yScale(data.y))
+
+    return computedData.series.map(({ id, data, color }) => (
+        <path
+            key={`${id}_${color}`}
+            d={lineGenerator(data)}
+            fill="none"
+            stroke={color}
+            style={{
+                strokeDasharray: '3, 3',
+                strokeWidth: '2px',
+            }}
+        />
+    ))
+}
+
+stories.add(
+    'custom line style',
+    withInfo({
+        source: true,
+        text: `You can customize line style using 'layers' property`,
+    })(() => (
+        <Line
+            {...commonProperties}
+            xScale={{
+                type: 'point',
+                min: 'auto',
+                max: 'auto',
+            }}
+            yScale={{
+                type: 'linear',
+                min: 'auto',
+                max: 'auto',
+            }}
+            axisBottom={{
+                orient: 'bottom',
+                tickSize: 5,
+                tickPadding: 5,
+                tickRotation: 0,
+            }}
+            axisLeft={{
+                orient: 'left',
+                tickSize: 5,
+                tickPadding: 5,
+                tickRotation: 0,
+            }}
+            layers={['grid', 'markers', 'areas', DashedLine, 'slices', 'dots', 'legends']}
         />
     ))
 )
