@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import React, { Fragment } from 'react'
+import uniqBy from 'lodash/uniqBy'
 import { TransitionMotion, spring } from 'react-motion'
 import { bindDefs, Container, SvgWrapper, Grid, CartesianMarkers } from '@nivo/core'
 import { Axes } from '@nivo/axes'
@@ -152,22 +153,27 @@ const Bar = props => {
         targetKey: 'data.fill',
     })
 
-    const legendDataForKeys = result.bars
-        .filter(bar => bar.data.index === 0)
-        .map(bar => ({
-            id: bar.data.id,
-            label: bar.data.id,
+    const legendDataForKeys = uniqBy(
+        result.bars
+            .map(bar => ({
+                id: bar.data.id,
+                label: bar.data.id,
+                color: bar.color,
+                fill: bar.data.fill,
+            }))
+            .reverse(),
+        ({ id }) => id
+    )
+
+    const legendDataForIndexes = uniqBy(
+        result.bars.map(bar => ({
+            id: bar.data.indexValue,
+            label: bar.data.indexValue,
             color: bar.color,
             fill: bar.data.fill,
-        }))
-        .reverse()
-
-    const legendDataForIndexes = result.bars.filter(bar => bar.data.id === keys[0]).map(bar => ({
-        id: bar.data.indexValue,
-        label: bar.data.indexValue,
-        color: bar.color,
-        fill: bar.data.fill,
-    }))
+        })),
+        ({ id }) => id
+    )
 
     return (
         <Container isInteractive={isInteractive} theme={theme}>
