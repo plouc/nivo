@@ -3,7 +3,7 @@ const chalk = require('chalk')
 const config = require('@ekino/config')
 
 const capture = async (browser, baseUrl, { path, selector, output }) => {
-    const url = `${baseUrl}${path}`
+    const url = `${baseUrl}${path}?capture=1`
 
     const page = await browser.newPage()
     await page.setViewport({ width: 1400, height: 4000 })
@@ -22,6 +22,7 @@ const capture = async (browser, baseUrl, { path, selector, output }) => {
     await page.screenshot({
         path: output,
         clip,
+        omitBackground: true,
     })
 
     console.log(chalk`  {green saved to {white ${output}}}`)

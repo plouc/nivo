@@ -35,7 +35,6 @@ svg {
 html,
 body {
     margin: 0;
-    background: var(--main-background-color);
     color: var(--main-text-color);
     font-size: 16px;
     line-height: 1.6em;
