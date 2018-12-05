@@ -6,12 +6,28 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import * as React from 'react'
+import * as PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
-import GridLine from './GridLine'
+import { GridLine } from './GridLine'
+import { Theme } from '../../theming'
 
-export default class GridLines extends Component {
+export interface GridLinesProps {
+    type: 'x' | 'y'
+    lines: Array<{
+        key: string
+        x1: number
+        x2: number
+        y1: number
+        y2: number
+    }>
+    theme: Theme
+    animate: boolean
+    motionStiffness: number
+    motionDamping: number
+}
+
+export class GridLines extends React.Component<GridLinesProps> {
     static propTypes = {
         type: PropTypes.oneOf(['x', 'y']).isRequired,
         lines: PropTypes.arrayOf(
@@ -24,20 +40,12 @@ export default class GridLines extends Component {
             })
         ).isRequired,
         theme: PropTypes.object.isRequired,
-
         animate: PropTypes.bool.isRequired,
         motionStiffness: PropTypes.number.isRequired,
         motionDamping: PropTypes.number.isRequired,
     }
 
-    constructor(props) {
-        super(props)
-
-        this.willEnter = this.willEnter.bind(this)
-        this.willLeave = this.willLeave.bind(this)
-    }
-
-    willEnter({ style }) {
+    willEnter = ({ style }) => {
         const { type } = this.props
 
         return {
@@ -49,7 +57,7 @@ export default class GridLines extends Component {
         }
     }
 
-    willLeave({ style }) {
+    willLeave = ({ style }) => {
         const { motionStiffness, motionDamping } = this.props
         const springConfig = {
             stiffness: motionStiffness,

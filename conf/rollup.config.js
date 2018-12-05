@@ -7,8 +7,14 @@ import typescript from 'rollup-plugin-typescript2'
 const pkg = process.env.PACKAGE
 
 const tsPackages = [
+    'bar',
     'core',
     'legends',
+    'rose'
+]
+
+const disallowedJsPackages = [
+    'core',
     'rose'
 ]
 
@@ -65,7 +71,13 @@ export default [
         },
         plugins: [
             ...commonPlugins,
-            tsPackages.includes(pkg) && typescript(),
+            tsPackages.includes(pkg) && typescript({
+                tsconfigOverride: {
+                    compilerOptions: {
+                        allowJs: !disallowedJsPackages.includes(pkg)
+                    }
+                }
+            }),
             babel({
                 exclude: 'node_modules/**',
                 plugins: ['external-helpers']

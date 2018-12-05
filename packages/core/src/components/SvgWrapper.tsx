@@ -15,14 +15,14 @@ export interface SvgWrapperProps {
     width: number
     height: number
     margin: {
-        top: number
-        right: number
-        left: number
-        bottom: number
+        top?: number
+        right?: number
+        left?: number
+        bottom?: number
     }
     defs?: any[]
     children: React.ReactNode | React.ReactNodeArray
-    theme: Theme
+    theme: Partial<Theme>
 }
 
 const SvgWrapper: React.SFC<SvgWrapperProps> = ({
@@ -45,6 +45,8 @@ SvgWrapper.propTypes = {
     height: PropTypes.number.isRequired,
     margin: PropTypes.shape({
         top: PropTypes.number.isRequired,
+        right: PropTypes.number.isRequired,
+        bottom: PropTypes.number.isRequired,
         left: PropTypes.number.isRequired,
     }).isRequired,
     defs: PropTypes.array,

@@ -6,19 +6,30 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
-import PropTypes from 'prop-types'
-import isFunction from 'lodash/isFunction'
+import * as React from 'react'
+import * as PropTypes from 'prop-types'
+import { isFunction } from 'lodash'
 import { format as d3Format } from 'd3-format'
-import compose from 'recompose/compose'
-import withPropsOnChange from 'recompose/withPropsOnChange'
-import pure from 'recompose/pure'
+import { compose, withPropsOnChange, pure } from 'recompose'
 import Chip from './Chip'
+import { TooltipTheme } from '../../theming'
 
 const chipStyle = { marginRight: 7 }
 
-const BasicTooltip = props => {
-    const { id, value: _value, format, enableChip, color, theme, renderContent } = props
+export interface BasicTooltipProps {
+    id: React.ReactNode
+    value?: string | number
+    enableChip?: boolean
+    color?: string
+    format?: (val: number | string) => number | string
+    renderContent?: () => React.ReactNode
+    theme: {
+        tooltip?: Pick<TooltipTheme, 'basic' | 'container'>
+    }
+}
+
+const BasicTooltip: React.SFC<BasicTooltipProps> = props => {
+    const { id, value: _value, format, enableChip = true, color, theme, renderContent } = props
 
     let content
     if (typeof renderContent === 'function') {
@@ -33,7 +44,7 @@ const BasicTooltip = props => {
                 {enableChip && <Chip color={color} style={chipStyle} />}
                 {value !== undefined ? (
                     <span>
-                        {id}: <strong>{isNaN(value) ? String(value) : value}</strong>
+                        {id}: <strong>{isNaN(value as any) ? String(value) : value}</strong>
                     </span>
                 ) : (
                     id
@@ -48,21 +59,16 @@ const BasicTooltip = props => {
 BasicTooltip.propTypes = {
     id: PropTypes.node.isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    enableChip: PropTypes.bool.isRequired,
+    enableChip: PropTypes.bool,
     color: PropTypes.string,
     format: PropTypes.func,
     renderContent: PropTypes.func,
-
     theme: PropTypes.shape({
         tooltip: PropTypes.shape({
-            container: PropTypes.object.isRequired,
             basic: PropTypes.object.isRequired,
+            container: PropTypes.object.isRequired,
         }).isRequired,
     }).isRequired,
-}
-
-BasicTooltip.defaultProps = {
-    enableChip: false,
 }
 
 const enhance = compose(

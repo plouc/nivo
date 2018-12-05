@@ -10,10 +10,10 @@
 // credit to Tanner Linsey from this issue on react motion repository:
 // https://github.com/chenglou/react-motion/issues/153
 
-import React, { PureComponent } from 'react'
+import * as React from 'react'
+import * as PropTypes from 'prop-types'
 import { Motion, spring } from 'react-motion'
 import { interpolate } from 'd3-interpolate'
-import PropTypes from 'prop-types'
 
 const enhancedSpring = (value, config) => {
     if (typeof value !== 'number') {
@@ -23,27 +23,33 @@ const enhancedSpring = (value, config) => {
             interpolator: config && config.interpolator ? config.interpolator : interpolate,
         }
     }
+
     return spring(value, config)
 }
 
-export default class SmartMotion extends PureComponent {
+export interface SmartMotionProps {
+    style: (spr: any) => any
+    children: (args: any) => React.ReactNode
+}
+
+export default class SmartMotion extends React.PureComponent<SmartMotionProps> {
+    static propTypes = {
+        children: PropTypes.func.isRequired,
+        style: PropTypes.func.isRequired,
+    }
+
     oldValues = {}
     newInters = {}
     currentStepValues = {}
     stepValues = {}
     stepInterpolators = {}
 
-    static propTypes = {
-        children: PropTypes.func.isRequired,
-        style: PropTypes.func.isRequired,
-    }
-
     render() {
         const { style, children, ...rest } = this.props
 
         const resolvedStyle = style(enhancedSpring)
 
-        for (let key in resolvedStyle) {
+        for (const key in resolvedStyle) {
             if (
                 // If key is a non-numeric interpolation
                 resolvedStyle[key] &&
@@ -78,7 +84,7 @@ export default class SmartMotion extends PureComponent {
             <Motion {...rest} style={resolvedStyle}>
                 {values => {
                     const newValues = {}
-                    for (let key in values) {
+                    for (const key in values) {
                         if (this.stepValues[key]) {
                             // Save the currentStepValue
                             this.currentStepValues[key] = values[key]

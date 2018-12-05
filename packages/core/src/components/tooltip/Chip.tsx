@@ -6,23 +6,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
-import PropTypes from 'prop-types'
-import pure from 'recompose/pure'
+import * as React from 'react'
+import * as PropTypes from 'prop-types'
 
-const Chip = ({ size, color, style }) => (
+export interface ChipProps {
+    size?: number
+    color: string
+    style?: any
+}
+
+const Chip: React.SFC<ChipProps> = React.memo(({ size = 12, color, style = {} }) => (
     <span style={{ display: 'block', width: size, height: size, background: color, ...style }} />
-)
+))
 
 Chip.propTypes = {
-    size: PropTypes.number.isRequired,
+    size: PropTypes.number,
     color: PropTypes.string.isRequired,
-    style: PropTypes.object.isRequired,
+    style: PropTypes.object,
 }
 
-Chip.defaultProps = {
-    size: 12,
-    style: {},
-}
-
-export default pure(Chip)
+export default Chip

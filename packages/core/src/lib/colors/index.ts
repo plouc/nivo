@@ -6,11 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import get from 'lodash/get'
-import last from 'lodash/last'
-import isFunction from 'lodash/isFunction'
-import isArray from 'lodash/isArray'
-import isString from 'lodash/isString'
+import { get, last, isFunction, isArray, isString } from 'lodash'
 import { scaleOrdinal, scaleSequential } from 'd3-scale'
 import {
     // categorical
@@ -303,7 +299,7 @@ export const getColorScale = (colors, dataScale) => {
     if (isString(colors)) {
         const scheme = colorSchemes[colors]
         if (scheme !== undefined) {
-            const scale = scaleOrdinal(scheme)
+            const scale: any = scaleOrdinal(scheme)
             scale.type = 'ordinal'
 
             return scale
@@ -312,7 +308,7 @@ export const getColorScale = (colors, dataScale) => {
         if (dataScale !== undefined && colors.indexOf('seq:') === 0) {
             const interpolator = colorInterpolators[colors.slice(4)]
             if (interpolator !== undefined) {
-                const scale = scaleSequential(interpolator).domain(dataScale.domain())
+                const scale: any = scaleSequential(interpolator).domain(dataScale.domain())
                 scale.type = 'sequential'
 
                 return scale
@@ -321,7 +317,7 @@ export const getColorScale = (colors, dataScale) => {
     }
 
     if (isArray(colors)) {
-        const scale = scaleOrdinal(colors)
+        const scale: any = scaleOrdinal(colors)
         scale.type = 'ordinal'
 
         return scale
@@ -336,8 +332,8 @@ export const getColorsGenerator = (colors, colorBy) => {
     // skip range, color should be bound to data
     if (isFunction(colorBy)) return colorBy
 
-    let scale
-    let getColorId = d => get(d, colorBy)
+    let scale: any
+    const getColorId = d => get(d, colorBy)
 
     if (isString(colors) && colorSchemes[colors] !== undefined) {
         scale = scaleOrdinal(colorSchemes[colors])

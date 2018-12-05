@@ -6,27 +6,24 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
-import PropTypes from 'prop-types'
-import isFunction from 'lodash/isFunction'
+import * as React from 'react'
+import * as PropTypes from 'prop-types'
+import { isFunction } from 'lodash'
 import { format as d3Format } from 'd3-format'
 import { timeFormat } from 'd3-time-format'
-import compose from 'recompose/compose'
-import withPropsOnChange from 'recompose/withPropsOnChange'
-import pure from 'recompose/pure'
+import { compose, withPropsOnChange, pure } from 'recompose'
 import { TransitionMotion, spring } from 'react-motion'
 import { withMotion } from '../../hocs'
 import { motionPropTypes } from '../../props'
 import { computeAxisTicks } from '../../lib/cartesian/axes'
-import { axisThemePropType } from '../../theming'
-import AxisTick from './AxisTick'
+import { axisThemePropType, AxisTheme } from '../../theming'
+import { AxisTick } from './AxisTick'
 
 const axisPositions = ['top', 'right', 'bottom', 'left']
 const legendPositions = ['start', 'center', 'end']
 
 export const axisPropType = PropTypes.shape({
     orient: PropTypes.oneOf(axisPositions),
-
     tickValues: PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.arrayOf(
@@ -37,7 +34,6 @@ export const axisPropType = PropTypes.shape({
     tickPadding: PropTypes.number,
     tickRotation: PropTypes.number,
     format: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-
     legend: PropTypes.node,
     legendPosition: PropTypes.oneOf(legendPositions),
     legendOffset: PropTypes.number,
@@ -55,28 +51,45 @@ const willLeave = springConfig => ({ style: { x, y } }) => ({
     y: spring(y.val, springConfig),
 })
 
-const Axis = ({
+export interface AxisProps {
+    scale: any
+    width: number
+    height: number
+    position: string
+    tickValues?: number | Array<number | string | Date>
+    tickSize?: number
+    tickPadding?: number
+    tickRotation?: number
+    format?: any
+    legend?: React.ReactNode
+    legendPosition?: string
+    legendOffset?: number
+    theme: {
+        axis: AxisTheme
+    }
+    onClick: any
+    animate: boolean
+    motionStiffness: number
+    motionDamping: number
+}
+
+const Axis: React.SFC<AxisProps> = ({
     scale,
     width,
     height,
     position: _position,
-
     tickValues,
-    tickSize,
-    tickPadding,
-    tickRotation,
+    tickSize = 5,
+    tickPadding = 5,
+    tickRotation = 0,
     format,
-
     legend: _legend,
-    legendPosition,
-    legendOffset,
-
+    legendPosition = 'end',
+    legendOffset = 0,
     theme,
-
     animate,
     motionStiffness,
     motionDamping,
-
     onClick,
 }) => {
     const { x, y, ticks, textAlign, textBaseline } = computeAxisTicks({
@@ -227,7 +240,6 @@ Axis.propTypes = {
     height: PropTypes.number.isRequired,
     position: PropTypes.oneOf(axisPositions).isRequired,
     scale: PropTypes.func.isRequired,
-
     tickValues: PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.arrayOf(
@@ -238,27 +250,16 @@ Axis.propTypes = {
     tickPadding: PropTypes.number.isRequired,
     tickRotation: PropTypes.number.isRequired,
     format: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-
     legend: PropTypes.node,
     legendPosition: PropTypes.oneOf(legendPositions).isRequired,
     legendOffset: PropTypes.number.isRequired,
-
     theme: PropTypes.shape({
         axis: axisThemePropType.isRequired,
-    }).isRequired,
-
+    }).isRequired as React.Requireable<{
+        axis: AxisTheme
+    }>,
     onClick: PropTypes.func,
-
     ...motionPropTypes,
-}
-
-Axis.defaultProps = {
-    tickSize: 5,
-    tickPadding: 5,
-    tickRotation: 0,
-
-    legendPosition: 'end',
-    legendOffset: 0,
 }
 
 const enhance = compose(

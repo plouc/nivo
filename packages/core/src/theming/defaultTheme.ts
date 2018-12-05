@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { Theme } from './definitions'
+import { Theme } from './index'
 
 const defaultTextColor = '#333333'
 const defaultFontSize = `${11}px`

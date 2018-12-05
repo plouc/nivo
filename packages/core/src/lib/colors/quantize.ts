@@ -6,9 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import last from 'lodash/last'
-import isArray from 'lodash/isArray'
-import isFunction from 'lodash/isFunction'
+import { last, isArray, isFunction } from 'lodash'
 import { scaleQuantize } from 'd3-scale'
 import {
     // Diverging
@@ -87,7 +85,7 @@ export const quantizeColorScalesKeys = Object.keys(quantizeColorScales)
 export const guessQuantizeColorScale = colors => {
     // colors is already a valid scale
     if (isFunction(colors)) {
-        if (!isFunction(colors.domain)) {
+        if (!isFunction((colors as any).domain)) {
             throw new Error(
                 `Provided colors should be a valid quantize scale providing a 'domain()' function`
             )
@@ -105,8 +103,10 @@ export const guessQuantizeColorScale = colors => {
     if (isArray(colors)) return scaleQuantize().range(colors)
 
     throw new Error(
-        `Unable to guess quantize color scale from '${colors}',\nmust be a function or one of:\n'${quantizeColorScalesKeys.join(
-            `', '`
-        )}'`
+        [
+            `Unable to guess quantize color scale from '${colors}',`,
+            `must be a function or one of:`,
+            quantizeColorScalesKeys.join(`', '`),
+        ].join('\n')
     )
 }

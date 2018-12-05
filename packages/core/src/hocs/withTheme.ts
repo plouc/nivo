@@ -9,7 +9,7 @@
 import * as PropTypes from 'prop-types'
 import { compose, setPropTypes, withPropsOnChange } from 'recompose'
 import { merge } from 'lodash'
-import { defaultTheme, Theme } from '../theming'
+import { defaultTheme, PartialTheme, Theme } from '../theming'
 
 /**
  * This HOC watch theme prop change
@@ -18,7 +18,7 @@ import { defaultTheme, Theme } from '../theming'
  * we pass through the component, useful for shallow comparison.
  */
 export default () =>
-    compose<{ theme: Partial<Theme> }, { theme: Theme }>(
+    compose<{ theme: PartialTheme }, { theme: Theme }>(
         setPropTypes({
             theme: PropTypes.object,
         }),

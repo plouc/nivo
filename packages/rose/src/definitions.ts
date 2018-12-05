@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import * as React from 'react'
-import { Theme, MotionProps } from '@nivo/core'
+import { PartialTheme, Theme, MotionProps } from '@nivo/core'
 
 export interface Arc {
     id: string
@@ -46,25 +46,18 @@ export interface RoseOuterProps<Datum> extends Partial<MotionProps> {
         bottom?: number
         left?: number
     }
-
     data: Datum[]
     indexBy: string | indexByFn<Datum>
     keys: Array<string | number>
-
     layers: Array<RoseLayerId | RoseLayer>
-
     innerRadius: number
-
     cornerRadius: number
     borderWidth: number
-
     enableArcLabel: boolean
     // renderArcLabel: PropTypes.func.isRequired
     rotateArcLabel: boolean
-
     isInteractive: boolean
-
-    theme: Theme
+    theme?: PartialTheme
 }
 
 export interface ArcGenerator {
@@ -73,31 +66,35 @@ export interface ArcGenerator {
 }
 
 export interface RoseInnerProps {
-    outerWidth: number
-    outerHeight: number
-    centerX: number
-    centerY: number
-
-    arcs: Arc[]
-    arcGenerator: ArcGenerator
-    radius: number
-    radiusScale: (val: number) => number
-    angleStep: number
-    angleScale: (val: number) => number
-}
-
-export interface RoseProps<Datum> extends RoseOuterProps<Datum>, RoseInnerProps {
     margin: {
         top: number
         right: number
         bottom: number
         left: number
     }
+    outerWidth: number
+    outerHeight: number
+    centerX: number
+    centerY: number
+    arcs: Arc[]
+    arcGenerator: ArcGenerator
+    radius: number
+    radiusScale: (val: number) => number
+    angleStep: number
+    angleScale: (val: number) => number
+    theme: Theme
+}
+
+type ExtendableOuterProps<Datum> = Pick<
+    RoseOuterProps<Datum>,
+    Exclude<keyof RoseOuterProps<Datum>, 'margin' | 'theme'>
+>
+
+export interface RoseProps<Datum> extends ExtendableOuterProps<Datum>, RoseInnerProps {
     // onMouseEnter: PropTypes.func.isRequired,
     // onMouseMove: PropTypes.func.isRequired,
     // onMouseLeave: PropTypes.func.isRequired,
     // onClick: PropTypes.func.isRequired,
-
     /*
     maxValue: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]).isRequired,
 

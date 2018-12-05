@@ -6,13 +6,28 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
-import PropTypes from 'prop-types'
-import pure from 'recompose/pure'
+import * as React from 'react'
+import * as PropTypes from 'prop-types'
 import { degreesToRadians } from '../../../lib/polar'
 
-export const PatternLines = pure(
-    ({ id, spacing: _spacing, rotation: _rotation, background, color, lineWidth }) => {
+export interface PatternLinesProps {
+    id: string
+    spacing?: number
+    rotation?: number
+    background?: string
+    color?: string
+    lineWidth?: number
+}
+
+export const PatternLines: React.SFC<PatternLinesProps> = React.memo(
+    ({
+        id,
+        spacing: _spacing = 5,
+        rotation: _rotation = 0,
+        background = '#ffffff',
+        color = '#000000',
+        lineWidth = 2,
+    }) => {
         let rotation = Math.round(_rotation) % 360
         const spacing = Math.abs(_spacing)
 
@@ -76,14 +91,6 @@ PatternLines.propTypes = {
     background: PropTypes.string.isRequired,
     color: PropTypes.string.isRequired,
     lineWidth: PropTypes.number.isRequired,
-}
-
-PatternLines.defaultProps = {
-    spacing: 5,
-    rotation: 0,
-    color: '#000000',
-    background: '#ffffff',
-    lineWidth: 2,
 }
 
 export const patternLinesDef = (id, options = {}) => ({

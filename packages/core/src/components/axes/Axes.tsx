@@ -6,35 +6,45 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
-import PropTypes from 'prop-types'
-import isEqual from 'lodash/isEqual'
-import shouldUpdate from 'recompose/shouldUpdate'
+import * as React from 'react'
+import * as PropTypes from 'prop-types'
+import { isEqual } from 'lodash'
+import { shouldUpdate } from 'recompose'
 import { motionPropTypes } from '../../props'
-import { axisThemePropType } from '../../theming'
+import { axisThemePropType, AxisTheme } from '../../theming'
 import Axis, { axisPropType } from './Axis'
 
 const horizontalPositions = ['top', 'bottom']
 const verticalPositions = ['left', 'right']
 const positions = [...horizontalPositions, ...verticalPositions]
 
-const Axes = ({
-    // generic
+export interface AxesProps {
+    xScale: any
+    yScale: any
+    width: number
+    height: number
+    top?: any
+    right?: any
+    bottom?: any
+    left?: any
+    theme: {
+        axis?: AxisTheme
+    }
+    animate: boolean
+    motionStiffness: number
+    motionDamping: number
+}
+
+const Axes: React.SFC<AxesProps> = ({
     xScale,
     yScale,
     width,
     height,
-
-    // axes
     top,
     right,
     bottom,
     left,
-
-    // theming
     theme,
-
-    // motion
     animate,
     motionStiffness,
     motionDamping,
@@ -74,21 +84,18 @@ Axes.propTypes = {
     yScale: PropTypes.func.isRequired,
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
-
     top: axisPropType,
     right: axisPropType,
     bottom: axisPropType,
     left: axisPropType,
-
     theme: PropTypes.shape({
         axis: axisThemePropType.isRequired,
     }).isRequired,
-
     ...motionPropTypes,
 }
 
 export default shouldUpdate(
-    (props, nextProps) =>
+    (props: AxesProps, nextProps: AxesProps) =>
         props.xScale !== nextProps.xScale ||
         props.yScale !== nextProps.yScale ||
         props.width !== nextProps.width ||

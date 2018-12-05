@@ -6,21 +6,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import isArray from 'lodash/isArray'
-import isNumber from 'lodash/isNumber'
+import { isArray, isNumber } from 'lodash'
 import { textPropsByEngine } from '../bridge'
 
 const horizontalPositions = ['top', 'bottom']
 const verticalPositions = ['left', 'right']
 
-/**
- * @param {Object} scale
- *
- * @return {Object} centered scale
- */
-const centerScale = scale => {
-    const bandwidth = scale.bandwidth()
+const centerScale = (scale: any): any => {
+    if (scale.bandwidth === undefined) return scale
 
+    const bandwidth = scale.bandwidth()
     if (bandwidth === 0) return scale
 
     let offset = bandwidth / 2
@@ -31,57 +26,36 @@ const centerScale = scale => {
     return d => scale(d) + offset
 }
 
-/**
- * @param {Object} scale
- * @param {number} [tickCount]
- *
- * @return {Array.<number|string>}
- */
-const getScaleValues = (scale, tickCount) => {
+const getScaleValues = (scale: any, tickCount?: number): Array<number | string> => {
     if (scale.ticks) return scale.ticks(tickCount)
     return scale.domain()
 }
 
-/**
- * @typedef {Object} AxisTick
- * @param {number} x
- * @param {number} y
- * @param {number} lineX
- * @param {number} lineY
- * @param {number} textX
- * @param {number} textY
- */
-
-/**
- * @param {number}                       width
- * @param {number}                       height
- * @param {string}                       _position
- * @param {Object}                       scale
- * @param {number|Array.<string|number>} [_tickValues]
- * @param {number}                       [tickSize=5]
- * @param {number}                       [tickPadding=5]
- * @param {number}                       [tickRotation=0]
- * @parem {string}                       [engine='svg']
- *
- * @return {{ x: number, y: number, ticks: Array.<AxisTick>, textAlign: string, textBaseline: string }}
- */
 export const computeAxisTicks = ({
     width,
     height,
     position: _position,
     scale,
-
     tickValues: _tickValues,
     tickSize = 5,
     tickPadding = 5,
     tickRotation = 0,
-
     engine = 'svg',
+}: {
+    width: number
+    height: number
+    position: string
+    scale: any
+    tickValues?: number | Array<number | string | Date>
+    tickSize: number
+    tickPadding: number
+    tickRotation: number
+    engine?: 'svg' | 'canvas'
 }) => {
     const tickValues = isArray(_tickValues) ? _tickValues : undefined
     const tickCount = isNumber(_tickValues) ? _tickValues : undefined
 
-    const values = tickValues || getScaleValues(scale, tickCount)
+    const values = tickValues !== undefined ? tickValues : getScaleValues(scale, tickCount)
 
     const textProps = textPropsByEngine[engine]
 
@@ -155,22 +129,26 @@ export const computeAxisTicks = ({
     }
 }
 
-/**
- * @param {number} width
- * @param {number} height
- * @param {Object} scale
- * @param {string} axis
- *
- * @return {Array.<Object>}
- */
 export const computeGridLines = ({
     width,
     height,
     scale,
     axis,
     values = getScaleValues(scale),
-}) => {
-    const position = scale.bandwidth ? centerScale(scale) : scale
+}: {
+    width: number
+    height: number
+    scale: any
+    axis: 'x' | 'y'
+    values?: Array<number | string | Date>
+}): Array<{
+    key: string
+    x1: number
+    x2: number
+    y1: number
+    y2: number
+}> => {
+    const position = centerScale(scale)
 
     let lines
     if (axis === 'x') {

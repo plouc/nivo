@@ -11,6 +11,7 @@
         "curly": false,
         "member-access": false,
         "no-namespace": false,
+        "variable-name": false,
         "trailing-comma": [
             true,
             {

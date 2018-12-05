@@ -6,21 +6,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
-import PropTypes from 'prop-types'
-import pure from 'recompose/pure'
+import * as React from 'react'
+import * as PropTypes from 'prop-types'
+import { MarkersTheme } from '../../../theming'
 
-/**
- *
- * @param {string} axis
- * @param {number} width
- * @param {number} height
- * @param {string} position
- * @param {number} offsetX
- * @param {number} offsetY
- * @param {string} orientation
- * @return {{ x: number, y: number, textAnchor: string }}
- */
 const computeLabel = ({ axis, width, height, position, offsetX, offsetY, orientation }) => {
     let x = 0
     let y = 0
@@ -162,85 +151,103 @@ const computeLabel = ({ axis, width, height, position, offsetX, offsetY, orienta
     return { x, y, rotation, textAnchor }
 }
 
-const CartesianMarkersItem = ({
-    width,
-    height,
-    axis,
-    scale,
-    value,
-    theme,
-    lineStyle,
-    textStyle,
-    legend,
-    legendPosition,
-    legendOffsetX,
-    legendOffsetY,
-    legendOrientation,
-}) => {
-    let x = 0
-    let x2 = 0
-    let y = 0
-    let y2 = 0
-
-    if (axis === 'y') {
-        y = scale(value)
-        x2 = width
-    } else {
-        x = scale(value)
-        y2 = height
+export interface CartesianMarkersItemProps {
+    width: number
+    height: number
+    axis: 'x' | 'y'
+    scale: any
+    value: number | string | Date
+    lineStyle?: Partial<React.CSSProperties>
+    textStyle?: Partial<React.CSSProperties>
+    legend?: string
+    legendPosition?: string
+    legendOffsetX?: number
+    legendOffsetY?: number
+    legendOrientation?: string
+    theme: {
+        markers: MarkersTheme
     }
+}
 
-    let legendNode = null
-    if (legend) {
-        const legendProps = computeLabel({
-            axis,
-            width,
-            height,
-            position: legendPosition,
-            offsetX: legendOffsetX,
-            offsetY: legendOffsetY,
-            orientation: legendOrientation,
-        })
-        legendNode = (
-            <text
-                transform={`translate(${legendProps.x}, ${legendProps.y}) rotate(${
-                    legendProps.rotation
-                })`}
-                textAnchor={legendProps.textAnchor}
-                alignmentBaseline="central"
-                style={textStyle}
-            >
-                {legend}
-            </text>
+export const CartesianMarkersItem: React.SFC<CartesianMarkersItemProps> = React.memo(
+    ({
+        width,
+        height,
+        axis,
+        scale,
+        value,
+        theme,
+        lineStyle,
+        textStyle,
+        legend,
+        legendPosition = 'top-right',
+        legendOffsetX = 14,
+        legendOffsetY = 14,
+        legendOrientation = 'horizontal',
+    }) => {
+        let x = 0
+        let x2 = 0
+        let y = 0
+        let y2 = 0
+
+        if (axis === 'y') {
+            y = scale(value)
+            x2 = width
+        } else {
+            x = scale(value)
+            y2 = height
+        }
+
+        let legendNode = null
+        if (legend) {
+            const legendProps = computeLabel({
+                axis,
+                width,
+                height,
+                position: legendPosition,
+                offsetX: legendOffsetX,
+                offsetY: legendOffsetY,
+                orientation: legendOrientation,
+            })
+            legendNode = (
+                <text
+                    transform={`translate(${legendProps.x}, ${legendProps.y}) rotate(${
+                        legendProps.rotation
+                    })`}
+                    textAnchor={legendProps.textAnchor}
+                    alignmentBaseline="central"
+                    style={textStyle}
+                >
+                    {legend}
+                </text>
+            )
+        }
+
+        return (
+            <g transform={`translate(${x}, ${y})`}>
+                <line
+                    x1={0}
+                    x2={x2}
+                    y1={0}
+                    y2={y2}
+                    stroke={theme.markers.lineColor}
+                    strokeWidth={theme.markers.lineStrokeWidth}
+                    style={lineStyle}
+                />
+                {legendNode}
+            </g>
         )
     }
-
-    return (
-        <g transform={`translate(${x}, ${y})`}>
-            <line
-                x1={0}
-                x2={x2}
-                y1={0}
-                y2={y2}
-                stroke={theme.markers.lineColor}
-                strokeWidth={theme.markers.lineStrokeWidth}
-                style={lineStyle}
-            />
-            {legendNode}
-        </g>
-    )
-}
+)
 
 CartesianMarkersItem.propTypes = {
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
-
-    axis: PropTypes.oneOf(['x', 'y']).isRequired,
+    axis: PropTypes.oneOf(['x', 'y']).isRequired as React.Requireable<'x' | 'y'>,
     scale: PropTypes.func.isRequired,
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     lineStyle: PropTypes.object,
     textStyle: PropTypes.object,
-
     legend: PropTypes.string,
     legendPosition: PropTypes.oneOf([
         'top-left',
@@ -255,20 +262,14 @@ CartesianMarkersItem.propTypes = {
     legendOffsetX: PropTypes.number.isRequired,
     legendOffsetY: PropTypes.number.isRequired,
     legendOrientation: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
-
     theme: PropTypes.shape({
         markers: PropTypes.shape({
+            lineColor: PropTypes.string.isRequired,
+            lineStrokeWidth: PropTypes.number.isRequired,
             textColor: PropTypes.string.isRequired,
             fontSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
         }).isRequired,
-    }).isRequired,
+    }).isRequired as React.Requireable<{
+        markers: MarkersTheme
+    }>,
 }
-
-CartesianMarkersItem.defaultProps = {
-    legendPosition: 'top-right',
-    legendOffsetX: 14,
-    legendOffsetY: 14,
-    legendOrientation: 'horizontal',
-}
-
-export default pure(CartesianMarkersItem)

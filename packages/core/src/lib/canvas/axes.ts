@@ -8,24 +8,33 @@
  */
 import { computeAxisTicks, computeGridLines } from '../cartesian/axes'
 import { degreesToRadians } from '../polar'
+import { Theme } from '../../theming'
 
 const horizontalPositions = ['top', 'bottom']
 const positions = ['top', 'right', 'bottom', 'left']
 
 export const renderAxisToCanvas = (
-    ctx,
+    ctx: CanvasRenderingContext2D,
     {
         width,
         height,
         position,
         scale,
-
         tickSize = 5,
         tickPadding = 5,
         tickRotation = 0,
         format,
-
         theme,
+    }: {
+        width: number
+        height: number
+        position: string
+        scale: any
+        tickSize: number
+        tickPadding: number
+        tickRotation: number
+        format?: any
+        theme: Theme
     }
 ) => {
     const { x, y, ticks, textAlign, textBaseline } = computeAxisTicks({
@@ -41,12 +50,12 @@ export const renderAxisToCanvas = (
 
     ctx.save()
     ctx.translate(x, y)
-    ctx.textAlign = textAlign
-    ctx.textBaseline = textBaseline
+    ctx.textAlign = textAlign as CanvasTextAlign
+    ctx.textBaseline = textBaseline as CanvasTextBaseline
     ctx.font = `${theme.axis.ticks.text.fontSize}px sans-serif`
 
     ticks.forEach(tick => {
-        ctx.lineWidth = theme.axis.ticks.line.strokeWidth
+        ctx.lineWidth = theme.axis.ticks.line.strokeWidth as number
         ctx.strokeStyle = theme.axis.ticks.line.stroke
         ctx.beginPath()
         ctx.moveTo(tick.x, tick.y)
@@ -67,20 +76,8 @@ export const renderAxisToCanvas = (
 }
 
 export const renderAxesToCanvas = (
-    ctx,
-    {
-        xScale,
-        yScale,
-        width,
-        height,
-
-        top,
-        right,
-        bottom,
-        left,
-
-        theme,
-    }
+    ctx: CanvasRenderingContext2D,
+    { xScale, yScale, width, height, top, right, bottom, left, theme }
 ) => {
     const axes = { top, right, bottom, left }
 
@@ -101,14 +98,20 @@ export const renderAxesToCanvas = (
     })
 }
 
-/**
- * @param {CanvasRenderingContext2D} ctx
- * @param {number}                   width
- * @param {number}                   height
- * @param {number}                   scale
- * @param {('x'|'y')}                axis
- */
-export const renderGridLinesToCanvas = (ctx, { width, height, scale, axis }) => {
+export const renderGridLinesToCanvas = (
+    ctx: CanvasRenderingContext2D,
+    {
+        width,
+        height,
+        scale,
+        axis,
+    }: {
+        width: number
+        height: number
+        scale: any
+        axis: 'x' | 'y'
+    }
+) => {
     const lines = computeGridLines({ width, height, scale, axis })
 
     lines.forEach(line => {
