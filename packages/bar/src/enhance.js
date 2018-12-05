@@ -10,6 +10,7 @@ import compose from 'recompose/compose'
 import defaultProps from 'recompose/defaultProps'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
+import setDisplayName from 'recompose/setDisplayName'
 import { withTheme, withColors, withDimensions, withMotion } from '@nivo/core'
 import { getInheritedColorGenerator } from '@nivo/core'
 import { getAccessorFor, getLabelGenerator } from '@nivo/core'
@@ -45,5 +46,6 @@ export default Component =>
 
             return { getTooltipLabel }
         }),
-        pure
+        pure,
+        setDisplayName(Component.displayName)
     )(Component)

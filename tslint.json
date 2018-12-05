@@ -4,8 +4,13 @@
         "semicolon": [true, "never"],
         "quotemark": [true, "single", "jsx-double"],
         "ordered-imports": false,
+        "arrow-parens": false,
         "max-classes-per-file": false,
         "interface-name": false,
+        "object-literal-sort-keys": false,
+        "curly": false,
+        "member-access": false,
+        "no-namespace": false,
         "trailing-comma": [
             true,
             {

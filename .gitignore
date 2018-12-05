@@ -13,4 +13,5 @@ build
 /packages/*/umd
 
 *.lerna_backup
+.rpt2_cache
 

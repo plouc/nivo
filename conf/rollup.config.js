@@ -2,8 +2,15 @@ import { camelCase, upperFirst } from 'lodash'
 import babel from 'rollup-plugin-babel'
 import resolve from 'rollup-plugin-node-resolve'
 import stripBanner from 'rollup-plugin-strip-banner'
+import typescript from 'rollup-plugin-typescript2'
 
 const pkg = process.env.PACKAGE
+
+const tsPackages = [
+    'core',
+    'legends',
+    'rose'
+]
 
 const externals = [
     'prop-types',
@@ -19,8 +26,13 @@ const mapGlobal = name => {
     return name
 }
 
+let input = `./packages/${pkg}/src/index.js`
+if (tsPackages.includes(pkg)) {
+    input = `./packages/${pkg}/src/index.ts`
+}
+
 const common = {
-    input: `./packages/${pkg}/src/index.js`,
+    input,
     external: id => externals.includes(id)
         || id.indexOf('react') === 0
         || id.indexOf('d3') === 0
@@ -38,12 +50,8 @@ const commonPlugins = [
         jsnext: true,
         main: true,
         browser: true,
-        extensions: ['.js'],
+        extensions: ['.js', '.ts', '.tsx'],
         modulesOnly: true,
-    }),
-    babel({
-        exclude: 'node_modules/**',
-        plugins: ['external-helpers']
     }),
 ]
 
@@ -55,7 +63,14 @@ export default [
             format: 'cjs',
             name: `@nivo/${pkg}`,
         },
-        plugins: commonPlugins,
+        plugins: [
+            ...commonPlugins,
+            tsPackages.includes(pkg) && typescript(),
+            babel({
+                exclude: 'node_modules/**',
+                plugins: ['external-helpers']
+            }),
+        ].filter(Boolean),
     },
     {
         ...common,
@@ -66,6 +81,19 @@ export default [
             name: 'nivo',
             globals: mapGlobal,
         },
-        plugins: commonPlugins,
+        plugins: [
+            ...commonPlugins,
+            tsPackages.includes(pkg) && typescript({
+                tsconfigOverride: {
+                    compilerOptions: {
+                        declaration: false
+                    }
+                }
+            }),
+            babel({
+                exclude: 'node_modules/**',
+                plugins: ['external-helpers']
+            }),
+        ],
     },
 ]

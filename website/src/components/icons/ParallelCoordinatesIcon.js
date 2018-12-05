@@ -21,18 +21,18 @@ const chartProps = (lineColor, axisColor) => ({
             domain: {
                 line: {
                     stroke: axisColor,
-                    strokeWidth: 8
-                }
+                    strokeWidth: 8,
+                },
             },
             ticks: {
                 line: {
-                    strokeWidth: 0,    
+                    strokeWidth: 0,
                 },
                 text: {
-                    fill: 'transparent'
-                }
-            }
-        }
+                    fill: 'transparent',
+                },
+            },
+        },
     },
     margin: {
         top: 8,
@@ -66,14 +66,14 @@ const chartProps = (lineColor, axisColor) => ({
             type: 'linear',
             min: 0,
             max: 100,
-        }
+        },
     ],
     data: [
         {
-          A: 8,
-          B: 8,
-          C: 36,
-          D: 36,
+            A: 8,
+            B: 8,
+            C: 36,
+            D: 36,
         },
         {
             A: 23,
@@ -109,9 +109,7 @@ const redProps = chartProps('#ff7d67', '#e54127')
 const ParallelCoordinatesIcon = () => (
     <Fragment>
         <Icon id="parallel-coordinates-grey">
-            <ParallelCoordinates
-                {...greyProps}
-            />
+            <ParallelCoordinates {...greyProps} />
         </Icon>
         <Icon
             style={{
@@ -119,9 +117,7 @@ const ParallelCoordinatesIcon = () => (
             }}
         />
         <Icon id="parallel-coordinates-red">
-            <ParallelCoordinates
-                {...redProps}
-            />
+            <ParallelCoordinates {...redProps} />
         </Icon>
         <Icon
             style={{

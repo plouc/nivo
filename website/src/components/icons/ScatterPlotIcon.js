@@ -82,7 +82,7 @@ const chartProps = {
         tickSize: 0,
         tickPadding: 100,
     },
-    symbolSize: 7
+    symbolSize: 7,
 }
 
 const ScatterPlotIcon = () => (

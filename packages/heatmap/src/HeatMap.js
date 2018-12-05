@@ -11,7 +11,6 @@ import partial from 'lodash/partial'
 import { TransitionMotion } from 'react-motion'
 import { colorMotionSpring, getInterpolatedColor, Container, SvgWrapper, Grid } from '@nivo/core'
 import { Axes } from '@nivo/axes'
-import setDisplayName from 'recompose/setDisplayName'
 import { HeatMapPropTypes } from './props'
 import computeNodes from './computeNodes'
 import enhance from './enhance'
@@ -228,4 +227,6 @@ class HeatMap extends Component {
     }
 }
 
-export default setDisplayName('HeatMap')(enhance(HeatMap))
+HeatMap.displayName = 'HeatMap'
+
+export default enhance(HeatMap)

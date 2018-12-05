@@ -9,6 +9,7 @@
 import compose from 'recompose/compose'
 import defaultProps from 'recompose/defaultProps'
 import pure from 'recompose/pure'
+import setDisplayName from 'recompose/setDisplayName'
 import { withDimensions, withTheme, withMotion } from '@nivo/core'
 import * as props from './props'
 
@@ -20,7 +21,13 @@ export default Component => {
     switch (Component.displayName) {
         case 'Bullet':
             return compose(
-                ...[defaultProps(implDefaultProps), ...commonEnhancers, withMotion(), pure]
+                ...[
+                    defaultProps(implDefaultProps),
+                    ...commonEnhancers,
+                    withMotion(),
+                    pure,
+                    setDisplayName(Component.displayName),
+                ]
             )(Component)
     }
 

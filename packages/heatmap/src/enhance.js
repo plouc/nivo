@@ -14,6 +14,7 @@ import defaultProps from 'recompose/defaultProps'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import withState from 'recompose/withState'
 import pure from 'recompose/pure'
+import setDisplayName from 'recompose/setDisplayName'
 import { scaleOrdinal, scaleLinear } from 'd3-scale'
 import { withTheme, withDimensions, withMotion } from '@nivo/core'
 import { getInheritedColorGenerator, guessQuantizeColorScale } from '@nivo/core'
@@ -133,5 +134,6 @@ export default Component =>
         withPropsOnChange(['labelTextColor'], ({ labelTextColor }) => ({
             getLabelTextColor: getInheritedColorGenerator(labelTextColor),
         })),
-        pure
+        pure,
+        setDisplayName(Component.displayName)
     )(Component)

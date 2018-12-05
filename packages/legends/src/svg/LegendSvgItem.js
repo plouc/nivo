@@ -9,12 +9,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { isFunction } from 'lodash'
-import {
-    DIRECTION_LEFT_TO_RIGHT,
-    DIRECTION_RIGHT_TO_LEFT,
-    DIRECTION_TOP_TO_BOTTOM,
-    DIRECTION_BOTTOM_TO_TOP,
-} from '../constants'
+import { Direction } from '../definitions'
 import { datumPropType, symbolPropTypes, interactivityPropTypes } from '../props'
 import { computeItemLayout } from '../compute'
 import { SymbolCircle, SymbolDiamond, SymbolSquare, SymbolTriangle } from './symbols'
@@ -40,10 +35,10 @@ export default class LegendSvgItem extends Component {
         opacity: PropTypes.number,
 
         direction: PropTypes.oneOf([
-            DIRECTION_LEFT_TO_RIGHT,
-            DIRECTION_RIGHT_TO_LEFT,
-            DIRECTION_TOP_TO_BOTTOM,
-            DIRECTION_BOTTOM_TO_TOP,
+            Direction.LeftToRight,
+            Direction.RightToLeft,
+            Direction.TopToBottom,
+            Direction.BottomToTop,
         ]).isRequired,
         justify: PropTypes.bool.isRequired,
 
@@ -52,7 +47,7 @@ export default class LegendSvgItem extends Component {
     }
 
     static defaultProps = {
-        direction: DIRECTION_LEFT_TO_RIGHT,
+        direction: Direction.LeftToRight,
         justify: false,
 
         textColor: 'black',

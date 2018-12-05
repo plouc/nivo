@@ -11,14 +11,7 @@ import PropTypes from 'prop-types'
 import LegendSvgItem from './LegendSvgItem'
 import { datumPropType, symbolPropTypes, interactivityPropTypes } from '../props'
 import { computeDimensions } from '../compute'
-import {
-    DIRECTION_COLUMN,
-    DIRECTION_ROW,
-    DIRECTION_LEFT_TO_RIGHT,
-    DIRECTION_RIGHT_TO_LEFT,
-    DIRECTION_TOP_TO_BOTTOM,
-    DIRECTION_BOTTOM_TO_TOP,
-} from '../constants'
+import { Direction } from '../definitions'
 
 const LegendSvg = ({
     data,
@@ -63,9 +56,9 @@ const LegendSvg = ({
 
     let xStep = 0
     let yStep = 0
-    if (direction === DIRECTION_ROW) {
+    if (direction === Direction.Row) {
         xStep = itemWidth + itemsSpacing
-    } else if (direction === DIRECTION_COLUMN) {
+    } else if (direction === Direction.Column) {
         yStep = itemHeight + itemsSpacing
     }
 
@@ -106,7 +99,7 @@ LegendSvg.propTypes = {
     // position/layout
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
-    direction: PropTypes.oneOf([DIRECTION_COLUMN, DIRECTION_ROW]).isRequired,
+    direction: PropTypes.oneOf([Direction.Row, Direction.Column]).isRequired,
     padding: PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.shape({
@@ -123,10 +116,10 @@ LegendSvg.propTypes = {
     itemWidth: PropTypes.number.isRequired,
     itemHeight: PropTypes.number.isRequired,
     itemDirection: PropTypes.oneOf([
-        DIRECTION_LEFT_TO_RIGHT,
-        DIRECTION_RIGHT_TO_LEFT,
-        DIRECTION_TOP_TO_BOTTOM,
-        DIRECTION_BOTTOM_TO_TOP,
+        Direction.LeftToRight,
+        Direction.RightToLeft,
+        Direction.TopToBottom,
+        Direction.BottomToTop,
     ]).isRequired,
     itemTextColor: PropTypes.string.isRequired,
     itemBackground: PropTypes.string.isRequired,
@@ -143,7 +136,7 @@ LegendSvg.defaultProps = {
 
     // items
     itemsSpacing: 0,
-    itemDirection: DIRECTION_LEFT_TO_RIGHT,
+    itemDirection: Direction.LeftToRight,
     itemTextColor: 'black',
     itemBackground: 'transparent',
     itemOpacity: 1,

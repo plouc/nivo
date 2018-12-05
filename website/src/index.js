@@ -42,7 +42,8 @@ class App extends Component {
         const { location } = this.props
         const { nav } = this.state
 
-        const rootClass = location !== undefined && location.search.indexOf('capture') !== -1 ? 'isCapturing' : ''
+        const rootClass =
+            location !== undefined && location.search.indexOf('capture') !== -1 ? 'isCapturing' : ''
 
         return (
             <div className={rootClass}>

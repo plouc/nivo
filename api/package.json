@@ -49,8 +49,8 @@
     "express-winston": "^2.4.0",
     "joi": "^14.3.0",
     "lodash": "^4.17.4",
-    "react": "16.2.0",
-    "react-dom": "16.2.0",
+    "react": "16.6.3",
+    "react-dom": "16.6.3",
     "uuid": "^3.1.0",
     "winston": "^2.3.1"
   },

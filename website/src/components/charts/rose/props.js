@@ -421,5 +421,5 @@ export default [
             },
         },
     },
-    ...motionProperties(['Bar'], defaults),
+    ...motionProperties(['Rose'], defaults),
 ]

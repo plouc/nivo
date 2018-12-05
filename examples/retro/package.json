@@ -12,8 +12,8 @@
     "@nivo/pie": "0.49.0",
     "@nivo/stream": "0.49.0",
     "@nivo/treemap": "0.49.0",
-    "react": "^16.5.0",
-    "react-dom": "^16.5.0",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
     "react-scripts": "^1.1.5"
   },
   "scripts": {

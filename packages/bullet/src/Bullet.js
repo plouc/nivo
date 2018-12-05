@@ -8,7 +8,6 @@
  */
 import React, { Component } from 'react'
 import { scaleLinear } from 'd3-scale'
-import setDisplayName from 'recompose/setDisplayName'
 import { Container, SvgWrapper } from '@nivo/core'
 import { BulletPropTypes } from './props'
 import enhance from './enhance'
@@ -146,4 +145,4 @@ export class Bullet extends Component {
 
 Bullet.displayName = 'Bullet'
 
-export default setDisplayName(Bullet.displayName)(enhance(Bullet))
+export default enhance(Bullet)

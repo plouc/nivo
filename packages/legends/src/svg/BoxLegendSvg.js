@@ -11,23 +11,7 @@ import PropTypes from 'prop-types'
 import LegendSvg from './LegendSvg'
 import { datumPropType, symbolPropTypes, interactivityPropTypes } from '../props'
 import { computeDimensions, computePositionFromAnchor } from '../compute'
-import {
-    DIRECTION_ROW,
-    DIRECTION_COLUMN,
-    DIRECTION_BOTTOM_TO_TOP,
-    DIRECTION_LEFT_TO_RIGHT,
-    DIRECTION_RIGHT_TO_LEFT,
-    DIRECTION_TOP_TO_BOTTOM,
-    ANCHOR_TOP,
-    ANCHOR_TOP_RIGHT,
-    ANCHOR_RIGHT,
-    ANCHOR_BOTTOM_RIGHT,
-    ANCHOR_BOTTOM,
-    ANCHOR_BOTTOM_LEFT,
-    ANCHOR_LEFT,
-    ANCHOR_TOP_LEFT,
-    ANCHOR_CENTER,
-} from '../constants'
+import { Direction, Anchor } from '../definitions'
 
 const BoxLegendSvg = ({
     data,
@@ -118,17 +102,17 @@ BoxLegendSvg.propTypes = {
     translateX: PropTypes.number.isRequired,
     translateY: PropTypes.number.isRequired,
     anchor: PropTypes.oneOf([
-        ANCHOR_TOP,
-        ANCHOR_TOP_RIGHT,
-        ANCHOR_RIGHT,
-        ANCHOR_BOTTOM_RIGHT,
-        ANCHOR_BOTTOM,
-        ANCHOR_BOTTOM_LEFT,
-        ANCHOR_LEFT,
-        ANCHOR_TOP_LEFT,
-        ANCHOR_CENTER,
+        Anchor.Top,
+        Anchor.TopRight,
+        Anchor.Right,
+        Anchor.BottomRight,
+        Anchor.Bottom,
+        Anchor.BottomLeft,
+        Anchor.Left,
+        Anchor.TopLeft,
+        Anchor.Center,
     ]).isRequired,
-    direction: PropTypes.oneOf([DIRECTION_ROW, DIRECTION_COLUMN]).isRequired,
+    direction: PropTypes.oneOf([Direction.Row, Direction.Column]).isRequired,
     padding: PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.shape({
@@ -143,10 +127,10 @@ BoxLegendSvg.propTypes = {
     itemWidth: PropTypes.number.isRequired,
     itemHeight: PropTypes.number.isRequired,
     itemDirection: PropTypes.oneOf([
-        DIRECTION_LEFT_TO_RIGHT,
-        DIRECTION_RIGHT_TO_LEFT,
-        DIRECTION_TOP_TO_BOTTOM,
-        DIRECTION_BOTTOM_TO_TOP,
+        Direction.LeftToRight,
+        Direction.RightToLeft,
+        Direction.TopToBottom,
+        Direction.BottomToTop,
     ]),
     itemsSpacing: PropTypes.number.isRequired,
     itemTextColor: PropTypes.string,

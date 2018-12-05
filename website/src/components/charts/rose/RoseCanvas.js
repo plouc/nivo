@@ -9,7 +9,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
-import { ResponsiveRoseCanvas, RoseDefaultProps } from '@nivo/rose'
+import { ResponsiveRose, RoseDefaultProps } from '@nivo/rose'
 import ChartHeader from '../../ChartHeader'
 import ChartTabs from '../../ChartTabs'
 import RoseControls from './RoseControls'
@@ -153,7 +153,7 @@ export default class RoseCanvas extends Component {
                         {description}
                     </MediaQuery>
                     <ChartTabs chartClass="rose" code={code} data={data} diceRoll={this.diceRoll}>
-                        <ResponsiveRoseCanvas
+                        <ResponsiveRose
                             data={data}
                             keys={keys}
                             indexBy={indexBy}

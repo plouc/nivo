@@ -82,4 +82,6 @@ declare module '@nivo/core' {
         lineStyle?: Partial<CSSProperties>
         textStyle?: Partial<CSSProperties>
     }
+
+    export function radiansToDegrees(rad: number): number
 }

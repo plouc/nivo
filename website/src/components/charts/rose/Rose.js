@@ -68,10 +68,7 @@ export default class Rose extends Component {
                 gamma: 1.6,
             },
 
-            enableGridX: false,
-            enableGridY: true,
-
-            enableLabel: true,
+            enableArcLabel: true,
             labelSkipWidth: 12,
             labelSkipHeight: 12,
             labelTextColor: {

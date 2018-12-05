@@ -12,7 +12,6 @@ import { bindDefs, Container, SvgWrapper, Grid, CartesianMarkers } from '@nivo/c
 import { Axes } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
 import { generateGroupedBars, generateStackedBars } from './compute'
-import setDisplayName from 'recompose/setDisplayName'
 import enhance from './enhance'
 import { BarPropTypes } from './props'
 
@@ -330,5 +329,6 @@ const Bar = props => {
 }
 
 Bar.propTypes = BarPropTypes
+Bar.displayName = 'Bar'
 
-export default setDisplayName('Bar')(enhance(Bar))
+export default enhance(Bar)

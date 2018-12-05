@@ -17,29 +17,26 @@
     "rose"
   ],
   "main": "./index.js",
+  "types": "./cjs/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
     "index.js",
-    "index.d.ts",
     "cjs/",
     "umd/"
   ],
   "dependencies": {
-    "@nivo/axes": "0.51.0",
     "@nivo/core": "0.51.0",
     "@nivo/legends": "0.51.0",
-    "@nivo/scales": "0.51.0",
-    "@nivo/voronoi": "0.51.0",
     "d3-scale": "^2.1.2",
     "d3-shape": "^1.2.2",
     "lodash": "^4.17.4",
     "react-motion": "^0.5.2",
-    "recompose": "^0.26.0"
+    "recompose": "^0.30.0"
   },
   "peerDependencies": {
     "prop-types": "^15.5.10",
-    "react": ">= 16.2.0 < 17.0.0"
+    "react": ">= 16.6.3 < 17.0.0"
   },
   "publishConfig": {
     "access": "public"

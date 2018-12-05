@@ -37,9 +37,7 @@ const chartProps = {
 
 const StreamIcon = () => (
     <Fragment>
-        <Icon
-            id="stream-grey"
-        >
+        <Icon id="stream-grey">
             <Stream
                 width={ICON_SIZE}
                 height={ICON_SIZE}
@@ -52,9 +50,7 @@ const StreamIcon = () => (
                 backgroundImage: `url(${streamGreyImg})`,
             }}
         />
-        <Icon
-            id="stream-red"
-        >
+        <Icon id="stream-red">
             <Stream
                 width={ICON_SIZE}
                 height={ICON_SIZE}

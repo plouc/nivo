@@ -21,6 +21,7 @@ const chartProps = {
         { id: '2', A: 5, B: 3, C: 2 },
     ],
     isInteractive: false,
+    enableArcLabel: false,
 }
 
 const RoseIcon = () => (

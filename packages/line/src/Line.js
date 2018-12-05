@@ -12,6 +12,7 @@ import compose from 'recompose/compose'
 import pure from 'recompose/pure'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import defaultProps from 'recompose/defaultProps'
+import setDisplayName from 'recompose/setDisplayName'
 import {
     curveFromProp,
     getInheritedColorGenerator,
@@ -288,10 +289,8 @@ const enhance = compose(
                 .y0(computedData.yScale(areaBaselineValue)),
         })
     ),
+    setDisplayName('Line'),
     pure
 )
 
-const enhancedLine = enhance(Line)
-enhancedLine.displayName = 'Line'
-
-export default enhancedLine
+export default enhance(Line)

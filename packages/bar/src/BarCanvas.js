@@ -7,7 +7,6 @@
  * file that was distributed with this source code.
  */
 import React, { Component } from 'react'
-import setDisplayName from 'recompose/setDisplayName'
 import {
     renderAxesToCanvas,
     getRelativeCursor,
@@ -259,5 +258,6 @@ class BarCanvas extends Component {
 }
 
 BarCanvas.propTypes = BarPropTypes
+BarCanvas.displayName = 'BarCanvas'
 
-export default setDisplayName('BarCanvas')(enhance(BarCanvas))
+export default enhance(BarCanvas)

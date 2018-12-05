@@ -26,11 +26,11 @@
     "@nivo/core": "0.51.0",
     "d3-delaunay": "^4.1.5",
     "d3-scale": "^2.1.2",
-    "recompose": "^0.26.0"
+    "recompose": "^0.30.0"
   },
   "peerDependencies": {
     "prop-types": "^15.5.10",
-    "react": ">= 16.2.0 < 17.0.0"
+    "react": ">= 16.6.3 < 17.0.0"
   },
   "publishConfig": {
     "access": "public"

@@ -127,7 +127,4 @@ class BubbleCanvas extends Component {
 
 BubbleCanvas.displayName = 'BubbleCanvas'
 
-const enhancedBubbleCanvas = enhance(BubbleCanvas)
-enhancedBubbleCanvas.displayName = 'BubbleCanvas'
-
-export default enhancedBubbleCanvas
+export default enhance(BubbleCanvas)

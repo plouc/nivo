@@ -170,5 +170,6 @@ class HeatMapCanvas extends Component {
 }
 
 HeatMapCanvas.propTypes = HeatMapPropTypes
+HeatMapCanvas.displayName = 'HeatMapCanvas'
 
 export default enhance(HeatMapCanvas)

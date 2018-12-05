@@ -22,7 +22,7 @@ export const generateLightDataSet = () => {
             (acc, key) => {
                 return {
                     ...acc,
-                    [key]: Math.random() * 100,
+                    [key]: Number((Math.random() * 100).toFixed(2)),
                 }
             },
             { month }
@@ -34,7 +34,7 @@ export const generateLightDataSet = () => {
 
 export const generateHeavyDataSet = () => {
     const keys = [...dimensions]
-    const yearMonths = ['2000', '2001', '2002'].reduce((acc, year) => {
+    const yearMonths = ['2000', '2001', '2002', '2003', '2004'].reduce((acc, year) => {
         return [...acc, ...months.map(month => `${year}/${month}`)]
     }, [])
     const data = yearMonths.map(month => {
@@ -42,7 +42,7 @@ export const generateHeavyDataSet = () => {
             (acc, key) => {
                 return {
                     ...acc,
-                    [key]: Math.random() * 100,
+                    [key]: Number((Math.random() * 100).toFixed(2)),
                 }
             },
             { month }
