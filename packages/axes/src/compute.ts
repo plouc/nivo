@@ -6,9 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import isNumber from 'lodash/isNumber'
-import isArray from 'lodash/isArray'
-import isFunction from 'lodash/isFunction'
+import { isNumber, isArray, isFunction } from 'lodash'
 import { timeFormat } from 'd3-time-format'
 import { format as d3Format } from 'd3-format'
 import { textPropsByEngine } from '@nivo/core'

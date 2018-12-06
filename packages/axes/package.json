@@ -13,11 +13,11 @@
     "axes"
   ],
   "main": "./index.js",
+  "types": "./cjs/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
     "index.js",
-    "index.d.ts",
     "cjs/",
     "umd/"
   ],

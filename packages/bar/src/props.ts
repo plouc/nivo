@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import PropTypes from 'prop-types'
+import * as PropTypes from 'prop-types'
 import { noop, defsPropTypes } from '@nivo/core'
 import { axisPropType } from '@nivo/axes'
 import { LegendPropShape } from '@nivo/legends'

@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import PropTypes from 'prop-types'
+import * as PropTypes from 'prop-types'
 
 export const defsPropTypes = {
     defs: PropTypes.arrayOf(

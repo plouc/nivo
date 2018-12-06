@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Fragment } from 'react'
+import * as React from 'react'
 import { TransitionMotion, spring } from 'react-motion'
 import { bindDefs, Container, SvgWrapper, Grid, CartesianMarkers } from '@nivo/core'
 import { Axes } from '@nivo/axes'
@@ -317,7 +317,7 @@ const Bar = props => {
                     >
                         {layers.map((layer, i) => {
                             if (typeof layer === 'function') {
-                                return <Fragment key={i}>{layer({ ...props, ...result })}</Fragment>
+                                return <React.Fragment key={i}>{layer({ ...props, ...result })}</React.Fragment>
                             }
                             return layerById[layer]
                         })}

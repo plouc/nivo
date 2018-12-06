@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "outDir": "./build",
-    "allowJs": true,
     "target": "es2017",
     "alwaysStrict": true,
     "sourceMap": true,
