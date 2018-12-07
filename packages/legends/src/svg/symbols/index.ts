@@ -6,6 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-export * from './BoxLegendSvg'
-export * from './LegendSvg'
-export * from './LegendSvgItem'
+export * from './SymbolCircle'
+export * from './SymbolDiamond'
+export * from './SymbolSquare'
+export * from './SymbolTriangle'

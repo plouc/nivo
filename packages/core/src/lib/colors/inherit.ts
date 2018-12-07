@@ -30,12 +30,7 @@ const memoizedColorModifier = memoize(
 const noneGenerator = () => 'none'
 const inheritGenerator = d => d.color
 
-/**
- * @param {string|Function} instruction
- * @param {string}          [themeKey]
- * @return {Function}
- */
-export const getInheritedColorGenerator = (instruction, themeKey) => {
+export const getInheritedColorGenerator = (instruction: any, themeKey?: string) => {
     if (instruction === 'none') return noneGenerator
 
     if (isFunction(instruction)) return instruction

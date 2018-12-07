@@ -6,33 +6,22 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import min from 'lodash/min'
-import max from 'lodash/max'
-import flattenDepth from 'lodash/flattenDepth'
+import { flattenDepth } from 'lodash'
 import { scaleLinear } from 'd3-scale'
 import { stack, stackOffsetDiverging } from 'd3-shape'
 import { getIndexedScale } from './common'
 
-/**
- * Generates scale for stacked bar chart.
- *
- * @param {Array.<Object>} data
- * @param {number|string}  _minValue
- * @param {number|string}  _maxValue
- * @param {Array.<number>} range
- * @returns {Function}
- */
 export const getStackedScale = (data, _minValue, _maxValue, range) => {
-    const allValues = flattenDepth(data, 2)
+    const allValues: number[] = flattenDepth(data, 2)
 
     let minValue = _minValue
     if (minValue === 'auto') {
-        minValue = min(allValues)
+        minValue = Math.min(...allValues)
     }
 
     let maxValue = _maxValue
     if (maxValue === 'auto') {
-        maxValue = max(allValues)
+        maxValue = Math.max(...allValues)
     }
 
     return scaleLinear()

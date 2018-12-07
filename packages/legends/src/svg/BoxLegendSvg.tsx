@@ -6,45 +6,82 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
-import PropTypes from 'prop-types'
-import LegendSvg from './LegendSvg'
-import { datumPropType, symbolPropTypes, interactivityPropTypes } from '../props'
+import * as React from 'react'
+import * as PropTypes from 'prop-types'
+import { Theme } from '@nivo/core'
+import { LegendSvg } from './LegendSvg'
+import {
+    datumPropType,
+    symbolPropTypes,
+    interactivityPropTypes,
+    legendEffectPropType,
+    Direction,
+    Anchor,
+    LegendDatum,
+    LegendDirection,
+    LegendItemDirection,
+    LegendEffect,
+    LegendPadding,
+    LegendSymbolShapeProp,
+    LegendMouseHandler,
+} from '../props'
 import { computeDimensions, computePositionFromAnchor } from '../compute'
-import { Direction, Anchor } from '../definitions'
 
-const BoxLegendSvg = ({
+export interface BoxLegendSvgProps {
+    data: LegendDatum[]
+    containerWidth: number
+    containerHeight: number
+    translateX?: number
+    translateY?: number
+    anchor: Anchor
+    direction: LegendDirection
+    padding?: LegendPadding
+    justify?: boolean
+    itemsSpacing?: number
+    itemWidth: number
+    itemHeight: number
+    itemDirection: LegendItemDirection
+    itemTextColor?: string
+    itemBackground?: string
+    itemOpacity?: number
+    symbolShape?: LegendSymbolShapeProp
+    symbolSize?: number
+    symbolSpacing?: number
+    symbolBorderWidth?: number
+    symbolBorderColor?: string
+    onClick?: LegendMouseHandler
+    onMouseEnter?: LegendMouseHandler
+    onMouseLeave?: LegendMouseHandler
+    effects?: LegendEffect[]
+    theme: Theme
+}
+
+export const BoxLegendSvg: React.SFC<BoxLegendSvgProps> = ({
     data,
-
     containerWidth,
     containerHeight,
-    translateX,
-    translateY,
+    translateX = 0,
+    translateY = 0,
     anchor,
     direction,
-    padding,
+    padding = 0,
     justify,
-
-    itemsSpacing,
+    itemsSpacing = 0,
     itemWidth,
     itemHeight,
     itemDirection,
     itemTextColor,
     itemBackground,
     itemOpacity,
-
     symbolShape,
     symbolSize,
     symbolSpacing,
     symbolBorderWidth,
     symbolBorderColor,
-
     onClick,
     onMouseEnter,
     onMouseLeave,
-
     effects,
-
     theme,
 }) => {
     const { width, height } = computeDimensions({
@@ -96,7 +133,7 @@ const BoxLegendSvg = ({
 }
 
 BoxLegendSvg.propTypes = {
-    data: PropTypes.arrayOf(datumPropType).isRequired,
+    data: PropTypes.arrayOf(datumPropType).isRequired as React.Requireable<LegendDatum[]>,
     containerWidth: PropTypes.number.isRequired,
     containerHeight: PropTypes.number.isRequired,
     translateX: PropTypes.number.isRequired,
@@ -112,7 +149,9 @@ BoxLegendSvg.propTypes = {
         Anchor.TopLeft,
         Anchor.Center,
     ]).isRequired,
-    direction: PropTypes.oneOf([Direction.Row, Direction.Column]).isRequired,
+    direction: PropTypes.oneOf([Direction.Row, Direction.Column]).isRequired as React.Requireable<
+        LegendDirection
+    >,
     padding: PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.shape({
@@ -123,7 +162,6 @@ BoxLegendSvg.propTypes = {
         }),
     ]).isRequired,
     justify: PropTypes.bool,
-
     itemWidth: PropTypes.number.isRequired,
     itemHeight: PropTypes.number.isRequired,
     itemDirection: PropTypes.oneOf([
@@ -131,21 +169,13 @@ BoxLegendSvg.propTypes = {
         Direction.RightToLeft,
         Direction.TopToBottom,
         Direction.BottomToTop,
-    ]),
-    itemsSpacing: PropTypes.number.isRequired,
+    ]) as React.Validator<LegendItemDirection>,
+    itemsSpacing: PropTypes.number,
     itemTextColor: PropTypes.string,
     itemBackground: PropTypes.string,
     itemOpacity: PropTypes.number,
-
     ...symbolPropTypes,
     ...interactivityPropTypes,
+    effects: PropTypes.arrayOf(legendEffectPropType) as React.Validator<LegendEffect[]>,
+    theme: PropTypes.object.isRequired as React.Requireable<Theme>,
 }
-
-BoxLegendSvg.defaultProps = {
-    translateX: 0,
-    translateY: 0,
-    itemsSpacing: LegendSvg.defaultProps.itemsSpacing,
-    padding: LegendSvg.defaultProps.padding,
-}
-
-export default BoxLegendSvg

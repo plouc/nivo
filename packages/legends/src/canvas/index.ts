@@ -7,10 +7,8 @@
  * file that was distributed with this source code.
  */
 import { computeDimensions, computePositionFromAnchor, computeItemLayout } from '../compute'
-import BoxLegendSvg from '../svg/BoxLegendSvg'
-import LegendSvg from '../svg/LegendSvg'
-import LegendSvgItem from '../svg/LegendSvgItem'
-import { Direction } from '../definitions'
+import { LegendSvgItem } from '../svg/LegendSvgItem'
+import { Direction } from '../props'
 
 const textPropsMapping = {
     align: {
@@ -26,27 +24,22 @@ const textPropsMapping = {
 }
 
 export const renderLegendToCanvas = (
-    ctx,
+    ctx: CanvasRenderingContext2D,
     {
         data,
-
         containerWidth,
         containerHeight,
-        translateX = BoxLegendSvg.defaultProps.translateX,
-        translateY = BoxLegendSvg.defaultProps.translateY,
+        translateX = 0,
+        translateY = 0,
         anchor,
         direction,
-        padding: _padding = LegendSvg.defaultProps.padding,
-        justify = LegendSvgItem.defaultProps.justify,
-
-        // items
-        itemsSpacing = LegendSvg.defaultProps.itemsSpacing,
+        padding: _padding = 0,
+        justify = false,
+        itemsSpacing = 0,
         itemWidth,
         itemHeight,
         itemDirection = LegendSvgItem.defaultProps.direction,
-        itemTextColor = LegendSvg.defaultProps.textColor,
-
-        // symbol
+        itemTextColor = '#000000',
         symbolSize = LegendSvgItem.defaultProps.symbolSize,
         symbolSpacing = LegendSvgItem.defaultProps.symbolSpacing,
         // @todo add support for shapes

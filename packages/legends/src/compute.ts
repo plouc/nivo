@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { isNumber, isPlainObject } from 'lodash'
-import { Anchor, Direction } from './definitions'
+import { Anchor, Direction } from './props'
 
 const zeroPadding = {
     top: 0,

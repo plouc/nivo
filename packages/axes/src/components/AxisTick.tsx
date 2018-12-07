@@ -10,50 +10,52 @@ import * as React from 'react'
 import * as PropTypes from 'prop-types'
 import { axisThemePropType } from '@nivo/core'
 
-export const AxisTick: React.SFC<any> = React.memo(({
-    value: _value,
-    x,
-    y,
-    opacity = 1,
-    rotate = 0,
-    format,
-    lineX,
-    lineY,
-    onClick,
-    textX,
-    textY,
-    textBaseline,
-    textAnchor,
-    theme,
-}) => {
-    let value = _value
-    if (format !== undefined) {
-        value = format(value)
-    }
+export const AxisTick: React.SFC<any> = React.memo(
+    ({
+        value: _value,
+        x,
+        y,
+        opacity = 1,
+        rotate = 0,
+        format,
+        lineX,
+        lineY,
+        onClick,
+        textX,
+        textY,
+        textBaseline,
+        textAnchor,
+        theme,
+    }) => {
+        let value = _value
+        if (format !== undefined) {
+            value = format(value)
+        }
 
-    let gStyle = { opacity }
-    if (onClick) {
-        gStyle['cursor'] = 'pointer'
-    }
+        let gStyle = { opacity }
+        if (onClick) {
+            gStyle['cursor'] = 'pointer'
+        }
 
-    return (
-        <g
-            transform={`translate(${x},${y})`}
-            {...(onClick ? { onClick: e => onClick(e, value) } : {})}
-            style={gStyle}
-        >
-            <line x1={0} x2={lineX} y1={0} y2={lineY} style={theme.axis.ticks.line} />
-            <text
-                alignmentBaseline={textBaseline}
-                textAnchor={textAnchor}
-                transform={`translate(${textX},${textY}) rotate(${rotate})`}
-                style={theme.axis.ticks.text}
+        return (
+            <g
+                transform={`translate(${x},${y})`}
+                {...(onClick ? { onClick: e => onClick(e, value) } : {})}
+                style={gStyle}
             >
-                {value}
-            </text>
-        </g>
-    )
-})
+                <line x1={0} x2={lineX} y1={0} y2={lineY} style={theme.axis.ticks.line} />
+                <text
+                    alignmentBaseline={textBaseline}
+                    textAnchor={textAnchor}
+                    transform={`translate(${textX},${textY}) rotate(${rotate})`}
+                    style={theme.axis.ticks.text}
+                >
+                    {value}
+                </text>
+            </g>
+        )
+    }
+)
 
 AxisTick.propTypes = {
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)])

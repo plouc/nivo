@@ -6,21 +6,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { PureComponent } from 'react'
-import { symbolPropTypes, symbolDefaultProps } from './props'
+import * as React from 'react'
+import { symbolPropTypes, symbolDefaultProps, SymbolProps } from './props'
 
-export default class SymbolCircle extends PureComponent {
-    static propTypes = {
-        ...symbolPropTypes,
-    }
-
-    static defaultProps = {
-        ...symbolDefaultProps,
-    }
-
-    render() {
-        const { x, y, size, fill, borderWidth, borderColor } = this.props
-
+export const SymbolCircle: React.SFC<SymbolProps> = React.memo(
+    ({
+        x,
+        y,
+        size,
+        fill,
+        borderWidth = symbolDefaultProps.borderWidth,
+        borderColor = symbolDefaultProps.borderColor,
+    }) => {
         return (
             <circle
                 r={size / 2}
@@ -35,4 +32,6 @@ export default class SymbolCircle extends PureComponent {
             />
         )
     }
-}
+)
+
+SymbolCircle.propTypes = { ...symbolPropTypes }

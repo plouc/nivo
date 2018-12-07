@@ -28,9 +28,15 @@ export interface BasicTooltipProps {
     }
 }
 
-const BasicTooltip: React.SFC<BasicTooltipProps> = props => {
-    const { id, value: _value, format, enableChip = true, color, theme, renderContent } = props
-
+const BasicTooltip: React.SFC<BasicTooltipProps> = ({
+    id,
+    value: _value,
+    format,
+    enableChip = true,
+    color,
+    theme,
+    renderContent,
+}) => {
     let content
     if (typeof renderContent === 'function') {
         content = renderContent()
@@ -71,7 +77,7 @@ BasicTooltip.propTypes = {
     }).isRequired,
 }
 
-const enhance = compose(
+const enhance = compose<BasicTooltipProps, BasicTooltipProps>(
     withPropsOnChange(['format'], ({ format }) => {
         if (!format || isFunction(format)) return { format }
         return { format: d3Format(format) }

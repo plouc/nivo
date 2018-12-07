@@ -7,11 +7,120 @@
  * file that was distributed with this source code.
  */
 import * as PropTypes from 'prop-types'
-import { Anchor, Direction } from './definitions'
 
-/**
- * This can be used to add effect on legends on interaction.
- */
+export type LegendPadding = number | Box
+
+export enum LegendSymbolShape {
+    Circle = 'circle',
+    Diamond = 'diamond',
+    Square = 'square',
+    Triangle = 'triangle',
+}
+
+export type LegendSymbolShapeProp = LegendSymbolShape | any
+
+export interface LegendProps {
+    data?: Array<{
+        id: string | number
+        value: number
+        color?: string
+        fill?: string
+    }>
+    anchor: LegendAnchor
+    direction: LegendDirection
+    justify?: boolean
+    padding?: LegendPadding
+    translateX?: number
+    translateY?: number
+    itemWidth: number
+    itemHeight: number
+    itemDirection?: LegendItemDirection
+    itemsSpacing?: number
+    itemBackground?: string
+    itemTextColor?: string
+    itemOpacity?: number
+    symbolSize?: number
+    symbolSpacing?: number
+    symbolShape?: LegendSymbolShape | any
+    textColor?: string
+    onClick?: LegendMouseHandler
+    onMouseEnter?: LegendMouseHandler
+    onMouseLeave?: LegendMouseHandler
+    effects?: LegendEffect[]
+}
+
+export enum Anchor {
+    Top = 'top',
+    TopRight = 'top-right',
+    Right = 'right',
+    BottomRight = 'bottom-right',
+    Bottom = 'bottom',
+    BottomLeft = 'bottom-left',
+    Left = 'left',
+    TopLeft = 'top-left',
+    Center = 'center',
+}
+
+export enum Direction {
+    Row = 'row',
+    Column = 'column',
+    LeftToRight = 'left-to-right',
+    RightToLeft = 'right-to-left',
+    TopToBottom = 'top-to-bottom',
+    BottomToTop = 'bottom-to-top',
+}
+
+export type LegendAnchor =
+    | 'top'
+    | 'top-right'
+    | 'right'
+    | 'bottom-right'
+    | 'bottom'
+    | 'bottom-left'
+    | 'left'
+    | 'top-left'
+    | 'center'
+
+export type LegendDirection = Direction.Column | Direction.Row
+
+export type LegendItemDirection =
+    | Direction.LeftToRight
+    | Direction.RightToLeft
+    | Direction.TopToBottom
+    | Direction.BottomToTop
+
+export type Box = Partial<{
+    bottom: number
+    left: number
+    right: number
+    top: number
+}>
+
+export interface LegendMouseHandlerData {
+    id: string | number
+    label: string | number
+    color: string
+}
+
+export type LegendMouseHandler = (
+    data: LegendMouseHandlerData,
+    event: React.MouseEvent<any>
+) => void
+
+export type LegendEffectStyle = Partial<{
+    itemTextColor: string
+    itemBackground: string
+    itemOpacity: number
+    symbolSize: number
+    symbolBorderWidth: number
+    symbolBorderColor: string
+}>
+
+export interface LegendEffect {
+    on: 'hover'
+    style: LegendEffectStyle
+}
+
 export const legendEffectPropType = PropTypes.shape({
     on: PropTypes.oneOfType([PropTypes.oneOf(['hover'])]).isRequired,
     style: PropTypes.shape({
@@ -36,6 +145,13 @@ export const interactivityPropTypes = {
     onClick: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
+}
+
+export interface LegendDatum {
+    id: string | number
+    label: string | number
+    color: string
+    fill?: string
 }
 
 export const datumPropType = PropTypes.shape({

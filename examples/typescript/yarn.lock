@@ -54,10 +54,10 @@
     lodash "^4.17.4"
     recompose "^0.26.0"
 
-"@nivo/line@0.51.0":
-  version "0.51.0"
-  resolved "https://registry.yarnpkg.com/@nivo/line/-/line-0.51.0.tgz#4d16a2a2b843103764dd74ee7832ca85f9b311fc"
-  integrity sha512-emkRrcSaAFtbHjkEva5fEwEFCh7i18/F+y1QpWf7QoMpeYH0k7DahNfz7V+EzuCZeZASubR3xOR25O9eADzzUw==
+"@nivo/line@0.51.6":
+  version "0.51.6"
+  resolved "https://registry.yarnpkg.com/@nivo/line/-/line-0.51.6.tgz#801a01764b570f0b6e6e8fd287ca1a303f0c59d5"
+  integrity sha512-yhMP0JVJQT9EI9nmFjywOfB6oUbBfaygBaqn9P6pB0B+AYyFRn9FUGsNuB3pWCF5+X4EVAcIfuUutWtHW9mQfQ==
   dependencies:
     "@nivo/axes" "0.51.0"
     "@nivo/core" "0.51.0"
@@ -79,10 +79,10 @@
     d3-time-format "^2.1.3"
     lodash "^4.17.4"
 
-"@nivo/scatterplot@0.51.0":
-  version "0.51.0"
-  resolved "https://registry.yarnpkg.com/@nivo/scatterplot/-/scatterplot-0.51.0.tgz#8894eb67622b0d16f487fe21564e9925b0f157ae"
-  integrity sha512-PhuyH63odDRD6effodz81NIJUZtIz4YIpjlpCaIvpNaRAQH4CouIvDL9bbUVNC78uJgfNWbJIjV6B5Sn2fknwA==
+"@nivo/scatterplot@0.51.3":
+  version "0.51.3"
+  resolved "https://registry.yarnpkg.com/@nivo/scatterplot/-/scatterplot-0.51.3.tgz#a33c62d97acc2faa5518db5acc162fbe9758bee4"
+  integrity sha512-dMV93wMCTIl+InlhUXI6mM2iOo0hljqNkiUVyR0RDB+6XbuAj272mT+00IyW/a6cv4BSeZQ6TtLFGM4u/ZEkiw==
   dependencies:
     "@nivo/axes" "0.51.0"
     "@nivo/core" "0.51.0"
@@ -5774,7 +5774,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.2:
+prop-types@15.6.2, prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
   dependencies:
@@ -7176,9 +7176,10 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript@^3.1.3:
-  version "3.1.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.1.3.tgz#01b70247a6d3c2467f70c45795ef5ea18ce191d5"
+typescript@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.2.1.tgz#0b7a04b8cf3868188de914d9568bd030f0c56192"
+  integrity sha512-jw7P2z/h6aPT4AENXDGjcfHTu5CSqzsbZc6YlUIebTyBAq8XaKp78x7VcSh30xwSCcsu5irZkYZUSFP1MrAMbg==
 
 ua-parser-js@^0.7.18:
   version "0.7.18"

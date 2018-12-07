@@ -15,6 +15,7 @@
     "line-chart"
   ],
   "main": "./index.js",
+  "types": "./index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",

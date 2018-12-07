@@ -6,18 +6,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import compose from 'recompose/compose'
-import defaultProps from 'recompose/defaultProps'
-import withPropsOnChange from 'recompose/withPropsOnChange'
-import pure from 'recompose/pure'
-import setDisplayName from 'recompose/setDisplayName'
-import { withTheme, withColors, withDimensions, withMotion } from '@nivo/core'
-import { getInheritedColorGenerator } from '@nivo/core'
-import { getAccessorFor, getLabelGenerator } from '@nivo/core'
-import { BarDefaultProps } from './props'
+import { compose, defaultProps, withPropsOnChange, pure, setDisplayName } from 'recompose'
+import {
+    withTheme,
+    withColors,
+    withDimensions,
+    withMotion,
+    getInheritedColorGenerator,
+    getAccessorFor,
+    getLabelGenerator,
+} from '@nivo/core'
+import { BarDefaultProps, BarOuterProps, BarProps } from './props'
 
-export default Component =>
-    compose(
+export default <Datum>(Component): React.ComponentClass<BarOuterProps<Datum>> =>
+    compose<BarOuterProps<Datum>, BarProps<Datum>>(
         defaultProps(BarDefaultProps),
         withTheme(),
         withColors(),
@@ -28,9 +30,6 @@ export default Component =>
         })),
         withPropsOnChange(['labelTextColor'], ({ labelTextColor }) => ({
             getLabelTextColor: getInheritedColorGenerator(labelTextColor, 'axis.ticks.text.fill'),
-        })),
-        withPropsOnChange(['labelLinkColor'], ({ labelLinkColor }) => ({
-            getLabelLinkColor: getInheritedColorGenerator(labelLinkColor, 'axis.ticks.line.stroke'),
         })),
         withPropsOnChange(['label', 'labelFormat'], ({ label, labelFormat }) => ({
             getLabel: getLabelGenerator(label, labelFormat),

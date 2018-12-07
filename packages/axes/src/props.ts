@@ -6,7 +6,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+import * as React from 'react'
 import * as PropTypes from 'prop-types'
+
+export interface AxisProps {
+    tickValues?: number | number[] | string[] | Date[]
+    tickSize?: number
+    tickPadding?: number
+    tickRotation?: number
+    format?: any // PropTypes.oneOfType([PropTypes.func, PropTypes.string])
+    renderTick?: (data: any) => React.ReactNode
+    legend?: React.ReactNode
+    legendPosition?: 'start' | 'middle' | 'end'
+    legendOffset?: number
+}
 
 export const axisPropTypes = {
     ticksPosition: PropTypes.oneOf(['before', 'after']),

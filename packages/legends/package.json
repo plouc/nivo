@@ -17,6 +17,7 @@
     "umd/"
   ],
   "dependencies": {
+    "@nivo/core": "0.51.0",
     "lodash": "^4.17.4",
     "recompose": "^0.30.0"
   },

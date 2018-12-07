@@ -202,11 +202,7 @@ Axis.propTypes = {
     tickValues: PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.arrayOf(
-            PropTypes.oneOfType([
-                PropTypes.number,
-                PropTypes.string,
-                PropTypes.instanceOf(Date),
-            ])
+            PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)])
         ),
     ]),
     tickSize: PropTypes.number.isRequired,

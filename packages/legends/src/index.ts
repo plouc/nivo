@@ -9,4 +9,3 @@
 export * from './svg'
 export * from './canvas'
 export * from './props'
-export * from './definitions'

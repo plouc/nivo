@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component } from 'react'
+import * as React from 'react'
 import {
     renderAxesToCanvas,
     getRelativeCursor,
@@ -25,9 +25,16 @@ const findNodeUnderCursor = (nodes, margin, x, y) =>
         isCursorInRect(node.x + margin.left, node.y + margin.top, node.width, node.height, x, y)
     )
 
-class BarCanvas extends Component {
+class BarCanvas extends React.Component<any> {
+    static propTypes = BarPropTypes
+    static displayName = 'BarCanvas'
+
+    surface = React.createRef<HTMLCanvasElement>()
+    ctx: CanvasRenderingContext2D
+    bars: any[]
+
     componentDidMount() {
-        this.ctx = this.surface.getContext('2d')
+        this.ctx = this.surface.current.getContext('2d')
         this.draw(this.props)
     }
 
@@ -46,7 +53,7 @@ class BarCanvas extends Component {
     }
 
     componentDidUpdate() {
-        this.ctx = this.surface.getContext('2d')
+        this.ctx = this.surface.current.getContext('2d')
         this.draw(this.props)
     }
 
@@ -85,8 +92,8 @@ class BarCanvas extends Component {
             enableGridY,
         } = props
 
-        this.surface.width = outerWidth * pixelRatio
-        this.surface.height = outerHeight * pixelRatio
+        this.surface.current.width = outerWidth * pixelRatio
+        this.surface.current.height = outerHeight * pixelRatio
 
         this.ctx.scale(pixelRatio, pixelRatio)
 
@@ -237,9 +244,7 @@ class BarCanvas extends Component {
             <Container isInteractive={isInteractive} theme={theme}>
                 {({ showTooltip, hideTooltip }) => (
                     <canvas
-                        ref={surface => {
-                            this.surface = surface
-                        }}
+                        ref={this.surface}
                         width={outerWidth * pixelRatio}
                         height={outerHeight * pixelRatio}
                         style={{
@@ -256,8 +261,5 @@ class BarCanvas extends Component {
         )
     }
 }
-
-BarCanvas.propTypes = BarPropTypes
-BarCanvas.displayName = 'BarCanvas'
 
 export default enhance(BarCanvas)

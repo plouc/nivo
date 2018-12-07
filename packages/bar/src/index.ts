@@ -8,6 +8,6 @@
  */
 export { default as Bar } from './Bar'
 export { default as BarCanvas } from './BarCanvas'
-export { default as ResponsiveBar } from './ResponsiveBar'
-export { default as ResponsiveBarCanvas } from './ResponsiveBarCanvas'
+export * from './ResponsiveBar'
+export * from './ResponsiveBarCanvas'
 export * from './props'

@@ -6,7 +6,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import PropTypes from 'prop-types'
+import * as PropTypes from 'prop-types'
+
+export interface SymbolProps {
+    x: number
+    y: number
+    size: number
+    fill: string
+    borderWidth?: number
+    borderColor?: string
+}
 
 export const symbolPropTypes = {
     x: PropTypes.number.isRequired,

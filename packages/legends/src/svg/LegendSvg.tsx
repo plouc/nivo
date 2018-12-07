@@ -6,42 +6,80 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
-import PropTypes from 'prop-types'
-import LegendSvgItem from './LegendSvgItem'
-import { datumPropType, symbolPropTypes, interactivityPropTypes } from '../props'
+import * as React from 'react'
+import * as PropTypes from 'prop-types'
+import { Theme } from '@nivo/core'
+import { LegendSvgItem } from './LegendSvgItem'
+import {
+    datumPropType,
+    symbolPropTypes,
+    interactivityPropTypes,
+    Direction,
+    LegendDirection,
+    LegendItemDirection,
+    LegendDatum,
+    LegendEffect,
+    LegendSymbolShapeProp,
+    LegendMouseHandler,
+} from '../props'
 import { computeDimensions } from '../compute'
-import { Direction } from '../definitions'
 
-const LegendSvg = ({
+export interface LegendSvgProps {
+    data: LegendDatum[]
+    x: number
+    y: number
+    direction: LegendDirection
+    padding?:
+        | number
+        | {
+              top?: number
+              right?: number
+              bottom?: number
+              left?: number
+          }
+    justify?: boolean
+    effects?: LegendEffect[]
+    itemsSpacing?: number
+    itemWidth: number
+    itemHeight: number
+    itemDirection?: LegendItemDirection
+    itemTextColor?: string
+    itemBackground?: string
+    itemOpacity?: number
+    symbolShape?: LegendSymbolShapeProp
+    symbolSize?: number
+    symbolSpacing?: number
+    symbolBorderWidth?: number
+    symbolBorderColor?: string
+    onClick?: LegendMouseHandler
+    onMouseEnter?: LegendMouseHandler
+    onMouseLeave?: LegendMouseHandler
+    theme: Theme
+}
+
+export const LegendSvg: React.SFC<LegendSvgProps> = ({
     data,
-
-    // position/layout
     x,
     y,
     direction,
-    padding: _padding,
-    justify,
+    padding: _padding = 0,
+    justify = false,
     effects,
-
     itemWidth,
     itemHeight,
-    itemDirection,
-    itemsSpacing,
-    itemTextColor,
-    itemBackground,
-    itemOpacity,
-
+    itemDirection = Direction.LeftToRight,
+    itemsSpacing = 0,
+    itemTextColor = '#000000',
+    itemBackground = 'transparent',
+    itemOpacity = 1,
     symbolShape,
     symbolSize,
     symbolSpacing,
     symbolBorderWidth,
     symbolBorderColor,
-
     onClick,
     onMouseEnter,
     onMouseLeave,
-
     theme,
 }) => {
     // eslint-disable-next-line no-unused-vars
@@ -72,7 +110,7 @@ const LegendSvg = ({
                     y={i * yStep + padding.top}
                     width={itemWidth}
                     height={itemHeight}
-                    direction={itemDirection}
+                    direction={itemDirection as LegendItemDirection}
                     justify={justify}
                     effects={effects}
                     textColor={itemTextColor}
@@ -94,12 +132,12 @@ const LegendSvg = ({
 }
 
 LegendSvg.propTypes = {
-    data: PropTypes.arrayOf(datumPropType).isRequired,
-
-    // position/layout
+    data: PropTypes.arrayOf(datumPropType).isRequired as React.Requireable<LegendDatum[]>,
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
-    direction: PropTypes.oneOf([Direction.Row, Direction.Column]).isRequired,
+    direction: PropTypes.oneOf([Direction.Row, Direction.Column]).isRequired as React.Requireable<
+        LegendDirection
+    >,
     padding: PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.shape({
@@ -110,8 +148,7 @@ LegendSvg.propTypes = {
         }),
     ]).isRequired,
     justify: PropTypes.bool.isRequired,
-
-    // items
+    effects: PropTypes.arrayOf(PropTypes.object) as React.Validator<LegendEffect[]>,
     itemsSpacing: PropTypes.number.isRequired,
     itemWidth: PropTypes.number.isRequired,
     itemHeight: PropTypes.number.isRequired,
@@ -120,26 +157,11 @@ LegendSvg.propTypes = {
         Direction.RightToLeft,
         Direction.TopToBottom,
         Direction.BottomToTop,
-    ]).isRequired,
+    ]).isRequired as React.Requireable<LegendItemDirection>,
     itemTextColor: PropTypes.string.isRequired,
     itemBackground: PropTypes.string.isRequired,
     itemOpacity: PropTypes.number.isRequired,
-
     ...symbolPropTypes,
     ...interactivityPropTypes,
+    theme: PropTypes.object.isRequired as React.Requireable<Theme>,
 }
-
-LegendSvg.defaultProps = {
-    // position/layout
-    padding: 0,
-    justify: false,
-
-    // items
-    itemsSpacing: 0,
-    itemDirection: Direction.LeftToRight,
-    itemTextColor: 'black',
-    itemBackground: 'transparent',
-    itemOpacity: 1,
-}
-
-export default LegendSvg

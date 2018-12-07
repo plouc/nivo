@@ -1,5 +1,6 @@
 import * as React from 'react'
-import Line from './components/Line'
+// import Line from './components/Line'
+import Bar from './components/Bar'
 import ScatterPlot from './components/ScatterPlot'
 import './App.css'
 
@@ -11,7 +12,8 @@ export default class App extends React.Component {
                     <h1 className="App-title">nivo typescript example</h1>
                 </header>
                 <ScatterPlot />
-                <Line />
+                {/* <Line /> */}
+                <Bar />
             </div>
         )
     }

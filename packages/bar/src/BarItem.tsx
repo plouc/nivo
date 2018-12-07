@@ -26,7 +26,7 @@ export interface BarItemProps {
     borderRadius: number
     borderWidth: number
     borderColor: string
-    label: string | number
+    label: React.ReactNode
     shouldRenderLabel: boolean
     labelColor: string
     showTooltip: (...args: any[]) => void
@@ -122,7 +122,7 @@ BarItem.propTypes = {
     borderRadius: PropTypes.number.isRequired,
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.string.isRequired,
-    label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    label: PropTypes.node.isRequired,
     shouldRenderLabel: PropTypes.bool.isRequired,
     labelColor: PropTypes.string.isRequired,
     showTooltip: PropTypes.func.isRequired,

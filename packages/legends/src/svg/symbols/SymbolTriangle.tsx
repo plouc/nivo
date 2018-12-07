@@ -6,31 +6,27 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { PureComponent } from 'react'
-import { symbolPropTypes, symbolDefaultProps } from './props'
+import * as React from 'react'
+import { symbolPropTypes, symbolDefaultProps, SymbolProps } from './props'
 
-export default class SymbolDiamond extends PureComponent {
-    static propTypes = {
-        ...symbolPropTypes,
-    }
-
-    static defaultProps = {
-        ...symbolDefaultProps,
-    }
-
-    render() {
-        const { x, y, size, fill, borderWidth, borderColor } = this.props
-
+export const SymbolTriangle: React.SFC<SymbolProps> = React.memo(
+    ({
+        x,
+        y,
+        size,
+        fill,
+        borderWidth = symbolDefaultProps.borderWidth,
+        borderColor = symbolDefaultProps.borderColor,
+    }) => {
         return (
             <g transform={`translate(${x},${y})`}>
                 <path
                     d={`
-                    M${size / 2} 0
-                    L${size * 0.8} ${size / 2}
-                    L${size / 2} ${size}
-                    L${size * 0.2} ${size / 2}
-                    L${size / 2} 0
-                `}
+            M${size / 2} 0
+            L${size} ${size}
+            L0 ${size}
+            L${size / 2} 0
+        `}
                     fill={fill}
                     strokeWidth={borderWidth}
                     stroke={borderColor}
@@ -41,4 +37,6 @@ export default class SymbolDiamond extends PureComponent {
             </g>
         )
     }
-}
+)
+
+SymbolTriangle.propTypes = { ...symbolPropTypes }

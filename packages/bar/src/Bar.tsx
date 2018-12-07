@@ -13,7 +13,7 @@ import { Axes } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
 import { generateGroupedBars, generateStackedBars } from './compute'
 import enhance from './enhance'
-import { BarPropTypes } from './props'
+import { BarPropTypes, BarProps, BarLayerId } from './props'
 
 const barWillEnterHorizontal = ({ style }) => ({
     x: style.x.val,
@@ -43,292 +43,291 @@ const barWillLeaveVertical = springConfig => ({ style }) => ({
     height: spring(0, springConfig),
 })
 
-const Bar = props => {
-    const {
-        data,
-        getIndex,
-        keys,
+export class Bar<Datum> extends React.Component<BarProps<Datum>> {
+    static propTypes = BarPropTypes
+    static displayName = 'Bar'
 
-        groupMode,
-        layout,
-        reverse,
-        minValue,
-        maxValue,
+    render() {
+        const {
+            data,
+            getIndex,
+            keys,
+            groupMode,
+            layout,
+            reverse,
+            minValue,
+            maxValue,
+            margin,
+            width,
+            height,
+            outerWidth,
+            outerHeight,
+            padding,
+            innerPadding,
+            axisTop,
+            axisRight,
+            axisBottom,
+            axisLeft,
+            enableGridX,
+            enableGridY,
+            gridXValues,
+            gridYValues,
+            layers,
+            barComponent,
+            enableLabel,
+            getLabel,
+            labelSkipWidth,
+            labelSkipHeight,
+            getLabelTextColor,
+            markers,
+            theme,
+            getColor,
+            defs,
+            fill,
+            borderRadius,
+            borderWidth,
+            getBorderColor,
+            animate,
+            motionStiffness,
+            motionDamping,
+            isInteractive,
+            getTooltipLabel,
+            tooltipFormat,
+            tooltip,
+            onClick,
+            onMouseEnter,
+            onMouseLeave,
+            legends,
+        } = this.props
+        const options = {
+            layout,
+            reverse,
+            data,
+            getIndex,
+            keys,
+            minValue,
+            maxValue,
+            width,
+            height,
+            getColor,
+            padding,
+            innerPadding,
+        }
 
-        margin,
-        width,
-        height,
-        outerWidth,
-        outerHeight,
-        padding,
-        innerPadding,
+        const result =
+            groupMode === 'grouped' ? generateGroupedBars(options) : generateStackedBars(options)
 
-        axisTop,
-        axisRight,
-        axisBottom,
-        axisLeft,
-        enableGridX,
-        enableGridY,
-        gridXValues,
-        gridYValues,
+        const motionProps = {
+            animate,
+            motionDamping,
+            motionStiffness,
+        }
 
-        layers,
-        barComponent,
+        const springConfig = {
+            damping: motionDamping,
+            stiffness: motionStiffness,
+        }
 
-        enableLabel,
-        getLabel,
-        labelSkipWidth,
-        labelSkipHeight,
-        getLabelTextColor,
+        const willEnter = layout === 'vertical' ? barWillEnterVertical : barWillEnterHorizontal
+        const willLeave =
+            layout === 'vertical'
+                ? barWillLeaveVertical(springConfig)
+                : barWillLeaveHorizontal(springConfig)
 
-        markers,
+        const shouldRenderLabel = ({ width, height }) => {
+            if (!enableLabel) return false
+            if (labelSkipWidth > 0 && width < labelSkipWidth) return false
+            if (labelSkipHeight > 0 && height < labelSkipHeight) return false
+            return true
+        }
 
-        theme,
-        getColor,
-        defs,
-        fill,
-        borderRadius,
-        borderWidth,
-        getBorderColor,
+        const boundDefs = bindDefs(defs, result.bars, fill, {
+            dataKey: 'data',
+            targetKey: 'data.fill',
+        })
 
-        animate,
-        motionStiffness,
-        motionDamping,
+        const legendDataForKeys = result.bars
+            .filter(bar => bar.data.index === 0)
+            .map(bar => ({
+                id: bar.data.id,
+                label: bar.data.id,
+                color: bar.color,
+                fill: bar.data.fill,
+            }))
+            .reverse()
 
-        isInteractive,
-        getTooltipLabel,
-        tooltipFormat,
-        tooltip,
-        onClick,
-        onMouseEnter,
-        onMouseLeave,
+        const legendDataForIndexes = result.bars
+            .filter(bar => bar.data.id === keys[0])
+            .map(bar => ({
+                id: bar.data.indexValue,
+                label: bar.data.indexValue,
+                color: bar.color,
+                fill: bar.data.fill,
+            }))
 
-        legends,
-    } = props
-    const options = {
-        layout,
-        reverse,
-        data,
-        getIndex,
-        keys,
-        minValue,
-        maxValue,
-        width,
-        height,
-        getColor,
-        padding,
-        innerPadding,
-    }
-    const result =
-        groupMode === 'grouped' ? generateGroupedBars(options) : generateStackedBars(options)
+        return (
+            <Container isInteractive={isInteractive} theme={theme}>
+                {({ showTooltip, hideTooltip }) => {
+                    const commonProps = {
+                        borderRadius,
+                        borderWidth,
+                        enableLabel,
+                        labelSkipWidth,
+                        labelSkipHeight,
+                        showTooltip,
+                        hideTooltip,
+                        onClick,
+                        onMouseEnter,
+                        onMouseLeave,
+                        theme,
+                        getTooltipLabel,
+                        tooltipFormat,
+                        tooltip,
+                    }
 
-    const motionProps = {
-        animate,
-        motionDamping,
-        motionStiffness,
-    }
+                    let bars
+                    if (animate === true) {
+                        bars = (
+                            <TransitionMotion
+                                key="bars"
+                                willEnter={willEnter}
+                                willLeave={willLeave}
+                                styles={result.bars.map(bar => ({
+                                    key: bar.key,
+                                    data: bar,
+                                    style: {
+                                        x: spring(bar.x, springConfig),
+                                        y: spring(bar.y, springConfig),
+                                        width: spring(bar.width, springConfig),
+                                        height: spring(bar.height, springConfig),
+                                    },
+                                }))}
+                            >
+                                {interpolatedStyles => (
+                                    <g>
+                                        {interpolatedStyles.map(({ key, style, data: bar }) => {
+                                            const baseProps = { ...bar, ...style }
 
-    const springConfig = {
-        damping: motionDamping,
-        stiffness: motionStiffness,
-    }
+                                            return React.createElement(barComponent, {
+                                                key,
+                                                ...baseProps,
+                                                ...commonProps,
+                                                shouldRenderLabel: shouldRenderLabel(baseProps),
+                                                width: Math.max(style.width, 0),
+                                                height: Math.max(style.height, 0),
+                                                label: getLabel(bar.data),
+                                                labelColor: getLabelTextColor(baseProps, theme),
+                                                borderColor: getBorderColor(baseProps),
+                                                theme,
+                                            })
+                                        })}
+                                    </g>
+                                )}
+                            </TransitionMotion>
+                        )
+                    } else {
+                        bars = result.bars.map(d =>
+                            React.createElement(barComponent, {
+                                key: d.key,
+                                ...d,
+                                ...commonProps,
+                                label: getLabel(d.data),
+                                shouldRenderLabel: shouldRenderLabel(d),
+                                labelColor: getLabelTextColor(d, theme),
+                                borderColor: getBorderColor(d),
+                                theme,
+                            })
+                        )
+                    }
 
-    const willEnter = layout === 'vertical' ? barWillEnterVertical : barWillEnterHorizontal
-    const willLeave =
-        layout === 'vertical'
-            ? barWillLeaveVertical(springConfig)
-            : barWillLeaveHorizontal(springConfig)
-
-    const shouldRenderLabel = ({ width, height }) => {
-        if (!enableLabel) return false
-        if (labelSkipWidth > 0 && width < labelSkipWidth) return false
-        if (labelSkipHeight > 0 && height < labelSkipHeight) return false
-        return true
-    }
-
-    const boundDefs = bindDefs(defs, result.bars, fill, {
-        dataKey: 'data',
-        targetKey: 'data.fill',
-    })
-
-    const legendDataForKeys = result.bars
-        .filter(bar => bar.data.index === 0)
-        .map(bar => ({
-            id: bar.data.id,
-            label: bar.data.id,
-            color: bar.color,
-            fill: bar.data.fill,
-        }))
-        .reverse()
-
-    const legendDataForIndexes = result.bars.filter(bar => bar.data.id === keys[0]).map(bar => ({
-        id: bar.data.indexValue,
-        label: bar.data.indexValue,
-        color: bar.color,
-        fill: bar.data.fill,
-    }))
-
-    return (
-        <Container isInteractive={isInteractive} theme={theme}>
-            {({ showTooltip, hideTooltip }) => {
-                const commonProps = {
-                    borderRadius,
-                    borderWidth,
-                    enableLabel,
-                    labelSkipWidth,
-                    labelSkipHeight,
-                    showTooltip,
-                    hideTooltip,
-                    onClick,
-                    onMouseEnter,
-                    onMouseLeave,
-                    theme,
-                    getTooltipLabel,
-                    tooltipFormat,
-                    tooltip,
-                }
-
-                let bars
-                if (animate === true) {
-                    bars = (
-                        <TransitionMotion
-                            key="bars"
-                            willEnter={willEnter}
-                            willLeave={willLeave}
-                            styles={result.bars.map(bar => ({
-                                key: bar.key,
-                                data: bar,
-                                style: {
-                                    x: spring(bar.x, springConfig),
-                                    y: spring(bar.y, springConfig),
-                                    width: spring(bar.width, springConfig),
-                                    height: spring(bar.height, springConfig),
-                                },
-                            }))}
-                        >
-                            {interpolatedStyles => (
-                                <g>
-                                    {interpolatedStyles.map(({ key, style, data: bar }) => {
-                                        const baseProps = { ...bar, ...style }
-
-                                        return React.createElement(barComponent, {
-                                            key,
-                                            ...baseProps,
-                                            ...commonProps,
-                                            shouldRenderLabel: shouldRenderLabel(baseProps),
-                                            width: Math.max(style.width, 0),
-                                            height: Math.max(style.height, 0),
-                                            label: getLabel(bar.data),
-                                            labelColor: getLabelTextColor(baseProps, theme),
-                                            borderColor: getBorderColor(baseProps),
-                                            theme,
-                                        })
-                                    })}
-                                </g>
-                            )}
-                        </TransitionMotion>
-                    )
-                } else {
-                    bars = result.bars.map(d =>
-                        React.createElement(barComponent, {
-                            key: d.key,
-                            ...d,
-                            ...commonProps,
-                            label: getLabel(d.data),
-                            shouldRenderLabel: shouldRenderLabel(d),
-                            labelColor: getLabelTextColor(d, theme),
-                            borderColor: getBorderColor(d),
-                            theme,
-                        })
-                    )
-                }
-
-                const layerById = {
-                    grid: (
-                        <Grid
-                            key="grid"
-                            theme={theme}
-                            width={width}
-                            height={height}
-                            xScale={enableGridX ? result.xScale : null}
-                            yScale={enableGridY ? result.yScale : null}
-                            xValues={gridXValues}
-                            yValues={gridYValues}
-                            {...motionProps}
-                        />
-                    ),
-                    axes: (
-                        <Axes
-                            key="axes"
-                            xScale={result.xScale}
-                            yScale={result.yScale}
-                            width={width}
-                            height={height}
-                            theme={theme}
-                            top={axisTop}
-                            right={axisRight}
-                            bottom={axisBottom}
-                            left={axisLeft}
-                            {...motionProps}
-                        />
-                    ),
-                    bars,
-                    markers: (
-                        <CartesianMarkers
-                            key="markers"
-                            markers={markers}
-                            width={width}
-                            height={height}
-                            xScale={result.xScale}
-                            yScale={result.yScale}
-                            theme={theme}
-                        />
-                    ),
-                    legends: legends.map((legend, i) => {
-                        let legendData
-                        if (legend.dataFrom === 'keys') {
-                            legendData = legendDataForKeys
-                        } else if (legend.dataFrom === 'indexes') {
-                            legendData = legendDataForIndexes
-                        }
-
-                        if (legendData === undefined) return null
-
-                        return (
-                            <BoxLegendSvg
-                                key={i}
-                                {...legend}
-                                containerWidth={width}
-                                containerHeight={height}
-                                data={legendData}
+                    const layerById: { [key in BarLayerId]?: null | React.ReactNode } = {
+                        grid: (
+                            <Grid
+                                key="grid"
+                                theme={theme}
+                                width={width}
+                                height={height}
+                                xScale={enableGridX ? result.xScale : null}
+                                yScale={enableGridY ? result.yScale : null}
+                                xValues={gridXValues}
+                                yValues={gridYValues}
+                                {...motionProps}
+                            />
+                        ),
+                        axes: (
+                            <Axes
+                                key="axes"
+                                xScale={result.xScale}
+                                yScale={result.yScale}
+                                width={width}
+                                height={height}
+                                theme={theme}
+                                top={axisTop}
+                                right={axisRight}
+                                bottom={axisBottom}
+                                left={axisLeft}
+                                {...motionProps}
+                            />
+                        ),
+                        bars,
+                        markers: (
+                            <CartesianMarkers
+                                key="markers"
+                                markers={markers}
+                                width={width}
+                                height={height}
+                                xScale={result.xScale}
+                                yScale={result.yScale}
                                 theme={theme}
                             />
-                        )
-                    }),
-                }
-
-                return (
-                    <SvgWrapper
-                        width={outerWidth}
-                        height={outerHeight}
-                        margin={margin}
-                        defs={boundDefs}
-                        theme={theme}
-                    >
-                        {layers.map((layer, i) => {
-                            if (typeof layer === 'function') {
-                                return <React.Fragment key={i}>{layer({ ...props, ...result })}</React.Fragment>
+                        ),
+                        legends: legends.map((legend, i) => {
+                            let legendData
+                            if (legend.dataFrom === 'keys') {
+                                legendData = legendDataForKeys
+                            } else if (legend.dataFrom === 'indexes') {
+                                legendData = legendDataForIndexes
                             }
-                            return layerById[layer]
-                        })}
-                    </SvgWrapper>
-                )
-            }}
-        </Container>
-    )
-}
 
-Bar.propTypes = BarPropTypes
-Bar.displayName = 'Bar'
+                            if (legendData === undefined) return null
+
+                            return (
+                                <BoxLegendSvg
+                                    key={i}
+                                    {...legend}
+                                    containerWidth={width}
+                                    containerHeight={height}
+                                    data={legendData}
+                                    theme={theme}
+                                />
+                            )
+                        }),
+                    }
+
+                    return (
+                        <SvgWrapper
+                            width={outerWidth}
+                            height={outerHeight}
+                            margin={margin}
+                            defs={boundDefs}
+                            theme={theme}
+                        >
+                            {layers.map((layer, i) => {
+                                if (typeof layer === 'function') {
+                                    return (
+                                        <React.Fragment key={i}>
+                                            {layer({ ...this.props, ...result })}
+                                        </React.Fragment>
+                                    )
+                                }
+                                return layerById[layer]
+                            })}
+                        </SvgWrapper>
+                    )
+                }}
+            </Container>
+        )
+    }
+}
 
 export default enhance(Bar)

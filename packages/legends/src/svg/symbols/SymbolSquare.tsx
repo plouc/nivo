@@ -6,21 +6,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { PureComponent } from 'react'
-import { symbolPropTypes, symbolDefaultProps } from './props'
+import * as React from 'react'
+import { symbolPropTypes, symbolDefaultProps, SymbolProps } from './props'
 
-export default class SymbolSquare extends PureComponent {
-    static propTypes = {
-        ...symbolPropTypes,
-    }
-
-    static defaultProps = {
-        ...symbolDefaultProps,
-    }
-
-    render() {
-        const { x, y, size, fill, borderWidth, borderColor } = this.props
-
+export const SymbolSquare: React.SFC<SymbolProps> = React.memo(
+    ({
+        x,
+        y,
+        size,
+        fill,
+        borderWidth = symbolDefaultProps.borderWidth,
+        borderColor = symbolDefaultProps.borderColor,
+    }) => {
         return (
             <rect
                 x={x}
@@ -36,4 +33,6 @@ export default class SymbolSquare extends PureComponent {
             />
         )
     }
-}
+)
+
+SymbolSquare.propTypes = { ...symbolPropTypes }

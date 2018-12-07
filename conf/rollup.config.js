@@ -45,7 +45,7 @@ const common = {
 
 const commonPlugins = [
     stripBanner({
-        include: `./packages/${pkg}/src/**/*.js`,
+        include: `./packages/${pkg}/src/**/*.{js,ts,tsx}`,
     }),
     resolve({
         module: true,

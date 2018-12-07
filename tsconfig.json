@@ -8,7 +8,7 @@
     "jsx": "react",
     "skipLibCheck": true,
     "declaration": true,
-    "lib": ["dom", "es2018"]
+    "lib": ["dom", "es2017"]
   },
   "include": [
     "./packages/*/index.d.ts"

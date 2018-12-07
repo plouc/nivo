@@ -1,8 +1,8 @@
 import * as React from 'react'
-import { ResponsiveLine, LineComputedSerieData } from '@nivo/line'
-import { LegendMouseHandlerData } from '@nivo/legends'
+import { ResponsiveLine /* LineComputedSerieData */ } from '@nivo/line'
+import { LegendMouseHandlerData, Anchor, Direction } from '@nivo/legends'
 
-const colorBy = (data: LineComputedSerieData) => data.color as string
+// const colorBy = (data: LineComputedSerieData) => data.color as string
 
 export default class Line extends React.Component {
     public render() {
@@ -58,8 +58,8 @@ export default class Line extends React.Component {
                     }}
                     curve="monotoneX"
                     lineWidth={3}
-                    colors="nivo"
-                    colorBy={colorBy}
+                    // colors="nivo"
+                    // colorBy={colorBy}
                     axisTop={undefined}
                     axisLeft={{
                         tickRotation: 0,
@@ -106,10 +106,10 @@ export default class Line extends React.Component {
                     enableStackTooltip={true}
                     legends={[
                         {
-                            anchor: 'top-left',
+                            anchor: Anchor.TopLeft,
                             translateX: 20,
                             translateY: 10,
-                            direction: 'column',
+                            direction: Direction.Column,
                             itemWidth: 100,
                             itemHeight: 26,
                             itemOpacity: 0.8,

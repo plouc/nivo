@@ -6,9 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import min from 'lodash/min'
-import max from 'lodash/max'
-import range from 'lodash/range'
+import { range } from 'lodash'
 import { scaleLinear } from 'd3-scale'
 import { getIndexedScale } from './common'
 
@@ -27,12 +25,12 @@ export const getGroupedScale = (data, keys, _minValue, _maxValue, range) => {
 
     let maxValue = _maxValue
     if (maxValue === 'auto') {
-        maxValue = max(allValues)
+        maxValue = Math.max(...allValues)
     }
 
     let minValue = _minValue
     if (minValue === 'auto') {
-        minValue = min(allValues)
+        minValue = Math.min(...allValues)
         if (minValue > 0) minValue = 0
     }
 
