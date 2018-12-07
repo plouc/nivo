@@ -14,7 +14,6 @@ import {
     datumPropType,
     symbolPropTypes,
     interactivityPropTypes,
-    Direction,
     LegendDirection,
     LegendItemDirection,
     LegendDatum,
@@ -67,7 +66,7 @@ export const LegendSvg: React.SFC<LegendSvgProps> = ({
     effects,
     itemWidth,
     itemHeight,
-    itemDirection = Direction.LeftToRight,
+    itemDirection = LegendItemDirection.LeftToRight,
     itemsSpacing = 0,
     itemTextColor = '#000000',
     itemBackground = 'transparent',
@@ -94,9 +93,9 @@ export const LegendSvg: React.SFC<LegendSvgProps> = ({
 
     let xStep = 0
     let yStep = 0
-    if (direction === Direction.Row) {
+    if (direction === LegendDirection.Row) {
         xStep = itemWidth + itemsSpacing
-    } else if (direction === Direction.Column) {
+    } else if (direction === LegendDirection.Column) {
         yStep = itemHeight + itemsSpacing
     }
 
@@ -110,7 +109,7 @@ export const LegendSvg: React.SFC<LegendSvgProps> = ({
                     y={i * yStep + padding.top}
                     width={itemWidth}
                     height={itemHeight}
-                    direction={itemDirection as LegendItemDirection}
+                    direction={itemDirection}
                     justify={justify}
                     effects={effects}
                     textColor={itemTextColor}
@@ -135,9 +134,7 @@ LegendSvg.propTypes = {
     data: PropTypes.arrayOf(datumPropType).isRequired as React.Requireable<LegendDatum[]>,
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
-    direction: PropTypes.oneOf([Direction.Row, Direction.Column]).isRequired as React.Requireable<
-        LegendDirection
-    >,
+    direction: PropTypes.oneOf([LegendDirection.Row, LegendDirection.Column]).isRequired,
     padding: PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.shape({
@@ -147,20 +144,20 @@ LegendSvg.propTypes = {
             left: PropTypes.number,
         }),
     ]).isRequired,
-    justify: PropTypes.bool.isRequired,
+    justify: PropTypes.bool,
     effects: PropTypes.arrayOf(PropTypes.object) as React.Validator<LegendEffect[]>,
     itemsSpacing: PropTypes.number.isRequired,
     itemWidth: PropTypes.number.isRequired,
     itemHeight: PropTypes.number.isRequired,
     itemDirection: PropTypes.oneOf([
-        Direction.LeftToRight,
-        Direction.RightToLeft,
-        Direction.TopToBottom,
-        Direction.BottomToTop,
-    ]).isRequired as React.Requireable<LegendItemDirection>,
-    itemTextColor: PropTypes.string.isRequired,
-    itemBackground: PropTypes.string.isRequired,
-    itemOpacity: PropTypes.number.isRequired,
+        LegendItemDirection.LeftToRight,
+        LegendItemDirection.RightToLeft,
+        LegendItemDirection.TopToBottom,
+        LegendItemDirection.BottomToTop,
+    ]),
+    itemTextColor: PropTypes.string,
+    itemBackground: PropTypes.string,
+    itemOpacity: PropTypes.number,
     ...symbolPropTypes,
     ...interactivityPropTypes,
     theme: PropTypes.object.isRequired as React.Requireable<Theme>,

@@ -8,7 +8,7 @@
  */
 import { computeDimensions, computePositionFromAnchor, computeItemLayout } from '../compute'
 import { LegendSvgItem } from '../svg/LegendSvgItem'
-import { Direction } from '../props'
+import { LegendDirection } from '../props'
 
 const textPropsMapping = {
     align: {
@@ -67,9 +67,9 @@ export const renderLegendToCanvas = (
 
     let xStep = 0
     let yStep = 0
-    if (direction === Direction.Row) {
+    if (direction === LegendDirection.Row) {
         xStep = itemWidth + itemsSpacing
-    } else if (direction === Direction.Column) {
+    } else if (direction === LegendDirection.Column) {
         yStep = itemHeight + itemsSpacing
     }
 

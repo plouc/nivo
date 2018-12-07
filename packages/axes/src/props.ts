@@ -9,6 +9,24 @@
 import * as React from 'react'
 import * as PropTypes from 'prop-types'
 
+export enum AxisLegendPosition {
+    Start = 'start',
+    Middle = 'middle',
+    End = 'end',
+}
+
+export interface AxisConfig {
+    tickValues?: number | number[] | string[] | Date[]
+    tickSize?: number
+    tickPadding?: number
+    tickRotation?: number
+    format?: any // PropTypes.oneOfType([PropTypes.func, PropTypes.string])
+    renderTick?: (props: any) => React.ReactNode
+    legend?: React.ReactNode
+    legendPosition?: AxisLegendPosition
+    legendOffset?: number
+}
+
 export interface AxisProps {
     tickValues?: number | number[] | string[] | Date[]
     tickSize?: number

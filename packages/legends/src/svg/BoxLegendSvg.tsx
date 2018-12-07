@@ -15,8 +15,7 @@ import {
     symbolPropTypes,
     interactivityPropTypes,
     legendEffectPropType,
-    Direction,
-    Anchor,
+    LegendAnchor,
     LegendDatum,
     LegendDirection,
     LegendItemDirection,
@@ -33,7 +32,7 @@ export interface BoxLegendSvgProps {
     containerHeight: number
     translateX?: number
     translateY?: number
-    anchor: Anchor
+    anchor: LegendAnchor
     direction: LegendDirection
     padding?: LegendPadding
     justify?: boolean
@@ -136,22 +135,20 @@ BoxLegendSvg.propTypes = {
     data: PropTypes.arrayOf(datumPropType).isRequired as React.Requireable<LegendDatum[]>,
     containerWidth: PropTypes.number.isRequired,
     containerHeight: PropTypes.number.isRequired,
-    translateX: PropTypes.number.isRequired,
-    translateY: PropTypes.number.isRequired,
+    translateX: PropTypes.number,
+    translateY: PropTypes.number,
     anchor: PropTypes.oneOf([
-        Anchor.Top,
-        Anchor.TopRight,
-        Anchor.Right,
-        Anchor.BottomRight,
-        Anchor.Bottom,
-        Anchor.BottomLeft,
-        Anchor.Left,
-        Anchor.TopLeft,
-        Anchor.Center,
+        LegendAnchor.Top,
+        LegendAnchor.TopRight,
+        LegendAnchor.Right,
+        LegendAnchor.BottomRight,
+        LegendAnchor.Bottom,
+        LegendAnchor.BottomLeft,
+        LegendAnchor.Left,
+        LegendAnchor.TopLeft,
+        LegendAnchor.Center,
     ]).isRequired,
-    direction: PropTypes.oneOf([Direction.Row, Direction.Column]).isRequired as React.Requireable<
-        LegendDirection
-    >,
+    direction: PropTypes.oneOf([LegendDirection.Row, LegendDirection.Column]).isRequired,
     padding: PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.shape({
@@ -160,16 +157,16 @@ BoxLegendSvg.propTypes = {
             bottom: PropTypes.number,
             left: PropTypes.number,
         }),
-    ]).isRequired,
+    ]),
     justify: PropTypes.bool,
     itemWidth: PropTypes.number.isRequired,
     itemHeight: PropTypes.number.isRequired,
     itemDirection: PropTypes.oneOf([
-        Direction.LeftToRight,
-        Direction.RightToLeft,
-        Direction.TopToBottom,
-        Direction.BottomToTop,
-    ]) as React.Validator<LegendItemDirection>,
+        LegendItemDirection.LeftToRight,
+        LegendItemDirection.RightToLeft,
+        LegendItemDirection.TopToBottom,
+        LegendItemDirection.BottomToTop,
+    ]),
     itemsSpacing: PropTypes.number,
     itemTextColor: PropTypes.string,
     itemBackground: PropTypes.string,

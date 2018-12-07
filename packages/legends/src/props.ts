@@ -19,6 +19,38 @@ export enum LegendSymbolShape {
 
 export type LegendSymbolShapeProp = LegendSymbolShape | any
 
+export interface LegendDatum {
+    id: string | number
+    label: string | number
+    color: string
+    fill?: string
+}
+
+export interface LegendConfig {
+    data?: LegendDatum[]
+    anchor: LegendAnchor
+    direction: LegendDirection
+    justify?: boolean
+    padding?: LegendPadding
+    translateX?: number
+    translateY?: number
+    itemWidth: number
+    itemHeight: number
+    itemDirection?: LegendItemDirection
+    itemsSpacing?: number
+    itemBackground?: string
+    itemTextColor?: string
+    itemOpacity?: number
+    symbolSize?: number
+    symbolSpacing?: number
+    symbolShape?: LegendSymbolShape | any
+    textColor?: string
+    onClick?: LegendMouseHandler
+    onMouseEnter?: LegendMouseHandler
+    onMouseLeave?: LegendMouseHandler
+    effects?: LegendEffect[]
+}
+
 export interface LegendProps {
     data?: Array<{
         id: string | number
@@ -49,7 +81,7 @@ export interface LegendProps {
     effects?: LegendEffect[]
 }
 
-export enum Anchor {
+export enum LegendAnchor {
     Top = 'top',
     TopRight = 'top-right',
     Right = 'right',
@@ -61,33 +93,17 @@ export enum Anchor {
     Center = 'center',
 }
 
-export enum Direction {
+export enum LegendDirection {
     Row = 'row',
     Column = 'column',
+}
+
+export enum LegendItemDirection {
     LeftToRight = 'left-to-right',
     RightToLeft = 'right-to-left',
     TopToBottom = 'top-to-bottom',
     BottomToTop = 'bottom-to-top',
 }
-
-export type LegendAnchor =
-    | 'top'
-    | 'top-right'
-    | 'right'
-    | 'bottom-right'
-    | 'bottom'
-    | 'bottom-left'
-    | 'left'
-    | 'top-left'
-    | 'center'
-
-export type LegendDirection = Direction.Column | Direction.Row
-
-export type LegendItemDirection =
-    | Direction.LeftToRight
-    | Direction.RightToLeft
-    | Direction.TopToBottom
-    | Direction.BottomToTop
 
 export type Box = Partial<{
     bottom: number
@@ -147,13 +163,6 @@ export const interactivityPropTypes = {
     onMouseLeave: PropTypes.func,
 }
 
-export interface LegendDatum {
-    id: string | number
-    label: string | number
-    color: string
-    fill?: string
-}
-
 export const datumPropType = PropTypes.shape({
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
@@ -177,39 +186,33 @@ export const datumPropType = PropTypes.shape({
  */
 export const LegendPropShape = {
     data: PropTypes.arrayOf(datumPropType),
-
-    // position & layout
     anchor: PropTypes.oneOf([
-        Anchor.Top,
-        Anchor.TopRight,
-        Anchor.Right,
-        Anchor.BottomRight,
-        Anchor.Bottom,
-        Anchor.BottomLeft,
-        Anchor.Left,
-        Anchor.TopLeft,
-        Anchor.Center,
+        LegendAnchor.Top,
+        LegendAnchor.TopRight,
+        LegendAnchor.Right,
+        LegendAnchor.BottomRight,
+        LegendAnchor.Bottom,
+        LegendAnchor.BottomLeft,
+        LegendAnchor.Left,
+        LegendAnchor.TopLeft,
+        LegendAnchor.Center,
     ]).isRequired,
     translateX: PropTypes.number,
     translateY: PropTypes.number,
-    direction: PropTypes.oneOf([Direction.Row, Direction.Column]).isRequired,
-
-    // item
+    direction: PropTypes.oneOf([LegendDirection.Row, LegendDirection.Column]).isRequired,
     itemsSpacing: PropTypes.number,
     itemWidth: PropTypes.number.isRequired,
     itemHeight: PropTypes.number.isRequired,
     itemDirection: PropTypes.oneOf([
-        Direction.LeftToRight,
-        Direction.RightToLeft,
-        Direction.TopToBottom,
-        Direction.BottomToTop,
+        LegendItemDirection.LeftToRight,
+        LegendItemDirection.RightToLeft,
+        LegendItemDirection.TopToBottom,
+        LegendItemDirection.BottomToTop,
     ]),
     itemTextColor: PropTypes.string,
     itemBackground: PropTypes.string,
     itemOpacity: PropTypes.number,
-
     ...symbolPropTypes,
     ...interactivityPropTypes,
-
     effects: PropTypes.arrayOf(legendEffectPropType),
 }

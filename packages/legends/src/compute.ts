@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { isNumber, isPlainObject } from 'lodash'
-import { Anchor, Direction } from './props'
+import { LegendAnchor, LegendDirection, LegendItemDirection } from './props'
 
 const zeroPadding = {
     top: 0,
@@ -27,7 +27,7 @@ export const computeDimensions = ({
     itemCount: number
     itemWidth: number
     itemHeight: number
-    direction: Direction
+    direction: LegendDirection
     itemsSpacing: number
     padding: any
 }): {
@@ -62,9 +62,9 @@ export const computeDimensions = ({
     let width = itemWidth + horizontalPadding
     let height = itemHeight + verticalPadding
     const spacing = (itemCount - 1) * itemsSpacing
-    if (direction === Direction.Row) {
+    if (direction === LegendDirection.Row) {
         width = itemWidth * itemCount + spacing + horizontalPadding
-    } else if (direction === Direction.Column) {
+    } else if (direction === LegendDirection.Column) {
         height = itemHeight * itemCount + spacing + verticalPadding
     }
 
@@ -80,7 +80,7 @@ export const computePositionFromAnchor = ({
     width,
     height,
 }: {
-    anchor: Anchor
+    anchor: LegendAnchor
     translateX: number
     translateY: number
     containerWidth: number
@@ -92,38 +92,38 @@ export const computePositionFromAnchor = ({
     let y = translateY
 
     switch (anchor) {
-        case Anchor.Top:
+        case LegendAnchor.Top:
             x += (containerWidth - width) / 2
             break
 
-        case Anchor.TopRight:
+        case LegendAnchor.TopRight:
             x += containerWidth - width
             break
 
-        case Anchor.Right:
+        case LegendAnchor.Right:
             x += containerWidth - width
             y += (containerHeight - height) / 2
             break
 
-        case Anchor.BottomRight:
+        case LegendAnchor.BottomRight:
             x += containerWidth - width
             y += containerHeight - height
             break
 
-        case Anchor.Bottom:
+        case LegendAnchor.Bottom:
             x += (containerWidth - width) / 2
             y += containerHeight - height
             break
 
-        case Anchor.BottomLeft:
+        case LegendAnchor.BottomLeft:
             y += containerHeight - height
             break
 
-        case Anchor.Left:
+        case LegendAnchor.Left:
             y += (containerHeight - height) / 2
             break
 
-        case Anchor.Center:
+        case LegendAnchor.Center:
             x += (containerWidth - width) / 2
             y += (containerHeight - height) / 2
             break
@@ -149,7 +149,7 @@ export const computeItemLayout = ({
     let labelAlignment
 
     switch (direction) {
-        case Direction.LeftToRight:
+        case LegendItemDirection.LeftToRight:
             symbolX = 0
             symbolY = (height - symbolSize) / 2
 
@@ -164,7 +164,7 @@ export const computeItemLayout = ({
             }
             break
 
-        case Direction.RightToLeft:
+        case LegendItemDirection.RightToLeft:
             symbolX = width - symbolSize
             symbolY = (height - symbolSize) / 2
 
@@ -179,7 +179,7 @@ export const computeItemLayout = ({
             }
             break
 
-        case Direction.TopToBottom:
+        case LegendItemDirection.TopToBottom:
             symbolX = (width - symbolSize) / 2
             symbolY = 0
 
@@ -195,7 +195,7 @@ export const computeItemLayout = ({
             }
             break
 
-        case Direction.BottomToTop:
+        case LegendItemDirection.BottomToTop:
             symbolX = (width - symbolSize) / 2
             symbolY = height - symbolSize
 

@@ -14,7 +14,6 @@ import {
     datumPropType,
     symbolPropTypes,
     interactivityPropTypes,
-    Direction,
     LegendDatum,
     LegendItemDirection,
     LegendEffect,
@@ -70,10 +69,10 @@ export class LegendSvgItem extends React.Component<LegendSvgItemProps, LegendSvg
         background: PropTypes.string,
         opacity: PropTypes.number,
         direction: PropTypes.oneOf([
-            Direction.LeftToRight,
-            Direction.RightToLeft,
-            Direction.TopToBottom,
-            Direction.BottomToTop,
+            LegendItemDirection.LeftToRight,
+            LegendItemDirection.RightToLeft,
+            LegendItemDirection.TopToBottom,
+            LegendItemDirection.BottomToTop,
         ]).isRequired,
         justify: PropTypes.bool.isRequired,
         ...symbolPropTypes,
@@ -82,7 +81,7 @@ export class LegendSvgItem extends React.Component<LegendSvgItemProps, LegendSvg
     }
 
     static defaultProps = {
-        direction: Direction.LeftToRight,
+        direction: LegendItemDirection.LeftToRight,
         justify: false,
         textColor: '#000000',
         background: 'transparent',

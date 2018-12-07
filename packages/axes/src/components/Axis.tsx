@@ -195,8 +195,8 @@ export const Axis: React.SFC<any> = ({
 Axis.propTypes = {
     axis: PropTypes.oneOf(['x', 'y']).isRequired,
     scale: PropTypes.func.isRequired,
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
+    x: PropTypes.number,
+    y: PropTypes.number,
     length: PropTypes.number.isRequired,
     ticksPosition: PropTypes.oneOf(['before', 'after']).isRequired,
     tickValues: PropTypes.oneOfType([
@@ -205,14 +205,14 @@ Axis.propTypes = {
             PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)])
         ),
     ]),
-    tickSize: PropTypes.number.isRequired,
-    tickPadding: PropTypes.number.isRequired,
-    tickRotation: PropTypes.number.isRequired,
+    tickSize: PropTypes.number,
+    tickPadding: PropTypes.number,
+    tickRotation: PropTypes.number,
     tickFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-    renderTick: PropTypes.func.isRequired,
+    renderTick: PropTypes.func,
     legend: PropTypes.node,
-    legendPosition: PropTypes.oneOf(['start', 'middle', 'end']).isRequired,
-    legendOffset: PropTypes.number.isRequired,
+    legendPosition: PropTypes.oneOf(['start', 'middle', 'end']),
+    legendOffset: PropTypes.number,
     theme: PropTypes.shape({
         axis: axisThemePropType.isRequired,
     }).isRequired,

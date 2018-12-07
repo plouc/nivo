@@ -8,8 +8,8 @@
  */
 import * as PropTypes from 'prop-types'
 import { noop, defsPropTypes, MotionProps, Theme, PartialTheme } from '@nivo/core'
-import { axisPropType } from '@nivo/axes'
-import { LegendPropShape } from '@nivo/legends'
+import { axisPropType, AxisConfig } from '@nivo/axes'
+import { LegendPropShape, LegendConfig } from '@nivo/legends'
 import BarItem from './BarItem'
 
 /*
@@ -179,6 +179,10 @@ export type BarLayer = (props: any) => React.ReactNode
 
 type indexByFn<Datum> = (d: Datum) => string | number
 
+export interface BarLegendConfig extends LegendConfig {
+    dataFrom: 'indexes' | 'keys'
+}
+
 export interface BarOuterProps<Datum> extends Partial<MotionProps> {
     width: number
     height: number
@@ -200,10 +204,10 @@ export interface BarOuterProps<Datum> extends Partial<MotionProps> {
     maxValue?: number | 'auto'
     padding?: number
     innerPadding?: number
-    axisTop?: any
-    axisRight?: any
-    axisBottom?: any
-    axisLeft?: any
+    axisTop?: AxisConfig
+    axisRight?: AxisConfig
+    axisBottom?: AxisConfig
+    axisLeft?: AxisConfig
     enableGridX?: boolean
     gridXValues?: Array<number | string | Date>
     enableGridY?: boolean
@@ -228,7 +232,7 @@ export interface BarOuterProps<Datum> extends Partial<MotionProps> {
     onClick?: any
     onMouseEnter?: any
     onMouseLeave?: any
-    legends?: any[]
+    legends?: BarLegendConfig[]
     theme?: PartialTheme
 }
 
