@@ -216,13 +216,14 @@ class ScatterPlotCanvas extends Component {
         const legendData = data.map(serie => ({
             id: serie.id,
             label: serie.id,
-            color: getColor(serie),
+            color: getColor({ serie }),
         }))
 
         legends.forEach(legend => {
             renderLegendToCanvas(this.ctx, {
                 ...legend,
                 data: legendData,
+                itemTextColor: '#999',
                 containerWidth: width,
                 containerHeight: height,
             })
