@@ -200,7 +200,7 @@ class ScatterPlotCanvas extends Component {
 
         points.forEach(point => {
             this.ctx.beginPath()
-            this.ctx.arc(point.x, point.y, getSymbolSize(point.data) / 2, 0, 2 * Math.PI)
+            this.ctx.arc(point.x, point.y, Math.abs(getSymbolSize(point.data) / 2), 0, 2 * Math.PI)
             this.ctx.fillStyle = getColor(point.data)
             this.ctx.fill()
         })

@@ -25,7 +25,7 @@ const ScatterPlotItem = ({
     <circle
         cx={x}
         cy={y}
-        r={size / 2}
+        r={Math.abs(size / 2)}
         fill={color}
         onMouseEnter={onMouseEnter}
         onMouseMove={onMouseMove}
