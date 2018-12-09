@@ -223,7 +223,6 @@ class ScatterPlotCanvas extends Component {
             renderLegendToCanvas(this.ctx, {
                 ...legend,
                 data: legendData,
-                itemTextColor: '#999',
                 containerWidth: width,
                 containerHeight: height,
             })
