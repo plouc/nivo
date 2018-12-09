@@ -6,15 +6,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import PropTypes from 'prop-types'
-import { linearScalePropTypes } from './linearScale'
-import { pointScalePropTypes } from './pointScale'
-import { timeScalePropTypes } from './timeScale'
+import * as PropTypes from 'prop-types'
+import { linearScalePropTypes, LinearScaleConfig } from './linearScale'
+import { pointScalePropTypes, PointScaleConfig } from './pointScale'
+import { timeScalePropTypes, TimeScaleConfig } from './timeScale'
 
-export * from './compute'
-export * from './linearScale'
-export * from './pointScale'
-export * from './timeScale'
+export type ScaleConfig = LinearScaleConfig | PointScaleConfig | TimeScaleConfig
 
 export const scalePropType = PropTypes.oneOfType([
     PropTypes.shape(linearScalePropTypes),

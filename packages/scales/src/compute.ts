@@ -6,28 +6,26 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import uniq from 'lodash/uniq'
-import uniqBy from 'lodash/uniqBy'
-import sortBy from 'lodash/sortBy'
-import last from 'lodash/last'
-import isDate from 'lodash/isDate'
-import { linearScale } from './linearScale'
-import { pointScale } from './pointScale'
-import { timeScale } from './timeScale'
+import { uniq, uniqBy, sortBy, last, isDate } from 'lodash'
+import { linearScale, LinearScaleInnerConfig, ScaleLinearWithType } from './linearScale'
+import { pointScale, PointScaleInnerConfig, ScalePointWithType } from './pointScale'
+import { timeScale, TimeScaleInnerConfig, ScaleTimeWithType } from './timeScale'
+import { ScaleConfig } from './props'
 import { createDateNormalizer } from './timeHelpers'
 
-export const getOtherAxis = axis => (axis === 'x' ? 'y' : 'x')
+export const getOtherAxis = (axis: 'x' | 'y'): 'x' | 'y' => (axis === 'x' ? 'y' : 'x')
 
-export const compareValues = (a, b) => a === b
-export const compareDateValues = (a, b) => a.getTime() === b.getTime()
+export const compareValues = (a: number | string, b: number | string): boolean => a === b
+export const compareDateValues = (a: Date, b: Date): boolean => a.getTime() === b.getTime()
+type Comparator = (a: number | string | Date, b: number | string | Date) => boolean
 
-export const computeXYScalesForSeries = (_series, xScaleSpec, yScaleSpec, width, height) => {
-    const series = _series.map(serie => ({
+export const computeXYScalesForSeries = (rawSeries, xScaleSpec, yScaleSpec, width, height) => {
+    const series = rawSeries.map(serie => ({
         ...serie,
         data: serie.data.map(d => ({ data: { ...d } })),
     }))
 
-    let xy = generateSeriesXY(series, xScaleSpec, yScaleSpec)
+    const xy = generateSeriesXY(series, xScaleSpec, yScaleSpec)
     if (xScaleSpec.stacked === true) {
         stackX(yScaleSpec.type, xy, series)
     }
@@ -42,21 +40,21 @@ export const computeXYScalesForSeries = (_series, xScaleSpec, yScaleSpec, width,
         serie.data.forEach(d => {
             d.position = {
                 x:
-                    xScale.stacked === true
+                    xScale.type === 'linear' && xScale.stacked === true
                         ? d.data.xStacked === null
                             ? null
                             : xScale(d.data.xStacked)
                         : d.data.x === null
                             ? null
-                            : xScale(d.data.x),
+                            : (xScale as (d: number | string | Date) => number)(d.data.x),
                 y:
-                    yScale.stacked === true
+                    yScale.type === 'linear' && yScale.stacked === true
                         ? d.data.yStacked === null
                             ? null
                             : yScale(d.data.yStacked)
                         : d.data.y === null
                             ? null
-                            : yScale(d.data.y),
+                            : (yScale as (d: number | string | Date) => number)(d.data.y),
             }
         })
     })
@@ -69,7 +67,15 @@ export const computeXYScalesForSeries = (_series, xScaleSpec, yScaleSpec, width,
     }
 }
 
-export const computeScale = (spec, xy, width, height) => {
+export const computeScale = (
+    spec: LinearScaleInnerConfig | PointScaleInnerConfig | TimeScaleInnerConfig,
+    xy,
+    width,
+    height
+):
+    | ScaleLinearWithType<number, number>
+    | ScalePointWithType<string>
+    | ScaleTimeWithType<number, number> => {
     if (spec.type === 'linear') return linearScale(spec, xy, width, height)
     else if (spec.type === 'point') return pointScale(spec, xy, width, height)
     else if (spec.type === 'time') return timeScale(spec, xy, width, height)
@@ -84,15 +90,15 @@ export const generateSeriesXY = (series, xScaleSpec, yScaleSpec) => ({
  * Normalize data according to scale type, (time => Date, linear => Number)
  * compute sorted unique values and min/max.
  */
-export const generateSeriesAxis = (series, axis, scaleSpec) => {
-    if (scaleSpec.type === 'linear') {
+export const generateSeriesAxis = (series, axis: 'x' | 'y', scaleConfig: ScaleConfig) => {
+    if (scaleConfig.type === 'linear') {
         series.forEach(serie => {
             serie.data.forEach(d => {
                 d.data[axis] = d.data[axis] === null ? null : parseFloat(d.data[axis])
             })
         })
-    } else if (scaleSpec.type === 'time' && scaleSpec.format !== 'native') {
-        const parseTime = createDateNormalizer(scaleSpec)
+    } else if (scaleConfig.type === 'time' && scaleConfig.format !== 'native') {
+        const parseTime = createDateNormalizer(scaleConfig)
         series.forEach(serie => {
             serie.data.forEach(d => {
                 d.data[axis] = d.data[axis] === null ? null : parseTime(d.data[axis])
@@ -107,13 +113,14 @@ export const generateSeriesAxis = (series, axis, scaleSpec) => {
         })
     })
 
-    let min, max
-    if (scaleSpec.type === 'linear') {
+    let min
+    let max
+    if (scaleConfig.type === 'linear') {
         all = uniq(all)
         all = sortBy(all, v => v)
         min = Math.min(...all)
         max = Math.max(...all)
-    } else if (scaleSpec.type === 'time') {
+    } else if (scaleConfig.type === 'time') {
         all = uniqBy(all, v => v.getTime())
         all = all
             .slice(0)
@@ -130,12 +137,12 @@ export const generateSeriesAxis = (series, axis, scaleSpec) => {
     return { all, min, max }
 }
 
-export const stackAxis = (axis, otherType, xy, series) => {
+export const stackAxis = (axis: 'x' | 'y', otherType, xy, series) => {
     const otherAxis = getOtherAxis(axis)
 
     let all = []
     xy[otherAxis].all.forEach(v => {
-        const compare = isDate(v) ? compareDateValues : compareValues
+        const compare: Comparator = isDate(v) ? compareDateValues : compareValues
         const stack = []
         series.forEach(serie => {
             const datum = serie.data.find(d => compare(d.data[otherAxis], v))
@@ -166,7 +173,7 @@ export const stackAxis = (axis, otherType, xy, series) => {
 export const stackX = (xy, otherType, series) => stackAxis('x', xy, otherType, series)
 export const stackY = (xy, otherType, series) => stackAxis('y', xy, otherType, series)
 
-export const computeAxisSlices = (axis, data) => {
+export const computeAxisSlices = (axis: 'x' | 'y', data) => {
     const otherAxis = getOtherAxis(axis)
 
     return data[otherAxis].all.map(v => {
@@ -175,7 +182,7 @@ export const computeAxisSlices = (axis, data) => {
             [otherAxis]: data[`${otherAxis}Scale`](v),
             data: [],
         }
-        const compare = isDate(v) ? compareDateValues : compareValues
+        const compare: Comparator = isDate(v) ? compareDateValues : compareValues
         data.series.forEach(serie => {
             const datum = serie.data.find(d => compare(d.data[otherAxis], v))
             if (datum !== undefined) {

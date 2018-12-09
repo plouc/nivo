@@ -6,6 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+import * as React from 'react'
 import * as PropTypes from 'prop-types'
 
 export type LegendPadding = number | Box
@@ -112,16 +113,7 @@ export type Box = Partial<{
     top: number
 }>
 
-export interface LegendMouseHandlerData {
-    id: string | number
-    label: string | number
-    color: string
-}
-
-export type LegendMouseHandler = (
-    data: LegendMouseHandlerData,
-    event: React.MouseEvent<any>
-) => void
+export type LegendMouseHandler = (data: LegendDatum, event: React.MouseEvent<any>) => void
 
 export type LegendEffectStyle = Partial<{
     itemTextColor: string

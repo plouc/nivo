@@ -42,26 +42,24 @@ export default class Bar extends React.Component {
                     indexBy="id"
                     keys={['a', 'b', 'c']}
                     maxValue={4}
+                    layout="vertical"
+                    reverse={false}
                     margin={{
                         top: 10,
                         right: 120,
                         bottom: 40,
                         left: 40,
                     }}
-                    padding={.3}
+                    padding={0.3}
                     axisLeft={{
                         tickValues: 5,
                     }}
                     axisBottom={{
                         legend: 'THINGS',
                         legendPosition: AxisLegendPosition.Middle,
-                        legendOffset: 36 
+                        legendOffset: 36,
                     }}
-                    markers={[
-                        {
-                            crap: true
-                        }
-                    ]}
+                    markers={[]}
                     legends={[
                         {
                             dataFrom: 'keys',
@@ -70,7 +68,21 @@ export default class Bar extends React.Component {
                             itemWidth: 100,
                             itemHeight: 32,
                             translateX: 120,
-                        }
+                            itemTextColor: '#999999',
+                            itemOpacity: 0.8,
+                            onClick: d => {
+                                console.log(d)
+                            },
+                            effects: [
+                                {
+                                    on: 'hover',
+                                    style: {
+                                        itemTextColor: '#000000',
+                                        itemOpacity: 1,
+                                    },
+                                },
+                            ],
+                        },
                     ]}
                     onClick={(d: any) => {
                         console.log(d)

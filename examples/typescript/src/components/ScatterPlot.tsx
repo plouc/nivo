@@ -2,7 +2,7 @@ import * as React from 'react'
 import { CartesianMarkersProps } from '@nivo/core'
 import { AxisProps } from '@nivo/axes'
 import { Scale } from '@nivo/scales'
-import { LegendProps, Direction } from '@nivo/legends'
+import { LegendConfig, LegendAnchor, LegendDirection } from '@nivo/legends'
 import {
     ResponsiveScatterPlot,
     ResponsiveScatterPlotCanvas,
@@ -62,10 +62,10 @@ export default class ScatterPlot extends React.Component {
             format: (v: number) => `${v}x`,
         }
 
-        const legends: LegendProps[] = [
+        const legends: LegendConfig[] = [
             {
-                anchor: 'bottom-right',
-                direction: Direction.Column,
+                anchor: LegendAnchor.BottomRight,
+                direction: LegendDirection.Column,
                 translateX: -20,
                 translateY: -20,
                 itemWidth: 80,
@@ -87,6 +87,7 @@ export default class ScatterPlot extends React.Component {
         ]
 
         const markers: CartesianMarkersProps[] = [
+            /*
             {
                 axis: 'x',
                 value: 4,
@@ -109,6 +110,7 @@ export default class ScatterPlot extends React.Component {
                     fill: 'red',
                 },
             },
+            */
         ]
 
         return (

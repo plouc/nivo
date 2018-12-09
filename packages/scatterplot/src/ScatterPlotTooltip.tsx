@@ -1,4 +1,4 @@
-/*
+s /*
  * This file is part of the nivo project.
  *
  * Copyright 2016-present, Raphaël Benitte.

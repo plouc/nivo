@@ -11,7 +11,9 @@ const tsPackages = [
     'bar',
     'core',
     'legends',
-    'rose'
+    'rose',
+    'scales',
+    'scatterplot',
 ]
 
 const externals = [
