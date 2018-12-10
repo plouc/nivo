@@ -7,7 +7,6 @@
  * file that was distributed with this source code.
  */
 import React, { Component } from 'react'
-import setDisplayName from 'recompose/setDisplayName'
 import { renderGridLinesToCanvas, getRelativeCursor, isCursorInRect, Container } from '@nivo/core'
 import { renderAxesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
@@ -259,4 +258,4 @@ class ScatterPlotCanvas extends Component {
 
 ScatterPlotCanvas.propTypes = ScatterPlotPropTypes
 
-export default setDisplayName('ScatterPlotCanvas')(enhanceCanvas(ScatterPlotCanvas))
+export default enhanceCanvas(ScatterPlotCanvas)

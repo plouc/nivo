@@ -151,6 +151,40 @@ stories.add(
     ))
 )
 
+stories.add(
+    'logarithmic y scale',
+    withInfo(`
+    By default, \`yScale\` is a linear scale, but you can switch to log using
+    the \`xScale.type\` property.
+`)(() => (
+        <Line
+            {...commonProperties}
+            data={[
+                {
+                    id: 'fake corp. A',
+                    data: [
+                        { x: 0, y: 12 },
+                        { x: 1, y: 123 },
+                        { x: 2, y: 870 },
+                        { x: 3, y: 21000 },
+                        { x: 4, y: 100000 },
+                        { x: 5, y: 1000000 },
+                        { x: 6, y: 10000000 },
+                    ],
+                },
+            ]}
+            axisLeft={{
+                tickValues: [10, 100, 1000, 10000, 100000, 1000000, 10000000],
+            }}
+            yScale={{
+                type: 'log',
+                base: 10,
+                max: 'auto',
+            }}
+        />
+    ))
+)
+
 class RealTimeChart extends Component {
     constructor(props) {
         super(props)

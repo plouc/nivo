@@ -7,6 +7,13 @@ export const scatterPlotStories = [
         },
     },
     {
+        label: 'Using logarithmic scales',
+        link: {
+            kind: 'ScatterPlot',
+            story: 'using logarithmic scales',
+        },
+    },
+    {
         label: 'Varying symbol size',
         link: {
             kind: 'ScatterPlot',

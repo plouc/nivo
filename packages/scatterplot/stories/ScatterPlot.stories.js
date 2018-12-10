@@ -125,7 +125,7 @@ const sampleData = [
 const commonProps = {
     width: 900,
     height: 500,
-    margin: { top: 20, right: 20, bottom: 80, left: 80 },
+    margin: { top: 24, right: 24, bottom: 80, left: 80 },
     symbolSize: 10,
     axisBottom: {
         format: d => `week ${d}`,
@@ -207,6 +207,42 @@ stories.add(
             }}
             axisBottom={{
                 format: '%b %d',
+            }}
+        />
+    ))
+)
+
+stories.add(
+    'using logarithmic scales',
+    withInfo(importStatement)(() => (
+        <ScatterPlot
+            {...commonProps}
+            data={[
+                {
+                    id: 'apples',
+                    data: [
+                        { x: 10, y: 2 },
+                        { x: 100, y: 4 },
+                        { x: 1000, y: 8 },
+                        { x: 10000, y: 16 },
+                        { x: 100000, y: 32 },
+                        { x: 1000000, y: 64 },
+                    ],
+                },
+            ]}
+            xScale={{
+                type: 'log',
+                base: 10,
+            }}
+            yScale={{
+                type: 'log',
+                base: 2,
+            }}
+            axisBottom={{
+                tickValues: [10, 100, 1000, 1000, 10000, 100000, 1000000, 10000000],
+            }}
+            axisLeft={{
+                tickValues: [2, 4, 8, 16, 32, 64],
             }}
         />
     ))

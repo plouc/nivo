@@ -216,6 +216,42 @@ stories.add(
 )
 
 stories.add(
+    'using logarithmic scales',
+    withInfo(importStatement)(() => (
+        <ScatterPlotCanvas
+            {...commonProps}
+            data={[
+                {
+                    id: 'apples',
+                    data: [
+                        { x: 10, y: 2 },
+                        { x: 220, y: 4 },
+                        { x: 1000, y: 8 },
+                        { x: 10000, y: 16 },
+                        { x: 100000, y: 32 },
+                        { x: 1000000, y: 64 },
+                    ],
+                },
+            ]}
+            xScale={{
+                type: 'log',
+                base: 10,
+            }}
+            yScale={{
+                type: 'log',
+                base: 2,
+            }}
+            axisBottom={{
+                tickValues: [10, 100, 1000, 1000, 10000, 100000, 1000000, 10000000],
+            }}
+            axisLeft={{
+                tickValues: [2, 4, 8, 16, 32, 64],
+            }}
+        />
+    ))
+)
+
+stories.add(
     'symbol size',
     withInfo(importStatement)(() => <ScatterPlotCanvas {...commonProps} symbolSize={24} />)
 )
