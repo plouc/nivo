@@ -16,5 +16,12 @@ declare module '@nivo/scales' {
         precision?: 'millisecond' | 'second' | 'minute' | 'hour' | 'month' | 'year'
     }
 
-    export type Scale = LinearScale | PointScale | TimeScale
+    export interface LogScale {
+        type: 'log'
+        base?: number
+        min?: 'auto' | number
+        max?: 'auto' | number
+    }
+
+    export type Scale = LinearScale | PointScale | TimeScale | LogScale
 }

@@ -21,6 +21,13 @@ export const lineStories = [
         },
     },
     {
+        label: 'logarithmic y scale',
+        link: {
+            kind: 'Line',
+            story: 'logarithmic y scale',
+        },
+    },
+    {
         label: 'real time chart',
         link: {
             kind: 'Line',

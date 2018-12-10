@@ -8,7 +8,6 @@
  */
 import React, { Component, Fragment } from 'react'
 import { TransitionMotion, spring } from 'react-motion'
-import setDisplayName from 'recompose/setDisplayName'
 import { Container, SvgWrapper, Grid, CartesianMarkers } from '@nivo/core'
 import { Axes } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
@@ -280,4 +279,4 @@ class ScatterPlot extends Component {
     }
 }
 
-export default setDisplayName('ScatterPlot')(enhanceSvg(ScatterPlot))
+export default enhanceSvg(ScatterPlot)

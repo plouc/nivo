@@ -10,6 +10,7 @@ import compose from 'recompose/compose'
 import defaultProps from 'recompose/defaultProps'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
+import setDisplayName from 'recompose/setDisplayName'
 import { withTheme, withColors, withDimensions, withMotion } from '@nivo/core'
 import { computeXYScalesForSeries } from '@nivo/scales'
 import { getAccessorOrValue } from '@nivo/core'
@@ -53,7 +54,8 @@ const commonEnhancers = [
 export const enhanceSvg = Component =>
     compose(
         ...commonEnhancers,
-        pure
+        pure,
+        setDisplayName('ScatterPlot')
     )(Component)
 
 export const enhanceCanvas = Component =>
@@ -71,5 +73,6 @@ export const enhanceCanvas = Component =>
                 return computeMesh({ points: points2d, width, height, debug: debugMesh })
             }
         ),
-        pure
+        pure,
+        setDisplayName('ScatterPlotCanvas')
     )(Component)
