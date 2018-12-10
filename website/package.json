@@ -21,6 +21,7 @@
     "@nivo/parallel-coordinates": "0.51.0",
     "@nivo/pie": "0.51.0",
     "@nivo/radar": "0.51.0",
+    "@nivo/rose": "0.51.6",
     "@nivo/sankey": "0.51.0",
     "@nivo/scatterplot": "0.51.3",
     "@nivo/stream": "0.51.5",

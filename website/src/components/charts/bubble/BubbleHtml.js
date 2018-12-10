@@ -143,7 +143,12 @@ export default class BubbleHtml extends Component {
                         {header}
                         {description}
                     </MediaQuery>
-                    <ChartTabs chartClass="bubble" code={code} data={root} diceRoll={diceRoll}>
+                    <ChartTabs
+                        chartClass="circle-packing"
+                        code={code}
+                        data={root}
+                        diceRoll={diceRoll}
+                    >
                         <ResponsiveBubbleHtml
                             root={cloneDeep(root)}
                             {...mappedSettings}

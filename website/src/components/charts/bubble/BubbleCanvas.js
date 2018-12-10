@@ -124,7 +124,7 @@ export default class BubbleCanvas extends Component {
                         {description}
                     </MediaQuery>
                     <ChartTabs
-                        chartClass="bubble"
+                        chartClass="circle-packing"
                         code={code}
                         data={root}
                         nodeCount={NODE_COUNT}

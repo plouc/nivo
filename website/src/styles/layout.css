@@ -11,6 +11,11 @@
     margin-top: var(--header-height);
     margin-left: var(--mini-nav-width);
     overflow-x: hidden;
+    background: var(--main-background-color);
+}
+
+.isCapturing .content {
+    background: transparent;
 }
 
 .page_content {
