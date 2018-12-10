@@ -47,7 +47,7 @@ export default class ScatterPlotCanvas extends Component {
             pixelRatio: window && window.devicePixelRatio ? window.devicePixelRatio : 1,
 
             colors: 'nivo',
-            colorBy: 'id',
+            colorBy: 'serie.id',
 
             symbolSize: 4,
             symbolShape: 'circle',
