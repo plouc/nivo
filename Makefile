@@ -91,13 +91,13 @@ clean-all: ##@0 global uninstall node modules, remove transpiled code & lock fil
 	@rm -rf website/package-lock.json
 
 define clean-source-lib
-	rm -rf $(1)/*/es
-	rm -rf $(1)/*/lib
+	rm -rf $(1)/*/cjs
+	rm -rf $(1)/*/umd
 endef
 
 define clean-source-all
-	rm -rf $(1)/*/es
-	rm -rf $(1)/*/lib
+	rm -rf $(1)/*/cjs
+	rm -rf $(1)/*/umd
 	rm -rf $(1)/*/node_modules
 	rm -rf $(1)/*/package-lock.json
 endef
@@ -172,6 +172,8 @@ packages-build: ##@1 packages build all packages
 
 package-build-%: ##@1 packages build a package
 	@echo "${YELLOW}Building package ${WHITE}@nivo/${*}${RESET}"
+	@rm -rf ./packages/${*}/cjs
+	@rm -rf ./packages/${*}/umd
 	@export PACKAGE=${*}; ./node_modules/.bin/rollup -c conf/rollup.config.js
 
 packages-screenshots: ##@1 packages generate screenshots for packages readme (website dev server must be running)
@@ -191,6 +193,8 @@ packages-publish-next: ##@1 packages publish all packages for @next npm tag
 
 package-watch-%: ##@1 packages build package (es flavor) on change, eg. `package-build-watch-bar`
 	@echo "${YELLOW}Running build watcher for package ${WHITE}@nivo/${*}${RESET}"
+	@rm -rf ./packages/${*}/cjs
+	@rm -rf ./packages/${*}/umd
 	@export PACKAGE=${*}; ./node_modules/.bin/rollup -c conf/rollup.config.js -w
 
 package-dev-%: ##@1 packages setup package for development, link to website, run watcher
