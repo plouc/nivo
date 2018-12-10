@@ -1,6 +1,6 @@
 {
   "name": "@nivo/waffle",
-  "version": "0.51.0",
+  "version": "0.52.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -24,8 +24,8 @@
     "umd/"
   ],
   "dependencies": {
-    "@nivo/core": "0.51.0",
-    "@nivo/legends": "0.51.0",
+    "@nivo/core": "0.52.0",
+    "@nivo/legends": "0.52.0",
     "lodash": "^4.17.4",
     "react-motion": "^0.5.2",
     "recompose": "^0.26.0"

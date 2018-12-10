@@ -1,6 +1,6 @@
 {
   "name": "@nivo/calendar",
-  "version": "0.51.0",
+  "version": "0.52.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -24,8 +24,8 @@
     "umd/"
   ],
   "dependencies": {
-    "@nivo/core": "0.51.0",
-    "@nivo/legends": "0.51.0",
+    "@nivo/core": "0.52.0",
+    "@nivo/legends": "0.52.0",
     "d3-scale": "^2.1.2",
     "d3-time": "^1.0.10",
     "d3-time-format": "^2.1.3",
