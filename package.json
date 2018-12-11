@@ -49,6 +49,7 @@
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-prettier": "^0.4.0",
     "rollup-plugin-strip-banner": "^0.2.0",
+    "serve": "^10.1.1",
     "tslint": "^5.11.0",
     "typescript": "^3.0.1"
   },

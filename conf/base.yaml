@@ -1,6 +1,7 @@
 capture:
-    baseUrl: http://localhost:3000
+    baseUrl: http://localhost:5678
     pages:
+      # capture illustrations for readme
       - path: /bar
         selector: .chart-tabs__content
         output: ./packages/bar/doc/bar.png
@@ -112,3 +113,92 @@ capture:
       - path: /waffle/canvas
         selector: .chart-tabs__content
         output: ./packages/waffle/doc/waffle-canvas.png
+
+      # capture icons for website
+      - path: /icons
+        selector: '#bar-grey'
+        output: ./website/src/assets/icons/bar-grey.png
+
+      - path: /icons
+        selector: '#bar-red'
+        output: ./website/src/assets/icons/bar-red.png
+    
+      - path: /icons
+        selector: '#heatmap-grey'
+        output: ./website/src/assets/icons/heatmap-grey.png
+
+      - path: /icons
+        selector: '#heatmap-red'
+        output: ./website/src/assets/icons/heatmap-red.png
+
+      - path: /icons
+        selector: '#waffle-grey'
+        output: ./website/src/assets/icons/waffle-grey.png
+
+      - path: /icons
+        selector: '#waffle-red'
+        output: ./website/src/assets/icons/waffle-red.png
+
+      - path: /icons
+        selector: '#pie-grey'
+        output: ./website/src/assets/icons/pie-grey.png
+
+      - path: /icons
+        selector: '#pie-red'
+        output: ./website/src/assets/icons/pie-red.png
+      
+      #- path: /icons
+      #  selector: '#radar-grey'
+      #  output: ./website/src/assets/icons/radar-grey.png
+
+      #- path: /icons
+      #  selector: '#radar-red'
+      #  output: ./website/src/assets/icons/radar-red.png
+
+      - path: /icons
+        selector: '#line-grey'
+        output: ./website/src/assets/icons/line-grey.png
+
+      - path: /icons
+        selector: '#line-red'
+        output: ./website/src/assets/icons/line-red.png
+
+      - path: /icons
+        selector: '#bullet-grey'
+        output: ./website/src/assets/icons/bullet-grey.png
+
+      - path: /icons
+        selector: '#bullet-red'
+        output: ./website/src/assets/icons/bullet-red.png
+      
+      - path: /icons
+        selector: '#circle-packing-grey'
+        output: ./website/src/assets/icons/circle-packing-grey.png
+
+      - path: /icons
+        selector: '#circle-packing-red'
+        output: ./website/src/assets/icons/circle-packing-red.png 
+
+      - path: /icons
+        selector: '#stream-grey'
+        output: ./website/src/assets/icons/stream-grey.png
+
+      - path: /icons
+        selector: '#stream-red'
+        output: ./website/src/assets/icons/stream-red.png
+
+      - path: /icons
+        selector: '#scatterplot-grey'
+        output: ./website/src/assets/icons/scatterplot-grey.png
+
+      - path: /icons
+        selector: '#scatterplot-red'
+        output: ./website/src/assets/icons/scatterplot-red.png
+  
+      - path: /icons
+        selector: '#parallel-coordinates-grey'
+        output: ./website/src/assets/icons/parallel-coordinates-grey.png
+
+      - path: /icons
+        selector: '#parallel-coordinates-red'
+        output: ./website/src/assets/icons/parallel-coordinates-red.png

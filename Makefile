@@ -225,6 +225,10 @@ website-build: ##@2 website build website
 	@echo "${YELLOW}Building website${RESET}"
 	@cd website && yarn build
 
+website-serve: ##@2 website build & serve website
+	@$(MAKE) website-build
+	@./node_modules/.bin/serve -l 5678 ./website/build
+
 website-deploy: ##@2 website build & deploy website
 	@$(MAKE) website-build
 

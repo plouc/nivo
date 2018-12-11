@@ -73,6 +73,7 @@ import Gradients from './components/guides/gradients/Gradients'
 import Patterns from './components/guides/patterns/Patterns'
 import About from './components/pages/About'
 import Faq from './components/pages/Faq'
+import Icons from './components/icons/Icons'
 import Components from './components/components/Components'
 
 const SITEMAP = [
@@ -110,7 +111,7 @@ const SITEMAP = [
                 ],
             },
             {
-                className: 'bubble',
+                className: 'circle-packing',
                 path: '/bubble',
                 label: 'Bubble',
                 component: BubblePage,
@@ -666,6 +667,8 @@ export const getRoutes = () => {
             })
         }
     })
+
+    routes.push(<Route key="icons" path="/icons" component={Icons} />)
 
     return routes
 }
