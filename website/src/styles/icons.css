@@ -1,4 +1,4 @@
-/* glue: 0.13 hash: 1810c58904 */
+/* glue: 0.13 hash: f11e667781 */
 .sprite-icons-waffle-red,
 .sprite-icons-waffle-grey,
 .sprite-icons-voronoi-red,
@@ -17,8 +17,6 @@
 .sprite-icons-react-grey,
 .sprite-icons-radar-red,
 .sprite-icons-radar-grey,
-.sprite-icons-placeholders-red,
-.sprite-icons-placeholders-grey,
 .sprite-icons-pie-red,
 .sprite-icons-pie-grey,
 .sprite-icons-parallel-coordinates-red,
@@ -38,6 +36,8 @@
 .sprite-icons-colors-grey,
 .sprite-icons-code-red,
 .sprite-icons-code-grey,
+.sprite-icons-circle-packing-red,
+.sprite-icons-circle-packing-grey,
 .sprite-icons-chord-red,
 .sprite-icons-chord-grey,
 .sprite-icons-canvas-red,
@@ -46,8 +46,6 @@
 .sprite-icons-calendar-grey,
 .sprite-icons-bullet-red,
 .sprite-icons-bullet-grey,
-.sprite-icons-bubble-red,
-.sprite-icons-bubble-grey,
 .sprite-icons-bar-red,
 .sprite-icons-bar-grey,
 .sprite-icons-api-red,
@@ -164,127 +162,127 @@
     height: 52px;
 }
 
-.sprite-icons-placeholders-red {
+.sprite-icons-pie-red {
     background-position: -244px -124px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-placeholders-grey {
+.sprite-icons-pie-grey {
     background-position: -244px -184px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-pie-red {
+.sprite-icons-parallel-coordinates-red {
     background-position: -4px -244px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-pie-grey {
+.sprite-icons-parallel-coordinates-grey {
     background-position: -64px -244px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-parallel-coordinates-red {
+.sprite-icons-nivo-logo {
     background-position: -124px -244px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-parallel-coordinates-grey {
+.sprite-icons-nav-back-red {
     background-position: -184px -244px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-nivo-logo {
+.sprite-icons-nav-back-grey {
     background-position: -244px -244px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-nav-back-red {
+.sprite-icons-line-red {
     background-position: -304px -4px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-nav-back-grey {
+.sprite-icons-line-grey {
     background-position: -304px -64px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-line-red {
+.sprite-icons-html-red {
     background-position: -304px -124px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-line-grey {
+.sprite-icons-html-grey {
     background-position: -304px -184px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-html-red {
+.sprite-icons-heatmap-red {
     background-position: -304px -244px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-html-grey {
+.sprite-icons-heatmap-grey {
     background-position: -4px -304px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-heatmap-red {
+.sprite-icons-data-red {
     background-position: -64px -304px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-heatmap-grey {
+.sprite-icons-data-grey {
     background-position: -124px -304px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-data-red {
+.sprite-icons-colors-red {
     background-position: -184px -304px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-data-grey {
+.sprite-icons-colors-grey {
     background-position: -244px -304px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-colors-red {
+.sprite-icons-code-red {
     background-position: -304px -304px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-colors-grey {
+.sprite-icons-code-grey {
     background-position: -364px -4px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-code-red {
+.sprite-icons-circle-packing-red {
     background-position: -364px -64px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-code-grey {
+.sprite-icons-circle-packing-grey {
     background-position: -364px -124px;
     width: 52px;
     height: 52px;
@@ -338,38 +336,26 @@
     height: 52px;
 }
 
-.sprite-icons-bubble-red {
+.sprite-icons-bar-red {
     background-position: -304px -364px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bubble-grey {
+.sprite-icons-bar-grey {
     background-position: -364px -364px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bar-red {
+.sprite-icons-api-red {
     background-position: -424px -4px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bar-grey {
-    background-position: -424px -64px;
-    width: 52px;
-    height: 52px;
-}
-
-.sprite-icons-api-red {
-    background-position: -424px -124px;
-    width: 52px;
-    height: 52px;
-}
-
 .sprite-icons-api-grey {
-    background-position: -424px -184px;
+    background-position: -424px -64px;
     width: 52px;
     height: 52px;
 }
@@ -397,8 +383,6 @@
     .sprite-icons-react-grey,
     .sprite-icons-radar-red,
     .sprite-icons-radar-grey,
-    .sprite-icons-placeholders-red,
-    .sprite-icons-placeholders-grey,
     .sprite-icons-pie-red,
     .sprite-icons-pie-grey,
     .sprite-icons-parallel-coordinates-red,
@@ -418,6 +402,8 @@
     .sprite-icons-colors-grey,
     .sprite-icons-code-red,
     .sprite-icons-code-grey,
+    .sprite-icons-circle-packing-red,
+    .sprite-icons-circle-packing-grey,
     .sprite-icons-chord-red,
     .sprite-icons-chord-grey,
     .sprite-icons-canvas-red,
@@ -426,8 +412,6 @@
     .sprite-icons-calendar-grey,
     .sprite-icons-bullet-red,
     .sprite-icons-bullet-grey,
-    .sprite-icons-bubble-red,
-    .sprite-icons-bubble-grey,
     .sprite-icons-bar-red,
     .sprite-icons-bar-grey,
     .sprite-icons-api-red,
@@ -462,8 +446,6 @@
     .sprite-icons-react-grey,
     .sprite-icons-radar-red,
     .sprite-icons-radar-grey,
-    .sprite-icons-placeholders-red,
-    .sprite-icons-placeholders-grey,
     .sprite-icons-pie-red,
     .sprite-icons-pie-grey,
     .sprite-icons-parallel-coordinates-red,
@@ -483,6 +465,8 @@
     .sprite-icons-colors-grey,
     .sprite-icons-code-red,
     .sprite-icons-code-grey,
+    .sprite-icons-circle-packing-red,
+    .sprite-icons-circle-packing-grey,
     .sprite-icons-chord-red,
     .sprite-icons-chord-grey,
     .sprite-icons-canvas-red,
@@ -491,8 +475,6 @@
     .sprite-icons-calendar-grey,
     .sprite-icons-bullet-red,
     .sprite-icons-bullet-grey,
-    .sprite-icons-bubble-red,
-    .sprite-icons-bubble-grey,
     .sprite-icons-bar-red,
     .sprite-icons-bar-grey,
     .sprite-icons-api-red,
