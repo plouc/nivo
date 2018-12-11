@@ -688,16 +688,6 @@ const allComponents = getSectionItems('Components').reduce((acc, item) => {
                 tags: child.tags || [],
             }
             acc.push(entry)
-
-            if (child.className !== 'api') {
-                acc.push(
-                    Object.assign({}, entry, {
-                        key: `${entry.key}.responsive`,
-                        label: `Responsive${child.label}`,
-                        tags: [...entry.tags, 'responsive'],
-                    })
-                )
-            }
         })
     }
 
