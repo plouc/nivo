@@ -11,7 +11,13 @@ import defaultProps from 'recompose/defaultProps'
 import pure from 'recompose/pure'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import setDisplayName from 'recompose/setDisplayName'
-import { withTheme, withDimensions, withMotion, withColors } from '@nivo/core'
+import {
+    withTheme,
+    withDimensions,
+    withMotion,
+    withColors,
+    getInheritedColorGenerator,
+} from '@nivo/core'
 import { BeeSwarmDefaultProps } from './props'
 import { computeBeeSwarmNodes } from './compute'
 
@@ -27,6 +33,9 @@ export const enhance = Component =>
                 ['data', 'layout', 'scale', 'width', 'height', 'gap', 'nodeSize', 'nodePadding'],
                 computeBeeSwarmNodes
             ),
+            withPropsOnChange(['borderColor'], ({ borderColor }) => ({
+                getBorderColor: getInheritedColorGenerator(borderColor),
+            })),
             pure
         )(Component)
     )

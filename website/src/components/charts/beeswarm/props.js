@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { BeeSwarmDefaultProps as defaults } from '@nivo/beeswarm'
 import {
     marginProperties,
@@ -145,6 +146,40 @@ export default [
             max: 20,
         },
     },
+    {
+        key: 'borderWidth',
+        scopes: '*',
+        description: 'Nodes border width (px).',
+        type: '{number}',
+        required: false,
+        default: defaults.borderWidth,
+        controlType: 'range',
+        controlGroup: 'Nodes',
+        controlOptions: {
+            unit: 'px',
+            min: 0,
+            max: 10,
+        },
+    },
+    {
+        key: 'borderColor',
+        scopes: '*',
+        description: (
+            <span>
+                how to compute border color,{' '}
+                <Link to="/guides/colors">see dedicated documentation</Link>.
+            </span>
+        ),
+        help: 'Method to compute border color.',
+        type: '{string|Function}',
+        required: false,
+        default: defaults.borderColor,
+        controlType: 'color',
+        controlGroup: 'Nodes',
+        controlOptions: {
+            withCustomColor: true,
+        },
+    },
     ...marginProperties,
     ...axesProperties,
     {
@@ -180,6 +215,16 @@ export default [
         description: 'Specify values to use for horizontal grid lines.',
         type: 'Array<{number|string}>',
         required: false,
+    },
+    {
+        key: 'isInteractive',
+        scopes: ['BeeSwarm', 'BeeSwarmCanvas'],
+        description: 'Enable/disable interactivity.',
+        type: '{boolean}',
+        required: false,
+        default: defaults.isInteractive,
+        controlType: 'switch',
+        controlGroup: 'Interactivity',
     },
     ...motionProperties(['BeeSwarm'], defaults),
 ]

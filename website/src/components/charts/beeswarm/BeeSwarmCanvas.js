@@ -59,6 +59,7 @@ export default class BeeSwarmCanvas extends Component {
                     ],
                 },
             ],
+            isInteractive: true,
         },
     }
 
@@ -91,7 +92,11 @@ export default class BeeSwarmCanvas extends Component {
 
         const description = (
             <div className="chart-description">
-                <p className="description">BeeSwarm plot.</p>
+                <p className="description">
+                    A variation around the <Link to="/beeswarm">BeeSwarm</Link> component. Well
+                    suited for large data sets as it does not impact DOM tree, however you&apos;ll
+                    lose the isomorphic ability and transitions.
+                </p>
                 <p className="description">
                     The responsive alternative of this component is{' '}
                     <code>ResponsiveBeeSwarmCanvas</code>.

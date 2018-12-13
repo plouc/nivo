@@ -32,6 +32,11 @@ export default class BeeSwarm extends Component {
             colorBy: BeeSwarmDefaultProps.colorBy,
             nodeSize: 10,
             nodePadding: 8,
+            borderWidth: 1,
+            borderColor: {
+                type: 'inherit:darker',
+                gamma: 0.4,
+            },
             scale: {
                 type: 'linear',
                 min: 0,
@@ -44,7 +49,7 @@ export default class BeeSwarm extends Component {
                 left: 80,
             },
             axisTop: {
-                enable: false,
+                enable: true,
                 orient: 'top',
                 tickSize: 5,
                 tickPadding: 5,
@@ -106,6 +111,10 @@ export default class BeeSwarm extends Component {
                     ],
                 },
             ],
+            isInteractive: true,
+            animate: true,
+            motionStiffness: 90,
+            motionDamping: 15,
         },
     }
 
@@ -138,9 +147,11 @@ export default class BeeSwarm extends Component {
 
         const description = (
             <div className="chart-description">
-                <p className="description">BeeSwarm plot.</p>
+                <p className="description">A BeeSwarm plot chart.</p>
                 <p className="description">
-                    The responsive alternative of this component is <code>ResponsiveBeeSwarm</code>.
+                    The responsive alternative of this component is <code>ResponsiveBeeSwarm</code>,
+                    it also offers another implementation, see{' '}
+                    <Link to="/beeswarm/canvas">BeeSwarmCanvas</Link>.
                 </p>
                 <p className="description">
                     See the <Link to="/guides/legends">dedicated guide</Link> on how to setup

@@ -48,32 +48,24 @@ export const BeeSwarmPropTypes = {
     gap: PropTypes.number.isRequired,
     nodeSize: PropTypes.number.isRequired,
     nodePadding: PropTypes.number.isRequired,
+    borderWidth: PropTypes.number.isRequired,
+    borderColor: PropTypes.any.isRequired,
     axisTop: axisPropType,
     axisRight: axisPropType,
     axisBottom: axisPropType,
     axisLeft: axisPropType,
     enableGridX: PropTypes.bool.isRequired,
     enableGridY: PropTypes.bool.isRequired,
+    isInteractive: PropTypes.bool.isRequired,
+    pixelRatio: PropTypes.number.isRequired,
 
     // injected by enhancer
     xScale: PropTypes.func.isRequired,
     yScale: PropTypes.func.isRequired,
+    getColor: PropTypes.func.isRequired,
+    getBorderColor: PropTypes.func.isRequired,
 
     /*
-    symbolSize: PropTypes.oneOfType([PropTypes.func, PropTypes.number]).isRequired,
-    symbolShape: PropTypes.oneOfType([PropTypes.oneOf(['circle', 'square'])]).isRequired,
-
-    markers: PropTypes.arrayOf(
-        PropTypes.shape({
-            axis: PropTypes.oneOf(['x', 'y']).isRequired,
-            value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-            style: PropTypes.object,
-        })
-    ),
-
-    getColor: PropTypes.func.isRequired,
-
-    isInteractive: PropTypes.bool.isRequired,
     useMesh: PropTypes.bool.isRequired,
     debugMesh: PropTypes.bool.isRequired,
 
@@ -86,8 +78,6 @@ export const BeeSwarmPropTypes = {
     tooltip: PropTypes.func,
 
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
-
-    pixelRatio: PropTypes.number.isRequired,
     */
 }
 
@@ -104,6 +94,8 @@ export const BeeSwarmDefaultProps = {
     gap: 0,
     nodeSize: 6,
     nodePadding: 2,
+    borderWidth: 0,
+    borderColor: 'inherit:darker(.3)',
     enableValueGrid: true,
     enableCategoricalGrid: true,
     axisTop: {},
@@ -111,9 +103,10 @@ export const BeeSwarmDefaultProps = {
     axisLeft: {},
     enableGridX: true,
     enableGridY: false,
-
-    /*
     isInteractive: true,
+    pixelRatio:
+        global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
+    /*
     useMesh: false,
     debugMesh: false,
     enableStackTooltip: true,
@@ -123,6 +116,4 @@ export const BeeSwarmDefaultProps = {
     onClick: noop,
     legends: [],
     */
-    pixelRatio:
-        global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
 }

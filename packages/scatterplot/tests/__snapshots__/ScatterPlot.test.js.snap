@@ -26,7 +26,7 @@ exports[`should allow to customize symbol size 1`] = `
         <g>
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={0}
@@ -35,7 +35,7 @@ exports[`should allow to customize symbol size 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={63}
             x2={63}
@@ -44,7 +44,7 @@ exports[`should allow to customize symbol size 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={125}
             x2={125}
@@ -53,7 +53,7 @@ exports[`should allow to customize symbol size 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={188}
             x2={188}
@@ -62,7 +62,7 @@ exports[`should allow to customize symbol size 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={250}
             x2={250}
@@ -71,7 +71,7 @@ exports[`should allow to customize symbol size 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={313}
             x2={313}
@@ -80,7 +80,7 @@ exports[`should allow to customize symbol size 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={375}
             x2={375}
@@ -89,7 +89,7 @@ exports[`should allow to customize symbol size 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={438}
             x2={438}
@@ -98,7 +98,7 @@ exports[`should allow to customize symbol size 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={500}
             x2={500}
@@ -109,7 +109,7 @@ exports[`should allow to customize symbol size 1`] = `
         <g>
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -118,7 +118,7 @@ exports[`should allow to customize symbol size 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -127,7 +127,7 @@ exports[`should allow to customize symbol size 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -136,7 +136,7 @@ exports[`should allow to customize symbol size 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -145,7 +145,7 @@ exports[`should allow to customize symbol size 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -154,7 +154,7 @@ exports[`should allow to customize symbol size 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -163,7 +163,7 @@ exports[`should allow to customize symbol size 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -172,7 +172,7 @@ exports[`should allow to customize symbol size 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -181,7 +181,7 @@ exports[`should allow to customize symbol size 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -190,7 +190,7 @@ exports[`should allow to customize symbol size 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -199,7 +199,7 @@ exports[`should allow to customize symbol size 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -208,7 +208,7 @@ exports[`should allow to customize symbol size 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -217,7 +217,7 @@ exports[`should allow to customize symbol size 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -226,7 +226,7 @@ exports[`should allow to customize symbol size 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -235,7 +235,7 @@ exports[`should allow to customize symbol size 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -244,7 +244,7 @@ exports[`should allow to customize symbol size 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -267,7 +267,7 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -301,7 +301,7 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -335,7 +335,7 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -369,7 +369,7 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -403,7 +403,7 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -437,7 +437,7 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -471,7 +471,7 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -505,7 +505,7 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -539,7 +539,7 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -589,7 +589,7 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -623,7 +623,7 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -657,7 +657,7 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -691,7 +691,7 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -725,7 +725,7 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -759,7 +759,7 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -793,7 +793,7 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -827,7 +827,7 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -861,7 +861,7 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -895,7 +895,7 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -929,7 +929,7 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -963,7 +963,7 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -997,7 +997,7 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -1031,7 +1031,7 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -1065,7 +1065,7 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -1099,7 +1099,7 @@ exports[`should allow to customize symbol size 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -1218,7 +1218,7 @@ exports[`should allow to render several series 1`] = `
         <g>
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={0}
@@ -1227,7 +1227,7 @@ exports[`should allow to render several series 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={63}
             x2={63}
@@ -1236,7 +1236,7 @@ exports[`should allow to render several series 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={125}
             x2={125}
@@ -1245,7 +1245,7 @@ exports[`should allow to render several series 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={188}
             x2={188}
@@ -1254,7 +1254,7 @@ exports[`should allow to render several series 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={250}
             x2={250}
@@ -1263,7 +1263,7 @@ exports[`should allow to render several series 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={313}
             x2={313}
@@ -1272,7 +1272,7 @@ exports[`should allow to render several series 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={375}
             x2={375}
@@ -1281,7 +1281,7 @@ exports[`should allow to render several series 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={438}
             x2={438}
@@ -1290,7 +1290,7 @@ exports[`should allow to render several series 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={500}
             x2={500}
@@ -1301,7 +1301,7 @@ exports[`should allow to render several series 1`] = `
         <g>
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1310,7 +1310,7 @@ exports[`should allow to render several series 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1319,7 +1319,7 @@ exports[`should allow to render several series 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1328,7 +1328,7 @@ exports[`should allow to render several series 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1337,7 +1337,7 @@ exports[`should allow to render several series 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1346,7 +1346,7 @@ exports[`should allow to render several series 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1355,7 +1355,7 @@ exports[`should allow to render several series 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1364,7 +1364,7 @@ exports[`should allow to render several series 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1373,7 +1373,7 @@ exports[`should allow to render several series 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1382,7 +1382,7 @@ exports[`should allow to render several series 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1391,7 +1391,7 @@ exports[`should allow to render several series 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1400,7 +1400,7 @@ exports[`should allow to render several series 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1409,7 +1409,7 @@ exports[`should allow to render several series 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1418,7 +1418,7 @@ exports[`should allow to render several series 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1427,7 +1427,7 @@ exports[`should allow to render several series 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1436,7 +1436,7 @@ exports[`should allow to render several series 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -1459,7 +1459,7 @@ exports[`should allow to render several series 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -1493,7 +1493,7 @@ exports[`should allow to render several series 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -1527,7 +1527,7 @@ exports[`should allow to render several series 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -1561,7 +1561,7 @@ exports[`should allow to render several series 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -1595,7 +1595,7 @@ exports[`should allow to render several series 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -1629,7 +1629,7 @@ exports[`should allow to render several series 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -1663,7 +1663,7 @@ exports[`should allow to render several series 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -1697,7 +1697,7 @@ exports[`should allow to render several series 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -1731,7 +1731,7 @@ exports[`should allow to render several series 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -1781,7 +1781,7 @@ exports[`should allow to render several series 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -1815,7 +1815,7 @@ exports[`should allow to render several series 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -1849,7 +1849,7 @@ exports[`should allow to render several series 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -1883,7 +1883,7 @@ exports[`should allow to render several series 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -1917,7 +1917,7 @@ exports[`should allow to render several series 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -1951,7 +1951,7 @@ exports[`should allow to render several series 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -1985,7 +1985,7 @@ exports[`should allow to render several series 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -2019,7 +2019,7 @@ exports[`should allow to render several series 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -2053,7 +2053,7 @@ exports[`should allow to render several series 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -2087,7 +2087,7 @@ exports[`should allow to render several series 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -2121,7 +2121,7 @@ exports[`should allow to render several series 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -2155,7 +2155,7 @@ exports[`should allow to render several series 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -2189,7 +2189,7 @@ exports[`should allow to render several series 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -2223,7 +2223,7 @@ exports[`should allow to render several series 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -2257,7 +2257,7 @@ exports[`should allow to render several series 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -2291,7 +2291,7 @@ exports[`should allow to render several series 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -2460,7 +2460,7 @@ exports[`should render a basic bar chart 1`] = `
         <g>
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={0}
@@ -2469,7 +2469,7 @@ exports[`should render a basic bar chart 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={63}
             x2={63}
@@ -2478,7 +2478,7 @@ exports[`should render a basic bar chart 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={125}
             x2={125}
@@ -2487,7 +2487,7 @@ exports[`should render a basic bar chart 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={188}
             x2={188}
@@ -2496,7 +2496,7 @@ exports[`should render a basic bar chart 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={250}
             x2={250}
@@ -2505,7 +2505,7 @@ exports[`should render a basic bar chart 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={313}
             x2={313}
@@ -2514,7 +2514,7 @@ exports[`should render a basic bar chart 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={375}
             x2={375}
@@ -2523,7 +2523,7 @@ exports[`should render a basic bar chart 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={438}
             x2={438}
@@ -2532,7 +2532,7 @@ exports[`should render a basic bar chart 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={500}
             x2={500}
@@ -2543,7 +2543,7 @@ exports[`should render a basic bar chart 1`] = `
         <g>
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2552,7 +2552,7 @@ exports[`should render a basic bar chart 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2561,7 +2561,7 @@ exports[`should render a basic bar chart 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2570,7 +2570,7 @@ exports[`should render a basic bar chart 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2579,7 +2579,7 @@ exports[`should render a basic bar chart 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2588,7 +2588,7 @@ exports[`should render a basic bar chart 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2597,7 +2597,7 @@ exports[`should render a basic bar chart 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2606,7 +2606,7 @@ exports[`should render a basic bar chart 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2615,7 +2615,7 @@ exports[`should render a basic bar chart 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2624,7 +2624,7 @@ exports[`should render a basic bar chart 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2633,7 +2633,7 @@ exports[`should render a basic bar chart 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2642,7 +2642,7 @@ exports[`should render a basic bar chart 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2651,7 +2651,7 @@ exports[`should render a basic bar chart 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2660,7 +2660,7 @@ exports[`should render a basic bar chart 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2669,7 +2669,7 @@ exports[`should render a basic bar chart 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2678,7 +2678,7 @@ exports[`should render a basic bar chart 1`] = `
           />
           <line
             opacity={1}
-            stroke="#ddd"
+            stroke="#dddddd"
             strokeWidth={1}
             x1={0}
             x2={500}
@@ -2701,7 +2701,7 @@ exports[`should render a basic bar chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -2735,7 +2735,7 @@ exports[`should render a basic bar chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -2769,7 +2769,7 @@ exports[`should render a basic bar chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -2803,7 +2803,7 @@ exports[`should render a basic bar chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -2837,7 +2837,7 @@ exports[`should render a basic bar chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -2871,7 +2871,7 @@ exports[`should render a basic bar chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -2905,7 +2905,7 @@ exports[`should render a basic bar chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -2939,7 +2939,7 @@ exports[`should render a basic bar chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -2973,7 +2973,7 @@ exports[`should render a basic bar chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -3023,7 +3023,7 @@ exports[`should render a basic bar chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -3057,7 +3057,7 @@ exports[`should render a basic bar chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -3091,7 +3091,7 @@ exports[`should render a basic bar chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -3125,7 +3125,7 @@ exports[`should render a basic bar chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -3159,7 +3159,7 @@ exports[`should render a basic bar chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -3193,7 +3193,7 @@ exports[`should render a basic bar chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -3227,7 +3227,7 @@ exports[`should render a basic bar chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -3261,7 +3261,7 @@ exports[`should render a basic bar chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -3295,7 +3295,7 @@ exports[`should render a basic bar chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -3329,7 +3329,7 @@ exports[`should render a basic bar chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -3363,7 +3363,7 @@ exports[`should render a basic bar chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -3397,7 +3397,7 @@ exports[`should render a basic bar chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -3431,7 +3431,7 @@ exports[`should render a basic bar chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -3465,7 +3465,7 @@ exports[`should render a basic bar chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -3499,7 +3499,7 @@ exports[`should render a basic bar chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -3533,7 +3533,7 @@ exports[`should render a basic bar chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }

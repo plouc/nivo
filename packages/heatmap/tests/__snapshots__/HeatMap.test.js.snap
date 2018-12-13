@@ -37,7 +37,7 @@ exports[`should render a basic heat map chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -71,7 +71,7 @@ exports[`should render a basic heat map chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -105,7 +105,7 @@ exports[`should render a basic heat map chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -155,7 +155,7 @@ exports[`should render a basic heat map chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -189,7 +189,7 @@ exports[`should render a basic heat map chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }
@@ -223,7 +223,7 @@ exports[`should render a basic heat map chart 1`] = `
           <line
             style={
               Object {
-                "stroke": "#777",
+                "stroke": "#777777",
                 "strokeWidth": 1,
               }
             }

@@ -38,8 +38,8 @@ const BeeSwarmSvg = props => {
         outerHeight,
         getColor,
         theme,
-        // borderWidth,
-        // getBorderColor,
+        borderWidth,
+        getBorderColor,
         defs,
         animate,
         motionStiffness,
@@ -114,6 +114,11 @@ const BeeSwarmSvg = props => {
                                             cx={style.x}
                                             cy={style.y}
                                             fill={getColor(node)}
+                                            strokeWidth={borderWidth}
+                                            stroke={getBorderColor({
+                                                ...node,
+                                                color: getColor(node),
+                                            })}
                                         />
                                     ))}
                                 </Fragment>
@@ -130,6 +135,7 @@ const BeeSwarmSvg = props => {
                                     cx={node.x}
                                     cy={node.y}
                                     fill={getColor(node)}
+                                    strokeWidth={getBorderColor({ ...node, color: getColor(node) })}
                                 />
                             ))}
                         </Fragment>
