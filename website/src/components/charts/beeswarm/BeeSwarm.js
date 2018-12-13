@@ -126,6 +126,14 @@ export default class BeeSwarm extends Component {
         this.setState({ data: generateLightDataSet() })
     }
 
+    handleNodeClick = (node, event) => {
+        alert(
+            `${JSON.stringify(node, null, '    ')}\nclicked at x: ${event.clientX}, y: ${
+                event.clientY
+            }`
+        )
+    }
+
     render() {
         const { data, keys, settings } = this.state
 
@@ -178,6 +186,7 @@ export default class BeeSwarm extends Component {
                             keys={keys}
                             {...mappedSettings}
                             theme={nivoTheme}
+                            onClick={this.handleNodeClick}
                         />
                     </ChartTabs>
                     <BeeSwarmControls

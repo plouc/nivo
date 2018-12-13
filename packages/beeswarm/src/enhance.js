@@ -33,6 +33,12 @@ export const enhance = Component =>
                 ['data', 'layout', 'scale', 'width', 'height', 'gap', 'nodeSize', 'nodePadding'],
                 computeBeeSwarmNodes
             ),
+            withPropsOnChange(['nodes', 'getColor'], ({ nodes, getColor }) => ({
+                nodes: nodes.map(n => ({
+                    ...n,
+                    color: getColor(n),
+                })),
+            })),
             withPropsOnChange(['borderColor'], ({ borderColor }) => ({
                 getBorderColor: getInheritedColorGenerator(borderColor),
             })),

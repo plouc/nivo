@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
-// import { noop } from '@nivo/core'
+import { noop } from '@nivo/core'
 import { axisPropType } from '@nivo/axes'
 // import { LegendPropShape } from '@nivo/legends'
 import { scalePropType } from '@nivo/scales'
@@ -57,26 +57,23 @@ export const BeeSwarmPropTypes = {
     enableGridX: PropTypes.bool.isRequired,
     enableGridY: PropTypes.bool.isRequired,
     isInteractive: PropTypes.bool.isRequired,
+    onMouseEnter: PropTypes.func,
+    onMouseMove: PropTypes.func,
+    onMouseLeave: PropTypes.func,
+    onClick: PropTypes.func,
     pixelRatio: PropTypes.number.isRequired,
 
     // injected by enhancer
-    xScale: PropTypes.func.isRequired,
-    yScale: PropTypes.func.isRequired,
-    getColor: PropTypes.func.isRequired,
-    getBorderColor: PropTypes.func.isRequired,
+    xScale: PropTypes.func,
+    yScale: PropTypes.func,
+    getColor: PropTypes.func,
+    getBorderColor: PropTypes.func,
 
     /*
     useMesh: PropTypes.bool.isRequired,
     debugMesh: PropTypes.bool.isRequired,
-
-    onMouseEnter: PropTypes.func.isRequired,
-    onMouseMove: PropTypes.func.isRequired,
-    onMouseLeave: PropTypes.func.isRequired,
-    onClick: PropTypes.func.isRequired,
-
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
     tooltip: PropTypes.func,
-
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
     */
 }
@@ -110,10 +107,6 @@ export const BeeSwarmDefaultProps = {
     useMesh: false,
     debugMesh: false,
     enableStackTooltip: true,
-    onMouseEnter: noop,
-    onMouseMove: noop,
-    onMouseLeave: noop,
-    onClick: noop,
     legends: [],
     */
 }
