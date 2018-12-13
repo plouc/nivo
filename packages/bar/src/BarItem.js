@@ -105,7 +105,7 @@ BarItem.propTypes = {
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
     getTooltipLabel: PropTypes.func.isRequired,
-    tooltipFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    tooltipFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     onClick: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
