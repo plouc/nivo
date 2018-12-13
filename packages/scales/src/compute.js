@@ -86,18 +86,28 @@ export const generateSeriesXY = (series, xScaleSpec, yScaleSpec) => ({
  * Normalize data according to scale type, (time => Date, linear => Number)
  * compute sorted unique values and min/max.
  */
-export const generateSeriesAxis = (series, axis, scaleSpec) => {
+export const generateSeriesAxis = (
+    series,
+    axis,
+    scaleSpec,
+    {
+        getValue = d => d.data[axis],
+        setValue = (d, v) => {
+            d.data[axis] = v
+        },
+    } = {}
+) => {
     if (scaleSpec.type === 'linear') {
         series.forEach(serie => {
             serie.data.forEach(d => {
-                d.data[axis] = d.data[axis] === null ? null : parseFloat(d.data[axis])
+                setValue(d, getValue(d) === null ? null : parseFloat(getValue(d)))
             })
         })
     } else if (scaleSpec.type === 'time' && scaleSpec.format !== 'native') {
         const parseTime = createDateNormalizer(scaleSpec)
         series.forEach(serie => {
             serie.data.forEach(d => {
-                d.data[axis] = d.data[axis] === null ? null : parseTime(d.data[axis])
+                setValue(d, getValue(d) === null ? null : parseTime(getValue(d)))
             })
         })
     }
@@ -105,7 +115,7 @@ export const generateSeriesAxis = (series, axis, scaleSpec) => {
     let all = []
     series.forEach(serie => {
         serie.data.forEach(d => {
-            all.push(d.data[axis])
+            all.push(getValue(d))
         })
     })
 

@@ -26,6 +26,7 @@ export const darkTheme = {
     grid: {
         line: {
             stroke: '#444',
+            strokeWidth: 1,
         },
     },
     legends: {

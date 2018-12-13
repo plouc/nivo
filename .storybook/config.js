@@ -54,6 +54,8 @@ function loadStories() {
     require('../packages/scatterplot/stories/ScatterPlotCanvas.stories')
     require('../packages/stream/stories/stream.stories')
     require('../packages/sunburst/stories/sunburst.stories')
+    require('../packages/beeswarm/stories/BeeSwarm.stories')
+    require('../packages/beeswarm/stories/BeeSwarmCanvas.stories')
     require('../packages/treemap/stories/treemap.stories')
     require('../packages/treemap/stories/treemapHtml.stories')
     require('../packages/waffle/stories/waffle.stories')

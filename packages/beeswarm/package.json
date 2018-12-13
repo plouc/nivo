@@ -1,0 +1,45 @@
+{
+  "name": "@nivo/beeswarm",
+  "version": "0.52.0",
+  "license": "MIT",
+  "author": {
+    "name": "Raphaël Benitte",
+    "url": "https://github.com/plouc"
+  },
+  "keywords": [
+    "nivo",
+    "dataviz",
+    "react",
+    "d3",
+    "charts",
+    "force",
+    "beeswarm"
+  ],
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "files": [
+    "README.md",
+    "LICENSE.md",
+    "index.js",
+    "index.d.ts",
+    "cjs/",
+    "umd/"
+  ],
+  "dependencies": {
+    "@nivo/core": "0.52.0",
+    "@nivo/scales": "0.52.0",
+    "d3-force": "1.1.2",
+    "d3-quadtree": "1.0.5",
+    "d3-scale": "2.1.2",
+    "lodash": "^4.17.4",
+    "react-motion": "^0.5.2",
+    "recompose": "^0.26.0"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.5.10",
+    "react": ">= 16.2.0 < 17.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

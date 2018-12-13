@@ -101,15 +101,11 @@ export const renderAxesToCanvas = (
     })
 }
 
-/**
- * @param {CanvasRenderingContext2D} ctx
- * @param {number}                   width
- * @param {number}                   height
- * @param {number}                   scale
- * @param {('x'|'y')}                axis
- */
-export const renderGridLinesToCanvas = (ctx, { width, height, scale, axis }) => {
+export const renderGridLinesToCanvas = (ctx, { width, height, scale, axis, theme }) => {
     const lines = computeGridLines({ width, height, scale, axis })
+
+    ctx.strokeStyle = theme.grid.line.stroke
+    ctx.lineWidth = theme.grid.line.strokeWidth
 
     lines.forEach(line => {
         ctx.beginPath()

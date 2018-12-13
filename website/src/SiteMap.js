@@ -13,6 +13,16 @@ import BarPage from './components/charts/bar/BarPage'
 import Bar from './components/charts/bar/Bar'
 import BarCanvas from './components/charts/bar/BarCanvas'
 import BarAPI from './components/charts/bar/BarAPI'
+import BeeSwarmPage from './components/charts/beeswarm/BeeSwarmPage'
+import BeeSwarm from './components/charts/beeswarm/BeeSwarm'
+import BeeSwarmCanvas from './components/charts/beeswarm/BeeSwarmCanvas'
+import BubblePage from './components/charts/bubble/BubblePage'
+import Bubble from './components/charts/bubble/Bubble'
+import BubbleHtml from './components/charts/bubble/BubbleHtml'
+import BubbleCanvas from './components/charts/bubble/BubbleCanvas'
+import BubbleAPI from './components/charts/bubble/BubbleAPI'
+import BulletPage from './components/charts/bullet/BulletPage'
+import Bullet from './components/charts/bullet/Bullet'
 import HeatMapPage from './components/charts/heatmap/HeatMapPage'
 import HeatMap from './components/charts/heatmap/HeatMap'
 import HeatMapCanvas from './components/charts/heatmap/HeatMapCanvas'
@@ -32,13 +42,6 @@ import PieAPI from './components/charts/pie/PieAPI'
 import RadarPage from './components/charts/radar/RadarPage'
 import Radar from './components/charts/radar/Radar'
 import RadarAPI from './components/charts/radar/RadarAPI'
-import BubblePage from './components/charts/bubble/BubblePage'
-import Bubble from './components/charts/bubble/Bubble'
-import BubbleHtml from './components/charts/bubble/BubbleHtml'
-import BubbleCanvas from './components/charts/bubble/BubbleCanvas'
-import BubbleAPI from './components/charts/bubble/BubbleAPI'
-import BulletPage from './components/charts/bullet/BulletPage'
-import Bullet from './components/charts/bullet/Bullet'
 import SankeyPage from './components/charts/sankey/SankeyPage'
 import Sankey from './components/charts/sankey/Sankey'
 import SankeyAPI from './components/charts/sankey/SankeyAPI'
@@ -107,6 +110,29 @@ const SITEMAP = [
                         label: 'Bar API',
                         component: BarAPI,
                         tags: ['api'],
+                    },
+                ],
+            },
+            {
+                className: 'beeswarm',
+                path: '/beeswarm',
+                label: 'BeeSwarm',
+                component: BeeSwarmPage,
+                children: [
+                    {
+                        className: 'react',
+                        path: '/',
+                        label: 'BeeSwarm',
+                        component: BeeSwarm,
+                        exact: true,
+                        tags: ['svg', 'isomorphic'],
+                    },
+                    {
+                        className: 'canvas',
+                        path: '/canvas',
+                        label: 'BeeSwarmCanvas',
+                        component: BeeSwarmCanvas,
+                        tags: ['canvas'],
                     },
                 ],
             },

@@ -51,18 +51,20 @@ export const renderAxisToCanvas = (
     ctx.textBaseline = textBaseline
     ctx.font = `${theme.axis.ticks.text.fontSize}px sans-serif`
 
-    ctx.lineWidth = theme.axis.domain.line.strokeWidth
-    ctx.lineCap = 'square'
-    ctx.strokeStyle = theme.axis.domain.line.stroke
-    ctx.beginPath()
-    ctx.moveTo(0, 0)
-    ctx.lineTo(axis === 'x' ? length : 0, axis === 'x' ? 0 : length)
-    ctx.stroke()
+    if (theme.axis.domain.line.strokeWidth > 0) {
+        ctx.strokeStyle = theme.axis.domain.line.stroke
+        ctx.lineWidth = theme.axis.domain.line.strokeWidth
+        ctx.lineCap = 'square'
+        ctx.beginPath()
+        ctx.moveTo(0, 0)
+        ctx.lineTo(axis === 'x' ? length : 0, axis === 'x' ? 0 : length)
+        ctx.stroke()
+    }
 
     ticks.forEach(tick => {
+        ctx.strokeStyle = theme.axis.ticks.line.stroke
         ctx.lineWidth = theme.axis.ticks.line.strokeWidth
         ctx.lineCap = 'square'
-        ctx.strokeStyle = theme.axis.ticks.line.stroke
         ctx.beginPath()
         ctx.moveTo(tick.x, tick.y)
         ctx.lineTo(tick.x + tick.lineX, tick.y + tick.lineY)

@@ -21,7 +21,7 @@ export const defaultTheme = {
         },
         ticks: {
             line: {
-                stroke: '#777',
+                stroke: '#777777',
                 strokeWidth: 1,
             },
             text: {
@@ -38,7 +38,7 @@ export const defaultTheme = {
     },
     grid: {
         line: {
-            stroke: '#ddd',
+            stroke: '#dddddd',
             strokeWidth: 1,
         },
     },

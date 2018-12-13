@@ -9,13 +9,13 @@
 import React, { Component } from 'react'
 import Helmet from 'react-helmet'
 
-export default class StreamPage extends Component {
+export default class BeeSwarmPage extends Component {
     render() {
         const { childRoutes } = this.props
 
         return (
             <div className="inner-content">
-                <Helmet title="Stream component" />
+                <Helmet title="BeeSwarm components" />
                 {childRoutes.map(childRoute => {
                     return React.cloneElement(childRoute, {
                         component: null,
