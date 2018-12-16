@@ -8,7 +8,7 @@
  */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { isFunction } from 'lodash'
+import isFunction from 'lodash/isFunction'
 import {
     DIRECTION_LEFT_TO_RIGHT,
     DIRECTION_RIGHT_TO_LEFT,
