@@ -29,11 +29,16 @@ export default ({
     getLabelTextColor,
 
     currentNode,
+    defaultCurrentNode,
     hoverTarget,
     cellHoverOpacity,
     cellHoverOthersOpacity,
 }) => {
     const isHoverTarget = isHoverTargetByType[hoverTarget]
+
+    if (!currentNode && defaultCurrentNode) {
+        currentNode = currentNode || defaultCurrentNode
+    }
 
     return data.reduce((acc, d) => {
         keys.forEach(key => {

@@ -140,6 +140,13 @@ stories.add(
 )
 
 stories.add(
+    'with default highlighted cells',
+    withInfo()(() => (
+        <HeatMap {...commonProperties} defaultCurrentNode={{ xKey: 'donut', yKey: 'AI' }} />
+    ))
+)
+
+stories.add(
     'custom tooltip',
     withInfo()(() => (
         <HeatMap

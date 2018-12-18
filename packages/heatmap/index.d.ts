@@ -47,6 +47,10 @@ declare module '@nivo/heatmap' {
             labelTextColor: string | GetColor<HeatMapDatumWithColor>
 
             isInteractive: boolean
+            defaultCurrentNode: {
+                xKey: NodeData['xKey']
+                yKey: NodeData['yKey']
+            }
             hoverTarget: 'cell' | 'row' | 'column' | 'rowColumn'
             cellHoverOpacity: number
             cellHoverOthersOpacity: number
