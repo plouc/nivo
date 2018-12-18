@@ -78,8 +78,14 @@ Grid.propTypes = {
 
     xScale: PropTypes.func,
     yScale: PropTypes.func,
-    xValues: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])),
-    yValues: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])),
+    xValues: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])),
+    ]),
+    yValues: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])),
+    ]),
 
     theme: PropTypes.object.isRequired,
 

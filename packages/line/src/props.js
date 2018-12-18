@@ -64,8 +64,14 @@ export const LinePropTypes = {
 
     enableGridX: PropTypes.bool.isRequired,
     enableGridY: PropTypes.bool.isRequired,
-    gridXValues: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])),
-    gridYValues: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])),
+    gridXValues: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])),
+    ]),
+    gridYValues: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])),
+    ]),
 
     enableDots: PropTypes.bool.isRequired,
     dotSymbol: PropTypes.func,
