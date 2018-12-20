@@ -57,17 +57,19 @@ const PieSlice = ({
     }
 
     return (
-        <path
-            key={data.id}
-            d={path}
-            fill={fill}
-            strokeWidth={borderWidth}
-            stroke={borderColor}
-            onMouseEnter={handleMouseEnter}
-            onMouseMove={handleTooltip}
-            onMouseLeave={handleMouseLeave}
-            onClick={onClick}
-        />
+        <a href={data.id}>
+            <path
+                key={data.id}
+                d={path}
+                fill={fill}
+                strokeWidth={borderWidth}
+                stroke={borderColor}
+                onMouseEnter={handleMouseEnter}
+                onMouseMove={handleTooltip}
+                onMouseLeave={handleMouseLeave}
+                onClick={onClick}
+            />
+        </a>
     )
 }
 
@@ -98,7 +100,10 @@ PieSlice.propTypes = {
 
 const enhance = compose(
     withPropsOnChange(['data', 'onClick'], ({ data, onClick }) => ({
-        onClick: event => onClick(data, event),
+        onClick: event => {
+            event.preventDefault();
+            return onClick(data, event);
+        },
     })),
     pure
 )
