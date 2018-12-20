@@ -101,8 +101,8 @@ PieSlice.propTypes = {
 const enhance = compose(
     withPropsOnChange(['data', 'onClick'], ({ data, onClick }) => ({
         onClick: event => {
-            event.preventDefault();
-            return onClick(data, event);
+            event.preventDefault()
+            return onClick(data, event)
         },
     })),
     pure
