@@ -76,6 +76,8 @@ declare module '@nivo/sankey' {
         theme: Theme
 
         legends: LegendProps[]
+
+        sort?: (nodeA: SankeyDataNode, nodeB: SankeyDataNode) => number
     }>
 
     interface Dimensions {

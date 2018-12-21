@@ -4946,7 +4946,7 @@ d3-path@1:
   resolved "https://registry.yarnpkg.com/d3-path/-/d3-path-1.0.7.tgz#8de7cd693a75ac0b5480d3abaccd94793e58aae8"
   integrity sha512-q0cW1RpvA5c5ma2rch62mX8AYaiLX0+bdaSM2wxSU9tXjU4DNvkx9qiUvjkuWCj3p22UO/hlPivujqMiR9PDzA==
 
-d3-sankey@^0.7.1:
+"d3-sankey@github:neilrackett/d3-sankey#f2a8cee64cebc0c6690f01474232f44da6dc0ec0":
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/d3-sankey/-/d3-sankey-0.7.1.tgz#d229832268fc69a7fec84803e96c2256a614c521"
   integrity sha1-0imDImj8aaf+yEgD6WwiVqYUxSE=
