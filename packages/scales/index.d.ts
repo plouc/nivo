@@ -13,7 +13,7 @@ declare module '@nivo/scales' {
     export interface TimeScale {
         type: 'time'
         format?: string
-        precision?: 'millisecond' | 'second' | 'minute' | 'hour' | 'month' | 'year'
+        precision?: 'millisecond' | 'second' | 'minute' | 'hour' | 'month' | 'year' | 'day'
     }
 
     export interface LogScale {
