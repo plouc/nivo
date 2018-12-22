@@ -243,7 +243,7 @@ class ScatterPlotCanvas extends Component {
                         style={{
                             width: outerWidth,
                             height: outerHeight,
-                            cursor: isInteractive ? 'crosshair' : 'normal',
+                            cursor: 'normal',
                         }}
                         onMouseEnter={this.handleMouseHover(showTooltip, hideTooltip)}
                         onMouseMove={this.handleMouseHover(showTooltip, hideTooltip)}
