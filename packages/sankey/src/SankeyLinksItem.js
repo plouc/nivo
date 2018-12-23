@@ -59,6 +59,12 @@ const SankeyLinksItem = ({
     path,
     width,
     color,
+
+    //Decouples link colors from node color
+    defaultColor, //If no linear gradient
+    startColor, //Use startColor & endColor if linear gradient
+    endColor,
+
     opacity,
     contract,
     blendMode,
@@ -80,8 +86,8 @@ const SankeyLinksItem = ({
                 x1={link.source.x}
                 x2={link.target.x}
             >
-                <stop offset="0%" stopColor={link.source.color} />
-                <stop offset="100%" stopColor={link.target.color} />
+                <stop offset="0%" stopColor={link.startColor || link.source.color} />
+                <stop offset="100%" stopColor={link.endColor || link.target.color} />
             </linearGradient>
         )}
         <path
@@ -118,6 +124,8 @@ SankeyLinksItem.propTypes = {
     path: PropTypes.string.isRequired,
     width: PropTypes.number.isRequired,
     color: PropTypes.string.isRequired,
+    startColor: PropTypes.string,
+    endColor: PropTypes.string,
     opacity: PropTypes.number.isRequired,
     contract: PropTypes.number.isRequired,
     blendMode: blendModePropType.isRequired,
