@@ -25,41 +25,45 @@ Chip.propTypes = {
     color: PropTypes.string.isRequired,
 }
 
-const LineSlicesItem = ({ slice, height, showTooltip, hideTooltip, isHover }) => (
-    <g transform={`translate(${slice.x}, 0)`}>
-        {isHover && (
-            <line
-                x1={0}
-                x2={0}
-                y1={0}
-                y2={height}
-                stroke="#000"
-                strokeOpacity={0.35}
-                strokeWidth={1}
+const LineSlicesItem = ({ slice, height, width, showTooltip, hideTooltip, isHover, xOffset }) => {
+    return (
+        <g transform={`translate(${slice.x}, 0)`}>
+            {isHover && (
+                <line
+                    x1={0}
+                    x2={0}
+                    y1={0}
+                    y2={height}
+                    stroke="#000"
+                    strokeOpacity={0.35}
+                    strokeWidth={1}
+                />
+            )}
+            <rect
+                x={xOffset}
+                width={width}
+                height={height}
+                fill="#F00"
+                fillOpacity={0}
+                onMouseEnter={showTooltip}
+                onMouseMove={showTooltip}
+                onMouseLeave={hideTooltip}
             />
-        )}
-        <rect
-            x={-20}
-            width={40}
-            height={height}
-            fill="#F00"
-            fillOpacity={0}
-            onMouseEnter={showTooltip}
-            onMouseMove={showTooltip}
-            onMouseLeave={hideTooltip}
-        />
-    </g>
-)
+        </g>
+    );
+}
 
 LineSlicesItem.propTypes = {
     slice: PropTypes.object.isRequired,
     height: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
     isHover: PropTypes.bool.isRequired,
     theme: PropTypes.object.isRequired,
     tooltip: PropTypes.func,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    xOffset: PropTypes.number.isRequired,
 }
 
 const enhance = compose(

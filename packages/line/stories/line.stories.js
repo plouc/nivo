@@ -510,6 +510,61 @@ stories.add(
 )
 
 stories.add(
+    'unevenly spaced data',
+    withInfo()(() => (
+        <Line
+            {...commonProperties}
+            data={[
+                {
+                    id: 'fake corp. A',
+                    data: [
+                        { x: '2018-01-01T12:04:35', y: 7 },
+                        { x: '2018-01-03T12:04:35', y: 5 },
+                        { x: '2018-01-03T17:04:35', y: 11 },
+                        { x: '2018-01-07T12:04:35', y: 9 },
+                        { x: '2018-01-09T12:04:35', y: 12 },
+                        { x: '2018-01-15T12:04:35', y: 16 },
+                        { x: '2018-01-16T12:04:35', y: 13 },
+                        { x: '2018-01-17T12:04:35', y: 13 },
+                    ],
+                },
+                {
+                    id: 'fake corp. B',
+                    data: [
+                        { x: '2018-01-04T12:04:35', y: 14 },
+                        { x: '2018-01-06T12:04:35', y: 14 },
+                        { x: '2018-01-06T18:04:35', y: 15 },
+                        { x: '2018-01-07T12:04:35', y: 11 },
+                        { x: '2018-01-09T12:04:35', y: 10 },
+                        { x: '2018-01-10T12:04:35', y: 12 },
+                        { x: '2018-01-13T12:04:35', y: 9 },
+                        { x: '2018-01-14T12:04:35', y: 7 },
+                    ],
+                },
+            ]}
+            xScale={{
+                type: 'time',
+                format: '%Y-%m-%dT%H:%M:%S',
+                precision: 'second',
+            }}
+            yScale={{
+                type: 'linear',
+                stacked: boolean('stacked', false),
+            }}
+            axisBottom={{
+                format: '%b %d',
+            }}
+            curve={select('curve', curveOptions, 'linear')}
+            enableDotLabel={true}
+            dotSymbol={CustomSymbol}
+            dotSize={16}
+            dotBorderWidth={1}
+            dotBorderColor="inherit:darker(0.3)"
+        />
+    ))
+)
+
+stories.add(
     'custom min/max y',
     withInfo()(() => (
         <Line
