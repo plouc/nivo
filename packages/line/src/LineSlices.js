@@ -21,33 +21,33 @@ class LineSlices extends React.Component {
             theme,
             tooltip,
             tooltipFormat,
-        } = this.props;
+        } = this.props
         // sliceWidth: half the distance from the previous point + half the distance to the next point
-        let sliceWidth;
+        let sliceWidth
         // xOffset: half the distance from the previous point
-        let xOffset;
-        let lineSlicesItems = [];
+        let xOffset
+        let lineSlicesItems = []
         for (let i = 0; i < slices.length; i++) {
-            const currentXPosition = slices[i].data[0].position.x;
-            const previousXPosition = i > 0 ? slices[i - 1].data[0].position.x : null;
-            const nextXPosition = i < slices.length - 1 ? slices[i + 1].data[0].position.x : null;
-            const widthBetweenCurrentAndNext = (nextXPosition - currentXPosition);
-            const widthBetweenPreviousAndCurrent = (currentXPosition - previousXPosition);
+            const currentXPosition = slices[i].data[0].position.x
+            const previousXPosition = i > 0 ? slices[i - 1].data[0].position.x : null
+            const nextXPosition = i < slices.length - 1 ? slices[i + 1].data[0].position.x : null
+            const widthBetweenCurrentAndNext = nextXPosition - currentXPosition
+            const widthBetweenPreviousAndCurrent = currentXPosition - previousXPosition
             // offset: amount to add to the first and last slices' sliceWidths so that the tooltip appears when the
             // mouse is within the offset amount to the left of the first point and to the right of the last point.
-            const offset = 5;
+            const offset = 5
             if (i === 0) {
                 // This is the first slice, which does not have a previous x position
-                sliceWidth = widthBetweenCurrentAndNext / 2 + offset;
-                xOffset = -offset;
+                sliceWidth = widthBetweenCurrentAndNext / 2 + offset
+                xOffset = -offset
             } else if (i === slices.length - 1) {
                 // This is the last slice, which does not have a next x position
-                sliceWidth = widthBetweenPreviousAndCurrent / 2 + offset;
-                xOffset = -widthBetweenPreviousAndCurrent / 2;
+                sliceWidth = widthBetweenPreviousAndCurrent / 2 + offset
+                xOffset = -widthBetweenPreviousAndCurrent / 2
             } else {
                 // This slice is in the middle of the graph
-                sliceWidth = widthBetweenPreviousAndCurrent / 2 + widthBetweenCurrentAndNext / 2;
-                xOffset = -widthBetweenPreviousAndCurrent / 2;
+                sliceWidth = widthBetweenPreviousAndCurrent / 2 + widthBetweenCurrentAndNext / 2
+                xOffset = -widthBetweenPreviousAndCurrent / 2
             }
             lineSlicesItems.push(
                 <LineSlicesItem
@@ -64,7 +64,7 @@ class LineSlices extends React.Component {
                 />
             )
         }
-        return <g>{lineSlicesItems.map(i => i)}</g>;
+        return <g>{lineSlicesItems.map(i => i)}</g>
     }
 }
 

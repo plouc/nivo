@@ -7190,8 +7190,8 @@ exports[`should render a basic line chart 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onMouseMove={[Function]}
-            width={40}
-            x={-20}
+            width={67.5}
+            x={-5}
           />
         </g>
         <g
@@ -7204,8 +7204,8 @@ exports[`should render a basic line chart 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onMouseMove={[Function]}
-            width={40}
-            x={-20}
+            width={125}
+            x={-62.5}
           />
         </g>
         <g
@@ -7218,8 +7218,8 @@ exports[`should render a basic line chart 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onMouseMove={[Function]}
-            width={40}
-            x={-20}
+            width={125}
+            x={-62.5}
           />
         </g>
         <g
@@ -7232,8 +7232,8 @@ exports[`should render a basic line chart 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onMouseMove={[Function]}
-            width={40}
-            x={-20}
+            width={125}
+            x={-62.5}
           />
         </g>
         <g
@@ -7246,8 +7246,8 @@ exports[`should render a basic line chart 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onMouseMove={[Function]}
-            width={40}
-            x={-20}
+            width={67.5}
+            x={-62.5}
           />
         </g>
       </g>
@@ -8174,8 +8174,8 @@ exports[`should support multiple lines 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onMouseMove={[Function]}
-            width={40}
-            x={-20}
+            width={67.5}
+            x={-5}
           />
         </g>
         <g
@@ -8188,8 +8188,8 @@ exports[`should support multiple lines 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onMouseMove={[Function]}
-            width={40}
-            x={-20}
+            width={125}
+            x={-62.5}
           />
         </g>
         <g
@@ -8202,8 +8202,8 @@ exports[`should support multiple lines 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onMouseMove={[Function]}
-            width={40}
-            x={-20}
+            width={125}
+            x={-62.5}
           />
         </g>
         <g
@@ -8216,8 +8216,8 @@ exports[`should support multiple lines 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onMouseMove={[Function]}
-            width={40}
-            x={-20}
+            width={125}
+            x={-62.5}
           />
         </g>
         <g
@@ -8230,8 +8230,8 @@ exports[`should support multiple lines 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onMouseMove={[Function]}
-            width={40}
-            x={-20}
+            width={67.5}
+            x={-62.5}
           />
         </g>
       </g>

@@ -50,7 +50,7 @@ const LineSlicesItem = ({ slice, height, width, showTooltip, hideTooltip, isHove
                 onMouseLeave={hideTooltip}
             />
         </g>
-    );
+    )
 }
 
 LineSlicesItem.propTypes = {
