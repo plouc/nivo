@@ -94,10 +94,10 @@ declare module '@nivo/line' {
 
         theme?: Theme
 
-        axisTop?: AxisProps
-        axisRight?: AxisProps
-        axisBottom?: AxisProps
-        axisLeft?: AxisProps
+        axisTop?: AxisProps | null
+        axisRight?: AxisProps | null
+        axisBottom?: AxisProps | null
+        axisLeft?: AxisProps | null
 
         enableGridX?: boolean
         enableGridY?: boolean
