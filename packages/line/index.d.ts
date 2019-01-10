@@ -1,10 +1,19 @@
 import * as React from 'react'
 import { Dimensions, Box, Theme, MotionProps, ColorProps, CartesianMarkerProps } from '@nivo/core'
 import { LegendProps } from '@nivo/legends'
-import { Scale } from '@nivo/scales'
+import { Scale, ScaleFunc } from '@nivo/scales'
 import { AxisProps } from '@nivo/axes'
 
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
+
 declare module '@nivo/line' {
+    export type TooltipFormatter = (
+        value: {
+            x: string | number | Date
+            y: string | number | Date
+        }
+    ) => string
+
     export interface LineDatum {
         x?: string | number | Date | null
         y?: string | number | Date | null
@@ -30,11 +39,46 @@ declare module '@nivo/line' {
         [key: string]: any
     }
 
+    export interface LineSliceData {
+        id: string | number | Date
+        x: number
+        data: Array<{
+            x?: string | number | Date
+            y?: string | number | Date
+            position: {
+                x: number
+                y: number
+            }
+            serie: LineComputedSerieData
+        }>
+    }
+
+    export enum LineLayerType {
+        Grid = 'grid',
+        Markers = 'markers',
+        Axes = 'axes',
+        Areas = 'areas',
+        Lines = 'lines',
+        Slices = 'slices',
+        Dots = 'dots',
+        Legends = 'legends',
+    }
+
+    export interface LineCustomLayerProps extends Omit<LineSvgProps, 'xScale' | 'yScale'> {
+        xScale: ScaleFunc
+        yScale: ScaleFunc
+    }
+
+    export type LineCustomLayer = (props: LineCustomLayerProps) => React.ReactNode
+    export type Layer = LineLayerType | LineCustomLayer
+
     export interface LineProps extends ColorProps<LineComputedSerieData> {
         data: LineSerieData[]
 
         xScale?: Scale
         yScale?: Scale
+
+        layers?: Layer[]
 
         margin?: Box
 
@@ -74,6 +118,9 @@ declare module '@nivo/line' {
 
         isInteractive?: boolean
         enableStackTooltip?: boolean
+
+        tooltip?: (data: LineSliceData) => React.ReactNode
+        tooltipFormat?: TooltipFormatter
 
         legends?: LegendProps[]
     }
