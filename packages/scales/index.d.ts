@@ -24,4 +24,6 @@ declare module '@nivo/scales' {
     }
 
     export type Scale = LinearScale | PointScale | TimeScale | LogScale
+
+    export type ScaleFunc = (value: string | number | Date) => number
 }
