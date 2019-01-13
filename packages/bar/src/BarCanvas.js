@@ -10,13 +10,13 @@ import React, { Component } from 'react'
 import uniqBy from 'lodash/uniqBy'
 import setDisplayName from 'recompose/setDisplayName'
 import {
-    renderAxesToCanvas,
     getRelativeCursor,
     isCursorInRect,
     Container,
     BasicTooltip,
     renderGridLinesToCanvas,
 } from '@nivo/core'
+import { renderAxesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { generateGroupedBars, generateStackedBars } from './compute'
 import { BarPropTypes } from './props'
