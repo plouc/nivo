@@ -17,6 +17,7 @@ const DotsItem = ({
     y,
     symbol,
     size,
+    datum,
     color,
     borderWidth,
     borderColor,
@@ -29,6 +30,7 @@ const DotsItem = ({
         {React.createElement(symbol, {
             size: size,
             color: color,
+            datum: datum,
             borderWidth: borderWidth,
             borderColor: borderColor,
         })}
@@ -43,6 +45,7 @@ const DotsItem = ({
 DotsItem.propTypes = {
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
+    datum: PropTypes.object.isRequired,
 
     size: PropTypes.number.isRequired,
     color: PropTypes.string.isRequired,
