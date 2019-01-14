@@ -45,6 +45,7 @@ const LineDots = ({
                         key: `${id}.${datum.data.x}`,
                         x: datum.position.x,
                         y: datum.position.y,
+                        datum: datum,
                         fill: color(line),
                         stroke: borderColor(line),
                         label: enableLabel ? getLabel(datum.data) : null,
@@ -61,6 +62,7 @@ const LineDots = ({
                         key={point.key}
                         x={point.x}
                         y={point.y}
+                        datum={point.datum}
                         symbol={symbol}
                         size={size}
                         color={point.fill}
@@ -100,6 +102,7 @@ const LineDots = ({
                             key={key}
                             {...style}
                             symbol={symbol}
+                            datum={point.datum}
                             color={point.fill}
                             borderWidth={borderWidth}
                             borderColor={point.stroke}
