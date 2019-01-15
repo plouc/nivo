@@ -67,6 +67,8 @@ declare module '@nivo/line' {
     export interface LineCustomLayerProps extends Omit<LineSvgProps, 'xScale' | 'yScale'> {
         xScale: ScaleFunc
         yScale: ScaleFunc
+        showTooltip: (tooltip: React.ReactNode, event: React.MouseEvent<SVGPathElement>) => void
+        hideTooltip: () => void
     }
 
     export type LineCustomLayer = (props: LineCustomLayerProps) => React.ReactNode
