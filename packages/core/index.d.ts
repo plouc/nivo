@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react'
+import * as React from 'react'
 
 declare module '@nivo/core' {
     export type GetColor<T> = (datum: T) => string
@@ -12,24 +12,24 @@ declare module '@nivo/core' {
         background: string
         axis: Partial<{
             domain: Partial<{
-                line: Partial<CSSProperties>
+                line: Partial<React.CSSProperties>
             }>
             ticks: Partial<{
-                line: Partial<CSSProperties>
-                text: Partial<CSSProperties>
+                line: Partial<React.CSSProperties>
+                text: Partial<React.CSSProperties>
             }>
             legend: Partial<{
-                text: Partial<CSSProperties>
+                text: Partial<React.CSSProperties>
             }>
         }>
         grid: Partial<{
-            line: Partial<CSSProperties>
+            line: Partial<React.CSSProperties>
         }>
         legends: Partial<{
-            text: Partial<CSSProperties>
+            text: Partial<React.CSSProperties>
         }>
         labels: Partial<{
-            text: Partial<CSSProperties>
+            text: Partial<React.CSSProperties>
         }>
         markers: Partial<{
             lineColor: string
@@ -38,13 +38,13 @@ declare module '@nivo/core' {
             fontSize: string | 0
         }>
         dots: Partial<{
-            text: Partial<CSSProperties>
+            text: Partial<React.CSSProperties>
         }>
         tooltip: Partial<{
-            container: Partial<CSSProperties>
-            basic: Partial<CSSProperties>
-            table: Partial<CSSProperties>
-            tableCell: Partial<CSSProperties>
+            container: Partial<React.CSSProperties>
+            basic: Partial<React.CSSProperties>
+            table: Partial<React.CSSProperties>
+            tableCell: Partial<React.CSSProperties>
         }>
     }>
 
@@ -79,7 +79,28 @@ declare module '@nivo/core' {
         axis: 'x' | 'y'
         value: string | number | Date
         legend?: string
-        lineStyle?: Partial<CSSProperties>
-        textStyle?: Partial<CSSProperties>
+        lineStyle?: Partial<React.CSSProperties>
+        textStyle?: Partial<React.CSSProperties>
     }
+
+    export interface BasicTooltipProps {
+        id: React.ReactNode
+        value?: string | number
+        enableChip?: boolean
+        color: string
+        format?: (value: number | string) => number | string
+        renderContent?: () => React.ReactNode
+        theme: Pick<Theme, 'tooltip'>
+    }
+
+    export class BasicTooltip extends React.Component<BasicTooltipProps> {}
+
+    export interface TableTooltipProps {
+        title?: React.ReactNode
+        rows?: React.ReactNode[]
+        theme: Pick<Theme, 'tooltip'>
+        renderContent?: () => React.ReactNode
+    }
+
+    export class TableTooltip extends React.Component<TableTooltipProps> {}
 }

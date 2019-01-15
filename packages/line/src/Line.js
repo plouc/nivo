@@ -230,6 +230,8 @@ const Line = props => {
                                             ...props,
                                             xScale: computedData.xScale,
                                             yScale: computedData.yScale,
+                                            showTooltip,
+                                            hideTooltip,
                                         })}
                                     </Fragment>
                                 )
