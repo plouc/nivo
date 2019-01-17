@@ -26,15 +26,17 @@ declare module '@nivo/line' {
         [key: string]: any
     }
 
+    export interface LineComputedSerieDatum {
+        position: {
+            x: number
+            y: number
+        }
+        data: LineDatum
+    }
+
     export interface LineComputedSerieData {
         id: string | number
-        data: Array<{
-            position: {
-                x: number
-                y: number
-            }
-            data: LineDatum
-        }>
+        data: LineComputedSerieDatum[]
         color?: string
         [key: string]: any
     }
