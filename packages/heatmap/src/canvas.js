@@ -23,7 +23,7 @@
  */
 export const renderRect = (
     ctx,
-    { enableLabels },
+    { enableLabels, theme },
     { x, y, width, height, color, opacity, labelTextColor, value }
 ) => {
     ctx.save()
@@ -34,6 +34,7 @@ export const renderRect = (
 
     if (enableLabels === true) {
         ctx.fillStyle = labelTextColor
+        ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily || 'sans-serif'}`
         ctx.fillText(value, x, y)
     }
 
@@ -56,7 +57,7 @@ export const renderRect = (
  */
 export const renderCircle = (
     ctx,
-    { enableLabels },
+    { enableLabels, theme },
     { x, y, width, height, color, opacity, labelTextColor, value }
 ) => {
     ctx.save()
@@ -71,6 +72,7 @@ export const renderCircle = (
 
     if (enableLabels === true) {
         ctx.fillStyle = labelTextColor
+        ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily || 'sans-serif'}`
         ctx.fillText(value, x, y)
     }
 
