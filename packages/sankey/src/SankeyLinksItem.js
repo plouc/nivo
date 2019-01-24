@@ -80,8 +80,9 @@ const SankeyLinksItem = ({
                 x1={link.source.x}
                 x2={link.target.x}
             >
-                <stop offset="0%" stopColor={link.source.color} />
-                <stop offset="100%" stopColor={link.target.color} />
+                {/*Use startColor & endColor if want to customize link color gradient*/}
+                <stop offset="0%" stopColor={link.startColor || link.source.color} />
+                <stop offset="100%" stopColor={link.endColor || link.target.color} />
             </linearGradient>
         )}
         <path
