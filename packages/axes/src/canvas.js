@@ -49,8 +49,7 @@ export const renderAxisToCanvas = (
 
     ctx.textAlign = textAlign
     ctx.textBaseline = textBaseline
-    ctx.font = `${theme.axis.ticks.text.fontSize}px ${theme.axis.ticks.text.fontFamily ||
-        'sans-serif'}`
+    ctx.font = `${theme.axis.ticks.text.fontSize}px ${theme.axis.ticks.text.fontFamily}`
 
     ctx.lineWidth = theme.axis.domain.line.strokeWidth
     ctx.lineCap = 'square'

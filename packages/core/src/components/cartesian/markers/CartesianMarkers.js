@@ -41,8 +41,11 @@ CartesianMarkers.propTypes = {
         markers: PropTypes.shape({
             lineColor: PropTypes.string.isRequired,
             lineStrokeWidth: PropTypes.number.isRequired,
-            textColor: PropTypes.string.isRequired,
-            fontSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+            text: PropTypes.shape({
+                fill: PropTypes.string.isRequired,
+                fontFamily: PropTypes.string.isRequired,
+                fontSize: PropTypes.number.isRequired,
+            }).isRequired,
         }).isRequired,
     }).isRequired,
 
