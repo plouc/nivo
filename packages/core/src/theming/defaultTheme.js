@@ -6,12 +6,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-const defaultTextColor = '#333333'
-const defaultFontSize = 11
-
 export const defaultTheme = {
     background: 'transparent',
+    fontFamily: 'sans-serif',
+    fontSize: 11,
+    textColor: '#333333',
     axis: {
         domain: {
             line: {
@@ -21,50 +20,34 @@ export const defaultTheme = {
         },
         ticks: {
             line: {
-                stroke: '#777',
+                stroke: '#777777',
                 strokeWidth: 1,
             },
-            text: {
-                fill: defaultTextColor,
-                fontSize: defaultFontSize,
-            },
+            text: {},
         },
         legend: {
-            text: {
-                fill: defaultTextColor,
-                fontSize: defaultFontSize,
-            },
+            text: {},
         },
     },
     grid: {
         line: {
-            stroke: '#ddd',
+            stroke: '#dddddd',
             strokeWidth: 1,
         },
     },
     legends: {
-        text: {
-            fill: defaultTextColor,
-            fontSize: defaultFontSize,
-        },
+        text: {},
     },
     labels: {
-        text: {
-            fill: defaultTextColor,
-            fontSize: defaultFontSize,
-        },
+        text: {},
     },
     markers: {
-        lineColor: '#000',
+        lineColor: '#000000',
         lineStrokeWidth: 1,
-        textColor: defaultTextColor,
-        fontSize: defaultFontSize,
+        text: {},
     },
     dots: {
-        text: {
-            fill: defaultTextColor,
-            fontSize: defaultFontSize,
-        },
+        text: {},
     },
     tooltip: {
         container: {

@@ -10,8 +10,7 @@ import PropTypes from 'prop-types'
 import compose from 'recompose/compose'
 import setPropTypes from 'recompose/setPropTypes'
 import withPropsOnChange from 'recompose/withPropsOnChange'
-import merge from 'lodash/merge'
-import { defaultTheme } from '../theming'
+import { defaultTheme, extendDefaultTheme } from '../theming'
 
 /**
  * This HOC watch theme prop change
@@ -25,6 +24,6 @@ export default ({ srcKey = 'theme', destKey = 'theme' } = {}) =>
             [srcKey]: PropTypes.object,
         }),
         withPropsOnChange([srcKey], props => ({
-            [destKey]: merge({}, defaultTheme, props[srcKey]),
+            [destKey]: extendDefaultTheme(defaultTheme, props[srcKey]),
         }))
     )

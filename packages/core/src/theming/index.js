@@ -8,3 +8,4 @@
  */
 export * from './propTypes'
 export * from './defaultTheme'
+export * from './extend'

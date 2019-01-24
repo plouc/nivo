@@ -13,12 +13,12 @@ export const darkTheme = {
             },
             text: {
                 fill: '#F00',
+                fontSize: 11,
             },
         },
         legend: {
             text: {
                 fill: '#eee',
-                fontSize: 12,
                 fontWeight: 500,
             },
         },
@@ -30,7 +30,6 @@ export const darkTheme = {
     },
     legends: {
         text: {
-            fontSize: 12,
             fill: '#eee',
         },
     },
@@ -44,19 +43,20 @@ export const darkTheme = {
     labels: {
         text: {
             fill: '#ddd',
-            fontSize: 12,
             fontWeight: 500,
         },
     },
     dots: {
         text: {
             fill: '#bbb',
-            fontSize: 12,
         },
     },
 }
 
 export const lightTheme = {
+    fontFamily: 'consolas, sans-serif',
+    fontSize: 12,
+    textColor: '#555',
     axis: {
         domain: {
             line: {
@@ -70,15 +70,8 @@ export const lightTheme = {
             },
             text: {
                 fill: '#6a7c89',
+                fontSize: 11,
             },
-        },
-        legend: {
-            fill: '#889eae',
-        },
-    },
-    legends: {
-        text: {
-            fontSize: 12,
         },
     },
     tooltip: {
@@ -88,8 +81,6 @@ export const lightTheme = {
     },
     labels: {
         text: {
-            fill: '#555',
-            fontSize: 12,
             fontWeight: 500,
         },
     },

@@ -8,6 +8,12 @@
  */
 import PropTypes from 'prop-types'
 
+const textProps = {
+    fill: PropTypes.string,
+    fontSize: PropTypes.number,
+    fontFamily: PropTypes.string,
+}
+
 export const axisThemePropType = PropTypes.shape({
     domain: PropTypes.shape({
         line: PropTypes.shape({
@@ -22,16 +28,10 @@ export const axisThemePropType = PropTypes.shape({
             strokeWidth: PropTypes.number.isRequired,
             strokeDasharray: PropTypes.string,
         }).isRequired,
-        text: PropTypes.shape({
-            fill: PropTypes.string.isRequired,
-            fontSize: PropTypes.number.isRequired,
-        }).isRequired,
+        text: PropTypes.shape({ ...textProps }).isRequired,
     }).isRequired,
     legend: PropTypes.shape({
-        text: PropTypes.shape({
-            fill: PropTypes.string.isRequired,
-            fontSize: PropTypes.number.isRequired,
-        }).isRequired,
+        text: PropTypes.shape({ ...textProps }).isRequired,
     }).isRequired,
 })
 
@@ -44,31 +44,30 @@ export const gridThemePropType = PropTypes.shape({
 })
 
 export const legendsThemePropType = PropTypes.shape({
-    text: PropTypes.shape({
-        fill: PropTypes.string.isRequired,
-        fontSize: PropTypes.number.isRequired,
-    }).isRequired,
+    text: PropTypes.shape({ ...textProps }).isRequired,
 })
 
 export const labelsThemePropType = PropTypes.shape({
-    text: PropTypes.shape({
-        fill: PropTypes.string.isRequired,
-        fontSize: PropTypes.number.isRequired,
-    }).isRequired,
+    text: PropTypes.shape({ ...textProps }).isRequired,
 })
 
 export const dotsThemePropType = PropTypes.shape({
-    text: PropTypes.shape({
-        fill: PropTypes.string.isRequired,
-        fontSize: PropTypes.number.isRequired,
-    }).isRequired,
+    text: PropTypes.shape({ ...textProps }).isRequired,
+})
+
+export const markersThemePropType = PropTypes.shape({
+    text: PropTypes.shape({ ...textProps }).isRequired,
 })
 
 export const themePropType = PropTypes.shape({
     background: PropTypes.string.isRequired,
+    fontFamily: PropTypes.string.isRequired,
+    fontSize: PropTypes.number.isRequired,
+    textColor: PropTypes.string.isRequired,
     axis: axisThemePropType.isRequired,
     grid: gridThemePropType.isRequired,
     legends: legendsThemePropType.isRequired,
     labels: labelsThemePropType.isRequired,
     dots: dotsThemePropType.isRequired,
+    markers: markersThemePropType,
 })

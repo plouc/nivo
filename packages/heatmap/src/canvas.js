@@ -34,7 +34,7 @@ export const renderRect = (
 
     if (enableLabels === true) {
         ctx.fillStyle = labelTextColor
-        ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily || 'sans-serif'}`
+        ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
         ctx.fillText(value, x, y)
     }
 
@@ -72,7 +72,7 @@ export const renderCircle = (
 
     if (enableLabels === true) {
         ctx.fillStyle = labelTextColor
-        ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily || 'sans-serif'}`
+        ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
         ctx.fillText(value, x, y)
     }
 

@@ -89,8 +89,7 @@ class BubbleCanvas extends Component {
         if (enableLabel) {
             this.ctx.textAlign = 'center'
             this.ctx.textBaseline = 'middle'
-            this.ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily ||
-                'sans-serif'}`
+            this.ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
 
             // draw labels on top
             nodes.filter(({ r }) => r > labelSkipRadius).forEach(node => {

@@ -16,7 +16,7 @@ export const drawSliceLabels = (
 ) => {
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
-    ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily || 'sans-serif'}`
+    ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
 
     arcs.filter(arc => skipAngle === 0 || arc.angleDeg > skipAngle).forEach(arc => {
         const [centroidX, centroidY] = arcGenerator.centroid(arc)
@@ -60,7 +60,7 @@ export const drawRadialLabels = (
     })
 
     ctx.textBaseline = 'middle'
-    ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily || 'sans-serif'}`
+    ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
 
     radialLabels.forEach(label => {
         const dataWithColor = {
