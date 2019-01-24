@@ -8,7 +8,7 @@
  */
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { BeeSwarmDefaultProps as defaults } from '@nivo/beeswarm'
+import { BeeSwarmSvgDefaultProps as defaults } from '@nivo/beeswarm'
 import {
     marginProperties,
     axesProperties,

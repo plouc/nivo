@@ -9,7 +9,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
-import { ResponsiveBeeSwarmCanvas, BeeSwarmDefaultProps } from '@nivo/beeswarm'
+import { ResponsiveBeeSwarmCanvas, BeeSwarmCanvasDefaultProps } from '@nivo/beeswarm'
 import ChartHeader from '../../ChartHeader'
 import ChartTabs from '../../ChartTabs'
 import BeeSwarmControls from './BeeSwarmControls'
@@ -84,7 +84,7 @@ export default class BeeSwarmCanvas extends Component {
             },
             {
                 pkg: '@nivo/beeswarm',
-                defaults: BeeSwarmDefaultProps,
+                defaults: BeeSwarmCanvasDefaultProps,
             }
         )
 

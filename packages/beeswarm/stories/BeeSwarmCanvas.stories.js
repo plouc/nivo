@@ -77,7 +77,7 @@ const stories = storiesOf('BeeSwarmCanvas', module)
 
 const importStatement = `
 ~~~javascript
-import { BeeSwarmCanvas } from '@nivo/swarm'
+import { BeeSwarmCanvas } from '@nivo/beeswarm'
 ~~~
 `
 

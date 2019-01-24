@@ -175,6 +175,7 @@ class ScatterPlotCanvas extends Component {
                 height,
                 scale: xScale,
                 axis: 'x',
+                theme
             })
         enableGridY &&
             renderGridLinesToCanvas(this.ctx, {
@@ -182,6 +183,7 @@ class ScatterPlotCanvas extends Component {
                 height,
                 scale: yScale,
                 axis: 'y',
+                theme
             })
 
         this.ctx.strokeStyle = '#000000'

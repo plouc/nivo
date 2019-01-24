@@ -9,7 +9,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
-import { ResponsiveBeeSwarm, BeeSwarmDefaultProps } from '@nivo/beeswarm'
+import { ResponsiveBeeSwarm, BeeSwarmSvgDefaultProps } from '@nivo/beeswarm'
 import ChartHeader from '../../ChartHeader'
 import ChartTabs from '../../ChartTabs'
 import BeeSwarmControls from './BeeSwarmControls'
@@ -27,9 +27,9 @@ export default class BeeSwarm extends Component {
         data: generateLightDataSet(),
         settings: {
             layout: 'horizontal',
-            gap: BeeSwarmDefaultProps.gap,
-            colors: BeeSwarmDefaultProps.colors,
-            colorBy: BeeSwarmDefaultProps.colorBy,
+            gap: BeeSwarmSvgDefaultProps.gap,
+            colors: BeeSwarmSvgDefaultProps.colors,
+            colorBy: BeeSwarmSvgDefaultProps.colorBy,
             nodeSize: 10,
             nodePadding: 8,
             borderWidth: 1,
@@ -147,7 +147,7 @@ export default class BeeSwarm extends Component {
             },
             {
                 pkg: '@nivo/beeswarm',
-                defaults: BeeSwarmDefaultProps,
+                defaults: BeeSwarmSvgDefaultProps,
             }
         )
 

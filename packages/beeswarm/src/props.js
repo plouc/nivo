@@ -7,12 +7,12 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
-import { noop } from '@nivo/core'
 import { axisPropType } from '@nivo/axes'
 // import { LegendPropShape } from '@nivo/legends'
 import { scalePropType } from '@nivo/scales'
+import { BeeSwarmNode } from './BeeSwarmNode'
 
-export const BeeSwarmPropTypes = {
+export const commonBeeSwarmPropTypes = {
     data: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
@@ -46,6 +46,7 @@ export const BeeSwarmPropTypes = {
         PropTypes.oneOfType([PropTypes.oneOf(['grid', 'axes', 'nodes']), PropTypes.func])
     ).isRequired,
     gap: PropTypes.number.isRequired,
+    renderNode: PropTypes.func.isRequired,
     nodeSize: PropTypes.number.isRequired,
     nodePadding: PropTypes.number.isRequired,
     borderWidth: PropTypes.number.isRequired,
@@ -61,7 +62,6 @@ export const BeeSwarmPropTypes = {
     onMouseMove: PropTypes.func,
     onMouseLeave: PropTypes.func,
     onClick: PropTypes.func,
-    pixelRatio: PropTypes.number.isRequired,
 
     // injected by enhancer
     xScale: PropTypes.func,
@@ -78,7 +78,17 @@ export const BeeSwarmPropTypes = {
     */
 }
 
-export const BeeSwarmDefaultProps = {
+export const BeeSwarmSvgPropTypes = {
+    ...commonBeeSwarmPropTypes,
+    renderNode: PropTypes.func.isRequired,
+}
+
+export const BeeSwarmCanvasPropTypes = {
+    ...commonBeeSwarmPropTypes,
+    pixelRatio: PropTypes.number.isRequired,
+}
+
+const commontBeeSwarmDefaultProps = {
     scale: {
         type: 'linear',
         min: 0,
@@ -101,12 +111,26 @@ export const BeeSwarmDefaultProps = {
     enableGridX: true,
     enableGridY: false,
     isInteractive: true,
-    pixelRatio:
-        global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
     /*
     useMesh: false,
     debugMesh: false,
     enableStackTooltip: true,
     legends: [],
     */
+}
+
+export const BeeSwarmSvgDefaultProps = {
+    ...commontBeeSwarmDefaultProps,
+    renderNode: BeeSwarmNode,
+}
+
+export const BeeSwarmCanvasDefaultProps = {
+    ...commontBeeSwarmDefaultProps,
+    renderNode: (ctx, { x, y, color, size }) => {
+        ctx.beginPath()
+        ctx.arc(x, y, size / 2, 0, 2 * Math.PI)
+        ctx.fillStyle = color
+        ctx.fill()
+    },
+    pixelRatio: global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
 }

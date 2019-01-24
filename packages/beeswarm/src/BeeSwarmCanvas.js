@@ -11,11 +11,11 @@ import { renderGridLinesToCanvas, getRelativeCursor, isCursorInRect, Container }
 import { renderAxesToCanvas } from '@nivo/axes'
 // import { renderLegendToCanvas } from '@nivo/legends'
 // import { renderVoronoiToCanvas, renderVoronoiCellToCanvas } from '@nivo/voronoi'
-import { BeeSwarmPropTypes } from './props'
-import { enhance } from './enhance'
+import { BeeSwarmCanvasPropTypes } from './props'
+import { enhanceCanvas } from './enhance'
 
 class BeeSwarmCanvasImplementation extends Component {
-    static propTypes = BeeSwarmPropTypes
+    static propTypes = BeeSwarmCanvasPropTypes
 
     state = {}
 
@@ -107,9 +107,12 @@ class BeeSwarmCanvasImplementation extends Component {
     draw(props) {
         const {
             nodes,
+            renderNode,
             xScale,
             yScale,
             nodeSize,
+            borderWidth,
+            getBorderColor,
             width,
             height,
             outerWidth,
@@ -170,10 +173,15 @@ class BeeSwarmCanvasImplementation extends Component {
         })
 
         nodes.forEach(node => {
-            this.ctx.beginPath()
-            this.ctx.arc(node.x, node.y, nodeSize / 2, 0, 2 * Math.PI)
-            this.ctx.fillStyle = getColor(node)
-            this.ctx.fill()
+            renderNode(this.ctx, {
+                node,
+                x: node.x,
+                y: node.y,
+                size: nodeSize,
+                color: node.color,
+                borderWidth,
+                borderColor: getBorderColor(node),
+            })
         })
 
         /*
@@ -232,4 +240,4 @@ class BeeSwarmCanvasImplementation extends Component {
 
 BeeSwarmCanvasImplementation.displayName = 'BeeSwarmCanvas'
 
-export const BeeSwarmCanvas = enhance(BeeSwarmCanvasImplementation)
+export const BeeSwarmCanvas = enhanceCanvas(BeeSwarmCanvasImplementation)

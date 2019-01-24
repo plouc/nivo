@@ -18,30 +18,43 @@ import {
     withColors,
     getInheritedColorGenerator,
 } from '@nivo/core'
-import { BeeSwarmDefaultProps } from './props'
+import { BeeSwarmSvgDefaultProps, BeeSwarmCanvasDefaultProps } from './props'
 import { computeBeeSwarmNodes } from './compute'
 
-export const enhance = Component =>
+const commonEnhancers = [
+    withTheme(),
+    withDimensions(),
+    withColors(),
+    withMotion(),
+    withPropsOnChange(
+        ['data', 'layout', 'scale', 'width', 'height', 'gap', 'nodeSize', 'nodePadding'],
+        computeBeeSwarmNodes
+    ),
+    withPropsOnChange(['nodes', 'getColor'], ({ nodes, getColor }) => ({
+        nodes: nodes.map(n => ({
+            ...n,
+            color: getColor(n),
+        })),
+    })),
+    withPropsOnChange(['borderColor'], ({ borderColor }) => ({
+        getBorderColor: getInheritedColorGenerator(borderColor),
+    })),
+]
+
+export const enhanceSvg = Component =>
     setDisplayName(Component.displayName)(
         compose(
-            defaultProps(BeeSwarmDefaultProps),
-            withTheme(),
-            withDimensions(),
-            withColors(),
-            withMotion(),
-            withPropsOnChange(
-                ['data', 'layout', 'scale', 'width', 'height', 'gap', 'nodeSize', 'nodePadding'],
-                computeBeeSwarmNodes
-            ),
-            withPropsOnChange(['nodes', 'getColor'], ({ nodes, getColor }) => ({
-                nodes: nodes.map(n => ({
-                    ...n,
-                    color: getColor(n),
-                })),
-            })),
-            withPropsOnChange(['borderColor'], ({ borderColor }) => ({
-                getBorderColor: getInheritedColorGenerator(borderColor),
-            })),
+            defaultProps(BeeSwarmSvgDefaultProps),
+            ...commonEnhancers,
+            pure
+        )(Component)
+    )
+
+export const enhanceCanvas = Component =>
+    setDisplayName(Component.displayName)(
+        compose(
+            defaultProps(BeeSwarmCanvasDefaultProps),
+            ...commonEnhancers,
             pure
         )(Component)
     )

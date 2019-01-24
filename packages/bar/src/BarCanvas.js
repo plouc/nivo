@@ -123,6 +123,7 @@ class BarCanvas extends Component {
                 height,
                 scale: result.xScale,
                 axis: 'x',
+                theme
             })
         enableGridY &&
             renderGridLinesToCanvas(this.ctx, {
@@ -130,6 +131,7 @@ class BarCanvas extends Component {
                 height,
                 scale: result.yScale,
                 axis: 'y',
+                theme
             })
 
         this.ctx.strokeStyle = '#dddddd'

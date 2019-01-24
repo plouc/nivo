@@ -10,18 +10,20 @@ import React, { Component, Fragment } from 'react'
 import { TransitionMotion, spring } from 'react-motion'
 import { Grid, Container, SvgWrapper } from '@nivo/core'
 import { Axes } from '@nivo/axes'
-import { BeeSwarmPropTypes } from './props'
-import { enhance } from './enhance'
-import { BeeSwarmNode } from './BeeSwarmNode'
+import { BeeSwarmSvgPropTypes } from './props'
+import { enhanceSvg } from './enhance'
 import { BeeSwarmTooltip } from './BeeSwarmTooltip'
 
 class BeeSwarmSvg extends Component {
-    static propTypes = BeeSwarmPropTypes
+    static propTypes = BeeSwarmSvgPropTypes
 
     showTooltip = (showTooltip, node, event) => {
         const { tooltipFormat, tooltip, theme } = this.props
 
-        showTooltip(<BeeSwarmTooltip node={node} theme={theme} />, event)
+        showTooltip(
+            <BeeSwarmTooltip node={node} theme={theme} format={tooltipFormat} tooltip={tooltip} />,
+            event
+        )
     }
 
     handleMouseEnter = showTooltip => node => event => {
@@ -58,6 +60,7 @@ class BeeSwarmSvg extends Component {
     render() {
         const {
             nodes: rawNodes,
+            renderNode,
             nodeSize,
             xScale,
             yScale,
@@ -151,16 +154,17 @@ class BeeSwarmSvg extends Component {
                                 {interpolatedStyles => (
                                     <Fragment>
                                         {interpolatedStyles.map(({ key, style, data }) => (
-                                            <BeeSwarmNode
-                                                key={key}
-                                                x={style.x}
-                                                y={style.y}
-                                                size={style.size}
-                                                color={data.node.color}
-                                                borderWidth={borderWidth}
-                                                borderColor={getBorderColor(data.node)}
-                                                {...data}
-                                            />
+                                            <Fragment key={key}>
+                                                {renderNode({
+                                                    x: style.x,
+                                                    y: style.y,
+                                                    size: style.size,
+                                                    color: data.node.color,
+                                                    borderWidth: borderWidth,
+                                                    borderColor: getBorderColor(data.node),
+                                                    ...data
+                                                })}
+                                            </Fragment>
                                         ))}
                                     </Fragment>
                                 )}
@@ -170,20 +174,21 @@ class BeeSwarmSvg extends Component {
                         layerById.nodes = (
                             <Fragment key="nodes">
                                 {rawNodes.map(node => (
-                                    <BeeSwarmNode
-                                        key={node.id}
-                                        node={node}
-                                        x={node.x}
-                                        y={node.y}
-                                        size={nodeSize}
-                                        color={node.color}
-                                        borderWidth={borderWidth}
-                                        borderColor={getBorderColor(node)}
-                                        onMouseEnter={onMouseEnter(node)}
-                                        onMouseMove={onMouseMove(node)}
-                                        onMouseLeave={onMouseLeave(node)}
-                                        onClick={this.handleClick(node)}
-                                    />
+                                    <Fragment key={node.id}>
+                                        {renderNode({
+                                            node,
+                                            x: node.x,
+                                            y: node.y,
+                                            size: nodeSize,
+                                            color: node.color,
+                                            borderWidth,
+                                            borderColor: getBorderColor(node),
+                                            onMouseEnter: onMouseEnter(node),
+                                            onMouseMove: onMouseMove(node),
+                                            onMouseLeave: onMouseLeave(node),
+                                            onClick: this.handleClick(node),
+                                        })}
+                                    </Fragment>
                                 ))}
                             </Fragment>
                         )
@@ -213,4 +218,4 @@ class BeeSwarmSvg extends Component {
 
 BeeSwarmSvg.displayName = 'BeeSwarm'
 
-export const BeeSwarm = enhance(BeeSwarmSvg)
+export const BeeSwarm = enhanceSvg(BeeSwarmSvg)

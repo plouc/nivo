@@ -29,7 +29,7 @@
 @import 'mq.css';
 
 svg {
-    shape-rendering: auto; /* optimizeSpeed */
+    shape-rendering: crispEdges; /* optimizeSpeed */
 }
 
 html,
