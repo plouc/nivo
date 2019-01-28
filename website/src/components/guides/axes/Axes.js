@@ -17,7 +17,7 @@ export default class Axes extends Component {
     render() {
         return (
             <div className="inner-content">
-                <Helmet title="Gradients" />
+                <Helmet title="Axes" />
                 <div className="page_content">
                     <div className="guide__header">
                         <h1 className="page_header">Axes</h1>
