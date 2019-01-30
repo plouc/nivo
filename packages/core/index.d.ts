@@ -97,7 +97,7 @@ declare module '@nivo/core' {
 
     export interface TableTooltipProps {
         title?: React.ReactNode
-        rows?: React.ReactNode[]
+        rows: React.ReactNode[][]
         theme: Pick<Theme, 'tooltip'>
         renderContent?: () => React.ReactNode
     }

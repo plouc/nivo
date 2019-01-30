@@ -7,12 +7,7 @@ import { AxisProps } from '@nivo/axes'
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
 declare module '@nivo/line' {
-    export type TooltipFormatter = (
-        value: {
-            x: string | number | Date
-            y: string | number | Date
-        }
-    ) => string
+    export type TooltipFormatter = (value: string | number | Date) => React.ReactNode
 
     export interface LineDatum {
         x?: string | number | Date | null
@@ -26,15 +21,17 @@ declare module '@nivo/line' {
         [key: string]: any
     }
 
+    export interface LineComputedSerieDatum {
+        position: {
+            x: number
+            y: number
+        }
+        data: LineDatum
+    }
+
     export interface LineComputedSerieData {
         id: string | number
-        data: Array<{
-            position: {
-                x: number
-                y: number
-            }
-            data: LineDatum
-        }>
+        data: LineComputedSerieDatum[]
         color?: string
         [key: string]: any
     }
@@ -122,7 +119,7 @@ declare module '@nivo/line' {
         enableStackTooltip?: boolean
 
         tooltip?: (data: LineSliceData) => React.ReactNode
-        tooltipFormat?: TooltipFormatter
+        tooltipFormat?: TooltipFormatter | string
 
         legends?: LegendProps[]
     }
