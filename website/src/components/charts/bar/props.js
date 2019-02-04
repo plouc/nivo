@@ -324,6 +324,24 @@ export default [
         controlGroup: 'Labels',
     },
     {
+        key: 'labelFormat',
+        scopes: '*',
+        description: (
+            <span>
+                how to format label,{' '}
+                <a
+                    href="https://github.com/d3/d3-format/blob/master/README.md#format"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    see d3.format() documentation
+                </a>
+                .
+            </span>
+        ),
+        type: '{string|Function}',
+    },
+    {
         key: 'labelSkipWidth',
         scopes: '*',
         description: 'Skip label if bar width is lower than provided value, ignored if 0 (px).',
