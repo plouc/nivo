@@ -28,6 +28,7 @@
     "@nivo/treemap": "0.52.1",
     "@nivo/voronoi": "0.52.1",
     "@nivo/waffle": "0.52.1",
+    "babel-polyfill": "^6.26.0",
     "classnames": "2.2.4",
     "d3-scale": "^2.1.2",
     "d3-scale-chromatic": "^1.3.3",
