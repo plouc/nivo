@@ -100,7 +100,7 @@ export const generateVerticalStackedBars = ({
                     barHeight -= innerPadding
                 }
 
-                if (barHeight > 0) {
+                if (barHeight >= 0) {
                     const barData = {
                         id: stackedDataItem.key,
                         value: d.data[stackedDataItem.key],
@@ -194,7 +194,7 @@ export const generateHorizontalStackedBars = ({
                     barWidth -= innerPadding
                 }
 
-                if (barWidth > 0) {
+                if (barWidth >= 0) {
                     bars.push({
                         key: `${stackedDataItem.key}.${index}`,
                         data: barData,
