@@ -1,6 +1,6 @@
 {
   "name": "@nivo/parallel-coordinates",
-  "version": "0.52.1",
+  "version": "0.52.2",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -24,8 +24,8 @@
     "umd/"
   ],
   "dependencies": {
-    "@nivo/axes": "0.52.1",
-    "@nivo/core": "0.52.1",
+    "@nivo/axes": "0.52.2",
+    "@nivo/core": "0.52.2",
     "d3-scale": "^2.1.2",
     "d3-shape": "^1.2.2",
     "react-motion": "^0.5.2",

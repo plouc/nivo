@@ -1,6 +1,6 @@
 {
   "name": "@nivo/voronoi",
-  "version": "0.52.1",
+  "version": "0.52.2",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -23,7 +23,7 @@
     "umd/"
   ],
   "dependencies": {
-    "@nivo/core": "0.52.1",
+    "@nivo/core": "0.52.2",
     "d3-delaunay": "^4.1.5",
     "d3-scale": "^2.1.2",
     "recompose": "^0.26.0"
