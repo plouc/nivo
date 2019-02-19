@@ -64,6 +64,11 @@ const Faq = () => (
                     </Link>{' '}
                     which are able to handle pretty large ones.
                 </p>
+                <h4>My component isn't rendering</h4>
+                <p>
+                    Check if the parent have a define height, otherwise the responsive component
+                    won't be able to render.
+                </p>
             </div>
         </div>
     </div>
