@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import 'babel-polyfill';
+import ' babel-polyfill'
 import './styles/index.css'
 import './polyfills'
 import React, { Component } from 'react'
