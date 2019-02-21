@@ -157,7 +157,7 @@ const enhance = compose(
     })),
     withPropsOnChange(
         ['data', 'partition', 'getIdentity', 'getChildColor'],
-        ({ data, partition, getIdentity, getColor, getChildColor }) => {
+        ({ data, partition, getIdentity, getColor, childColor, getChildColor }) => {
             const total = data.value
 
             const nodes = sortBy(partition(cloneDeep(data)).descendants(), 'depth')
@@ -175,7 +175,7 @@ const enhance = compose(
                     ancestor,
                 })
 
-                if (node.depth === 1) {
+                if (node.depth === 1 || childColor === 'noinherit') {
                     node.data.color = getColor(node.data)
                 } else if (node.depth > 1) {
                     node.data.color = getChildColor(node.parent.data)

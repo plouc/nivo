@@ -24,3 +24,8 @@ stories.add(
     'with child color modifier',
     withInfo()(() => <Sunburst {...commonProperties} childColor="inherit:brighter(0.13)" />)
 )
+
+stories.add(
+    'with child colors independent of parent',
+    withInfo()(() => <Sunburst {...commonProperties} childColor="noinherit" />)
+)
