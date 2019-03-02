@@ -27,7 +27,7 @@ export default class AxesLegend extends Component {
                     <p>
                         Legend position is controlled by two properties, <code>legendPosition</code>{' '}
                         and <code>legendOffset</code>.<code>legendPosition</code> must be one of:{' '}
-                        <code>start</code>, <code>center</code> or <code>end</code>,{' '}
+                        <code>start</code>, <code>middle</code> or <code>end</code>,{' '}
                         <code>legendOffset</code> will affect y position for <strong>top</strong>{' '}
                         and <strong>bottom</strong> axes and x position for <strong>left</strong>{' '}
                         and <strong>right</strong> axes.
