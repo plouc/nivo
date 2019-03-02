@@ -123,7 +123,7 @@ declare module '@nivo/bar' {
         format: string | LabelFormatter
         legend: string
         legendOffset: number
-        legendPosition: 'start' | 'center' | 'end'
+        legendPosition: 'start' | 'middle' | 'end'
         orient: 'top' | 'right' | 'bottom' | 'left'
         tickPadding: number
         tickRotation: number
