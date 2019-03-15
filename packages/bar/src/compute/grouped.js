@@ -55,6 +55,7 @@ export const getGroupedScale = (data, keys, _minValue, _maxValue, range) => {
  * @param {Function}       getColor
  * @param {number}         [padding=0]
  * @param {number}         [innerPadding=0]
+ * @param {number}         minBarLength
  * @return {{ xScale: Function, yScale: Function, bars: Array.<Object> }}
  */
 export const generateVerticalGroupedBars = ({
@@ -69,6 +70,7 @@ export const generateVerticalGroupedBars = ({
     getColor,
     padding = 0,
     innerPadding = 0,
+    minBarLength
 }) => {
     const xScale = getIndexedScale(data, getIndex, [0, width], padding)
     const yRange = reverse ? [0, height] : [height, 0]
@@ -89,8 +91,13 @@ export const generateVerticalGroupedBars = ({
         keys.forEach((key, i) => {
             range(xScale.domain().length).forEach(index => {
                 const x = xScale(getIndex(data[index])) + barWidth * i + innerPadding * i
-                const y = getY(data[index][key])
-                const barHeight = getHeight(data[index][key], y)
+                let y = getY(data[index][key])
+                let barHeight = getHeight(data[index][key], y)
+
+                if (minBarLength && minBarLength > 0 && barHeight < minBarLength) {
+                    y = height - minBarLength
+                    barHeight = minBarLength
+                }
 
                 if (barWidth > 0 && barHeight > 0) {
                     const barData = {
@@ -132,6 +139,7 @@ export const generateVerticalGroupedBars = ({
  * @param {Function}       getColor
  * @param {number}         [padding=0]
  * @param {number}         [innerPadding=0]
+ * @param {number}         minBarLength
  * @return {{ xScale: Function, yScale: Function, bars: Array.<Object> }}
  */
 export const generateHorizontalGroupedBars = ({
@@ -146,6 +154,7 @@ export const generateHorizontalGroupedBars = ({
     getColor,
     padding = 0,
     innerPadding = 0,
+    minBarLength
 }) => {
     const xRange = reverse ? [width, 0] : [0, width]
     const xScale = getGroupedScale(data, keys, minValue, maxValue, xRange)
@@ -167,7 +176,11 @@ export const generateHorizontalGroupedBars = ({
             range(yScale.domain().length).forEach(index => {
                 const x = getX(data[index][key])
                 const y = yScale(getIndex(data[index])) + barHeight * i + innerPadding * i
-                const barWidth = getWidth(data[index][key], x)
+                let barWidth = getWidth(data[index][key], x)
+
+                if (minBarLength && minBarLength > 0 && barWidth < minBarLength) {
+                    barWidth = minBarLength
+                }
 
                 if (barWidth > 0) {
                     const barData = {

@@ -117,6 +117,8 @@ declare module '@nivo/bar' {
             legends: Array<{ dataFrom: 'indexes' | 'keys' } & LegendProps>
 
             markers: CartesianMarkerProps[]
+
+            minBarLength: number
         }>
 
     export type Axis = Partial<{
