@@ -94,7 +94,7 @@ export const generateVerticalGroupedBars = ({
                 let y = getY(data[index][key])
                 let barHeight = getHeight(data[index][key], y)
 
-                if (minBarLength && minBarLength > 0 && barHeight < minBarLength) {
+                if (minBarLength && minBarLength > 0 && barHeight < minBarLength && 0 !== data[index][key]) {
                     y = height - minBarLength
                     barHeight = minBarLength
                 }
@@ -178,7 +178,7 @@ export const generateHorizontalGroupedBars = ({
                 const y = yScale(getIndex(data[index])) + barHeight * i + innerPadding * i
                 let barWidth = getWidth(data[index][key], x)
 
-                if (minBarLength && minBarLength > 0 && barWidth < minBarLength) {
+                if (minBarLength && minBarLength > 0 && barWidth < minBarLength && 0 !== data[index][key]) {
                     barWidth = minBarLength
                 }
 

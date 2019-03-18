@@ -99,7 +99,7 @@ export const generateVerticalStackedBars = ({
                 let barHeight = getHeight(d, y)
 
                 //If bar has no data value associated, barData.value will be undefined or 0
-                const doesBarHaveData = d.data[stackedDataItem.key] 
+                const doesBarHaveData = d.data[stackedDataItem.key]
                 //If minBarLength prop is specified, valid data exists for the bar, and it's calculated length is less than the minBarLength specified
                 if ( minBarLength && minBarLength > 0 && doesBarHaveData && barHeight < minBarLength) {
                     const minY = height - ((stackedDataItem.index + 1) * minBarLength)
@@ -206,9 +206,9 @@ export const generateHorizontalStackedBars = ({
                 let x = getX(d)
                 let barWidth = getWidth(d, x)
 
-                //If bar has no data value associated, barData.value will be undefined or 0
-                const doesBarHaveData = barData.value 
-                //If minBarLength prop is specified, valid data exists for the bar, and it's calculated length is less than the minBarLength specified
+                //If bar has no data value associated, barData.value will be undefined or 0, also make sure the data existing for it is not 0
+                const doesBarHaveData = d.data[stackedDataItem.key] 
+                //If minBarLength prop is specified, valid data that is greater than 0 exists for the bar, and it's calculated length is less than the minBarLength specified
                 if ( minBarLength && minBarLength > 0 && doesBarHaveData && barWidth < minBarLength) {
                     const minX = stackedDataItem.index * minBarLength
                     if (x < minX) {
