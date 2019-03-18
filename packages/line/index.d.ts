@@ -40,8 +40,10 @@ declare module '@nivo/line' {
         id: string | number | Date
         x: number
         data: Array<{
-            x?: string | number | Date
-            y?: string | number | Date
+            data: {
+                x?: string | number | Date
+                y?: string | number | Date
+            }
             position: {
                 x: number
                 y: number
