@@ -1,8 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withInfo } from '@storybook/addon-info'
 import { generateLibTree } from '@nivo/generators'
-import { BubbleHtml } from '../index'
+import { BubbleHtml } from '../src'
 
 const commonProperties = {
     width: 900,
@@ -15,42 +14,32 @@ const commonProperties = {
 }
 
 storiesOf('BubbleHtml', module)
-    .addDecorator(story => <div className="wrapper">{story()}</div>)
-    .add('default', withInfo()(() => <BubbleHtml {...commonProperties} />))
-    .add(
-        'rendering leaves only',
-        withInfo()(() => <BubbleHtml {...commonProperties} leavesOnly={true} />)
-    )
-    .add(
-        'with formatted values',
-        withInfo()(() => (
-            <BubbleHtml
-                {...commonProperties}
-                tooltipFormat={value =>
-                    `${Number(value).toLocaleString('ru-RU', {
-                        minimumFractionDigits: 2,
-                    })} ₽`
-                }
-            />
-        ))
-    )
-    .add(
-        'custom tooltip',
-        withInfo()(() => (
-            <BubbleHtml
-                {...commonProperties}
-                tooltip={({ id, value, color }) => (
-                    <strong style={{ color }}>
-                        {id}: {value}
-                    </strong>
-                )}
-                theme={{
-                    tooltip: {
-                        container: {
-                            background: '#333',
-                        },
+    .add('default', () => <BubbleHtml {...commonProperties} />)
+    .add('rendering leaves only', () => <BubbleHtml {...commonProperties} leavesOnly={true} />)
+    .add('with formatted values', () => (
+        <BubbleHtml
+            {...commonProperties}
+            tooltipFormat={value =>
+                `${Number(value).toLocaleString('ru-RU', {
+                    minimumFractionDigits: 2,
+                })} ₽`
+            }
+        />
+    ))
+    .add('custom tooltip', () => (
+        <BubbleHtml
+            {...commonProperties}
+            tooltip={({ id, value, color }) => (
+                <strong style={{ color }}>
+                    {id}: {value}
+                </strong>
+            )}
+            theme={{
+                tooltip: {
+                    container: {
+                        background: '#333',
                     },
-                }}
-            />
-        ))
-    )
+                },
+            }}
+        />
+    ))

@@ -1,7 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withInfo } from '@storybook/addon-info'
-import { WaffleHtml } from '../index'
+import { WaffleHtml } from '../src'
 import CustomTooltip from './CustomTooltip'
 
 const total = 200
@@ -30,28 +29,22 @@ const commonProps = {
 
 const stories = storiesOf('WaffleHtml', module)
 
-stories.add('default', withInfo()(() => <WaffleHtml {...commonProps} />))
+stories.add('default', () => <WaffleHtml {...commonProps} />)
 
-stories.add('colors', withInfo()(() => <WaffleHtml {...commonProps} colors="category10" />))
+stories.add('colors', () => <WaffleHtml {...commonProps} colors="category10" />)
 
-stories.add(
-    'using data color',
-    withInfo()(() => <WaffleHtml {...commonProps} colorBy={d => d.color} />)
-)
+stories.add('using data color', () => <WaffleHtml {...commonProps} colorBy={d => d.color} />)
 
-stories.add(
-    'fill direction',
-    withInfo()(() => (
-        <WaffleHtml
-            {...commonProps}
-            width={900}
-            height={400}
-            fillDirection="left"
-            rows={18}
-            columns={24}
-        />
-    ))
-)
+stories.add('fill direction', () => (
+    <WaffleHtml
+        {...commonProps}
+        width={900}
+        height={400}
+        fillDirection="left"
+        rows={18}
+        columns={24}
+    />
+))
 
 const CustomCell = ({
     position,
@@ -90,24 +83,18 @@ const CustomCell = ({
         }}
     />
 )
-stories.add(
-    'custom cell',
-    withInfo()(() => <WaffleHtml {...commonProps} cellComponent={CustomCell} />)
-)
+stories.add('custom cell', () => <WaffleHtml {...commonProps} cellComponent={CustomCell} />)
 
-stories.add(
-    'custom tooltip',
-    withInfo()(() => (
-        <WaffleHtml
-            {...commonProps}
-            theme={{
-                tooltip: {
-                    container: {
-                        background: '#333',
-                    },
+stories.add('custom tooltip', () => (
+    <WaffleHtml
+        {...commonProps}
+        theme={{
+            tooltip: {
+                container: {
+                    background: '#333',
                 },
-            }}
-            tooltip={CustomTooltip}
-        />
-    ))
-)
+            },
+        }}
+        tooltip={CustomTooltip}
+    />
+))

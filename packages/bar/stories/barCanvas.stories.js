@@ -1,8 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withInfo } from '@storybook/addon-info'
 import { generateCountriesData } from '@nivo/generators'
-import { BarCanvas } from '../index'
+import { BarCanvas } from '../src'
 
 const keys = ['hot dogs', 'burgers', 'sandwich', 'kebab', 'fries', 'donut']
 const commonProps = {
@@ -20,23 +19,20 @@ const commonProps = {
 
 const stories = storiesOf('BarCanvas', module)
 
-stories.add(
-    'custom tooltip',
-    withInfo()(() => (
-        <BarCanvas
-            {...commonProps}
-            tooltip={({ id, value, color }) => (
-                <strong style={{ color }}>
-                    {id}: {value}
-                </strong>
-            )}
-            theme={{
-                tooltip: {
-                    container: {
-                        background: '#333',
-                    },
+stories.add('custom tooltip', () => (
+    <BarCanvas
+        {...commonProps}
+        tooltip={({ id, value, color }) => (
+            <strong style={{ color }}>
+                {id}: {value}
+            </strong>
+        )}
+        theme={{
+            tooltip: {
+                container: {
+                    background: '#333',
                 },
-            }}
-        />
-    ))
-)
+            },
+        }}
+    />
+))

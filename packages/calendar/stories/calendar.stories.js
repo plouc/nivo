@@ -1,8 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withInfo } from '@storybook/addon-info'
 import { generateDayCounts } from '@nivo/generators'
-import { Calendar } from '../index'
+import { Calendar } from '../src'
 
 const from = new Date(2019, 0, 1)
 const to = new Date(2019, 11, 31)
@@ -24,7 +23,7 @@ const commonProps = {
 
 const stories = storiesOf('Calendar', module)
 
-stories.add('default', withInfo()(() => <Calendar {...commonProps} />))
+stories.add('default', () => <Calendar {...commonProps} />)
 
 const japaneseMonths = [
     '一月',
@@ -40,45 +39,32 @@ const japaneseMonths = [
     '十一月',
     '十二月',
 ]
-stories.add(
-    'translating months',
-    withInfo()(() => (
-        <Calendar monthLegend={(year, month) => japaneseMonths[month]} {...commonProps} />
-    ))
-)
+stories.add('translating months', () => (
+    <Calendar monthLegend={(year, month) => japaneseMonths[month]} {...commonProps} />
+))
 
-stories.add(
-    'custom colors',
-    withInfo()(() => (
-        <Calendar
-            colors={['#a1cfff', '#468df3', '#a053f0', '#9629f0', '#8428d8']}
-            {...commonProps}
-        />
-    ))
-)
+stories.add('custom colors', () => (
+    <Calendar colors={['#a1cfff', '#468df3', '#a053f0', '#9629f0', '#8428d8']} {...commonProps} />
+))
 
-stories.add(
-    'vertical calendar',
-    withInfo()(() => <Calendar direction="vertical" {...commonProps} height={600} />)
-)
+stories.add('vertical calendar', () => (
+    <Calendar direction="vertical" {...commonProps} height={600} />
+))
 
-stories.add(
-    'custom tooltip',
-    withInfo()(() => (
-        <Calendar
-            tooltip={({ day, value, color }) => (
-                <strong style={{ color }}>
-                    {day}: {value}
-                </strong>
-            )}
-            theme={{
-                tooltip: {
-                    container: {
-                        background: '#333',
-                    },
+stories.add('custom tooltip', () => (
+    <Calendar
+        tooltip={({ day, value, color }) => (
+            <strong style={{ color }}>
+                {day}: {value}
+            </strong>
+        )}
+        theme={{
+            tooltip: {
+                container: {
+                    background: '#333',
                 },
-            }}
-            {...commonProps}
-        />
-    ))
-)
+            },
+        }}
+        {...commonProps}
+    />
+))

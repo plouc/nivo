@@ -1,8 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { generateLibTree } from '@nivo/generators'
-import { withInfo } from '@storybook/addon-info'
-import { TreeMap } from '../index'
+import { TreeMap } from '../src'
 
 const commonProperties = {
     width: 900,
@@ -14,25 +13,20 @@ const commonProperties = {
     labelSkipRadius: 16,
 }
 
-storiesOf('TreeMap', module)
-    .addDecorator(story => <div className="wrapper">{story()}</div>)
-    .add(
-        'custom tooltip',
-        withInfo()(() => (
-            <TreeMap
-                {...commonProperties}
-                tooltip={({ id, value, color }) => (
-                    <strong style={{ color }}>
-                        {id}: {value}
-                    </strong>
-                )}
-                theme={{
-                    tooltip: {
-                        container: {
-                            background: '#333',
-                        },
-                    },
-                }}
-            />
-        ))
-    )
+storiesOf('TreeMap', module).add('custom tooltip', () => (
+    <TreeMap
+        {...commonProperties}
+        tooltip={({ id, value, color }) => (
+            <strong style={{ color }}>
+                {id}: {value}
+            </strong>
+        )}
+        theme={{
+            tooltip: {
+                container: {
+                    background: '#333',
+                },
+            },
+        }}
+    />
+))

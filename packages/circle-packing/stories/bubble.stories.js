@@ -1,8 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withInfo } from '@storybook/addon-info'
 import { generateLibTree } from '@nivo/generators'
-import { Bubble } from '../index'
+import { Bubble } from '../src'
 
 const commonProperties = {
     width: 900,
@@ -15,42 +14,32 @@ const commonProperties = {
 }
 
 storiesOf('Bubble', module)
-    .addDecorator(story => <div className="wrapper">{story()}</div>)
-    .add('default', withInfo()(() => <Bubble {...commonProperties} />))
-    .add(
-        'rendering leaves only',
-        withInfo()(() => <Bubble {...commonProperties} leavesOnly={true} />)
-    )
-    .add(
-        'with formatted values',
-        withInfo()(() => (
-            <Bubble
-                {...commonProperties}
-                tooltipFormat={value =>
-                    `${Number(value).toLocaleString('ru-RU', {
-                        minimumFractionDigits: 2,
-                    })} ₽`
-                }
-            />
-        ))
-    )
-    .add(
-        'custom tooltip',
-        withInfo()(() => (
-            <Bubble
-                {...commonProperties}
-                tooltip={({ id, value, color }) => (
-                    <strong style={{ color }}>
-                        {id}: {value}
-                    </strong>
-                )}
-                theme={{
-                    tooltip: {
-                        container: {
-                            background: '#333',
-                        },
+    .add('default', () => <Bubble {...commonProperties} />)
+    .add('rendering leaves only', () => <Bubble {...commonProperties} leavesOnly={true} />)
+    .add('with formatted values', () => (
+        <Bubble
+            {...commonProperties}
+            tooltipFormat={value =>
+                `${Number(value).toLocaleString('ru-RU', {
+                    minimumFractionDigits: 2,
+                })} ₽`
+            }
+        />
+    ))
+    .add('custom tooltip', () => (
+        <Bubble
+            {...commonProperties}
+            tooltip={({ id, value, color }) => (
+                <strong style={{ color }}>
+                    {id}: {value}
+                </strong>
+            )}
+            theme={{
+                tooltip: {
+                    container: {
+                        background: '#333',
                     },
-                }}
-            />
-        ))
-    )
+                },
+            }}
+        />
+    ))

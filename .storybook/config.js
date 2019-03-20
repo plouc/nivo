@@ -1,13 +1,20 @@
 /* eslint-disable import/no-extraneous-dependencies, import/no-unresolved, import/extensions */
 
-import { configure, setAddon } from '@storybook/react'
-import infoAddon, { setDefaults } from '@storybook/addon-info'
-import './style.css'
+import { configure, addParameters, addDecorator } from '@storybook/react'
+import { withInfo } from '@storybook/addon-info'
+import theme from './theme'
 
-setDefaults({
+addParameters({
+    options: {
+        theme,
+    }
+})
+
+addDecorator(withInfo({
     header: true,
     inline: true,
     propTables: false,
+    source: false,
     maxPropObjectKeys: 10000,
     maxPropArrayLength: 10000,
     maxPropStringLength: 10000,
@@ -34,8 +41,7 @@ setDefaults({
             },
         },
     },
-})
-setAddon(infoAddon)
+}))
 
 function loadStories() {
     require('../packages/bar/stories/bar.stories')
