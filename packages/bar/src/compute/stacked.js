@@ -90,22 +90,23 @@ export const generateVerticalStackedBars = ({
     }
 
     if (barWidth > 0) {
+        //Array of bar offsets the size of the data, where each item corresponds to the current additional offset of that bar
+        const barOffsets = new Array(data.length).fill(0) 
+
         stackedData.forEach(stackedDataItem => {
             xScale.domain().forEach((index, i) => {
                 const d = stackedDataItem[i]
                 const x = xScale(getIndex(d.data))
 
                 let y = getY(d)
+                let offsetAdjusted = 0
                 let barHeight = getHeight(d, y)
 
-                //If bar has no data value associated, barData.value will be undefined or 0
+                //If bar has no data value associated or that data is zero, don't render the barItem
                 const doesBarHaveData = d.data[stackedDataItem.key]
                 //If minBarLength prop is specified, valid data exists for the bar, and it's calculated length is less than the minBarLength specified
                 if ( minBarLength && minBarLength > 0 && doesBarHaveData && barHeight < minBarLength) {
-                    const minY = height - ((stackedDataItem.index + 1) * minBarLength)
-                    if (y > minY) {
-                        y = minY 
-                    }
+                    offsetAdjusted += minBarLength - barHeight
                     barHeight = minBarLength
                 }
 
@@ -127,12 +128,16 @@ export const generateVerticalStackedBars = ({
                         key: `${stackedDataItem.key}.${index}`,
                         data: barData,
                         x,
-                        y,
+                        //Subtract both the current offset, as well as any offset from the resizing
+                        y: y - offsetAdjusted - barOffsets[i],
                         width: barWidth,
                         height: barHeight,
                         color: getColor(barData),
                     })
                 }
+
+                //Increment that bar's offset (so the next stacked bar item within that bar is offset correctly)
+                barOffsets[i] += offsetAdjusted
             })
         })
     }
@@ -190,6 +195,9 @@ export const generateHorizontalStackedBars = ({
     }
 
     if (barHeight > 0) {
+        //Array of bar offsets the size of the data, where each item corresponds to the current additional offset of that bar
+        const barOffsets = new Array(data.length).fill(0)
+
         stackedData.forEach(stackedDataItem => {
             yScale.domain().forEach((index, i) => {
                 const d = stackedDataItem[i]
@@ -204,16 +212,14 @@ export const generateHorizontalStackedBars = ({
                 }
 
                 let x = getX(d)
+                let offsetAdjusted = 0
                 let barWidth = getWidth(d, x)
 
-                //If bar has no data value associated, barData.value will be undefined or 0, also make sure the data existing for it is not 0
+                //If bar has no data value associated or that data is zero, don't render the barItem
                 const doesBarHaveData = d.data[stackedDataItem.key] 
                 //If minBarLength prop is specified, valid data that is greater than 0 exists for the bar, and it's calculated length is less than the minBarLength specified
                 if ( minBarLength && minBarLength > 0 && doesBarHaveData && barWidth < minBarLength) {
-                    const minX = stackedDataItem.index * minBarLength
-                    if (x < minX) {
-                        x = minX
-                    }
+                    offsetAdjusted += minBarLength - barWidth
                     barWidth = minBarLength
                 }
 
@@ -226,13 +232,16 @@ export const generateHorizontalStackedBars = ({
                     bars.push({
                         key: `${stackedDataItem.key}.${index}`,
                         data: barData,
-                        x,
+                        x: x + barOffsets[i],
                         y,
                         width: barWidth,
                         height: barHeight,
                         color: getColor(barData),
                     })
                 }
+
+                //Increment that bar's offset (so the next stacked bar item within that bar is offset correctly)
+                barOffsets[i] += offsetAdjusted
             })
         })
     }
