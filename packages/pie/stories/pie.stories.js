@@ -1,9 +1,8 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs } from '@storybook/addon-knobs'
-import { withInfo } from '@storybook/addon-info'
 import { generateProgrammingLanguageStats } from '@nivo/generators'
-import { Pie } from '../index'
+import { Pie } from '../src'
 
 const commonProperties = {
     width: 900,
@@ -18,90 +17,75 @@ const commonProperties = {
 
 const stories = storiesOf('Pie', module)
 
-stories.addDecorator(story => <div className="wrapper">{story()}</div>).addDecorator(withKnobs)
+stories.addDecorator(withKnobs)
 
-stories.add('default', withInfo()(() => <Pie {...commonProperties} />))
+stories.add('default', () => <Pie {...commonProperties} />)
 
-stories.add('donut', withInfo()(() => <Pie {...commonProperties} innerRadius={0.6} />))
+stories.add('donut', () => <Pie {...commonProperties} innerRadius={0.6} />)
 
-stories.add(
-    'fancy slices',
-    withInfo()(() => (
-        <Pie
-            {...commonProperties}
-            innerRadius={0.6}
-            padAngle={0.5}
-            cornerRadius={5}
-            radialLabelsLinkColor="inherit"
-            radialLabelsLinkStrokeWidth={3}
-            radialLabelsTextColor="inherit:darker(1.2)"
-        />
-    ))
-)
+stories.add('fancy slices', () => (
+    <Pie
+        {...commonProperties}
+        innerRadius={0.6}
+        padAngle={0.5}
+        cornerRadius={5}
+        radialLabelsLinkColor="inherit"
+        radialLabelsLinkStrokeWidth={3}
+        radialLabelsTextColor="inherit:darker(1.2)"
+    />
+))
 
-stories.add(
-    'custom radial label',
-    withInfo()(() => (
-        <Pie
-            {...commonProperties}
-            innerRadius={0.6}
-            padAngle={0.5}
-            cornerRadius={5}
-            radialLabel={d => `${d.id}: ${d.value}`}
-            radialLabelsLinkColor="inherit"
-            radialLabelsLinkStrokeWidth={3}
-            radialLabelsTextColor="inherit:darker(1.2)"
-            enableSlicesLabels={false}
-        />
-    ))
-)
+stories.add('custom radial label', () => (
+    <Pie
+        {...commonProperties}
+        innerRadius={0.6}
+        padAngle={0.5}
+        cornerRadius={5}
+        radialLabel={d => `${d.id}: ${d.value}`}
+        radialLabelsLinkColor="inherit"
+        radialLabelsLinkStrokeWidth={3}
+        radialLabelsTextColor="inherit:darker(1.2)"
+        enableSlicesLabels={false}
+    />
+))
 
-stories.add(
-    'formatted tooltip values',
-    withInfo()(() => (
-        <Pie
-            {...commonProperties}
-            tooltipFormat={value =>
-                `${Number(value).toLocaleString('ru-RU', {
-                    minimumFractionDigits: 2,
-                })} ₽`
-            }
-        />
-    ))
-)
+stories.add('formatted tooltip values', () => (
+    <Pie
+        {...commonProperties}
+        tooltipFormat={value =>
+            `${Number(value).toLocaleString('ru-RU', {
+                minimumFractionDigits: 2,
+            })} ₽`
+        }
+    />
+))
 
-stories.add(
-    'custom tooltip',
-    withInfo()(() => (
-        <Pie
-            {...commonProperties}
-            tooltip={({ id, value, color }) => (
-                <strong style={{ color }}>
-                    {id}: {value}
-                </strong>
-            )}
-            theme={{
-                tooltip: {
-                    container: {
-                        background: '#333',
-                    },
+stories.add('custom tooltip', () => (
+    <Pie
+        {...commonProperties}
+        tooltip={({ id, value, color }) => (
+            <strong style={{ color }}>
+                {id}: {value}
+            </strong>
+        )}
+        theme={{
+            tooltip: {
+                container: {
+                    background: '#333',
                 },
-            }}
-        />
-    ))
-)
+            },
+        }}
+    />
+))
 
-stories.add(
-    'enter/leave (check console)',
-    withInfo()(() => (
-        <Pie
-            {...commonProperties}
-            onMouseEnter={(data, e) => {
-                console.log({ is: 'mouseenter', data, event: e }) // eslint-disable-line
-            }}
-            onMouseLeave={(data, e) => {
-                console.log({ is: 'mouseleave', data, event: e }) // eslint-disable-line
-            }}
-        />
-    ))
-)
+stories.add('enter/leave (check console)', () => (
+    <Pie
+        {...commonProperties}
+        onMouseEnter={(data, e) => {
+            console.log({ is: 'mouseenter', data, event: e }) // eslint-disable-line
+        }}
+        onMouseLeave={(data, e) => {
+            console.log({ is: 'mouseleave', data, event: e }) // eslint-disable-line
+        }}
+    />
+))

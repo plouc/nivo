@@ -1,9 +1,8 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs } from '@storybook/addon-knobs'
-import { withInfo } from '@storybook/addon-info'
 import { generateLibTree } from '@nivo/generators'
-import { Sunburst } from '../index'
+import { Sunburst } from '../src'
 
 const commonProperties = {
     width: 900,
@@ -16,16 +15,16 @@ const commonProperties = {
 
 const stories = storiesOf('Sunburst', module)
 
-stories.addDecorator(story => <div className="wrapper">{story()}</div>).addDecorator(withKnobs)
+stories.addDecorator(withKnobs)
 
-stories.add('default', withInfo()(() => <Sunburst {...commonProperties} />))
+stories.add('default', () => <Sunburst {...commonProperties} />)
 
 stories.add(
     'with child color modifier',
-    withInfo()(() => <Sunburst {...commonProperties} childColor="inherit:brighter(0.13)" />)
+    () => <Sunburst {...commonProperties} childColor="inherit:brighter(0.13)" />
 )
 
 stories.add(
     'with child colors independent of parent',
-    withInfo()(() => <Sunburst {...commonProperties} childColor="noinherit" />)
+    () => <Sunburst {...commonProperties} childColor="noinherit" />
 )

@@ -1,7 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withInfo } from '@storybook/addon-info'
-import { WaffleCanvas } from '../index'
+import { WaffleCanvas } from '../src'
 import CustomTooltip from './CustomTooltip'
 
 const total = 200
@@ -30,42 +29,33 @@ const commonProps = {
 
 const stories = storiesOf('WaffleCanvas', module)
 
-stories.add('default', withInfo()(() => <WaffleCanvas {...commonProps} />))
+stories.add('default', () => <WaffleCanvas {...commonProps} />)
 
-stories.add('colors', withInfo()(() => <WaffleCanvas {...commonProps} colors="category10" />))
+stories.add('colors', () => <WaffleCanvas {...commonProps} colors="category10" />)
 
-stories.add(
-    'using data color',
-    withInfo()(() => <WaffleCanvas {...commonProps} colorBy={d => d.color} />)
-)
+stories.add('using data color', () => <WaffleCanvas {...commonProps} colorBy={d => d.color} />)
 
-stories.add(
-    'fill direction',
-    withInfo()(() => (
-        <WaffleCanvas
-            {...commonProps}
-            width={900}
-            height={400}
-            fillDirection="left"
-            rows={36}
-            columns={48}
-        />
-    ))
-)
+stories.add('fill direction', () => (
+    <WaffleCanvas
+        {...commonProps}
+        width={900}
+        height={400}
+        fillDirection="left"
+        rows={36}
+        columns={48}
+    />
+))
 
-stories.add(
-    'custom tooltip',
-    withInfo()(() => (
-        <WaffleCanvas
-            {...commonProps}
-            theme={{
-                tooltip: {
-                    container: {
-                        background: '#333',
-                    },
+stories.add('custom tooltip', () => (
+    <WaffleCanvas
+        {...commonProps}
+        theme={{
+            tooltip: {
+                container: {
+                    background: '#333',
                 },
-            }}
-            tooltip={CustomTooltip}
-        />
-    ))
-)
+            },
+        }}
+        tooltip={CustomTooltip}
+    />
+))

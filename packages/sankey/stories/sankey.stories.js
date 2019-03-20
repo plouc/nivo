@@ -1,8 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withInfo } from '@storybook/addon-info'
 import { generateSankeyData, randColor } from '@nivo/generators'
-import { Sankey } from '../index'
+import { Sankey } from '../src'
 
 const sankeyData = generateSankeyData({ nodeCount: 11, maxIterations: 2 })
 const commonProperties = {
@@ -13,79 +12,54 @@ const commonProperties = {
     colors: 'category10',
 }
 
-const stories = storiesOf('Sankey', module).addDecorator(story => (
-    <div className="wrapper">{story()}</div>
+const stories = storiesOf('Sankey', module)
+
+stories.add('default', () => <Sankey {...commonProperties} />)
+
+stories.add('custom align (right)', () => <Sankey {...commonProperties} align="right" />)
+
+stories.add('outside labels', () => <Sankey {...commonProperties} labelPosition="outside" />)
+
+stories.add('vertical labels', () => (
+    <Sankey {...commonProperties} labelOrientation="vertical" labelPadding={20} />
 ))
 
-stories.add('default', withInfo()(() => <Sankey {...commonProperties} />))
+stories.add('nodes x padding', () => (
+    <Sankey {...commonProperties} nodePaddingX={6} nodeWidth={24} nodeBorderWidth={0} />
+))
 
-stories.add(
-    'custom align (right)',
-    withInfo()(() => <Sankey {...commonProperties} align="right" />)
-)
+stories.add('contracting links', () => <Sankey {...commonProperties} linkContract={10} />)
 
-stories.add(
-    'outside labels',
-    withInfo()(() => <Sankey {...commonProperties} labelPosition="outside" />)
-)
+stories.add('click listener (console)', () => (
+    <Sankey {...commonProperties} onClick={(data, event) => console.log({ data, event })} />
+))
 
-stories.add(
-    'vertical labels',
-    withInfo()(() => <Sankey {...commonProperties} labelOrientation="vertical" labelPadding={20} />)
-)
+stories.add('label formatter', () => (
+    <Sankey {...commonProperties} label={node => `${node.id} 😁`} />
+))
 
-stories.add(
-    'nodes x padding',
-    withInfo()(() => (
-        <Sankey {...commonProperties} nodePaddingX={6} nodeWidth={24} nodeBorderWidth={0} />
-    ))
-)
+stories.add('custom tooltip', () => (
+    <Sankey
+        {...commonProperties}
+        nodeTooltip={node => <span>Custom tooltip for node: {node.label}</span>}
+        linkTooltip={node => (
+            <span>
+                Custom tooltip for link: {node.source.label} to {node.target.label}
+            </span>
+        )}
+    />
+))
 
-stories.add(
-    'contracting links',
-    withInfo()(() => <Sankey {...commonProperties} linkContract={10} />)
-)
-
-stories.add(
-    'click listener (console)',
-    withInfo()(() => (
-        <Sankey {...commonProperties} onClick={(data, event) => console.log({ data, event })} />
-    ))
-)
-
-stories.add(
-    'label formatter',
-    withInfo()(() => <Sankey {...commonProperties} label={node => `${node.id} 😁`} />)
-)
-
-stories.add(
-    'custom tooltip',
-    withInfo()(() => (
-        <Sankey
-            {...commonProperties}
-            nodeTooltip={node => <span>Custom tooltip for node: {node.label}</span>}
-            linkTooltip={node => (
-                <span>
-                    Custom tooltip for link: {node.source.label} to {node.target.label}
-                </span>
-            )}
-        />
-    ))
-)
-
-stories.add(
-    'with formatted values',
-    withInfo()(() => (
-        <Sankey
-            {...commonProperties}
-            tooltipFormat={value =>
-                `${Number(value).toLocaleString('ru-RU', {
-                    minimumFractionDigits: 2,
-                })} ₽`
-            }
-        />
-    ))
-)
+stories.add('with formatted values', () => (
+    <Sankey
+        {...commonProperties}
+        tooltipFormat={value =>
+            `${Number(value).toLocaleString('ru-RU', {
+                minimumFractionDigits: 2,
+            })} ₽`
+        }
+    />
+))
 
 const dataWithRandLinkColors = data => {
     return {
@@ -109,13 +83,6 @@ const randColorProperties = {
     colors: commonProperties.colors,
 }
 
-stories.add(
-    'with custom node & link coloring',
-    withInfo()(() => (
-        <Sankey
-            {...randColorProperties}
-            enableLinkGradient={true}
-            colorBy={node => node.nodeColor}
-        />
-    ))
-)
+stories.add('with custom node & link coloring', () => (
+    <Sankey {...randColorProperties} enableLinkGradient={true} colorBy={node => node.nodeColor} />
+))

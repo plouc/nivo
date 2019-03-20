@@ -1,8 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withInfo } from '@storybook/addon-info'
 import { generateBulletData } from '@nivo/generators'
-import { Bullet } from '../index'
+import { Bullet } from '../src'
 
 const data = [
     generateBulletData('volume', 200, { measureCount: 2 }),
@@ -22,24 +21,21 @@ const commonProps = {
 
 const stories = storiesOf('Bullet', module)
 
-stories.add('default', withInfo()(() => <Bullet {...commonProps} />))
+stories.add('default', () => <Bullet {...commonProps} />)
 
-stories.add(
-    'vertical',
-    withInfo()(() => (
-        <Bullet
-            {...commonProps}
-            layout="vertical"
-            height={500}
-            spacing={240}
-            margin={{ ...commonProps.margin, top: 70 }}
-            titleAlign="start"
-            titleOffsetX={0}
-            titleOffsetY={-15}
-            titleRotation={-90}
-        />
-    ))
-)
+stories.add('vertical', () => (
+    <Bullet
+        {...commonProps}
+        layout="vertical"
+        height={500}
+        spacing={240}
+        margin={{ ...commonProps.margin, top: 70 }}
+        titleAlign="start"
+        titleOffsetX={0}
+        titleOffsetY={-15}
+        titleRotation={-90}
+    />
+))
 
 const CustomRange = ({ x, y, width, height, color, onMouseEnter, onMouseMove, onMouseLeave }) => (
     <rect
@@ -56,12 +52,11 @@ const CustomRange = ({ x, y, width, height, color, onMouseEnter, onMouseMove, on
     />
 )
 
-stories.add(
-    'custom range',
-    withInfo(`
-    You can customize ranges using the \`rangeComponent\` property.
-    `)(() => <Bullet {...commonProps} rangeComponent={CustomRange} />)
-)
+stories.add('custom range', () => <Bullet {...commonProps} rangeComponent={CustomRange} />, {
+    info: {
+        text: `You can customize ranges using the \`rangeComponent\` property.`,
+    },
+})
 
 const CustomMeasure = ({ x, y, width, height, color, onMouseEnter, onMouseMove, onMouseLeave }) => (
     <rect
@@ -78,12 +73,11 @@ const CustomMeasure = ({ x, y, width, height, color, onMouseEnter, onMouseMove, 
     />
 )
 
-stories.add(
-    'custom measure',
-    withInfo(`
-    You can customize measures using the \`measureComponent\` property.
-    `)(() => <Bullet {...commonProps} measureComponent={CustomMeasure} />)
-)
+stories.add('custom measure', () => <Bullet {...commonProps} measureComponent={CustomMeasure} />, {
+    info: {
+        text: `You can customize measures using the \`measureComponent\` property.`,
+    },
+})
 
 const CustomMarker = ({ x, size, color, onMouseEnter, onMouseMove, onMouseLeave }) => (
     <g
@@ -109,54 +103,54 @@ const CustomMarker = ({ x, size, color, onMouseEnter, onMouseMove, onMouseLeave 
 
 stories.add(
     'custom marker',
-    withInfo(`
-    You can customize markers using the \`markerComponent\` property.
-    `)(() => <Bullet {...commonProps} markerSize={1} markerComponent={CustomMarker} />)
+    () => <Bullet {...commonProps} markerSize={1} markerComponent={CustomMarker} />,
+    {
+        info: {
+            text: `You can customize markers using the \`markerComponent\` property.`,
+        },
+    }
 )
 
-stories.add(
-    'custom title',
-    withInfo()(() => (
-        <Bullet
-            {...commonProps}
-            margin={{ ...commonProps.margin, left: 140 }}
-            titleOffsetX={-110}
-            data={data.map(d => ({
-                ...d,
-                title: (
-                    <text dy={-12}>
-                        <tspan
-                            style={{
-                                fill: '#000',
-                                fontWeight: 500,
-                                fontSize: '14px',
-                            }}
-                        >
-                            {d.id}
-                        </tspan>
-                        <tspan
-                            x={0}
-                            dy={18}
-                            style={{
-                                fill: '#999',
-                                fontSize: '12px',
-                            }}
-                        >
-                            description
-                        </tspan>
-                        <tspan
-                            x={0}
-                            dy={16}
-                            style={{
-                                fill: '#999',
-                                fontSize: '12px',
-                            }}
-                        >
-                            for {d.id}
-                        </tspan>
-                    </text>
-                ),
-            }))}
-        />
-    ))
-)
+stories.add('custom title', () => (
+    <Bullet
+        {...commonProps}
+        margin={{ ...commonProps.margin, left: 140 }}
+        titleOffsetX={-110}
+        data={data.map(d => ({
+            ...d,
+            title: (
+                <text dy={-12}>
+                    <tspan
+                        style={{
+                            fill: '#000',
+                            fontWeight: 500,
+                            fontSize: '14px',
+                        }}
+                    >
+                        {d.id}
+                    </tspan>
+                    <tspan
+                        x={0}
+                        dy={18}
+                        style={{
+                            fill: '#999',
+                            fontSize: '12px',
+                        }}
+                    >
+                        description
+                    </tspan>
+                    <tspan
+                        x={0}
+                        dy={16}
+                        style={{
+                            fill: '#999',
+                            fontSize: '12px',
+                        }}
+                    >
+                        for {d.id}
+                    </tspan>
+                </text>
+            ),
+        }))}
+    />
+))

@@ -260,11 +260,11 @@ website-links-rm: ##@2 website unlink all linked packages
 ########################################################################################################################
 
 storybook: ##@3 storybook start storybook in dev mode on port 6006
-	@./node_modules/.bin/start-storybook -p 6006
+	@yarn start-storybook -p 6006
 
 storybook-build: ##@3 storybook build storybook
 	@echo "${YELLOW}Building storybook${RESET}"
-	@./node_modules/.bin/build-storybook
+	@yarn build-storybook
 
 storybook-deploy: ##@3 storybook build and deploy storybook
 	@$(MAKE) storybook-build

@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
-import { withInfo } from '@storybook/addon-info'
 import { patternDotsDef, patternLinesDef } from '@nivo/core'
-import { Waffle } from '../index'
+import { Waffle } from '../src'
 import CustomTooltip from './CustomTooltip'
 
 const total = 200
@@ -31,54 +30,38 @@ const commonProps = {
 
 const stories = storiesOf('Waffle', module)
 
-stories.add('default', withInfo()(() => <Waffle {...commonProps} />))
+stories.add('default', () => <Waffle {...commonProps} />)
 
-stories.add('colors', withInfo()(() => <Waffle {...commonProps} colors="category10" />))
+stories.add('colors', () => <Waffle {...commonProps} colors="category10" />)
 
-stories.add(
-    'using data color',
-    withInfo()(() => <Waffle {...commonProps} colorBy={d => d.color} />)
-)
+stories.add('using data color', () => <Waffle {...commonProps} colorBy={d => d.color} />)
 
-stories.add(
-    'patterns',
-    withInfo()(() => (
-        <Waffle
-            {...commonProps}
-            defs={[
-                patternDotsDef('dots', {
-                    background: 'inherit',
-                    color: 'rgba(255, 255, 255, 0.3)',
-                    size: 4,
-                    padding: 1,
-                    stagger: true,
-                }),
-                patternLinesDef('lines', {
-                    background: 'inherit',
-                    color: 'rgba(255, 255, 255, 0.3)',
-                    rotation: -45,
-                    lineWidth: 6,
-                    spacing: 10,
-                }),
-            ]}
-            fill={[{ match: { id: 'men' }, id: 'dots' }, { match: { id: 'women' }, id: 'lines' }]}
-        />
-    ))
-)
+stories.add('patterns', () => (
+    <Waffle
+        {...commonProps}
+        defs={[
+            patternDotsDef('dots', {
+                background: 'inherit',
+                color: 'rgba(255, 255, 255, 0.3)',
+                size: 4,
+                padding: 1,
+                stagger: true,
+            }),
+            patternLinesDef('lines', {
+                background: 'inherit',
+                color: 'rgba(255, 255, 255, 0.3)',
+                rotation: -45,
+                lineWidth: 6,
+                spacing: 10,
+            }),
+        ]}
+        fill={[{ match: { id: 'men' }, id: 'dots' }, { match: { id: 'women' }, id: 'lines' }]}
+    />
+))
 
-stories.add(
-    'fill direction',
-    withInfo()(() => (
-        <Waffle
-            {...commonProps}
-            width={900}
-            height={400}
-            fillDirection="left"
-            rows={18}
-            columns={24}
-        />
-    ))
-)
+stories.add('fill direction', () => (
+    <Waffle {...commonProps} width={900} height={400} fillDirection="left" rows={18} columns={24} />
+))
 
 const CustomCell = ({
     position,
@@ -111,24 +94,21 @@ const CustomCell = ({
         }}
     />
 )
-stories.add('custom cell', withInfo()(() => <Waffle {...commonProps} cellComponent={CustomCell} />))
+stories.add('custom cell', () => <Waffle {...commonProps} cellComponent={CustomCell} />)
 
-stories.add(
-    'custom tooltip',
-    withInfo()(() => (
-        <Waffle
-            {...commonProps}
-            theme={{
-                tooltip: {
-                    container: {
-                        background: '#333',
-                    },
+stories.add('custom tooltip', () => (
+    <Waffle
+        {...commonProps}
+        theme={{
+            tooltip: {
+                container: {
+                    background: '#333',
                 },
-            }}
-            tooltip={CustomTooltip}
-        />
-    ))
-)
+            },
+        }}
+        tooltip={CustomTooltip}
+    />
+))
 
 class WaffleLegendToggle extends Component {
     state = {
@@ -183,4 +163,4 @@ class WaffleLegendToggle extends Component {
     }
 }
 
-stories.add('legend toggle', withInfo()(() => <WaffleLegendToggle />))
+stories.add('legend toggle', () => <WaffleLegendToggle />)
