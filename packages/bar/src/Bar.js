@@ -7,12 +7,11 @@
  * file that was distributed with this source code.
  */
 import React, { Fragment } from 'react'
-import uniqBy from 'lodash/uniqBy'
 import { TransitionMotion, spring } from 'react-motion'
 import { bindDefs, Container, SvgWrapper, Grid, CartesianMarkers } from '@nivo/core'
 import { Axes } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
-import { generateGroupedBars, generateStackedBars } from './compute'
+import { generateGroupedBars, generateStackedBars, getLegendData } from './compute'
 import setDisplayName from 'recompose/setDisplayName'
 import enhance from './enhance'
 import { BarPropTypes } from './props'
@@ -153,28 +152,6 @@ const Bar = props => {
         targetKey: 'data.fill',
     })
 
-    const legendDataForKeys = uniqBy(
-        result.bars
-            .map(bar => ({
-                id: bar.data.id,
-                label: bar.data.id,
-                color: bar.color,
-                fill: bar.data.fill,
-            }))
-            .reverse(),
-        ({ id }) => id
-    )
-
-    const legendDataForIndexes = uniqBy(
-        result.bars.map(bar => ({
-            id: bar.data.indexValue,
-            label: bar.data.indexValue,
-            color: bar.color,
-            fill: bar.data.fill,
-        })),
-        ({ id }) => id
-    )
-
     return (
         <Container isInteractive={isInteractive} theme={theme}>
             {({ showTooltip, hideTooltip }) => {
@@ -292,12 +269,13 @@ const Bar = props => {
                         />
                     ),
                     legends: legends.map((legend, i) => {
-                        let legendData
-                        if (legend.dataFrom === 'keys') {
-                            legendData = legendDataForKeys
-                        } else if (legend.dataFrom === 'indexes') {
-                            legendData = legendDataForIndexes
-                        }
+                        const legendData = getLegendData({
+                            from: legend.dataFrom,
+                            bars: result.bars,
+                            layout,
+                            groupMode,
+                            reverse,
+                        })
 
                         if (legendData === undefined) return null
 
