@@ -74,5 +74,6 @@
   "workspaces": [
     "packages/*",
     "api"
-  ]
+  ],
+  "dependencies": {}
 }
