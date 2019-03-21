@@ -953,10 +953,10 @@
     react-motion "^0.5.2"
     recompose "^0.30.0"
 
-"@nivo/bar@0.53.0":
-  version "0.53.0"
-  resolved "https://registry.yarnpkg.com/@nivo/bar/-/bar-0.53.0.tgz#fef373ff8917043eff63415c40aff7f8fefe06b2"
-  integrity sha512-dryFsKmUkTbq1rxvUjFhuXjsmKwXPB+r+wwcyMADqIqem8HfyChV9gOTe1wYhsijH6j+HYDEuPY3t15+kAMZYw==
+"@nivo/bar@0.53.1":
+  version "0.53.1"
+  resolved "https://registry.yarnpkg.com/@nivo/bar/-/bar-0.53.1.tgz#f22b2903919551a7e471bc333eeff7d2d362fa00"
+  integrity sha512-QhRRgAEpVdG0Ir6TUKbfOsjog+f0pik2WguAc4rPIjgVovrUA83OjkUrB1v6p1ikMHt+B172ToN5G4RIYSdZ/Q==
   dependencies:
     "@nivo/axes" "0.53.0"
     "@nivo/core" "0.53.0"
@@ -1064,10 +1064,10 @@
     lodash "^4.17.4"
     recompose "^0.30.0"
 
-"@nivo/line@0.53.0":
-  version "0.53.0"
-  resolved "https://registry.yarnpkg.com/@nivo/line/-/line-0.53.0.tgz#8cf5f145d3414d31edf53ae70cd2e0b2a4ad8875"
-  integrity sha512-l+4SoyZgc9SJ7Rl1nzei/LGy6N/xfJZL6cfD8XA5hPnu78HToYdNhSpgrF0mb5VzgH1+ix6usQZbnnUuug+KhA==
+"@nivo/line@0.53.1":
+  version "0.53.1"
+  resolved "https://registry.yarnpkg.com/@nivo/line/-/line-0.53.1.tgz#718c9e0ac42e4c9ac447f66281db201b1c9c4a91"
+  integrity sha512-5EJiEWWULkuxQxE1jLK4bXTTyZcsgkLLll7u3plV3/0X7X2n9n4Cq0PE74wAAQGIlwKzzYFIwdiUL/tmk5AwXw==
   dependencies:
     "@nivo/axes" "0.53.0"
     "@nivo/core" "0.53.0"
