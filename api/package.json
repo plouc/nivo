@@ -1,6 +1,6 @@
 {
   "name": "@nivo/api",
-  "version": "0.53.0",
+  "version": "0.53.1",
   "description": "Rendering API for nivo dataviz React/d3 components",
   "main": "src/app.js",
   "licenses": [
@@ -22,7 +22,7 @@
     "nodemon": "^1.18.7"
   },
   "dependencies": {
-    "@nivo/bar": "0.53.0",
+    "@nivo/bar": "0.53.1",
     "@nivo/bullet": "0.53.0",
     "@nivo/calendar": "0.53.0",
     "@nivo/chord": "0.53.0",
@@ -31,7 +31,7 @@
     "@nivo/generators": "0.53.0",
     "@nivo/heatmap": "0.53.0",
     "@nivo/legends": "0.53.0",
-    "@nivo/line": "0.53.0",
+    "@nivo/line": "0.53.1",
     "@nivo/parallel-coordinates": "0.53.0",
     "@nivo/pie": "0.53.0",
     "@nivo/radar": "0.53.0",
