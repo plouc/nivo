@@ -80,6 +80,8 @@ class BarCanvas extends Component {
 
             theme,
             getColor,
+            borderWidth,
+            getBorderColor,
 
             legends,
 
@@ -186,9 +188,22 @@ class BarCanvas extends Component {
             theme,
         })
 
-        result.bars.forEach(({ x, y, color, width, height }) => {
+        result.bars.forEach(bar => {
+            const { x, y, color, width, height } = bar
+
             this.ctx.fillStyle = color
-            this.ctx.fillRect(x, y, width, height)
+            if (borderWidth > 0) {
+                this.ctx.strokeStyle = getBorderColor(bar)
+                this.ctx.lineWidth = borderWidth
+            }
+
+            this.ctx.beginPath()
+            this.ctx.rect(x, y, width, height)
+            this.ctx.fill()
+
+            if (borderWidth > 0) {
+                this.ctx.stroke()
+            }
         })
     }
 

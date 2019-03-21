@@ -4,6 +4,7 @@ import resolve from 'rollup-plugin-node-resolve'
 import stripBanner from 'rollup-plugin-strip-banner'
 
 const pkg = process.env.PACKAGE
+const isWatching = process.env.ROLLUP_WATCH === 'TRUE'
 
 const externals = [
     'prop-types',
@@ -50,16 +51,7 @@ const commonPlugins = [
     }),
 ]
 
-export default [
-    {
-        ...common,
-        output: {
-            file: `./packages/${pkg}/dist/nivo-${pkg}.cjs.js`,
-            format: 'cjs',
-            name: `@nivo/${pkg}`,
-        },
-        plugins: commonPlugins,
-    },
+const configs = [
     {
         ...common,
         output: {
@@ -68,8 +60,20 @@ export default [
             name: `@nivo/${pkg}`,
         },
         plugins: commonPlugins,
-    },
-    {
+    }
+]
+
+if (!isWatching) {
+    configs.push({
+        ...common,
+        output: {
+            file: `./packages/${pkg}/dist/nivo-${pkg}.cjs.js`,
+            format: 'cjs',
+            name: `@nivo/${pkg}`,
+        },
+        plugins: commonPlugins,
+    })
+    configs.push({
         ...common,
         output: {
             file: `./packages/${pkg}/dist/nivo-${pkg}.umd.js`,
@@ -79,5 +83,7 @@ export default [
             globals: mapGlobal,
         },
         plugins: commonPlugins,
-    },
-]
+    })
+}
+
+export default configs
