@@ -1,3 +1,5 @@
+MAKEFLAGS += --no-print-directory
+
 SOURCES = packages
 
 .PHONY: help bootstrap init packages-build packages-publish clean-all website-install website website-build website-deploy storybook storybook-build storybook-deploy deploy-all examples-install
@@ -136,33 +138,22 @@ packages-tslint: ##@1 packages run tslint on all packages
         ./packages/scatterplot/index.d.ts \
         ./packages/waffle/index.d.ts
 
+package-test-cover-%: ##@1 packages run tests for a package with code coverage
+	@yarn jest -c ./packages/jest.config.js --rootDir . --coverage ./packages/${*}/tests
+
 package-test-%: ##@1 packages run tests for a package
-	@./node_modules/.bin/jest \
-        --setupFiles=./setupTests.js \
-        --setupTestFrameworkScriptFile=raf/polyfill \
-        --env=jsdom \
-        --verbose \
-        ./packages/${*}/tests
+	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/${*}/tests
 
 package-update-test-%: ##@1 packages run tests for a package and update its snapshots
-	@./node_modules/.bin/jest \
-        --setupFiles=./setupTests.js \
-        --setupTestFrameworkScriptFile=raf/polyfill \
-        --env=jsdom \
-        ./packages/${*}/tests \
-        -u
+	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/${*}/tests -u
 
 packages-test: ##@1 packages run tests for all packages
 	@echo "${YELLOW}Running test suites for all packages${RESET}"
-	@./node_modules/.bin/jest \
-        --setupFiles=./setupTests.js \
-        --setupTestFrameworkScriptFile=raf/polyfill \
-        --env=jsdom \
-        ./packages/*/tests
+	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/*/tests
 
 packages-test-cover: ##@1 packages run tests for all packages with code coverage
 	@echo "${YELLOW}Running test suites for all packages${RESET}"
-	@./node_modules/.bin/jest --coverage --setupTestFrameworkScriptFile=raf/polyfill ./packages/*/tests
+	@yarn jest -c ./packages/jest.config.js --rootDir . --coverage ./packages/*/tests
 
 packages-build: ##@1 packages build all packages
 	@echo "${YELLOW}Building all packages${RESET}"

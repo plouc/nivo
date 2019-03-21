@@ -40,15 +40,9 @@ module.exports = () => {
     }
     
     if (env === 'test') {
-        plugins.push.apply(plugins, [
-            require.resolve('babel-plugin-istanbul'),
-            [
-                require.resolve('babel-plugin-transform-es2015-modules-commonjs'),
-                {
-                    loose: true,
-                },
-            ],
-        ])
+        // it seems we have nothing specifig to do here
+        // but it's kept as a reminder that config
+        // can be overridden for 'test' env.
     }
 
     return {

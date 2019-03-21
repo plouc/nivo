@@ -1,12 +1,12 @@
 language: node_js
 node_js:
-  - '8'
+  - '10'
 script:
-  - make init --no-print-directory
-  - make fmt-check --no-print-directory
-  - make packages-lint --no-print-directory
-  - make packages-tslint --no-print-directory
-  - make packages-test --no-print-directory
-  - make website-build --no-print-directory
-  - make storybook-build --no-print-directory
-  - make examples-build --no-print-directory
+  - make init
+  - make fmt-check
+  - make packages-lint
+  - make packages-tslint
+  - make packages-test
+  - make website-build
+  - make storybook-build
+  - make examples-build
