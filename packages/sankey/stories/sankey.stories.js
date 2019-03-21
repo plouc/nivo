@@ -85,13 +85,13 @@ const randColorProperties = {
 
 stories.add(
     'with custom node & link coloring',
-    withInfo()(() => (
+    () => (
         <Sankey
             {...randColorProperties}
             enableLinkGradient={true}
             colorBy={node => node.nodeColor}
         />
-    ))
+    )
 )
 
 const minNodeValueOnTop = (nodeA, nodeB) => {
@@ -102,5 +102,5 @@ const minNodeValueOnTop = (nodeA, nodeB) => {
 
 stories.add(
     'with reverse sort ordering (min node value on top)',
-    withInfo()(() => <Sankey {...commonProperties} sort={minNodeValueOnTop} />)
+    () => <Sankey {...commonProperties} sort={minNodeValueOnTop} />
 )
