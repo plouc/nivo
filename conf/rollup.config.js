@@ -43,7 +43,10 @@ const commonPlugins = [
     }),
     babel({
         exclude: 'node_modules/**',
-        plugins: ['external-helpers']
+        externalHelpers: true,
+        presets: [
+            '@nivo/babel-preset'
+        ]
     }),
 ]
 
@@ -51,7 +54,7 @@ export default [
     {
         ...common,
         output: {
-            file: `./packages/${pkg}/cjs/nivo-${pkg}.js`,
+            file: `./packages/${pkg}/dist/nivo-${pkg}.cjs.js`,
             format: 'cjs',
             name: `@nivo/${pkg}`,
         },
@@ -60,7 +63,16 @@ export default [
     {
         ...common,
         output: {
-            file: `./packages/${pkg}/umd/nivo-${pkg}.js`,
+            file: `./packages/${pkg}/dist/nivo-${pkg}.esm.js`,
+            format: 'esm',
+            name: `@nivo/${pkg}`,
+        },
+        plugins: commonPlugins,
+    },
+    {
+        ...common,
+        output: {
+            file: `./packages/${pkg}/dist/nivo-${pkg}.umd.js`,
             format: 'umd',
             extend: true,
             name: 'nivo',

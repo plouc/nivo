@@ -14,13 +14,12 @@
     "charts",
     "circle-packing"
   ],
-  "main": "./index.js",
+  "main": "./dist/nivo-circle-packing.cjs.js",
+  "module": "./dist/nivo-circle-packing.esm.js",
   "files": [
     "README.md",
     "LICENSE.md",
-    "index.js",
-    "cjs/",
-    "umd/"
+    "dist/"
   ],
   "dependencies": {
     "@nivo/core": "0.52.1",

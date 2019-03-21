@@ -6,14 +6,13 @@
     "name": "Raphaël Benitte",
     "url": "https://github.com/plouc"
   },
-  "main": "./index.js",
+  "main": "./dist/nivo-core.cjs.js",
+  "module": "./dist/nivo-core.esm.js",
   "files": [
     "README.md",
     "LICENSE.md",
-    "index.js",
     "index.d.ts",
-    "cjs/",
-    "umd/"
+    "dist/"
   ],
   "dependencies": {
     "d3-color": "^1.0.3",

@@ -14,14 +14,13 @@
     "charts",
     "sankey-diagram"
   ],
-  "main": "./index.js",
+  "main": "./dist/nivo-sankey.cjs.js",
+  "module": "./dist/nivo-sankey.esm.js",
   "files": [
     "README.md",
     "LICENSE.md",
-    "index.js",
     "index.d.ts",
-    "cjs/",
-    "umd/"
+    "dist/"
   ],
   "dependencies": {
     "@nivo/core": "0.52.1",

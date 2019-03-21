@@ -14,14 +14,13 @@
     "charts",
     "bar-chart"
   ],
-  "main": "./index.js",
+  "main": "./dist/nivo-bar.cjs.js",
+  "module": "./dist/nivo-bar.esm.js",
   "files": [
     "README.md",
     "LICENSE.md",
-    "index.js",
     "index.d.ts",
-    "cjs/",
-    "umd/"
+    "dist/"
   ],
   "dependencies": {
     "@nivo/axes": "0.52.1",

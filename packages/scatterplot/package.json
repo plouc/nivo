@@ -14,14 +14,13 @@
     "charts",
     "scatterplot"
   ],
-  "main": "./index.js",
+  "main": "./dist/nivo-scatterplot.cjs.js",
+  "module": "./dist/nivo-scatterplot.esm.js",
   "files": [
     "README.md",
     "LICENSE.md",
-    "index.js",
     "index.d.ts",
-    "cjs/",
-    "umd/"
+    "dist/"
   ],
   "dependencies": {
     "@nivo/axes": "0.52.1",
