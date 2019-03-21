@@ -58,5 +58,8 @@
     "readme": "node misc/readmeData.js | mustache - misc/README.mustache > README.md",
     "start": "node src/app.js",
     "dev": "nodemon src/app.js"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
