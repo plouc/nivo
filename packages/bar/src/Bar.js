@@ -121,7 +121,7 @@ const Bar = props => {
         getColor,
         padding,
         innerPadding,
-        minBarLength
+        minBarLength,
     }
     const result =
         groupMode === 'grouped' ? generateGroupedBars(options) : generateStackedBars(options)

@@ -69,7 +69,7 @@ export const generateVerticalStackedBars = ({
     getColor,
     padding = 0,
     innerPadding = 0,
-    minBarLength
+    minBarLength,
 }) => {
     const stackedData = stack()
         .keys(keys)
@@ -91,7 +91,7 @@ export const generateVerticalStackedBars = ({
 
     if (barWidth > 0) {
         //Array of bar offsets the size of the data, where each item corresponds to the current additional offset of that bar
-        const barOffsets = new Array(data.length).fill(0) 
+        const barOffsets = new Array(data.length).fill(0)
 
         stackedData.forEach(stackedDataItem => {
             xScale.domain().forEach((index, i) => {
@@ -105,7 +105,12 @@ export const generateVerticalStackedBars = ({
                 //If bar has no data value associated or that data is zero, don't render the barItem
                 const doesBarHaveData = d.data[stackedDataItem.key]
                 //If minBarLength prop is specified, valid data exists for the bar, and it's calculated length is less than the minBarLength specified
-                if ( minBarLength && minBarLength > 0 && doesBarHaveData && barHeight < minBarLength) {
+                if (
+                    minBarLength &&
+                    minBarLength > 0 &&
+                    doesBarHaveData &&
+                    barHeight < minBarLength
+                ) {
                     offsetAdjusted += minBarLength - barHeight
                     barHeight = minBarLength
                 }
@@ -174,7 +179,7 @@ export const generateHorizontalStackedBars = ({
     getColor,
     padding = 0,
     innerPadding = 0,
-    minBarLength
+    minBarLength,
 }) => {
     const stackedData = stack()
         .keys(keys)
@@ -216,9 +221,14 @@ export const generateHorizontalStackedBars = ({
                 let barWidth = getWidth(d, x)
 
                 //If bar has no data value associated or that data is zero, don't render the barItem
-                const doesBarHaveData = d.data[stackedDataItem.key] 
+                const doesBarHaveData = d.data[stackedDataItem.key]
                 //If minBarLength prop is specified, valid data that is greater than 0 exists for the bar, and it's calculated length is less than the minBarLength specified
-                if ( minBarLength && minBarLength > 0 && doesBarHaveData && barWidth < minBarLength) {
+                if (
+                    minBarLength &&
+                    minBarLength > 0 &&
+                    doesBarHaveData &&
+                    barWidth < minBarLength
+                ) {
                     offsetAdjusted += minBarLength - barWidth
                     barWidth = minBarLength
                 }
