@@ -14,14 +14,13 @@
     "charts",
     "bullet-chart"
   ],
-  "main": "./index.js",
+  "main": "./dist/nivo-bullet.cjs.js",
+  "module": "./dist/nivo-bullet.esm.js",
   "files": [
     "README.md",
     "LICENSE.md",
-    "index.js",
     "index.d.ts",
-    "cjs/",
-    "umd/"
+    "dist/"
   ],
   "dependencies": {
     "@nivo/core": "0.52.1",

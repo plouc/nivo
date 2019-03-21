@@ -12,14 +12,13 @@
     "react",
     "axes"
   ],
-  "main": "./index.js",
+  "main": "./dist/nivo-axes.cjs.js",
+  "module": "./dist/nivo-axes.esm.js",
   "files": [
     "README.md",
     "LICENSE.md",
-    "index.js",
     "index.d.ts",
-    "cjs/",
-    "umd/"
+    "dist/"
   ],
   "dependencies": {
     "@nivo/core": "0.52.1",

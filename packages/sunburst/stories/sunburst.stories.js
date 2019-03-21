@@ -19,12 +19,10 @@ stories.addDecorator(withKnobs)
 
 stories.add('default', () => <Sunburst {...commonProperties} />)
 
-stories.add(
-    'with child color modifier',
-    () => <Sunburst {...commonProperties} childColor="inherit:brighter(0.13)" />
-)
+stories.add('with child color modifier', () => (
+    <Sunburst {...commonProperties} childColor="inherit:brighter(0.13)" />
+))
 
-stories.add(
-    'with child colors independent of parent',
-    () => <Sunburst {...commonProperties} childColor="noinherit" />
-)
+stories.add('with child colors independent of parent', () => (
+    <Sunburst {...commonProperties} childColor="noinherit" />
+))

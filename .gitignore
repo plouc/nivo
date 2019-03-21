@@ -9,8 +9,7 @@ package-lock.json
 
 build
 
-/packages/*/cjs
-/packages/*/umd
+/packages/*/dist
 
 *.lerna_backup
 
