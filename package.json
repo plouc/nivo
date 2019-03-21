@@ -34,10 +34,10 @@
     "babel-eslint": "^8.2.1",
     "babel-jest": "^24.5.0",
     "babel-loader": "^8.0.5",
-    "chalk": "^2.3.0",
+    "chalk": "^2.4.2",
     "clog-cli": "^1.0.0",
-    "enzyme": "^3.4.4",
-    "enzyme-adapter-react-16": "^1.2.0",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.11.2",
     "eslint": "^5.13.3",
     "eslint-plugin-react": "^7.12.4",
     "gh-pages": "^1.0.0",
@@ -51,15 +51,15 @@
     "raf": "^3.4.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "react-test-renderer": "^16.4.2",
+    "react-test-renderer": "^16.8.4",
     "rollup": "^1.7.0",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-node-resolve": "^4.0.1",
     "rollup-plugin-prettier": "^0.6.0",
     "rollup-plugin-strip-banner": "^0.2.0",
-    "serve": "^10.1.1",
-    "tslint": "^5.11.0",
-    "typescript": "^3.0.1"
+    "serve": "^10.1.2",
+    "tslint": "^5.14.0",
+    "typescript": "^3.3.4000"
   },
   "scripts": {
     "changelog": "rm CHANGELOG.md && node scripts/generate-changelog.js"
