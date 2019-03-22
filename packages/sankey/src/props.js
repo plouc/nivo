@@ -39,6 +39,7 @@ export const SankeyPropTypes = {
         ).isRequired,
     }).isRequired,
 
+    layout: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
     align: sankeyAlignmentPropType.isRequired,
     sort: PropTypes.oneOfType([
         PropTypes.oneOf(['auto', 'input', 'ascending', 'descending']),
@@ -48,9 +49,9 @@ export const SankeyPropTypes = {
     nodeOpacity: PropTypes.number.isRequired,
     nodeHoverOpacity: PropTypes.number.isRequired,
     nodeHoverOthersOpacity: PropTypes.number.isRequired,
-    nodeWidth: PropTypes.number.isRequired,
-    nodePaddingX: PropTypes.number.isRequired,
-    nodePaddingY: PropTypes.number.isRequired,
+    nodeThickness: PropTypes.number.isRequired,
+    nodeSpacing: PropTypes.number.isRequired,
+    nodeInnerPadding: PropTypes.number.isRequired,
     nodeBorderWidth: PropTypes.number.isRequired,
     nodeBorderColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
@@ -82,15 +83,16 @@ export const SankeyPropTypes = {
 }
 
 export const SankeyDefaultProps = {
+    layout: 'horizontal',
     align: 'center',
     sort: 'auto',
 
     nodeOpacity: 0.75,
     nodeHoverOpacity: 1,
     nodeHoverOthersOpacity: 0.15,
-    nodeWidth: 12,
-    nodePaddingX: 0,
-    nodePaddingY: 12,
+    nodeThickness: 12,
+    nodeSpacing: 12,
+    nodeInnerPadding: 0,
     nodeBorderWidth: 1,
     nodeBorderColor: 'inherit:darker(0.5)',
 

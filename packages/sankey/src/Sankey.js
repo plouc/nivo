@@ -29,7 +29,6 @@ const Sankey = ({
     nodeOpacity,
     nodeHoverOpacity,
     nodeHoverOthersOpacity,
-    nodePaddingX,
     nodeBorderWidth,
     getNodeBorderColor, // computed
     setCurrentNode, // injected
@@ -124,7 +123,6 @@ const Sankey = ({
                     />
                     <SankeyNodes
                         nodes={nodes}
-                        nodePaddingX={nodePaddingX}
                         nodeOpacity={nodeOpacity}
                         nodeHoverOpacity={nodeHoverOpacity}
                         nodeHoverOthersOpacity={nodeHoverOthersOpacity}
