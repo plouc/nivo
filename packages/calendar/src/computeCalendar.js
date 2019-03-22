@@ -11,7 +11,6 @@ import isDate from 'lodash/isDate'
 import range from 'lodash/range'
 import max from 'lodash/max'
 import assign from 'lodash/assign'
-import { DIRECTION_HORIZONTAL } from './constants'
 import { timeFormat } from 'd3-time-format'
 import { timeDays, timeWeek, timeWeeks, timeMonths, timeYear } from 'd3-time'
 
@@ -55,7 +54,7 @@ const computeCellSize = ({
     let hCellSize
     let vCellSize
 
-    if (direction === DIRECTION_HORIZONTAL) {
+    if (direction === 'horizontal') {
         hCellSize = (width - daySpacing * maxWeeks) / maxWeeks
         vCellSize =
             (height - (yearRange.length - 1) * yearSpacing - yearRange.length * (8 * daySpacing)) /
@@ -92,7 +91,7 @@ const monthPathAndBBox = ({ date, cellSize, yearIndex, yearSpacing, daySpacing, 
     let xO = 0
     let yO = 0
     const yearOffset = yearIndex * (7 * (cellSize + daySpacing) + yearSpacing)
-    if (direction === DIRECTION_HORIZONTAL) {
+    if (direction === 'horizontal') {
         yO = yearOffset
     } else {
         xO = yearOffset
@@ -100,7 +99,7 @@ const monthPathAndBBox = ({ date, cellSize, yearIndex, yearSpacing, daySpacing, 
 
     let path
     let bbox = { x: xO, y: yO, width: 0, height: 0 }
-    if (direction === DIRECTION_HORIZONTAL) {
+    if (direction === 'horizontal') {
         path = [
             `M${xO + (w0 + 1) * (cellSize + daySpacing)},${yO + d0 * (cellSize + daySpacing)}`,
             `H${xO + w0 * (cellSize + daySpacing)}V${yO + 7 * (cellSize + daySpacing)}`,
@@ -219,7 +218,7 @@ export const computeLayout = ({ width, height, from, to, direction, yearSpacing,
     })
 
     let cellPosition
-    if (direction === DIRECTION_HORIZONTAL) {
+    if (direction === 'horizontal') {
         cellPosition = cellPositionHorizontal(cellSize, yearSpacing, daySpacing)
     } else {
         cellPosition = cellPositionVertical(cellSize, yearSpacing, daySpacing)
@@ -296,5 +295,65 @@ export const bindDaysData = ({ days, data, colorScale, emptyColor }) => {
         })
 
         return day
+    })
+}
+
+export const computeYearLegendPositions = ({ years, direction, position, offset }) => {
+    return years.map(year => {
+        let x = 0
+        let y = 0
+        let rotation = 0
+        if (direction === 'horizontal' && position === 'before') {
+            x = year.bbox.x - offset
+            y = year.bbox.y + year.bbox.height / 2
+            rotation = -90
+        } else if (direction === 'horizontal' && position === 'after') {
+            x = year.bbox.x + year.bbox.width + offset
+            y = year.bbox.y + year.bbox.height / 2
+            rotation = -90
+        } else if (direction === 'vertical' && position === 'before') {
+            x = year.bbox.x + year.bbox.width / 2
+            y = year.bbox.y - offset
+        } else {
+            x = year.bbox.x + year.bbox.width / 2
+            y = year.bbox.y + year.bbox.height + offset
+        }
+
+        return {
+            ...year,
+            x,
+            y,
+            rotation,
+        }
+    })
+}
+
+export const computeMonthLegendPositions = ({ months, direction, position, offset }) => {
+    return months.map(month => {
+        let x = 0
+        let y = 0
+        let rotation = 0
+        if (direction === 'horizontal' && position === 'before') {
+            x = month.bbox.x + month.bbox.width / 2
+            y = month.bbox.y - offset
+        } else if (direction === 'horizontal' && position === 'after') {
+            x = month.bbox.x + month.bbox.width / 2
+            y = month.bbox.y + month.bbox.height + offset
+        } else if (direction === 'vertical' && position === 'before') {
+            x = month.bbox.x - offset
+            y = month.bbox.y + month.bbox.height / 2
+            rotation = -90
+        } else {
+            x = month.bbox.x + month.bbox.width + offset
+            y = month.bbox.y + month.bbox.height / 2
+            rotation = -90
+        }
+
+        return {
+            ...month,
+            x,
+            y,
+            rotation,
+        }
     })
 }

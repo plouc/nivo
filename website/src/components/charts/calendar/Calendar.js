@@ -46,6 +46,7 @@ export default class Calendar extends Component {
             direction: 'horizontal',
 
             yearSpacing: 40,
+            yearLegendPosition: 'before',
             yearLegendOffset: 10,
 
             monthBorderWidth: 2,

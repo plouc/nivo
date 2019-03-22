@@ -178,12 +178,6 @@ export default [
     },
     // Years
     {
-        key: 'yearLegend',
-        description: `can be used to customize years label, returns 'YYYY' by default.`,
-        type: '{(year: number) => string | number}',
-        required: false,
-    },
-    {
         key: 'yearSpacing',
         description: 'define spacing between each year row/column depending on the direction.',
         type: '{number}',
@@ -196,6 +190,24 @@ export default [
             min: 0,
             max: 160,
             step: 5,
+        },
+    },
+    {
+        key: 'yearLegend',
+        description: `can be used to customize years label, returns 'YYYY' by default.`,
+        type: '{(year: number) => string | number}',
+        required: false,
+    },
+    {
+        key: 'yearLegendPosition',
+        description: 'defines year legends position.',
+        type: `{'before'|'after'}`,
+        required: false,
+        default: defaults.yearLegendPosition,
+        controlType: 'choices',
+        controlGroup: 'Years',
+        controlOptions: {
+            choices: [{ label: 'before', value: 'before' }, { label: 'after', value: 'after' }],
         },
     },
     {
@@ -213,6 +225,29 @@ export default [
         },
     },
     // Months
+    {
+        key: 'monthBorderWidth',
+        description: 'width of month borders.',
+        type: '{number}',
+        required: false,
+        default: defaults.monthBorderWidth,
+        controlType: 'range',
+        controlGroup: 'Months',
+        controlOptions: {
+            unit: 'px',
+            min: 0,
+            max: 6,
+        },
+    },
+    {
+        key: 'monthBorderColor',
+        description: 'color to use for months border.',
+        type: '{string}',
+        required: false,
+        default: defaults.monthBorderColor,
+        controlType: 'colorPicker',
+        controlGroup: 'Months',
+    },
     {
         key: 'monthLegend',
         description: `can be used to customize months label, returns abbreviated month name (english) by default. This can be used to use a different language`,
@@ -232,20 +267,6 @@ export default [
         },
     },
     {
-        key: 'monthBorderWidth',
-        description: 'width of month borders.',
-        type: '{number}',
-        required: false,
-        default: defaults.monthBorderWidth,
-        controlType: 'range',
-        controlGroup: 'Months',
-        controlOptions: {
-            unit: 'px',
-            min: 0,
-            max: 6,
-        },
-    },
-    {
         key: 'monthLegendOffset',
         description: 'define offset from month edge to its label.',
         type: '{number}',
@@ -258,15 +279,6 @@ export default [
             min: 0,
             max: 36,
         },
-    },
-    {
-        key: 'monthBorderColor',
-        description: 'color to use for months border.',
-        type: '{string}',
-        required: false,
-        default: defaults.monthBorderColor,
-        controlType: 'colorPicker',
-        controlGroup: 'Months',
     },
     // Days
     {

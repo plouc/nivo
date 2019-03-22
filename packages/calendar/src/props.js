@@ -10,7 +10,6 @@ import PropTypes from 'prop-types'
 import { timeFormat } from 'd3-time-format'
 import { noop } from '@nivo/core'
 import { LegendPropShape } from '@nivo/legends'
-import { DIRECTION_HORIZONTAL, DIRECTION_VERTICAL } from './constants'
 
 const monthLabelFormat = timeFormat('%b')
 
@@ -30,7 +29,7 @@ export const CalendarPropTypes = {
     colors: PropTypes.arrayOf(PropTypes.string).isRequired,
     colorScale: PropTypes.func.isRequired,
 
-    direction: PropTypes.oneOf([DIRECTION_HORIZONTAL, DIRECTION_VERTICAL]),
+    direction: PropTypes.oneOf(['horizontal', 'vertical']),
     emptyColor: PropTypes.string.isRequired,
 
     yearLegend: PropTypes.func.isRequired,
@@ -64,7 +63,7 @@ export const CalendarPropTypes = {
 export const CalendarDefaultProps = {
     colors: ['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560'],
 
-    direction: DIRECTION_HORIZONTAL,
+    direction: 'horizontal',
     emptyColor: '#fff',
 
     minValue: 0,
