@@ -9,18 +9,18 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 
-const CalendarMonthLegends = memo(({ months, legend, theme }) => {
+const CalendarYearLegends = memo(({ years, legend, theme }) => {
     return (
         <>
-            {months.map(month => {
+            {years.map(year => {
                 return (
                     <text
-                        key={`${month.date.toString()}.legend`}
-                        transform={`translate(${month.x},${month.y}) rotate(${month.rotation})`}
+                        key={year.year}
+                        transform={`translate(${year.x},${year.y}) rotate(${year.rotation})`}
                         textAnchor="middle"
                         style={theme.labels.text}
                     >
-                        {legend(month.year, month.month, month.date)}
+                        {legend(year.year)}
                     </text>
                 )
             })}
@@ -28,12 +28,12 @@ const CalendarMonthLegends = memo(({ months, legend, theme }) => {
     )
 })
 
-CalendarMonthLegends.propTypes = {
-    months: PropTypes.array.isRequired,
+CalendarYearLegends.propTypes = {
+    years: PropTypes.array.isRequired,
     legend: PropTypes.func.isRequired,
     theme: PropTypes.object.isRequired,
 }
 
-CalendarMonthLegends.displayName = 'CalendarMonthLegends'
+CalendarYearLegends.setDisplayName = 'CalendarYearLegends'
 
-export default CalendarMonthLegends
+export default CalendarYearLegends

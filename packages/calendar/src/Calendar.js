@@ -11,11 +11,11 @@ import { Container, SvgWrapper } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
 import { setDisplayName } from 'recompose'
 import { CalendarPropTypes } from './props'
-import { DIRECTION_HORIZONTAL } from './constants'
 import enhance from './enhance'
-import CalendarDay from './CalendarDay'
+import CalendarYearLegends from './CalendarYearLegends'
 import CalendarMonthPath from './CalendarMonthPath'
 import CalendarMonthLegends from './CalendarMonthLegends'
+import CalendarDay from './CalendarDay'
 
 const Calendar = ({
     colorScale,
@@ -26,16 +26,13 @@ const Calendar = ({
     outerWidth,
     outerHeight,
 
-    direction,
-
+    yearLegends,
     yearLegend,
-    yearLegendOffset,
 
+    monthLegends,
     monthLegend,
-    monthLegendPosition,
     monthBorderWidth,
     monthBorderColor,
-    monthLegendOffset,
 
     daySpacing,
     dayBorderWidth,
@@ -50,7 +47,6 @@ const Calendar = ({
 
     legends,
 
-    years,
     months,
     days,
 }) => {
@@ -86,35 +82,11 @@ const Calendar = ({
                         />
                     ))}
                     <CalendarMonthLegends
-                        months={months}
-                        direction={direction}
+                        months={monthLegends}
                         legend={monthLegend}
-                        position={monthLegendPosition}
-                        offset={monthLegendOffset}
                         theme={theme}
                     />
-                    {years.map(year => {
-                        let transform
-                        if (direction === DIRECTION_HORIZONTAL) {
-                            transform = `translate(${year.bbox.x - yearLegendOffset},${year.bbox.y +
-                                year.bbox.height / 2}) rotate(-90)`
-                        } else {
-                            transform = `translate(${year.bbox.x + year.bbox.width / 2},${year.bbox
-                                .y - yearLegendOffset})`
-                        }
-
-                        return (
-                            <text
-                                key={year.year}
-                                className="nivo_calendar_year_legend"
-                                transform={transform}
-                                textAnchor="middle"
-                                style={theme.labels.text}
-                            >
-                                {yearLegend(year.year)}
-                            </text>
-                        )
-                    })}
+                    <CalendarYearLegends years={yearLegends} legend={yearLegend} theme={theme} />
                     {legends.map((legend, i) => {
                         const legendData = colorScale.ticks(legend.itemCount).map(value => ({
                             id: value,

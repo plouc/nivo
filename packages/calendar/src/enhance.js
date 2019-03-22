@@ -13,7 +13,13 @@ import pure from 'recompose/pure'
 import { scaleQuantize } from 'd3-scale'
 import { withTheme, withDimensions } from '@nivo/core'
 import { CalendarDefaultProps } from './props'
-import { computeDomain, computeLayout, bindDaysData } from './computeCalendar'
+import {
+    computeDomain,
+    computeLayout,
+    bindDaysData,
+    computeYearLegendPositions,
+    computeMonthLegendPositions,
+} from './computeCalendar'
 
 export default Component =>
     compose(
@@ -46,6 +52,32 @@ export default Component =>
                 })
 
                 return { years, months, days }
+            }
+        ),
+        withPropsOnChange(
+            ['years', 'direction', 'yearLegendPosition', 'yearLegendOffset'],
+            ({ years, direction, yearLegendPosition, yearLegendOffset }) => {
+                return {
+                    yearLegends: computeYearLegendPositions({
+                        years,
+                        direction,
+                        position: yearLegendPosition,
+                        offset: yearLegendOffset,
+                    }),
+                }
+            }
+        ),
+        withPropsOnChange(
+            ['months', 'direction', 'monthLegendPosition', 'monthLegendOffset'],
+            ({ months, direction, monthLegendPosition, monthLegendOffset }) => {
+                return {
+                    monthLegends: computeMonthLegendPositions({
+                        months,
+                        direction,
+                        position: monthLegendPosition,
+                        offset: monthLegendOffset,
+                    }),
+                }
             }
         ),
         withPropsOnChange(
