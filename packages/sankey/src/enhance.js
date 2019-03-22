@@ -6,14 +6,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import compose from 'recompose/compose'
-import defaultProps from 'recompose/defaultProps'
-import withState from 'recompose/withState'
-import withPropsOnChange from 'recompose/withPropsOnChange'
-import pure from 'recompose/pure'
-import { getLabelGenerator, getInheritedColorGenerator } from '@nivo/core'
-import { withColors, withTheme, withDimensions, withMotion } from '@nivo/core'
-import { SankeyDefaultProps } from './props'
+import { cloneDeep } from 'lodash'
+import { compose, defaultProps, withState, withPropsOnChange, pure } from 'recompose'
+import { sankey as d3Sankey } from 'd3-sankey'
+import {
+    getLabelGenerator,
+    getInheritedColorGenerator,
+    withColors,
+    withTheme,
+    withDimensions,
+    withMotion,
+} from '@nivo/core'
+import { SankeyDefaultProps, sankeyAlignmentFromProp } from './props'
+
+const getId = d => d.id
 
 export default Component =>
     compose(
@@ -49,6 +55,76 @@ export default Component =>
             }
 
             return { sortFunction }
+        }),
+        withPropsOnChange(['align'], ({ align }) => {
+            return {
+                alignFunction: sankeyAlignmentFromProp(align),
+            }
+        }),
+        withPropsOnChange(
+            [
+                'data',
+                'alignFunction',
+                'sortFunction',
+                'nodeWidth',
+                'nodePaddingX',
+                'nodePaddingY',
+                'width',
+                'height',
+                'getColor',
+                'getLinkColor',
+                'getLabel',
+            ],
+            ({
+                data: _data,
+                alignFunction,
+                sortFunction,
+                nodeWidth,
+                nodePaddingX,
+                nodePaddingY,
+                width,
+                height,
+                getColor,
+                getLinkColor,
+                getLabel,
+            }) => {
+                const sankey = d3Sankey()
+                    .nodeAlign(alignFunction)
+                    .nodeSort(sortFunction)
+                    .nodeWidth(nodeWidth)
+                    .nodePadding(nodePaddingY)
+                    .size([width, height])
+                    .nodeId(getId)
+
+                // deep clone is required as the sankey diagram mutates data
+                // we need a different identity for correct updates
+                const data = cloneDeep(_data)
+                sankey(data)
+
+                data.nodes.forEach(node => {
+                    node.color = getColor(node)
+                    node.label = getLabel(node)
+                    node.x = node.x0 + nodePaddingX
+                    node.y = node.y0
+                    node.width = Math.max(node.x1 - node.x0 - nodePaddingX * 2, 0)
+                    node.height = Math.max(node.y1 - node.y0, 0)
+                })
+
+                data.links.forEach(link => {
+                    link.color = getLinkColor(link)
+                })
+
+                return data
+            }
+        ),
+        withPropsOnChange(['nodes'], ({ nodes }) => {
+            return {
+                legendData: nodes.map(node => ({
+                    id: node.id,
+                    label: node.label,
+                    color: node.color,
+                })),
+            }
         }),
         pure
     )(Component)
