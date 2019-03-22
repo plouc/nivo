@@ -40,6 +40,8 @@ declare module '@nivo/sankey' {
         | 'color'
         | 'luminosity'
 
+    export type SankeySortFunction = (nodeA: SankeyDataNode, nodeB: SankeyDataNode) => number
+
     export type SankeyProps = Partial<{
         align: 'center' | 'justify' | 'left' | 'right'
 
@@ -77,7 +79,7 @@ declare module '@nivo/sankey' {
 
         legends: LegendProps[]
 
-        sort?: (nodeA: SankeyDataNode, nodeB: SankeyDataNode) => number
+        sort: 'auto' | 'input' | 'ascending' | 'descending' | SankeySortFunction
     }>
 
     interface Dimensions {

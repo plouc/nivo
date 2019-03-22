@@ -34,7 +34,6 @@ export default class SankeyAPI extends Component {
                     align: 'justify',
                     colors: 'paired',
 
-                    // nodes
                     nodeOpacity: 0.75,
                     nodeWidth: 18,
                     nodePaddingX: 4,
@@ -45,13 +44,12 @@ export default class SankeyAPI extends Component {
                         gamma: 0.4,
                     },
 
-                    // links
                     linkOpacity: 0.15,
-                    linkBlendMode: 'multiply',
-                    enableLinkGradient: true,
+                    // @todo: not yet supported by the API
+                    // linkBlendMode: 'multiply',
+                    // enableLinkGradient: true,
                     linkContract: 0,
 
-                    // labels
                     enableLabels: true,
                     labelPosition: 'inside',
                     labelOrientation: 'vertical',
