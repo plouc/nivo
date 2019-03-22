@@ -13,7 +13,7 @@ import pure from 'recompose/pure'
 import { scaleQuantize } from 'd3-scale'
 import { withTheme, withDimensions } from '@nivo/core'
 import { CalendarDefaultProps } from './props'
-import { computeDomain } from './computeCalendar'
+import { computeDomain, computeLayout, bindDaysData } from './computeCalendar'
 
 export default Component =>
     compose(
@@ -30,6 +30,35 @@ export default Component =>
                     .range(colors)
 
                 return { colorScale }
+            }
+        ),
+        withPropsOnChange(
+            ['width', 'height', 'from', 'to', 'direction', 'yearSpacing', 'daySpacing'],
+            ({ width, height, from, to, direction, yearSpacing, daySpacing }) => {
+                const { years, months, days } = computeLayout({
+                    width,
+                    height,
+                    from,
+                    to,
+                    direction,
+                    yearSpacing,
+                    daySpacing,
+                })
+
+                return { years, months, days }
+            }
+        ),
+        withPropsOnChange(
+            ['days', 'data', 'colorScale', 'emptyColor'],
+            ({ days, data, colorScale, emptyColor }) => {
+                return {
+                    days: bindDaysData({
+                        days,
+                        data,
+                        colorScale,
+                        emptyColor,
+                    }),
+                }
             }
         ),
         pure

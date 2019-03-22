@@ -7,24 +7,18 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
+import { Container, SvgWrapper } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
-import setDisplayName from 'recompose/setDisplayName'
-import computeCalendar from './computeCalendar'
+import { setDisplayName } from 'recompose'
 import { CalendarPropTypes } from './props'
 import { DIRECTION_HORIZONTAL } from './constants'
 import CalendarDay from './CalendarDay'
 import CalendarMonthPath from './CalendarMonthPath'
-import { Container, SvgWrapper } from '@nivo/core'
 import enhance from './enhance'
 
 const Calendar = ({
-    data,
-    from,
-    to,
-
     colorScale,
 
-    // dimensions
     margin,
     width,
     height,
@@ -33,46 +27,31 @@ const Calendar = ({
 
     direction,
 
-    // years
     yearLegend,
-    yearSpacing,
     yearLegendOffset,
 
-    // months
     monthLegend,
     monthBorderWidth,
     monthBorderColor,
     monthLegendOffset,
 
-    // days
     daySpacing,
     dayBorderWidth,
     dayBorderColor,
-    emptyColor,
 
     theme,
 
-    // interactivity
     isInteractive,
     tooltipFormat,
     tooltip,
     onClick,
 
     legends,
-}) => {
-    const { years, months, days } = computeCalendar({
-        width,
-        height,
-        from,
-        to,
-        data,
-        direction,
-        colorScale,
-        emptyColor,
-        yearSpacing,
-        daySpacing,
-    })
 
+    years,
+    months,
+    days,
+}) => {
     return (
         <Container isInteractive={isInteractive} theme={theme}>
             {({ showTooltip, hideTooltip }) => (
@@ -84,6 +63,7 @@ const Calendar = ({
                             x={d.x}
                             y={d.y}
                             size={d.size}
+                            spacing={daySpacing}
                             color={d.color}
                             borderWidth={dayBorderWidth}
                             borderColor={dayBorderColor}

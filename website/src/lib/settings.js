@@ -10,7 +10,10 @@ export const settingsMapper = (mapping, { exclude = [] } = {}) => (settings, opt
         }
     })
 
-    return Object.assign({}, omit(settings, exclude), overrides)
+    return {
+        ...omit(settings, exclude),
+        ...overrides,
+    }
 }
 
 export const mapInheritedColor = ({ type, ...config }) => {

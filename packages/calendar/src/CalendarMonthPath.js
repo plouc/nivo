@@ -17,6 +17,7 @@ const CalendarMonthPath = ({ path, borderWidth, borderColor }) => (
             fill: 'none',
             strokeWidth: borderWidth,
             stroke: borderColor,
+            pointerEvents: 'none',
         }}
     />
 )

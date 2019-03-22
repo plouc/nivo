@@ -35,6 +35,7 @@ export const CalendarPropTypes = {
 
     yearLegend: PropTypes.func.isRequired,
     yearSpacing: PropTypes.number.isRequired,
+    yearLegendPosition: PropTypes.oneOf(['before', 'after']).isRequired,
     yearLegendOffset: PropTypes.number.isRequired,
 
     monthLegend: PropTypes.func.isRequired,
@@ -70,6 +71,7 @@ export const CalendarDefaultProps = {
 
     yearLegend: year => year,
     yearSpacing: 30,
+    yearLegendPosition: 'before',
     yearLegendOffset: 10,
 
     monthLegend: (year, month, date) => monthLabelFormat(date),
