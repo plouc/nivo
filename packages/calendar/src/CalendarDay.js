@@ -6,50 +6,52 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { compose, withPropsOnChange, pure } from 'recompose'
 import { BasicTooltip, noop } from '@nivo/core'
 
-const CalendarDay = ({
-    x,
-    y,
-    size,
-    spacing,
-    color,
-    borderWidth,
-    borderColor,
-    onClick,
-    showTooltip,
-    hideTooltip,
-}) => {
-    return (
-        <>
-            <rect
-                x={x}
-                y={y}
-                width={size}
-                height={size}
-                style={{
-                    fill: color,
-                    strokeWidth: borderWidth,
-                    stroke: borderColor,
-                }}
-            />
-            <rect
-                fill="rgba(0, 0, 0, 0)"
-                x={x - spacing / 2}
-                y={y - spacing / 2}
-                width={size + spacing}
-                height={size + spacing}
-                onClick={onClick}
-                onMouseEnter={showTooltip}
-                onMouseMove={showTooltip}
-                onMouseLeave={hideTooltip}
-            />
-        </>
-    )
-}
+const CalendarDay = memo(
+    ({
+        x,
+        y,
+        size,
+        spacing,
+        color,
+        borderWidth,
+        borderColor,
+        onClick,
+        showTooltip,
+        hideTooltip,
+    }) => {
+        return (
+            <>
+                <rect
+                    x={x}
+                    y={y}
+                    width={size}
+                    height={size}
+                    style={{
+                        fill: color,
+                        strokeWidth: borderWidth,
+                        stroke: borderColor,
+                    }}
+                />
+                <rect
+                    fill="rgba(0, 0, 0, 0)"
+                    x={x - spacing / 2}
+                    y={y - spacing / 2}
+                    width={size + spacing}
+                    height={size + spacing}
+                    onClick={onClick}
+                    onMouseEnter={showTooltip}
+                    onMouseMove={showTooltip}
+                    onMouseLeave={hideTooltip}
+                />
+            </>
+        )
+    }
+)
 
 CalendarDay.propTypes = {
     onClick: PropTypes.func.isRequired,
@@ -71,6 +73,8 @@ CalendarDay.propTypes = {
         tooltip: PropTypes.shape({}).isRequired,
     }).isRequired,
 }
+
+CalendarDay.displayName = 'CalendarDay'
 
 const enhance = compose(
     withPropsOnChange(['data', 'onClick'], ({ data, onClick }) => ({

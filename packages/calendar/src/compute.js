@@ -284,10 +284,11 @@ export const computeLayout = ({ width, height, from, to, direction, yearSpacing,
 export const bindDaysData = ({ days, data, colorScale, emptyColor }) => {
     return days.map(day => {
         day.color = emptyColor
-        data.forEach(dataDay => {
-            if (dataDay.day === day.day) {
-                day.value = dataDay.value
-                day.color = colorScale(dataDay.value)
+        data.forEach(dayData => {
+            if (dayData.day === day.day) {
+                day.value = dayData.value
+                day.color = colorScale(dayData.value)
+                day.data = dayData
             }
         })
 

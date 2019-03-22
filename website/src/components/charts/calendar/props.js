@@ -26,6 +26,8 @@ export default [
                         }>
                     `}
                 </pre>
+                You can also add arbitrary data to this structure to be used in tooltips or event
+                handlers.
             </div>
         ),
         type: '{Array<Object>}',

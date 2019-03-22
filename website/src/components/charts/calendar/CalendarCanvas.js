@@ -54,7 +54,7 @@ export default class CalendarCanvas extends Component {
             monthLegendOffset: 10,
 
             daySpacing: 0,
-            dayBorderWidth: 2,
+            dayBorderWidth: 1,
             dayBorderColor: '#ffffff',
 
             isInteractive: true,
