@@ -66,9 +66,9 @@ export default Component =>
                 'data',
                 'alignFunction',
                 'sortFunction',
-                'nodeWidth',
-                'nodePaddingX',
-                'nodePaddingY',
+                'nodeThickness',
+                'nodeSpacing',
+                'nodeInnerPadding',
                 'width',
                 'height',
                 'getColor',
@@ -79,9 +79,9 @@ export default Component =>
                 data: _data,
                 alignFunction,
                 sortFunction,
-                nodeWidth,
-                nodePaddingX,
-                nodePaddingY,
+                nodeThickness,
+                nodeSpacing,
+                nodeInnerPadding,
                 width,
                 height,
                 getColor,
@@ -91,8 +91,8 @@ export default Component =>
                 const sankey = d3Sankey()
                     .nodeAlign(alignFunction)
                     .nodeSort(sortFunction)
-                    .nodeWidth(nodeWidth)
-                    .nodePadding(nodePaddingY)
+                    .nodeWidth(nodeThickness)
+                    .nodePadding(nodeSpacing)
                     .size([width, height])
                     .nodeId(getId)
 
@@ -104,9 +104,9 @@ export default Component =>
                 data.nodes.forEach(node => {
                     node.color = getColor(node)
                     node.label = getLabel(node)
-                    node.x = node.x0 + nodePaddingX
+                    node.x = node.x0 + nodeInnerPadding
                     node.y = node.y0
-                    node.width = Math.max(node.x1 - node.x0 - nodePaddingX * 2, 0)
+                    node.width = Math.max(node.x1 - node.x0 - nodeInnerPadding * 2, 0)
                     node.height = Math.max(node.y1 - node.y0, 0)
                 })
 

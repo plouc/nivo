@@ -16,19 +16,16 @@ import SankeyNodesItem from './SankeyNodesItem'
 const SankeyNodes = ({
     nodes,
 
-    // nodes
     nodeOpacity,
     nodeHoverOpacity,
     nodeHoverOthersOpacity,
     nodeBorderWidth,
     getNodeBorderColor,
 
-    // motion
     animate,
     motionDamping,
     motionStiffness,
 
-    // interactivity
     showTooltip,
     hideTooltip,
     setCurrentNode,
@@ -139,7 +136,6 @@ SankeyNodes.propTypes = {
         })
     ).isRequired,
 
-    nodePaddingX: PropTypes.number.isRequired,
     nodeOpacity: PropTypes.number.isRequired,
     nodeHoverOpacity: PropTypes.number.isRequired,
     nodeHoverOthersOpacity: PropTypes.number.isRequired,
@@ -151,7 +147,6 @@ SankeyNodes.propTypes = {
 
     ...motionPropTypes,
 
-    // interactivity
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
     setCurrentNode: PropTypes.func.isRequired,

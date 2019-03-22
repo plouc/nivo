@@ -34,9 +34,9 @@ const initialSettings = {
 
     nodeOpacity: 1,
     nodeHoverOpacity: 1,
-    nodeWidth: 18,
-    nodePaddingX: 0,
-    nodePaddingY: 12,
+    nodeThickness: 18,
+    nodeInnerPadding: 0,
+    nodeSpacing: 12,
     nodeBorderWidth: 1,
     nodeBorderColor: {
         type: 'inherit:darker',
