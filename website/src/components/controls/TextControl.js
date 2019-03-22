@@ -16,7 +16,7 @@ export default class TextControl extends Component {
         label: PropTypes.string.isRequired,
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
         onChange: PropTypes.func.isRequired,
-        help: PropTypes.string.isRequired,
+        help: PropTypes.node.isRequired,
         disabled: PropTypes.bool,
     }
 
