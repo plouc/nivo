@@ -50,6 +50,7 @@ export default class Calendar extends Component {
 
             monthBorderWidth: 2,
             monthBorderColor: '#ffffff',
+            monthLegendPosition: 'before',
             monthLegendOffset: 10,
 
             daySpacing: 0,

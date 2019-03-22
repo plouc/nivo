@@ -38,9 +38,10 @@ export const CalendarPropTypes = {
     yearLegendPosition: PropTypes.oneOf(['before', 'after']).isRequired,
     yearLegendOffset: PropTypes.number.isRequired,
 
-    monthLegend: PropTypes.func.isRequired,
     monthBorderWidth: PropTypes.number.isRequired,
     monthBorderColor: PropTypes.string.isRequired,
+    monthLegend: PropTypes.func.isRequired,
+    monthLegendPosition: PropTypes.oneOf(['before', 'after']).isRequired,
     monthLegendOffset: PropTypes.number.isRequired,
 
     daySpacing: PropTypes.number.isRequired,
@@ -69,16 +70,18 @@ export const CalendarDefaultProps = {
     minValue: 0,
     maxValue: 'auto',
 
-    yearLegend: year => year,
     yearSpacing: 30,
+    yearLegend: year => year,
     yearLegendPosition: 'before',
     yearLegendOffset: 10,
 
-    monthLegend: (year, month, date) => monthLabelFormat(date),
     monthBorderWidth: 2,
     monthBorderColor: '#000',
-    monthLegendOffset: 6,
+    monthLegend: (year, month, date) => monthLabelFormat(date),
+    monthLegendPosition: 'before',
+    monthLegendOffset: -6,
 
+    weekdayLegend: d => d,
     daySpacing: 0,
     dayBorderWidth: 1,
     dayBorderColor: '#000',
