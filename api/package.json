@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "mustache": "^2.3.0",
-    "nodemon": "^1.18.7"
+    "nodemon": "^1.18.10"
   },
   "dependencies": {
     "@nivo/bar": "0.53.1",
@@ -49,8 +49,8 @@
     "express-winston": "^2.4.0",
     "joi": "^14.3.0",
     "lodash": "^4.17.4",
-    "react": "16.2.0",
-    "react-dom": "16.2.0",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
     "uuid": "^3.1.0",
     "winston": "^2.3.1"
   },
