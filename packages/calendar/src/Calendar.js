@@ -12,9 +12,10 @@ import { BoxLegendSvg } from '@nivo/legends'
 import { setDisplayName } from 'recompose'
 import { CalendarPropTypes } from './props'
 import { DIRECTION_HORIZONTAL } from './constants'
+import enhance from './enhance'
 import CalendarDay from './CalendarDay'
 import CalendarMonthPath from './CalendarMonthPath'
-import enhance from './enhance'
+import CalendarMonthLegends from './CalendarMonthLegends'
 
 const Calendar = ({
     colorScale,
@@ -31,6 +32,7 @@ const Calendar = ({
     yearLegendOffset,
 
     monthLegend,
+    monthLegendPosition,
     monthBorderWidth,
     monthBorderColor,
     monthLegendOffset,
@@ -83,29 +85,14 @@ const Calendar = ({
                             borderColor={monthBorderColor}
                         />
                     ))}
-                    {months.map(month => {
-                        let transform
-                        if (direction === DIRECTION_HORIZONTAL) {
-                            transform = `translate(${month.bbox.x + month.bbox.width / 2},${month
-                                .bbox.y - monthLegendOffset})`
-                        } else {
-                            transform = `translate(${month.bbox.x - monthLegendOffset},${month.bbox
-                                .y +
-                                month.bbox.height / 2}) rotate(-90)`
-                        }
-
-                        return (
-                            <text
-                                key={`${month.date.toString()}.legend`}
-                                className="nivo_calendar_month_legend"
-                                transform={transform}
-                                textAnchor="middle"
-                                style={theme.labels.text}
-                            >
-                                {monthLegend(month.year, month.month, month.date)}
-                            </text>
-                        )
-                    })}
+                    <CalendarMonthLegends
+                        months={months}
+                        direction={direction}
+                        legend={monthLegend}
+                        position={monthLegendPosition}
+                        offset={monthLegendOffset}
+                        theme={theme}
+                    />
                     {years.map(year => {
                         let transform
                         if (direction === DIRECTION_HORIZONTAL) {

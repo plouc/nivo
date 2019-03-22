@@ -220,6 +220,18 @@ export default [
         required: false,
     },
     {
+        key: 'monthLegendPosition',
+        description: 'defines month legends position.',
+        type: `{'before'|'after'}`,
+        required: false,
+        default: defaults.monthLegendPosition,
+        controlType: 'choices',
+        controlGroup: 'Months',
+        controlOptions: {
+            choices: [{ label: 'before', value: 'before' }, { label: 'after', value: 'after' }],
+        },
+    },
+    {
         key: 'monthBorderWidth',
         description: 'width of month borders.',
         type: '{number}',
