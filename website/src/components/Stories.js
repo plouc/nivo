@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
+import snakeCase from 'lodash/kebabCase'
 import PropTypes from 'prop-types'
 import VisitIcon from 'react-icons/lib/md/keyboard-arrow-right'
 import config from '../config'
 import CollapsibleCard from './CollapsibleCard'
 
 const buildStoryLink = ({ kind, story }) =>
-    `${config.storybookUrl}?selectedKind=${encodeURIComponent(
-        kind
-    )}&selectedStory=${encodeURIComponent(story)}`
+    `${config.storybookUrl}?path=/story/${encodeURIComponent(
+        kind.toLowerCase()
+    )}--${encodeURIComponent(snakeCase(story))}`
 
 export default class Stories extends Component {
     static propTypes = {

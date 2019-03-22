@@ -7,19 +7,23 @@ import { names } from './sets'
 const availableNodes = names.map(name => ({ id: name }))
 
 const getNodeTargets = (id, links, currentPath) => {
-    const targets = links.filter(({ source }) => source === id).map(({ target }) => {
-        if (target === id) {
-            throw new Error(`[sankey] a node cannot be linked on itself:\n  link: ${id} —> ${id}`)
-        }
-        if (currentPath && currentPath.includes(target)) {
-            throw new Error(
-                `[sankey] found cyclic dependency:\n  link: ${currentPath.join(
-                    ' —> '
-                )} —> ${target}`
-            )
-        }
-        return target
-    })
+    const targets = links
+        .filter(({ source }) => source === id)
+        .map(({ target }) => {
+            if (target === id) {
+                throw new Error(
+                    `[sankey] a node cannot be linked on itself:\n  link: ${id} —> ${id}`
+                )
+            }
+            if (currentPath && currentPath.includes(target)) {
+                throw new Error(
+                    `[sankey] found cyclic dependency:\n  link: ${currentPath.join(
+                        ' —> '
+                    )} —> ${target}`
+                )
+            }
+            return target
+        })
 
     return targets.reduce(
         (acc, targetId) =>

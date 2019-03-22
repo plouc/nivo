@@ -76,20 +76,22 @@ class TreeMapCanvas extends Component {
             this.ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
 
             // draw labels on top
-            nodes.filter(({ label }) => label !== undefined).forEach(node => {
-                const labelTextColor = getLabelTextColor(node)
+            nodes
+                .filter(({ label }) => label !== undefined)
+                .forEach(node => {
+                    const labelTextColor = getLabelTextColor(node)
 
-                const rotate = orientLabel && node.height > node.width
+                    const rotate = orientLabel && node.height > node.width
 
-                this.ctx.save()
-                this.ctx.translate(node.x + node.width / 2, node.y + node.height / 2)
-                this.ctx.rotate(degreesToRadians(rotate ? -90 : 0))
+                    this.ctx.save()
+                    this.ctx.translate(node.x + node.width / 2, node.y + node.height / 2)
+                    this.ctx.rotate(degreesToRadians(rotate ? -90 : 0))
 
-                this.ctx.fillStyle = labelTextColor
-                this.ctx.fillText(node.label, 0, 0)
+                    this.ctx.fillStyle = labelTextColor
+                    this.ctx.fillText(node.label, 0, 0)
 
-                this.ctx.restore()
-            })
+                    this.ctx.restore()
+                })
         }
     }
 

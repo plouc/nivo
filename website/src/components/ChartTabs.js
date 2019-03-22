@@ -106,14 +106,13 @@ export default class ChartTabs extends Component {
                     )}
                 </div>
                 {content}
-                {currentTab === 'chart' &&
-                    nodeCount !== undefined && (
-                        <span className="chart-tabs__node-count">
-                            <strong>{nodeCount}</strong>
-                            &nbsp;
-                            {nodeCountWording}
-                        </span>
-                    )}
+                {currentTab === 'chart' && nodeCount !== undefined && (
+                    <span className="chart-tabs__node-count">
+                        <strong>{nodeCount}</strong>
+                        &nbsp;
+                        {nodeCountWording}
+                    </span>
+                )}
             </div>
         )
     }

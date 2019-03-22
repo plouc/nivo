@@ -99,8 +99,9 @@ class Mesh extends Component {
         return (
             <g ref={this.setRectRef}>
                 {debug && <path d={voronoiPath} stroke="red" strokeWidth={0.5} opacity={0.75} />}
-                {index !== null &&
-                    debug && <path fill="red" opacity={0.25} d={voronoi.renderCell(index)} />}
+                {index !== null && debug && (
+                    <path fill="red" opacity={0.25} d={voronoi.renderCell(index)} />
+                )}
                 <rect
                     width={width}
                     height={height}

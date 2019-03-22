@@ -48,16 +48,16 @@ export const computeXYScalesForSeries = (_series, xScaleSpec, yScaleSpec, width,
                             ? null
                             : xScale(d.data.xStacked)
                         : d.data.x === null
-                            ? null
-                            : xScale(d.data.x),
+                        ? null
+                        : xScale(d.data.x),
                 y:
                     yScale.stacked === true
                         ? d.data.yStacked === null
                             ? null
                             : yScale(d.data.yStacked)
                         : d.data.y === null
-                            ? null
-                            : yScale(d.data.y),
+                        ? null
+                        : yScale(d.data.y),
             }
         })
     })

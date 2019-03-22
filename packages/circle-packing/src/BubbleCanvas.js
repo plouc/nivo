@@ -92,13 +92,15 @@ class BubbleCanvas extends Component {
             this.ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
 
             // draw labels on top
-            nodes.filter(({ r }) => r > labelSkipRadius).forEach(node => {
-                const label = getLabel(node)
-                const labelTextColor = getLabelTextColor(node)
+            nodes
+                .filter(({ r }) => r > labelSkipRadius)
+                .forEach(node => {
+                    const label = getLabel(node)
+                    const labelTextColor = getLabelTextColor(node)
 
-                this.ctx.fillStyle = labelTextColor
-                this.ctx.fillText(label, node.x, node.y)
-            })
+                    this.ctx.fillStyle = labelTextColor
+                    this.ctx.fillText(label, node.x, node.y)
+                })
         }
     }
 

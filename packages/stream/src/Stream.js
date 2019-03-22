@@ -162,18 +162,17 @@ const Stream = ({
                                 {...motionProps}
                             />
                         ))}
-                    {isInteractive &&
-                        enableStackTooltip && (
-                            <StreamSlices
-                                slices={slices}
-                                height={height}
-                                showTooltip={showTooltip}
-                                hideTooltip={hideTooltip}
-                                theme={theme}
-                                getTooltipValue={getTooltipValue}
-                                getTooltipLabel={getTooltipLabel}
-                            />
-                        )}
+                    {isInteractive && enableStackTooltip && (
+                        <StreamSlices
+                            slices={slices}
+                            height={height}
+                            showTooltip={showTooltip}
+                            hideTooltip={hideTooltip}
+                            theme={theme}
+                            getTooltipValue={getTooltipValue}
+                            getTooltipLabel={getTooltipLabel}
+                        />
+                    )}
                     {legends.map((legend, i) => {
                         const legendData = enhancedLayers
                             .map(l => ({

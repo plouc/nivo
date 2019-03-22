@@ -324,6 +324,26 @@ export default [
         controlGroup: 'Labels',
     },
     {
+        key: 'label',
+        scopes: '*',
+        description: (
+            <div>
+                Define how bar labels are computed. By default it will use the bar's value. It
+                accepts a string which will be used to access a specific bar data property, such as{' '}
+                <code className="code-string">'value'</code> or{' '}
+                <code className="code-string">'id'</code>. You can also use a funtion if you want to
+                add more logic, this function will receive the current bar's data and must return
+                the computed label which, depending on the context, should return a string or an svg
+                element (Bar) or a string (BarCanvas). For example let's say you want to use a label
+                with both the id and the value, you can achieve this with{' '}
+                <code>{`label={d => \`\${d.id}: \${d.value}\`}`}</code>.
+            </div>
+        ),
+        type: '{string|Function}',
+        required: false,
+        default: defaults.label,
+    },
+    {
         key: 'labelFormat',
         scopes: '*',
         description: (

@@ -55,13 +55,12 @@ export default class SwitchableSliderControl extends Component {
                     {label}
                     :&nbsp;
                     {isSliderEnabled && <code className="code code-number">{value}</code>}
-                    {isSliderEnabled &&
-                        unit && (
-                            <span className="unit">
-                                &nbsp;
-                                {unit}
-                            </span>
-                        )}
+                    {isSliderEnabled && unit && (
+                        <span className="unit">
+                            &nbsp;
+                            {unit}
+                        </span>
+                    )}
                 </span>
                 <span style={{ display: 'flex', alignItems: 'center', marginBottom: 7 }}>
                     <span className="control-switch">

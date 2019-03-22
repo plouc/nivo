@@ -26,39 +26,41 @@ export const computeRadialLabels = (
         textXOffset,
     }
 ) =>
-    arcs.filter(arc => skipAngle === 0 || arc.angleDeg > skipAngle).map(arc => {
-        const angle = absoluteAngleRadians(midAngle(arc) - Math.PI / 2)
-        const positionA = positionFromAngle(angle, radius + linkOffset)
-        const positionB = positionFromAngle(angle, radius + linkOffset + linkDiagonalLength)
+    arcs
+        .filter(arc => skipAngle === 0 || arc.angleDeg > skipAngle)
+        .map(arc => {
+            const angle = absoluteAngleRadians(midAngle(arc) - Math.PI / 2)
+            const positionA = positionFromAngle(angle, radius + linkOffset)
+            const positionB = positionFromAngle(angle, radius + linkOffset + linkDiagonalLength)
 
-        let positionC
-        let labelPosition
-        let textAlign
+            let positionC
+            let labelPosition
+            let textAlign
 
-        if (
-            absoluteAngleDegrees(radiansToDegrees(angle)) < 90 ||
-            absoluteAngleDegrees(radiansToDegrees(angle)) >= 270
-        ) {
-            positionC = { x: positionB.x + linkHorizontalLength, y: positionB.y }
-            labelPosition = {
-                x: positionB.x + linkHorizontalLength + textXOffset,
-                y: positionB.y,
+            if (
+                absoluteAngleDegrees(radiansToDegrees(angle)) < 90 ||
+                absoluteAngleDegrees(radiansToDegrees(angle)) >= 270
+            ) {
+                positionC = { x: positionB.x + linkHorizontalLength, y: positionB.y }
+                labelPosition = {
+                    x: positionB.x + linkHorizontalLength + textXOffset,
+                    y: positionB.y,
+                }
+                textAlign = 'left'
+            } else {
+                positionC = { x: positionB.x - linkHorizontalLength, y: positionB.y }
+                labelPosition = {
+                    x: positionB.x - linkHorizontalLength - textXOffset,
+                    y: positionB.y,
+                }
+                textAlign = 'right'
             }
-            textAlign = 'left'
-        } else {
-            positionC = { x: positionB.x - linkHorizontalLength, y: positionB.y }
-            labelPosition = {
-                x: positionB.x - linkHorizontalLength - textXOffset,
-                y: positionB.y,
-            }
-            textAlign = 'right'
-        }
 
-        return {
-            arc,
-            text: getLabel(arc.data),
-            position: labelPosition,
-            align: textAlign,
-            line: [positionA, positionB, positionC],
-        }
-    })
+            return {
+                arc,
+                text: getLabel(arc.data),
+                position: labelPosition,
+                align: textAlign,
+                line: [positionA, positionB, positionC],
+            }
+        })
