@@ -19,20 +19,22 @@ const TooltipKey = styled.span`
     font-weight: 600;
 `
 
-const CustomTooltip = node => (
-    <TooltipWrapper style={{ color: node.color }}>
-        <TooltipKey>day</TooltipKey>
-        <span>{node.day}</span>
-        <TooltipKey>value</TooltipKey>
-        <span>{node.value}</span>
-        <TooltipKey>x</TooltipKey>
-        <span>{node.x}</span>
-        <TooltipKey>y</TooltipKey>
-        <span>{node.y}</span>
-        <TooltipKey>size</TooltipKey>
-        <span>{node.size}</span>
-    </TooltipWrapper>
-)
+const CustomTooltip = day => {
+    return (
+        <TooltipWrapper style={{ color: day.color }}>
+            <TooltipKey>day</TooltipKey>
+            <span>{day.day}</span>
+            <TooltipKey>value</TooltipKey>
+            <span>{day.value}</span>
+            <TooltipKey>x</TooltipKey>
+            <span>{day.x}</span>
+            <TooltipKey>y</TooltipKey>
+            <span>{day.y}</span>
+            <TooltipKey>size</TooltipKey>
+            <span>{day.size}</span>
+        </TooltipWrapper>
+    )
+}
 
 export default settingsMapper(
     {
