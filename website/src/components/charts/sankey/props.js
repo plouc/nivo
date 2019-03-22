@@ -95,15 +95,16 @@ export default [
         scopes: '*',
         description: (
             <span>
-                Defines node alignment method. Must be one of: {alignOptions}, see{' '}
+                Defines node alignment method. Must be one of: {alignOptions}, Please have a look at
+                the{' '}
                 <a
-                    href="https://github.com/d3/d3-sankey#alignments"
+                    href="https://github.com/d3/d3-sankey#sankey_nodeAlign"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
                     official d3 documentation
-                </a>
-                .
+                </a>{' '}
+                for further information.
             </span>
         ),
         help: 'Node alignment method.',
@@ -114,6 +115,56 @@ export default [
         controlGroup: 'Base',
         controlOptions: {
             choices: sankeyAlignmentPropKeys.map(key => ({
+                label: key,
+                value: key,
+            })),
+        },
+    },
+    {
+        key: 'sort',
+        scopes: ['Sankey'],
+        description: (
+            <div>
+                Defines node sorting method. Must be one of:
+                <ul>
+                    <li>
+                        <code className="code-string">'auto'</code> order of nodes within each
+                        column is determined automatically by the layout.
+                    </li>
+                    <li>
+                        <code className="code-string">'input'</code> order is fixed by the input.
+                    </li>
+                    <li>
+                        <code className="code-string">'ascending'</code> node with lower values on
+                        top.
+                    </li>
+                    <li>
+                        <code className="code-string">'descending'</code> node with higher values on
+                        top.
+                    </li>
+                    <li>
+                        <code>(nodeA, nodeB) => number</code>
+                    </li>
+                </ul>
+                Please have a look at the{' '}
+                <a
+                    href="https://github.com/d3/d3-sankey#sankey_nodeSort"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    official d3 documentation
+                </a>{' '}
+                for further information.
+            </div>
+        ),
+        help: 'Node sorting method.',
+        type: '{string}',
+        required: false,
+        default: defaults.align,
+        controlType: 'choices',
+        controlGroup: 'Base',
+        controlOptions: {
+            choices: ['auto', 'input', 'ascending', 'descending'].map(key => ({
                 label: key,
                 value: key,
             })),
@@ -285,7 +336,7 @@ export default [
     },
     {
         key: 'linkBlendMode',
-        scopes: '*',
+        scopes: ['Sankey'],
         description: (
             <span>
                 Defines CSS <code>mix-blend-mode</code> property for links, see{' '}
@@ -330,7 +381,7 @@ export default [
     },
     {
         key: 'enableLinkGradient',
-        scopes: '*',
+        scopes: ['Sankey'],
         description: 'Enable/disable gradient from source/target nodes instead of plain color.',
         type: '{boolean}',
         required: false,

@@ -38,5 +38,17 @@ export default Component =>
         withPropsOnChange(['label', 'labelFormat'], ({ label, labelFormat }) => ({
             getLabel: getLabelGenerator(label, labelFormat),
         })),
+        withPropsOnChange(['sort'], ({ sort }) => {
+            let sortFunction
+            if (sort === 'input') {
+                sortFunction = null
+            } else if (sort === 'ascending') {
+                sortFunction = (a, b) => a.value - b.value
+            } else if (sort === 'descending') {
+                sortFunction = (a, b) => b.value - a.value
+            }
+
+            return { sortFunction }
+        }),
         pure
     )(Component)

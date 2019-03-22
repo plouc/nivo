@@ -40,6 +40,10 @@ export const SankeyPropTypes = {
     }).isRequired,
 
     align: sankeyAlignmentPropType.isRequired,
+    sort: PropTypes.oneOfType([
+        PropTypes.oneOf(['auto', 'input', 'ascending', 'descending']),
+        PropTypes.func,
+    ]).isRequired,
 
     nodeOpacity: PropTypes.number.isRequired,
     nodeHoverOpacity: PropTypes.number.isRequired,
@@ -79,6 +83,7 @@ export const SankeyPropTypes = {
 
 export const SankeyDefaultProps = {
     align: 'center',
+    sort: 'auto',
 
     nodeOpacity: 0.75,
     nodeHoverOpacity: 1,
