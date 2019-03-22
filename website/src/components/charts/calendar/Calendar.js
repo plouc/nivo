@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component } from 'react'
+import React, { useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 import ChartHeader from '../../ChartHeader'
@@ -18,171 +18,134 @@ import ComponentPropsDocumentation from '../../properties/ComponentPropsDocument
 import nivoTheme from '../../../nivoTheme'
 import properties from './props'
 import propsMapper from './propsMapper'
-// import config from '../../../config'
 
 const Tooltip = data => {
     /* return custom tooltip */
 }
 
-export default class Calendar extends Component {
-    state = {
-        settings: {
-            from: '2015-03-01',
-            to: '2016-07-12',
+const initialSettings = {
+    from: '2015-03-01',
+    to: '2016-07-12',
 
-            emptyColor: '#eeeeee',
-            colors: ['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560'],
-            minValue: 0,
-            maxValue: 'auto',
+    emptyColor: '#eeeeee',
+    colors: ['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560'],
+    minValue: 0,
+    maxValue: 'auto',
 
-            margin: {
-                top: 100,
-                right: 30,
-                bottom: 60,
-                left: 30,
-            },
-            direction: 'horizontal',
+    margin: {
+        top: 100,
+        right: 30,
+        bottom: 60,
+        left: 30,
+    },
+    direction: 'horizontal',
 
-            yearSpacing: 40,
-            yearLegendPosition: 'before',
-            yearLegendOffset: 10,
+    yearSpacing: 40,
+    yearLegendPosition: 'before',
+    yearLegendOffset: 10,
 
-            monthBorderWidth: 2,
-            monthBorderColor: '#ffffff',
-            monthLegendPosition: 'before',
-            monthLegendOffset: 10,
+    monthBorderWidth: 2,
+    monthBorderColor: '#ffffff',
+    monthLegendPosition: 'before',
+    monthLegendOffset: 10,
 
-            daySpacing: 0,
-            dayBorderWidth: 2,
-            dayBorderColor: '#ffffff',
+    daySpacing: 0,
+    dayBorderWidth: 2,
+    dayBorderColor: '#ffffff',
 
-            isInteractive: true,
-            'custom tooltip example': false,
-            tooltip: null,
+    isInteractive: true,
+    'custom tooltip example': false,
+    tooltip: null,
 
-            legends: [
-                {
-                    anchor: 'bottom',
-                    direction: 'row',
-                    translateY: 36,
-                    itemCount: 4,
-                    itemWidth: 34,
-                    itemHeight: 36,
-                    itemDirection: 'top-to-bottom',
-                },
-            ],
-
-            theme: nivoTheme,
+    legends: [
+        {
+            anchor: 'bottom',
+            direction: 'row',
+            translateY: 36,
+            itemCount: 4,
+            itemWidth: 34,
+            itemHeight: 36,
+            itemDirection: 'top-to-bottom',
         },
-    }
+    ],
 
-    handleSettingsUpdate = settings => {
-        this.setState({ settings })
-    }
-
-    handleNodeClick = (node, event) => {
-        alert(`${node.day}: ${node.value}\nclicked at x: ${event.clientX}, y: ${event.clientY}`)
-    }
-
-    render() {
-        const { data } = this.props
-        const { settings } = this.state
-
-        const mappedSettings = propsMapper(settings)
-
-        const code = generateCode(
-            'ResponsiveCalendar',
-            {
-                ...mappedSettings,
-                tooltip: mappedSettings.tooltip ? Tooltip : undefined,
-            },
-            {
-                pkg: '@nivo/calendar',
-                defaults: CalendarDefaultProps,
-            }
-        )
-
-        const header = (
-            <ChartHeader chartClass="Calendar" tags={['calendar', 'svg', 'isomorphic']} />
-        )
-
-        const description = (
-            <div className="chart-description">
-                <p className="description">
-                    This component is heavily inspired by{' '}
-                    <a
-                        href="https://observablehq.com/@d3/calendar-view"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        this demo
-                    </a>
-                    .
-                </p>
-                {/*
-                <p className="description">
-                    This component is available in the{' '}
-                    <a
-                        href="https://github.com/plouc/nivo-api"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        nivo-api
-                    </a>
-                    , you can <Link to="/calendar/api">try it using the API client</Link>. You can
-                    also see more example usages in{' '}
-                    <a
-                        href={`${config.storybookUrl}?selectedKind=Calendar&selectedStory=default`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        the storybook
-                    </a>
-                    .
-                </p>
-                */}
-                <p className="description">
-                    The responsive alternative of this component is <code>ResponsiveCalendar</code>,
-                    it also offers a canvas implementations, see{' '}
-                    <Link to="/calendar/canvas">CalendarCanvas</Link>.
-                </p>
-                <p className="description">
-                    See the <Link to="/guides/legends">dedicated guide</Link> on how to setup
-                    legends for this component.
-                </p>
-            </div>
-        )
-
-        return (
-            <div className="page_content grid">
-                <div className="chart-page_main">
-                    <MediaQuery query="(max-width: 1000px)">
-                        {header}
-                        {description}
-                    </MediaQuery>
-                    <ChartTabs chartClass="calendar" code={code} data={data}>
-                        <ResponsiveCalendar
-                            from={settings.from}
-                            to={settings.to}
-                            data={data}
-                            onClick={this.handleNodeClick}
-                            {...mappedSettings}
-                        />
-                    </ChartTabs>
-                    <CalendarControls
-                        scope="Calendar"
-                        settings={settings}
-                        onChange={this.handleSettingsUpdate}
-                    />
-                    <ComponentPropsDocumentation chartClass="Calendar" properties={properties} />
-                </div>
-                <div className="chart-page_aside">
-                    <MediaQuery query="(min-width: 1000px)">
-                        {header}
-                        {description}
-                    </MediaQuery>
-                </div>
-            </div>
-        )
-    }
+    theme: nivoTheme,
 }
+
+const Calendar = ({ data }) => {
+    const [settings, setSettings] = useState(initialSettings)
+    const onDayClick = useCallback((node, event) => {
+        alert(`${node.day}: ${node.value}\nclicked at x: ${event.clientX}, y: ${event.clientY}`)
+    })
+
+    const mappedSettings = propsMapper(settings)
+
+    const code = generateCode(
+        'ResponsiveCalendar',
+        {
+            ...mappedSettings,
+            tooltip: mappedSettings.tooltip ? Tooltip : undefined,
+        },
+        {
+            pkg: '@nivo/calendar',
+            defaults: CalendarDefaultProps,
+        }
+    )
+
+    const header = <ChartHeader chartClass="Calendar" tags={['calendar', 'svg', 'isomorphic']} />
+
+    const description = (
+        <div className="chart-description">
+            <p className="description">
+                This component is heavily inspired by{' '}
+                <a
+                    href="https://observablehq.com/@d3/calendar-view"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    this demo
+                </a>
+                .
+            </p>
+            <p className="description">
+                The responsive alternative of this component is <code>ResponsiveCalendar</code>, it
+                also offers a canvas implementations, see{' '}
+                <Link to="/calendar/canvas">CalendarCanvas</Link>.
+            </p>
+            <p className="description">
+                See the <Link to="/guides/legends">dedicated guide</Link> on how to setup legends
+                for this component.
+            </p>
+        </div>
+    )
+
+    return (
+        <div className="page_content grid">
+            <div className="chart-page_main">
+                <MediaQuery query="(max-width: 1000px)">
+                    {header}
+                    {description}
+                </MediaQuery>
+                <ChartTabs chartClass="calendar" code={code} data={data}>
+                    <ResponsiveCalendar
+                        from={settings.from}
+                        to={settings.to}
+                        data={data}
+                        onClick={onDayClick}
+                        {...mappedSettings}
+                    />
+                </ChartTabs>
+                <CalendarControls scope="Calendar" settings={settings} onChange={setSettings} />
+                <ComponentPropsDocumentation chartClass="Calendar" properties={properties} />
+            </div>
+            <div className="chart-page_aside">
+                <MediaQuery query="(min-width: 1000px)">
+                    {header}
+                    {description}
+                </MediaQuery>
+            </div>
+        </div>
+    )
+}
+
+export default Calendar
