@@ -14,6 +14,7 @@ import properties from './props'
 
 const groupsByScope = {
     Calendar: getPropertiesGroupsControls(properties, 'Calendar'),
+    CalendarCanvas: getPropertiesGroupsControls(properties, 'CalendarCanvas'),
     api: getPropertiesGroupsControls(properties, 'api'),
 }
 

@@ -10,7 +10,6 @@ import memoize from 'lodash/memoize'
 import isDate from 'lodash/isDate'
 import range from 'lodash/range'
 import max from 'lodash/max'
-import assign from 'lodash/assign'
 import { timeFormat } from 'd3-time-format'
 import { timeDays, timeWeek, timeWeeks, timeMonths, timeYear } from 'd3-time'
 
@@ -233,16 +232,14 @@ export const computeLayout = ({ width, height, from, to, direction, yearSpacing,
         const yearEnd = new Date(year + 1, 0, 1)
 
         days = days.concat(
-            timeDays(yearStart, yearEnd).map(dayDate =>
-                assign(
-                    {
-                        date: dayDate,
-                        day: dayFormat(dayDate),
-                        size: cellSize,
-                    },
-                    cellPosition(dayDate, i)
-                )
-            )
+            timeDays(yearStart, yearEnd).map(dayDate => {
+                return {
+                    date: dayDate,
+                    day: dayFormat(dayDate),
+                    size: cellSize,
+                    ...cellPosition(dayDate, i),
+                }
+            })
         )
 
         const yearMonths = timeMonths(yearStart, yearEnd).map(monthDate => ({

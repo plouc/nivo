@@ -55,7 +55,8 @@ import TreeMapCanvas from './components/charts/treemap/TreeMapCanvas'
 import TreeMapAPI from './components/charts/treemap/TreeMapAPI'
 import CalendarPage from './components/charts/calendar/CalendarPage'
 import Calendar from './components/charts/calendar/Calendar'
-import CalendarAPI from './components/charts/calendar/CalendarAPI'
+import CalendarCanvas from './components/charts/calendar/CalendarCanvas'
+// import CalendarAPI from './components/charts/calendar/CalendarAPI'
 import ChordPage from './components/charts/chord/ChordPage'
 import Chord from './components/charts/chord/Chord'
 import ChordCanvas from './components/charts/chord/ChordCanvas'
@@ -179,12 +180,20 @@ const SITEMAP = [
                         tags: ['svg', 'isomorphic'],
                     },
                     {
-                        className: 'api',
-                        path: '/api',
-                        label: 'Calendar API',
-                        component: CalendarAPI,
-                        tags: ['api'],
+                        className: 'canvas',
+                        path: '/canvas',
+                        label: 'CalendarCanvas',
+                        component: CalendarCanvas,
+                        tags: ['canvas'],
                     },
+                    // @todo: update calendar API
+                    // {
+                    //     className: 'api',
+                    //     path: '/api',
+                    //     label: 'Calendar API',
+                    //     component: CalendarAPI,
+                    //     tags: ['api'],
+                    // },
                 ],
             },
             {

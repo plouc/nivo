@@ -111,6 +111,7 @@ const Calendar = ({
     )
 }
 
+Calendar.displayName = 'Calendar'
 Calendar.propTypes = CalendarPropTypes
 
 export default setDisplayName('Calendar')(enhance(Calendar))

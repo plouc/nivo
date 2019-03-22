@@ -77,7 +77,7 @@ export const lightTheme = {
     legends: {
         text: {
             fill: '#6a7c89',
-            fontSize: '12px',
+            fontSize: 12,
         },
     },
     tooltip: {

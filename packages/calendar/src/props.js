@@ -13,7 +13,7 @@ import { LegendPropShape } from '@nivo/legends'
 
 const monthLabelFormat = timeFormat('%b')
 
-export const CalendarPropTypes = {
+const commonPropTypes = {
     from: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]).isRequired,
     to: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]).isRequired,
     data: PropTypes.arrayOf(
@@ -60,7 +60,14 @@ export const CalendarPropTypes = {
     ).isRequired,
 }
 
-export const CalendarDefaultProps = {
+export const CalendarPropTypes = commonPropTypes
+
+export const CalendarCanvasPropTypes = {
+    ...commonPropTypes,
+    pixelRatio: PropTypes.number.isRequired,
+}
+
+const commonDefaultProps = {
     colors: ['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560'],
 
     direction: 'horizontal',
@@ -78,7 +85,7 @@ export const CalendarDefaultProps = {
     monthBorderColor: '#000',
     monthLegend: (year, month, date) => monthLabelFormat(date),
     monthLegendPosition: 'before',
-    monthLegendOffset: -6,
+    monthLegendOffset: 10,
 
     weekdayLegend: d => d,
     daySpacing: 0,
@@ -89,4 +96,12 @@ export const CalendarDefaultProps = {
     onClick: noop,
 
     legends: [],
+}
+
+export const CalendarDefaultProps = commonDefaultProps
+
+export const CalendarCanvasDefaultProps = {
+    ...commonDefaultProps,
+    pixelRatio:
+        global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
 }

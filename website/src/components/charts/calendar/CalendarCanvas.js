@@ -13,22 +13,23 @@ import ChartHeader from '../../ChartHeader'
 import ChartTabs from '../../ChartTabs'
 import generateCode from '../../../lib/generateChartCode'
 import CalendarControls from './CalendarControls'
-import { ResponsiveCalendar, CalendarDefaultProps } from '@nivo/calendar'
+import { ResponsiveCalendarCanvas, CalendarCanvasDefaultProps } from '@nivo/calendar'
 import ComponentPropsDocumentation from '../../properties/ComponentPropsDocumentation'
 import nivoTheme from '../../../nivoTheme'
 import properties from './props'
 import propsMapper from './propsMapper'
-// import config from '../../../config'
 
 const Tooltip = data => {
     /* return custom tooltip */
 }
 
-export default class Calendar extends Component {
+export default class CalendarCanvas extends Component {
     state = {
         settings: {
-            from: '2015-03-01',
-            to: '2016-07-12',
+            pixelRatio: window && window.devicePixelRatio ? window.devicePixelRatio : 1,
+
+            from: '2013-03-01',
+            to: '2019-07-12',
 
             emptyColor: '#eeeeee',
             colors: ['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560'],
@@ -36,14 +37,14 @@ export default class Calendar extends Component {
             maxValue: 'auto',
 
             margin: {
-                top: 100,
-                right: 30,
-                bottom: 60,
-                left: 30,
+                top: 40,
+                right: 40,
+                bottom: 50,
+                left: 40,
             },
-            direction: 'horizontal',
+            direction: 'vertical',
 
-            yearSpacing: 40,
+            yearSpacing: 30,
             yearLegendPosition: 'before',
             yearLegendOffset: 10,
 
@@ -64,7 +65,7 @@ export default class Calendar extends Component {
                 {
                     anchor: 'bottom',
                     direction: 'row',
-                    translateY: 36,
+                    translateY: 40,
                     itemCount: 4,
                     itemWidth: 34,
                     itemHeight: 36,
@@ -72,7 +73,16 @@ export default class Calendar extends Component {
                 },
             ],
 
-            theme: nivoTheme,
+            theme: {
+                ...nivoTheme,
+                labels: {
+                    ...nivoTheme.labels,
+                    text: {
+                        ...nivoTheme.labels.text,
+                        fontSize: 10,
+                    },
+                },
+            },
         },
     }
 
@@ -91,64 +101,29 @@ export default class Calendar extends Component {
         const mappedSettings = propsMapper(settings)
 
         const code = generateCode(
-            'ResponsiveCalendar',
+            'ResponsiveCalendarCanvas',
             {
                 ...mappedSettings,
                 tooltip: mappedSettings.tooltip ? Tooltip : undefined,
             },
             {
                 pkg: '@nivo/calendar',
-                defaults: CalendarDefaultProps,
+                defaults: CalendarCanvasDefaultProps,
             }
         )
 
-        const header = (
-            <ChartHeader chartClass="Calendar" tags={['calendar', 'svg', 'isomorphic']} />
-        )
+        const header = <ChartHeader chartClass="CalendarCanvas" tags={['calendar', 'canvas']} />
 
         const description = (
             <div className="chart-description">
                 <p className="description">
-                    This component is heavily inspired by{' '}
-                    <a
-                        href="https://observablehq.com/@d3/calendar-view"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        this demo
-                    </a>
-                    .
-                </p>
-                {/*
-                <p className="description">
-                    This component is available in the{' '}
-                    <a
-                        href="https://github.com/plouc/nivo-api"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        nivo-api
-                    </a>
-                    , you can <Link to="/calendar/api">try it using the API client</Link>. You can
-                    also see more example usages in{' '}
-                    <a
-                        href={`${config.storybookUrl}?selectedKind=Calendar&selectedStory=default`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        the storybook
-                    </a>
-                    .
-                </p>
-                */}
-                <p className="description">
-                    The responsive alternative of this component is <code>ResponsiveCalendar</code>,
-                    it also offers a canvas implementations, see{' '}
-                    <Link to="/calendar/canvas">CalendarCanvas</Link>.
+                    A variation around the <Link to="/calendar">Calendar</Link> component. Well
+                    suited for large data sets as it does not impact DOM tree depth, however you'll
+                    lose the isomorphic rendering ability.
                 </p>
                 <p className="description">
-                    See the <Link to="/guides/legends">dedicated guide</Link> on how to setup
-                    legends for this component.
+                    The responsive alternative of this component is{' '}
+                    <code>ResponsiveCalendarCanvas</code>.
                 </p>
             </div>
         )
@@ -161,7 +136,7 @@ export default class Calendar extends Component {
                         {description}
                     </MediaQuery>
                     <ChartTabs chartClass="calendar" code={code} data={data}>
-                        <ResponsiveCalendar
+                        <ResponsiveCalendarCanvas
                             from={settings.from}
                             to={settings.to}
                             data={data}
@@ -170,11 +145,14 @@ export default class Calendar extends Component {
                         />
                     </ChartTabs>
                     <CalendarControls
-                        scope="Calendar"
+                        scope="CalendarCanvas"
                         settings={settings}
                         onChange={this.handleSettingsUpdate}
                     />
-                    <ComponentPropsDocumentation chartClass="Calendar" properties={properties} />
+                    <ComponentPropsDocumentation
+                        chartClass="CalendarCanvas"
+                        properties={properties}
+                    />
                 </div>
                 <div className="chart-page_aside">
                     <MediaQuery query="(min-width: 1000px)">

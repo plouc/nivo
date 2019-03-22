@@ -34,6 +34,6 @@ CalendarYearLegends.propTypes = {
     theme: PropTypes.object.isRequired,
 }
 
-CalendarYearLegends.setDisplayName = 'CalendarYearLegends'
+CalendarYearLegends.displayName = 'CalendarYearLegends'
 
 export default CalendarYearLegends
