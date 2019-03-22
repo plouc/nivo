@@ -143,7 +143,7 @@ export default [
                         top.
                     </li>
                     <li>
-                        <code>(nodeA, nodeB) => number</code>
+                        <code>(nodeA, nodeB) => number</code> user defined function.
                     </li>
                 </ul>
                 Please have a look at the{' '}

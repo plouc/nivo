@@ -7,24 +7,18 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import cloneDeep from 'lodash/cloneDeep'
-import uniq from 'lodash/uniq'
-import { sankey as d3Sankey } from 'd3-sankey'
+import { uniq } from 'lodash'
 import { Container, SvgWrapper } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
+import { SankeyPropTypes } from './props'
+import enhance from './enhance'
 import SankeyNodes from './SankeyNodes'
 import SankeyLinks from './SankeyLinks'
 import SankeyLabels from './SankeyLabels'
-import { SankeyPropTypes, sankeyAlignmentFromProp } from './props'
-import enhance from './enhance'
-
-const getId = d => d.id
 
 const Sankey = ({
-    data: _data,
-
-    align,
-    sortFunction,
+    nodes,
+    links,
 
     margin,
     width,
@@ -35,9 +29,7 @@ const Sankey = ({
     nodeOpacity,
     nodeHoverOpacity,
     nodeHoverOthersOpacity,
-    nodeWidth,
     nodePaddingX,
-    nodePaddingY,
     nodeBorderWidth,
     getNodeBorderColor, // computed
     setCurrentNode, // injected
@@ -49,19 +41,16 @@ const Sankey = ({
     linkContract,
     linkBlendMode,
     enableLinkGradient,
-    getLinkColor, // computed
     setCurrentLink, // injected
     currentLink, // injected
 
     enableLabels,
-    getLabel,
     labelPosition,
     labelPadding,
     labelOrientation,
     getLabelTextColor, // computed
 
     theme,
-    getColor, // computed
 
     nodeTooltip,
     linkTooltip,
@@ -75,38 +64,8 @@ const Sankey = ({
     tooltipFormat,
 
     legends,
+    legendData,
 }) => {
-    const sankey = d3Sankey()
-        .nodeAlign(sankeyAlignmentFromProp(align))
-        .nodeSort(sortFunction)
-        .nodeWidth(nodeWidth)
-        .nodePadding(nodePaddingY)
-        .size([width, height])
-        .nodeId(getId)
-
-    // deep clone is required as the sankey diagram mutates data
-    const data = cloneDeep(_data)
-    sankey(data)
-
-    data.nodes.forEach(node => {
-        node.color = getColor(node)
-        node.label = getLabel(node)
-        node.x = node.x0 + nodePaddingX
-        node.y = node.y0
-        node.width = Math.max(node.x1 - node.x0 - nodePaddingX * 2, 0)
-        node.height = Math.max(node.y1 - node.y0, 0)
-    })
-
-    data.links.forEach(link => {
-        link.color = getLinkColor(link)
-    })
-
-    const legendData = data.nodes.map(node => ({
-        id: node.id,
-        label: node.label,
-        color: node.color,
-    }))
-
     const motionProps = {
         animate,
         motionDamping,
@@ -124,7 +83,7 @@ const Sankey = ({
 
     if (currentNode) {
         let currentNodeIds = [currentNode.id]
-        data.links
+        links
             .filter(
                 ({ source, target }) => source.id === currentNode.id || target.id === currentNode.id
             )
@@ -144,7 +103,7 @@ const Sankey = ({
             {({ showTooltip, hideTooltip }) => (
                 <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
                     <SankeyLinks
-                        links={data.links}
+                        links={links}
                         linkContract={linkContract}
                         linkOpacity={linkOpacity}
                         linkHoverOpacity={linkHoverOpacity}
@@ -164,7 +123,7 @@ const Sankey = ({
                         {...motionProps}
                     />
                     <SankeyNodes
-                        nodes={data.nodes}
+                        nodes={nodes}
                         nodePaddingX={nodePaddingX}
                         nodeOpacity={nodeOpacity}
                         nodeHoverOpacity={nodeHoverOpacity}
@@ -185,7 +144,7 @@ const Sankey = ({
                     />
                     {enableLabels && (
                         <SankeyLabels
-                            nodes={data.nodes}
+                            nodes={nodes}
                             width={width}
                             labelPosition={labelPosition}
                             labelPadding={labelPadding}
