@@ -18,29 +18,41 @@ const CalendarDay = ({
     x,
     y,
     size,
+    spacing,
     color,
     borderWidth,
     borderColor,
     onClick,
     showTooltip,
     hideTooltip,
-}) => (
-    <rect
-        x={x}
-        y={y}
-        width={size}
-        height={size}
-        style={{
-            fill: color,
-            strokeWidth: borderWidth,
-            stroke: borderColor,
-        }}
-        onClick={onClick}
-        onMouseEnter={showTooltip}
-        onMouseMove={showTooltip}
-        onMouseLeave={hideTooltip}
-    />
-)
+}) => {
+    return (
+        <>
+            <rect
+                x={x}
+                y={y}
+                width={size}
+                height={size}
+                style={{
+                    fill: color,
+                    strokeWidth: borderWidth,
+                    stroke: borderColor,
+                }}
+            />
+            <rect
+                fill="rgba(0, 0, 0, 0)"
+                x={x - spacing / 2}
+                y={y - spacing / 2}
+                width={size + spacing}
+                height={size + spacing}
+                onClick={onClick}
+                onMouseEnter={showTooltip}
+                onMouseMove={showTooltip}
+                onMouseLeave={hideTooltip}
+            />
+        </>
+    )
+}
 
 CalendarDay.propTypes = {
     onClick: PropTypes.func.isRequired,

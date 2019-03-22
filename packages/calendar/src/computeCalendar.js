@@ -6,7 +6,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 import memoize from 'lodash/memoize'
 import isDate from 'lodash/isDate'
 import range from 'lodash/range'
@@ -188,34 +187,18 @@ const cellPositionVertical = (cellSize, yearSpacing, daySpacing) => {
 const dayFormat = timeFormat('%Y-%m-%d')
 
 /**
- * This layout is responsible for computing Calendar chart data/positions….
- * It's used for all Calendar related chart components.
+ * Compute base layout, without caring about the current data.
  *
  * @param {number}      width
  * @param {number}      height
  * @param {string|Date} from
  * @param {string|Date} to
- * @param {array}       data
  * @param {string}      direction
- * @param {object}      colorScale
- * @param {string}      emptyColor
  * @param {number}      yearSpacing
  * @param {number}      daySpacing
  * @returns {object}
  */
-const CalendarLayout = ({
-    width,
-    height,
-    from,
-    to,
-    data,
-    direction,
-    colorScale,
-    emptyColor,
-    yearSpacing,
-    daySpacing,
-}) => {
-    // time related data
+export const computeLayout = ({ width, height, from, to, direction, yearSpacing, daySpacing }) => {
     const fromDate = isDate(from) ? from : new Date(from)
     const toDate = isDate(to) ? to : new Date(to)
 
@@ -225,10 +208,6 @@ const CalendarLayout = ({
             yearRange.map(year => timeWeeks(new Date(year, 0, 1), new Date(year + 1, 0, 1)).length)
         ) + 1
 
-    // ——————————————————————————————————————————————————————————————————————————————————————————————————————
-    // Computes years/months/days
-    // ——————————————————————————————————————————————————————————————————————————————————————————————————————
-    // compute cellSize
     const cellSize = computeCellSize({
         width,
         height,
@@ -239,7 +218,6 @@ const CalendarLayout = ({
         maxWeeks,
     })
 
-    // determine day cells positioning function according to layout direction
     let cellPosition
     if (direction === DIRECTION_HORIZONTAL) {
         cellPosition = cellPositionHorizontal(cellSize, yearSpacing, daySpacing)
@@ -295,12 +273,20 @@ const CalendarLayout = ({
         })
     })
 
-    // ——————————————————————————————————————————————————————————————————————————————————————————————————————
-    // Computes days/data intersection
-    // ——————————————————————————————————————————————————————————————————————————————————————————————————————
-    //const color = scalePropToD3Scale(colorScale)
+    return { years, months, days, cellSize }
+}
 
-    days.forEach(day => {
+/**
+ * Bind current data to computed day cells.
+ *
+ * @param {array}  days
+ * @param {array}  data
+ * @param {object} colorScale
+ * @param {string} emptyColor
+ * @returns {Array}
+ */
+export const bindDaysData = ({ days, data, colorScale, emptyColor }) => {
+    return days.map(day => {
         day.color = emptyColor
         data.forEach(dataDay => {
             if (dataDay.day === day.day) {
@@ -308,9 +294,7 @@ const CalendarLayout = ({
                 day.color = colorScale(dataDay.value)
             }
         })
+
+        return day
     })
-
-    return { years, months, days, cellSize }
 }
-
-export default CalendarLayout

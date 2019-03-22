@@ -24,15 +24,16 @@ const Tooltip = data => {
     /* return custom tooltip */
 }
 
+const colors = ['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560']
+
 export default class Calendar extends Component {
     state = {
-        data: [],
         settings: {
             from: '2015-03-01',
             to: '2016-07-12',
 
             emptyColor: '#eeeeee',
-            colors: ['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560'],
+            colors,
             minValue: 0,
             maxValue: 'auto',
 
