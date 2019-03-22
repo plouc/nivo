@@ -81,6 +81,7 @@ export default () => (
                 style={{
                     alignmentBaseline: 'middle',
                     fill: '#999',
+                    fontSize: '14px',
                 }}
             >
                 margin
@@ -127,6 +128,7 @@ export default () => (
                 style={{
                     alignmentBaseline: 'middle',
                     fill: '#999',
+                    fontSize: '14px',
                 }}
             >
                 margin

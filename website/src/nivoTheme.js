@@ -74,6 +74,12 @@ export const lightTheme = {
             },
         },
     },
+    legends: {
+        text: {
+            fill: '#6a7c89',
+            fontSize: '12px',
+        },
+    },
     tooltip: {
         container: {
             fontSize: '13px',
