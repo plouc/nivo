@@ -88,16 +88,46 @@ export default [
         },
     },
     {
-        key: 'domain',
+        key: 'minValue',
+        scopes: '*',
         description: (
-            <span>
-                define min/max value (eg. <code className="code-number">[0, 300]</code>) to compute
-                colors, if set to <code className="code-string">auto</code>, it extract min/max
-                value from <code>data</code> property.
-            </span>
+            <>
+                Minimum value. If 'auto', will pick the lowest value in the provided data set.
+                Should be overriden if your data set does not contain desired lower bound value.`
+            </>
         ),
-        type: '{string|Array.<number>}',
         required: false,
+        default: defaults.minValue,
+        type: `{number|'auto'}`,
+        controlType: 'switchableRange',
+        controlGroup: 'Base',
+        controlOptions: {
+            disabledValue: 'auto',
+            defaultValue: 0,
+            min: -300,
+            max: 300,
+        },
+    },
+    {
+        key: 'maxValue',
+        scopes: '*',
+        description: (
+            <>
+                Maximum value. If 'auto', will pick the highest value in the provided data set.
+                Should be overriden if your data set does not contain desired higher bound value.
+            </>
+        ),
+        required: false,
+        default: defaults.maxValue,
+        type: `{number|'auto'}`,
+        controlType: 'switchableRange',
+        controlGroup: 'Base',
+        controlOptions: {
+            disabledValue: 'auto',
+            defaultValue: 100,
+            min: 0,
+            max: 600,
+        },
     },
     {
         key: 'direction',

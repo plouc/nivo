@@ -9,7 +9,7 @@ export default class SliderControl extends Component {
         value: PropTypes.number.isRequired,
         unit: PropTypes.string,
         onChange: PropTypes.func.isRequired,
-        help: PropTypes.string.isRequired,
+        help: PropTypes.node.isRequired,
         min: PropTypes.number.isRequired,
         max: PropTypes.number.isRequired,
         step: PropTypes.number,

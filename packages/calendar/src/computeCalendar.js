@@ -17,6 +17,22 @@ import { timeFormat } from 'd3-time-format'
 import { timeDays, timeWeek, timeWeeks, timeMonths, timeYear } from 'd3-time'
 
 /**
+ * Compute min/max values.
+ *
+ * @param {Array<>}       data
+ * @param {number|'auto'} minSpec - Define the strategy to use to compute min value, if number, it will be used, if 'auto', will use the lower value from the dataset
+ * @param {number|'auto'} maxSpec - Define the strategy to use to compute max value, if number, it will be used, if 'auto', will use the higher value from the dataset
+ * @return {[number, string]}
+ */
+export const computeDomain = (data, minSpec, maxSpec) => {
+    const allValues = data.map(d => d.value)
+    const minValue = minSpec === 'auto' ? Math.min(...allValues) : minSpec
+    const maxValue = maxSpec === 'auto' ? Math.max(...allValues) : maxSpec
+
+    return [minValue, maxValue]
+}
+
+/**
  * Compute day cell size according to current context.
  *
  * @param {number} width

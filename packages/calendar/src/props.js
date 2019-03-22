@@ -14,11 +14,6 @@ import { DIRECTION_HORIZONTAL, DIRECTION_VERTICAL } from './constants'
 
 const monthLabelFormat = timeFormat('%b')
 
-/**
- * Calendar components propTypes.
- *
- * @type {object}
- */
 export const CalendarPropTypes = {
     from: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]).isRequired,
     to: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]).isRequired,
@@ -29,31 +24,28 @@ export const CalendarPropTypes = {
         })
     ).isRequired,
 
-    domain: PropTypes.oneOfType([PropTypes.oneOf(['auto']), PropTypes.arrayOf(PropTypes.number)])
-        .isRequired,
+    minValue: PropTypes.oneOfType([PropTypes.oneOf(['auto']), PropTypes.number]).isRequired,
+    maxValue: PropTypes.oneOfType([PropTypes.oneOf(['auto']), PropTypes.number]).isRequired,
+
     colors: PropTypes.arrayOf(PropTypes.string).isRequired,
     colorScale: PropTypes.func.isRequired,
 
     direction: PropTypes.oneOf([DIRECTION_HORIZONTAL, DIRECTION_VERTICAL]),
     emptyColor: PropTypes.string.isRequired,
 
-    // years
     yearLegend: PropTypes.func.isRequired,
     yearSpacing: PropTypes.number.isRequired,
     yearLegendOffset: PropTypes.number.isRequired,
 
-    // months
     monthLegend: PropTypes.func.isRequired,
     monthBorderWidth: PropTypes.number.isRequired,
     monthBorderColor: PropTypes.string.isRequired,
     monthLegendOffset: PropTypes.number.isRequired,
 
-    // days
     daySpacing: PropTypes.number.isRequired,
     dayBorderWidth: PropTypes.number.isRequired,
     dayBorderColor: PropTypes.string.isRequired,
 
-    // interactivity
     isInteractive: PropTypes.bool,
     onClick: PropTypes.func.isRequired,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
@@ -67,35 +59,28 @@ export const CalendarPropTypes = {
     ).isRequired,
 }
 
-/**
- * Calendar components defaultProps.
- *
- * @type {object}
- */
 export const CalendarDefaultProps = {
-    domain: 'auto',
     colors: ['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560'],
 
     direction: DIRECTION_HORIZONTAL,
     emptyColor: '#fff',
 
-    // years
+    minValue: 0,
+    maxValue: 'auto',
+
     yearLegend: year => year,
     yearSpacing: 30,
     yearLegendOffset: 10,
 
-    // months
     monthLegend: (year, month, date) => monthLabelFormat(date),
     monthBorderWidth: 2,
     monthBorderColor: '#000',
     monthLegendOffset: 6,
 
-    // days
     daySpacing: 0,
     dayBorderWidth: 1,
     dayBorderColor: '#000',
 
-    // interactivity
     isInteractive: true,
     onClick: noop,
 

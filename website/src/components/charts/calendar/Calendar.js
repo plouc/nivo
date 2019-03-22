@@ -31,9 +31,10 @@ export default class Calendar extends Component {
             from: '2015-03-01',
             to: '2016-07-12',
 
-            domain: 'auto',
             emptyColor: '#eeeeee',
             colors: ['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560'],
+            minValue: 0,
+            maxValue: 'auto',
 
             margin: {
                 top: 100,
@@ -43,21 +44,17 @@ export default class Calendar extends Component {
             },
             direction: 'horizontal',
 
-            // years
             yearSpacing: 40,
             yearLegendOffset: 10,
 
-            // months
             monthBorderWidth: 2,
             monthBorderColor: '#ffffff',
             monthLegendOffset: 10,
 
-            // days
             daySpacing: 0,
             dayBorderWidth: 2,
             dayBorderColor: '#ffffff',
 
-            // interactivity
             isInteractive: true,
             'custom tooltip example': false,
             tooltip: null,
