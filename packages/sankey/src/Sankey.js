@@ -74,8 +74,11 @@ const Sankey = ({
     tooltipFormat,
 
     legends,
+
+    sort,
 }) => {
     const sankey = d3Sankey()
+        .nodeSort(sort)
         .nodeAlign(sankeyAlignmentFromProp(align))
         .nodeWidth(nodeWidth)
         .nodePadding(nodePaddingY)
