@@ -198,7 +198,7 @@ export default class WaffleCanvas extends Component {
                 </p>
                 <p className="description">
                     The responsive alternative of this component is{' '}
-                    <code>ResponsiveWaffleHtml</code>, it also offers other implementations, see{' '}
+                    <code>ResponsiveWaffleCanvas</code>, it also offers other implementations, see{' '}
                     <Link to="/waffle">Waffle</Link> and <Link to="/waffle/html">WaffleHtml</Link>.
                 </p>
             </div>

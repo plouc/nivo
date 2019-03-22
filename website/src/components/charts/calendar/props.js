@@ -49,8 +49,8 @@ export default [
         docScopes: '*',
         description: (
             <span>
-                not required if using&nbsp;
-                <code>&lt;ResponsiveCalendar&nbsp;/&gt;</code>.
+                not required if using responsive alternative of the component{' '}
+                <code>&lt;Responsive*/&gt;</code>.
             </span>
         ),
         help: 'Chart width.',
@@ -71,8 +71,8 @@ export default [
         docScopes: '*',
         description: (
             <span>
-                not required if using&nbsp;
-                <code>&lt;ResponsiveCalendar&nbsp;/&gt;</code>.
+                not required if using responsive alternative of the component{' '}
+                <code>&lt;Responsive*/&gt;</code>.
             </span>
         ),
         help: 'Chart height.',
@@ -176,6 +176,20 @@ export default [
         controlType: 'colorPicker',
         controlGroup: 'Base',
     },
+    {
+        key: 'pixelRatio',
+        scopes: ['CalendarCanvas'],
+        description: `Adjust pixel ratio, useful for HiDPI screens.`,
+        required: false,
+        default: 'Depends on device',
+        type: `{number}`,
+        controlType: 'range',
+        controlGroup: 'Base',
+        controlOptions: {
+            min: 1,
+            max: 2,
+        },
+    },
     // Years
     {
         key: 'yearSpacing',
@@ -227,6 +241,7 @@ export default [
     // Months
     {
         key: 'monthBorderWidth',
+        scopes: ['Calendar', 'api'],
         description: 'width of month borders.',
         type: '{number}',
         required: false,
@@ -241,6 +256,7 @@ export default [
     },
     {
         key: 'monthBorderColor',
+        scopes: ['Calendar', 'api'],
         description: 'color to use for months border.',
         type: '{string}',
         required: false,
@@ -321,7 +337,7 @@ export default [
     ...marginProperties,
     {
         key: 'isInteractive',
-        scopes: ['Calendar'],
+        scopes: ['Calendar', 'CalendarCanvas'],
         description: 'Enable/disable interactivity.',
         type: '{boolean}',
         required: false,
@@ -331,14 +347,14 @@ export default [
     },
     {
         key: 'onClick',
-        scopes: ['Calendar'],
+        scopes: ['Calendar', 'CalendarCanvas'],
         description: 'onClick handler, it receives clicked day data and mouse event.',
         type: '{Function}',
         required: false,
     },
     {
         key: 'custom tooltip example',
-        scopes: ['Calendar'],
+        scopes: ['Calendar', 'CalendarCanvas'],
         excludeFromDoc: true,
         description: (
             <span>
@@ -352,7 +368,7 @@ export default [
     },
     {
         key: 'tooltip',
-        scopes: ['Calendar'],
+        scopes: ['Calendar', 'CalendarCanvas'],
         type: '{Function}',
         required: false,
         description: (

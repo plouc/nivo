@@ -15,7 +15,7 @@ class CalendarPage extends Component {
         super(props)
 
         const from = new Date(2015, 3, 1)
-        const to = new Date(2016, 7, 12)
+        const to = new Date(2018, 7, 12)
 
         this.state = {
             from,
