@@ -91,6 +91,22 @@ export default [
         },
     },
     {
+        key: 'layout',
+        scopes: ['Sankey'],
+        description: `Layout, must be one of: 'horizontal', 'vertical'.`,
+        type: '{string}',
+        required: false,
+        default: defaults.layout,
+        controlType: 'radio',
+        controlGroup: 'Base',
+        controlOptions: {
+            choices: [
+                { label: 'horizontal', value: 'horizontal' },
+                { label: 'vertical', value: 'vertical' },
+            ],
+        },
+    },
+    {
         key: 'align',
         scopes: '*',
         description: (
@@ -158,9 +174,9 @@ export default [
             </div>
         ),
         help: 'Node sorting method.',
-        type: '{string}',
+        type: '{string|Function}',
         required: false,
-        default: defaults.align,
+        default: defaults.sort,
         controlType: 'choices',
         controlGroup: 'Base',
         controlOptions: {
@@ -182,7 +198,7 @@ export default [
     },
     {
         key: 'nodeThickness',
-        scopes: '*',
+        scopes: ['Sankey'],
         description: 'Node thickness (px).',
         required: false,
         default: defaults.nodeThickness,
@@ -227,7 +243,7 @@ export default [
     },
     {
         key: 'nodeSpacing',
-        scopes: '*',
+        scopes: ['Sankey'],
         description: 'Spacing between nodes at an identical level (px).',
         required: false,
         default: defaults.nodeSpacing,
@@ -242,7 +258,7 @@ export default [
     },
     {
         key: 'nodeInnerPadding',
-        scopes: '*',
+        scopes: ['Sankey'],
         description: 'Node inner padding, distance from link, substracted from nodeThickness (px).',
         required: false,
         default: defaults.nodePaddingX,

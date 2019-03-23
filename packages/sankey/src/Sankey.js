@@ -19,6 +19,7 @@ import SankeyLabels from './SankeyLabels'
 const Sankey = ({
     nodes,
     links,
+    layout,
 
     margin,
     width,
@@ -103,6 +104,7 @@ const Sankey = ({
                 <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
                     <SankeyLinks
                         links={links}
+                        layout={layout}
                         linkContract={linkContract}
                         linkOpacity={linkOpacity}
                         linkHoverOpacity={linkHoverOpacity}

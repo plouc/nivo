@@ -28,6 +28,7 @@ const initialSettings = {
         left: 50,
     },
 
+    layout: 'horizontal',
     align: 'justify',
     sort: 'auto',
     colors: 'category10',
@@ -35,15 +36,15 @@ const initialSettings = {
     nodeOpacity: 1,
     nodeHoverOpacity: 1,
     nodeThickness: 18,
-    nodeInnerPadding: 0,
-    nodeSpacing: 12,
-    nodeBorderWidth: 1,
+    nodeInnerPadding: 3,
+    nodeSpacing: 24,
+    nodeBorderWidth: 0,
     nodeBorderColor: {
         type: 'inherit:darker',
         gamma: 0.8,
     },
 
-    linkOpacity: 0.25,
+    linkOpacity: 0.5,
     linkHoverOpacity: 0.6,
     linkHoverOthersOpacity: 0.1,
     linkContract: 0,
@@ -60,8 +61,8 @@ const initialSettings = {
     },
 
     animate: true,
-    motionStiffness: 120,
-    motionDamping: 11,
+    motionStiffness: 140,
+    motionDamping: 13,
 
     isInteractive: true,
 

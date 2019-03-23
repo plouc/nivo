@@ -11,7 +11,7 @@ import Helmet from 'react-helmet'
 import random from 'lodash/random'
 import { generateSankeyData } from '@nivo/generators'
 
-const generateData = () => generateSankeyData({ nodeCount: 13, maxIterations: 2 })
+const generateData = () => generateSankeyData({ nodeCount: 6, maxIterations: 8 })
 
 export default class SankeyPage extends Component {
     state = {

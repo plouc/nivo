@@ -46,26 +46,28 @@ const SankeyNodes = ({
     if (!animate) {
         return (
             <Fragment>
-                {nodes.map(node => (
-                    <SankeyNodesItem
-                        key={node.id}
-                        node={node}
-                        x={node.x}
-                        y={node.y}
-                        width={node.width}
-                        height={node.height}
-                        color={node.color}
-                        opacity={getOpacity(node)}
-                        borderWidth={nodeBorderWidth}
-                        borderColor={getNodeBorderColor(node)}
-                        showTooltip={showTooltip}
-                        hideTooltip={hideTooltip}
-                        setCurrent={setCurrentNode}
-                        onClick={onClick}
-                        tooltip={tooltip}
-                        theme={theme}
-                    />
-                ))}
+                {nodes.map(node => {
+                    return (
+                        <SankeyNodesItem
+                            key={node.id}
+                            node={node}
+                            x={node.x}
+                            y={node.y}
+                            width={node.width}
+                            height={node.height}
+                            color={node.color}
+                            opacity={getOpacity(node)}
+                            borderWidth={nodeBorderWidth}
+                            borderColor={getNodeBorderColor(node)}
+                            showTooltip={showTooltip}
+                            hideTooltip={hideTooltip}
+                            setCurrent={setCurrentNode}
+                            onClick={onClick}
+                            tooltip={tooltip}
+                            theme={theme}
+                        />
+                    )
+                })}
             </Fragment>
         )
     }
