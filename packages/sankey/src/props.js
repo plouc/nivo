@@ -14,8 +14,8 @@ import { LegendPropShape } from '@nivo/legends'
 export const sankeyAlignmentPropMapping = {
     center: sankeyCenter,
     justify: sankeyJustify,
-    left: sankeyLeft,
-    right: sankeyRight,
+    start: sankeyLeft,
+    end: sankeyRight,
 }
 
 export const sankeyAlignmentPropKeys = Object.keys(sankeyAlignmentPropMapping)

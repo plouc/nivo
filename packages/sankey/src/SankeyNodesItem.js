@@ -25,28 +25,29 @@ const SankeyNodesItem = ({
     borderWidth,
     borderColor,
 
-    // interactivity
     handleMouseEnter,
     handleMouseMove,
     handleMouseLeave,
     onClick,
-}) => (
-    <rect
-        x={x}
-        y={y}
-        width={width}
-        height={height}
-        fill={color}
-        fillOpacity={opacity}
-        strokeWidth={borderWidth}
-        stroke={borderColor}
-        strokeOpacity={opacity}
-        onMouseEnter={handleMouseEnter}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        onClick={onClick}
-    />
-)
+}) => {
+    return (
+        <rect
+            x={x}
+            y={y}
+            width={width}
+            height={height}
+            fill={color}
+            fillOpacity={opacity}
+            strokeWidth={borderWidth}
+            stroke={borderColor}
+            strokeOpacity={opacity}
+            onMouseEnter={handleMouseEnter}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            onClick={onClick}
+        />
+    )
+}
 
 SankeyNodesItem.propTypes = {
     node: PropTypes.shape({
@@ -65,7 +66,6 @@ SankeyNodesItem.propTypes = {
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.string.isRequired,
 
-    // interactivity
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
     setCurrent: PropTypes.func.isRequired,

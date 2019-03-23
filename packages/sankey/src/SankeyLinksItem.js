@@ -8,11 +8,9 @@
  */
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import compose from 'recompose/compose'
-import withPropsOnChange from 'recompose/withPropsOnChange'
-import withHandlers from 'recompose/withHandlers'
-import pure from 'recompose/pure'
+import { compose, withPropsOnChange, withHandlers, pure } from 'recompose'
 import { BasicTooltip, Chip, blendModePropType } from '@nivo/core'
+import SankeyLinkGradient from './SankeyLinkGradient'
 
 const tooltipStyles = {
     container: {
@@ -56,49 +54,43 @@ TooltipContent.propTypes = {
 }
 
 const SankeyLinksItem = ({
+    link,
+    layout,
     path,
-    width,
     color,
     opacity,
-    contract,
     blendMode,
     enableGradient,
-
-    // interactivity
     handleMouseEnter,
     handleMouseMove,
     handleMouseLeave,
     onClick,
+}) => {
+    const linkId = `${link.source.id}.${link.target.id}`
 
-    link,
-}) => (
-    <Fragment>
-        {enableGradient && (
-            <linearGradient
-                id={`${link.source.id}.${link.target.id}`}
-                gradientUnits="userSpaceOnUse"
-                x1={link.source.x}
-                x2={link.target.x}
-            >
-                {/*Use startColor & endColor if want to customize link color gradient*/}
-                <stop offset="0%" stopColor={link.startColor || link.source.color} />
-                <stop offset="100%" stopColor={link.endColor || link.target.color} />
-            </linearGradient>
-        )}
-        <path
-            fill="none"
-            d={path}
-            strokeWidth={Math.max(1, width - contract * 2)}
-            stroke={enableGradient ? `url(#${link.source.id}.${link.target.id})` : color}
-            strokeOpacity={opacity}
-            onMouseEnter={handleMouseEnter}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            onClick={onClick}
-            style={{ mixBlendMode: blendMode }}
-        />
-    </Fragment>
-)
+    return (
+        <Fragment>
+            {enableGradient && (
+                <SankeyLinkGradient
+                    id={linkId}
+                    layout={layout}
+                    startColor={link.startColor || link.source.color}
+                    endColor={link.endColor || link.target.color}
+                />
+            )}
+            <path
+                fill={enableGradient ? `url(#${linkId})` : color}
+                d={path}
+                fillOpacity={opacity}
+                onMouseEnter={handleMouseEnter}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+                onClick={onClick}
+                style={{ mixBlendMode: blendMode }}
+            />
+        </Fragment>
+    )
+}
 
 SankeyLinksItem.propTypes = {
     link: PropTypes.shape({
@@ -115,18 +107,15 @@ SankeyLinksItem.propTypes = {
         color: PropTypes.string.isRequired,
         value: PropTypes.number.isRequired,
     }).isRequired,
-
+    layout: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
     path: PropTypes.string.isRequired,
-    width: PropTypes.number.isRequired,
     color: PropTypes.string.isRequired,
     opacity: PropTypes.number.isRequired,
-    contract: PropTypes.number.isRequired,
     blendMode: blendModePropType.isRequired,
     enableGradient: PropTypes.bool.isRequired,
 
     theme: PropTypes.object.isRequired,
 
-    // interactivity
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
     setCurrent: PropTypes.func.isRequired,

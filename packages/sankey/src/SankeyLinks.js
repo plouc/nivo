@@ -9,14 +9,63 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
-import { sankeyLinkHorizontal } from 'd3-sankey'
+import { line, curveMonotoneX, curveMonotoneY } from 'd3-shape'
 import { motionPropTypes, SmartMotion, blendModePropType } from '@nivo/core'
 import SankeyLinksItem from './SankeyLinksItem'
 
-const getLinkPath = sankeyLinkHorizontal()
+const sankeyLinkHorizontal = () => {
+    const lineGenerator = line().curve(curveMonotoneX)
+
+    return (n, contract) => {
+        const thickness = Math.max(1, n.thickness - contract * 2)
+        console.log(n.thickness, contract)
+        const halfThickness = thickness / 2
+        const linkLength = n.target.x0 - n.source.x1
+        const padLength = linkLength * 0.12
+
+        const dots = [
+            [n.source.x1, n.pos0 - halfThickness],
+            [n.source.x1 + padLength, n.pos0 - halfThickness],
+            [n.target.x0 - padLength, n.pos1 - halfThickness],
+            [n.target.x0, n.pos1 - halfThickness],
+            [n.target.x0, n.pos1 + halfThickness],
+            [n.target.x0 - padLength, n.pos1 + halfThickness],
+            [n.source.x1 + padLength, n.pos0 + halfThickness],
+            [n.source.x1, n.pos0 + halfThickness],
+            [n.source.x1, n.pos0 - halfThickness],
+        ]
+
+        return lineGenerator(dots) + 'Z'
+    }
+}
+
+const sankeyLinkVertical = () => {
+    const lineGenerator = line().curve(curveMonotoneY)
+
+    return n => {
+        const halfThickness = n.thickness / 2
+        const linkLength = n.target.y0 - n.source.y1
+        const padLength = linkLength * 0.12
+
+        const dots = [
+            [n.pos0 + halfThickness, n.source.y1],
+            [n.pos0 + halfThickness, n.source.y1 + padLength],
+            [n.pos1 + halfThickness, n.target.y0 - padLength],
+            [n.pos1 + halfThickness, n.target.y0],
+            [n.pos1 - halfThickness, n.target.y0],
+            [n.pos1 - halfThickness, n.target.y0 - padLength],
+            [n.pos0 - halfThickness, n.source.y1 + padLength],
+            [n.pos0 - halfThickness, n.source.y1],
+            [n.pos0 + halfThickness, n.source.y1],
+        ]
+
+        return lineGenerator(dots) + 'Z'
+    }
+}
 
 const SankeyLinks = ({
     links,
+    layout,
 
     linkOpacity,
     linkHoverOpacity,
@@ -47,6 +96,8 @@ const SankeyLinks = ({
         return linkHoverOthersOpacity
     }
 
+    const getLinkPath = layout === 'horizontal' ? sankeyLinkHorizontal() : sankeyLinkVertical()
+
     if (animate !== true) {
         return (
             <g>
@@ -54,11 +105,10 @@ const SankeyLinks = ({
                     <SankeyLinksItem
                         key={`${link.source.id}.${link.target.id}`}
                         link={link}
-                        path={getLinkPath(link)}
-                        width={Math.max(1, link.width - linkContract * 2)}
+                        layout={layout}
+                        path={getLinkPath(link, linkContract)}
                         color={link.color}
                         opacity={getOpacity(link)}
-                        contract={linkContract}
                         blendMode={linkBlendMode}
                         enableGradient={enableLinkGradient}
                         showTooltip={showTooltip}
@@ -85,16 +135,15 @@ const SankeyLinks = ({
                 <SmartMotion
                     key={`${link.source.id}.${link.target.id}`}
                     style={spring => ({
-                        path: spring(getLinkPath(link), springConfig),
-                        width: spring(Math.max(1, link.width - linkContract * 2), springConfig),
+                        path: spring(getLinkPath(link, linkContract), springConfig),
                         color: spring(link.color, springConfig),
                         opacity: spring(getOpacity(link), springConfig),
-                        contract: spring(linkContract, springConfig),
                     })}
                 >
                     {style => (
                         <SankeyLinksItem
                             link={link}
+                            layout={layout}
                             {...style}
                             blendMode={linkBlendMode}
                             enableGradient={enableLinkGradient}
@@ -114,6 +163,7 @@ const SankeyLinks = ({
 }
 
 SankeyLinks.propTypes = {
+    layout: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
     links: PropTypes.arrayOf(
         PropTypes.shape({
             source: PropTypes.shape({
@@ -124,12 +174,11 @@ SankeyLinks.propTypes = {
                 id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
                 label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
             }).isRequired,
-            width: PropTypes.number.isRequired,
+            thickness: PropTypes.number.isRequired,
             color: PropTypes.string.isRequired,
         })
     ).isRequired,
 
-    // links
     linkOpacity: PropTypes.number.isRequired,
     linkHoverOpacity: PropTypes.number.isRequired,
     linkHoverOthersOpacity: PropTypes.number.isRequired,
@@ -142,7 +191,6 @@ SankeyLinks.propTypes = {
 
     ...motionPropTypes,
 
-    // interactivity
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
     setCurrentLink: PropTypes.func.isRequired,

@@ -145,7 +145,7 @@ export default [
         type: '{string}',
         required: false,
         default: defaults.direction,
-        controlType: 'choices',
+        controlType: 'radio',
         controlGroup: 'Base',
         controlOptions: {
             choices: [
@@ -220,7 +220,7 @@ export default [
         type: `{'before'|'after'}`,
         required: false,
         default: defaults.yearLegendPosition,
-        controlType: 'choices',
+        controlType: 'radio',
         controlGroup: 'Years',
         controlOptions: {
             choices: [{ label: 'before', value: 'before' }, { label: 'after', value: 'after' }],
@@ -278,7 +278,7 @@ export default [
         type: `{'before'|'after'}`,
         required: false,
         default: defaults.monthLegendPosition,
-        controlType: 'choices',
+        controlType: 'radio',
         controlGroup: 'Months',
         controlOptions: {
             choices: [{ label: 'before', value: 'before' }, { label: 'after', value: 'after' }],

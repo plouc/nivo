@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { cloneDeep } from 'lodash'
-import { compose, defaultProps, withState, withPropsOnChange, pure } from 'recompose'
+import { compose, defaultProps, withState, withPropsOnChange, pure, withProps } from 'recompose'
 import { sankey as d3Sankey } from 'd3-sankey'
 import {
     getLabelGenerator,
@@ -64,6 +64,7 @@ export default Component =>
         withPropsOnChange(
             [
                 'data',
+                'layout',
                 'alignFunction',
                 'sortFunction',
                 'nodeThickness',
@@ -77,6 +78,7 @@ export default Component =>
             ],
             ({
                 data: _data,
+                layout,
                 alignFunction,
                 sortFunction,
                 nodeThickness,
@@ -93,7 +95,7 @@ export default Component =>
                     .nodeSort(sortFunction)
                     .nodeWidth(nodeThickness)
                     .nodePadding(nodeSpacing)
-                    .size([width, height])
+                    .size(layout === 'horizontal' ? [width, height] : [height, width])
                     .nodeId(getId)
 
                 // deep clone is required as the sankey diagram mutates data
@@ -104,14 +106,35 @@ export default Component =>
                 data.nodes.forEach(node => {
                     node.color = getColor(node)
                     node.label = getLabel(node)
-                    node.x = node.x0 + nodeInnerPadding
-                    node.y = node.y0
-                    node.width = Math.max(node.x1 - node.x0 - nodeInnerPadding * 2, 0)
-                    node.height = Math.max(node.y1 - node.y0, 0)
+                    if (layout === 'horizontal') {
+                        node.x = node.x0 + nodeInnerPadding
+                        node.y = node.y0
+                        node.width = Math.max(node.x1 - node.x0 - nodeInnerPadding * 2, 0)
+                        node.height = Math.max(node.y1 - node.y0, 0)
+                    } else {
+                        node.x = node.y0
+                        node.y = node.x0 + nodeInnerPadding
+                        node.width = Math.max(node.y1 - node.y0, 0)
+                        node.height = Math.max(node.x1 - node.x0 - nodeInnerPadding * 2, 0)
+
+                        const oldX0 = node.x0
+                        const oldX1 = node.x1
+
+                        node.x0 = node.y0
+                        node.x1 = node.y1
+                        node.y0 = oldX0
+                        node.y1 = oldX1
+                    }
                 })
 
                 data.links.forEach(link => {
                     link.color = getLinkColor(link)
+                    link.pos0 = link.y0
+                    link.pos1 = link.y1
+                    link.thickness = link.width
+                    delete link.y0
+                    delete link.y1
+                    delete link.width
                 })
 
                 return data
