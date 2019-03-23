@@ -145,7 +145,9 @@ const Sankey = ({
                     {enableLabels && (
                         <SankeyLabels
                             nodes={nodes}
+                            layout={layout}
                             width={width}
+                            height={height}
                             labelPosition={labelPosition}
                             labelPadding={labelPadding}
                             labelOrientation={labelOrientation}

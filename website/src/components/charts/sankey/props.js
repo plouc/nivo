@@ -422,7 +422,7 @@ export default [
         type: '{string}',
         required: false,
         default: defaults.labelPosition,
-        controlType: 'choices',
+        controlType: 'radio',
         controlGroup: 'Labels',
         controlOptions: {
             choices: ['inside', 'outside'].map(key => ({
@@ -472,7 +472,7 @@ export default [
         type: '{string}',
         required: false,
         default: defaults.labelOrientation,
-        controlType: 'choices',
+        controlType: 'radio',
         controlGroup: 'Labels',
         controlOptions: {
             choices: ['horizontal', 'vertical'].map(key => ({

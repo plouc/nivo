@@ -9,59 +9,9 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
-import { line, curveMonotoneX, curveMonotoneY } from 'd3-shape'
 import { motionPropTypes, SmartMotion, blendModePropType } from '@nivo/core'
 import SankeyLinksItem from './SankeyLinksItem'
-
-const sankeyLinkHorizontal = () => {
-    const lineGenerator = line().curve(curveMonotoneX)
-
-    return (n, contract) => {
-        const thickness = Math.max(1, n.thickness - contract * 2)
-        console.log(n.thickness, contract)
-        const halfThickness = thickness / 2
-        const linkLength = n.target.x0 - n.source.x1
-        const padLength = linkLength * 0.12
-
-        const dots = [
-            [n.source.x1, n.pos0 - halfThickness],
-            [n.source.x1 + padLength, n.pos0 - halfThickness],
-            [n.target.x0 - padLength, n.pos1 - halfThickness],
-            [n.target.x0, n.pos1 - halfThickness],
-            [n.target.x0, n.pos1 + halfThickness],
-            [n.target.x0 - padLength, n.pos1 + halfThickness],
-            [n.source.x1 + padLength, n.pos0 + halfThickness],
-            [n.source.x1, n.pos0 + halfThickness],
-            [n.source.x1, n.pos0 - halfThickness],
-        ]
-
-        return lineGenerator(dots) + 'Z'
-    }
-}
-
-const sankeyLinkVertical = () => {
-    const lineGenerator = line().curve(curveMonotoneY)
-
-    return n => {
-        const halfThickness = n.thickness / 2
-        const linkLength = n.target.y0 - n.source.y1
-        const padLength = linkLength * 0.12
-
-        const dots = [
-            [n.pos0 + halfThickness, n.source.y1],
-            [n.pos0 + halfThickness, n.source.y1 + padLength],
-            [n.pos1 + halfThickness, n.target.y0 - padLength],
-            [n.pos1 + halfThickness, n.target.y0],
-            [n.pos1 - halfThickness, n.target.y0],
-            [n.pos1 - halfThickness, n.target.y0 - padLength],
-            [n.pos0 - halfThickness, n.source.y1 + padLength],
-            [n.pos0 - halfThickness, n.source.y1],
-            [n.pos0 + halfThickness, n.source.y1],
-        ]
-
-        return lineGenerator(dots) + 'Z'
-    }
-}
+import { sankeyLinkHorizontal, sankeyLinkVertical } from './links'
 
 const SankeyLinks = ({
     links,

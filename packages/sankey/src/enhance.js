@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { cloneDeep } from 'lodash'
-import { compose, defaultProps, withState, withPropsOnChange, pure, withProps } from 'recompose'
+import { compose, defaultProps, withState, withPropsOnChange, pure } from 'recompose'
 import { sankey as d3Sankey } from 'd3-sankey'
 import {
     getLabelGenerator,

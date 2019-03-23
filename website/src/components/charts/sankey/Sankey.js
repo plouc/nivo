@@ -28,7 +28,7 @@ const initialSettings = {
         left: 50,
     },
 
-    layout: 'horizontal',
+    layout: 'vertical',
     align: 'justify',
     sort: 'auto',
     colors: 'category10',
