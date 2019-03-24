@@ -27,17 +27,24 @@ const initialSettings = {
     from: '2015-03-01',
     to: '2016-07-12',
 
+    align: 'center',
     emptyColor: '#eeeeee',
     colors: ['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560'],
     minValue: 0,
     maxValue: 'auto',
 
     margin: {
-        top: 100,
-        right: 30,
-        bottom: 60,
-        left: 30,
+        top: 40,
+        right: 40,
+        bottom: 40,
+        left: 40,
     },
+    // margin: {
+    //     top: 100,
+    //     right: 30,
+    //     bottom: 60,
+    //     left: 30,
+    // },
     direction: 'horizontal',
 
     yearSpacing: 40,
@@ -59,13 +66,14 @@ const initialSettings = {
 
     legends: [
         {
-            anchor: 'bottom',
+            anchor: 'bottom-right',
             direction: 'row',
             translateY: 36,
             itemCount: 4,
-            itemWidth: 34,
+            itemWidth: 42,
             itemHeight: 36,
-            itemDirection: 'top-to-bottom',
+            itemsSpacing: 14,
+            itemDirection: 'right-to-left',
         },
     ],
 

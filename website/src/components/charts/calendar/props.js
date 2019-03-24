@@ -8,6 +8,7 @@
  */
 import React from 'react'
 import dedent from 'dedent-js'
+import { boxAlignments } from '@nivo/core'
 import { CalendarDefaultProps as defaults } from '@nivo/calendar'
 import { marginProperties } from '../../../lib/componentProperties'
 
@@ -90,12 +91,50 @@ export default [
         },
     },
     {
+        key: 'direction',
+        description: (<code className="code-string">"horizontal"</code>,
+        (
+            <span>
+                defines calendar layout direction, must be one of{' '}
+                <code className="code-string">"horizontal"</code> or{' '}
+                <code className="code-string">"vertical"</code>
+            </span>
+        )),
+        help: 'defines calendar layout direction.',
+        type: '{string}',
+        required: false,
+        default: defaults.direction,
+        controlType: 'radio',
+        controlGroup: 'Base',
+        controlOptions: {
+            choices: [
+                { label: 'horizontal', value: 'horizontal' },
+                { label: 'vertical', value: 'vertical' },
+            ],
+        },
+    },
+    {
+        key: 'align',
+        description: 'defines how calendar should be aligned inside chart container.',
+        type: '{string}',
+        required: false,
+        default: defaults.align,
+        controlType: 'choices',
+        controlGroup: 'Base',
+        controlOptions: {
+            choices: boxAlignments.map(align => ({
+                label: align,
+                value: align,
+            })),
+        },
+    },
+    {
         key: 'minValue',
         scopes: '*',
         description: (
             <>
                 Minimum value. If 'auto', will pick the lowest value in the provided data set.
-                Should be overriden if your data set does not contain desired lower bound value.`
+                Should be overriden if your data set does not contain desired lower bound value.
             </>
         ),
         required: false,
@@ -129,29 +168,6 @@ export default [
             defaultValue: 100,
             min: 0,
             max: 600,
-        },
-    },
-    {
-        key: 'direction',
-        description: (<code className="code-string">"horizontal"</code>,
-        (
-            <span>
-                defines calendar layout direction, must be one of{' '}
-                <code className="code-string">"horizontal"</code> or{' '}
-                <code className="code-string">"vertical"</code>
-            </span>
-        )),
-        help: 'defines calendar layout direction.',
-        type: '{string}',
-        required: false,
-        default: defaults.direction,
-        controlType: 'radio',
-        controlGroup: 'Base',
-        controlOptions: {
-            choices: [
-                { label: 'horizontal', value: 'horizontal' },
-                { label: 'vertical', value: 'vertical' },
-            ],
         },
     },
     {
