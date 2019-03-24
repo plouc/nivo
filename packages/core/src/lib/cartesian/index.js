@@ -7,4 +7,4 @@
  * file that was distributed with this source code.
  */
 export * from './axes'
-export * from './grid'
+export * from './utils'

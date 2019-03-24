@@ -29,6 +29,7 @@ const initialSettings = {
     from: '2013-03-01',
     to: '2019-07-12',
 
+    align: 'center',
     emptyColor: '#eeeeee',
     colors: ['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560'],
     minValue: 0,
@@ -61,13 +62,14 @@ const initialSettings = {
 
     legends: [
         {
-            anchor: 'bottom',
+            anchor: 'bottom-right',
             direction: 'row',
-            translateY: 40,
+            translateY: 36,
             itemCount: 4,
-            itemWidth: 34,
+            itemWidth: 42,
             itemHeight: 36,
-            itemDirection: 'top-to-bottom',
+            itemsSpacing: 14,
+            itemDirection: 'right-to-left',
         },
     ],
 
@@ -86,7 +88,7 @@ const initialSettings = {
 const CalendarCanvas = ({ data }) => {
     const [settings, setSettings] = useState(initialSettings)
     const onDayClick = useCallback((day, event) => {
-        alert(`${day.day}: ${day.value}\nclicked at x: ${day.clientX}, y: ${day.clientY}`)
+        alert(`${day.day}: ${day.value}\nclicked at x: ${event.clientX}, y: ${event.clientY}`)
     })
 
     const mappedSettings = propsMapper(settings)
