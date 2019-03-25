@@ -55,6 +55,7 @@
     "react-test-renderer": "^16.8.4",
     "rollup": "^1.7.0",
     "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-cleanup": "^3.1.1",
     "rollup-plugin-node-resolve": "^4.0.1",
     "rollup-plugin-prettier": "^0.6.0",
     "rollup-plugin-strip-banner": "^0.2.0",

@@ -25,7 +25,8 @@
   "dependencies": {
     "@nivo/core": "0.54.0",
     "@nivo/legends": "0.54.0",
-    "lodash": "^4.17.4",
+    "lodash.range": "^3.2.0",
+    "lodash.partial": "^4.2.1",
     "react-motion": "^0.5.2",
     "recompose": "^0.30.0"
   },

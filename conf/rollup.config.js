@@ -2,6 +2,7 @@ import { camelCase, upperFirst } from 'lodash'
 import babel from 'rollup-plugin-babel'
 import resolve from 'rollup-plugin-node-resolve'
 import stripBanner from 'rollup-plugin-strip-banner'
+import cleanup from 'rollup-plugin-cleanup'
 
 const pkg = process.env.PACKAGE
 const isWatching = process.env.ROLLUP_WATCH === 'TRUE'
@@ -49,6 +50,7 @@ const commonPlugins = [
             '@nivo/babel-preset'
         ]
     }),
+    cleanup()
 ]
 
 const configs = [
