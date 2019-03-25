@@ -45,6 +45,7 @@ addDecorator(withInfo({
 
 function loadStories() {
     require('../packages/bar/stories/bar.stories')
+    // require('../packages/bar/stories/bar_00.stories')
     require('../packages/bar/stories/barCanvas.stories')
     require('../packages/bullet/stories/bullet.stories')
     require('../packages/calendar/stories/calendar.stories')
