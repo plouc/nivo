@@ -30,6 +30,8 @@ const initialSettings = {
 
     projectionType: 'mercator',
     projectionScale: 100,
+    projectionTranslation: [0.5, 0.5],
+    projectionRotation: [0, 0, 0],
 
     fillColor: '#eeeeee',
     borderWidth: 0.5,
@@ -74,6 +76,19 @@ const GeoMap = () => {
 
     const description = (
         <div className="chart-description">
+            <p className="description">
+                This component can be used to draw maps, it takes an array of features which
+                determine the geometries to render on the map. It can be used to build more complex
+                maps such as the <Link to="/choropleth">Choropleth</Link>.
+            </p>
+            <p className="description">
+                Using this component requires some knowledge about the <code>d3-geo</code>
+                library, projections, geoJSON… please have a loot at the{' '}
+                <a href="https://github.com/d3/d3-geo" target="_blank" rel="noopener noreferrer">
+                    official d3 documentation
+                </a>{' '}
+                for further information.
+            </p>
             <p className="description">
                 The responsive alternative of this component is <code>ResponsiveGeoMap</code>, it
                 also offers a canvas implementations, see{' '}

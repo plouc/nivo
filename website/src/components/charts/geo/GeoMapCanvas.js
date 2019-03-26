@@ -32,6 +32,8 @@ const initialSettings = {
 
     projectionType: 'mercator',
     projectionScale: 100,
+    projectionTranslation: [0.5, 0.5],
+    projectionRotation: [0, 0, 0],
 
     fillColor: '#eeeeee',
     borderWidth: 0.5,
@@ -52,7 +54,11 @@ const initialSettings = {
 const GeoMapCanvas = () => {
     const [settings, setSettings] = useState(initialSettings)
     const onClick = useCallback((feature, event) => {
-        alert(`${feature.properties.name}\nclicked at x: ${event.clientX}, y: ${event.clientY}`)
+        alert(
+            `${feature.properties.name} (${feature.id})\nclicked at x: ${event.clientX}, y: ${
+                event.clientY
+            }`
+        )
     })
 
     // const mappedSettings = propsMapper(settings)
@@ -73,12 +79,12 @@ const GeoMapCanvas = () => {
     const description = (
         <div className="chart-description">
             <p className="description">
-                A variation around the <Link to="/geomap">GeoMap</Link> component. Well suited for
-                large data sets as it does not impact DOM tree depth, however you'll lose the
-                isomorphic ability.
+                A canvas implementation of the <Link to="/geomap">GeoMap</Link> component, should be
+                used used when you have complex geometries as it offers better performance than its
+                SVG counterpart.
             </p>
             <p className="description">
-                The responsive alternative of this component is <code>ResponsiveGeoMapCanvas</code>.
+                The responsive alternative of this component is <code>ResponsiveGeoMap</code>.
             </p>
         </div>
     )

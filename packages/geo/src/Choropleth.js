@@ -6,20 +6,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component } from 'react'
+import React from 'react'
 import { ChoroplethPropTypes } from './props'
 import GeoMap from './GeoMap'
 import { enhanceChoropleth } from './enhance'
 
-class Choropleth extends Component {
-    static propTypes = ChoroplethPropTypes
+const Choropleth = props => <GeoMap {...props} />
 
-    render() {
-        const {} = this.props
-
-        return <GeoMap {...this.props} />
-    }
-}
+Choropleth.propTypes = ChoroplethPropTypes
 
 Choropleth.displayName = 'Choropleth'
 

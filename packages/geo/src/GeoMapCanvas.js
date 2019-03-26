@@ -52,11 +52,11 @@ class GeoMapCanvas extends Component {
 
         const feature = this.getFeatureFromMouseEvent(event)
         if (feature && tooltip) {
-            const tooltipContent = tooltip(feature)
+            const tooltipContent = tooltip(feature, theme)
             if (!tooltipContent) {
                 hideTooltip()
             } else {
-                showTooltip(<div style={theme.tooltip.container}>{tooltipContent}</div>, event)
+                showTooltip(tooltipContent, event)
             }
         } else {
             hideTooltip()
@@ -71,7 +71,7 @@ class GeoMapCanvas extends Component {
 
         const feature = this.getFeatureFromMouseEvent(event)
         if (feature) {
-            onClick(feature)
+            onClick(feature, event)
         }
     }
 
@@ -149,7 +149,7 @@ class GeoMapCanvas extends Component {
                         style={{
                             width: outerWidth,
                             height: outerHeight,
-                            cursor: isInteractive ? 'crosshair' : 'normal',
+                            cursor: isInteractive ? 'auto' : 'normal',
                         }}
                         onMouseMove={this.handleMouseMove(showTooltip, hideTooltip)}
                         onClick={this.handleClick}

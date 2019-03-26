@@ -56,7 +56,7 @@ class GeoMapFeature extends Component {
         return (
             <path
                 key={feature.id}
-                style={{ cursor: 'crosshair' }}
+                style={{ cursor: 'auto' }}
                 fill={fillColor}
                 strokeWidth={borderWidth}
                 stroke={borderColor}

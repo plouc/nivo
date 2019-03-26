@@ -38,6 +38,8 @@ const initialSettings = {
 
     projectionType: 'mercator',
     projectionScale: 100,
+    projectionTranslation: [0.5, 0.5],
+    projectionRotation: [0, 0, 0],
 
     enableGraticule: true,
     graticuleLineWidth: 0.5,
@@ -60,7 +62,11 @@ const Choropleth = () => {
     const [settings, setSettings] = useState(initialSettings)
     const [data, setData] = useState(generateChoroplethData())
     const onClick = useCallback((feature, event) => {
-        alert(`${feature.properties.name}\nclicked at x: ${event.clientX}, y: ${event.clientY}`)
+        alert(
+            `${feature.properties.name} (${feature.id})\nclicked at x: ${event.clientX}, y: ${
+                event.clientY
+            }`
+        )
     })
     const diceRoll = useCallback(() => setData(generateChoroplethData()), [setData])
 
@@ -85,9 +91,29 @@ const Choropleth = () => {
     const description = (
         <div className="chart-description">
             <p className="description">
-                The responsive alternative of this component is <code>ResponsiveChoropleth</code>,
-                it also offers a canvas implementations, see{' '}
-                <Link to="/choropleth/canvas">ChoroplethCanvas</Link>.
+                The Choropleth component displays divided geographical areas shaded in relation to
+                some data variable. It's build on top of the <Link to="/geomap">GeoMap</Link>{' '}
+                component.
+            </p>
+            <p className="description">
+                Using this component requires some knowledge about the <code>d3-geo</code>
+                library, projections, geoJSON… please have a loot at the{' '}
+                <a href="https://github.com/d3/d3-geo" target="_blank" rel="noopener noreferrer">
+                    official d3 documentation
+                </a>{' '}
+                for further information.
+            </p>
+            <p className="description">
+                Like for <Link to="/geomap">GeoMap</Link>, you must pass an array of features which
+                determine the geometries to render on the map, then you pass an array of data which,
+                each datum is merged with its corresponding feature using the <code>match</code>{' '}
+                property, the value is picked according to the <code>value</code> accessor.
+            </p>
+            <p className="description">
+                The responsive alternative of this component is <code>ResponsiveChoropleth</code>.
+                This component also have a canvas implementations,{' '}
+                <Link to="/choropleth/canvas">ChoroplethCanvas</Link>, which should be used when you
+                have complex geometries as it offers better performance.
             </p>
         </div>
     )
