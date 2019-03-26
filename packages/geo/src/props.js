@@ -8,7 +8,8 @@
  */
 import PropTypes from 'prop-types'
 import { quantizeColorScalePropType } from '@nivo/core'
-import { projectionById } from './enhance'
+import { projectionById } from './hooks'
+import ChoroplethTooltip from './ChoroplethTooltip'
 
 const commonPropTypes = {
     features: PropTypes.arrayOf(
@@ -38,7 +39,7 @@ const commonPropTypes = {
     onMouseMove: PropTypes.func.isRequired,
     onMouseLeave: PropTypes.func.isRequired,
     onClick: PropTypes.func.isRequired,
-    tooltip: PropTypes.func,
+    tooltip: PropTypes.any,
 
     layers: PropTypes.arrayOf(
         PropTypes.oneOfType([PropTypes.oneOf(['graticule', 'features']), PropTypes.func])
@@ -56,10 +57,10 @@ export const GeoMapCanvasPropTypes = {
 
 const commonChoroplethPropTypes = {
     data: PropTypes.arrayOf(PropTypes.object).isRequired,
+    match: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     colors: quantizeColorScalePropType.isRequired,
     unknownColor: PropTypes.string.isRequired,
-    matchOn: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
-    valueFrom: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
 }
 
 export const ChoroplethPropTypes = {
@@ -106,10 +107,11 @@ export const GeoMapCanvasDefaultProps = {
 }
 
 const commonChoroplethDefaultProps = {
-    matchOn: 'id',
-    valueFrom: 'value',
+    match: 'id',
+    value: 'value',
     colors: 'PuBuGn',
     unknownColor: '#999',
+    tooltip: ChoroplethTooltip,
 }
 
 export const ChoroplethDefaultProps = {

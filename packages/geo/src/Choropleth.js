@@ -7,14 +7,17 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { ChoroplethPropTypes } from './props'
+import { ChoroplethPropTypes, ChoroplethDefaultProps } from './props'
 import GeoMap from './GeoMap'
-import { enhanceChoropleth } from './enhance'
+import { useChoropleth } from './hooks'
 
-const Choropleth = props => <GeoMap {...props} />
+const Choropleth = props => {
+    const { getFillColor, boundFeatures } = useChoropleth(props)
+
+    return <GeoMap {...props} features={boundFeatures} fillColor={getFillColor} />
+}
 
 Choropleth.propTypes = ChoroplethPropTypes
+Choropleth.defaultProps = ChoroplethDefaultProps
 
-Choropleth.displayName = 'Choropleth'
-
-export default enhanceChoropleth(Choropleth)
+export default Choropleth

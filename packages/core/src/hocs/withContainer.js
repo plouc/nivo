@@ -6,11 +6,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { useRef, useState, useCallback } from 'react'
+import React, { Component, useRef, useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
-import noop from '../lib/noop'
 import { themeContext } from '../theming'
 import { tooltipContext } from '../tooltip'
+import { usePartialTheme } from '../hooks'
 
 const containerStyle = {
     position: 'relative',
@@ -22,12 +22,7 @@ const tooltipStyle = {
     zIndex: 10,
 }
 
-const noopHandlers = {
-    showTooltip: noop,
-    hideTooltip: noop,
-}
-
-const Container = ({ children, theme, isInteractive = true }) => {
+const Container = ({ theme: partialTheme = {}, children }) => {
     const containerEl = useRef(null)
     const [state, setState] = useState({
         isTooltipVisible: false,
@@ -65,15 +60,13 @@ const Container = ({ children, theme, isInteractive = true }) => {
         setState({ isTooltipVisible: false, tooltipContent: null })
     })
     const { isTooltipVisible, tooltipContent, position } = state
+    const theme = usePartialTheme(partialTheme)
 
     return (
         <themeContext.Provider value={theme}>
             <tooltipContext.Provider value={[showTooltip, hideTooltip]}>
                 <div style={containerStyle} ref={containerEl}>
-                    {children({
-                        showTooltip: isInteractive ? showTooltip : noop,
-                        hideTooltip: isInteractive ? hideTooltip : noop,
-                    })}
+                    {children}
                     {isTooltipVisible && (
                         <div
                             style={{
@@ -92,9 +85,20 @@ const Container = ({ children, theme, isInteractive = true }) => {
 }
 
 Container.propTypes = {
-    children: PropTypes.func.isRequired,
-    isInteractive: PropTypes.bool.isRequired,
-    theme: PropTypes.object.isRequired,
+    children: PropTypes.node.isRequired,
+    theme: PropTypes.object,
 }
 
-export default Container
+export const withContainer = WrappedComponent => {
+    return class extends Component {
+        render() {
+            const { theme, ...rest } = this.props
+
+            return (
+                <Container theme={theme}>
+                    <WrappedComponent {...rest} />
+                </Container>
+            )
+        }
+    }
+}
