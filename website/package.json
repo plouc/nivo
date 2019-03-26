@@ -15,6 +15,7 @@
     "@nivo/circle-packing": "0.54.0",
     "@nivo/core": "0.54.0",
     "@nivo/generators": "0.54.0",
+    "@nivo/geo": "0.54.0",
     "@nivo/heatmap": "0.54.0",
     "@nivo/legends": "0.54.0",
     "@nivo/line": "0.54.0",
