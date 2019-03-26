@@ -72,6 +72,7 @@ import Colors from './components/guides/colors/Colors'
 import Legends from './components/guides/legends/Legends'
 import Gradients from './components/guides/gradients/Gradients'
 import Patterns from './components/guides/patterns/Patterns'
+import Theming from './components/guides/theming/Theming'
 import About from './components/pages/About'
 import Faq from './components/pages/Faq'
 import Icons from './components/icons/Icons'
@@ -565,6 +566,13 @@ const SITEMAP = [
                 component: Patterns,
                 description: 'Using patterns to fill your charts.',
             },
+            // {
+            //     className: 'theming',
+            //     path: '/guides/theming',
+            //     label: 'Theming',
+            //     component: Theming,
+            //     description: 'Theming nivo charts.',
+            // },
         ],
     },
     {
