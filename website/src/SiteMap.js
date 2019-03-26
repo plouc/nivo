@@ -39,6 +39,12 @@ import BubbleCanvas from './components/charts/bubble/BubbleCanvas'
 import BubbleAPI from './components/charts/bubble/BubbleAPI'
 import BulletPage from './components/charts/bullet/BulletPage'
 import Bullet from './components/charts/bullet/Bullet'
+import GeoPage from './components/charts/geo/GeoPage'
+import GeoMap from './components/charts/geo/GeoMap'
+import GeoMapCanvas from './components/charts/geo/GeoMapCanvas'
+import ChoroplethPage from './components/charts/geo/ChoroplethPage'
+import Choropleth from './components/charts/geo/Choropleth'
+import ChoroplethCanvas from './components/charts/geo/ChoroplethCanvas'
 import SankeyPage from './components/charts/sankey/SankeyPage'
 import Sankey from './components/charts/sankey/Sankey'
 import SankeyAPI from './components/charts/sankey/SankeyAPI'
@@ -72,7 +78,7 @@ import Colors from './components/guides/colors/Colors'
 import Legends from './components/guides/legends/Legends'
 import Gradients from './components/guides/gradients/Gradients'
 import Patterns from './components/guides/patterns/Patterns'
-import Theming from './components/guides/theming/Theming'
+// import Theming from './components/guides/theming/Theming'
 import About from './components/pages/About'
 import Faq from './components/pages/Faq'
 import Icons from './components/icons/Icons'
@@ -198,6 +204,29 @@ const SITEMAP = [
                 ],
             },
             {
+                className: 'choropleth',
+                path: '/choropleth',
+                label: 'Choropleth',
+                component: ChoroplethPage,
+                children: [
+                    {
+                        className: 'react',
+                        path: '/',
+                        label: 'Choropleth',
+                        component: Choropleth,
+                        exact: true,
+                        tags: ['geo', 'map', 'svg', 'isomorphic'],
+                    },
+                    {
+                        className: 'canvas',
+                        path: '/canvas',
+                        label: 'ChoroplethCanvas',
+                        component: ChoroplethCanvas,
+                        tags: ['geo', 'map', 'canvas'],
+                    },
+                ],
+            },
+            {
                 className: 'chord',
                 path: '/chord',
                 label: 'Chord',
@@ -224,6 +253,29 @@ const SITEMAP = [
                         label: 'Chord API',
                         component: ChordAPI,
                         tags: ['api', 'relational'],
+                    },
+                ],
+            },
+            {
+                className: 'geo',
+                path: '/geomap',
+                label: 'GeoMap',
+                component: GeoPage,
+                children: [
+                    {
+                        className: 'react',
+                        path: '/',
+                        label: 'GeoMap',
+                        component: GeoMap,
+                        exact: true,
+                        tags: ['geo', 'map', 'svg', 'isomorphic'],
+                    },
+                    {
+                        className: 'canvas',
+                        path: '/canvas',
+                        label: 'GeoMapCanvas',
+                        component: GeoMapCanvas,
+                        tags: ['geo', 'map', 'canvas'],
                     },
                 ],
             },

@@ -1,0 +1,40 @@
+{
+  "name": "@nivo/geo",
+  "version": "0.54.0",
+  "license": "MIT",
+  "author": {
+    "name": "Raphaël Benitte",
+    "url": "https://github.com/plouc"
+  },
+  "keywords": [
+    "nivo",
+    "dataviz",
+    "react",
+    "d3",
+    "charts",
+    "geo",
+    "map"
+  ],
+  "main": "./dist/nivo-geo.cjs.js",
+  "module": "./dist/nivo-geo.esm.js",
+  "files": [
+    "README.md",
+    "LICENSE.md",
+    "dist/",
+    "index.d.ts"
+  ],
+  "dependencies": {
+    "@nivo/core": "0.54.0",
+    "d3-geo": "^1.11.3",
+    "lodash": "^4.17.4",
+    "react-motion": "^0.5.2",
+    "recompose": "^0.30.0"
+  },
+  "peerDependencies": {
+    "prop-types": ">= 15.5.10 < 16.0.0",
+    "react": ">= 16.8.4 < 17.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
