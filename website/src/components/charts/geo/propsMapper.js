@@ -54,7 +54,7 @@ export default settingsMapper(
             }
         },
         tooltip: (value, values) => {
-            if (!values['custom tooltip example']) return null
+            if (!values['custom tooltip example']) return undefined
 
             return CustomTooltip
         },

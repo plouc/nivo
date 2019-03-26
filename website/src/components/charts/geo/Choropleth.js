@@ -43,10 +43,10 @@ const initialSettings = {
 
     enableGraticule: true,
     graticuleLineWidth: 0.5,
-    graticuleLineColor: '#222222',
+    graticuleLineColor: '#152538',
 
     borderWidth: 0.5,
-    borderColor: '#000000',
+    borderColor: '#152538',
 
     isInteractive: true,
     'custom tooltip example': false,
@@ -54,7 +54,7 @@ const initialSettings = {
 
     theme: {
         ...nivoTheme,
-        background: '#333333',
+        background: '#223346',
     },
 }
 

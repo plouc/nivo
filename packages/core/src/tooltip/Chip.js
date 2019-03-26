@@ -6,13 +6,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import pure from 'recompose/pure'
 
-const Chip = ({ size, color, style }) => (
+const Chip = memo(({ size, color, style }) => (
     <span style={{ display: 'block', width: size, height: size, background: color, ...style }} />
-)
+))
 
 Chip.propTypes = {
     size: PropTypes.number.isRequired,
@@ -25,4 +24,4 @@ Chip.defaultProps = {
     style: {},
 }
 
-export default pure(Chip)
+export default Chip

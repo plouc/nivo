@@ -6,7 +6,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-export * from './propTypes'
-export * from './defaultTheme'
-export * from './extend'
-export * from './context'
+import { useMemo } from 'react'
+import { defaultTheme, extendDefaultTheme } from '../theming'
+
+export const usePartialTheme = partialTheme =>
+    useMemo(() => extendDefaultTheme(defaultTheme, partialTheme), [partialTheme])

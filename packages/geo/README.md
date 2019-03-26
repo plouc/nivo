@@ -4,12 +4,24 @@
 
 ## GeoMap
 
-[documentation](http://nivo.rocks/geo)
+[documentation](http://nivo.rocks/geomap)
 
-![Map](./doc/geo.png)
+![GeoMap](./doc/geomap.png)
 
-## MapCanvas
+## GeoMapCanvas
 
-[documentation](http://nivo.rocks/geo/canvas)
+[documentation](http://nivo.rocks/geomap/canvas)
 
-![HeatmapCanvas](./doc/geo-canvas.png)
+![GeoMapCanvas](./doc/geomap-canvas.png)
+
+## Choropleth
+
+[documentation](http://nivo.rocks/choropleth)
+
+![Choropleth](./doc/choropleth.png)
+
+## ChoroplethCanvas
+
+[documentation](http://nivo.rocks/choropleth/canvas)
+
+![ChoroplethCanvas](./doc/choropleth-canvas.png)

@@ -6,32 +6,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component } from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import pure from 'recompose/pure'
 
-class GeoGraticule extends Component {
-    static propTypes = {
-        pathHelper: PropTypes.func.isRequired,
-        graticule: PropTypes.func.isRequired,
-        lineWidth: PropTypes.number.isRequired,
-        lineColor: PropTypes.string.isRequired,
-    }
+const GeoGraticule = memo(({ path, graticule, lineWidth, lineColor }) => {
+    return <path fill="none" strokeWidth={lineWidth} stroke={lineColor} d={path(graticule())} />
+})
 
-    render() {
-        const { pathHelper, graticule, lineWidth, lineColor } = this.props
-
-        return (
-            <>
-                <path
-                    fill="none"
-                    strokeWidth={lineWidth}
-                    stroke={lineColor}
-                    d={pathHelper(graticule())}
-                />
-            </>
-        )
-    }
+GeoGraticule.propTypes = {
+    path: PropTypes.func.isRequired,
+    graticule: PropTypes.func.isRequired,
+    lineWidth: PropTypes.number.isRequired,
+    lineColor: PropTypes.string.isRequired,
 }
 
-export default pure(GeoGraticule)
+export default GeoGraticule

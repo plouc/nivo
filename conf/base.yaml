@@ -2,6 +2,22 @@ capture:
     baseUrl: http://localhost:3000
     pages:
       # capture illustrations for readme
+      - path: /geomap
+        selector: .chart-tabs__content
+        output: ./packages/geo/doc/geomap.png
+    
+      - path: /geomap/canvas
+        selector: .chart-tabs__content
+        output: ./packages/geo/doc/geomap-canvas.png
+
+      - path: /choropleth
+        selector: .chart-tabs__content
+        output: ./packages/geo/doc/choropleth.png
+    
+      - path: /choropleth/canvas
+        selector: .chart-tabs__content
+        output: ./packages/geo/doc/choropleth-canvas.png
+
       - path: /bar
         selector: .chart-tabs__content
         output: ./packages/bar/doc/bar.png

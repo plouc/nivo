@@ -6,16 +6,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import pure from 'recompose/pure'
+import { useTheme } from '../theming'
 
 const tableStyle = {
     width: '100%',
     borderCollapse: 'collapse',
 }
 
-const TableTooltip = ({ title, rows, theme, renderContent }) => {
+const TableTooltip = memo(({ title, rows, renderContent }) => {
+    const theme = useTheme()
+
     if (!rows.length) return null
 
     let content
@@ -41,22 +43,14 @@ const TableTooltip = ({ title, rows, theme, renderContent }) => {
             </div>
         )
     }
+
     return <div style={theme.tooltip.container}>{content}</div>
-}
+})
 
 TableTooltip.propTypes = {
     title: PropTypes.node,
     rows: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.node)).isRequired,
-    theme: PropTypes.shape({
-        tooltip: PropTypes.shape({
-            container: PropTypes.object.isRequired,
-            table: PropTypes.object.isRequired,
-            tableCell: PropTypes.object.isRequired,
-        }).isRequired,
-    }).isRequired,
     renderContent: PropTypes.func,
 }
 
-TableTooltip.defaultProps = {}
-
-export default pure(TableTooltip)
+export default TableTooltip
