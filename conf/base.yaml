@@ -1,5 +1,5 @@
 capture:
-    baseUrl: http://localhost:5678
+    baseUrl: http://localhost:3000
     pages:
       # capture illustrations for readme
       - path: /bar
@@ -202,3 +202,19 @@ capture:
       - path: /icons
         selector: '#parallel-coordinates-red'
         output: ./website/src/assets/icons/parallel-coordinates-red.png
+
+      - path: /icons
+        selector: '#geomap-grey'
+        output: ./website/src/assets/icons/geomap-grey.png
+
+      - path: /icons
+        selector: '#geomap-red'
+        output: ./website/src/assets/icons/geomap-red.png
+
+      - path: /icons
+        selector: '#choropleth-grey'
+        output: ./website/src/assets/icons/choropleth-grey.png
+
+      - path: /icons
+        selector: '#choropleth-red'
+        output: ./website/src/assets/icons/choropleth-red.png

@@ -1,4 +1,4 @@
-/* glue: 0.13 hash: f11e667781 */
+/* glue: 0.13 hash: 955823c265 */
 .sprite-icons-waffle-red,
 .sprite-icons-waffle-grey,
 .sprite-icons-voronoi-red,
@@ -30,6 +30,8 @@
 .sprite-icons-html-grey,
 .sprite-icons-heatmap-red,
 .sprite-icons-heatmap-grey,
+.sprite-icons-geomap-red,
+.sprite-icons-geomap-grey,
 .sprite-icons-data-red,
 .sprite-icons-data-grey,
 .sprite-icons-colors-red,
@@ -38,6 +40,8 @@
 .sprite-icons-code-grey,
 .sprite-icons-circle-packing-red,
 .sprite-icons-circle-packing-grey,
+.sprite-icons-choropleth-red,
+.sprite-icons-choropleth-grey,
 .sprite-icons-chord-red,
 .sprite-icons-chord-grey,
 .sprite-icons-canvas-red,
@@ -240,122 +244,146 @@
     height: 52px;
 }
 
-.sprite-icons-data-red {
+.sprite-icons-geomap-red {
     background-position: -64px -304px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-data-grey {
+.sprite-icons-geomap-grey {
     background-position: -124px -304px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-colors-red {
+.sprite-icons-data-red {
     background-position: -184px -304px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-colors-grey {
+.sprite-icons-data-grey {
     background-position: -244px -304px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-code-red {
+.sprite-icons-colors-red {
     background-position: -304px -304px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-code-grey {
+.sprite-icons-colors-grey {
     background-position: -364px -4px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-circle-packing-red {
+.sprite-icons-code-red {
     background-position: -364px -64px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-circle-packing-grey {
+.sprite-icons-code-grey {
     background-position: -364px -124px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-chord-red {
+.sprite-icons-circle-packing-red {
     background-position: -364px -184px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-chord-grey {
+.sprite-icons-circle-packing-grey {
     background-position: -364px -244px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-canvas-red {
+.sprite-icons-choropleth-red {
     background-position: -364px -304px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-canvas-grey {
+.sprite-icons-choropleth-grey {
     background-position: -4px -364px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-calendar-red {
+.sprite-icons-chord-red {
     background-position: -64px -364px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-calendar-grey {
+.sprite-icons-chord-grey {
     background-position: -124px -364px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bullet-red {
+.sprite-icons-canvas-red {
     background-position: -184px -364px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bullet-grey {
+.sprite-icons-canvas-grey {
     background-position: -244px -364px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bar-red {
+.sprite-icons-calendar-red {
     background-position: -304px -364px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bar-grey {
+.sprite-icons-calendar-grey {
     background-position: -364px -364px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-api-red {
+.sprite-icons-bullet-red {
     background-position: -424px -4px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-api-grey {
+.sprite-icons-bullet-grey {
     background-position: -424px -64px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-bar-red {
+    background-position: -424px -124px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-bar-grey {
+    background-position: -424px -184px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-api-red {
+    background-position: -424px -244px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-api-grey {
+    background-position: -424px -304px;
     width: 52px;
     height: 52px;
 }
@@ -396,6 +424,8 @@
     .sprite-icons-html-grey,
     .sprite-icons-heatmap-red,
     .sprite-icons-heatmap-grey,
+    .sprite-icons-geomap-red,
+    .sprite-icons-geomap-grey,
     .sprite-icons-data-red,
     .sprite-icons-data-grey,
     .sprite-icons-colors-red,
@@ -404,6 +434,8 @@
     .sprite-icons-code-grey,
     .sprite-icons-circle-packing-red,
     .sprite-icons-circle-packing-grey,
+    .sprite-icons-choropleth-red,
+    .sprite-icons-choropleth-grey,
     .sprite-icons-chord-red,
     .sprite-icons-chord-grey,
     .sprite-icons-canvas-red,
@@ -459,6 +491,8 @@
     .sprite-icons-html-grey,
     .sprite-icons-heatmap-red,
     .sprite-icons-heatmap-grey,
+    .sprite-icons-geomap-red,
+    .sprite-icons-geomap-grey,
     .sprite-icons-data-red,
     .sprite-icons-data-grey,
     .sprite-icons-colors-red,
@@ -467,6 +501,8 @@
     .sprite-icons-code-grey,
     .sprite-icons-circle-packing-red,
     .sprite-icons-circle-packing-grey,
+    .sprite-icons-choropleth-red,
+    .sprite-icons-choropleth-grey,
     .sprite-icons-chord-red,
     .sprite-icons-chord-grey,
     .sprite-icons-canvas-red,

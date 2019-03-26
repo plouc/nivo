@@ -40,8 +40,6 @@ const initialSettings = {
     graticuleLineColor: '#666666',
 
     isInteractive: true,
-    'custom tooltip example': false,
-    tooltip: null,
 
     theme: {
         ...nivoTheme,
@@ -52,7 +50,11 @@ const initialSettings = {
 const GeoMap = () => {
     const [settings, setSettings] = useState(initialSettings)
     const onClick = useCallback((feature, event) => {
-        alert(`${feature.properties.name}\nclicked at x: ${event.clientX}, y: ${event.clientY}`)
+        alert(
+            `${feature.properties.name} (${feature.id})\nclicked at x: ${event.clientX}, y: ${
+                event.clientY
+            }`
+        )
     })
 
     // const mappedSettings = propsMapper(settings)

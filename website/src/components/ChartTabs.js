@@ -51,6 +51,11 @@ export default class ChartTabs extends Component {
         } = this.props
         const { tab: currentTab, hoverTab } = this.state
 
+        let availableTabs = tabs
+        if (data === undefined) {
+            availableTabs = availableTabs.filter(t => t !== 'data')
+        }
+
         let content
         if (currentTab === 'chart') {
             content = <div className="chart-tabs__content">{children}</div>
@@ -60,7 +65,7 @@ export default class ChartTabs extends Component {
                     <pre>{code}</pre>
                 </div>
             )
-        } else if (currentTab === 'data') {
+        } else if (availableTabs.includes('data') && currentTab === 'data') {
             content = (
                 <div className="json-data_json code-snippet">
                     <pre>{JSON.stringify(data, null, '  ')}</pre>
@@ -71,7 +76,7 @@ export default class ChartTabs extends Component {
         return (
             <div className={`chart-tabs chart-tabs--${currentTab}`}>
                 <div className="chart-tabs__menu">
-                    {tabs.map(tab => {
+                    {availableTabs.map(tab => {
                         const isCurrent = tab === currentTab
                         const icon = tab === 'chart' ? chartClass : tab
                         const iconColor = isCurrent || hoverTab === tab ? 'red' : 'grey'

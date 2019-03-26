@@ -10,7 +10,9 @@ import React from 'react'
 import { Container } from './styled'
 import BarIcon from './BarIcon'
 import BulletIcon from './BulletIcon'
+import ChoroplethIcon from './ChoroplethIcon'
 import CirclePackingIcon from './CirclePackingIcon'
+import GeoMapIcon from './GeoMapIcon'
 import HeatMapIcon from './HeatMapIcon'
 import LineIcon from './LineIcon'
 import PieIcon from './PieIcon'
@@ -22,6 +24,7 @@ import ParallelCoordinatesIcon from './ParallelCoordinatesIcon'
 
 const Icons = () => (
     <Container>
+        <ChoroplethIcon />
         <ParallelCoordinatesIcon />
         <ScatterPlotIcon />
         <StreamIcon />
@@ -33,6 +36,7 @@ const Icons = () => (
         <BarIcon />
         <HeatMapIcon />
         <WaffleIcon />
+        <GeoMapIcon />
     </Container>
 )
 
