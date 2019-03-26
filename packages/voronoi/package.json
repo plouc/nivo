@@ -16,10 +16,12 @@
   ],
   "main": "./dist/nivo-voronoi.cjs.js",
   "module": "./dist/nivo-voronoi.esm.js",
+  "typings": "./index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
-    "dist/"
+    "dist/",
+    "index.d.ts"
   ],
   "dependencies": {
     "@nivo/core": "0.54.0",
