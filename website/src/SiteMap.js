@@ -257,7 +257,7 @@ const SITEMAP = [
                 ],
             },
             {
-                className: 'geo',
+                className: 'geomap',
                 path: '/geomap',
                 label: 'GeoMap',
                 component: GeoPage,

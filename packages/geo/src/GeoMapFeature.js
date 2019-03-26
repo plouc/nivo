@@ -60,6 +60,7 @@ class GeoMapFeature extends Component {
                 fill={fillColor}
                 strokeWidth={borderWidth}
                 stroke={borderColor}
+                strokeLinejoin="bevel"
                 d={pathHelper(feature)}
                 onMouseEnter={this.handleMouseEnter}
                 onMouseMove={this.handleMouseMove}

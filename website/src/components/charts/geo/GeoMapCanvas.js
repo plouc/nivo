@@ -42,8 +42,6 @@ const initialSettings = {
     graticuleLineColor: '#666666',
 
     isInteractive: true,
-    'custom tooltip example': false,
-    tooltip: null,
 
     theme: {
         ...nivoTheme,
@@ -92,7 +90,7 @@ const GeoMapCanvas = () => {
                     {header}
                     {description}
                 </MediaQuery>
-                <ChartTabs chartClass="geomap" code={code} data={[]}>
+                <ChartTabs chartClass="geomap" code={code}>
                     <ResponsiveGeoMapCanvas
                         features={countries.features}
                         onClick={onClick}

@@ -30,6 +30,7 @@
     "@nivo/voronoi": "0.54.0",
     "@nivo/waffle": "0.54.0",
     "classnames": "2.2.4",
+    "d3-geo": "^1.11.3",
     "d3-scale": "^2.1.2",
     "d3-scale-chromatic": "^1.3.3",
     "d3-time": "^1.0.10",
