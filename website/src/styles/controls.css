@@ -112,9 +112,6 @@
     }
 }
 
-.chart-controls_item {
-}
-
 .control-switch {
     display: inline-block;
     vertical-align: text-bottom;
@@ -138,7 +135,7 @@
     height: var(--control-switch-height);
     background-color: #e98473;
     border-radius: calc(var(--control-switch-height) / 2);
-    transition: border-color 300ms, background-color 300ms;
+    transition: border-color 120ms, background-color 120ms;
     border: var(--control-switch-border-width) solid #d53b21;
 }
 
@@ -162,7 +159,7 @@
             var(--control-switch-border-width) * 2
     );
     transform: translate3d(0, 0, 0);
-    transition: transform 300ms;
+    transition: transform 120ms;
 }
 
 .cmn-toggle:checked + label {

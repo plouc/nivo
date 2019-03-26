@@ -17,17 +17,17 @@ const DataGenerator = (initialIndex, initialState) => {
 
                 return {
                     ...item,
-                    value: Math.round(item.value + Math.random() * (initialValue * .2))
+                    value: Math.round(item.value + Math.random() * (initialValue * 0.2)),
                 }
             })
         },
         getData: () => {
             return { index, state }
-        }
+        },
     }
 }
 
-const BarComponent = (props) => {
+const BarComponent = props => {
     return (
         <g transform={`translate(${props.x},${props.y})`}>
             <rect
@@ -37,17 +37,13 @@ const BarComponent = (props) => {
                 height={props.height}
                 fill="rgba(0, 0, 0, .07)"
             />
-            <rect
-                width={props.width}
-                height={props.height}
-                fill={props.color}
-            />
+            <rect width={props.width} height={props.height} fill={props.color} />
             <rect
                 x={props.width - 5}
                 width={5}
                 height={props.height}
                 fill={props.borderColor}
-                fillOpacity={.2}
+                fillOpacity={0.2}
             />
             <text
                 x={props.width - 16}
@@ -57,7 +53,7 @@ const BarComponent = (props) => {
                 fill="black"
                 style={{
                     fontWeight: 900,
-                    fontSize: 15
+                    fontSize: 15,
                 }}
             >
                 {props.data.indexValue}
@@ -70,7 +66,7 @@ const BarComponent = (props) => {
                 fill={props.borderColor}
                 style={{
                     fontWeight: 400,
-                    fontSize: 13
+                    fontSize: 13,
                 }}
             >
                 {props.data.value}
@@ -91,27 +87,22 @@ const BarComponent = (props) => {
 
 const dataGenerator = DataGenerator(1900, [
     { id: 'Tokyo', value: 10000000 },
-    { id: 'Osaka', value:  9000000 },
-    { id: 'Nara', value:   8000000 },
-    { id: 'Kyoto', value:  7000000 },
-    { id: 'Kobe', value:    5000000 },
+    { id: 'Osaka', value: 9000000 },
+    { id: 'Nara', value: 8000000 },
+    { id: 'Kyoto', value: 7000000 },
+    { id: 'Kobe', value: 5000000 },
     { id: 'Sapporo', value: 3000000 },
 ])
 
 const Sample = () => {
     const [current, setCurrent] = useState(0)
-    useEffect(
-        () => {
-            const timer = setTimeout(
-                () => {
-                    dataGenerator.increment()
-                    setCurrent(current + 1)
-                }, 1400
-            )
-            return () => clearTimeout(timer)
-        },
-        [current, setCurrent]
-    )
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            dataGenerator.increment()
+            setCurrent(current + 1)
+        }, 1400)
+        return () => clearTimeout(timer)
+    }, [current, setCurrent])
 
     const yearData = dataGenerator.getData()
     const barData = [...yearData.state].sort((a, b) => a.value - b.value)
@@ -136,10 +127,10 @@ const Sample = () => {
                 enableGridX
                 enableGridY={false}
                 axisTop={{
-                    format: '~s'
+                    format: '~s',
                 }}
                 axisBottom={{
-                    format: '~s'
+                    format: '~s',
                 }}
                 axisLeft={null}
                 padding={0.3}
@@ -153,8 +144,4 @@ const Sample = () => {
     )
 }
 
-stories.add('Live Update', () => (
-    <Sample/>
-))
-
-
+stories.add('Live Update', () => <Sample />)
