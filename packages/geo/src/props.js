@@ -23,6 +23,7 @@ const commonPropTypes = {
     projectionType: PropTypes.oneOf(Object.keys(projectionById)).isRequired,
     projectionScale: PropTypes.number.isRequired,
     projectionTranslation: PropTypes.arrayOf(PropTypes.number).isRequired,
+    projectionRotation: PropTypes.arrayOf(PropTypes.number).isRequired,
 
     enableGraticule: PropTypes.bool.isRequired,
     graticuleLineWidth: PropTypes.number.isRequired,
@@ -75,6 +76,7 @@ const commonDefaultProps = {
     projectionType: 'mercator',
     projectionScale: 100,
     projectionTranslation: [0.5, 0.5],
+    projectionRotation: [0, 0, 0],
 
     enableGraticule: false,
     graticuleLineWidth: 0.5,

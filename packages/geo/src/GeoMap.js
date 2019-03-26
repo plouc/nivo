@@ -20,15 +20,10 @@ class GeoMap extends Component {
         const { tooltip, theme } = this.props
         if (!tooltip) return
 
-        const tooltipContent = tooltip(feature)
+        const tooltipContent = tooltip(feature, theme)
         if (!tooltipContent) return
 
-        showTooltip(
-            <div style={theme.tooltip.container}>
-                <div>{tooltipContent}</div>
-            </div>,
-            event
-        )
+        showTooltip(tooltipContent, event)
     }
 
     handleMouseEnter = showTooltip => (feature, event) => {

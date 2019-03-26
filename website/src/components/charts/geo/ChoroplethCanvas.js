@@ -38,6 +38,8 @@ const initialSettings = {
 
     projectionType: 'mercator',
     projectionScale: 100,
+    projectionTranslation: [0.5, 0.5],
+    projectionRotation: [0, 0, 0],
 
     enableGraticule: true,
     graticuleLineWidth: 0.5,
@@ -60,7 +62,11 @@ const ChoroplethCanvas = () => {
     const [settings, setSettings] = useState(initialSettings)
     const [data, setData] = useState(generateChoroplethData())
     const onClick = useCallback((feature, event) => {
-        alert(`${feature.properties.name}\nclicked at x: ${event.clientX}, y: ${event.clientY}`)
+        alert(
+            `${feature.properties.name} (${feature.id})\nclicked at x: ${event.clientX}, y: ${
+                event.clientY
+            }`
+        )
     })
     const diceRoll = useCallback(() => setData(generateChoroplethData()), [setData])
 
@@ -83,9 +89,12 @@ const ChoroplethCanvas = () => {
     const description = (
         <div className="chart-description">
             <p className="description">
-                The responsive alternative of this component is <code>ResponsiveChoropleth</code>,
-                it also offers a canvas implementations, see{' '}
-                <Link to="/choropleth/canvas">ChoroplethCanvas</Link>.
+                A canvas implementation of the <Link to="/choropleth">Choropleth</Link> component,
+                should be used used when you have complex geometries as it offers better performance
+                than its SVG counterpart.
+            </p>
+            <p className="description">
+                The responsive alternative of this component is <code>ResponsiveChoropleth</code>.
             </p>
         </div>
     )
