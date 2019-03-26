@@ -33,6 +33,22 @@ export default [
         required: true,
     },
     {
+        key: 'xDomain',
+        scopes: '*',
+        description: 'Defines the x values domain.',
+        type: '{[number, number]}',
+        required: false,
+        default: defaults.xDomain,
+    },
+    {
+        key: 'yDomain',
+        scopes: '*',
+        description: 'Defines the y values domain.',
+        type: '{[number, number]}',
+        required: false,
+        default: defaults.yDomain,
+    },
+    {
         key: 'width',
         scopes: ['api'],
         docScopes: '*',
@@ -77,6 +93,22 @@ export default [
         },
     },
     {
+        key: 'layers',
+        scopes: ['Voronoi'],
+        description: (
+            <div>
+                Defines the order of layers, available layers are:
+                <code>links</code>, <code>cells</code>, <code>points</code>, <code>bounds</code>.
+                <br />
+                You can also use this to insert extra layers to the chart, this extra layer must be
+                a function which will receive the chart computed data and must return a valid SVG
+                element.
+            </div>
+        ),
+        required: false,
+        default: defaults.layers,
+    },
+    {
         key: 'enableLinks',
         scopes: '*',
         description: 'Enable/disable links.',
@@ -84,7 +116,7 @@ export default [
         required: false,
         default: defaults.enableLinks,
         controlType: 'switch',
-        controlGroup: 'Base',
+        controlGroup: 'Links',
     },
     {
         key: 'linkLineWidth',
@@ -93,7 +125,7 @@ export default [
         required: false,
         default: defaults.linkLineWidth,
         controlType: 'range',
-        controlGroup: 'Base',
+        controlGroup: 'Links',
         controlOptions: {
             unit: 'px',
             min: 0,
@@ -108,7 +140,7 @@ export default [
         required: false,
         default: defaults.linkLineColor,
         controlType: 'colorPicker',
-        controlGroup: 'Base',
+        controlGroup: 'Links',
     },
 
     {
@@ -119,7 +151,7 @@ export default [
         required: false,
         default: defaults.enableCells,
         controlType: 'switch',
-        controlGroup: 'Base',
+        controlGroup: 'Cells',
     },
     {
         key: 'cellLineWidth',
@@ -128,7 +160,7 @@ export default [
         required: false,
         default: defaults.cellLineWidth,
         controlType: 'range',
-        controlGroup: 'Base',
+        controlGroup: 'Cells',
         controlOptions: {
             unit: 'px',
             min: 0,
@@ -143,7 +175,7 @@ export default [
         required: false,
         default: defaults.cellLineColor,
         controlType: 'colorPicker',
-        controlGroup: 'Base',
+        controlGroup: 'Cells',
     },
     {
         key: 'enablePoints',
@@ -153,7 +185,7 @@ export default [
         required: false,
         default: defaults.enablePoints,
         controlType: 'switch',
-        controlGroup: 'Base',
+        controlGroup: 'Points',
     },
     {
         key: 'pointSize',
@@ -162,7 +194,7 @@ export default [
         required: false,
         default: defaults.siteSize,
         controlType: 'range',
-        controlGroup: 'Base',
+        controlGroup: 'Points',
         controlOptions: {
             unit: 'px',
             min: 0,
@@ -177,7 +209,7 @@ export default [
         required: false,
         default: defaults.pointColor,
         controlType: 'colorPicker',
-        controlGroup: 'Base',
+        controlGroup: 'Points',
     },
     ...marginProperties,
 ]

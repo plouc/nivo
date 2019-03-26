@@ -13,7 +13,7 @@ import { getPropertiesGroupsControls } from '../../../lib/componentProperties'
 import properties from './props'
 
 const groupsByScope = {
-    Voronoi: getPropertiesGroupsControls(properties, 'Bar'),
+    Voronoi: getPropertiesGroupsControls(properties, 'Voronoi'),
     api: getPropertiesGroupsControls(properties, 'api'),
 }
 
@@ -36,6 +36,7 @@ export default class VoronoiControls extends PureComponent {
                 settings={settings}
                 onChange={onChange}
                 groups={groups}
+                group="Links"
             />
         )
     }
