@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Fragment } from 'react'
+import React from 'react'
 import choroplethGreyImg from '../../assets/icons/choropleth-grey.png'
 import choroplethRedImg from '../../assets/icons/choropleth-red.png'
 import { Icon } from './styled'
