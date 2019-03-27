@@ -85,7 +85,12 @@ export default class TreeMapCanvas extends Component {
             defaults: TreeMapCanvasDefaultProps,
         })
 
-        const header = <ChartHeader chartClass="TreeMapCanvas" tags={['hierarchy', 'canvas']} />
+        const header = (
+            <ChartHeader
+                chartClass="TreeMapCanvas"
+                tags={['@nivo/treemap', 'hierarchy', 'canvas']}
+            />
+        )
 
         const description = (
             <div className="chart-description">

@@ -137,7 +137,7 @@ export default class BarCanvas extends Component {
             { pkg: '@nivo/bar' }
         )
 
-        const header = <ChartHeader chartClass="BarCanvas" tags={['bar', 'canvas']} />
+        const header = <ChartHeader chartClass="BarCanvas" tags={['@nivo/bar', 'canvas']} />
 
         const description = (
             <div className="chart-description">

@@ -126,7 +126,12 @@ export default class Chord extends Component {
             }
         )
 
-        const header = <ChartHeader chartClass="Chord" tags={['relational', 'isomorphic', 'api']} />
+        const header = (
+            <ChartHeader
+                chartClass="Chord"
+                tags={['@nivo/chord', 'relational', 'svg', 'isomorphic']}
+            />
+        )
 
         const description = (
             <div className="chart-description">

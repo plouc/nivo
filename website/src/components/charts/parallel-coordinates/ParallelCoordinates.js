@@ -84,7 +84,12 @@ export default class ParallelCoordinates extends Component {
             defaults: defaultProps,
         })
 
-        const header = <ChartHeader chartClass="ParallelCoordinates" tags={['svg', 'isomorphic']} />
+        const header = (
+            <ChartHeader
+                chartClass="ParallelCoordinates"
+                tags={['@nivo/parallel-coordinates', 'svg', 'isomorphic']}
+            />
+        )
 
         const description = (
             <div className="chart-description">

@@ -100,7 +100,9 @@ export default class Bullet extends Component {
             defaults: BulletDefaultProps,
         })
 
-        const header = <ChartHeader chartClass="Bullet" tags={['isomorphic']} />
+        const header = (
+            <ChartHeader chartClass="Bullet" tags={['@nivo/bullet', 'svg', 'isomorphic']} />
+        )
 
         const description = (
             <div className="chart-description">

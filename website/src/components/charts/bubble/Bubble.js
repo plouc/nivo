@@ -94,7 +94,10 @@ export default class Bubble extends Component {
         })
 
         const header = (
-            <ChartHeader chartClass="Bubble" tags={['hierarchy', 'svg', 'isomorphic', 'api']} />
+            <ChartHeader
+                chartClass="Bubble"
+                tags={['@nivo/circle-packing', 'hierarchy', 'svg', 'isomorphic']}
+            />
         )
 
         const description = (

@@ -11,6 +11,8 @@ import PropTypes from 'prop-types'
 import { BasicTooltip } from '@nivo/core'
 
 const ChoroplethTooltip = memo(({ feature }) => {
+    if (feature.data === undefined) return null
+
     return <BasicTooltip id={feature.id} color={feature.color} enableChip={true} />
 })
 

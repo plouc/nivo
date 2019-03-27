@@ -77,7 +77,12 @@ export default class Stream extends Component {
             }
         )
 
-        const header = <ChartHeader chartClass="Stream" tags={['stacked', 'isomorphic']} />
+        const header = (
+            <ChartHeader
+                chartClass="Stream"
+                tags={['@nivo/stream', 'stacked', 'svg', 'isomorphic']}
+            />
+        )
 
         const description = (
             <div className="chart-description">

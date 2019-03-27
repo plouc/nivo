@@ -34,7 +34,7 @@ const initialSettings = {
     },
 
     colors: 'PiYG',
-    unknownColor: '#ffffff',
+    unknownColor: '#101b42',
 
     projectionType: 'mercator',
     projectionScale: 100,
@@ -74,6 +74,7 @@ const ChoroplethCanvas = () => {
     const code = generateCode(
         'ResponsiveChoroplethCanvas',
         {
+            features: [],
             ...mappedSettings,
             tooltip: mappedSettings.tooltip ? Tooltip : undefined,
         },
@@ -83,7 +84,9 @@ const ChoroplethCanvas = () => {
         }
     )
 
-    const header = <ChartHeader chartClass="ChoroplethCanvas" tags={['geo', 'map', 'canvas']} />
+    const header = (
+        <ChartHeader chartClass="ChoroplethCanvas" tags={['@nivo/geo', 'map', 'canvas']} />
+    )
 
     const description = (
         <div className="chart-description">

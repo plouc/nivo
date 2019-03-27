@@ -104,7 +104,7 @@ export default class ChordCanvas extends Component {
         )
 
         const header = (
-            <ChartHeader chartClass="ChordCanvas" tags={['relational', 'canvas', 'experimental']} />
+            <ChartHeader chartClass="ChordCanvas" tags={['@nivo/chord', 'relational', 'canvas']} />
         )
 
         const description = (

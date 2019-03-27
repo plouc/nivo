@@ -158,7 +158,9 @@ export default class Waffle extends Component {
             }
         )
 
-        const header = <ChartHeader chartClass="Waffle" tags={['svg', 'isomorphic']} />
+        const header = (
+            <ChartHeader chartClass="Waffle" tags={['@nivo/waffle', 'svg', 'isomorphic']} />
+        )
 
         const description = (
             <div className="chart-description">

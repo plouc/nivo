@@ -105,7 +105,7 @@ const CalendarCanvas = ({ data }) => {
         }
     )
 
-    const header = <ChartHeader chartClass="CalendarCanvas" tags={['calendar', 'canvas']} />
+    const header = <ChartHeader chartClass="CalendarCanvas" tags={['@nivo/calendar', 'canvas']} />
 
     const description = (
         <div className="chart-description">

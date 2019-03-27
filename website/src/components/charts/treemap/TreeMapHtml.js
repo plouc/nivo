@@ -92,7 +92,10 @@ export default class TreeMapHtml extends Component {
         })
 
         const header = (
-            <ChartHeader chartClass="TreeMapHtml" tags={['hierarchy', 'html', 'isomorphic']} />
+            <ChartHeader
+                chartClass="TreeMapHtml"
+                tags={['@nivo/treemap', 'hierarchy', 'html', 'isomorphic']}
+            />
         )
 
         const description = (

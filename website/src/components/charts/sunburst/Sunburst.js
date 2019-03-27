@@ -67,7 +67,10 @@ export default class Sunburst extends Component {
         const code = generateCode('ResponsiveSunburst', mappedSettings, { pkg: '@nivo/sunburst' })
 
         const header = (
-            <ChartHeader chartClass="Sunburst" tags={['hierarchy', 'radial', 'circle']} />
+            <ChartHeader
+                chartClass="Sunburst"
+                tags={['@nivo/sunburst', 'hierarchy', 'radial', 'svg', 'isomorphic']}
+            />
         )
 
         const description = (

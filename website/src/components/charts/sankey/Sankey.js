@@ -102,7 +102,12 @@ const Sankey = ({ data, randomizeLinkValues }) => {
         defaults: SankeyDefaultProps,
     })
 
-    const header = <ChartHeader chartClass="Sankey" tags={['relational', 'flow', 'svg']} />
+    const header = (
+        <ChartHeader
+            chartClass="Sankey"
+            tags={['@nivo/sankey', 'relational', 'flow', 'svg', 'isomorphic']}
+        />
+    )
 
     const description = (
         <div className="chart-description">

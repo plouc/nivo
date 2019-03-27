@@ -75,7 +75,7 @@ export default class Line extends Component {
             defaults: LineDefaultProps,
         })
 
-        const header = <ChartHeader chartClass="Line" tags={['basic', 'isomorphic', 'api']} />
+        const header = <ChartHeader chartClass="Line" tags={['@nivo/line', 'svg', 'isomorphic']} />
 
         const description = (
             <div className="chart-description">
