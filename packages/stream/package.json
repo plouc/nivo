@@ -1,6 +1,6 @@
 {
   "name": "@nivo/stream",
-  "version": "0.54.0",
+  "version": "0.55.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -22,8 +22,8 @@
     "dist/"
   ],
   "dependencies": {
-    "@nivo/core": "0.54.0",
-    "@nivo/legends": "0.54.0",
+    "@nivo/core": "0.55.0",
+    "@nivo/legends": "0.55.0",
     "d3-format": "^1.3.2",
     "d3-scale": "^2.1.2",
     "d3-shape": "^1.3.5",

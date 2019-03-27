@@ -1,6 +1,6 @@
 {
   "name": "@nivo/treemap",
-  "version": "0.54.0",
+  "version": "0.55.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -22,7 +22,7 @@
     "dist/"
   ],
   "dependencies": {
-    "@nivo/core": "0.54.0",
+    "@nivo/core": "0.55.0",
     "d3-hierarchy": "^1.1.8",
     "lodash": "^4.17.4",
     "react-motion": "^0.5.2",
