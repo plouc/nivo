@@ -61,26 +61,38 @@ const Container = ({ children, theme, isInteractive = true }) => {
     })
     const { isTooltipVisible, tooltipContent, position } = state
 
+    let content
+    if (isInteractive) {
+        content = (
+            <div style={containerStyle} ref={containerEl}>
+                {children({
+                    showTooltip: isInteractive ? showTooltip : noop,
+                    hideTooltip: isInteractive ? hideTooltip : noop,
+                })}
+                {isTooltipVisible && (
+                    <div
+                        style={{
+                            ...tooltipStyle,
+                            ...position,
+                            ...theme.tooltip,
+                        }}
+                    >
+                        {tooltipContent}
+                    </div>
+                )}
+            </div>
+        )
+    } else {
+        content = children({
+            showTooltip: isInteractive ? showTooltip : noop,
+            hideTooltip: isInteractive ? hideTooltip : noop,
+        })
+    }
+
     return (
         <themeContext.Provider value={theme}>
             <tooltipContext.Provider value={[showTooltip, hideTooltip]}>
-                <div style={containerStyle} ref={containerEl}>
-                    {children({
-                        showTooltip: isInteractive ? showTooltip : noop,
-                        hideTooltip: isInteractive ? hideTooltip : noop,
-                    })}
-                    {isTooltipVisible && (
-                        <div
-                            style={{
-                                ...tooltipStyle,
-                                ...position,
-                                ...theme.tooltip,
-                            }}
-                        >
-                            {tooltipContent}
-                        </div>
-                    )}
-                </div>
+                {content}
             </tooltipContext.Provider>
         </themeContext.Provider>
     )
