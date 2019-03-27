@@ -55,6 +55,23 @@ const initialSettings = {
     isInteractive: true,
     'custom tooltip example': false,
 
+    legends: [
+        {
+            anchor: 'bottom-left',
+            direction: 'column',
+            justify: true,
+            translateX: 20,
+            translateY: -60,
+            itemsSpacing: 0,
+            itemWidth: 86,
+            itemHeight: 18,
+            itemDirection: 'left-to-right',
+            itemTextColor: '#e6f6cf',
+            itemOpacity: 0.85,
+            symbolSize: 18,
+        },
+    ],
+
     theme: {
         ...nivoTheme,
         background: '#1f294a',

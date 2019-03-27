@@ -12,8 +12,6 @@ import LegendSvgItem from './LegendSvgItem'
 import { datumPropType, symbolPropTypes, interactivityPropTypes } from '../props'
 import { computeDimensions } from '../compute'
 import {
-    DIRECTION_COLUMN,
-    DIRECTION_ROW,
     DIRECTION_LEFT_TO_RIGHT,
     DIRECTION_RIGHT_TO_LEFT,
     DIRECTION_TOP_TO_BOTTOM,
@@ -23,7 +21,6 @@ import {
 const LegendSvg = ({
     data,
 
-    // position/layout
     x,
     y,
     direction,
@@ -48,8 +45,6 @@ const LegendSvg = ({
     onClick,
     onMouseEnter,
     onMouseLeave,
-
-    theme,
 }) => {
     // eslint-disable-next-line no-unused-vars
     const { width, height, padding } = computeDimensions({
@@ -63,9 +58,9 @@ const LegendSvg = ({
 
     let xStep = 0
     let yStep = 0
-    if (direction === DIRECTION_ROW) {
+    if (direction === 'row') {
         xStep = itemWidth + itemsSpacing
-    } else if (direction === DIRECTION_COLUMN) {
+    } else if (direction === 'column') {
         yStep = itemHeight + itemsSpacing
     }
 
@@ -93,7 +88,6 @@ const LegendSvg = ({
                     onClick={onClick}
                     onMouseEnter={onMouseEnter}
                     onMouseLeave={onMouseLeave}
-                    theme={theme}
                 />
             ))}
         </g>
@@ -103,10 +97,9 @@ const LegendSvg = ({
 LegendSvg.propTypes = {
     data: PropTypes.arrayOf(datumPropType).isRequired,
 
-    // position/layout
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
-    direction: PropTypes.oneOf([DIRECTION_COLUMN, DIRECTION_ROW]).isRequired,
+    direction: PropTypes.oneOf(['row', 'column']).isRequired,
     padding: PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.shape({
@@ -118,7 +111,6 @@ LegendSvg.propTypes = {
     ]).isRequired,
     justify: PropTypes.bool.isRequired,
 
-    // items
     itemsSpacing: PropTypes.number.isRequired,
     itemWidth: PropTypes.number.isRequired,
     itemHeight: PropTypes.number.isRequired,
@@ -137,13 +129,11 @@ LegendSvg.propTypes = {
 }
 
 LegendSvg.defaultProps = {
-    // position/layout
     padding: 0,
     justify: false,
 
-    // items
     itemsSpacing: 0,
-    itemDirection: DIRECTION_LEFT_TO_RIGHT,
+    itemDirection: 'left-to-right',
     itemTextColor: 'black',
     itemBackground: 'transparent',
     itemOpacity: 1,

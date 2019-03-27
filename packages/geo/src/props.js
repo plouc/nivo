@@ -63,6 +63,9 @@ const commonChoroplethPropTypes = {
     valueFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     colors: quantizeColorScalePropType.isRequired,
     unknownColor: PropTypes.string.isRequired,
+    layers: PropTypes.arrayOf(
+        PropTypes.oneOfType([PropTypes.oneOf(['graticule', 'features', 'legends']), PropTypes.func])
+    ).isRequired,
 }
 
 export const ChoroplethPropTypes = {
@@ -96,6 +99,7 @@ const commonDefaultProps = {
     onClick: () => {},
 
     layers: ['graticule', 'features'],
+    legends: [],
 }
 
 export const GeoMapDefaultProps = {
@@ -115,6 +119,7 @@ const commonChoroplethDefaultProps = {
     colors: 'PuBuGn',
     unknownColor: '#999',
     tooltip: ChoroplethTooltip,
+    layers: ['graticule', 'features', 'legends'],
 }
 
 export const ChoroplethDefaultProps = {

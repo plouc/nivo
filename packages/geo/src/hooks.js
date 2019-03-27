@@ -24,6 +24,8 @@ import {
     geoGraticule,
 } from 'd3-geo'
 import { guessQuantizeColorScale } from '@nivo/core'
+import { useQuantizeColorScaleLegendData, BoxLegendSvg } from '@nivo/legends'
+
 export const projectionById = {
     azimuthalEqualArea: geoAzimuthalEqualArea,
     azimuthalEquidistant: geoAzimuthalEquidistant,
@@ -120,14 +122,15 @@ export const useChoropleth = ({
         if (isFunction(valueFormat)) return valueFormat
         return format(valueFormat)
     }, [valueFormat])
-    const getFillColor = useMemo(() => {
-        const colorScale = guessQuantizeColorScale(colors).domain([0, 1000000])
 
+    const colorScale = useMemo(() => guessQuantizeColorScale(colors).domain([0, 1000000]), [colors])
+    const getFillColor = useMemo(() => {
         return feature => {
             if (feature.value === undefined) return unknownColor
             return colorScale(feature.value)
         }
-    }, [colors, unknownColor])
+    }, [colorScale, unknownColor])
+
     const boundFeatures = useMemo(
         () =>
             features.map(feature => {
@@ -152,8 +155,16 @@ export const useChoropleth = ({
         [features, data, findMatchingDatum, getValue, valueFormatter, getFillColor]
     )
 
+    const legendData = useQuantizeColorScaleLegendData({
+        scale: colorScale,
+        valueFormat: valueFormatter,
+    })
+
     return {
+        colorScale,
         getFillColor,
         boundFeatures,
+        valueFormatter,
+        legendData,
     }
 }

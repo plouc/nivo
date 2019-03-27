@@ -219,6 +219,7 @@ class PieCanvasRenderer extends Component {
                 })),
                 containerWidth: width,
                 containerHeight: height,
+                theme,
             })
         })
     }

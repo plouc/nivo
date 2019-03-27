@@ -33,8 +33,8 @@ const initialSettings = {
         left: 0,
     },
 
-    colors: 'YlGnBu',
-    unknownColor: '#152538',
+    colors: 'nivo',
+    unknownColor: '#666666',
 
     label: 'properties.name',
     value: 'value',
@@ -47,7 +47,7 @@ const initialSettings = {
 
     enableGraticule: true,
     graticuleLineWidth: 0.5,
-    graticuleLineColor: '#152538',
+    graticuleLineColor: '#dddddd',
 
     borderWidth: 0.5,
     borderColor: '#152538',
@@ -56,9 +56,44 @@ const initialSettings = {
     'custom tooltip example': false,
     tooltip: null,
 
+    legends: [
+        {
+            anchor: 'bottom-left',
+            direction: 'column',
+            justify: true,
+            translateX: 20,
+            translateY: -100,
+            itemsSpacing: 0,
+            itemWidth: 94,
+            itemHeight: 18,
+            itemDirection: 'left-to-right',
+            itemTextColor: '#444444',
+            itemOpacity: 0.85,
+            symbolSize: 18,
+            onClick: data => {
+                alert(JSON.stringify(data, null, '    '))
+            },
+            effects: [
+                {
+                    on: 'hover',
+                    style: {
+                        itemTextColor: '#000000',
+                        itemOpacity: 1,
+                    },
+                },
+            ],
+        },
+    ],
+
     theme: {
         ...nivoTheme,
-        background: '#223346',
+        background: '#ffffff',
+        legends: {
+            text: {
+                fontSize: 11,
+                fontWeight: 600,
+            },
+        },
     },
 }
 
@@ -97,8 +132,8 @@ const Choropleth = () => {
         <div className="chart-description">
             <p className="description">
                 The Choropleth component displays divided geographical areas shaded in relation to
-                some data variable. It's build on top of the <Link to="/geomap">GeoMap</Link>{' '}
-                component.
+                some data variable. It's build on top of primitives from the{' '}
+                <Link to="/geomap">GeoMap</Link> component.
             </p>
             <p className="description">
                 Using this component requires some knowledge about the <code>d3-geo</code> library,

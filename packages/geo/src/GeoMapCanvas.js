@@ -6,9 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { useRef, useEffect, useCallback } from 'react'
-import { getRelativeCursor, withContainer, useDimensions, useTheme, useTooltip } from '@nivo/core'
+import React, { memo, useRef, useEffect, useCallback } from 'react'
 import { geoContains } from 'd3-geo'
+import { getRelativeCursor, withContainer, useDimensions, useTheme, useTooltip } from '@nivo/core'
 import { GeoMapCanvasDefaultProps, GeoMapCanvasPropTypes } from './props'
 import { useGeoMap } from './hooks'
 
@@ -18,7 +18,7 @@ const getFeatureFromMouseEvent = (event, el, features, projection) => {
     return features.find(f => geoContains(f, projection.invert([x, y])))
 }
 
-const GeoMapCanvas = props => {
+const GeoMapCanvas = memo(props => {
     const {
         width,
         height,
@@ -118,6 +118,8 @@ const GeoMapCanvas = props => {
         getFillColor,
         getBorderWidth,
         getBorderColor,
+        features,
+        layers,
     ])
 
     const [showTooltip, hideTooltip] = useTooltip()
@@ -160,8 +162,9 @@ const GeoMapCanvas = props => {
             onClick={handleClick}
         />
     )
-}
+})
 
+GeoMapCanvas.displatName = 'GeoMapCanvas'
 GeoMapCanvas.propTypes = GeoMapCanvasPropTypes
 GeoMapCanvas.defaultProps = GeoMapCanvasDefaultProps
 

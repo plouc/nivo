@@ -85,4 +85,11 @@ declare module '@nivo/legends' {
 
         effects?: LegendEffect[]
     }
+
+    export interface QuantileLegendProps {
+        scale: any
+        domain?: number[]
+    }
+
+    export type QuantileLegendSvg = React.FunctionComponent<QuantileLegendProps>
 }

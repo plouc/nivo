@@ -224,6 +224,7 @@ class ScatterPlotCanvas extends Component {
                 data: legendData,
                 containerWidth: width,
                 containerHeight: height,
+                theme,
             })
         })
     }
