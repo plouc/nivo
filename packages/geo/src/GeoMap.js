@@ -13,8 +13,8 @@ import GeoGraticule from './GeoGraticule'
 import GeoMapFeature from './GeoMapFeature'
 import { useGeoMap } from './hooks'
 
-const GeoMap = memo(
-    ({
+const GeoMap = memo(props => {
+    const {
         width,
         height,
         margin: partialMargin,
@@ -33,85 +33,84 @@ const GeoMap = memo(
         isInteractive,
         onClick,
         tooltip: Tooltip,
-    }) => {
-        const { margin, outerWidth, outerHeight } = useDimensions(width, height, partialMargin)
-        const { graticule, path, getFillColor, getBorderWidth, getBorderColor } = useGeoMap({
-            width,
-            height,
-            projectionType,
-            projectionScale,
-            projectionTranslation,
-            projectionRotation,
-            fillColor,
-            borderWidth,
-            borderColor,
-        })
+    } = props
+    const { margin, outerWidth, outerHeight } = useDimensions(width, height, partialMargin)
+    const { graticule, path, getFillColor, getBorderWidth, getBorderColor } = useGeoMap({
+        width,
+        height,
+        projectionType,
+        projectionScale,
+        projectionTranslation,
+        projectionRotation,
+        fillColor,
+        borderWidth,
+        borderColor,
+    })
 
-        const theme = useTheme()
+    const theme = useTheme()
 
-        const [showTooltip, hideTooltip] = useTooltip()
-        const handleClick = useCallback(
-            (feature, event) => isInteractive && onClick && onClick(feature, event),
-            [isInteractive, onClick]
-        )
-        const handleMouseEnter = useCallback(
-            (feature, event) =>
-                isInteractive && Tooltip && showTooltip(<Tooltip feature={feature} />, event),
-            [isInteractive, showTooltip, Tooltip]
-        )
-        const handleMouseMove = useCallback(
-            (feature, event) =>
-                isInteractive && Tooltip && showTooltip(<Tooltip feature={feature} />, event),
-            [isInteractive, showTooltip, Tooltip]
-        )
-        const handleMouseLeave = useCallback(() => isInteractive && hideTooltip(), [
-            isInteractive,
-            hideTooltip,
-        ])
+    const [showTooltip, hideTooltip] = useTooltip()
+    const handleClick = useCallback(
+        (feature, event) => isInteractive && onClick && onClick(feature, event),
+        [isInteractive, onClick]
+    )
+    const handleMouseEnter = useCallback(
+        (feature, event) =>
+            isInteractive && Tooltip && showTooltip(<Tooltip feature={feature} />, event),
+        [isInteractive, showTooltip, Tooltip]
+    )
+    const handleMouseMove = useCallback(
+        (feature, event) =>
+            isInteractive && Tooltip && showTooltip(<Tooltip feature={feature} />, event),
+        [isInteractive, showTooltip, Tooltip]
+    )
+    const handleMouseLeave = useCallback(() => isInteractive && hideTooltip(), [
+        isInteractive,
+        hideTooltip,
+    ])
 
-        return (
-            <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
-                {layers.map((layer, i) => {
-                    if (layer === 'graticule') {
-                        if (enableGraticule !== true) return null
+    return (
+        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
+            {layers.map((layer, i) => {
+                if (layer === 'graticule') {
+                    if (enableGraticule !== true) return null
 
-                        return (
-                            <GeoGraticule
-                                key="graticule"
-                                path={path}
-                                graticule={graticule}
-                                lineWidth={graticuleLineWidth}
-                                lineColor={graticuleLineColor}
-                            />
-                        )
-                    }
-                    if (layer === 'features') {
-                        return (
-                            <Fragment key="features">
-                                {features.map(feature => (
-                                    <GeoMapFeature
-                                        key={feature.id}
-                                        feature={feature}
-                                        path={path}
-                                        fillColor={getFillColor(feature)}
-                                        borderWidth={getBorderWidth(feature)}
-                                        borderColor={getBorderColor(feature)}
-                                        onMouseEnter={handleMouseEnter}
-                                        onMouseMove={handleMouseMove}
-                                        onMouseLeave={handleMouseLeave}
-                                        onClick={handleClick}
-                                    />
-                                ))}
-                            </Fragment>
-                        )
-                    }
+                    return (
+                        <GeoGraticule
+                            key="graticule"
+                            path={path}
+                            graticule={graticule}
+                            lineWidth={graticuleLineWidth}
+                            lineColor={graticuleLineColor}
+                        />
+                    )
+                }
+                if (layer === 'features') {
+                    return (
+                        <Fragment key="features">
+                            {features.map(feature => (
+                                <GeoMapFeature
+                                    key={feature.id}
+                                    feature={feature}
+                                    path={path}
+                                    fillColor={getFillColor(feature)}
+                                    borderWidth={getBorderWidth(feature)}
+                                    borderColor={getBorderColor(feature)}
+                                    onMouseEnter={handleMouseEnter}
+                                    onMouseMove={handleMouseMove}
+                                    onMouseLeave={handleMouseLeave}
+                                    onClick={handleClick}
+                                />
+                            ))}
+                        </Fragment>
+                    )
+                }
 
-                    return <Fragment key={i}>layer(this.props)</Fragment>
-                })}
-            </SvgWrapper>
-        )
-    }
-)
+                return <Fragment key={i}>layer(props)</Fragment>
+            })}
+        </SvgWrapper>
+    )
+})
 
 GeoMap.propTypes = GeoMapPropTypes
 GeoMap.defaultProps = GeoMapDefaultProps

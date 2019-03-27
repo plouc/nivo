@@ -103,7 +103,7 @@ const GeoMapCanvas = props => {
                     }
                 })
             } else {
-                layer(this.ctx, props)
+                layer(ctx, props)
             }
         })
     }, [
