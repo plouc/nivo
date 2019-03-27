@@ -102,7 +102,7 @@ const Choropleth = () => {
             </p>
             <p className="description">
                 Using this component requires some knowledge about the <code>d3-geo</code> library,
-                projections, geoJSON… please have a loot at the{' '}
+                projections, geoJSON… please have a look at the{' '}
                 <a href="https://github.com/d3/d3-geo" target="_blank" rel="noopener noreferrer">
                     official d3 documentation
                 </a>{' '}

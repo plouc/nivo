@@ -12,4 +12,6 @@ declare module '@nivo/axes' {
         legendPosition?: 'start' | 'middle' | 'end'
         legendOffset?: number
     }
+
+    export type Axis = any
 }
