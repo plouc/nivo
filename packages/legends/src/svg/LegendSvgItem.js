@@ -165,12 +165,8 @@ LegendSvgItem.propTypes = {
     background: PropTypes.string,
     opacity: PropTypes.number,
 
-    direction: PropTypes.oneOf([
-        'left-to-right',
-        'right-top-left',
-        'top-to-bottom',
-        'bottom-to-top',
-    ]).isRequired,
+    direction: PropTypes.oneOf(['left-to-right', 'right-to-left', 'top-to-bottom', 'bottom-to-top'])
+        .isRequired,
     justify: PropTypes.bool.isRequired,
 
     ...symbolPropTypes,

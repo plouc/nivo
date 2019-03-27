@@ -14,114 +14,135 @@ import GeoGraticule from './GeoGraticule'
 import GeoMapFeature from './GeoMapFeature'
 import { useGeoMap, useChoropleth } from './hooks'
 
-const Choropleth = memo(({ width, height, margin: partialMargin,
-    features, data, match, label, value, valueFormat,
-    projectionType, projectionScale, projectionTranslation, projectionRotation,
-    colors, unknownColor, borderWidth, borderColor,
-    enableGraticule, graticuleLineWidth, graticuleLineColor,
-    layers,
-    legends,
-    isInteractive, onClick, tooltip: Tooltip }) => {
-    const { margin, outerWidth, outerHeight } = useDimensions(width, height, partialMargin)
-    const { graticule, path, getBorderWidth, getBorderColor } = useGeoMap({
+const Choropleth = memo(
+    ({
         width,
         height,
-        projectionType,
-        projectionScale,
-        projectionTranslation,
-        projectionRotation,
-        fillColor: () => {},
-        borderWidth,
-        borderColor,
-    })
-    const { getFillColor, boundFeatures, legendData } = useChoropleth({
+        margin: partialMargin,
         features,
         data,
         match,
         label,
         value,
         valueFormat,
+        projectionType,
+        projectionScale,
+        projectionTranslation,
+        projectionRotation,
         colors,
         unknownColor,
-    })
-
-    const theme = useTheme()
-
-    const [showTooltip, hideTooltip] = useTooltip()
-    const handleClick = useCallback(
-        (feature, event) => isInteractive && onClick && onClick(feature, event),
-        [isInteractive, onClick]
-    )
-    const handleMouseEnter = useCallback(
-        (feature, event) =>
-            isInteractive && Tooltip && showTooltip(<Tooltip feature={feature} />, event),
-        [isInteractive, showTooltip, Tooltip]
-    )
-    const handleMouseMove = useCallback(
-        (feature, event) =>
-            isInteractive && Tooltip && showTooltip(<Tooltip feature={feature} />, event),
-        [isInteractive, showTooltip, Tooltip]
-    )
-    const handleMouseLeave = useCallback(() => isInteractive && hideTooltip(), [
+        borderWidth,
+        borderColor,
+        enableGraticule,
+        graticuleLineWidth,
+        graticuleLineColor,
+        layers,
+        legends,
         isInteractive,
-        hideTooltip,
-    ])
+        onClick,
+        tooltip: Tooltip,
+    }) => {
+        const { margin, outerWidth, outerHeight } = useDimensions(width, height, partialMargin)
+        const { graticule, path, getBorderWidth, getBorderColor } = useGeoMap({
+            width,
+            height,
+            projectionType,
+            projectionScale,
+            projectionTranslation,
+            projectionRotation,
+            fillColor: () => {},
+            borderWidth,
+            borderColor,
+        })
+        const { getFillColor, boundFeatures, legendData } = useChoropleth({
+            features,
+            data,
+            match,
+            label,
+            value,
+            valueFormat,
+            colors,
+            unknownColor,
+        })
 
-    return (
-        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
-            {layers.map((layer, i) => {
-                if (layer === 'graticule') {
-                    if (enableGraticule !== true) return null
+        const theme = useTheme()
 
-                    return (
-                        <GeoGraticule
-                            key="graticule"
-                            path={path}
-                            graticule={graticule}
-                            lineWidth={graticuleLineWidth}
-                            lineColor={graticuleLineColor}
-                        />
-                    )
-                }
-                if (layer === 'features') {
-                    return (
-                        <Fragment key="features">
-                            {boundFeatures.map(feature => (
-                                <GeoMapFeature
-                                    key={feature.id}
-                                    feature={feature}
-                                    path={path}
-                                    fillColor={getFillColor(feature)}
-                                    borderWidth={getBorderWidth(feature)}
-                                    borderColor={getBorderColor(feature)}
-                                    onMouseEnter={handleMouseEnter}
-                                    onMouseMove={handleMouseMove}
-                                    onMouseLeave={handleMouseLeave}
-                                    onClick={handleClick}
-                                />
-                            ))}
-                        </Fragment>
-                    )
-                }
-                if (layer === 'legends') {
-                    return legends.map((legend, i) => {
+        const [showTooltip, hideTooltip] = useTooltip()
+        const handleClick = useCallback(
+            (feature, event) => isInteractive && onClick && onClick(feature, event),
+            [isInteractive, onClick]
+        )
+        const handleMouseEnter = useCallback(
+            (feature, event) =>
+                isInteractive && Tooltip && showTooltip(<Tooltip feature={feature} />, event),
+            [isInteractive, showTooltip, Tooltip]
+        )
+        const handleMouseMove = useCallback(
+            (feature, event) =>
+                isInteractive && Tooltip && showTooltip(<Tooltip feature={feature} />, event),
+            [isInteractive, showTooltip, Tooltip]
+        )
+        const handleMouseLeave = useCallback(() => isInteractive && hideTooltip(), [
+            isInteractive,
+            hideTooltip,
+        ])
+
+        return (
+            <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
+                {layers.map((layer, i) => {
+                    if (layer === 'graticule') {
+                        if (enableGraticule !== true) return null
+
                         return (
-                            <BoxLegendSvg
-                                key={i}
-                                containerWidth={width}
-                                containerHeight={height}
-                                data={legendData}
-                                {...legend}
+                            <GeoGraticule
+                                key="graticule"
+                                path={path}
+                                graticule={graticule}
+                                lineWidth={graticuleLineWidth}
+                                lineColor={graticuleLineColor}
                             />
                         )
-                    })
-                }
+                    }
+                    if (layer === 'features') {
+                        return (
+                            <Fragment key="features">
+                                {boundFeatures.map(feature => (
+                                    <GeoMapFeature
+                                        key={feature.id}
+                                        feature={feature}
+                                        path={path}
+                                        fillColor={getFillColor(feature)}
+                                        borderWidth={getBorderWidth(feature)}
+                                        borderColor={getBorderColor(feature)}
+                                        onMouseEnter={handleMouseEnter}
+                                        onMouseMove={handleMouseMove}
+                                        onMouseLeave={handleMouseLeave}
+                                        onClick={handleClick}
+                                    />
+                                ))}
+                            </Fragment>
+                        )
+                    }
+                    if (layer === 'legends') {
+                        return legends.map((legend, i) => {
+                            return (
+                                <BoxLegendSvg
+                                    key={i}
+                                    containerWidth={width}
+                                    containerHeight={height}
+                                    data={legendData}
+                                    {...legend}
+                                />
+                            )
+                        })
+                    }
 
-                return <Fragment key={i}>{layer({})}</Fragment>
-            })}
-        </SvgWrapper>
-    )
-})
+                    return <Fragment key={i}>{layer({})}</Fragment>
+                })}
+            </SvgWrapper>
+        )
+    }
+)
 
 Choropleth.displayName = 'Choropleth'
 Choropleth.propTypes = ChoroplethPropTypes
