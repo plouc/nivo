@@ -27,4 +27,6 @@ ChoroplethTooltip.propTypes = {
     feature: PropTypes.object.isRequired,
 }
 
+ChoroplethTooltip.displayName = 'ChoroplethTooltip'
+
 export default ChoroplethTooltip

@@ -60,4 +60,6 @@ BasicTooltip.defaultProps = {
     enableChip: false,
 }
 
+BasicTooltip.displayName = 'BasicTooltip'
+
 export default BasicTooltip

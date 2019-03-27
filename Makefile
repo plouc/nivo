@@ -129,6 +129,7 @@ packages-tslint: ##@1 packages run tslint on all packages
         ./packages/bar/index.d.ts \
         ./packages/calendar/index.d.ts \
         ./packages/core/index.d.ts \
+		./packages/geo/index.d.ts \
         ./packages/heatmap/index.d.ts \
         ./packages/legends/index.d.ts \
         ./packages/line/index.d.ts \

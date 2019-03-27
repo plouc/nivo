@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo, useCallback } from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 
 const GeoMapFeature = memo(
@@ -57,21 +57,6 @@ GeoMapFeature.propTypes = {
     onClick: PropTypes.func.isRequired,
 }
 
+GeoMapFeature.displayName = 'GeoMapFeature'
+
 export default GeoMapFeature
-
-/*
-handleMouseEnter = event => {
-    const { onMouseEnter, feature } = this.props
-    onMouseEnter(feature, event)
-}
-
-handleMouseMove = event => {
-    const { onMouseMove, feature } = this.props
-    onMouseMove(feature, event)
-}
-
-handleMouseLeave = event => {
-    const { onMouseLeave, feature } = this.props
-    onMouseLeave(feature, event)
-}
-*/
