@@ -58,7 +58,9 @@ export const GeoMapCanvasPropTypes = {
 const commonChoroplethPropTypes = {
     data: PropTypes.arrayOf(PropTypes.object).isRequired,
     match: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    valueFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     colors: quantizeColorScalePropType.isRequired,
     unknownColor: PropTypes.string.isRequired,
 }
@@ -108,6 +110,7 @@ export const GeoMapCanvasDefaultProps = {
 
 const commonChoroplethDefaultProps = {
     match: 'id',
+    label: 'id',
     value: 'value',
     colors: 'PuBuGn',
     unknownColor: '#999',

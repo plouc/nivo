@@ -36,6 +36,10 @@ const initialSettings = {
     colors: 'PiYG',
     unknownColor: '#101b42',
 
+    label: 'properties.name',
+    value: 'value',
+    valueFormat: '.2s',
+
     projectionType: 'mercator',
     projectionScale: 100,
     projectionTranslation: [0.5, 0.5],

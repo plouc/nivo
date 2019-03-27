@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { GeoMapDefaultProps } from '@nivo/geo'
+import { GeoMapDefaultProps, ChoroplethDefaultProps } from '@nivo/geo'
 import { marginProperties, defsProperties } from '../../../lib/componentProperties'
 
 export default [
@@ -174,6 +174,67 @@ export default [
             min: -400,
             max: 400,
         },
+    },
+    {
+        key: 'layers',
+        scopes: ['Choropleth', 'ChoroplethCanvas'],
+        type: `Array<'graticule' | 'features' | Function>`,
+        required: false,
+        description: (
+            <div>
+                Defines the order of layers, available layers are:
+                <code>graticule</code>, <code>features</code>.<br />
+                You can also use this to insert extra layers to the chart, this extra layer must be
+                a function which will receive the chart computed data and must return a valid SVG
+                element for the SVG implementation or receive a Canvas 2d context for the canvas
+                one. Custom layers will also receive the computed data/projection.
+            </div>
+        ),
+        default: GeoMapDefaultProps.layers,
+    },
+    {
+        key: 'label',
+        scopes: ['Choropleth', 'ChoroplethCanvas'],
+        type: '{string|Function}',
+        required: false,
+        description: (
+            <div>
+                Accessor to label, if a string is provided, the value will be retrieved using it as
+                a key, if it's a function, it's its responsibility to return the label.
+            </div>
+        ),
+        default: ChoroplethDefaultProps.label,
+    },
+    {
+        key: 'value',
+        scopes: ['Choropleth', 'ChoroplethCanvas'],
+        type: '{string|Function}',
+        required: false,
+        description: (
+            <div>
+                Accessor to data value, if a string is provided, the value will be retrieved using
+                it as a key, if it's a function, it's its responsibility to return the value.
+            </div>
+        ),
+        default: ChoroplethDefaultProps.value,
+    },
+    {
+        key: 'valueFormat',
+        scopes: ['Choropleth', 'ChoroplethCanvas'],
+        type: '{string|Function}',
+        required: false,
+        description: (
+            <div>
+                Optional formatting of values, if provided, it will be used for labels/tooltips. You
+                can either pass a function which will receive the node's data and must return the
+                formatted value, or a string which will be used as a directive for{' '}
+                <a href="https://github.com/d3/d3-format" target="_blank" rel="noopener noreferrer">
+                    d3-format
+                </a>
+                .
+            </div>
+        ),
+        default: ChoroplethDefaultProps.value,
     },
     {
         key: 'colors',

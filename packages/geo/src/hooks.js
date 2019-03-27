@@ -8,6 +8,7 @@
  */
 import { useMemo } from 'react'
 import { isFunction, get } from 'lodash'
+import { format } from 'd3-format'
 import {
     geoPath,
     geoAzimuthalEqualArea,
@@ -89,7 +90,16 @@ export const useGeoMap = ({
     }
 }
 
-export const useChoropleth = ({ features, data, match, value, colors, unknownColor }) => {
+export const useChoropleth = ({
+    features,
+    data,
+    match,
+    label,
+    value,
+    valueFormat,
+    colors,
+    unknownColor,
+}) => {
     const findMatchingDatum = useMemo(() => {
         if (isFunction(match)) return match
         return (feature, datum) => {
@@ -99,9 +109,17 @@ export const useChoropleth = ({ features, data, match, value, colors, unknownCol
             return featureKey && featureKey === datumKey
         }
     }, [match])
+    const getLabel = useMemo(() => (isFunction(label) ? label : datum => get(datum, label)), [
+        label,
+    ])
     const getValue = useMemo(() => (isFunction(value) ? value : datum => get(datum, value)), [
         value,
     ])
+    const valueFormatter = useMemo(() => {
+        if (valueFormat === undefined) return d => d
+        if (isFunction(valueFormat)) return valueFormat
+        return format(valueFormat)
+    }, [valueFormat])
     const getFillColor = useMemo(() => {
         const colorScale = guessQuantizeColorScale(colors).domain([0, 1000000])
 
@@ -121,15 +139,17 @@ export const useChoropleth = ({ features, data, match, value, colors, unknownCol
                         ...feature,
                         data: datum,
                         value: datumValue,
+                        formattedValue: valueFormatter(datumValue),
                     }
                     featureWithData.color = getFillColor(featureWithData)
+                    featureWithData.label = getLabel(featureWithData)
 
                     return featureWithData
                 }
 
                 return feature
             }),
-        [features, data, findMatchingDatum, getValue, getFillColor]
+        [features, data, findMatchingDatum, getValue, valueFormatter, getFillColor]
     )
 
     return {
