@@ -24,6 +24,7 @@ import ParallelCoordinatesIcon from './ParallelCoordinatesIcon'
 
 const Icons = () => (
     <Container>
+        <GeoMapIcon />
         <ChoroplethIcon />
         <ParallelCoordinatesIcon />
         <ScatterPlotIcon />
@@ -36,7 +37,6 @@ const Icons = () => (
         <BarIcon />
         <HeatMapIcon />
         <WaffleIcon />
-        <GeoMapIcon />
     </Container>
 )
 
