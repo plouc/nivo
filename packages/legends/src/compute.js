@@ -33,12 +33,12 @@ const zeroPadding = {
 }
 
 export const computeDimensions = ({
-    itemCount,
-    itemWidth,
-    itemHeight,
     direction,
     itemsSpacing,
     padding: _padding,
+    itemCount,
+    itemWidth,
+    itemHeight,
 }) => {
     let padding
     if (isNumber(_padding)) {

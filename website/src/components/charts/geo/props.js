@@ -8,7 +8,7 @@
  */
 import React from 'react'
 import { GeoMapDefaultProps, ChoroplethDefaultProps } from '@nivo/geo'
-import { marginProperties, defsProperties } from '../../../lib/componentProperties'
+import { marginProperties, defsProperties, getLegendsProps } from '../../../lib/componentProperties'
 
 export default [
     {
@@ -366,10 +366,9 @@ export default [
             </div>
         ),
     },
-    /*
     {
         key: 'legends',
-        scopes: ['GeoMap', 'GeoMapCanvas'],
+        scopes: ['Choropleth', 'ChoroplethCanvas'],
         type: '{Array<object>}',
         description: `Optional chart's legends.`,
         controlGroup: 'Legends',
@@ -380,10 +379,10 @@ export default [
             addLabel: 'add legend',
             shouldRemove: true,
             defaults: {
-                anchor: 'left',
+                anchor: 'center',
                 direction: 'column',
                 justify: false,
-                translateX: -100,
+                translateX: 0,
                 translateY: 0,
                 itemWidth: 100,
                 itemHeight: 20,
@@ -406,5 +405,4 @@ export default [
             },
         },
     },
-    */
 ]

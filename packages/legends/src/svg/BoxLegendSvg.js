@@ -60,8 +60,6 @@ const BoxLegendSvg = ({
     onMouseLeave,
 
     effects,
-
-    theme,
 }) => {
     const { width, height } = computeDimensions({
         itemCount: data.length,
@@ -106,7 +104,6 @@ const BoxLegendSvg = ({
             onClick={onClick}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
-            theme={theme}
         />
     )
 }

@@ -9,13 +9,15 @@
   },
   "main": "./dist/nivo-legends.cjs.js",
   "module": "./dist/nivo-legends.esm.js",
+  "typings": "./index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
-    "index.d.ts",
-    "dist/"
+    "dist/",
+    "index.d.ts"
   ],
   "dependencies": {
+    "@nivo/core": "0.55.0",
     "lodash": "^4.17.4",
     "recompose": "^0.30.0"
   },

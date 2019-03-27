@@ -106,12 +106,13 @@ const GeoMap = memo(props => {
                     )
                 }
 
-                return <Fragment key={i}>layer(props)</Fragment>
+                return <Fragment key={i}>{layer(props)}</Fragment>
             })}
         </SvgWrapper>
     )
 })
 
+GeoMap.displayName = 'GeoMap'
 GeoMap.propTypes = GeoMapPropTypes
 GeoMap.defaultProps = GeoMapDefaultProps
 
