@@ -24,7 +24,7 @@ import {
     geoGraticule,
 } from 'd3-geo'
 import { guessQuantizeColorScale } from '@nivo/core'
-import { useQuantizeColorScaleLegendData, BoxLegendSvg } from '@nivo/legends'
+import { useQuantizeColorScaleLegendData } from '@nivo/legends'
 
 export const projectionById = {
     azimuthalEqualArea: geoAzimuthalEqualArea,
