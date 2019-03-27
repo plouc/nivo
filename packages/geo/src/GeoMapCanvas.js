@@ -18,32 +18,34 @@ const getFeatureFromMouseEvent = (event, el, features, projection) => {
     return features.find(f => geoContains(f, projection.invert([x, y])))
 }
 
-const GeoMapCanvas = ({
-    width,
-    height,
-    margin: partialMargin,
-    pixelRatio,
-    features,
-    layers,
+const GeoMapCanvas = props => {
+    const {
+        width,
+        height,
+        margin: partialMargin,
+        pixelRatio,
+        features,
+        layers,
 
-    projectionType,
-    projectionScale,
-    projectionTranslation,
-    projectionRotation,
+        projectionType,
+        projectionScale,
+        projectionTranslation,
+        projectionRotation,
 
-    fillColor,
-    borderWidth,
-    borderColor,
+        fillColor,
+        borderWidth,
+        borderColor,
 
-    enableGraticule,
-    graticuleLineWidth,
-    graticuleLineColor,
+        enableGraticule,
+        graticuleLineWidth,
+        graticuleLineColor,
 
-    isInteractive,
-    onClick,
-    onMouseMove,
-    tooltip: Tooltip,
-}) => {
+        isInteractive,
+        onClick,
+        onMouseMove,
+        tooltip: Tooltip,
+    } = props
+
     const canvasEl = useRef(null)
     const theme = useTheme()
     const { margin, outerWidth, outerHeight } = useDimensions(width, height, partialMargin)
@@ -164,16 +166,3 @@ GeoMapCanvas.propTypes = GeoMapCanvasPropTypes
 GeoMapCanvas.defaultProps = GeoMapCanvasDefaultProps
 
 export default withContainer(GeoMapCanvas)
-
-/*
-handleClick = event => {
-    const { isInteractive, onClick } = this.props
-
-    if (isInteractive !== true) return
-
-    const feature = this.getFeatureFromMouseEvent(event)
-    if (feature) {
-        onClick(feature, event)
-    }
-}
-*/

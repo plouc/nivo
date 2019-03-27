@@ -20,4 +20,6 @@ GeoGraticule.propTypes = {
     lineColor: PropTypes.string.isRequired,
 }
 
+GeoGraticule.displayName = 'GeoGraticule'
+
 export default GeoGraticule

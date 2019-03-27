@@ -53,4 +53,6 @@ TableTooltip.propTypes = {
     renderContent: PropTypes.func,
 }
 
+TableTooltip.displayName = 'TableTooltip'
+
 export default TableTooltip

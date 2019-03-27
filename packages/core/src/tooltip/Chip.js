@@ -24,4 +24,6 @@ Chip.defaultProps = {
     style: {},
 }
 
+Chip.displayName = 'Chip'
+
 export default Chip

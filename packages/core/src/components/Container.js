@@ -22,11 +22,6 @@ const tooltipStyle = {
     zIndex: 10,
 }
 
-const noopHandlers = {
-    showTooltip: noop,
-    hideTooltip: noop,
-}
-
 const Container = ({ children, theme, isInteractive = true }) => {
     const containerEl = useRef(null)
     const [state, setState] = useState({

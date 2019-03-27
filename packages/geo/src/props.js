@@ -26,13 +26,13 @@ const commonPropTypes = {
     projectionTranslation: PropTypes.arrayOf(PropTypes.number).isRequired,
     projectionRotation: PropTypes.arrayOf(PropTypes.number).isRequired,
 
-    enableGraticule: PropTypes.bool.isRequired,
-    graticuleLineWidth: PropTypes.number.isRequired,
-    graticuleLineColor: PropTypes.string.isRequired,
-
     fillColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     borderWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
     borderColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+
+    enableGraticule: PropTypes.bool.isRequired,
+    graticuleLineWidth: PropTypes.number.isRequired,
+    graticuleLineColor: PropTypes.string.isRequired,
 
     isInteractive: PropTypes.bool.isRequired,
     onMouseEnter: PropTypes.func.isRequired,
