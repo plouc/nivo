@@ -148,7 +148,9 @@ export default class ScatterPlotCanvas extends Component {
             { pkg: '@nivo/scatterplot', defaults: ScatterPlotDefaultProps }
         )
 
-        const header = <ChartHeader chartClass="ScatterPlotCanvas" tags={['basic', 'canvas']} />
+        const header = (
+            <ChartHeader chartClass="ScatterPlotCanvas" tags={['@nivo/scatterplot', 'canvas']} />
+        )
 
         const description = (
             <div className="chart-description">

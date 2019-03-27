@@ -81,7 +81,10 @@ export default class BubbleHtml extends Component {
         })
 
         const header = (
-            <ChartHeader chartClass="BubbleHtml" tags={['hierarchy', 'html', 'isomorphic']} />
+            <ChartHeader
+                chartClass="BubbleHtml"
+                tags={['@nivo/circle-packing', 'hierarchy', 'html', 'isomorphic']}
+            />
         )
 
         const description = (

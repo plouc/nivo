@@ -136,10 +136,7 @@ export default class Pie extends Component {
         })
 
         const header = (
-            <ChartHeader
-                chartClass="Pie"
-                tags={['basic', 'radial', 'circle', 'isomorphic', 'api']}
-            />
+            <ChartHeader chartClass="Pie" tags={['@nivo/pie', 'radial', 'svg', 'isomorphic']} />
         )
 
         const description = (

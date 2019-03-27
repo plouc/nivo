@@ -84,7 +84,12 @@ export default class ParallelCoordinatesCanvas extends Component {
             defaults: defaultProps,
         })
 
-        const header = <ChartHeader chartClass="ParallelCoordinatesCanvas" tags={['canvas']} />
+        const header = (
+            <ChartHeader
+                chartClass="ParallelCoordinatesCanvas"
+                tags={['@nivo/parallel-coordinates', 'canvas']}
+            />
+        )
 
         const description = (
             <div className="chart-description">

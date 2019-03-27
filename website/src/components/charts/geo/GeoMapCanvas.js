@@ -66,6 +66,7 @@ const GeoMapCanvas = () => {
     const code = generateCode(
         'ResponsiveGeoMapCanvas',
         {
+            features: [],
             ...settings,
         },
         {
@@ -74,7 +75,7 @@ const GeoMapCanvas = () => {
         }
     )
 
-    const header = <ChartHeader chartClass="GeoMapCanvas" tags={['geo', 'map', 'canvas']} />
+    const header = <ChartHeader chartClass="GeoMapCanvas" tags={['@nivo/geo', 'map', 'canvas']} />
 
     const description = (
         <div className="chart-description">

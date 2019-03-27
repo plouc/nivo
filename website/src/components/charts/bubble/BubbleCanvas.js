@@ -98,7 +98,12 @@ export default class BubbleCanvas extends Component {
             defaults: BubbleCanvasDefaultProps,
         })
 
-        const header = <ChartHeader chartClass="BubbleCanvas" tags={['hierarchy', 'canvas']} />
+        const header = (
+            <ChartHeader
+                chartClass="BubbleCanvas"
+                tags={['@nivo/circle-packing', 'hierarchy', 'canvas']}
+            />
+        )
 
         const description = (
             <div className="chart-description">

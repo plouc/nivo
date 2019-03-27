@@ -100,7 +100,9 @@ const Calendar = ({ data }) => {
         }
     )
 
-    const header = <ChartHeader chartClass="Calendar" tags={['calendar', 'svg', 'isomorphic']} />
+    const header = (
+        <ChartHeader chartClass="Calendar" tags={['@nivo/calendar', 'svg', 'isomorphic']} />
+    )
 
     const description = (
         <div className="chart-description">

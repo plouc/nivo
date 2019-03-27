@@ -173,7 +173,7 @@ export default class WaffleCanvas extends Component {
             }
         )
 
-        const header = <ChartHeader chartClass="WaffleCanvas" tags={['canvas']} />
+        const header = <ChartHeader chartClass="WaffleCanvas" tags={['@nivo/waffle', 'canvas']} />
 
         const description = (
             <div className="chart-description">

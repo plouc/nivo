@@ -34,7 +34,7 @@ const initialSettings = {
     },
 
     colors: 'YlGnBu',
-    unknownColor: '#ffffff',
+    unknownColor: '#152538',
 
     projectionType: 'mercator',
     projectionScale: 100,
@@ -75,6 +75,7 @@ const Choropleth = () => {
     const code = generateCode(
         'ResponsiveChoropleth',
         {
+            features: [],
             ...mappedSettings,
             tooltip: mappedSettings.tooltip ? Tooltip : undefined,
         },
@@ -85,7 +86,7 @@ const Choropleth = () => {
     )
 
     const header = (
-        <ChartHeader chartClass="Choropleth" tags={['geo', 'map', 'svg', 'isomorphic']} />
+        <ChartHeader chartClass="Choropleth" tags={['@nivo/geo', 'map', 'svg', 'isomorphic']} />
     )
 
     const description = (
@@ -96,8 +97,8 @@ const Choropleth = () => {
                 component.
             </p>
             <p className="description">
-                Using this component requires some knowledge about the <code>d3-geo</code>
-                library, projections, geoJSON… please have a loot at the{' '}
+                Using this component requires some knowledge about the <code>d3-geo</code> library,
+                projections, geoJSON… please have a loot at the{' '}
                 <a href="https://github.com/d3/d3-geo" target="_blank" rel="noopener noreferrer">
                     official d3 documentation
                 </a>{' '}

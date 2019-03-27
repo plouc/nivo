@@ -160,7 +160,9 @@ export default class HeatMap extends Component {
             { pkg: '@nivo/heatmap', defaults: HeatMapDefaultProps }
         )
 
-        const header = <ChartHeader chartClass="HeatMap" tags={['heatmap', 'svg']} />
+        const header = (
+            <ChartHeader chartClass="HeatMap" tags={['@nivo/heatmap', 'svg', 'isomorphic']} />
+        )
 
         const description = (
             <div className="chart-description">

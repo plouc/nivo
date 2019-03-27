@@ -193,7 +193,7 @@ export default class Bar extends Component {
             { pkg: '@nivo/bar', defaults: BarDefaultProps }
         )
 
-        const header = <ChartHeader chartClass="Bar" tags={['basic', 'isomorphic', 'api']} />
+        const header = <ChartHeader chartClass="Bar" tags={['@nivo/bar', 'svg', 'isomorphic']} />
 
         const description = (
             <div className="chart-description">

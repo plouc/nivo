@@ -64,6 +64,7 @@ const GeoMap = () => {
     const code = generateCode(
         'ResponsiveGeoMap',
         {
+            features: [],
             ...settings,
         },
         {
@@ -72,7 +73,9 @@ const GeoMap = () => {
         }
     )
 
-    const header = <ChartHeader chartClass="GeoMap" tags={['geo', 'map', 'svg', 'isomorphic']} />
+    const header = (
+        <ChartHeader chartClass="GeoMap" tags={['@nivo/geo', 'map', 'svg', 'isomorphic']} />
+    )
 
     const description = (
         <div className="chart-description">
@@ -82,8 +85,8 @@ const GeoMap = () => {
                 maps such as the <Link to="/choropleth">Choropleth</Link>.
             </p>
             <p className="description">
-                Using this component requires some knowledge about the <code>d3-geo</code>
-                library, projections, geoJSON… please have a loot at the{' '}
+                Using this component requires some knowledge about the <code>d3-geo</code> library,
+                projections, geoJSON… please have a loot at the{' '}
                 <a href="https://github.com/d3/d3-geo" target="_blank" rel="noopener noreferrer">
                     official d3 documentation
                 </a>{' '}

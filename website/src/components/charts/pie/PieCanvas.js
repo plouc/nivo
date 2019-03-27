@@ -127,7 +127,9 @@ export default class Pie extends Component {
             defaults: PieDefaultProps,
         })
 
-        const header = <ChartHeader chartClass="PieCanvas" tags={['canvas']} />
+        const header = (
+            <ChartHeader chartClass="PieCanvas" tags={['@nivo/pie', 'radial', 'canvas']} />
+        )
 
         const description = (
             <div className="chart-description">

@@ -77,7 +77,9 @@ export default class Voronoi extends Component {
             defaults: VoronoiDefaultProps,
         })
 
-        const header = <ChartHeader chartClass="Voronoi" tags={['voronoi', 'experimental']} />
+        const header = (
+            <ChartHeader chartClass="Voronoi" tags={['@nivo/voronoi', 'svg', 'experimental']} />
+        )
 
         const description = (
             <div className="chart-description">

@@ -164,7 +164,12 @@ export default class ScatterPlot extends Component {
             { pkg: '@nivo/scatterplot', defaults: ScatterPlotDefaultProps }
         )
 
-        const header = <ChartHeader chartClass="ScatterPlot" tags={['basic', 'isomorphic']} />
+        const header = (
+            <ChartHeader
+                chartClass="ScatterPlot"
+                tags={['@nivo/scatterplot', 'svg', 'isomorphic']}
+            />
+        )
 
         const description = (
             <div className="chart-description">

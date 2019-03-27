@@ -120,7 +120,7 @@ export default class Radar extends Component {
         )
 
         const header = (
-            <ChartHeader chartClass="Radar" tags={['radar', 'radial', 'circle', 'isomorphic']} />
+            <ChartHeader chartClass="Radar" tags={['@nivo/radar', 'radial', 'svg', 'isomorphic']} />
         )
 
         const description = (

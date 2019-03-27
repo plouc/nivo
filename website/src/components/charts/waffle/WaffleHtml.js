@@ -127,7 +127,9 @@ export default class WaffleHtml extends Component {
             }
         )
 
-        const header = <ChartHeader chartClass="WaffleHtml" tags={['html', 'isomorphic']} />
+        const header = (
+            <ChartHeader chartClass="WaffleHtml" tags={['@nivo/waffle', 'html', 'isomorphic']} />
+        )
 
         const description = (
             <div className="chart-description">
