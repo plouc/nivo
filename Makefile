@@ -51,7 +51,6 @@ init: ##@0 global cleanup/install/bootstrap
 	@yarn install
 	@$(MAKE) bootstrap
 	@$(MAKE) packages-build
-	@$(MAKE) website-install
 	@$(MAKE) examples-install
 
 fmt: ##@0 global format code using prettier (js, css, md)
@@ -192,7 +191,6 @@ package-watch-%: ##@1 packages build package (es flavor) on change, eg. `package
 package-dev-%: ##@1 packages setup package for development, link to website, run watcher
 	@echo "${YELLOW}Preparing package ${WHITE}${*}${YELLOW} for development${RESET}"
 	@cd packages/${*} && yarn link
-	@cd website && yarn link @nivo/${*}
 	@cd examples/typescript && yarn link @nivo/${*}
 	@$(MAKE) package-watch-${*}
 
@@ -201,10 +199,6 @@ package-dev-%: ##@1 packages setup package for development, link to website, run
 # WEBSITE
 #
 ########################################################################################################################
-
-website-install: ##@2 website install website dependencies
-	@echo "${YELLOW}Installing website dependencies${RESET}"
-	@cd website && yarn install
 
 website-deps-up: ##@2 website interactive upgrade of website's dependencies
 	@yarn upgrade-interactive --latest
@@ -219,31 +213,19 @@ website-build: ##@2 website build website
 
 website-serve: ##@2 website build & serve website
 	@$(MAKE) website-build
-	@./node_modules/.bin/serve -l 5678 ./website/build
+	@cd website && yarn serve
 
 website-deploy: ##@2 website build & deploy website
 	@$(MAKE) website-build
 
 	@echo "${YELLOW}Deploying website${RESET}"
-	@./node_modules/.bin/gh-pages -d website/build -r git@github.com:plouc/nivo.git -b gh-pages
+	@./node_modules/.bin/gh-pages -d website/public -r git@github.com:plouc/nivo.git -b gh-pages
 
 website-audit: ##@2 website audit website build
 	@cd website && yarn analyze
 
-website-links-ls: ##@2 website list linked packages
-	@echo "${YELLOW}Which packages are currently being linked to ${WHITE}website${YELLOW}?${RESET}"
-	@cd website; \
-    find node_modules node_modules/\@* -depth 1 -type l -print | awk -F/ '{print $$(NF)}' | while read MODULE; do \
-        echo "> linked package: ${WHITE}$${MODULE}${RESET}"; \
-    done
-
-website-links-rm: ##@2 website unlink all linked packages
-	@echo "${YELLOW}Unlinking all packages for ${WHITE}website${RESET}"
-	@cd website; \
-    find node_modules node_modules/\@* -depth 1 -type l -print | awk -F/ '{print $$(NF)}' | while read MODULE; do \
-        yarn unlink "@nivo/$${MODULE}"; \
-    done
-	@$(MAKE) website-install
+website-sprites: ##@2 website build sprite sheet
+	@glue --img website/src/assets --css website/src/styles website/src/assets/icons
 
 ########################################################################################################################
 #

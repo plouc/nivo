@@ -6,13 +6,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Stream } from '@nivo/stream'
-import streamGreyImg from '../../assets/icons/stream-grey.png'
-import streamRedImg from '../../assets/icons/stream-red.png'
-import { ICON_SIZE, Icon } from './styled'
+import streamLightNeutralImg from '../../assets/icons/stream-light-neutral.png'
+import streamLightColoredImg from '../../assets/icons/stream-light-colored.png'
+import streamDarkNeutralImg from '../../assets/icons/stream-dark-neutral.png'
+import streamDarkColoredImg from '../../assets/icons/stream-dark-colored.png'
+import { ICON_SIZE, Icon, colors, IconImg } from './styled'
 
 const chartProps = {
+    width: ICON_SIZE,
+    height: ICON_SIZE,
     keys: ['A', 'B', 'C'],
     margin: {
         top: 12,
@@ -33,37 +37,29 @@ const chartProps = {
         { A: 5, B: 1.8, C: 1.4 },
     ],
     isInteractive: false,
+    animate: false,
 }
 
+const StreamIconItem = ({ type }) => (
+    <Icon id={`stream-${type}`} type={type}>
+        <Stream
+            {...chartProps}
+            colors={[colors[type].colors[3], colors[type].colors[1], colors[type].colors[4]]}
+        />
+    </Icon>
+)
+
 const StreamIcon = () => (
-    <Fragment>
-        <Icon id="stream-grey">
-            <Stream
-                width={ICON_SIZE}
-                height={ICON_SIZE}
-                {...chartProps}
-                colors={['#838383', '#b0aeaf', '#767676']}
-            />
-        </Icon>
-        <Icon
-            style={{
-                backgroundImage: `url(${streamGreyImg})`,
-            }}
-        />
-        <Icon id="stream-red">
-            <Stream
-                width={ICON_SIZE}
-                height={ICON_SIZE}
-                {...chartProps}
-                colors={['#f15038', '#ff8d80', '#e2462f']}
-            />
-        </Icon>
-        <Icon
-            style={{
-                backgroundImage: `url(${streamRedImg})`,
-            }}
-        />
-    </Fragment>
+    <>
+        <StreamIconItem type="lightNeutral" />
+        <IconImg url={streamLightNeutralImg} />
+        <StreamIconItem type="lightColored" />
+        <IconImg url={streamLightColoredImg} />
+        <StreamIconItem type="darkNeutral" />
+        <IconImg url={streamDarkNeutralImg} />
+        <StreamIconItem type="darkColored" />
+        <IconImg url={streamDarkColoredImg} />
+    </>
 )
 
 export default StreamIcon

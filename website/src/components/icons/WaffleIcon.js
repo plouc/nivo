@@ -6,13 +6,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Waffle } from '@nivo/waffle'
-import waffleGreyImg from '../../assets/icons/waffle-grey.png'
-import waffleRedImg from '../../assets/icons/waffle-red.png'
-import { ICON_SIZE, Icon } from './styled'
+import waffleLightNeutralImg from '../../assets/icons/waffle-light-neutral.png'
+import waffleLightColoredImg from '../../assets/icons/waffle-light-colored.png'
+import waffleDarkNeutralImg from '../../assets/icons/waffle-dark-neutral.png'
+import waffleDarkColoredImg from '../../assets/icons/waffle-dark-colored.png'
+import { ICON_SIZE, Icon, colors, IconImg } from './styled'
 
 const chartProps = {
+    width: ICON_SIZE,
+    height: ICON_SIZE,
     total: 12,
     columns: 3,
     rows: 4,
@@ -25,8 +29,15 @@ const chartProps = {
     isInteractive: false,
 }
 
+const WaffleIconItem = ({ type }) => (
+    <Icon id={`waffle-${type}`} type={type}>
+        <Waffle {...chartProps} colors={[colors[type].colors[4], colors[type].colors[0]]} />
+    </Icon>
+)
+
 const WaffleIcon = () => (
-    <Fragment>
+    <>
+        <WaffleIconItem type="lightNeutral" />
         <Icon id="waffle-grey">
             <Waffle
                 width={ICON_SIZE}
@@ -35,11 +46,8 @@ const WaffleIcon = () => (
                 colors={['#767676', '#cbcbcb']}
             />
         </Icon>
-        <Icon
-            style={{
-                backgroundImage: `url(${waffleGreyImg})`,
-            }}
-        />
+        <IconImg url={waffleLightNeutralImg} />
+        <WaffleIconItem type="lightColored" />
         <Icon id="waffle-red">
             <Waffle
                 width={ICON_SIZE}
@@ -48,12 +56,12 @@ const WaffleIcon = () => (
                 colors={['#e2462f', '#ffb8b5']}
             />
         </Icon>
-        <Icon
-            style={{
-                backgroundImage: `url(${waffleRedImg})`,
-            }}
-        />
-    </Fragment>
+        <IconImg url={waffleLightColoredImg} />
+        <WaffleIconItem type="darkNeutral" />
+        <IconImg url={waffleDarkNeutralImg} />
+        <WaffleIconItem type="darkColored" />
+        <IconImg url={waffleDarkColoredImg} />
+    </>
 )
 
 export default WaffleIcon

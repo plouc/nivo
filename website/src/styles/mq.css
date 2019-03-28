@@ -2,53 +2,8 @@
  * Tablet
  */
 @media only screen and (min-width: 760px) and (max-width: 1000px) {
-    .nav_toggle {
-        width: var(--header-height);
-        background: #c44a67;
-    }
-
-    .mini-nav {
-        display: none;
-    }
-
-    .content {
-        margin-left: 0;
-    }
-
-    .page_content {
-        margin: 0 30px;
-    }
-
-    .chart-page_main {
-        width: 100%;
-    }
-
-    .chart-page_aside {
-        width: 100%;
-    }
-
-    .api-client_main {
-        width: 100%;
-    }
-
-    .api-client_aside {
-        width: 100%;
-    }
-
-    .components__grid__item {
-        width: 49%;
-    }
-
-    .guide__description {
-        margin: 0 15px 50px;
-    }
-
     .guide__illustrations__item {
         height: 160px;
-    }
-
-    .chart__title {
-        justify-content: space-between;
     }
 }
 
@@ -56,95 +11,6 @@
  * Mobile 
  */
 @media only screen and (max-width: 760px) {
-    .nav_toggle {
-        width: var(--header-height);
-        background: #c44a67;
-    }
-
-    .chart-tabs {
-        margin-left: -15px;
-        margin-right: -15px;
-        width: auto;
-    }
-
-    .mini-nav {
-        display: none;
-    }
-
-    .content {
-        margin-left: 0;
-    }
-
-    .page_content {
-        margin: 0 15px;
-    }
-
-    .chart-page_main {
-        width: 100%;
-    }
-
-    .chart-page_aside {
-        width: 100%;
-    }
-
-    .chart-controls_item {
-        width: 100%;
-    }
-
-    .api-client_response-wrapper {
-        margin-bottom: 0;
-    }
-
-    .api-client_preview {
-        margin-bottom: 20px;
-    }
-
-    .api-client_aside {
-        width: 100%;
-    }
-
-    .api-client_main {
-        width: 100%;
-    }
-
-    .api-client_preview,
-    .api-client_response {
-        width: 100%;
-    }
-
-    .components__grid {
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
-    }
-
-    .components__grid__item {
-        width: 100%;
-        margin: 0;
-        border-width: 0;
-        border-top-width: 1px;
-        border-color: #eee;
-        box-shadow: none;
-    }
-
-    .components__grid__item:focus,
-    .components__grid__item:hover {
-        background-color: var(--main-background-color);
-        border-color: #eee;
-    }
-
-    .components__grid__item:first-child {
-        border-top-width: 0;
-    }
-
-    .main-chart {
-        margin-left: -15px;
-        margin-right: -15px;
-        width: auto;
-    }
-
-    .guide__description {
-        margin: 0 15px 50px;
-    }
-
     .guide__illustrations__item {
         width: 80%;
         height: 120px;
@@ -152,47 +18,6 @@
     }
     .guide__illustrations__item:first-child {
         margin-top: 0;
-    }
-
-    .guide__code {
-        font-size: 14px;
-        line-height: 1.6em;
-    }
-
-    .fill-sample {
-        flex-direction: column;
-    }
-
-    .fill-sample__preview {
-        margin: 0 auto 15px auto;
-    }
-
-    .fill-sample__code {
-        margin-left: 0;
-    }
-
-    .components__sub-header {
-        flex-direction: column;
-    }
-
-    .ComponentsSearch {
-        width: 100%;
-        margin-bottom: 15px;
-    }
-
-    .ComponentsFilters {
-        width: 100%;
-    }
-
-    .HeaderNav {
-        right: 15px;
-    }
-    .HeaderNav__Item--storybook {
-        display: none;
-    }
-
-    .chart__title {
-        justify-content: space-between;
     }
 }
 

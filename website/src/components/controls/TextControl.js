@@ -6,44 +6,43 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component } from 'react'
+import React, { memo, useCallback } from 'react'
 import PropTypes from 'prop-types'
-import classNames from 'classnames'
+import Control from './Control'
+import PropertyHeader from './PropertyHeader'
+import TextInput from './TextInput'
+import { Help } from './styled'
 
-export default class TextControl extends Component {
-    static propTypes = {
-        id: PropTypes.string.isRequired,
-        label: PropTypes.string.isRequired,
-        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-        onChange: PropTypes.func.isRequired,
-        help: PropTypes.node.isRequired,
+const TextControl = memo(({ id, property, value, onChange, options }) => {
+    const handleUpdate = useCallback(event => onChange(event.target.value), [onChange])
+
+    return (
+        <Control description={property.description}>
+            <PropertyHeader id={id} {...property} />
+            <TextInput
+                id={id}
+                type="text"
+                value={value}
+                onChange={handleUpdate}
+                disabled={options.disabled === true}
+            />
+            <Help>{property.help}</Help>
+        </Control>
+    )
+})
+
+TextControl.displayName = 'TextControl'
+TextControl.propTypes = {
+    id: PropTypes.string.isRequired,
+    property: PropTypes.object.isRequired,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    onChange: PropTypes.func.isRequired,
+    options: PropTypes.shape({
         disabled: PropTypes.bool,
-    }
-
-    shouldComponentUpdate(nextProps) {
-        return nextProps.value !== this.props.value
-    }
-
-    render() {
-        const { id, label, value, onChange, help, disabled } = this.props
-
-        return (
-            <div className="chart-controls_item">
-                <label className="control_label" htmlFor={id}>
-                    {label}
-                </label>
-                <input
-                    id={id}
-                    type="text"
-                    className={classNames('control-text', {
-                        '_is-disabled': disabled === true,
-                    })}
-                    value={value}
-                    onChange={onChange}
-                    disabled={disabled === true}
-                />
-                <div className="control-help">{help}</div>
-            </div>
-        )
-    }
+    }).isRequired,
 }
+TextControl.defaultProps = {
+    options: {},
+}
+
+export default TextControl

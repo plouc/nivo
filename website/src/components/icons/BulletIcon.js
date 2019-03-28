@@ -6,13 +6,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Bullet } from '@nivo/bullet'
-import bulletGreyImg from '../../assets/icons/bullet-grey.png'
-import bulletRedImg from '../../assets/icons/bullet-red.png'
-import { ICON_SIZE, Icon } from './styled'
+import bulletLightNeutralImg from '../../assets/icons/bullet-light-neutral.png'
+import bulletLightColoredImg from '../../assets/icons/bullet-light-colored.png'
+import bulletDarkNeutralImg from '../../assets/icons/bullet-dark-neutral.png'
+import bulletDarkColoredImg from '../../assets/icons/bullet-dark-colored.png'
+import { ICON_SIZE, Icon, colors, IconImg } from './styled'
 
 const chartProps = {
+    width: ICON_SIZE,
+    height: ICON_SIZE,
     data: [
         {
             id: 'A',
@@ -41,6 +45,18 @@ const chartProps = {
     spacing: 8,
     isInteractive: false,
     markerSize: 0.4,
+    theme: {
+        axis: {
+            ticks: {
+                line: {
+                    strokeWidth: 0,
+                },
+                text: {
+                    fill: 'transparent',
+                },
+            },
+        },
+    },
 }
 
 const Range = colors => d => {
@@ -57,63 +73,28 @@ const Marker = color => d => (
     <rect fill={color} x={d.x - d.size / 2} y={d.y - d.size / 2} width={d.size} height={d.size} />
 )
 
+const BulletIconItem = ({ type }) => (
+    <Icon id={`bullet-${type}`} type={type}>
+        <Bullet
+            {...chartProps}
+            rangeComponent={Range([colors[type].colors[0], colors[type].colors[1]])}
+            measureComponent={Measure(colors[type].colors[4])}
+            markerComponent={Marker(colors[type].colors[4])}
+        />
+    </Icon>
+)
+
 const BulletIcon = () => (
-    <Fragment>
-        <Icon id="bullet-grey">
-            <Bullet
-                width={ICON_SIZE}
-                height={ICON_SIZE}
-                {...chartProps}
-                rangeComponent={Range(['#e2e2e2', '#c5c5c5'])}
-                measureComponent={Measure('#666')}
-                markerComponent={Marker('#666')}
-                theme={{
-                    axis: {
-                        ticks: {
-                            line: {
-                                strokeWidth: 0,
-                            },
-                            text: {
-                                fill: 'transparent',
-                            },
-                        },
-                    },
-                }}
-            />
-        </Icon>
-        <Icon
-            style={{
-                backgroundImage: `url(${bulletGreyImg})`,
-            }}
-        />
-        <Icon id="bullet-red">
-            <Bullet
-                width={ICON_SIZE}
-                height={ICON_SIZE}
-                {...chartProps}
-                rangeComponent={Range(['#ffc6c6', '#ffa4a2'])}
-                measureComponent={Measure('#e2462f')}
-                markerComponent={Marker('#e2462f')}
-                theme={{
-                    axis: {
-                        ticks: {
-                            line: {
-                                strokeWidth: 0,
-                            },
-                            text: {
-                                fill: 'transparent',
-                            },
-                        },
-                    },
-                }}
-            />
-        </Icon>
-        <Icon
-            style={{
-                backgroundImage: `url(${bulletRedImg})`,
-            }}
-        />
-    </Fragment>
+    <>
+        <BulletIconItem type="lightNeutral" />
+        <IconImg url={bulletLightNeutralImg} />
+        <BulletIconItem type="lightColored" />
+        <IconImg url={bulletLightColoredImg} />
+        <BulletIconItem type="darkNeutral" />
+        <IconImg url={bulletDarkNeutralImg} />
+        <BulletIconItem type="darkColored" />
+        <IconImg url={bulletDarkColoredImg} />
+    </>
 )
 
 export default BulletIcon

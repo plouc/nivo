@@ -6,13 +6,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Bar } from '@nivo/bar'
-import barGreyImg from '../../assets/icons/bar-grey.png'
-import barRedImg from '../../assets/icons/bar-red.png'
-import { ICON_SIZE, Icon } from './styled'
+import barLightNeutralImg from '../../assets/icons/bar-light-neutral.png'
+import barLightColoredImg from '../../assets/icons/bar-light-colored.png'
+import barDarkNeutralImg from '../../assets/icons/bar-dark-neutral.png'
+import barDarkColoredImg from '../../assets/icons/bar-dark-colored.png'
+import { ICON_SIZE, Icon, colors, IconImg } from './styled'
 
 const chartProps = {
+    width: ICON_SIZE,
+    height: ICON_SIZE,
     indexBy: 'id',
     keys: ['A', 'B', 'C'],
     margin: {
@@ -35,35 +39,26 @@ const chartProps = {
     isInteractive: false,
 }
 
+const BarIconItem = ({ type }) => (
+    <Icon id={`bar-${type}`} type={type}>
+        <Bar
+            {...chartProps}
+            colors={[colors[type].colors[1], colors[type].colors[2], colors[type].colors[4]]}
+        />
+    </Icon>
+)
+
 const BarIcon = () => (
-    <Fragment>
-        <Icon id="bar-grey">
-            <Bar
-                width={ICON_SIZE}
-                height={ICON_SIZE}
-                {...chartProps}
-                colors={['#b0aeaf', '#838383', '#767676']}
-            />
-        </Icon>
-        <Icon
-            style={{
-                backgroundImage: `url(${barGreyImg})`,
-            }}
-        />
-        <Icon id="bar-red">
-            <Bar
-                width={ICON_SIZE}
-                height={ICON_SIZE}
-                {...chartProps}
-                colors={['#ff8d80', '#f54d31', '#e2462f']}
-            />
-        </Icon>
-        <Icon
-            style={{
-                backgroundImage: `url(${barRedImg})`,
-            }}
-        />
-    </Fragment>
+    <>
+        <BarIconItem type="lightNeutral" />
+        <IconImg url={barLightNeutralImg} />
+        <BarIconItem type="lightColored" />
+        <IconImg url={barLightColoredImg} />
+        <BarIconItem type="darkNeutral" />
+        <IconImg url={barDarkNeutralImg} />
+        <BarIconItem type="darkColored" />
+        <IconImg url={barDarkColoredImg} />
+    </>
 )
 
 export default BarIcon

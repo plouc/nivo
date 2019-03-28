@@ -7,29 +7,29 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import geomapGreyImg from '../../assets/icons/geomap-grey.png'
-import geomapRedImg from '../../assets/icons/geomap-red.png'
-import { Icon } from './styled'
+import geomapLightNeutralImg from '../../assets/icons/geomap-light-neutral.png'
+import geomapLightColoredImg from '../../assets/icons/geomap-light-colored.png'
+import geomapDarkNeutralImg from '../../assets/icons/geomap-dark-neutral.png'
+import geomapDarkColoredImg from '../../assets/icons/geomap-dark-colored.png'
+import { Icon, colors, IconImg } from './styled'
 import MapIcon from './MapIcon'
+
+const GeoMapIconItem = ({ type }) => (
+    <Icon id={`geomap-${type}`} type={type}>
+        <MapIcon stroke={colors[type].colors[4]} fill={colors[type].colors[0]} />
+    </Icon>
+)
 
 const GeoMapIcon = () => (
     <>
-        <Icon id="geomap-grey">
-            <MapIcon stroke="#686868" fill="#e2e2e2" />
-        </Icon>
-        <Icon
-            style={{
-                backgroundImage: `url(${geomapGreyImg})`,
-            }}
-        />
-        <Icon id="geomap-red">
-            <MapIcon stroke="#d45036" fill="#ffc6c4" />
-        </Icon>
-        <Icon
-            style={{
-                backgroundImage: `url(${geomapRedImg})`,
-            }}
-        />
+        <GeoMapIconItem type="lightNeutral" />
+        <IconImg url={geomapLightNeutralImg} />
+        <GeoMapIconItem type="lightColored" />
+        <IconImg url={geomapLightColoredImg} />
+        <GeoMapIconItem type="darkNeutral" />
+        <IconImg url={geomapDarkNeutralImg} />
+        <GeoMapIconItem type="darkColored" />
+        <IconImg url={geomapDarkColoredImg} />
     </>
 )
 

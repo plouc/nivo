@@ -71,6 +71,7 @@ const MapIcon = ({ stroke, fill, colors = [] }) => {
             <g
                 style={{
                     mixBlendMode: 'multiply',
+                    opacity: 0.6,
                 }}
             >
                 <path

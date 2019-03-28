@@ -9,8 +9,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { quantizeColorScales } from '@nivo/core'
-import Select from 'react-select'
+import Select from './Select'
 import ColorsControlItem from './ColorsControlItem'
+import Control from './Control'
+import PropertyHeader from './PropertyHeader'
+import { Help } from './styled'
 
 const options = Object.keys(quantizeColorScales).map(id => ({
     id,
@@ -19,9 +22,9 @@ const options = Object.keys(quantizeColorScales).map(id => ({
 
 export default class QuantizeColorsControl extends Component {
     static propTypes = {
+        property: PropTypes.object.isRequired,
         onChange: PropTypes.func.isRequired,
         value: PropTypes.string.isRequired,
-        help: PropTypes.node,
     }
 
     shouldComponentUpdate(nextProps) {
@@ -54,14 +57,11 @@ export default class QuantizeColorsControl extends Component {
     }
 
     render() {
-        const { help, value } = this.props
+        const { property, value } = this.props
 
         return (
-            <div className="control control-colors">
-                <label className="control_label">
-                    colors:&nbsp;
-                    <code className="code code-string">'{value}'</code>
-                </label>
+            <Control description={property.description}>
+                <PropertyHeader {...property} />
                 <Select
                     options={options.map(({ id, colors }) => ({
                         label: id,
@@ -74,8 +74,8 @@ export default class QuantizeColorsControl extends Component {
                     value={value}
                     clearable={false}
                 />
-                {help && <div className="control-help">{help}</div>}
-            </div>
+                <Help>{property.help}</Help>
+            </Control>
         )
     }
 }

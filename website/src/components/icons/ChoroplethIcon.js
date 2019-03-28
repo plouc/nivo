@@ -7,65 +7,47 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import choroplethGreyImg from '../../assets/icons/choropleth-grey.png'
-import choroplethRedImg from '../../assets/icons/choropleth-red.png'
-import { Icon } from './styled'
+import choroplethLightNeutralImg from '../../assets/icons/choropleth-light-neutral.png'
+import choroplethLightColoredImg from '../../assets/icons/choropleth-light-colored.png'
+import choroplethDarkNeutralImg from '../../assets/icons/choropleth-dark-neutral.png'
+import choroplethDarkColoredImg from '../../assets/icons/choropleth-dark-colored.png'
+import { Icon, colors, IconImg } from './styled'
 import MapIcon from './MapIcon'
+
+const ChoroplethIconItem = ({ type }) => (
+    <Icon id={`choropleth-${type}`} type={type}>
+        <MapIcon
+            stroke={colors[type].colors[4]}
+            fill={colors[type].colors[0]}
+            colors={[
+                colors[type].colors[2],
+                colors[type].colors[1],
+                colors[type].colors[0],
+                colors[type].colors[3],
+                colors[type].colors[0],
+                colors[type].colors[2],
+                colors[type].colors[1],
+                colors[type].colors[1],
+                colors[type].colors[3],
+                colors[type].colors[0],
+                colors[type].colors[2],
+                colors[type].colors[1],
+                colors[type].colors[3],
+            ]}
+        />
+    </Icon>
+)
 
 const ChoroplethIcon = () => (
     <>
-        <Icon id="choropleth-grey">
-            <MapIcon
-                stroke="#686868"
-                fill="#e2e2e2"
-                colors={[
-                    '#b0aeaf',
-                    '#c3c3c3',
-                    '#e2e2e2',
-                    '#909090',
-                    '#e2e2e2',
-                    '#b0aeaf',
-                    '#c3c3c3',
-                    '#adadad',
-                    '#909090',
-                    '#e2e2e2',
-                    '#b0aeaf',
-                    '#c3c3c3',
-                    '#adadad',
-                ]}
-            />
-        </Icon>
-        <Icon
-            style={{
-                backgroundImage: `url(${choroplethGreyImg})`,
-            }}
-        />
-        <Icon id="choropleth-red">
-            <MapIcon
-                stroke="#d45036"
-                fill="#ffc6c4"
-                colors={[
-                    '#ff5c3e',
-                    '#ff8c7d',
-                    '#ffc6c4',
-                    '#ff6b5a',
-                    '#ffc6c4',
-                    '#ff5c3e',
-                    '#ff8c7d',
-                    '#ff8c7d',
-                    '#ff6b5a',
-                    '#ffc6c4',
-                    '#ff5c3e',
-                    '#ff8c7d',
-                    '#ff8c7d',
-                ]}
-            />
-        </Icon>
-        <Icon
-            style={{
-                backgroundImage: `url(${choroplethRedImg})`,
-            }}
-        />
+        <ChoroplethIconItem type="lightNeutral" />
+        <IconImg url={choroplethLightNeutralImg} />
+        <ChoroplethIconItem type="lightColored" />
+        <IconImg url={choroplethLightColoredImg} />
+        <ChoroplethIconItem type="darkNeutral" />
+        <IconImg url={choroplethDarkNeutralImg} />
+        <ChoroplethIconItem type="darkColored" />
+        <IconImg url={choroplethDarkColoredImg} />
     </>
 )
 

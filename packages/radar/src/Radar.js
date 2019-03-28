@@ -43,7 +43,6 @@ const Radar = ({
     radiusScale,
     angleStep,
 
-    // dimensions
     centerX,
     centerY,
     margin, // eslint-disable-line react/prop-types
@@ -52,17 +51,14 @@ const Radar = ({
     outerWidth, // eslint-disable-line react/prop-types
     outerHeight, // eslint-disable-line react/prop-types
 
-    // border
     borderWidth,
     borderColor,
 
-    // grid
     gridLevels,
     gridShape,
     gridLabel,
     gridLabelOffset,
 
-    // dots
     enableDots,
     dotSymbol,
     dotSize,
@@ -78,12 +74,10 @@ const Radar = ({
     fillOpacity,
     colorByKey,
 
-    // motion
     animate, // eslint-disable-line react/prop-types
     motionStiffness, // eslint-disable-line react/prop-types
     motionDamping, // eslint-disable-line react/prop-types
 
-    // interactivity
     isInteractive,
     tooltipFormat,
 

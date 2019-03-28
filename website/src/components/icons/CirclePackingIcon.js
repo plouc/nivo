@@ -6,13 +6,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Bubble } from '@nivo/circle-packing'
-import circlePackingGreyImg from '../../assets/icons/circle-packing-grey.png'
-import circlePackingRedImg from '../../assets/icons/circle-packing-red.png'
-import { ICON_SIZE, Icon } from './styled'
+import circlePackingLightNeutralImg from '../../assets/icons/circle-packing-light-neutral.png'
+import circlePackingLightColoredImg from '../../assets/icons/circle-packing-light-colored.png'
+import circlePackingDarkNeutralImg from '../../assets/icons/circle-packing-dark-neutral.png'
+import circlePackingDarkColoredImg from '../../assets/icons/circle-packing-dark-colored.png'
+import { ICON_SIZE, Icon, colors, IconImg } from './styled'
 
 const chartProps = colors => ({
+    width: ICON_SIZE,
+    height: ICON_SIZE,
     root: {
         id: 'root',
         children: [
@@ -50,25 +54,23 @@ const chartProps = colors => ({
     isInteractive: false,
 })
 
+const CirclePackingIconItem = ({ type }) => (
+    <Icon id={`circle-packing-${type}`} type={type}>
+        <Bubble {...chartProps([colors[type].colors[1], colors[type].colors[4]])} />
+    </Icon>
+)
+
 const CirclePackingIcon = () => (
-    <Fragment>
-        <Icon id="circle-packing-grey">
-            <Bubble width={ICON_SIZE} height={ICON_SIZE} {...chartProps(['#b0aeaf', '#767676'])} />
-        </Icon>
-        <Icon
-            style={{
-                backgroundImage: `url(${circlePackingGreyImg})`,
-            }}
-        />
-        <Icon id="circle-packing-red">
-            <Bubble width={ICON_SIZE} height={ICON_SIZE} {...chartProps(['#ff8d80', '#e2462f'])} />
-        </Icon>
-        <Icon
-            style={{
-                backgroundImage: `url(${circlePackingRedImg})`,
-            }}
-        />
-    </Fragment>
+    <>
+        <CirclePackingIconItem type="lightNeutral" />
+        <IconImg url={circlePackingLightNeutralImg} />
+        <CirclePackingIconItem type="lightColored" />
+        <IconImg url={circlePackingLightColoredImg} />
+        <CirclePackingIconItem type="darkNeutral" />
+        <IconImg url={circlePackingDarkNeutralImg} />
+        <CirclePackingIconItem type="darkColored" />
+        <IconImg url={circlePackingDarkColoredImg} />
+    </>
 )
 
 export default CirclePackingIcon

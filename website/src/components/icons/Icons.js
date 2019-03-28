@@ -6,36 +6,82 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Container } from './styled'
 import BarIcon from './BarIcon'
 import BulletIcon from './BulletIcon'
+import CalendarIcon from './CalendarIcon'
 import ChoroplethIcon from './ChoroplethIcon'
+import ChordIcon from './ChordIcon'
 import CirclePackingIcon from './CirclePackingIcon'
+import CodeIcon from './CodeIcon'
+import DataIcon from './DataIcon'
 import GeoMapIcon from './GeoMapIcon'
 import HeatMapIcon from './HeatMapIcon'
 import LineIcon from './LineIcon'
 import PieIcon from './PieIcon'
 import RadarIcon from './RadarIcon'
+import SankeyIcon from './SankeyIcon'
 import ScatterPlotIcon from './ScatterPlotIcon'
 import StreamIcon from './StreamIcon'
+import SunburstIcon from './SunburstIcon'
+import TreeMapIcon from './TreeMapIcon'
 import WaffleIcon from './WaffleIcon'
 import ParallelCoordinatesIcon from './ParallelCoordinatesIcon'
+import VoronoiIcon from './VoronoiIcon'
+import { colors, Icon, Colors } from './styled'
+
+const ColorsDemo = ({ type }) => {
+    return (
+        <Icon type={type}>
+            <Colors>
+                {colors[type].colors.map(color => {
+                    return (
+                        <Fragment key={color}>
+                            <span
+                                style={{
+                                    display: 'inline-block',
+                                    width: 16,
+                                    height: 16,
+                                    marginRight: 12,
+                                    background: color,
+                                }}
+                            />
+                            <span>{color}</span>
+                        </Fragment>
+                    )
+                })}
+            </Colors>
+        </Icon>
+    )
+}
 
 const Icons = () => (
     <Container>
-        <GeoMapIcon />
-        <ChoroplethIcon />
-        <ParallelCoordinatesIcon />
-        <ScatterPlotIcon />
-        <StreamIcon />
+        <ColorsDemo type="lightNeutral" />
+        <ColorsDemo type="lightColored" />
+        <ColorsDemo type="darkNeutral" />
+        <ColorsDemo type="darkColored" />
+        <BarIcon />
         <CirclePackingIcon />
         <BulletIcon />
-        <LineIcon />
-        <RadarIcon />
-        <PieIcon />
-        <BarIcon />
+        <CalendarIcon />
+        <ChoroplethIcon />
+        <ChordIcon />
+        <CodeIcon />
+        <DataIcon />
+        <GeoMapIcon />
         <HeatMapIcon />
+        <LineIcon />
+        <ParallelCoordinatesIcon />
+        <PieIcon />
+        <RadarIcon />
+        <SankeyIcon />
+        <ScatterPlotIcon />
+        <StreamIcon />
+        <SunburstIcon />
+        <TreeMapIcon />
+        <VoronoiIcon />
         <WaffleIcon />
     </Container>
 )

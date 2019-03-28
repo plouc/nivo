@@ -6,140 +6,165 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { PureComponent, Fragment } from 'react'
+import React, { memo, Fragment, useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
-import classNames from 'classnames'
-import ClosedIcon from 'react-icons/lib/fa/caret-right'
-import OpenedIcon from 'react-icons/lib/fa/caret-down'
-import ChartControls from './ChartControls'
+import styled from 'styled-components'
+import PropertyHeader from './PropertyHeader'
+import ControlsGroup from './ControlsGroup'
+import { Cell, Toggle, Help } from './styled'
 
-export default class ArrayControl extends PureComponent {
-    static propTypes = {
-        ns: PropTypes.string.isRequired,
-        label: PropTypes.string.isRequired,
-        help: PropTypes.node.isRequired,
-        onChange: PropTypes.func.isRequired,
-        value: PropTypes.array.isRequired,
-        props: PropTypes.array.isRequired,
-        shouldCreate: PropTypes.bool.isRequired,
-        addLabel: PropTypes.string.isRequired,
-        shouldRemove: PropTypes.bool.isRequired,
-        removeLabel: PropTypes.string.isRequired,
-        defaults: PropTypes.object.isRequired,
-        getItemTitle: PropTypes.func,
+const Header = styled(Cell)`
+    border-bottom: 1px solid ${({ theme }) => theme.colors.borderLight};
+
+    &:last-child {
+        border-bottom-width: 0;
+    }
+`
+
+const Title = styled.div`
+    white-space: nowrap;
+    font-weight: 600;
+    color: ${({ theme }) => theme.colors.textLight};
+`
+
+const SubHeader = styled(Cell)`
+    cursor: pointer;
+    font-weight: 600;
+    user-select: none;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.borderLight};
+
+    &:last-child {
+        border-bottom-width: 0;
     }
 
-    static defaultProps = {
-        shouldCreate: false,
-        addLabel: 'add',
-        shouldRemove: false,
-        removeLabel: 'remove',
-        defaults: {},
-    }
+    &:hover {
+        background: ${({ theme }) => theme.colors.cardAltBackground};
 
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            activeItems: [0],
+        ${Title} {
+            color: ${({ theme }) => theme.colors.text};
         }
     }
 
-    handleAppend = () => {
-        const { value, defaults, onChange } = this.props
-        onChange([...value, { ...defaults }])
-        this.setState({ activeItems: [value.length] })
+    ${Title} {
+        ${({ isOpened, theme }) => (isOpened ? `color: ${theme.colors.text};` : '')}
     }
+`
 
-    handleRemove = index => event => {
-        event.stopPropagation()
-        const { value, onChange } = this.props
-        const items = value.filter((v, i) => i !== index)
-        this.setState({ activeItems: [] })
-        onChange(items)
+const AddButton = styled.div`
+    position: absolute;
+    top: 9px;
+    right: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 12px;
+    color: ${({ theme }) => theme.colors.accent};
+    border: 1px solid ${({ theme }) => theme.colors.accent};
+    padding: 3px 9px;
+    border-radius: 2px;
+    user-select: none;
+
+    &:hover {
+        color: ${({ theme }) => theme.colors.cardBackground};
+        background: ${({ theme }) => theme.colors.accent};
     }
+`
 
-    handleChange = index => itemValue => {
-        const { value, onChange } = this.props
-        onChange(
-            value.map((v, i) => {
-                if (i === index) return itemValue
-                return v
-            })
-        )
+const RemoveButton = styled.span`
+    display: inline-block;
+    font-size: 12px;
+    margin-left: 12px;
+    background: ${({ theme }) => theme.colors.cardBackground};
+    color: ${({ theme }) => theme.colors.accent};
+    border: 1px solid ${({ theme }) => theme.colors.accent};
+    padding: 1px 9px;
+    border-radius: 1px;
+
+    &:hover {
+        color: ${({ theme }) => theme.colors.cardBackground};
+        background: ${({ theme }) => theme.colors.accent};
     }
+`
 
-    handleItemToggle = index => () => {
-        const { activeItems } = this.state
-        if (activeItems.includes(index)) {
-            this.setState({
-                activeItems: activeItems.filter(i => i !== index),
-            })
-        } else {
-            this.setState({
-                activeItems: [...activeItems, index],
-            })
-        }
-    }
-
-    render() {
-        const {
-            ns,
-            label,
-            help,
-            value,
+const ArrayControl = memo(
+    ({
+        property,
+        value,
+        onChange,
+        options: {
             props,
-            shouldCreate,
-            addLabel,
-            shouldRemove,
-            removeLabel,
+            shouldCreate = false,
+            addLabel = 'add',
+            shouldRemove = false,
+            removeLabel = 'remove',
+            defaults = {},
             getItemTitle,
-        } = this.props
-        const { activeItems } = this.state
+        },
+    }) => {
+        const [activeItems, setActiveItems] = useState([0])
+        const append = useCallback(() => {
+            onChange([...value, { ...defaults }])
+            setActiveItems([value.length])
+        }, [value, onChange, defaults, setActiveItems])
+        const remove = useCallback(
+            index => event => {
+                event.stopPropagation()
+                const items = value.filter((v, i) => i !== index)
+                setActiveItems([])
+                onChange(items)
+            },
+            [value, onChange, setActiveItems]
+        )
+        const change = useCallback(
+            index => itemValue => {
+                onChange(
+                    value.map((v, i) => {
+                        if (i === index) return itemValue
+                        return v
+                    })
+                )
+            },
+            [value, onChange]
+        )
+        const toggle = useCallback(
+            index => () => {
+                setActiveItems(items => {
+                    if (items.includes(index)) {
+                        return items.filter(i => i !== index)
+                    }
+                    return [...activeItems, index]
+                })
+            },
+            [setActiveItems]
+        )
 
         return (
             <Fragment>
-                <div className="chart-controls_header">
-                    <div>
-                        {label} ({value.length})<div className="control-help">{help}</div>
-                    </div>
-                    {shouldCreate && (
-                        <span className="button" onClick={this.handleAppend}>
-                            {addLabel}
-                        </span>
-                    )}
-                </div>
+                <Header>
+                    <PropertyHeader {...property} />
+                    <Help>{property.help}</Help>
+                    {shouldCreate && <AddButton onClick={append}>{addLabel}</AddButton>}
+                </Header>
                 {value.map((item, index) => (
                     <Fragment key={index}>
-                        <div
-                            className={classNames('chart-controls_sub-header', {
-                                '_is-active': activeItems.includes(index),
-                            })}
-                            onClick={this.handleItemToggle(index)}
-                        >
-                            <span>
-                                {activeItems.includes(index) && <OpenedIcon />}
-                                {!activeItems.includes(index) && <ClosedIcon />}{' '}
+                        <SubHeader isOpened={activeItems.includes(index)} onClick={toggle(index)}>
+                            <Title>
                                 {getItemTitle !== undefined
                                     ? getItemTitle(index, item)
-                                    : `${label}[${index}]`}
-                            </span>
-                            {shouldRemove && (
-                                <span
-                                    className="button button--small"
-                                    onClick={this.handleRemove(index)}
-                                >
-                                    {removeLabel}
-                                </span>
-                            )}
-                        </div>
+                                    : `${property.key}[${index}]`}
+                                {shouldRemove && (
+                                    <RemoveButton onClick={remove(index)}>
+                                        {removeLabel}
+                                    </RemoveButton>
+                                )}
+                            </Title>
+                            <Toggle isOpened={activeItems.includes(index)} />
+                        </SubHeader>
                         {activeItems.includes(index) && (
-                            <ChartControls
-                                ns={ns}
-                                name={label}
+                            <ControlsGroup
+                                name={property.key}
                                 controls={props}
                                 settings={item}
-                                onChange={this.handleChange(index)}
+                                onChange={change(index)}
                                 isNested={true}
                             />
                         )}
@@ -148,4 +173,22 @@ export default class ArrayControl extends PureComponent {
             </Fragment>
         )
     }
+)
+
+ArrayControl.displayName = 'ArrayControl'
+ArrayControl.propTypes = {
+    property: PropTypes.object.isRequired,
+    value: PropTypes.array.isRequired,
+    onChange: PropTypes.func.isRequired,
+    options: PropTypes.shape({
+        props: PropTypes.array.isRequired,
+        shouldCreate: PropTypes.bool,
+        addLabel: PropTypes.string,
+        shouldRemove: PropTypes.bool,
+        removeLabel: PropTypes.string,
+        defaults: PropTypes.object,
+        getItemTitle: PropTypes.func,
+    }).isRequired,
 }
+
+export default ArrayControl
