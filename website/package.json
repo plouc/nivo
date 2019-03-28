@@ -3,10 +3,6 @@
   "version": "0.55.0",
   "private": true,
   "description": "nivo website",
-  "devDependencies": {
-    "react-scripts": "^2.1.8",
-    "source-map-explorer": "^1.8.0"
-  },
   "dependencies": {
     "@nivo/bar": "0.55.0",
     "@nivo/bullet": "0.55.0",
@@ -29,38 +25,31 @@
     "@nivo/treemap": "0.55.0",
     "@nivo/voronoi": "0.55.0",
     "@nivo/waffle": "0.55.0",
-    "classnames": "2.2.4",
-    "d3-geo": "^1.11.3",
-    "d3-scale": "^2.1.2",
-    "d3-scale-chromatic": "^1.3.3",
-    "d3-time": "^1.0.10",
-    "d3-time-format": "^2.1.3",
+    "babel-plugin-styled-components": "^1.10.0",
     "dedent-js": "^1.0.1",
-    "lodash": "^4.17.4",
-    "prop-types": "^15.5.10",
+    "gatsby": "^2.3.3",
+    "gatsby-image": "^2.0.35",
+    "gatsby-plugin-manifest": "^2.0.25",
+    "gatsby-plugin-offline": "^2.0.25",
+    "gatsby-plugin-react-helmet": "^3.0.11",
+    "gatsby-plugin-sharp": "^2.0.32",
+    "gatsby-plugin-styled-components": "^3.0.7",
+    "gatsby-source-filesystem": "^2.0.28",
+    "gatsby-transformer-sharp": "^2.1.17",
+    "prism-react-renderer": "^0.1.6",
+    "prop-types": "^15.7.2",
     "react": "16.8.4",
     "react-dom": "16.8.4",
-    "react-helmet": "5.1.3",
+    "react-helmet": "^5.2.0",
     "react-icons": "^2.2.5",
-    "react-motion": "^0.5.2",
-    "react-responsive": "1.3.4",
-    "react-router-dom": "^4.2.2",
-    "react-select": "1.0.0-rc.10",
-    "styled-components": "^2.1.1",
-    "url-search-params": "^0.10.0"
+    "react-markdown": "^4.0.6",
+    "react-select": "^2.4.2",
+    "styled-components": "^4.2.0",
+    "url-search-params": "^1.1.0"
   },
   "scripts": {
-    "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start",
-    "build": "SKIP_PREFLIGHT_CHECK=true react-scripts build",
-    "analyze": "source-map-explorer build/static/js/main.*",
-    "fmt": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --write 'src/**/*.js' 'src/**/*.css'",
-    "fmt:check": "prettier --print-width=100 --tab-width=4 --bracket-spacing --no-semi --trailing-comma es5 --single-quote --list-different 'src/**/*.js' 'src/**/*.css'",
-    "sprites": "glue --img src/assets --css src/styles src/assets/icons"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie < 11",
-    "not op_mini all"
-  ]
+    "build": "gatsby build",
+    "start": "gatsby develop",
+    "serve": "gatsby serve"
+  }
 }

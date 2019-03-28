@@ -6,13 +6,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Pie } from '@nivo/pie'
-import pieGreyImg from '../../assets/icons/pie-grey.png'
-import pieRedImg from '../../assets/icons/pie-red.png'
-import { ICON_SIZE, Icon } from './styled'
+import pieLightNeutralImg from '../../assets/icons/pie-light-neutral.png'
+import pieLightColoredImg from '../../assets/icons/pie-light-colored.png'
+import pieDarkNeutralImg from '../../assets/icons/pie-dark-neutral.png'
+import pieDarkColoredImg from '../../assets/icons/pie-dark-colored.png'
+import { ICON_SIZE, Icon, colors, IconImg } from './styled'
 
 const chartProps = {
+    width: ICON_SIZE,
+    height: ICON_SIZE,
     data: [
         { id: '0', label: '0', value: 45 },
         { id: '1', label: '1', value: 90 },
@@ -31,35 +35,26 @@ const chartProps = {
     isInteractive: false,
 }
 
+const PieIconItem = ({ type }) => (
+    <Icon id={`pie-${type}`} type={type}>
+        <Pie
+            {...chartProps}
+            colors={[colors[type].colors[4], colors[type].colors[3], colors[type].colors[2]]}
+        />
+    </Icon>
+)
+
 const PieIcon = () => (
-    <Fragment>
-        <Icon id="pie-grey">
-            <Pie
-                width={ICON_SIZE}
-                height={ICON_SIZE}
-                {...chartProps}
-                colors={['#686868', '#838383', '#989898']}
-            />
-        </Icon>
-        <Icon
-            style={{
-                backgroundImage: `url(${pieGreyImg})`,
-            }}
-        />
-        <Icon id="pie-red">
-            <Pie
-                width={ICON_SIZE}
-                height={ICON_SIZE}
-                {...chartProps}
-                colors={['#e54127', '#ff5d45', '#ff745d']}
-            />
-        </Icon>
-        <Icon
-            style={{
-                backgroundImage: `url(${pieRedImg})`,
-            }}
-        />
-    </Fragment>
+    <>
+        <PieIconItem type="lightNeutral" />
+        <IconImg url={pieLightNeutralImg} />
+        <PieIconItem type="lightColored" />
+        <IconImg url={pieLightColoredImg} />
+        <PieIconItem type="darkNeutral" />
+        <IconImg url={pieDarkNeutralImg} />
+        <PieIconItem type="darkColored" />
+        <IconImg url={pieDarkColoredImg} />
+    </>
 )
 
 export default PieIcon

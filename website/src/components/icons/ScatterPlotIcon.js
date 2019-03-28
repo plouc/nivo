@@ -6,13 +6,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Fragment } from 'react'
+import React from 'react'
 import { ScatterPlot } from '@nivo/scatterplot'
-import scatterPlotGreyImg from '../../assets/icons/scatterplot-grey.png'
-import scatterPlotRedImg from '../../assets/icons/scatterplot-red.png'
-import { ICON_SIZE, Icon } from './styled'
+import scatterPlotLightNeutralImg from '../../assets/icons/scatterplot-light-neutral.png'
+import scatterPlotLightColoredImg from '../../assets/icons/scatterplot-light-colored.png'
+import scatterPlotDarkNeutralImg from '../../assets/icons/scatterplot-dark-neutral.png'
+import scatterPlotDarkColoredImg from '../../assets/icons/scatterplot-dark-colored.png'
+import { ICON_SIZE, Icon, colors, IconImg } from './styled'
 
 const chartProps = {
+    width: ICON_SIZE,
+    height: ICON_SIZE,
     margin: {
         top: 24,
         right: 5,
@@ -85,57 +89,37 @@ const chartProps = {
     symbolSize: 7,
 }
 
+const ScatterPlotIconItem = ({ type }) => (
+    <Icon id={`scatterplot-${type}`} type={type}>
+        <ScatterPlot
+            {...chartProps}
+            colors={[colors[type].colors[4], colors[type].colors[2], colors[type].colors[1]]}
+            theme={{
+                axis: {
+                    domain: {
+                        line: {
+                            stroke: colors[type].colors[3],
+                            strokeWidth: 3,
+                            strokeLinecap: 'square',
+                        },
+                    },
+                },
+            }}
+        />
+    </Icon>
+)
+
 const ScatterPlotIcon = () => (
-    <Fragment>
-        <Icon id="scatterplot-grey">
-            <ScatterPlot
-                width={ICON_SIZE}
-                height={ICON_SIZE}
-                {...chartProps}
-                colors={['#686868', '#989898', '#bdbdbd']}
-                theme={{
-                    axis: {
-                        domain: {
-                            line: {
-                                stroke: '#828282',
-                                strokeWidth: 3,
-                                strokeLinecap: 'square',
-                            },
-                        },
-                    },
-                }}
-            />
-        </Icon>
-        <Icon
-            style={{
-                backgroundImage: `url(${scatterPlotGreyImg})`,
-            }}
-        />
-        <Icon id="scatterplot-red">
-            <ScatterPlot
-                width={ICON_SIZE}
-                height={ICON_SIZE}
-                {...chartProps}
-                colors={['#e54127', '#ff755e', '#ff9d95']}
-                theme={{
-                    axis: {
-                        domain: {
-                            line: {
-                                stroke: '#ef634e',
-                                strokeWidth: 3,
-                                strokeLinecap: 'square',
-                            },
-                        },
-                    },
-                }}
-            />
-        </Icon>
-        <Icon
-            style={{
-                backgroundImage: `url(${scatterPlotRedImg})`,
-            }}
-        />
-    </Fragment>
+    <>
+        <ScatterPlotIconItem type="lightNeutral" />
+        <IconImg url={scatterPlotLightNeutralImg} />
+        <ScatterPlotIconItem type="lightColored" />
+        <IconImg url={scatterPlotLightColoredImg} />
+        <ScatterPlotIconItem type="darkNeutral" />
+        <IconImg url={scatterPlotDarkNeutralImg} />
+        <ScatterPlotIconItem type="darkColored" />
+        <IconImg url={scatterPlotDarkColoredImg} />
+    </>
 )
 
 export default ScatterPlotIcon

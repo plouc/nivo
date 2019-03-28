@@ -6,13 +6,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Fragment } from 'react'
+import React from 'react'
 import { HeatMap } from '@nivo/heatmap'
-import heatmapGreyImg from '../../assets/icons/heatmap-grey.png'
-import heatmapRedImg from '../../assets/icons/heatmap-red.png'
-import { ICON_SIZE, Icon } from './styled'
+import heatmapLightNeutralImg from '../../assets/icons/heatmap-light-neutral.png'
+import heatmapLightColoredImg from '../../assets/icons/heatmap-light-colored.png'
+import heatmapDarkNeutralImg from '../../assets/icons/heatmap-dark-neutral.png'
+import heatmapDarkColoredImg from '../../assets/icons/heatmap-dark-colored.png'
+import { ICON_SIZE, Icon, colors, IconImg } from './styled'
 
 const chartProps = {
+    width: ICON_SIZE,
+    height: ICON_SIZE,
     indexBy: 'id',
     keys: ['A', 'B', 'C'],
     data: [
@@ -34,35 +38,23 @@ const chartProps = {
     isInteractive: false,
 }
 
+const HeatMapIconItem = ({ type }) => (
+    <Icon id={`heatmap-${type}`} type={type}>
+        <HeatMap {...chartProps} colors={colors[type].colors} />
+    </Icon>
+)
+
 const HeatMapIcon = () => (
-    <Fragment>
-        <Icon id="heatmap-grey">
-            <HeatMap
-                width={ICON_SIZE}
-                height={ICON_SIZE}
-                {...chartProps}
-                colors={['#b0aeaf', '#b0aeaf', '#9a9a9a', '#838383', '#5c5c5c']}
-            />
-        </Icon>
-        <Icon
-            style={{
-                backgroundImage: `url(${heatmapGreyImg})`,
-            }}
-        />
-        <Icon id="heatmap-red">
-            <HeatMap
-                width={ICON_SIZE}
-                height={ICON_SIZE}
-                {...chartProps}
-                colors={['#ff8d80', '#ff8d80', '#ff765f', '#ff5d45', '#e54127']}
-            />
-        </Icon>
-        <Icon
-            style={{
-                backgroundImage: `url(${heatmapRedImg})`,
-            }}
-        />
-    </Fragment>
+    <>
+        <HeatMapIconItem type="lightNeutral" />
+        <IconImg url={heatmapLightNeutralImg} />
+        <HeatMapIconItem type="lightColored" />
+        <IconImg url={heatmapLightColoredImg} />
+        <HeatMapIconItem type="darkNeutral" />
+        <IconImg url={heatmapDarkNeutralImg} />
+        <HeatMapIconItem type="darkColored" />
+        <IconImg url={heatmapDarkColoredImg} />
+    </>
 )
 
 export default HeatMapIcon

@@ -13,3 +13,5 @@ build
 
 *.lerna_backup
 
+_website
+

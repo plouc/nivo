@@ -6,63 +6,70 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { PureComponent, Fragment } from 'react'
+import React, { memo, useState, Fragment, useCallback } from 'react'
 import PropTypes from 'prop-types'
-import classNames from 'classnames'
-import ChartControls from './ChartControls'
+import styled from 'styled-components'
+import ControlsGroup from './ControlsGroup'
+import PropertyHeader from './PropertyHeader'
+import { Cell, Toggle, Help } from './styled'
 
-export default class ObjectControl extends PureComponent {
-    static propTypes = {
-        ns: PropTypes.string.isRequired,
-        label: PropTypes.string.isRequired,
-        help: PropTypes.node.isRequired,
-        onChange: PropTypes.func.isRequired,
-        value: PropTypes.object.isRequired,
-        props: PropTypes.array.isRequired,
+const Title = styled.div`
+    white-space: nowrap;
+    font-weight: 600;
+    color: ${({ theme }) => theme.colors.accentLight};
+`
+
+const Header = styled(Cell)`
+    cursor: pointer;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.borderLight};
+
+    &:last-child {
+        border-bottom-width: 0;
     }
 
-    static defaultProps = {
-        defaults: {},
+    &:hover {
+        background: ${({ theme }) => theme.colors.cardAltBackground};
+
+        ${Title} {
+            color: ${({ theme }) => theme.colors.accent};
+        }
     }
 
-    state = {
-        isOpened: true,
+    ${Title} {
+        ${({ isOpened, theme }) => (isOpened ? `color: ${theme.colors.accent};` : '')}
     }
+`
 
-    handleToggle = () => {
-        this.setState({
-            isOpened: !this.state.isOpened,
-        })
-    }
+const ObjectControl = memo(({ property, value, props, onChange }) => {
+    const [isOpened, setIsOpened] = useState(false)
+    const toggle = useCallback(() => setIsOpened(flag => !flag), [setIsOpened])
 
-    render() {
-        const { ns, label, help, value, props, onChange } = this.props
-        const { isOpened } = this.state
+    return (
+        <Fragment>
+            <Header isOpened={isOpened} onClick={toggle}>
+                <PropertyHeader {...property} />
+                <Help>{property.help}</Help>
+                <Toggle isOpened={isOpened} />
+            </Header>
+            {isOpened && (
+                <ControlsGroup
+                    name={property.key}
+                    controls={props}
+                    settings={value}
+                    onChange={onChange}
+                    isNested={true}
+                />
+            )}
+        </Fragment>
+    )
+})
 
-        return (
-            <Fragment>
-                <div
-                    className={classNames('object-control_header', {
-                        '_is-opened': isOpened,
-                    })}
-                    onClick={this.handleToggle}
-                >
-                    <div>
-                        {label}
-                        <div className="control-help">{help}</div>
-                    </div>
-                </div>
-                {isOpened && (
-                    <ChartControls
-                        ns={ns}
-                        name={label}
-                        controls={props}
-                        settings={value}
-                        onChange={onChange}
-                        isNested={true}
-                    />
-                )}
-            </Fragment>
-        )
-    }
+ObjectControl.displayName = 'ObjectControl'
+ObjectControl.propTypes = {
+    property: PropTypes.object.isRequired,
+    onChange: PropTypes.func.isRequired,
+    value: PropTypes.object.isRequired,
+    props: PropTypes.array.isRequired,
 }
+
+export default ObjectControl

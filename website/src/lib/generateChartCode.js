@@ -28,7 +28,14 @@ const generate = (
     props,
     { dataKey = 'data', children = [], defaults = {}, pkg = 'nivo' } = {}
 ) => {
-    const properties = [`${dataKey}={/* see data tab */}`]
+    const properties = []
+    let args = ''
+
+    if (dataKey !== null) {
+        properties.push(`${dataKey}={${dataKey}}`)
+        args = `{ ${dataKey} /* see ${dataKey} tab */ }`
+    }
+
     forOwn(props, (_value, key) => {
         if (_value === undefined) return
         if (defaults && defaults[key] === _value) return
@@ -60,20 +67,21 @@ const generate = (
     if (name.indexOf('Responsive') === 0) {
         responsiveWarning = [
             ``,
-            `// make sure parent container have a defined height when using responsive component,`,
-            `// otherwise height will be 0 and no chart will be rendered.`,
-            `// website examples showcase many properties, you'll often use just a few of them.`,
+            `// make sure parent container have a defined height when using`,
+            `// responsive component, otherwise height will be 0 and`,
+            `// no chart will be rendered.`,
+            `// website examples showcase many properties,`,
+            `// you'll often use just a few of them.`,
         ].join('\n')
     }
 
-    return `import { render } from 'react-dom'
-${imports.join('\n')}
+    return `${imports.join('\n')}
 ${responsiveWarning}
-render((
+const My${name} = (${args}) => (
     <${name}
         ${properties.join('\n        ')}
     />
-), document.getElementById('chart'))`
+)`
 }
 
 export default generate

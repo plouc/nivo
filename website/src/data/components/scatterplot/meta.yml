@@ -1,0 +1,76 @@
+flavors:
+  - flavor: svg
+    path: /scatterplot
+  - flavor: canvas
+    path: /scatterplot/canvas
+
+ScatterPlot:
+  package: '@nivo/scatterplot'
+  tags:
+    - svg
+    - isomorphic
+  stories:
+    - label: Using time scales
+      link:
+        kind: ScatterPlot
+        story: using time scales
+    - label: Using logarithmic scales
+      link:
+        kind: ScatterPlot
+        story: using logarithmic scales
+    - label: Varying symbol size
+      link:
+        kind: ScatterPlot
+        story: varying symbol size
+    - label: Custom tooltip
+      link:
+        kind: ScatterPlot
+        story: custom tooltip
+    - label: Synchronizing charts
+      link:
+        kind: ScatterPlot
+        story: synchronizing charts
+    - label: Using mouse enter/leave
+      link:
+        kind: ScatterPlot
+        story: using mouse enter/leave
+  description: |
+    A scatter plot chart, which can display several data series.
+
+    The responsive alternative of this component is
+    `ResponsiveScatterPlot`, it also offers another
+    implementation, see [ScatterPlotCanvas](self:/scatterplot/canvas).
+    You can also see more example usages in
+    [the storybook](storybook:scatterplot--default).
+
+    Alternatively, you can set `useMesh` to `true`
+    to have finer interactions.
+
+    See the [dedicated guide](self:/guides/legends) on how to setup
+    legends for this component.
+
+ScatterPlotCanvas:
+  package: '@nivo/scatterplot'
+  tags:
+    - canvas
+  stories:
+    - label: Using time scales
+      link:
+        kind: ScatterPlot
+        story: using time scales
+    - label: Varying symbol size
+      link:
+        kind: ScatterPlot
+        story: varying symbol size
+    - label: Custom tooltip
+      link:
+        kind: ScatterPlot
+        story: custom tooltip
+  description: |
+    A variation around the [ScatterPlot](self:/scatterplot) component.
+    Well suited for large data sets as it does not impact DOM tree depth,
+    however you'll lose the isomorphic ability and transitions.
+
+    The responsive alternative of this component is
+    `ResponsiveScatterPlotCanvas`, it also offers another
+    implementation, see [ScatterPlot](self:/scatterplot).

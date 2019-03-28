@@ -9,26 +9,35 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
-class ColorsControlItem extends Component {
-    render() {
-        const { id, colors } = this.props
+const Container = styled.div`
+    display: flex;
+    align-items: center;
+`
 
-        return (
-            <div className="colors_item">
-                <span className="colors_item_label">{id}</span>
-                <div className="colors_item_colors">
-                    {colors.map(color => (
-                        <span
-                            key={color}
-                            className="colors_item_colors_item"
-                            style={{ background: color }}
-                        />
-                    ))}
-                </div>
-            </div>
-        )
-    }
+const Name = styled.span`
+    font-weight: 500;
+    font-size: 0.8rem;
+    margin-right: 14px;
+    width: 130px;
+`
+
+const Sample = styled.div`
+    display: block;
+    width: 12px;
+    height: 12px;
+`
+
+const ColorsControlItem = ({ id, colors }) => {
+    return (
+        <Container>
+            <Name>{id}</Name>
+            {colors.map(color => (
+                <Sample key={color} style={{ background: color }} />
+            ))}
+        </Container>
+    )
 }
 
 ColorsControlItem.propTypes = {

@@ -21,10 +21,7 @@ const RadarGridLevels = ({
     radii,
     angleStep,
     dataLength,
-
     theme,
-
-    // motion
     animate,
     motionStiffness,
     motionDamping,
@@ -83,7 +80,7 @@ const RadarGridLevels = ({
                         key={`level.${i}`}
                         fill="none"
                         d={radarLineGenerator.radius(radius)(points)}
-                        {...theme.grid}
+                        {...theme.grid.line}
                     />
                 ))}
             </g>
@@ -99,7 +96,7 @@ const RadarGridLevels = ({
                             key={key}
                             fill="none"
                             d={radarLineGenerator.radius(style.r)(points)}
-                            {...theme.grid}
+                            {...theme.grid.line}
                         />
                     ))}
                 </g>
@@ -113,10 +110,7 @@ RadarGridLevels.propTypes = {
     radii: PropTypes.arrayOf(PropTypes.number).isRequired,
     angleStep: PropTypes.number.isRequired,
     dataLength: PropTypes.number.isRequired,
-
     theme: PropTypes.object.isRequired,
-
-    // motion
     ...motionPropTypes,
 }
 
