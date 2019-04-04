@@ -21,6 +21,7 @@ const ChordArcs = ({
     getOpacity,
     shapeGenerator,
     theme,
+    arcTooltip,
     tooltipFormat,
     setCurrent,
     showTooltip,
@@ -32,16 +33,20 @@ const ChordArcs = ({
     motionStiffness,
 }) => {
     const commonProps = arc => {
-        const arcTooltip = <ChordArcTooltip arc={arc} theme={theme} format={tooltipFormat} />
+        const tooltip = arcTooltip ? (
+            arcTooltip({ arc, theme })
+        ) : (
+            <ChordArcTooltip arc={arc} theme={theme} format={tooltipFormat} />
+        )
 
         return {
             strokeWidth: borderWidth,
             onMouseEnter: e => {
                 setCurrent(arc)
-                showTooltip(arcTooltip, e)
+                showTooltip(tooltip, e)
             },
             onMouseMove: e => {
-                showTooltip(arcTooltip, e)
+                showTooltip(tooltip, e)
             },
             onMouseLeave: () => {
                 setCurrent(null)

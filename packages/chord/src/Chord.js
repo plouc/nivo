@@ -43,6 +43,8 @@ const Chord = ({
 
     isInteractive,
     tooltipFormat,
+    arcTooltip,
+    ribbonTooltip,
 
     animate,
     motionDamping,
@@ -95,6 +97,7 @@ const Chord = ({
                                         blendMode={ribbonBlendMode}
                                         setCurrent={setCurrentRibbon}
                                         theme={theme}
+                                        ribbonTooltip={ribbonTooltip}
                                         tooltipFormat={tooltipFormat}
                                         showTooltip={showTooltip}
                                         hideTooltip={hideTooltip}
@@ -109,6 +112,7 @@ const Chord = ({
                                     getOpacity={getArcOpacity}
                                     setCurrent={setCurrentArc}
                                     theme={theme}
+                                    arcTooltip={arcTooltip}
                                     tooltipFormat={tooltipFormat}
                                     showTooltip={showTooltip}
                                     hideTooltip={hideTooltip}

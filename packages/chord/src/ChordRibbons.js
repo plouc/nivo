@@ -20,10 +20,9 @@ import {
     getInterpolatedColor,
     blendModePropType,
     midAngle,
-    TableTooltip,
-    Chip,
     motionPropTypes,
 } from '@nivo/core'
+import ChordRibbonTooltip from './ChordRibbonTooltip'
 
 /**
  * Used to get ribbon angles, instead of using source and target arcs,
@@ -93,6 +92,7 @@ const ChordRibbons = ({
     getOpacity,
     blendMode,
     theme,
+    ribbonTooltip,
     tooltipFormat,
     setCurrent,
     showTooltip,
@@ -104,32 +104,20 @@ const ChordRibbons = ({
     motionStiffness,
 }) => {
     const commonProps = ribbon => {
-        const ribbonTooltip = (
-            <TableTooltip
-                theme={theme}
-                rows={[
-                    [
-                        <Chip key="chip" color={ribbon.source.color} />,
-                        <strong key="id">{ribbon.source.id}</strong>,
-                        tooltipFormat ? tooltipFormat(ribbon.source.value) : ribbon.source.value,
-                    ],
-                    [
-                        <Chip key="chip" color={ribbon.target.color} />,
-                        <strong key="id">{ribbon.target.id}</strong>,
-                        tooltipFormat ? tooltipFormat(ribbon.target.value) : ribbon.target.value,
-                    ],
-                ]}
-            />
+        const tooltip = ribbonTooltip ? (
+            ribbonTooltip({ ribbon, theme })
+        ) : (
+            <ChordRibbonTooltip ribbon={ribbon} format={tooltipFormat} theme={theme} />
         )
 
         return {
             strokeWidth: borderWidth,
             onMouseEnter: e => {
                 setCurrent(ribbon)
-                showTooltip(ribbonTooltip, e)
+                showTooltip(tooltip, e)
             },
             onMouseMove: e => {
-                showTooltip(ribbonTooltip, e)
+                showTooltip(tooltip, e)
             },
             onMouseLeave: () => {
                 setCurrent(null)
