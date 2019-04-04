@@ -119,7 +119,7 @@ class ScatterPlotCanvas extends Component {
 
     handleClick = event => {
         const point = this.getPointForMouseEvent(event)
-        if (point !== undefined) {
+        if (point !== undefined && point !== null) {
             this.props.onClick(point.data, event)
         }
     }
