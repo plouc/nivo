@@ -1,6 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { generateChordData } from '@nivo/generators'
+import { TableTooltip, BasicTooltip } from '@nivo/core'
 import { Chord } from '../src'
 
 const commonProperties = {
@@ -61,5 +62,40 @@ stories.add('with formatted values', () => (
                 minimumFractionDigits: 2,
             })} ₽`
         }
+    />
+))
+
+stories.add('custom tooltips', () => (
+    <Chord
+        {...commonProperties}
+        {...generateChordData({ size: 5 })}
+        arcTooltip={({ arc, theme }) => (
+            <BasicTooltip
+                id={`Node: ${arc.id}`}
+                value={arc.value}
+                color={arc.color}
+                enableChip={true}
+                theme={theme}
+            />
+        )}
+        ribbonTooltip={({ ribbon, theme }) => (
+            <TableTooltip
+                theme={theme}
+                rows={[
+                    [
+                        <Chip key="chip" color={ribbon.source.color} />,
+                        'Source',
+                        <strong key="id">{ribbon.source.id}</strong>,
+                        format ? format(ribbon.source.value) : ribbon.source.value,
+                    ],
+                    [
+                        <Chip key="chip" color={ribbon.target.color} />,
+                        'Target',
+                        <strong key="id">{ribbon.target.id}</strong>,
+                        format ? format(ribbon.target.value) : ribbon.target.value,
+                    ],
+                ]}
+            />
+        )}
     />
 ))
