@@ -25,10 +25,9 @@ export const renderAxisToCanvas = (
         tickRotation = 0,
         format,
 
-        // @todo implement legend support
-        // legend,
-        // legendPosition = 'end',
-        // legendOffset = 0,
+        legend,
+        legendPosition = 'end',
+        legendOffset = 0,
 
         theme,
     }
@@ -51,22 +50,26 @@ export const renderAxisToCanvas = (
     ctx.textBaseline = textBaseline
     ctx.font = `${theme.axis.ticks.text.fontSize}px ${theme.axis.ticks.text.fontFamily}`
 
-    ctx.lineWidth = theme.axis.domain.line.strokeWidth
-    ctx.lineCap = 'square'
-    ctx.strokeStyle = theme.axis.domain.line.stroke
-    ctx.beginPath()
-    ctx.moveTo(0, 0)
-    ctx.lineTo(axis === 'x' ? length : 0, axis === 'x' ? 0 : length)
-    ctx.stroke()
+    if (theme.axis.domain.line.strokeWidth > 0) {
+        ctx.lineWidth = theme.axis.domain.line.strokeWidth
+        ctx.lineCap = 'square'
+        ctx.strokeStyle = theme.axis.domain.line.stroke
+        ctx.beginPath()
+        ctx.moveTo(0, 0)
+        ctx.lineTo(axis === 'x' ? length : 0, axis === 'x' ? 0 : length)
+        ctx.stroke()
+    }
 
     ticks.forEach(tick => {
-        ctx.lineWidth = theme.axis.ticks.line.strokeWidth
-        ctx.lineCap = 'square'
-        ctx.strokeStyle = theme.axis.ticks.line.stroke
-        ctx.beginPath()
-        ctx.moveTo(tick.x, tick.y)
-        ctx.lineTo(tick.x + tick.lineX, tick.y + tick.lineY)
-        ctx.stroke()
+        if (theme.axis.ticks.line.strokeWidth > 0) {
+            ctx.lineWidth = theme.axis.ticks.line.strokeWidth
+            ctx.lineCap = 'square'
+            ctx.strokeStyle = theme.axis.ticks.line.stroke
+            ctx.beginPath()
+            ctx.moveTo(tick.x, tick.y)
+            ctx.lineTo(tick.x + tick.lineX, tick.y + tick.lineY)
+            ctx.stroke()
+        }
 
         const value = format !== undefined ? format(tick.value) : tick.value
 
@@ -77,6 +80,50 @@ export const renderAxisToCanvas = (
         ctx.fillText(value, 0, 0)
         ctx.restore()
     })
+
+    if (legend !== undefined) {
+        let legendX = 0
+        let legendY = 0
+        let legendRotation = 0
+        let textAlign
+
+        if (axis === 'y') {
+            legendRotation = -90
+            legendX = legendOffset
+            if (legendPosition === 'start') {
+                textAlign = 'start'
+                legendY = length
+            } else if (legendPosition === 'middle') {
+                textAlign = 'center'
+                legendY = length / 2
+            } else if (legendPosition === 'end') {
+                textAlign = 'end'
+            }
+        } else {
+            legendY = legendOffset
+            if (legendPosition === 'start') {
+                textAlign = 'start'
+            } else if (legendPosition === 'middle') {
+                textAlign = 'center'
+                legendX = length / 2
+            } else if (legendPosition === 'end') {
+                textAlign = 'end'
+                legendX = length
+            }
+        }
+
+        ctx.save()
+        ctx.translate(legendX, legendY)
+        ctx.rotate(degreesToRadians(legendRotation))
+        ctx.font = `${
+            theme.axis.legend.text.fontWeight ? `${theme.axis.legend.text.fontWeight} ` : ''
+        }${theme.axis.legend.text.fontSize}px ${theme.axis.legend.text.fontFamily}`
+        ctx.fillStyle = theme.axis.legend.text.fill
+        ctx.textAlign = textAlign
+        ctx.textBaseline = 'middle'
+        ctx.fillText(legend, 0, 0)
+        ctx.restore()
+    }
 
     ctx.restore()
 }
