@@ -21,10 +21,9 @@ import {
     Container,
     SvgWrapper,
     CartesianMarkers,
-    Grid,
 } from '@nivo/core'
 import { getOrdinalColorScale } from '@nivo/colors'
-import { Axes } from '@nivo/axes'
+import { Axes, Grid } from '@nivo/axes'
 import { computeXYScalesForSeries, computeYSlices } from '@nivo/scales'
 import { BoxLegendSvg } from '@nivo/legends'
 import LineAreas from './LineAreas'

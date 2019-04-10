@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { Axes } from '@nivo/core'
+import { Axes } from '@nivo/axes'
 import { linearXScale, linearYScale } from './scales'
 import { FullWidthBanner, DescriptionBlock } from '../../styled'
 import { useAxisTheme } from './theme'
@@ -39,22 +39,22 @@ const AxesPosition = () => {
                                 motionDamping={0}
                                 top={{
                                     legend: 'axisTop',
-                                    legendPosition: 'center',
+                                    legendPosition: 'middle',
                                     legendOffset: -32,
                                 }}
                                 right={{
                                     legend: 'axisRight',
-                                    legendPosition: 'center',
+                                    legendPosition: 'middle',
                                     legendOffset: 42,
                                 }}
                                 bottom={{
                                     legend: 'axisBottom',
-                                    legendPosition: 'center',
+                                    legendPosition: 'middle',
                                     legendOffset: 38,
                                 }}
                                 left={{
                                     legend: 'axisLeft',
-                                    legendPosition: 'center',
+                                    legendPosition: 'middle',
                                     legendOffset: -36,
                                 }}
                             />

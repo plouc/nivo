@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { Axis } from '@nivo/core'
+import { Axis } from '@nivo/axes'
 import { linearXScale, pointXScale, timeXScale } from './scales'
 import { FullWidthBanner, DescriptionBlock } from '../../styled'
 import { useAxisTheme } from './theme'
@@ -62,11 +62,10 @@ const AxesTicks = () => {
                     <svg role="img" width={380} height={180}>
                         <g transform={`translate(50,40)`}>
                             <Axis
+                                axis="x"
                                 scale={pointXScale}
                                 tickValues={['A', 'C', 'E', 'G', 'I']}
-                                width={280}
-                                height={0}
-                                position="top"
+                                length={280}
                                 theme={theme}
                                 animate={false}
                                 motionStiffness={0}
@@ -74,15 +73,15 @@ const AxesTicks = () => {
                                 legend="point scale ['A', 'C', 'E', 'G', 'I']"
                                 legendPosition="start"
                                 legendOffset={-32}
+                                ticksPosition="before"
                             />
                         </g>
                         <g transform={`translate(50,110)`}>
                             <Axis
+                                axis="x"
                                 scale={linearXScale}
                                 tickValues={[0, 20, 40, 60, 80]}
-                                width={280}
-                                height={0}
-                                position="top"
+                                length={280}
                                 theme={theme}
                                 animate={false}
                                 motionStiffness={0}
@@ -90,19 +89,19 @@ const AxesTicks = () => {
                                 legend="linear scale [0, 20, 40, 60, 80]"
                                 legendPosition="start"
                                 legendOffset={-32}
+                                ticksPosition="before"
                             />
                         </g>
                         <g transform={`translate(50,180)`}>
                             <Axis
+                                axis="x"
                                 scale={timeXScale}
                                 tickValues={[
                                     new Date(2019, 0, 1, 0, 0, 0, 0),
                                     new Date(2019, 6, 1, 0, 0, 0, 0),
                                     new Date(2020, 0, 1, 0, 0, 0, 0),
                                 ]}
-                                width={280}
-                                height={0}
-                                position="top"
+                                length={280}
                                 theme={theme}
                                 format="%Y/%m"
                                 animate={false}
@@ -111,17 +110,17 @@ const AxesTicks = () => {
                                 legend="time scale with tree dates"
                                 legendPosition="start"
                                 legendOffset={-32}
+                                ticksPosition="before"
                             />
                         </g>
                     </svg>
                     <svg role="img" width={380} height={180}>
                         <g transform={`translate(50,110)`}>
                             <Axis
+                                axis="x"
                                 scale={linearXScale}
                                 tickValues={5}
-                                width={280}
-                                height={0}
-                                position="top"
+                                length={280}
                                 theme={theme}
                                 animate={false}
                                 motionStiffness={0}
@@ -129,15 +128,15 @@ const AxesTicks = () => {
                                 legend="linear scale, tickValues: 5"
                                 legendPosition="start"
                                 legendOffset={-32}
+                                ticksPosition="before"
                             />
                         </g>
                         <g transform={`translate(50,180)`}>
                             <Axis
+                                axis="x"
                                 scale={timeXScale}
                                 tickValues={5}
-                                width={280}
-                                height={0}
-                                position="top"
+                                length={280}
                                 theme={theme}
                                 format="%Y/%m"
                                 animate={false}
@@ -146,6 +145,7 @@ const AxesTicks = () => {
                                 legend="time scale, tickValues: 5"
                                 legendPosition="start"
                                 legendOffset={-32}
+                                ticksPosition="before"
                             />
                         </g>
                     </svg>

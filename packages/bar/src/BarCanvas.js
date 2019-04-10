@@ -9,14 +9,8 @@
 import React, { Component } from 'react'
 import uniqBy from 'lodash/uniqBy'
 import setDisplayName from 'recompose/setDisplayName'
-import {
-    getRelativeCursor,
-    isCursorInRect,
-    Container,
-    BasicTooltip,
-    renderGridLinesToCanvas,
-} from '@nivo/core'
-import { renderAxesToCanvas } from '@nivo/axes'
+import { getRelativeCursor, isCursorInRect, Container, BasicTooltip } from '@nivo/core'
+import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { generateGroupedBars, generateStackedBars } from './compute'
 import { BarPropTypes } from './props'
@@ -86,7 +80,9 @@ class BarCanvas extends Component {
             legends,
 
             enableGridX,
+            gridXValues,
             enableGridY,
+            gridYValues,
         } = props
 
         this.surface.width = outerWidth * pixelRatio
@@ -118,21 +114,28 @@ class BarCanvas extends Component {
         this.ctx.fillRect(0, 0, outerWidth, outerHeight)
         this.ctx.translate(margin.left, margin.top)
 
-        this.ctx.strokeStyle = '#dddddd'
-        enableGridX &&
-            renderGridLinesToCanvas(this.ctx, {
-                width,
-                height,
-                scale: result.xScale,
-                axis: 'x',
-            })
-        enableGridY &&
-            renderGridLinesToCanvas(this.ctx, {
-                width,
-                height,
-                scale: result.yScale,
-                axis: 'y',
-            })
+        if (theme.grid.line.strokeWidth > 0) {
+            this.ctx.lineWidth = theme.grid.line.strokeWidth
+            this.ctx.strokeStyle = theme.grid.line.stroke
+
+            enableGridX &&
+                renderGridLinesToCanvas(this.ctx, {
+                    width,
+                    height,
+                    scale: result.xScale,
+                    axis: 'x',
+                    values: gridXValues,
+                })
+
+            enableGridY &&
+                renderGridLinesToCanvas(this.ctx, {
+                    width,
+                    height,
+                    scale: result.yScale,
+                    axis: 'y',
+                    values: gridYValues,
+                })
+        }
 
         this.ctx.strokeStyle = '#dddddd'
 

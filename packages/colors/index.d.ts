@@ -46,6 +46,9 @@ declare module '@nivo/colors' {
         | 'yellow_orange_brown'
         | 'yellow_orange_red'
 
+    export type DatumIdentityFunction<D = any> = (datum: D) => string | number
+    export type DatumIdentity<D = any> = string | DatumIdentityFunction<D>
+
     export type ColorSchemeId =
         | CategoricalColorSchemeId
         | DivergingColorSchemeId
@@ -56,12 +59,11 @@ declare module '@nivo/colors' {
     }
     export interface SchemeColorInstruction {
         scheme: ColorSchemeId
-        // size is useful for diverging & sequential
-        // colors, as they are array of array,
-        // whereas categorical colors are simple arrays
-        // if the size isn't specified, the bigger array
-        // will be selected, this means 11 for diverging
-        // colors and 9 for sequential ones.
+        // size is useful for diverging & sequential colors,
+        // as they are array of array, whereas categorical colors
+        // are simple arrays, if the size isn't specified,
+        // the bigger array will be selected, this means the 11th
+        // for diverging colors and 9th for sequential ones.
         size?: number
     }
     export type CustomColorFunction<D = any> = (datum: D) => string

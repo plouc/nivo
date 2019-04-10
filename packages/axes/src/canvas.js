@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { degreesToRadians } from './utils'
-import { computeCartesianTicks, getFormatter } from './compute'
+import { computeCartesianTicks, getFormatter, computeGridLines } from './compute'
 
 export const renderAxisToCanvas = (
     ctx,
@@ -112,7 +112,6 @@ export const renderAxisToCanvas = (
             }
         }
 
-        ctx.save()
         ctx.translate(legendX, legendY)
         ctx.rotate(degreesToRadians(legendRotation))
         ctx.font = `${
@@ -122,7 +121,6 @@ export const renderAxisToCanvas = (
         ctx.textAlign = textAlign
         ctx.textBaseline = 'middle'
         ctx.fillText(legend, 0, 0)
-        ctx.restore()
     }
 
     ctx.restore()
@@ -169,5 +167,16 @@ export const renderAxesToCanvas = (
             ticksPosition,
             theme,
         })
+    })
+}
+
+export const renderGridLinesToCanvas = (ctx, { width, height, scale, axis, values }) => {
+    const lines = computeGridLines({ width, height, scale, axis, values })
+
+    lines.forEach(line => {
+        ctx.beginPath()
+        ctx.moveTo(line.x1, line.y1)
+        ctx.lineTo(line.x2, line.y2)
+        ctx.stroke()
     })
 }

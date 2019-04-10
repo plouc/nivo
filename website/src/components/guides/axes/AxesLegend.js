@@ -7,12 +7,12 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { Axis } from '@nivo/core'
+import { Axis } from '@nivo/axes'
 import { linearXScale, linearYScale } from './scales'
 import { FullWidthBanner, DescriptionBlock } from '../../styled'
 import { useAxisTheme } from './theme'
 
-const axisPositions = ['start', 'center', 'end']
+const axisPositions = ['start', 'middle', 'end']
 
 const AxesLegend = () => {
     const theme = useAxisTheme()
@@ -44,10 +44,9 @@ const AxesLegend = () => {
                         {axisPositions.map((position, i) => (
                             <g key={position} transform={`translate(50,${i * 70 + 40})`}>
                                 <Axis
+                                    axis="x"
                                     scale={linearXScale}
-                                    width={280}
-                                    height={0}
-                                    position="top"
+                                    length={280}
                                     theme={theme}
                                     animate={false}
                                     motionStiffness={0}
@@ -55,6 +54,7 @@ const AxesLegend = () => {
                                     legend={position}
                                     legendPosition={position}
                                     legendOffset={-32}
+                                    ticksPosition="before"
                                 />
                             </g>
                         ))}
@@ -63,10 +63,9 @@ const AxesLegend = () => {
                         {axisPositions.map((position, i) => (
                             <g key={position} transform={`translate(${i * 90 + 50},50)`}>
                                 <Axis
+                                    axis="y"
                                     scale={linearYScale}
-                                    width={0}
-                                    height={160}
-                                    position="left"
+                                    length={160}
                                     theme={theme}
                                     animate={false}
                                     motionStiffness={0}
@@ -74,6 +73,7 @@ const AxesLegend = () => {
                                     legend={position}
                                     legendPosition={position}
                                     legendOffset={-32}
+                                    ticksPosition="before"
                                 />
                             </g>
                         ))}

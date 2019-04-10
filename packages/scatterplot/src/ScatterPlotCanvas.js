@@ -7,8 +7,8 @@
  * file that was distributed with this source code.
  */
 import React, { Component } from 'react'
-import { renderGridLinesToCanvas, getRelativeCursor, isCursorInRect, Container } from '@nivo/core'
-import { renderAxesToCanvas } from '@nivo/axes'
+import { getRelativeCursor, isCursorInRect, Container } from '@nivo/core'
+import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { renderVoronoiToCanvas, renderVoronoiCellToCanvas } from '@nivo/voronoi'
 import { ScatterPlotPropTypes } from './props'

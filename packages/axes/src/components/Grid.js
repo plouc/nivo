@@ -9,10 +9,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
-import { defaultMotionDamping, defaultMotionStiffness } from '../../defaults'
+import { motionPropTypes } from '@nivo/core'
 import GridLines from './GridLines'
-import { computeGridLines } from '../../lib/cartesian/axes'
-import { motionPropTypes } from '../../props'
+import { computeGridLines } from '../compute'
 
 const Grid = ({
     width,
@@ -93,15 +92,9 @@ Grid.propTypes = {
 
     theme: PropTypes.object.isRequired,
 
-    // motion
     ...motionPropTypes,
 }
 
-Grid.defaultProps = {
-    // motion
-    animate: true,
-    motionStiffness: defaultMotionStiffness,
-    motionDamping: defaultMotionDamping,
-}
+Grid.defaultProps = {}
 
 export default pure(Grid)

@@ -20,3 +20,5 @@ export const ordinalColorsPropType = PropTypes.oneOfType([
         datum: PropTypes.string.isRequired,
     }),
 ])
+
+export const colorIdentityPropType = PropTypes.oneOfType([PropTypes.func, PropTypes.string])

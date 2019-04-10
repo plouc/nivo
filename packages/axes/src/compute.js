@@ -121,3 +121,33 @@ export const getFormatter = (format, scale) => {
 
     return d3Format(format)
 }
+
+export const computeGridLines = ({ width, height, scale, axis, values: _values }) => {
+    const lineValues = isArray(_values) ? _values : undefined
+    const lineCount = isNumber(_values) ? _values : undefined
+
+    const values = lineValues || getScaleTicks(scale, lineCount)
+
+    const position = scale.bandwidth ? centerScale(scale) : scale
+
+    let lines
+    if (axis === 'x') {
+        lines = values.map(v => ({
+            key: `${v}`,
+            x1: position(v),
+            x2: position(v),
+            y1: 0,
+            y2: height,
+        }))
+    } else if (axis === 'y') {
+        lines = values.map(v => ({
+            key: `${v}`,
+            x1: 0,
+            x2: width,
+            y1: position(v),
+            y2: position(v),
+        }))
+    }
+
+    return lines
+}
