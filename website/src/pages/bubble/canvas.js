@@ -19,9 +19,9 @@ const NODE_COUNT = 2000
 
 const generateData = () => {
     return {
-        id: 'root',
+        name: 'root',
         children: range(NODE_COUNT).map(i => ({
-            id: `node.${i}`,
+            name: `node.${i}`,
             value: random(10, 100000),
         })),
     }
@@ -38,10 +38,11 @@ const initialProperties = {
     pixelRatio:
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
 
-    identity: 'id',
+    identity: 'name',
     value: 'value',
 
-    colors: { scheme: 'set3' },
+    colors: { scheme: 'yellow_orange_red' },
+    colorIdentity: 'name',
     padding: 1,
     leavesOnly: true,
 
