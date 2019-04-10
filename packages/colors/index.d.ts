@@ -77,8 +77,10 @@ declare module '@nivo/colors' {
 
     export type OrdinalColorScale<D = any> = (datum: D) => string
 
+    export type ColorIdentityFunction<D = any> = (datum: D) => string | number
+
     export function getOrdinalColorScale<D = any>(
         instruction: OrdinalColorsInstruction,
-        identity: string
+        identity: string | ColorIdentityFunction<D>
     ): OrdinalColorScale<D>
 }

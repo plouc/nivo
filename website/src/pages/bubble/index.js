@@ -25,6 +25,7 @@ const initialProperties = {
     identity: 'name',
     value: 'loc',
     colors: { scheme: 'nivo' },
+    colorIdentity: 'depth',
     padding: 6,
     leavesOnly: false,
 

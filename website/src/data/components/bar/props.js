@@ -251,9 +251,38 @@ const props = [
         help: 'Defines color range.',
         type: 'string | Function | string[]',
         required: false,
-        defaultValue: { scheme: 'nivo' },
+        defaultValue: defaults.colors,
         controlType: 'ordinalColors',
         group: 'Style',
+    },
+    {
+        key: 'colorIdentity',
+        scopes: '*',
+        type: 'string | Function',
+        help: 'Property used to determine node color.',
+        description: `
+            Property to use to determine node color.
+            If a function is provided, it will receive
+            the current node data and must return
+            a string or number which will be passed
+            to the color generator.
+        `,
+        required: false,
+        defaultValue: defaults.colorIdentity,
+        controlType: 'choices',
+        group: 'Style',
+        controlOptions: {
+            choices: [
+                {
+                    label: 'id',
+                    value: 'id',
+                },
+                {
+                    label: 'index',
+                    value: 'index',
+                },
+            ],
+        },
     },
     {
         key: 'borderRadius',

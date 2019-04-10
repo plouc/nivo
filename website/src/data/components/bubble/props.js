@@ -158,6 +158,35 @@ const props = [
         group: 'Style',
     },
     {
+        key: 'colorIdentity',
+        scopes: ['Bubble', 'BubbleHtml', 'BubbleCanvas'],
+        type: 'string | Function',
+        help: 'Property used to determine node color.',
+        description: `
+            Property to use to determine node color.
+            If a function is provided, it will receive
+            the current node data and must return
+            a string or number which will be passed
+            to the color generator.
+        `,
+        required: false,
+        defaultValue: defaults.colorIdentity,
+        controlType: 'choices',
+        group: 'Style',
+        controlOptions: {
+            choices: [
+                {
+                    label: 'depth',
+                    value: 'depth',
+                },
+                {
+                    label: 'name',
+                    value: 'name',
+                },
+            ],
+        },
+    },
+    {
         key: 'borderWidth',
         scopes: '*',
         help: 'Width of circle border.',

@@ -21,7 +21,7 @@ const commonPropTypes = {
 
     // theme managed by `withTheme()` HOC
     colors: ordinalColorsPropType.isRequired,
-    colorBy: colorIdentityPropType.isRequired,
+    colorIdentity: colorIdentityPropType.isRequired,
 
     leavesOnly: PropTypes.bool.isRequired,
     padding: PropTypes.number.isRequired,
@@ -65,7 +65,7 @@ const commonDefaultProps = {
     padding: 1,
 
     colors: { scheme: 'nivo' },
-    colorBy: 'depth',
+    colorIdentity: 'depth',
     borderWidth: 0,
     borderColor: 'inherit',
 

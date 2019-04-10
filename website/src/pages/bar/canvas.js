@@ -41,6 +41,7 @@ const initialProperties = {
     reverse: false,
 
     colors: { scheme: 'red_blue' },
+    colorIdentity: 'id',
     borderWidth: 0,
     borderColor: {
         type: 'inherit:darker',

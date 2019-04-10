@@ -59,8 +59,8 @@ const AxesTicks = () => {
                     className="guide__illustrations"
                     style={{ justifyContent: 'center', alignItems: 'center' }}
                 >
-                    <svg role="img" width={380} height={180}>
-                        <g transform={`translate(50,40)`}>
+                    <svg role="img" width={380} height={191}>
+                        <g transform={`translate(50,50)`}>
                             <Axis
                                 axis="x"
                                 scale={pointXScale}
@@ -72,11 +72,11 @@ const AxesTicks = () => {
                                 motionDamping={0}
                                 legend="point scale ['A', 'C', 'E', 'G', 'I']"
                                 legendPosition="start"
-                                legendOffset={-32}
+                                legendOffset={-38}
                                 ticksPosition="before"
                             />
                         </g>
-                        <g transform={`translate(50,110)`}>
+                        <g transform={`translate(50,120)`}>
                             <Axis
                                 axis="x"
                                 scale={linearXScale}
@@ -88,11 +88,11 @@ const AxesTicks = () => {
                                 motionDamping={0}
                                 legend="linear scale [0, 20, 40, 60, 80]"
                                 legendPosition="start"
-                                legendOffset={-32}
+                                legendOffset={-38}
                                 ticksPosition="before"
                             />
                         </g>
-                        <g transform={`translate(50,180)`}>
+                        <g transform={`translate(50,190)`}>
                             <Axis
                                 axis="x"
                                 scale={timeXScale}
@@ -109,13 +109,13 @@ const AxesTicks = () => {
                                 motionDamping={0}
                                 legend="time scale with tree dates"
                                 legendPosition="start"
-                                legendOffset={-32}
+                                legendOffset={-38}
                                 ticksPosition="before"
                             />
                         </g>
                     </svg>
-                    <svg role="img" width={380} height={180}>
-                        <g transform={`translate(50,110)`}>
+                    <svg role="img" width={380} height={191}>
+                        <g transform={`translate(50,120)`}>
                             <Axis
                                 axis="x"
                                 scale={linearXScale}
@@ -127,11 +127,11 @@ const AxesTicks = () => {
                                 motionDamping={0}
                                 legend="linear scale, tickValues: 5"
                                 legendPosition="start"
-                                legendOffset={-32}
+                                legendOffset={-38}
                                 ticksPosition="before"
                             />
                         </g>
-                        <g transform={`translate(50,180)`}>
+                        <g transform={`translate(50,190)`}>
                             <Axis
                                 axis="x"
                                 scale={timeXScale}
@@ -144,7 +144,7 @@ const AxesTicks = () => {
                                 motionDamping={0}
                                 legend="time scale, tickValues: 5"
                                 legendPosition="start"
-                                legendOffset={-32}
+                                legendOffset={-38}
                                 ticksPosition="before"
                             />
                         </g>

@@ -39,6 +39,7 @@ const initialProperties = {
     reverse: false,
 
     colors: { scheme: 'nivo' },
+    colorIdentity: 'id',
     defs: [
         patternDotsDef('dots', {
             background: 'inherit',
