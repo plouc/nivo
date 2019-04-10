@@ -40,8 +40,7 @@ const initialProperties = {
     },
     orientLabel: true,
 
-    colors: 'nivo',
-    colorBy: 'depth',
+    colors: { scheme: 'nivo' },
     borderWidth: 0,
     borderColor: {
         type: 'inherit:darker',

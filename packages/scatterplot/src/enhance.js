@@ -11,18 +11,20 @@ import defaultProps from 'recompose/defaultProps'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
 import setDisplayName from 'recompose/setDisplayName'
-import { withTheme, withColors, withDimensions, withMotion } from '@nivo/core'
+import { withTheme, withDimensions, withMotion, getAccessorOrValue } from '@nivo/core'
+import { getOrdinalColorScale } from '@nivo/colors'
 import { computeXYScalesForSeries } from '@nivo/scales'
-import { getAccessorOrValue } from '@nivo/core'
 import { computeMeshPoints, computeMesh } from '@nivo/voronoi'
 import { ScatterPlotDefaultProps } from './props'
 
 const commonEnhancers = [
     defaultProps(ScatterPlotDefaultProps),
     withTheme(),
-    withColors(),
     withDimensions(),
     withMotion(),
+    withPropsOnChange(['colors'], ({ colors }) => ({
+        getColor: getOrdinalColorScale(colors, 'serie.id'),
+    })),
     withPropsOnChange(['symbolSize'], ({ symbolSize }) => ({
         getSymbolSize: getAccessorOrValue(symbolSize),
     })),

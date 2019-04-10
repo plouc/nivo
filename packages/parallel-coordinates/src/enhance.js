@@ -6,19 +6,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { withDimensions, withTheme, withColors, curveFromProp } from '@nivo/core'
-import * as props from './props'
-import withPropsOnChange from 'recompose/withPropsOnChange'
 import { line } from 'd3-shape'
+import { withDimensions, withTheme, curveFromProp } from '@nivo/core'
+import { getOrdinalColorScale } from '@nivo/colors'
+import withPropsOnChange from 'recompose/withPropsOnChange'
 
 export const commonEnhancers = [
     withDimensions(),
-    withColors({
-        defaultColors: props.commonDefaultProps.colors,
-        defaultColorBy: props.commonDefaultProps.colorBy,
-        destKey: 'getLineColor',
-    }),
     withTheme(),
+    withPropsOnChange(['colors'], ({ colors }) => ({
+        getLineColor: getOrdinalColorScale(colors, 'index'),
+    })),
     withPropsOnChange(['curve'], ({ curve }) => ({
         lineGenerator: line()
             .x(d => d.x)

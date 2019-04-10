@@ -65,13 +65,13 @@ export default {
                     stroke: '#526271',
                 },
                 text: {
-                    fill: '#526271',
+                    fill: '#8d9cab',
                     fontSize: 11,
                 },
             },
             legend: {
                 text: {
-                    fill: '#bcc5ce',
+                    fill: '#8d9cab',
                     fontSize: 12,
                     fontWeight: 500,
                 },
@@ -85,7 +85,7 @@ export default {
         legends: {
             text: {
                 fontSize: 12,
-                fill: '#bcc5ce',
+                fill: '#8d9cab',
             },
         },
         tooltip: {

@@ -24,11 +24,12 @@
   ],
   "dependencies": {
     "@nivo/axes": "0.55.0",
+    "@nivo/colors": "0.55.0",
     "@nivo/core": "0.55.0",
     "@nivo/legends": "0.55.0",
-    "d3-scale": "^2.1.2",
+    "d3-scale": "^3.0.0",
     "d3-shape": "^1.2.2",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.11",
     "react-motion": "^0.5.2",
     "recompose": "^0.30.0"
   },

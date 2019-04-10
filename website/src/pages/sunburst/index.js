@@ -30,8 +30,7 @@ const initialProperties = {
     borderWidth: 1,
     borderColor: 'white',
 
-    colors: 'nivo',
-    colorBy: 'id',
+    colors: { scheme: 'nivo' },
     childColor: {
         type: 'inherit',
     },

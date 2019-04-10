@@ -9,7 +9,8 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
-import { motionPropTypes, colorMotionSpring, getInterpolatedColor } from '@nivo/core'
+import { motionPropTypes } from '@nivo/core'
+import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
 import partial from 'lodash/partial'
 
 const getPositionGenerator = ({ layout, reverse, scale, height, markerSize }) => {
@@ -118,7 +119,7 @@ export default class BulletMarkers extends Component {
                             y: spring(position.y, springConfig),
                             size: spring(position.size, springConfig),
                             rotation: spring(position.rotation, springConfig),
-                            ...colorMotionSpring(marker.color, springConfig),
+                            ...interpolateColor(marker.color, springConfig),
                         },
                     }
                 })}

@@ -100,7 +100,7 @@ const Container = ({ children, theme, isInteractive = true }) => {
 
 Container.propTypes = {
     children: PropTypes.func.isRequired,
-    isInteractive: PropTypes.bool.isRequired,
+    isInteractive: PropTypes.bool,
     theme: PropTypes.object.isRequired,
 }
 

@@ -8,6 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import { blendModePropType } from '@nivo/core'
+import { ordinalColorsPropType } from '@nivo/colors'
 import { LegendPropShape } from '@nivo/legends'
 
 export const ChordPropTypes = {
@@ -37,7 +38,7 @@ export const ChordPropTypes = {
     labelTextColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     getLabelTextColor: PropTypes.func.isRequired, // computed
 
-    colors: PropTypes.any.isRequired,
+    colors: ordinalColorsPropType.isRequired,
 
     isInteractive: PropTypes.bool.isRequired,
     arcHoverOpacity: PropTypes.number.isRequired,
@@ -71,7 +72,7 @@ export const ChordDefaultProps = {
     labelRotation: 0,
     labelTextColor: 'inherit:darker(1)',
 
-    colors: 'nivo',
+    colors: { scheme: 'nivo' },
 
     isInteractive: true,
     arcHoverOpacity: 1,

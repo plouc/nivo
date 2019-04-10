@@ -10,7 +10,8 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
 import { TransitionMotion, spring } from 'react-motion'
-import { colorMotionSpring, getInterpolatedColor, motionPropTypes } from '@nivo/core'
+import { motionPropTypes } from '@nivo/core'
+import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
 
 const SankeyLabels = ({
     nodes,
@@ -119,7 +120,7 @@ const SankeyLabels = ({
                         x: spring(label.x, springProps),
                         y: spring(label.y, springProps),
                         rotation: spring(labelRotation, springProps),
-                        ...colorMotionSpring(label.color, springProps),
+                        ...interpolateColor(label.color, springProps),
                     },
                 }
             })}

@@ -50,15 +50,9 @@ const PieApi = () => {
                     padAngle: 0.7,
                     cornerRadius: 3,
 
-                    // Styling
-                    colors: 'nivo',
-                    colorBy: 'id',
-
-                    // border
                     borderWidth: 0,
                     borderColor: { type: 'inherit:darker', gamma: 0.6 },
 
-                    // radial labels
                     enableRadialLabels: true,
                     radialLabel: 'id',
                     radialLabelsSkipAngle: 10,
@@ -70,7 +64,6 @@ const PieApi = () => {
                     radialLabelsLinkStrokeWidth: 1,
                     radialLabelsLinkColor: { type: 'inherit' },
 
-                    // slice labels
                     enableSlicesLabels: true,
                     sliceLabel: 'value',
                     slicesLabelsSkipAngle: 10,

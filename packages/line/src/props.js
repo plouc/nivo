@@ -8,6 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import { lineCurvePropType, blendModePropType } from '@nivo/core'
+import { ordinalColorsPropType } from '@nivo/colors'
 import { axisPropType } from '@nivo/axes'
 import { scalePropType } from '@nivo/scales'
 import { LegendPropShape } from '@nivo/legends'
@@ -93,6 +94,7 @@ export const LinePropTypes = {
         })
     ),
 
+    colors: ordinalColorsPropType.isRequired,
     getColor: PropTypes.func.isRequired,
     enableArea: PropTypes.bool.isRequired,
     areaOpacity: PropTypes.number.isRequired,
@@ -142,8 +144,7 @@ export const LineDefaultProps = {
     dotBorderColor: 'inherit',
     enableDotLabel: false,
 
-    colors: 'nivo',
-    colorBy: 'id',
+    colors: { scheme: 'nivo' },
     enableArea: false,
     areaBaselineValue: 0,
     areaOpacity: 0.2,

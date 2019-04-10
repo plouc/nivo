@@ -213,31 +213,8 @@ const props = [
         type: 'string | Function | string[]',
         required: false,
         defaultValue: defaults.colors,
-        controlType: 'colors',
+        controlType: 'ordinalColors',
         group: 'Style',
-    },
-    {
-        key: 'colorBy',
-        scopes: '*',
-        help: 'Node color.',
-        description:
-            'Property to use to determine node color. If a function is provided, it will receive current node data and must return a color.',
-        required: false,
-        defaultValue: defaults.colorBy,
-        controlType: 'choices',
-        group: 'Style',
-        controlOptions: {
-            choices: [
-                {
-                    label: 'id',
-                    value: 'id',
-                },
-                {
-                    label: 'd => d.color',
-                    value: 'd => d.color',
-                },
-            ],
-        },
     },
     {
         key: 'lineWidth',

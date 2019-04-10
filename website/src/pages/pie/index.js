@@ -37,8 +37,7 @@ const initialProperties = {
     cornerRadius: 3,
     fit: true,
 
-    colors: 'nivo',
-    colorBy: 'id',
+    colors: { scheme: 'nivo' },
 
     borderWidth: 1,
     borderColor: { type: 'inherit:darker', gamma: 0.2 },

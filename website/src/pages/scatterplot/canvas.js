@@ -36,8 +36,7 @@ const initialProperties = {
     pixelRatio:
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
 
-    colors: 'nivo',
-    colorBy: 'serie.id',
+    colors: { scheme: 'nivo' },
 
     symbolSize: 4,
     symbolShape: 'circle',
@@ -143,66 +142,5 @@ const ScatterPlotCanvas = () => {
         </ComponentTemplate>
     )
 }
-
-/*
-const ScatterPlotCanvas = () => {
-    const theme = useTheme()
-    const [settings, setSettings] = useState(initialSettings)
-    const [data, setData] = useState(generateHeavyDataSet())
-    const diceRoll = useCallback(() => setData(generateHeavyDataSet()), [setData])
-    const [actions, logAction] = useActionsLogger()
-    const onClick = useCallback(
-        node => {
-            logAction({
-                type: 'click',
-                label: `[point] serie: ${node.serie.id}, x: ${node.x}, y: ${node.y}`,
-                data: node,
-            })
-        },
-        [logAction]
-    )
-
-    const mappedSettings = mapper(settings)
-
-    const code = generateCode(
-        'ResponsiveScatterPlotCanvas',
-        {
-            ...mappedSettings,
-        },
-        { pkg: '@nivo/scatterplot', defaults: ScatterPlotDefaultProps }
-    )
-
-    return (
-        <ComponentPage>
-            <SEO title="ScatterPlotCanvas" keywords={meta.ScatterPlotCanvas.tags} />
-            <ComponentHeader chartClass="ScatterPlotCanvas" tags={meta.ScatterPlotCanvas.tags} />
-            <ComponentFlavorSelector flavors={meta.flavors} current="canvas" />
-            <ComponentDescription description={meta.ScatterPlotCanvas.description} />
-            <ComponentTabs
-                chartClass="scatterplot"
-                code={code}
-                data={data}
-                diceRoll={diceRoll}
-                nodeCount={data.length * data[0].data.length}
-            >
-                <ResponsiveScatterPlotCanvas
-                    data={data}
-                    {...mappedSettings}
-                    theme={theme.nivo}
-                    onClick={onClick}
-                />
-            </ComponentTabs>
-            <ActionsLogger actions={actions} />
-            <ComponentSettings
-                component="ScatterPlotCanvas"
-                settings={settings}
-                onChange={setSettings}
-                groups={groupsByScope.ScatterPlotCanvas}
-            />
-            <Stories stories={meta.ScatterPlotCanvas.stories} />
-        </ComponentPage>
-    )
-}
-*/
 
 export default ScatterPlotCanvas

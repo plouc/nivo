@@ -15,9 +15,9 @@
     "dist/"
   ],
   "dependencies": {
-    "d3-scale": "^2.1.2",
+    "d3-scale": "^3.0.0",
     "d3-time-format": "^2.1.3",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.11"
   },
   "peerDependencies": {
     "prop-types": ">= 15.5.10 < 16.0.0"

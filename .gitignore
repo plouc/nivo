@@ -12,6 +12,3 @@ build
 /packages/*/dist
 
 *.lerna_backup
-
-_website
-

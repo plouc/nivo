@@ -26,7 +26,7 @@ const initialProperties = {
     layout: 'horizontal',
     align: 'justify',
     sort: 'auto',
-    colors: 'category10',
+    colors: { scheme: 'category10' },
 
     nodeOpacity: 1,
     nodeHoverOpacity: 1,

@@ -10,7 +10,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
 import pure from 'recompose/pure'
-import { colorMotionSpring, getInterpolatedColor } from '@nivo/core'
+import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
 import ChordArcTooltip from './ChordArcTooltip'
 import { motionPropTypes } from '@nivo/core'
 
@@ -88,7 +88,7 @@ const ChordArcs = ({
                         startAngle: spring(arc.startAngle, springConfig),
                         endAngle: spring(arc.endAngle, springConfig),
                         opacity: spring(getOpacity(arc), springConfig),
-                        ...colorMotionSpring(arc.color, springConfig),
+                        ...interpolateColor(arc.color, springConfig),
                     },
                 }
             })}

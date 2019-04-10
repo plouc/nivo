@@ -67,7 +67,7 @@ const Stream = ({
 
     legends,
 }) => {
-    const enhancedLayers = layers.map((points, i) => {
+    const enhancedLayers = layers.map((points, layerIndex) => {
         const layer = points.map((point, i) => ({
             index: i,
             x: xScale(i),
@@ -77,10 +77,10 @@ const Stream = ({
         }))
 
         return {
-            id: keys[i],
+            id: keys[layerIndex],
             layer,
             path: areaGenerator(layer),
-            color: getColor(i),
+            color: getColor({ index: layerIndex }),
         }
     })
 

@@ -33,8 +33,7 @@ const initialProperties = {
         max: 'auto',
     },
 
-    colors: 'nivo',
-    colorBy: 'serie.id',
+    colors: { scheme: 'nivo' },
 
     symbolSize: 6,
     symbolShape: 'circle',

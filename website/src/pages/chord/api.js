@@ -59,9 +59,6 @@ const ChordApi = () => {
                         gamma: 0.4,
                     },
 
-                    colors: 'nivo',
-                    colorBy: 'depth',
-
                     enableLabel: true,
                     label: 'id',
                     labelOffset: 12,

@@ -36,7 +36,7 @@ stories.add('alternative colors', () => (
         labelRotation={-90}
         padAngle={0.02}
         innerRadiusOffset={0.02}
-        colors="category10"
+        colors={{ scheme: 'category10' }}
     />
 ))
 

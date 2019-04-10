@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Dimensions, Box, Theme, MotionProps, ColorProps, CartesianMarkerProps } from '@nivo/core'
+import { OrdinalColorsInstruction } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { Scale, ScaleFunc } from '@nivo/scales'
 import { AxisProps } from '@nivo/axes'
@@ -93,6 +94,7 @@ declare module '@nivo/line' {
             | 'stepAfter'
         lineWidth?: number
 
+        colors?: OrdinalColorsInstruction
         theme?: Theme
 
         axisTop?: AxisProps | null

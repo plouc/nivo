@@ -13,9 +13,14 @@ import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
 import { arc as d3Arc } from 'd3-shape'
 import { chord as d3Chord, ribbon as d3Ribbon } from 'd3-chord'
-import { getInheritedColorGenerator, getColorRange } from '@nivo/core'
-import { getLabelGenerator } from '@nivo/core'
-import { withMotion, withTheme, withDimensions } from '@nivo/core'
+import {
+    getInheritedColorGenerator,
+    getLabelGenerator,
+    withMotion,
+    withTheme,
+    withDimensions,
+} from '@nivo/core'
+import { getOrdinalColorScale } from '@nivo/colors'
 import { ChordDefaultProps } from './props'
 
 export default Component =>
@@ -36,11 +41,11 @@ export default Component =>
             getLabelTextColor: getInheritedColorGenerator(labelTextColor, 'labels.textColor'),
         })),
         withPropsOnChange(['colors', 'keys'], ({ colors, keys }) => {
-            const color = getColorRange(colors)
+            const getColor = getOrdinalColorScale(colors, 'key')
 
             return {
                 colorById: keys.reduce((acc, key) => {
-                    acc[key] = color(key)
+                    acc[key] = getColor({ key })
                     return acc
                 }, {}),
             }

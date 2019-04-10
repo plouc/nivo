@@ -78,8 +78,7 @@ const initialProperties = {
 
     emptyColor: '#cccccc',
     emptyOpacity: 1,
-    colors: 'category10',
-    colorBy: 'id',
+    colors: { scheme: 'category10' },
     borderWidth: 0,
     borderColor: {
         type: 'inherit:darker',

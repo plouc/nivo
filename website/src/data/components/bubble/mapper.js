@@ -9,10 +9,6 @@
 import { settingsMapper, mapInheritedColor } from '../../../lib/settings'
 
 export default settingsMapper({
-    colorBy: value => {
-        if (value === 'd => d.color') return d => d.color
-        return value
-    },
     label: value => {
         if (value === `d => \`\${d.id}: \${d.value}\``) return d => `${d.id}: ${d.value}`
         return value

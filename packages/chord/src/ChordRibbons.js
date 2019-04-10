@@ -15,15 +15,8 @@ import { format as d3Format } from 'd3-format'
 import compose from 'recompose/compose'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
-import {
-    colorMotionSpring,
-    getInterpolatedColor,
-    blendModePropType,
-    midAngle,
-    TableTooltip,
-    Chip,
-    motionPropTypes,
-} from '@nivo/core'
+import { blendModePropType, midAngle, TableTooltip, Chip, motionPropTypes } from '@nivo/core'
+import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
 
 /**
  * Used to get ribbon angles, instead of using source and target arcs,
@@ -76,13 +69,13 @@ const getRibbonAngles = ({ source, target }, useMiddleAngle, springConfig) => {
 const ribbonWillEnter = ({ data: ribbon }) => ({
     ...getRibbonAngles(ribbon, true),
     opacity: 0,
-    ...colorMotionSpring(ribbon.source.color),
+    ...interpolateColor(ribbon.source.color),
 })
 
 const ribbonWillLeave = springConfig => ({ data: ribbon }) => ({
     ...getRibbonAngles(ribbon, true, springConfig),
     opacity: 0,
-    ...colorMotionSpring(ribbon.source.color, springConfig),
+    ...interpolateColor(ribbon.source.color, springConfig),
 })
 
 const ChordRibbons = ({
@@ -178,7 +171,7 @@ const ChordRibbons = ({
                     style: {
                         ...getRibbonAngles(ribbon, false, springConfig),
                         opacity: spring(getOpacity(ribbon), springConfig),
-                        ...colorMotionSpring(ribbon.source.color, springConfig),
+                        ...interpolateColor(ribbon.source.color, springConfig),
                     },
                 }
             })}

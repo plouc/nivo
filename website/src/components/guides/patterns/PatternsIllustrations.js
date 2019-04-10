@@ -69,9 +69,10 @@ const PatternsIllustrations = () => {
                 <div className="guide__illustrations__item">
                     <ResponsiveBar
                         margin={{ top: 15, right: -2, bottom: -2, left: -2 }}
-                        data={generateCountriesData(['a'], { size: 7 })}
+                        data={generateCountriesData(['a', 'b', 'c'], { size: 7 })}
                         indexBy="country"
-                        keys={['a']}
+                        keys={['a', 'b', 'c']}
+                        colors={{ scheme: 'spectral' }}
                         padding={0.3}
                         axisLeft={null}
                         axisBottom={null}
@@ -123,9 +124,10 @@ const PatternsIllustrations = () => {
                         identity="country"
                         value="value"
                         leavesOnly={true}
-                        colorBy="country"
-                        borderWidth={5}
-                        innerPadding={5}
+                        colors={{ scheme: 'spectral' }}
+                        borderWidth={4}
+                        outerPadding={8}
+                        innerPadding={8}
                         borderColor="inherit"
                         isInteractive={false}
                         animate={false}

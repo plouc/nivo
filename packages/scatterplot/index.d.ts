@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Dimensions, Box, Theme, MotionProps, CartesianMarkerProps } from '@nivo/core'
+import { OrdinalColorsInstruction } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { AxisProps } from '@nivo/axes'
 import { Scale } from '@nivo/scales'
@@ -34,6 +35,7 @@ declare module '@nivo/scatterplot' {
         xScale?: Scale
         yScale?: Scale
 
+        colors?: OrdinalColorsInstruction
         theme?: Theme
 
         margin?: Box

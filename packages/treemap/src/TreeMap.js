@@ -8,8 +8,8 @@
  */
 import React from 'react'
 import { TransitionMotion, spring } from 'react-motion'
-import { colorMotionSpring, getInterpolatedColor } from '@nivo/core'
 import { Container, SvgWrapper } from '@nivo/core'
+import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
 import { TreeMapPropTypes } from './props'
 import enhance from './enhance'
 import { nodeWillEnter, nodeWillLeave } from './motion'
@@ -19,27 +19,22 @@ const TreeMap = ({
     nodes,
     nodeComponent,
 
-    // dimensions
     margin,
     outerWidth,
     outerHeight,
 
-    // styling
     theme,
     borderWidth,
     getBorderColor,
     defs,
 
-    // labels
     getLabelTextColor,
     orientLabel,
 
-    // motion
     animate,
     motionStiffness,
     motionDamping,
 
-    // interactivity
     isInteractive,
     onClick,
     tooltipFormat,
@@ -107,7 +102,7 @@ const TreeMap = ({
                                     y: spring(node.y, springConfig),
                                     width: spring(node.width, springConfig),
                                     height: spring(node.height, springConfig),
-                                    ...colorMotionSpring(node.color, springConfig),
+                                    ...interpolateColor(node.color, springConfig),
                                 },
                             }))}
                         >

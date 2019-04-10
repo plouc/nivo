@@ -12,10 +12,17 @@ import defaultProps from 'recompose/defaultProps'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import withStateHandlers from 'recompose/withStateHandlers'
 import pure from 'recompose/pure'
-import { withHierarchy, withDimensions, withTheme, withMotion, withColors } from '@nivo/core'
-import { getAccessorFor, getLabelGenerator } from '@nivo/core'
-import { getInheritedColorGenerator } from '@nivo/core'
-import { bindDefs } from '@nivo/core'
+import {
+    withHierarchy,
+    withDimensions,
+    withTheme,
+    withMotion,
+    getAccessorFor,
+    getLabelGenerator,
+    getInheritedColorGenerator,
+    bindDefs,
+} from '@nivo/core'
+import { getOrdinalColorScale } from '@nivo/colors'
 import { computeNodes, computeZoom } from './compute'
 import * as props from './props'
 
@@ -23,8 +30,9 @@ const commonEnhancers = [
     withHierarchy(),
     withDimensions(),
     withTheme(),
-    withColors({ defaultColorBy: 'depth' }),
-
+    withPropsOnChange(['colors'], ({ colors }) => ({
+        getColor: getOrdinalColorScale(colors, 'depth'),
+    })),
     withPropsOnChange(['width', 'height', 'padding'], ({ width, height, padding }) => ({
         pack: pack()
             .size([width, height])

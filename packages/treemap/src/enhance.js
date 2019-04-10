@@ -12,11 +12,18 @@ import compose from 'recompose/compose'
 import defaultProps from 'recompose/defaultProps'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
-import { withHierarchy, withDimensions, withTheme, withMotion, withColors } from '@nivo/core'
-import { getAccessorFor, getLabelGenerator } from '@nivo/core'
-import { treeMapTileFromProp } from '@nivo/core'
-import { getInheritedColorGenerator } from '@nivo/core'
-import { bindDefs } from '@nivo/core'
+import {
+    withHierarchy,
+    withDimensions,
+    withTheme,
+    withMotion,
+    getAccessorFor,
+    getLabelGenerator,
+    treeMapTileFromProp,
+    getInheritedColorGenerator,
+    bindDefs,
+} from '@nivo/core'
+import { getOrdinalColorScale } from '@nivo/colors'
 import * as props from './props'
 
 const computeNodePath = (node, getIdentity) =>
@@ -28,9 +35,11 @@ const computeNodePath = (node, getIdentity) =>
 const commonEnhancers = [
     withHierarchy(),
     withDimensions(),
-    withColors({ defaultColorBy: 'depth' }),
     withTheme(),
     withMotion(),
+    withPropsOnChange(['colors'], ({ colors }) => ({
+        getColor: getOrdinalColorScale(colors, 'depth'),
+    })),
     withPropsOnChange(['identity'], ({ identity }) => ({
         getIdentity: getAccessorFor(identity),
     })),

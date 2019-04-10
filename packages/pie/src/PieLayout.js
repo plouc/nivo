@@ -14,7 +14,8 @@ import compose from 'recompose/compose'
 import pure from 'recompose/pure'
 import defaultProps from 'recompose/defaultProps'
 import withPropsOnChange from 'recompose/withPropsOnChange'
-import { withColors, degreesToRadians, radiansToDegrees, computeArcBoundingBox } from '@nivo/core'
+import { degreesToRadians, radiansToDegrees, computeArcBoundingBox } from '@nivo/core'
+import { getOrdinalColorScale } from '@nivo/colors'
 
 class PieLayout extends Component {
     static propTypes = {
@@ -96,7 +97,9 @@ export const PieLayoutDefaultProps = {
 export const enhance = Component =>
     compose(
         defaultProps(PieLayoutDefaultProps),
-        withColors(),
+        withPropsOnChange(['colors'], ({ colors }) => ({
+            getColor: getOrdinalColorScale(colors, 'id'),
+        })),
         withPropsOnChange(
             ['width', 'height', 'innerRadius', 'startAngle', 'endAngle', 'fit', 'cornerRadius'],
             ({

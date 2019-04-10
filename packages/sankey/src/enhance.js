@@ -12,11 +12,11 @@ import { sankey as d3Sankey } from 'd3-sankey'
 import {
     getLabelGenerator,
     getInheritedColorGenerator,
-    withColors,
     withTheme,
     withDimensions,
     withMotion,
 } from '@nivo/core'
+import { getOrdinalColorScale } from '@nivo/colors'
 import { SankeyDefaultProps, sankeyAlignmentFromProp } from './props'
 
 const getId = d => d.id
@@ -26,15 +26,13 @@ export default Component =>
         defaultProps(SankeyDefaultProps),
         withState('currentNode', 'setCurrentNode', null),
         withState('currentLink', 'setCurrentLink', null),
-        withColors(),
-        withColors({
-            colorByKey: 'linkColorBy',
-            destKey: 'getLinkColor',
-            defaultColorBy: 'source.id',
-        }),
         withTheme(),
         withDimensions(),
         withMotion(),
+        withPropsOnChange(['colors'], ({ colors }) => ({
+            getColor: getOrdinalColorScale(colors, 'id'),
+            getLinkColor: getOrdinalColorScale(colors, 'source.id'),
+        })),
         withPropsOnChange(['nodeBorderColor'], ({ nodeBorderColor }) => ({
             getNodeBorderColor: getInheritedColorGenerator(nodeBorderColor),
         })),

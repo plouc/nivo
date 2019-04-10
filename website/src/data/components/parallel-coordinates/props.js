@@ -231,7 +231,7 @@ const props = [
         type: 'string | Function | string[]',
         required: false,
         defaultValue: defaults.colors,
-        controlType: 'colors',
+        controlType: 'ordinalColors',
         group: 'Style',
     },
     {

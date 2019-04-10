@@ -50,9 +50,6 @@ const TreeMapApi = () => {
                     innerPadding: 3,
                     outerPadding: 3,
 
-                    colors: 'nivo',
-                    colorBy: 'depth',
-
                     borderWidth: 1,
                     borderColor: {
                         type: 'inherit:darker',

@@ -127,6 +127,7 @@ packages-tslint: ##@1 packages run tslint on all packages
         ./packages/axes/index.d.ts \
         ./packages/bar/index.d.ts \
         ./packages/calendar/index.d.ts \
+		./packages/colors/index.d.ts \
         ./packages/core/index.d.ts \
 		./packages/geo/index.d.ts \
         ./packages/heatmap/index.d.ts \
@@ -163,8 +164,7 @@ packages-build: ##@1 packages build all packages
 
 package-build-%: ##@1 packages build a package
 	@echo "${YELLOW}Building package ${WHITE}@nivo/${*}${RESET}"
-	@rm -rf ./packages/${*}/cjs
-	@rm -rf ./packages/${*}/umd
+	@rm -rf ./packages/${*}/dist
 	@export PACKAGE=${*}; ./node_modules/.bin/rollup -c conf/rollup.config.js
 
 packages-screenshots: ##@1 packages generate screenshots for packages readme (website dev server must be running)

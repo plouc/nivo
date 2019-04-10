@@ -59,7 +59,7 @@ export default {
     offsetType: 'silhouette',
     order: 'none',
 
-    colors: 'nivo',
+    colors: { scheme: 'nivo' },
     fillOpacity: 0.85,
     borderWidth: 0,
     borderColor: {

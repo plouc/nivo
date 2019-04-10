@@ -8,6 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import { noop, radiansToDegrees } from '@nivo/core'
+import { ordinalColorsPropType } from '@nivo/colors'
 import { LegendPropShape } from '@nivo/legends'
 
 export const arcPropType = PropTypes.shape({
@@ -62,6 +63,7 @@ export const PiePropTypes = {
     slicesLabelsTextColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
     // styling
+    colors: ordinalColorsPropType.isRequired,
     defs: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.string.isRequired,
@@ -126,6 +128,7 @@ export const PieDefaultProps = {
     slicesLabelsTextColor: 'theme',
 
     // styling
+    colors: { scheme: 'nivo' },
     defs: [],
     fill: [],
 

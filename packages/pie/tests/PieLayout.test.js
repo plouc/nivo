@@ -11,7 +11,12 @@ it('should compute pie layout properties to pass down to render function', () =>
     }
 
     renderer.create(
-        <PieLayout width={200} height={200} data={[{ id: 'testA', value: 100 }]}>
+        <PieLayout
+            width={200}
+            height={200}
+            colors={{ scheme: 'nivo' }}
+            data={[{ id: 'testA', value: 100 }]}
+        >
             {render}
         </PieLayout>
     )

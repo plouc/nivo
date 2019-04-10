@@ -8,6 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import { noop } from '@nivo/core'
+import { ordinalColorsPropType } from '@nivo/colors'
 import { axisPropType } from '@nivo/axes'
 import { LegendPropShape } from '@nivo/legends'
 import { scalePropType } from '@nivo/scales'
@@ -67,6 +68,7 @@ export const ScatterPlotPropTypes = {
         })
     ),
 
+    colors: ordinalColorsPropType.isRequired,
     getColor: PropTypes.func.isRequired,
 
     isInteractive: PropTypes.bool.isRequired,
@@ -108,8 +110,7 @@ export const ScatterPlotDefaultProps = {
     symbolSize: 6,
     symbolShape: 'circle',
 
-    colors: 'nivo',
-    colorBy: 'serie.id',
+    colors: { scheme: 'nivo' },
 
     isInteractive: true,
     useMesh: false,

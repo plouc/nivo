@@ -40,8 +40,7 @@ const initialProperties = {
     },
     orientLabel: true,
 
-    colors: 'set2',
-    colorBy: 'name',
+    colors: { scheme: 'red_yellow_blue' },
     borderWidth: 0,
     borderColor: {
         type: 'inherit:darker',

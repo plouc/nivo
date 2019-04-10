@@ -31,6 +31,7 @@ import OpacityControl from './OpacityControl'
 import LineWidthControl from './LineWidthControl'
 import NumberArrayControl from './NumberArrayControl'
 import AngleControl from './AngleControl'
+import OrdinalColorsControl from './OrdinalColorsControl'
 import PropertyDocumentation from './PropertyDocumentation'
 
 export const shouldRenderControl = (config, context) => {
@@ -190,6 +191,16 @@ const ControlChoser = memo(({ groupName, property, settings, onChange }) => {
         case 'quantizeColors':
             return (
                 <QuantizeColorsControl
+                    id={id}
+                    property={property}
+                    value={value}
+                    onChange={handleChange}
+                />
+            )
+
+        case 'ordinalColors':
+            return (
+                <OrdinalColorsControl
                     id={id}
                     property={property}
                     value={value}

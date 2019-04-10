@@ -150,38 +150,13 @@ const props = [
     },
     {
         key: 'colors',
+        scopes: ['Radar'],
         help: 'Defines how to compute slice color.',
         type: 'string | Function | string[]',
         required: false,
-        defaultValue: 'nivo',
-        controlType: 'colors',
+        defaultValue: defaults.colors,
+        controlType: 'ordinalColors',
         group: 'Base',
-    },
-    {
-        key: 'colorBy',
-        help: 'Node color.',
-        description: `
-            Property to use to determine node color.
-            If a function is provided, it will receive
-            current node data and must return a color.
-            
-            By default it will use the key of each serie
-            and pick a color from colors according
-            to this key.
-        `,
-        type: 'string | Function',
-        required: false,
-        defaultValue: 'key',
-        controlType: 'choices',
-        group: 'Base',
-        controlOptions: {
-            choices: [
-                {
-                    label: 'key',
-                    value: 'key',
-                },
-            ],
-        },
     },
     {
         key: 'margin',

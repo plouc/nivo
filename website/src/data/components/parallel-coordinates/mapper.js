@@ -8,18 +8,4 @@
  */
 import { settingsMapper } from '../../../lib/settings'
 
-const colorByColorVar = {
-    red: '#f47560',
-    yellow: '#f1e15a',
-    green: '#61cdbb',
-}
-
-export default settingsMapper({
-    colorBy: value => {
-        if (value === `custom using 'color' variable`) {
-            return ({ color }) => colorByColorVar[color]
-        }
-
-        return value
-    },
-})
+export default settingsMapper({})

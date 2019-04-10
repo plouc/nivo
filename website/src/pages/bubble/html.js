@@ -23,8 +23,7 @@ const initialProperties = {
     },
     identity: 'name',
     value: 'loc',
-    colors: 'paired',
-    colorBy: 'depth',
+    colors: { scheme: 'paired' },
     padding: 1,
     leavesOnly: false,
 

@@ -9,6 +9,7 @@
 import PropTypes from 'prop-types'
 import { sankeyCenter, sankeyJustify, sankeyLeft, sankeyRight } from 'd3-sankey'
 import { noop, blendModePropType } from '@nivo/core'
+import { ordinalColorsPropType } from '@nivo/colors'
 import { LegendPropShape } from '@nivo/legends'
 
 export const sankeyAlignmentPropMapping = {
@@ -45,6 +46,8 @@ export const SankeyPropTypes = {
         PropTypes.oneOf(['auto', 'input', 'ascending', 'descending']),
         PropTypes.func,
     ]).isRequired,
+
+    colors: ordinalColorsPropType.isRequired,
 
     nodeOpacity: PropTypes.number.isRequired,
     nodeHoverOpacity: PropTypes.number.isRequired,
@@ -86,6 +89,8 @@ export const SankeyDefaultProps = {
     layout: 'horizontal',
     align: 'center',
     sort: 'auto',
+
+    colors: { scheme: 'nivo' },
 
     nodeOpacity: 0.75,
     nodeHoverOpacity: 1,

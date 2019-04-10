@@ -23,6 +23,7 @@ import sankey from './components/sankey/meta.yml'
 import scatterplot from './components/scatterplot/meta.yml'
 import stream from './components/stream/meta.yml'
 import sunburst from './components/sunburst/meta.yml'
+import swarmplot from './components/swarmplot/meta.yml'
 import treemap from './components/treemap/meta.yml'
 import voronoi from './components/voronoi/meta.yml'
 import waffle from './components/waffle/meta.yml'
@@ -123,6 +124,12 @@ export const components = [
         path: '/sunburst',
         icon: 'sunburst',
         tags: sunburst.Sunburst.tags,
+    },
+    {
+        label: 'SwarmPlot',
+        path: '/swarmplot',
+        icon: 'swarmplot',
+        tags: swarmplot.SwarmPlot.tags,
     },
     {
         label: 'TreeMap',
@@ -270,6 +277,12 @@ const all = components.concat([
         path: '/sunburst/api',
         icon: 'sunburst',
         tags: [...sunburst.Sunburst.tags, 'HTTP API'],
+    },
+    {
+        label: 'SwarmPlotCanvas',
+        path: '/swarmplot/canvas',
+        icon: 'swarmplot',
+        tags: swarmplot.SwarmPlotCanvas.tags,
     },
     {
         label: 'TreeMapHtml',

@@ -10,18 +10,26 @@ import { compose } from 'recompose'
 import defaultProps from 'recompose/defaultProps'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
-import { withTheme, withColors, withDimensions, withMotion } from '@nivo/core'
-import { getInheritedColorGenerator } from '@nivo/core'
-import { getAccessorFor, getLabelGenerator } from '@nivo/core'
+import {
+    withTheme,
+    withDimensions,
+    withMotion,
+    getInheritedColorGenerator,
+    getAccessorFor,
+    getLabelGenerator,
+} from '@nivo/core'
+import { getOrdinalColorScale } from '@nivo/colors'
 import { BarDefaultProps } from './props'
 
 export default Component =>
     compose(
         defaultProps(BarDefaultProps),
         withTheme(),
-        withColors(),
         withDimensions(),
         withMotion(),
+        withPropsOnChange(['colors'], ({ colors }) => ({
+            getColor: getOrdinalColorScale(colors, 'id'),
+        })),
         withPropsOnChange(['indexBy'], ({ indexBy }) => ({
             getIndex: getAccessorFor(indexBy),
         })),

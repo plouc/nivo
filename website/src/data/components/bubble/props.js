@@ -145,7 +145,7 @@ const props = [
     },
     {
         key: 'colors',
-        scopes: '*',
+        scopes: ['Bubble', 'BubbleHtml', 'BubbleCanvas'],
         help: 'Defines how to compute node color.',
         description: `
             colors used to colorize the circles,
@@ -153,40 +153,9 @@ const props = [
         `,
         type: 'string | Function | string[]',
         required: false,
-        defaultValue: 'nivo',
-        controlType: 'colors',
+        defaultValue: { scheme: 'nivo' },
+        controlType: 'ordinalColors',
         group: 'Style',
-    },
-    {
-        key: 'colorBy',
-        scopes: '*',
-        help: 'Node color.',
-        description: `
-            Property to use to determine node color.
-            If a function is provided, it will receive current
-            node data and must return a valide color.
-        `,
-        type: 'string | Function',
-        required: false,
-        defaultValue: 'depth',
-        controlType: 'choices',
-        group: 'Style',
-        controlOptions: {
-            choices: [
-                {
-                    label: 'depth',
-                    value: 'depth',
-                },
-                {
-                    label: 'name',
-                    value: 'name',
-                },
-                {
-                    label: 'd => d.color',
-                    value: 'd => d.color',
-                },
-            ],
-        },
     },
     {
         key: 'borderWidth',

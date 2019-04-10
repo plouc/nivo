@@ -384,7 +384,7 @@ stories.add('using data colors', () => (
             stacked: boolean('stacked', true),
         }}
         curve={select('curve', curveOptions, 'linear')}
-        colorBy={d => d.color}
+        colors={{ datum: 'color' }}
         enableDotLabel={true}
         dotSize={10}
         dotBorderColor="#fff"
