@@ -9,7 +9,12 @@
 import React, { PureComponent } from 'react'
 import range from 'lodash/range'
 import PropTypes from 'prop-types'
-import { colorSchemeIds, colorSchemes, colorInterpolatorIds, colorInterpolators } from '@nivo/core'
+import {
+    colorSchemeIds,
+    colorSchemes,
+    colorInterpolatorIds,
+    colorInterpolators,
+} from '@nivo/colors'
 import { components } from 'react-select'
 import ColorsControlItem from './ColorsControlItem'
 import Control from './Control'

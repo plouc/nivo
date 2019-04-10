@@ -22,7 +22,7 @@ const ColorsIllustrations = () => {
                         axisLeft={null}
                         axisBottom={null}
                         enableGridX={false}
-                        colors="nivo"
+                        colors={{ scheme: 'nivo' }}
                         borderWidth={0}
                         borderColor="#333"
                         isInteractive={false}
@@ -33,16 +33,15 @@ const ColorsIllustrations = () => {
                 <div className="guide__illustrations__item">
                     <ResponsiveBar
                         margin={{ top: 15, right: 10, bottom: -2, left: 10 }}
-                        data={generateCountriesData(['a'], { size: 9 })}
+                        data={generateCountriesData(['a', 'b', 'c'], { size: 9 })}
                         indexBy="country"
-                        keys={['a']}
+                        keys={['a', 'b', 'c']}
                         padding={0.2}
                         axisLeft={null}
                         axisBottom={null}
                         enableGridY={false}
                         enableLabel={false}
-                        colors="paired"
-                        colorBy="index"
+                        colors={{ scheme: 'spectral' }}
                         borderWidth={0}
                         borderColor="#333"
                         isInteractive={false}
@@ -57,11 +56,12 @@ const ColorsIllustrations = () => {
                             country: 'root',
                             children: generateCountriesData(['value'], { size: 18 }),
                         }}
-                        colors="spectral"
+                        colors={{ scheme: 'spectral' }}
                         identity="country"
                         value="value"
-                        leavesOnly={true}
-                        colorBy="country"
+                        leavesOnly={false}
+                        outerPadding={6}
+                        innerPadding={4}
                         borderWidth={0}
                         borderColor="#333"
                         isInteractive={false}

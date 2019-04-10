@@ -7,8 +7,8 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
-import { noop } from '@nivo/core'
-import { treeMapTilePropType, defsPropTypes } from '@nivo/core'
+import { noop, treeMapTilePropType, defsPropTypes } from '@nivo/core'
+import { ordinalColorsPropType } from '@nivo/colors'
 import TreeMapNode from './TreeMapNode'
 import TreeMapHtmlNode from './TreeMapHtmlNode'
 
@@ -27,7 +27,7 @@ const commonPropTypes = {
 
     // styling
     // theme managed by `withTheme()` HOC
-    // colors managed by `withColors()` HOC
+    colors: ordinalColorsPropType.isRequired,
 
     leavesOnly: PropTypes.bool.isRequired,
     tile: treeMapTilePropType.isRequired,
@@ -74,13 +74,13 @@ export const TreeMapCanvasPropTypes = {
 —————————————————————————————————————————————————————————————————————————————*/
 
 const commonDefaultProps = {
-    // data
     identity: 'id',
 
     tile: 'squarify',
     leavesOnly: false,
 
-    // labels
+    colors: { scheme: 'nivo' },
+
     enableLabel: true,
     label: 'id',
     labelSkipSize: 0,
@@ -93,7 +93,6 @@ const commonDefaultProps = {
     borderWidth: 0,
     borderColor: 'inherit',
 
-    // interactivity
     isInteractive: true,
     onClick: noop,
 }

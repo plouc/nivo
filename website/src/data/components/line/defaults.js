@@ -72,8 +72,7 @@ export default {
     enableGridX: true,
     enableGridY: true,
 
-    colors: 'nivo',
-    colorBy: 'id',
+    colors: { scheme: 'nivo' },
     lineWidth: 2,
 
     enableDots: true,

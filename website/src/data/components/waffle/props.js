@@ -188,32 +188,9 @@ const props = [
         help: 'Defines how to compute node color.',
         type: 'string | Function | string[]',
         required: false,
-        defaultValue: 'nivo',
-        controlType: 'colors',
+        defaultValue: defaults.colors,
+        controlType: 'ordinalColors',
         group: 'Style',
-    },
-    {
-        key: 'colorBy',
-        scopes: '*',
-        help:
-            'Property to use to determine node color. If a function is provided, it will receive current node data and must return a color.',
-        type: 'string | Function',
-        required: false,
-        defaultValue: 'id',
-        controlType: 'choices',
-        group: 'Style',
-        controlOptions: {
-            choices: [
-                {
-                    label: 'id',
-                    value: 'id',
-                },
-                {
-                    label: 'd => d.color',
-                    value: 'd => d.color',
-                },
-            ],
-        },
     },
     {
         key: 'emptyColor',

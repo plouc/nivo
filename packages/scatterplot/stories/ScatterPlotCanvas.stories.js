@@ -152,7 +152,9 @@ stories.add('default', () => <ScatterPlotCanvas {...commonProps} data={[sampleDa
 
 stories.add('multiple series', () => <ScatterPlotCanvas {...commonProps} />)
 
-stories.add('alternative colors', () => <ScatterPlotCanvas {...commonProps} colors="category10" />)
+stories.add('alternative colors', () => (
+    <ScatterPlotCanvas {...commonProps} colors={{ scheme: 'category10' }} />
+))
 
 stories.add('using time scales', () => (
     <ScatterPlotCanvas
@@ -267,7 +269,7 @@ class SyncCharts extends Component {
                         {...omit(commonProps, ['width', 'height', 'legends'])}
                         useMesh={true}
                         debugMesh={true}
-                        colors="nivo"
+                        colors={{ scheme: 'nivo' }}
                         symbolSize={this.getSymbolSize}
                         onMouseMove={this.handleMouseMove}
                         onMouseLeave={this.handleMouseLeave}
@@ -282,7 +284,7 @@ class SyncCharts extends Component {
                         {...omit(commonProps, ['width', 'height', 'legends'])}
                         useMesh={true}
                         debugMesh={true}
-                        colors="accent"
+                        colors={{ scheme: 'accent' }}
                         symbolSize={this.getSymbolSize}
                         onMouseMove={this.handleMouseMove}
                         onMouseLeave={this.handleMouseLeave}

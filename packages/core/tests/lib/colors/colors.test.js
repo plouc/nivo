@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { rgb } from 'd3-color'
-import { getInheritedColorGenerator, getColorsGenerator } from '../../../src/lib/colors'
+import { getInheritedColorGenerator } from '../../../src/lib/colors'
 
 describe('getInheritedColorGenerator()', () => {
     it(`should return 'none' if 'none' provided`, () => {
@@ -76,33 +76,5 @@ describe('getInheritedColorGenerator()', () => {
 
         expect(typeof colorGenerator).toBe('function')
         expect(colorGenerator()).toBe(color)
-    })
-})
-
-describe('getColorsGenerator()', () => {
-    it(`should just use value returned by 'colorBy' if it's a function`, () => {
-        expect(getColorsGenerator('nivo', d => d.color)({ color: 'whatever' })).toBe('whatever')
-    })
-
-    it(`should allow to pick specific property from datum`, () => {
-        expect(getColorsGenerator('nivo', 'custom')({ custom: 'custom' })).toBe('#e8c1a0')
-    })
-
-    it(`should allow to use an array of colors`, () => {
-        const generator = getColorsGenerator(['#F00', '#0F0'], 'id')
-        expect(generator({ id: 'first' })).toBe('#F00')
-        expect(generator({ id: 'second' })).toBe('#0F0')
-    })
-
-    it(`should allow to use a predefined color range`, () => {
-        const generator = getColorsGenerator('pastel1', 'id')
-        expect(generator({ id: 'first' })).toBe('#fbb4ae')
-        expect(generator({ id: 'second' })).toBe('#b3cde3')
-    })
-
-    it(`should return given 'colors' value otherwise`, () => {
-        const generator = getColorsGenerator('#F0F')
-        expect(generator({ id: 'first' })).toBe('#F0F')
-        expect(generator({ id: 'second' })).toBe('#F0F')
     })
 })

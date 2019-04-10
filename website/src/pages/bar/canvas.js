@@ -40,8 +40,7 @@ const initialProperties = {
     layout: 'horizontal',
     reverse: false,
 
-    colors: 'paired',
-    colorBy: 'id',
+    colors: { scheme: 'red_blue' },
     borderWidth: 0,
     borderColor: {
         type: 'inherit:darker',
@@ -83,8 +82,8 @@ const initialProperties = {
         legendOffset: -40,
     },
 
-    enableGridX: false,
-    enableGridY: true,
+    enableGridX: true,
+    enableGridY: false,
 
     enableLabel: true,
     labelSkipWidth: 12,

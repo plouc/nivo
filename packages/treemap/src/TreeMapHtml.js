@@ -8,8 +8,8 @@
  */
 import React from 'react'
 import { TransitionMotion, spring } from 'react-motion'
-import { colorMotionSpring, getInterpolatedColor } from '@nivo/core'
 import { Container } from '@nivo/core'
+import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
 import { TreeMapHtmlPropTypes } from './props'
 import enhance from './enhance'
 import { getNodeHandlers } from './interactivity'
@@ -104,7 +104,7 @@ const TreeMapHtml = ({
                                     y: spring(node.y, springConfig),
                                     width: spring(node.width, springConfig),
                                     height: spring(node.height, springConfig),
-                                    ...colorMotionSpring(node.color, springConfig),
+                                    ...interpolateColor(node.color, springConfig),
                                 },
                             }))}
                         >

@@ -158,40 +158,13 @@ const props = [
     },
     {
         key: 'colors',
-        scopes: '*',
+        scopes: ['TreeMap', 'TreeMapHtml', 'TreeMapCanvas'],
         help: 'Defines how to compute node color.',
         type: 'string | Function | string[]',
         required: false,
-        defaultValue: 'nivo',
-        controlType: 'colors',
+        defaultValue: defaults.colors,
+        controlType: 'ordinalColors',
         group: 'Style',
-    },
-    {
-        key: 'colorBy',
-        scopes: '*',
-        help:
-            'Property to use to determine node color. If a function is provided, it will receive current node data and must return a color.',
-        type: 'string | Function',
-        required: false,
-        defaultValue: 'depth',
-        controlType: 'choices',
-        group: 'Style',
-        controlOptions: {
-            choices: [
-                {
-                    label: 'depth',
-                    value: 'depth',
-                },
-                {
-                    label: 'name',
-                    value: 'name',
-                },
-                {
-                    label: 'd => d.color',
-                    value: 'd => d.color',
-                },
-            ],
-        },
     },
     {
         key: 'borderWidth',
@@ -219,7 +192,7 @@ const props = [
     ...defsProperties(['TreeMap']),
     {
         key: 'enableLabel',
-        scopes: '*',
+        scopes: ['TreeMap', 'TreeMapHtml', 'TreeMapCanvas'],
         help: 'Enable/disable labels.',
         type: 'boolean',
         required: false,
@@ -261,7 +234,7 @@ const props = [
     },
     {
         key: 'orientLabel',
-        scopes: '*',
+        scopes: ['TreeMap', 'TreeMapHtml', 'TreeMapCanvas'],
         help: 'Orient labels according to max node width/height.',
         type: 'boolean',
         required: false,
@@ -282,7 +255,7 @@ const props = [
     },
     {
         key: 'isInteractive',
-        scopes: ['TreeMap', 'TreeMapHTML', 'TreeMapCanvas'],
+        scopes: ['TreeMap', 'TreeMapHtml', 'TreeMapCanvas'],
         help: 'Enable/disable interactivity.',
         type: 'boolean',
         required: false,
@@ -293,17 +266,17 @@ const props = [
     {
         key: 'onClick',
         group: 'Interactivity',
-        scopes: ['TreeMap', 'TreeMapHTML', 'TreeMapCanvas'],
+        scopes: ['TreeMap', 'TreeMapHtml', 'TreeMapCanvas'],
         help: 'onClick handler, it receives clicked node data and style plus mouse event.',
         type: 'Function',
         required: false,
     },
-    ...motionProperties(['TreeMap', 'TreeMapHTML', 'TreeMapPlaceholders'], defaults),
+    ...motionProperties(['TreeMap', 'TreeMapHtml'], defaults),
 ]
 
 export const groupsByScope = {
     TreeMap: getPropertiesGroupsControls(props, 'TreeMap'),
-    TreeMapHtml: getPropertiesGroupsControls(props, 'TreeMapHTML'),
+    TreeMapHtml: getPropertiesGroupsControls(props, 'TreeMapHtml'),
     TreeMapCanvas: getPropertiesGroupsControls(props, 'TreeMapCanvas'),
     api: getPropertiesGroupsControls(props, 'api'),
 }

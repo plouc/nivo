@@ -21,11 +21,11 @@ import {
     getInheritedColorGenerator,
     withTheme,
     withDimensions,
-    withColors,
     getAccessorFor,
     Container,
     SvgWrapper,
 } from '@nivo/core'
+import { getOrdinalColorScale, ordinalColorsPropType } from '@nivo/colors'
 import SunburstArc from './SunburstArc'
 
 const getAncestor = node => {
@@ -37,7 +37,6 @@ const getAncestor = node => {
 const Sunburst = ({
     nodes,
 
-    // dimensions
     margin, // eslint-disable-line react/prop-types
     centerX,
     centerY,
@@ -46,14 +45,11 @@ const Sunburst = ({
 
     arcGenerator,
 
-    // border
     borderWidth,
     borderColor,
 
-    // theming
     theme, // eslint-disable-line react/prop-types
 
-    // interactivity
     isInteractive,
 }) => {
     return (
@@ -99,13 +95,12 @@ Sunburst.propTypes = {
     centerX: PropTypes.number.isRequired, // computed
     centerY: PropTypes.number.isRequired, // computed
 
-    // border
+    colors: ordinalColorsPropType.isRequired,
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.string.isRequired,
 
     childColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
 
-    // interactivity
     isInteractive: PropTypes.bool,
 }
 
@@ -115,13 +110,12 @@ export const SunburstDefaultProps = {
 
     cornerRadius: 0,
 
-    // border
+    colors: { scheme: 'nivo' },
     borderWidth: 1,
     borderColor: 'white',
 
     childColor: 'inherit',
 
-    // interactivity
     isInteractive: true,
 }
 
@@ -129,7 +123,9 @@ const enhance = compose(
     defaultProps(SunburstDefaultProps),
     withTheme(),
     withDimensions(),
-    withColors(),
+    withPropsOnChange(['colors'], ({ colors }) => ({
+        getColor: getOrdinalColorScale(colors, 'id'),
+    })),
     withProps(({ width, height }) => {
         const radius = Math.min(width, height) / 2
 

@@ -61,8 +61,6 @@ const RadarApi = () => {
                     dotLabel: 'value',
                     dotLabelYOffset: -12,
 
-                    colors: 'nivo',
-                    colorBy: 'key',
                     fillOpacity: 0.1,
                 }}
             />

@@ -46,33 +46,6 @@ export default settingsMapper(
 
             return CustomTooltip
         },
-        theme: (value, values) => {
-            if (!values['custom tooltip example']) {
-                return {
-                    ...value,
-                    grid: {
-                        stroke: '#ccc',
-                        strokeWidth: 1,
-                        strokeDasharray: '6 6',
-                    },
-                }
-            }
-
-            return {
-                ...values.theme,
-                grid: {
-                    stroke: '#ccc',
-                    strokeWidth: 1,
-                    strokeDasharray: '6 6',
-                },
-                tooltip: {
-                    container: {
-                        ...values.theme.tooltip.container,
-                        background: '#333',
-                    },
-                },
-            }
-        },
     },
     {
         exclude: [

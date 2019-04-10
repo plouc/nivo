@@ -17,9 +17,9 @@ import { generateHeavyDataSet } from '../../data/components/treemap/generator'
 
 const initialProperties = {
     tile: 'squarify',
-    leavesOnly: true,
+    leavesOnly: false,
     innerPadding: 2,
-    outerPadding: 0,
+    outerPadding: 8,
 
     margin: {
         top: 10,
@@ -32,6 +32,7 @@ const initialProperties = {
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
 
     enableLabel: true,
+    label: 'loc',
     labelFormat: '.0s',
     labelSkipSize: 18,
     labelTextColor: {
@@ -40,9 +41,8 @@ const initialProperties = {
     },
     orientLabel: true,
 
-    colors: 'paired',
-    colorBy: 'id',
-    borderWidth: 1,
+    colors: { scheme: 'nivo' },
+    borderWidth: 0,
     borderColor: {
         type: 'inherit:darker',
         gamma: 0.8,

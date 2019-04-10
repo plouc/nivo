@@ -28,7 +28,7 @@
     "@nivo/legends": "0.55.0",
     "d3-format": "^1.3.2",
     "d3-geo": "^1.11.3",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.11"
   },
   "peerDependencies": {
     "prop-types": ">= 15.5.10 < 16.0.0",

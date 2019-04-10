@@ -32,9 +32,9 @@ const stories = storiesOf('Waffle', module)
 
 stories.add('default', () => <Waffle {...commonProps} />)
 
-stories.add('colors', () => <Waffle {...commonProps} colors="category10" />)
+stories.add('colors', () => <Waffle {...commonProps} colors={{ scheme: 'category10' }} />)
 
-stories.add('using data color', () => <Waffle {...commonProps} colorBy={d => d.color} />)
+stories.add('using data color', () => <Waffle {...commonProps} colors={{ datum: 'color' }} />)
 
 stories.add('patterns', () => (
     <Waffle

@@ -8,6 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import { areaCurvePropType, stackOrderPropType, stackOffsetPropType } from '@nivo/core'
+import { ordinalColorsPropType } from '@nivo/colors'
 import { LegendPropShape } from '@nivo/legends'
 import StreamDotsItem from './StreamDotsItem'
 
@@ -31,7 +32,7 @@ export const StreamPropTypes = {
     enableGridX: PropTypes.bool.isRequired,
     enableGridY: PropTypes.bool.isRequired,
 
-    colors: PropTypes.any.isRequired,
+    colors: ordinalColorsPropType.isRequired,
     fillOpacity: PropTypes.number.isRequired,
     getColor: PropTypes.func.isRequired, // computed
     defs: PropTypes.arrayOf(
@@ -82,7 +83,7 @@ export const StreamDefaultProps = {
     borderWidth: 0,
     borderColor: 'inherit:darker(1)',
 
-    colors: 'nivo',
+    colors: { scheme: 'nivo' },
     fillOpacity: 1,
     defs: [],
     fill: [],

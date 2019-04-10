@@ -56,8 +56,8 @@ stories.add('with marker', () => (
     />
 ))
 
-stories.add('using custom colorBy', () => (
-    <Bar {...commonProps} colorBy={({ id, data }) => data[`${id}Color`]} />
+stories.add('using custom color', () => (
+    <Bar {...commonProps} colors={({ id, data }) => data[`${id}Color`]} />
 ))
 
 const divergingData = range(9).map(i => {

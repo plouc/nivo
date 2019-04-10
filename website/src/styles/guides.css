@@ -35,16 +35,3 @@
     max-width: 800px;
     padding: 10px;
 }
-
-.guide__table th {
-    padding: 5px 9px;
-    text-align: left;
-    font-weight: 500;
-    color: var(--accent-color);
-    text-transform: uppercase;
-    font-size: 14px;
-}
-
-.guide__table td {
-    padding: 5px 9px;
-}

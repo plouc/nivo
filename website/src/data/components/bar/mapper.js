@@ -39,30 +39,12 @@ const CustomTooltip = node => {
 
 export default settingsMapper(
     {
-        colorBy: value => {
-            if (value === `({ id, data }) => data[\`\${id}Color\`]`)
-                return ({ id, data }) => data[`${id}Color`]
-            return value
-        },
         axisTop: mapAxis('top'),
         axisRight: mapAxis('right'),
         axisBottom: mapAxis('bottom'),
         axisLeft: mapAxis('left'),
         borderColor: mapInheritedColor,
         labelTextColor: mapInheritedColor,
-        theme: (value, values) => {
-            if (!values['custom tooltip example']) return value
-
-            return {
-                ...values.theme,
-                tooltip: {
-                    container: {
-                        ...values.theme.tooltip.container,
-                        background: '#333',
-                    },
-                },
-            }
-        },
         tooltip: (value, values) => {
             if (!values['custom tooltip example']) return null
 

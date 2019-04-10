@@ -188,38 +188,13 @@ const props = [
     },
     {
         key: 'colors',
+        scopes: ['Pie', 'PieCanvas'],
         help: 'Defines color range.',
         type: 'string | Function | string[]',
         required: false,
         defaultValue: defaults.colors,
-        controlType: 'colors',
+        controlType: 'ordinalColors',
         group: 'Style',
-    },
-    {
-        key: 'colorBy',
-        help: 'Arc color.',
-        description: `
-            Property to use to determine arc color.
-            If a function is provided, it will receive
-            current node data and must return a color.
-        `,
-        type: 'string | Function',
-        required: false,
-        defaultValue: defaults.colorBy,
-        controlType: 'choices',
-        group: 'Style',
-        controlOptions: {
-            choices: [
-                {
-                    label: 'id',
-                    value: 'id',
-                },
-                {
-                    label: 'd => d.color',
-                    value: 'd => d.color',
-                },
-            ],
-        },
     },
     ...defsProperties(['Pie', 'api']),
     {

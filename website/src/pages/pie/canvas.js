@@ -40,8 +40,7 @@ const initialProperties = {
     cornerRadius: 3,
     fit: true,
 
-    colors: 'paired',
-    colorBy: 'id',
+    colors: { scheme: 'paired' },
 
     borderWidth: 0,
     borderColor: { type: 'inherit:darker', gamma: 0.6 },

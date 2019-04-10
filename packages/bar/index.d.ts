@@ -9,6 +9,7 @@ import {
     SvgDefsAndFill,
     CartesianMarkerProps,
 } from '@nivo/core'
+import { OrdinalColorsInstruction } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 
 declare module '@nivo/bar' {
@@ -106,6 +107,7 @@ declare module '@nivo/bar' {
             labelSkipHeight: number
             labelTextColor: string | GetColor<BarDatumWithColor>
 
+            colors: OrdinalColorsInstruction
             borderRadius: number
             borderWidth: number
             theme: Theme

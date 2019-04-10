@@ -31,9 +31,9 @@ const stories = storiesOf('WaffleHtml', module)
 
 stories.add('default', () => <WaffleHtml {...commonProps} />)
 
-stories.add('colors', () => <WaffleHtml {...commonProps} colors="category10" />)
+stories.add('colors', () => <WaffleHtml {...commonProps} colors={{ scheme: 'category10' }} />)
 
-stories.add('using data color', () => <WaffleHtml {...commonProps} colorBy={d => d.color} />)
+stories.add('using data color', () => <WaffleHtml {...commonProps} colors={{ datum: 'color' }} />)
 
 stories.add('fill direction', () => (
     <WaffleHtml

@@ -6,11 +6,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { colorMotionSpring, getInterpolatedColor } from '../../../src/lib/colors/motion'
+import { interpolateColor, getInterpolatedColor } from '../src'
 
-describe('colorMotionSpring()', () => {
+describe('interpolateColor()', () => {
     it('should return decomposed color', () => {
-        expect(colorMotionSpring('#F00')).toEqual({
+        expect(interpolateColor('#F00')).toEqual({
             colorR: 255,
             colorG: 0,
             colorB: 0,
@@ -18,7 +18,7 @@ describe('colorMotionSpring()', () => {
     })
 
     it('should return decomposed color with corresponding spring if config provided', () => {
-        expect(colorMotionSpring('#F0F', { stifness: 120, damping: 15 })).toEqual({
+        expect(interpolateColor('#F0F', { stifness: 120, damping: 15 })).toEqual({
             colorR: {
                 damping: 15,
                 precision: 1,

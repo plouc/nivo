@@ -17,7 +17,6 @@ import { scaleLinear } from 'd3-scale'
 import {
     closedCurvePropType,
     withTheme,
-    withColors,
     withCurve,
     withDimensions,
     withMotion,
@@ -25,6 +24,7 @@ import {
     Container,
     SvgWrapper,
 } from '@nivo/core'
+import { getOrdinalColorScale, ordinalColorsPropType } from '@nivo/colors'
 import { LegendPropShape, BoxLegendSvg } from '@nivo/legends'
 import RadarShapes from './RadarShapes'
 import RadarGrid from './RadarGrid'
@@ -218,8 +218,9 @@ Radar.propTypes = {
     dotLabelYOffset: PropTypes.number,
 
     // theming
+    colors: ordinalColorsPropType.isRequired,
+    colorByKey: PropTypes.object.isRequired,
     getColor: PropTypes.func.isRequired, // computed
-    colorByKey: PropTypes.object.isRequired, // computed
     fillOpacity: PropTypes.number.isRequired,
 
     // interactivity
@@ -234,22 +235,18 @@ export const RadarDefaultProps = {
 
     curve: 'linearClosed',
 
-    // border
     borderWidth: 2,
     borderColor: 'inherit',
 
-    // grid
     gridLevels: 5,
     gridShape: 'circular',
     gridLabelOffset: 16,
 
-    // dots
     enableDots: true,
 
-    // theming
+    colors: { scheme: 'nivo' },
     fillOpacity: 0.15,
 
-    // interactivity
     isInteractive: true,
 
     legends: [],
@@ -258,12 +255,12 @@ export const RadarDefaultProps = {
 const enhance = compose(
     defaultProps(RadarDefaultProps),
     withTheme(),
-    withColors({
-        defaultColorBy: 'key',
-    }),
     withCurve(),
     withDimensions(),
     withMotion(),
+    withPropsOnChange(['colors'], ({ colors }) => ({
+        getColor: getOrdinalColorScale(colors, 'key'),
+    })),
     withPropsOnChange(['indexBy'], ({ indexBy }) => ({
         getIndex: getAccessorFor(indexBy),
     })),

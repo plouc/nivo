@@ -54,7 +54,7 @@ const initialProperties = {
         gamma: 1,
     },
 
-    colors: 'paired',
+    colors: { scheme: 'paired' },
 
     isInteractive: true,
     arcHoverOpacity: 1,

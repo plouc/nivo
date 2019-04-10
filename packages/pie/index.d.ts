@@ -8,6 +8,7 @@ import {
     GetColor,
     SvgDefsAndFill,
 } from '@nivo/core'
+import { OrdinalColorsInstruction } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 
 declare module '@nivo/pie' {
@@ -30,7 +31,6 @@ declare module '@nivo/pie' {
     }
 
     export type CommonPieProps = MotionProps &
-        ColorProps<PieDatum> &
         Partial<{
             margin: Box
             sortByValue: boolean
@@ -43,6 +43,7 @@ declare module '@nivo/pie' {
 
             // border
             // styling
+            colors: OrdinalColorsInstruction<PieDatum>
             theme: Theme
             borderWidth: number
             borderColor: string | GetColor<PieDatum>

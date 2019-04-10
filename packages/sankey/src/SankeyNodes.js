@@ -10,7 +10,8 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
 import { TransitionMotion, spring } from 'react-motion'
-import { colorMotionSpring, getInterpolatedColor, motionPropTypes } from '@nivo/core'
+import { motionPropTypes } from '@nivo/core'
+import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
 import SankeyNodesItem from './SankeyNodesItem'
 
 const SankeyNodes = ({
@@ -89,7 +90,7 @@ const SankeyNodes = ({
                         width: spring(node.width, springProps),
                         height: spring(node.height, springProps),
                         opacity: spring(getOpacity(node), springProps),
-                        ...colorMotionSpring(node.color, springProps),
+                        ...interpolateColor(node.color, springProps),
                     },
                 }
             })}

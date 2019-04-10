@@ -43,8 +43,7 @@ const initialProperties = {
     dotLabel: 'value',
     dotLabelYOffset: -12,
 
-    colors: 'nivo',
-    colorBy: 'key',
+    colors: { scheme: 'nivo' },
     fillOpacity: 0.1,
 
     animate: true,

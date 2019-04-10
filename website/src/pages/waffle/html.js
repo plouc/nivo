@@ -52,8 +52,7 @@ const initialProperties = {
     cellComponent: 'default',
     emptyColor: '#cccccc',
     emptyOpacity: 1,
-    colors: 'set2',
-    colorBy: 'id',
+    colors: { scheme: 'set2' },
     borderWidth: 0,
     borderColor: {
         type: 'inherit:darker',

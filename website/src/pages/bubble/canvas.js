@@ -41,8 +41,7 @@ const initialProperties = {
     identity: 'id',
     value: 'value',
 
-    colors: 'set3',
-    colorBy: 'id',
+    colors: { scheme: 'set3' },
     padding: 1,
     leavesOnly: true,
 

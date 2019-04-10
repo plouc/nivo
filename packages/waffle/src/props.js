@@ -8,6 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import { defsPropTypes, noop } from '@nivo/core'
+import { ordinalColorsPropType } from '@nivo/colors'
 import { LegendPropShape } from '@nivo/legends'
 import WaffleCell from './WaffleCell'
 import WaffleCellHtml from './WaffleCellHtml'
@@ -32,6 +33,7 @@ const commonPropTypes = {
     padding: PropTypes.number.isRequired,
 
     // styling
+    colors: ordinalColorsPropType.isRequired,
     emptyColor: PropTypes.string.isRequired,
     emptyOpacity: PropTypes.number.isRequired,
     borderWidth: PropTypes.number.isRequired,
@@ -78,11 +80,11 @@ const commonDefaultProps = {
     padding: 1,
 
     // styling
+    colors: { scheme: 'nivo' },
     emptyColor: '#cccccc',
     emptyOpacity: 1,
     borderWidth: 0,
     borderColor: 'inherit:darker(1)',
-    colors: 'nivo',
     defs: [],
     fill: [],
 

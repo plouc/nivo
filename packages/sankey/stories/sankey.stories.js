@@ -9,7 +9,7 @@ const commonProperties = {
     height: 400,
     margin: { top: 0, right: 80, bottom: 0, left: 80 },
     data: sankeyData,
-    colors: 'category10',
+    colors: { scheme: 'category10' },
 }
 
 const stories = storiesOf('Sankey', module)

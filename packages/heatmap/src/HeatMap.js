@@ -9,7 +9,8 @@
 import React, { Component } from 'react'
 import partial from 'lodash/partial'
 import { TransitionMotion } from 'react-motion'
-import { colorMotionSpring, getInterpolatedColor, Container, SvgWrapper, Grid } from '@nivo/core'
+import { Container, SvgWrapper, Grid } from '@nivo/core'
+import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
 import { Axes } from '@nivo/axes'
 import setDisplayName from 'recompose/setDisplayName'
 import { HeatMapPropTypes } from './props'
@@ -54,12 +55,10 @@ class HeatMap extends Component {
             outerWidth,
             outerHeight,
 
-            // cells
             cellShape,
             cellBorderWidth,
             getCellBorderColor,
 
-            // axes & grid
             axisTop,
             axisRight,
             axisBottom,
@@ -67,20 +66,16 @@ class HeatMap extends Component {
             enableGridX,
             enableGridY,
 
-            // labels
             enableLabels,
             getLabelTextColor,
 
-            // theming
             theme,
 
-            // motion
             animate,
             motionStiffness,
             motionDamping,
             boundSpring,
 
-            // interactivity
             isInteractive,
             onClick,
         } = this.props
@@ -173,7 +168,7 @@ class HeatMap extends Component {
                                                 width: boundSpring(node.width),
                                                 height: boundSpring(node.height),
                                                 opacity: boundSpring(node.opacity),
-                                                ...colorMotionSpring(node.color, {
+                                                ...interpolateColor(node.color, {
                                                     damping: motionDamping,
                                                     stiffness: motionStiffness,
                                                 }),

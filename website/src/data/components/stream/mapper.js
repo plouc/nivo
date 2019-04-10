@@ -10,10 +10,6 @@ import { settingsMapper, mapAxis, mapInheritedColor } from '../../../lib/setting
 
 export default settingsMapper(
     {
-        colorBy: value => {
-            if (value === 'd => d.color') return d => d.color
-            return value
-        },
         markersLabel: value => {
             if (value === `d => \`\${d.x}: \${d.y}\``) return d => `${d.x}: ${d.y}`
             return value

@@ -51,7 +51,7 @@ const initialProperties = {
         gamma: 1,
     },
 
-    colors: 'nivo',
+    colors: { scheme: 'nivo' },
 
     isInteractive: true,
     arcHoverOpacity: 1,

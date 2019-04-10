@@ -8,6 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import { noop, defsPropTypes } from '@nivo/core'
+import { ordinalColorsPropType } from '@nivo/colors'
 import { axisPropType } from '@nivo/axes'
 import { LegendPropShape } from '@nivo/legends'
 import BarItem from './BarItem'
@@ -55,6 +56,7 @@ export const BarPropTypes = {
     labelLinkColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     getLabelLinkColor: PropTypes.func.isRequired, // computed
 
+    colors: ordinalColorsPropType.isRequired,
     borderRadius: PropTypes.number.isRequired,
     getColor: PropTypes.func.isRequired, // computed
     ...defsPropTypes,
@@ -110,6 +112,7 @@ export const BarDefaultProps = {
     labelLinkColor: 'theme',
     labelTextColor: 'theme',
 
+    colors: { scheme: 'nivo' },
     defs: [],
     fill: [],
     borderRadius: 0,

@@ -143,12 +143,12 @@ const props = [
     },
     {
         key: 'colors',
-        scopes: '*',
+        scopes: ['Sankey'],
         help: 'Defines how to compute nodes color.',
         type: 'string | Function | string[]',
         required: false,
-        defaultValue: 'nivo',
-        controlType: 'colors',
+        defaultValue: defaults.colors,
+        controlType: 'ordinalColors',
         group: 'Base',
     },
     {

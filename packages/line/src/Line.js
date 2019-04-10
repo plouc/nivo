@@ -16,7 +16,6 @@ import {
     curveFromProp,
     getInheritedColorGenerator,
     withTheme,
-    withColors,
     withDimensions,
     withMotion,
     Container,
@@ -24,6 +23,7 @@ import {
     CartesianMarkers,
     Grid,
 } from '@nivo/core'
+import { getOrdinalColorScale } from '@nivo/colors'
 import { Axes } from '@nivo/axes'
 import { computeXYScalesForSeries, computeYSlices } from '@nivo/scales'
 import { BoxLegendSvg } from '@nivo/legends'
@@ -250,9 +250,11 @@ Line.propTypes = LinePropTypes
 const enhance = compose(
     defaultProps(LineDefaultProps),
     withTheme(),
-    withColors(),
     withDimensions(),
     withMotion(),
+    withPropsOnChange(['colors'], ({ colors }) => ({
+        getColor: getOrdinalColorScale(colors, 'id'),
+    })),
     withPropsOnChange(['curve'], ({ curve }) => ({
         lineGenerator: line()
             .defined(d => d.x !== null && d.y !== null)

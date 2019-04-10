@@ -7,16 +7,10 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
-import { noop } from '@nivo/core'
-import { defsPropTypes } from '@nivo/core'
+import { noop, defsPropTypes } from '@nivo/core'
+import { ordinalColorsPropType } from '@nivo/colors'
 import BubbleNode from './BubbleNode'
 import BubbleHtmlNode from './BubbleHtmlNode'
-
-/*—————————————————————————————————————————————————————————————————————————————
-
-  Prop types
-
-—————————————————————————————————————————————————————————————————————————————*/
 
 const commonPropTypes = {
     // data
@@ -25,25 +19,21 @@ const commonPropTypes = {
 
     // dimensions managed by `withDimensions()` HOC
 
-    // styling
     // theme managed by `withTheme()` HOC
-    // colors managed by `withColors()` HOC
+    colors: ordinalColorsPropType.isRequired,
 
     leavesOnly: PropTypes.bool.isRequired,
     padding: PropTypes.number.isRequired,
 
-    // border
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.any.isRequired,
 
-    // labels
     enableLabel: PropTypes.bool.isRequired,
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     labelFormat: PropTypes.string,
     labelTextColor: PropTypes.any.isRequired,
     labelSkipRadius: PropTypes.number.isRequired,
 
-    // interactivity
     isInteractive: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,
     isZoomable: PropTypes.bool.isRequired,
@@ -67,29 +57,21 @@ export const BubbleCanvasPropTypes = {
     pixelRatio: PropTypes.number.isRequired,
 }
 
-/*—————————————————————————————————————————————————————————————————————————————
-
-  Default props
-
-—————————————————————————————————————————————————————————————————————————————*/
-
 const commonDefaultProps = {
     identity: 'id',
 
     leavesOnly: false,
     padding: 1,
 
-    // border
+    colors: { scheme: 'nivo' },
     borderWidth: 0,
     borderColor: 'inherit',
 
-    // labels
     enableLabel: true,
     label: 'id',
     labelTextColor: 'inherit:darker(1)',
     labelSkipRadius: 8,
 
-    // interactivity
     isInteractive: true,
     onClick: noop,
     isZoomable: true,

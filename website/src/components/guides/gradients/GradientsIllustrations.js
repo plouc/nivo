@@ -53,20 +53,20 @@ const GradientsIllustrations = () => {
                 <div className="guide__illustrations__item">
                     <ResponsiveBar
                         margin={{ top: 15, right: 10, bottom: -2, left: 10 }}
-                        data={generateCountriesData(['a'], { size: 7 })}
+                        data={generateCountriesData(['a', 'b', 'c'], { size: 7 })}
                         indexBy="country"
-                        keys={['a']}
+                        keys={['a', 'b', 'c']}
+                        colors={{ scheme: 'spectral' }}
                         padding={0.2}
                         axisLeft={null}
                         axisBottom={null}
                         enableGridY={false}
                         enableLabel={false}
-                        colorBy="index"
                         defs={[
                             linearGradientDef('example2', [
                                 { offset: 0, color: 'inherit' },
                                 { offset: 40, color: 'inherit' },
-                                { offset: 100, color: 'inherit', opacity: 0.3 },
+                                { offset: 100, color: 'inherit', opacity: 0.6 },
                             ]),
                         ]}
                         fill={[{ match: '*', id: 'example2' }]}
@@ -84,12 +84,14 @@ const GradientsIllustrations = () => {
                             country: 'root',
                             children: generateCountriesData(['value'], { size: 9 }),
                         }}
+                        colors={{ scheme: 'spectral' }}
                         identity="country"
                         value="value"
-                        leavesOnly={true}
-                        colorBy="country"
-                        borderWidth={2}
-                        borderColor="#333"
+                        leavesOnly={false}
+                        borderWidth={1}
+                        borderColor="rgba(0,0,0,.3)"
+                        outerPadding={6}
+                        innerPadding={4}
                         isInteractive={false}
                         animate={false}
                         enableLabel={false}

@@ -122,7 +122,7 @@ const props = [
         type: 'string | Function',
         required: false,
         defaultValue: defaults.colors,
-        controlType: 'colors',
+        controlType: 'ordinalColors',
         group: 'Style',
     },
     {

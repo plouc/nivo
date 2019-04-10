@@ -40,7 +40,6 @@ const SankeyApi = () => {
                     },
 
                     align: 'justify',
-                    colors: 'paired',
 
                     nodeOpacity: 0.75,
                     nodeWidth: 18,

@@ -7,14 +7,14 @@
  * file that was distributed with this source code.
  */
 import { spring } from 'react-motion'
-import { colorMotionSpring } from '@nivo/core'
+import { interpolateColor } from '@nivo/colors'
 
 export const nodeWillEnter = ({ data: node }) => ({
     x: node.x,
     y: node.y,
     width: node.width,
     height: node.height,
-    ...colorMotionSpring(node.color),
+    ...interpolateColor(node.color),
 })
 
 export const nodeWillLeave = springConfig => ({ data: node }) => ({
@@ -22,5 +22,5 @@ export const nodeWillLeave = springConfig => ({ data: node }) => ({
     y: spring(node.y + node.height / 2, springConfig),
     width: spring(0, springConfig),
     height: spring(0, springConfig),
-    ...colorMotionSpring(node.color, springConfig),
+    ...interpolateColor(node.color, springConfig),
 })

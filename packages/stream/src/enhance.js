@@ -21,9 +21,9 @@ import {
     withCurve,
     withDimensions,
     withMotion,
-    getColorRange,
     getInheritedColorGenerator,
 } from '@nivo/core'
+import { getOrdinalColorScale } from '@nivo/colors'
 import { StreamDefaultProps } from './props'
 
 const stackMin = layers =>
@@ -46,7 +46,7 @@ export default Component =>
                 .curve(curveInterpolator),
         })),
         withPropsOnChange(['colors'], ({ colors }) => ({
-            getColor: getColorRange(colors),
+            getColor: getOrdinalColorScale(colors, 'index'),
         })),
         withPropsOnChange(['borderColor'], ({ borderColor }) => ({
             getBorderColor: getInheritedColorGenerator(borderColor),

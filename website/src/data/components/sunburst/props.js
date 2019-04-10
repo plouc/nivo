@@ -93,37 +93,13 @@ const props = [
     },
     {
         key: 'colors',
+        scopes: ['Sunburst'],
         help: 'Defines how to compute node color.',
         required: false,
-        defaultValue: 'nivo',
-        controlType: 'colors',
+        defaultValue: defaults.colors,
+        controlType: 'ordinalColors',
         type: 'string | Function | string[]',
         group: 'Base',
-    },
-    {
-        key: 'colorBy',
-        help: `
-            Property to use to determine primary node color.
-            If a function is provided, it will receive current
-            node data and must return a color
-        `,
-        type: 'string | Function',
-        required: false,
-        defaultValue: 'id',
-        controlType: 'choices',
-        group: 'Base',
-        controlOptions: {
-            choices: [
-                {
-                    label: 'id',
-                    value: 'id',
-                },
-                {
-                    label: 'd => d.color',
-                    value: 'd => d.color',
-                },
-            ],
-        },
     },
     {
         key: 'childColor',

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Theme } from '@nivo/core'
+import { OrdinalColorsInstruction } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 
 declare module '@nivo/sankey' {
@@ -76,6 +77,7 @@ declare module '@nivo/sankey' {
         nodeTooltip: any
         linkTooltip: any
 
+        colors: OrdinalColorsInstruction
         theme: Theme
 
         legends: LegendProps[]

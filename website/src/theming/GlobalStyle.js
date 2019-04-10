@@ -74,4 +74,18 @@ export default isCapturing => create`
     svg text {
         font-family: ${({ theme }) => theme.fontFamilyMono};
     }
+
+    th {
+        padding: 7px 12px;
+        text-align: left;
+        font-weight: 600;
+        color: ${({ theme }) => theme.colors.accent};
+        text-transform: uppercase;
+        font-size: 14px;
+    }
+    
+    td {
+        padding: 5px 12px;
+    }
+    
 `

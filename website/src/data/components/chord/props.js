@@ -165,12 +165,12 @@ const props = [
     },
     {
         key: 'colors',
-        scopes: '*',
+        scopes: ['Chord', 'ChordCanvas'],
         help: 'Defines how to compute arc/ribbon color.',
         type: 'string | Function | string[]',
         required: false,
         defaultValue: defaults.colors,
-        controlType: 'colors',
+        controlType: 'ordinalColors',
         group: 'Style',
     },
     {
