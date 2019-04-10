@@ -25,6 +25,7 @@ import SankeyIcon from './SankeyIcon'
 import ScatterPlotIcon from './ScatterPlotIcon'
 import StreamIcon from './StreamIcon'
 import SunburstIcon from './SunburstIcon'
+import SwarmPlotIcon from './SwarmPlotIcon'
 import TreeMapIcon from './TreeMapIcon'
 import WaffleIcon from './WaffleIcon'
 import ParallelCoordinatesIcon from './ParallelCoordinatesIcon'
@@ -80,6 +81,7 @@ const Icons = () => (
         <ScatterPlotIcon />
         <StreamIcon />
         <SunburstIcon />
+        <SwarmPlotIcon />
         <TreeMapIcon />
         <VoronoiIcon />
         <WaffleIcon />
