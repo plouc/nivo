@@ -8,7 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import { noop, defsPropTypes } from '@nivo/core'
-import { ordinalColorsPropType } from '@nivo/colors'
+import { ordinalColorsPropType, colorIdentityPropType } from '@nivo/colors'
 import BubbleNode from './BubbleNode'
 import BubbleHtmlNode from './BubbleHtmlNode'
 
@@ -21,6 +21,7 @@ const commonPropTypes = {
 
     // theme managed by `withTheme()` HOC
     colors: ordinalColorsPropType.isRequired,
+    colorBy: colorIdentityPropType.isRequired,
 
     leavesOnly: PropTypes.bool.isRequired,
     padding: PropTypes.number.isRequired,
@@ -64,6 +65,7 @@ const commonDefaultProps = {
     padding: 1,
 
     colors: { scheme: 'nivo' },
+    colorBy: 'depth',
     borderWidth: 0,
     borderColor: 'inherit',
 

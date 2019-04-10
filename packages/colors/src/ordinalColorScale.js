@@ -24,9 +24,13 @@ export const getOrdinalColorScale = (instruction, identity) => {
     // user defined function
     if (typeof instruction === 'function') return instruction
 
+    // compute accessor to the datum identity
+    const getIdentity = typeof identity === 'function' ? identity : d => get(d, identity)
+
+    // user defined color array
     if (Array.isArray(instruction)) {
         const scale = scaleOrdinal(instruction)
-        const generator = d => scale(get(d, identity))
+        const generator = d => scale(getIdentity(d))
         generator.scale = scale
 
         return generator
@@ -43,7 +47,7 @@ export const getOrdinalColorScale = (instruction, identity) => {
             // categorical color scheme
             if (isCategoricalColorScheme(instruction.scheme)) {
                 const scale = scaleOrdinal(colorSchemes[instruction.scheme])
-                const generator = d => scale(get(d, identity))
+                const generator = d => scale(getIdentity(d))
                 generator.scale = scale
 
                 return generator
@@ -63,7 +67,7 @@ export const getOrdinalColorScale = (instruction, identity) => {
                 }
 
                 const scale = scaleOrdinal(colorSchemes[instruction.scheme][instruction.size || 11])
-                const generator = d => scale(get(d, identity))
+                const generator = d => scale(getIdentity(d))
                 generator.scale = scale
 
                 return generator
@@ -84,7 +88,7 @@ export const getOrdinalColorScale = (instruction, identity) => {
                 }
 
                 const scale = scaleOrdinal(colorSchemes[instruction.scheme][instruction.size || 9])
-                const generator = d => scale(get(d, identity))
+                const generator = d => scale(getIdentity(d))
                 generator.scale = scale
 
                 return generator

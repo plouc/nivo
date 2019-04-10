@@ -15,7 +15,8 @@ import compose from 'recompose/compose'
 import defaultProps from 'recompose/defaultProps'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
-import { Axis, getColorScale, withMotion, themePropType, noop, BasicTooltip } from '@nivo/core'
+import { Axis } from '@nivo/axes'
+import { getColorScale, withMotion, themePropType, noop, BasicTooltip } from '@nivo/core'
 import { stackValues } from './compute'
 import BulletMarkers from './BulletMarkers'
 import BulletRects from './BulletRects'
@@ -160,7 +161,7 @@ class BulletItem extends Component {
             scale,
             layout,
             reverse,
-            axisPosition: _axisPosition,
+            axisPosition,
             x,
             y,
             width,
@@ -200,13 +201,6 @@ class BulletItem extends Component {
             motionDamping,
         }
 
-        let axisPosition
-        if (layout === 'horizontal') {
-            axisPosition = _axisPosition === 'before' ? 'top' : 'bottom'
-        } else {
-            axisPosition = _axisPosition === 'before' ? 'left' : 'right'
-        }
-
         const rangeNodes = (
             <BulletRects
                 data={computedRanges}
@@ -241,15 +235,25 @@ class BulletItem extends Component {
             />
         )
 
+        let axisX = 0
+        let axisY = 0
+        if (layout === 'horizontal' && axisPosition === 'after') {
+            axisY = height
+        } else if (layout === 'vertical' && axisPosition === 'after') {
+            axisX = height
+        }
+
         const axis = (
-            <Axis
-                width={layout === 'horizontal' ? width : height}
-                height={layout === 'horizontal' ? height : width}
-                scale={scale}
-                position={axisPosition}
-                theme={theme}
-                {...motionProps}
-            />
+            <g transform={`translate(${axisX},${axisY})`}>
+                <Axis
+                    axis={layout === 'horizontal' ? 'x' : 'y'}
+                    length={layout === 'horizontal' ? width : height}
+                    scale={scale}
+                    ticksPosition={axisPosition}
+                    theme={theme}
+                    {...motionProps}
+                />
+            </g>
         )
 
         const title = _title || id

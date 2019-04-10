@@ -8,8 +8,8 @@
  */
 import React, { Component, Fragment } from 'react'
 import { TransitionMotion, spring } from 'react-motion'
-import { Container, SvgWrapper, Grid, CartesianMarkers } from '@nivo/core'
-import { Axes } from '@nivo/axes'
+import { Container, SvgWrapper, CartesianMarkers } from '@nivo/core'
+import { Axes, Grid } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
 import { Mesh } from '@nivo/voronoi'
 import { enhanceSvg } from './enhance'
