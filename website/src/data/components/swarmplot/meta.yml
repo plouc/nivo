@@ -1,0 +1,31 @@
+flavors:
+  - flavor: svg
+    path: /swarmplot
+  - flavor: canvas
+    path: /swarmplot/canvas
+
+SwarmPlot:
+  package: '@nivo/swarmplot'
+  tags:
+    - svg
+    - isomorphic
+  stories: []
+  description: |
+    A swarm plot component which can also be used to make beeswarm plot
+    when using a single data serie.
+
+    The responsive alternative of this component is `ResponsiveSwarmPlot`.
+
+SwarmPlotCanvas:
+  package: '@nivo/swarmplot'
+  tags:
+    - canvas
+  stories: []
+  description: |
+    A variation around the [SwarmPlot](self:/swarmplot) component.
+    Well suited for large data sets as it does not impact DOM tree depth,
+    however you'll lose the isomorphic ability and transitions.
+
+    The responsive alternative of this component is
+    `ResponsiveSwarmPlotCanvas`.
+
