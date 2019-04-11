@@ -40,9 +40,9 @@ const LineDots = ({
             ...acc,
             ...data
                 .filter(datum => datum.position.x !== null && datum.position.y !== null)
-                .map(datum => {
+                .map((datum, datumIdx) => {
                     return {
-                        key: `${id}.${datum.data.x}`,
+                        key: `${datumIdx}.${id}.${datum.data.x}`,
                         x: datum.position.x,
                         y: datum.position.y,
                         datum: datum,
