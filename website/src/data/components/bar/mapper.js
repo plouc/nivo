@@ -8,7 +8,7 @@
  */
 import React from 'react'
 import styled from 'styled-components'
-import { settingsMapper, mapAxis, mapInheritedColor } from '../../../lib/settings'
+import { settingsMapper, mapAxis } from '../../../lib/settings'
 
 const TooltipWrapper = styled.div`
     display: grid;
@@ -43,8 +43,6 @@ export default settingsMapper(
         axisRight: mapAxis('right'),
         axisBottom: mapAxis('bottom'),
         axisLeft: mapAxis('left'),
-        borderColor: mapInheritedColor,
-        labelTextColor: mapInheritedColor,
         tooltip: (value, values) => {
             if (!values['custom tooltip example']) return null
 
