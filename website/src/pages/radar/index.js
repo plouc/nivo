@@ -28,7 +28,7 @@ const initialProperties = {
     curve: 'linearClosed',
 
     borderWidth: 2,
-    borderColor: { type: 'inherit' },
+    borderColor: { from: 'color' },
 
     gridLevels: 5,
     gridShape: 'circular',
@@ -36,9 +36,9 @@ const initialProperties = {
 
     enableDots: true,
     dotSize: 8,
-    dotColor: { type: 'inherit' },
+    dotColor: { from: 'color' },
     dotBorderWidth: 0,
-    dotBorderColor: { type: 'custom', color: '#ffffff' },
+    dotBorderColor: { theme: 'background' },
     enableDotLabel: true,
     dotLabel: 'value',
     dotLabelYOffset: -12,

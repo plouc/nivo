@@ -11,9 +11,8 @@ import compose from 'recompose/compose'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
 import PropTypes from 'prop-types'
-import { motionPropTypes } from '@nivo/core'
-import { getInheritedColorGenerator } from '@nivo/core'
-import { SmartMotion } from '@nivo/core'
+import { motionPropTypes, SmartMotion } from '@nivo/core'
+import { getInheritedColorGenerator } from '@nivo/colors'
 import { lineRadial } from 'd3-shape'
 
 const RadarShapes = ({
@@ -107,8 +106,8 @@ RadarShapes.propTypes = {
 }
 
 const enhance = compose(
-    withPropsOnChange(['borderColor'], props => ({
-        borderColor: getInheritedColorGenerator(props.borderColor),
+    withPropsOnChange(['borderColor', 'theme'], ({ borderColor, theme }) => ({
+        borderColor: getInheritedColorGenerator(borderColor, theme),
     })),
     withPropsOnChange(
         ['radiusScale', 'angleStep', 'curveInterpolator'],

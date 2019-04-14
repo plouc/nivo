@@ -35,6 +35,7 @@ const RadarApi = () => {
                     data: JSON.stringify(data, null, '  '),
                     keys,
                     indexBy: 'taste',
+                    maxValue: 'auto',
 
                     margin: {
                         top: 70,
@@ -46,7 +47,7 @@ const RadarApi = () => {
                     curve: 'catmullRomClosed',
 
                     borderWidth: 2,
-                    borderColor: { type: 'inherit' },
+                    borderColor: { from: 'color' },
 
                     gridLevels: 5,
                     gridShape: 'circular',
@@ -54,9 +55,9 @@ const RadarApi = () => {
 
                     enableDots: true,
                     dotSize: 8,
-                    dotColor: { type: 'inherit' },
+                    dotColor: { from: 'color' },
                     dotBorderWidth: 0,
-                    dotBorderColor: { type: 'custom', color: '#fff' },
+                    dotBorderColor: { theme: 'background' },
                     enableDotLabel: true,
                     dotLabel: 'value',
                     dotLabelYOffset: -12,
