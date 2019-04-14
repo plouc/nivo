@@ -139,9 +139,9 @@ export const LineDefaultProps = {
 
     enableDots: true,
     dotSize: 6,
-    dotColor: 'inherit',
+    dotColor: { from: 'color' },
     dotBorderWidth: 0,
-    dotBorderColor: 'inherit',
+    dotBorderColor: { theme: 'background' },
     enableDotLabel: false,
 
     colors: { scheme: 'nivo' },

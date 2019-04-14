@@ -14,7 +14,6 @@ import withPropsOnChange from 'recompose/withPropsOnChange'
 import defaultProps from 'recompose/defaultProps'
 import {
     curveFromProp,
-    getInheritedColorGenerator,
     withTheme,
     withDimensions,
     withMotion,
@@ -22,7 +21,7 @@ import {
     SvgWrapper,
     CartesianMarkers,
 } from '@nivo/core'
-import { getOrdinalColorScale } from '@nivo/colors'
+import { getOrdinalColorScale, getInheritedColorGenerator } from '@nivo/colors'
 import { Axes, Grid } from '@nivo/axes'
 import { computeXYScalesForSeries, computeYSlices } from '@nivo/scales'
 import { BoxLegendSvg } from '@nivo/legends'
@@ -202,9 +201,9 @@ const Line = props => {
                             lines={computedData.series}
                             symbol={dotSymbol}
                             size={dotSize}
-                            color={getInheritedColorGenerator(dotColor)}
+                            color={getInheritedColorGenerator(dotColor, theme)}
                             borderWidth={dotBorderWidth}
-                            borderColor={getInheritedColorGenerator(dotBorderColor)}
+                            borderColor={getInheritedColorGenerator(dotBorderColor, theme)}
                             enableLabel={enableDotLabel}
                             label={dotLabel}
                             labelFormat={dotLabelFormat}

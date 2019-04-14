@@ -143,7 +143,6 @@ LineDots.propTypes = {
 }
 
 LineDots.defaultProps = {
-    // labels
     enableLabel: false,
     label: 'y',
 }
