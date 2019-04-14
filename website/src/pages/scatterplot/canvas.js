@@ -133,6 +133,7 @@ const ScatterPlotCanvas = () => {
                                 label: `[point] serie: ${node.serie.id}, x: ${node.x}, y: ${
                                     node.y
                                 }`,
+                                color: node.color,
                                 data: node,
                             })
                         }}
