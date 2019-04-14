@@ -9,7 +9,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { patternDotsDef, patternLinesDef } from '@nivo/core'
-import { settingsMapper, mapInheritedColor } from '../../../lib/settings'
+import { settingsMapper } from '../../../lib/settings'
 
 const TooltipWrapper = styled.div`
     display: grid;
@@ -48,10 +48,6 @@ export default settingsMapper(
             if (value === `d => \`\${d.id} (\${d.value})\``) return d => `${d.id} (${d.value})`
             return value
         },
-        borderColor: mapInheritedColor,
-        radialLabelsTextColor: mapInheritedColor,
-        radialLabelsLinkColor: mapInheritedColor,
-        slicesLabelsTextColor: mapInheritedColor,
         tooltip: (value, values) => {
             if (!values['custom tooltip example']) return undefined
 

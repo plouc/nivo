@@ -8,13 +8,8 @@
  */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {
-    getHoveredArc,
-    getRelativeCursor,
-    getLabelGenerator,
-    getInheritedColorGenerator,
-    Container,
-} from '@nivo/core'
+import { getHoveredArc, getRelativeCursor, getLabelGenerator, Container } from '@nivo/core'
+import { getInheritedColorGenerator } from '@nivo/colors'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { arcPropType } from './props'
 import { drawSliceLabels, drawRadialLabels } from './canvas'
@@ -152,7 +147,7 @@ class PieCanvasRenderer extends Component {
         this.ctx.save()
         this.ctx.translate(centerX, centerY)
 
-        const getBorderColor = getInheritedColorGenerator(borderColor)
+        const getBorderColor = getInheritedColorGenerator(borderColor, theme)
 
         arcs.forEach(arc => {
             this.ctx.beginPath()
@@ -171,7 +166,7 @@ class PieCanvasRenderer extends Component {
                 arcGenerator,
                 skipAngle: slicesLabelsSkipAngle,
                 getLabel: getLabelGenerator(sliceLabel),
-                getTextColor: getInheritedColorGenerator(slicesLabelsTextColor, 'labels.text.fill'),
+                getTextColor: getInheritedColorGenerator(slicesLabelsTextColor, theme),
                 theme,
             })
         }
@@ -198,11 +193,8 @@ class PieCanvasRenderer extends Component {
                 linkHorizontalLength: radialLabelsLinkHorizontalLength,
                 linkStrokeWidth: radialLabelsLinkStrokeWidth,
                 textXOffset: radialLabelsTextXOffset,
-                getTextColor: getInheritedColorGenerator(radialLabelsTextColor, 'labels.text.fill'),
-                getLinkColor: getInheritedColorGenerator(
-                    radialLabelsLinkColor,
-                    'axis.ticks.line.stroke'
-                ),
+                getTextColor: getInheritedColorGenerator(radialLabelsTextColor, theme),
+                getLinkColor: getInheritedColorGenerator(radialLabelsLinkColor, theme),
                 theme,
             })
         }

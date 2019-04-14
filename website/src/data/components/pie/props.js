@@ -224,14 +224,11 @@ const props = [
     {
         key: 'borderColor',
         help: 'Method to compute border color.',
-        type: 'string | Function',
+        type: 'string | object | Function',
         required: false,
         defaultValue: defaults.borderColor,
-        controlType: 'color',
+        controlType: 'inheritedColor',
         group: 'Style',
-        controlOptions: {
-            withCustomColor: true,
-        },
     },
     {
         key: 'enableRadialLabels',
@@ -344,26 +341,20 @@ const props = [
     {
         key: 'radialLabelsTextColor',
         help: 'Defines how to compute radial label text color.',
-        type: 'string | Function',
+        type: 'string | object | Function',
         required: false,
         defaultValue: defaults.radialLabelsTextColor,
-        controlType: 'color',
+        controlType: 'inheritedColor',
         group: 'Radial labels',
-        controlOptions: {
-            withCustomColor: true,
-        },
     },
     {
         key: 'radialLabelsLinkColor',
         help: 'Defines how to compute radial label link color.',
-        type: 'string | Function',
+        type: 'string | object | Function',
         required: false,
         defaultValue: defaults.radialLabelsLinkColor,
-        controlType: 'color',
+        controlType: 'inheritedColor',
         group: 'Radial labels',
-        controlOptions: {
-            withCustomColor: true,
-        },
     },
     {
         key: 'enableSlicesLabels',
@@ -408,14 +399,11 @@ const props = [
     {
         key: 'slicesLabelsTextColor',
         help: 'Defines how to compute slice label text color.',
-        type: 'string | Function',
+        type: 'string | object | Function',
         required: false,
-        defaultValue: 'theme',
-        controlType: 'color',
+        defaultValue: defaults.slicesLabelsTextColor,
+        controlType: 'inheritedColor',
         group: 'Slices labels',
-        controlOptions: {
-            withCustomColor: true,
-        },
     },
     {
         key: 'isInteractive',
