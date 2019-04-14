@@ -8,7 +8,11 @@
  */
 import PropTypes from 'prop-types'
 import { noop, defsPropTypes } from '@nivo/core'
-import { ordinalColorsPropType, colorPropertyAccessorPropType } from '@nivo/colors'
+import {
+    ordinalColorsPropType,
+    colorPropertyAccessorPropType,
+    inheritedColorPropType,
+} from '@nivo/colors'
 import BubbleNode from './BubbleNode'
 import BubbleHtmlNode from './BubbleHtmlNode'
 
@@ -27,12 +31,12 @@ const commonPropTypes = {
     padding: PropTypes.number.isRequired,
 
     borderWidth: PropTypes.number.isRequired,
-    borderColor: PropTypes.any.isRequired,
+    borderColor: inheritedColorPropType.isRequired,
 
     enableLabel: PropTypes.bool.isRequired,
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     labelFormat: PropTypes.string,
-    labelTextColor: PropTypes.any.isRequired,
+    labelTextColor: inheritedColorPropType.isRequired,
     labelSkipRadius: PropTypes.number.isRequired,
 
     isInteractive: PropTypes.bool.isRequired,
@@ -67,11 +71,14 @@ const commonDefaultProps = {
     colors: { scheme: 'nivo' },
     colorBy: 'depth',
     borderWidth: 0,
-    borderColor: 'inherit',
+    borderColor: { from: 'color' },
 
     enableLabel: true,
     label: 'id',
-    labelTextColor: 'inherit:darker(1)',
+    labelTextColor: {
+        from: 'color',
+        modifiers: [['darker', 1]],
+    },
     labelSkipRadius: 8,
 
     isInteractive: true,
