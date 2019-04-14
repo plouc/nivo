@@ -6,31 +6,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import range from 'lodash/range'
-import random from 'lodash/random'
+import { generateSwarmPlotData, randomizeSwarmPlotData } from '@nivo/generators'
 
-const ids = ['serie A', 'serie B', 'serie C', 'serie D', 'serie E', 'serie F', 'serie G']
+const allGroups = ['group A', 'group B', 'group C', 'group D', 'group E', 'group F', 'group G']
 
-const generateDataSet = size => {
-    const values = range(size).map(() => random(0, 500))
-    values.sort()
+export const generateLightDataSet = previousData => {
+    if (previousData !== undefined) return randomizeSwarmPlotData(previousData)
 
-    return values.map((value, id) => ({
-        id,
-        value,
-    }))
+    return generateSwarmPlotData(allGroups.slice(0, 3), { min: 50, max: 80 })
 }
 
-export const generateLightDataSet = () => {
-    return ids.slice(0, 3).map(id => ({
-        id,
-        data: generateDataSet(60 + Math.round(Math.random() * 40)),
-    }))
-}
+export const generateHeavyDataSet = previousData => {
+    if (previousData !== undefined) return randomizeSwarmPlotData(previousData)
 
-export const generateHeavyDataSet = () => {
-    return ids.map(id => ({
-        id,
-        data: generateDataSet(180 + Math.round(Math.random() * 100)),
-    }))
+    return generateSwarmPlotData(allGroups, { min: 60, max: 100 })
 }

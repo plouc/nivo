@@ -42,7 +42,7 @@ const BarApi = () => {
                     indexBy: 'country',
 
                     colors: { scheme: 'nivo' },
-                    colorIdentity: 'id',
+                    colorBy: 'id',
                     borderRadius: 0,
                     borderWidth: 0,
                     borderColor: {

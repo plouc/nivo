@@ -28,8 +28,8 @@ export default {
             },
             legend: {
                 text: {
-                    fill: '#889eae',
-                    fontSize: 12,
+                    fill: '#6f6f6f',
+                    fontSize: 13,
                     fontWeight: 500,
                 },
             },
@@ -71,8 +71,8 @@ export default {
             },
             legend: {
                 text: {
-                    fill: '#8d9cab',
-                    fontSize: 12,
+                    fill: '#ccd7e2',
+                    fontSize: 13,
                     fontWeight: 500,
                 },
             },

@@ -9,21 +9,13 @@ Bullet:
     - isomorphic
   stories:
     - label: custom range
-      link:
-        kind: Bullet
-        story: custom range
+      link: bullet--custom-range
     - label: custom measure
-      link:
-        kind: Bullet
-        story: custom measure
+      link: bullet--custom-measure
     - label: custom marker
-      link:
-        kind: Bullet
-        story: custom marker
+      link: bullet--custom-marker
     - label: custom title
-      link:
-        kind: Bullet
-        story: custom title
+      link: bullet--custom-title
   description: |
     Bullet chart supporting multiple ranges/measures/markers.
 

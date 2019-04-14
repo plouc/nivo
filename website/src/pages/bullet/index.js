@@ -71,6 +71,7 @@ const Bullet = () => {
                             logAction({
                                 type: 'click',
                                 label: `[range] ${range.id}: [${range.v0}, ${range.v1}]`,
+                                color: range.color,
                                 data: range,
                             })
                         }}
@@ -78,6 +79,7 @@ const Bullet = () => {
                             logAction({
                                 type: 'click',
                                 label: `[measure] ${measure.id}: [${measure.v0}, ${measure.v1}]`,
+                                color: measure.color,
                                 data: measure,
                             })
                         }}
@@ -85,6 +87,7 @@ const Bullet = () => {
                             logAction({
                                 type: 'click',
                                 label: `[marker] ${marker.id}: ${marker.value}`,
+                                color: marker.color,
                                 data: marker,
                             })
                         }}

@@ -38,7 +38,7 @@ const ComponentTabs = ({
 
     let content
     if (currentTab === 'chart') {
-        content = <Content>{children}</Content>
+        content = <Content id="chart">{children}</Content>
     } else if (currentTab === 'code') {
         content = (
             <Code>
@@ -217,6 +217,10 @@ const NodeCount = styled.span`
     border-right: 1px solid ${({ theme }) => theme.colors.border};
     font-size: 13px;
     padding: 5px 11px;
+
+    .isCapturing & {
+        display: none;
+    }
 `
 
 const Code = styled.div`

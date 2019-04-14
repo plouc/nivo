@@ -332,9 +332,6 @@ const props = [
             A function allowing complete tooltip customisation,
             it must return a valid HTML
             element and will receive the node's data.
-
-            You can also customize the tooltip style
-            using the \`theme.tooltip\` object.
         `,
     },
     {

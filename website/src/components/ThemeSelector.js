@@ -41,7 +41,11 @@ const ThemeSelector = () => {
 
     return (
         <ToggleContainer>
-            <ToggleItem isActive={state.theme === 'light'} onClick={() => setTheme('light')}>
+            <ToggleItem
+                id="lightTheme"
+                isActive={state.theme === 'light'}
+                onClick={() => setTheme('light')}
+            >
                 light
             </ToggleItem>
             <Switch
@@ -50,7 +54,11 @@ const ThemeSelector = () => {
                 onChange={toggleTheme}
                 colors={colors}
             />
-            <ToggleItem isActive={state.theme === 'dark'} onClick={() => setTheme('dark')}>
+            <ToggleItem
+                id="darkTheme"
+                isActive={state.theme === 'dark'}
+                onClick={() => setTheme('dark')}
+            >
                 dark
             </ToggleItem>
         </ToggleContainer>

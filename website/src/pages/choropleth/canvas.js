@@ -101,6 +101,7 @@ const ChoroplethCanvas = () => {
                                 label: `${feature.label}: ${feature.formattedValue} (${
                                     feature.id
                                 })`,
+                                color: feature.color,
                                 data: {
                                     label: feature.label,
                                     value: feature.value,

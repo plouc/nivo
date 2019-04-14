@@ -12,13 +12,9 @@ Radar:
     - isomorphic
   stories:
     - label: Formatting tooltip value
-      link:
-        kind: Radar
-        story: with formatted values
+      link: radar--with-formatted-values
     - label: Custom label component
-      link:
-        kind: Radar
-        story: custom label component
+      link: radar--custom-label-component
   description: |
     Generates a radar chart from an array of data.
     Note that margin object does not take grid labels into account,

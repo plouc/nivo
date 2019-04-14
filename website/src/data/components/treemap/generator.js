@@ -16,13 +16,13 @@ const HEAVY_NODE_COUNT = 600
 
 export const generateHeavyDataSet = () => {
     const children = range(HEAVY_NODE_COUNT).map(i => ({
-        id: `node.${i}`,
+        name: `node.${i}`,
         value: random(10, 100000),
     }))
 
     return {
         root: {
-            id: 'root',
+            name: 'root',
             children,
         },
         nodeCount: HEAVY_NODE_COUNT,

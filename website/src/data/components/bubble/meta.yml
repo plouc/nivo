@@ -16,13 +16,9 @@ Bubble:
     - isomorphic
   stories:
     - label: Using formatted values
-      link:
-        kind: Bubble
-        story: with formatted values
+      link: bubble--with-formatted-values
     - label: Using custom tooltip
-      link:
-        kind: Bubble
-        story: custom tooltip
+      link: bubble--custom-tooltip
   description: |
     Bubble chart using circle packing with zooming ability.
     You can fully customize it using `nodeComponent` property

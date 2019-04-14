@@ -66,11 +66,7 @@ export const enhanceCanvas = Component =>
         withPropsOnChange(
             ['points', 'width', 'height', 'debugMesh'],
             ({ points, width, height, debugMesh }) => {
-                const points2d = computeMeshPoints({
-                    points,
-                    xAccessor: 'x',
-                    yAccessor: 'y',
-                }).points
+                const points2d = computeMeshPoints({ points }).points
 
                 return computeMesh({ points: points2d, width, height, debug: debugMesh })
             }

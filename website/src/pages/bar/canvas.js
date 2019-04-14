@@ -41,7 +41,7 @@ const initialProperties = {
     reverse: false,
 
     colors: { scheme: 'red_blue' },
-    colorIdentity: 'id',
+    colorBy: 'id',
     borderWidth: 0,
     borderColor: {
         type: 'inherit:darker',
@@ -129,6 +129,7 @@ const BarCanvas = () => {
                             logAction({
                                 type: 'click',
                                 label: `[bar] ${node.id} - ${node.indexValue}: ${node.value}`,
+                                color: node.color,
                                 data: node,
                             })
                         }

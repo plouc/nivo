@@ -10,7 +10,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { BasicTooltip } from '@nivo/core'
 
-const ScatterPlotTooltip = ({ point: { data }, color, format, tooltip, theme }) => (
+const ScatterPlotTooltip = ({ point: { data }, color, format, theme, tooltip }) => (
     <BasicTooltip
         id={data.serie.id}
         value={`x: ${data.x}, y: ${data.y}`}

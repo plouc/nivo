@@ -2,12 +2,24 @@ const puppeteer = require('puppeteer')
 const chalk = require('chalk')
 const config = require('@ekino/config')
 
-const capture = async (page, baseUrl, { path, selector, output }) => {
+const capture = async (page, baseUrl, { path, selector, output, theme }) => {
     const url = `${baseUrl}${path}?capture=1`
 
     console.log(chalk`{yellow Capturing {white ${path}}} {dim (selector: ${selector})}`)
 
+    if (path.indexOf('/icons') !== -1) {
+        await page.setViewport({ width: 1400, height: 4000 })
+    } else {
+        await page.setViewport({ width: 1400, height: 900 })
+    }
+
     await page.goto(url)
+
+    if (theme !== undefined) {
+        const themeSelector = `#${theme}Theme`
+        await page.waitFor(themeSelector)
+        await page.click(themeSelector)
+    }
 
     await page.waitFor(selector)
     const element = await page.$(selector)
@@ -37,7 +49,6 @@ const captureAll = async config => {
             headless: true
         })
         const page = await browser.newPage()
-        await page.setViewport({ width: 1400, height: 4000 })
 
         for (let pageConfig of config.pages) {
             await capture(page, config.baseUrl, pageConfig)

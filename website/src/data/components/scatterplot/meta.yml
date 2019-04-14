@@ -11,29 +11,17 @@ ScatterPlot:
     - isomorphic
   stories:
     - label: Using time scales
-      link:
-        kind: ScatterPlot
-        story: using time scales
+      link: scatterplot--using-time-scales
     - label: Using logarithmic scales
-      link:
-        kind: ScatterPlot
-        story: using logarithmic scales
+      link: scatterplot--using-logarithmic-scales
     - label: Varying symbol size
-      link:
-        kind: ScatterPlot
-        story: varying symbol size
+      link: scatterplot--varying-symbol-size
     - label: Custom tooltip
-      link:
-        kind: ScatterPlot
-        story: custom tooltip
+      link: scatterplot--custom-tooltip
     - label: Synchronizing charts
-      link:
-        kind: ScatterPlot
-        story: synchronizing charts
+      link: scatterplot--synchronizing-charts
     - label: Using mouse enter/leave
-      link:
-        kind: ScatterPlot
-        story: using mouse enter/leave
+      link: scatterplot--using-mouse-enter-leave
   description: |
     A scatter plot chart, which can display several data series.
 
@@ -55,17 +43,11 @@ ScatterPlotCanvas:
     - canvas
   stories:
     - label: Using time scales
-      link:
-        kind: ScatterPlot
-        story: using time scales
+      link: scatterplot--using-time-scales
     - label: Varying symbol size
-      link:
-        kind: ScatterPlot
-        story: varying symbol size
+      link: scatterplot--varying-symbol-size
     - label: Custom tooltip
-      link:
-        kind: ScatterPlot
-        story: custom tooltip
+      link: scatterplot--custom-tooltip
   description: |
     A variation around the [ScatterPlot](self:/scatterplot) component.
     Well suited for large data sets as it does not impact DOM tree depth,

@@ -11,53 +11,29 @@ Line:
     - isomorphic
   stories:
     - label: stacked lines
-      link:
-        kind: Line
-        story: stacked lines
+      link: line--stacked-lines
     - label: linear x scale
-      link:
-        kind: Line
-        story: linear x scale
+      link: line--linear-x-scale
     - label: time x scale
-      link:
-        kind: Line
-        story: time x scale
+      link: line--time-x-scale
     - label: logarithmic y scale
-      link:
-        kind: Line
-        story: logarithmic y scale
+      link: line--logarithmic-y-scale
     - label: real time chart
-      link:
-        kind: Line
-        story: real time chart
+      link: line--real-time-chart
     - label: custom dot symbol
-      link:
-        kind: Line
-        story: custom dot symbol
+      link: line--custom-dot-symbol
     - label: adding markers
-      link:
-        kind: Line
-        story: adding markers
+      link: line--adding-markers
     - label: holes in data
-      link:
-        kind: Line
-        story: holes in data
+      link: line--holes-in-data
     - label: different serie lengths
-      link:
-        kind: Line
-        story: different serie lengths
+      link: line--different-serie-lengths
     - label: custom min/max y
-      link:
-        kind: Line
-        story: custom min/max y
+      link: line--custom-min-max-y
     - label: formatting axis values
-      link:
-        kind: Line
-        story: formatting axis values
+      link: line--formatting-axis-values
     - label: formatting tooltip values
-      link:
-        kind: Line
-        story: formatting tooltip values
+      link: line--formatting-tooltip-values
   description: |
     Line chart with stacking ability.
 

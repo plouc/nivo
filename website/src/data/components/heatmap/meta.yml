@@ -13,13 +13,9 @@ HeatMap:
     - isomorphic
   stories:
     - label: Custom cell component
-      link: 
-        kind: heatmap
-        story: Custom cell component
+      link: heatmap--custom-cell-component
     - label: Custom tooltip
-      link: 
-        kind: heatmap
-        story: Custom tooltip
+      link: heatmap-custom-tooltip
   description: |
     An heat map matrix, you can chose between various colors scales
     or pass yours, you also have the ability to change the cell shape

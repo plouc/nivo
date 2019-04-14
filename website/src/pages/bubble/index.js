@@ -25,7 +25,7 @@ const initialProperties = {
     identity: 'name',
     value: 'loc',
     colors: { scheme: 'nivo' },
-    colorIdentity: 'depth',
+    colorBy: 'depth',
     padding: 6,
     leavesOnly: false,
 
@@ -87,6 +87,7 @@ const Bubble = () => {
                             logAction({
                                 type: 'click',
                                 label: `${node.id}: ${node.value}`,
+                                color: node.color,
                                 data: node,
                             })
                         }}

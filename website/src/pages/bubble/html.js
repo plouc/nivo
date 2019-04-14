@@ -24,7 +24,7 @@ const initialProperties = {
     identity: 'name',
     value: 'loc',
     colors: { scheme: 'paired' },
-    colorIdentity: 'depth',
+    colorBy: 'depth',
     padding: 1,
     leavesOnly: false,
 
@@ -76,6 +76,7 @@ const BubbleHtml = () => {
                             logAction({
                                 type: 'click',
                                 label: `${node.id}: ${node.value}`,
+                                color: node.color,
                                 data: node,
                             })
                         }}

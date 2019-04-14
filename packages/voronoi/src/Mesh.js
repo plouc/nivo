@@ -6,143 +6,121 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component } from 'react'
+import React, { useRef, useState, useCallback, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import compose from 'recompose/compose'
-import defaultProps from 'recompose/defaultProps'
-import withPropsOnChange from 'recompose/withPropsOnChange'
 import { getRelativeCursor } from '@nivo/core'
-import { computeMeshPoints, computeMesh } from './computeMesh'
+import { useVoronoiMesh } from './hooks'
 
-class Mesh extends Component {
-    static propTypes = {
-        width: PropTypes.number.isRequired,
-        height: PropTypes.number.isRequired,
-        points: PropTypes.array.isRequired,
-        xAccessor: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.func])
-            .isRequired,
-        yAccessor: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.func])
-            .isRequired,
-        onMouseEnter: PropTypes.func,
-        onMouseMove: PropTypes.func,
-        onMouseLeave: PropTypes.func,
-        onClick: PropTypes.func,
-        debug: PropTypes.bool.isRequired,
+const Mesh = ({
+    nodes,
+    width,
+    height,
+    x,
+    y,
+    debug,
 
-        delaunay: PropTypes.shape({
-            find: PropTypes.func.isRequired,
-        }).isRequired,
-        voronoi: PropTypes.shape({
-            renderCell: PropTypes.func.isRequired,
-        }),
-        voronoiPath: PropTypes.string,
-    }
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+    onClick,
+}) => {
+    const elementRef = useRef(null)
+    const [currentIndex, setCurrentIndex] = useState(null)
 
-    state = {
-        index: null,
-    }
+    const { delaunay, voronoi } = useVoronoiMesh({
+        points: nodes,
+        x,
+        y,
+        width,
+        height,
+        debug,
+    })
+    const voronoiPath = useMemo(() => (debug ? voronoi.render() : undefined))
 
-    constructor(props) {
-        super(props)
-        this.setRectRef = element => {
-            this.rect = element
-        }
-    }
+    const getIndexAndNodeFromEvent = useCallback(
+        event => {
+            const [x, y] = getRelativeCursor(elementRef.current, event)
+            const index = delaunay.find(x, y)
 
-    handleMouseIn = (handler, event) => {
-        const { delaunay, points } = this.props
+            return [index, index !== undefined ? nodes[index] : null]
+        },
+        [delaunay]
+    )
+    const handleMouseEnter = useCallback(
+        event => {
+            const [index, node] = getIndexAndNodeFromEvent(event)
+            if (currentIndex !== index) setCurrentIndex(index)
+            node && onMouseEnter && onMouseEnter(node, event)
+        },
+        [getIndexAndNodeFromEvent, setCurrentIndex]
+    )
+    const handleMouseMove = useCallback(
+        event => {
+            const [index, node] = getIndexAndNodeFromEvent(event)
+            if (currentIndex !== index) setCurrentIndex(index)
+            node && onMouseMove && onMouseMove(node, event)
+        },
+        [getIndexAndNodeFromEvent, setCurrentIndex]
+    )
+    const handleMouseLeave = useCallback(
+        event => {
+            setCurrentIndex(null)
+            if (onMouseLeave) {
+                let previousNode
+                if (currentIndex !== undefined && currentIndex !== null) {
+                    previousNode = nodes[currentIndex]
+                }
+                onMouseLeave(previousNode, event)
+            }
+        },
+        [setCurrentIndex]
+    )
+    const handleClick = useCallback(
+        event => {
+            const [index, node] = getIndexAndNodeFromEvent(event)
+            if (currentIndex !== index) setCurrentIndex(index)
+            onClick && onClick(node, event)
+        },
+        [getIndexAndNodeFromEvent, setCurrentIndex]
+    )
 
-        const [x, y] = getRelativeCursor(this.rect, event)
-        const index = delaunay.find(x, y)
-
-        if (handler !== undefined) {
-            handler(points[index], event)
-        }
-
-        if (this.state.index !== index) {
-            this.setState({ index })
-        }
-    }
-
-    handleMouseEnter = event => {
-        this.handleMouseIn(this.props.onMouseEnter, event)
-    }
-
-    handleMouseMove = event => {
-        this.handleMouseIn(this.props.onMouseMove, event)
-    }
-
-    handleMouseLeave = event => {
-        const { onMouseLeave, points } = this.props
-        const { index } = this.state
-
-        if (onMouseLeave !== undefined) {
-            onMouseLeave(points[index], event)
-        }
-
-        this.setState({ index: null })
-    }
-
-    handleClick = event => {
-        const { onClick, points } = this.props
-        const { index } = this.state
-
-        if (onClick === undefined || index === null) return
-
-        onClick(points[index], event)
-    }
-
-    render() {
-        const { width, height, voronoi, voronoiPath, debug } = this.props
-        const { index } = this.state
-
-        return (
-            <g ref={this.setRectRef}>
-                {debug && <path d={voronoiPath} stroke="red" strokeWidth={0.5} opacity={0.75} />}
-                {index !== null && debug && (
-                    <path fill="red" opacity={0.25} d={voronoi.renderCell(index)} />
-                )}
-                <rect
-                    width={width}
-                    height={height}
-                    fill="purple"
-                    opacity={0}
-                    style={{ cursor: 'crosshair' }}
-                    onMouseEnter={this.handleMouseEnter}
-                    onMouseMove={this.handleMouseMove}
-                    onMouseLeave={this.handleMouseLeave}
-                    onClick={this.handleClick}
-                />
-            </g>
-        )
-    }
+    return (
+        <g ref={elementRef}>
+            {debug && <path d={voronoiPath} stroke="red" strokeWidth={1} opacity={0.75} />}
+            {currentIndex !== null && debug && (
+                <path fill="red" opacity={0.35} d={voronoi.renderCell(currentIndex)} />
+            )}
+            <rect
+                width={width}
+                height={height}
+                fill="red"
+                opacity={0}
+                style={{ cursor: 'auto' }}
+                onMouseEnter={handleMouseEnter}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+                onClick={handleClick}
+            />
+        </g>
+    )
 }
 
-const enhance = compose(
-    defaultProps({
-        xAccessor: 'x',
-        yAccessor: 'y',
-        debug: false,
-    }),
-    withPropsOnChange(['points', 'xAccessor', 'yAccessor'], ({ points, xAccessor, yAccessor }) => ({
-        points2d: computeMeshPoints({ points, xAccessor, yAccessor }).points,
-    })),
-    withPropsOnChange(
-        ['points2d', 'width', 'height', 'debug'],
-        ({ points2d, width, height, debug }) => {
-            const mesh = computeMesh({ points: points2d, width, height, debug })
+Mesh.propTypes = {
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+    nodes: PropTypes.array.isRequired,
+    x: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.func]).isRequired,
+    y: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.func]).isRequired,
+    onMouseEnter: PropTypes.func,
+    onMouseMove: PropTypes.func,
+    onMouseLeave: PropTypes.func,
+    onClick: PropTypes.func,
+    debug: PropTypes.bool.isRequired,
+}
+Mesh.defaultProps = {
+    x: 'x',
+    y: 'y',
+    debug: false,
+}
 
-            let voronoiPath
-            if (debug === true) {
-                voronoiPath = mesh.voronoi.render()
-            }
-
-            return {
-                ...mesh,
-                voronoiPath,
-            }
-        }
-    )
-)
-
-export default enhance(Mesh)
+export default Mesh

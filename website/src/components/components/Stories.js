@@ -14,10 +14,8 @@ import VisitIcon from 'react-icons/lib/md/keyboard-arrow-right'
 import media from '../../theming/mediaQueries'
 import config from '../../data/config'
 
-const buildStoryLink = ({ kind, story }) =>
-    `${config.storybookUrl}?path=/story/${encodeURIComponent(
-        kind.toLowerCase()
-    )}--${encodeURIComponent(snakeCase(story))}`
+const buildStoryLink = link =>
+    `${config.storybookUrl}?path=/story/${encodeURIComponent(link.toLowerCase())}`
 
 const Wrapper = styled.div`
     position: fixed;
@@ -134,10 +132,7 @@ Stories.propTypes = {
     stories: PropTypes.arrayOf(
         PropTypes.shape({
             label: PropTypes.string.isRequired,
-            link: PropTypes.shape({
-                kind: PropTypes.string.isRequired,
-                story: PropTypes.string.isRequired,
-            }).isRequired,
+            link: PropTypes.string.isRequired,
         })
     ),
 }
