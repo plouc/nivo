@@ -35,8 +35,8 @@ const initialProperties = {
     labelFormat: '.0s',
     labelSkipSize: 12,
     labelTextColor: {
-        type: 'inherit:darker',
-        gamma: 1.2,
+        from: 'color',
+        modifiers: [['darker', 1.2]],
     },
     orientLabel: true,
 
@@ -44,8 +44,8 @@ const initialProperties = {
     colorBy: 'depth',
     borderWidth: 0,
     borderColor: {
-        type: 'inherit:darker',
-        gamma: 0.3,
+        from: 'color',
+        modifiers: [['darker', 0.3]],
     },
 
     animate: true,

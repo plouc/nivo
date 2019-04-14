@@ -42,8 +42,8 @@ const TreeMapApi = () => {
                     label: 'loc',
                     labelFormat: '.0s',
                     labelTextColor: {
-                        type: 'inherit:darker',
-                        gamma: 0.6,
+                        from: 'color',
+                        modifiers: [['darker', 0.6]],
                     },
                     orientLabels: true,
 
@@ -52,8 +52,8 @@ const TreeMapApi = () => {
 
                     borderWidth: 1,
                     borderColor: {
-                        type: 'inherit:darker',
-                        gamma: 0.3,
+                        from: 'color',
+                        modifiers: [['darker', 0.3]],
                     },
                     identity: 'name',
                     value: 'loc',
