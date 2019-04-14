@@ -22,11 +22,14 @@ In order to install all the required dependencies and to establish links between
 the various packages, please execute the following:
 
 ```
-# please note that it can take a while as the repository contains a lot of packages
 make init
 ```
 
+> please note that it will take a while as this project uses a lot of dependencies…
+
 ## Development
+
+### Storybook
 
 The easiest way to work on Nivo, is to use our [storybook](https://storybook.js.org/).
 The storybook development mode can be started via:
@@ -35,11 +38,29 @@ The storybook development mode can be started via:
 make storybook
 ```
 
-Once you have made changes to the packages, you will need to rebuild the respective package.
-In this case, you have two options:
+The storybook uses the src code of each package, thus you don't have to build
+to see your changes.
+
+### Demo/Doc website
+
+You can also use the demo website while working on components, it might be
+useful to see how it behaves with various controls, and might be required to
+update the documentation if you change the public API of components.
+
+The packages are automatically linked to the website, so it doesn't use
+the version from npm, however if you make some change to the source
+of a package, you'll have to rebuild it to see the changes.
+
+To automate this process, you can start a watcher on the package you're working
+on, for example if you want to make some change on the `@nivo/bar` package,
+you should run `make package-dev-bar` and then start the website `make website`,
+this way each change you make will trigger a build and will be (almost :))
+immedialty visible on the website.
+
+You can also build the packages without running a watcher, you have two options:
 
  1. Rebuild all the packages via `make packages-build` or…
- 2. Rebuild only a specific package via, e.g. for the package `bar`, `PACKAGE=bar make package-build-bar`.
+ 2. Rebuild only a specific package, for example `make package-build-bar` for `@nivo/bar` package
 
 ### Formatting
 

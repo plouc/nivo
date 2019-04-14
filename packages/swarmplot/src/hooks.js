@@ -6,122 +6,229 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { useMemo } from 'react'
+import React, { useMemo, useCallback } from 'react'
+import get from 'lodash/get'
+import { useValueFormatter, useTooltip } from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
 import {
-    computeSwarmPlotValueScale,
-    computeSwarmPlotOrdinalScale,
-    computeSwarmPlotForces,
-    computeSwarmPlotNodes,
+    computeValueScale,
+    computeOrdinalScale,
+    computeForces,
+    computeNodes,
+    getSizeGenerator,
 } from './compute'
+import SwarmPlotTooltip from './SwarmPlotTooltip'
 
-export const useSwarmPlotValueScale = ({ axis, scale, data, width, height }) => {
-    return useMemo(() => computeSwarmPlotValueScale({ axis, scale, data, width, height }), [
-        axis,
-        scale,
-        data,
-        width,
-        height,
-    ])
-}
-
-export const useSwarmPlotOrdinalScale = ({ axis, data, gap, width, height }) => {
-    return useMemo(() => computeSwarmPlotOrdinalScale({ axis, data, gap, width, height }), [
-        axis,
-        data,
-        gap,
-        width,
-        height,
-    ])
-}
-
-export const useSwarmPlotForces = ({
-    axis,
-    valueScale,
-    ordinalScale,
-    nodeSize,
-    nodePadding,
-    forceStrength,
-}) => {
-    return useMemo(
+export const useValueScale = ({ width, height, axis, getValue, scale, data }) =>
+    useMemo(
         () =>
-            computeSwarmPlotForces({
+            computeValueScale({
+                width,
+                height,
+                axis,
+                getValue,
+                scale,
+                data,
+            }),
+        [width, height, axis, getValue, scale, data]
+    )
+
+export const useOrdinalScale = ({ width, height, axis, groups, gap }) =>
+    useMemo(() => computeOrdinalScale({ width, height, axis, groups, gap }), [
+        width,
+        height,
+        axis,
+        groups,
+        gap,
+    ])
+
+export const useForces = ({ axis, valueScale, ordinalScale, getSize, spacing, forceStrength }) =>
+    useMemo(
+        () =>
+            computeForces({
                 axis,
                 valueScale,
                 ordinalScale,
-                nodeSize,
-                nodePadding,
+                getSize,
+                spacing,
                 forceStrength,
             }),
-        [axis, valueScale, ordinalScale, nodeSize, nodePadding, forceStrength]
+        [axis, valueScale, ordinalScale, getSize, spacing, forceStrength]
     )
+
+const useSize = size => useMemo(() => getSizeGenerator(size), [size])
+
+const getAccessor = instruction => {
+    if (typeof instruction === 'function') return instruction
+    return d => get(d, instruction)
 }
 
 export const useSwarmPlot = ({
-    data,
-    layout,
-    colors,
-    scale,
     width,
     height,
+    data,
+    identity,
+    label,
+    groups,
+    groupBy,
+    value,
+    valueFormat,
+    valueScale: valueScaleConfig,
+    size,
+    spacing,
+    layout,
     gap,
-    nodeSize,
-    nodePadding,
+    colors,
+    colorBy,
     forceStrength,
     simulationIterations,
 }) => {
     const axis = layout === 'horizontal' ? 'x' : 'y'
 
-    const valueScale = useSwarmPlotValueScale({
-        axis,
-        scale,
-        data,
+    const getIdentity = useMemo(() => getAccessor(identity), [identity])
+    const getLabel = useMemo(() => getAccessor(label), [label])
+    const getValue = useMemo(() => getAccessor(value), [value])
+    const formatValue = useValueFormatter(valueFormat)
+    const getGroup = useMemo(() => getAccessor(groupBy), [groupBy])
+    const getSize = useSize(size)
+    const getColor = useOrdinalColorScale(colors, colorBy)
+
+    const valueScale = useValueScale({
         width,
         height,
-    })
-    const ordinalScale = useSwarmPlotOrdinalScale({
         axis,
+        getValue,
+        scale: valueScaleConfig,
         data,
+    })
+
+    const ordinalScale = useOrdinalScale({
+        width,
+        height,
+        axis,
+        groups,
         gap,
-        width,
-        height,
     })
-    const forces = useSwarmPlotForces({
+
+    const forces = useForces({
         axis,
         valueScale,
         ordinalScale,
-        nodeSize,
-        nodePadding,
+        spacing,
         forceStrength,
     })
 
     const { nodes, xScale, yScale } = useMemo(
         () =>
-            computeSwarmPlotNodes({
+            computeNodes({
                 data,
+                getIdentity,
                 layout,
+                getValue,
                 valueScale,
+                getGroup,
                 ordinalScale,
+                getSize,
                 forces,
                 simulationIterations,
             }),
-        [data, layout, valueScale, ordinalScale, forces, simulationIterations]
+        [
+            data,
+            getIdentity,
+            layout,
+            getValue,
+            valueScale,
+            getGroup,
+            ordinalScale,
+            getSize,
+            forces,
+            simulationIterations,
+        ]
     )
 
-    const colorScale = useOrdinalColorScale(colors, 'serieId')
-
-    const coloredNodes = useMemo(() => nodes.map(node => ({ ...node, color: colorScale(node) })))
+    const augmentedNodes = useMemo(
+        () =>
+            nodes.map(node => ({
+                id: node.id,
+                index: node.index,
+                group: node.group,
+                label: getLabel(node),
+                value: node.value,
+                formattedValue: formatValue(node.value),
+                x: node.x,
+                y: node.y,
+                size: node.size,
+                color: getColor(node),
+                data: node.data,
+            })),
+        [nodes, getLabel, formatValue, getColor]
+    )
 
     return {
-        nodes: coloredNodes,
+        nodes: augmentedNodes,
         xScale,
         yScale,
-        colorScale,
+        getColor,
     }
 }
 
-/*
-withPropsOnChange(['borderColor'], ({ borderColor }) => ({
-    getBorderColor: getInheritedColorGenerator(borderColor),
-})),
-*/
+export const useBorderWidth = borderWidth =>
+    useMemo(() => {
+        if (typeof borderWidth === 'function') return borderWidth
+        return () => borderWidth
+    }, [borderWidth])
+
+export const useNodeMouseHandlers = ({
+    isEnabled,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+    onClick,
+}) => {
+    const [showTooltip, hideTooltip] = useTooltip()
+    const showNodeTooltip = useMemo(
+        () => (node, event) => showTooltip(<SwarmPlotTooltip node={node} />, event),
+        [showTooltip]
+    )
+
+    const mouseEnterHandler = useCallback(
+        (node, event) => {
+            if (!isEnabled) return
+            showNodeTooltip(node, event)
+            onMouseEnter && onMouseEnter(node, event)
+        },
+        [isEnabled, onMouseEnter]
+    )
+
+    const mouseMoveHandler = useCallback(
+        (node, event) => {
+            if (!isEnabled) return
+            showNodeTooltip(node, event)
+            onMouseMove && onMouseMove(node, event)
+        },
+        [isEnabled, onMouseMove]
+    )
+
+    const mouseLeaveHandler = useCallback(
+        (node, event) => {
+            if (!isEnabled) return
+            hideTooltip()
+            onMouseLeave && onMouseLeave(node, event)
+        },
+        [isEnabled, onMouseLeave]
+    )
+
+    const clickHandler = useCallback(
+        (node, event) => {
+            isEnabled && onClick && onClick(node, event)
+        },
+        [isEnabled, onClick]
+    )
+
+    return {
+        onMouseEnter: mouseEnterHandler,
+        onMouseMove: mouseMoveHandler,
+        onMouseLeave: mouseLeaveHandler,
+        onClick: clickHandler,
+    }
+}

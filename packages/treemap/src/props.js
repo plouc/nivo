@@ -8,7 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import { noop, treeMapTilePropType, defsPropTypes } from '@nivo/core'
-import { ordinalColorsPropType } from '@nivo/colors'
+import { ordinalColorsPropType, colorPropertyAccessorPropType } from '@nivo/colors'
 import TreeMapNode from './TreeMapNode'
 import TreeMapHtmlNode from './TreeMapHtmlNode'
 
@@ -28,6 +28,7 @@ const commonPropTypes = {
     // styling
     // theme managed by `withTheme()` HOC
     colors: ordinalColorsPropType.isRequired,
+    colorBy: colorPropertyAccessorPropType.isRequired,
 
     leavesOnly: PropTypes.bool.isRequired,
     tile: treeMapTilePropType.isRequired,
@@ -80,6 +81,7 @@ const commonDefaultProps = {
     leavesOnly: false,
 
     colors: { scheme: 'nivo' },
+    colorIdentity: 'depth',
 
     enableLabel: true,
     label: 'id',

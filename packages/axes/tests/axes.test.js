@@ -20,8 +20,6 @@ describe('computeCartesianTicks()', () => {
     const bandScale = scaleBand()
         .domain(['I', 'J', 'K', 'L'])
         .rangeRound([0, 400])
-    const width = 600
-    const height = 400
 
     describe('from linear scale', () => {
         it('should compute ticks for x axis', () => {

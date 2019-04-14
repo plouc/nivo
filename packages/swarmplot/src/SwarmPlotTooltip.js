@@ -10,23 +10,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { BasicTooltip } from '@nivo/core'
 
-const SwarmPlotTooltip = ({ node, format, tooltip, theme }) => (
+const SwarmPlotTooltip = ({ node }) => (
     <BasicTooltip
-        id={node.serieId}
-        value={node.value}
+        id={node.label}
+        value={node.formattedValue}
         enableChip={true}
         color={node.color}
-        theme={theme}
-        format={format}
-        renderContent={typeof tooltip === 'function' ? tooltip.bind(null, node) : null}
     />
 )
 
 SwarmPlotTooltip.propTypes = {
-    node: PropTypes.shape({}).isRequired,
-    format: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    tooltip: PropTypes.func,
-    theme: PropTypes.object.isRequired,
+    node: PropTypes.shape({
+        label: PropTypes.string.isRequired,
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        color: PropTypes.string.isRequired,
+    }).isRequired,
 }
 
 export default SwarmPlotTooltip

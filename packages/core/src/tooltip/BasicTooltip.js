@@ -6,21 +6,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { useMemo, memo } from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import isFunction from 'lodash/isFunction'
-import { format as d3Format } from 'd3-format'
 import Chip from './Chip'
 import { useTheme } from '../theming'
+import { useValueFormatter } from '../hooks/useValueFormatter'
 
 const chipStyle = { marginRight: 7 }
 
 const BasicTooltip = memo(({ id, value: _value, format, enableChip, color, renderContent }) => {
     const theme = useTheme()
-    const formatValue = useMemo(() => {
-        if (!format || isFunction(format)) return format
-        return d3Format(format)
-    }, [format])
+    const formatValue = useValueFormatter(format)
 
     let content
     if (typeof renderContent === 'function') {

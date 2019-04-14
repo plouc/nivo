@@ -102,6 +102,7 @@ const CalendarCanvas = () => {
                             logAction({
                                 type: 'click',
                                 label: `[day] ${day.day}: ${day.value}`,
+                                color: day.color,
                                 data: day,
                             })
                         }}

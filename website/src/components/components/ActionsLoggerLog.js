@@ -17,14 +17,32 @@ const ActionHeader = styled.div`
     background: ${({ theme }) => theme.colors.cardBackground};
     border-bottom: 1px solid ${({ theme }) => theme.colors.borderLight};
     display: grid;
-    grid-template-columns: 60px auto 60px;
+    grid-template-columns: 60px 8px auto 60px;
     align-items: center;
     cursor: pointer;
+
+    &:hover {
+        bakcground: ${({ theme }) => theme.colors.cardAltBackground};
+    }
 `
 
 const ActionType = styled.span`
     padding: 7px 12px;
     opacity: 0.5;
+`
+
+const Color = styled.span`
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+
+const ColorChip = styled.span`
+    width: 8px;
+    height: 8px;
+    display: block;
+    border-radius: 6px;
 `
 
 const ActionLabel = styled.span`
@@ -54,6 +72,11 @@ const ActionsLoggerLog = ({ action }) => {
         <ActionContainer>
             <ActionHeader onClick={toggle}>
                 <ActionType>{action.type}</ActionType>
+                <Color>
+                    {action.color && (
+                        <ColorChip style={{ background: action.color || 'transparent' }} />
+                    )}
+                </Color>
                 <ActionLabel>{action.label}</ActionLabel>
                 <Toggle>{isOpen ? '-' : '{ … }'}</Toggle>
             </ActionHeader>

@@ -87,8 +87,8 @@ const initialProperties = {
     motionDamping: 15,
 
     isInteractive: true,
-    useMesh: false,
-    debugMesh: false,
+    useMesh: true,
+    debugMesh: true,
 
     'custom tooltip example': false,
     tooltip: null,

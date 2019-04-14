@@ -8,3 +8,4 @@
  */
 export * from './useDimensions'
 export * from './usePartialTheme'
+export * from './useValueFormatter'

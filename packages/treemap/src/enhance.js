@@ -37,8 +37,8 @@ const commonEnhancers = [
     withDimensions(),
     withTheme(),
     withMotion(),
-    withPropsOnChange(['colors'], ({ colors }) => ({
-        getColor: getOrdinalColorScale(colors, 'depth'),
+    withPropsOnChange(['colors', 'colorBy'], ({ colors, colorBy }) => ({
+        getColor: getOrdinalColorScale(colors, colorBy),
     })),
     withPropsOnChange(['identity'], ({ identity }) => ({
         getIdentity: getAccessorFor(identity),

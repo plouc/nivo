@@ -6,10 +6,10 @@
 
 [documentation](http://nivo.rocks/swarmplot)
 
-![SwarmPlot](./doc/swarmplot.png)
+![SwarmPlot](https://raw.githubusercontent.com/plouc/nivo/master/packages/swarmplot/doc/swarmplot.png)
 
 ## SwarmPlotCanvas
 
 [documentation](http://nivo.rocks/swarmplot/canvas)
 
-![SwarmPlotCanvas](./doc/swarmplot-canvas.png)
+![SwarmPlotCanvas](https://raw.githubusercontent.com/plouc/nivo/master/packages/swarmplot/doc/swarmplot-canvas.png)

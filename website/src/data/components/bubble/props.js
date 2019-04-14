@@ -158,7 +158,7 @@ const props = [
         group: 'Style',
     },
     {
-        key: 'colorIdentity',
+        key: 'colorBy',
         scopes: ['Bubble', 'BubbleHtml', 'BubbleCanvas'],
         type: 'string | Function',
         help: 'Property used to determine node color.',
@@ -170,7 +170,7 @@ const props = [
             to the color generator.
         `,
         required: false,
-        defaultValue: defaults.colorIdentity,
+        defaultValue: defaults.colorBy,
         controlType: 'choices',
         group: 'Style',
         controlOptions: {

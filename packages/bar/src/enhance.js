@@ -27,8 +27,8 @@ export default Component =>
         withTheme(),
         withDimensions(),
         withMotion(),
-        withPropsOnChange(['colors', 'colorIdentity'], ({ colors, colorIdentity }) => ({
-            getColor: getOrdinalColorScale(colors, colorIdentity),
+        withPropsOnChange(['colors', 'colorBy'], ({ colors, colorBy }) => ({
+            getColor: getOrdinalColorScale(colors, colorBy),
         })),
         withPropsOnChange(['indexBy'], ({ indexBy }) => ({
             getIndex: getAccessorFor(indexBy),

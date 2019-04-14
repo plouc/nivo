@@ -134,6 +134,7 @@ const Waffle = () => {
                             logAction({
                                 type: 'click',
                                 label: `[cell] ${label}`,
+                                color: node.color,
                                 data: node,
                             })
                         }}

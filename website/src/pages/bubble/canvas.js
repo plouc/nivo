@@ -42,7 +42,7 @@ const initialProperties = {
     value: 'value',
 
     colors: { scheme: 'yellow_orange_red' },
-    colorIdentity: 'name',
+    colorBy: 'name',
     padding: 1,
     leavesOnly: true,
 
@@ -95,6 +95,7 @@ const BubbleCanvas = () => {
                             logAction({
                                 type: 'click',
                                 label: `${node.id}: ${node.value}`,
+                                color: node.color,
                                 data: node,
                             })
                         }}

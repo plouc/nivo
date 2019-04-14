@@ -30,8 +30,8 @@ const commonEnhancers = [
     withHierarchy(),
     withDimensions(),
     withTheme(),
-    withPropsOnChange(['colors', 'colorIdentity'], ({ colors, colorIdentity }) => ({
-        getColor: getOrdinalColorScale(colors, colorIdentity),
+    withPropsOnChange(['colors', 'colorBy'], ({ colors, colorBy }) => ({
+        getColor: getOrdinalColorScale(colors, colorBy),
     })),
     withPropsOnChange(['width', 'height', 'padding'], ({ width, height, padding }) => ({
         pack: pack()

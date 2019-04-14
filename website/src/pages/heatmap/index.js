@@ -144,6 +144,7 @@ const HeatMap = () => {
                             logAction({
                                 type: 'click',
                                 label: `[cell] ${cell.yKey}.${cell.xKey}: ${cell.value}`,
+                                color: cell.color,
                                 data: cell,
                             })
                         }}

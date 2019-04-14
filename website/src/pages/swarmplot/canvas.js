@@ -14,99 +14,90 @@ import mapper from '../../data/components/scatterplot/mapper'
 import { groupsByScope } from '../../data/components/swarmplot/props'
 import { generateHeavyDataSet } from '../../data/components/swarmplot/generator'
 
-const initialProperties = {
-    margin: {
-        top: 60,
-        right: 140,
-        bottom: 70,
-        left: 90,
-    },
-
-    xScale: {
-        type: 'linear',
-        min: 0,
-        max: 'auto',
-    },
-    yScale: {
-        type: 'linear',
-        min: 0,
-        max: 'auto',
-    },
-
+const initialProperties = Object.freeze({
     pixelRatio:
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
+    groupBy: 'group',
+    identity: 'id',
+    value: 'price',
+    valueFormat: '$.2f',
+    valueScale: {
+        type: 'linear',
+        min: 0,
+        max: 500,
+    },
+    size: {
+        key: 'volume',
+        values: [4, 20],
+        sizes: [4, 12],
+    },
+    spacing: 1,
+    layout: SwarmPlotCanvasDefaultProps.layout,
+    gap: SwarmPlotCanvasDefaultProps.gap,
 
-    colors: 'nivo',
-    colorBy: 'serie.id',
+    forceStrength: 1,
+    simulationIterations: 60,
 
-    symbolSize: 4,
-    symbolShape: 'circle',
-
+    colors: { scheme: 'paired' },
+    colorBy: 'group',
+    borderWidth: 0,
+    borderColor: {
+        from: 'color',
+        modifiers: [['darker', 0.6]],
+    },
+    margin: {
+        top: 80,
+        right: 100,
+        bottom: 80,
+        left: 100,
+    },
+    enableGridX: true,
+    enableGridY: true,
     axisTop: {
-        enable: false,
+        enable: true,
         orient: 'top',
-        tickSize: 5,
+        tickSize: 10,
         tickPadding: 5,
         tickRotation: 0,
-        legend: '',
-        legendOffset: 36,
+        legend: 'group if vertical, price if horizontal',
+        legendPosition: 'middle',
+        legendOffset: -46,
     },
     axisRight: {
-        enable: false,
+        enable: true,
         orient: 'right',
-        tickSize: 5,
+        tickSize: 10,
         tickPadding: 5,
         tickRotation: 0,
-        legend: '',
-        legendOffset: 0,
+        legend: 'price if vertical, group if horizontal',
+        legendPosition: 'middle',
+        legendOffset: 76,
     },
     axisBottom: {
         enable: true,
         orient: 'bottom',
-        tickSize: 5,
+        tickSize: 10,
         tickPadding: 5,
         tickRotation: 0,
-        legend: 'weight',
+        legend: 'group if vertical, price if horizontal',
         legendPosition: 'middle',
-        legendOffset: 36,
-        format: d => `${d} kg`,
+        legendOffset: 46,
     },
     axisLeft: {
         enable: true,
         orient: 'left',
-        tickSize: 5,
+        tickSize: 10,
         tickPadding: 5,
         tickRotation: 0,
-        legend: 'size',
+        legend: 'price if vertical, group if horizontal',
         legendPosition: 'middle',
-        legendOffset: -40,
-        format: d => `${d} cm`,
+        legendOffset: -76,
     },
-
-    enableGridX: true,
-    enableGridY: true,
-
-    animate: true,
-    motionStiffness: 90,
-    motionDamping: 15,
 
     isInteractive: true,
     useMesh: true,
     debugMesh: false,
-
-    legends: [
-        {
-            anchor: 'bottom-right',
-            direction: 'column',
-            translateX: 130,
-            itemWidth: 100,
-            itemHeight: 12,
-            itemsSpacing: 5,
-            symbolSize: 12,
-            symbolShape: 'circle',
-        },
-    ],
-}
+})
 
 const ScatterPlotCanvas = () => {
     return (
@@ -120,20 +111,28 @@ const ScatterPlotCanvas = () => {
             initialProperties={initialProperties}
             defaultProperties={SwarmPlotCanvasDefaultProps}
             propertiesMapper={mapper}
+            codePropertiesMapper={(properties, data) => ({
+                groups: data.groups,
+                ...properties,
+            })}
             generateData={generateHeavyDataSet}
+            getTabData={data => data.data}
+            getDataSize={data => data.data.length}
         >
             {(properties, data, theme, logAction) => {
                 return (
                     <ResponsiveSwarmPlotCanvas
-                        data={data}
+                        data={data.data}
+                        groups={data.groups}
                         {...properties}
                         theme={theme}
                         onClick={node => {
                             logAction({
                                 type: 'click',
-                                label: `[point] serie: ${node.serie.id}, x: ${node.x}, y: ${
-                                    node.y
+                                label: `[node] id: ${node.id}, group: ${node.group}, value: ${
+                                    node.value
                                 }`,
+                                color: node.color,
                                 data: node,
                             })
                         }}

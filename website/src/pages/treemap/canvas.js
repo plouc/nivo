@@ -16,8 +16,10 @@ import { groupsByScope } from '../../data/components/treemap/props'
 import { generateHeavyDataSet } from '../../data/components/treemap/generator'
 
 const initialProperties = {
+    identity: 'name',
+    value: 'value',
     tile: 'squarify',
-    leavesOnly: false,
+    leavesOnly: true,
     innerPadding: 2,
     outerPadding: 8,
 
@@ -32,7 +34,7 @@ const initialProperties = {
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
 
     enableLabel: true,
-    label: 'loc',
+    label: 'value',
     labelFormat: '.0s',
     labelSkipSize: 18,
     labelTextColor: {
@@ -41,7 +43,8 @@ const initialProperties = {
     },
     orientLabel: true,
 
-    colors: { scheme: 'nivo' },
+    colors: { scheme: 'red_blue' },
+    colorBy: 'name',
     borderWidth: 0,
     borderColor: {
         type: 'inherit:darker',
@@ -75,7 +78,8 @@ const TreeMapCanvas = () => {
                         onClick={node => {
                             logAction({
                                 type: 'click',
-                                label: `[cell] ${node.id}: ${node.value}`,
+                                label: `[node] ${node.id}: ${node.value}`,
+                                color: node.color,
                                 data: omit(node, ['parent', 'children']),
                             })
                         }}

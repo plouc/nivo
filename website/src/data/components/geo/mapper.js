@@ -14,25 +14,29 @@ const TooltipWrapper = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 12px;
+    font-size: 13px;
+    background: ${({ theme }) => theme.colors.cardBackground};
+    padding: 10px 20px;
+    color: ${({ color }) => color};
+    border: 2px solid ${({ color }) => color};
+    box-shadow: 9px 16px 0 rgba(0, 0, 0, 0.15);
 `
 const TooltipKey = styled.span`
     font-weight: 600;
 `
 const TooltipValue = styled.span``
 
-const CustomTooltip = node => {
+const CustomTooltip = ({ feature }) => {
     return (
-        <TooltipWrapper style={{ color: node.color }}>
+        <TooltipWrapper color={feature.color}>
+            <TooltipKey>Custom tooltip</TooltipKey>
+            <span />
             <TooltipKey>id</TooltipKey>
-            <TooltipValue>{node.id}</TooltipValue>
+            <TooltipValue>{feature.id}</TooltipValue>
             <TooltipKey>value</TooltipKey>
-            <TooltipValue>{node.value}</TooltipValue>
-            <TooltipKey>index</TooltipKey>
-            <TooltipValue>{node.index}</TooltipValue>
-            <TooltipKey>indexValue</TooltipKey>
-            <TooltipValue>{node.indexValue}</TooltipValue>
+            <TooltipValue>{feature.value}</TooltipValue>
             <TooltipKey>color</TooltipKey>
-            <TooltipValue>{node.color}</TooltipValue>
+            <TooltipValue>{feature.color}</TooltipValue>
         </TooltipWrapper>
     )
 }

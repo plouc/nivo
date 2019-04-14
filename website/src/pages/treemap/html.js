@@ -41,6 +41,7 @@ const initialProperties = {
     orientLabel: true,
 
     colors: { scheme: 'red_yellow_blue' },
+    colorBy: 'depth',
     borderWidth: 0,
     borderColor: {
         type: 'inherit:darker',
@@ -78,7 +79,8 @@ const TreeMapHtml = () => {
                         onClick={node => {
                             logAction({
                                 type: 'click',
-                                label: `[cell] ${node.id}: ${node.value}`,
+                                label: `[node] ${node.id}: ${node.value}`,
+                                color: node.color,
                                 data: omit(node, ['parent', 'children']),
                             })
                         }}

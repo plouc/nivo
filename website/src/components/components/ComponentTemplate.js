@@ -44,7 +44,10 @@ const ComponentTemplate = ({
     const [settings, setSettings] = useState(initialProperties)
 
     const [data, setData] = useState(hasData ? generateData() : null)
-    const diceRoll = useCallback(() => setData(hasData ? generateData() : null), [setData])
+    const diceRoll = useCallback(() => setData(hasData ? generateData(data) : null), [
+        data,
+        setData,
+    ])
 
     const [actions, logAction] = useActionsLogger()
 
@@ -107,10 +110,7 @@ ComponentTemplate.propTypes = {
         stories: PropTypes.arrayOf(
             PropTypes.shape({
                 label: PropTypes.string.isRequired,
-                link: PropTypes.shape({
-                    kind: PropTypes.string.isRequired,
-                    story: PropTypes.string.isRequired,
-                }).isRequired,
+                link: PropTypes.string.isRequired,
             })
         ),
     }).isRequired,

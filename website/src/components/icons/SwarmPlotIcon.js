@@ -49,22 +49,19 @@ const values = [
 const chartProps = {
     width: ICON_SIZE,
     height: ICON_SIZE,
-    scale: {
+    valueScale: {
         type: 'linear',
         min: 1,
         max: 9,
     },
     forceStrength: 6,
     simulationIterations: 400,
-    data: [
-        {
-            id: 'A',
-            data: values.map((v, i) => ({
-                id: i,
-                value: v,
-            })),
-        },
-    ],
+    groups: ['A'],
+    data: values.map((v, i) => ({
+        id: i,
+        group: 'A',
+        value: v,
+    })),
     margin: {
         top: 6,
         right: 6,
@@ -78,8 +75,8 @@ const chartProps = {
     axisRight: null,
     axisBottom: null,
     axisLeft: null,
-    nodeSize: 10,
-    nodePadding: 1,
+    size: 10,
+    spacing: 1,
     isInteractive: false,
     animate: true,
 }

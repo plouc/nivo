@@ -39,7 +39,7 @@ const initialProperties = {
     reverse: false,
 
     colors: { scheme: 'nivo' },
-    colorIdentity: 'id',
+    colorBy: 'id',
     defs: [
         patternDotsDef('dots', {
             background: 'inherit',
@@ -178,6 +178,7 @@ const Bar = () => {
                             logAction({
                                 type: 'click',
                                 label: `[bar] ${node.id} - ${node.indexValue}: ${node.value}`,
+                                color: node.color,
                                 data: node,
                             })
                         }
