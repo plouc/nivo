@@ -81,7 +81,7 @@ const commonDefaultProps = {
     leavesOnly: false,
 
     colors: { scheme: 'nivo' },
-    colorIdentity: 'depth',
+    colorBy: 'depth',
 
     enableLabel: true,
     label: 'id',
