@@ -8,7 +8,11 @@
  */
 import PropTypes from 'prop-types'
 import { noop, defsPropTypes } from '@nivo/core'
-import { ordinalColorsPropType, colorPropertyAccessorPropType } from '@nivo/colors'
+import {
+    ordinalColorsPropType,
+    colorPropertyAccessorPropType,
+    inheritedColorPropType,
+} from '@nivo/colors'
 import { axisPropType } from '@nivo/axes'
 import { LegendPropShape } from '@nivo/legends'
 import BarItem from './BarItem'
@@ -51,9 +55,9 @@ export const BarPropTypes = {
     getLabel: PropTypes.func.isRequired, // computed
     labelSkipWidth: PropTypes.number.isRequired,
     labelSkipHeight: PropTypes.number.isRequired,
-    labelTextColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    labelTextColor: inheritedColorPropType.isRequired,
     getLabelTextColor: PropTypes.func.isRequired, // computed
-    labelLinkColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    labelLinkColor: inheritedColorPropType.isRequired,
     getLabelLinkColor: PropTypes.func.isRequired, // computed
 
     colors: ordinalColorsPropType.isRequired,
@@ -62,7 +66,7 @@ export const BarPropTypes = {
     getColor: PropTypes.func.isRequired, // computed
     ...defsPropTypes,
     borderWidth: PropTypes.number.isRequired,
-    borderColor: PropTypes.any.isRequired,
+    borderColor: inheritedColorPropType.isRequired,
     getBorderColor: PropTypes.func.isRequired,
 
     isInteractive: PropTypes.bool,
@@ -81,7 +85,6 @@ export const BarPropTypes = {
         })
     ).isRequired,
 
-    // canvas specific
     pixelRatio: PropTypes.number.isRequired,
 }
 
@@ -119,7 +122,7 @@ export const BarDefaultProps = {
     fill: [],
     borderRadius: 0,
     borderWidth: 0,
-    borderColor: 'inherit',
+    borderColor: { from: 'color' },
 
     isInteractive: true,
     onClick: noop,

@@ -14,11 +14,10 @@ import {
     withTheme,
     withDimensions,
     withMotion,
-    getInheritedColorGenerator,
     getAccessorFor,
     getLabelGenerator,
 } from '@nivo/core'
-import { getOrdinalColorScale } from '@nivo/colors'
+import { getOrdinalColorScale, getInheritedColorGenerator } from '@nivo/colors'
 import { BarDefaultProps } from './props'
 
 export default Component =>
@@ -33,17 +32,17 @@ export default Component =>
         withPropsOnChange(['indexBy'], ({ indexBy }) => ({
             getIndex: getAccessorFor(indexBy),
         })),
-        withPropsOnChange(['labelTextColor'], ({ labelTextColor }) => ({
-            getLabelTextColor: getInheritedColorGenerator(labelTextColor, 'axis.ticks.text.fill'),
+        withPropsOnChange(['labelTextColor', 'theme'], ({ labelTextColor, theme }) => ({
+            getLabelTextColor: getInheritedColorGenerator(labelTextColor, theme),
         })),
-        withPropsOnChange(['labelLinkColor'], ({ labelLinkColor }) => ({
-            getLabelLinkColor: getInheritedColorGenerator(labelLinkColor, 'axis.ticks.line.stroke'),
+        withPropsOnChange(['labelLinkColor', 'theme'], ({ labelLinkColor, theme }) => ({
+            getLabelLinkColor: getInheritedColorGenerator(labelLinkColor, theme),
         })),
         withPropsOnChange(['label', 'labelFormat'], ({ label, labelFormat }) => ({
             getLabel: getLabelGenerator(label, labelFormat),
         })),
-        withPropsOnChange(['borderColor'], ({ borderColor }) => ({
-            getBorderColor: getInheritedColorGenerator(borderColor),
+        withPropsOnChange(['borderColor', 'theme'], ({ borderColor, theme }) => ({
+            getBorderColor: getInheritedColorGenerator(borderColor, theme),
         })),
         withPropsOnChange(['tooltipLabel'], ({ tooltipLabel }) => {
             let getTooltipLabel = d => `${d.id} - ${d.indexValue}`
