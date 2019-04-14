@@ -50,14 +50,14 @@ const initialProperties = {
     label: 'name',
     labelSkipRadius: 10,
     labelTextColor: {
-        type: 'inherit:darker',
-        gamma: 0.8,
+        from: 'color',
+        modifiers: [['darker', 0.8]],
     },
 
     borderWidth: 0,
     borderColor: {
-        type: 'inherit:darker',
-        gamma: 0.3,
+        from: 'color',
+        modifiers: [['darker', 0.3]],
     },
 
     animate: true,

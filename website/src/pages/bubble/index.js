@@ -33,13 +33,13 @@ const initialProperties = {
     label: 'id',
     labelSkipRadius: 8,
     labelTextColor: {
-        type: 'inherit:darker',
-        gamma: 0.8,
+        from: 'color',
+        modifiers: [['darker', 0.8]],
     },
 
     borderWidth: 2,
     borderColor: {
-        type: 'inherit',
+        from: 'color',
     },
 
     defs: [

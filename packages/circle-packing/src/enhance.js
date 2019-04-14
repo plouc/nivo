@@ -19,10 +19,9 @@ import {
     withMotion,
     getAccessorFor,
     getLabelGenerator,
-    getInheritedColorGenerator,
     bindDefs,
 } from '@nivo/core'
-import { getOrdinalColorScale } from '@nivo/colors'
+import { getOrdinalColorScale, getInheritedColorGenerator } from '@nivo/colors'
 import { computeNodes, computeZoom } from './compute'
 import * as props from './props'
 
@@ -44,16 +43,16 @@ const commonEnhancers = [
     })),
 
     // border
-    withPropsOnChange(['borderColor'], ({ borderColor }) => ({
-        getBorderColor: getInheritedColorGenerator(borderColor),
+    withPropsOnChange(['borderColor', 'theme'], ({ borderColor, theme }) => ({
+        getBorderColor: getInheritedColorGenerator(borderColor, theme),
     })),
 
     // labels
     withPropsOnChange(['label', 'labelFormat'], ({ label, labelFormat }) => ({
         getLabel: getLabelGenerator(label, labelFormat),
     })),
-    withPropsOnChange(['labelTextColor'], ({ labelTextColor }) => ({
-        getLabelTextColor: getInheritedColorGenerator(labelTextColor),
+    withPropsOnChange(['labelTextColor', 'theme'], ({ labelTextColor, theme }) => ({
+        getLabelTextColor: getInheritedColorGenerator(labelTextColor, theme),
     })),
 
     // zoom

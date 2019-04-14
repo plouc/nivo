@@ -46,14 +46,14 @@ const BubbleApi = () => {
                     label: 'id',
                     labelSkipRadius: 8,
                     labelTextColor: {
-                        type: 'inherit:darker',
-                        gamma: 0.8,
+                        from: 'color',
+                        modifiers: [['darker', 0.8]],
                     },
                     labelTextDY: 4,
                     borderWidth: 0,
                     borderColor: {
-                        type: 'inherit:darker',
-                        gamma: 0.3,
+                        from: 'color',
+                        modifiers: [['darker', 0.3]],
                     },
                 }}
             />

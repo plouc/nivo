@@ -204,14 +204,11 @@ const props = [
             how to compute border color,
             [see dedicated documentation](self:/guides/colors).
         `,
-        type: 'string | Function',
+        type: 'string | object | Function',
         required: false,
         defaultValue: defaults.borderColor,
-        controlType: 'color',
+        controlType: 'inheritedColor',
         group: 'Style',
-        controlOptions: {
-            withCustomColor: true,
-        },
     },
     ...defsProperties(['Bubble']),
     {
@@ -264,14 +261,11 @@ const props = [
             how to compute label text color,
             [see dedicated documentation](self:/guides/colors).
         `,
-        type: 'string | Function',
+        type: 'string | object | Function',
         required: false,
         defaultValue: defaults.labelTextColor,
-        controlType: 'color',
+        controlType: 'inheritedColor',
         group: 'Labels',
-        controlOptions: {
-            withCustomColor: true,
-        },
     },
     {
         key: 'labelSkipRadius',
