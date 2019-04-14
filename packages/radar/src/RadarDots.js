@@ -11,12 +11,12 @@ import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
 import {
     motionPropTypes,
-    getInheritedColorGenerator,
     dotsThemePropType,
     positionFromAngle,
     getLabelGenerator,
     DotsItem,
 } from '@nivo/core'
+import { getInheritedColorGenerator, inheritedColorPropType } from '@nivo/colors'
 
 export default class RadarDots extends Component {
     static propTypes = {
@@ -32,9 +32,9 @@ export default class RadarDots extends Component {
 
         symbol: PropTypes.func,
         size: PropTypes.number.isRequired,
-        color: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+        color: inheritedColorPropType.isRequired,
         borderWidth: PropTypes.number.isRequired,
-        borderColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+        borderColor: inheritedColorPropType.isRequired,
 
         enableLabel: PropTypes.bool.isRequired,
         label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
@@ -50,9 +50,9 @@ export default class RadarDots extends Component {
 
     static defaultProps = {
         size: 6,
-        color: 'inherit',
+        color: { from: 'color' },
         borderWidth: 0,
-        borderColor: 'inherit',
+        borderColor: { from: 'color' },
         enableLabel: false,
         label: 'value',
     }
@@ -86,8 +86,8 @@ export default class RadarDots extends Component {
             motionDamping,
         } = this.props
 
-        const fillColor = getInheritedColorGenerator(color)
-        const strokeColor = getInheritedColorGenerator(borderColor)
+        const fillColor = getInheritedColorGenerator(color, theme)
+        const strokeColor = getInheritedColorGenerator(borderColor, theme)
         const getLabel = getLabelGenerator(label, labelFormat)
 
         const points = data.reduce((acc, datum, i) => {

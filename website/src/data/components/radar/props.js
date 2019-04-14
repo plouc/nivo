@@ -188,14 +188,11 @@ const props = [
     {
         key: 'borderColor',
         help: 'Method to compute border color.',
-        type: 'string | Function',
+        type: 'string | object | Function',
         required: false,
         defaultValue: defaults.borderColor,
-        controlType: 'color',
+        controlType: 'inheritedColor',
         group: 'Base',
-        controlOptions: {
-            withCustomColor: true,
-        },
     },
     {
         key: 'gridLevels',
@@ -304,14 +301,11 @@ const props = [
         key: 'dotColor',
         scopes: '*',
         help: 'Method to compute dots color.',
-        type: 'string | Function',
+        type: 'string | object | Function',
         required: false,
         defaultValue: dotsDefaults.color,
-        controlType: 'color',
+        controlType: 'inheritedColor',
         group: 'Dots',
-        controlOptions: {
-            withCustomColor: true,
-        },
     },
     {
         key: 'dotBorderWidth',
@@ -331,14 +325,11 @@ const props = [
         key: 'dotBorderColor',
         scopes: '*',
         help: 'Method to compute dots border color.',
-        type: 'string | Function',
+        type: 'string | object | Function',
         required: false,
         defaultValue: dotsDefaults.borderColor,
-        controlType: 'color',
+        controlType: 'inheritedColor',
         group: 'Dots',
-        controlOptions: {
-            withCustomColor: true,
-        },
     },
     {
         key: 'enableDotLabel',

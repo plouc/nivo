@@ -24,7 +24,7 @@ import {
     Container,
     SvgWrapper,
 } from '@nivo/core'
-import { getOrdinalColorScale, ordinalColorsPropType } from '@nivo/colors'
+import { getOrdinalColorScale, ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
 import { LegendPropShape, BoxLegendSvg } from '@nivo/legends'
 import RadarShapes from './RadarShapes'
 import RadarGrid from './RadarGrid'
@@ -121,6 +121,7 @@ const Radar = ({
                             borderWidth={borderWidth}
                             borderColor={borderColor}
                             fillOpacity={fillOpacity}
+                            theme={theme}
                             {...motionProps}
                         />
                         {isInteractive && (
@@ -197,7 +198,7 @@ Radar.propTypes = {
 
     // border
     borderWidth: PropTypes.number.isRequired,
-    borderColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    borderColor: inheritedColorPropType.isRequired,
 
     // grid
     gridLevels: PropTypes.number,
@@ -209,9 +210,9 @@ Radar.propTypes = {
     enableDots: PropTypes.bool.isRequired,
     dotSymbol: PropTypes.func,
     dotSize: PropTypes.number,
-    dotColor: PropTypes.any,
+    dotColor: inheritedColorPropType,
     dotBorderWidth: PropTypes.number,
-    dotBorderColor: PropTypes.any,
+    dotBorderColor: inheritedColorPropType,
     enableDotLabel: PropTypes.bool,
     dotLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     dotLabelFormat: PropTypes.string,
@@ -236,7 +237,7 @@ export const RadarDefaultProps = {
     curve: 'linearClosed',
 
     borderWidth: 2,
-    borderColor: 'inherit',
+    borderColor: { from: 'color' },
 
     gridLevels: 5,
     gridShape: 'circular',
