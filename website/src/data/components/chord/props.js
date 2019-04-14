@@ -199,12 +199,9 @@ const props = [
         help: 'Arcs border color.',
         required: false,
         defaultValue: defaults.arcBorderColor,
-        type: 'string | Function',
-        controlType: 'color',
+        type: 'string | object | Function',
+        controlType: 'inheritedColor',
         group: 'Style',
-        controlOptions: {
-            withCustomColor: true,
-        },
     },
     {
         key: 'ribbonOpacity',
@@ -232,12 +229,9 @@ const props = [
         help: 'Ribbons border color.',
         required: false,
         defaultValue: defaults.ribbonBorderColor,
-        type: 'string | Function',
-        controlType: 'color',
+        type: 'string | object | Function',
+        controlType: 'inheritedColor',
         group: 'Style',
-        controlOptions: {
-            withCustomColor: true,
-        },
     },
     {
         key: 'enableLabel',
@@ -304,14 +298,11 @@ const props = [
             [see dedicated documentation](self:/guides/colors).
         `,
         help: 'Method to compute label text color.',
-        type: 'string | Function',
+        type: 'string | object | Function',
         required: false,
         defaultValue: defaults.labelTextColor,
-        controlType: 'color',
+        controlType: 'inheritedColor',
         group: 'Labels',
-        controlOptions: {
-            withCustomColor: true,
-        },
     },
     {
         key: 'isInteractive',

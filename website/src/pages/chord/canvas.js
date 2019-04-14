@@ -34,15 +34,15 @@ const initialProperties = {
     arcOpacity: 1,
     arcBorderWidth: 1,
     arcBorderColor: {
-        type: 'inherit:darker',
-        gamma: 0.4,
+        from: 'color',
+        modifiers: [['darker', 0.4]],
     },
 
     ribbonOpacity: 0.5,
     ribbonBorderWidth: 1,
     ribbonBorderColor: {
-        type: 'inherit:darker',
-        gamma: 0.4,
+        from: 'color',
+        modifiers: [['darker', 0.4]],
     },
 
     enableLabel: true,
@@ -50,8 +50,8 @@ const initialProperties = {
     labelOffset: 9,
     labelRotation: -90,
     labelTextColor: {
-        type: 'inherit:darker',
-        gamma: 1,
+        from: 'color',
+        modifiers: [['darker', 1]],
     },
 
     colors: { scheme: 'paired' },

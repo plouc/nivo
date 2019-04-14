@@ -8,7 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import { blendModePropType } from '@nivo/core'
-import { ordinalColorsPropType } from '@nivo/colors'
+import { ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
 import { LegendPropShape } from '@nivo/legends'
 
 export const ChordPropTypes = {
@@ -21,12 +21,12 @@ export const ChordPropTypes = {
 
     arcOpacity: PropTypes.number.isRequired,
     arcBorderWidth: PropTypes.number.isRequired,
-    arcBorderColor: PropTypes.any.isRequired,
+    arcBorderColor: inheritedColorPropType.isRequired,
     getArcBorderColor: PropTypes.func.isRequired,
 
     ribbonOpacity: PropTypes.number.isRequired,
     ribbonBorderWidth: PropTypes.number.isRequired,
-    ribbonBorderColor: PropTypes.any.isRequired,
+    ribbonBorderColor: inheritedColorPropType.isRequired,
     ribbonBlendMode: blendModePropType.isRequired,
     getRibbonBorderColor: PropTypes.func.isRequired,
 
@@ -35,7 +35,7 @@ export const ChordPropTypes = {
     getLabel: PropTypes.func.isRequired, // computed
     labelOffset: PropTypes.number.isRequired,
     labelRotation: PropTypes.number.isRequired,
-    labelTextColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    labelTextColor: inheritedColorPropType.isRequired,
     getLabelTextColor: PropTypes.func.isRequired, // computed
 
     colors: ordinalColorsPropType.isRequired,
@@ -59,18 +59,27 @@ export const ChordDefaultProps = {
 
     arcOpacity: 1,
     arcBorderWidth: 1,
-    arcBorderColor: 'inherit:darker(0.4)',
+    arcBorderColor: {
+        from: 'color',
+        modifiers: [['darker', 0.4]],
+    },
 
     ribbonOpacity: 0.5,
     ribbonBorderWidth: 1,
-    ribbonBorderColor: 'inherit:darker(0.4)',
+    ribbonBorderColor: {
+        from: 'color',
+        modifiers: [['darker', 0.4]],
+    },
     ribbonBlendMode: 'normal',
 
     enableLabel: true,
     label: 'id',
     labelOffset: 12,
     labelRotation: 0,
-    labelTextColor: 'inherit:darker(1)',
+    labelTextColor: {
+        from: 'color',
+        modifiers: [['darker', 1]],
+    },
 
     colors: { scheme: 'nivo' },
 
