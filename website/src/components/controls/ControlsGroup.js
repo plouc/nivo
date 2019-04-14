@@ -32,6 +32,7 @@ import LineWidthControl from './LineWidthControl'
 import NumberArrayControl from './NumberArrayControl'
 import AngleControl from './AngleControl'
 import OrdinalColorsControl from './OrdinalColorsControl'
+import InheritedColorControl from './InheritedColorControl'
 import PropertyDocumentation from './PropertyDocumentation'
 
 export const shouldRenderControl = (config, context) => {
@@ -139,6 +140,17 @@ const ControlChoser = memo(({ groupName, property, settings, onChange }) => {
         case 'colors':
             return (
                 <ColorsControl
+                    id={id}
+                    property={property}
+                    value={value}
+                    options={options}
+                    onChange={handleChange}
+                />
+            )
+
+        case 'inheritedColor':
+            return (
+                <InheritedColorControl
                     id={id}
                     property={property}
                     value={value}
