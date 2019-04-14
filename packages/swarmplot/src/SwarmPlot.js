@@ -50,6 +50,7 @@ const SwarmPlot = memo(
         axisRight,
         axisBottom,
         axisLeft,
+
         isInteractive,
         useMesh,
         debugMesh,
@@ -57,6 +58,8 @@ const SwarmPlot = memo(
         onMouseMove,
         onMouseLeave,
         onClick,
+        tooltip,
+
         animate,
         motionStiffness,
         motionDamping,
@@ -135,6 +138,7 @@ const SwarmPlot = memo(
             onMouseMove,
             onMouseLeave,
             onClick,
+            tooltip,
         })
 
         if (animate) {
