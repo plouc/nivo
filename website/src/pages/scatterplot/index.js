@@ -87,8 +87,8 @@ const initialProperties = {
     motionDamping: 15,
 
     isInteractive: true,
-    useMesh: true,
-    debugMesh: true,
+    useMesh: false,
+    debugMesh: false,
 
     'custom tooltip example': false,
     tooltip: null,
@@ -145,6 +145,7 @@ const ScatterPlot = () => {
                                 label: `[point] serie: ${node.serie.id}, x: ${node.x}, y: ${
                                     node.y
                                 }`,
+                                color: node.color,
                                 data: node,
                             })
                         }}

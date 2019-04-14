@@ -242,7 +242,7 @@ class ScatterPlot extends Component {
                         layerById.mesh = (
                             <Mesh
                                 key="mesh"
-                                points={points}
+                                nodes={points}
                                 width={width}
                                 height={height}
                                 onMouseEnter={onMouseEnter}

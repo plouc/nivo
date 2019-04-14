@@ -212,7 +212,7 @@ const SwarmPlot = memo(
                     if (typeof layer === 'function') {
                         return <Fragment key={i}>{layer(layerContext)}</Fragment>
                     }
-                    
+
                     return null
                 })}
             </SvgWrapper>
