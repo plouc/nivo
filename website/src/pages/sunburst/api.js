@@ -49,7 +49,7 @@ const SunburstApi = () => {
                     borderColor: 'white',
 
                     childColor: {
-                        type: 'inherit',
+                        from: 'color',
                     },
                 }}
             />
