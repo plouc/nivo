@@ -20,10 +20,9 @@ import {
     getAccessorFor,
     getLabelGenerator,
     treeMapTileFromProp,
-    getInheritedColorGenerator,
     bindDefs,
 } from '@nivo/core'
-import { getOrdinalColorScale } from '@nivo/colors'
+import { getOrdinalColorScale, getInheritedColorGenerator } from '@nivo/colors'
 import * as props from './props'
 
 const computeNodePath = (node, getIdentity) =>
@@ -43,14 +42,14 @@ const commonEnhancers = [
     withPropsOnChange(['identity'], ({ identity }) => ({
         getIdentity: getAccessorFor(identity),
     })),
-    withPropsOnChange(['borderColor'], ({ borderColor }) => ({
-        getBorderColor: getInheritedColorGenerator(borderColor),
+    withPropsOnChange(['borderColor', 'theme'], ({ borderColor, theme }) => ({
+        getBorderColor: getInheritedColorGenerator(borderColor, theme),
     })),
     withPropsOnChange(['label', 'labelFormat'], ({ label, labelFormat }) => ({
         getLabel: getLabelGenerator(label, labelFormat),
     })),
-    withPropsOnChange(['labelTextColor'], ({ labelTextColor }) => ({
-        getLabelTextColor: getInheritedColorGenerator(labelTextColor),
+    withPropsOnChange(['labelTextColor', 'theme'], ({ labelTextColor, theme }) => ({
+        getLabelTextColor: getInheritedColorGenerator(labelTextColor, theme),
     })),
     withPropsOnChange(
         ['width', 'height', 'tile', 'innerPadding', 'outerPadding'],

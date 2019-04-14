@@ -8,15 +8,13 @@
  */
 import PropTypes from 'prop-types'
 import { noop, treeMapTilePropType, defsPropTypes } from '@nivo/core'
-import { ordinalColorsPropType, colorPropertyAccessorPropType } from '@nivo/colors'
+import {
+    ordinalColorsPropType,
+    colorPropertyAccessorPropType,
+    inheritedColorPropType,
+} from '@nivo/colors'
 import TreeMapNode from './TreeMapNode'
 import TreeMapHtmlNode from './TreeMapHtmlNode'
-
-/*—————————————————————————————————————————————————————————————————————————————
-
-  Prop types
-
-—————————————————————————————————————————————————————————————————————————————*/
 
 const commonPropTypes = {
     // data
@@ -35,18 +33,16 @@ const commonPropTypes = {
     innerPadding: PropTypes.number.isRequired,
     outerPadding: PropTypes.number.isRequired,
 
-    // labels
     enableLabel: PropTypes.bool.isRequired,
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     labelFormat: PropTypes.string,
     labelSkipSize: PropTypes.number.isRequired,
+    labelTextColor: inheritedColorPropType.isRequired,
     orientLabel: PropTypes.bool.isRequired,
 
-    // border
     borderWidth: PropTypes.number.isRequired,
-    borderColor: PropTypes.any.isRequired,
+    borderColor: inheritedColorPropType.isRequired,
 
-    // interactivity
     isInteractive: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,
     tooltip: PropTypes.func,
@@ -68,12 +64,6 @@ export const TreeMapCanvasPropTypes = {
     pixelRatio: PropTypes.number.isRequired,
 }
 
-/*—————————————————————————————————————————————————————————————————————————————
-
-  Default props
-
-—————————————————————————————————————————————————————————————————————————————*/
-
 const commonDefaultProps = {
     identity: 'id',
 
@@ -86,14 +76,14 @@ const commonDefaultProps = {
     enableLabel: true,
     label: 'id',
     labelSkipSize: 0,
-    labelTextColor: 'inherit:darker(1)',
+    labelTextColor: { from: 'color', modifiers: [['darker', 1]] },
     orientLabel: true,
 
     innerPadding: 0,
     outerPadding: 0,
 
     borderWidth: 0,
-    borderColor: 'inherit',
+    borderColor: { from: 'color' },
 
     isInteractive: true,
     onClick: noop,
