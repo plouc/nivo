@@ -184,12 +184,13 @@ export const useNodeMouseHandlers = ({
     onMouseMove,
     onMouseLeave,
     onClick,
+    tooltip,
 }) => {
     const [showTooltip, hideTooltip] = useTooltip()
-    const showNodeTooltip = useMemo(
-        () => (node, event) => showTooltip(<SwarmPlotTooltip node={node} />, event),
-        [showTooltip]
-    )
+    const showNodeTooltip = useMemo(() => {
+        if (tooltip) return (node, event) => showTooltip(tooltip({ node }), event)
+        return (node, event) => showTooltip(<SwarmPlotTooltip node={node} />, event)
+    }, [showTooltip])
 
     const mouseEnterHandler = useCallback(
         (node, event) => {

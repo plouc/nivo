@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo, useRef, useState, useEffect, useCallback } from 'react'
+import React, { memo, useRef, useState, useEffect, useCallback, useMemo } from 'react'
 import {
     getRelativeCursor,
     isCursorInRect,
@@ -78,6 +78,7 @@ const SwarmPlotCanvas = memo(
         onMouseMove,
         onMouseLeave,
         onClick,
+        tooltip,
         debugMesh,
     }) => {
         const canvasEl = useRef(null)
@@ -88,7 +89,6 @@ const SwarmPlotCanvas = memo(
             partialMargin
         )
         const theme = useTheme()
-        const [showTooltip, hideTooltip] = useTooltip()
 
         const { nodes, xScale, yScale } = useSwarmPlot({
             width: innerWidth,
@@ -218,6 +218,12 @@ const SwarmPlotCanvas = memo(
             currentNode,
         ])
 
+        const [showTooltip, hideTooltip] = useTooltip()
+        const showNodeTooltip = useMemo(() => {
+            if (tooltip) return (node, event) => showTooltip(tooltip({ node }), event)
+            return (node, event) => showTooltip(<SwarmPlotTooltip node={node} />, event)
+        }, [showTooltip, tooltip])
+
         const getNodeFromMouseEvent = useCallback(
             event => {
                 const [x, y] = getRelativeCursor(canvasEl.current, event)
@@ -236,7 +242,7 @@ const SwarmPlotCanvas = memo(
                 setCurrentNode(node)
                 onMouseMove && onMouseMove(node, event)
                 if (node) {
-                    showTooltip(<SwarmPlotTooltip node={node} />, event)
+                    showNodeTooltip(node, event)
                     if ((!currentNode || currentNode.id !== node.id) && onMouseEnter) {
                         onMouseEnter(node, event)
                     }
@@ -253,7 +259,7 @@ const SwarmPlotCanvas = memo(
                 currentNode,
                 onMouseEnter,
                 onMouseLeave,
-                showTooltip,
+                showNodeTooltip,
                 hideTooltip,
             ]
         )
