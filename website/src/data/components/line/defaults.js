@@ -77,9 +77,9 @@ export default {
 
     enableDots: true,
     dotSize: 10,
-    dotColor: { type: 'inherit:darker', gamma: 0.3 },
+    dotColor: { theme: 'background' },
     dotBorderWidth: 2,
-    dotBorderColor: { type: 'custom', color: '#ffffff' },
+    dotBorderColor: { from: 'color' },
     enableDotLabel: true,
     dotLabel: 'y',
     dotLabelYOffset: -12,
