@@ -15,12 +15,12 @@ import setDisplayName from 'recompose/setDisplayName'
 import {
     withTheme,
     withDimensions,
-    getInheritedColorGenerator,
     getLabelGenerator,
     Container,
     SvgWrapper,
     bindDefs,
 } from '@nivo/core'
+import { getInheritedColorGenerator } from '@nivo/colors'
 import { PieDefaultProps } from './props'
 import PieSlice from './PieSlice'
 import PieRadialLabels from './PieRadialLabels'
@@ -92,7 +92,7 @@ class Pie extends Component {
             legends,
         } = this.props
 
-        const borderColor = getInheritedColorGenerator(_borderColor)
+        const borderColor = getInheritedColorGenerator(_borderColor, theme)
 
         return (
             <PieLayout
@@ -159,11 +159,11 @@ class Pie extends Component {
                                                 textXOffset={radialLabelsTextXOffset}
                                                 textColor={getInheritedColorGenerator(
                                                     radialLabelsTextColor,
-                                                    'labels.text.fill'
+                                                    theme
                                                 )}
                                                 linkColor={getInheritedColorGenerator(
                                                     radialLabelsLinkColor,
-                                                    'axis.ticks.line.stroke'
+                                                    theme
                                                 )}
                                                 theme={theme}
                                             />
@@ -178,7 +178,7 @@ class Pie extends Component {
                                                 skipAngle={slicesLabelsSkipAngle}
                                                 textColor={getInheritedColorGenerator(
                                                     slicesLabelsTextColor,
-                                                    'labels.text.fill'
+                                                    theme
                                                 )}
                                             />
                                         )}

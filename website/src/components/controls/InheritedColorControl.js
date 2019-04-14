@@ -12,13 +12,12 @@ import isPlainObject from 'lodash/isPlainObject'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { inheritedColorPropType } from '@nivo/colors'
-import { mapInheritedColor } from '../../lib/settings'
 import Control from './Control'
 import PropertyHeader from './PropertyHeader'
 import { Help } from './styled'
 import Select from './Select'
 
-const themeProperties = ['background', 'grid.line.stroke'].map(prop => ({
+const themeProperties = ['background', 'grid.line.stroke', 'labels.text.fill'].map(prop => ({
     label: prop,
     value: prop,
 }))

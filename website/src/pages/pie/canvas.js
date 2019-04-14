@@ -43,23 +43,26 @@ const initialProperties = {
     colors: { scheme: 'paired' },
 
     borderWidth: 0,
-    borderColor: { type: 'inherit:darker', gamma: 0.6 },
+    borderColor: {
+        from: 'color',
+        modifiers: [['darker', 0.6]],
+    },
 
     enableRadialLabels: true,
     radialLabel: 'id',
     radialLabelsSkipAngle: 10,
     radialLabelsTextXOffset: 6,
-    radialLabelsTextColor: { type: 'custom', color: '#333333' },
+    radialLabelsTextColor: '#333333',
     radialLabelsLinkOffset: 0,
     radialLabelsLinkDiagonalLength: 16,
     radialLabelsLinkHorizontalLength: 24,
     radialLabelsLinkStrokeWidth: 1,
-    radialLabelsLinkColor: { type: 'inherit' },
+    radialLabelsLinkColor: { from: 'color' },
 
     enableSlicesLabels: true,
     sliceLabel: 'value',
     slicesLabelsSkipAngle: 10,
-    slicesLabelsTextColor: { type: 'custom', color: '#333333' },
+    slicesLabelsTextColor: '#333333',
 
     animate: true,
     motionStiffness: 90,

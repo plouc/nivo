@@ -8,7 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import { noop, radiansToDegrees } from '@nivo/core'
-import { ordinalColorsPropType } from '@nivo/colors'
+import { ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
 import { LegendPropShape } from '@nivo/legends'
 
 export const arcPropType = PropTypes.shape({
@@ -42,25 +42,25 @@ export const PiePropTypes = {
 
     // border
     borderWidth: PropTypes.number.isRequired,
-    borderColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    borderColor: inheritedColorPropType.isRequired,
 
     // radial labels
     enableRadialLabels: PropTypes.bool.isRequired,
     radialLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     radialLabelsSkipAngle: PropTypes.number,
     radialLabelsTextXOffset: PropTypes.number,
-    radialLabelsTextColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    radialLabelsTextColor: inheritedColorPropType.isRequired,
     radialLabelsLinkOffset: PropTypes.number,
     radialLabelsLinkDiagonalLength: PropTypes.number,
     radialLabelsLinkHorizontalLength: PropTypes.number,
     radialLabelsLinkStrokeWidth: PropTypes.number,
-    radialLabelsLinkColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    radialLabelsLinkColor: inheritedColorPropType.isRequired,
 
     // slices labels
     enableSlicesLabels: PropTypes.bool.isRequired,
     sliceLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     slicesLabelsSkipAngle: PropTypes.number,
-    slicesLabelsTextColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    slicesLabelsTextColor: inheritedColorPropType.isRequired,
 
     // styling
     colors: ordinalColorsPropType.isRequired,
@@ -114,18 +114,21 @@ export const PieDefaultProps = {
 
     // border
     borderWidth: 0,
-    borderColor: 'inherit:darker(1)',
+    borderColor: {
+        from: 'color',
+        modifiers: [['darker', 1]],
+    },
 
     // radial labels
     enableRadialLabels: true,
     radialLabel: 'id',
-    radialLabelsTextColor: 'theme',
-    radialLabelsLinkColor: 'theme',
+    radialLabelsTextColor: { theme: 'labels.text.fill' },
+    radialLabelsLinkColor: { theme: 'axis.ticks.line.stroke' },
 
     // slices labels
     enableSlicesLabels: true,
     sliceLabel: 'value',
-    slicesLabelsTextColor: 'theme',
+    slicesLabelsTextColor: { theme: 'labels.text.fill' },
 
     // styling
     colors: { scheme: 'nivo' },
