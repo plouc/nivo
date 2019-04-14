@@ -11,6 +11,17 @@ import get from 'lodash.get'
 import isPlainObject from 'lodash.isplainobject'
 import { rgb } from 'd3-color'
 
+/**
+ * Create a color generator for items which
+ * might inherit from parent context,
+ * for example labels, outlines…
+ *
+ * Support the following strategies:
+ * - custom function
+ * - color from theme
+ * - color from parent, with optional color modifiers
+ * - static color
+ */
 export const getInheritedColorGenerator = (inheritedColor, theme) => {
     // user provided function
     if (typeof inheritedColor === 'function') return node => inheritedColor(node)
