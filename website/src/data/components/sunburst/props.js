@@ -104,10 +104,10 @@ const props = [
     {
         key: 'childColor',
         help: 'Defines how to compute child nodes color.',
-        type: 'string | Function',
+        type: 'string | object | Function',
         required: false,
         defaultValue: defaults.childColor,
-        controlType: 'color',
+        controlType: 'inheritedColor',
         group: 'Base',
     },
     {

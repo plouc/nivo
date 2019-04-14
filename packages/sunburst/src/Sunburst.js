@@ -17,15 +17,13 @@ import withProps from 'recompose/withProps'
 import pure from 'recompose/pure'
 import { partition as Partition, hierarchy } from 'd3-hierarchy'
 import { arc } from 'd3-shape'
+import { withTheme, withDimensions, getAccessorFor, Container, SvgWrapper } from '@nivo/core'
 import {
+    getOrdinalColorScale,
+    ordinalColorsPropType,
+    inheritedColorPropType,
     getInheritedColorGenerator,
-    withTheme,
-    withDimensions,
-    getAccessorFor,
-    Container,
-    SvgWrapper,
-} from '@nivo/core'
-import { getOrdinalColorScale, ordinalColorsPropType } from '@nivo/colors'
+} from '@nivo/colors'
 import SunburstArc from './SunburstArc'
 
 const getAncestor = node => {
@@ -99,7 +97,7 @@ Sunburst.propTypes = {
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.string.isRequired,
 
-    childColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    childColor: inheritedColorPropType.isRequired,
 
     isInteractive: PropTypes.bool,
 }
@@ -114,7 +112,7 @@ export const SunburstDefaultProps = {
     borderWidth: 1,
     borderColor: 'white',
 
-    childColor: 'inherit',
+    childColor: { from: 'color' },
 
     isInteractive: true,
 }
@@ -150,8 +148,8 @@ const enhance = compose(
     withPropsOnChange(['data', 'getValue'], ({ data, getValue }) => ({
         data: hierarchy(data).sum(getValue),
     })),
-    withPropsOnChange(['childColor'], ({ childColor }) => ({
-        getChildColor: getInheritedColorGenerator(childColor),
+    withPropsOnChange(['childColor', 'theme'], ({ childColor, theme }) => ({
+        getChildColor: getInheritedColorGenerator(childColor, theme),
     })),
     withPropsOnChange(
         ['data', 'partition', 'getIdentity', 'getChildColor'],

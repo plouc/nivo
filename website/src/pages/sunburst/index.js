@@ -32,7 +32,7 @@ const initialProperties = {
 
     colors: { scheme: 'nivo' },
     childColor: {
-        type: 'inherit',
+        from: 'color',
     },
 
     animate: true,

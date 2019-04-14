@@ -6,8 +6,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { settingsMapper, mapInheritedColor } from '../../../lib/settings'
+import { settingsMapper } from '../../../lib/settings'
 
-export default settingsMapper({
-    childColor: mapInheritedColor,
-})
+export default settingsMapper({})
