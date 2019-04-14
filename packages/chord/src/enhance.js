@@ -13,14 +13,8 @@ import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
 import { arc as d3Arc } from 'd3-shape'
 import { chord as d3Chord, ribbon as d3Ribbon } from 'd3-chord'
-import {
-    getInheritedColorGenerator,
-    getLabelGenerator,
-    withMotion,
-    withTheme,
-    withDimensions,
-} from '@nivo/core'
-import { getOrdinalColorScale } from '@nivo/colors'
+import { getLabelGenerator, withMotion, withTheme, withDimensions } from '@nivo/core'
+import { getOrdinalColorScale, getInheritedColorGenerator } from '@nivo/colors'
 import { ChordDefaultProps } from './props'
 
 export default Component =>
@@ -37,8 +31,8 @@ export default Component =>
         withPropsOnChange(['padAngle'], ({ padAngle }) => ({
             chord: d3Chord().padAngle(padAngle),
         })),
-        withPropsOnChange(['labelTextColor'], ({ labelTextColor }) => ({
-            getLabelTextColor: getInheritedColorGenerator(labelTextColor, 'labels.textColor'),
+        withPropsOnChange(['labelTextColor', 'theme'], ({ labelTextColor, theme }) => ({
+            getLabelTextColor: getInheritedColorGenerator(labelTextColor, theme),
         })),
         withPropsOnChange(['colors', 'keys'], ({ colors, keys }) => {
             const getColor = getOrdinalColorScale(colors, 'key')
@@ -152,11 +146,11 @@ export default Component =>
                 return { ribbons, arcs }
             }
         ),
-        withPropsOnChange(['arcBorderColor'], ({ arcBorderColor }) => ({
-            getArcBorderColor: getInheritedColorGenerator(arcBorderColor),
+        withPropsOnChange(['arcBorderColor', 'theme'], ({ arcBorderColor, theme }) => ({
+            getArcBorderColor: getInheritedColorGenerator(arcBorderColor, theme),
         })),
-        withPropsOnChange(['ribbonBorderColor'], ({ ribbonBorderColor }) => ({
-            getRibbonBorderColor: getInheritedColorGenerator(ribbonBorderColor),
+        withPropsOnChange(['ribbonBorderColor', 'theme'], ({ ribbonBorderColor, theme }) => ({
+            getRibbonBorderColor: getInheritedColorGenerator(ribbonBorderColor, theme),
         })),
         pure
     )(Component)
