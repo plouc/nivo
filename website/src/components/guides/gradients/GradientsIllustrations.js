@@ -85,11 +85,12 @@ const GradientsIllustrations = () => {
                             children: generateCountriesData(['value'], { size: 9 }),
                         }}
                         colors={{ scheme: 'spectral' }}
+                        colorBy="country"
                         identity="country"
                         value="value"
                         leavesOnly={false}
                         borderWidth={1}
-                        borderColor="rgba(0,0,0,.3)"
+                        borderColor={{ theme: 'background' }}
                         outerPadding={6}
                         innerPadding={4}
                         isInteractive={false}

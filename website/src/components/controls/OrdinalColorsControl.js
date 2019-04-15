@@ -85,11 +85,13 @@ const OrdinalColorsControl = ({ property, value, onChange }) => {
                     Option,
                 }}
             />
+            {/*
             <Value>
                 {`{ scheme: `}
                 <code className="code-string">'{value.scheme}'</code>
                 {` }`}
             </Value>
+            */}
             <Help>{property.help}</Help>
         </Control>
     )

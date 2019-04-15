@@ -46,8 +46,8 @@ const BarApi = () => {
                     borderRadius: 0,
                     borderWidth: 0,
                     borderColor: {
-                        type: 'inherit:darker',
-                        gamma: 1.6,
+                        from: 'color',
+                        modifiers: [['darker', 1.6]],
                     },
 
                     padding: 0.2,
@@ -101,8 +101,8 @@ const BarApi = () => {
                     labelSkipWidth: 12,
                     labelSkipHeight: 12,
                     labelTextColor: {
-                        type: 'inherit:darker',
-                        gamma: 1.6,
+                        from: 'color',
+                        modifiers: [['darker', 1.6]],
                     },
                 }}
             />
