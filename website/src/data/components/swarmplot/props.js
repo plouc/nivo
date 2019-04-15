@@ -325,6 +325,15 @@ const props = [
         group: 'Style',
     },
     {
+        key: 'borderColor',
+        help: 'Control node border color.',
+        type: 'string | object | Function',
+        required: false,
+        defaultValue: defaults.borderColor,
+        controlType: 'inheritedColor',
+        group: 'Style',
+    },
+    {
         key: 'layers',
         group: 'Customization',
         help: 'Defines the order of layers and add custom layers.',
