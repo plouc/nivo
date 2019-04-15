@@ -302,5 +302,4 @@ export const getColorScale = (colors, dataScale) => {
     return () => colors
 }
 
-export * from './inherit'
 export * from './quantize'

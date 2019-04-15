@@ -47,8 +47,8 @@ const SankeyApi = () => {
                     nodePaddingY: 12,
                     nodeBorderWidth: 0,
                     nodeBorderColor: {
-                        type: 'inherit:darker',
-                        gamma: 0.4,
+                        from: 'color',
+                        modifiers: [['darker', 0.4]],
                     },
 
                     linkOpacity: 0.15,
@@ -62,8 +62,8 @@ const SankeyApi = () => {
                     labelOrientation: 'vertical',
                     labelPadding: 16,
                     labelTextColor: {
-                        type: 'inherit:darker',
-                        gamma: 0.8,
+                        from: 'color',
+                        modifiers: [['darker', 0.8]],
                     },
                 }}
             />

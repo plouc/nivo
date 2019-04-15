@@ -5,11 +5,10 @@ import {
     Theme,
     MotionProps,
     ColorProps,
-    GetColor,
     SvgDefsAndFill,
     CartesianMarkerProps,
 } from '@nivo/core'
-import { OrdinalColorsInstruction } from '@nivo/colors'
+import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 
 declare module '@nivo/bar' {
@@ -102,10 +101,10 @@ declare module '@nivo/bar' {
             enableLabel: boolean
             label: string | AccessorFunc
             labelFormat: string | LabelFormatter
-            labelLinkColor: string | GetColor<BarDatumWithColor>
+            labelLinkColor: InheritedColorProp<BarDatumWithColor>
             labelSkipWidth: number
             labelSkipHeight: number
-            labelTextColor: string | GetColor<BarDatumWithColor>
+            labelTextColor: InheritedColorProp<BarDatumWithColor>
 
             colors: OrdinalColorsInstruction
             borderRadius: number

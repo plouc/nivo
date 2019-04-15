@@ -226,14 +226,11 @@ const props = [
         key: 'borderColor',
         scopes: '*',
         help: 'Method to compute cell border color.',
-        type: 'string | Function',
+        type: 'string | object | Function',
         required: false,
         defaultValue: defaults.borderColor,
-        controlType: 'color',
+        controlType: 'inheritedColor',
         group: 'Style',
-        controlOptions: {
-            withCustomColor: true,
-        },
     },
     ...defsProperties(['Waffle']),
     {

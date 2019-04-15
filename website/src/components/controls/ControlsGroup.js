@@ -19,7 +19,6 @@ import SwitchControl from './SwitchControl'
 import SwitchableRangeControl from './SwitchableRangeControl'
 import ColorsControl from './ColorsControl'
 import QuantizeColorsControl from './QuantizeColorsControl'
-import ColorControl from './ColorControl'
 import ColorPickerControl from './ColorPickerControl'
 import TextControl from './TextControl'
 import RadioControl from './RadioControl'
@@ -216,22 +215,6 @@ const ControlChoser = memo(({ groupName, property, settings, onChange }) => {
                     id={id}
                     property={property}
                     value={value}
-                    onChange={handleChange}
-                />
-            )
-
-        case 'color':
-            return (
-                <ColorControl
-                    id={id}
-                    property={property}
-                    value={value}
-                    {...pick(options, [
-                        'withTheme',
-                        'withCustomColor',
-                        'defaultCustomColor',
-                        'help',
-                    ])}
                     onChange={handleChange}
                 />
             )

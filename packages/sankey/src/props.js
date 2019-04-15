@@ -9,7 +9,7 @@
 import PropTypes from 'prop-types'
 import { sankeyCenter, sankeyJustify, sankeyLeft, sankeyRight } from 'd3-sankey'
 import { noop, blendModePropType } from '@nivo/core'
-import { ordinalColorsPropType } from '@nivo/colors'
+import { ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
 import { LegendPropShape } from '@nivo/legends'
 
 export const sankeyAlignmentPropMapping = {
@@ -56,7 +56,7 @@ export const SankeyPropTypes = {
     nodeSpacing: PropTypes.number.isRequired,
     nodeInnerPadding: PropTypes.number.isRequired,
     nodeBorderWidth: PropTypes.number.isRequired,
-    nodeBorderColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    nodeBorderColor: inheritedColorPropType,
 
     linkOpacity: PropTypes.number.isRequired,
     linkHoverOpacity: PropTypes.number.isRequired,
@@ -69,7 +69,7 @@ export const SankeyPropTypes = {
     labelPosition: PropTypes.oneOf(['inside', 'outside']).isRequired,
     labelPadding: PropTypes.number.isRequired,
     labelOrientation: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
-    labelTextColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    labelTextColor: inheritedColorPropType,
     getLabelTextColor: PropTypes.func.isRequired, // computed
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     labelFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
@@ -99,7 +99,7 @@ export const SankeyDefaultProps = {
     nodeSpacing: 12,
     nodeInnerPadding: 0,
     nodeBorderWidth: 1,
-    nodeBorderColor: 'inherit:darker(0.5)',
+    nodeBorderColor: { from: 'color', modifiers: [['darker', 0.5]] },
 
     linkOpacity: 0.25,
     linkHoverOpacity: 0.6,
@@ -113,7 +113,7 @@ export const SankeyDefaultProps = {
     labelPosition: 'inside',
     labelPadding: 9,
     labelOrientation: 'horizontal',
-    labelTextColor: 'inherit:darker(0.8)',
+    labelTextColor: { from: 'color', modifiers: [['darker', 0.8]] },
 
     isInteractive: true,
     onClick: noop,

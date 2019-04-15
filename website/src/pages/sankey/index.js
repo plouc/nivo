@@ -35,8 +35,8 @@ const initialProperties = {
     nodeSpacing: 24,
     nodeBorderWidth: 0,
     nodeBorderColor: {
-        type: 'inherit:darker',
-        gamma: 0.8,
+        from: 'color',
+        modifiers: [['darker', 0.8]],
     },
 
     linkOpacity: 0.5,
@@ -51,8 +51,8 @@ const initialProperties = {
     labelOrientation: 'vertical',
     labelPadding: 16,
     labelTextColor: {
-        type: 'inherit:darker',
-        gamma: 1,
+        from: 'color',
+        modifiers: [['darker', 1]],
     },
 
     animate: true,

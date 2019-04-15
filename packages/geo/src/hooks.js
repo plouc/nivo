@@ -23,7 +23,8 @@ import {
     geoNaturalEarth1,
     geoGraticule,
 } from 'd3-geo'
-import { guessQuantizeColorScale } from '@nivo/core'
+import { guessQuantizeColorScale, useTheme } from '@nivo/core'
+import { useInheritedColor } from '@nivo/colors'
 import { useQuantizeColorScaleLegendData } from '@nivo/legends'
 
 export const projectionById = {
@@ -69,14 +70,12 @@ export const useGeoMap = ({
     const path = useMemo(() => geoPath(projection), [projection])
     const graticule = useMemo(() => geoGraticule())
 
+    const theme = useTheme()
     const getBorderWidth = useMemo(
         () => (typeof borderWidth === 'function' ? borderWidth : () => borderWidth),
         [borderWidth]
     )
-    const getBorderColor = useMemo(
-        () => (typeof borderColor === 'function' ? borderColor : () => borderColor),
-        [borderColor]
-    )
+    const getBorderColor = useInheritedColor(borderColor, theme)
     const getFillColor = useMemo(
         () => (typeof fillColor === 'function' ? fillColor : () => fillColor),
         [fillColor]

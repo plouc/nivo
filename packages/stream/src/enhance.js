@@ -21,9 +21,8 @@ import {
     withCurve,
     withDimensions,
     withMotion,
-    getInheritedColorGenerator,
 } from '@nivo/core'
-import { getOrdinalColorScale } from '@nivo/colors'
+import { getOrdinalColorScale, getInheritedColorGenerator } from '@nivo/colors'
 import { StreamDefaultProps } from './props'
 
 const stackMin = layers =>
@@ -48,8 +47,8 @@ export default Component =>
         withPropsOnChange(['colors'], ({ colors }) => ({
             getColor: getOrdinalColorScale(colors, 'index'),
         })),
-        withPropsOnChange(['borderColor'], ({ borderColor }) => ({
-            getBorderColor: getInheritedColorGenerator(borderColor),
+        withPropsOnChange(['borderColor', 'theme'], ({ borderColor, theme }) => ({
+            getBorderColor: getInheritedColorGenerator(borderColor, theme),
         })),
         withPropsOnChange(['keys', 'offsetType', 'order'], ({ keys, offsetType, order }) => ({
             stack: d3Stack()
@@ -84,15 +83,15 @@ export default Component =>
         withPropsOnChange(['dotSize'], ({ dotSize }) => ({
             getDotSize: typeof dotSize === 'function' ? dotSize : () => dotSize,
         })),
-        withPropsOnChange(['dotColor'], ({ dotColor }) => ({
-            getDotColor: getInheritedColorGenerator(dotColor),
+        withPropsOnChange(['dotColor', 'theme'], ({ dotColor, theme }) => ({
+            getDotColor: getInheritedColorGenerator(dotColor, theme),
         })),
         withPropsOnChange(['dotBorderWidth'], ({ dotBorderWidth }) => ({
             getDotBorderWidth:
                 typeof dotBorderWidth === 'function' ? dotBorderWidth : () => dotBorderWidth,
         })),
-        withPropsOnChange(['dotBorderColor'], ({ dotBorderColor }) => ({
-            getDotBorderColor: getInheritedColorGenerator(dotBorderColor),
+        withPropsOnChange(['dotBorderColor', 'theme'], ({ dotBorderColor, theme }) => ({
+            getDotBorderColor: getInheritedColorGenerator(dotBorderColor, theme),
         })),
         withPropsOnChange(['tooltipLabel', 'tooltipFormat'], ({ tooltipLabel, tooltipFormat }) => {
             let getTooltipLabel = d => d.id

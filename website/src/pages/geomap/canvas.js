@@ -33,10 +33,7 @@ const initialProperties = {
 
     fillColor: '#eeeeee',
     borderWidth: 0.5,
-    borderColor: {
-        type: 'custom',
-        color: '#333333',
-    },
+    borderColor: '#333333',
 
     enableGraticule: true,
     graticuleLineWidth: 0.5,

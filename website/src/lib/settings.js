@@ -24,11 +24,5 @@ export const settingsMapper = (mapping, { exclude = [] } = {}) => (settings, opt
     }
 }
 
-export const mapInheritedColor = ({ type, ...config }) => {
-    if (type === 'custom') return config.color
-    if (['inherit:darker', 'inherit:brighter'].includes(type)) return `${type}(${config.gamma})`
-    return type
-}
-
 export const mapAxis = type => (value, settings) =>
     settings[`axis${upperFirst(type)}`].enable ? omit(value, ['enable']) : null

@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { settingsMapper, mapInheritedColor } from '../../../lib/settings'
+import { settingsMapper } from '../../../lib/settings'
 import CustomTooltip from './CustomTooltip'
 
 const CustomSvgCell = ({
@@ -89,7 +89,6 @@ export default settingsMapper(
             }
             return undefined
         },
-        borderColor: mapInheritedColor,
         tooltip: (value, values) => {
             if (!values['custom tooltip example']) return null
 

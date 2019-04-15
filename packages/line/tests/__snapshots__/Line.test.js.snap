@@ -7450,7 +7450,7 @@ exports[`should render a basic line chart 1`] = `
           <circle
             fill="#e8c1a0"
             r={3}
-            stroke="#e8c1a0"
+            stroke="transparent"
             strokeWidth={0}
             style={
               Object {
@@ -7470,7 +7470,7 @@ exports[`should render a basic line chart 1`] = `
           <circle
             fill="#e8c1a0"
             r={3}
-            stroke="#e8c1a0"
+            stroke="transparent"
             strokeWidth={0}
             style={
               Object {
@@ -7490,7 +7490,7 @@ exports[`should render a basic line chart 1`] = `
           <circle
             fill="#e8c1a0"
             r={3}
-            stroke="#e8c1a0"
+            stroke="transparent"
             strokeWidth={0}
             style={
               Object {
@@ -7510,7 +7510,7 @@ exports[`should render a basic line chart 1`] = `
           <circle
             fill="#e8c1a0"
             r={3}
-            stroke="#e8c1a0"
+            stroke="transparent"
             strokeWidth={0}
             style={
               Object {
@@ -7530,7 +7530,7 @@ exports[`should render a basic line chart 1`] = `
           <circle
             fill="#e8c1a0"
             r={3}
-            stroke="#e8c1a0"
+            stroke="transparent"
             strokeWidth={0}
             style={
               Object {
@@ -8451,7 +8451,7 @@ exports[`should support multiple lines 1`] = `
           <circle
             fill="#e8c1a0"
             r={3}
-            stroke="#e8c1a0"
+            stroke="transparent"
             strokeWidth={0}
             style={
               Object {
@@ -8471,7 +8471,7 @@ exports[`should support multiple lines 1`] = `
           <circle
             fill="#e8c1a0"
             r={3}
-            stroke="#e8c1a0"
+            stroke="transparent"
             strokeWidth={0}
             style={
               Object {
@@ -8491,7 +8491,7 @@ exports[`should support multiple lines 1`] = `
           <circle
             fill="#e8c1a0"
             r={3}
-            stroke="#e8c1a0"
+            stroke="transparent"
             strokeWidth={0}
             style={
               Object {
@@ -8511,7 +8511,7 @@ exports[`should support multiple lines 1`] = `
           <circle
             fill="#e8c1a0"
             r={3}
-            stroke="#e8c1a0"
+            stroke="transparent"
             strokeWidth={0}
             style={
               Object {
@@ -8531,7 +8531,7 @@ exports[`should support multiple lines 1`] = `
           <circle
             fill="#e8c1a0"
             r={3}
-            stroke="#e8c1a0"
+            stroke="transparent"
             strokeWidth={0}
             style={
               Object {
@@ -8551,7 +8551,7 @@ exports[`should support multiple lines 1`] = `
           <circle
             fill="#f47560"
             r={3}
-            stroke="#f47560"
+            stroke="transparent"
             strokeWidth={0}
             style={
               Object {
@@ -8571,7 +8571,7 @@ exports[`should support multiple lines 1`] = `
           <circle
             fill="#f47560"
             r={3}
-            stroke="#f47560"
+            stroke="transparent"
             strokeWidth={0}
             style={
               Object {
@@ -8591,7 +8591,7 @@ exports[`should support multiple lines 1`] = `
           <circle
             fill="#f47560"
             r={3}
-            stroke="#f47560"
+            stroke="transparent"
             strokeWidth={0}
             style={
               Object {
@@ -8611,7 +8611,7 @@ exports[`should support multiple lines 1`] = `
           <circle
             fill="#f47560"
             r={3}
-            stroke="#f47560"
+            stroke="transparent"
             strokeWidth={0}
             style={
               Object {
@@ -8631,7 +8631,7 @@ exports[`should support multiple lines 1`] = `
           <circle
             fill="#f47560"
             r={3}
-            stroke="#f47560"
+            stroke="transparent"
             strokeWidth={0}
             style={
               Object {

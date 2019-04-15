@@ -45,10 +45,7 @@ const initialProperties = {
     graticuleLineColor: '#dddddd',
 
     borderWidth: 0.5,
-    borderColor: {
-        type: 'custom',
-        color: '#152538',
-    },
+    borderColor: '#152538',
 
     isInteractive: true,
     'custom tooltip example': false,

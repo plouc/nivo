@@ -8,13 +8,12 @@
  */
 import PropTypes from 'prop-types'
 import { defsPropTypes, noop } from '@nivo/core'
-import { ordinalColorsPropType } from '@nivo/colors'
+import { ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
 import { LegendPropShape } from '@nivo/legends'
 import WaffleCell from './WaffleCell'
 import WaffleCellHtml from './WaffleCellHtml'
 
 const commonPropTypes = {
-    // data
     total: PropTypes.number.isRequired,
     data: PropTypes.arrayOf(
         PropTypes.shape({
@@ -26,26 +25,22 @@ const commonPropTypes = {
     hiddenIds: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
         .isRequired,
 
-    // layout
     rows: PropTypes.number.isRequired,
     columns: PropTypes.number.isRequired,
     fillDirection: PropTypes.oneOf(['top', 'right', 'bottom', 'left']).isRequired,
     padding: PropTypes.number.isRequired,
 
-    // styling
     colors: ordinalColorsPropType.isRequired,
     emptyColor: PropTypes.string.isRequired,
     emptyOpacity: PropTypes.number.isRequired,
     borderWidth: PropTypes.number.isRequired,
-    borderColor: PropTypes.any.isRequired,
+    borderColor: inheritedColorPropType.isRequired,
     getBorderColor: PropTypes.func.isRequired, // computed
 
-    // interactivity
     isInteractive: PropTypes.bool,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
     tooltip: PropTypes.func,
 
-    // computed
     cellSize: PropTypes.number.isRequired,
     cells: PropTypes.array.isRequired,
     origin: PropTypes.shape({
@@ -75,20 +70,17 @@ export const WaffleCanvasPropTypes = {
 const commonDefaultProps = {
     hiddenIds: [],
 
-    // layout
     fillDirection: 'bottom',
     padding: 1,
 
-    // styling
     colors: { scheme: 'nivo' },
     emptyColor: '#cccccc',
     emptyOpacity: 1,
     borderWidth: 0,
-    borderColor: 'inherit:darker(1)',
+    borderColor: { from: 'color', modifiers: [['darker', 1]] },
     defs: [],
     fill: [],
 
-    // interactivity
     isInteractive: true,
     onClick: noop,
 }

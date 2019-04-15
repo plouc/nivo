@@ -63,8 +63,7 @@ export default {
     fillOpacity: 0.85,
     borderWidth: 0,
     borderColor: {
-        type: 'custom',
-        color: '#000000',
+        theme: 'background',
     },
 
     defs: [
@@ -87,9 +86,9 @@ export default {
 
     enableDots: false,
     dotSize: 8,
-    dotColor: { type: 'inherit' },
+    dotColor: { from: 'color' },
     dotBorderWidth: 2,
-    dotBorderColor: { type: 'inherit:brighter', gamma: 0.7 },
+    dotBorderColor: { from: 'color', modifiers: [['darker', 0.7]] },
 
     animate: true,
     motionStiffness: 90,

@@ -9,14 +9,8 @@
 import { cloneDeep } from 'lodash'
 import { compose, defaultProps, withState, withPropsOnChange, pure } from 'recompose'
 import { sankey as d3Sankey } from 'd3-sankey'
-import {
-    getLabelGenerator,
-    getInheritedColorGenerator,
-    withTheme,
-    withDimensions,
-    withMotion,
-} from '@nivo/core'
-import { getOrdinalColorScale } from '@nivo/colors'
+import { getLabelGenerator, withTheme, withDimensions, withMotion } from '@nivo/core'
+import { getOrdinalColorScale, getInheritedColorGenerator } from '@nivo/colors'
 import { SankeyDefaultProps, sankeyAlignmentFromProp } from './props'
 
 const getId = d => d.id
@@ -33,11 +27,11 @@ export default Component =>
             getColor: getOrdinalColorScale(colors, 'id'),
             getLinkColor: getOrdinalColorScale(colors, 'source.id'),
         })),
-        withPropsOnChange(['nodeBorderColor'], ({ nodeBorderColor }) => ({
-            getNodeBorderColor: getInheritedColorGenerator(nodeBorderColor),
+        withPropsOnChange(['nodeBorderColor', 'theme'], ({ nodeBorderColor, theme }) => ({
+            getNodeBorderColor: getInheritedColorGenerator(nodeBorderColor, theme),
         })),
-        withPropsOnChange(['labelTextColor'], ({ labelTextColor }) => ({
-            getLabelTextColor: getInheritedColorGenerator(labelTextColor),
+        withPropsOnChange(['labelTextColor', 'theme'], ({ labelTextColor, theme }) => ({
+            getLabelTextColor: getInheritedColorGenerator(labelTextColor, theme),
         })),
         withPropsOnChange(['label', 'labelFormat'], ({ label, labelFormat }) => ({
             getLabel: getLabelGenerator(label, labelFormat),

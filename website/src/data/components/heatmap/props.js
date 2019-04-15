@@ -270,14 +270,11 @@ const props = [
             how to compute cell border color,
             [see dedicated documentation](self:/guides/colors).
         `,
-        type: 'string | Function',
+        type: 'string | object | Function',
         required: false,
         defaultValue: defaults.cellBorderColor,
-        controlType: 'color',
+        controlType: 'inheritedColor',
         group: 'Style',
-        controlOptions: {
-            withCustomColor: true,
-        },
     },
     {
         key: 'enableLabels',
@@ -297,14 +294,11 @@ const props = [
             how to compute label text color,
             [see dedicated documentation](self:/guides/colors).
         `,
-        type: 'string | Function',
+        type: 'string | object | Function',
         required: false,
         defaultValue: defaults.labelTextColor,
-        controlType: 'color',
+        controlType: 'inheritedColor',
         group: 'Labels',
-        controlOptions: {
-            withCustomColor: true,
-        },
     },
     {
         key: 'enableGridX',
