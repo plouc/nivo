@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { settingsMapper, mapAxis, mapInheritedColor } from '../../../lib/settings'
+import { settingsMapper, mapAxis } from '../../../lib/settings'
 
 const CustomCell = ({
     value,
@@ -56,8 +56,6 @@ export default settingsMapper(
         axisRight: mapAxis('right'),
         axisBottom: mapAxis('bottom'),
         axisLeft: mapAxis('left'),
-        cellBorderColor: mapInheritedColor,
-        labelTextColor: mapInheritedColor,
     },
     {
         exclude: ['enable axisTop', 'enable axisRight', 'enable axisBottom', 'enable axisLeft'],

@@ -55,8 +55,8 @@ const initialProperties = {
     colors: { scheme: 'set2' },
     borderWidth: 0,
     borderColor: {
-        type: 'inherit:darker',
-        gamma: 0.3,
+        from: 'color',
+        gamma: [['darker', 0.3]],
     },
 
     animate: true,

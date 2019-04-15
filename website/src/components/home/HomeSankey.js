@@ -21,6 +21,7 @@ const HomeSankey = ({ colors, nivoTheme }) => {
                 colors={colors}
                 animate={false}
                 isInteractive={false}
+                nodeBorderColor={{ from: 'color' }}
                 nodeOpacity={1}
                 nodeWidth={4}
                 nodePadding={12}
@@ -28,7 +29,7 @@ const HomeSankey = ({ colors, nivoTheme }) => {
                 linkOpacity={0.2}
                 linkBlendMode="normal"
                 linkContract={1}
-                labelTextColor="inherit"
+                labelTextColor={{ from: 'color' }}
             />
             <HomeItemLabel>
                 <span>Sankey documentation</span>

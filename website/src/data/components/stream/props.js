@@ -152,14 +152,11 @@ const props = [
             [see dedicated documentation](self:/guides/colors).
         `,
         help: 'Method to compute layer border color.',
-        type: 'string | Function',
+        type: 'string | object | Function',
         required: false,
         defaultValue: defaults.borderColor,
-        controlType: 'color',
+        controlType: 'inheritedColor',
         group: 'Style',
-        controlOptions: {
-            withCustomColor: true,
-        },
     },
     ...defsProperties(['Stream']),
     {
@@ -219,14 +216,11 @@ const props = [
     {
         key: 'dotColor',
         help: 'Method to compute dots color.',
-        type: 'string | Function',
+        type: 'string | object | Function',
         required: false,
         defaultValue: defaults.dotColor,
-        controlType: 'color',
+        controlType: 'inheritedColor',
         group: 'Dots',
-        controlOptions: {
-            withCustomColor: true,
-        },
     },
     {
         key: 'dotBorderWidth',
@@ -243,14 +237,11 @@ const props = [
         key: 'dotBorderColor',
         scopes: '*',
         help: 'Method to compute dots border color.',
-        type: 'string | Function',
+        type: 'string | object | Function',
         required: false,
         defaultValue: defaults.dotBorderColor,
-        controlType: 'color',
+        controlType: 'inheritedColor',
         group: 'Dots',
-        controlOptions: {
-            withCustomColor: true,
-        },
     },
     {
         key: 'isInteractive',

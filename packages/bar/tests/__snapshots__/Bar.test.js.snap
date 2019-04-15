@@ -4354,7 +4354,7 @@ exports[`should render a basic bar chart 1`] = `
             alignmentBaseline="central"
             style={
               Object {
-                "fill": "#333333",
+                "fill": "theme",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
                 "pointerEvents": "none",
@@ -4387,7 +4387,7 @@ exports[`should render a basic bar chart 1`] = `
             alignmentBaseline="central"
             style={
               Object {
-                "fill": "#333333",
+                "fill": "theme",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
                 "pointerEvents": "none",
@@ -4420,7 +4420,7 @@ exports[`should render a basic bar chart 1`] = `
             alignmentBaseline="central"
             style={
               Object {
-                "fill": "#333333",
+                "fill": "theme",
                 "fontFamily": "sans-serif",
                 "fontSize": 11,
                 "pointerEvents": "none",

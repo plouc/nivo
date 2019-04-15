@@ -8,6 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import { quantizeColorScalePropType } from '@nivo/core'
+import { inheritedColorPropType } from '@nivo/colors'
 import { projectionById } from './hooks'
 import ChoroplethTooltip from './ChoroplethTooltip'
 
@@ -28,7 +29,7 @@ const commonPropTypes = {
 
     fillColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     borderWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
-    borderColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    borderColor: inheritedColorPropType.isRequired,
 
     enableGraticule: PropTypes.bool.isRequired,
     graticuleLineWidth: PropTypes.number.isRequired,

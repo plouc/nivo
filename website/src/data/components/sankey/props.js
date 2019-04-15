@@ -243,14 +243,11 @@ const props = [
             [see dedicated documentation](self:/guides/colors).
         `,
         help: 'Method to compute node border color.',
-        type: 'string | Function',
+        type: 'string | object | Function',
         required: false,
         defaultValue: defaults.nodeBorderColor,
-        controlType: 'color',
+        controlType: 'inheritedColor',
         group: 'Nodes',
-        controlOptions: {
-            withCustomColor: true,
-        },
     },
     {
         key: 'linkOpacity',
@@ -383,14 +380,11 @@ const props = [
             how to compute label text color,
             [see dedicated documentation](self:/guides/colors).
         `,
-        type: 'string | Function',
+        type: 'string | object | Function',
         required: false,
         defaultValue: defaults.labelTextColor,
-        controlType: 'color',
+        controlType: 'inheritedColor',
         group: 'Labels',
-        controlOptions: {
-            withCustomColor: true,
-        },
     },
     {
         key: 'labelOrientation',

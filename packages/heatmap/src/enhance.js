@@ -15,9 +15,14 @@ import withPropsOnChange from 'recompose/withPropsOnChange'
 import withState from 'recompose/withState'
 import pure from 'recompose/pure'
 import { scaleOrdinal, scaleLinear } from 'd3-scale'
-import { withTheme, withDimensions, withMotion } from '@nivo/core'
-import { getInheritedColorGenerator, guessQuantizeColorScale } from '@nivo/core'
-import { getAccessorFor } from '@nivo/core'
+import {
+    withTheme,
+    withDimensions,
+    withMotion,
+    guessQuantizeColorScale,
+    getAccessorFor,
+} from '@nivo/core'
+import { getInheritedColorGenerator } from '@nivo/colors'
 import { HeatMapDefaultProps } from './props'
 
 const computeX = (column, cellWidth, padding) => {
@@ -127,11 +132,11 @@ export default Component =>
                 return { sizeScale }
             }
         ),
-        withPropsOnChange(['cellBorderColor'], ({ cellBorderColor }) => ({
-            getCellBorderColor: getInheritedColorGenerator(cellBorderColor),
+        withPropsOnChange(['cellBorderColor', 'theme'], ({ cellBorderColor, theme }) => ({
+            getCellBorderColor: getInheritedColorGenerator(cellBorderColor, theme),
         })),
-        withPropsOnChange(['labelTextColor'], ({ labelTextColor }) => ({
-            getLabelTextColor: getInheritedColorGenerator(labelTextColor),
+        withPropsOnChange(['labelTextColor', 'theme'], ({ labelTextColor, theme }) => ({
+            getLabelTextColor: getInheritedColorGenerator(labelTextColor, theme),
         })),
         pure
     )(Component)

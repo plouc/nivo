@@ -8,7 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import { areaCurvePropType, stackOrderPropType, stackOffsetPropType } from '@nivo/core'
-import { ordinalColorsPropType } from '@nivo/colors'
+import { ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
 import { LegendPropShape } from '@nivo/legends'
 import StreamDotsItem from './StreamDotsItem'
 
@@ -48,7 +48,7 @@ export const StreamPropTypes = {
         })
     ).isRequired,
     borderWidth: PropTypes.number.isRequired,
-    borderColor: PropTypes.any.isRequired,
+    borderColor: inheritedColorPropType.isRequired,
     getBorderColor: PropTypes.func.isRequired, // computed
 
     enableDots: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]).isRequired,
@@ -56,10 +56,10 @@ export const StreamPropTypes = {
     dotPosition: PropTypes.oneOf(['start', 'center', 'end']).isRequired,
     dotSize: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
     getDotSize: PropTypes.func.isRequired,
-    dotColor: PropTypes.any.isRequired,
+    dotColor: inheritedColorPropType.isRequired,
     dotBorderWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
     getDotBorderWidth: PropTypes.func.isRequired,
-    dotBorderColor: PropTypes.any.isRequired,
+    dotBorderColor: inheritedColorPropType.isRequired,
 
     isInteractive: PropTypes.bool,
     tooltipLabel: PropTypes.func,
@@ -81,7 +81,7 @@ export const StreamDefaultProps = {
     enableGridY: false,
 
     borderWidth: 0,
-    borderColor: 'inherit:darker(1)',
+    borderColor: { from: 'color', modifiers: [['darker', 1]] },
 
     colors: { scheme: 'nivo' },
     fillOpacity: 1,
@@ -92,9 +92,9 @@ export const StreamDefaultProps = {
     dotPosition: 'center',
     renderDot: StreamDotsItem,
     dotSize: 6,
-    dotColor: 'inherit',
+    dotColor: { from: 'color' },
     dotBorderWidth: 0,
-    dotBorderColor: 'inherit',
+    dotBorderColor: { from: 'color' },
 
     isInteractive: true,
 

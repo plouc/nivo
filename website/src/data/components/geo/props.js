@@ -260,14 +260,11 @@ const props = [
         key: 'borderColor',
         scopes: '*',
         help: 'Method to compute border color.',
-        type: 'string | Function',
+        type: 'string | object | Function',
         required: false,
         defaultValue: GeoMapDefaultProps.borderColor,
-        controlType: 'color',
+        controlType: 'inheritedColor',
         group: 'Style',
-        controlOptions: {
-            withCustomColor: true,
-        },
     },
     {
         key: 'enableGraticule',

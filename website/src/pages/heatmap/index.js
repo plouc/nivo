@@ -80,14 +80,14 @@ const initialProperties = {
     cellOpacity: 1,
     cellBorderWidth: 0,
     cellBorderColor: {
-        type: 'inherit:darker',
-        gamma: 0.4,
+        from: 'color',
+        modifiers: [['darker', 0.4]],
     },
 
     enableLabels: true,
     labelTextColor: {
-        type: 'inherit:darker',
-        gamma: 1.8,
+        from: 'color',
+        modifiers: [['darker', 1.8]],
     },
 
     defs: [

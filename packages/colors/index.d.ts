@@ -83,4 +83,13 @@ declare module '@nivo/colors' {
         instruction: OrdinalColorsInstruction,
         identity: string | ColorIdentityFunction<D>
     ): OrdinalColorScale<D>
+
+    export type ColorModifierType = 'brighter' | 'darker' | 'opacity'
+    export type ColorModifier = [ColorModifierType, number]
+    export type InheritedColorFunction<D = any> = (datum: D) => string
+    export type InheritedColorProp<D = any> =
+        | string
+        | { theme: string }
+        | { from: string; modifiers?: ColorModifier[] }
+        | InheritedColorFunction<D>
 }
