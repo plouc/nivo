@@ -214,6 +214,8 @@ const SwarmPlotCanvas = memo(
             nodes,
             xScale,
             yScale,
+            getBorderWidth,
+            getBorderColor,
             voronoi,
             currentNode,
         ])
