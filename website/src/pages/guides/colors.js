@@ -17,7 +17,10 @@ import { DescriptionBlock } from '../../components/styled'
 
 const Colors = () => (
     <Layout>
-        <SEO title="Colors Guide" />
+        <SEO
+            title="Colors Guide"
+            description="Using colors in nivo, color schemes, color scales…"
+        />
         <PageContent>
             <div className="guide__header">
                 <h1>Colors</h1>
@@ -48,13 +51,6 @@ const Colors = () => (
             </p>
         </DescriptionBlock>
         <ColorsRanges />
-        <DescriptionBlock>
-            <h2>Single color property</h2>
-            <p>
-                A lot of components have a <code>*Color</code> property, but what can we pass to it
-                ?
-            </p>
-        </DescriptionBlock>
         <ColorsColor />
     </Layout>
 )

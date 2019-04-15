@@ -16,49 +16,12 @@ import Control from './Control'
 import PropertyHeader from './PropertyHeader'
 import { Help } from './styled'
 import Select from './Select'
+import InheritedColorModifierControl from './InheritedColorModifierControl'
 
 const themeProperties = ['background', 'grid.line.stroke', 'labels.text.fill'].map(prop => ({
     label: prop,
     value: prop,
 }))
-
-const TypeSelector = styled.div`
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    margin-bottom: 10px;
-`
-
-const TypeSelectorItem = styled.span`
-    cursor: pointer;
-    padding: 5px 9px;
-    text-align: center;
-    font-weight: ${({ isActive }) => (isActive ? 600 : 400)};
-    background: ${({ isActive, theme }) =>
-        isActive ? theme.colors.cardBackground : theme.colors.background};
-    color: ${({ isActive, theme }) => (isActive ? theme.colors.accent : theme.colors.textLight)};
-    border: 1px solid ${({ theme }) => theme.colors.border};
-    border-left-width: 0;
-    box-shadow: ${({ isActive }) => (isActive ? 'none' : '0 1px 1px rgba(0, 0, 0, 0.1) inset')};
-
-    &:first-child {
-        border-left-width: 1px;
-        border-top-left-radius: 3px;
-        border-bottom-left-radius: 3px;
-    }
-    &:last-child {
-        border-top-right-radius: 3px;
-        border-bottom-right-radius: 3px;
-    }
-
-    &:hover {
-        color: ${({ isActive, theme }) => (isActive ? theme.colors.accent : theme.colors.text)};
-        box-shadow: none;
-    }
-`
-
-const SubLabel = styled.div`
-    margin-bottom: 5px;
-`
 
 const InheritedColorControl = ({
     id,
@@ -77,25 +40,21 @@ const InheritedColorControl = ({
     const [fromProp, setFromProp] = useState(
         isPlainObject(value) && value.from !== undefined ? value.from : defaultFrom
     )
+    const [modifiers, setModifiers] = useState(
+        isPlainObject(value) && value.modifiers !== undefined ? value.modifiers : []
+    )
 
     let type
     let subControl = null
 
     const handleTypeChange = useCallback(
         type => {
-            if (type === 'custom') {
-                onChange(customColor)
-            }
-            if (type === 'theme') {
-                onChange({ theme: themeProp })
-            }
-            if (type === 'inherit') {
-                onChange({ from: fromProp })
-            }
+            if (type === 'custom') onChange(customColor)
+            if (type === 'theme') onChange({ theme: themeProp })
+            if (type === 'inherit') onChange({ from: fromProp, modifiers })
         },
         [onChange]
     )
-
     const handleThemePropertyChange = useCallback(
         value => {
             setThemeProp(value.value)
@@ -103,10 +62,34 @@ const InheritedColorControl = ({
         },
         [onChange, setThemeProp]
     )
+    const handleModifierChange = useCallback(
+        index => modifier => {
+            const newModifiers = [...modifiers]
+            newModifiers[index] = modifier
+            setModifiers(newModifiers)
+            onChange({
+                from: fromProp,
+                modifiers: newModifiers,
+            })
+        },
+        [onChange, modifiers]
+    )
+    const handleCustomColorChange = useCallback(
+        event => {
+            setCustomColor(event.target.value)
+            onChange(event.target.value)
+        },
+        [onChange, setCustomColor]
+    )
 
     if (isString(value)) {
         type = 'custom'
-        subControl = <div>static color: {value}</div>
+        subControl = (
+            <CustomColor>
+                <input type="color" onChange={handleCustomColorChange} value={value} />
+                <code>{value}</code>
+            </CustomColor>
+        )
     } else if (isPlainObject(value)) {
         if (value.theme !== undefined) {
             type = 'theme'
@@ -134,6 +117,15 @@ const InheritedColorControl = ({
                         value={propertyOptions.find(prop => prop.value === value.from)}
                         //onChange={handleThemePropertyChange}
                     />
+                    <SubLabel>modifiers</SubLabel>
+                    {modifiers.length === 0 && <NoModifiers>No modifier.</NoModifiers>}
+                    {modifiers.map((modifier, i) => (
+                        <InheritedColorModifierControl
+                            key={i}
+                            modifier={modifier}
+                            onChange={handleModifierChange(i)}
+                        />
+                    ))}
                 </>
             )
         }
@@ -171,9 +163,6 @@ const InheritedColorControl = ({
 InheritedColorControl.propTypes = {
     property: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
-    //defaultGammaValue: PropTypes.number.isRequired,
-    //withTheme: PropTypes.bool.isRequired,
-    //withCustomColor: PropTypes.bool.isRequired,
     inheritableProperties: PropTypes.arrayOf(PropTypes.string).isRequired,
     defaultCustomColor: PropTypes.string.isRequired,
     defaultThemeProperty: PropTypes.string.isRequired,
@@ -188,3 +177,57 @@ InheritedColorControl.defaultProps = {
 }
 
 export default InheritedColorControl
+
+const TypeSelector = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-bottom: 10px;
+`
+
+const TypeSelectorItem = styled.span`
+    cursor: pointer;
+    padding: 5px 9px;
+    text-align: center;
+    font-weight: ${({ isActive }) => (isActive ? 600 : 400)};
+    background: ${({ isActive, theme }) =>
+        isActive ? theme.colors.cardBackground : theme.colors.background};
+    color: ${({ isActive, theme }) => (isActive ? theme.colors.accent : theme.colors.textLight)};
+    border: 1px solid ${({ theme }) => theme.colors.border};
+    border-left-width: 0;
+    box-shadow: ${({ isActive }) => (isActive ? 'none' : '0 1px 1px rgba(0, 0, 0, 0.1) inset')};
+
+    &:first-child {
+        border-left-width: 1px;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+    }
+    &:last-child {
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+    }
+
+    &:hover {
+        color: ${({ isActive, theme }) => (isActive ? theme.colors.accent : theme.colors.text)};
+        box-shadow: none;
+    }
+`
+
+const SubLabel = styled.div`
+    margin-bottom: 5px;
+    font-size: 0.8rem;
+`
+
+const CustomColor = styled.div`
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    grid-column-gap: 10px;
+    margin-bottom: 5px;
+`
+
+const NoModifiers = styled.div`
+    color: ${({ theme }) => theme.colors.textLight};
+    font-style: italic;
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+`

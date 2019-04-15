@@ -125,6 +125,7 @@ const PatternsIllustrations = () => {
                         value="value"
                         leavesOnly={true}
                         colors={{ scheme: 'spectral' }}
+                        colorBy="country"
                         borderWidth={4}
                         outerPadding={8}
                         innerPadding={8}

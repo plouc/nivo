@@ -44,8 +44,8 @@ const initialProperties = {
     colorBy: 'id',
     borderWidth: 0,
     borderColor: {
-        type: 'inherit:darker',
-        gamma: 1.6,
+        from: 'color',
+        modifiers: [['darker', 1.6]],
     },
 
     axisTop: {
@@ -90,8 +90,8 @@ const initialProperties = {
     labelSkipWidth: 12,
     labelSkipHeight: 12,
     labelTextColor: {
-        type: 'inherit:darker',
-        gamma: 1.6,
+        from: 'color',
+        modifiers: [['darker', 1.6]],
     },
 
     isInteractive: true,

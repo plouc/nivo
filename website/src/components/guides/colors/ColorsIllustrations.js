@@ -57,13 +57,14 @@ const ColorsIllustrations = () => {
                             children: generateCountriesData(['value'], { size: 18 }),
                         }}
                         colors={{ scheme: 'spectral' }}
+                        colorBy="country"
                         identity="country"
                         value="value"
-                        leavesOnly={false}
+                        leavesOnly={true}
                         outerPadding={6}
                         innerPadding={4}
-                        borderWidth={0}
-                        borderColor="#333"
+                        borderWidth={2}
+                        borderColor={{ theme: 'background' }}
                         isInteractive={false}
                         animate={false}
                         enableLabel={false}
