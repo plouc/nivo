@@ -6,84 +6,92 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
-import compose from 'recompose/compose'
-import withPropsOnChange from 'recompose/withPropsOnChange'
-import pure from 'recompose/pure'
+import React, { memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { motionPropTypes, SmartMotion } from '@nivo/core'
-import { getInheritedColorGenerator } from '@nivo/colors'
+import { motionPropTypes, SmartMotion, useTheme } from '@nivo/core'
+import { useInheritedColor, inheritedColorPropType } from '@nivo/colors'
 import { lineRadial } from 'd3-shape'
 
-const RadarShapes = ({
-    data,
-    keys,
-    colorByKey,
-    lineGenerator,
+const RadarShapes = memo(
+    ({
+        data,
+        keys,
+        colorByKey,
+        radiusScale,
+        angleStep,
+        curveInterpolator,
+        borderWidth,
+        borderColor,
+        fillOpacity,
+        animate,
+        motionStiffness,
+        motionDamping,
+    }) => {
+        const theme = useTheme()
+        const getBorderColor = useInheritedColor(borderColor, theme)
+        const lineGenerator = useMemo(() => {
+            return lineRadial()
+                .radius(d => radiusScale(d))
+                .angle((d, i) => i * angleStep)
+                .curve(curveInterpolator)
+        }, [radiusScale, angleStep, curveInterpolator])
 
-    // border
-    borderWidth,
-    borderColor,
+        if (animate !== true) {
+            return (
+                <g>
+                    {keys.map(key => {
+                        return (
+                            <path
+                                key={key}
+                                d={lineGenerator(data.map(d => d[key]))}
+                                fill={colorByKey[key]}
+                                fillOpacity={fillOpacity}
+                                stroke={getBorderColor({ key, color: colorByKey[key] })}
+                                strokeWidth={borderWidth}
+                            />
+                        )
+                    })}
+                </g>
+            )
+        }
 
-    // theming
-    fillOpacity,
+        const springConfig = {
+            stiffness: motionStiffness,
+            damping: motionDamping,
+        }
 
-    // motion
-    animate,
-    motionStiffness,
-    motionDamping,
-}) => {
-    if (animate !== true) {
         return (
             <g>
                 {keys.map(key => {
                     return (
-                        <path
+                        <SmartMotion
                             key={key}
-                            d={lineGenerator(data.map(d => d[key]))}
-                            fill={colorByKey[key]}
-                            fillOpacity={fillOpacity}
-                            stroke={borderColor({ key, color: colorByKey[key] })}
-                            strokeWidth={borderWidth}
-                        />
+                            style={spring => ({
+                                d: spring(lineGenerator(data.map(d => d[key])), springConfig),
+                                fill: spring(colorByKey[key], springConfig),
+                                stroke: spring(
+                                    getBorderColor({ key, color: colorByKey[key] }),
+                                    springConfig
+                                ),
+                            })}
+                        >
+                            {style => (
+                                <path
+                                    fillOpacity={fillOpacity}
+                                    strokeWidth={borderWidth}
+                                    {...style}
+                                />
+                            )}
+                        </SmartMotion>
                     )
                 })}
             </g>
         )
     }
+)
 
-    const springConfig = {
-        stiffness: motionStiffness,
-        damping: motionDamping,
-    }
-
-    return (
-        <g>
-            {keys.map(key => {
-                return (
-                    <SmartMotion
-                        key={key}
-                        style={spring => ({
-                            d: spring(lineGenerator(data.map(d => d[key])), springConfig),
-                            fill: spring(colorByKey[key], springConfig),
-                            stroke: spring(
-                                borderColor({ key, color: colorByKey[key] }),
-                                springConfig
-                            ),
-                        })}
-                    >
-                        {style => (
-                            <path fillOpacity={fillOpacity} strokeWidth={borderWidth} {...style} />
-                        )}
-                    </SmartMotion>
-                )
-            })}
-        </g>
-    )
-}
-
+RadarShapes.displayName = 'RadarShapes'
 RadarShapes.propTypes = {
-    // data
     data: PropTypes.arrayOf(PropTypes.object).isRequired,
     keys: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
     colorByKey: PropTypes.object.isRequired,
@@ -92,33 +100,13 @@ RadarShapes.propTypes = {
     angleStep: PropTypes.number.isRequired,
 
     curveInterpolator: PropTypes.func.isRequired,
-    lineGenerator: PropTypes.func.isRequired,
 
-    // border
     borderWidth: PropTypes.number.isRequired,
-    borderColor: PropTypes.func.isRequired,
+    borderColor: inheritedColorPropType.isRequired,
 
-    // theming
     fillOpacity: PropTypes.number.isRequired,
 
-    // motion
     ...motionPropTypes,
 }
 
-const enhance = compose(
-    withPropsOnChange(['borderColor', 'theme'], ({ borderColor, theme }) => ({
-        borderColor: getInheritedColorGenerator(borderColor, theme),
-    })),
-    withPropsOnChange(
-        ['radiusScale', 'angleStep', 'curveInterpolator'],
-        ({ radiusScale, angleStep, curveInterpolator }) => ({
-            lineGenerator: lineRadial()
-                .radius(d => radiusScale(d))
-                .angle((d, i) => i * angleStep)
-                .curve(curveInterpolator),
-        })
-    ),
-    pure
-)
-
-export default enhance(RadarShapes)
+export default RadarShapes
