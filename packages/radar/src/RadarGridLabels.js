@@ -6,12 +6,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
-import pure from 'recompose/pure'
-import { motionPropTypes } from '@nivo/core'
-import { positionFromAngle, radiansToDegrees } from '@nivo/core'
+import { motionPropTypes, positionFromAngle, radiansToDegrees } from '@nivo/core'
 
 const textAnchorFromAngle = _angle => {
     const angle = radiansToDegrees(_angle) + 90
@@ -39,58 +37,63 @@ const renderLabel = (label, theme, labelComponent) => {
     )
 }
 
-const RadarGridLabels = ({
-    radius,
-    angles,
-    indices,
-    label: labelComponent,
-    labelOffset,
-    theme,
-    animate,
-    motionStiffness,
-    motionDamping,
-}) => {
-    const springConfig = {
-        motionDamping,
+const RadarGridLabels = memo(
+    ({
+        radius,
+        angles,
+        indices,
+        label: labelComponent,
+        labelOffset,
+        theme,
+        animate,
         motionStiffness,
-    }
-
-    const labels = indices.map((index, i) => {
-        const position = positionFromAngle(angles[i], radius + labelOffset)
-        const textAnchor = textAnchorFromAngle(angles[i])
-
-        return {
-            id: index,
-            angle: radiansToDegrees(angles[i]),
-            anchor: textAnchor,
-            ...position,
+        motionDamping,
+    }) => {
+        const springConfig = {
+            motionDamping,
+            motionStiffness,
         }
-    })
 
-    if (animate !== true) {
-        return <g>{labels.map(label => renderLabel(label, theme, labelComponent))}</g>
+        const labels = indices.map((index, i) => {
+            const position = positionFromAngle(angles[i], radius + labelOffset)
+            const textAnchor = textAnchorFromAngle(angles[i])
+
+            return {
+                id: index,
+                angle: radiansToDegrees(angles[i]),
+                anchor: textAnchor,
+                ...position,
+            }
+        })
+
+        if (animate !== true) {
+            return <g>{labels.map(label => renderLabel(label, theme, labelComponent))}</g>
+        }
+
+        return (
+            <TransitionMotion
+                styles={labels.map(label => ({
+                    key: label.id,
+                    data: label,
+                    style: {
+                        x: spring(label.x, springConfig),
+                        y: spring(label.y, springConfig),
+                    },
+                }))}
+            >
+                {interpolatedStyles => (
+                    <g>
+                        {interpolatedStyles.map(({ data }) =>
+                            renderLabel(data, theme, labelComponent)
+                        )}
+                    </g>
+                )}
+            </TransitionMotion>
+        )
     }
+)
 
-    return (
-        <TransitionMotion
-            styles={labels.map(label => ({
-                key: label.id,
-                data: label,
-                style: {
-                    x: spring(label.x, springConfig),
-                    y: spring(label.y, springConfig),
-                },
-            }))}
-        >
-            {interpolatedStyles => (
-                <g>
-                    {interpolatedStyles.map(({ data }) => renderLabel(data, theme, labelComponent))}
-                </g>
-            )}
-        </TransitionMotion>
-    )
-}
-
+RadarGridLabels.displayName = 'RadarGridLabels'
 RadarGridLabels.propTypes = {
     radius: PropTypes.number.isRequired,
     angles: PropTypes.arrayOf(PropTypes.number).isRequired,
@@ -102,4 +105,4 @@ RadarGridLabels.propTypes = {
     ...motionPropTypes,
 }
 
-export default pure(RadarGridLabels)
+export default RadarGridLabels

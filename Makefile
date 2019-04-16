@@ -74,10 +74,9 @@ fmt-check: ##@0 global check if files were all formatted using prettier
 		"api/**/*.{js,ts,tsx}" \
         "README.md"
 
-test-all: ##@0 global run all checks/tests (packages, website & examples)
+test: ##@0 global run all checks/tests (packages, website & examples)
 	@$(MAKE) fmt-check
-	@$(MAKE) packages-lint
-	@$(MAKE) packages-tslint
+	@$(MAKE) lint
 	@$(MAKE) packages-test
 
 deploy-all: ##@0 global deploy website & storybook
