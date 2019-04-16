@@ -103,6 +103,10 @@ define clean-source-all
 	rm -rf $(1)/*/package-lock.json
 endef
 
+lint: ##@0 run eslint & tslint
+	@$(MAKE) packages-lint
+	@$(MAKE) packages-tslint
+
 ########################################################################################################################
 #
 # PACKAGES

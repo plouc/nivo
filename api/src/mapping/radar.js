@@ -10,13 +10,13 @@
 
 const Joi = require('joi')
 const { Radar } = require('@nivo/radar')
-const common = require('./common')
+const { ordinalColors, inheritedColor } = require('./commons/colors')
+const { dimensions } = require('./commons/dimensions')
 
 module.exports = {
     component: Radar,
     schema: Joi.object().keys(
-        Object.assign({}, common.dimensions, {
-            // data
+        Object.assign({}, dimensions, {
             data: Joi.array()
                 .min(1)
                 .required(),
@@ -26,11 +26,12 @@ module.exports = {
                 .unique()
                 .required(),
             indexBy: Joi.string().required(),
+            maxValue: Joi.alternatives().try(Joi.valid('auto'), Joi.number()),
 
             curve: Joi.string(),
 
             borderWidth: Joi.number().min(0),
-            borderColor: Joi.string(),
+            borderColor: inheritedColor,
 
             gridLevels: Joi.number()
                 .integer()
@@ -38,23 +39,20 @@ module.exports = {
             gridShape: Joi.any().valid(['linear', 'circular']),
             gridLabelOffset: Joi.number(),
 
-            // labels
             enableLabels: Joi.boolean(),
-            labelsTextColor: Joi.string(),
+            labelsTextColor: inheritedColor,
             labelsLinkColor: Joi.string(),
 
-            // dots
             enableDots: Joi.boolean(),
             dotSize: Joi.number().min(0),
-            dotColor: Joi.string(),
+            dotColor: inheritedColor,
             dotBorderWidth: Joi.number().min(0),
-            dotBorderColor: Joi.string(),
+            dotBorderColor: inheritedColor,
             enableDotLabel: Joi.boolean(),
             dotLabel: Joi.string(),
             dotLabelYOffset: Joi.number(),
 
-            // theming
-            colors: Joi.string(),
+            colors: ordinalColors,
             colorBy: Joi.string(),
             fillOpacity: Joi.number()
                 .min(0)

@@ -145,7 +145,7 @@ const props = [
     },
     {
         key: 'colors',
-        scopes: ['Bubble', 'BubbleHtml', 'BubbleCanvas'],
+        scopes: '*',
         help: 'Defines how to compute node color.',
         description: `
             colors used to colorize the circles,
@@ -159,7 +159,7 @@ const props = [
     },
     {
         key: 'colorBy',
-        scopes: ['Bubble', 'BubbleHtml', 'BubbleCanvas'],
+        scopes: '*',
         type: 'string | Function',
         help: 'Property used to determine node color.',
         description: `

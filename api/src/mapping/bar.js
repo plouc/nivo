@@ -11,12 +11,13 @@
 const Joi = require('joi')
 const { Bar } = require('@nivo/bar')
 const common = require('./common')
+const { dimensions } = require('./commons/dimensions')
+const { inheritedColor, ordinalColors } = require('./commons/colors')
 
 module.exports = {
     component: Bar,
     schema: Joi.object().keys(
-        Object.assign({}, common.dimensions, common.axes, {
-            // data
+        Object.assign({}, dimensions, common.axes, {
             data: Joi.array()
                 .min(1)
                 .required(),
@@ -42,22 +43,19 @@ module.exports = {
 
             borderRadius: Joi.number().min(0),
             borderWidth: Joi.number().min(0),
-            borderColor: Joi.string(),
+            borderColor: inheritedColor,
 
-            // grid
             enableGridX: Joi.boolean(),
             enableGridY: Joi.boolean(),
 
-            // labels
             enableLabel: Joi.boolean(),
             label: Joi.string(),
             labelSkipWidth: Joi.number(),
             labelSkipHeight: Joi.number(),
             labelLinkColor: Joi.string(),
-            labelTextColor: Joi.string(),
+            labelTextColor: inheritedColor,
 
-            // theming
-            colors: Joi.string(),
+            colors: ordinalColors,
             colorBy: Joi.string(),
         })
     ),

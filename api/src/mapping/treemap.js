@@ -10,29 +10,34 @@
 
 const Joi = require('joi')
 const { TreeMap } = require('@nivo/treemap')
-const common = require('./common')
+const { ordinalColors, inheritedColor } = require('./commons/colors')
+const { dimensions } = require('./commons/dimensions')
 
 module.exports = {
     component: TreeMap,
     schema: Joi.object().keys(
-        Object.assign({}, common.dimensions, {
+        Object.assign({}, dimensions, {
             root: Joi.object().required(),
             value: Joi.string().required(),
             identity: Joi.string().required(),
             leavesOnly: Joi.boolean(),
             tile: Joi.string(),
+
             enableLabels: Joi.boolean(),
             orientLabels: Joi.boolean(),
             label: Joi.string(),
             labelFormat: Joi.string(),
             labelSkipSize: Joi.number(),
-            labelTextColor: Joi.string(),
+            labelTextColor: inheritedColor,
+
             innerPadding: Joi.number(),
             outerPadding: Joi.number(),
-            colors: Joi.string(),
+
+            colors: ordinalColors,
             colorBy: Joi.string(),
+
             borderWidth: Joi.number(),
-            borderColor: Joi.string(),
+            borderColor: inheritedColor,
         })
     ),
     runtimeProps: [

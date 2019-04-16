@@ -150,7 +150,7 @@ const props = [
     },
     {
         key: 'colors',
-        scopes: ['Radar'],
+        scopes: '*',
         help: 'Defines how to compute slice color.',
         type: 'string | Function | string[]',
         required: false,

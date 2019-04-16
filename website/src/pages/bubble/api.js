@@ -40,6 +40,8 @@ const BubbleApi = () => {
                     root: JSON.stringify(root, null, '  '),
                     identity: 'name',
                     value: 'loc',
+                    colors: { scheme: 'nivo' },
+                    colorBy: 'depth',
                     padding: 1,
                     enableLabel: true,
                     leavesOnly: false,

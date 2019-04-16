@@ -44,6 +44,7 @@ const RadarApi = () => {
                         left: 80,
                     },
 
+                    colors: { scheme: 'nivo' },
                     curve: 'catmullRomClosed',
 
                     borderWidth: 2,

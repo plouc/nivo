@@ -10,28 +10,28 @@
 
 const Joi = require('joi')
 const { Bubble } = require('@nivo/circle-packing')
-const common = require('./common')
+const { dimensions } = require('./commons/dimensions')
+const { inheritedColor, ordinalColors } = require('./commons/colors')
 
 module.exports = {
     component: Bubble,
     schema: Joi.object().keys(
-        Object.assign({}, common.dimensions, {
+        Object.assign({}, dimensions, {
             root: Joi.object().required(),
             identity: Joi.string().required(),
             value: Joi.string().required(),
             padding: Joi.number(),
             leavesOnly: Joi.boolean(),
             borderWidth: Joi.number(),
-            borderColor: Joi.string(),
+            borderColor: inheritedColor,
             enableLabel: Joi.boolean(),
             label: Joi.string(),
             labelFormat: Joi.string(),
-            labelTextColor: Joi.string(),
+            labelTextColor: inheritedColor,
             labelTextDY: Joi.number(),
             labelSkipRadius: Joi.number(),
 
-            // theming
-            colors: Joi.string(),
+            colors: ordinalColors,
             colorBy: Joi.string(),
         })
     ),

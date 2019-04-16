@@ -1,13 +1,15 @@
 import { Component } from 'react'
 import { Box, MotionProps, Dimensions, Theme } from '@nivo/core'
-import { OrdinalColorsInstruction } from '@nivo/colors'
+import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
 
 declare module '@nivo/swarmplot' {
     export interface ComputedNode<Datum> {
         id: string
         index: number
         group: string
-        value: string
+        label: string
+        value: number
+        formattedValue: number | string
         x: number
         y: number
         size: number
@@ -16,7 +18,6 @@ declare module '@nivo/swarmplot' {
     }
 
     type DatumAccessor<Datum, T> = (datum: Datum) => T
-
     type ComputedNodeAccessor<Datum, T> = (node: ComputedNode<Datum>) => T
 
     export interface DynamicSizeSpec {
@@ -38,9 +39,12 @@ declare module '@nivo/swarmplot' {
         groups: string[]
         groupBy?: string
         identity?: string | DatumAccessor<Datum, string>
+        label?: string | DatumAccessor<Datum, string>
         value?: string | DatumAccessor<Datum, number>
         valueScale?: any
+        valueFormat?: string | Function
         size?: number | DatumAccessor<Datum, number> | DynamicSizeSpec
+        spacing?: number
         layout?: 'horizontal' | 'vertical'
         gap?: number
 
@@ -50,9 +54,10 @@ declare module '@nivo/swarmplot' {
         layers: any[]
 
         colors?: OrdinalColorsInstruction
+        colorBy?: string | Function
         theme?: Theme
         borderWidth?: number | ComputedNodeAccessor<Datum, number>
-        borderColor?: any
+        borderColor?: InheritedColorProp<ComputedNode<Datum>>
 
         enableGridX?: boolean
         gridXValues?: number[]
@@ -65,9 +70,13 @@ declare module '@nivo/swarmplot' {
         axisLeft?: any
 
         isInteractive?: boolean
+        useMesh?: boolean
+        debugMesh?: boolean
         onMouseEnter?: SwarmPlotMouseHandler<Datum>
         onMouseMove?: SwarmPlotMouseHandler<Datum>
         onMouseLeave?: SwarmPlotMouseHandler<Datum>
+        onClick?: SwarmPlotMouseHandler<Datum>
+        tooltip?: Function
     }
 
     export type SwarmPlotProps = CommonSwarmPlotProps & MotionProps

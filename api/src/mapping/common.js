@@ -10,21 +10,6 @@
 
 const Joi = require('joi')
 
-exports.dimensions = {
-    width: Joi.number()
-        .integer()
-        .required(),
-    height: Joi.number()
-        .integer()
-        .required(),
-    margin: Joi.object().keys({
-        top: Joi.number().integer(),
-        right: Joi.number().integer(),
-        bottom: Joi.number().integer(),
-        left: Joi.number().integer(),
-    }),
-}
-
 exports.axis = Joi.object()
     .keys({
         orient: Joi.any().valid('top', 'right', 'bottom', 'left'),
@@ -64,22 +49,3 @@ exports.blendMode = Joi.valid([
     'color',
     'luminosity',
 ])
-
-exports.linearScale = Joi.object().keys({
-    type: Joi.valid('linear').required(),
-    min: Joi.alternatives().try(Joi.valid('auto'), Joi.number()),
-    max: Joi.alternatives().try(Joi.valid('auto'), Joi.number()),
-    stacked: Joi.boolean(),
-})
-
-exports.pointScale = Joi.object().keys({
-    type: Joi.valid('point').required(),
-})
-
-exports.timeScale = Joi.object().keys({
-    type: Joi.valid('time').required(),
-    format: Joi.string().required(),
-    precision: Joi.string().required(),
-})
-
-exports.scale = Joi.alternatives().try(exports.linearScale, exports.pointScale, exports.timeScale)

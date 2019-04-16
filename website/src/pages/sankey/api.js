@@ -39,7 +39,11 @@ const SankeyApi = () => {
                         left: 20,
                     },
 
+                    layout: 'horizontal',
                     align: 'justify',
+                    sort: 'auto',
+
+                    colors: { scheme: 'nivo' },
 
                     nodeOpacity: 0.75,
                     nodeWidth: 18,

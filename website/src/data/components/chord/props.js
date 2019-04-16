@@ -165,7 +165,7 @@ const props = [
     },
     {
         key: 'colors',
-        scopes: ['Chord', 'ChordCanvas'],
+        scopes: '*',
         help: 'Defines how to compute arc/ribbon color.',
         type: 'string | Function | string[]',
         required: false,
