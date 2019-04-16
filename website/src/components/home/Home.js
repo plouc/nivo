@@ -21,6 +21,7 @@ import HomeVoronoi from './HomeVoronoi'
 import HomeTreeMap from './HomeTreeMap'
 import HomeSunburst from './HomeSunburst'
 import HomeSankey from './HomeSankey'
+import HomeSwarmPlot from './HomeSwarmPlot'
 import logoImg from '../../assets/nivo-logo.png'
 
 const Home = () => {
@@ -147,7 +148,7 @@ const Home = () => {
                 theme={theme}
                 nivoTheme={nivoTheme}
             />
-            <HomeChord
+            <HomeSwarmPlot
                 colors={colors}
                 reversedColors={reversedColors}
                 theme={theme}

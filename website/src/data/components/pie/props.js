@@ -188,7 +188,7 @@ const props = [
     },
     {
         key: 'colors',
-        scopes: ['Pie', 'PieCanvas'],
+        scopes: '*',
         help: 'Defines color range.',
         type: 'string | Function | string[]',
         required: false,

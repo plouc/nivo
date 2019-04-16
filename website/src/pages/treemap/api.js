@@ -29,13 +29,15 @@ const TreeMapApi = () => {
                 controlGroups={groupsByScope.api}
                 propsMapper={mapper}
                 defaultProps={{
-                    root: JSON.stringify(data, null, '  '),
+                    root: JSON.stringify(data.root, null, '  '),
                     tile: 'squarify',
                     leavesOnly: false,
 
                     width: 600,
                     height: 450,
                     margin: { top: 0, right: 0, bottom: 0, left: 0 },
+
+                    colors: { scheme: 'nivo' },
 
                     enableLabels: true,
                     labelSkipSize: 0,

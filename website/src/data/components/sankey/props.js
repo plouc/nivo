@@ -75,7 +75,7 @@ const props = [
     },
     {
         key: 'layout',
-        scopes: ['Sankey'],
+        scopes: '*',
         help: `Control sankey layout direction.`,
         type: 'string',
         required: false,
@@ -113,7 +113,7 @@ const props = [
     },
     {
         key: 'sort',
-        scopes: ['Sankey'],
+        scopes: '*',
         description: `
             Defines node sorting method. Must be one of:
 
@@ -143,7 +143,7 @@ const props = [
     },
     {
         key: 'colors',
-        scopes: ['Sankey'],
+        scopes: '*',
         help: 'Defines how to compute nodes color.',
         type: 'string | Function | string[]',
         required: false,

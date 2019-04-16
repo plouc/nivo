@@ -11,12 +11,15 @@
 const Joi = require('joi')
 const { Line } = require('@nivo/line')
 const { curvePropKeys } = require('@nivo/core')
+const { scale } = require('./commons/scales')
+const { ordinalColors, inheritedColor } = require('./commons/colors')
+const { dimensions } = require('./commons/dimensions')
 const common = require('./common')
 
 module.exports = {
     component: Line,
     schema: Joi.object().keys(
-        Object.assign({}, common.dimensions, common.axes, {
+        Object.assign({}, dimensions, common.axes, {
             data: Joi.array()
                 .items(
                     Joi.object()
@@ -43,34 +46,30 @@ module.exports = {
                 .min(1)
                 .required(),
 
-            xScale: common.scale,
-            yScale: common.scale,
+            xScale: scale,
+            yScale: scale,
 
             curve: Joi.any().valid(curvePropKeys),
 
-            // grid
             enableGridX: Joi.boolean(),
             enableGridY: Joi.boolean(),
 
             lineWidth: Joi.number().min(0),
 
-            // dots
             enableDots: Joi.boolean(),
             dotSize: Joi.number().min(0),
-            dotColor: Joi.string(),
+            dotColor: inheritedColor,
             dotBorderWidth: Joi.number().min(0),
-            dotBorderColor: Joi.string(),
+            dotBorderColor: inheritedColor,
             enableDotLabel: Joi.boolean(),
             dotLabel: Joi.string(),
             dotLabelYOffset: Joi.number(),
 
-            // areas
             enableArea: Joi.boolean(),
             areaBlendMode: common.blendMode,
             areaBaselineValue: Joi.alternatives().try(Joi.string(), Joi.number()),
             areaOpacity: Joi.number(),
 
-            // markers
             markers: Joi.array().items(
                 Joi.object().keys({
                     axis: Joi.any()
@@ -83,8 +82,7 @@ module.exports = {
                 })
             ),
 
-            // theming
-            colors: Joi.string(),
+            colors: ordinalColors,
             colorBy: Joi.string(),
         })
     ),

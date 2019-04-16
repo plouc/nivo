@@ -93,7 +93,7 @@ const props = [
     },
     {
         key: 'colors',
-        scopes: ['Sunburst'],
+        scopes: '*',
         help: 'Defines how to compute node color.',
         required: false,
         defaultValue: defaults.colors,

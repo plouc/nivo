@@ -50,6 +50,8 @@ const PieApi = () => {
                     padAngle: 0.7,
                     cornerRadius: 3,
 
+                    colors: { scheme: 'nivo' },
+
                     borderWidth: 0,
                     borderColor: { from: 'color', modifiers: [['darker', 0.6]] },
 

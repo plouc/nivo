@@ -10,12 +10,12 @@
 
 const Joi = require('joi')
 const { Calendar } = require('@nivo/calendar')
-const common = require('./common')
+const { dimensions } = require('./commons/dimensions')
 
 module.exports = {
     component: Calendar,
     schema: Joi.object().keys(
-        Object.assign({}, common.dimensions, {
+        Object.assign({}, dimensions, {
             from: Joi.string().required(),
             to: Joi.string().required(),
             data: Joi.array()

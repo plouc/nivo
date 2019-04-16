@@ -10,24 +10,23 @@
 
 const Joi = require('joi')
 const { Sunburst } = require('@nivo/sunburst')
-const common = require('./common')
+const { ordinalColors, inheritedColor } = require('./commons/colors')
+const { dimensions } = require('./commons/dimensions')
 
 module.exports = {
     component: Sunburst,
     schema: Joi.object().keys(
-        Object.assign({}, common.dimensions, {
-            // data
+        Object.assign({}, dimensions, {
             data: Joi.object().required(),
             identity: Joi.string().required(),
             value: Joi.string().required(),
 
             cornerRadius: Joi.number().min(0),
             borderWidth: Joi.number().min(0),
-            borderColor: Joi.string(),
-            childColor: Joi.string(),
+            borderColor: inheritedColor,
+            childColor: inheritedColor,
 
-            // theming
-            colors: Joi.string(),
+            colors: ordinalColors,
             colorBy: Joi.string(),
         })
     ),

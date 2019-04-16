@@ -158,7 +158,7 @@ const props = [
     },
     {
         key: 'colors',
-        scopes: ['TreeMap', 'TreeMapHtml', 'TreeMapCanvas'],
+        scopes: '*',
         help: 'Defines how to compute node color.',
         type: 'string | Function | string[]',
         required: false,

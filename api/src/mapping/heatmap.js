@@ -10,13 +10,14 @@
 
 const Joi = require('joi')
 const { HeatMap } = require('@nivo/heatmap')
+const { dimensions } = require('./commons/dimensions')
+const { inheritedColor } = require('./commons/colors')
 const common = require('./common')
 
 module.exports = {
     component: HeatMap,
     schema: Joi.object().keys(
-        Object.assign({}, common.dimensions, common.axes, {
-            // data
+        Object.assign({}, dimensions, common.axes, {
             data: Joi.array()
                 .min(1)
                 .required(),
@@ -40,23 +41,19 @@ module.exports = {
                 .max(1),
             padding: Joi.number(),
 
-            // cells
             cellShape: Joi.any().valid(['rect', 'circle']),
             cellOpacity: Joi.number()
                 .min(0)
                 .max(1),
             cellBorderWidth: Joi.number().min(0),
-            cellBorderColor: Joi.string(),
+            cellBorderColor: inheritedColor,
 
-            // grid
             enableGridX: Joi.boolean(),
             enableGridY: Joi.boolean(),
 
-            // labels
             enableLabels: Joi.boolean(),
-            labelTextColor: Joi.string(),
+            labelTextColor: inheritedColor,
 
-            // theming
             colors: Joi.string(),
         })
     ),

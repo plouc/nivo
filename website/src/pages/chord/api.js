@@ -36,27 +36,29 @@ const ChordApi = () => {
                     matrix: JSON.stringify(data.matrix, null, '  '),
                     keys: data.keys,
                     margin: {
-                        top: 20,
-                        right: 20,
-                        bottom: 20,
-                        left: 20,
+                        top: 40,
+                        right: 40,
+                        bottom: 40,
+                        left: 40,
                     },
                     padAngle: 0.02,
                     innerRadiusRatio: 0.96,
                     innerRadiusOffset: 0.01,
 
+                    colors: { scheme: 'nivo' },
+
                     arcOpacity: 1,
                     arcBorderWidth: 1,
                     arcBorderColor: {
-                        type: 'inherit:darker',
-                        gamma: 0.4,
+                        from: 'color',
+                        modifiers: [['darker', 0.4]],
                     },
 
                     ribbonOpacity: 0.5,
                     ribbonBorderWidth: 1,
                     ribbonBorderColor: {
-                        type: 'inherit:darker',
-                        gamma: 0.4,
+                        from: 'color',
+                        modifiers: [['darker', 0.4]],
                     },
 
                     enableLabel: true,
@@ -64,8 +66,8 @@ const ChordApi = () => {
                     labelOffset: 12,
                     labelRotation: -90,
                     labelTextColor: {
-                        type: 'inherit:darker',
-                        gamma: 1,
+                        from: 'color',
+                        modifiers: [['darker', 1]],
                     },
                 }}
             />
