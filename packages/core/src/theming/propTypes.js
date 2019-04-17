@@ -59,6 +59,39 @@ export const markersThemePropType = PropTypes.shape({
     text: PropTypes.shape({ ...textProps }).isRequired,
 })
 
+export const crosshairPropType = PropTypes.shape({
+    line: PropTypes.shape({
+        stroke: PropTypes.string.isRequired,
+        strokeWidth: PropTypes.number.isRequired,
+        strokeDasharray: PropTypes.string,
+    }).isRequired,
+})
+
+export const annotationsPropType = PropTypes.shape({
+    text: PropTypes.shape({
+        ...textProps,
+        outlineWidth: PropTypes.number.isRequired,
+        outlineColor: PropTypes.string.isRequired,
+    }).isRequired,
+    link: PropTypes.shape({
+        stroke: PropTypes.string.isRequired,
+        strokeWidth: PropTypes.number.isRequired,
+        outlineWidth: PropTypes.number.isRequired,
+        outlineColor: PropTypes.string.isRequired,
+    }).isRequired,
+    outline: PropTypes.shape({
+        stroke: PropTypes.string.isRequired,
+        strokeWidth: PropTypes.number.isRequired,
+        outlineWidth: PropTypes.number.isRequired,
+        outlineColor: PropTypes.string.isRequired,
+    }).isRequired,
+    symbol: PropTypes.shape({
+        fill: PropTypes.string.isRequired,
+        outlineWidth: PropTypes.number.isRequired,
+        outlineColor: PropTypes.string.isRequired,
+    }).isRequired,
+})
+
 export const themePropType = PropTypes.shape({
     background: PropTypes.string.isRequired,
     fontFamily: PropTypes.string.isRequired,
@@ -70,4 +103,6 @@ export const themePropType = PropTypes.shape({
     labels: labelsThemePropType.isRequired,
     dots: dotsThemePropType.isRequired,
     markers: markersThemePropType,
+    crosshair: crosshairPropType.isRequired,
+    annotations: annotationsPropType.isRequired,
 })

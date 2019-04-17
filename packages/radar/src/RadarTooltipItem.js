@@ -72,15 +72,8 @@ const RadarTooltipItem = memo(
         }, [startAngle, endAngle, radius, arcGenerator])
 
         return (
-            <g>
-                <line
-                    x1={0}
-                    y1={0}
-                    x2={tipX}
-                    y2={tipY}
-                    stroke="#000"
-                    strokeOpacity={isHover ? 0.35 : 0}
-                />
+            <>
+                {isHover && <line x1={0} y1={0} x2={tipX} y2={tipY} style={theme.crosshair.line} />}
                 <path
                     d={path}
                     fill="#F00"
@@ -89,7 +82,7 @@ const RadarTooltipItem = memo(
                     onMouseMove={showItemTooltip}
                     onMouseLeave={hideItemTooltip}
                 />
-            </g>
+            </>
         )
     }
 )
