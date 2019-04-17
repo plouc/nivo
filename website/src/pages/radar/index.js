@@ -44,7 +44,8 @@ const initialProperties = {
     dotLabelYOffset: -12,
 
     colors: { scheme: 'nivo' },
-    fillOpacity: 0.1,
+    fillOpacity: 0.25,
+    blendMode: 'multiply',
 
     animate: true,
     motionStiffness: 90,

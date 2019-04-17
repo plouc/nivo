@@ -9,7 +9,7 @@
 import PropTypes from 'prop-types'
 import { ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
 import { LegendPropShape } from '@nivo/legends'
-import { closedCurvePropType, motionPropTypes } from '@nivo/core'
+import { closedCurvePropType, motionPropTypes, blendModePropType } from '@nivo/core'
 
 export const RadarPropTypes = {
     data: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -40,6 +40,7 @@ export const RadarPropTypes = {
 
     colors: ordinalColorsPropType.isRequired,
     fillOpacity: PropTypes.number.isRequired,
+    blendMode: blendModePropType.isRequired,
 
     isInteractive: PropTypes.bool.isRequired,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
@@ -64,7 +65,8 @@ export const RadarDefaultProps = {
     enableDots: true,
 
     colors: { scheme: 'nivo' },
-    fillOpacity: 0.15,
+    fillOpacity: 0.25,
+    blendMode: 'normal',
 
     isInteractive: true,
 

@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { Component } from 'react'
-import { Box, MotionProps, Dimensions, Theme } from '@nivo/core'
+import { Box, MotionProps, Dimensions, Theme, CssMixBlendMode } from '@nivo/core'
 import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 
@@ -49,6 +49,7 @@ declare module '@nivo/radar' {
 
         colors?: OrdinalColorsInstruction
         fillOpacity?: number
+        blendMode?: CssMixBlendMode
 
         isInteractive?: boolean
         tooltipFormat?: string | CustomFormatter

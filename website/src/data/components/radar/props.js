@@ -149,16 +149,6 @@ const props = [
         },
     },
     {
-        key: 'colors',
-        scopes: '*',
-        help: 'Defines how to compute slice color.',
-        type: 'string | Function | string[]',
-        required: false,
-        defaultValue: defaults.colors,
-        controlType: 'ordinalColors',
-        group: 'Base',
-    },
-    {
         key: 'margin',
         scopes: '*',
         help: 'Chart margin.',
@@ -168,13 +158,37 @@ const props = [
         group: 'Base',
     },
     {
+        key: 'colors',
+        scopes: '*',
+        help: 'Defines how to compute slice color.',
+        type: 'string | Function | string[]',
+        required: false,
+        defaultValue: defaults.colors,
+        controlType: 'ordinalColors',
+        group: 'Style',
+    },
+    {
         key: 'fillOpacity',
         help: 'Shape fill opacity.',
         type: 'number',
         required: false,
         defaultValue: defaults.fillOpacity,
         controlType: 'opacity',
-        group: 'Base',
+        group: 'Style',
+    },
+    {
+        key: 'blendMode',
+        scopes: ['Radar'],
+        help: 'Defines CSS mix-blend-mode property.',
+        description: `
+            Defines CSS \`mix-blend-mode\` property, see
+            [MDN documentation](https://developer.mozilla.org/fr/docs/Web/CSS/mix-blend-mode).
+        `,
+        type: 'string',
+        required: false,
+        defaultValue: defaults.blendMode,
+        controlType: 'blendMode',
+        group: 'Style',
     },
     {
         key: 'borderWidth',
@@ -183,7 +197,7 @@ const props = [
         required: false,
         defaultValue: defaults.borderWidth,
         controlType: 'lineWidth',
-        group: 'Base',
+        group: 'Style',
     },
     {
         key: 'borderColor',
@@ -192,7 +206,7 @@ const props = [
         required: false,
         defaultValue: defaults.borderColor,
         controlType: 'inheritedColor',
-        group: 'Base',
+        group: 'Style',
     },
     {
         key: 'gridLevels',

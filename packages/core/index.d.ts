@@ -116,4 +116,22 @@ declare module '@nivo/core' {
     }
 
     export class TableTooltip extends React.Component<TableTooltipProps> {}
+
+    export type CssMixBlendMode =
+        | 'normal'
+        | 'multiply'
+        | 'screen'
+        | 'overlay'
+        | 'darken'
+        | 'lighten'
+        | 'color-dodge'
+        | 'color-burn'
+        | 'hard-light'
+        | 'soft-light'
+        | 'difference'
+        | 'exclusion'
+        | 'hue'
+        | 'saturation'
+        | 'color'
+        | 'luminosity'
 }

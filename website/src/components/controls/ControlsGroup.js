@@ -32,6 +32,7 @@ import NumberArrayControl from './NumberArrayControl'
 import AngleControl from './AngleControl'
 import OrdinalColorsControl from './OrdinalColorsControl'
 import InheritedColorControl from './InheritedColorControl'
+import BlendModeControl from './BlendModeControl'
 import PropertyDocumentation from './PropertyDocumentation'
 
 export const shouldRenderControl = (config, context) => {
@@ -232,6 +233,17 @@ const ControlChoser = memo(({ groupName, property, settings, onChange }) => {
         case 'angle':
             return (
                 <AngleControl
+                    id={id}
+                    property={property}
+                    options={options}
+                    value={value}
+                    onChange={handleChange}
+                />
+            )
+
+        case 'blendMode':
+            return (
+                <BlendModeControl
                     id={id}
                     property={property}
                     options={options}
