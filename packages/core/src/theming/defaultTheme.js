@@ -70,6 +70,13 @@ export const defaultTheme = {
             padding: '3px 5px',
         },
     },
+    crosshair: {
+        line: {
+            stroke: '#000000',
+            strokeWidth: 1,
+            strokeOpacity: 0.35,
+        },
+    },
     annotations: {
         text: {
             fontSize: 13,
