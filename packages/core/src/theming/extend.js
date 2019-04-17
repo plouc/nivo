@@ -17,6 +17,7 @@ const fontProps = [
     'labels.text',
     'dots.text',
     'markers.text',
+    'annotations.text',
 ]
 
 export const extendDefaultTheme = (defaultTheme, customTheme) => {

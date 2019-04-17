@@ -15,6 +15,7 @@ import { generateGroupedBars, generateStackedBars, getLegendData } from './compu
 import setDisplayName from 'recompose/setDisplayName'
 import enhance from './enhance'
 import { BarPropTypes } from './props'
+import BarAnnotations from './BarAnnotations'
 
 const barWillEnterHorizontal = ({ style }) => ({
     x: style.x.val,
@@ -91,6 +92,8 @@ const Bar = props => {
         borderRadius,
         borderWidth,
         getBorderColor,
+
+        annotations,
 
         animate,
         motionStiffness,
@@ -290,6 +293,16 @@ const Bar = props => {
                             />
                         )
                     }),
+                    annotations: (
+                        <BarAnnotations
+                            key="annotations"
+                            innerWidth={width}
+                            innerHeight={height}
+                            bars={result.bars}
+                            annotations={annotations}
+                            {...motionProps}
+                        />
+                    ),
                 }
 
                 return (

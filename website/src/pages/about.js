@@ -72,6 +72,12 @@ const About = () => {
                             </a>
                         </li>
                         <li>
+                            <Link to="/guides/legends">Legends</Link>
+                        </li>
+                        <li>
+                            <Link to="/guides/annotations">Annotations</Link>
+                        </li>
+                        <li>
                             <Link to="/guides/patterns">SVG patterns</Link>
                         </li>
                         <li>

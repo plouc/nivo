@@ -46,7 +46,29 @@ export default {
         },
         labels: {
             text: {
-                fill: '#555',
+                fill: '#555555',
+            },
+        },
+        annotations: {
+            text: {
+                fill: '#333333',
+                outlineWidth: 3,
+                outlineColor: '#ffffff',
+            },
+            link: {
+                stroke: '#333333',
+                outlineWidth: 2,
+                outlineColor: '#ffffff',
+            },
+            outline: {
+                stroke: '#333333',
+                outlineWidth: 2,
+                outlineColor: '#ffffff',
+            },
+            symbol: {
+                fill: '#333333',
+                outlineWidth: 2,
+                outlineColor: '#ffffff',
             },
         },
     },
@@ -106,6 +128,28 @@ export default {
             text: {
                 fill: '#bbb',
                 fontSize: 12,
+            },
+        },
+        annotations: {
+            text: {
+                fill: '#dddddd',
+                outlineWidth: 3,
+                outlineColor: '#0e1317',
+            },
+            link: {
+                stroke: '#ffffff',
+                outlineWidth: 2,
+                outlineColor: '#0e1317',
+            },
+            outline: {
+                stroke: '#ffffff',
+                outlineWidth: 2,
+                outlineColor: '#0e1317',
+            },
+            symbol: {
+                fill: '#ffffff',
+                outlineWidth: 2,
+                outlineColor: '#0e1317',
             },
         },
     },

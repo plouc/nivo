@@ -127,6 +127,7 @@ package-tslint-%: ##@1 packages run tslint on package
 packages-tslint: ##@1 packages run tslint on all packages
 	@echo "${YELLOW}Running tslint on all packages${RESET}"
 	@./node_modules/.bin/tslint \
+		./packages/annotations/index.d.ts \
         ./packages/axes/index.d.ts \
         ./packages/bar/index.d.ts \
         ./packages/calendar/index.d.ts \
@@ -137,6 +138,7 @@ packages-tslint: ##@1 packages run tslint on all packages
         ./packages/legends/index.d.ts \
         ./packages/line/index.d.ts \
         ./packages/pie/index.d.ts \
+		./packages/radar/index.d.ts \
         ./packages/sankey/index.d.ts \
         ./packages/scales/index.d.ts \
         ./packages/scatterplot/index.d.ts \

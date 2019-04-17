@@ -17,9 +17,10 @@ import {
 } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
+import { useComputedAnnotations, renderAnnotationsToCanvas } from '@nivo/annotations'
 import { useVoronoiMesh, renderVoronoiToCanvas, renderVoronoiCellToCanvas } from '@nivo/voronoi'
 import { SwarmPlotCanvasDefaultProps, SwarmPlotCanvasPropTypes } from './props'
-import { useSwarmPlot, useBorderWidth } from './hooks'
+import { useSwarmPlot, useBorderWidth, useSwarmPlotAnnotations } from './hooks'
 import SwarmPlotTooltip from './SwarmPlotTooltip'
 
 export const renderCanvasNode = (ctx, { node, getBorderWidth, getBorderColor }) => {
@@ -73,6 +74,7 @@ const SwarmPlotCanvas = memo(
         axisRight,
         axisBottom,
         axisLeft,
+        annotations,
         isInteractive,
         onMouseEnter,
         onMouseMove,
@@ -109,6 +111,13 @@ const SwarmPlotCanvas = memo(
             colorBy,
             forceStrength,
             simulationIterations,
+        })
+
+        const boundAnnotations = useSwarmPlotAnnotations(nodes, annotations)
+        const computedAnnotations = useComputedAnnotations({
+            annotations: boundAnnotations,
+            innerWidth,
+            innerHeight,
         })
 
         const getBorderWidth = useBorderWidth(borderWidth)
@@ -188,6 +197,13 @@ const SwarmPlotCanvas = memo(
                     }
                 }
 
+                if (layer === 'annotations') {
+                    renderAnnotationsToCanvas(ctx, {
+                        annotations: computedAnnotations,
+                        theme,
+                    })
+                }
+
                 if (typeof layer === 'function') {
                     layer(ctx, {
                         nodes,
@@ -218,6 +234,7 @@ const SwarmPlotCanvas = memo(
             getBorderColor,
             voronoi,
             currentNode,
+            computedAnnotations,
         ])
 
         const [showTooltip, hideTooltip] = useTooltip()
