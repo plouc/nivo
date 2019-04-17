@@ -64,7 +64,7 @@ function loadStories() {
     require('../packages/treemap/stories/treemap.stories')
     require('../packages/treemap/stories/treemapHtml.stories')
     require('../packages/swarmplot/stories/SwarmPlot.stories')
-    // require('../packages/swarmplot/stories/SwarmPlotCanvas.stories')
+    require('../packages/swarmplot/stories/SwarmPlotCanvas.stories')
     // require('../packages/voronoi/stories/voronoi.stories')
     require('../packages/waffle/stories/waffle.stories')
     require('../packages/waffle/stories/waffle-html.stories')

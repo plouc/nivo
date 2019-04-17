@@ -24,7 +24,7 @@ export const BarPropTypes = {
     keys: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
     layers: PropTypes.arrayOf(
         PropTypes.oneOfType([
-            PropTypes.oneOf(['grid', 'axes', 'bars', 'markers', 'legends']),
+            PropTypes.oneOf(['grid', 'axes', 'bars', 'markers', 'legends', 'annotations']),
             PropTypes.func,
         ])
     ).isRequired,
@@ -91,7 +91,7 @@ export const BarPropTypes = {
 export const BarDefaultProps = {
     indexBy: 'id',
     keys: ['value'],
-    layers: ['grid', 'axes', 'bars', 'markers', 'legends'],
+    layers: ['grid', 'axes', 'bars', 'markers', 'legends', 'annotations'],
 
     groupMode: 'stacked',
     layout: 'vertical',
@@ -131,7 +131,8 @@ export const BarDefaultProps = {
 
     legends: [],
 
-    // canvas specific
+    annotations: [],
+
     pixelRatio:
         global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
 }

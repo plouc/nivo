@@ -50,24 +50,6 @@ class BubbleCanvas extends Component {
         this.ctx.fillRect(0, 0, outerWidth, outerHeight)
         this.ctx.translate(margin.left, margin.top)
 
-        /*
-        Could be used to compute metaballs,
-        grouping nodes by depth + common parent
-        using marching squares, but it really is a bonus feature…
-
-        const maxDepth = _.maxBy(nodes, 'depth').depth
-        const nodesByDepth = _.range(maxDepth + 1).map(depth =>
-            _.values(
-                _.groupBy(nodes.filter(({ depth: nodeDepth }) => nodeDepth === depth), 'parent.id')
-            )
-        )
-        nodesByDepth.forEach(layer => {
-            layer.forEach(node => {
-                console.log(node)
-            })
-        })
-        */
-
         nodes.forEach(node => {
             this.ctx.save()
 

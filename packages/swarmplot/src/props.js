@@ -15,6 +15,7 @@ import {
     colorPropertyAccessorPropType,
 } from '@nivo/colors'
 import { scalePropType } from '@nivo/scales'
+import { annotationSpecPropType } from '@nivo/annotations'
 
 const commonPropTypes = {
     data: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -41,7 +42,10 @@ const commonPropTypes = {
     simulationIterations: PropTypes.number.isRequired,
 
     layers: PropTypes.arrayOf(
-        PropTypes.oneOfType([PropTypes.oneOf(['grid', 'axes', 'nodes', 'mesh']), PropTypes.func])
+        PropTypes.oneOfType([
+            PropTypes.oneOf(['grid', 'axes', 'nodes', 'mesh', 'annotations']),
+            PropTypes.func,
+        ])
     ).isRequired,
     renderNode: PropTypes.func.isRequired,
 
@@ -59,6 +63,8 @@ const commonPropTypes = {
     axisRight: axisPropType,
     axisBottom: axisPropType,
     axisLeft: axisPropType,
+
+    annotations: PropTypes.arrayOf(annotationSpecPropType).isRequired,
 
     isInteractive: PropTypes.bool.isRequired,
     onMouseEnter: PropTypes.func,
@@ -95,7 +101,7 @@ const commonDefaultProps = {
     forceStrength: 1,
     simulationIterations: 120,
 
-    layers: ['grid', 'axes', 'nodes', 'mesh'],
+    layers: ['grid', 'axes', 'nodes', 'mesh', 'annotations'],
 
     colors: { scheme: 'nivo' },
     colorBy: 'group',
@@ -108,6 +114,8 @@ const commonDefaultProps = {
     axisRight: {},
     axisBottom: {},
     axisLeft: {},
+
+    annotations: [],
 
     isInteractive: true,
     useMesh: false,

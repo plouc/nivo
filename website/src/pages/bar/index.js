@@ -110,14 +110,6 @@ const initialProperties = {
         modifiers: [['darker', 1.6]],
     },
 
-    animate: true,
-    motionStiffness: 90,
-    motionDamping: 15,
-
-    isInteractive: true,
-    'custom tooltip example': false,
-    tooltip: null,
-
     legends: [
         {
             dataFrom: 'keys',
@@ -145,6 +137,14 @@ const initialProperties = {
             ],
         },
     ],
+
+    isInteractive: true,
+    'custom tooltip example': false,
+    tooltip: null,
+
+    animate: true,
+    motionStiffness: 90,
+    motionDamping: 15,
 }
 
 const Bar = () => {

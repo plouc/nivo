@@ -14,6 +14,8 @@ SwarmPlot:
       link: swarmplot--custom-node-rendering
     - label: Adding extra layers
       link: swarmplot--extra-layers
+    - label: Using annotations
+      link: swarmplot--using-annotations
   description: |
     A swarm plot component which can also be used to make a beeswarm plot
     when using a single group.
@@ -42,6 +44,9 @@ SwarmPlotCanvas:
   package: '@nivo/swarmplot'
   tags:
     - canvas
+  stories:
+    - label: Using annotations
+      link: swarmplotcanvas--using-annotations
   description: |
     A variation around the [SwarmPlot](self:/swarmplot) component.
     Well suited for large data sets as it does not impact DOM tree depth,

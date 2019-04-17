@@ -70,4 +70,29 @@ export const defaultTheme = {
             padding: '3px 5px',
         },
     },
+    annotations: {
+        text: {
+            fontSize: 13,
+            outlineWidth: 2,
+            outlineColor: '#ffffff',
+        },
+        link: {
+            stroke: '#000000',
+            strokeWidth: 1,
+            outlineWidth: 2,
+            outlineColor: '#ffffff',
+        },
+        outline: {
+            fill: 'none',
+            stroke: '#000000',
+            strokeWidth: 2,
+            outlineWidth: 2,
+            outlineColor: '#ffffff',
+        },
+        symbol: {
+            fill: '#000000',
+            outlineWidth: 2,
+            outlineColor: '#ffffff',
+        },
+    },
 }

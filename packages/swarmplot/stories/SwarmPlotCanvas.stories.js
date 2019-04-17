@@ -12,7 +12,7 @@ import { generateSwarmPlotData } from '@nivo/generators'
 import { SwarmPlotCanvas } from '../src'
 
 const commonProps = {
-    width: 600,
+    width: 700,
     height: 360,
     margin: {
         top: 40,
@@ -28,13 +28,45 @@ const commonProps = {
         min: 0,
         max: 500,
     },
-    size: 10,
-    ...generateSwarmPlotData(['group A', 'group B', 'group C', 'group D', 'group E'], {
-        min: 40,
-        max: 60,
-    }),
+    size: 8,
+    ...generateSwarmPlotData(
+        ['group A', 'group B', 'group C', 'group D', 'group E', 'group F', 'group G'],
+        { min: 40, max: 60 }
+    ),
 }
 
 const stories = storiesOf('SwarmPlotCanvas', module)
 
 stories.add('default', () => <SwarmPlotCanvas {...commonProps} />)
+
+stories.add('using annotations', () => (
+    <SwarmPlotCanvas
+        {...commonProps}
+        annotations={[
+            {
+                type: 'circle',
+                match: { index: 100 },
+                noteX: 40,
+                noteY: 40,
+                offset: 4,
+                note: 'Node at index: 100',
+            },
+            {
+                type: 'rect',
+                match: { index: 200 },
+                noteX: -40,
+                noteY: -40,
+                offset: 4,
+                note: 'Node at index: 200',
+            },
+            {
+                type: 'dot',
+                match: { index: 300 },
+                noteX: 0,
+                noteY: { abs: -20 },
+                size: 6,
+                note: 'Node at index: 300',
+            },
+        ]}
+    />
+))

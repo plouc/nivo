@@ -17,6 +17,7 @@ import {
     computeNodes,
     getSizeGenerator,
 } from './compute'
+import { useAnnotations } from '@nivo/annotations'
 import SwarmPlotTooltip from './SwarmPlotTooltip'
 
 export const useValueScale = ({ width, height, axis, getValue, scale, data }) =>
@@ -233,3 +234,14 @@ export const useNodeMouseHandlers = ({
         onClick: clickHandler,
     }
 }
+
+export const useSwarmPlotAnnotations = (items, annotations) =>
+    useAnnotations({
+        items,
+        annotations,
+        getDimensions: (node, offset) => {
+            const size = node.size + offset * 2
+
+            return { size, width: size, height: size }
+        },
+    })

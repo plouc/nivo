@@ -14,7 +14,7 @@ import SwarmPlotLayers from './SwarmPlotLayers'
 import SwarmPlotRenderNode from './SwarmPlotRenderNode'
 
 const commonProps = {
-    width: 600,
+    width: 700,
     height: 360,
     margin: {
         top: 40,
@@ -41,3 +41,35 @@ stories.add('default', () => <SwarmPlot {...commonProps} />)
 stories.add('extra layers', () => <SwarmPlotLayers />)
 
 stories.add('custom node rendering', () => <SwarmPlotRenderNode />)
+
+stories.add('using annotations', () => (
+    <SwarmPlot
+        {...commonProps}
+        annotations={[
+            {
+                type: 'circle',
+                match: { index: 40 },
+                noteX: 40,
+                noteY: 40,
+                offset: 4,
+                note: 'Node at index: 40',
+            },
+            {
+                type: 'rect',
+                match: { index: 80 },
+                noteX: -40,
+                noteY: -40,
+                offset: 4,
+                note: 'Node at index: 80',
+            },
+            {
+                type: 'dot',
+                match: { index: 120 },
+                noteX: 0,
+                noteY: { abs: -20 },
+                size: 6,
+                note: 'Node at index: 120',
+            },
+        ]}
+    />
+))

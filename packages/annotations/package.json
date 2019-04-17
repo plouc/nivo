@@ -1,5 +1,5 @@
 {
-  "name": "@nivo/bar",
+  "name": "@nivo/annotations",
   "version": "0.55.0",
   "license": "MIT",
   "author": {
@@ -10,12 +10,11 @@
     "nivo",
     "dataviz",
     "react",
-    "d3",
     "charts",
-    "bar-chart"
+    "annotations"
   ],
-  "main": "./dist/nivo-bar.cjs.js",
-  "module": "./dist/nivo-bar.esm.js",
+  "main": "./dist/nivo-annotations.cjs.js",
+  "module": "./dist/nivo-annotations.esm.js",
   "files": [
     "README.md",
     "LICENSE.md",
@@ -23,16 +22,10 @@
     "dist/"
   ],
   "dependencies": {
-    "@nivo/annotations": "0.55.0",
-    "@nivo/axes": "0.55.0",
     "@nivo/colors": "0.55.0",
     "@nivo/core": "0.55.0",
-    "@nivo/legends": "0.55.0",
-    "d3-scale": "^3.0.0",
-    "d3-shape": "^1.2.2",
     "lodash": "^4.17.11",
-    "react-motion": "^0.5.2",
-    "recompose": "^0.30.0"
+    "react-motion": "^0.5.2"
   },
   "peerDependencies": {
     "prop-types": ">= 15.5.10 < 16.0.0",

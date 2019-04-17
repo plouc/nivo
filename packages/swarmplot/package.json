@@ -24,6 +24,7 @@
         "dist/"
     ],
     "dependencies": {
+        "@nivo/annotations": "0.55.0",
         "@nivo/axes": "0.55.0",
         "@nivo/colors": "0.55.0",
         "@nivo/core": "0.55.0",

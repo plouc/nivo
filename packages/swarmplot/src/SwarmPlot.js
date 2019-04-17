@@ -16,6 +16,7 @@ import { useSwarmPlot, useBorderWidth, useNodeMouseHandlers } from './hooks'
 import AnimatedSwarmPlotNodes from './AnimatedSwarmPlotNodes'
 import StaticSwarmPlotNodes from './StaticSwarmPlotNodes'
 import SwarmPlotNode from './SwarmPlotNode'
+import SwarmPlotAnnotations from './SwarmPlotAnnotations'
 
 const SwarmPlot = memo(
     ({
@@ -34,14 +35,18 @@ const SwarmPlot = memo(
         spacing,
         layout,
         gap,
+
         forceStrength,
         simulationIterations,
+
         layers,
         renderNode,
+
         colors,
         colorBy,
         borderWidth,
         borderColor,
+
         enableGridX,
         gridXValues,
         enableGridY,
@@ -50,6 +55,8 @@ const SwarmPlot = memo(
         axisRight,
         axisBottom,
         axisLeft,
+
+        annotations,
 
         isInteractive,
         useMesh,
@@ -129,6 +136,18 @@ const SwarmPlot = memo(
                 />
             ),
             mesh: null,
+            annotations: (
+                <SwarmPlotAnnotations
+                    key="annotations"
+                    nodes={nodes}
+                    annotations={annotations}
+                    innerWidth={innerWidth}
+                    innerHeight={innerHeight}
+                    animate={animate}
+                    motionStiffness={motionStiffness}
+                    motionDamping={motionDamping}
+                />
+            ),
         }
 
         const enableNodeInteractivity = isInteractive && !useMesh
