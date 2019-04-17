@@ -8,7 +8,7 @@
  */
 import React, { memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { motionPropTypes, SmartMotion, useTheme } from '@nivo/core'
+import { motionPropTypes, SmartMotion, useTheme, blendModePropType } from '@nivo/core'
 import { useInheritedColor, inheritedColorPropType } from '@nivo/colors'
 import { lineRadial } from 'd3-shape'
 
@@ -23,6 +23,7 @@ const RadarShapes = memo(
         borderWidth,
         borderColor,
         fillOpacity,
+        blendMode,
         animate,
         motionStiffness,
         motionDamping,
@@ -48,6 +49,7 @@ const RadarShapes = memo(
                                 fillOpacity={fillOpacity}
                                 stroke={getBorderColor({ key, color: colorByKey[key] })}
                                 strokeWidth={borderWidth}
+                                style={{ mixBlendMode: blendMode }}
                             />
                         )
                     })}
@@ -79,6 +81,7 @@ const RadarShapes = memo(
                                 <path
                                     fillOpacity={fillOpacity}
                                     strokeWidth={borderWidth}
+                                    style={{ mixBlendMode: blendMode }}
                                     {...style}
                                 />
                             )}
@@ -105,6 +108,7 @@ RadarShapes.propTypes = {
     borderColor: inheritedColorPropType.isRequired,
 
     fillOpacity: PropTypes.number.isRequired,
+    blendMode: blendModePropType.isRequired,
 
     ...motionPropTypes,
 }

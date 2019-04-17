@@ -52,6 +52,7 @@ const Radar = memo(
         dotLabelYOffset,
         colors,
         fillOpacity,
+        blendMode,
         animate,
         motionStiffness,
         motionDamping,
@@ -136,6 +137,7 @@ const Radar = memo(
                         borderWidth={borderWidth}
                         borderColor={borderColor}
                         fillOpacity={fillOpacity}
+                        blendMode={blendMode}
                         {...motionProps}
                     />
                     {isInteractive && (

@@ -1,5 +1,13 @@
+/*
+ * This file is part of the nivo project.
+ *
+ * Copyright 2016-present, Raphaël Benitte.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 import * as React from 'react'
-import { Theme } from '@nivo/core'
+import { Theme, CssMixBlendMode } from '@nivo/core'
 import { OrdinalColorsInstruction } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 
@@ -22,24 +30,6 @@ declare module '@nivo/sankey' {
             links: SankeyDataLink[]
         }
     }
-
-    export type CssMixBlendMode =
-        | 'normal'
-        | 'multiply'
-        | 'screen'
-        | 'overlay'
-        | 'darken'
-        | 'lighten'
-        | 'color-dodge'
-        | 'color-burn'
-        | 'hard-light'
-        | 'soft-light'
-        | 'difference'
-        | 'exclusion'
-        | 'hue'
-        | 'saturation'
-        | 'color'
-        | 'luminosity'
 
     export type SankeySortFunction = (nodeA: SankeyDataNode, nodeB: SankeyDataNode) => number
 
