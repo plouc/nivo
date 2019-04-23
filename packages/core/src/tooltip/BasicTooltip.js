@@ -48,7 +48,7 @@ BasicTooltip.propTypes = {
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     enableChip: PropTypes.bool.isRequired,
     color: PropTypes.string,
-    format: PropTypes.func,
+    format: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     renderContent: PropTypes.func,
 }
 
