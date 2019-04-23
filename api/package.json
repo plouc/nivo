@@ -1,6 +1,6 @@
 {
   "name": "@nivo/api",
-  "version": "0.56.0",
+  "version": "0.56.1",
   "description": "Rendering API for nivo dataviz React/d3 components",
   "main": "src/app.js",
   "licenses": [
@@ -25,7 +25,7 @@
     "@nivo/bar": "0.56.0",
     "@nivo/bullet": "0.56.0",
     "@nivo/calendar": "0.56.0",
-    "@nivo/chord": "0.56.0",
+    "@nivo/chord": "0.56.1",
     "@nivo/circle-packing": "0.56.0",
     "@nivo/core": "0.56.0",
     "@nivo/generators": "0.56.0",

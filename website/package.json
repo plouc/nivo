@@ -1,13 +1,13 @@
 {
   "name": "nivo-website",
-  "version": "0.56.0",
+  "version": "0.56.1",
   "private": true,
   "description": "nivo website",
   "dependencies": {
     "@nivo/bar": "0.56.0",
     "@nivo/bullet": "0.56.0",
     "@nivo/calendar": "0.56.0",
-    "@nivo/chord": "0.56.0",
+    "@nivo/chord": "0.56.1",
     "@nivo/circle-packing": "0.56.0",
     "@nivo/colors": "0.56.0",
     "@nivo/core": "0.56.0",
