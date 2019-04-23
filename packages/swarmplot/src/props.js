@@ -74,12 +74,11 @@ const commonPropTypes = {
     useMesh: PropTypes.bool.isRequired,
     debugMesh: PropTypes.bool.isRequired,
     tooltip: PropTypes.any,
-
-    ...motionPropTypes,
 }
 
 export const SwarmPlotPropTypes = {
     ...commonPropTypes,
+    ...motionPropTypes,
 }
 
 export const SwarmPlotCanvasPropTypes = {
@@ -120,14 +119,13 @@ const commonDefaultProps = {
     isInteractive: true,
     useMesh: false,
     debugMesh: false,
-
-    animate: true,
-    motionStiffness: 90,
-    motionDamping: 15,
 }
 
 export const SwarmPlotDefaultProps = {
     ...commonDefaultProps,
+    animate: true,
+    motionStiffness: 90,
+    motionDamping: 15,
 }
 
 export const SwarmPlotCanvasDefaultProps = {

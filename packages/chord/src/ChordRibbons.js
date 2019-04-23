@@ -6,17 +6,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import isFunction from 'lodash/isFunction'
 import mapValues from 'lodash/mapValues'
 import { TransitionMotion, spring } from 'react-motion'
-import { format as d3Format } from 'd3-format'
-import compose from 'recompose/compose'
-import withPropsOnChange from 'recompose/withPropsOnChange'
-import pure from 'recompose/pure'
-import { blendModePropType, midAngle, TableTooltip, Chip, motionPropTypes } from '@nivo/core'
+import { blendModePropType, midAngle, motionPropTypes } from '@nivo/core'
 import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
+import ChordRibbon from './ChordRibbon'
 
 /**
  * Used to get ribbon angles, instead of using source and target arcs,
@@ -78,164 +74,137 @@ const ribbonWillLeave = springConfig => ({ data: ribbon }) => ({
     ...interpolateColor(ribbon.source.color, springConfig),
 })
 
-const ChordRibbons = ({
-    ribbons,
-    shapeGenerator,
-    borderWidth,
-    getBorderColor,
-    getOpacity,
-    blendMode,
-    theme,
-    tooltipFormat,
-    setCurrent,
-    showTooltip,
-    hideTooltip,
-
-    // motion
-    animate,
-    motionDamping,
-    motionStiffness,
-}) => {
-    const commonProps = ribbon => {
-        const ribbonTooltip = (
-            <TableTooltip
-                theme={theme}
-                rows={[
-                    [
-                        <Chip key="chip" color={ribbon.source.color} />,
-                        <strong key="id">{ribbon.source.id}</strong>,
-                        tooltipFormat ? tooltipFormat(ribbon.source.value) : ribbon.source.value,
-                    ],
-                    [
-                        <Chip key="chip" color={ribbon.target.color} />,
-                        <strong key="id">{ribbon.target.id}</strong>,
-                        tooltipFormat ? tooltipFormat(ribbon.target.value) : ribbon.target.value,
-                    ],
-                ]}
-            />
-        )
-
-        return {
-            strokeWidth: borderWidth,
-            onMouseEnter: e => {
-                setCurrent(ribbon)
-                showTooltip(ribbonTooltip, e)
-            },
-            onMouseMove: e => {
-                showTooltip(ribbonTooltip, e)
-            },
-            onMouseLeave: () => {
-                setCurrent(null)
-                hideTooltip()
-            },
-        }
-    }
-
-    if (animate !== true) {
-        return (
-            <g>
-                {ribbons.map(ribbon => {
-                    const opacity = getOpacity(ribbon)
-
-                    return (
-                        <path
-                            key={ribbon.key}
-                            d={shapeGenerator(ribbon)}
-                            fill={ribbon.source.color}
-                            fillOpacity={opacity}
-                            stroke={getBorderColor({ ...ribbon, color: ribbon.source.color })}
-                            strokeOpacity={opacity}
-                            style={{ mixBlendMode: blendMode }}
-                            {...commonProps(ribbon)}
-                        />
-                    )
-                })}
-            </g>
-        )
-    }
-
-    const springConfig = {
-        damping: motionDamping,
-        stiffness: motionStiffness,
-        precision: 0.001,
-    }
-
-    return (
-        <TransitionMotion
-            willEnter={ribbonWillEnter}
-            willLeave={ribbonWillLeave(springConfig)}
-            styles={ribbons.map(ribbon => {
-                return {
-                    key: ribbon.key,
-                    data: ribbon,
-                    style: {
-                        ...getRibbonAngles(ribbon, false, springConfig),
-                        opacity: spring(getOpacity(ribbon), springConfig),
-                        ...interpolateColor(ribbon.source.color, springConfig),
-                    },
-                }
-            })}
-        >
-            {interpolatedStyles => (
+const ChordRibbons = memo(
+    ({
+        ribbons,
+        ribbonGenerator,
+        borderWidth,
+        getBorderColor,
+        getOpacity,
+        blendMode,
+        isInteractive,
+        setCurrent,
+        onMouseEnter,
+        onMouseMove,
+        onMouseLeave,
+        onClick,
+        tooltip,
+        animate,
+        motionDamping,
+        motionStiffness,
+    }) => {
+        if (animate !== true) {
+            return (
                 <g>
-                    {interpolatedStyles.map(({ key, style, data: ribbon }) => {
-                        const color = getInterpolatedColor(style)
-
+                    {ribbons.map(ribbon => {
                         return (
-                            <path
-                                key={key}
-                                d={shapeGenerator({
-                                    source: {
-                                        startAngle: style.sourceStartAngle,
-                                        endAngle: Math.max(
-                                            style.sourceEndAngle,
-                                            style.sourceStartAngle
-                                        ),
-                                    },
-                                    target: {
-                                        startAngle: style.targetStartAngle,
-                                        endAngle: Math.max(
-                                            style.targetEndAngle,
-                                            style.targetStartAngle
-                                        ),
-                                    },
-                                })}
-                                fill={color}
-                                fillOpacity={style.opacity}
-                                stroke={getBorderColor({ ...ribbon, color })}
-                                strokeOpacity={style.opacity}
-                                style={{ mixBlendMode: blendMode }}
-                                {...commonProps(ribbon)}
+                            <ChordRibbon
+                                key={ribbon.id}
+                                ribbon={ribbon}
+                                ribbonGenerator={ribbonGenerator}
+                                sourceStartAngle={ribbon.source.startAngle}
+                                sourceEndAngle={ribbon.source.endAngle}
+                                targetStartAngle={ribbon.target.startAngle}
+                                targetEndAngle={ribbon.target.endAngle}
+                                color={ribbon.source.color}
+                                blendMode={blendMode}
+                                opacity={getOpacity(ribbon)}
+                                borderWidth={borderWidth}
+                                getBorderColor={getBorderColor}
+                                isInteractive={isInteractive}
+                                setCurrent={setCurrent}
+                                onMouseEnter={onMouseEnter}
+                                onMouseMove={onMouseMove}
+                                onMouseLeave={onMouseLeave}
+                                onClick={onClick}
+                                tooltip={tooltip}
                             />
                         )
                     })}
                 </g>
-            )}
-        </TransitionMotion>
-    )
-}
+            )
+        }
 
+        const springConfig = {
+            damping: motionDamping,
+            stiffness: motionStiffness,
+            precision: 0.001,
+        }
+
+        return (
+            <TransitionMotion
+                willEnter={ribbonWillEnter}
+                willLeave={ribbonWillLeave(springConfig)}
+                styles={ribbons.map(ribbon => {
+                    return {
+                        key: ribbon.id,
+                        data: ribbon,
+                        style: {
+                            ...getRibbonAngles(ribbon, false, springConfig),
+                            opacity: spring(getOpacity(ribbon), springConfig),
+                            ...interpolateColor(ribbon.source.color, springConfig),
+                        },
+                    }
+                })}
+            >
+                {interpolatedStyles => (
+                    <>
+                        {interpolatedStyles.map(({ key, style, data: ribbon }) => {
+                            const color = getInterpolatedColor(style)
+
+                            return (
+                                <ChordRibbon
+                                    key={key}
+                                    ribbon={ribbon}
+                                    ribbonGenerator={ribbonGenerator}
+                                    sourceStartAngle={style.sourceStartAngle}
+                                    sourceEndAngle={Math.max(
+                                        style.sourceEndAngle,
+                                        style.sourceStartAngle
+                                    )}
+                                    targetStartAngle={style.targetStartAngle}
+                                    targetEndAngle={Math.max(
+                                        style.targetEndAngle,
+                                        style.targetStartAngle
+                                    )}
+                                    color={color}
+                                    blendMode={blendMode}
+                                    opacity={style.opacity}
+                                    borderWidth={borderWidth}
+                                    getBorderColor={getBorderColor}
+                                    isInteractive={isInteractive}
+                                    setCurrent={setCurrent}
+                                    onMouseEnter={onMouseEnter}
+                                    onMouseMove={onMouseMove}
+                                    onMouseLeave={onMouseLeave}
+                                    onClick={onClick}
+                                    tooltip={tooltip}
+                                />
+                            )
+                        })}
+                    </>
+                )}
+            </TransitionMotion>
+        )
+    }
+)
+
+ChordRibbons.displayName = 'ChordRibbons'
 ChordRibbons.propTypes = {
     ribbons: PropTypes.array.isRequired,
-    shapeGenerator: PropTypes.func.isRequired,
+    ribbonGenerator: PropTypes.func.isRequired,
     borderWidth: PropTypes.number.isRequired,
     getBorderColor: PropTypes.func.isRequired,
     getOpacity: PropTypes.func.isRequired,
     blendMode: blendModePropType.isRequired,
+    isInteractive: PropTypes.bool.isRequired,
     setCurrent: PropTypes.func.isRequired,
-    theme: PropTypes.object.isRequired,
-    showTooltip: PropTypes.func.isRequired,
-    hideTooltip: PropTypes.func.isRequired,
-    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+    onMouseEnter: PropTypes.func,
+    onMouseMove: PropTypes.func,
+    onMouseLeave: PropTypes.func,
+    onClick: PropTypes.func,
     ...motionPropTypes,
 }
 
-const enhance = compose(
-    withPropsOnChange(['tooltipFormat'], ({ tooltipFormat }) => {
-        if (!tooltipFormat || isFunction(tooltipFormat)) return { tooltipFormat }
-        return { tooltipFormat: d3Format(tooltipFormat) }
-    }),
-    pure
-)
-
-export default enhance(ChordRibbons)
+export default ChordRibbons

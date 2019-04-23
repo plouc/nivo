@@ -24,6 +24,8 @@ const initialProperties = {
         left: 60,
     },
 
+    valueFormat: '.2f',
+
     padAngle: 0.02,
     innerRadiusRatio: 0.96,
     innerRadiusOffset: 0.02,
@@ -67,10 +69,14 @@ const initialProperties = {
         {
             anchor: 'bottom',
             direction: 'row',
+            justify: false,
+            translateX: 0,
             translateY: 70,
             itemWidth: 80,
             itemHeight: 14,
+            itemsSpacing: 0,
             itemTextColor: '#999',
+            itemDirection: 'left-to-right',
             symbolSize: 12,
             symbolShape: 'circle',
             onClick: d => {
@@ -116,6 +122,22 @@ const Chord = () => {
                         keys={data.keys}
                         {...properties}
                         theme={theme}
+                        onArcClick={arc => {
+                            logAction({
+                                type: 'click',
+                                label: `[arc] ${arc.label}`,
+                                color: arc.color,
+                                data: arc,
+                            })
+                        }}
+                        onRibbonClick={ribbon => {
+                            logAction({
+                                type: 'click',
+                                label: `[ribbon] ${ribbon.source.label} —> ${ribbon.target.label}`,
+                                color: ribbon.source.color,
+                                data: ribbon,
+                            })
+                        }}
                     />
                 )
             }}

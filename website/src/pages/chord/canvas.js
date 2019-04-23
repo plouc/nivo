@@ -19,10 +19,12 @@ const MATRIX_SIZE = 38
 const initialProperties = {
     margin: {
         top: 60,
-        right: 60,
+        right: 200,
         bottom: 60,
         left: 60,
     },
+
+    valueFormat: '.2f',
 
     pixelRatio:
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
@@ -32,14 +34,14 @@ const initialProperties = {
     innerRadiusOffset: 0,
 
     arcOpacity: 1,
-    arcBorderWidth: 1,
+    arcBorderWidth: 0,
     arcBorderColor: {
         from: 'color',
         modifiers: [['darker', 0.4]],
     },
 
     ribbonOpacity: 0.5,
-    ribbonBorderWidth: 1,
+    ribbonBorderWidth: 0,
     ribbonBorderColor: {
         from: 'color',
         modifiers: [['darker', 0.4]],
@@ -62,9 +64,32 @@ const initialProperties = {
     ribbonHoverOpacity: 0.75,
     ribbonHoverOthersOpacity: 0,
 
-    animate: true,
-    motionStiffness: 90,
-    motionDamping: 7,
+    legends: [
+        {
+            anchor: 'right',
+            direction: 'column',
+            justify: false,
+            translateX: 120,
+            translateY: 0,
+            itemWidth: 80,
+            itemHeight: 11,
+            itemsSpacing: 0,
+            itemTextColor: '#999',
+            itemDirection: 'left-to-right',
+            symbolSize: 12,
+            onClick: d => {
+                alert(JSON.stringify(d, null, '    '))
+            },
+            effects: [
+                {
+                    on: 'hover',
+                    style: {
+                        itemTextColor: '#000',
+                    },
+                },
+            ],
+        },
+    ],
 }
 
 const generateData = () => generateChordData({ size: MATRIX_SIZE })
@@ -96,6 +121,14 @@ const ChordCanvas = () => {
                         keys={data.keys}
                         {...properties}
                         theme={theme}
+                        onArcClick={arc => {
+                            logAction({
+                                type: 'click',
+                                label: `[arc] ${arc.label}`,
+                                color: arc.color,
+                                data: arc,
+                            })
+                        }}
                     />
                 )
             }}
