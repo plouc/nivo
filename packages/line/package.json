@@ -1,6 +1,6 @@
 {
   "name": "@nivo/line",
-  "version": "0.56.0",
+  "version": "0.56.2",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -23,10 +23,10 @@
     "dist/"
   ],
   "dependencies": {
-    "@nivo/axes": "0.56.0",
-    "@nivo/colors": "0.56.0",
-    "@nivo/core": "0.56.0",
-    "@nivo/legends": "0.56.0",
+    "@nivo/axes": "0.56.2",
+    "@nivo/colors": "0.56.2",
+    "@nivo/core": "0.56.2",
+    "@nivo/legends": "0.56.2",
     "@nivo/scales": "0.56.0",
     "d3-format": "^1.3.2",
     "d3-scale": "^3.0.0",
