@@ -1,3 +1,11 @@
+/*
+ * This file is part of the nivo project.
+ *
+ * Copyright 2016-present, Raphaël Benitte.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 import { Component } from 'react'
 import { Box, MotionProps, Dimensions, Theme } from '@nivo/core'
 import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
@@ -31,6 +39,8 @@ declare module '@nivo/swarmplot' {
         event: React.MouseEvent<any>
     ) => void
 
+    type ValueFormatter<Datum> = (datum: Datum) => string | number
+
     interface CommonSwarmPlotProps<Datum = any> {
         data: Datum[]
 
@@ -42,7 +52,7 @@ declare module '@nivo/swarmplot' {
         label?: string | DatumAccessor<Datum, string>
         value?: string | DatumAccessor<Datum, number>
         valueScale?: any
-        valueFormat?: string | Function
+        valueFormat?: string | ValueFormatter<Datum>
         size?: number | DatumAccessor<Datum, number> | DynamicSizeSpec
         spacing?: number
         layout?: 'horizontal' | 'vertical'
@@ -54,7 +64,7 @@ declare module '@nivo/swarmplot' {
         layers: any[]
 
         colors?: OrdinalColorsInstruction
-        colorBy?: string | Function
+        colorBy?: string | ComputedNodeAccessor<Datum, string | number>
         theme?: Theme
         borderWidth?: number | ComputedNodeAccessor<Datum, number>
         borderColor?: InheritedColorProp<ComputedNode<Datum>>
@@ -76,7 +86,7 @@ declare module '@nivo/swarmplot' {
         onMouseMove?: SwarmPlotMouseHandler<Datum>
         onMouseLeave?: SwarmPlotMouseHandler<Datum>
         onClick?: SwarmPlotMouseHandler<Datum>
-        tooltip?: Function
+        tooltip?: any
     }
 
     export type SwarmPlotProps = CommonSwarmPlotProps & MotionProps

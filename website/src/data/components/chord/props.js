@@ -7,22 +7,13 @@
  * file that was distributed with this source code.
  */
 import { ChordDefaultProps as defaults } from '@nivo/chord'
-import { motionProperties, getPropertiesGroupsControls } from '../../../lib/componentProperties'
+import {
+    motionProperties,
+    getPropertiesGroupsControls,
+    getLegendsProps,
+} from '../../../lib/componentProperties'
 
 const props = [
-    {
-        key: 'matrix',
-        scopes: '*',
-        group: 'Base',
-        help: 'The matrix used to compute the chord diagram.',
-        description: `
-            The matrix used to compute the chord diagram,
-            it must be a square matrix, meaning each row length
-            must equal the row count.
-        `,
-        required: true,
-        type: 'Array<number[]>',
-    },
     {
         key: 'keys',
         scopes: '*',
@@ -50,6 +41,26 @@ const props = [
         `,
         required: true,
         type: 'string[]',
+    },
+    {
+        key: 'matrix',
+        scopes: '*',
+        group: 'Base',
+        help: 'The matrix used to compute the chord diagram.',
+        description: `
+            The matrix used to compute the chord diagram,
+            it must be a square matrix, meaning each row length
+            must equal the row count.
+        `,
+        required: true,
+        type: 'Array<number[]>',
+    },
+    {
+        key: 'valueFormat',
+        group: 'Base',
+        type: 'string | Function',
+        required: false,
+        help: `Optional value formatter.`,
     },
     {
         key: 'width',
@@ -305,6 +316,31 @@ const props = [
         group: 'Labels',
     },
     {
+        key: 'layers',
+        group: 'Customization',
+        help: 'Defines the order of layers and add custom layers.',
+        description: `
+            You can also use this to insert extra layers
+            to the chart, the extra layer must be a function.
+            
+            The layer function which will receive the chart's
+            context & computed data and must return a valid SVG element
+            for the \`Chord\` component.
+
+            When using the canvas implementation, the function
+            will receive the canvas 2d context as first argument
+            and the chart's context and computed data as second.
+
+            Please make sure to use \`context.save()\` and
+            \`context.restore()\` if you make some global
+            modifications to the 2d context inside this function
+            to avoid side effects.
+        `,
+        required: false,
+        type: 'Array<string | Function>',
+        defaultValue: defaults.layers,
+    },
+    {
         key: 'isInteractive',
         scopes: ['Chord', 'ChordCanvas'],
         help: 'Enable/disable interactivity.',
@@ -353,6 +389,128 @@ const props = [
         type: 'number',
         controlType: 'opacity',
         group: 'Interactivity',
+    },
+    {
+        key: 'onArcMouseEnter',
+        scopes: ['Chord', 'ChordCanvas'],
+        group: 'Interactivity',
+        help: 'onMouseEnter handler for arcs.',
+        type: '(arc, event) => void',
+        required: false,
+    },
+    {
+        key: 'onArcMouseMove',
+        scopes: ['Chord', 'ChordCanvas'],
+        group: 'Interactivity',
+        help: 'onMouseMove handler for arcs.',
+        type: '(arc, event) => void',
+        required: false,
+    },
+    {
+        key: 'onArcMouseLeave',
+        scopes: ['Chord', 'ChordCanvas'],
+        group: 'Interactivity',
+        help: 'onMouseLeave handler for arcs.',
+        type: '(arc, event) => void',
+        required: false,
+    },
+    {
+        key: 'onArcClick',
+        scopes: ['Chord', 'ChordCanvas'],
+        group: 'Interactivity',
+        help: 'onClick handler for arcs.',
+        type: '(arc, event) => void',
+        required: false,
+    },
+    {
+        key: 'arcTooltip',
+        scopes: ['Chord', 'ChordCanvas'],
+        group: 'Interactivity',
+        type: 'Function',
+        required: false,
+        help: 'Custom arc tooltip component.',
+        description: `
+            A function allowing complete arc tooltip customisation,
+            it must return a valid HTML
+            element and will receive the arcs's data.
+        `,
+    },
+    {
+        key: 'onRibbonMouseEnter',
+        scopes: ['Chord'],
+        group: 'Interactivity',
+        help: 'onMouseEnter handler for ribbons.',
+        type: '(ribbon, event) => void',
+        required: false,
+    },
+    {
+        key: 'onRibbonMouseMove',
+        scopes: ['Chord'],
+        group: 'Interactivity',
+        help: 'onMouseMove handler for ribbons.',
+        type: '(ribbon, event) => void',
+        required: false,
+    },
+    {
+        key: 'onRibbonMouseLeave',
+        scopes: ['Chord'],
+        group: 'Interactivity',
+        help: 'onMouseLeave handler for ribbons.',
+        type: '(ribbon, event) => void',
+        required: false,
+    },
+    {
+        key: 'onRibbonClick',
+        scopes: ['Chord'],
+        group: 'Interactivity',
+        help: 'onClick handler for ribbons.',
+        type: '(ribbon, event) => void',
+        required: false,
+    },
+    {
+        key: 'ribbonTooltip',
+        scopes: ['Chord'],
+        group: 'Interactivity',
+        type: 'Function',
+        required: false,
+        help: 'Custom ribbon tooltip component.',
+        description: `
+            A function allowing complete ribbon tooltip customisation,
+            it must return a valid HTML
+            element and will receive the ribbon's data.
+        `,
+    },
+    {
+        key: 'legends',
+        scopes: ['Chord', 'ChordCanvas'],
+        type: 'object[]',
+        help: `Optional chart's legends.`,
+        group: 'Legends',
+        controlType: 'array',
+        controlOptions: {
+            props: getLegendsProps(),
+            shouldCreate: true,
+            addLabel: 'add legend',
+            shouldRemove: true,
+            getItemTitle: (index, legend) =>
+                `legend[${index}]: ${legend.anchor}, ${legend.direction}`,
+            defaults: {
+                dataFrom: 'keys',
+                anchor: 'top-left',
+                direction: 'column',
+                justify: false,
+                translateX: 0,
+                translateY: 0,
+                itemWidth: 100,
+                itemHeight: 20,
+                itemsSpacing: 0,
+                symbolSize: 20,
+                itemDirection: 'left-to-right',
+                onClick: data => {
+                    alert(JSON.stringify(data, null, '    '))
+                },
+            },
+        },
     },
     ...motionProperties(['Chord'], defaults),
 ]

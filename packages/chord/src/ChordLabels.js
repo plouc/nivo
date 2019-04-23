@@ -9,22 +9,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
-import { midAngle, getPolarLabelProps } from '@nivo/core'
+import { midAngle, getPolarLabelProps, useTheme } from '@nivo/core'
 import { motionPropTypes } from '@nivo/core'
 
 const ChordLabels = ({
     arcs,
     radius,
     rotation,
-    getLabel,
     getColor,
-    theme,
-
-    // motion
     animate,
     motionDamping,
     motionStiffness,
 }) => {
+    const theme = useTheme()
+
     if (animate !== true) {
         return (
             <g>
@@ -35,7 +33,7 @@ const ChordLabels = ({
 
                     return (
                         <text
-                            key={arc.key}
+                            key={arc.id}
                             transform={`translate(${textProps.x}, ${textProps.y}) rotate(${
                                 textProps.rotate
                             })`}
@@ -47,7 +45,7 @@ const ChordLabels = ({
                             textAnchor={textProps.align}
                             alignmentBaseline={textProps.baseline}
                         >
-                            {getLabel(arc)}
+                            {arc.label}
                         </text>
                     )
                 })}
@@ -66,7 +64,7 @@ const ChordLabels = ({
                 const angle = midAngle(arc)
 
                 return {
-                    key: arc.key,
+                    key: arc.id,
                     data: arc,
                     style: {
                         angle: spring(angle, springConfig),
@@ -94,7 +92,7 @@ const ChordLabels = ({
                                 textAnchor={textProps.align}
                                 alignmentBaseline={textProps.baseline}
                             >
-                                {getLabel(arc)}
+                                {arc.label}
                             </text>
                         )
                     })}
@@ -108,9 +106,7 @@ ChordLabels.propTypes = {
     arcs: PropTypes.array.isRequired,
     radius: PropTypes.number.isRequired,
     rotation: PropTypes.number.isRequired,
-    getLabel: PropTypes.func.isRequired,
     getColor: PropTypes.func.isRequired,
-    theme: PropTypes.object.isRequired,
     ...motionPropTypes,
 }
 

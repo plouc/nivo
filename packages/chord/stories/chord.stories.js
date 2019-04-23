@@ -1,6 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { generateChordData } from '@nivo/generators'
+import { TableTooltip, BasicTooltip, Chip } from '@nivo/core'
 import { Chord } from '../src'
 
 const commonProperties = {
@@ -48,7 +49,7 @@ stories.add('putting labels inside arcs', () => (
         innerRadiusRatio={0.8}
         innerRadiusOffset={0.02}
         labelOffset={-30}
-        labelTextColor="inherit:darker(1.2)"
+        labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
     />
 ))
 
@@ -56,10 +57,47 @@ stories.add('with formatted values', () => (
     <Chord
         {...commonProperties}
         {...generateChordData({ size: 5 })}
-        tooltipFormat={value =>
+        valueFormat={value =>
             `${Number(value).toLocaleString('ru-RU', {
                 minimumFractionDigits: 2,
             })} ₽`
         }
+    />
+))
+
+const ArcTooltip = ({ arc }) => (
+    <BasicTooltip
+        id={`Custom arc tooltip, ${arc.label}`}
+        value={arc.formattedValue}
+        color={arc.color}
+        enableChip={true}
+    />
+)
+
+const RibbonTooltip = ({ ribbon }) => (
+    <TableTooltip
+        rows={[
+            [
+                <Chip key="chip" color={ribbon.source.color} />,
+                'Source (custom)',
+                <strong key="id">{ribbon.source.id}</strong>,
+                ribbon.source.value,
+            ],
+            [
+                <Chip key="chip" color={ribbon.target.color} />,
+                'Target (custom)',
+                <strong key="id">{ribbon.target.id}</strong>,
+                ribbon.target.value,
+            ],
+        ]}
+    />
+)
+
+stories.add('custom tooltips', () => (
+    <Chord
+        {...commonProperties}
+        {...generateChordData({ size: 5 })}
+        arcTooltip={ArcTooltip}
+        ribbonTooltip={RibbonTooltip}
     />
 ))

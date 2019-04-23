@@ -6,144 +6,215 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
-import { Container, SvgWrapper } from '@nivo/core'
+import React, { Fragment } from 'react'
+import { withContainer, SvgWrapper, useDimensions, useTheme } from '@nivo/core'
+import { useInheritedColor } from '@nivo/colors'
 import { BoxLegendSvg } from '@nivo/legends'
-import enhance from './enhance'
-import setDisplayName from 'recompose/setDisplayName'
-import { ChordPropTypes } from './props'
+import { ChordPropTypes, ChordDefaultProps } from './props'
+import { useChord, useChordSelection, useChordLayerContext } from './hooks'
 import ChordRibbons from './ChordRibbons'
 import ChordArcs from './ChordArcs'
 import ChordLabels from './ChordLabels'
 
 const Chord = ({
-    margin,
+    margin: partialMargin,
     width,
     height,
-    outerWidth,
-    outerHeight,
+
+    keys,
+    matrix,
+    label,
+    valueFormat,
+    innerRadiusRatio,
+    innerRadiusOffset,
+    padAngle,
+
+    layers,
+
+    colors,
 
     arcBorderWidth,
-    getArcBorderColor,
+    arcBorderColor,
+    arcOpacity,
+    arcHoverOpacity,
+    arcHoverOthersOpacity,
+    arcTooltip,
 
     ribbonBorderWidth,
+    ribbonBorderColor,
     ribbonBlendMode,
-    getRibbonBorderColor,
+    ribbonOpacity,
+    ribbonHoverOpacity,
+    ribbonHoverOthersOpacity,
+    ribbonTooltip,
 
     enableLabel,
-    getLabel, // computed
     labelOffset,
     labelRotation,
-    getLabelTextColor,
-
-    arcGenerator, // computed
-    ribbonGenerator, // computed
-
-    theme,
+    labelTextColor,
 
     isInteractive,
-    tooltipFormat,
+    onArcMouseEnter,
+    onArcMouseMove,
+    onArcMouseLeave,
+    onArcClick,
+    onRibbonMouseEnter,
+    onRibbonMouseMove,
+    onRibbonMouseLeave,
+    onRibbonClick,
+
+    legends,
 
     animate,
     motionDamping,
     motionStiffness,
-
-    ribbons, // computed
-    arcs, // computed
-    radius, // computed
-    setCurrentArc,
-    setCurrentRibbon,
-    getArcOpacity,
-    getRibbonOpacity,
-
-    legends,
 }) => {
-    const centerX = width / 2
-    const centerY = height / 2
+    const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
+        width,
+        height,
+        partialMargin
+    )
 
-    const motionProps = {
-        animate,
-        motionDamping,
-        motionStiffness,
-    }
+    const { center, radius, arcGenerator, ribbonGenerator, arcs, ribbons } = useChord({
+        keys,
+        matrix,
+        label,
+        valueFormat,
+        width: innerWidth,
+        height: innerHeight,
+        innerRadiusRatio,
+        innerRadiusOffset,
+        padAngle,
+        colors,
+    })
+
+    const { setCurrentArc, setCurrentRibbon, getArcOpacity, getRibbonOpacity } = useChordSelection({
+        arcs,
+        arcOpacity,
+        arcHoverOpacity,
+        arcHoverOthersOpacity,
+        ribbons,
+        ribbonOpacity,
+        ribbonHoverOpacity,
+        ribbonHoverOthersOpacity,
+    })
+
+    const theme = useTheme()
+    const getLabelTextColor = useInheritedColor(labelTextColor, theme)
+    const getArcBorderColor = useInheritedColor(arcBorderColor, theme)
+    const getRibbonBorderColor = useInheritedColor(ribbonBorderColor, theme)
+
+    const layerContext = useChordLayerContext({
+        center,
+        radius,
+        arcs,
+        arcGenerator,
+        ribbons,
+        ribbonGenerator,
+    })
+
+    if (radius <= 0) return null
 
     const legendData = arcs.map(arc => ({
         id: arc.id,
-        label: arc.id,
+        label: arc.label,
         color: arc.color,
     }))
 
-    return (
-        <Container isInteractive={isInteractive} theme={theme}>
-            {({ showTooltip, hideTooltip }) => {
-                return (
-                    <SvgWrapper
-                        width={outerWidth}
-                        height={outerHeight}
-                        margin={margin}
+    const layerById = {
+        ribbons: (
+            <g key="ribbons" transform={`translate(${center[0]}, ${center[1]})`}>
+                <ChordRibbons
+                    ribbons={ribbons}
+                    ribbonGenerator={ribbonGenerator}
+                    borderWidth={ribbonBorderWidth}
+                    getBorderColor={getRibbonBorderColor}
+                    getOpacity={getRibbonOpacity}
+                    blendMode={ribbonBlendMode}
+                    setCurrent={setCurrentRibbon}
+                    isInteractive={isInteractive}
+                    onMouseEnter={onRibbonMouseEnter}
+                    onMouseMove={onRibbonMouseMove}
+                    onMouseLeave={onRibbonMouseLeave}
+                    onClick={onRibbonClick}
+                    tooltip={ribbonTooltip}
+                    animate={animate}
+                    motionDamping={motionDamping}
+                    motionStiffness={motionStiffness}
+                />
+            </g>
+        ),
+        arcs: (
+            <g key="arcs" transform={`translate(${center[0]}, ${center[1]})`}>
+                <ChordArcs
+                    arcs={arcs}
+                    arcGenerator={arcGenerator}
+                    borderWidth={arcBorderWidth}
+                    getBorderColor={getArcBorderColor}
+                    getOpacity={getArcOpacity}
+                    setCurrent={setCurrentArc}
+                    isInteractive={isInteractive}
+                    onMouseEnter={onArcMouseEnter}
+                    onMouseMove={onArcMouseMove}
+                    onMouseLeave={onArcMouseLeave}
+                    onClick={onArcClick}
+                    tooltip={arcTooltip}
+                    animate={animate}
+                    motionDamping={motionDamping}
+                    motionStiffness={motionStiffness}
+                />
+            </g>
+        ),
+        labels: null,
+        legends: (
+            <Fragment key="legends">
+                {legends.map((legend, i) => (
+                    <BoxLegendSvg
+                        key={i}
+                        {...legend}
+                        containerWidth={innerWidth}
+                        containerHeight={innerHeight}
+                        data={legendData}
                         theme={theme}
-                    >
-                        {radius > 0 && (
-                            <g transform={`translate(${centerX}, ${centerY})`}>
-                                {radius > 0 && (
-                                    <ChordRibbons
-                                        ribbons={ribbons}
-                                        shapeGenerator={ribbonGenerator}
-                                        borderWidth={ribbonBorderWidth}
-                                        getBorderColor={getRibbonBorderColor}
-                                        getOpacity={getRibbonOpacity}
-                                        blendMode={ribbonBlendMode}
-                                        setCurrent={setCurrentRibbon}
-                                        theme={theme}
-                                        tooltipFormat={tooltipFormat}
-                                        showTooltip={showTooltip}
-                                        hideTooltip={hideTooltip}
-                                        {...motionProps}
-                                    />
-                                )}
-                                <ChordArcs
-                                    arcs={arcs}
-                                    shapeGenerator={arcGenerator}
-                                    borderWidth={arcBorderWidth}
-                                    getBorderColor={getArcBorderColor}
-                                    getOpacity={getArcOpacity}
-                                    setCurrent={setCurrentArc}
-                                    theme={theme}
-                                    tooltipFormat={tooltipFormat}
-                                    showTooltip={showTooltip}
-                                    hideTooltip={hideTooltip}
-                                    {...motionProps}
-                                />
-                                {enableLabel && (
-                                    <ChordLabels
-                                        arcs={arcs}
-                                        radius={radius + labelOffset}
-                                        rotation={labelRotation}
-                                        getLabel={getLabel}
-                                        getColor={getLabelTextColor}
-                                        theme={theme}
-                                        {...motionProps}
-                                    />
-                                )}
-                            </g>
-                        )}
-                        {legends.map((legend, i) => (
-                            <BoxLegendSvg
-                                key={i}
-                                {...legend}
-                                containerWidth={width}
-                                containerHeight={height}
-                                data={legendData}
-                                theme={theme}
-                            />
-                        ))}
-                    </SvgWrapper>
-                )
-            }}
-        </Container>
+                    />
+                ))}
+            </Fragment>
+        ),
+    }
+
+    if (enableLabel === true) {
+        layerById.labels = (
+            <g key="labels" transform={`translate(${center[0]}, ${center[1]})`}>
+                <ChordLabels
+                    arcs={arcs}
+                    radius={radius + labelOffset}
+                    rotation={labelRotation}
+                    getColor={getLabelTextColor}
+                    animate={animate}
+                    motionDamping={motionDamping}
+                    motionStiffness={motionStiffness}
+                />
+            </g>
+        )
+    }
+
+    return (
+        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
+            {layers.map((layer, i) => {
+                if (layerById[layer] !== undefined) {
+                    return layerById[layer]
+                }
+                if (typeof layer === 'function') {
+                    return <Fragment key={i}>{layer(layerContext)}</Fragment>
+                }
+
+                return null
+            })}
+        </SvgWrapper>
     )
 }
 
 Chord.propTypes = ChordPropTypes
+Chord.defaultProps = ChordDefaultProps
 
-export default setDisplayName('Chord')(enhance(Chord))
+export default withContainer(Chord)
