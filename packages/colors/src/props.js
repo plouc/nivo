@@ -19,6 +19,7 @@ export const ordinalColorsPropType = PropTypes.oneOfType([
     PropTypes.shape({
         datum: PropTypes.string.isRequired,
     }),
+    PropTypes.string,
 ])
 
 export const colorPropertyAccessorPropType = PropTypes.oneOfType([PropTypes.func, PropTypes.string])
