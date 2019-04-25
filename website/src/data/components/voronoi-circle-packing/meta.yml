@@ -1,0 +1,17 @@
+flavors:
+  - flavor: svg
+    path: /voronoi-circle-packing
+
+VoronoiCirclePacking:
+  package: '@nivo/voronoi-circle-packing'
+  tags:
+    - svg
+    - isomorphic
+    - experimental
+  stories: []
+  description: |
+    This chart uses a circle packing algorithm and then
+    computes a voronoi diagram using the positions from
+    the circle packing.
+
+    The responsive alternative of this component is `ResponsiveVoronoiCirclePacking`.

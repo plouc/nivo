@@ -26,6 +26,7 @@ import sunburst from './components/sunburst/meta.yml'
 import swarmplot from './components/swarmplot/meta.yml'
 import treemap from './components/treemap/meta.yml'
 import voronoi from './components/voronoi/meta.yml'
+import voronoiCirclePacking from './components/voronoi-circle-packing/meta.yml'
 import waffle from './components/waffle/meta.yml'
 
 export const components = [
@@ -142,6 +143,12 @@ export const components = [
         path: '/voronoi',
         icon: 'voronoi',
         tags: voronoi.Voronoi.tags,
+    },
+    {
+        label: 'VoronoiCirclePacking',
+        path: '/voronoi-circle-packing',
+        icon: 'voronoi',
+        tags: voronoiCirclePacking.VoronoiCirclePacking.tags,
     },
     {
         label: 'Waffle',
