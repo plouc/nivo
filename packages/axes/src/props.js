@@ -15,6 +15,7 @@ export const axisPropTypes = {
         PropTypes.arrayOf(
             PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)])
         ),
+        PropTypes.string,
     ]),
     tickSize: PropTypes.number,
     tickPadding: PropTypes.number,

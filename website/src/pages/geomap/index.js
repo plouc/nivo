@@ -12,7 +12,7 @@ import { ResponsiveGeoMap, GeoMapDefaultProps } from '@nivo/geo'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/geomap/meta.yml'
 import mapper from '../../data/components/geo/mapper'
-import { groupsByScope } from '../../data/components/geo/props'
+import { groups } from '../../data/components/geomap/props'
 import countries from '../../data/components/geo/world_countries'
 
 const initialProperties = {
@@ -47,7 +47,7 @@ const GeoMap = () => {
             icon="geomap"
             flavors={meta.flavors}
             currentFlavor="svg"
-            properties={groupsByScope.GeoMap}
+            properties={groups}
             initialProperties={initialProperties}
             defaultProperties={GeoMapDefaultProps}
             propertiesMapper={mapper}

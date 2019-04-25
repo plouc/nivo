@@ -8,7 +8,7 @@
  */
 import React, { memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { useTooltip } from '@nivo/core'
+import { useTooltip } from '@nivo/tooltip'
 
 const ChordArc = memo(
     ({
@@ -27,23 +27,23 @@ const ChordArc = memo(
         onClick,
         tooltip,
     }) => {
-        const [showTooltip, hideTooltip] = useTooltip()
+        const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
         const handleMouseEnter = useMemo(() => {
             if (!isInteractive) return undefined
             return event => {
                 setCurrent(arc)
-                showTooltip(React.createElement(tooltip, { arc }), event)
+                showTooltipFromEvent(React.createElement(tooltip, { arc }), event)
                 onMouseEnter && onMouseEnter(arc, event)
             }
-        }, [isInteractive, arc, onMouseEnter])
+        }, [isInteractive, showTooltipFromEvent, tooltip, arc, onMouseEnter])
         const handleMouseMove = useMemo(() => {
             if (!isInteractive) return undefined
             return event => {
-                showTooltip(React.createElement(tooltip, { arc }), event)
+                showTooltipFromEvent(React.createElement(tooltip, { arc }), event)
                 onMouseMove && onMouseMove(arc, event)
             }
-        }, [isInteractive, arc, onMouseMove])
+        }, [isInteractive, showTooltipFromEvent, tooltip, arc, onMouseMove])
         const handleMouseLeave = useMemo(() => {
             if (!isInteractive) return undefined
             return event => {
@@ -51,7 +51,7 @@ const ChordArc = memo(
                 hideTooltip()
                 onMouseLeave && onMouseLeave(arc, event)
             }
-        }, [isInteractive, arc, onMouseLeave])
+        }, [isInteractive, hideTooltip, arc, onMouseLeave])
         const handleClick = useMemo(() => {
             if (!isInteractive || !onClick) return undefined
             return event => onClick(arc, event)

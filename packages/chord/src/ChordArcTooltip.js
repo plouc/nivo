@@ -8,7 +8,7 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { BasicTooltip } from '@nivo/core'
+import { BasicTooltip } from '@nivo/tooltip'
 
 const ChordArcTooltip = memo(({ arc }) => {
     return (

@@ -6,36 +6,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import pure from 'recompose/pure'
 import LineSlicesItem from './LineSlicesItem'
 
-const LineSlices = ({
-    slices,
-    height,
-    showTooltip,
-    hideTooltip,
-    theme,
-    tooltip,
-    tooltipFormat,
-}) => (
-    <g>
-        {slices.map(slice => (
-            <LineSlicesItem
-                key={slice.id}
-                slice={slice}
-                height={height}
-                showTooltip={showTooltip}
-                hideTooltip={hideTooltip}
-                theme={theme}
-                tooltipFormat={tooltipFormat}
-                tooltip={tooltip}
-            />
-        ))}
-    </g>
-)
+const LineSlices = memo(({ slices, height, tooltip, tooltipFormat }) => {
+    return slices.map(slice => (
+        <LineSlicesItem
+            key={slice.id}
+            slice={slice}
+            height={height}
+            tooltipFormat={tooltipFormat}
+            tooltip={tooltip}
+        />
+    ))
+})
 
+LineSlices.displayName = 'LineSlices'
 LineSlices.propTypes = {
     slices: PropTypes.arrayOf(
         PropTypes.shape({
@@ -72,11 +59,8 @@ LineSlices.propTypes = {
         })
     ).isRequired,
     height: PropTypes.number.isRequired,
-    showTooltip: PropTypes.func.isRequired,
-    hideTooltip: PropTypes.func.isRequired,
-    theme: PropTypes.object.isRequired,
-    tooltip: PropTypes.func,
+    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 }
 
-export default pure(LineSlices)
+export default LineSlices

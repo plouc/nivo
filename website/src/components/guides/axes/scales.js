@@ -23,10 +23,15 @@ export const pointXScale = scalePoint()
     .domain(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'])
 pointXScale.type = 'point'
 
-const timeScaleStart = new Date(2019, 0, 1, 0, 0, 0, 0)
-const timeScaleEnd = new Date(2020, 0, 1, 0, 0, 0, 0)
-
 export const timeXScale = scaleTime()
     .range([0, 280])
-    .domain([timeScaleStart, timeScaleEnd])
+    .domain([new Date(2019, 0, 1, 0, 0, 0, 0), new Date(2020, 0, 1, 0, 0, 0, 0)])
 timeXScale.type = 'time'
+
+export const timeXScaleHours = scaleTime()
+    .range([0, 280])
+    .domain([
+        new Date(Date.UTC(2020, 0, 1, 9, 0, 0, 0)),
+        new Date(Date.UTC(2020, 0, 1, 10, 0, 0, 0)),
+    ])
+timeXScaleHours.type = 'time'

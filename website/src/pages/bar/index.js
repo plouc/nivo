@@ -11,16 +11,35 @@ import { patternDotsDef, patternLinesDef } from '@nivo/core'
 import { ResponsiveBar, BarDefaultProps } from '@nivo/bar'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bar/meta.yml'
-import { generateLightDataSet } from '../../data/components/bar/generator'
+//import { generateLightDataSet } from '../../data/components/bar/generator'
 import mapper from '../../data/components/bar/mapper'
-import { groupsByScope } from '../../data/components/bar/props'
+import { groups } from '../../data/components/bar/props'
 
 const Tooltip = () => {
     /* return custom tooltip */
 }
 
+const generateLightDataSet = () => {
+    return {
+        keys: ["key1", "key2", "key3", "key4", "key5", "key6", "key7", "key8"],
+        data: [
+            {
+                key1: 9512.0976,
+                key2: 4000.0032,
+                key3: 3.4515,
+                key4: 107.1447,
+                key5: 4000.0032,
+                key6: 0,
+                key7: 0,
+                key8: 321.4296,
+                time: "2019-04"
+            }
+        ]
+    }
+}
+
 const initialProperties = {
-    indexBy: 'country',
+    indexBy: 'time',
 
     margin: {
         top: 50,
@@ -34,7 +53,7 @@ const initialProperties = {
     minValue: 'auto',
     maxValue: 'auto',
 
-    groupMode: 'stacked',
+    groupMode: 'grouped',
     layout: 'vertical',
     reverse: false,
 
@@ -155,7 +174,7 @@ const Bar = () => {
             icon="bar"
             flavors={meta.flavors}
             currentFlavor="svg"
-            properties={groupsByScope.Bar}
+            properties={groups}
             initialProperties={initialProperties}
             defaultProperties={BarDefaultProps}
             propertiesMapper={mapper}

@@ -8,7 +8,7 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { useTheme } from '../theming'
+import { useTheme } from '@nivo/core'
 
 const tableStyle = {
     width: '100%',

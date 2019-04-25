@@ -11,7 +11,7 @@ import { ResponsiveSwarmPlot, SwarmPlotDefaultProps } from '@nivo/swarmplot'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/swarmplot/meta.yml'
 import mapper from '../../data/components/swarmplot/mapper'
-import { groupsByScope } from '../../data/components/swarmplot/props'
+import { groups } from '../../data/components/swarmplot/props'
 import { generateLightDataSet } from '../../data/components/swarmplot/generator'
 
 const initialProperties = Object.freeze({
@@ -109,7 +109,7 @@ const ScatterPlot = () => {
             icon="swarmplot"
             flavors={meta.flavors}
             currentFlavor="svg"
-            properties={groupsByScope.SwarmPlot}
+            properties={groups}
             initialProperties={initialProperties}
             defaultProperties={SwarmPlotDefaultProps}
             propertiesMapper={mapper}

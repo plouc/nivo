@@ -10,16 +10,7 @@ import React from 'react'
 import { Annotation } from '@nivo/annotations'
 import { useSwarmPlotAnnotations } from './hooks'
 
-const SwarmPlotAnnotations = ({
-    nodes,
-    annotations,
-    innerWidth,
-    innerHeight,
-
-    animate,
-    motionStiffness,
-    motionDamping,
-}) => {
+const SwarmPlotAnnotations = ({ nodes, annotations, innerWidth, innerHeight }) => {
     const boundAnnotations = useSwarmPlotAnnotations(nodes, annotations)
 
     return boundAnnotations.map((annotation, i) => (
@@ -28,9 +19,6 @@ const SwarmPlotAnnotations = ({
             {...annotation}
             containerWidth={innerWidth}
             containerHeight={innerHeight}
-            animate={animate}
-            motionStiffness={motionStiffness}
-            motionDamping={motionDamping}
         />
     ))
 }

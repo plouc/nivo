@@ -1,8 +1,8 @@
 flavors:
   - flavor: svg
-    path: /sankey
+    path: /sankey/
   - flavor: api
-    path: /sankey/api
+    path: /sankey/api/
 
 Sankey:
   package: '@nivo/sankey'

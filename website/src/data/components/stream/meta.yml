@@ -1,6 +1,6 @@
 flavors:
   - flavor: svg
-    path: /stream
+    path: /stream/
 
 Stream:
   package: '@nivo/stream'

@@ -96,27 +96,6 @@ declare module '@nivo/core' {
         textStyle?: Partial<React.CSSProperties>
     }
 
-    export interface BasicTooltipProps {
-        id: React.ReactNode
-        value?: string | number
-        enableChip?: boolean
-        color: string
-        format?: (value: number | string) => number | string
-        renderContent?: () => React.ReactNode
-        theme: Pick<Theme, 'tooltip'>
-    }
-
-    export class BasicTooltip extends React.Component<BasicTooltipProps> {}
-
-    export interface TableTooltipProps {
-        title?: React.ReactNode
-        rows: React.ReactNode[][]
-        theme: Pick<Theme, 'tooltip'>
-        renderContent?: () => React.ReactNode
-    }
-
-    export class TableTooltip extends React.Component<TableTooltipProps> {}
-
     export type CssMixBlendMode =
         | 'normal'
         | 'multiply'

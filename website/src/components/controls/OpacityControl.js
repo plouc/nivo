@@ -26,7 +26,7 @@ const Row = styled.div`
     margin-bottom: 5px;
 `
 
-const OpacityControl = ({ id, property, value, onChange }) => {
+const OpacityControl = ({ id, property, flavors, currentFlavor, value, onChange }) => {
     const theme = useTheme()
     const handleChange = useCallback(
         event => {
@@ -36,7 +36,13 @@ const OpacityControl = ({ id, property, value, onChange }) => {
     )
 
     return (
-        <Control description={property.description}>
+        <Control
+            id={id}
+            description={property.description}
+            flavors={flavors}
+            currentFlavor={currentFlavor}
+            supportedFlavors={property.flavors}
+        >
             <PropertyHeader id={id} {...property} />
             <Row>
                 <TextInput value={value} onChange={handleChange} isNumber={true} />
@@ -77,6 +83,8 @@ const OpacityControl = ({ id, property, value, onChange }) => {
 OpacityControl.propTypes = {
     id: PropTypes.string.isRequired,
     property: PropTypes.object.isRequired,
+    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
+    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
     value: PropTypes.number.isRequired,
     onChange: PropTypes.func.isRequired,
 }

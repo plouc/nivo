@@ -40,7 +40,15 @@ const Row = styled.div`
     margin-bottom: 5px;
 `
 
-const NumberArrayControl = ({ id, property, options: { unit, items }, value, onChange }) => {
+const NumberArrayControl = ({
+    id,
+    property,
+    flavors,
+    currentFlavor,
+    options: { unit, items },
+    value,
+    onChange,
+}) => {
     const handleChange = useCallback(
         index => event => {
             const updatedArray = [...value]
@@ -51,7 +59,13 @@ const NumberArrayControl = ({ id, property, options: { unit, items }, value, onC
     )
 
     return (
-        <Control description={property.description}>
+        <Control
+            id={id}
+            description={property.description}
+            flavors={flavors}
+            currentFlavor={currentFlavor}
+            supportedFlavors={property.flavors}
+        >
             <PropertyHeader {...property} />
             <Value>
                 <span>value</span>
@@ -100,6 +114,8 @@ const NumberArrayControl = ({ id, property, options: { unit, items }, value, onC
 NumberArrayControl.propTypes = {
     id: PropTypes.string.isRequired,
     property: PropTypes.object.isRequired,
+    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
+    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
     options: PropTypes.shape({
         unit: PropTypes.string,
         items: PropTypes.arrayOf(

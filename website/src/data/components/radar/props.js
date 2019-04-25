@@ -8,14 +8,13 @@
  */
 import { closedCurvePropKeys, DotsItemDefaultProps as dotDefaults } from '@nivo/core'
 import { RadarDefaultProps as defaults, RadarDots } from '@nivo/radar'
-import { motionProperties, getPropertiesGroupsControls } from '../../../lib/componentProperties'
+import { motionProperties, groupProperties } from '../../../lib/componentProperties'
 
 const dotsDefaults = RadarDots.defaultProps
 
 const props = [
     {
         key: 'data',
-        scopes: '*',
         group: 'Base',
         help: 'Chart data.',
         description: `
@@ -43,7 +42,6 @@ const props = [
     },
     {
         key: 'indexBy',
-        scopes: '*',
         group: 'Base',
         help: 'Key to use to index the data.',
         description: `
@@ -56,7 +54,6 @@ const props = [
     },
     {
         key: 'keys',
-        scopes: '*',
         group: 'Base',
         help: 'Keys to use to determine each serie.',
         description: `
@@ -69,7 +66,6 @@ const props = [
     },
     {
         key: 'maxValue',
-        scopes: '*',
         help: 'Maximum value.',
         description: `
             Maximum value, if 'auto',
@@ -89,48 +85,7 @@ const props = [
         },
     },
     {
-        key: 'width',
-        scopes: ['api'],
-        docScopes: '*',
-        help: 'Chart width.',
-        description: `
-            not required if using
-            \`<ResponsiveRadar/>\`.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        scopes: ['api'],
-        docScopes: '*',
-        help: 'Chart height.',
-        description: `
-            not required if using
-            \`<ResponsiveRadar/>\`.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
         key: 'curve',
-        scopes: '*',
         help: 'Curve interpolation.',
         description: `
             Defines the curve factory to use
@@ -149,8 +104,45 @@ const props = [
         },
     },
     {
+        key: 'width',
+        enableControlForFlavors: ['api'],
+        help: 'Chart width.',
+        description: `
+            not required if using
+            \`<ResponsiveRadar/>\`.
+        `,
+        type: 'number',
+        required: true,
+        controlType: 'range',
+        group: 'Base',
+        controlOptions: {
+            unit: 'px',
+            min: 100,
+            max: 1000,
+            step: 5,
+        },
+    },
+    {
+        key: 'height',
+        enableControlForFlavors: ['api'],
+        help: 'Chart height.',
+        description: `
+            not required if using
+            \`<ResponsiveRadar/>\`.
+        `,
+        type: 'number',
+        required: true,
+        controlType: 'range',
+        group: 'Base',
+        controlOptions: {
+            unit: 'px',
+            min: 100,
+            max: 1000,
+            step: 5,
+        },
+    },
+    {
         key: 'margin',
-        scopes: '*',
         help: 'Chart margin.',
         type: 'object',
         required: false,
@@ -159,7 +151,6 @@ const props = [
     },
     {
         key: 'colors',
-        scopes: '*',
         help: 'Defines how to compute slice color.',
         type: 'string | Function | string[]',
         required: false,
@@ -178,7 +169,7 @@ const props = [
     },
     {
         key: 'blendMode',
-        scopes: ['Radar'],
+        flavors: ['svg'],
         help: 'Defines CSS mix-blend-mode property.',
         description: `
             Defines CSS \`mix-blend-mode\` property, see
@@ -276,7 +267,6 @@ const props = [
     },
     {
         key: 'enableDots',
-        scopes: '*',
         help: 'Enable/disable dots.',
         type: 'boolean',
         required: false,
@@ -313,7 +303,6 @@ const props = [
     },
     {
         key: 'dotColor',
-        scopes: '*',
         help: 'Method to compute dots color.',
         type: 'string | object | Function',
         required: false,
@@ -337,7 +326,6 @@ const props = [
     },
     {
         key: 'dotBorderColor',
-        scopes: '*',
         help: 'Method to compute dots border color.',
         type: 'string | object | Function',
         required: false,
@@ -347,7 +335,6 @@ const props = [
     },
     {
         key: 'enableDotLabel',
-        scopes: '*',
         help: 'Enable/disable dots label.',
         type: 'boolean',
         required: false,
@@ -394,7 +381,7 @@ const props = [
     },
     {
         key: 'isInteractive',
-        scopes: ['Radar'],
+        flavors: ['svg'],
         help: 'Enable/disable interactivity.',
         type: 'boolean',
         required: false,
@@ -402,10 +389,7 @@ const props = [
         controlType: 'switch',
         group: 'Interactivity',
     },
-    ...motionProperties(['Radar'], defaults),
+    ...motionProperties(['svg'], defaults),
 ]
 
-export const groupsByScope = {
-    Radar: getPropertiesGroupsControls(props, 'Radar'),
-    api: getPropertiesGroupsControls(props, 'api'),
-}
+export const groups = groupProperties(props)

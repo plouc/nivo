@@ -95,10 +95,6 @@ const Bar = props => {
 
         annotations,
 
-        animate,
-        motionStiffness,
-        motionDamping,
-
         isInteractive,
         getTooltipLabel,
         tooltipFormat,
@@ -108,6 +104,10 @@ const Bar = props => {
         onMouseLeave,
 
         legends,
+
+        animate,
+        motionStiffness,
+        motionDamping,
     } = props
     const options = {
         layout,
@@ -156,7 +156,13 @@ const Bar = props => {
     })
 
     return (
-        <Container isInteractive={isInteractive} theme={theme}>
+        <Container
+            isInteractive={isInteractive}
+            theme={theme}
+            animate={animate}
+            motionStiffness={motionStiffness}
+            motionDamping={motionDamping}
+        >
             {({ showTooltip, hideTooltip }) => {
                 const commonProps = {
                     borderRadius,
@@ -234,14 +240,12 @@ const Bar = props => {
                     grid: (
                         <Grid
                             key="grid"
-                            theme={theme}
                             width={width}
                             height={height}
                             xScale={enableGridX ? result.xScale : null}
                             yScale={enableGridY ? result.yScale : null}
                             xValues={gridXValues}
                             yValues={gridYValues}
-                            {...motionProps}
                         />
                     ),
                     axes: (
@@ -251,12 +255,10 @@ const Bar = props => {
                             yScale={result.yScale}
                             width={width}
                             height={height}
-                            theme={theme}
                             top={axisTop}
                             right={axisRight}
                             bottom={axisBottom}
                             left={axisLeft}
-                            {...motionProps}
                         />
                     ),
                     bars,

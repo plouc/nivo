@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
+import { ThemeProvider, MotionConfigProvider } from '@nivo/core'
 import { Axes } from '@nivo/axes'
 import { linearXScale, linearYScale } from './scales'
 import { FullWidthBanner, DescriptionBlock } from '../../styled'
@@ -28,36 +29,39 @@ const AxesPosition = () => {
                 <div className="guide__illustrations">
                     <svg role="img" width={380} height={260}>
                         <g transform="translate(50,50)">
-                            <Axes
-                                xScale={linearXScale}
-                                yScale={linearYScale}
-                                width={280}
-                                height={160}
-                                theme={theme}
-                                animate={false}
-                                motionStiffness={0}
-                                motionDamping={0}
-                                top={{
-                                    legend: 'axisTop',
-                                    legendPosition: 'middle',
-                                    legendOffset: -32,
-                                }}
-                                right={{
-                                    legend: 'axisRight',
-                                    legendPosition: 'middle',
-                                    legendOffset: 42,
-                                }}
-                                bottom={{
-                                    legend: 'axisBottom',
-                                    legendPosition: 'middle',
-                                    legendOffset: 38,
-                                }}
-                                left={{
-                                    legend: 'axisLeft',
-                                    legendPosition: 'middle',
-                                    legendOffset: -36,
-                                }}
-                            />
+                            <ThemeProvider theme={theme}>
+                                <MotionConfigProvider animate={false}>
+                                    <Axes
+                                        xScale={linearXScale}
+                                        yScale={linearYScale}
+                                        width={280}
+                                        height={160}
+                                        animate={false}
+                                        motionStiffness={0}
+                                        motionDamping={0}
+                                        top={{
+                                            legend: 'axisTop',
+                                            legendPosition: 'middle',
+                                            legendOffset: -32,
+                                        }}
+                                        right={{
+                                            legend: 'axisRight',
+                                            legendPosition: 'middle',
+                                            legendOffset: 42,
+                                        }}
+                                        bottom={{
+                                            legend: 'axisBottom',
+                                            legendPosition: 'middle',
+                                            legendOffset: 38,
+                                        }}
+                                        left={{
+                                            legend: 'axisLeft',
+                                            legendPosition: 'middle',
+                                            legendOffset: -36,
+                                        }}
+                                    />
+                                </MotionConfigProvider>
+                            </ThemeProvider>
                         </g>
                     </svg>
                 </div>

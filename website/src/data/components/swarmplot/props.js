@@ -7,11 +7,7 @@
  * file that was distributed with this source code.
  */
 import { SwarmPlotDefaultProps } from '@nivo/swarmplot'
-import {
-    motionProperties,
-    getPropertiesGroupsControls,
-    axesProperties,
-} from '../../../lib/componentProperties'
+import { motionProperties, axesProperties, groupProperties } from '../../../lib/componentProperties'
 
 const defaults = SwarmPlotDefaultProps
 
@@ -129,6 +125,52 @@ const props = [
         },
     },
     {
+        key: 'width',
+        enableControlForFlavors: ['api'],
+        group: 'Base',
+        help: 'Chart width.',
+        description: `
+            not required if using responsive alternative
+            of the component \`<Responsive*/>\`.
+        `,
+        type: 'number',
+        required: true,
+    },
+    {
+        key: 'height',
+        enableControlForFlavors: ['api'],
+        group: 'Base',
+        help: 'Chart height.',
+        description: `
+            not required if using responsive alternative
+            of the component \`<Responsive*/>\`.
+        `,
+        type: 'number',
+        required: true,
+    },
+    {
+        key: 'pixelRatio',
+        flavors: ['canvas'],
+        help: `Adjust pixel ratio, useful for HiDPI screens.`,
+        required: false,
+        defaultValue: 'Depends on device',
+        type: `number`,
+        controlType: 'range',
+        group: 'Base',
+        controlOptions: {
+            min: 1,
+            max: 2,
+        },
+    },
+    {
+        key: 'margin',
+        help: 'Chart margin.',
+        type: 'object',
+        required: false,
+        controlType: 'margin',
+        group: 'Base',
+    },
+    {
         key: 'forceStrength',
         help: 'Force strength.',
         description: `
@@ -175,54 +217,7 @@ const props = [
         },
     },
     {
-        key: 'pixelRatio',
-        scopes: ['SwarmPlotCanvas'],
-        help: `Adjust pixel ratio, useful for HiDPI screens.`,
-        required: false,
-        defaultValue: 'Depends on device',
-        type: `number`,
-        controlType: 'range',
-        group: 'Layout',
-        controlOptions: {
-            min: 1,
-            max: 2,
-        },
-    },
-    {
-        key: 'width',
-        scopes: ['api'],
-        group: 'Layout',
-        help: 'Chart width.',
-        description: `
-            not required if using responsive alternative
-            of the component \`<Responsive*/>\`.
-        `,
-        type: 'number',
-        required: true,
-    },
-    {
-        key: 'height',
-        scopes: ['api'],
-        group: 'Layout',
-        help: 'Chart height.',
-        description: `
-            not required if using responsive alternative
-            of the component \`<Responsive*/>\`.
-        `,
-        type: 'number',
-        required: true,
-    },
-    {
-        key: 'margin',
-        help: 'Chart margin.',
-        type: 'object',
-        required: false,
-        controlType: 'margin',
-        group: 'Layout',
-    },
-    {
         key: 'layout',
-        scopes: '*',
         help: `Chart layout.`,
         type: 'string',
         required: false,
@@ -435,7 +430,7 @@ const props = [
         type: 'Array<number | string>',
         required: false,
     },
-    ...axesProperties,
+    ...axesProperties(),
     {
         key: 'isInteractive',
         help: 'Enable/disable interactivity.',
@@ -503,11 +498,7 @@ const props = [
             element and will receive the node's data.
         `,
     },
-    ...motionProperties(['SwarmPlot'], defaults),
+    ...motionProperties(['svg'], defaults),
 ]
 
-export const groupsByScope = {
-    SwarmPlot: getPropertiesGroupsControls(props, 'SwarmPlot'),
-    SwarmPlotCanvas: getPropertiesGroupsControls(props, 'SwarmPlotCanvas'),
-    api: getPropertiesGroupsControls(props, 'api'),
-}
+export const groups = groupProperties(props)

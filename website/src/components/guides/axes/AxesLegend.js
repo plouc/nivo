@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
+import { ThemeProvider, MotionConfigProvider } from '@nivo/core'
 import { Axis } from '@nivo/axes'
 import { linearXScale, linearYScale } from './scales'
 import { FullWidthBanner, DescriptionBlock } from '../../styled'
@@ -36,49 +37,51 @@ const AxesLegend = () => {
                 </p>
             </DescriptionBlock>
             <FullWidthBanner>
-                <div
-                    className="guide__illustrations"
-                    style={{ justifyContent: 'center', alignItems: 'center' }}
-                >
-                    <svg role="img" width={380} height={180}>
-                        {axisPositions.map((position, i) => (
-                            <g key={position} transform={`translate(50,${i * 70 + 40})`}>
-                                <Axis
-                                    axis="x"
-                                    scale={linearXScale}
-                                    length={280}
-                                    theme={theme}
-                                    animate={false}
-                                    motionStiffness={0}
-                                    motionDamping={0}
-                                    legend={position}
-                                    legendPosition={position}
-                                    legendOffset={-32}
-                                    ticksPosition="before"
-                                />
-                            </g>
-                        ))}
-                    </svg>
-                    <svg role="img" width={260} height={260}>
-                        {axisPositions.map((position, i) => (
-                            <g key={position} transform={`translate(${i * 90 + 50},50)`}>
-                                <Axis
-                                    axis="y"
-                                    scale={linearYScale}
-                                    length={160}
-                                    theme={theme}
-                                    animate={false}
-                                    motionStiffness={0}
-                                    motionDamping={0}
-                                    legend={position}
-                                    legendPosition={position}
-                                    legendOffset={-32}
-                                    ticksPosition="before"
-                                />
-                            </g>
-                        ))}
-                    </svg>
-                </div>
+                <ThemeProvider theme={theme}>
+                    <MotionConfigProvider animate={false}>
+                        <div
+                            className="guide__illustrations"
+                            style={{ justifyContent: 'center', alignItems: 'center' }}
+                        >
+                            <svg role="img" width={380} height={180}>
+                                {axisPositions.map((position, i) => (
+                                    <g key={position} transform={`translate(50,${i * 70 + 40})`}>
+                                        <Axis
+                                            axis="x"
+                                            scale={linearXScale}
+                                            length={280}
+                                            animate={false}
+                                            motionStiffness={0}
+                                            motionDamping={0}
+                                            legend={position}
+                                            legendPosition={position}
+                                            legendOffset={-32}
+                                            ticksPosition="before"
+                                        />
+                                    </g>
+                                ))}
+                            </svg>
+                            <svg role="img" width={260} height={260}>
+                                {axisPositions.map((position, i) => (
+                                    <g key={position} transform={`translate(${i * 90 + 50},50)`}>
+                                        <Axis
+                                            axis="y"
+                                            scale={linearYScale}
+                                            length={160}
+                                            animate={false}
+                                            motionStiffness={0}
+                                            motionDamping={0}
+                                            legend={position}
+                                            legendPosition={position}
+                                            legendOffset={-32}
+                                            ticksPosition="before"
+                                        />
+                                    </g>
+                                ))}
+                            </svg>
+                        </div>
+                    </MotionConfigProvider>
+                </ThemeProvider>
             </FullWidthBanner>
         </>
     )

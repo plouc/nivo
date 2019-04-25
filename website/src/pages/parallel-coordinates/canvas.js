@@ -13,7 +13,7 @@ import { generateParallelCoordinatesData } from '@nivo/generators'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/parallel-coordinates/meta.yml'
 import mapper from '../../data/components/parallel-coordinates/mapper'
-import { groupsByScope } from '../../data/components/parallel-coordinates/props'
+import { groups } from '../../data/components/parallel-coordinates/props'
 import variables from '../../data/components/parallel-coordinates/variables'
 
 const lineCount = 320
@@ -48,7 +48,7 @@ const ParallelCoordinatesCanvas = () => {
             icon="parallel-coordinates"
             flavors={meta.flavors}
             currentFlavor="canvas"
-            properties={groupsByScope.ParallelCoordinatesCanvas}
+            properties={groups}
             initialProperties={initialProperties}
             defaultProperties={commonDefaultProps}
             propertiesMapper={mapper}
@@ -82,70 +82,5 @@ const ParallelCoordinatesCanvas = () => {
         </ComponentTemplate>
     )
 }
-/*
-const ParallelCoordinatesCanvas = () => {
-    const theme = useTheme()
-    const [settings, setSettings] = useState(initialSettings)
-    const [data, setData] = useState(generateParallelCoordinatesData({ size: lineCount }))
-    const diceRoll = useCallback(
-        () => setData(generateParallelCoordinatesData({ size: lineCount })),
-        [setData]
-    )
-
-    const mappedSettings = mapper(settings)
-
-    const code = generateCode('ResponsiveParallelCoordinatesCanvas', mappedSettings, {
-        pkg: '@nivo/parallel-coordinates',
-        defaults: defaultProps,
-    })
-
-    return (
-        <ComponentPage>
-            <SEO title="ParallelCoordinatesCanvas" keywords={meta.ParallelCoordinatesCanvas.tags} />
-            <ComponentHeader
-                chartClass="ParallelCoordinatesCanvas"
-                tags={meta.ParallelCoordinatesCanvas.tags}
-            />
-            <ComponentFlavorSelector flavors={meta.flavors} current="canvas" />
-            <ComponentDescription description={meta.ParallelCoordinatesCanvas.description} />
-            <ComponentTabs
-                chartClass="parallel-coordinates"
-                code={code}
-                data={data}
-                diceRoll={diceRoll}
-                nodeCount={lineCount}
-                nodeCountWording="lines"
-            >
-                <ResponsiveParallelCoordinatesCanvas
-                    data={data}
-                    {...mappedSettings}
-                    theme={merge({}, theme.nivo, {
-                        axis: {
-                            ticks: {
-                                line: {
-                                    strokeWidth: 2,
-                                    strokeLinecap: 'square',
-                                },
-                            },
-                            domain: {
-                                line: {
-                                    strokeWidth: 2,
-                                    strokeLinecap: 'square',
-                                },
-                            },
-                        },
-                    })}
-                />
-            </ComponentTabs>
-            <ComponentSettings
-                component="ParallelCoordinatesCanvas"
-                settings={settings}
-                onChange={setSettings}
-                groups={groupsByScope.ParallelCoordinatesCanvas}
-            />
-        </ComponentPage>
-    )
-}
-*/
 
 export default ParallelCoordinatesCanvas

@@ -6,12 +6,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import pure from 'recompose/pure'
 import CartesianMarkersItem from './CartesianMarkersItem'
 
-const CartesianMarkers = ({ markers, width, height, xScale, yScale, theme }) => {
+const CartesianMarkers = memo(({ markers, width, height, xScale, yScale, theme }) => {
     if (!markers || markers.length === 0) return null
 
     return (
@@ -28,8 +27,9 @@ const CartesianMarkers = ({ markers, width, height, xScale, yScale, theme }) => 
             ))}
         </g>
     )
-}
+})
 
+CartesianMarkers.displayName = 'CartesianMarkers'
 CartesianMarkers.propTypes = {
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
@@ -59,4 +59,4 @@ CartesianMarkers.propTypes = {
     ),
 }
 
-export default pure(CartesianMarkers)
+export default CartesianMarkers

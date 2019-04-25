@@ -7,7 +7,8 @@
  * file that was distributed with this source code.
  */
 import React, { Fragment, useCallback, memo } from 'react'
-import { SvgWrapper, withContainer, useDimensions, useTheme, useTooltip } from '@nivo/core'
+import { SvgWrapper, withContainer, useDimensions, useTheme } from '@nivo/core'
+import { useTooltip } from '@nivo/tooltip'
 import { GeoMapPropTypes, GeoMapDefaultProps } from './props'
 import GeoGraticule from './GeoGraticule'
 import GeoMapFeature from './GeoMapFeature'
@@ -49,20 +50,20 @@ const GeoMap = memo(props => {
 
     const theme = useTheme()
 
-    const [showTooltip, hideTooltip] = useTooltip()
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
     const handleClick = useCallback(
         (feature, event) => isInteractive && onClick && onClick(feature, event),
         [isInteractive, onClick]
     )
     const handleMouseEnter = useCallback(
         (feature, event) =>
-            isInteractive && Tooltip && showTooltip(<Tooltip feature={feature} />, event),
-        [isInteractive, showTooltip, Tooltip]
+            isInteractive && Tooltip && showTooltipFromEvent(<Tooltip feature={feature} />, event),
+        [isInteractive, showTooltipFromEvent, Tooltip]
     )
     const handleMouseMove = useCallback(
         (feature, event) =>
-            isInteractive && Tooltip && showTooltip(<Tooltip feature={feature} />, event),
-        [isInteractive, showTooltip, Tooltip]
+            isInteractive && Tooltip && showTooltipFromEvent(<Tooltip feature={feature} />, event),
+        [isInteractive, showTooltipFromEvent, Tooltip]
     )
     const handleMouseLeave = useCallback(() => isInteractive && hideTooltip(), [
         isInteractive,

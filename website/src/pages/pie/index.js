@@ -12,7 +12,7 @@ import { generateProgrammingLanguageStats } from '@nivo/generators'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/pie/meta.yml'
 import mapper from '../../data/components/pie/mapper'
-import { groupsByScope } from '../../data/components/pie/props'
+import { groups } from '../../data/components/pie/props'
 
 const DATASET_SIZE = 5
 const generateData = () =>
@@ -106,7 +106,7 @@ const Pie = () => {
             icon="pie"
             flavors={meta.flavors}
             currentFlavor="svg"
-            properties={groupsByScope.Pie}
+            properties={groups}
             initialProperties={initialProperties}
             defaultProperties={PieDefaultProps}
             propertiesMapper={mapper}

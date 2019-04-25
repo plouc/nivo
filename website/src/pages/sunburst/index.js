@@ -12,7 +12,7 @@ import { generateLibTree } from '@nivo/generators'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/sunburst/meta.yml'
 import mapper from '../../data/components/sunburst/mapper'
-import { groupsByScope } from '../../data/components/sunburst/props'
+import { groups } from '../../data/components/sunburst/props'
 
 const initialProperties = {
     margin: {
@@ -50,7 +50,7 @@ const Sunburst = () => {
             icon="sunburst"
             flavors={meta.flavors}
             currentFlavor="svg"
-            properties={groupsByScope.Sunburst}
+            properties={groups}
             initialProperties={initialProperties}
             propertiesMapper={mapper}
             generateData={generateLibTree}

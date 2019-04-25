@@ -10,7 +10,7 @@ import React from 'react'
 import { generateLibTree } from '@nivo/generators'
 import SEO from '../../components/seo'
 import ApiClient from '../../components/components/api-client/ApiClient'
-import { groupsByScope } from '../../data/components/bubble/props'
+import { groups } from '../../data/components/bubble/props'
 import mapper from '../../data/components/bubble/mapper'
 import meta from '../../data/components/bubble/meta.yml'
 
@@ -26,7 +26,7 @@ const BubbleApi = () => {
                 apiPath="/charts/bubble"
                 flavors={meta.flavors}
                 dataProperty="root"
-                controlGroups={groupsByScope.api}
+                controlGroups={groups}
                 propsMapper={mapper}
                 defaultProps={{
                     width: 600,

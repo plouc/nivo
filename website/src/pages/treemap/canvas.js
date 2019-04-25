@@ -12,7 +12,7 @@ import { ResponsiveTreeMapCanvas, TreeMapCanvasDefaultProps } from '@nivo/treema
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/treemap/meta.yml'
 import mapper from '../../data/components/treemap/mapper'
-import { groupsByScope } from '../../data/components/treemap/props'
+import { groups } from '../../data/components/treemap/props'
 import { generateHeavyDataSet } from '../../data/components/treemap/generator'
 
 const initialProperties = {
@@ -62,7 +62,7 @@ const TreeMapCanvas = () => {
             icon="treemap"
             flavors={meta.flavors}
             currentFlavor="canvas"
-            properties={groupsByScope.TreeMapCanvas}
+            properties={groups}
             initialProperties={initialProperties}
             defaultProperties={TreeMapCanvasDefaultProps}
             propertiesMapper={mapper}

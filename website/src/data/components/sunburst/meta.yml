@@ -1,8 +1,8 @@
 flavors:
   - flavor: svg
-    path: /sunburst
+    path: /sunburst/
   - flavor: api
-    path: /sunburst/api
+    path: /sunburst/api/
 
 Sunburst:
   package: '@nivo/sunburst'

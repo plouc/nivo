@@ -75,24 +75,23 @@ export default {
     colors: { scheme: 'nivo' },
     lineWidth: 2,
 
-    enableDots: true,
-    dotSize: 10,
-    dotColor: { theme: 'background' },
-    dotBorderWidth: 2,
-    dotBorderColor: { from: 'color' },
-    enableDotLabel: true,
-    dotLabel: 'y',
-    dotLabelYOffset: -12,
+    enablePoints: true,
+    pointSize: 10,
+    pointColor: { theme: 'background' },
+    pointBorderWidth: 2,
+    pointBorderColor: { from: 'serieColor' },
+    enablePointLabel: false,
+    pointLabel: 'y',
+    pointLabelYOffset: -12,
 
     enableArea: false,
     areaBlendMode: 'normal',
     areaBaselineValue: 0,
     areaOpacity: 0.2,
 
-    animate: true,
-    motionStiffness: 90,
-    motionDamping: 15,
-
     isInteractive: true,
-    enableStackTooltip: true,
+    enableStackTooltip: false,
+
+    enableCrosshair: true,
+    crosshairType: 'bottom-left',
 }

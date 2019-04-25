@@ -8,10 +8,11 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { useTheme, SmartMotion, motionPropTypes } from '@nivo/core'
+import { useTheme, useMotionConfig, SmartMotion } from '@nivo/core'
 
-const AnnotationLink = memo(({ points, isOutline, animate, motionStiffness, motionDamping }) => {
+const AnnotationLink = memo(({ points, isOutline }) => {
     const theme = useTheme()
+    const { animate, springConfig } = useMotionConfig()
 
     if (isOutline && theme.annotations.link.outlineWidth <= 0) {
         return null
@@ -34,11 +35,6 @@ const AnnotationLink = memo(({ points, isOutline, animate, motionStiffness, moti
         return <path fill="none" d={path} style={style} />
     }
 
-    const springConfig = {
-        stiffness: motionStiffness,
-        damping: motionDamping,
-    }
-
     return (
         <SmartMotion
             style={spring => ({
@@ -54,7 +50,6 @@ AnnotationLink.displayName = 'AnnotationLink'
 AnnotationLink.propTypes = {
     points: PropTypes.arrayOf(PropTypes.array).isRequired,
     isOutline: PropTypes.bool.isRequired,
-    ...motionPropTypes,
 }
 AnnotationLink.defaultProps = {
     isOutline: false,

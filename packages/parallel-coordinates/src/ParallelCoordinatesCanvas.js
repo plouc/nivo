@@ -108,7 +108,7 @@ export class ParallelCoordinatesCanvas extends Component {
         const { pixelRatio, outerWidth, outerHeight, theme, isInteractive } = this.props
 
         return (
-            <Container isInteractive={isInteractive} theme={theme}>
+            <Container isInteractive={isInteractive} theme={theme} animate={false}>
                 {() => (
                     <canvas
                         ref={surface => {

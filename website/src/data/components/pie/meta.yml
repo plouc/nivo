@@ -1,10 +1,10 @@
 flavors:
   - flavor: svg
-    path: /pie
+    path: /pie/
   - flavor: canvas
-    path: /pie/canvas
+    path: /pie/canvas/
   - flavor: api
-    path: /pie/api
+    path: /pie/api/
 
 Pie:
   package: '@nivo/pie'

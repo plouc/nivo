@@ -6,9 +6,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import pure from 'recompose/pure'
 import { gradientTypes } from './gradients'
 import { patternTypes } from './patterns'
 
@@ -17,7 +16,7 @@ export const defsMapping = {
     ...patternTypes,
 }
 
-export const Defs = pure(({ defs: definitions }) => {
+export const Defs = memo(({ defs: definitions }) => {
     if (!definitions || definitions.length < 1) return null
 
     return (
@@ -32,6 +31,7 @@ export const Defs = pure(({ defs: definitions }) => {
     )
 })
 
+Defs.displayName = 'Defs'
 Defs.propTypes = {
     defs: PropTypes.arrayOf(
         PropTypes.shape({

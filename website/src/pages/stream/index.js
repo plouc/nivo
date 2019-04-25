@@ -11,7 +11,7 @@ import { ResponsiveStream, StreamDefaultProps } from '@nivo/stream'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/stream/meta.yml'
 import mapper from '../../data/components/stream/mapper'
-import { groupsByScope } from '../../data/components/stream/props'
+import { groups } from '../../data/components/stream/props'
 import { generateLightDataSet } from '../../data/components/stream/generator'
 import defaultSettings from '../../data/components/stream/defaults'
 
@@ -50,7 +50,7 @@ const Stream = () => {
             icon="stream"
             flavors={meta.flavors}
             currentFlavor="svg"
-            properties={groupsByScope.Stream}
+            properties={groups}
             initialProperties={initialProperties}
             defaultProperties={StreamDefaultProps}
             propertiesMapper={mapper}

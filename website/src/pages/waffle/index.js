@@ -10,7 +10,7 @@ import React from 'react'
 import { ResponsiveWaffle, WaffleDefaultProps } from '@nivo/waffle'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/waffle/meta.yml'
-import { groupsByScope } from '../../data/components/waffle/props'
+import { groups } from '../../data/components/waffle/props'
 import mapper from '../../data/components/waffle/mapper'
 
 const generateData = () => [
@@ -105,7 +105,7 @@ const Waffle = () => {
             icon="waffle"
             flavors={meta.flavors}
             currentFlavor="svg"
-            properties={groupsByScope.Waffle}
+            properties={groups}
             propertiesMapper={mapper}
             initialProperties={initialProperties}
             defaultProperties={WaffleDefaultProps}

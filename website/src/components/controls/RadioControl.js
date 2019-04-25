@@ -49,11 +49,17 @@ const Item = styled.label`
     }
 `
 
-const RadioControl = memo(({ property, options, value, onChange }) => {
+const RadioControl = memo(({ id, property, flavors, currentFlavor, options, value, onChange }) => {
     const handleUpdate = useCallback(event => onChange(event.target.value), [onChange])
 
     return (
-        <Control description={property.description}>
+        <Control
+            id={id}
+            description={property.description}
+            flavors={flavors}
+            currentFlavor={currentFlavor}
+            supportedFlavors={property.flavors}
+        >
             <PropertyHeader {...property} />
             <Container>
                 {options.choices.map(choice => (
@@ -75,7 +81,10 @@ const RadioControl = memo(({ property, options, value, onChange }) => {
 
 RadioControl.displayName = 'RadioControl'
 RadioControl.propTypes = {
+    id: PropTypes.string.isRequired,
     property: PropTypes.object.isRequired,
+    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
+    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
     value: PropTypes.string.isRequired,
     options: PropTypes.shape({
         choices: PropTypes.arrayOf(

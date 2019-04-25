@@ -8,12 +8,6 @@
  */
 import PropTypes from 'prop-types'
 
-export const scalePropType = PropTypes.shape({
-    type: PropTypes.string.isRequired,
-    domain: PropTypes.array.isRequired,
-    range: PropTypes.array.isRequired,
-})
-
 export const marginPropType = PropTypes.shape({
     top: PropTypes.number,
     right: PropTypes.number,

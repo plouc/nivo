@@ -6,20 +6,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import pure from 'recompose/pure'
-import { motionPropTypes, SmartMotion, blendModePropType } from '@nivo/core'
+import { useMotionConfig, SmartMotion, blendModePropType } from '@nivo/core'
 
-const LineAreas = ({
-    areaGenerator,
-    areaOpacity,
-    areaBlendMode,
-    lines,
-    animate,
-    motionStiffness,
-    motionDamping,
-}) => {
+const LineAreas = memo(({ areaGenerator, areaOpacity, areaBlendMode, lines }) => {
+    const { animate, springConfig } = useMotionConfig()
+
     if (animate !== true) {
         return (
             <g>
@@ -40,11 +33,6 @@ const LineAreas = ({
                     ))}
             </g>
         )
-    }
-
-    const springConfig = {
-        stiffness: motionStiffness,
-        damping: motionDamping,
     }
 
     return (
@@ -74,12 +62,12 @@ const LineAreas = ({
                 ))}
         </g>
     )
-}
+})
 
+LineAreas.displayName = 'LineAreas'
 LineAreas.propTypes = {
     areaOpacity: PropTypes.number.isRequired,
     areaBlendMode: blendModePropType.isRequired,
-    ...motionPropTypes,
 }
 
-export default pure(LineAreas)
+export default LineAreas

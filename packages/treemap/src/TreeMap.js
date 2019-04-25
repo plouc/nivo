@@ -57,7 +57,13 @@ const TreeMap = ({
         })
 
     return (
-        <Container isInteractive={isInteractive} theme={theme}>
+        <Container
+            isInteractive={isInteractive}
+            theme={theme}
+            animate={animate}
+            motionDamping={motionDamping}
+            motionStiffness={motionStiffness}
+        >
             {({ showTooltip, hideTooltip }) => (
                 <SvgWrapper
                     width={outerWidth}

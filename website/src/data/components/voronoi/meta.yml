@@ -1,6 +1,6 @@
 flavors:
   - flavor: svg
-    path: /voronoi
+    path: /voronoi/
 
 Voronoi:
   package: '@nivo/voronoi'

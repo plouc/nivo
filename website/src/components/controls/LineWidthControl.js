@@ -35,7 +35,7 @@ const Marker = styled.line`
     fill: none;
 `
 
-const LineWidthControl = memo(({ id, property, value, onChange }) => {
+const LineWidthControl = memo(({ id, property, flavors, currentFlavor, value, onChange }) => {
     const handleChange = useCallback(
         event => {
             onChange(Number(event.target.value))
@@ -44,7 +44,13 @@ const LineWidthControl = memo(({ id, property, value, onChange }) => {
     )
 
     return (
-        <Control description={property.description}>
+        <Control
+            id={id}
+            description={property.description}
+            flavors={flavors}
+            currentFlavor={currentFlavor}
+            supportedFlavors={property.flavors}
+        >
             <PropertyHeader id={id} {...property} />
             <Row>
                 <TextInput value={value} onChange={handleChange} unit="px" isNumber={true} />

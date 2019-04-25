@@ -12,7 +12,7 @@ import compose from 'recompose/compose'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import withHandlers from 'recompose/withHandlers'
 import pure from 'recompose/pure'
-import { BasicTooltip } from '@nivo/core'
+import { BasicTooltip } from '@nivo/tooltip'
 
 const SankeyNodesItem = ({
     x,

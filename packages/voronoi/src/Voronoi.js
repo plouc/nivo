@@ -91,7 +91,7 @@ const Voronoi = ({
     }
 
     return (
-        <Container isInteractive={false} theme={theme}>
+        <Container isInteractive={false} theme={theme} animate={false}>
             {(/*{ showTooltip, hideTooltip }*/) => (
                 <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
                     {layers.map((layer, i) => {

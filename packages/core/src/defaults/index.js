@@ -13,7 +13,7 @@ import { nivoCategoricalColors } from '../lib/colors'
 // motion
 export const defaultAnimate = true
 export const defaultMotionStiffness = 90
-export const defaultMotionDamping = 13
+export const defaultMotionDamping = 15
 
 // colors
 export const defaultCategoricalColors = nivoCategoricalColors

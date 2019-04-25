@@ -56,14 +56,14 @@ module.exports = {
 
             lineWidth: Joi.number().min(0),
 
-            enableDots: Joi.boolean(),
-            dotSize: Joi.number().min(0),
-            dotColor: inheritedColor,
-            dotBorderWidth: Joi.number().min(0),
-            dotBorderColor: inheritedColor,
-            enableDotLabel: Joi.boolean(),
-            dotLabel: Joi.string(),
-            dotLabelYOffset: Joi.number(),
+            enablePoints: Joi.boolean(),
+            pointSize: Joi.number().min(0),
+            pointColor: inheritedColor,
+            pointBorderWidth: Joi.number().min(0),
+            pointBorderColor: inheritedColor,
+            enablePointLabel: Joi.boolean(),
+            pointLabel: Joi.string(),
+            pointLabelYOffset: Joi.number(),
 
             enableArea: Joi.boolean(),
             areaBlendMode: common.blendMode,
@@ -86,7 +86,7 @@ module.exports = {
             colorBy: Joi.string(),
         })
     ),
-    runtimeProps: ['width', 'height', 'colors', 'stacked'],
+    runtimeProps: ['width', 'height', 'colors'],
     defaults: {
         margin: { top: 40, right: 50, bottom: 40, left: 50 },
     },

@@ -41,7 +41,7 @@ const Marker = styled.circle`
     fill: ${({ theme }) => theme.colors.accent};
 `
 
-const AngleControl = memo(({ id, property, value, options, onChange }) => {
+const AngleControl = memo(({ id, property, flavors, currentFlavor, value, options, onChange }) => {
     const start = options.start || 0
     const min = options.min || 0
     const max = options.max || 360
@@ -54,7 +54,13 @@ const AngleControl = memo(({ id, property, value, options, onChange }) => {
     )
 
     return (
-        <Control id={id} description={property.description}>
+        <Control
+            id={id}
+            description={property.description}
+            flavors={flavors}
+            currentFlavor={currentFlavor}
+            supportedFlavors={property.flavors}
+        >
             <PropertyHeader id={id} {...property} />
             <Row>
                 <TextInput id={id} value={value} onChange={handleChange} unit="°" isNumber={true} />
@@ -78,6 +84,8 @@ const AngleControl = memo(({ id, property, value, options, onChange }) => {
 AngleControl.propTypes = {
     id: PropTypes.string.isRequired,
     property: PropTypes.object.isRequired,
+    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
+    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
     value: PropTypes.number.isRequired,
     options: PropTypes.shape({
         start: PropTypes.number,

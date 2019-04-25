@@ -9,7 +9,7 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { Motion, spring } from 'react-motion'
-import { motionPropTypes } from '@nivo/core'
+import { useMotionConfig } from '@nivo/core'
 import { defaultProps } from './props'
 import { useComputedAnnotation } from './hooks'
 import AnnotationNote from './AnnotationNote'
@@ -34,10 +34,8 @@ const Annotation = memo(
         noteWidth,
         noteTextOffset,
         note,
-        animate,
-        motionStiffness,
-        motionDamping,
     }) => {
+        const { animate, springConfig } = useMotionConfig()
         const computed = useComputedAnnotation({
             type,
             containerWidth,
@@ -53,57 +51,15 @@ const Annotation = memo(
             noteTextOffset,
         })
 
-        const springConfig = {
-            stiffness: motionStiffness,
-            damping: motionDamping,
-        }
-
         return (
             <>
-                <AnnotationLink
-                    points={computed.points}
-                    isOutline={true}
-                    animate={animate}
-                    motionStiffness={motionStiffness}
-                    motionDamping={motionDamping}
-                />
-                {type === 'circle' && (
-                    <CircleAnnotationOutline
-                        x={x}
-                        y={y}
-                        size={size}
-                        animate={animate}
-                        motionStiffness={motionStiffness}
-                        motionDamping={motionDamping}
-                    />
-                )}
-                {type === 'dot' && (
-                    <DotAnnotationOutline
-                        x={x}
-                        y={y}
-                        size={size}
-                        animate={animate}
-                        motionStiffness={motionStiffness}
-                        motionDamping={motionDamping}
-                    />
-                )}
+                <AnnotationLink points={computed.points} isOutline={true} />
+                {type === 'circle' && <CircleAnnotationOutline x={x} y={y} size={size} />}
+                {type === 'dot' && <DotAnnotationOutline x={x} y={y} size={size} />}
                 {type === 'rect' && (
-                    <RectAnnotationOutline
-                        x={x}
-                        y={y}
-                        width={width}
-                        height={height}
-                        animate={animate}
-                        motionStiffness={motionStiffness}
-                        motionDamping={motionDamping}
-                    />
+                    <RectAnnotationOutline x={x} y={y} width={width} height={height} />
                 )}
-                <AnnotationLink
-                    points={computed.points}
-                    animate={animate}
-                    motionStiffness={motionStiffness}
-                    motionDamping={motionDamping}
-                />
+                <AnnotationLink points={computed.points} />
                 {!animate && (
                     <AnnotationNote x={computed.text[0]} y={computed.text[1]} note={note} />
                 )}
@@ -159,16 +115,10 @@ Annotation.propTypes = {
     noteWidth: PropTypes.number.isRequired,
     noteTextOffset: PropTypes.number.isRequired,
     note: PropTypes.oneOfType([PropTypes.node, PropTypes.func]).isRequired,
-
-    ...motionPropTypes,
 }
 Annotation.defaultProps = {
     noteWidth: defaultProps.noteWidth,
     noteTextOffset: defaultProps.noteTextOffset,
-
-    animate: defaultProps.animate,
-    motionStiffness: defaultProps.motionStiffness,
-    motionDamping: defaultProps.motionDamping,
 }
 
 export default Annotation

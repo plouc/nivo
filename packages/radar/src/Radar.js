@@ -125,7 +125,6 @@ const Radar = memo(
                         indices={indices}
                         label={gridLabel}
                         labelOffset={gridLabelOffset}
-                        {...motionProps}
                     />
                     <RadarShapes
                         data={data}
@@ -138,7 +137,6 @@ const Radar = memo(
                         borderColor={borderColor}
                         fillOpacity={fillOpacity}
                         blendMode={blendMode}
-                        {...motionProps}
                     />
                     {isInteractive && (
                         <RadarTooltip
@@ -168,7 +166,6 @@ const Radar = memo(
                             label={dotLabel}
                             labelFormat={dotLabelFormat}
                             labelYOffset={dotLabelYOffset}
-                            {...motionProps}
                         />
                     )}
                 </g>

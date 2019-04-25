@@ -9,75 +9,52 @@
 import React, { memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import range from 'lodash/range'
-import { motionPropTypes, positionFromAngle, useTheme } from '@nivo/core'
+import { positionFromAngle, useTheme } from '@nivo/core'
 import RadialGridLabels from './RadarGridLabels'
 import RadarGridLevels from './RadarGridLevels'
 
-const RadarGrid = memo(
-    ({
-        indices,
-        levels,
-        shape,
-        radius,
-        angleStep,
-        label,
-        labelOffset,
-        animate,
-        motionStiffness,
-        motionDamping,
-    }) => {
-        const theme = useTheme()
-        const { radii, angles } = useMemo(() => {
-            return {
-                radii: range(levels)
-                    .map(i => (radius / levels) * (i + 1))
-                    .reverse(),
-                angles: range(indices.length).map(i => i * angleStep - Math.PI / 2),
-            }
-        }, [indices, levels, radius, angleStep])
-
-        const motionProps = {
-            animate,
-            motionDamping,
-            motionStiffness,
+const RadarGrid = memo(({ indices, levels, shape, radius, angleStep, label, labelOffset }) => {
+    const theme = useTheme()
+    const { radii, angles } = useMemo(() => {
+        return {
+            radii: range(levels)
+                .map(i => (radius / levels) * (i + 1))
+                .reverse(),
+            angles: range(indices.length).map(i => i * angleStep - Math.PI / 2),
         }
+    }, [indices, levels, radius, angleStep])
 
-        return (
-            <g>
-                {angles.map((angle, i) => {
-                    const position = positionFromAngle(angle, radius)
-                    return (
-                        <line
-                            key={`axis.${i}`}
-                            x1={0}
-                            y1={0}
-                            x2={position.x}
-                            y2={position.y}
-                            {...theme.grid}
-                        />
-                    )
-                })}
-                <RadarGridLevels
-                    shape={shape}
-                    radii={radii}
-                    angleStep={angleStep}
-                    dataLength={indices.length}
-                    theme={theme}
-                    {...motionProps}
-                />
-                <RadialGridLabels
-                    radius={radius}
-                    angles={angles}
-                    indices={indices}
-                    labelOffset={labelOffset}
-                    theme={theme}
-                    label={label}
-                    {...motionProps}
-                />
-            </g>
-        )
-    }
-)
+    return (
+        <g>
+            {angles.map((angle, i) => {
+                const position = positionFromAngle(angle, radius)
+                return (
+                    <line
+                        key={`axis.${i}`}
+                        x1={0}
+                        y1={0}
+                        x2={position.x}
+                        y2={position.y}
+                        {...theme.grid}
+                    />
+                )
+            })}
+            <RadarGridLevels
+                shape={shape}
+                radii={radii}
+                angleStep={angleStep}
+                dataLength={indices.length}
+            />
+            <RadialGridLabels
+                radius={radius}
+                angles={angles}
+                indices={indices}
+                labelOffset={labelOffset}
+                label={label}
+            />
+        </g>
+    )
+})
 
 RadarGrid.displayName = 'RadarGrid'
 RadarGrid.propTypes = {
@@ -88,7 +65,6 @@ RadarGrid.propTypes = {
     angleStep: PropTypes.number.isRequired,
     label: PropTypes.func,
     labelOffset: PropTypes.number.isRequired,
-    ...motionPropTypes,
 }
 
 export default RadarGrid

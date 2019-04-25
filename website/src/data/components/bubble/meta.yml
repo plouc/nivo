@@ -1,12 +1,12 @@
 flavors:
   - flavor: svg
-    path: /bubble
+    path: /bubble/
   - flavor: html
-    path: /bubble/html
+    path: /bubble/html/
   - flavor: canvas
-    path: /bubble/canvas
+    path: /bubble/canvas/
   - flavor: api
-    path: /bubble/api
+    path: /bubble/api/
 
 Bubble:
   package: '@nivo/circle-packing'

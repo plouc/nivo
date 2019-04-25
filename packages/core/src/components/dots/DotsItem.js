@@ -6,42 +6,44 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import pure from 'recompose/pure'
 import { dotsThemePropType } from '../../theming'
 import DotsItemSymbol from './DotsItemSymbol'
 
-const DotsItem = ({
-    x,
-    y,
-    symbol,
-    size,
-    datum,
-    color,
-    borderWidth,
-    borderColor,
-    label,
-    labelTextAnchor,
-    labelYOffset,
-    theme,
-}) => (
-    <g transform={`translate(${x}, ${y})`} style={{ pointerEvents: 'none' }}>
-        {React.createElement(symbol, {
-            size: size,
-            color: color,
-            datum: datum,
-            borderWidth: borderWidth,
-            borderColor: borderColor,
-        })}
-        {label && (
-            <text textAnchor={labelTextAnchor} y={labelYOffset} style={theme.dots.text}>
-                {label}
-            </text>
-        )}
-    </g>
+const DotsItem = memo(
+    ({
+        x,
+        y,
+        symbol,
+        size,
+        datum,
+        color,
+        borderWidth,
+        borderColor,
+        label,
+        labelTextAnchor,
+        labelYOffset,
+        theme,
+    }) => (
+        <g transform={`translate(${x}, ${y})`} style={{ pointerEvents: 'none' }}>
+            {React.createElement(symbol, {
+                size,
+                color,
+                datum,
+                borderWidth,
+                borderColor,
+            })}
+            {label && (
+                <text textAnchor={labelTextAnchor} y={labelYOffset} style={theme.dots.text}>
+                    {label}
+                </text>
+            )}
+        </g>
+    )
 )
 
+DotsItem.displayName = 'DotsItem'
 DotsItem.propTypes = {
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
@@ -52,7 +54,7 @@ DotsItem.propTypes = {
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.string.isRequired,
 
-    symbol: PropTypes.func.isRequired,
+    symbol: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     labelTextAnchor: PropTypes.oneOf(['start', 'middle', 'end']),
@@ -72,4 +74,4 @@ export const DotsItemDefaultProps = {
 
 DotsItem.defaultProps = DotsItemDefaultProps
 
-export default pure(DotsItem)
+export default DotsItem

@@ -50,7 +50,10 @@ const Option = props => {
 
 export default class ColorsControl extends PureComponent {
     static propTypes = {
+        id: PropTypes.string.isRequired,
         property: PropTypes.object.isRequired,
+        flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
+        currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
         onChange: PropTypes.func.isRequired,
         value: PropTypes.string.isRequired,
         options: PropTypes.shape({
@@ -68,7 +71,7 @@ export default class ColorsControl extends PureComponent {
     }
 
     render() {
-        const { property, value, includeSequential } = this.props
+        const { id, property, flavors, currentFlavor, value, includeSequential } = this.props
 
         let options = colors
         if (includeSequential === true) {
@@ -82,7 +85,13 @@ export default class ColorsControl extends PureComponent {
         const selectedOption = options.find(o => o.value === value)
 
         return (
-            <Control description={property.description}>
+            <Control
+                id={id}
+                description={property.description}
+                flavors={flavors}
+                currentFlavor={currentFlavor}
+                supportedFlavors={property.flavors}
+            >
                 <PropertyHeader {...property} />
                 <Select
                     options={options}

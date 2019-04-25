@@ -63,7 +63,7 @@ const Option = props => {
     )
 }
 
-const OrdinalColorsControl = ({ property, value, onChange }) => {
+const OrdinalColorsControl = ({ id, property, flavors, currentFlavor, value, onChange }) => {
     const selectedOption = options.find(o => o.value === value.scheme)
     const handleChange = useCallback(
         option => {
@@ -73,7 +73,13 @@ const OrdinalColorsControl = ({ property, value, onChange }) => {
     )
 
     return (
-        <Control description={property.description}>
+        <Control
+            id={id}
+            description={property.description}
+            flavors={flavors}
+            currentFlavor={currentFlavor}
+            supportedFlavors={property.flavors}
+        >
             <PropertyHeader {...property} />
             <Select
                 options={options}
@@ -98,7 +104,10 @@ const OrdinalColorsControl = ({ property, value, onChange }) => {
 }
 
 OrdinalColorsControl.propTypes = {
+    id: PropTypes.string.isRequired,
     property: PropTypes.object.isRequired,
+    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
+    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
     onChange: PropTypes.func.isRequired,
     value: PropTypes.object.isRequired,
     options: PropTypes.shape({

@@ -6,9 +6,43 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo } from 'react'
+import React, { memo, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+
+const Switch = memo(({ id, value, onChange, colors = {} }) => {
+    const handleChange = useCallback(
+        event => onChange(event.target.checked),
+        [onChange]
+    )
+
+    return (
+        <Wrapper>
+            <Input
+                id={`${id}.switch`}
+                type="checkbox"
+                checked={value}
+                onChange={handleChange}
+                colors={colors}
+            />
+            <label htmlFor={`${id}.switch`} />
+        </Wrapper>
+    )
+})
+
+Switch.displayName = 'Switch'
+Switch.propTypes = {
+    id: PropTypes.string.isRequired,
+    value: PropTypes.bool.isRequired,
+    onChange: PropTypes.func.isRequired,
+    colors: PropTypes.shape({
+        on: PropTypes.string,
+        off: PropTypes.string,
+        dot: PropTypes.string,
+    }),
+}
+
+export default Switch
 
 const Wrapper = styled.span`
     display: inline-block;
@@ -57,26 +91,3 @@ const Input = styled.input`
         transform: translate3d(18px, 0, 0);
     }
 `
-
-const Switch = memo(({ id, value, onChange, colors = {} }) => {
-    return (
-        <Wrapper>
-            <Input id={id} type="checkbox" checked={value} onChange={onChange} colors={colors} />
-            <label htmlFor={id} />
-        </Wrapper>
-    )
-})
-
-Switch.displayName = 'Switch'
-Switch.propTypes = {
-    id: PropTypes.string.isRequired,
-    value: PropTypes.bool.isRequired,
-    onChange: PropTypes.func.isRequired,
-    colors: PropTypes.shape({
-        on: PropTypes.string,
-        off: PropTypes.string,
-        dot: PropTypes.string,
-    }),
-}
-
-export default Switch

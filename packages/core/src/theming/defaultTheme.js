@@ -26,7 +26,9 @@ export const defaultTheme = {
             text: {},
         },
         legend: {
-            text: {},
+            text: {
+                fontSize: 12,
+            },
         },
     },
     grid: {
@@ -74,7 +76,8 @@ export const defaultTheme = {
         line: {
             stroke: '#000000',
             strokeWidth: 1,
-            strokeOpacity: 0.35,
+            strokeOpacity: 0.75,
+            strokeDasharray: '6 6',
         },
     },
     annotations: {

@@ -1,8 +1,8 @@
 flavors:
   - flavor: svg
-    path: /scatterplot
+    path: /scatterplot/
   - flavor: canvas
-    path: /scatterplot/canvas
+    path: /scatterplot/canvas/
 
 ScatterPlot:
   package: '@nivo/scatterplot'

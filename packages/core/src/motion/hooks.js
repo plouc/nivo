@@ -6,8 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { createContext, useContext } from 'react'
+import { useContext } from 'react'
+import { motionConfigContext } from './context'
 
-export const tooltipContext = createContext()
-
-export const useTooltip = () => useContext(tooltipContext)
+export const useMotionConfig = () => useContext(motionConfigContext)

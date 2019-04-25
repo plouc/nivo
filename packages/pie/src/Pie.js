@@ -115,7 +115,7 @@ class Pie extends Component {
                     })
 
                     return (
-                        <Container isInteractive={isInteractive} theme={theme}>
+                        <Container isInteractive={isInteractive} theme={theme} animate={false}>
                             {({ showTooltip, hideTooltip }) => (
                                 <SvgWrapper
                                     width={outerWidth}

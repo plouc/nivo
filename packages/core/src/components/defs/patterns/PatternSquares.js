@@ -6,11 +6,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import pure from 'recompose/pure'
 
-export const PatternSquares = pure(({ id, background, color, size, padding, stagger }) => {
+export const PatternSquares = memo(({ id, background, color, size, padding, stagger }) => {
     let fullSize = size + padding
     const halfPadding = padding / 2
     if (stagger === true) {
@@ -34,6 +33,7 @@ export const PatternSquares = pure(({ id, background, color, size, padding, stag
     )
 })
 
+PatternSquares.displayName = 'PatternSquares'
 PatternSquares.propTypes = {
     id: PropTypes.string.isRequired,
     color: PropTypes.string.isRequired,
@@ -42,7 +42,6 @@ PatternSquares.propTypes = {
     padding: PropTypes.number.isRequired,
     stagger: PropTypes.bool.isRequired,
 }
-
 PatternSquares.defaultProps = {
     color: '#000000',
     background: '#ffffff',

@@ -91,14 +91,14 @@ class HeatMap extends Component {
 
         const nodes = computeNodes(this.props)
 
-        const motionProps = {
-            animate,
-            motionDamping,
-            motionStiffness,
-        }
-
         return (
-            <Container isInteractive={isInteractive} theme={theme}>
+            <Container
+                isInteractive={isInteractive}
+                theme={theme}
+                animate={animate}
+                motionDamping={motionDamping}
+                motionStiffness={motionStiffness}
+            >
                 {({ showTooltip, hideTooltip }) => {
                     const onHover = partial(this.handleNodeHover, showTooltip)
                     const onLeave = partial(this.handleNodeLeave, hideTooltip)
@@ -114,24 +114,20 @@ class HeatMap extends Component {
                             theme={theme}
                         >
                             <Grid
-                                theme={theme}
                                 width={width - offsetX * 2}
                                 height={height - offsetY * 2}
                                 xScale={enableGridX ? xScale : null}
                                 yScale={enableGridY ? yScale : null}
-                                {...motionProps}
                             />
                             <Axes
                                 xScale={xScale}
                                 yScale={yScale}
                                 width={width}
                                 height={height}
-                                theme={theme}
                                 top={axisTop}
                                 right={axisRight}
                                 bottom={axisBottom}
                                 left={axisLeft}
-                                {...motionProps}
                             />
                             {!animate &&
                                 nodes.map(node =>

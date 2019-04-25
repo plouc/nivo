@@ -11,7 +11,7 @@ import { ResponsiveChoroplethCanvas, ChoroplethCanvasDefaultProps } from '@nivo/
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/choropleth/meta.yml'
 import mapper from '../../data/components/geo/mapper'
-import { groupsByScope } from '../../data/components/geo/props'
+import { groups } from '../../data/components/choropleth/props'
 import { generateChoroplethData } from '../../data/components/geo/generator'
 import countries from '../../data/components/geo/world_countries'
 
@@ -20,6 +20,9 @@ const Tooltip = data => {
 }
 
 const initialProperties = {
+    pixelRatio:
+        typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
+
     margin: {
         top: 0,
         right: 0,
@@ -74,7 +77,7 @@ const ChoroplethCanvas = () => {
             icon="choropleth"
             flavors={meta.flavors}
             currentFlavor="canvas"
-            properties={groupsByScope.ChoroplethCanvas}
+            properties={groups}
             initialProperties={initialProperties}
             defaultProperties={ChoroplethCanvasDefaultProps}
             propertiesMapper={mapper}

@@ -66,12 +66,6 @@ const Sankey = ({
     legends,
     legendData,
 }) => {
-    const motionProps = {
-        animate,
-        motionDamping,
-        motionStiffness,
-    }
-
     let isCurrentNode = () => false
     let isCurrentLink = () => false
 
@@ -99,7 +93,13 @@ const Sankey = ({
     }
 
     return (
-        <Container isInteractive={isInteractive} theme={theme}>
+        <Container
+            isInteractive={isInteractive}
+            theme={theme}
+            animate={animate}
+            motionDamping={motionDamping}
+            motionStiffness={motionStiffness}
+        >
             {({ showTooltip, hideTooltip }) => (
                 <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
                     <SankeyLinks
@@ -121,7 +121,9 @@ const Sankey = ({
                         tooltip={linkTooltip}
                         theme={theme}
                         tooltipFormat={tooltipFormat}
-                        {...motionProps}
+                        animate={animate}
+                        motionDamping={motionDamping}
+                        motionStiffness={motionStiffness}
                     />
                     <SankeyNodes
                         nodes={nodes}
@@ -140,7 +142,9 @@ const Sankey = ({
                         tooltip={nodeTooltip}
                         theme={theme}
                         tooltipFormat={tooltipFormat}
-                        {...motionProps}
+                        animate={animate}
+                        motionDamping={motionDamping}
+                        motionStiffness={motionStiffness}
                     />
                     {enableLabels && (
                         <SankeyLabels
@@ -153,7 +157,9 @@ const Sankey = ({
                             labelOrientation={labelOrientation}
                             getLabelTextColor={getLabelTextColor}
                             theme={theme}
-                            {...motionProps}
+                            animate={animate}
+                            motionDamping={motionDamping}
+                            motionStiffness={motionStiffness}
                         />
                     )}
                     {legends.map((legend, i) => (

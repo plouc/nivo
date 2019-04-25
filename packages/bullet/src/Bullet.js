@@ -89,14 +89,14 @@ export class Bullet extends Component {
             }
         })
 
-        const motionProps = {
-            animate,
-            motionDamping,
-            motionStiffness,
-        }
-
         return (
-            <Container isInteractive={isInteractive} theme={theme}>
+            <Container
+                isInteractive={isInteractive}
+                theme={theme}
+                animate={animate}
+                motionStiffness={motionStiffness}
+                motionDamping={motionDamping}
+            >
                 {({ showTooltip, hideTooltip }) => (
                     <SvgWrapper
                         width={outerWidth}
@@ -129,7 +129,9 @@ export class Bullet extends Component {
                                 markerColors={markerColors}
                                 theme={theme}
                                 axisPosition={axisPosition}
-                                {...motionProps}
+                                animate={animate}
+                                motionStiffness={motionStiffness}
+                                motionDamping={motionDamping}
                                 showTooltip={showTooltip}
                                 hideTooltip={hideTooltip}
                                 onRangeClick={onRangeClick}

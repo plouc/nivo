@@ -1,10 +1,16 @@
+/*
+ * This file is part of the nivo project.
+ *
+ * Copyright 2016-present, Raphaël Benitte.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 export { default as Container } from './components/Container'
 export { default as ResponsiveWrapper } from './components/ResponsiveWrapper'
 export { default as SvgWrapper } from './components/SvgWrapper'
-export { default as SmartMotion } from './components/SmartMotion'
 export * from './components/dots'
 export * from './components/defs'
-export * from './tooltip'
 export * from './components/cartesian'
 export * from './hocs'
 export * from './hooks'
@@ -18,4 +24,5 @@ export * from './lib/interactivity'
 export * from './lib/defs'
 export * from './lib/bridge'
 export * from './theming'
+export * from './motion'
 export * from './defaults'

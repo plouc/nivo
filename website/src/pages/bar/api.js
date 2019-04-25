@@ -9,7 +9,7 @@
 import React from 'react'
 import SEO from '../../components/seo'
 import ApiClient from '../../components/components/api-client/ApiClient'
-import { groupsByScope } from '../../data/components/bar/props'
+import { groups } from '../../data/components/bar/props'
 import meta from '../../data/components/bar/meta.yml'
 import mapper from '../../data/components/bar/mapper'
 import { generateLightDataSet } from '../../data/components/bar/generator'
@@ -26,7 +26,7 @@ const BarApi = () => {
                 apiPath="/charts/bar"
                 flavors={meta.flavors}
                 dataProperty="data"
-                controlGroups={groupsByScope.api}
+                controlGroups={groups}
                 propsMapper={mapper}
                 defaultProps={{
                     width: 1200,

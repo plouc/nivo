@@ -7,12 +7,11 @@
  * file that was distributed with this source code.
  */
 import { PieDefaultProps as defaults } from '@nivo/pie'
-import { defsProperties, getPropertiesGroupsControls } from '../../../lib/componentProperties'
+import { defsProperties, groupProperties } from '../../../lib/componentProperties'
 
 const props = [
     {
         key: 'data',
-        scopes: '*',
         group: 'Base',
         help: 'Chart data.',
         description: `
@@ -29,8 +28,7 @@ const props = [
     },
     {
         key: 'width',
-        scopes: ['api'],
-        docScopes: '*',
+        enableControlForFlavors: ['api'],
         help: 'Chart width.',
         description: `
             not required if using
@@ -49,8 +47,7 @@ const props = [
     },
     {
         key: 'height',
-        scopes: ['api'],
-        docScopes: '*',
+        enableControlForFlavors: ['api'],
         help: 'Chart height.',
         description: `
             not required if using
@@ -69,7 +66,7 @@ const props = [
     },
     {
         key: 'pixelRatio',
-        scopes: ['PieCanvas'],
+        flavors: ['canvas'],
         help: `Adjust pixel ratio, useful for HiDPI screens.`,
         required: false,
         defaultValue: 'Depends on device',
@@ -83,7 +80,6 @@ const props = [
     },
     {
         key: 'startAngle',
-        scopes: ['Pie', 'PieCanvas'],
         help: 'Start angle, useful to make gauges for example.',
         type: 'number',
         required: false,
@@ -99,7 +95,6 @@ const props = [
     },
     {
         key: 'endAngle',
-        scopes: ['Pie', 'PieCanvas'],
         help: 'End angle, useful to make gauges for example.',
         type: 'number',
         required: false,
@@ -115,7 +110,6 @@ const props = [
     },
     {
         key: 'fit',
-        scopes: ['Pie', 'PieCanvas'],
         help: `If 'true', pie will be omptimized to occupy more space when using partial pie.`,
         type: 'boolean',
         required: false,
@@ -169,7 +163,6 @@ const props = [
     },
     {
         key: 'sortByValue',
-        scopes: ['Pie', 'PieCanvas'],
         help: `If 'true', arcs will be ordered according to their associated value.`,
         type: 'boolean',
         required: false,
@@ -179,7 +172,6 @@ const props = [
     },
     {
         key: 'margin',
-        scopes: '*',
         help: 'Chart margin.',
         type: 'object',
         required: false,
@@ -188,7 +180,6 @@ const props = [
     },
     {
         key: 'colors',
-        scopes: '*',
         help: 'Defines color range.',
         type: 'string | Function | string[]',
         required: false,
@@ -196,11 +187,10 @@ const props = [
         controlType: 'ordinalColors',
         group: 'Style',
     },
-    ...defsProperties(['Pie', 'api']),
+    ...defsProperties('Style', ['svg', 'api']),
     {
         key: 'showcase pattern usage',
-        scopes: ['Pie', 'api'],
-        excludeFromDoc: true,
+        flavors: ['svg'],
         help: 'Patterns.',
         description: `
             You can use \`defs\` and \`fill\` properties
@@ -407,7 +397,7 @@ const props = [
     },
     {
         key: 'isInteractive',
-        scopes: ['Pie', 'PieCanvas'],
+        flavors: ['svg', 'canvas'],
         group: 'Interactivity',
         help: 'Enable/disable interactivity.',
         type: 'boolean',
@@ -417,7 +407,7 @@ const props = [
     },
     {
         key: 'onClick',
-        scopes: ['Pie', 'PieCanvas'],
+        flavors: ['svg', 'canvas'],
         group: 'Interactivity',
         help: 'onClick handler.',
         description:
@@ -427,7 +417,7 @@ const props = [
     },
     {
         key: 'tooltip',
-        scopes: ['Pie', 'PieCanvas'],
+        flavors: ['svg', 'canvas'],
         group: 'Interactivity',
         type: 'Function',
         required: false,
@@ -450,8 +440,7 @@ const props = [
     },
     {
         key: 'custom tooltip example',
-        scopes: ['Pie', 'PieCanvas'],
-        excludeFromDoc: true,
+        flavors: ['svg', 'canvas'],
         help: 'Showcase custom tooltip.',
         type: 'boolean',
         controlType: 'switch',
@@ -459,8 +448,4 @@ const props = [
     },
 ]
 
-export const groupsByScope = {
-    Pie: getPropertiesGroupsControls(props, 'Pie'),
-    PieCanvas: getPropertiesGroupsControls(props, 'PieCanvas'),
-    api: getPropertiesGroupsControls(props, 'api'),
-}
+export const groups = groupProperties(props)

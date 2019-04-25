@@ -10,13 +10,13 @@ import React from 'react'
 import omit from 'lodash/omit'
 import SEO from '../../components/seo'
 import ApiClient from '../../components/components/api-client/ApiClient'
-import { groupsByScope } from '../../data/components/line/props'
+import { groups } from '../../data/components/line/props'
 import mapper from '../../data/components/line/mapper'
 import defaultSettings from '../../data/components/line/defaults'
-import { generateData } from '../../data/components/line/generator'
+import { generateLightDataSet } from '../../data/components/line/generator'
 import meta from '../../data/components/line/meta.yml'
 
-const data = generateData()
+const data = generateLightDataSet()
 
 const LineApi = () => {
     return (
@@ -28,16 +28,10 @@ const LineApi = () => {
                 flavors={meta.flavors}
                 chartClass="line"
                 dataProperty="data"
-                controlGroups={groupsByScope.api}
+                controlGroups={groups}
                 propsMapper={mapper}
                 defaultProps={{
-                    ...omit(defaultSettings, [
-                        'animate',
-                        'motionDamping',
-                        'motionStiffness',
-                        'isInteractive',
-                        'enableStackTooltip',
-                    ]),
+                    ...omit(defaultSettings, ['isInteractive', 'enableStackTooltip']),
                     data: JSON.stringify(data, null, '  '),
                 }}
             />

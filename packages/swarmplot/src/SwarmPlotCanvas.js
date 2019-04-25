@@ -13,11 +13,11 @@ import {
     withContainer,
     useDimensions,
     useTheme,
-    useTooltip,
 } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { useComputedAnnotations, renderAnnotationsToCanvas } from '@nivo/annotations'
+import { useTooltip } from '@nivo/tooltip'
 import { useVoronoiMesh, renderVoronoiToCanvas, renderVoronoiCellToCanvas } from '@nivo/voronoi'
 import { SwarmPlotCanvasDefaultProps, SwarmPlotCanvasPropTypes } from './props'
 import { useSwarmPlot, useBorderWidth, useSwarmPlotAnnotations } from './hooks'
@@ -237,11 +237,11 @@ const SwarmPlotCanvas = memo(
             computedAnnotations,
         ])
 
-        const [showTooltip, hideTooltip] = useTooltip()
+        const { showTooltipFromEvent, hideTooltip } = useTooltip()
         const showNodeTooltip = useMemo(() => {
-            if (tooltip) return (node, event) => showTooltip(tooltip({ node }), event)
-            return (node, event) => showTooltip(<SwarmPlotTooltip node={node} />, event)
-        }, [showTooltip, tooltip])
+            if (tooltip) return (node, event) => showTooltipFromEvent(tooltip({ node }), event)
+            return (node, event) => showTooltipFromEvent(<SwarmPlotTooltip node={node} />, event)
+        }, [showTooltipFromEvent, tooltip])
 
         const getNodeFromMouseEvent = useCallback(
             event => {
@@ -252,7 +252,7 @@ const SwarmPlotCanvas = memo(
                 const nodeIndex = delaunay.find(x - margin.left, y - margin.top)
                 return nodes[nodeIndex]
             },
-            [canvasEl, margin, innerWidth, innerHeight, delaunay, setCurrentNode]
+            [canvasEl, margin, innerWidth, innerHeight, delaunay]
         )
 
         const handleMouseHover = useCallback(

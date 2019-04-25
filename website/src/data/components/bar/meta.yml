@@ -1,10 +1,10 @@
 flavors:
   - flavor: svg
-    path: /bar
+    path: /bar/
   - flavor: canvas
-    path: /bar/canvas
+    path: /bar/canvas/
   - flavor: api
-    path: /bar/api
+    path: /bar/api/
 
 Bar:
   package: '@nivo/bar'
@@ -26,6 +26,8 @@ Bar:
       link: bar--custom-tooltip
     - label: Custom axis ticks
       link: bar--custom-axis-ticks
+    - label: Race bar chart
+      link: bar-race-chart--demo
   description: |
     Bar chart which can display multiple data series, stacked or side by side. Also
     supports both vertical and horizontal layout, with negative values descending

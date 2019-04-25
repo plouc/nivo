@@ -1,8 +1,8 @@
 flavors:
   - flavor: svg
-    path: /radar
+    path: /radar/
   - flavor: api
-    path: /radar/api
+    path: /radar/api/
 
 Radar:
   package: '@nivo/radar'

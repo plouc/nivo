@@ -12,7 +12,7 @@ import { generateDayCounts } from '@nivo/generators'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/calendar/meta.yml'
 import mapper from '../../data/components/calendar/mapper'
-import { groupsByScope } from '../../data/components/calendar/props'
+import { groups } from '../../data/components/calendar/props'
 
 const Tooltip = data => {
     /* return custom tooltip */
@@ -79,7 +79,7 @@ const Calendar = () => {
             icon="calendar"
             flavors={meta.flavors}
             currentFlavor="svg"
-            properties={groupsByScope.Calendar}
+            properties={groups}
             initialProperties={initialProperties}
             defaultProperties={CalendarDefaultProps}
             propertiesMapper={mapper}

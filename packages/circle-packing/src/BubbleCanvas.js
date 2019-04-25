@@ -90,7 +90,7 @@ class BubbleCanvas extends Component {
         const { outerWidth, outerHeight, pixelRatio, isInteractive, theme } = this.props
 
         return (
-            <Container isInteractive={isInteractive} theme={theme}>
+            <Container isInteractive={isInteractive} theme={theme} animate={false}>
                 {() => (
                     <canvas
                         ref={surface => {

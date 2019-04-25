@@ -8,8 +8,9 @@
  */
 import React, { memo, useRef, useEffect, useCallback } from 'react'
 import { geoContains } from 'd3-geo'
-import { getRelativeCursor, withContainer, useDimensions, useTheme, useTooltip } from '@nivo/core'
+import { getRelativeCursor, withContainer, useDimensions, useTheme } from '@nivo/core'
 import { renderLegendToCanvas } from '@nivo/legends'
+import { useTooltip } from '@nivo/tooltip'
 import { ChoroplethCanvasDefaultProps, ChoroplethCanvasPropTypes } from './props'
 import { useGeoMap, useChoropleth } from './hooks'
 
@@ -144,7 +145,7 @@ const ChoroplethCanvas = memo(
             layers,
         ])
 
-        const [showTooltip, hideTooltip] = useTooltip()
+        const { showTooltipFromEvent, hideTooltip } = useTooltip()
         const handleMouseMove = useCallback(() => {
             if (!isInteractive || !Tooltip) return
 
@@ -155,12 +156,20 @@ const ChoroplethCanvas = memo(
                 projection
             )
             if (feature) {
-                showTooltip(<Tooltip feature={feature} />, event)
+                showTooltipFromEvent(<Tooltip feature={feature} />, event)
             } else {
                 hideTooltip()
             }
             onMouseMove && onMouseMove(feature || null, event)
-        }, [showTooltip, hideTooltip, isInteractive, Tooltip, canvasEl, boundFeatures, projection])
+        }, [
+            showTooltipFromEvent,
+            hideTooltip,
+            isInteractive,
+            Tooltip,
+            canvasEl,
+            boundFeatures,
+            projection,
+        ])
         const handleMouseLeave = useCallback(() => isInteractive && hideTooltip(), [
             isInteractive,
             hideTooltip,

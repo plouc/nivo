@@ -194,6 +194,7 @@ stories.add('using time scales', () => (
         }}
         axisBottom={{
             format: '%b %d',
+            tickValues: 'every 2 days',
         }}
     />
 ))

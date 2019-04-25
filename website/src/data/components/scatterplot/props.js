@@ -7,16 +7,11 @@
  * file that was distributed with this source code.
  */
 import { ScatterPlotDefaultProps as defaults } from '@nivo/scatterplot'
-import {
-    axesProperties,
-    motionProperties,
-    getPropertiesGroupsControls,
-} from '../../../lib/componentProperties'
+import { axesProperties, motionProperties, groupProperties } from '../../../lib/componentProperties'
 
 const props = [
     {
         key: 'data',
-        scopes: '*',
         group: 'Base',
         help: 'Chart data.',
         description: `
@@ -40,7 +35,6 @@ const props = [
     },
     {
         key: 'xScale',
-        scopes: '*',
         type: 'object',
         help: `X scale configuration.`,
         group: 'Base',
@@ -91,7 +85,6 @@ const props = [
     },
     {
         key: 'yScale',
-        scopes: '*',
         type: 'object',
         help: `Y scale configuration.`,
         group: 'Base',
@@ -142,8 +135,7 @@ const props = [
     },
     {
         key: 'width',
-        scopes: ['api'],
-        docScopes: '*',
+        enableControlForFlavors: ['api'],
         description: `
             Not required if using
             \`Responsive*\` component.
@@ -164,8 +156,7 @@ const props = [
     },
     {
         key: 'height',
-        scopes: ['api'],
-        docScopes: '*',
+        enableControlForFlavors: ['api'],
         description: `
             Not required if using
             \`Responsive*\` component.
@@ -185,9 +176,40 @@ const props = [
         },
     },
     {
-        key: 'layers',
-        scopes: ['ScatterPlot'],
+        key: 'pixelRatio',
+        flavors: ['canvas'],
+        help: `Adjust pixel ratio, useful for HiDPI screens.`,
+        required: false,
+        defaultValue: 'Depends on device',
+        type: `number`,
+        controlType: 'range',
         group: 'Base',
+        controlOptions: {
+            min: 1,
+            max: 2,
+        },
+    },
+    {
+        key: 'margin',
+        help: 'Chart margin.',
+        type: 'object',
+        required: false,
+        controlType: 'margin',
+        group: 'Base',
+    },
+    {
+        key: 'colors',
+        help: 'Defines color range.',
+        type: 'string | Function | string[]',
+        required: false,
+        defaultValue: defaults.colors,
+        controlType: 'ordinalColors',
+        group: 'Style',
+    },
+    {
+        key: 'layers',
+        flavors: ['svg'],
+        group: 'Customization',
         help: 'Defines the order of layers.',
         description: `
             Defines the order of layers, available layers are:
@@ -202,41 +224,7 @@ const props = [
         defaultValue: defaults.layers,
     },
     {
-        key: 'pixelRatio',
-        scopes: ['ScatterPlotCanvas'],
-        help: `Adjust pixel ratio, useful for HiDPI screens.`,
-        required: false,
-        defaultValue: 'Depends on device',
-        type: `number`,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            min: 1,
-            max: 2,
-        },
-    },
-    {
-        key: 'margin',
-        scopes: '*',
-        help: 'Chart margin.',
-        type: 'object',
-        required: false,
-        controlType: 'margin',
-        group: 'Base',
-    },
-    {
-        key: 'colors',
-        scopes: '*',
-        help: 'Defines color range.',
-        type: 'string | Function | string[]',
-        required: false,
-        defaultValue: defaults.colors,
-        controlType: 'ordinalColors',
-        group: 'Style',
-    },
-    {
         key: 'symbolSize',
-        scopes: '*',
         help: `Symbol size.`,
         required: false,
         defaultValue: defaults.symbolSize,
@@ -251,7 +239,6 @@ const props = [
     },
     {
         key: 'enableGridX',
-        scopes: '*',
         help: 'Enable/disable x grid.',
         type: 'boolean',
         required: false,
@@ -261,7 +248,6 @@ const props = [
     },
     {
         key: 'enableGridY',
-        scopes: '*',
         help: 'Enable/disable y grid.',
         type: 'boolean',
         required: false,
@@ -269,10 +255,9 @@ const props = [
         controlType: 'switch',
         group: 'Grid & Axes',
     },
-    ...axesProperties,
+    ...axesProperties(),
     {
         key: 'isInteractive',
-        scopes: ['ScatterPlot', 'ScatterPlotCanvas'],
         help: 'Enable/disable interactivity.',
         type: 'boolean',
         required: false,
@@ -282,7 +267,6 @@ const props = [
     },
     {
         key: 'useMesh',
-        scopes: ['ScatterPlot', 'ScatterPlotCanvas'],
         help: 'Use a mesh to detect mouse interactions.',
         type: 'boolean',
         required: false,
@@ -292,7 +276,6 @@ const props = [
     },
     {
         key: 'debugMesh',
-        scopes: ['ScatterPlot', 'ScatterPlotCanvas'],
         help: 'Display mesh used to detect mouse interactions (voronoi cells).',
         type: 'boolean',
         required: false,
@@ -302,7 +285,7 @@ const props = [
     },
     {
         key: 'tooltip',
-        scopes: ['ScatterPlot'],
+        flavors: ['svg'],
         group: 'Interactivity',
         type: 'Function',
         required: false,
@@ -326,16 +309,14 @@ const props = [
     },
     {
         key: 'custom tooltip example',
-        scopes: ['ScatterPlot'],
+        flavors: ['svg'],
         group: 'Interactivity',
-        excludeFromDoc: true,
         help: 'Showcase custom tooltip.',
         type: 'boolean',
         controlType: 'switch',
     },
     {
         key: 'onMouseEnter',
-        scopes: ['ScatterPlot', 'ScatterPlotCanvas'],
         group: 'Interactivity',
         help: 'onMouseEnter handler, it receives target node data and mouse event.',
         type: '(node, event) => void',
@@ -343,7 +324,6 @@ const props = [
     },
     {
         key: 'onMouseMove',
-        scopes: ['ScatterPlot', 'ScatterPlotCanvas'],
         group: 'Interactivity',
         help: 'onMouseMove handler, it receives target node data and mouse event.',
         type: '(node, event) => void',
@@ -351,7 +331,6 @@ const props = [
     },
     {
         key: 'onMouseLeave',
-        scopes: ['ScatterPlot', 'ScatterPlotCanvas'],
         group: 'Interactivity',
         help: 'onMouseLeave handler, it receives target node data and mouse event.',
         type: '(node, event) => void',
@@ -359,16 +338,12 @@ const props = [
     },
     {
         key: 'onClick',
-        scopes: ['ScatterPlot', 'ScatterPlotCanvas'],
         group: 'Interactivity',
         help: 'onClick handler, it receives target node data and mouse event.',
         type: '(node, event) => void',
         required: false,
     },
-    ...motionProperties(['ScatterPlot'], defaults),
+    ...motionProperties(['svg'], defaults),
 ]
 
-export const groupsByScope = {
-    ScatterPlot: getPropertiesGroupsControls(props, 'ScatterPlot'),
-    ScatterPlotCanvas: getPropertiesGroupsControls(props, 'ScatterPlotCanvas'),
-}
+export const groups = groupProperties(props)

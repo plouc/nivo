@@ -12,53 +12,12 @@ import {
     axesProperties,
     motionProperties,
     defsProperties,
-    getPropertiesGroupsControls,
+    groupProperties,
 } from '../../../lib/componentProperties'
 
 const props = [
     {
-        key: 'width',
-        scopes: ['api'],
-        docScopes: '*',
-        description: `
-            not required if using
-            \`<ResponsiveStream/>\`.
-        `,
-        help: 'Chart width.',
-        type: '{number}',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        scopes: ['api'],
-        docScopes: '*',
-        description: `
-            not required if using
-            \`<ResponsiveStream/>\`.
-        `,
-        help: 'Chart height.',
-        type: '{number}',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
         key: 'offsetType',
-        scopes: '*',
         help: 'Offset type.',
         type: 'string',
         required: false,
@@ -73,7 +32,6 @@ const props = [
     },
     {
         key: 'order',
-        scopes: '*',
         help: 'Layers order.',
         type: 'string',
         required: false,
@@ -88,7 +46,6 @@ const props = [
     },
     {
         key: 'curve',
-        scopes: '*',
         description: `
             Defines the curve factory to use
             for the area generator.
@@ -107,8 +64,45 @@ const props = [
         },
     },
     {
+        key: 'width',
+        enableControlForFlavors: ['api'],
+        description: `
+            not required if using
+            \`<ResponsiveStream/>\`.
+        `,
+        help: 'Chart width.',
+        type: '{number}',
+        required: true,
+        controlType: 'range',
+        group: 'Base',
+        controlOptions: {
+            unit: 'px',
+            min: 100,
+            max: 1000,
+            step: 5,
+        },
+    },
+    {
+        key: 'height',
+        enableControlForFlavors: ['api'],
+        description: `
+            not required if using
+            \`<ResponsiveStream/>\`.
+        `,
+        help: 'Chart height.',
+        type: '{number}',
+        required: true,
+        controlType: 'range',
+        group: 'Base',
+        controlOptions: {
+            unit: 'px',
+            min: 100,
+            max: 1000,
+            step: 5,
+        },
+    },
+    {
         key: 'margin',
-        scopes: '*',
         help: 'Chart margin.',
         type: 'object',
         required: false,
@@ -117,7 +111,6 @@ const props = [
     },
     {
         key: 'colors',
-        scopes: '*',
         help: 'Defines how to compute line color.',
         type: 'string | Function',
         required: false,
@@ -136,7 +129,6 @@ const props = [
     },
     {
         key: 'borderWidth',
-        scopes: ['Stream', 'api'],
         help: 'Width of layer border.',
         type: 'number',
         required: false,
@@ -146,7 +138,6 @@ const props = [
     },
     {
         key: 'borderColor',
-        scopes: ['Stream', 'api'],
         description: `
             How to compute border color,
             [see dedicated documentation](self:/guides/colors).
@@ -158,10 +149,9 @@ const props = [
         controlType: 'inheritedColor',
         group: 'Style',
     },
-    ...defsProperties(['Stream']),
+    ...defsProperties('Style'),
     {
         key: 'enableGridX',
-        scopes: '*',
         help: 'Enable/disable x grid.',
         type: 'boolean',
         required: false,
@@ -171,7 +161,6 @@ const props = [
     },
     {
         key: 'enableGridY',
-        scopes: '*',
         help: 'Enable/disable y grid.',
         type: 'boolean',
         required: false,
@@ -179,10 +168,9 @@ const props = [
         controlType: 'switch',
         group: 'Grid & Axes',
     },
-    ...axesProperties,
+    ...axesProperties(),
     {
         key: 'enableDots',
-        scopes: ['Stream'],
         help: 'Enable/disable dots.',
         type: 'boolean',
         required: false,
@@ -192,7 +180,8 @@ const props = [
     },
     {
         key: 'renderDot',
-        scopes: ['Stream'],
+        group: 'Dots',
+        flavors: ['svg'],
         help: 'Custom rendering function for dots.',
         type: 'Function',
         required: false,
@@ -235,7 +224,6 @@ const props = [
     },
     {
         key: 'dotBorderColor',
-        scopes: '*',
         help: 'Method to compute dots border color.',
         type: 'string | object | Function',
         required: false,
@@ -245,7 +233,7 @@ const props = [
     },
     {
         key: 'isInteractive',
-        scopes: ['Stream'],
+        flavors: ['svg'],
         help: 'Enable/disable interactivity.',
         type: 'boolean',
         required: false,
@@ -255,7 +243,7 @@ const props = [
     },
     {
         key: 'enableStackTooltip',
-        scopes: ['Stream'],
+        flavors: ['svg'],
         help: `Enable/disable stack tooltip ('isInteractive' must also be 'true').`,
         type: 'boolean',
         required: false,
@@ -263,9 +251,7 @@ const props = [
         controlType: 'switch',
         group: 'Interactivity',
     },
-    ...motionProperties(['Stream'], defaults),
+    ...motionProperties(['svg'], defaults),
 ]
 
-export const groupsByScope = {
-    Stream: getPropertiesGroupsControls(props, 'Stream'),
-}
+export const groups = groupProperties(props)

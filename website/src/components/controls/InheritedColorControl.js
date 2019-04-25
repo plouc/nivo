@@ -26,6 +26,8 @@ const themeProperties = ['background', 'grid.line.stroke', 'labels.text.fill'].m
 const InheritedColorControl = ({
     id,
     property,
+    flavors,
+    currentFlavor,
     value,
     defaultCustomColor,
     defaultThemeProperty,
@@ -132,7 +134,13 @@ const InheritedColorControl = ({
     }
 
     return (
-        <Control description={property.description}>
+        <Control
+            id={id}
+            description={property.description}
+            flavors={flavors}
+            currentFlavor={currentFlavor}
+            supportedFlavors={property.flavors}
+        >
             <PropertyHeader {...property} />
             <TypeSelector>
                 <TypeSelectorItem
@@ -162,6 +170,8 @@ const InheritedColorControl = ({
 
 InheritedColorControl.propTypes = {
     property: PropTypes.object.isRequired,
+    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
+    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
     onChange: PropTypes.func.isRequired,
     inheritableProperties: PropTypes.arrayOf(PropTypes.string).isRequired,
     defaultCustomColor: PropTypes.string.isRequired,

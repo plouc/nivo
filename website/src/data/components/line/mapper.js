@@ -10,7 +10,7 @@ import { settingsMapper, mapAxis } from '../../../lib/settings'
 
 export default settingsMapper(
     {
-        dotLabel: value => {
+        pointLabel: value => {
             if (value === `d => \`\${d.x}: \${d.y}\``) return d => `${d.x}: ${d.y}`
             return value
         },

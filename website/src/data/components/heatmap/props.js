@@ -7,16 +7,11 @@
  * file that was distributed with this source code.
  */
 import { HeatMapDefaultProps as defaults } from '@nivo/heatmap'
-import {
-    axesProperties,
-    motionProperties,
-    getPropertiesGroupsControls,
-} from '../../../lib/componentProperties'
+import { axesProperties, motionProperties, groupProperties } from '../../../lib/componentProperties'
 
 const props = [
     {
         key: 'data',
-        scopes: '*',
         group: 'Base',
         help: 'Chart data.',
         type: 'object[]',
@@ -24,7 +19,6 @@ const props = [
     },
     {
         key: 'indexBy',
-        scopes: '*',
         group: 'Base',
         help: 'Key to use to index the data.',
         description: `
@@ -40,7 +34,6 @@ const props = [
     },
     {
         key: 'keys',
-        scopes: '*',
         group: 'Base',
         help: 'Keys to use to determine each serie.',
         type: 'string[]',
@@ -48,62 +41,7 @@ const props = [
         defaultValue: defaults.keys,
     },
     {
-        key: 'width',
-        scopes: ['api'],
-        docScopes: '*',
-        help: 'Chart width.',
-        description: `
-            not required if using
-            \`<ResponsiveHeatMap/>\`.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1200,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        scopes: ['api'],
-        docScopes: '*',
-        help: 'Chart height.',
-        description: `
-            not required if using
-            \`<ResponsiveHeatMap/>\`.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1200,
-            step: 5,
-        },
-    },
-    {
-        key: 'pixelRatio',
-        scopes: ['HeatMapCanvas'],
-        help: `Adjust pixel ratio, useful for HiDPI screens.`,
-        required: false,
-        defaultValue: 'Depends on device',
-        type: `number`,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            min: 1,
-            max: 2,
-        },
-    },
-    {
         key: 'minValue',
-        scopes: '*',
         help: 'Minimum value.',
         description: `
             Minimum value.
@@ -126,7 +64,6 @@ const props = [
     },
     {
         key: 'maxValue',
-        scopes: '*',
         help: 'Maximum value.',
         description: `
             Maximum value. If 'auto', will pick the highest value
@@ -148,7 +85,6 @@ const props = [
     },
     {
         key: 'forceSquare',
-        scopes: '*',
         help: 'Force square cells (width = height).',
         required: false,
         defaultValue: defaults.forceSquare,
@@ -157,17 +93,7 @@ const props = [
         group: 'Base',
     },
     {
-        key: 'margin',
-        scopes: '*',
-        help: 'Chart margin.',
-        type: 'object',
-        required: false,
-        controlType: 'margin',
-        group: 'Base',
-    },
-    {
         key: 'sizeVariation',
-        scopes: '*',
         help: 'Cell size variation.',
         description: `Size variation (0~1), if value is 0 size won't be affected. If you use for example the value 0.3, cell width/height will vary between 0.7~1 according to its corresponding value.`,
         required: false,
@@ -183,7 +109,6 @@ const props = [
     },
     {
         key: 'padding',
-        scopes: '*',
         help: 'Padding.',
         required: false,
         defaultValue: defaults.padding,
@@ -197,8 +122,67 @@ const props = [
         },
     },
     {
+        key: 'width',
+        enableControlForFlavors: ['api'],
+        help: 'Chart width.',
+        description: `
+            not required if using
+            \`<ResponsiveHeatMap/>\`.
+        `,
+        type: 'number',
+        required: true,
+        controlType: 'range',
+        group: 'Base',
+        controlOptions: {
+            unit: 'px',
+            min: 100,
+            max: 1200,
+            step: 5,
+        },
+    },
+    {
+        key: 'height',
+        enableControlForFlavors: ['api'],
+        help: 'Chart height.',
+        description: `
+            not required if using
+            \`<ResponsiveHeatMap/>\`.
+        `,
+        type: 'number',
+        required: true,
+        controlType: 'range',
+        group: 'Base',
+        controlOptions: {
+            unit: 'px',
+            min: 100,
+            max: 1200,
+            step: 5,
+        },
+    },
+    {
+        key: 'pixelRatio',
+        flavors: ['canvas'],
+        help: `Adjust pixel ratio, useful for HiDPI screens.`,
+        required: false,
+        defaultValue: 'Depends on device',
+        type: `number`,
+        controlType: 'range',
+        group: 'Base',
+        controlOptions: {
+            min: 1,
+            max: 2,
+        },
+    },
+    {
+        key: 'margin',
+        help: 'Chart margin.',
+        type: 'object',
+        required: false,
+        controlType: 'margin',
+        group: 'Base',
+    },
+    {
         key: 'cellShape',
-        scopes: '*',
         help: `Cell shape/component.`,
         description: `
             Cell shape, can be one of: \`'rect'\`, \`'circle'\`,
@@ -234,7 +218,6 @@ const props = [
     },
     {
         key: 'colors',
-        scopes: '*',
         help: 'Defines color range.',
         type: 'string | Function | string[]',
         required: false,
@@ -244,7 +227,6 @@ const props = [
     },
     {
         key: 'cellOpacity',
-        scopes: '*',
         help: 'Cell opacity (0~1).',
         required: false,
         defaultValue: defaults.cellOpacity,
@@ -254,7 +236,6 @@ const props = [
     },
     {
         key: 'cellBorderWidth',
-        scopes: '*',
         help: 'Cell border width.',
         required: false,
         defaultValue: defaults.cellBorderWidth,
@@ -264,7 +245,6 @@ const props = [
     },
     {
         key: 'cellBorderColor',
-        scopes: '*',
         help: 'Method to compute cell border color.',
         description: `
             how to compute cell border color,
@@ -278,7 +258,6 @@ const props = [
     },
     {
         key: 'enableLabels',
-        scopes: '*',
         help: 'Enable/disable labels.',
         type: 'boolean',
         required: false,
@@ -288,7 +267,6 @@ const props = [
     },
     {
         key: 'labelTextColor',
-        scopes: '*',
         help: 'Method to compute label text color.',
         description: `
             how to compute label text color,
@@ -302,7 +280,6 @@ const props = [
     },
     {
         key: 'enableGridX',
-        scopes: '*',
         help: 'Enable/disable x grid.',
         type: 'boolean',
         required: false,
@@ -312,7 +289,6 @@ const props = [
     },
     {
         key: 'enableGridY',
-        scopes: '*',
         help: 'Enable/disable y grid.',
         type: 'boolean',
         required: false,
@@ -320,10 +296,10 @@ const props = [
         controlType: 'switch',
         group: 'Grid & Axes',
     },
-    ...axesProperties,
+    ...axesProperties(),
     {
         key: 'isInteractive',
-        scopes: ['HeatMap', 'HeatMapCanvas'],
+        flavors: ['svg', 'canvas'],
         help: 'Enable/disable interactivity.',
         type: 'boolean',
         required: false,
@@ -333,7 +309,7 @@ const props = [
     },
     {
         key: 'onClick',
-        scopes: ['HeatMap', 'HeatMapCanvas'],
+        flavors: ['svg', 'canvas'],
         group: 'Interactivity',
         type: '(cell, event) => void',
         required: false,
@@ -359,7 +335,7 @@ const props = [
     },
     {
         key: 'hoverTarget',
-        scopes: ['HeatMap', 'HeatMapCanvas'],
+        flavors: ['svg', 'canvas'],
         help: 'Defines hover behavior.',
         description: `
             Defines hover behavior:
@@ -383,8 +359,8 @@ const props = [
     },
     {
         key: 'cellHoverOpacity',
-        scopes: ['HeatMap', 'HeatMapCanvas'],
-        help: 'Cell opacity on hover (0~1).',
+        flavors: ['svg', 'canvas'],
+        help: 'Cell opacity on hover.',
         required: false,
         defaultValue: defaults.cellHoverOpacity,
         type: 'number',
@@ -393,19 +369,15 @@ const props = [
     },
     {
         key: 'cellHoverOthersOpacity',
-        scopes: ['HeatMap', 'HeatMapCanvas'],
-        help: 'Cell opacity when not hovered (0~1).',
+        flavors: ['svg', 'canvas'],
+        help: 'Cell opacity when not hovered.',
         required: false,
         defaultValue: defaults.cellHoverOthersOpacity,
         type: 'number',
         controlType: 'opacity',
         group: 'Interactivity',
     },
-    ...motionProperties(['HeatMap'], defaults),
+    ...motionProperties(['svg'], defaults),
 ]
 
-export const groupsByScope = {
-    HeatMap: getPropertiesGroupsControls(props, 'HeatMap'),
-    HeatMapCanvas: getPropertiesGroupsControls(props, 'HeatMapCanvas'),
-    api: getPropertiesGroupsControls(props, 'api'),
-}
+export const groups = groupProperties(props)

@@ -12,7 +12,7 @@ import { ResponsiveChord } from '@nivo/chord'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/chord/meta.yml'
 import mapper from '../../data/components/chord/mapper'
-import { groupsByScope } from '../../data/components/chord/props'
+import { groups } from '../../data/components/chord/props'
 
 const MATRIX_SIZE = 5
 
@@ -104,7 +104,7 @@ const Chord = () => {
             icon="chord"
             flavors={meta.flavors}
             currentFlavor="svg"
-            properties={groupsByScope.Chord}
+            properties={groups}
             initialProperties={initialProperties}
             propertiesMapper={mapper}
             codePropertiesMapper={(properties, data) => ({

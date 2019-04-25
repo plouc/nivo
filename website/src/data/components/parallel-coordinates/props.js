@@ -8,12 +8,11 @@
  */
 import { lineCurvePropKeys } from '@nivo/core'
 import { commonDefaultProps as defaults } from '@nivo/parallel-coordinates'
-import { motionProperties, getPropertiesGroupsControls } from '../../../lib/componentProperties'
+import { motionProperties, groupProperties } from '../../../lib/componentProperties'
 
 const props = [
     {
         key: 'data',
-        scopes: '*',
         group: 'Base',
         help: 'Chart data.',
         type: 'Array<object | Array>',
@@ -21,7 +20,6 @@ const props = [
     },
     {
         key: 'variables',
-        scopes: '*',
         type: 'object[]',
         help: 'Variables configuration.',
         description: `
@@ -82,87 +80,23 @@ const props = [
                         max: 100,
                     },
                 },
-                {
-                    key: 'padding',
-                    help: 'Outer padding (0~1).',
-                    type: `number`,
-                    controlType: 'range',
-                    controlOptions: {
-                        when: ({ type }) => type === 'point',
-                        min: 0,
-                        max: 1,
-                        step: 0.01,
-                    },
-                },
+                // {
+                //     key: 'padding',
+                //     help: 'Outer padding (0~1).',
+                //     type: `number`,
+                //     controlType: 'range',
+                //     controlOptions: {
+                //         when: ({ type }) => type === 'point',
+                //         min: 0,
+                //         max: 1,
+                //         step: 0.01,
+                //     },
+                // },
             ],
         },
     },
     {
-        key: 'width',
-        scopes: ['api'],
-        docScopes: '*',
-        help: 'Chart width.',
-        description: `
-            not required if using
-            \`ResponsiveParallelCoords\`.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        scopes: ['api'],
-        docScopes: '*',
-        help: 'Chart height.',
-        description: `
-            not required if using
-            \`ResponsiveParallelCoords\`.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'pixelRatio',
-        scopes: ['ParallelCoordinatesCanvas'],
-        help: `Adjust pixel ratio, useful for HiDPI screens.`,
-        required: false,
-        defaultValue: 'Depends on device',
-        type: `number`,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            min: 1,
-            max: 2,
-        },
-    },
-    {
-        key: 'margin',
-        scopes: '*',
-        help: 'Chart margin.',
-        type: 'object',
-        required: false,
-        controlType: 'margin',
-        group: 'Base',
-    },
-    {
         key: 'layout',
-        scopes: '*',
         help: `Chart layout.`,
         type: 'string',
         required: false,
@@ -178,7 +112,6 @@ const props = [
     },
     {
         key: 'curve',
-        scopes: '*',
         help: 'Curve interpolation.',
         description: `
             Defines the curve factory to use for the line generator.
@@ -197,7 +130,6 @@ const props = [
     },
     {
         key: 'axesPlan',
-        scopes: '*',
         help: `Axes plan.`,
         type: `string`,
         required: false,
@@ -213,7 +145,6 @@ const props = [
     },
     {
         key: 'axesTicksPosition',
-        scopes: '*',
         help: `Axes ticks position.`,
         type: `string`,
         required: false,
@@ -225,8 +156,67 @@ const props = [
         },
     },
     {
+        key: 'width',
+        enableControlForFlavors: ['api'],
+        help: 'Chart width.',
+        description: `
+            not required if using
+            \`ResponsiveParallelCoords\`.
+        `,
+        type: 'number',
+        required: true,
+        controlType: 'range',
+        group: 'Base',
+        controlOptions: {
+            unit: 'px',
+            min: 100,
+            max: 1000,
+            step: 5,
+        },
+    },
+    {
+        key: 'height',
+        enableControlForFlavors: ['api'],
+        help: 'Chart height.',
+        description: `
+            not required if using
+            \`ResponsiveParallelCoords\`.
+        `,
+        type: 'number',
+        required: true,
+        controlType: 'range',
+        group: 'Base',
+        controlOptions: {
+            unit: 'px',
+            min: 100,
+            max: 1000,
+            step: 5,
+        },
+    },
+    {
+        key: 'pixelRatio',
+        flavors: ['canvas'],
+        help: `Adjust pixel ratio, useful for HiDPI screens.`,
+        required: false,
+        defaultValue: 'Depends on device',
+        type: `number`,
+        controlType: 'range',
+        group: 'Base',
+        controlOptions: {
+            min: 1,
+            max: 2,
+        },
+    },
+    {
+        key: 'margin',
+        help: 'Chart margin.',
+        type: 'object',
+        required: false,
+        controlType: 'margin',
+        group: 'Base',
+    },
+    {
         key: 'colors',
-        scopes: '*',
         help: 'Defines color range.',
         type: 'string | Function | string[]',
         required: false,
@@ -234,35 +224,33 @@ const props = [
         controlType: 'ordinalColors',
         group: 'Style',
     },
-    {
-        key: 'colorBy',
-        scopes: '*',
-        help:
-            'Property used to determine line color. If a function is provided, it will receive current line data and must return a valid color.',
-        required: false,
-        defaultValue: defaults.colorBy,
-        controlType: 'choices',
-        group: 'Style',
-        controlOptions: {
-            choices: [
-                {
-                    label: 'index',
-                    value: 'index',
-                },
-                {
-                    label: 'target',
-                    value: 'target',
-                },
-                {
-                    label: `custom using 'color' variable`,
-                    value: `custom using 'color' variable`,
-                },
-            ],
-        },
-    },
+    // {
+    //     key: 'colorBy',
+    //     help:
+    //         'Property used to determine line color. If a function is provided, it will receive current line data and must return a valid color.',
+    //     required: false,
+    //     defaultValue: defaults.colorBy,
+    //     controlType: 'choices',
+    //     group: 'Style',
+    //     controlOptions: {
+    //         choices: [
+    //             {
+    //                 label: 'index',
+    //                 value: 'index',
+    //             },
+    //             {
+    //                 label: 'target',
+    //                 value: 'target',
+    //             },
+    //             {
+    //                 label: `custom using 'color' variable`,
+    //                 value: `custom using 'color' variable`,
+    //             },
+    //         ],
+    //     },
+    // },
     {
         key: 'strokeWidth',
-        scopes: '*',
         help: 'Lines stroke width.',
         type: 'number',
         required: false,
@@ -272,7 +260,6 @@ const props = [
     },
     {
         key: 'lineOpacity',
-        scopes: '*',
         help: 'Lines opacity.',
         type: 'number',
         required: false,
@@ -280,11 +267,7 @@ const props = [
         controlType: 'opacity',
         group: 'Style',
     },
-    ...motionProperties(['ParallelCoordinates'], defaults),
+    ...motionProperties(['svg'], defaults),
 ]
 
-export const groupsByScope = {
-    ParallelCoordinates: getPropertiesGroupsControls(props, 'ParallelCoordinates'),
-    ParallelCoordinatesCanvas: getPropertiesGroupsControls(props, 'ParallelCoordinatesCanvas'),
-    api: getPropertiesGroupsControls(props, 'api'),
-}
+export const groups = groupProperties(props)

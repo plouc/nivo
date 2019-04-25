@@ -26,6 +26,7 @@
     "@nivo/colors": "0.56.2",
     "@nivo/core": "0.56.2",
     "@nivo/legends": "0.56.2",
+    "@nivo/tooltip": "0.56.2",
     "lodash.partial": "^4.2.1",
     "lodash.range": "^3.2.0",
     "react-motion": "^0.5.2",

@@ -12,12 +12,14 @@ import { ResponsiveLine, LineDefaultProps } from '@nivo/line'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/line/meta.yml'
 import mapper from '../../data/components/line/mapper'
-import { groupsByScope } from '../../data/components/line/props'
+import { groups } from '../../data/components/line/props'
 import defaultSettings from '../../data/components/line/defaults'
-import { generateData } from '../../data/components/line/generator'
+import { generateLightDataSet } from '../../data/components/line/generator'
 
 const initialProperties = {
     ...omit(defaultSettings, ['width', 'height']),
+    useMesh: true,
+    debugMesh: false,
     legends: [
         {
             anchor: 'bottom-right',
@@ -47,6 +49,9 @@ const initialProperties = {
             ],
         },
     ],
+    animate: true,
+    motionStiffness: 90,
+    motionDamping: 15,
 }
 
 const Line = () => {
@@ -57,14 +62,31 @@ const Line = () => {
             icon="line"
             flavors={meta.flavors}
             currentFlavor="svg"
-            properties={groupsByScope.Line}
+            properties={groups}
             initialProperties={initialProperties}
             defaultProperties={LineDefaultProps}
             propertiesMapper={mapper}
-            generateData={generateData}
+            generateData={generateLightDataSet}
         >
-            {(properties, data, theme) => {
-                return <ResponsiveLine data={data} {...properties} theme={theme} />
+            {(properties, data, theme, logAction) => {
+                return (
+                    <ResponsiveLine
+                        data={data}
+                        {...properties}
+                        theme={theme}
+                        enableStackTooltip={true}
+                        onClick={point => {
+                            logAction({
+                                type: 'click',
+                                label: `[point] serie: ${point.serieId}, x: ${point.data.x}, y: ${
+                                    point.data.y
+                                }`,
+                                color: point.serieColor,
+                                data: point,
+                            })
+                        }}
+                    />
+                )
             }}
         </ComponentTemplate>
     )
