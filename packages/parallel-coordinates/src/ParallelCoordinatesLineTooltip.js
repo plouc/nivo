@@ -8,7 +8,8 @@
  */
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { themePropType, TableTooltip } from '@nivo/core'
+import { themePropType } from '@nivo/core'
+import { TableTooltip } from '@nivo/tooltip'
 
 export default class ParallelCoordinatesLineTooltip extends PureComponent {
     static propTypes = {

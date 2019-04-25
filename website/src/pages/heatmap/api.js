@@ -9,7 +9,7 @@
 import React from 'react'
 import SEO from '../../components/seo'
 import ApiClient from '../../components/components/api-client/ApiClient'
-import { groupsByScope } from '../../data/components/heatmap/props'
+import { groups } from '../../data/components/heatmap/props'
 import mapper from '../../data/components/heatmap/mapper'
 import { generateLightDataSet } from '../../data/components/heatmap/generator'
 import meta from '../../data/components/heatmap/meta.yml'
@@ -26,7 +26,7 @@ const HeatMapApi = () => {
                 apiPath="/charts/heatmap"
                 flavors={meta.flavors}
                 dataProperty="data"
-                controlGroups={groupsByScope.api}
+                controlGroups={groups}
                 propsMapper={mapper}
                 defaultProps={{
                     width: 800,

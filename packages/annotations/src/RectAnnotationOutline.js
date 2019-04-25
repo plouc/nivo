@@ -9,21 +9,59 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { Motion, spring } from 'react-motion'
-import { motionPropTypes, useTheme } from '@nivo/core'
+import { useMotionConfig, useTheme } from '@nivo/core'
 
-const RectAnnotationOutline = memo(
-    ({ x, y, width, height, animate, motionStiffness, motionDamping }) => {
-        const theme = useTheme()
+const RectAnnotationOutline = memo(({ x, y, width, height }) => {
+    const theme = useTheme()
+    const { animate, springConfig } = useMotionConfig()
 
-        if (!animate) {
-            return (
+    if (!animate) {
+        return (
+            <>
+                {theme.annotations.outline.outlineWidth > 0 && (
+                    <rect
+                        x={x - width / 2}
+                        y={y - height / 2}
+                        width={width}
+                        height={height}
+                        style={{
+                            ...theme.annotations.outline,
+                            fill: 'none',
+                            strokeWidth:
+                                theme.annotations.outline.strokeWidth +
+                                theme.annotations.outline.outlineWidth * 2,
+                            stroke: theme.annotations.outline.outlineColor,
+                        }}
+                    />
+                )}
+                <rect
+                    x={x - width / 2}
+                    y={y - height / 2}
+                    width={width}
+                    height={height}
+                    style={theme.annotations.outline}
+                />
+            </>
+        )
+    }
+
+    return (
+        <Motion
+            style={{
+                x: spring(x - width / 2, springConfig),
+                y: spring(y - height / 2, springConfig),
+                width: spring(width, springConfig),
+                height: spring(height, springConfig),
+            }}
+        >
+            {interpolated => (
                 <>
                     {theme.annotations.outline.outlineWidth > 0 && (
                         <rect
-                            x={x - width / 2}
-                            y={y - height / 2}
-                            width={width}
-                            height={height}
+                            x={interpolated.x}
+                            y={interpolated.y}
+                            width={interpolated.width}
+                            height={interpolated.height}
                             style={{
                                 ...theme.annotations.outline,
                                 fill: 'none',
@@ -35,61 +73,17 @@ const RectAnnotationOutline = memo(
                         />
                     )}
                     <rect
-                        x={x - width / 2}
-                        y={y - height / 2}
-                        width={width}
-                        height={height}
+                        x={interpolated.x}
+                        y={interpolated.y}
+                        width={interpolated.width}
+                        height={interpolated.height}
                         style={theme.annotations.outline}
                     />
                 </>
-            )
-        }
-
-        const springConfig = {
-            stiffness: motionStiffness,
-            damping: motionDamping,
-        }
-
-        return (
-            <Motion
-                style={{
-                    x: spring(x - width / 2, springConfig),
-                    y: spring(y - height / 2, springConfig),
-                    width: spring(width, springConfig),
-                    height: spring(height, springConfig),
-                }}
-            >
-                {interpolated => (
-                    <>
-                        {theme.annotations.outline.outlineWidth > 0 && (
-                            <rect
-                                x={interpolated.x}
-                                y={interpolated.y}
-                                width={interpolated.width}
-                                height={interpolated.height}
-                                style={{
-                                    ...theme.annotations.outline,
-                                    fill: 'none',
-                                    strokeWidth:
-                                        theme.annotations.outline.strokeWidth +
-                                        theme.annotations.outline.outlineWidth * 2,
-                                    stroke: theme.annotations.outline.outlineColor,
-                                }}
-                            />
-                        )}
-                        <rect
-                            x={interpolated.x}
-                            y={interpolated.y}
-                            width={interpolated.width}
-                            height={interpolated.height}
-                            style={theme.annotations.outline}
-                        />
-                    </>
-                )}
-            </Motion>
-        )
-    }
-)
+            )}
+        </Motion>
+    )
+})
 
 RectAnnotationOutline.displayName = 'RectAnnotationOutline'
 RectAnnotationOutline.propTypes = {
@@ -97,8 +91,6 @@ RectAnnotationOutline.propTypes = {
     y: PropTypes.number.isRequired,
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
-
-    ...motionPropTypes,
 }
 
 export default RectAnnotationOutline

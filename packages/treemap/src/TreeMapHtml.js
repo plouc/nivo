@@ -61,7 +61,12 @@ const TreeMapHtml = ({
         })
 
     return (
-        <Container theme={theme}>
+        <Container
+            theme={theme}
+            animate={animate}
+            motionDamping={motionDamping}
+            motionStiffness={motionStiffness}
+        >
             {({ showTooltip, hideTooltip }) => (
                 <div
                     style={{

@@ -8,7 +8,8 @@
  */
 import React, { memo, useRef, useEffect, useCallback } from 'react'
 import { geoContains } from 'd3-geo'
-import { getRelativeCursor, withContainer, useDimensions, useTheme, useTooltip } from '@nivo/core'
+import { getRelativeCursor, withContainer, useDimensions, useTheme } from '@nivo/core'
+import { useTooltip } from '@nivo/tooltip'
 import { GeoMapCanvasDefaultProps, GeoMapCanvasPropTypes } from './props'
 import { useGeoMap } from './hooks'
 
@@ -122,18 +123,18 @@ const GeoMapCanvas = memo(props => {
         layers,
     ])
 
-    const [showTooltip, hideTooltip] = useTooltip()
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
     const handleMouseMove = useCallback(() => {
         if (!isInteractive || !Tooltip) return
 
         const feature = getFeatureFromMouseEvent(event, canvasEl.current, features, projection)
         if (feature) {
-            showTooltip(<Tooltip feature={feature} />, event)
+            showTooltipFromEvent(<Tooltip feature={feature} />, event)
         } else {
             hideTooltip()
         }
         onMouseMove && onMouseMove(feature || null, event)
-    }, [showTooltip, hideTooltip, isInteractive, Tooltip, canvasEl, features, projection])
+    }, [showTooltipFromEvent, hideTooltip, isInteractive, Tooltip, canvasEl, features, projection])
     const handleMouseLeave = useCallback(() => isInteractive && hideTooltip(), [
         isInteractive,
         hideTooltip,

@@ -10,7 +10,7 @@ import React from 'react'
 import { generateProgrammingLanguageStats } from '@nivo/generators'
 import SEO from '../../components/seo'
 import ApiClient from '../../components/components/api-client/ApiClient'
-import { groupsByScope } from '../../data/components/pie/props'
+import { groups } from '../../data/components/pie/props'
 import mapper from '../../data/components/pie/mapper'
 import meta from '../../data/components/pie/meta.yml'
 
@@ -33,7 +33,7 @@ const PieApi = () => {
                 apiPath="/charts/pie"
                 flavors={meta.flavors}
                 dataProperty="data"
-                controlGroups={groupsByScope.api}
+                controlGroups={groups}
                 propsMapper={mapper}
                 defaultProps={{
                     width: 800,
@@ -46,14 +46,21 @@ const PieApi = () => {
                         left: 80,
                     },
 
+                    startAngle: 0,
+                    endAngle: 360,
+                    sortByValue: false,
                     innerRadius: 0.5,
                     padAngle: 0.7,
                     cornerRadius: 3,
+                    fit: true,
 
                     colors: { scheme: 'nivo' },
 
-                    borderWidth: 0,
-                    borderColor: { from: 'color', modifiers: [['darker', 0.6]] },
+                    borderWidth: 1,
+                    borderColor: {
+                        from: 'color',
+                        modifiers: [['darker', 0.2]],
+                    },
 
                     enableRadialLabels: true,
                     radialLabel: 'id',

@@ -8,14 +8,9 @@
  */
 import React, { Component } from 'react'
 import setDisplayName from 'recompose/setDisplayName'
-import {
-    isCursorInRect,
-    getRelativeCursor,
-    Container,
-    degreesToRadians,
-    BasicTooltip,
-} from '@nivo/core'
+import { isCursorInRect, getRelativeCursor, Container, degreesToRadians } from '@nivo/core'
 import { renderLegendToCanvas } from '@nivo/legends'
+import { BasicTooltip } from '@nivo/tooltip'
 import enhance from './enhance'
 import { CalendarCanvasPropTypes } from './props'
 
@@ -207,7 +202,7 @@ class CalendarCanvas extends Component {
         const { outerWidth, outerHeight, pixelRatio, isInteractive, theme } = this.props
 
         return (
-            <Container isInteractive={isInteractive} theme={theme}>
+            <Container isInteractive={isInteractive} theme={theme} animate={false}>
                 {({ showTooltip, hideTooltip }) => (
                     <canvas
                         ref={surface => {

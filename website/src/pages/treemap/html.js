@@ -12,7 +12,7 @@ import { ResponsiveTreeMapHtml, TreeMapDefaultProps } from '@nivo/treemap'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/treemap/meta.yml'
 import mapper from '../../data/components/treemap/mapper'
-import { groupsByScope } from '../../data/components/treemap/props'
+import { groups } from '../../data/components/treemap/props'
 import { generateLightDataSet } from '../../data/components/treemap/generator'
 
 const initialProperties = {
@@ -63,7 +63,7 @@ const TreeMapHtml = () => {
             icon="treemap"
             flavors={meta.flavors}
             currentFlavor="html"
-            properties={groupsByScope.TreeMapHtml}
+            properties={groups}
             initialProperties={initialProperties}
             defaultProperties={TreeMapDefaultProps}
             propertiesMapper={mapper}

@@ -7,12 +7,11 @@
  * file that was distributed with this source code.
  */
 import { SankeyDefaultProps as defaults, sankeyAlignmentPropKeys } from '@nivo/sankey'
-import { motionProperties, getPropertiesGroupsControls } from '../../../lib/componentProperties'
+import { motionProperties, groupProperties } from '../../../lib/componentProperties'
 
 const props = [
     {
         key: 'data',
-        scopes: '*',
         group: 'Base',
         help: 'Chart data.',
         description: `
@@ -34,48 +33,7 @@ const props = [
         required: true,
     },
     {
-        key: 'width',
-        scopes: ['api'],
-        docScopes: '*',
-        description: `
-            not required if using
-            \`<ResponsiveSankey/>\`.
-        `,
-        help: 'Chart width.',
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1200,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        scopes: ['api'],
-        docScopes: '*',
-        description: `
-            not required if using
-            \`<ResponsiveSankey/>\`.
-        `,
-        help: 'Chart height.',
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1200,
-            step: 5,
-        },
-    },
-    {
         key: 'layout',
-        scopes: '*',
         help: `Control sankey layout direction.`,
         type: 'string',
         required: false,
@@ -91,7 +49,6 @@ const props = [
     },
     {
         key: 'align',
-        scopes: '*',
         group: 'Base',
         help: 'Node alignment method.',
         description: `
@@ -113,7 +70,6 @@ const props = [
     },
     {
         key: 'sort',
-        scopes: '*',
         description: `
             Defines node sorting method. Must be one of:
 
@@ -143,7 +99,6 @@ const props = [
     },
     {
         key: 'colors',
-        scopes: '*',
         help: 'Defines how to compute nodes color.',
         type: 'string | Function | string[]',
         required: false,
@@ -152,8 +107,45 @@ const props = [
         group: 'Base',
     },
     {
+        key: 'width',
+        enableControlForFlavors: ['api'],
+        description: `
+            not required if using
+            \`<ResponsiveSankey/>\`.
+        `,
+        help: 'Chart width.',
+        type: 'number',
+        required: true,
+        controlType: 'range',
+        group: 'Base',
+        controlOptions: {
+            unit: 'px',
+            min: 100,
+            max: 1200,
+            step: 5,
+        },
+    },
+    {
+        key: 'height',
+        enableControlForFlavors: ['api'],
+        description: `
+            not required if using
+            \`<ResponsiveSankey/>\`.
+        `,
+        help: 'Chart height.',
+        type: 'number',
+        required: true,
+        controlType: 'range',
+        group: 'Base',
+        controlOptions: {
+            unit: 'px',
+            min: 100,
+            max: 1200,
+            step: 5,
+        },
+    },
+    {
         key: 'margin',
-        scopes: '*',
         help: 'Chart margin.',
         type: 'object',
         required: false,
@@ -162,7 +154,6 @@ const props = [
     },
     {
         key: 'nodeThickness',
-        scopes: ['Sankey'],
         help: 'Node thickness.',
         required: false,
         defaultValue: defaults.nodeThickness,
@@ -177,7 +168,6 @@ const props = [
     },
     {
         key: 'nodeOpacity',
-        scopes: '*',
         help: 'Node opacity (0~1).',
         required: false,
         defaultValue: defaults.nodeOpacity,
@@ -187,7 +177,7 @@ const props = [
     },
     {
         key: 'nodeHoverOpacity',
-        scopes: ['Sankey'],
+        flavors: ['svg'],
         help: 'Node opacity on hover (0~1).',
         required: false,
         defaultValue: defaults.nodeHoverOpacity,
@@ -197,7 +187,6 @@ const props = [
     },
     {
         key: 'nodeSpacing',
-        scopes: ['Sankey'],
         help: 'Spacing between nodes at an identical level.',
         required: false,
         defaultValue: defaults.nodeSpacing,
@@ -212,7 +201,6 @@ const props = [
     },
     {
         key: 'nodeInnerPadding',
-        scopes: ['Sankey'],
         help: 'Node inner padding, distance from link, substracted from nodeThickness.',
         required: false,
         defaultValue: defaults.nodePaddingX,
@@ -227,7 +215,6 @@ const props = [
     },
     {
         key: 'nodeBorderWidth',
-        scopes: '*',
         help: 'Node border width.',
         required: false,
         defaultValue: defaults.nodeBorderWidth,
@@ -237,7 +224,6 @@ const props = [
     },
     {
         key: 'nodeBorderColor',
-        scopes: '*',
         description: `
             how to compute node border color,
             [see dedicated documentation](self:/guides/colors).
@@ -251,7 +237,6 @@ const props = [
     },
     {
         key: 'linkOpacity',
-        scopes: '*',
         help: 'Link opacity (0~1).',
         required: false,
         defaultValue: defaults.linkOpacity,
@@ -261,7 +246,7 @@ const props = [
     },
     {
         key: 'linkHoverOpacity',
-        scopes: ['Sankey'],
+        flavors: ['svg'],
         help: 'Link opacity on hover(0~1).',
         required: false,
         defaultValue: defaults.linkHoverOpacity,
@@ -271,7 +256,6 @@ const props = [
     },
     {
         key: 'linkContract',
-        scopes: '*',
         help: 'Contract link width.',
         required: false,
         defaultValue: defaults.linkContract,
@@ -286,7 +270,7 @@ const props = [
     },
     {
         key: 'linkBlendMode',
-        scopes: ['Sankey'],
+        flavors: ['svg'],
         help: 'Defines CSS mix-blend-mode property for links.',
         description: `
             Defines CSS \`mix-blend-mode\` property for links, see
@@ -300,7 +284,6 @@ const props = [
     },
     {
         key: 'enableLinkGradient',
-        scopes: ['Sankey'],
         help: 'Enable/disable gradient from source/target nodes instead of plain color.',
         type: 'boolean',
         required: false,
@@ -310,7 +293,6 @@ const props = [
     },
     {
         key: 'enableLabels',
-        scopes: '*',
         help: 'Enable/disable labels.',
         type: 'boolean',
         required: false,
@@ -320,7 +302,6 @@ const props = [
     },
     {
         key: 'labelPosition',
-        scopes: '*',
         help: 'Label position.',
         type: 'string',
         required: false,
@@ -336,7 +317,6 @@ const props = [
     },
     {
         key: 'labelPadding',
-        scopes: '*',
         help: 'Label padding from node.',
         required: false,
         defaultValue: defaults.labelPadding,
@@ -351,7 +331,6 @@ const props = [
     },
     {
         key: 'labelTextColor',
-        scopes: '*',
         help: 'Method to compute label text color.',
         description: `
             how to compute label text color,
@@ -365,7 +344,6 @@ const props = [
     },
     {
         key: 'labelOrientation',
-        scopes: '*',
         help: 'Label orientation.',
         type: 'string',
         required: false,
@@ -381,7 +359,7 @@ const props = [
     },
     {
         key: 'isInteractive',
-        scopes: ['Sankey'],
+        flavors: ['svg'],
         help: 'Enable/disable interactivity.',
         type: 'boolean',
         required: false,
@@ -389,10 +367,7 @@ const props = [
         controlType: 'switch',
         group: 'Interactivity',
     },
-    ...motionProperties(['Sankey'], defaults),
+    ...motionProperties(['svg'], defaults),
 ]
 
-export const groupsByScope = {
-    Sankey: getPropertiesGroupsControls(props, 'Sankey'),
-    api: getPropertiesGroupsControls(props, 'api'),
-}
+export const groups = groupProperties(props)

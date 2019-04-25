@@ -13,7 +13,7 @@ import isFunction from 'lodash/isFunction'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/heatmap/meta.yml'
 import mapper from '../../data/components/heatmap/mapper'
-import { groupsByScope } from '../../data/components/heatmap/props'
+import { groups } from '../../data/components/heatmap/props'
 import { generateLightDataSet } from '../../data/components/heatmap/generator'
 
 const initialProperties = {
@@ -119,7 +119,7 @@ const HeatMap = () => {
             icon="heatmap"
             flavors={meta.flavors}
             currentFlavor="svg"
-            properties={groupsByScope.HeatMap}
+            properties={groups}
             initialProperties={initialProperties}
             defaultProperties={HeatMapDefaultProps}
             propertiesMapper={mapper}

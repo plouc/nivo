@@ -6,12 +6,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import pure from 'recompose/pure'
 import { degreesToRadians } from '../../../lib/polar'
 
-export const PatternLines = pure(
+export const PatternLines = memo(
     ({ id, spacing: _spacing, rotation: _rotation, background, color, lineWidth }) => {
         let rotation = Math.round(_rotation) % 360
         const spacing = Math.abs(_spacing)
@@ -69,6 +68,7 @@ export const PatternLines = pure(
     }
 )
 
+PatternLines.displayName = 'PatternLines'
 PatternLines.propTypes = {
     id: PropTypes.string.isRequired,
     spacing: PropTypes.number.isRequired,
@@ -77,7 +77,6 @@ PatternLines.propTypes = {
     color: PropTypes.string.isRequired,
     lineWidth: PropTypes.number.isRequired,
 }
-
 PatternLines.defaultProps = {
     spacing: 5,
     rotation: 0,

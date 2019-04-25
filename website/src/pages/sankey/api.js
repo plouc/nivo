@@ -10,7 +10,7 @@ import React from 'react'
 import { generateSankeyData } from '@nivo/generators'
 import SEO from '../../components/seo'
 import ApiClient from '../../components/components/api-client/ApiClient'
-import { groupsByScope } from '../../data/components/sankey/props'
+import { groups } from '../../data/components/sankey/props'
 import mapper from '../../data/components/sankey/mapper'
 import meta from '../../data/components/sankey/meta.yml'
 
@@ -26,7 +26,7 @@ const SankeyApi = () => {
                 apiPath="/charts/sankey"
                 flavors={meta.flavors}
                 dataProperty="data"
-                controlGroups={groupsByScope.api}
+                controlGroups={groups}
                 propsMapper={mapper}
                 defaultProps={{
                     width: 1200,
@@ -42,32 +42,33 @@ const SankeyApi = () => {
                     layout: 'horizontal',
                     align: 'justify',
                     sort: 'auto',
+                    colors: { scheme: 'category10' },
 
-                    colors: { scheme: 'nivo' },
-
-                    nodeOpacity: 0.75,
-                    nodeWidth: 18,
-                    nodePaddingX: 4,
-                    nodePaddingY: 12,
+                    nodeOpacity: 1,
+                    nodeHoverOpacity: 1,
+                    nodeThickness: 18,
+                    nodeInnerPadding: 3,
+                    nodeSpacing: 24,
                     nodeBorderWidth: 0,
                     nodeBorderColor: {
                         from: 'color',
-                        modifiers: [['darker', 0.4]],
+                        modifiers: [['darker', 0.8]],
                     },
 
-                    linkOpacity: 0.15,
-                    // @todo: not yet supported by the API
-                    // linkBlendMode: 'multiply',
-                    // enableLinkGradient: true,
+                    linkOpacity: 0.5,
+                    linkHoverOpacity: 0.6,
+                    linkHoverOthersOpacity: 0.1,
                     linkContract: 0,
+                    linkBlendMode: 'multiply',
+                    enableLinkGradient: true,
 
                     enableLabels: true,
-                    labelPosition: 'inside',
+                    labelPosition: 'outside',
                     labelOrientation: 'vertical',
                     labelPadding: 16,
                     labelTextColor: {
                         from: 'color',
-                        modifiers: [['darker', 0.8]],
+                        modifiers: [['darker', 1]],
                     },
                 }}
             />

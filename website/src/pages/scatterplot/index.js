@@ -11,7 +11,7 @@ import { ResponsiveScatterPlot, ScatterPlotDefaultProps } from '@nivo/scatterplo
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/scatterplot/meta.yml'
 import mapper from '../../data/components/scatterplot/mapper'
-import { groupsByScope } from '../../data/components/scatterplot/props'
+import { groups } from '../../data/components/scatterplot/props'
 import { generateLightDataSet } from '../../data/components/scatterplot/generator'
 
 const initialProperties = {
@@ -127,7 +127,7 @@ const ScatterPlot = () => {
             icon="scatterplot"
             flavors={meta.flavors}
             currentFlavor="svg"
-            properties={groupsByScope.ScatterPlot}
+            properties={groups}
             initialProperties={initialProperties}
             defaultProperties={ScatterPlotDefaultProps}
             propertiesMapper={mapper}

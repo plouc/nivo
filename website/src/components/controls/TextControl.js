@@ -13,11 +13,17 @@ import PropertyHeader from './PropertyHeader'
 import TextInput from './TextInput'
 import { Help } from './styled'
 
-const TextControl = memo(({ id, property, value, onChange, options }) => {
+const TextControl = memo(({ id, property, flavors, currentFlavor, value, onChange, options }) => {
     const handleUpdate = useCallback(event => onChange(event.target.value), [onChange])
 
     return (
-        <Control description={property.description}>
+        <Control
+            id={id}
+            description={property.description}
+            flavors={flavors}
+            currentFlavor={currentFlavor}
+            supportedFlavors={property.flavors}
+        >
             <PropertyHeader id={id} {...property} />
             <TextInput
                 id={id}
@@ -35,6 +41,8 @@ TextControl.displayName = 'TextControl'
 TextControl.propTypes = {
     id: PropTypes.string.isRequired,
     property: PropTypes.object.isRequired,
+    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
+    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     onChange: PropTypes.func.isRequired,
     options: PropTypes.shape({

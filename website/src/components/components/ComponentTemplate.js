@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import SEO from '../seo'
 import Layout from '../Layout'
@@ -69,7 +69,9 @@ const ComponentTemplate = ({
 
     const hasStories = meta.stories !== undefined && meta.stories.length > 0
 
-    const tags = [meta.package, ...meta.tags]
+    const tags = useMemo(() => [meta.package, ...meta.tags], meta)
+
+    const flavorKeys = useMemo(() => flavors.map(flavor => flavor.flavor), [flavors])
 
     return (
         <Layout>
@@ -94,6 +96,8 @@ const ComponentTemplate = ({
                     settings={settings}
                     onChange={setSettings}
                     groups={properties}
+                    flavors={flavorKeys}
+                    currentFlavor={currentFlavor}
                 />
                 {hasStories && <Stories stories={meta.stories} />}
             </ComponentPage>

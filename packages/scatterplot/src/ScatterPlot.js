@@ -127,7 +127,13 @@ class ScatterPlot extends Component {
         }))
 
         return (
-            <Container isInteractive={isInteractive} theme={theme}>
+            <Container
+                isInteractive={isInteractive}
+                theme={theme}
+                animate={animate}
+                motionDamping={motionDamping}
+                motionStiffness={motionStiffness}
+            >
                 {({ showTooltip, hideTooltip }) => {
                     const onMouseEnter = this.handleMouseEnter(showTooltip)
                     const onMouseMove = this.handleMouseMove(showTooltip)
@@ -137,12 +143,10 @@ class ScatterPlot extends Component {
                         grid: (
                             <Grid
                                 key="grid"
-                                theme={theme}
                                 width={width}
                                 height={height}
                                 xScale={enableGridX ? xScale : null}
                                 yScale={enableGridY ? yScale : null}
-                                {...motionProps}
                             />
                         ),
                         axes: (
@@ -152,12 +156,10 @@ class ScatterPlot extends Component {
                                 yScale={yScale}
                                 width={width}
                                 height={height}
-                                theme={theme}
                                 top={axisTop}
                                 right={axisRight}
                                 bottom={axisBottom}
                                 left={axisLeft}
-                                {...motionProps}
                             />
                         ),
                         markers: (

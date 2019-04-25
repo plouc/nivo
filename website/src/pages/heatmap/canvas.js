@@ -12,7 +12,7 @@ import isFunction from 'lodash/isFunction'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/heatmap/meta.yml'
 import mapper from '../../data/components/heatmap/mapper'
-import { groupsByScope } from '../../data/components/heatmap/props'
+import { groups } from '../../data/components/heatmap/props'
 import { generateHeavyDataSet } from '../../data/components/heatmap/generator'
 
 const initialProperties = {
@@ -110,7 +110,7 @@ const HeatMapCanvas = () => {
             icon="heatmap"
             flavors={meta.flavors}
             currentFlavor="canvas"
-            properties={groupsByScope.HeatMapCanvas}
+            properties={groups}
             initialProperties={initialProperties}
             propertiesMapper={mapper}
             codePropertiesMapper={(properties, data) => ({

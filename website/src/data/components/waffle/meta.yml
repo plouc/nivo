@@ -1,10 +1,10 @@
 flavors:
   - flavor: svg
-    path: /waffle
+    path: /waffle/
   - flavor: html
-    path: /waffle/html
+    path: /waffle/html/
   - flavor: canvas
-    path: /waffle/canvas
+    path: /waffle/canvas/
 
 Waffle:
   package: '@nivo/waffle'

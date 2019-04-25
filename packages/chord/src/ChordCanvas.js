@@ -11,7 +11,6 @@ import {
     withContainer,
     useDimensions,
     useTheme,
-    useTooltip,
     midAngle,
     getPolarLabelProps,
     degreesToRadians,
@@ -20,6 +19,7 @@ import {
 } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 import { renderLegendToCanvas } from '@nivo/legends'
+import { useTooltip } from '@nivo/tooltip'
 import { useChord, useChordSelection, useChordLayerContext } from './hooks'
 import { ChordCanvasPropTypes, ChordCanvasDefaultProps } from './props'
 
@@ -271,7 +271,7 @@ const ChordCanvas = memo(
             layerContext,
         ])
 
-        const [showTooltip, hideTooltip] = useTooltip()
+        const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
         const handleMouseHover = useCallback(
             event => {
@@ -287,7 +287,7 @@ const ChordCanvas = memo(
 
                 if (arc) {
                     setCurrentArc(arc)
-                    showTooltip(React.createElement(arcTooltip, { arc }), event)
+                    showTooltipFromEvent(React.createElement(arcTooltip, { arc }), event)
                     !currentArc && onArcMouseEnter && onArcMouseEnter(arc, event)
                     onArcMouseMove && onArcMouseMove(arc, event)
                     currentArc &&
@@ -308,7 +308,7 @@ const ChordCanvas = memo(
                 innerRadius,
                 arcs,
                 setCurrentArc,
-                showTooltip,
+                showTooltipFromEvent,
                 hideTooltip,
                 onArcMouseEnter,
                 onArcMouseMove,

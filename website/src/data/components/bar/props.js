@@ -12,13 +12,12 @@ import {
     motionProperties,
     defsProperties,
     getLegendsProps,
-    getPropertiesGroupsControls,
+    groupProperties,
 } from '../../../lib/componentProperties'
 
 const props = [
     {
         key: 'data',
-        scopes: '*',
         help: 'Chart data.',
         type: 'object[]',
         required: true,
@@ -26,7 +25,6 @@ const props = [
     },
     {
         key: 'indexBy',
-        scopes: '*',
         help: 'Key to use to index the data.',
         description: `
             Key to use to index the data,
@@ -42,7 +40,6 @@ const props = [
     },
     {
         key: 'keys',
-        scopes: '*',
         help: 'Keys to use to determine each serie.',
         type: 'string[]',
         required: false,
@@ -50,82 +47,7 @@ const props = [
         group: 'Base',
     },
     {
-        key: 'width',
-        scopes: ['api'],
-        docScopes: '*',
-        help: 'Chart width.',
-        description: `
-            not required if using \`ResponsiveBar\`.
-            Also note that width exclude left/right axes,
-            please add margin to make sure they're visible.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        scopes: ['api'],
-        docScopes: '*',
-        help: 'Chart height.',
-        description: `
-            not required if using \`ResponsiveBar\`.
-            Also note that width exclude left/right axes,
-            please add margin to make sure they're visible.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'layers',
-        scopes: ['Bar'],
-        help: 'Defines the order of layers.',
-        description: `
-            Defines the order of layers, available layers are:
-            \`grid\`, \`axes\`, \`bars\`, \`markers\`, \`legends\`.
-
-            You can also use this to insert extra layers to the chart,
-            this extra layer must be a function which will receive
-            the chart computed data and must return a valid SVG
-            element.
-        `,
-        type: 'Array<string | Function>',
-        required: false,
-        defaultValue: defaults.layers,
-        group: 'Base',
-    },
-    {
-        key: 'pixelRatio',
-        scopes: ['BarCanvas'],
-        help: `Adjust pixel ratio, useful for HiDPI screens.`,
-        required: false,
-        defaultValue: 'Depends on device',
-        type: `number`,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            min: 1,
-            max: 2,
-        },
-    },
-    {
         key: 'groupMode',
-        scopes: '*',
         help: `How to group bars.`,
         type: 'string',
         required: false,
@@ -141,7 +63,6 @@ const props = [
     },
     {
         key: 'layout',
-        scopes: '*',
         help: `How to display bars.`,
         type: 'string',
         required: false,
@@ -157,7 +78,6 @@ const props = [
     },
     {
         key: 'reverse',
-        scopes: '*',
         help:
             'Reverse bars, starts on top instead of bottom for vertical layout and right instead of left for horizontal one.',
         type: 'boolean',
@@ -168,7 +88,6 @@ const props = [
     },
     {
         key: 'minValue',
-        scopes: '*',
         help: 'Minimum value.',
         description: `
             Minimum value, if 'auto',
@@ -188,7 +107,6 @@ const props = [
     },
     {
         key: 'maxValue',
-        scopes: '*',
         help: 'Maximum value.',
         description: `
             Maximum value, if 'auto',
@@ -207,17 +125,7 @@ const props = [
         },
     },
     {
-        key: 'margin',
-        scopes: '*',
-        help: 'Chart margin.',
-        type: 'object',
-        required: false,
-        controlType: 'margin',
-        group: 'Base',
-    },
-    {
         key: 'padding',
-        scopes: '*',
         help: 'Padding between each bar (ratio).',
         type: 'number',
         required: false,
@@ -232,7 +140,6 @@ const props = [
     },
     {
         key: 'innerPadding',
-        scopes: '*',
         help: 'Padding between grouped/stacked bars.',
         type: 'number',
         required: false,
@@ -246,8 +153,69 @@ const props = [
         },
     },
     {
+        key: 'width',
+        enableControlForFlavors: ['api'],
+        help: 'Chart width.',
+        description: `
+            not required if using \`ResponsiveBar\`.
+            Also note that width exclude left/right axes,
+            please add margin to make sure they're visible.
+        `,
+        type: 'number',
+        required: true,
+        controlType: 'range',
+        group: 'Base',
+        controlOptions: {
+            unit: 'px',
+            min: 100,
+            max: 1000,
+            step: 5,
+        },
+    },
+    {
+        key: 'height',
+        enableControlForFlavors: ['api'],
+        help: 'Chart height.',
+        description: `
+            not required if using \`ResponsiveBar\`.
+            Also note that width exclude left/right axes,
+            please add margin to make sure they're visible.
+        `,
+        type: 'number',
+        required: true,
+        controlType: 'range',
+        group: 'Base',
+        controlOptions: {
+            unit: 'px',
+            min: 100,
+            max: 1000,
+            step: 5,
+        },
+    },
+    {
+        key: 'pixelRatio',
+        flavors: ['canvas'],
+        help: `Adjust pixel ratio, useful for HiDPI screens.`,
+        required: false,
+        defaultValue: 'Depends on device',
+        type: `number`,
+        controlType: 'range',
+        group: 'Base',
+        controlOptions: {
+            min: 1,
+            max: 2,
+        },
+    },
+    {
+        key: 'margin',
+        help: 'Chart margin.',
+        type: 'object',
+        required: false,
+        controlType: 'margin',
+        group: 'Base',
+    },
+    {
         key: 'colors',
-        scopes: '*',
         help: 'Defines color range.',
         type: 'string | Function | string[]',
         required: false,
@@ -257,7 +225,6 @@ const props = [
     },
     {
         key: 'colorBy',
-        scopes: '*',
         type: 'string | Function',
         help: 'Property used to determine node color.',
         description: `
@@ -286,7 +253,7 @@ const props = [
     },
     {
         key: 'borderRadius',
-        scopes: ['Bar', 'api'],
+        flavors: ['svg', 'api'],
         help: 'Rectangle border radius.',
         type: 'number',
         required: false,
@@ -301,7 +268,6 @@ const props = [
     },
     {
         key: 'borderWidth',
-        scopes: '*',
         help: 'Width of bar border.',
         type: 'number',
         required: false,
@@ -311,7 +277,6 @@ const props = [
     },
     {
         key: 'borderColor',
-        scopes: '*',
         help: 'Method to compute border color.',
         description: `
             how to compute border color,
@@ -323,10 +288,27 @@ const props = [
         controlType: 'inheritedColor',
         group: 'Style',
     },
-    ...defsProperties(['Bar']),
+    ...defsProperties('Style', ['svg']),
+    {
+        key: 'layers',
+        flavors: ['svg'],
+        help: 'Defines the order of layers.',
+        description: `
+            Defines the order of layers, available layers are:
+            \`grid\`, \`axes\`, \`bars\`, \`markers\`, \`legends\`.
+
+            You can also use this to insert extra layers to the chart,
+            this extra layer must be a function which will receive
+            the chart computed data and must return a valid SVG
+            element.
+        `,
+        type: 'Array<string | Function>',
+        required: false,
+        defaultValue: defaults.layers,
+        group: 'Customization',
+    },
     {
         key: 'enableLabel',
-        scopes: '*',
         help: 'Enable/disable labels.',
         type: 'boolean',
         required: false,
@@ -336,7 +318,6 @@ const props = [
     },
     {
         key: 'label',
-        scopes: '*',
         group: 'Labels',
         help: 'Define how bar labels are computed.',
         description: `
@@ -365,7 +346,7 @@ const props = [
     },
     {
         key: 'labelFormat',
-        scopes: '*',
+        group: 'Labels',
         help: 'How to format labels.',
         description: `
             How to format labels,
@@ -381,7 +362,6 @@ const props = [
     },
     {
         key: 'labelSkipWidth',
-        scopes: '*',
         help: 'Skip label if bar width is lower than provided value, ignored if 0.',
         type: 'number',
         required: false,
@@ -396,7 +376,6 @@ const props = [
     },
     {
         key: 'labelSkipHeight',
-        scopes: '*',
         help: 'Skip label if bar height is lower than provided value, ignored if 0.',
         type: 'number',
         required: false,
@@ -411,7 +390,6 @@ const props = [
     },
     {
         key: 'labelTextColor',
-        scopes: '*',
         help: 'Defines how to compute label text color.',
         type: 'string | object | Function',
         required: false,
@@ -421,7 +399,6 @@ const props = [
     },
     {
         key: 'enableGridX',
-        scopes: '*',
         group: 'Grid & Axes',
         help: 'Enable/disable x grid.',
         type: 'boolean',
@@ -431,7 +408,6 @@ const props = [
     },
     {
         key: 'gridXValues',
-        scopes: '*',
         group: 'Grid & Axes',
         help: 'Specify values to use for vertical grid lines.',
         type: 'Array<number | string>',
@@ -439,7 +415,6 @@ const props = [
     },
     {
         key: 'enableGridY',
-        scopes: '*',
         group: 'Grid & Axes',
         help: 'Enable/disable y grid.',
         type: 'boolean',
@@ -449,16 +424,15 @@ const props = [
     },
     {
         key: 'gridYValues',
-        scopes: '*',
         group: 'Grid & Axes',
         help: 'Specify values to use for horizontal grid lines.',
         type: 'Array<number | string>',
         required: false,
     },
-    ...axesProperties,
+    ...axesProperties(),
     {
         key: 'isInteractive',
-        scopes: ['Bar', 'BarCanvas'],
+        flavors: ['svg', 'canvas'],
         help: 'Enable/disable interactivity.',
         type: 'boolean',
         required: false,
@@ -468,7 +442,7 @@ const props = [
     },
     {
         key: 'tooltip',
-        scopes: ['Bar', 'BarCanvas'],
+        flavors: ['svg', 'canvas'],
         group: 'Interactivity',
         type: 'Function',
         required: false,
@@ -494,7 +468,7 @@ const props = [
     },
     {
         key: 'custom tooltip example',
-        scopes: ['Bar', 'BarCanvas'],
+        flavors: ['svg', 'canvas'],
         group: 'Interactivity',
         help: 'Showcase custom tooltip component.',
         type: 'boolean',
@@ -502,7 +476,8 @@ const props = [
     },
     {
         key: 'onClick',
-        scopes: ['Bar', 'BarCanvas'],
+        flavors: ['svg', 'canvas'],
+        group: 'Interactivity',
         type: 'Function',
         required: false,
         help: 'onClick handler',
@@ -525,13 +500,13 @@ const props = [
     },
     {
         key: 'legends',
-        scopes: ['Bar'],
+        flavors: ['svg'],
         type: 'object[]',
         help: `Optional chart's legends.`,
         group: 'Legends',
         controlType: 'array',
         controlOptions: {
-            props: getLegendsProps(),
+            props: getLegendsProps(['svg']),
             shouldCreate: true,
             addLabel: 'add legend',
             shouldRemove: true,
@@ -555,11 +530,7 @@ const props = [
             },
         },
     },
-    ...motionProperties(['Bar'], defaults),
+    ...motionProperties(['svg'], defaults),
 ]
 
-export const groupsByScope = {
-    Bar: getPropertiesGroupsControls(props, 'Bar'),
-    BarCanvas: getPropertiesGroupsControls(props, 'BarCanvas'),
-    api: getPropertiesGroupsControls(props, 'api'),
-}
+export const groups = groupProperties(props)

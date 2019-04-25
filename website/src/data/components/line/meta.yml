@@ -1,8 +1,10 @@
 flavors:
   - flavor: svg
-    path: /line
+    path: /line/
+  - flavor: canvas
+    path: /line/canvas/
   - flavor: api
-    path: /line/api
+    path: /line/api/
 
 Line:
   package: '@nivo/line'
@@ -12,16 +14,16 @@ Line:
   stories:
     - label: stacked lines
       link: line--stacked-lines
-    - label: linear x scale
-      link: line--linear-x-scale
-    - label: time x scale
-      link: line--time-x-scale
-    - label: logarithmic y scale
-      link: line--logarithmic-y-scale
+    - label: linear scale
+      link: line--linear-scale
+    - label: time scale
+      link: line--time-scale
+    - label: logarithmic scale
+      link: line--logarithmic-scale
     - label: real time chart
       link: line--real-time-chart
-    - label: custom dot symbol
-      link: line--custom-dot-symbol
+    - label: custom point symbol
+      link: line--custom-point-symbol
     - label: adding markers
       link: line--adding-markers
     - label: holes in data
@@ -34,6 +36,8 @@ Line:
       link: line--formatting-axis-values
     - label: formatting tooltip values
       link: line--formatting-tooltip-values
+    - label: adding custom layers
+      link: line--custom-layers
   description: |
     Line chart with stacking ability.
 
@@ -50,3 +54,23 @@ Line:
 
     See the [dedicated guide](self:/guides/legends) on how to setup
     legends for this component.
+
+LineCanvas:
+  package: '@nivo/line'
+  tags:
+    - canvas
+  stories:
+    - label: holes in data
+      link: linecanvas--holes-in-data
+    - label: different serie lengths
+      link: linecanvas--different-serie-lengths
+  description: |
+    A variation around the [Line](self:/line) component. Well suited
+    for large data sets as it does not impact DOM tree depth, however
+    you'll lose the isomorphic ability and transitions (for now).
+
+    Unlike the [Line](self:/line) component, the canvas implementation
+    forces usage of voronoi mesh to detect user interactions.
+
+    The responsive alternative of this component is
+    `ResponsiveLineCanvas`.

@@ -13,7 +13,7 @@ import { ResponsiveBubbleCanvas, BubbleCanvasDefaultProps } from '@nivo/circle-p
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bubble/meta.yml'
 import mapper from '../../data/components/bubble/mapper'
-import { groupsByScope } from '../../data/components/bubble/props'
+import { groups } from '../../data/components/bubble/props'
 
 const NODE_COUNT = 2000
 
@@ -77,7 +77,7 @@ const BubbleCanvas = () => {
             icon="circle-packing"
             flavors={meta.flavors}
             currentFlavor="canvas"
-            properties={groupsByScope.BubbleCanvas}
+            properties={groups}
             initialProperties={initialProperties}
             defaultProperties={BubbleCanvasDefaultProps}
             propertiesMapper={mapper}

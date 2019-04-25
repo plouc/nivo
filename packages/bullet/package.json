@@ -27,6 +27,7 @@
     "@nivo/colors": "0.56.2",
     "@nivo/core": "0.56.2",
     "@nivo/legends": "0.56.2",
+    "@nivo/tooltip": "0.56.2",
     "d3-scale": "^3.0.0",
     "lodash": "^4.17.11",
     "react-motion": "^0.5.2",

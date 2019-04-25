@@ -1,6 +1,6 @@
 flavors:
   - flavor: svg
-    path: /bullet
+    path: /bullet/
 
 Bullet:
   package: '@nivo/bullet'

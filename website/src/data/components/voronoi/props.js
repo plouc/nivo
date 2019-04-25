@@ -7,12 +7,11 @@
  * file that was distributed with this source code.
  */
 import { VoronoiDefaultProps as defaults } from '@nivo/voronoi'
-import { getPropertiesGroupsControls } from '../../../lib/componentProperties'
+import { groupProperties } from '../../../lib/componentProperties'
 
 const props = [
     {
         key: 'data',
-        scopes: '*',
         group: 'Base',
         help: 'Chart data.',
         description: `
@@ -30,7 +29,6 @@ const props = [
     },
     {
         key: 'xDomain',
-        scopes: '*',
         group: 'Base',
         help: 'Defines the x values domain.',
         type: '[number, number]',
@@ -39,7 +37,6 @@ const props = [
     },
     {
         key: 'yDomain',
-        scopes: '*',
         group: 'Base',
         help: 'Defines the y values domain.',
         type: '[number, number]',
@@ -48,8 +45,7 @@ const props = [
     },
     {
         key: 'width',
-        scopes: ['api'],
-        docScopes: '*',
+        enableControlForFlavors: ['api'],
         description: `
             not required if using
             \`<ResponsiveVoronoi/>\`.
@@ -68,8 +64,7 @@ const props = [
     },
     {
         key: 'height',
-        scopes: ['api'],
-        docScopes: '*',
+        enableControlForFlavors: ['api'],
         description: `
             not required if using
             \`<ResponsiveVoronoi/>\`.
@@ -88,7 +83,6 @@ const props = [
     },
     {
         key: 'margin',
-        scopes: '*',
         help: 'Chart margin.',
         type: 'object',
         required: false,
@@ -97,7 +91,7 @@ const props = [
     },
     {
         key: 'layers',
-        scopes: ['Voronoi'],
+        flavors: ['svg'],
         group: 'Base',
         help: 'Defines the order of layers.',
         description: `
@@ -114,7 +108,6 @@ const props = [
     },
     {
         key: 'enableLinks',
-        scopes: '*',
         help: 'Enable/disable links.',
         type: 'boolean',
         required: false,
@@ -142,7 +135,6 @@ const props = [
     },
     {
         key: 'enableCells',
-        scopes: '*',
         help: 'Enable/disable cells.',
         type: 'boolean',
         required: false,
@@ -170,7 +162,6 @@ const props = [
     },
     {
         key: 'enablePoints',
-        scopes: '*',
         help: 'Enable/disable points.',
         type: 'boolean',
         required: false,
@@ -204,7 +195,4 @@ const props = [
     },
 ]
 
-export const groupsByScope = {
-    Voronoi: getPropertiesGroupsControls(props, 'Voronoi'),
-    api: getPropertiesGroupsControls(props, 'api'),
-}
+export const groups = groupProperties(props)

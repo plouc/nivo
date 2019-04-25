@@ -10,7 +10,8 @@ import React, { memo, useMemo, useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import sortBy from 'lodash/sortBy'
 import { format as d3Format } from 'd3-format'
-import { positionFromAngle, TableTooltip, Chip, useTooltip, useTheme } from '@nivo/core'
+import { positionFromAngle, useTheme } from '@nivo/core'
+import { TableTooltip, Chip, useTooltip } from '@nivo/tooltip'
 
 const RadarTooltipItem = memo(
     ({
@@ -26,7 +27,7 @@ const RadarTooltipItem = memo(
     }) => {
         const [isHover, setIsHover] = useState(false)
         const theme = useTheme()
-        const [showTooltip, hideTooltip] = useTooltip()
+        const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
         const tooltip = useMemo(() => {
             const format =
@@ -49,10 +50,13 @@ const RadarTooltipItem = memo(
                 />
             )
         }, [datum, keys, index, colorByKey, theme, tooltipFormat])
-        const showItemTooltip = useCallback(event => {
-            setIsHover(true)
-            showTooltip(tooltip, event)
-        })
+        const showItemTooltip = useCallback(
+            event => {
+                setIsHover(true)
+                showTooltipFromEvent(tooltip, event)
+            },
+            [showTooltipFromEvent]
+        )
         const hideItemTooltip = useCallback(() => {
             setIsHover(false)
             hideTooltip()

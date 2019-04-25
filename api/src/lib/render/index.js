@@ -19,19 +19,15 @@ exports.chart = ({ type, props }, override) => {
     const chart = mapping[type]
     const overridable = chart.runtimeProps || []
     const rendered = renderToStaticMarkup(
-        React.createElement(
-            chart.component,
-            Object.assign(
-                {
-                    animate: false,
-                    isInteractive: false,
-                    theme,
-                },
-                chart.defaults,
-                props,
-                _.pick(override, overridable)
-            )
-        )
+        React.createElement(chart.component, {
+            animate: false,
+            isInteractive: false,
+            renderWrapper: false,
+            theme,
+            ...chart.defaults,
+            ...props,
+            ..._.pick(override, overridable),
+        })
     )
 
     return `<?xml version="1.0" ?>${rendered}`

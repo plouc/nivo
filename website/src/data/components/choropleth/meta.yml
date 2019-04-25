@@ -1,8 +1,8 @@
 flavors:
   - flavor: svg
-    path: /choropleth
+    path: /choropleth/
   - flavor: canvas
-    path: /choropleth/canvas
+    path: /choropleth/canvas/
 
 Choropleth:
   package: '@nivo/geo'

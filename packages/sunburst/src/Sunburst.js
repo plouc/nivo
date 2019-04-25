@@ -51,7 +51,7 @@ const Sunburst = ({
     isInteractive,
 }) => {
     return (
-        <Container isInteractive={isInteractive} theme={theme}>
+        <Container isInteractive={isInteractive} theme={theme} animate={false}>
             {({ showTooltip, hideTooltip }) => (
                 <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
                     <g transform={`translate(${centerX}, ${centerY})`}>

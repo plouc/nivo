@@ -8,9 +8,8 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
+import { useTheme, useValueFormatter } from '@nivo/core'
 import Chip from './Chip'
-import { useTheme } from '../theming'
-import { useValueFormatter } from '../hooks/useValueFormatter'
 
 const chipStyle = { marginRight: 7 }
 
@@ -43,6 +42,7 @@ const BasicTooltip = memo(({ id, value: _value, format, enableChip, color, rende
     return <div style={theme.tooltip.container}>{content}</div>
 })
 
+BasicTooltip.displayName = 'BasicTooltip'
 BasicTooltip.propTypes = {
     id: PropTypes.node.isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -51,11 +51,8 @@ BasicTooltip.propTypes = {
     format: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     renderContent: PropTypes.func,
 }
-
 BasicTooltip.defaultProps = {
     enableChip: false,
 }
-
-BasicTooltip.displayName = 'BasicTooltip'
 
 export default BasicTooltip

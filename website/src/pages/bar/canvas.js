@@ -12,7 +12,7 @@ import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bar/meta.yml'
 import { generateHeavyDataSet } from '../../data/components/bar/generator'
 import mapper from '../../data/components/bar/mapper'
-import { groupsByScope } from '../../data/components/bar/props'
+import { groups } from '../../data/components/bar/props'
 
 const Tooltip = data => {
     /* return custom tooltip */
@@ -107,7 +107,7 @@ const BarCanvas = () => {
             icon="bar"
             flavors={meta.flavors}
             currentFlavor="canvas"
-            properties={groupsByScope.BarCanvas}
+            properties={groups}
             initialProperties={initialProperties}
             propertiesMapper={mapper}
             codePropertiesMapper={(properties, data) => ({

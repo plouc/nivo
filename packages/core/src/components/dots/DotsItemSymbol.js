@@ -6,11 +6,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import pure from 'recompose/pure'
 
-const DotsItemSymbol = ({ size, color, borderWidth, borderColor }) => (
+const DotsItemSymbol = memo(({ size, color, borderWidth, borderColor }) => (
     <circle
         r={size / 2}
         fill={color}
@@ -18,8 +17,9 @@ const DotsItemSymbol = ({ size, color, borderWidth, borderColor }) => (
         strokeWidth={borderWidth}
         style={{ pointerEvents: 'none' }}
     />
-)
+))
 
+DotsItemSymbol.displayName = 'DotsItemSymbol'
 DotsItemSymbol.propTypes = {
     size: PropTypes.number.isRequired,
     color: PropTypes.string.isRequired,
@@ -27,4 +27,4 @@ DotsItemSymbol.propTypes = {
     borderColor: PropTypes.string.isRequired,
 }
 
-export default pure(DotsItemSymbol)
+export default DotsItemSymbol

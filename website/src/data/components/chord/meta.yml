@@ -1,10 +1,10 @@
 flavors:
   - flavor: svg
-    path: /chord
+    path: /chord/
   - flavor: canvas
-    path: /chord/canvas
+    path: /chord/canvas/
   - flavor: api
-    path: /chord/api
+    path: /chord/api/
 
 Chord:
   package: '@nivo/chord'

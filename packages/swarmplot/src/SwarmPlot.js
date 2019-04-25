@@ -106,16 +106,12 @@ const SwarmPlot = memo(
             grid: (
                 <Grid
                     key="grid"
-                    theme={theme}
                     width={innerWidth}
                     height={innerHeight}
                     xScale={enableGridX ? xScale : null}
                     xValues={gridXValues}
                     yScale={enableGridY ? yScale : null}
                     yValues={gridYValues}
-                    animate={animate}
-                    motionStiffness={motionStiffness}
-                    motionDamping={motionDamping}
                 />
             ),
             axes: (
@@ -125,14 +121,10 @@ const SwarmPlot = memo(
                     yScale={yScale}
                     width={innerWidth}
                     height={innerHeight}
-                    theme={theme}
                     top={axisTop}
                     right={axisRight}
                     bottom={axisBottom}
                     left={axisLeft}
-                    animate={animate}
-                    motionStiffness={motionStiffness}
-                    motionDamping={motionDamping}
                 />
             ),
             mesh: null,

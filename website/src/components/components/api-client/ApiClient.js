@@ -119,6 +119,8 @@ export default class ApiClient extends Component {
         } = this.props
         const { props, loading, responseStatus, response } = this.state
 
+        const flavorKeys = flavors.map(flavor => flavor.flavor)
+
         return (
             <Layout>
                 <ComponentPage>
@@ -144,8 +146,9 @@ export default class ApiClient extends Component {
                     </ControlPanel>
                     <ComponentSettings
                         component={componentName}
-                        scope="api"
                         settings={props}
+                        flavors={flavorKeys}
+                        currentFlavor="api"
                         groups={controlGroups}
                         onChange={this.handleSettingsUpdate}
                     />

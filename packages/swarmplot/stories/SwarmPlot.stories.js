@@ -45,6 +45,7 @@ stories.add('custom node rendering', () => <SwarmPlotRenderNode />)
 stories.add('using annotations', () => (
     <SwarmPlot
         {...commonProps}
+        useMesh={true}
         annotations={[
             {
                 type: 'circle',

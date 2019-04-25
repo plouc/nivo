@@ -11,7 +11,7 @@ import {
     motionProperties,
     defsProperties,
     getLegendsProps,
-    getPropertiesGroupsControls,
+    groupProperties,
 } from '../../../lib/componentProperties'
 
 const defaults = WaffleDefaultProps
@@ -19,7 +19,6 @@ const defaults = WaffleDefaultProps
 const props = [
     {
         key: 'total',
-        scopes: '*',
         group: 'Base',
         type: 'number',
         help: 'Max value.',
@@ -28,7 +27,6 @@ const props = [
     },
     {
         key: 'data',
-        scopes: '*',
         group: 'Base',
         help: 'Chart data.',
         description: `
@@ -44,25 +42,23 @@ const props = [
         type: 'object[]',
         required: true,
     },
-    {
-        key: 'hiddenIds',
-        scopes: '*',
-        type: 'Array<string | number>',
-        help: 'Hide parts of the data by id',
-        description: `
-            Hide parts of the data by id, this can be used
-            to implement toggle. Note that the datum will
-            still be visible in legends, if you want
-            to completely remove a datum from the data set,
-            you'll have to filter the data before passing
-            it to the component.
-        `,
-        required: false,
-        defaultValue: defaults.hiddenIds,
-    },
+    // {
+    //     key: 'hiddenIds',
+    //     type: 'Array<string | number>',
+    //     help: 'Hide parts of the data by id',
+    //     description: `
+    //         Hide parts of the data by id, this can be used
+    //         to implement toggle. Note that the datum will
+    //         still be visible in legends, if you want
+    //         to completely remove a datum from the data set,
+    //         you'll have to filter the data before passing
+    //         it to the component.
+    //     `,
+    //     required: false,
+    //     defaultValue: defaults.hiddenIds,
+    // },
     {
         key: 'rows',
-        scopes: '*',
         type: 'number',
         help: 'Number of rows.',
         required: true,
@@ -75,7 +71,6 @@ const props = [
     },
     {
         key: 'columns',
-        scopes: '*',
         type: 'number',
         help: 'Number of columns.',
         required: true,
@@ -88,7 +83,6 @@ const props = [
     },
     {
         key: 'fillDirection',
-        scopes: '*',
         help: `How to fill the waffle.`,
         type: 'string',
         required: false,
@@ -106,7 +100,6 @@ const props = [
     },
     {
         key: 'padding',
-        scopes: '*',
         type: 'number',
         help: 'Padding between each cell.',
         required: true,
@@ -120,8 +113,8 @@ const props = [
     },
     {
         key: 'width',
-        scopes: ['api'],
-        docScopes: '*',
+        group: 'Base',
+        enableControlForFlavors: ['api'],
         help: 'Chart width.',
         description: `
             not required if using responsive alternative
@@ -133,8 +126,8 @@ const props = [
     },
     {
         key: 'height',
-        scopes: ['api'],
-        docScopes: '*',
+        group: 'Base',
+        enableControlForFlavors: ['api'],
         help: 'Chart height.',
         description: `
             not required if using responsive alternative
@@ -146,7 +139,7 @@ const props = [
     },
     {
         key: 'pixelRatio',
-        scopes: ['WaffleCanvas'],
+        flavors: ['canvas'],
         help: `Adjust pixel ratio, useful for HiDPI screens.`,
         required: false,
         defaultValue: 'Depends on device',
@@ -160,7 +153,6 @@ const props = [
     },
     {
         key: 'margin',
-        scopes: '*',
         help: 'Chart margin.',
         type: 'object',
         required: false,
@@ -169,7 +161,7 @@ const props = [
     },
     {
         key: 'cellComponent',
-        scopes: ['Waffle', 'WaffleHtml'],
+        flavors: ['svg', 'html'],
         help: 'Override default cell component.',
         type: 'Function',
         required: false,
@@ -184,7 +176,6 @@ const props = [
     },
     {
         key: 'colors',
-        scopes: '*',
         help: 'Defines how to compute node color.',
         type: 'string | Function | string[]',
         required: false,
@@ -194,7 +185,6 @@ const props = [
     },
     {
         key: 'emptyColor',
-        scopes: '*',
         help: 'Defines empty cells color.',
         type: 'string',
         required: false,
@@ -204,7 +194,6 @@ const props = [
     },
     {
         key: 'emptyOpacity',
-        scopes: '*',
         help: 'Empty cells opacity.',
         required: false,
         defaultValue: defaults.emptyOpacity,
@@ -214,7 +203,6 @@ const props = [
     },
     {
         key: 'borderWidth',
-        scopes: '*',
         help: 'Control cell border width.',
         type: 'number',
         required: false,
@@ -224,7 +212,6 @@ const props = [
     },
     {
         key: 'borderColor',
-        scopes: '*',
         help: 'Method to compute cell border color.',
         type: 'string | object | Function',
         required: false,
@@ -232,10 +219,9 @@ const props = [
         controlType: 'inheritedColor',
         group: 'Style',
     },
-    ...defsProperties(['Waffle']),
+    ...defsProperties('Style', ['svg']),
     {
         key: 'isInteractive',
-        scopes: ['Waffle', 'WaffleHtml', 'WaffleCanvas'],
         help: 'Enable/disable interactivity.',
         type: 'boolean',
         required: false,
@@ -245,7 +231,6 @@ const props = [
     },
     {
         key: 'onClick',
-        scopes: ['Waffle', 'WaffleHtml', 'WaffleCanvas'],
         group: 'Interactivity',
         help: 'onClick handler, it receives clicked node data and style plus mouse event.',
         type: 'Function',
@@ -253,7 +238,6 @@ const props = [
     },
     {
         key: 'tooltip',
-        scopes: ['Waffle', 'WaffleHtml', 'WaffleCanvas'],
         group: 'Interactivity',
         type: 'Function',
         required: false,
@@ -282,8 +266,6 @@ const props = [
     },
     {
         key: 'custom tooltip example',
-        scopes: ['Waffle', 'WaffleHtml', 'WaffleCanvas'],
-        excludeFromDoc: true,
         help: 'Showcase custom tooltip.',
         type: 'boolean',
         controlType: 'switch',
@@ -291,13 +273,13 @@ const props = [
     },
     {
         key: 'legends',
-        scopes: ['Waffle', 'WaffleCanvas'],
+        flavors: ['svg', 'canvas'],
         type: 'object[]',
         help: `Optional chart's legends.`,
         group: 'Legends',
         controlType: 'array',
         controlOptions: {
-            props: getLegendsProps(),
+            props: getLegendsProps(['svg', 'canvas']),
             shouldCreate: true,
             addLabel: 'add legend',
             shouldRemove: true,
@@ -328,12 +310,7 @@ const props = [
             },
         },
     },
-    ...motionProperties(['Waffle', 'WaffleHtml'], defaults),
+    ...motionProperties(['svg', 'html'], defaults),
 ]
 
-export const groupsByScope = {
-    Waffle: getPropertiesGroupsControls(props, 'Waffle'),
-    WaffleHtml: getPropertiesGroupsControls(props, 'WaffleHtml'),
-    WaffleCanvas: getPropertiesGroupsControls(props, 'WaffleCanvas'),
-    api: getPropertiesGroupsControls(props, 'api'),
-}
+export const groups = groupProperties(props)

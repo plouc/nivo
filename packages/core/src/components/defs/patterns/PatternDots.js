@@ -6,11 +6,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import pure from 'recompose/pure'
 
-export const PatternDots = pure(({ id, background, color, size, padding, stagger }) => {
+export const PatternDots = memo(({ id, background, color, size, padding, stagger }) => {
     let fullSize = size + padding
     const radius = size / 2
     const halfPadding = padding / 2
@@ -34,6 +33,7 @@ export const PatternDots = pure(({ id, background, color, size, padding, stagger
     )
 })
 
+PatternDots.displayName = 'PatternDots'
 PatternDots.propTypes = {
     id: PropTypes.string.isRequired,
     color: PropTypes.string.isRequired,

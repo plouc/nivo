@@ -1,9 +1,16 @@
+/*
+ * This file is part of the nivo project.
+ *
+ * Copyright 2016-present, Raphaël Benitte.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 import React, { useState, useEffect } from 'react'
 import { storiesOf } from '@storybook/react'
 import { Bar } from '../src'
-import { Pie } from '../../pie/src'
 
-const stories = storiesOf('Bar Example 00', module)
+const stories = storiesOf('Bar/race chart', module)
 
 const DataGenerator = (initialIndex, initialState) => {
     let index = initialIndex
@@ -71,16 +78,6 @@ const BarComponent = props => {
             >
                 {props.data.value}
             </text>
-            {/*
-            <Pie
-                width={props.height}
-                height={props.height}
-                data={[
-                    { id: 'A', value: 2 },
-                    { id: 'B', value: 3 },
-                ]}
-            />
-            */}
         </g>
     )
 }
@@ -110,7 +107,7 @@ const Sample = () => {
     return (
         <>
             <h2 style={{ marginLeft: 60, fontWeight: 400, color: '#555' }}>
-                Arbitrary Value in Japanese Countries{' '}
+                Arbitrary Value in Japan Cities{' '}
                 <strong style={{ color: 'black', fontWeight: 900 }}>{yearData.index}</strong>
             </h2>
             <Bar
@@ -121,9 +118,9 @@ const Sample = () => {
                 data={barData}
                 indexBy="id"
                 keys={['value']}
-                colors="spectral"
+                colors={{ scheme: 'spectral' }}
                 colorBy="indexValue"
-                borderColor="inherit:darker(2.6)"
+                borderColor={{ from: 'color', modifiers: [['darker', 2.6]] }}
                 enableGridX
                 enableGridY={false}
                 axisTop={{
@@ -134,7 +131,7 @@ const Sample = () => {
                 }}
                 axisLeft={null}
                 padding={0.3}
-                labelTextColor="inherit:darker(1.4)"
+                labelTextColor={{ from: 'color', modifiers: [['darker', 1.4]] }}
                 isInteractive={false}
                 barComponent={BarComponent}
                 motionStiffness={170}
@@ -144,4 +141,4 @@ const Sample = () => {
     )
 }
 
-stories.add('Live Update', () => <Sample />)
+stories.add('demo', () => <Sample />)

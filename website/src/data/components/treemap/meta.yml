@@ -1,12 +1,12 @@
 flavors:
   - flavor: svg
-    path: /treemap
+    path: /treemap/
   - flavor: html
-    path: /treemap/html
+    path: /treemap/html/
   - flavor: canvas
-    path: /treemap/canvas
+    path: /treemap/canvas/
   - flavor: api
-    path: /treemap/api
+    path: /treemap/api/
 
 TreeMap:
   package: '@nivo/treemap'

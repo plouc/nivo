@@ -13,7 +13,7 @@ import { generateParallelCoordinatesData } from '@nivo/generators'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/parallel-coordinates/meta.yml'
 import mapper from '../../data/components/parallel-coordinates/mapper'
-import { groupsByScope } from '../../data/components/parallel-coordinates/props'
+import { groups } from '../../data/components/parallel-coordinates/props'
 import variables from '../../data/components/parallel-coordinates/variables'
 
 const initialProperties = {
@@ -47,7 +47,7 @@ const ParallelCoordinates = () => {
             icon="parallel-coordinates"
             flavors={meta.flavors}
             currentFlavor="svg"
-            properties={groupsByScope.ParallelCoordinates}
+            properties={groups}
             initialProperties={initialProperties}
             defaultProperties={commonDefaultProps}
             propertiesMapper={mapper}

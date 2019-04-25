@@ -10,7 +10,7 @@ import React from 'react'
 import { generateLibTree } from '@nivo/generators'
 import SEO from '../../components/seo'
 import ApiClient from '../../components/components/api-client/ApiClient'
-import { groupsByScope } from '../../data/components/sunburst/props'
+import { groups } from '../../data/components/sunburst/props'
 import mapper from '../../data/components/sunburst/mapper'
 import meta from '../../data/components/sunburst/meta.yml'
 
@@ -26,7 +26,7 @@ const SunburstApi = () => {
                 apiPath="/charts/sunburst"
                 flavors={meta.flavors}
                 dataProperty="data"
-                controlGroups={groupsByScope.api}
+                controlGroups={groups}
                 propsMapper={mapper}
                 defaultProps={{
                     width: 600,

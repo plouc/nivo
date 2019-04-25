@@ -231,6 +231,12 @@ const all = components.concat([
         tags: [...heatmap.HeatMap.tags, 'HTTP API'],
     },
     {
+        label: 'LineCanvas',
+        path: '/line/canvas',
+        icon: 'line',
+        tags: line.LineCanvas.tags,
+    },
+    {
         label: 'Line HTTP API',
         path: '/line/api',
         icon: 'line',

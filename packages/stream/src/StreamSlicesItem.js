@@ -13,7 +13,7 @@ import pure from 'recompose/pure'
 import withState from 'recompose/withState'
 import withHandlers from 'recompose/withHandlers'
 import withPropsOnChange from 'recompose/withPropsOnChange'
-import { TableTooltip, Chip } from '@nivo/core'
+import { TableTooltip, Chip } from '@nivo/tooltip'
 
 const StreamSlicesItem = ({ slice, height, showTooltip, hideTooltip, isHover }) => (
     <g transform={`translate(${slice.x}, 0)`}>

@@ -13,7 +13,7 @@ import { generateLibTree } from '@nivo/generators'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bubble/meta.yml'
 import mapper from '../../data/components/bubble/mapper'
-import { groupsByScope } from '../../data/components/bubble/props'
+import { groups } from '../../data/components/bubble/props'
 
 const initialProperties = {
     margin: {
@@ -70,7 +70,7 @@ const Bubble = () => {
             icon="circle-packing"
             flavors={meta.flavors}
             currentFlavor="svg"
-            properties={groupsByScope.Bubble}
+            properties={groups}
             initialProperties={initialProperties}
             defaultProperties={BubbleDefaultProps}
             propertiesMapper={mapper}

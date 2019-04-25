@@ -7,13 +7,16 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
-import { lineCurvePropType, blendModePropType } from '@nivo/core'
+import { lineCurvePropType, blendModePropType, motionPropTypes } from '@nivo/core'
 import { ordinalColorsPropType } from '@nivo/colors'
 import { axisPropType } from '@nivo/axes'
 import { scalePropType } from '@nivo/scales'
 import { LegendPropShape } from '@nivo/legends'
+import { crosshairPropTypes } from '@nivo/tooltip'
+import LinePointTooltip from './LinePointTooltip'
+import LineStackedTooltip from './LineStackedTooltip'
 
-export const LinePropTypes = {
+const commonPropTypes = {
     data: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
@@ -35,9 +38,10 @@ export const LinePropTypes = {
     ).isRequired,
 
     xScale: scalePropType.isRequired,
+    xFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
     yScale: scalePropType.isRequired,
+    yFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 
-    computedData: PropTypes.object.isRequired,
     layers: PropTypes.arrayOf(
         PropTypes.oneOfType([
             PropTypes.oneOf([
@@ -45,9 +49,11 @@ export const LinePropTypes = {
                 'markers',
                 'axes',
                 'areas',
+                'crosshair',
                 'lines',
                 'slices',
-                'dots',
+                'points',
+                'mesh',
                 'legends',
             ]),
             PropTypes.func,
@@ -55,8 +61,6 @@ export const LinePropTypes = {
     ).isRequired,
 
     curve: lineCurvePropType.isRequired,
-    areaGenerator: PropTypes.func.isRequired,
-    lineGenerator: PropTypes.func.isRequired,
 
     axisTop: axisPropType,
     axisRight: axisPropType,
@@ -78,13 +82,12 @@ export const LinePropTypes = {
         ),
     ]),
 
-    enableDots: PropTypes.bool.isRequired,
-    dotSymbol: PropTypes.func,
-    dotSize: PropTypes.number.isRequired,
-    dotColor: PropTypes.any.isRequired,
-    dotBorderWidth: PropTypes.number.isRequired,
-    dotBorderColor: PropTypes.any.isRequired,
-    enableDotLabel: PropTypes.bool.isRequired,
+    enablePoints: PropTypes.bool.isRequired,
+    pointSymbol: PropTypes.func,
+    pointSize: PropTypes.number.isRequired,
+    pointColor: PropTypes.any.isRequired,
+    pointBorderWidth: PropTypes.number.isRequired,
+    pointBorderColor: PropTypes.any.isRequired,
 
     markers: PropTypes.arrayOf(
         PropTypes.shape({
@@ -95,7 +98,6 @@ export const LinePropTypes = {
     ),
 
     colors: ordinalColorsPropType.isRequired,
-    getColor: PropTypes.func.isRequired,
     enableArea: PropTypes.bool.isRequired,
     areaOpacity: PropTypes.number.isRequired,
     areaBlendMode: blendModePropType.isRequired,
@@ -111,15 +113,32 @@ export const LinePropTypes = {
         })
     ).isRequired,
 
-    isInteractive: PropTypes.bool.isRequired,
-    enableStackTooltip: PropTypes.bool.isRequired,
-    tooltip: PropTypes.func,
-    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
+
+    isInteractive: PropTypes.bool.isRequired,
+    debugMesh: PropTypes.bool.isRequired,
+    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    enableStackTooltip: PropTypes.bool.isRequired,
+    stackTooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+
+    enableCrosshair: PropTypes.bool.isRequired,
+    crosshairType: crosshairPropTypes.type.isRequired,
 }
 
-export const LineDefaultProps = {
+export const LinePropTypes = {
+    ...commonPropTypes,
+    enablePointLabel: PropTypes.bool.isRequired,
+    useMesh: PropTypes.bool.isRequired,
+    ...motionPropTypes,
+}
+
+export const LineCanvasPropTypes = {
+    pixelRatio: PropTypes.number.isRequired,
+    ...commonPropTypes,
+}
+
+const commonDefaultProps = {
     curve: 'linear',
 
     xScale: {
@@ -131,18 +150,28 @@ export const LineDefaultProps = {
         max: 'auto',
     },
 
-    layers: ['grid', 'markers', 'axes', 'areas', 'lines', 'slices', 'dots', 'legends'],
+    layers: [
+        'grid',
+        'markers',
+        'axes',
+        'areas',
+        'crosshair',
+        'lines',
+        'slices',
+        'points',
+        'mesh',
+        'legends',
+    ],
     axisBottom: {},
     axisLeft: {},
     enableGridX: true,
     enableGridY: true,
 
-    enableDots: true,
-    dotSize: 6,
-    dotColor: { from: 'color' },
-    dotBorderWidth: 0,
-    dotBorderColor: { theme: 'background' },
-    enableDotLabel: false,
+    enablePoints: true,
+    pointSize: 6,
+    pointColor: { from: 'color' },
+    pointBorderWidth: 0,
+    pointBorderColor: { theme: 'background' },
 
     colors: { scheme: 'nivo' },
     enableArea: false,
@@ -150,10 +179,32 @@ export const LineDefaultProps = {
     areaOpacity: 0.2,
     areaBlendMode: 'normal',
     lineWidth: 2,
+
     defs: [],
 
-    isInteractive: true,
-    enableStackTooltip: true,
-
     legends: [],
+
+    isInteractive: true,
+    tooltip: LinePointTooltip,
+    enableStackTooltip: false,
+    stackTooltip: LineStackedTooltip,
+    debugMesh: false,
+
+    enableCrosshair: true,
+    crosshairType: 'bottom-left',
+}
+
+export const LineDefaultProps = {
+    ...commonDefaultProps,
+    enablePointLabel: false,
+    useMesh: false,
+    animate: true,
+    motionStiffness: 90,
+    motionDamping: 15,
+}
+
+export const LineCanvasDefaultProps = {
+    ...commonDefaultProps,
+    pixelRatio:
+        global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
 }

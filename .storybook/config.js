@@ -45,7 +45,7 @@ addDecorator(withInfo({
 
 function loadStories() {
     require('../packages/bar/stories/bar.stories')
-    // require('../packages/bar/stories/bar_00.stories')
+    require('../packages/bar/stories/raceChart.stories')
     require('../packages/bar/stories/barCanvas.stories')
     require('../packages/bullet/stories/bullet.stories')
     require('../packages/calendar/stories/calendar.stories')
@@ -54,6 +54,7 @@ function loadStories() {
     require('../packages/circle-packing/stories/bubbleHtml.stories')
     require('../packages/heatmap/stories/heatmap.stories')
     require('../packages/line/stories/line.stories')
+    require('../packages/line/stories/LineCanvas.stories')
     require('../packages/pie/stories/pie.stories')
     require('../packages/radar/stories/radar.stories')
     require('../packages/sankey/stories/sankey.stories')

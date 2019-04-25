@@ -12,7 +12,7 @@ import { ResponsiveBullet, BulletDefaultProps } from '@nivo/bullet'
 import { generateBulletData } from '@nivo/generators'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bullet/meta.yml'
-import { groupsByScope } from '../../data/components/bullet/props'
+import { groups } from '../../data/components/bullet/props'
 
 const generateData = () => [
     generateBulletData('temp.', shuffle([100, 120, 140])[0]),
@@ -56,7 +56,7 @@ const Bullet = () => {
             icon="bullet"
             flavors={meta.flavors}
             currentFlavor="svg"
-            properties={groupsByScope.Bullet}
+            properties={groups}
             initialProperties={initialProperties}
             defaultProperties={BulletDefaultProps}
             generateData={generateData}

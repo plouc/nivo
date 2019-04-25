@@ -8,8 +8,10 @@
  */
 import React, { useMemo, useCallback } from 'react'
 import get from 'lodash/get'
-import { useValueFormatter, useTooltip } from '@nivo/core'
+import { useValueFormatter } from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
+import { useTooltip } from '@nivo/tooltip'
+
 import {
     computeValueScale,
     computeOrdinalScale,
@@ -187,11 +189,11 @@ export const useNodeMouseHandlers = ({
     onClick,
     tooltip,
 }) => {
-    const [showTooltip, hideTooltip] = useTooltip()
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
     const showNodeTooltip = useMemo(() => {
-        if (tooltip) return (node, event) => showTooltip(tooltip({ node }), event)
-        return (node, event) => showTooltip(<SwarmPlotTooltip node={node} />, event)
-    }, [showTooltip])
+        if (tooltip) return (node, event) => showTooltipFromEvent(tooltip({ node }), event)
+        return (node, event) => showTooltipFromEvent(<SwarmPlotTooltip node={node} />, event)
+    }, [showTooltipFromEvent])
 
     const mouseEnterHandler = useCallback(
         (node, event) => {
@@ -217,7 +219,8 @@ export const useNodeMouseHandlers = ({
             hideTooltip()
             onMouseLeave && onMouseLeave(node, event)
         },
-        [isEnabled, onMouseLeave]
+        [isEnabled, onMouseLeave],
+        hideTooltip
     )
 
     const clickHandler = useCallback(

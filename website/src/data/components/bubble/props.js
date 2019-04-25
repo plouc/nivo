@@ -7,16 +7,11 @@
  * file that was distributed with this source code.
  */
 import { BubbleDefaultProps as defaults } from '@nivo/circle-packing'
-import {
-    motionProperties,
-    defsProperties,
-    getPropertiesGroupsControls,
-} from '../../../lib/componentProperties'
+import { motionProperties, defsProperties, groupProperties } from '../../../lib/componentProperties'
 
 const props = [
     {
         key: 'root',
-        scopes: '*',
         help: 'The hierarchical data object.',
         type: 'object',
         required: true,
@@ -52,8 +47,7 @@ const props = [
     },
     {
         key: 'width',
-        scopes: ['api'],
-        docScopes: '*',
+        enableControlForFlavors: ['api'],
         help: 'Chart width.',
         description: `
             not required if using \`<ResponsiveBubble/>\`.
@@ -71,8 +65,7 @@ const props = [
     },
     {
         key: 'height',
-        scopes: ['api'],
-        docScopes: '*',
+        enableControlForFlavors: ['api'],
         help: 'Chart height.',
         description: `
             not required if using \`<ResponsiveBubble/>\`.
@@ -90,7 +83,7 @@ const props = [
     },
     {
         key: 'pixelRatio',
-        scopes: ['BubbleCanvas'],
+        flavors: ['canvas'],
         help: `Adjust pixel ratio, useful for HiDPI screens.`,
         required: false,
         defaultValue: 'Depends on device',
@@ -104,7 +97,6 @@ const props = [
     },
     {
         key: 'leavesOnly',
-        scopes: '*',
         help: 'Only render leaf nodes (skip parent nodes).',
         type: 'boolean',
         required: false,
@@ -114,7 +106,6 @@ const props = [
     },
     {
         key: 'margin',
-        scopes: '*',
         help: 'Chart margin.',
         type: 'object',
         required: false,
@@ -123,7 +114,6 @@ const props = [
     },
     {
         key: 'padding',
-        scopes: '*',
         help: 'Padding between each circle.',
         description: `
             Padding between adjacent circles.
@@ -145,7 +135,6 @@ const props = [
     },
     {
         key: 'colors',
-        scopes: '*',
         help: 'Defines how to compute node color.',
         description: `
             colors used to colorize the circles,
@@ -159,7 +148,6 @@ const props = [
     },
     {
         key: 'colorBy',
-        scopes: '*',
         type: 'string | Function',
         help: 'Property used to determine node color.',
         description: `
@@ -188,7 +176,6 @@ const props = [
     },
     {
         key: 'borderWidth',
-        scopes: '*',
         help: 'Width of circle border.',
         type: 'number',
         required: false,
@@ -198,7 +185,6 @@ const props = [
     },
     {
         key: 'borderColor',
-        scopes: '*',
         help: 'Method to compute border color.',
         description: `
             how to compute border color,
@@ -210,10 +196,9 @@ const props = [
         controlType: 'inheritedColor',
         group: 'Style',
     },
-    ...defsProperties(['Bubble']),
+    ...defsProperties('Style', ['svg']),
     {
         key: 'enableLabel',
-        scopes: '*',
         help: 'Enable/disable labels.',
         type: 'boolean',
         required: false,
@@ -223,7 +208,6 @@ const props = [
     },
     {
         key: 'label',
-        scopes: '*',
         help: 'Label accessor.',
         description: `
             Defines how to get label text,
@@ -244,7 +228,6 @@ const props = [
     },
     {
         key: 'labelFormat',
-        scopes: '*',
         group: 'Labels',
         help: 'Labels formatting.',
         description: `
@@ -255,7 +238,6 @@ const props = [
     },
     {
         key: 'labelTextColor',
-        scopes: '*',
         help: 'Method to compute label text color.',
         description: `
             how to compute label text color,
@@ -269,7 +251,6 @@ const props = [
     },
     {
         key: 'labelSkipRadius',
-        scopes: '*',
         help: 'Skip label rendering if node radius is lower than given value, 0 to disable.',
         type: 'number',
         required: false,
@@ -284,7 +265,7 @@ const props = [
     },
     {
         key: 'isInteractive',
-        scopes: ['Bubble', 'BubbleHtml'],
+        flavors: ['svg', 'html'],
         help: 'Enable/disable interactivity.',
         type: 'boolean',
         required: false,
@@ -294,7 +275,7 @@ const props = [
     },
     {
         key: 'isZoomable',
-        scopes: ['Bubble', 'BubbleHtml'],
+        flavors: ['svg', 'html'],
         help: `Enable/disable zooming ('isInteractive' must also be 'true').`,
         type: 'boolean',
         required: false,
@@ -304,17 +285,13 @@ const props = [
     },
     {
         key: 'onClick',
-        scopes: ['Bubble', 'BubbleHtml'],
+        group: 'Interactivity',
+        flavors: ['svg', 'html'],
         help: 'onClick handler, it receives clicked node data and mouse event.',
         type: 'Function',
         required: false,
     },
-    ...motionProperties(['Bubble', 'BubbleHtml'], defaults),
+    ...motionProperties(['svg', 'html'], defaults),
 ]
 
-export const groupsByScope = {
-    Bubble: getPropertiesGroupsControls(props, 'Bubble'),
-    BubbleHtml: getPropertiesGroupsControls(props, 'BubbleHtml'),
-    BubbleCanvas: getPropertiesGroupsControls(props, 'BubbleCanvas'),
-    api: getPropertiesGroupsControls(props, 'api'),
-}
+export const groups = groupProperties(props)

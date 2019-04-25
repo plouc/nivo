@@ -13,7 +13,7 @@ import { ResponsiveSankey, SankeyDefaultProps } from '@nivo/sankey'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/sankey/meta.yml'
 import mapper from '../../data/components/sankey/mapper'
-import { groupsByScope } from '../../data/components/sankey/props'
+import { groups } from '../../data/components/sankey/props'
 
 const initialProperties = {
     margin: {
@@ -97,7 +97,7 @@ const Sankey = () => {
             icon="sankey"
             flavors={meta.flavors}
             currentFlavor="svg"
-            properties={groupsByScope.Sankey}
+            properties={groups}
             initialProperties={initialProperties}
             defaultProperties={SankeyDefaultProps}
             propertiesMapper={mapper}

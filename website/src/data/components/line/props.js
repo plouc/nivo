@@ -12,13 +12,12 @@ import {
     axesProperties,
     motionProperties,
     getLegendsProps,
-    getPropertiesGroupsControls,
+    groupProperties,
 } from '../../../lib/componentProperties'
 
 const props = [
     {
         key: 'data',
-        scopes: '*',
         group: 'Base',
         help: 'Chart data.',
         description: `
@@ -37,97 +36,10 @@ const props = [
         type: 'object[]',
     },
     {
-        key: 'width',
-        scopes: ['api'],
-        docScopes: '*',
-        help: 'Chart width.',
-        description: `
-            not required if using
-            \`<ResponsiveLine/>\`.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        scopes: ['api'],
-        docScopes: '*',
-        help: 'Chart height.',
-        description: `
-            not required if using
-            \`<ResponsiveLine/>\`.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'margin',
-        scopes: '*',
-        help: 'Chart margin.',
-        type: 'object',
-        required: false,
-        controlType: 'margin',
-        group: 'Base',
-    },
-    {
-        key: 'layers',
-        scopes: ['Line'],
-        group: 'Base',
-        help: 'Defines the order of layers.',
-        description: `
-            Defines the order of layers, available layers are:
-            \`grid\`, \`markers\`, \`axes\`, \`areas\`,
-            \`lines\`, \`slices\`, \`dots\`, \`legends\`.
-
-            You can also use this to insert extra layers
-            to the chart, this extra layer must be
-            a function which will receive the chart
-            computed data and must return a valid SVG element.
-        `,
-        required: false,
-        defaultValue: defaults.layers,
-    },
-    {
-        key: 'curve',
-        scopes: '*',
-        help: 'Curve interpolation.',
-        description: `
-            Defines the curve factory to use for the line generator.
-        `,
-        type: 'string',
-        required: false,
-        defaultValue: defaults.curve,
-        controlType: 'choices',
-        group: 'Base',
-        controlOptions: {
-            choices: lineCurvePropKeys.map(key => ({
-                label: key,
-                value: key,
-            })),
-        },
-    },
-    {
         key: 'xScale',
-        scopes: '*',
         type: 'object',
-        help: `X scale configuration.`,
         group: 'Base',
+        help: `X scale configuration.`,
         controlType: 'object',
         controlOptions: {
             props: [
@@ -148,8 +60,20 @@ const props = [
         },
     },
     {
+        key: 'xFormat',
+        group: 'Base',
+        help: 'Optional formatter for x values.',
+        description: `
+            The formatted value can then be used for labels & tooltips.
+
+            If you use a time scale, you must provide a time format
+            as values are converted to Date objects.
+        `,
+        required: false,
+        type: 'Function | string',
+    },
+    {
         key: 'yScale',
-        scopes: '*',
         type: 'object',
         help: `Y scale configuration.`,
         group: 'Base',
@@ -171,7 +95,6 @@ const props = [
                 },
                 {
                     key: 'stacked',
-                    scopes: '*',
                     help: 'Enable/disable stacked mode.',
                     type: 'boolean',
                     required: false,
@@ -207,8 +130,76 @@ const props = [
         },
     },
     {
+        key: 'yFormat',
+        group: 'Base',
+        help: 'Optional formatter for y values.',
+        description: `
+            The formatted value can then be used for labels & tooltips.
+
+            If you use a time scale, you must provide a time format
+            as values are converted to Date objects.
+        `,
+        required: false,
+        type: 'Function | string',
+    },
+    {
+        key: 'width',
+        enableControlForFlavors: ['api'],
+        help: 'Chart width, not required when using responsive variant.',
+        type: 'number',
+        required: true,
+        controlType: 'range',
+        group: 'Base',
+        controlOptions: {
+            unit: 'px',
+            min: 100,
+            max: 1000,
+            step: 5,
+        },
+    },
+    {
+        key: 'height',
+        enableControlForFlavors: ['api'],
+        help: 'Chart height, not required when using responsive variant.',
+        type: 'number',
+        required: true,
+        controlType: 'range',
+        group: 'Base',
+        controlOptions: {
+            unit: 'px',
+            min: 100,
+            max: 1000,
+            step: 5,
+        },
+    },
+    {
+        key: 'margin',
+        help: 'Chart margin.',
+        type: 'object',
+        required: false,
+        controlType: 'margin',
+        group: 'Base',
+    },
+    {
+        key: 'curve',
+        help: 'Curve interpolation.',
+        description: `
+            Defines the curve factory to use for the line generator.
+        `,
+        type: 'string',
+        required: false,
+        defaultValue: defaults.curve,
+        controlType: 'choices',
+        group: 'Style',
+        controlOptions: {
+            choices: lineCurvePropKeys.map(key => ({
+                label: key,
+                value: key,
+            })),
+        },
+    },
+    {
         key: 'colors',
-        scopes: '*',
         help: 'Defines color range.',
         type: 'string | Function | string[]',
         required: false,
@@ -218,7 +209,6 @@ const props = [
     },
     {
         key: 'lineWidth',
-        scopes: '*',
         help: 'Line width.',
         type: 'number',
         required: false,
@@ -228,7 +218,6 @@ const props = [
     },
     {
         key: 'enableArea',
-        scopes: '*',
         help: 'Enable/disable area below each line.',
         type: 'boolean',
         required: false,
@@ -238,7 +227,6 @@ const props = [
     },
     {
         key: 'areaBaselineValue',
-        scopes: '*',
         help: 'Define the value to be used for area baseline.',
         description: `
             Define the value to be used for area baseline.
@@ -259,7 +247,6 @@ const props = [
     },
     {
         key: 'areaOpacity',
-        scopes: '*',
         help: 'Area opacity (0~1), depends on enableArea.',
         required: false,
         defaultValue: defaults.areaOpacity,
@@ -269,7 +256,7 @@ const props = [
     },
     {
         key: 'areaBlendMode',
-        scopes: '*',
+        flavors: ['svg'],
         help: 'Defines CSS mix-blend-mode property.',
         description: `
             Defines CSS \`mix-blend-mode\` property for areas,
@@ -279,57 +266,48 @@ const props = [
         type: 'string',
         required: false,
         defaultValue: defaults.areaBlendMode,
-        controlType: 'choices',
+        controlType: 'blendMode',
         group: 'Style',
-        controlOptions: {
-            choices: [
-                'normal',
-                'multiply',
-                'screen',
-                'overlay',
-                'darken',
-                'lighten',
-                'color-dodge',
-                'color-burn',
-                'hard-light',
-                'soft-light',
-                'difference',
-                'exclusion',
-                'hue',
-                'saturation',
-                'color',
-                'luminosity',
-            ].map(key => ({
-                label: key,
-                value: key,
-            })),
-        },
     },
     {
-        key: 'enableDots',
-        scopes: '*',
-        help: 'Enable/disable dots.',
+        key: 'layers',
+        group: 'Customization',
+        help: 'Defines the order of layers and add custom layers.',
+        description: `
+            You can also use this property to insert extra layers
+            to the chart, this extra layer must be
+            a function which will receive the chart
+            computed data and must return a valid SVG element.
+        `,
+        required: false,
+        defaultValue: defaults.layers,
+    },
+    {
+        key: 'enablePoints',
+        help: 'Enable/disable points.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.enableDots,
+        defaultValue: defaults.enablePoints,
         controlType: 'switch',
-        group: 'Dots',
+        group: 'Points',
     },
     {
-        key: 'dotSymbol',
+        key: 'pointSymbol',
+        flavors: ['svg'],
         help:
-            'Overrides default dot circle. The function will receive `size`, `color`, `borderWidth` and `borderColor` props and must return a valid SVG element.',
+            'Overrides default point circle. The function will receive `size`, `color`, `borderWidth` and `borderColor` props and must return a valid SVG element.',
         type: 'Function',
         required: false,
+        group: 'Points',
     },
     {
-        key: 'dotSize',
-        help: 'Size of the dots.',
+        key: 'pointSize',
+        help: 'Size of the points.',
         type: 'number',
         required: false,
-        defaultValue: defaults.dotSize,
+        defaultValue: defaults.pointSize,
         controlType: 'range',
-        group: 'Dots',
+        group: 'Points',
         controlOptions: {
             unit: 'px',
             min: 2,
@@ -337,70 +315,73 @@ const props = [
         },
     },
     {
-        key: 'dotColor',
-        scopes: '*',
-        help: 'Method to compute dots color.',
+        key: 'pointColor',
+        help: 'Method to compute points color.',
         type: 'string | object | Function',
         required: false,
-        defaultValue: defaults.dotColor,
+        defaultValue: defaults.pointColor,
         controlType: 'inheritedColor',
-        group: 'Dots',
+        group: 'Points',
         controlOptions: {
             withCustomColor: true,
         },
     },
     {
-        key: 'dotBorderWidth',
-        help: 'Width of the dots border.',
+        key: 'pointBorderWidth',
+        help: 'Width of the points border.',
         type: 'number',
         required: false,
-        defaultValue: defaults.dotBorderWidth,
+        defaultValue: defaults.pointBorderWidth,
         controlType: 'lineWidth',
-        group: 'Dots',
+        group: 'Points',
     },
     {
-        key: 'dotBorderColor',
-        scopes: '*',
-        help: 'Method to compute dots border color.',
+        key: 'pointBorderColor',
+        help: 'Method to compute points border color.',
         type: 'string | object | Function',
         required: false,
-        defaultValue: defaults.dotBorderColor,
+        defaultValue: defaults.pointBorderColor,
         controlType: 'inheritedColor',
-        group: 'Dots',
+        group: 'Points',
     },
     {
-        key: 'enableDotLabel',
-        scopes: '*',
-        help: 'Enable/disable dots label.',
+        key: 'enablePointLabel',
+        flavors: ['svg', 'api'],
+        group: 'Points',
+        help: 'Enable/disable points label.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.enableDotLabel,
+        defaultValue: defaults.enablePointLabel,
         controlType: 'switch',
-        group: 'Dots',
+        group: 'Points',
     },
     {
-        key: 'dotLabel',
+        key: 'pointLabel',
+        flavors: ['svg', 'api'],
+        group: 'Points',
         help:
-            'Property to use to determine dot label. If a function is provided, it will receive current value and serie and must return a label.',
+            'Property to use to determine point label. If a function is provided, it will receive current value and serie and must return a label.',
         type: 'string',
         required: false,
         controlType: 'choices',
-        group: 'Dots',
         controlOptions: {
-            choices: ['y', 'x', 'serie.id', `d => \`\${d.x}: \${d.y}\``].map(choice => ({
-                label: choice,
-                value: choice,
-            })),
+            choices: ['y', 'yFormatted', 'x', 'xFormatted', `d => \`\${d.x}: \${d.y}\``].map(
+                choice => ({
+                    label: choice,
+                    value: choice,
+                })
+            ),
         },
     },
     {
-        key: 'dotLabelYOffset',
-        help: 'Label Y offset from dot shape.',
+        key: 'pointLabelYOffset',
+        flavors: ['svg', 'api'],
+        group: 'Points',
+        help: 'Label Y offset from point shape.',
         type: 'number',
         required: false,
         defaultValue: dotDefaults.labelYOffset,
         controlType: 'range',
-        group: 'Dots',
         controlOptions: {
             unit: 'px',
             min: -24,
@@ -409,7 +390,6 @@ const props = [
     },
     {
         key: 'enableGridX',
-        scopes: '*',
         help: 'Enable/disable x grid.',
         type: 'boolean',
         required: false,
@@ -419,15 +399,13 @@ const props = [
     },
     {
         key: 'gridXValues',
-        scopes: '*',
         group: 'Grid & Axes',
         help: 'Specify values to use for vertical grid lines.',
-        type: 'Array<number | string>',
+        type: 'Array<number | string | Date>',
         required: false,
     },
     {
         key: 'enableGridY',
-        scopes: '*',
         help: 'Enable/disable y grid.',
         type: 'boolean',
         required: false,
@@ -437,16 +415,15 @@ const props = [
     },
     {
         key: 'gridYValues',
-        scopes: '*',
         group: 'Grid & Axes',
         help: 'Specify values to use for horizontal grid lines.',
-        type: 'Array<number | string>',
+        type: 'Array<number | string | Date>',
         required: false,
     },
-    ...axesProperties,
+    ...axesProperties(),
     {
         key: 'isInteractive',
-        scopes: ['Line'],
+        flavors: ['svg', 'canvas'],
         help: 'Enable/disable interactivity.',
         type: 'boolean',
         required: false,
@@ -455,9 +432,69 @@ const props = [
         group: 'Interactivity',
     },
     {
+        key: 'useMesh',
+        flavors: ['svg'],
+        help: 'Use a voronoi mesh to detect mouse interactions.',
+        type: 'boolean',
+        required: false,
+        defaultValue: defaults.useMesh,
+        controlType: 'switch',
+        group: 'Interactivity',
+    },
+    {
+        key: 'debugMesh',
+        flavors: ['svg', 'canvas'],
+        help: 'Display mesh used to detect mouse interactions (voronoi cells).',
+        type: 'boolean',
+        required: false,
+        defaultValue: defaults.debugMesh,
+        controlType: 'switch',
+        group: 'Interactivity',
+    },
+    {
+        key: 'onMouseEnter',
+        flavors: ['svg', 'canvas'],
+        group: 'Interactivity',
+        help: `onMouseEnter handler, doesn't work with stack tooltip.`,
+        type: '(point, event) => void',
+        required: false,
+    },
+    {
+        key: 'onMouseMove',
+        flavors: ['svg', 'canvas'],
+        group: 'Interactivity',
+        help: `onMouseMove handler, doesn't work with stack tooltip.`,
+        type: '(point, event) => void',
+        required: false,
+    },
+    {
+        key: 'onMouseLeave',
+        flavors: ['svg', 'canvas'],
+        group: 'Interactivity',
+        help: `onMouseLeave handler, doesn't work with stack tooltip.`,
+        type: '(point, event) => void',
+        required: false,
+    },
+    {
+        key: 'onClick',
+        flavors: ['svg', 'canvas'],
+        group: 'Interactivity',
+        help: `onClick handler, doesn't work with stack tooltip.`,
+        type: '(point, event) => void',
+        required: false,
+    },
+    {
+        key: 'tooltip',
+        flavors: ['svg', 'canvas'],
+        group: 'Interactivity',
+        help: `Custom point tooltip`,
+        type: 'Function',
+        required: false,
+    },
+    {
         key: 'enableStackTooltip',
-        scopes: ['Line'],
-        help: `Enable/disable stack tooltip ('isInteractive' must also be 'true').`,
+        flavors: ['svg', 'canvas'],
+        help: `Enable/disable stack tooltip, it also disable mesh.`,
         type: 'boolean',
         required: false,
         defaultValue: defaults.enableStackTooltip,
@@ -465,23 +502,59 @@ const props = [
         group: 'Interactivity',
     },
     {
-        key: 'tooltip',
-        scopes: ['Line'],
+        key: 'stackTooltip',
+        flavors: ['svg', 'canvas'],
         group: 'Interactivity',
-        help: `Method to create custom tooltip`,
+        help: `Custom stack tooltip`,
         type: 'Function',
         required: false,
-        defaultValue: defaults.tooltip,
+    },
+    {
+        key: 'enableCrosshair',
+        flavors: ['svg', 'canvas'],
+        group: 'Interactivity',
+        help: 'Enable/disable crosshair.',
+        type: 'boolean',
+        required: false,
+        controlType: 'switch',
+        defaultValue: defaults.enableCrosshair,
+    },
+    {
+        key: 'crosshairType',
+        flavors: ['svg', 'canvas'],
+        group: 'Interactivity',
+        required: false,
+        defaultValue: defaults.crosshairType,
+        help: `Crosshair type, non customizable when stack tooltip is enabled.`,
+        type: 'string',
+        controlType: 'choices',
+        controlOptions: {
+            disabled: true,
+            choices: [
+                'top-left',
+                'top',
+                'top-right',
+                'right',
+                'bottom-right',
+                'bottom',
+                'bottom-left',
+                'left',
+                'cross',
+            ].map(v => ({
+                label: v,
+                value: v,
+            })),
+        },
     },
     {
         key: 'legends',
-        scopes: ['Line'],
+        flavors: ['svg', 'canvas'],
         type: 'object[]',
         help: `Optional chart's legends.`,
         group: 'Legends',
         controlType: 'array',
         controlOptions: {
-            props: getLegendsProps(),
+            props: getLegendsProps(['svg', 'canvas']),
             shouldCreate: true,
             addLabel: 'add legend',
             shouldRemove: true,
@@ -515,10 +588,7 @@ const props = [
             },
         },
     },
-    ...motionProperties(['Line'], defaults),
+    ...motionProperties(['svg'], defaults),
 ]
 
-export const groupsByScope = {
-    Line: getPropertiesGroupsControls(props, 'Line'),
-    api: getPropertiesGroupsControls(props, 'api'),
-}
+export const groups = groupProperties(props)

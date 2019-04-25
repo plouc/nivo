@@ -1,10 +1,10 @@
 flavors:
   - flavor: svg
-    path: /calendar
+    path: /calendar/
   - flavor: canvas
-    path: /calendar/canvas
+    path: /calendar/canvas/
   - flavor: api
-    path: /calendar/api
+    path: /calendar/api/
 
 Calendar:
   package: '@nivo/calendar'

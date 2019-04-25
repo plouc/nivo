@@ -7,8 +7,23 @@
  * file that was distributed with this source code.
  */
 import isNumber from 'lodash/isNumber'
-import isArray from 'lodash/isArray'
-import isFunction from 'lodash/isFunction'
+import {
+    timeMillisecond,
+    timeSecond,
+    timeMinute,
+    timeHour,
+    timeDay,
+    timeWeek,
+    timeSunday,
+    timeMonday,
+    timeTuesday,
+    timeWednesday,
+    timeThursday,
+    timeFriday,
+    timeSaturday,
+    timeMonth,
+    timeYear,
+} from 'd3-time'
 import { timeFormat } from 'd3-time-format'
 import { format as d3Format } from 'd3-format'
 import { textPropsByEngine } from '@nivo/core'
@@ -26,8 +41,62 @@ export const centerScale = scale => {
     return d => scale(d) + offset
 }
 
-export const getScaleTicks = (scale, tickCount) => {
-    if (scale.ticks) return scale.ticks(tickCount)
+const timeByType = {
+    millisecond: timeMillisecond,
+    second: timeSecond,
+    minute: timeMinute,
+    hour: timeHour,
+    day: timeDay,
+    week: timeWeek,
+    sunday: timeSunday,
+    monday: timeMonday,
+    tuesday: timeTuesday,
+    wednesday: timeWednesday,
+    thursday: timeThursday,
+    friday: timeFriday,
+    saturday: timeSaturday,
+    month: timeMonth,
+    year: timeYear,
+}
+
+const timeTypes = Object.keys(timeByType)
+const timeIntervalRegexp = new RegExp(`^every\\s*(\\d+)?\\s*(${timeTypes.join('|')})s?$`, 'i')
+
+export const getScaleTicks = (scale, spec) => {
+    // specific values
+    if (Array.isArray(spec)) {
+        return spec
+    }
+
+    // continuous scales
+    if (scale.ticks) {
+        // default behaviour
+        if (spec === undefined) {
+            return scale.ticks()
+        }
+
+        // specific tick count
+        if (isNumber(spec)) {
+            return scale.ticks(spec)
+        }
+
+        if (typeof spec === 'string') {
+            // time interval
+            const matches = spec.match(timeIntervalRegexp)
+            if (matches) {
+                const timeType = timeByType[matches[2]]
+                if (matches[1] === undefined) {
+                    return scale.ticks(timeType)
+                }
+
+                return scale.ticks(timeType.every(Number(matches[1])))
+            }
+
+            throw new Error(`Invalid tickValues: ${spec}`)
+        }
+    }
+
+    // non linear scale default
     return scale.domain()
 }
 
@@ -35,16 +104,13 @@ export const computeCartesianTicks = ({
     axis,
     scale,
     ticksPosition,
-    tickValues: _tickValues,
+    tickValues,
     tickSize,
     tickPadding,
     tickRotation,
     engine = 'svg',
 }) => {
-    const tickValues = isArray(_tickValues) ? _tickValues : undefined
-    const tickCount = isNumber(_tickValues) ? _tickValues : undefined
-
-    const values = tickValues || getScaleTicks(scale, tickCount)
+    const values = getScaleTicks(scale, tickValues)
 
     const textProps = textPropsByEngine[engine]
 
@@ -112,7 +178,7 @@ export const computeCartesianTicks = ({
 }
 
 export const getFormatter = (format, scale) => {
-    if (!format || isFunction(format)) return format
+    if (!format || typeof format === 'function') return format
 
     if (scale.type === 'time') {
         const f = timeFormat(format)
@@ -123,7 +189,7 @@ export const getFormatter = (format, scale) => {
 }
 
 export const computeGridLines = ({ width, height, scale, axis, values: _values }) => {
-    const lineValues = isArray(_values) ? _values : undefined
+    const lineValues = Array.isArray(_values) ? _values : undefined
     const lineCount = isNumber(_values) ? _values : undefined
 
     const values = lineValues || getScaleTicks(scale, lineCount)

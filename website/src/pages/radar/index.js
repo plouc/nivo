@@ -12,7 +12,7 @@ import { ResponsiveRadar } from '@nivo/radar'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/radar/meta.yml'
 import mapper from '../../data/components/radar/mapper'
-import { groupsByScope } from '../../data/components/radar/props'
+import { groups } from '../../data/components/radar/props'
 
 const initialProperties = {
     indexBy: 'taste',
@@ -87,7 +87,7 @@ const Radar = () => {
             icon="radar"
             flavors={meta.flavors}
             currentFlavor="svg"
-            properties={groupsByScope.Radar}
+            properties={groups}
             initialProperties={initialProperties}
             propertiesMapper={mapper}
             codePropertiesMapper={(properties, data) => ({
@@ -110,49 +110,5 @@ const Radar = () => {
         </ComponentTemplate>
     )
 }
-
-/*
-const Radar = () => {
-    const theme = useTheme()
-    const [settings, setSettings] = useState(initialSettings)
-    const [data, setData] = useState(generateWinesTastes())
-    const diceRoll = useCallback(() => setData(generateWinesTastes()), [setData])
-
-    const mappedSettings = mapper(settings)
-
-    const code = generateCode(
-        'ResponsiveRadar',
-        {
-            keys: data.keys,
-            ...mappedSettings,
-        },
-        { pkg: '@nivo/radar' }
-    )
-
-    return (
-        <ComponentPage>
-            <SEO title="Radar" keywords={meta.Radar.tags} />
-            <ComponentHeader chartClass="Radar" tags={meta.Radar.tags} />
-            <ComponentFlavorSelector flavors={meta.flavors} current="svg" />
-            <ComponentDescription description={meta.Radar.description} />
-            <ComponentTabs chartClass="radar" code={code} data={data.data} diceRoll={diceRoll}>
-                <ResponsiveRadar
-                    data={data.data}
-                    keys={data.keys}
-                    {...mappedSettings}
-                    theme={theme.nivo}
-                />
-            </ComponentTabs>
-            <ComponentSettings
-                component="Radar"
-                settings={settings}
-                onChange={setSettings}
-                groups={groupsByScope.Radar}
-            />
-            <Stories isFullWidth={true} stories={meta.Radar.stories} />
-        </ComponentPage>
-    )
-}
-*/
 
 export default Radar

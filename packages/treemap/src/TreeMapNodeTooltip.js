@@ -9,7 +9,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import pure from 'recompose/pure'
-import { BasicTooltip } from '@nivo/core'
+import { BasicTooltip } from '@nivo/tooltip'
 
 const TreeMapNodeTooltip = ({ node, theme, tooltip }) => (
     <BasicTooltip

@@ -11,7 +11,7 @@ import { ResponsiveSwarmPlotCanvas, SwarmPlotCanvasDefaultProps } from '@nivo/sw
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/swarmplot/meta.yml'
 import mapper from '../../data/components/scatterplot/mapper'
-import { groupsByScope } from '../../data/components/swarmplot/props'
+import { groups } from '../../data/components/swarmplot/props'
 import { generateHeavyDataSet } from '../../data/components/swarmplot/generator'
 
 const initialProperties = Object.freeze({
@@ -107,7 +107,7 @@ const ScatterPlotCanvas = () => {
             icon="swarmplot"
             flavors={meta.flavors}
             currentFlavor="canvas"
-            properties={groupsByScope.SwarmPlotCanvas}
+            properties={groups}
             initialProperties={initialProperties}
             defaultProperties={SwarmPlotCanvasDefaultProps}
             propertiesMapper={mapper}

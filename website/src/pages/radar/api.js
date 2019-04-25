@@ -8,10 +8,9 @@
  */
 import React from 'react'
 import { generateWinesTastes } from '@nivo/generators'
-import Layout from '../../components/Layout'
 import SEO from '../../components/seo'
 import ApiClient from '../../components/components/api-client/ApiClient'
-import { groupsByScope } from '../../data/components/radar/props'
+import { groups } from '../../data/components/radar/props'
 import mapper from '../../data/components/radar/mapper'
 import meta from '../../data/components/radar/meta.yml'
 
@@ -27,7 +26,7 @@ const RadarApi = () => {
                 apiPath="/charts/radar"
                 flavors={meta.flavors}
                 dataProperty="data"
-                controlGroups={groupsByScope.api}
+                controlGroups={groups}
                 propsMapper={mapper}
                 defaultProps={{
                     width: 600,

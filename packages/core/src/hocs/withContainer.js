@@ -6,81 +6,60 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component, useRef, useState, useCallback } from 'react'
+import React, { Component, useRef } from 'react'
 import PropTypes from 'prop-types'
-import { themeContext } from '../theming'
-import { tooltipContext } from '../tooltip'
-import { usePartialTheme } from '../hooks'
+import { tooltipContext, useTooltipHandlers, TooltipWrapper } from '@nivo/tooltip'
+import { ThemeProvider } from '../theming'
+import { MotionConfigProvider } from '../motion'
 
 const containerStyle = {
     position: 'relative',
 }
 
-const tooltipStyle = {
-    pointerEvents: 'none',
-    position: 'absolute',
-    zIndex: 10,
-}
-
-const Container = ({ theme: partialTheme = {}, children }) => {
-    const containerEl = useRef(null)
-    const [state, setState] = useState({
-        isTooltipVisible: false,
-        tooltipContent: null,
-        position: {},
-    })
-    const showTooltip = useCallback(
-        (content, event) => {
-            if (!containerEl) return
-
-            const bounds = containerEl.current.getBoundingClientRect()
-
-            const { clientX, clientY } = event
-
-            const x = clientX - bounds.left
-            const y = clientY - bounds.top
-
-            const position = {}
-
-            if (x < bounds.width / 2) position.left = x + 20
-            else position.right = bounds.width - x + 20
-
-            if (y < bounds.height / 2) position.top = y - 12
-            else position.bottom = bounds.height - y - 12
-
-            setState({
-                isTooltipVisible: true,
-                tooltipContent: content,
-                position,
-            })
-        },
-        [containerEl]
-    )
-    const hideTooltip = useCallback(() => {
-        setState({ isTooltipVisible: false, tooltipContent: null })
-    })
-    const { isTooltipVisible, tooltipContent, position } = state
-    const theme = usePartialTheme(partialTheme)
+const Container = ({
+    theme,
+    renderWrapper = true,
+    children,
+    animate,
+    motionStiffness,
+    motionDamping,
+}) => {
+    const container = useRef(null)
+    const {
+        showTooltipAt,
+        showTooltipFromEvent,
+        hideTooltip,
+        isTooltipVisible,
+        tooltipContent,
+        tooltipPosition,
+        tooltipAnchor,
+    } = useTooltipHandlers(container)
 
     return (
-        <themeContext.Provider value={theme}>
-            <tooltipContext.Provider value={[showTooltip, hideTooltip]}>
-                <div style={containerStyle} ref={containerEl}>
-                    {children}
-                    {isTooltipVisible && (
-                        <div
-                            style={{
-                                ...tooltipStyle,
-                                ...position,
-                                ...theme.tooltip,
-                            }}
-                        >
-                            {tooltipContent}
+        <ThemeProvider theme={theme}>
+            <MotionConfigProvider
+                animate={animate}
+                stiffness={motionStiffness}
+                damping={motionDamping}
+            >
+                <tooltipContext.Provider
+                    value={{ showTooltipAt, showTooltipFromEvent, hideTooltip }}
+                >
+                    {/* we should not render the div element if using the HTTP API */}
+                    {renderWrapper === true && (
+                        <div style={containerStyle} ref={container}>
+                            {children}
+                            {isTooltipVisible && (
+                                <TooltipWrapper position={tooltipPosition} anchor={tooltipAnchor}>
+                                    {tooltipContent}
+                                </TooltipWrapper>
+                            )}
                         </div>
                     )}
-                </div>
-            </tooltipContext.Provider>
-        </themeContext.Provider>
+                    {renderWrapper !== true && children}
+                </tooltipContext.Provider>
+            </MotionConfigProvider>
+        </ThemeProvider>
     )
 }
 
@@ -94,11 +73,17 @@ export const withContainer = WrappedComponent => {
     return class extends Component {
         render() {
             // eslint-disable-next-line react/prop-types
-            const { theme, ...rest } = this.props
+            const { theme, renderWrapper, ...childProps } = this.props
 
             return (
-                <Container theme={theme}>
-                    <WrappedComponent {...rest} />
+                <Container
+                    theme={theme}
+                    renderWrapper={renderWrapper}
+                    animate={childProps.animate}
+                    motionStiffness={childProps.motionStiffness}
+                    motionDamping={childProps.motionDamping}
+                >
+                    <WrappedComponent {...childProps} />
                 </Container>
             )
         }

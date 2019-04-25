@@ -12,7 +12,7 @@ import { ResponsiveGeoMapCanvas, GeoMapCanvasDefaultProps } from '@nivo/geo'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/geomap/meta.yml'
 import mapper from '../../data/components/geo/mapper'
-import { groupsByScope } from '../../data/components/geo/props'
+import { groups } from '../../data/components/geomap/props'
 import countries from '../../data/components/geo/world_countries'
 
 const initialProperties = {
@@ -50,7 +50,7 @@ const GeoMapCanvas = () => {
             icon="geomap"
             flavors={meta.flavors}
             currentFlavor="canvas"
-            properties={groupsByScope.GeoMapCanvas}
+            properties={groups}
             initialProperties={initialProperties}
             defaultProperties={GeoMapCanvasDefaultProps}
             propertiesMapper={mapper}

@@ -8,7 +8,8 @@
  */
 import React, { memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { blendModePropType, useTooltip } from '@nivo/core'
+import { blendModePropType } from '@nivo/core'
+import { useTooltip } from '@nivo/tooltip'
 
 const ChordRibbon = memo(
     ({
@@ -31,23 +32,23 @@ const ChordRibbon = memo(
         onClick,
         tooltip,
     }) => {
-        const [showTooltip, hideTooltip] = useTooltip()
+        const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
         const handleMouseEnter = useMemo(() => {
             if (!isInteractive) return undefined
             return event => {
                 setCurrent(ribbon)
-                showTooltip(React.createElement(tooltip, { ribbon }), event)
+                showTooltipFromEvent(React.createElement(tooltip, { ribbon }), event)
                 onMouseEnter && onMouseEnter(ribbon, event)
             }
-        }, [isInteractive, ribbon, onMouseEnter])
+        }, [isInteractive, showTooltipFromEvent, tooltip, ribbon, onMouseEnter])
         const handleMouseMove = useMemo(() => {
             if (!isInteractive) return undefined
             return event => {
-                showTooltip(React.createElement(tooltip, { ribbon }), event)
+                showTooltipFromEvent(React.createElement(tooltip, { ribbon }), event)
                 onMouseMove && onMouseMove(ribbon, event)
             }
-        }, [isInteractive, ribbon, onMouseMove])
+        }, [isInteractive, showTooltipFromEvent, tooltip, ribbon, onMouseMove])
         const handleMouseLeave = useMemo(() => {
             if (!isInteractive) return undefined
             return event => {
@@ -55,7 +56,7 @@ const ChordRibbon = memo(
                 hideTooltip()
                 onMouseLeave && onMouseLeave(ribbon, event)
             }
-        }, [isInteractive, ribbon, onMouseLeave])
+        }, [isInteractive, hideTooltip, ribbon, onMouseLeave])
         const handleClick = useMemo(() => {
             if (!isInteractive || !onClick) return undefined
             return event => onClick(ribbon, event)

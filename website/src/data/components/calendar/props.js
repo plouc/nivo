@@ -8,12 +8,11 @@
  */
 import { boxAlignments } from '@nivo/core'
 import { CalendarDefaultProps as defaults } from '@nivo/calendar'
-import { getPropertiesGroupsControls } from '../../../lib/componentProperties'
+import { groupProperties } from '../../../lib/componentProperties'
 
 const props = [
     {
         key: 'data',
-        scopes: '*',
         group: 'Base',
         help: 'Chart data.',
         description: `
@@ -46,8 +45,7 @@ const props = [
     },
     {
         key: 'width',
-        scopes: ['api'],
-        docScopes: '*',
+        enableControlForFlavors: ['api'],
         help: 'Chart width.',
         description: `
             not required if using responsive alternative of
@@ -66,8 +64,7 @@ const props = [
     },
     {
         key: 'height',
-        scopes: ['api'],
-        docScopes: '*',
+        enableControlForFlavors: ['api'],
         help: 'Chart height.',
         description: `
             not required if using responsive alternative of
@@ -101,7 +98,6 @@ const props = [
     },
     {
         key: 'margin',
-        scopes: '*',
         help: 'Chart margin.',
         type: 'object',
         required: false,
@@ -125,7 +121,6 @@ const props = [
     },
     {
         key: 'minValue',
-        scopes: '*',
         help: 'Minimum value.',
         description: `
             Minimum value. If 'auto', will pick the lowest value
@@ -147,7 +142,6 @@ const props = [
     },
     {
         key: 'maxValue',
-        scopes: '*',
         help: 'Maximum value.',
         description: `
             Maximum value. If 'auto', will pick the highest value
@@ -193,7 +187,7 @@ const props = [
     },
     {
         key: 'pixelRatio',
-        scopes: ['CalendarCanvas'],
+        flavors: ['canvas'],
         help: `Adjust pixel ratio, useful for HiDPI screens.`,
         required: false,
         defaultValue: 'Depends on device',
@@ -223,6 +217,7 @@ const props = [
     },
     {
         key: 'yearLegend',
+        group: 'Years',
         help: `can be used to customize years label, returns 'YYYY' by default.`,
         type: '(year: number) => string | number',
         required: false,
@@ -256,7 +251,7 @@ const props = [
     // Months
     {
         key: 'monthBorderWidth',
-        scopes: ['Calendar', 'api'],
+        flavors: ['svg', 'api'],
         help: 'width of month borders.',
         type: 'number',
         required: false,
@@ -266,7 +261,7 @@ const props = [
     },
     {
         key: 'monthBorderColor',
-        scopes: ['Calendar', 'api'],
+        flavors: ['svg', 'api'],
         help: 'color to use for months border.',
         type: 'string',
         required: false,
@@ -279,6 +274,7 @@ const props = [
         help: `can be used to customize months label, returns abbreviated month name (english) by default. This can be used to use a different language`,
         type: '(year: number, month: number, date: Date) => string | number',
         required: false,
+        group: 'Months',
     },
     {
         key: 'monthLegendPosition',
@@ -341,7 +337,7 @@ const props = [
     },
     {
         key: 'isInteractive',
-        scopes: ['Calendar', 'CalendarCanvas'],
+        flavors: ['svg', 'canvas'],
         help: 'Enable/disable interactivity.',
         type: 'boolean',
         required: false,
@@ -351,7 +347,7 @@ const props = [
     },
     {
         key: 'onClick',
-        scopes: ['Calendar', 'CalendarCanvas'],
+        flavors: ['svg', 'canvas'],
         group: 'Interactivity',
         help: 'onClick handler, it receives clicked day data and mouse event.',
         type: '(day, event) => void',
@@ -359,7 +355,7 @@ const props = [
     },
     {
         key: 'tooltip',
-        scopes: ['Calendar', 'CalendarCanvas'],
+        flavors: ['svg', 'canvas'],
         group: 'Interactivity',
         type: 'Function',
         required: false,
@@ -384,8 +380,7 @@ const props = [
     },
     {
         key: 'custom tooltip example',
-        scopes: ['Calendar', 'CalendarCanvas'],
-        excludeFromDoc: true,
+        flavors: ['svg', 'canvas'],
         help: 'Showcase custom tooltip.',
         type: 'boolean',
         controlType: 'switch',
@@ -393,8 +388,4 @@ const props = [
     },
 ]
 
-export const groupsByScope = {
-    Calendar: getPropertiesGroupsControls(props, 'Calendar'),
-    CalendarCanvas: getPropertiesGroupsControls(props, 'CalendarCanvas'),
-    api: getPropertiesGroupsControls(props, 'api'),
-}
+export const groups = groupProperties(props)

@@ -10,37 +10,39 @@ import upperFirst from 'lodash/upperFirst'
 import uniq from 'lodash/uniq'
 import { defaultAnimate, defaultMotionStiffness, defaultMotionDamping } from '@nivo/core'
 
-export const defsProperties = scopes => [
+export const defsProperties = (group, flavors) => [
     {
         key: 'defs',
-        scopes,
-        help: 'define SVG defs.',
+        group,
+        flavors,
+        help: 'Defines patterns and gradients.',
         description: `
-            define SVG defs, supports
-            [gradients](self:/guides/gradients) and
-            [patterns](self:/guides/patterns).
+            Supports
+            [gradients](self:/guides/gradients/) and
+            [patterns](self:/guides/patterns/).
         `,
         type: 'object[]',
         required: false,
     },
     {
         key: 'fill',
-        scopes,
-        help: 'define rules to apply SVG defs',
+        group,
+        flavors,
+        help: 'Defines rules to apply patterns and gradients',
         description: `
-            define rules to apply SVG defs, supports
-            [gradients](self:/guides/gradients) and
-            [patterns](self:/guides/patterns).
+            Supports
+            [gradients](self:/guides/gradients/) and
+            [patterns](self:/guides/patterns/).
         `,
         type: 'object[]',
         required: false,
     },
 ]
 
-export const motionProperties = (scopes, defaults) => [
+export const motionProperties = (flavors, defaults) => [
     {
         key: 'animate',
-        scopes,
+        flavors,
         help: 'Enable/disable transitions.',
         type: 'boolean',
         required: false,
@@ -50,7 +52,7 @@ export const motionProperties = (scopes, defaults) => [
     },
     {
         key: 'motionStiffness',
-        scopes,
+        flavors,
         help: 'Motion stiffness.',
         type: 'number',
         required: false,
@@ -68,7 +70,7 @@ export const motionProperties = (scopes, defaults) => [
     },
     {
         key: 'motionDamping',
-        scopes,
+        flavors,
         help: 'Motion damping.',
         type: 'number',
         required: false,
@@ -83,102 +85,111 @@ export const motionProperties = (scopes, defaults) => [
     },
 ]
 
-export const axesProperties = [
-    {
-        position: 'top',
-        orientations: ['top', 'bottom'],
-    },
-    {
-        position: 'right',
-        orientations: ['left', 'right'],
-    },
-    {
-        position: 'bottom',
-        orientations: ['top', 'bottom'],
-    },
-    {
-        position: 'left',
-        orientations: ['left', 'right'],
-    },
-].reduce((properties, { position }) => {
-    const axisKey = upperFirst(position)
-
-    return [
-        ...properties,
+export const axesProperties = flavors =>
+    [
         {
-            key: `axis${axisKey}`,
-            help: `${axisKey} axis configuration.`,
-            type: 'object',
-            required: false,
-            group: 'Grid & Axes',
-            controlType: 'object',
-            controlOptions: {
-                props: [
-                    {
-                        key: `enable`,
-                        help: `enable ${axisKey} axis, it's not an actual prop (demo only).`,
-                        controlType: 'switch',
-                        excludeFromDoc: true,
-                    },
-                    {
-                        key: `tickSize`,
-                        help: `${axisKey} axis tick size.`,
-                        type: 'number',
-                        controlType: 'range',
-                        controlOptions: {
-                            unit: 'px',
-                            min: 0,
-                            max: 20,
-                        },
-                    },
-                    {
-                        key: `tickPadding`,
-                        help: `${axisKey} axis tick padding.`,
-                        type: 'number',
-                        controlType: 'range',
-                        controlOptions: {
-                            unit: 'px',
-                            min: 0,
-                            max: 20,
-                        },
-                    },
-                    {
-                        key: `tickRotation`,
-                        help: `${axisKey} axis tick rotation.`,
-                        type: 'number',
-                        controlType: 'angle',
-                        controlOptions: {
-                            start: 90,
-                            min: -90,
-                            max: 90,
-                        },
-                    },
-                    {
-                        key: `legend`,
-                        help: `${axisKey} axis legend.`,
-                        type: 'string',
-                        controlType: 'text',
-                    },
-                    {
-                        key: `legendOffset`,
-                        help: `${axisKey} axis legend offset from axis.`,
-                        type: 'number',
-                        controlType: 'range',
-                        controlOptions: {
-                            unit: 'px',
-                            min: -60,
-                            max: 60,
-                        },
-                    },
-                ],
-            },
+            position: 'top',
+            orientations: ['top', 'bottom'],
         },
-    ]
-}, [])
+        {
+            position: 'right',
+            orientations: ['left', 'right'],
+        },
+        {
+            position: 'bottom',
+            orientations: ['top', 'bottom'],
+        },
+        {
+            position: 'left',
+            orientations: ['left', 'right'],
+        },
+    ].reduce((properties, { position }) => {
+        const axisKey = upperFirst(position)
 
-export const getLegendsProps = () => [
+        return [
+            ...properties,
+            {
+                key: `axis${axisKey}`,
+                flavors,
+                help: `${axisKey} axis configuration.`,
+                type: 'object',
+                required: false,
+                group: 'Grid & Axes',
+                controlType: 'object',
+                controlOptions: {
+                    props: [
+                        {
+                            key: `enable`,
+                            flavors,
+                            help: `enable ${axisKey} axis, it's not an actual prop (demo only).`,
+                            controlType: 'switch',
+                            excludeFromDoc: true,
+                        },
+                        {
+                            key: `tickSize`,
+                            flavors,
+                            help: `${axisKey} axis tick size.`,
+                            type: 'number',
+                            controlType: 'range',
+                            controlOptions: {
+                                unit: 'px',
+                                min: 0,
+                                max: 20,
+                            },
+                        },
+                        {
+                            key: `tickPadding`,
+                            flavors,
+                            help: `${axisKey} axis tick padding.`,
+                            type: 'number',
+                            controlType: 'range',
+                            controlOptions: {
+                                unit: 'px',
+                                min: 0,
+                                max: 20,
+                            },
+                        },
+                        {
+                            key: `tickRotation`,
+                            flavors,
+                            help: `${axisKey} axis tick rotation.`,
+                            type: 'number',
+                            controlType: 'angle',
+                            controlOptions: {
+                                start: 90,
+                                min: -90,
+                                max: 90,
+                            },
+                        },
+                        {
+                            key: `legend`,
+                            flavors,
+                            help: `${axisKey} axis legend.`,
+                            type: 'string',
+                            controlType: 'text',
+                        },
+                        {
+                            key: `legendOffset`,
+                            flavors,
+                            help: `${axisKey} axis legend offset from axis.`,
+                            type: 'number',
+                            controlType: 'range',
+                            controlOptions: {
+                                unit: 'px',
+                                min: -60,
+                                max: 60,
+                            },
+                        },
+                    ],
+                },
+            },
+        ]
+    }, [])
+
+export const getLegendsProps = flavors => [
     {
         key: 'anchor',
+        flavors,
         help: `Defines legend anchor relative to chart's viewport.`,
         type: 'string',
         controlType: 'boxAnchor',
@@ -186,6 +197,7 @@ export const getLegendsProps = () => [
     },
     {
         key: 'direction',
+        flavors,
         help: `Legend direction, must be one of 'column', 'row'.`,
         type: `'column' | 'row'`,
         controlType: 'radio',
@@ -204,12 +216,14 @@ export const getLegendsProps = () => [
     },
     {
         key: 'justify',
+        flavors,
         help: `Justify symbol and label.`,
         controlType: 'switch',
         type: 'boolean',
     },
     {
         key: 'translateX',
+        flavors,
         help: `Legend block x translation.`,
         type: `number`,
         controlType: 'range',
@@ -221,6 +235,7 @@ export const getLegendsProps = () => [
     },
     {
         key: 'translateY',
+        flavors,
         help: `Legend block y translation.`,
         type: `number`,
         controlType: 'range',
@@ -232,6 +247,7 @@ export const getLegendsProps = () => [
     },
     {
         key: 'itemWidth',
+        flavors,
         help: `Legend item width.`,
         type: `number`,
         required: true,
@@ -244,6 +260,7 @@ export const getLegendsProps = () => [
     },
     {
         key: 'itemHeight',
+        flavors,
         help: `Legend item height.`,
         type: `number`,
         required: true,
@@ -256,6 +273,7 @@ export const getLegendsProps = () => [
     },
     {
         key: 'itemsSpacing',
+        flavors,
         help: `Spacing between each item.`,
         type: `number`,
         controlType: 'range',
@@ -267,6 +285,7 @@ export const getLegendsProps = () => [
     },
     {
         key: 'symbolSize',
+        flavors,
         help: `Item symbol size.`,
         type: `number`,
         controlType: 'range',
@@ -278,6 +297,7 @@ export const getLegendsProps = () => [
     },
     {
         key: 'itemDirection',
+        flavors,
         help: `Item layout direction.`,
         type: `string`,
         controlType: 'choices',
@@ -292,57 +312,22 @@ export const getLegendsProps = () => [
     },
 ]
 
-export const filterPropertyByScope = (requiredScope, forDocumentation = false) => property => {
-    if (forDocumentation === false) {
-        return (
-            property.scopes === undefined ||
-            property.scopes === '*' ||
-            property.scopes.includes(requiredScope)
-        )
-    }
-
-    const { docScopes } = property
-    if (docScopes === undefined) {
-        return (
-            property.scopes === undefined ||
-            property.scopes === '*' ||
-            property.scopes.includes(requiredScope)
-        )
-    }
-
-    return docScopes === '*' || docScopes.includes(requiredScope)
-}
-
-export const filterPropertiesByScope = (properties, scope, forDocumentation = false) =>
-    properties.filter(filterPropertyByScope(scope, forDocumentation))
-
-export const getPropertiesGroupControls = (properties, group, scope) => {
-    const scopeFilter = filterPropertyByScope(scope)
-
-    return properties
-        .filter(property => property.group === group && scopeFilter(property))
-        .map(property => ({
-            ...property,
-            name: property.key,
-        }))
-}
-
-export const getPropertiesGroupsControls = (properties, scope) => {
-    const scopeFilter = filterPropertyByScope(scope)
-
-    const groups = uniq(
-        properties
-            .filter(property => property.group !== undefined && scopeFilter(property))
-            .map(property => property.group)
-    )
-
-    return groups.reduce((acc, group) => {
+export const groupProperties = properties => {
+    const groups = uniq(properties.map(property => property.group))
+    const grouped = groups.reduce((acc, group) => {
         return [
             ...acc,
             {
                 name: group,
-                properties: getPropertiesGroupControls(properties, group, scope),
+                properties: properties
+                    .filter(property => property.group === group)
+                    .map(property => ({
+                        ...property,
+                        name: property.key,
+                    })),
             },
         ]
     }, [])
+
+    return grouped
 }

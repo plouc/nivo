@@ -7,13 +7,12 @@
  * file that was distributed with this source code.
  */
 import { SunburstDefaultProps as defaults } from '@nivo/sunburst'
-import { getPropertiesGroupsControls } from '../../../lib/componentProperties'
+import { groupProperties } from '../../../lib/componentProperties'
 
 const props = [
     {
         key: 'width',
-        scopes: ['api'],
-        docScopes: '*',
+        enableControlForFlavors: ['api'],
         description: `
             not required if using
             \`<ResponsiveSunburst/>\`.
@@ -32,8 +31,7 @@ const props = [
     },
     {
         key: 'height',
-        scopes: ['api'],
-        docScopes: '*',
+        enableControlForFlavors: ['api'],
         description: `
             not required if using
             \`<ResponsiveSunburst/>\`.
@@ -52,7 +50,6 @@ const props = [
     },
     {
         key: 'margin',
-        scopes: '*',
         help: 'Chart margin.',
         type: 'object',
         required: false,
@@ -93,7 +90,6 @@ const props = [
     },
     {
         key: 'colors',
-        scopes: '*',
         help: 'Defines how to compute node color.',
         required: false,
         defaultValue: defaults.colors,
@@ -136,7 +132,7 @@ const props = [
     },
     {
         key: 'isInteractive',
-        scopes: ['Sunburst'],
+        flavors: ['svg'],
         help: 'Enable/disable interactivity.',
         type: '{boolean}',
         required: false,
@@ -146,7 +142,4 @@ const props = [
     },
 ]
 
-export const groupsByScope = {
-    Sunburst: getPropertiesGroupsControls(props, 'Sunburst'),
-    api: getPropertiesGroupsControls(props, 'api'),
-}
+export const groups = groupProperties(props)

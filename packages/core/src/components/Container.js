@@ -8,9 +8,10 @@
  */
 import React, { useRef, useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
+import { tooltipContext } from '@nivo/tooltip'
 import noop from '../lib/noop'
 import { themeContext } from '../theming'
-import { tooltipContext } from '../tooltip'
+import { MotionConfigProvider } from '../motion'
 
 const containerStyle = {
     position: 'relative',
@@ -22,7 +23,14 @@ const tooltipStyle = {
     zIndex: 10,
 }
 
-const Container = ({ children, theme, isInteractive = true }) => {
+const Container = ({
+    children,
+    theme,
+    isInteractive = true,
+    animate,
+    motionStiffness,
+    motionDamping,
+}) => {
     const containerEl = useRef(null)
     const [state, setState] = useState({
         isTooltipVisible: false,
@@ -62,7 +70,7 @@ const Container = ({ children, theme, isInteractive = true }) => {
     const { isTooltipVisible, tooltipContent, position } = state
 
     let content
-    if (isInteractive) {
+    if (isInteractive === true) {
         content = (
             <div style={containerStyle} ref={containerEl}>
                 {children({
@@ -91,9 +99,15 @@ const Container = ({ children, theme, isInteractive = true }) => {
 
     return (
         <themeContext.Provider value={theme}>
-            <tooltipContext.Provider value={[showTooltip, hideTooltip]}>
-                {content}
-            </tooltipContext.Provider>
+            <MotionConfigProvider
+                animate={animate}
+                stiffness={motionStiffness}
+                damping={motionDamping}
+            >
+                <tooltipContext.Provider value={[showTooltip, hideTooltip]}>
+                    {content}
+                </tooltipContext.Provider>
+            </MotionConfigProvider>
         </themeContext.Provider>
     )
 }
@@ -102,6 +116,9 @@ Container.propTypes = {
     children: PropTypes.func.isRequired,
     isInteractive: PropTypes.bool,
     theme: PropTypes.object.isRequired,
+    animate: PropTypes.bool.isRequired,
+    motionStiffness: PropTypes.number,
+    motionDamping: PropTypes.number,
 }
 
 export default Container

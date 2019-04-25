@@ -16,7 +16,8 @@ import defaultProps from 'recompose/defaultProps'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
 import { Axis } from '@nivo/axes'
-import { getColorScale, withMotion, themePropType, noop, BasicTooltip } from '@nivo/core'
+import { getColorScale, withMotion, themePropType, noop } from '@nivo/core'
+import { BasicTooltip } from '@nivo/tooltip'
 import { stackValues } from './compute'
 import BulletMarkers from './BulletMarkers'
 import BulletRects from './BulletRects'
@@ -250,8 +251,6 @@ class BulletItem extends Component {
                     length={layout === 'horizontal' ? width : height}
                     scale={scale}
                     ticksPosition={axisPosition}
-                    theme={theme}
-                    {...motionProps}
                 />
             </g>
         )

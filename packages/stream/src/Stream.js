@@ -96,16 +96,16 @@ const Stream = ({
         ),
     }))
 
-    const motionProps = {
-        animate,
-        motionDamping,
-        motionStiffness,
-    }
-
     const boundDefs = bindDefs(defs, enhancedLayers, fill)
 
     return (
-        <Container isInteractive={isInteractive} theme={theme}>
+        <Container
+            isInteractive={isInteractive}
+            theme={theme}
+            animate={animate}
+            motionDamping={motionDamping}
+            motionStiffness={motionStiffness}
+        >
             {({ showTooltip, hideTooltip }) => (
                 <SvgWrapper
                     width={outerWidth}
@@ -115,12 +115,10 @@ const Stream = ({
                     theme={theme}
                 >
                     <Grid
-                        theme={theme}
                         width={width}
                         height={height}
                         xScale={enableGridX ? xScale : null}
                         yScale={enableGridY ? yScale : null}
-                        {...motionProps}
                     />
                     <StreamLayers
                         layers={enhancedLayers}
@@ -131,19 +129,19 @@ const Stream = ({
                         hideTooltip={hideTooltip}
                         getTooltipLabel={getTooltipLabel}
                         theme={theme}
-                        {...motionProps}
+                        animate={animate}
+                        motionDamping={motionDamping}
+                        motionStiffness={motionStiffness}
                     />
                     <Axes
                         xScale={xScale}
                         yScale={yScale}
                         width={width}
                         height={height}
-                        theme={theme}
                         top={axisTop}
                         right={axisRight}
                         bottom={axisBottom}
                         left={axisLeft}
-                        {...motionProps}
                     />
                     {enableDots &&
                         enhancedLayers.map(layer => (
@@ -158,7 +156,9 @@ const Stream = ({
                                 getColor={getDotColor}
                                 getBorderWidth={getDotBorderWidth}
                                 getBorderColor={getDotBorderColor}
-                                {...motionProps}
+                                animate={animate}
+                                motionDamping={motionDamping}
+                                motionStiffness={motionStiffness}
                             />
                         ))}
                     {isInteractive && enableStackTooltip && (

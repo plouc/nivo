@@ -62,9 +62,15 @@ const Value = styled.span`
     margin-left: 20px;
 `
 
-const BoxAnchorControl = ({ property, value, onChange }) => {
+const BoxAnchorControl = ({ id, property, flavors, currentFlavor, value, onChange }) => {
     return (
-        <Control description={property.description}>
+        <Control
+            id={id}
+            description={property.description}
+            flavors={flavors}
+            currentFlavor={currentFlavor}
+            supportedFlavors={property.flavors}
+        >
             <PropertyHeader {...property} />
             <Row>
                 <svg width={boxWidth + boxPadding * 2} height={boxHeight + boxPadding * 2}>

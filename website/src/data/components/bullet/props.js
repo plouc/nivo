@@ -7,12 +7,11 @@
  * file that was distributed with this source code.
  */
 import { BulletDefaultProps as defaults } from '@nivo/bullet'
-import { motionProperties, getPropertiesGroupsControls } from '../../../lib/componentProperties'
+import { motionProperties, groupProperties } from '../../../lib/componentProperties'
 
 const props = [
     {
         key: 'data',
-        scopes: '*',
         group: 'Base',
         help: 'Chart data.',
         description: `
@@ -38,8 +37,7 @@ const props = [
     },
     {
         key: 'width',
-        docScopes: '*',
-        scopes: ['api'],
+        enableControlForFlavors: ['api'],
         group: 'Base',
         help: 'Chart width.',
         description: 'not required if using `ResponsiveBullet`.',
@@ -55,8 +53,7 @@ const props = [
     },
     {
         key: 'height',
-        scopes: ['api'],
-        docScopes: '*',
+        enableControlForFlavors: ['api'],
         group: 'Base',
         help: 'Chart height.',
         description: 'not required if using `ResponsiveBullet`.',
@@ -72,7 +69,6 @@ const props = [
     },
     {
         key: 'layout',
-        scopes: '*',
         group: 'Base',
         help: `How to display items.`,
         type: 'string',
@@ -88,7 +84,6 @@ const props = [
     },
     {
         key: 'reverse',
-        scopes: '*',
         group: 'Base',
         help: 'Reverse chart.',
         description: `
@@ -103,7 +98,6 @@ const props = [
     },
     {
         key: 'margin',
-        scopes: '*',
         help: 'Chart margin.',
         type: 'object',
         required: false,
@@ -112,7 +106,6 @@ const props = [
     },
     {
         key: 'spacing',
-        scopes: '*',
         help: 'define spacing between items.',
         type: 'number',
         required: false,
@@ -127,7 +120,6 @@ const props = [
     },
     {
         key: 'measureSize',
-        scopes: '*',
         help: 'define size of measure related to item size, expressed as a ratio.',
         type: 'number',
         required: false,
@@ -142,7 +134,6 @@ const props = [
     },
     {
         key: 'markerSize',
-        scopes: '*',
         help: 'define size of markers related to item size, expressed as a ratio.',
         type: 'number',
         required: false,
@@ -157,7 +148,7 @@ const props = [
     },
     {
         key: 'rangeComponent',
-        scopes: ['Bullet'],
+        flavors: ['svg'],
         group: 'Style',
         help: 'Custom component for ranges.',
         type: 'Function',
@@ -165,7 +156,6 @@ const props = [
     },
     {
         key: 'rangeColors',
-        scopes: '*',
         help: 'Ranges colors',
         description: `
             Defines colors for ranges,
@@ -183,7 +173,7 @@ const props = [
     },
     {
         key: 'measureComponent',
-        scopes: ['Bullet'],
+        flavors: ['svg'],
         group: 'Style',
         help: 'Custom component for measures.',
         type: 'Function',
@@ -191,7 +181,6 @@ const props = [
     },
     {
         key: 'measureColors',
-        scopes: '*',
         help: 'Measures colors.',
         description: `
             Defines colors for measures,
@@ -209,7 +198,7 @@ const props = [
     },
     {
         key: 'markerComponent',
-        scopes: ['Bullet'],
+        flavors: ['svg'],
         group: 'Style',
         help: 'Custom component for markers.',
         type: 'Function',
@@ -217,7 +206,6 @@ const props = [
     },
     {
         key: 'markerColors',
-        scopes: '*',
         help: 'Markers colors.',
         description: `
             Defines colors for markers,
@@ -235,7 +223,6 @@ const props = [
     },
     {
         key: 'axisPosition',
-        scopes: '*',
         help: `Where to put axis.`,
         type: 'string',
         required: false,
@@ -248,7 +235,6 @@ const props = [
     },
     {
         key: 'titlePosition',
-        scopes: '*',
         help: `Where to put title.`,
         type: 'string',
         required: false,
@@ -261,7 +247,6 @@ const props = [
     },
     {
         key: 'titleAlign',
-        scopes: '*',
         help: `title alignment.`,
         type: 'string',
         required: false,
@@ -278,7 +263,6 @@ const props = [
     },
     {
         key: 'titleOffsetX',
-        scopes: '*',
         help: 'title x offset from bullet edge.',
         type: 'number',
         required: false,
@@ -293,7 +277,6 @@ const props = [
     },
     {
         key: 'titleOffsetY',
-        scopes: '*',
         help: 'title y offset from bullet edge.',
         type: 'number',
         required: false,
@@ -308,7 +291,6 @@ const props = [
     },
     {
         key: 'titleRotation',
-        scopes: '*',
         help: 'title rotation.',
         type: 'number',
         required: false,
@@ -324,7 +306,7 @@ const props = [
     },
     {
         key: 'onRangeClick',
-        scopes: ['Bullet'],
+        flavors: ['svg'],
         type: '(range, event) => void',
         group: 'Interactivity',
         required: false,
@@ -350,7 +332,7 @@ const props = [
     },
     {
         key: 'onMeasureClick',
-        scopes: ['Bullet'],
+        flavors: ['svg'],
         type: '(measure, event) => void',
         group: 'Interactivity',
         required: false,
@@ -376,7 +358,7 @@ const props = [
     },
     {
         key: 'onMarkerClick',
-        scopes: ['Bullet'],
+        flavors: ['svg'],
         type: '(marker, event) => void',
         group: 'Interactivity',
         required: false,
@@ -396,10 +378,7 @@ const props = [
             \`\`\`
         `,
     },
-    ...motionProperties(['Bullet'], defaults),
+    ...motionProperties(['svg'], defaults),
 ]
 
-export const groupsByScope = {
-    Bullet: getPropertiesGroupsControls(props, 'Bullet'),
-    api: getPropertiesGroupsControls(props, 'api'),
-}
+export const groups = groupProperties(props)

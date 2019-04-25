@@ -11,7 +11,7 @@ import { generateDayCounts } from '@nivo/generators'
 import SEO from '../../components/seo'
 import ApiClient from '../../components/components/api-client/ApiClient'
 import mapper from '../../data/components/calendar/mapper'
-import { groupsByScope } from '../../data/components/calendar/props'
+import { groups } from '../../data/components/calendar/props'
 import meta from '../../data/components/calendar/meta.yml'
 
 const from = new Date(2015, 3, 1)
@@ -29,7 +29,7 @@ const CalendarApi = () => {
                 apiPath="/charts/calendar"
                 flavors={meta.flavors}
                 dataProperty="data"
-                controlGroups={groupsByScope.api}
+                controlGroups={groups}
                 propsMapper={mapper}
                 defaultProps={{
                     width: 600,
@@ -40,18 +40,36 @@ const CalendarApi = () => {
                         bottom: 10,
                         left: 10,
                     },
-                    from,
-                    to,
-                    data: JSON.stringify(data, null, '  '),
+                    from: '2015-03-01',
+                    to: '2016-07-12',
+
+                    align: 'center',
+                    emptyColor: '#eeeeee',
+                    colors: ['#61cdbb', '#97e3d5', '#e8c1a0', '#f47560'],
+                    minValue: 0,
+                    maxValue: 'auto',
+
+                    margin: {
+                        top: 40,
+                        right: 40,
+                        bottom: 40,
+                        left: 40,
+                    },
                     direction: 'horizontal',
+
                     yearSpacing: 40,
+                    yearLegendPosition: 'before',
                     yearLegendOffset: 10,
-                    daySpacing: 0,
-                    dayBorderWidth: 1,
-                    dayBorderColor: '#000000',
-                    monthBorderWidth: 3,
-                    monthBorderColor: '#000000',
+
+                    monthBorderWidth: 2,
+                    monthBorderColor: '#ffffff',
+                    monthLegendPosition: 'before',
                     monthLegendOffset: 10,
+
+                    daySpacing: 0,
+                    dayBorderWidth: 2,
+                    dayBorderColor: '#ffffff',
+                    data: JSON.stringify(data, null, '  '),
                 }}
             />
         </>

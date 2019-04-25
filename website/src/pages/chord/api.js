@@ -10,7 +10,7 @@ import React from 'react'
 import { generateChordData } from '@nivo/generators'
 import SEO from '../../components/seo'
 import ApiClient from '../../components/components/api-client/ApiClient'
-import { groupsByScope } from '../../data/components/chord/props'
+import { groups } from '../../data/components/chord/props'
 import mapper from '../../data/components/chord/mapper'
 import meta from '../../data/components/chord/meta.yml'
 
@@ -28,7 +28,7 @@ const ChordApi = () => {
                 apiPath="/charts/chord"
                 flavors={meta.flavors}
                 dataProperty="matrix"
-                controlGroups={groupsByScope.api}
+                controlGroups={groups}
                 propsMapper={mapper}
                 defaultProps={{
                     width: 800,

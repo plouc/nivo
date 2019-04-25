@@ -1,10 +1,10 @@
 flavors:
   - flavor: svg
-    path: /heatmap
+    path: /heatmap/
   - flavor: canvas
-    path: /heatmap/canvas
+    path: /heatmap/canvas/
   - flavor: api
-    path: /heatmap/api
+    path: /heatmap/api/
 
 HeatMap:
   package: '@nivo/heatmap'

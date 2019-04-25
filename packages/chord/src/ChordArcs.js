@@ -10,7 +10,7 @@ import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
 import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
-import { motionPropTypes } from '@nivo/core'
+import { useMotionConfig } from '@nivo/core'
 import ChordArc from './ChordArc'
 
 const ChordArcs = memo(
@@ -27,10 +27,9 @@ const ChordArcs = memo(
         onMouseLeave,
         onClick,
         tooltip,
-        animate,
-        motionDamping,
-        motionStiffness,
     }) => {
+        const { animate, springConfig: _springConfig } = useMotionConfig()
+
         if (animate !== true) {
             return arcs.map(arc => {
                 return (
@@ -58,8 +57,7 @@ const ChordArcs = memo(
         }
 
         const springConfig = {
-            damping: motionDamping,
-            stiffness: motionStiffness,
+            ..._springConfig,
             precision: 0.001,
         }
 
@@ -126,7 +124,6 @@ ChordArcs.propTypes = {
     onMouseLeave: PropTypes.func,
     onClick: PropTypes.func,
     tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-    ...motionPropTypes,
 }
 
 export default ChordArcs

@@ -56,34 +56,36 @@ const Title = styled.div`
     `}
 `
 
-export default class ComponentSettings extends Component {
-    static propTypes = {
-        component: PropTypes.string.isRequired,
-        settings: PropTypes.object.isRequired,
-        onChange: PropTypes.func.isRequired,
-        groups: PropTypes.array.isRequired,
-    }
-
-    render() {
-        const { component, settings, onChange, groups } = this.props
-
-        return (
-            <Container>
-                {groups.map(group => {
-                    return (
-                        <Group key={group.name}>
-                            <Title>{group.name}</Title>
-                            <ControlsGroup
-                                component={component}
-                                name={group.name}
-                                controls={group.properties}
-                                settings={settings}
-                                onChange={onChange}
-                            />
-                        </Group>
-                    )
-                })}
-            </Container>
-        )
-    }
+const ComponentSettings = ({ component, flavors, currentFlavor, settings, onChange, groups }) => {
+    return (
+        <Container>
+            {groups.map(group => {
+                return (
+                    <Group key={group.name}>
+                        <Title>{group.name}</Title>
+                        <ControlsGroup
+                            component={component}
+                            name={group.name}
+                            flavors={flavors}
+                            currentFlavor={currentFlavor}
+                            controls={group.properties}
+                            settings={settings}
+                            onChange={onChange}
+                        />
+                    </Group>
+                )
+            })}
+        </Container>
+    )
 }
+
+ComponentSettings.propTypes = {
+    component: PropTypes.string.isRequired,
+    flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
+    currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
+    settings: PropTypes.object.isRequired,
+    onChange: PropTypes.func.isRequired,
+    groups: PropTypes.array.isRequired,
+}
+
+export default ComponentSettings

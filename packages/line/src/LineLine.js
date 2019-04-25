@@ -6,22 +6,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import pure from 'recompose/pure'
-import { motionPropTypes } from '@nivo/core'
+import { useMotionConfig } from '@nivo/core'
 import { SmartMotion } from '@nivo/core'
 
-const LineLine = ({
-    lineGenerator,
-    id,
-    points,
-    color,
-    thickness,
-    animate,
-    motionStiffness,
-    motionDamping,
-}) => {
+const LineLine = memo(({ lineGenerator, id, points, color, thickness }) => {
+    const { animate, springConfig } = useMotionConfig()
+
     if (animate !== true) {
         return (
             <path
@@ -32,11 +24,6 @@ const LineLine = ({
                 stroke={color}
             />
         )
-    }
-
-    const springConfig = {
-        stiffness: motionStiffness,
-        damping: motionDamping,
     }
 
     return (
@@ -58,8 +45,9 @@ const LineLine = ({
             )}
         </SmartMotion>
     )
-}
+})
 
+LineLine.displayName = 'LineLine'
 LineLine.propTypes = {
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     points: PropTypes.arrayOf(
@@ -71,7 +59,6 @@ LineLine.propTypes = {
     lineGenerator: PropTypes.func.isRequired,
     color: PropTypes.string.isRequired,
     thickness: PropTypes.number.isRequired,
-    ...motionPropTypes,
 }
 
-export default pure(LineLine)
+export default LineLine

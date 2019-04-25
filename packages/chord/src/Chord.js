@@ -64,10 +64,6 @@ const Chord = ({
     onRibbonClick,
 
     legends,
-
-    animate,
-    motionDamping,
-    motionStiffness,
 }) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -138,9 +134,6 @@ const Chord = ({
                     onMouseLeave={onRibbonMouseLeave}
                     onClick={onRibbonClick}
                     tooltip={ribbonTooltip}
-                    animate={animate}
-                    motionDamping={motionDamping}
-                    motionStiffness={motionStiffness}
                 />
             </g>
         ),
@@ -159,9 +152,6 @@ const Chord = ({
                     onMouseLeave={onArcMouseLeave}
                     onClick={onArcClick}
                     tooltip={arcTooltip}
-                    animate={animate}
-                    motionDamping={motionDamping}
-                    motionStiffness={motionStiffness}
                 />
             </g>
         ),
@@ -190,9 +180,6 @@ const Chord = ({
                     radius={radius + labelOffset}
                     rotation={labelRotation}
                     getColor={getLabelTextColor}
-                    animate={animate}
-                    motionDamping={motionDamping}
-                    motionStiffness={motionStiffness}
                 />
             </g>
         )

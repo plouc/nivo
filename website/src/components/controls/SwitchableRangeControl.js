@@ -31,6 +31,8 @@ export default class SwitchableRangeControl extends Component {
     static propTypes = {
         id: PropTypes.string.isRequired,
         property: PropTypes.object.isRequired,
+        flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
+        currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
         value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
         options: PropTypes.shape({
             unit: PropTypes.string,
@@ -56,13 +58,13 @@ export default class SwitchableRangeControl extends Component {
         }
     }
 
-    handleSwitchUpdate = e => {
+    handleSwitchUpdate = checked => {
         const {
             onChange,
             options: { disabledValue },
         } = this.props
         const { sliderValue } = this.state
-        if (e.target.checked === false) {
+        if (checked === false) {
             this.setState({ isSliderEnabled: true })
             onChange(Number(sliderValue))
         } else {
@@ -81,13 +83,21 @@ export default class SwitchableRangeControl extends Component {
         const {
             id,
             property,
+            flavors,
+            currentFlavor,
             options: { disabledValue, unit },
             value,
         } = this.props
         const { isSliderEnabled, sliderValue } = this.state
 
         return (
-            <Control description={property.description}>
+            <Control
+                id={id}
+                description={property.description}
+                flavors={flavors}
+                currentFlavor={currentFlavor}
+                supportedFlavors={property.flavors}
+            >
                 <PropertyHeader {...property} />
                 <SwitchRow>
                     <Switch

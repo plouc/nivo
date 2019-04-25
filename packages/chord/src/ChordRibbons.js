@@ -10,7 +10,7 @@ import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import mapValues from 'lodash/mapValues'
 import { TransitionMotion, spring } from 'react-motion'
-import { blendModePropType, midAngle, motionPropTypes } from '@nivo/core'
+import { blendModePropType, midAngle, useMotionConfig } from '@nivo/core'
 import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
 import ChordRibbon from './ChordRibbon'
 
@@ -89,10 +89,9 @@ const ChordRibbons = memo(
         onMouseLeave,
         onClick,
         tooltip,
-        animate,
-        motionDamping,
-        motionStiffness,
     }) => {
+        const { animate, springConfig: _springConfig } = useMotionConfig()
+
         if (animate !== true) {
             return (
                 <g>
@@ -126,8 +125,7 @@ const ChordRibbons = memo(
         }
 
         const springConfig = {
-            damping: motionDamping,
-            stiffness: motionStiffness,
+            ..._springConfig,
             precision: 0.001,
         }
 
@@ -204,7 +202,6 @@ ChordRibbons.propTypes = {
     onMouseMove: PropTypes.func,
     onMouseLeave: PropTypes.func,
     onClick: PropTypes.func,
-    ...motionPropTypes,
 }
 
 export default ChordRibbons

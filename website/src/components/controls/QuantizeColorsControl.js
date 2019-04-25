@@ -22,6 +22,7 @@ const options = Object.keys(quantizeColorScales).map(id => ({
 
 export default class QuantizeColorsControl extends Component {
     static propTypes = {
+        id: PropTypes.string.isRequired,
         property: PropTypes.object.isRequired,
         onChange: PropTypes.func.isRequired,
         value: PropTypes.string.isRequired,
@@ -57,10 +58,16 @@ export default class QuantizeColorsControl extends Component {
     }
 
     render() {
-        const { property, value } = this.props
+        const { id, property, flavors, currentFlavor, value } = this.props
 
         return (
-            <Control description={property.description}>
+            <Control
+                id={id}
+                description={property.description}
+                flavors={flavors}
+                currentFlavor={currentFlavor}
+                supportedFlavors={property.flavors}
+            >
                 <PropertyHeader {...property} />
                 <Select
                     options={options.map(({ id, colors }) => ({

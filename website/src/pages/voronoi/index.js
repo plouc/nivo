@@ -11,7 +11,7 @@ import range from 'lodash/range'
 import { ResponsiveVoronoi, VoronoiDefaultProps } from '@nivo/voronoi'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/voronoi/meta.yml'
-import { groupsByScope } from '../../data/components/voronoi/props'
+import { groups } from '../../data/components/voronoi/props'
 
 const xDomain = [0, 100]
 const yDomain = [0, 100]
@@ -53,7 +53,7 @@ const Voronoi = () => {
             icon="voronoi"
             flavors={meta.flavors}
             currentFlavor="svg"
-            properties={groupsByScope.Voronoi}
+            properties={groups}
             initialProperties={initialProperties}
             defaultProperties={VoronoiDefaultProps}
             generateData={generateData}

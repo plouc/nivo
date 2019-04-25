@@ -9,14 +9,13 @@
 import { ChordDefaultProps as defaults } from '@nivo/chord'
 import {
     motionProperties,
-    getPropertiesGroupsControls,
+    groupProperties,
     getLegendsProps,
 } from '../../../lib/componentProperties'
 
 const props = [
     {
         key: 'keys',
-        scopes: '*',
         group: 'Base',
         help: 'Keys used to identify each cell in the matrix.',
         description: `
@@ -44,7 +43,6 @@ const props = [
     },
     {
         key: 'matrix',
-        scopes: '*',
         group: 'Base',
         help: 'The matrix used to compute the chord diagram.',
         description: `
@@ -64,8 +62,7 @@ const props = [
     },
     {
         key: 'width',
-        scopes: ['api'],
-        docScopes: '*',
+        enableControlForFlavors: ['api'],
         help: 'Chart width.',
         description: `
             not required if using
@@ -86,8 +83,7 @@ const props = [
     },
     {
         key: 'height',
-        scopes: ['api'],
-        docScopes: '*',
+        enableControlForFlavors: ['api'],
         help: 'Chart height.',
         description: `
             not required if using
@@ -108,7 +104,7 @@ const props = [
     },
     {
         key: 'pixelRatio',
-        scopes: ['ChordCanvas'],
+        flavors: ['canvas'],
         help: `Adjust pixel ratio, useful for HiDPI screens.`,
         required: false,
         defaultValue: 'Depends on device',
@@ -122,7 +118,6 @@ const props = [
     },
     {
         key: 'margin',
-        scopes: '*',
         help: 'Chart margin.',
         type: 'object',
         required: false,
@@ -131,7 +126,6 @@ const props = [
     },
     {
         key: 'padAngle',
-        scopes: '*',
         help: 'Padding angle.',
         required: false,
         defaultValue: defaults.padAngle,
@@ -146,7 +140,6 @@ const props = [
     },
     {
         key: 'innerRadiusRatio',
-        scopes: '*',
         help: 'Inner radius ratio.',
         required: false,
         defaultValue: defaults.innerRadiusRatio,
@@ -161,7 +154,6 @@ const props = [
     },
     {
         key: 'innerRadiusOffset',
-        scopes: '*',
         help: 'Inner radius offset (minus innerRadiusRatio).',
         required: false,
         defaultValue: defaults.innerRadiusOffset,
@@ -176,7 +168,6 @@ const props = [
     },
     {
         key: 'colors',
-        scopes: '*',
         help: 'Defines how to compute arc/ribbon color.',
         type: 'string | Function | string[]',
         required: false,
@@ -186,7 +177,6 @@ const props = [
     },
     {
         key: 'arcOpacity',
-        scopes: '*',
         help: 'Arcs opacity.',
         required: false,
         defaultValue: defaults.arcOpacity,
@@ -196,7 +186,6 @@ const props = [
     },
     {
         key: 'arcBorderWidth',
-        scopes: '*',
         help: 'Arcs border width.',
         required: false,
         defaultValue: defaults.arcBorderWidth,
@@ -206,7 +195,6 @@ const props = [
     },
     {
         key: 'arcBorderColor',
-        scopes: '*',
         help: 'Arcs border color.',
         required: false,
         defaultValue: defaults.arcBorderColor,
@@ -216,7 +204,6 @@ const props = [
     },
     {
         key: 'ribbonOpacity',
-        scopes: '*',
         help: 'Ribbons opacity.',
         required: false,
         defaultValue: defaults.ribbonOpacity,
@@ -226,7 +213,6 @@ const props = [
     },
     {
         key: 'ribbonBorderWidth',
-        scopes: '*',
         help: 'Ribbons border width.',
         required: false,
         defaultValue: defaults.ribbonBorderWidth,
@@ -236,7 +222,6 @@ const props = [
     },
     {
         key: 'ribbonBorderColor',
-        scopes: '*',
         help: 'Ribbons border color.',
         required: false,
         defaultValue: defaults.ribbonBorderColor,
@@ -246,7 +231,6 @@ const props = [
     },
     {
         key: 'enableLabel',
-        scopes: '*',
         help: 'Enable/disable labels.',
         type: 'boolean',
         required: false,
@@ -272,7 +256,6 @@ const props = [
     },
     {
         key: 'labelOffset',
-        scopes: '*',
         help: 'Label offset from arc.',
         required: false,
         defaultValue: defaults.labelOffset,
@@ -287,7 +270,6 @@ const props = [
     },
     {
         key: 'labelRotation',
-        scopes: '*',
         help: 'Label rotation.',
         required: false,
         defaultValue: defaults.labelRotation,
@@ -302,7 +284,6 @@ const props = [
     },
     {
         key: 'labelTextColor',
-        scopes: '*',
         help: 'Labels color.',
         description: `
             How to compute label text color,
@@ -342,7 +323,7 @@ const props = [
     },
     {
         key: 'isInteractive',
-        scopes: ['Chord', 'ChordCanvas'],
+        flavors: ['svg', 'canvas'],
         help: 'Enable/disable interactivity.',
         type: 'boolean',
         required: false,
@@ -352,7 +333,7 @@ const props = [
     },
     {
         key: 'arcHoverOpacity',
-        scopes: ['Chord', 'ChordCanvas'],
+        flavors: ['svg', 'canvas'],
         help: 'Arc opacity when hover (0~1).',
         required: false,
         defaultValue: defaults.arcHoverOpacity,
@@ -362,7 +343,7 @@ const props = [
     },
     {
         key: 'arcHoverOthersOpacity',
-        scopes: ['Chord', 'ChordCanvas'],
+        flavors: ['svg', 'canvas'],
         help: 'Arc opacity when not hover (0~1).',
         required: false,
         defaultValue: defaults.arcHoverOthersOpacity,
@@ -372,7 +353,7 @@ const props = [
     },
     {
         key: 'ribbonHoverOpacity',
-        scopes: ['Chord', 'ChordCanvas'],
+        flavors: ['svg', 'canvas'],
         help: 'Ribbon opacity when hover (0~1).',
         required: false,
         defaultValue: defaults.ribbonHoverOpacity,
@@ -382,7 +363,7 @@ const props = [
     },
     {
         key: 'ribbonHoverOthersOpacity',
-        scopes: ['Chord', 'ChordCanvas'],
+        flavors: ['svg', 'canvas'],
         help: 'Ribbon opacity when not hover (0~1).',
         required: false,
         defaultValue: defaults.ribbonHoverOthersOpacity,
@@ -392,7 +373,7 @@ const props = [
     },
     {
         key: 'onArcMouseEnter',
-        scopes: ['Chord', 'ChordCanvas'],
+        flavors: ['svg', 'canvas'],
         group: 'Interactivity',
         help: 'onMouseEnter handler for arcs.',
         type: '(arc, event) => void',
@@ -400,7 +381,7 @@ const props = [
     },
     {
         key: 'onArcMouseMove',
-        scopes: ['Chord', 'ChordCanvas'],
+        flavors: ['svg', 'canvas'],
         group: 'Interactivity',
         help: 'onMouseMove handler for arcs.',
         type: '(arc, event) => void',
@@ -408,7 +389,7 @@ const props = [
     },
     {
         key: 'onArcMouseLeave',
-        scopes: ['Chord', 'ChordCanvas'],
+        flavors: ['svg', 'canvas'],
         group: 'Interactivity',
         help: 'onMouseLeave handler for arcs.',
         type: '(arc, event) => void',
@@ -416,7 +397,7 @@ const props = [
     },
     {
         key: 'onArcClick',
-        scopes: ['Chord', 'ChordCanvas'],
+        flavors: ['svg', 'canvas'],
         group: 'Interactivity',
         help: 'onClick handler for arcs.',
         type: '(arc, event) => void',
@@ -424,7 +405,7 @@ const props = [
     },
     {
         key: 'arcTooltip',
-        scopes: ['Chord', 'ChordCanvas'],
+        flavors: ['svg', 'canvas'],
         group: 'Interactivity',
         type: 'Function',
         required: false,
@@ -437,7 +418,7 @@ const props = [
     },
     {
         key: 'onRibbonMouseEnter',
-        scopes: ['Chord'],
+        flavors: ['svg'],
         group: 'Interactivity',
         help: 'onMouseEnter handler for ribbons.',
         type: '(ribbon, event) => void',
@@ -445,7 +426,7 @@ const props = [
     },
     {
         key: 'onRibbonMouseMove',
-        scopes: ['Chord'],
+        flavors: ['svg'],
         group: 'Interactivity',
         help: 'onMouseMove handler for ribbons.',
         type: '(ribbon, event) => void',
@@ -453,7 +434,7 @@ const props = [
     },
     {
         key: 'onRibbonMouseLeave',
-        scopes: ['Chord'],
+        flavors: ['svg'],
         group: 'Interactivity',
         help: 'onMouseLeave handler for ribbons.',
         type: '(ribbon, event) => void',
@@ -461,7 +442,7 @@ const props = [
     },
     {
         key: 'onRibbonClick',
-        scopes: ['Chord'],
+        flavors: ['svg'],
         group: 'Interactivity',
         help: 'onClick handler for ribbons.',
         type: '(ribbon, event) => void',
@@ -469,7 +450,7 @@ const props = [
     },
     {
         key: 'ribbonTooltip',
-        scopes: ['Chord'],
+        flavors: ['svg'],
         group: 'Interactivity',
         type: 'Function',
         required: false,
@@ -482,13 +463,13 @@ const props = [
     },
     {
         key: 'legends',
-        scopes: ['Chord', 'ChordCanvas'],
+        flavors: ['svg', 'canvas'],
         type: 'object[]',
         help: `Optional chart's legends.`,
         group: 'Legends',
         controlType: 'array',
         controlOptions: {
-            props: getLegendsProps(),
+            props: getLegendsProps(['svg', 'canvas']),
             shouldCreate: true,
             addLabel: 'add legend',
             shouldRemove: true,
@@ -512,11 +493,7 @@ const props = [
             },
         },
     },
-    ...motionProperties(['Chord'], defaults),
+    ...motionProperties(['svg'], defaults),
 ]
 
-export const groupsByScope = {
-    Chord: getPropertiesGroupsControls(props, 'Chord'),
-    ChordCanvas: getPropertiesGroupsControls(props, 'ChordCanvas'),
-    api: getPropertiesGroupsControls(props, 'api'),
-}
+export const groups = groupProperties(props)

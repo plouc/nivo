@@ -12,7 +12,7 @@ import { ResponsiveChoropleth, ChoroplethDefaultProps } from '@nivo/geo'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/choropleth/meta.yml'
 import mapper from '../../data/components/geo/mapper'
-import { groupsByScope } from '../../data/components/geo/props'
+import { groups } from '../../data/components/choropleth/props'
 import { generateChoroplethData } from '../../data/components/geo/generator'
 import countries from '../../data/components/geo/world_countries'
 
@@ -89,7 +89,7 @@ const Choropleth = () => {
             icon="choropleth"
             flavors={meta.flavors}
             currentFlavor="svg"
-            properties={groupsByScope.Choropleth}
+            properties={groups}
             initialProperties={initialProperties}
             defaultProperties={ChoroplethDefaultProps}
             propertiesMapper={mapper}

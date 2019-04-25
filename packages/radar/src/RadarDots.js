@@ -10,8 +10,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
 import {
-    motionPropTypes,
     useTheme,
+    useMotionConfig,
     positionFromAngle,
     getLabelGenerator,
     DotsItem,
@@ -38,12 +38,9 @@ const RadarDots = ({
     label,
     labelFormat,
     labelYOffset,
-
-    animate,
-    motionStiffness,
-    motionDamping,
 }) => {
     const theme = useTheme()
+    const { animate, springConfig } = useMotionConfig()
     const fillColor = getInheritedColorGenerator(color, theme)
     const strokeColor = getInheritedColorGenerator(borderColor, theme)
     const getLabel = getLabelGenerator(label, labelFormat)
@@ -93,11 +90,6 @@ const RadarDots = ({
                 ))}
             </g>
         )
-    }
-
-    const springConfig = {
-        damping: motionDamping,
-        striffness: motionStiffness,
     }
 
     return (
@@ -154,8 +146,6 @@ RadarDots.propTypes = {
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     labelFormat: PropTypes.string,
     labelYOffset: PropTypes.number,
-
-    ...motionPropTypes,
 }
 RadarDots.defaultProps = {
     size: 6,

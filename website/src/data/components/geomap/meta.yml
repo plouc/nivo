@@ -1,8 +1,8 @@
 flavors:
   - flavor: svg
-    path: /geomap
+    path: /geomap/
   - flavor: canvas
-    path: /geomap/canvas
+    path: /geomap/canvas/
 
 GeoMap:
   package: '@nivo/geo'

@@ -1,8 +1,8 @@
 flavors:
   - flavor: svg
-    path: /swarmplot
+    path: /swarmplot/
   - flavor: canvas
-    path: /swarmplot/canvas
+    path: /swarmplot/canvas/
 
 SwarmPlot:
   package: '@nivo/swarmplot'

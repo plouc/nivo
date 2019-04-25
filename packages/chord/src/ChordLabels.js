@@ -10,22 +10,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
 import { midAngle, getPolarLabelProps, useTheme } from '@nivo/core'
-import { motionPropTypes } from '@nivo/core'
+import { useMotionConfig } from '@nivo/core'
 
-const ChordLabels = ({
-    arcs,
-    radius,
-    rotation,
-    getColor,
-    animate,
-    motionDamping,
-    motionStiffness,
-}) => {
+const ChordLabels = ({ arcs, radius, rotation, getColor }) => {
     const theme = useTheme()
+    const { animate, springConfig } = useMotionConfig()
 
     if (animate !== true) {
         return (
-            <g>
+            <>
                 {arcs.map(arc => {
                     const color = getColor(arc, theme)
                     const angle = midAngle(arc)
@@ -49,13 +42,8 @@ const ChordLabels = ({
                         </text>
                     )
                 })}
-            </g>
+            </>
         )
-    }
-
-    const springConfig = {
-        damping: motionDamping,
-        stiffness: motionStiffness,
     }
 
     return (
@@ -73,7 +61,7 @@ const ChordLabels = ({
             })}
         >
             {interpolatedStyles => (
-                <g>
+                <>
                     {interpolatedStyles.map(({ key, style, data: arc }) => {
                         const color = getColor(arc, theme)
                         const textProps = getPolarLabelProps(radius, style.angle, rotation)
@@ -96,7 +84,7 @@ const ChordLabels = ({
                             </text>
                         )
                     })}
-                </g>
+                </>
             )}
         </TransitionMotion>
     )
@@ -107,7 +95,6 @@ ChordLabels.propTypes = {
     radius: PropTypes.number.isRequired,
     rotation: PropTypes.number.isRequired,
     getColor: PropTypes.func.isRequired,
-    ...motionPropTypes,
 }
 
 export default ChordLabels

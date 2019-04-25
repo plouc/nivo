@@ -6,34 +6,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import pure from 'recompose/pure'
-import { motionPropTypes } from '@nivo/core'
 import GridLines from './GridLines'
 import { computeGridLines } from '../compute'
 
-const Grid = ({
-    width,
-    height,
-    xScale,
-    yScale,
-    xValues,
-    yValues,
-    theme,
-    animate,
-    motionStiffness,
-    motionDamping,
-}) => {
-    const xLines = xScale
-        ? computeGridLines({
-              width,
-              height,
-              scale: xScale,
-              axis: 'x',
-              values: xValues,
-          })
-        : false
+const Grid = memo(({ width, height, xScale, yScale, xValues, yValues }) => {
+    const xLines = useMemo(() => {
+        if (!xScale) return false
+
+        return computeGridLines({
+            width,
+            height,
+            scale: xScale,
+            axis: 'x',
+            values: xValues,
+        })
+    }, [xScale, xValues])
 
     const yLines = yScale
         ? computeGridLines({
@@ -46,31 +35,14 @@ const Grid = ({
         : false
 
     return (
-        <g>
-            {xLines && (
-                <GridLines
-                    type="x"
-                    lines={xLines}
-                    theme={theme}
-                    animate={animate}
-                    motionStiffness={motionStiffness}
-                    motionDamping={motionDamping}
-                />
-            )}
-            {yLines && (
-                <GridLines
-                    type="y"
-                    lines={yLines}
-                    theme={theme}
-                    animate={animate}
-                    motionStiffness={motionStiffness}
-                    motionDamping={motionDamping}
-                />
-            )}
-        </g>
+        <>
+            {xLines && <GridLines type="x" lines={xLines} />}
+            {yLines && <GridLines type="y" lines={yLines} />}
+        </>
     )
-}
+})
 
+Grid.displayName = 'Grid'
 Grid.propTypes = {
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
@@ -89,12 +61,6 @@ Grid.propTypes = {
             PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)])
         ),
     ]),
-
-    theme: PropTypes.object.isRequired,
-
-    ...motionPropTypes,
 }
 
-Grid.defaultProps = {}
-
-export default pure(Grid)
+export default Grid

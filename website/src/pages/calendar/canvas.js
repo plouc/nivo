@@ -12,7 +12,7 @@ import { generateDayCounts } from '@nivo/generators'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/calendar/meta.yml'
 import mapper from '../../data/components/calendar/mapper'
-import { groupsByScope } from '../../data/components/calendar/props'
+import { groups } from '../../data/components/calendar/props'
 
 const from = new Date(2013, 3, 1)
 const to = new Date(2019, 7, 12)
@@ -82,7 +82,7 @@ const CalendarCanvas = () => {
             icon="calendar"
             flavors={meta.flavors}
             currentFlavor="canvas"
-            properties={groupsByScope.CalendarCanvas}
+            properties={groups}
             initialProperties={initialProperties}
             defaultProperties={CalendarCanvasDefaultProps}
             propertiesMapper={mapper}

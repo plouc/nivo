@@ -9,10 +9,11 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { Motion, spring } from 'react-motion'
-import { motionPropTypes, useTheme } from '@nivo/core'
+import { useMotionConfig, useTheme } from '@nivo/core'
 
-const DotAnnotationOutline = memo(({ x, y, size, animate, motionStiffness, motionDamping }) => {
+const DotAnnotationOutline = memo(({ x, y, size }) => {
     const theme = useTheme()
+    const { animate, springConfig } = useMotionConfig()
 
     if (!animate) {
         return (
@@ -33,11 +34,6 @@ const DotAnnotationOutline = memo(({ x, y, size, animate, motionStiffness, motio
                 <circle cx={x} cy={y} r={size / 2} style={theme.annotations.symbol} />
             </>
         )
-    }
-
-    const springConfig = {
-        stiffness: motionStiffness,
-        damping: motionDamping,
     }
 
     return (
@@ -80,8 +76,6 @@ DotAnnotationOutline.propTypes = {
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
     size: PropTypes.number.isRequired,
-
-    ...motionPropTypes,
 }
 DotAnnotationOutline.defaultProps = {
     size: 4,

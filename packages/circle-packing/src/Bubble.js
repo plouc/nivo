@@ -61,7 +61,13 @@ const Bubble = ({
         })
 
     return (
-        <Container isInteractive={isInteractive} theme={theme}>
+        <Container
+            isInteractive={isInteractive}
+            theme={theme}
+            animate={animate}
+            motionStiffness={motionStiffness}
+            motionDamping={motionDamping}
+        >
             {({ showTooltip, hideTooltip }) => (
                 <SvgWrapper
                     width={outerWidth}
