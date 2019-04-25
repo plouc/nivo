@@ -8,29 +8,95 @@
  */
 import React from 'react'
 import omit from 'lodash/omit'
-import { ResponsiveLine, LineDefaultProps } from '@nivo/line'
+import { ResponsiveLineCanvas, LineCanvasDefaultProps } from '@nivo/line'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/line/meta.yml'
 import mapper from '../../data/components/line/mapper'
 import { groupsByScope } from '../../data/components/line/props'
 import defaultSettings from '../../data/components/line/defaults'
-import { generateLightDataSet } from '../../data/components/line/generator'
+import { generateHeavyDataSet } from '../../data/components/line/generator'
+
+const xValues = [0, 20, 40, 60, 80, 100, 120]
+const yValues = [0, 500, 1000, 1500, 2000, 2500]
 
 const initialProperties = {
     ...omit(defaultSettings, ['width', 'height']),
-    useMesh: false,
+    useMesh: true,
     debugMesh: false,
+    curve: 'monotoneX',
+    margin: {
+        top: 50,
+        right: 160,
+        bottom: 50,
+        left: 60,
+    },
+    enableArea: false,
+    colors: { scheme: 'spectral' },
+    xScale: {
+        type: 'linear',
+    },
+    yScale: {
+        type: 'linear',
+        stacked: true,
+        min: 0,
+        max: 2500,
+    },
+    pointSize: 3,
+    gridXValues: xValues,
+    gridYValues: yValues,
+    axisTop: {
+        enable: false,
+        tickValues: xValues,
+        tickSize: 5,
+        tickPadding: 5,
+        tickRotation: 0,
+        format: '.2f',
+        legend: '',
+        legendOffset: 36,
+    },
+    axisRight: {
+        enable: true,
+        tickValues: yValues,
+        tickSize: 5,
+        tickPadding: 5,
+        tickRotation: 0,
+        format: '.2s',
+        legend: '',
+        legendOffset: 0,
+    },
+    axisBottom: {
+        enable: true,
+        tickValues: xValues,
+        tickSize: 5,
+        tickPadding: 5,
+        tickRotation: 0,
+        format: '.2f',
+        legend: 'price',
+        legendOffset: 36,
+        legendPosition: 'middle',
+    },
+    axisLeft: {
+        enable: true,
+        tickValues: yValues,
+        tickSize: 5,
+        tickPadding: 5,
+        tickRotation: 0,
+        format: '.2s',
+        legend: 'volume',
+        legendOffset: -40,
+        legendPosition: 'middle',
+    },
     legends: [
         {
             anchor: 'bottom-right',
             direction: 'column',
             justify: false,
-            translateX: 100,
+            translateX: 140,
             translateY: 0,
-            itemsSpacing: 0,
+            itemsSpacing: 2,
             itemDirection: 'left-to-right',
             itemWidth: 80,
-            itemHeight: 20,
+            itemHeight: 12,
             itemOpacity: 0.75,
             symbolSize: 12,
             symbolShape: 'circle',
@@ -49,28 +115,26 @@ const initialProperties = {
             ],
         },
     ],
-    animate: true,
-    motionStiffness: 90,
-    motionDamping: 15,
 }
 
-const Line = () => {
+const LineCanvas = () => {
     return (
         <ComponentTemplate
             name="Line"
-            meta={meta.Line}
+            meta={meta.LineCanvas}
             icon="line"
             flavors={meta.flavors}
-            currentFlavor="svg"
-            properties={groupsByScope.Line}
+            currentFlavor="canvas"
+            properties={groupsByScope.LineCanvas}
             initialProperties={initialProperties}
-            defaultProperties={LineDefaultProps}
+            defaultProperties={LineCanvasDefaultProps}
             propertiesMapper={mapper}
-            generateData={generateLightDataSet}
+            generateData={generateHeavyDataSet}
+            getDataSize={data => data.length * data[0].data.length}
         >
             {(properties, data, theme, logAction) => {
                 return (
-                    <ResponsiveLine
+                    <ResponsiveLineCanvas
                         data={data}
                         {...properties}
                         theme={theme}
@@ -80,7 +144,7 @@ const Line = () => {
                                 label: `[point] serie: ${point.serieId}, x: ${point.data.x}, y: ${
                                     point.data.y
                                 }`,
-                                color: point.serieColor,
+                                color: point.color,
                                 data: point,
                             })
                         }}
@@ -91,4 +155,4 @@ const Line = () => {
     )
 }
 
-export default Line
+export default LineCanvas

@@ -252,7 +252,7 @@ const SwarmPlotCanvas = memo(
                 const nodeIndex = delaunay.find(x - margin.left, y - margin.top)
                 return nodes[nodeIndex]
             },
-            [canvasEl, margin, innerWidth, innerHeight, delaunay, setCurrentNode]
+            [canvasEl, margin, innerWidth, innerHeight, delaunay]
         )
 
         const handleMouseHover = useCallback(

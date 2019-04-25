@@ -28,11 +28,11 @@ const DotsItem = ({
 }) => (
     <g transform={`translate(${x}, ${y})`} style={{ pointerEvents: 'none' }}>
         {React.createElement(symbol, {
-            size: size,
-            color: color,
-            datum: datum,
-            borderWidth: borderWidth,
-            borderColor: borderColor,
+            size,
+            color,
+            datum,
+            borderWidth,
+            borderColor,
         })}
         {label && (
             <text textAnchor={labelTextAnchor} y={labelYOffset} style={theme.dots.text}>

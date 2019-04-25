@@ -22,7 +22,7 @@ const tooltipStyle = {
     zIndex: 10,
 }
 
-const Container = ({ theme: partialTheme = {}, children }) => {
+const Container = ({ theme: partialTheme = {}, renderWrapper = true, children }) => {
     const containerEl = useRef(null)
     const [state, setState] = useState({
         isTooltipVisible: false,
@@ -62,23 +62,34 @@ const Container = ({ theme: partialTheme = {}, children }) => {
     const { isTooltipVisible, tooltipContent, position } = state
     const theme = usePartialTheme(partialTheme)
 
+    let content
+
+    // we should not render the div element if using the HTTP API
+    if (renderWrapper === true) {
+        content = (
+            <div style={containerStyle} ref={containerEl}>
+                {children}
+                {isTooltipVisible && (
+                    <div
+                        style={{
+                            ...tooltipStyle,
+                            ...position,
+                            ...theme.tooltip,
+                        }}
+                    >
+                        {tooltipContent}
+                    </div>
+                )}
+            </div>
+        )
+    } else {
+        content = children
+    }
+
     return (
         <themeContext.Provider value={theme}>
             <tooltipContext.Provider value={[showTooltip, hideTooltip]}>
-                <div style={containerStyle} ref={containerEl}>
-                    {children}
-                    {isTooltipVisible && (
-                        <div
-                            style={{
-                                ...tooltipStyle,
-                                ...position,
-                                ...theme.tooltip,
-                            }}
-                        >
-                            {tooltipContent}
-                        </div>
-                    )}
-                </div>
+                {content}
             </tooltipContext.Provider>
         </themeContext.Provider>
     )
@@ -94,10 +105,10 @@ export const withContainer = WrappedComponent => {
     return class extends Component {
         render() {
             // eslint-disable-next-line react/prop-types
-            const { theme, ...rest } = this.props
+            const { theme, renderWrapper, ...rest } = this.props
 
             return (
-                <Container theme={theme}>
+                <Container theme={theme} renderWrapper={renderWrapper}>
                     <WrappedComponent {...rest} />
                 </Container>
             )

@@ -1,5 +1,13 @@
+/*
+ * This file is part of the nivo project.
+ *
+ * Copyright 2016-present, Raphaël Benitte.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 import * as React from 'react'
-import { Dimensions, Box, Theme, MotionProps, ColorProps, CartesianMarkerProps } from '@nivo/core'
+import { Dimensions, Box, Theme, MotionProps, CartesianMarkerProps } from '@nivo/core'
 import { OrdinalColorsInstruction } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { Scale, ScaleFunc } from '@nivo/scales'
@@ -8,11 +16,12 @@ import { AxisProps } from '@nivo/axes'
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
 declare module '@nivo/line' {
-    export type TooltipFormatter = (value: string | number | Date) => React.ReactNode
+    export type LineValue = string | number | Date
+    export type TooltipFormatter = (value: LineValue) => React.ReactNode
 
     export interface LineDatum {
-        x?: string | number | Date | null
-        y?: string | number | Date | null
+        x?: LineValue | null
+        y?: LineValue | null
         [key: string]: any
     }
 
@@ -38,12 +47,12 @@ declare module '@nivo/line' {
     }
 
     export interface LineSliceData {
-        id: string | number | Date
+        id: LineValue
         x: number
         data: Array<{
             data: {
-                x?: string | number | Date
-                y?: string | number | Date
+                x?: LineValue
+                y?: LineValue
             }
             position: {
                 x: number
@@ -53,16 +62,16 @@ declare module '@nivo/line' {
         }>
     }
 
-    export enum LineLayerType {
-        Grid = 'grid',
-        Markers = 'markers',
-        Axes = 'axes',
-        Areas = 'areas',
-        Lines = 'lines',
-        Slices = 'slices',
-        Dots = 'dots',
-        Legends = 'legends',
-    }
+    export type LineLayerType =
+        | 'grid'
+        | 'markers'
+        | 'axes'
+        | 'areas'
+        | 'lines'
+        | 'slices'
+        | 'points'
+        | 'mesh'
+        | 'legends'
 
     export interface LineCustomLayerProps extends Omit<LineSvgProps, 'xScale' | 'yScale'> {
         xScale: ScaleFunc
@@ -74,7 +83,7 @@ declare module '@nivo/line' {
     export type LineCustomLayer = (props: LineCustomLayerProps) => React.ReactNode
     export type Layer = LineLayerType | LineCustomLayer
 
-    export interface LineProps extends ColorProps<LineComputedSerieData> {
+    export interface LineProps {
         data: LineSerieData[]
 
         xScale?: Scale
@@ -105,23 +114,24 @@ declare module '@nivo/line' {
         enableGridX?: boolean
         enableGridY?: boolean
 
-        enableDots?: boolean
-        dotSize?: number
-        dotColor?: any
-        dotBorderWidth?: number
-        dotBorderColor?: any
-        enableDotLabel?: boolean
+        enablePoints?: boolean
+        pointSize?: number
+        pointColor?: any
+        pointBorderWidth?: number
+        pointBorderColor?: any
+        enablePointLabel?: boolean
 
         enableArea?: boolean
         areaOpacity?: number
         areaBlendMode?: string
-        areaBaselineValue?: number | string | Date
+        areaBaselineValue?: LineValue
 
         markers?: CartesianMarkerProps[]
 
         isInteractive?: boolean
+        useMesh?: boolean
+        debugMesh?: boolean
         enableStackTooltip?: boolean
-
         tooltip?: (data: LineSliceData) => React.ReactNode
         tooltipFormat?: TooltipFormatter | string
 

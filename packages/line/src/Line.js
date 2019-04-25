@@ -7,42 +7,33 @@
  * file that was distributed with this source code.
  */
 import React, { Fragment } from 'react'
-import { area, line } from 'd3-shape'
-import compose from 'recompose/compose'
-import pure from 'recompose/pure'
-import withPropsOnChange from 'recompose/withPropsOnChange'
-import defaultProps from 'recompose/defaultProps'
-import {
-    curveFromProp,
-    withTheme,
-    withDimensions,
-    withMotion,
-    Container,
-    SvgWrapper,
-    CartesianMarkers,
-} from '@nivo/core'
-import { getOrdinalColorScale, getInheritedColorGenerator } from '@nivo/colors'
+import { withContainer, useDimensions, useTheme, SvgWrapper, CartesianMarkers } from '@nivo/core'
+import { useInheritedColor } from '@nivo/colors'
 import { Axes, Grid } from '@nivo/axes'
-import { computeXYScalesForSeries, computeYSlices } from '@nivo/scales'
+import { useLine, useLinePoints } from './hooks'
+import { LinePropTypes, LineDefaultProps } from './props'
 import { BoxLegendSvg } from '@nivo/legends'
 import LineAreas from './LineAreas'
 import LineLines from './LineLines'
 import LineSlices from './LineSlices'
-import LineDots from './LineDots'
-import { LinePropTypes, LineDefaultProps } from './props'
+import LinePoints from './LinePoints'
+import LineMesh from './LineMesh'
+import XYCapture from './XYCapture'
 
 const Line = props => {
     const {
-        computedData,
-        lineGenerator,
-        areaGenerator,
+        data,
+        xScale: xScaleSpec,
+        yScale: yScaleSpec,
         layers,
+        curve,
+        areaBaselineValue,
 
-        margin,
+        colors,
+
+        margin: partialMargin,
         width,
         height,
-        outerWidth,
-        outerHeight,
 
         axisTop,
         axisRight,
@@ -58,40 +49,69 @@ const Line = props => {
         areaOpacity,
         areaBlendMode,
 
-        enableDots,
-        dotSymbol,
-        dotSize,
-        dotColor,
-        dotBorderWidth,
-        dotBorderColor,
-        enableDotLabel,
-        dotLabel,
-        dotLabelFormat,
-        dotLabelYOffset,
+        enablePoints,
+        pointSymbol,
+        pointSize,
+        pointColor,
+        pointBorderWidth,
+        pointBorderColor,
+        enablePointLabel,
+        pointLabel,
+        pointLabelFormat,
+        pointLabelYOffset,
 
         markers,
 
-        theme,
-
-        animate,
-        motionStiffness,
-        motionDamping,
+        legends,
 
         isInteractive,
-        tooltipFormat,
+        useMesh,
+        debugMesh,
+        onMouseEnter,
+        onMouseMove,
+        onMouseLeave,
+        onClick,
         tooltip,
+        tooltipFormat,
         enableStackTooltip,
+        stackTooltip,
 
-        legends,
+        animate,
+        motionStiffness,
+        motionDamping,
     } = props
 
-    const motionProps = {
-        animate,
-        motionDamping,
-        motionStiffness,
-    }
+    const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
+        width,
+        height,
+        partialMargin
+    )
 
-    const legendData = computedData.series
+    const { lineGenerator, areaGenerator, series, xScale, yScale, slices } = useLine({
+        data,
+        xScale: xScaleSpec,
+        yScale: yScaleSpec,
+        width: innerWidth,
+        height: innerHeight,
+        colors,
+        curve,
+        areaBaselineValue,
+    })
+
+    const points = useLinePoints({
+        isEnabled:
+            enablePoints === true ||
+            (isInteractive === true && useMesh === true && enableStackTooltip !== true),
+        series,
+        color: pointColor,
+        borderColor: pointBorderColor,
+    })
+
+    const theme = useTheme()
+    const getPointColor = useInheritedColor(pointColor, theme)
+    const getPointBorderColor = useInheritedColor(pointBorderColor, theme)
+
+    const legendData = series
         .map(line => ({
             id: line.id,
             label: line.id,
@@ -99,201 +119,179 @@ const Line = props => {
         }))
         .reverse()
 
+    const layerById = {
+        grid: (
+            <Grid
+                key="grid"
+                theme={theme}
+                width={innerWidth}
+                height={innerHeight}
+                xScale={enableGridX ? xScale : null}
+                yScale={enableGridY ? yScale : null}
+                xValues={gridXValues}
+                yValues={gridYValues}
+                animate={animate}
+                motionStiffness={motionStiffness}
+                motionDamping={motionDamping}
+            />
+        ),
+        markers: (
+            <CartesianMarkers
+                key="markers"
+                markers={markers}
+                width={innerWidth}
+                height={innerHeight}
+                xScale={xScale}
+                yScale={yScale}
+                theme={theme}
+            />
+        ),
+        axes: (
+            <Axes
+                key="axes"
+                xScale={xScale}
+                yScale={yScale}
+                width={innerWidth}
+                height={innerHeight}
+                theme={theme}
+                top={axisTop}
+                right={axisRight}
+                bottom={axisBottom}
+                left={axisLeft}
+                animate={animate}
+                motionStiffness={motionStiffness}
+                motionDamping={motionDamping}
+            />
+        ),
+        areas: null,
+        lines: (
+            <LineLines
+                key="lines"
+                lines={series}
+                lineGenerator={lineGenerator}
+                lineWidth={lineWidth}
+                animate={animate}
+                motionStiffness={motionStiffness}
+                motionDamping={motionDamping}
+            />
+        ),
+        slices: null,
+        points: null,
+        mesh: null,
+        legends: legends.map((legend, i) => (
+            <BoxLegendSvg
+                key={`legend.${i}`}
+                {...legend}
+                containerWidth={innerWidth}
+                containerHeight={innerHeight}
+                data={legend.data || legendData}
+                theme={theme}
+            />
+        )),
+    }
+
+    if (enableArea === true) {
+        layerById.areas = (
+            <LineAreas
+                key="areas"
+                areaGenerator={areaGenerator}
+                areaOpacity={areaOpacity}
+                areaBlendMode={areaBlendMode}
+                lines={series}
+                animate={animate}
+                motionStiffness={motionStiffness}
+                motionDamping={motionDamping}
+            />
+        )
+    }
+
+    if (isInteractive === true && enableStackTooltip === true) {
+        layerById.slices = (
+            <LineSlices
+                key="slices"
+                slices={slices}
+                height={innerHeight}
+                tooltip={stackTooltip}
+                tooltipFormat={tooltipFormat}
+            />
+        )
+    }
+
+    if (enablePoints === true) {
+        layerById.points = (
+            <LinePoints
+                key="points"
+                points={points}
+                symbol={pointSymbol}
+                size={pointSize}
+                color={getPointColor}
+                borderWidth={pointBorderWidth}
+                borderColor={getPointBorderColor}
+                enableLabel={enablePointLabel}
+                label={pointLabel}
+                labelFormat={pointLabelFormat}
+                labelYOffset={pointLabelYOffset}
+                animate={animate}
+                motionStiffness={motionStiffness}
+                motionDamping={motionDamping}
+            />
+        )
+    }
+
+    if (isInteractive === true && useMesh === true && enableStackTooltip !== true) {
+        layerById.mesh = (
+            <LineMesh
+                key="mesh"
+                points={points}
+                width={innerWidth}
+                height={innerHeight}
+                onMouseEnter={onMouseEnter}
+                onMouseMove={onMouseMove}
+                onMouseLeave={onMouseLeave}
+                onClick={onClick}
+                tooltip={tooltip}
+                debug={debugMesh}
+            />
+        )
+    }
+
     return (
-        <Container isInteractive={isInteractive} theme={theme}>
-            {({ showTooltip, hideTooltip }) => {
-                const layerById = {
-                    grid: (
-                        <Grid
-                            key="grid"
-                            theme={theme}
-                            width={width}
-                            height={height}
-                            xScale={enableGridX ? computedData.xScale : null}
-                            yScale={enableGridY ? computedData.yScale : null}
-                            xValues={gridXValues}
-                            yValues={gridYValues}
-                            {...motionProps}
-                        />
-                    ),
-                    markers: (
-                        <CartesianMarkers
-                            key="markers"
-                            markers={markers}
-                            width={width}
-                            height={height}
-                            xScale={computedData.xScale}
-                            yScale={computedData.yScale}
-                            theme={theme}
-                        />
-                    ),
-                    axes: (
-                        <Axes
-                            key="axes"
-                            xScale={computedData.xScale}
-                            yScale={computedData.yScale}
-                            width={width}
-                            height={height}
-                            theme={theme}
-                            top={axisTop}
-                            right={axisRight}
-                            bottom={axisBottom}
-                            left={axisLeft}
-                            {...motionProps}
-                        />
-                    ),
-                    areas: null,
-                    lines: (
-                        <LineLines
-                            key="lines"
-                            lines={computedData.series}
-                            lineGenerator={lineGenerator}
-                            lineWidth={lineWidth}
-                            {...motionProps}
-                        />
-                    ),
-                    slices: null,
-                    dots: null,
-                    legends: legends.map((legend, i) => (
-                        <BoxLegendSvg
-                            key={i}
-                            {...legend}
-                            containerWidth={width}
-                            containerHeight={height}
-                            data={legendData}
-                            theme={theme}
-                        />
-                    )),
-                }
-
-                if (enableArea) {
-                    layerById.areas = (
-                        <LineAreas
-                            key="areas"
-                            areaGenerator={areaGenerator}
-                            areaOpacity={areaOpacity}
-                            areaBlendMode={areaBlendMode}
-                            lines={computedData.series}
-                            {...motionProps}
-                        />
+        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
+            {layers.map((layer, i) => {
+                if (typeof layer === 'function') {
+                    return (
+                        <Fragment key={i}>
+                            {layer({
+                                ...props,
+                                series,
+                                slices,
+                                points,
+                                xScale,
+                                yScale,
+                                lineGenerator,
+                                areaGenerator,
+                            })}
+                        </Fragment>
                     )
                 }
 
-                if (isInteractive && enableStackTooltip) {
-                    layerById.slices = (
-                        <LineSlices
-                            key="slices"
-                            slices={computedData.slices}
-                            height={height}
-                            showTooltip={showTooltip}
-                            hideTooltip={hideTooltip}
-                            theme={theme}
-                            tooltipFormat={tooltipFormat}
-                            tooltip={tooltip}
-                        />
-                    )
-                }
-
-                if (enableDots) {
-                    layerById.dots = (
-                        <LineDots
-                            key="dots"
-                            lines={computedData.series}
-                            symbol={dotSymbol}
-                            size={dotSize}
-                            color={getInheritedColorGenerator(dotColor, theme)}
-                            borderWidth={dotBorderWidth}
-                            borderColor={getInheritedColorGenerator(dotBorderColor, theme)}
-                            enableLabel={enableDotLabel}
-                            label={dotLabel}
-                            labelFormat={dotLabelFormat}
-                            labelYOffset={dotLabelYOffset}
-                            theme={theme}
-                            {...motionProps}
-                        />
-                    )
-                }
-                return (
-                    <SvgWrapper
-                        width={outerWidth}
-                        height={outerHeight}
-                        margin={margin}
-                        theme={theme}
-                    >
-                        {layers.map((layer, i) => {
-                            if (typeof layer === 'function') {
-                                return (
-                                    <Fragment key={i}>
-                                        {layer({
-                                            ...props,
-                                            xScale: computedData.xScale,
-                                            yScale: computedData.yScale,
-                                            showTooltip,
-                                            hideTooltip,
-                                        })}
-                                    </Fragment>
-                                )
-                            }
-                            return layerById[layer]
-                        })}
-                    </SvgWrapper>
-                )
-            }}
-        </Container>
+                return layerById[layer]
+            })}
+            {/*
+            <XYCapture
+                points={points}
+                width={innerWidth}
+                height={innerHeight}
+                margin={margin}
+                xScale={xScale}
+                yScale={yScale}
+            />
+            */}
+        </SvgWrapper>
     )
 }
 
 Line.propTypes = LinePropTypes
+Line.defaultProps = LineDefaultProps
 
-const enhance = compose(
-    defaultProps(LineDefaultProps),
-    withTheme(),
-    withDimensions(),
-    withMotion(),
-    withPropsOnChange(['colors'], ({ colors }) => ({
-        getColor: getOrdinalColorScale(colors, 'id'),
-    })),
-    withPropsOnChange(['curve'], ({ curve }) => ({
-        lineGenerator: line()
-            .defined(d => d.x !== null && d.y !== null)
-            .x(d => d.x)
-            .y(d => d.y)
-            .curve(curveFromProp(curve)),
-    })),
-    withPropsOnChange(
-        ['data', 'xScale', 'yScale', 'width', 'height'],
-        ({ data, xScale, yScale, width, height }) => ({
-            computedData: computeXYScalesForSeries(data, xScale, yScale, width, height),
-        })
-    ),
-    withPropsOnChange(['getColor', 'computedData'], ({ getColor, computedData: _computedData }) => {
-        const computedData = {
-            ..._computedData,
-            series: _computedData.series.map(serie => ({
-                ...serie,
-                color: getColor(serie),
-            })),
-        }
-
-        computedData.slices = computeYSlices(computedData)
-
-        return { computedData }
-    }),
-    withPropsOnChange(
-        ['curve', 'computedData', 'areaBaselineValue'],
-        ({ curve, computedData, areaBaselineValue }) => ({
-            areaGenerator: area()
-                .defined(d => d.x !== null && d.y !== null)
-                .x(d => d.x)
-                .y1(d => d.y)
-                .curve(curveFromProp(curve))
-                .y0(computedData.yScale(areaBaselineValue)),
-        })
-    ),
-    pure
-)
-
-const enhancedLine = enhance(Line)
-enhancedLine.displayName = 'Line'
-
-export default enhancedLine
+export default withContainer(Line)

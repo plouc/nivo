@@ -6,10 +6,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+import range from 'lodash/range'
 import { generateSeries } from '@nivo/generators'
 
-export const generateData = () =>
-    generateSeries(
+export const generateLightDataSet = () => {
+    return generateSeries(
         ['japan', 'france', 'us', 'germany', 'norway'],
         [
             'plane',
@@ -21,6 +22,28 @@ export const generateData = () =>
             'car',
             'moto',
             'bicycle',
+            'horse',
+            'skateboard',
             'others',
         ]
     )
+}
+
+export const generateHeavyDataSet = () => {
+    return generateSeries(
+        [
+            'japan',
+            'brazil',
+            'france',
+            'us',
+            'germany',
+            'norway',
+            'china',
+            'algeria',
+            'mexico',
+            'finland',
+            'australia',
+        ],
+        range(121)
+    )
+}

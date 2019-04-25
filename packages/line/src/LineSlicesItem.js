@@ -6,16 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
-import isFunction from 'lodash/isFunction'
-import { format as d3Format } from 'd3-format'
-import compose from 'recompose/compose'
-import pure from 'recompose/pure'
-import withState from 'recompose/withState'
-import withHandlers from 'recompose/withHandlers'
-import withPropsOnChange from 'recompose/withPropsOnChange'
-import { TableTooltip } from '@nivo/core'
+import { TableTooltip, useTheme, useValueFormatter, useTooltip } from '@nivo/core'
 
 const Chip = ({ color }) => (
     <span style={{ display: 'block', width: '12px', height: '12px', background: color }} />
@@ -25,7 +18,45 @@ Chip.propTypes = {
     color: PropTypes.string.isRequired,
 }
 
-const LineSlicesItem = ({ slice, height, showTooltip, hideTooltip, isHover, theme }) => {
+const SliceTooltip = ({ slice, formatValue }) => {
+    return (
+        <TableTooltip
+            rows={slice.data
+                .filter(d => d.position.x !== null && d.position.y !== null)
+                .map(d => [<Chip color={d.serie.color} />, d.serie.id, formatValue(d.data.y)])}
+        />
+    )
+}
+
+const LineSlicesItem = ({ slice, height, tooltip, tooltipFormat }) => {
+    const theme = useTheme()
+    const formatValue = useValueFormatter(tooltipFormat)
+    const [showTooltip, hideTooltip] = useTooltip()
+    const [isHover, setIsHover] = useState(false)
+    const hasValues = slice.data.some(d => d.position.x !== null && d.position.y !== null)
+
+    const handleMouseEnter = useCallback(
+        event => {
+            showTooltip(React.createElement(tooltip, { slice, formatValue }), event)
+            setIsHover(true)
+        },
+        [slice, formatValue]
+    )
+
+    const handleMouseMove = useCallback(
+        event => {
+            showTooltip(React.createElement(tooltip, { slice, formatValue }), event)
+        },
+        [slice, formatValue]
+    )
+
+    const handleMouseLeave = useCallback(() => {
+        hideTooltip()
+        setIsHover(false)
+    }, [hideTooltip])
+
+    if (!hasValues) return null
+
     return (
         <g transform={`translate(${slice.x}, 0)`}>
             {isHover && (
@@ -37,9 +68,9 @@ const LineSlicesItem = ({ slice, height, showTooltip, hideTooltip, isHover, them
                 height={height}
                 fill="#F00"
                 fillOpacity={0}
-                onMouseEnter={showTooltip}
-                onMouseMove={showTooltip}
-                onMouseLeave={hideTooltip}
+                onMouseEnter={handleMouseEnter}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
             />
         </g>
     )
@@ -48,56 +79,11 @@ const LineSlicesItem = ({ slice, height, showTooltip, hideTooltip, isHover, them
 LineSlicesItem.propTypes = {
     slice: PropTypes.object.isRequired,
     height: PropTypes.number.isRequired,
-    showTooltip: PropTypes.func.isRequired,
-    hideTooltip: PropTypes.func.isRequired,
-    isHover: PropTypes.bool.isRequired,
-    theme: PropTypes.object.isRequired,
-    tooltip: PropTypes.func,
+    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 }
+LineSlicesItem.defaultProps = {
+    tooltip: SliceTooltip,
+}
 
-const enhance = compose(
-    withState('isHover', 'setIsHover', false),
-    withPropsOnChange(
-        ['slice', 'theme', 'tooltip', 'tooltipFormat'],
-        ({ slice, theme, tooltip, tooltipFormat }) => {
-            const format =
-                !tooltipFormat || isFunction(tooltipFormat)
-                    ? tooltipFormat
-                    : d3Format(tooltipFormat)
-            const hasValues = slice.data.some(d => d.position.x !== null && d.position.y !== null)
-
-            return {
-                tooltipElement: hasValues ? (
-                    <TableTooltip
-                        theme={theme}
-                        rows={slice.data
-                            .filter(d => d.position.x !== null && d.position.y !== null)
-                            .map(d => [
-                                <Chip key={d.id} color={d.serie.color} />,
-                                d.serie.id,
-                                format ? format(d.data.y) : d.data.y,
-                            ])}
-                        format={format}
-                        renderContent={
-                            typeof tooltip === 'function' ? tooltip.bind(null, { ...slice }) : null
-                        }
-                    />
-                ) : null,
-            }
-        }
-    ),
-    withHandlers({
-        showTooltip: ({ showTooltip, setIsHover, tooltipElement }) => e => {
-            setIsHover(true)
-            showTooltip(tooltipElement, e)
-        },
-        hideTooltip: ({ hideTooltip, setIsHover }) => () => {
-            setIsHover(false)
-            hideTooltip()
-        },
-    }),
-    pure
-)
-
-export default enhance(LineSlicesItem)
+export default LineSlicesItem

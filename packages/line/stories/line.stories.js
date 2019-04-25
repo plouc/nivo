@@ -1,10 +1,18 @@
+/*
+ * This file is part of the nivo project.
+ *
+ * Copyright 2016-present, Raphaël Benitte.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 import React, { Component } from 'react'
 import range from 'lodash/range'
 import last from 'lodash/last'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, boolean, select } from '@storybook/addon-knobs'
 import { generateDrinkStats } from '@nivo/generators'
-import { line, area, curveMonotoneX } from 'd3-shape'
+import { area, curveMonotoneX } from 'd3-shape'
 import * as time from 'd3-time'
 import { timeFormat } from 'd3-time-format'
 import { Line } from '../src'
@@ -16,6 +24,7 @@ const commonProperties = {
     margin: { top: 20, right: 20, bottom: 60, left: 80 },
     data,
     animate: true,
+    enableStackTooltip: true,
 }
 
 const curveOptions = ['linear', 'monotoneX', 'step', 'stepBefore', 'stepAfter']
@@ -36,10 +45,6 @@ const CustomSymbol = ({ size, color, borderWidth, borderColor }) => (
 const stories = storiesOf('Line', module)
 
 stories.addDecorator(withKnobs)
-
-stories.add('default', () => (
-    <Line {...commonProperties} curve={select('curve', curveOptions, 'linear')} />
-))
 
 stories.add(
     'stacked lines',
@@ -148,11 +153,14 @@ stories.add('time x scale', () => (
             format: '%b %d',
         }}
         curve={select('curve', curveOptions, 'step')}
-        enableDotLabel={true}
-        dotSymbol={CustomSymbol}
-        dotSize={16}
-        dotBorderWidth={1}
-        dotBorderColor="inherit:darker(0.3)"
+        enablePointLabel={true}
+        pointSymbol={CustomSymbol}
+        pointSize={16}
+        pointBorderWidth={1}
+        pointBorderColor={{
+            from: 'color',
+            modifiers: [['darker', 0.3]],
+        }}
     />
 ))
 
@@ -274,7 +282,7 @@ class RealTimeChart extends Component {
                     legendOffset: 46,
                 }}
                 axisRight={{}}
-                enableDots={false}
+                enablePoints={false}
                 enableGridX={true}
                 curve="monotoneX"
                 animate={false}
@@ -290,75 +298,7 @@ class RealTimeChart extends Component {
 
 stories.add('real time chart', () => <RealTimeChart />)
 
-stories.add('custom curve interpolation', () => (
-    <Line
-        {...commonProperties}
-        curve="monotoneX"
-        yScale={{
-            type: 'linear',
-            stacked: boolean('stacked', true),
-        }}
-    />
-))
-
-stories.add('rendering area', () => (
-    <Line
-        {...commonProperties}
-        enableArea={true}
-        yScale={{
-            type: 'linear',
-            stacked: boolean('stacked', true),
-        }}
-        curve={select('curve', curveOptions, 'monotoneX')}
-        colorBy={d => d.color}
-        dotSize={8}
-        dotColor="#fff"
-        dotBorderWidth={2}
-        data={[
-            {
-                id: 'fake corp. A',
-                color: '#547687',
-                data: [0.4, 0.5, 0.7, 0.1, 0.2, 0.5, 0.6, 0.5].map((y, i) => ({
-                    x: `#${i}`,
-                    y,
-                })),
-            },
-            {
-                id: 'fake corp. B',
-                color: '#7f98a5',
-                data: [0.5, 0.6, 0.8, 0.7, 0.8, 0.5, 0.2, 0.3].map((y, i) => ({
-                    x: `#${i}`,
-                    y,
-                })),
-            },
-            {
-                id: 'fake corp. C',
-                color: '#a7bac3',
-                data: [0.9, 0.5, 0.6, 0.5, 0.4, 0.3, 0.1, 0.1].map((y, i) => ({
-                    x: `#${i}`,
-                    y,
-                })),
-            },
-        ]}
-    />
-))
-
-stories.add('enabling dot label', () => (
-    <Line
-        {...commonProperties}
-        yScale={{
-            type: 'linear',
-            stacked: boolean('stacked', true),
-        }}
-        curve={select('curve', curveOptions, 'linear')}
-        enableDotLabel={true}
-        dotSize={10}
-        dotBorderColor="#fff"
-        dotBorderWidth={2}
-    />
-))
-
-stories.add('custom dot symbol', () => (
+stories.add('custom point symbol', () => (
     <Line
         {...commonProperties}
         yScale={{
@@ -366,10 +306,13 @@ stories.add('custom dot symbol', () => (
             stacked: boolean('stacked', true),
         }}
         curve={select('curve', curveOptions, 'monotoneX')}
-        dotSymbol={CustomSymbol}
-        dotSize={16}
-        dotBorderWidth={1}
-        dotBorderColor="inherit:darker(0.3)"
+        pointSymbol={CustomSymbol}
+        pointSize={16}
+        pointBorderWidth={1}
+        pointBorderColor={{
+            from: 'color',
+            modifiers: [['darker', 0.3]],
+        }}
         axisLeft={{
             tickSize: 10,
         }}
@@ -381,14 +324,16 @@ stories.add('using data colors', () => (
         {...commonProperties}
         yScale={{
             type: 'linear',
-            stacked: boolean('stacked', true),
+            stacked: true,
         }}
-        curve={select('curve', curveOptions, 'linear')}
+        curve="linear"
         colors={{ datum: 'color' }}
-        enableDotLabel={true}
-        dotSize={10}
-        dotBorderColor="#fff"
-        dotBorderWidth={2}
+        enablePointLabel={true}
+        pointSize={10}
+        pointBorderColor={{ theme: 'background' }}
+        pointBorderWidth={2}
+        enableStackTooltip={false}
+        useMesh={true}
     />
 ))
 
@@ -441,9 +386,9 @@ stories.add(
                 stacked: boolean('stacked', false),
             }}
             curve={select('curve', curveOptions, 'monotoneX')}
-            dotSize={8}
-            dotBorderColor="#fff"
-            dotBorderWidth={2}
+            pointSize={8}
+            pointBorderColor="#fff"
+            pointBorderWidth={2}
         />
     ),
     {
@@ -584,15 +529,91 @@ stories.add('custom min/max y', () => (
             },
         ]}
         curve={select('curve', curveOptions, 'monotoneX')}
-        dotSize={8}
-        dotBorderColor="#fff"
-        dotBorderWidth={2}
+        pointSize={8}
+        pointBorderColor="#fff"
+        pointBorderWidth={2}
         yScale={{
             type: 'linear',
             stacked: boolean('stacked', false),
             min: -1,
             max: 1,
         }}
+    />
+))
+
+stories.add('non linear values', () => (
+    <Line
+        {...commonProperties}
+        xScale={{
+            type: 'linear',
+            min: 0,
+            max: 12,
+        }}
+        yScale={{
+            type: 'linear',
+            min: 0,
+            max: 11,
+        }}
+        colors="black"
+        curve="linear"
+        animate={false}
+        lineWidth={4}
+        pointSize={8}
+        pointColor="white"
+        pointBorderColor={{ from: 'serieColor' }}
+        pointBorderWidth={2}
+        enableStackTooltip={false}
+        useMesh={true}
+        debugMesh={true}
+        data={[
+            {
+                id: 'nivo',
+                data: [
+                    { x: 1, y: 1 },
+                    { x: 1, y: 10 },
+                    { x: 2.25, y: 10 },
+                    { x: 3, y: 4 },
+                    { x: 3, y: 10 },
+                    { x: 4, y: 10 },
+                    { x: 4, y: 1 },
+                    { x: 2.75, y: 1 },
+                    { x: 2, y: 7 },
+                    { x: 2, y: 1 },
+                    { x: 1, y: 1 },
+                    { x: null, y: null },
+                    { x: 4.5, y: 1 },
+                    { x: 5.5, y: 1 },
+                    { x: 5.5, y: 10 },
+                    { x: 4.5, y: 10 },
+                    { x: 4.5, y: 1 },
+                    { x: null, y: null },
+                    { x: 6.5, y: 1 },
+                    { x: 7.5, y: 1 },
+                    { x: 8.5, y: 10 },
+                    { x: 7.5, y: 10 },
+                    { x: 7, y: 4 },
+                    { x: 6.5, y: 10 },
+                    { x: 5.5, y: 10 },
+                    { x: 6.5, y: 1 },
+                    { x: null, y: null },
+                    { x: 9.5, y: 1 },
+                    { x: 10.5, y: 1 },
+                    { x: 11.5, y: 3 },
+                    { x: 11.5, y: 8 },
+                    { x: 10.5, y: 10 },
+                    { x: 9.5, y: 10 },
+                    { x: 8.5, y: 8 },
+                    { x: 8.5, y: 3 },
+                    { x: 9.5, y: 1 },
+                    { x: null, y: null },
+                    { x: 9.5, y: 4 },
+                    { x: 10.5, y: 4 },
+                    { x: 10.5, y: 7 },
+                    { x: 9.5, y: 7 },
+                    { x: 9.5, y: 4 },
+                ],
+            },
+        ]}
     />
 ))
 
@@ -649,12 +670,15 @@ stories.add(
                 },
             ]}
             curve={select('curve', curveOptions, 'monotoneX')}
-            enableDotLabel={true}
-            dotSymbol={CustomSymbol}
-            dotSize={14}
-            dotBorderWidth={1}
-            dotBorderColor="inherit:darker(0.3)"
-            dotLabelYOffset={-20}
+            enablePointLabel={true}
+            pointSymbol={CustomSymbol}
+            pointSize={14}
+            pointBorderWidth={1}
+            pointBorderColor={{
+                from: 'color',
+                modifiers: [['darker', 0.3]],
+            }}
+            pointLabelYOffset={-20}
             enableGridX={false}
             colors={['rgb(97, 205, 187)', 'rgb(244, 117, 96)']}
             xScale={{
@@ -723,9 +747,15 @@ stories.add('custom tooltip', () => (
             type: 'linear',
             stacked: boolean('stacked', true),
         }}
-        tooltip={slice => (
-            <div style={{ color: '#bbb' }}>
-                <siv>{slice.id}</siv>
+        stackTooltip={({ slice }) => (
+            <div
+                style={{
+                    background: 'white',
+                    padding: '9px 12px',
+                    border: '1px solid #ccc',
+                }}
+            >
+                <div>{slice.id}</div>
                 {slice.data.map(d => (
                     <div
                         key={d.serie.id}
@@ -739,24 +769,17 @@ stories.add('custom tooltip', () => (
                 ))}
             </div>
         )}
-        theme={{
-            tooltip: {
-                container: {
-                    background: '#333',
-                },
-            },
-        }}
     />
 ))
 
-const AreaLayer = ({ computedData, xScale, yScale }) => {
+const AreaLayer = ({ series, xScale, yScale }) => {
     const areaGenerator = area()
         .x(d => xScale(d.data.x))
         .y0(d => yScale(d.data.y - 10))
         .y1(d => yScale(d.data.y + 10))
         .curve(curveMonotoneX)
 
-    return <path d={areaGenerator(computedData.series[0].data)} fill="rgba(232, 193, 160, .65)" />
+    return <path d={areaGenerator(series[0].data)} fill="rgba(232, 193, 160, .65)" />
 }
 
 stories.add(
@@ -764,7 +787,7 @@ stories.add(
     () => (
         <Line
             {...commonProperties}
-            layers={['grid', 'markers', 'areas', AreaLayer, 'lines', 'slices', 'dots', 'legends']}
+            layers={['grid', 'markers', 'areas', AreaLayer, 'lines', 'slices', 'points', 'legends']}
         />
     ),
     {
@@ -777,21 +800,39 @@ stories.add(
     }
 )
 
-const DashedLine = ({ computedData, xScale, yScale }) => {
-    const lineGenerator = line()
-        .x(({ data }) => xScale(data.x))
-        .y(({ data }) => yScale(data.y))
+const styleById = {
+    cognac: {
+        strokeDasharray: '12, 6',
+        strokeWidth: 2,
+    },
+    vodka: {
+        strokeDasharray: '1, 16',
+        strokeWidth: 8,
+        strokeLinejoin: 'round',
+        strokeLinecap: 'round',
+    },
+    rhum: {
+        strokeDasharray: '6, 6',
+        strokeWidth: 4,
+    },
+    default: {
+        strokeWidth: 1,
+    },
+}
 
-    return computedData.series.map(({ id, data, color }) => (
+const DashedLine = ({ series, lineGenerator, xScale, yScale }) => {
+    return series.map(({ id, data, color }) => (
         <path
-            key={`${id}_${color}`}
-            d={lineGenerator(data)}
+            key={id}
+            d={lineGenerator(
+                data.map(d => ({
+                    x: xScale(d.data.x),
+                    y: yScale(d.data.y),
+                }))
+            )}
             fill="none"
             stroke={color}
-            style={{
-                strokeDasharray: '3, 3',
-                strokeWidth: '2px',
-            }}
+            style={styleById[id] || styleById.default}
         />
     ))
 }
@@ -823,12 +864,12 @@ stories.add(
                 tickPadding: 5,
                 tickRotation: 0,
             }}
-            layers={['grid', 'markers', 'areas', DashedLine, 'slices', 'dots', 'legends']}
+            layers={['grid', 'markers', 'areas', DashedLine, 'slices', 'points', 'axes', 'legends']}
         />
     ),
     {
         info: {
-            text: `You can customize line style using 'layers' property`,
+            text: `You can customize line styles using the 'layers' property and implement your own line rendering.`,
         },
     }
 )

@@ -62,7 +62,7 @@ const Container = ({ children, theme, isInteractive = true }) => {
     const { isTooltipVisible, tooltipContent, position } = state
 
     let content
-    if (isInteractive) {
+    if (isInteractive === true) {
         content = (
             <div style={containerStyle} ref={containerEl}>
                 {children({

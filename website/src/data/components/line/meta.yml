@@ -1,6 +1,8 @@
 flavors:
   - flavor: svg
     path: /line
+  - flavor: canvas
+    path: /line/canvas
   - flavor: api
     path: /line/api
 
@@ -20,8 +22,8 @@ Line:
       link: line--logarithmic-y-scale
     - label: real time chart
       link: line--real-time-chart
-    - label: custom dot symbol
-      link: line--custom-dot-symbol
+    - label: custom point symbol
+      link: line--custom-point-symbol
     - label: adding markers
       link: line--adding-markers
     - label: holes in data
@@ -50,3 +52,20 @@ Line:
 
     See the [dedicated guide](self:/guides/legends) on how to setup
     legends for this component.
+
+LineCanvas:
+  package: '@nivo/line'
+  tags:
+    - canvas
+  stories:
+    - label: holes in data
+      link: linecanvas--holes-in-data
+    - label: different serie lengths
+      link: linecanvas--different-serie-lengths
+  description: |
+    A variation around the [Line](self:/line) component. Well suited
+    for large data sets as it does not impact DOM tree depth, however
+    you'll lose the isomorphic ability and transitions (for now).
+
+    The responsive alternative of this component is
+    `ResponsiveLineCanvas`.

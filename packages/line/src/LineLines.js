@@ -6,39 +6,34 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import pure from 'recompose/pure'
 import { motionPropTypes } from '@nivo/core'
 import Line from './LineLine'
 
-const LineLines = ({
-    lines,
-    lineGenerator,
-    lineWidth,
-    animate,
-    motionStiffness,
-    motionDamping,
-}) => (
-    <g>
-        {lines.map(({ id, data, color }) => {
-            return (
-                <Line
-                    key={id}
-                    id={id}
-                    points={data.map(d => d.position)}
-                    lineGenerator={lineGenerator}
-                    color={color}
-                    thickness={lineWidth}
-                    animate={animate}
-                    motionStiffness={motionStiffness}
-                    motionDamping={motionDamping}
-                />
-            )
-        })}
-    </g>
+const LineLines = memo(
+    ({ lines, lineGenerator, lineWidth, animate, motionStiffness, motionDamping }) => (
+        <g>
+            {lines.map(({ id, data, color }) => {
+                return (
+                    <Line
+                        key={id}
+                        id={id}
+                        points={data.map(d => d.position)}
+                        lineGenerator={lineGenerator}
+                        color={color}
+                        thickness={lineWidth}
+                        animate={animate}
+                        motionStiffness={motionStiffness}
+                        motionDamping={motionDamping}
+                    />
+                )
+            })}
+        </g>
+    )
 )
 
+LineLines.displayName = 'LineLines'
 LineLines.propTypes = {
     lines: PropTypes.arrayOf(
         PropTypes.shape({
@@ -71,4 +66,4 @@ LineLines.propTypes = {
     ...motionPropTypes,
 }
 
-export default pure(LineLines)
+export default LineLines

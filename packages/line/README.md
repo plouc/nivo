@@ -4,6 +4,12 @@
 
 ## Line
 
-[documentation](http://nivo.rocks/line)
+[documentation](http://nivo.rocks/line/)
 
-![Line](./doc/line.png)
+![Line](https://raw.githubusercontent.com/plouc/nivo/master/packages/line/doc/line.png)
+
+## LineCanvas
+
+[documentation](http://nivo.rocks/line/canvas/)
+
+![LineCanvas](https://raw.githubusercontent.com/plouc/nivo/master/packages/line/doc/line-canvas.png)
