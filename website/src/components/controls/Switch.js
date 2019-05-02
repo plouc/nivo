@@ -11,10 +11,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const Switch = memo(({ id, value, onChange, colors = {} }) => {
-    const handleChange = useCallback(
-        event => onChange(event.target.checked),
-        [onChange]
-    )
+    const handleChange = useCallback(event => onChange(event.target.checked), [onChange])
 
     return (
         <Wrapper>

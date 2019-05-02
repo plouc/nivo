@@ -13,8 +13,8 @@ import { axisPropType } from '@nivo/axes'
 import { scalePropType } from '@nivo/scales'
 import { LegendPropShape } from '@nivo/legends'
 import { crosshairPropTypes } from '@nivo/tooltip'
-import LinePointTooltip from './LinePointTooltip'
-import LineStackedTooltip from './LineStackedTooltip'
+import PointTooltip from './PointTooltip'
+import SliceTooltip from './SliceTooltip'
 
 const commonPropTypes = {
     data: PropTypes.arrayOf(
@@ -98,6 +98,7 @@ const commonPropTypes = {
     ),
 
     colors: ordinalColorsPropType.isRequired,
+
     enableArea: PropTypes.bool.isRequired,
     areaOpacity: PropTypes.number.isRequired,
     areaBlendMode: blendModePropType.isRequired,
@@ -117,10 +118,13 @@ const commonPropTypes = {
 
     isInteractive: PropTypes.bool.isRequired,
     debugMesh: PropTypes.bool.isRequired,
+
     tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-    enableStackTooltip: PropTypes.bool.isRequired,
-    stackTooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+
+    enableSlices: PropTypes.oneOf(['x', 'y', false]).isRequired,
+    debugSlices: PropTypes.bool.isRequired,
+    sliceTooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 
     enableCrosshair: PropTypes.bool.isRequired,
     crosshairType: crosshairPropTypes.type.isRequired,
@@ -157,8 +161,8 @@ const commonDefaultProps = {
         'areas',
         'crosshair',
         'lines',
-        'slices',
         'points',
+        'slices',
         'mesh',
         'legends',
     ],
@@ -185,11 +189,11 @@ const commonDefaultProps = {
     legends: [],
 
     isInteractive: true,
-    tooltip: LinePointTooltip,
-    enableStackTooltip: false,
-    stackTooltip: LineStackedTooltip,
+    tooltip: PointTooltip,
+    enableSlices: false,
+    debugSlices: false,
+    sliceTooltip: SliceTooltip,
     debugMesh: false,
-
     enableCrosshair: true,
     crosshairType: 'bottom-left',
 }

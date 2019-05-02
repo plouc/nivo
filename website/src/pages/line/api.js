@@ -31,7 +31,13 @@ const LineApi = () => {
                 controlGroups={groups}
                 propsMapper={mapper}
                 defaultProps={{
-                    ...omit(defaultSettings, ['isInteractive', 'enableStackTooltip']),
+                    ...omit(defaultSettings, [
+                        'isInteractive',
+                        'enableSlices',
+                        'debugSlices',
+                        'enableCrosshair',
+                        'crosshairType',
+                    ]),
                     data: JSON.stringify(data, null, '  '),
                 }}
             />

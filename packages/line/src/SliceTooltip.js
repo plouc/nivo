@@ -18,20 +18,24 @@ Chip.propTypes = {
     color: PropTypes.string.isRequired,
 }
 
-const LineStackedTooltip = memo(({ slice, formatValue }) => {
+const SliceTooltip = memo(({ slice, axis }) => {
+    const otherAxis = axis === 'x' ? 'y' : 'x'
+
     return (
         <TableTooltip
-            rows={slice.data
-                .filter(d => d.position.x !== null && d.position.y !== null)
-                .map(d => [<Chip color={d.serie.color} />, d.serie.id, formatValue(d.data.y)])}
+            rows={slice.points.map(point => [
+                <Chip color={point.serieColor} />,
+                point.serieId,
+                <strong>{point.data[`${otherAxis}Formatted`]}</strong>,
+            ])}
         />
     )
 })
 
-LineStackedTooltip.displayName = 'LineStackedTooltip'
-LineStackedTooltip.propTypes = {
+SliceTooltip.displayName = 'SliceTooltip'
+SliceTooltip.propTypes = {
     slice: PropTypes.object.isRequired,
-    formatValue: PropTypes.func.isRequired,
+    axis: PropTypes.oneOf(['x', 'y']).isRequired,
 }
 
-export default LineStackedTooltip
+export default SliceTooltip

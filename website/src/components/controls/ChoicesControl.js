@@ -32,7 +32,7 @@ ChoicesControl.propTypes = {
     property: PropTypes.object.isRequired,
     flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
     currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]).isRequired,
     onChange: PropTypes.func.isRequired,
 }
 

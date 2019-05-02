@@ -12,6 +12,7 @@ import { OrdinalColorsInstruction } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { Scale, ScaleFunc } from '@nivo/scales'
 import { AxisProps } from '@nivo/axes'
+import { CrosshairType } from '@nivo/tooltip'
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
@@ -128,10 +129,17 @@ declare module '@nivo/line' {
         markers?: CartesianMarkerProps[]
 
         isInteractive?: boolean
+
         debugMesh?: boolean
-        enableStackTooltip?: boolean
-        tooltip?: (data: LineSliceData) => React.ReactNode
+
+        enableSlices?: 'x' | 'y' | false
+        debugSlices?: boolean
+        sliceTooltip?: (data: LineSliceData) => React.ReactNode
+
         tooltipFormat?: TooltipFormatter | string
+
+        enableCrosshair?: boolean
+        crosshairType?: CrosshairType
 
         legends?: LegendProps[]
     }

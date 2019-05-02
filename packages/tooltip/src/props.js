@@ -9,7 +9,8 @@
 import PropTypes from 'prop-types'
 
 export const crosshairTypes = [
-    'cross',
+    'x',
+    'y',
     'top-left',
     'top',
     'top-right',
@@ -18,6 +19,7 @@ export const crosshairTypes = [
     'bottom',
     'bottom-left',
     'left',
+    'cross',
 ]
 
 export const crosshairPropTypes = {

@@ -76,6 +76,10 @@ const Crosshair = memo(({ width, height, type, x, y, animate, motionStiffness, m
         yLine = { x0: 0, x1: x, y0: y, y1: y }
     } else if (type === 'left') {
         yLine = { x0: 0, x1: x, y0: y, y1: y }
+    } else if (type === 'x') {
+        xLine = { x0: x, x1: x, y0: 0, y1: height }
+    } else if (type === 'y') {
+        yLine = { x0: 0, x1: width, y0: y, y1: y }
     }
 
     return (

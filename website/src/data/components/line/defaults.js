@@ -90,7 +90,8 @@ export default {
     areaOpacity: 0.2,
 
     isInteractive: true,
-    enableStackTooltip: false,
+    enableSlices: 'x',
+    debugSlices: false,
 
     enableCrosshair: true,
     crosshairType: 'bottom-left',
