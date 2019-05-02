@@ -24,6 +24,8 @@ Line:
       link: line--real-time-chart
     - label: custom point symbol
       link: line--custom-point-symbol
+    - label: none linear values
+      link: line--non-linear-values
     - label: adding markers
       link: line--adding-markers
     - label: holes in data

@@ -12,13 +12,13 @@ import { useInheritedColor } from '@nivo/colors'
 import { Axes, Grid } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
 import { Crosshair } from '@nivo/tooltip'
-import { useLine, useLinePoints } from './hooks'
+import { useLine } from './hooks'
 import { LinePropTypes, LineDefaultProps } from './props'
-import LineAreas from './LineAreas'
-import LineLines from './LineLines'
-import LineSlices from './LineSlices'
-import LinePoints from './LinePoints'
-import LineMesh from './LineMesh'
+import Areas from './Areas'
+import Lines from './Lines'
+import Slices from './Slices'
+import Points from './Points'
+import Mesh from './Mesh'
 
 const Line = props => {
     const {
@@ -67,16 +67,20 @@ const Line = props => {
         legends,
 
         isInteractive,
+
         useMesh,
         debugMesh,
+
         onMouseEnter,
         onMouseMove,
         onMouseLeave,
         onClick,
+
         tooltip,
-        tooltipFormat,
-        enableStackTooltip,
-        stackTooltip,
+
+        enableSlices,
+        debugSlices,
+        sliceTooltip,
 
         enableCrosshair,
         crosshairType,
@@ -88,26 +92,20 @@ const Line = props => {
         partialMargin
     )
 
-    const { lineGenerator, areaGenerator, series, xScale, yScale, slices } = useLine({
+    const { lineGenerator, areaGenerator, series, xScale, yScale, slices, points } = useLine({
         data,
         xScale: xScaleSpec,
+        xFormat,
         yScale: yScaleSpec,
+        yFormat,
         width: innerWidth,
         height: innerHeight,
         colors,
         curve,
         areaBaselineValue,
-    })
-
-    const points = useLinePoints({
-        isEnabled:
-            enablePoints === true ||
-            (isInteractive === true && useMesh === true && enableStackTooltip !== true),
-        series,
-        xFormat,
-        yFormat,
-        color: pointColor,
-        borderColor: pointBorderColor,
+        pointColor,
+        pointBorderColor,
+        enableSlices,
     })
 
     const theme = useTheme()
@@ -115,6 +113,7 @@ const Line = props => {
     const getPointBorderColor = useInheritedColor(pointBorderColor, theme)
 
     const [currentPoint, setCurrentPoint] = useState(null)
+    const [currentSlice, setCurrentSlice] = useState(null)
 
     const legendData = series
         .map(line => ({
@@ -164,12 +163,7 @@ const Line = props => {
         ),
         areas: null,
         lines: (
-            <LineLines
-                key="lines"
-                lines={series}
-                lineGenerator={lineGenerator}
-                lineWidth={lineWidth}
-            />
+            <Lines key="lines" lines={series} lineGenerator={lineGenerator} lineWidth={lineWidth} />
         ),
         slices: null,
         points: null,
@@ -189,7 +183,7 @@ const Line = props => {
 
     if (enableArea) {
         layerById.areas = (
-            <LineAreas
+            <Areas
                 key="areas"
                 areaGenerator={areaGenerator}
                 areaOpacity={areaOpacity}
@@ -199,21 +193,24 @@ const Line = props => {
         )
     }
 
-    if (isInteractive && enableStackTooltip) {
+    if (isInteractive && enableSlices !== false) {
         layerById.slices = (
-            <LineSlices
+            <Slices
                 key="slices"
                 slices={slices}
+                axis={enableSlices}
+                debug={debugSlices}
                 height={innerHeight}
-                tooltip={stackTooltip}
-                tooltipFormat={tooltipFormat}
+                tooltip={sliceTooltip}
+                current={currentSlice}
+                setCurrent={setCurrentSlice}
             />
         )
     }
 
     if (enablePoints) {
         layerById.points = (
-            <LinePoints
+            <Points
                 key="points"
                 points={points}
                 symbol={pointSymbol}
@@ -229,22 +226,36 @@ const Line = props => {
         )
     }
 
-    if (isInteractive && enableCrosshair && currentPoint) {
-        layerById.crosshair = (
-            <Crosshair
-                key="crosshair"
-                width={innerWidth}
-                height={innerHeight}
-                x={currentPoint.x}
-                y={currentPoint.y}
-                type={crosshairType}
-            />
-        )
+    if (isInteractive && enableCrosshair) {
+        if (currentPoint !== null) {
+            layerById.crosshair = (
+                <Crosshair
+                    key="crosshair"
+                    width={innerWidth}
+                    height={innerHeight}
+                    x={currentPoint.x}
+                    y={currentPoint.y}
+                    type={crosshairType}
+                />
+            )
+        }
+        if (currentSlice !== null) {
+            layerById.crosshair = (
+                <Crosshair
+                    key="crosshair"
+                    width={innerWidth}
+                    height={innerHeight}
+                    x={currentSlice.x}
+                    y={currentSlice.y}
+                    type={enableSlices}
+                />
+            )
+        }
     }
 
-    if (isInteractive && useMesh && !enableStackTooltip) {
+    if (isInteractive && useMesh && enableSlices === false) {
         layerById.mesh = (
-            <LineMesh
+            <Mesh
                 key="mesh"
                 points={points}
                 width={innerWidth}

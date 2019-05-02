@@ -19,7 +19,7 @@ import { renderLegendToCanvas } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'
 import { useVoronoiMesh, renderVoronoiToCanvas, renderVoronoiCellToCanvas } from '@nivo/voronoi'
 import { LineCanvasPropTypes, LineCanvasDefaultProps } from './props'
-import { useLine, useLinePoints } from './hooks'
+import { useLine } from './hooks'
 
 const LineCanvas = ({
     width,
@@ -75,7 +75,7 @@ const LineCanvas = ({
     const theme = useTheme()
     const [currentPoint, setCurrentPoint] = useState(null)
 
-    const { lineGenerator, areaGenerator, series, xScale, yScale } = useLine({
+    const { lineGenerator, areaGenerator, series, xScale, yScale, points } = useLine({
         data,
         xScale: xScaleSpec,
         yScale: yScaleSpec,
@@ -84,8 +84,9 @@ const LineCanvas = ({
         colors,
         curve,
         areaBaselineValue,
+        pointColor,
+        pointBorderColor,
     })
-    const points = useLinePoints({ series, pointColor, pointBorderColor })
 
     const { delaunay, voronoi } = useVoronoiMesh({
         points,

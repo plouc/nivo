@@ -9,9 +9,9 @@
 import React, { memo, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { useTooltip } from '@nivo/tooltip'
-import { Mesh } from '@nivo/voronoi'
+import { Mesh as BaseMesh } from '@nivo/voronoi'
 
-const LineMesh = memo(
+const Mesh = memo(
     ({
         points,
         width,
@@ -66,7 +66,7 @@ const LineMesh = memo(
         )
 
         return (
-            <Mesh
+            <BaseMesh
                 nodes={points}
                 width={width}
                 height={height}
@@ -80,10 +80,10 @@ const LineMesh = memo(
     }
 )
 
-LineMesh.displayName = 'LineMesh'
-LineMesh.propTypes = {
+Mesh.displayName = 'Mesh'
+Mesh.propTypes = {
     current: PropTypes.object,
     setCurrent: PropTypes.func.isRequired,
 }
 
-export default LineMesh
+export default Mesh

@@ -25,7 +25,7 @@ const commonProperties = {
     margin: { top: 20, right: 20, bottom: 60, left: 80 },
     data,
     animate: true,
-    enableStackTooltip: true,
+    enableSlices: 'x',
 }
 
 const curveOptions = ['linear', 'monotoneX', 'step', 'stepBefore', 'stepAfter']
@@ -179,7 +179,7 @@ stories.add('time scale', () => (
             modifiers: [['darker', 0.3]],
         }}
         useMesh={true}
-        enableStackTooltip={false}
+        enableSlices={false}
     />
 ))
 
@@ -221,7 +221,7 @@ stories.add('logarithmic scale', () => (
             legendOffset: 12,
         }}
         useMesh={true}
-        enableStackTooltip={false}
+        enableSlices={false}
     />
 ))
 
@@ -313,7 +313,7 @@ class RealTimeChart extends Component {
                 motionStiffness={120}
                 motionDamping={50}
                 isInteractive={false}
-                enableStackTooltip={false}
+                enableSlices={false}
                 useMesh={true}
                 theme={{
                     axis: { ticks: { text: { fontSize: 14 } } },
@@ -410,7 +410,7 @@ stories.add('using data colors', () => (
         pointSize={10}
         pointBorderColor={{ theme: 'background' }}
         pointBorderWidth={2}
-        enableStackTooltip={false}
+        enableSlices={false}
         useMesh={true}
     />
 ))
@@ -640,7 +640,7 @@ stories.add('non linear values', () => (
         pointColor="white"
         pointBorderColor={{ from: 'serieColor' }}
         pointBorderWidth={2}
-        enableStackTooltip={false}
+        enableSlices={false}
         useMesh={true}
         debugMesh={true}
         data={[
@@ -770,6 +770,9 @@ stories.add(
             }}
             enableArea={true}
             areaOpacity={0.07}
+            enableSlices={false}
+            useMesh={true}
+            crosshairType="cross"
         />
     ),
     {
@@ -819,13 +822,13 @@ stories.add('formatting tooltip values', () => (
 stories.add('custom tooltip', () => (
     <Line
         {...commonProperties}
-        enableStackTooltip={true}
+        enableSlices="x"
         curve={select('curve', curveOptions, 'linear')}
         yScale={{
             type: 'linear',
             stacked: boolean('stacked', true),
         }}
-        stackTooltip={({ slice }) => (
+        sliceTooltip={({ slice }) => (
             <div
                 style={{
                     background: 'white',

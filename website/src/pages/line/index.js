@@ -74,7 +74,7 @@ const Line = () => {
                         data={data}
                         {...properties}
                         theme={theme}
-                        enableStackTooltip={true}
+                        yFormat=".2f"
                         onClick={point => {
                             logAction({
                                 type: 'click',

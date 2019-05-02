@@ -8,25 +8,23 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import Line from './LineLine'
+import LinesItem from './LinesItem'
 
-const LineLines = memo(({ lines, lineGenerator, lineWidth }) => (
-    <>
-        {lines.map(({ id, data, color }) => (
-            <Line
-                key={id}
-                id={id}
-                points={data.map(d => d.position)}
-                lineGenerator={lineGenerator}
-                color={color}
-                thickness={lineWidth}
-            />
-        ))}
-    </>
-))
+const Lines = memo(({ lines, lineGenerator, lineWidth }) => {
+    return lines.map(({ id, data, color }) => (
+        <LinesItem
+            key={id}
+            id={id}
+            points={data.map(d => d.position)}
+            lineGenerator={lineGenerator}
+            color={color}
+            thickness={lineWidth}
+        />
+    ))
+})
 
-LineLines.displayName = 'LineLines'
-LineLines.propTypes = {
+Lines.displayName = 'Lines'
+Lines.propTypes = {
     lines: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
@@ -57,4 +55,4 @@ LineLines.propTypes = {
     lineGenerator: PropTypes.func.isRequired,
 }
 
-export default LineLines
+export default Lines

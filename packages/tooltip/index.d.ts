@@ -30,4 +30,17 @@ declare module '@nivo/tooltip' {
     }
 
     export class TableTooltip extends React.Component<TableTooltipProps> {}
+
+    export type CrosshairType =
+        | 'x'
+        | 'y'
+        | 'top-left'
+        | 'top'
+        | 'top-right'
+        | 'right'
+        | 'bottom-right'
+        | 'bottom'
+        | 'bottom-left'
+        | 'left'
+        | 'cross'
 }
