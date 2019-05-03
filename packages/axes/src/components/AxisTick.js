@@ -46,7 +46,7 @@ const AxisTick = memo(
             >
                 <line x1={0} x2={lineX} y1={0} y2={lineY} style={theme.axis.ticks.line} />
                 <text
-                    alignmentBaseline={textBaseline}
+                    dominantBaseline={textBaseline}
                     textAnchor={textAnchor}
                     transform={`translate(${textX},${textY}) rotate(${rotate})`}
                     style={theme.axis.ticks.text}

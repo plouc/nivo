@@ -69,10 +69,7 @@ LineCanvas:
   description: |
     A variation around the [Line](self:/line) component. Well suited
     for large data sets as it does not impact DOM tree depth, however
-    you'll lose the isomorphic ability and transitions (for now).
-
-    Unlike the [Line](self:/line) component, the canvas implementation
-    forces usage of voronoi mesh to detect user interactions.
+    you'll lose the isomorphic ability and transitions.
 
     The responsive alternative of this component is
     `ResponsiveLineCanvas`.

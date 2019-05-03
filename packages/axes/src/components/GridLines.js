@@ -78,6 +78,7 @@ const GridLines = memo(({ type, lines }) => {
     )
 })
 
+GridLines.displayName = 'GridLines'
 GridLines.propTypes = {
     type: PropTypes.oneOf(['x', 'y']).isRequired,
     lines: PropTypes.arrayOf(

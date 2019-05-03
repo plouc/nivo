@@ -207,7 +207,7 @@ const CartesianMarkersItem = memo(
                         legendProps.rotation
                     })`}
                     textAnchor={legendProps.textAnchor}
-                    alignmentBaseline="central"
+                    dominantBaseline="central"
                     style={textStyle}
                 >
                     {legend}

@@ -56,7 +56,7 @@ const BarComponent = props => {
                 x={props.width - 16}
                 y={props.height / 2 - 8}
                 textAnchor="end"
-                alignmentBaseline="middle"
+                dominantBaseline="central"
                 fill="black"
                 style={{
                     fontWeight: 900,
@@ -69,7 +69,7 @@ const BarComponent = props => {
                 x={props.width - 16}
                 y={props.height / 2 + 10}
                 textAnchor="end"
-                alignmentBaseline="middle"
+                dominantBaseline="central"
                 fill={props.borderColor}
                 style={{
                     fontWeight: 400,

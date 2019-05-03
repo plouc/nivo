@@ -53,9 +53,6 @@ const Radar = memo(
         colors,
         fillOpacity,
         blendMode,
-        animate,
-        motionStiffness,
-        motionDamping,
         isInteractive,
         tooltipFormat,
         legends,
@@ -99,12 +96,6 @@ const Radar = memo(
                 angleStep: (Math.PI * 2) / data.length,
             }
         }, [keys, indexBy, data, maxValue, innerWidth, innerHeight])
-
-        const motionProps = {
-            animate,
-            motionDamping,
-            motionStiffness,
-        }
 
         const legendData = keys.map(key => ({
             id: key,

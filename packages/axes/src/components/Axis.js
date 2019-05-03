@@ -101,7 +101,7 @@ const Axis = memo(
                     transform={`translate(${legendX}, ${legendY}) rotate(${legendRotation})`}
                     textAnchor={textAnchor}
                     style={{
-                        alignmentBaseline: 'middle',
+                        dominantBaseline: 'central',
                         ...theme.axis.legend.text,
                     }}
                 >
@@ -200,11 +200,12 @@ Axis.propTypes = {
     tickSize: PropTypes.number.isRequired,
     tickPadding: PropTypes.number.isRequired,
     tickRotation: PropTypes.number.isRequired,
-    tickFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    format: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
     renderTick: PropTypes.func.isRequired,
     legend: PropTypes.node,
     legendPosition: PropTypes.oneOf(['start', 'middle', 'end']).isRequired,
     legendOffset: PropTypes.number.isRequired,
+    onClick: PropTypes.func,
 }
 Axis.defaultProps = {
     x: 0,

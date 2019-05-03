@@ -36,7 +36,7 @@ const ChordLabels = ({ arcs, radius, rotation, getColor }) => {
                                 fill: color,
                             }}
                             textAnchor={textProps.align}
-                            alignmentBaseline={textProps.baseline}
+                            dominantBaseline={textProps.baseline}
                         >
                             {arc.label}
                         </text>
@@ -78,7 +78,7 @@ const ChordLabels = ({ arcs, radius, rotation, getColor }) => {
                                     fill: color,
                                 }}
                                 textAnchor={textProps.align}
-                                alignmentBaseline={textProps.baseline}
+                                dominantBaseline={textProps.baseline}
                             >
                                 {arc.label}
                             </text>

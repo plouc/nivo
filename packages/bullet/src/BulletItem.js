@@ -272,7 +272,7 @@ class BulletItem extends Component {
                     <text
                         style={{
                             ...theme.labels.text,
-                            alignmentBaseline: 'central',
+                            dominantBaseline: 'central',
                             textAnchor: titleAlign,
                         }}
                     >

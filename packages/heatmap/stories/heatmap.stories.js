@@ -30,7 +30,7 @@ const CustomCell = ({
             `}
         />
         <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             textAnchor="middle"
             style={{ fill: textColor }}
             dy={value < 50 ? -6 : 6}

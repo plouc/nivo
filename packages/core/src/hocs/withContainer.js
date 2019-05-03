@@ -66,6 +66,10 @@ const Container = ({
 Container.propTypes = {
     children: PropTypes.node.isRequired,
     theme: PropTypes.object,
+    animate: PropTypes.bool,
+    motionStiffness: PropTypes.number,
+    motionDamping: PropTypes.number,
+    renderWrapper: PropTypes.bool,
 }
 
 export const withContainer = WrappedComponent => {

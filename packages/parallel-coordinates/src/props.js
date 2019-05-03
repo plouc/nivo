@@ -16,7 +16,7 @@ const commonVariablePropTypes = {
     tickSize: PropTypes.number,
     tickPadding: PropTypes.number,
     tickRotation: PropTypes.number,
-    tickFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    format: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
     legend: PropTypes.node,
     legendPosition: PropTypes.oneOf(['start', 'middle', 'end']),
     legendOffset: PropTypes.number,

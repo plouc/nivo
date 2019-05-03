@@ -53,6 +53,7 @@ export default class PieSlicesLabels extends Component {
                             >
                                 <text
                                     textAnchor="middle"
+                                    dominantBaseline="central"
                                     style={{
                                         ...theme.labels.text,
                                         fill: textColor(arc.data, theme),

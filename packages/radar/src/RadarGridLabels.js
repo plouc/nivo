@@ -22,7 +22,11 @@ const renderLabel = (label, theme, labelComponent) => {
     let labelNode
     if (labelComponent === undefined) {
         labelNode = (
-            <text style={theme.axis.ticks.text} dy="0.5em" textAnchor={label.anchor}>
+            <text
+                style={theme.axis.ticks.text}
+                dominantBaseline="central"
+                textAnchor={label.anchor}
+            >
                 {label.id}
             </text>
         )

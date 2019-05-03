@@ -139,7 +139,7 @@ const LegendSvgItem = ({
                 style={{
                     ...theme.legends.text,
                     fill: style.itemTextColor || textColor,
-                    alignmentBaseline: labelAlignment,
+                    dominantBaseline: labelAlignment,
                     pointerEvents: 'none',
                     userSelect: 'none',
                 }}
