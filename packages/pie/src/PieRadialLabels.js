@@ -82,7 +82,7 @@ export default class PieRadialLabels extends Component {
                 <g transform={`translate(${label.position.x}, ${label.position.y})`}>
                     <text
                         textAnchor={textPropsByEngine.svg.align[label.align]}
-                        dy="0.3em"
+                        dominantBaseline="central"
                         style={{
                             ...theme.labels.text,
                             fill: textColor(label.arc.data, theme),

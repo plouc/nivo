@@ -110,11 +110,6 @@ class ScatterPlot extends Component {
         } = this.props
         const { xScale, yScale } = computedData
 
-        const motionProps = {
-            animate,
-            motionDamping,
-            motionStiffness,
-        }
         const springConfig = {
             damping: motionDamping,
             stiffness: motionStiffness,

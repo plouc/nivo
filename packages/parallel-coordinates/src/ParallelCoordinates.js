@@ -66,7 +66,7 @@ export class ParallelCoordinates extends Component {
                             tickSize={variable.tickSize}
                             tickPadding={variable.tickPadding}
                             tickRotation={variable.tickRotation}
-                            tickFormat={variable.tickFormat}
+                            format={variable.tickFormat}
                             legend={variable.legend}
                             legendPosition={variable.legendPosition}
                             legendOffset={variable.legendOffset}

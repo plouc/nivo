@@ -91,11 +91,7 @@ const Points = memo(({ points, symbol, size, borderWidth, enableLabel, label, la
 
 Points.displayName = 'Points'
 Points.propTypes = {
-    lines: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string.isRequired,
-        })
-    ),
+    points: PropTypes.arrayOf(PropTypes.object),
 
     symbol: PropTypes.func,
     size: PropTypes.number.isRequired,

@@ -62,6 +62,7 @@ RadarGrid.propTypes = {
         .isRequired,
     shape: PropTypes.oneOf(['circular', 'linear']).isRequired,
     radius: PropTypes.number.isRequired,
+    levels: PropTypes.number.isRequired,
     angleStep: PropTypes.number.isRequired,
     label: PropTypes.func,
     labelOffset: PropTypes.number.isRequired,

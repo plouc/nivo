@@ -89,7 +89,7 @@ const SankeyLabels = ({
                     return (
                         <text
                             key={label.id}
-                            alignmentBaseline="central"
+                            dominantBaseline="central"
                             textAnchor={label.textAnchor}
                             transform={`translate(${label.x}, ${label.y}) rotate(${labelRotation})`}
                             style={{
@@ -136,7 +136,7 @@ const SankeyLabels = ({
                                 transform={`translate(${style.x}, ${style.y}) rotate(${
                                     style.rotation
                                 })`}
-                                alignmentBaseline="central"
+                                dominantBaseline="central"
                                 textAnchor={data.textAnchor}
                                 style={{
                                     ...theme.labels.text,

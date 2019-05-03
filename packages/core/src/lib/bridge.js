@@ -15,9 +15,9 @@ export const textPropsByEngine = {
             right: 'end',
         },
         baseline: {
-            top: 'before-edge',
+            top: 'text-before-edge',
             center: 'central',
-            bottom: 'after-edge',
+            bottom: 'alphabetic',
         },
     },
     canvas: {

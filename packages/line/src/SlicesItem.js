@@ -59,6 +59,7 @@ SlicesItem.propTypes = {
     height: PropTypes.number.isRequired,
     tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
     isCurrent: PropTypes.bool.isRequired,
+    setCurrent: PropTypes.func.isRequired,
 }
 
 export default SlicesItem

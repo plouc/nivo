@@ -54,7 +54,7 @@ const HeatMapCellRect = ({
         />
         {enableLabel && (
             <text
-                alignmentBaseline="central"
+                dominantBaseline="central"
                 textAnchor="middle"
                 style={{
                     ...theme.labels.text,

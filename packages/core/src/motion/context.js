@@ -24,6 +24,7 @@ export const MotionConfigProvider = ({ children, animate, stiffness, damping }) 
 }
 
 MotionConfigProvider.propTypes = {
+    children: PropTypes.node.isRequired,
     animate: PropTypes.bool.isRequired,
     stiffness: PropTypes.number.isRequired,
     damping: PropTypes.number.isRequired,

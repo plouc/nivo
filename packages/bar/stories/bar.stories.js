@@ -231,7 +231,7 @@ stories.add(
                         <line stroke="rgb(232, 193, 160)" strokeWidth={1.5} y1={-22} y2={-12} />
                         <text
                             textAnchor="middle"
-                            alignmentBaseline="middle"
+                            dominantBaseline="middle"
                             style={{
                                 ...tick.theme.axis.ticks.text,
                                 fill: '#333',

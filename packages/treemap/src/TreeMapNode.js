@@ -28,7 +28,7 @@ const TreeMapNode = ({ style, node, handlers, theme }) => {
             {node.label && (
                 <text
                     textAnchor="middle"
-                    alignmentBaseline="central"
+                    dominantBaseline="central"
                     style={{
                         ...theme.labels.text,
                         fill: style.labelTextColor,

@@ -25,7 +25,7 @@ const BubbleNode = ({ node, style, handlers, theme }) => {
             {node.label !== false && (
                 <text
                     textAnchor="middle"
-                    alignmentBaseline="central"
+                    dominantBaseline="central"
                     style={{
                         ...theme.labels.text,
                         fill: style.labelTextColor,

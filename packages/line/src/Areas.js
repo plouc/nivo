@@ -66,8 +66,10 @@ const Areas = memo(({ areaGenerator, areaOpacity, areaBlendMode, lines }) => {
 
 Areas.displayName = 'Areas'
 Areas.propTypes = {
+    areaGenerator: PropTypes.func.isRequired,
     areaOpacity: PropTypes.number.isRequired,
     areaBlendMode: blendModePropType.isRequired,
+    lines: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
 export default Areas
