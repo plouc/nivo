@@ -803,7 +803,7 @@ stories.add('formatting axis values', () => (
     />
 ))
 
-stories.add('formatting tooltip values', () => (
+stories.add('formatting values', () => (
     <Line
         {...commonProperties}
         curve="monotoneX"
@@ -811,7 +811,7 @@ stories.add('formatting tooltip values', () => (
             type: 'linear',
             stacked: boolean('stacked', true),
         }}
-        tooltipFormat={value =>
+        yFormat={value =>
             `${Number(value).toLocaleString('ru-RU', {
                 minimumFractionDigits: 2,
             })} ₽`
@@ -828,28 +828,30 @@ stories.add('custom tooltip', () => (
             type: 'linear',
             stacked: boolean('stacked', true),
         }}
-        sliceTooltip={({ slice }) => (
-            <div
-                style={{
-                    background: 'white',
-                    padding: '9px 12px',
-                    border: '1px solid #ccc',
-                }}
-            >
-                <div>{slice.id}</div>
-                {slice.data.map(d => (
-                    <div
-                        key={d.serie.id}
-                        style={{
-                            color: d.serie.color,
-                            padding: '3px 0',
-                        }}
-                    >
-                        <strong>{d.serie.id}</strong> [{d.data.y}]
-                    </div>
-                ))}
-            </div>
-        )}
+        sliceTooltip={({ slice }) => {
+            return (
+                <div
+                    style={{
+                        background: 'white',
+                        padding: '9px 12px',
+                        border: '1px solid #ccc',
+                    }}
+                >
+                    <div>x: {slice.id}</div>
+                    {slice.points.map(point => (
+                        <div
+                            key={point.id}
+                            style={{
+                                color: point.serieColor,
+                                padding: '3px 0',
+                            }}
+                        >
+                            <strong>{point.serieId}</strong> [{point.data.yFormatted}]
+                        </div>
+                    ))}
+                </div>
+            )
+        }}
     />
 ))
 

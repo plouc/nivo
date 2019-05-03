@@ -23,6 +23,21 @@ const indent = (content, spaces = 8) =>
         })
         .join('\n')
 
+const toJson = value => {
+    const jsonString = JSON.stringify(value, null, 4)
+    const normalized = jsonString
+        .replace(/^(\s+)"([a-z]{1}[a-z]*)"\: /gim, (match, space, key) => {
+            return `${space}${key}: `
+        })
+        .replace(/"/gm, `'`)
+
+    if (normalized.length < 120) {
+        return normalized.replace(/\n/gm, ' ').replace(/\s{2,}/g, ' ')
+    }
+
+    return indent(normalized)
+}
+
 const generate = (
     name,
     props,
@@ -43,17 +58,19 @@ const generate = (
 
         let value
         if (isPlainObject(_value)) {
-            value = `{${indent(JSON.stringify(_value, null, 4))}}`
+            value = `{${toJson(_value)}}`
         } else if (isArray(_value)) {
-            value = `{${indent(JSON.stringify(_value, null, 4))}}`
+            value = `{${toJson(_value)}}`
         } else if (isString(_value)) {
             value = `"${_value}"`
         } else if (isBoolean(_value)) {
             value = `{${_value ? 'true' : 'false'}}`
         } else if (isNumber(_value)) {
             value = `{${_value}}`
-        } else if (isFunction(_value)) {
+        } else if (typeof _value === 'function') {
             value = `{${_value.toString()}}`
+        } else if (_value === null) {
+            value = `{null}`
         } else {
             value = _value
         }

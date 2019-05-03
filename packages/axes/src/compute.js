@@ -9,20 +9,35 @@
 import isNumber from 'lodash/isNumber'
 import {
     timeMillisecond,
+    utcMillisecond,
     timeSecond,
+    utcSecond,
     timeMinute,
+    utcMinute,
     timeHour,
+    utcHour,
     timeDay,
+    utcDay,
     timeWeek,
+    utcWeek,
     timeSunday,
+    utcSunday,
     timeMonday,
+    utcMonday,
     timeTuesday,
+    utcTuesday,
     timeWednesday,
+    utcWednesday,
     timeThursday,
+    utcThursday,
     timeFriday,
+    utcFriday,
     timeSaturday,
+    utcSaturday,
     timeMonth,
+    utcMonth,
     timeYear,
+    utcYear,
 } from 'd3-time'
 import { timeFormat } from 'd3-time-format'
 import { format as d3Format } from 'd3-format'
@@ -42,21 +57,21 @@ export const centerScale = scale => {
 }
 
 const timeByType = {
-    millisecond: timeMillisecond,
-    second: timeSecond,
-    minute: timeMinute,
-    hour: timeHour,
-    day: timeDay,
-    week: timeWeek,
-    sunday: timeSunday,
-    monday: timeMonday,
-    tuesday: timeTuesday,
-    wednesday: timeWednesday,
-    thursday: timeThursday,
-    friday: timeFriday,
-    saturday: timeSaturday,
-    month: timeMonth,
-    year: timeYear,
+    millisecond: [timeMillisecond, utcMillisecond],
+    second: [timeSecond, utcSecond],
+    minute: [timeMinute, utcMinute],
+    hour: [timeHour, utcHour],
+    day: [timeDay, utcDay],
+    week: [timeWeek, utcWeek],
+    sunday: [timeSunday, utcSunday],
+    monday: [timeMonday, utcMonday],
+    tuesday: [timeTuesday, utcTuesday],
+    wednesday: [timeWednesday, utcWednesday],
+    thursday: [timeThursday, utcThursday],
+    friday: [timeFriday, utcFriday],
+    saturday: [timeSaturday, utcSaturday],
+    month: [timeMonth, utcMonth],
+    year: [timeYear, utcYear],
 }
 
 const timeTypes = Object.keys(timeByType)
@@ -84,7 +99,10 @@ export const getScaleTicks = (scale, spec) => {
             // time interval
             const matches = spec.match(timeIntervalRegexp)
             if (matches) {
-                const timeType = timeByType[matches[2]]
+                // UTC is used as it's more predictible
+                // however local time could be used too
+                // let's see how it fits users' requirements
+                const timeType = timeByType[matches[2]][1]
                 if (matches[1] === undefined) {
                     return scale.ticks(timeType)
                 }

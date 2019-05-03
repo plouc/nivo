@@ -36,8 +36,8 @@ Line:
       link: line--custom-min-max-y
     - label: formatting axis values
       link: line--formatting-axis-values
-    - label: formatting tooltip values
-      link: line--formatting-tooltip-values
+    - label: formatting values
+      link: line--formatting-values
     - label: adding custom layers
       link: line--custom-layers
   description: |

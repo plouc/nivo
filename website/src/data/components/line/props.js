@@ -453,7 +453,7 @@ const props = [
     },
     {
         key: 'onMouseEnter',
-        flavors: ['svg', 'canvas'],
+        flavors: ['svg'],
         group: 'Interactivity',
         help: `onMouseEnter handler, doesn't work with slice tooltip.`,
         type: '(point, event) => void',
@@ -461,7 +461,7 @@ const props = [
     },
     {
         key: 'onMouseMove',
-        flavors: ['svg', 'canvas'],
+        flavors: ['svg'],
         group: 'Interactivity',
         help: `onMouseMove handler, doesn't work with slice tooltip.`,
         type: '(point, event) => void',
@@ -494,7 +494,7 @@ const props = [
     {
         key: 'enableSlices',
         group: 'Interactivity',
-        flavors: ['svg', 'canvas'],
+        flavors: ['svg'],
         help: `Enable/disable slices tooltip for x or y axis, automatically disable mesh.`,
         type: `'x' | 'y' | false`,
         required: false,
@@ -519,7 +519,7 @@ const props = [
     },
     {
         key: 'debugSlices',
-        flavors: ['svg', 'canvas'],
+        flavors: ['svg'],
         help: 'Display area used to detect mouse interactions for slices.',
         type: 'boolean',
         required: false,
@@ -537,7 +537,7 @@ const props = [
     },
     {
         key: 'enableCrosshair',
-        flavors: ['svg', 'canvas'],
+        flavors: ['svg'],
         group: 'Interactivity',
         help: 'Enable/disable crosshair.',
         type: 'boolean',
@@ -547,7 +547,7 @@ const props = [
     },
     {
         key: 'crosshairType',
-        flavors: ['svg', 'canvas'],
+        flavors: ['svg'],
         group: 'Interactivity',
         required: false,
         defaultValue: defaults.crosshairType,

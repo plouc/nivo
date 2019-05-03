@@ -90,7 +90,7 @@ export default {
     areaOpacity: 0.2,
 
     isInteractive: true,
-    enableSlices: 'x',
+    enableSlices: false,
     debugSlices: false,
 
     enableCrosshair: true,

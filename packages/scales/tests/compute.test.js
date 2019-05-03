@@ -25,15 +25,15 @@ describe('generateSeriesAxis', () => {
 
     const timeScaleExpectation = {
         all: [
-            new Date(2018, 3, 1, 0, 0, 0, 0),
-            new Date(2018, 3, 2, 0, 0, 0, 0),
-            new Date(2018, 3, 3, 0, 0, 0, 0),
-            new Date(2018, 3, 4, 0, 0, 0, 0),
-            new Date(2018, 3, 5, 0, 0, 0, 0),
-            new Date(2018, 3, 6, 0, 0, 0, 0),
+            new Date(Date.UTC(2018, 3, 1, 0, 0, 0, 0)),
+            new Date(Date.UTC(2018, 3, 2, 0, 0, 0, 0)),
+            new Date(Date.UTC(2018, 3, 3, 0, 0, 0, 0)),
+            new Date(Date.UTC(2018, 3, 4, 0, 0, 0, 0)),
+            new Date(Date.UTC(2018, 3, 5, 0, 0, 0, 0)),
+            new Date(Date.UTC(2018, 3, 6, 0, 0, 0, 0)),
         ],
-        min: new Date(2018, 3, 1, 0, 0, 0, 0),
-        max: new Date(2018, 3, 6, 0, 0, 0, 0),
+        min: new Date(Date.UTC(2018, 3, 1, 0, 0, 0, 0)),
+        max: new Date(Date.UTC(2018, 3, 6, 0, 0, 0, 0)),
     }
 
     axes.forEach(axis => {
@@ -127,13 +127,19 @@ describe('generateSeriesAxis', () => {
                                 id: 'A',
                                 data: [
                                     {
-                                        data: { [axis]: new Date(2018, 3, 1, 0, 0, 0, 0) },
+                                        data: {
+                                            [axis]: new Date(Date.UTC(2018, 3, 1, 0, 0, 0, 0)),
+                                        },
                                     },
                                     {
-                                        data: { [axis]: new Date(2018, 3, 2, 0, 0, 0, 0) },
+                                        data: {
+                                            [axis]: new Date(Date.UTC(2018, 3, 2, 0, 0, 0, 0)),
+                                        },
                                     },
                                     {
-                                        data: { [axis]: new Date(2018, 3, 3, 0, 0, 0, 0) },
+                                        data: {
+                                            [axis]: new Date(Date.UTC(2018, 3, 3, 0, 0, 0, 0)),
+                                        },
                                     },
                                 ],
                             },
@@ -141,13 +147,19 @@ describe('generateSeriesAxis', () => {
                                 id: 'B',
                                 data: [
                                     {
-                                        data: { [axis]: new Date(2018, 3, 4, 0, 0, 0, 0) },
+                                        data: {
+                                            [axis]: new Date(Date.UTC(2018, 3, 4, 0, 0, 0, 0)),
+                                        },
                                     },
                                     {
-                                        data: { [axis]: new Date(2018, 3, 5, 0, 0, 0, 0) },
+                                        data: {
+                                            [axis]: new Date(Date.UTC(2018, 3, 5, 0, 0, 0, 0)),
+                                        },
                                     },
                                     {
-                                        data: { [axis]: new Date(2018, 3, 6, 0, 0, 0, 0) },
+                                        data: {
+                                            [axis]: new Date(Date.UTC(2018, 3, 6, 0, 0, 0, 0)),
+                                        },
                                     },
                                 ],
                             },
@@ -166,13 +178,19 @@ describe('generateSeriesAxis', () => {
                                 id: 'A',
                                 data: [
                                     {
-                                        data: { [axis]: new Date(2018, 3, 3, 0, 0, 0, 0) },
+                                        data: {
+                                            [axis]: new Date(Date.UTC(2018, 3, 3, 0, 0, 0, 0)),
+                                        },
                                     },
                                     {
-                                        data: { [axis]: new Date(2018, 3, 1, 0, 0, 0, 0) },
+                                        data: {
+                                            [axis]: new Date(Date.UTC(2018, 3, 1, 0, 0, 0, 0)),
+                                        },
                                     },
                                     {
-                                        data: { [axis]: new Date(2018, 3, 2, 0, 0, 0, 0) },
+                                        data: {
+                                            [axis]: new Date(Date.UTC(2018, 3, 2, 0, 0, 0, 0)),
+                                        },
                                     },
                                 ],
                             },
@@ -180,13 +198,19 @@ describe('generateSeriesAxis', () => {
                                 id: 'B',
                                 data: [
                                     {
-                                        data: { [axis]: new Date(2018, 3, 6, 0, 0, 0, 0) },
+                                        data: {
+                                            [axis]: new Date(Date.UTC(2018, 3, 6, 0, 0, 0, 0)),
+                                        },
                                     },
                                     {
-                                        data: { [axis]: new Date(2018, 3, 4, 0, 0, 0, 0) },
+                                        data: {
+                                            [axis]: new Date(Date.UTC(2018, 3, 4, 0, 0, 0, 0)),
+                                        },
                                     },
                                     {
-                                        data: { [axis]: new Date(2018, 3, 5, 0, 0, 0, 0) },
+                                        data: {
+                                            [axis]: new Date(Date.UTC(2018, 3, 5, 0, 0, 0, 0)),
+                                        },
                                     },
                                 ],
                             },
@@ -401,9 +425,9 @@ describe('stackAxis', () => {
                 const xy = {
                     [otherAxis]: {
                         all: [
-                            new Date(2018, 3, 1, 0, 0, 0, 0),
-                            new Date(2018, 3, 2, 0, 0, 0, 0),
-                            new Date(2018, 3, 3, 0, 0, 0, 0),
+                            new Date(Date.UTC(2018, 3, 1, 0, 0, 0, 0)),
+                            new Date(Date.UTC(2018, 3, 2, 0, 0, 0, 0)),
+                            new Date(Date.UTC(2018, 3, 3, 0, 0, 0, 0)),
                         ],
                     },
                     [axis]: {},
@@ -414,19 +438,19 @@ describe('stackAxis', () => {
                         data: [
                             {
                                 data: {
-                                    [otherAxis]: new Date(2018, 3, 1, 0, 0, 0, 0),
+                                    [otherAxis]: new Date(Date.UTC(2018, 3, 1, 0, 0, 0, 0)),
                                     [axis]: 10,
                                 },
                             },
                             {
                                 data: {
-                                    [otherAxis]: new Date(2018, 3, 2, 0, 0, 0, 0),
+                                    [otherAxis]: new Date(Date.UTC(2018, 3, 2, 0, 0, 0, 0)),
                                     [axis]: 20,
                                 },
                             },
                             {
                                 data: {
-                                    [otherAxis]: new Date(2018, 3, 3, 0, 0, 0, 0),
+                                    [otherAxis]: new Date(Date.UTC(2018, 3, 3, 0, 0, 0, 0)),
                                     [axis]: 30,
                                 },
                             },
@@ -437,19 +461,19 @@ describe('stackAxis', () => {
                         data: [
                             {
                                 data: {
-                                    [otherAxis]: new Date(2018, 3, 1, 0, 0, 0, 0),
+                                    [otherAxis]: new Date(Date.UTC(2018, 3, 1, 0, 0, 0, 0)),
                                     [axis]: 1,
                                 },
                             },
                             {
                                 data: {
-                                    [otherAxis]: new Date(2018, 3, 2, 0, 0, 0, 0),
+                                    [otherAxis]: new Date(Date.UTC(2018, 3, 2, 0, 0, 0, 0)),
                                     [axis]: 2,
                                 },
                             },
                             {
                                 data: {
-                                    [otherAxis]: new Date(2018, 3, 3, 0, 0, 0, 0),
+                                    [otherAxis]: new Date(Date.UTC(2018, 3, 3, 0, 0, 0, 0)),
                                     [axis]: 3,
                                 },
                             },
@@ -465,21 +489,21 @@ describe('stackAxis', () => {
                         data: [
                             {
                                 data: {
-                                    [otherAxis]: new Date(2018, 3, 1, 0, 0, 0, 0),
+                                    [otherAxis]: new Date(Date.UTC(2018, 3, 1, 0, 0, 0, 0)),
                                     [axis]: 10,
                                     [`${axis}Stacked`]: 10,
                                 },
                             },
                             {
                                 data: {
-                                    [otherAxis]: new Date(2018, 3, 2, 0, 0, 0, 0),
+                                    [otherAxis]: new Date(Date.UTC(2018, 3, 2, 0, 0, 0, 0)),
                                     [axis]: 20,
                                     [`${axis}Stacked`]: 20,
                                 },
                             },
                             {
                                 data: {
-                                    [otherAxis]: new Date(2018, 3, 3, 0, 0, 0, 0),
+                                    [otherAxis]: new Date(Date.UTC(2018, 3, 3, 0, 0, 0, 0)),
                                     [axis]: 30,
                                     [`${axis}Stacked`]: 30,
                                 },
@@ -491,21 +515,21 @@ describe('stackAxis', () => {
                         data: [
                             {
                                 data: {
-                                    [otherAxis]: new Date(2018, 3, 1, 0, 0, 0, 0),
+                                    [otherAxis]: new Date(Date.UTC(2018, 3, 1, 0, 0, 0, 0)),
                                     [axis]: 1,
                                     [`${axis}Stacked`]: 11,
                                 },
                             },
                             {
                                 data: {
-                                    [otherAxis]: new Date(2018, 3, 2, 0, 0, 0, 0),
+                                    [otherAxis]: new Date(Date.UTC(2018, 3, 2, 0, 0, 0, 0)),
                                     [axis]: 2,
                                     [`${axis}Stacked`]: 22,
                                 },
                             },
                             {
                                 data: {
-                                    [otherAxis]: new Date(2018, 3, 3, 0, 0, 0, 0),
+                                    [otherAxis]: new Date(Date.UTC(2018, 3, 3, 0, 0, 0, 0)),
                                     [axis]: 3,
                                     [`${axis}Stacked`]: 33,
                                 },
