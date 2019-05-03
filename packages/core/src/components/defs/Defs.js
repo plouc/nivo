@@ -16,7 +16,7 @@ export const defsMapping = {
     ...patternTypes,
 }
 
-export const Defs = memo(({ defs: definitions }) => {
+const Defs = ({ defs: definitions }) => {
     if (!definitions || definitions.length < 1) return null
 
     return (
@@ -29,9 +29,8 @@ export const Defs = memo(({ defs: definitions }) => {
             })}
         </defs>
     )
-})
+}
 
-Defs.displayName = 'Defs'
 Defs.propTypes = {
     defs: PropTypes.arrayOf(
         PropTypes.shape({
@@ -40,3 +39,5 @@ Defs.propTypes = {
         })
     ),
 }
+
+export default memo(Defs)

@@ -9,7 +9,7 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 
-const DotsItemSymbol = memo(({ size, color, borderWidth, borderColor }) => (
+const DotsItemSymbol = ({ size, color, borderWidth, borderColor }) => (
     <circle
         r={size / 2}
         fill={color}
@@ -17,9 +17,8 @@ const DotsItemSymbol = memo(({ size, color, borderWidth, borderColor }) => (
         strokeWidth={borderWidth}
         style={{ pointerEvents: 'none' }}
     />
-))
+)
 
-DotsItemSymbol.displayName = 'DotsItemSymbol'
 DotsItemSymbol.propTypes = {
     size: PropTypes.number.isRequired,
     color: PropTypes.string.isRequired,
@@ -27,4 +26,4 @@ DotsItemSymbol.propTypes = {
     borderColor: PropTypes.string.isRequired,
 }
 
-export default DotsItemSymbol
+export default memo(DotsItemSymbol)

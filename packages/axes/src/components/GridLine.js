@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 
 const GridLine = props => <line {...props} />
@@ -17,7 +17,6 @@ GridLine.propTypes = {
     y1: PropTypes.number.isRequired,
     y2: PropTypes.number.isRequired,
 }
-
 GridLine.defaultProps = {
     x1: 0,
     x2: 0,
@@ -25,4 +24,4 @@ GridLine.defaultProps = {
     y2: 0,
 }
 
-export default GridLine
+export default memo(GridLine)

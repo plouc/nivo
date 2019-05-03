@@ -10,7 +10,7 @@ import React, { memo, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { useTooltip } from '@nivo/tooltip'
 
-const SlicesItem = memo(({ slice, axis, debug, tooltip, isCurrent, setCurrent }) => {
+const SlicesItem = ({ slice, axis, debug, tooltip, isCurrent, setCurrent }) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseEnter = useCallback(
@@ -49,9 +49,8 @@ const SlicesItem = memo(({ slice, axis, debug, tooltip, isCurrent, setCurrent })
             onMouseLeave={handleMouseLeave}
         />
     )
-})
+}
 
-SlicesItem.displayName = 'SlicesItem'
 SlicesItem.propTypes = {
     slice: PropTypes.object.isRequired,
     axis: PropTypes.oneOf(['x', 'y']).isRequired,
@@ -62,4 +61,4 @@ SlicesItem.propTypes = {
     setCurrent: PropTypes.func.isRequired,
 }
 
-export default SlicesItem
+export default memo(SlicesItem)

@@ -10,7 +10,7 @@ import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import LinesItem from './LinesItem'
 
-const Lines = memo(({ lines, lineGenerator, lineWidth }) => {
+const Lines = ({ lines, lineGenerator, lineWidth }) => {
     return lines.map(({ id, data, color }) => (
         <LinesItem
             key={id}
@@ -21,9 +21,8 @@ const Lines = memo(({ lines, lineGenerator, lineWidth }) => {
             thickness={lineWidth}
         />
     ))
-})
+}
 
-Lines.displayName = 'Lines'
 Lines.propTypes = {
     lines: PropTypes.arrayOf(
         PropTypes.shape({
@@ -55,4 +54,4 @@ Lines.propTypes = {
     lineGenerator: PropTypes.func.isRequired,
 }
 
-export default Lines
+export default memo(Lines)

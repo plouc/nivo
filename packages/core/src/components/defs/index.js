@@ -8,4 +8,4 @@
  */
 export * from './gradients'
 export * from './patterns'
-export * from './Defs'
+export { default as Defs } from './Defs'

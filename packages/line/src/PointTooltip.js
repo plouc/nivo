@@ -10,7 +10,7 @@ import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { BasicTooltip } from '@nivo/tooltip'
 
-const LinePointTooltip = memo(({ point }) => {
+const LinePointTooltip = ({ point }) => {
     return (
         <BasicTooltip
             id={
@@ -23,11 +23,10 @@ const LinePointTooltip = memo(({ point }) => {
             color={point.serieColor}
         />
     )
-})
+}
 
-LinePointTooltip.displayName = 'LinePointTooltip'
 LinePointTooltip.propTypes = {
     point: PropTypes.object.isRequired,
 }
 
-export default LinePointTooltip
+export default memo(LinePointTooltip)

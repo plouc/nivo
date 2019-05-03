@@ -23,35 +23,33 @@ exports[`should allow grouped horizontal layout 1`] = `
       transform="translate(0,0)"
     >
       <g>
-        <g>
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={246}
-            y2={246}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={150}
-            y2={150}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={54}
-            y2={54}
-          />
-        </g>
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={246}
+          y2={246}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={150}
+          y2={150}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={54}
+          y2={54}
+        />
       </g>
       <g
         transform="translate(0,300)"
@@ -77,7 +75,7 @@ exports[`should allow grouped horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -112,7 +110,7 @@ exports[`should allow grouped horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -147,7 +145,7 @@ exports[`should allow grouped horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -182,7 +180,7 @@ exports[`should allow grouped horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -217,7 +215,7 @@ exports[`should allow grouped horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -252,7 +250,7 @@ exports[`should allow grouped horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -287,7 +285,7 @@ exports[`should allow grouped horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -322,7 +320,7 @@ exports[`should allow grouped horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -357,7 +355,7 @@ exports[`should allow grouped horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -392,7 +390,7 @@ exports[`should allow grouped horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -427,7 +425,7 @@ exports[`should allow grouped horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -462,7 +460,7 @@ exports[`should allow grouped horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -497,7 +495,7 @@ exports[`should allow grouped horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -532,7 +530,7 @@ exports[`should allow grouped horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -567,7 +565,7 @@ exports[`should allow grouped horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -602,7 +600,7 @@ exports[`should allow grouped horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -653,7 +651,7 @@ exports[`should allow grouped horizontal layout 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -688,7 +686,7 @@ exports[`should allow grouped horizontal layout 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -723,7 +721,7 @@ exports[`should allow grouped horizontal layout 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -831,152 +829,150 @@ exports[`should allow grouped mode 1`] = `
       transform="translate(0,0)"
     >
       <g>
-        <g>
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={300}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={280}
-            y2={280}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={260}
-            y2={260}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={240}
-            y2={240}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={220}
-            y2={220}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={200}
-            y2={200}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={180}
-            y2={180}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={160}
-            y2={160}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={140}
-            y2={140}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={120}
-            y2={120}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={100}
-            y2={100}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={80}
-            y2={80}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={60}
-            y2={60}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={40}
-            y2={40}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={20}
-            y2={20}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={0}
-            y2={0}
-          />
-        </g>
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={300}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={280}
+          y2={280}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={260}
+          y2={260}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={240}
+          y2={240}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={220}
+          y2={220}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={200}
+          y2={200}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={180}
+          y2={180}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={160}
+          y2={160}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={140}
+          y2={140}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={120}
+          y2={120}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={100}
+          y2={100}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={80}
+          y2={80}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={60}
+          y2={60}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={40}
+          y2={40}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={20}
+          y2={20}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={0}
+          y2={0}
+        />
       </g>
       <g
         transform="translate(0,300)"
@@ -1002,7 +998,7 @@ exports[`should allow grouped mode 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -1037,7 +1033,7 @@ exports[`should allow grouped mode 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -1072,7 +1068,7 @@ exports[`should allow grouped mode 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -1123,7 +1119,7 @@ exports[`should allow grouped mode 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -1158,7 +1154,7 @@ exports[`should allow grouped mode 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -1193,7 +1189,7 @@ exports[`should allow grouped mode 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -1228,7 +1224,7 @@ exports[`should allow grouped mode 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -1263,7 +1259,7 @@ exports[`should allow grouped mode 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -1298,7 +1294,7 @@ exports[`should allow grouped mode 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -1333,7 +1329,7 @@ exports[`should allow grouped mode 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -1368,7 +1364,7 @@ exports[`should allow grouped mode 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -1403,7 +1399,7 @@ exports[`should allow grouped mode 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -1438,7 +1434,7 @@ exports[`should allow grouped mode 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -1473,7 +1469,7 @@ exports[`should allow grouped mode 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -1508,7 +1504,7 @@ exports[`should allow grouped mode 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -1543,7 +1539,7 @@ exports[`should allow grouped mode 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -1578,7 +1574,7 @@ exports[`should allow grouped mode 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -1613,7 +1609,7 @@ exports[`should allow grouped mode 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -1648,7 +1644,7 @@ exports[`should allow grouped mode 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -1756,35 +1752,33 @@ exports[`should allow horizontal layout 1`] = `
       transform="translate(0,0)"
     >
       <g>
-        <g>
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={246}
-            y2={246}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={150}
-            y2={150}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={54}
-            y2={54}
-          />
-        </g>
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={246}
+          y2={246}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={150}
+          y2={150}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={54}
+          y2={54}
+        />
       </g>
       <g
         transform="translate(0,300)"
@@ -1810,7 +1804,7 @@ exports[`should allow horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -1845,7 +1839,7 @@ exports[`should allow horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -1880,7 +1874,7 @@ exports[`should allow horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -1915,7 +1909,7 @@ exports[`should allow horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -1950,7 +1944,7 @@ exports[`should allow horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -1985,7 +1979,7 @@ exports[`should allow horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -2020,7 +2014,7 @@ exports[`should allow horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -2055,7 +2049,7 @@ exports[`should allow horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -2090,7 +2084,7 @@ exports[`should allow horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -2125,7 +2119,7 @@ exports[`should allow horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -2160,7 +2154,7 @@ exports[`should allow horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -2195,7 +2189,7 @@ exports[`should allow horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -2230,7 +2224,7 @@ exports[`should allow horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -2265,7 +2259,7 @@ exports[`should allow horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -2300,7 +2294,7 @@ exports[`should allow horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -2335,7 +2329,7 @@ exports[`should allow horizontal layout 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -2386,7 +2380,7 @@ exports[`should allow horizontal layout 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -2421,7 +2415,7 @@ exports[`should allow horizontal layout 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -2456,7 +2450,7 @@ exports[`should allow horizontal layout 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -2564,152 +2558,150 @@ exports[`should allow to disable labels 1`] = `
       transform="translate(0,0)"
     >
       <g>
-        <g>
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={300}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={280}
-            y2={280}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={260}
-            y2={260}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={240}
-            y2={240}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={220}
-            y2={220}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={200}
-            y2={200}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={180}
-            y2={180}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={160}
-            y2={160}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={140}
-            y2={140}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={120}
-            y2={120}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={100}
-            y2={100}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={80}
-            y2={80}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={60}
-            y2={60}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={40}
-            y2={40}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={20}
-            y2={20}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={0}
-            y2={0}
-          />
-        </g>
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={300}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={280}
+          y2={280}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={260}
+          y2={260}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={240}
+          y2={240}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={220}
+          y2={220}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={200}
+          y2={200}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={180}
+          y2={180}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={160}
+          y2={160}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={140}
+          y2={140}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={120}
+          y2={120}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={100}
+          y2={100}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={80}
+          y2={80}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={60}
+          y2={60}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={40}
+          y2={40}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={20}
+          y2={20}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={0}
+          y2={0}
+        />
       </g>
       <g
         transform="translate(0,300)"
@@ -2735,7 +2727,7 @@ exports[`should allow to disable labels 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -2770,7 +2762,7 @@ exports[`should allow to disable labels 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -2805,7 +2797,7 @@ exports[`should allow to disable labels 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -2856,7 +2848,7 @@ exports[`should allow to disable labels 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -2891,7 +2883,7 @@ exports[`should allow to disable labels 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -2926,7 +2918,7 @@ exports[`should allow to disable labels 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -2961,7 +2953,7 @@ exports[`should allow to disable labels 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -2996,7 +2988,7 @@ exports[`should allow to disable labels 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3031,7 +3023,7 @@ exports[`should allow to disable labels 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3066,7 +3058,7 @@ exports[`should allow to disable labels 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3101,7 +3093,7 @@ exports[`should allow to disable labels 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3136,7 +3128,7 @@ exports[`should allow to disable labels 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3171,7 +3163,7 @@ exports[`should allow to disable labels 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3206,7 +3198,7 @@ exports[`should allow to disable labels 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3241,7 +3233,7 @@ exports[`should allow to disable labels 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3276,7 +3268,7 @@ exports[`should allow to disable labels 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3311,7 +3303,7 @@ exports[`should allow to disable labels 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3346,7 +3338,7 @@ exports[`should allow to disable labels 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3381,7 +3373,7 @@ exports[`should allow to disable labels 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3489,152 +3481,150 @@ exports[`should render a basic bar chart 1`] = `
       transform="translate(0,0)"
     >
       <g>
-        <g>
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={300}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={280}
-            y2={280}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={260}
-            y2={260}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={240}
-            y2={240}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={220}
-            y2={220}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={200}
-            y2={200}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={180}
-            y2={180}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={160}
-            y2={160}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={140}
-            y2={140}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={120}
-            y2={120}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={100}
-            y2={100}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={80}
-            y2={80}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={60}
-            y2={60}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={40}
-            y2={40}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={20}
-            y2={20}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={0}
-            y2={0}
-          />
-        </g>
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={300}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={280}
+          y2={280}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={260}
+          y2={260}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={240}
+          y2={240}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={220}
+          y2={220}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={200}
+          y2={200}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={180}
+          y2={180}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={160}
+          y2={160}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={140}
+          y2={140}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={120}
+          y2={120}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={100}
+          y2={100}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={80}
+          y2={80}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={60}
+          y2={60}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={40}
+          y2={40}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={20}
+          y2={20}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={0}
+          y2={0}
+        />
       </g>
       <g
         transform="translate(0,300)"
@@ -3660,7 +3650,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -3695,7 +3685,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -3730,7 +3720,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -3781,7 +3771,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3816,7 +3806,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3851,7 +3841,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3886,7 +3876,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3921,7 +3911,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3956,7 +3946,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3991,7 +3981,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -4026,7 +4016,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -4061,7 +4051,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -4096,7 +4086,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -4131,7 +4121,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -4166,7 +4156,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -4201,7 +4191,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -4236,7 +4226,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -4271,7 +4261,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -4306,7 +4296,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -4351,7 +4341,7 @@ exports[`should render a basic bar chart 1`] = `
             width={145}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "theme",
@@ -4384,7 +4374,7 @@ exports[`should render a basic bar chart 1`] = `
             width={145}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "theme",
@@ -4417,7 +4407,7 @@ exports[`should render a basic bar chart 1`] = `
             width={145}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "theme",

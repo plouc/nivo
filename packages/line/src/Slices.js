@@ -10,7 +10,7 @@ import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import SlicesItem from './SlicesItem'
 
-const Slices = memo(({ slices, axis, debug, height, tooltip, current, setCurrent }) => {
+const Slices = ({ slices, axis, debug, height, tooltip, current, setCurrent }) => {
     return slices.map(slice => (
         <SlicesItem
             key={slice.id}
@@ -23,9 +23,8 @@ const Slices = memo(({ slices, axis, debug, height, tooltip, current, setCurrent
             isCurrent={current !== null && current.id === slice.id}
         />
     ))
-})
+}
 
-Slices.displayName = 'Slices'
 Slices.propTypes = {
     slices: PropTypes.arrayOf(
         PropTypes.shape({
@@ -47,4 +46,4 @@ Slices.propTypes = {
     setCurrent: PropTypes.func.isRequired,
 }
 
-export default Slices
+export default memo(Slices)

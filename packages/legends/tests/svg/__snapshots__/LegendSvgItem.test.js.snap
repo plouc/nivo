@@ -39,7 +39,7 @@ exports[`should support bottom-to-top direction 1`] = `
   <text
     style={
       Object {
-        "alignmentBaseline": "baseline",
+        "dominantBaseline": "alphabetic",
         "fill": "black",
         "pointerEvents": "none",
         "userSelect": "none",
@@ -93,7 +93,7 @@ exports[`should support bottom-to-top direction justified 1`] = `
   <text
     style={
       Object {
-        "alignmentBaseline": "hanging",
+        "dominantBaseline": "text-before-edge",
         "fill": "black",
         "pointerEvents": "none",
         "userSelect": "none",
@@ -147,7 +147,7 @@ exports[`should support left-to-right direction 1`] = `
   <text
     style={
       Object {
-        "alignmentBaseline": "middle",
+        "dominantBaseline": "central",
         "fill": "black",
         "pointerEvents": "none",
         "userSelect": "none",
@@ -201,7 +201,7 @@ exports[`should support left-to-right direction justified 1`] = `
   <text
     style={
       Object {
-        "alignmentBaseline": "middle",
+        "dominantBaseline": "central",
         "fill": "black",
         "pointerEvents": "none",
         "userSelect": "none",
@@ -255,7 +255,7 @@ exports[`should support right-to-left direction 1`] = `
   <text
     style={
       Object {
-        "alignmentBaseline": "middle",
+        "dominantBaseline": "central",
         "fill": "black",
         "pointerEvents": "none",
         "userSelect": "none",
@@ -309,7 +309,7 @@ exports[`should support right-to-left direction justified 1`] = `
   <text
     style={
       Object {
-        "alignmentBaseline": "middle",
+        "dominantBaseline": "central",
         "fill": "black",
         "pointerEvents": "none",
         "userSelect": "none",
@@ -363,7 +363,7 @@ exports[`should support top-to-bottom direction 1`] = `
   <text
     style={
       Object {
-        "alignmentBaseline": "hanging",
+        "dominantBaseline": "text-before-edge",
         "fill": "black",
         "pointerEvents": "none",
         "userSelect": "none",
@@ -417,7 +417,7 @@ exports[`should support top-to-bottom direction justified 1`] = `
   <text
     style={
       Object {
-        "alignmentBaseline": "baseline",
+        "dominantBaseline": "alphabetic",
         "fill": "black",
         "pointerEvents": "none",
         "userSelect": "none",

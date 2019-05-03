@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
 import { useMotionConfig } from '@nivo/core'
 import { SmartMotion } from '@nivo/core'
 
-const LinesItem = memo(({ lineGenerator, id, points, color, thickness }) => {
+const LinesItem = ({ lineGenerator, id, points, color, thickness }) => {
     const { animate, springConfig } = useMotionConfig()
 
     if (animate !== true) {
@@ -45,9 +45,8 @@ const LinesItem = memo(({ lineGenerator, id, points, color, thickness }) => {
             )}
         </SmartMotion>
     )
-})
+}
 
-LinesItem.displayName = 'LinesItem'
 LinesItem.propTypes = {
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     points: PropTypes.arrayOf(
@@ -61,4 +60,4 @@ LinesItem.propTypes = {
     thickness: PropTypes.number.isRequired,
 }
 
-export default LinesItem
+export default memo(LinesItem)

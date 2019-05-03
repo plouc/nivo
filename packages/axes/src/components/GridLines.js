@@ -12,7 +12,7 @@ import { TransitionMotion, spring } from 'react-motion'
 import { useTheme, useMotionConfig } from '@nivo/core'
 import GridLine from './GridLine'
 
-const GridLines = memo(({ type, lines }) => {
+const GridLines = ({ type, lines }) => {
     const theme = useTheme()
     const { animate, springConfig } = useMotionConfig()
 
@@ -76,9 +76,8 @@ const GridLines = memo(({ type, lines }) => {
             )}
         </TransitionMotion>
     )
-})
+}
 
-GridLines.displayName = 'GridLines'
 GridLines.propTypes = {
     type: PropTypes.oneOf(['x', 'y']).isRequired,
     lines: PropTypes.arrayOf(
@@ -92,4 +91,4 @@ GridLines.propTypes = {
     ).isRequired,
 }
 
-export default GridLines
+export default memo(GridLines)
