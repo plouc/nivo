@@ -40,33 +40,35 @@ describe('getTicks', () => {
 
     describe('time scale', () => {
         const timeScale = scaleUtc().domain([
-            new Date('January 01, 2000 00:00:01'),
-            new Date('January 01, 2001 00:00:01'),
+            new Date(Date.UTC(2000, 0, 1, 0, 0, 0, 0)),
+            new Date(Date.UTC(2001, 0, 1, 0, 0, 0, 0)),
         ])
 
         it('should return default ticks', () => {
             expect(getScaleTicks(timeScale)).toEqual([
-                new Date('2000-01-01T00:00:00.000Z'),
-                new Date('2000-02-01T00:00:00.000Z'),
-                new Date('2000-03-01T00:00:00.000Z'),
-                new Date('2000-04-01T00:00:00.000Z'),
-                new Date('2000-05-01T00:00:00.000Z'),
-                new Date('2000-06-01T00:00:00.000Z'),
-                new Date('2000-07-01T00:00:00.000Z'),
-                new Date('2000-08-01T00:00:00.000Z'),
-                new Date('2000-09-01T00:00:00.000Z'),
-                new Date('2000-10-01T00:00:00.000Z'),
-                new Date('2000-11-01T00:00:00.000Z'),
-                new Date('2000-12-01T00:00:00.000Z'),
+                new Date(Date.UTC(2000, 0, 1, 0, 0, 0, 0)),
+                new Date(Date.UTC(2000, 1, 1, 0, 0, 0, 0)),
+                new Date(Date.UTC(2000, 2, 1, 0, 0, 0, 0)),
+                new Date(Date.UTC(2000, 3, 1, 0, 0, 0, 0)),
+                new Date(Date.UTC(2000, 4, 1, 0, 0, 0, 0)),
+                new Date(Date.UTC(2000, 5, 1, 0, 0, 0, 0)),
+                new Date(Date.UTC(2000, 6, 1, 0, 0, 0, 0)),
+                new Date(Date.UTC(2000, 7, 1, 0, 0, 0, 0)),
+                new Date(Date.UTC(2000, 8, 1, 0, 0, 0, 0)),
+                new Date(Date.UTC(2000, 9, 1, 0, 0, 0, 0)),
+                new Date(Date.UTC(2000, 10, 1, 0, 0, 0, 0)),
+                new Date(Date.UTC(2000, 11, 1, 0, 0, 0, 0)),
+                new Date(Date.UTC(2001, 0, 1, 0, 0, 0, 0)),
             ])
         })
 
         it('should support using a count', () => {
             expect(getScaleTicks(timeScale, 4)).toEqual([
-                new Date('2000-01-01T00:00:00.000Z'),
-                new Date('2000-04-01T00:00:00.000Z'),
-                new Date('2000-07-01T00:00:00.000Z'),
-                new Date('2000-10-01T00:00:00.000Z'),
+                new Date(Date.UTC(2000, 0, 1, 0, 0, 0, 0)),
+                new Date(Date.UTC(2000, 3, 1, 0, 0, 0, 0)),
+                new Date(Date.UTC(2000, 6, 1, 0, 0, 0, 0)),
+                new Date(Date.UTC(2000, 9, 1, 0, 0, 0, 0)),
+                new Date(Date.UTC(2001, 0, 1, 0, 0, 0, 0)),
             ])
         })
 
@@ -74,50 +76,53 @@ describe('getTicks', () => {
             {
                 interval: '5 years',
                 domain: [
-                    new Date('January 01, 2000 00:00:01'),
-                    new Date('January 01, 2010 00:00:01'),
+                    new Date(Date.UTC(2000, 0, 1, 0, 0, 0, 0)),
+                    new Date(Date.UTC(2010, 0, 1, 0, 0, 0, 0)),
                 ],
-                every: 5,
                 expect: [
-                    new Date('2004-12-31T15:00:00.000Z'),
-                    new Date('2009-12-31T15:00:00.000Z'),
+                    new Date(Date.UTC(2000, 0, 1, 0, 0, 0, 0)),
+                    new Date(Date.UTC(2005, 0, 1, 0, 0, 0, 0)),
+                    new Date(Date.UTC(2010, 0, 1, 0, 0, 0, 0)),
                 ],
             },
             {
                 interval: 'year',
                 domain: [
-                    new Date('January 01, 2000 00:00:01'),
-                    new Date('January 01, 2003 00:00:01'),
+                    new Date(Date.UTC(2001, 0, 1, 0, 0, 0, 0)),
+                    new Date(Date.UTC(2004, 0, 1, 0, 0, 0, 0)),
                 ],
                 expect: [
-                    new Date('2000-12-31T15:00:00.000Z'),
-                    new Date('2001-12-31T15:00:00.000Z'),
-                    new Date('2002-12-31T15:00:00.000Z'),
+                    new Date(Date.UTC(2001, 0, 1, 0, 0, 0, 0)),
+                    new Date(Date.UTC(2002, 0, 1, 0, 0, 0, 0)),
+                    new Date(Date.UTC(2003, 0, 1, 0, 0, 0, 0)),
+                    new Date(Date.UTC(2004, 0, 1, 0, 0, 0, 0)),
                 ],
             },
             {
                 interval: '3 months',
                 domain: [
-                    new Date('January 01, 2009 00:00:01'),
-                    new Date('January 01, 2010 00:00:01'),
+                    new Date(Date.UTC(2009, 0, 1, 0, 0, 0, 0)),
+                    new Date(Date.UTC(2010, 0, 1, 0, 0, 0, 0)),
                 ],
                 expect: [
-                    new Date('2009-03-31T15:00:00.000Z'),
-                    new Date('2009-06-30T15:00:00.000Z'),
-                    new Date('2009-09-30T15:00:00.000Z'),
-                    new Date('2009-12-31T15:00:00.000Z'),
+                    new Date(Date.UTC(2009, 0, 1, 0, 0, 0, 0)),
+                    new Date(Date.UTC(2009, 3, 1, 0, 0, 0, 0)),
+                    new Date(Date.UTC(2009, 6, 1, 0, 0, 0, 0)),
+                    new Date(Date.UTC(2009, 9, 1, 0, 0, 0, 0)),
+                    new Date(Date.UTC(2010, 0, 1, 0, 0, 0, 0)),
                 ],
             },
             {
                 interval: '2 days',
                 domain: [
-                    new Date('January 01, 2010 00:00:01'),
-                    new Date('January 07, 2010 00:00:01'),
+                    new Date(Date.UTC(2010, 0, 1, 0, 0, 0, 0)),
+                    new Date(Date.UTC(2010, 0, 7, 0, 0, 0, 0)),
                 ],
                 expect: [
-                    new Date('2010-01-02T15:00:00.000Z'),
-                    new Date('2010-01-04T15:00:00.000Z'),
-                    new Date('2010-01-06T15:00:00.000Z'),
+                    new Date(Date.UTC(2010, 0, 1, 0, 0, 0, 0)),
+                    new Date(Date.UTC(2010, 0, 3, 0, 0, 0, 0)),
+                    new Date(Date.UTC(2010, 0, 5, 0, 0, 0, 0)),
+                    new Date(Date.UTC(2010, 0, 7, 0, 0, 0, 0)),
                 ],
             },
             {
@@ -127,10 +132,10 @@ describe('getTicks', () => {
                     new Date(Date.UTC(2010, 1, 1, 0, 0, 0)),
                 ],
                 expect: [
-                    new Date('2010-01-05T15:00:00.000Z'),
-                    new Date('2010-01-12T15:00:00.000Z'),
-                    new Date('2010-01-19T15:00:00.000Z'),
-                    new Date('2010-01-26T15:00:00.000Z'),
+                    new Date(Date.UTC(2010, 0, 6, 0, 0, 0)),
+                    new Date(Date.UTC(2010, 0, 13, 0, 0, 0)),
+                    new Date(Date.UTC(2010, 0, 20, 0, 0, 0)),
+                    new Date(Date.UTC(2010, 0, 27, 0, 0, 0)),
                 ],
             },
             {
@@ -140,13 +145,13 @@ describe('getTicks', () => {
                     new Date(Date.UTC(2010, 0, 1, 9, 0, 0)),
                 ],
                 expect: [
-                    new Date('2010-01-01T06:00:00.000Z'),
-                    new Date('2010-01-01T06:30:00.000Z'),
-                    new Date('2010-01-01T07:00:00.000Z'),
-                    new Date('2010-01-01T07:30:00.000Z'),
-                    new Date('2010-01-01T08:00:00.000Z'),
-                    new Date('2010-01-01T08:30:00.000Z'),
-                    new Date('2010-01-01T09:00:00.000Z'),
+                    new Date(Date.UTC(2010, 0, 1, 6, 0, 0)),
+                    new Date(Date.UTC(2010, 0, 1, 6, 30, 0)),
+                    new Date(Date.UTC(2010, 0, 1, 7, 0, 0)),
+                    new Date(Date.UTC(2010, 0, 1, 7, 30, 0)),
+                    new Date(Date.UTC(2010, 0, 1, 8, 0, 0)),
+                    new Date(Date.UTC(2010, 0, 1, 8, 30, 0)),
+                    new Date(Date.UTC(2010, 0, 1, 9, 0, 0)),
                 ],
             },
         ]

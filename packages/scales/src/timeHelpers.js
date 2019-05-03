@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { timeParse } from 'd3-time-format'
+import { timeParse, utcParse } from 'd3-time-format'
 
 export const TIME_PRECISION_MILLISECOND = 'millisecond'
 export const TIME_PRECISION_SECOND = 'second'
@@ -52,10 +52,14 @@ export const createPrecisionMethod = precision => date => {
     return date
 }
 
-export const createDateNormalizer = ({ format = 'native', precision = 'millisecond' }) => {
+export const createDateNormalizer = ({
+    format = 'native',
+    precision = 'millisecond',
+    useUTC = true,
+}) => {
     const precisionFn = createPrecisionMethod(precision)
     if (format === 'native') return v => precisionFn(v)
 
-    const parseTime = timeParse(format)
+    const parseTime = useUTC ? utcParse(format) : timeParse(format)
     return v => precisionFn(parseTime(v))
 }
