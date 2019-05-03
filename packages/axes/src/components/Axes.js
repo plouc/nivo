@@ -13,7 +13,7 @@ import { axisPropType } from '../props'
 
 const positions = ['top', 'right', 'bottom', 'left']
 
-const Axes = memo(({ xScale, yScale, width, height, top, right, bottom, left }) => {
+const Axes = ({ xScale, yScale, width, height, top, right, bottom, left }) => {
     const axes = { top, right, bottom, left }
 
     return positions.map(position => {
@@ -37,9 +37,8 @@ const Axes = memo(({ xScale, yScale, width, height, top, right, bottom, left }) 
             />
         )
     })
-})
+}
 
-Axes.displayName = 'Axes'
 Axes.propTypes = {
     xScale: PropTypes.func.isRequired,
     yScale: PropTypes.func.isRequired,
@@ -51,4 +50,4 @@ Axes.propTypes = {
     left: axisPropType,
 }
 
-export default Axes
+export default memo(Axes)

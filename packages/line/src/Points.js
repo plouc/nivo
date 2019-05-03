@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
 import { useMotionConfig, getLabelGenerator, DotsItem, useTheme } from '@nivo/core'
 
-const Points = memo(({ points, symbol, size, borderWidth, enableLabel, label, labelYOffset }) => {
+const Points = ({ points, symbol, size, borderWidth, enableLabel, label, labelYOffset }) => {
     const theme = useTheme()
     const { animate, springConfig } = useMotionConfig()
     const getLabel = getLabelGenerator(label)
@@ -87,9 +87,8 @@ const Points = memo(({ points, symbol, size, borderWidth, enableLabel, label, la
             )}
         </TransitionMotion>
     )
-})
+}
 
-Points.displayName = 'Points'
 Points.propTypes = {
     points: PropTypes.arrayOf(PropTypes.object),
 
@@ -108,4 +107,4 @@ Points.defaultProps = {
     label: 'yFormatted',
 }
 
-export default Points
+export default memo(Points)

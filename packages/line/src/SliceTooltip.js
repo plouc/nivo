@@ -18,24 +18,23 @@ Chip.propTypes = {
     color: PropTypes.string.isRequired,
 }
 
-const SliceTooltip = memo(({ slice, axis }) => {
+const SliceTooltip = ({ slice, axis }) => {
     const otherAxis = axis === 'x' ? 'y' : 'x'
 
     return (
         <TableTooltip
             rows={slice.points.map(point => [
-                <Chip color={point.serieColor} />,
+                <Chip key="chip" color={point.serieColor} />,
                 point.serieId,
-                <strong>{point.data[`${otherAxis}Formatted`]}</strong>,
+                <strong key="value">{point.data[`${otherAxis}Formatted`]}</strong>,
             ])}
         />
     )
-})
+}
 
-SliceTooltip.displayName = 'SliceTooltip'
 SliceTooltip.propTypes = {
     slice: PropTypes.object.isRequired,
     axis: PropTypes.oneOf(['x', 'y']).isRequired,
 }
 
-export default SliceTooltip
+export default memo(SliceTooltip)

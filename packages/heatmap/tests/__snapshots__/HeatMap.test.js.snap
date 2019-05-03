@@ -22,7 +22,6 @@ exports[`should render a basic heat map chart 1`] = `
     <g
       transform="translate(0,0)"
     >
-      <g />
       <g
         transform="translate(0,0)"
       >
@@ -47,7 +46,7 @@ exports[`should render a basic heat map chart 1`] = `
             y2={-5}
           />
           <text
-            alignmentBaseline="after-edge"
+            dominantBaseline="alphabetic"
             style={
               Object {
                 "fill": "#333333",
@@ -82,7 +81,7 @@ exports[`should render a basic heat map chart 1`] = `
             y2={-5}
           />
           <text
-            alignmentBaseline="after-edge"
+            dominantBaseline="alphabetic"
             style={
               Object {
                 "fill": "#333333",
@@ -117,7 +116,7 @@ exports[`should render a basic heat map chart 1`] = `
             y2={-5}
           />
           <text
-            alignmentBaseline="after-edge"
+            dominantBaseline="alphabetic"
             style={
               Object {
                 "fill": "#333333",
@@ -168,7 +167,7 @@ exports[`should render a basic heat map chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -203,7 +202,7 @@ exports[`should render a basic heat map chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -238,7 +237,7 @@ exports[`should render a basic heat map chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -289,7 +288,7 @@ exports[`should render a basic heat map chart 1`] = `
           y={-50}
         />
         <text
-          alignmentBaseline="central"
+          dominantBaseline="central"
           fillOpacity={0.85}
           style={
             Object {
@@ -327,7 +326,7 @@ exports[`should render a basic heat map chart 1`] = `
           y={-50}
         />
         <text
-          alignmentBaseline="central"
+          dominantBaseline="central"
           fillOpacity={0.85}
           style={
             Object {
@@ -365,7 +364,7 @@ exports[`should render a basic heat map chart 1`] = `
           y={-50}
         />
         <text
-          alignmentBaseline="central"
+          dominantBaseline="central"
           fillOpacity={0.85}
           style={
             Object {
@@ -403,7 +402,7 @@ exports[`should render a basic heat map chart 1`] = `
           y={-50}
         />
         <text
-          alignmentBaseline="central"
+          dominantBaseline="central"
           fillOpacity={0.85}
           style={
             Object {
@@ -441,7 +440,7 @@ exports[`should render a basic heat map chart 1`] = `
           y={-50}
         />
         <text
-          alignmentBaseline="central"
+          dominantBaseline="central"
           fillOpacity={0.85}
           style={
             Object {
@@ -479,7 +478,7 @@ exports[`should render a basic heat map chart 1`] = `
           y={-50}
         />
         <text
-          alignmentBaseline="central"
+          dominantBaseline="central"
           fillOpacity={0.85}
           style={
             Object {
@@ -517,7 +516,7 @@ exports[`should render a basic heat map chart 1`] = `
           y={-50}
         />
         <text
-          alignmentBaseline="central"
+          dominantBaseline="central"
           fillOpacity={0.85}
           style={
             Object {
@@ -555,7 +554,7 @@ exports[`should render a basic heat map chart 1`] = `
           y={-50}
         />
         <text
-          alignmentBaseline="central"
+          dominantBaseline="central"
           fillOpacity={0.85}
           style={
             Object {
@@ -593,7 +592,7 @@ exports[`should render a basic heat map chart 1`] = `
           y={-50}
         />
         <text
-          alignmentBaseline="central"
+          dominantBaseline="central"
           fillOpacity={0.85}
           style={
             Object {

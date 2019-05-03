@@ -10,7 +10,7 @@ import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import CartesianMarkersItem from './CartesianMarkersItem'
 
-const CartesianMarkers = memo(({ markers, width, height, xScale, yScale, theme }) => {
+const CartesianMarkers = ({ markers, width, height, xScale, yScale, theme }) => {
     if (!markers || markers.length === 0) return null
 
     return (
@@ -27,9 +27,8 @@ const CartesianMarkers = memo(({ markers, width, height, xScale, yScale, theme }
             ))}
         </g>
     )
-})
+}
 
-CartesianMarkers.displayName = 'CartesianMarkers'
 CartesianMarkers.propTypes = {
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
@@ -59,4 +58,4 @@ CartesianMarkers.propTypes = {
     ),
 }
 
-export default CartesianMarkers
+export default memo(CartesianMarkers)

@@ -10,7 +10,7 @@ import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { useMotionConfig, SmartMotion, blendModePropType } from '@nivo/core'
 
-const Areas = memo(({ areaGenerator, areaOpacity, areaBlendMode, lines }) => {
+const Areas = ({ areaGenerator, areaOpacity, areaBlendMode, lines }) => {
     const { animate, springConfig } = useMotionConfig()
 
     if (animate !== true) {
@@ -62,9 +62,8 @@ const Areas = memo(({ areaGenerator, areaOpacity, areaBlendMode, lines }) => {
                 ))}
         </g>
     )
-})
+}
 
-Areas.displayName = 'Areas'
 Areas.propTypes = {
     areaGenerator: PropTypes.func.isRequired,
     areaOpacity: PropTypes.number.isRequired,
@@ -72,4 +71,4 @@ Areas.propTypes = {
     lines: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
-export default Areas
+export default memo(Areas)

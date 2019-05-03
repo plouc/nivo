@@ -161,78 +161,75 @@ const computeLabel = ({ axis, width, height, position, offsetX, offsetY, orienta
     return { x, y, rotation, textAnchor }
 }
 
-const CartesianMarkersItem = memo(
-    ({
-        width,
-        height,
-        axis,
-        scale,
-        value,
-        theme,
-        lineStyle,
-        textStyle,
-        legend,
-        legendPosition,
-        legendOffsetX,
-        legendOffsetY,
-        legendOrientation,
-    }) => {
-        let x = 0
-        let x2 = 0
-        let y = 0
-        let y2 = 0
+const CartesianMarkersItem = ({
+    width,
+    height,
+    axis,
+    scale,
+    value,
+    theme,
+    lineStyle,
+    textStyle,
+    legend,
+    legendPosition,
+    legendOffsetX,
+    legendOffsetY,
+    legendOrientation,
+}) => {
+    let x = 0
+    let x2 = 0
+    let y = 0
+    let y2 = 0
 
-        if (axis === 'y') {
-            y = scale(value)
-            x2 = width
-        } else {
-            x = scale(value)
-            y2 = height
-        }
+    if (axis === 'y') {
+        y = scale(value)
+        x2 = width
+    } else {
+        x = scale(value)
+        y2 = height
+    }
 
-        let legendNode = null
-        if (legend) {
-            const legendProps = computeLabel({
-                axis,
-                width,
-                height,
-                position: legendPosition,
-                offsetX: legendOffsetX,
-                offsetY: legendOffsetY,
-                orientation: legendOrientation,
-            })
-            legendNode = (
-                <text
-                    transform={`translate(${legendProps.x}, ${legendProps.y}) rotate(${
-                        legendProps.rotation
-                    })`}
-                    textAnchor={legendProps.textAnchor}
-                    dominantBaseline="central"
-                    style={textStyle}
-                >
-                    {legend}
-                </text>
-            )
-        }
-
-        return (
-            <g transform={`translate(${x}, ${y})`}>
-                <line
-                    x1={0}
-                    x2={x2}
-                    y1={0}
-                    y2={y2}
-                    stroke={theme.markers.lineColor}
-                    strokeWidth={theme.markers.lineStrokeWidth}
-                    style={lineStyle}
-                />
-                {legendNode}
-            </g>
+    let legendNode = null
+    if (legend) {
+        const legendProps = computeLabel({
+            axis,
+            width,
+            height,
+            position: legendPosition,
+            offsetX: legendOffsetX,
+            offsetY: legendOffsetY,
+            orientation: legendOrientation,
+        })
+        legendNode = (
+            <text
+                transform={`translate(${legendProps.x}, ${legendProps.y}) rotate(${
+                    legendProps.rotation
+                })`}
+                textAnchor={legendProps.textAnchor}
+                dominantBaseline="central"
+                style={textStyle}
+            >
+                {legend}
+            </text>
         )
     }
-)
 
-CartesianMarkersItem.displayName = 'CartesianMarkersItem'
+    return (
+        <g transform={`translate(${x}, ${y})`}>
+            <line
+                x1={0}
+                x2={x2}
+                y1={0}
+                y2={y2}
+                stroke={theme.markers.lineColor}
+                strokeWidth={theme.markers.lineStrokeWidth}
+                style={lineStyle}
+            />
+            {legendNode}
+        </g>
+    )
+}
+
 CartesianMarkersItem.propTypes = {
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
@@ -272,4 +269,4 @@ CartesianMarkersItem.defaultProps = {
     legendOrientation: 'horizontal',
 }
 
-export default CartesianMarkersItem
+export default memo(CartesianMarkersItem)

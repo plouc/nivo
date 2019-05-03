@@ -11,79 +11,83 @@ import PropTypes from 'prop-types'
 import { useTooltip } from '@nivo/tooltip'
 import { Mesh as BaseMesh } from '@nivo/voronoi'
 
-const Mesh = memo(
-    ({
-        points,
-        width,
-        height,
-        margin,
-        current,
-        setCurrent,
-        onMouseEnter,
-        onMouseMove,
-        onClick,
-        tooltip,
-        debug,
-    }) => {
-        const { showTooltipAt, hideTooltip } = useTooltip()
+const Mesh = ({
+    points,
+    width,
+    height,
+    margin,
+    setCurrent,
+    onMouseEnter,
+    onMouseMove,
+    onClick,
+    tooltip,
+    debug,
+}) => {
+    const { showTooltipAt, hideTooltip } = useTooltip()
 
-        const handleMouseEnter = useCallback(
-            (point, event) => {
-                showTooltipAt(
-                    React.createElement(tooltip, { point }),
-                    [point.x + margin.left, point.y + margin.top],
-                    'top'
-                )
-                setCurrent(point)
-                onMouseEnter && onMouseEnter(point, event)
-            },
-            [setCurrent, showTooltipAt, tooltip, onMouseEnter, margin]
-        )
+    const handleMouseEnter = useCallback(
+        (point, event) => {
+            showTooltipAt(
+                React.createElement(tooltip, { point }),
+                [point.x + margin.left, point.y + margin.top],
+                'top'
+            )
+            setCurrent(point)
+            onMouseEnter && onMouseEnter(point, event)
+        },
+        [setCurrent, showTooltipAt, tooltip, onMouseEnter, margin]
+    )
 
-        const handleMouseMove = useCallback(
-            (point, event) => {
-                showTooltipAt(
-                    React.createElement(tooltip, { point }),
-                    [point.x + margin.left, point.y + margin.top],
-                    'top'
-                )
-                setCurrent(point)
-                onMouseMove && onMouseMove(point, event)
-            },
-            [setCurrent, showTooltipAt, tooltip, onMouseMove]
-        )
+    const handleMouseMove = useCallback(
+        (point, event) => {
+            showTooltipAt(
+                React.createElement(tooltip, { point }),
+                [point.x + margin.left, point.y + margin.top],
+                'top'
+            )
+            setCurrent(point)
+            onMouseMove && onMouseMove(point, event)
+        },
+        [setCurrent, showTooltipAt, tooltip, onMouseMove]
+    )
 
-        const handleMouseLeave = useCallback(() => {
-            hideTooltip()
-            setCurrent(null)
-        }, [hideTooltip, setCurrent])
+    const handleMouseLeave = useCallback(() => {
+        hideTooltip()
+        setCurrent(null)
+    }, [hideTooltip, setCurrent])
 
-        const handleClick = useCallback(
-            (point, event) => {
-                onClick && onClick(point, event)
-            },
-            [onClick]
-        )
+    const handleClick = useCallback(
+        (point, event) => {
+            onClick && onClick(point, event)
+        },
+        [onClick]
+    )
 
-        return (
-            <BaseMesh
-                nodes={points}
-                width={width}
-                height={height}
-                onMouseEnter={handleMouseEnter}
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
-                onClick={handleClick}
-                debug={debug}
-            />
-        )
-    }
-)
-
-Mesh.displayName = 'Mesh'
-Mesh.propTypes = {
-    current: PropTypes.object,
-    setCurrent: PropTypes.func.isRequired,
+    return (
+        <BaseMesh
+            nodes={points}
+            width={width}
+            height={height}
+            onMouseEnter={handleMouseEnter}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            onClick={handleClick}
+            debug={debug}
+        />
+    )
 }
 
-export default Mesh
+Mesh.propTypes = {
+    points: PropTypes.arrayOf(PropTypes.object).isRequired,
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+    margin: PropTypes.object.isRequired,
+    setCurrent: PropTypes.func.isRequired,
+    onMouseEnter: PropTypes.func,
+    onMouseMove: PropTypes.func,
+    onClick: PropTypes.func,
+    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+    debug: PropTypes.bool.isRequired,
+}
+
+export default memo(Mesh)

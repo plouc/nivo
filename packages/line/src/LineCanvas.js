@@ -60,8 +60,8 @@ const LineCanvas = ({
 
     isInteractive,
     debugMesh,
-    onMouseEnter,
-    onMouseMove,
+    //onMouseEnter,
+    //onMouseMove,
     onMouseLeave,
     onClick,
     tooltip,
@@ -177,6 +177,12 @@ const LineCanvas = ({
                     ctx.beginPath()
                     ctx.arc(point.x, point.y, pointSize / 2, 0, 2 * Math.PI)
                     ctx.fill()
+
+                    if (pointBorderWidth > 0) {
+                        ctx.strokeStyle = point.borderColor
+                        ctx.lineWidth = pointBorderWidth
+                        ctx.stroke()
+                    }
                 })
             }
 

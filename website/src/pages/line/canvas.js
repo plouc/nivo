@@ -43,6 +43,7 @@ const initialProperties = {
         max: 2500,
     },
     pointSize: 4,
+    pointBorderWidth: 1,
     enableGridX: false,
     gridXValues: xValues,
     gridYValues: yValues,

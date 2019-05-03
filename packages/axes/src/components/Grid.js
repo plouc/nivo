@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
 import GridLines from './GridLines'
 import { computeGridLines } from '../compute'
 
-const Grid = memo(({ width, height, xScale, yScale, xValues, yValues }) => {
+const Grid = ({ width, height, xScale, yScale, xValues, yValues }) => {
     const xLines = useMemo(() => {
         if (!xScale) return false
 
@@ -40,9 +40,8 @@ const Grid = memo(({ width, height, xScale, yScale, xValues, yValues }) => {
             {yLines && <GridLines type="y" lines={yLines} />}
         </>
     )
-})
+}
 
-Grid.displayName = 'Grid'
 Grid.propTypes = {
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
@@ -63,4 +62,4 @@ Grid.propTypes = {
     ]),
 }
 
-export default Grid
+export default memo(Grid)

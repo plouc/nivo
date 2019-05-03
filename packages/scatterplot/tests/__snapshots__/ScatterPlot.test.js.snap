@@ -23,235 +23,233 @@ exports[`should allow to customize symbol size 1`] = `
       transform="translate(0,0)"
     >
       <g>
-        <g>
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={0}
-            y1={0}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={63}
-            x2={63}
-            y1={0}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={125}
-            x2={125}
-            y1={0}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={188}
-            x2={188}
-            y1={0}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={250}
-            x2={250}
-            y1={0}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={313}
-            x2={313}
-            y1={0}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={375}
-            x2={375}
-            y1={0}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={438}
-            x2={438}
-            y1={0}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={500}
-            x2={500}
-            y1={0}
-            y2={300}
-          />
-        </g>
-        <g>
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={300}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={280}
-            y2={280}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={260}
-            y2={260}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={240}
-            y2={240}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={220}
-            y2={220}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={200}
-            y2={200}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={180}
-            y2={180}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={160}
-            y2={160}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={140}
-            y2={140}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={120}
-            y2={120}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={100}
-            y2={100}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={80}
-            y2={80}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={60}
-            y2={60}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={40}
-            y2={40}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={20}
-            y2={20}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={0}
-            y2={0}
-          />
-        </g>
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={0}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={63}
+          x2={63}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={125}
+          x2={125}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={188}
+          x2={188}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={250}
+          x2={250}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={313}
+          x2={313}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={375}
+          x2={375}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={438}
+          x2={438}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={500}
+          x2={500}
+          y1={0}
+          y2={300}
+        />
+      </g>
+      <g>
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={300}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={280}
+          y2={280}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={260}
+          y2={260}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={240}
+          y2={240}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={220}
+          y2={220}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={200}
+          y2={200}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={180}
+          y2={180}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={160}
+          y2={160}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={140}
+          y2={140}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={120}
+          y2={120}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={100}
+          y2={100}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={80}
+          y2={80}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={60}
+          y2={60}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={40}
+          y2={40}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={20}
+          y2={20}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={0}
+          y2={0}
+        />
       </g>
       <g
         transform="translate(0,300)"
@@ -277,7 +275,7 @@ exports[`should allow to customize symbol size 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -312,7 +310,7 @@ exports[`should allow to customize symbol size 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -347,7 +345,7 @@ exports[`should allow to customize symbol size 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -382,7 +380,7 @@ exports[`should allow to customize symbol size 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -417,7 +415,7 @@ exports[`should allow to customize symbol size 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -452,7 +450,7 @@ exports[`should allow to customize symbol size 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -487,7 +485,7 @@ exports[`should allow to customize symbol size 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -522,7 +520,7 @@ exports[`should allow to customize symbol size 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -557,7 +555,7 @@ exports[`should allow to customize symbol size 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -608,7 +606,7 @@ exports[`should allow to customize symbol size 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -643,7 +641,7 @@ exports[`should allow to customize symbol size 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -678,7 +676,7 @@ exports[`should allow to customize symbol size 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -713,7 +711,7 @@ exports[`should allow to customize symbol size 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -748,7 +746,7 @@ exports[`should allow to customize symbol size 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -783,7 +781,7 @@ exports[`should allow to customize symbol size 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -818,7 +816,7 @@ exports[`should allow to customize symbol size 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -853,7 +851,7 @@ exports[`should allow to customize symbol size 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -888,7 +886,7 @@ exports[`should allow to customize symbol size 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -923,7 +921,7 @@ exports[`should allow to customize symbol size 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -958,7 +956,7 @@ exports[`should allow to customize symbol size 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -993,7 +991,7 @@ exports[`should allow to customize symbol size 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -1028,7 +1026,7 @@ exports[`should allow to customize symbol size 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -1063,7 +1061,7 @@ exports[`should allow to customize symbol size 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -1098,7 +1096,7 @@ exports[`should allow to customize symbol size 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -1133,7 +1131,7 @@ exports[`should allow to customize symbol size 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -1240,235 +1238,233 @@ exports[`should allow to render several series 1`] = `
       transform="translate(0,0)"
     >
       <g>
-        <g>
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={0}
-            y1={0}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={63}
-            x2={63}
-            y1={0}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={125}
-            x2={125}
-            y1={0}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={188}
-            x2={188}
-            y1={0}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={250}
-            x2={250}
-            y1={0}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={313}
-            x2={313}
-            y1={0}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={375}
-            x2={375}
-            y1={0}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={438}
-            x2={438}
-            y1={0}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={500}
-            x2={500}
-            y1={0}
-            y2={300}
-          />
-        </g>
-        <g>
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={300}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={280}
-            y2={280}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={260}
-            y2={260}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={240}
-            y2={240}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={220}
-            y2={220}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={200}
-            y2={200}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={180}
-            y2={180}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={160}
-            y2={160}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={140}
-            y2={140}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={120}
-            y2={120}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={100}
-            y2={100}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={80}
-            y2={80}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={60}
-            y2={60}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={40}
-            y2={40}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={20}
-            y2={20}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={0}
-            y2={0}
-          />
-        </g>
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={0}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={63}
+          x2={63}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={125}
+          x2={125}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={188}
+          x2={188}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={250}
+          x2={250}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={313}
+          x2={313}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={375}
+          x2={375}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={438}
+          x2={438}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={500}
+          x2={500}
+          y1={0}
+          y2={300}
+        />
+      </g>
+      <g>
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={300}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={280}
+          y2={280}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={260}
+          y2={260}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={240}
+          y2={240}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={220}
+          y2={220}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={200}
+          y2={200}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={180}
+          y2={180}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={160}
+          y2={160}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={140}
+          y2={140}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={120}
+          y2={120}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={100}
+          y2={100}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={80}
+          y2={80}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={60}
+          y2={60}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={40}
+          y2={40}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={20}
+          y2={20}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={0}
+          y2={0}
+        />
       </g>
       <g
         transform="translate(0,300)"
@@ -1494,7 +1490,7 @@ exports[`should allow to render several series 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -1529,7 +1525,7 @@ exports[`should allow to render several series 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -1564,7 +1560,7 @@ exports[`should allow to render several series 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -1599,7 +1595,7 @@ exports[`should allow to render several series 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -1634,7 +1630,7 @@ exports[`should allow to render several series 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -1669,7 +1665,7 @@ exports[`should allow to render several series 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -1704,7 +1700,7 @@ exports[`should allow to render several series 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -1739,7 +1735,7 @@ exports[`should allow to render several series 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -1774,7 +1770,7 @@ exports[`should allow to render several series 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -1825,7 +1821,7 @@ exports[`should allow to render several series 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -1860,7 +1856,7 @@ exports[`should allow to render several series 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -1895,7 +1891,7 @@ exports[`should allow to render several series 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -1930,7 +1926,7 @@ exports[`should allow to render several series 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -1965,7 +1961,7 @@ exports[`should allow to render several series 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -2000,7 +1996,7 @@ exports[`should allow to render several series 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -2035,7 +2031,7 @@ exports[`should allow to render several series 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -2070,7 +2066,7 @@ exports[`should allow to render several series 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -2105,7 +2101,7 @@ exports[`should allow to render several series 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -2140,7 +2136,7 @@ exports[`should allow to render several series 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -2175,7 +2171,7 @@ exports[`should allow to render several series 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -2210,7 +2206,7 @@ exports[`should allow to render several series 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -2245,7 +2241,7 @@ exports[`should allow to render several series 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -2280,7 +2276,7 @@ exports[`should allow to render several series 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -2315,7 +2311,7 @@ exports[`should allow to render several series 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -2350,7 +2346,7 @@ exports[`should allow to render several series 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -2507,235 +2503,233 @@ exports[`should render a basic bar chart 1`] = `
       transform="translate(0,0)"
     >
       <g>
-        <g>
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={0}
-            y1={0}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={63}
-            x2={63}
-            y1={0}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={125}
-            x2={125}
-            y1={0}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={188}
-            x2={188}
-            y1={0}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={250}
-            x2={250}
-            y1={0}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={313}
-            x2={313}
-            y1={0}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={375}
-            x2={375}
-            y1={0}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={438}
-            x2={438}
-            y1={0}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={500}
-            x2={500}
-            y1={0}
-            y2={300}
-          />
-        </g>
-        <g>
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={300}
-            y2={300}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={280}
-            y2={280}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={260}
-            y2={260}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={240}
-            y2={240}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={220}
-            y2={220}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={200}
-            y2={200}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={180}
-            y2={180}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={160}
-            y2={160}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={140}
-            y2={140}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={120}
-            y2={120}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={100}
-            y2={100}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={80}
-            y2={80}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={60}
-            y2={60}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={40}
-            y2={40}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={20}
-            y2={20}
-          />
-          <line
-            opacity={1}
-            stroke="#dddddd"
-            strokeWidth={1}
-            x1={0}
-            x2={500}
-            y1={0}
-            y2={0}
-          />
-        </g>
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={0}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={63}
+          x2={63}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={125}
+          x2={125}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={188}
+          x2={188}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={250}
+          x2={250}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={313}
+          x2={313}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={375}
+          x2={375}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={438}
+          x2={438}
+          y1={0}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={500}
+          x2={500}
+          y1={0}
+          y2={300}
+        />
+      </g>
+      <g>
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={300}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={280}
+          y2={280}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={260}
+          y2={260}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={240}
+          y2={240}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={220}
+          y2={220}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={200}
+          y2={200}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={180}
+          y2={180}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={160}
+          y2={160}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={140}
+          y2={140}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={120}
+          y2={120}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={100}
+          y2={100}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={80}
+          y2={80}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={60}
+          y2={60}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={40}
+          y2={40}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={20}
+          y2={20}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={0}
+          y2={0}
+        />
       </g>
       <g
         transform="translate(0,300)"
@@ -2761,7 +2755,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -2796,7 +2790,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -2831,7 +2825,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -2866,7 +2860,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -2901,7 +2895,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -2936,7 +2930,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -2971,7 +2965,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -3006,7 +3000,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -3041,7 +3035,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={5}
           />
           <text
-            alignmentBaseline="before-edge"
+            dominantBaseline="text-before-edge"
             style={
               Object {
                 "fill": "#333333",
@@ -3092,7 +3086,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3127,7 +3121,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3162,7 +3156,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3197,7 +3191,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3232,7 +3226,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3267,7 +3261,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3302,7 +3296,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3337,7 +3331,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3372,7 +3366,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3407,7 +3401,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3442,7 +3436,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3477,7 +3471,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3512,7 +3506,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3547,7 +3541,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3582,7 +3576,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",
@@ -3617,7 +3611,7 @@ exports[`should render a basic bar chart 1`] = `
             y2={0}
           />
           <text
-            alignmentBaseline="central"
+            dominantBaseline="central"
             style={
               Object {
                 "fill": "#333333",

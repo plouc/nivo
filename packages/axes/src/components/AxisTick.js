@@ -10,55 +10,52 @@ import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { useTheme } from '@nivo/core'
 
-const AxisTick = memo(
-    ({
-        value: _value,
-        x,
-        y,
-        opacity,
-        rotate,
-        format,
-        lineX,
-        lineY,
-        onClick,
-        textX,
-        textY,
-        textBaseline,
-        textAnchor,
-    }) => {
-        const theme = useTheme()
+const AxisTick = ({
+    value: _value,
+    x,
+    y,
+    opacity,
+    rotate,
+    format,
+    lineX,
+    lineY,
+    onClick,
+    textX,
+    textY,
+    textBaseline,
+    textAnchor,
+}) => {
+    const theme = useTheme()
 
-        let value = _value
-        if (format !== undefined) {
-            value = format(value)
-        }
-
-        let gStyle = { opacity }
-        if (onClick) {
-            gStyle['cursor'] = 'pointer'
-        }
-
-        return (
-            <g
-                transform={`translate(${x},${y})`}
-                {...(onClick ? { onClick: e => onClick(e, value) } : {})}
-                style={gStyle}
-            >
-                <line x1={0} x2={lineX} y1={0} y2={lineY} style={theme.axis.ticks.line} />
-                <text
-                    dominantBaseline={textBaseline}
-                    textAnchor={textAnchor}
-                    transform={`translate(${textX},${textY}) rotate(${rotate})`}
-                    style={theme.axis.ticks.text}
-                >
-                    {value}
-                </text>
-            </g>
-        )
+    let value = _value
+    if (format !== undefined) {
+        value = format(value)
     }
-)
 
-AxisTick.displayName = 'AxisTick'
+    let gStyle = { opacity }
+    if (onClick) {
+        gStyle['cursor'] = 'pointer'
+    }
+
+    return (
+        <g
+            transform={`translate(${x},${y})`}
+            {...(onClick ? { onClick: e => onClick(e, value) } : {})}
+            style={gStyle}
+        >
+            <line x1={0} x2={lineX} y1={0} y2={lineY} style={theme.axis.ticks.line} />
+            <text
+                dominantBaseline={textBaseline}
+                textAnchor={textAnchor}
+                transform={`translate(${textX},${textY}) rotate(${rotate})`}
+                style={theme.axis.ticks.text}
+            >
+                {value}
+            </text>
+        </g>
+    )
+}
+
 AxisTick.propTypes = {
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)])
         .isRequired,
@@ -80,4 +77,4 @@ AxisTick.defaultProps = {
     rotate: 0,
 }
 
-export default AxisTick
+export default memo(AxisTick)

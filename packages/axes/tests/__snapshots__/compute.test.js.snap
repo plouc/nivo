@@ -3,7 +3,7 @@
 exports[`computeCartesianTicks() from band scale should compute ticks for x axis 1`] = `
 Object {
   "textAlign": "middle",
-  "textBaseline": "after-edge",
+  "textBaseline": "alphabetic",
   "ticks": Array [
     Object {
       "key": "I",
@@ -101,7 +101,7 @@ Object {
 exports[`computeCartesianTicks() from linear scale should compute ticks for x axis 1`] = `
 Object {
   "textAlign": "middle",
-  "textBaseline": "after-edge",
+  "textBaseline": "alphabetic",
   "ticks": Array [
     Object {
       "key": 0,
@@ -339,7 +339,7 @@ Object {
 exports[`computeCartesianTicks() from ordinal scale should compute ticks for x axis 1`] = `
 Object {
   "textAlign": "middle",
-  "textBaseline": "after-edge",
+  "textBaseline": "alphabetic",
   "ticks": Array [
     Object {
       "key": "A",
@@ -437,7 +437,7 @@ Object {
 exports[`computeCartesianTicks() from point scale should compute ticks for x axis 1`] = `
 Object {
   "textAlign": "middle",
-  "textBaseline": "after-edge",
+  "textBaseline": "alphabetic",
   "ticks": Array [
     Object {
       "key": "E",
