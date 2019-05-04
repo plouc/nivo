@@ -32,6 +32,7 @@ const initialProperties = Object.freeze({
         modifiers: [['darker', 0.8]],
     },
 
+    linkColor: NetworkDefaultProps.linkColor,
     linkThickness: link => (2 - link.source.depth) * 2,
 
     isInteractive: true,

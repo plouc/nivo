@@ -147,6 +147,7 @@ const props = [
         group: 'Nodes',
         type: 'string | object | (link: Link) => string',
         help: `Control nodes' border color.`,
+        defaultValue: NetworkDefaultProps.nodeBorderColor,
         controlType: 'inheritedColor',
     },
     {
@@ -157,6 +158,17 @@ const props = [
         help: `Control links' thickness.`,
         defaultValue: NetworkDefaultProps.linkThickness,
         controlType: 'lineWidth',
+    },
+    {
+        key: 'linkColor',
+        group: 'Links',
+        type: 'string | (link: Link) => string',
+        help: `Control links' color.`,
+        defaultValue: NetworkDefaultProps.linkColor,
+        controlType: 'inheritedColor',
+        controlOptions: {
+            inheritableProperties: ['source.color', 'target.color'],
+        },
     },
     {
         key: 'layers',
