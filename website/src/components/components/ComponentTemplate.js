@@ -43,11 +43,11 @@ const ComponentTemplate = ({
 
     const [settings, setSettings] = useState(initialProperties)
 
-    const [data, setData] = useState(hasData ? generateData() : null)
-    const diceRoll = useCallback(() => setData(hasData ? generateData(data) : null), [
-        data,
-        setData,
-    ])
+    const initialData = useMemo(() => (hasData ? generateData() : null), [])
+    const [data, setData] = useState(initialData)
+    const diceRoll = useCallback(() => {
+        setData(currentData => generateData(currentData))
+    }, [setData])
 
     const [actions, logAction] = useActionsLogger()
 

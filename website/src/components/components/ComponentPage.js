@@ -10,7 +10,7 @@ import styled from 'styled-components'
 import media from '../../theming/mediaQueries'
 
 const ComponentPage = styled.div`
-    margin-right: 60%;
+    margin-right: 55%;
 
     &:after {
         content: ' ';
@@ -20,15 +20,15 @@ const ComponentPage = styled.div`
         right: 0;
         bottom: 0;
         --innerWidth: calc(100% - ${({ theme }) => theme.dimensions.miniNavWidth}px);
-        width: calc(var(--innerWidth) * 0.6);
+        width: calc(var(--innerWidth) * 0.55);
         background: rgba(0, 0, 0, 0);
     }
 
     ${media.tablet`
         & {
-            margin-right: 60%;
+            margin-right: 55%;
             &:after {
-                width: 60%;
+                width: 55%;
             }
         }
     `}

@@ -19,6 +19,7 @@ import DataIcon from './DataIcon'
 import GeoMapIcon from './GeoMapIcon'
 import HeatMapIcon from './HeatMapIcon'
 import LineIcon from './LineIcon'
+import NetworkIcon from './NetworkIcon'
 import PieIcon from './PieIcon'
 import RadarIcon from './RadarIcon'
 import SankeyIcon from './SankeyIcon'
@@ -59,6 +60,7 @@ const ColorsDemo = ({ type }) => {
 
 const Icons = () => (
     <Container>
+        <NetworkIcon />
         <ColorsDemo type="lightNeutral" />
         <ColorsDemo type="lightColored" />
         <ColorsDemo type="darkNeutral" />

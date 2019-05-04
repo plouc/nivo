@@ -111,9 +111,9 @@ const Wrapper = styled.div`
     right: 0;
     width: 60%;
     --innerWidth: calc(100% - ${({ theme }) => theme.dimensions.miniNavWidth}px);
-    width: calc(var(--innerWidth) * 0.6);
+    width: calc(var(--innerWidth) * 0.55);
     --innerHeight: calc(100% - ${({ theme }) => theme.dimensions.headerHeight}px);
-    height: calc(var(--innerHeight) * 0.55);
+    height: calc(var(--innerHeight) * 0.6);
     z-index: 10;
     overflow: hidden;
     background: ${({ theme }) => theme.colors.cardBackground};
@@ -123,9 +123,9 @@ const Wrapper = styled.div`
         & {
             top: ${({ theme }) => theme.dimensions.headerHeight}px;
             right: 0;
-            width: 60%;
+            width: 55%;
             --innerHeight: calc(100% - ${({ theme }) => theme.dimensions.headerHeight}px);
-            height: calc(var(--innerHeight) * 0.55);
+            height: calc(var(--innerHeight) * 0.6);
         }
     `}
 

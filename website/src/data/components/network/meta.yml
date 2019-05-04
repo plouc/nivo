@@ -1,0 +1,30 @@
+flavors:
+  - flavor: svg
+    path: /network/
+  - flavor: canvas
+    path: /network/canvas/
+
+Network:
+  package: '@nivo/network'
+  tags:
+    - svg
+    - isomorphic
+    - experimental
+  stories: []
+  description: |
+    The responsive alternative of this component is `ResponsiveNetwork`.
+
+NetworkCanvas:
+  package: '@nivo/network'
+  tags:
+    - canvas
+    - experimental
+  stories: []
+  description: |
+    A variation around the [Network](self:/network/) component.
+    Well suited for large data sets as it does not impact DOM tree depth,
+    however you'll lose the isomorphic ability and transitions.
+
+    The responsive alternative of this component is
+    `ResponsiveNetworkCanvas`.
+
