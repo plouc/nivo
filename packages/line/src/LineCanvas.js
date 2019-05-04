@@ -212,32 +212,31 @@ const LineCanvas = ({
                     })
                 })
             }
-        }),
-            [
-                canvasEl,
-                outerWidth,
-                outerHeight,
-                layers,
-                theme,
-                lineGenerator,
-                series,
-                xScale,
-                yScale,
-                enableGridX,
-                gridXValues,
-                enableGridY,
-                gridYValues,
-                axisTop,
-                axisRight,
-                axisBottom,
-                axisLeft,
-                legends,
-                points,
-                enablePoints,
-                pointSize,
-                currentPoint,
-            ]
-    })
+        })
+    }, [
+        canvasEl,
+        outerWidth,
+        outerHeight,
+        layers,
+        theme,
+        lineGenerator,
+        series,
+        xScale,
+        yScale,
+        enableGridX,
+        gridXValues,
+        enableGridY,
+        gridYValues,
+        axisTop,
+        axisRight,
+        axisBottom,
+        axisLeft,
+        legends,
+        points,
+        enablePoints,
+        pointSize,
+        currentPoint,
+    ])
 
     const getPointFromMouseEvent = useCallback(
         event => {

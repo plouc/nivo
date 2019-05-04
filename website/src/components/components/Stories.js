@@ -21,20 +21,20 @@ const Wrapper = styled.div`
     position: fixed;
     bottom: 0;
     --innerHeight: calc(100% - ${({ theme }) => theme.dimensions.headerHeight}px);
-    height: calc(var(--innerHeight) * 0.45);
+    height: calc(var(--innerHeight) * 0.4);
     background: ${({ theme }) => theme.colors.cardAltBackground};
     ${({ isFullWidth, theme }) => {
         if (isFullWidth) {
             return `
                 --innerWidth: calc(100% - ${theme.dimensions.miniNavWidth}px);
-                width: calc(var(--innerWidth) * 0.6);
+                width: calc(var(--innerWidth) * 0.55);
                 right: 0;
             `
         }
 
         return `
             --innerWidth: calc(100% - ${theme.dimensions.miniNavWidth}px);
-            --partialWidth: calc(var(--innerWidth) * 0.6);
+            --partialWidth: calc(var(--innerWidth) * 0.55);
             width: calc(var(--partialWidth) / 2);
             right: calc(var(--partialWidth) / 2);
         `
@@ -46,18 +46,18 @@ const Wrapper = styled.div`
     ${media.tablet`
         & {
             --innerHeight: calc(100% - ${({ theme }) => theme.dimensions.headerHeight}px);
-            height: calc(var(--innerHeight) * 0.45);
-            left: 40%;
+            height: calc(var(--innerHeight) * 0.4);
+            left: 45%;
             bottom: 0;
             ${({ isFullWidth }) => {
                 if (isFullWidth) {
                     return `
-                        width: calc(100% * 0.6);
+                        width: calc(100% * 0.55);
                     `
                 }
 
                 return `
-                    --halfWidth: calc(100% * 0.6);
+                    --halfWidth: calc(100% * 0.55);
                     --computedWidth: calc(var(--halfWidth) / 2);
                     width: var(--computedWidth);
                 `

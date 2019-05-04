@@ -16,6 +16,7 @@ import choropleth from './components/choropleth/meta.yml'
 import chord from './components/chord/meta.yml'
 import heatmap from './components/heatmap/meta.yml'
 import line from './components/line/meta.yml'
+import network from './components/network/meta.yml'
 import parallelCoordinates from './components/parallel-coordinates/meta.yml'
 import pie from './components/pie/meta.yml'
 import radar from './components/radar/meta.yml'
@@ -82,6 +83,12 @@ export const components = [
         path: '/line/',
         icon: 'line',
         tags: line.Line.tags,
+    },
+    {
+        label: 'Network',
+        path: '/network/',
+        icon: 'network',
+        tags: network.Network.tags,
     },
     {
         label: 'ParallelCoordinates',
@@ -241,6 +248,12 @@ const all = components.concat([
         path: '/line/api/',
         icon: 'line',
         tags: [...line.Line.tags, 'HTTP API'],
+    },
+    {
+        label: 'NetworkCanvas',
+        path: '/network/canvas/',
+        icon: 'network',
+        tags: network.NetworkCanvas.tags,
     },
     {
         label: 'ParallelCoordinatesCanvas',

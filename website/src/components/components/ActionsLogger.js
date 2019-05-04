@@ -32,7 +32,7 @@ const Wrapper = styled.div`
     right: 0;
     bottom: 0;
     --innerWidth: calc(100% - ${({ theme }) => theme.dimensions.miniNavWidth}px);
-    --partialWidth: calc(var(--innerWidth) * 0.6);
+    --partialWidth: calc(var(--innerWidth) * 0.55);
     ${({ isFullWidth, theme }) => {
         if (isFullWidth) {
             return `
@@ -47,7 +47,7 @@ const Wrapper = styled.div`
     }}
     background: ${({ theme }) => theme.colors.cardAltBackground};
     --innerHeight: calc(100% - ${({ theme }) => theme.dimensions.headerHeight}px);
-    height: calc(var(--innerHeight) * 0.45);
+    height: calc(var(--innerHeight) * 0.4);
     z-index: 10;
     overflow-x: hidden;
     overflow-y: auto;
@@ -57,15 +57,15 @@ const Wrapper = styled.div`
             right: 0;
             bottom: 0;
             --innerHeight: calc(100% - ${({ theme }) => theme.dimensions.headerHeight}px);
-            height: calc(var(--innerHeight) * 0.45);
+            height: calc(var(--innerHeight) * 0.4);
             ${({ isFullWidth, theme }) => {
                 if (isFullWidth) {
-                    return `width: 60%;`
+                    return `width: 55%;`
                 }
 
                 return `
                     border-left: 1px solid ${theme.colors.border};
-                    width: calc(60% * 0.5);
+                    width: calc(55% * 0.5);
                 `
             }}
         }

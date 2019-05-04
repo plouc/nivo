@@ -12,7 +12,7 @@ import isArray from 'lodash/isArray'
 import isString from 'lodash/isString'
 import isNumber from 'lodash/isNumber'
 import isBoolean from 'lodash/isBoolean'
-import isFunction from 'lodash/isFunction'
+import dedent from 'dedent-js'
 
 const indent = (content, spaces = 8) =>
     content
@@ -68,7 +68,7 @@ const generate = (
         } else if (isNumber(_value)) {
             value = `{${_value}}`
         } else if (typeof _value === 'function') {
-            value = `{${_value.toString()}}`
+            value = `{${indent(dedent(_value.toString()), 8)}}`
         } else if (_value === null) {
             value = `{null}`
         } else {
