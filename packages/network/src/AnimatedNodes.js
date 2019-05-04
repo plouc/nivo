@@ -10,6 +10,7 @@ import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
 import { useMotionConfig } from '@nivo/core'
+import Node from './Node'
 
 const willEnter = ({ style }) => ({
     x: style.x.val,
@@ -47,20 +48,17 @@ const AnimatedNodes = ({ nodes, color, borderWidth, borderColor }) => {
                 <>
                     {interpolatedStyles.map(({ key, style, data: node }) => {
                         return (
-                            <g
+                            <Node
                                 key={key}
-                                transform={`translate(${style.x},${style.y}) scale(${Math.max(
-                                    style.scale,
-                                    0
-                                )})`}
-                            >
-                                <circle
-                                    r={Math.max(style.radius, 0)}
-                                    fill={color(node)}
-                                    strokeWidth={borderWidth}
-                                    stroke={borderColor(node)}
-                                />
-                            </g>
+                                node={node}
+                                x={style.x}
+                                y={style.y}
+                                radius={Math.max(style.radius, 0)}
+                                color={color(node)}
+                                borderWidth={borderWidth}
+                                borderColor={borderColor(node)}
+                                scale={Math.max(style.scale, 0)}
+                            />
                         )
                     })}
                 </>

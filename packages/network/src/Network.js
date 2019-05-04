@@ -7,12 +7,14 @@
  * file that was distributed with this source code.
  */
 import React, { Fragment } from 'react'
-import { withContainer, useDimensions, SvgWrapper, useTheme } from '@nivo/core'
+import { withContainer, useDimensions, SvgWrapper, useTheme, useMotionConfig } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 import { NetworkPropTypes, NetworkDefaultProps } from './props'
 import { useNetwork, useNodeColor, useLinkThickness } from './hooks'
 import AnimatedNodes from './AnimatedNodes'
+import StaticNodes from './StaticNodes'
 import AnimatedLinks from './AnimatedLinks'
+import StaticLinks from './StaticLinks'
 
 const Network = props => {
     const {
@@ -45,6 +47,7 @@ const Network = props => {
         partialMargin
     )
 
+    const { animate } = useMotionConfig()
     const theme = useTheme()
     const getColor = useNodeColor(nodeColor)
     const getBorderColor = useInheritedColor(nodeBorderColor, theme)
@@ -62,26 +65,21 @@ const Network = props => {
         center: [innerWidth / 2, innerHeight / 2],
     })
 
-    const layerById = {}
-
-    layerById.links = (
-        <AnimatedLinks
-            key="links"
-            links={links}
-            linkThickness={getLinkThickness}
-            linkColor={getLinkColor}
-        />
-    )
-
-    layerById.nodes = (
-        <AnimatedNodes
-            key="nodes"
-            nodes={nodes}
-            color={getColor}
-            borderWidth={nodeBorderWidth}
-            borderColor={getBorderColor}
-        />
-    )
+    const layerById = {
+        links: React.createElement(animate === true ? AnimatedLinks : StaticLinks, {
+            key: 'links',
+            links,
+            linkThickness: getLinkThickness,
+            linkColor: getLinkColor,
+        }),
+        nodes: React.createElement(animate === true ? AnimatedNodes : StaticNodes, {
+            key: 'nodes',
+            nodes,
+            color: getColor,
+            borderWidth: nodeBorderWidth,
+            borderColor: getBorderColor,
+        }),
+    }
 
     return (
         <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>

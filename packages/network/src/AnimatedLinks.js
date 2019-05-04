@@ -10,16 +10,17 @@ import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
 import { useMotionConfig } from '@nivo/core'
+import Link from './Link'
 
 const willEnter = ({ style, data }) => {
-    const x0 = data.previousSource ? data.previousSource.x : style.x0.val
-    const y0 = data.previousSource ? data.previousSource.y : style.y0.val
+    const sourceX = data.previousSource ? data.previousSource.x : style.sourceX.val
+    const sourceY = data.previousSource ? data.previousSource.y : style.sourceY.val
 
     return {
-        x0,
-        y0,
-        x1: x0,
-        y1: y0,
+        sourceX,
+        sourceY,
+        targetX: sourceX,
+        targetY: sourceY,
     }
 }
 
@@ -33,10 +34,10 @@ const AnimatedLinks = ({ links, linkThickness, linkColor }) => {
                 key: link.id,
                 data: link,
                 style: {
-                    x0: spring(link.source.x, springConfig),
-                    y0: spring(link.source.y, springConfig),
-                    x1: spring(link.target.x, springConfig),
-                    y1: spring(link.target.y, springConfig),
+                    sourceX: spring(link.source.x, springConfig),
+                    sourceY: spring(link.source.y, springConfig),
+                    targetX: spring(link.target.x, springConfig),
+                    targetY: spring(link.target.y, springConfig),
                 },
             }))}
         >
@@ -44,15 +45,15 @@ const AnimatedLinks = ({ links, linkThickness, linkColor }) => {
                 <>
                     {interpolatedStyles.map(({ key, style, data: link }) => {
                         return (
-                            <line
+                            <Link
                                 key={key}
-                                stroke={linkColor(link)}
-                                strokeWidth={linkThickness(link)}
-                                strokeLinecap="round"
-                                x1={style.x0}
-                                y1={style.y0}
-                                x2={style.x1}
-                                y2={style.y1}
+                                link={link}
+                                color={linkColor(link)}
+                                thickness={linkThickness(link)}
+                                sourceX={style.sourceX}
+                                sourceY={style.sourceY}
+                                targetX={style.targetX}
+                                targetY={style.targetY}
                             />
                         )
                     })}
