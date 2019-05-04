@@ -23,6 +23,8 @@ const themeProperties = ['background', 'grid.line.stroke', 'labels.text.fill'].m
     value: prop,
 }))
 
+const defaultInheritableProperties = ['color']
+
 const InheritedColorControl = ({
     id,
     property,
@@ -32,8 +34,8 @@ const InheritedColorControl = ({
     defaultCustomColor,
     defaultThemeProperty,
     defaultFrom,
-    inheritableProperties,
     onChange,
+    options: { inheritableProperties = defaultInheritableProperties } = {},
 }) => {
     const [customColor, setCustomColor] = useState(isString(value) ? value : defaultCustomColor)
     const [themeProp, setThemeProp] = useState(
@@ -61,6 +63,16 @@ const InheritedColorControl = ({
         value => {
             setThemeProp(value.value)
             onChange({ theme: value.value })
+        },
+        [onChange, setThemeProp]
+    )
+    const handleFromPropertyChange = useCallback(
+        value => {
+            setFromProp(value.value)
+            onChange({
+                from: value.value,
+                modifiers,
+            })
         },
         [onChange, setThemeProp]
     )
@@ -117,7 +129,7 @@ const InheritedColorControl = ({
                     <Select
                         options={propertyOptions}
                         value={propertyOptions.find(prop => prop.value === value.from)}
-                        //onChange={handleThemePropertyChange}
+                        onChange={handleFromPropertyChange}
                     />
                     <SubLabel>modifiers</SubLabel>
                     {modifiers.length === 0 && <NoModifiers>No modifier.</NoModifiers>}
@@ -173,17 +185,18 @@ InheritedColorControl.propTypes = {
     flavors: PropTypes.arrayOf(PropTypes.oneOf(['svg', 'html', 'canvas', 'api'])).isRequired,
     currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
     onChange: PropTypes.func.isRequired,
-    inheritableProperties: PropTypes.arrayOf(PropTypes.string).isRequired,
     defaultCustomColor: PropTypes.string.isRequired,
     defaultThemeProperty: PropTypes.string.isRequired,
     defaultFrom: PropTypes.string.isRequired,
     value: inheritedColorPropType.isRequired,
+    options: PropTypes.shape({
+        inheritableProperties: PropTypes.arrayOf(PropTypes.string),
+    }),
 }
 InheritedColorControl.defaultProps = {
     defaultCustomColor: 'black',
     defaultThemeProperty: 'background',
     defaultFrom: 'color',
-    inheritableProperties: ['color'],
 }
 
 export default InheritedColorControl

@@ -32,6 +32,7 @@ const initialProperties = Object.freeze({
     nodeBorderWidth: 1,
     nodeBorderColor: { theme: 'background' },
 
+    linkColor: NetworkCanvasDefaultProps.linkColor,
     linkThickness: 1,
 
     isInteractive: true,
