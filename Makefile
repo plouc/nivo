@@ -138,6 +138,7 @@ packages-tslint: ##@1 packages run tslint on all packages
         ./packages/heatmap/index.d.ts \
         ./packages/legends/index.d.ts \
         ./packages/line/index.d.ts \
+        ./packages/network/index.d.ts \
         ./packages/pie/index.d.ts \
         ./packages/radar/index.d.ts \
         ./packages/sankey/index.d.ts \
