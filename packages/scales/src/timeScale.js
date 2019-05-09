@@ -42,7 +42,7 @@ export const timeScale = (
         maxValue = normalize(values.max)
     }
 
-    const scale = useUTC ? scaleUtc : scaleTime
+    const scale = useUTC ? scaleUtc() : scaleTime()
     scale.domain([minValue, maxValue]).range([0, size])
 
     scale.type = 'time'
