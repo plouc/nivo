@@ -1,6 +1,6 @@
 {
   "name": "@nivo/core",
-  "version": "0.56.2",
+  "version": "0.57.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -15,7 +15,7 @@
     "dist/"
   ],
   "dependencies": {
-    "@nivo/tooltip": "0.56.2",
+    "@nivo/tooltip": "0.57.0",
     "d3-color": "^1.2.3",
     "d3-format": "^1.3.2",
     "d3-hierarchy": "^1.1.8",

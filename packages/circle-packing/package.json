@@ -1,6 +1,6 @@
 {
   "name": "@nivo/circle-packing",
-  "version": "0.56.2",
+  "version": "0.57.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -22,9 +22,9 @@
     "dist/"
   ],
   "dependencies": {
-    "@nivo/colors": "0.56.2",
-    "@nivo/core": "0.56.2",
-    "@nivo/tooltip": "0.56.2",
+    "@nivo/colors": "0.57.0",
+    "@nivo/core": "0.57.0",
+    "@nivo/tooltip": "0.57.0",
     "d3-hierarchy": "^1.1.8",
     "lodash": "^4.17.11",
     "react-motion": "^0.5.2",
