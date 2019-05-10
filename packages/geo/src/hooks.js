@@ -100,6 +100,7 @@ export const useChoropleth = ({
     valueFormat,
     colors,
     unknownColor,
+    domain,
 }) => {
     const findMatchingDatum = useMemo(() => {
         if (isFunction(match)) return match
@@ -122,7 +123,7 @@ export const useChoropleth = ({
         return format(valueFormat)
     }, [valueFormat])
 
-    const colorScale = useMemo(() => guessQuantizeColorScale(colors).domain([0, 1000000]), [colors])
+    const colorScale = useMemo(() => guessQuantizeColorScale(colors).domain(domain), [colors])
     const getFillColor = useMemo(() => {
         return feature => {
             if (feature.value === undefined) return unknownColor

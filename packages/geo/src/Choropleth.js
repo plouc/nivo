@@ -31,6 +31,7 @@ const Choropleth = memo(
         projectionTranslation,
         projectionRotation,
         colors,
+        domain,
         unknownColor,
         borderWidth,
         borderColor,
@@ -64,6 +65,7 @@ const Choropleth = memo(
             valueFormat,
             colors,
             unknownColor,
+            domain,
         })
 
         const theme = useTheme()

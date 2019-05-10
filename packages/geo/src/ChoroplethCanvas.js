@@ -37,6 +37,7 @@ const ChoroplethCanvas = memo(
         projectionTranslation,
         projectionRotation,
         colors,
+        domain,
         unknownColor,
         borderWidth,
         borderColor,
@@ -73,6 +74,7 @@ const ChoroplethCanvas = memo(
             valueFormat,
             colors,
             unknownColor,
+            domain,
         })
 
         useEffect(() => {
