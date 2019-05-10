@@ -66,6 +66,15 @@ const props = [
         group: 'Style',
     },
     {
+        key: 'domain',
+        help: 'Defines uppper and lower bounds of color shading',
+        type: 'number[]',
+        required: true,
+        defaultValue: ChoroplethDefaultProps.domain,
+        controlType: 'domainColors',
+        group: 'Style',
+    },
+    {
         key: 'unknownColor',
         help: 'Defines the color to use for features without value.',
         type: 'string',
