@@ -63,6 +63,7 @@ const commonChoroplethPropTypes = {
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     valueFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     colors: quantizeColorScalePropType.isRequired,
+    domain: PropTypes.arrayOf(PropTypes.number).isRequired,
     unknownColor: PropTypes.string.isRequired,
     layers: PropTypes.arrayOf(
         PropTypes.oneOfType([PropTypes.oneOf(['graticule', 'features', 'legends']), PropTypes.func])

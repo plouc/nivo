@@ -57,6 +57,20 @@ const props = [
         defaultValue: ChoroplethDefaultProps.value,
     },
     {
+        key: 'domain',
+        help: 'Defines uppper and lower bounds of color shading',
+        description: `
+            The Domain prop is a required two element array that
+            defines the minimum and maximum values for the color shading
+            of the Choropleth. The minimum and maximum provided should
+            roughly match, or be slightly outside of the minimum and
+            maximum values in your data.
+        `,
+        type: 'number[]',
+        required: true,
+        group: 'Base',
+    },
+    {
         key: 'colors',
         help: 'Defines color range.',
         type: 'string | Function | string[]',
