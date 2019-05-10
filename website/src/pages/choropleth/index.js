@@ -29,6 +29,7 @@ const initialProperties = {
     },
 
     colors: 'nivo',
+    domain: [0,1000000],
     unknownColor: '#666666',
 
     label: 'properties.name',

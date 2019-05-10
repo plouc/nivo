@@ -70,9 +70,7 @@ const props = [
         help: 'Defines uppper and lower bounds of color shading',
         type: 'number[]',
         required: true,
-        defaultValue: ChoroplethDefaultProps.domain,
-        controlType: 'domainColors',
-        group: 'Style',
+        group: 'Base',
     },
     {
         key: 'unknownColor',

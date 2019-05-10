@@ -119,7 +119,6 @@ const commonChoroplethDefaultProps = {
     label: 'id',
     value: 'value',
     colors: 'PuBuGn',
-    domain: [0, 1000000],
     unknownColor: '#999',
     tooltip: ChoroplethTooltip,
     layers: ['graticule', 'features', 'legends'],
