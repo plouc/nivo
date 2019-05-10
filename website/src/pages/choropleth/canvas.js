@@ -31,7 +31,7 @@ const initialProperties = {
     },
 
     colors: 'RdBu',
-    domain: [0,1000000],
+    domain: [0, 1000000],
     unknownColor: '#101b42',
 
     label: 'properties.name',
