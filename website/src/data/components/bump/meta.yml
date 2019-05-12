@@ -1,0 +1,12 @@
+flavors:
+  - flavor: svg
+    path: /bump/
+
+Bump:
+  package: '@nivo/bump'
+  tags:
+    - svg
+    - isomorphic
+  stories: []
+  description: |
+    Bump chart.

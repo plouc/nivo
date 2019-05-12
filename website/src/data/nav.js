@@ -9,6 +9,7 @@
 import sortBy from 'lodash/sortBy'
 import bar from './components/bar/meta.yml'
 import bubble from './components/bubble/meta.yml'
+import bump from './components/bump/meta.yml'
 import bullet from './components/bullet/meta.yml'
 import calendar from './components/calendar/meta.yml'
 import geomap from './components/geomap/meta.yml'
@@ -41,6 +42,12 @@ export const components = [
         path: '/bubble/',
         icon: 'circle-packing',
         tags: bubble.Bubble.tags,
+    },
+    {
+        label: 'Bump',
+        path: '/bump/',
+        icon: 'circle-packing',
+        tags: bump.Bump.tags,
     },
     {
         label: 'Bullet',
