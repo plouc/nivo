@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import sortBy from 'lodash/sortBy'
+import areaBump from './components/area-bump/meta.yml'
 import bar from './components/bar/meta.yml'
 import bubble from './components/bubble/meta.yml'
 import bump from './components/bump/meta.yml'
@@ -32,6 +33,12 @@ import waffle from './components/waffle/meta.yml'
 
 export const components = [
     {
+        label: 'AreaBump',
+        path: '/area-bump/',
+        icon: 'bump',
+        tags: areaBump.AreaBump.tags,
+    },
+    {
         label: 'Bar',
         path: '/bar/',
         icon: 'bar',
@@ -46,7 +53,7 @@ export const components = [
     {
         label: 'Bump',
         path: '/bump/',
-        icon: 'circle-packing',
+        icon: 'bump',
         tags: bump.Bump.tags,
     },
     {

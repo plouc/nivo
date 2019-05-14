@@ -31,7 +31,7 @@ const chartProps = {
     enableGridX: false,
     enableGridY: false,
     lineWidth: 5,
-    dotSize: 10,
+    pointSize: 10,
     data: [
         {
             id: 'A',
