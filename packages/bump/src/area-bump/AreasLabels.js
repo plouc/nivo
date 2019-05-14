@@ -13,14 +13,7 @@ import { useInheritedColor } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
 import AreaTooltip from './AreaTooltip'
 
-const AreasLabels = ({
-    series,
-    position,
-    margin,
-    padding,
-    color,
-    setCurrentSerie,
-}) => {
+const AreasLabels = ({ series, position, margin, padding, color, setCurrentSerie }) => {
     const theme = useTheme()
     const getColor = useInheritedColor(color, theme)
 

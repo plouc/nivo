@@ -6,7 +6,5 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-export { default as Bump } from './Bump'
-export { default as ResponsiveBump } from './ResponsiveBump'
-export * from './props'
-export * from './hooks'
+export * from './bump'
+export * from './area-bump'

@@ -9,14 +9,7 @@
 import sortBy from 'lodash/sortBy'
 import { scalePoint, scaleLinear } from 'd3-scale'
 
-export const computeSeries = ({
-    data,
-    width,
-    height,
-    align,
-    spacing,
-    xPadding,
-}) => {
+export const computeSeries = ({ data, width, height, align, spacing, xPadding }) => {
     const slices = new Map()
 
     let maxSum = null
@@ -28,7 +21,7 @@ export const computeSeries = ({
                 slices.set(datum.x, {
                     id: datum.x,
                     total: 0,
-                    values: new Map()
+                    values: new Map(),
                 })
             }
 
@@ -39,7 +32,7 @@ export const computeSeries = ({
 
             slice.values.set(serie.id, {
                 serieId: serie.id,
-                value: datum.y
+                value: datum.y,
             })
 
             if (total === null || total > maxSum) {
@@ -77,11 +70,12 @@ export const computeSeries = ({
                 const sliceValue = slice.values.get(value.serieId)
                 sliceValue.position = position
                 sliceValue.height = heightScale(value.value)
-                sliceValue.beforeHeight = heightScale(beforeValue) + offset + spacing * (previousValues.length + .5)
+                sliceValue.beforeHeight =
+                    heightScale(beforeValue) + offset + spacing * (previousValues.length + 0.5)
             })
     })
 
-    const areaPointPadding = xScale.step() * Math.min(xPadding * .5, .5)
+    const areaPointPadding = xScale.step() * Math.min(xPadding * 0.5, 0.5)
 
     const series = data.map(serie => {
         const serieCopy = { ...serie }
@@ -101,7 +95,7 @@ export const computeSeries = ({
                 x,
                 y,
                 height,
-                data: { ...datum }
+                data: { ...datum },
             })
             if (i > 0) {
                 serieCopy.areaPoints.push({ x: x - areaPointPadding, y0, y1 })
@@ -111,7 +105,7 @@ export const computeSeries = ({
                 serieCopy.areaPoints.push({ x: x + areaPointPadding, y0, y1 })
             }
         })
-        
+
         return serieCopy
     })
 

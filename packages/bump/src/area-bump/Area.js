@@ -7,26 +7,25 @@
  * file that was distributed with this source code.
  */
 import React, { memo, useCallback } from 'react'
+import PropTypes from 'prop-types'
+import { useMotionConfig, blendModePropType } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
 import AreaTooltip from './AreaTooltip'
+import AnimatedArea from './AnimatedArea'
+import StaticArea from './StaticArea'
 
-const Area = ({
-    serie,
-    areaGenerator,
-    blendMode,
-    setCurrentSerie
-}) => {
+const Area = ({ serie, areaGenerator, blendMode, isInteractive, setCurrentSerie }) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
     const onMouseEnter = useCallback(
         event => {
-            showTooltipFromEvent(<AreaTooltip serie={serie}/>, event)
+            showTooltipFromEvent(<AreaTooltip serie={serie} />, event)
             setCurrentSerie(serie.id)
         },
         [serie, showTooltipFromEvent, setCurrentSerie]
     )
     const onMouseMove = useCallback(
         event => {
-            showTooltipFromEvent(<AreaTooltip serie={serie}/>, event)
+            showTooltipFromEvent(<AreaTooltip serie={serie} />, event)
         },
         [serie, showTooltipFromEvent]
     )
@@ -35,26 +34,46 @@ const Area = ({
         setCurrentSerie(null)
     }, [hideTooltip, setCurrentSerie])
 
-    return (
-        <>
-            <path
-                d={areaGenerator(serie.areaPoints)}
-                fill={serie.color}
-                fillOpacity={serie.style.fillOpacity}
-                stroke={serie.color}
-                strokeWidth={serie.style.borderWidth}
-                strokeOpacity={serie.style.strokeOpacity}
-                style={{ mixBlendMode: blendMode }}
-                onMouseEnter={onMouseEnter}
-                onMouseMove={onMouseMove}
-                onMouseLeave={onMouseLeave}
+    const { animate } = useMotionConfig()
+    if (animate === true) {
+        return (
+            <AnimatedArea
+                serie={serie}
+                areaGenerator={areaGenerator}
+                blendMode={blendMode}
+                onMouseEnter={isInteractive ? onMouseEnter : undefined}
+                onMouseMove={isInteractive ? onMouseMove : undefined}
+                onMouseLeave={isInteractive ? onMouseLeave : undefined}
             />
-        </>
+        )
+    }
+
+    return (
+        <StaticArea
+            serie={serie}
+            areaGenerator={areaGenerator}
+            blendMode={blendMode}
+            onMouseEnter={isInteractive ? onMouseEnter : undefined}
+            onMouseMove={isInteractive ? onMouseMove : undefined}
+            onMouseLeave={isInteractive ? onMouseLeave : undefined}
+        />
     )
 }
 
 Area.propTypes = {
-
+    serie: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        color: PropTypes.string.isRequired,
+        style: PropTypes.shape({
+            fillOpacity: PropTypes.number.isRequired,
+            borderWidth: PropTypes.number.isRequired,
+            borderOpacity: PropTypes.number.isRequired,
+        }).isRequired,
+    }).isRequired,
+    areaGenerator: PropTypes.func.isRequired,
+    blendMode: blendModePropType.isRequired,
+    isInteractive: PropTypes.bool.isRequired,
+    setCurrentSerie: PropTypes.func.isRequired,
 }
 
 export default memo(Area)

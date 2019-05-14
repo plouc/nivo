@@ -28,7 +28,7 @@ const AreaBump = props => {
         interpolation,
         spacing,
         xPadding,
-    
+
         colors,
         blendMode,
         fillOpacity,
@@ -37,10 +37,11 @@ const AreaBump = props => {
         borderWidth,
         activeBorderWidth,
         inactiveBorderWidth,
+        borderColor,
         borderOpacity,
         activeBorderOpacity,
         inactiveBorderOpacity,
-            
+
         startLabel,
         startLabelPadding,
         startLabelTextColor,
@@ -63,13 +64,7 @@ const AreaBump = props => {
         partialMargin
     )
 
-    const {
-        series,
-        xScale,
-        heightScale,
-        areaGenerator,
-        getColor,
-    } = useAreaBump({
+    const { series, xScale, areaGenerator } = useAreaBump({
         data,
         width: innerWidth,
         height: innerHeight,
@@ -84,21 +79,17 @@ const AreaBump = props => {
         borderWidth,
         activeBorderWidth,
         inactiveBorderWidth,
+        borderColor,
         borderOpacity,
         activeBorderOpacity,
         inactiveBorderOpacity,
         isInteractive,
-        current: currentSerie
+        current: currentSerie,
     })
 
     const layerById = {
         grid: enableGridX && (
-            <Grid
-                key="grid"
-                width={innerWidth}
-                height={innerHeight}
-                xScale={xScale}
-            />
+            <Grid key="grid" width={innerWidth} height={innerHeight} xScale={xScale} />
         ),
         axes: (
             <Axes
@@ -119,6 +110,7 @@ const AreaBump = props => {
                         areaGenerator={areaGenerator}
                         serie={serie}
                         blendMode={blendMode}
+                        isInteractive={isInteractive}
                         setCurrentSerie={setCurrentSerie}
                     />
                 ))}
@@ -160,8 +152,14 @@ const AreaBump = props => {
                     return (
                         <Fragment key={i}>
                             {layer({
+                                ...props,
                                 innerWidth,
                                 innerHeight,
+                                outerWidth,
+                                outerHeight,
+                                series,
+                                xScale,
+                                areaGenerator,
                             })}
                         </Fragment>
                     )

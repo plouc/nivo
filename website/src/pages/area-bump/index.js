@@ -51,6 +51,7 @@ const initialProperties = {
     borderWidth: AreaBumpDefaultProps.borderWidth,
     activeBorderWidth: AreaBumpDefaultProps.activeBorderWidth,
     inactiveBorderWidth: AreaBumpDefaultProps.inactiveBorderWidth,
+    borderColor: AreaBumpDefaultProps.borderColor,
     borderOpacity: AreaBumpDefaultProps.borderOpacity,
     activeBorderOpacity: AreaBumpDefaultProps.activeBorderOpacity,
     inactiveBorderOpacity: AreaBumpDefaultProps.inactiveBorderOpacity,

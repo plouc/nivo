@@ -8,7 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import { motionPropTypes, blendModePropType } from '@nivo/core'
-import { ordinalColorsPropType } from '@nivo/colors'
+import { ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
 import { axisPropType } from '@nivo/axes'
 
 const commonPropTypes = {
@@ -27,10 +27,7 @@ const commonPropTypes = {
     align: PropTypes.oneOf(['start', 'middle', 'end']).isRequired,
 
     layers: PropTypes.arrayOf(
-        PropTypes.oneOfType([
-            PropTypes.oneOf(['grid', 'axes', 'labels', 'areas']),
-            PropTypes.func,
-        ])
+        PropTypes.oneOfType([PropTypes.oneOf(['grid', 'axes', 'labels', 'areas']), PropTypes.func])
     ).isRequired,
 
     interpolation: PropTypes.oneOf(['linear', 'smooth']).isRequired,
@@ -45,6 +42,7 @@ const commonPropTypes = {
     borderWidth: PropTypes.number.isRequired,
     activeBorderWidth: PropTypes.number.isRequired,
     inactiveBorderWidth: PropTypes.number.isRequired,
+    borderColor: inheritedColorPropType.isRequired,
     borderOpacity: PropTypes.number.isRequired,
     activeBorderOpacity: PropTypes.number.isRequired,
     inactiveBorderOpacity: PropTypes.number.isRequired,
@@ -79,12 +77,13 @@ const commonDefaultProps = {
 
     colors: { scheme: 'nivo' },
     blendMode: 'normal',
-    fillOpacity: .8,
+    fillOpacity: 0.8,
     activeFillOpacity: 1,
-    inactiveFillOpacity: .15,
+    inactiveFillOpacity: 0.15,
     borderWidth: 1,
     activeBorderWidth: 1,
     inactiveBorderWidth: 0,
+    borderColor: { from: 'color', modifiers: [['darker', 0.4]] },
     borderOpacity: 1,
     activeBorderOpacity: 1,
     inactiveBorderOpacity: 0,
