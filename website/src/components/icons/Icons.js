@@ -8,6 +8,7 @@
  */
 import React, { Fragment } from 'react'
 import { Container } from './styled'
+import AreaBumpIcon from './AreaBumpIcon'
 import BarIcon from './BarIcon'
 import BulletIcon from './BulletIcon'
 import BumpIcon from './BumpIcon'
@@ -61,11 +62,12 @@ const ColorsDemo = ({ type }) => {
 
 const Icons = () => (
     <Container>
-        <BumpIcon />
+        <AreaBumpIcon />
         <ColorsDemo type="lightNeutral" />
         <ColorsDemo type="lightColored" />
         <ColorsDemo type="darkNeutral" />
         <ColorsDemo type="darkColored" />
+        <BumpIcon />
         <NetworkIcon />
         <BarIcon />
         <CirclePackingIcon />

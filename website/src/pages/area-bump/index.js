@@ -77,7 +77,7 @@ const Bump = () => {
         <ComponentTemplate
             name="AreaBump"
             meta={meta.AreaBump}
-            icon="bump"
+            icon="area-bump"
             flavors={meta.flavors}
             currentFlavor="svg"
             properties={groups}

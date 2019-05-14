@@ -7,3 +7,9 @@
 [documentation](http://nivo.rocks/bump/)
 
 ![Bump](https://raw.githubusercontent.com/plouc/nivo/master/packages/bump/doc/bump.png)
+
+## AreaBump
+
+[documentation](http://nivo.rocks/area-bump/)
+
+![Bump](https://raw.githubusercontent.com/plouc/nivo/master/packages/bump/doc/area-bump.png)

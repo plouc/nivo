@@ -35,7 +35,7 @@ export const components = [
     {
         label: 'AreaBump',
         path: '/area-bump/',
-        icon: 'bump',
+        icon: 'area-bump',
         tags: areaBump.AreaBump.tags,
     },
     {

@@ -1,4 +1,4 @@
-/* glue: 0.13 hash: c3ab469375 */
+/* glue: 0.13 hash: 0a618edcf6 */
 .sprite-icons-waffle-light-neutral,
 .sprite-icons-waffle-light-colored,
 .sprite-icons-waffle-dark-neutral,
@@ -103,7 +103,11 @@
 .sprite-icons-bar-light-neutral,
 .sprite-icons-bar-light-colored,
 .sprite-icons-bar-dark-neutral,
-.sprite-icons-bar-dark-colored {
+.sprite-icons-bar-dark-colored,
+.sprite-icons-area-bump-light-neutral,
+.sprite-icons-area-bump-light-colored,
+.sprite-icons-area-bump-dark-neutral,
+.sprite-icons-area-bump-dark-colored {
     background-image: url('../assets/icons.png');
     background-repeat: no-repeat;
 }
@@ -738,6 +742,30 @@
     height: 52px;
 }
 
+.sprite-icons-area-bump-light-neutral {
+    background-position: -604px -304px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-area-bump-light-colored {
+    background-position: -604px -364px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-area-bump-dark-neutral {
+    background-position: -604px -424px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-area-bump-dark-colored {
+    background-position: -604px -484px;
+    width: 52px;
+    height: 52px;
+}
+
 @media screen and (-webkit-min-device-pixel-ratio: 1),
     screen and (min--moz-device-pixel-ratio: 1),
     screen and (-o-min-device-pixel-ratio: 100/100),
@@ -847,7 +875,11 @@
     .sprite-icons-bar-light-neutral,
     .sprite-icons-bar-light-colored,
     .sprite-icons-bar-dark-neutral,
-    .sprite-icons-bar-dark-colored {
+    .sprite-icons-bar-dark-colored,
+    .sprite-icons-area-bump-light-neutral,
+    .sprite-icons-area-bump-light-colored,
+    .sprite-icons-area-bump-dark-neutral,
+    .sprite-icons-area-bump-dark-colored {
         background-image: url('../assets/icons.png');
         -webkit-background-size: 660px 600px;
         -moz-background-size: 660px 600px;
@@ -964,7 +996,11 @@
     .sprite-icons-bar-light-neutral,
     .sprite-icons-bar-light-colored,
     .sprite-icons-bar-dark-neutral,
-    .sprite-icons-bar-dark-colored {
+    .sprite-icons-bar-dark-colored,
+    .sprite-icons-area-bump-light-neutral,
+    .sprite-icons-area-bump-light-colored,
+    .sprite-icons-area-bump-dark-neutral,
+    .sprite-icons-area-bump-dark-colored {
         background-image: url('../assets/icons@2x.png');
         -webkit-background-size: 660px 600px;
         -moz-background-size: 660px 600px;
