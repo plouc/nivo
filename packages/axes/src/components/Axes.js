@@ -40,8 +40,8 @@ const Axes = ({ xScale, yScale, width, height, top, right, bottom, left }) => {
 }
 
 Axes.propTypes = {
-    xScale: PropTypes.func.isRequired,
-    yScale: PropTypes.func.isRequired,
+    xScale: PropTypes.func,
+    yScale: PropTypes.func,
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
     top: axisPropType,

@@ -1,0 +1,14 @@
+flavors:
+  - flavor: svg
+    path: /area-bump/
+
+AreaBump:
+  package: '@nivo/bump'
+  tags:
+    - svg
+    - isomorphic
+  stories: []
+  description: |
+    An Area Bump chart.
+
+    The responsive alternative of this component is `ResponsiveAreaBump`.

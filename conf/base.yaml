@@ -80,10 +80,10 @@ capture:
       # - path: /network/
       #   selector: '#chart'
       #   output: ./packages/network/doc/network.png
-      - path: /network/canvas/
-        selector: '#chart'
-        theme: dark
-        output: ./packages/network/doc/network-canvas.png
+      # - path: /network/canvas/
+      #   selector: '#chart'
+      #   theme: dark
+      #   output: ./packages/network/doc/network-canvas.png
 
       # - path: /parallel-coordinates
       #   selector: '#chart'
@@ -174,6 +174,19 @@ capture:
       # - path: /internal/icons/
       #   selector: '#bullet-darkColored'
       #   output: ./website/src/assets/icons/bullet-dark-colored.png
+
+      - path: /internal/icons/
+        selector: '#bump-lightNeutral'
+        output: ./website/src/assets/icons/bump-light-neutral.png
+      - path: /internal/icons/
+        selector: '#bump-lightColored'
+        output: ./website/src/assets/icons/bump-light-colored.png
+      - path: /internal/icons/
+        selector: '#bump-darkNeutral'
+        output: ./website/src/assets/icons/bump-dark-neutral.png
+      - path: /internal/icons/
+        selector: '#bump-darkColored'
+        output: ./website/src/assets/icons/bump-dark-colored.png
 
       # - path: /internal/icons/
       #   selector: '#circle-packing-lightNeutral'

@@ -10,6 +10,7 @@ import React, { Fragment } from 'react'
 import { Container } from './styled'
 import BarIcon from './BarIcon'
 import BulletIcon from './BulletIcon'
+import BumpIcon from './BumpIcon'
 import CalendarIcon from './CalendarIcon'
 import ChoroplethIcon from './ChoroplethIcon'
 import ChordIcon from './ChordIcon'
@@ -60,11 +61,12 @@ const ColorsDemo = ({ type }) => {
 
 const Icons = () => (
     <Container>
-        <NetworkIcon />
+        <BumpIcon />
         <ColorsDemo type="lightNeutral" />
         <ColorsDemo type="lightColored" />
         <ColorsDemo type="darkNeutral" />
         <ColorsDemo type="darkColored" />
+        <NetworkIcon />
         <BarIcon />
         <CirclePackingIcon />
         <BulletIcon />
