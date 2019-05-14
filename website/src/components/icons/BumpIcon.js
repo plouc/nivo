@@ -32,8 +32,8 @@ const chartProps = {
                 {
                     x: 2,
                     y: 2,
-                }
-            ]
+                },
+            ],
         },
         {
             id: 'B',
@@ -49,8 +49,8 @@ const chartProps = {
                 {
                     x: 2,
                     y: 3,
-                }
-            ]
+                },
+            ],
         },
         {
             id: 'C',
@@ -66,8 +66,8 @@ const chartProps = {
                 {
                     x: 2,
                     y: 1,
-                }
-            ]
+                },
+            ],
         },
     ],
     margin: {
@@ -77,7 +77,7 @@ const chartProps = {
         left: 5,
     },
     xOuterPadding: 0,
-    yOuterPadding: .6,
+    yOuterPadding: 0.6,
     lineWidth: 5,
     pointSize: 10,
     endLabel: false,
@@ -112,10 +112,10 @@ const BumpIconItem = ({ type }) => (
                 grid: {
                     line: {
                         strokeWidth: 2,
-                        strokeOpacity: .5,
-                        stroke: colors[type].colors[1]
-                    }
-                }
+                        strokeOpacity: 0.5,
+                        stroke: colors[type].colors[1],
+                    },
+                },
             }}
         />
     </Icon>

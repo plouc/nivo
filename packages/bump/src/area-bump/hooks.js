@@ -8,29 +8,30 @@
  */
 import { useMemo } from 'react'
 import { area as d3Area, curveBasis, curveLinear } from 'd3-shape'
-import { useOrdinalColorScale } from '@nivo/colors'
+import { useTheme } from '@nivo/core'
+import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
 import { computeSeries } from './compute'
 
-export const useAreaBumpSeries = ({
-    data,
-    width,
-    height,
-    align,
-    spacing,
-    xPadding
-}) => useMemo(
-    () => computeSeries({ data, width, height, align, spacing, xPadding }),
-    [data, width, height, align, spacing, xPadding]
-)
+export const useAreaBumpSeries = ({ data, width, height, align, spacing, xPadding }) =>
+    useMemo(() => computeSeries({ data, width, height, align, spacing, xPadding }), [
+        data,
+        width,
+        height,
+        align,
+        spacing,
+        xPadding,
+    ])
 
-export const useAreaGenerator = interpolation => useMemo(
-    () => d3Area()
-        .x(d => d.x)
-        .y0(d => d.y0)
-        .y1(d => d.y1)
-        .curve(interpolation === 'smooth' ? curveBasis : curveLinear),
-    [interpolation]
-)
+export const useAreaGenerator = interpolation =>
+    useMemo(
+        () =>
+            d3Area()
+                .x(d => d.x)
+                .y0(d => d.y0)
+                .y1(d => d.y1)
+                .curve(interpolation === 'smooth' ? curveBasis : curveLinear),
+        [interpolation]
+    )
 
 export const useSerieDerivedProp = instruction =>
     useMemo(() => {
@@ -45,11 +46,12 @@ export const useSerieStyle = ({
     borderWidth,
     activeBorderWidth,
     inactiveBorderWidth,
+    borderColor,
     borderOpacity,
     activeBorderOpacity,
     inactiveBorderOpacity,
     isInteractive,
-    current
+    current,
 }) => {
     const getFillOpacity = useSerieDerivedProp(fillOpacity)
     const getActiveFillOpacity = useSerieDerivedProp(activeFillOpacity)
@@ -59,6 +61,9 @@ export const useSerieStyle = ({
     const getActiveBorderWidth = useSerieDerivedProp(activeBorderWidth)
     const getInactiveBorderWidth = useSerieDerivedProp(inactiveBorderWidth)
 
+    const theme = useTheme()
+    const getBorderColor = useInheritedColor(borderColor, theme)
+
     const getBorderOpacity = useSerieDerivedProp(borderOpacity)
     const getActiveBorderOpacity = useSerieDerivedProp(activeBorderOpacity)
     const getInactiveBorderOpacity = useSerieDerivedProp(inactiveBorderOpacity)
@@ -67,45 +72,39 @@ export const useSerieStyle = ({
         () => serie => ({
             fillOpacity: getFillOpacity(serie),
             borderWidth: getBorderWidth(serie),
-            borderOpacity: getBorderOpacity(serie)
+            borderColor: getBorderColor(serie),
+            borderOpacity: getBorderOpacity(serie),
         }),
-        [getFillOpacity, getBorderWidth, getBorderOpacity]
+        [getFillOpacity, getBorderWidth, getBorderColor, getBorderOpacity]
     )
     const getActiveStyle = useMemo(
         () => serie => ({
             fillOpacity: getActiveFillOpacity(serie),
             borderWidth: getActiveBorderWidth(serie),
-            borderOpacity: getActiveBorderOpacity(serie)
+            borderColor: getBorderColor(serie),
+            borderOpacity: getActiveBorderOpacity(serie),
         }),
-        [getActiveFillOpacity, getActiveBorderWidth, getActiveBorderOpacity]
+        [getActiveFillOpacity, getActiveBorderWidth, getBorderColor, getActiveBorderOpacity]
     )
     const getInactiveStyle = useMemo(
         () => serie => ({
             fillOpacity: getInactiveFillOpacity(serie),
             borderWidth: getInactiveBorderWidth(serie),
-            borderOpacity: getInactiveBorderOpacity(serie)
+            borderColor: getBorderColor(serie),
+            borderOpacity: getInactiveBorderOpacity(serie),
         }),
-        [getInactiveFillOpacity, getInactiveBorderWidth, getInactiveBorderOpacity]
+        [getInactiveFillOpacity, getInactiveBorderWidth, getBorderColor, getInactiveBorderOpacity]
     )
 
-    return useMemo(
-        () => {
-            if (!isInteractive) return getNormalStyle
+    return useMemo(() => {
+        if (!isInteractive) return getNormalStyle
 
-            return serie => {
-                if (current === null) return getNormalStyle(serie)
-                if (serie.id === current) return getActiveStyle(serie)
-                return getInactiveStyle(serie)
-            }
-        },
-        [
-            getNormalStyle,
-            getActiveStyle,
-            getInactiveStyle,
-            isInteractive,
-            current
-        ]
-    )
+        return serie => {
+            if (current === null) return getNormalStyle(serie)
+            if (serie.id === current) return getActiveStyle(serie)
+            return getInactiveStyle(serie)
+        }
+    }, [getNormalStyle, getActiveStyle, getInactiveStyle, isInteractive, current])
 }
 
 export const useAreaBump = ({
@@ -123,11 +122,12 @@ export const useAreaBump = ({
     borderWidth,
     activeBorderWidth,
     inactiveBorderWidth,
+    borderColor,
     borderOpacity,
     activeBorderOpacity,
     inactiveBorderOpacity,
     isInteractive,
-    current
+    current,
 }) => {
     const { series: rawSeries, xScale, heightScale } = useAreaBumpSeries({
         data,
@@ -148,19 +148,22 @@ export const useAreaBump = ({
         borderWidth,
         activeBorderWidth,
         inactiveBorderWidth,
+        borderColor,
         borderOpacity,
         activeBorderOpacity,
         inactiveBorderOpacity,
         isInteractive,
-        current
+        current,
     })
 
     const series = useMemo(
-        () => rawSeries.map(serie => ({
-            ...serie,
-            color: getColor(serie),
-            style: getSerieStyle(serie)
-        })),
+        () =>
+            rawSeries.map(serie => {
+                serie.color = getColor(serie)
+                serie.style = getSerieStyle(serie)
+
+                return serie
+            }),
         [rawSeries, getColor, getSerieStyle]
     )
 

@@ -45,7 +45,7 @@ const Line = ({ serie, lineGenerator, yScale, getStyle, setCurrentSerie }) => {
                 strokeLinecap="round"
                 strokeOpacity={opacity}
                 style={{
-                    pointerEvents: 'none'
+                    pointerEvents: 'none',
                 }}
             />
             <path

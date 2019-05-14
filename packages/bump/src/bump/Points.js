@@ -23,12 +23,12 @@ const Points = ({ points, color, borderColor, getStyle }) => {
         return (
             <circle
                 style={{
-                    pointerEvents: 'none'
+                    pointerEvents: 'none',
                 }}
                 key={point.id}
                 cx={point.x}
                 cy={point.y}
-                r={size/ 2}
+                r={size / 2}
                 strokeWidth={borderWidth}
                 stroke={getBorderColor(point)}
                 fill={getColor(point)}

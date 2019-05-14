@@ -101,10 +101,7 @@ const props = [
         defaultValue: defaults.interpolation,
         controlType: 'radio',
         controlOptions: {
-            choices: [
-                { label: 'smooth', value: 'smooth' },
-                { label: 'linear', value: 'linear' },
-            ],
+            choices: [{ label: 'smooth', value: 'smooth' }, { label: 'linear', value: 'linear' }],
         },
     },
     {
@@ -155,7 +152,7 @@ const props = [
     {
         key: 'fillOpacity',
         group: 'Style',
-        type: 'number',
+        type: 'number | (serie: Serie) => number',
         help: 'Area fill opacity.',
         defaultValue: defaults.fillOpacity,
         controlType: 'opacity',
@@ -163,7 +160,7 @@ const props = [
     {
         key: 'activeFillOpacity',
         group: 'Style',
-        type: 'number',
+        type: 'number | (serie: Serie) => number',
         help: 'Area fill opacity for active series.',
         defaultValue: defaults.activeFillOpacity,
         controlType: 'opacity',
@@ -171,9 +168,69 @@ const props = [
     {
         key: 'inactiveFillOpacity',
         group: 'Style',
-        type: 'number',
+        type: 'number | (serie: Serie) => number',
         help: 'Area fill opacity for inactive series.',
         defaultValue: defaults.inactiveFillOpacity,
+        controlType: 'opacity',
+    },
+    {
+        key: 'borderWidth',
+        group: 'Style',
+        type: 'number | (serie: Serie) => number',
+        help: 'Area border width.',
+        defaultValue: defaults.borderWidth,
+        controlType: 'lineWidth',
+    },
+    {
+        key: 'activeBorderWidth',
+        group: 'Style',
+        type: 'number | (serie: Serie) => number',
+        help: 'Area border width for active series.',
+        defaultValue: defaults.activeBorderWidth,
+        controlType: 'lineWidth',
+    },
+    {
+        key: 'inactiveBorderWidth',
+        group: 'Style',
+        type: 'number | (serie: Serie) => number',
+        help: 'Area border width for inactive series.',
+        defaultValue: defaults.inactiveBorderWidth,
+        controlType: 'lineWidth',
+    },
+    {
+        key: 'borderColor',
+        help: 'Method to compute area border color.',
+        type: 'string | object | Function',
+        required: false,
+        defaultValue: defaults.borderColor,
+        controlType: 'inheritedColor',
+        group: 'Style',
+        controlOptions: {
+            withCustomColor: true,
+        },
+    },
+    {
+        key: 'borderOpacity',
+        group: 'Style',
+        type: 'number | (serie: Serie) => number',
+        help: 'Area border opacity.',
+        defaultValue: defaults.borderOpacity,
+        controlType: 'opacity',
+    },
+    {
+        key: 'activeBorderOpacity',
+        group: 'Style',
+        type: 'number | (serie: Serie) => number',
+        help: 'Area border opacity for active series.',
+        defaultValue: defaults.activeBorderOpacity,
+        controlType: 'opacity',
+    },
+    {
+        key: 'inactiveBorderOpacity',
+        group: 'Style',
+        type: 'number | (serie: Serie) => number',
+        help: 'Area border opacity for inactive series.',
+        defaultValue: defaults.inactiveBorderOpacity,
         controlType: 'opacity',
     },
     {
@@ -233,6 +290,15 @@ const props = [
         controlOptions: {
             withCustomColor: true,
         },
+    },
+    {
+        key: 'enableGridX',
+        group: 'Grid & Axes',
+        help: 'Enable/disable x grid.',
+        type: 'boolean',
+        required: false,
+        defaultValue: defaults.enableGridX,
+        controlType: 'switch',
     },
     {
         key: 'isInteractive',

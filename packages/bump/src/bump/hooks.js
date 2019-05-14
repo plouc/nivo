@@ -64,7 +64,7 @@ export const useSerieStyle = ({
     activeOpacity,
     inactiveOpacity,
     isInteractive,
-    current
+    current,
 }) => {
     const getLineWidth = useSerieDerivedProp(lineWidth)
     const getActiveLineWidth = useSerieDerivedProp(activeLineWidth)
@@ -77,7 +77,7 @@ export const useSerieStyle = ({
     const getNormalStyle = useMemo(
         () => serie => ({
             lineWidth: getLineWidth(serie),
-            opacity: getOpacity(serie)
+            opacity: getOpacity(serie),
         }),
         [getLineWidth, getOpacity]
     )
@@ -96,24 +96,15 @@ export const useSerieStyle = ({
         [getInactiveLineWidth, getInactiveOpacity]
     )
 
-    return useMemo(
-        () => {
-            if (!isInteractive) return getNormalStyle
+    return useMemo(() => {
+        if (!isInteractive) return getNormalStyle
 
-            return serie => {
-                if (current === null) return getNormalStyle(serie)
-                if (serie.id === current) return getActiveStyle(serie)
-                return getInactiveStyle(serie)
-            }
-        },
-        [
-            getNormalStyle,
-            getActiveStyle,
-            getInactiveStyle,
-            isInteractive,
-            current
-        ]
-    )
+        return serie => {
+            if (current === null) return getNormalStyle(serie)
+            if (serie.id === current) return getActiveStyle(serie)
+            return getInactiveStyle(serie)
+        }
+    }, [getNormalStyle, getActiveStyle, getInactiveStyle, isInteractive, current])
 }
 
 export const usePointStyle = ({
@@ -131,13 +122,13 @@ export const usePointStyle = ({
     const getInactiveSize = useSerieDerivedProp(inactiveSize)
 
     const getBorderWidth = useSerieDerivedProp(borderWidth)
-    const getActiveBorderWidth= useSerieDerivedProp(activeBorderWidth)
+    const getActiveBorderWidth = useSerieDerivedProp(activeBorderWidth)
     const getInactiveBorderWidth = useSerieDerivedProp(inactiveBorderWidth)
 
     const getNormalStyle = useMemo(
         () => point => ({
             size: getSize(point.serie),
-            borderWidth: getBorderWidth(point.serie)
+            borderWidth: getBorderWidth(point.serie),
         }),
         [getSize, getBorderWidth]
     )
@@ -156,24 +147,15 @@ export const usePointStyle = ({
         [getInactiveSize, getInactiveBorderWidth]
     )
 
-    return useMemo(
-        () => {
-            if (!isInteractive) return getNormalStyle
+    return useMemo(() => {
+        if (!isInteractive) return getNormalStyle
 
-            return point => {
-                if (currentSerie === null) return getNormalStyle(point)
-                if (point.serie.id === currentSerie) return getActiveStyle(point)
-                return getInactiveStyle(point)
-            }
-        },
-        [
-            getNormalStyle,
-            getActiveStyle,
-            getInactiveStyle,
-            isInteractive,
-            currentSerie
-        ]
-    ) 
+        return point => {
+            if (currentSerie === null) return getNormalStyle(point)
+            if (point.serie.id === currentSerie) return getActiveStyle(point)
+            return getInactiveStyle(point)
+        }
+    }, [getNormalStyle, getActiveStyle, getInactiveStyle, isInteractive, currentSerie])
 }
 
 export const usePointSize = ({ size, activeSize, inactiveSize, current }) => {
