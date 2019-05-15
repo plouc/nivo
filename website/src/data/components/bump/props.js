@@ -7,9 +7,30 @@
  * file that was distributed with this source code.
  */
 import { BumpDefaultProps as defaults } from '@nivo/bump'
-import { motionProperties, groupProperties } from '../../../lib/componentProperties'
+import { motionProperties, axesProperties, groupProperties } from '../../../lib/componentProperties'
 
 const props = [
+    {
+        key: 'data',
+        group: 'Base',
+        help: 'Chart data.',
+        description: `
+            Chart data, which must conform to this structure:
+            \`\`\`
+            Array<{
+                id:   string
+                data: Array<{
+                    x: number | string
+                    y: number | string
+                }>
+            }>
+            \`\`\`
+            This component assumes that every serie contains all
+            x values sorted the same way they should appear on the chart.
+        `,
+        required: true,
+        type: 'object[]',
+    },
     {
         key: 'width',
         group: 'Base',
@@ -227,6 +248,7 @@ const props = [
         defaultValue: defaults.enableGridY,
         controlType: 'switch',
     },
+    ...axesProperties(),
     ...motionProperties(['svg'], defaults),
 ]
 

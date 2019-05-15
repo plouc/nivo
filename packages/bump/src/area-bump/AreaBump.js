@@ -137,7 +137,6 @@ const AreaBump = props => {
                 padding={startLabelPadding}
                 margin={margin}
                 color={startLabelTextColor}
-                setCurrentSerie={setCurrentSerie}
             />
         )
     }
@@ -150,7 +149,6 @@ const AreaBump = props => {
                 padding={endLabelPadding}
                 margin={margin}
                 color={endLabelTextColor}
-                setCurrentSerie={setCurrentSerie}
             />
         )
     }

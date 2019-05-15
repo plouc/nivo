@@ -13,6 +13,7 @@ import { ResponsiveBump, BumpDefaultProps } from '@nivo/bump'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bump/meta.yml'
 import { groups } from '../../data/components/bump/props'
+import mapper from '../../data/components/bump/mapper'
 
 const generateData = () => {
     const years = range(2000, 2005)
@@ -69,7 +70,39 @@ const initialProperties = {
 
     enableGridX: true,
     enableGridY: true,
+    axisTop: {
+        enable: true,
+        tickSize: 5,
+        tickPadding: 5,
+        tickRotation: 0,
+        legend: '',
+        legendPosition: 'middle',
+        legendOffset: -36,
+    },
+    axisRight: {
+        enable: false,
+        tickSize: 5,
+        tickPadding: 5,
+        tickRotation: 0,
+        format: v => `#${v}`,
+        legend: 'ranking',
+        legendPosition: 'middle',
+        legendOffset: 40,
+    },
+    axisBottom: {
+        enable: true,
+        tickSize: 5,
+        tickPadding: 5,
+        tickRotation: 0,
+        legend: '',
+        legendPosition: 'middle',
+        legendOffset: 32,
+    },
     axisLeft: {
+        enable: true,
+        tickSize: 5,
+        tickPadding: 5,
+        tickRotation: 0,
         format: v => `#${v}`,
         legend: 'ranking',
         legendPosition: 'middle',
@@ -93,6 +126,7 @@ const Bump = () => {
             currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
+            propertiesMapper={mapper}
             generateData={generateData}
         >
             {(properties, data, theme, logAction) => {

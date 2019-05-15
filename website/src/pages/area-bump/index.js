@@ -13,6 +13,7 @@ import { ResponsiveAreaBump, AreaBumpDefaultProps } from '@nivo/bump'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/area-bump/meta.yml'
 import { groups } from '../../data/components/area-bump/props'
+import mapper from '../../data/components/area-bump/mapper'
 
 const serieIds = ['JavaScript', 'ReasonML', 'TypeScript', 'Elm', 'CoffeeScript']
 const generateData = () => {
@@ -63,6 +64,24 @@ const initialProperties = {
     endLabelTextColor: AreaBumpDefaultProps.endLabelTextColor,
 
     enableGridX: AreaBumpDefaultProps.enableGridX,
+    axisTop: {
+        enable: true,
+        tickSize: 5,
+        tickPadding: 5,
+        tickRotation: 0,
+        legend: '',
+        legendPosition: 'middle',
+        legendOffset: -36,
+    },
+    axisBottom: {
+        enable: true,
+        tickSize: 5,
+        tickPadding: 5,
+        tickRotation: 0,
+        legend: '',
+        legendPosition: 'middle',
+        legendOffset: 32,
+    },
 
     isInteractive: true,
 
@@ -82,6 +101,7 @@ const Bump = () => {
             properties={groups}
             defaultProperties={AreaBumpDefaultProps}
             initialProperties={initialProperties}
+            propertiesMapper={mapper}
             generateData={generateData}
         >
             {(properties, data, theme, logAction) => {
