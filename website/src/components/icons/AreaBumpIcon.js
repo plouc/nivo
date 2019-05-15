@@ -8,10 +8,10 @@
  */
 import React from 'react'
 import { AreaBump } from '@nivo/bump'
-import bumpLightNeutralImg from '../../assets/icons/bump-light-neutral.png'
-import bumpLightColoredImg from '../../assets/icons/bump-light-colored.png'
-import bumpDarkNeutralImg from '../../assets/icons/bump-dark-neutral.png'
-import bumpDarkColoredImg from '../../assets/icons/bump-dark-colored.png'
+import areaBumpLightNeutralImg from '../../assets/icons/area-bump-light-neutral.png'
+import areaBumpLightColoredImg from '../../assets/icons/area-bump-light-colored.png'
+import areaBumpDarkNeutralImg from '../../assets/icons/area-bump-dark-neutral.png'
+import areaBumpDarkColoredImg from '../../assets/icons/area-bump-dark-colored.png'
 import { ICON_SIZE, Icon, colors, IconImg } from './styled'
 
 const chartProps = {
@@ -140,13 +140,13 @@ const AreaBumpIconItem = ({ type }) => (
 const AreaBumpIcon = () => (
     <>
         <AreaBumpIconItem type="lightNeutral" />
-        <IconImg url={bumpLightNeutralImg} />
+        <IconImg url={areaBumpLightNeutralImg} />
         <AreaBumpIconItem type="lightColored" />
-        <IconImg url={bumpLightColoredImg} />
+        <IconImg url={areaBumpLightColoredImg} />
         <AreaBumpIconItem type="darkNeutral" />
-        <IconImg url={bumpDarkNeutralImg} />
+        <IconImg url={areaBumpDarkNeutralImg} />
         <AreaBumpIconItem type="darkColored" />
-        <IconImg url={bumpDarkColoredImg} />
+        <IconImg url={areaBumpDarkColoredImg} />
     </>
 )
 
