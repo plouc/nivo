@@ -6,33 +6,35 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo, useCallback } from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { useMotionConfig, blendModePropType } from '@nivo/core'
-import { useTooltip } from '@nivo/tooltip'
-import AreaTooltip from './AreaTooltip'
+import { useSerieHandlers } from './hooks'
 import AnimatedArea from './AnimatedArea'
 import StaticArea from './StaticArea'
 
-const Area = ({ serie, areaGenerator, blendMode, isInteractive, setCurrentSerie }) => {
-    const { showTooltipFromEvent, hideTooltip } = useTooltip()
-    const onMouseEnter = useCallback(
-        event => {
-            showTooltipFromEvent(<AreaTooltip serie={serie} />, event)
-            setCurrentSerie(serie.id)
-        },
-        [serie, showTooltipFromEvent, setCurrentSerie]
-    )
-    const onMouseMove = useCallback(
-        event => {
-            showTooltipFromEvent(<AreaTooltip serie={serie} />, event)
-        },
-        [serie, showTooltipFromEvent]
-    )
-    const onMouseLeave = useCallback(() => {
-        hideTooltip()
-        setCurrentSerie(null)
-    }, [hideTooltip, setCurrentSerie])
+const Area = ({
+    serie,
+    areaGenerator,
+    blendMode,
+    isInteractive,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+    onClick,
+    setCurrentSerie,
+    tooltip,
+}) => {
+    const handlers = useSerieHandlers({
+        serie,
+        isInteractive,
+        onMouseEnter,
+        onMouseMove,
+        onMouseLeave,
+        onClick,
+        setCurrent: setCurrentSerie,
+        tooltip,
+    })
 
     const { animate } = useMotionConfig()
     if (animate === true) {
@@ -41,9 +43,10 @@ const Area = ({ serie, areaGenerator, blendMode, isInteractive, setCurrentSerie 
                 serie={serie}
                 areaGenerator={areaGenerator}
                 blendMode={blendMode}
-                onMouseEnter={isInteractive ? onMouseEnter : undefined}
-                onMouseMove={isInteractive ? onMouseMove : undefined}
-                onMouseLeave={isInteractive ? onMouseLeave : undefined}
+                onMouseEnter={handlers.onMouseEnter}
+                onMouseMove={handlers.onMouseMove}
+                onMouseLeave={handlers.onMouseLeave}
+                onClick={handlers.onClick}
             />
         )
     }
@@ -53,9 +56,10 @@ const Area = ({ serie, areaGenerator, blendMode, isInteractive, setCurrentSerie 
             serie={serie}
             areaGenerator={areaGenerator}
             blendMode={blendMode}
-            onMouseEnter={isInteractive ? onMouseEnter : undefined}
-            onMouseMove={isInteractive ? onMouseMove : undefined}
-            onMouseLeave={isInteractive ? onMouseLeave : undefined}
+            onMouseEnter={handlers.onMouseEnter}
+            onMouseMove={handlers.onMouseMove}
+            onMouseLeave={handlers.onMouseLeave}
+            onClick={handlers.onClick}
         />
     )
 }
@@ -73,7 +77,12 @@ Area.propTypes = {
     areaGenerator: PropTypes.func.isRequired,
     blendMode: blendModePropType.isRequired,
     isInteractive: PropTypes.bool.isRequired,
+    onMouseEnter: PropTypes.func,
+    onMouseMove: PropTypes.func,
+    onMouseLeave: PropTypes.func,
+    onClick: PropTypes.func,
     setCurrentSerie: PropTypes.func.isRequired,
+    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 }
 
 export default memo(Area)

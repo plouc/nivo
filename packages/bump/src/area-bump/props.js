@@ -10,6 +10,7 @@ import PropTypes from 'prop-types'
 import { motionPropTypes, blendModePropType } from '@nivo/core'
 import { ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
 import { axisPropType } from '@nivo/axes'
+import AreaTooltip from './AreaTooltip'
 
 const commonPropTypes = {
     data: PropTypes.arrayOf(
@@ -50,15 +51,22 @@ const commonPropTypes = {
     startLabel: PropTypes.oneOfType([PropTypes.oneOf([false]), PropTypes.string, PropTypes.func])
         .isRequired,
     startLabelPadding: PropTypes.number.isRequired,
+    startLabelTextColor: inheritedColorPropType.isRequired,
     endLabel: PropTypes.oneOfType([PropTypes.oneOf([false]), PropTypes.string, PropTypes.func])
         .isRequired,
     endLabelPadding: PropTypes.number.isRequired,
+    endLabelTextColor: inheritedColorPropType.isRequired,
 
     enableGridX: PropTypes.bool.isRequired,
     axisTop: axisPropType,
     axisBottom: axisPropType,
 
     isInteractive: PropTypes.bool.isRequired,
+    onMouseEnter: PropTypes.func,
+    onMouseMove: PropTypes.func,
+    onMouseLeave: PropTypes.func,
+    onClick: PropTypes.func,
+    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 }
 
 export const AreaBumpPropTypes = {
@@ -100,6 +108,7 @@ const commonDefaultProps = {
     axisBottom: {},
 
     isInteractive: true,
+    tooltip: AreaTooltip,
 }
 
 export const AreaBumpDefaultProps = {

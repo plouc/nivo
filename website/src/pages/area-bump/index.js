@@ -8,7 +8,6 @@
  */
 import React from 'react'
 import range from 'lodash/range'
-import shuffle from 'lodash/shuffle'
 import random from 'lodash/random'
 import { ResponsiveAreaBump, AreaBumpDefaultProps } from '@nivo/bump'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
@@ -86,7 +85,21 @@ const Bump = () => {
             generateData={generateData}
         >
             {(properties, data, theme, logAction) => {
-                return <ResponsiveAreaBump data={data} {...properties} theme={theme} />
+                return (
+                    <ResponsiveAreaBump
+                        data={data}
+                        {...properties}
+                        theme={theme}
+                        onClick={serie =>
+                            logAction({
+                                type: 'click',
+                                label: `[serie] ${serie.id}`,
+                                color: serie.color,
+                                data: serie,
+                            })
+                        }
+                    />
+                )
             }}
         </ComponentTemplate>
     )

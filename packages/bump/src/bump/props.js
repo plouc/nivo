@@ -8,7 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import { motionPropTypes } from '@nivo/core'
-import { ordinalColorsPropType } from '@nivo/colors'
+import { ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
 import { axisPropType } from '@nivo/axes'
 
 const commonPropTypes = {
@@ -46,17 +46,20 @@ const commonPropTypes = {
     startLabel: PropTypes.oneOfType([PropTypes.oneOf([false]), PropTypes.string, PropTypes.func])
         .isRequired,
     startLabelPadding: PropTypes.number.isRequired,
+    startLabelTextColor: inheritedColorPropType.isRequired,
     endLabel: PropTypes.oneOfType([PropTypes.oneOf([false]), PropTypes.string, PropTypes.func])
         .isRequired,
     endLabelPadding: PropTypes.number.isRequired,
+    endLabelTextColor: inheritedColorPropType.isRequired,
 
     pointSize: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
     activePointSize: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
     inactivePointSize: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
-    pointColor: PropTypes.any.isRequired,
+    pointColor: inheritedColorPropType.isRequired,
     pointBorderWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
     activePointBorderWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
     inactivePointBorderWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
+    pointBorderColor: inheritedColorPropType.isRequired,
 
     enableGridX: PropTypes.bool.isRequired,
     enableGridY: PropTypes.bool.isRequired,

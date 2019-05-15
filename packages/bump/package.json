@@ -17,6 +17,7 @@
   ],
   "main": "./dist/nivo-bump.cjs.js",
   "module": "./dist/nivo-bump.esm.js",
+  "typings": "./index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",

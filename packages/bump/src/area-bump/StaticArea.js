@@ -17,6 +17,7 @@ const StaticArea = ({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onClick,
 }) => {
     return (
         <path
@@ -30,6 +31,7 @@ const StaticArea = ({
             onMouseEnter={onMouseEnter}
             onMouseMove={onMouseMove}
             onMouseLeave={onMouseLeave}
+            onClick={onClick}
         />
     )
 }
@@ -50,6 +52,7 @@ StaticArea.propTypes = {
     onMouseEnter: PropTypes.func,
     onMouseMove: PropTypes.func,
     onMouseLeave: PropTypes.func,
+    onClick: PropTypes.func,
 }
 
 export default memo(StaticArea)
