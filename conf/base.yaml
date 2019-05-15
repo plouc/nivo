@@ -157,18 +157,19 @@ capture:
       #  capture charts' icons
       #
       #########################################################################
-      - path: /internal/icons/
-        selector: '#area-bump-lightNeutral'
-        output: ./website/src/assets/icons/area-bump-light-neutral.png
-      - path: /internal/icons/
-        selector: '#area-bump-lightColored'
-        output: ./website/src/assets/icons/area-bump-light-colored.png
-      - path: /internal/icons/
-        selector: '#area-bump-darkNeutral'
-        output: ./website/src/assets/icons/area-bump-dark-neutral.png
-      - path: /internal/icons/
-        selector: '#area-bump-darkColored'
-        output: ./website/src/assets/icons/area-bump-dark-colored.png
+
+      # - path: /internal/icons/
+      #   selector: '#area-bump-lightNeutral'
+      #   output: ./website/src/assets/icons/area-bump-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#area-bump-lightColored'
+      #   output: ./website/src/assets/icons/area-bump-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#area-bump-darkNeutral'
+      #   output: ./website/src/assets/icons/area-bump-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#area-bump-darkColored'
+      #   output: ./website/src/assets/icons/area-bump-dark-colored.png
 
       # - path: /internal/icons/
       #   selector: '#bar-lightNeutral'
@@ -196,18 +197,18 @@ capture:
       #   selector: '#bullet-darkColored'
       #   output: ./website/src/assets/icons/bullet-dark-colored.png
 
-      - path: /internal/icons/
-        selector: '#bump-lightNeutral'
-        output: ./website/src/assets/icons/bump-light-neutral.png
-      - path: /internal/icons/
-        selector: '#bump-lightColored'
-        output: ./website/src/assets/icons/bump-light-colored.png
-      - path: /internal/icons/
-        selector: '#bump-darkNeutral'
-        output: ./website/src/assets/icons/bump-dark-neutral.png
-      - path: /internal/icons/
-        selector: '#bump-darkColored'
-        output: ./website/src/assets/icons/bump-dark-colored.png
+      # - path: /internal/icons/
+      #   selector: '#bump-lightNeutral'
+      #   output: ./website/src/assets/icons/bump-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#bump-lightColored'
+      #   output: ./website/src/assets/icons/bump-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#bump-darkNeutral'
+      #   output: ./website/src/assets/icons/bump-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#bump-darkColored'
+      #   output: ./website/src/assets/icons/bump-dark-colored.png
 
       # - path: /internal/icons/
       #   selector: '#circle-packing-lightNeutral'

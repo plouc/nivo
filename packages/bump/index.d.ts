@@ -11,6 +11,71 @@ import { Dimensions, Box, Theme, MotionProps, CssMixBlendMode } from '@nivo/core
 import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
 
 declare module '@nivo/bump' {
+    type SerieDerivedProp<Serie, T> = (serie: Serie) => T
+
+    export interface BumpInputDatum {
+        x: string | number
+        y: string | number
+        [key: string]: any
+    }
+
+    export interface BumpInputSerie {
+        id: string
+        data: BumpInputDatum[]
+        [key: string]: any
+    }
+
+    export type BumpLabelFunction = (serie: BumpInputSerie) => string
+    export type BumpLabel = false | string | BumpLabelFunction
+
+    export type BumpMouseHandler = (serie: BumpInputSerie, event: MouseEvent<any>) => void
+
+    export interface BumpProps {
+        data: BumpInputSerie[]
+
+        margin?: Box
+
+        align?: AreaBumpAlign
+        interpolation?: AreaBumpInterpolation
+        xOuterPadding?: number
+        yOuterPadding?: number
+        xPadding?: number
+
+        theme?: Theme
+        colors?: OrdinalColorsInstruction
+        blendMode?: CssMixBlendMode
+
+        startLabel?: BumpLabel
+        startLabelPadding?: number
+        startLabelTextColor?: InheritedColorProp
+        endLabel?: BumpLabel
+        endLabelPadding?: number
+        endLabelTextColor?: InheritedColorProp
+
+        pointSize?: number
+        activePointSize?: number
+        inactivePointSize?: number
+        pointColor?: InheritedColorProp
+
+        enableGridX?: boolean
+        enableGridY?: boolean
+        axisTop?: any
+        axisRight?: any
+        axisBottom?: any
+        axisLeft?: any
+
+        isInteractive?: boolean
+        onMouseEnter?: BumpMouseHandler
+        onMouseMove?: BumpMouseHandler
+        onMouseLeave?: BumpMouseHandler
+        onClick?: BumpMouseHandler
+        tooltip?: any
+    }
+
+    export type BumpSvgProps = BumpProps & MotionProps
+    export class Bump extends Component<BumpSvgProps & Dimensions> {}
+    export class ResponsiveBump extends Component<BumpSvgProps> {}
+
     export interface AreaBumpInputDatum {
         x: string | number
         y: number
@@ -61,7 +126,7 @@ declare module '@nivo/bump' {
         event: MouseEvent<any>
     ) => void
 
-    export type AreaBumpProps = {
+    export interface AreaBumpProps {
         data: AreaBumpInputSerie[]
 
         margin?: Box
@@ -74,16 +139,16 @@ declare module '@nivo/bump' {
         theme?: Theme
         colors?: OrdinalColorsInstruction
         blendMode?: CssMixBlendMode
-        fillOpacity?: number
-        activeFillOpacity?: number
-        inactiveFillOpacity?: number
-        borderWidth?: number
-        activeBorderWidth?: number
-        inactiveBorderWidth?: number
+        fillOpacity?: number | SerieDerivedProp<AreaBumpInputSerie, number>
+        activeFillOpacity?: number | SerieDerivedProp<AreaBumpInputSerie, number>
+        inactiveFillOpacity?: number | SerieDerivedProp<AreaBumpInputSerie, number>
+        borderWidth?: number | SerieDerivedProp<AreaBumpInputSerie, number>
+        activeBorderWidth?: number | SerieDerivedProp<AreaBumpInputSerie, number>
+        inactiveBorderWidth?: number | SerieDerivedProp<AreaBumpInputSerie, number>
         borderColor?: InheritedColorProp
-        borderOpacity?: number
-        activeBorderOpacity?: number
-        inactiveBorderOpacity?: number
+        borderOpacity?: number | SerieDerivedProp<AreaBumpInputSerie, number>
+        activeBorderOpacity?: number | SerieDerivedProp<AreaBumpInputSerie, number>
+        inactiveBorderOpacity?: number | SerieDerivedProp<AreaBumpInputSerie, number>
 
         startLabel?: AreaBumpLabel
         startLabelPadding?: number
@@ -105,7 +170,6 @@ declare module '@nivo/bump' {
     }
 
     export type AreaBumpSvgProps = AreaBumpProps & MotionProps
-
     export class AreaBump extends Component<AreaBumpSvgProps & Dimensions> {}
     export class ResponsiveAreaBump extends Component<AreaBumpSvgProps> {}
 }

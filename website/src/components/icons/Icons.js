@@ -62,11 +62,11 @@ const ColorsDemo = ({ type }) => {
 
 const Icons = () => (
     <Container>
-        <AreaBumpIcon />
         <ColorsDemo type="lightNeutral" />
         <ColorsDemo type="lightColored" />
         <ColorsDemo type="darkNeutral" />
         <ColorsDemo type="darkColored" />
+        <AreaBumpIcon />
         <BumpIcon />
         <NetworkIcon />
         <BarIcon />
