@@ -6,10 +6,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { useMemo } from 'react'
+import React, { useMemo, useCallback } from 'react'
 import { area as d3Area, curveBasis, curveLinear } from 'd3-shape'
 import { useTheme } from '@nivo/core'
 import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
+import { useTooltip } from '@nivo/tooltip'
 import { computeSeries } from './compute'
 
 export const useAreaBumpSeries = ({ data, width, height, align, spacing, xPadding }) =>
@@ -173,4 +174,62 @@ export const useAreaBump = ({
         heightScale,
         areaGenerator,
     }
+}
+
+export const useSerieHandlers = ({
+    serie,
+    isInteractive,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+    onClick,
+    setCurrent,
+    tooltip,
+}) => {
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
+
+    const handleMouseEnter = useCallback(
+        event => {
+            showTooltipFromEvent(React.createElement(tooltip, { serie }), event)
+            setCurrent(serie.id)
+            onMouseEnter && onMouseEnter(serie, event)
+        },
+        [serie, onMouseEnter, showTooltipFromEvent, setCurrent]
+    )
+
+    const handleMouseMove = useCallback(
+        event => {
+            showTooltipFromEvent(React.createElement(tooltip, { serie }), event)
+            onMouseMove && onMouseMove(serie, event)
+        },
+        [serie, onMouseMove, showTooltipFromEvent]
+    )
+
+    const handleMouseLeave = useCallback(
+        event => {
+            hideTooltip()
+            setCurrent(null)
+            onMouseLeave && onMouseLeave(serie, event)
+        },
+        [serie, onMouseLeave, hideTooltip, setCurrent]
+    )
+
+    const handleClick = useCallback(
+        event => {
+            onClick && onClick(serie, event)
+        },
+        [serie, onClick]
+    )
+
+    const handlers = useMemo(
+        () => ({
+            onMouseEnter: isInteractive ? handleMouseEnter : undefined,
+            onMouseMove: isInteractive ? handleMouseMove : undefined,
+            onMouseLeave: isInteractive ? handleMouseLeave : undefined,
+            onClick: isInteractive ? handleClick : undefined,
+        }),
+        [isInteractive, handleMouseEnter, handleMouseMove, handleMouseLeave, handleClick]
+    )
+
+    return handlers
 }

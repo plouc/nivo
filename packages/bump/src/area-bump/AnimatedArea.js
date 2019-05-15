@@ -17,6 +17,7 @@ const AnimatedArea = ({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    onClick,
 }) => {
     const { springConfig } = useMotionConfig()
 
@@ -42,6 +43,7 @@ const AnimatedArea = ({
                     onMouseEnter={onMouseEnter}
                     onMouseMove={onMouseMove}
                     onMouseLeave={onMouseLeave}
+                    onClick={onClick}
                 />
             )}
         </SmartMotion>
@@ -64,6 +66,7 @@ AnimatedArea.propTypes = {
     onMouseEnter: PropTypes.func,
     onMouseMove: PropTypes.func,
     onMouseLeave: PropTypes.func,
+    onClick: PropTypes.func,
 }
 
 export default memo(AnimatedArea)

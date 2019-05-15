@@ -9,4 +9,14 @@ Bump:
     - isomorphic
   stories: []
   description: |
-    Bump chart.
+    The Bump chart can be used to show the ranking of several series
+    over time. It is quite similar to line charts,
+    but instead of graphing some measure on the y-axis,
+    it only shows the ranking of each serie at a given time.
+
+    If you'd like to show the ranking and also graph the
+    y-axis values, you can also you use the [AreaBump](self:/area-bump/)
+    component.
+
+    The responsive alternative of this component is `ResponsiveBump`.
+

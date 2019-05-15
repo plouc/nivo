@@ -54,6 +54,11 @@ const AreaBump = props => {
         axisBottom,
 
         isInteractive,
+        onMouseEnter,
+        onMouseMove,
+        onMouseLeave,
+        onClick,
+        tooltip,
     } = props
 
     const [currentSerie, setCurrentSerie] = useState(null)
@@ -112,6 +117,11 @@ const AreaBump = props => {
                         blendMode={blendMode}
                         isInteractive={isInteractive}
                         setCurrentSerie={setCurrentSerie}
+                        onMouseEnter={onMouseEnter}
+                        onMouseMove={onMouseMove}
+                        onMouseLeave={onMouseLeave}
+                        onClick={onClick}
+                        tooltip={tooltip}
                     />
                 ))}
             </Fragment>

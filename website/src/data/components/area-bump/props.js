@@ -302,12 +302,52 @@ const props = [
     },
     {
         key: 'isInteractive',
-        help: 'Enable/disable interactivity.',
+        group: 'Interactivity',
         type: 'boolean',
+        help: 'Enable/disable interactivity.',
         required: false,
         defaultValue: defaults.isInteractive,
         controlType: 'switch',
+    },
+    {
+        key: 'onMouseEnter',
         group: 'Interactivity',
+        type: '(serie, event) => void',
+        help: 'onMouseEnter handler.',
+        required: false,
+    },
+    {
+        key: 'onMouseMove',
+        group: 'Interactivity',
+        type: '(serie, event) => void',
+        help: 'onMouseMove handler.',
+        required: false,
+    },
+    {
+        key: 'onMouseLeave',
+        group: 'Interactivity',
+        type: '(serie, event) => void',
+        help: 'onMouseLeave handler.',
+        required: false,
+    },
+    {
+        key: 'onClick',
+        group: 'Interactivity',
+        type: '(serie, event) => void',
+        help: 'onClick handler.',
+        required: false,
+    },
+    {
+        key: 'tooltip',
+        group: 'Interactivity',
+        type: 'Function',
+        required: false,
+        help: 'Custom tooltip component.',
+        description: `
+            A function allowing complete tooltip customisation,
+            it must return a valid HTML
+            element and will receive the series's data.
+        `,
     },
     ...motionProperties(['svg'], defaults),
 ]
