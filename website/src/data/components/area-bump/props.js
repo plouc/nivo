@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { AreaBumpDefaultProps as defaults } from '@nivo/bump'
-import { motionProperties, groupProperties } from '../../../lib/componentProperties'
+import { motionProperties, axesProperties, groupProperties } from '../../../lib/componentProperties'
 
 const props = [
     {
@@ -25,6 +25,8 @@ const props = [
                 }>
             }>
             \`\`\`
+            This component assumes that every serie contains all
+            x values sorted the same way they should appear on the chart.
         `,
         required: true,
         type: 'object[]',
@@ -300,6 +302,7 @@ const props = [
         defaultValue: defaults.enableGridX,
         controlType: 'switch',
     },
+    ...axesProperties({ exclude: ['right', 'left'] }),
     {
         key: 'isInteractive',
         group: 'Interactivity',

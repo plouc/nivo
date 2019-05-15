@@ -85,7 +85,7 @@ export const motionProperties = (flavors, defaults) => [
     },
 ]
 
-export const axesProperties = flavors =>
+export const axesProperties = ({ flavors, exclude = [] } = {}) =>
     [
         {
             position: 'top',
@@ -103,88 +103,90 @@ export const axesProperties = flavors =>
             position: 'left',
             orientations: ['left', 'right'],
         },
-    ].reduce((properties, { position }) => {
-        const axisKey = upperFirst(position)
+    ]
+        .filter(axis => !exclude.includes(axis.position))
+        .reduce((properties, { position }) => {
+            const axisKey = upperFirst(position)
 
-        return [
-            ...properties,
-            {
-                key: `axis${axisKey}`,
-                flavors,
-                help: `${axisKey} axis configuration.`,
-                type: 'object',
-                required: false,
-                group: 'Grid & Axes',
-                controlType: 'object',
-                controlOptions: {
-                    props: [
-                        {
-                            key: `enable`,
-                            flavors,
-                            help: `enable ${axisKey} axis, it's not an actual prop (demo only).`,
-                            controlType: 'switch',
-                            excludeFromDoc: true,
-                        },
-                        {
-                            key: `tickSize`,
-                            flavors,
-                            help: `${axisKey} axis tick size.`,
-                            type: 'number',
-                            controlType: 'range',
-                            controlOptions: {
-                                unit: 'px',
-                                min: 0,
-                                max: 20,
+            return [
+                ...properties,
+                {
+                    key: `axis${axisKey}`,
+                    flavors,
+                    help: `${axisKey} axis configuration.`,
+                    type: 'object',
+                    required: false,
+                    group: 'Grid & Axes',
+                    controlType: 'object',
+                    controlOptions: {
+                        props: [
+                            {
+                                key: `enable`,
+                                flavors,
+                                help: `enable ${axisKey} axis, it's not an actual prop (demo only).`,
+                                controlType: 'switch',
+                                excludeFromDoc: true,
                             },
-                        },
-                        {
-                            key: `tickPadding`,
-                            flavors,
-                            help: `${axisKey} axis tick padding.`,
-                            type: 'number',
-                            controlType: 'range',
-                            controlOptions: {
-                                unit: 'px',
-                                min: 0,
-                                max: 20,
+                            {
+                                key: `tickSize`,
+                                flavors,
+                                help: `${axisKey} axis tick size.`,
+                                type: 'number',
+                                controlType: 'range',
+                                controlOptions: {
+                                    unit: 'px',
+                                    min: 0,
+                                    max: 20,
+                                },
                             },
-                        },
-                        {
-                            key: `tickRotation`,
-                            flavors,
-                            help: `${axisKey} axis tick rotation.`,
-                            type: 'number',
-                            controlType: 'angle',
-                            controlOptions: {
-                                start: 90,
-                                min: -90,
-                                max: 90,
+                            {
+                                key: `tickPadding`,
+                                flavors,
+                                help: `${axisKey} axis tick padding.`,
+                                type: 'number',
+                                controlType: 'range',
+                                controlOptions: {
+                                    unit: 'px',
+                                    min: 0,
+                                    max: 20,
+                                },
                             },
-                        },
-                        {
-                            key: `legend`,
-                            flavors,
-                            help: `${axisKey} axis legend.`,
-                            type: 'string',
-                            controlType: 'text',
-                        },
-                        {
-                            key: `legendOffset`,
-                            flavors,
-                            help: `${axisKey} axis legend offset from axis.`,
-                            type: 'number',
-                            controlType: 'range',
-                            controlOptions: {
-                                unit: 'px',
-                                min: -60,
-                                max: 60,
+                            {
+                                key: `tickRotation`,
+                                flavors,
+                                help: `${axisKey} axis tick rotation.`,
+                                type: 'number',
+                                controlType: 'angle',
+                                controlOptions: {
+                                    start: 90,
+                                    min: -90,
+                                    max: 90,
+                                },
                             },
-                        },
-                    ],
+                            {
+                                key: `legend`,
+                                flavors,
+                                help: `${axisKey} axis legend.`,
+                                type: 'string',
+                                controlType: 'text',
+                            },
+                            {
+                                key: `legendOffset`,
+                                flavors,
+                                help: `${axisKey} axis legend offset from axis.`,
+                                type: 'number',
+                                controlType: 'range',
+                                controlOptions: {
+                                    unit: 'px',
+                                    min: -60,
+                                    max: 60,
+                                },
+                            },
+                        ],
+                    },
                 },
-            },
-        ]
-    }, [])
+            ]
+        }, [])
 
 export const getLegendsProps = flavors => [
     {

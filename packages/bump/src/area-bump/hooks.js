@@ -233,3 +233,44 @@ export const useSerieHandlers = ({
 
     return handlers
 }
+
+export const useSeriesLabels = ({ series, position, padding, margin, color }) => {
+    const theme = useTheme()
+    const getColor = useInheritedColor(color, theme)
+
+    return useMemo(() => {
+        const textAnchor = position === 'start' ? 'end' : 'start'
+
+        if (position === 'start') {
+            return series.map(serie => {
+                const point = serie.points[0]
+
+                return {
+                    id: serie.id,
+                    x: point.x - padding,
+                    y: point.y,
+                    width: margin.left,
+                    height: point.height,
+                    color: getColor(serie),
+                    serie,
+                    textAnchor,
+                }
+            })
+        } else {
+            return series.map(serie => {
+                const point = serie.points[serie.points.length - 1]
+
+                return {
+                    id: serie.id,
+                    x: point.x + padding,
+                    y: point.y,
+                    width: margin.right,
+                    height: point.height,
+                    color: getColor(serie),
+                    serie,
+                    textAnchor,
+                }
+            })
+        }
+    }, [series, position, padding, margin, getColor])
+}
