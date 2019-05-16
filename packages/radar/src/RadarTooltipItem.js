@@ -55,7 +55,7 @@ const RadarTooltipItem = memo(
                 setIsHover(true)
                 showTooltipFromEvent(tooltip, event)
             },
-            [showTooltipFromEvent]
+            [showTooltipFromEvent, tooltip]
         )
         const hideItemTooltip = useCallback(() => {
             setIsHover(false)
