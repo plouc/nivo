@@ -98,6 +98,8 @@ class ScatterPlot extends Component {
             getSymbolSize,
             getColor,
 
+            symbol,
+
             animate,
             motionStiffness,
             motionDamping,
@@ -204,6 +206,7 @@ class ScatterPlot extends Component {
                                                 x={style.x}
                                                 y={style.y}
                                                 size={style.size}
+                                                symbol={symbol}
                                                 color={getColor(point.data)}
                                                 onMouseEnter={onMouseEnter}
                                                 onMouseMove={onMouseMove}
@@ -225,6 +228,7 @@ class ScatterPlot extends Component {
                                 y={point.y}
                                 size={getSymbolSize(point.data)}
                                 color={getColor(point.data)}
+                                symbol={symbol}
                                 data={point.data}
                                 onMouseEnter={onMouseEnter}
                                 onMouseMove={onMouseMove}
