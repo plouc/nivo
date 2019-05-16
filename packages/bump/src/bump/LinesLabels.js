@@ -6,86 +6,33 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Fragment, memo, useCallback, useMemo } from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { useTheme } from '@nivo/core'
-import { useInheritedColor } from '@nivo/colors'
-import { useTooltip } from '@nivo/tooltip'
-import LineTooltip from './LineTooltip'
+import { TransitionMotion, spring } from 'react-motion'
+import { useTheme, useMotionConfig } from '@nivo/core'
+import { inheritedColorPropType } from '@nivo/colors'
+import { useSeriesLabels } from './hooks'
 
-const LinesLabels = ({
-    series,
-    yScale,
-    position,
-    margin,
-    padding,
-    color,
-    setCurrentSerie,
-    getStyle,
-}) => {
+const LinesLabels = ({ series, position, padding, color }) => {
     const theme = useTheme()
-    const getColor = useInheritedColor(color, theme)
+    const { animate, springConfig } = useMotionConfig()
+    const labels = useSeriesLabels({
+        series,
+        position,
+        padding,
+        color,
+    })
 
-    const labels = useMemo(() => {
-        if (position === 'start') {
-            return series.map(serie => {
-                const point = serie.linePoints[0]
-
-                return {
-                    id: serie.id,
-                    x: point[0] - padding,
-                    y: point[1],
-                    width: margin.left,
-                    height: yScale.step(),
-                    color: getColor(serie),
-                    serie,
-                }
-            })
-        } else {
-            return series.map(serie => {
-                const point = serie.linePoints[serie.linePoints.length - 1]
-
-                return {
-                    id: serie.id,
-                    x: point[0] + padding,
-                    y: point[1],
-                    width: margin.right,
-                    height: yScale.step(),
-                    color: getColor(serie),
-                    serie,
-                }
-            })
-        }
-    }, [series, position, getColor])
-
-    const { showTooltipFromEvent, hideTooltip } = useTooltip()
-    const onMouseEnter = useCallback(
-        (serie, event) => {
-            showTooltipFromEvent(<LineTooltip serie={serie} />, event)
-            setCurrentSerie(serie.id)
-        },
-        [showTooltipFromEvent, setCurrentSerie]
-    )
-    const onMouseMove = useCallback(
-        (serie, event) => {
-            showTooltipFromEvent(<LineTooltip serie={serie} />, event)
-        },
-        [showTooltipFromEvent]
-    )
-    const onMouseLeave = useCallback(() => {
-        hideTooltip()
-        setCurrentSerie(null)
-    }, [hideTooltip, setCurrentSerie])
-
-    return labels.map(label => {
-        return (
-            <Fragment key={label.id}>
+    if (!animate) {
+        return labels.map(label => {
+            return (
                 <text
+                    key={label.id}
                     x={label.x}
                     y={label.y}
-                    textAnchor={position === 'start' ? 'end' : 'start'}
+                    textAnchor={label.textAnchor}
                     dominantBaseline="central"
-                    opacity={getStyle(label.serie).opacity}
+                    opacity={label.opacity}
                     style={{
                         ...theme.labels.text,
                         fill: label.color,
@@ -93,20 +40,44 @@ const LinesLabels = ({
                 >
                     {label.id}
                 </text>
-                <rect
-                    x={position === 'start' ? label.x - label.width + padding : label.x - padding}
-                    y={label.y - label.height / 2}
-                    width={label.width}
-                    height={label.height}
-                    fill="red"
-                    fillOpacity={0}
-                    onMouseEnter={event => onMouseEnter(label.serie, event)}
-                    onMouseMove={event => onMouseMove(label.serie, event)}
-                    onMouseLeave={onMouseLeave}
-                />
-            </Fragment>
-        )
-    })
+            )
+        })
+    }
+
+    return (
+        <TransitionMotion
+            styles={labels.map(label => ({
+                key: label.id,
+                data: label,
+                style: {
+                    x: spring(label.x, springConfig),
+                    y: spring(label.y, springConfig),
+                    opacity: spring(label.opacity, springConfig),
+                },
+            }))}
+        >
+            {interpolatedStyles => (
+                <>
+                    {interpolatedStyles.map(({ key, style, data: label }) => (
+                        <text
+                            key={key}
+                            x={style.x}
+                            y={style.y}
+                            textAnchor={label.textAnchor}
+                            dominantBaseline="central"
+                            opacity={style.opacity}
+                            style={{
+                                ...theme.labels.text,
+                                fill: label.color,
+                            }}
+                        >
+                            {label.id}
+                        </text>
+                    ))}
+                </>
+            )}
+        </TransitionMotion>
+    )
 }
 
 LinesLabels.propTypes = {
@@ -121,17 +92,9 @@ LinesLabels.propTypes = {
             ).isRequired,
         })
     ).isRequired,
-    yScale: PropTypes.func.isRequired,
     position: PropTypes.oneOf(['start', 'end']).isRequired,
     padding: PropTypes.number.isRequired,
-    margin: PropTypes.shape({
-        top: PropTypes.number.isRequired,
-        right: PropTypes.number.isRequired,
-        bottom: PropTypes.number.isRequired,
-        left: PropTypes.number.isRequired,
-    }).isRequired,
-    setCurrentSerie: PropTypes.func.isRequired,
-    getStyle: PropTypes.func.isRequired,
+    color: inheritedColorPropType.isRequired,
 }
 
 export default memo(LinesLabels)

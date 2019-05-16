@@ -6,61 +6,69 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo, useCallback, useMemo } from 'react'
-import { useTooltip } from '@nivo/tooltip'
-import LineTooltip from './LineTooltip'
+import React, { memo } from 'react'
+import PropTypes from 'prop-types'
+import { useMotionConfig } from '@nivo/core'
+import { useSerieHandlers } from './hooks'
+import AnimatedLine from './AnimatedLine'
+import StaticLine from './StaticLine'
 
-const Line = ({ serie, lineGenerator, yScale, getStyle, setCurrentSerie }) => {
-    const { showTooltipFromEvent, hideTooltip } = useTooltip()
-    const onMouseEnter = useCallback(
-        event => {
-            showTooltipFromEvent(<LineTooltip serie={serie} />, event)
-            setCurrentSerie(serie.id)
-        },
-        [serie, showTooltipFromEvent, setCurrentSerie]
-    )
-    const onMouseMove = useCallback(
-        event => {
-            showTooltipFromEvent(<LineTooltip serie={serie} />, event)
-        },
-        [serie, showTooltipFromEvent]
-    )
-    const onMouseLeave = useCallback(() => {
-        hideTooltip()
-        setCurrentSerie(null)
-    }, [hideTooltip, setCurrentSerie])
-    const path = useMemo(() => lineGenerator(serie.linePoints), [serie.linePoints])
+const Line = ({
+    serie,
+    lineGenerator,
+    yStep,
+    isInteractive,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+    onClick,
+    setCurrentSerie,
+    tooltip,
+}) => {
+    const handlers = useSerieHandlers({
+        serie,
+        isInteractive,
+        onMouseEnter,
+        onMouseMove,
+        onMouseLeave,
+        onClick,
+        setCurrent: setCurrentSerie,
+        tooltip,
+    })
 
-    const { lineWidth, opacity } = getStyle(serie)
+    const { animate } = useMotionConfig()
+    const LineComponent = animate ? AnimatedLine : StaticLine
 
-    if (lineWidth <= 0) return null
+    return React.createElement(LineComponent, {
+        serie,
+        lineGenerator,
+        yStep,
+        isInteractive,
+        onMouseEnter: handlers.onMouseEnter,
+        onMouseMove: handlers.onMouseMove,
+        onMouseLeave: handlers.onMouseLeave,
+        onClick: handlers.onClick,
+    })
+}
 
-    return (
-        <>
-            <path
-                fill="none"
-                stroke={serie.color}
-                strokeWidth={lineWidth}
-                d={path}
-                strokeLinecap="round"
-                strokeOpacity={opacity}
-                style={{
-                    pointerEvents: 'none',
-                }}
-            />
-            <path
-                fill="none"
-                stroke="red"
-                strokeOpacity={0}
-                strokeWidth={yScale.step()}
-                d={path}
-                strokeLinecap="butt"
-                onMouseEnter={onMouseEnter}
-                onMouseMove={onMouseMove}
-                onMouseLeave={onMouseLeave}
-            />
-        </>
-    )
+Line.propTypes = {
+    serie: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        color: PropTypes.string.isRequired,
+        style: PropTypes.shape({
+            lineWidth: PropTypes.number.isRequired,
+            opacity: PropTypes.number.isRequired,
+        }).isRequired,
+    }).isRequired,
+    lineGenerator: PropTypes.func.isRequired,
+    yStep: PropTypes.number.isRequired,
+    isInteractive: PropTypes.bool.isRequired,
+    onMouseEnter: PropTypes.func,
+    onMouseMove: PropTypes.func,
+    onMouseLeave: PropTypes.func,
+    onClick: PropTypes.func,
+    setCurrentSerie: PropTypes.func.isRequired,
+    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 }
 
 export default memo(Line)

@@ -46,27 +46,34 @@ const initialProperties = {
         left: 60,
     },
 
-    lineCurvaturePadding: 0.35,
-
+    interpolation: BumpDefaultProps.interpolation,
+    xPadding: BumpDefaultProps.xPadding,
     xOuterPadding: BumpDefaultProps.xOuterPadding,
     yOuterPadding: BumpDefaultProps.yOuterPadding,
 
+    colors: { scheme: 'spectral' },
     lineWidth: 3,
     activeLineWidth: 6,
-    inactiveLineWidth: 1,
+    inactiveLineWidth: 3,
+    opacity: BumpDefaultProps.opacity,
+    activeOpacity: BumpDefaultProps.activeOpacity,
+    inactiveOpacity: 0.15,
 
+    startLabel: false,
     startLabelPadding: BumpDefaultProps.startLabelPadding,
     startLabelTextColor: BumpDefaultProps.startLabelTextColor,
     endLabel: 'id',
     endLabelPadding: BumpDefaultProps.endLabelPadding,
     endLabelTextColor: BumpDefaultProps.endLabelTextColor,
 
-    colors: { scheme: 'spectral' },
-
     pointSize: 10,
     activePointSize: 16,
     inactivePointSize: 0,
-    pointColor: { from: 'serie.color' },
+    pointColor: { theme: 'background' },
+    pointBorderWidth: 3,
+    activePointBorderWidth: 3,
+    inactivePointBorderWidth: 0,
+    pointBorderColor: { from: 'serie.color' },
 
     enableGridX: true,
     enableGridY: true,
@@ -125,12 +132,27 @@ const Bump = () => {
             flavors={meta.flavors}
             currentFlavor="svg"
             properties={groups}
+            defaultProperties={BumpDefaultProps}
             initialProperties={initialProperties}
             propertiesMapper={mapper}
             generateData={generateData}
         >
             {(properties, data, theme, logAction) => {
-                return <ResponsiveBump data={data} {...properties} theme={theme} />
+                return (
+                    <ResponsiveBump
+                        data={data}
+                        {...properties}
+                        theme={theme}
+                        onClick={serie =>
+                            logAction({
+                                type: 'click',
+                                label: `[serie] ${serie.id}`,
+                                color: serie.color,
+                                data: serie,
+                            })
+                        }
+                    />
+                )
             }}
         </ComponentTemplate>
     )

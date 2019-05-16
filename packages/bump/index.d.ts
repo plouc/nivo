@@ -43,7 +43,6 @@ declare module '@nivo/bump' {
 
         theme?: Theme
         colors?: OrdinalColorsInstruction
-        blendMode?: CssMixBlendMode
 
         startLabel?: BumpLabel
         startLabelPadding?: number
@@ -56,6 +55,10 @@ declare module '@nivo/bump' {
         activePointSize?: number
         inactivePointSize?: number
         pointColor?: InheritedColorProp
+        pointBorderWidth?: number
+        activePointBorderWidth?: number
+        inactivePointBorderWidth?: number
+        pointBorderColor?: InheritedColorProp
 
         enableGridX?: boolean
         enableGridY?: boolean
