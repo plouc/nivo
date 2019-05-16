@@ -10,16 +10,16 @@ import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
 import { useTheme, useMotionConfig } from '@nivo/core'
+import { inheritedColorPropType } from '@nivo/colors'
 import { useSeriesLabels } from './hooks'
 
-const AreasLabels = ({ series, position, margin, padding, color }) => {
+const AreasLabels = ({ series, position, padding, color }) => {
     const theme = useTheme()
     const { animate, springConfig } = useMotionConfig()
     const labels = useSeriesLabels({
         series,
         position,
         padding,
-        margin,
         color,
     })
 
@@ -32,7 +32,7 @@ const AreasLabels = ({ series, position, margin, padding, color }) => {
                     y={label.y}
                     textAnchor={label.textAnchor}
                     dominantBaseline="central"
-                    opacity={label.serie.style.fillOpacity}
+                    opacity={label.opacity}
                     style={{
                         ...theme.labels.text,
                         fill: label.color,
@@ -52,7 +52,7 @@ const AreasLabels = ({ series, position, margin, padding, color }) => {
                 style: {
                     x: spring(label.x, springConfig),
                     y: spring(label.y, springConfig),
-                    fillOpacity: spring(label.serie.style.fillOpacity, springConfig),
+                    opacity: spring(label.opacity, springConfig),
                 },
             }))}
         >
@@ -65,7 +65,7 @@ const AreasLabels = ({ series, position, margin, padding, color }) => {
                             y={style.y}
                             textAnchor={label.textAnchor}
                             dominantBaseline="central"
-                            opacity={style.fillOpacity}
+                            opacity={style.opacity}
                             style={{
                                 ...theme.labels.text,
                                 fill: label.color,
@@ -94,12 +94,7 @@ AreasLabels.propTypes = {
     ).isRequired,
     position: PropTypes.oneOf(['start', 'end']).isRequired,
     padding: PropTypes.number.isRequired,
-    margin: PropTypes.shape({
-        top: PropTypes.number.isRequired,
-        right: PropTypes.number.isRequired,
-        bottom: PropTypes.number.isRequired,
-        left: PropTypes.number.isRequired,
-    }).isRequired,
+    color: inheritedColorPropType.isRequired,
 }
 
 export default memo(AreasLabels)

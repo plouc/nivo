@@ -6,55 +6,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { useMemo } from 'react'
-import { scalePoint } from 'd3-scale'
-import { line as d3Line, curveBasis } from 'd3-shape'
+import React, { useMemo, useCallback } from 'react'
+import { line as d3Line, curveBasis, curveLinear } from 'd3-shape'
+import { useTheme } from '@nivo/core'
+import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
+import { useTooltip } from '@nivo/tooltip'
+import { computeSeries } from './compute'
 
-export const useScales = ({ width, height, data, xOuterPadding, yOuterPadding }) =>
-    useMemo(() => {
-        let xValues = new Set()
-        data.forEach(serie => {
-            serie.data.forEach(datum => {
-                if (!xValues.has(datum.x)) {
-                    xValues.add(datum.x)
-                }
-            })
-        })
-
-        return {
-            xScale: scalePoint()
-                .domain(Array.from(xValues))
-                .range([0, width])
-                .padding(xOuterPadding),
-            yScale: scalePoint()
-                .domain(data.map((serie, i) => i + 1))
-                .range([0, height])
-                .padding(yOuterPadding),
-        }
-    }, [width, height, data, xOuterPadding, yOuterPadding])
-
-export const useLineGenerator = () => useMemo(() => d3Line().curve(curveBasis), [])
+export const useLineGenerator = interpolation =>
+    useMemo(() => d3Line().curve(interpolation === 'smooth' ? curveBasis : curveLinear), [
+        interpolation,
+    ])
 
 export const useSerieDerivedProp = instruction =>
     useMemo(() => {
         if (typeof instruction === 'function') return instruction
         return () => instruction
     }, [instruction])
-
-export const useLineWidth = ({ lineWidth, activeLineWidth, inactiveLineWidth, current }) => {
-    const getLineWidth = useSerieDerivedProp(lineWidth)
-    const getActiveLineWidth = useSerieDerivedProp(activeLineWidth)
-    const getInactiveLineWidth = useSerieDerivedProp(inactiveLineWidth)
-
-    return useMemo(
-        () => serie => {
-            if (current === null) return getLineWidth(serie)
-            if (serie.id === current) return getActiveLineWidth(serie)
-            return getInactiveLineWidth(serie)
-        },
-        [getLineWidth, getActiveLineWidth, getInactiveLineWidth, current]
-    )
-}
 
 export const useSerieStyle = ({
     lineWidth,
@@ -64,7 +32,7 @@ export const useSerieStyle = ({
     activeOpacity,
     inactiveOpacity,
     isInteractive,
-    current,
+    currentSerie,
 }) => {
     const getLineWidth = useSerieDerivedProp(lineWidth)
     const getActiveLineWidth = useSerieDerivedProp(activeLineWidth)
@@ -100,49 +68,49 @@ export const useSerieStyle = ({
         if (!isInteractive) return getNormalStyle
 
         return serie => {
-            if (current === null) return getNormalStyle(serie)
-            if (serie.id === current) return getActiveStyle(serie)
+            if (currentSerie === null) return getNormalStyle(serie)
+            if (serie.id === currentSerie) return getActiveStyle(serie)
             return getInactiveStyle(serie)
         }
-    }, [getNormalStyle, getActiveStyle, getInactiveStyle, isInteractive, current])
+    }, [getNormalStyle, getActiveStyle, getInactiveStyle, isInteractive, currentSerie])
 }
 
 export const usePointStyle = ({
-    size,
-    activeSize,
-    inactiveSize,
-    borderWidth,
-    activeBorderWidth,
-    inactiveBorderWidth,
+    pointSize,
+    activePointSize,
+    inactivePointSize,
+    pointBorderWidth,
+    activePointBorderWidth,
+    inactivePointBorderWidth,
     isInteractive,
     currentSerie,
 }) => {
-    const getSize = useSerieDerivedProp(size)
-    const getActiveSize = useSerieDerivedProp(activeSize)
-    const getInactiveSize = useSerieDerivedProp(inactiveSize)
+    const getSize = useSerieDerivedProp(pointSize)
+    const getActiveSize = useSerieDerivedProp(activePointSize)
+    const getInactiveSize = useSerieDerivedProp(inactivePointSize)
 
-    const getBorderWidth = useSerieDerivedProp(borderWidth)
-    const getActiveBorderWidth = useSerieDerivedProp(activeBorderWidth)
-    const getInactiveBorderWidth = useSerieDerivedProp(inactiveBorderWidth)
+    const getBorderWidth = useSerieDerivedProp(pointBorderWidth)
+    const getActiveBorderWidth = useSerieDerivedProp(activePointBorderWidth)
+    const getInactiveBorderWidth = useSerieDerivedProp(inactivePointBorderWidth)
 
     const getNormalStyle = useMemo(
         () => point => ({
-            size: getSize(point.serie),
-            borderWidth: getBorderWidth(point.serie),
+            size: getSize(point),
+            borderWidth: getBorderWidth(point),
         }),
         [getSize, getBorderWidth]
     )
     const getActiveStyle = useMemo(
         () => point => ({
-            size: getActiveSize(point.serie),
-            borderWidth: getActiveBorderWidth(point.serie),
+            size: getActiveSize(point),
+            borderWidth: getActiveBorderWidth(point),
         }),
         [getActiveSize, getActiveBorderWidth]
     )
     const getInactiveStyle = useMemo(
         () => point => ({
-            size: getInactiveSize(point.serie),
-            borderWidth: getInactiveBorderWidth(point.serie),
+            size: getInactiveSize(point),
+            borderWidth: getInactiveBorderWidth(point),
         }),
         [getInactiveSize, getInactiveBorderWidth]
     )
@@ -152,23 +120,205 @@ export const usePointStyle = ({
 
         return point => {
             if (currentSerie === null) return getNormalStyle(point)
-            if (point.serie.id === currentSerie) return getActiveStyle(point)
+            if (point.serieId === currentSerie) return getActiveStyle(point)
             return getInactiveStyle(point)
         }
     }, [getNormalStyle, getActiveStyle, getInactiveStyle, isInteractive, currentSerie])
 }
 
-export const usePointSize = ({ size, activeSize, inactiveSize, current }) => {
-    const getSize = useSerieDerivedProp(size)
-    const getActiveSize = useSerieDerivedProp(activeSize)
-    const getInactiveSize = useSerieDerivedProp(inactiveSize)
-
-    return useMemo(
-        () => point => {
-            if (current === null) return getSize(point.serie)
-            if (point.serie.id === current) return getActiveSize(point.serie)
-            return getInactiveSize(point.serie)
-        },
-        [getSize, getActiveSize, getInactiveSize, current]
+export const useBump = ({
+    width,
+    height,
+    data,
+    interpolation,
+    xPadding,
+    xOuterPadding,
+    yOuterPadding,
+    lineWidth,
+    activeLineWidth,
+    inactiveLineWidth,
+    colors,
+    opacity,
+    activeOpacity,
+    inactiveOpacity,
+    pointSize,
+    activePointSize,
+    inactivePointSize,
+    pointColor,
+    pointBorderWidth,
+    activePointBorderWidth,
+    inactivePointBorderWidth,
+    pointBorderColor,
+    isInteractive,
+    currentSerie,
+}) => {
+    const { series: rawSeries, xScale, yScale } = useMemo(
+        () =>
+            computeSeries({
+                width,
+                height,
+                data,
+                xPadding,
+                xOuterPadding,
+                yOuterPadding,
+            }),
+        [width, height, data, xPadding, xOuterPadding, yOuterPadding]
     )
+
+    const lineGenerator = useLineGenerator(interpolation)
+
+    const getColor = useOrdinalColorScale(colors, 'id')
+    const getSerieStyle = useSerieStyle({
+        lineWidth,
+        activeLineWidth,
+        inactiveLineWidth,
+        opacity,
+        activeOpacity,
+        inactiveOpacity,
+        isInteractive,
+        currentSerie,
+    })
+
+    const series = useMemo(
+        () =>
+            rawSeries.map(serie => {
+                serie.color = getColor(serie)
+                serie.style = getSerieStyle(serie)
+
+                return serie
+            }),
+        [rawSeries, getColor, getSerieStyle]
+    )
+
+    const theme = useTheme()
+    const getPointColor = useInheritedColor(pointColor, theme)
+    const getPointBorderColor = useInheritedColor(pointBorderColor, theme)
+    const getPointStyle = usePointStyle({
+        pointSize,
+        activePointSize,
+        inactivePointSize,
+        pointBorderWidth,
+        activePointBorderWidth,
+        inactivePointBorderWidth,
+        isInteractive,
+        currentSerie,
+    })
+    const points = useMemo(() => {
+        const pts = []
+        series.forEach(serie => {
+            serie.points.forEach(rawPoint => {
+                const point = {
+                    ...rawPoint,
+                    serie,
+                    serieId: serie.id,
+                }
+                point.color = getPointColor(point)
+                point.borderColor = getPointBorderColor(point)
+                point.style = getPointStyle({ ...point, serie })
+                pts.push(point)
+            })
+        })
+
+        return pts
+    }, [series, getPointColor, getPointBorderColor, getPointStyle])
+
+    return {
+        xScale,
+        yScale,
+        series,
+        points,
+        lineGenerator,
+    }
+}
+
+export const useSerieHandlers = ({
+    serie,
+    isInteractive,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+    onClick,
+    setCurrent,
+    tooltip,
+}) => {
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
+
+    const handleMouseEnter = useCallback(
+        event => {
+            showTooltipFromEvent(React.createElement(tooltip, { serie }), event)
+            setCurrent(serie.id)
+            onMouseEnter && onMouseEnter(serie, event)
+        },
+        [serie, onMouseEnter, showTooltipFromEvent, setCurrent]
+    )
+
+    const handleMouseMove = useCallback(
+        event => {
+            showTooltipFromEvent(React.createElement(tooltip, { serie }), event)
+            onMouseMove && onMouseMove(serie, event)
+        },
+        [serie, onMouseMove, showTooltipFromEvent]
+    )
+
+    const handleMouseLeave = useCallback(
+        event => {
+            hideTooltip()
+            setCurrent(null)
+            onMouseLeave && onMouseLeave(serie, event)
+        },
+        [serie, onMouseLeave, hideTooltip, setCurrent]
+    )
+
+    const handleClick = useCallback(
+        event => {
+            onClick && onClick(serie, event)
+        },
+        [serie, onClick]
+    )
+
+    const handlers = useMemo(
+        () => ({
+            onMouseEnter: isInteractive ? handleMouseEnter : undefined,
+            onMouseMove: isInteractive ? handleMouseMove : undefined,
+            onMouseLeave: isInteractive ? handleMouseLeave : undefined,
+            onClick: isInteractive ? handleClick : undefined,
+        }),
+        [isInteractive, handleMouseEnter, handleMouseMove, handleMouseLeave, handleClick]
+    )
+
+    return handlers
+}
+
+export const useSeriesLabels = ({ series, position, padding, color }) => {
+    const theme = useTheme()
+    const getColor = useInheritedColor(color, theme)
+
+    return useMemo(() => {
+        let textAnchor
+        let signedPadding
+        if (position === 'start') {
+            textAnchor = 'end'
+            signedPadding = padding * -1
+        } else {
+            textAnchor = 'start'
+            signedPadding = padding
+        }
+
+        return series.map(serie => {
+            const point =
+                position === 'start'
+                    ? serie.linePoints[0]
+                    : serie.linePoints[serie.linePoints.length - 1]
+
+            return {
+                id: serie.id,
+                x: point[0] + signedPadding,
+                y: point[1],
+                color: getColor(serie),
+                opacity: serie.style.opacity,
+                serie,
+                textAnchor,
+            }
+        })
+    }, [series, position, padding, getColor])
 }

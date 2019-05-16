@@ -6,11 +6,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo, useMemo, useState, Fragment } from 'react'
+import React, { memo, useState, Fragment } from 'react'
 import { withContainer, useDimensions, SvgWrapper } from '@nivo/core'
-import { useOrdinalColorScale } from '@nivo/colors'
 import { Grid, Axes } from '@nivo/axes'
-import { useScales, useLineGenerator, useSerieStyle, usePointStyle, usePointSize } from './hooks'
+import { useBump } from './hooks'
 import { BumpPropTypes, BumpDefaultProps } from './props'
 import Line from './Line'
 import LinesLabels from './LinesLabels'
@@ -20,23 +19,24 @@ const Bump = props => {
     const {
         data,
 
-        xOuterPadding,
-        yOuterPadding,
-
         width,
         height,
         margin: partialMargin,
 
         layers,
 
-        lineInterpolation,
-        lineCurvaturePadding,
+        interpolation,
+        xPadding,
+        xOuterPadding,
+        yOuterPadding,
+
+        colors,
         lineWidth,
-        lineOpacity,
         activeLineWidth,
-        activeLineOpacity,
         inactiveLineWidth,
-        inactiveLineOpacity,
+        opacity,
+        activeOpacity,
+        inactiveOpacity,
 
         startLabel,
         startLabelPadding,
@@ -61,12 +61,13 @@ const Bump = props => {
         enableGridX,
         enableGridY,
 
-        colors,
-
         isInteractive,
+        onMouseEnter,
+        onMouseMove,
+        onMouseLeave,
+        onClick,
+        tooltip,
     } = props
-
-    const [currentSerie, setCurrentSerie] = useState(null)
 
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -74,84 +75,35 @@ const Bump = props => {
         partialMargin
     )
 
-    const { xScale, yScale } = useScales({
+    const [currentSerie, setCurrentSerie] = useState(null)
+
+    const { series, points, xScale, yScale, lineGenerator } = useBump({
         width: innerWidth,
         height: innerHeight,
         data,
+        interpolation,
+        xPadding,
         xOuterPadding,
         yOuterPadding,
-    })
-    const linePadding = xScale.step() * lineCurvaturePadding
-
-    const getColor = useOrdinalColorScale(colors, 'id')
-
-    const { series, points } = useMemo(() => {
-        const allPoints = []
-        const series = data.map(rawSerie => {
-            const serie = {
-                ...rawSerie,
-                color: getColor(rawSerie),
-                points: [],
-                linePoints: [],
-            }
-            rawSerie.data.forEach((datum, i) => {
-                const point = {
-                    ...datum,
-                    id: `${datum.x}.${datum.y}`,
-                    x: xScale(datum.x),
-                    y: yScale(datum.y),
-                    serie,
-                }
-                allPoints.push(point)
-                serie.points.push(point)
-                if (i === 0) {
-                    serie.linePoints.push([0, point.y])
-                    serie.linePoints.push([point.x, point.y])
-                    serie.linePoints.push([point.x + linePadding, point.y])
-                } else if (i === rawSerie.data.length - 1) {
-                    serie.linePoints.push([point.x - linePadding, point.y])
-                    serie.linePoints.push([point.x, point.y])
-                    serie.linePoints.push([innerWidth, point.y])
-                } else {
-                    serie.linePoints.push([point.x - linePadding, point.y])
-                    serie.linePoints.push([point.x, point.y])
-                    serie.linePoints.push([point.x + linePadding, point.y])
-                }
-            })
-
-            return serie
-        })
-
-        return { series, points: allPoints }
-    }, [data, xScale, yScale, linePadding, getColor])
-
-    const lineGenerator = useLineGenerator()
-    const getSerieStyle = useSerieStyle({
         lineWidth,
         activeLineWidth,
         inactiveLineWidth,
-        opacity: lineOpacity,
-        activeOpacity: activeLineOpacity,
-        inactiveOpacity: inactiveLineOpacity,
-        isInteractive,
-        current: currentSerie,
-    })
-    const getPointStyle = usePointStyle({
-        size: pointSize,
-        activeSize: activePointSize,
-        inactiveSize: inactivePointSize,
-        borderWidth: pointBorderWidth,
-        activeBorderWidth: activePointBorderWidth,
-        inactiveBorderWidth: inactivePointBorderWidth,
+        colors,
+        opacity,
+        activeOpacity,
+        inactiveOpacity,
+        pointSize,
+        activePointSize,
+        inactivePointSize,
+        pointColor,
+        pointBorderWidth,
+        activePointBorderWidth,
+        inactivePointBorderWidth,
+        pointBorderColor,
         isInteractive,
         currentSerie,
     })
-    const getPointSize = usePointSize({
-        size: pointSize,
-        activeSize: activePointSize,
-        inactiveSize: inactivePointSize,
-        current: currentSerie,
-    })
+
     const layerById = {
         grid: (
             <Grid
@@ -185,14 +137,19 @@ const Bump = props => {
                         currentSerie={currentSerie}
                         setCurrentSerie={setCurrentSerie}
                         lineGenerator={lineGenerator}
-                        getStyle={getSerieStyle}
-                        yScale={yScale}
+                        yStep={yScale.step()}
                         margin={margin}
+                        isInteractive={isInteractive}
+                        onMouseEnter={onMouseEnter}
+                        onMouseMove={onMouseMove}
+                        onMouseLeave={onMouseLeave}
+                        onClick={onClick}
+                        tooltip={tooltip}
                     />
                 ))}
             </Fragment>
         ),
-        points: null,
+        points: <Points key="points" points={points} />,
     }
 
     if (startLabel !== false) {
@@ -200,13 +157,9 @@ const Bump = props => {
             <LinesLabels
                 key="start"
                 series={series}
-                yScale={yScale}
                 position="start"
                 padding={startLabelPadding}
-                margin={margin}
                 color={startLabelTextColor}
-                setCurrentSerie={setCurrentSerie}
-                getStyle={getSerieStyle}
             />
         )
     }
@@ -215,26 +168,12 @@ const Bump = props => {
             <LinesLabels
                 key="end"
                 series={series}
-                yScale={yScale}
                 position="end"
                 padding={endLabelPadding}
-                margin={margin}
                 color={endLabelTextColor}
-                setCurrentSerie={setCurrentSerie}
-                getStyle={getSerieStyle}
             />
         )
     }
-
-    layerById.points = (
-        <Points
-            key="points"
-            points={points}
-            color={pointColor}
-            borderColor={pointBorderColor}
-            getStyle={getPointStyle}
-        />
-    )
 
     return (
         <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>

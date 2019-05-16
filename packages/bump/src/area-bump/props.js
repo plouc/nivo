@@ -81,7 +81,7 @@ const commonDefaultProps = {
 
     interpolation: 'smooth',
     spacing: 0,
-    xPadding: 0.5,
+    xPadding: 0.6,
 
     colors: { scheme: 'nivo' },
     blendMode: 'normal',
@@ -97,11 +97,11 @@ const commonDefaultProps = {
     inactiveBorderOpacity: 0,
 
     startLabel: false,
-    startLabelPadding: 16,
-    startLabelTextColor: { from: 'color', modifiers: [['darker', 1.4]] },
+    startLabelPadding: 12,
+    startLabelTextColor: { from: 'color', modifiers: [['darker', 1]] },
     endLabel: 'id',
-    endLabelPadding: 16,
-    endLabelTextColor: { from: 'color', modifiers: [['darker', 1.4]] },
+    endLabelPadding: 12,
+    endLabelTextColor: { from: 'color', modifiers: [['darker', 1]] },
 
     enableGridX: true,
     axisTop: {},

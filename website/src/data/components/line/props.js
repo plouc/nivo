@@ -322,9 +322,6 @@ const props = [
         defaultValue: defaults.pointColor,
         controlType: 'inheritedColor',
         group: 'Points',
-        controlOptions: {
-            withCustomColor: true,
-        },
     },
     {
         key: 'pointBorderWidth',

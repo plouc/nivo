@@ -30,7 +30,7 @@ export default {
                 text: {
                     fill: '#6f6f6f',
                     fontSize: 13,
-                    fontWeight: 500,
+                    fontWeight: 600,
                 },
             },
         },
@@ -47,6 +47,7 @@ export default {
         labels: {
             text: {
                 fill: '#555555',
+                fontWeight: 600,
             },
         },
         annotations: {

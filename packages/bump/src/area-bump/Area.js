@@ -37,31 +37,17 @@ const Area = ({
     })
 
     const { animate } = useMotionConfig()
-    if (animate === true) {
-        return (
-            <AnimatedArea
-                serie={serie}
-                areaGenerator={areaGenerator}
-                blendMode={blendMode}
-                onMouseEnter={handlers.onMouseEnter}
-                onMouseMove={handlers.onMouseMove}
-                onMouseLeave={handlers.onMouseLeave}
-                onClick={handlers.onClick}
-            />
-        )
-    }
+    const AreaComponent = animate ? AnimatedArea : StaticArea
 
-    return (
-        <StaticArea
-            serie={serie}
-            areaGenerator={areaGenerator}
-            blendMode={blendMode}
-            onMouseEnter={handlers.onMouseEnter}
-            onMouseMove={handlers.onMouseMove}
-            onMouseLeave={handlers.onMouseLeave}
-            onClick={handlers.onClick}
-        />
-    )
+    return React.createElement(AreaComponent, {
+        serie,
+        areaGenerator,
+        blendMode,
+        onMouseEnter: handlers.onMouseEnter,
+        onMouseMove: handlers.onMouseMove,
+        onMouseLeave: handlers.onMouseLeave,
+        onClick: handlers.onClick,
+    })
 }
 
 Area.propTypes = {

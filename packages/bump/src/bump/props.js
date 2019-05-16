@@ -10,6 +10,7 @@ import PropTypes from 'prop-types'
 import { motionPropTypes } from '@nivo/core'
 import { ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
 import { axisPropType } from '@nivo/axes'
+import LineTooltip from './LineTooltip'
 
 const commonPropTypes = {
     data: PropTypes.arrayOf(
@@ -24,9 +25,6 @@ const commonPropTypes = {
         })
     ).isRequired,
 
-    xOuterPadding: PropTypes.number.isRequired,
-    yOuterPadding: PropTypes.number.isRequired,
-
     layers: PropTypes.arrayOf(
         PropTypes.oneOfType([
             PropTypes.oneOf(['grid', 'axes', 'labels', 'lines', 'points']),
@@ -34,14 +32,18 @@ const commonPropTypes = {
         ])
     ).isRequired,
 
-    lineInterpolation: PropTypes.oneOf(['linear', 'smooth']).isRequired,
-    lineCurvaturePadding: PropTypes.number.isRequired,
+    interpolation: PropTypes.oneOf(['linear', 'smooth']).isRequired,
+    xPadding: PropTypes.number.isRequired,
+    xOuterPadding: PropTypes.number.isRequired,
+    yOuterPadding: PropTypes.number.isRequired,
+
+    colors: ordinalColorsPropType.isRequired,
     lineWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
-    lineOpacity: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
     activeLineWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
-    activeLineOpacity: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
     inactiveLineWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
-    inactiveLineOpacity: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
+    opacity: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
+    activeOpacity: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
+    inactiveOpacity: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
 
     startLabel: PropTypes.oneOfType([PropTypes.oneOf([false]), PropTypes.string, PropTypes.func])
         .isRequired,
@@ -68,9 +70,12 @@ const commonPropTypes = {
     axisBottom: axisPropType,
     axisLeft: axisPropType,
 
-    colors: ordinalColorsPropType.isRequired,
-
     isInteractive: PropTypes.bool.isRequired,
+    onMouseEnter: PropTypes.func,
+    onMouseMove: PropTypes.func,
+    onMouseLeave: PropTypes.func,
+    onClick: PropTypes.func,
+    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 }
 
 export const BumpPropTypes = {
@@ -79,19 +84,20 @@ export const BumpPropTypes = {
 }
 
 const commonDefaultProps = {
+    layers: ['grid', 'axes', 'labels', 'lines', 'points'],
+
+    interpolation: 'smooth',
+    xPadding: 0.6,
     xOuterPadding: 0.5,
     yOuterPadding: 0.5,
 
-    layers: ['grid', 'axes', 'labels', 'lines', 'points'],
-
-    lineInterpolation: 'smooth',
-    lineCurvaturePadding: 0.25,
+    colors: { scheme: 'nivo' },
     lineWidth: 2,
-    lineOpacity: 1,
     activeLineWidth: 4,
-    activeLineOpacity: 1,
     inactiveLineWidth: 1,
-    inactiveLineOpacity: 0.3,
+    opacity: 1,
+    activeOpacity: 1,
+    inactiveOpacity: 0.3,
 
     startLabel: false,
     startLabelPadding: 16,
@@ -115,9 +121,8 @@ const commonDefaultProps = {
     axisBottom: {},
     axisLeft: {},
 
-    colors: { scheme: 'nivo' },
-
     isInteractive: true,
+    tooltip: LineTooltip,
 }
 
 export const BumpDefaultProps = {

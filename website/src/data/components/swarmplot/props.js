@@ -393,9 +393,6 @@ const props = [
         defaultValue: defaults.borderColor,
         controlType: 'color',
         group: 'Style',
-        controlOptions: {
-            withCustomColor: true,
-        },
     },
     */
     {

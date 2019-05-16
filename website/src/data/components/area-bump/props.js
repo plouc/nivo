@@ -207,9 +207,6 @@ const props = [
         defaultValue: defaults.borderColor,
         controlType: 'inheritedColor',
         group: 'Style',
-        controlOptions: {
-            withCustomColor: true,
-        },
     },
     {
         key: 'borderOpacity',
@@ -260,9 +257,6 @@ const props = [
         defaultValue: defaults.startLabelTextColor,
         controlType: 'inheritedColor',
         group: 'Labels',
-        controlOptions: {
-            withCustomColor: true,
-        },
     },
     {
         key: 'endLabel',
@@ -289,9 +283,6 @@ const props = [
         defaultValue: defaults.endLabelTextColor,
         controlType: 'inheritedColor',
         group: 'Labels',
-        controlOptions: {
-            withCustomColor: true,
-        },
     },
     {
         key: 'enableGridX',
