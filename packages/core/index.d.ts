@@ -113,4 +113,20 @@ declare module '@nivo/core' {
         | 'saturation'
         | 'color'
         | 'luminosity'
+
+    export type StackOrder = 'ascending' | 'descending' | 'insideOut' | 'none' | 'reverse'
+
+    export type StackOffset = 'expand' | 'diverging' | 'none' | 'silhouette' | 'wiggle'
+
+    export type AreaCurve =
+        | 'basis'
+        | 'cardinal'
+        | 'catmullRom'
+        | 'linear'
+        | 'monotoneX'
+        | 'monotoneY'
+        | 'natural'
+        | 'step'
+        | 'stepAfter'
+        | 'stepBefore'
 }

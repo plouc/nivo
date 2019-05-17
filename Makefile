@@ -144,6 +144,7 @@ packages-tslint: ##@1 packages run tslint on all packages
         ./packages/sankey/index.d.ts \
         ./packages/scales/index.d.ts \
         ./packages/scatterplot/index.d.ts \
+        ./packages/stream/index.d.ts \
         ./packages/swarmplot/index.d.ts \
         ./packages/waffle/index.d.ts
 

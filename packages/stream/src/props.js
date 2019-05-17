@@ -51,7 +51,7 @@ export const StreamPropTypes = {
     borderColor: inheritedColorPropType.isRequired,
     getBorderColor: PropTypes.func.isRequired, // computed
 
-    enableDots: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]).isRequired,
+    enableDots: PropTypes.bool.isRequired,
     renderDot: PropTypes.func.isRequired,
     dotPosition: PropTypes.oneOf(['start', 'center', 'end']).isRequired,
     dotSize: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
