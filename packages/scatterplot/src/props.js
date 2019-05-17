@@ -60,7 +60,7 @@ export const ScatterPlotPropTypes = {
     symbolSize: PropTypes.oneOfType([PropTypes.func, PropTypes.number]).isRequired,
     symbolShape: PropTypes.oneOfType([PropTypes.oneOf(['circle', 'square'])]).isRequired,
 
-    symbol: PropTypes.func,
+    symbol: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 
     markers: PropTypes.arrayOf(
         PropTypes.shape({

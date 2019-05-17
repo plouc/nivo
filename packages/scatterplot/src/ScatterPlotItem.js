@@ -24,30 +24,47 @@ const ScatterPlotItem = ({
     symbol,
     point,
 }) =>
-    symbol ? (
-        React.createElement(symbol, {
-            x,
-            y,
-            size,
-            color,
-            onMouseEnter,
-            onMouseMove,
-            onMouseLeave,
-            onClick,
-            point,
-        })
-    ) : (
-        <circle
-            cx={x}
-            cy={y}
-            r={size / 2}
-            fill={color}
-            onMouseEnter={onMouseEnter}
-            onMouseMove={onMouseMove}
-            onMouseLeave={onMouseLeave}
-            onClick={onClick}
-        />
-    )
+    React.createElement(symbol, {
+        x,
+        y,
+        size,
+        color,
+        onMouseEnter,
+        onMouseMove,
+        onMouseLeave,
+        onClick,
+        point,
+    })
+
+const DefaultSymbol = ({ x, y, size, color, onMouseEnter, onMouseMove, onMouseLeave, onClick }) => (
+    <circle
+        cx={x}
+        cy={y}
+        r={size / 2}
+        fill={color}
+        onMouseEnter={onMouseEnter}
+        onMouseMove={onMouseMove}
+        onMouseLeave={onMouseLeave}
+        onClick={onClick}
+    />
+)
+
+const commonProps = {
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired,
+    size: PropTypes.number.isRequired,
+    color: PropTypes.string.isRequired,
+    onMouseEnter: PropTypes.func,
+    onMouseMove: PropTypes.func,
+    onMouseLeave: PropTypes.func,
+    onClick: PropTypes.func,
+}
+
+DefaultSymbol.propTypes = commonProps
+
+ScatterPlotItem.defaultProps = {
+    symbol: DefaultSymbol,
+}
 
 ScatterPlotItem.propTypes = {
     point: PropTypes.shape({
@@ -65,17 +82,9 @@ ScatterPlotItem.propTypes = {
         y: PropTypes.number.isRequired,
     }).isRequired,
 
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-    size: PropTypes.number.isRequired,
-    color: PropTypes.string.isRequired,
+    ...commonProps,
 
-    symbol: PropTypes.func,
-
-    onMouseEnter: PropTypes.func,
-    onMouseMove: PropTypes.func,
-    onMouseLeave: PropTypes.func,
-    onClick: PropTypes.func,
+    symbol: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 
     theme: PropTypes.object.isRequired,
 }
