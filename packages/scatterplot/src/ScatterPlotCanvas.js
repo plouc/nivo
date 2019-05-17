@@ -200,7 +200,7 @@ class ScatterPlotCanvas extends Component {
 
         points.forEach(point => {
             if (symbol) {
-                symbol(this.ctx, point);
+                symbol(this.ctx, point)
                 this.ctx.fill()
             } else {
                 this.ctx.beginPath()
