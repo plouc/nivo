@@ -153,6 +153,7 @@ class ScatterPlotCanvas extends Component {
             theme,
             getSymbolSize,
             getColor,
+            symbol,
 
             legends,
         } = props
@@ -198,10 +199,15 @@ class ScatterPlotCanvas extends Component {
         })
 
         points.forEach(point => {
-            this.ctx.beginPath()
-            this.ctx.arc(point.x, point.y, getSymbolSize(point.data) / 2, 0, 2 * Math.PI)
-            this.ctx.fillStyle = getColor(point.data)
-            this.ctx.fill()
+            if (symbol) {
+                symbol(this.ctx, point);
+                this.ctx.fill()
+            } else {
+                this.ctx.beginPath()
+                this.ctx.arc(point.x, point.y, getSymbolSize(point.data) / 2, 0, 2 * Math.PI)
+                this.ctx.fillStyle = getColor(point.data)
+                this.ctx.fill()
+            }
         })
 
         if (useMesh === true && debugMesh === true) {

@@ -125,6 +125,11 @@ const commonProps = {
     height: 500,
     margin: { top: 20, right: 20, bottom: 80, left: 80 },
     symbolSize: 10,
+    symbol: (ctx, point) => {
+        const { x, y} = point;
+        ctx.fillStyle = 'blue';
+        ctx.fillRect(x - 5 , y - 5, 10, 10);
+    },
     axisBottom: {
         format: d => `week ${d}`,
     },
