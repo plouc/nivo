@@ -16,7 +16,7 @@ const stories = storiesOf('Sankey', module)
 
 stories.add('default', () => <Sankey {...commonProperties} />)
 
-stories.add('custom align (right)', () => <Sankey {...commonProperties} align="right" />)
+stories.add('custom align (end)', () => <Sankey {...commonProperties} align="end" />)
 
 stories.add('outside labels', () => <Sankey {...commonProperties} labelPosition="outside" />)
 
