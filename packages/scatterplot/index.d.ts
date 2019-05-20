@@ -39,8 +39,8 @@ declare module '@nivo/scatterplot' {
     export type SymbolCanvas = (
         ctx: CanvasRenderingContext2D,
         point: Point,
-        getSymbolSize: (data: Point.data) => void,
-        getColor: (data: Point.data) => void
+        getSymbolSize: ScatterPlotSizeGetter,
+        getColor: (data: ScatterPlotDatum) => void
     ) => void
 
     export type ScatterPlotMouseHandler = (
