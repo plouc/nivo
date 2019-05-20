@@ -18,7 +18,6 @@ import { computeMeshPoints, computeMesh } from '@nivo/voronoi'
 import { ScatterPlotDefaultProps } from './props'
 
 const commonEnhancers = [
-    defaultProps(ScatterPlotDefaultProps),
     withTheme(),
     withDimensions(),
     withMotion(),
@@ -55,6 +54,7 @@ const commonEnhancers = [
 
 export const enhanceSvg = Component =>
     compose(
+        defaultProps(ScatterPlotDefaultProps),
         ...commonEnhancers,
         pure,
         setDisplayName('ScatterPlot')
@@ -62,6 +62,15 @@ export const enhanceSvg = Component =>
 
 export const enhanceCanvas = Component =>
     compose(
+        defaultProps({
+            ...ScatterPlotDefaultProps,
+            symbol: (ctx, point, getSymbolSize, getColor) => {
+                this.ctx.beginPath()
+                this.ctx.arc(point.x, point.y, getSymbolSize(point.data) / 2, 0, 2 * Math.PI)
+                this.ctx.fillStyle = getColor(point.data)
+                this.ctx.fill()
+            },
+        }),
         ...commonEnhancers,
         withPropsOnChange(
             ['points', 'width', 'height', 'debugMesh'],
