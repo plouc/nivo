@@ -12,6 +12,7 @@ import { ordinalColorsPropType } from '@nivo/colors'
 import { axisPropType } from '@nivo/axes'
 import { LegendPropShape } from '@nivo/legends'
 import { scalePropType } from '@nivo/scales'
+import { DefaultSymbol } from './ScatterPlotItem'
 
 export const ScatterPlotPropTypes = {
     data: PropTypes.arrayOf(
@@ -111,6 +112,7 @@ export const ScatterPlotDefaultProps = {
 
     symbolSize: 6,
     symbolShape: 'circle',
+    symbol: DefaultSymbol,
 
     colors: { scheme: 'nivo' },
 

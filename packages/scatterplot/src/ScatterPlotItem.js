@@ -36,7 +36,16 @@ const ScatterPlotItem = ({
         point,
     })
 
-const DefaultSymbol = ({ x, y, size, color, onMouseEnter, onMouseMove, onMouseLeave, onClick }) => (
+export const DefaultSymbol = ({
+    x,
+    y,
+    size,
+    color,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+    onClick,
+}) => (
     <circle
         cx={x}
         cy={y}
@@ -61,10 +70,6 @@ const commonProps = {
 }
 
 DefaultSymbol.propTypes = commonProps
-
-ScatterPlotItem.defaultProps = {
-    symbol: DefaultSymbol,
-}
 
 ScatterPlotItem.propTypes = {
     point: PropTypes.shape({
