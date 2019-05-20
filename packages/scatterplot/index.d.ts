@@ -24,17 +24,17 @@ declare module '@nivo/scatterplot' {
         }
     }
 
-    export type SymbolSvg = (
-        x: number,
-        y: number,
-        size: number,
-        color: string,
-        onMouseEnter: ScatterPlotMouseHandler,
-        onMouseMove: ScatterPlotMouseHandler,
-        onMouseLeave: ScatterPlotMouseHandler,
-        onClick: ScatterPlotMouseHandler,
+    export type SymbolSvg = (arg: {
+        x: number
+        y: number
+        size: number
+        color: string
+        onMouseEnter?: ScatterPlotMouseHandler
+        onMouseMove?: ScatterPlotMouseHandler
+        onMouseLeave?: ScatterPlotMouseHandler
+        onClick?: ScatterPlotMouseHandler
         point: Point
-    ) => React.ReactNode
+    }) => React.ReactNode
 
     export type SymbolCanvas = (
         ctx: CanvasRenderingContext2D,
