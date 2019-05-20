@@ -16,6 +16,33 @@ declare module '@nivo/scatterplot' {
         color: string
     }
 
+    interface Point {
+        id: string
+        data: {
+            x: number
+            y: number
+        }
+    }
+
+    export type SymbolSvg = (
+        x: number,
+        y: number,
+        size: number,
+        color: string,
+        onMouseEnter: ScatterPlotMouseHandler,
+        onMouseMove: ScatterPlotMouseHandler,
+        onMouseLeave: ScatterPlotMouseHandler,
+        onClick: ScatterPlotMouseHandler,
+        point: Point
+    ) => React.ReactNode
+
+    export type SymbolCanvas = (
+        ctx: CanvasRenderingContext2D,
+        point: Point,
+        getSymbolSize: (data: Point) => void,
+        getColor: (data: Point) => void
+    ) => void
+
     export type ScatterPlotMouseHandler = (
         data: ScatterPlotDatum,
         event: React.MouseEvent<any>
@@ -24,13 +51,7 @@ declare module '@nivo/scatterplot' {
     export type ScatterPlotSizeGetter = (data: ScatterPlotDatum) => number
 
     export interface ScatterPlotProps {
-        data: Array<{
-            id: string
-            data: Array<{
-                x: number
-                y: number
-            }>
-        }>
+        data: Point[]
 
         xScale?: Scale
         yScale?: Scale
@@ -50,6 +71,7 @@ declare module '@nivo/scatterplot' {
 
         symbolSize?: number | ScatterPlotSizeGetter
         symbolShape?: 'circle' | 'square'
+        symbol?: SymbolCanvas | SymbolSvg | React.MemoExoticComponent<any>
 
         isInteractive?: boolean
         useMesh?: boolean
