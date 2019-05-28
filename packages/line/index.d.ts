@@ -83,6 +83,8 @@ declare module '@nivo/line' {
     export type LineCustomLayer = (props: LineCustomLayerProps) => React.ReactNode
     export type Layer = LineLayerType | LineCustomLayer
 
+    export type TooltipProp = React.StatelessComponent<LineComputedSerieData[]>
+
     export interface LineProps {
         data: LineSerieData[]
 
@@ -137,6 +139,7 @@ declare module '@nivo/line' {
         sliceTooltip?: (data: LineSliceData) => React.ReactNode
 
         tooltipFormat?: TooltipFormatter | string
+        tooltip?: TooltipProp
 
         enableCrosshair?: boolean
         crosshairType?: CrosshairType
