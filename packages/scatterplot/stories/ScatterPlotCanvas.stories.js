@@ -365,26 +365,33 @@ stories.add('custom tooltip', () => (
     />
 ))
 
-stories.add('custom symbol', () => (
-    <ScatterPlotCanvas
-        {...commonProps}
-        symbol={(ctx, point, getSymbolSize, getColor) => {
-            const size = getSymbolSize();
-            let { x, y, data: { serie } } = point
-            y -= size / 2 // center it
-            ctx.fillStyle = getColor({ serie })
-            ctx.beginPath()
-            ctx.moveTo(x, y);
-            ctx.lineTo(x + size / 2, y + size / 2)
-            ctx.lineTo(x, y + size)
-            ctx.lineTo(x - size / 2, y + size / 2)
-            ctx.closePath()
-            ctx.fill()
-        }}
-    />
-), {
-    info: {
-        text: `
+stories.add(
+    'custom symbol',
+    () => (
+        <ScatterPlotCanvas
+            {...commonProps}
+            symbol={(ctx, point, getSymbolSize, getColor) => {
+                const size = getSymbolSize()
+                let {
+                    x,
+                    y,
+                    data: { serie },
+                } = point
+                y -= size / 2 // center it
+                ctx.fillStyle = getColor({ serie })
+                ctx.beginPath()
+                ctx.moveTo(x, y)
+                ctx.lineTo(x + size / 2, y + size / 2)
+                ctx.lineTo(x, y + size)
+                ctx.lineTo(x - size / 2, y + size / 2)
+                ctx.closePath()
+                ctx.fill()
+            }}
+        />
+    ),
+    {
+        info: {
+            text: `
             You can specify a custom symbol by providing a drawing function into the \`symbol\` prop.
 
             \`\`\`
@@ -406,5 +413,6 @@ stories.add('custom symbol', () => (
             />
             \`\`\`
             `,
-    },
-})
+        },
+    }
+)

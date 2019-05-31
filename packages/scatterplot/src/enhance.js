@@ -65,10 +65,10 @@ export const enhanceCanvas = Component =>
         defaultProps({
             ...ScatterPlotDefaultProps,
             symbol: (ctx, point, getSymbolSize, getColor) => {
-                this.ctx.beginPath()
-                this.ctx.arc(point.x, point.y, getSymbolSize(point.data) / 2, 0, 2 * Math.PI)
-                this.ctx.fillStyle = getColor(point.data)
-                this.ctx.fill()
+                ctx.beginPath()
+                ctx.arc(point.x, point.y, getSymbolSize(point.data) / 2, 0, 2 * Math.PI)
+                ctx.fillStyle = getColor(point.data)
+                ctx.fill()
             },
         }),
         ...commonEnhancers,
