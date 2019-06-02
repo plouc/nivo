@@ -12,7 +12,7 @@ import isNumber from 'lodash/isNumber'
 import isPlainObject from 'lodash/isPlainObject'
 import { scaleLinear } from 'd3-scale'
 
-export const getSizeGenerator = size => {
+export const getNodeSizeGenerator = size => {
     if (typeof size === 'function') return size
     if (isNumber(size)) return () => size
     if (isPlainObject(size)) {

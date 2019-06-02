@@ -134,9 +134,9 @@ const props = [
         },
     },
     {
-        key: 'size',
+        key: 'nodeSize',
         group: 'Base',
-        defaultValue: defaults.size,        
+        defaultValue: defaults.nodeSize,        
         type: 'number | object | Function',
         help: `How to compute node size, static or dynamic.`,
         description: `

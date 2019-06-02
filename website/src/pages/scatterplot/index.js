@@ -36,7 +36,7 @@ const initialProperties = {
     colors: ScatterPlotDefaultProps.colors,
     blendMode: 'multiply',
 
-    size: ScatterPlotDefaultProps.size,
+    nodeSize: ScatterPlotDefaultProps.nodeSize,
 
     enableGridX: ScatterPlotDefaultProps.enableGridX,
     enableGridY: ScatterPlotDefaultProps.enableGridY,

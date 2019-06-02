@@ -32,7 +32,7 @@ const ScatterPlot = props => {
         colors,
         blendMode,
 
-        size,
+        nodeSize,
         renderNode,
 
         enableGridX,
@@ -65,7 +65,7 @@ const ScatterPlot = props => {
         yScaleSpec,
         width: innerWidth,
         height: innerHeight,
-        size,
+        nodeSize,
         colors,
     })
 
