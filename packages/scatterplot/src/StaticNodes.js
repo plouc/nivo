@@ -8,6 +8,7 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
+import { blendModePropType } from '@nivo/core'
 import { NodePropType } from './props'
 import NodeWrapper from './NodeWrapper'
 
@@ -20,6 +21,7 @@ const StaticNodes = ({
     onMouseLeave,
     onClick,
     tooltip,
+    blendMode,
 }) => {
     return (
         <>
@@ -38,6 +40,7 @@ const StaticNodes = ({
                     onMouseLeave={onMouseLeave}
                     onClick={onClick}
                     tooltip={tooltip}
+                    blendMode={blendMode}
                 />
             ))}
         </>
@@ -61,6 +64,8 @@ StaticNodes.propTypes = {
         PropTypes.func,
         PropTypes.object
     ]).isRequired,
+
+    blendMode: blendModePropType.isRequired,
 }
 
 export default memo(StaticNodes)

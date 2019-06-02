@@ -8,12 +8,14 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
+import { blendModePropType } from '@nivo/core'
 
 const Node = ({
     x,
     y,
     size,
     color,
+    blendMode,
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
@@ -24,6 +26,7 @@ const Node = ({
         cy={y}
         r={size / 2}
         fill={color}
+        style={{ mixBlendMode: blendMode }}
         onMouseEnter={onMouseEnter}
         onMouseMove={onMouseMove}
         onMouseLeave={onMouseLeave}
@@ -51,6 +54,7 @@ Node.propTypes = {
     y: PropTypes.number.isRequired,
     size: PropTypes.number.isRequired,
     color: PropTypes.string.isRequired,
+    blendMode: blendModePropType.isRequired,
 
     onMouseEnter: PropTypes.func,
     onMouseMove: PropTypes.func,

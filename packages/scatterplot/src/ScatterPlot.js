@@ -30,6 +30,7 @@ const ScatterPlot = props => {
         layers,
 
         colors,
+        blendMode,
 
         size,
         renderNode,
@@ -113,6 +114,7 @@ const ScatterPlot = props => {
             onMouseLeave,
             onClick,
             tooltip,
+            blendMode,
         }),
         markers: null,
         mesh: null,

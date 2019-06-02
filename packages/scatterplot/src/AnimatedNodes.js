@@ -9,7 +9,7 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
-import { useMotionConfig } from '@nivo/core'
+import { useMotionConfig, blendModePropType } from '@nivo/core'
 import { NodePropType } from './props'
 import NodeWrapper from './NodeWrapper'
 
@@ -22,6 +22,7 @@ const AnimatedNodes = ({
     onMouseLeave,
     onClick,
     tooltip,
+    blendMode,
 }) => {
     const { springConfig } = useMotionConfig()
 
@@ -54,6 +55,7 @@ const AnimatedNodes = ({
                             onMouseLeave={onMouseLeave}
                             onClick={onClick}
                             tooltip={tooltip}
+                            blendMode={blendMode}
                         />
                     ))}
                 </>
@@ -79,6 +81,8 @@ AnimatedNodes.propTypes = {
         PropTypes.func,
         PropTypes.object
     ]).isRequired,
+
+    blendMode: blendModePropType.isRequired,
 }
 
 export default memo(AnimatedNodes)
