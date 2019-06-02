@@ -233,12 +233,27 @@ const props = [
     },
     {
         key: 'colors',
+        group: 'Style',
         help: 'Defines color range.',
         type: 'string | Function | string[]',
         required: false,
         defaultValue: defaults.colors,
         controlType: 'ordinalColors',
+    },
+    {
+        key: 'blendMode',
         group: 'Style',
+        flavors: ['svg'],
+        help: 'Defines CSS mix-blend-mode property.',
+        description: `
+            Defines CSS \`mix-blend-mode\` property for nodes,
+            see
+            [MDN documentation](https://developer.mozilla.org/fr/docs/Web/CSS/mix-blend-mode).
+        `,
+        type: 'string',
+        required: false,
+        defaultValue: defaults.blendMode,
+        controlType: 'blendMode',
     },
     {
         key: 'layers',

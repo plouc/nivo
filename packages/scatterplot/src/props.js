@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
-import { noop, motionPropTypes } from '@nivo/core'
+import { noop, motionPropTypes, blendModePropType } from '@nivo/core'
 import { ordinalColorsPropType } from '@nivo/colors'
 import { axisPropType } from '@nivo/axes'
 import { LegendPropShape } from '@nivo/legends'
@@ -75,6 +75,7 @@ const commonPropTypes = {
     ),
 
     colors: ordinalColorsPropType.isRequired,
+    blendMode: blendModePropType.isRequired,
 
     isInteractive: PropTypes.bool.isRequired,
     useMesh: PropTypes.bool.isRequired,
@@ -121,10 +122,11 @@ const commonDefaultProps = {
     axisBottom: {},
     axisLeft: {},
 
-    size: 6,
+    size: 9,
     renderNode: Node,
 
     colors: { scheme: 'nivo' },
+    blendMode: 'normal',
 
     isInteractive: true,
     useMesh: false,

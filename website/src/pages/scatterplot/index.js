@@ -33,12 +33,13 @@ const initialProperties = {
         max: 'auto',
     },
 
-    colors: { scheme: 'nivo' },
+    colors: ScatterPlotDefaultProps.colors,
+    blendMode: 'multiply',
 
-    size: 6,
+    size: ScatterPlotDefaultProps.size,
 
-    enableGridX: true,
-    enableGridY: true,
+    enableGridX: ScatterPlotDefaultProps.enableGridX,
+    enableGridY: ScatterPlotDefaultProps.enableGridY,
     axisTop: {
         enable: false,
         orient: 'top',

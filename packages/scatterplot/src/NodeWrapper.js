@@ -8,6 +8,7 @@
  */
 import React, { memo, useCallback } from 'react'
 import PropTypes from 'prop-types'
+import { blendModePropType } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
 import { NodePropType } from './props'
 
@@ -24,6 +25,7 @@ const NodeWrapper = ({
     onMouseLeave,
     onClick,
     tooltip,
+    blendMode,
 }) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
@@ -64,6 +66,7 @@ const NodeWrapper = ({
         y,
         size,
         color,
+        blendMode,
         onMouseEnter: isInteractive ? handleMouseEnter : undefined,
         onMouseMove: isInteractive ? handleMouseMove : undefined,
         onMouseLeave: isInteractive ? handleMouseLeave : undefined,
@@ -89,6 +92,8 @@ NodeWrapper.propTypes = {
         PropTypes.func,
         PropTypes.object
     ]).isRequired,
+
+    blendMode: blendModePropType.isRequired,
 }
 
 export default memo(NodeWrapper)
