@@ -14,7 +14,7 @@ const Tooltip = ({ node }) => {
     return (
         <BasicTooltip
             id={node.serieId}
-            value={`x: ${node.data.x}, y: ${node.data.y}`}
+            value={`x: ${node.data.formattedX}, y: ${node.data.formattedY}`}
             enableChip={true}
             color={node.style.color}
         />

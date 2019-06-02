@@ -27,7 +27,7 @@ ScatterPlot:
 
     It lets you plot data on 2 dimensions, **x** & **y**, and can optionally
     show a third quantitative dimension if you enable **dynamic node size**,
-    please have a look at the `size` property for further information.
+    please have a look at the `nodeSize` property for further information.
 
     The responsive alternative of this component is
     `ResponsiveScatterPlot`, it also offers another

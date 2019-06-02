@@ -42,9 +42,7 @@ export const getNodeSizeGenerator = size => {
     throw new Error('symbolSize is invalid, it should be either a function, a number or an object')
 }
 
-export const computePoints = ({
-    series
-}) => {
+export const computePoints = ({ series, formatX, formatY }) => {
     return series.reduce(
         (agg, serie) => [
             ...agg,
@@ -53,16 +51,20 @@ export const computePoints = ({
                 serieId: serie.id,
                 x: d.position.x,
                 y: d.position.y,
-                data: { ...d.data, serie, id: `${serie.id}.${i}` },
+                data: {
+                    ...d.data,
+                    id: `${serie.id}.${i}`,
+                    formattedX: formatX(d.data.x),
+                    formattedY: formatY(d.data.y),
+                    serie,
+                },
             })),
         ],
         []
     )
 }
 
-export const computeLegendData = ({
-    series,
-}) => {
+export const computeLegendData = ({ series }) => {
     return series.map(serie => ({
         id: serie.id,
         label: serie.id,

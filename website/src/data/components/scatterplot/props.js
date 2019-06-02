@@ -84,10 +84,16 @@ const props = [
         },
     },
     {
+        key: 'xFormat',
+        group: 'Base',
+        type: 'string | Function',
+        help: 'Optional formatter for x values.',
+    },
+    {
         key: 'yScale',
+        group: 'Base',
         type: 'object',
         help: `Y scale configuration.`,
-        group: 'Base',
         controlType: 'object',
         controlOptions: {
             props: [
@@ -134,9 +140,15 @@ const props = [
         },
     },
     {
+        key: 'yFormat',
+        group: 'Base',
+        type: 'string | Function',
+        help: 'Optional formatter for y values.',
+    },
+    {
         key: 'nodeSize',
         group: 'Base',
-        defaultValue: defaults.nodeSize,        
+        defaultValue: defaults.nodeSize,
         type: 'number | object | Function',
         help: `How to compute node size, static or dynamic.`,
         description: `
@@ -282,7 +294,7 @@ const props = [
         key: 'renderNode',
         flavors: ['svg', 'canvas'],
         group: 'Customization',
-        help: 'Override default node rendering.'
+        help: 'Override default node rendering.',
     },
     {
         key: 'enableGridX',
