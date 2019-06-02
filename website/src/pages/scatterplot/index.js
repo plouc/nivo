@@ -35,9 +35,10 @@ const initialProperties = {
 
     colors: { scheme: 'nivo' },
 
-    symbolSize: 6,
-    symbolShape: 'circle',
+    size: 6,
 
+    enableGridX: true,
+    enableGridY: true,
     axisTop: {
         enable: false,
         orient: 'top',
@@ -78,9 +79,6 @@ const initialProperties = {
         legendOffset: -60,
         format: d => `${d} cm`,
     },
-
-    enableGridX: true,
-    enableGridY: true,
 
     animate: true,
     motionStiffness: 90,
@@ -142,10 +140,10 @@ const ScatterPlot = () => {
                         onClick={node => {
                             logAction({
                                 type: 'click',
-                                label: `[point] serie: ${node.serie.id}, x: ${node.x}, y: ${
+                                label: `[point] serie: ${node.serieId}, x: ${node.x}, y: ${
                                     node.y
                                 }`,
-                                color: node.color,
+                                color: node.style.color,
                                 data: node,
                             })
                         }}

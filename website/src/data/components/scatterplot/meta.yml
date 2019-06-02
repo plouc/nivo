@@ -25,14 +25,18 @@ ScatterPlot:
   description: |
     A scatter plot chart, which can display several data series.
 
+    It lets you plot data on 2 dimensions, **x** & **y**, and can optionally
+    show a third quantitative dimension if you enable **dynamic node size**,
+    please have a look at the `size` property for further information.
+
     The responsive alternative of this component is
     `ResponsiveScatterPlot`, it also offers another
     implementation, see [ScatterPlotCanvas](self:/scatterplot/canvas).
     You can also see more example usages in
     [the storybook](storybook:scatterplot--default).
 
-    Alternatively, you can set `useMesh` to `true`
-    to have finer interactions.
+    You can also enable a voronoi mesh to capture user's
+    interactions, using the `useMesh` property.
 
     See the [dedicated guide](self:/guides/legends) on how to setup
     legends for this component.

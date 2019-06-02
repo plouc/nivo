@@ -21,7 +21,13 @@ declare module '@nivo/scatterplot' {
         event: React.MouseEvent<any>
     ) => void
 
-    export type ScatterPlotSizeGetter = (data: ScatterPlotDatum) => number
+    type DatumAccessor<T> = (datum: ScatterPlotDatum) => T
+
+    export interface DynamicSizeSpec {
+        key: string
+        values: [number, number]
+        sizes: [number, number]
+    }
 
     export interface ScatterPlotProps {
         data: Array<{
@@ -40,6 +46,8 @@ declare module '@nivo/scatterplot' {
 
         margin?: Box
 
+        layers: any[]
+
         axisTop?: AxisProps | null
         axisRight?: AxisProps | null
         axisBottom?: AxisProps | null
@@ -48,7 +56,7 @@ declare module '@nivo/scatterplot' {
         enableGridX?: boolean
         enableGridY?: boolean
 
-        symbolSize?: number | ScatterPlotSizeGetter
+        symbolSize?: number | DatumAccessor<number> | DynamicSizeSpec
         symbolShape?: 'circle' | 'square'
 
         isInteractive?: boolean

@@ -7,13 +7,15 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
-import { noop } from '@nivo/core'
+import { noop, motionPropTypes } from '@nivo/core'
 import { ordinalColorsPropType } from '@nivo/colors'
 import { axisPropType } from '@nivo/axes'
 import { LegendPropShape } from '@nivo/legends'
 import { scalePropType } from '@nivo/scales'
+import Node from './Node'
+import Tooltip from './Tooltip'
 
-export const ScatterPlotPropTypes = {
+const commonPropTypes = {
     data: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.string.isRequired,
@@ -33,32 +35,36 @@ export const ScatterPlotPropTypes = {
             ).isRequired,
         })
     ).isRequired,
-
     xScale: scalePropType.isRequired,
     yScale: scalePropType.isRequired,
 
-    computedData: PropTypes.shape({
-        xScale: PropTypes.func.isRequired,
-        yScale: PropTypes.func.isRequired,
-    }).isRequired,
-
     layers: PropTypes.arrayOf(
         PropTypes.oneOfType([
-            PropTypes.oneOf(['grid', 'axes', 'points', 'markers', 'mesh', 'legends']),
+            PropTypes.oneOf(['grid', 'axes', 'nodes', 'markers', 'mesh', 'legends']),
             PropTypes.func,
         ])
     ).isRequired,
 
+    enableGridX: PropTypes.bool.isRequired,
+    enableGridY: PropTypes.bool.isRequired,
     axisTop: axisPropType,
     axisRight: axisPropType,
     axisBottom: axisPropType,
     axisLeft: axisPropType,
 
-    enableGridX: PropTypes.bool.isRequired,
-    enableGridY: PropTypes.bool.isRequired,
-
-    symbolSize: PropTypes.oneOfType([PropTypes.func, PropTypes.number]).isRequired,
-    symbolShape: PropTypes.oneOfType([PropTypes.oneOf(['circle', 'square'])]).isRequired,
+    size: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.shape({
+            key: PropTypes.string.isRequired,
+            values: PropTypes.arrayOf(PropTypes.number).isRequired,
+            sizes: PropTypes.arrayOf(PropTypes.number).isRequired,
+        }),
+        PropTypes.func,
+    ]).isRequired,
+    renderNode: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.object,
+    ]).isRequired,
 
     markers: PropTypes.arrayOf(
         PropTypes.shape({
@@ -69,26 +75,34 @@ export const ScatterPlotPropTypes = {
     ),
 
     colors: ordinalColorsPropType.isRequired,
-    getColor: PropTypes.func.isRequired,
 
     isInteractive: PropTypes.bool.isRequired,
     useMesh: PropTypes.bool.isRequired,
     debugMesh: PropTypes.bool.isRequired,
+    onMouseEnter: PropTypes.func,
+    onMouseMove: PropTypes.func,
+    onMouseLeave: PropTypes.func,
+    onClick: PropTypes.func,
 
-    onMouseEnter: PropTypes.func.isRequired,
-    onMouseMove: PropTypes.func.isRequired,
-    onMouseLeave: PropTypes.func.isRequired,
-    onClick: PropTypes.func.isRequired,
-
-    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-    tooltip: PropTypes.func,
+    tooltip: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.object
+    ]).isRequired,
 
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
+}
 
+export const ScatterPlotPropTypes = {
+    ...commonPropTypes,
+    ...motionPropTypes,
+}
+
+export const ScatterPlotCanvasPropTypes = {
+    ...commonPropTypes,
     pixelRatio: PropTypes.number.isRequired,
 }
 
-export const ScatterPlotDefaultProps = {
+const commonDefaultProps = {
     xScale: {
         type: 'linear',
         min: 0,
@@ -100,29 +114,45 @@ export const ScatterPlotDefaultProps = {
         max: 'auto',
     },
 
-    layers: ['grid', 'axes', 'points', 'markers', 'mesh', 'legends'],
+    layers: ['grid', 'axes', 'nodes', 'markers', 'mesh', 'legends'],
 
-    axisBottom: {},
-    axisLeft: {},
     enableGridX: true,
     enableGridY: true,
+    axisBottom: {},
+    axisLeft: {},
 
-    symbolSize: 6,
-    symbolShape: 'circle',
+    size: 6,
+    renderNode: Node,
 
     colors: { scheme: 'nivo' },
 
     isInteractive: true,
     useMesh: false,
     debugMesh: false,
-    enableStackTooltip: true,
-    onMouseEnter: noop,
-    onMouseMove: noop,
-    onMouseLeave: noop,
-    onClick: noop,
+
+    tooltip: Tooltip,
 
     legends: [],
+}
 
+export const ScatterPlotDefaultProps = {
+    ...commonDefaultProps,
     pixelRatio:
         global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
 }
+
+export const ScatterPlotCanvasDefaultProps = {
+    ...commonDefaultProps,
+    pixelRatio:
+        global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
+}
+
+export const NodePropType = PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired,
+    size: PropTypes.number.isRequired,
+    style: PropTypes.shape({
+        color: PropTypes.string.isRequired,
+    }).isRequired,
+})
