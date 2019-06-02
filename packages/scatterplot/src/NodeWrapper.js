@@ -70,7 +70,7 @@ const NodeWrapper = ({
         onMouseEnter: isInteractive ? handleMouseEnter : undefined,
         onMouseMove: isInteractive ? handleMouseMove : undefined,
         onMouseLeave: isInteractive ? handleMouseLeave : undefined,
-        onClick: (isInteractive && onClick) ? handleClick : undefined,
+        onClick: isInteractive && onClick ? handleClick : undefined,
     })
 }
 
@@ -88,10 +88,7 @@ NodeWrapper.propTypes = {
     onMouseLeave: PropTypes.func,
     onClick: PropTypes.func,
 
-    tooltip: PropTypes.oneOfType([
-        PropTypes.func,
-        PropTypes.object
-    ]).isRequired,
+    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 
     blendMode: blendModePropType.isRequired,
 }

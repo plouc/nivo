@@ -27,11 +27,13 @@ const initialProperties = {
         min: 0,
         max: 'auto',
     },
+    xFormat: d => `${d} kg`,
     yScale: {
         type: 'linear',
         min: 0,
         max: 'auto',
     },
+    yFormat: d => `${d} cm`,
 
     colors: ScatterPlotDefaultProps.colors,
     blendMode: 'multiply',
@@ -141,9 +143,7 @@ const ScatterPlot = () => {
                         onClick={node => {
                             logAction({
                                 type: 'click',
-                                label: `[point] serie: ${node.serieId}, x: ${node.x}, y: ${
-                                    node.y
-                                }`,
+                                label: `[point] serie: ${node.serieId}, x: ${node.x}, y: ${node.y}`,
                                 color: node.style.color,
                                 data: node,
                             })

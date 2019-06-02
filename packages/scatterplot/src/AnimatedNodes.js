@@ -66,10 +66,7 @@ const AnimatedNodes = ({
 
 AnimatedNodes.propTypes = {
     nodes: PropTypes.arrayOf(NodePropType).isRequired,
-    renderNode: PropTypes.oneOfType([
-        PropTypes.func,
-        PropTypes.object,
-    ]).isRequired,
+    renderNode: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 
     isInteractive: PropTypes.bool.isRequired,
     onMouseEnter: PropTypes.func,
@@ -77,10 +74,7 @@ AnimatedNodes.propTypes = {
     onMouseLeave: PropTypes.func,
     onClick: PropTypes.func,
 
-    tooltip: PropTypes.oneOfType([
-        PropTypes.func,
-        PropTypes.object
-    ]).isRequired,
+    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 
     blendMode: blendModePropType.isRequired,
 }

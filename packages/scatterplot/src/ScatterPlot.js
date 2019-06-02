@@ -8,7 +8,14 @@
  */
 import React, { memo, Fragment, useMemo } from 'react'
 import { TransitionMotion, spring } from 'react-motion'
-import { SvgWrapper, withContainer, useDimensions, useTheme, useMotionConfig, CartesianMarkers } from '@nivo/core'
+import {
+    SvgWrapper,
+    withContainer,
+    useDimensions,
+    useTheme,
+    useMotionConfig,
+    CartesianMarkers,
+} from '@nivo/core'
 import { Axes, Grid } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
 import { Mesh } from '@nivo/voronoi'
@@ -21,7 +28,9 @@ const ScatterPlot = props => {
     const {
         data,
         xScale: xScaleSpec,
+        xFormat,
         yScale: yScaleSpec,
+        yFormat,
 
         width,
         height,
@@ -62,7 +71,9 @@ const ScatterPlot = props => {
     const { xScale, yScale, nodes } = useScatterPlot({
         data,
         xScaleSpec,
+        xFormat,
         yScaleSpec,
+        yFormat,
         width: innerWidth,
         height: innerHeight,
         nodeSize,
@@ -154,9 +165,7 @@ const ScatterPlot = props => {
 
                 if (typeof layer === 'function') {
                     return (
-                        <Fragment key={i}>
-                            {React.createElement(layer, customLayerProps)}
-                        </Fragment>
+                        <Fragment key={i}>{React.createElement(layer, customLayerProps)}</Fragment>
                     )
                 }
 

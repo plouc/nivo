@@ -36,7 +36,9 @@ const commonPropTypes = {
         })
     ).isRequired,
     xScale: scalePropType.isRequired,
+    xFormat: PropTypes.any,
     yScale: scalePropType.isRequired,
+    yFormat: PropTypes.any,
 
     layers: PropTypes.arrayOf(
         PropTypes.oneOfType([
@@ -61,10 +63,7 @@ const commonPropTypes = {
         }),
         PropTypes.func,
     ]).isRequired,
-    renderNode: PropTypes.oneOfType([
-        PropTypes.func,
-        PropTypes.object,
-    ]).isRequired,
+    renderNode: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 
     markers: PropTypes.arrayOf(
         PropTypes.shape({
@@ -85,10 +84,7 @@ const commonPropTypes = {
     onMouseLeave: PropTypes.func,
     onClick: PropTypes.func,
 
-    tooltip: PropTypes.oneOfType([
-        PropTypes.func,
-        PropTypes.object
-    ]).isRequired,
+    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
 }
@@ -154,6 +150,14 @@ export const NodePropType = PropTypes.shape({
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
     size: PropTypes.number.isRequired,
+    data: PropTypes.shape({
+        x: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)])
+            .isRequired,
+        formattedX: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        y: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)])
+            .isRequired,
+        formattedY: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    }).isRequired,
     style: PropTypes.shape({
         color: PropTypes.string.isRequired,
     }).isRequired,

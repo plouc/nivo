@@ -1,5 +1,12 @@
 import * as React from 'react'
-import { Dimensions, Box, Theme, MotionProps, CartesianMarkerProps } from '@nivo/core'
+import {
+    Dimensions,
+    Box,
+    Theme,
+    MotionProps,
+    CartesianMarkerProps,
+    CssMixBlendMode,
+} from '@nivo/core'
 import { OrdinalColorsInstruction } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { AxisProps } from '@nivo/axes'
@@ -29,6 +36,8 @@ declare module '@nivo/scatterplot' {
         sizes: [number, number]
     }
 
+    type ValueFormatter = (value: number | string | Date) => string | number
+
     export interface ScatterPlotProps {
         data: Array<{
             id: string
@@ -39,25 +48,26 @@ declare module '@nivo/scatterplot' {
         }>
 
         xScale?: Scale
+        xFormat?: string | ValueFormatter
         yScale?: Scale
-
-        colors?: OrdinalColorsInstruction
-        theme?: Theme
+        yFormat?: string | ValueFormatter
 
         margin?: Box
 
         layers: any[]
 
+        theme?: Theme
+        colors?: OrdinalColorsInstruction
+        blendMode?: CssMixBlendMode
+
+        enableGridX?: boolean
+        enableGridY?: boolean
         axisTop?: AxisProps | null
         axisRight?: AxisProps | null
         axisBottom?: AxisProps | null
         axisLeft?: AxisProps | null
 
-        enableGridX?: boolean
-        enableGridY?: boolean
-
-        symbolSize?: number | DatumAccessor<number> | DynamicSizeSpec
-        symbolShape?: 'circle' | 'square'
+        nodeSize?: number | DatumAccessor<number> | DynamicSizeSpec
 
         isInteractive?: boolean
         useMesh?: boolean
@@ -67,7 +77,6 @@ declare module '@nivo/scatterplot' {
         onMouseLeave?: ScatterPlotMouseHandler
         onClick?: ScatterPlotMouseHandler
 
-        tooltipFormat?: TooltipFormatter
         tooltip?: (data: ScatterPlotDatum) => React.ReactNode
 
         legends?: LegendProps[]
