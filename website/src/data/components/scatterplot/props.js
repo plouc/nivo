@@ -26,7 +26,7 @@ const props = [
             }>
             \`\`\`
 
-            Please not that you should adjust \`xScale\`
+            Please note that you should adjust \`xScale\`
             and \`yScale\` according to \`x\` and \`y\` type,
             for example if you use dates, you should use
             a \`time\` scale.
@@ -134,6 +134,40 @@ const props = [
         },
     },
     {
+        key: 'size',
+        group: 'Base',
+        defaultValue: defaults.size,        
+        type: 'number | object | Function',
+        help: `How to compute node size, static or dynamic.`,
+        description: `
+            If you provide a **number**, all nodes will have the same
+            **fixed size**.
+
+            You can also use an object to define a varying size,
+            it must conform to the following interface:
+
+            \`\`\`
+            {
+                key:    string
+                values: [min: number, max: number]
+                sizes:  [min: number, max: number]
+            }
+            \`\`\`
+
+            Then the size of each node will **depend on the value
+            of \`key\` and \`sizes\`**.
+
+            If you use a **custom function**, it will receive the current
+            node and must **return a number**.
+        `,
+        controlType: 'range',
+        controlOptions: {
+            unit: 'px',
+            min: 2,
+            max: 24,
+        },
+    },
+    {
         key: 'width',
         enableControlForFlavors: ['api'],
         description: `
@@ -208,34 +242,32 @@ const props = [
     },
     {
         key: 'layers',
-        flavors: ['svg'],
+        flavors: ['svg', 'canvas'],
         group: 'Customization',
         help: 'Defines the order of layers.',
         description: `
             Defines the order of layers, available layers are:
             \`grid\`, \`axes\`, \`points\`, \`markers\`,
             \`mesh\`, \`legends\`.
+
             You can also use this to insert extra layers
-            to the chart, this extra layer must be
-            a function which will receive the chart
-            computed data and must return a valid SVG element.
+            to the chart.
+            
+            For \`ScatterPlot\`, the extra layer should be a component
+            and will receive current chart context as props.
+
+            If using \`ScatterPlotCanvas\`, the extra layer should be
+            a function and will receive canvas context as first argument
+            and current chart context object as second.
         `,
         required: false,
         defaultValue: defaults.layers,
     },
     {
-        key: 'symbolSize',
-        help: `Symbol size.`,
-        required: false,
-        defaultValue: defaults.symbolSize,
-        type: `number`,
-        controlType: 'range',
-        group: 'Symbols',
-        controlOptions: {
-            unit: 'px',
-            min: 2,
-            max: 24,
-        },
+        key: 'renderNode',
+        flavors: ['svg', 'canvas'],
+        group: 'Customization',
+        help: 'Override default node rendering.'
     },
     {
         key: 'enableGridX',

@@ -6,103 +6,171 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component, Fragment } from 'react'
+import React, { memo, Fragment, useMemo } from 'react'
 import { TransitionMotion, spring } from 'react-motion'
-import { Container, SvgWrapper, CartesianMarkers } from '@nivo/core'
+import { SvgWrapper, withContainer, useDimensions, useTheme, useMotionConfig, CartesianMarkers } from '@nivo/core'
 import { Axes, Grid } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
 import { Mesh } from '@nivo/voronoi'
-import { enhanceSvg } from './enhance'
-import { ScatterPlotPropTypes } from './props'
-import ScatterPlotItem from './ScatterPlotItem'
-import ScatterPlotTooltip from './ScatterPlotTooltip'
+import { useScatterPlot } from './hooks'
+import { ScatterPlotPropTypes, ScatterPlotDefaultProps } from './props'
+import AnimatedNodes from './AnimatedNodes'
+import StaticNodes from './StaticNodes'
 
-class ScatterPlot extends Component {
-    static propTypes = ScatterPlotPropTypes
+const ScatterPlot = props => {
+    const {
+        data,
+        xScale: xScaleSpec,
+        yScale: yScaleSpec,
 
-    showTooltip = (showTooltip, point, event) => {
-        const { tooltipFormat, tooltip, theme, getColor } = this.props
+        width,
+        height,
+        margin: partialMargin,
 
-        showTooltip(
-            <ScatterPlotTooltip
-                point={point}
-                color={getColor(point.data)}
-                format={tooltipFormat}
-                tooltip={tooltip}
+        layers,
+
+        colors,
+
+        size,
+        renderNode,
+
+        enableGridX,
+        enableGridY,
+        axisTop,
+        axisRight,
+        axisBottom,
+        axisLeft,
+
+        isInteractive,
+        onMouseEnter,
+        onMouseMove,
+        onMouseLeave,
+        onClick,
+        tooltip,
+    } = props
+
+    const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
+        width,
+        height,
+        partialMargin
+    )
+
+    const theme = useTheme()
+    const { animate } = useMotionConfig()
+
+    const { xScale, yScale, nodes } = useScatterPlot({
+        data,
+        xScaleSpec,
+        yScaleSpec,
+        width: innerWidth,
+        height: innerHeight,
+        size,
+        colors,
+    })
+
+    const customLayerProps = useMemo(
+        () => ({
+            ...props,
+            xScale,
+            yScale,
+            nodes,
+        }),
+        [props, xScale, yScale, nodes]
+    )
+
+    const Nodes = animate ? AnimatedNodes : StaticNodes
+
+    const layerById = {
+        grid: (
+            <Grid
+                key="grid"
+                width={innerWidth}
+                height={innerHeight}
+                xScale={enableGridX ? xScale : null}
+                yScale={enableGridY ? yScale : null}
+            />
+        ),
+        axes: (
+            <Axes
+                key="axes"
+                xScale={xScale}
+                yScale={yScale}
+                width={innerWidth}
+                height={innerHeight}
+                top={axisTop}
+                right={axisRight}
+                bottom={axisBottom}
+                left={axisLeft}
+            />
+        ),
+        nodes: React.createElement(Nodes, {
+            key: 'nodes',
+            nodes,
+            renderNode,
+            isInteractive,
+            onMouseEnter,
+            onMouseMove,
+            onMouseLeave,
+            onClick,
+            tooltip,
+        }),
+        markers: null,
+        mesh: null,
+        legends: null,
+        /*
+        markers: (
+            <CartesianMarkers
+                key="markers"
+                markers={markers}
+                width={width}
+                height={height}
+                xScale={xScale}
+                yScale={yScale}
                 theme={theme}
-            />,
-            event
-        )
+            />
+        ),
+        mesh: null,
+        legends: legends.map((legend, i) => (
+            <BoxLegendSvg
+                key={i}
+                {...legend}
+                containerWidth={width}
+                containerHeight={height}
+                data={legendData}
+                theme={theme}
+            />
+        )),
+        */
     }
 
-    handleMouseEnter = showTooltip => (point, event) => {
-        const { isInteractive, onMouseEnter } = this.props
+    return (
+        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
+            {layers.map((layer, i) => {
+                if (layerById[layer] !== undefined) {
+                    return layerById[layer]
+                }
 
-        if (!isInteractive) return
+                if (typeof layer === 'function') {
+                    return (
+                        <Fragment key={i}>
+                            {React.createElement(layer, customLayerProps)}
+                        </Fragment>
+                    )
+                }
 
-        onMouseEnter && onMouseEnter(point, event)
-        this.showTooltip(showTooltip, point, event)
-    }
+                throw new Error(`Unknown layer (${layer})`)
+            })}
+        </SvgWrapper>
+    )
+}
 
-    handleMouseMove = showTooltip => (point, event) => {
-        const { isInteractive, onMouseMove } = this.props
-
-        if (!isInteractive) return
-
-        onMouseMove && onMouseMove(point, event)
-        this.showTooltip(showTooltip, point, event)
-    }
-
-    handleMouseLeave = hideTooltip => (point, event) => {
-        const { isInteractive, onMouseLeave } = this.props
-
-        if (!isInteractive) return
-
-        onMouseLeave && onMouseLeave(point, event)
-        hideTooltip()
-    }
-
-    handleClick = (point, event) => {
-        const { isInteractive, onClick } = this.props
-        if (!isInteractive || onClick === undefined) return
-
-        onClick(point.data, event)
-    }
-
+/*
     render() {
         const {
-            data,
-
-            computedData,
-            points,
-
-            layers,
-
-            margin,
-            width,
-            height,
-            outerWidth,
-            outerHeight,
-
-            axisTop,
-            axisRight,
-            axisBottom,
-            axisLeft,
-
-            enableGridX,
-            enableGridY,
-
             markers,
 
             theme,
-            getSymbolSize,
-            getColor,
 
-            animate,
-            motionStiffness,
-            motionDamping,
-
-            isInteractive,
             useMesh,
             debugMesh,
 
@@ -135,50 +203,6 @@ class ScatterPlot extends Component {
                     const onMouseLeave = this.handleMouseLeave(hideTooltip)
 
                     const layerById = {
-                        grid: (
-                            <Grid
-                                key="grid"
-                                width={width}
-                                height={height}
-                                xScale={enableGridX ? xScale : null}
-                                yScale={enableGridY ? yScale : null}
-                            />
-                        ),
-                        axes: (
-                            <Axes
-                                key="axes"
-                                xScale={xScale}
-                                yScale={yScale}
-                                width={width}
-                                height={height}
-                                top={axisTop}
-                                right={axisRight}
-                                bottom={axisBottom}
-                                left={axisLeft}
-                            />
-                        ),
-                        markers: (
-                            <CartesianMarkers
-                                key="markers"
-                                markers={markers}
-                                width={width}
-                                height={height}
-                                xScale={xScale}
-                                yScale={yScale}
-                                theme={theme}
-                            />
-                        ),
-                        mesh: null,
-                        legends: legends.map((legend, i) => (
-                            <BoxLegendSvg
-                                key={i}
-                                {...legend}
-                                containerWidth={width}
-                                containerHeight={height}
-                                data={legendData}
-                                theme={theme}
-                            />
-                        )),
                     }
 
                     if (animate === true) {
@@ -275,5 +299,9 @@ class ScatterPlot extends Component {
         )
     }
 }
+*/
 
-export default enhanceSvg(ScatterPlot)
+ScatterPlot.propTypes = ScatterPlotPropTypes
+ScatterPlot.defaultProps = ScatterPlotDefaultProps
+
+export default withContainer(memo(ScatterPlot))
