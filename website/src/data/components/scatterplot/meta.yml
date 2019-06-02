@@ -14,8 +14,8 @@ ScatterPlot:
       link: scatterplot--using-time-scales
     - label: Using logarithmic scales
       link: scatterplot--using-logarithmic-scales
-    - label: Varying symbol size
-      link: scatterplot--varying-symbol-size
+    - label: Varying node size
+      link: scatterplot--varying-node-size
     - label: Custom tooltip
       link: scatterplot--custom-tooltip
     - label: Synchronizing charts
@@ -48,8 +48,8 @@ ScatterPlotCanvas:
   stories:
     - label: Using time scales
       link: scatterplot--using-time-scales
-    - label: Varying symbol size
-      link: scatterplot--varying-symbol-size
+    - label: Varying node size
+      link: scatterplot--varying-node-size
     - label: Custom tooltip
       link: scatterplot--custom-tooltip
   description: |
