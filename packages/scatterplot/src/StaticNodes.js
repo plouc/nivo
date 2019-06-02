@@ -23,28 +23,24 @@ const StaticNodes = ({
     tooltip,
     blendMode,
 }) => {
-    return (
-        <>
-            {nodes.map(node => (
-                <NodeWrapper
-                    key={node.id}
-                    node={node}
-                    renderNode={renderNode}
-                    x={node.x}
-                    y={node.y}
-                    size={node.size}
-                    color={node.style.color}
-                    isInteractive={isInteractive}
-                    onMouseEnter={onMouseEnter}
-                    onMouseMove={onMouseMove}
-                    onMouseLeave={onMouseLeave}
-                    onClick={onClick}
-                    tooltip={tooltip}
-                    blendMode={blendMode}
-                />
-            ))}
-        </>
-    )
+    return nodes.map(node => (
+        <NodeWrapper
+            key={node.id}
+            node={node}
+            renderNode={renderNode}
+            x={node.x}
+            y={node.y}
+            size={node.size}
+            color={node.style.color}
+            isInteractive={isInteractive}
+            onMouseEnter={onMouseEnter}
+            onMouseMove={onMouseMove}
+            onMouseLeave={onMouseLeave}
+            onClick={onClick}
+            tooltip={tooltip}
+            blendMode={blendMode}
+        />
+    ))
 }
 
 StaticNodes.propTypes = {

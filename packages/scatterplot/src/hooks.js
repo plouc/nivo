@@ -10,9 +10,9 @@ import { useMemo } from 'react'
 import { useTheme } from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
 import { computeXYScalesForSeries } from '@nivo/scales'
-import { computePoints, getSizeGenerator } from './compute'
+import { computePoints, getNodeSizeGenerator } from './compute'
 
-const useSize = size => useMemo(() => getSizeGenerator(size), [size])
+const useNodeSize = size => useMemo(() => getNodeSizeGenerator(size), [size])
 
 export const useScatterPlot = ({
     data,
@@ -20,7 +20,7 @@ export const useScatterPlot = ({
     yScaleSpec,
     width,
     height,
-    size,
+    nodeSize,
     colors,
 }) => {
     const {
@@ -37,7 +37,7 @@ export const useScatterPlot = ({
         [series]
     )
 
-    const getSize = useSize(size)
+    const getNodeSize = useNodeSize(nodeSize)
 
     const theme = useTheme()
     const getColor = useOrdinalColorScale(colors, 'serie.id')
@@ -46,13 +46,13 @@ export const useScatterPlot = ({
         () => rawNodes.map(rawNode => {
             return {
                 ...rawNode,
-                size: getSize(rawNode.data),
+                size: getNodeSize(rawNode.data),
                 style: {
                     color: getColor(rawNode.data)
                 }
             }
         }),
-        [rawNodes, getSize, getColor]
+        [rawNodes, getNodeSize, getColor]
     )
 
     return {

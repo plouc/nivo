@@ -52,7 +52,7 @@ const commonPropTypes = {
     axisBottom: axisPropType,
     axisLeft: axisPropType,
 
-    size: PropTypes.oneOfType([
+    nodeSize: PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.shape({
             key: PropTypes.string.isRequired,
@@ -122,7 +122,7 @@ const commonDefaultProps = {
     axisBottom: {},
     axisLeft: {},
 
-    size: 9,
+    nodeSize: 9,
     renderNode: Node,
 
     colors: { scheme: 'nivo' },
