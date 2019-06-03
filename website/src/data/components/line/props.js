@@ -431,7 +431,7 @@ const props = [
     {
         key: 'useMesh',
         flavors: ['svg'],
-        help: 'Use a voronoi mesh to detect mouse interactions, enableSlices msut be disabled',
+        help: 'Use a voronoi mesh to detect mouse interactions, enableSlices must be disabled',
         type: 'boolean',
         required: false,
         defaultValue: defaults.useMesh,
