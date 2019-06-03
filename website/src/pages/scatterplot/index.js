@@ -91,9 +91,6 @@ const initialProperties = {
     useMesh: false,
     debugMesh: false,
 
-    'custom tooltip example': false,
-    tooltip: null,
-
     legends: [
         {
             anchor: 'bottom-right',

@@ -10,50 +10,14 @@ import React from 'react'
 import styled from 'styled-components'
 import { settingsMapper, mapAxis } from '../../../lib/settings'
 
-const TooltipWrapper = styled.div`
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 12px;
-`
-const TooltipKey = styled.span`
-    font-weight: 600;
-`
-const TooltipValue = styled.span``
-
-const CustomTooltip = data => (
-    <TooltipWrapper style={{ color: data.color }}>
-        <TooltipKey>id</TooltipKey>
-        <TooltipValue>{data.id}</TooltipValue>
-        <TooltipKey>serie</TooltipKey>
-        <TooltipValue>{data.serie.id}</TooltipValue>
-        <TooltipKey>color</TooltipKey>
-        <TooltipValue>{data.color}</TooltipValue>
-        <TooltipKey>x</TooltipKey>
-        <TooltipValue>{data.x}</TooltipValue>
-        <TooltipKey>y</TooltipKey>
-        <TooltipValue>{data.y}</TooltipValue>
-    </TooltipWrapper>
-)
-
 export default settingsMapper(
     {
         axisTop: mapAxis('top'),
         axisRight: mapAxis('right'),
         axisBottom: mapAxis('bottom'),
         axisLeft: mapAxis('left'),
-        tooltip: (value, values) => {
-            if (!values['custom tooltip example']) return undefined
-
-            return CustomTooltip
-        },
     },
     {
-        exclude: [
-            'enable axisTop',
-            'enable axisRight',
-            'enable axisBottom',
-            'enable axisLeft',
-            'custom tooltip example',
-        ],
+        exclude: ['enable axisTop', 'enable axisRight', 'enable axisBottom', 'enable axisLeft'],
     }
 )

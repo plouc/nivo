@@ -367,14 +367,6 @@ const props = [
         `,
     },
     {
-        key: 'custom tooltip example',
-        flavors: ['svg'],
-        group: 'Interactivity',
-        help: 'Showcase custom tooltip.',
-        type: 'boolean',
-        controlType: 'switch',
-    },
-    {
         key: 'onMouseEnter',
         group: 'Interactivity',
         help: 'onMouseEnter handler, it receives target node data and mouse event.',

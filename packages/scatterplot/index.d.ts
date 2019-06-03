@@ -1,3 +1,11 @@
+/*
+ * This file is part of the nivo project.
+ *
+ * Copyright 2016-present, Raphaël Benitte.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 import * as React from 'react'
 import {
     Dimensions,
@@ -13,22 +21,59 @@ import { AxisProps } from '@nivo/axes'
 import { Scale } from '@nivo/scales'
 
 declare module '@nivo/scatterplot' {
-    export type TooltipFormatter = (value: { x: number | string; y: number | string }) => string
+    export type Value = number | string | Date
+    export type ValueFormatter = (value: Value) => string | number
 
-    export interface ScatterPlotDatum {
-        serie: string
-        id: string | number
-        x: string | number
-        y: string | number
-        color: string
+    export interface Datum {
+        x: Value
+        y: Value
     }
 
-    export type ScatterPlotMouseHandler = (
-        data: ScatterPlotDatum,
-        event: React.MouseEvent<any>
-    ) => void
+    export type DerivedDatumProp<T> = (node: Datum) => T
 
-    type DatumAccessor<T> = (datum: ScatterPlotDatum) => T
+    export interface Serie {
+        id: string
+        data: Datum[]
+    }
+
+    export interface Node {
+        id: string
+        serieId: string
+        x: number
+        y: number
+        size: number
+        style: {
+            color: string
+        }
+        data: {
+            x: Value
+            formattedX: string | number
+            y: Value
+            formattedY: string | number
+        }
+    }
+
+    export type DerivedNodeProp<T> = (node: Node) => T
+
+    export interface NodeProps {
+        node: Node
+
+        x: number
+        y: number
+        size: number
+        color: string
+        blendMode: CssMixBlendMode
+
+        onMouseEnter?: VoidFunction
+        onMouseMove?: VoidFunction
+        onMouseLeave?: VoidFunction
+        onClick?: VoidFunction
+    }
+
+    export type NodeComponent = (props: NodeProps) => React.ReactNode
+    export type NodeCanvasComponent = (ctx: CanvasRenderingContext2D, props: NodeProps) => void
+
+    export type MouseHandler = (node: Node, event: React.MouseEvent<any>) => void
 
     export interface DynamicSizeSpec {
         key: string
@@ -36,16 +81,10 @@ declare module '@nivo/scatterplot' {
         sizes: [number, number]
     }
 
-    type ValueFormatter = (value: number | string | Date) => string | number
+    export type CustomTooltip = ({ node: Node }) => React.ReactNode
 
     export interface ScatterPlotProps {
-        data: Array<{
-            id: string
-            data: Array<{
-                x: number
-                y: number
-            }>
-        }>
+        data: Serie[]
 
         xScale?: Scale
         xFormat?: string | ValueFormatter
@@ -67,22 +106,22 @@ declare module '@nivo/scatterplot' {
         axisBottom?: AxisProps | null
         axisLeft?: AxisProps | null
 
-        nodeSize?: number | DatumAccessor<number> | DynamicSizeSpec
+        nodeSize?: number | DerivedDatumProp<number> | DynamicSizeSpec
 
         isInteractive?: boolean
         useMesh?: boolean
         debugMesh?: boolean
-        onMouseEnter?: ScatterPlotMouseHandler
-        onMouseMove?: ScatterPlotMouseHandler
-        onMouseLeave?: ScatterPlotMouseHandler
-        onClick?: ScatterPlotMouseHandler
-
-        tooltip?: (data: ScatterPlotDatum) => React.ReactNode
+        onMouseEnter?: MouseHandler
+        onMouseMove?: MouseHandler
+        onMouseLeave?: MouseHandler
+        onClick?: MouseHandler
+        tooltip?: CustomTooltip
 
         legends?: LegendProps[]
     }
 
     export interface ScatterPlotSvgProps extends ScatterPlotProps, MotionProps {
+        renderNode?: NodeComponent
         markers?: CartesianMarkerProps[]
     }
 
@@ -91,6 +130,7 @@ declare module '@nivo/scatterplot' {
 
     export interface ScatterPlotCanvasProps extends ScatterPlotProps {
         pixelRatio?: number
+        renderNode?: NodeCanvasComponent
     }
 
     export class ScatterPlotCanvas extends React.Component<ScatterPlotCanvasProps & Dimensions> {}
