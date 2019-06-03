@@ -102,7 +102,7 @@ export const getScaleTicks = (scale, spec) => {
                 // UTC is used as it's more predictible
                 // however local time could be used too
                 // let's see how it fits users' requirements
-                const timeType = timeByType[matches[2]][1]
+                const timeType = timeByType[matches[2]][scale.useUTC ? 1 : 0]
                 if (matches[1] === undefined) {
                     return scale.ticks(timeType)
                 }

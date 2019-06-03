@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { scaleLinear, scaleOrdinal, scalePoint, scaleBand, scaleUtc } from 'd3-scale'
+import { scaleLinear, scaleOrdinal, scalePoint, scaleBand, scaleTime, scaleUtc } from 'd3-scale'
 import { getScaleTicks, computeCartesianTicks } from '../src/compute'
 
 describe('getTicks', () => {
@@ -69,6 +69,29 @@ describe('getTicks', () => {
                 new Date(Date.UTC(2000, 6, 1, 0, 0, 0, 0)),
                 new Date(Date.UTC(2000, 9, 1, 0, 0, 0, 0)),
                 new Date(Date.UTC(2001, 0, 1, 0, 0, 0, 0)),
+            ])
+        })
+
+        it('should support non-UTC dates', () => {
+            const noUtcTimeScale = scaleTime().domain([
+                new Date(2000, 0, 1, 0, 0, 0, 0),
+                new Date(2001, 0, 1, 0, 0, 0, 0),
+            ])
+
+            expect(getScaleTicks(noUtcTimeScale)).toEqual([
+                new Date(2000, 0, 1, 0, 0, 0, 0),
+                new Date(2000, 1, 1, 0, 0, 0, 0),
+                new Date(2000, 2, 1, 0, 0, 0, 0),
+                new Date(2000, 3, 1, 0, 0, 0, 0),
+                new Date(2000, 4, 1, 0, 0, 0, 0),
+                new Date(2000, 5, 1, 0, 0, 0, 0),
+                new Date(2000, 6, 1, 0, 0, 0, 0),
+                new Date(2000, 7, 1, 0, 0, 0, 0),
+                new Date(2000, 8, 1, 0, 0, 0, 0),
+                new Date(2000, 9, 1, 0, 0, 0, 0),
+                new Date(2000, 10, 1, 0, 0, 0, 0),
+                new Date(2000, 11, 1, 0, 0, 0, 0),
+                new Date(2001, 0, 1, 0, 0, 0, 0),
             ])
         })
 
@@ -159,6 +182,8 @@ describe('getTicks', () => {
         intervals.forEach(interval => {
             it(`should support ${interval.interval} interval`, () => {
                 const intervalTimeScale = scaleUtc().domain(interval.domain)
+
+                intervalTimeScale.useUTC = true
 
                 expect(getScaleTicks(intervalTimeScale, `every ${interval.interval}`)).toEqual(
                     interval.expect

@@ -46,6 +46,7 @@ export const timeScale = (
     scale.domain([minValue, maxValue]).range([0, size])
 
     scale.type = 'time'
+    scale.useUTC = useUTC
 
     return scale
 }
