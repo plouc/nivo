@@ -104,6 +104,8 @@ const LegendSvgItem = ({
     } else {
         Symbol = symbolByShape[symbolShape]
     }
+    
+    const themeSettings = { fill: textColor, ...theme.legends.text };
 
     return (
         <g
@@ -137,8 +139,8 @@ const LegendSvgItem = ({
             <text
                 textAnchor={labelAnchor}
                 style={{
-                    ...theme.legends.text,
-                    fill: style.itemTextColor || textColor,
+                    ...themeSettings,
+                    fill: style.itemTextColor || themeSettings.fill,
                     dominantBaseline: labelAlignment,
                     pointerEvents: 'none',
                     userSelect: 'none',
