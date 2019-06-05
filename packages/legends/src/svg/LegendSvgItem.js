@@ -178,7 +178,7 @@ LegendSvgItem.defaultProps = {
     direction: 'left-to-right',
     justify: false,
 
-    textColor: 'black',
+    textColor: '#333333',
     background: 'transparent',
     opacity: 1,
 
