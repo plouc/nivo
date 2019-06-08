@@ -14,7 +14,7 @@
     "@types/node": "^10.12.0",
     "@types/react": "^16.8.9",
     "@types/react-dom": "^16.8.3",
-    "typescript": "^3.3.4000"
+    "typescript": "^3.5.1"
   },
   "scripts": {
     "start": "react-scripts-ts start",

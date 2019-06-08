@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { ResponsiveScatterPlotCanvas, ScatterPlotDefaultProps } from '@nivo/scatterplot'
+import { ResponsiveScatterPlotCanvas, ScatterPlotCanvasDefaultProps } from '@nivo/scatterplot'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/scatterplot/meta.yml'
 import mapper from '../../data/components/scatterplot/mapper'
@@ -36,10 +36,9 @@ const initialProperties = {
     pixelRatio:
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
 
-    colors: { scheme: 'nivo' },
+    colors: ScatterPlotCanvasDefaultProps.colors,
 
-    symbolSize: 4,
-    symbolShape: 'circle',
+    nodeSize: 5,
 
     axisTop: {
         enable: false,
@@ -67,7 +66,7 @@ const initialProperties = {
         tickRotation: 0,
         legend: 'weight',
         legendPosition: 'middle',
-        legendOffset: 36,
+        legendOffset: 46,
         format: d => `${d} kg`,
     },
     axisLeft: {
@@ -78,31 +77,41 @@ const initialProperties = {
         tickRotation: 0,
         legend: 'size',
         legendPosition: 'middle',
-        legendOffset: -40,
+        legendOffset: -60,
         format: d => `${d} cm`,
     },
 
-    enableGridX: true,
-    enableGridY: true,
+    enableGridX: ScatterPlotCanvasDefaultProps.enableGridX,
+    enableGridY: ScatterPlotCanvasDefaultProps.enableGridY,
 
-    animate: true,
-    motionStiffness: 90,
-    motionDamping: 15,
-
-    isInteractive: true,
-    useMesh: true,
-    debugMesh: false,
+    isInteractive: ScatterPlotCanvasDefaultProps.isInteractive,
+    useMesh: ScatterPlotCanvasDefaultProps.useMesh,
+    debugMesh: ScatterPlotCanvasDefaultProps.debugMesh,
 
     legends: [
         {
             anchor: 'bottom-right',
             direction: 'column',
+            justify: false,
             translateX: 130,
+            translateY: 0,
             itemWidth: 100,
             itemHeight: 12,
             itemsSpacing: 5,
+            itemDirection: 'left-to-right',
             symbolSize: 12,
-            symbolShape: 'circle',
+            symbolShape: 'rect',
+            onClick: d => {
+                alert(JSON.stringify(d, null, '    '))
+            },
+            effects: [
+                {
+                    on: 'hover',
+                    style: {
+                        itemOpacity: 1,
+                    },
+                },
+            ],
         },
     ],
 }
@@ -117,7 +126,7 @@ const ScatterPlotCanvas = () => {
             currentFlavor="canvas"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={ScatterPlotDefaultProps}
+            defaultProperties={ScatterPlotCanvasDefaultProps}
             propertiesMapper={mapper}
             generateData={generateHeavyDataSet}
         >
@@ -130,10 +139,10 @@ const ScatterPlotCanvas = () => {
                         onClick={node => {
                             logAction({
                                 type: 'click',
-                                label: `[point] serie: ${node.serie.id}, x: ${node.x}, y: ${
+                                label: `[point] serie: ${node.data.serieId}, x: ${node.x}, y: ${
                                     node.y
                                 }`,
-                                color: node.color,
+                                color: node.style.color,
                                 data: node,
                             })
                         }}

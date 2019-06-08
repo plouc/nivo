@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
-import { noop, motionPropTypes, blendModePropType } from '@nivo/core'
+import { motionPropTypes, blendModePropType } from '@nivo/core'
 import { ordinalColorsPropType } from '@nivo/colors'
 import { axisPropType } from '@nivo/axes'
 import { LegendPropShape } from '@nivo/legends'
@@ -65,14 +65,6 @@ const commonPropTypes = {
     ]).isRequired,
     renderNode: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 
-    markers: PropTypes.arrayOf(
-        PropTypes.shape({
-            axis: PropTypes.oneOf(['x', 'y']).isRequired,
-            value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-            style: PropTypes.object,
-        })
-    ),
-
     colors: ordinalColorsPropType.isRequired,
     blendMode: blendModePropType.isRequired,
 
@@ -85,6 +77,14 @@ const commonPropTypes = {
     onClick: PropTypes.func,
 
     tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+
+    markers: PropTypes.arrayOf(
+        PropTypes.shape({
+            axis: PropTypes.oneOf(['x', 'y']).isRequired,
+            value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+            style: PropTypes.object,
+        })
+    ),
 
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
 }
@@ -111,8 +111,6 @@ const commonDefaultProps = {
         max: 'auto',
     },
 
-    layers: ['grid', 'axes', 'nodes', 'markers', 'mesh', 'legends'],
-
     enableGridX: true,
     enableGridY: true,
     axisBottom: {},
@@ -130,17 +128,22 @@ const commonDefaultProps = {
 
     tooltip: Tooltip,
 
+    markers: [],
+
     legends: [],
 }
 
 export const ScatterPlotDefaultProps = {
     ...commonDefaultProps,
-    pixelRatio:
-        global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
+    layers: ['grid', 'axes', 'nodes', 'markers', 'mesh', 'legends'],
+    animate: true,
+    motionStiffness: 90,
+    motionDamping: 15,
 }
 
 export const ScatterPlotCanvasDefaultProps = {
     ...commonDefaultProps,
+    layers: ['grid', 'axes', 'nodes', 'mesh', 'legends'],
     pixelRatio:
         global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
 }
@@ -151,6 +154,8 @@ export const NodePropType = PropTypes.shape({
     y: PropTypes.number.isRequired,
     size: PropTypes.number.isRequired,
     data: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        serieId: PropTypes.string.isRequired,
         x: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)])
             .isRequired,
         formattedX: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,

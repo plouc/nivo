@@ -88,18 +88,20 @@ const initialProperties = {
     motionDamping: 15,
 
     isInteractive: true,
-    useMesh: false,
+    useMesh: true,
     debugMesh: false,
 
     legends: [
         {
             anchor: 'bottom-right',
             direction: 'column',
+            justify: false,
             translateX: 130,
+            translateY: 0,
             itemWidth: 100,
             itemHeight: 12,
             itemsSpacing: 5,
-            itemTextColor: '#999',
+            itemDirection: 'left-to-right',
             symbolSize: 12,
             symbolShape: 'circle',
             onClick: d => {
@@ -109,7 +111,7 @@ const initialProperties = {
                 {
                     on: 'hover',
                     style: {
-                        itemTextColor: '#000',
+                        itemOpacity: 1,
                     },
                 },
             ],
@@ -140,7 +142,9 @@ const ScatterPlot = () => {
                         onClick={node => {
                             logAction({
                                 type: 'click',
-                                label: `[point] serie: ${node.serieId}, x: ${node.x}, y: ${node.y}`,
+                                label: `[point] serie: ${node.data.serieId}, x: ${node.x}, y: ${
+                                    node.y
+                                }`,
                                 color: node.style.color,
                                 data: node,
                             })

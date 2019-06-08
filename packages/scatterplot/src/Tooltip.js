@@ -13,7 +13,7 @@ import { BasicTooltip } from '@nivo/tooltip'
 const Tooltip = ({ node }) => {
     return (
         <BasicTooltip
-            id={node.serieId}
+            id={node.data.serieId}
             value={`x: ${node.data.formattedX}, y: ${node.data.formattedY}`}
             enableChip={true}
             color={node.style.color}

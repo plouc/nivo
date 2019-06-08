@@ -48,15 +48,14 @@ export const computePoints = ({ series, formatX, formatY }) => {
             ...agg,
             ...serie.data.map((d, i) => ({
                 id: `${serie.id}.${i}`,
-                serieId: serie.id,
                 x: d.position.x,
                 y: d.position.y,
                 data: {
                     ...d.data,
                     id: `${serie.id}.${i}`,
+                    serieId: serie.id,
                     formattedX: formatX(d.data.x),
                     formattedY: formatY(d.data.y),
-                    serie,
                 },
             })),
         ],

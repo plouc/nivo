@@ -7,7 +7,12 @@
  * file that was distributed with this source code.
  */
 import { ScatterPlotDefaultProps as defaults } from '@nivo/scatterplot'
-import { axesProperties, motionProperties, groupProperties } from '../../../lib/componentProperties'
+import {
+    axesProperties,
+    motionProperties,
+    getLegendsProps,
+    groupProperties,
+} from '../../../lib/componentProperties'
 
 const props = [
     {
@@ -306,13 +311,27 @@ const props = [
         group: 'Grid & Axes',
     },
     {
+        key: 'gridXValues',
+        group: 'Grid & Axes',
+        help: 'Specify values to use for vertical grid lines.',
+        type: 'Array<number | string | Date>',
+        required: false,
+    },
+    {
         key: 'enableGridY',
+        group: 'Grid & Axes',
         help: 'Enable/disable y grid.',
         type: 'boolean',
         required: false,
         defaultValue: defaults.enableGridY,
         controlType: 'switch',
+    },
+    {
+        key: 'gridYValues',
         group: 'Grid & Axes',
+        help: 'Specify values to use for horizontal grid lines.',
+        type: 'Array<number | string | Date>',
+        required: false,
     },
     ...axesProperties(),
     {
@@ -352,16 +371,8 @@ const props = [
         description: `
             A function allowing complete tooltip customisation,
             it must return a valid HTML element and will
-            receive the following data:
-            \`\`\`
-            {
-                id:    string | number
-                serie: string | number
-                color: string
-                x:     number
-                y:     number
-            }
-            \`\`\`
+            receive the node as a property.
+            
             You can also customize the tooltip style
             using the \`theme.tooltip\` object.
         `,
@@ -393,6 +404,38 @@ const props = [
         help: 'onClick handler, it receives target node data and mouse event.',
         type: '(node, event) => void',
         required: false,
+    },
+    ,
+    {
+        key: 'legends',
+        group: 'Legends',
+        flavors: ['svg', 'canvas'],
+        type: 'object[]',
+        help: `Optional chart's legends.`,
+        controlType: 'array',
+        controlOptions: {
+            props: getLegendsProps(['svg', 'canvas']),
+            shouldCreate: true,
+            addLabel: 'add legend',
+            shouldRemove: true,
+            getItemTitle: (index, legend) =>
+                `legend[${index}]: ${legend.anchor}, ${legend.direction}`,
+            defaults: {
+                anchor: 'top-left',
+                direction: 'column',
+                justify: false,
+                translateX: 0,
+                translateY: 0,
+                itemWidth: 100,
+                itemHeight: 20,
+                itemsSpacing: 0,
+                symbolSize: 20,
+                itemDirection: 'left-to-right',
+                onClick: data => {
+                    alert(JSON.stringify(data, null, '    '))
+                },
+            },
+        },
     },
     ...motionProperties(['svg'], defaults),
 ]

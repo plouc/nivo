@@ -8,6 +8,7 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
+import { useTheme } from '../../../theming'
 
 /**
  *
@@ -167,7 +168,6 @@ const CartesianMarkersItem = ({
     axis,
     scale,
     value,
-    theme,
     lineStyle,
     textStyle,
     legend,
@@ -176,6 +176,8 @@ const CartesianMarkersItem = ({
     legendOffsetY,
     legendOrientation,
 }) => {
+    const theme = useTheme()
+
     let x = 0
     let x2 = 0
     let y = 0
@@ -254,13 +256,6 @@ CartesianMarkersItem.propTypes = {
     legendOffsetX: PropTypes.number.isRequired,
     legendOffsetY: PropTypes.number.isRequired,
     legendOrientation: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
-
-    theme: PropTypes.shape({
-        markers: PropTypes.shape({
-            textColor: PropTypes.string.isRequired,
-            fontSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-        }).isRequired,
-    }).isRequired,
 }
 CartesianMarkersItem.defaultProps = {
     legendPosition: 'top-right',
