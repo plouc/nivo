@@ -52,8 +52,8 @@ const ScatterPlotCanvas = props => {
 
         isInteractive,
         debugMesh,
-        // onMouseEnter,
-        // onMouseMove,
+        onMouseEnter,
+        onMouseMove,
         onMouseLeave,
         onClick,
         tooltip,
@@ -227,11 +227,30 @@ const ScatterPlotCanvas = props => {
 
             if (node) {
                 showTooltipFromEvent(React.createElement(tooltip, { node }), event)
+                if (currentNode && currentNode.id !== node.id) {
+                    onMouseLeave && onMouseLeave(currentNode, event)
+                    onMouseEnter && onMouseEnter(node, event)
+                }
+                if (!currentNode) {
+                    onMouseEnter && onMouseEnter(node, event)
+                }
+                onMouseMove && onMouseMove(node, event)
             } else {
                 hideTooltip()
+                currentNode && onMouseLeave && onMouseLeave(currentNode, event)
             }
         },
-        [getNodeFromMouseEvent, setCurrentNode, showTooltipFromEvent, hideTooltip, tooltip]
+        [
+            getNodeFromMouseEvent,
+            currentNode,
+            setCurrentNode,
+            showTooltipFromEvent,
+            hideTooltip,
+            tooltip,
+            onMouseEnter,
+            onMouseMove,
+            onMouseLeave,
+        ]
     )
 
     const handleMouseLeave = useCallback(
@@ -240,7 +259,7 @@ const ScatterPlotCanvas = props => {
             setCurrentNode(null)
             currentNode && onMouseLeave && onMouseLeave(currentNode, event)
         },
-        [hideTooltip, setCurrentNode, onMouseLeave]
+        [hideTooltip, currentNode, setCurrentNode, onMouseLeave]
     )
 
     const handleClick = useCallback(
