@@ -39,6 +39,7 @@ declare module '@nivo/scatterplot' {
     }
 
     export interface Node {
+        index: number
         id: string
         serieId: string
         x: number

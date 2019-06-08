@@ -345,12 +345,13 @@ const props = [
     },
     {
         key: 'useMesh',
+        group: 'Interactivity',
+        flavors: ['svg'],
         help: 'Use a mesh to detect mouse interactions.',
         type: 'boolean',
         required: false,
         defaultValue: defaults.useMesh,
         controlType: 'switch',
-        group: 'Interactivity',
     },
     {
         key: 'debugMesh',

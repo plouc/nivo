@@ -133,25 +133,21 @@ const ScatterPlot = () => {
             propertiesMapper={mapper}
             generateData={generateLightDataSet}
         >
-            {(properties, data, theme, logAction) => {
-                return (
-                    <ResponsiveScatterPlot
-                        data={data}
-                        {...properties}
-                        theme={theme}
-                        onClick={node => {
-                            logAction({
-                                type: 'click',
-                                label: `[point] serie: ${node.data.serieId}, x: ${node.x}, y: ${
-                                    node.y
-                                }`,
-                                color: node.style.color,
-                                data: node,
-                            })
-                        }}
-                    />
-                )
-            }}
+            {(properties, data, theme, logAction) => (
+                <ResponsiveScatterPlot
+                    data={data}
+                    {...properties}
+                    theme={theme}
+                    onClick={node => {
+                        logAction({
+                            type: 'click',
+                            label: `[node] serie: ${node.data.serieId}, x: ${node.x}, y: ${node.y}`,
+                            color: node.style.color,
+                            data: node,
+                        })
+                    }}
+                />
+            )}
         </ComponentTemplate>
     )
 }

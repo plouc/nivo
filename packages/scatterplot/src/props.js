@@ -69,7 +69,6 @@ const commonPropTypes = {
     blendMode: blendModePropType.isRequired,
 
     isInteractive: PropTypes.bool.isRequired,
-    useMesh: PropTypes.bool.isRequired,
     debugMesh: PropTypes.bool.isRequired,
     onMouseEnter: PropTypes.func,
     onMouseMove: PropTypes.func,
@@ -91,6 +90,7 @@ const commonPropTypes = {
 
 export const ScatterPlotPropTypes = {
     ...commonPropTypes,
+    useMesh: PropTypes.bool.isRequired,
     ...motionPropTypes,
 }
 
@@ -123,7 +123,6 @@ const commonDefaultProps = {
     blendMode: 'normal',
 
     isInteractive: true,
-    useMesh: false,
     debugMesh: false,
 
     tooltip: Tooltip,
@@ -136,6 +135,7 @@ const commonDefaultProps = {
 export const ScatterPlotDefaultProps = {
     ...commonDefaultProps,
     layers: ['grid', 'axes', 'nodes', 'markers', 'mesh', 'legends'],
+    useMesh: true,
     animate: true,
     motionStiffness: 90,
     motionDamping: 15,

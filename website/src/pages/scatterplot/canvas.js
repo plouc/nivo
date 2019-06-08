@@ -130,25 +130,21 @@ const ScatterPlotCanvas = () => {
             propertiesMapper={mapper}
             generateData={generateHeavyDataSet}
         >
-            {(properties, data, theme, logAction) => {
-                return (
-                    <ResponsiveScatterPlotCanvas
-                        data={data}
-                        {...properties}
-                        theme={theme}
-                        onClick={node => {
-                            logAction({
-                                type: 'click',
-                                label: `[point] serie: ${node.data.serieId}, x: ${node.x}, y: ${
-                                    node.y
-                                }`,
-                                color: node.style.color,
-                                data: node,
-                            })
-                        }}
-                    />
-                )
-            }}
+            {(properties, data, theme, logAction) => (
+                <ResponsiveScatterPlotCanvas
+                    data={data}
+                    {...properties}
+                    theme={theme}
+                    onClick={node => {
+                        logAction({
+                            type: 'click',
+                            label: `[node] serie: ${node.data.serieId}, x: ${node.x}, y: ${node.y}`,
+                            color: node.style.color,
+                            data: node,
+                        })
+                    }}
+                />
+            )}
         </ComponentTemplate>
     )
 }

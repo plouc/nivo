@@ -262,15 +262,16 @@ const LineCanvas = ({
                 hideTooltip()
             }
         },
-        [getPointFromMouseEvent, setCurrentPoint, showTooltipFromEvent, hideTooltip]
+        [getPointFromMouseEvent, setCurrentPoint, showTooltipFromEvent, hideTooltip, tooltip]
     )
 
     const handleMouseLeave = useCallback(
         event => {
             hideTooltip()
+            setCurrentPoint(null)
             currentPoint && onMouseLeave && onMouseLeave(currentPoint, event)
         },
-        [onMouseLeave]
+        [hideTooltip, setCurrentPoint, onMouseLeave]
     )
 
     const handleClick = useCallback(
