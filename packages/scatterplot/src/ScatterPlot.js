@@ -7,7 +7,6 @@
  * file that was distributed with this source code.
  */
 import React, { memo, Fragment, useMemo } from 'react'
-import { TransitionMotion, spring } from 'react-motion'
 import {
     SvgWrapper,
     withContainer,
@@ -18,11 +17,11 @@ import {
 } from '@nivo/core'
 import { Axes, Grid } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
-import { Mesh } from '@nivo/voronoi'
 import { useScatterPlot } from './hooks'
 import { ScatterPlotPropTypes, ScatterPlotDefaultProps } from './props'
 import AnimatedNodes from './AnimatedNodes'
 import StaticNodes from './StaticNodes'
+import Mesh from './Mesh'
 
 const ScatterPlot = props => {
     const {
@@ -52,11 +51,17 @@ const ScatterPlot = props => {
         axisLeft,
 
         isInteractive,
+        useMesh,
+        debugMesh,
         onMouseEnter,
         onMouseMove,
         onMouseLeave,
         onClick,
         tooltip,
+
+        markers,
+
+        legends,
     } = props
 
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
@@ -68,7 +73,7 @@ const ScatterPlot = props => {
     const theme = useTheme()
     const { animate } = useMotionConfig()
 
-    const { xScale, yScale, nodes } = useScatterPlot({
+    const { xScale, yScale, nodes, legendData } = useScatterPlot({
         data,
         xScaleSpec,
         xFormat,
@@ -86,8 +91,13 @@ const ScatterPlot = props => {
             xScale,
             yScale,
             nodes,
+            margin,
+            innerWidth,
+            innerHeight,
+            outerWidth,
+            outerHeight,
         }),
-        [props, xScale, yScale, nodes]
+        [xScale, yScale, nodes, margin, innerWidth, innerHeight, outerWidth, outerHeight]
     )
 
     const Nodes = animate ? AnimatedNodes : StaticNodes
@@ -127,19 +137,14 @@ const ScatterPlot = props => {
             tooltip,
             blendMode,
         }),
-        markers: null,
-        mesh: null,
-        legends: null,
-        /*
         markers: (
             <CartesianMarkers
                 key="markers"
                 markers={markers}
-                width={width}
-                height={height}
+                width={innerWidth}
+                height={innerHeight}
                 xScale={xScale}
                 yScale={yScale}
-                theme={theme}
             />
         ),
         mesh: null,
@@ -147,13 +152,29 @@ const ScatterPlot = props => {
             <BoxLegendSvg
                 key={i}
                 {...legend}
-                containerWidth={width}
-                containerHeight={height}
+                containerWidth={innerWidth}
+                containerHeight={innerHeight}
                 data={legendData}
                 theme={theme}
             />
         )),
-        */
+    }
+
+    if (isInteractive === true && useMesh === true) {
+        layerById.mesh = (
+            <Mesh
+                key="mesh"
+                nodes={nodes}
+                width={innerWidth}
+                height={innerHeight}
+                onMouseEnter={onMouseEnter}
+                onMouseMove={onMouseMove}
+                onMouseLeave={onMouseLeave}
+                onClick={onClick}
+                tooltip={tooltip}
+                debug={debugMesh}
+            />
+        )
     }
 
     return (
@@ -175,144 +196,7 @@ const ScatterPlot = props => {
     )
 }
 
-/*
-    render() {
-        const {
-            markers,
-
-            theme,
-
-            useMesh,
-            debugMesh,
-
-            legends,
-        } = this.props
-        const { xScale, yScale } = computedData
-
-        const springConfig = {
-            damping: motionDamping,
-            stiffness: motionStiffness,
-        }
-
-        const legendData = data.map(serie => ({
-            id: serie.id,
-            label: serie.id,
-            color: getColor({ serie }),
-        }))
-
-        return (
-            <Container
-                isInteractive={isInteractive}
-                theme={theme}
-                animate={animate}
-                motionDamping={motionDamping}
-                motionStiffness={motionStiffness}
-            >
-                {({ showTooltip, hideTooltip }) => {
-                    const onMouseEnter = this.handleMouseEnter(showTooltip)
-                    const onMouseMove = this.handleMouseMove(showTooltip)
-                    const onMouseLeave = this.handleMouseLeave(hideTooltip)
-
-                    const layerById = {
-                    }
-
-                    if (animate === true) {
-                        layerById.points = (
-                            <TransitionMotion
-                                key="points"
-                                styles={points.map(point => ({
-                                    key: point.id,
-                                    data: point,
-                                    style: {
-                                        x: spring(point.x, springConfig),
-                                        y: spring(point.y, springConfig),
-                                        size: spring(getSymbolSize(point.data), springConfig),
-                                    },
-                                }))}
-                            >
-                                {interpolatedStyles => (
-                                    <g>
-                                        {interpolatedStyles.map(({ key, style, data: point }) => (
-                                            <ScatterPlotItem
-                                                key={key}
-                                                point={point}
-                                                x={style.x}
-                                                y={style.y}
-                                                size={style.size}
-                                                color={getColor(point.data)}
-                                                onMouseEnter={onMouseEnter}
-                                                onMouseMove={onMouseMove}
-                                                onMouseLeave={onMouseLeave}
-                                                onClick={this.handleClick}
-                                                theme={theme}
-                                            />
-                                        ))}
-                                    </g>
-                                )}
-                            </TransitionMotion>
-                        )
-                    } else {
-                        layerById.points = points.map(point => (
-                            <ScatterPlotItem
-                                key={point.id}
-                                point={point}
-                                x={point.x}
-                                y={point.y}
-                                size={getSymbolSize(point.data)}
-                                color={getColor(point.data)}
-                                data={point.data}
-                                onMouseEnter={onMouseEnter}
-                                onMouseMove={onMouseMove}
-                                onMouseLeave={onMouseLeave}
-                                onClick={this.handleClick}
-                                theme={theme}
-                            />
-                        ))
-                    }
-
-                    if (isInteractive === true && useMesh === true) {
-                        layerById.mesh = (
-                            <Mesh
-                                key="mesh"
-                                nodes={points}
-                                width={width}
-                                height={height}
-                                onMouseEnter={onMouseEnter}
-                                onMouseMove={onMouseMove}
-                                onMouseLeave={onMouseLeave}
-                                onClick={this.handleClick}
-                                debug={debugMesh}
-                            />
-                        )
-                    }
-
-                    return (
-                        <SvgWrapper
-                            width={outerWidth}
-                            height={outerHeight}
-                            margin={margin}
-                            theme={theme}
-                        >
-                            {layers.map((layer, i) => {
-                                if (typeof layer === 'function') {
-                                    return (
-                                        <Fragment key={i}>
-                                            {layer({ ...this.props, xScale, yScale })}
-                                        </Fragment>
-                                    )
-                                }
-                                return layerById[layer]
-                            })}
-                        </SvgWrapper>
-                    )
-                }}
-            </Container>
-        )
-    }
-}
-*/
-
 ScatterPlot.propTypes = ScatterPlotPropTypes
 ScatterPlot.defaultProps = ScatterPlotDefaultProps
 
-export default withContainer(memo(ScatterPlot))
+export default memo(withContainer(ScatterPlot))

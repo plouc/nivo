@@ -386,6 +386,118 @@ stories.add('using mouse enter/leave', () => (
     />
 ))
 
+const CustomNode = ({
+    node,
+    x,
+    y,
+    size,
+    color,
+    blendMode,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+    onClick,
+}) => {
+    if (node.data.serieId === 'A') {
+        return (
+            <g transform={`translate(${x},${y})`}>
+                <circle
+                    r={size / 2}
+                    fill={color}
+                    style={{ mixBlendMode: blendMode }}
+                    onMouseEnter={onMouseEnter}
+                    onMouseMove={onMouseMove}
+                    onMouseLeave={onMouseLeave}
+                    onClick={onClick}
+                />
+            </g>
+        )
+    }
+
+    if (node.data.serieId === 'B') {
+        return (
+            <g transform={`translate(${x},${y}) rotate(45)`}>
+                <rect
+                    x={size * -0.5}
+                    y={size * -0.5}
+                    width={size}
+                    height={size}
+                    fill={color}
+                    style={{ mixBlendMode: blendMode }}
+                    onMouseEnter={onMouseEnter}
+                    onMouseMove={onMouseMove}
+                    onMouseLeave={onMouseLeave}
+                    onClick={onClick}
+                />
+            </g>
+        )
+    }
+
+    return (
+        <g transform={`translate(${x},${y})`}>
+            <rect
+                x={size * -0.5}
+                y={size * -0.5}
+                width={size}
+                height={size}
+                fill={color}
+                style={{ mixBlendMode: blendMode }}
+                onMouseEnter={onMouseEnter}
+                onMouseMove={onMouseMove}
+                onMouseLeave={onMouseLeave}
+                onClick={onClick}
+            />
+        </g>
+    )
+}
+
+stories.add('custom node', () => (
+    <ScatterPlot
+        {...commonProps}
+        colors={{ scheme: 'set2' }}
+        nodeSize={32}
+        data={[
+            {
+                id: 'A',
+                data: [
+                    { x: 0, y: 2 },
+                    { x: 1, y: 4 },
+                    { x: 2, y: 9 },
+                    { x: 3, y: 7 },
+                    { x: 4, y: 15 },
+                    { x: 5, y: 12 },
+                    { x: 6, y: 9 },
+                ],
+            },
+            {
+                id: 'B',
+                data: [
+                    { x: 0, y: 1 },
+                    { x: 1, y: 5 },
+                    { x: 2, y: 7 },
+                    { x: 3, y: 3 },
+                    { x: 4, y: 9 },
+                    { x: 5, y: 17 },
+                    { x: 6, y: 5 },
+                ],
+            },
+            {
+                id: 'C',
+                data: [
+                    { x: 0, y: 0 },
+                    { x: 1, y: 7 },
+                    { x: 2, y: 8 },
+                    { x: 3, y: 11 },
+                    { x: 4, y: 8 },
+                    { x: 5, y: 3 },
+                    { x: 6, y: 1 },
+                ],
+            },
+        ]}
+        renderNode={CustomNode}
+    />
+))
+
 const AreaLayer = ({ nodes, xScale, yScale }) => {
     const areaGenerator = area()
         .x(d => xScale(d.data.x))

@@ -76,6 +76,7 @@ const NodeWrapper = ({
 
 NodeWrapper.propTypes = {
     node: NodePropType.isRequired,
+    renderNode: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,

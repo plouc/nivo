@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { useMemo } from 'react'
-import { useTheme, useValueFormatter } from '@nivo/core'
+import { useValueFormatter } from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
 import { computeXYScalesForSeries } from '@nivo/scales'
 import { computePoints, getNodeSizeGenerator } from './compute'
@@ -40,8 +40,7 @@ export const useScatterPlot = ({
 
     const getNodeSize = useNodeSize(nodeSize)
 
-    const theme = useTheme()
-    const getColor = useOrdinalColorScale(colors, 'serie.id')
+    const getColor = useOrdinalColorScale(colors, 'serieId')
 
     const nodes = useMemo(
         () =>
@@ -57,9 +56,20 @@ export const useScatterPlot = ({
         [rawNodes, getNodeSize, getColor]
     )
 
+    const legendData = useMemo(
+        () =>
+            series.map(serie => ({
+                id: serie.id,
+                label: serie.id,
+                color: getColor({ serieId: serie.id }),
+            })),
+        [series, getColor]
+    )
+
     return {
         xScale,
         yScale,
         nodes,
+        legendData,
     }
 }

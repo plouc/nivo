@@ -10,6 +10,8 @@ ScatterPlot:
     - svg
     - isomorphic
   stories:
+    - label: Using custom node
+      link: scatterplot--custom-node
     - label: Using time scales
       link: scatterplot--using-time-scales
     - label: Using logarithmic scales

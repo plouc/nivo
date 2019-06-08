@@ -35,20 +35,7 @@ const Node = ({
 )
 
 Node.propTypes = {
-    node: PropTypes.shape({
-        data: PropTypes.shape({
-            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-            x: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.instanceOf(Date)])
-                .isRequired,
-            y: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.instanceOf(Date)])
-                .isRequired,
-            serie: PropTypes.shape({
-                id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-            }).isRequired,
-        }).isRequired,
-        x: PropTypes.number.isRequired,
-        y: PropTypes.number.isRequired,
-    }).isRequired,
+    node: PropTypes.object.isRequired,
 
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,

@@ -20,6 +20,8 @@ import { LegendProps } from '@nivo/legends'
 import { AxisProps } from '@nivo/axes'
 import { Scale } from '@nivo/scales'
 
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
+
 declare module '@nivo/scatterplot' {
     export type Value = number | string | Date
     export type ValueFormatter = (value: Value) => string | number
@@ -83,6 +85,33 @@ declare module '@nivo/scatterplot' {
 
     export type CustomTooltip = ({ node: Node }) => React.ReactNode
 
+    type Scale = (value: Value) => number
+
+    export interface ScatterPlotComputedProps {
+        xScale: Scale
+        yScale: Scale
+        nodes: Node[]
+        innerWidth: number
+        innerHeight: number
+        outerWidth: number
+        outerHeight: number
+    }
+
+    export interface CustomSvgLayerProps
+        extends Omit<ScatterPlotSvgProps, 'xScale' | 'yScale'>,
+            ScatterPlotComputedProps {}
+    export interface CustomCanvasLayerProps
+        extends Omit<ScatterPlotCanvasProps, 'xScale' | 'yScale'>,
+            ScatterPlotComputedProps {}
+
+    export type CustomSvgLayer = (props: CustomSvgLayerProps) => React.ReactNode
+    export type CustomCanvasLayer = (
+        ctx: CanvasRenderingContext2D,
+        props: CustomCanvasLayerProps
+    ) => void
+
+    export type CustomLayerId = 'grid' | 'axes' | 'nodes' | 'markers' | 'mesh' | 'legends'
+
     export interface ScatterPlotProps {
         data: Serie[]
 
@@ -92,8 +121,6 @@ declare module '@nivo/scatterplot' {
         yFormat?: string | ValueFormatter
 
         margin?: Box
-
-        layers: any[]
 
         theme?: Theme
         colors?: OrdinalColorsInstruction
@@ -121,6 +148,7 @@ declare module '@nivo/scatterplot' {
     }
 
     export interface ScatterPlotSvgProps extends ScatterPlotProps, MotionProps {
+        layers?: Array<CustomLayerId | CustomSvgLayer>
         renderNode?: NodeComponent
         markers?: CartesianMarkerProps[]
     }
@@ -130,6 +158,7 @@ declare module '@nivo/scatterplot' {
 
     export interface ScatterPlotCanvasProps extends ScatterPlotProps {
         pixelRatio?: number
+        layers?: Array<CustomLayerId | CustomCanvasLayer>
         renderNode?: NodeCanvasComponent
     }
 

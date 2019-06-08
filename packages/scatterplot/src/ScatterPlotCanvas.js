@@ -6,15 +6,222 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component } from 'react'
-import { getRelativeCursor, isCursorInRect, Container } from '@nivo/core'
+import React, { memo, useRef, useState, useEffect, useCallback, useMemo } from 'react'
+import {
+    withContainer,
+    useDimensions,
+    useTheme,
+    getRelativeCursor,
+    isCursorInRect,
+    Container,
+} from '@nivo/core'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { renderVoronoiToCanvas, renderVoronoiCellToCanvas } from '@nivo/voronoi'
-import { ScatterPlotPropTypes } from './props'
-import { enhanceCanvas } from './enhance'
+import { ScatterPlotCanvasPropTypes, ScatterPlotCanvasDefaultProps } from './props'
+import { useScatterPlot } from './hooks'
 import ScatterPlotTooltip from './ScatterPlotTooltip'
 
+const ScatterPlotCanvas = props => {
+    const {
+        data,
+        xScale: xScaleSpec,
+        xFormat,
+        yScale: yScaleSpec,
+        yFormat,
+
+        width,
+        height,
+        margin: partialMargin,
+        pixelRatio,
+
+        layers,
+
+        colors,
+        blendMode,
+
+        nodeSize,
+        renderNode,
+
+        enableGridX,
+        gridXValues,
+        enableGridY,
+        gridYValues,
+        axisTop,
+        axisRight,
+        axisBottom,
+        axisLeft,
+
+        isInteractive,
+        useMesh,
+        debugMesh,
+        onMouseEnter,
+        onMouseMove,
+        onMouseLeave,
+        onClick,
+        tooltip,
+
+        legends,
+    } = props
+
+    const canvasEl = useRef(null)
+
+    const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
+        width,
+        height,
+        partialMargin
+    )
+
+    const theme = useTheme()
+
+    const { xScale, yScale, nodes, legendData } = useScatterPlot({
+        data,
+        xScaleSpec,
+        xFormat,
+        yScaleSpec,
+        yFormat,
+        width: innerWidth,
+        height: innerHeight,
+        nodeSize,
+        colors,
+    })
+
+    const customLayerProps = useMemo(
+        () => ({
+            ...props,
+            xScale,
+            yScale,
+            nodes,
+            margin,
+            innerWidth,
+            innerHeight,
+            outerWidth,
+            outerHeight,
+        }),
+        [xScale, yScale, nodes, margin, innerWidth, innerHeight, outerWidth, outerHeight]
+    )
+
+    useEffect(() => {
+        canvasEl.current.width = outerWidth * pixelRatio
+        canvasEl.current.height = outerHeight * pixelRatio
+
+        const ctx = canvasEl.current.getContext('2d')
+
+        ctx.scale(pixelRatio, pixelRatio)
+
+        ctx.fillStyle = theme.background
+        ctx.fillRect(0, 0, outerWidth, outerHeight)
+        ctx.translate(margin.left, margin.top)
+
+        layers.forEach(layer => {
+            if (layer === 'grid') {
+                ctx.lineWidth = theme.grid.line.strokeWidth
+                ctx.strokeStyle = theme.grid.line.stroke
+
+                enableGridX &&
+                    renderGridLinesToCanvas(ctx, {
+                        width: innerWidth,
+                        height: innerHeight,
+                        scale: xScale,
+                        axis: 'x',
+                        values: gridXValues,
+                    })
+
+                enableGridY &&
+                    renderGridLinesToCanvas(ctx, {
+                        width: innerWidth,
+                        height: innerHeight,
+                        scale: yScale,
+                        axis: 'y',
+                        values: gridYValues,
+                    })
+            } else if (layer === 'axes') {
+                renderAxesToCanvas(ctx, {
+                    xScale,
+                    yScale,
+                    width: innerWidth,
+                    height: innerHeight,
+                    top: axisTop,
+                    right: axisRight,
+                    bottom: axisBottom,
+                    left: axisLeft,
+                    theme,
+                })
+            } else if (layer === 'nodes') {
+                nodes.forEach(node => {
+                    ctx.beginPath()
+                    ctx.arc(node.x, node.y, node.size / 2, 0, 2 * Math.PI)
+                    ctx.fillStyle = node.style.color
+                    ctx.fill()
+                })
+            } else if (layer === 'mesh') {
+                if (useMesh === true && debugMesh === true) {
+                }
+            } else if (layer === 'legends') {
+                legends.forEach(legend => {
+                    renderLegendToCanvas(ctx, {
+                        ...legend,
+                        data: legendData,
+                        containerWidth: innerWidth,
+                        containerHeight: innerHeight,
+                        theme,
+                    })
+                })
+            } else if (typeof layer === 'function') {
+                layer(ctx, customLayerProps)
+            } else {
+                throw new Error(`Invalid layer: ${layer}`)
+            }
+        })
+    }, [
+        canvasEl,
+        innerWidth,
+        innerHeight,
+        outerWidth,
+        outerHeight,
+        margin.top,
+        margin.left,
+        pixelRatio,
+        layers,
+        customLayerProps,
+        theme,
+        xScale,
+        yScale,
+        nodes,
+        enableGridX,
+        enableGridY,
+        axisTop,
+        axisRight,
+        axisBottom,
+        axisLeft,
+        legends,
+        legendData,
+    ])
+
+    return (
+        <canvas
+            ref={canvasEl}
+            width={outerWidth * pixelRatio}
+            height={outerHeight * pixelRatio}
+            style={{
+                width: outerWidth,
+                height: outerHeight,
+                cursor: isInteractive ? 'auto' : 'normal',
+            }}
+            // onMouseEnter={isInteractive ? handleMouseHover : undefined}
+            // onMouseMove={isInteractive ? handleMouseHover : undefined}
+            // onMouseLeave={isInteractive ? handleMouseLeave : undefined}
+            // onClick={isInteractive ? handleClick : undefined}
+        />
+    )
+}
+
+ScatterPlotCanvas.propTypes = ScatterPlotCanvasPropTypes
+ScatterPlotCanvas.defaultProps = ScatterPlotCanvasDefaultProps
+
+export default memo(withContainer(ScatterPlotCanvas))
+
+/*
 const findNodeUnderCursor = (nodes, margin, x, y) =>
     nodes.find(node =>
         isCursorInRect(
@@ -159,44 +366,6 @@ class ScatterPlotCanvas extends Component {
 
         const { xScale, yScale } = computedData
 
-        this.surface.width = outerWidth * pixelRatio
-        this.surface.height = outerHeight * pixelRatio
-
-        this.ctx.scale(pixelRatio, pixelRatio)
-
-        this.ctx.fillStyle = theme.background
-        this.ctx.fillRect(0, 0, outerWidth, outerHeight)
-        this.ctx.translate(margin.left, margin.top)
-
-        this.ctx.strokeStyle = '#dddddd'
-        enableGridX &&
-            renderGridLinesToCanvas(this.ctx, {
-                width,
-                height,
-                scale: xScale,
-                axis: 'x',
-            })
-        enableGridY &&
-            renderGridLinesToCanvas(this.ctx, {
-                width,
-                height,
-                scale: yScale,
-                axis: 'y',
-            })
-
-        this.ctx.strokeStyle = '#000000'
-        renderAxesToCanvas(this.ctx, {
-            xScale,
-            yScale,
-            width,
-            height,
-            top: axisTop,
-            right: axisRight,
-            bottom: axisBottom,
-            left: axisLeft,
-            theme,
-        })
-
         points.forEach(point => {
             this.ctx.beginPath()
             this.ctx.arc(point.x, point.y, getSymbolSize(point.data) / 2, 0, 2 * Math.PI)
@@ -211,22 +380,6 @@ class ScatterPlotCanvas extends Component {
                 renderVoronoiCellToCanvas(this.ctx, voronoi, pointIndex)
             }
         }
-
-        const legendData = data.map(serie => ({
-            id: serie.id,
-            label: serie.id,
-            color: getColor({ serie }),
-        }))
-
-        legends.forEach(legend => {
-            renderLegendToCanvas(this.ctx, {
-                ...legend,
-                data: legendData,
-                containerWidth: width,
-                containerHeight: height,
-                theme,
-            })
-        })
     }
 
     render() {
@@ -259,3 +412,4 @@ class ScatterPlotCanvas extends Component {
 ScatterPlotCanvas.propTypes = ScatterPlotPropTypes
 
 export default enhanceCanvas(ScatterPlotCanvas)
+*/

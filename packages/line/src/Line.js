@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useMemo } from 'react'
 import { withContainer, useDimensions, useTheme, SvgWrapper, CartesianMarkers } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 import { Axes, Grid } from '@nivo/axes'
@@ -115,13 +115,17 @@ const Line = props => {
     const [currentPoint, setCurrentPoint] = useState(null)
     const [currentSlice, setCurrentSlice] = useState(null)
 
-    const legendData = series
-        .map(line => ({
-            id: line.id,
-            label: line.id,
-            color: line.color,
-        }))
-        .reverse()
+    const legendData = useMemo(
+        () =>
+            series
+                .map(line => ({
+                    id: line.id,
+                    label: line.id,
+                    color: line.color,
+                }))
+                .reverse(),
+        [series]
+    )
 
     const layerById = {
         grid: (
