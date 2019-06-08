@@ -47,6 +47,7 @@ export const computePoints = ({ series, formatX, formatY }) => {
         (agg, serie) => [
             ...agg,
             ...serie.data.map((d, i) => ({
+                index: agg.length + i,
                 id: `${serie.id}.${i}`,
                 x: d.position.x,
                 y: d.position.y,

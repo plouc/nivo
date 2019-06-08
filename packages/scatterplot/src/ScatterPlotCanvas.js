@@ -13,14 +13,13 @@ import {
     useTheme,
     getRelativeCursor,
     isCursorInRect,
-    Container,
 } from '@nivo/core'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
-import { renderVoronoiToCanvas, renderVoronoiCellToCanvas } from '@nivo/voronoi'
+import { useTooltip } from '@nivo/tooltip'
+import { useVoronoiMesh, renderVoronoiToCanvas, renderVoronoiCellToCanvas } from '@nivo/voronoi'
 import { ScatterPlotCanvasPropTypes, ScatterPlotCanvasDefaultProps } from './props'
 import { useScatterPlot } from './hooks'
-import ScatterPlotTooltip from './ScatterPlotTooltip'
 
 const ScatterPlotCanvas = props => {
     const {
@@ -38,7 +37,6 @@ const ScatterPlotCanvas = props => {
         layers,
 
         colors,
-        blendMode,
 
         nodeSize,
         renderNode,
@@ -53,10 +51,9 @@ const ScatterPlotCanvas = props => {
         axisLeft,
 
         isInteractive,
-        useMesh,
         debugMesh,
-        onMouseEnter,
-        onMouseMove,
+        // onMouseEnter,
+        // onMouseMove,
         onMouseLeave,
         onClick,
         tooltip,
@@ -65,14 +62,14 @@ const ScatterPlotCanvas = props => {
     } = props
 
     const canvasEl = useRef(null)
+    const theme = useTheme()
+    const [currentNode, setCurrentNode] = useState(null)
 
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
         height,
         partialMargin
     )
-
-    const theme = useTheme()
 
     const { xScale, yScale, nodes, legendData } = useScatterPlot({
         data,
@@ -84,6 +81,13 @@ const ScatterPlotCanvas = props => {
         height: innerHeight,
         nodeSize,
         colors,
+    })
+
+    const { delaunay, voronoi } = useVoronoiMesh({
+        points: nodes,
+        width: innerWidth,
+        height: innerHeight,
+        debug: debugMesh,
     })
 
     const customLayerProps = useMemo(
@@ -149,13 +153,14 @@ const ScatterPlotCanvas = props => {
                 })
             } else if (layer === 'nodes') {
                 nodes.forEach(node => {
-                    ctx.beginPath()
-                    ctx.arc(node.x, node.y, node.size / 2, 0, 2 * Math.PI)
-                    ctx.fillStyle = node.style.color
-                    ctx.fill()
+                    renderNode(ctx, node)
                 })
             } else if (layer === 'mesh') {
-                if (useMesh === true && debugMesh === true) {
+                if (debugMesh === true) {
+                    renderVoronoiToCanvas(ctx, voronoi)
+                    if (currentNode) {
+                        renderVoronoiCellToCanvas(ctx, voronoi, currentNode.index)
+                    }
                 }
             } else if (layer === 'legends') {
                 legends.forEach(legend => {
@@ -182,6 +187,7 @@ const ScatterPlotCanvas = props => {
         margin.top,
         margin.left,
         pixelRatio,
+        renderNode,
         layers,
         customLayerProps,
         theme,
@@ -196,7 +202,56 @@ const ScatterPlotCanvas = props => {
         axisLeft,
         legends,
         legendData,
+        debugMesh,
+        voronoi,
+        currentNode,
     ])
+
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
+
+    const getNodeFromMouseEvent = useCallback(
+        event => {
+            const [x, y] = getRelativeCursor(canvasEl.current, event)
+            if (!isCursorInRect(margin.left, margin.top, innerWidth, innerHeight, x, y)) return null
+
+            const nodeIndex = delaunay.find(x - margin.left, y - margin.top)
+            return nodes[nodeIndex]
+        },
+        [canvasEl, margin, innerWidth, innerHeight, delaunay]
+    )
+
+    const handleMouseHover = useCallback(
+        event => {
+            const node = getNodeFromMouseEvent(event)
+            setCurrentNode(node)
+
+            if (node) {
+                showTooltipFromEvent(React.createElement(tooltip, { node }), event)
+            } else {
+                hideTooltip()
+            }
+        },
+        [getNodeFromMouseEvent, setCurrentNode, showTooltipFromEvent, hideTooltip, tooltip]
+    )
+
+    const handleMouseLeave = useCallback(
+        event => {
+            hideTooltip()
+            setCurrentNode(null)
+            currentNode && onMouseLeave && onMouseLeave(currentNode, event)
+        },
+        [hideTooltip, setCurrentNode, onMouseLeave]
+    )
+
+    const handleClick = useCallback(
+        event => {
+            if (onClick) {
+                const node = getNodeFromMouseEvent(event)
+                node && onClick(node, event)
+            }
+        },
+        [getNodeFromMouseEvent, onClick]
+    )
 
     return (
         <canvas
@@ -208,208 +263,23 @@ const ScatterPlotCanvas = props => {
                 height: outerHeight,
                 cursor: isInteractive ? 'auto' : 'normal',
             }}
-            // onMouseEnter={isInteractive ? handleMouseHover : undefined}
-            // onMouseMove={isInteractive ? handleMouseHover : undefined}
-            // onMouseLeave={isInteractive ? handleMouseLeave : undefined}
-            // onClick={isInteractive ? handleClick : undefined}
+            onMouseEnter={isInteractive ? handleMouseHover : undefined}
+            onMouseMove={isInteractive ? handleMouseHover : undefined}
+            onMouseLeave={isInteractive ? handleMouseLeave : undefined}
+            onClick={isInteractive ? handleClick : undefined}
         />
     )
 }
 
 ScatterPlotCanvas.propTypes = ScatterPlotCanvasPropTypes
-ScatterPlotCanvas.defaultProps = ScatterPlotCanvasDefaultProps
-
-export default memo(withContainer(ScatterPlotCanvas))
-
-/*
-const findNodeUnderCursor = (nodes, margin, x, y) =>
-    nodes.find(node =>
-        isCursorInRect(
-            node.x + margin.left - node.size / 2,
-            node.y + margin.top - node.size / 2,
-            node.size,
-            node.size,
-            x,
-            y
-        )
-    )
-
-class ScatterPlotCanvas extends Component {
-    state = {}
-
-    componentDidMount() {
-        this.ctx = this.surface.getContext('2d')
-        this.draw(this.props)
-    }
-
-    shouldComponentUpdate(props) {
-        if (
-            this.props.outerWidth !== props.outerWidth ||
-            this.props.outerHeight !== props.outerHeight ||
-            this.props.isInteractive !== props.isInteractive ||
-            this.props.theme !== props.theme
-        ) {
-            return true
-        } else {
-            this.draw(props)
-            return false
-        }
-    }
-
-    componentDidUpdate() {
-        this.ctx = this.surface.getContext('2d')
-        this.draw(this.props)
-    }
-
-    handleMouseEnter = () => {}
-
-    getPointForMouseEvent = event => {
-        const {
-            points,
-            margin,
-            width,
-            height,
-            useMesh,
-            delaunay,
-            onMouseMove,
-            onMouseLeave,
-        } = this.props
-        const [x, y] = getRelativeCursor(this.surface, event)
-
-        let pointIndex
-        let point
-        if (useMesh === true) {
-            if (isCursorInRect(margin.left, margin.top, width, height, x, y)) {
-                pointIndex = delaunay.find(x - margin.left, y - margin.top)
-                point = points[pointIndex]
-            } else {
-                pointIndex = null
-                point = null
-            }
-        } else {
-            point = findNodeUnderCursor(points, margin, x, y)
-        }
-
-        if (point && onMouseMove !== undefined) {
-            onMouseMove(point, event)
-        } else if (!point && this.state.point && onMouseLeave !== undefined) {
-            onMouseLeave(this.state.point, event)
-        }
-
-        this.setState({ pointIndex, point })
-
-        return point
-    }
-
-    handleMouseHover = (showTooltip, hideTooltip) => event => {
-        const point = this.getPointForMouseEvent(event)
-        if (point) {
-            const { theme, tooltipFormat, tooltip, getColor } = this.props
-            showTooltip(
-                <ScatterPlotTooltip
-                    point={point}
-                    color={getColor(point.data)}
-                    format={tooltipFormat}
-                    tooltip={tooltip}
-                    theme={theme}
-                />,
-                event
-            )
-        } else {
-            hideTooltip()
-        }
-    }
-
-    handleMouseLeave = hideTooltip => () => {
-        hideTooltip()
-    }
-
-    handleClick = event => {
-        const point = this.getPointForMouseEvent(event)
-        if (point !== undefined && point !== null) {
-            this.props.onClick(point.data, event)
-        }
-    }
-
-    draw(props) {
-        const {
-            data,
-
-            computedData,
-            points,
-
-            width,
-            height,
-            outerWidth,
-            outerHeight,
-            pixelRatio,
-            margin,
-
-            axisTop,
-            axisRight,
-            axisBottom,
-            axisLeft,
-
-            enableGridX,
-            enableGridY,
-
-            useMesh,
-            debugMesh,
-            voronoi,
-
-            theme,
-            getSymbolSize,
-            getColor,
-
-            legends,
-        } = props
-
-        const { xScale, yScale } = computedData
-
-        points.forEach(point => {
-            this.ctx.beginPath()
-            this.ctx.arc(point.x, point.y, getSymbolSize(point.data) / 2, 0, 2 * Math.PI)
-            this.ctx.fillStyle = getColor(point.data)
-            this.ctx.fill()
-        })
-
-        if (useMesh === true && debugMesh === true) {
-            const { pointIndex } = this.state
-            renderVoronoiToCanvas(this.ctx, voronoi)
-            if (pointIndex !== null) {
-                renderVoronoiCellToCanvas(this.ctx, voronoi, pointIndex)
-            }
-        }
-    }
-
-    render() {
-        const { outerWidth, outerHeight, pixelRatio, isInteractive, theme } = this.props
-
-        return (
-            <Container isInteractive={isInteractive} theme={theme} animate={false}>
-                {({ showTooltip, hideTooltip }) => (
-                    <canvas
-                        ref={surface => {
-                            this.surface = surface
-                        }}
-                        width={outerWidth * pixelRatio}
-                        height={outerHeight * pixelRatio}
-                        style={{
-                            width: outerWidth,
-                            height: outerHeight,
-                        }}
-                        onMouseEnter={this.handleMouseHover(showTooltip, hideTooltip)}
-                        onMouseMove={this.handleMouseHover(showTooltip, hideTooltip)}
-                        onMouseLeave={this.handleMouseLeave(hideTooltip)}
-                        onClick={this.handleClick}
-                    />
-                )}
-            </Container>
-        )
-    }
+ScatterPlotCanvas.defaultProps = {
+    ...ScatterPlotCanvasDefaultProps,
+    renderNode: (ctx, node) => {
+        ctx.beginPath()
+        ctx.arc(node.x, node.y, node.size / 2, 0, 2 * Math.PI)
+        ctx.fillStyle = node.style.color
+        ctx.fill()
+    },
 }
 
-ScatterPlotCanvas.propTypes = ScatterPlotPropTypes
-
-export default enhanceCanvas(ScatterPlotCanvas)
-*/
+export default memo(withContainer(ScatterPlotCanvas))
