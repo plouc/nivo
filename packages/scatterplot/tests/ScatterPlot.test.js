@@ -103,3 +103,24 @@ it('should allow to use a custom node', () => {
         expect(node.prop('onMouseLeave')).toBeDefined()
     })
 })
+
+it('should allow to disable interactivity', () => {
+    const wrapper = mount(
+        <ScatterPlot
+            width={500}
+            height={300}
+            data={[{ id: 'default', data: sampleData }]}
+            isInteractive={false}
+            onClick={() => {}}
+        />
+    )
+
+    const nodes = wrapper.find('Node')
+    expect(nodes).toHaveLength(5)
+    nodes.forEach(node => {
+        expect(node.prop('onMouseEnter')).toBeUndefined()
+        expect(node.prop('onMouseMove')).toBeUndefined()
+        expect(node.prop('onMouseLeave')).toBeUndefined()
+        expect(node.prop('onClick')).toBeUndefined()
+    })
+})
