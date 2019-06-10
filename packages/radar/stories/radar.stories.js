@@ -96,7 +96,7 @@ stories.add('with formatted values per key', () => (
     <Radar
         {...commonProperties}
         tooltipFormat={(value, key) => {
-          if (key === "syra h") {
+          if (key === "syrah") {
             return value + " BitCoins"
           }
           else {
