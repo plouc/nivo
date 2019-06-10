@@ -1,3 +1,4 @@
+
 /*
  * This file is part of the nivo project.
  *
@@ -42,7 +43,7 @@ const RadarTooltipItem = memo(
                         keys.map(key => [
                             <Chip key={key} color={colorByKey[key]} />,
                             key,
-                            format ? format(datum[key]) : datum[key],
+                            format ? format(datum[key], key) : datum[key],
                         ]),
                         '2'
                     ).reverse()}

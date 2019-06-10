@@ -92,6 +92,23 @@ stories.add('with formatted values', () => (
     />
 ))
 
+stories.add('with formatted values per key', () => (
+    <Radar
+        {...commonProperties}
+        tooltipFormat={(value, key) => {
+          if (key === "syra h") {
+            return value + " BitCoins"
+          }
+          else {
+            return `${Number(value).toLocaleString('ru-RU', {
+              minimumFractionDigits: 2,
+            })} ₽`
+          }
+        }
+        }
+    />
+))
+
 const LabelComponent = ({ id, anchor }) => (
     <g transform={`translate(${anchor === 'end' ? -60 : anchor === 'middle' ? -30 : 0}, -20)`}>
         <text>{id}</text>
