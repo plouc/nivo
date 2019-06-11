@@ -68,6 +68,7 @@ declare module '@nivo/core' {
         tooltip: Partial<{
             container: Partial<React.CSSProperties>
             basic: Partial<React.CSSProperties>
+            chip: Partial<React.CSSProperties>
             table: Partial<React.CSSProperties>
             tableCell: Partial<React.CSSProperties>
         }>
