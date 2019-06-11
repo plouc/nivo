@@ -64,6 +64,7 @@ const Bar = props => {
         outerHeight,
         padding,
         innerPadding,
+        hideZeroValues,
 
         axisTop,
         axisRight,
@@ -122,6 +123,7 @@ const Bar = props => {
         getColor,
         padding,
         innerPadding,
+        hideZeroValues,
     }
     const result =
         groupMode === 'grouped' ? generateGroupedBars(options) : generateStackedBars(options)

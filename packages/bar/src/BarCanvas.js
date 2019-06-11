@@ -67,6 +67,7 @@ class BarCanvas extends Component {
             groupMode,
             padding,
             innerPadding,
+            hideZeroValues,
 
             axisTop,
             axisRight,
@@ -104,6 +105,7 @@ class BarCanvas extends Component {
             getColor,
             padding,
             innerPadding,
+            hideZeroValues,
         }
 
         const result =
