@@ -89,8 +89,8 @@ declare module '@nivo/line' {
             index: number
             serieId: string | number
             serieColor: string
-            x: number
-            y: number
+            x: number | string | Date
+            y: number | string | Date
             color: string
             borderColor: string
             data: {
@@ -98,7 +98,7 @@ declare module '@nivo/line' {
                 x: string | number
                 y: number
                 yStacked: number
-                xFormatted: string
+                xFormatted: string | number
                 yFormatted: string | number
             }
         }
