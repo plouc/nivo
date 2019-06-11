@@ -67,6 +67,9 @@ export const defaultTheme = {
             display: 'flex',
             alignItems: 'center',
         },
+        chip: {
+            marginRight: 7,
+        },
         table: {},
         tableCell: {
             padding: '3px 5px',
