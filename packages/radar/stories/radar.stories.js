@@ -96,16 +96,14 @@ stories.add('with formatted values per key', () => (
     <Radar
         {...commonProperties}
         tooltipFormat={(value, key) => {
-          if (key === "syrah") {
-            return value + " BitCoins"
-          }
-          else {
-            return `${Number(value).toLocaleString('ru-RU', {
-              minimumFractionDigits: 2,
-            })} ₽`
-          }
-        }
-        }
+            if (key === 'syrah') {
+                return value + ' BitCoins'
+            } else {
+                return `${Number(value).toLocaleString('ru-RU', {
+                    minimumFractionDigits: 2,
+                })} ₽`
+            }
+        }}
     />
 ))
 
