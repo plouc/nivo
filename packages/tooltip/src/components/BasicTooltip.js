@@ -11,8 +11,6 @@ import PropTypes from 'prop-types'
 import { useTheme, useValueFormatter } from '@nivo/core'
 import Chip from './Chip'
 
-const chipStyle = { marginRight: 7 }
-
 const BasicTooltip = memo(({ id, value: _value, format, enableChip, color, renderContent }) => {
     const theme = useTheme()
     const formatValue = useValueFormatter(format)
@@ -27,7 +25,7 @@ const BasicTooltip = memo(({ id, value: _value, format, enableChip, color, rende
         }
         content = (
             <div style={theme.tooltip.basic}>
-                {enableChip && <Chip color={color} style={chipStyle} />}
+                {enableChip && <Chip color={color} style={theme.tooltip.chip} />}
                 {value !== undefined ? (
                     <span>
                         {id}: <strong>{isNaN(value) ? String(value) : value}</strong>
