@@ -48,13 +48,13 @@ declare module '@nivo/stream' {
 
     export type DatumToNumber = (datum: Datum) => number
 
-    interface OptionalStreamProps<T> extends SvgDefsAndFill<T> {
+    interface OptionalStreamProps<T> extends SvgDefsAndFill<T>, MotionProps {
         stack: StackFunc<T>
         xScale: Scale
         yScale: Scale
 
         order: StackOrder
-        offset: StackOffset
+        offsetType: StackOffset
         curve: AreaCurve
 
         margin: Box
