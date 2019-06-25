@@ -4,6 +4,7 @@ declare module '@nivo/axes' {
     export type TickFormatter = (value: number | string | Date) => string | number
 
     export interface AxisProps {
+        orient?: 'top' | 'right' | 'bottom' | 'left'
         tickValues?: number | number[] | string[] | Date[] | string
         tickSize?: number
         tickPadding?: number

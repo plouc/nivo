@@ -146,6 +146,8 @@ declare module '@nivo/line' {
 
     export interface LineSvgProps extends LineProps, MotionProps {
         enablePointLabel?: boolean
+        pointLabel?: string
+        pointLabelYOffset?: number
         areaBlendMode?: string
         useMesh?: boolean
     }
