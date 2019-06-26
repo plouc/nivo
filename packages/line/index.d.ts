@@ -138,7 +138,9 @@ declare module '@nivo/line' {
         axisLeft?: AxisProps | null
 
         enableGridX?: boolean
+        gridXValues?: number | number[] | string[] | Date[]
         enableGridY?: boolean
+        gridYValues?: number | number[] | string[] | Date[]
 
         enablePoints?: boolean
         pointSize?: number
