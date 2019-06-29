@@ -81,50 +81,50 @@ declare module '@nivo/bar' {
     }
 
     export type BarProps = Partial<{
-            indexBy: string | IndexByFunc
-            keys: string[]
+        indexBy: string | IndexByFunc
+        keys: string[]
 
-            groupMode: 'stacked' | 'grouped'
-            layout: 'horizontal' | 'vertical'
-            reverse: boolean
+        groupMode: 'stacked' | 'grouped'
+        layout: 'horizontal' | 'vertical'
+        reverse: boolean
 
-            innerPadding: number
-            minValue: number | 'auto'
-            margin: Box
-            maxValue: number | 'auto'
-            padding: number
+        innerPadding: number
+        minValue: number | 'auto'
+        margin: Box
+        maxValue: number | 'auto'
+        padding: number
 
-            axisBottom: Axis
-            axisLeft: Axis
-            axisRight: Axis
-            axisTop: Axis
+        axisBottom: Axis | null
+        axisLeft: Axis | null
+        axisRight: Axis | null
+        axisTop: Axis | null
 
-            enableGridX: boolean
-            enableGridY: boolean
+        enableGridX: boolean
+        enableGridY: boolean
 
-            barComponent: React.StatelessComponent<BarItemProps>
+        barComponent: React.StatelessComponent<BarItemProps>
 
-            enableLabel: boolean
-            label: string | AccessorFunc
-            labelFormat: string | LabelFormatter
-            labelLinkColor: InheritedColorProp<BarDatumWithColor>
-            labelSkipWidth: number
-            labelSkipHeight: number
-            labelTextColor: InheritedColorProp<BarDatumWithColor>
+        enableLabel: boolean
+        label: string | AccessorFunc
+        labelFormat: string | LabelFormatter
+        labelLinkColor: InheritedColorProp<BarDatumWithColor>
+        labelSkipWidth: number
+        labelSkipHeight: number
+        labelTextColor: InheritedColorProp<BarDatumWithColor>
 
-            colors: OrdinalColorsInstruction
-            borderRadius: number
-            borderWidth: number
-            theme: Theme
+        colors: OrdinalColorsInstruction
+        borderRadius: number
+        borderWidth: number
+        theme: Theme
 
-            isInteractive: boolean
-            tooltipFormat: string | ValueFormatter
-            tooltip: TooltipProp
+        isInteractive: boolean
+        tooltipFormat: string | ValueFormatter
+        tooltip: TooltipProp
 
-            legends: Array<{ dataFrom: 'indexes' | 'keys' } & LegendProps>
+        legends: Array<{ dataFrom: 'indexes' | 'keys' } & LegendProps>
 
-            markers: CartesianMarkerProps[]
-        }>
+        markers: CartesianMarkerProps[]
+    }>
 
     export type Axis = Partial<{
         format: string | LabelFormatter
