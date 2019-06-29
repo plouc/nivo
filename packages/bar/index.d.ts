@@ -12,7 +12,6 @@ import {
     Box,
     Theme,
     MotionProps,
-    ColorProps,
     SvgDefsAndFill,
     CartesianMarkerProps,
 } from '@nivo/core'
@@ -81,8 +80,7 @@ declare module '@nivo/bar' {
         theme: Theme
     }
 
-    export type BarProps = ColorProps<BarDatum> &
-        Partial<{
+    export type BarProps = Partial<{
             indexBy: string | IndexByFunc
             keys: string[]
 
