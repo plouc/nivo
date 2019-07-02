@@ -11,7 +11,7 @@ import isDate from 'lodash.isdate'
 import range from 'lodash.range'
 import { alignBox } from '@nivo/core'
 import { timeFormat } from 'd3-time-format'
-import { timeDays, timeWeek, timeWeeks, timeMonths, timeYear } from 'd3-time'
+import { timeDays, timeWeek, timeWeeks, timeMonths, timeYear, utcMonday, utcYear } from 'd3-time'
 
 /**
  * Compute min/max values.
@@ -68,6 +68,8 @@ const computeCellSize = ({
     return Math.min(hCellSize, vCellSize)
 }
 
+const translateDay = dayOfWeek => (dayOfWeek || 7) - 1
+
 /**
  * Computes month path and bounding box.
  *
@@ -97,8 +99,8 @@ const monthPathAndBBox = ({
     // ranges
     const firstWeek = timeWeek.count(timeYear(date), date)
     const lastWeek = timeWeek.count(timeYear(t1), t1)
-    const firstDay = date.getDay()
-    const lastDay = t1.getDay()
+    const firstDay = translateDay(date.getDay())
+    const lastDay = translateDay(t1.getDay())
 
     // offset according to year index
     let xO = originX
@@ -165,13 +167,13 @@ const memoMonthPathAndBBox = memoize(
  */
 const cellPositionHorizontal = (cellSize, yearSpacing, daySpacing) => {
     return (originX, originY, d, yearIndex) => {
-        const weekOfYear = timeWeek.count(timeYear(d), d)
+        const weekOfYear = utcMonday.count(utcYear(d), d)
 
         return {
             x: originX + weekOfYear * (cellSize + daySpacing) + daySpacing / 2,
             y:
                 originY +
-                d.getDay() * (cellSize + daySpacing) +
+                translateDay(d.getDay()) * (cellSize + daySpacing) +
                 daySpacing / 2 +
                 yearIndex * (yearSpacing + 7 * (cellSize + daySpacing)),
         }
