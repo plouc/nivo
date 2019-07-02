@@ -8,7 +8,7 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { useTheme } from '@nivo/core'
+import { themePropType } from '@nivo/core'
 
 const AxisTick = ({
     value: _value,
@@ -24,9 +24,8 @@ const AxisTick = ({
     textY,
     textBaseline,
     textAnchor,
+    theme,
 }) => {
-    const theme = useTheme()
-
     let value = _value
     if (format !== undefined) {
         value = format(value)
@@ -68,6 +67,7 @@ AxisTick.propTypes = {
     textY: PropTypes.number.isRequired,
     textBaseline: PropTypes.string.isRequired,
     textAnchor: PropTypes.string.isRequired,
+    theme: themePropType,
     opacity: PropTypes.number.isRequired,
     rotate: PropTypes.number.isRequired,
     onClick: PropTypes.func,

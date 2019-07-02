@@ -119,6 +119,7 @@ const Axis = ({
                         rotate: tickRotation,
                         textBaseline,
                         textAnchor: textAlign,
+                        theme,
                         ...tick,
                         ...(onClick ? { onClick } : {}),
                     })
@@ -161,6 +162,7 @@ const Axis = ({
                                         format: formatValue,
                                         textBaseline,
                                         textAnchor: textAlign,
+                                        theme,
                                         ...tick,
                                         ...style,
                                         ...(onClick ? { onClick } : {}),
