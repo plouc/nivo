@@ -64,6 +64,8 @@ const commonPropTypes = {
             itemCount: PropTypes.number.isRequired,
         })
     ).isRequired,
+
+    firstDayOfWeek: PropTypes.number.isRequired,
 }
 
 export const CalendarPropTypes = commonPropTypes
@@ -103,6 +105,8 @@ const commonDefaultProps = {
     onClick: noop,
 
     legends: [],
+
+    firstDayOfWeek: 0,
 }
 
 export const CalendarDefaultProps = commonDefaultProps

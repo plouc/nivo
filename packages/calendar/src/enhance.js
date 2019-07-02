@@ -34,8 +34,28 @@ const commonEnhancers = [
         }
     ),
     withPropsOnChange(
-        ['width', 'height', 'from', 'to', 'direction', 'yearSpacing', 'daySpacing', 'align'],
-        ({ width, height, from, to, direction, yearSpacing, daySpacing, align }) => {
+        [
+            'width',
+            'height',
+            'from',
+            'to',
+            'direction',
+            'yearSpacing',
+            'daySpacing',
+            'align',
+            'firstDayOfWeek',
+        ],
+        ({
+            width,
+            height,
+            from,
+            to,
+            direction,
+            yearSpacing,
+            daySpacing,
+            align,
+            firstDayOfWeek,
+        }) => {
             return computeLayout({
                 width,
                 height,
@@ -45,6 +65,7 @@ const commonEnhancers = [
                 yearSpacing,
                 daySpacing,
                 align,
+                firstDayOfWeek,
             })
         }
     ),

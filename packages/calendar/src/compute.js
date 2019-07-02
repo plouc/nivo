@@ -11,7 +11,18 @@ import isDate from 'lodash.isdate'
 import range from 'lodash.range'
 import { alignBox } from '@nivo/core'
 import { timeFormat } from 'd3-time-format'
-import { timeDays, timeWeek, timeWeeks, timeMonths, timeYear, utcMonday, utcYear } from 'd3-time'
+import {
+    timeDays,
+    timeMonths,
+    timeYear,
+    timeMonday,
+    timeTuesday,
+    timeWednesday,
+    timeThursday,
+    timeFriday,
+    timeSaturday,
+    timeSunday,
+} from 'd3-time'
 
 /**
  * Compute min/max values.
@@ -68,7 +79,33 @@ const computeCellSize = ({
     return Math.min(hCellSize, vCellSize)
 }
 
-const translateDay = dayOfWeek => (dayOfWeek || 7) - 1
+export const getDayIndex = (date, firstDayOfWeek) => {
+    const days = [0, 1, 2, 3, 4, 5, 6]
+    const day = date.getDay()
+    const offsetDay = day - firstDayOfWeek
+    const [dayIndex] = days.slice(offsetDay)
+    return dayIndex
+}
+
+const getTimeInterval = firstDayOfWeek => {
+    switch (firstDayOfWeek) {
+        case 0:
+        default:
+            return timeSunday
+        case 1:
+            return timeMonday
+        case 2:
+            return timeTuesday
+        case 3:
+            return timeWednesday
+        case 4:
+            return timeThursday
+        case 5:
+            return timeFriday
+        case 6:
+            return timeSaturday
+    }
+}
 
 /**
  * Computes month path and bounding box.
@@ -81,6 +118,7 @@ const translateDay = dayOfWeek => (dayOfWeek || 7) - 1
  * @param {string} direction
  * @param {number} originX
  * @param {number} originY
+ * @param {number} firstDayOfWeek
  * @returns { { path: string, bbox: { x: number, y: number, width: number, height: number } } }
  */
 const monthPathAndBBox = ({
@@ -92,15 +130,17 @@ const monthPathAndBBox = ({
     direction,
     originX,
     originY,
+    firstDayOfWeek,
 }) => {
     // first day of next month
     const t1 = new Date(date.getFullYear(), date.getMonth() + 1, 0)
 
     // ranges
-    const firstWeek = timeWeek.count(timeYear(date), date)
-    const lastWeek = timeWeek.count(timeYear(t1), t1)
-    const firstDay = translateDay(date.getDay())
-    const lastDay = translateDay(t1.getDay())
+    const timeInterval = getTimeInterval(firstDayOfWeek)
+    const firstWeek = timeInterval.count(timeYear(date), date)
+    const lastWeek = timeInterval.count(timeYear(t1), t1)
+    const firstDay = getDayIndex(date, firstDayOfWeek)
+    const lastDay = getDayIndex(t1, firstDayOfWeek)
 
     // offset according to year index
     let xO = originX
@@ -152,8 +192,18 @@ const monthPathAndBBox = ({
  */
 const memoMonthPathAndBBox = memoize(
     monthPathAndBBox,
-    ({ date, cellSize, yearIndex, yearSpacing, daySpacing, direction, originX, originY }) => {
-        return `${date.toString()}.${cellSize}.${yearIndex}.${yearSpacing}.${daySpacing}.${direction}.${originX}.${originY}`
+    ({
+        date,
+        cellSize,
+        yearIndex,
+        yearSpacing,
+        daySpacing,
+        direction,
+        originX,
+        originY,
+        firstDayOfWeek,
+    }) => {
+        return `${date.toString()}.${cellSize}.${yearIndex}.${yearSpacing}.${daySpacing}.${direction}.${originX}.${originY}.${firstDayOfWeek}`
     }
 )
 
@@ -163,17 +213,19 @@ const memoMonthPathAndBBox = memoize(
  * @param {number} cellSize
  * @param {number} yearSpacing
  * @param {number} daySpacing
+ * @param {number} firstDayOfWeek
  * @returns { function(): { x: number, y: number } }
  */
-const cellPositionHorizontal = (cellSize, yearSpacing, daySpacing) => {
+const cellPositionHorizontal = (cellSize, yearSpacing, daySpacing, firstDayOfWeek) => {
     return (originX, originY, d, yearIndex) => {
-        const weekOfYear = utcMonday.count(utcYear(d), d)
+        const timeInterval = getTimeInterval(firstDayOfWeek)
+        const weekOfYear = timeInterval.count(timeYear(d), d)
 
         return {
             x: originX + weekOfYear * (cellSize + daySpacing) + daySpacing / 2,
             y:
                 originY +
-                translateDay(d.getDay()) * (cellSize + daySpacing) +
+                getDayIndex(d, firstDayOfWeek) * (cellSize + daySpacing) +
                 daySpacing / 2 +
                 yearIndex * (yearSpacing + 7 * (cellSize + daySpacing)),
         }
@@ -186,16 +238,18 @@ const cellPositionHorizontal = (cellSize, yearSpacing, daySpacing) => {
  * @param {number} cellSize
  * @param {number} yearSpacing
  * @param {number} daySpacing
+ * @param {number} firstDayOfWeek
  * @returns { function(): { x: number, y: number } }
  */
-const cellPositionVertical = (cellSize, yearSpacing, daySpacing) => {
+const cellPositionVertical = (cellSize, yearSpacing, daySpacing, firstDayOfWeek) => {
     return (originX, originY, d, yearIndex) => {
-        const weekOfYear = timeWeek.count(timeYear(d), d)
+        const timeInterval = getTimeInterval(firstDayOfWeek)
+        const weekOfYear = timeInterval.count(timeYear(d), d)
 
         return {
             x:
                 originX +
-                d.getDay() * (cellSize + daySpacing) +
+                getDayIndex(d, firstDayOfWeek) * (cellSize + daySpacing) +
                 daySpacing / 2 +
                 yearIndex * (yearSpacing + 7 * (cellSize + daySpacing)),
             y: originY + weekOfYear * (cellSize + daySpacing) + daySpacing / 2,
@@ -217,6 +271,7 @@ const dayFormat = timeFormat('%Y-%m-%d')
  * @param {number}      yearSpacing
  * @param {number}      daySpacing
  * @param {string}      align
+ * @param {number}      firstDayOfWeek
  * @returns {object}
  */
 export const computeLayout = ({
@@ -228,15 +283,17 @@ export const computeLayout = ({
     yearSpacing,
     daySpacing,
     align,
+    firstDayOfWeek,
 }) => {
     const fromDate = isDate(from) ? from : new Date(from)
     const toDate = isDate(to) ? to : new Date(to)
 
     let yearRange = range(fromDate.getFullYear(), toDate.getFullYear() + 1)
+    const timeIntervalRange = getTimeInterval(firstDayOfWeek).range
     const maxWeeks =
         Math.max(
             ...yearRange.map(
-                year => timeWeeks(new Date(year, 0, 1), new Date(year + 1, 0, 1)).length
+                year => timeIntervalRange(new Date(year, 0, 1), new Date(year + 1, 0, 1)).length
             )
         ) + 1
 
@@ -274,9 +331,9 @@ export const computeLayout = ({
 
     let cellPosition
     if (direction === 'horizontal') {
-        cellPosition = cellPositionHorizontal(cellSize, yearSpacing, daySpacing)
+        cellPosition = cellPositionHorizontal(cellSize, yearSpacing, daySpacing, firstDayOfWeek)
     } else {
-        cellPosition = cellPositionVertical(cellSize, yearSpacing, daySpacing)
+        cellPosition = cellPositionVertical(cellSize, yearSpacing, daySpacing, firstDayOfWeek)
     }
 
     let years = []
@@ -311,6 +368,7 @@ export const computeLayout = ({
                 yearSpacing,
                 daySpacing,
                 cellSize,
+                firstDayOfWeek,
             }),
         }))
 

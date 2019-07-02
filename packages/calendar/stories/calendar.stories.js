@@ -25,6 +25,10 @@ const stories = storiesOf('Calendar', module)
 
 stories.add('default', () => <Calendar {...commonProps} />)
 
+stories.add('monday as first day of the week', () => (
+    <Calendar firstDayOfWeek={1} {...commonProps} />
+))
+
 const japaneseMonths = [
     '一月',
     '二月',
