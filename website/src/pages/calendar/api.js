@@ -70,6 +70,8 @@ const CalendarApi = () => {
                     dayBorderWidth: 2,
                     dayBorderColor: '#ffffff',
                     data: JSON.stringify(data, null, '  '),
+
+                    firstDayOfWeek: 0,
                 }}
             />
         </>

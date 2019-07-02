@@ -69,6 +69,8 @@ const initialProperties = {
             itemDirection: 'right-to-left',
         },
     ],
+
+    firstDayOfWeek: 0,
 }
 
 const Calendar = () => {

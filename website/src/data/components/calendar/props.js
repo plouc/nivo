@@ -199,6 +199,20 @@ const props = [
             max: 2,
         },
     },
+    {
+        key: 'firstDayOfWeek',
+        help: `Sunday (0) to Saturday (6) - Defines which day to use as the first day of the week`,
+        required: false,
+        defaultValue: defaults.firstDayOfWeek,
+        type: 'number',
+        group: 'Base',
+        controlType: 'range',
+        controlOptions: {
+            min: 0,
+            max: 6,
+            step: 1,
+        },
+    },
     // Years
     {
         key: 'yearSpacing',
