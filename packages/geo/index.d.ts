@@ -97,6 +97,7 @@ declare module '@nivo/geo' {
 
     interface ChoroplethCommonProps extends CommonProps {
         data: any[]
+        domain: number[]
 
         match?: string | DatumMatcher
         label?: string | FeatureAccessor<any, string>
