@@ -113,7 +113,7 @@ const Axis = ({
         return (
             <g transform={`translate(${x},${y})`}>
                 {ticks.map((tick, tickIndex) =>
-                    renderTick({
+                    React.createElement(renderTick, {
                         tickIndex,
                         format: formatValue,
                         rotate: tickRotation,
@@ -156,7 +156,7 @@ const Axis = ({
                         {interpolatedStyles => (
                             <Fragment>
                                 {interpolatedStyles.map(({ style, data: tick }, tickIndex) =>
-                                    renderTick({
+                                    React.createElement(renderTick, {
                                         tickIndex,
                                         format: formatValue,
                                         textBaseline,
