@@ -83,6 +83,29 @@ declare module '@nivo/line' {
     export type LineCustomLayer = (props: LineCustomLayerProps) => React.ReactNode
     export type Layer = LineLayerType | LineCustomLayer
 
+    export interface LineTooltipProps {
+        point: {
+            id: string
+            index: number
+            serieId: string | number
+            serieColor: string
+            x: number | string | Date
+            y: number | string | Date
+            color: string
+            borderColor: string
+            data: {
+                color: string
+                x: string | number
+                y: number
+                yStacked: number
+                xFormatted: string | number
+                yFormatted: string | number
+            }
+        }
+    }
+
+    export type TooltipProp = React.FC<LineTooltipProps>
+
     export interface LineProps {
         data: LineSerieData[]
 
@@ -137,6 +160,7 @@ declare module '@nivo/line' {
         sliceTooltip?: (data: LineSliceData) => React.ReactNode
 
         tooltipFormat?: TooltipFormatter | string
+        tooltip?: TooltipProp
 
         enableCrosshair?: boolean
         crosshairType?: CrosshairType
