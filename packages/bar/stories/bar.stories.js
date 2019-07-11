@@ -4,6 +4,7 @@ import { action } from '@storybook/addon-actions'
 import { generateCountriesData, sets } from '@nivo/generators'
 import range from 'lodash/range'
 import random from 'lodash/random'
+import { useTheme } from '@nivo/core'
 import { Bar } from '../src'
 
 const keys = ['hot dogs', 'burgers', 'sandwich', 'kebab', 'fries', 'donut']
@@ -201,47 +202,38 @@ stories.add('custom tooltip', () => (
     />
 ))
 
+const CustomTick = tick => {
+    const theme = useTheme()
+
+    return (
+        <g transform={`translate(${tick.x},${tick.y + 22})`}>
+            <rect x={-14} y={-6} rx={3} ry={3} width={28} height={24} fill="rgba(0, 0, 0, .05)" />
+            <rect x={-12} y={-12} rx={2} ry={2} width={24} height={24} fill="rgb(232, 193, 160)" />
+            <line stroke="rgb(232, 193, 160)" strokeWidth={1.5} y1={-22} y2={-12} />
+            <text
+                textAnchor="middle"
+                dominantBaseline="middle"
+                style={{
+                    ...theme.axis.ticks.text,
+                    fill: '#333',
+                    fontSize: 10,
+                }}
+            >
+                {tick.value}
+            </text>
+        </g>
+    )
+}
+
 stories.add(
     'custom axis ticks',
     () => (
         <Bar
             {...commonProps}
+            animate={false}
             axisLeft={null}
             axisBottom={{
-                renderTick: tick => (
-                    <g key={tick.key} transform={`translate(${tick.x},${tick.y + 22})`}>
-                        <rect
-                            x={-14}
-                            y={-6}
-                            rx={3}
-                            ry={3}
-                            width={28}
-                            height={24}
-                            fill="rgba(0, 0, 0, .05)"
-                        />
-                        <rect
-                            x={-12}
-                            y={-12}
-                            rx={2}
-                            ry={2}
-                            width={24}
-                            height={24}
-                            fill="rgb(232, 193, 160)"
-                        />
-                        <line stroke="rgb(232, 193, 160)" strokeWidth={1.5} y1={-22} y2={-12} />
-                        <text
-                            textAnchor="middle"
-                            dominantBaseline="middle"
-                            style={{
-                                ...tick.theme.axis.ticks.text,
-                                fill: '#333',
-                                fontSize: 10,
-                            }}
-                        >
-                            {tick.value}
-                        </text>
-                    </g>
-                ),
+                renderTick: CustomTick,
             }}
         />
     ),
