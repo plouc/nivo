@@ -38,6 +38,13 @@ const HeaderNav = () => {
             >
                 storybook
             </HeaderExternalLink>
+            <HeaderExternalLink
+                href="https://opencollective.com/nivo"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Donate
+            </HeaderExternalLink>
             <ThemeSelector />
             <HeaderExternalLink
                 href="https://github.com/plouc/nivo"
