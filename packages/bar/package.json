@@ -1,6 +1,6 @@
 {
   "name": "@nivo/bar",
-  "version": "0.59.1",
+  "version": "0.59.2",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -24,7 +24,7 @@
   ],
   "dependencies": {
     "@nivo/annotations": "0.59.1",
-    "@nivo/axes": "0.59.1",
+    "@nivo/axes": "0.59.2",
     "@nivo/colors": "0.59.0",
     "@nivo/core": "0.59.1",
     "@nivo/legends": "0.59.1",
