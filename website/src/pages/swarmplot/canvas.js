@@ -25,6 +25,7 @@ const initialProperties = Object.freeze({
         type: 'linear',
         min: 0,
         max: 500,
+        reverse: false,
     },
     size: {
         key: 'volume',

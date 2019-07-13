@@ -10,7 +10,7 @@ import { scaleLinear } from 'd3-scale'
 import PropTypes from 'prop-types'
 
 export const linearScale = (
-    { axis, min = 0, max = 'auto', stacked = false },
+    { axis, min = 0, max = 'auto', stacked = false, reverse = false },
     xy,
     width,
     height
@@ -27,9 +27,10 @@ export const linearScale = (
         maxValue = stacked === true ? values.maxStacked : values.max
     }
 
-    const scale = scaleLinear()
-        .rangeRound(axis === 'x' ? [0, size] : [size, 0])
-        .domain([minValue, maxValue])
+    const scale = scaleLinear().rangeRound(axis === 'x' ? [0, size] : [size, 0])
+
+    if (reverse === true) scale.domain([maxValue, minValue])
+    else scale.domain([minValue, maxValue])
 
     scale.type = 'linear'
     scale.stacked = stacked
@@ -42,4 +43,5 @@ export const linearScalePropTypes = {
     min: PropTypes.oneOfType([PropTypes.oneOf(['auto']), PropTypes.number]),
     max: PropTypes.oneOfType([PropTypes.oneOf(['auto']), PropTypes.number]),
     stacked: PropTypes.bool,
+    reverse: PropTypes.bool,
 }

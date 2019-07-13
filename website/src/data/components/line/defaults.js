@@ -23,9 +23,10 @@ export default {
     },
     yScale: {
         type: 'linear',
-        stacked: true,
         min: 'auto',
         max: 'auto',
+        stacked: true,
+        reverse: false,
     },
 
     curve: 'linear',
