@@ -51,3 +51,11 @@ it(`should allow to define max value for y axis`, () => {
     expect(scale(0.5)).toBe(75)
     expect(scale(1)).toBe(50)
 })
+
+it(`should allow to reverse domain`, () => {
+    const scale = linearScale({ axis: 'y', reverse: true }, { y: { min: 0, max: 1 } }, 100, 100)
+
+    expect(scale(0)).toBe(0)
+    expect(scale(0.5)).toBe(50)
+    expect(scale(1)).toBe(100)
+})

@@ -12,6 +12,7 @@ declare module '@nivo/scales' {
         min?: 'auto' | number
         max?: 'auto' | number
         stacked?: boolean
+        reverse?: boolean
     }
 
     export interface PointScale {
