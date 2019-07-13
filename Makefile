@@ -146,7 +146,8 @@ packages-tslint: ##@1 packages run tslint on all packages
         ./packages/scatterplot/index.d.ts \
         ./packages/stream/index.d.ts \
         ./packages/swarmplot/index.d.ts \
-        ./packages/waffle/index.d.ts
+        ./packages/waffle/index.d.ts \
+        ./packages/voronoi/index.d.ts
 
 package-test-cover-%: ##@1 packages run tests for a package with code coverage
 	@yarn jest -c ./packages/jest.config.js --rootDir . --coverage ./packages/${*}/tests
