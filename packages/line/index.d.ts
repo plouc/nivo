@@ -17,50 +17,31 @@ import { CrosshairType } from '@nivo/tooltip'
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
 declare module '@nivo/line' {
-    export type LineValue = string | number | Date
-    export type TooltipFormatter = (value: LineValue) => React.ReactNode
+    export type DatumValue = string | number | Date
 
-    export interface LineDatum {
-        x?: LineValue | null
-        y?: LineValue | null
+    export interface Datum {
+        x?: DatumValue | null
+        y?: DatumValue | null
         [key: string]: any
     }
-
-    export interface LineSerieData {
-        id: string | number
-        data: LineDatum[]
-        [key: string]: any
-    }
-
-    export interface LineComputedSerieDatum {
+    export interface ComputedDatum {
+        data: Datum
         position: {
             x: number
             y: number
         }
-        data: LineDatum
     }
 
-    export interface LineComputedSerieData {
+    export interface Serie {
         id: string | number
-        data: LineComputedSerieDatum[]
-        color?: string
+        data: Datum[]
         [key: string]: any
     }
-
-    export interface LineSliceData {
-        id: LineValue
-        x: number
-        data: Array<{
-            data: {
-                x?: LineValue
-                y?: LineValue
-            }
-            position: {
-                x: number
-                y: number
-            }
-            serie: LineComputedSerieData
-        }>
+    export interface ComputedSerie {
+        id: string | number
+        data: ComputedDatum[]
+        color?: string
+        [key: string]: any
     }
 
     export type LineLayerType =
@@ -74,40 +55,60 @@ declare module '@nivo/line' {
         | 'mesh'
         | 'legends'
 
-    export interface LineCustomLayerProps extends Omit<LineSvgProps, 'xScale' | 'yScale'> {
+    export interface CustomLayerProps extends Omit<LineSvgProps, 'xScale' | 'yScale'> {
         xScale: ScaleFunc
         yScale: ScaleFunc
     }
 
-    export type DataFormatter = (value: LineValue) => string | number
-    export type LineCustomLayer = (props: LineCustomLayerProps) => React.ReactNode
-    export type Layer = LineLayerType | LineCustomLayer
+    export type CustomLayer = (props: CustomLayerProps) => React.ReactNode
+    export type Layer = LineLayerType | CustomLayer
 
-    export interface LineTooltipProps {
-        point: {
-            id: string
-            index: number
-            serieId: string | number
-            serieColor: string
-            x: number | string | Date
-            y: number | string | Date
-            color: string
-            borderColor: string
-            data: {
-                color: string
-                x: string | number
-                y: number
-                yStacked: number
-                xFormatted: string | number
-                yFormatted: string | number
-            }
+    export type DataFormatter = (value: DatumValue) => string | number
+
+    export interface Point {
+        id: string
+        index: number
+        serieId: string | number
+        serieColor: string
+        x: number
+        y: number
+        color: string
+        borderColor: string
+        data: {
+            x: DatumValue
+            xFormatted: string | number
+            y: DatumValue
+            yFormatted: string | number
+            yStacked?: number
         }
     }
 
-    export type TooltipProp = React.FC<LineTooltipProps>
+    export type PointMouseHandler = (point: Point, event: React.MouseEvent) => void
+
+    export type TooltipFormatter = (value: DatumValue) => React.ReactNode
+
+    export interface PointTooltipProps {
+        point: Point
+    }
+    export type PointTooltip = React.FunctionComponent<PointTooltipProps>
+
+    export interface SliceTooltipProps {
+        axis: 'x' | 'y'
+        slice: {
+            id: DatumValue
+            height: number
+            width: number
+            x0: number
+            x: number
+            y0: number
+            y: number
+            points: Point[]
+        }
+    }
+    export type SliceTooltip = React.FunctionComponent<SliceTooltipProps>
 
     export interface LineProps {
-        data: LineSerieData[]
+        data: Serie[]
 
         xScale?: Scale
         xFormat?: string | DataFormatter
@@ -147,20 +148,24 @@ declare module '@nivo/line' {
 
         enableArea?: boolean
         areaOpacity?: number
-        areaBaselineValue?: LineValue
+        areaBaseDatumValue?: DatumValue
 
         markers?: CartesianMarkerProps[]
 
         isInteractive?: boolean
+        onMouseEnter?: PointMouseHandler
+        onMouseMove?: PointMouseHandler
+        onMouseLeave?: PointMouseHandler
+        onClick?: PointMouseHandler
 
         debugMesh?: boolean
 
         enableSlices?: 'x' | 'y' | false
         debugSlices?: boolean
-        sliceTooltip?: (data: LineSliceData) => React.ReactNode
+        sliceTooltip?: SliceTooltip
 
         tooltipFormat?: TooltipFormatter | string
-        tooltip?: TooltipProp
+        tooltip?: PointTooltip
 
         enableCrosshair?: boolean
         crosshairType?: CrosshairType
