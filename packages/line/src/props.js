@@ -92,7 +92,11 @@ const commonPropTypes = {
     markers: PropTypes.arrayOf(
         PropTypes.shape({
             axis: PropTypes.oneOf(['x', 'y']).isRequired,
-            value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)]).isRequired,
+            value: PropTypes.oneOfType([
+                PropTypes.number,
+                PropTypes.string,
+                PropTypes.instanceOf(Date),
+            ]).isRequired,
             style: PropTypes.object,
         })
     ),
