@@ -238,7 +238,8 @@ CartesianMarkersItem.propTypes = {
 
     axis: PropTypes.oneOf(['x', 'y']).isRequired,
     scale: PropTypes.func.isRequired,
-    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)])
+        .isRequired,
     lineStyle: PropTypes.object,
     textStyle: PropTypes.object,
 
