@@ -117,6 +117,7 @@ declare module '@nivo/geo' {
         onMouseMove?: ChoroplethEventHandler
         onMouseLeave?: ChoroplethEventHandler
         onClick?: ChoroplethEventHandler
+        legends: Array<{ dataFrom: 'indexes' | 'keys' } & LegendProps>
     }
 
     export interface ChoroplethProps extends ChoroplethCommonProps {}
