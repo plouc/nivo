@@ -35,6 +35,7 @@ declare module '@nivo/core' {
 
     export type Theme = Partial<{
         background: string
+        fontSize: string | 0
         axis: Partial<{
             domain: Partial<{
                 line: Partial<React.CSSProperties>

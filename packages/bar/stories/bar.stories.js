@@ -38,6 +38,9 @@ stories.add('grouped horizontal', () => (
         layout="horizontal"
         enableGridY={false}
         enableGridX={true}
+        theme={{
+            fontSize: 28
+        }}
     />
 ))
 
@@ -250,5 +253,12 @@ stories.add('enter/leave (check actions)', () => (
         {...commonProps}
         onMouseEnter={action('onMouseEnter')}
         onMouseLeave={action('onMouseLeave')}
+    />
+))
+
+stories.add('theme font size', () => (
+    <Bar
+        {...commonProps}
+        theme={{ fontSize: 23}}
     />
 ))
