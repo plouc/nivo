@@ -39,7 +39,7 @@ stories.add('grouped horizontal', () => (
         enableGridY={false}
         enableGridX={true}
         theme={{
-            fontSize: 28
+            fontSize: 28,
         }}
     />
 ))
@@ -256,9 +256,4 @@ stories.add('enter/leave (check actions)', () => (
     />
 ))
 
-stories.add('theme font size', () => (
-    <Bar
-        {...commonProps}
-        theme={{ fontSize: 23}}
-    />
-))
+stories.add('theme font size', () => <Bar {...commonProps} theme={{ fontSize: 23 }} />)
