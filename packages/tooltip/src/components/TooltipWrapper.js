@@ -22,7 +22,22 @@ const tooltipStyle = {
     left: 0,
 }
 
-const TooltipWrapper = memo(({ position, anchor, children }) => {
+const avoidWindowOverflow = (x, y, dimensions, offset) => {
+    // Do nothing if SSR
+    if (typeof window !== 'object') return [x, y]
+
+    const xMin = offset
+    const xMax = window.innerWidth - offset - dimensions[0]
+    const yMin = offset
+    const yMax = window.innerHeight - offset - dimensions[1]
+
+    return [
+        Math.min(Math.max(xMin, x), xMax),
+        Math.min(Math.max(yMin, y), yMax)
+    ]
+}
+
+const TooltipWrapper = memo(({ position, anchor, container, children }) => {
     const [dimensions, setDimensions] = useState(null)
     const theme = useTheme()
     const { animate, springConfig } = useMotionConfig()
@@ -46,7 +61,13 @@ const TooltipWrapper = memo(({ position, anchor, children }) => {
             x -= dimensions[0] / 2
             y -= dimensions[1] / 2
         }
+
+        [x, y] = avoidWindowOverflow(x, y, dimensions, theme.tooltip.offset || 8)
     }
+
+    const containerBounds = container.current.getBoundingClientRect()
+    x -= containerBounds.left
+    y -= containerBounds.top
 
     const style = useMemo(
         () => ({
@@ -122,6 +143,7 @@ TooltipWrapper.displayName = 'TooltipWrapper'
 TooltipWrapper.propTypes = {
     position: PropTypes.array.isRequired,
     anchor: PropTypes.oneOf(['top', 'right', 'bottom', 'left', 'center']).isRequired,
+    container: PropTypes.shape({ }).isRequired,
     children: PropTypes.node.isRequired,
 }
 TooltipWrapper.defaultProps = {

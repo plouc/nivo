@@ -13,13 +13,15 @@ export const useTooltipHandlers = container => {
     const [state, setState] = useState({
         isVisible: false,
         content: null,
-        position: {},
+        position: {}, // the coords are absolute
     })
 
     const showTooltipAt = useCallback((content, [x, y], anchor) => {
+        const bounds = container.current.getBoundingClientRect()
+
         setState({
             isVisible: true,
-            position: [x, y],
+            position: [bounds.left + x, bounds.top + y],
             anchor,
             content,
         })
@@ -27,13 +29,9 @@ export const useTooltipHandlers = container => {
 
     const showTooltipFromEvent = useCallback(
         (content, event, anchor) => {
-            const bounds = container.current.getBoundingClientRect()
-            const x = event.clientX - bounds.left
-            const y = event.clientY - bounds.top
-
             setState({
                 isVisible: true,
-                position: [x, y],
+                position: [event.clientX, event.clientY],
                 anchor,
                 content,
             })

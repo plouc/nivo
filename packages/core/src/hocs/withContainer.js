@@ -50,7 +50,11 @@ const Container = ({
                         <div style={containerStyle} ref={container}>
                             {children}
                             {isTooltipVisible && (
-                                <TooltipWrapper position={tooltipPosition} anchor={tooltipAnchor}>
+                                <TooltipWrapper
+                                    position={tooltipPosition}
+                                    anchor={tooltipAnchor}
+                                    container={container}
+                                >
                                     {tooltipContent}
                                 </TooltipWrapper>
                             )}
