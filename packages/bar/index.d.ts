@@ -113,6 +113,8 @@ declare module '@nivo/bar' {
         labelTextColor: InheritedColorProp<BarDatumWithColor>
 
         colors: OrdinalColorsInstruction
+		colorBy: OrdinalColorsInstruction
+		borderColor: {}
         borderRadius: number
         borderWidth: number
         theme: Theme
