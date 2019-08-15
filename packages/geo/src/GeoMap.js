@@ -107,7 +107,7 @@ const GeoMap = memo(props => {
                     )
                 }
 
-                return <Fragment key={i}>{layer(props)}</Fragment>
+                return <Fragment key={i}>{layer(props, path)}</Fragment>
             })}
         </SvgWrapper>
     )
