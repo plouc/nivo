@@ -16,7 +16,8 @@ import GeoMapFeature from './GeoMapFeature'
 import { useGeoMap, useChoropleth } from './hooks'
 
 const Choropleth = memo(
-    ({
+    (props) => {
+        const {
         width,
         height,
         margin: partialMargin,
@@ -43,7 +44,7 @@ const Choropleth = memo(
         isInteractive,
         onClick,
         tooltip: Tooltip,
-    }) => {
+    } = props
         const { margin, outerWidth, outerHeight } = useDimensions(width, height, partialMargin)
         const { graticule, path, getBorderWidth, getBorderColor } = useGeoMap({
             width,
@@ -144,7 +145,7 @@ const Choropleth = memo(
                         })
                     }
 
-                    return <Fragment key={i}>{layer({})}</Fragment>
+                    return <Fragment key={i}>{layer(props, path)}</Fragment>
                 })}
             </SvgWrapper>
         )
