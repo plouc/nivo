@@ -113,12 +113,18 @@ declare module '@nivo/scatterplot' {
 
     export type CustomLayerId = 'grid' | 'axes' | 'nodes' | 'markers' | 'mesh' | 'legends'
 
+    export interface ScatterPlotScale {
+        type: 'linear'
+        min?: 'auto' | number
+        max?: 'auto' | number
+    }
+
     export interface ScatterPlotProps {
         data: Serie[]
 
-        xScale?: Scale
+        xScale?: ScatterPlotScale
         xFormat?: string | ValueFormatter
-        yScale?: Scale
+        yScale?: ScatterPlotScale
         yFormat?: string | ValueFormatter
 
         margin?: Box
