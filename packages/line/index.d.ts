@@ -107,6 +107,14 @@ declare module '@nivo/line' {
     }
     export type SliceTooltip = React.FunctionComponent<SliceTooltipProps>
 
+    export interface PointSymbolProps {
+        borderColor: string
+        borderWidth: number
+        color: string
+        datum: Datum
+        size: number
+    }
+
     export interface LineProps {
         data: Serie[]
 
@@ -143,6 +151,7 @@ declare module '@nivo/line' {
         gridYValues?: number | number[] | string[] | Date[]
 
         enablePoints?: boolean
+        pointSymbol?: (props: Readonly<PointSymbolProps>) => React.ReactNode
         pointSize?: number
         pointColor?: any
         pointBorderWidth?: number
