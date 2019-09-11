@@ -22,7 +22,7 @@ const ActionHeader = styled.div`
     cursor: pointer;
 
     &:hover {
-        bakcground: ${({ theme }) => theme.colors.cardAltBackground};
+        background: ${({ theme }) => theme.colors.cardAltBackground};
     }
 `
 

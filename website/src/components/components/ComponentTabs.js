@@ -13,6 +13,7 @@ import media from '../../theming/mediaQueries'
 import { useTheme } from '../../theming/context'
 import Highlight from '../Highlight'
 import CodeBlock from '../CodeBlock'
+import CopyIcon from 'react-icons/lib/fa/copy'
 
 const tabs = ['chart', 'code', 'data']
 
@@ -31,6 +32,16 @@ const ComponentTabs = ({
     const [currentTab, setCurrentTab] = useState('chart')
     const [hoverTab, setHoverTab] = useState(null)
 
+    let copyContent = ''
+    function copyStringToClipboard() {
+        var el = document.createElement('textarea')
+        el.value = copyContent
+        document.body.appendChild(el)
+        el.select()
+        document.execCommand('copy')
+        document.body.removeChild(el)
+    }
+
     let availableTabs = tabs
     if (data === undefined) {
         availableTabs = availableTabs.filter(t => t !== 'data')
@@ -40,12 +51,14 @@ const ComponentTabs = ({
     if (currentTab === 'chart') {
         content = <Content id="chart">{children}</Content>
     } else if (currentTab === 'code') {
+        copyContent = code
         content = (
             <Code>
                 <Highlight code={code} language="jsx" />
             </Code>
         )
     } else if (availableTabs.includes('data') && currentTab === 'data') {
+        copyContent = JSON.stringify(data, null, '  ')
         content = (
             <Code>
                 <CodeBlock>{JSON.stringify(data, null, '  ')}</CodeBlock>
@@ -76,10 +89,13 @@ const ComponentTabs = ({
                     )
                 })}
                 {diceRoll && (
-                    <DiceRollButton className="no-select" onClick={diceRoll}>
+                    <RightButton className="no-select" onClick={diceRoll}>
                         roll the dice
-                    </DiceRollButton>
+                    </RightButton>
                 )}
+                <RightButton right onClick={copyStringToClipboard}>
+                    <CopyIcon /> Copy
+                </RightButton>
             </Nav>
             {content}
             {currentTab === 'chart' && nodeCount !== undefined && (
@@ -184,7 +200,7 @@ const Content = styled.div`
     width: 100%;
 `
 
-const DiceRollButton = styled.span`
+const RightButton = styled.span`
     position: absolute;
     top: 7px;
     right: 16px;
@@ -200,6 +216,10 @@ const DiceRollButton = styled.span`
     font-weight: 500;
     font-size: 0.9rem;
     white-space: pre;
+
+    margin-right: ${props => {
+        if (props.right) return '110px'
+    }};
 
     &:hover {
         background: ${({ theme }) => theme.colors.accent};
