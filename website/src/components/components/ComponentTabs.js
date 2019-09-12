@@ -34,12 +34,12 @@ const ComponentTabs = ({
 
     let copyContent = ''
     function copyStringToClipboard() {
-        var el = document.createElement('textarea')
-        el.value = copyContent
-        document.body.appendChild(el)
-        el.select()
+        var element = document.createElement('textarea')
+        element.value = copyContent
+        document.body.appendChild(element)
+        element.select()
         document.execCommand('copy')
-        document.body.removeChild(el)
+        document.body.removeChild(element)
     }
 
     let availableTabs = tabs
@@ -93,7 +93,7 @@ const ComponentTabs = ({
                         roll the dice
                     </RightButton>
                 )}
-                <RightButton right onClick={copyStringToClipboard}>
+                <RightButton right={diceRoll} onClick={copyStringToClipboard}>
                     <CopyIcon /> Copy
                 </RightButton>
             </Nav>
