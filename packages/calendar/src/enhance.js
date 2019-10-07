@@ -22,15 +22,16 @@ const commonEnhancers = [
     withTheme(),
     withDimensions(),
     withPropsOnChange(
-        ['data', 'minValue', 'maxValue', 'colors'],
-        ({ data, minValue, maxValue, colors }) => {
+        ['data', 'minValue', 'maxValue', 'colors', 'colorScale'],
+        ({ data, minValue, maxValue, colors, colorScale }) => {
+            if (colorScale) return { colorScale }
             const domain = computeDomain(data, minValue, maxValue)
 
-            const colorScale = scaleQuantize()
+            const defaultColorScale = scaleQuantize()
                 .domain(domain)
                 .range(colors)
 
-            return { colorScale }
+            return { colorScale: defaultColorScale }
         }
     ),
     withPropsOnChange(
