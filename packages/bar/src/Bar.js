@@ -108,6 +108,7 @@ const Bar = props => {
         animate,
         motionStiffness,
         motionDamping,
+        showEmpty
     } = props
     const options = {
         layout,
@@ -122,6 +123,7 @@ const Bar = props => {
         getColor,
         padding,
         innerPadding,
+        showEmpty,
     }
     const result =
         groupMode === 'grouped' ? generateGroupedBars(options) : generateStackedBars(options)
