@@ -124,6 +124,7 @@ const LegendSvgItem = ({
                 onMouseLeave={handleMouseLeave}
             />
             {React.createElement(Symbol, {
+                id: data.id,
                 x: symbolX,
                 y: symbolY,
                 size: style.symbolSize || symbolSize,
