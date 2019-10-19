@@ -128,6 +128,7 @@ declare module '@nivo/bar' {
 
     export type Axis = Partial<{
         format: string | LabelFormatter
+        renderTick: (data: any) => React.ReactNode
         legend: string
         legendOffset: number
         legendPosition: 'start' | 'middle' | 'end'
