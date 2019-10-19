@@ -23,7 +23,7 @@ declare module '@nivo/scales' {
         type: 'time'
         format?: string
         precision?: 'millisecond' | 'second' | 'minute' | 'hour' | 'month' | 'year' | 'day'
-        useUTC: boolean
+        useUTC?: boolean
     }
 
     export interface LogScale {
