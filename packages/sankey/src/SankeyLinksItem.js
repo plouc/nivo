@@ -80,7 +80,7 @@ const SankeyLinksItem = ({
                 />
             )}
             <path
-                fill={enableGradient ? `url(#${linkId})` : color}
+                fill={enableGradient ? `url(#${encodeURI(linkId)})` : color}
                 d={path}
                 fillOpacity={opacity}
                 onMouseEnter={handleMouseEnter}
