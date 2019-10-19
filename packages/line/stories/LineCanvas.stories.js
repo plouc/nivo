@@ -63,7 +63,7 @@ stories.add(
 )
 
 stories.add(
-    'different serie lengths',
+    'different series lengths',
     () => (
         <LineCanvas
             {...commonProperties}
