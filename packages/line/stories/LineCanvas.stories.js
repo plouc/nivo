@@ -119,7 +119,6 @@ stories.add(
     }
 )
 
-
 stories.add('time scale', () => (
     <LineCanvas
         {...commonProperties}
