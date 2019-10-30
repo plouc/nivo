@@ -42,8 +42,8 @@ export const BarPropTypes = {
     axisRight: axisPropType,
     axisBottom: axisPropType,
     axisLeft: axisPropType,
-    enableGridX: PropTypes.bool.isRequired,
-    enableGridY: PropTypes.bool.isRequired,
+    enableGridX: PropTypes.bool,
+    enableGridY: PropTypes.bool,
     gridXValues: PropTypes.arrayOf(PropTypes.number),
     gridYValues: PropTypes.arrayOf(PropTypes.number),
 
