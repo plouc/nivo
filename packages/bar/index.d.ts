@@ -114,7 +114,7 @@ declare module '@nivo/bar' {
 
         colors: OrdinalColorsInstruction
         colorBy: OrdinalColorsInstruction
-        borderColor: {}
+        borderColor: InheritedColorProp<BarDatumWithColor>
         borderRadius: number
         borderWidth: number
         theme: Theme
@@ -130,6 +130,7 @@ declare module '@nivo/bar' {
 
     export type Axis = Partial<{
         format: string | LabelFormatter
+        renderTick: (data: any) => React.ReactNode
         legend: string
         legendOffset: number
         legendPosition: 'start' | 'middle' | 'end'
