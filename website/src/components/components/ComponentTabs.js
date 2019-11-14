@@ -145,10 +145,17 @@ const Wrapper = styled.div`
 const Nav = styled.nav`
     height: 46px;
     background: ${({ theme }) => theme.colors.background};
-    display: flex;
     font-size: 15px;
     color: #aaa;
     position: relative;
+    display: flex;
+
+    ${media.mobile`
+        & {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+    `}
 `
 
 const NavItem = styled.span`
@@ -205,6 +212,15 @@ const DiceRollButton = styled.span`
         background: ${({ theme }) => theme.colors.accent};
         color: ${({ theme }) => theme.colors.background};
     }
+
+    ${media.mobile`
+        & {
+            grid-column-start: 4;
+            justify-self: end;
+            right: 8px;
+            padding: 8px 8px;
+        }
+    `}
 `
 
 const NodeCount = styled.span`
