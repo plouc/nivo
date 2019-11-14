@@ -73,5 +73,9 @@ declare module '@nivo/calendar' {
 
     export class Calendar extends React.Component<CalendarSvgProps & Dimensions> {}
     export class ResponsiveCalendar extends React.Component<CalendarSvgProps> {}
-    export class ResponsiveCalendarCanvas extends React.Component<CalendarSvgProps>{}
+
+    interface CalendarCanvasProps extends CalendarSvgProps{
+        pixelRatio: number;
+    }
+    export class ResponsiveCalendarCanvas extends React.Component<CalendarCanvasProps>{}    
 }
