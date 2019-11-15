@@ -140,6 +140,68 @@ const props = [
         controlType: 'switch',
         group: 'Interactivity',
     },
+    {
+        key: 'tooltip',
+        flavors: ['svg'],
+        group: 'Interactivity',
+        type: 'Function',
+        required: false,
+        help: 'Tooltip custom component',
+        description: `
+            A function allowing complete tooltip customisation,
+            it must return a valid HTML element and will receive
+            the following data:
+            \`\`\`
+            {
+                id:         string | number,
+                value:      number,
+                depth:      number,
+                color:      string,
+                name:       string
+                loc:        number
+                percentage: number
+                // the parent datum
+                ancestor:   object
+            }
+            \`\`\`
+            You can also customize the style of the tooltip
+            using the \`theme.tooltip\` object.
+        `,
+    },
+    {
+        key: 'custom tooltip example',
+        flavors: ['svg'],
+        group: 'Interactivity',
+        help: 'Showcase custom tooltip component.',
+        type: 'boolean',
+        controlType: 'switch',
+    },
+    {
+        key: 'onClick',
+        flavors: ['svg'],
+        group: 'Interactivity',
+        type: 'Function',
+        required: false,
+        help: 'onClick handler',
+        description: `
+            onClick handler, will receive node data as first argument
+            & event as second one. The node data has the following shape:
+
+            \`\`\`
+            {
+                id:         string | number,
+                value:      number,
+                depth:      number,
+                color:      string,
+                name:       string
+                loc:        number
+                percentage: number
+                // the parent datum
+                ancestor:   object
+            }
+            \`\`\`
+        `,
+    },
 ]
 
 export const groups = groupProperties(props)

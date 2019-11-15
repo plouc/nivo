@@ -14,6 +14,10 @@ import meta from '../../data/components/sunburst/meta.yml'
 import mapper from '../../data/components/sunburst/mapper'
 import { groups } from '../../data/components/sunburst/props'
 
+const Tooltip = () => {
+    /* return custom tooltip */
+}
+
 const initialProperties = {
     margin: {
         top: 40,
@@ -40,6 +44,8 @@ const initialProperties = {
     motionDamping: 15,
 
     isInteractive: true,
+    'custom tooltip example': false,
+    tooltip: null,
 }
 
 const Sunburst = () => {
@@ -53,10 +59,31 @@ const Sunburst = () => {
             properties={groups}
             initialProperties={initialProperties}
             propertiesMapper={mapper}
+            codePropertiesMapper={(properties, data) => ({
+                keys: data.keys,
+                ...properties,
+                tooltip: properties.tooltip ? Tooltip : undefined,
+            })}
             generateData={generateLibTree}
         >
-            {(properties, data, theme) => {
-                return <ResponsiveSunburst data={data} {...properties} theme={theme} />
+            {(properties, data, theme, logAction) => {
+                return (
+                    <ResponsiveSunburst
+                        data={data}
+                        {...properties}
+                        theme={theme}
+                        onClick={node =>
+                            logAction({
+                                type: 'click',
+                                label: `[sunburst] ${node.id} - ${node.value}: ${Math.round(
+                                    node.percentage * 100
+                                ) / 100}%`,
+                                color: node.color,
+                                data: node,
+                            })
+                        }
+                    />
+                )
             }}
         </ComponentTemplate>
     )

@@ -6,6 +6,44 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+import React from 'react'
+import styled from 'styled-components'
 import { settingsMapper } from '../../../lib/settings'
 
-export default settingsMapper({})
+const TooltipWrapper = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 12px;
+`
+const TooltipKey = styled.span`
+    font-weight: 600;
+`
+const TooltipValue = styled.span``
+
+const CustomTooltip = node => {
+    return (
+        <TooltipWrapper style={{ color: node.color }}>
+            <TooltipKey>id</TooltipKey>
+            <TooltipValue>{node.id}</TooltipValue>
+            <TooltipKey>value</TooltipKey>
+            <TooltipValue>{node.value}</TooltipValue>
+            <TooltipKey>percentage</TooltipKey>
+            <TooltipValue>{Math.round(node.percentage * 100) / 100}%</TooltipValue>
+            <TooltipKey>color</TooltipKey>
+            <TooltipValue>{node.color}</TooltipValue>
+        </TooltipWrapper>
+    )
+}
+
+export default settingsMapper(
+    {
+        tooltip: (value, values) => {
+            if (!values['custom tooltip example']) return null
+
+            return CustomTooltip
+        },
+    },
+    {
+        exclude: ['custom tooltip example'],
+    }
+)
