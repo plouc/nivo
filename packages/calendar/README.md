@@ -6,4 +6,4 @@
 
 [documentation](http://nivo.rocks/calendar)
 
-![Calendar](./doc/calendar.png)
+![Calendar](https://raw.githubusercontent.com/plouc/nivo/master/packages/calendar/doc/calendar.png)
