@@ -350,13 +350,7 @@ const props = [
         help: 'How to format labels.',
         description: `
             How to format labels,
-            <a
-                href="https://github.com/d3/d3-format/blob/master/README.md#format"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                see d3.format() documentation
-            </a>.
+            [see d3.format() documentation](https://github.com/d3/d3-format/blob/master/README.md#format).
         `,
         type: 'string | Function',
     },
