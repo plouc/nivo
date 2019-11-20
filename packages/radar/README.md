@@ -6,4 +6,4 @@
 
 [documentation](http://nivo.rocks/radar)
 
-![Radar](./doc/radar.png)
+![Radar](https://raw.githubusercontent.com/plouc/nivo/master/packages/radar/doc/radar.png)
