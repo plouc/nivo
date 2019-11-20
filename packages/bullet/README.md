@@ -6,4 +6,4 @@
 
 [documentation](http://nivo.rocks/bullet)
 
-![Bullet](./doc/bullet.png)
+![Bullet](https://raw.githubusercontent.com/plouc/nivo/master/packages/bullet/doc/bullet.png)
