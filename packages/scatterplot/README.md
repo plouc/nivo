@@ -6,10 +6,10 @@
 
 [documentation](http://nivo.rocks/scatterplot)
 
-![ScatterPlot](./doc/scatterplot.png)
+![ScatterPlot](https://raw.githubusercontent.com/plouc/nivo/master/packages/scatterplot/doc/scatterplot.png)
 
 ## ScatterPlotCanvas
 
 [documentation](http://nivo.rocks/scatterplot/canvas)
 
-![ScatterPlotCanvas](./doc/scatterplot-canvas.png)
+![ScatterPlotCanvas](https://raw.githubusercontent.com/plouc/nivo/master/packages/scatterplot/doc/scatterplot-canvas.png)
