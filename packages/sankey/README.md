@@ -6,4 +6,4 @@
 
 [documentation](http://nivo.rocks/heatmap/sankey)
 
-![Sankey](./doc/sankey.png)
+![Sankey](https://raw.githubusercontent.com/plouc/nivo/master/packages/sankey/doc/sankey.png)
