@@ -6,4 +6,4 @@
 
 [documentation](http://nivo.rocks/pie)
 
-![Pie](./doc/pie.png)
+![Pie](https://raw.githubusercontent.com/plouc/nivo/master/packages/pie/doc/pie.png)
