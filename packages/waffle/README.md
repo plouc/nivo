@@ -6,16 +6,16 @@
 
 [documentation](http://nivo.rocks/waffle)
 
-![Waffle](./doc/waffle.png)
+![Waffle](https://raw.githubusercontent.com/plouc/nivo/master/packages/waffle/doc/waffle.png)
 
 ## WaffleHtml
 
 [documentation](http://nivo.rocks/waffle/html)
 
-![WaffleHtml](./doc/waffle-html.png)
+![WaffleHtml](https://raw.githubusercontent.com/plouc/nivo/master/packages/waffle/doc/waffle-html.png)
 
 ## WaffleCanvas
 
 [documentation](http://nivo.rocks/waffle/canvas)
 
-![WaffleCanvas](./doc/waffle-canvas.png)
+![WaffleCanvas](https://raw.githubusercontent.com/plouc/nivo/master/packages/waffle/doc/waffle-canvas.png)
