@@ -16,7 +16,7 @@
     "name": "Raphaël Benitte",
     "url": "https://github.com/plouc"
   },
-  "keywords": [],
+  "keywords": ["react", "charts", "dataviz","react-component", "d3", "graphs", "data-visualization"],
   "devDependencies": {
     "@babel/core": "^7.4.0",
     "@ekino/config": "^0.3.0",
