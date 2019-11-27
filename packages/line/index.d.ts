@@ -193,12 +193,14 @@ declare module '@nivo/line' {
     }
 
     export class Line extends React.Component<LineSvgProps & Dimensions> {}
-    export class ResponsiveLine extends React.Component<LineSvgProps> {}
+    export class ResponsiveLine extends React.Component<LineSvgProps & Partial<Dimensions>> {}
 
     export interface LineCanvasProps extends LineProps {
         pixelRatio?: number
     }
 
     export class LineCanvas extends React.Component<LineCanvasProps & Dimensions> {}
-    export class ResponsiveLineCanvas extends React.Component<LineCanvasProps> {}
+    export class ResponsiveLineCanvas extends React.Component<
+        LineCanvasProps & Partial<Dimensions>
+    > {}
 }
