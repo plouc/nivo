@@ -211,6 +211,8 @@ export const useBump = ({
                     ...rawPoint,
                     serie,
                     serieId: serie.id,
+                    isActive: currentSerie === serie.id,
+                    isInactive: currentSerie !== null && currentSerie !== serie.id,
                 }
                 point.color = getPointColor(point)
                 point.borderColor = getPointBorderColor(point)
@@ -220,7 +222,7 @@ export const useBump = ({
         })
 
         return pts
-    }, [series, getPointColor, getPointBorderColor, getPointStyle])
+    }, [series, getPointColor, getPointBorderColor, getPointStyle, currentSerie])
 
     return {
         xScale,
