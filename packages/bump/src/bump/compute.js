@@ -39,11 +39,11 @@ export const computeSeries = ({ width, height, data, xPadding, xOuterPadding, yO
 
         rawSerie.data.forEach((datum, i) => {
             const point = {
-                ...datum,
                 id: `${rawSerie.id}.${datum.x}`,
                 x: xScale(datum.x),
                 y: yScale(datum.y),
                 serie: rawSerie,
+                data: datum,
             }
             serie.points.push(point)
 

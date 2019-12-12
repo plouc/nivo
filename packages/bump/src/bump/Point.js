@@ -26,6 +26,7 @@ const Point = ({ x, y, size, color, borderColor, borderWidth }) => {
 }
 
 Point.propTypes = {
+    data: PropTypes.object.isRequired,
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
     size: PropTypes.number.isRequired,

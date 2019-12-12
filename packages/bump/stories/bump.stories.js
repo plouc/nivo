@@ -20,6 +20,7 @@ const generateData = () => {
             series[i].data.push({
                 x: year,
                 y: rank,
+                extra: Math.random(),
             })
         })
     })
