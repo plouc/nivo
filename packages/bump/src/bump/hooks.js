@@ -311,13 +311,19 @@ export const useSeriesLabels = ({ series, position, padding, color }) => {
             signedPadding = padding
         }
 
-        return series.map(serie => {
+        const labels = []
+        series.forEach(serie => {
             const point =
                 position === 'start'
                     ? serie.linePoints[0]
                     : serie.linePoints[serie.linePoints.length - 1]
 
-            return {
+            // exclude labels for series having missing data at the beginning/end
+            if (point[0] === null || point[1] === null) {
+                return
+            }
+
+            labels.push({
                 id: serie.id,
                 x: point[0] + signedPadding,
                 y: point[1],
@@ -325,7 +331,9 @@ export const useSeriesLabels = ({ series, position, padding, color }) => {
                 opacity: serie.style.opacity,
                 serie,
                 textAnchor,
-            }
+            })
         })
+
+        return labels
     }, [series, position, padding, getColor])
 }
