@@ -14,9 +14,14 @@ import { useTooltip } from '@nivo/tooltip'
 import { computeSeries } from './compute'
 
 export const useLineGenerator = interpolation =>
-    useMemo(() => d3Line().curve(interpolation === 'smooth' ? curveBasis : curveLinear), [
-        interpolation,
-    ])
+    useMemo(
+        () =>
+            d3Line()
+                .curve(interpolation === 'smooth' ? curveBasis : curveLinear)
+                .defined(d => d[0] !== null && d[1] !== null),
+
+        [interpolation]
+    )
 
 export const useSerieDerivedProp = instruction =>
     useMemo(() => {

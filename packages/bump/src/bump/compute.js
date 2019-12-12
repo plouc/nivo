@@ -17,9 +17,10 @@ export const computeSeries = ({ width, height, data, xPadding, xOuterPadding, yO
             }
         })
     })
+    xValues = Array.from(xValues)
 
     const xScale = scalePoint()
-        .domain(Array.from(xValues))
+        .domain(xValues)
         .range([0, width])
         .padding(xOuterPadding)
 
@@ -38,26 +39,43 @@ export const computeSeries = ({ width, height, data, xPadding, xOuterPadding, yO
         }
 
         rawSerie.data.forEach((datum, i) => {
+            let x = null
+            let y = null
+            if (datum.y !== null && datum.y !== undefined) {
+                x = xScale(datum.x)
+                y = yScale(datum.y)
+            }
             const point = {
                 id: `${rawSerie.id}.${datum.x}`,
-                x: xScale(datum.x),
-                y: yScale(datum.y),
                 serie: rawSerie,
                 data: datum,
+                x,
+                y,
             }
             serie.points.push(point)
 
-            if (i === 0) {
-                serie.linePoints.push([0, point.y])
-            } else {
-                serie.linePoints.push([point.x - linePointPadding, point.y])
+            // only add pre transition point if the datum is not empty
+            if (x !== null) {
+                if (i === 0) {
+                    serie.linePoints.push([0, point.y])
+                } else {
+                    serie.linePoints.push([point.x - linePointPadding, point.y])
+                }
             }
+
             serie.linePoints.push([point.x, point.y])
-            if (i === rawSerie.data.length - 1) {
-                serie.linePoints.push([width, point.y])
-            } else {
-                serie.linePoints.push([point.x + linePointPadding, point.y])
+
+            // only add post transition point if the datum is not empty
+            if (x !== null) {
+                if (i === rawSerie.data.length - 1 && x) {
+                    serie.linePoints.push([width, point.y])
+                } else {
+                    serie.linePoints.push([point.x + linePointPadding, point.y])
+                }
             }
+
+            // remove points having null coordinates
+            serie.points = serie.points.filter(point => point.x !== null)
         })
 
         return serie
