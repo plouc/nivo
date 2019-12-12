@@ -45,6 +45,7 @@ const Bump = props => {
         endLabelPadding,
         endLabelTextColor,
 
+        pointComponent,
         pointSize,
         activePointSize,
         inactivePointSize,
@@ -149,7 +150,7 @@ const Bump = props => {
                 ))}
             </Fragment>
         ),
-        points: <Points key="points" points={points} />,
+        points: <Points key="points" pointComponent={pointComponent} points={points} />,
     }
 
     if (startLabel !== false) {
