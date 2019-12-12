@@ -29,6 +29,8 @@ Point.propTypes = {
     data: PropTypes.object.isRequired,
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
+    isActive: PropTypes.bool.isRequired,
+    isInactive: PropTypes.bool.isRequired,
     size: PropTypes.number.isRequired,
     color: PropTypes.string.isRequired,
     borderColor: PropTypes.string.isRequired,

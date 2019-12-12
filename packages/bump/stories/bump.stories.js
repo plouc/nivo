@@ -41,6 +41,52 @@ const stories = storiesOf('Bump', module)
 
 stories.add('default', () => <Bump {...commonProps} />)
 
-stories.add('Custom points', () => <Bump {...commonProps} />)
+const CustomPoint = ({ x, y, isActive, isInactive, size, color, borderColor, borderWidth }) => {
+    return (
+        <g transform={`translate(${x}, ${y})`} style={{ pointerEvents: 'none' }}>
+            <rect
+                x={size * -0.5 - 4}
+                y={size * -0.5 + 4}
+                width={size + borderWidth}
+                height={size + borderWidth}
+                fill="rgba(0, 0, 0, .07)"
+            />
+            <rect
+                x={size * -0.5}
+                y={size * -0.5}
+                width={size}
+                height={size}
+                fill={color}
+                stroke={borderColor}
+                strokeWidth={borderWidth}
+            />
+            {isActive && (
+                <text textAnchor="middle" y={4} fill={borderColor}>
+                    A
+                </text>
+            )}
+            {isInactive && (
+                <text textAnchor="middle" y={4} fill={borderColor}>
+                    I
+                </text>
+            )}
+        </g>
+    )
+}
+
+stories.add('Custom points', () => (
+    <Bump
+        {...commonProps}
+        pointComponent={CustomPoint}
+        pointSize={20}
+        activePointSize={24}
+        inactivePointSize={16}
+        pointBorderWidth={2}
+        activePointBorderWidth={4}
+        inactivePointBorderWidth={1}
+        pointColor="#ffffff"
+        pointBorderColor={{ from: 'serie.color' }}
+    />
+))
 
 stories.add('Missing data', () => <Bump {...commonProps} />)
