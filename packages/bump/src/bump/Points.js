@@ -11,8 +11,6 @@ import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
 import { useMotionConfig } from '@nivo/core'
 
-const pointStyle = { pointerEvents: 'none' }
-
 const Points = ({ pointComponent, points }) => {
     const { animate, springConfig } = useMotionConfig()
 
@@ -20,6 +18,7 @@ const Points = ({ pointComponent, points }) => {
         return points.map(point => {
             return React.createElement(pointComponent, {
                 key: point.id,
+                data: point.data,
                 x: point.x,
                 y: point.y,
                 size: point.style.size,
@@ -48,6 +47,7 @@ const Points = ({ pointComponent, points }) => {
                     {interpolated.map(({ key, style, data: point }) => {
                         return React.createElement(pointComponent, {
                             key,
+                            data: point.data,
                             x: style.x,
                             y: point.y,
                             size: Math.max(style.size, 0),
@@ -67,6 +67,7 @@ Points.propTypes = {
     points: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.string.isRequired,
+            data: PropTypes.object.isRequired,
             x: PropTypes.number.isRequired,
             y: PropTypes.number.isRequired,
             color: PropTypes.string.isRequired,
