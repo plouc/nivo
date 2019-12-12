@@ -20,7 +20,7 @@ const commonPropTypes = {
             data: PropTypes.arrayOf(
                 PropTypes.shape({
                     x: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-                    y: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+                    y: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
                 })
             ).isRequired,
         })
