@@ -1,6 +1,6 @@
 {
   "name": "@nivo/tooltip",
-  "version": "0.59.1",
+  "version": "0.60.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -15,7 +15,7 @@
     "dist/"
   ],
   "dependencies": {
-    "@nivo/core": "0.59.1",
+    "@nivo/core": "0.60.0",
     "react-measure": "^2.2.4",
     "react-motion": "^0.5.2"
   },
