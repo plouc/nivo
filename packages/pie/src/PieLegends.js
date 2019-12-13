@@ -47,7 +47,7 @@ export const enhance = Component =>
         withPropsOnChange(['arcs'], ({ arcs }) => ({
             data: arcs.map(arc => ({
                 id: arc.data.id,
-                label: arc.data.id,
+                label: arc.data.label,
                 color: arc.color,
                 fill: arc.fill,
             })),
