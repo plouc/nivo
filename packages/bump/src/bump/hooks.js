@@ -296,7 +296,7 @@ export const useSerieHandlers = ({
     return handlers
 }
 
-export const useSeriesLabels = ({ series, position, padding, color }) => {
+export const useSeriesLabels = ({ series, position, padding, color, getLabel }) => {
     const theme = useTheme()
     const getColor = useInheritedColor(color, theme)
 
@@ -313,6 +313,11 @@ export const useSeriesLabels = ({ series, position, padding, color }) => {
 
         const labels = []
         series.forEach(serie => {
+            let label = serie.id
+            if (typeof getLabel === 'function') {
+                label = getLabel(serie)
+            }
+
             const point =
                 position === 'start'
                     ? serie.linePoints[0]
@@ -325,6 +330,7 @@ export const useSeriesLabels = ({ series, position, padding, color }) => {
 
             labels.push({
                 id: serie.id,
+                label,
                 x: point[0] + signedPadding,
                 y: point[1],
                 color: getColor(serie),
