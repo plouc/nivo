@@ -1,6 +1,6 @@
 {
   "name": "@nivo/bullet",
-  "version": "0.60.0",
+  "version": "0.61.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -23,11 +23,11 @@
     "dist/"
   ],
   "dependencies": {
-    "@nivo/axes": "0.60.0",
-    "@nivo/colors": "0.60.0",
-    "@nivo/core": "0.60.0",
-    "@nivo/legends": "0.60.0",
-    "@nivo/tooltip": "0.60.0",
+    "@nivo/axes": "0.61.0",
+    "@nivo/colors": "0.61.0",
+    "@nivo/core": "0.61.0",
+    "@nivo/legends": "0.61.0",
+    "@nivo/tooltip": "0.61.0",
     "d3-scale": "^3.0.0",
     "lodash": "^4.17.11",
     "react-motion": "^0.5.2",
