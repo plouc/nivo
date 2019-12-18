@@ -46,7 +46,7 @@ export const computeSeries = ({ width, height, data, xPadding, xOuterPadding, yO
                 y = yScale(datum.y)
             }
             const point = {
-                id: `${rawSerie.id}.${datum.x}`,
+                id: `${rawSerie.id}.${i}`,
                 serie: rawSerie,
                 data: datum,
                 x,

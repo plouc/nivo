@@ -99,9 +99,7 @@ const ChoroplethCanvas = () => {
                         onClick={feature => {
                             logAction({
                                 type: 'click',
-                                label: `${feature.label}: ${feature.formattedValue} (${
-                                    feature.id
-                                })`,
+                                label: `${feature.label}: ${feature.formattedValue} (${feature.id})`,
                                 color: feature.color,
                                 data: {
                                     label: feature.label,

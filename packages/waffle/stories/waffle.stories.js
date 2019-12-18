@@ -55,7 +55,10 @@ stories.add('patterns', () => (
                 spacing: 10,
             }),
         ]}
-        fill={[{ match: { id: 'men' }, id: 'dots' }, { match: { id: 'women' }, id: 'lines' }]}
+        fill={[
+            { match: { id: 'men' }, id: 'dots' },
+            { match: { id: 'women' }, id: 'lines' },
+        ]}
     />
 ))
 

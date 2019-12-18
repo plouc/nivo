@@ -90,7 +90,10 @@ it('should support legends', () => {
 })
 
 it('should allow to hide specific ids', () => {
-    const data = [{ id: 'one', label: 'one', value: 10 }, { id: 'two', label: 'two', value: 20 }]
+    const data = [
+        { id: 'one', label: 'one', value: 10 },
+        { id: 'two', label: 'two', value: 20 },
+    ]
     const legends = [
         {
             anchor: 'top-left',
