@@ -7,7 +7,15 @@
  * file that was distributed with this source code.
  */
 import * as React from 'react'
-import { Dimensions, Box, Theme, MotionProps, CartesianMarkerProps } from '@nivo/core'
+import {
+    Dimensions,
+    Box,
+    Theme,
+    MotionProps,
+    CartesianMarkerProps,
+    DataFormatter,
+    DatumValue as CoreDatumValue,
+} from '@nivo/core'
 import { OrdinalColorsInstruction } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { Scale, ScaleFunc } from '@nivo/scales'
@@ -17,7 +25,7 @@ import { CrosshairType } from '@nivo/tooltip'
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
 declare module '@nivo/line' {
-    export type DatumValue = string | number | Date
+    export type DatumValue = CoreDatumValue
 
     export interface Datum {
         x?: DatumValue | null
@@ -63,8 +71,6 @@ declare module '@nivo/line' {
     export type CustomLayer = (props: CustomLayerProps) => React.ReactNode
     export type Layer = LineLayerType | CustomLayer
 
-    export type DataFormatter = (value: DatumValue) => string | number
-
     export interface Point {
         id: string
         index: number
@@ -84,8 +90,6 @@ declare module '@nivo/line' {
     }
 
     export type PointMouseHandler = (point: Point, event: React.MouseEvent) => void
-
-    export type TooltipFormatter = (value: DatumValue) => React.ReactNode
 
     export interface PointTooltipProps {
         point: Point
@@ -175,7 +179,7 @@ declare module '@nivo/line' {
         debugSlices?: boolean
         sliceTooltip?: SliceTooltip
 
-        tooltipFormat?: TooltipFormatter | string
+        tooltipFormat?: DataFormatter | string
         tooltip?: PointTooltip
 
         enableCrosshair?: boolean
