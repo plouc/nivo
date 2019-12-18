@@ -55,7 +55,7 @@ declare module '@nivo/legends' {
     export interface LegendProps {
         data?: Array<{
             id: string | number
-            value: number
+            label: string | number
             color?: string
             fill?: string
         }>
