@@ -40,6 +40,7 @@ StaticArea.propTypes = {
     serie: PropTypes.shape({
         id: PropTypes.string.isRequired,
         color: PropTypes.string.isRequired,
+        areaPoints: PropTypes.array.isRequired,
         style: PropTypes.shape({
             fillOpacity: PropTypes.number.isRequired,
             borderWidth: PropTypes.number.isRequired,

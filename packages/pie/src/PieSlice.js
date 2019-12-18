@@ -74,6 +74,7 @@ const PieSlice = ({
 PieSlice.propTypes = {
     data: PropTypes.shape({
         id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        label: PropTypes.string.isRequired,
         value: PropTypes.number.isRequired,
     }).isRequired,
 
