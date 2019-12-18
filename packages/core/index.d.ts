@@ -135,7 +135,5 @@ declare module '@nivo/core' {
 
     type DataFormatter = (value: DatumValue) => string | number
 
-    export function useValueFormatter(
-        formatter?: DataFormatter | string
-    ): DataFormatter
+    export function useValueFormatter(formatter?: DataFormatter | string): DataFormatter
 }
