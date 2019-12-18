@@ -51,7 +51,7 @@ const Points = ({ pointComponent, points }) => {
                             key,
                             data: point.data,
                             x: style.x,
-                            y: point.y,
+                            y: style.y,
                             isActive: point.isActive,
                             isInactive: point.isInactive,
                             size: Math.max(style.size, 0),

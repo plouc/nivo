@@ -25,7 +25,10 @@ it('should allow to render several series', () => {
         <ScatterPlot
             width={500}
             height={300}
-            data={[{ id: 'default', data: sampleData }, { id: 'extra', data: sampleData }]}
+            data={[
+                { id: 'default', data: sampleData },
+                { id: 'extra', data: sampleData },
+            ]}
         />
     )
 
@@ -59,7 +62,11 @@ it('should allow to use a varying node size', () => {
             data={[
                 {
                     id: 'default',
-                    data: [{ x: 0, y: 0, z: 3 }, { x: 1, y: 1, z: 5 }, { x: 2, y: 2, z: 8 }],
+                    data: [
+                        { x: 0, y: 0, z: 3 },
+                        { x: 1, y: 1, z: 5 },
+                        { x: 2, y: 2, z: 8 },
+                    ],
                 },
             ]}
             nodeSize={{

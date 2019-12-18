@@ -89,7 +89,10 @@ const props = [
         defaultValue: defaults.interpolation,
         controlType: 'radio',
         controlOptions: {
-            choices: [{ label: 'smooth', value: 'smooth' }, { label: 'linear', value: 'linear' }],
+            choices: [
+                { label: 'smooth', value: 'smooth' },
+                { label: 'linear', value: 'linear' },
+            ],
         },
     },
     {
