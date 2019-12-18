@@ -46,7 +46,7 @@ it('should allow to customize node size', () => {
         />
     )
 
-    const nodes = wrapper.find('Node')
+    const nodes = wrapper.find('Memo(Node)')
     expect(nodes).toHaveLength(5)
     nodes.forEach(node => {
         expect(node.prop('size')).toBe(12)
@@ -77,7 +77,7 @@ it('should allow to use a varying node size', () => {
         />
     )
 
-    const nodes = wrapper.find('Node')
+    const nodes = wrapper.find('Memo(Node)')
     expect(nodes).toHaveLength(3)
     expect(nodes.at(0).prop('size')).toBe(6)
     expect(nodes.at(1).prop('size')).toBe(10)
@@ -122,7 +122,7 @@ it('should allow to disable interactivity', () => {
         />
     )
 
-    const nodes = wrapper.find('Node')
+    const nodes = wrapper.find('Memo(Node)')
     expect(nodes).toHaveLength(5)
     nodes.forEach(node => {
         expect(node.prop('onMouseEnter')).toBeUndefined()
