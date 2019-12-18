@@ -101,6 +101,8 @@ const Bump = props => {
         activePointBorderWidth,
         inactivePointBorderWidth,
         pointBorderColor,
+        startLabel,
+        endLabel,
         isInteractive,
         currentSerie,
     })
@@ -158,6 +160,7 @@ const Bump = props => {
             <LinesLabels
                 key="start"
                 series={series}
+                getLabel={startLabel}
                 position="start"
                 padding={startLabelPadding}
                 color={startLabelTextColor}
@@ -169,6 +172,7 @@ const Bump = props => {
             <LinesLabels
                 key="end"
                 series={series}
+                getLabel={endLabel}
                 position="end"
                 padding={endLabelPadding}
                 color={endLabelTextColor}
