@@ -92,7 +92,10 @@ describe(`from datum`, () => {
     it(`should be able to chain several modifiers on inherited color`, () => {
         const getColor = getInheritedColorGenerator({
             from: 'color',
-            modifiers: [['darker', 2], ['opacity', 0.5]],
+            modifiers: [
+                ['darker', 2],
+                ['opacity', 0.5],
+            ],
         })
 
         const expectedColor = rgb('#ff0099').darker(2)
