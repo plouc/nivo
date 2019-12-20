@@ -95,7 +95,7 @@ const Choropleth = () => {
             defaultProperties={ChoroplethDefaultProps}
             propertiesMapper={mapper}
             codePropertiesMapper={properties => ({
-                features: [],
+                features: '/* please have a look at the description for usage */',
                 ...properties,
                 tooltip: properties.tooltip ? Tooltip : undefined,
             })}
