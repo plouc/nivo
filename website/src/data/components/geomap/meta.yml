@@ -22,6 +22,11 @@ GeoMap:
     [official d3 documentation](https://github.com/d3/d3-geo)
     for further information.
 
+    Please note that because the features file is pretty huge, **it's not included
+    in the generated code**, you can find the file used for this example
+    [here](https://github.com/plouc/nivo/blob/master/website/src/data/components/geo/world_countries.json),
+    you'll have to pass the `features` array to the `features` property.
+
     The responsive alternative of this component is `ResponsiveGeoMap`,
     it also offers a canvas implementations, see
     [GeoMapCanvas](self:/geomap/canvas).
@@ -37,5 +42,10 @@ GeoMapCanvas:
     component, should be used used when you have complex
     geometries as it offers better performance than its SVG
     counterpart.
+
+    Please note that because the features file is pretty huge, **it's not included
+    in the generated code**, you can find the file used for this example
+    [here](https://github.com/plouc/nivo/blob/master/website/src/data/components/geo/world_countries.json),
+    you'll have to pass the `features` array to the `features` property.
 
     The responsive alternative of this component is `ResponsiveGeoMap`.
