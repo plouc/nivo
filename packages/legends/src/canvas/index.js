@@ -86,6 +86,8 @@ export const renderLegendToCanvas = (
     ctx.save()
     ctx.translate(x, y)
 
+    ctx.font = `${theme.legends.text.fontSize}px ${theme.legends.text.fontFamily || 'sans-serif'}`
+
     data.forEach((d, i) => {
         const itemX = i * xStep + padding.left
         const itemY = i * yStep + padding.top
