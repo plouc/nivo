@@ -61,7 +61,7 @@ const initialProperties = {
             translateX: 20,
             translateY: -60,
             itemsSpacing: 0,
-            itemWidth: 86,
+            itemWidth: 92,
             itemHeight: 18,
             itemDirection: 'left-to-right',
             itemOpacity: 0.85,
