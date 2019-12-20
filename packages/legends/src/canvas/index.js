@@ -21,6 +21,7 @@ const textPropsMapping = {
     baseline: {
         hanging: 'top',
         middle: 'middle',
+        central: 'middle',
         baseline: 'bottom',
     },
 }
