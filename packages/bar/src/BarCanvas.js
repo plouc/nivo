@@ -177,6 +177,7 @@ class BarCanvas extends Component {
                 containerHeight: height,
                 itemTextColor: '#999',
                 symbolSize: 16,
+                theme,
             })
         })
 
