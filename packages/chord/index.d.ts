@@ -10,8 +10,6 @@ import { Component } from 'react'
 import { Box, MotionProps, Dimensions, Theme } from '@nivo/core'
 import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
 
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
-
 declare module '@nivo/chord' {
     export interface ArcData {
         id: string
