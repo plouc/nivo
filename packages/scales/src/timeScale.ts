@@ -6,22 +6,40 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { scaleTime, scaleUtc } from 'd3-scale'
+import { scaleTime, scaleUtc, ScaleTime as BaseScaleTime } from 'd3-scale'
 import PropTypes from 'prop-types'
-import { createDateNormalizer, timePrecisions, TIME_PRECISION_MILLISECOND } from './timeHelpers'
+import { createDateNormalizer, timePrecisions, TimeScalePrecision } from './timeHelpers'
 
-export const timeScale = (
+export interface ScaleTime<Range, Output> extends BaseScaleTime<Range, Output> {
+    type: 'time'
+}
+
+export interface TimeScaleOptions {
+    type: 'time'
+    axis: 'x' | 'y'
+    format: 'native' | string
+    precision?: TimeScalePrecision
+    // Date if `format` is 'native', string otherwise
+    min?: 'auto' | Date | string
+    // Date if `format` is 'native', string otherwise
+    max?: 'auto' | Date | string
+    useUTC?: boolean
+}
+
+export interface TimeScale extends Omit<TimeScaleOptions, 'axis'> {}
+
+export const timeScale = <Range, Output>(
     {
         axis,
         format = 'native',
-        precision = TIME_PRECISION_MILLISECOND,
+        precision = 'millisecond',
         min = 'auto',
         max = 'auto',
         useUTC = true,
-    },
-    xy,
-    width,
-    height
+    }: TimeScaleOptions,
+    xy: any,
+    width: number,
+    height: number
 ) => {
     const values = xy[axis]
     const size = axis === 'x' ? width : height
@@ -42,13 +60,13 @@ export const timeScale = (
         maxValue = normalize(values.max)
     }
 
-    const scale = useUTC ? scaleUtc() : scaleTime()
+    const scale = useUTC ? (scaleUtc() as any) : (scaleTime() as any)
     scale.domain([minValue, maxValue]).range([0, size])
 
     scale.type = 'time'
     scale.useUTC = useUTC
 
-    return scale
+    return scale as ScaleTime<Range, Output>
 }
 
 export const timeScalePropTypes = {

@@ -6,46 +6,40 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import {
-    createPrecisionMethod,
-    TIME_PRECISION_MILLISECOND,
-    TIME_PRECISION_SECOND,
-    TIME_PRECISION_MINUTE,
-    TIME_PRECISION_HOUR,
-    TIME_PRECISION_DAY,
-    TIME_PRECISION_MONTH,
-    TIME_PRECISION_YEAR,
-} from '../src/timeHelpers'
+import { createPrecisionMethod, TimeScalePrecision } from '../src/timeHelpers'
 
 describe('createPrecisionMethod', () => {
     const input = new Date(2018, 9, 30, 15, 33, 47, 29)
-    const testCases = [
+    const testCases: Array<{
+        precision: TimeScalePrecision
+        expected: Date
+    }> = [
         {
-            precision: TIME_PRECISION_MILLISECOND,
+            precision: 'millisecond',
             expected: input,
         },
         {
-            precision: TIME_PRECISION_SECOND,
+            precision: 'second',
             expected: new Date(2018, 9, 30, 15, 33, 47, 0),
         },
         {
-            precision: TIME_PRECISION_MINUTE,
+            precision: 'minute',
             expected: new Date(2018, 9, 30, 15, 33, 0, 0),
         },
         {
-            precision: TIME_PRECISION_HOUR,
+            precision: 'hour',
             expected: new Date(2018, 9, 30, 15, 0, 0, 0),
         },
         {
-            precision: TIME_PRECISION_DAY,
+            precision: 'day',
             expected: new Date(2018, 9, 30, 0, 0, 0, 0),
         },
         {
-            precision: TIME_PRECISION_MONTH,
+            precision: 'month',
             expected: new Date(2018, 9, 1, 0, 0, 0, 0),
         },
         {
-            precision: TIME_PRECISION_YEAR,
+            precision: 'year',
             expected: new Date(2018, 0, 1, 0, 0, 0, 0),
         },
     ]

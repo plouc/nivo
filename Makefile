@@ -142,7 +142,8 @@ packages-tslint: ##@1 packages run tslint on all packages
         ./packages/pie/index.d.ts \
         ./packages/radar/index.d.ts \
         ./packages/sankey/index.d.ts \
-        ./packages/scales/index.d.ts \
+        ./packages/scales/src/*.ts \
+        ./packages/scales/build/*.ts \
         ./packages/scatterplot/index.d.ts \
         ./packages/stream/index.d.ts \
         ./packages/swarmplot/index.d.ts \

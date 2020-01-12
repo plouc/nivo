@@ -22,6 +22,7 @@
     "@ekino/config": "^0.3.0",
     "@nivo/babel-preset": "0.60.0",
     "@nivo/generators": "0.60.0",
+    "@rollup/plugin-node-resolve": "^7.0.0",
     "@storybook/addon-actions": "^5.2.8",
     "@storybook/addon-info": "^5.2.8",
     "@storybook/addon-knobs": "^5.2.8",
@@ -53,10 +54,9 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-test-renderer": "^16.8.6",
-    "rollup": "^1.27.12",
+    "rollup": "^1.29.0",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-cleanup": "^3.1.1",
-    "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-prettier": "^0.6.0",
     "rollup-plugin-strip-banner": "^1.0.0",
     "rollup-plugin-typescript2": "^0.25.3",
@@ -78,6 +78,9 @@
     "website"
   ],
   "dependencies": {
-    "npm-normalize-package-bin": "^1.0.1"
+    "@types/jest": "^24.0.25",
+    "npm-normalize-package-bin": "^1.0.1",
+    "rollup-plugin-typescript": "^1.0.1",
+    "ts-jest": "^24.3.0"
   }
 }
