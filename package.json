@@ -50,6 +50,7 @@
     "jsdom": "^16.2.2",
     "lerna": "^3.22.1",
     "lodash": "^4.17.15",
+    "npm-normalize-package-bin": "^1.0.1",
     "prettier": "^2.0.5",
     "prop-types": "^15.7.2",
     "puppeteer": "^0.13.0",
@@ -63,10 +64,12 @@
     "rollup-plugin-strip-banner": "^2.0.0",
     "rollup-plugin-typescript2": "^0.27.1",
     "serve": "^11.2.0",
+    "ts-jest": "^24.3.0",
     "tslint": "^6.1.2",
     "typescript": "^3.9.5"
   },
   "resolutions": {
+    "upath": "1.1.0",
     "react": "16.8.6",
     "react-dom": "16.8.6"
   },
