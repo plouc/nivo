@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "compilerOptions": {
     "outDir": "./build",
     "allowJs": true,
@@ -11,4 +12,23 @@
     "noImplicitAny": true
   },
   "include": ["./packages/*/index.d.ts"]
+=======
+    "compilerOptions": {
+        "allowJs": true,
+        "target": "es2017",
+        "alwaysStrict": true,
+        "sourceMap": true,
+        "jsx": "react",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "lib": ["dom", "esnext"],
+        "strict": true,
+        "noImplicitThis": true,
+        "noImplicitAny": true,
+        "module": "esnext",
+        "noUnusedLocals": true,
+        "noEmit": false
+    },
+    "include": ["packages"]
+>>>>>>> 778407e2... feat(scales): init migration to typescript
 }

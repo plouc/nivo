@@ -7,6 +7,11 @@
         "max-classes-per-file": false,
         "interface-name": false,
         "no-empty-interface": false,
+        "object-literal-sort-keys": false,
+        "arrow-parens": false,
+        "variable-name": {
+            "options": "allow-leading-underscore"
+        },
         "trailing-comma": [
             true,
             {

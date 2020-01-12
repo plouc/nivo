@@ -77,6 +77,9 @@
     "website"
   ],
   "dependencies": {
-    "npm-normalize-package-bin": "^1.0.1"
+    "@types/jest": "^24.0.25",
+    "npm-normalize-package-bin": "^1.0.1",
+    "rollup-plugin-typescript": "^1.0.1",
+    "ts-jest": "^24.3.0"
   }
 }
