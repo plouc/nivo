@@ -10,8 +10,6 @@ import * as React from 'react'
 import { Dimensions, Box, Theme, MotionProps } from '@nivo/core'
 import { InheritedColorProp } from '@nivo/colors'
 
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
-
 declare module '@nivo/network' {
     export interface InputNode {
         id: string

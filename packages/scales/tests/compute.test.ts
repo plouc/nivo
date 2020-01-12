@@ -8,7 +8,7 @@
  */
 import { generateSeriesAxis, stackAxis, computeAxisSlices } from '../src/compute'
 
-const axes = ['x', 'y']
+const axes: Array<'x' | 'y'> = ['x', 'y']
 
 describe('generateSeriesAxis', () => {
     const pointScaleExpectation = {
@@ -60,7 +60,7 @@ describe('generateSeriesAxis', () => {
                             },
                         ],
                         axis,
-                        { type: 'point' }
+                        { type: 'point', axis }
                     )
                 ).toEqual(pointScaleExpectation)
             })
@@ -87,7 +87,7 @@ describe('generateSeriesAxis', () => {
                             },
                         ],
                         axis,
-                        { type: 'linear' }
+                        { type: 'linear', axis: 'y' }
                     )
                 ).toEqual(linearScaleExpectation)
             })
@@ -114,7 +114,7 @@ describe('generateSeriesAxis', () => {
                             },
                         ],
                         axis,
-                        { type: 'linear' }
+                        { type: 'linear', axis }
                     )
                 ).toEqual(linearScaleExpectation)
             })
@@ -165,7 +165,7 @@ describe('generateSeriesAxis', () => {
                             },
                         ],
                         axis,
-                        { type: 'time', format: 'native' }
+                        { type: 'time', format: 'native', axis }
                     )
                 ).toEqual(timeScaleExpectation)
             })
@@ -216,7 +216,7 @@ describe('generateSeriesAxis', () => {
                             },
                         ],
                         axis,
-                        { type: 'time', format: 'native' }
+                        { type: 'time', format: 'native', axis }
                     )
                 ).toEqual(timeScaleExpectation)
             })
@@ -255,7 +255,7 @@ describe('generateSeriesAxis', () => {
                             },
                         ],
                         axis,
-                        { type: 'time', format: '%Y-%m-%d %H:%M:%S' }
+                        { type: 'time', format: '%Y-%m-%d %H:%M:%S', axis }
                     )
                 ).toEqual(timeScaleExpectation)
             })
@@ -294,7 +294,7 @@ describe('generateSeriesAxis', () => {
                             },
                         ],
                         axis,
-                        { type: 'time', format: '%Y-%m-%d %H:%M:%S' }
+                        { type: 'time', format: '%Y-%m-%d %H:%M:%S', axis }
                     )
                 ).toEqual(timeScaleExpectation)
             })
@@ -332,7 +332,7 @@ describe('stackAxis', () => {
                         ],
                     },
                 ]
-                stackAxis(axis, 'point', xy, series)
+                stackAxis(axis, xy, series)
 
                 expect(xy[axis]).toEqual({ minStacked: 10, maxStacked: 33 })
                 expect(series).toEqual([
@@ -398,7 +398,7 @@ describe('stackAxis', () => {
                         ],
                     },
                 ]
-                stackAxis(axis, 'linear', xy, series)
+                stackAxis(axis, xy, series)
 
                 expect(xy[axis]).toEqual({ minStacked: 10, maxStacked: 33 })
                 expect(series).toEqual([
@@ -480,7 +480,7 @@ describe('stackAxis', () => {
                         ],
                     },
                 ]
-                stackAxis(axis, 'time', xy, series)
+                stackAxis(axis, xy, series)
 
                 expect(xy[axis]).toEqual({ minStacked: 10, maxStacked: 33 })
                 expect(series).toEqual([
@@ -564,7 +564,7 @@ describe('stackAxis', () => {
                         ],
                     },
                 ]
-                stackAxis(axis, 'linear', xy, series)
+                stackAxis(axis, xy, series)
 
                 expect(xy).toEqual({
                     [otherAxis]: { all: [1, 2, 3] },
@@ -631,7 +631,7 @@ describe('computeAxisSlices', () => {
                 computeAxisSlices(axis, {
                     series: [serieA, serieB],
                     [otherAxis]: { all: [1, 2, 3] },
-                    [`${otherAxis}Scale`]: v => v,
+                    [`${otherAxis}Scale`]: (v: any) => v,
                 })
             })
         })
