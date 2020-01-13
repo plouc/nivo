@@ -99,8 +99,14 @@ export const categoricalColorSchemes = {
     set2: schemeSet2,
     set3: schemeSet3,
 }
-export const categoricalColorSchemeIds = Object.keys(categoricalColorSchemes)
-export const isCategoricalColorScheme = scheme => categoricalColorSchemeIds.includes(scheme)
+export type CategoricalColorSchemeId = keyof typeof categoricalColorSchemes
+export const categoricalColorSchemeIds = Object.keys(
+    categoricalColorSchemes
+) as CategoricalColorSchemeId[]
+export const isCategoricalColorScheme = (
+    scheme: ColorSchemeId
+): scheme is CategoricalColorSchemeId =>
+    categoricalColorSchemeIds.includes(scheme as CategoricalColorSchemeId)
 
 // Diverging color schemes support a size k ranging from 3 to 11
 export const divergingColorSchemes = {
@@ -114,8 +120,12 @@ export const divergingColorSchemes = {
     red_yellow_green: schemeRdYlGn,
     spectral: schemeSpectral,
 }
-export const divergingColorSchemeIds = Object.keys(divergingColorSchemes)
-export const isDivergingColorScheme = scheme => divergingColorSchemeIds.includes(scheme)
+export type DivergingColorSchemeId = keyof typeof divergingColorSchemes
+export const divergingColorSchemeIds = Object.keys(
+    divergingColorSchemes
+) as DivergingColorSchemeId[]
+export const isDivergingColorScheme = (scheme: ColorSchemeId): scheme is DivergingColorSchemeId =>
+    divergingColorSchemeIds.includes(scheme as DivergingColorSchemeId)
 
 // Sequential, single-hue color schemes support a size k ranging from 3 to 9
 // Sequential, multi-hue color schemes support a size k ranging from 3 to 9
@@ -141,15 +151,23 @@ export const sequentialColorSchemes = {
     yellow_orange_brown: schemeYlOrBr,
     yellow_orange_red: schemeYlOrRd,
 }
-export const sequentialColorSchemeIds = Object.keys(sequentialColorSchemes)
-export const isSequentialColorScheme = scheme => sequentialColorSchemeIds.includes(scheme)
+export type SequentialColorSchemeId = keyof typeof sequentialColorSchemes
+export const sequentialColorSchemeIds = Object.keys(
+    sequentialColorSchemes
+) as SequentialColorSchemeId[]
+export const isSequentialColorScheme = (scheme: ColorSchemeId): scheme is SequentialColorSchemeId =>
+    sequentialColorSchemeIds.includes(scheme as SequentialColorSchemeId)
 
 export const colorSchemes = {
     ...categoricalColorSchemes,
     ...divergingColorSchemes,
     ...sequentialColorSchemes,
 }
-export const colorSchemeIds = Object.keys(colorSchemes)
+export type ColorSchemeId =
+    | CategoricalColorSchemeId
+    | DivergingColorSchemeId
+    | SequentialColorSchemeId
+export const colorSchemeIds = Object.keys(colorSchemes) as ColorSchemeId[]
 
 export const colorInterpolators = {
     // diverging
@@ -193,5 +211,5 @@ export const colorInterpolators = {
     rainbow: interpolateRainbow,
     sinebow: interpolateSinebow,
 }
-
-export const colorInterpolatorIds = Object.keys(colorInterpolators)
+export type ColorInterpolatorId = keyof typeof colorInterpolators
+export const colorInterpolatorIds = Object.keys(colorInterpolators) as ColorInterpolatorId[]

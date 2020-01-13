@@ -18,26 +18,23 @@ describe('interpolateColor()', () => {
     })
 
     it('should return decomposed color with corresponding spring if config provided', () => {
-        expect(interpolateColor('#F0F', { stifness: 120, damping: 15 })).toEqual({
+        expect(interpolateColor('#F0F', { stiffness: 120, damping: 15 })).toEqual({
             colorR: {
                 damping: 15,
                 precision: 1,
-                stiffness: 170,
-                stifness: 120,
+                stiffness: 120,
                 val: 255,
             },
             colorG: {
                 damping: 15,
                 precision: 1,
-                stiffness: 170,
-                stifness: 120,
+                stiffness: 120,
                 val: 0,
             },
             colorB: {
                 damping: 15,
                 precision: 1,
-                stiffness: 170,
-                stifness: 120,
+                stiffness: 120,
                 val: 255,
             },
         })

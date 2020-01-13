@@ -10,15 +10,15 @@ import { rgb } from 'd3-color'
 import { getInheritedColorGenerator } from '../src'
 
 it(`should accept user defined function`, () => {
-    const userFunction = datum => datum.color
-    const getColor = getInheritedColorGenerator(userFunction)
+    const userFunction = (datum: { color: string }) => datum.color
+    const getColor = getInheritedColorGenerator<{ color: string }>(userFunction)
 
     expect(getColor({ color: 'red' })).toBe('red')
 })
 
 it(`should throw if an object is given but doesn't match theme or inheritance`, () => {
     expect(() => {
-        getInheritedColorGenerator({})
+        getInheritedColorGenerator({} as any)
     }).toThrow(
         `Invalid color spec, you should either specify 'theme' or 'from' when using a config object`
     )
@@ -107,7 +107,7 @@ describe(`from datum`, () => {
         expect(() => {
             getInheritedColorGenerator({
                 from: 'color',
-                modifiers: [['invalid']],
+                modifiers: [['invalid'] as any],
             })
         }).toThrow(
             `Invalid color modifier: 'invalid', must be one of: 'brighter', 'darker', 'opacity'`

@@ -6,13 +6,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { spring } from 'react-motion'
+import { spring, SpringHelperConfig } from 'react-motion'
 import { rgb } from 'd3-color'
 
 /**
  * Decompose a color to be used with react-motion.
  */
-export const interpolateColor = (color, springConfig) => {
+export const interpolateColor = (color: string, springConfig?: SpringHelperConfig) => {
     const colorComponents = rgb(color)
 
     if (!springConfig) {
@@ -39,7 +39,15 @@ export const interpolateColor = (color, springConfig) => {
  * Re-assemble interpolated color components,
  * should be used to assign a color after react-motion interpolation.
  */
-export const getInterpolatedColor = ({ colorR, colorG, colorB }) =>
+export const getInterpolatedColor = ({
+    colorR,
+    colorG,
+    colorB,
+}: {
+    colorR: number
+    colorG: number
+    colorB: number
+}) =>
     `rgb(${Math.round(Math.max(colorR, 0))},${Math.round(Math.max(colorG, 0))},${Math.round(
         Math.max(colorB, 0)
     )})`
