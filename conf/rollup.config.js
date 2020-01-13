@@ -7,7 +7,7 @@ import typescript from 'rollup-plugin-typescript2'
 import cleanup from 'rollup-plugin-cleanup'
 
 // required while migrating packages to TypeScript
-const typescriptPackages = ['scales']
+const typescriptPackages = ['colors', 'scales']
 
 const externals = ['prop-types']
 
@@ -55,8 +55,8 @@ const commonPlugins = [
                 compilerOptions: {
                     baseUrl: `./packages/${pkg}`,
                     declaration: true,
-                    declarationDir: `./packages/${pkg}/dist`
-                }
+                    declarationDir: `./packages/${pkg}/dist`,
+                },
             },
         }),
     babel({

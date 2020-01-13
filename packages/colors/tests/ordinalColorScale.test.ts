@@ -19,7 +19,7 @@ it(`should accept user defined function`, () => {
     const colorScale = getOrdinalColorScale(userFunction)
 
     expect(colorScale).toBe(userFunction)
-    expect(colorScale()).toBe('red')
+    expect(colorScale({})).toBe('red')
 })
 
 it(`should be able to generate a generator which use data color`, () => {
@@ -30,7 +30,7 @@ it(`should be able to generate a generator which use data color`, () => {
 
 it(`should accept user defined color array`, () => {
     const colors = ['purple', 'green', 'blue']
-    const colorScale = getOrdinalColorScale(colors, 'id')
+    const colorScale: any = getOrdinalColorScale(colors, 'id')
 
     expect(colorScale.scale.range()).toEqual(colors)
     expect(colorScale({ id: 'whatever' })).toBe('purple')
@@ -38,7 +38,7 @@ it(`should accept user defined color array`, () => {
 
 categoricalColorSchemeIds.forEach(scheme => {
     it(`should be able to generate a scale from categorical colors (${scheme})`, () => {
-        const colorScale = getOrdinalColorScale({ scheme }, 'id')
+        const colorScale: any = getOrdinalColorScale({ scheme }, 'id')
 
         expect(colorScale.scale.range()).toEqual(colorSchemes[scheme])
         expect(colorScale({ id: 'whatever' })).toBe(colorSchemes[scheme][0])
@@ -47,7 +47,7 @@ categoricalColorSchemeIds.forEach(scheme => {
 
 divergingColorSchemeIds.forEach(scheme => {
     it(`should be able to generate a scale from diverging colors (${scheme})`, () => {
-        const colorScale = getOrdinalColorScale({ scheme }, 'id')
+        const colorScale: any = getOrdinalColorScale({ scheme }, 'id')
 
         expect(colorScale.scale.range()).toEqual(colorSchemes[scheme][11])
         expect(colorScale({ id: 'whatever' })).toBe(colorSchemes[scheme][11][0])
@@ -55,7 +55,7 @@ divergingColorSchemeIds.forEach(scheme => {
 })
 divergingColorSchemeIds.forEach(scheme => {
     it(`should be able to generate a scale from diverging colors with a specific size (${scheme})`, () => {
-        const colorScale = getOrdinalColorScale({ scheme, size: 5 })
+        const colorScale: any = getOrdinalColorScale({ scheme, size: 5 })
 
         expect(colorScale.scale.range()).toEqual(colorSchemes[scheme][5])
         expect(colorScale('whatever')).toBe(colorSchemes[scheme][5][0])
@@ -78,7 +78,7 @@ it(`should throw if trying to generate a scale from diverging colors with a size
 
 sequentialColorSchemeIds.forEach(scheme => {
     it(`should be able to generate a scale from sequential colors (${scheme})`, () => {
-        const colorScale = getOrdinalColorScale({ scheme })
+        const colorScale: any = getOrdinalColorScale({ scheme })
 
         expect(colorScale.scale.range()).toEqual(colorSchemes[scheme][9])
         expect(colorScale('whatever')).toBe(colorSchemes[scheme][9][0])
@@ -86,7 +86,7 @@ sequentialColorSchemeIds.forEach(scheme => {
 })
 sequentialColorSchemeIds.forEach(scheme => {
     it(`should be able to generate a scale from sequential colors with a specific size (${scheme})`, () => {
-        const colorScale = getOrdinalColorScale({ scheme, size: 5 })
+        const colorScale: any = getOrdinalColorScale({ scheme, size: 5 })
 
         expect(colorScale.scale.range()).toEqual(colorSchemes[scheme][5])
         expect(colorScale('whatever')).toBe(colorSchemes[scheme][5][0])
@@ -109,7 +109,7 @@ it(`should throw if trying to generate a scale from sequential colors with a siz
 
 it(`should throw if an object is given but doesn't match datum or scheme`, () => {
     expect(() => {
-        getOrdinalColorScale({})
+        getOrdinalColorScale({} as any)
     }).toThrow(
         `Invalid colors, when using an object, you should either pass a 'datum' or a 'scheme' property`
     )
