@@ -9,7 +9,7 @@
 import React, { Component } from 'react'
 import renderer from 'react-test-renderer'
 import { mount } from 'enzyme'
-import { defaultTheme, themeContext } from '@nivo/core'
+import { defaultTheme, ThemeContext } from '@nivo/core'
 import { default as BaseLegendSvgItem } from '../../src/svg/LegendSvgItem'
 import * as shapes from '../../src/svg/symbols'
 import {
@@ -42,9 +42,9 @@ const withTheme = WrappedComponent => {
     return class ThemedLegendSvgItem extends Component {
         render() {
             return (
-                <themeContext.Provider value={defaultTheme}>
+                <ThemeContext.Provider value={defaultTheme}>
                     <WrappedComponent {...this.props} />
-                </themeContext.Provider>
+                </ThemeContext.Provider>
             )
         }
     }

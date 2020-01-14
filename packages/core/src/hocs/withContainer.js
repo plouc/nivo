@@ -8,7 +8,7 @@
  */
 import React, { Component, useRef } from 'react'
 import PropTypes from 'prop-types'
-import { tooltipContext, useTooltipHandlers, TooltipWrapper } from '@nivo/tooltip'
+import { TooltipContext, useTooltipHandlers, TooltipWrapper } from '@nivo/tooltip'
 import { ThemeProvider } from '../theming'
 import { MotionConfigProvider } from '../motion'
 
@@ -44,7 +44,7 @@ const Container = ({
                 damping={motionDamping}
                 config={motionConfig}
             >
-                <tooltipContext.Provider
+                <TooltipContext.Provider
                     value={{ showTooltipAt, showTooltipFromEvent, hideTooltip }}
                 >
                     {/* we should not render the div element if using the HTTP API */}
@@ -59,7 +59,7 @@ const Container = ({
                         </div>
                     )}
                     {renderWrapper !== true && children}
-                </tooltipContext.Provider>
+                </TooltipContext.Provider>
             </MotionConfigProvider>
         </ThemeProvider>
     )
