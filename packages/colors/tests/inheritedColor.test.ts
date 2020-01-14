@@ -29,7 +29,7 @@ describe(`from theme`, () => {
         const theme = { thing: { color: 'green' } }
         const getColor = getInheritedColorGenerator({ theme: 'thing.color' }, theme)
 
-        expect(getColor()).toBe('green')
+        expect(getColor({} as any)).toBe('green')
     })
 
     it(`should throw if no theme is provided`, () => {

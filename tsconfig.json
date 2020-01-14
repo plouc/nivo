@@ -19,6 +19,8 @@
         "alwaysStrict": true,
         "sourceMap": true,
         "jsx": "react",
+        "skipLibCheck": true,
+        "skipDefaultLibCheck": true,
         "moduleResolution": "node",
         "esModuleInterop": true,
         "lib": ["dom", "esnext"],
