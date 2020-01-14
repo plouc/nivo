@@ -133,7 +133,7 @@ packages-tslint: ##@1 packages run tslint on all packages
         ./packages/calendar/index.d.ts \
         ./packages/chord/index.d.ts \
         ./packages/colors/src/*.ts \
-        ./packages/core/index.d.ts \
+        ./packages/core/src/*.ts \
         ./packages/geo/index.d.ts \
         ./packages/heatmap/index.d.ts \
         ./packages/legends/index.d.ts \
@@ -146,6 +146,7 @@ packages-tslint: ##@1 packages run tslint on all packages
         ./packages/scatterplot/index.d.ts \
         ./packages/stream/index.d.ts \
         ./packages/swarmplot/index.d.ts \
+        ./packages/tooltip/src/*.ts \
         ./packages/waffle/index.d.ts \
         ./packages/voronoi/index.d.ts
 

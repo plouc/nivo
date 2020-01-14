@@ -12,7 +12,6 @@ import { ordinalColorsPropType } from '@nivo/colors'
 import { axisPropType } from '@nivo/axes'
 import { scalePropType } from '@nivo/scales'
 import { LegendPropShape } from '@nivo/legends'
-import { crosshairPropTypes } from '@nivo/tooltip'
 import PointTooltip from './PointTooltip'
 import SliceTooltip from './SliceTooltip'
 
@@ -131,7 +130,7 @@ const commonPropTypes = {
     sliceTooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 
     enableCrosshair: PropTypes.bool.isRequired,
-    crosshairType: crosshairPropTypes.type.isRequired,
+    crosshairType: PropTypes.string.isRequired,
 }
 
 export const LinePropTypes = {
