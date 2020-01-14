@@ -16,10 +16,10 @@
   ],
   "main": "./dist/nivo-radar.cjs.js",
   "module": "./dist/nivo-radar.esm.js",
+  "typings": "./dist/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
-    "index.d.ts",
     "dist/"
   ],
   "dependencies": {

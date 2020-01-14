@@ -8,10 +8,10 @@
   },
   "main": "./dist/nivo-tooltip.cjs.js",
   "module": "./dist/nivo-tooltip.esm.js",
+  "typings": "./dist/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
-    "index.d.ts",
     "dist/"
   ],
   "dependencies": {
@@ -19,8 +19,13 @@
     "react-measure": "^2.2.4",
     "react-motion": "^0.5.2"
   },
+  "devDependencies": {
+    "@types/react-measure": "^2.0.5",
+    "@types/react-motion": "^0.0.29"
+  },
   "peerDependencies": {
-    "prop-types": ">= 15.5.10 < 16.0.0"
+    "prop-types": ">= 15.5.10 < 16.0.0",
+    "react": ">= 16.8.4 < 17.0.0"
   },
   "publishConfig": {
     "access": "public"
