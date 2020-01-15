@@ -55,8 +55,10 @@ exports[`should allow grouped horizontal layout 1`] = `
         transform="translate(0,300)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -90,8 +92,10 @@ exports[`should allow grouped horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -125,8 +129,10 @@ exports[`should allow grouped horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -160,8 +166,10 @@ exports[`should allow grouped horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -195,8 +203,10 @@ exports[`should allow grouped horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -230,8 +240,10 @@ exports[`should allow grouped horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -265,8 +277,10 @@ exports[`should allow grouped horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -300,8 +314,10 @@ exports[`should allow grouped horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -335,8 +351,10 @@ exports[`should allow grouped horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -370,8 +388,10 @@ exports[`should allow grouped horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -405,8 +425,10 @@ exports[`should allow grouped horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -440,8 +462,10 @@ exports[`should allow grouped horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -475,8 +499,10 @@ exports[`should allow grouped horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -510,8 +536,10 @@ exports[`should allow grouped horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -545,8 +573,10 @@ exports[`should allow grouped horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -580,8 +610,10 @@ exports[`should allow grouped horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -631,8 +663,10 @@ exports[`should allow grouped horizontal layout 1`] = `
         transform="translate(0,0)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -666,8 +700,10 @@ exports[`should allow grouped horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -701,8 +737,10 @@ exports[`should allow grouped horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -976,8 +1014,10 @@ exports[`should allow grouped mode 1`] = `
         transform="translate(0,300)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -1011,8 +1051,10 @@ exports[`should allow grouped mode 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -1046,8 +1088,10 @@ exports[`should allow grouped mode 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -1097,8 +1141,10 @@ exports[`should allow grouped mode 1`] = `
         transform="translate(0,0)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -1132,8 +1178,10 @@ exports[`should allow grouped mode 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -1167,8 +1215,10 @@ exports[`should allow grouped mode 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -1202,8 +1252,10 @@ exports[`should allow grouped mode 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -1237,8 +1289,10 @@ exports[`should allow grouped mode 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -1272,8 +1326,10 @@ exports[`should allow grouped mode 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -1307,8 +1363,10 @@ exports[`should allow grouped mode 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -1342,8 +1400,10 @@ exports[`should allow grouped mode 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -1377,8 +1437,10 @@ exports[`should allow grouped mode 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -1412,8 +1474,10 @@ exports[`should allow grouped mode 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -1447,8 +1511,10 @@ exports[`should allow grouped mode 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -1482,8 +1548,10 @@ exports[`should allow grouped mode 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -1517,8 +1585,10 @@ exports[`should allow grouped mode 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -1552,8 +1622,10 @@ exports[`should allow grouped mode 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -1587,8 +1659,10 @@ exports[`should allow grouped mode 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -1622,8 +1696,10 @@ exports[`should allow grouped mode 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -1780,8 +1856,10 @@ exports[`should allow horizontal layout 1`] = `
         transform="translate(0,300)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -1815,8 +1893,10 @@ exports[`should allow horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -1850,8 +1930,10 @@ exports[`should allow horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -1885,8 +1967,10 @@ exports[`should allow horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -1920,8 +2004,10 @@ exports[`should allow horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -1955,8 +2041,10 @@ exports[`should allow horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -1990,8 +2078,10 @@ exports[`should allow horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -2025,8 +2115,10 @@ exports[`should allow horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -2060,8 +2152,10 @@ exports[`should allow horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -2095,8 +2189,10 @@ exports[`should allow horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -2130,8 +2226,10 @@ exports[`should allow horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -2165,8 +2263,10 @@ exports[`should allow horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -2200,8 +2300,10 @@ exports[`should allow horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -2235,8 +2337,10 @@ exports[`should allow horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -2270,8 +2374,10 @@ exports[`should allow horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -2305,8 +2411,10 @@ exports[`should allow horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -2356,8 +2464,10 @@ exports[`should allow horizontal layout 1`] = `
         transform="translate(0,0)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -2391,8 +2501,10 @@ exports[`should allow horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -2426,8 +2538,10 @@ exports[`should allow horizontal layout 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -2701,8 +2815,10 @@ exports[`should allow to disable labels 1`] = `
         transform="translate(0,300)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -2736,8 +2852,10 @@ exports[`should allow to disable labels 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -2771,8 +2889,10 @@ exports[`should allow to disable labels 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -2822,8 +2942,10 @@ exports[`should allow to disable labels 1`] = `
         transform="translate(0,0)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -2857,8 +2979,10 @@ exports[`should allow to disable labels 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -2892,8 +3016,10 @@ exports[`should allow to disable labels 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -2927,8 +3053,10 @@ exports[`should allow to disable labels 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -2962,8 +3090,10 @@ exports[`should allow to disable labels 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -2997,8 +3127,10 @@ exports[`should allow to disable labels 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -3032,8 +3164,10 @@ exports[`should allow to disable labels 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -3067,8 +3201,10 @@ exports[`should allow to disable labels 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -3102,8 +3238,10 @@ exports[`should allow to disable labels 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -3137,8 +3275,10 @@ exports[`should allow to disable labels 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -3172,8 +3312,10 @@ exports[`should allow to disable labels 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -3207,8 +3349,10 @@ exports[`should allow to disable labels 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -3242,8 +3386,10 @@ exports[`should allow to disable labels 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -3277,8 +3423,10 @@ exports[`should allow to disable labels 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -3312,8 +3460,10 @@ exports[`should allow to disable labels 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -3347,8 +3497,10 @@ exports[`should allow to disable labels 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -3622,8 +3774,10 @@ exports[`should render a basic bar chart 1`] = `
         transform="translate(0,300)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -3657,8 +3811,10 @@ exports[`should render a basic bar chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -3692,8 +3848,10 @@ exports[`should render a basic bar chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -3743,8 +3901,10 @@ exports[`should render a basic bar chart 1`] = `
         transform="translate(0,0)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -3778,8 +3938,10 @@ exports[`should render a basic bar chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -3813,8 +3975,10 @@ exports[`should render a basic bar chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -3848,8 +4012,10 @@ exports[`should render a basic bar chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -3883,8 +4049,10 @@ exports[`should render a basic bar chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -3918,8 +4086,10 @@ exports[`should render a basic bar chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -3953,8 +4123,10 @@ exports[`should render a basic bar chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -3988,8 +4160,10 @@ exports[`should render a basic bar chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -4023,8 +4197,10 @@ exports[`should render a basic bar chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -4058,8 +4234,10 @@ exports[`should render a basic bar chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -4093,8 +4271,10 @@ exports[`should render a basic bar chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -4128,8 +4308,10 @@ exports[`should render a basic bar chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -4163,8 +4345,10 @@ exports[`should render a basic bar chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -4198,8 +4382,10 @@ exports[`should render a basic bar chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -4233,8 +4419,10 @@ exports[`should render a basic bar chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -4268,8 +4456,10 @@ exports[`should render a basic bar chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }

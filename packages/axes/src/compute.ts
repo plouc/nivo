@@ -6,6 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+import { isNumber } from 'lodash'
 import {
     timeMillisecond,
     utcMillisecond,
@@ -41,18 +42,21 @@ import {
 import { timeFormat } from 'd3-time-format'
 import { format as d3Format } from 'd3-format'
 import { textPropsByEngine } from '@nivo/core'
+import { GridLineProps } from './components/GridLine'
 
-export const centerScale = scale => {
+export const centerScale = <Value extends number | string | Date>(scale: any) => {
     const bandwidth = scale.bandwidth()
 
-    if (bandwidth === 0) return scale
+    if (bandwidth === 0) {
+        return scale
+    }
 
     let offset = bandwidth / 2
     if (scale.round()) {
         offset = Math.round(offset)
     }
 
-    return d => scale(d) + offset
+    return (d: Value) => scale(d) + offset
 }
 
 const timeByType = {
@@ -73,13 +77,26 @@ const timeByType = {
     year: [timeYear, utcYear],
 }
 
-const timeTypes = Object.keys(timeByType)
+type TimeInterval = keyof typeof timeByType
+const timeTypes = Object.keys(timeByType) as TimeInterval[]
 const timeIntervalRegexp = new RegExp(`^every\\s*(\\d+)?\\s*(${timeTypes.join('|')})s?$`, 'i')
 
-const isInteger = value =>
-    typeof value === 'number' && isFinite(value) && Math.floor(value) === value
+export type TicksSpec<Value extends number | string | Date> =
+    // exact number of ticks, please note that
+    // depending on the current range of values,
+    // you might not get this exact count
+    | number
+    // string is used for Date based scales,
+    // it can express a time interval,
+    // for example: every 2 weeks
+    | string
+    // override scale ticks with custom explicit values
+    | Value[]
 
-export const getScaleTicks = (scale, spec) => {
+export const getScaleTicks = <Value extends number | string | Date>(
+    scale: any,
+    spec?: TicksSpec<Value>
+): Value[] => {
     // specific values
     if (Array.isArray(spec)) {
         return spec
@@ -104,7 +121,7 @@ export const getScaleTicks = (scale, spec) => {
                 // UTC is used as it's more predictible
                 // however local time could be used too
                 // let's see how it fits users' requirements
-                const timeType = timeByType[matches[2]][scale.useUTC ? 1 : 0]
+                const timeType = timeByType[matches[2] as TimeInterval][scale.useUTC ? 1 : 0]
                 if (matches[1] === undefined) {
                     return scale.ticks(timeType)
                 }
@@ -120,7 +137,7 @@ export const getScaleTicks = (scale, spec) => {
     return scale.domain()
 }
 
-export const computeCartesianTicks = ({
+export const computeCartesianTicks = <Value extends number | string | Date>({
     axis,
     scale,
     ticksPosition,
@@ -129,8 +146,17 @@ export const computeCartesianTicks = ({
     tickPadding,
     tickRotation,
     engine = 'svg',
+}: {
+    axis: 'x' | 'y'
+    scale: any
+    ticksPosition: 'before' | 'after'
+    tickValues?: TicksSpec<Value>
+    tickSize: number
+    tickPadding: number
+    tickRotation: number
+    engine?: 'svg' | 'canvas'
 }) => {
-    const values = getScaleTicks(scale, tickValues)
+    const values = getScaleTicks<Value>(scale, tickValues)
 
     const textProps = textPropsByEngine[engine]
 
@@ -138,7 +164,7 @@ export const computeCartesianTicks = ({
     const line = { lineX: 0, lineY: 0 }
     const text = { textX: 0, textY: 0 }
 
-    let translate
+    let translate: (d: Value) => { x: number; y: number }
     let textAlign = textProps.align.center
     let textBaseline = textProps.baseline.center
 
@@ -148,11 +174,8 @@ export const computeCartesianTicks = ({
         line.lineY = tickSize * (ticksPosition === 'after' ? 1 : -1)
         text.textY = (tickSize + tickPadding) * (ticksPosition === 'after' ? 1 : -1)
 
-        if (ticksPosition === 'after') {
-            textBaseline = textProps.baseline.top
-        } else {
-            textBaseline = textProps.baseline.bottom
-        }
+        textBaseline =
+            ticksPosition === 'after' ? textProps.baseline.top : textProps.baseline.bottom
 
         if (tickRotation === 0) {
             textAlign = textProps.align.center
@@ -175,11 +198,7 @@ export const computeCartesianTicks = ({
         line.lineX = tickSize * (ticksPosition === 'after' ? 1 : -1)
         text.textX = (tickSize + tickPadding) * (ticksPosition === 'after' ? 1 : -1)
 
-        if (ticksPosition === 'after') {
-            textAlign = textProps.align.left
-        } else {
-            textAlign = textProps.align.right
-        }
+        textAlign = ticksPosition === 'after' ? textProps.align.left : textProps.align.right
     }
 
     const ticks = values.map(value => ({
@@ -197,26 +216,41 @@ export const computeCartesianTicks = ({
     }
 }
 
-export const getFormatter = (format, scale) => {
-    if (!format || typeof format === 'function') return format
+export const getFormatter = <Value extends number | string | Date>(format: any, scale: any) => {
+    if (!format || typeof format === 'function') {
+        return format
+    }
 
     if (scale.type === 'time') {
         const f = timeFormat(format)
-        return d => f(new Date(d))
+
+        return (d: Date) => f(new Date(d))
     }
 
     return d3Format(format)
 }
 
-export const computeGridLines = ({ width, height, scale, axis, values: _values }) => {
-    const lineValues = Array.isArray(_values) ? _values : undefined
-    const lineCount = isInteger(_values) ? _values : undefined
+export const computeGridLines = <Value extends number | string | Date>({
+    width,
+    height,
+    scale,
+    axis,
+    values: _values,
+}: {
+    width: number
+    height: number
+    scale: any
+    axis: 'x' | 'y'
+    values?: TicksSpec<Value>
+}): GridLineProps[] => {
+    const lineValues = Array.isArray(_values) ? (_values as Value[]) : undefined
+    const lineCount = isNumber(_values) ? _values : undefined
 
-    const values = lineValues || getScaleTicks(scale, lineCount)
+    const values = lineValues || getScaleTicks<Value>(scale, lineCount)
 
     const position = scale.bandwidth ? centerScale(scale) : scale
 
-    let lines
+    let lines: GridLineProps[] = []
     if (axis === 'x') {
         lines = values.map(v => ({
             key: `${v}`,

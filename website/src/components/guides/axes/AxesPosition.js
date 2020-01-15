@@ -36,9 +36,6 @@ const AxesPosition = () => {
                                         yScale={linearYScale}
                                         width={280}
                                         height={160}
-                                        animate={false}
-                                        motionStiffness={0}
-                                        motionDamping={0}
                                         top={{
                                             legend: 'axisTop',
                                             legendPosition: 'middle',

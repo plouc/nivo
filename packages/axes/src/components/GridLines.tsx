@@ -6,13 +6,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 import { useTransition } from 'react-spring'
 import { useMotionConfig } from '@nivo/core'
-import GridLine from './GridLine'
+import { GridLine, GridLineProps } from './GridLine'
 
-const GridLines = ({ lines }) => {
+export interface GridLinesProps {
+    lines: GridLineProps[]
+}
+
+export const GridLines = ({ lines }: GridLinesProps) => {
     const { animate, config: springConfig } = useMotionConfig()
 
     const transitions = useTransition(lines, line => line.key, {
@@ -53,24 +56,9 @@ const GridLines = ({ lines }) => {
 
     return (
         <g>
-            {transitions.map(({ item: line, props: animatedProps, key }) => (
-                <GridLine {...line} key={key} animatedProps={animatedProps} />
+            {transitions.map(({ props: animatedProps, key }) => (
+                <GridLine key={key} animatedProps={animatedProps} />
             ))}
         </g>
     )
 }
-
-GridLines.propTypes = {
-    type: PropTypes.oneOf(['x', 'y']).isRequired,
-    lines: PropTypes.arrayOf(
-        PropTypes.shape({
-            key: PropTypes.string.isRequired,
-            x1: PropTypes.number,
-            x2: PropTypes.number,
-            y1: PropTypes.number,
-            y2: PropTypes.number,
-        })
-    ).isRequired,
-}
-
-export default memo(GridLines)
