@@ -74,8 +74,6 @@ const AxesTicks = () => {
                                         scale={pointXScale}
                                         tickValues={['A', 'C', 'E', 'G', 'I']}
                                         length={280}
-                                        theme={theme}
-                                        animate={false}
                                         legend="point scale ['A', 'C', 'E', 'G', 'I']"
                                         legendPosition="start"
                                         legendOffset={-38}
@@ -88,8 +86,6 @@ const AxesTicks = () => {
                                         scale={linearXScale}
                                         tickValues={[0, 20, 40, 60, 80]}
                                         length={280}
-                                        theme={theme}
-                                        animate={false}
                                         legend="linear scale [0, 20, 40, 60, 80]"
                                         legendPosition="start"
                                         legendOffset={-38}
@@ -106,9 +102,7 @@ const AxesTicks = () => {
                                             new Date(2020, 0, 1, 0, 0, 0, 0),
                                         ]}
                                         length={280}
-                                        theme={theme}
                                         format="%Y/%m"
-                                        animate={false}
                                         legend="time scale with three dates"
                                         legendPosition="start"
                                         legendOffset={-38}
@@ -124,8 +118,6 @@ const AxesTicks = () => {
                                         tickValues="every 15 minutes"
                                         format="%H:%M"
                                         length={280}
-                                        theme={theme}
-                                        animate={false}
                                         legend="time scale, every 15 minutes"
                                         legendPosition="start"
                                         legendOffset={-38}
@@ -138,8 +130,6 @@ const AxesTicks = () => {
                                         scale={linearXScale}
                                         tickValues={5}
                                         length={280}
-                                        theme={theme}
-                                        animate={false}
                                         legend="linear scale, tickValues: 5"
                                         legendPosition="start"
                                         legendOffset={-38}
@@ -152,9 +142,7 @@ const AxesTicks = () => {
                                         scale={timeXScale}
                                         tickValues={5}
                                         length={280}
-                                        theme={theme}
                                         format="%Y/%m"
-                                        animate={false}
                                         legend="time scale, tickValues: 5"
                                         legendPosition="start"
                                         legendOffset={-38}
