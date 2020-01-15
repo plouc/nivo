@@ -26,9 +26,11 @@ exports[`should render a basic heat map chart 1`] = `
         transform="translate(0,0)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(83.33333333333333,0)"
@@ -61,9 +63,11 @@ exports[`should render a basic heat map chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(250,0)"
@@ -96,9 +100,11 @@ exports[`should render a basic heat map chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(416.66666666666663,0)"
@@ -147,9 +153,11 @@ exports[`should render a basic heat map chart 1`] = `
         transform="translate(0,0)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,50)"
@@ -182,9 +190,11 @@ exports[`should render a basic heat map chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,150)"
@@ -217,9 +227,11 @@ exports[`should render a basic heat map chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,250)"

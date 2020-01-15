@@ -26,9 +26,11 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
         transform="translate(0,300)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,0)"
@@ -61,9 +63,11 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(125,0)"
@@ -96,9 +100,11 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(250,0)"
@@ -131,9 +137,11 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(375,0)"
@@ -166,9 +174,11 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(500,0)"
@@ -217,9 +227,11 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
         transform="translate(0,0)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,300)"
@@ -252,9 +264,11 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,273)"
@@ -287,9 +301,11 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,245)"
@@ -322,9 +338,11 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,218)"
@@ -357,9 +375,11 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,191)"
@@ -392,9 +412,11 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,164)"
@@ -427,9 +449,11 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,136)"
@@ -462,9 +486,11 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,109)"
@@ -497,9 +523,11 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,82)"
@@ -532,9 +560,11 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,55)"
@@ -567,9 +597,11 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,27)"
@@ -602,9 +634,11 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,0)"
@@ -788,9 +822,11 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
         transform="translate(0,300)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,0)"
@@ -823,9 +859,11 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(125,0)"
@@ -858,9 +896,11 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(250,0)"
@@ -893,9 +933,11 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(375,0)"
@@ -928,9 +970,11 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(500,0)"
@@ -979,9 +1023,11 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
         transform="translate(0,0)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,300)"
@@ -1014,9 +1060,11 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,273)"
@@ -1049,9 +1097,11 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,245)"
@@ -1084,9 +1134,11 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,218)"
@@ -1119,9 +1171,11 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,191)"
@@ -1154,9 +1208,11 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,164)"
@@ -1189,9 +1245,11 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,136)"
@@ -1224,9 +1282,11 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,109)"
@@ -1259,9 +1319,11 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,82)"
@@ -1294,9 +1356,11 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,55)"
@@ -1329,9 +1393,11 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,27)"
@@ -1364,9 +1430,11 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,0)"
@@ -1550,9 +1618,11 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
         transform="translate(0,300)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,0)"
@@ -1585,9 +1655,11 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(125,0)"
@@ -1620,9 +1692,11 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(250,0)"
@@ -1655,9 +1729,11 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(375,0)"
@@ -1690,9 +1766,11 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(500,0)"
@@ -1741,9 +1819,11 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
         transform="translate(0,0)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,300)"
@@ -1776,9 +1856,11 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,273)"
@@ -1811,9 +1893,11 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,245)"
@@ -1846,9 +1930,11 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,218)"
@@ -1881,9 +1967,11 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,191)"
@@ -1916,9 +2004,11 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,164)"
@@ -1951,9 +2041,11 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,136)"
@@ -1986,9 +2078,11 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,109)"
@@ -2021,9 +2115,11 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,82)"
@@ -2056,9 +2152,11 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,55)"
@@ -2091,9 +2189,11 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,27)"
@@ -2126,9 +2226,11 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,0)"
@@ -2312,9 +2414,11 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
         transform="translate(0,300)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,0)"
@@ -2347,9 +2451,11 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(125,0)"
@@ -2382,9 +2488,11 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(250,0)"
@@ -2417,9 +2525,11 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(375,0)"
@@ -2452,9 +2562,11 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(500,0)"
@@ -2503,9 +2615,11 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
         transform="translate(0,0)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,300)"
@@ -2538,9 +2652,11 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,273)"
@@ -2573,9 +2689,11 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,245)"
@@ -2608,9 +2726,11 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,218)"
@@ -2643,9 +2763,11 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,191)"
@@ -2678,9 +2800,11 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,164)"
@@ -2713,9 +2837,11 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,136)"
@@ -2748,9 +2874,11 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,109)"
@@ -2783,9 +2911,11 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,82)"
@@ -2818,9 +2948,11 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,55)"
@@ -2853,9 +2985,11 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,27)"
@@ -2888,9 +3022,11 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,0)"
@@ -3074,9 +3210,11 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
         transform="translate(0,300)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,0)"
@@ -3109,9 +3247,11 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(125,0)"
@@ -3144,9 +3284,11 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(250,0)"
@@ -3179,9 +3321,11 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(375,0)"
@@ -3214,9 +3358,11 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(500,0)"
@@ -3265,9 +3411,11 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
         transform="translate(0,0)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,300)"
@@ -3300,9 +3448,11 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,273)"
@@ -3335,9 +3485,11 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,245)"
@@ -3370,9 +3522,11 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,218)"
@@ -3405,9 +3559,11 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,191)"
@@ -3440,9 +3596,11 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,164)"
@@ -3475,9 +3633,11 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,136)"
@@ -3510,9 +3670,11 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,109)"
@@ -3545,9 +3707,11 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,82)"
@@ -3580,9 +3744,11 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,55)"
@@ -3615,9 +3781,11 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,27)"
@@ -3650,9 +3818,11 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,0)"
@@ -3836,9 +4006,11 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
         transform="translate(0,300)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,0)"
@@ -3871,9 +4043,11 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(125,0)"
@@ -3906,9 +4080,11 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(250,0)"
@@ -3941,9 +4117,11 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(375,0)"
@@ -3976,9 +4154,11 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(500,0)"
@@ -4027,9 +4207,11 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
         transform="translate(0,0)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,300)"
@@ -4062,9 +4244,11 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,273)"
@@ -4097,9 +4281,11 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,245)"
@@ -4132,9 +4318,11 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,218)"
@@ -4167,9 +4355,11 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,191)"
@@ -4202,9 +4392,11 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,164)"
@@ -4237,9 +4429,11 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,136)"
@@ -4272,9 +4466,11 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,109)"
@@ -4307,9 +4503,11 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,82)"
@@ -4342,9 +4540,11 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,55)"
@@ -4377,9 +4577,11 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,27)"
@@ -4412,9 +4614,11 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,0)"
@@ -4598,9 +4802,11 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
         transform="translate(0,300)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,0)"
@@ -4633,9 +4839,11 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(125,0)"
@@ -4668,9 +4876,11 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(250,0)"
@@ -4703,9 +4913,11 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(375,0)"
@@ -4738,9 +4950,11 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(500,0)"
@@ -4789,9 +5003,11 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
         transform="translate(0,0)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,300)"
@@ -4824,9 +5040,11 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,273)"
@@ -4859,9 +5077,11 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,245)"
@@ -4894,9 +5114,11 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,218)"
@@ -4929,9 +5151,11 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,191)"
@@ -4964,9 +5188,11 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,164)"
@@ -4999,9 +5225,11 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,136)"
@@ -5034,9 +5262,11 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,109)"
@@ -5069,9 +5299,11 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,82)"
@@ -5104,9 +5336,11 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,55)"
@@ -5139,9 +5373,11 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,27)"
@@ -5174,9 +5410,11 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,0)"
@@ -5360,9 +5598,11 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
         transform="translate(0,300)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,0)"
@@ -5395,9 +5635,11 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(125,0)"
@@ -5430,9 +5672,11 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(250,0)"
@@ -5465,9 +5709,11 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(375,0)"
@@ -5500,9 +5746,11 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(500,0)"
@@ -5551,9 +5799,11 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
         transform="translate(0,0)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,300)"
@@ -5586,9 +5836,11 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,273)"
@@ -5621,9 +5873,11 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,245)"
@@ -5656,9 +5910,11 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,218)"
@@ -5691,9 +5947,11 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,191)"
@@ -5726,9 +5984,11 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,164)"
@@ -5761,9 +6021,11 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,136)"
@@ -5796,9 +6058,11 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,109)"
@@ -5831,9 +6095,11 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,82)"
@@ -5866,9 +6132,11 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,55)"
@@ -5901,9 +6169,11 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,27)"
@@ -5936,9 +6206,11 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,0)"
@@ -6122,9 +6394,11 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
         transform="translate(0,300)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,0)"
@@ -6157,9 +6431,11 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(125,0)"
@@ -6192,9 +6468,11 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(250,0)"
@@ -6227,9 +6505,11 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(375,0)"
@@ -6262,9 +6542,11 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(500,0)"
@@ -6313,9 +6595,11 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
         transform="translate(0,0)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,300)"
@@ -6348,9 +6632,11 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,273)"
@@ -6383,9 +6669,11 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,245)"
@@ -6418,9 +6706,11 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,218)"
@@ -6453,9 +6743,11 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,191)"
@@ -6488,9 +6780,11 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,164)"
@@ -6523,9 +6817,11 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,136)"
@@ -6558,9 +6854,11 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,109)"
@@ -6593,9 +6891,11 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,82)"
@@ -6628,9 +6928,11 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,55)"
@@ -6663,9 +6965,11 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,27)"
@@ -6698,9 +7002,11 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,0)"
@@ -6884,9 +7190,11 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
         transform="translate(0,300)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,0)"
@@ -6919,9 +7227,11 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(125,0)"
@@ -6954,9 +7264,11 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(250,0)"
@@ -6989,9 +7301,11 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(375,0)"
@@ -7024,9 +7338,11 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(500,0)"
@@ -7075,9 +7391,11 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
         transform="translate(0,0)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,300)"
@@ -7110,9 +7428,11 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,273)"
@@ -7145,9 +7465,11 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,245)"
@@ -7180,9 +7502,11 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,218)"
@@ -7215,9 +7539,11 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,191)"
@@ -7250,9 +7576,11 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,164)"
@@ -7285,9 +7613,11 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,136)"
@@ -7320,9 +7650,11 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,109)"
@@ -7355,9 +7687,11 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,82)"
@@ -7390,9 +7724,11 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,55)"
@@ -7425,9 +7761,11 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,27)"
@@ -7460,9 +7798,11 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "cursor": undefined,
+              "opacity": undefined,
             }
           }
           transform="translate(0,0)"
@@ -7803,8 +8143,10 @@ exports[`should render a basic line chart 1`] = `
         transform="translate(0,300)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -7838,8 +8180,10 @@ exports[`should render a basic line chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -7873,8 +8217,10 @@ exports[`should render a basic line chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -7908,8 +8254,10 @@ exports[`should render a basic line chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -7943,8 +8291,10 @@ exports[`should render a basic line chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -7994,8 +8344,10 @@ exports[`should render a basic line chart 1`] = `
         transform="translate(0,0)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -8029,8 +8381,10 @@ exports[`should render a basic line chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -8064,8 +8418,10 @@ exports[`should render a basic line chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -8099,8 +8455,10 @@ exports[`should render a basic line chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -8134,8 +8492,10 @@ exports[`should render a basic line chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -8169,8 +8529,10 @@ exports[`should render a basic line chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -8204,8 +8566,10 @@ exports[`should render a basic line chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -8239,8 +8603,10 @@ exports[`should render a basic line chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -8274,8 +8640,10 @@ exports[`should render a basic line chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -8309,8 +8677,10 @@ exports[`should render a basic line chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -8344,8 +8714,10 @@ exports[`should render a basic line chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -8379,8 +8751,10 @@ exports[`should render a basic line chart 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -8722,8 +9096,10 @@ exports[`should support multiple lines 1`] = `
         transform="translate(0,300)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -8757,8 +9133,10 @@ exports[`should support multiple lines 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -8792,8 +9170,10 @@ exports[`should support multiple lines 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -8827,8 +9207,10 @@ exports[`should support multiple lines 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -8862,8 +9244,10 @@ exports[`should support multiple lines 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -8913,8 +9297,10 @@ exports[`should support multiple lines 1`] = `
         transform="translate(0,0)"
       >
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -8948,8 +9334,10 @@ exports[`should support multiple lines 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -8983,8 +9371,10 @@ exports[`should support multiple lines 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -9018,8 +9408,10 @@ exports[`should support multiple lines 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -9053,8 +9445,10 @@ exports[`should support multiple lines 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -9088,8 +9482,10 @@ exports[`should support multiple lines 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -9123,8 +9519,10 @@ exports[`should support multiple lines 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -9158,8 +9556,10 @@ exports[`should support multiple lines 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -9193,8 +9593,10 @@ exports[`should support multiple lines 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -9228,8 +9630,10 @@ exports[`should support multiple lines 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -9263,8 +9667,10 @@ exports[`should support multiple lines 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }
@@ -9298,8 +9704,10 @@ exports[`should support multiple lines 1`] = `
           </text>
         </g>
         <g
+          onClick={[Function]}
           style={
             Object {
+              "cursor": undefined,
               "opacity": 1,
             }
           }

@@ -50,9 +50,6 @@ const AxesLegend = () => {
                                             axis="x"
                                             scale={linearXScale}
                                             length={280}
-                                            animate={false}
-                                            motionStiffness={0}
-                                            motionDamping={0}
                                             legend={position}
                                             legendPosition={position}
                                             legendOffset={-32}
@@ -68,9 +65,6 @@ const AxesLegend = () => {
                                             axis="y"
                                             scale={linearYScale}
                                             length={160}
-                                            animate={false}
-                                            motionStiffness={0}
-                                            motionDamping={0}
                                             legend={position}
                                             legendPosition={position}
                                             legendOffset={-32}

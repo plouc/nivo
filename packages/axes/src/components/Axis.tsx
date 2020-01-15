@@ -6,40 +6,75 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo, useMemo } from 'react'
-import PropTypes from 'prop-types'
+import React, { Fragment, ReactNode, useMemo } from 'react'
 import { useSpring, useTransition, animated } from 'react-spring'
 import { useTheme, useMotionConfig } from '@nivo/core'
-import { computeCartesianTicks, getFormatter } from '../compute'
-import { axisPropTypes } from '../props'
-import AxisTick from './AxisTick'
+import { computeCartesianTicks, getFormatter, TicksSpec } from '../compute'
+import { AxisTick, AxisTickProps } from './AxisTick'
 
-const defaultTickRenderer = props => <AxisTick {...props} />
+export type AxisLegendPosition = 'start' | 'middle' | 'end'
 
-const Axis = ({
+export interface AxisProp<Value extends number | string | Date> {
+    ticksPosition?: 'before' | 'after'
+    tickValues?: TicksSpec<Value>
+    tickSize?: number
+    tickPadding?: number
+    tickRotation?: number
+    format?: any
+    renderTick?: any
+    legend?: ReactNode
+    legendPosition?: AxisLegendPosition
+    legendOffset?: number
+}
+
+const defaultTickRenderer = <Value extends number | string | Date>(props: AxisTickProps<Value>) => (
+    <AxisTick<Value> {...props} />
+)
+
+export interface AxisProps<Value extends number | string | Date> {
+    axis: 'x' | 'y'
+    scale: any
+    x?: number
+    y?: number
+    length: number
+    ticksPosition: 'before' | 'after'
+    tickValues?: TicksSpec<Value>
+    tickSize?: number
+    tickPadding?: number
+    tickRotation?: number
+    format?: any
+    renderTick?: any
+    legend?: ReactNode
+    legendPosition?: 'start' | 'middle' | 'end'
+    legendOffset?: number
+    onClick?: any
+    ariaHidden?: boolean
+}
+
+export const Axis = <Value extends number | string | Date>({
     axis,
     scale,
-    x,
-    y,
+    x = 0,
+    y = 0,
     length,
     ticksPosition,
     tickValues,
-    tickSize,
-    tickPadding,
-    tickRotation,
+    tickSize = 5,
+    tickPadding = 5,
+    tickRotation = 0,
     format,
-    renderTick,
+    renderTick = defaultTickRenderer,
     legend,
-    legendPosition,
-    legendOffset,
+    legendPosition = 'end',
+    legendOffset = 0,
     onClick,
     ariaHidden,
-}) => {
+}: AxisProps<Value>) => {
     const theme = useTheme()
 
     const formatValue = useMemo(() => getFormatter(format, scale), [format, scale])
 
-    const { ticks, textAlign, textBaseline } = computeCartesianTicks({
+    const { ticks, textAlign, textBaseline } = computeCartesianTicks<Value>({
         axis,
         scale,
         ticksPosition,
@@ -49,7 +84,7 @@ const Axis = ({
         tickRotation,
     })
 
-    let legendNode = null
+    let legendNode: ReactNode = null
     if (legend !== undefined) {
         let legendX = 0
         let legendY = 0
@@ -159,35 +194,3 @@ const Axis = ({
         </animated.g>
     )
 }
-
-Axis.propTypes = {
-    axis: PropTypes.oneOf(['x', 'y']).isRequired,
-    scale: PropTypes.func.isRequired,
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-    length: PropTypes.number.isRequired,
-    ticksPosition: PropTypes.oneOf(['before', 'after']).isRequired,
-    tickValues: axisPropTypes.tickValues,
-    tickSize: PropTypes.number.isRequired,
-    tickPadding: PropTypes.number.isRequired,
-    tickRotation: PropTypes.number.isRequired,
-    format: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-    renderTick: PropTypes.func.isRequired,
-    legend: PropTypes.node,
-    legendPosition: PropTypes.oneOf(['start', 'middle', 'end']).isRequired,
-    legendOffset: PropTypes.number.isRequired,
-    onClick: PropTypes.func,
-    ariaHidden: PropTypes.bool,
-}
-Axis.defaultProps = {
-    x: 0,
-    y: 0,
-    tickSize: 5,
-    tickPadding: 5,
-    tickRotation: 0,
-    renderTick: defaultTickRenderer,
-    legendPosition: 'end',
-    legendOffset: 0,
-}
-
-export default memo(Axis)
