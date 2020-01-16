@@ -10,14 +10,13 @@ import React, { Component } from 'react'
 import renderer from 'react-test-renderer'
 import { mount } from 'enzyme'
 import { defaultTheme, ThemeContext } from '@nivo/core'
-import { default as BaseLegendSvgItem } from '../../src/svg/LegendSvgItem'
-import * as shapes from '../../src/svg/symbols'
 import {
-    DIRECTION_LEFT_TO_RIGHT,
-    DIRECTION_RIGHT_TO_LEFT,
-    DIRECTION_TOP_TO_BOTTOM,
-    DIRECTION_BOTTOM_TO_TOP,
-} from '../../src/constants'
+    LegendSvgItem as BaseLegendSvgItem,
+    SymbolCircle,
+    SymbolDiamond,
+    SymbolSquare,
+    SymbolTriangle,
+} from '../../src'
 
 const commonProps = {
     x: 0,
@@ -31,12 +30,7 @@ const commonProps = {
     },
 }
 
-const directions = [
-    DIRECTION_LEFT_TO_RIGHT,
-    DIRECTION_RIGHT_TO_LEFT,
-    DIRECTION_TOP_TO_BOTTOM,
-    DIRECTION_BOTTOM_TO_TOP,
-]
+const directions = ['left-to-right', 'right-to-left', 'top-to-bottom', 'bottom-to-top']
 
 const withTheme = WrappedComponent => {
     return class ThemedLegendSvgItem extends Component {
@@ -78,7 +72,7 @@ describe('symbolShape', () => {
             </svg>
         )
 
-        expect(wrapper.find(shapes.SymbolCircle)).toHaveLength(1)
+        expect(wrapper.find(SymbolCircle)).toHaveLength(1)
     })
 
     it('should support diamond shape', () => {
@@ -88,7 +82,7 @@ describe('symbolShape', () => {
             </svg>
         )
 
-        expect(wrapper.find(shapes.SymbolDiamond)).toHaveLength(1)
+        expect(wrapper.find(SymbolDiamond)).toHaveLength(1)
     })
 
     it('should support square shape', () => {
@@ -98,7 +92,7 @@ describe('symbolShape', () => {
             </svg>
         )
 
-        expect(wrapper.find(shapes.SymbolSquare)).toHaveLength(1)
+        expect(wrapper.find(SymbolSquare)).toHaveLength(1)
     })
 
     it('should support triangle shape', () => {
@@ -108,7 +102,7 @@ describe('symbolShape', () => {
             </svg>
         )
 
-        expect(wrapper.find(shapes.SymbolTriangle)).toHaveLength(1)
+        expect(wrapper.find(SymbolTriangle)).toHaveLength(1)
     })
 
     it('should support custom shape', () => {

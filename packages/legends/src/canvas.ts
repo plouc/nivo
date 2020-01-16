@@ -6,11 +6,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { computeDimensions, computePositionFromAnchor, computeItemLayout } from '../compute'
-import BoxLegendSvg from '../svg/BoxLegendSvg'
-import LegendSvg from '../svg/LegendSvg'
-import LegendSvgItem from '../svg/LegendSvgItem'
-import { DIRECTION_COLUMN, DIRECTION_ROW } from '../constants'
+import { Theme } from '@nivo/core'
+import { computeDimensions, computePositionFromAnchor, computeItemLayout } from './compute'
+import {
+    LegendAnchor,
+    LegendDatum,
+    LegendDirection,
+    LegendItemDirection,
+    LegendPadding,
+} from './props'
 
 const textPropsMapping = {
     align: {
@@ -27,33 +31,43 @@ const textPropsMapping = {
 }
 
 export const renderLegendToCanvas = (
-    ctx,
+    ctx: CanvasRenderingContext2D,
     {
         data,
-
         containerWidth,
         containerHeight,
-        translateX = BoxLegendSvg.defaultProps.translateX,
-        translateY = BoxLegendSvg.defaultProps.translateY,
+        translateX = 0,
+        translateY = 0,
         anchor,
         direction,
-        padding: _padding = LegendSvg.defaultProps.padding,
-        justify = LegendSvgItem.defaultProps.justify,
-
-        // items
-        itemsSpacing = LegendSvg.defaultProps.itemsSpacing,
+        padding: _padding = 0,
+        justify = false,
+        itemsSpacing = 0,
         itemWidth,
         itemHeight,
-        itemDirection = LegendSvgItem.defaultProps.direction,
-        itemTextColor = LegendSvg.defaultProps.textColor,
-
-        // symbol
-        symbolSize = LegendSvgItem.defaultProps.symbolSize,
-        symbolSpacing = LegendSvgItem.defaultProps.symbolSpacing,
-        // @todo add support for shapes
-        // symbolShape = LegendSvgItem.defaultProps.symbolShape,
-
+        itemDirection = 'left-to-right',
+        itemTextColor = '#000000',
+        symbolSize = 16,
+        symbolSpacing = 8,
         theme,
+    }: {
+        data: LegendDatum[]
+        containerWidth: number
+        containerHeight: number
+        translateX?: number
+        translateY?: number
+        anchor: LegendAnchor
+        direction: LegendDirection
+        padding?: LegendPadding
+        justify?: boolean
+        itemsSpacing?: number
+        itemWidth: number
+        itemHeight: number
+        itemDirection: LegendItemDirection
+        itemTextColor?: string
+        symbolSize?: number
+        symbolSpacing?: number
+        theme: Theme
     }
 ) => {
     const { width, height, padding } = computeDimensions({
@@ -77,9 +91,9 @@ export const renderLegendToCanvas = (
 
     let xStep = 0
     let yStep = 0
-    if (direction === DIRECTION_ROW) {
+    if (direction === 'row') {
         xStep = itemWidth + itemsSpacing
-    } else if (direction === DIRECTION_COLUMN) {
+    } else {
         yStep = itemHeight + itemsSpacing
     }
 
@@ -106,10 +120,10 @@ export const renderLegendToCanvas = (
         ctx.fillStyle = d.color
         ctx.fillRect(itemX + symbolX, itemY + symbolY, symbolSize, symbolSize)
 
-        ctx.textAlign = textPropsMapping.align[labelAnchor]
-        ctx.textBaseline = textPropsMapping.baseline[labelAlignment]
-        ctx.fillStyle = itemTextColor || theme.legends.text.fill
-        ctx.fillText(d.label, itemX + labelX, itemY + labelY)
+        ctx.textAlign = (textPropsMapping.align as any)[labelAnchor]
+        ctx.textBaseline = (textPropsMapping.baseline as any)[labelAlignment]
+        ctx.fillStyle = itemTextColor || (theme.legends.text.fill as string)
+        ctx.fillText(`${d.label}`, itemX + labelX, itemY + labelY)
     })
 
     ctx.restore()
