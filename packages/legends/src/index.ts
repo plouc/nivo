@@ -8,6 +8,5 @@
  */
 export * from './svg'
 export * from './canvas'
-export * from './constants'
 export * from './props'
 export * from './hooks'

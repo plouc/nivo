@@ -16,7 +16,7 @@ import {
     CssMixBlendMode,
 } from '@nivo/core'
 import { OrdinalColorScale, InheritedColor, OrdinalColorScaleScheme } from '@nivo/colors'
-// import { BoxLegendSvg } from '@nivo/legends'
+import { BoxLegendSvg, LegendProp } from '@nivo/legends'
 import { RadarShapes } from './RadarShapes'
 import { RadarGrid, RadarGridShape } from './RadarGrid'
 import { RadarTooltipSensors } from './RadarTooltipSensors'
@@ -79,7 +79,7 @@ export interface RadarProps<Datum extends BaseRadarDatum> {
     gridShape?: RadarGridShape
     gridLabelOffset?: number
     blendMode?: CssMixBlendMode
-    legends: any[] // PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
+    legends?: LegendProp[]
     isInteractive?: boolean
     animate?: boolean
     motionDamping?: number
@@ -173,13 +173,11 @@ export function Radar<Datum extends BaseRadarDatum>({
         shapeInterpolation,
     })
 
-    /*
-    const legendData = keys.map(key => ({
-        id: key,
-        label: key,
-        color: colorByKey[key],
+    const legendData = series.map(serie => ({
+        id: serie.id,
+        label: serie.id,
+        color: serie.color,
     }))
-    */
 
     const layerById = {
         grid: (
@@ -248,16 +246,15 @@ export function Radar<Datum extends BaseRadarDatum>({
                     return (layerById as any)[layer]
                 })}
             </g>
-            {/*legends.map((legend, i) => (
+            {legends.map((legend, i) => (
                 <BoxLegendSvg
                     key={i}
                     {...legend}
                     containerWidth={width}
                     containerHeight={height}
                     data={legendData}
-                    theme={theme}
                 />
-            ))*/}
+            ))}
         </SvgWrapper>
     )
 }
