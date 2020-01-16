@@ -6,84 +6,102 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { useState, useCallback } from 'react'
-import PropTypes from 'prop-types'
-import isFunction from 'lodash/isFunction'
+import React, { useState, useCallback, MouseEvent } from 'react'
+import { isFunction } from 'lodash'
 import { useTheme } from '@nivo/core'
-import { datumPropType, symbolPropTypes, interactivityPropTypes } from '../props'
 import { computeItemLayout } from '../compute'
-import { SymbolCircle, SymbolDiamond, SymbolSquare, SymbolTriangle } from './symbols'
+import { LegendDatum, LegendEffect, LegendMouseEventHandler, LegendItemDirection } from '../props'
+import { LegendSymbolShape, symbolByShape } from './symbols'
 
-const symbolByShape = {
-    circle: SymbolCircle,
-    diamond: SymbolDiamond,
-    square: SymbolSquare,
-    triangle: SymbolTriangle,
+export interface LegendSvgItemProps {
+    data: LegendDatum
+    x: number
+    y: number
+    width: number
+    height: number
+    textColor?: string
+    background?: string
+    opacity?: number
+    direction?: LegendItemDirection
+    justify?: boolean
+    symbolShape?: LegendSymbolShape
+    symbolSize?: number
+    symbolSpacing?: number
+    symbolBorderWidth?: number
+    symbolBorderColor?: string
+    onClick?: LegendMouseEventHandler
+    onMouseEnter?: LegendMouseEventHandler
+    onMouseLeave?: LegendMouseEventHandler
+    effects?: LegendEffect[]
 }
 
-const LegendSvgItem = ({
+export const LegendSvgItem = ({
     x,
     y,
     width,
     height,
     data,
-    direction,
-    justify,
-    textColor,
-    background,
-    opacity,
-
-    symbolShape,
-    symbolSize,
-    symbolSpacing,
-    symbolBorderWidth,
-    symbolBorderColor,
-
+    direction = 'left-to-right',
+    justify = false,
+    textColor = '#000000',
+    background = 'transparent',
+    opacity = 1,
+    symbolShape = 'square',
+    symbolSize = 16,
+    symbolSpacing = 8,
+    symbolBorderWidth = 0,
+    symbolBorderColor = 'transparent',
     onClick,
     onMouseEnter,
     onMouseLeave,
-
-    effects,
-}) => {
-    const [style, setStyle] = useState({})
+    effects = [],
+}: LegendSvgItemProps) => {
+    const [style, setStyle] = useState<LegendEffect['style']>({})
     const theme = useTheme()
 
     const handleClick = useCallback(event => onClick && onClick(data, event), [onClick, data])
     const handleMouseEnter = useCallback(
-        event => {
+        (event: MouseEvent) => {
             if (effects.length > 0) {
                 const applyEffects = effects.filter(({ on }) => on === 'hover')
-                const style = applyEffects.reduce(
-                    (acc, effect) => ({
+                const enterStyle = applyEffects.reduce(
+                    (acc: LegendEffect['style'], effect) => ({
                         ...acc,
                         ...effect.style,
                     }),
                     {}
                 )
-                setStyle(style)
+                setStyle(enterStyle)
             }
 
-            if (onMouseEnter === undefined) return
+            if (onMouseEnter === undefined) {
+                return
+            }
             onMouseEnter(data, event)
         },
         [onMouseEnter, data, effects]
     )
-    const handleMouseLeave = useCallback(() => {
-        if (effects.length > 0) {
-            const applyEffects = effects.filter(({ on }) => on !== 'hover')
-            const style = applyEffects.reduce(
-                (acc, effect) => ({
-                    ...acc,
-                    ...effect.style,
-                }),
-                {}
-            )
-            setStyle(style)
-        }
+    const handleMouseLeave = useCallback(
+        (event: MouseEvent) => {
+            if (effects.length > 0) {
+                const applyEffects = effects.filter(({ on }) => on !== 'hover')
+                const leaveStyle = applyEffects.reduce(
+                    (acc: LegendEffect['style'], effect) => ({
+                        ...acc,
+                        ...effect.style,
+                    }),
+                    {}
+                )
+                setStyle(leaveStyle)
+            }
 
-        if (onMouseLeave === undefined) return
-        onMouseLeave(data, event)
-    }, [onMouseLeave, data, effects])
+            if (onMouseLeave === undefined) {
+                return
+            }
+            onMouseLeave(data, event)
+        },
+        [onMouseLeave, data, effects]
+    )
 
     const { symbolX, symbolY, labelX, labelY, labelAnchor, labelAlignment } = computeItemLayout({
         direction,
@@ -98,12 +116,7 @@ const LegendSvgItem = ({
         handler => handler !== undefined
     )
 
-    let Symbol
-    if (isFunction(symbolShape)) {
-        Symbol = symbolShape
-    } else {
-        Symbol = symbolByShape[symbolShape]
-    }
+    const symbol = isFunction(symbolShape) ? symbolShape : symbolByShape[symbolShape]
 
     return (
         <g
@@ -123,7 +136,7 @@ const LegendSvgItem = ({
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
             />
-            {React.createElement(Symbol, {
+            {React.createElement(symbol, {
                 id: data.id,
                 x: symbolX,
                 y: symbolY,
@@ -140,10 +153,10 @@ const LegendSvgItem = ({
                 style={{
                     ...theme.legends.text,
                     fill: style.itemTextColor || textColor,
-                    dominantBaseline: labelAlignment,
                     pointerEvents: 'none',
                     userSelect: 'none',
                 }}
+                dominantBaseline={labelAlignment}
                 x={labelX}
                 y={labelY}
             >
@@ -152,42 +165,3 @@ const LegendSvgItem = ({
         </g>
     )
 }
-
-LegendSvgItem.displayName = 'LegendSvgItem'
-LegendSvgItem.propTypes = {
-    data: datumPropType.isRequired,
-
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-
-    textColor: PropTypes.string,
-    background: PropTypes.string,
-    opacity: PropTypes.number,
-
-    direction: PropTypes.oneOf(['left-to-right', 'right-to-left', 'top-to-bottom', 'bottom-to-top'])
-        .isRequired,
-    justify: PropTypes.bool.isRequired,
-
-    ...symbolPropTypes,
-    ...interactivityPropTypes,
-}
-LegendSvgItem.defaultProps = {
-    direction: 'left-to-right',
-    justify: false,
-
-    textColor: 'black',
-    background: 'transparent',
-    opacity: 1,
-
-    symbolShape: 'square',
-    symbolSize: 16,
-    symbolSpacing: 8,
-    symbolBorderWidth: 0,
-    symbolBorderColor: 'transparent',
-
-    effects: [],
-}
-
-export default LegendSvgItem

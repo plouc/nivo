@@ -1,45 +1,45 @@
 {
-  "name": "@nivo/axes",
-  "version": "0.61.0",
-  "license": "MIT",
-  "author": {
-    "name": "Raphaël Benitte",
-    "url": "https://github.com/plouc"
-  },
-  "keywords": [
-    "nivo",
-    "dataviz",
-    "react",
-    "axes"
-  ],
-  "main": "./dist/nivo-axes.cjs.js",
-  "module": "./dist/nivo-axes.esm.js",
-  "typings": "./dist/index.d.ts",
-  "files": [
-    "README.md",
-    "LICENSE.md",
-    "dist/"
-  ],
-  "dependencies": {
-    "@nivo/core": "0.61.0",
-    "d3-format": "^1.3.2",
-    "d3-time": "^1.0.11",
-    "d3-time-format": "^2.1.3",
-    "lodash": "^4.17.11",
-    "react-motion": "^0.5.2"
-  },
-  "devDependencies": {
-    "@types/d3-format": "^1.3.1",
-    "@types/d3-time": "^1.0.10",
-    "@types/d3-time-format": "^2.1.1",
-    "@types/lodash": "^4.14.149",
-    "@types/react-motion": "^0.0.29"
-  },
-  "peerDependencies": {
-    "prop-types": ">= 15.5.10 < 16.0.0",
-    "react": ">= 16.8.4 < 17.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+    "name": "@nivo/axes",
+    "version": "0.61.0",
+    "license": "MIT",
+    "author": {
+        "name": "Raphaël Benitte",
+        "url": "https://github.com/plouc"
+    },
+    "keywords": [
+        "nivo",
+        "dataviz",
+        "react",
+        "axes"
+    ],
+    "main": "./dist/nivo-axes.cjs.js",
+    "module": "./dist/nivo-axes.esm.js",
+    "typings": "./dist/index.d.ts",
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/"
+    ],
+    "dependencies": {
+        "@nivo/core": "0.61.0",
+        "d3-format": "^1.3.2",
+        "d3-time": "^1.0.11",
+        "d3-time-format": "^2.1.3",
+        "lodash": "^4.17.11",
+        "react-motion": "^0.5.2"
+    },
+    "devDependencies": {
+        "@types/d3-format": "^1.3.1",
+        "@types/d3-time": "^1.0.10",
+        "@types/d3-time-format": "^2.1.1",
+        "@types/lodash": "^4.14.149",
+        "@types/react-motion": "^0.0.29"
+    },
+    "peerDependencies": {
+        "prop-types": ">= 15.5.10 < 16.0.0",
+        "react": ">= 16.8.4 < 17.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
 }

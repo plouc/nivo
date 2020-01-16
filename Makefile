@@ -136,7 +136,7 @@ packages-tslint: ##@1 packages run tslint on all packages
         ./packages/core/src/*.ts \
         ./packages/geo/index.d.ts \
         ./packages/heatmap/index.d.ts \
-        ./packages/legends/index.d.ts \
+        ./packages/legends/src/*.ts \
         ./packages/line/index.d.ts \
         ./packages/network/index.d.ts \
         ./packages/pie/index.d.ts \
