@@ -10,11 +10,11 @@ import React from 'react'
 import { LineRadial } from 'd3-shape'
 import { useMotionConfig, SmartMotion, useTheme, CssMixBlendMode } from '@nivo/core'
 import { useInheritedColor, InheritedColor } from '@nivo/colors'
-import { RadarSerie, BaseRadarDatum } from './hooks'
+import { RadarSerie, BaseRadarDatum, RadarSerieDatum } from './hooks'
 
 export interface RadarShapesProps<Datum extends BaseRadarDatum> {
     series: Array<RadarSerie<Datum>>
-    shapeGenerator: LineRadial<any>
+    shapeGenerator: LineRadial<RadarSerieDatum<Datum>>
     borderWidth: number
     borderColor: InheritedColor
     fillOpacity: number

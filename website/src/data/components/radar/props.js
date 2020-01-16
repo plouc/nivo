@@ -9,6 +9,7 @@
 import { closedCurvePropKeys } from '@nivo/core'
 import { radarDefaults } from '@nivo/radar'
 import { motionProperties, groupProperties } from '../../../lib/componentProperties'
+import { LineDefaultProps as defaults } from '@nivo/line'
 
 const props = [
     {
@@ -168,6 +169,21 @@ const props = [
         defaultValue: radarDefaults.borderColor,
         controlType: 'inheritedColor',
         group: 'Style',
+    },
+    {
+        key: 'layers',
+        group: 'Customization',
+        help: 'Defines the order of layers and add custom layers.',
+        description: `
+            You can also use this property to insert extra layers
+            to the chart, this extra layer must be
+            a function which will receive the chart
+            computed data and must return a valid SVG element.
+            Please have a look at the package's TypeScript definitions
+            for more information about the available properties.
+        `,
+        required: false,
+        defaultValue: radarDefaults.layers,
     },
     {
         key: 'gridLevels',

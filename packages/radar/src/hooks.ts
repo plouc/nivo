@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { uniq } from 'lodash'
-import { lineRadial } from 'd3-shape'
+import { arc as d3Arc, lineRadial } from 'd3-shape'
 import { scaleLinear } from 'd3-scale'
 import { ClosedCurveInterpolationId, positionFromAngle, useCurveInterpolation } from '@nivo/core'
 import { OrdinalColorScale, useOrdinalColorScale } from '@nivo/colors'
@@ -37,8 +37,11 @@ export interface RadarSliceDatum {
 
 export interface RadarSlice {
     index: number | string
+    // mid angle in radians
     angle: number
+    // start angle in radians
     startAngle: number
+    // end angle in radians
     endAngle: number
     data: RadarSliceDatum[]
 }
@@ -120,6 +123,16 @@ export const useRadar = <Datum extends BaseRadarDatum>({
         [shapeInterpolator]
     )
 
+    const sliceGenerator = useMemo(
+        () =>
+            d3Arc<any, RadarSlice>()
+                .outerRadius(radius)
+                .innerRadius(0)
+                .startAngle(d => d.startAngle + Math.PI / 2)
+                .endAngle(d => d.endAngle + Math.PI / 2),
+        [radius]
+    )
+
     const slices = useMemo(
         () =>
             xValues.map(
@@ -154,5 +167,6 @@ export const useRadar = <Datum extends BaseRadarDatum>({
         centerY,
         angleStep,
         shapeGenerator,
+        sliceGenerator,
     }
 }

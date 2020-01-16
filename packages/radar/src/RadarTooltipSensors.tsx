@@ -6,28 +6,24 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { useMemo } from 'react'
-import { arc as d3Arc } from 'd3-shape'
+import React from 'react'
+import { Arc } from 'd3-shape'
 import { RadarSlice } from './hooks'
 import { RadarTooltipSensorsItem } from './RadarTooltipSensorsItem'
 
 export interface RadarTooltipSensorsProps {
     slices: RadarSlice[]
+    sliceGenerator: Arc<any, RadarSlice>
     radius: number
     tooltipFormat?: any // PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 }
 
-export function RadarTooltipSensors({ slices, radius, tooltipFormat }: RadarTooltipSensorsProps) {
-    const arc = useMemo(
-        () =>
-            d3Arc<any, RadarSlice>()
-                .outerRadius(radius)
-                .innerRadius(0)
-                .startAngle(d => d.startAngle + Math.PI / 2)
-                .endAngle(d => d.endAngle + Math.PI / 2),
-        [radius]
-    )
-
+export function RadarTooltipSensors({
+    slices,
+    sliceGenerator,
+    radius,
+    tooltipFormat,
+}: RadarTooltipSensorsProps) {
     return (
         <g>
             {slices.map(slice => (
@@ -35,7 +31,7 @@ export function RadarTooltipSensors({ slices, radius, tooltipFormat }: RadarTool
                     key={slice.index}
                     slice={slice}
                     radius={radius}
-                    arcGenerator={arc}
+                    sliceGenerator={sliceGenerator}
                     tooltipFormat={tooltipFormat}
                 />
             ))}
