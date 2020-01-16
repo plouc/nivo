@@ -17,7 +17,7 @@ const tableStyle: CSSProperties = {
 interface TableTooltipProps {
     title?: ReactNode
     rows: ReactNode[][]
-    renderContent: any
+    renderContent?: any
 }
 
 export const TableTooltip = memo(({ title, rows, renderContent }: TableTooltipProps) => {

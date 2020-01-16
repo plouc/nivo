@@ -6,13 +6,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo, useMemo } from 'react'
-import PropTypes from 'prop-types'
+import React, { SVGAttributes, useMemo } from 'react'
 import { lineRadial, curveLinearClosed } from 'd3-shape'
 import { animated, useSpring } from 'react-spring'
 import { useTheme, useAnimatedPath, useMotionConfig } from '@nivo/core'
+import { RadarGridShape } from './RadarGrid'
 
-const RadarGridLevelCircular = memo(({ radius }) => {
+export interface RadarGridLevelsProps {
+    shape: RadarGridShape
+    radius: number
+    angleStep: number
+    dataLength: number
+}
+
+const RadarGridLevelCircular = ({ radius }) => {
     const theme = useTheme()
     const { animate, config: springConfig } = useMotionConfig()
 
@@ -29,14 +36,9 @@ const RadarGridLevelCircular = memo(({ radius }) => {
             {...theme.grid.line}
         />
     )
-})
-
-RadarGridLevelCircular.displayName = 'RadarGridLevelCircular'
-RadarGridLevelCircular.propTypes = {
-    radius: PropTypes.number.isRequired,
 }
 
-const RadarGridLevelLinear = memo(({ radius, angleStep, dataLength }) => {
+const RadarGridLevelLinear = ({ radius, angleStep, dataLength }) => {
     const theme = useTheme()
 
     const radarLineGenerator = useMemo(
@@ -52,29 +54,12 @@ const RadarGridLevelLinear = memo(({ radius, angleStep, dataLength }) => {
     const animatedPath = useAnimatedPath(radarLineGenerator(points))
 
     return <animated.path fill="none" d={animatedPath} {...theme.grid.line} />
-})
-
-RadarGridLevelLinear.displayName = 'RadarGridLevelLinear'
-RadarGridLevelLinear.propTypes = {
-    radius: PropTypes.number.isRequired,
-    angleStep: PropTypes.number.isRequired,
-    dataLength: PropTypes.number.isRequired,
 }
 
-const RadarGridLevels = memo(({ shape, ...props }) => {
+export const RadarGridLevels = ({ shape, ...props }: RadarGridLevelsProps) => {
     return shape === 'circular' ? (
         <RadarGridLevelCircular radius={props.radius} />
     ) : (
         <RadarGridLevelLinear {...props} />
     )
-})
-
-RadarGridLevels.displayName = 'RadarGridLevels'
-RadarGridLevels.propTypes = {
-    shape: PropTypes.oneOf(['circular', 'linear']).isRequired,
-    radius: PropTypes.number.isRequired,
-    angleStep: PropTypes.number.isRequired,
-    dataLength: PropTypes.number.isRequired,
 }
-
-export default RadarGridLevels

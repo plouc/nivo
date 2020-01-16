@@ -18,13 +18,21 @@ export interface PatternDotsSpec {
     stagger?: boolean
 }
 
+export const patternDotsDefaults = {
+    background: '#ffffff',
+    color: '#000000',
+    size: 4,
+    padding: 4,
+    stagger: false,
+}
+
 export const PatternDots = ({
     id,
-    background = '#ffffff',
-    color = '#000000',
-    size = 4,
-    padding = 4,
-    stagger = false,
+    background = patternDotsDefaults.background,
+    color = patternDotsDefaults.color,
+    size = patternDotsDefaults.size,
+    padding = patternDotsDefaults.padding,
+    stagger = patternDotsDefaults.stagger,
 }: PatternDotsSpec) => {
     let fullSize = size + padding
     const radius = size / 2

@@ -7,14 +7,14 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { generateWinesTastes } from '@nivo/generators'
 import SEO from '../../components/seo'
 import ApiClient from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/radar/props'
 import mapper from '../../data/components/radar/mapper'
 import meta from '../../data/components/radar/meta.yml'
+import { generateLightDataSet } from '../../data/components/radar/generator'
 
-const { data, keys } = generateWinesTastes()
+const data = generateLightDataSet()
 
 const RadarApi = () => {
     return (
@@ -32,8 +32,6 @@ const RadarApi = () => {
                     width: 600,
                     height: 600,
                     data: JSON.stringify(data, null, '  '),
-                    keys,
-                    indexBy: 'taste',
                     maxValue: 'auto',
 
                     margin: {
@@ -44,7 +42,7 @@ const RadarApi = () => {
                     },
 
                     colors: { scheme: 'nivo' },
-                    curve: 'catmullRomClosed',
+                    shapeInterpolation: 'catmullRomClosed',
 
                     borderWidth: 2,
                     borderColor: { from: 'color' },

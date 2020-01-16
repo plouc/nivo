@@ -139,7 +139,7 @@ packages-tslint: ##@1 packages run tslint on all packages
         ./packages/line/index.d.ts \
         ./packages/network/index.d.ts \
         ./packages/pie/index.d.ts \
-        ./packages/radar/index.d.ts \
+        ./packages/radar/src/*.ts \
         ./packages/sankey/index.d.ts \
         ./packages/scales/src/*.ts \
         ./packages/scatterplot/index.d.ts \

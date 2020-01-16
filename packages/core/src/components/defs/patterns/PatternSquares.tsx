@@ -18,13 +18,21 @@ export interface PatternSquaresSpec {
     stagger?: boolean
 }
 
+export const patternSquaresDefaults = {
+    background: '#ffffff',
+    color: '#000000',
+    size: 4,
+    padding: 4,
+    stagger: false,
+}
+
 export const PatternSquares = ({
     id,
-    background = '#ffffff',
-    color = '#000000',
-    size = 4,
-    padding = 4,
-    stagger = false,
+    background = patternSquaresDefaults.background,
+    color = patternSquaresDefaults.color,
+    size = patternSquaresDefaults.size,
+    padding = patternSquaresDefaults.padding,
+    stagger = patternSquaresDefaults.stagger,
 }: PatternSquaresSpec) => {
     let fullSize = size + padding
     const halfPadding = padding / 2

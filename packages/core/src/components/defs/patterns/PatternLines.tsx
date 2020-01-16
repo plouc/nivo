@@ -19,13 +19,21 @@ export interface PatternLinesSpec {
     lineWidth?: number
 }
 
+export const patternLinesDefaults = {
+    spacing:  5,
+    rotation: 0,
+    background: '#ffffff',
+    color: '#000000',
+    lineWidth: 2,
+}
+
 export const PatternLines = ({
     id,
-    spacing: _spacing = 5,
-    rotation: _rotation = 0,
-    background = '#ffffff',
-    color = '#000000',
-    lineWidth = 2,
+    spacing: _spacing = patternLinesDefaults.spacing,
+    rotation: _rotation = patternLinesDefaults.rotation,
+    background = patternLinesDefaults.background,
+    color = patternLinesDefaults.color,
+    lineWidth = patternLinesDefaults.lineWidth,
 }: PatternLinesSpec) => {
     let rotation = Math.round(_rotation) % 360
     const spacing = Math.abs(_spacing)

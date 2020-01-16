@@ -8,6 +8,5 @@
  */
 export { default as Radar } from './Radar'
 export * from './Radar'
-export { default as ResponsiveRadar } from './ResponsiveRadar'
-export { default as RadarDots } from './RadarDots'
-export * from './props'
+export * from './ResponsiveRadar'
+export * from './RadarDots'
