@@ -12,11 +12,17 @@ export const useQuantizeColorScaleLegendData = ({
     scale,
     domain: overriddenDomain,
     reverse = false,
-    valueFormat = v => v,
+    valueFormat = (v: any) => v,
     separator = ' - ',
+}: {
+    scale: any
+    domain?: Array<string | number>
+    reverse?: boolean
+    valueFormat?: any
+    separator?: string
 }) => {
     return useMemo(() => {
-        const domain = overriddenDomain || scale.range()
+        const domain = overriddenDomain || (scale.range() as Array<string | number>)
 
         const items = domain.map((domainValue, index) => {
             const [start, end] = scale.invertExtent(domainValue)
@@ -30,7 +36,9 @@ export const useQuantizeColorScaleLegendData = ({
                 color: domainValue,
             }
         })
-        if (reverse === true) items.reverse()
+        if (reverse === true) {
+            items.reverse()
+        }
 
         return items
     }, [overriddenDomain, scale, reverse])
