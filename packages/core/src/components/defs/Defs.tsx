@@ -15,10 +15,10 @@ export const defsMapping = {
     ...patternTypes,
 }
 
-type DefSpec = LinearGradientSpec | PatternDotsSpec | PatternLinesSpec | PatternSquaresSpec
+export type DefSpec = LinearGradientSpec | PatternDotsSpec | PatternLinesSpec | PatternSquaresSpec
 
 interface DefsProps {
-    defs: DefSpec[]
+    defs?: DefSpec[]
 }
 
 export const Defs = ({ defs: definitions }: DefsProps) => {

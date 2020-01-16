@@ -6,13 +6,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo, useMemo } from 'react'
-import PropTypes from 'prop-types'
+import React, { SVGAttributes, useMemo } from 'react'
 import { lineRadial, curveLinearClosed } from 'd3-shape'
 import { useTransition, animated } from 'react-spring'
 import { useTheme, useMotionConfig } from '@nivo/core'
+import { RadarGridShape } from './RadarGrid'
 
-const RadarGridLevels = memo(({ shape, radii, angleStep, dataLength }) => {
+export interface RadarGridLevelsProps {
+    shape: RadarGridShape
+    radii: number[]
+    angleStep: number
+    dataLength: number
+}
+
+export const RadarGridLevels = ({ shape, radii, angleStep, dataLength }: RadarGridLevelsProps) => {
     const theme = useTheme()
     const { animate, config: springConfig } = useMotionConfig()
     let transitions
@@ -20,13 +27,15 @@ const RadarGridLevels = memo(({ shape, radii, angleStep, dataLength }) => {
     const radarLineGenerator = useMemo(
         () =>
             lineRadial()
-                .angle(i => i * angleStep)
+                .angle(([i]) => i * angleStep)
                 .curve(curveLinearClosed),
         [angleStep]
     )
 
+    const keyFn = (_, i) => `level.${i}`
+
     if (shape === 'circular') {
-        transitions = useTransition(radii, (_, i) => `level.${i}`, {
+        transitions = useTransition<number, SVGAttributes<unknown>>(radii, keyFn as any, {
             enter: radius => ({ radius }),
             update: radius => ({ radius }),
             leave: { radius: 0 },
@@ -46,25 +55,15 @@ const RadarGridLevels = memo(({ shape, radii, angleStep, dataLength }) => {
 
     const points = Array.from({ length: dataLength }, (_, i) => i)
 
-    transitions = useTransition(radii, (_, i) => `level.${i}`, {
-        enter: radius => ({ path: radarLineGenerator.radius(radius)(points) }),
-        update: radius => ({ path: radarLineGenerator.radius(radius)(points) }),
-        leave: { path: radarLineGenerator.radius(0)(points) },
+    transitions = useTransition<number, SVGAttributes<unknown>>(radii, keyFn as any, {
+        enter: radius => ({ path: radarLineGenerator.radius(radius)(points as any) }),
+        update: radius => ({ path: radarLineGenerator.radius(radius)(points as any) }),
+        leave: { path: radarLineGenerator.radius(0)(points as any) },
         config: springConfig,
         immediate: !animate,
-    })
+    } as any)
 
     return transitions.map(({ props: animatedProps, key }) => (
         <animated.path key={key} fill="none" d={animatedProps.path} {...theme.grid.line} />
     ))
-})
-
-RadarGridLevels.displayName = 'RadarGridLevels'
-RadarGridLevels.propTypes = {
-    shape: PropTypes.oneOf(['circular', 'linear']).isRequired,
-    radii: PropTypes.arrayOf(PropTypes.number).isRequired,
-    angleStep: PropTypes.number.isRequired,
-    dataLength: PropTypes.number.isRequired,
 }
-
-export default RadarGridLevels
