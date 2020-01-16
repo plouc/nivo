@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React, { PropsWithChildren } from 'react'
-import { Defs } from './defs'
+import { Defs, DefSpec } from './defs'
 import { useTheme } from '../theming'
 
 interface SvgWrapperProps {
@@ -17,7 +17,7 @@ interface SvgWrapperProps {
         top: number
         left: number
     }
-    defs: any[]
+    defs?: DefSpec[]
 }
 
 export const SvgWrapper = ({

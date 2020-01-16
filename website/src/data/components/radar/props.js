@@ -6,11 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { closedCurvePropKeys, DotsItemDefaultProps as dotDefaults } from '@nivo/core'
-import { RadarDefaultProps as defaults, RadarDots } from '@nivo/radar'
+import { closedCurvePropKeys } from '@nivo/core'
+import { radarDefaults } from '@nivo/radar'
 import { motionProperties, groupProperties } from '../../../lib/componentProperties'
-
-const dotsDefaults = RadarDots.defaultProps
 
 const props = [
     {
@@ -18,51 +16,23 @@ const props = [
         group: 'Base',
         help: 'Chart data.',
         description: `
-            Chart data. If using objects indexBy & keys
-            should be strings, if using array they
-            should be numbers.
-            
-            For example, given this config:
+            Chart data, which must conform to this structure:
             \`\`\`
-            [
-                { language: 'javascript', john: 12, sarah: 32, bob: 27 },
-                { language: 'golang', john: 25, sarah: 15, bob: 3 },
-                { language: 'python', john: 5, sarah: 22, bob: 31 },
-                { language: 'java', john: 19, sarah: 17, bob: 9 }
-            ]
-            keys: ['john', 'sarah', 'bob']
-            indexBy: 'language'
+            Array<{
+                id:   string
+                data: Array<{
+                    x: number | string
+                    y: number
+                }>
+            }>
             \`\`\`
-            We'll have a radar chart representing programing
-            skills for each user by language
-            (3 layers and 4 dimensions).
+            This component assumes that every serie contains all
+            x values sorted the same way they should appear on the chart.
+            Also note that the x/y structure is used here for data
+            interoperability with other chart components.
         `,
-        type: 'Array<object | Array>',
+        type: 'object[]',
         required: true,
-    },
-    {
-        key: 'indexBy',
-        group: 'Base',
-        help: 'Key to use to index the data.',
-        description: `
-            Key to use to index the data, this key
-            must exist in each data item.
-        `,
-        type: 'string | number',
-        required: false,
-        defaultValue: defaults.indexBy,
-    },
-    {
-        key: 'keys',
-        group: 'Base',
-        help: 'Keys to use to determine each serie.',
-        description: `
-            Keys to use to determine each serie.
-            Those keys should exist in each data item.
-        `,
-        type: 'Array<string | number>',
-        required: false,
-        defaultValue: defaults.keys,
     },
     {
         key: 'maxValue',
@@ -73,7 +43,7 @@ const props = [
             the provided data.
         `,
         required: false,
-        defaultValue: defaults.maxValue,
+        defaultValue: radarDefaults.maxValue,
         type: 'number | string',
         controlType: 'switchableRange',
         group: 'Base',
@@ -85,15 +55,15 @@ const props = [
         },
     },
     {
-        key: 'curve',
-        help: 'Curve interpolation.',
+        key: 'shapeInterpolation',
+        help: 'Shape interpolation.',
         description: `
             Defines the curve factory to use
-            for the line generator.
+            for the shape generator.
         `,
         type: 'string',
         required: false,
-        defaultValue: defaults.curve,
+        defaultValue: radarDefaults.shapeInterpolation,
         controlType: 'choices',
         group: 'Base',
         controlOptions: {
@@ -154,7 +124,7 @@ const props = [
         help: 'Defines how to compute slice color.',
         type: 'string | Function | string[]',
         required: false,
-        defaultValue: defaults.colors,
+        defaultValue: radarDefaults.colors,
         controlType: 'ordinalColors',
         group: 'Style',
     },
@@ -163,7 +133,7 @@ const props = [
         help: 'Shape fill opacity.',
         type: 'number',
         required: false,
-        defaultValue: defaults.fillOpacity,
+        defaultValue: radarDefaults.fillOpacity,
         controlType: 'opacity',
         group: 'Style',
     },
@@ -177,7 +147,7 @@ const props = [
         `,
         type: 'string',
         required: false,
-        defaultValue: defaults.blendMode,
+        defaultValue: radarDefaults.blendMode,
         controlType: 'blendMode',
         group: 'Style',
     },
@@ -186,7 +156,7 @@ const props = [
         help: 'Shape border width.',
         type: 'number',
         required: false,
-        defaultValue: defaults.borderWidth,
+        defaultValue: radarDefaults.borderWidth,
         controlType: 'lineWidth',
         group: 'Style',
     },
@@ -195,7 +165,7 @@ const props = [
         help: 'Method to compute border color.',
         type: 'string | object | Function',
         required: false,
-        defaultValue: defaults.borderColor,
+        defaultValue: radarDefaults.borderColor,
         controlType: 'inheritedColor',
         group: 'Style',
     },
@@ -204,7 +174,7 @@ const props = [
         help: 'Number of levels to display for grid',
         type: 'number',
         required: false,
-        defaultValue: defaults.gridLevels,
+        defaultValue: radarDefaults.gridLevels,
         controlType: 'range',
         group: 'Grid',
         controlOptions: {
@@ -217,7 +187,7 @@ const props = [
         help: 'Determine shape of the grid.',
         type: 'string',
         required: false,
-        defaultValue: defaults.gridShape,
+        defaultValue: radarDefaults.gridShape,
         controlType: 'choices',
         group: 'Grid',
         controlOptions: {
@@ -228,10 +198,10 @@ const props = [
         },
     },
     {
-        key: 'gridLabel',
-        type: 'Function',
+        key: 'gridLabelComponent',
+        type: 'FunctionComponent',
         group: 'Grid',
-        help: 'Grid label.',
+        help: 'Custom grid label component.',
         description: `
             An optional function to override label rendering.
             It must return a **valid SVG element** and will
@@ -239,11 +209,13 @@ const props = [
             \`\`\`
             {
                 id:     string
+                x:      number
+                y:      number
+                # angle in degrees
+                angle:  number
                 # this can be used to determine the label layout,
                 # if the element should be centered, left/right aligned
                 anchor: 'start' | 'middle' | 'end'
-                # angle in degrees
-                angle:  number
             }
             \`\`\`
             The component will be wrapped inside
@@ -256,7 +228,7 @@ const props = [
         help: 'Label offset from outer radius.',
         type: 'number',
         required: false,
-        defaultValue: defaults.gridLabelOffset,
+        defaultValue: radarDefaults.gridLabelOffset,
         controlType: 'range',
         group: 'Grid',
         controlOptions: {
@@ -270,7 +242,7 @@ const props = [
         help: 'Enable/disable dots.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.enableDots,
+        defaultValue: radarDefaults.enableDots,
         controlType: 'switch',
         group: 'Dots',
     },
@@ -292,7 +264,7 @@ const props = [
         help: 'Size of the dots.',
         type: 'number',
         required: false,
-        defaultValue: dotsDefaults.size,
+        defaultValue: radarDefaults.dotSize,
         controlType: 'range',
         group: 'Dots',
         controlOptions: {
@@ -306,7 +278,7 @@ const props = [
         help: 'Method to compute dots color.',
         type: 'string | object | Function',
         required: false,
-        defaultValue: dotsDefaults.color,
+        defaultValue: radarDefaults.dotColor,
         controlType: 'inheritedColor',
         group: 'Dots',
     },
@@ -315,7 +287,7 @@ const props = [
         help: 'Width of the dots border.',
         type: 'number',
         required: false,
-        defaultValue: dotsDefaults.borderWidth,
+        defaultValue: radarDefaults.dotBorderWidth,
         controlType: 'range',
         group: 'Dots',
         controlOptions: {
@@ -329,7 +301,7 @@ const props = [
         help: 'Method to compute dots border color.',
         type: 'string | object | Function',
         required: false,
-        defaultValue: dotsDefaults.borderColor,
+        defaultValue: radarDefaults.dotBorderColor,
         controlType: 'inheritedColor',
         group: 'Dots',
     },
@@ -338,7 +310,7 @@ const props = [
         help: 'Enable/disable dots label.',
         type: 'boolean',
         required: false,
-        defaultValue: dotsDefaults.enableLabel,
+        defaultValue: radarDefaults.enableDotLabel,
         controlType: 'switch',
         group: 'Dots',
     },
@@ -349,7 +321,7 @@ const props = [
             'Property to use to determine dot label. If a function is provided, it will receive current value and serie and must return a label.',
         type: 'string',
         required: false,
-        defaultValue: dotsDefaults.label,
+        defaultValue: radarDefaults.dotLabel,
         controlType: 'choices',
         group: 'Dots',
         controlOptions: {
@@ -370,7 +342,7 @@ const props = [
         help: 'Label Y offset from dot shape.',
         type: 'number',
         required: false,
-        defaultValue: dotDefaults.labelYOffset,
+        defaultValue: radarDefaults.dotLabelYOffset,
         controlType: 'range',
         group: 'Dots',
         controlOptions: {
@@ -385,11 +357,11 @@ const props = [
         help: 'Enable/disable interactivity.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.isInteractive,
+        defaultValue: radarDefaults.isInteractive,
         controlType: 'switch',
         group: 'Interactivity',
     },
-    ...motionProperties(['svg'], defaults),
+    ...motionProperties(['svg'], radarDefaults),
 ]
 
 export const groups = groupProperties(props)

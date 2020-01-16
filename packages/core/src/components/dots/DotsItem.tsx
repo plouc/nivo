@@ -19,7 +19,7 @@ interface DotsItemProps<Datum> {
     borderWidth: number
     borderColor: string
     symbol: React.ElementType
-    label?: string | number
+    label?: string | number | null
     labelTextAnchor?: 'start' | 'middle' | 'end'
     labelYOffset?: number
     theme: Theme

@@ -6,16 +6,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo } from 'react'
-import range from 'lodash/range'
-import PropTypes from 'prop-types'
+import React, { SVGAttributes } from 'react'
+import { range } from 'lodash'
 import { TransitionMotion, spring } from 'react-motion'
 import { useTheme, useMotionConfig } from '@nivo/core'
 import { lineRadial, curveLinearClosed } from 'd3-shape'
+import { RadarGridShape } from './RadarGrid'
 
 const levelWillEnter = () => ({ r: 0 })
 
-const RadarGridLevels = memo(({ shape, radii, angleStep, dataLength }) => {
+export interface RadarGridLevelsProps {
+    shape: RadarGridShape
+    radii: number[]
+    angleStep: number
+    dataLength: number
+}
+
+export const RadarGridLevels = ({ shape, radii, angleStep, dataLength }: RadarGridLevelsProps) => {
     const theme = useTheme()
     const { animate, springConfig } = useMotionConfig()
 
@@ -31,11 +38,16 @@ const RadarGridLevels = memo(({ shape, radii, angleStep, dataLength }) => {
     }
 
     if (shape === 'circular') {
-        if (animate !== true) {
+        if (!animate) {
             return (
                 <g>
                     {radii.map((r, i) => (
-                        <circle key={`level.${i}`} fill="none" r={r} {...theme.grid.line} />
+                        <circle
+                            key={`level.${i}`}
+                            fill="none"
+                            r={r}
+                            {...(theme.grid.line as SVGAttributes<SVGCircleElement>)}
+                        />
                     ))}
                 </g>
             )
@@ -50,7 +62,7 @@ const RadarGridLevels = memo(({ shape, radii, angleStep, dataLength }) => {
                                 key={key}
                                 fill="none"
                                 r={Math.max(style.r, 0)}
-                                {...theme.grid.line}
+                                {...(theme.grid.line as SVGAttributes<SVGCircleElement>)}
                             />
                         ))}
                     </g>
@@ -59,21 +71,21 @@ const RadarGridLevels = memo(({ shape, radii, angleStep, dataLength }) => {
         )
     }
 
-    const radarLineGenerator = lineRadial()
+    const radarLineGenerator = lineRadial<number>()
         .angle(i => i * angleStep)
         .curve(curveLinearClosed)
 
     const points = range(dataLength)
 
-    if (animate !== true) {
+    if (!animate) {
         return (
             <g>
                 {radii.map((radius, i) => (
                     <path
                         key={`level.${i}`}
                         fill="none"
-                        d={radarLineGenerator.radius(radius)(points)}
-                        {...theme.grid.line}
+                        d={radarLineGenerator.radius(radius)(points) as string}
+                        {...(theme.grid.line as SVGAttributes<SVGPathElement>)}
                     />
                 ))}
             </g>
@@ -88,22 +100,12 @@ const RadarGridLevels = memo(({ shape, radii, angleStep, dataLength }) => {
                         <path
                             key={key}
                             fill="none"
-                            d={radarLineGenerator.radius(style.r)(points)}
-                            {...theme.grid.line}
+                            d={radarLineGenerator.radius(style.r as number)(points) as string}
+                            {...(theme.grid.line as SVGAttributes<SVGPathElement>)}
                         />
                     ))}
                 </g>
             )}
         </TransitionMotion>
     )
-})
-
-RadarGridLevels.displayName = 'RadarGridLevels'
-RadarGridLevels.propTypes = {
-    shape: PropTypes.oneOf(['circular', 'linear']).isRequired,
-    radii: PropTypes.arrayOf(PropTypes.number).isRequired,
-    angleStep: PropTypes.number.isRequired,
-    dataLength: PropTypes.number.isRequired,
 }
-
-export default RadarGridLevels

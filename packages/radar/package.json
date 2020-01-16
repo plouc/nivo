@@ -34,7 +34,6 @@
     "react-motion": "^0.5.2"
   },
   "peerDependencies": {
-    "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.8.4 < 17.0.0"
   },
   "publishConfig": {
