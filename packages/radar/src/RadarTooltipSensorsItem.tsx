@@ -15,15 +15,15 @@ import { Arc } from 'd3-shape'
 
 export interface RadarTooltipSensorsItemProps {
     slice: RadarSlice
+    sliceGenerator: Arc<any, RadarSlice>
     radius: number
-    arcGenerator: Arc<any, RadarSlice>
     tooltipFormat?: any // PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 }
 
 export function RadarTooltipSensorsItem({
     slice,
+    sliceGenerator,
     radius,
-    arcGenerator,
     tooltipFormat,
 }: RadarTooltipSensorsItemProps) {
     const [isHover, setIsHover] = useState(false)
@@ -65,11 +65,11 @@ export function RadarTooltipSensorsItem({
         const position = positionFromAngle(slice.angle, radius)
 
         return {
-            path: arcGenerator(slice) as string,
+            path: sliceGenerator(slice) as string,
             tipX: position.x,
             tipY: position.y,
         }
-    }, [slice, radius, arcGenerator])
+    }, [slice, radius, sliceGenerator])
 
     return (
         <>

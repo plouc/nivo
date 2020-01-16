@@ -6,7 +6,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { ReactElement } from 'react'
+import React, { createElement, FunctionComponent, ReactElement } from 'react'
+import { Arc, LineRadial } from 'd3-shape'
 import {
     withContainer,
     useDimensions,
@@ -20,8 +21,33 @@ import { RadarShapes } from './RadarShapes'
 import { RadarGrid, RadarGridShape } from './RadarGrid'
 import { RadarTooltipSensors } from './RadarTooltipSensors'
 import { RadarDots, RadarLabel } from './RadarDots'
-import { useRadar, BaseRadarDatum, RadarData } from './hooks'
+import {
+    useRadar,
+    BaseRadarDatum,
+    RadarData,
+    RadarSerie,
+    RadarSlice,
+    RadarSerieDatum,
+} from './hooks'
 import { RadarGridLabelComponent } from './RadarGridLabels'
+
+export type RadarCustomLayer<Datum extends BaseRadarDatum> = FunctionComponent<{
+    series: Array<RadarSerie<Datum>>
+    slices: RadarSlice[]
+    radius: number
+    centerX: number
+    centerY: number
+    angleStep: number
+    shapeGenerator: LineRadial<RadarSerieDatum<Datum>>
+    sliceGenerator: Arc<any, RadarSlice>
+}>
+
+export type RadarLayer<Datum extends BaseRadarDatum> =
+    | 'grid'
+    | 'shapes'
+    | 'sensors'
+    | 'dots'
+    | RadarCustomLayer<Datum>
 
 export interface RadarProps<Datum extends BaseRadarDatum> {
     data: RadarData<Datum>
@@ -60,6 +86,7 @@ export interface RadarProps<Datum extends BaseRadarDatum> {
     motionStiffness?: number
     gridLabelComponent?: RadarGridLabelComponent
     tooltipFormat: any // PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    layers: Array<RadarLayer<Datum>>
 }
 
 export const radarDefaults = {
@@ -85,6 +112,7 @@ export const radarDefaults = {
     animate: true,
     motionDamping: 13,
     motionStiffness: 90,
+    layers: ['grid', 'shapes', 'sensors', 'dots'] as Array<RadarLayer<any>>,
 }
 
 export function Radar<Datum extends BaseRadarDatum>({
@@ -115,6 +143,7 @@ export function Radar<Datum extends BaseRadarDatum>({
     blendMode = radarDefaults.blendMode,
     tooltipFormat,
     legends = [],
+    layers = radarDefaults.layers,
     isInteractive,
 }: RadarProps<Datum>) {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
@@ -123,16 +152,23 @@ export function Radar<Datum extends BaseRadarDatum>({
         partialMargin
     )
 
-    const { series, slices, radius, centerX, centerY, angleStep, shapeGenerator } = useRadar<Datum>(
-        {
-            width: innerWidth,
-            height: innerHeight,
-            data,
-            colors,
-            maxValue,
-            shapeInterpolation,
-        }
-    )
+    const {
+        series,
+        slices,
+        radius,
+        centerX,
+        centerY,
+        angleStep,
+        shapeGenerator,
+        sliceGenerator,
+    } = useRadar<Datum>({
+        width: innerWidth,
+        height: innerHeight,
+        data,
+        colors,
+        maxValue,
+        shapeInterpolation,
+    })
 
     /*
     const legendData = keys.map(key => ({
@@ -142,47 +178,72 @@ export function Radar<Datum extends BaseRadarDatum>({
     }))
     */
 
+    const layerById = {
+        grid: (
+            <RadarGrid
+                slices={slices}
+                levels={gridLevels}
+                shape={gridShape}
+                radius={radius}
+                angleStep={angleStep}
+                labelComponent={gridLabelComponent}
+                labelOffset={gridLabelOffset}
+            />
+        ),
+        shapes: (
+            <RadarShapes<Datum>
+                series={series}
+                shapeGenerator={shapeGenerator}
+                borderWidth={borderWidth}
+                borderColor={borderColor}
+                fillOpacity={fillOpacity}
+                blendMode={blendMode}
+            />
+        ),
+        sensors: isInteractive ? (
+            <RadarTooltipSensors
+                slices={slices}
+                sliceGenerator={sliceGenerator}
+                radius={radius}
+                tooltipFormat={tooltipFormat}
+            />
+        ) : null,
+        dots: enableDots ? (
+            <RadarDots<Datum>
+                series={series}
+                symbol={dotSymbol as any}
+                size={dotSize}
+                color={dotColor}
+                borderWidth={dotBorderWidth}
+                borderColor={dotBorderColor}
+                enableLabel={enableDotLabel}
+                label={dotLabel}
+                labelFormat={dotLabelFormat}
+                labelYOffset={dotLabelYOffset}
+            />
+        ) : null,
+    }
+
     return (
         <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
             <g transform={`translate(${centerX}, ${centerY})`}>
-                <RadarGrid
-                    slices={slices}
-                    levels={gridLevels}
-                    shape={gridShape}
-                    radius={radius}
-                    angleStep={angleStep}
-                    labelComponent={gridLabelComponent}
-                    labelOffset={gridLabelOffset}
-                />
-                <RadarShapes<Datum>
-                    series={series}
-                    shapeGenerator={shapeGenerator}
-                    borderWidth={borderWidth}
-                    borderColor={borderColor}
-                    fillOpacity={fillOpacity}
-                    blendMode={blendMode}
-                />
-                {isInteractive && (
-                    <RadarTooltipSensors
-                        slices={slices}
-                        radius={radius}
-                        tooltipFormat={tooltipFormat}
-                    />
-                )}
-                {enableDots && (
-                    <RadarDots<Datum>
-                        series={series}
-                        symbol={dotSymbol as any}
-                        size={dotSize}
-                        color={dotColor}
-                        borderWidth={dotBorderWidth}
-                        borderColor={dotBorderColor}
-                        enableLabel={enableDotLabel}
-                        label={dotLabel}
-                        labelFormat={dotLabelFormat}
-                        labelYOffset={dotLabelYOffset}
-                    />
-                )}
+                {layers.map((layer, i) => {
+                    if (typeof layer === 'function') {
+                        return createElement(layer, {
+                            key: i,
+                            series,
+                            slices,
+                            radius,
+                            centerX,
+                            centerY,
+                            angleStep,
+                            shapeGenerator,
+                            sliceGenerator,
+                        })
+                    }
+
+                    return (layerById as any)[layer]
+                })}
             </g>
             {/*legends.map((legend, i) => (
                 <BoxLegendSvg
