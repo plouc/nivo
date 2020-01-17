@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
 import { defsPropTypes, noop } from '@nivo/core'
 import { ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
 import { LegendPropShape } from '@nivo/legends'
-import WaffleCell from './WaffleCell'
+import { WaffleCell } from './WaffleCell'
 import WaffleCellHtml from './WaffleCellHtml'
 
 const commonPropTypes = {

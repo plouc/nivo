@@ -7,7 +7,16 @@ import typescript from 'rollup-plugin-typescript2'
 import cleanup from 'rollup-plugin-cleanup'
 
 // required while migrating packages to TypeScript
-const typescriptPackages = ['axes', 'colors', 'core', 'legends', 'radar', 'scales', 'tooltip']
+const typescriptPackages = [
+    'axes',
+    'colors',
+    'core',
+    'legends',
+    'radar',
+    'scales',
+    'tooltip',
+    'waffle',
+]
 
 const externals = ['prop-types']
 

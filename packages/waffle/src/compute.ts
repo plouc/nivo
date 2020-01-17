@@ -6,42 +6,57 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import range from 'lodash.range'
+import { range } from 'lodash'
+import { EnhancedWaffleDatum, WaffleFillDirection } from './hooks'
 
 /**
  * Computes optimal cell size according to dimensions/layout/padding.
- *
- * @param {number} width
- * @param {number} height
- * @param {number} rows
- * @param {number} columns
- * @param {number} padding
- *
- * @return {number}
  */
-export const computeCellSize = (width, height, rows, columns, padding) => {
+export const computeCellSize = (
+    width: number,
+    height: number,
+    rows: number,
+    columns: number,
+    padding: number
+) => {
     const sizeX = (width - (columns - 1) * padding) / columns
     const sizeY = (height - (rows - 1) * padding) / rows
 
     return Math.min(sizeX, sizeY)
 }
 
+export interface WaffleCell {
+    position: number
+    row: number
+    column: number
+    x: number
+    y: number
+    color: string
+}
+
+export interface WaffleDataCell extends WaffleCell {
+    data: EnhancedWaffleDatum
+    groupIndex: number
+}
+
+export const isWaffleDataCell = (cell: WaffleCell | WaffleDataCell): cell is WaffleDataCell =>
+    'data' in cell
+
 /**
  * Computes empty cells according to dimensions/layout/padding.
- *
- * @param {number}                        width
- * @param {number}                        height
- * @param {number}                        rows
- * @param {number}                        columns
- * @param {'top'|'right'|'bottom'|'left'} fillDirection
- * @param {number}                        padding
- *
- * @return {{ cells: Array, cellSize: number, origin: { x: number, y: number } } }
  */
-export const computeGrid = (width, height, rows, columns, fillDirection, padding) => {
+export const computeGrid = (
+    width: number,
+    height: number,
+    rows: number,
+    columns: number,
+    fillDirection: WaffleFillDirection,
+    padding: number,
+    emptyColor: string
+) => {
     const cellSize = computeCellSize(width, height, rows, columns, padding)
 
-    const cells = []
+    const cells: WaffleCell[] = []
     switch (fillDirection) {
         case 'top':
             range(rows).forEach(row => {
@@ -52,6 +67,7 @@ export const computeGrid = (width, height, rows, columns, fillDirection, padding
                         column,
                         x: column * (cellSize + padding),
                         y: row * (cellSize + padding),
+                        color: emptyColor,
                     })
                 })
             })
@@ -66,6 +82,7 @@ export const computeGrid = (width, height, rows, columns, fillDirection, padding
                         column,
                         x: column * (cellSize + padding),
                         y: row * (cellSize + padding),
+                        color: emptyColor,
                     })
                 })
             })
@@ -80,6 +97,7 @@ export const computeGrid = (width, height, rows, columns, fillDirection, padding
                         column,
                         x: column * (cellSize + padding),
                         y: row * (cellSize + padding),
+                        color: emptyColor,
                     })
                 })
             })
@@ -94,6 +112,7 @@ export const computeGrid = (width, height, rows, columns, fillDirection, padding
                         column,
                         x: column * (cellSize + padding),
                         y: row * (cellSize + padding),
+                        color: emptyColor,
                     })
                 })
             })
@@ -111,19 +130,20 @@ export const computeGrid = (width, height, rows, columns, fillDirection, padding
     return { cells, cellSize, origin }
 }
 
-export const applyDataToGrid = (_cells, data) => {
-    const cells = _cells.map(cell => ({ ...cell }))
+export const applyDataToGrid = (cells: WaffleCell[], data: EnhancedWaffleDatum[]) => {
+    const cellsCopy: Array<WaffleCell | WaffleDataCell> = cells.map(cell => ({ ...cell }))
 
     data.forEach(datum => {
         range(datum.startAt, datum.endAt).forEach(position => {
-            const cell = cells[position]
+            const cell = cellsCopy[position]
             if (cell !== undefined) {
-                cell.data = datum
-                cell.groupIndex = datum.groupIndex
-                cell.color = datum.color
+                const cellWithData = cell as WaffleDataCell
+                cellWithData.data = datum
+                cellWithData.groupIndex = datum.groupIndex
+                cellWithData.color = datum.color
             }
         })
-    })
+    }, [])
 
-    return cells
+    return cellsCopy
 }
