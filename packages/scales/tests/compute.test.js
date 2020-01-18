@@ -44,15 +44,12 @@ describe('generateSeriesAxis', () => {
                         [
                             {
                                 id: 'A',
-                                data: [
-                                    { data: { [axis]: 'a' } },
-                                    { data: { [axis]: 'b' } },
-                                    { data: { [axis]: 'c' } },
-                                ],
+                                data: [{ data: { [axis]: 'a' } }, { data: { [axis]: 'c' } }],
                             },
                             {
                                 id: 'B',
                                 data: [
+                                    { data: { [axis]: 'b' } },
                                     { data: { [axis]: 'c' } },
                                     { data: { [axis]: 'd' } },
                                     { data: { [axis]: 'e' } },

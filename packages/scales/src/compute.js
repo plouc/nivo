@@ -133,6 +133,11 @@ export const generateSeriesAxis = (
             .reverse()
         min = all[0]
         max = last(all)
+    } else if (scaleSpec.type === 'point') {
+        all = uniq(all)
+        all = sortBy(all, v => v)
+        min = all[0]
+        max = last(all)
     } else {
         all = uniq(all)
         min = all[0]
