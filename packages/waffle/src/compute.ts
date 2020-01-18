@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { range } from 'lodash'
-import { EnhancedWaffleDatum, WaffleFillDirection } from './hooks'
+import { EnhancedWaffleDatum, WaffleFillDirection, WaffleCell, WaffleDataCell } from './props'
 
 /**
  * Computes optimal cell size according to dimensions/layout/padding.
@@ -24,23 +24,6 @@ export const computeCellSize = (
 
     return Math.min(sizeX, sizeY)
 }
-
-export interface WaffleCell {
-    position: number
-    row: number
-    column: number
-    x: number
-    y: number
-    color: string
-}
-
-export interface WaffleDataCell extends WaffleCell {
-    data: EnhancedWaffleDatum
-    groupIndex: number
-}
-
-export const isWaffleDataCell = (cell: WaffleCell | WaffleDataCell): cell is WaffleDataCell =>
-    'data' in cell
 
 /**
  * Computes empty cells according to dimensions/layout/padding.

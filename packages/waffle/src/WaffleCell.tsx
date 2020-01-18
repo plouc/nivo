@@ -6,27 +6,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { MouseEvent } from 'react'
-import { EnhancedWaffleDatum } from './hooks'
-
-export interface WaffleCellProps {
-    position: number
-    size: number
-    x: number
-    y: number
-    color: string
-    fill?: string
-    opacity: number
-    borderWidth: number
-    borderColor: string
-    data?: EnhancedWaffleDatum
-    onHover: (event: MouseEvent) => void
-    onLeave: (event: MouseEvent) => void
-    // onClick: PropTypes.func.isRequired,
-}
+import React from 'react'
+import { WaffleCellProps } from './props'
 
 export const WaffleCell = ({
-    position,
+    // position,
     size,
     x,
     y,
@@ -35,8 +19,8 @@ export const WaffleCell = ({
     opacity,
     borderWidth,
     borderColor,
-    onHover,
-    onLeave,
+    // onMouseHover,
+    // onMouseLeave,
     // onClick,
     data,
 }: WaffleCellProps) => {
@@ -50,9 +34,9 @@ export const WaffleCell = ({
             strokeWidth={borderWidth}
             stroke={borderColor}
             opacity={opacity}
-            onMouseEnter={onHover}
-            onMouseMove={onHover}
-            onMouseLeave={onLeave}
+            // onMouseEnter={onHover}
+            // onMouseMove={onHover}
+            // onMouseLeave={onLeave}
             /*
             onClick={event => {
                 onClick({ position, color, x, y, data }, event)

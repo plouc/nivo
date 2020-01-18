@@ -1,29 +1,20 @@
 import { useState, useMemo } from 'react'
+import { useTheme } from '@nivo/core'
 import {
     InheritedColor,
     OrdinalColorScale,
     useInheritedColor,
     useOrdinalColorScale,
 } from '@nivo/colors'
-import { computeGrid, mergeCellsData, WaffleCell, WaffleDataCell } from './compute'
-import { useTheme } from '@nivo/core'
-import { waffleDefaults } from './Waffle'
-
-export interface WaffleDatum {
-    id: string | number
-    label: string | number
-    value: number
-}
-
-export interface EnhancedWaffleDatum extends WaffleDatum {
-    groupIndex: number
-    startAt: number
-    endAt: number
-    color: string
-    fill?: string
-}
-
-export type WaffleFillDirection = 'top' | 'right' | 'bottom' | 'left'
+import {
+    waffleDefaults,
+    WaffleFillDirection,
+    WaffleDatum,
+    EnhancedWaffleDatum,
+    WaffleCell,
+    WaffleDataCell,
+} from './props'
+import { computeGrid, mergeCellsData } from './compute'
 
 export const useWaffle = ({
     width,

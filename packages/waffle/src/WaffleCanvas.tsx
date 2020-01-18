@@ -6,28 +6,24 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, {
-    ComponentProps,
-    FunctionComponent,
-    useCallback,
-    useEffect,
-    useRef,
-    MouseEvent,
-} from 'react'
+import React, { useCallback, useEffect, useRef, MouseEvent } from 'react'
 import {
-    Container,
     withContainer,
     useDimensions,
     useTheme,
     getRelativeCursor,
     isCursorInRect,
 } from '@nivo/core'
-import { InheritedColor, OrdinalColorScale } from '@nivo/colors'
 import { renderLegendToCanvas, LegendProp } from '@nivo/legends'
 // import WaffleCellTooltip from './WaffleCellTooltip'
-import { isWaffleDataCell, WaffleCell, WaffleDataCell } from './compute'
-import { useWaffle, WaffleDatum, WaffleFillDirection, useMergedCellData } from './hooks'
-import { waffleDefaults } from './Waffle'
+import {
+    BaseWaffleProps,
+    waffleDefaults,
+    isWaffleDataCell,
+    WaffleCell,
+    WaffleDataCell,
+} from './props'
+import { useWaffle, useMergedCellData } from './hooks'
 
 const findCellUnderCursor = (
     cells: Array<WaffleCell | WaffleDataCell>,
@@ -56,33 +52,9 @@ const findCellUnderCursor = (
         )
     )
 
-export interface WaffleCanvasProps extends ComponentProps<typeof Container> {
-    pixelRatio: number
-    width: number
-    height: number
-    margin?: {
-        top?: number
-        right?: number
-        bottom?: number
-        left?: number
-    }
-    data: WaffleDatum[]
-    total: number
-    hiddenIds: Array<string | number>
-    rows: number
-    columns: number
-    fillDirection?: WaffleFillDirection
-    padding?: number
-    colors?: OrdinalColorScale<WaffleDatum>
-    emptyColor?: string
-    emptyOpacity: number
-    borderWidth?: number
-    borderColor?: InheritedColor
-    // tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-    // tooltip: PropTypes.func,
-    cellComponent?: FunctionComponent<any>
+export interface WaffleCanvasProps extends BaseWaffleProps {
+    pixelRatio?: number
     legends?: LegendProp[]
-    onClick?: (cell: WaffleCell | WaffleDataCell, event: MouseEvent) => void
 }
 
 const WaffleCanvas = ({

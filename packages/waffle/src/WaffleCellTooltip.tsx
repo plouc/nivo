@@ -8,7 +8,7 @@
  */
 import React from 'react'
 import { BasicTooltip } from '@nivo/tooltip'
-import { EnhancedWaffleDatum } from './hooks'
+import { EnhancedWaffleDatum } from './props'
 
 export interface WaffleCellTooltipProps {
     position: number

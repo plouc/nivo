@@ -7,21 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-
-export interface WaffleCellHtmlProps {
-    position: number
-    size: number
-    x: number
-    y: number
-    color: string
-    opacity: number
-    borderWidth: number
-    borderColor: string
-    // data: PropTypes.object.isRequired,
-    // onHover: PropTypes.func.isRequired,
-    // onLeave: PropTypes.func.isRequired,
-    // onClick: PropTypes.func.isRequired,
-}
+import { WaffleCellProps } from './props'
 
 export const WaffleCellHtml = ({
     // position,
@@ -36,7 +22,7 @@ export const WaffleCellHtml = ({
     // onHover,
     // onLeave,
     // onClick,
-}: WaffleCellHtmlProps) => {
+}: WaffleCellProps) => {
     return (
         <div
             style={{

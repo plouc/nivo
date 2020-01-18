@@ -28,13 +28,11 @@
         "@nivo/legends": "0.61.1",
         "@nivo/tooltip": "0.61.0",
         "lodash": "^4.17.11",
-        "react-motion": "^0.5.2",
-        "recompose": "^0.30.0"
+        "react-motion": "^0.5.2"
     },
     "devDependencies": {
         "@types/lodash": "^4.14.149",
-        "@types/react-motion": "^0.0.29",
-        "@types/recompose": "^0.30.7"
+        "@types/react-motion": "^0.0.29"
     },
     "peerDependencies": {
         "prop-types": ">= 15.5.10 < 16.0.0",

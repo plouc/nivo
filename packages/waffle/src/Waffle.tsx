@@ -6,68 +6,34 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { FunctionComponent, ReactNode, useCallback, MouseEvent, ComponentProps } from 'react'
-import { partial } from 'lodash'
+import React, { ReactNode, useCallback, MouseEvent } from 'react'
 import { TransitionMotion, spring } from 'react-motion'
 import {
     withContainer,
-    Container,
     SvgWrapper,
     useDimensions,
     useMotionConfig,
     // bindDefs,
 } from '@nivo/core'
-import { InheritedColor, OrdinalColorScale } from '@nivo/colors'
 import { BoxLegendSvg, LegendProp } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'
-import { isWaffleDataCell, mergeCellsData, WaffleCell, WaffleDataCell } from './compute'
-import { useWaffle, WaffleDatum, WaffleFillDirection } from './hooks'
-import { WaffleCell as WaffleCellComponent } from './WaffleCell'
+import {
+    WaffleCellComponent,
+    BaseWaffleProps,
+    waffleDefaults,
+    isWaffleDataCell,
+    WaffleCell,
+    WaffleDataCell,
+} from './props'
+import { mergeCellsData } from './compute'
+import { useWaffle } from './hooks'
+import { WaffleCells } from './WaffleCells'
+import { WaffleCell as WaffleCellSvg } from './WaffleCell'
 import { WaffleCellTooltip } from './WaffleCellTooltip'
 
-export interface WaffleProps extends ComponentProps<typeof Container> {
-    width: number
-    height: number
-    margin?: {
-        top?: number
-        right?: number
-        bottom?: number
-        left?: number
-    }
-    data: WaffleDatum[]
-    total: number
-    rows: number
-    columns: number
-    fillDirection?: WaffleFillDirection
-    padding?: number
-    colors?: OrdinalColorScale<WaffleDatum>
-    emptyColor?: string
-    emptyOpacity: number
-    borderWidth?: number
-    borderColor?: InheritedColor
-    // tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-    // tooltip: PropTypes.func,
-    cellComponent?: FunctionComponent<any>
-    hiddenIds?: Array<string | number>
+export interface WaffleProps extends BaseWaffleProps {
+    cellComponent?: WaffleCellComponent
     legends?: LegendProp[]
-}
-
-export const waffleDefaults = {
-    pixelRatio:
-        (global as any).window && (global as any).window.devicePixelRatio
-            ? ((global as any).window.devicePixelRatio as number)
-            : 1,
-    fillDirection: 'bottom' as WaffleFillDirection,
-    padding: 1,
-    colors: { scheme: 'nivo' } as OrdinalColorScale<any>,
-    emptyColor: '#cccccc',
-    emptyOpacity: 1,
-    borderWidth: 0,
-    borderColor: { from: 'color', modifiers: [['darker', 1]] } as InheritedColor,
-    hiddenIds: [],
-    legends: [],
-    defs: [],
-    fill: [],
 }
 
 const Waffle = ({
@@ -86,7 +52,7 @@ const Waffle = ({
     emptyOpacity = waffleDefaults.emptyOpacity,
     borderWidth = waffleDefaults.borderWidth,
     borderColor,
-    cellComponent = WaffleCellComponent,
+    cellComponent = WaffleCellSvg,
     legends = waffleDefaults.legends,
 }: WaffleProps) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
@@ -157,24 +123,19 @@ const Waffle = ({
     if (!animate) {
         const computedCells = mergeCellsData(grid.cells, computedData)
 
-        renderedCells = computedCells.map(cell => {
-            return React.createElement(cellComponent, {
-                key: cell.position,
-                position: cell.position,
-                size: grid.cellSize,
-                x: cell.x,
-                y: cell.y,
-                color: cell.color,
-                fill: isWaffleDataCell(cell) ? cell.data.fill : undefined,
-                opacity: isWaffleDataCell(cell) ? 1 : emptyOpacity,
-                borderWidth,
-                borderColor: getBorderColor(cell),
-                data: isWaffleDataCell(cell) ? cell.data : undefined,
-                onHover: partial(handleCellHover, cell),
-                onLeave: partial(handleCellLeave, cell),
+        renderedCells = (
+            <WaffleCells
+                cells={computedCells}
+                cellComponent={cellComponent}
+                cellSize={grid.cellSize}
+                borderWidth={borderWidth}
+                getBorderColor={getBorderColor}
+                emptyOpacity={emptyOpacity}
+                onMouseHover={handleCellHover}
+                onMouseLeave={handleCellLeave}
                 // onClick,
-            })
-        })
+            />
+        )
     } else {
         renderedCells = (
             <TransitionMotion
@@ -200,26 +161,17 @@ const Waffle = ({
                     )
 
                     return (
-                        <>
-                            {animatedComputedCells.map(cell => {
-                                return React.createElement(cellComponent, {
-                                    key: cell.position,
-                                    position: cell.position,
-                                    size: grid.cellSize,
-                                    x: cell.x,
-                                    y: cell.y,
-                                    color: cell.color,
-                                    fill: isWaffleDataCell(cell) ? cell.data.fill : undefined,
-                                    opacity: isWaffleDataCell(cell) ? 1 : emptyOpacity,
-                                    borderWidth,
-                                    borderColor: getBorderColor(cell),
-                                    data: isWaffleDataCell(cell) ? cell.data : undefined,
-                                    onHover: partial(handleCellHover, cell),
-                                    onLeave: partial(handleCellLeave, cell),
-                                    // onClick,
-                                })
-                            })}
-                        </>
+                        <WaffleCells
+                            cells={animatedComputedCells}
+                            cellComponent={cellComponent}
+                            cellSize={grid.cellSize}
+                            emptyOpacity={emptyOpacity}
+                            borderWidth={borderWidth}
+                            getBorderColor={getBorderColor}
+                            onMouseHover={handleCellHover}
+                            onMouseLeave={handleCellLeave}
+                            // onClick={onClick}
+                        />
                     )
                 }}
             </TransitionMotion>
