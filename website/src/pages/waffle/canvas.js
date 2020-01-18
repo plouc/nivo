@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { ResponsiveWaffleCanvas, WaffleDefaultProps } from '@nivo/waffle'
+import { ResponsiveWaffleCanvas, waffleDefaults } from '@nivo/waffle'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/waffle/meta.yml'
 import { groups } from '../../data/components/waffle/props'
@@ -130,7 +130,7 @@ const WaffleCanvas = () => {
             properties={groups}
             propertiesMapper={mapper}
             initialProperties={initialProperties}
-            defaultProperties={WaffleDefaultProps}
+            defaultProperties={waffleDefaults}
             codePropertiesMapper={properties => ({
                 ...properties,
                 cellComponent: properties.cellComponent ? 'CustomCell(props) => (…)' : undefined,
@@ -138,29 +138,27 @@ const WaffleCanvas = () => {
             })}
             generateData={generateData}
         >
-            {(properties, data, theme, logAction) => {
-                return (
-                    <ResponsiveWaffleCanvas
-                        data={data}
-                        {...properties}
-                        theme={theme}
-                        onClick={node => {
-                            let label
-                            if (node.data.value !== undefined) {
-                                label = `${node.data.label}: ${node.data.value} (position: ${node.position})`
-                            } else {
-                                label = `empty at position: ${node.position}`
-                            }
-                            logAction({
-                                type: 'click',
-                                label: `[cell] ${label}`,
-                                color: node.color,
-                                data: node,
-                            })
-                        }}
-                    />
-                )
-            }}
+            {(properties, data, theme, logAction) => (
+                <ResponsiveWaffleCanvas
+                    data={data}
+                    {...properties}
+                    theme={theme}
+                    onClick={node => {
+                        let label
+                        if (node.data !== undefined) {
+                            label = `${node.data.label}: ${node.data.value} (position: ${node.position})`
+                        } else {
+                            label = `empty at position: ${node.position}`
+                        }
+                        logAction({
+                            type: 'click',
+                            label: `[cell] ${label}`,
+                            color: node.color,
+                            data: node,
+                        })
+                    }}
+                />
+            )}
         </ComponentTemplate>
     )
 }

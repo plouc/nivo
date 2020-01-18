@@ -7,8 +7,8 @@
  * file that was distributed with this source code.
  */
 import { createContext } from 'react'
+import { useTooltipHandlers } from './hooks'
 
-export type TooltipContextValue = [any, any]
-
-// tslint:disable-next-line:variable-name
-export const TooltipContext = createContext<TooltipContextValue>([] as any)
+export const TooltipContext = createContext<ReturnType<typeof useTooltipHandlers>>(
+    {} as ReturnType<typeof useTooltipHandlers>
+)

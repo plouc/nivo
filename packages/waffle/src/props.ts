@@ -6,13 +6,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import PropTypes from 'prop-types'
-import { defsPropTypes, noop } from '@nivo/core'
-import { ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
-import { LegendPropShape } from '@nivo/legends'
-import { WaffleCell } from './WaffleCell'
-import WaffleCellHtml from './WaffleCellHtml'
 
+/*
 const commonPropTypes = {
     total: PropTypes.number.isRequired,
     data: PropTypes.arrayOf(
@@ -49,22 +44,9 @@ const commonPropTypes = {
     }).isRequired,
 }
 
-export const WafflePropTypes = {
-    ...commonPropTypes,
-    cellComponent: PropTypes.func.isRequired,
-    ...defsPropTypes,
-    legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
-}
-
 export const WaffleHtmlPropTypes = {
     ...commonPropTypes,
     cellComponent: PropTypes.func.isRequired,
-}
-
-export const WaffleCanvasPropTypes = {
-    ...commonPropTypes,
-    pixelRatio: PropTypes.number.isRequired,
-    legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
 }
 
 const commonDefaultProps = {
@@ -85,22 +67,8 @@ const commonDefaultProps = {
     onClick: noop,
 }
 
-export const WaffleDefaultProps = {
-    ...commonDefaultProps,
-    cellComponent: WaffleCell,
-    defs: [],
-    fill: [],
-    legends: [],
-}
-
 export const WaffleHtmlDefaultProps = {
     ...commonDefaultProps,
     cellComponent: WaffleCellHtml,
 }
-
-export const WaffleCanvasDefaultProps = {
-    ...commonDefaultProps,
-    legends: [],
-    pixelRatio:
-        global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
-}
+*/

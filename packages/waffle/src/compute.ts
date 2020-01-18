@@ -130,7 +130,7 @@ export const computeGrid = (
     return { cells, cellSize, origin }
 }
 
-export const applyDataToGrid = (cells: WaffleCell[], data: EnhancedWaffleDatum[]) => {
+export const mergeCellsData = (cells: WaffleCell[], data: EnhancedWaffleDatum[]) => {
     const cellsCopy: Array<WaffleCell | WaffleDataCell> = cells.map(cell => ({ ...cell }))
 
     data.forEach(datum => {

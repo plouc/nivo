@@ -5,8 +5,9 @@ import {
     useInheritedColor,
     useOrdinalColorScale,
 } from '@nivo/colors'
-import { computeGrid, WaffleCell, WaffleDataCell } from './compute'
+import { computeGrid, mergeCellsData, WaffleCell, WaffleDataCell } from './compute'
 import { useTheme } from '@nivo/core'
+import { waffleDefaults } from './Waffle'
 
 export interface WaffleDatum {
     id: string | number
@@ -29,27 +30,27 @@ export const useWaffle = ({
     height,
     data,
     total,
-    hiddenIds,
+    hiddenIds = waffleDefaults.hiddenIds,
     rows,
     columns,
-    fillDirection,
-    padding,
-    colors,
-    emptyColor,
-    borderColor,
+    fillDirection = waffleDefaults.fillDirection,
+    padding = waffleDefaults.padding,
+    colors = waffleDefaults.colors,
+    emptyColor = waffleDefaults.emptyColor,
+    borderColor = waffleDefaults.borderColor,
 }: {
     width: number
     height: number
     data: WaffleDatum[]
     total: number
-    hiddenIds: Array<string | number>
     rows: number
     columns: number
-    fillDirection: WaffleFillDirection
-    padding: number
-    colors: OrdinalColorScale<WaffleDatum>
-    emptyColor: string
-    borderColor: InheritedColor
+    hiddenIds?: Array<string | number>
+    fillDirection?: WaffleFillDirection
+    padding?: number
+    colors?: OrdinalColorScale<WaffleDatum>
+    emptyColor?: string
+    borderColor?: InheritedColor
 }) => {
     const [currentCell, setCurrentCell] = useState<WaffleCell | WaffleDataCell | null>(null)
 
@@ -111,3 +112,6 @@ export const useWaffle = ({
         setCurrentCell,
     }
 }
+
+export const useMergedCellData = (cells: WaffleCell[], data: EnhancedWaffleDatum[]) =>
+    useMemo(() => mergeCellsData(cells, data), [cells, data])

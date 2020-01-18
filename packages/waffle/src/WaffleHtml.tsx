@@ -6,26 +6,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { FunctionComponent, ReactNode, useCallback, MouseEvent, ComponentProps } from 'react'
+import React, { ComponentProps, FunctionComponent, MouseEvent, ReactNode, useCallback } from 'react'
 import { partial } from 'lodash'
 import { TransitionMotion, spring } from 'react-motion'
-import {
-    withContainer,
-    Container,
-    SvgWrapper,
-    useDimensions,
-    useMotionConfig,
-    // bindDefs,
-} from '@nivo/core'
+import { Container, withContainer, useDimensions, useMotionConfig } from '@nivo/core'
 import { InheritedColor, OrdinalColorScale } from '@nivo/colors'
-import { BoxLegendSvg, LegendProp } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'
 import { isWaffleDataCell, mergeCellsData, WaffleCell, WaffleDataCell } from './compute'
 import { useWaffle, WaffleDatum, WaffleFillDirection } from './hooks'
-import { WaffleCell as WaffleCellComponent } from './WaffleCell'
+import { WaffleCellHtml as WaffleCellComponent } from './WaffleCellHtml'
+import { waffleDefaults } from './Waffle'
 import { WaffleCellTooltip } from './WaffleCellTooltip'
 
-export interface WaffleProps extends ComponentProps<typeof Container> {
+export interface WaffleHtmlProps extends ComponentProps<typeof Container> {
     width: number
     height: number
     margin?: {
@@ -49,28 +42,9 @@ export interface WaffleProps extends ComponentProps<typeof Container> {
     // tooltip: PropTypes.func,
     cellComponent?: FunctionComponent<any>
     hiddenIds?: Array<string | number>
-    legends?: LegendProp[]
 }
 
-export const waffleDefaults = {
-    pixelRatio:
-        (global as any).window && (global as any).window.devicePixelRatio
-            ? ((global as any).window.devicePixelRatio as number)
-            : 1,
-    fillDirection: 'bottom' as WaffleFillDirection,
-    padding: 1,
-    colors: { scheme: 'nivo' } as OrdinalColorScale<any>,
-    emptyColor: '#cccccc',
-    emptyOpacity: 1,
-    borderWidth: 0,
-    borderColor: { from: 'color', modifiers: [['darker', 1]] } as InheritedColor,
-    hiddenIds: [],
-    legends: [],
-    defs: [],
-    fill: [],
-}
-
-const Waffle = ({
+const WaffleHtml = ({
     width,
     height,
     margin: partialMargin,
@@ -87,8 +61,7 @@ const Waffle = ({
     borderWidth = waffleDefaults.borderWidth,
     borderColor,
     cellComponent = WaffleCellComponent,
-    legends = waffleDefaults.legends,
-}: WaffleProps) => {
+}: WaffleHtmlProps) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
         height,
@@ -96,16 +69,7 @@ const Waffle = ({
     )
     const { animate, springConfig } = useMotionConfig()
 
-    /*
-    withPropsOnChange(
-        ['computedData', 'defs', 'fill'],
-        ({ computedData, defs, fill }) => ({
-            defs: bindDefs(defs, computedData, fill, { targetKey: 'fill' }),
-        })
-    ),
-    */
-
-    const { grid, computedData, legendData, getBorderColor, setCurrentCell } = useWaffle({
+    const { grid, computedData, getBorderColor, setCurrentCell } = useWaffle({
         width: innerWidth,
         height: innerHeight,
         data,
@@ -227,19 +191,24 @@ const Waffle = ({
     }
 
     return (
-        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
-            <g transform={`translate(${grid.origin.x}, ${grid.origin.y})`}>{renderedCells}</g>
-            {legends.map((legend, i) => (
-                <BoxLegendSvg
-                    key={i}
-                    {...legend}
-                    containerWidth={width}
-                    containerHeight={height}
-                    data={legendData}
-                />
-            ))}
-        </SvgWrapper>
+        <div
+            style={{
+                position: 'relative',
+                width: outerWidth,
+                height: outerHeight,
+            }}
+        >
+            <div
+                style={{
+                    position: 'absolute',
+                    top: margin.top + grid.origin.y,
+                    left: margin.left + grid.origin.x,
+                }}
+            >
+                {renderedCells}
+            </div>
+        </div>
     )
 }
 
-export default withContainer(Waffle)
+export default withContainer(WaffleHtml)
