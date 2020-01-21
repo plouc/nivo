@@ -15,7 +15,17 @@ export const defsMapping = {
     ...patternTypes,
 }
 
-export type DefSpec = LinearGradientSpec | PatternDotsSpec | PatternLinesSpec | PatternSquaresSpec
+export type DefGradientSpec = LinearGradientSpec
+const gradientKeys = Object.keys(gradientTypes)
+export const isGradientDefSpec = (def: DefSpec): def is DefGradientSpec =>
+    gradientKeys.includes(def.type)
+
+export type DefPatternSpec = PatternDotsSpec | PatternLinesSpec | PatternSquaresSpec
+const patternKeys = Object.keys(patternTypes)
+export const isPatternDefSpec = (def: DefSpec): def is DefPatternSpec =>
+    patternKeys.includes(def.type)
+
+export type DefSpec = DefGradientSpec | DefPatternSpec
 
 interface DefsProps {
     defs?: DefSpec[]

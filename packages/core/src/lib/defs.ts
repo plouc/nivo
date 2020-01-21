@@ -6,39 +6,50 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { isFunction, isPlainObject, pick, isEqual, get, set } from 'lodash'
-import { gradientTypes, patternTypes } from '../components/defs'
-
-const gradientKeys = Object.keys(gradientTypes)
-const patternKeys = Object.keys(patternTypes)
+import { useMemo } from 'react'
+import { isFunction, isPlainObject, pick, isEqual, get, set, cloneDeep } from 'lodash'
+import { DefSpec, isGradientDefSpec, isPatternDefSpec } from '../components/defs'
 
 /**
  * Check a node matches given def predicate.
  * Predicate can be either a wildcard, a function or an object.
  */
-export const isMatchingDef = (predicate: any, node: any, dataKey?: string) => {
+export const isMatchingDef = <Datum = any>(
+    predicate: ((datum: Datum) => boolean) | '*',
+    datum: Datum,
+    dataKey?: string
+): boolean => {
     if (predicate === '*') {
         return true
     } else if (isFunction(predicate)) {
-        return predicate(node)
+        return predicate(datum)
     } else if (isPlainObject(predicate)) {
-        const data = dataKey ? get(node, dataKey) : node
+        const data = dataKey ? get(datum, dataKey) : datum
         return isEqual(pick(data, Object.keys(predicate)), predicate)
     }
 
     return false
 }
 
+export interface DefRule {
+    id: string
+    match: any
+}
+
+export interface DatumWithFill {
+    fill?: string
+}
+
 /**
  * Compute SVG defs.
  */
-export const bindDefs = (
+export const bindDefs = <Datum extends DatumWithFill = any>(
     // Base SVG defs configs
-    defs: any[],
+    defs: DefSpec[],
     // Data nodes to apply defs on
-    nodes: any[],
+    nodes: Datum[],
     // Rules used to conditionally apply defs on data nodes
-    rules: any[],
+    rules: DefRule[],
     {
         dataKey,
         colorKey = 'color',
@@ -52,6 +63,7 @@ export const bindDefs = (
         targetKey?: string
     } = {}
 ) => {
+    // defs populated with proper ids/parameters
     let boundDefs: any[] = []
 
     // will hold generated variation ids,
@@ -63,12 +75,12 @@ export const bindDefs = (
         boundDefs = [...defs]
 
         nodes.forEach(node => {
-            for (let i = 0; i < rules.length; i++) {
-                const { id, match } = rules[i]
+            for (const rule of rules) {
+                const { id, match } = rule
                 if (isMatchingDef(match, node, dataKey)) {
                     const def = defs.find(({ id: defId }) => defId === id)
                     if (def) {
-                        if (patternKeys.includes(def.type)) {
+                        if (isPatternDefSpec(def)) {
                             if (def.background === 'inherit' || def.color === 'inherit') {
                                 const nodeColor = get(node, colorKey)
                                 let background = def.background
@@ -98,7 +110,7 @@ export const bindDefs = (
                                 // do not generate new def as there's no inheritance involved
                                 set(node, targetKey, `url(#${id})`)
                             }
-                        } else if (gradientKeys.includes(def.type)) {
+                        } else if (isGradientDefSpec(def)) {
                             const allColors = def.colors.map(({ color }: any) => color)
 
                             if (allColors.includes('inherit')) {
@@ -143,4 +155,34 @@ export const bindDefs = (
     }
 
     return boundDefs
+}
+
+export const useBindDefs = <Datum extends DatumWithFill = any>(
+    // Base SVG defs configs
+    defs: DefSpec[],
+    // Data nodes to apply defs on
+    nodes: Datum[],
+    // Rules used to conditionally apply defs on data nodes
+    rules: DefRule[],
+    {
+        dataKey,
+        colorKey = 'color',
+        targetKey = 'fill',
+    }: {
+        // Path to node data, used for rule object query based predicate
+        dataKey?: string
+        // Node color path, required when inheritance is involved
+        colorKey?: string
+        // Node target property to apply def ID on
+        targetKey?: string
+    } = {}
+) => {
+    // We need to copy the nodes to change refs,
+    // required to re-trigger rendering or force
+    // further computations when using hooks.
+    const nodesCopy = cloneDeep(nodes)
+
+    const boundDefs = useMemo(() => bindDefs(defs, nodesCopy, rules), [defs, nodesCopy, rules])
+
+    return { nodes: nodesCopy, boundDefs }
 }

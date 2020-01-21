@@ -18,37 +18,31 @@ const generateData = () => [
         id: 'men',
         label: 'men',
         value: Math.random() * 33,
-        color: '#468df3',
     },
     {
         id: 'women',
         label: 'women',
         value: Math.random() * 33,
-        color: '#ba72ff',
     },
     {
         id: 'children',
         label: 'children',
         value: Math.random() * 33,
-        color: '#a1cfff',
     },
 ]
 
-const initialProperties = {
+const initialProperties = Object.freeze({
     total: 100,
-
     rows: 18,
     columns: 14,
     fillDirection: 'bottom',
     padding: 1,
-
     margin: {
         top: 10,
         right: 10,
         bottom: 10,
         left: 120,
     },
-
     cellComponent: 'default',
     emptyColor: '#cccccc',
     emptyOpacity: 1,
@@ -58,15 +52,31 @@ const initialProperties = {
         from: 'color',
         modifiers: [['darker', 0.3]],
     },
-
     animate: true,
     motionStiffness: 90,
     motionDamping: 11,
-
     isInteractive: true,
     'custom tooltip example': false,
     tooltip: null,
-
+    defs: [
+        {
+            id: 'dots',
+            type: 'patternDots',
+            background: 'inherit',
+            color: '#c44a67',
+            size: 4,
+            padding: 1,
+            stagger: true,
+        },
+    ],
+    fill: [
+        {
+            id: 'dots',
+            match: {
+                id: 'women',
+            },
+        },
+    ],
     legends: [
         {
             anchor: 'top-left',
@@ -95,7 +105,7 @@ const initialProperties = {
             ],
         },
     ],
-}
+})
 
 const Waffle = () => {
     return (

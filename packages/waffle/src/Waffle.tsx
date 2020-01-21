@@ -13,7 +13,8 @@ import {
     SvgWrapper,
     useDimensions,
     useMotionConfig,
-    // bindDefs,
+    DefSpec,
+    useBindDefs,
 } from '@nivo/core'
 import { BoxLegendSvg, LegendProp } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'
@@ -33,6 +34,8 @@ import { WaffleCellTooltip } from './WaffleCellTooltip'
 
 export interface WaffleProps extends BaseWaffleProps {
     cellComponent?: WaffleCellComponent
+    defs?: DefSpec[]
+    fill?: any[]
     legends?: LegendProp[]
 }
 
@@ -54,6 +57,8 @@ const Waffle = ({
     borderColor,
     cellComponent = WaffleCellSvg,
     legends = waffleDefaults.legends,
+    defs = [],
+    fill = [],
 }: WaffleProps) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -61,15 +66,6 @@ const Waffle = ({
         partialMargin
     )
     const { animate, springConfig } = useMotionConfig()
-
-    /*
-    withPropsOnChange(
-        ['computedData', 'defs', 'fill'],
-        ({ computedData, defs, fill }) => ({
-            defs: bindDefs(defs, computedData, fill, { targetKey: 'fill' }),
-        })
-    ),
-    */
 
     const { grid, computedData, legendData, getBorderColor, setCurrentCell } = useWaffle({
         width: innerWidth,
@@ -85,6 +81,10 @@ const Waffle = ({
         emptyColor,
         borderColor,
     })
+
+
+    console.log(computedData)
+    const { nodes: computedDataWithDefs, boundDefs } = useBindDefs(defs, computedData, fill)
 
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
@@ -121,7 +121,7 @@ const Waffle = ({
     let renderedCells: ReactNode
 
     if (!animate) {
-        const computedCells = mergeCellsData(grid.cells, computedData)
+        const computedCells = mergeCellsData(grid.cells, computedDataWithDefs)
 
         renderedCells = (
             <WaffleCells
@@ -140,7 +140,7 @@ const Waffle = ({
         renderedCells = (
             <TransitionMotion
                 styles={
-                    computedData.map(datum => ({
+                    computedDataWithDefs.map(datum => ({
                         key: datum.id,
                         data: datum,
                         style: {
@@ -179,7 +179,7 @@ const Waffle = ({
     }
 
     return (
-        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
+        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} defs={boundDefs}>
             <g transform={`translate(${grid.origin.x}, ${grid.origin.y})`}>{renderedCells}</g>
             {legends.map((legend, i) => (
                 <BoxLegendSvg
