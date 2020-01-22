@@ -6,15 +6,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { WaffleDefaultProps } from '@nivo/waffle'
+import { waffleDefaults } from '@nivo/waffle'
 import {
     motionProperties,
     defsProperties,
     getLegendsProps,
     groupProperties,
 } from '../../../lib/componentProperties'
-
-const defaults = WaffleDefaultProps
 
 const props = [
     {
@@ -86,7 +84,7 @@ const props = [
         help: `How to fill the waffle.`,
         type: 'string',
         required: false,
-        defaultValue: defaults.fillDirection,
+        defaultValue: waffleDefaults.fillDirection,
         controlType: 'choices',
         group: 'Base',
         controlOptions: {
@@ -179,7 +177,7 @@ const props = [
         help: 'Defines how to compute node color.',
         type: 'string | Function | string[]',
         required: false,
-        defaultValue: defaults.colors,
+        defaultValue: waffleDefaults.colors,
         controlType: 'ordinalColors',
         group: 'Style',
     },
@@ -188,7 +186,7 @@ const props = [
         help: 'Defines empty cells color.',
         type: 'string',
         required: false,
-        defaultValue: defaults.emptyColor,
+        defaultValue: waffleDefaults.emptyColor,
         controlType: 'colorPicker',
         group: 'Style',
     },
@@ -196,7 +194,7 @@ const props = [
         key: 'emptyOpacity',
         help: 'Empty cells opacity.',
         required: false,
-        defaultValue: defaults.emptyOpacity,
+        defaultValue: waffleDefaults.emptyOpacity,
         type: 'number',
         controlType: 'opacity',
         group: 'Style',
@@ -206,7 +204,7 @@ const props = [
         help: 'Control cell border width.',
         type: 'number',
         required: false,
-        defaultValue: defaults.borderWidth,
+        defaultValue: waffleDefaults.borderWidth,
         controlType: 'lineWidth',
         group: 'Style',
     },
@@ -215,7 +213,7 @@ const props = [
         help: 'Method to compute cell border color.',
         type: 'string | object | Function',
         required: false,
-        defaultValue: defaults.borderColor,
+        defaultValue: waffleDefaults.borderColor,
         controlType: 'inheritedColor',
         group: 'Style',
     },
@@ -225,7 +223,7 @@ const props = [
         help: 'Enable/disable interactivity.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.isInteractive,
+        defaultValue: true,
         controlType: 'switch',
         group: 'Interactivity',
     },
@@ -310,7 +308,7 @@ const props = [
             },
         },
     },
-    ...motionProperties(['svg', 'html'], defaults),
+    ...motionProperties(['svg', 'html'], waffleDefaults),
 ]
 
 export const groups = groupProperties(props)

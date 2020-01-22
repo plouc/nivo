@@ -8,12 +8,10 @@
  */
 import React from 'react'
 import { ResponsiveWrapper } from '@nivo/core'
-import Waffle from './Waffle'
+import WaffleCanvas, { WaffleCanvasProps } from './WaffleCanvas'
 
-const ResponsiveWaffle = props => (
+export const ResponsiveWaffleCanvas = (props: Omit<WaffleCanvasProps, 'width' | 'height'>) => (
     <ResponsiveWrapper>
-        {({ width, height }) => <Waffle width={width} height={height} {...props} />}
+        {({ width, height }) => <WaffleCanvas width={width} height={height} {...props} />}
     </ResponsiveWrapper>
 )
-
-export default ResponsiveWaffle

@@ -10,7 +10,7 @@ import { useMemo } from 'react'
 import { format as d3Format } from 'd3-format'
 import { timeFormat as d3TimeFormat } from 'd3-time-format'
 
-export const getValueFormatter = (format: any) => {
+export const getValueFormatter = (format?: any) => {
     // user defined function
     if (typeof format === 'function') {
         return format
@@ -30,7 +30,7 @@ export const getValueFormatter = (format: any) => {
     return (v: any) => v
 }
 
-export const useValueFormatter = (format: any) => {
+export const useValueFormatter = (format?: any) => {
     return useMemo(() => {
         return getValueFormatter(format)
     }, [format])

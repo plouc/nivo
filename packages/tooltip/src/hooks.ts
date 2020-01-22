@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { useState, useContext, useCallback, ReactNode } from 'react'
+import { useState, useContext, useCallback, ReactNode, MouseEvent as ReactMouseEvent } from 'react'
 import { TooltipContext } from './context'
 
 export const useTooltipHandlers = (container: any) => {
@@ -33,7 +33,7 @@ export const useTooltipHandlers = (container: any) => {
     )
 
     const showTooltipFromEvent = useCallback(
-        (content: ReactNode, event: MouseEvent, anchor?: 'left' | 'right') => {
+        (content: ReactNode, event: ReactMouseEvent, anchor?: 'left' | 'right') => {
             const bounds = container.current.getBoundingClientRect()
             const x = event.clientX - bounds.left
             const y = event.clientY - bounds.top

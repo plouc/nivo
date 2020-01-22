@@ -63,7 +63,7 @@ export const renderLegendToCanvas = (
         itemsSpacing?: number
         itemWidth: number
         itemHeight: number
-        itemDirection: LegendItemDirection
+        itemDirection?: LegendItemDirection
         itemTextColor?: string
         symbolSize?: number
         symbolSpacing?: number

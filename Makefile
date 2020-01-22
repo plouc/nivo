@@ -147,7 +147,7 @@ packages-tslint: ##@1 packages run tslint on all packages
         ./packages/stream/index.d.ts \
         ./packages/swarmplot/index.d.ts \
         ./packages/tooltip/src/*.ts \
-        ./packages/waffle/index.d.ts \
+        ./packages/waffle/src/*.ts \
         ./packages/voronoi/index.d.ts
 
 package-test-cover-%: ##@1 packages run tests for a package with code coverage

@@ -13,7 +13,7 @@ import { Chip } from './Chip'
 interface BasicTooltipProps {
     id: ReactNode
     value: string | number | Date
-    format: any
+    format?: any
     enableChip?: boolean
     color?: string
     renderContent?: any

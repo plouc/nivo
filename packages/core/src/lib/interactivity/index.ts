@@ -6,9 +6,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+import { MouseEvent as ReactMouseEvent } from 'react'
 export * from './detect'
 
-export const getRelativeCursor = (el: HTMLElement, event: MouseEvent) => {
+export const getRelativeCursor = (el: HTMLElement, event: ReactMouseEvent) => {
     const { clientX, clientY } = event
     const bounds = el.getBoundingClientRect()
 
