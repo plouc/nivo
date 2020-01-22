@@ -16,15 +16,21 @@ export interface WaffleDatum {
     value: number
 }
 
+// The datum plus custom properties used to compute the waffle layout
 export interface EnhancedWaffleDatum extends WaffleDatum {
     groupIndex: number
+    // Position of the starting cell
     startAt: number
+    // Position of the ending cell
     endAt: number
     color: string
+    // fill might be populated depending on `defs` and `fill`,
+    // used for patterns and gradients
     fill?: string
 }
 
-export interface WaffleCell {
+// used for cells without data, considered empty
+export interface WaffleEmptyCell {
     position: number
     row: number
     column: number
@@ -33,17 +39,21 @@ export interface WaffleCell {
     color: string
 }
 
-export interface WaffleDataCell extends WaffleCell {
+// used for cells having data
+export interface WaffleDataCell extends WaffleEmptyCell {
     data: EnhancedWaffleDatum
     groupIndex: number
 }
 
-export const isWaffleDataCell = (cell: WaffleCell | WaffleDataCell): cell is WaffleDataCell =>
-    'data' in cell
+export type WaffleCell = WaffleEmptyCell | WaffleDataCell
 
-export type WaffleCellMouseHandler = (cell: WaffleCell | WaffleDataCell, event: MouseEvent) => void
+export const isWaffleDataCell = <Datum extends WaffleDatum>(
+    cell: WaffleCell
+): cell is WaffleDataCell => 'data' in cell
 
-export interface WaffleCellProps {
+export type WaffleCellMouseHandler = (cell: WaffleCell, event: MouseEvent) => void
+
+export interface WaffleCellProps<Datum extends WaffleDatum> {
     position: number
     size: number
     x: number
@@ -59,11 +69,14 @@ export interface WaffleCellProps {
     onClick?: WaffleCellMouseHandler
 }
 
-export type WaffleCellComponent = FunctionComponent<WaffleCellProps>
+export type WaffleCellComponent<Datum extends WaffleDatum> = FunctionComponent<
+    WaffleCellProps<Datum>
+>
 
 export type WaffleFillDirection = 'top' | 'right' | 'bottom' | 'left'
 
-export interface BaseWaffleProps extends ComponentProps<typeof Container> {
+export interface BaseWaffleProps<Datum extends WaffleDatum>
+    extends ComponentProps<typeof Container> {
     width: number
     height: number
     margin?: {
@@ -72,13 +85,13 @@ export interface BaseWaffleProps extends ComponentProps<typeof Container> {
         bottom?: number
         left?: number
     }
-    data: WaffleDatum[]
+    data: Datum[]
     total: number
     rows: number
     columns: number
     fillDirection?: WaffleFillDirection
     padding?: number
-    colors?: OrdinalColorScale<WaffleDatum>
+    colors?: OrdinalColorScale<Datum>
     emptyColor?: string
     emptyOpacity: number
     borderWidth?: number

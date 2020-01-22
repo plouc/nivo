@@ -7,7 +7,14 @@
  * file that was distributed with this source code.
  */
 import { range } from 'lodash'
-import { EnhancedWaffleDatum, WaffleFillDirection, WaffleCell, WaffleDataCell } from './props'
+import {
+    EnhancedWaffleDatum,
+    WaffleFillDirection,
+    WaffleCell,
+    WaffleDataCell,
+    WaffleEmptyCell,
+    WaffleDatum,
+} from './props'
 
 /**
  * Computes optimal cell size according to dimensions/layout/padding.
@@ -27,6 +34,7 @@ export const computeCellSize = (
 
 /**
  * Computes empty cells according to dimensions/layout/padding.
+ * At this stage the cells aren't bound to any data.
  */
 export const computeGrid = (
     width: number,
@@ -39,7 +47,7 @@ export const computeGrid = (
 ) => {
     const cellSize = computeCellSize(width, height, rows, columns, padding)
 
-    const cells: WaffleCell[] = []
+    const cells: WaffleEmptyCell[] = []
     switch (fillDirection) {
         case 'top':
             range(rows).forEach(row => {
@@ -113,8 +121,11 @@ export const computeGrid = (
     return { cells, cellSize, origin }
 }
 
-export const mergeCellsData = (cells: WaffleCell[], data: EnhancedWaffleDatum[]) => {
-    const cellsCopy: Array<WaffleCell | WaffleDataCell> = cells.map(cell => ({ ...cell }))
+export const mergeCellsData = <Datum extends WaffleDatum>(
+    cells: WaffleEmptyCell[],
+    data: EnhancedWaffleDatum[]
+) => {
+    const cellsCopy: WaffleCell[] = cells.map(cell => ({ ...cell }))
 
     data.forEach(datum => {
         range(datum.startAt, datum.endAt).forEach(position => {

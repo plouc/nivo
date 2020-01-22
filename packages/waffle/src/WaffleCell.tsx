@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { WaffleCellProps } from './props'
+import { WaffleDatum, WaffleCellProps } from './props'
 
-export const WaffleCell = ({
+export function WaffleCell<Datum extends WaffleDatum>({
     // position,
     size,
     x,
@@ -23,7 +23,7 @@ export const WaffleCell = ({
     // onMouseLeave,
     // onClick,
     data,
-}: WaffleCellProps) => {
+}: WaffleCellProps<Datum>) {
     return (
         <rect
             width={size}

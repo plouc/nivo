@@ -17,6 +17,7 @@ import {
     isWaffleDataCell,
     WaffleCell,
     WaffleDataCell,
+    WaffleDatum,
 } from './props'
 import { mergeCellsData } from './compute'
 import { useWaffle } from './hooks'
@@ -24,11 +25,11 @@ import { WaffleCellHtml } from './WaffleCellHtml'
 import { WaffleCells } from './WaffleCells'
 import { WaffleCellTooltip } from './WaffleCellTooltip'
 
-export interface WaffleHtmlProps extends BaseWaffleProps {
-    cellComponent?: WaffleCellComponent
+export interface WaffleHtmlProps<Datum extends WaffleDatum> extends BaseWaffleProps<WaffleDatum> {
+    cellComponent?: WaffleCellComponent<Datum>
 }
 
-const WaffleHtml = ({
+function WaffleHtml<Datum extends WaffleDatum>({
     width,
     height,
     margin: partialMargin,
@@ -45,7 +46,7 @@ const WaffleHtml = ({
     borderWidth = waffleDefaults.borderWidth,
     borderColor,
     cellComponent = WaffleCellHtml,
-}: WaffleHtmlProps) => {
+}: WaffleHtmlProps<Datum>) {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
         height,

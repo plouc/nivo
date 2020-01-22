@@ -12,11 +12,12 @@ import {
     WaffleDatum,
     EnhancedWaffleDatum,
     WaffleCell,
-    WaffleDataCell,
+    WaffleBaseDatum,
+    WaffleEmptyCell,
 } from './props'
 import { computeGrid, mergeCellsData } from './compute'
 
-export const useWaffle = ({
+export const useWaffle = <Datum extends WaffleBaseDatum = WaffleBaseDatum>({
     width,
     height,
     data,
@@ -32,21 +33,21 @@ export const useWaffle = ({
 }: {
     width: number
     height: number
-    data: WaffleDatum[]
+    data: Array<WaffleDatum<Datum>>
     total: number
     rows: number
     columns: number
     hiddenIds?: Array<string | number>
     fillDirection?: WaffleFillDirection
     padding?: number
-    colors?: OrdinalColorScale<WaffleDatum>
+    colors?: OrdinalColorScale<WaffleDatum<Datum>>
     emptyColor?: string
     borderColor?: InheritedColor
 }) => {
-    const [currentCell, setCurrentCell] = useState<WaffleCell | WaffleDataCell | null>(null)
+    const [currentCell, setCurrentCell] = useState<WaffleCell<Datum> | null>(null)
 
     const theme = useTheme()
-    const getColor = useOrdinalColorScale<WaffleDatum>(colors, 'id')
+    const getColor = useOrdinalColorScale<Datum>(colors, 'id')
     const getBorderColor = useInheritedColor(borderColor, theme)
 
     const unit = total / (rows * columns)
@@ -55,7 +56,7 @@ export const useWaffle = ({
         [width, height, rows, columns, fillDirection, padding, emptyColor]
     )
 
-    const computedData: EnhancedWaffleDatum[] = useMemo(() => {
+    const computedData: Array<EnhancedWaffleDatum<Datum>> = useMemo(() => {
         let currentPosition = 0
 
         return data.map((datum, groupIndex) => {
@@ -104,5 +105,7 @@ export const useWaffle = ({
     }
 }
 
-export const useMergedCellData = (cells: WaffleCell[], data: EnhancedWaffleDatum[]) =>
-    useMemo(() => mergeCellsData(cells, data), [cells, data])
+export const useMergedCellData = <Datum extends WaffleBaseDatum = WaffleBaseDatum>(
+    cells: WaffleEmptyCell[],
+    data: Array<EnhancedWaffleDatum<Datum>>
+) => useMemo(() => mergeCellsData(cells, data), [cells, data])

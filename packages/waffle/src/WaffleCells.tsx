@@ -4,22 +4,22 @@ import {
     WaffleCellProps,
     isWaffleDataCell,
     WaffleCell,
-    WaffleDataCell,
+    WaffleBaseDatum,
 } from './props'
 
-export interface WaffleCellsProps {
-    cells: Array<WaffleCell | WaffleDataCell>
+export interface WaffleCellsProps<Datum extends WaffleBaseDatum> {
+    cells: Array<WaffleCell<Datum>>
     cellComponent: WaffleCellComponent
     cellSize: number
     emptyOpacity: number
     borderWidth: number
     getBorderColor: (...args: any[]) => string
-    onMouseHover?: WaffleCellProps['onMouseHover']
-    onMouseLeave?: WaffleCellProps['onMouseLeave']
-    onClick?: WaffleCellProps['onClick']
+    onMouseHover?: WaffleCellProps<Datum>['onMouseHover']
+    onMouseLeave?: WaffleCellProps<Datum>['onMouseLeave']
+    onClick?: WaffleCellProps<Datum>['onClick']
 }
 
-export const WaffleCells = ({
+export function WaffleCells<Datum extends WaffleBaseDatum>({
     cells,
     cellComponent,
     cellSize,
@@ -29,7 +29,7 @@ export const WaffleCells = ({
     onMouseHover,
     onMouseLeave,
     onClick,
-}: WaffleCellsProps) => {
+}: WaffleCellsProps<Datum>) {
     return (
         <>
             {cells.map(cell =>

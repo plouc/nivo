@@ -9,9 +9,14 @@
 import React from 'react'
 import { ResponsiveWrapper } from '@nivo/core'
 import Waffle, { WaffleProps } from './Waffle'
+import { WaffleDatum } from './props'
 
-export const ResponsiveWaffle = (props: Omit<WaffleProps, 'width' | 'height'>) => (
-    <ResponsiveWrapper>
-        {({ width, height }) => <Waffle width={width} height={height} {...props} />}
-    </ResponsiveWrapper>
-)
+export function ResponsiveWaffle<Datum extends WaffleDatum>(
+    props: Omit<WaffleProps<Datum>, 'width' | 'height'>
+) {
+    return (
+        <ResponsiveWrapper>
+            {({ width, height }) => <Waffle<Datum> width={width} height={height} {...props} />}
+        </ResponsiveWrapper>
+    )
+}

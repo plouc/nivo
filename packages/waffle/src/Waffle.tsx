@@ -24,7 +24,7 @@ import {
     waffleDefaults,
     isWaffleDataCell,
     WaffleCell,
-    WaffleDataCell,
+    WaffleDatum,
 } from './props'
 import { mergeCellsData } from './compute'
 import { useWaffle } from './hooks'
@@ -32,14 +32,14 @@ import { WaffleCells } from './WaffleCells'
 import { WaffleCell as WaffleCellSvg } from './WaffleCell'
 import { WaffleCellTooltip } from './WaffleCellTooltip'
 
-export interface WaffleProps extends BaseWaffleProps {
-    cellComponent?: WaffleCellComponent
+export interface WaffleProps<Datum extends WaffleDatum> extends BaseWaffleProps<Datum> {
+    cellComponent?: WaffleCellComponent<Datum>
     defs?: DefSpec[]
     fill?: any[]
     legends?: LegendProp[]
 }
 
-const Waffle = ({
+function Waffle<Datum extends WaffleDatum = WaffleDatum>({
     width,
     height,
     margin: partialMargin,
@@ -59,7 +59,7 @@ const Waffle = ({
     legends = waffleDefaults.legends,
     defs = [],
     fill = [],
-}: WaffleProps) => {
+}: WaffleProps<Datum>) {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
         height,
@@ -82,14 +82,12 @@ const Waffle = ({
         borderColor,
     })
 
-
-    console.log(computedData)
     const { nodes: computedDataWithDefs, boundDefs } = useBindDefs(defs, computedData, fill)
 
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleCellHover = useCallback(
-        (cell: WaffleCell | WaffleDataCell, event: MouseEvent) => {
+        (cell: WaffleCell, event: MouseEvent) => {
             setCurrentCell(cell)
 
             if (isWaffleDataCell(cell)) {
@@ -111,7 +109,7 @@ const Waffle = ({
     )
 
     const handleCellLeave = useCallback(
-        (cell: WaffleCell | WaffleDataCell, event: MouseEvent) => {
+        (cell: WaffleCell, event: MouseEvent) => {
             setCurrentCell(null)
             hideTooltip()
         },
@@ -124,7 +122,7 @@ const Waffle = ({
         const computedCells = mergeCellsData(grid.cells, computedDataWithDefs)
 
         renderedCells = (
-            <WaffleCells
+            <WaffleCells<Datum>
                 cells={computedCells}
                 cellComponent={cellComponent}
                 cellSize={grid.cellSize}
@@ -161,7 +159,7 @@ const Waffle = ({
                     )
 
                     return (
-                        <WaffleCells
+                        <WaffleCells<Datum>
                             cells={animatedComputedCells}
                             cellComponent={cellComponent}
                             cellSize={grid.cellSize}

@@ -22,6 +22,7 @@ import {
     isWaffleDataCell,
     WaffleCell,
     WaffleDataCell,
+    WaffleDatum,
 } from './props'
 import { useWaffle, useMergedCellData } from './hooks'
 
@@ -52,12 +53,12 @@ const findCellUnderCursor = (
         )
     )
 
-export interface WaffleCanvasProps extends BaseWaffleProps {
+export interface WaffleCanvasProps<Datum extends WaffleDatum> extends BaseWaffleProps<Datum> {
     pixelRatio?: number
     legends?: LegendProp[]
 }
 
-const WaffleCanvas = ({
+function WaffleCanvas<Datum extends WaffleDatum>({
     pixelRatio = 1,
     width,
     height,
@@ -77,7 +78,7 @@ const WaffleCanvas = ({
     legends = waffleDefaults.legends,
     isInteractive,
     onClick,
-}: WaffleCanvasProps) => {
+}: WaffleCanvasProps<Datum>) {
     const canvasEl = useRef<HTMLCanvasElement>(null)
     const { innerWidth, innerHeight, outerWidth, outerHeight, margin } = useDimensions(
         width,
