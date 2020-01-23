@@ -278,6 +278,7 @@ const Bar = props => {
                             from: legend.dataFrom,
                             bars: result.bars,
                             layout,
+                            direction: legend.direction,
                             groupMode,
                             reverse,
                         })
