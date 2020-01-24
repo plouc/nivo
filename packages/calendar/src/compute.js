@@ -343,7 +343,7 @@ export const bindDaysData = ({ days, data, colorScale, emptyColor }) => {
         data.forEach(dayData => {
             if (dayData.day === day.day) {
                 day.value = dayData.value
-                day.color = colorScale(dayData.value)
+                day.color = dayData.color || colorScale(dayData.value)
                 day.data = dayData
             }
         })
