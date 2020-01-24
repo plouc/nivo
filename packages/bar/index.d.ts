@@ -48,6 +48,8 @@ declare module '@nivo/bar' {
 
     export type ValueFormatter = (value: number) => string | number
 
+    export type ColorByFunc = (datum: BarDatum) => string | number
+
     export type BarClickHandler = (
         datum: BarExtendedDatum,
         event: React.MouseEvent<HTMLCanvasElement>
@@ -113,6 +115,7 @@ declare module '@nivo/bar' {
         labelTextColor: InheritedColorProp<BarDatumWithColor>
 
         colors: OrdinalColorsInstruction
+        colorBy: string | ColorByFunc
         borderColor: InheritedColorProp<BarDatumWithColor>
         borderRadius: number
         borderWidth: number
