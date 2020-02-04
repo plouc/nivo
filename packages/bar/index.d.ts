@@ -100,7 +100,9 @@ declare module '@nivo/bar' {
         axisTop: Axis | null
 
         enableGridX: boolean
+        gridXValues: Array<number | string>
         enableGridY: boolean
+        gridYValues: Array<number | string>
 
         barComponent: React.StatelessComponent<BarItemProps>
 
