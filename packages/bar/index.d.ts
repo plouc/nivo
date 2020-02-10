@@ -157,6 +157,8 @@ declare module '@nivo/bar' {
         Partial<{
             layers: Layer[]
             onClick: (datum: BarExtendedDatum, event: React.MouseEvent<SVGRectElement>) => void
+            onMouseEnter: (datum: BarExtendedDatum, event: React.MouseEvent<SVGRectElement>) => void
+            onMouseLeave: (datum: BarExtendedDatum, event: React.MouseEvent<SVGRectElement>) => void
         }>
 
     export class Bar extends React.Component<BarSvgProps & Dimensions> {}
