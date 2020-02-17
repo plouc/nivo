@@ -82,6 +82,12 @@ export const defaultTheme = {
             strokeOpacity: 0.75,
             strokeDasharray: '6 6',
         },
+        staticLine: {
+            stroke: '#dddddd',
+            strokeWidth: 1,
+            strokeOpacity: 0.75,
+            strokeDasharray: '6 6',
+        },
     },
     annotations: {
         text: {

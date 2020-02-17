@@ -43,6 +43,7 @@ export const RadarPropTypes = {
     blendMode: blendModePropType.isRequired,
 
     isInteractive: PropTypes.bool.isRequired,
+    displayInnerGrid: PropTypes.bool,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
@@ -69,6 +70,7 @@ export const RadarDefaultProps = {
     blendMode: 'normal',
 
     isInteractive: true,
+    displayInnerGrid: false,
 
     legends: [],
 
