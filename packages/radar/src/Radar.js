@@ -134,12 +134,9 @@ const Radar = memo(
                     {displayInnerGrid && (
                         <RadarInnerGrid
                             data={data}
-                            keys={keys}
                             getIndex={getIndex}
-                            colorByKey={colorByKey}
                             radius={radius}
                             angleStep={angleStep}
-                            tooltipFormat={tooltipFormat}
                         />
                     )}
                     {isInteractive && (

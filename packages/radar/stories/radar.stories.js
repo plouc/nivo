@@ -126,3 +126,28 @@ const LabelComponent = ({ id, anchor }) => (
 stories.add('custom label component', () => (
     <Radar {...commonProperties} gridLabel={LabelComponent} />
 ))
+
+const theme = {
+    grid: {
+        line: {
+            stroke: 'rgba(0,212,255,.3)',
+            strokeWidth: 2,
+        },
+    },
+    crosshair: {
+        line: {
+            stroke: 'rgba(0,212,255,1)',
+            strokeWidth: 2,
+            strokeDasharray: '0',
+        },
+        staticLine: {
+            stroke: 'rgba(0,212,255,.3)',
+            strokeWidth: 2,
+            strokeDasharray: '0',
+        },
+    },
+}
+
+stories.add('display inner grid', () => (
+    <Radar {...commonProperties} theme={theme} displayInnerGrid={true} />
+))
