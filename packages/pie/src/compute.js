@@ -25,7 +25,7 @@ export const computeRadialLabels = (
         linkHorizontalLength,
         textXOffset,
         noClip,
-        margin
+        margin,
     }
 ) => {
     return arcs
@@ -33,7 +33,9 @@ export const computeRadialLabels = (
         .map(arc => {
             const angle = absoluteAngleRadians(midAngle(arc) - Math.PI / 2)
             const pTest = positionFromAngle(angle, radius + linkOffset + linkDiagonalLength)
-            const vis = !noClip || Math.abs(pTest.y) + 5 < radius + (pTest.y < 0 ? margin.top : margin.bottom)
+            const vis =
+                !noClip ||
+                Math.abs(pTest.y) + 5 < radius + (pTest.y < 0 ? margin.top : margin.bottom)
             const horz = linkHorizontalLength * (vis ? 1 : 2)
 
             const positionA = positionFromAngle(angle, radius + (vis ? linkOffset : -radius / 12))
