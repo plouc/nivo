@@ -154,6 +154,7 @@ class Pie extends Component {
                                                 linkOffset={radialLabelsLinkOffset}
                                                 linkDiagonalLength={radialLabelsLinkDiagonalLength}
                                                 noClip={radialLabelsNoClip}
+                                                margin={margin}
                                                 linkHorizontalLength={
                                                     radialLabelsLinkHorizontalLength
                                                 }

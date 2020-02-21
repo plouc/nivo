@@ -25,21 +25,24 @@ export const computeRadialLabels = (
         linkHorizontalLength,
         textXOffset,
         noClip,
+        margin
     }
 ) => {
-
     return arcs
         .filter(arc => skipAngle === 0 || arc.angleDeg > skipAngle)
         .map(arc => {
             const angle = absoluteAngleRadians(midAngle(arc) - Math.PI / 2)
             const pTest = positionFromAngle(angle, radius + linkOffset + linkDiagonalLength)
-            const vis = !noClip || Math.abs(pTest.y) + 5 < radius
-            const horz = linkHorizontalLength * (vis? 1 : 2)
+            const vis = !noClip || Math.abs(pTest.y) + 5 < radius + (pTest.y < 0 ? margin.top : margin.bottom)
+            const horz = linkHorizontalLength * (vis ? 1 : 2)
 
-            const positionA = positionFromAngle(angle, radius + (vis? linkOffset : -radius / 12))
-            const positionB = positionFromAngle(angle, radius + (vis? linkOffset + linkDiagonalLength : -radius / 12))
-            const positionC = {...positionB}
-            const labelPosition = {...positionB}
+            const positionA = positionFromAngle(angle, radius + (vis ? linkOffset : -radius / 12))
+            const positionB = positionFromAngle(
+                angle,
+                radius + (vis ? linkOffset + linkDiagonalLength : -radius / 12)
+            )
+            const positionC = { ...positionB }
+            const labelPosition = { ...positionB }
 
             let textAlign
             const deg = absoluteAngleDegrees(radiansToDegrees(angle))

@@ -35,6 +35,7 @@ export default class PieRadialLabels extends Component {
             labels: labelsThemePropType.isRequired,
         }).isRequired,
         noClip: PropTypes.bool,
+        margin: PropTypes.object.isRequired,
     }
 
     static defaultProps = {
@@ -61,6 +62,7 @@ export default class PieRadialLabels extends Component {
             linkColor,
             theme,
             noClip,
+            margin,
         } = this.props
 
         const labels = computeRadialLabels(arcs, {
@@ -72,6 +74,7 @@ export default class PieRadialLabels extends Component {
             linkHorizontalLength,
             textXOffset,
             noClip,
+            margin,
         })
 
         return labels.map(label => (
