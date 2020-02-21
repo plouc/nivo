@@ -34,6 +34,7 @@ export default class PieRadialLabels extends Component {
             axis: axisThemePropType.isRequired,
             labels: labelsThemePropType.isRequired,
         }).isRequired,
+        noClip: PropTypes.bool,
     }
 
     static defaultProps = {
