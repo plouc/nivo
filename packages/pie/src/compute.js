@@ -24,35 +24,32 @@ export const computeRadialLabels = (
         linkDiagonalLength,
         linkHorizontalLength,
         textXOffset,
+        noClip,
     }
-) =>
-    arcs
+) => {
+
+    return arcs
         .filter(arc => skipAngle === 0 || arc.angleDeg > skipAngle)
         .map(arc => {
             const angle = absoluteAngleRadians(midAngle(arc) - Math.PI / 2)
-            const positionA = positionFromAngle(angle, radius + linkOffset)
-            const positionB = positionFromAngle(angle, radius + linkOffset + linkDiagonalLength)
+            const pTest = positionFromAngle(angle, radius + linkOffset + linkDiagonalLength)
+            const vis = !noClip || Math.abs(pTest.y) + 5 < radius
+            const horz = linkHorizontalLength * (vis? 1 : 2)
 
-            let positionC
-            let labelPosition
+            const positionA = positionFromAngle(angle, radius + (vis? linkOffset : -radius / 12))
+            const positionB = positionFromAngle(angle, radius + (vis? linkOffset + linkDiagonalLength : -radius / 12))
+            const positionC = {...positionB}
+            const labelPosition = {...positionB}
+
             let textAlign
-
-            if (
-                absoluteAngleDegrees(radiansToDegrees(angle)) < 90 ||
-                absoluteAngleDegrees(radiansToDegrees(angle)) >= 270
-            ) {
-                positionC = { x: positionB.x + linkHorizontalLength, y: positionB.y }
-                labelPosition = {
-                    x: positionB.x + linkHorizontalLength + textXOffset,
-                    y: positionB.y,
-                }
+            const deg = absoluteAngleDegrees(radiansToDegrees(angle))
+            if (deg < 90 || deg >= 270) {
+                positionC.x += horz
+                labelPosition.x += horz + textXOffset
                 textAlign = 'left'
             } else {
-                positionC = { x: positionB.x - linkHorizontalLength, y: positionB.y }
-                labelPosition = {
-                    x: positionB.x - linkHorizontalLength - textXOffset,
-                    y: positionB.y,
-                }
+                positionC.x -= horz
+                labelPosition.x -= horz + textXOffset
                 textAlign = 'right'
             }
 
@@ -64,3 +61,4 @@ export const computeRadialLabels = (
                 line: [positionA, positionB, positionC],
             }
         })
+}

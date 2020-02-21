@@ -69,6 +69,7 @@ class Pie extends Component {
             radialLabelsTextXOffset,
             radialLabelsTextColor,
             radialLabelsLinkColor,
+            radialLabelsNoClip,
 
             // slices labels
             enableSlicesLabels,
@@ -152,6 +153,7 @@ class Pie extends Component {
                                                 skipAngle={radialLabelsSkipAngle}
                                                 linkOffset={radialLabelsLinkOffset}
                                                 linkDiagonalLength={radialLabelsLinkDiagonalLength}
+                                                noClip={radialLabelsNoClip}
                                                 linkHorizontalLength={
                                                     radialLabelsLinkHorizontalLength
                                                 }

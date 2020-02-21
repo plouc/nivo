@@ -59,6 +59,7 @@ export default class PieRadialLabels extends Component {
             textColor,
             linkColor,
             theme,
+            noClip,
         } = this.props
 
         const labels = computeRadialLabels(arcs, {
@@ -69,6 +70,7 @@ export default class PieRadialLabels extends Component {
             linkDiagonalLength,
             linkHorizontalLength,
             textXOffset,
+            noClip,
         })
 
         return labels.map(label => (
