@@ -36,6 +36,7 @@ export const PiePropTypes = {
     endAngle: PropTypes.number.isRequired,
     fit: PropTypes.bool.isRequired,
     padAngle: PropTypes.number.isRequired,
+    minAngle: PropTypes.number.isRequired,
     sortByValue: PropTypes.bool.isRequired,
     innerRadius: PropTypes.number.isRequired,
     cornerRadius: PropTypes.number.isRequired,

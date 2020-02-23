@@ -40,6 +40,7 @@ class Pie extends Component {
             startAngle,
             endAngle,
             padAngle,
+            minAngle,
             fit,
             innerRadius,
             cornerRadius,
@@ -105,6 +106,7 @@ class Pie extends Component {
                 endAngle={endAngle}
                 fit={fit}
                 padAngle={padAngle}
+                minAngle={minAngle}
                 innerRadius={innerRadius}
                 cornerRadius={cornerRadius}
                 colors={colors}

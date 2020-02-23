@@ -32,6 +32,7 @@ class PieLayout extends Component {
         startAngle: PropTypes.number.isRequired,
         endAngle: PropTypes.number.isRequired,
         padAngle: PropTypes.number.isRequired,
+        minAngle: PropTypes.number.isRequired,
         arcs: PropTypes.array.isRequired, // computed
         arcGenerator: PropTypes.func.isRequired, // computed
         centerX: PropTypes.number.isRequired, // computed
@@ -92,6 +93,7 @@ export const PieLayoutDefaultProps = {
     endAngle: 360,
     padAngle: 0,
     cornerRadius: 0,
+    minAngle: 0,
 }
 
 export const enhance = Component =>
@@ -160,10 +162,14 @@ export const enhance = Component =>
             }
         ),
         withPropsOnChange(
-            ['sortByValue', 'padAngle', 'startAngle', 'endAngle'],
-            ({ sortByValue, padAngle, startAngle, endAngle }) => {
+            ['data', 'sortByValue', 'padAngle', 'startAngle', 'endAngle', 'minAngle'],
+            ({ data, sortByValue, padAngle, startAngle, endAngle, minAngle }) => {
+                const minValue = minAngle
+                    ? data.reduce((a, b) => a + b.value, 0) / (360 / minAngle)
+                    : 0
+
                 const pie = d3Pie()
-                    .value(d => d.value)
+                    .value(d => Math.max(d.value, minValue))
                     .padAngle(degreesToRadians(padAngle))
                     .startAngle(degreesToRadians(startAngle))
                     .endAngle(degreesToRadians(endAngle))
