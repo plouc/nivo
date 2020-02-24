@@ -32,7 +32,6 @@ export default class SunburstLabels extends Component {
     render() {
         const { nodes, label, skipAngle, textColor, theme } = this.props
 
-        // const centerRadius = innerRadius + (radius - innerRadius) / 2
         let centerRadius = false
 
         return (
@@ -74,28 +73,6 @@ export default class SunburstLabels extends Component {
                             </g>
                         )
                     })}
-                {/*arcs.filter(arc => skipAngle === 0 || arc.angleDeg > skipAngle).map(arc => {
-                    const angle = midAngle(arc) - Math.PI / 2
-                    const position = positionFromAngle(angle, centerRadius)
-
-                    return (
-                        <g
-                            key={arc.data.id}
-                            transform={`translate(${position.x}, ${position.y})`}
-                            style={sliceStyle}
-                        >
-                            <text
-                                textAnchor="middle"
-                                style={{
-                                    ...theme.labels.text,
-                                    fill: textColor(arc.data, theme),
-                                }}
-                            >
-                                {label(arc.data)}
-                            </text>
-                        </g>
-                    )
-                })*/}
             </Fragment>
         )
     }
