@@ -45,6 +45,8 @@ const ScatterPlot = props => {
 
         enableGridX,
         enableGridY,
+        gridXValues,
+        gridYValues,
         axisTop,
         axisRight,
         axisBottom,
@@ -110,6 +112,8 @@ const ScatterPlot = props => {
                 height={innerHeight}
                 xScale={enableGridX ? xScale : null}
                 yScale={enableGridY ? yScale : null}
+                xValues={gridXValues}
+                yValues={gridYValues}
             />
         ),
         axes: (
