@@ -42,7 +42,7 @@ const commonPropTypes = {
 
     layers: PropTypes.arrayOf(
         PropTypes.oneOfType([
-            PropTypes.oneOf(['grid', 'axes', 'nodes', 'markers', 'mesh', 'legends']),
+            PropTypes.oneOf(['grid', 'axes', 'nodes', 'markers', 'mesh', 'legends', 'annotations']),
             PropTypes.func,
         ])
     ).isRequired,
@@ -86,6 +86,7 @@ const commonPropTypes = {
     ),
 
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
+    annotations: [],
 }
 
 export const ScatterPlotPropTypes = {
@@ -130,11 +131,13 @@ const commonDefaultProps = {
     markers: [],
 
     legends: [],
+
+    annotations: [],
 }
 
 export const ScatterPlotDefaultProps = {
     ...commonDefaultProps,
-    layers: ['grid', 'axes', 'nodes', 'markers', 'mesh', 'legends'],
+    layers: ['grid', 'axes', 'nodes', 'markers', 'mesh', 'legends', 'annotations'],
     useMesh: true,
     animate: true,
     motionStiffness: 90,
@@ -143,7 +146,7 @@ export const ScatterPlotDefaultProps = {
 
 export const ScatterPlotCanvasDefaultProps = {
     ...commonDefaultProps,
-    layers: ['grid', 'axes', 'nodes', 'mesh', 'legends'],
+    layers: ['grid', 'axes', 'nodes', 'mesh', 'legends', 'annotations'],
     pixelRatio:
         global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
 }

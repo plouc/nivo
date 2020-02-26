@@ -3116,6 +3116,15 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
+"@nivo/babel-preset@0.60.0":
+  version "0.60.0"
+  resolved "https://registry.yarnpkg.com/@nivo/babel-preset/-/babel-preset-0.60.0.tgz#dbb12998b19b05ca59910f5e6ed2f75318d67163"
+  integrity sha512-OJVg0cDXbPCHi7wcKQPraLRftZk6r+8yulkU43z0y6vYQ/GGDryBwRXa2R61XY6jEv6ICNdKfguojoJiIrP28w==
+  dependencies:
+    "@babel/plugin-proposal-class-properties" "^7.4.0"
+    "@babel/preset-env" "^7.4.1"
+    babel-plugin-lodash "^3.3.4"
+
 "@nivo/core@0.59.0":
   version "0.59.0"
   resolved "https://registry.yarnpkg.com/@nivo/core/-/core-0.59.0.tgz#3003fab8659786421fddd2a07a4e8f8572dc1a08"
@@ -3134,6 +3143,16 @@
     react-measure "^2.2.4"
     react-motion "^0.5.2"
     recompose "^0.30.0"
+
+"@nivo/generators@0.60.0":
+  version "0.60.0"
+  resolved "https://registry.yarnpkg.com/@nivo/generators/-/generators-0.60.0.tgz#949ac1e1c8640ba98cb6a81a1c28a3f6eb0c6937"
+  integrity sha512-NwRiIbrSsjQi5Ha121TtDL5LGDwzqa05hYD3nU0wrSLdByT2FKAAWz2Bh+96p1XBzXiGjn1bwqcwMa4UxsyZcQ==
+  dependencies:
+    d3-random "^1.1.2"
+    d3-time "^1.0.10"
+    d3-time-format "^2.1.3"
+    lodash "^4.17.11"
 
 "@nivo/tooltip@0.59.0":
   version "0.59.0"

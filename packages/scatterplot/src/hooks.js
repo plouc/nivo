@@ -10,6 +10,7 @@ import { useMemo } from 'react'
 import { useValueFormatter } from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
 import { computeXYScalesForSeries } from '@nivo/scales'
+import { useAnnotations } from '@nivo/annotations'
 import { computePoints, getNodeSizeGenerator } from './compute'
 
 const useNodeSize = size => useMemo(() => getNodeSizeGenerator(size), [size])
@@ -73,3 +74,13 @@ export const useScatterPlot = ({
         legendData,
     }
 }
+
+export const useScatterPlotAnnotations = (items, annotations) =>
+    useAnnotations({
+        items,
+        annotations,
+        getDimensions: (node, offset) => {
+            const size = node.size + offset * 2
+            return { size, width: size, height: size }
+        },
+    })
