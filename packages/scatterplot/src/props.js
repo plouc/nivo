@@ -12,6 +12,7 @@ import { ordinalColorsPropType } from '@nivo/colors'
 import { axisPropType } from '@nivo/axes'
 import { LegendPropShape } from '@nivo/legends'
 import { scalePropType } from '@nivo/scales'
+import { annotationSpecPropType } from '@nivo/annotations'
 import Node from './Node'
 import Tooltip from './Tooltip'
 
@@ -54,6 +55,8 @@ const commonPropTypes = {
     axisBottom: axisPropType,
     axisLeft: axisPropType,
 
+    annotations: PropTypes.arrayOf(annotationSpecPropType).isRequired,
+
     nodeSize: PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.shape({
@@ -86,7 +89,6 @@ const commonPropTypes = {
     ),
 
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
-    annotations: [],
 }
 
 export const ScatterPlotPropTypes = {
