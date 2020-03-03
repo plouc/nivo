@@ -41,7 +41,6 @@ declare module '@nivo/scatterplot' {
     export interface Node {
         index: number
         id: string
-        serieId: string
         x: number
         y: number
         size: number
@@ -49,6 +48,7 @@ declare module '@nivo/scatterplot' {
             color: string
         }
         data: {
+            serieId: string
             x: Value
             formattedX: string | number
             y: Value
