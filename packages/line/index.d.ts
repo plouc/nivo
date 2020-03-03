@@ -56,6 +56,11 @@ declare module '@nivo/line' {
         | 'legends'
 
     export interface CustomLayerProps extends Omit<LineSvgProps, 'xScale' | 'yScale'> {
+        innerHeight: number
+        innerWidth: number
+        lineGenerator: (data: Datum[]) => string
+        points: Point[]
+        series: ComputedSerie[]
         xScale: ScaleFunc
         yScale: ScaleFunc
     }
@@ -128,6 +133,7 @@ declare module '@nivo/line' {
         margin?: Box
 
         curve?:
+            | 'catmullRom'
             | 'linear'
             | 'monotoneX'
             | 'monotoneY'
