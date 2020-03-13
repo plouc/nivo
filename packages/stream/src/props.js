@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
-import { areaCurvePropType, stackOrderPropType, stackOffsetPropType } from '@nivo/core'
+import { noop, areaCurvePropType, stackOrderPropType, stackOffsetPropType } from '@nivo/core'
 import { ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
 import { LegendPropShape } from '@nivo/legends'
 import StreamDotsItem from './StreamDotsItem'
@@ -63,10 +63,16 @@ export const StreamPropTypes = {
 
     isInteractive: PropTypes.bool,
     tooltipLabel: PropTypes.func,
+    getTooltipTitle: PropTypes.func.isRequired,
     getTooltipLabel: PropTypes.func.isRequired,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
     getTooltipValue: PropTypes.func.isRequired,
     enableStackTooltip: PropTypes.bool.isRequired,
+
+    onClick: PropTypes.func,
+    onMouseMove: PropTypes.func,
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func,
 
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
 }

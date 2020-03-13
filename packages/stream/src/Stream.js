@@ -14,7 +14,6 @@ import { Axes, Grid } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
 import StreamLayers from './StreamLayers'
 import StreamDots from './StreamDots'
-import StreamSlices from './StreamSlices'
 import { StreamPropTypes } from './props'
 import enhance from './enhance'
 
@@ -60,9 +59,15 @@ const Stream = ({
     motionDamping,
 
     isInteractive,
+    getTooltipTitle,
     getTooltipValue,
     getTooltipLabel,
     enableStackTooltip,
+
+    onClick,
+    onMouseMove,
+    onMouseEnter,
+    onMouseLeave,
 
     legends,
 }) => {
@@ -121,17 +126,31 @@ const Stream = ({
                         yScale={enableGridY ? yScale : null}
                     />
                     <StreamLayers
-                        layers={enhancedLayers}
-                        fillOpacity={fillOpacity}
-                        borderWidth={borderWidth}
-                        getBorderColor={getBorderColor}
-                        showTooltip={showTooltip}
-                        hideTooltip={hideTooltip}
-                        getTooltipLabel={getTooltipLabel}
-                        theme={theme}
-                        animate={animate}
-                        motionDamping={motionDamping}
-                        motionStiffness={motionStiffness}
+                        {...{
+                            data,
+                            slices,
+                            layers: enhancedLayers,
+                            width,
+                            height,
+                            margin,
+                            fillOpacity,
+                            borderWidth,
+                            getBorderColor,
+                            showTooltip,
+                            hideTooltip,
+                            getTooltipTitle,
+                            getTooltipLabel,
+                            getTooltipValue,
+                            onClick,
+                            onMouseMove,
+                            onMouseEnter,
+                            onMouseLeave,
+                            theme,
+                            animate,
+                            motionDamping,
+                            motionStiffness,
+                            enableStackTooltip,
+                        }}
                     />
                     <Axes
                         xScale={xScale}
@@ -161,17 +180,6 @@ const Stream = ({
                                 motionStiffness={motionStiffness}
                             />
                         ))}
-                    {isInteractive && enableStackTooltip && (
-                        <StreamSlices
-                            slices={slices}
-                            height={height}
-                            showTooltip={showTooltip}
-                            hideTooltip={hideTooltip}
-                            theme={theme}
-                            getTooltipValue={getTooltipValue}
-                            getTooltipLabel={getTooltipLabel}
-                        />
-                    )}
                     {legends.map((legend, i) => {
                         const legendData = enhancedLayers
                             .map(l => ({

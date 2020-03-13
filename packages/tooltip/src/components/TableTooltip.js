@@ -15,7 +15,7 @@ const tableStyle = {
     borderCollapse: 'collapse',
 }
 
-const TableTooltip = memo(({ title, rows, renderContent }) => {
+const TableTooltip = memo(({ title, rows, renderContent, rowStyles }) => {
     const theme = useTheme()
 
     if (!rows.length) return null
@@ -30,7 +30,7 @@ const TableTooltip = memo(({ title, rows, renderContent }) => {
                 <table style={{ ...tableStyle, ...theme.tooltip.table }}>
                     <tbody>
                         {rows.map((row, i) => (
-                            <tr key={i}>
+                            <tr key={i} style={rowStyles && rowStyles[i] || {}}>
                                 {row.map((column, j) => (
                                     <td key={j} style={theme.tooltip.tableCell}>
                                         {column}
@@ -51,6 +51,7 @@ TableTooltip.propTypes = {
     title: PropTypes.node,
     rows: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.node)).isRequired,
     renderContent: PropTypes.func,
+    rowStyles: PropTypes.array,
 }
 
 TableTooltip.displayName = 'TableTooltip'

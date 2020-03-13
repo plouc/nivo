@@ -93,24 +93,36 @@ export default Component =>
         withPropsOnChange(['dotBorderColor', 'theme'], ({ dotBorderColor, theme }) => ({
             getDotBorderColor: getInheritedColorGenerator(dotBorderColor, theme),
         })),
-        withPropsOnChange(['tooltipLabel', 'tooltipFormat'], ({ tooltipLabel, tooltipFormat }) => {
-            let getTooltipLabel = d => d.id
-            if (typeof tooltipLabel === 'function') {
-                getTooltipLabel = tooltipLabel
-            }
+        withPropsOnChange(
+            ['tooltipTitle', 'tooltipLabel', 'tooltipFormat'],
+            ({ tooltipTitle, tooltipLabel, tooltipFormat }) => {
+                let getTooltipTitle = d => d.tooltipTitle
+                if (typeof tooltipTitle === 'function') {
+                    getTooltipTitle = tooltipTitle
+                } else if (typeof tooltipTitle === 'string' || tooltipTitle instanceof String) {
+                    const formatter = d3Format(tooltipTitle)
+                    getTooltipTitle = d => formatter(d.value)
+                }
 
-            let getTooltipValue = d => d.value
-            if (typeof tooltipFormat === 'function') {
-                getTooltipValue = tooltipFormat
-            } else if (typeof tooltipFormat === 'string' || tooltipFormat instanceof String) {
-                const formatter = d3Format(tooltipFormat)
-                getTooltipValue = d => formatter(d.value)
-            }
+                let getTooltipLabel = d => d.id
+                if (typeof tooltipLabel === 'function') {
+                    getTooltipLabel = tooltipLabel
+                }
 
-            return {
-                getTooltipValue,
-                getTooltipLabel,
+                let getTooltipValue = d => d.value
+                if (typeof tooltipFormat === 'function') {
+                    getTooltipValue = tooltipFormat
+                } else if (typeof tooltipFormat === 'string' || tooltipFormat instanceof String) {
+                    const formatter = d3Format(tooltipFormat)
+                    getTooltipValue = d => formatter(d.value)
+                }
+
+                return {
+                    getTooltipTitle,
+                    getTooltipValue,
+                    getTooltipLabel,
+                }
             }
-        }),
+        ),
         pure
     )(Component)
