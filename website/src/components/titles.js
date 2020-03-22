@@ -1,18 +1,20 @@
 import React from 'react'
 import styled from 'styled-components'
+import AnchorIcon from 'react-icons/lib/md/link'
 
 const Anchor = styled.a`
     cursor: pointer;
     position: absolute;
-    width: 24px;
-    height: 24px;
-    left: -24px;
+    width: 20px;
+    height: 20px;
+    left: -20px;
     top: 50%;
-    margin-top: -12px;
-    justify-content: center;
+    margin-top: -10px;
+    justify-content: flex-start;
     align-items: center;
     text-decoration: none;
     display: none;
+    font-size: 18px;
 `
 
 const Title2Base = styled.h2`
@@ -30,7 +32,7 @@ export const Title2 = ({ children, id }) => (
     <Title2Base id={id}>
         {id && (
             <Anchor href={`#${id}`} aria-hidden>
-                #
+                <AnchorIcon />
             </Anchor>
         )}
         {children}
@@ -52,7 +54,7 @@ export const Title3 = ({ children, id }) => (
     <Title3Base id={id}>
         {id && (
             <Anchor href={`#${id}`} aria-hidden>
-                #
+                <AnchorIcon />
             </Anchor>
         )}
         {children}
@@ -74,7 +76,7 @@ export const Title4 = ({ children, id }) => (
     <Title4Base id={id}>
         {id && (
             <Anchor href={`#${id}`} aria-hidden>
-                #
+                <AnchorIcon />
             </Anchor>
         )}
         {children}

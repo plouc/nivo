@@ -25,3 +25,32 @@ export const onServiceWorkerUpdateReady = () => {
   
     if (answer === true) window.location.reload()
 }
+
+const anchorScroll = (location) => {
+    // Check for location so build does not fail
+    if (location && location.hash) {
+        setTimeout(() => {
+            const item = document.querySelector(`${location.hash}`)
+            if (item) {
+                const mainNav = document.querySelector(`header`)
+                window.scrollTo({
+                    top: item.offsetTop - (mainNav ? mainNav.offsetHeight : 0),
+                    left: 0,
+                    behavior: 'auto'
+                })
+            }
+        }, 0)
+    }
+}
+
+export const onRouteUpdate = ({location}) => {
+    anchorScroll(location);
+    return true
+}
+
+export const shouldUpdateScroll = ({
+  routerProps: { location }
+}) => {
+    anchorScroll(location)
+    return true
+}
