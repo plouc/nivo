@@ -372,6 +372,10 @@ export const guides = [
         label: 'Patterns',
         path: '/guides/patterns',
     },
+    {
+        label: 'Scales',
+        path: '/guides/scales',
+    },
     // {
     //     label: 'Theming',
     //     path: '/guides/theming',

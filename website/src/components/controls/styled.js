@@ -15,6 +15,10 @@ import media from '../../theming/mediaQueries'
 export const Help = styled.span`
     font-size: 0.8rem;
     color: ${({ theme }) => theme.colors.textLight};
+
+    p:last-child {
+        margin-bottom: 0;
+    }
 `
 
 export const ToggleWrapper = styled.div`

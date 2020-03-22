@@ -9,6 +9,7 @@
 import React, { memo, useMemo, useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import Markdown from '../Markdown'
 import ControlsGroup from './ControlsGroup'
 import PropertyHeader from './PropertyHeader'
 import { Cell, Toggle, Help } from './styled'
@@ -29,7 +30,9 @@ const ObjectControl = memo(({ property, flavors, currentFlavor, value, props, on
         <>
             <Header isOpened={isOpened} onClick={toggle}>
                 <PropertyHeader {...property} />
-                <Help>{property.help}</Help>
+                <Help>
+                    <Markdown source={property.help} />
+                </Help>
                 <Toggle isOpened={isOpened} />
             </Header>
             {isOpened && (

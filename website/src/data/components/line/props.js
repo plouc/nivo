@@ -39,7 +39,7 @@ const props = [
         key: 'xScale',
         type: 'object',
         group: 'Base',
-        help: `X scale configuration.`,
+        help: `X scale configuration, see [dedicated guide for scales](self:/guides/scales).`,
         controlType: 'object',
         controlOptions: {
             props: [
@@ -79,7 +79,7 @@ const props = [
     {
         key: 'yScale',
         type: 'object',
-        help: `Y scale configuration.`,
+        help: `Y scale configuration, see [dedicated guide for scales](self:/guides/scales).`,
         group: 'Base',
         controlType: 'object',
         controlOptions: {
@@ -358,7 +358,6 @@ const props = [
         required: false,
         defaultValue: defaults.enablePointLabel,
         controlType: 'switch',
-        group: 'Points',
     },
     {
         key: 'pointLabel',
