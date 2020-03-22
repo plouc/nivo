@@ -13,6 +13,7 @@ import SEO from '../../components/seo'
 import PageContent from '../../components/PageContent'
 import GradientsIllustrations from '../../components/guides/gradients/GradientsIllustrations'
 import GradientsExample from '../../components/guides/gradients/GradientsExample'
+import { Title2 } from '../../components/titles'
 import { DescriptionBlock } from '../../components/styled'
 
 export default class Gradients extends Component {
@@ -30,7 +31,7 @@ export default class Gradients extends Component {
                         While gradients rarely add meaning to your data, it's an easy way to enhance
                         the look of your charts.
                     </p>
-                    <h2>Using gradients in nivo</h2>
+                    <Title2 id="using-gradients">Using gradients in nivo</Title2>
                     <p>
                         Defining gradients in nivo is a <strong>2 steps process</strong>, first
                         you'll have to declare available definitions (the same goes for{' '}
@@ -53,9 +54,9 @@ export default class Gradients extends Component {
                         not least, <strong>gradient colors can be inherited</strong> from current
                         node ones.
                     </p>
-                    <h2>Example</h2>
+                    <Title2 id="example">Example</Title2>
                     <GradientsExample />
-                    <h2>Known limitations</h2>
+                    <Title2 id="limitations">Known limitations</Title2>
                     <p>
                         Please be aware that gradient usage has some limitations, it's{' '}
                         <strong>not supported for canvas</strong> chart implementations for now, and

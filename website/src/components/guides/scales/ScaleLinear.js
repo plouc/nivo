@@ -11,6 +11,7 @@ import styled from 'styled-components'
 import { ResponsiveLine } from '@nivo/line'
 import { useTheme } from '../../../theming/context'
 import CodeBlock from '../../CodeBlock'
+import { Title2, Title4 } from '../../titles'
 import { DescriptionBlock } from '../../styled'
 
 const treesApplesData = [
@@ -40,7 +41,7 @@ const ScaleLinear = () => {
     return (
         <>
             <DescriptionBlock>
-                <h2 id="linear-scale">Linear scales</h2>
+                <Title2 id="linear-scale">Linear scales</Title2>
                 <p>
                     Linear scales can be used to map an input domain to a continuous output range.
                 </p>
@@ -51,7 +52,7 @@ const ScaleLinear = () => {
             </DescriptionBlock>
             <SnippetsContainer>
                 <div>
-                    <h4>data property</h4>
+                    <Title4>data property</Title4>
                     <p>
                         As we can see, both axes data is linear, <code>x</code> contains the number
                         of trees, while <code>y</code> contains the number of apples.
@@ -70,7 +71,7 @@ const ScaleLinear = () => {
                     </CodeBlock>
                 </div>
                 <div>
-                    <h4>xScale property</h4>
+                    <Title4>xScale property</Title4>
                     <p>
                         We need to set the <code>xScale</code> scale type to <code>linear</code>, we
                         set both <code>min</code> and <code>max</code> values to <code>'auto'</code>
@@ -86,7 +87,7 @@ const ScaleLinear = () => {
                     </CodeBlock>
                 </div>
                 <div>
-                    <h4>yScale property</h4>
+                    <Title4>yScale property</Title4>
                     <p>
                         We're also setting the <code>yScale</code> scale type to <code>linear</code>
                         , but instead of letting nivo automatically pick min/max values, we're

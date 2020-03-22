@@ -13,6 +13,7 @@ import PageContent from '../../components/PageContent'
 import ColorsIllustrations from '../../components/guides/colors/ColorsIllustrations'
 import ColorsRanges from '../../components/guides/colors/ColorsRanges'
 import ColorsColor from '../../components/guides/colors/ColorsColor'
+import { Title2 } from '../../components/titles'
 import { DescriptionBlock } from '../../components/styled'
 
 const Colors = () => (
@@ -27,7 +28,7 @@ const Colors = () => (
             </div>
         </PageContent>
         <DescriptionBlock>
-            <h2>The colors property</h2>
+            <Title2 id="colors-property">The colors property</Title2>
             <p>
                 Beside highlighting data insights, your dataviz should be pretty, right?
                 <br />
@@ -37,7 +38,7 @@ const Colors = () => (
         </DescriptionBlock>
         <ColorsIllustrations />
         <DescriptionBlock>
-            <h2>Available color schemes</h2>
+            <Title2 id="color-schemes">Available color schemes</Title2>
             <p>
                 Almost all color schemes come from{' '}
                 <a

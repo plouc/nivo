@@ -16,6 +16,7 @@ import PatternsExample from '../../components/guides/patterns/PatternsExample'
 import PatternsDots from '../../components/guides/patterns/PatternsDots'
 import PatternsLines from '../../components/guides/patterns/PatternsLines'
 import PatternsSquares from '../../components/guides/patterns/PatternsSquares'
+import { Title2 } from '../../components/titles'
 import { DescriptionBlock } from '../../components/styled'
 
 const Patterns = () => (
@@ -27,7 +28,7 @@ const Patterns = () => (
             </div>
         </PageContent>
         <DescriptionBlock>
-            <h2>Purpose</h2>
+            <Title2 id="intro">Purpose</Title2>
             <p>
                 Using patterns can be useful to <strong>group similar items</strong>, for example
                 imagine you want to build a pie chart displaying various foods, you can use a color
@@ -35,7 +36,7 @@ const Patterns = () => (
                 vegetables/fruits/meats/… using a similar pattern for each group (while keeping
                 color variation).
             </p>
-            <h2>Using patterns in nivo</h2>
+            <Title2 id="using-patterns">Using patterns in nivo</Title2>
             <p>
                 Defining patterns in nivo is a <strong>2 steps process</strong>, first you'll have
                 to declare available definitions (the same goes for{' '}
@@ -57,13 +58,13 @@ const Patterns = () => (
                 <strong>use a pattern depending on chart element value</strong>. Last but not least,{' '}
                 <strong>patterns colors can be inherited</strong> from current node ones.
             </p>
-            <h2>Example</h2>
+            <Title2 id="example">Example</Title2>
             <PatternsExample />
-            <h2>Available patterns</h2>
+            <Title2 id="patterns">Available patterns</Title2>
             <PatternsDots />
             <PatternsLines />
             <PatternsSquares />
-            <h2>Known limitations</h2>
+            <Title2 id="limitations">Known limitations</Title2>
             <p>
                 Please be aware that pattern usage has some limitations, it's{' '}
                 <strong>not supported for canvas</strong> chart implementations for now, and

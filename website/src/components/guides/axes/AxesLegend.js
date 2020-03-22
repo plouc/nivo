@@ -9,8 +9,9 @@
 import React from 'react'
 import { ThemeProvider, MotionConfigProvider } from '@nivo/core'
 import { Axis } from '@nivo/axes'
-import { linearXScale, linearYScale } from './scales'
+import { Title2, Title3 } from '../../titles'
 import { FullWidthBanner, DescriptionBlock } from '../../styled'
+import { linearXScale, linearYScale } from './scales'
 import { useAxisTheme } from './theme'
 
 const axisPositions = ['start', 'middle', 'end']
@@ -21,12 +22,12 @@ const AxesLegend = () => {
     return (
         <>
             <DescriptionBlock>
-                <h2 id="legend">Axis legend</h2>
+                <Title2 id="legend">Axis legend</Title2>
                 <p>
                     You can optionally add a legend to an axis by setting the value of the{' '}
                     <code>legend</code> property.
                 </p>
-                <h3 id="legend-position">Legend position</h3>
+                <Title3 id="legend-position">Legend position</Title3>
                 <p>
                     Legend position is controlled by two properties, <code>legendPosition</code> and{' '}
                     <code>legendOffset</code>.<code>legendPosition</code> must be one of:{' '}

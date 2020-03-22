@@ -8,6 +8,7 @@
  */
 import React from 'react'
 import { useTheme } from '../../../theming/context'
+import { Title2, Title3 } from '../../titles'
 import { DescriptionBlock } from '../../styled'
 
 const ScaleTime = () => {
@@ -16,8 +17,13 @@ const ScaleTime = () => {
     return (
         <>
             <DescriptionBlock>
-                <h2 id="time-scale">Time scales</h2>
-                <p>@todo.</p>
+                <Title2 id="time-scale">Time scales</Title2>
+                <p>
+                    Time scales can be used to map an input domain comprised of dates to a
+                    continuous output range, they support both native Date objects and strings.
+                </p>
+                <Title3 id="time-scale-native">Time scale using native Date object</Title3>
+                <Title3 id="time-scale-string">Time scale using strings</Title3>
             </DescriptionBlock>
         </>
     )
