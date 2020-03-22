@@ -15,6 +15,7 @@ import {
     DIRECTION_BOTTOM_TO_TOP,
 } from '@nivo/legends'
 import { useTheme } from '../../../theming/context'
+import { Title2 } from '../../titles'
 
 const itemDirections = [
     DIRECTION_LEFT_TO_RIGHT,
@@ -39,7 +40,7 @@ const LegendItemDirection = () => {
 
     return (
         <div>
-            <h2>Legend item direction</h2>
+            <Title2 id="item-direction">Legend item direction</Title2>
             <p>
                 The <code>itemDirection</code> property defines how symbol and label are positioned.
                 <br />

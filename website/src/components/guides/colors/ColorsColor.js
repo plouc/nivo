@@ -8,13 +8,14 @@
  */
 import React from 'react'
 import dedent from 'dedent-js'
-import { Card, DescriptionBlock } from '../../styled'
+import { Title2, Title3 } from '../../titles'
+import { DescriptionBlock } from '../../styled'
 import Markdown from '../../Markdown'
 import Highlight from '../../Highlight'
 
 const ColorsColor = () => (
     <DescriptionBlock>
-        <h2>Single color property</h2>
+        <Title2 id="color">Single color property</Title2>
         <Markdown
             source={dedent(`
                 The main \`colors\` property defines the main colors to use
@@ -32,7 +33,7 @@ const ColorsColor = () => (
                 So those properties support several strategies:
             `)}
         />
-        <h3>Inheriting from parent element color</h3>
+        <Title3 id="color-inherit">Inheriting from parent element color</Title3>
         <Markdown
             source={dedent(`
                 The following example will use the \`nivo\` color scheme
@@ -82,7 +83,7 @@ const ColorsColor = () => (
                 Available modifiers are \`darker\`, \`brighter\` and \`opacity\`.
             `)}
         />
-        <h3>Using a color from current theme</h3>
+        <Title3 id="color-theme">Using a color from current theme</Title3>
         <Markdown
             source={dedent(`
                 If you want to use a fixed color but want it to match current
@@ -104,7 +105,7 @@ const ColorsColor = () => (
                 from current theme.
             `)}
         />
-        <h3>Using a static custom color</h3>
+        <Title3 id="color-static">Using a static custom color</Title3>
         <Markdown
             source={dedent(`
                 Using a custom color is pretty straightforward:

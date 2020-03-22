@@ -10,6 +10,7 @@ import React from 'react'
 import { LegendSvgItem, DIRECTION_LEFT_TO_RIGHT } from '@nivo/legends'
 import Highlight from '../../Highlight'
 import { useTheme } from '../../../theming/context'
+import { Title2 } from '../../titles'
 
 const shapes = ['square', 'circle', 'triangle', 'diamond']
 
@@ -47,7 +48,7 @@ const SymbolShape = () => {
 
     return (
         <div>
-            <h2>Symbol shape</h2>
+            <Title2 id="symbol-shape">Symbol shape</Title2>
             <p>
                 You can customize symbols using <code>symbolShape</code> property.
             </p>
