@@ -49,6 +49,7 @@ declare module '@nivo/line' {
         | 'markers'
         | 'axes'
         | 'areas'
+        | 'crosshair'
         | 'lines'
         | 'slices'
         | 'points'
