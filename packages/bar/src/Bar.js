@@ -318,7 +318,11 @@ const Bar = props => {
                     >
                         {layers.map((layer, i) => {
                             if (typeof layer === 'function') {
-                                return <Fragment key={i}>{layer({ ...props, ...result })}</Fragment>
+                                return (
+                                    <Fragment key={i}>
+                                        {layer({ ...props, ...result, showTooltip, hideTooltip })}
+                                    </Fragment>
+                                )
                             }
                             return layerById[layer]
                         })}
