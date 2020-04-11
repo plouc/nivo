@@ -281,6 +281,7 @@ const Bar = props => {
                             direction: legend.direction,
                             groupMode,
                             reverse,
+                            itemFormat: legend.itemFormat
                         })
 
                         if (legendData === undefined) return null

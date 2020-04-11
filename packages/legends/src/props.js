@@ -107,6 +107,7 @@ export const LegendPropShape = {
     itemTextColor: PropTypes.string,
     itemBackground: PropTypes.string,
     itemOpacity: PropTypes.number,
+    itemFormat: PropTypes.func,
 
     ...symbolPropTypes,
     ...interactivityPropTypes,
