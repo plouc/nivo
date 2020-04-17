@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React, { memo, useState, Fragment } from 'react'
-import { withContainer, useDimensions, SvgWrapper } from '@nivo/core'
+import { bindDefs, withContainer, useDimensions, SvgWrapper } from '@nivo/core'
 import { Grid, Axes } from '@nivo/axes'
 import { AreaBumpPropTypes, AreaBumpDefaultProps } from './props'
 import { useAreaBump } from './hooks'
@@ -34,6 +34,8 @@ const AreaBump = props => {
         fillOpacity,
         activeFillOpacity,
         inactiveFillOpacity,
+        defs,
+        fill,
         borderWidth,
         activeBorderWidth,
         inactiveBorderWidth,
@@ -91,6 +93,8 @@ const AreaBump = props => {
         isInteractive,
         current: currentSerie,
     })
+
+    const boundDefs = bindDefs(defs, series, fill, { targetKey: 'color' })
 
     const layerById = {
         grid: enableGridX && (
@@ -152,7 +156,7 @@ const AreaBump = props => {
     }
 
     return (
-        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
+        <SvgWrapper defs={boundDefs} width={outerWidth} height={outerHeight} margin={margin}>
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
                     return (
