@@ -139,7 +139,7 @@ const LegendSvgItem = ({
                 textAnchor={labelAnchor}
                 style={{
                     ...theme.legends.text,
-                    fill: style.itemTextColor || textColor,
+                    fill: style.itemTextColor || theme.legends.text.fill || textColor,
                     dominantBaseline: labelAlignment,
                     pointerEvents: 'none',
                     userSelect: 'none',
