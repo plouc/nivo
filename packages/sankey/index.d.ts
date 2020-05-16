@@ -31,30 +31,6 @@ declare module '@nivo/sankey' {
         }
     }
 
-    export interface SankeyLinkProps {
-        source: {
-            id?: string | number
-            label: string | number
-        }
-        target: {
-            id?: string | number
-            label: string | number
-        }
-        thickness: number
-        color: string
-        value: number
-    }
-
-    export interface SankeyNodeProps {
-        id: string | number
-        x: number
-        y: number
-        width: number
-        height: number
-        label: string
-        color: string
-    }
-
     export interface SankeyLinkDatum {
         color: string
         index: number
@@ -134,8 +110,8 @@ declare module '@nivo/sankey' {
         isInteractive: boolean
         onClick: SankeyMouseHandler
         tooltipFormat: TooltipFormat
-        nodeTooltip: TooltipRenderer<SankeyNodeProps>
-        linkTooltip: TooltipRenderer<SankeyLinkProps>
+        nodeTooltip: TooltipRenderer<SankeyNodeDatum>
+        linkTooltip: TooltipRenderer<SankeyLinkDatum>
 
         colors: OrdinalColorsInstruction
         theme: Theme
