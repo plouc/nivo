@@ -20,6 +20,7 @@ import { BoxLegendSvg } from '@nivo/legends'
 import { useScatterPlot } from './hooks'
 import { ScatterPlotPropTypes, ScatterPlotDefaultProps } from './props'
 import AnimatedNodes from './AnimatedNodes'
+import ScatterPlotAnnotations from './ScatterPlotAnnotations'
 import StaticNodes from './StaticNodes'
 import Mesh from './Mesh'
 
@@ -45,10 +46,14 @@ const ScatterPlot = props => {
 
         enableGridX,
         enableGridY,
+        gridXValues,
+        gridYValues,
         axisTop,
         axisRight,
         axisBottom,
         axisLeft,
+
+        annotations,
 
         isInteractive,
         useMesh,
@@ -110,6 +115,8 @@ const ScatterPlot = props => {
                 height={innerHeight}
                 xScale={enableGridX ? xScale : null}
                 yScale={enableGridY ? yScale : null}
+                xValues={gridXValues}
+                yValues={gridYValues}
             />
         ),
         axes: (
@@ -148,6 +155,16 @@ const ScatterPlot = props => {
             />
         ),
         mesh: null,
+        annotations: (
+            <ScatterPlotAnnotations
+                key="annotations"
+                nodes={nodes}
+                annotations={annotations}
+                innerWidth={innerWidth}
+                innerHeight={innerHeight}
+                animate={animate}
+            />
+        ),
         legends: legends.map((legend, i) => (
             <BoxLegendSvg
                 key={i}
