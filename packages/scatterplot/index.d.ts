@@ -89,8 +89,6 @@ declare module '@nivo/scatterplot' {
     }
     export type CustomTooltip = (props: TooltipProps) => React.ReactNode
 
-    type Scale = (value: Value) => number
-
     export interface ScatterPlotComputedProps {
         xScale: Scale
         yScale: Scale
