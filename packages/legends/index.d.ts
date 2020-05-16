@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 declare module '@nivo/legends' {
-    type ContainerDimensions = {
+    interface ContainerDimensions {
         containerHeight: number
         containerWidth: number
     }
