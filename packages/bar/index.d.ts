@@ -48,7 +48,6 @@ declare module '@nivo/bar' {
 
     export type ValueFormatter = (value: number) => string | number
 
-
     export type BarMouseEventHandler<T = HTMLCanvasElement> = (
         datum: BarExtendedDatum,
         event: React.MouseEvent<T>
