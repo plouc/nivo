@@ -57,6 +57,7 @@ declare module '@nivo/line' {
         | 'markers'
         | 'axes'
         | 'areas'
+        | 'crosshair'
         | 'lines'
         | 'slices'
         | 'points'
@@ -132,13 +133,17 @@ declare module '@nivo/line' {
         margin?: Box
 
         curve?:
+            | 'basis'
+            | 'cardinal'
+            | 'catmullRom'
             | 'linear'
             | 'monotoneX'
             | 'monotoneY'
             | 'natural'
-            | 'stepBefore'
             | 'step'
             | 'stepAfter'
+            | 'stepBefore'
+
         lineWidth?: number
 
         colors?: OrdinalColorsInstruction

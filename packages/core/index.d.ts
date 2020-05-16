@@ -36,6 +36,14 @@ declare module '@nivo/core' {
     }
 
     export type Theme = Partial<{
+        crosshair: Partial<{
+            line: Partial<{
+                stroke: string,
+                strokeWidth: number,
+                strokeOpacity: number,
+                strokeDasharray: string
+            }>
+        }>
         background: string
         axis: Partial<{
             domain: Partial<{

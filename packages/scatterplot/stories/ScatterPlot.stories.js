@@ -529,7 +529,28 @@ stories.add(
                 max: 10,
             }}
             legends={[]}
-            layers={['grid', 'axes', AreaLayer, 'nodes', 'markers', 'mesh', 'legends']}
+            layers={[
+                'grid',
+                'axes',
+                AreaLayer,
+                'nodes',
+                'markers',
+                'mesh',
+                'legends',
+                'annotations',
+            ]}
+            annotations={[
+                {
+                    type: 'circle',
+                    match: { index: 10 },
+                    noteX: 50,
+                    noteY: 50,
+                    offset: 3,
+                    noteTextOffset: -3,
+                    noteWidth: 10,
+                    note: 'an annotation',
+                },
+            ]}
         />
     ),
     {

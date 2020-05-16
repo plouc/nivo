@@ -83,6 +83,13 @@ export const SankeyPropTypes = {
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
+
+    layers: PropTypes.arrayOf(
+        PropTypes.oneOfType([
+            PropTypes.oneOf(['links', 'nodes', 'labels', 'legends']),
+            PropTypes.func,
+        ])
+    ).isRequired,
 }
 
 export const SankeyDefaultProps = {
@@ -119,4 +126,6 @@ export const SankeyDefaultProps = {
     onClick: noop,
 
     legends: [],
+
+    layers: ['links', 'nodes', 'labels', 'legends'],
 }
