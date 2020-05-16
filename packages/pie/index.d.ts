@@ -18,6 +18,11 @@ declare module '@nivo/pie' {
 
     export type ValueFormatter = (value: number) => string | number
 
+    export type PieMouseEventHandler<T = HTMLCanvasElement> = (
+        datum: PieDatum,
+        event: React.MouseEvent<T>
+    ) => void
+
     export interface Data {
         data: PieDatum[]
     }
@@ -60,14 +65,20 @@ declare module '@nivo/pie' {
 
             // interactivity
             isInteractive: boolean
-            onClick: (datum: PieDatum, event: React.MouseEvent<SVGPathElement>) => void
             tooltipFormat: string | ValueFormatter
             tooltip: React.StatelessComponent<PieDatumWithColor>
 
             legends: LegendProps[]
         }>
 
-    export type PieSvgProps = Data & CommonPieProps & SvgDefsAndFill<PieDatum>
+    export type PieSvgProps = Data &
+        CommonPieProps &
+        SvgDefsAndFill<PieDatum> &
+        Partial<{
+            onClick: PieMouseEventHandler<SVGPathElement>
+            onMouseEnter: PieMouseEventHandler<SVGPathElement>
+            onMouseLeave: PieMouseEventHandler<SVGPathElement>
+        }>
 
     export class Pie extends React.Component<PieSvgProps & Dimensions> {}
     export class ResponsivePie extends React.Component<PieSvgProps> {}
@@ -76,6 +87,9 @@ declare module '@nivo/pie' {
         CommonPieProps &
         Partial<{
             pixelRatio: number
+            onClick: PieMouseEventHandler
+            onMouseEnter: PieMouseEventHandler
+            onMouseLeave: PieMouseEventHandler
         }>
 
     export class PieCanvas extends React.Component<PieCanvasProps & Dimensions> {}
