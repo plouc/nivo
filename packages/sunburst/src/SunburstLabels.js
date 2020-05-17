@@ -32,7 +32,7 @@ export default class SunburstLabels extends Component {
     render() {
         const { nodes, label, skipAngle, textColor, theme } = this.props
 
-        const centerRadius = false
+        let centerRadius = false
 
         return (
             <Fragment>
