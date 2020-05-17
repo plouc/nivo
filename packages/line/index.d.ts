@@ -91,6 +91,8 @@ declare module '@nivo/line' {
         }
     }
 
+    export type AccessorFunc = (datum: Point['data']) => string
+
     export type PointMouseHandler = (point: Point, event: React.MouseEvent) => void
 
     export interface PointTooltipProps {
@@ -196,7 +198,7 @@ declare module '@nivo/line' {
 
     export interface LineSvgProps extends LineProps, MotionProps, SvgDefsAndFill<Datum> {
         enablePointLabel?: boolean
-        pointLabel?: string
+        pointLabel?: string | AccessorFunc
         pointLabelYOffset?: number
         areaBlendMode?: string
         useMesh?: boolean
