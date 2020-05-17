@@ -7,7 +7,14 @@
  * file that was distributed with this source code.
  */
 import * as React from 'react'
-import { Dimensions, Box, Theme, MotionProps, CartesianMarkerProps } from '@nivo/core'
+import {
+    Dimensions,
+    Box,
+    Theme,
+    MotionProps,
+    CartesianMarkerProps,
+    SvgDefsAndFill,
+} from '@nivo/core'
 import { OrdinalColorsInstruction } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { Scale, ScaleFunc } from '@nivo/scales'
@@ -184,7 +191,7 @@ declare module '@nivo/line' {
         legends?: LegendProps[]
     }
 
-    export interface LineSvgProps extends LineProps, MotionProps {
+    export interface LineSvgProps extends LineProps, MotionProps, SvgDefsAndFill<Datum> {
         enablePointLabel?: boolean
         pointLabel?: string
         pointLabelYOffset?: number
