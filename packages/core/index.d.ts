@@ -141,7 +141,7 @@ declare module '@nivo/core' {
         | 'stepAfter'
         | 'stepBefore'
 
-    type DataFormatter = (value: DatumValue) => string | number
+    export type DataFormatter = (value: DatumValue) => string | number
 
     export function useValueFormatter(formatter?: DataFormatter | string): DataFormatter
 }

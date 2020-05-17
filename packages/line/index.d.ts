@@ -13,6 +13,7 @@ import {
     Theme,
     MotionProps,
     CartesianMarkerProps,
+    SvgDefsAndFill,
     DataFormatter,
     DatumValue as CoreDatumValue,
 } from '@nivo/core'
@@ -193,7 +194,7 @@ declare module '@nivo/line' {
         legends?: LegendProps[]
     }
 
-    export interface LineSvgProps extends LineProps, MotionProps {
+    export interface LineSvgProps extends LineProps, MotionProps, SvgDefsAndFill<Datum> {
         enablePointLabel?: boolean
         pointLabel?: string
         pointLabelYOffset?: number

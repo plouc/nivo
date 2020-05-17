@@ -40,6 +40,8 @@ Line:
       link: line--formatting-values
     - label: adding custom layers
       link: line--custom-layers
+    - label: area gradients
+      link: line--area-gradients
   description: |
     Line chart with stacking ability.
 

@@ -13,6 +13,7 @@ import {
     motionProperties,
     getLegendsProps,
     groupProperties,
+    defsProperties,
 } from '../../../lib/componentProperties'
 
 const props = [
@@ -277,6 +278,7 @@ const props = [
         controlType: 'blendMode',
         group: 'Style',
     },
+    ...defsProperties('Style', ['svg']),
     {
         key: 'layers',
         group: 'Customization',
