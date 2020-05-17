@@ -152,6 +152,7 @@ stories.add('time scale', () => (
         xScale={{
             type: 'time',
             format: '%Y-%m-%d',
+            useUTC: false,
             precision: 'day',
         }}
         xFormat="time:%Y-%m-%d"
