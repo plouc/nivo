@@ -48,9 +48,9 @@ declare module '@nivo/bar' {
 
     export type ValueFormatter = (value: number) => string | number
 
-    export type BarClickHandler = (
+    export type BarMouseEventHandler<T = HTMLCanvasElement> = (
         datum: BarExtendedDatum,
-        event: React.MouseEvent<HTMLCanvasElement>
+        event: React.MouseEvent<T>
     ) => void
 
     export type TooltipProp = React.StatelessComponent<BarExtendedDatum>
@@ -72,7 +72,9 @@ declare module '@nivo/bar' {
         label: string
         shouldRenderLabel: boolean
         labelColor: string
-        onClick: BarClickHandler
+        onClick: BarMouseEventHandler
+        onMouseEnter: BarMouseEventHandler
+        onMouseLeave: BarMouseEventHandler
         tooltipFormat: string | ValueFormatter
         tooltip: TooltipProp
         showTooltip: (tooltip: React.ReactNode, event: React.MouseEvent<HTMLCanvasElement>) => void
@@ -156,7 +158,9 @@ declare module '@nivo/bar' {
         SvgDefsAndFill<BarDatum> &
         Partial<{
             layers: Layer[]
-            onClick: (datum: BarExtendedDatum, event: React.MouseEvent<SVGRectElement>) => void
+            onClick: BarMouseEventHandler<SVGRectElement>
+            onMouseEnter: BarMouseEventHandler<SVGRectElement>
+            onMouseLeave: BarMouseEventHandler<SVGRectElement>
         }>
 
     export class Bar extends React.Component<BarSvgProps & Dimensions> {}
@@ -165,7 +169,9 @@ declare module '@nivo/bar' {
     export type BarCanvasProps = Data &
         BarProps &
         Partial<{
-            onClick: BarClickHandler
+            onClick: BarMouseEventHandler
+            onMouseEnter: BarMouseEventHandler
+            onMouseLeave: BarMouseEventHandler
             pixelRatio: number
         }>
 

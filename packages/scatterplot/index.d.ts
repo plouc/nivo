@@ -41,7 +41,6 @@ declare module '@nivo/scatterplot' {
     export interface Node {
         index: number
         id: string
-        serieId: string
         x: number
         y: number
         size: number
@@ -49,6 +48,7 @@ declare module '@nivo/scatterplot' {
             color: string
         }
         data: {
+            serieId: string
             x: Value
             formattedX: string | number
             y: Value
@@ -84,9 +84,10 @@ declare module '@nivo/scatterplot' {
         sizes: [number, number]
     }
 
-    export type CustomTooltip = ({ node: Node }) => React.ReactNode
-
-    type Scale = (value: Value) => number
+    export interface TooltipProps {
+        node: Node
+    }
+    export type CustomTooltip = (props: TooltipProps) => React.ReactNode
 
     export interface ScatterPlotComputedProps {
         xScale: Scale
