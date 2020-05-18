@@ -171,7 +171,7 @@ declare module '@nivo/line' {
 
         enableArea?: boolean
         areaOpacity?: number
-        areaBaseDatumValue?: DatumValue
+        areaBaselineValue?: DatumValue
 
         markers?: CartesianMarkerProps[]
 
