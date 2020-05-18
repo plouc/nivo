@@ -1,4 +1,4 @@
-export default [
+export const names = [
     'John',
     'Raoul',
     'Jane',
