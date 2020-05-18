@@ -2,6 +2,8 @@ MAKEFLAGS += --no-print-directory
 
 SOURCES = packages
 
+CORE = core\naxes\ncolors\nlegends\ntooltip
+
 .PHONY: help bootstrap init packages-build packages-publish clean-all website-install website website-build website-deploy storybook storybook-build storybook-deploy deploy-all examples-install
 
 ########################################################################################################################
@@ -170,9 +172,17 @@ packages-test-cover: ##@1 packages run tests for all packages with code coverage
 
 packages-build: ##@1 packages build all packages
 	@echo "${YELLOW}Building all packages${RESET}"
-	@find ./packages -type d -maxdepth 1 ! -path ./packages ! -path ./packages/babel-preset \
-        | sed 's|^./packages/||' \
-        | xargs -I '{}' sh -c '$(MAKE) package-build-{}'
+	@echo "${CORE}" | xargs -I '{}' sh -c '$(MAKE) package-build-{}'
+	@find ./packages -type d -maxdepth 1 \
+				! -path ./packages \
+				! -path ./packages/axes \
+				! -path ./packages/babel-preset \
+				! -path ./packages/core \
+				! -path ./packages/colors \
+				! -path ./packages/legends \
+				! -path ./packages/tooltip \
+				| sed 's|^./packages/||' \
+				| xargs -I '{}' sh -c '$(MAKE) package-build-{}'
 
 package-build-%: ##@1 packages build a package
 	@echo "${YELLOW}Building package ${WHITE}@nivo/${*}${RESET}"
