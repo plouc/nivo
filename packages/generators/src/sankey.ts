@@ -6,15 +6,24 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import range from 'lodash/range'
-import random from 'lodash/random'
-import shuffle from 'lodash/shuffle'
+import { random, range, shuffle } from 'lodash'
 import { randColor } from './color'
 import { names } from './sets'
 
+interface SankeyLink {
+    source: string
+    target: string
+    value: number
+}
+
+type GenerateSankeyData = Partial<{
+    nodeCount: number
+    maxIterations: number
+}>
+
 const availableNodes = names.map(name => ({ id: name }))
 
-const getNodeTargets = (id, links, currentPath) => {
+const getNodeTargets = (id: string, links: SankeyLink[], currentPath?: string[]): string[] => {
     const targets = links
         .filter(({ source }) => source === id)
         .map(({ target }) => {
@@ -46,8 +55,8 @@ const getNodeTargets = (id, links, currentPath) => {
     )
 }
 
-const getNodesTargets = links =>
-    links.reduce((targetsById, link) => {
+const getNodesTargets = (links: SankeyLink[]) =>
+    links.reduce<Record<string, string[]>>((targetsById, link) => {
         if (!targetsById[link.source]) {
             targetsById[link.source] = getNodeTargets(link.source, links)
         }
@@ -55,14 +64,10 @@ const getNodesTargets = links =>
         return targetsById
     }, {})
 
-export const generateSankeyData = ({ nodeCount, maxIterations = 3 } = {}) => {
-    const nodes = availableNodes.slice(0, nodeCount).map(node =>
-        Object.assign({}, node, {
-            color: randColor(),
-        })
-    )
+export const generateSankeyData = ({ nodeCount, maxIterations = 3 }: GenerateSankeyData = {}) => {
+    const nodes = availableNodes.slice(0, nodeCount).map(node => ({ ...node, color: randColor() }))
+    const links: SankeyLink[] = []
 
-    const links = []
     shuffle(nodes).forEach(({ id }) => {
         range(random(1, maxIterations)).forEach(() => {
             const targetsById = getNodesTargets(links)

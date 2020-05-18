@@ -54,7 +54,7 @@ init: ##@0 global cleanup/install/bootstrap
 
 fmt: ##@0 global format code using prettier (js, css, md)
 	@./node_modules/.bin/prettier --color --write \
-		"packages/*/{src,stories,tests}/**/*.{js,ts}" \
+		"packages/*/{src,stories,tests}/**/*.{js,ts,tsx}" \
 		"packages/*/index.d.ts" \
 		"packages/*/README.md" \
 		"website/src/**/*.{js,css}" \
@@ -65,7 +65,7 @@ fmt: ##@0 global format code using prettier (js, css, md)
 fmt-check: ##@0 global check if files were all formatted using prettier
 	@echo "${YELLOW}Checking formatting${RESET}"
 	@./node_modules/.bin/prettier --color --list-different \
-        "packages/*/{src,stories,tests}/**/*.{js,ts}" \
+        "packages/*/{src,stories,tests}/**/*.{js,ts,tsx}" \
         "packages/*/index.d.ts" \
         "packages/*/README.md" \
         "website/src/**/*.{js,css}" \
@@ -133,6 +133,7 @@ packages-tslint: ##@1 packages run tslint on all packages
         ./packages/chord/index.d.ts \
         ./packages/colors/src/*.ts \
         ./packages/core/src/*.ts \
+        ./packages/generators/src/*.ts \
         ./packages/geo/index.d.ts \
         ./packages/heatmap/index.d.ts \
         ./packages/legends/src/*.ts \
