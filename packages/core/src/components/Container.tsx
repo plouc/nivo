@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React, { useRef, useState, useCallback, ReactNode, CSSProperties } from 'react'
-import { TooltipContext } from '@nivo/tooltip'
+// import { TooltipContext } from '@nivo/tooltip'
 import noop from '../lib/noop'
 import { Theme, ThemeContext } from '../theming'
 import { MotionConfigProvider } from '../motion'
@@ -135,9 +135,9 @@ export const Container = ({
                 stiffness={motionStiffness}
                 damping={motionDamping}
             >
-                <TooltipContext.Provider value={[showTooltip, hideTooltip]}>
-                    {content}
-                </TooltipContext.Provider>
+                {/* <TooltipContext.Provider value={[showTooltip, hideTooltip]}> */}
+                {content}
+                {/* </TooltipContext.Provider> */}
             </MotionConfigProvider>
         </ThemeContext.Provider>
     )

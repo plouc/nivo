@@ -16,13 +16,14 @@
         "dist/"
     ],
     "dependencies": {
-        "@nivo/core": "0.61.0",
         "lodash": "^4.17.11"
     },
     "devDependencies": {
+        "@nivo/core": "*",
         "@types/lodash": "^4.14.149"
     },
     "peerDependencies": {
+        "@nivo/core": "^0.61.0",
         "react": ">= 16.8.4 < 17.0.0"
     },
     "publishConfig": {

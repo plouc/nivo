@@ -14,8 +14,10 @@
     "LICENSE.md",
     "dist/"
   ],
+  "scripts": {
+    "build": "tsc"
+  },
   "dependencies": {
-    "@nivo/tooltip": "0.61.0",
     "d3-color": "^1.2.3",
     "d3-format": "^1.3.2",
     "d3-hierarchy": "^1.1.8",

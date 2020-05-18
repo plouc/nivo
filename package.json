@@ -19,6 +19,7 @@
     "keywords": [],
     "devDependencies": {
         "@babel/core": "^7.7.5",
+        "@babel/preset-typescript": "^7.7.7",
         "@ekino/config": "^0.3.0",
         "@nivo/babel-preset": "0.60.0",
         "@nivo/generators": "0.60.0",
@@ -63,7 +64,6 @@
         "rollup-plugin-strip-banner": "^1.0.0",
         "rollup-plugin-typescript2": "^0.25.3",
         "serve": "^11.2.0",
-        "ts-jest": "^24.3.0",
         "tslint": "^5.20.1",
         "typescript": "^3.7.3"
     },

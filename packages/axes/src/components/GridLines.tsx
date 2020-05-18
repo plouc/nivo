@@ -55,7 +55,7 @@ export const GridLines = ({ type, lines }: GridLinesProps) => {
         return (
             <g>
                 {lines.map(line => (
-                    <GridLine key={line.key} {...line} {...theme.grid.line as any} />
+                    <GridLine key={line.key} {...line} {...(theme.grid.line as any)} />
                 ))}
             </g>
         )
@@ -83,7 +83,7 @@ export const GridLines = ({ type, lines }: GridLinesProps) => {
                     {interpolatedStyles.map(interpolatedStyle => {
                         const { key, style } = interpolatedStyle
 
-                        return <GridLine key={key} {...theme.grid.line as any} {...style} />
+                        return <GridLine key={key} {...(theme.grid.line as any)} {...style} />
                     })}
                 </g>
             )}
