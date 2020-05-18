@@ -18,12 +18,10 @@
     "react-spring": "^8.0.27"
   },
   "devDependencies": {
-    "@types/react-measure": "^2.0.5",
-    "@types/react-motion": "^0.0.29"
+    "@nivo/core": "*"
   },
   "peerDependencies": {
     "@nivo/core": "0.63.1",
-    "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.8.4 < 17.0.0"
   },
   "publishConfig": {

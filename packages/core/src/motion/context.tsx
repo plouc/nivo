@@ -7,6 +7,10 @@
  * file that was distributed with this source code.
  */
 import React, { createContext, PropsWithChildren, useMemo } from 'react'
+import { config as presets } from 'react-spring'
+import { isString } from 'lodash'
+
+type Preset = 'default' | 'gentle' | 'wobbly' | 'stiff' | 'slow' | 'molasses'
 
 // tslint:disable-next-line:variable-name
 export const MotionConfigContext = createContext<{
@@ -15,12 +19,14 @@ export const MotionConfigContext = createContext<{
         stiffness: number
         damping: number
     }
+    config?: object
 }>({} as any)
 
 interface MotionConfigProviderProps {
     animate?: boolean
     stiffness?: number
     damping?: number
+    config?: Preset | object
 }
 
 // tslint:disable-next-line:variable-name
@@ -29,14 +35,17 @@ export const MotionConfigProvider = ({
     animate = true,
     stiffness = 90,
     damping = 15,
+    config,
 }: PropsWithChildren<MotionConfigProviderProps>) => {
-    const value = useMemo(
-        () => ({
+    const value = useMemo(() => {
+        const reactSpringConfig = isString(config) ? presets[config] : config
+
+        return {
             animate,
             springConfig: { stiffness, damping },
-        }),
-        [animate, stiffness, damping]
-    )
+            config: reactSpringConfig,
+        }
+    }, [animate, stiffness, damping, config])
 
     return <MotionConfigContext.Provider value={value}>{children}</MotionConfigContext.Provider>
 }

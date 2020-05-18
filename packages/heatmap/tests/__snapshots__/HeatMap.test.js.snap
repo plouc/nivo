@@ -30,7 +30,7 @@ exports[`should render a basic heat map chart 1`] = `
           style={
             Object {
               "cursor": undefined,
-              "opacity": undefined,
+              "opacity": 1,
             }
           }
           transform="translate(83.33333333333333,0)"
@@ -67,7 +67,7 @@ exports[`should render a basic heat map chart 1`] = `
           style={
             Object {
               "cursor": undefined,
-              "opacity": undefined,
+              "opacity": 1,
             }
           }
           transform="translate(250,0)"
@@ -104,7 +104,7 @@ exports[`should render a basic heat map chart 1`] = `
           style={
             Object {
               "cursor": undefined,
-              "opacity": undefined,
+              "opacity": 1,
             }
           }
           transform="translate(416.66666666666663,0)"
@@ -157,7 +157,7 @@ exports[`should render a basic heat map chart 1`] = `
           style={
             Object {
               "cursor": undefined,
-              "opacity": undefined,
+              "opacity": 1,
             }
           }
           transform="translate(0,50)"
@@ -194,7 +194,7 @@ exports[`should render a basic heat map chart 1`] = `
           style={
             Object {
               "cursor": undefined,
-              "opacity": undefined,
+              "opacity": 1,
             }
           }
           transform="translate(0,150)"
@@ -231,7 +231,7 @@ exports[`should render a basic heat map chart 1`] = `
           style={
             Object {
               "cursor": undefined,
-              "opacity": undefined,
+              "opacity": 1,
             }
           }
           transform="translate(0,250)"

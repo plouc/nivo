@@ -29,7 +29,7 @@ export const AxisTick = <Value extends number | string | Date>({
     value: _value,
     x,
     y,
-    opacity= 1,
+    opacity = 1,
     rotate,
     format,
     lineX,
