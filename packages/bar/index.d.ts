@@ -15,16 +15,19 @@ import {
     SvgDefsAndFill,
     CartesianMarkerProps,
 } from '@nivo/core'
+import { AxisProps, GridValues } from '@nivo/axes'
 import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 
 declare module '@nivo/bar' {
+    export type Value = string | number
+
     export interface Data {
         data: object[]
     }
 
     export interface BarDatum {
-        [key: string]: string | number
+        [key: string]: Value
     }
 
     export type BarDatumWithColor = BarDatum & {
@@ -32,10 +35,10 @@ declare module '@nivo/bar' {
     }
 
     export interface BarExtendedDatum {
-        id: string | number
+        id: Value
         value: number
         index: number
-        indexValue: string | number
+        indexValue: Value
         color: string
         data: BarDatum
     }
@@ -96,15 +99,15 @@ declare module '@nivo/bar' {
         maxValue: number | 'auto'
         padding: number
 
-        axisBottom: Axis | null
-        axisLeft: Axis | null
-        axisRight: Axis | null
-        axisTop: Axis | null
+        axisBottom: AxisProps | null
+        axisLeft: AxisProps | null
+        axisRight: AxisProps | null
+        axisTop: AxisProps | null
 
         enableGridX: boolean
-        gridXValues: Array<number | string>
+        gridXValues: GridValues<Value>
         enableGridY: boolean
-        gridYValues: Array<number | string>
+        gridYValues: GridValues<Value>
 
         barComponent: React.StatelessComponent<BarItemProps>
 
@@ -129,19 +132,6 @@ declare module '@nivo/bar' {
         legends: Array<{ dataFrom: 'indexes' | 'keys' } & LegendProps>
 
         markers: CartesianMarkerProps[]
-    }>
-
-    export type Axis = Partial<{
-        format: string | LabelFormatter
-        renderTick: (data: any) => React.ReactNode
-        legend: string
-        legendOffset: number
-        legendPosition: 'start' | 'middle' | 'end'
-        orient: 'top' | 'right' | 'bottom' | 'left'
-        tickPadding: number
-        tickRotation: number
-        tickSize: number
-        tickValues: number | string[] | number[]
     }>
 
     export enum BarLayerType {

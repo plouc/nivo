@@ -20,7 +20,7 @@ import {
 import { OrdinalColorsInstruction } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { Scale, ScaleFunc } from '@nivo/scales'
-import { AxisProps } from '@nivo/axes'
+import { AxisProps, GridValues } from '@nivo/axes'
 import { CrosshairType } from '@nivo/tooltip'
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
@@ -158,9 +158,9 @@ declare module '@nivo/line' {
         axisLeft?: AxisProps | null
 
         enableGridX?: boolean
-        gridXValues?: number | number[] | string[] | Date[]
+        gridXValues?: GridValues<DatumValue>
         enableGridY?: boolean
-        gridYValues?: number | number[] | string[] | Date[]
+        gridYValues?: GridValues<DatumValue>
 
         enablePoints?: boolean
         pointSymbol?: (props: Readonly<PointSymbolProps>) => React.ReactNode

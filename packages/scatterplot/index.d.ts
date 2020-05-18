@@ -17,7 +17,7 @@ import {
 } from '@nivo/core'
 import { OrdinalColorsInstruction } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
-import { AxisProps } from '@nivo/axes'
+import { AxisProps, GridValues } from '@nivo/axes'
 import { Scale } from '@nivo/scales'
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
@@ -129,7 +129,9 @@ declare module '@nivo/scatterplot' {
         blendMode?: CssMixBlendMode
 
         enableGridX?: boolean
+        gridXValues?: GridValues<Value>
         enableGridY?: boolean
+        gridYValues?: GridValues<Value>
         axisTop?: AxisProps | null
         axisRight?: AxisProps | null
         axisBottom?: AxisProps | null
