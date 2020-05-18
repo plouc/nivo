@@ -18,7 +18,7 @@ export interface GridLinesProps {
 export const GridLines = ({ lines }: GridLinesProps) => {
     const { animate, config: springConfig } = useMotionConfig()
 
-    const transitions = useTransition(lines, line => line.key, {
+    const transitions = useTransition(lines, line => String(line.key), {
         initial: line => ({
             opacity: 1,
             x1: line.x1,

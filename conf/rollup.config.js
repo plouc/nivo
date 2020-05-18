@@ -58,15 +58,8 @@ const commonPlugins = [
     }),
     isTypescript &&
         typescript({
-            useTsconfigDeclarationDir: true,
-            tsconfigOverride: {
-                include: [`./packages/${pkg}/src`],
-                compilerOptions: {
-                    baseUrl: `./packages/${pkg}`,
-                    declaration: true,
-                    declarationDir: `./packages/${pkg}/dist`,
-                },
-            },
+            clean: true,
+            tsconfig: `./packages/${pkg}/tsconfig.json`,
         }),
     babel({
         exclude: 'node_modules/**',

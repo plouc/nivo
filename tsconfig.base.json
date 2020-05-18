@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+      "allowJs": true,
+      "allowSyntheticDefaultImports": true,
+      "composite": true,
+      "declaration": true,
+      "declarationMap": true,
+      "downlevelIteration": true,
+      "jsx": "react",
+      "lib": ["dom", "es6"],
+      "moduleResolution": "node",
+      "noUnusedLocals": true,
+      "skipLibCheck": true,
+      "sourceMap": true,
+      "strict": true,
+      "strictNullChecks": true,
+      "strictPropertyInitialization": true,
+      "target": "es5"
+  }
+}

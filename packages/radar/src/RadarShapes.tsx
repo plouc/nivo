@@ -59,10 +59,7 @@ export function RadarShapes<Datum extends BaseRadarDatum>({
                     style={(spring: any) => ({
                         d: spring(shapeGenerator(serie.data), springConfig),
                         fill: spring(serie.color, springConfig),
-                        stroke: spring(
-                            getBorderColor(serie),
-                            springConfig
-                        ),
+                        stroke: spring(getBorderColor(serie), springConfig),
                     })}
                 >
                     {(style: { d: string; fill: string; stroke: string }) => (

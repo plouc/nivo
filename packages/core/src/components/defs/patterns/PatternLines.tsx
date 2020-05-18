@@ -20,7 +20,7 @@ export interface PatternLinesSpec {
 }
 
 export const patternLinesDefaults = {
-    spacing:  5,
+    spacing: 5,
     rotation: 0,
     background: '#ffffff',
     color: '#000000',
