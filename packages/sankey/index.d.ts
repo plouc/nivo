@@ -7,13 +7,15 @@
  * file that was distributed with this source code.
  */
 import * as React from 'react'
-import { Theme, CssMixBlendMode, Box } from '@nivo/core'
+import { Theme, CssMixBlendMode, Box, Dimensions, MotionProps } from '@nivo/core'
 import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 
 declare module '@nivo/sankey' {
-    export class Sankey extends React.Component<Data & SankeyProps & Dimensions> {}
-    export class ResponsiveSankey extends React.Component<Data & SankeyProps> {}
+    interface SharedProps extends Data, MotionProps, SankeyProps {}
+
+    export class Sankey extends React.Component<SharedProps & Dimensions> {}
+    export class ResponsiveSankey extends React.Component<SharedProps> {}
 
     export interface SankeyDataNode {
         id: string | number
@@ -118,9 +120,4 @@ declare module '@nivo/sankey' {
 
         legends: LegendProps[]
     }>
-
-    interface Dimensions {
-        height: number
-        width: number
-    }
 }
