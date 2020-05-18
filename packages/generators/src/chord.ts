@@ -6,8 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import range from 'lodash/range'
-import random from 'lodash/random'
+import { random, range } from 'lodash'
 import { names } from './sets'
 
 export const generateChordData = ({
@@ -21,7 +20,9 @@ export const generateChordData = ({
 
     const matrix = range(maxSize).map(() =>
         range(maxSize).map(() => {
-            if (Math.random() < 0.66) return random(minValue, maxValue / 4)
+            if (Math.random() < 0.66) {
+                return random(minValue, maxValue / 4)
+            }
             return random(minValue, maxValue)
         })
     )
