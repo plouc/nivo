@@ -66,6 +66,11 @@ declare module '@nivo/line' {
         | 'legends'
 
     export interface CustomLayerProps extends Omit<LineSvgProps, 'xScale' | 'yScale'> {
+        innerHeight: number
+        innerWidth: number
+        lineGenerator: (data: Datum[]) => string
+        points: Point[]
+        series: ComputedSerie[]
         xScale: ScaleFunc
         yScale: ScaleFunc
     }
