@@ -2,6 +2,8 @@ import * as React from 'react'
 import { number } from 'prop-types'
 
 declare module '@nivo/core' {
+    export type DatumValue = string | number | Date
+
     export interface Dimensions {
         height: number
         width: number
@@ -34,6 +36,14 @@ declare module '@nivo/core' {
     }
 
     export type Theme = Partial<{
+        crosshair: Partial<{
+            line: Partial<{
+                stroke: string
+                strokeWidth: number
+                strokeOpacity: number
+                strokeDasharray: string
+            }>
+        }>
         background: string
         axis: Partial<{
             domain: Partial<{
@@ -130,4 +140,8 @@ declare module '@nivo/core' {
         | 'step'
         | 'stepAfter'
         | 'stepBefore'
+
+    export type DataFormatter = (value: DatumValue) => string | number
+
+    export function useValueFormatter(formatter?: DataFormatter | string): DataFormatter
 }

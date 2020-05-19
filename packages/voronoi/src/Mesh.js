@@ -70,10 +70,10 @@ const Mesh = ({
                 if (currentIndex !== undefined && currentIndex !== null) {
                     previousNode = nodes[currentIndex]
                 }
-                onMouseLeave(previousNode, event)
+                previousNode && onMouseLeave(previousNode, event)
             }
         },
-        [setCurrentIndex]
+        [setCurrentIndex, currentIndex, nodes]
     )
     const handleClick = useCallback(
         event => {

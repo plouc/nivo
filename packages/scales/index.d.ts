@@ -19,11 +19,21 @@ declare module '@nivo/scales' {
         type: 'point'
     }
 
-    export interface TimeScale {
+    export interface TimeScaleFormatted {
         type: 'time'
-        format?: string
+        format: string
         precision?: 'millisecond' | 'second' | 'minute' | 'hour' | 'month' | 'year' | 'day'
         useUTC?: boolean
+        min?: 'auto' | string
+        max?: 'auto' | string
+    }
+
+    export interface TimeScale {
+        type: 'time'
+        precision?: 'millisecond' | 'second' | 'minute' | 'hour' | 'month' | 'year' | 'day'
+        useUTC?: boolean
+        min?: 'auto' | Date
+        max?: 'auto' | Date
     }
 
     export interface LogScale {
@@ -33,7 +43,7 @@ declare module '@nivo/scales' {
         max?: 'auto' | number
     }
 
-    export type Scale = LinearScale | PointScale | TimeScale | LogScale
+    export type Scale = LinearScale | PointScale | TimeScale | TimeScaleFormatted | LogScale
 
     export type ScaleFunc = (value: string | number | Date) => number
 }

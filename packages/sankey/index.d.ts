@@ -7,13 +7,15 @@
  * file that was distributed with this source code.
  */
 import * as React from 'react'
-import { Theme, CssMixBlendMode, Box } from '@nivo/core'
+import { Theme, CssMixBlendMode, Box, Dimensions, MotionProps } from '@nivo/core'
 import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 
 declare module '@nivo/sankey' {
-    export class Sankey extends React.Component<Data & SankeyProps & Dimensions> {}
-    export class ResponsiveSankey extends React.Component<Data & SankeyProps> {}
+    interface SharedProps extends Data, MotionProps, SankeyProps {}
+
+    export class Sankey extends React.Component<SharedProps & Dimensions> {}
+    export class ResponsiveSankey extends React.Component<SharedProps> {}
 
     export interface SankeyDataNode {
         id: string | number
@@ -29,30 +31,6 @@ declare module '@nivo/sankey' {
             nodes: SankeyDataNode[]
             links: SankeyDataLink[]
         }
-    }
-
-    export interface SankeyLinkProps {
-        source: {
-            id?: string | number
-            label: string | number
-        }
-        target: {
-            id?: string | number
-            label: string | number
-        }
-        thickness: number
-        color: string
-        value: number
-    }
-
-    export interface SankeyNodeProps {
-        id: string | number
-        x: number
-        y: number
-        width: number
-        height: number
-        label: string
-        color: string
     }
 
     export interface SankeyLinkDatum {
@@ -134,17 +112,12 @@ declare module '@nivo/sankey' {
         isInteractive: boolean
         onClick: SankeyMouseHandler
         tooltipFormat: TooltipFormat
-        nodeTooltip: TooltipRenderer<SankeyNodeProps>
-        linkTooltip: TooltipRenderer<SankeyLinkProps>
+        nodeTooltip: TooltipRenderer<SankeyNodeDatum>
+        linkTooltip: TooltipRenderer<SankeyLinkDatum>
 
         colors: OrdinalColorsInstruction
         theme: Theme
 
         legends: LegendProps[]
     }>
-
-    interface Dimensions {
-        height: number
-        width: number
-    }
 }

@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
-import { lineCurvePropType, blendModePropType, motionPropTypes } from '@nivo/core'
+import { lineCurvePropType, blendModePropType, motionPropTypes, defsPropTypes } from '@nivo/core'
 import { ordinalColorsPropType } from '@nivo/colors'
 import { axisPropType } from '@nivo/axes'
 import { scalePropType } from '@nivo/scales'
@@ -112,11 +112,6 @@ const commonPropTypes = {
         PropTypes.instanceOf(Date),
     ]).isRequired,
     lineWidth: PropTypes.number.isRequired,
-    defs: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string.isRequired,
-        })
-    ).isRequired,
 
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
 
@@ -139,6 +134,7 @@ export const LinePropTypes = {
     enablePointLabel: PropTypes.bool.isRequired,
     useMesh: PropTypes.bool.isRequired,
     ...motionPropTypes,
+    ...defsPropTypes,
 }
 
 export const LineCanvasPropTypes = {
@@ -188,8 +184,6 @@ const commonDefaultProps = {
     areaBlendMode: 'normal',
     lineWidth: 2,
 
-    defs: [],
-
     legends: [],
 
     isInteractive: true,
@@ -209,6 +203,8 @@ export const LineDefaultProps = {
     animate: true,
     motionStiffness: 90,
     motionDamping: 15,
+    defs: [],
+    fill: [],
 }
 
 export const LineCanvasDefaultProps = {
