@@ -1,23 +1,20 @@
 {
     "compilerOptions": {
         "allowJs": true,
-        "alwaysStrict": true,
+        "allowSyntheticDefaultImports": true,
         "composite": true,
         "declaration": true,
         "declarationMap": true,
-        "esModuleInterop": true,
+        "downlevelIteration": true,
         "jsx": "react",
-        "lib": ["dom", "esnext"],
-        "module": "esnext",
+        "lib": ["dom", "es6"],
         "moduleResolution": "node",
-        "noEmit": true,
-        "noImplicitAny": true,
-        "noImplicitThis": true,
         "noUnusedLocals": true,
         "skipLibCheck": true,
-        "skipDefaultLibCheck": true,
         "sourceMap": true,
         "strict": true,
-        "target": "es2017"
+        "strictNullChecks": true,
+        "strictPropertyInitialization": true,
+        "target": "es5"
     }
 }

@@ -55,7 +55,7 @@ export const GridLines = ({ type, lines }: GridLinesProps) => {
         return (
             <g>
                 {lines.map(line => (
-                    <GridLine key={line.key} {...line} {...(theme.grid.line as any)} />
+                    <GridLine {...line} {...(theme.grid.line as any)} />
                 ))}
             </g>
         )

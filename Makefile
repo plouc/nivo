@@ -189,6 +189,16 @@ package-build-%: ##@1 packages build a package
 	@rm -rf ./packages/${*}/dist
 	@export PACKAGE=${*}; ./node_modules/.bin/rollup -c conf/rollup.config.js
 
+packages-clean: ##@1 packages clean all packages
+	@echo "${YELLOW}Cleaning all packages${RESET}"
+	@find ./packages -type d -maxdepth 1 ! -path ./packages \
+				| sed 's|^./packages/||' \
+				| xargs -I '{}' sh -c '$(MAKE) package-clean-{}'
+
+package-clean-%: ##@1 packages clean a package
+	@echo "${YELLOW}Cleaning package ${WHITE}@nivo/${*}${RESET}"
+	@rm -rf ./packages/${*}/dist ./packages/${*}/tsconfig.tsbuildinfo
+
 packages-screenshots: ##@1 packages generate screenshots for packages readme (website dev server must be running)
 	@node scripts/capture.js
 

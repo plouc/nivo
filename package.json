@@ -65,7 +65,7 @@
         "rollup-plugin-typescript2": "^0.25.3",
         "serve": "^11.2.0",
         "tslint": "^5.20.1",
-        "typescript": "^3.7.3"
+        "typescript": "^3.9.3"
     },
     "resolutions": {
         "upath": "1.1.0",
@@ -73,7 +73,9 @@
         "react-dom": "16.8.6"
     },
     "scripts": {
-        "changelog": "rm CHANGELOG.md && node scripts/generate-changelog.js"
+        "build": "tsc -b ./tsconfig.monorepo.json",
+        "changelog": "rm CHANGELOG.md && node scripts/generate-changelog.js",
+        "clean:packages": "yarn workspaces run clean"
     },
     "workspaces": [
         "packages/*",
