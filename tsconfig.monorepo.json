@@ -1,0 +1,20 @@
+{
+    "files": [],
+    "references": [
+        // Core first because everything needs it
+        { "path": "./packages/core" },
+
+        // Shared next because charts need them
+        { "path": "./packages/axes" },
+        { "path": "./packages/colors" },
+        { "path": "./packages/legends" },
+        { "path": "./packages/scales" },
+        { "path": "./packages/tooltip" },
+
+        // Utility package
+        { "path": "./packages/generators" },
+
+        // Charts now
+        { "path": "./packages/radar" }
+    ]
+}

@@ -5,5 +5,10 @@
         "outDir": "./dist",
         "rootDir": "./src"
     },
-    "references": [{ "path": "../core" }, { "path": "../legends" }, { "path": "../tooltip" }]
+    "references": [
+        { "path": "../core" },
+        { "path": "../colors" },
+        { "path": "../legends" },
+        { "path": "../tooltip" }
+    ]
 }

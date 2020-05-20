@@ -74,7 +74,9 @@
     "react-dom": "16.8.6"
   },
   "scripts": {
+    "build": "tsc -b ./tsconfig.monorepo.json",
     "changelog": "rm CHANGELOG.md && node scripts/generate-changelog.js",
+    "clean:packages": "yarn workspaces run clean",
     "make:init": "make init"
   },
   "workspaces": [
