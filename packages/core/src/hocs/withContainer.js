@@ -8,7 +8,7 @@
  */
 import React, { Component, useRef } from 'react'
 import PropTypes from 'prop-types'
-import { TooltipContext, useTooltipHandlers, TooltipWrapper } from '@nivo/tooltip'
+// import { TooltipContext, useTooltipHandlers, TooltipWrapper } from '@nivo/tooltip'
 import { ThemeProvider } from '../theming'
 import { MotionConfigProvider } from '../motion'
 
@@ -26,16 +26,42 @@ const Container = ({
     motionConfig,
 }) => {
     const container = useRef(null)
-    const {
-        showTooltipAt,
-        showTooltipFromEvent,
-        hideTooltip,
-        isTooltipVisible,
-        tooltipContent,
-        tooltipPosition,
-        tooltipAnchor,
-    } = useTooltipHandlers(container)
+    // const {
+    //     showTooltipAt,
+    //     showTooltipFromEvent,
+    //     hideTooltip,
+    //     isTooltipVisible,
+    //     tooltipContent,
+    //     tooltipPosition,
+    //     tooltipAnchor,
+    // } = useTooltipHandlers(container)
 
+    // return (
+    //     <ThemeProvider theme={theme}>
+    //         <MotionConfigProvider
+    //             animate={animate}
+    //             stiffness={motionStiffness}
+    //             damping={motionDamping}
+    //         >
+    //             <TooltipContext.Provider
+    //                 value={{ showTooltipAt, showTooltipFromEvent, hideTooltip }}
+    //             >
+    //                 {/* we should not render the div element if using the HTTP API */}
+    //                 {renderWrapper === true && (
+    //                     <div style={containerStyle} ref={container}>
+    //                         {children}
+    //                         {isTooltipVisible && (
+    //                             <TooltipWrapper position={tooltipPosition} anchor={tooltipAnchor}>
+    //                                 {tooltipContent}
+    //                             </TooltipWrapper>
+    //                         )}
+    //                     </div>
+    //                 )}
+    //                 {renderWrapper !== true && children}
+    //             </TooltipContext.Provider>
+    //         </MotionConfigProvider>
+    //     </ThemeProvider>
+    // )
     return (
         <ThemeProvider theme={theme}>
             <MotionConfigProvider
@@ -44,22 +70,13 @@ const Container = ({
                 damping={motionDamping}
                 config={motionConfig}
             >
-                <TooltipContext.Provider
-                    value={{ showTooltipAt, showTooltipFromEvent, hideTooltip }}
-                >
-                    {/* we should not render the div element if using the HTTP API */}
-                    {renderWrapper === true && (
-                        <div style={containerStyle} ref={container}>
-                            {children}
-                            {isTooltipVisible && (
-                                <TooltipWrapper position={tooltipPosition} anchor={tooltipAnchor}>
-                                    {tooltipContent}
-                                </TooltipWrapper>
-                            )}
-                        </div>
-                    )}
-                    {renderWrapper !== true && children}
-                </TooltipContext.Provider>
+                {/* we should not render the div element if using the HTTP API */}
+                {renderWrapper === true && (
+                    <div style={containerStyle} ref={container}>
+                        {children}
+                    </div>
+                )}
+                {renderWrapper !== true && children}
             </MotionConfigProvider>
         </ThemeProvider>
     )
