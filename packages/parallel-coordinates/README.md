@@ -6,10 +6,10 @@
 
 [documentation](http://nivo.rocks/parallel-coordinates)
 
-![ParallelCoordinates](https://raw.githubusercontent.com/plouc/nivo/master/packages/parallel-coordinates/doc/parallel-coordinates.png)
+![ParallelCoordinates](./doc/parallel-coordinates.png)
 
 ## ParallelCoordinatesCanvas
 
 [documentation](http://nivo.rocks/parallel-coordinates/canvas)
 
-![ParallelCoordinatesCanvas](https://raw.githubusercontent.com/plouc/nivo/master/packages/parallel-coordinates/doc/parallel-coordinates-canvas.png)
+![ParallelCoordinatesCanvas](./doc/parallel-coordinates-canvas.png)

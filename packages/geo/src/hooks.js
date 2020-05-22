@@ -123,10 +123,7 @@ export const useChoropleth = ({
         return format(valueFormat)
     }, [valueFormat])
 
-    const colorScale = useMemo(() => guessQuantizeColorScale(colors).domain(domain), [
-        colors,
-        domain,
-    ])
+    const colorScale = useMemo(() => guessQuantizeColorScale(colors).domain(domain), [colors])
     const getFillColor = useMemo(() => {
         return feature => {
             if (feature.value === undefined) return unknownColor

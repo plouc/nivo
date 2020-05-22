@@ -19,7 +19,6 @@ const Mesh = ({
     setCurrent,
     onMouseEnter,
     onMouseMove,
-    onMouseLeave,
     onClick,
     tooltip,
     debug,
@@ -52,14 +51,10 @@ const Mesh = ({
         [setCurrent, showTooltipAt, tooltip, onMouseMove]
     )
 
-    const handleMouseLeave = useCallback(
-        (point, event) => {
-            hideTooltip()
-            setCurrent(null)
-            onMouseLeave && onMouseLeave(point, event)
-        },
-        [hideTooltip, setCurrent, onMouseLeave]
-    )
+    const handleMouseLeave = useCallback(() => {
+        hideTooltip()
+        setCurrent(null)
+    }, [hideTooltip, setCurrent])
 
     const handleClick = useCallback(
         (point, event) => {
@@ -90,7 +85,6 @@ Mesh.propTypes = {
     setCurrent: PropTypes.func.isRequired,
     onMouseEnter: PropTypes.func,
     onMouseMove: PropTypes.func,
-    onMouseLeave: PropTypes.func,
     onClick: PropTypes.func,
     tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
     debug: PropTypes.bool.isRequired,

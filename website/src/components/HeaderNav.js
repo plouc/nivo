@@ -19,7 +19,6 @@ const HeaderNav = () => {
     return (
         <Container>
             <HeaderInternalLink to="/about">About</HeaderInternalLink>
-            <HeaderInternalLink to="/references">References</HeaderInternalLink>
             <HeaderInternalLink to="/components">Components</HeaderInternalLink>
             <HeaderItem>
                 Guides

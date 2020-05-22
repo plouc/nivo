@@ -29,9 +29,7 @@ const LineCanvas = ({
 
     data,
     xScale: xScaleSpec,
-    xFormat,
     yScale: yScaleSpec,
-    yFormat,
     curve,
 
     layers,
@@ -80,9 +78,7 @@ const LineCanvas = ({
     const { lineGenerator, areaGenerator, series, xScale, yScale, points } = useLine({
         data,
         xScale: xScaleSpec,
-        xFormat,
         yScale: yScaleSpec,
-        yFormat,
         width: innerWidth,
         height: innerHeight,
         colors,

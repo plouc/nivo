@@ -42,10 +42,7 @@ const initialProperties = Object.freeze({
     borderWidth: 0,
     borderColor: {
         from: 'color',
-        modifiers: [
-            ['darker', 0.6],
-            ['opacity', 0.5],
-        ],
+        modifiers: [['darker', 0.6], ['opacity', 0.5]],
     },
     margin: {
         top: 80,
@@ -135,7 +132,9 @@ const ScatterPlot = () => {
                         onClick={node => {
                             logAction({
                                 type: 'click',
-                                label: `[node] id: ${node.id}, group: ${node.group}, value: ${node.value}`,
+                                label: `[node] id: ${node.id}, group: ${node.group}, value: ${
+                                    node.value
+                                }`,
                                 color: node.color,
                                 data: node,
                             })

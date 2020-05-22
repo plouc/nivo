@@ -17,11 +17,7 @@ it('should render a basic bar chart', () => {
         <Bar
             width={500}
             height={300}
-            data={[
-                { id: 'one', value: 10 },
-                { id: 'two', value: 20 },
-                { id: 'three', value: 30 },
-            ]}
+            data={[{ id: 'one', value: 10 }, { id: 'two', value: 20 }, { id: 'three', value: 30 }]}
         />
     )
 
@@ -35,11 +31,7 @@ it('should allow to disable labels', () => {
             width={500}
             height={300}
             enableLabel={false}
-            data={[
-                { id: 'one', value: 10 },
-                { id: 'two', value: 20 },
-                { id: 'three', value: 30 },
-            ]}
+            data={[{ id: 'one', value: 10 }, { id: 'two', value: 20 }, { id: 'three', value: 30 }]}
         />
     )
 
@@ -54,11 +46,7 @@ it('should allow grouped mode', () => {
             height={300}
             enableLabel={false}
             groupMode="grouped"
-            data={[
-                { id: 'one', value: 10 },
-                { id: 'two', value: 20 },
-                { id: 'three', value: 30 },
-            ]}
+            data={[{ id: 'one', value: 10 }, { id: 'two', value: 20 }, { id: 'three', value: 30 }]}
         />
     )
 
@@ -73,11 +61,7 @@ it('should allow horizontal layout', () => {
             height={300}
             enableLabel={false}
             layout="horizontal"
-            data={[
-                { id: 'one', value: 10 },
-                { id: 'two', value: 20 },
-                { id: 'three', value: 30 },
-            ]}
+            data={[{ id: 'one', value: 10 }, { id: 'two', value: 20 }, { id: 'three', value: 30 }]}
         />
     )
 
@@ -93,11 +77,7 @@ it('should allow grouped horizontal layout', () => {
             enableLabel={false}
             groupMode="grouped"
             layout="horizontal"
-            data={[
-                { id: 'one', value: 10 },
-                { id: 'two', value: 20 },
-                { id: 'three', value: 30 },
-            ]}
+            data={[{ id: 'one', value: 10 }, { id: 'two', value: 20 }, { id: 'three', value: 30 }]}
         />
     )
 
@@ -110,10 +90,7 @@ it(`should reverse legend items if chart layout is vertical`, () => {
         <Bar
             width={500}
             height={300}
-            data={[
-                { id: 'one', A: 10, B: 13 },
-                { id: 'two', A: 12, B: 9 },
-            ]}
+            data={[{ id: 'one', A: 10, B: 13 }, { id: 'two', A: 12, B: 9 }]}
             keys={['A', 'B']}
             layout="vertical"
             legends={[
@@ -141,10 +118,7 @@ it(`should not reverse legend items if chart layout is vertical reversed`, () =>
         <Bar
             width={500}
             height={300}
-            data={[
-                { id: 'one', A: 10, B: 13 },
-                { id: 'two', A: 12, B: 9 },
-            ]}
+            data={[{ id: 'one', A: 10, B: 13 }, { id: 'two', A: 12, B: 9 }]}
             keys={['A', 'B']}
             layout="vertical"
             reverse={true}
@@ -173,10 +147,7 @@ it(`should not reverse legend items if chart layout is horizontal`, () => {
         <Bar
             width={500}
             height={300}
-            data={[
-                { id: 'one', A: 10, B: 13 },
-                { id: 'two', A: 12, B: 9 },
-            ]}
+            data={[{ id: 'one', A: 10, B: 13 }, { id: 'two', A: 12, B: 9 }]}
             keys={['A', 'B']}
             layout="horizontal"
             legends={[
@@ -204,10 +175,7 @@ it(`should reverse legend items if chart layout is horizontal reversed`, () => {
         <Bar
             width={500}
             height={300}
-            data={[
-                { id: 'one', A: 10, B: 13 },
-                { id: 'two', A: 12, B: 9 },
-            ]}
+            data={[{ id: 'one', A: 10, B: 13 }, { id: 'two', A: 12, B: 9 }]}
             keys={['A', 'B']}
             layout="horizontal"
             reverse={true}

@@ -8,7 +8,7 @@
  */
 import { uniqBy } from 'lodash'
 
-export const getLegendDataForKeys = (bars, layout, direction, groupMode, reverse) => {
+export const getLegendDataForKeys = (bars, layout, groupMode, reverse) => {
     const data = uniqBy(
         bars.map(bar => ({
             id: bar.data.id,
@@ -20,10 +20,7 @@ export const getLegendDataForKeys = (bars, layout, direction, groupMode, reverse
     )
 
     if (
-        (layout === 'vertical' &&
-            groupMode === 'stacked' &&
-            direction === 'column' &&
-            reverse !== true) ||
+        (layout === 'vertical' && groupMode === 'stacked' && reverse !== true) ||
         (layout === 'horizontal' && groupMode === 'stacked' && reverse === true)
     ) {
         data.reverse()
@@ -44,10 +41,10 @@ export const getLegendDataForIndexes = bars => {
     )
 }
 
-export const getLegendData = ({ from, bars, layout, direction, groupMode, reverse }) => {
+export const getLegendData = ({ from, bars, layout, groupMode, reverse }) => {
     if (from === 'indexes') {
         return getLegendDataForIndexes(bars)
     }
 
-    return getLegendDataForKeys(bars, layout, direction, groupMode, reverse)
+    return getLegendDataForKeys(bars, layout, groupMode, reverse)
 }

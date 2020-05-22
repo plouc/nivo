@@ -43,12 +43,10 @@ TooltipContent.propTypes = {
         source: PropTypes.shape({
             id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
             label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-            color: PropTypes.string.isRequired,
         }).isRequired,
         target: PropTypes.shape({
             id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
             label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-            color: PropTypes.string.isRequired,
         }).isRequired,
         color: PropTypes.string.isRequired,
         value: PropTypes.number.isRequired,
@@ -109,8 +107,6 @@ SankeyLinksItem.propTypes = {
         }).isRequired,
         color: PropTypes.string.isRequired,
         value: PropTypes.number.isRequired,
-        startColor: PropTypes.string,
-        endColor: PropTypes.string,
     }).isRequired,
     layout: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
     path: PropTypes.string.isRequired,

@@ -104,7 +104,9 @@ const TooltipWrapper = memo(({ position, anchor, children }) => {
                             style={{
                                 ...tooltipStyle,
                                 ...theme.tooltip,
-                                transform: `translate3d(${animatedPosition.x}px, ${animatedPosition.y}px, 0)`,
+                                transform: `translate3d(${animatedPosition.x}px, ${
+                                    animatedPosition.y
+                                }px, 0)`,
                             }}
                         >
                             {children}

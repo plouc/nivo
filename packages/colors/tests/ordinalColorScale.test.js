@@ -65,14 +65,18 @@ it(`should throw if trying to generate a scale from diverging colors with a size
     expect(() => {
         getOrdinalColorScale({ scheme: divergingColorSchemeIds[0], size: 2 })
     }).toThrow(
-        `Invalid size '2' for diverging color scheme '${divergingColorSchemeIds[0]}', must be between 3~11`
+        `Invalid size '2' for diverging color scheme '${
+            divergingColorSchemeIds[0]
+        }', must be between 3~11`
     )
 })
 it(`should throw if trying to generate a scale from diverging colors with a size greater than 11`, () => {
     expect(() => {
         getOrdinalColorScale({ scheme: divergingColorSchemeIds[0], size: 13 })
     }).toThrow(
-        `Invalid size '13' for diverging color scheme '${divergingColorSchemeIds[0]}', must be between 3~11`
+        `Invalid size '13' for diverging color scheme '${
+            divergingColorSchemeIds[0]
+        }', must be between 3~11`
     )
 })
 
@@ -96,14 +100,18 @@ it(`should throw if trying to generate a scale from sequential colors with a siz
     expect(() => {
         getOrdinalColorScale({ scheme: sequentialColorSchemeIds[0], size: 2 })
     }).toThrow(
-        `Invalid size '2' for sequential color scheme '${sequentialColorSchemeIds[0]}', must be between 3~9`
+        `Invalid size '2' for sequential color scheme '${
+            sequentialColorSchemeIds[0]
+        }', must be between 3~9`
     )
 })
 it(`should throw if trying to generate a scale from sequential colors with a size greater than 9`, () => {
     expect(() => {
         getOrdinalColorScale({ scheme: sequentialColorSchemeIds[0], size: 11 })
     }).toThrow(
-        `Invalid size '11' for sequential color scheme '${sequentialColorSchemeIds[0]}', must be between 3~9`
+        `Invalid size '11' for sequential color scheme '${
+            sequentialColorSchemeIds[0]
+        }', must be between 3~9`
     )
 })
 

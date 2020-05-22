@@ -27,7 +27,9 @@ const ChordLabels = ({ arcs, radius, rotation, getColor }) => {
                     return (
                         <text
                             key={arc.id}
-                            transform={`translate(${textProps.x}, ${textProps.y}) rotate(${textProps.rotate})`}
+                            transform={`translate(${textProps.x}, ${textProps.y}) rotate(${
+                                textProps.rotate
+                            })`}
                             style={{
                                 ...theme.labels.text,
                                 pointerEvents: 'none',
@@ -67,7 +69,9 @@ const ChordLabels = ({ arcs, radius, rotation, getColor }) => {
                         return (
                             <text
                                 key={key}
-                                transform={`translate(${textProps.x}, ${textProps.y}) rotate(${textProps.rotate})`}
+                                transform={`translate(${textProps.x}, ${textProps.y}) rotate(${
+                                    textProps.rotate
+                                })`}
                                 style={{
                                     ...theme.labels.text,
                                     pointerEvents: 'none',

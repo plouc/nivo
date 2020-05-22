@@ -7,14 +7,7 @@
  * file that was distributed with this source code.
  */
 import React, { Fragment, useState, useMemo } from 'react'
-import {
-    bindDefs,
-    withContainer,
-    useDimensions,
-    useTheme,
-    SvgWrapper,
-    CartesianMarkers,
-} from '@nivo/core'
+import { withContainer, useDimensions, useTheme, SvgWrapper, CartesianMarkers } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 import { Axes, Grid } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
@@ -68,9 +61,6 @@ const Line = props => {
         pointLabel,
         pointLabelFormat,
         pointLabelYOffset,
-
-        defs,
-        fill,
 
         markers,
 
@@ -195,8 +185,6 @@ const Line = props => {
         )),
     }
 
-    const boundDefs = bindDefs(defs, series, fill)
-
     if (enableArea) {
         layerById.areas = (
             <Areas
@@ -290,7 +278,7 @@ const Line = props => {
     }
 
     return (
-        <SvgWrapper defs={boundDefs} width={outerWidth} height={outerHeight} margin={margin}>
+        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
                     return (
@@ -306,10 +294,6 @@ const Line = props => {
                                 yScale,
                                 lineGenerator,
                                 areaGenerator,
-                                currentPoint,
-                                setCurrentPoint,
-                                currentSlice,
-                                setCurrentSlice,
                             })}
                         </Fragment>
                     )

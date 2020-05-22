@@ -17,21 +17,15 @@ declare module '@nivo/tooltip' {
         color: string
         format?: (value: number | string) => number | string
         renderContent?: () => React.ReactNode
+        theme: Pick<Theme, 'tooltip'>
     }
 
     export class BasicTooltip extends React.Component<BasicTooltipProps> {}
 
-    export interface ChipProps {
-        color: string
-        size?: number
-        style?: Partial<React.CSSProperties>
-    }
-
-    export class Chip extends React.Component<ChipProps> {}
-
     export interface TableTooltipProps {
         title?: React.ReactNode
         rows: React.ReactNode[][]
+        theme: Pick<Theme, 'tooltip'>
         renderContent?: () => React.ReactNode
     }
 

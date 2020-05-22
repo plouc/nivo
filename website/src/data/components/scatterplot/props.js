@@ -93,16 +93,6 @@ const props = [
         group: 'Base',
         type: 'string | Function',
         help: 'Optional formatter for x values.',
-        description: `
-            The formatted value can then be used for labels & tooltips.
-
-            If you use a time scale, you must provide a time format
-            as values are converted to Date objects.
-            
-            Under the hood, nivo uses [d3-format](https://github.com/d3/d3-format),
-            please have a look at it for available formats, you can also pass a function
-            which will receive the raw value and should return the formatted one.
-        `,
     },
     {
         key: 'yScale',
@@ -159,16 +149,6 @@ const props = [
         group: 'Base',
         type: 'string | Function',
         help: 'Optional formatter for y values.',
-        description: `
-            The formatted value can then be used for labels & tooltips.
-
-            If you use a time scale, you must provide a time format
-            as values are converted to Date objects.
-            
-            Under the hood, nivo uses [d3-format](https://github.com/d3/d3-format),
-            please have a look at it for available formats, you can also pass a function
-            which will receive the raw value and should return the formatted one.
-        `,
     },
     {
         key: 'nodeSize',

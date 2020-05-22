@@ -112,7 +112,6 @@ class WaffleCanvas extends Component {
                 data: legendData,
                 containerWidth: width,
                 containerHeight: height,
-                theme,
             })
         })
     }

@@ -152,10 +152,7 @@ const props = [
         controlType: 'radio',
         group: 'Base',
         controlOptions: {
-            choices: [
-                { label: 'before', value: 'before' },
-                { label: 'after', value: 'after' },
-            ],
+            choices: [{ label: 'before', value: 'before' }, { label: 'after', value: 'after' }],
         },
     },
     {

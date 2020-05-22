@@ -13,12 +13,11 @@ import { useTheme, useMotionConfig } from '@nivo/core'
 import { inheritedColorPropType } from '@nivo/colors'
 import { useSeriesLabels } from './hooks'
 
-const LinesLabels = ({ series, getLabel, position, padding, color }) => {
+const LinesLabels = ({ series, position, padding, color }) => {
     const theme = useTheme()
     const { animate, springConfig } = useMotionConfig()
     const labels = useSeriesLabels({
         series,
-        getLabel,
         position,
         padding,
         color,
@@ -39,7 +38,7 @@ const LinesLabels = ({ series, getLabel, position, padding, color }) => {
                         fill: label.color,
                     }}
                 >
-                    {label.label}
+                    {label.id}
                 </text>
             )
         })
@@ -72,7 +71,7 @@ const LinesLabels = ({ series, getLabel, position, padding, color }) => {
                                 fill: label.color,
                             }}
                         >
-                            {label.label}
+                            {label.id}
                         </text>
                     ))}
                 </>
@@ -88,13 +87,11 @@ LinesLabels.propTypes = {
             data: PropTypes.arrayOf(
                 PropTypes.shape({
                     x: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-                    y: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+                    y: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
                 })
             ).isRequired,
         })
     ).isRequired,
-    getLabel: PropTypes.oneOfType([PropTypes.oneOf([false]), PropTypes.string, PropTypes.func])
-        .isRequired,
     position: PropTypes.oneOf(['start', 'end']).isRequired,
     padding: PropTypes.number.isRequired,
     color: inheritedColorPropType.isRequired,
