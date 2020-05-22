@@ -306,6 +306,10 @@ const Line = props => {
                                 yScale,
                                 lineGenerator,
                                 areaGenerator,
+                                currentPoint,
+                                setCurrentPoint,
+                                currentSlice,
+                                setCurrentSlice,
                             })}
                         </Fragment>
                     )
