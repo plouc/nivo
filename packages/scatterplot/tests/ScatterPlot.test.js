@@ -25,10 +25,7 @@ it('should allow to render several series', () => {
         <ScatterPlot
             width={500}
             height={300}
-            data={[
-                { id: 'default', data: sampleData },
-                { id: 'extra', data: sampleData },
-            ]}
+            data={[{ id: 'default', data: sampleData }, { id: 'extra', data: sampleData }]}
         />
     )
 
@@ -46,7 +43,7 @@ it('should allow to customize node size', () => {
         />
     )
 
-    const nodes = wrapper.find('Memo(Node)')
+    const nodes = wrapper.find('Node')
     expect(nodes).toHaveLength(5)
     nodes.forEach(node => {
         expect(node.prop('size')).toBe(12)
@@ -62,11 +59,7 @@ it('should allow to use a varying node size', () => {
             data={[
                 {
                     id: 'default',
-                    data: [
-                        { x: 0, y: 0, z: 3 },
-                        { x: 1, y: 1, z: 5 },
-                        { x: 2, y: 2, z: 8 },
-                    ],
+                    data: [{ x: 0, y: 0, z: 3 }, { x: 1, y: 1, z: 5 }, { x: 2, y: 2, z: 8 }],
                 },
             ]}
             nodeSize={{
@@ -77,7 +70,7 @@ it('should allow to use a varying node size', () => {
         />
     )
 
-    const nodes = wrapper.find('Memo(Node)')
+    const nodes = wrapper.find('Node')
     expect(nodes).toHaveLength(3)
     expect(nodes.at(0).prop('size')).toBe(6)
     expect(nodes.at(1).prop('size')).toBe(10)
@@ -122,7 +115,7 @@ it('should allow to disable interactivity', () => {
         />
     )
 
-    const nodes = wrapper.find('Memo(Node)')
+    const nodes = wrapper.find('Node')
     expect(nodes).toHaveLength(5)
     nodes.forEach(node => {
         expect(node.prop('onMouseEnter')).toBeUndefined()

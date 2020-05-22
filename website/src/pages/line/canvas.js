@@ -144,7 +144,9 @@ const LineCanvas = () => {
                         onClick={point => {
                             logAction({
                                 type: 'click',
-                                label: `[point] serie: ${point.serieId}, x: ${point.data.x}, y: ${point.data.y}`,
+                                label: `[point] serie: ${point.serieId}, x: ${point.data.x}, y: ${
+                                    point.data.y
+                                }`,
                                 color: point.color,
                                 data: point,
                             })

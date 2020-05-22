@@ -7,8 +7,7 @@
     "sourceMap": true,
     "jsx": "react",
     "moduleResolution": "node",
-    "esModuleInterop": true,
-    "noImplicitAny": true
+    "esModuleInterop": true
   },
   "include": ["./packages/*/index.d.ts"]
 }

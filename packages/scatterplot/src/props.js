@@ -12,7 +12,6 @@ import { ordinalColorsPropType } from '@nivo/colors'
 import { axisPropType } from '@nivo/axes'
 import { LegendPropShape } from '@nivo/legends'
 import { scalePropType } from '@nivo/scales'
-import { annotationSpecPropType } from '@nivo/annotations'
 import Node from './Node'
 import Tooltip from './Tooltip'
 
@@ -43,7 +42,7 @@ const commonPropTypes = {
 
     layers: PropTypes.arrayOf(
         PropTypes.oneOfType([
-            PropTypes.oneOf(['grid', 'axes', 'nodes', 'markers', 'mesh', 'legends', 'annotations']),
+            PropTypes.oneOf(['grid', 'axes', 'nodes', 'markers', 'mesh', 'legends']),
             PropTypes.func,
         ])
     ).isRequired,
@@ -54,8 +53,6 @@ const commonPropTypes = {
     axisRight: axisPropType,
     axisBottom: axisPropType,
     axisLeft: axisPropType,
-
-    annotations: PropTypes.arrayOf(annotationSpecPropType).isRequired,
 
     nodeSize: PropTypes.oneOfType([
         PropTypes.number,
@@ -133,13 +130,11 @@ const commonDefaultProps = {
     markers: [],
 
     legends: [],
-
-    annotations: [],
 }
 
 export const ScatterPlotDefaultProps = {
     ...commonDefaultProps,
-    layers: ['grid', 'axes', 'nodes', 'markers', 'mesh', 'legends', 'annotations'],
+    layers: ['grid', 'axes', 'nodes', 'markers', 'mesh', 'legends'],
     useMesh: true,
     animate: true,
     motionStiffness: 90,
@@ -148,7 +143,7 @@ export const ScatterPlotDefaultProps = {
 
 export const ScatterPlotCanvasDefaultProps = {
     ...commonDefaultProps,
-    layers: ['grid', 'axes', 'nodes', 'mesh', 'legends', 'annotations'],
+    layers: ['grid', 'axes', 'nodes', 'mesh', 'legends'],
     pixelRatio:
         global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
 }

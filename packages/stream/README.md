@@ -6,4 +6,4 @@
 
 [documentation](http://nivo.rocks/stream)
 
-![Stream](https://raw.githubusercontent.com/plouc/nivo/master/packages/stream/doc/stream.png)
+![Stream](./doc/stream.png)

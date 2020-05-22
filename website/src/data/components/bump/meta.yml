@@ -7,11 +7,7 @@ Bump:
   tags:
     - svg
     - isomorphic
-  stories:
-    - label: Custom points
-      link: bump--custom-points
-    - label: Missing data
-      link: bump--missing-data
+  stories: []
   description: |
     The Bump chart can be used to show the ranking of several series
     over time. It is quite similar to [line](self:/line/) charts,

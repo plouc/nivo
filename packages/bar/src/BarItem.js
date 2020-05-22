@@ -87,7 +87,6 @@ BarItem.propTypes = {
         id: PropTypes.string.isRequired,
         value: PropTypes.number.isRequired,
         indexValue: PropTypes.string.isRequired,
-        fill: PropTypes.string,
     }).isRequired,
 
     x: PropTypes.number.isRequired,
@@ -114,9 +113,6 @@ BarItem.propTypes = {
 
     theme: PropTypes.shape({
         tooltip: PropTypes.shape({}).isRequired,
-        labels: PropTypes.shape({
-            text: PropTypes.object.isRequired,
-        }).isRequired,
     }).isRequired,
 }
 

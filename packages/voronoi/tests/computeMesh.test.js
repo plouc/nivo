@@ -1,11 +1,7 @@
 import { computeMesh } from '../src/computeMesh'
 
 it(`should be able to compute mesh for collinear points`, () => {
-    const points = [
-        [0, 0],
-        [50, 50],
-        [100, 100],
-    ]
+    const points = [[0, 0], [50, 50], [100, 100]]
 
     const { voronoi } = computeMesh({ points, width: 500, height: 500, debug: true })
 

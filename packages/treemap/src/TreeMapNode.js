@@ -53,7 +53,6 @@ TreeMapNode.propTypes = {
         width: PropTypes.number.isRequired,
         height: PropTypes.number.isRequired,
         color: PropTypes.string.isRequired,
-        fill: PropTypes.string,
         borderWidth: PropTypes.number.isRequired,
         borderColor: PropTypes.string.isRequired,
         labelTextColor: PropTypes.string.isRequired,

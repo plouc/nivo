@@ -82,10 +82,7 @@ export default {
             stagger: true,
         }),
     ],
-    fill: [
-        { match: { id: 'Paul' }, id: 'dots' },
-        { match: { id: 'Marcel' }, id: 'squares' },
-    ],
+    fill: [{ match: { id: 'Paul' }, id: 'dots' }, { match: { id: 'Marcel' }, id: 'squares' }],
 
     enableDots: false,
     dotSize: 8,

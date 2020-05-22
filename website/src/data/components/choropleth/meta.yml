@@ -27,11 +27,6 @@ Choropleth:
     feature using the `match` property, the value is picked according
     to the `value` accessor.
 
-    Please note that because the features file is pretty huge, **it's not included
-    in the generated code**, you can find the file used for this example
-    [here](https://github.com/plouc/nivo/blob/master/website/src/data/components/geo/world_countries.json),
-    you'll have to pass the `features` array to the `features` property.
-
     The responsive alternative of this component is `ResponsiveChoropleth`.
     This component also have a canvas implementations,
     [ChoroplethCanvas](self:/choropleth/canvas), which should be used
@@ -47,11 +42,6 @@ ChoroplethCanvas:
     A canvas implementation of the [Choropleth](self:/choropleth)
     component, should be used used when you have complex geometries
     as it offers better performance than its SVG counterpart.
-
-    Please note that because the features file is pretty huge, **it's not included
-    in the generated code**, you can find the file used for this example
-    [here](https://github.com/plouc/nivo/blob/master/website/src/data/components/geo/world_countries.json),
-    you'll have to pass the `features` array to the `features` property.
 
     The responsive alternative of this component is
     `ResponsiveChoropleth`.

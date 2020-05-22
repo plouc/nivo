@@ -52,7 +52,7 @@ const GeoMap = () => {
             defaultProperties={GeoMapDefaultProps}
             propertiesMapper={mapper}
             codePropertiesMapper={properties => ({
-                features: '/* please have a look at the description for usage */',
+                features: [],
                 ...properties,
             })}
             hasData={false}

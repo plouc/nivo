@@ -30,7 +30,6 @@ const PieTooltip = ({ data, color, tooltipFormat, tooltip, theme }) => {
 PieTooltip.propTypes = {
     data: PropTypes.shape({
         id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-        label: PropTypes.string.isRequired,
         value: PropTypes.number.isRequired,
     }).isRequired,
     color: PropTypes.string.isRequired,

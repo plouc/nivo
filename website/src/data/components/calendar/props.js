@@ -231,10 +231,7 @@ const props = [
         controlType: 'radio',
         group: 'Years',
         controlOptions: {
-            choices: [
-                { label: 'before', value: 'before' },
-                { label: 'after', value: 'after' },
-            ],
+            choices: [{ label: 'before', value: 'before' }, { label: 'after', value: 'after' }],
         },
     },
     {
@@ -288,10 +285,7 @@ const props = [
         controlType: 'radio',
         group: 'Months',
         controlOptions: {
-            choices: [
-                { label: 'before', value: 'before' },
-                { label: 'after', value: 'after' },
-            ],
+            choices: [{ label: 'before', value: 'before' }, { label: 'after', value: 'after' }],
         },
     },
     {

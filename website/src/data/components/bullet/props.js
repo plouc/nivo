@@ -230,10 +230,7 @@ const props = [
         controlType: 'radio',
         group: 'Axes',
         controlOptions: {
-            choices: [
-                { label: 'before', value: 'before' },
-                { label: 'after', value: 'after' },
-            ],
+            choices: [{ label: 'before', value: 'before' }, { label: 'after', value: 'after' }],
         },
     },
     {
@@ -245,10 +242,7 @@ const props = [
         controlType: 'radio',
         group: 'Title',
         controlOptions: {
-            choices: [
-                { label: 'before', value: 'before' },
-                { label: 'after', value: 'after' },
-            ],
+            choices: [{ label: 'before', value: 'before' }, { label: 'after', value: 'after' }],
         },
     },
     {

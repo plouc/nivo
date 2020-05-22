@@ -26,11 +26,7 @@ const SunburstArc = ({ node, path, borderWidth, borderColor, showTooltip, hideTo
 )
 
 SunburstArc.propTypes = {
-    node: PropTypes.shape({
-        data: PropTypes.shape({
-            color: PropTypes.string.isRequired,
-        }).isRequired,
-    }).isRequired,
+    node: PropTypes.shape({}).isRequired,
     arcGenerator: PropTypes.func.isRequired,
     path: PropTypes.string.isRequired,
     borderWidth: PropTypes.number.isRequired,
