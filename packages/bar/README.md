@@ -6,10 +6,10 @@
 
 [documentation](http://nivo.rocks/bar)
 
-![Bar](./doc/bar.png)
+![Bar](https://raw.githubusercontent.com/plouc/nivo/master/packages/bar/doc/bar.png)
 
 ## BarCanvas
 
 [documentation](http://nivo.rocks/bar/canvas)
 
-![BarCanvas](./doc/bar-canvas.png)
+![BarCanvas](https://raw.githubusercontent.com/plouc/nivo/master/packages/bar/doc/bar-canvas.png)

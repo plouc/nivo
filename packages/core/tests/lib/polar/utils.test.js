@@ -54,9 +54,7 @@ const boundingBoxCases = [
 for (let boundingBoxCase of boundingBoxCases) {
     const { args, expected } = boundingBoxCase
 
-    test(`computeArcBoundingBox() for position ${args[0]}, ${args[1]} with radius ${
-        args[2]
-    }, starting at ${args[3]}°, ending at ${args[4]}°`, () => {
+    test(`computeArcBoundingBox() for position ${args[0]}, ${args[1]} with radius ${args[2]}, starting at ${args[3]}°, ending at ${args[4]}°`, () => {
         const box = computeArcBoundingBox(...args)
 
         for (let prop in expected) {

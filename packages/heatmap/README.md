@@ -6,10 +6,10 @@
 
 [documentation](http://nivo.rocks/heatmap)
 
-![HeatMap](./doc/heatmap.png)
+![HeatMap](https://raw.githubusercontent.com/plouc/nivo/master/packages/heatmap/doc/heatmap.png)
 
 ## HeatMapCanvas
 
 [documentation](http://nivo.rocks/heatmap/canvas)
 
-![HeatmapCanvas](./doc/heatmap-canvas.png)
+![HeatmapCanvas](https://raw.githubusercontent.com/plouc/nivo/master/packages/heatmap/doc/heatmap-canvas.png)

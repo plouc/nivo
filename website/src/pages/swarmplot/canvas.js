@@ -130,9 +130,7 @@ const ScatterPlotCanvas = () => {
                         onClick={node => {
                             logAction({
                                 type: 'click',
-                                label: `[node] id: ${node.id}, group: ${node.group}, value: ${
-                                    node.value
-                                }`,
+                                label: `[node] id: ${node.id}, group: ${node.group}, value: ${node.value}`,
                                 color: node.color,
                                 data: node,
                             })

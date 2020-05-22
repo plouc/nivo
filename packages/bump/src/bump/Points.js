@@ -11,24 +11,24 @@ import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
 import { useMotionConfig } from '@nivo/core'
 
-const pointStyle = { pointerEvents: 'none' }
-
-const Points = ({ points }) => {
+const Points = ({ pointComponent, points }) => {
     const { animate, springConfig } = useMotionConfig()
 
     if (!animate) {
-        return points.map(point => (
-            <circle
-                key={point.id}
-                cx={point.x}
-                cy={point.y}
-                r={point.style.size / 2}
-                strokeWidth={point.style.borderWidth}
-                stroke={point.borderColor}
-                fill={point.color}
-                style={pointStyle}
-            />
-        ))
+        return points.map(point => {
+            return React.createElement(pointComponent, {
+                key: point.id,
+                data: point.data,
+                x: point.x,
+                y: point.y,
+                isActive: point.isActive,
+                isInactive: point.isInactive,
+                size: point.style.size,
+                color: point.color,
+                borderColor: point.borderColor,
+                borderWidth: point.style.borderWidth,
+            })
+        })
     }
 
     return (
@@ -39,25 +39,27 @@ const Points = ({ points }) => {
                 style: {
                     x: spring(point.x, springConfig),
                     y: spring(point.y, springConfig),
-                    r: spring(point.style.size / 2, springConfig),
-                    strokeWidth: spring(point.style.borderWidth, springConfig),
+                    size: spring(point.style.size, springConfig),
+                    borderWidth: spring(point.style.borderWidth, springConfig),
                 },
             }))}
         >
             {interpolated => (
                 <>
-                    {interpolated.map(({ key, style, data: point }) => (
-                        <circle
-                            key={key}
-                            cx={style.x}
-                            cy={style.y}
-                            r={Math.max(style.r, 0)}
-                            strokeWidth={Math.max(style.strokeWidth, 0)}
-                            stroke={point.borderColor}
-                            fill={point.color}
-                            style={pointStyle}
-                        />
-                    ))}
+                    {interpolated.map(({ key, style, data: point }) => {
+                        return React.createElement(pointComponent, {
+                            key,
+                            data: point.data,
+                            x: style.x,
+                            y: style.y,
+                            isActive: point.isActive,
+                            isInactive: point.isInactive,
+                            size: Math.max(style.size, 0),
+                            color: point.color,
+                            borderColor: point.borderColor,
+                            borderWidth: Math.max(style.borderWidth, 0),
+                        })
+                    })}
                 </>
             )}
         </TransitionMotion>
@@ -65,11 +67,15 @@ const Points = ({ points }) => {
 }
 
 Points.propTypes = {
+    pointComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
     points: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.string.isRequired,
+            data: PropTypes.object.isRequired,
             x: PropTypes.number.isRequired,
             y: PropTypes.number.isRequired,
+            isActive: PropTypes.bool.isRequired,
+            isInactive: PropTypes.bool.isRequired,
             color: PropTypes.string.isRequired,
             borderColor: PropTypes.string.isRequired,
             style: PropTypes.shape({

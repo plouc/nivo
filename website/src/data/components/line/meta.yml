@@ -40,11 +40,13 @@ Line:
       link: line--formatting-values
     - label: adding custom layers
       link: line--custom-layers
+    - label: area gradients
+      link: line--area-gradients
   description: |
     Line chart with stacking ability.
 
     Given an array of data series having an id and a nested array of points
-    (with x, y properties), it will compute the line for each data serie.
+    (with x, y properties), it will compute the line for each data series.
     All datum having null x or y will be treated as holes, thus portions
     of the corresponding line will be skipped.
 

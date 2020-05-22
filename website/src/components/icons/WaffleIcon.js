@@ -25,7 +25,10 @@ const chartProps = {
         bottom: 5,
     },
     padding: 2,
-    data: [{ id: 'A', label: 'A', value: 8 }, { id: 'B', label: 'B', value: 4 }],
+    data: [
+        { id: 'A', label: 'A', value: 8 },
+        { id: 'B', label: 'B', value: 4 },
+    ],
     isInteractive: false,
 }
 

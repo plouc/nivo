@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { Dimensions, Box, MotionProps, ColorProps, Theme } from '@nivo/core'
-import { Axis } from '@nivo/axes'
+import { AxisProps } from '@nivo/axes'
 import { InheritedColorProp } from '@nivo/colors'
+import { BasicTooltipProps } from '@nivo/tooltip'
 
 declare module '@nivo/heatmap' {
     export interface HeatMapDatum {
@@ -36,10 +37,10 @@ declare module '@nivo/heatmap' {
             cellBorderWidth: number
             cellBorderColor: InheritedColorProp<HeatMapDatumWithColor>
 
-            axisTop: Axis
-            axisRight: Axis
-            axisBottom: Axis
-            axisLeft: Axis
+            axisTop: AxisProps | null
+            axisRight: AxisProps | null
+            axisBottom: AxisProps | null
+            axisLeft: AxisProps | null
 
             enableGridX: boolean
             enableGridY: boolean
@@ -52,6 +53,7 @@ declare module '@nivo/heatmap' {
             cellHoverOpacity: number
             cellHoverOthersOpacity: number
             tooltipFormat: string | ValueFormatter
+            tooltip: React.StatelessComponent<BasicTooltipProps & NodeData>
 
             theme: Theme
         }>

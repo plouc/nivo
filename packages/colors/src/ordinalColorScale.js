@@ -60,9 +60,7 @@ export const getOrdinalColorScale = (instruction, identity) => {
                     (instruction.size < 3 || instruction.size > 11)
                 ) {
                     throw new Error(
-                        `Invalid size '${instruction.size}' for diverging color scheme '${
-                            instruction.scheme
-                        }', must be between 3~11`
+                        `Invalid size '${instruction.size}' for diverging color scheme '${instruction.scheme}', must be between 3~11`
                     )
                 }
 
@@ -81,9 +79,7 @@ export const getOrdinalColorScale = (instruction, identity) => {
                     (instruction.size < 3 || instruction.size > 9)
                 ) {
                     throw new Error(
-                        `Invalid size '${instruction.size}' for sequential color scheme '${
-                            instruction.scheme
-                        }', must be between 3~9`
+                        `Invalid size '${instruction.size}' for sequential color scheme '${instruction.scheme}', must be between 3~9`
                     )
                 }
 

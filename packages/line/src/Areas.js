@@ -19,11 +19,11 @@ const Areas = ({ areaGenerator, areaOpacity, areaBlendMode, lines }) => {
                 {lines
                     .slice(0)
                     .reverse()
-                    .map(({ id, data, color: areaColor }) => (
+                    .map(({ id, data, color: areaColor, fill }) => (
                         <path
                             key={id}
                             d={areaGenerator(data.map(d => d.position))}
-                            fill={areaColor}
+                            fill={fill ? fill : areaColor}
                             fillOpacity={areaOpacity}
                             strokeWidth={0}
                             style={{
@@ -40,7 +40,7 @@ const Areas = ({ areaGenerator, areaOpacity, areaBlendMode, lines }) => {
             {lines
                 .slice(0)
                 .reverse()
-                .map(({ id, data, color: areaColor }) => (
+                .map(({ id, data, color: areaColor, fill }) => (
                     <SmartMotion
                         key={id}
                         style={spring => ({
@@ -52,7 +52,7 @@ const Areas = ({ areaGenerator, areaOpacity, areaBlendMode, lines }) => {
                             <path
                                 key={id}
                                 d={style.d}
-                                fill={areaColor}
+                                fill={fill ? fill : areaColor}
                                 fillOpacity={areaOpacity}
                                 strokeWidth={0}
                                 style={{ mixBlendMode: areaBlendMode }}
