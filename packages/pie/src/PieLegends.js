@@ -45,11 +45,11 @@ class PieLegends extends Component {
 export const enhance = Component =>
     compose(
         withPropsOnChange(['arcs'], ({ arcs }) => ({
-            data: arcs.map(arc => ({
-                id: arc.data.id,
-                label: arc.data.id,
-                color: arc.color,
-                fill: arc.fill,
+            data: arcs.map(({ color, data: { id, label }, fill }) => ({
+                id: id,
+                label: label || id,
+                color,
+                fill,
             })),
         })),
         pure

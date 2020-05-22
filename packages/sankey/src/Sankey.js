@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { Fragment } from 'react'
 import { uniq } from 'lodash'
 import { Container, SvgWrapper } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
@@ -65,6 +65,8 @@ const Sankey = ({
 
     legends,
     legendData,
+
+    layers,
 }) => {
     let isCurrentNode = () => false
     let isCurrentLink = () => false
@@ -100,54 +102,85 @@ const Sankey = ({
             motionDamping={motionDamping}
             motionStiffness={motionStiffness}
         >
-            {({ showTooltip, hideTooltip }) => (
-                <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
-                    <SankeyLinks
-                        links={links}
-                        layout={layout}
-                        linkContract={linkContract}
-                        linkOpacity={linkOpacity}
-                        linkHoverOpacity={linkHoverOpacity}
-                        linkHoverOthersOpacity={linkHoverOthersOpacity}
-                        linkBlendMode={linkBlendMode}
-                        enableLinkGradient={enableLinkGradient}
-                        showTooltip={showTooltip}
-                        hideTooltip={hideTooltip}
-                        setCurrentLink={setCurrentLink}
-                        currentNode={currentNode}
-                        currentLink={currentLink}
-                        isCurrentLink={isCurrentLink}
-                        onClick={onClick}
-                        tooltip={linkTooltip}
-                        theme={theme}
-                        tooltipFormat={tooltipFormat}
-                        animate={animate}
-                        motionDamping={motionDamping}
-                        motionStiffness={motionStiffness}
-                    />
-                    <SankeyNodes
-                        nodes={nodes}
-                        nodeOpacity={nodeOpacity}
-                        nodeHoverOpacity={nodeHoverOpacity}
-                        nodeHoverOthersOpacity={nodeHoverOthersOpacity}
-                        nodeBorderWidth={nodeBorderWidth}
-                        getNodeBorderColor={getNodeBorderColor}
-                        showTooltip={showTooltip}
-                        hideTooltip={hideTooltip}
-                        setCurrentNode={setCurrentNode}
-                        currentNode={currentNode}
-                        currentLink={currentLink}
-                        isCurrentNode={isCurrentNode}
-                        onClick={onClick}
-                        tooltip={nodeTooltip}
-                        theme={theme}
-                        tooltipFormat={tooltipFormat}
-                        animate={animate}
-                        motionDamping={motionDamping}
-                        motionStiffness={motionStiffness}
-                    />
-                    {enableLabels && (
+            {({ showTooltip, hideTooltip }) => {
+                const layerProps = {
+                    links,
+                    nodes,
+                    margin,
+                    width,
+                    height,
+                    outerWidth,
+                    outerHeight,
+                }
+
+                const layerById = {
+                    links: (
+                        <SankeyLinks
+                            key="links"
+                            links={links}
+                            layout={layout}
+                            linkContract={linkContract}
+                            linkOpacity={linkOpacity}
+                            linkHoverOpacity={linkHoverOpacity}
+                            linkHoverOthersOpacity={linkHoverOthersOpacity}
+                            linkBlendMode={linkBlendMode}
+                            enableLinkGradient={enableLinkGradient}
+                            showTooltip={showTooltip}
+                            hideTooltip={hideTooltip}
+                            setCurrentLink={setCurrentLink}
+                            currentNode={currentNode}
+                            currentLink={currentLink}
+                            isCurrentLink={isCurrentLink}
+                            onClick={onClick}
+                            tooltip={linkTooltip}
+                            theme={theme}
+                            tooltipFormat={tooltipFormat}
+                            animate={animate}
+                            motionDamping={motionDamping}
+                            motionStiffness={motionStiffness}
+                        />
+                    ),
+                    nodes: (
+                        <SankeyNodes
+                            key="nodes"
+                            nodes={nodes}
+                            nodeOpacity={nodeOpacity}
+                            nodeHoverOpacity={nodeHoverOpacity}
+                            nodeHoverOthersOpacity={nodeHoverOthersOpacity}
+                            nodeBorderWidth={nodeBorderWidth}
+                            getNodeBorderColor={getNodeBorderColor}
+                            showTooltip={showTooltip}
+                            hideTooltip={hideTooltip}
+                            setCurrentNode={setCurrentNode}
+                            currentNode={currentNode}
+                            currentLink={currentLink}
+                            isCurrentNode={isCurrentNode}
+                            onClick={onClick}
+                            tooltip={nodeTooltip}
+                            theme={theme}
+                            tooltipFormat={tooltipFormat}
+                            animate={animate}
+                            motionDamping={motionDamping}
+                            motionStiffness={motionStiffness}
+                        />
+                    ),
+                    labels: null,
+                    legends: legends.map((legend, i) => (
+                        <BoxLegendSvg
+                            key={`legend${i}`}
+                            {...legend}
+                            containerWidth={width}
+                            containerHeight={height}
+                            data={legendData}
+                            theme={theme}
+                        />
+                    )),
+                }
+
+                if (enableLabels) {
+                    layerById.labels = (
                         <SankeyLabels
+                            key="labels"
                             nodes={nodes}
                             layout={layout}
                             width={width}
@@ -161,19 +194,26 @@ const Sankey = ({
                             motionDamping={motionDamping}
                             motionStiffness={motionStiffness}
                         />
-                    )}
-                    {legends.map((legend, i) => (
-                        <BoxLegendSvg
-                            key={i}
-                            {...legend}
-                            containerWidth={width}
-                            containerHeight={height}
-                            data={legendData}
-                            theme={theme}
-                        />
-                    ))}
-                </SvgWrapper>
-            )}
+                    )
+                }
+
+                return (
+                    <SvgWrapper
+                        width={outerWidth}
+                        height={outerHeight}
+                        margin={margin}
+                        theme={theme}
+                    >
+                        {layers.map((layer, i) => {
+                            if (typeof layer === 'function') {
+                                return <Fragment key={i}>{layer(layerProps)}</Fragment>
+                            }
+
+                            return layerById[layer]
+                        })}
+                    </SvgWrapper>
+                )
+            }}
         </Container>
     )
 }

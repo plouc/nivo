@@ -6,4 +6,4 @@
 
 [documentation](http://nivo.rocks/sunburst)
 
-![Sunburst](./doc/sunburst.png)
+![Sunburst](https://raw.githubusercontent.com/plouc/nivo/master/packages/sunburst/doc/sunburst.png)

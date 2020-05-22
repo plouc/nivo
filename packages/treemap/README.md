@@ -6,16 +6,16 @@
 
 [documentation](http://nivo.rocks/treemap)
 
-![TreeMap](./doc/treemap.png)
+![TreeMap](https://raw.githubusercontent.com/plouc/nivo/master/packages/treemap/doc/treemap.png)
 
 ## TreeMapHtml
 
 [documentation](http://nivo.rocks/treemap/html)
 
-![TreeMapHtml](./doc/treemap-html.png)
+![TreeMapHtml](https://raw.githubusercontent.com/plouc/nivo/master/packages/treemap/doc/treemap-html.png)
 
 ## TreeMapCanvas
 
 [documentation](http://nivo.rocks/treemap/canvas)
 
-![TreeMapCanvas](./doc/treemap-canvas.png)
+![TreeMapCanvas](https://raw.githubusercontent.com/plouc/nivo/master/packages/treemap/doc/treemap-canvas.png)

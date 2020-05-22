@@ -137,7 +137,11 @@ export const computeAnnotation = ({
     }
 
     return {
-        points: [[computedX, computedY], [computedNoteX, computedNoteY], [noteLineX, noteLineY]],
+        points: [
+            [computedX, computedY],
+            [computedNoteX, computedNoteY],
+            [noteLineX, noteLineY],
+        ],
         text: [textX, textY],
         angle: angle + 90,
     }

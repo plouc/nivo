@@ -48,6 +48,7 @@ function loadStories() {
     require('../packages/bar/stories/raceChart.stories')
     require('../packages/bar/stories/barCanvas.stories')
     require('../packages/bullet/stories/bullet.stories')
+    require('../packages/bump/stories/bump.stories')
     require('../packages/calendar/stories/calendar.stories')
     require('../packages/chord/stories/chord.stories')
     require('../packages/circle-packing/stories/bubble.stories')

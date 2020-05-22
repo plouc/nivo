@@ -68,6 +68,7 @@ AnimatedLine.propTypes = {
     serie: PropTypes.shape({
         id: PropTypes.string.isRequired,
         color: PropTypes.string.isRequired,
+        linePoints: PropTypes.array.isRequired,
         style: PropTypes.shape({
             lineWidth: PropTypes.number.isRequired,
             opacity: PropTypes.number.isRequired,

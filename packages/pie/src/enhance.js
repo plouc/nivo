@@ -13,9 +13,4 @@ import { withTheme, withDimensions } from '@nivo/core'
 import { PieDefaultProps } from './props'
 
 export default Component =>
-    compose(
-        defaultProps(PieDefaultProps),
-        withTheme(),
-        withDimensions(),
-        pure
-    )(Component)
+    compose(defaultProps(PieDefaultProps), withTheme(), withDimensions(), pure)(Component)

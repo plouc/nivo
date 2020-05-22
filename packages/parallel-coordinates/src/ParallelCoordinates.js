@@ -118,11 +118,6 @@ export class ParallelCoordinates extends Component {
     }
 }
 
-const enhance = compose(
-    defaultProps(commonDefaultProps),
-    ...commonEnhancers,
-    withMotion(),
-    pure
-)
+const enhance = compose(defaultProps(commonDefaultProps), ...commonEnhancers, withMotion(), pure)
 
 export default setDisplayName('ParallelCoordinates')(enhance(ParallelCoordinates))

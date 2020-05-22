@@ -61,7 +61,7 @@ const initialProperties = {
             translateX: 20,
             translateY: -60,
             itemsSpacing: 0,
-            itemWidth: 86,
+            itemWidth: 92,
             itemHeight: 18,
             itemDirection: 'left-to-right',
             itemOpacity: 0.85,
@@ -83,7 +83,7 @@ const ChoroplethCanvas = () => {
             defaultProperties={ChoroplethCanvasDefaultProps}
             propertiesMapper={mapper}
             codePropertiesMapper={properties => ({
-                features: [],
+                features: '/* please have a look at the description for usage */',
                 ...properties,
                 tooltip: properties.tooltip ? Tooltip : undefined,
             })}
@@ -99,9 +99,7 @@ const ChoroplethCanvas = () => {
                         onClick={feature => {
                             logAction({
                                 type: 'click',
-                                label: `${feature.label}: ${feature.formattedValue} (${
-                                    feature.id
-                                })`,
+                                label: `${feature.label}: ${feature.formattedValue} (${feature.id})`,
                                 color: feature.color,
                                 data: {
                                     label: feature.label,

@@ -6,16 +6,16 @@
 
 [documentation](http://nivo.rocks/bubble)
 
-![Bubble](./doc/bubble.png)
+![Bubble](https://raw.githubusercontent.com/plouc/nivo/master/packages/circle-packing/doc/bubble.png)
 
 ## BubbleHtml
 
 [documentation](http://nivo.rocks/bubble/html)
 
-![BubbleHtml](./doc/bubble-html.png)
+![BubbleHtml](https://raw.githubusercontent.com/plouc/nivo/master/packages/circle-packing/doc/bubble-html.png)
 
 ## BubbleCanvas
 
 [documentation](http://nivo.rocks/bubble/canvas)
 
-![BubbleCanvas](./doc/bubble-canvas.png)
+![BubbleCanvas](https://raw.githubusercontent.com/plouc/nivo/master/packages/circle-packing/doc/bubble-canvas.png)
