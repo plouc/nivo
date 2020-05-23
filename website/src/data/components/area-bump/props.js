@@ -7,7 +7,12 @@
  * file that was distributed with this source code.
  */
 import { AreaBumpDefaultProps as defaults } from '@nivo/bump'
-import { motionProperties, axesProperties, groupProperties } from '../../../lib/componentProperties'
+import {
+    axesProperties,
+    defsProperties,
+    groupProperties,
+    motionProperties,
+} from '../../../lib/componentProperties'
 
 const props = [
     {
@@ -235,6 +240,7 @@ const props = [
         defaultValue: defaults.inactiveBorderOpacity,
         controlType: 'opacity',
     },
+    ...defsProperties('Style', ['svg']),
     {
         key: 'startLabel',
         group: 'Labels',

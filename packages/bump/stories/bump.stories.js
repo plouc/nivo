@@ -2,7 +2,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import range from 'lodash/range'
 import shuffle from 'lodash/shuffle'
-import { Bump } from '../src'
+import { AreaBump, Bump } from '../src'
 
 const generateData = () => {
     const years = range(2000, 2005)
@@ -128,6 +128,47 @@ stories.add('Missing data', () => (
                     // missing data at the end
                     { x: 4, y: null },
                 ],
+            },
+        ]}
+    />
+))
+
+stories.add('Area with fill pattern', () => (
+    <AreaBump
+        {...commonProps}
+        indexBy="id"
+        defs={[
+            {
+                id: 'dots',
+                type: 'patternDots',
+                background: 'inherit',
+                color: '#38bcb2',
+                size: 4,
+                padding: 1,
+                stagger: true,
+            },
+            {
+                id: 'lines',
+                type: 'patternLines',
+                background: 'inherit',
+                color: '#eed312',
+                rotation: -45,
+                lineWidth: 6,
+                spacing: 10,
+            },
+        ]}
+        fill={[
+            {
+                match: {
+                    id: 'Serie 3',
+                },
+                id: 'lines',
+            },
+            {
+                match: {
+                    id: 'Serie 5',
+                },
+                id: 'dots',
             },
         ]}
     />
