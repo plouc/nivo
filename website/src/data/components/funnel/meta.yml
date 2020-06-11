@@ -1,0 +1,15 @@
+flavors:
+  - flavor: svg
+    path: /funnel/
+
+Funnel:
+  package: '@nivo/funnel'
+  tags:
+    - experimental
+    - svg
+    - isomorphic
+  stories: []
+  description: |
+    A funnel chart.
+
+    The responsive alternative of this component is `ResponsiveFunnel`.
