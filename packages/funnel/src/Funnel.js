@@ -24,6 +24,8 @@ const Funnel = props => {
         interpolation,
         spacing,
         shapeContinuity,
+        valueFormat,
+
         colors,
         fillOpacity,
         borderWidth,
@@ -56,13 +58,7 @@ const Funnel = props => {
     const theme = useTheme()
     const { animate } = useMotionConfig()
 
-    const {
-        areaGenerator,
-        borderGenerator,
-        parts,
-        beforeSeparators,
-        afterSeparators,
-    } = useFunnel({
+    const { areaGenerator, borderGenerator, parts, beforeSeparators, afterSeparators } = useFunnel({
         data,
         width: innerWidth,
         height: innerHeight,
@@ -70,6 +66,7 @@ const Funnel = props => {
         interpolation,
         spacing,
         shapeContinuity,
+        valueFormat,
         colors,
         fillOpacity,
         borderWidth,
@@ -114,32 +111,34 @@ const Funnel = props => {
                 return layerById[layer]
             })}
             <g transform={`translate(${innerWidth / 2}, 0)`}>
-                {enableBeforeSeparators && beforeSeparators.map((separator, index) => {
-                    return (
-                        <line
-                            key={separator.partId}
-                            x1={separator.x0}
-                            x2={separator.x1}
-                            y1={separator.y}
-                            y2={separator.y}
-                            fill="none"
-                            {...theme.grid.line}
-                        />
-                    )
-                })}
-                {enableAfterSeparators && afterSeparators.map((separator, index) => {
-                    return (
-                        <line
-                            key={separator.partId}
-                            x1={separator.x0}
-                            x2={separator.x1}
-                            y1={separator.y}
-                            y2={separator.y}
-                            fill="none"
-                            {...theme.grid.line}
-                        />
-                    )
-                })}
+                {enableBeforeSeparators &&
+                    beforeSeparators.map((separator, index) => {
+                        return (
+                            <line
+                                key={separator.partId}
+                                x1={separator.x0}
+                                x2={separator.x1}
+                                y1={separator.y}
+                                y2={separator.y}
+                                fill="none"
+                                {...theme.grid.line}
+                            />
+                        )
+                    })}
+                {enableAfterSeparators &&
+                    afterSeparators.map((separator, index) => {
+                        return (
+                            <line
+                                key={separator.partId}
+                                x1={separator.x0}
+                                x2={separator.x1}
+                                y1={separator.y}
+                                y2={separator.y}
+                                fill="none"
+                                {...theme.grid.line}
+                            />
+                        )
+                    })}
             </g>
         </SvgWrapper>
     )

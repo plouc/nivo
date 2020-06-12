@@ -71,7 +71,6 @@ export const FunnelDefaultProps = {
 
     isInteractive: true,
 
-
     animate: true,
     motionDamping: 13,
     motionStiffness: 90,

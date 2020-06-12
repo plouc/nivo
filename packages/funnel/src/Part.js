@@ -26,9 +26,7 @@ export const Part = ({ part, areaGenerator, borderGenerator }) => {
                 fillOpacity={part.fillOpacity}
             />
             <g transform={`translate(${part.x}, ${part.y})`}>
-                <text textAnchor="middle">
-                    {part.data.value}
-                </text>
+                <text textAnchor="middle">{part.formattedValue}</text>
             </g>
         </g>
     )

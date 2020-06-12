@@ -66,11 +66,7 @@ const Select = props => {
         },
     }
 
-    return (
-        <>
-            <ReactSelect styles={styles} {...props} />
-        </>
-    )
+    return <ReactSelect styles={styles} {...props} />
 }
 
 export default Select

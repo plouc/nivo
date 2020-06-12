@@ -7,12 +7,7 @@
  * file that was distributed with this source code.
  */
 import * as React from 'react'
-import {
-    Dimensions,
-    Box,
-    Theme,
-    MotionProps,
-} from '@nivo/core'
+import { Dimensions, Box, Theme, MotionProps } from '@nivo/core'
 import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
 
 declare module '@nivo/funnel' {

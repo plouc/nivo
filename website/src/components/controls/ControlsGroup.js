@@ -31,6 +31,7 @@ import OrdinalColorsControl from './OrdinalColorsControl'
 import InheritedColorControl from './InheritedColorControl'
 import BlendModeControl from './BlendModeControl'
 import PropertyDocumentation from './PropertyDocumentation'
+import ValueFormatControl from './ValueFormatControl'
 
 export const shouldRenderProperty = (property, currentSettings) => {
     if (typeof property.when !== 'function') return true
@@ -335,6 +336,19 @@ const ControlSwitcher = memo(
             case 'blendMode':
                 return (
                     <BlendModeControl
+                        id={id}
+                        property={property}
+                        flavors={flavors}
+                        currentFlavor={currentFlavor}
+                        options={options}
+                        value={value}
+                        onChange={handleChange}
+                    />
+                )
+
+            case 'valueFormat':
+                return (
+                    <ValueFormatControl
                         id={id}
                         property={property}
                         flavors={flavors}

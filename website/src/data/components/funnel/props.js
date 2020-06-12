@@ -6,8 +6,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { groupProperties } from '../../../lib/componentProperties'
 import { FunnelDefaultProps as defaults } from '@nivo/funnel'
+import { groupProperties } from '../../../lib/componentProperties'
 
 const props = [
     {
@@ -74,6 +74,14 @@ const props = [
             max: 1,
             step: 0.01,
         },
+    },
+    {
+        key: 'valueFormat',
+        help: 'Value format supporting d3-format notation.',
+        type: 'string | Function',
+        required: false,
+        controlType: 'valueFormat',
+        group: 'Base',
     },
     {
         key: 'colors',
