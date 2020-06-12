@@ -10,6 +10,7 @@ import React from 'react'
 import { ResponsiveFunnel, FunnelDefaultProps } from '@nivo/funnel'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/funnel/meta.yml'
+import mapper from '../../data/components/funnel/mapper'
 import { groups } from '../../data/components/funnel/props'
 import { generateLightDataSet } from '../../data/components/funnel/generator'
 
@@ -25,6 +26,7 @@ const initialProperties = {
     interpolation: FunnelDefaultProps.interpolation,
     shapeContinuity: FunnelDefaultProps.shapeContinuity,
     spacing: FunnelDefaultProps.spacing,
+    valueFormat: { format: '.2f', enabled: true },
 
     colors: { scheme: 'spectral' },
     fillOpacity: FunnelDefaultProps.fillOpacity,
@@ -58,6 +60,7 @@ const Funnel = () => {
             properties={groups}
             initialProperties={initialProperties}
             defaultProperties={FunnelDefaultProps}
+            propertiesMapper={mapper}
             generateData={generateLightDataSet}
         >
             {(properties, data, theme, logAction) => (

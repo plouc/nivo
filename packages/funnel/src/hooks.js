@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { line, area, curveBasis, curveLinear } from 'd3-shape'
 import { scaleLinear } from 'd3-scale'
 import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
-import { useTheme } from '@nivo/core'
+import { useTheme, useValueFormatter } from '@nivo/core'
 import { FunnelDefaultProps as defaults } from './props'
 
 const useShapeGenerators = interpolation =>
@@ -27,25 +27,26 @@ const useShapeGenerators = interpolation =>
         [interpolation]
     )
 
-const useScales = ({ data, width, height, spacing }) => useMemo(() => {
-    const spacingValue = height * spacing
-    const bandwidth = (height - spacingValue * (data.length -1)) / data.length
+const useScales = ({ data, width, height, spacing }) =>
+    useMemo(() => {
+        const spacingValue = height * spacing
+        const bandwidth = (height - spacingValue * (data.length - 1)) / data.length
 
-    // we're not using d3 band scale here to be able to get
-    // the actual paddingInner value in pixels, required to
-    // create centered separator lines between parts
-    const bandScale = (index) => spacingValue * index + bandwidth * index
-    bandScale.bandwidth = () => bandwidth
-    bandScale.paddingInner = () => spacingValue
+        // we're not using d3 band scale here to be able to get
+        // the actual paddingInner value in pixels, required to
+        // create centered separator lines between parts
+        const bandScale = index => spacingValue * index + bandwidth * index
+        bandScale.bandwidth = () => bandwidth
+        bandScale.paddingInner = () => spacingValue
 
-    const allValues = data.map(d => d.value)
+        const allValues = data.map(d => d.value)
 
-    const linearScale = scaleLinear()
-        .domain([0, Math.max(...allValues)])
-        .range([0, width])
+        const linearScale = scaleLinear()
+            .domain([0, Math.max(...allValues)])
+            .range([0, width])
 
-    return [bandScale, linearScale]
-}, [data, width, height, spacing])
+        return [bandScale, linearScale]
+    }, [data, width, height, spacing])
 
 /**
  * Creates required layout to generate a funnel chart,
@@ -62,6 +63,7 @@ export const useFunnel = ({
     interpolation = defaults.interpolation,
     spacing = defaults.spacing,
     shapeContinuity: rawShapeContinuity = defaults.shapeContinuity,
+    valueFormat,
     colors = defaults.colors,
     fillOpacity = defaults.fillOpacity,
     borderWidth = defaults.borderWidth,
@@ -79,8 +81,13 @@ export const useFunnel = ({
     const getBorderColor = useInheritedColor(borderColor, theme)
 
     const [bandScale, linearScale] = useScales({
-        data, width, height, spacing
+        data,
+        width,
+        height,
+        spacing,
     })
+
+    const formatValue = useValueFormatter(valueFormat)
 
     const parts = data.map((datum, index) => {
         const width = linearScale(datum.value)
@@ -95,10 +102,11 @@ export const useFunnel = ({
             fillOpacity,
             borderWidth,
             borderOpacity,
+            formattedValue: formatValue(datum.value),
             x: 0,
             x0: width * -0.5,
             x1: width * 0.5,
-            y: y0 + height * .5,
+            y: y0 + height * 0.5,
             y0: y0,
             y1: y0 + height,
         }
@@ -189,13 +197,13 @@ export const useFunnel = ({
             partId: part.data.id,
             x0: -part.width / 2 - beforeSeparatorsOffset,
             x1: -linearScale.range()[1] / 2 - beforeSeparatorsLength,
-            y: part.y0 - bandScale.paddingInner() / 2
+            y: part.y0 - bandScale.paddingInner() / 2,
         })
         afterSeparators.push({
             partId: part.data.id,
             x0: part.width / 2 + afterSeparatorsOffset,
             x1: linearScale.range()[1] / 2 + afterSeparatorsLength,
-            y: part.y0 - bandScale.paddingInner() / 2
+            y: part.y0 - bandScale.paddingInner() / 2,
         })
     })
 
