@@ -7,27 +7,48 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
+import PropTypes from 'prop-types'
+import { useSpring, animated, config } from 'react-spring'
 
 export const Part = ({ part, areaGenerator, borderGenerator }) => {
+    const animatedProps = useSpring({
+        areaPath: areaGenerator(part.areaPoints),
+        areaColor: part.color,
+        borderPath: borderGenerator(part.borderPoints),
+        borderColor: part.borderColor,
+        config: config.molasses,
+    })
+
     return (
-        <g>
+        <>
             {part.borderWidth > 0 && (
-                <path
-                    d={borderGenerator(part.borderPoints)}
-                    stroke={part.borderColor}
+                <animated.path
+                    d={animatedProps.borderPath}
+                    stroke={animatedProps.borderColor}
                     strokeWidth={part.borderWidth}
                     strokeOpacity={part.borderOpacity}
                     fill="none"
                 />
             )}
-            <path
-                d={areaGenerator(part.areaPoints)}
-                fill={part.color}
+            <animated.path
+                d={animatedProps.areaPath}
+                fill={animatedProps.areaColor}
                 fillOpacity={part.fillOpacity}
             />
-            <g transform={`translate(${part.x}, ${part.y})`}>
-                <text textAnchor="middle">{part.formattedValue}</text>
-            </g>
-        </g>
+        </>
     )
+}
+
+Part.propTypes = {
+    part: PropTypes.shape({
+        areaPoints: PropTypes.array.isRequired,
+        borderPoints: PropTypes.array.isRequired,
+        color: PropTypes.string.isRequired,
+        fillOpacity: PropTypes.number.isRequired,
+        borderWidth: PropTypes.number.isRequired,
+        borderColor: PropTypes.string.isRequired,
+        borderOpacity: PropTypes.number.isRequired,
+    }).isRequired,
+    areaGenerator: PropTypes.func.isRequired,
+    borderGenerator: PropTypes.func.isRequired,
 }
