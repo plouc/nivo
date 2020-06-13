@@ -49,7 +49,7 @@ const props = [
     },
     {
         key: 'spacing',
-        help: 'Spacing between parts, expressed as a ratio depending on total size.',
+        help: 'Spacing between parts',
         type: 'number',
         required: false,
         defaultValue: defaults.spacing,
@@ -57,16 +57,16 @@ const props = [
         group: 'Base',
         controlOptions: {
             min: 0,
-            max: 1,
-            step: 0.005,
+            max: 30,
+            unit: 'px',
         },
     },
     {
-        key: 'shapeContinuity',
-        help: 'Shape continuity.',
+        key: 'shapeBlending',
+        help: 'Blend shapes.',
         type: 'number',
         required: false,
-        defaultValue: defaults.shapeContinuity,
+        defaultValue: defaults.shapeBlending,
         controlType: 'range',
         group: 'Base',
         controlOptions: {
@@ -77,7 +77,10 @@ const props = [
     },
     {
         key: 'valueFormat',
-        help: 'Value format supporting d3-format notation.',
+        help: `
+            Value format supporting d3-format notation, this formatted value
+            will then be used for labels and tooltips.
+        `,
         type: 'string | Function',
         required: false,
         controlType: 'valueFormat',
@@ -133,6 +136,31 @@ const props = [
         group: 'Style',
     },
     {
+        key: 'enableLabel',
+        help: `
+            Enable/disable labels. Use styles from
+            theme.labels.text.
+        `,
+        type: 'boolean',
+        required: false,
+        defaultValue: defaults.enableLabel,
+        controlType: 'switch',
+        group: 'Labels',
+    },
+    {
+        key: 'labelColor',
+        help: 'Method to compute label color.',
+        description: `
+            how to compute label color,
+            [see dedicated documentation](self:/guides/colors).
+        `,
+        type: 'string | object | Function',
+        required: false,
+        defaultValue: defaults.labelColor,
+        controlType: 'inheritedColor',
+        group: 'Labels',
+    },
+    {
         key: 'enableBeforeSeparators',
         help: `
             Enable/disable before separators.
@@ -145,13 +173,13 @@ const props = [
         group: 'Separators',
     },
     {
-        key: 'beforeSeparatorsLength',
+        key: 'beforeSeparatorLength',
         help: `
             Length of the before separator lines. You should add margin
             for them to be visible if the value is greater than 0.
         `,
         required: false,
-        defaultValue: defaults.beforeSeparatorsLength,
+        defaultValue: defaults.beforeSeparatorLength,
         type: 'number',
         controlType: 'range',
         group: 'Separators',
@@ -162,14 +190,14 @@ const props = [
         },
     },
     {
-        key: 'beforeSeparatorsOffset',
+        key: 'beforeSeparatorOffset',
         help: `
             Offset from the parts for the before separator lines.
             You should add margin for them to be visible
             if the value is greater than 0.
         `,
         required: false,
-        defaultValue: defaults.beforeSeparatorsOffset,
+        defaultValue: defaults.beforeSeparatorOffset,
         type: 'number',
         controlType: 'range',
         group: 'Separators',
@@ -192,13 +220,13 @@ const props = [
         group: 'Separators',
     },
     {
-        key: 'afterSeparatorsLength',
+        key: 'afterSeparatorLength',
         help: `
             Length of the after separator lines. You should add margin
             for them to be visible if the value is greater than 0.
         `,
         required: false,
-        defaultValue: defaults.afterSeparatorsLength,
+        defaultValue: defaults.afterSeparatorLength,
         type: 'number',
         controlType: 'range',
         group: 'Separators',
@@ -209,14 +237,14 @@ const props = [
         },
     },
     {
-        key: 'afterSeparatorsOffset',
+        key: 'afterSeparatorOffset',
         help: `
             Offset from the parts for the after separator lines.
             You should add margin for them to be visible
             if the value is greater than 0.
         `,
         required: false,
-        defaultValue: defaults.afterSeparatorsOffset,
+        defaultValue: defaults.afterSeparatorOffset,
         type: 'number',
         controlType: 'range',
         group: 'Separators',
@@ -225,6 +253,21 @@ const props = [
             min: 0,
             max: 100,
         },
+    },
+    {
+        key: 'layers',
+        group: 'Customization',
+        help: 'Defines the order of layers and add custom layers.',
+        description: `
+            You can also use this to insert extra layers
+            to the chart, the extra layer must be a function.
+            
+            The layer function which will receive the chart's
+            context & computed data and must return a valid SVG element.
+        `,
+        required: false,
+        type: 'Array<string | Function>',
+        defaultValue: defaults.layers,
     },
 ]
 

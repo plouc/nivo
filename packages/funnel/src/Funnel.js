@@ -11,6 +11,8 @@ import { SvgWrapper, withContainer, useDimensions, useTheme, useMotionConfig } f
 import { FunnelPropTypes, FunnelDefaultProps } from './props'
 import { useFunnel } from './hooks'
 import { Parts } from './Parts'
+import { PartLabels } from './PartLabels'
+import { Separators } from './Separators'
 
 const Funnel = props => {
     const {
@@ -23,7 +25,7 @@ const Funnel = props => {
         direction,
         interpolation,
         spacing,
-        shapeContinuity,
+        shapeBlending,
         valueFormat,
 
         colors,
@@ -32,12 +34,15 @@ const Funnel = props => {
         borderColor,
         borderOpacity,
 
+        enableLabel,
+        labelColor,
+
         enableBeforeSeparators,
-        beforeSeparatorsLength,
-        beforeSeparatorsOffset,
+        beforeSeparatorLength,
+        beforeSeparatorOffset,
         enableAfterSeparators,
-        afterSeparatorsLength,
-        afterSeparatorsOffset,
+        afterSeparatorLength,
+        afterSeparatorOffset,
 
         layers,
 
@@ -65,29 +70,42 @@ const Funnel = props => {
         direction,
         interpolation,
         spacing,
-        shapeContinuity,
+        shapeBlending,
         valueFormat,
         colors,
         fillOpacity,
         borderWidth,
         borderColor,
         borderOpacity,
-        beforeSeparatorsLength,
-        beforeSeparatorsOffset,
-        afterSeparatorsLength,
-        afterSeparatorsOffset,
+        labelColor,
+        beforeSeparatorLength,
+        beforeSeparatorOffset,
+        afterSeparatorLength,
+        afterSeparatorOffset,
     })
 
     const layerById = {
+        separators: (
+            <Separators
+                key="separators"
+                beforeSeparators={beforeSeparators}
+                afterSeparators={afterSeparators}
+            />
+        ),
         parts: (
             <Parts
                 key="parts"
-                width={innerWidth}
                 parts={parts}
                 areaGenerator={areaGenerator}
                 borderGenerator={borderGenerator}
+                enableLabel={enableLabel}
             />
         ),
+        labels: null,
+    }
+
+    if (enableLabel === true) {
+        layerById.labels = <PartLabels key="labels" parts={parts} />
     }
 
     return (
@@ -110,36 +128,6 @@ const Funnel = props => {
 
                 return layerById[layer]
             })}
-            <g transform={`translate(${innerWidth / 2}, 0)`}>
-                {enableBeforeSeparators &&
-                    beforeSeparators.map((separator, index) => {
-                        return (
-                            <line
-                                key={separator.partId}
-                                x1={separator.x0}
-                                x2={separator.x1}
-                                y1={separator.y}
-                                y2={separator.y}
-                                fill="none"
-                                {...theme.grid.line}
-                            />
-                        )
-                    })}
-                {enableAfterSeparators &&
-                    afterSeparators.map((separator, index) => {
-                        return (
-                            <line
-                                key={separator.partId}
-                                x1={separator.x0}
-                                x2={separator.x1}
-                                y1={separator.y}
-                                y2={separator.y}
-                                fill="none"
-                                {...theme.grid.line}
-                            />
-                        )
-                    })}
-            </g>
         </SvgWrapper>
     )
 }

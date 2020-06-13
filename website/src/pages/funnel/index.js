@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
+import merge from 'lodash/merge'
 import { ResponsiveFunnel, FunnelDefaultProps } from '@nivo/funnel'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/funnel/meta.yml'
@@ -17,16 +18,16 @@ import { generateLightDataSet } from '../../data/components/funnel/generator'
 const initialProperties = {
     margin: {
         top: 20,
-        right: 120,
+        right: 20,
         bottom: 20,
-        left: 120,
+        left: 20,
     },
 
     direction: FunnelDefaultProps.direction,
     interpolation: FunnelDefaultProps.interpolation,
-    shapeContinuity: FunnelDefaultProps.shapeContinuity,
-    spacing: FunnelDefaultProps.spacing,
-    valueFormat: { format: '.2f', enabled: true },
+    shapeBlending: FunnelDefaultProps.shapeBlending,
+    spacing: 1,
+    valueFormat: { format: '>-.4s', enabled: true },
 
     colors: { scheme: 'spectral' },
     fillOpacity: FunnelDefaultProps.fillOpacity,
@@ -35,12 +36,15 @@ const initialProperties = {
     borderColor: FunnelDefaultProps.borderColor,
     borderOpacity: FunnelDefaultProps.borderOpacity,
 
+    enableLabel: FunnelDefaultProps.enableLabel,
+    labelColor: FunnelDefaultProps.labelColor,
+
     enableBeforeSeparators: FunnelDefaultProps.enableBeforeSeparators,
-    beforeSeparatorsLength: 100,
-    beforeSeparatorsOffset: 16,
+    beforeSeparatorLength: 120,
+    beforeSeparatorOffset: 20,
     enableAfterSeparators: FunnelDefaultProps.enableAfterSeparators,
-    afterSeparatorsLength: 100,
-    afterSeparatorsOffset: 16,
+    afterSeparatorLength: 40,
+    afterSeparatorOffset: 20,
 
     animate: true,
     motionStiffness: 90,
@@ -67,7 +71,13 @@ const Funnel = () => {
                 <ResponsiveFunnel
                     data={data}
                     {...properties}
-                    theme={theme}
+                    theme={merge({}, theme, {
+                        labels: {
+                            text: {
+                                fontSize: 14,
+                            },
+                        },
+                    })}
                     onClick={part => {
                         logAction({
                             type: 'click',

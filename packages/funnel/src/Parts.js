@@ -9,19 +9,12 @@
 import React from 'react'
 import { Part } from './Part'
 
-export const Parts = ({ width, parts, areaGenerator, borderGenerator }) => {
-    return (
-        <g transform={`translate(${width / 2}, 0)`}>
-            {parts.map(part => {
-                return (
-                    <Part
-                        key={part.data.id}
-                        part={part}
-                        areaGenerator={areaGenerator}
-                        borderGenerator={borderGenerator}
-                    />
-                )
-            })}
-        </g>
-    )
-}
+export const Parts = ({ parts, areaGenerator, borderGenerator }) =>
+    parts.map(part => (
+        <Part
+            key={part.data.id}
+            part={part}
+            areaGenerator={areaGenerator}
+            borderGenerator={borderGenerator}
+        />
+    ))

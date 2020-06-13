@@ -12,4 +12,8 @@ Funnel:
   description: |
     A funnel chart.
 
+    This component also provides a React hook which can be used in *headless mode*:
+    `useFunnel()`, meaning that you can compute the chart but handle the rendering
+    by yourself.
+
     The responsive alternative of this component is `ResponsiveFunnel`.

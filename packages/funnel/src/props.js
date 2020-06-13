@@ -19,13 +19,14 @@ export const FunnelPropTypes = {
         })
     ).isRequired,
 
-    layers: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.oneOf(['parts']), PropTypes.func]))
-        .isRequired,
+    layers: PropTypes.arrayOf(
+        PropTypes.oneOfType([PropTypes.oneOf(['separators', 'parts', 'labels']), PropTypes.func])
+    ).isRequired,
 
     direction: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
     interpolation: PropTypes.oneOf(['linear', 'smooth']).isRequired,
     spacing: PropTypes.number.isRequired,
-    shapeContinuity: PropTypes.number.isRequired,
+    shapeBlending: PropTypes.number.isRequired,
 
     colors: ordinalColorsPropType.isRequired,
     fillOpacity: PropTypes.number.isRequired,
@@ -34,26 +35,31 @@ export const FunnelPropTypes = {
     borderColor: inheritedColorPropType.isRequired,
     borderOpacity: PropTypes.number.isRequired,
 
+    enableLabel: PropTypes.bool.isRequired,
+    labelColor: inheritedColorPropType.isRequired,
+
     enableBeforeSeparators: PropTypes.bool.isRequired,
-    beforeSeparatorsLength: PropTypes.number.isRequired,
-    beforeSeparatorsOffset: PropTypes.number.isRequired,
+    beforeSeparatorLength: PropTypes.number.isRequired,
+    beforeSeparatorOffset: PropTypes.number.isRequired,
     enableAfterSeparators: PropTypes.bool.isRequired,
-    afterSeparatorsLength: PropTypes.number.isRequired,
-    afterSeparatorsOffset: PropTypes.number.isRequired,
+    afterSeparatorLength: PropTypes.number.isRequired,
+    afterSeparatorOffset: PropTypes.number.isRequired,
 
     isInteractive: PropTypes.bool.isRequired,
-    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    onClick: PropTypes.func,
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func,
 
     ...motionPropTypes,
 }
 
 export const FunnelDefaultProps = {
-    layers: ['parts'],
+    layers: ['separators', 'parts', 'labels'],
 
     direction: 'vertical',
     interpolation: 'smooth',
     spacing: 0,
-    shapeContinuity: 0.66,
+    shapeBlending: 0.66,
 
     colors: { scheme: 'nivo' },
     fillOpacity: 1,
@@ -62,12 +68,15 @@ export const FunnelDefaultProps = {
     borderColor: { from: 'color' },
     borderOpacity: 0.66,
 
+    enableLabel: true,
+    labelColor: { from: 'color', modifiers: [['darker', 2]] },
+
     enableBeforeSeparators: true,
-    beforeSeparatorsLength: 0,
-    beforeSeparatorsOffset: 0,
+    beforeSeparatorLength: 0,
+    beforeSeparatorOffset: 0,
     enableAfterSeparators: true,
-    afterSeparatorsLength: 0,
-    afterSeparatorsOffset: 0,
+    afterSeparatorLength: 0,
+    afterSeparatorOffset: 0,
 
     isInteractive: true,
 
