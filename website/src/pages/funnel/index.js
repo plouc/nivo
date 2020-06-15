@@ -46,11 +46,12 @@ const initialProperties = {
     afterSeparatorLength: 40,
     afterSeparatorOffset: 20,
 
+    isInteractive: true,
+    currentPartSizeExtension: 30,
+
     animate: true,
     motionStiffness: 90,
     motionDamping: 15,
-
-    isInteractive: true,
 }
 
 const Funnel = () => {
