@@ -63,7 +63,7 @@ const Radio = memo(({ options, value, onChange }) => {
     )
 })
 
-Radio.displayName = 'RadioControl'
+Radio.displayName = 'Radio'
 Radio.propTypes = {
     value: PropTypes.string.isRequired,
     options: PropTypes.arrayOf(
