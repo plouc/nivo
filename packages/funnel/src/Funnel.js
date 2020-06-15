@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React, { Fragment } from 'react'
-import { SvgWrapper, withContainer, useDimensions, useTheme, useMotionConfig } from '@nivo/core'
+import { SvgWrapper, withContainer, useDimensions, useTheme } from '@nivo/core'
 import { FunnelPropTypes, FunnelDefaultProps } from './props'
 import { useFunnel } from './hooks'
 import { Parts } from './Parts'
@@ -56,7 +56,6 @@ const Funnel = props => {
         onMouseMove,
         onMouseLeave,
         onClick,
-        tooltip,
     } = props
 
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
@@ -66,7 +65,6 @@ const Funnel = props => {
     )
 
     const theme = useTheme()
-    const { animate } = useMotionConfig()
 
     const {
         areaGenerator,
@@ -74,7 +72,7 @@ const Funnel = props => {
         parts,
         beforeSeparators,
         afterSeparators,
-        setCurrentPartId,
+        customLayerProps,
     } = useFunnel({
         data,
         width: innerWidth,
@@ -142,18 +140,7 @@ const Funnel = props => {
         <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
-                    return (
-                        <Fragment key={i}>
-                            {layer({
-                                ...props,
-                                innerWidth,
-                                innerHeight,
-                                outerWidth,
-                                outerHeight,
-                                parts,
-                            })}
-                        </Fragment>
-                    )
+                    return <Fragment key={i}>{layer(customLayerProps)}</Fragment>
                 }
 
                 return layerById[layer]
@@ -162,7 +149,8 @@ const Funnel = props => {
     )
 }
 
-Funnel.propTypes = FunnelPropTypes
-Funnel.defaultProps = FunnelDefaultProps
+const WrappedFunnel = withContainer(Funnel)
+WrappedFunnel.propTypes = FunnelPropTypes
+WrappedFunnel.defaultProps = FunnelDefaultProps
 
-export default withContainer(Funnel)
+export default WrappedFunnel

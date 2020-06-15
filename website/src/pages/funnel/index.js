@@ -37,13 +37,13 @@ const initialProperties = {
     borderOpacity: FunnelDefaultProps.borderOpacity,
 
     enableLabel: FunnelDefaultProps.enableLabel,
-    labelColor: FunnelDefaultProps.labelColor,
+    labelColor: { from: 'color', modifiers: [['darker', 3]] },
 
     enableBeforeSeparators: FunnelDefaultProps.enableBeforeSeparators,
-    beforeSeparatorLength: 120,
+    beforeSeparatorLength: 100,
     beforeSeparatorOffset: 20,
     enableAfterSeparators: FunnelDefaultProps.enableAfterSeparators,
-    afterSeparatorLength: 40,
+    afterSeparatorLength: 100,
     afterSeparatorOffset: 20,
 
     isInteractive: true,
@@ -51,8 +51,7 @@ const initialProperties = {
     currentBorderWidth: 40,
 
     animate: true,
-    motionStiffness: 90,
-    motionDamping: 15,
+    motionConfig: 'wobbly',
 }
 
 const Funnel = () => {

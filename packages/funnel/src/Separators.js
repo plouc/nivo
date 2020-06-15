@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Separator } from './Separator'
 
 export const Separators = ({ beforeSeparators, afterSeparators }) => (
@@ -19,3 +20,18 @@ export const Separators = ({ beforeSeparators, afterSeparators }) => (
         ))}
     </>
 )
+
+const separatorsPropType = PropTypes.arrayOf(
+    PropTypes.shape({
+        partId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        x0: PropTypes.number.isRequired,
+        x1: PropTypes.number.isRequired,
+        y0: PropTypes.number.isRequired,
+        y1: PropTypes.number.isRequired,
+    })
+).isRequired
+
+Separators.propTypes = {
+    beforeSeparators: separatorsPropType,
+    afterSeparators: separatorsPropType,
+}

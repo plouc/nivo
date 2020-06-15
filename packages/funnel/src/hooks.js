@@ -501,6 +501,29 @@ export const useFunnel = ({
         ]
     )
 
+    const customLayerProps = useMemo(
+        () => ({
+            width,
+            height,
+            parts: partsWithHandlers,
+            areaGenerator,
+            borderGenerator,
+            beforeSeparators,
+            afterSeparators,
+            setCurrentPartId,
+        }),
+        [
+            width,
+            height,
+            partsWithHandlers,
+            areaGenerator,
+            borderGenerator,
+            beforeSeparators,
+            afterSeparators,
+            setCurrentPartId,
+        ]
+    )
+
     return {
         parts: partsWithHandlers,
         areaGenerator,
@@ -509,6 +532,7 @@ export const useFunnel = ({
         afterSeparators,
         setCurrentPartId,
         currentPartId,
+        customLayerProps,
     }
 }
 

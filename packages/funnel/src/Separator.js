@@ -8,18 +8,19 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { config, useSpring, animated } from 'react-spring'
-import { useTheme } from '@nivo/core'
+import { useSpring, animated } from 'react-spring'
+import { useTheme, useMotionConfig } from '@nivo/core'
 
 export const Separator = ({ separator }) => {
     const theme = useTheme()
+    const { config: motionConfig } = useMotionConfig()
 
     const animatedProps = useSpring({
         x1: separator.x0,
         x2: separator.x1,
         y1: separator.y0,
         y2: separator.y1,
-        config: config.wobbly,
+        config: motionConfig,
     })
 
     return (

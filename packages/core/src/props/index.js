@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
+import { MotionConfigProvider } from '../motion'
 
 export const marginPropType = PropTypes.shape({
     top: PropTypes.number,
@@ -16,9 +17,10 @@ export const marginPropType = PropTypes.shape({
 }).isRequired
 
 export const motionPropTypes = {
-    animate: PropTypes.bool.isRequired,
-    motionStiffness: PropTypes.number.isRequired,
-    motionDamping: PropTypes.number.isRequired,
+    animate: MotionConfigProvider.propTypes.animate,
+    motionStiffness: MotionConfigProvider.propTypes.stiffness,
+    motionDamping: MotionConfigProvider.propTypes.damping,
+    motionConfig: MotionConfigProvider.propTypes.config,
 }
 
 export const blendModes = [

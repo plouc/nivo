@@ -27,6 +27,7 @@
     "lodash": "^4.17.11",
     "react-measure": "^2.2.4",
     "react-motion": "^0.5.2",
+    "react-spring": "^8.0.27",
     "recompose": "^0.30.0"
   },
   "peerDependencies": {
