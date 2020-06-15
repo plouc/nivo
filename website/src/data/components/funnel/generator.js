@@ -9,7 +9,7 @@ export const generateLightDataSet = () => {
         lastValue = Math.round(lastValue * random(0.6, 0.95))
 
         return {
-            id: `stage_${id}`,
+            id: `step_${id}`,
             value: lastValue,
             label: startCase(id),
         }

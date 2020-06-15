@@ -1,8 +1,9 @@
-import { useMemo, useState, useCallback } from 'react'
+import { useMemo, useState } from 'react'
 import { line, area, curveBasis, curveLinear } from 'd3-shape'
 import { scaleLinear } from 'd3-scale'
 import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
 import { useTheme, useValueFormatter } from '@nivo/core'
+import { useAnnotations } from '@nivo/annotations'
 import { FunnelDefaultProps as defaults } from './props'
 
 export const computeShapeGenerators = (interpolation, direction) => {
@@ -69,7 +70,9 @@ export const computeSeparators = ({
     width,
     height,
     spacing,
+    enableBeforeSeparators,
     beforeSeparatorOffset,
+    enableAfterSeparators,
     afterSeparatorOffset,
 }) => {
     const beforeSeparators = []
@@ -80,35 +83,43 @@ export const computeSeparators = ({
         parts.forEach(part => {
             const y = part.y0 - spacing / 2
 
-            beforeSeparators.push({
-                partId: part.data.id,
-                x0: 0,
-                x1: part.x0 - beforeSeparatorOffset,
-                y0: y,
-                y1: y,
-            })
-            afterSeparators.push({
-                partId: part.data.id,
-                x0: part.x1 + afterSeparatorOffset,
-                x1: width,
-                y0: y,
-                y1: y,
-            })
+            if (enableBeforeSeparators === true) {
+                beforeSeparators.push({
+                    partId: part.data.id,
+                    x0: 0,
+                    x1: part.x0 - beforeSeparatorOffset,
+                    y0: y,
+                    y1: y,
+                })
+            }
+            if (enableAfterSeparators === true) {
+                afterSeparators.push({
+                    partId: part.data.id,
+                    x0: part.x1 + afterSeparatorOffset,
+                    x1: width,
+                    y0: y,
+                    y1: y,
+                })
+            }
         })
 
         const y = lastPart.y1
-        beforeSeparators.push({
-            ...beforeSeparators[beforeSeparators.length - 1],
-            partId: 'none',
-            y0: y,
-            y1: y,
-        })
-        afterSeparators.push({
-            ...afterSeparators[afterSeparators.length - 1],
-            partId: 'none',
-            y0: y,
-            y1: y,
-        })
+        if (enableBeforeSeparators === true) {
+            beforeSeparators.push({
+                ...beforeSeparators[beforeSeparators.length - 1],
+                partId: 'none',
+                y0: y,
+                y1: y,
+            })
+        }
+        if (enableAfterSeparators === true) {
+            afterSeparators.push({
+                ...afterSeparators[afterSeparators.length - 1],
+                partId: 'none',
+                y0: y,
+                y1: y,
+            })
+        }
     } else if (direction === 'horizontal') {
         parts.forEach(part => {
             const x = part.x0 - spacing / 2
@@ -147,6 +158,52 @@ export const computeSeparators = ({
     return [beforeSeparators, afterSeparators]
 }
 
+export const computePartsHandlers = ({
+    parts,
+    setCurrentPartId,
+    isInteractive,
+    onMouseEnter,
+    onMouseLeave,
+    onMouseMove,
+    onClick,
+}) => {
+    if (!isInteractive) return parts
+
+    return parts.map(part => {
+        const boundOnMouseEnter = event => {
+            setCurrentPartId(part.data.id)
+            onMouseEnter !== undefined && onMouseEnter(part, event)
+        }
+
+        const boundOnMouseLeave = event => {
+            setCurrentPartId(null)
+            onMouseLeave !== undefined && onMouseLeave(part, event)
+        }
+
+        const boundOnMouseMove =
+            onMouseMove !== undefined
+                ? event => {
+                      onMouseMove(part, event)
+                  }
+                : undefined
+
+        const boundOnClick =
+            onClick !== undefined
+                ? event => {
+                      onClick(part, event)
+                  }
+                : undefined
+
+        return {
+            ...part,
+            onMouseEnter: boundOnMouseEnter,
+            onMouseLeave: boundOnMouseLeave,
+            onMouseMove: boundOnMouseMove,
+            onClick: boundOnClick,
+        }
+    })
+}
+
 /**
  * Creates required layout to generate a funnel chart,
  * it uses almost the same parameters as the Funnel component.
@@ -169,11 +226,19 @@ export const useFunnel = ({
     borderColor = defaults.borderColor,
     borderOpacity = defaults.borderOpacity,
     labelColor = defaults.labelColor,
+    enableBeforeSeparators = defaults.enableBeforeSeparators,
     beforeSeparatorLength = defaults.beforeSeparatorLength,
     beforeSeparatorOffset = defaults.beforeSeparatorOffset,
+    enableAfterSeparators = defaults.enableAfterSeparators,
     afterSeparatorLength = defaults.afterSeparatorLength,
     afterSeparatorOffset = defaults.afterSeparatorOffset,
+    isInteractive = defaults.isInteractive,
     currentPartSizeExtension = defaults.currentPartSizeExtension,
+    currentBorderWidth,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+    onClick,
 }) => {
     const theme = useTheme()
     const getColor = useOrdinalColorScale(colors, 'id')
@@ -189,8 +254,8 @@ export const useFunnel = ({
 
     let innerWidth
     let innerHeight
-    const paddingBefore = beforeSeparatorLength + beforeSeparatorOffset
-    const paddingAfter = afterSeparatorLength + afterSeparatorOffset
+    const paddingBefore = enableBeforeSeparators ? beforeSeparatorLength + beforeSeparatorOffset : 0
+    const paddingAfter = enableAfterSeparators ? afterSeparatorLength + afterSeparatorOffset : 0
     if (direction === 'vertical') {
         innerWidth = width - paddingBefore - paddingAfter
         innerHeight = height
@@ -244,7 +309,10 @@ export const useFunnel = ({
                 height: partHeight,
                 color: getColor(datum),
                 fillOpacity,
-                borderWidth,
+                borderWidth:
+                    isCurrent && currentBorderWidth !== undefined
+                        ? currentBorderWidth
+                        : borderWidth,
                 borderOpacity,
                 formattedValue: formatValue(datum.value),
                 isCurrent,
@@ -393,6 +461,20 @@ export const useFunnel = ({
         currentPartId,
     ])
 
+    const partsWithHandlers = useMemo(
+        () =>
+            computePartsHandlers({
+                parts,
+                setCurrentPartId,
+                isInteractive,
+                onMouseEnter,
+                onMouseLeave,
+                onMouseMove,
+                onClick,
+            }),
+        [parts, setCurrentPartId, isInteractive, onMouseEnter, onMouseLeave, onMouseMove, onClick]
+    )
+
     const [beforeSeparators, afterSeparators] = useMemo(
         () =>
             computeSeparators({
@@ -401,10 +483,10 @@ export const useFunnel = ({
                 width,
                 height,
                 spacing,
+                enableBeforeSeparators,
                 beforeSeparatorOffset,
-                beforeSeparatorLength,
+                enableAfterSeparators,
                 afterSeparatorOffset,
-                afterSeparatorLength,
             }),
         [
             parts,
@@ -412,15 +494,15 @@ export const useFunnel = ({
             width,
             height,
             spacing,
+            enableBeforeSeparators,
             beforeSeparatorOffset,
-            beforeSeparatorLength,
+            enableAfterSeparators,
             afterSeparatorOffset,
-            afterSeparatorLength,
         ]
     )
 
     return {
-        parts,
+        parts: partsWithHandlers,
         areaGenerator,
         borderGenerator,
         beforeSeparators,
@@ -428,4 +510,19 @@ export const useFunnel = ({
         setCurrentPartId,
         currentPartId,
     }
+}
+
+export const useFunnelAnnotations = (parts, annotations) => {
+    if (annotations.length === 0) return []
+
+    return useAnnotations({
+        items: parts,
+        annotations,
+        getDimensions: (part, offset) => {
+            const width = part.width + offset * 2
+            const height = part.height + offset * 2
+
+            return { size: Math.max(width, height), width, height }
+        },
+    })
 }

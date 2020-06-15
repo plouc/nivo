@@ -13,6 +13,7 @@ import { useFunnel } from './hooks'
 import { Parts } from './Parts'
 import { PartLabels } from './PartLabels'
 import { Separators } from './Separators'
+import { FunnelAnnotations } from './FunnelAnnotations'
 
 const Funnel = props => {
     const {
@@ -46,8 +47,11 @@ const Funnel = props => {
 
         layers,
 
+        annotations,
+
         isInteractive,
         currentPartSizeExtension,
+        currentBorderWidth,
         onMouseEnter,
         onMouseMove,
         onMouseLeave,
@@ -86,11 +90,19 @@ const Funnel = props => {
         borderColor,
         borderOpacity,
         labelColor,
+        enableBeforeSeparators,
         beforeSeparatorLength,
         beforeSeparatorOffset,
+        enableAfterSeparators,
         afterSeparatorLength,
         afterSeparatorOffset,
+        isInteractive,
         currentPartSizeExtension,
+        currentBorderWidth,
+        onMouseEnter,
+        onMouseMove,
+        onMouseLeave,
+        onClick,
     })
 
     const layerById = {
@@ -108,7 +120,15 @@ const Funnel = props => {
                 areaGenerator={areaGenerator}
                 borderGenerator={borderGenerator}
                 enableLabel={enableLabel}
-                setCurrentPartId={setCurrentPartId}
+            />
+        ),
+        annotations: (
+            <FunnelAnnotations
+                key="annotations"
+                parts={parts}
+                annotations={annotations}
+                widh={innerWidth}
+                height={innerHeight}
             />
         ),
         labels: null,
