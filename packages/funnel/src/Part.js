@@ -12,7 +12,7 @@ import { useSpring, animated } from 'react-spring'
 import { useMotionConfig } from '@nivo/core'
 
 export const Part = ({ part, areaGenerator, borderGenerator }) => {
-    const { config: motionConfig } = useMotionConfig()
+    const { animate, config: motionConfig } = useMotionConfig()
 
     const animatedProps = useSpring({
         areaPath: areaGenerator(part.areaPoints),
@@ -21,6 +21,7 @@ export const Part = ({ part, areaGenerator, borderGenerator }) => {
         borderWidth: part.borderWidth,
         borderColor: part.borderColor,
         config: motionConfig,
+        immediate: !animate,
     })
 
     return (

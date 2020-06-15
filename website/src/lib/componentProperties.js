@@ -39,51 +39,60 @@ export const defsProperties = (group, flavors) => [
     },
 ]
 
-export const motionProperties = (flavors, defaults) => [
-    {
-        key: 'animate',
-        flavors,
-        help: 'Enable/disable transitions.',
-        type: 'boolean',
-        required: false,
-        defaultValue: defaults.animate !== undefined ? defaults.animate : defaultAnimate,
-        controlType: 'switch',
-        group: 'Motion',
-    },
-    {
-        key: 'motionStiffness',
-        flavors,
-        help: 'Motion stiffness.',
-        type: 'number',
-        required: false,
-        defaultValue:
-            defaults.motionStiffness !== undefined
-                ? defaults.motionStiffness
-                : defaultMotionStiffness,
-        controlType: 'range',
-        group: 'Motion',
-        controlOptions: {
-            min: 0,
-            max: 300,
-            step: 5,
+export const motionProperties = (flavors, defaults, type = 'react-motion') => {
+    const props = [
+        {
+            key: 'animate',
+            flavors,
+            help: 'Enable/disable transitions.',
+            type: 'boolean',
+            required: false,
+            defaultValue: defaults.animate !== undefined ? defaults.animate : defaultAnimate,
+            controlType: 'switch',
+            group: 'Motion',
         },
-    },
-    {
-        key: 'motionDamping',
-        flavors,
-        help: 'Motion damping.',
-        type: 'number',
-        required: false,
-        defaultValue:
-            defaults.motionDamping !== undefined ? defaults.motionDamping : defaultMotionDamping,
-        controlType: 'range',
-        group: 'Motion',
-        controlOptions: {
-            min: 0,
-            max: 40,
-        },
-    },
-]
+    ]
+
+    if (type === 'react-motion') {
+        props.push({
+            key: 'motionStiffness',
+            flavors,
+            help: 'Motion stiffness.',
+            type: 'number',
+            required: false,
+            defaultValue:
+                defaults.motionStiffness !== undefined
+                    ? defaults.motionStiffness
+                    : defaultMotionStiffness,
+            controlType: 'range',
+            group: 'Motion',
+            controlOptions: {
+                min: 0,
+                max: 300,
+                step: 5,
+            },
+        })
+        props.push({
+            key: 'motionDamping',
+            flavors,
+            help: 'Motion damping.',
+            type: 'number',
+            required: false,
+            defaultValue:
+                defaults.motionDamping !== undefined
+                    ? defaults.motionDamping
+                    : defaultMotionDamping,
+            controlType: 'range',
+            group: 'Motion',
+            controlOptions: {
+                min: 0,
+                max: 40,
+            },
+        })
+    }
+
+    return props
+}
 
 export const axesProperties = ({ flavors, exclude = [] } = {}) =>
     [

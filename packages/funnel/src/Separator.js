@@ -13,7 +13,7 @@ import { useTheme, useMotionConfig } from '@nivo/core'
 
 export const Separator = ({ separator }) => {
     const theme = useTheme()
-    const { config: motionConfig } = useMotionConfig()
+    const { animate, config: motionConfig } = useMotionConfig()
 
     const animatedProps = useSpring({
         x1: separator.x0,
@@ -21,6 +21,7 @@ export const Separator = ({ separator }) => {
         y1: separator.y0,
         y2: separator.y1,
         config: motionConfig,
+        immediate: !animate,
     })
 
     return (
