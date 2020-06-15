@@ -8,16 +8,19 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useSpring, animated, config } from 'react-spring'
+import { useSpring, animated } from 'react-spring'
+import { useMotionConfig } from '@nivo/core'
 
 export const Part = ({ part, areaGenerator, borderGenerator }) => {
+    const { config: motionConfig } = useMotionConfig()
+
     const animatedProps = useSpring({
         areaPath: areaGenerator(part.areaPoints),
         areaColor: part.color,
         borderPath: borderGenerator(part.borderPoints),
         borderWidth: part.borderWidth,
         borderColor: part.borderColor,
-        config: config.wobbly,
+        config: motionConfig,
     })
 
     return (
@@ -37,6 +40,7 @@ export const Part = ({ part, areaGenerator, borderGenerator }) => {
                 fillOpacity={part.fillOpacity}
                 onMouseEnter={part.onMouseEnter}
                 onMouseLeave={part.onMouseLeave}
+                onMouseMove={part.onMouseMove}
                 onClick={part.onClick}
             />
         </>
@@ -52,6 +56,10 @@ Part.propTypes = {
         borderWidth: PropTypes.number.isRequired,
         borderColor: PropTypes.string.isRequired,
         borderOpacity: PropTypes.number.isRequired,
+        onMouseEnter: PropTypes.func,
+        onMouseLeave: PropTypes.func,
+        onMouseMove: PropTypes.func,
+        onClick: PropTypes.func,
     }).isRequired,
     areaGenerator: PropTypes.func.isRequired,
     borderGenerator: PropTypes.func.isRequired,

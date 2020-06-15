@@ -8,6 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import { ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
+import { MotionConfigProvider } from '@nivo/core'
 import { motionPropTypes } from '@nivo/core'
 import { annotationSpecPropType } from '@nivo/annotations'
 
@@ -77,7 +78,7 @@ export const FunnelDefaultProps = {
     borderOpacity: 0.66,
 
     enableLabel: true,
-    labelColor: { from: 'color', modifiers: [['darker', 2]] },
+    labelColor: { theme: 'background' },
 
     enableBeforeSeparators: true,
     beforeSeparatorLength: 0,
@@ -91,7 +92,6 @@ export const FunnelDefaultProps = {
     isInteractive: true,
     currentPartSizeExtension: 0,
 
-    animate: true,
-    motionDamping: 13,
-    motionStiffness: 90,
+    animate: MotionConfigProvider.defaultProps.animate,
+    motionConfig: MotionConfigProvider.defaultProps.config,
 }
