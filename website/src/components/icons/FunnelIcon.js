@@ -24,20 +24,28 @@ const chartProps = {
         },
         {
             id: 'B',
-            value: 70,
+            value: 60,
         },
         {
             id: 'C',
-            value: 30,
+            value: 20,
         },
     ],
     margin: {
         top: 8,
-        right: 8,
+        right: 4,
         bottom: 8,
-        left: 8,
+        left: 4,
     },
     isInteractive: false,
+    spacing: 2,
+    shapeBlending: 0.6,
+    enableLabel: false,
+    borderWidth: 10,
+    beforeSeparatorOffset: 10,
+    beforeSeparatorLength: 0,
+    afterSeparatorOffset: 10,
+    afterSeparatorLength: 0,
 }
 
 const FunnelIconItem = ({ type }) => {
@@ -47,9 +55,15 @@ const FunnelIconItem = ({ type }) => {
         <Icon id={`funnel-${type}`} type={type}>
             <Funnel
                 {...chartProps}
-                spacing={0.12}
-                shapeContinuity={0.4}
                 colors={[currentColors[4], currentColors[2], currentColors[1]]}
+                theme={{
+                    grid: {
+                        line: {
+                            stroke: currentColors[1],
+                            strokeWidth: 2,
+                        },
+                    },
+                }}
             />
         </Icon>
     )
