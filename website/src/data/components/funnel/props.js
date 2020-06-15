@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { FunnelDefaultProps as defaults } from '@nivo/funnel'
-import { groupProperties } from '../../../lib/componentProperties'
+import { groupProperties, motionProperties } from '../../../lib/componentProperties'
 
 const props = [
     {
@@ -353,6 +353,7 @@ const props = [
         type: '(part, event) => void',
         required: false,
     },
+    ...motionProperties(['svg'], defaults, 'react-spring'),
 ]
 
 export const groups = groupProperties(props)
