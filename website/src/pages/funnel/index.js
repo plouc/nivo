@@ -47,7 +47,8 @@ const initialProperties = {
     afterSeparatorOffset: 20,
 
     isInteractive: true,
-    currentPartSizeExtension: 30,
+    currentPartSizeExtension: 10,
+    currentBorderWidth: 40,
 
     animate: true,
     motionStiffness: 90,

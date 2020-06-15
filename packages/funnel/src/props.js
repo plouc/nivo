@@ -9,6 +9,7 @@
 import PropTypes from 'prop-types'
 import { ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
 import { motionPropTypes } from '@nivo/core'
+import { annotationSpecPropType } from '@nivo/annotations'
 
 export const FunnelPropTypes = {
     data: PropTypes.arrayOf(
@@ -20,7 +21,10 @@ export const FunnelPropTypes = {
     ).isRequired,
 
     layers: PropTypes.arrayOf(
-        PropTypes.oneOfType([PropTypes.oneOf(['separators', 'parts', 'labels']), PropTypes.func])
+        PropTypes.oneOfType([
+            PropTypes.oneOf(['separators', 'parts', 'labels', 'annotations']),
+            PropTypes.func,
+        ])
     ).isRequired,
 
     direction: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
@@ -45,8 +49,11 @@ export const FunnelPropTypes = {
     afterSeparatorLength: PropTypes.number.isRequired,
     afterSeparatorOffset: PropTypes.number.isRequired,
 
+    annotations: PropTypes.arrayOf(annotationSpecPropType).isRequired,
+
     isInteractive: PropTypes.bool.isRequired,
     currentPartSizeExtension: PropTypes.number.isRequired,
+    currentBorderWidth: PropTypes.number,
     onClick: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
@@ -55,7 +62,7 @@ export const FunnelPropTypes = {
 }
 
 export const FunnelDefaultProps = {
-    layers: ['separators', 'parts', 'labels'],
+    layers: ['separators', 'parts', 'labels', 'annotations'],
 
     direction: 'vertical',
     interpolation: 'smooth',
@@ -78,6 +85,8 @@ export const FunnelDefaultProps = {
     enableAfterSeparators: true,
     afterSeparatorLength: 0,
     afterSeparatorOffset: 0,
+
+    annotations: [],
 
     isInteractive: true,
     currentPartSizeExtension: 0,

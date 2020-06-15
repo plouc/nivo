@@ -10,11 +10,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useSpring, animated, config } from 'react-spring'
 
-export const Part = ({ part, areaGenerator, borderGenerator, setCurrentPartId }) => {
+export const Part = ({ part, areaGenerator, borderGenerator }) => {
     const animatedProps = useSpring({
         areaPath: areaGenerator(part.areaPoints),
         areaColor: part.color,
         borderPath: borderGenerator(part.borderPoints),
+        borderWidth: part.borderWidth,
         borderColor: part.borderColor,
         config: config.wobbly,
     })
@@ -25,7 +26,7 @@ export const Part = ({ part, areaGenerator, borderGenerator, setCurrentPartId })
                 <animated.path
                     d={animatedProps.borderPath}
                     stroke={animatedProps.borderColor}
-                    strokeWidth={part.borderWidth}
+                    strokeWidth={animatedProps.borderWidth}
                     strokeOpacity={part.borderOpacity}
                     fill="none"
                 />
@@ -34,12 +35,9 @@ export const Part = ({ part, areaGenerator, borderGenerator, setCurrentPartId })
                 d={animatedProps.areaPath}
                 fill={animatedProps.areaColor}
                 fillOpacity={part.fillOpacity}
-                onMouseEnter={() => {
-                    setCurrentPartId(part.data.id)
-                }}
-                onMouseLeave={() => {
-                    setCurrentPartId(null)
-                }}
+                onMouseEnter={part.onMouseEnter}
+                onMouseLeave={part.onMouseLeave}
+                onClick={part.onClick}
             />
         </>
     )
