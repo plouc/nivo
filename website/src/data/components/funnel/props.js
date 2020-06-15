@@ -295,6 +295,64 @@ const props = [
         defaultValue: defaults.isInteractive,
         controlType: 'switch',
     },
+    {
+        key: 'currentPartSizeExtension',
+        help: `
+            Expand part size by this amount of pixels on each side
+            when it's active 
+        `,
+        required: false,
+        defaultValue: defaults.currentPartSizeExtension,
+        type: 'number',
+        controlType: 'range',
+        group: 'Interactivity',
+        controlOptions: {
+            unit: 'px',
+            min: 0,
+            max: 100,
+        },
+    },
+    {
+        key: 'currentBorderWidth',
+        help: `Override default border width when a part is active.`,
+        required: false,
+        type: 'number',
+        controlType: 'range',
+        group: 'Interactivity',
+        controlOptions: {
+            unit: 'px',
+            min: 0,
+            max: 100,
+        },
+    },
+    {
+        key: 'onMouseEnter',
+        group: 'Interactivity',
+        help: 'onMouseEnter handler.',
+        type: '(part, event) => void',
+        required: false,
+    },
+    {
+        key: 'onMouseMove',
+        group: 'Interactivity',
+        help: 'onMouseMove handler.',
+        type: '(part, event) => void',
+        required: false,
+    },
+    {
+        key: 'onMouseLeave',
+        group: 'Interactivity',
+        help: 'onMouseLeave handler.',
+        type: '(part, event) => void',
+        required: false,
+    },
+    {
+        key: 'onClick',
+        group: 'Interactivity',
+        help: 'onClick handler.',
+        type: '(part, event) => void',
+        required: false,
+    },
 ]
 
 export const groups = groupProperties(props)

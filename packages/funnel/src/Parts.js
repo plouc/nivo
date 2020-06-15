@@ -9,13 +9,12 @@
 import React from 'react'
 import { Part } from './Part'
 
-export const Parts = ({ parts, areaGenerator, borderGenerator, setCurrentPartId }) =>
+export const Parts = ({ parts, areaGenerator, borderGenerator }) =>
     parts.map(part => (
         <Part
             key={part.data.id}
             part={part}
             areaGenerator={areaGenerator}
             borderGenerator={borderGenerator}
-            setCurrentPartId={setCurrentPartId}
         />
     ))
