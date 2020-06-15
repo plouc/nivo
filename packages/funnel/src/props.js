@@ -46,6 +46,7 @@ export const FunnelPropTypes = {
     afterSeparatorOffset: PropTypes.number.isRequired,
 
     isInteractive: PropTypes.bool.isRequired,
+    currentPartSizeExtension: PropTypes.number.isRequired,
     onClick: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
@@ -79,6 +80,7 @@ export const FunnelDefaultProps = {
     afterSeparatorOffset: 0,
 
     isInteractive: true,
+    currentPartSizeExtension: 0,
 
     animate: true,
     motionDamping: 13,

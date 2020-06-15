@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState, useCallback } from 'react'
 import { line, area, curveBasis, curveLinear } from 'd3-shape'
 import { scaleLinear } from 'd3-scale'
 import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
@@ -173,6 +173,7 @@ export const useFunnel = ({
     beforeSeparatorOffset = defaults.beforeSeparatorOffset,
     afterSeparatorLength = defaults.afterSeparatorLength,
     afterSeparatorOffset = defaults.afterSeparatorOffset,
+    currentPartSizeExtension = defaults.currentPartSizeExtension,
 }) => {
     const theme = useTheme()
     const getColor = useOrdinalColorScale(colors, 'id')
@@ -210,8 +211,12 @@ export const useFunnel = ({
         [data, direction, innerWidth, innerHeight, spacing]
     )
 
+    const [currentPartId, setCurrentPartId] = useState(null)
+
     const parts = useMemo(() => {
         const enhancedParts = data.map((datum, index) => {
+            const isCurrent = datum.id === currentPartId
+
             let partWidth
             let partHeight
             let y0, x0
@@ -242,6 +247,7 @@ export const useFunnel = ({
                 borderWidth,
                 borderOpacity,
                 formattedValue: formatValue(datum.value),
+                isCurrent,
                 x,
                 x0,
                 x1,
@@ -271,8 +277,14 @@ export const useFunnel = ({
                     part.points.push({ x: nextPart.x1, y: part.y1 })
                     part.points.push({ x: nextPart.x0, y: part.y1 })
                 } else {
-                    part.points.push({ x: part.x1, y: part.y1 })
-                    part.points.push({ x: part.x0, y: part.y1 })
+                    part.points.push({ x: part.points[1].x, y: part.y1 })
+                    part.points.push({ x: part.points[0].x, y: part.y1 })
+                }
+                if (part.isCurrent === true) {
+                    part.points[0].x -= currentPartSizeExtension
+                    part.points[1].x += currentPartSizeExtension
+                    part.points[2].x += currentPartSizeExtension
+                    part.points[3].x -= currentPartSizeExtension
                 }
 
                 part.areaPoints = [
@@ -319,6 +331,12 @@ export const useFunnel = ({
                     part.points.push({ x: part.x1, y: part.y1 })
                 }
                 part.points.push({ x: part.x0, y: part.y1 })
+                if (part.isCurrent === true) {
+                    part.points[0].y -= currentPartSizeExtension
+                    part.points[1].y -= currentPartSizeExtension
+                    part.points[2].y += currentPartSizeExtension
+                    part.points[3].y += currentPartSizeExtension
+                }
 
                 part.areaPoints = [
                     {
@@ -372,6 +390,7 @@ export const useFunnel = ({
         formatValue,
         getBorderColor,
         getLabelColor,
+        currentPartId,
     ])
 
     const [beforeSeparators, afterSeparators] = useMemo(
@@ -406,5 +425,7 @@ export const useFunnel = ({
         borderGenerator,
         beforeSeparators,
         afterSeparators,
+        setCurrentPartId,
+        currentPartId,
     }
 }

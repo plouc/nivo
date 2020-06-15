@@ -10,13 +10,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useSpring, animated, config } from 'react-spring'
 
-export const Part = ({ part, areaGenerator, borderGenerator }) => {
+export const Part = ({ part, areaGenerator, borderGenerator, setCurrentPartId }) => {
     const animatedProps = useSpring({
         areaPath: areaGenerator(part.areaPoints),
         areaColor: part.color,
         borderPath: borderGenerator(part.borderPoints),
         borderColor: part.borderColor,
-        config: config.molasses,
+        config: config.wobbly,
     })
 
     return (
@@ -34,6 +34,12 @@ export const Part = ({ part, areaGenerator, borderGenerator }) => {
                 d={animatedProps.areaPath}
                 fill={animatedProps.areaColor}
                 fillOpacity={part.fillOpacity}
+                onMouseEnter={() => {
+                    setCurrentPartId(part.data.id)
+                }}
+                onMouseLeave={() => {
+                    setCurrentPartId(null)
+                }}
             />
         </>
     )

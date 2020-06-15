@@ -47,6 +47,7 @@ const Funnel = props => {
         layers,
 
         isInteractive,
+        currentPartSizeExtension,
         onMouseEnter,
         onMouseMove,
         onMouseLeave,
@@ -63,7 +64,14 @@ const Funnel = props => {
     const theme = useTheme()
     const { animate } = useMotionConfig()
 
-    const { areaGenerator, borderGenerator, parts, beforeSeparators, afterSeparators } = useFunnel({
+    const {
+        areaGenerator,
+        borderGenerator,
+        parts,
+        beforeSeparators,
+        afterSeparators,
+        setCurrentPartId,
+    } = useFunnel({
         data,
         width: innerWidth,
         height: innerHeight,
@@ -82,6 +90,7 @@ const Funnel = props => {
         beforeSeparatorOffset,
         afterSeparatorLength,
         afterSeparatorOffset,
+        currentPartSizeExtension,
     })
 
     const layerById = {
@@ -99,6 +108,7 @@ const Funnel = props => {
                 areaGenerator={areaGenerator}
                 borderGenerator={borderGenerator}
                 enableLabel={enableLabel}
+                setCurrentPartId={setCurrentPartId}
             />
         ),
         labels: null,

@@ -11,6 +11,23 @@ import { groupProperties } from '../../../lib/componentProperties'
 
 const props = [
     {
+        key: 'data',
+        type: 'Array<Datum>',
+        group: 'Base',
+        help: 'Chart data.',
+        description: `
+            Chart data, which must conform to this structure:
+            \`\`\`
+            Array<{
+                id:    string | number
+                label: string
+                value: number
+            }>
+            \`\`\`
+        `,
+        required: true,
+    },
+    {
         key: 'margin',
         group: 'Base',
         type: 'object',
@@ -268,6 +285,15 @@ const props = [
         required: false,
         type: 'Array<string | Function>',
         defaultValue: defaults.layers,
+    },
+    {
+        key: 'isInteractive',
+        group: 'Interactivity',
+        type: 'boolean',
+        help: 'Enable/disable interactivity.',
+        required: false,
+        defaultValue: defaults.isInteractive,
+        controlType: 'switch',
     },
 ]
 
