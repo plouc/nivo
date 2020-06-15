@@ -25,6 +25,7 @@ import BoxAnchorControl from './BoxAnchorControl'
 import MarginControl from './MarginControl'
 import OpacityControl from './OpacityControl'
 import LineWidthControl from './LineWidthControl'
+import MotionConfigControl from './MotionConfigControl'
 import NumberArrayControl from './NumberArrayControl'
 import AngleControl from './AngleControl'
 import OrdinalColorsControl from './OrdinalColorsControl'
@@ -232,6 +233,19 @@ const ControlSwitcher = memo(
             case 'margin':
                 return (
                     <MarginControl
+                        id={id}
+                        property={property}
+                        flavors={flavors}
+                        currentFlavor={currentFlavor}
+                        options={options}
+                        value={value}
+                        onChange={handleChange}
+                    />
+                )
+
+            case 'motionConfig':
+                return (
+                    <MotionConfigControl
                         id={id}
                         property={property}
                         flavors={flavors}

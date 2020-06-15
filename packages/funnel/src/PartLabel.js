@@ -8,16 +8,18 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { config, useSpring, animated } from 'react-spring'
-import { useTheme } from '@nivo/core'
+import { useSpring, animated } from 'react-spring'
+import { useTheme, useMotionConfig } from '@nivo/core'
 
 export const PartLabel = ({ part }) => {
     const theme = useTheme()
+    const { animate, config: motionConfig } = useMotionConfig()
 
     const animatedProps = useSpring({
         transform: `translate(${part.x}, ${part.y})`,
         color: part.labelColor,
-        config: config.wobbly,
+        config: motionConfig,
+        immediate: !animate,
     })
 
     return (

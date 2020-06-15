@@ -89,6 +89,17 @@ export const motionProperties = (flavors, defaults, type = 'react-motion') => {
                 max: 40,
             },
         })
+    } else if (type === 'react-spring') {
+        props.push({
+            key: 'motionConfig',
+            flavors,
+            help: 'Motion config for react-spring, either a preset or a custom configuration.',
+            type: 'string | object',
+            required: false,
+            defaultValue: defaults.motionConfig,
+            controlType: 'motionConfig',
+            group: 'Motion',
+        })
     }
 
     return props
