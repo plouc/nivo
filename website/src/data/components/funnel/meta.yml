@@ -8,12 +8,14 @@ Funnel:
     - experimental
     - svg
     - isomorphic
-  stories: []
+  stories:
+    - label: Displaying steps sub-groups by combining with other chart types
+      link: funnel-sub-clustering--demo
   description: |
     A funnel chart.
 
     This component also provides a React hook which can be used in *headless mode*:
     `useFunnel()`, meaning that you can compute the chart but handle the rendering
-    by yourself.
+    by yourself, this hook supports almost the same properties as the chart.
 
     The responsive alternative of this component is `ResponsiveFunnel`.
