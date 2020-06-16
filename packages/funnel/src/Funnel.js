@@ -18,37 +18,29 @@ import { FunnelAnnotations } from './FunnelAnnotations'
 const Funnel = props => {
     const {
         data,
-
         width,
         height,
         margin: partialMargin,
-
         direction,
         interpolation,
         spacing,
         shapeBlending,
         valueFormat,
-
         colors,
         fillOpacity,
         borderWidth,
         borderColor,
         borderOpacity,
-
         enableLabel,
         labelColor,
-
         enableBeforeSeparators,
         beforeSeparatorLength,
         beforeSeparatorOffset,
         enableAfterSeparators,
         afterSeparatorLength,
         afterSeparatorOffset,
-
         layers,
-
         annotations,
-
         isInteractive,
         currentPartSizeExtension,
         currentBorderWidth,
@@ -149,8 +141,9 @@ const Funnel = props => {
     )
 }
 
+Funnel.propTypes = FunnelPropTypes
+
 const WrappedFunnel = withContainer(Funnel)
-WrappedFunnel.propTypes = FunnelPropTypes
 WrappedFunnel.defaultProps = FunnelDefaultProps
 
 export default WrappedFunnel
