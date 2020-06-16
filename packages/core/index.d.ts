@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { number } from 'prop-types'
 
 declare module '@nivo/core' {
     export type DatumValue = string | number | Date
