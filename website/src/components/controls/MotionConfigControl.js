@@ -12,7 +12,6 @@ import { isString } from 'lodash'
 import styled from 'styled-components'
 import Control from './Control'
 import PropertyHeader from './PropertyHeader'
-import TextInput from './TextInput'
 import Radio from './Radio'
 import Select from './Select'
 import Switch from './Switch'
@@ -174,7 +173,7 @@ const MotionConfigControl = memo(({ id, property, flavors, currentFlavor, value,
                             onChange={handleClampChange}
                         />
                         <span />
-                        <label>clamp</label>
+                        <label htmlFor={`${id}clamp.switch`}>clamp</label>
                     </CustomControls>
                 )}
             </Row>

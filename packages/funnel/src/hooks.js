@@ -1,10 +1,12 @@
-import { useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { line, area, curveBasis, curveLinear } from 'd3-shape'
 import { scaleLinear } from 'd3-scale'
 import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
 import { useTheme, useValueFormatter } from '@nivo/core'
 import { useAnnotations } from '@nivo/annotations'
+import { useTooltip } from '@nivo/tooltip'
 import { FunnelDefaultProps as defaults } from './props'
+import PartTooltip from './PartTooltip'
 
 export const computeShapeGenerators = (interpolation, direction) => {
     // area generator which is used to draw funnel chart parts.
@@ -166,26 +168,28 @@ export const computePartsHandlers = ({
     onMouseLeave,
     onMouseMove,
     onClick,
+    showTooltipFromEvent,
+    hideTooltip,
 }) => {
     if (!isInteractive) return parts
 
     return parts.map(part => {
         const boundOnMouseEnter = event => {
             setCurrentPartId(part.data.id)
+            showTooltipFromEvent(React.createElement(PartTooltip, { part }), event)
             onMouseEnter !== undefined && onMouseEnter(part, event)
         }
 
         const boundOnMouseLeave = event => {
             setCurrentPartId(null)
+            hideTooltip()
             onMouseLeave !== undefined && onMouseLeave(part, event)
         }
 
-        const boundOnMouseMove =
-            onMouseMove !== undefined
-                ? event => {
-                      onMouseMove(part, event)
-                  }
-                : undefined
+        const boundOnMouseMove = event => {
+            showTooltipFromEvent(React.createElement(PartTooltip, { part }), event)
+            onMouseMove !== undefined && onMouseMove(part, event)
+        }
 
         const boundOnClick =
             onClick !== undefined
@@ -461,6 +465,7 @@ export const useFunnel = ({
         currentPartId,
     ])
 
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
     const partsWithHandlers = useMemo(
         () =>
             computePartsHandlers({
@@ -471,8 +476,20 @@ export const useFunnel = ({
                 onMouseLeave,
                 onMouseMove,
                 onClick,
+                showTooltipFromEvent,
+                hideTooltip,
             }),
-        [parts, setCurrentPartId, isInteractive, onMouseEnter, onMouseLeave, onMouseMove, onClick]
+        [
+            parts,
+            setCurrentPartId,
+            isInteractive,
+            onMouseEnter,
+            onMouseLeave,
+            onMouseMove,
+            onClick,
+            showTooltipFromEvent,
+            hideTooltip,
+        ]
     )
 
     const [beforeSeparators, afterSeparators] = useMemo(
