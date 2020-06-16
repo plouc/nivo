@@ -6,10 +6,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo, useMemo, useState } from 'react'
+import React, { memo, useMemo, useState, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Measure from 'react-measure'
-import { Motion, spring } from 'react-motion'
+import { useSpring, animated } from 'react-spring'
 import { useTheme, useMotionConfig } from '@nivo/core'
 
 const TOOLTIP_OFFSET = 14
@@ -23,9 +23,14 @@ const tooltipStyle = {
 }
 
 const TooltipWrapper = memo(({ position, anchor, children }) => {
-    const [dimensions, setDimensions] = useState(null)
     const theme = useTheme()
-    const { animate, springConfig } = useMotionConfig()
+    const { animate, config: springConfig } = useMotionConfig()
+
+    const [dimensions, setDimensions] = useState(null)
+    const previousDimensions = useRef(null)
+    useEffect(() => {
+        previousDimensions.current = dimensions
+    })
 
     let x = Math.round(position[0])
     let y = Math.round(position[1])
@@ -48,71 +53,50 @@ const TooltipWrapper = memo(({ position, anchor, children }) => {
         }
     }
 
+    const isInitializing = dimensions === null || previousDimensions.current === null
+
+    const animatedProps = useSpring({
+        transform: `translate(${x}px, ${y}px)`,
+        config: springConfig,
+        immediate: !animate || isInitializing,
+    })
+
     const style = useMemo(
         () => ({
             ...tooltipStyle,
             ...theme.tooltip,
-            transform: `translate(${x}px, ${y}px)`,
-            opacity: dimensions === null ? 0 : 1,
+            opacity: isInitializing ? 0 : 1,
         }),
-        [x, y, dimensions, theme.tooltip]
+        [dimensions, theme.tooltip, isInitializing]
     )
 
     // if we don't have dimensions yet, we use
     // the non animated version with a 0 opacity
     // to avoid a flash effect and weird initial transition
-    if (animate !== true || dimensions === null) {
-        return (
-            <Measure
-                client={false}
-                offset={false}
-                bounds={true}
-                margin={false}
-                onResize={({ bounds }) => {
-                    setDimensions([bounds.width, bounds.height])
-                }}
-            >
-                {({ measureRef }) => (
-                    <div ref={measureRef} style={style}>
-                        {children}
-                    </div>
-                )}
-            </Measure>
-        )
-    }
-
     return (
-        <Motion
-            style={{
-                x: spring(x, springConfig),
-                y: spring(y, springConfig),
+        <Measure
+            client={false}
+            offset={false}
+            bounds={true}
+            margin={false}
+            onResize={({ bounds }) => {
+                setDimensions([bounds.width, bounds.height])
             }}
         >
-            {animatedPosition => (
-                <Measure
-                    client={false}
-                    offset={false}
-                    bounds={true}
-                    margin={false}
-                    onResize={({ bounds }) => {
-                        setDimensions([bounds.width, bounds.height])
-                    }}
-                >
-                    {({ measureRef }) => (
-                        <div
-                            ref={measureRef}
-                            style={{
-                                ...tooltipStyle,
-                                ...theme.tooltip,
-                                transform: `translate3d(${animatedPosition.x}px, ${animatedPosition.y}px, 0)`,
-                            }}
-                        >
-                            {children}
-                        </div>
-                    )}
-                </Measure>
-            )}
-        </Motion>
+            {({ measureRef }) => {
+                return (
+                    <animated.div
+                        ref={measureRef}
+                        style={{
+                            ...style,
+                            ...animatedProps,
+                        }}
+                    >
+                        {children}
+                    </animated.div>
+                )
+            }}
+        </Measure>
     )
 })
 
