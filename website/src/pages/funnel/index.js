@@ -26,7 +26,7 @@ const initialProperties = {
     direction: FunnelDefaultProps.direction,
     interpolation: FunnelDefaultProps.interpolation,
     shapeBlending: FunnelDefaultProps.shapeBlending,
-    spacing: 1,
+    spacing: FunnelDefaultProps.spacing,
     valueFormat: { format: '>-.4s', enabled: true },
 
     colors: { scheme: 'spectral' },

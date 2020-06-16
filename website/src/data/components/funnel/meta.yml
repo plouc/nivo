@@ -8,9 +8,7 @@ Funnel:
     - experimental
     - svg
     - isomorphic
-  stories:
-    - label: Displaying steps sub-groups by combining with other chart types
-      link: funnel-sub-clustering--demo
+  stories: []
   description: |
     A funnel chart.
 
