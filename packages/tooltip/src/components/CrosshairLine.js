@@ -8,12 +8,12 @@
  */
 import React, { memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { Motion, spring } from 'react-motion'
+import { useSpring, animated } from 'react-spring'
 import { useTheme, useMotionConfig } from '@nivo/core'
 
 const CrosshairLine = memo(({ x0, x1, y0, y1 }) => {
     const theme = useTheme()
-    const { animate, springConfig } = useMotionConfig()
+    const { animate, config: springConfig } = useMotionConfig()
     const style = useMemo(
         () => ({
             ...theme.crosshair.line,
@@ -22,31 +22,16 @@ const CrosshairLine = memo(({ x0, x1, y0, y1 }) => {
         [theme.crosshair.line]
     )
 
-    if (animate !== true) {
-        return <line x1={x0} x2={x1} y1={y0} y2={y1} fill="none" style={style} />
-    }
+    const animatedProps = useSpring({
+        x1: x0,
+        x2: x1,
+        y1: y0,
+        y2: y1,
+        config: springConfig,
+        immediate: !animate,
+    })
 
-    return (
-        <Motion
-            style={{
-                x0: spring(x0, springConfig),
-                x1: spring(x1, springConfig),
-                y0: spring(y0, springConfig),
-                y1: spring(y1, springConfig),
-            }}
-        >
-            {line => (
-                <line
-                    x1={line.x0}
-                    x2={line.x1}
-                    y1={line.y0}
-                    y2={line.y1}
-                    fill="none"
-                    style={style}
-                />
-            )}
-        </Motion>
-    )
+    return <animated.line {...animatedProps} fill="none" style={style} />
 })
 
 CrosshairLine.displayName = 'CrosshairLine'
