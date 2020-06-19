@@ -49,6 +49,7 @@ declare module '@nivo/calendar' {
         monthBorderWidth: number
         monthBorderColor: string
         monthLegendOffset: number
+        monthLegendPosition: 'before' | 'after'
 
         daySpacing: number
         dayBorderWidth: number
