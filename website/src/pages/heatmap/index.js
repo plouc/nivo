@@ -102,6 +102,7 @@ const initialProperties = {
     fill: [{ match: d => false && d.value < 30, id: 'lines' }],
 
     animate: true,
+    motionConfig: 'wobbly',
     motionStiffness: 80,
     motionDamping: 9,
 
