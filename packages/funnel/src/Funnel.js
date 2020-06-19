@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React, { Fragment } from 'react'
-import { SvgWrapper, withContainer, useDimensions, useTheme } from '@nivo/core'
+import { SvgWrapper, withContainer, useDimensions } from '@nivo/core'
 import { FunnelPropTypes, FunnelDefaultProps } from './props'
 import { useFunnel } from './hooks'
 import { Parts } from './Parts'
@@ -55,8 +55,6 @@ const Funnel = props => {
         height,
         partialMargin
     )
-
-    const theme = useTheme()
 
     const {
         areaGenerator,
@@ -129,7 +127,7 @@ const Funnel = props => {
     }
 
     return (
-        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
+        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
                     return <Fragment key={i}>{layer(customLayerProps)}</Fragment>

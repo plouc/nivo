@@ -6,12 +6,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import pure from 'recompose/pure'
-import { themePropType } from '@nivo/core'
-
-const style = { cursor: 'pointer' }
+import { useSpring, animated } from 'react-spring'
+import { useMotionConfig, useTheme } from '@nivo/core'
 
 const HeatMapCellRect = ({
     data,
@@ -29,44 +27,63 @@ const HeatMapCellRect = ({
     onHover,
     onLeave,
     onClick,
-    theme,
-}) => (
-    <g
-        transform={`translate(${x}, ${y})`}
-        onMouseEnter={onHover}
-        onMouseMove={onHover}
-        onMouseLeave={onLeave}
-        onClick={e => {
-            onClick(data, e)
-        }}
-        style={style}
-    >
-        <rect
-            x={width * -0.5}
-            y={height * -0.5}
-            width={width}
-            height={height}
-            fill={color}
-            fillOpacity={opacity}
-            strokeWidth={borderWidth}
-            stroke={borderColor}
-            strokeOpacity={opacity}
-        />
-        {enableLabel && (
-            <text
-                dominantBaseline="central"
-                textAnchor="middle"
-                style={{
-                    ...theme.labels.text,
-                    fill: textColor,
-                }}
-                fillOpacity={opacity}
-            >
-                {value}
-            </text>
-        )}
-    </g>
-)
+}) => {
+    const theme = useTheme()
+    const { animate, config: springConfig } = useMotionConfig()
+
+    const animatedProps = useSpring({
+        transform: `translate(${x}, ${y})`,
+        width,
+        height,
+        xOffset: width * -0.5,
+        yOffset: height * -0.5,
+        color,
+        opacity,
+        textColor,
+        borderWidth,
+        borderColor,
+        config: springConfig,
+        immediate: !animate,
+    })
+
+    return (
+        <animated.g
+            transform={animatedProps.transform}
+            style={{ cursor: 'pointer' }}
+            onMouseEnter={onHover}
+            onMouseMove={onHover}
+            onMouseLeave={onLeave}
+            onClick={e => {
+                onClick(data, e)
+            }}
+        >
+            <animated.rect
+                x={animatedProps.xOffset}
+                y={animatedProps.yOffset}
+                width={animatedProps.width}
+                height={animatedProps.height}
+                fill={animatedProps.color}
+                fillOpacity={animatedProps.opacity}
+                strokeWidth={animatedProps.borderWidth}
+                stroke={animatedProps.borderColor}
+                strokeOpacity={animatedProps.opacity}
+            />
+            {enableLabel && (
+                <animated.text
+                    dominantBaseline="central"
+                    textAnchor="middle"
+                    style={{
+                        ...theme.labels.text,
+                        fill: animatedProps.textColor,
+                    }}
+                    fillOpacity={animatedProps.opacity}
+                >
+                    {value}
+                </animated.text>
+            )}
+        </animated.g>
+    )
+}
 
 HeatMapCellRect.propTypes = {
     data: PropTypes.object.isRequired,
@@ -84,7 +101,6 @@ HeatMapCellRect.propTypes = {
     onHover: PropTypes.func.isRequired,
     onLeave: PropTypes.func.isRequired,
     onClick: PropTypes.func.isRequired,
-    theme: themePropType.isRequired,
 }
 
-export default pure(HeatMapCellRect)
+export default memo(HeatMapCellRect)
