@@ -60,26 +60,28 @@ const HeatMapCanvas = ({
         partialMargin
     )
 
-    const { cells, xScale, yScale, offsetX, offsetY, currentCell, setCurrentCell } = useHeatMap({
-        data,
-        keys,
-        indexBy,
-        minValue,
-        maxValue,
-        width: innerWidth,
-        height: innerHeight,
-        padding,
-        forceSquare,
-        sizeVariation,
-        colors,
-        nanColor,
-        cellOpacity,
-        cellBorderColor,
-        labelTextColor,
-        hoverTarget,
-        cellHoverOpacity,
-        cellHoverOthersOpacity,
-    })
+    const { cells, xScale, yScale, offsetX, offsetY, currentCellId, setCurrentCellId } = useHeatMap(
+        {
+            data,
+            keys,
+            indexBy,
+            minValue,
+            maxValue,
+            width: innerWidth,
+            height: innerHeight,
+            padding,
+            forceSquare,
+            sizeVariation,
+            colors,
+            nanColor,
+            cellOpacity,
+            cellBorderColor,
+            labelTextColor,
+            hoverTarget,
+            cellHoverOpacity,
+            cellHoverOthersOpacity,
+        }
+    )
 
     const theme = useTheme()
 
@@ -145,24 +147,24 @@ const HeatMapCanvas = ({
         event => {
             const [x, y] = getRelativeCursor(canvasEl.current, event)
 
-            const cell = cells.find(node =>
+            const cell = cells.find(c =>
                 isCursorInRect(
-                    node.x + margin.left + offsetX - node.width / 2,
-                    node.y + margin.top + offsetY - node.height / 2,
-                    node.width,
-                    node.height,
+                    c.x + margin.left + offsetX - c.width / 2,
+                    c.y + margin.top + offsetY - c.height / 2,
+                    c.width,
+                    c.height,
                     x,
                     y
                 )
             )
             if (cell !== undefined) {
-                setCurrentCell(cell)
+                setCurrentCellId(cell.id)
                 showTooltipFromEvent(
                     <HeatMapCellTooltip cell={cell} tooltip={tooltip} format={tooltipFormat} />,
                     event
                 )
             } else {
-                setCurrentCell(null)
+                setCurrentCellId(null)
                 hideTooltip()
             }
         },
@@ -172,7 +174,7 @@ const HeatMapCanvas = ({
             margin,
             offsetX,
             offsetY,
-            setCurrentCell,
+            setCurrentCellId,
             showTooltipFromEvent,
             hideTooltip,
             tooltip,
@@ -180,17 +182,18 @@ const HeatMapCanvas = ({
     )
 
     const handleMouseLeave = useCallback(() => {
-        setCurrentCell(null)
+        setCurrentCellId(null)
         hideTooltip()
-    }, [setCurrentCell, hideTooltip])
+    }, [setCurrentCellId, hideTooltip])
 
     const handleClick = useCallback(
         event => {
-            if (currentCell === null) return
+            if (currentCellId === null) return
 
-            onClick(currentCell, event)
+            const currentCell = cells.find(cell => cell.id === currentCellId)
+            currentCell && onClick(currentCell, event)
         },
-        [currentCell, onClick]
+        [cells, currentCellId, onClick]
     )
 
     return (

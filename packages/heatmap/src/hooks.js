@@ -30,49 +30,35 @@ const computeCells = ({
     colorScale,
     nanColor,
     getLabelTextColor,
-    currentCell,
-    hoverTarget,
-    cellHoverOpacity,
-    cellHoverOthersOpacity,
 }) => {
-    const isHoverTarget = isHoverTargetByType[hoverTarget]
-
-    return data.reduce((acc, d) => {
+    const cells = []
+    data.forEach(datum => {
         keys.forEach(key => {
-            const width = sizeScale ? Math.min(sizeScale(d[key]) * cellWidth, cellWidth) : cellWidth
-            const height = sizeScale
-                ? Math.min(sizeScale(d[key]) * cellHeight, cellHeight)
-                : cellHeight
+            const value = datum[key]
+            const index = getIndex(datum)
+            const sizeMultiplier = sizeScale ? sizeScale(value) : 1
+            const width = sizeMultiplier * cellWidth
+            const height = sizeMultiplier * cellHeight
 
             const cell = {
-                key: `${key}.${getIndex(d)}`,
+                id: `${key}.${index}`,
                 xKey: key,
-                yKey: getIndex(d),
+                yKey: index,
                 x: xScale(key),
-                y: yScale(getIndex(d)),
+                y: yScale(index),
                 width,
                 height,
-                value: d[key],
-                color: isNaN(d[key]) ? nanColor : colorScale(d[key]),
+                value,
+                color: isNaN(value) ? nanColor : colorScale(value),
+                opacity: cellOpacity,
             }
+            cell.labelTextColor = getLabelTextColor(cell)
 
-            let opacity = cellOpacity
-            if (currentCell) {
-                opacity = isHoverTarget(cell, currentCell)
-                    ? cellHoverOpacity
-                    : cellHoverOthersOpacity
-            }
-
-            acc.push(
-                Object.assign(cell, {
-                    labelTextColor: getLabelTextColor(cell),
-                    opacity,
-                })
-            )
+            cells.push(cell)
         })
+    })
 
-        return acc
-    }, [])
+    return cells
 }
 
 export const useHeatMap = ({
@@ -95,7 +81,7 @@ export const useHeatMap = ({
     cellHoverOpacity,
     cellHoverOthersOpacity,
 }) => {
-    const [currentCell, setCurrentCell] = useState(null)
+    const [currentCellId, setCurrentCellId] = useState(null)
 
     const getIndex = useMemo(() => getAccessorFor(indexBy), [indexBy])
     const indices = useMemo(() => data.map(getIndex), [data, getIndex])
@@ -161,11 +147,11 @@ export const useHeatMap = ({
         }
     }, [sizeVariation, values])
 
-    const theme = useTheme()
     const colorScale = useMemo(
         () => guessQuantizeColorScale(colors).domain([values.min, values.max]),
         [colors, values]
     )
+    const theme = useTheme()
     const getCellBorderColor = useInheritedColor(cellBorderColor, theme)
     const getLabelTextColor = useInheritedColor(labelTextColor, theme)
 
@@ -184,10 +170,6 @@ export const useHeatMap = ({
                 colorScale,
                 nanColor,
                 getLabelTextColor,
-                currentCell,
-                hoverTarget,
-                cellHoverOpacity,
-                cellHoverOthersOpacity,
             }),
         [
             data,
@@ -200,22 +182,37 @@ export const useHeatMap = ({
             colorScale,
             nanColor,
             getLabelTextColor,
-            currentCell,
-            hoverTarget,
-            cellHoverOpacity,
-            cellHoverOthersOpacity,
         ]
     )
 
+    const cellsWithCurrent = useMemo(() => {
+        if (currentCellId === null) return cells
+
+        const isHoverTarget = isHoverTargetByType[hoverTarget]
+        const currentCell = cells.find(cell => cell.id === currentCellId)
+
+        return cells.map(cell => {
+            const opacity = isHoverTarget(cell, currentCell)
+                ? cellHoverOpacity
+                : cellHoverOthersOpacity
+
+            if (opacity === cell.opacity) return cell
+
+            return {
+                ...cell,
+                opacity,
+            }
+        })
+    }, [cells, currentCellId, hoverTarget, cellHoverOpacity, cellHoverOthersOpacity])
+
     return {
-        cells,
+        cells: cellsWithCurrent,
         getIndex,
         xScale: scales.x,
         yScale: scales.y,
         ...layoutConfig,
         sizeScale,
-        currentCell,
-        setCurrentCell,
+        setCurrentCellId,
         colorScale,
         getCellBorderColor,
         getLabelTextColor,

@@ -21,7 +21,7 @@ const HeatMapCells = ({
 }) => {
     return cells.map(cell =>
         React.createElement(cellComponent, {
-            key: cell.key,
+            key: cell.id,
             data: cell,
             value: cell.value,
             x: cell.x,

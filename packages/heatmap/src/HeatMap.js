@@ -63,7 +63,7 @@ const HeatMap = ({
         yScale,
         offsetX,
         offsetY,
-        setCurrentCell,
+        setCurrentCellId,
         getCellBorderColor,
         getLabelTextColor,
     } = useHeatMap({
@@ -91,19 +91,19 @@ const HeatMap = ({
 
     const handleCellHover = useCallback(
         (cell, event) => {
-            setCurrentCell(cell)
+            setCurrentCellId(cell.id)
             showTooltipFromEvent(
                 <HeatMapCellTooltip cell={cell} format={tooltipFormat} tooltip={tooltip} />,
                 event
             )
         },
-        [setCurrentCell, showTooltipFromEvent, tooltipFormat, tooltip]
+        [setCurrentCellId, showTooltipFromEvent, tooltipFormat, tooltip]
     )
 
     const handleCellLeave = useCallback(() => {
-        setCurrentCell(null)
+        setCurrentCellId(null)
         hideTooltip()
-    }, [setCurrentCell, hideTooltip])
+    }, [setCurrentCellId, hideTooltip])
 
     let cellComponent
     if (cellShape === 'rect') {
