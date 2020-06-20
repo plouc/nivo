@@ -48,8 +48,7 @@ const initialProperties = {
     blendMode: 'multiply',
 
     animate: true,
-    motionStiffness: 90,
-    motionDamping: 15,
+    motionConfig: 'wobbly',
 
     isInteractive: true,
 
