@@ -54,6 +54,7 @@ const HeatMapCanvas = ({
     pixelRatio,
 }) => {
     const canvasEl = useRef(null)
+
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
         height,

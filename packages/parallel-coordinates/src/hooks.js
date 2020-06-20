@@ -1,12 +1,8 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+import { useMemo } from 'react'
+import { line } from 'd3-shape'
 import { scaleLinear, scalePoint } from 'd3-scale'
+import { curveFromProp } from '@nivo/core'
+import { useOrdinalColorScale } from '@nivo/colors'
 
 export const computeParallelCoordinatesLayout = ({ width, height, data, variables, layout }) => {
     const variablesScale = scalePoint()
@@ -120,4 +116,45 @@ export const computeAxisDensity = (variable, data) => {
     }
 
     return []
+}
+
+export const useParallelCoordinates = ({
+    width,
+    height,
+    data,
+    variables,
+    layout,
+    colors,
+    curve,
+}) => {
+    const getLineColor = useOrdinalColorScale(colors, 'index')
+
+    const lineGenerator = useMemo(
+        () =>
+            line()
+                .x(d => d.x)
+                .y(d => d.y)
+                .curve(curveFromProp(curve)),
+        [curve]
+    )
+
+    const { variablesScale, variablesWithScale, dataWithPoints } = useMemo(
+        () =>
+            computeParallelCoordinatesLayout({
+                width,
+                height,
+                data,
+                variables,
+                layout,
+            }),
+        [width, height, data, variables, layout]
+    )
+
+    return {
+        variablesScale,
+        variablesWithScale,
+        dataWithPoints,
+        getLineColor,
+        lineGenerator,
+    }
 }

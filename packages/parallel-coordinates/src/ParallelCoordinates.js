@@ -6,118 +6,92 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component } from 'react'
-import compose from 'recompose/compose'
-import defaultProps from 'recompose/defaultProps'
-import pure from 'recompose/pure'
-import setDisplayName from 'recompose/setDisplayName'
-import { withMotion, Container, SvgWrapper } from '@nivo/core'
+import React from 'react'
+import { SvgWrapper, useDimensions, withContainer } from '@nivo/core'
 import { Axis } from '@nivo/axes'
 import { commonPropTypes, commonDefaultProps } from './props'
-import { commonEnhancers } from './enhance'
-import ParallelCoordinatesLayout from './ParallelCoordinatesLayout'
+import { useParallelCoordinates } from './hooks'
 import ParallelCoordinatesLine from './ParallelCoordinatesLine'
 
-export class ParallelCoordinates extends Component {
-    static propTypes = commonPropTypes
+const ParallelCoordinates = ({
+    data,
+    variables,
+    layout,
+    width,
+    height,
+    margin: partialMargin,
+    axesPlan,
+    axesTicksPosition,
+    strokeWidth,
+    lineOpacity,
+    curve,
+    colors,
+}) => {
+    const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
+        width,
+        height,
+        partialMargin
+    )
 
-    render() {
-        const {
-            data,
-            variables,
-            layout,
-            margin,
-            width,
-            height,
-            outerWidth,
-            outerHeight,
-            axesPlan,
-            axesTicksPosition,
-            lineGenerator,
-            strokeWidth,
-            lineOpacity,
-            getLineColor,
-            theme,
-            animate,
-            motionStiffness,
-            motionDamping,
-            isInteractive,
-        } = this.props
+    const {
+        variablesScale,
+        variablesWithScale,
+        dataWithPoints,
+        lineGenerator,
+        getLineColor,
+    } = useParallelCoordinates({
+        width: innerWidth,
+        height: innerHeight,
+        data,
+        variables,
+        layout,
+        colors,
+        curve,
+    })
 
-        return (
-            <ParallelCoordinatesLayout
-                width={width}
-                height={height}
-                data={data}
-                variables={variables}
-                layout={layout}
-            >
-                {({ variablesScale, variablesWithScale, dataWithPoints }) => {
-                    const axes = variablesWithScale.map(variable => (
-                        <Axis
-                            key={variable.key}
-                            axis={layout === 'horizontal' ? 'y' : 'x'}
-                            length={layout === 'horizontal' ? height : width}
-                            x={layout === 'horizontal' ? variablesScale(variable.key) : 0}
-                            y={layout === 'horizontal' ? 0 : variablesScale(variable.key)}
-                            scale={variable.scale}
-                            ticksPosition={variable.ticksPosition || axesTicksPosition}
-                            tickValues={variable.tickValues}
-                            tickSize={variable.tickSize}
-                            tickPadding={variable.tickPadding}
-                            tickRotation={variable.tickRotation}
-                            format={variable.tickFormat}
-                            legend={variable.legend}
-                            legendPosition={variable.legendPosition}
-                            legendOffset={variable.legendOffset}
-                        />
-                    ))
+    const axes = variablesWithScale.map(variable => (
+        <Axis
+            key={variable.key}
+            axis={layout === 'horizontal' ? 'y' : 'x'}
+            length={layout === 'horizontal' ? innerHeight : innerWidth}
+            x={layout === 'horizontal' ? variablesScale(variable.key) : 0}
+            y={layout === 'horizontal' ? 0 : variablesScale(variable.key)}
+            scale={variable.scale}
+            ticksPosition={variable.ticksPosition || axesTicksPosition}
+            tickValues={variable.tickValues}
+            tickSize={variable.tickSize}
+            tickPadding={variable.tickPadding}
+            tickRotation={variable.tickRotation}
+            format={variable.tickFormat}
+            legend={variable.legend}
+            legendPosition={variable.legendPosition}
+            legendOffset={variable.legendOffset}
+        />
+    ))
 
-                    return (
-                        <Container
-                            isInteractive={isInteractive}
-                            theme={theme}
-                            animate={animate}
-                            motionDamping={motionDamping}
-                            motionStiffness={motionStiffness}
-                        >
-                            {({ showTooltip, hideTooltip }) => (
-                                <SvgWrapper
-                                    width={outerWidth}
-                                    height={outerHeight}
-                                    margin={margin}
-                                    theme={theme}
-                                >
-                                    {axesPlan === 'background' && axes}
-                                    {dataWithPoints.map(datum => (
-                                        <ParallelCoordinatesLine
-                                            key={datum.index}
-                                            data={datum}
-                                            variables={variables}
-                                            lineGenerator={lineGenerator}
-                                            points={datum.points}
-                                            strokeWidth={strokeWidth}
-                                            opacity={lineOpacity}
-                                            color={getLineColor(datum)}
-                                            theme={theme}
-                                            showTooltip={showTooltip}
-                                            hideTooltip={hideTooltip}
-                                            animate={animate}
-                                            motionDamping={motionDamping}
-                                            motionStiffness={motionStiffness}
-                                        />
-                                    ))}
-                                    {axesPlan === 'foreground' && axes}
-                                </SvgWrapper>
-                            )}
-                        </Container>
-                    )
-                }}
-            </ParallelCoordinatesLayout>
-        )
-    }
+    return (
+        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
+            {axesPlan === 'background' && axes}
+            {dataWithPoints.map(datum => (
+                <ParallelCoordinatesLine
+                    key={datum.index}
+                    data={datum}
+                    variables={variables}
+                    lineGenerator={lineGenerator}
+                    points={datum.points}
+                    strokeWidth={strokeWidth}
+                    opacity={lineOpacity}
+                    color={getLineColor(datum)}
+                />
+            ))}
+            {axesPlan === 'foreground' && axes}
+        </SvgWrapper>
+    )
 }
 
-const enhance = compose(defaultProps(commonDefaultProps), ...commonEnhancers, withMotion(), pure)
+ParallelCoordinates.propTypes = commonPropTypes
 
-export default setDisplayName('ParallelCoordinates')(enhance(ParallelCoordinates))
+const WrappedParallelCoordinates = withContainer(ParallelCoordinates)
+WrappedParallelCoordinates.defaultProps = commonDefaultProps
+
+export default WrappedParallelCoordinates
