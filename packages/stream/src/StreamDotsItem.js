@@ -6,16 +6,28 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
+import { useSpring, animated } from 'react-spring'
+import { useMotionConfig } from '@nivo/core'
 
 const StreamDotsItem = ({ x, y, size, color, borderWidth, borderColor }) => {
+    const { animate, config: springConfig } = useMotionConfig()
+    const animatedProps = useSpring({
+        x,
+        y,
+        radius: size * 0.5,
+        color,
+        config: springConfig,
+        immediate: !animate,
+    })
+
     return (
-        <circle
-            cx={x}
-            cy={y}
-            r={size * 0.5}
-            fill={color}
+        <animated.circle
+            cx={animatedProps.x}
+            cy={animatedProps.y}
+            r={animatedProps.radius}
+            fill={animatedProps.color}
             strokeWidth={borderWidth}
             stroke={borderColor}
         />
@@ -31,4 +43,4 @@ StreamDotsItem.propTypes = {
     borderColor: PropTypes.string.isRequired,
 }
 
-export default StreamDotsItem
+export default memo(StreamDotsItem)
