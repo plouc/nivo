@@ -377,7 +377,7 @@ const props = [
         controlType: 'opacity',
         group: 'Interactivity',
     },
-    ...motionProperties(['svg'], defaults),
+    ...motionProperties(['svg'], defaults, 'react-spring'),
 ]
 
 export const groups = groupProperties(props)
