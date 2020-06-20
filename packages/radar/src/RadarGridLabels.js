@@ -59,11 +59,11 @@ const RadarGridLabels = memo(({ radius, angles, indices, label: labelComponent, 
         }))
     )
 
-    return springs.map((props, index) => {
+    return springs.map((animatedProps, index) => {
         const label = labels[index]
 
         return (
-            <animated.g key={label.id} transform={props.transform}>
+            <animated.g key={label.id} transform={animatedProps.transform}>
                 {renderLabel(label, theme, labelComponent)}
             </animated.g>
         )

@@ -34,11 +34,11 @@ const RadarGridLevels = memo(({ shape, radii, angleStep, dataLength }) => {
             immediate: !animate,
         })
 
-        return transitions.map(({ props, key }) => (
+        return transitions.map(({ props: animatedProps, key }) => (
             <animated.circle
                 key={key}
                 fill="none"
-                r={props.radius.interpolate(v => Math.max(v, 0))}
+                r={animatedProps.radius.interpolate(v => Math.max(v, 0))}
                 {...theme.grid.line}
             />
         ))
@@ -54,8 +54,8 @@ const RadarGridLevels = memo(({ shape, radii, angleStep, dataLength }) => {
         immediate: !animate,
     })
 
-    return transitions.map(({ props, key }) => (
-        <animated.path key={key} fill="none" d={props.path} {...theme.grid.line} />
+    return transitions.map(({ props: animatedProps, key }) => (
+        <animated.path key={key} fill="none" d={animatedProps.path} {...theme.grid.line} />
     ))
 })
 
