@@ -7,7 +7,6 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
-import { MotionDefaultProps } from '../motion'
 
 export const marginPropType = PropTypes.shape({
     top: PropTypes.number,
@@ -15,13 +14,6 @@ export const marginPropType = PropTypes.shape({
     bottom: PropTypes.number,
     left: PropTypes.number,
 }).isRequired
-
-export const motionPropTypes = {
-    animate: MotionDefaultProps.animate,
-    motionStiffness: MotionDefaultProps.stiffness,
-    motionDamping: MotionDefaultProps.damping,
-    motionConfig: MotionDefaultProps.config,
-}
 
 export const blendModes = [
     'normal',

@@ -12,7 +12,7 @@ import defaultProps from 'recompose/defaultProps'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import setPropTypes from 'recompose/setPropTypes'
 import { spring } from 'react-motion'
-import { motionPropTypes } from '../props'
+import { motionPropTypes } from '../motion'
 import { defaultAnimate, defaultMotionDamping, defaultMotionStiffness } from '../defaults'
 
 export default () =>

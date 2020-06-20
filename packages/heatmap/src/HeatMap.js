@@ -6,13 +6,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { useCallback } from 'react'
 import { SvgWrapper, withContainer, useDimensions } from '@nivo/core'
 import { Axes, Grid } from '@nivo/axes'
 import { useTooltip } from '@nivo/tooltip'
 import { HeatMapPropTypes, HeatMapDefaultProps } from './props'
 import { useHeatMap } from './hooks'
-import computeNodes from './computeNodes'
 import HeatMapCells from './HeatMapCells'
 import HeatMapCellRect from './HeatMapCellRect'
 import HeatMapCellCircle from './HeatMapCellCircle'
@@ -52,21 +51,6 @@ const HeatMap = ({
     tooltipFormat,
     tooltip,
 }) => {
-    const { showTooltipFromEvent, hideTooltip } = useTooltip()
-
-    const handleNodeHover = (node, event) => {
-        setCurrentNode(node)
-        showTooltipFromEvent(
-            <HeatMapCellTooltip node={node} format={tooltipFormat} tooltip={tooltip} />,
-            event
-        )
-    }
-
-    const handleNodeLeave = () => {
-        setCurrentNode(null)
-        hideTooltip()
-    }
-
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
         height,
@@ -74,17 +58,12 @@ const HeatMap = ({
     )
 
     const {
-        getIndex,
+        cells,
         xScale,
         yScale,
-        cellWidth,
-        cellHeight,
         offsetX,
         offsetY,
-        sizeScale,
-        currentNode,
-        setCurrentNode,
-        colorScale,
+        setCurrentCell,
         getCellBorderColor,
         getLabelTextColor,
     } = useHeatMap({
@@ -99,9 +78,32 @@ const HeatMap = ({
         forceSquare,
         sizeVariation,
         colors,
+        nanColor,
+        cellOpacity,
         cellBorderColor,
         labelTextColor,
+        hoverTarget,
+        cellHoverOpacity,
+        cellHoverOthersOpacity,
     })
+
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
+
+    const handleCellHover = useCallback(
+        (cell, event) => {
+            setCurrentCell(cell)
+            showTooltipFromEvent(
+                <HeatMapCellTooltip cell={cell} format={tooltipFormat} tooltip={tooltip} />,
+                event
+            )
+        },
+        [setCurrentCell, showTooltipFromEvent, tooltipFormat, tooltip]
+    )
+
+    const handleCellLeave = useCallback(() => {
+        setCurrentCell(null)
+        hideTooltip()
+    }, [setCurrentCell, hideTooltip])
 
     let cellComponent
     if (cellShape === 'rect') {
@@ -111,25 +113,6 @@ const HeatMap = ({
     } else {
         cellComponent = cellShape
     }
-
-    const nodes = computeNodes({
-        data,
-        keys,
-        getIndex,
-        xScale,
-        yScale,
-        sizeScale,
-        cellOpacity,
-        cellWidth,
-        cellHeight,
-        colorScale,
-        nanColor,
-        getLabelTextColor,
-        currentNode,
-        hoverTarget,
-        cellHoverOpacity,
-        cellHoverOthersOpacity,
-    })
 
     return (
         <SvgWrapper
@@ -157,14 +140,14 @@ const HeatMap = ({
                 left={axisLeft}
             />
             <HeatMapCells
-                nodes={nodes}
+                cells={cells}
                 cellComponent={cellComponent}
                 cellBorderWidth={cellBorderWidth}
                 getCellBorderColor={getCellBorderColor}
                 enableLabels={enableLabels}
                 getLabelTextColor={getLabelTextColor}
-                handleNodeHover={isInteractive ? handleNodeHover : undefined}
-                handleNodeLeave={isInteractive ? handleNodeLeave : undefined}
+                handleCellHover={isInteractive ? handleCellHover : undefined}
+                handleCellLeave={isInteractive ? handleCellLeave : undefined}
                 onClick={isInteractive ? onClick : undefined}
             />
         </SvgWrapper>
