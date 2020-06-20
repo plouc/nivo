@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import { patternDotsDef, patternSquaresDef } from '@nivo/core'
+import { StreamDefaultProps } from '@nivo/stream'
 
 export default {
     margin: {
@@ -87,16 +88,15 @@ export default {
         { match: { id: 'Marcel' }, id: 'squares' },
     ],
 
-    enableDots: false,
+    enableDots: StreamDefaultProps.enableDots,
     dotSize: 8,
     dotColor: { from: 'color' },
     dotBorderWidth: 2,
     dotBorderColor: { from: 'color', modifiers: [['darker', 0.7]] },
 
-    animate: true,
-    motionStiffness: 90,
-    motionDamping: 15,
+    animate: StreamDefaultProps.animate,
+    motionConfig: StreamDefaultProps.motionConfig,
 
-    isInteractive: true,
+    isInteractive: StreamDefaultProps.isInteractive,
     enableStackTooltip: true,
 }

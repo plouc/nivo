@@ -6,12 +6,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Fragment } from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import compose from 'recompose/compose'
-import pure from 'recompose/pure'
-import { TransitionMotion, spring } from 'react-motion'
-import { motionPropTypes } from '@nivo/core'
 
 const getDotY = (datum, position) => {
     let y = datum.y2
@@ -28,79 +24,27 @@ const StreamDots = ({
     id,
     color,
     data,
-
-    renderDot,
-
+    dotComponent,
     position,
     getSize,
     getColor,
     getBorderWidth,
     getBorderColor,
-
-    animate,
-    motionStiffness,
-    motionDamping,
 }) => {
-    if (animate !== true) {
-        return data.map((d, i) => {
-            const datum = { ...d, key: id, color }
+    return data.map((d, i) => {
+        const datum = { ...d, key: id, color }
 
-            return (
-                <Fragment key={i}>
-                    {renderDot({
-                        data: datum,
-                        x: datum.x,
-                        y: getDotY(datum, position),
-                        size: getSize(datum),
-                        color: getColor(datum),
-                        borderWidth: getBorderWidth(datum),
-                    })}
-                </Fragment>
-            )
+        return React.createElement(dotComponent, {
+            key: i,
+            datum,
+            x: datum.x,
+            y: getDotY(datum, position),
+            size: getSize(datum),
+            color: getColor(datum),
+            borderWidth: getBorderWidth(datum),
+            borderColor: getBorderColor(datum),
         })
-    }
-
-    const springConfig = {
-        stiffness: motionStiffness,
-        damping: motionDamping,
-    }
-
-    return (
-        <TransitionMotion
-            styles={data.map((d, i) => {
-                const datum = { ...d, key: id, color }
-
-                return {
-                    key: `${i}`,
-                    data: datum,
-                    style: {
-                        x: spring(datum.x, springConfig),
-                        y: spring(getDotY(datum, position), springConfig),
-                        size: spring(getSize(datum), springConfig),
-                        borderWidth: spring(getBorderWidth(datum), springConfig),
-                    },
-                }
-            })}
-        >
-            {interpolatedStyles => (
-                <Fragment>
-                    {interpolatedStyles.map(({ key, style, data: datum }) => (
-                        <Fragment key={key}>
-                            {renderDot({
-                                data: datum,
-                                x: style.x,
-                                y: style.y,
-                                size: style.size,
-                                color: getColor(datum),
-                                borderWidth: style.borderWidth,
-                                borderColor: getBorderColor(datum),
-                            })}
-                        </Fragment>
-                    ))}
-                </Fragment>
-            )}
-        </TransitionMotion>
-    )
+    })
 }
 
 StreamDots.propTypes = {
@@ -113,15 +57,12 @@ StreamDots.propTypes = {
             y2: PropTypes.number.isRequired,
         })
     ).isRequired,
-    renderDot: PropTypes.func.isRequired,
+    dotComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
     position: PropTypes.oneOf(['start', 'center', 'end']).isRequired,
     getSize: PropTypes.func.isRequired,
     getColor: PropTypes.func.isRequired,
     getBorderWidth: PropTypes.func.isRequired,
     getBorderColor: PropTypes.func.isRequired,
-    ...motionPropTypes,
 }
 
-const enhance = compose(pure)
-
-export default enhance(StreamDots)
+export default memo(StreamDots)
