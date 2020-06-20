@@ -8429,7 +8429,7 @@ exports[`should render a basic line chart 1`] = `
       <path
         d="M0,218L125,109L250,0L375,55L500,82"
         fill="none"
-        stroke="rgb(232, 193, 160)"
+        stroke="#e8c1a0"
         strokeWidth={2}
       />
       <g>
@@ -9348,13 +9348,13 @@ exports[`should support multiple lines 1`] = `
       <path
         d="M0,218L125,109L250,0L375,55L500,82"
         fill="none"
-        stroke="rgb(232, 193, 160)"
+        stroke="#e8c1a0"
         strokeWidth={2}
       />
       <path
         d="M0,273L125,218L250,164L375,109L500,0"
         fill="none"
-        stroke="rgb(244, 117, 96)"
+        stroke="#f47560"
         strokeWidth={2}
       />
       <g>
