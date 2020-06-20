@@ -389,7 +389,7 @@ const props = [
         controlType: 'switch',
         group: 'Interactivity',
     },
-    ...motionProperties(['svg'], defaults),
+    ...motionProperties(['svg'], defaults, 'react-spring'),
 ]
 
 export const groups = groupProperties(props)
