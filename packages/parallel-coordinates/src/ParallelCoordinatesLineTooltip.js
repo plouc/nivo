@@ -6,33 +6,28 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { PureComponent } from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { themePropType } from '@nivo/core'
 import { TableTooltip } from '@nivo/tooltip'
 
-export default class ParallelCoordinatesLineTooltip extends PureComponent {
-    static propTypes = {
-        data: PropTypes.object.isRequired,
-        variables: PropTypes.arrayOf(
-            PropTypes.shape({
-                key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-            })
-        ).isRequired,
-        theme: themePropType.isRequired,
-    }
-
-    render() {
-        const { data, variables, theme } = this.props
-
-        return (
-            <TableTooltip
-                theme={theme}
-                rows={variables.map(variable => [
-                    variable.key,
-                    <strong>{data[variable.key]}</strong>, // eslint-disable-line react/jsx-key
-                ])}
-            />
-        )
-    }
+const ParallelCoordinatesLineTooltip = ({ data, variables }) => {
+    return (
+        <TableTooltip
+            rows={variables.map(variable => [
+                variable.key,
+                <strong>{data[variable.key]}</strong>, // eslint-disable-line react/jsx-key
+            ])}
+        />
+    )
 }
+
+ParallelCoordinatesLineTooltip.propTypes = {
+    data: PropTypes.object.isRequired,
+    variables: PropTypes.arrayOf(
+        PropTypes.shape({
+            key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        })
+    ).isRequired,
+}
+
+export default memo(ParallelCoordinatesLineTooltip)

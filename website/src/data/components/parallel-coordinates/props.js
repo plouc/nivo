@@ -227,31 +227,6 @@ const props = [
         controlType: 'ordinalColors',
         group: 'Style',
     },
-    // {
-    //     key: 'colorBy',
-    //     help:
-    //         'Property used to determine line color. If a function is provided, it will receive current line data and must return a valid color.',
-    //     required: false,
-    //     defaultValue: defaults.colorBy,
-    //     controlType: 'choices',
-    //     group: 'Style',
-    //     controlOptions: {
-    //         choices: [
-    //             {
-    //                 label: 'index',
-    //                 value: 'index',
-    //             },
-    //             {
-    //                 label: 'target',
-    //                 value: 'target',
-    //             },
-    //             {
-    //                 label: `custom using 'color' variable`,
-    //                 value: `custom using 'color' variable`,
-    //             },
-    //         ],
-    //     },
-    // },
     {
         key: 'strokeWidth',
         help: 'Lines stroke width.',
@@ -270,7 +245,7 @@ const props = [
         controlType: 'opacity',
         group: 'Style',
     },
-    ...motionProperties(['svg'], defaults),
+    ...motionProperties(['svg'], defaults, 'react-spring'),
 ]
 
 export const groups = groupProperties(props)
