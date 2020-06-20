@@ -19,7 +19,6 @@ import { useTooltip } from '@nivo/tooltip'
 import { useHeatMap } from './hooks'
 import { HeatMapDefaultProps, HeatMapPropTypes } from './props'
 import { renderRect, renderCircle } from './canvas'
-import computeNodes from './computeNodes'
 import HeatMapCellTooltip from './HeatMapCellTooltip'
 
 const HeatMapCanvas = ({
@@ -61,20 +60,7 @@ const HeatMapCanvas = ({
         partialMargin
     )
 
-    const {
-        getIndex,
-        xScale,
-        yScale,
-        cellWidth,
-        cellHeight,
-        offsetX,
-        offsetY,
-        sizeScale,
-        currentNode,
-        setCurrentNode,
-        colorScale,
-        getLabelTextColor,
-    } = useHeatMap({
+    const { cells, xScale, yScale, offsetX, offsetY, currentCell, setCurrentCell } = useHeatMap({
         data,
         keys,
         indexBy,
@@ -86,24 +72,10 @@ const HeatMapCanvas = ({
         forceSquare,
         sizeVariation,
         colors,
+        nanColor,
+        cellOpacity,
         cellBorderColor,
         labelTextColor,
-    })
-
-    const nodes = computeNodes({
-        data,
-        keys,
-        getIndex,
-        xScale,
-        yScale,
-        sizeScale,
-        cellOpacity,
-        cellWidth,
-        cellHeight,
-        colorScale,
-        nanColor,
-        getLabelTextColor,
-        currentNode,
         hoverTarget,
         cellHoverOpacity,
         cellHoverOthersOpacity,
@@ -138,18 +110,18 @@ const HeatMapCanvas = ({
         ctx.textAlign = 'center'
         ctx.textBaseline = 'middle'
 
-        let renderNode
+        let renderCell
         if (cellShape === 'rect') {
-            renderNode = renderRect
+            renderCell = renderRect
         } else {
-            renderNode = renderCircle
+            renderCell = renderCircle
         }
-        nodes.forEach(node => {
-            renderNode(ctx, { enableLabels, theme }, node)
+        cells.forEach(cell => {
+            renderCell(ctx, { enableLabels, theme }, cell)
         })
     }, [
         canvasEl,
-        nodes,
+        cells,
         outerWidth,
         outerHeight,
         innerWidth,
@@ -173,7 +145,7 @@ const HeatMapCanvas = ({
         event => {
             const [x, y] = getRelativeCursor(canvasEl.current, event)
 
-            const node = nodes.find(node =>
+            const cell = cells.find(node =>
                 isCursorInRect(
                     node.x + margin.left + offsetX - node.width / 2,
                     node.y + margin.top + offsetY - node.height / 2,
@@ -183,24 +155,24 @@ const HeatMapCanvas = ({
                     y
                 )
             )
-            if (node !== undefined) {
-                setCurrentNode(node)
+            if (cell !== undefined) {
+                setCurrentCell(cell)
                 showTooltipFromEvent(
-                    <HeatMapCellTooltip node={node} tooltip={tooltip} format={tooltipFormat} />,
+                    <HeatMapCellTooltip cell={cell} tooltip={tooltip} format={tooltipFormat} />,
                     event
                 )
             } else {
-                setCurrentNode(null)
+                setCurrentCell(null)
                 hideTooltip()
             }
         },
         [
             canvasEl,
-            nodes,
+            cells,
             margin,
             offsetX,
             offsetY,
-            setCurrentNode,
+            setCurrentCell,
             showTooltipFromEvent,
             hideTooltip,
             tooltip,
@@ -208,17 +180,17 @@ const HeatMapCanvas = ({
     )
 
     const handleMouseLeave = useCallback(() => {
-        setCurrentNode(null)
+        setCurrentCell(null)
         hideTooltip()
-    }, [setCurrentNode, hideTooltip])
+    }, [setCurrentCell, hideTooltip])
 
     const handleClick = useCallback(
         event => {
-            if (currentNode === null) return
+            if (currentCell === null) return
 
-            onClick(currentNode, event)
+            onClick(currentCell, event)
         },
-        [currentNode, onClick]
+        [currentCell, onClick]
     )
 
     return (

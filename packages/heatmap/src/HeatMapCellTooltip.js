@@ -10,19 +10,19 @@ import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { BasicTooltip } from '@nivo/tooltip'
 
-const HeatMapCellTooltip = ({ node, format, tooltip }) => (
+const HeatMapCellTooltip = ({ cell, format, tooltip }) => (
     <BasicTooltip
-        id={`${node.yKey} - ${node.xKey}`}
-        value={node.value}
+        id={`${cell.yKey} - ${cell.xKey}`}
+        value={cell.value}
         enableChip={true}
-        color={node.color}
+        color={cell.color}
         format={format}
-        renderContent={typeof tooltip === 'function' ? tooltip.bind(null, { ...node }) : null}
+        renderContent={typeof tooltip === 'function' ? tooltip.bind(null, { ...cell }) : null}
     />
 )
 
 HeatMapCellTooltip.propTypes = {
-    node: PropTypes.shape({
+    cell: PropTypes.shape({
         xKey: PropTypes.string.isRequired,
         yKey: PropTypes.string.isRequired,
         value: PropTypes.number.isRequired,

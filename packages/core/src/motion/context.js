@@ -31,12 +31,11 @@ export const MotionConfigProvider = ({ children, animate, stiffness, damping, co
     return <motionConfigContext.Provider value={value}>{children}</motionConfigContext.Provider>
 }
 
-MotionConfigProvider.propTypes = {
-    children: PropTypes.node.isRequired,
+export const motionPropTypes = {
     animate: PropTypes.bool,
-    stiffness: PropTypes.number,
-    damping: PropTypes.number,
-    config: PropTypes.oneOfType([
+    motionStiffness: PropTypes.number,
+    motionDamping: PropTypes.number,
+    motionConfig: PropTypes.oneOfType([
         PropTypes.oneOf(Object.keys(presets)),
         PropTypes.shape({
             mass: PropTypes.number,
@@ -51,11 +50,19 @@ MotionConfigProvider.propTypes = {
     ]),
 }
 
-export const MotionDefaultProps = {
+MotionConfigProvider.propTypes = {
+    children: PropTypes.node.isRequired,
+    animate: motionPropTypes.animate,
+    stiffness: motionPropTypes.motionStiffness,
+    damping: motionPropTypes.motionDamping,
+    config: motionPropTypes.motionConfig,
+}
+
+export const motionDefaultProps = {
     animate: true,
     stiffness: 90,
     damping: 15,
     config: 'default',
 }
 
-MotionConfigProvider.defaultProps = MotionDefaultProps
+MotionConfigProvider.defaultProps = motionDefaultProps

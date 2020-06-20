@@ -9,33 +9,33 @@
 import React from 'react'
 
 const HeatMapCells = ({
-    nodes,
+    cells,
     cellComponent,
     cellBorderWidth,
     getCellBorderColor,
     enableLabels,
     getLabelTextColor,
-    handleNodeHover,
-    handleNodeLeave,
+    handleCellHover,
+    handleCellLeave,
     onClick,
 }) => {
-    return nodes.map(node =>
+    return cells.map(cell =>
         React.createElement(cellComponent, {
-            key: node.key,
-            data: node,
-            value: node.value,
-            x: node.x,
-            y: node.y,
-            width: node.width,
-            height: node.height,
-            color: node.color,
-            opacity: node.opacity,
+            key: cell.key,
+            data: cell,
+            value: cell.value,
+            x: cell.x,
+            y: cell.y,
+            width: cell.width,
+            height: cell.height,
+            color: cell.color,
+            opacity: cell.opacity,
             borderWidth: cellBorderWidth,
-            borderColor: getCellBorderColor(node),
+            borderColor: getCellBorderColor(cell),
             enableLabel: enableLabels,
-            textColor: getLabelTextColor(node),
-            onHover: handleNodeHover ? event => handleNodeHover(node, event) : undefined,
-            onLeave: handleNodeLeave,
+            textColor: getLabelTextColor(cell),
+            onHover: handleCellHover ? event => handleCellHover(cell, event) : undefined,
+            onLeave: handleCellLeave,
             onClick,
         })
     )

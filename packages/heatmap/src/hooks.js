@@ -10,6 +10,71 @@ const computeY = (row, cellHeight, padding) => {
     return row * cellHeight + cellHeight * 0.5 + padding * row + padding
 }
 
+const isHoverTargetByType = {
+    cell: (cell, current) => cell.xKey === current.xKey && cell.yKey === current.yKey,
+    row: (cell, current) => cell.yKey === current.yKey,
+    column: (cell, current) => cell.xKey === current.xKey,
+    rowColumn: (cell, current) => cell.xKey === current.xKey || cell.yKey === current.yKey,
+}
+
+const computeCells = ({
+    data,
+    keys,
+    getIndex,
+    xScale,
+    yScale,
+    sizeScale,
+    cellOpacity,
+    cellWidth,
+    cellHeight,
+    colorScale,
+    nanColor,
+    getLabelTextColor,
+    currentCell,
+    hoverTarget,
+    cellHoverOpacity,
+    cellHoverOthersOpacity,
+}) => {
+    const isHoverTarget = isHoverTargetByType[hoverTarget]
+
+    return data.reduce((acc, d) => {
+        keys.forEach(key => {
+            const width = sizeScale ? Math.min(sizeScale(d[key]) * cellWidth, cellWidth) : cellWidth
+            const height = sizeScale
+                ? Math.min(sizeScale(d[key]) * cellHeight, cellHeight)
+                : cellHeight
+
+            const cell = {
+                key: `${key}.${getIndex(d)}`,
+                xKey: key,
+                yKey: getIndex(d),
+                x: xScale(key),
+                y: yScale(getIndex(d)),
+                width,
+                height,
+                value: d[key],
+                color: isNaN(d[key]) ? nanColor : colorScale(d[key]),
+            }
+
+            let opacity = cellOpacity
+            if (currentCell) {
+                opacity = isHoverTarget(cell, currentCell)
+                    ? cellHoverOpacity
+                    : cellHoverOthersOpacity
+            }
+
+            acc.push(
+                Object.assign(cell, {
+                    labelTextColor: getLabelTextColor(cell),
+                    opacity,
+                })
+            )
+        })
+
+        return acc
+    }, [])
+}
+
 export const useHeatMap = ({
     data,
     keys,
@@ -22,10 +87,15 @@ export const useHeatMap = ({
     forceSquare,
     sizeVariation,
     colors,
+    nanColor,
+    cellOpacity,
     cellBorderColor,
     labelTextColor,
+    hoverTarget,
+    cellHoverOpacity,
+    cellHoverOthersOpacity,
 }) => {
-    const [currentNode, setCurrentNode] = useState(null)
+    const [currentCell, setCurrentCell] = useState(null)
 
     const getIndex = useMemo(() => getAccessorFor(indexBy), [indexBy])
     const indices = useMemo(() => data.map(getIndex), [data, getIndex])
@@ -99,14 +169,53 @@ export const useHeatMap = ({
     const getCellBorderColor = useInheritedColor(cellBorderColor, theme)
     const getLabelTextColor = useInheritedColor(labelTextColor, theme)
 
+    const cells = useMemo(
+        () =>
+            computeCells({
+                data,
+                keys,
+                getIndex,
+                xScale: scales.x,
+                yScale: scales.y,
+                sizeScale,
+                cellOpacity,
+                cellWidth: layoutConfig.cellWidth,
+                cellHeight: layoutConfig.cellHeight,
+                colorScale,
+                nanColor,
+                getLabelTextColor,
+                currentCell,
+                hoverTarget,
+                cellHoverOpacity,
+                cellHoverOthersOpacity,
+            }),
+        [
+            data,
+            keys,
+            getIndex,
+            scales,
+            sizeScale,
+            cellOpacity,
+            layoutConfig,
+            colorScale,
+            nanColor,
+            getLabelTextColor,
+            currentCell,
+            hoverTarget,
+            cellHoverOpacity,
+            cellHoverOthersOpacity,
+        ]
+    )
+
     return {
+        cells,
         getIndex,
         xScale: scales.x,
         yScale: scales.y,
         ...layoutConfig,
         sizeScale,
-        currentNode,
-        setCurrentNode,
+        currentCell,
+        setCurrentCell,
         colorScale,
         getCellBorderColor,
         getLabelTextColor,
