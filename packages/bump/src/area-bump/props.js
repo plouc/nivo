@@ -128,6 +128,5 @@ const commonDefaultProps = {
 export const AreaBumpDefaultProps = {
     ...commonDefaultProps,
     animate: true,
-    motionStiffness: 90,
-    motionDamping: 15,
+    motionConfig: 'gentle',
 }

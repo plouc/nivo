@@ -352,7 +352,7 @@ const props = [
             element and will receive the series's data.
         `,
     },
-    ...motionProperties(['svg'], defaults),
+    ...motionProperties(['svg'], defaults, 'react-spring'),
 ]
 
 export const groups = groupProperties(props)

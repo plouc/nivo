@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo, useState, Fragment } from 'react'
+import React, { memo, useState, Fragment, useMemo } from 'react'
 import { bindDefs, withContainer, useDimensions, SvgWrapper } from '@nivo/core'
 import { Grid, Axes } from '@nivo/axes'
 import { AreaBumpPropTypes, AreaBumpDefaultProps } from './props'
@@ -94,7 +94,11 @@ const AreaBump = props => {
         current: currentSerie,
     })
 
-    const boundDefs = bindDefs(defs, series, fill, { targetKey: 'color' })
+    const boundDefs = useMemo(() => bindDefs(defs, series, fill, { targetKey: 'fill' }), [
+        defs,
+        series,
+        fill,
+    ])
 
     const layerById = {
         grid: enableGridX && (
