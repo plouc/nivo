@@ -24,7 +24,7 @@ const tooltipStyle = {
 
 const TooltipWrapper = memo(({ position, anchor, children }) => {
     const theme = useTheme()
-    const { animate, config: springConfig } = useMotionConfig()
+    const { config: springConfig } = useMotionConfig()
 
     const [dimensions, setDimensions] = useState(null)
     const previousDimensions = useRef(null)
@@ -58,7 +58,8 @@ const TooltipWrapper = memo(({ position, anchor, children }) => {
     const animatedProps = useSpring({
         transform: `translate(${x}px, ${y}px)`,
         config: springConfig,
-        immediate: !animate || isInitializing,
+        // the way the animated tooltip works is not ideal for now
+        immediate: true, // !animate || isInitializing,
     })
 
     const style = useMemo(
