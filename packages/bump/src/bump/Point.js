@@ -8,17 +8,31 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
+import { useSpring, animated } from 'react-spring'
+import { useMotionConfig } from '@nivo/core'
 
 const pointStyle = { pointerEvents: 'none' }
 
 const Point = ({ x, y, size, color, borderColor, borderWidth }) => {
+    const { animate, config: springConfig } = useMotionConfig()
+
+    const animatedProps = useSpring({
+        x,
+        y,
+        radius: size / 2,
+        color,
+        borderWidth,
+        config: springConfig,
+        immediate: !animate,
+    })
+
     return (
-        <circle
-            cx={x}
-            cy={y}
-            r={size / 2}
-            fill={color}
-            strokeWidth={borderWidth}
+        <animated.circle
+            cx={animatedProps.x}
+            cy={animatedProps.y}
+            r={animatedProps.radius.interpolate(v => Math.max(v, 0))}
+            fill={animatedProps.color}
+            strokeWidth={animatedProps.borderWidth}
             stroke={borderColor}
             style={pointStyle}
         />
