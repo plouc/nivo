@@ -53,9 +53,7 @@ const HeatMapCellRect = ({
             onMouseEnter={onHover}
             onMouseMove={onHover}
             onMouseLeave={onLeave}
-            onClick={e => {
-                onClick(data, e)
-            }}
+            onClick={onClick ? event => onClick(data, event) : undefined}
         >
             <animated.rect
                 x={animatedProps.xOffset}
@@ -98,9 +96,9 @@ HeatMapCellRect.propTypes = {
     borderColor: PropTypes.string.isRequired,
     enableLabel: PropTypes.bool.isRequired,
     textColor: PropTypes.string.isRequired,
-    onHover: PropTypes.func.isRequired,
-    onLeave: PropTypes.func.isRequired,
-    onClick: PropTypes.func.isRequired,
+    onHover: PropTypes.func,
+    onLeave: PropTypes.func,
+    onClick: PropTypes.func,
 }
 
 export default memo(HeatMapCellRect)

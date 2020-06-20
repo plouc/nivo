@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { SvgWrapper, withContainer, useTheme, useDimensions } from '@nivo/core'
+import { SvgWrapper, withContainer, useDimensions } from '@nivo/core'
 import { Axes, Grid } from '@nivo/axes'
 import { useTooltip } from '@nivo/tooltip'
 import { HeatMapPropTypes, HeatMapDefaultProps } from './props'
@@ -52,19 +52,12 @@ const HeatMap = ({
     tooltipFormat,
     tooltip,
 }) => {
-    const theme = useTheme()
-
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleNodeHover = (node, event) => {
         setCurrentNode(node)
         showTooltipFromEvent(
-            <HeatMapCellTooltip
-                node={node}
-                theme={theme}
-                format={tooltipFormat}
-                tooltip={tooltip}
-            />,
+            <HeatMapCellTooltip node={node} format={tooltipFormat} tooltip={tooltip} />,
             event
         )
     }
@@ -156,8 +149,8 @@ const HeatMap = ({
             <Axes
                 xScale={xScale}
                 yScale={yScale}
-                width={innerWidth}
-                height={innerHeight}
+                width={innerWidth - offsetX * 2}
+                height={innerHeight - offsetY * 2}
                 top={axisTop}
                 right={axisRight}
                 bottom={axisBottom}
@@ -170,9 +163,9 @@ const HeatMap = ({
                 getCellBorderColor={getCellBorderColor}
                 enableLabels={enableLabels}
                 getLabelTextColor={getLabelTextColor}
-                handleNodeHover={handleNodeHover}
-                handleNodeLeave={handleNodeLeave}
-                onClick={onClick}
+                handleNodeHover={isInteractive ? handleNodeHover : undefined}
+                handleNodeLeave={isInteractive ? handleNodeLeave : undefined}
+                onClick={isInteractive ? onClick : undefined}
             />
         </SvgWrapper>
     )

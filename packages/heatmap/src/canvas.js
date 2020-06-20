@@ -16,7 +16,7 @@
  * @param {number}  y
  * @param {number}  width
  * @param {number}  height
- * @param {string)  color
+ * @param {string}  color
  * @param {number}  opacity
  * @param {string}  labelTextColor
  * @param {number}  value
@@ -50,7 +50,7 @@ export const renderRect = (
  * @param {number}  y
  * @param {number}  width
  * @param {number}  height
- * @param {string)  color
+ * @param {string}  color
  * @param {number}  opacity
  * @param {string}  labelTextColor
  * @param {number}  value

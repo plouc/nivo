@@ -6,90 +6,128 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component } from 'react'
-import partial from 'lodash/partial'
-import { Container, getRelativeCursor, isCursorInRect } from '@nivo/core'
+import React, { useEffect, useRef, useCallback } from 'react'
+import {
+    getRelativeCursor,
+    isCursorInRect,
+    useDimensions,
+    useTheme,
+    withContainer,
+} from '@nivo/core'
 import { renderAxesToCanvas } from '@nivo/axes'
+import { useTooltip } from '@nivo/tooltip'
+import { useHeatMap } from './hooks'
+import { HeatMapDefaultProps, HeatMapPropTypes } from './props'
 import { renderRect, renderCircle } from './canvas'
 import computeNodes from './computeNodes'
 import HeatMapCellTooltip from './HeatMapCellTooltip'
-import { HeatMapPropTypes } from './props'
-import enhance from './enhance'
 
-class HeatMapCanvas extends Component {
-    componentDidMount() {
-        this.ctx = this.surface.getContext('2d')
-        this.draw(this.props)
-    }
+const HeatMapCanvas = ({
+    data,
+    keys,
+    indexBy,
+    minValue,
+    maxValue,
+    width,
+    height,
+    margin: partialMargin,
+    forceSquare,
+    padding,
+    sizeVariation,
+    cellShape,
+    cellOpacity,
+    cellBorderColor,
+    axisTop,
+    axisRight,
+    axisBottom,
+    axisLeft,
+    enableLabels,
+    labelTextColor,
+    colors,
+    nanColor,
+    isInteractive,
+    onClick,
+    hoverTarget,
+    cellHoverOpacity,
+    cellHoverOthersOpacity,
+    tooltipFormat,
+    tooltip,
+    pixelRatio,
+}) => {
+    const canvasEl = useRef(null)
+    const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
+        width,
+        height,
+        partialMargin
+    )
 
-    shouldComponentUpdate(props) {
-        if (
-            this.props.outerWidth !== props.outerWidth ||
-            this.props.outerHeight !== props.outerHeight ||
-            this.props.isInteractive !== props.isInteractive ||
-            this.props.theme !== props.theme
-        ) {
-            return true
-        } else {
-            this.draw(props)
-            return false
-        }
-    }
+    const {
+        getIndex,
+        xScale,
+        yScale,
+        cellWidth,
+        cellHeight,
+        offsetX,
+        offsetY,
+        sizeScale,
+        currentNode,
+        setCurrentNode,
+        colorScale,
+        getLabelTextColor,
+    } = useHeatMap({
+        data,
+        keys,
+        indexBy,
+        minValue,
+        maxValue,
+        width: innerWidth,
+        height: innerHeight,
+        padding,
+        forceSquare,
+        sizeVariation,
+        colors,
+        cellBorderColor,
+        labelTextColor,
+    })
 
-    componentDidUpdate() {
-        this.ctx = this.surface.getContext('2d')
-        this.draw(this.props)
-    }
+    const nodes = computeNodes({
+        data,
+        keys,
+        getIndex,
+        xScale,
+        yScale,
+        sizeScale,
+        cellOpacity,
+        cellWidth,
+        cellHeight,
+        colorScale,
+        nanColor,
+        getLabelTextColor,
+        currentNode,
+        hoverTarget,
+        cellHoverOpacity,
+        cellHoverOthersOpacity,
+    })
 
-    draw(props) {
-        const {
-            width,
-            height,
-            outerWidth,
-            outerHeight,
-            pixelRatio,
-            margin,
-            offsetX,
-            offsetY,
+    const theme = useTheme()
 
+    useEffect(() => {
+        canvasEl.current.width = outerWidth * pixelRatio
+        canvasEl.current.height = outerHeight * pixelRatio
+
+        const ctx = canvasEl.current.getContext('2d')
+
+        ctx.scale(pixelRatio, pixelRatio)
+
+        ctx.fillStyle = theme.background
+        ctx.fillRect(0, 0, outerWidth, outerHeight)
+        ctx.translate(margin.left + offsetX, margin.top + offsetY)
+
+        renderAxesToCanvas(ctx, {
             xScale,
             yScale,
-
-            axisTop,
-            axisRight,
-            axisBottom,
-            axisLeft,
-
-            cellShape,
-
-            enableLabels,
-
-            theme,
-        } = props
-
-        this.surface.width = outerWidth * pixelRatio
-        this.surface.height = outerHeight * pixelRatio
-
-        this.ctx.scale(pixelRatio, pixelRatio)
-
-        let renderNode
-        if (cellShape === 'rect') {
-            renderNode = partial(renderRect, this.ctx, { enableLabels, theme })
-        } else {
-            renderNode = partial(renderCircle, this.ctx, { enableLabels, theme })
-        }
-
-        const nodes = computeNodes(props)
-
-        this.ctx.fillStyle = theme.background
-        this.ctx.fillRect(0, 0, outerWidth, outerHeight)
-        this.ctx.translate(margin.left + offsetX, margin.top + offsetY)
-
-        renderAxesToCanvas(this.ctx, {
-            xScale,
-            yScale,
-            width: width - offsetX * 2,
-            height: height - offsetY * 2,
+            width: innerWidth - offsetX * 2,
+            height: innerHeight - offsetY * 2,
             top: axisTop,
             right: axisRight,
             bottom: axisBottom,
@@ -97,78 +135,112 @@ class HeatMapCanvas extends Component {
             theme,
         })
 
-        this.ctx.textAlign = 'center'
-        this.ctx.textBaseline = 'middle'
+        ctx.textAlign = 'center'
+        ctx.textBaseline = 'middle'
 
-        nodes.forEach(renderNode)
-
-        this.nodes = nodes
-    }
-
-    handleMouseHover = (showTooltip, hideTooltip, event) => {
-        if (!this.nodes) return
-
-        const [x, y] = getRelativeCursor(this.surface, event)
-
-        const { margin, offsetX, offsetY, theme, setCurrentNode, tooltip } = this.props
-        const node = this.nodes.find(node =>
-            isCursorInRect(
-                node.x + margin.left + offsetX - node.width / 2,
-                node.y + margin.top + offsetY - node.height / 2,
-                node.width,
-                node.height,
-                x,
-                y
-            )
-        )
-
-        if (node !== undefined) {
-            setCurrentNode(node)
-            showTooltip(<HeatMapCellTooltip node={node} theme={theme} tooltip={tooltip} />, event)
+        let renderNode
+        if (cellShape === 'rect') {
+            renderNode = renderRect
         } else {
-            setCurrentNode(null)
-            hideTooltip()
+            renderNode = renderCircle
         }
-    }
+        nodes.forEach(node => {
+            renderNode(ctx, { enableLabels, theme }, node)
+        })
+    }, [
+        canvasEl,
+        nodes,
+        outerWidth,
+        outerHeight,
+        innerWidth,
+        innerHeight,
+        margin,
+        offsetX,
+        offsetY,
+        cellShape,
+        axisTop,
+        axisRight,
+        axisBottom,
+        axisLeft,
+        theme,
+        enableLabels,
+        pixelRatio,
+    ])
 
-    handleMouseLeave = hideTooltip => {
-        this.props.setCurrentNode(null)
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
+
+    const handleMouseHover = useCallback(
+        event => {
+            const [x, y] = getRelativeCursor(canvasEl.current, event)
+
+            const node = nodes.find(node =>
+                isCursorInRect(
+                    node.x + margin.left + offsetX - node.width / 2,
+                    node.y + margin.top + offsetY - node.height / 2,
+                    node.width,
+                    node.height,
+                    x,
+                    y
+                )
+            )
+            if (node !== undefined) {
+                setCurrentNode(node)
+                showTooltipFromEvent(
+                    <HeatMapCellTooltip node={node} tooltip={tooltip} format={tooltipFormat} />,
+                    event
+                )
+            } else {
+                setCurrentNode(null)
+                hideTooltip()
+            }
+        },
+        [
+            canvasEl,
+            nodes,
+            margin,
+            offsetX,
+            offsetY,
+            setCurrentNode,
+            showTooltipFromEvent,
+            hideTooltip,
+            tooltip,
+        ]
+    )
+
+    const handleMouseLeave = useCallback(() => {
+        setCurrentNode(null)
         hideTooltip()
-    }
+    }, [setCurrentNode, hideTooltip])
 
-    handleClick = event => {
-        if (!this.props.currentNode) return
+    const handleClick = useCallback(
+        event => {
+            if (currentNode === null) return
 
-        this.props.onClick(this.props.currentNode, event)
-    }
+            onClick(currentNode, event)
+        },
+        [currentNode, onClick]
+    )
 
-    render() {
-        const { outerWidth, outerHeight, pixelRatio, isInteractive, theme } = this.props
-
-        return (
-            <Container isInteractive={isInteractive} theme={theme} animate={false}>
-                {({ showTooltip, hideTooltip }) => (
-                    <canvas
-                        ref={surface => {
-                            this.surface = surface
-                        }}
-                        width={outerWidth * pixelRatio}
-                        height={outerHeight * pixelRatio}
-                        style={{
-                            width: outerWidth,
-                            height: outerHeight,
-                        }}
-                        onMouseEnter={partial(this.handleMouseHover, showTooltip, hideTooltip)}
-                        onMouseMove={partial(this.handleMouseHover, showTooltip, hideTooltip)}
-                        onMouseLeave={partial(this.handleMouseLeave, hideTooltip)}
-                        onClick={this.handleClick}
-                    />
-                )}
-            </Container>
-        )
-    }
+    return (
+        <canvas
+            ref={canvasEl}
+            width={outerWidth * pixelRatio}
+            height={outerHeight * pixelRatio}
+            style={{
+                width: outerWidth,
+                height: outerHeight,
+            }}
+            onMouseEnter={isInteractive ? handleMouseHover : undefined}
+            onMouseMove={isInteractive ? handleMouseHover : undefined}
+            onMouseLeave={isInteractive ? handleMouseLeave : undefined}
+            onClick={isInteractive ? handleClick : undefined}
+        />
+    )
 }
 
 HeatMapCanvas.propTypes = HeatMapPropTypes
 
-export default enhance(HeatMapCanvas)
+const WrappedHeatMapCanvas = withContainer(HeatMapCanvas)
+WrappedHeatMapCanvas.defaultProps = HeatMapDefaultProps
+
+export default WrappedHeatMapCanvas
