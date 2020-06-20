@@ -8,47 +8,24 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
+import { useSpring, animated } from 'react-spring'
 import { useMotionConfig } from '@nivo/core'
-import { SmartMotion } from '@nivo/core'
 
-const LinesItem = ({ lineGenerator, id, points, color, thickness }) => {
-    const { animate, springConfig } = useMotionConfig()
+const LinesItem = ({ lineGenerator, points, color, thickness }) => {
+    const { animate, config: springConfig } = useMotionConfig()
 
-    if (animate !== true) {
-        return (
-            <path
-                key={id}
-                d={lineGenerator(points)}
-                fill="none"
-                strokeWidth={thickness}
-                stroke={color}
-            />
-        )
-    }
+    const animatedProps = useSpring({
+        path: lineGenerator(points),
+        config: springConfig,
+        immediate: !animate,
+    })
 
     return (
-        <SmartMotion
-            key={id}
-            style={spring => ({
-                d: spring(lineGenerator(points), springConfig),
-                stroke: spring(color, springConfig),
-            })}
-        >
-            {style => (
-                <path
-                    key={id}
-                    d={style.d}
-                    fill="none"
-                    strokeWidth={thickness}
-                    stroke={style.stroke}
-                />
-            )}
-        </SmartMotion>
+        <animated.path d={animatedProps.path} fill="none" strokeWidth={thickness} stroke={color} />
     )
 }
 
 LinesItem.propTypes = {
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     points: PropTypes.arrayOf(
         PropTypes.shape({
             x: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
