@@ -7,7 +7,6 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import partial from 'lodash/partial'
 
 const HeatMapCells = ({
     nodes,
@@ -35,7 +34,7 @@ const HeatMapCells = ({
             borderColor: getCellBorderColor(node),
             enableLabel: enableLabels,
             textColor: getLabelTextColor(node),
-            onHover: partial(handleNodeHover, node),
+            onHover: handleNodeHover ? event => handleNodeHover(node, event) : undefined,
             onLeave: handleNodeLeave,
             onClick,
         })

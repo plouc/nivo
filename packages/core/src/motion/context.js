@@ -50,9 +50,12 @@ MotionConfigProvider.propTypes = {
         }),
     ]),
 }
-MotionConfigProvider.defaultProps = {
+
+export const MotionDefaultProps = {
     animate: true,
     stiffness: 90,
     damping: 15,
     config: 'default',
 }
+
+MotionConfigProvider.defaultProps = MotionDefaultProps
