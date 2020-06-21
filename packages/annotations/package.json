@@ -14,7 +14,7 @@
     "annotations"
   ],
   "main": "./dist/nivo-annotations.cjs.js",
-  "module": "./dist/nivo-annotations.esm.js",
+  "module": "./dist/nivo-annotations.es.js",
   "files": [
     "README.md",
     "LICENSE.md",

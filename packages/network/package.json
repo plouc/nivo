@@ -17,7 +17,7 @@
     "network"
   ],
   "main": "./dist/nivo-network.cjs.js",
-  "module": "./dist/nivo-network.esm.js",
+  "module": "./dist/nivo-network.es.js",
   "files": [
     "README.md",
     "LICENSE.md",

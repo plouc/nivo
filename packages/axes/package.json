@@ -13,7 +13,7 @@
     "axes"
   ],
   "main": "./dist/nivo-axes.cjs.js",
-  "module": "./dist/nivo-axes.esm.js",
+  "module": "./dist/nivo-axes.es.js",
   "files": [
     "README.md",
     "LICENSE.md",

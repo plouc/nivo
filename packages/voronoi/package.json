@@ -15,7 +15,7 @@
     "voronoi"
   ],
   "main": "./dist/nivo-voronoi.cjs.js",
-  "module": "./dist/nivo-voronoi.esm.js",
+  "module": "./dist/nivo-voronoi.es.js",
   "typings": "./index.d.ts",
   "files": [
     "README.md",

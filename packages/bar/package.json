@@ -15,7 +15,7 @@
     "bar-chart"
   ],
   "main": "./dist/nivo-bar.cjs.js",
-  "module": "./dist/nivo-bar.esm.js",
+  "module": "./dist/nivo-bar.es.js",
   "files": [
     "README.md",
     "LICENSE.md",

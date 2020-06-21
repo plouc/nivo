@@ -15,7 +15,7 @@
     "sankey-diagram"
   ],
   "main": "./dist/nivo-sankey.cjs.js",
-  "module": "./dist/nivo-sankey.esm.js",
+  "module": "./dist/nivo-sankey.es.js",
   "files": [
     "README.md",
     "LICENSE.md",

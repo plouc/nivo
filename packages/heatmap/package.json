@@ -15,7 +15,7 @@
     "heatmap"
   ],
   "main": "./dist/nivo-heatmap.cjs.js",
-  "module": "./dist/nivo-heatmap.esm.js",
+  "module": "./dist/nivo-heatmap.es.js",
   "files": [
     "README.md",
     "LICENSE.md",

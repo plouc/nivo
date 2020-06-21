@@ -7,7 +7,7 @@
     "url": "https://github.com/plouc"
   },
   "main": "./dist/nivo-core.cjs.js",
-  "module": "./dist/nivo-core.esm.js",
+  "module": "./dist/nivo-core.es.js",
   "files": [
     "README.md",
     "LICENSE.md",

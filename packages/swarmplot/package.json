@@ -16,7 +16,7 @@
         "swarmplot"
     ],
     "main": "./dist/nivo-swarmplot.cjs.js",
-    "module": "./dist/nivo-swarmplot.esm.js",
+    "module": "./dist/nivo-swarmplot.es.js",
     "files": [
         "README.md",
         "LICENSE.md",

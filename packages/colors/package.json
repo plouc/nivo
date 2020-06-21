@@ -7,7 +7,7 @@
     "url": "https://github.com/plouc"
   },
   "main": "./dist/nivo-colors.cjs.js",
-  "module": "./dist/nivo-colors.esm.js",
+  "module": "./dist/nivo-colors.es.js",
   "files": [
     "README.md",
     "LICENSE.md",
