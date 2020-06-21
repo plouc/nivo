@@ -17,14 +17,8 @@ module.exports = {
     component: Radar,
     schema: Joi.object().keys(
         Object.assign({}, dimensions, {
-            data: Joi.array()
-                .min(1)
-                .required(),
-            keys: Joi.array()
-                .sparse(false)
-                .min(1)
-                .unique()
-                .required(),
+            data: Joi.array().min(1).required(),
+            keys: Joi.array().sparse(false).min(1).unique().required(),
             indexBy: Joi.string().required(),
             maxValue: Joi.alternatives().try(Joi.valid('auto'), Joi.number()),
 
@@ -33,9 +27,7 @@ module.exports = {
             borderWidth: Joi.number().min(0),
             borderColor: inheritedColor,
 
-            gridLevels: Joi.number()
-                .integer()
-                .positive(),
+            gridLevels: Joi.number().integer().positive(),
             gridShape: Joi.any().valid(['linear', 'circular']),
             gridLabelOffset: Joi.number(),
 
@@ -54,9 +46,7 @@ module.exports = {
 
             colors: ordinalColors,
             colorBy: Joi.string(),
-            fillOpacity: Joi.number()
-                .min(0)
-                .max(1),
+            fillOpacity: Joi.number().min(0).max(1),
         })
     ),
     runtimeProps: ['width', 'height', 'colors'],

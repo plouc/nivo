@@ -18,9 +18,7 @@ module.exports = {
         Object.assign({}, dimensions, {
             from: Joi.string().required(),
             to: Joi.string().required(),
-            data: Joi.array()
-                .min(1)
-                .required(),
+            data: Joi.array().min(1).required(),
             colors: Joi.string(),
             direction: Joi.any().valid(['horizontal', 'vertical']),
             yearSpacing: Joi.number(),

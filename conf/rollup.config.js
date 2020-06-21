@@ -1,6 +1,6 @@
 import { camelCase, upperFirst } from 'lodash'
-import babel from 'rollup-plugin-babel'
-import resolve from 'rollup-plugin-node-resolve'
+import babel from '@rollup/plugin-babel'
+import resolve from '@rollup/plugin-node-resolve'
 import stripBanner from 'rollup-plugin-strip-banner'
 import cleanup from 'rollup-plugin-cleanup'
 
@@ -45,7 +45,7 @@ const commonPlugins = [
     }),
     babel({
         exclude: 'node_modules/**',
-        externalHelpers: true,
+        babelHelpers: 'bundled',
         presets: [
             '@nivo/babel-preset'
         ]

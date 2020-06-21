@@ -20,7 +20,7 @@ declare module '@nivo/radar' {
 
     interface CommonRadarProps<Datum = any> {
         data: object[]
-        keys: Array<string | number>
+        keys: (string | number)[]
         indexBy: number | string | IndexByCustomFunctiono<Datum>
         maxValue?: 'auto' | number
 

@@ -41,9 +41,7 @@ export const computeSeries = ({ data, width, height, align, spacing, xPadding })
         })
     })
 
-    const xScale = scalePoint()
-        .domain(Array.from(slices.keys()))
-        .range([0, width])
+    const xScale = scalePoint().domain(Array.from(slices.keys())).range([0, width])
 
     const heightScale = scaleLinear()
         .domain([0, maxSum])

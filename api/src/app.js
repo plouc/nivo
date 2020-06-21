@@ -90,18 +90,14 @@ app.get('/r/:id', (req, res) => {
 
     const rendered = render.chart(config, req.query)
 
-    res.set('Content-Type', 'image/svg+xml')
-        .status(200)
-        .send(rendered)
+    res.set('Content-Type', 'image/svg+xml').status(200).send(rendered)
 })
 
 _.forOwn(samples, (config, id) => {
     app.get(`/samples/${id}.svg`, (req, res) => {
         const rendered = render.chart(config, req.query)
 
-        res.set('Content-Type', 'image/svg+xml')
-            .status(200)
-            .send(rendered)
+        res.set('Content-Type', 'image/svg+xml').status(200).send(rendered)
     })
 })
 

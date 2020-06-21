@@ -194,8 +194,9 @@ const ChordCanvas = memo(
                     ctx.save()
                     ctx.translate(margin.left + center[0], margin.top + center[1])
 
-                    ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily ||
-                        'sans-serif'}`
+                    ctx.font = `${theme.labels.text.fontSize}px ${
+                        theme.labels.text.fontFamily || 'sans-serif'
+                    }`
 
                     arcs.forEach(arc => {
                         const angle = midAngle(arc)

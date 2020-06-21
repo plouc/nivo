@@ -129,7 +129,7 @@ declare module '@nivo/bar' {
         tooltipFormat: string | ValueFormatter
         tooltip: TooltipProp
 
-        legends: Array<{ dataFrom: 'indexes' | 'keys' } & LegendProps>
+        legends: ({ dataFrom: 'indexes' | 'keys' } & LegendProps)[]
 
         markers: CartesianMarkerProps[]
     }>
