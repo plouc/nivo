@@ -67,7 +67,8 @@
   "resolutions": {
     "upath": "1.1.0",
     "react": "16.8.6",
-    "react-dom": "16.8.6"
+    "react-dom": "16.8.6",
+    "**/fsevents": "^2.1.3"
   },
   "scripts": {
     "changelog": "rm CHANGELOG.md && node scripts/generate-changelog.js"
