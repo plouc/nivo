@@ -6,12 +6,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Fragment } from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import pure from 'recompose/pure'
-import { TransitionMotion, spring } from 'react-motion'
-import { motionPropTypes } from '@nivo/core'
-import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
+import { useSprings, animated } from 'react-spring'
+import { useTheme, useMotionConfig } from '@nivo/core'
 
 const SankeyLabels = ({
     nodes,
@@ -22,11 +20,9 @@ const SankeyLabels = ({
     labelPadding,
     labelOrientation,
     getLabelTextColor,
-    theme,
-    animate,
-    motionDamping,
-    motionStiffness,
 }) => {
+    const theme = useTheme()
+
     const labelRotation = labelOrientation === 'vertical' ? -90 : 0
     const labels = nodes.map(node => {
         let x
@@ -82,74 +78,36 @@ const SankeyLabels = ({
         }
     })
 
-    if (!animate) {
-        return (
-            <g>
-                {labels.map(label => {
-                    return (
-                        <text
-                            key={label.id}
-                            dominantBaseline="central"
-                            textAnchor={label.textAnchor}
-                            transform={`translate(${label.x}, ${label.y}) rotate(${labelRotation})`}
-                            style={{
-                                ...theme.labels.text,
-                                fill: label.color,
-                            }}
-                        >
-                            {label.label}
-                        </text>
-                    )
-                })}
-            </g>
-        )
-    }
-
-    const springProps = {
-        damping: motionDamping,
-        stiffness: motionStiffness,
-    }
-
-    return (
-        <TransitionMotion
-            styles={labels.map(label => {
-                return {
-                    key: label.id,
-                    data: label,
-                    style: {
-                        x: spring(label.x, springProps),
-                        y: spring(label.y, springProps),
-                        rotation: spring(labelRotation, springProps),
-                        ...interpolateColor(label.color, springProps),
-                    },
-                }
-            })}
-        >
-            {interpolatedStyles => (
-                <Fragment>
-                    {interpolatedStyles.map(({ key, style, data }) => {
-                        const color = getInterpolatedColor(style)
-
-                        return (
-                            <text
-                                key={key}
-                                transform={`translate(${style.x}, ${style.y}) rotate(${style.rotation})`}
-                                dominantBaseline="central"
-                                textAnchor={data.textAnchor}
-                                style={{
-                                    ...theme.labels.text,
-                                    fill: color,
-                                    pointerEvents: 'none',
-                                }}
-                            >
-                                {data.label}
-                            </text>
-                        )
-                    })}
-                </Fragment>
-            )}
-        </TransitionMotion>
+    const { animate, config: springConfig } = useMotionConfig()
+    const springs = useSprings(
+        labels.length,
+        labels.map(label => ({
+            transform: `translate(${label.x}, ${label.y}) rotate(${labelRotation})`,
+            color: label.color,
+            config: springConfig,
+            immediate: !animate,
+        }))
     )
+
+    return springs.map((animatedProps, index) => {
+        const label = labels[index]
+
+        return (
+            <animated.text
+                key={label.id}
+                dominantBaseline="central"
+                textAnchor={label.textAnchor}
+                transform={animatedProps.transform}
+                style={{
+                    ...theme.labels.text,
+                    fill: animatedProps.color,
+                    pointerEvents: 'none',
+                }}
+            >
+                {label.label}
+            </animated.text>
+        )
+    })
 }
 
 SankeyLabels.propTypes = {
@@ -171,10 +129,6 @@ SankeyLabels.propTypes = {
     labelPadding: PropTypes.number.isRequired,
     labelOrientation: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
     getLabelTextColor: PropTypes.func.isRequired,
-
-    theme: PropTypes.object.isRequired,
-
-    ...motionPropTypes,
 }
 
-export default pure(SankeyLabels)
+export default memo(SankeyLabels)
