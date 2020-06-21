@@ -20,7 +20,6 @@
   "devDependencies": {
     "@babel/core": "^7.10.3",
     "@ekino/config": "^0.3.0",
-    "@nivo/babel-preset": "0.60.0",
     "@nivo/generators": "0.62.0",
     "@storybook/addon-actions": "^5.2.8",
     "@storybook/addon-info": "^5.2.8",
