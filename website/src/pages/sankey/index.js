@@ -56,7 +56,7 @@ const initialProperties = {
     },
 
     animate: SankeyDefaultProps.animate,
-    motionConfig: 'wobbly', // SankeyDefaultProps.motionConfig,
+    motionConfig: SankeyDefaultProps.motionConfig,
 
     isInteractive: SankeyDefaultProps.isInteractive,
 
