@@ -70,10 +70,8 @@ export const SankeyPropTypes = {
     labelPadding: PropTypes.number.isRequired,
     labelOrientation: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
     labelTextColor: inheritedColorPropType,
-    getLabelTextColor: PropTypes.func.isRequired, // computed
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     labelFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    getLabel: PropTypes.func.isRequired, // computed
 
     nodeTooltip: PropTypes.func,
     linkTooltip: PropTypes.func,
@@ -130,4 +128,7 @@ export const SankeyDefaultProps = {
     legends: [],
 
     layers: ['links', 'nodes', 'labels', 'legends'],
+
+    animate: true,
+    motionConfig: 'gentle',
 }
