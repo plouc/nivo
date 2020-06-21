@@ -45,10 +45,8 @@ const commonPlugins = [
     }),
     babel({
         exclude: 'node_modules/**',
-        babelHelpers: 'bundled',
-        presets: [
-            '@nivo/babel-preset'
-        ]
+        babelHelpers: 'runtime',
+        presets: ['react-app']
     }),
     cleanup()
 ]

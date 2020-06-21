@@ -175,7 +175,7 @@ packages-build: ##@1 packages build all packages
 package-build-%: ##@1 packages build a package
 	@echo "${YELLOW}Building package ${WHITE}@nivo/${*}${RESET}"
 	@rm -rf ./packages/${*}/dist
-	@export PACKAGE=${*}; ./node_modules/.bin/rollup -c conf/rollup.config.js
+	@export PACKAGE=${*}; NODE_ENV=production BABEL_ENV=production ./node_modules/.bin/rollup -c conf/rollup.config.js
 
 packages-screenshots: ##@1 packages generate screenshots for packages readme (website dev server must be running)
 	@node scripts/capture.js
@@ -196,7 +196,7 @@ package-watch-%: ##@1 packages build package (es flavor) on change, eg. `package
 	@echo "${YELLOW}Running build watcher for package ${WHITE}@nivo/${*}${RESET}"
 	@rm -rf ./packages/${*}/cjs
 	@rm -rf ./packages/${*}/umd
-	@export PACKAGE=${*}; ./node_modules/.bin/rollup -c conf/rollup.config.js -w
+	@export PACKAGE=${*}; NODE_ENV=development BABEL_ENV=development ./node_modules/.bin/rollup -c conf/rollup.config.js -w
 
 package-dev-%: ##@1 packages setup package for development, link to website, run watcher
 	@echo "${YELLOW}Preparing package ${WHITE}${*}${YELLOW} for development${RESET}"
