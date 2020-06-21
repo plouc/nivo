@@ -15,7 +15,7 @@
     "scatterplot"
   ],
   "main": "./dist/nivo-scatterplot.cjs.js",
-  "module": "./dist/nivo-scatterplot.esm.js",
+  "module": "./dist/nivo-scatterplot.es.js",
   "files": [
     "README.md",
     "LICENSE.md",

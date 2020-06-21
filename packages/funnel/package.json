@@ -15,7 +15,7 @@
     "funnel"
   ],
   "main": "./dist/nivo-funnel.cjs.js",
-  "module": "./dist/nivo-funnel.esm.js",
+  "module": "./dist/nivo-funnel.es.js",
   "files": [
     "README.md",
     "LICENSE.md",

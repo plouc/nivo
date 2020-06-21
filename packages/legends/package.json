@@ -8,7 +8,7 @@
     "url": "https://github.com/plouc"
   },
   "main": "./dist/nivo-legends.cjs.js",
-  "module": "./dist/nivo-legends.esm.js",
+  "module": "./dist/nivo-legends.es.js",
   "typings": "./index.d.ts",
   "files": [
     "README.md",
