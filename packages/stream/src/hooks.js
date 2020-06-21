@@ -67,9 +67,7 @@ export const useStream = ({
             scalePoint()
                 .domain(Array.from({ length: data.length }, (_, i) => i))
                 .range([0, width]),
-            scaleLinear()
-                .domain([minValue, maxValue])
-                .range([height, 0]),
+            scaleLinear().domain([minValue, maxValue]).range([height, 0]),
         ]
     }, [stack, data, width, height])
 

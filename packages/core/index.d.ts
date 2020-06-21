@@ -91,11 +91,11 @@ declare module '@nivo/core' {
 
     export type SvgFillMatcher<T> = (datum: T) => boolean
     export interface SvgDefsAndFill<T> {
-        defs?: Array<{
+        defs?: {
             id: string
             [key: string]: any
-        }>
-        fill?: Array<{ id: string; match: object | SvgFillMatcher<T> | '*' }>
+        }[]
+        fill?: { id: string; match: object | SvgFillMatcher<T> | '*' }[]
     }
 
     export interface CartesianMarkerProps {

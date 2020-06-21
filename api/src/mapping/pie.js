@@ -17,9 +17,7 @@ module.exports = {
     component: Pie,
     schema: Joi.object().keys(
         Object.assign({}, dimensions, {
-            data: Joi.array()
-                .min(1)
-                .required(),
+            data: Joi.array().min(1).required(),
 
             innerRadius: Joi.number().min(0),
             padAngle: Joi.number().min(0),

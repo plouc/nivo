@@ -36,9 +36,7 @@ export const getGroupedScale = (data, keys, _minValue, _maxValue, range) => {
         if (minValue > 0) minValue = 0
     }
 
-    return scaleLinear()
-        .rangeRound(range)
-        .domain([minValue, maxValue])
+    return scaleLinear().rangeRound(range).domain([minValue, maxValue])
 }
 
 /**

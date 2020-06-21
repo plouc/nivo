@@ -58,12 +58,12 @@ declare module '@nivo/legends' {
     }
 
     export interface LegendProps {
-        data?: Array<{
+        data?: {
             id: string | number
             label: string | number
             color?: string
             fill?: string
-        }>
+        }[]
 
         anchor: LegendAnchor
         direction: LegendDirection

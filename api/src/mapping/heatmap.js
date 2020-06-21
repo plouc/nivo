@@ -18,33 +18,19 @@ module.exports = {
     component: HeatMap,
     schema: Joi.object().keys(
         Object.assign({}, dimensions, common.axes, {
-            data: Joi.array()
-                .min(1)
-                .required(),
+            data: Joi.array().min(1).required(),
             indexBy: Joi.string().required(),
-            keys: Joi.array()
-                .sparse(false)
-                .min(1)
-                .unique()
-                .required(),
+            keys: Joi.array().sparse(false).min(1).unique().required(),
 
-            minValue: Joi.alternatives()
-                .try(Joi.any().valid('auto'), Joi.number())
-                .required(),
-            maxValue: Joi.alternatives()
-                .try(Joi.any().valid('auto'), Joi.number())
-                .required(),
+            minValue: Joi.alternatives().try(Joi.any().valid('auto'), Joi.number()).required(),
+            maxValue: Joi.alternatives().try(Joi.any().valid('auto'), Joi.number()).required(),
 
             forceSquare: Joi.boolean(),
-            sizeVariation: Joi.number()
-                .min(0)
-                .max(1),
+            sizeVariation: Joi.number().min(0).max(1),
             padding: Joi.number(),
 
             cellShape: Joi.any().valid(['rect', 'circle']),
-            cellOpacity: Joi.number()
-                .min(0)
-                .max(1),
+            cellOpacity: Joi.number().min(0).max(1),
             cellBorderWidth: Joi.number().min(0),
             cellBorderColor: inheritedColor,
 

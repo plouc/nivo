@@ -25,9 +25,7 @@ export const computeParallelCoordinatesLayout = ({ width, height, data, variable
                     ? variable.max
                     : Math.max(...Array.from(allValues))
 
-            scale = scaleLinear()
-                .rangeRound(range)
-                .domain([min, max])
+            scale = scaleLinear().rangeRound(range).domain([min, max])
         }
 
         if (variable.type === 'point') {

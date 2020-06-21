@@ -92,16 +92,23 @@ const Voronoi = ({
 
     return (
         <Container isInteractive={false} theme={theme} animate={false}>
-            {(/*{ showTooltip, hideTooltip }*/) => (
-                <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
-                    {layers.map((layer, i) => {
-                        if (typeof layer === 'function') {
-                            return <Fragment key={i}>{layer(context)}</Fragment>
-                        }
-                        return layerById[layer]
-                    })}
-                </SvgWrapper>
-            )}
+            {
+                (/*{ showTooltip, hideTooltip }*/) => (
+                    <SvgWrapper
+                        width={outerWidth}
+                        height={outerHeight}
+                        margin={margin}
+                        theme={theme}
+                    >
+                        {layers.map((layer, i) => {
+                            if (typeof layer === 'function') {
+                                return <Fragment key={i}>{layer(context)}</Fragment>
+                            }
+                            return layerById[layer]
+                        })}
+                    </SvgWrapper>
+                )
+            }
         </Container>
     )
 }

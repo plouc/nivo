@@ -23,12 +23,8 @@ export default Component =>
         withPropsOnChange(
             ['xDomain', 'yDomain', 'width', 'height'],
             ({ xDomain, yDomain, width, height }) => ({
-                xScale: scaleLinear()
-                    .domain(xDomain)
-                    .range([0, width]),
-                yScale: scaleLinear()
-                    .domain(yDomain)
-                    .range([0, height]),
+                xScale: scaleLinear().domain(xDomain).range([0, width]),
+                yScale: scaleLinear().domain(yDomain).range([0, height]),
             })
         ),
         withPropsOnChange(['data', 'xScale', 'yScale'], ({ data, xScale, yScale }) => ({

@@ -27,9 +27,7 @@ const commonEnhancers = [
             if (colorScale) return { colorScale }
             const domain = computeDomain(data, minValue, maxValue)
 
-            const defaultColorScale = scaleQuantize()
-                .domain(domain)
-                .range(colors)
+            const defaultColorScale = scaleQuantize().domain(domain).range(colors)
 
             return { colorScale: defaultColorScale }
         }

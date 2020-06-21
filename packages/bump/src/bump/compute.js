@@ -19,10 +19,7 @@ export const computeSeries = ({ width, height, data, xPadding, xOuterPadding, yO
     })
     xValues = Array.from(xValues)
 
-    const xScale = scalePoint()
-        .domain(xValues)
-        .range([0, width])
-        .padding(xOuterPadding)
+    const xScale = scalePoint().domain(xValues).range([0, width]).padding(xOuterPadding)
 
     const yScale = scalePoint()
         .domain(data.map((serie, i) => i + 1))
