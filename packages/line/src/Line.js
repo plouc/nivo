@@ -66,7 +66,6 @@ const Line = props => {
         pointBorderColor,
         enablePointLabel,
         pointLabel,
-        pointLabelFormat,
         pointLabelYOffset,
 
         defs,
@@ -236,7 +235,6 @@ const Line = props => {
                 borderColor={getPointBorderColor}
                 enableLabel={enablePointLabel}
                 label={pointLabel}
-                labelFormat={pointLabelFormat}
                 labelYOffset={pointLabelYOffset}
             />
         )

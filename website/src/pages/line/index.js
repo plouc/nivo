@@ -49,8 +49,8 @@ const initialProperties = {
             ],
         },
     ],
-    animate: true,
-    motionConfig: 'default',
+    animate: LineDefaultProps.animate,
+    motionConfig: LineDefaultProps.motionConfig,
 }
 
 const linearData = [
@@ -88,7 +88,6 @@ const Line = () => {
                         data={properties.xScale.type === 'linear' ? linearData : data}
                         {...properties}
                         theme={theme}
-                        yFormat=".2f"
                         onClick={point => {
                             logAction({
                                 type: 'click',
