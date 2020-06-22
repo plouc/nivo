@@ -253,6 +253,21 @@ const props = [
     },
     // Months
     {
+        key: 'monthSpacing',
+        help: 'define spacing between each month row/column depending on the direction.',
+        type: 'number',
+        required: false,
+        defaultValue: defaults.monthSpacing,
+        controlType: 'range',
+        group: 'Months',
+        controlOptions: {
+            unit: 'px',
+            min: 0,
+            max: 160,
+            step: 5,
+        },
+    },
+    {
         key: 'monthBorderWidth',
         flavors: ['svg', 'api'],
         help: 'width of month borders.',
