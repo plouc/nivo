@@ -76,6 +76,7 @@ const props = [
         `,
         required: false,
         type: 'Function | string',
+        controlType: 'valueFormat',
     },
     {
         key: 'yScale',
@@ -150,6 +151,7 @@ const props = [
         `,
         required: false,
         type: 'Function | string',
+        controlType: 'valueFormat',
     },
     {
         key: 'width',

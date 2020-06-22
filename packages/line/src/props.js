@@ -88,6 +88,8 @@ const commonPropTypes = {
     pointColor: PropTypes.any.isRequired,
     pointBorderWidth: PropTypes.number.isRequired,
     pointBorderColor: PropTypes.any.isRequired,
+    enablePointLabel: PropTypes.bool.isRequired,
+    pointLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
 
     markers: PropTypes.arrayOf(
         PropTypes.shape({
@@ -119,7 +121,6 @@ const commonPropTypes = {
     debugMesh: PropTypes.bool.isRequired,
 
     tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 
     enableSlices: PropTypes.oneOf(['x', 'y', false]).isRequired,
     debugSlices: PropTypes.bool.isRequired,
@@ -176,6 +177,8 @@ const commonDefaultProps = {
     pointColor: { from: 'color' },
     pointBorderWidth: 0,
     pointBorderColor: { theme: 'background' },
+    enablePointLabel: false,
+    pointLabel: 'yFormatted',
 
     colors: { scheme: 'nivo' },
     enableArea: false,
@@ -201,8 +204,7 @@ export const LineDefaultProps = {
     enablePointLabel: false,
     useMesh: false,
     animate: true,
-    motionStiffness: 90,
-    motionDamping: 15,
+    motionConfig: 'gentle',
     defs: [],
     fill: [],
 }

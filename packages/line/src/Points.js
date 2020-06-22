@@ -52,20 +52,14 @@ const Points = ({ points, symbol, size, borderWidth, enableLabel, label, labelYO
 
 Points.propTypes = {
     points: PropTypes.arrayOf(PropTypes.object),
-
     symbol: PropTypes.func,
     size: PropTypes.number.isRequired,
     color: PropTypes.func.isRequired,
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.func.isRequired,
-
     enableLabel: PropTypes.bool.isRequired,
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     labelYOffset: PropTypes.number,
-}
-Points.defaultProps = {
-    enableLabel: false,
-    label: 'yFormatted',
 }
 
 export default memo(Points)
