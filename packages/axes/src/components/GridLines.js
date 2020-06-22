@@ -6,75 +6,57 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo, useMemo } from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { TransitionMotion, spring } from 'react-motion'
-import { useTheme, useMotionConfig } from '@nivo/core'
+import { useTransition } from 'react-spring'
+import { useMotionConfig } from '@nivo/core'
 import GridLine from './GridLine'
 
-const GridLines = ({ type, lines }) => {
-    const theme = useTheme()
-    const { animate, springConfig } = useMotionConfig()
+const GridLines = ({ lines }) => {
+    const { animate, config: springConfig } = useMotionConfig()
 
-    const lineWillEnter = useMemo(
-        () => ({ style }) => ({
+    const transitions = useTransition(lines, line => line.key, {
+        initial: line => ({
+            opacity: 1,
+            x1: line.x1,
+            x2: line.x2,
+            y1: line.y1,
+            y2: line.y2,
+        }),
+        from: line => ({
             opacity: 0,
-            x1: type === 'x' ? 0 : style.x1.val,
-            x2: type === 'x' ? 0 : style.x2.val,
-            y1: type === 'y' ? 0 : style.y1.val,
-            y2: type === 'y' ? 0 : style.y2.val,
+            x1: line.x1,
+            x2: line.x2,
+            y1: line.y1,
+            y2: line.y2,
         }),
-        [type]
-    )
-
-    const lineWillLeave = useMemo(
-        () => ({ style }) => ({
-            opacity: spring(0, springConfig),
-            x1: spring(style.x1.val, springConfig),
-            x2: spring(style.x2.val, springConfig),
-            y1: spring(style.y1.val, springConfig),
-            y2: spring(style.y2.val, springConfig),
+        enter: line => ({
+            opacity: 1,
+            x1: line.x1,
+            x2: line.x2,
+            y1: line.y1,
+            y2: line.y2,
         }),
-        [springConfig]
-    )
-
-    if (!animate) {
-        return (
-            <g>
-                {lines.map(line => (
-                    <GridLine key={line.key} {...line} {...theme.grid.line} />
-                ))}
-            </g>
-        )
-    }
+        update: line => ({
+            opacity: 1,
+            x1: line.x1,
+            x2: line.x2,
+            y1: line.y1,
+            y2: line.y2,
+        }),
+        leave: {
+            opacity: 0,
+        },
+        config: springConfig,
+        immediate: !animate,
+    })
 
     return (
-        <TransitionMotion
-            willEnter={lineWillEnter}
-            willLeave={lineWillLeave}
-            styles={lines.map(line => {
-                return {
-                    key: line.key,
-                    style: {
-                        opacity: spring(1, springConfig),
-                        x1: spring(line.x1 || 0, springConfig),
-                        x2: spring(line.x2 || 0, springConfig),
-                        y1: spring(line.y1 || 0, springConfig),
-                        y2: spring(line.y2 || 0, springConfig),
-                    },
-                }
-            })}
-        >
-            {interpolatedStyles => (
-                <g>
-                    {interpolatedStyles.map(interpolatedStyle => {
-                        const { key, style } = interpolatedStyle
-
-                        return <GridLine key={key} {...theme.grid.line} {...style} />
-                    })}
-                </g>
-            )}
-        </TransitionMotion>
+        <g>
+            {transitions.map(({ item: line, props: animatedProps, key }) => (
+                <GridLine {...line} key={key} animatedProps={animatedProps} />
+            ))}
+        </g>
     )
 }
 

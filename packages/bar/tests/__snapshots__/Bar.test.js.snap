@@ -748,58 +748,56 @@ exports[`should allow grouped horizontal layout 1`] = `
           y2={300}
         />
       </g>
-      <g>
-        <g
-          transform="translate(0, 203)"
-        >
-          <rect
-            fill="#e8c1a0"
-            height={86}
-            onClick={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseMove={[Function]}
-            rx={0}
-            ry={0}
-            stroke="#e8c1a0"
-            strokeWidth={0}
-            width={167}
-          />
-        </g>
-        <g
-          transform="translate(0, 107)"
-        >
-          <rect
-            fill="#e8c1a0"
-            height={86}
-            onClick={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseMove={[Function]}
-            rx={0}
-            ry={0}
-            stroke="#e8c1a0"
-            strokeWidth={0}
-            width={333}
-          />
-        </g>
-        <g
-          transform="translate(0, 11)"
-        >
-          <rect
-            fill="#e8c1a0"
-            height={86}
-            onClick={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseMove={[Function]}
-            rx={0}
-            ry={0}
-            stroke="#e8c1a0"
-            strokeWidth={0}
-            width={500}
-          />
-        </g>
+      <g
+        transform="translate(0, 203)"
+      >
+        <rect
+          fill="#e8c1a0"
+          height={86}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          rx={0}
+          ry={0}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          width={167}
+        />
+      </g>
+      <g
+        transform="translate(0, 107)"
+      >
+        <rect
+          fill="#e8c1a0"
+          height={86}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          rx={0}
+          ry={0}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          width={333}
+        />
+      </g>
+      <g
+        transform="translate(0, 11)"
+      >
+        <rect
+          fill="#e8c1a0"
+          height={86}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          rx={0}
+          ry={0}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          width={500}
+        />
       </g>
     </g>
   </svg>
@@ -1671,58 +1669,56 @@ exports[`should allow grouped mode 1`] = `
           y2={300}
         />
       </g>
-      <g>
-        <g
-          transform="translate(17, 200)"
-        >
-          <rect
-            fill="#e8c1a0"
-            height={100}
-            onClick={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseMove={[Function]}
-            rx={0}
-            ry={0}
-            stroke="#e8c1a0"
-            strokeWidth={0}
-            width={145}
-          />
-        </g>
-        <g
-          transform="translate(178, 100)"
-        >
-          <rect
-            fill="#e8c1a0"
-            height={200}
-            onClick={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseMove={[Function]}
-            rx={0}
-            ry={0}
-            stroke="#e8c1a0"
-            strokeWidth={0}
-            width={145}
-          />
-        </g>
-        <g
-          transform="translate(339, 0)"
-        >
-          <rect
-            fill="#e8c1a0"
-            height={300}
-            onClick={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseMove={[Function]}
-            rx={0}
-            ry={0}
-            stroke="#e8c1a0"
-            strokeWidth={0}
-            width={145}
-          />
-        </g>
+      <g
+        transform="translate(17, 200)"
+      >
+        <rect
+          fill="#e8c1a0"
+          height={100}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          rx={0}
+          ry={0}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          width={145}
+        />
+      </g>
+      <g
+        transform="translate(178, 100)"
+      >
+        <rect
+          fill="#e8c1a0"
+          height={200}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          rx={0}
+          ry={0}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          width={145}
+        />
+      </g>
+      <g
+        transform="translate(339, 0)"
+      >
+        <rect
+          fill="#e8c1a0"
+          height={300}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          rx={0}
+          ry={0}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          width={145}
+        />
       </g>
     </g>
   </svg>
@@ -2477,58 +2473,56 @@ exports[`should allow horizontal layout 1`] = `
           y2={300}
         />
       </g>
-      <g>
-        <g
-          transform="translate(0, 203)"
-        >
-          <rect
-            fill="#e8c1a0"
-            height={86}
-            onClick={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseMove={[Function]}
-            rx={0}
-            ry={0}
-            stroke="#e8c1a0"
-            strokeWidth={0}
-            width={167}
-          />
-        </g>
-        <g
-          transform="translate(0, 107)"
-        >
-          <rect
-            fill="#e8c1a0"
-            height={86}
-            onClick={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseMove={[Function]}
-            rx={0}
-            ry={0}
-            stroke="#e8c1a0"
-            strokeWidth={0}
-            width={333}
-          />
-        </g>
-        <g
-          transform="translate(0, 11)"
-        >
-          <rect
-            fill="#e8c1a0"
-            height={86}
-            onClick={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseMove={[Function]}
-            rx={0}
-            ry={0}
-            stroke="#e8c1a0"
-            strokeWidth={0}
-            width={500}
-          />
-        </g>
+      <g
+        transform="translate(0, 203)"
+      >
+        <rect
+          fill="#e8c1a0"
+          height={86}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          rx={0}
+          ry={0}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          width={167}
+        />
+      </g>
+      <g
+        transform="translate(0, 107)"
+      >
+        <rect
+          fill="#e8c1a0"
+          height={86}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          rx={0}
+          ry={0}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          width={333}
+        />
+      </g>
+      <g
+        transform="translate(0, 11)"
+      >
+        <rect
+          fill="#e8c1a0"
+          height={86}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          rx={0}
+          ry={0}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          width={500}
+        />
       </g>
     </g>
   </svg>
@@ -3400,58 +3394,56 @@ exports[`should allow to disable labels 1`] = `
           y2={300}
         />
       </g>
-      <g>
-        <g
-          transform="translate(17, 200)"
-        >
-          <rect
-            fill="#e8c1a0"
-            height={100}
-            onClick={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseMove={[Function]}
-            rx={0}
-            ry={0}
-            stroke="#e8c1a0"
-            strokeWidth={0}
-            width={145}
-          />
-        </g>
-        <g
-          transform="translate(178, 100)"
-        >
-          <rect
-            fill="#e8c1a0"
-            height={200}
-            onClick={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseMove={[Function]}
-            rx={0}
-            ry={0}
-            stroke="#e8c1a0"
-            strokeWidth={0}
-            width={145}
-          />
-        </g>
-        <g
-          transform="translate(339, 0)"
-        >
-          <rect
-            fill="#e8c1a0"
-            height={300}
-            onClick={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseMove={[Function]}
-            rx={0}
-            ry={0}
-            stroke="#e8c1a0"
-            strokeWidth={0}
-            width={145}
-          />
-        </g>
+      <g
+        transform="translate(17, 200)"
+      >
+        <rect
+          fill="#e8c1a0"
+          height={100}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          rx={0}
+          ry={0}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          width={145}
+        />
+      </g>
+      <g
+        transform="translate(178, 100)"
+      >
+        <rect
+          fill="#e8c1a0"
+          height={200}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          rx={0}
+          ry={0}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          width={145}
+        />
+      </g>
+      <g
+        transform="translate(339, 0)"
+      >
+        <rect
+          fill="#e8c1a0"
+          height={300}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          rx={0}
+          ry={0}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          width={145}
+        />
       </g>
     </g>
   </svg>
@@ -4323,106 +4315,104 @@ exports[`should render a basic bar chart 1`] = `
           y2={300}
         />
       </g>
-      <g>
-        <g
-          transform="translate(17, 200)"
-        >
-          <rect
-            fill="#e8c1a0"
-            height={100}
-            onClick={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseMove={[Function]}
-            rx={0}
-            ry={0}
-            stroke="#e8c1a0"
-            strokeWidth={0}
-            width={145}
-          />
-          <text
-            dominantBaseline="central"
-            style={
-              Object {
-                "fill": "theme",
-                "fontFamily": "sans-serif",
-                "fontSize": 11,
-                "pointerEvents": "none",
-              }
+      <g
+        transform="translate(17, 200)"
+      >
+        <rect
+          fill="#e8c1a0"
+          height={100}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          rx={0}
+          ry={0}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          width={145}
+        />
+        <text
+          dominantBaseline="central"
+          style={
+            Object {
+              "fill": "theme",
+              "fontFamily": "sans-serif",
+              "fontSize": 11,
+              "pointerEvents": "none",
             }
-            textAnchor="middle"
-            x={72.5}
-            y={50}
-          >
-            10
-          </text>
-        </g>
-        <g
-          transform="translate(178, 100)"
+          }
+          textAnchor="middle"
+          x={72.5}
+          y={50}
         >
-          <rect
-            fill="#e8c1a0"
-            height={200}
-            onClick={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseMove={[Function]}
-            rx={0}
-            ry={0}
-            stroke="#e8c1a0"
-            strokeWidth={0}
-            width={145}
-          />
-          <text
-            dominantBaseline="central"
-            style={
-              Object {
-                "fill": "theme",
-                "fontFamily": "sans-serif",
-                "fontSize": 11,
-                "pointerEvents": "none",
-              }
+          10
+        </text>
+      </g>
+      <g
+        transform="translate(178, 100)"
+      >
+        <rect
+          fill="#e8c1a0"
+          height={200}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          rx={0}
+          ry={0}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          width={145}
+        />
+        <text
+          dominantBaseline="central"
+          style={
+            Object {
+              "fill": "theme",
+              "fontFamily": "sans-serif",
+              "fontSize": 11,
+              "pointerEvents": "none",
             }
-            textAnchor="middle"
-            x={72.5}
-            y={100}
-          >
-            20
-          </text>
-        </g>
-        <g
-          transform="translate(339, 0)"
+          }
+          textAnchor="middle"
+          x={72.5}
+          y={100}
         >
-          <rect
-            fill="#e8c1a0"
-            height={300}
-            onClick={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onMouseMove={[Function]}
-            rx={0}
-            ry={0}
-            stroke="#e8c1a0"
-            strokeWidth={0}
-            width={145}
-          />
-          <text
-            dominantBaseline="central"
-            style={
-              Object {
-                "fill": "theme",
-                "fontFamily": "sans-serif",
-                "fontSize": 11,
-                "pointerEvents": "none",
-              }
+          20
+        </text>
+      </g>
+      <g
+        transform="translate(339, 0)"
+      >
+        <rect
+          fill="#e8c1a0"
+          height={300}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          rx={0}
+          ry={0}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          width={145}
+        />
+        <text
+          dominantBaseline="central"
+          style={
+            Object {
+              "fill": "theme",
+              "fontFamily": "sans-serif",
+              "fontSize": 11,
+              "pointerEvents": "none",
             }
-            textAnchor="middle"
-            x={72.5}
-            y={150}
-          >
-            30
-          </text>
-        </g>
+          }
+          textAnchor="middle"
+          x={72.5}
+          y={150}
+        >
+          30
+        </text>
       </g>
     </g>
   </svg>
