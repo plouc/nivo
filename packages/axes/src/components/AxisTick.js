@@ -7,23 +7,19 @@
  * file that was distributed with this source code.
  */
 import React, { memo } from 'react'
+import { animated } from 'react-spring'
 import PropTypes from 'prop-types'
 import { useTheme } from '@nivo/core'
 
 const AxisTick = ({
     value: _value,
-    x,
-    y,
-    opacity,
-    rotate,
     format,
     lineX,
     lineY,
     onClick,
-    textX,
-    textY,
     textBaseline,
     textAnchor,
+    animatedProps,
 }) => {
     const theme = useTheme()
 
@@ -32,27 +28,27 @@ const AxisTick = ({
         value = format(value)
     }
 
-    let gStyle = { opacity }
+    let gStyle = { opacity: animatedProps.opacity }
     if (onClick) {
         gStyle['cursor'] = 'pointer'
     }
 
     return (
-        <g
-            transform={`translate(${x},${y})`}
+        <animated.g
+            transform={animatedProps.transform}
             {...(onClick ? { onClick: e => onClick(e, value) } : {})}
             style={gStyle}
         >
             <line x1={0} x2={lineX} y1={0} y2={lineY} style={theme.axis.ticks.line} />
-            <text
+            <animated.text
                 dominantBaseline={textBaseline}
                 textAnchor={textAnchor}
-                transform={`translate(${textX},${textY}) rotate(${rotate})`}
+                transform={animatedProps.textTransform}
                 style={theme.axis.ticks.text}
             >
                 {value}
-            </text>
-        </g>
+            </animated.text>
+        </animated.g>
     )
 }
 
@@ -71,6 +67,7 @@ AxisTick.propTypes = {
     opacity: PropTypes.number.isRequired,
     rotate: PropTypes.number.isRequired,
     onClick: PropTypes.func,
+    animatedProps: PropTypes.object.isRequired,
 }
 AxisTick.defaultProps = {
     opacity: 1,
