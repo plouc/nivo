@@ -181,3 +181,31 @@ stories.add('time scale', () => (
         enableSlices={false}
     />
 ))
+
+stories.add('custom line style', () => (
+    <LineCanvas
+        {...commonProperties}
+        layers={[
+            'grid',
+            'markers',
+            'areas',
+            ({ lineGenerator, series, ctx, lineWidth, innerWidth }) => {
+                lineGenerator.context(ctx)
+                series.forEach(serie => {
+                    const gradient = ctx.createLinearGradient(0, 0, innerWidth, 0)
+                    gradient.addColorStop('0', 'white')
+                    gradient.addColorStop('0.5', serie.color)
+                    gradient.addColorStop('1.0', 'black')
+                    ctx.strokeStyle = gradient
+                    ctx.lineWidth = lineWidth
+                    ctx.beginPath()
+                    lineGenerator(serie.data.map(d => d.position))
+                    ctx.stroke()
+                })
+            },
+            'points',
+            'mesh',
+            'legends',
+        ]}
+    />
+))
