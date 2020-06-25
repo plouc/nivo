@@ -26,3 +26,23 @@ stories.add('with child color modifier', () => (
 stories.add('with child colors independent of parent', () => (
     <Sunburst {...commonProperties} childColor="noinherit" />
 ))
+
+stories.add('with formatted tooltip value', () => (
+    <Sunburst
+        {...commonProperties}
+        tooltipFormat={value => {
+            return `~${Math.floor(Number.parseFloat(value))}%`
+        }}
+    />
+))
+
+stories.add('with custom tooltip', () => (
+    <Sunburst
+        {...commonProperties}
+        tooltip={({ data: { id, value, color } }) => (
+            <span style={{ color }}>
+                {id}: <strong>{value}</strong>
+            </span>
+        )}
+    />
+))
