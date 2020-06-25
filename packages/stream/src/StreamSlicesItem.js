@@ -28,7 +28,7 @@ const StreamSlicesItem = ({ slice, height, getTooltipLabel, getTooltipValue }) =
     const handleMouseHover = useCallback(
         event => {
             setIsHover(true)
-            showTooltipFromEvent(<TableTooltip rows={rows} />, event)
+            showTooltipFromEvent(<TableTooltip rows={rows} />, event, 'left')
         },
         [setIsHover, showTooltipFromEvent, rows]
     )
