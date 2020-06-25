@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo, useMemo } from 'react'
+import React, { memo, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { useSpring, animated } from 'react-spring'
 import { useTheme, useMotionConfig, useMeasure } from '@nivo/core'
@@ -25,12 +25,16 @@ const TooltipWrapper = ({ position, anchor, children }) => {
     const theme = useTheme()
     const { animate, config: springConfig } = useMotionConfig()
     const [measureRef, bounds] = useMeasure()
+    const previousPosition = useRef(false)
 
-    let x = Math.round(position[0])
-    let y = Math.round(position[1])
+    let to = undefined
+    let immediate = false
 
     const hasDimension = bounds.width > 0 && bounds.height > 0
-    if (hasDimension !== null) {
+    if (hasDimension) {
+        let x = Math.round(position[0])
+        let y = Math.round(position[1])
+
         if (anchor === 'top') {
             x -= bounds.width / 2
             y -= bounds.height + TOOLTIP_OFFSET
@@ -47,23 +51,29 @@ const TooltipWrapper = ({ position, anchor, children }) => {
             x -= bounds.width / 2
             y -= bounds.height / 2
         }
+
+        to = {
+            transform: `translate(${x}px, ${y}px)`,
+        }
+        if (!previousPosition.current) {
+            immediate = true
+        }
+
+        previousPosition.current = [x, y]
     }
 
     const animatedProps = useSpring({
-        transform: `translate(${x}px, ${y}px)`,
+        to,
         config: springConfig,
-        immediate: !animate || !hasDimension,
+        immediate: !animate || immediate,
     })
 
-    const style = useMemo(
-        () => ({
-            ...tooltipStyle,
-            ...theme.tooltip,
-            transform: animatedProps.transform,
-            opacity: hasDimension ? 1 : 0,
-        }),
-        [hasDimension, theme.tooltip, animatedProps.transform]
-    )
+    const style = {
+        ...tooltipStyle,
+        ...theme.tooltip,
+        transform: animatedProps.transform,
+        opacity: animatedProps.transform ? 1 : 0,
+    }
 
     return (
         <animated.div ref={measureRef} style={style}>
@@ -72,7 +82,6 @@ const TooltipWrapper = ({ position, anchor, children }) => {
     )
 }
 
-TooltipWrapper.displayName = 'TooltipWrapper'
 TooltipWrapper.propTypes = {
     position: PropTypes.array.isRequired,
     anchor: PropTypes.oneOf(['top', 'right', 'bottom', 'left', 'center']).isRequired,
