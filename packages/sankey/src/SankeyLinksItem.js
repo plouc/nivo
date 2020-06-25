@@ -94,14 +94,14 @@ const SankeyLinksItem = ({
     const handleMouseEnter = useCallback(
         event => {
             setCurrent(link)
-            showTooltipFromEvent(tooltipContent, event)
+            showTooltipFromEvent(tooltipContent, event, 'left')
         },
         [setCurrent, link, showTooltipFromEvent, tooltipContent]
     )
 
     const handleMouseMove = useCallback(
         event => {
-            showTooltipFromEvent(tooltipContent, event)
+            showTooltipFromEvent(tooltipContent, event, 'left')
         },
         [showTooltipFromEvent, tooltipContent]
     )
