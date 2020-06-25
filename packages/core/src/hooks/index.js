@@ -8,5 +8,6 @@
  */
 export * from './useCurveInterpolation'
 export * from './useDimensions'
+export * from './useMeasure'
 export * from './usePartialTheme'
 export * from './useValueFormatter'
