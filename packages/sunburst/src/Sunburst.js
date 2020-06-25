@@ -104,6 +104,9 @@ Sunburst.propTypes = {
 
     childColor: inheritedColorPropType.isRequired,
 
+    tooltipFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    tooltip: PropTypes.func,
+
     isInteractive: PropTypes.bool,
 }
 
