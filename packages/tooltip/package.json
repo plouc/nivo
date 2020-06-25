@@ -15,7 +15,6 @@
     "dist/"
   ],
   "dependencies": {
-    "react-measure": "^2.2.4",
     "react-spring": "^8.0.27"
   },
   "peerDependencies": {

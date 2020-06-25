@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { useState, useContext, useCallback } from 'react'
+import { useState, useContext, useCallback, useMemo } from 'react'
 import { tooltipContext } from './context'
 
 export const useTooltipHandlers = container => {
@@ -16,14 +16,17 @@ export const useTooltipHandlers = container => {
         position: {},
     })
 
-    const showTooltipAt = useCallback((content, [x, y], anchor) => {
-        setState({
-            isVisible: true,
-            position: [x, y],
-            anchor,
-            content,
-        })
-    }, [])
+    const showTooltipAt = useCallback(
+        (content, [x, y], anchor) => {
+            setState({
+                isVisible: true,
+                position: [x, y],
+                anchor,
+                content,
+            })
+        },
+        [setState]
+    )
 
     const showTooltipFromEvent = useCallback(
         (content, event, anchor) => {
@@ -43,12 +46,12 @@ export const useTooltipHandlers = container => {
                 content,
             })
         },
-        [container]
+        [container, setState]
     )
 
     const hideTooltip = useCallback(() => {
         setState({ isVisible: false, content: null })
-    })
+    }, [setState])
 
     return {
         showTooltipAt,
@@ -61,4 +64,16 @@ export const useTooltipHandlers = container => {
     }
 }
 
-export const useTooltip = () => useContext(tooltipContext)
+export const useTooltip = () => {
+    const context = useContext(tooltipContext)
+
+    const memoizedContext = useMemo(() => {
+        return {
+            showTooltipAt: context.showTooltipAt,
+            showTooltipFromEvent: context.showTooltipFromEvent,
+            hideTooltip: context.hideTooltip,
+        }
+    }, [context.showTooltipAt, context.showTooltipFromEvent, context.hideTooltip])
+
+    return memoizedContext
+}
