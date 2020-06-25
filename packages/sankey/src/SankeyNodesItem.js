@@ -52,14 +52,14 @@ const SankeyNodesItem = ({
     const handleMouseEnter = useCallback(
         event => {
             setCurrent(node)
-            showTooltipFromEvent(tooltipContent, event)
+            showTooltipFromEvent(tooltipContent, event, 'left')
         },
         [setCurrent, node, showTooltipFromEvent, tooltipContent]
     )
 
     const handleMouseMove = useCallback(
         event => {
-            showTooltipFromEvent(tooltipContent, event)
+            showTooltipFromEvent(tooltipContent, event, 'left')
         },
         [showTooltipFromEvent, tooltipContent]
     )
