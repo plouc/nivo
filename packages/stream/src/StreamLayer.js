@@ -25,7 +25,8 @@ const StreamLayer = ({
         event => {
             showTooltipFromEvent(
                 <BasicTooltip id={getTooltipLabel(layer)} enableChip={true} color={layer.color} />,
-                event
+                event,
+                'left'
             )
         },
         [showTooltipFromEvent, getTooltipLabel, layer]
