@@ -47,6 +47,7 @@ declare module '@nivo/radar' {
         dotLabelFormat?: string | CustomFormatter
         dotLabelYOffset?: number
 
+        theme?: Theme
         colors?: OrdinalColorsInstruction
         fillOpacity?: number
         blendMode?: CssMixBlendMode
