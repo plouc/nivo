@@ -12,6 +12,48 @@ import { useTransition } from 'react-spring'
 import { useMotionConfig } from '@nivo/core'
 import { useInteractiveTreeMapNodes } from './hooks'
 
+const getAnimatedNodeProps = node => {
+    return {
+        transform: `translate(${node.x},${node.y})`,
+        htmlTransform: `translate(${node.x}px,${node.y}px)`,
+        labelOpacity: 1,
+        labelTransform: `translate(${node.width / 2},${node.height / 2}) rotate(${
+            node.labelRotation
+        })`,
+        labelHtmlTransform: `translate(${node.width / 2}px,${node.height / 2}px) rotate(${
+            node.labelRotation
+        }deg)`,
+        parentLabelOpacity: 1,
+        parentLabelTransform: `translate(${node.parentLabelX},${node.parentLabelY}) rotate(${node.parentLabelRotation})`,
+        parentLabelHtmlTransform: `translate(${
+            node.parentLabelX - (node.parentLabelRotation === 0 ? 0 : 5)
+        }px,${node.parentLabelY - (node.parentLabelRotation === 0 ? 5 : 0)}px) rotate(${
+            node.parentLabelRotation
+        }deg)`,
+        width: node.width,
+        height: node.height,
+        color: node.color,
+    }
+}
+
+const getEndingAnimatedNodeProps = node => {
+    const x = node.x + node.width / 2
+    const y = node.y + node.height / 2
+
+    return {
+        transform: `translate(${x},${y})`,
+        transformPixels: `translate(${x}px,${y}px)`,
+        labelOpacity: 0,
+        labelTransform: `translate(0,0) rotate(${node.labelRotation})`,
+        parentLabelOpacity: 0,
+        parentLabelTransform: `translate(0,0) rotate(${node.parentLabelRotation})`,
+        parentLabelHtmlTransform: `translate(0px,0px) rotate(${node.parentLabelRotation}deg)`,
+        width: 0,
+        height: 0,
+        color: node.color,
+    }
+}
+
 const TreeMapNodes = ({
     nodes,
     nodeComponent,
@@ -37,78 +79,11 @@ const TreeMapNodes = ({
 
     const { animate, config: springConfig } = useMotionConfig()
     const transitions = useTransition(interactiveNodes, node => node.path, {
-        initial: node => {
-            return {
-                transform: `translate(${node.x},${node.y})`,
-                labelTransform: `translate(${node.width / 2},${node.height / 2}) rotate(${
-                    node.labelRotation
-                })`,
-                x: node.x,
-                y: node.y,
-                width: node.width,
-                height: node.height,
-                color: node.color,
-                labelRotation: node.labelRotation,
-            }
-        },
-        from: node => {
-            const x = node.x + node.width / 2
-            const y = node.y + node.height / 2
-
-            return {
-                transform: `translate(${x},${y})`,
-                labelTransform: `translate(0,0) rotate(${node.labelRotation})`,
-                x,
-                y,
-                width: 0,
-                height: 0,
-                color: node.color,
-                labelRotation: node.labelRotation,
-            }
-        },
-        enter: node => {
-            return {
-                transform: `translate(${node.x},${node.y})`,
-                labelTransform: `translate(${node.width / 2},${node.height / 2}) rotate(${
-                    node.labelRotation
-                })`,
-                x: node.x,
-                y: node.y,
-                width: node.width,
-                height: node.height,
-                color: node.color,
-                labelRotation: node.labelRotation,
-            }
-        },
-        update: node => {
-            return {
-                transform: `translate(${node.x},${node.y})`,
-                labelTransform: `translate(${node.width / 2},${node.height / 2}) rotate(${
-                    node.labelRotation
-                })`,
-                x: node.x,
-                y: node.y,
-                width: node.width,
-                height: node.height,
-                color: node.color,
-                labelRotation: node.labelRotation,
-            }
-        },
-        leave: node => {
-            const x = node.x + node.width / 2
-            const y = node.y + node.height / 2
-
-            return {
-                transform: `translate(${x},${y})`,
-                labelTransform: `translate(0,0) rotate(${node.labelRotation})`,
-                x,
-                y,
-                width: 0,
-                height: 0,
-                color: node.color,
-                labelRotation: node.labelRotation,
-            }
-        },
+        initial: node => getAnimatedNodeProps(node),
+        from: node => getEndingAnimatedNodeProps(node),
+        enter: node => getAnimatedNodeProps(node),
+        update: node => getAnimatedNodeProps(node),
+        leave: node => getEndingAnimatedNodeProps(node),
         config: springConfig,
         immediate: !animate,
     })

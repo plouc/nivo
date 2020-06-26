@@ -47,11 +47,6 @@ const TreeMapCanvas = ({
     labelTextColor,
     orientLabel,
     labelSkipSize,
-    enableParentLabel,
-    parentLabel,
-    parentLabelSize,
-    parentLabelBackground,
-    parentLabelTextColor,
     isInteractive,
     onMouseMove,
     onClick,
@@ -84,11 +79,7 @@ const TreeMapCanvas = ({
         label,
         labelTextColor,
         orientLabel,
-        enableParentLabel,
-        parentLabel,
-        parentLabelSize,
-        parentLabelBackground,
-        parentLabelTextColor,
+        enableParentLabel: false,
     })
 
     const theme = useTheme()

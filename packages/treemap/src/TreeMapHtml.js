@@ -38,7 +38,8 @@ const TreeMapHtml = ({
     enableParentLabel,
     parentLabel,
     parentLabelSize,
-    parentLabelBackground,
+    parentLabelPosition,
+    parentLabelPadding,
     parentLabelTextColor,
     isInteractive,
     onMouseEnter,
@@ -74,7 +75,8 @@ const TreeMapHtml = ({
         enableParentLabel,
         parentLabel,
         parentLabelSize,
-        parentLabelBackground,
+        parentLabelPosition,
+        parentLabelPadding,
         parentLabelTextColor,
     })
 

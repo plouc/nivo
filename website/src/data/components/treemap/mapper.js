@@ -14,5 +14,10 @@ export default settingsMapper({
             return node => `${node.id} (${node.formattedValue})`
         return value
     },
+    parentLabel: value => {
+        if (value === `node => node.pathComponents.join(' / ')`)
+            return node => node.pathComponents.join(' / ')
+        return value
+    },
     valueFormat: mapFormat,
 })

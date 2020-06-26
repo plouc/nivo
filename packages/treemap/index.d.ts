@@ -8,7 +8,7 @@
  */
 import * as React from 'react'
 import { Dimensions, Box, Theme } from '@nivo/core'
-import { OrdinalColorInstruction, InheritedColorProp } from '@nivo/colors'
+import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
 
 declare module '@nivo/treemap' {
     export type TreeMapTile = 'binary' | 'squarify' | 'slice' | 'dice' | 'sliceDice' | 'resquarify'
@@ -35,8 +35,10 @@ declare module '@nivo/treemap' {
         borderColor: string
         labelTextColor: string
         labelRotation: number
-        parentLabelBackground: string
         parentLabelTextColor: string
+        parentLabelX: number
+        parentLabelY: number
+        parentLabelRotation: number
     }
 
     export type NodeEventHandler = (
@@ -55,27 +57,26 @@ declare module '@nivo/treemap' {
         innerPadding?: number
         outerPadding?: number
         theme?: Theme
-        colors?: OrdinalColorInstruction
+        colors?: OrdinalColorsInstruction
         colorBy?: string
         nodeOpacity?: number
         borderWidth?: number
         borderColor?: InheritedColorProp<
-            Omit<
-                TreeMapNodeDatum,
-                'borderColor',
-                'labelTextColor' | 'parentLabelBackground' | 'parentLabelTextColor'
-            >
+            Omit<TreeMapNodeDatum, 'borderColor' | 'labelTextColor' | 'parentLabelTextColor'>
         >
         enableLabel?: boolean
         label?: string
         labelSkipSize?: number
         orientLabel?: boolean
         labelTextColor?: InheritedColorProp<
-            Omit<
-                TreeMapNodeDatum,
-                'labelTextColor' | 'parentLabelBackground' | 'parentLabelTextColor'
-            >
+            Omit<TreeMapNodeDatum, 'labelTextColor' | 'parentLabelTextColor'>
         >
+        enableParentLabel?: boolean
+        parentLabel?: string
+        parentLabelSize?: number
+        parentLabelPosition?: 'top' | 'right' | 'bottom' | 'left'
+        parentLabelPadding?: number
+        parentLabelTextColor?: InheritedColorProp<Omit<TreeMapNodeDatum, 'parentLabelTextColor'>>
         isInteractive?: boolean
         animate?: boolean
     }

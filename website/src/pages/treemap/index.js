@@ -38,7 +38,15 @@ const initialProperties = {
         modifiers: [['darker', 1.2]],
     },
     orientLabel: TreeMapDefaultProps.orientLabel,
+    enableParentLabel: TreeMapDefaultProps.enableParentLabel,
     parentLabel: TreeMapDefaultProps.parentLabel,
+    parentLabelSize: TreeMapDefaultProps.parentLabelSize,
+    parentLabelPosition: TreeMapDefaultProps.parentLabelPosition,
+    parentLabelPadding: TreeMapDefaultProps.parentLabelPadding,
+    parentLabelTextColor: {
+        from: 'color',
+        modifiers: [['darker', 2]],
+    },
 
     colors: TreeMapDefaultProps.colors,
     colorBy: TreeMapDefaultProps.colorBy,
@@ -78,7 +86,9 @@ const TreeMap = () => {
                         onClick={node => {
                             logAction({
                                 type: 'click',
-                                label: `[node] ${node.id}: ${node.formattedValue}`,
+                                label: `[node] ${node.pathComponents.join(' / ')}: ${
+                                    node.formattedValue
+                                }`,
                                 color: node.color,
                                 data: node,
                             })
