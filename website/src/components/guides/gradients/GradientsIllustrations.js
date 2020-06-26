@@ -80,19 +80,20 @@ const GradientsIllustrations = () => {
                 <div className="guide__illustrations__item">
                     <ResponsiveTreeMap
                         margin={{ top: -2, right: -2, bottom: -2, left: -2 }}
-                        root={{
+                        data={{
                             country: 'root',
                             children: generateCountriesData(['value'], { size: 9 }),
                         }}
                         colors={{ scheme: 'spectral' }}
-                        colorBy="country"
+                        colorBy="path"
                         identity="country"
-                        value="value"
                         leavesOnly={false}
                         borderWidth={1}
+                        nodeOpacity={1}
                         borderColor={{ theme: 'background' }}
-                        outerPadding={6}
+                        outerPadding={10}
                         innerPadding={4}
+                        enableParentLabel={false}
                         isInteractive={false}
                         animate={false}
                         enableLabel={false}
