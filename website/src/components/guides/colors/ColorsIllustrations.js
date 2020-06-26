@@ -52,19 +52,18 @@ const ColorsIllustrations = () => {
                 <div className="guide__illustrations__item">
                     <ResponsiveTreeMap
                         margin={{ top: -2, right: -2, bottom: -2, left: -2 }}
-                        root={{
+                        data={{
                             country: 'root',
                             children: generateCountriesData(['value'], { size: 18 }),
                         }}
                         colors={{ scheme: 'spectral' }}
-                        colorBy="country"
+                        colorBy="id"
                         identity="country"
-                        value="value"
                         leavesOnly={true}
-                        outerPadding={6}
+                        outerPadding={10}
                         innerPadding={4}
-                        borderWidth={2}
-                        borderColor={{ theme: 'background' }}
+                        borderWidth={0}
+                        nodeOpacity={1}
                         isInteractive={false}
                         animate={false}
                         enableLabel={false}
