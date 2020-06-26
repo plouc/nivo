@@ -25,13 +25,13 @@ const TreeMapApi = () => {
                 chartClass="treemap"
                 apiPath="/charts/treemap"
                 flavors={meta.flavors}
-                dataProperty="root"
                 controlGroups={groups}
                 propsMapper={mapper}
                 defaultProps={{
                     root: JSON.stringify(data.root, null, '  '),
                     identity: 'name',
                     value: 'loc',
+                    valueFormat: { format: '.02s', enabled: true },
                     tile: 'squarify',
                     leavesOnly: false,
                     innerPadding: 3,
@@ -45,8 +45,7 @@ const TreeMapApi = () => {
                     },
 
                     enableLabel: true,
-                    label: 'loc',
-                    labelFormat: '.0s',
+                    label: 'formattedValue',
                     labelSkipSize: 12,
                     labelTextColor: {
                         from: 'color',
@@ -55,7 +54,8 @@ const TreeMapApi = () => {
                     orientLabel: true,
 
                     colors: { scheme: 'nivo' },
-                    colorBy: 'depth',
+                    colorBy: 'path.1',
+                    nodeOpacity: 0.5,
                     borderWidth: 0,
                     borderColor: {
                         from: 'color',
