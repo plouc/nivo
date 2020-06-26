@@ -143,13 +143,13 @@ export const useTreeMap = ({
     const enhancedNodes = useMemo(
         () =>
             nodes.map(node => {
-                node.color = getColor(node)
                 node.opacity = nodeOpacity
+                node.labelRotation = orientLabel && node.height > node.width ? -90 : 0
+                node.color = getColor(node)
                 node.borderColor = getBorderColor(node)
                 node.labelTextColor = getLabelTextColor(node)
                 node.parentLabelBackground = getParentLabelBackground(node)
                 node.parentLabelTextColor = getParentLabelTextColor(node)
-                node.labelRotation = orientLabel && node.height > node.width ? -90 : 0
 
                 return node
             }),

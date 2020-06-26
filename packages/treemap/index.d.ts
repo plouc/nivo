@@ -7,13 +7,103 @@
  * file that was distributed with this source code.
  */
 import * as React from 'react'
-import { Dimensions } from '@nivo/core'
+import { Dimensions, Box, Theme } from '@nivo/core'
+import { OrdinalColorInstruction, InheritedColorProp } from '@nivo/colors'
 
 declare module '@nivo/treemap' {
-    export interface TreeMapProps {
+    export type TreeMapTile = 'binary' | 'squarify' | 'slice' | 'dice' | 'sliceDice' | 'resquarify'
+
+    export interface TreeMapNodeDatum {
+        id: string
+        path: string
+        pathComponents: string[]
         data: any
+        x: number
+        y: number
+        width: number
+        height: number
+        value: number
+        formattedValue: number | string
+        treeDepth: number
+        treeHeight: number
+        isParent: boolean
+        isLeaf: boolean
+        label: string | number
+        parentLabel: string | number
+        color: string
+        opacity: number
+        borderColor: string
+        labelTextColor: string
+        labelRotation: number
+        parentLabelBackground: string
+        parentLabelTextColor: string
     }
 
-    export class TreeMap extends React.Component<TreeMapProps & Dimensions> {}
-    export class ResponsiveTreeMap<T> extends React.Component<TreeMapProps> {}
+    export type NodeEventHandler = (
+        node: TreeMapNodeDatum,
+        event: React.MouseEvent<HTMLElement>
+    ) => void
+
+    export interface TreeMapProps {
+        data: any
+        identity?: string
+        value?: string
+        valueFormat?: string
+        margin?: Box
+        tile?: TreeMapTile
+        leavesOnly?: boolean
+        innerPadding?: number
+        outerPadding?: number
+        theme?: Theme
+        colors?: OrdinalColorInstruction
+        colorBy?: string
+        nodeOpacity?: number
+        borderWidth?: number
+        borderColor?: InheritedColorProp<
+            Omit<
+                TreeMapNodeDatum,
+                'borderColor',
+                'labelTextColor' | 'parentLabelBackground' | 'parentLabelTextColor'
+            >
+        >
+        enableLabel?: boolean
+        label?: string
+        labelSkipSize?: number
+        orientLabel?: boolean
+        labelTextColor?: InheritedColorProp<
+            Omit<
+                TreeMapNodeDatum,
+                'labelTextColor' | 'parentLabelBackground' | 'parentLabelTextColor'
+            >
+        >
+        isInteractive?: boolean
+        animate?: boolean
+    }
+
+    export interface TreeMapSvgAndHtmlProps extends TreeMapProps {
+        onMouseEnter?: NodeEventHandler
+        onMouseMove?: NodeEventHandler
+        onMouseLeave?: NodeEventHandler
+        onClick?: NodeEventHandler
+    }
+
+    export class TreeMap extends React.Component<TreeMapSvgAndHtmlProps & Dimensions> {}
+    export class ResponsiveTreeMap extends React.Component<TreeMapSvgAndHtmlProps> {}
+
+    export class TreeMapHtml extends React.Component<TreeMapSvgAndHtmlProps & Dimensions> {}
+    export class ResponsiveTreeMapHtml extends React.Component<TreeMapSvgAndHtmlProps> {}
+
+    export type CanvasNodeEventHandler = (
+        node: TreeMapNodeDatum,
+        event: React.MouseEvent<HTMLCanvasElement>
+    ) => void
+
+    export interface TreeMapCanvasProps extends TreeMapProps {
+        onMouseMove?: CanvasNodeEventHandler
+        onClick?: CanvasNodeEventHandler
+        pixelRatio?: number
+    }
+
+    export class TreeMapCanvas extends React.Component<TreeMapCanvasProps & Dimensions> {}
+    export class ResponsiveTreeMapCanvas extends React.Component<TreeMapCanvasProps> {}
 }
