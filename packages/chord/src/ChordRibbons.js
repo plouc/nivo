@@ -8,11 +8,9 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import mapValues from 'lodash/mapValues'
-import { TransitionMotion, spring } from 'react-motion'
 import { blendModePropType, midAngle, useMotionConfig } from '@nivo/core'
-import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
 import ChordRibbon from './ChordRibbon'
+import { interpolate, useTransition } from 'react-spring'
 
 /**
  * Used to get ribbon angles, instead of using source and target arcs,
@@ -23,10 +21,9 @@ import ChordRibbon from './ChordRibbon'
  * @param {Object}  source
  * @param {Object}  target
  * @param {boolean} useMiddleAngle
- * @param {Object}  [springConfig]
  * @return {Object}
  */
-const getRibbonAngles = ({ source, target }, useMiddleAngle, springConfig) => {
+const getRibbonAngles = ({ source, target }, useMiddleAngle) => {
     let firstArc
     let secondArc
     if (source.startAngle < target.startAngle) {
@@ -57,135 +54,102 @@ const getRibbonAngles = ({ source, target }, useMiddleAngle, springConfig) => {
         }
     }
 
-    if (!springConfig) return angles
-
-    return mapValues(angles, angle => spring(angle, springConfig))
+    return angles
 }
 
-const ribbonWillEnter = ({ data: ribbon }) => ({
-    ...getRibbonAngles(ribbon, true),
-    opacity: 0,
-    ...interpolateColor(ribbon.source.color),
-})
+const ChordRibbons = ({
+    ribbons,
+    ribbonGenerator,
+    borderWidth,
+    getBorderColor,
+    getOpacity,
+    blendMode,
+    isInteractive,
+    setCurrent,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+    onClick,
+    tooltip,
+}) => {
+    const { animate, config: springConfig } = useMotionConfig()
+    const transitions = useTransition(ribbons, ribbon => ribbon.id, {
+        initial: ribbon => ({
+            ...getRibbonAngles(ribbon, false),
+            opacity: getOpacity(ribbon),
+            color: ribbon.source.color,
+        }),
+        from: ribbon => ({
+            ...getRibbonAngles(ribbon, true),
+            opacity: 0,
+            color: ribbon.source.color,
+        }),
+        enter: ribbon => ({
+            ...getRibbonAngles(ribbon, false),
+            opacity: getOpacity(ribbon),
+            color: ribbon.source.color,
+        }),
+        update: ribbon => ({
+            ...getRibbonAngles(ribbon, false),
+            opacity: getOpacity(ribbon),
+            color: ribbon.source.color,
+        }),
+        leave: ribbon => ({
+            ...getRibbonAngles(ribbon, true),
+            opacity: 0,
+            color: ribbon.source.color,
+        }),
+        unique: true,
+        config: springConfig,
+        immediate: !animate,
+    })
 
-const ribbonWillLeave = springConfig => ({ data: ribbon }) => ({
-    ...getRibbonAngles(ribbon, true, springConfig),
-    opacity: 0,
-    ...interpolateColor(ribbon.source.color, springConfig),
-})
-
-const ChordRibbons = memo(
-    ({
-        ribbons,
-        ribbonGenerator,
-        borderWidth,
-        getBorderColor,
-        getOpacity,
-        blendMode,
-        isInteractive,
-        setCurrent,
-        onMouseEnter,
-        onMouseMove,
-        onMouseLeave,
-        onClick,
-        tooltip,
-    }) => {
-        const { animate, springConfig: _springConfig } = useMotionConfig()
-
-        if (animate !== true) {
-            return (
-                <g>
-                    {ribbons.map(ribbon => {
-                        return (
-                            <ChordRibbon
-                                key={ribbon.id}
-                                ribbon={ribbon}
-                                ribbonGenerator={ribbonGenerator}
-                                sourceStartAngle={ribbon.source.startAngle}
-                                sourceEndAngle={ribbon.source.endAngle}
-                                targetStartAngle={ribbon.target.startAngle}
-                                targetEndAngle={ribbon.target.endAngle}
-                                color={ribbon.source.color}
-                                blendMode={blendMode}
-                                opacity={getOpacity(ribbon)}
-                                borderWidth={borderWidth}
-                                getBorderColor={getBorderColor}
-                                isInteractive={isInteractive}
-                                setCurrent={setCurrent}
-                                onMouseEnter={onMouseEnter}
-                                onMouseMove={onMouseMove}
-                                onMouseLeave={onMouseLeave}
-                                onClick={onClick}
-                                tooltip={tooltip}
-                            />
-                        )
-                    })}
-                </g>
-            )
-        }
-
-        const springConfig = {
-            ..._springConfig,
-            precision: 0.001,
-        }
+    return transitions.map(({ key, item: ribbon, props }) => {
+        const path = interpolate(
+            [
+                props.sourceStartAngle,
+                props.sourceEndAngle,
+                props.targetStartAngle,
+                props.targetEndAngle,
+            ],
+            (sourceStartAngle, sourceEndAngle, targetStartAngle, targetEndAngle) =>
+                ribbonGenerator({
+                    source: {
+                        startAngle: sourceStartAngle,
+                        endAngle: Math.max(sourceEndAngle, sourceStartAngle),
+                    },
+                    target: {
+                        startAngle: targetStartAngle,
+                        endAngle: Math.max(targetEndAngle, targetStartAngle),
+                    },
+                })
+        )
 
         return (
-            <TransitionMotion
-                willEnter={ribbonWillEnter}
-                willLeave={ribbonWillLeave(springConfig)}
-                styles={ribbons.map(ribbon => {
-                    return {
-                        key: ribbon.id,
-                        data: ribbon,
-                        style: {
-                            ...getRibbonAngles(ribbon, false, springConfig),
-                            opacity: spring(getOpacity(ribbon), springConfig),
-                            ...interpolateColor(ribbon.source.color, springConfig),
-                        },
-                    }
-                })}
-            >
-                {interpolatedStyles => (
-                    <>
-                        {interpolatedStyles.map(({ key, style, data: ribbon }) => {
-                            const color = getInterpolatedColor(style)
-
-                            return (
-                                <ChordRibbon
-                                    key={key}
-                                    ribbon={ribbon}
-                                    ribbonGenerator={ribbonGenerator}
-                                    sourceStartAngle={style.sourceStartAngle}
-                                    sourceEndAngle={Math.max(
-                                        style.sourceEndAngle,
-                                        style.sourceStartAngle
-                                    )}
-                                    targetStartAngle={style.targetStartAngle}
-                                    targetEndAngle={Math.max(
-                                        style.targetEndAngle,
-                                        style.targetStartAngle
-                                    )}
-                                    color={color}
-                                    blendMode={blendMode}
-                                    opacity={style.opacity}
-                                    borderWidth={borderWidth}
-                                    getBorderColor={getBorderColor}
-                                    isInteractive={isInteractive}
-                                    setCurrent={setCurrent}
-                                    onMouseEnter={onMouseEnter}
-                                    onMouseMove={onMouseMove}
-                                    onMouseLeave={onMouseLeave}
-                                    onClick={onClick}
-                                    tooltip={tooltip}
-                                />
-                            )
-                        })}
-                    </>
-                )}
-            </TransitionMotion>
+            <ChordRibbon
+                key={key}
+                ribbon={ribbon}
+                animatedProps={{
+                    path,
+                    opacity: props.opacity,
+                    color: props.color,
+                }}
+                color={ribbon.source.color}
+                blendMode={blendMode}
+                opacity={getOpacity(ribbon)}
+                borderWidth={borderWidth}
+                getBorderColor={getBorderColor}
+                isInteractive={isInteractive}
+                setCurrent={setCurrent}
+                onMouseEnter={onMouseEnter}
+                onMouseMove={onMouseMove}
+                onMouseLeave={onMouseLeave}
+                onClick={onClick}
+                tooltip={tooltip}
+            />
         )
-    }
-)
+    })
+}
 
 ChordRibbons.displayName = 'ChordRibbons'
 ChordRibbons.propTypes = {
@@ -204,4 +168,4 @@ ChordRibbons.propTypes = {
     onClick: PropTypes.func,
 }
 
-export default ChordRibbons
+export default memo(ChordRibbons)
