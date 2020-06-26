@@ -151,6 +151,10 @@ capture:
       #   selector: '#chart'
       #   output: ./packages/waffle/doc/waffle-canvas.png
 
+      - path: /funnel
+        selector: '#chart'
+        output: ./packages/funnel/doc/funnel.png
+
       #########################################################################
       #
       #  ICONS
@@ -158,18 +162,18 @@ capture:
       #
       #########################################################################
 
-      - path: /internal/icons/
-        selector: '#funnel-lightNeutral'
-        output: ./website/src/assets/icons/funnel-light-neutral.png
-      - path: /internal/icons/
-        selector: '#funnel-lightColored'
-        output: ./website/src/assets/icons/funnel-light-colored.png
-      - path: /internal/icons/
-        selector: '#funnel-darkNeutral'
-        output: ./website/src/assets/icons/funnel-dark-neutral.png
-      - path: /internal/icons/
-        selector: '#funnel-darkColored'
-        output: ./website/src/assets/icons/funnel-dark-colored.png
+      # - path: /internal/icons/
+      #   selector: '#funnel-lightNeutral'
+      #   output: ./website/src/assets/icons/funnel-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#funnel-lightColored'
+      #   output: ./website/src/assets/icons/funnel-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#funnel-darkNeutral'
+      #   output: ./website/src/assets/icons/funnel-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#funnel-darkColored'
+      #   output: ./website/src/assets/icons/funnel-dark-colored.png
 
       # - path: /internal/icons/
       #   selector: '#area-bump-lightNeutral'
