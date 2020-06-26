@@ -16,16 +16,16 @@ const HomeTreeMap = ({ colors, nivoTheme }) => {
         <HomeItem to="/treemap">
             <ResponsiveTreeMapCanvas
                 margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
-                root={generateLibTree()}
+                data={generateLibTree()}
                 identity="name"
                 value="loc"
+                valueFormat=".02s"
                 colors={colors}
                 leavesOnly={true}
+                borderWidth={0}
                 innerPadding={1}
                 animate={false}
                 isInteractive={false}
-                label="loc"
-                labelFormat=".0s"
                 enableLabel={true}
                 labelTextColor={colors[1]}
                 borderColor="none"
