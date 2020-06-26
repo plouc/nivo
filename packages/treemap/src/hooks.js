@@ -2,6 +2,7 @@ import React, { useCallback, useMemo } from 'react'
 import get from 'lodash/get'
 import omit from 'lodash/omit'
 import cloneDeep from 'lodash/cloneDeep'
+import startCase from 'lodash/startCase'
 import { treemap as d3Treemap, hierarchy } from 'd3-hierarchy'
 import { treeMapTileFromProp, useTheme, useValueFormatter } from '@nivo/core'
 import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
@@ -17,6 +18,8 @@ export const useTreeMapLayout = ({
     outerPadding,
     enableParentLabel,
     parentLabelSize,
+    parentLabelPosition,
+    leavesOnly,
 }) =>
     useMemo(() => {
         const treemap = d3Treemap()
@@ -26,13 +29,23 @@ export const useTreeMapLayout = ({
             .paddingInner(innerPadding)
             .paddingOuter(outerPadding)
 
-        if (enableParentLabel) {
-            const paddingTop = parentLabelSize + innerPadding
-            treemap.paddingTop(() => paddingTop)
+        if (enableParentLabel && !leavesOnly) {
+            const parentLabelPadding = parentLabelSize + outerPadding * 2
+            treemap[`padding${startCase(parentLabelPosition)}`](parentLabelPadding)
         }
 
         return treemap
-    }, [width, height, tile, innerPadding, outerPadding, enableParentLabel, parentLabelSize])
+    }, [
+        width,
+        height,
+        tile,
+        innerPadding,
+        outerPadding,
+        enableParentLabel,
+        parentLabelSize,
+        parentLabelPosition,
+        leavesOnly,
+    ])
 
 export const useHierarchy = ({ root, getValue }) =>
     useMemo(() => hierarchy(root).sum(getValue), [root, getValue])
@@ -68,12 +81,13 @@ export const useTreeMap = ({
     enableParentLabel = TreeMapDefaultProps.enableParentLabel,
     parentLabel = TreeMapDefaultProps.parentLabel,
     parentLabelSize = TreeMapDefaultProps.parentLabelSize,
+    parentLabelPosition = TreeMapDefaultProps.parentLabelPosition,
+    parentLabelPadding = TreeMapDefaultProps.parentLabelPadding,
     colors = TreeMapDefaultProps.colors,
     colorBy = TreeMapDefaultProps.colorBy,
     nodeOpacity = TreeMapDefaultProps.nodeOpacity,
     borderColor = TreeMapDefaultProps.borderColor,
     labelTextColor = TreeMapDefaultProps.labelTextColor,
-    parentLabelBackground = TreeMapDefaultProps.parentLabelBackground,
     parentLabelTextColor = TreeMapDefaultProps.parentLabelTextColor,
 }) => {
     const getIdentity = useAccessor(identity)
@@ -90,6 +104,8 @@ export const useTreeMap = ({
         outerPadding,
         enableParentLabel,
         parentLabelSize,
+        parentLabelPosition,
+        leavesOnly,
     })
 
     const hierarchy = useHierarchy({ root: data, getValue })
@@ -127,17 +143,47 @@ export const useTreeMap = ({
 
                 node.label = getLabel(node)
                 node.parentLabel = getParentLabel(node)
+                node.parentLabelRotation = 0
+
+                if (parentLabelPosition === 'top') {
+                    node.parentLabelX = outerPadding + parentLabelPadding
+                    node.parentLabelY = outerPadding + parentLabelSize / 2
+                }
+                if (parentLabelPosition === 'right') {
+                    node.parentLabelX = node.width - outerPadding - parentLabelSize / 2
+                    node.parentLabelY = node.height - outerPadding - parentLabelPadding
+                    node.parentLabelRotation = -90
+                }
+                if (parentLabelPosition === 'bottom') {
+                    node.parentLabelX = outerPadding + parentLabelPadding
+                    node.parentLabelY = node.height - outerPadding - parentLabelSize / 2
+                }
+                if (parentLabelPosition === 'left') {
+                    node.parentLabelX = outerPadding + parentLabelSize / 2
+                    node.parentLabelY = node.height - outerPadding - parentLabelPadding
+                    node.parentLabelRotation = -90
+                }
 
                 return node
             }),
-        [rawNodes, leavesOnly, getIdentity, formatValue, getLabel, getParentLabel]
+        [
+            rawNodes,
+            leavesOnly,
+            getIdentity,
+            formatValue,
+            getLabel,
+            getParentLabel,
+            parentLabelSize,
+            parentLabelPosition,
+            parentLabelPadding,
+            outerPadding,
+        ]
     )
 
     const theme = useTheme()
     const getColor = useOrdinalColorScale(colors, colorBy)
     const getBorderColor = useInheritedColor(borderColor, theme)
     const getLabelTextColor = useInheritedColor(labelTextColor, theme)
-    const getParentLabelBackground = useInheritedColor(parentLabelBackground, theme)
     const getParentLabelTextColor = useInheritedColor(parentLabelTextColor, theme)
 
     const enhancedNodes = useMemo(
@@ -148,7 +194,6 @@ export const useTreeMap = ({
                 node.color = getColor(node)
                 node.borderColor = getBorderColor(node)
                 node.labelTextColor = getLabelTextColor(node)
-                node.parentLabelBackground = getParentLabelBackground(node)
                 node.parentLabelTextColor = getParentLabelTextColor(node)
 
                 return node
@@ -159,7 +204,6 @@ export const useTreeMap = ({
             nodeOpacity,
             getBorderColor,
             getLabelTextColor,
-            getParentLabelBackground,
             getParentLabelTextColor,
             orientLabel,
         ]

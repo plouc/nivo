@@ -35,12 +35,20 @@ const initialProperties = {
     labelSkipSize: 12,
     labelTextColor: {
         from: 'color',
-        modifiers: [['darker', 1.2]],
+        modifiers: [['darker', 2]],
     },
     orientLabel: TreeMapDefaultProps.orientLabel,
+    enableParentLabel: TreeMapDefaultProps.enableParentLabel,
     parentLabel: TreeMapDefaultProps.parentLabel,
+    parentLabelSize: TreeMapDefaultProps.parentLabelSize,
+    parentLabelPosition: TreeMapDefaultProps.parentLabelPosition,
+    parentLabelPadding: TreeMapDefaultProps.parentLabelPadding,
+    parentLabelTextColor: {
+        from: 'color',
+        modifiers: [['darker', 3]],
+    },
 
-    colors: { scheme: 'red_yellow_blue' },
+    colors: { scheme: 'yellow_orange_red' },
     colorBy: TreeMapDefaultProps.colorBy,
     nodeOpacity: TreeMapDefaultProps.nodeOpacity,
     borderWidth: TreeMapDefaultProps.borderWidth,

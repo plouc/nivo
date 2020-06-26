@@ -11,13 +11,22 @@ import PropTypes from 'prop-types'
 import { animated } from 'react-spring'
 import { useTheme } from '@nivo/core'
 
-const TreeMapNode = ({ node, animatedProps, borderWidth, enableLabel, labelSkipSize }) => {
+const TreeMapNode = ({
+    node,
+    animatedProps,
+    borderWidth,
+    enableLabel,
+    enableParentLabel,
+    labelSkipSize,
+}) => {
     const theme = useTheme()
 
     const showLabel =
         enableLabel &&
         node.isLeaf &&
         (labelSkipSize === 0 || Math.min(node.width, node.height) > labelSkipSize)
+
+    const showParentLabel = enableParentLabel && node.isParent
 
     return (
         <animated.g transform={animatedProps.transform}>
@@ -42,9 +51,24 @@ const TreeMapNode = ({ node, animatedProps, borderWidth, enableLabel, labelSkipS
                         fill: node.labelTextColor,
                         pointerEvents: 'none',
                     }}
+                    fillOpacity={animatedProps.labelOpacity}
                     transform={animatedProps.labelTransform}
                 >
                     {node.label}
+                </animated.text>
+            )}
+            {showParentLabel && (
+                <animated.text
+                    dominantBaseline="central"
+                    style={{
+                        ...theme.labels.text,
+                        fill: node.parentLabelTextColor,
+                        pointerEvents: 'none',
+                    }}
+                    fillOpacity={animatedProps.parentLabelOpacity}
+                    transform={animatedProps.parentLabelTransform}
+                >
+                    {node.parentLabel}
                 </animated.text>
             )}
         </animated.g>

@@ -40,8 +40,8 @@ const commonPropTypes = {
     enableParentLabel: PropTypes.bool.isRequired,
     parentLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     parentLabelSize: PropTypes.number.isRequired,
+    parentLabelPosition: PropTypes.oneOf(['top', 'right', 'bottom', 'left']).isRequired,
     parentLabelPadding: PropTypes.number.isRequired,
-    parentLabelBackground: inheritedColorPropType.isRequired,
     parentLabelTextColor: inheritedColorPropType.isRequired,
 
     borderWidth: PropTypes.number.isRequired,
@@ -78,7 +78,7 @@ const commonDefaultProps = {
     tile: 'squarify',
     leavesOnly: false,
     innerPadding: 0,
-    outerPadding: 3,
+    outerPadding: 0,
 
     colors: { scheme: 'nivo' },
     colorBy: 'pathComponents.1',
@@ -90,11 +90,11 @@ const commonDefaultProps = {
     labelTextColor: { from: 'color', modifiers: [['darker', 1]] },
     orientLabel: true,
 
-    enableParentLabel: false,
+    enableParentLabel: true,
     parentLabel: 'id',
     parentLabelSize: 20,
-    parentLabelPadding: 8,
-    parentLabelBackground: { from: 'color', modifiers: [['brighter', 0.3]] },
+    parentLabelPosition: 'top',
+    parentLabelPadding: 6,
     parentLabelTextColor: { from: 'color', modifiers: [['darker', 1]] },
 
     borderWidth: 1,
