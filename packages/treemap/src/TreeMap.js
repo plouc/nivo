@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { SvgWrapper, withContainer, useDimensions } from '@nivo/core'
+import { SvgWrapper, withContainer, useDimensions, bindDefs } from '@nivo/core'
 import { TreeMapDefaultProps, TreeMapPropTypes } from './props'
 import { useTreeMap } from './hooks'
 import TreeMapNodes from './TreeMapNodes'
@@ -31,6 +31,7 @@ const TreeMap = ({
     borderWidth,
     borderColor,
     defs,
+    fill,
     enableLabel,
     label,
     labelTextColor,
@@ -81,8 +82,10 @@ const TreeMap = ({
         parentLabelTextColor,
     })
 
+    const boundDefs = bindDefs(defs, nodes, fill)
+
     return (
-        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} defs={defs}>
+        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} defs={boundDefs}>
             <TreeMapNodes
                 nodes={nodes}
                 nodeComponent={nodeComponent}
