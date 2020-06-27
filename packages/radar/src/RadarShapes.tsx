@@ -8,7 +8,7 @@
  */
 import React, { CSSProperties, memo, useMemo } from 'react'
 import { lineRadial } from 'd3-shape'
-import { useSprings, animated } from 'react-spring'
+import { useSprings, animated, SpringConfig } from 'react-spring'
 import { useMotionConfig, useTheme, CssMixBlendMode } from '@nivo/core'
 import { useInheritedColor, InheritedColor } from '@nivo/colors'
 import { RadarSerie, BaseRadarDatum } from './hooks'
@@ -41,7 +41,7 @@ export const RadarShapes = memo(
         const lineGenerator = useMemo(() => {
             return lineRadial()
                 .radius(d => radiusScale(d))
-                .angle((d, i) => i * angleStep)
+                .angle((_d, i) => i * angleStep)
                 .curve(curveInterpolator)
         }, [radiusScale, angleStep, curveInterpolator])
 
@@ -51,7 +51,7 @@ export const RadarShapes = memo(
                 path: string | null
                 fill: string
                 stroke: string
-                config?: object
+                config?: Record<string, unknown> | SpringConfig
                 immediate: boolean
             },
             CSSProperties & { path: string }
@@ -87,3 +87,5 @@ export const RadarShapes = memo(
         )
     }
 )
+
+RadarShapes.displayName = 'RadarShapes'

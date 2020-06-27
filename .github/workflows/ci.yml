@@ -31,10 +31,5 @@ jobs:
             node_modules
             */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
-      - run: yarn install --frozen-lockfile
-      - run: make bootstrap
-      - run: make packages-build
-      - run: make fmt-check
-      - run: make packages-lint
-      - run: make packages-tslint
-      - run: make packages-test
+      - run: make init
+      - run: make test
