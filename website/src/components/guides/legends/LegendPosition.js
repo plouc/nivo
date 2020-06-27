@@ -21,6 +21,7 @@ import {
     ANCHOR_CENTER,
 } from '@nivo/legends'
 import { useTheme } from '../../../theming/context'
+import { Title2 } from '../../titles'
 
 const anchors = [
     ANCHOR_TOP_LEFT,
@@ -72,7 +73,7 @@ const LegendPosition = () => {
 
     return (
         <div>
-            <h2>Legend position</h2>
+            <Title2 id="position">Legend position</Title2>
             <p>
                 The legend can be positioned in your chart area using the <code>anchor</code>{' '}
                 property.

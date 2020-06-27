@@ -9,8 +9,9 @@
 import React from 'react'
 import { ThemeProvider, MotionConfigProvider } from '@nivo/core'
 import { Axis } from '@nivo/axes'
-import { linearXScale, pointXScale, timeXScale, timeXScaleHours } from './scales'
+import { Title2, Title3 } from '../../titles'
 import { FullWidthBanner, DescriptionBlock } from '../../styled'
+import { linearXScale, pointXScale, timeXScale, timeXScaleHours } from './scales'
 import { useAxisTheme } from './theme'
 
 const AxesTicks = () => {
@@ -19,7 +20,7 @@ const AxesTicks = () => {
     return (
         <>
             <DescriptionBlock>
-                <h2 id="ticks">Axis ticks</h2>
+                <Title2 id="ticks">Axis ticks</Title2>
                 <p>
                     Axes are composed of <strong>ticks</strong>, you can control the way they are
                     computed and their aspect. By default, computing which ticks are displayed is
@@ -33,7 +34,7 @@ const AxesTicks = () => {
                     </a>
                     .
                 </p>
-                <h3 id="ticks-values">Ticks values</h3>
+                <Title3 id="ticks-values">Ticks values</Title3>
                 <p>
                     You can use the <code>tickValues</code> property in order to customize the
                     displayed ticks, it accepts several forms:

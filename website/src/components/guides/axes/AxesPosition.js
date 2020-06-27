@@ -9,8 +9,9 @@
 import React from 'react'
 import { ThemeProvider, MotionConfigProvider } from '@nivo/core'
 import { Axes } from '@nivo/axes'
-import { linearXScale, linearYScale } from './scales'
+import { Title2 } from '../../titles'
 import { FullWidthBanner, DescriptionBlock } from '../../styled'
+import { linearXScale, linearYScale } from './scales'
 import { useAxisTheme } from './theme'
 
 const AxesPosition = () => {
@@ -19,7 +20,7 @@ const AxesPosition = () => {
     return (
         <>
             <DescriptionBlock>
-                <h2 id="position">Axis position</h2>
+                <Title2 id="position">Axis position</Title2>
                 <p>
                     Axis position is determined by the property you use{' '}
                     <strong>(top|right|bottom|left)Axis</strong>.

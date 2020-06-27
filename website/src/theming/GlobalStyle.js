@@ -54,6 +54,7 @@ export default isCapturing => create`
     h2, h3, h4, h5, h6 {
         font-weight: 600;
         color: ${({ theme }) => theme.colors.titleText};
+        position: relative;
     }
     h2 {
         font-size: 1.4rem;

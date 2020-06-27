@@ -9,6 +9,7 @@
 import React from 'react'
 import { BoxLegendSvg } from '@nivo/legends'
 import { useTheme } from '../../../theming/context'
+import { Title2 } from '../../titles'
 
 const legendProps = {
     containerWidth: 800,
@@ -22,7 +23,7 @@ const LegendDirection = () => {
 
     return (
         <div>
-            <h2>Legend direction</h2>
+            <Title2 id="direction">Legend direction</Title2>
             <p>
                 Legends support two directions, using the <code>direction</code> property,{' '}
                 <code>column</code> or <code>row</code>.

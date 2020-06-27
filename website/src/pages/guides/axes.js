@@ -14,6 +14,7 @@ import PageContent from '../../components/PageContent'
 import AxesPosition from '../../components/guides/axes/AxesPosition'
 import AxesTicks from '../../components/guides/axes/AxesTicks'
 import AxesLegend from '../../components/guides/axes/AxesLegend'
+import { Title2 } from '../../components/titles'
 import { DescriptionBlock } from '../../components/styled'
 
 export default class Axes extends Component {
@@ -27,7 +28,7 @@ export default class Axes extends Component {
                     </div>
                 </PageContent>
                 <DescriptionBlock>
-                    <h2>Using axes in nivo components</h2>
+                    <Title2>Using axes in nivo components</Title2>
                     <p>
                         Axes are built on top of{' '}
                         <a

@@ -41,7 +41,7 @@ const props = [
     {
         key: 'xScale',
         type: 'object',
-        help: `X scale configuration.`,
+        help: `X scale configuration, see [dedicated guide for scales](self:/guides/scales).`,
         group: 'Base',
         controlType: 'object',
         controlOptions: {
@@ -108,7 +108,7 @@ const props = [
         key: 'yScale',
         group: 'Base',
         type: 'object',
-        help: `Y scale configuration.`,
+        help: `Y scale configuration, see [dedicated guide for scales](self:/guides/scales).`,
         controlType: 'object',
         controlOptions: {
             props: [
