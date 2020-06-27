@@ -82,15 +82,15 @@ const Container = ({
     )
 }
 
-Container.propTypes = {
-    children: PropTypes.node.isRequired,
-    theme: PropTypes.object,
-    animate: MotionConfigProvider.propTypes.animate,
-    motionStiffness: MotionConfigProvider.propTypes.stiffness,
-    motionDamping: MotionConfigProvider.propTypes.damping,
-    motionConfig: MotionConfigProvider.propTypes.config,
-    renderWrapper: PropTypes.bool,
-}
+// Container.propTypes = {
+//     children: PropTypes.node.isRequired,
+//     theme: PropTypes.object,
+//     animate: MotionConfigProvider.propTypes.animate,
+//     motionStiffness: MotionConfigProvider.propTypes.stiffness,
+//     motionDamping: MotionConfigProvider.propTypes.damping,
+//     motionConfig: MotionConfigProvider.propTypes.config,
+//     renderWrapper: PropTypes.bool,
+// }
 
 export const withContainer = WrappedComponent => {
     // eslint-disable-next-line react/display-name
