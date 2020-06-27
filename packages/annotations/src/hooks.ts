@@ -8,8 +8,14 @@
  */
 import { useMemo } from 'react'
 import { bindAnnotations, computeAnnotation } from './compute'
+import { AnnotationDatum, AnnotationProps, UseAnnotationsProps, ContainerDimensions } from './types'
 
-export const useAnnotations = ({ items, annotations, getPosition, getDimensions }) =>
+export const useAnnotations = <Datum extends AnnotationDatum>({
+    items,
+    annotations,
+    getPosition,
+    getDimensions,
+}: UseAnnotationsProps<Datum>) =>
     useMemo(
         () =>
             bindAnnotations({
@@ -21,62 +27,39 @@ export const useAnnotations = ({ items, annotations, getPosition, getDimensions 
         [items, annotations, getPosition, getDimensions]
     )
 
-export const useComputedAnnotations = ({ annotations, containerWidth, containerHeight }) =>
+export const useComputedAnnotations = <Datum extends AnnotationDatum>({
+    annotations,
+}: Pick<UseAnnotationsProps<Datum>, 'annotations'>) =>
     useMemo(
         () =>
             annotations.map(annotation => ({
                 ...annotation,
-                computed: computeAnnotation({
-                    containerWidth,
-                    containerHeight,
-                    ...annotation,
-                }),
+                computed: computeAnnotation(annotation as any),
             })),
-        [annotations, containerWidth, containerHeight]
+        [annotations]
     )
 
 export const useComputedAnnotation = ({
-    type,
     containerWidth,
     containerHeight,
     x,
     y,
-    size,
-    width,
-    height,
     noteX,
     noteY,
     noteWidth,
     noteTextOffset,
-}) =>
+    ...props
+}: AnnotationProps & ContainerDimensions) =>
     useMemo(
         () =>
             computeAnnotation({
-                type,
-                containerWidth,
-                containerHeight,
+                ...props,
                 x,
                 y,
-                size,
-                width,
-                height,
                 noteX,
                 noteY,
                 noteWidth,
                 noteTextOffset,
             }),
-        [
-            type,
-            containerWidth,
-            containerHeight,
-            x,
-            y,
-            size,
-            width,
-            height,
-            noteX,
-            noteY,
-            noteWidth,
-            noteTextOffset,
-        ]
+        [props, containerWidth, containerHeight, x, y, noteX, noteY, noteWidth, noteTextOffset]
     )

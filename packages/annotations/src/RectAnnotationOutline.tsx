@@ -7,11 +7,17 @@
  * file that was distributed with this source code.
  */
 import React, { memo } from 'react'
-import PropTypes from 'prop-types'
 import { useSpring, animated } from 'react-spring'
 import { useMotionConfig, useTheme } from '@nivo/core'
 
-const RectAnnotationOutline = memo(({ x, y, width, height }) => {
+interface RectAnnotationOutlineProps {
+    height: number
+    width: number
+    x: number
+    y: number
+}
+
+const RectAnnotationOutline = memo(({ x, y, width, height }: RectAnnotationOutlineProps) => {
     const theme = useTheme()
     const { animate, config: springConfig } = useMotionConfig()
 
@@ -24,21 +30,26 @@ const RectAnnotationOutline = memo(({ x, y, width, height }) => {
         immediate: !animate,
     })
 
+    const {
+        outlineWidth = 0,
+        strokeWidth = 0,
+        outlineColor,
+        ...outline
+    } = theme.annotations.outline
+
     return (
         <>
-            {theme.annotations.outline.outlineWidth > 0 && (
+            {outlineWidth > 0 && (
                 <animated.rect
                     x={animatedProps.x}
                     y={animatedProps.y}
                     width={animatedProps.width}
                     height={animatedProps.height}
                     style={{
-                        ...theme.annotations.outline,
+                        ...outline,
                         fill: 'none',
-                        strokeWidth:
-                            theme.annotations.outline.strokeWidth +
-                            theme.annotations.outline.outlineWidth * 2,
-                        stroke: theme.annotations.outline.outlineColor,
+                        strokeWidth: Number(strokeWidth) + Number(outlineWidth) * 2,
+                        stroke: outlineColor,
                     }}
                 />
             )}
@@ -52,13 +63,5 @@ const RectAnnotationOutline = memo(({ x, y, width, height }) => {
         </>
     )
 })
-
-RectAnnotationOutline.displayName = 'RectAnnotationOutline'
-RectAnnotationOutline.propTypes = {
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-}
 
 export default RectAnnotationOutline

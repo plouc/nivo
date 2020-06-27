@@ -6,13 +6,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo } from 'react'
-import omit from 'lodash/omit'
-import PropTypes from 'prop-types'
+import React, { memo, ReactNode } from 'react'
 import { useSpring, animated } from 'react-spring'
 import { useTheme, useMotionConfig } from '@nivo/core'
+import { AnnotationDatum, AnnotationNoteFn, Position } from './types'
 
-const AnnotationNote = memo(({ datum, x, y, note }) => {
+interface AnnotationNoteProps extends Position {
+    datum: AnnotationDatum
+    note: AnnotationNoteFn | ReactNode
+}
+
+const AnnotationNote = memo(({ datum, x, y, note }: AnnotationNoteProps) => {
     const theme = useTheme()
     const { animate, config: springConfiig } = useMotionConfig()
 
@@ -27,40 +31,29 @@ const AnnotationNote = memo(({ datum, x, y, note }) => {
         return note({ x, y, datum })
     }
 
+    const { outlineWidth = 0, outlineColor, ...text } = theme.annotations.text
+
     return (
         <>
-            {theme.annotations.text.outlineWidth > 0 && (
+            {outlineWidth > 0 && (
                 <animated.text
                     x={animatedProps.x}
                     y={animatedProps.y}
                     style={{
-                        ...theme.annotations.text,
+                        ...text,
                         strokeLinejoin: 'round',
-                        strokeWidth: theme.annotations.text.outlineWidth * 2,
-                        stroke: theme.annotations.text.outlineColor,
+                        strokeWidth: Number(outlineWidth) * 2,
+                        stroke: outlineColor,
                     }}
                 >
                     {note}
                 </animated.text>
             )}
-            <animated.text
-                x={animatedProps.x}
-                y={animatedProps.y}
-                style={omit(theme.annotations.text, ['outlineWidth', 'outlineColor'])}
-            >
+            <animated.text x={animatedProps.x} y={animatedProps.y} style={text}>
                 {note}
             </animated.text>
         </>
     )
 })
-
-AnnotationNote.displayName = 'AnnotationNote'
-AnnotationNote.propTypes = {
-    datum: PropTypes.object.isRequired,
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-    note: PropTypes.oneOfType([PropTypes.node, PropTypes.func]).isRequired,
-}
-AnnotationNote.defaultProps = {}
 
 export default AnnotationNote

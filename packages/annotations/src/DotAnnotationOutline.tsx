@@ -7,11 +7,16 @@
  * file that was distributed with this source code.
  */
 import React, { memo } from 'react'
-import PropTypes from 'prop-types'
 import { useSpring, animated } from 'react-spring'
 import { useMotionConfig, useTheme } from '@nivo/core'
 
-const CircleAnnotationOutline = memo(({ x, y, size }) => {
+interface DotAnnotationOutlineProps {
+    size?: number
+    x: number
+    y: number
+}
+
+const DotAnnotationOutline = memo(({ x, y, size = 4 }: DotAnnotationOutlineProps) => {
     const theme = useTheme()
     const { animate, config: springConfig } = useMotionConfig()
 
@@ -23,20 +28,20 @@ const CircleAnnotationOutline = memo(({ x, y, size }) => {
         immediate: !animate,
     })
 
+    const { outlineWidth = 0, outlineColor, ...outline } = theme.annotations.outline
+
     return (
         <>
-            {theme.annotations.outline.outlineWidth > 0 && (
+            {outlineWidth > 0 && (
                 <animated.circle
                     cx={animatedProps.x}
                     cy={animatedProps.y}
                     r={animatedProps.radius}
                     style={{
-                        ...theme.annotations.outline,
+                        ...outline,
                         fill: 'none',
-                        strokeWidth:
-                            theme.annotations.outline.strokeWidth +
-                            theme.annotations.outline.outlineWidth * 2,
-                        stroke: theme.annotations.outline.outlineColor,
+                        strokeWidth: Number(outlineWidth) * 2,
+                        stroke: outlineColor,
                     }}
                 />
             )}
@@ -44,17 +49,10 @@ const CircleAnnotationOutline = memo(({ x, y, size }) => {
                 cx={animatedProps.x}
                 cy={animatedProps.y}
                 r={animatedProps.radius}
-                style={theme.annotations.outline}
+                style={theme.annotations.symbol}
             />
         </>
     )
 })
 
-CircleAnnotationOutline.displayName = 'CircleAnnotationOutline'
-CircleAnnotationOutline.propTypes = {
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-    size: PropTypes.number.isRequired,
-}
-
-export default CircleAnnotationOutline
+export default DotAnnotationOutline

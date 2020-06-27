@@ -6,27 +6,46 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import isPlainObject from 'lodash/isPlainObject'
-import filter from 'lodash/filter'
-import omit from 'lodash/omit'
+import { filter, omit } from 'lodash'
 import {
     radiansToDegrees,
     absoluteAngleDegrees,
     degreesToRadians,
     positionFromAngle,
 } from '@nivo/core'
-import { defaultProps } from './props'
+import { annotationDefaults } from './Annotation'
+import {
+    AnnotationProps,
+    AnnotationDatum,
+    AnnotationItem,
+    Position,
+    UseAnnotationsProps,
+} from './types'
 
-const defaultPositionAccessor = item => ({ x: item.x, y: item.y })
+const defaultPositionAccessor = <T extends AnnotationDatum>(item: T): Position => ({
+    x: item.x,
+    y: item.y,
+})
 
-export const bindAnnotations = ({
+export interface ComputedAnnotation extends Omit<AnnotationItem, 'match' | 'offset'> {
+    datum: AnnotationDatum
+    size: number
+}
+
+const isDatum = (item: unknown): item is AnnotationDatum => item !== undefined
+
+export const bindAnnotations = <Datum extends AnnotationDatum>({
     items,
     annotations,
     getPosition = defaultPositionAccessor,
     getDimensions,
-}) =>
-    annotations.reduce((acc, annotation) => {
+}: UseAnnotationsProps<Datum>) =>
+    annotations.reduce<ComputedAnnotation[]>((acc, annotation) => {
         filter(items, annotation.match).forEach(item => {
+            if (!isDatum(item)) {
+                return
+            }
+
             const position = getPosition(item)
             const dimensions = getDimensions(item, annotation.offset || 0)
 
@@ -42,39 +61,39 @@ export const bindAnnotations = ({
         return acc
     }, [])
 
-export const getLinkAngle = (sourceX, sourceY, targetX, targetY) => {
+export const getLinkAngle = (
+    sourceX: number,
+    sourceY: number,
+    targetX: number,
+    targetY: number
+) => {
     const angle = Math.atan2(targetY - sourceY, targetX - sourceX)
     return absoluteAngleDegrees(radiansToDegrees(angle))
 }
 
 export const computeAnnotation = ({
-    type,
-    // containerWidth,
-    // containerHeight,
-    x,
-    y,
-    size,
-    width,
-    height,
+    x = 0,
+    y = 0,
     noteX,
     noteY,
-    noteWidth = defaultProps.noteWidth,
-    noteTextOffset = defaultProps.noteTextOffset,
-}) => {
-    let computedNoteX
-    let computedNoteY
+    noteWidth = annotationDefaults.noteWidth,
+    noteTextOffset = annotationDefaults.noteTextOffset,
+    ...props
+}: AnnotationProps) => {
+    let computedNoteX = 0
+    let computedNoteY = 0
 
-    if (isPlainObject(noteX)) {
+    if (typeof noteX !== 'number') {
         if (noteX.abs !== undefined) {
-            computedNoteX = noteX.abs
+            computedNoteX = Number(noteX.abs)
         }
     } else {
         computedNoteX = x + noteX
     }
 
-    if (isPlainObject(noteY)) {
+    if (typeof noteY !== 'number') {
         if (noteY.abs !== undefined) {
-            computedNoteY = noteY.abs
+            computedNoteY = Number(noteY.abs)
         }
     } else {
         computedNoteY = y + noteY
@@ -85,14 +104,15 @@ export const computeAnnotation = ({
 
     const angle = getLinkAngle(x, y, computedNoteX, computedNoteY)
 
-    if (type === 'circle') {
-        const position = positionFromAngle(degreesToRadians(angle), size / 2)
+    if (props.type === 'circle') {
+        const position = positionFromAngle(degreesToRadians(angle), props.size / 2)
         computedX += position.x
         computedY += position.y
     }
 
-    if (type === 'rect') {
+    if (props.type === 'rect') {
         const eighth = Math.round((angle + 90) / 45) % 8
+        const { height, width } = props
         if (eighth === 0) {
             computedY -= height / 2
         }
@@ -124,10 +144,10 @@ export const computeAnnotation = ({
     }
 
     let textX = computedNoteX
-    let textY = computedNoteY - noteTextOffset
+    const textY = computedNoteY - noteTextOffset
 
     let noteLineX = computedNoteX
-    let noteLineY = computedNoteY
+    const noteLineY = computedNoteY
 
     if ((angle + 90) % 360 > 180) {
         textX -= noteWidth

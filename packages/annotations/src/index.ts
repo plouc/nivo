@@ -6,8 +6,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-export { default as Annotation } from './Annotation'
+export * from './Annotation'
 export * from './canvas'
 export * from './compute'
 export * from './hooks'
-export * from './props'
+export * from './types'
