@@ -8,6 +8,7 @@ import cleanup from 'rollup-plugin-cleanup'
 
 // required while migrating packages to TypeScript
 const typescriptPackages = [
+    'annotations',
     'axes',
     'colors',
     'core',

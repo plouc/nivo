@@ -7,11 +7,15 @@
  * file that was distributed with this source code.
  */
 import React, { memo } from 'react'
-import PropTypes from 'prop-types'
 import { useSpring, animated } from 'react-spring'
 import { useTheme, useMotionConfig } from '@nivo/core'
 
-const AnnotationLink = memo(({ points, isOutline }) => {
+export interface AnnotationLinkProps {
+    points: number[][]
+    isOutline?: boolean
+}
+
+const AnnotationLink = memo(({ points, isOutline = false }: AnnotationLinkProps) => {
     const theme = useTheme()
 
     let path = `M${points[0][0]},${points[0][1]}`
@@ -25,29 +29,20 @@ const AnnotationLink = memo(({ points, isOutline }) => {
         config: springConfig,
         immediate: !animate,
     })
+    const { outlineWidth = 0, strokeWidth = 0, outlineColor, ...rest } = theme.annotations.link
 
-    if (isOutline && theme.annotations.link.outlineWidth <= 0) {
+    if (isOutline && outlineWidth <= 0) {
         return null
     }
 
-    const style = { ...theme.annotations.link }
+    const style = { ...rest, outlineWidth, strokeWidth, outlineColor }
     if (isOutline) {
         style.strokeLinecap = 'square'
-        style.strokeWidth =
-            theme.annotations.link.strokeWidth + theme.annotations.link.outlineWidth * 2
-        style.stroke = theme.annotations.link.outlineColor
+        style.strokeWidth = Number(strokeWidth) + Number(outlineWidth) * 2
+        style.stroke = outlineColor
     }
 
     return <animated.path fill="none" d={animatedProps.path} style={style} />
 })
-
-AnnotationLink.displayName = 'AnnotationLink'
-AnnotationLink.propTypes = {
-    points: PropTypes.arrayOf(PropTypes.array).isRequired,
-    isOutline: PropTypes.bool.isRequired,
-}
-AnnotationLink.defaultProps = {
-    isOutline: false,
-}
 
 export default AnnotationLink
