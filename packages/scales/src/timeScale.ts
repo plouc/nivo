@@ -50,14 +50,14 @@ export const timeScale = <Range, Output>(
     if (min === 'auto') {
         minValue = values.min
     } else if (format !== 'native') {
-        minValue = normalize(min)
+        minValue = normalize(min as any)
     }
 
     let maxValue = max
     if (max === 'auto') {
         maxValue = values.max
     } else if (format !== 'native') {
-        maxValue = normalize(max)
+        maxValue = normalize(max as any)
     }
 
     const scale = useUTC ? (scaleUtc() as any) : (scaleTime() as any)

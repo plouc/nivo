@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Fragment, ReactNode, useMemo } from 'react'
+import React, { ReactNode, useMemo } from 'react'
 import { useSpring, useTransition, animated } from 'react-spring'
 import { useTheme, useMotionConfig } from '@nivo/core'
 import { computeCartesianTicks, getFormatter, TicksSpec } from '../compute'
@@ -140,23 +140,23 @@ export const Axis = <Value extends number | string | Date>({
         immediate: !animate,
     })
 
-    const transitions = useTransition(ticks, tick => tick.key, {
-        initial: tick => ({
+    const transitions = useTransition(ticks, tick => String(tick.key), {
+        initial: (tick: typeof ticks[0]) => ({
             opacity: 1,
             transform: `translate(${tick.x},${tick.y})`,
             textTransform: `translate(${tick.textX},${tick.textY}) rotate(${tickRotation})`,
         }),
-        from: tick => ({
+        from: (tick: typeof ticks[0]) => ({
             opacity: 0,
             transform: `translate(${tick.x},${tick.y})`,
             textTransform: `translate(${tick.textX},${tick.textY}) rotate(${tickRotation})`,
         }),
-        enter: tick => ({
+        enter: (tick: typeof ticks[0]) => ({
             opacity: 1,
             transform: `translate(${tick.x},${tick.y})`,
             textTransform: `translate(${tick.textX},${tick.textY}) rotate(${tickRotation})`,
         }),
-        update: tick => ({
+        update: (tick: typeof ticks[0]) => ({
             opacity: 1,
             transform: `translate(${tick.x},${tick.y})`,
             textTransform: `translate(${tick.textX},${tick.textY}) rotate(${tickRotation})`,
@@ -166,7 +166,7 @@ export const Axis = <Value extends number | string | Date>({
         },
         config: springConfig,
         immediate: !animate,
-    })
+    } as any) // As any because it doesn't recognize `textTransform`
 
     return (
         <animated.g transform={animatedProps.transform} aria-hidden={ariaHidden}>

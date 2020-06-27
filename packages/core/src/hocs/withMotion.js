@@ -8,13 +8,10 @@
  */
 import compose from 'recompose/compose'
 import defaultProps from 'recompose/defaultProps'
-import setPropTypes from 'recompose/setPropTypes'
-import { motionPropTypes } from '../motion'
 import { defaultAnimate, defaultMotionDamping, defaultMotionStiffness } from '../defaults'
 
 export default () =>
     compose(
-        setPropTypes(motionPropTypes),
         defaultProps({
             animate: defaultAnimate,
             motionDamping: defaultMotionDamping,

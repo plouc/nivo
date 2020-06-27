@@ -53,8 +53,8 @@ export const Grid = <X extends number | string | Date, Y extends number | string
 
     return (
         <>
-            {xLines && <GridLines type="x" lines={xLines} />}
-            {yLines && <GridLines type="y" lines={yLines} />}
+            {xLines && <GridLines lines={xLines} />}
+            {yLines && <GridLines lines={yLines} />}
         </>
     )
 }
