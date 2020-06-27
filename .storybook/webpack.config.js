@@ -11,6 +11,7 @@ module.exports = ({ config }) => {
                         if (isBabelLoader) {
                             return {
                                 ...rule,
+                                test: /\.(j|t)sx?$/,
                                 use: rule.use.map(use => {
                                     if (use.loader === 'babel-loader') {
                                         return {
@@ -18,6 +19,7 @@ module.exports = ({ config }) => {
                                             options: {
                                                 ...use.options,
                                                 babelrc: false,
+                                                presets: [['react-app', { flow: false, typescript: true }]],
                                             }
                                         }
                                     }
@@ -38,8 +40,9 @@ module.exports = ({ config }) => {
                     test: /\.stories\.jsx?$/,
                     loaders: [require.resolve('@storybook/addon-storysource/loader')],
                     enforce: 'pre',
-                }
-            ]
-        }
+                },
+            ],
+        },
+        resolve: { extensions: config.resolve.extensions.concat('.ts', '.tsx') },
     }
 }
