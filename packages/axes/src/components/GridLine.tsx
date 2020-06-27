@@ -10,12 +10,10 @@ import React from 'react'
 import { animated } from 'react-spring'
 import { useTheme } from '@nivo/core'
 
-export interface GridLineProps extends React.SVGProps<SVGLineElement> {
+export interface GridLineProps {
     animatedProps: object
 }
 
-// Using any because it's also possible to pass styles from the theme,
-// which uses generic CSS properties for now
 export const GridLine = ({ animatedProps }: GridLineProps) => {
     const theme = useTheme()
 

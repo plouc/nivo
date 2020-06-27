@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Fragment, ReactNode, useMemo } from 'react'
+import React, { ReactNode, useMemo } from 'react'
 import { useSpring, useTransition, animated } from 'react-spring'
 import { useTheme, useMotionConfig } from '@nivo/core'
 import { computeCartesianTicks, getFormatter, TicksSpec } from '../compute'
@@ -26,28 +26,6 @@ export interface AxisProp<Value extends number | string | Date> {
     legendPosition?: AxisLegendPosition
     legendOffset?: number
 }
-
-const willEnter = () => ({
-    rotate: 0,
-    opacity: 0,
-    x: 0,
-    y: 0,
-})
-
-const willLeave = (springConfig: SpringHelperConfig) => ({
-    style: { x, y, rotate },
-}: {
-    style: {
-        x: { val: number }
-        y: { val: number }
-        rotate: number
-    }
-}) => ({
-    rotate,
-    opacity: spring(0, springConfig),
-    x: spring(x.val, springConfig),
-    y: spring(y.val, springConfig),
-})
 
 const defaultTickRenderer = <Value extends number | string | Date>(props: AxisTickProps<Value>) => (
     <AxisTick<Value> {...props} />
@@ -160,23 +138,23 @@ export const Axis = <Value extends number | string | Date>({
         immediate: !animate,
     })
 
-    const transitions = useTransition(ticks, tick => tick.key, {
-        initial: tick => ({
+    const transitions = useTransition(ticks, tick => String(tick.key), {
+        initial: (tick: typeof ticks[0]) => ({
             opacity: 1,
             transform: `translate(${tick.x},${tick.y})`,
             textTransform: `translate(${tick.textX},${tick.textY}) rotate(${tickRotation})`,
         }),
-        from: tick => ({
+        from: (tick: typeof ticks[0]) => ({
             opacity: 0,
             transform: `translate(${tick.x},${tick.y})`,
             textTransform: `translate(${tick.textX},${tick.textY}) rotate(${tickRotation})`,
         }),
-        enter: tick => ({
+        enter: (tick: typeof ticks[0]) => ({
             opacity: 1,
             transform: `translate(${tick.x},${tick.y})`,
             textTransform: `translate(${tick.textX},${tick.textY}) rotate(${tickRotation})`,
         }),
-        update: tick => ({
+        update: (tick: typeof ticks[0]) => ({
             opacity: 1,
             transform: `translate(${tick.x},${tick.y})`,
             textTransform: `translate(${tick.textX},${tick.textY}) rotate(${tickRotation})`,
@@ -186,7 +164,7 @@ export const Axis = <Value extends number | string | Date>({
         },
         config: springConfig,
         immediate: !animate,
-    })
+    } as any) // As any because it doesn't recognize `textTransform`
 
     return (
         <animated.g transform={animatedProps.transform}>

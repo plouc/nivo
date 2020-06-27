@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from 'react'
 import ResizeObserver from 'resize-observer-polyfill'
 
 export const useMeasure = () => {
-    const measureRef = useRef(null)
+    const measureRef = useRef<HTMLDivElement>(null)
     const [bounds, setBounds] = useState({
         left: 0,
         top: 0,
@@ -19,5 +19,5 @@ export const useMeasure = () => {
         return () => observer.disconnect()
     }, [])
 
-    return [measureRef, bounds]
+    return [measureRef, bounds] as const
 }

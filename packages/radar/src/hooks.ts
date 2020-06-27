@@ -78,10 +78,7 @@ export const useRadar = <Datum extends BaseRadarDatum>({
     const maxYValue = maxValue !== 'auto' ? maxValue : Math.max(...yValues)
 
     const radiusScale = useMemo(
-        () =>
-            scaleLinear<number, number>()
-                .domain([0, maxYValue])
-                .range([0, radius]),
+        () => scaleLinear<number, number>().domain([0, maxYValue]).range([0, radius]),
         [maxYValue, radius]
     )
 
@@ -168,5 +165,6 @@ export const useRadar = <Datum extends BaseRadarDatum>({
         angleStep,
         shapeGenerator,
         sliceGenerator,
+        radiusScale,
     }
 }

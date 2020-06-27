@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react'
+import { CSSProperties, SVGAttributes } from 'react'
 
 export interface Theme {
     background: string
@@ -18,7 +18,7 @@ export interface Theme {
         }
     }
     grid: {
-        line: CSSProperties
+        line: SVGAttributes<unknown>
     }
     legends: {
         text: CSSProperties

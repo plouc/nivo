@@ -11,8 +11,10 @@ import { Arc, LineRadial } from 'd3-shape'
 import {
     withContainer,
     useDimensions,
+    useCurveInterpolation,
     SvgWrapper,
     ClosedCurveInterpolationId,
+    CurveInterpolationId,
     CssMixBlendMode,
 } from '@nivo/core'
 import { OrdinalColorScale, InheritedColor, OrdinalColorScaleScheme } from '@nivo/colors'
@@ -52,6 +54,7 @@ export type RadarLayer<Datum extends BaseRadarDatum> =
 export interface RadarProps<Datum extends BaseRadarDatum> {
     data: RadarData<Datum>
     maxValue?: number | 'auto'
+    curve?: CurveInterpolationId
     width: number
     height: number
     margin?: {
@@ -94,6 +97,7 @@ export const radarDefaults = {
     shapeInterpolation: 'linearClosed' as ClosedCurveInterpolationId,
     borderWidth: 2,
     borderColor: { from: 'color' },
+    curve: 'linearClosed' as CurveInterpolationId,
     gridLevels: 5,
     gridShape: 'circular' as RadarGridShape,
     gridLabelOffset: 16,
@@ -120,6 +124,7 @@ export function Radar<Datum extends BaseRadarDatum>({
     height,
     data,
     maxValue = radarDefaults.maxValue,
+    curve = radarDefaults.curve,
     shapeInterpolation = radarDefaults.shapeInterpolation,
     margin: partialMargin,
     borderWidth = radarDefaults.borderWidth,
@@ -156,6 +161,7 @@ export function Radar<Datum extends BaseRadarDatum>({
         series,
         slices,
         radius,
+        radiusScale,
         centerX,
         centerY,
         angleStep,
@@ -176,6 +182,8 @@ export function Radar<Datum extends BaseRadarDatum>({
         color: serie.color,
     }))
 
+    const curveInterpolator = useCurveInterpolation(curve)
+
     const layerById = {
         grid: (
             <RadarGrid
@@ -189,9 +197,11 @@ export function Radar<Datum extends BaseRadarDatum>({
             />
         ),
         shapes: (
-            <RadarShapes<Datum>
+            <RadarShapes
                 series={series}
-                shapeGenerator={shapeGenerator}
+                radiusScale={radiusScale}
+                angleStep={angleStep}
+                curveInterpolator={curveInterpolator}
                 borderWidth={borderWidth}
                 borderColor={borderColor}
                 fillOpacity={fillOpacity}

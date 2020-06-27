@@ -42,7 +42,7 @@ import {
 import { timeFormat } from 'd3-time-format'
 import { format as d3Format } from 'd3-format'
 import { textPropsByEngine } from '@nivo/core'
-import { GridLineProps } from './components/GridLine'
+import { Line } from './components/GridLines'
 
 export const centerScale = <Value extends number | string | Date>(scale: any) => {
     const bandwidth = scale.bandwidth()
@@ -110,7 +110,7 @@ export const getScaleTicks = <Value extends number | string | Date>(
         }
 
         // specific tick count
-        if (isInteger(spec)) {
+        if (isNumber(spec)) {
             return scale.ticks(spec)
         }
 
@@ -242,7 +242,7 @@ export const computeGridLines = <Value extends number | string | Date>({
     scale: any
     axis: 'x' | 'y'
     values?: TicksSpec<Value>
-}): GridLineProps[] => {
+}): Line[] => {
     const lineValues = Array.isArray(_values) ? (_values as Value[]) : undefined
     const lineCount = isNumber(_values) ? _values : undefined
 
@@ -250,24 +250,25 @@ export const computeGridLines = <Value extends number | string | Date>({
 
     const position = scale.bandwidth ? centerScale(scale) : scale
 
-    let lines: GridLineProps[] = []
-    if (axis === 'x') {
-        lines = values.map(v => ({
-            key: `${v}`,
-            x1: position(v),
-            x2: position(v),
-            y1: 0,
-            y2: height,
-        }))
-    } else if (axis === 'y') {
-        lines = values.map(v => ({
-            key: `${v}`,
-            x1: 0,
-            x2: width,
-            y1: position(v),
-            y2: position(v),
-        }))
-    }
+    const lines: Line[] = values.map(value => {
+        const key = `${value}`
+
+        return axis === 'x'
+            ? {
+                  key,
+                  x1: position(value),
+                  x2: position(value),
+                  y1: 0,
+                  y2: height,
+              }
+            : {
+                  key,
+                  x1: 0,
+                  x2: width,
+                  y1: position(value),
+                  y2: position(value),
+              }
+    })
 
     return lines
 }

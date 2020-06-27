@@ -32,7 +32,7 @@ export const RadarGridLevels = ({ shape, radii, angleStep, dataLength }: RadarGr
         [angleStep]
     )
 
-    const keyFn = (_, i) => `level.${i}`
+    const keyFn = (_: any, i: number) => `level.${i}`
 
     if (shape === 'circular') {
         transitions = useTransition<number, SVGAttributes<unknown>>(radii, keyFn as any, {
@@ -43,27 +43,41 @@ export const RadarGridLevels = ({ shape, radii, angleStep, dataLength }: RadarGr
             immediate: !animate,
         })
 
-        return transitions.map(({ props: animatedProps, key }) => (
-            <animated.circle
-                key={key}
-                fill="none"
-                r={animatedProps.radius.interpolate(v => Math.max(v, 0))}
-                {...theme.grid.line}
-            />
-        ))
+        return (
+            <>
+                {transitions.map(({ props: animatedProps, key }) => (
+                    <animated.circle
+                        key={key}
+                        fill="none"
+                        r={animatedProps.radius?.interpolate(v =>
+                            Math.max(Number(v?.getValue() ?? 0), 0)
+                        )}
+                        {...theme.grid.line}
+                    />
+                ))}
+            </>
+        )
     }
 
     const points = Array.from({ length: dataLength }, (_, i) => i)
 
-    transitions = useTransition<number, SVGAttributes<unknown>>(radii, keyFn as any, {
-        enter: radius => ({ path: radarLineGenerator.radius(radius)(points as any) }),
-        update: radius => ({ path: radarLineGenerator.radius(radius)(points as any) }),
-        leave: { path: radarLineGenerator.radius(0)(points as any) },
-        config: springConfig,
-        immediate: !animate,
-    } as any)
+    transitions = useTransition<number, SVGAttributes<unknown> & { path: string }>(
+        radii,
+        keyFn as any,
+        {
+            enter: (radius: any) => ({ path: radarLineGenerator.radius(radius)(points as any) }),
+            update: (radius: any) => ({ path: radarLineGenerator.radius(radius)(points as any) }),
+            leave: { path: radarLineGenerator.radius(0)(points as any) },
+            config: springConfig,
+            immediate: !animate,
+        } as any
+    )
 
-    return transitions.map(({ props: animatedProps, key }) => (
-        <animated.path key={key} fill="none" d={animatedProps.path} {...theme.grid.line} />
-    ))
+    return (
+        <>
+            {transitions.map(({ props: animatedProps, key }) => (
+                <animated.path key={key} fill="none" d={animatedProps.path} {...theme.grid.line} />
+            ))}
+        </>
+    )
 }

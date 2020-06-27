@@ -9,10 +9,18 @@
 import React from 'react'
 import { useTransition } from 'react-spring'
 import { useMotionConfig } from '@nivo/core'
-import { GridLine, GridLineProps } from './GridLine'
+import { GridLine } from './GridLine'
 
 export interface GridLinesProps {
-    lines: GridLineProps[]
+    lines: Line[]
+}
+
+export interface Line {
+    key: string
+    x1: number
+    x2: number
+    y1: number
+    y2: number
 }
 
 export const GridLines = ({ lines }: GridLinesProps) => {

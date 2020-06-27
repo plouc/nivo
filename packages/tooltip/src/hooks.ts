@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { useState, useContext, useCallback, ReactNode } from 'react'
+import { useState, useContext, useCallback, useMemo, ReactNode } from 'react'
 import { TooltipContext } from './context'
 
 export const useTooltipHandlers = (container: any) => {
@@ -68,7 +68,7 @@ export const useTooltipHandlers = (container: any) => {
 }
 
 export const useTooltip = () => {
-    const context = useContext(tooltipContext)
+    const context = useContext(TooltipContext)
 
     const memoizedContext = useMemo(() => {
         return {

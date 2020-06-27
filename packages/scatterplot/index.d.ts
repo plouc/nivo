@@ -152,7 +152,7 @@ declare module '@nivo/scatterplot' {
     }
 
     export interface ScatterPlotSvgProps extends ScatterPlotProps, MotionProps {
-        layers?: (CustomLayerId | CustomSvgLayer)[]
+        layers?: Array<CustomLayerId | CustomSvgLayer>
         renderNode?: NodeComponent
         markers?: CartesianMarkerProps[]
     }
@@ -162,7 +162,7 @@ declare module '@nivo/scatterplot' {
 
     export interface ScatterPlotCanvasProps extends ScatterPlotProps {
         pixelRatio?: number
-        layers?: (CustomLayerId | CustomCanvasLayer)[]
+        layers?: Array<CustomLayerId | CustomCanvasLayer>
         renderNode?: NodeCanvasComponent
     }
 

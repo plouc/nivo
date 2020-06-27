@@ -1,6 +1,6 @@
 import { camelCase, upperFirst } from 'lodash'
 import { DEFAULT_EXTENSIONS } from '@babel/core'
-import babel from 'rollup-plugin-babel'
+import babel from '@rollup/plugin-babel'
 import resolve from '@rollup/plugin-node-resolve'
 import stripBanner from 'rollup-plugin-strip-banner'
 import typescript from 'rollup-plugin-typescript2'
@@ -63,8 +63,8 @@ const commonPlugins = [
         }),
     babel({
         exclude: 'node_modules/**',
-        externalHelpers: true,
-        presets: ['@nivo/babel-preset'],
+        babelHelpers: 'runtime',
+        presets: ['react-app'],
         // make sure typescript files are processed,
         // see https://github.com/ezolenko/rollup-plugin-typescript2/issues/108
         extensions: [...DEFAULT_EXTENSIONS, '.ts', '.tsx'],

@@ -8,7 +8,11 @@
  */
 import { createContext } from 'react'
 
-export type TooltipContextValue = [any, any]
+export type TooltipContextValue = {
+    showTooltipAt: any
+    showTooltipFromEvent: any
+    hideTooltip: any
+}
 
 // tslint:disable-next-line:variable-name
 export const TooltipContext = createContext<TooltipContextValue>([] as any)
