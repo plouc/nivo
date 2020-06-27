@@ -7,29 +7,27 @@
  * file that was distributed with this source code.
  */
 import React, { createContext, PropsWithChildren, useMemo } from 'react'
-import { config as presets } from 'react-spring'
+import { SpringConfig, config as presets } from 'react-spring'
 import { isString } from 'lodash'
 
 type Preset = 'default' | 'gentle' | 'wobbly' | 'stiff' | 'slow' | 'molasses'
 
-// tslint:disable-next-line:variable-name
 export const MotionConfigContext = createContext<{
     animate: boolean
     springConfig: {
         stiffness: number
         damping: number
     }
-    config?: object
+    config?: Record<string, unknown> | SpringConfig
 }>({} as any)
 
 interface MotionConfigProviderProps {
     animate?: boolean
     stiffness?: number
     damping?: number
-    config?: Preset | object
+    config?: Preset | Record<string, unknown>
 }
 
-// tslint:disable-next-line:variable-name
 export const MotionConfigProvider = ({
     children,
     animate = true,

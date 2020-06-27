@@ -51,3 +51,5 @@ export const TableTooltip = memo(({ title, rows, renderContent }: TableTooltipPr
 
     return <div style={theme.tooltip.container}>{content}</div>
 })
+
+TableTooltip.displayName = 'TableTooltip'

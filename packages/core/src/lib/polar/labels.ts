@@ -17,7 +17,7 @@ export const getPolarLabelProps = (
     // angle (radians)
     angle: number,
     // label rotation (degrees)
-    rotation: number = 0,
+    rotation = 0,
     engine: 'svg' | 'canvas' = 'svg'
 ) => {
     const textProps = textPropsByEngine[engine]

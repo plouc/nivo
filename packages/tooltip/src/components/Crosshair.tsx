@@ -80,3 +80,5 @@ export const Crosshair = memo(({ width, height, type = 'cross', x, y }: Crosshai
         </>
     )
 })
+
+Crosshair.displayName = 'Crosshair'

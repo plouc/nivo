@@ -14,5 +14,4 @@ export type TooltipContextValue = {
     hideTooltip: any
 }
 
-// tslint:disable-next-line:variable-name
 export const TooltipContext = createContext<TooltipContextValue>([] as any)

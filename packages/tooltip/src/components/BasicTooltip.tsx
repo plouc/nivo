@@ -56,3 +56,5 @@ export const BasicTooltip = memo(
         return <div style={theme.tooltip.container}>{content}</div>
     }
 )
+
+BasicTooltip.displayName = 'BasicTooltip'

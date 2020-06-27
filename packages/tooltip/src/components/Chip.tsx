@@ -17,3 +17,5 @@ interface ChipProps {
 export const Chip = memo(({ size = 12, color, style = {} }: ChipProps) => (
     <span style={{ display: 'block', width: size, height: size, background: color, ...style }} />
 ))
+
+Chip.displayName = 'Chip'

@@ -29,5 +29,5 @@ export interface SvgDefsAndFill<T> {
         id: string
         [key: string]: any
     }>
-    fill?: Array<{ id: string; match: object | SvgFillMatcher<T> | '*' }>
+    fill?: Array<{ id: string; match: Record<string, unknown> | SvgFillMatcher<T> | '*' }>
 }

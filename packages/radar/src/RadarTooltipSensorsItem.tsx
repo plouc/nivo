@@ -40,7 +40,7 @@ export function RadarTooltipSensorsItem({
             <TableTooltip
                 title={<strong>{slice.index}</strong>}
                 rows={slice.data.map(datum => [
-                    <Chip color={datum.color} />,
+                    <Chip key={datum.id} color={datum.color} />,
                     datum.id,
                     format ? format(datum.value) : datum.value,
                 ])}

@@ -1,4 +1,4 @@
-parser: babel-eslint
+parser: '@typescript-eslint/parser'
 
 parserOptions:
   ecmaVersion: 6
@@ -14,9 +14,19 @@ env:
 globals:
   global: true
 
+plugins:
+  - '@typescript-eslint'
+
 extends:
   - eslint:recommended
   - plugin:react/recommended
+  - plugin:@typescript-eslint/recommended
+  - prettier/@typescript-eslint
+
+rules:
+  '@typescript-eslint/explicit-module-boundary-types': 'off'
+  '@typescript-eslint/no-empty-interface': 'off'
+  '@typescript-eslint/no-empty-function': 'warn'
 
 settings:
   react:

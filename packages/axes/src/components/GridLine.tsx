@@ -11,7 +11,7 @@ import { animated } from 'react-spring'
 import { useTheme } from '@nivo/core'
 
 export interface GridLineProps {
-    animatedProps: object
+    animatedProps: Record<string, unknown>
 }
 
 export const GridLine = ({ animatedProps }: GridLineProps) => {

@@ -119,38 +119,7 @@ package-lint-%: ##@1 packages run eslint on package
 
 packages-lint: ##@1 packages run eslint on all packages
 	@echo "${YELLOW}Running eslint on all packages${RESET}"
-	@./node_modules/.bin/eslint "./packages/*/{src,tests}/**/*.js"
-
-package-tslint-%: ##@1 packages run tslint on package
-	@echo "${YELLOW}Running tslint on package ${WHITE}@nivo/${*}${RESET}"
-	@./node_modules/.bin/tslint ./packages/${*}/index.d.ts
-
-packages-tslint: ##@1 packages run tslint on all packages
-	@echo "${YELLOW}Running tslint on all packages${RESET}"
-	@./node_modules/.bin/tslint \
-        ./packages/annotations/index.d.ts \
-        ./packages/axes/src/*.ts \
-        ./packages/bar/index.d.ts \
-        ./packages/calendar/index.d.ts \
-        ./packages/chord/index.d.ts \
-        ./packages/colors/src/*.ts \
-        ./packages/core/src/*.ts \
-        ./packages/generators/src/*.ts \
-        ./packages/geo/index.d.ts \
-        ./packages/heatmap/index.d.ts \
-        ./packages/legends/src/*.ts \
-        ./packages/line/index.d.ts \
-        ./packages/network/index.d.ts \
-        ./packages/pie/index.d.ts \
-        ./packages/radar/src/*.ts \
-        ./packages/sankey/index.d.ts \
-        ./packages/scales/src/*.ts \
-        ./packages/scatterplot/index.d.ts \
-        ./packages/stream/index.d.ts \
-        ./packages/swarmplot/index.d.ts \
-        ./packages/tooltip/src/*.ts \
-        ./packages/waffle/index.d.ts \
-        ./packages/voronoi/index.d.ts
+	@./node_modules/.bin/eslint "./packages/*/{src,tests}/**/*.{js,ts,tsx}"
 
 package-test-cover-%: ##@1 packages run tests for a package with code coverage
 	@yarn jest -c ./packages/jest.config.js --rootDir . --coverage ./packages/${*}/tests
