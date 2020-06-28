@@ -21,7 +21,7 @@ export const MotionConfigContext = createContext<{
     config?: Record<string, unknown> | SpringConfig
 }>({} as any)
 
-interface MotionConfigProviderProps {
+export interface MotionConfigProviderProps {
     animate?: boolean
     stiffness?: number
     damping?: number

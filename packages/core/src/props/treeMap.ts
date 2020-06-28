@@ -29,4 +29,5 @@ export const treeMapTilePropKeys = Object.keys(treeMapTilePropMapping)
 
 export const treeMapTilePropType = PropTypes.oneOf(treeMapTilePropKeys)
 
-export const treeMapTileFromProp = prop => treeMapTilePropMapping[prop]
+export const treeMapTileFromProp = (prop: keyof typeof treeMapTilePropMapping) =>
+    treeMapTilePropMapping[prop]

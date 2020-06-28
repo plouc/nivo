@@ -34,7 +34,7 @@ export default ({
             [srcKey]: PropTypes.object.isRequired,
             [valueKey]: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
         }),
-        withPropsOnChange([srcKey, valueKey], props => ({
+        withPropsOnChange([srcKey, valueKey], (props: Record<string, unknown>) => ({
             [destKey]: hierarchy(props[srcKey]).sum(getAccessorFor(props[valueKey])),
         }))
     )
