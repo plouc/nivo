@@ -13,39 +13,55 @@ import ControlsGroup from './ControlsGroup'
 import PropertyHeader from './PropertyHeader'
 import { Cell, Toggle, Help } from './styled'
 
-const ObjectControl = memo(({ property, flavors, currentFlavor, value, props, onChange }) => {
-    const [isOpened, setIsOpened] = useState(false)
-    const toggle = useCallback(() => setIsOpened(flag => !flag), [setIsOpened])
+const ObjectControl = memo(
+    ({
+        property,
+        flavors,
+        currentFlavor,
+        value,
+        props,
+        onChange,
+        context,
+        isOpenedByDefault = false,
+    }) => {
+        const [isOpened, setIsOpened] = useState(isOpenedByDefault)
+        const toggle = useCallback(() => setIsOpened(flag => !flag), [setIsOpened])
 
-    const subProps = useMemo(() =>
-        props.map(prop => ({
-            ...prop,
-            name: prop.key,
-            group: property.group,
-        }))
-    )
+        const subProps = useMemo(() =>
+            props.map(prop => ({
+                ...prop,
+                name: prop.key,
+                group: property.group,
+            }))
+        )
 
-    return (
-        <>
-            <Header isOpened={isOpened} onClick={toggle}>
-                <PropertyHeader {...property} />
-                <Help>{property.help}</Help>
-                <Toggle isOpened={isOpened} />
-            </Header>
-            {isOpened && (
-                <ControlsGroup
-                    name={property.key}
-                    flavors={flavors}
-                    currentFlavor={currentFlavor}
-                    controls={subProps}
-                    settings={value}
-                    onChange={onChange}
-                    isNested={true}
-                />
-            )}
-        </>
-    )
-})
+        const newContext = {
+            path: [...(context ? context.path : []), property.key || property.name],
+        }
+
+        return (
+            <>
+                <Header isOpened={isOpened} onClick={toggle}>
+                    <PropertyHeader {...property} context={context} />
+                    <Help>{property.help}</Help>
+                    <Toggle isOpened={isOpened} />
+                </Header>
+                {isOpened && (
+                    <ControlsGroup
+                        name={property.key}
+                        flavors={flavors}
+                        currentFlavor={currentFlavor}
+                        controls={subProps}
+                        settings={value}
+                        onChange={onChange}
+                        isNested={true}
+                        context={newContext}
+                    />
+                )}
+            </>
+        )
+    }
+)
 
 ObjectControl.displayName = 'ObjectControl'
 ObjectControl.propTypes = {
@@ -55,6 +71,7 @@ ObjectControl.propTypes = {
     onChange: PropTypes.func.isRequired,
     value: PropTypes.object.isRequired,
     props: PropTypes.array.isRequired,
+    isOpenedByDefault: PropTypes.bool,
 }
 
 export default ObjectControl

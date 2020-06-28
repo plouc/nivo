@@ -379,8 +379,8 @@ export const guides = [
         label: 'Patterns',
         path: '/guides/patterns',
     },
-    // {
-    //     label: 'Theming',
-    //     path: '/guides/theming',
-    // },
+    {
+        label: 'Theming',
+        path: '/guides/theming',
+    },
 ]
