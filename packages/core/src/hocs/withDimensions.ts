@@ -33,17 +33,17 @@ export default () =>
             margin: marginPropType,
         }),
         withPropsOnChange(
-            (props, nextProps) =>
+            (props: Record<string, unknown>, nextProps: Record<string, unknown>) =>
                 props.width !== nextProps.width ||
                 props.height !== nextProps.height ||
                 !isEqual(props.margin, nextProps.margin),
-            props => {
+            (props: Record<string, unknown>) => {
                 const margin = Object.assign({}, defaultMargin, props.margin)
 
                 return {
                     margin,
-                    width: props.width - margin.left - margin.right,
-                    height: props.height - margin.top - margin.bottom,
+                    width: Number(props.width) - margin.left - margin.right,
+                    height: Number(props.height) - margin.top - margin.bottom,
                     outerWidth: props.width,
                     outerHeight: props.height,
                 }

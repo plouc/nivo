@@ -6,18 +6,24 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component, useRef } from 'react'
-import PropTypes from 'prop-types'
-// import { TooltipContext, useTooltipHandlers, TooltipWrapper } from '@nivo/tooltip'
-import { ThemeProvider } from '../theming'
-import { MotionConfigProvider } from '../motion'
+import React, { Component, ComponentType, PropsWithChildren, useRef } from 'react'
+import { ThemeProvider, PartialTheme } from '../theming'
+import { MotionConfigProvider, MotionConfigProviderProps } from '../motion'
 
 const containerStyle = {
     position: 'relative',
+} as const
+
+export interface WithContainerProps {
+    theme?: PartialTheme
+    renderWrapper?: boolean
+    animate?: MotionConfigProviderProps['animate']
+    motionStiffness?: MotionConfigProviderProps['stiffness']
+    motionDamping?: MotionConfigProviderProps['damping']
+    motionConfig?: MotionConfigProviderProps['config']
 }
 
 const Container = ({
-    /* eslint-disable react/prop-types */
     theme,
     renderWrapper = true,
     children,
@@ -25,8 +31,7 @@ const Container = ({
     motionStiffness,
     motionDamping,
     motionConfig,
-    /* eslint-enable react/prop-types */
-}) => {
+}: PropsWithChildren<WithContainerProps>) => {
     const container = useRef(null)
     // const {
     //     showTooltipAt,
@@ -84,21 +89,10 @@ const Container = ({
     )
 }
 
-// Container.propTypes = {
-//     children: PropTypes.node.isRequired,
-//     theme: PropTypes.object,
-//     animate: MotionConfigProvider.propTypes.animate,
-//     motionStiffness: MotionConfigProvider.propTypes.stiffness,
-//     motionDamping: MotionConfigProvider.propTypes.damping,
-//     motionConfig: MotionConfigProvider.propTypes.config,
-//     renderWrapper: PropTypes.bool,
-// }
-
-export const withContainer = WrappedComponent => {
+export const withContainer = (WrappedComponent: ComponentType<any>) => {
     // eslint-disable-next-line react/display-name
-    return class extends Component {
+    return class extends Component<WithContainerProps & Record<string, unknown>> {
         render() {
-            // eslint-disable-next-line react/prop-types
             const { theme, renderWrapper, ...childProps } = this.props
 
             return (

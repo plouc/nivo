@@ -7,13 +7,13 @@
  * file that was distributed with this source code.
  */
 import withProps from 'recompose/withProps'
-import { curveFromProp } from '../props'
+import { curveFromProp, CurveInterpolationId } from '../props'
 
 /**
  * This HOC transform d3 curve interpolation identifier
  * to its corresponding interpolator.
  */
 export default ({ srcKey = 'curve', destKey = 'curveInterpolator' } = {}) =>
-    withProps(props => ({
+    withProps((props: Record<string, CurveInterpolationId>) => ({
         [destKey]: curveFromProp(props[srcKey]),
     }))

@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
 import compose from 'recompose/compose'
 import setPropTypes from 'recompose/setPropTypes'
 import withPropsOnChange from 'recompose/withPropsOnChange'
-import { defaultTheme, extendDefaultTheme } from '../theming'
+import { defaultTheme, extendDefaultTheme, PartialTheme } from '../theming'
 
 /**
  * This HOC watch theme prop change
@@ -23,7 +23,7 @@ export default ({ srcKey = 'theme', destKey = 'theme' } = {}) =>
         setPropTypes({
             [srcKey]: PropTypes.object,
         }),
-        withPropsOnChange([srcKey], props => ({
+        withPropsOnChange([srcKey], (props: Record<string, PartialTheme>) => ({
             [destKey]: extendDefaultTheme(defaultTheme, props[srcKey]),
         }))
     )
