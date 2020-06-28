@@ -17,6 +17,7 @@ const containerStyle = {
 }
 
 const Container = ({
+    /* eslint-disable react/prop-types */
     theme,
     renderWrapper = true,
     children,
@@ -24,6 +25,7 @@ const Container = ({
     motionStiffness,
     motionDamping,
     motionConfig,
+    /* eslint-enable react/prop-types */
 }) => {
     const container = useRef(null)
     // const {
