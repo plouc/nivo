@@ -8,6 +8,7 @@
  */
 import { AreaBumpDefaultProps as defaults } from '@nivo/bump'
 import {
+    themeProperty,
     axesProperties,
     defsProperties,
     groupProperties,
@@ -137,6 +138,7 @@ const props = [
             step: 0.05,
         },
     },
+    themeProperty,
     {
         key: 'colors',
         group: 'Style',

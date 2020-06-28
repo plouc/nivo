@@ -8,7 +8,7 @@
  */
 import { boxAlignments } from '@nivo/core'
 import { CalendarDefaultProps as defaults } from '@nivo/calendar'
-import { groupProperties } from '../../../lib/componentProperties'
+import { themeProperty, groupProperties } from '../../../lib/componentProperties'
 
 const props = [
     {
@@ -161,10 +161,10 @@ const props = [
             max: 600,
         },
     },
+    themeProperty,
     {
         key: 'colors',
-        help: 'Chart colors.',
-        group: 'Base',
+        group: 'Style',
         help: 'Cell colors.',
         description: `
             An array of colors to be used in conjunction with
@@ -183,7 +183,7 @@ const props = [
         required: false,
         defaultValue: defaults.emptyColor,
         controlType: 'colorPicker',
-        group: 'Base',
+        group: 'Style',
     },
     {
         key: 'pixelRatio',

@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { FunnelDefaultProps as defaults } from '@nivo/funnel'
-import { groupProperties, motionProperties } from '../../../lib/componentProperties'
+import { themeProperty, groupProperties, motionProperties } from '../../../lib/componentProperties'
 
 const props = [
     {
@@ -103,6 +103,7 @@ const props = [
         controlType: 'valueFormat',
         group: 'Base',
     },
+    themeProperty,
     {
         key: 'colors',
         help: 'Defines how to compute parts color.',

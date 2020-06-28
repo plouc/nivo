@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { GeoMapDefaultProps } from '@nivo/geo'
-import { defsProperties } from '../../../lib/componentProperties'
+import { themeProperty, defsProperties } from '../../../lib/componentProperties'
 
 export const props = [
     {
@@ -145,6 +145,7 @@ export const props = [
             ],
         },
     },
+    themeProperty,
     {
         key: 'borderWidth',
         help: 'Control border width.',

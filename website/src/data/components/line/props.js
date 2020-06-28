@@ -9,6 +9,7 @@
 import { lineCurvePropKeys, DotsItemDefaultProps as dotDefaults } from '@nivo/core'
 import { LineDefaultProps as defaults } from '@nivo/line'
 import {
+    themeProperty,
     axesProperties,
     motionProperties,
     getLegendsProps,
@@ -209,6 +210,7 @@ const props = [
             })),
         },
     },
+    themeProperty,
     {
         key: 'colors',
         help: 'Defines color range.',
@@ -362,7 +364,6 @@ const props = [
         required: false,
         defaultValue: defaults.enablePointLabel,
         controlType: 'switch',
-        group: 'Points',
     },
     {
         key: 'pointLabel',

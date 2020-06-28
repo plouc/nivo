@@ -10,12 +10,23 @@ import upperFirst from 'lodash/upperFirst'
 import uniq from 'lodash/uniq'
 import { defaultAnimate, defaultMotionStiffness, defaultMotionDamping } from '@nivo/core'
 
+export const themeProperty = {
+    key: 'theme',
+    group: 'Style',
+    help: 'Define style for common elements such as labels, axes…',
+    description: `
+        Please have a look at [the dedicated guide](self:/guides/theming)
+        on how to define a theme for your charts. 
+    `,
+    required: false,
+}
+
 export const defsProperties = (group, flavors) => [
     {
         key: 'defs',
         group,
         flavors,
-        help: 'Defines patterns and gradients.',
+        help: 'Define patterns and gradients.',
         description: `
             Supports
             [gradients](self:/guides/gradients/) and
@@ -28,7 +39,7 @@ export const defsProperties = (group, flavors) => [
         key: 'fill',
         group,
         flavors,
-        help: 'Defines rules to apply patterns and gradients',
+        help: 'Define rules to apply patterns and gradients',
         description: `
             Supports
             [gradients](self:/guides/gradients/) and

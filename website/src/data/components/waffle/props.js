@@ -8,6 +8,7 @@
  */
 import { WaffleDefaultProps } from '@nivo/waffle'
 import {
+    themeProperty,
     motionProperties,
     defsProperties,
     getLegendsProps,
@@ -159,6 +160,7 @@ const props = [
         controlType: 'margin',
         group: 'Base',
     },
+    themeProperty,
     {
         key: 'cellComponent',
         flavors: ['svg', 'html'],

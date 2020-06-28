@@ -8,7 +8,7 @@
  */
 import { closedCurvePropKeys, DotsItemDefaultProps as dotDefaults } from '@nivo/core'
 import { RadarDefaultProps as defaults, RadarDots } from '@nivo/radar'
-import { motionProperties, groupProperties } from '../../../lib/componentProperties'
+import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
 
 const dotsDefaults = RadarDots.defaultProps
 
@@ -149,6 +149,7 @@ const props = [
         controlType: 'margin',
         group: 'Base',
     },
+    themeProperty,
     {
         key: 'colors',
         help: 'Defines how to compute slice color.',

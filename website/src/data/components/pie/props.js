@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { PieDefaultProps as defaults } from '@nivo/pie'
-import { defsProperties, groupProperties } from '../../../lib/componentProperties'
+import { themeProperty, defsProperties, groupProperties } from '../../../lib/componentProperties'
 
 const props = [
     {
@@ -178,6 +178,7 @@ const props = [
         controlType: 'margin',
         group: 'Base',
     },
+    themeProperty,
     {
         key: 'colors',
         help: 'Defines color range.',

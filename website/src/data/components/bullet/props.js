@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { BulletDefaultProps as defaults } from '@nivo/bullet'
-import { motionProperties, groupProperties } from '../../../lib/componentProperties'
+import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
 
 const props = [
     {
@@ -146,6 +146,7 @@ const props = [
             step: 0.05,
         },
     },
+    themeProperty,
     {
         key: 'rangeComponent',
         flavors: ['svg'],
