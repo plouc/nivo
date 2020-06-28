@@ -7,7 +7,12 @@
  * file that was distributed with this source code.
  */
 import { SwarmPlotDefaultProps } from '@nivo/swarmplot'
-import { motionProperties, axesProperties, groupProperties } from '../../../lib/componentProperties'
+import {
+    themeProperty,
+    motionProperties,
+    axesProperties,
+    groupProperties,
+} from '../../../lib/componentProperties'
 
 const defaults = SwarmPlotDefaultProps
 
@@ -245,6 +250,7 @@ const props = [
             max: 100,
         },
     },
+    themeProperty,
     {
         key: 'colors',
         help: 'Defines how to compute node color.',
@@ -302,7 +308,6 @@ const props = [
         required: false,
         defaultValue: defaults.colorBy,
         controlType: 'choices',
-        group: 'Style',
         controlOptions: {
             choices: ['group', 'id'].map(key => ({
                 label: key,

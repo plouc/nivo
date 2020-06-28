@@ -8,6 +8,7 @@
  */
 import { BarDefaultProps as defaults } from '@nivo/bar'
 import {
+    themeProperty,
     axesProperties,
     motionProperties,
     defsProperties,
@@ -214,6 +215,7 @@ const props = [
         controlType: 'margin',
         group: 'Base',
     },
+    themeProperty,
     {
         key: 'colors',
         help: 'Defines color range.',

@@ -9,6 +9,7 @@
 import { areaCurvePropKeys, stackOrderPropKeys, stackOffsetPropKeys } from '@nivo/core'
 import { StreamDefaultProps as defaults } from '@nivo/stream'
 import {
+    themeProperty,
     axesProperties,
     motionProperties,
     defsProperties,
@@ -109,6 +110,7 @@ const props = [
         controlType: 'margin',
         group: 'Base',
     },
+    themeProperty,
     {
         key: 'colors',
         help: 'Defines how to compute line color.',

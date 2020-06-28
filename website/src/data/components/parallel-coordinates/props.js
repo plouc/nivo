@@ -8,7 +8,7 @@
  */
 import { lineCurvePropKeys } from '@nivo/core'
 import { commonDefaultProps as defaults } from '@nivo/parallel-coordinates'
-import { motionProperties, groupProperties } from '../../../lib/componentProperties'
+import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
 
 const props = [
     {
@@ -218,6 +218,7 @@ const props = [
         controlType: 'margin',
         group: 'Base',
     },
+    themeProperty,
     {
         key: 'colors',
         help: 'Defines color range.',

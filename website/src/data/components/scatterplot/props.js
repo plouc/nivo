@@ -8,6 +8,7 @@
  */
 import { ScatterPlotDefaultProps as defaults } from '@nivo/scatterplot'
 import {
+    themeProperty,
     axesProperties,
     motionProperties,
     getLegendsProps,
@@ -268,6 +269,7 @@ const props = [
         controlType: 'margin',
         group: 'Base',
     },
+    themeProperty,
     {
         key: 'colors',
         group: 'Style',
