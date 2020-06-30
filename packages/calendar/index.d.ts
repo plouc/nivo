@@ -38,8 +38,8 @@ declare module '@nivo/calendar' {
     }
 
     export interface ColorScale {
-        (value: number | { valueOf(): number }): Range;
-        ticks(count?: number): number[];
+        (value: number | { valueOf(): number }): Range
+        ticks(count?: number): number[]
     }
 
     export type CalendarCommonProps = Partial<{
