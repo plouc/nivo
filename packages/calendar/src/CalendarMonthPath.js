@@ -6,21 +6,22 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
-import pure from 'recompose/pure'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 
-const CalendarMonthPath = ({ path, borderWidth, borderColor }) => (
-    <path
-        d={path}
-        style={{
-            fill: 'none',
-            strokeWidth: borderWidth,
-            stroke: borderColor,
-            pointerEvents: 'none',
-        }}
-    />
-)
+const CalendarMonthPath = memo(({ path, borderWidth, borderColor }) => {
+    return (
+        <path
+            d={path}
+            style={{
+                fill: 'none',
+                strokeWidth: borderWidth,
+                stroke: borderColor,
+                pointerEvents: 'none',
+            }}
+        />
+    )
+})
 
 CalendarMonthPath.propTypes = {
     path: PropTypes.string.isRequired,
@@ -28,4 +29,6 @@ CalendarMonthPath.propTypes = {
     borderColor: PropTypes.string.isRequired,
 }
 
-export default pure(CalendarMonthPath)
+CalendarMonthPath.displayName = 'CalendarMonthPath'
+
+export default CalendarMonthPath

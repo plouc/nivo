@@ -8,8 +8,9 @@
  */
 import PropTypes from 'prop-types'
 import { timeFormat } from 'd3-time-format'
-import { noop, boxAlignments } from '@nivo/core'
+import { boxAlignments } from '@nivo/core'
 import { LegendPropShape } from '@nivo/legends'
+import CalendarTooltip from './CalendarTooltip'
 
 const monthLabelFormat = timeFormat('%b')
 
@@ -24,16 +25,12 @@ const commonPropTypes = {
     ).isRequired,
 
     align: PropTypes.oneOf(boxAlignments).isRequired,
-    originX: PropTypes.number.isRequired,
-    originY: PropTypes.number.isRequired,
-    calendarWidth: PropTypes.number.isRequired,
-    calendarHeight: PropTypes.number.isRequired,
 
     minValue: PropTypes.oneOfType([PropTypes.oneOf(['auto']), PropTypes.number]).isRequired,
     maxValue: PropTypes.oneOfType([PropTypes.oneOf(['auto']), PropTypes.number]).isRequired,
 
     colors: PropTypes.arrayOf(PropTypes.string).isRequired,
-    colorScale: PropTypes.func.isRequired,
+    colorScale: PropTypes.func,
 
     direction: PropTypes.oneOf(['horizontal', 'vertical']),
     emptyColor: PropTypes.string.isRequired,
@@ -55,14 +52,17 @@ const commonPropTypes = {
     dayBorderColor: PropTypes.string.isRequired,
 
     isInteractive: PropTypes.bool,
-    onClick: PropTypes.func.isRequired,
-    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-    tooltip: PropTypes.func,
-
+    onClick: PropTypes.func,
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func,
+    onMouseMove: PropTypes.func,
+    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+    valueFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    legendFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
     legends: PropTypes.arrayOf(
         PropTypes.shape({
             ...LegendPropShape,
-            itemCount: PropTypes.number.isRequired,
+            itemCount: PropTypes.number.isRequired
         })
     ).isRequired,
 }
@@ -102,9 +102,9 @@ const commonDefaultProps = {
     dayBorderColor: '#000',
 
     isInteractive: true,
-    onClick: noop,
 
     legends: [],
+    tooltip: CalendarTooltip
 }
 
 export const CalendarDefaultProps = commonDefaultProps

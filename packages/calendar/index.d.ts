@@ -16,11 +16,16 @@ declare module '@nivo/calendar' {
         data: CalendarDatum[]
     }
 
+    type ValueFormatter = (datum: Omit<CalendarDayData, 'formattedValue' | 'label'>) => string | number
+
+
     export type CalendarDirection = 'horizontal' | 'vertical'
 
     export type CalendarLegend = LegendProps & {
         itemCount: number
     }
+
+    export type CalendarMouseHandler = (data: CalendarDayData, event: React.MouseEvent<any>) => void
 
     export interface CalendarDayData {
         date: Date
@@ -32,18 +37,25 @@ declare module '@nivo/calendar' {
         y: number
     }
 
+    export interface ColorScale {
+        (value: number | { valueOf(): number }): Range;
+        ticks(count?: number): number[];
+    }
+
     export type CalendarCommonProps = Partial<{
         minValue: 'auto' | number
         maxValue: 'auto' | number
 
         direction: CalendarDirection
         colors: string[]
+        colorScale: ColorScale
         margin: Box
         align: BoxAlign
 
         yearLegend: (year: number) => string | number
         yearSpacing: number
         yearLegendOffset: number
+        yearLegendPosition: 'before' | 'after'
 
         monthLegend: (year: number, month: number, date: Date) => string | number
         monthSpacing: number
@@ -59,8 +71,15 @@ declare module '@nivo/calendar' {
 
         isInteractive: boolean
 
-        tooltipFormat: (value: number) => string | number
+        onClick?: CalendarMouseHandler
+        onMouseMove?: CalendarMouseHandler
+        onMouseLeave?: CalendarMouseHandler
+        onMouseEnter?: CalendarMouseHandler
+
         tooltip: React.StatelessComponent<CalendarDayData>
+
+        valueFormat?: string | ValueFormatter
+        legendFormat?: string | ValueFormatter
 
         legends: CalendarLegend[]
 
@@ -73,8 +92,8 @@ declare module '@nivo/calendar' {
             onClick: (datum: CalendarDayData, event: React.MouseEvent<SVGRectElement>) => void
         }>
 
-    export class Calendar extends React.Component<CalendarSvgProps & Dimensions> {}
-    export class ResponsiveCalendar extends React.Component<CalendarSvgProps> {}
-    export class CalendarCanvas extends React.Component<CalendarSvgProps & Dimensions> {}
-    export class ResponsiveCalendarCanvas extends React.Component<CalendarSvgProps> {}
+    export class Calendar extends React.Component<CalendarSvgProps & Dimensions> { }
+    export class ResponsiveCalendar extends React.Component<CalendarSvgProps> { }
+    export class CalendarCanvas extends React.Component<CalendarSvgProps & Dimensions> { }
+    export class ResponsiveCalendarCanvas extends React.Component<CalendarSvgProps> { }
 }

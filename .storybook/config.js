@@ -50,6 +50,7 @@ function loadStories() {
     require('../packages/bullet/stories/bullet.stories')
     require('../packages/bump/stories/bump.stories')
     require('../packages/calendar/stories/calendar.stories')
+    require('../packages/calendar/stories/calendarCanvas.stories')
     require('../packages/chord/stories/chord.stories')
     require('../packages/circle-packing/stories/bubble.stories')
     require('../packages/circle-packing/stories/bubbleHtml.stories')
