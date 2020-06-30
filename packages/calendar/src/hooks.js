@@ -8,7 +8,13 @@
  */
 import React, { useMemo } from 'react'
 import { scaleQuantize } from 'd3-scale'
-import { computeDomain, computeYearLegendPositions, computeMonthLegendPositions, bindDaysData, computeLayout } from './compute'
+import {
+    computeDomain,
+    computeYearLegendPositions,
+    computeMonthLegendPositions,
+    bindDaysData,
+    computeLayout,
+} from './compute'
 import { useTooltip } from '@nivo/tooltip'
 
 export const useCalendarLayout = ({
@@ -33,26 +39,20 @@ export const useCalendarLayout = ({
                 yearSpacing,
                 monthSpacing,
                 daySpacing,
-                align
+                align,
             }),
         [width, height, from, to, direction, yearSpacing, monthSpacing, daySpacing, align]
     )
 
-export const useColorScale = ({
-    data, minValue, maxValue, colors, colorScale
-}) =>
-    useMemo(
-        () => {
-            if (colorScale) return colorScale
-            const domain = computeDomain(data, minValue, maxValue)
-            const defaultColorScale = scaleQuantize().domain(domain).range(colors)
-            return defaultColorScale
-        }, [data, minValue, maxValue, colors, colorScale]
-    )
+export const useColorScale = ({ data, minValue, maxValue, colors, colorScale }) =>
+    useMemo(() => {
+        if (colorScale) return colorScale
+        const domain = computeDomain(data, minValue, maxValue)
+        const defaultColorScale = scaleQuantize().domain(domain).range(colors)
+        return defaultColorScale
+    }, [data, minValue, maxValue, colors, colorScale])
 
-export const useYearLegends = ({
-    years, direction, yearLegendPosition, yearLegendOffset
-}) =>
+export const useYearLegends = ({ years, direction, yearLegendPosition, yearLegendOffset }) =>
     useMemo(
         () =>
             computeYearLegendPositions({
@@ -64,9 +64,7 @@ export const useYearLegends = ({
         [years, direction, yearLegendPosition, yearLegendOffset]
     )
 
-export const useMonthLegends = ({
-    months, direction, monthLegendPosition, monthLegendOffset
-}) =>
+export const useMonthLegends = ({ months, direction, monthLegendPosition, monthLegendOffset }) =>
     useMemo(
         () =>
             computeMonthLegendPositions({
@@ -78,10 +76,7 @@ export const useMonthLegends = ({
         [months, direction, monthLegendPosition, monthLegendOffset]
     )
 
-
-export const useDays = ({
-    days, data, colorScale, emptyColor
-}) =>
+export const useDays = ({ days, data, colorScale, emptyColor }) =>
     useMemo(
         () =>
             bindDaysData({
@@ -93,7 +88,6 @@ export const useDays = ({
         [days, data, colorScale, emptyColor]
     )
 
-
 export const useDaysHandlers = ({
     data,
     isInteractive,
@@ -101,7 +95,7 @@ export const useDaysHandlers = ({
     onMouseMove,
     onMouseLeave,
     onClick,
-    tooltip
+    tooltip,
 }) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 

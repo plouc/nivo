@@ -12,14 +12,7 @@ import { BasicTooltip } from '@nivo/tooltip'
 
 const CalendarTooltip = memo(({ data }) => {
     if (data.value === undefined || isNaN(data.value)) return null
-    return (
-        <BasicTooltip
-            id={data.day}
-            value={data.value}
-            color={data.color}
-            enableChip={true}
-        />
-    )
+    return <BasicTooltip id={data.day} value={data.value} color={data.color} enableChip={true} />
 })
 
 CalendarTooltip.displayName = 'CalendarTooltip'

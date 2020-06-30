@@ -25,9 +25,8 @@ const CalendarDay = memo(
         onMouseMove,
         onMouseLeave,
         onClick,
-        formatValue
+        formatValue,
     }) => {
-
         const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
         const handleMouseEnter = useCallback(
@@ -50,12 +49,14 @@ const CalendarDay = memo(
             event => {
                 hideTooltip()
                 onMouseLeave && onMouseLeave(data, event)
-            }, [isInteractive, hideTooltip, data, onMouseLeave]
+            },
+            [isInteractive, hideTooltip, data, onMouseLeave]
         )
-        const handleClick = useCallback(
-            event => onClick(data, event)
-            , [isInteractive, data, onClick]
-        )
+        const handleClick = useCallback(event => onClick(data, event), [
+            isInteractive,
+            data,
+            onClick,
+        ])
 
         return (
             <rect
@@ -76,7 +77,6 @@ const CalendarDay = memo(
         )
     }
 )
-
 
 CalendarDay.displayName = 'CalendarDay'
 CalendarDay.propTypes = {
@@ -101,6 +101,5 @@ CalendarDay.propTypes = {
         tooltip: PropTypes.shape({}).isRequired,
     }).isRequired,
 }
-
 
 export default CalendarDay

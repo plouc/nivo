@@ -1,3 +1,11 @@
+/*
+ * This file is part of the nivo project.
+ *
+ * Copyright 2016-present, Raphaël Benitte.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 import * as React from 'react'
 import { Dimensions, Theme, Box, BoxAlign } from '@nivo/core'
 import { LegendProps } from '@nivo/legends'
@@ -16,8 +24,9 @@ declare module '@nivo/calendar' {
         data: CalendarDatum[]
     }
 
-    type ValueFormatter = (datum: Omit<CalendarDayData, 'formattedValue' | 'label'>) => string | number
-
+    type ValueFormatter = (
+        datum: Omit<CalendarDayData, 'formattedValue' | 'label'>
+    ) => string | number
 
     export type CalendarDirection = 'horizontal' | 'vertical'
 
@@ -92,8 +101,8 @@ declare module '@nivo/calendar' {
             onClick: (datum: CalendarDayData, event: React.MouseEvent<SVGRectElement>) => void
         }>
 
-    export class Calendar extends React.Component<CalendarSvgProps & Dimensions> { }
-    export class ResponsiveCalendar extends React.Component<CalendarSvgProps> { }
-    export class CalendarCanvas extends React.Component<CalendarSvgProps & Dimensions> { }
-    export class ResponsiveCalendarCanvas extends React.Component<CalendarSvgProps> { }
+    export class Calendar extends React.Component<CalendarSvgProps & Dimensions> {}
+    export class ResponsiveCalendar extends React.Component<CalendarSvgProps> {}
+    export class CalendarCanvas extends React.Component<CalendarSvgProps & Dimensions> {}
+    export class ResponsiveCalendarCanvas extends React.Component<CalendarSvgProps> {}
 }

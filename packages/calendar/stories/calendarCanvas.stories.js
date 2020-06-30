@@ -8,7 +8,6 @@ const from = new Date(2013, 0, 1)
 const to = new Date(2019, 11, 31)
 const data = generateDayCounts(from, to)
 
-
 const commonProps = {
     width: 1500,
     height: 1560,
@@ -28,26 +27,18 @@ const stories = storiesOf('CalendarCanvas', module)
 
 const CustomTooltip = ({ data }) => {
     if (data.value === undefined) return null
-    return (<span style={{ color: data.color, backgroundColor: 'black', padding: '10px' }}>{data.day} : {data.value}</span>)
+    return (
+        <span style={{ color: data.color, backgroundColor: 'black', padding: '10px' }}>
+            {data.day} : {data.value}
+        </span>
+    )
 }
 
-stories.add('custom tooltip', () => (
-    <CalendarCanvas
-        tooltip={CustomTooltip}
-        {...commonProps}
-    />
-))
+stories.add('custom tooltip', () => <CalendarCanvas tooltip={CustomTooltip} {...commonProps} />)
 
 stories.add('spacing', () => (
-    <CalendarCanvas
-        {...commonProps}
-        daySpacing={5}
-        monthSpacing={50}
-        dayBorderWidth={2}
-    />
+    <CalendarCanvas {...commonProps} daySpacing={5} monthSpacing={50} dayBorderWidth={2} />
 ))
-
-
 
 const createColorScale = (data, minValue, maxValue) => {
     const computeDomain = (data, minSpec, maxSpec) => {
@@ -58,11 +49,9 @@ const createColorScale = (data, minValue, maxValue) => {
     }
     const colors = ['#a1cfff', '#468df3', '#a053f0', '#9629f0', '#8428d8']
     const domain = computeDomain(data, minValue, maxValue)
-    const defaultColorScale = scaleQuantize()
-        .domain(domain)
-        .range(colors)
+    const defaultColorScale = scaleQuantize().domain(domain).range(colors)
     const colorScale = value => {
-        return defaultColorScale(value) + "33" //adding alpha channel
+        return defaultColorScale(value) + '33' //adding alpha channel
     }
     colorScale.ticks = count => {
         return defaultColorScale.ticks(count)
@@ -73,19 +62,16 @@ const createColorScale = (data, minValue, maxValue) => {
 const customColorScale = createColorScale(data, 'auto', 'auto')
 
 stories.add('custom color space function', () => (
-    <CalendarCanvas
-        {...commonProps}
-        colorScale={customColorScale}
-    />
+    <CalendarCanvas {...commonProps} colorScale={customColorScale} />
 ))
 
-const formater = value => value.toFixed(1) + " hours"
+const formater = value => value.toFixed(1) + ' hours'
 
 stories.add('custom value and legend formaters', () => (
     <CalendarCanvas
         {...commonProps}
         margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
-        valueFormat='2f'
+        valueFormat="2f"
         legendFormat={formater}
         legends={[
             {
@@ -98,7 +84,7 @@ stories.add('custom value and legend formaters', () => (
                 itemHeight: 40,
                 itemsSpacing: 20,
                 itemDirection: 'left-to-right',
-            }
+            },
         ]}
     />
 ))

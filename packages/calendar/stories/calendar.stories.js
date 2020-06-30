@@ -53,25 +53,24 @@ stories.add('vertical calendar', () => (
 
 const CustomTooltip = ({ data }) => {
     if (data.value === undefined) return null
-    return (<span style={{ color: data.color, backgroundColor: 'black', padding: '10px' }}>{data.day} : {data.value}</span>)
+    return (
+        <span style={{ color: data.color, backgroundColor: 'black', padding: '10px' }}>
+            {data.day} : {data.value}
+        </span>
+    )
 }
 
-stories.add('custom tooltip', () => (
-    <Calendar
-        tooltip={CustomTooltip}
-        {...commonProps}
-    />
-))
+stories.add('custom tooltip', () => <Calendar tooltip={CustomTooltip} {...commonProps} />)
 
 stories.add('month spacing', () => <Calendar {...commonProps} monthSpacing={25} />)
 
-const formater = value => value / 10 + "M"
+const formater = value => value / 10 + 'M'
 
 stories.add('custom legend formater', () => (
     <Calendar
         {...commonProps}
         margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
-        valueFormat='.2f'
+        valueFormat=".2f"
         legendFormat={formater}
         height={460}
         legends={[
@@ -83,8 +82,8 @@ stories.add('custom legend formater', () => (
                 itemWidth: 42,
                 itemHeight: 36,
                 itemsSpacing: 14,
-                itemDirection: 'right-to-left'
-            }
+                itemDirection: 'right-to-left',
+            },
         ]}
     />
 ))

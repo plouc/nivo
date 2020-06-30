@@ -62,7 +62,7 @@ const commonPropTypes = {
     legends: PropTypes.arrayOf(
         PropTypes.shape({
             ...LegendPropShape,
-            itemCount: PropTypes.number.isRequired
+            itemCount: PropTypes.number.isRequired,
         })
     ).isRequired,
 }
@@ -104,7 +104,7 @@ const commonDefaultProps = {
     isInteractive: true,
 
     legends: [],
-    tooltip: CalendarTooltip
+    tooltip: CalendarTooltip,
 }
 
 export const CalendarDefaultProps = commonDefaultProps
