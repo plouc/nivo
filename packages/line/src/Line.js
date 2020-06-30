@@ -18,7 +18,7 @@ import {
 import { useInheritedColor } from '@nivo/colors'
 import { Axes, Grid } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
-import { Crosshair } from '@nivo/tooltip'
+import { Crosshair, TooltipProvider } from '@nivo/tooltip'
 import { useLine } from './hooks'
 import { LinePropTypes, LineDefaultProps } from './props'
 import Areas from './Areas'
@@ -288,34 +288,36 @@ const Line = props => {
     }
 
     return (
-        <SvgWrapper defs={boundDefs} width={outerWidth} height={outerHeight} margin={margin}>
-            {layers.map((layer, i) => {
-                if (typeof layer === 'function') {
-                    return (
-                        <Fragment key={i}>
-                            {layer({
-                                ...props,
-                                innerWidth,
-                                innerHeight,
-                                series,
-                                slices,
-                                points,
-                                xScale,
-                                yScale,
-                                lineGenerator,
-                                areaGenerator,
-                                currentPoint,
-                                setCurrentPoint,
-                                currentSlice,
-                                setCurrentSlice,
-                            })}
-                        </Fragment>
-                    )
-                }
+        <TooltipProvider>
+            <SvgWrapper defs={boundDefs} width={outerWidth} height={outerHeight} margin={margin}>
+                {layers.map((layer, i) => {
+                    if (typeof layer === 'function') {
+                        return (
+                            <Fragment key={i}>
+                                {layer({
+                                    ...props,
+                                    innerWidth,
+                                    innerHeight,
+                                    series,
+                                    slices,
+                                    points,
+                                    xScale,
+                                    yScale,
+                                    lineGenerator,
+                                    areaGenerator,
+                                    currentPoint,
+                                    setCurrentPoint,
+                                    currentSlice,
+                                    setCurrentSlice,
+                                })}
+                            </Fragment>
+                        )
+                    }
 
-                return layerById[layer]
-            })}
-        </SvgWrapper>
+                    return layerById[layer]
+                })}
+            </SvgWrapper>
+        </TooltipProvider>
     )
 }
 

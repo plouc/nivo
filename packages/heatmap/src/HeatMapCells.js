@@ -6,7 +6,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { useCallback } from 'react'
+import { useTooltip } from '@nivo/tooltip'
 
 const HeatMapCells = ({
     cells,
@@ -15,10 +16,25 @@ const HeatMapCells = ({
     getCellBorderColor,
     enableLabels,
     getLabelTextColor,
-    handleCellHover,
-    handleCellLeave,
+    tooltip,
+    setCurrentCellId,
     onClick,
 }) => {
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
+
+    const handleCellHover = useCallback(
+        (cell, event) => {
+            setCurrentCellId(cell.id)
+            showTooltipFromEvent(tooltip(cell), event)
+        },
+        [setCurrentCellId, showTooltipFromEvent, tooltip]
+    )
+
+    const handleCellLeave = useCallback(() => {
+        setCurrentCellId(null)
+        hideTooltip()
+    }, [setCurrentCellId, hideTooltip])
+
     return cells.map(cell =>
         React.createElement(cellComponent, {
             key: cell.id,
@@ -34,7 +50,7 @@ const HeatMapCells = ({
             borderColor: getCellBorderColor(cell),
             enableLabel: enableLabels,
             textColor: getLabelTextColor(cell),
-            onHover: handleCellHover ? event => handleCellHover(cell, event) : undefined,
+            onHover: tooltip ? event => handleCellHover(cell, event) : undefined,
             onLeave: handleCellLeave,
             onClick,
         })
