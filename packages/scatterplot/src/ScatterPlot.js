@@ -17,6 +17,7 @@ import {
 } from '@nivo/core'
 import { Axes, Grid } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
+import { TooltipProvider } from '@nivo/tooltip'
 import { useScatterPlot } from './hooks'
 import { ScatterPlotPropTypes, ScatterPlotDefaultProps } from './props'
 import AnimatedNodes from './AnimatedNodes'
@@ -196,27 +197,25 @@ const ScatterPlot = props => {
     }
 
     return (
-        <SvgWrapper
-            width={outerWidth}
-            height={outerHeight}
-            margin={margin}
-            theme={theme}
-            role={role}
-        >
-            {layers.map((layer, i) => {
-                if (layerById[layer] !== undefined) {
-                    return layerById[layer]
-                }
+        <TooltipProvider>
+            <SvgWrapper width={outerWidth} height={outerHeight} {...{ margin, theme, role }}>
+                {layers.map((layer, i) => {
+                    if (layerById[layer] !== undefined) {
+                        return layerById[layer]
+                    }
 
-                if (typeof layer === 'function') {
-                    return (
-                        <Fragment key={i}>{React.createElement(layer, customLayerProps)}</Fragment>
-                    )
-                }
+                    if (typeof layer === 'function') {
+                        return (
+                            <Fragment key={i}>
+                                {React.createElement(layer, customLayerProps)}
+                            </Fragment>
+                        )
+                    }
 
-                throw new Error(`Unknown layer (${layer})`)
-            })}
-        </SvgWrapper>
+                    throw new Error(`Unknown layer (${layer})`)
+                })}
+            </SvgWrapper>
+        </TooltipProvider>
     )
 }
 
