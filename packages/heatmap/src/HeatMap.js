@@ -9,7 +9,7 @@
 import React, { useCallback } from 'react'
 import { SvgWrapper, withContainer, useDimensions } from '@nivo/core'
 import { Axes, Grid } from '@nivo/axes'
-import { useTooltip } from '@nivo/tooltip'
+import { TooltipProvider } from '@nivo/tooltip'
 import { HeatMapPropTypes, HeatMapDefaultProps } from './props'
 import { useHeatMap } from './hooks'
 import HeatMapCells from './HeatMapCells'
@@ -87,23 +87,10 @@ const HeatMap = ({
         cellHoverOthersOpacity,
     })
 
-    const { showTooltipFromEvent, hideTooltip } = useTooltip()
-
-    const handleCellHover = useCallback(
-        (cell, event) => {
-            setCurrentCellId(cell.id)
-            showTooltipFromEvent(
-                <HeatMapCellTooltip cell={cell} format={tooltipFormat} tooltip={tooltip} />,
-                event
-            )
-        },
-        [setCurrentCellId, showTooltipFromEvent, tooltipFormat, tooltip]
+    const handleTooltip = useCallback(
+        cell => <HeatMapCellTooltip cell={cell} format={tooltipFormat} tooltip={tooltip} />,
+        []
     )
-
-    const handleCellLeave = useCallback(() => {
-        setCurrentCellId(null)
-        hideTooltip()
-    }, [setCurrentCellId, hideTooltip])
 
     let cellComponent
     if (cellShape === 'rect') {
@@ -115,42 +102,44 @@ const HeatMap = ({
     }
 
     return (
-        <SvgWrapper
-            width={outerWidth}
-            height={outerHeight}
-            margin={Object.assign({}, margin, {
-                top: margin.top + offsetY,
-                left: margin.left + offsetX,
-            })}
-        >
-            <Grid
-                width={innerWidth - offsetX * 2}
-                height={innerHeight - offsetY * 2}
-                xScale={enableGridX ? xScale : null}
-                yScale={enableGridY ? yScale : null}
-            />
-            <Axes
-                xScale={xScale}
-                yScale={yScale}
-                width={innerWidth - offsetX * 2}
-                height={innerHeight - offsetY * 2}
-                top={axisTop}
-                right={axisRight}
-                bottom={axisBottom}
-                left={axisLeft}
-            />
-            <HeatMapCells
-                cells={cells}
-                cellComponent={cellComponent}
-                cellBorderWidth={cellBorderWidth}
-                getCellBorderColor={getCellBorderColor}
-                enableLabels={enableLabels}
-                getLabelTextColor={getLabelTextColor}
-                handleCellHover={isInteractive ? handleCellHover : undefined}
-                handleCellLeave={isInteractive ? handleCellLeave : undefined}
-                onClick={isInteractive ? onClick : undefined}
-            />
-        </SvgWrapper>
+        <TooltipProvider>
+            <SvgWrapper
+                width={outerWidth}
+                height={outerHeight}
+                margin={Object.assign({}, margin, {
+                    top: margin.top + offsetY,
+                    left: margin.left + offsetX,
+                })}
+            >
+                <Grid
+                    width={innerWidth - offsetX * 2}
+                    height={innerHeight - offsetY * 2}
+                    xScale={enableGridX ? xScale : null}
+                    yScale={enableGridY ? yScale : null}
+                />
+                <Axes
+                    xScale={xScale}
+                    yScale={yScale}
+                    width={innerWidth - offsetX * 2}
+                    height={innerHeight - offsetY * 2}
+                    top={axisTop}
+                    right={axisRight}
+                    bottom={axisBottom}
+                    left={axisLeft}
+                />
+                <HeatMapCells
+                    cells={cells}
+                    cellComponent={cellComponent}
+                    cellBorderWidth={cellBorderWidth}
+                    getCellBorderColor={getCellBorderColor}
+                    enableLabels={enableLabels}
+                    getLabelTextColor={getLabelTextColor}
+                    tooltip={isInteractive ? handleTooltip : undefined}
+                    setCurrentCellId={setCurrentCellId}
+                    onClick={isInteractive ? onClick : undefined}
+                />
+            </SvgWrapper>
+        </TooltipProvider>
     )
 }
 
