@@ -13,7 +13,7 @@ import { LegendProps } from '@nivo/legends'
 
 declare module '@nivo/radar' {
     type IndexByCustomFunctiono<D = any> = (datum: D) => string | number
-    type GridLabelCustomFunction = (...args: any[]) => string
+    type GridLabelCustomFunction = (...args: any[]) => string | JSX.Element
     type CustomDotSymbol = (...args: any[]) => React.ReactNode
     type CustomDotLabel = (...args: any[]) => React.ReactNode
     type CustomFormatter = (...args: any[]) => React.ReactNode
