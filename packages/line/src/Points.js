@@ -10,7 +10,7 @@ import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { getLabelGenerator, DotsItem, useTheme } from '@nivo/core'
 
-const Points = ({ points, symbol, size, borderWidth, enableLabel, label, labelYOffset }) => {
+const Points = ({ points, symbol, size, borderWidth, enableLabel, label, labelYOffset, width, height }) => {
     const theme = useTheme()
     const getLabel = getLabelGenerator(label)
 
@@ -28,26 +28,34 @@ const Points = ({ points, symbol, size, borderWidth, enableLabel, label, labelYO
         return mappedPoint
     })
 
-    return (
-        <g>
-            {mappedPoints.map(point => (
-                <DotsItem
-                    key={point.id}
-                    x={point.x}
-                    y={point.y}
-                    datum={point.datum}
-                    symbol={symbol}
-                    size={size}
-                    color={point.fill}
-                    borderWidth={borderWidth}
-                    borderColor={point.stroke}
-                    label={point.label}
-                    labelYOffset={labelYOffset}
-                    theme={theme}
-                />
-            ))}
-        </g>
-    )
+    const pointsArray = mappedPoints.map(point => (
+        <DotsItem
+            key={point.id}
+            x={point.x}
+            y={point.y}
+            datum={point.datum}
+            symbol={symbol}
+            size={size}
+            color={point.fill}
+            borderWidth={borderWidth}
+            borderColor={point.stroke}
+            label={point.label}
+            labelYOffset={labelYOffset}
+            theme={theme}
+        />
+    ));
+
+    if ((width !== undefined && height !== undefined)) {
+        const clipId = `nivo-points-clip-${width}-${height}`;
+        const clip = <defs key="nivo-points-clip">
+            <clipPath id={clipId}>
+                <rect x="0" y="0" width={width} height={height}></rect>
+            </clipPath>
+        </defs>
+        return [clip, <g key="nivo-points" clipPath={`url(#${clipId})`}>{pointsArray}</g>];
+    } else {
+        return <g>{pointsArray}</g>;
+    }
 }
 
 Points.propTypes = {
@@ -60,6 +68,8 @@ Points.propTypes = {
     enableLabel: PropTypes.bool.isRequired,
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     labelYOffset: PropTypes.number,
+    width: PropTypes.number,
+    height: PropTypes.number,
 }
 
 export default memo(Points)

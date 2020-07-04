@@ -176,7 +176,14 @@ const Line = props => {
         ),
         areas: null,
         lines: (
-            <Lines key="lines" lines={series} lineGenerator={lineGenerator} lineWidth={lineWidth} />
+            <Lines 
+                key="lines" 
+                lines={series} 
+                lineGenerator={lineGenerator} 
+                lineWidth={lineWidth} 
+                width={innerWidth} 
+                height={innerHeight}
+            />
         ),
         slices: null,
         points: null,
@@ -236,6 +243,8 @@ const Line = props => {
                 enableLabel={enablePointLabel}
                 label={pointLabel}
                 labelYOffset={pointLabelYOffset}
+                width={innerWidth} 
+                height={innerHeight}
             />
         )
     }

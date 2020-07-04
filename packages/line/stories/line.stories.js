@@ -48,6 +48,62 @@ const stories = storiesOf('Line', module)
 stories.addDecorator(withKnobs)
 
 stories.add(
+    'zoomed clipped lines',
+    () => (
+        <Line
+            {...commonProperties}
+            data={[
+                {
+                    id: 'fake corp. A',
+                    data: [
+                        { x: 0, y: 7 },
+                        { x: 1, y: 5 },
+                        { x: 2, y: 11 },
+                        { x: 3, y: 9 },
+                        { x: 4, y: 12 },
+                        { x: 7, y: 12.1 },
+                        { x: 9, y: 12.2 },
+                    ],
+                },
+                {
+                    id: 'fake corp. B',
+                    data: [
+                        { x: 0, y: 5 },
+                        { x: 1, y: 5.5 },
+                        { x: 2, y: 6 },
+                        { x: 3, y: 2 },
+                        { x: 4, y: 21 },
+                        { x: 7, y: 12.5 },
+                        { x: 9, y: 12.5 },
+                    ],
+                },
+
+            ]}
+            yScale={{
+                type: 'linear',
+                min: 6,
+                max: 12,
+                stacked: false,
+            }}
+            xScale={{
+                type: 'linear',
+                min: 1, //Causes rect with width -133.5? Not sure what the rect is...
+                max: 7
+            }}
+            curve={select('curve', curveOptions, 'linear')}
+        />
+    ),
+    {
+        info: {
+            text: `
+                You can zoom the y-axis using min and max, and lines will be clipped to data area.
+                Please note that stacking is only supported for linear scales.
+            `,
+        },
+    }
+)
+
+stories.add(
     'stacked lines',
     () => (
         <Line

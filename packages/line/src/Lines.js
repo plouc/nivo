@@ -10,8 +10,8 @@ import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import LinesItem from './LinesItem'
 
-const Lines = ({ lines, lineGenerator, lineWidth }) => {
-    return lines.map(({ id, data, color }) => (
+const Lines = ({ lines, lineGenerator, lineWidth, width, height }) => {
+    const linesArray = lines.map(({ id, data, color }) => (
         <LinesItem
             key={id}
             id={id}
@@ -20,7 +20,17 @@ const Lines = ({ lines, lineGenerator, lineWidth }) => {
             color={color}
             thickness={lineWidth}
         />
-    ))
+    ));
+    if ((width !== undefined && height !== undefined)) {
+        const clipId = `nivo-lines-clip-${width}-${height}`;
+        const clip = <defs key="nivo-lines-clip">
+            <clipPath id={clipId}>
+                <rect x="0" y="0" width={width} height={height}></rect>
+            </clipPath>
+        </defs>
+        return [clip, <g key="nivo-lines" clipPath={`url(#${clipId})`}>{linesArray}</g>];
+    }
+    return linesArray;
 }
 
 Lines.propTypes = {
@@ -52,6 +62,8 @@ Lines.propTypes = {
     ).isRequired,
     lineWidth: PropTypes.number.isRequired,
     lineGenerator: PropTypes.func.isRequired,
+    width: PropTypes.number,
+    height: PropTypes.number,
 }
 
 export default memo(Lines)
