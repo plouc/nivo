@@ -22,15 +22,10 @@ const Lines = ({ lines, lineGenerator, lineWidth, width, height }) => {
         />
     ));
     if ((width !== undefined && height !== undefined)) {
-        const clipId = `nivo-lines-clip-${width}-${height}`;
-        const clip = <defs key="nivo-lines-clip">
-            <clipPath id={clipId}>
-                <rect x="0" y="0" width={width} height={height}></rect>
-            </clipPath>
-        </defs>
-        return [clip, <g key="nivo-lines" clipPath={`url(#${clipId})`}>{linesArray}</g>];
+        return <svg x="0" y="0" width={width} height = {height} overflow="hidden">{linesArray}</svg>
+    } else {
+        return linesArray;
     }
-    return linesArray;
 }
 
 Lines.propTypes = {

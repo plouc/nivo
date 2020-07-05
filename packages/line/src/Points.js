@@ -46,13 +46,7 @@ const Points = ({ points, symbol, size, borderWidth, enableLabel, label, labelYO
     ));
 
     if ((width !== undefined && height !== undefined)) {
-        const clipId = `nivo-points-clip-${width}-${height}`;
-        const clip = <defs key="nivo-points-clip">
-            <clipPath id={clipId}>
-                <rect x="0" y="0" width={width} height={height}></rect>
-            </clipPath>
-        </defs>
-        return [clip, <g key="nivo-points" clipPath={`url(#${clipId})`}>{pointsArray}</g>];
+        return <svg x="0" y="0" width={width} height = {height} overflow="hidden"><g>{pointsArray}</g></svg>
     } else {
         return <g>{pointsArray}</g>;
     }
