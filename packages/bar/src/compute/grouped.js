@@ -53,6 +53,7 @@ export const getGroupedScale = (data, keys, _minValue, _maxValue, range) => {
  * @param {Function}       getColor
  * @param {number}         [padding=0]
  * @param {number}         [innerPadding=0]
+ * @param {boolean}        [includeEmpty=false]
  * @return {{ xScale: Function, yScale: Function, bars: Array.<Object> }}
  */
 export const generateVerticalGroupedBars = ({
@@ -67,6 +68,7 @@ export const generateVerticalGroupedBars = ({
     getColor,
     padding = 0,
     innerPadding = 0,
+    includeEmpty = false,
 }) => {
     const xScale = getIndexedScale(data, getIndex, [0, width], padding)
     const yRange = reverse ? [0, height] : [height, 0]
@@ -75,40 +77,39 @@ export const generateVerticalGroupedBars = ({
     const barWidth = (xScale.bandwidth() - innerPadding * (keys.length - 1)) / keys.length
     const yRef = yScale(0)
 
-    let getY = d => (d > 0 ? yScale(d) : yRef)
-    let getHeight = (d, y) => (d > 0 ? yRef - y : yScale(d) - yRef)
+    let getY = d => (d >= 0 ? yScale(d) : yRef)
+    let getHeight = (d, y) => (d >= 0 ? yRef - y : yScale(d) - yRef)
     if (reverse) {
         getY = d => (d < 0 ? yScale(d) : yRef)
         getHeight = (d, y) => (d < 0 ? yRef - y : yScale(d) - yRef)
     }
 
     const bars = []
-    if (barWidth > 0) {
+    if (includeEmpty || barWidth > 0) {
         keys.forEach((key, i) => {
             range(xScale.domain().length).forEach(index => {
                 const x = xScale(getIndex(data[index])) + barWidth * i + innerPadding * i
                 const y = getY(data[index][key])
                 const barHeight = getHeight(data[index][key], y)
+                if (!includeEmpty && (barWidth <= 0 || barHeight <= 0)) return
 
-                if (barWidth > 0 && barHeight > 0) {
-                    const barData = {
-                        id: key,
-                        value: data[index][key],
-                        index,
-                        indexValue: getIndex(data[index]),
-                        data: data[index],
-                    }
-
-                    bars.push({
-                        key: `${key}.${barData.indexValue}`,
-                        data: barData,
-                        x,
-                        y,
-                        width: barWidth,
-                        height: barHeight,
-                        color: getColor(barData),
-                    })
+                const barData = {
+                    id: key,
+                    value: data[index][key],
+                    index,
+                    indexValue: getIndex(data[index]),
+                    data: data[index],
                 }
+
+                bars.push({
+                    key: `${key}.${barData.indexValue}`,
+                    data: barData,
+                    x,
+                    y,
+                    width: barWidth,
+                    height: barHeight,
+                    color: getColor(barData),
+                })
             })
         })
     }
@@ -130,6 +131,7 @@ export const generateVerticalGroupedBars = ({
  * @param {Function}       getColor
  * @param {number}         [padding=0]
  * @param {number}         [innerPadding=0]
+ * @param {boolean}        [includeEmpty=false]
  * @return {{ xScale: Function, yScale: Function, bars: Array.<Object> }}
  */
 export const generateHorizontalGroupedBars = ({
@@ -144,6 +146,7 @@ export const generateHorizontalGroupedBars = ({
     getColor,
     padding = 0,
     innerPadding = 0,
+    includeEmpty = false,
 }) => {
     const xRange = reverse ? [width, 0] : [0, width]
     const xScale = getGroupedScale(data, keys, minValue, maxValue, xRange)
@@ -152,40 +155,39 @@ export const generateHorizontalGroupedBars = ({
     const barHeight = (yScale.bandwidth() - innerPadding * (keys.length - 1)) / keys.length
     const xRef = xScale(0)
 
-    let getX = d => (d > 0 ? xRef : xScale(d))
-    let getWidth = (d, x) => (d > 0 ? xScale(d) - xRef : xRef - x)
+    let getX = d => (d >= 0 ? xRef : xScale(d))
+    let getWidth = (d, x) => (d >= 0 ? xScale(d) - xRef : xRef - x)
     if (reverse) {
         getX = d => (d < 0 ? xRef : xScale(d))
         getWidth = (d, x) => (d < 0 ? xScale(d) - xRef : xRef - x)
     }
 
     const bars = []
-    if (barHeight > 0) {
+    if (includeEmpty || barHeight > 0) {
         keys.forEach((key, i) => {
             range(yScale.domain().length).forEach(index => {
                 const x = getX(data[index][key])
                 const y = yScale(getIndex(data[index])) + barHeight * i + innerPadding * i
                 const barWidth = getWidth(data[index][key], x)
+                if (!includeEmpty && barWidth <= 0) return
 
-                if (barWidth > 0) {
-                    const barData = {
-                        id: key,
-                        value: data[index][key],
-                        index,
-                        indexValue: getIndex(data[index]),
-                        data: data[index],
-                    }
-
-                    bars.push({
-                        key: `${key}.${barData.indexValue}`,
-                        data: barData,
-                        x,
-                        y,
-                        width: barWidth,
-                        height: barHeight,
-                        color: getColor(barData),
-                    })
+                const barData = {
+                    id: key,
+                    value: data[index][key],
+                    index,
+                    indexValue: getIndex(data[index]),
+                    data: data[index],
                 }
+
+                bars.push({
+                    key: `${key}.${barData.indexValue}`,
+                    data: barData,
+                    x,
+                    y,
+                    width: barWidth,
+                    height: barHeight,
+                    color: getColor(barData),
+                })
             })
         })
     }

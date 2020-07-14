@@ -37,6 +37,7 @@ export const BarPropTypes = {
     maxValue: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]).isRequired,
     padding: PropTypes.number.isRequired,
     innerPadding: PropTypes.number.isRequired,
+    includeEmpty: PropTypes.bool,
 
     axisTop: axisPropType,
     axisRight: axisPropType,
@@ -107,6 +108,7 @@ export const BarDefaultProps = {
     maxValue: 'auto',
     padding: 0.1,
     innerPadding: 0,
+    includeEmpty: false,
 
     axisBottom: {},
     axisLeft: {},
