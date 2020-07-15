@@ -90,6 +90,7 @@ export const BarPropTypes = {
             ...LegendPropShape,
         })
     ).isRequired,
+    showLegendForZeroedValues: PropTypes.func.isRequired,
 
     pixelRatio: PropTypes.number.isRequired,
 }
@@ -136,6 +137,7 @@ export const BarDefaultProps = {
     onMouseLeave: noop,
 
     legends: [],
+    showLegendForZeroedValues: false,
 
     annotations: [],
 

@@ -67,6 +67,7 @@ export const generateVerticalGroupedBars = ({
     getColor,
     padding = 0,
     innerPadding = 0,
+    showLegendForZeroedValues,
 }) => {
     const xScale = getIndexedScale(data, getIndex, [0, width], padding)
     const yRange = reverse ? [0, height] : [height, 0]
@@ -90,7 +91,7 @@ export const generateVerticalGroupedBars = ({
                 const y = getY(data[index][key])
                 const barHeight = getHeight(data[index][key], y)
 
-                if (barWidth > 0 && barHeight > 0) {
+                if (showLegendForZeroedValues || (barWidth > 0 && barHeight > 0)) {
                     const barData = {
                         id: key,
                         value: data[index][key],
@@ -144,6 +145,7 @@ export const generateHorizontalGroupedBars = ({
     getColor,
     padding = 0,
     innerPadding = 0,
+    showLegendForZeroedValues,
 }) => {
     const xRange = reverse ? [width, 0] : [0, width]
     const xScale = getGroupedScale(data, keys, minValue, maxValue, xRange)
@@ -167,7 +169,7 @@ export const generateHorizontalGroupedBars = ({
                 const y = yScale(getIndex(data[index])) + barHeight * i + innerPadding * i
                 const barWidth = getWidth(data[index][key], x)
 
-                if (barWidth > 0) {
+                if (showLegendForZeroedValues || barWidth > 0) {
                     const barData = {
                         id: key,
                         value: data[index][key],

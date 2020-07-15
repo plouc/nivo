@@ -66,6 +66,7 @@ export const generateVerticalStackedBars = ({
     getColor,
     padding = 0,
     innerPadding = 0,
+    showLegendForZeroedValues,
 }) => {
     const stackedData = stack().keys(keys).offset(stackOffsetDiverging)(data)
 
@@ -96,7 +97,7 @@ export const generateVerticalStackedBars = ({
                     barHeight -= innerPadding
                 }
 
-                if (barHeight > 0) {
+                if (showLegendForZeroedValues || barHeight > 0) {
                     const barData = {
                         id: stackedDataItem.key,
                         value: d.data[stackedDataItem.key],
@@ -150,6 +151,7 @@ export const generateHorizontalStackedBars = ({
     getColor,
     padding = 0,
     innerPadding = 0,
+    showLegendForZeroedValues,
 }) => {
     const stackedData = stack().keys(keys).offset(stackOffsetDiverging)(data)
 
@@ -188,7 +190,7 @@ export const generateHorizontalStackedBars = ({
                     barWidth -= innerPadding
                 }
 
-                if (barWidth > 0) {
+                if (showLegendForZeroedValues || barWidth > 0) {
                     bars.push({
                         key: `${stackedDataItem.key}.${index}`,
                         data: barData,

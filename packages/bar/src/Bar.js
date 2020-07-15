@@ -104,6 +104,7 @@ const Bar = props => {
         onMouseLeave,
 
         legends,
+        showLegendForZeroedValues,
 
         animate,
         motionStiffness,
@@ -122,6 +123,7 @@ const Bar = props => {
         getColor,
         padding,
         innerPadding,
+        showLegendForZeroedValues,
     }
     const result =
         groupMode === 'grouped' ? generateGroupedBars(options) : generateStackedBars(options)
