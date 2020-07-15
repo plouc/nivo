@@ -9346,15 +9346,15 @@ exports[`should support multiple lines 1`] = `
         />
       </g>
       <path
-        d="M0,218L125,109L250,0L375,55L500,82"
-        fill="none"
-        stroke="#e8c1a0"
-        strokeWidth={2}
-      />
-      <path
         d="M0,273L125,218L250,164L375,109L500,0"
         fill="none"
         stroke="#f47560"
+        strokeWidth={2}
+      />
+      <path
+        d="M0,218L125,109L250,0L375,55L500,82"
+        fill="none"
+        stroke="#e8c1a0"
         strokeWidth={2}
       />
       <g>
