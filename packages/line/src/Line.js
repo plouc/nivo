@@ -88,6 +88,7 @@ const Line = props => {
         tooltip,
 
         enableSlices,
+        enableTooltipOnNullValues,
         debugSlices,
         sliceTooltip,
 
@@ -115,6 +116,7 @@ const Line = props => {
         pointColor,
         pointBorderColor,
         enableSlices,
+        enableTooltipOnNullValues,
     })
 
     const theme = useTheme()

@@ -36,19 +36,33 @@ export const useAreaGenerator = ({ curve, yScale, areaBaselineValue }) => {
     }, [curve, yScale, areaBaselineValue])
 }
 
-const usePoints = ({ series, getPointColor, getPointBorderColor, formatX, formatY }) => {
+const usePoints = ({
+    series,
+    getPointColor,
+    getPointBorderColor,
+    formatX,
+    formatY,
+    enableTooltipOnNullValues,
+}) => {
     return useMemo(() => {
         return series.reduce((acc, serie) => {
             return [
                 ...acc,
                 ...serie.data
-                    .filter(datum => datum.position.x !== null && datum.position.y !== null)
+                    .filter(datum =>
+                        enableTooltipOnNullValues
+                            ? true
+                            : datum.position.x !== null && datum.position.y !== null
+                    )
                     .map((datum, i) => {
                         const point = {
                             id: `${serie.id}.${i}`,
                             index: acc.length + i,
                             serieId: serie.id,
-                            serieColor: serie.color,
+                            serieColor:
+                                datum.position.x !== null && datum.position.y !== null
+                                    ? serie.color
+                                    : 'transparent',
                             x: datum.position.x,
                             y: datum.position.y,
                         }
@@ -67,14 +81,15 @@ const usePoints = ({ series, getPointColor, getPointBorderColor, formatX, format
     }, [series, getPointColor, getPointBorderColor, formatX, formatY])
 }
 
-export const useSlices = ({ enableSlices, points, width, height }) => {
+export const useSlices = ({ enableSlices, enableTooltipOnNullValues, points, width, height }) => {
     return useMemo(() => {
         if (enableSlices === false) return []
 
         if (enableSlices === 'x') {
             const map = new Map()
             points.forEach(point => {
-                if (point.data.x === null || point.data.y === null) return
+                if (!enableTooltipOnNullValues && (point.data.x === null || point.data.y === null))
+                    return
                 if (!map.has(point.x)) map.set(point.x, [point])
                 else map.get(point.x).push(point)
             })
@@ -153,6 +168,7 @@ export const useLine = ({
     pointColor = LineDefaultProps.pointColor,
     pointBorderColor = LineDefaultProps.pointBorderColor,
     enableSlices = LineDefaultProps.enableSlicesTooltip,
+    enableTooltipOnNullValues = LineDefaultProps.enableTooltipOnNullValues,
 }) => {
     const formatX = useValueFormatter(xFormat)
     const formatY = useValueFormatter(yFormat)
@@ -181,10 +197,12 @@ export const useLine = ({
         getPointBorderColor,
         formatX,
         formatY,
+        enableTooltipOnNullValues,
     })
 
     const slices = useSlices({
         enableSlices,
+        enableTooltipOnNullValues,
         points,
         width,
         height,

@@ -468,6 +468,7 @@ stories.add(
             pointSize={8}
             pointBorderColor="#fff"
             pointBorderWidth={2}
+            enableTooltipOnNullValues={boolean('enableTooltipOnNullValues', false)}
         />
     ),
     {

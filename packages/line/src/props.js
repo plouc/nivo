@@ -134,6 +134,7 @@ export const LinePropTypes = {
     ...commonPropTypes,
     enablePointLabel: PropTypes.bool.isRequired,
     useMesh: PropTypes.bool.isRequired,
+    enableTooltipOnNullValues: PropTypes.bool,
     ...motionPropTypes,
     ...defsPropTypes,
 }
@@ -207,6 +208,7 @@ export const LineDefaultProps = {
     motionConfig: 'gentle',
     defs: [],
     fill: [],
+    enableTooltipOnNullValues: false,
 }
 
 export const LineCanvasDefaultProps = {
