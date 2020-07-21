@@ -13,7 +13,7 @@ const defaults = TreeMapDefaultProps
 
 const props = [
     {
-        key: 'root',
+        key: 'data',
         group: 'Base',
         help: 'The hierarchical data object.',
         type: 'object',
@@ -34,6 +34,17 @@ const props = [
         type: 'string | Function',
         required: false,
         defaultValue: 'value',
+    },
+    {
+        key: 'valueFormat',
+        help: `
+            Value format supporting d3-format notation, this formatted value
+            will then be used for labels and tooltips.
+        `,
+        type: 'string | Function',
+        required: false,
+        controlType: 'valueFormat',
+        group: 'Base',
     },
     {
         key: 'tile',
@@ -124,7 +135,6 @@ const props = [
     },
     {
         key: 'pixelRatio',
-        group: 'Base',
         flavors: ['canvas'],
         help: `Adjust pixel ratio, useful for HiDPI screens.`,
         required: false,
@@ -155,6 +165,15 @@ const props = [
         group: 'Style',
     },
     {
+        key: 'nodeOpacity',
+        help: 'Node opacity (0~1).',
+        required: false,
+        defaultValue: defaults.nodeOpacity,
+        type: 'number',
+        controlType: 'opacity',
+        group: 'Style',
+    },
+    {
         key: 'borderWidth',
         help: 'Control node border width.',
         type: 'number',
@@ -178,7 +197,7 @@ const props = [
         help: 'Enable/disable labels.',
         type: 'boolean',
         required: false,
-        defaultValue: true,
+        defaultValue: defaults.enableLabel,
         controlType: 'switch',
         group: 'Labels',
     },
@@ -186,13 +205,17 @@ const props = [
         key: 'label',
         help: 'Label accessor.',
         description:
-            'Defines how to get label text, can be a string (used to access current node data property) or a function which will receive the actual node data and must return the desired label.',
+            'Defines how to get label text, can be a string (used to access current node property) or a function which will receive the actual node and must return the desired label.',
         type: 'string | Function',
         required: false,
         controlType: 'choices',
         group: 'Labels',
         controlOptions: {
-            choices: ['loc', 'name', `d => \`\${d.name} (\${d.loc})\``].map(prop => ({
+            choices: [
+                'formattedValue',
+                'id',
+                `node => \`\${node.id} (\${node.formattedValue})\``,
+            ].map(prop => ({
                 label: prop,
                 value: prop,
             })),
@@ -217,12 +240,95 @@ const props = [
         help: 'Orient labels according to max node width/height.',
         type: 'boolean',
         required: false,
+        defaultValue: defaults.orientLabel,
         controlType: 'switch',
         group: 'Labels',
     },
     {
         key: 'labelTextColor',
         help: 'Method to compute label text color.',
+        type: 'string | object | Function',
+        required: false,
+        controlType: 'inheritedColor',
+        group: 'Labels',
+    },
+    {
+        key: 'enableParentLabel',
+        flavors: ['svg', 'html', 'api'],
+        help: 'Enable/disable labels.',
+        type: 'boolean',
+        required: false,
+        defaultValue: defaults.enableParentLabel,
+        controlType: 'switch',
+        group: 'Labels',
+    },
+    {
+        key: 'parentLabel',
+        flavors: ['svg', 'html', 'api'],
+        help: 'Parent label accessor.',
+        description:
+            'Defines how to get parent label text, can be a string (used to access current node property) or a function which will receive the actual node and must return the desired label.',
+        type: 'string | Function',
+        required: false,
+        controlType: 'choices',
+        group: 'Labels',
+        controlOptions: {
+            choices: ['id', 'formattedValue', `node => node.pathComponents.join(' / ')`].map(
+                prop => ({
+                    label: prop,
+                    value: prop,
+                })
+            ),
+        },
+    },
+    {
+        key: 'parentLabelSize',
+        flavors: ['svg', 'html', 'api'],
+        help: `Parent label size.`,
+        required: false,
+        defaultValue: defaults.parentLabelSize,
+        type: `number`,
+        controlType: 'range',
+        group: 'Labels',
+        controlOptions: {
+            min: 10,
+            max: 40,
+        },
+    },
+    {
+        key: 'parentLabelPosition',
+        flavors: ['svg', 'html', 'api'],
+        help: 'Parent label position.',
+        type: `'top' | 'right' | 'bottom' | 'left'`,
+        required: false,
+        controlType: 'choices',
+        group: 'Labels',
+        defaultValue: defaults.parentLabelPosition,
+        controlOptions: {
+            choices: ['top', 'right', 'bottom', 'left'].map(prop => ({
+                label: prop,
+                value: prop,
+            })),
+        },
+    },
+    {
+        key: 'parentLabelPadding',
+        flavors: ['svg', 'html', 'api'],
+        help: `Parent label padding.`,
+        required: false,
+        defaultValue: defaults.parentLabelPadding,
+        type: `number`,
+        controlType: 'range',
+        group: 'Labels',
+        controlOptions: {
+            min: 0,
+            max: 20,
+        },
+    },
+    {
+        key: 'parentLabelTextColor',
+        flavors: ['svg', 'html', 'api'],
+        help: 'Method to compute parent label text color.',
         type: 'string | object | Function',
         required: false,
         controlType: 'inheritedColor',
@@ -239,14 +345,38 @@ const props = [
         group: 'Interactivity',
     },
     {
-        key: 'onClick',
+        key: 'onMouseEnter',
+        flavors: ['svg', 'html'],
         group: 'Interactivity',
-        flavors: ['svg', 'html', 'canvas'],
-        help: 'onClick handler, it receives clicked node data and style plus mouse event.',
-        type: 'Function',
+        type: '(node, event) => void',
+        help: 'onMouseEnter handler.',
         required: false,
     },
-    ...motionProperties(['svg', 'html'], defaults),
+    {
+        key: 'onMouseMove',
+        flavors: ['svg', 'html', 'canvas'],
+        group: 'Interactivity',
+        type: '(node, event) => void',
+        help: 'onMouseMove handler.',
+        required: false,
+    },
+    {
+        key: 'onMouseLeave',
+        flavors: ['svg', 'html'],
+        group: 'Interactivity',
+        type: '(node, event) => void',
+        help: 'onMouseLeave handler.',
+        required: false,
+    },
+    {
+        key: 'onClick',
+        flavors: ['svg', 'html', 'canvas'],
+        group: 'Interactivity',
+        type: '(node, event) => void',
+        help: 'onClick handler.',
+        required: false,
+    },
+    ...motionProperties(['svg', 'html', 'canvas'], defaults, 'react-spring'),
 ]
 
 export const groups = groupProperties(props)

@@ -1,6 +1,6 @@
 {
   "name": "@nivo/calendar",
-  "version": "0.61.1",
+  "version": "0.62.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -15,7 +15,7 @@
     "calendar"
   ],
   "main": "./dist/nivo-calendar.cjs.js",
-  "module": "./dist/nivo-calendar.esm.js",
+  "module": "./dist/nivo-calendar.es.js",
   "files": [
     "README.md",
     "LICENSE.md",
@@ -23,9 +23,9 @@
     "dist/"
   ],
   "dependencies": {
-    "@nivo/core": "0.61.0",
-    "@nivo/legends": "0.61.1",
-    "@nivo/tooltip": "0.61.0",
+    "@nivo/core": "0.62.0",
+    "@nivo/legends": "0.62.0",
+    "@nivo/tooltip": "0.62.0",
     "d3-scale": "^3.0.0",
     "d3-time": "^1.0.10",
     "d3-time-format": "^2.1.3",

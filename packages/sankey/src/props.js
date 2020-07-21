@@ -8,7 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import { sankeyCenter, sankeyJustify, sankeyLeft, sankeyRight } from 'd3-sankey'
-import { noop, blendModePropType } from '@nivo/core'
+import { noop, blendModePropType, motionPropTypes } from '@nivo/core'
 import { ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
 import { LegendPropShape } from '@nivo/legends'
 
@@ -70,10 +70,8 @@ export const SankeyPropTypes = {
     labelPadding: PropTypes.number.isRequired,
     labelOrientation: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
     labelTextColor: inheritedColorPropType,
-    getLabelTextColor: PropTypes.func.isRequired, // computed
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     labelFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    getLabel: PropTypes.func.isRequired, // computed
 
     nodeTooltip: PropTypes.func,
     linkTooltip: PropTypes.func,
@@ -90,6 +88,8 @@ export const SankeyPropTypes = {
             PropTypes.func,
         ])
     ).isRequired,
+
+    ...motionPropTypes,
 }
 
 export const SankeyDefaultProps = {
@@ -128,4 +128,7 @@ export const SankeyDefaultProps = {
     legends: [],
 
     layers: ['links', 'nodes', 'labels', 'legends'],
+
+    animate: true,
+    motionConfig: 'gentle',
 }

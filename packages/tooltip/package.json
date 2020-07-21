@@ -1,13 +1,13 @@
 {
   "name": "@nivo/tooltip",
-  "version": "0.61.0",
+  "version": "0.62.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
     "url": "https://github.com/plouc"
   },
   "main": "./dist/nivo-tooltip.cjs.js",
-  "module": "./dist/nivo-tooltip.esm.js",
+  "module": "./dist/nivo-tooltip.es.js",
   "files": [
     "README.md",
     "LICENSE.md",
@@ -15,11 +15,10 @@
     "dist/"
   ],
   "dependencies": {
-    "@nivo/core": "0.61.0",
-    "react-measure": "^2.2.4",
-    "react-motion": "^0.5.2"
+    "react-spring": "^8.0.27"
   },
   "peerDependencies": {
+    "@nivo/core": "0.62.0",
     "prop-types": ">= 15.5.10 < 16.0.0"
   },
   "publishConfig": {

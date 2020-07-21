@@ -1,6 +1,6 @@
 {
   "name": "@nivo/waffle",
-  "version": "0.61.1",
+  "version": "0.62.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -15,7 +15,7 @@
     "waffle-chart"
   ],
   "main": "./dist/nivo-waffle.cjs.js",
-  "module": "./dist/nivo-waffle.esm.js",
+  "module": "./dist/nivo-waffle.es.js",
   "files": [
     "README.md",
     "LICENSE.md",
@@ -23,10 +23,10 @@
     "dist/"
   ],
   "dependencies": {
-    "@nivo/colors": "0.61.0",
-    "@nivo/core": "0.61.0",
-    "@nivo/legends": "0.61.1",
-    "@nivo/tooltip": "0.61.0",
+    "@nivo/colors": "0.62.0",
+    "@nivo/core": "0.62.0",
+    "@nivo/legends": "0.62.0",
+    "@nivo/tooltip": "0.62.0",
     "lodash.partial": "^4.2.1",
     "lodash.range": "^3.2.0",
     "react-motion": "^0.5.2",

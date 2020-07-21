@@ -15,16 +15,19 @@ import {
     SvgDefsAndFill,
     CartesianMarkerProps,
 } from '@nivo/core'
+import { AxisProps, GridValues } from '@nivo/axes'
 import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 
 declare module '@nivo/bar' {
+    export type Value = string | number
+
     export interface Data {
         data: object[]
     }
 
     export interface BarDatum {
-        [key: string]: string | number
+        [key: string]: Value
     }
 
     export type BarDatumWithColor = BarDatum & {
@@ -32,10 +35,10 @@ declare module '@nivo/bar' {
     }
 
     export interface BarExtendedDatum {
-        id: string | number
+        id: Value
         value: number
         index: number
-        indexValue: string | number
+        indexValue: Value
         color: string
         data: BarDatum
     }
@@ -48,9 +51,9 @@ declare module '@nivo/bar' {
 
     export type ValueFormatter = (value: number) => string | number
 
-    export type BarClickHandler = (
+    export type BarMouseEventHandler<T = HTMLCanvasElement> = (
         datum: BarExtendedDatum,
-        event: React.MouseEvent<HTMLCanvasElement>
+        event: React.MouseEvent<T>
     ) => void
 
     export type TooltipProp = React.StatelessComponent<BarExtendedDatum>
@@ -72,7 +75,9 @@ declare module '@nivo/bar' {
         label: string
         shouldRenderLabel: boolean
         labelColor: string
-        onClick: BarClickHandler
+        onClick: BarMouseEventHandler
+        onMouseEnter: BarMouseEventHandler
+        onMouseLeave: BarMouseEventHandler
         tooltipFormat: string | ValueFormatter
         tooltip: TooltipProp
         showTooltip: (tooltip: React.ReactNode, event: React.MouseEvent<HTMLCanvasElement>) => void
@@ -94,13 +99,15 @@ declare module '@nivo/bar' {
         maxValue: number | 'auto'
         padding: number
 
-        axisBottom: Axis | null
-        axisLeft: Axis | null
-        axisRight: Axis | null
-        axisTop: Axis | null
+        axisBottom: AxisProps | null
+        axisLeft: AxisProps | null
+        axisRight: AxisProps | null
+        axisTop: AxisProps | null
 
         enableGridX: boolean
+        gridXValues: GridValues<Value>
         enableGridY: boolean
+        gridYValues: GridValues<Value>
 
         barComponent: React.StatelessComponent<BarItemProps>
 
@@ -122,22 +129,9 @@ declare module '@nivo/bar' {
         tooltipFormat: string | ValueFormatter
         tooltip: TooltipProp
 
-        legends: Array<{ dataFrom: 'indexes' | 'keys' } & LegendProps>
+        legends: ({ dataFrom: 'indexes' | 'keys' } & LegendProps)[]
 
         markers: CartesianMarkerProps[]
-    }>
-
-    export type Axis = Partial<{
-        format: string | LabelFormatter
-        renderTick: (data: any) => React.ReactNode
-        legend: string
-        legendOffset: number
-        legendPosition: 'start' | 'middle' | 'end'
-        orient: 'top' | 'right' | 'bottom' | 'left'
-        tickPadding: number
-        tickRotation: number
-        tickSize: number
-        tickValues: number | string[] | number[]
     }>
 
     export enum BarLayerType {
@@ -156,7 +150,9 @@ declare module '@nivo/bar' {
         SvgDefsAndFill<BarDatum> &
         Partial<{
             layers: Layer[]
-            onClick: (datum: BarExtendedDatum, event: React.MouseEvent<SVGRectElement>) => void
+            onClick: BarMouseEventHandler<SVGRectElement>
+            onMouseEnter: BarMouseEventHandler<SVGRectElement>
+            onMouseLeave: BarMouseEventHandler<SVGRectElement>
         }>
 
     export class Bar extends React.Component<BarSvgProps & Dimensions> {}
@@ -165,7 +161,9 @@ declare module '@nivo/bar' {
     export type BarCanvasProps = Data &
         BarProps &
         Partial<{
-            onClick: BarClickHandler
+            onClick: BarMouseEventHandler
+            onMouseEnter: BarMouseEventHandler
+            onMouseLeave: BarMouseEventHandler
             pixelRatio: number
         }>
 

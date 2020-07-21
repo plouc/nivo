@@ -8,58 +8,44 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { useMotionConfig, SmartMotion, blendModePropType } from '@nivo/core'
+import { useSprings, animated } from 'react-spring'
+import { useMotionConfig, blendModePropType } from '@nivo/core'
 
 const Areas = ({ areaGenerator, areaOpacity, areaBlendMode, lines }) => {
-    const { animate, springConfig } = useMotionConfig()
+    const { animate, config: springConfig } = useMotionConfig()
 
-    if (animate !== true) {
-        return (
-            <g>
-                {lines
-                    .slice(0)
-                    .reverse()
-                    .map(({ id, data, color: areaColor }) => (
-                        <path
-                            key={id}
-                            d={areaGenerator(data.map(d => d.position))}
-                            fill={areaColor}
-                            fillOpacity={areaOpacity}
-                            strokeWidth={0}
-                            style={{
-                                mixBlendMode: areaBlendMode,
-                            }}
-                        />
-                    ))}
-            </g>
-        )
-    }
+    const computedLines = lines.slice(0).reverse()
+
+    const springs = useSprings(
+        computedLines.length,
+        computedLines.map(line => {
+            return {
+                path: areaGenerator(line.data.map(d => d.position)),
+                color: line.color,
+                config: springConfig,
+                immediate: !animate,
+            }
+        })
+    )
 
     return (
         <g>
-            {lines
-                .slice(0)
-                .reverse()
-                .map(({ id, data, color: areaColor }) => (
-                    <SmartMotion
-                        key={id}
-                        style={spring => ({
-                            d: spring(areaGenerator(data.map(d => d.position)), springConfig),
-                            fill: spring(areaColor, springConfig),
-                        })}
-                    >
-                        {style => (
-                            <path
-                                key={id}
-                                d={style.d}
-                                fill={areaColor}
-                                fillOpacity={areaOpacity}
-                                strokeWidth={0}
-                                style={{ mixBlendMode: areaBlendMode }}
-                            />
-                        )}
-                    </SmartMotion>
-                ))}
+            {springs.map((animatedProps, index) => {
+                const line = computedLines[index]
+
+                return (
+                    <animated.path
+                        key={line.id}
+                        d={animatedProps.path}
+                        fill={line.fill ? line.fill : animatedProps.color}
+                        fillOpacity={areaOpacity}
+                        strokeWidth={0}
+                        style={{
+                            mixBlendMode: areaBlendMode,
+                        }}
+                    />
+                )
+            })}
         </g>
     )
 }

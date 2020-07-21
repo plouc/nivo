@@ -1,6 +1,6 @@
 {
   "name": "@nivo/bullet",
-  "version": "0.61.1",
+  "version": "0.62.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -15,7 +15,7 @@
     "bullet-chart"
   ],
   "main": "./dist/nivo-bullet.cjs.js",
-  "module": "./dist/nivo-bullet.esm.js",
+  "module": "./dist/nivo-bullet.es.js",
   "files": [
     "README.md",
     "LICENSE.md",
@@ -23,11 +23,11 @@
     "dist/"
   ],
   "dependencies": {
-    "@nivo/axes": "0.61.0",
-    "@nivo/colors": "0.61.0",
-    "@nivo/core": "0.61.0",
-    "@nivo/legends": "0.61.1",
-    "@nivo/tooltip": "0.61.0",
+    "@nivo/axes": "0.62.0",
+    "@nivo/colors": "0.62.0",
+    "@nivo/core": "0.62.0",
+    "@nivo/legends": "0.62.0",
+    "@nivo/tooltip": "0.62.0",
     "d3-scale": "^3.0.0",
     "lodash": "^4.17.11",
     "react-motion": "^0.5.2",

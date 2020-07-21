@@ -35,7 +35,7 @@ const PieSlice = ({
     const handleTooltip = e =>
         showTooltip(
             <BasicTooltip
-                id={data.label}
+                id={data.label || data.id}
                 value={data.value}
                 enableChip={true}
                 color={color}
@@ -74,7 +74,7 @@ const PieSlice = ({
 PieSlice.propTypes = {
     data: PropTypes.shape({
         id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-        label: PropTypes.string.isRequired,
+        label: PropTypes.string,
         value: PropTypes.number.isRequired,
     }).isRequired,
 

@@ -8,80 +8,48 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { Motion, spring } from 'react-motion'
+import { useSpring, animated } from 'react-spring'
 import { useMotionConfig, useTheme } from '@nivo/core'
 
 const RectAnnotationOutline = memo(({ x, y, width, height }) => {
     const theme = useTheme()
-    const { animate, springConfig } = useMotionConfig()
+    const { animate, config: springConfig } = useMotionConfig()
 
-    if (!animate) {
-        return (
-            <>
-                {theme.annotations.outline.outlineWidth > 0 && (
-                    <rect
-                        x={x - width / 2}
-                        y={y - height / 2}
-                        width={width}
-                        height={height}
-                        style={{
-                            ...theme.annotations.outline,
-                            fill: 'none',
-                            strokeWidth:
-                                theme.annotations.outline.strokeWidth +
-                                theme.annotations.outline.outlineWidth * 2,
-                            stroke: theme.annotations.outline.outlineColor,
-                        }}
-                    />
-                )}
-                <rect
-                    x={x - width / 2}
-                    y={y - height / 2}
-                    width={width}
-                    height={height}
-                    style={theme.annotations.outline}
-                />
-            </>
-        )
-    }
+    const animatedProps = useSpring({
+        x: x - width / 2,
+        y: y - height / 2,
+        width,
+        height,
+        config: springConfig,
+        immediate: !animate,
+    })
 
     return (
-        <Motion
-            style={{
-                x: spring(x - width / 2, springConfig),
-                y: spring(y - height / 2, springConfig),
-                width: spring(width, springConfig),
-                height: spring(height, springConfig),
-            }}
-        >
-            {interpolated => (
-                <>
-                    {theme.annotations.outline.outlineWidth > 0 && (
-                        <rect
-                            x={interpolated.x}
-                            y={interpolated.y}
-                            width={interpolated.width}
-                            height={interpolated.height}
-                            style={{
-                                ...theme.annotations.outline,
-                                fill: 'none',
-                                strokeWidth:
-                                    theme.annotations.outline.strokeWidth +
-                                    theme.annotations.outline.outlineWidth * 2,
-                                stroke: theme.annotations.outline.outlineColor,
-                            }}
-                        />
-                    )}
-                    <rect
-                        x={interpolated.x}
-                        y={interpolated.y}
-                        width={interpolated.width}
-                        height={interpolated.height}
-                        style={theme.annotations.outline}
-                    />
-                </>
+        <>
+            {theme.annotations.outline.outlineWidth > 0 && (
+                <animated.rect
+                    x={animatedProps.x}
+                    y={animatedProps.y}
+                    width={animatedProps.width}
+                    height={animatedProps.height}
+                    style={{
+                        ...theme.annotations.outline,
+                        fill: 'none',
+                        strokeWidth:
+                            theme.annotations.outline.strokeWidth +
+                            theme.annotations.outline.outlineWidth * 2,
+                        stroke: theme.annotations.outline.outlineColor,
+                    }}
+                />
             )}
-        </Motion>
+            <animated.rect
+                x={animatedProps.x}
+                y={animatedProps.y}
+                width={animatedProps.width}
+                height={animatedProps.height}
+                style={theme.annotations.outline}
+            />
+        </>
     )
 })
 

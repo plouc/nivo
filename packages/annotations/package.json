@@ -1,6 +1,6 @@
 {
   "name": "@nivo/annotations",
-  "version": "0.61.0",
+  "version": "0.62.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -14,7 +14,7 @@
     "annotations"
   ],
   "main": "./dist/nivo-annotations.cjs.js",
-  "module": "./dist/nivo-annotations.esm.js",
+  "module": "./dist/nivo-annotations.es.js",
   "files": [
     "README.md",
     "LICENSE.md",
@@ -22,12 +22,12 @@
     "dist/"
   ],
   "dependencies": {
-    "@nivo/colors": "0.61.0",
-    "@nivo/core": "0.61.0",
+    "@nivo/colors": "0.62.0",
     "lodash": "^4.17.11",
-    "react-motion": "^0.5.2"
+    "react-spring": "^8.0.27"
   },
   "peerDependencies": {
+    "@nivo/core": "0.62.0",
     "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.8.4 < 17.0.0"
   },

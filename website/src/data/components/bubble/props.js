@@ -7,7 +7,12 @@
  * file that was distributed with this source code.
  */
 import { BubbleDefaultProps as defaults } from '@nivo/circle-packing'
-import { motionProperties, defsProperties, groupProperties } from '../../../lib/componentProperties'
+import {
+    themeProperty,
+    motionProperties,
+    defsProperties,
+    groupProperties,
+} from '../../../lib/componentProperties'
 
 const props = [
     {
@@ -133,6 +138,7 @@ const props = [
             max: 32,
         },
     },
+    themeProperty,
     {
         key: 'colors',
         help: 'Defines how to compute node color.',

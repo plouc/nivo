@@ -35,9 +35,7 @@ module.exports = {
                                 .keys({
                                     source: Joi.alternatives().try(Joi.string(), Joi.number()),
                                     target: Joi.alternatives().try(Joi.string(), Joi.number()),
-                                    value: Joi.number()
-                                        .min(0)
-                                        .required(),
+                                    value: Joi.number().min(0).required(),
                                 })
                                 .unknown()
                         )
@@ -49,18 +47,14 @@ module.exports = {
             align: Joi.any().valid(sankeyAlignmentPropKeys),
             sort: Joi.valid('auto', 'input', 'ascending', 'descending'),
 
-            nodeOpacity: Joi.number()
-                .min(0)
-                .max(1),
+            nodeOpacity: Joi.number().min(0).max(1),
             nodeWidth: Joi.number().min(1),
             nodePaddingX: Joi.number().positive(),
             nodePaddingY: Joi.number().positive(),
             nodeBorderWidth: Joi.number().min(0),
             nodeBorderColor: inheritedColor,
 
-            linkOpacity: Joi.number()
-                .min(0)
-                .max(1),
+            linkOpacity: Joi.number().min(0).max(1),
             linkContract: Joi.number(),
             linkBlendMode: common.blendMode,
             enableLinkGradient: Joi.boolean(),

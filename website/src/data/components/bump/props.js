@@ -7,7 +7,12 @@
  * file that was distributed with this source code.
  */
 import { BumpDefaultProps as defaults } from '@nivo/bump'
-import { motionProperties, axesProperties, groupProperties } from '../../../lib/componentProperties'
+import {
+    themeProperty,
+    motionProperties,
+    axesProperties,
+    groupProperties,
+} from '../../../lib/componentProperties'
 
 const props = [
     {
@@ -134,6 +139,7 @@ const props = [
             step: 0.05,
         },
     },
+    themeProperty,
     {
         key: 'colors',
         help: 'Defines color range.',
@@ -393,7 +399,7 @@ const props = [
             element and will receive the series's data.
         `,
     },
-    ...motionProperties(['svg'], defaults),
+    ...motionProperties(['svg'], defaults, 'react-spring'),
 ]
 
 export const groups = groupProperties(props)

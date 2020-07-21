@@ -14,12 +14,13 @@ import {
     getRelativeCursor,
     isCursorInRect,
 } from '@nivo/core'
+import { renderAnnotationsToCanvas } from '@nivo/annotations'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'
 import { useVoronoiMesh, renderVoronoiToCanvas, renderVoronoiCellToCanvas } from '@nivo/voronoi'
 import { ScatterPlotCanvasPropTypes, ScatterPlotCanvasDefaultProps } from './props'
-import { useScatterPlot } from './hooks'
+import { useScatterPlot, useScatterPlotAnnotations } from './hooks'
 
 const ScatterPlotCanvas = props => {
     const {
@@ -49,6 +50,8 @@ const ScatterPlotCanvas = props => {
         axisRight,
         axisBottom,
         axisLeft,
+
+        annotations,
 
         isInteractive,
         debugMesh,
@@ -82,6 +85,8 @@ const ScatterPlotCanvas = props => {
         nodeSize,
         colors,
     })
+
+    const boundAnnotations = useScatterPlotAnnotations(nodes, annotations)
 
     const { delaunay, voronoi } = useVoronoiMesh({
         points: nodes,
@@ -139,6 +144,8 @@ const ScatterPlotCanvas = props => {
                         axis: 'y',
                         values: gridYValues,
                     })
+            } else if (layer === 'annotations') {
+                renderAnnotationsToCanvas(ctx, { annotations: boundAnnotations, theme })
             } else if (layer === 'axes') {
                 renderAxesToCanvas(ctx, {
                     xScale,

@@ -1,0 +1,19 @@
+flavors:
+  - flavor: svg
+    path: /funnel/
+
+Funnel:
+  package: '@nivo/funnel'
+  tags:
+    - experimental
+    - svg
+    - isomorphic
+  stories: []
+  description: |
+    A funnel chart.
+
+    This component also provides a React hook which can be used in *headless mode*:
+    `useFunnel()`, meaning that you can compute the chart but handle the rendering
+    by yourself, this hook supports almost the same properties as the chart.
+
+    The responsive alternative of this component is `ResponsiveFunnel`.

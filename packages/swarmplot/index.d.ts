@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import { Component } from 'react'
+import { AxisProps, GridValues } from '@nivo/axes'
 import { Box, MotionProps, Dimensions, Theme } from '@nivo/core'
 import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
 
@@ -70,14 +71,14 @@ declare module '@nivo/swarmplot' {
         borderColor?: InheritedColorProp<ComputedNode<Datum>>
 
         enableGridX?: boolean
-        gridXValues?: number[]
+        gridXValues?: GridValues<number>
         enableGridY?: boolean
-        gridYValues?: number[]
+        gridYValues?: GridValues<number>
 
-        axisTop?: any
-        axisRight?: any
-        axisBottom?: any
-        axisLeft?: any
+        axisTop?: AxisProps | null
+        axisRight?: AxisProps | null
+        axisBottom?: AxisProps | null
+        axisLeft?: AxisProps | null
 
         isInteractive?: boolean
         useMesh?: boolean

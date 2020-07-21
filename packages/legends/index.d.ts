@@ -1,6 +1,11 @@
 import * as React from 'react'
 
 declare module '@nivo/legends' {
+    interface ContainerDimensions {
+        containerHeight: number
+        containerWidth: number
+    }
+
     export type LegendAnchor =
         | 'top'
         | 'top-right'
@@ -53,12 +58,12 @@ declare module '@nivo/legends' {
     }
 
     export interface LegendProps {
-        data?: Array<{
+        data?: {
             id: string | number
-            value: number
+            label: string | number
             color?: string
             fill?: string
-        }>
+        }[]
 
         anchor: LegendAnchor
         direction: LegendDirection
@@ -93,4 +98,6 @@ declare module '@nivo/legends' {
     }
 
     export type QuantileLegendSvg = React.FunctionComponent<QuantileLegendProps>
+
+    export const BoxLegendSvg: React.FC<LegendProps & ContainerDimensions>
 }

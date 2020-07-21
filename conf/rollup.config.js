@@ -1,6 +1,6 @@
 import { camelCase, upperFirst } from 'lodash'
-import babel from 'rollup-plugin-babel'
-import resolve from 'rollup-plugin-node-resolve'
+import babel from '@rollup/plugin-babel'
+import resolve from '@rollup/plugin-node-resolve'
 import stripBanner from 'rollup-plugin-strip-banner'
 import cleanup from 'rollup-plugin-cleanup'
 
@@ -45,10 +45,8 @@ const commonPlugins = [
     }),
     babel({
         exclude: 'node_modules/**',
-        externalHelpers: true,
-        presets: [
-            '@nivo/babel-preset'
-        ]
+        babelHelpers: 'runtime',
+        presets: ['react-app']
     }),
     cleanup()
 ]
@@ -57,9 +55,10 @@ const configs = [
     {
         ...common,
         output: {
-            file: `./packages/${pkg}/dist/nivo-${pkg}.esm.js`,
-            format: 'esm',
+            file: `./packages/${pkg}/dist/nivo-${pkg}.es.js`,
+            format: 'es',
             name: `@nivo/${pkg}`,
+            sourcemap: true,
         },
         plugins: commonPlugins,
     }
@@ -72,6 +71,7 @@ if (!isWatching) {
             file: `./packages/${pkg}/dist/nivo-${pkg}.cjs.js`,
             format: 'cjs',
             name: `@nivo/${pkg}`,
+            sourcemap: true,
         },
         plugins: commonPlugins,
     })
@@ -83,6 +83,7 @@ if (!isWatching) {
             extend: true,
             name: 'nivo',
             globals: mapGlobal,
+            sourcemap: true,
         },
         plugins: commonPlugins,
     })

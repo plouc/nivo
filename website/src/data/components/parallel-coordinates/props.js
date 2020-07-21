@@ -8,7 +8,7 @@
  */
 import { lineCurvePropKeys } from '@nivo/core'
 import { commonDefaultProps as defaults } from '@nivo/parallel-coordinates'
-import { motionProperties, groupProperties } from '../../../lib/componentProperties'
+import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
 
 const props = [
     {
@@ -218,6 +218,7 @@ const props = [
         controlType: 'margin',
         group: 'Base',
     },
+    themeProperty,
     {
         key: 'colors',
         help: 'Defines color range.',
@@ -227,31 +228,6 @@ const props = [
         controlType: 'ordinalColors',
         group: 'Style',
     },
-    // {
-    //     key: 'colorBy',
-    //     help:
-    //         'Property used to determine line color. If a function is provided, it will receive current line data and must return a valid color.',
-    //     required: false,
-    //     defaultValue: defaults.colorBy,
-    //     controlType: 'choices',
-    //     group: 'Style',
-    //     controlOptions: {
-    //         choices: [
-    //             {
-    //                 label: 'index',
-    //                 value: 'index',
-    //             },
-    //             {
-    //                 label: 'target',
-    //                 value: 'target',
-    //             },
-    //             {
-    //                 label: `custom using 'color' variable`,
-    //                 value: `custom using 'color' variable`,
-    //             },
-    //         ],
-    //     },
-    // },
     {
         key: 'strokeWidth',
         help: 'Lines stroke width.',
@@ -270,7 +246,7 @@ const props = [
         controlType: 'opacity',
         group: 'Style',
     },
-    ...motionProperties(['svg'], defaults),
+    ...motionProperties(['svg'], defaults, 'react-spring'),
 ]
 
 export const groups = groupProperties(props)

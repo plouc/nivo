@@ -17,7 +17,7 @@ it('should render a basic line chart', () => {
             ],
         },
     ]
-    const component = renderer.create(<Line width={500} height={300} data={data} />)
+    const component = renderer.create(<Line width={500} height={300} data={data} animate={false} />)
 
     let tree = component.toJSON()
     expect(tree).toMatchSnapshot()
@@ -46,7 +46,7 @@ it('should support multiple lines', () => {
             ],
         },
     ]
-    const component = renderer.create(<Line width={500} height={300} data={data} />)
+    const component = renderer.create(<Line width={500} height={300} data={data} animate={false} />)
 
     let tree = component.toJSON()
     expect(tree).toMatchSnapshot()
@@ -65,7 +65,9 @@ it('should create slice for each x value', () => {
             ],
         },
     ]
-    const wrapper = mount(<Line width={500} height={300} data={data} enableSlices="x" />)
+    const wrapper = mount(
+        <Line width={500} height={300} data={data} enableSlices="x" animate={false} />
+    )
 
     const slices = wrapper.find(SlicesItem)
     expect(slices).toHaveLength(5)
@@ -89,7 +91,7 @@ it('should have left and bottom axis by default', () => {
             ],
         },
     ]
-    const wrapper = mount(<Line width={500} height={300} data={data} />)
+    const wrapper = mount(<Line width={500} height={300} data={data} animate={false} />)
 
     const axes = wrapper.find('Axis')
     expect(axes).toHaveLength(2)

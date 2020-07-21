@@ -18,7 +18,4 @@ import { scaleBand } from 'd3-scale'
  * @returns {Function}
  */
 export const getIndexedScale = (data, getIndex, range, padding) =>
-    scaleBand()
-        .range(range)
-        .domain(data.map(getIndex))
-        .padding(padding)
+    scaleBand().range(range).domain(data.map(getIndex)).padding(padding)

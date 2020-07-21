@@ -8,117 +8,40 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { motionPropTypes, SmartMotion } from '@nivo/core'
-import { BasicTooltip } from '@nivo/tooltip'
+import StreamLayer from './StreamLayer'
 
 const StreamLayers = ({
     layers,
-
     fillOpacity,
     borderWidth,
     getBorderColor,
-    theme,
-
-    showTooltip,
-    hideTooltip,
     getTooltipLabel,
-
-    animate,
-    motionStiffness,
-    motionDamping,
+    isInteractive,
 }) => {
-    if (animate !== true) {
-        return (
-            <g>
-                {layers.map((layer, i) => {
-                    const { path, color } = layer
-
-                    const handleTooltip = e =>
-                        showTooltip(
-                            <BasicTooltip
-                                id={getTooltipLabel(layer)}
-                                enableChip={true}
-                                color={color}
-                                theme={theme}
-                            />,
-                            e
-                        )
-
-                    return (
-                        <path
-                            key={i}
-                            onMouseMove={handleTooltip}
-                            onMouseEnter={handleTooltip}
-                            onMouseLeave={hideTooltip}
-                            d={path}
-                            fill={layer.fill ? layer.fill : layer.color}
-                            fillOpacity={fillOpacity}
-                            stroke={getBorderColor(layer)}
-                            strokeWidth={borderWidth}
-                        />
-                    )
-                })}
-            </g>
-        )
-    }
-
-    const springConfig = {
-        stiffness: motionStiffness,
-        damping: motionDamping,
-    }
-
     return (
         <g>
-            {layers.map((layer, i) => {
-                const { path, color } = layer
-
-                const handleTooltip = e =>
-                    showTooltip(
-                        <BasicTooltip
-                            id={getTooltipLabel(layer)}
-                            enableChip={true}
-                            color={color}
-                            theme={theme}
-                        />,
-                        e
-                    )
-
-                return (
-                    <SmartMotion
-                        key={i}
-                        style={spring => ({
-                            d: spring(path, springConfig),
-                            fill: spring(color, springConfig),
-                            fillOpacity: spring(fillOpacity, springConfig),
-                        })}
-                    >
-                        {style => (
-                            <path
-                                onMouseMove={handleTooltip}
-                                onMouseEnter={handleTooltip}
-                                onMouseLeave={hideTooltip}
-                                {...style}
-                                fill={layer.fill ? layer.fill : style.fill}
-                                stroke={getBorderColor(layer)}
-                                strokeWidth={borderWidth}
-                            />
-                        )}
-                    </SmartMotion>
-                )
-            })}
+            {layers.map((layer, i) => (
+                <StreamLayer
+                    key={i}
+                    layer={layer}
+                    getBorderColor={getBorderColor}
+                    borderWidth={borderWidth}
+                    fillOpacity={fillOpacity}
+                    getTooltipLabel={getTooltipLabel}
+                    isInteractive={isInteractive}
+                />
+            ))}
         </g>
     )
 }
 
 StreamLayers.propTypes = {
+    layers: PropTypes.array.isRequired,
     fillOpacity: PropTypes.number.isRequired,
     borderWidth: PropTypes.number.isRequired,
     getBorderColor: PropTypes.func.isRequired,
-    theme: PropTypes.object.isRequired,
-    showTooltip: PropTypes.func.isRequired,
-    hideTooltip: PropTypes.func.isRequired,
     getTooltipLabel: PropTypes.func.isRequired,
-    ...motionPropTypes,
+    isInteractive: PropTypes.bool.isRequired,
 }
 
 export default StreamLayers

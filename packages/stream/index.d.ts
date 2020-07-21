@@ -28,13 +28,11 @@ declare module '@nivo/stream' {
 
     export type StackFunc<T> = (
         data: T[]
-    ) => Array<
-        Array<{
-            0: number
-            1: number
-            data: T
-        }>
-    >
+    ) => {
+        0: number
+        1: number
+        data: T
+    }[][]
 
     export interface Datum {
         color: string

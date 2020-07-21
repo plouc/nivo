@@ -55,11 +55,10 @@ const initialProperties = {
         modifiers: [['darker', 1]],
     },
 
-    animate: true,
-    motionStiffness: 140,
-    motionDamping: 13,
+    animate: SankeyDefaultProps.animate,
+    motionConfig: SankeyDefaultProps.motionConfig,
 
-    isInteractive: true,
+    isInteractive: SankeyDefaultProps.isInteractive,
 
     legends: [
         {

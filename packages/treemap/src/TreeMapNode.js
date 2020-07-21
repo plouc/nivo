@@ -6,61 +6,82 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { themePropType } from '@nivo/core'
+import { animated } from 'react-spring'
+import { useTheme } from '@nivo/core'
 
-const TreeMapNode = ({ style, node, handlers, theme }) => {
-    if (style.width <= 0 || style.height <= 0) return null
+const TreeMapNode = ({
+    node,
+    animatedProps,
+    borderWidth,
+    enableLabel,
+    enableParentLabel,
+    labelSkipSize,
+}) => {
+    const theme = useTheme()
 
-    const rotate = node.label && style.orientLabel && style.height > style.width
+    const showLabel =
+        enableLabel &&
+        node.isLeaf &&
+        (labelSkipSize === 0 || Math.min(node.width, node.height) > labelSkipSize)
+
+    const showParentLabel = enableParentLabel && node.isParent
 
     return (
-        <g transform={`translate(${style.x},${style.y})`}>
-            <rect
-                width={style.width}
-                height={style.height}
-                fill={style.fill ? style.fill : style.color}
-                strokeWidth={style.borderWidth}
-                stroke={style.borderColor}
-                {...handlers}
+        <animated.g transform={animatedProps.transform}>
+            <animated.rect
+                width={animatedProps.width.interpolate(v => Math.max(v, 0))}
+                height={animatedProps.height.interpolate(v => Math.max(v, 0))}
+                fill={node.fill ? node.fill : animatedProps.color}
+                strokeWidth={borderWidth}
+                stroke={node.borderColor}
+                fillOpacity={node.opacity}
+                onMouseEnter={node.onMouseEnter}
+                onMouseMove={node.onMouseMove}
+                onMouseLeave={node.onMouseLeave}
+                onClick={node.onClick}
             />
-            {node.label && (
-                <text
+            {showLabel && (
+                <animated.text
                     textAnchor="middle"
                     dominantBaseline="central"
                     style={{
                         ...theme.labels.text,
-                        fill: style.labelTextColor,
+                        fill: node.labelTextColor,
                         pointerEvents: 'none',
                     }}
-                    transform={`translate(${style.width / 2},${style.height / 2}) rotate(${
-                        rotate ? -90 : 0
-                    })`}
+                    fillOpacity={animatedProps.labelOpacity}
+                    transform={animatedProps.labelTransform}
                 >
                     {node.label}
-                </text>
+                </animated.text>
             )}
-        </g>
+            {showParentLabel && (
+                <animated.text
+                    dominantBaseline="central"
+                    style={{
+                        ...theme.labels.text,
+                        fill: node.parentLabelTextColor,
+                        pointerEvents: 'none',
+                    }}
+                    fillOpacity={animatedProps.parentLabelOpacity}
+                    transform={animatedProps.parentLabelTransform}
+                >
+                    {node.parentLabel}
+                </animated.text>
+            )}
+        </animated.g>
     )
 }
 
 TreeMapNode.propTypes = {
     node: PropTypes.object.isRequired,
-    style: PropTypes.shape({
-        x: PropTypes.number.isRequired,
-        y: PropTypes.number.isRequired,
-        width: PropTypes.number.isRequired,
-        height: PropTypes.number.isRequired,
-        color: PropTypes.string.isRequired,
-        fill: PropTypes.string,
-        borderWidth: PropTypes.number.isRequired,
-        borderColor: PropTypes.string.isRequired,
-        labelTextColor: PropTypes.string.isRequired,
-        orientLabel: PropTypes.bool.isRequired,
-    }).isRequired,
-    handlers: PropTypes.object.isRequired,
-    theme: themePropType.isRequired,
+    animatedProps: PropTypes.object.isRequired,
+    borderWidth: PropTypes.number.isRequired,
+    enableLabel: PropTypes.bool.isRequired,
+    enableParentLabel: PropTypes.bool.isRequired,
+    labelSkipSize: PropTypes.number.isRequired,
 }
 
-export default TreeMapNode
+export default memo(TreeMapNode)

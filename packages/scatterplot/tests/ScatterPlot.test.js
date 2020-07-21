@@ -13,7 +13,12 @@ const sampleData = [
 
 it('should render a basic scatterplot chart', () => {
     const component = renderer.create(
-        <ScatterPlot width={500} height={300} data={[{ id: 'default', data: sampleData }]} />
+        <ScatterPlot
+            width={500}
+            height={300}
+            data={[{ id: 'default', data: sampleData }]}
+            animate={false}
+        />
     )
 
     const tree = component.toJSON()
@@ -29,6 +34,7 @@ it('should allow to render several series', () => {
                 { id: 'default', data: sampleData },
                 { id: 'extra', data: sampleData },
             ]}
+            animate={false}
         />
     )
 
@@ -43,6 +49,7 @@ it('should allow to customize node size', () => {
             height={300}
             nodeSize={12}
             data={[{ id: 'default', data: sampleData }]}
+            animate={false}
         />
     )
 
@@ -74,6 +81,7 @@ it('should allow to use a varying node size', () => {
                 values: [0, 10],
                 sizes: [0, 20],
             }}
+            animate={false}
         />
     )
 
@@ -93,6 +101,7 @@ it('should allow to use a custom node', () => {
             height={300}
             data={[{ id: 'default', data: sampleData }]}
             renderNode={CustomNode}
+            animate={false}
         />
     )
 
@@ -119,6 +128,7 @@ it('should allow to disable interactivity', () => {
             data={[{ id: 'default', data: sampleData }]}
             isInteractive={false}
             onClick={() => {}}
+            animate={false}
         />
     )
 

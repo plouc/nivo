@@ -84,9 +84,7 @@ const Radar = memo(
                     : Math.max(...data.reduce((acc, d) => [...acc, ...keys.map(key => d[key])], []))
 
             const radius = Math.min(innerWidth, innerHeight) / 2
-            const radiusScale = scaleLinear()
-                .range([0, radius])
-                .domain([0, computedMaxValue])
+            const radiusScale = scaleLinear().range([0, radius]).domain([0, computedMaxValue])
 
             return {
                 radius,

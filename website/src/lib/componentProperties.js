@@ -10,12 +10,23 @@ import upperFirst from 'lodash/upperFirst'
 import uniq from 'lodash/uniq'
 import { defaultAnimate, defaultMotionStiffness, defaultMotionDamping } from '@nivo/core'
 
+export const themeProperty = {
+    key: 'theme',
+    group: 'Style',
+    help: 'Define style for common elements such as labels, axes…',
+    description: `
+        Please have a look at [the dedicated guide](self:/guides/theming)
+        on how to define a theme for your charts. 
+    `,
+    required: false,
+}
+
 export const defsProperties = (group, flavors) => [
     {
         key: 'defs',
         group,
         flavors,
-        help: 'Defines patterns and gradients.',
+        help: 'Define patterns and gradients.',
         description: `
             Supports
             [gradients](self:/guides/gradients/) and
@@ -28,7 +39,7 @@ export const defsProperties = (group, flavors) => [
         key: 'fill',
         group,
         flavors,
-        help: 'Defines rules to apply patterns and gradients',
+        help: 'Define rules to apply patterns and gradients',
         description: `
             Supports
             [gradients](self:/guides/gradients/) and
@@ -39,51 +50,71 @@ export const defsProperties = (group, flavors) => [
     },
 ]
 
-export const motionProperties = (flavors, defaults) => [
-    {
-        key: 'animate',
-        flavors,
-        help: 'Enable/disable transitions.',
-        type: 'boolean',
-        required: false,
-        defaultValue: defaults.animate !== undefined ? defaults.animate : defaultAnimate,
-        controlType: 'switch',
-        group: 'Motion',
-    },
-    {
-        key: 'motionStiffness',
-        flavors,
-        help: 'Motion stiffness.',
-        type: 'number',
-        required: false,
-        defaultValue:
-            defaults.motionStiffness !== undefined
-                ? defaults.motionStiffness
-                : defaultMotionStiffness,
-        controlType: 'range',
-        group: 'Motion',
-        controlOptions: {
-            min: 0,
-            max: 300,
-            step: 5,
+export const motionProperties = (flavors, defaults, type = 'react-motion') => {
+    const props = [
+        {
+            key: 'animate',
+            flavors,
+            help: 'Enable/disable transitions.',
+            type: 'boolean',
+            required: false,
+            defaultValue: defaults.animate !== undefined ? defaults.animate : defaultAnimate,
+            controlType: 'switch',
+            group: 'Motion',
         },
-    },
-    {
-        key: 'motionDamping',
-        flavors,
-        help: 'Motion damping.',
-        type: 'number',
-        required: false,
-        defaultValue:
-            defaults.motionDamping !== undefined ? defaults.motionDamping : defaultMotionDamping,
-        controlType: 'range',
-        group: 'Motion',
-        controlOptions: {
-            min: 0,
-            max: 40,
-        },
-    },
-]
+    ]
+
+    if (type === 'react-motion') {
+        props.push({
+            key: 'motionStiffness',
+            flavors,
+            help: 'Motion stiffness.',
+            type: 'number',
+            required: false,
+            defaultValue:
+                defaults.motionStiffness !== undefined
+                    ? defaults.motionStiffness
+                    : defaultMotionStiffness,
+            controlType: 'range',
+            group: 'Motion',
+            controlOptions: {
+                min: 0,
+                max: 300,
+                step: 5,
+            },
+        })
+        props.push({
+            key: 'motionDamping',
+            flavors,
+            help: 'Motion damping.',
+            type: 'number',
+            required: false,
+            defaultValue:
+                defaults.motionDamping !== undefined
+                    ? defaults.motionDamping
+                    : defaultMotionDamping,
+            controlType: 'range',
+            group: 'Motion',
+            controlOptions: {
+                min: 0,
+                max: 40,
+            },
+        })
+    } else if (type === 'react-spring') {
+        props.push({
+            key: 'motionConfig',
+            flavors,
+            help: 'Motion config for react-spring, either a preset or a custom configuration.',
+            type: 'string | object',
+            required: false,
+            defaultValue: defaults.motionConfig,
+            controlType: 'motionConfig',
+            group: 'Motion',
+        })
+    }
+
+    return props
+}
 
 export const axesProperties = ({ flavors, exclude = [] } = {}) =>
     [

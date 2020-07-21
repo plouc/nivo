@@ -46,6 +46,7 @@ const commonPropTypes = {
     monthBorderWidth: PropTypes.number.isRequired,
     monthBorderColor: PropTypes.string.isRequired,
     monthLegend: PropTypes.func.isRequired,
+    monthSpacing: PropTypes.number.isRequired,
     monthLegendPosition: PropTypes.oneOf(['before', 'after']).isRequired,
     monthLegendOffset: PropTypes.number.isRequired,
 
@@ -90,6 +91,7 @@ const commonDefaultProps = {
 
     monthBorderWidth: 2,
     monthBorderColor: '#000',
+    monthSpacing: 0,
     monthLegend: (year, month, date) => monthLabelFormat(date),
     monthLegendPosition: 'before',
     monthLegendOffset: 10,

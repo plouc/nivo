@@ -1,6 +1,6 @@
 {
   "name": "@nivo/generators",
-  "version": "0.61.0",
+  "version": "0.62.0",
   "licenses": [
     {
       "type": "MIT",
@@ -13,7 +13,7 @@
     "url": "https://github.com/plouc"
   },
   "main": "./dist/nivo-generators.cjs.js",
-  "module": "./dist/nivo-generators.esm.js",
+  "module": "./dist/nivo-generators.es.js",
   "files": [
     "README.md",
     "LICENSE.md",

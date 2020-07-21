@@ -15,30 +15,27 @@ import media from '../../theming/mediaQueries'
 const Container = styled.div`
     background: ${({ theme }) => theme.colors.cardBackground};
     color: ${({ theme }) => theme.colors.text};
-    // border-top: 1px solid ${({ theme }) => theme.colors.border};
 `
 
 const Group = styled.div`
-    // border-top: 1px solid ${({ theme }) => theme.colors.border};
-
     &:first-child {
         border-top-width: 0;
     }
 `
 
 const Title = styled.div`
-    // border-bottom: 1px solid ${({ theme }) => theme.colors.border};
     padding: 16px 30px;
     font-weight: 700;
     text-transform: uppercase;
     font-size: 13px;
     line-height: 1em;
-    // color: ${({ theme }) => theme.colors.cardBackground};
     color: white;
     background: ${({ theme }) => theme.colors.accent};
-    background-image: linear-gradient(-90deg, ${({ theme }) => theme.colors.gradientColor0}, ${({
-    theme,
-}) => theme.colors.gradientColor1});
+    background-image: linear-gradient(
+        -90deg,
+        ${({ theme }) => theme.colors.gradientColor0},
+        ${({ theme }) => theme.colors.gradientColor1}
+    );
     background-size: 200% 100%;
     background-repeat: no-repeat;
     background-position: top left;

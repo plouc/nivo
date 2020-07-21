@@ -6,11 +6,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Fragment } from 'react'
+import React, { memo, useCallback, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { compose, withPropsOnChange, withHandlers, pure } from 'recompose'
-import { blendModePropType } from '@nivo/core'
-import { BasicTooltip, Chip } from '@nivo/tooltip'
+import { useSpring, animated } from 'react-spring'
+import { blendModePropType, useMotionConfig } from '@nivo/core'
+import { BasicTooltip, Chip, useTooltip } from '@nivo/tooltip'
 import SankeyLinkGradient from './SankeyLinkGradient'
 
 const tooltipStyles = {
@@ -64,15 +64,62 @@ const SankeyLinksItem = ({
     opacity,
     blendMode,
     enableGradient,
-    handleMouseEnter,
-    handleMouseMove,
-    handleMouseLeave,
+    setCurrent,
+    tooltip,
+    tooltipFormat,
+    isInteractive,
     onClick,
 }) => {
     const linkId = `${link.source.id}.${link.target.id}`
 
+    const { animate, config: springConfig } = useMotionConfig()
+    const animatedProps = useSpring({
+        path,
+        color,
+        opacity,
+        config: springConfig,
+        immediate: !animate,
+    })
+
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
+
+    const tooltipContent = useMemo(() => {
+        if (tooltip) {
+            return <BasicTooltip id={tooltip(link)} enableChip={false} />
+        }
+
+        return <BasicTooltip id={<TooltipContent format={tooltipFormat} link={link} />} />
+    }, [tooltip, tooltipFormat, link])
+
+    const handleMouseEnter = useCallback(
+        event => {
+            setCurrent(link)
+            showTooltipFromEvent(tooltipContent, event, 'left')
+        },
+        [setCurrent, link, showTooltipFromEvent, tooltipContent]
+    )
+
+    const handleMouseMove = useCallback(
+        event => {
+            showTooltipFromEvent(tooltipContent, event, 'left')
+        },
+        [showTooltipFromEvent, tooltipContent]
+    )
+
+    const handleMouseLeave = useCallback(() => {
+        setCurrent(null)
+        hideTooltip()
+    }, [setCurrent, hideTooltip])
+
+    const handleClick = useCallback(
+        event => {
+            onClick(link, event)
+        },
+        [onClick, link]
+    )
+
     return (
-        <Fragment>
+        <>
             {enableGradient && (
                 <SankeyLinkGradient
                     id={linkId}
@@ -81,17 +128,17 @@ const SankeyLinksItem = ({
                     endColor={link.endColor || link.target.color}
                 />
             )}
-            <path
-                fill={enableGradient ? `url(#${encodeURI(linkId)})` : color}
-                d={path}
-                fillOpacity={opacity}
-                onMouseEnter={handleMouseEnter}
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
-                onClick={onClick}
+            <animated.path
+                fill={enableGradient ? `url(#${encodeURI(linkId)})` : animatedProps.color}
+                d={animatedProps.path}
+                fillOpacity={animatedProps.opacity}
+                onMouseEnter={isInteractive ? handleMouseEnter : undefined}
+                onMouseMove={isInteractive ? handleMouseMove : undefined}
+                onMouseLeave={isInteractive ? handleMouseLeave : undefined}
+                onClick={isInteractive ? handleClick : undefined}
                 style={{ mixBlendMode: blendMode }}
             />
-        </Fragment>
+        </>
     )
 }
 
@@ -118,54 +165,11 @@ SankeyLinksItem.propTypes = {
     opacity: PropTypes.number.isRequired,
     blendMode: blendModePropType.isRequired,
     enableGradient: PropTypes.bool.isRequired,
-
-    theme: PropTypes.object.isRequired,
-
-    showTooltip: PropTypes.func.isRequired,
-    hideTooltip: PropTypes.func.isRequired,
     setCurrent: PropTypes.func.isRequired,
+    isInteractive: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,
-    handleMouseEnter: PropTypes.func.isRequired,
-    handleMouseMove: PropTypes.func.isRequired,
-    handleMouseLeave: PropTypes.func.isRequired,
+    tooltip: PropTypes.func,
+    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 }
 
-const enhance = compose(
-    withPropsOnChange(
-        ['link', 'theme', 'tooltip', 'tooltipFormat'],
-        ({ link, theme, tooltip, tooltipFormat }) => {
-            if (tooltip) {
-                return {
-                    tooltip: <BasicTooltip id={tooltip(link)} enableChip={false} theme={theme} />,
-                }
-            }
-            return {
-                tooltip: (
-                    <BasicTooltip
-                        id={<TooltipContent format={tooltipFormat} link={link} />}
-                        theme={theme}
-                    />
-                ),
-            }
-        }
-    ),
-    withPropsOnChange(['onClick', 'link'], ({ onClick, link }) => ({
-        onClick: event => onClick(link, event),
-    })),
-    withHandlers({
-        handleMouseEnter: ({ showTooltip, setCurrent, link, tooltip }) => e => {
-            setCurrent(link)
-            showTooltip(tooltip, e)
-        },
-        handleMouseMove: ({ showTooltip, tooltip }) => e => {
-            showTooltip(tooltip, e)
-        },
-        handleMouseLeave: ({ hideTooltip, setCurrent }) => () => {
-            setCurrent(null)
-            hideTooltip()
-        },
-    }),
-    pure
-)
-
-export default enhance(SankeyLinksItem)
+export default memo(SankeyLinksItem)

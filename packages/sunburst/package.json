@@ -1,6 +1,6 @@
 {
   "name": "@nivo/sunburst",
-  "version": "0.61.0",
+  "version": "0.62.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -15,16 +15,16 @@
     "sunburst-chart"
   ],
   "main": "./dist/nivo-sunburst.cjs.js",
-  "module": "./dist/nivo-sunburst.esm.js",
+  "module": "./dist/nivo-sunburst.es.js",
   "files": [
     "README.md",
     "LICENSE.md",
     "dist/"
   ],
   "dependencies": {
-    "@nivo/colors": "0.61.0",
-    "@nivo/core": "0.61.0",
-    "@nivo/tooltip": "0.61.0",
+    "@nivo/colors": "0.62.0",
+    "@nivo/core": "0.62.0",
+    "@nivo/tooltip": "0.62.0",
     "d3-hierarchy": "^1.1.8",
     "d3-shape": "^1.3.5",
     "lodash": "^4.17.11",

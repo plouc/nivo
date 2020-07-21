@@ -1,14 +1,14 @@
 {
   "name": "@nivo/legends",
   "description": "legend components for nivo dataviz library",
-  "version": "0.61.1",
+  "version": "0.62.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
     "url": "https://github.com/plouc"
   },
   "main": "./dist/nivo-legends.cjs.js",
-  "module": "./dist/nivo-legends.esm.js",
+  "module": "./dist/nivo-legends.es.js",
   "typings": "./index.d.ts",
   "files": [
     "README.md",
@@ -17,7 +17,7 @@
     "index.d.ts"
   ],
   "dependencies": {
-    "@nivo/core": "0.61.0",
+    "@nivo/core": "0.62.0",
     "lodash": "^4.17.11",
     "recompose": "^0.30.0"
   },

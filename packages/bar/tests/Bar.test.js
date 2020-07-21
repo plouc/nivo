@@ -22,6 +22,7 @@ it('should render a basic bar chart', () => {
                 { id: 'two', value: 20 },
                 { id: 'three', value: 30 },
             ]}
+            animate={false}
         />
     )
 
@@ -40,6 +41,7 @@ it('should allow to disable labels', () => {
                 { id: 'two', value: 20 },
                 { id: 'three', value: 30 },
             ]}
+            animate={false}
         />
     )
 
@@ -59,6 +61,7 @@ it('should allow grouped mode', () => {
                 { id: 'two', value: 20 },
                 { id: 'three', value: 30 },
             ]}
+            animate={false}
         />
     )
 
@@ -78,6 +81,7 @@ it('should allow horizontal layout', () => {
                 { id: 'two', value: 20 },
                 { id: 'three', value: 30 },
             ]}
+            animate={false}
         />
     )
 
@@ -98,6 +102,7 @@ it('should allow grouped horizontal layout', () => {
                 { id: 'two', value: 20 },
                 { id: 'three', value: 30 },
             ]}
+            animate={false}
         />
     )
 
@@ -125,6 +130,7 @@ it(`should reverse legend items if chart layout is vertical`, () => {
                     itemHeight: 20,
                 },
             ]}
+            animate={false}
         />
     )
 
@@ -157,6 +163,7 @@ it(`should not reverse legend items if chart layout is vertical reversed`, () =>
                     itemHeight: 20,
                 },
             ]}
+            animate={false}
         />
     )
 
@@ -188,6 +195,7 @@ it(`should not reverse legend items if chart layout is horizontal`, () => {
                     itemHeight: 20,
                 },
             ]}
+            animate={false}
         />
     )
 
@@ -220,6 +228,7 @@ it(`should reverse legend items if chart layout is horizontal reversed`, () => {
                     itemHeight: 20,
                 },
             ]}
+            animate={false}
         />
     )
 

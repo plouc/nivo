@@ -32,9 +32,8 @@ const initialProperties = {
     lineOpacity: commonDefaultProps.lineOpacity,
     axesPlan: commonDefaultProps.axesPlan,
     axesTicksPosition: commonDefaultProps.axesTicksPosition,
-    animate: true,
-    motionStiffness: 90,
-    motionDamping: 12,
+    animate: commonDefaultProps.animate,
+    motionConfig: commonDefaultProps.motionConfig,
 }
 
 const generateData = () => generateParallelCoordinatesData({ size: 32 })

@@ -1,13 +1,13 @@
 {
   "name": "@nivo/colors",
-  "version": "0.61.0",
+  "version": "0.62.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
     "url": "https://github.com/plouc"
   },
   "main": "./dist/nivo-colors.cjs.js",
-  "module": "./dist/nivo-colors.esm.js",
+  "module": "./dist/nivo-colors.es.js",
   "files": [
     "README.md",
     "LICENSE.md",

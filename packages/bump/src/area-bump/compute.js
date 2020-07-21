@@ -6,7 +6,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import sortBy from 'lodash/sortBy'
 import { scalePoint, scaleLinear } from 'd3-scale'
 
 export const computeSeries = ({ data, width, height, align, spacing, xPadding }) => {
@@ -42,9 +41,7 @@ export const computeSeries = ({ data, width, height, align, spacing, xPadding })
         })
     })
 
-    const xScale = scalePoint()
-        .domain(Array.from(slices.keys()))
-        .range([0, width])
+    const xScale = scalePoint().domain(Array.from(slices.keys())).range([0, width])
 
     const heightScale = scaleLinear()
         .domain([0, maxSum])
@@ -61,8 +58,8 @@ export const computeSeries = ({ data, width, height, align, spacing, xPadding })
             offset = height - sliceHeight
         }
 
-        sortBy(Array.from(slice.values.values()), 'value')
-            .reverse()
+        Array.from(slice.values.values())
+            .sort((a, b) => b.value - a.value)
             .forEach((value, position, all) => {
                 const previousValues = all.filter((i, pos) => pos < position)
                 const beforeValue = previousValues.reduce((t, v) => t + v.value, 0)

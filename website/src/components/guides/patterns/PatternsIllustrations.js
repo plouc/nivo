@@ -117,22 +117,23 @@ const PatternsIllustrations = () => {
                 <div className="guide__illustrations__item">
                     <ResponsiveTreeMap
                         margin={{ top: -2, right: -2, bottom: -2, left: -2 }}
-                        root={{
+                        data={{
                             country: 'root',
                             children: generateCountriesData(['value'], { size: 9 }),
                         }}
                         identity="country"
-                        value="value"
                         leavesOnly={true}
                         colors={{ scheme: 'spectral' }}
-                        colorBy="country"
+                        colorBy="id"
                         borderWidth={4}
-                        outerPadding={8}
-                        innerPadding={8}
+                        outerPadding={10}
+                        innerPadding={4}
+                        nodeOpacity={1}
                         borderColor="inherit"
                         isInteractive={false}
                         animate={false}
                         enableLabel={false}
+                        enableParentLabel={false}
                         defs={[
                             patternLinesDef('example3.lines', {
                                 rotation: -45,

@@ -7,17 +7,26 @@
  * file that was distributed with this source code.
  */
 import * as React from 'react'
-import { Dimensions, Box, Theme, MotionProps, CartesianMarkerProps } from '@nivo/core'
+import {
+    Dimensions,
+    Box,
+    Theme,
+    MotionProps,
+    CartesianMarkerProps,
+    SvgDefsAndFill,
+    DataFormatter,
+    DatumValue as CoreDatumValue,
+} from '@nivo/core'
 import { OrdinalColorsInstruction } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { Scale, ScaleFunc } from '@nivo/scales'
-import { AxisProps } from '@nivo/axes'
+import { AxisProps, GridValues } from '@nivo/axes'
 import { CrosshairType } from '@nivo/tooltip'
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
 declare module '@nivo/line' {
-    export type DatumValue = string | number | Date
+    export type DatumValue = CoreDatumValue
 
     export interface Datum {
         x?: DatumValue | null
@@ -49,6 +58,7 @@ declare module '@nivo/line' {
         | 'markers'
         | 'axes'
         | 'areas'
+        | 'crosshair'
         | 'lines'
         | 'slices'
         | 'points'
@@ -56,14 +66,17 @@ declare module '@nivo/line' {
         | 'legends'
 
     export interface CustomLayerProps extends Omit<LineSvgProps, 'xScale' | 'yScale'> {
+        innerHeight: number
+        innerWidth: number
+        lineGenerator: (data: Datum[]) => string
+        points: Point[]
+        series: ComputedSerie[]
         xScale: ScaleFunc
         yScale: ScaleFunc
     }
 
     export type CustomLayer = (props: CustomLayerProps) => React.ReactNode
     export type Layer = LineLayerType | CustomLayer
-
-    export type DataFormatter = (value: DatumValue) => string | number
 
     export interface Point {
         id: string
@@ -83,9 +96,9 @@ declare module '@nivo/line' {
         }
     }
 
-    export type PointMouseHandler = (point: Point, event: React.MouseEvent) => void
+    export type AccessorFunc = (datum: Point['data']) => string
 
-    export type TooltipFormatter = (value: DatumValue) => React.ReactNode
+    export type PointMouseHandler = (point: Point, event: React.MouseEvent) => void
 
     export interface PointTooltipProps {
         point: Point
@@ -128,13 +141,17 @@ declare module '@nivo/line' {
         margin?: Box
 
         curve?:
+            | 'basis'
+            | 'cardinal'
+            | 'catmullRom'
             | 'linear'
             | 'monotoneX'
             | 'monotoneY'
             | 'natural'
-            | 'stepBefore'
             | 'step'
             | 'stepAfter'
+            | 'stepBefore'
+
         lineWidth?: number
 
         colors?: OrdinalColorsInstruction
@@ -146,9 +163,9 @@ declare module '@nivo/line' {
         axisLeft?: AxisProps | null
 
         enableGridX?: boolean
-        gridXValues?: number | number[] | string[] | Date[]
+        gridXValues?: GridValues<DatumValue>
         enableGridY?: boolean
-        gridYValues?: number | number[] | string[] | Date[]
+        gridYValues?: GridValues<DatumValue>
 
         enablePoints?: boolean
         pointSymbol?: (props: Readonly<PointSymbolProps>) => React.ReactNode
@@ -159,7 +176,7 @@ declare module '@nivo/line' {
 
         enableArea?: boolean
         areaOpacity?: number
-        areaBaseDatumValue?: DatumValue
+        areaBaselineValue?: DatumValue
 
         markers?: CartesianMarkerProps[]
 
@@ -175,7 +192,7 @@ declare module '@nivo/line' {
         debugSlices?: boolean
         sliceTooltip?: SliceTooltip
 
-        tooltipFormat?: TooltipFormatter | string
+        tooltipFormat?: DataFormatter | string
         tooltip?: PointTooltip
 
         enableCrosshair?: boolean
@@ -184,9 +201,9 @@ declare module '@nivo/line' {
         legends?: LegendProps[]
     }
 
-    export interface LineSvgProps extends LineProps, MotionProps {
+    export interface LineSvgProps extends LineProps, MotionProps, SvgDefsAndFill<Datum> {
         enablePointLabel?: boolean
-        pointLabel?: string
+        pointLabel?: string | AccessorFunc
         pointLabelYOffset?: number
         areaBlendMode?: string
         useMesh?: boolean

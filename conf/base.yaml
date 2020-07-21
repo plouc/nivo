@@ -8,13 +8,13 @@ capture:
       #
       #########################################################################
 
-      - path: /area-bump/
-        selector: '#chart'
-        output: ./packages/bump/doc/area-bump.png
+      # - path: /area-bump/
+      #   selector: '#chart'
+      #   output: ./packages/bump/doc/area-bump.png
 
-      - path: /bump/
-        selector: '#chart'
-        output: ./packages/bump/doc/bump.png
+      # - path: /bump/
+      #   selector: '#chart'
+      #   output: ./packages/bump/doc/bump.png
 
       # - path: /swarmplot
       #   selector: '#chart'
@@ -151,12 +151,29 @@ capture:
       #   selector: '#chart'
       #   output: ./packages/waffle/doc/waffle-canvas.png
 
+      - path: /funnel
+        selector: '#chart'
+        output: ./packages/funnel/doc/funnel.png
+
       #########################################################################
       #
       #  ICONS
       #  capture charts' icons
       #
       #########################################################################
+
+      # - path: /internal/icons/
+      #   selector: '#funnel-lightNeutral'
+      #   output: ./website/src/assets/icons/funnel-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#funnel-lightColored'
+      #   output: ./website/src/assets/icons/funnel-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#funnel-darkNeutral'
+      #   output: ./website/src/assets/icons/funnel-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#funnel-darkColored'
+      #   output: ./website/src/assets/icons/funnel-dark-colored.png
 
       # - path: /internal/icons/
       #   selector: '#area-bump-lightNeutral'

@@ -131,6 +131,5 @@ export const BumpDefaultProps = {
     ...commonDefaultProps,
     pointComponent: Point,
     animate: true,
-    motionStiffness: 90,
-    motionDamping: 15,
+    motionConfig: 'gentle',
 }

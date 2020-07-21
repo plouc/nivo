@@ -68,3 +68,5 @@ stories.add('custom tooltip', () => (
         {...commonProps}
     />
 ))
+
+stories.add('month spacing', () => <Calendar {...commonProps} monthSpacing={25} />)

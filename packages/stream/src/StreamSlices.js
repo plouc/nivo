@@ -6,29 +6,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import pure from 'recompose/pure'
 import StreamSlicesItem from './StreamSlicesItem'
 
-const StreamSlices = ({
-    slices,
-    height,
-    showTooltip,
-    hideTooltip,
-    theme,
-    getTooltipLabel,
-    getTooltipValue,
-}) => (
+const StreamSlices = ({ slices, height, getTooltipLabel, getTooltipValue }) => (
     <g>
         {slices.map(slice => (
             <StreamSlicesItem
                 key={slice.index}
                 slice={slice}
                 height={height}
-                showTooltip={showTooltip}
-                hideTooltip={hideTooltip}
-                theme={theme}
                 getTooltipLabel={getTooltipLabel}
                 getTooltipValue={getTooltipValue}
             />
@@ -51,11 +39,8 @@ StreamSlices.propTypes = {
         })
     ).isRequired,
     height: PropTypes.number.isRequired,
-    showTooltip: PropTypes.func.isRequired,
-    hideTooltip: PropTypes.func.isRequired,
     getTooltipLabel: PropTypes.func.isRequired,
     getTooltipValue: PropTypes.func.isRequired,
-    theme: PropTypes.object.isRequired,
 }
 
-export default pure(StreamSlices)
+export default memo(StreamSlices)

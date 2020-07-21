@@ -7,7 +7,14 @@
  * file that was distributed with this source code.
  */
 import React, { Fragment, useState, useMemo } from 'react'
-import { withContainer, useDimensions, useTheme, SvgWrapper, CartesianMarkers } from '@nivo/core'
+import {
+    bindDefs,
+    withContainer,
+    useDimensions,
+    useTheme,
+    SvgWrapper,
+    CartesianMarkers,
+} from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 import { Axes, Grid } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
@@ -59,8 +66,10 @@ const Line = props => {
         pointBorderColor,
         enablePointLabel,
         pointLabel,
-        pointLabelFormat,
         pointLabelYOffset,
+
+        defs,
+        fill,
 
         markers,
 
@@ -185,6 +194,8 @@ const Line = props => {
         )),
     }
 
+    const boundDefs = bindDefs(defs, series, fill)
+
     if (enableArea) {
         layerById.areas = (
             <Areas
@@ -224,7 +235,6 @@ const Line = props => {
                 borderColor={getPointBorderColor}
                 enableLabel={enablePointLabel}
                 label={pointLabel}
-                labelFormat={pointLabelFormat}
                 labelYOffset={pointLabelYOffset}
             />
         )
@@ -278,7 +288,7 @@ const Line = props => {
     }
 
     return (
-        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
+        <SvgWrapper defs={boundDefs} width={outerWidth} height={outerHeight} margin={margin}>
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
                     return (
@@ -294,6 +304,10 @@ const Line = props => {
                                 yScale,
                                 lineGenerator,
                                 areaGenerator,
+                                currentPoint,
+                                setCurrentPoint,
+                                currentSlice,
+                                setCurrentSlice,
                             })}
                         </Fragment>
                     )

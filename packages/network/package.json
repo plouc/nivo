@@ -1,6 +1,6 @@
 {
   "name": "@nivo/network",
-  "version": "0.61.0",
+  "version": "0.62.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -17,7 +17,7 @@
     "network"
   ],
   "main": "./dist/nivo-network.cjs.js",
-  "module": "./dist/nivo-network.esm.js",
+  "module": "./dist/nivo-network.es.js",
   "files": [
     "README.md",
     "LICENSE.md",
@@ -25,9 +25,9 @@
     "dist/"
   ],
   "dependencies": {
-    "@nivo/colors": "0.61.0",
-    "@nivo/core": "0.61.0",
-    "@nivo/tooltip": "0.61.0",
+    "@nivo/colors": "0.62.0",
+    "@nivo/core": "0.62.0",
+    "@nivo/tooltip": "0.62.0",
     "d3-force": "^2.0.1",
     "lodash": "^4.17.11",
     "react-motion": "^0.5.2"

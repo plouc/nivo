@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
-import { lineCurvePropType, blendModePropType, motionPropTypes } from '@nivo/core'
+import { lineCurvePropType, blendModePropType, motionPropTypes, defsPropTypes } from '@nivo/core'
 import { ordinalColorsPropType } from '@nivo/colors'
 import { axisPropType } from '@nivo/axes'
 import { scalePropType } from '@nivo/scales'
@@ -88,6 +88,8 @@ const commonPropTypes = {
     pointColor: PropTypes.any.isRequired,
     pointBorderWidth: PropTypes.number.isRequired,
     pointBorderColor: PropTypes.any.isRequired,
+    enablePointLabel: PropTypes.bool.isRequired,
+    pointLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
 
     markers: PropTypes.arrayOf(
         PropTypes.shape({
@@ -112,11 +114,6 @@ const commonPropTypes = {
         PropTypes.instanceOf(Date),
     ]).isRequired,
     lineWidth: PropTypes.number.isRequired,
-    defs: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string.isRequired,
-        })
-    ).isRequired,
 
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
 
@@ -124,7 +121,6 @@ const commonPropTypes = {
     debugMesh: PropTypes.bool.isRequired,
 
     tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 
     enableSlices: PropTypes.oneOf(['x', 'y', false]).isRequired,
     debugSlices: PropTypes.bool.isRequired,
@@ -139,6 +135,7 @@ export const LinePropTypes = {
     enablePointLabel: PropTypes.bool.isRequired,
     useMesh: PropTypes.bool.isRequired,
     ...motionPropTypes,
+    ...defsPropTypes,
 }
 
 export const LineCanvasPropTypes = {
@@ -180,6 +177,8 @@ const commonDefaultProps = {
     pointColor: { from: 'color' },
     pointBorderWidth: 0,
     pointBorderColor: { theme: 'background' },
+    enablePointLabel: false,
+    pointLabel: 'yFormatted',
 
     colors: { scheme: 'nivo' },
     enableArea: false,
@@ -187,8 +186,6 @@ const commonDefaultProps = {
     areaOpacity: 0.2,
     areaBlendMode: 'normal',
     lineWidth: 2,
-
-    defs: [],
 
     legends: [],
 
@@ -207,8 +204,9 @@ export const LineDefaultProps = {
     enablePointLabel: false,
     useMesh: false,
     animate: true,
-    motionStiffness: 90,
-    motionDamping: 15,
+    motionConfig: 'gentle',
+    defs: [],
+    fill: [],
 }
 
 export const LineCanvasDefaultProps = {

@@ -8,66 +8,43 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { Motion, spring } from 'react-motion'
+import { useSpring, animated } from 'react-spring'
 import { useMotionConfig, useTheme } from '@nivo/core'
 
 const DotAnnotationOutline = memo(({ x, y, size }) => {
     const theme = useTheme()
-    const { animate, springConfig } = useMotionConfig()
+    const { animate, config: springConfig } = useMotionConfig()
 
-    if (!animate) {
-        return (
-            <>
-                {theme.annotations.outline.outlineWidth > 0 && (
-                    <circle
-                        cx={x}
-                        cy={y}
-                        r={size / 2}
-                        style={{
-                            ...theme.annotations.outline,
-                            fill: 'none',
-                            strokeWidth: theme.annotations.outline.outlineWidth * 2,
-                            stroke: theme.annotations.outline.outlineColor,
-                        }}
-                    />
-                )}
-                <circle cx={x} cy={y} r={size / 2} style={theme.annotations.symbol} />
-            </>
-        )
-    }
+    const animatedProps = useSpring({
+        x,
+        y,
+        radius: size / 2,
+        config: springConfig,
+        immediate: !animate,
+    })
 
     return (
-        <Motion
-            style={{
-                x: spring(x, springConfig),
-                y: spring(y, springConfig),
-                size: spring(size, springConfig),
-            }}
-        >
-            {interpolated => (
-                <>
-                    {theme.annotations.outline.outlineWidth > 0 && (
-                        <circle
-                            cx={interpolated.x}
-                            cy={interpolated.y}
-                            r={interpolated.size / 2}
-                            style={{
-                                ...theme.annotations.outline,
-                                fill: 'none',
-                                strokeWidth: theme.annotations.outline.outlineWidth * 2,
-                                stroke: theme.annotations.outline.outlineColor,
-                            }}
-                        />
-                    )}
-                    <circle
-                        cx={interpolated.x}
-                        cy={interpolated.y}
-                        r={interpolated.size / 2}
-                        style={theme.annotations.symbol}
-                    />
-                </>
+        <>
+            {theme.annotations.outline.outlineWidth > 0 && (
+                <animated.circle
+                    cx={animatedProps.x}
+                    cy={animatedProps.y}
+                    r={animatedProps.radius}
+                    style={{
+                        ...theme.annotations.outline,
+                        fill: 'none',
+                        strokeWidth: theme.annotations.outline.outlineWidth * 2,
+                        stroke: theme.annotations.outline.outlineColor,
+                    }}
+                />
             )}
-        </Motion>
+            <animated.circle
+                cx={animatedProps.x}
+                cy={animatedProps.y}
+                r={animatedProps.radius}
+                style={theme.annotations.symbol}
+            />
+        </>
     )
 })
 

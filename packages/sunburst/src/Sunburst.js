@@ -46,6 +46,9 @@ const Sunburst = ({
     borderWidth,
     borderColor,
 
+    tooltipFormat, // eslint-disable-line react/prop-types
+    tooltip, // eslint-disable-line react/prop-types
+
     theme, // eslint-disable-line react/prop-types
 
     isInteractive,
@@ -66,6 +69,8 @@ const Sunburst = ({
                                     borderColor={borderColor}
                                     showTooltip={showTooltip}
                                     hideTooltip={hideTooltip}
+                                    tooltipFormat={tooltipFormat}
+                                    tooltip={tooltip}
                                     theme={theme}
                                 />
                             ))}
@@ -98,6 +103,9 @@ Sunburst.propTypes = {
     borderColor: PropTypes.string.isRequired,
 
     childColor: inheritedColorPropType.isRequired,
+
+    tooltipFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    tooltip: PropTypes.func,
 
     isInteractive: PropTypes.bool,
 }

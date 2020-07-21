@@ -1,13 +1,13 @@
 {
   "name": "@nivo/scales",
-  "version": "0.61.0",
+  "version": "0.62.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
     "url": "https://github.com/plouc"
   },
   "main": "./dist/nivo-scales.cjs.js",
-  "module": "./dist/nivo-scales.esm.js",
+  "module": "./dist/nivo-scales.es.js",
   "files": [
     "README.md",
     "LICENSE.md",

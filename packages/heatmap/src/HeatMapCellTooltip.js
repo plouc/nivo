@@ -6,25 +6,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import pure from 'recompose/pure'
 import { BasicTooltip } from '@nivo/tooltip'
 
-const HeatMapCellTooltip = ({ node, theme, format, tooltip }) => (
+const HeatMapCellTooltip = ({ cell, format, tooltip }) => (
     <BasicTooltip
-        id={`${node.yKey} - ${node.xKey}`}
-        value={node.value}
+        id={`${cell.yKey} - ${cell.xKey}`}
+        value={cell.value}
         enableChip={true}
-        color={node.color}
-        theme={theme}
+        color={cell.color}
         format={format}
-        renderContent={typeof tooltip === 'function' ? tooltip.bind(null, { ...node }) : null}
+        renderContent={typeof tooltip === 'function' ? tooltip.bind(null, { ...cell }) : null}
     />
 )
 
 HeatMapCellTooltip.propTypes = {
-    node: PropTypes.shape({
+    cell: PropTypes.shape({
         xKey: PropTypes.string.isRequired,
         yKey: PropTypes.string.isRequired,
         value: PropTypes.number.isRequired,
@@ -32,12 +30,6 @@ HeatMapCellTooltip.propTypes = {
     }).isRequired,
     format: PropTypes.func,
     tooltip: PropTypes.func,
-    theme: PropTypes.shape({
-        tooltip: PropTypes.shape({
-            container: PropTypes.object.isRequired,
-            basic: PropTypes.object.isRequired,
-        }).isRequired,
-    }).isRequired,
 }
 
-export default pure(HeatMapCellTooltip)
+export default memo(HeatMapCellTooltip)

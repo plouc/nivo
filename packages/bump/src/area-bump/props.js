@@ -40,6 +40,18 @@ const commonPropTypes = {
     fillOpacity: PropTypes.number.isRequired,
     activeFillOpacity: PropTypes.number.isRequired,
     inactiveFillOpacity: PropTypes.number.isRequired,
+    defs: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.string.isRequired,
+        })
+    ).isRequired,
+    fill: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.string,
+            match: PropTypes.oneOfType([PropTypes.oneOf(['*']), PropTypes.object, PropTypes.func])
+                .isRequired,
+        })
+    ).isRequired,
     borderWidth: PropTypes.number.isRequired,
     activeBorderWidth: PropTypes.number.isRequired,
     inactiveBorderWidth: PropTypes.number.isRequired,
@@ -88,6 +100,8 @@ const commonDefaultProps = {
     fillOpacity: 0.8,
     activeFillOpacity: 1,
     inactiveFillOpacity: 0.15,
+    defs: [],
+    fill: [],
     borderWidth: 1,
     activeBorderWidth: 1,
     inactiveBorderWidth: 0,
@@ -114,6 +128,5 @@ const commonDefaultProps = {
 export const AreaBumpDefaultProps = {
     ...commonDefaultProps,
     animate: true,
-    motionStiffness: 90,
-    motionDamping: 15,
+    motionConfig: 'gentle',
 }
