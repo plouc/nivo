@@ -122,11 +122,11 @@ const monthPathAndBBox = ({
     if (direction === 'horizontal') {
         path = [
             `M${xO + (firstWeek + 1) * (cellSize + daySpacing)},${
-            yO + firstDay * (cellSize + daySpacing)
+                yO + firstDay * (cellSize + daySpacing)
             }`,
             `H${xO + firstWeek * (cellSize + daySpacing)}V${yO + 7 * (cellSize + daySpacing)}`,
             `H${xO + lastWeek * (cellSize + daySpacing)}V${
-            yO + (lastDay + 1) * (cellSize + daySpacing)
+                yO + (lastDay + 1) * (cellSize + daySpacing)
             }`,
             `H${xO + (lastWeek + 1) * (cellSize + daySpacing)}V${yO}`,
             `H${xO + (firstWeek + 1) * (cellSize + daySpacing)}Z`,
@@ -138,11 +138,11 @@ const monthPathAndBBox = ({
     } else {
         path = [
             `M${xO + firstDay * (cellSize + daySpacing)},${
-            yO + (firstWeek + 1) * (cellSize + daySpacing)
+                yO + (firstWeek + 1) * (cellSize + daySpacing)
             }`,
             `H${xO}V${yO + (lastWeek + 1) * (cellSize + daySpacing)}`,
             `H${xO + (lastDay + 1) * (cellSize + daySpacing)}V${
-            yO + lastWeek * (cellSize + daySpacing)
+                yO + lastWeek * (cellSize + daySpacing)
             }`,
             `H${xO + 7 * (cellSize + daySpacing)}V${yO + firstWeek * (cellSize + daySpacing)}`,
             `H${xO + firstDay * (cellSize + daySpacing)}Z`,

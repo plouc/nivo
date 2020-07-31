@@ -31,7 +31,11 @@ const CalendarDay = memo(
 
         const handleMouseEnter = useCallback(
             event => {
-                const formatedData = { ...data, value: formatValue(data.value), data: { ...data.data }, }
+                const formatedData = {
+                    ...data,
+                    value: formatValue(data.value),
+                    data: { ...data.data },
+                }
                 showTooltipFromEvent(React.createElement(tooltip, { ...formatedData }), event)
                 onMouseEnter && onMouseEnter(data, event)
             },
@@ -39,7 +43,11 @@ const CalendarDay = memo(
         )
         const handleMouseMove = useCallback(
             event => {
-                const formatedData = { ...data, value: formatValue(data.value), data: { ...data.data }, }
+                const formatedData = {
+                    ...data,
+                    value: formatValue(data.value),
+                    data: { ...data.data },
+                }
                 showTooltipFromEvent(React.createElement(tooltip, { ...formatedData }), event)
                 onMouseMove && onMouseMove(data, event)
             },
