@@ -12,7 +12,17 @@ import { useTooltip } from '@nivo/tooltip'
 import { Mesh as BaseMesh } from '@nivo/voronoi'
 import { NodePropType } from './props'
 
-const Mesh = ({ nodes, width, height, onMouseEnter, onMouseMove, onClick, tooltip, debug }) => {
+const Mesh = ({
+    nodes,
+    width,
+    height,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+    onClick,
+    tooltip,
+    debug,
+}) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseEnter = useCallback(
@@ -31,9 +41,13 @@ const Mesh = ({ nodes, width, height, onMouseEnter, onMouseMove, onClick, toolti
         [showTooltipFromEvent, tooltip, onMouseMove]
     )
 
-    const handleMouseLeave = useCallback(() => {
-        hideTooltip()
-    }, [hideTooltip])
+    const handleMouseLeave = useCallback(
+        (node, event) => {
+            hideTooltip()
+            onMouseLeave && onMouseLeave(node, event)
+        },
+        [hideTooltip, onMouseLeave]
+    )
 
     const handleClick = useCallback(
         (node, event) => {
@@ -62,6 +76,7 @@ Mesh.propTypes = {
     height: PropTypes.number.isRequired,
     onMouseEnter: PropTypes.func,
     onMouseMove: PropTypes.func,
+    onMouseLeave: PropTypes.func,
     onClick: PropTypes.func,
     tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
     debug: PropTypes.bool.isRequired,
