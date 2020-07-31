@@ -12,7 +12,17 @@ import { useTooltip } from '@nivo/tooltip'
 import { Mesh as BaseMesh } from '@nivo/voronoi'
 import { NodePropType } from './props'
 
-const Mesh = ({ nodes, width, height, onMouseEnter, onMouseMove, onMouseLeave, onClick, tooltip, debug }) => {
+const Mesh = ({
+    nodes,
+    width,
+    height,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+    onClick,
+    tooltip,
+    debug,
+}) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseEnter = useCallback(
