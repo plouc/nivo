@@ -10,11 +10,9 @@ import React from 'react'
 import { SvgWrapper, useTheme, useDimensions, withContainer, useValueFormatter } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
 import { CalendarPropTypes, CalendarDefaultProps } from './props'
-
 import CalendarYearLegends from './CalendarYearLegends'
 import CalendarMonthPath from './CalendarMonthPath'
 import CalendarMonthLegends from './CalendarMonthLegends'
-
 import { useMonthLegends, useYearLegends, useCalendarLayout, useDays, useColorScale } from './hooks'
 import CalendarDay from './CalendarDay'
 
