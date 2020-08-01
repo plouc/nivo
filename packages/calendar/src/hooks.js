@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { scaleQuantize } from 'd3-scale'
 import {
     computeDomain,
@@ -15,7 +15,6 @@ import {
     bindDaysData,
     computeLayout,
 } from './compute'
-import { useTooltip } from '@nivo/tooltip'
 
 export const useCalendarLayout = ({
     width,
@@ -87,56 +86,3 @@ export const useDays = ({ days, data, colorScale, emptyColor }) =>
             }),
         [days, data, colorScale, emptyColor]
     )
-
-export const useDaysHandlers = ({
-    data,
-    isInteractive,
-    onMouseEnter,
-    onMouseMove,
-    onMouseLeave,
-    onClick,
-    tooltip,
-}) => {
-    const { showTooltipFromEvent, hideTooltip } = useTooltip()
-
-    const handleMouseEnter = useMemo(() => {
-        return event => {
-            // const formatedData = { ...data, value: formatValue(data.value) }
-            showTooltipFromEvent(React.createElement(tooltip, { data }), event)
-            onMouseEnter && onMouseEnter(data, event)
-        }
-    }, [data, onMouseEnter, showTooltipFromEvent, tooltip])
-
-    const handleMouseMove = useMemo(() => {
-        return event => {
-            // const formatedData = { ...data, value: formatValue(data.value) }
-            showTooltipFromEvent(React.createElement(tooltip, { data }), event)
-            onMouseMove && onMouseMove(data, event)
-        }
-    }, [data, onMouseMove, showTooltipFromEvent, tooltip])
-
-    const handleMouseLeave = useMemo(() => {
-        return event => {
-            hideTooltip()
-            onMouseLeave && onMouseLeave(data, event)
-        }
-    }, [data, onMouseLeave, hideTooltip])
-
-    const handleClick = useMemo(() => {
-        return event => {
-            onClick && onClick(data, event)
-        }
-    }, [data, onClick])
-
-    const handlers = useMemo(
-        () => ({
-            onMouseEnter: isInteractive ? handleMouseEnter : undefined,
-            onMouseMove: isInteractive ? handleMouseMove : undefined,
-            onMouseLeave: isInteractive ? handleMouseLeave : undefined,
-            onClick: isInteractive ? handleClick : undefined,
-        }),
-        [isInteractive, handleMouseEnter, handleMouseMove, handleMouseLeave, handleClick]
-    )
-
-    return handlers
-}
