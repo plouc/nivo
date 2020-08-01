@@ -25,7 +25,7 @@ const commonProps = {
 
 const stories = storiesOf('CalendarCanvas', module)
 
-const CustomTooltip = (data) => {
+const CustomTooltip = data => {
     if (data.value === undefined) return null
     return (
         <span style={{ color: data.color, backgroundColor: 'black', padding: '10px' }}>

@@ -51,7 +51,7 @@ stories.add('vertical calendar', () => (
     <Calendar direction="vertical" {...commonProps} height={600} />
 ))
 
-const CustomTooltip = (data) => {
+const CustomTooltip = data => {
     if (data.value === undefined) return null
     return (
         <span style={{ color: data.color, backgroundColor: 'black', padding: '10px' }}>

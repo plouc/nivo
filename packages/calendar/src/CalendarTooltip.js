@@ -19,7 +19,7 @@ CalendarTooltip.displayName = 'CalendarTooltip'
 CalendarTooltip.propTypes = {
     value: PropTypes.object.isRequired,
     day: PropTypes.object.isRequired,
-    color: PropTypes.object.isRequired
+    color: PropTypes.object.isRequired,
 }
 
 export default CalendarTooltip
