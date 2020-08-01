@@ -87,7 +87,7 @@ const CalendarCanvas = memo(
             height,
             partialMargin
         )
-        let { months, years, days } = useCalendarLayout({
+        const { months, years, ...rest } = useCalendarLayout({
             width: innerWidth,
             height: innerHeight,
             from,
@@ -111,7 +111,7 @@ const CalendarCanvas = memo(
             yearLegendPosition,
             yearLegendOffset,
         })
-        days = useDays({ days, data, colorScale, emptyColor })
+        const days = useDays({ days: rest.days, data, colorScale, emptyColor })
         const [currentDay, setCurrentDay] = useState(null)
         const theme = useTheme()
         const formatValue = useValueFormatter(valueFormat)
