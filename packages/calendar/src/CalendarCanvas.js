@@ -217,9 +217,13 @@ const CalendarCanvas = memo(
 
                 if (data) {
                     setCurrentDay(data)
-                    const formatedData = { ...data, value: formatValue(data.value) }
+                    const formatedData = {
+                        ...data,
+                        value: formatValue(data.value),
+                        data: { ...data.data },
+                    }
                     showTooltipFromEvent(
-                        React.createElement(tooltip, { data: formatedData }),
+                        React.createElement(tooltip, { ...formatedData }),
                         event
                     )
                     !currentDay && onMouseEnter && onMouseEnter(data, event)

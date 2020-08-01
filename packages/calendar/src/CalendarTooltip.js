@@ -10,14 +10,16 @@ import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { BasicTooltip } from '@nivo/tooltip'
 
-const CalendarTooltip = memo(({ data }) => {
-    if (data.value === undefined || isNaN(data.value)) return null
-    return <BasicTooltip id={data.day} value={data.value} color={data.color} enableChip={true} />
+const CalendarTooltip = memo(({ value, day, color }) => {
+    if (value === undefined || isNaN(value)) return null
+    return <BasicTooltip id={day} value={value} color={color} enableChip={true} />
 })
 
 CalendarTooltip.displayName = 'CalendarTooltip'
 CalendarTooltip.propTypes = {
-    data: PropTypes.object.isRequired,
+    value: PropTypes.object.isRequired,
+    day: PropTypes.object.isRequired,
+    color: PropTypes.object.isRequired
 }
 
 export default CalendarTooltip
