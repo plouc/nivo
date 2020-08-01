@@ -67,7 +67,7 @@ const Calendar = ({
         height,
         partialMargin
     )
-    let { months, years, days } = useCalendarLayout({
+    const { months, years, ...rest } = useCalendarLayout({
         width: innerWidth,
         height: innerHeight,
         from,
@@ -86,7 +86,7 @@ const Calendar = ({
         monthLegendOffset,
     })
     const yearLegends = useYearLegends({ years, direction, yearLegendPosition, yearLegendOffset })
-    days = useDays({ days, data, colorScale, emptyColor })
+    const days = useDays({ days: rest.days, data, colorScale, emptyColor })
     const formatLegend = useValueFormatter(legendFormat)
     const formatValue = useValueFormatter(valueFormat)
 
