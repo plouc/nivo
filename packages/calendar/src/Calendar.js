@@ -84,7 +84,7 @@ const Calendar = ({
         monthLegendOffset,
     })
     const yearLegends = useYearLegends({ years, direction, yearLegendPosition, yearLegendOffset })
-    const days = useDays({ days: rest.days, data, colorScaleFn, emptyColor })
+    const days = useDays({ days: rest.days, data, colorScale: colorScaleFn, emptyColor })
     const formatLegend = useValueFormatter(legendFormat)
     const formatValue = useValueFormatter(valueFormat)
 

@@ -111,7 +111,7 @@ const CalendarCanvas = memo(
             yearLegendPosition,
             yearLegendOffset,
         })
-        const days = useDays({ days: rest.days, data, colorScaleFn, emptyColor })
+        const days = useDays({ days: rest.days, data, colorScale: colorScaleFn, emptyColor })
         const [currentDay, setCurrentDay] = useState(null)
         const theme = useTheme()
         const formatValue = useValueFormatter(valueFormat)
