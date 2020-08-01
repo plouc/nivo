@@ -76,7 +76,7 @@ const Calendar = ({
         daySpacing,
         align,
     })
-    colorScale = useColorScale({ data, minValue, maxValue, colors, colorScale })
+    const colorScaleFn = useColorScale({ data, minValue, maxValue, colors, colorScale })
     const monthLegends = useMonthLegends({
         months,
         direction,
@@ -84,7 +84,7 @@ const Calendar = ({
         monthLegendOffset,
     })
     const yearLegends = useYearLegends({ years, direction, yearLegendPosition, yearLegendOffset })
-    const days = useDays({ days: rest.days, data, colorScale, emptyColor })
+    const days = useDays({ days: rest.days, data, colorScaleFn, emptyColor })
     const formatLegend = useValueFormatter(legendFormat)
     const formatValue = useValueFormatter(valueFormat)
 
@@ -122,10 +122,10 @@ const Calendar = ({
             <CalendarMonthLegends months={monthLegends} legend={monthLegend} theme={theme} />
             <CalendarYearLegends years={yearLegends} legend={yearLegend} theme={theme} />
             {legends.map((legend, i) => {
-                const legendData = colorScale.ticks(legend.itemCount).map(value => ({
+                const legendData = colorScaleFn.ticks(legend.itemCount).map(value => ({
                     id: value,
                     label: formatLegend(value),
-                    color: colorScale(value),
+                    color: colorScaleFn(value),
                 }))
 
                 return (
