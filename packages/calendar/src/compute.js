@@ -374,16 +374,18 @@ export const computeLayout = ({
  */
 export const bindDaysData = ({ days, data, colorScale, emptyColor }) => {
     return days.map(day => {
-        day.color = emptyColor
-        data.forEach(dayData => {
-            if (dayData.day === day.day) {
-                day.value = dayData.value
-                day.color = colorScale(dayData.value)
-                day.data = dayData
-            }
-        })
+        const dayData = data.find(item => item.day === day.day)
 
-        return day
+        if (!dayData) {
+            return { ...day, color: emptyColor }
+        }
+
+        return {
+            ...day,
+            color: colorScale(dayData.value),
+            data: dayData,
+            value: dayData.value,
+        }
     })
 }
 

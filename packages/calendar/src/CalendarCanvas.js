@@ -6,23 +6,31 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component } from 'react'
-import setDisplayName from 'recompose/setDisplayName'
-import { isCursorInRect, getRelativeCursor, Container, degreesToRadians } from '@nivo/core'
+import React, { memo, useRef, useState, useEffect, useCallback } from 'react'
+import {
+    isCursorInRect,
+    getRelativeCursor,
+    degreesToRadians,
+    useDimensions,
+    useTheme,
+    withContainer,
+    useValueFormatter,
+} from '@nivo/core'
 import { renderLegendToCanvas } from '@nivo/legends'
-import { BasicTooltip } from '@nivo/tooltip'
-import enhance from './enhance'
-import { CalendarCanvasPropTypes } from './props'
+import { CalendarCanvasPropTypes, CalendarCanvasDefaultProps } from './props'
+import { useCalendarLayout, useColorScale, useMonthLegends, useYearLegends, useDays } from './hooks'
+import { useTooltip } from '@nivo/tooltip'
 
-const findDayUnderCursor = (days, size, spacing, margin, x, y) => {
+const findDayUnderCursor = (event, canvasEl, days, size, dayBorderWidth, margin) => {
+    const [x, y] = getRelativeCursor(canvasEl, event)
     return days.find(day => {
         return (
             day.value !== undefined &&
             isCursorInRect(
-                day.x + margin.left - spacing / 2,
-                day.y + margin.top - spacing / 2,
-                size + spacing,
-                size + spacing,
+                day.x + margin.left - dayBorderWidth / 2,
+                day.y + margin.top - dayBorderWidth / 2,
+                size + dayBorderWidth,
+                size + dayBorderWidth,
                 x,
                 y
             )
@@ -30,201 +38,260 @@ const findDayUnderCursor = (days, size, spacing, margin, x, y) => {
     })
 }
 
-class CalendarCanvas extends Component {
-    static propTypes = CalendarCanvasPropTypes
+const CalendarCanvas = memo(
+    ({
+        margin: partialMargin,
+        width,
+        height,
+        pixelRatio,
 
-    componentDidMount() {
-        this.ctx = this.surface.getContext('2d')
-        this.draw(this.props)
-    }
+        align,
+        colors,
+        colorScale,
+        data,
+        direction,
+        emptyColor,
+        from,
+        to,
+        minValue,
+        maxValue,
+        valueFormat,
+        legendFormat,
 
-    shouldComponentUpdate(props) {
-        if (
-            this.props.outerWidth !== props.outerWidth ||
-            this.props.outerHeight !== props.outerHeight ||
-            this.props.isInteractive !== props.isInteractive ||
-            this.props.theme !== props.theme
-        ) {
-            return true
-        } else {
-            this.draw(props)
-            return false
-        }
-    }
+        yearLegend,
+        yearLegendOffset,
+        yearLegendPosition,
+        yearSpacing,
 
-    componentDidUpdate() {
-        this.ctx = this.surface.getContext('2d')
-        this.draw(this.props)
-    }
+        monthLegend,
+        monthLegendOffset,
+        monthLegendPosition,
+        monthSpacing,
 
-    draw(props) {
-        const {
-            pixelRatio,
+        dayBorderColor,
+        dayBorderWidth,
+        daySpacing,
 
-            margin,
+        isInteractive,
+        tooltip,
+        onClick,
+        onMouseEnter,
+        onMouseLeave,
+        onMouseMove,
+
+        legends,
+    }) => {
+        const canvasEl = useRef(null)
+        const { innerWidth, innerHeight, outerWidth, outerHeight, margin } = useDimensions(
             width,
             height,
+            partialMargin
+        )
+        const { months, years, ...rest } = useCalendarLayout({
+            width: innerWidth,
+            height: innerHeight,
+            from,
+            to,
+            direction,
+            yearSpacing,
+            monthSpacing,
+            daySpacing,
+            align,
+        })
+        const colorScaleFn = useColorScale({ data, minValue, maxValue, colors, colorScale })
+        const monthLegends = useMonthLegends({
+            months,
+            direction,
+            monthLegendPosition,
+            monthLegendOffset,
+        })
+        const yearLegends = useYearLegends({
+            years,
+            direction,
+            yearLegendPosition,
+            yearLegendOffset,
+        })
+        const days = useDays({ days: rest.days, data, colorScale: colorScaleFn, emptyColor })
+        const [currentDay, setCurrentDay] = useState(null)
+        const theme = useTheme()
+        const formatValue = useValueFormatter(valueFormat)
+        const formatLegend = useValueFormatter(legendFormat)
+
+        const { showTooltipFromEvent, hideTooltip } = useTooltip()
+
+        useEffect(() => {
+            canvasEl.current.width = outerWidth * pixelRatio
+            canvasEl.current.height = outerHeight * pixelRatio
+
+            const ctx = canvasEl.current.getContext('2d')
+
+            ctx.scale(pixelRatio, pixelRatio)
+
+            ctx.fillStyle = theme.background
+            ctx.fillRect(0, 0, outerWidth, outerHeight)
+            ctx.translate(margin.left, margin.top)
+
+            days.forEach(day => {
+                ctx.fillStyle = day.color
+                if (dayBorderWidth > 0) {
+                    ctx.strokeStyle = dayBorderColor
+                    ctx.lineWidth = dayBorderWidth
+                }
+
+                ctx.beginPath()
+                ctx.rect(day.x, day.y, day.size, day.size)
+                ctx.fill()
+
+                if (dayBorderWidth > 0) {
+                    ctx.stroke()
+                }
+            })
+
+            ctx.textAlign = 'center'
+            ctx.textBaseline = 'middle'
+            ctx.fillStyle = theme.labels.text.fill
+            ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
+
+            monthLegends.forEach(month => {
+                ctx.save()
+                ctx.translate(month.x, month.y)
+                ctx.rotate(degreesToRadians(month.rotation))
+                ctx.fillText(monthLegend(month.year, month.month, month.date), 0, 0)
+                ctx.restore()
+            })
+
+            yearLegends.forEach(year => {
+                ctx.save()
+                ctx.translate(year.x, year.y)
+                ctx.rotate(degreesToRadians(year.rotation))
+                ctx.fillText(yearLegend(year.year), 0, 0)
+                ctx.restore()
+            })
+
+            legends.forEach(legend => {
+                const legendData = colorScaleFn.ticks(legend.itemCount).map(value => ({
+                    id: value,
+                    label: formatLegend(value),
+                    color: colorScaleFn(value),
+                }))
+
+                renderLegendToCanvas(ctx, {
+                    ...legend,
+                    data: legendData,
+                    containerWidth: innerWidth,
+                    containerHeight: innerHeight,
+                    theme,
+                })
+            })
+        }, [
+            canvasEl,
+            innerHeight,
+            innerWidth,
             outerWidth,
             outerHeight,
-
-            colorScale,
-
-            yearLegends,
-            yearLegend,
-
-            monthLegends,
-            monthLegend,
-
-            days,
-            dayBorderWidth,
-            dayBorderColor,
-
-            legends,
-
-            theme,
-        } = props
-
-        this.surface.width = outerWidth * pixelRatio
-        this.surface.height = outerHeight * pixelRatio
-
-        this.ctx.scale(pixelRatio, pixelRatio)
-        this.ctx.fillStyle = theme.background
-        this.ctx.fillRect(0, 0, outerWidth, outerHeight)
-        this.ctx.translate(margin.left, margin.top)
-
-        days.forEach(day => {
-            this.ctx.fillStyle = day.color
-            if (dayBorderWidth > 0) {
-                this.ctx.strokeStyle = dayBorderColor
-                this.ctx.lineWidth = dayBorderWidth
-            }
-
-            this.ctx.beginPath()
-            this.ctx.rect(day.x, day.y, day.size, day.size)
-            this.ctx.fill()
-
-            if (dayBorderWidth > 0) {
-                this.ctx.stroke()
-            }
-        })
-
-        this.ctx.textAlign = 'center'
-        this.ctx.textBaseline = 'middle'
-        this.ctx.fillStyle = theme.labels.text.fill
-        this.ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
-
-        monthLegends.forEach(month => {
-            this.ctx.save()
-            this.ctx.translate(month.x, month.y)
-            this.ctx.rotate(degreesToRadians(month.rotation))
-            this.ctx.fillText(monthLegend(month.year, month.month, month.date), 0, 0)
-            this.ctx.restore()
-        })
-
-        yearLegends.forEach(year => {
-            this.ctx.save()
-            this.ctx.translate(year.x, year.y)
-            this.ctx.rotate(degreesToRadians(year.rotation))
-            this.ctx.fillText(yearLegend(year.year), 0, 0)
-            this.ctx.restore()
-        })
-
-        legends.forEach(legend => {
-            const legendData = colorScale.ticks(legend.itemCount).map(value => ({
-                id: value,
-                label: value,
-                color: colorScale(value),
-            }))
-
-            renderLegendToCanvas(this.ctx, {
-                ...legend,
-                data: legendData,
-                containerWidth: width,
-                containerHeight: height,
-                theme,
-            })
-        })
-    }
-
-    handleMouseHover = (showTooltip, hideTooltip) => event => {
-        const {
-            isInteractive,
+            pixelRatio,
             margin,
-            theme,
             days,
-            daySpacing,
-            tooltipFormat,
-            tooltip,
-        } = this.props
+            dayBorderColor,
+            dayBorderWidth,
+            colorScale,
+            yearLegend,
+            yearLegends,
+            monthLegend,
+            monthLegends,
+            legends,
+            theme,
+            formatLegend,
+        ])
 
-        if (!isInteractive || !days || days.length === 0) return
+        const handleMouseHover = useCallback(
+            event => {
+                const data = findDayUnderCursor(
+                    event,
+                    canvasEl.current,
+                    days,
+                    days[0].size,
+                    dayBorderWidth,
+                    margin
+                )
 
-        const [x, y] = getRelativeCursor(this.surface, event)
-        const currentDay = findDayUnderCursor(days, days[0].size, daySpacing, margin, x, y)
-
-        if (currentDay !== undefined) {
-            showTooltip(
-                <BasicTooltip
-                    id={`${currentDay.day}`}
-                    value={currentDay.value}
-                    enableChip={true}
-                    color={currentDay.color}
-                    theme={theme}
-                    format={tooltipFormat}
-                    renderContent={
-                        typeof tooltip === 'function' ? tooltip.bind(null, currentDay) : null
+                if (data) {
+                    setCurrentDay(data)
+                    const formatedData = {
+                        ...data,
+                        value: formatValue(data.value),
+                        data: { ...data.data },
                     }
-                />,
-                event
-            )
-        } else {
+                    showTooltipFromEvent(React.createElement(tooltip, { ...formatedData }), event)
+                    !currentDay && onMouseEnter && onMouseEnter(data, event)
+                    onMouseMove && onMouseMove(data, event)
+                    currentDay &&
+                        currentDay.id !== data.id &&
+                        onMouseLeave &&
+                        onMouseLeave(data, event)
+                } else {
+                    hideTooltip()
+                    onMouseLeave && onMouseLeave(data, event)
+                }
+            },
+            [
+                canvasEl,
+                margin,
+                days,
+                setCurrentDay,
+                formatValue,
+                daySpacing,
+                showTooltipFromEvent,
+                hideTooltip,
+                onMouseEnter,
+                onMouseMove,
+                onMouseLeave,
+            ]
+        )
+
+        const handleMouseLeave = useCallback(() => {
+            setCurrentDay(null)
             hideTooltip()
-        }
-    }
+        }, [setCurrentDay, hideTooltip])
 
-    handleMouseLeave = hideTooltip => () => {
-        if (this.props.isInteractive !== true) return
+        const handleClick = useCallback(
+            event => {
+                if (!onClick) return
 
-        hideTooltip()
-    }
+                const data = findDayUnderCursor(
+                    event,
+                    canvasEl.current,
+                    days,
+                    days[0].size,
+                    daySpacing,
+                    margin
+                )
 
-    handleClick = event => {
-        const { isInteractive, margin, onClick, days, daySpacing } = this.props
-
-        if (!isInteractive || !days || days.length === 0) return
-
-        const [x, y] = getRelativeCursor(this.surface, event)
-        const currentDay = findDayUnderCursor(days, days[0].size, daySpacing, margin, x, y)
-        if (currentDay !== undefined) onClick(currentDay, event)
-    }
-
-    render() {
-        const { outerWidth, outerHeight, pixelRatio, isInteractive, theme } = this.props
+                data && onClick(data, event)
+            },
+            [canvasEl, daySpacing, margin, setCurrentDay, days, onClick]
+        )
 
         return (
-            <Container isInteractive={isInteractive} theme={theme} animate={false}>
-                {({ showTooltip, hideTooltip }) => (
-                    <canvas
-                        ref={surface => {
-                            this.surface = surface
-                        }}
-                        width={outerWidth * pixelRatio}
-                        height={outerHeight * pixelRatio}
-                        style={{
-                            width: outerWidth,
-                            height: outerHeight,
-                        }}
-                        onMouseEnter={this.handleMouseHover(showTooltip, hideTooltip)}
-                        onMouseMove={this.handleMouseHover(showTooltip, hideTooltip)}
-                        onMouseLeave={this.handleMouseLeave(hideTooltip)}
-                        onClick={this.handleClick}
-                    />
-                )}
-            </Container>
+            <canvas
+                ref={canvasEl}
+                width={outerWidth * pixelRatio}
+                height={outerHeight * pixelRatio}
+                style={{
+                    width: outerWidth,
+                    height: outerHeight,
+                }}
+                onMouseEnter={isInteractive ? handleMouseHover : undefined}
+                onMouseMove={isInteractive ? handleMouseHover : undefined}
+                onMouseLeave={isInteractive ? handleMouseLeave : undefined}
+                onClick={isInteractive ? handleClick : undefined}
+            />
         )
     }
-}
+)
 
 CalendarCanvas.displayName = 'CalendarCanvas'
+CalendarCanvas.defaultProps = CalendarCanvasDefaultProps
+CalendarCanvas.propTypes = CalendarCanvasPropTypes
 
-export default setDisplayName(CalendarCanvas.displayName)(enhance(CalendarCanvas))
+export default withContainer(CalendarCanvas)
