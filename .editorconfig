@@ -1,0 +1,14 @@
+[*.js]
+indent_style = space
+indent_size = 4
+max_line_length = 100
+
+[*.ts]
+indent_style = space
+indent_size = 4
+max_line_length = 100
+
+[*.tsx]
+indent_style = space
+indent_size = 4
+max_line_length = 100

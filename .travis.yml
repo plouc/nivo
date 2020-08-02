@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - '12'
+script:
+  - make init
+  - make fmt-check
+  - make packages-lint
+  - make packages-tslint
+  - make packages-test
+  # Skipping build steps as they're way to slow…
+  # - make website-build
+  # - make storybook-build
+  # - make examples-build

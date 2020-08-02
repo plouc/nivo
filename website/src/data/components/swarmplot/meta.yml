@@ -1,0 +1,64 @@
+flavors:
+  - flavor: svg
+    path: /swarmplot/
+  - flavor: canvas
+    path: /swarmplot/canvas/
+
+SwarmPlot:
+  package: '@nivo/swarmplot'
+  tags:
+    - svg
+    - isomorphic
+  stories:
+    - label: Custom node rendering
+      link: swarmplot--custom-node-rendering
+    - label: Adding extra layers
+      link: swarmplot--extra-layers
+    - label: Using annotations
+      link: swarmplot--using-annotations
+  description: |
+    A swarm plot component which can also be used to make a beeswarm plot
+    when using a single group.
+
+    This chart can display 2 data dimensions, a categorical one: **groups**,
+    and a quantitative one: **values**.
+
+    You can optionally add a third quantitative dimension if you enable
+    **dynamic node size**, please have a look at the `size` property
+    for further information.
+
+    You can also enable a voronoi mesh to capture user's
+    interactions, using the `useMesh` property.
+
+    This example uses 3 dimensions, the grouping is done by the `group`
+    property while the value is determined by the `price` property,
+    node size is dynamic and depends on the `volume` property.
+
+    Under the hood, this chart uses [d3-force](https://github.com/d3/d3-force)
+    with a simulation involving collisions and x/y forces, the quality of
+    the simulation can be adjusted, the strength of the *value* force too.
+
+    The responsive alternative of this component is `ResponsiveSwarmPlot`.
+
+SwarmPlotCanvas:
+  package: '@nivo/swarmplot'
+  tags:
+    - canvas
+  stories:
+    - label: Using annotations
+      link: swarmplotcanvas--using-annotations
+  description: |
+    A variation around the [SwarmPlot](self:/swarmplot) component.
+    Well suited for large data sets as it does not impact DOM tree depth,
+    however you'll lose the isomorphic ability and transitions.
+
+    You can optionally enable a voronoi mesh to capture user's
+    interactions, using the `useMesh` property.
+
+    Even if the canvas implementation is faster, please note that
+    if you have a lot of nodes **calculating the underlying simulation
+    will involve a lot of computing and will affect performance**.
+
+    The responsive alternative of this component is
+    `ResponsiveSwarmPlotCanvas`.
+

@@ -1,0 +1,67 @@
+flavors:
+  - flavor: svg
+    path: /waffle/
+  - flavor: html
+    path: /waffle/html/
+  - flavor: canvas
+    path: /waffle/canvas/
+
+Waffle:
+  package: '@nivo/waffle'
+  tags:
+    - svg
+    - isomorphic
+  stories: []
+  description: |
+    A waffle component. You can fully customize it using `cellComponent`
+    property to define your own cell component, if you wish to do so
+    you should have a look at
+    [native SVG component](https://github.com/plouc/nivo/blob/master/packages/nivo-waffle/src/WaffleCell.js)
+    for available properties.
+
+    You can also see more example usages in
+    [the storybook](storybook:waffle--default).
+
+    The responsive alternative of this component is `ResponsiveWaffle`,
+    it also offers other implementations, see
+    [WaffleHtml](self:/waffle/html) and
+    [WaffleCanvas](self:/waffle/canvas).
+
+WaffleHtml:
+  package: '@nivo/waffle'
+  tags: 
+    - html
+    - isomorphic
+  stories: []
+  description: |
+    A variation around the [Waffle](self:/waffle) component,
+    using HTML elements.
+
+    You can fully customize it using `cellComponent` property to define
+    your own cell component, if you wish to do so you should have a look at
+    [native HTML component](href="https://github.com/plouc/nivo/blob/master/packages/nivo-waffle/src/WaffleCellHtml.js)
+    for available properties.
+
+    You can also see more example usages in
+    [the storybook](storybook:wafflehtml--default).
+
+    The responsive alternative of this component is
+    `ResponsiveWaffleHtml`, it also offers other implementations,
+    see [Waffle](self:/waffle) and
+    [WaffleCanvas](self:/waffle/canvas).
+
+WaffleCanvas:
+  package: '@nivo/waffle'
+  tags:
+    - canvas
+  description: |
+    A variation around the [Waffle](self:/waffle) component.
+    Well suited for large data sets as it does not impact DOM tree depth,
+    however you'll lose the isomorphic ability and transitions.
+
+    You can also see more example usages in
+    [the storybook](storybook:wafflecanvas--default).
+
+    The responsive alternative of this component is
+    `ResponsiveWaffleCanvas`, it also offers other implementations,
+    see [Waffle](self:/waffle) and [WaffleHtml](self:/waffle/html).

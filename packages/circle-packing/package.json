@@ -1,0 +1,40 @@
+{
+  "name": "@nivo/circle-packing",
+  "version": "0.62.0",
+  "license": "MIT",
+  "author": {
+    "name": "Raphaël Benitte",
+    "url": "https://github.com/plouc"
+  },
+  "keywords": [
+    "nivo",
+    "dataviz",
+    "react",
+    "d3",
+    "charts",
+    "circle-packing"
+  ],
+  "main": "./dist/nivo-circle-packing.cjs.js",
+  "module": "./dist/nivo-circle-packing.es.js",
+  "files": [
+    "README.md",
+    "LICENSE.md",
+    "dist/"
+  ],
+  "dependencies": {
+    "@nivo/colors": "0.62.0",
+    "@nivo/core": "0.62.0",
+    "@nivo/tooltip": "0.62.0",
+    "d3-hierarchy": "^1.1.8",
+    "lodash": "^4.17.11",
+    "react-motion": "^0.5.2",
+    "recompose": "^0.30.0"
+  },
+  "peerDependencies": {
+    "prop-types": ">= 15.5.10 < 16.0.0",
+    "react": ">= 16.8.4 < 17.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

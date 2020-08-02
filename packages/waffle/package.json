@@ -1,0 +1,42 @@
+{
+  "name": "@nivo/waffle",
+  "version": "0.62.0",
+  "license": "MIT",
+  "author": {
+    "name": "Raphaël Benitte",
+    "url": "https://github.com/plouc"
+  },
+  "keywords": [
+    "nivo",
+    "dataviz",
+    "react",
+    "d3",
+    "charts",
+    "waffle-chart"
+  ],
+  "main": "./dist/nivo-waffle.cjs.js",
+  "module": "./dist/nivo-waffle.es.js",
+  "files": [
+    "README.md",
+    "LICENSE.md",
+    "index.d.ts",
+    "dist/"
+  ],
+  "dependencies": {
+    "@nivo/colors": "0.62.0",
+    "@nivo/core": "0.62.0",
+    "@nivo/legends": "0.62.0",
+    "@nivo/tooltip": "0.62.0",
+    "lodash.partial": "^4.2.1",
+    "lodash.range": "^3.2.0",
+    "react-motion": "^0.5.2",
+    "recompose": "^0.30.0"
+  },
+  "peerDependencies": {
+    "prop-types": ">= 15.5.10 < 16.0.0",
+    "react": ">= 16.8.4 < 17.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

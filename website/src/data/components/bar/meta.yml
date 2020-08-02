@@ -1,0 +1,63 @@
+flavors:
+  - flavor: svg
+    path: /bar/
+  - flavor: canvas
+    path: /bar/canvas/
+  - flavor: api
+    path: /bar/api/
+
+Bar:
+  package: '@nivo/bar'
+  tags:
+    - svg
+    - isomorphic
+  stories:
+    - label: Using markers
+      link: bar--with-marker
+    - label: Stacked diverging bar chart
+      link: bar--diverging-stacked
+    - label: Grouped diverging bar chart
+      link: bar--diverging-grouped
+    - label: Custom bar element
+      link: bar--custom-bar-item
+    - label: Formatting values
+      link: bar--with-formatted-values
+    - label: Using custom tooltip
+      link: bar--custom-tooltip
+    - label: Custom axis ticks
+      link: bar--custom-axis-ticks
+    - label: Race bar chart
+      link: bar-race-chart--demo
+  description: |
+    Bar chart which can display multiple data series, stacked or side by side. Also
+    supports both vertical and horizontal layout, with negative values descending
+    below the x axis (or y axis if using horizontal layout).
+
+    The bar item component can be customized to render any valid SVG element, it
+    will receive current bar style, data and event handlers,
+    the storybook offers an [example](storybook:bar--custom-bar-item).
+
+    The responsive alternative of this component is `ResponsiveBar`.
+
+    This component is available in the `@nivo/api`,
+    see [sample](api:/samples/bar.svg)
+    or [try it using the API client](self:/bar/api).
+
+    See the [dedicated guide](self:/guides/legends) on how to setup
+    legends for this component.
+    However it requires an extra property for each legend configuration you pass to
+    `legends` property: `dataFrom`, it defines how to compute
+    legend's data and accept `indexes` or `keys`.
+    `indexes` is suitable for simple bar chart with a single data serie
+    while `keys` may be used if you have several ones (groups).
+
+BarCanvas:
+  package: '@nivo/bar'
+  tags:
+    - canvas
+  description: |
+    A variation around the [Bar](self:/bar) component. Well suited for
+    large data sets as it does not impact DOM tree depth, however you'll
+    lose the isomorphic ability and transitions.
+
+    The responsive alternative of this component is `ResponsiveBarCanvas`.

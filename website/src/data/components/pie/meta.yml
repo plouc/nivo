@@ -1,0 +1,47 @@
+flavors:
+  - flavor: svg
+    path: /pie/
+  - flavor: canvas
+    path: /pie/canvas/
+  - flavor: api
+    path: /pie/api/
+
+Pie:
+  package: '@nivo/pie'
+  tags: 
+    - radial
+    - svg
+    - isomorphic
+  stories: []
+  description: |
+    Generates a pie chart from an array of data, each datum must have an
+    id and a value property.
+    Note that margin object does not take radial labels into account,
+    so you should adjust it to leave enough room for it.
+
+    The responsive alternative of this component is `ResponsivePie`.
+
+    This component is available in the `@nivo/api`, see
+    [sample](api:/samples/pie.svg)  or
+    [try it using the API client](self:/pie/api).
+    You can also see more example usages in
+    [the storybook](storybook:pie--default).
+
+    See the [dedicated guide](self:/guides/legends) on how to setup
+    legends for this component.
+
+PieCanvas:
+  package: '@nivo/pie'
+  tags:
+    - radial
+    - canvas
+  stories: []
+  description: |
+    A variation around the [Pie](self:/pie) component. Well suited for
+    large data sets as it does not impact DOM tree depth, however you'll
+    lose the isomorphic ability and transitions.
+
+    The responsive alternative of this component is `ResponsivePieCanvas`.
+
+    See the [dedicated guide](self:/guides/legends) on how to setup
+    legends for this component.

@@ -1,0 +1,65 @@
+{
+  "name": "@nivo/api",
+  "version": "0.62.0",
+  "description": "Rendering API for nivo dataviz React/d3 components",
+  "main": "src/app.js",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/plouc/nivo/blob/master/LICENSE.md"
+    }
+  ],
+  "author": {
+    "name": "Raphaël Benitte",
+    "url": "https://github.com/plouc"
+  },
+  "engineStrict": true,
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "devDependencies": {
+    "mustache": "^2.3.0",
+    "nodemon": "^1.18.10"
+  },
+  "dependencies": {
+    "@nivo/bar": "0.62.0",
+    "@nivo/bullet": "0.62.0",
+    "@nivo/calendar": "0.62.0",
+    "@nivo/chord": "0.62.0",
+    "@nivo/circle-packing": "0.62.0",
+    "@nivo/core": "0.62.0",
+    "@nivo/generators": "0.62.0",
+    "@nivo/heatmap": "0.62.0",
+    "@nivo/legends": "0.62.0",
+    "@nivo/line": "0.62.0",
+    "@nivo/parallel-coordinates": "0.62.0",
+    "@nivo/pie": "0.62.0",
+    "@nivo/radar": "0.62.0",
+    "@nivo/sankey": "0.62.0",
+    "@nivo/scatterplot": "0.62.0",
+    "@nivo/stream": "0.62.0",
+    "@nivo/sunburst": "0.62.0",
+    "@nivo/treemap": "0.62.0",
+    "@nivo/voronoi": "0.62.0",
+    "@nivo/waffle": "0.62.0",
+    "body-parser": "^1.17.2",
+    "compression": "^1.7.0",
+    "cors": "^2.8.4",
+    "express": "^4.15.4",
+    "express-winston": "^2.4.0",
+    "joi": "^14.3.0",
+    "lodash": "^4.17.11",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "uuid": "^3.1.0",
+    "winston": "^2.3.1"
+  },
+  "scripts": {
+    "readme": "node misc/readmeData.js | mustache - misc/README.mustache > README.md",
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

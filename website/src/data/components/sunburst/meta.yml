@@ -1,0 +1,17 @@
+flavors:
+  - flavor: svg
+    path: /sunburst/
+  - flavor: api
+    path: /sunburst/api/
+
+Sunburst:
+  package: '@nivo/sunburst'
+  tags:
+    - hierarchy
+    - radial
+    - svg
+    - isomorphic
+  stories: []
+  description: |
+    The responsive alternative of this component is
+    `ResponsiveSunburst`.

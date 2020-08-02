@@ -1,0 +1,8 @@
+:root {
+    --accent-color: #e25d47;
+    --main-background-color: #f7fafb;
+    --table-odd-background-color: #f5f5f5;
+    --code-number-color: #eb8404;
+    --code-string-color: #199384;
+    --code-boolean-color: #257493;
+}

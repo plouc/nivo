@@ -1,0 +1,23 @@
+parser: babel-eslint
+
+parserOptions:
+  ecmaVersion: 6
+  sourceType:  module
+  ecmaFeatures:
+    jsx:                          true
+    experimentalObjectRestSpread: true
+
+env:
+  browser: true
+  es6:     true
+
+globals:
+  global: true
+
+extends:
+  - eslint:recommended
+  - plugin:react/recommended
+
+settings:
+  react:
+    version: detect

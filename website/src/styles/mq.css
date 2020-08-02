@@ -1,0 +1,52 @@
+/*
+ * Tablet
+ */
+@media only screen and (min-width: 760px) and (max-width: 1000px) {
+    .guide__illustrations__item {
+        height: 160px;
+    }
+}
+
+/*
+ * Mobile 
+ */
+@media only screen and (max-width: 760px) {
+    .guide__illustrations__item {
+        width: 80%;
+        height: 120px;
+        margin-top: 10px;
+    }
+    .guide__illustrations__item:first-child {
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 1200px) {
+    .home_item,
+    a.home_item {
+        width: 33.33%;
+        height: 25%;
+    }
+}
+
+@media (max-width: 1000px) {
+    .home_item,
+    a.home_item {
+        width: 50%;
+        height: 25%;
+    }
+}
+
+@media (max-width: 700px) {
+    .home {
+        height: auto;
+        display: block;
+        position: relative;
+    }
+
+    .home_item,
+    a.home_item {
+        width: 100%;
+        height: 160px;
+    }
+}

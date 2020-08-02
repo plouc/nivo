@@ -1,0 +1,57 @@
+flavors:
+  - flavor: svg
+    path: /choropleth/
+  - flavor: canvas
+    path: /choropleth/canvas/
+
+Choropleth:
+  package: '@nivo/geo'
+  tags:
+    - map
+    - svg
+    - isomorphic
+  stories: []
+  description: |
+    The Choropleth component displays divided geographical areas shaded
+    in relation to some data variable. It's build on top of primitives
+    from the [GeoMap](self:/geomap) component.
+
+    Using this component requires some knowledge about the `d3-geo`
+    library, projections, geoJSON… please have a look at the
+    [official d3 documentation](https://github.com/d3/d3-geo)
+    for further information.
+
+    Like for [GeoMap](self:/geomap), you must pass an array of features
+    which determine the geometries to render on the map, then you pass
+    an array of data which, each datum is merged with its corresponding
+    feature using the `match` property, the value is picked according
+    to the `value` accessor.
+
+    Please note that because the features file is pretty huge, **it's not included
+    in the generated code**, you can find the file used for this example
+    [here](https://github.com/plouc/nivo/blob/master/website/src/data/components/geo/world_countries.json),
+    you'll have to pass the `features` array to the `features` property.
+
+    The responsive alternative of this component is `ResponsiveChoropleth`.
+    This component also have a canvas implementations,
+    [ChoroplethCanvas](self:/choropleth/canvas), which should be used
+    when you have complex geometries as it offers better performance.
+
+ChoroplethCanvas:
+  package: '@nivo/geo'
+  tags:
+    - map
+    - canvas
+  stories: []
+  description: |
+    A canvas implementation of the [Choropleth](self:/choropleth)
+    component, should be used used when you have complex geometries
+    as it offers better performance than its SVG counterpart.
+
+    Please note that because the features file is pretty huge, **it's not included
+    in the generated code**, you can find the file used for this example
+    [here](https://github.com/plouc/nivo/blob/master/website/src/data/components/geo/world_countries.json),
+    you'll have to pass the `features` array to the `features` property.
+
+    The responsive alternative of this component is
+    `ResponsiveChoropleth`.

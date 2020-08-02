@@ -1,0 +1,82 @@
+{
+  "name": "nivo",
+  "version": "0.52.0",
+  "private": true,
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/plouc/nivo/blob/master/LICENSE.md"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/plouc/nivo"
+  },
+  "author": {
+    "name": "Raphaël Benitte",
+    "url": "https://github.com/plouc"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "@babel/core": "^7.10.3",
+    "@ekino/config": "^0.3.0",
+    "@nivo/generators": "0.62.0",
+    "@storybook/addon-actions": "^5.3.19",
+    "@storybook/addon-info": "^5.3.19",
+    "@storybook/addon-knobs": "^5.3.19",
+    "@storybook/addon-links": "^5.3.19",
+    "@storybook/addon-storysource": "^5.3.19",
+    "@storybook/addons": "^5.3.19",
+    "@storybook/react": "^5.3.19",
+    "@storybook/theming": "^5.3.19",
+    "@types/lodash": "^4.14.149",
+    "@types/react": "^16.9.16",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^24.9.0",
+    "babel-loader": "^8.1.0",
+    "babel-preset-react-app": "^9.1.2",
+    "chalk": "^2.4.2",
+    "clog-cli": "^1.0.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "eslint": "^7.3.0",
+    "eslint-plugin-react": "^7.20.0",
+    "gh-pages": "^1.0.0",
+    "jest": "^26.0.1",
+    "jsdom": "^16.2.2",
+    "lerna": "^3.22.1",
+    "lodash": "^4.17.15",
+    "prettier": "^2.0.5",
+    "prop-types": "^15.7.2",
+    "puppeteer": "^0.13.0",
+    "raf": "^3.4.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-test-renderer": "^16.8.6",
+    "rollup": "^2.17.1",
+    "@rollup/plugin-babel": "^5.0.3",
+    "rollup-plugin-cleanup": "^3.1.1",
+    "@rollup/plugin-node-resolve": "^8.0.1",
+    "rollup-plugin-prettier": "^2.1.0",
+    "rollup-plugin-strip-banner": "^2.0.0",
+    "rollup-plugin-typescript2": "^0.27.1",
+    "serve": "^11.2.0",
+    "tslint": "^6.1.2",
+    "typescript": "^3.9.5"
+  },
+  "resolutions": {
+    "react": "16.8.6",
+    "react-dom": "16.8.6"
+  },
+  "scripts": {
+    "changelog": "rm CHANGELOG.md && node scripts/generate-changelog.js"
+  },
+  "workspaces": [
+    "packages/*",
+    "api",
+    "website"
+  ],
+  "dependencies": {
+    "npm-normalize-package-bin": "^1.0.1"
+  }
+}

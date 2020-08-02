@@ -1,0 +1,15 @@
+flavors:
+  - flavor: svg
+    path: /voronoi/
+
+Voronoi:
+  package: '@nivo/voronoi'
+  tags:
+    - svg
+    - experimental
+  stories: []
+  description: |
+    Delaunay/Voronoi Tessellation, uses
+    [d3-delaunay](https://github.com/d3/d3-delaunay).
+    The responsive alternative of this component is
+    `ResponsiveVoronoi`.

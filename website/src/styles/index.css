@@ -1,0 +1,28 @@
+@import 'settings/colors.css';
+@import 'settings/dimensions.css';
+
+@import 'icons.css';
+@import 'nav.css';
+@import 'mobile-nav.css';
+@import 'guides.css';
+@import 'mq.css';
+
+.code-number {
+    font-weight: 700;
+    color: var(--code-number-color);
+}
+
+.code-string {
+    color: var(--code-string-color);
+}
+
+.code-boolean {
+    color: var(--code-boolean-color);
+}
+
+.no-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

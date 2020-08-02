@@ -1,0 +1,74 @@
+flavors:
+  - flavor: svg
+    path: /bubble/
+  - flavor: html
+    path: /bubble/html/
+  - flavor: canvas
+    path: /bubble/canvas/
+  - flavor: api
+    path: /bubble/api/
+
+Bubble:
+  package: '@nivo/circle-packing'
+  tags:
+    - hierarchy
+    - svg
+    - isomorphic
+  stories:
+    - label: Using formatted values
+      link: bubble--with-formatted-values
+    - label: Using custom tooltip
+      link: bubble--custom-tooltip
+  description: |
+    Bubble chart using circle packing with zooming ability.
+    You can fully customize it using `nodeComponent` property
+    to define your own node component,
+    if you wish to do so you should have a look at
+    [native SVG node component](https://github.com/plouc/nivo/blob/master/src/components/charts/bubble/BubbleNode.js)
+    for available properties.
+
+    The responsive alternative of this component is `ResponsiveBubble`.
+    It also offers various implementations, see
+    [BubbleHtml](self:/bubble/html) and
+    [BubbleCanvas](self:/bubble/canvas).
+
+    This component is available in the `@nivo/api`,
+    see [sample](api:/samples/bubble.svg)
+    or [try it using the API client](self:/bubble/api).
+    You can also see more example usages in
+    [the storybook](storybook:bubble--default).
+
+BubbleHtml:
+  package: '@nivo/circle-packing'
+  tags:
+    - hierarchy
+    - html
+    - isomorphic
+  description: |
+    Bubble chart using circle packing with zooming ability.
+    You can fully customize it using `nodeComponent` property
+    to define your own node component, if you wish to do so you should
+    have a look at
+    [the native HTML node component](https://github.com/plouc/nivo/blob/master/src/components/charts/bubble/BubbleHtmlNode.js)
+    for available properties.
+
+    The responsive alternative of this component is `ResponsiveBubbleHtml`.
+    It also offers various implementations,
+    see [Bubble](self:/bubble) and [BubbleCanvas](self:/bubble/canvas).
+
+    You can also see more example usages in
+    [the storybook](storybook:bubblehtml--default).
+
+BubbleCanvas:
+  package: '@nivo/circle-packing'
+  tags:
+    - hierarchy
+    - canvas
+  description: |
+    A variation around the [Bubble](self:/bubble) component. Well suited
+    for large data sets as it does not impact DOM tree depth, however
+    you'll lose the isomorphic ability and transitions (for now).
+
+    The responsive alternative of this component is `ResponsiveBubbleCanvas`.
+    It also offers various implementations, see
+    [Bubble](self:/bubble) and [BubbleHtml](self:/bubble/html).

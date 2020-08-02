@@ -1,0 +1,33 @@
+flavors:
+  - flavor: svg
+    path: /sankey/
+  - flavor: api
+    path: /sankey/api/
+
+Sankey:
+  package: '@nivo/sankey'
+  tags:
+    - relational
+    - flow
+    - svg
+    - isomorphic
+  stories: []
+  description: |
+    Computes a sankey diagram from nodes and links, built
+    on top of [d3-sankey](https://github.com/d3/d3-sankey).
+    The responsive alternative of this component is `ResponsiveSankey`.
+
+    Please be careful with the data you use for this chart as
+    it does not support cyclic dependencies.
+    For example, something like `A —> A`
+    or `A —> B —> C —> A` will crash.
+
+    This component is available in the `@nivo/api`,
+    see [sample](api:/samples/sankey.svg) or
+    [try it using the API client](self:/sankey/api).
+    You can also see more example usages in
+    [the storybook](storybook:sankey--default).
+
+    See the [dedicated guide](self:/guides/legends) on how to setup
+    legends for this component.
+

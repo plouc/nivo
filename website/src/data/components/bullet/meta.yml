@@ -1,0 +1,25 @@
+flavors:
+  - flavor: svg
+    path: /bullet/
+
+Bullet:
+  package: '@nivo/bullet'
+  tags:
+    - svg
+    - isomorphic
+  stories:
+    - label: custom range
+      link: bullet--custom-range
+    - label: custom measure
+      link: bullet--custom-measure
+    - label: custom marker
+      link: bullet--custom-marker
+    - label: custom title
+      link: bullet--custom-title
+  description: |
+    Bullet chart supporting multiple ranges/measures/markers.
+
+    You can fully customize this chart using custom components via
+    `rangeComponent`, `measureComponent` and `markerComponent` properties.
+
+    The responsive alternative of this component is `ResponsiveBullet`.

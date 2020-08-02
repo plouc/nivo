@@ -1,0 +1,37 @@
+.guide__header {
+    max-width: 800px;
+    margin: 0 auto 30px;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: white;
+}
+
+.guide__illustrations {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.guide__illustrations__item {
+    width: 31%;
+    height: 200px;
+    border: 2px solid #333;
+    background: var(--main-background-color);
+}
+
+.guide__illustrations__legend {
+    font-style: italic;
+    text-align: center;
+    width: 100%;
+    font-size: 14px;
+    margin-top: 10px;
+    color: #777;
+}
+
+.guide__table {
+    margin: 15px auto 50px;
+    max-width: 800px;
+    padding: 10px;
+}

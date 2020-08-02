@@ -1,0 +1,612 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render a basic heat map chart 1`] = `
+<div
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={300}
+    role="img"
+    width={500}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      fill="transparent"
+      height={300}
+      width={500}
+    />
+    <g
+      transform="translate(0,0)"
+    >
+      <g
+        transform="translate(0,0)"
+      >
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(83.33333333333333,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={-5}
+          />
+          <text
+            dominantBaseline="alphabetic"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,-10) rotate(0)"
+          >
+            rent
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(250,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={-5}
+          />
+          <text
+            dominantBaseline="alphabetic"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,-10) rotate(0)"
+          >
+            loan
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(416.66666666666663,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={-5}
+          />
+          <text
+            dominantBaseline="alphabetic"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,-10) rotate(0)"
+          >
+            income
+          </text>
+        </g>
+        <line
+          style={
+            Object {
+              "stroke": "transparent",
+              "strokeWidth": 1,
+            }
+          }
+          x1={0}
+          x2={500}
+          y1={0}
+          y2={0}
+        />
+      </g>
+      <g
+        transform="translate(0,0)"
+      >
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,50)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            20
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,150)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            30
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,250)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            40
+          </text>
+        </g>
+        <line
+          style={
+            Object {
+              "stroke": "transparent",
+              "strokeWidth": 1,
+            }
+          }
+          x1={0}
+          x2={0}
+          y1={0}
+          y2={300}
+        />
+      </g>
+      <g
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseMove={[Function]}
+        style={
+          Object {
+            "cursor": "pointer",
+          }
+        }
+        transform="translate(83.33333333333333, 50)"
+      >
+        <rect
+          fill="rgba(244, 117, 96, 1)"
+          fillOpacity={0.85}
+          height={100}
+          stroke="rgba(244, 117, 96, 1)"
+          strokeOpacity={0.85}
+          strokeWidth={0}
+          width={166.66666666666666}
+          x={-83.33333333333333}
+          y={-50}
+        />
+        <text
+          dominantBaseline="central"
+          fillOpacity={0.85}
+          style={
+            Object {
+              "fill": "rgba(148, 71, 58, 1)",
+              "fontFamily": "sans-serif",
+              "fontSize": 11,
+            }
+          }
+          textAnchor="middle"
+        >
+          30
+        </text>
+      </g>
+      <g
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseMove={[Function]}
+        style={
+          Object {
+            "cursor": "pointer",
+          }
+        }
+        transform="translate(250, 50)"
+      >
+        <rect
+          fill="rgba(215, 100, 69, 1)"
+          fillOpacity={0.85}
+          height={100}
+          stroke="rgba(215, 100, 69, 1)"
+          strokeOpacity={0.85}
+          strokeWidth={0}
+          width={166.66666666666666}
+          x={-83.33333333333333}
+          y={-50}
+        />
+        <text
+          dominantBaseline="central"
+          fillOpacity={0.85}
+          style={
+            Object {
+              "fill": "rgba(130, 61, 42, 1)",
+              "fontFamily": "sans-serif",
+              "fontSize": 11,
+            }
+          }
+          textAnchor="middle"
+        >
+          24
+        </text>
+      </g>
+      <g
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseMove={[Function]}
+        style={
+          Object {
+            "cursor": "pointer",
+          }
+        }
+        transform="translate(416.66666666666663, 50)"
+      >
+        <rect
+          fill="rgba(151, 227, 213, 1)"
+          fillOpacity={0.85}
+          height={100}
+          stroke="rgba(151, 227, 213, 1)"
+          strokeOpacity={0.85}
+          strokeWidth={0}
+          width={166.66666666666666}
+          x={-83.33333333333333}
+          y={-50}
+        />
+        <text
+          dominantBaseline="central"
+          fillOpacity={0.85}
+          style={
+            Object {
+              "fill": "rgba(92, 138, 129, 1)",
+              "fontFamily": "sans-serif",
+              "fontSize": 11,
+            }
+          }
+          textAnchor="middle"
+        >
+          60
+        </text>
+      </g>
+      <g
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseMove={[Function]}
+        style={
+          Object {
+            "cursor": "pointer",
+          }
+        }
+        transform="translate(83.33333333333333, 150)"
+      >
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          fillOpacity={0.85}
+          height={100}
+          stroke="rgba(232, 193, 160, 1)"
+          strokeOpacity={0.85}
+          strokeWidth={0}
+          width={166.66666666666666}
+          x={-83.33333333333333}
+          y={-50}
+        />
+        <text
+          dominantBaseline="central"
+          fillOpacity={0.85}
+          style={
+            Object {
+              "fill": "rgba(141, 117, 97, 1)",
+              "fontFamily": "sans-serif",
+              "fontSize": 11,
+            }
+          }
+          textAnchor="middle"
+        >
+          40
+        </text>
+      </g>
+      <g
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseMove={[Function]}
+        style={
+          Object {
+            "cursor": "pointer",
+          }
+        }
+        transform="translate(250, 150)"
+      >
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          fillOpacity={0.85}
+          height={100}
+          stroke="rgba(232, 193, 160, 1)"
+          strokeOpacity={0.85}
+          strokeWidth={0}
+          width={166.66666666666666}
+          x={-83.33333333333333}
+          y={-50}
+        />
+        <text
+          dominantBaseline="central"
+          fillOpacity={0.85}
+          style={
+            Object {
+              "fill": "rgba(141, 117, 97, 1)",
+              "fontFamily": "sans-serif",
+              "fontSize": 11,
+            }
+          }
+          textAnchor="middle"
+        >
+          50
+        </text>
+      </g>
+      <g
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseMove={[Function]}
+        style={
+          Object {
+            "cursor": "pointer",
+          }
+        }
+        transform="translate(416.66666666666663, 150)"
+      >
+        <rect
+          fill="rgba(0, 176, 167, 1)"
+          fillOpacity={0.85}
+          height={100}
+          stroke="rgba(0, 176, 167, 1)"
+          strokeOpacity={0.85}
+          strokeWidth={0}
+          width={166.66666666666666}
+          x={-83.33333333333333}
+          y={-50}
+        />
+        <text
+          dominantBaseline="central"
+          fillOpacity={0.85}
+          style={
+            Object {
+              "fill": "rgba(0, 107, 101, 1)",
+              "fontFamily": "sans-serif",
+              "fontSize": 11,
+            }
+          }
+          textAnchor="middle"
+        >
+          90
+        </text>
+      </g>
+      <g
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseMove={[Function]}
+        style={
+          Object {
+            "cursor": "pointer",
+          }
+        }
+        transform="translate(83.33333333333333, 250)"
+      >
+        <rect
+          fill="rgba(215, 100, 69, 1)"
+          fillOpacity={0.85}
+          height={100}
+          stroke="rgba(215, 100, 69, 1)"
+          strokeOpacity={0.85}
+          strokeWidth={0}
+          width={166.66666666666666}
+          x={-83.33333333333333}
+          y={-50}
+        />
+        <text
+          dominantBaseline="central"
+          fillOpacity={0.85}
+          style={
+            Object {
+              "fill": "rgba(130, 61, 42, 1)",
+              "fontFamily": "sans-serif",
+              "fontSize": 11,
+            }
+          }
+          textAnchor="middle"
+        >
+          20
+        </text>
+      </g>
+      <g
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseMove={[Function]}
+        style={
+          Object {
+            "cursor": "pointer",
+          }
+        }
+        transform="translate(250, 250)"
+      >
+        <rect
+          fill="rgba(215, 100, 69, 1)"
+          fillOpacity={0.85}
+          height={100}
+          stroke="rgba(215, 100, 69, 1)"
+          strokeOpacity={0.85}
+          strokeWidth={0}
+          width={166.66666666666666}
+          x={-83.33333333333333}
+          y={-50}
+        />
+        <text
+          dominantBaseline="central"
+          fillOpacity={0.85}
+          style={
+            Object {
+              "fill": "rgba(130, 61, 42, 1)",
+              "fontFamily": "sans-serif",
+              "fontSize": 11,
+            }
+          }
+          textAnchor="middle"
+        >
+          13
+        </text>
+      </g>
+      <g
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onMouseMove={[Function]}
+        style={
+          Object {
+            "cursor": "pointer",
+          }
+        }
+        transform="translate(416.66666666666663, 250)"
+      >
+        <rect
+          fill="rgba(232, 193, 160, 1)"
+          fillOpacity={0.85}
+          height={100}
+          stroke="rgba(232, 193, 160, 1)"
+          strokeOpacity={0.85}
+          strokeWidth={0}
+          width={166.66666666666666}
+          x={-83.33333333333333}
+          y={-50}
+        />
+        <text
+          dominantBaseline="central"
+          fillOpacity={0.85}
+          style={
+            Object {
+              "fill": "rgba(141, 117, 97, 1)",
+              "fontFamily": "sans-serif",
+              "fontSize": 11,
+            }
+          }
+          textAnchor="middle"
+        >
+          40
+        </text>
+      </g>
+    </g>
+  </svg>
+</div>
+`;

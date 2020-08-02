@@ -1,0 +1,77 @@
+flavors:
+  - flavor: svg
+    path: /line/
+  - flavor: canvas
+    path: /line/canvas/
+  - flavor: api
+    path: /line/api/
+
+Line:
+  package: '@nivo/line'
+  tags:
+    - svg
+    - isomorphic
+  stories:
+    - label: stacked lines
+      link: line--stacked-lines
+    - label: linear scale
+      link: line--linear-scale
+    - label: time scale
+      link: line--time-scale
+    - label: logarithmic scale
+      link: line--logarithmic-scale
+    - label: real time chart
+      link: line--real-time-chart
+    - label: custom point symbol
+      link: line--custom-point-symbol
+    - label: none linear values
+      link: line--non-linear-values
+    - label: adding markers
+      link: line--adding-markers
+    - label: holes in data
+      link: line--holes-in-data
+    - label: different serie lengths
+      link: line--different-serie-lengths
+    - label: custom min/max y
+      link: line--custom-min-max-y
+    - label: formatting axis values
+      link: line--formatting-axis-values
+    - label: formatting values
+      link: line--formatting-values
+    - label: adding custom layers
+      link: line--custom-layers
+    - label: area gradients
+      link: line--area-gradients
+  description: |
+    Line chart with stacking ability.
+
+    Given an array of data series having an id and a nested array of points
+    (with x, y properties), it will compute the line for each data series.
+    All datum having null x or y will be treated as holes, thus portions
+    of the corresponding line will be skipped.
+
+    The responsive alternative of this component is `ResponsiveLine`.
+
+    This component is available in the `@nivo/api`, see
+    [sample](api:/samples/line.svg) or
+    [try it using the API client](self:/line/api).
+
+    See the [dedicated guide](self:/guides/legends) on how to setup
+    legends for this component.
+
+LineCanvas:
+  package: '@nivo/line'
+  tags:
+    - canvas
+  stories:
+    - label: holes in data
+      link: linecanvas--holes-in-data
+    - label: different serie lengths
+      link: linecanvas--different-serie-lengths
+  description: |
+    A variation around the [Line](self:/line) component. Well suited
+    for large data sets as it does not impact DOM tree depth, however
+    you'll lose the isomorphic ability and transitions.
+
+    The responsive alternative of this component is
+    `ResponsiveLineCanvas`.

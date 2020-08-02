@@ -1,0 +1,19 @@
+flavors:
+  - flavor: svg
+    path: /stream/
+
+Stream:
+  package: '@nivo/stream'
+  tags:
+    - stacked
+    - svg
+    - isomorphic
+  stories: []
+  description: |
+    Stream chart.
+
+    The responsive alternative of this component is
+    `ResponsiveStream`.
+
+    See the [dedicated guide](self:/guides/legends) on
+    how to setup legends for this component.

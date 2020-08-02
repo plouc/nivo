@@ -1,0 +1,14 @@
+.DS_Store
+.idea
+*.log*
+node_modules
+coverage
+/storybook-static
+
+package-lock.json
+
+build
+
+/packages/*/dist
+
+*.lerna_backup

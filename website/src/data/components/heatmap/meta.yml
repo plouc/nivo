@@ -1,0 +1,43 @@
+flavors:
+  - flavor: svg
+    path: /heatmap/
+  - flavor: canvas
+    path: /heatmap/canvas/
+  - flavor: api
+    path: /heatmap/api/
+
+HeatMap:
+  package: '@nivo/heatmap'
+  tags:
+    - svg
+    - isomorphic
+  stories:
+    - label: Custom cell component
+      link: heatmap--custom-cell-component
+    - label: Custom tooltip
+      link: heatmap-custom-tooltip
+  description: |
+    An heat map matrix, you can chose between various colors scales
+    or pass yours, you also have the ability to change the cell shape
+    for rectangle or circle and even use a custom rendering function.
+
+    The responsive alternative of this component is `ResponsiveHeatMap`.
+
+    This component is available in the `@nivo/api`, see
+    [sample](api:/samples/heatmap.svg) or
+    [try it using the API client](self:/heatmap/api).
+    You can also see more example usages in
+    [the storybook](storybook:heatmap--default).
+
+HeatMapCanvas:
+  package: '@nivo/heatmap'
+  tags:
+    - canvas
+  stories: []
+  description: |
+    A variation around the [HeatMap](self:/heatmap) component.
+    Well suited for large data sets as it does not impact DOM tree depth,
+    however you'll lose the isomorphic ability and transitions.
+
+    The responsive alternative of this component is
+    `ResponsiveHeatMapCanvas`.

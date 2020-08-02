@@ -1,0 +1,39 @@
+{
+  "name": "@nivo/voronoi",
+  "version": "0.62.0",
+  "license": "MIT",
+  "author": {
+    "name": "Raphaël Benitte",
+    "url": "https://github.com/plouc"
+  },
+  "keywords": [
+    "nivo",
+    "dataviz",
+    "react",
+    "d3",
+    "charts",
+    "voronoi"
+  ],
+  "main": "./dist/nivo-voronoi.cjs.js",
+  "module": "./dist/nivo-voronoi.es.js",
+  "typings": "./index.d.ts",
+  "files": [
+    "README.md",
+    "LICENSE.md",
+    "dist/",
+    "index.d.ts"
+  ],
+  "dependencies": {
+    "@nivo/core": "0.62.0",
+    "d3-delaunay": "^5.1.1",
+    "d3-scale": "^3.0.0",
+    "recompose": "^0.30.0"
+  },
+  "peerDependencies": {
+    "prop-types": ">= 15.5.10 < 16.0.0",
+    "react": ">= 16.8.4 < 17.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

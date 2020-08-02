@@ -1,0 +1,501 @@
+capture:
+    baseUrl: http://localhost:8000
+    pages:
+      #########################################################################
+      #
+      #  CHARTS
+      #  capture illustrations for readme
+      #
+      #########################################################################
+
+      # - path: /area-bump/
+      #   selector: '#chart'
+      #   output: ./packages/bump/doc/area-bump.png
+
+      # - path: /bump/
+      #   selector: '#chart'
+      #   output: ./packages/bump/doc/bump.png
+
+      # - path: /swarmplot
+      #   selector: '#chart'
+      #   output: ./packages/swarmplot/doc/swarmplot.png
+      # - path: /swarmplot/canvas
+      #   selector: '#chart'
+      #   theme: dark
+      #   output: ./packages/swarmplot/doc/swarmplot-canvas.png
+
+      # - path: /geomap
+      #   selector: '#chart'
+      #   output: ./packages/geo/doc/geomap.png
+      # - path: /geomap/canvas
+      #   selector: '#chart'
+      #   output: ./packages/geo/doc/geomap-canvas.png
+
+      # - path: /choropleth
+      #   selector: '#chart'
+      #   output: ./packages/geo/doc/choropleth.png
+      # - path: /choropleth/canvas
+      #   selector: '#chart'
+      #   output: ./packages/geo/doc/choropleth-canvas.png
+
+      # - path: /bar
+      #   selector: '#chart'
+      #   output: ./packages/bar/doc/bar.png
+      # - path: /bar/canvas
+      #   selector: '#chart'
+      #   output: ./packages/bar/doc/bar-canvas.png
+
+      # - path: /calendar
+      #   selector: '#chart'
+      #   output: ./packages/calendar/doc/calendar.png
+
+      # - path: /chord
+      #   selector: '#chart'
+      #   output: ./packages/chord/doc/chord.png
+      # - path: /chord/canvas
+      #   selector: '#chart'
+      #   output: ./packages/chord/doc/chord-canvas.png
+
+      # - path: /bubble
+      #   selector: '#chart'
+      #   output: ./packages/circle-packing/doc/bubble.png
+      # - path: /bubble/html
+      #   selector: '#chart'
+      #   output: ./packages/circle-packing/doc/bubble-html.png
+      # - path: /bubble/canvas
+      #   selector: '#chart'
+      #   output: ./packages/circle-packing/doc/bubble-canvas.png
+
+      # - path: /bullet
+      #   selector: '#chart'
+      #   output: ./packages/bullet/doc/bullet.png
+
+      # - path: /heatmap
+      #   selector: '#chart'
+      #   output: ./packages/heatmap/doc/heatmap.png
+      # - path: /heatmap/canvas
+      #   selector: '#chart'
+      #   output: ./packages/heatmap/doc/heatmap-canvas.png
+
+      # - path: /line
+      #   selector: '#chart'
+      #   output: ./packages/line/doc/line.png
+      # - path: /line/canvas
+      #   selector: '#chart'
+      #   theme: dark
+      #   output: ./packages/line/doc/line-canvas.png
+
+      # - path: /network/
+      #   selector: '#chart'
+      #   output: ./packages/network/doc/network.png
+      # - path: /network/canvas/
+      #   selector: '#chart'
+      #   theme: dark
+      #   output: ./packages/network/doc/network-canvas.png
+
+      # - path: /parallel-coordinates
+      #   selector: '#chart'
+      #   output: ./packages/parallel-coordinates/doc/parallel-coordinates.png
+      # - path: /parallel-coordinates/canvas
+      #   selector: '#chart'
+      #   output: ./packages/parallel-coordinates/doc/parallel-coordinates-canvas.png
+
+      # - path: /pie
+      #   selector: '#chart'
+      #   output: ./packages/pie/doc/pie.png
+
+      # - path: /radar
+      #   selector: '#chart'
+      #   output: ./packages/radar/doc/radar.png
+
+      # - path: /sankey
+      #   selector: '#chart'
+      #   output: ./packages/sankey/doc/sankey.png
+
+      # - path: /scatterplot
+      #   selector: '#chart'
+      #   output: ./packages/scatterplot/doc/scatterplot.png
+      # - path: /scatterplot/canvas
+      #   selector: '#chart'
+      #   output: ./packages/scatterplot/doc/scatterplot-canvas.png
+
+      # - path: /stream
+      #   selector: '#chart'
+      #   output: ./packages/stream/doc/stream.png
+
+      # - path: /sunburst
+      #   selector: '#chart'
+      #   output: ./packages/sunburst/doc/sunburst.png
+
+      # - path: /treemap
+      #   selector: '#chart'
+      #   output: ./packages/treemap/doc/treemap.png
+      # - path: /treemap/html
+      #   selector: '#chart'
+      #   output: ./packages/treemap/doc/treemap-html.png
+      # - path: /treemap/canvas
+      #   selector: '#chart'
+      #   output: ./packages/treemap/doc/treemap-canvas.png
+
+      # - path: /voronoi
+      #   selector: '#chart'
+      #   output: ./packages/voronoi/doc/voronoi.png
+
+      # - path: /waffle
+      #   selector: '#chart'
+      #   output: ./packages/waffle/doc/waffle.png
+      # - path: /waffle/html
+      #   selector: '#chart'
+      #   output: ./packages/waffle/doc/waffle-html.png
+      # - path: /waffle/canvas
+      #   selector: '#chart'
+      #   output: ./packages/waffle/doc/waffle-canvas.png
+
+      - path: /funnel
+        selector: '#chart'
+        output: ./packages/funnel/doc/funnel.png
+
+      #########################################################################
+      #
+      #  ICONS
+      #  capture charts' icons
+      #
+      #########################################################################
+
+      # - path: /internal/icons/
+      #   selector: '#funnel-lightNeutral'
+      #   output: ./website/src/assets/icons/funnel-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#funnel-lightColored'
+      #   output: ./website/src/assets/icons/funnel-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#funnel-darkNeutral'
+      #   output: ./website/src/assets/icons/funnel-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#funnel-darkColored'
+      #   output: ./website/src/assets/icons/funnel-dark-colored.png
+
+      # - path: /internal/icons/
+      #   selector: '#area-bump-lightNeutral'
+      #   output: ./website/src/assets/icons/area-bump-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#area-bump-lightColored'
+      #   output: ./website/src/assets/icons/area-bump-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#area-bump-darkNeutral'
+      #   output: ./website/src/assets/icons/area-bump-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#area-bump-darkColored'
+      #   output: ./website/src/assets/icons/area-bump-dark-colored.png
+
+      # - path: /internal/icons/
+      #   selector: '#bar-lightNeutral'
+      #   output: ./website/src/assets/icons/bar-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#bar-lightColored'
+      #   output: ./website/src/assets/icons/bar-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#bar-darkNeutral'
+      #   output: ./website/src/assets/icons/bar-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#bar-darkColored'
+      #   output: ./website/src/assets/icons/bar-dark-colored.png
+    
+      # - path: /internal/icons/
+      #   selector: '#bullet-lightNeutral'
+      #   output: ./website/src/assets/icons/bullet-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#bullet-lightColored'
+      #   output: ./website/src/assets/icons/bullet-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#bullet-darkNeutral'
+      #   output: ./website/src/assets/icons/bullet-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#bullet-darkColored'
+      #   output: ./website/src/assets/icons/bullet-dark-colored.png
+
+      # - path: /internal/icons/
+      #   selector: '#bump-lightNeutral'
+      #   output: ./website/src/assets/icons/bump-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#bump-lightColored'
+      #   output: ./website/src/assets/icons/bump-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#bump-darkNeutral'
+      #   output: ./website/src/assets/icons/bump-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#bump-darkColored'
+      #   output: ./website/src/assets/icons/bump-dark-colored.png
+
+      # - path: /internal/icons/
+      #   selector: '#circle-packing-lightNeutral'
+      #   output: ./website/src/assets/icons/circle-packing-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#circle-packing-lightColored'
+      #   output: ./website/src/assets/icons/circle-packing-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#circle-packing-darkNeutral'
+      #   output: ./website/src/assets/icons/circle-packing-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#circle-packing-darkColored'
+      #   output: ./website/src/assets/icons/circle-packing-dark-colored.png
+
+      # - path: /internal/icons/
+      #   selector: '#choropleth-lightNeutral'
+      #   output: ./website/src/assets/icons/choropleth-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#choropleth-lightColored'
+      #   output: ./website/src/assets/icons/choropleth-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#choropleth-darkNeutral'
+      #   output: ./website/src/assets/icons/choropleth-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#choropleth-darkColored'
+      #   output: ./website/src/assets/icons/choropleth-dark-colored.png
+      
+      # - path: /internal/icons/
+      #   selector: '#heatmap-lightNeutral'
+      #   output: ./website/src/assets/icons/heatmap-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#heatmap-lightColored'
+      #   output: ./website/src/assets/icons/heatmap-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#heatmap-darkNeutral'
+      #   output: ./website/src/assets/icons/heatmap-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#heatmap-darkColored'
+      #   output: ./website/src/assets/icons/heatmap-dark-colored.png
+
+      # - path: /internal/icons/
+      #   selector: '#geomap-lightNeutral'
+      #   output: ./website/src/assets/icons/geomap-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#geomap-lightColored'
+      #   output: ./website/src/assets/icons/geomap-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#geomap-darkNeutral'
+      #   output: ./website/src/assets/icons/geomap-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#geomap-darkColored'
+      #   output: ./website/src/assets/icons/geomap-dark-colored.png
+
+      # - path: /internal/icons/
+      #   selector: '#line-lightNeutral'
+      #   output: ./website/src/assets/icons/line-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#line-lightColored'
+      #   output: ./website/src/assets/icons/line-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#line-darkNeutral'
+      #   output: ./website/src/assets/icons/line-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#line-darkColored'
+      #   output: ./website/src/assets/icons/line-dark-colored.png
+
+      # - path: /internal/icons/
+      #   selector: '#network-lightNeutral'
+      #   output: ./website/src/assets/icons/network-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#network-lightColored'
+      #   output: ./website/src/assets/icons/network-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#network-darkNeutral'
+      #   output: ./website/src/assets/icons/network-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#network-darkColored'
+      #   output: ./website/src/assets/icons/network-dark-colored.png
+
+      # - path: /internal/icons/
+      #   selector: '#chord-lightNeutral'
+      #   output: ./website/src/assets/icons/chord-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#chord-lightColored'
+      #   output: ./website/src/assets/icons/chord-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#chord-darkNeutral'
+      #   output: ./website/src/assets/icons/chord-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#chord-darkColored'
+      #   output: ./website/src/assets/icons/chord-dark-colored.png
+
+      # - path: /internal/icons/
+      #   selector: '#parallel-coordinates-lightNeutral'
+      #   output: ./website/src/assets/icons/parallel-coordinates-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#parallel-coordinates-lightColored'
+      #   output: ./website/src/assets/icons/parallel-coordinates-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#parallel-coordinates-darkNeutral'
+      #   output: ./website/src/assets/icons/parallel-coordinates-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#parallel-coordinates-darkColored'
+      #   output: ./website/src/assets/icons/parallel-coordinates-dark-colored.png
+
+      # - path: /internal/icons/
+      #   selector: '#pie-lightNeutral'
+      #   output: ./website/src/assets/icons/pie-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#pie-lightColored'
+      #   output: ./website/src/assets/icons/pie-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#pie-darkNeutral'
+      #   output: ./website/src/assets/icons/pie-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#pie-darkColored'
+      #   output: ./website/src/assets/icons/pie-dark-colored.png
+
+      # - path: /internal/icons/
+      #   selector: '#waffle-lightNeutral'
+      #   output: ./website/src/assets/icons/waffle-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#waffle-lightColored'
+      #   output: ./website/src/assets/icons/waffle-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#waffle-darkNeutral'
+      #   output: ./website/src/assets/icons/waffle-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#waffle-darkColored'
+      #   output: ./website/src/assets/icons/waffle-dark-colored.png
+
+      # - path: /internal/icons/
+      #   selector: '#stream-lightNeutral'
+      #   output: ./website/src/assets/icons/stream-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#stream-lightColored'
+      #   output: ./website/src/assets/icons/stream-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#stream-darkNeutral'
+      #   output: ./website/src/assets/icons/stream-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#stream-darkColored'
+      #   output: ./website/src/assets/icons/stream-dark-colored.png
+
+      # - path: /internal/icons/
+      #   selector: '#scatterplot-lightNeutral'
+      #   output: ./website/src/assets/icons/scatterplot-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#scatterplot-lightColored'
+      #   output: ./website/src/assets/icons/scatterplot-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#scatterplot-darkNeutral'
+      #   output: ./website/src/assets/icons/scatterplot-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#scatterplot-darkColored'
+      #   output: ./website/src/assets/icons/scatterplot-dark-colored.png
+
+      # - path: /internal/icons/
+      #   selector: '#radar-lightNeutral'
+      #   output: ./website/src/assets/icons/radar-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#radar-lightColored'
+      #   output: ./website/src/assets/icons/radar-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#radar-darkNeutral'
+      #   output: ./website/src/assets/icons/radar-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#radar-darkColored'
+      #   output: ./website/src/assets/icons/radar-dark-colored.png
+
+      # - path: /internal/icons/
+      #   selector: '#calendar-lightNeutral'
+      #   output: ./website/src/assets/icons/calendar-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#calendar-lightColored'
+      #   output: ./website/src/assets/icons/calendar-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#calendar-darkNeutral'
+      #   output: ./website/src/assets/icons/calendar-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#calendar-darkColored'
+      #   output: ./website/src/assets/icons/calendar-dark-colored.png
+
+      # - path: /internal/icons/
+      #   selector: '#data-lightNeutral'
+      #   output: ./website/src/assets/icons/data-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#data-lightColored'
+      #   output: ./website/src/assets/icons/data-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#data-darkNeutral'
+      #   output: ./website/src/assets/icons/data-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#data-darkColored'
+      #   output: ./website/src/assets/icons/data-dark-colored.png
+
+      # - path: /internal/icons/
+      #   selector: '#code-lightNeutral'
+      #   output: ./website/src/assets/icons/code-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#code-lightColored'
+      #   output: ./website/src/assets/icons/code-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#code-darkNeutral'
+      #   output: ./website/src/assets/icons/code-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#code-darkColored'
+      #   output: ./website/src/assets/icons/code-dark-colored.png
+
+      # - path: /internal/icons/
+      #   selector: '#treemap-lightNeutral'
+      #   output: ./website/src/assets/icons/treemap-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#treemap-lightColored'
+      #   output: ./website/src/assets/icons/treemap-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#treemap-darkNeutral'
+      #   output: ./website/src/assets/icons/treemap-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#treemap-darkColored'
+      #   output: ./website/src/assets/icons/treemap-dark-colored.png
+
+      # - path: /internal/icons/
+      #   selector: '#sankey-lightNeutral'
+      #   output: ./website/src/assets/icons/sankey-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#sankey-lightColored'
+      #   output: ./website/src/assets/icons/sankey-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#sankey-darkNeutral'
+      #   output: ./website/src/assets/icons/sankey-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#sankey-darkColored'
+      #   output: ./website/src/assets/icons/sankey-dark-colored.png
+
+      # - path: /internal/icons/
+      #   selector: '#voronoi-lightNeutral'
+      #   output: ./website/src/assets/icons/voronoi-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#voronoi-lightColored'
+      #   output: ./website/src/assets/icons/voronoi-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#voronoi-darkNeutral'
+      #   output: ./website/src/assets/icons/voronoi-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#voronoi-darkColored'
+      #   output: ./website/src/assets/icons/voronoi-dark-colored.png
+
+      # - path: /internal/icons/
+      #   selector: '#sunburst-lightNeutral'
+      #   output: ./website/src/assets/icons/sunburst-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#sunburst-lightColored'
+      #   output: ./website/src/assets/icons/sunburst-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#sunburst-darkNeutral'
+      #   output: ./website/src/assets/icons/sunburst-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#sunburst-darkColored'
+      #   output: ./website/src/assets/icons/sunburst-dark-colored.png
+
+      # - path: /internal/icons/
+      #   selector: '#swarmplot-lightNeutral'
+      #   output: ./website/src/assets/icons/swarmplot-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#swarmplot-lightColored'
+      #   output: ./website/src/assets/icons/swarmplot-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#swarmplot-darkNeutral'
+      #   output: ./website/src/assets/icons/swarmplot-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#swarmplot-darkColored'
+      #   output: ./website/src/assets/icons/swarmplot-dark-colored.png

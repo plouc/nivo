@@ -1,0 +1,19 @@
+flavors:
+  - flavor: svg
+    path: /area-bump/
+
+AreaBump:
+  package: '@nivo/bump'
+  tags:
+    - svg
+    - isomorphic
+  stories: []
+  description: |
+    The AreaBump chart is similar to the [Bump](self:/bump/) chart,
+    but instead of only showing the ranking over time, it also shows
+    the values on the y-axis.
+
+    If you're only interested in ranking, you can also you use
+    the [Bump](self:/bump/) component.
+
+    The responsive alternative of this component is `ResponsiveAreaBump`.

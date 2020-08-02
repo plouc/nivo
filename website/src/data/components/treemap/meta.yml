@@ -1,0 +1,79 @@
+flavors:
+  - flavor: svg
+    path: /treemap/
+  - flavor: html
+    path: /treemap/html/
+  - flavor: canvas
+    path: /treemap/canvas/
+  - flavor: api
+    path: /treemap/api/
+
+TreeMap:
+  package: '@nivo/treemap'
+  tags:
+    - hierarchy
+    - svg
+    - isomorphic
+  stories:
+    - label: Using custom tooltip
+      link: treemap--custom-tooltip
+    - label: Patterns & Gradients
+      link: treemap--patterns-gradients
+  description: |
+    A tree map component using
+    [d3-hierarchy.treemap](https://github.com/d3/d3-hierarchy#treemap),
+    see [this demo](https://observablehq.com/@d3/treemap).
+
+    You can fully customize it using `nodeComponent` property to define
+    your own node component, if you wish to do so you should have a look at
+    [native SVG node component](https://github.com/plouc/nivo/blob/master/src/components/charts/treemap/TreeMapNode.js)
+    for available properties.
+
+    The responsive alternative of this component is `ResponsiveTreeMap`,
+    it also offers other implementations, see
+    [TreeMapHtml](self:/treemap/html) and
+    [TreeMapCanvas](self:/treemap/canvas).
+
+    The `TreeMap` component is also available in the `@nivo/api`,
+    see [sample](api:/samples/treemap)
+    or [try it using the API client](self:/treemap/api).
+
+TreeMapHtml:
+  package: '@nivo/treemap'
+  tags:
+    - hierarchy
+    - html
+    - isomorphic
+  stories:
+    - label: Using custom tooltip
+      link: treemaphtml--custom-tooltip
+  description: |
+    A tree map component using
+    [d3-hierarchy.treemap](https://github.com/d3/d3-hierarchy#treemap),
+    see [this demo](https://observablehq.com/@d3/treemap).
+
+    You can fully customize it using `nodeComponent` property to define
+    your own node component, if you wish to do so you should have a look at
+    [native HTML node component](https://github.com/plouc/nivo/blob/master/src/components/charts/treemap/TreeMapHtmlNode.js)
+    for available properties.
+
+    The responsive alternative of this component is
+    `ResponsiveTreeMapHtml`, it also offers other
+    implementations, see [TreeMap](self:/treemap) and
+    [TreeMapCanvas](self:/treemap/canvas).
+
+TreeMapCanvas:
+  package: '@nivo/treemap'
+  tags:
+    - hierarchy
+    - canvas
+  stories: []
+  description: |
+    A variation around the [TreeMap](self:/treemap) component.
+    Well suited for large data sets as it does not impact DOM tree depth,
+    however you'll lose the isomorphic ability and transitions.
+
+    The responsive alternative of this component is
+    `ResponsiveTreeMapCanvas`, it also offers other implementations,
+    see [TreeMap](self:/treemap) and
+    [TreeMapHtml](self:/treemap/html).

@@ -1,0 +1,36 @@
+flavors:
+  - flavor: svg
+    path: /calendar/
+  - flavor: canvas
+    path: /calendar/canvas/
+  - flavor: api
+    path: /calendar/api/
+
+Calendar:
+  package: '@nivo/calendar'
+  tags:
+    - svg
+    - isomorphic
+  stories: []
+  description: |
+    This component is heavily inspired by
+    [this demo](https://observablehq.com/@d3/calendar-view).
+
+    The responsive alternative of this component is `ResponsiveCalendar`,
+    it also offers a canvas implementations, see
+    [CalendarCanvas](self:/calendar/canvas).
+
+    See the [dedicated guide](self:/guides/legends) on how to setup
+    legends for this component.
+
+CalendarCanvas:
+  package: '@nivo/calendar'
+  tags:
+    - canvas
+  stories: []
+  description: |
+    A variation around the [Calendar](self:/calendar) component.
+    Well suited for large data sets as it does not impact DOM tree depth,
+    however you'll lose the isomorphic rendering ability.
+
+    The responsive alternative of this component is `ResponsiveCalendarCanvas`.
