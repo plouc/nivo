@@ -75,7 +75,9 @@ export class Bullet extends Component {
 
             const max = Math.max(...all)
 
-            const scale = scaleLinear().domain([0, max])
+            const min = Math.min(...all, 0)
+
+            const scale = scaleLinear().domain([min, max])
 
             if (layout === 'horizontal') {
                 scale.range(reverse === true ? [width, 0] : [0, width])
