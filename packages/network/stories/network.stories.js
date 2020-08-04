@@ -1,10 +1,10 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { NetworkDefaultProps } from '../src/props'
-import { generateData } from '../../../website/src/data/components/network/generator'
+import { generateNetworkData } from '@nivo/generators'
 import { Network } from '../src'
 
-const data = generateData()
+const data = generateNetworkData()
 
 const commonProperties = {
     ...NetworkDefaultProps,

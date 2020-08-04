@@ -11,7 +11,7 @@ import { ResponsiveNetworkCanvas, NetworkCanvasDefaultProps } from '@nivo/networ
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/network/meta.yml'
 import { groups } from '../../data/components/network/props'
-import { generateData } from '../../data/components/network/generator'
+import { generateNetworkData } from '@nivo/generators'
 
 const initialProperties = Object.freeze({
     pixelRatio:
@@ -37,6 +37,8 @@ const initialProperties = Object.freeze({
 
     isInteractive: true,
 })
+
+const generateData = () => generateNetworkData()
 
 const NetworkCanvas = () => {
     return (
