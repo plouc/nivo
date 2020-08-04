@@ -9,7 +9,18 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 
-const Node = ({ x, y, radius, color, borderWidth, borderColor, scale = 1 }) => {
+const Node = ({
+    node,
+    x,
+    y,
+    radius,
+    color,
+    borderWidth,
+    borderColor,
+    scale = 1,
+    handleNodeHover,
+    handleNodeLeave,
+}) => {
     return (
         <circle
             transform={`translate(${x},${y}) scale(${scale})`}
@@ -17,6 +28,9 @@ const Node = ({ x, y, radius, color, borderWidth, borderColor, scale = 1 }) => {
             fill={color}
             strokeWidth={borderWidth}
             stroke={borderColor}
+            onMouseEnter={event => handleNodeHover(node, event)}
+            onMouseMove={event => handleNodeHover(node, event)}
+            onMouseLeave={handleNodeLeave}
         />
     )
 }
@@ -30,6 +44,8 @@ Node.propTypes = {
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.string.isRequired,
     scale: PropTypes.number,
+    handleNodeHover: PropTypes.func.isRequired,
+    handleNodeLeave: PropTypes.func.isRequired,
 }
 
 export default memo(Node)

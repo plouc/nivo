@@ -26,7 +26,14 @@ const willLeave = springConfig => ({ style }) => ({
     scale: spring(0, springConfig),
 })
 
-const AnimatedNodes = ({ nodes, color, borderWidth, borderColor }) => {
+const AnimatedNodes = ({
+    nodes,
+    color,
+    borderWidth,
+    borderColor,
+    handleNodeHover,
+    handleNodeLeave,
+}) => {
     const { springConfig } = useMotionConfig()
 
     return (
@@ -58,6 +65,8 @@ const AnimatedNodes = ({ nodes, color, borderWidth, borderColor }) => {
                                 borderWidth={borderWidth}
                                 borderColor={borderColor(node)}
                                 scale={Math.max(style.scale, 0)}
+                                handleNodeHover={handleNodeHover}
+                                handleNodeLeave={handleNodeLeave}
                             />
                         )
                     })}
@@ -72,6 +81,8 @@ AnimatedNodes.propTypes = {
     color: PropTypes.func.isRequired,
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.func.isRequired,
+    handleNodeHover: PropTypes.func.isRequired,
+    handleNodeLeave: PropTypes.func.isRequired,
 }
 
 export default memo(AnimatedNodes)
