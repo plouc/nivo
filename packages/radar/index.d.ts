@@ -14,7 +14,7 @@ import { LegendProps } from '@nivo/legends'
 declare module '@nivo/radar' {
     export type GridLabelProps = {
         id: string
-        anchor: "start" | "middle" | "end"
+        anchor: 'start' | 'middle' | 'end'
         angle: number
     }
     export type DotSymbolProps = {
