@@ -8,7 +8,7 @@
  */
 import random from 'lodash/random'
 
-export const generateData = ({
+export const generateNetworkData = ({
     rootNodeRadius = 12,
     minMidNodes = 6,
     maxMidNodes = 16,
