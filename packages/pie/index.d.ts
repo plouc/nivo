@@ -13,6 +13,10 @@ declare module '@nivo/pie' {
     export type PieDatumWithColor = PieDatum & {
         color: string
     }
+    
+    export type PieTooltip = PieDatumWithColor & {
+        label: string | number
+    }
 
     export type AccessorFunc = (datum: PieDatum) => string
 
@@ -66,7 +70,7 @@ declare module '@nivo/pie' {
             // interactivity
             isInteractive: boolean
             tooltipFormat: string | ValueFormatter
-            tooltip: React.StatelessComponent<PieDatumWithColor>
+            tooltip: React.FC<PieTooltip>
 
             legends: LegendProps[]
         }>
