@@ -13,7 +13,7 @@ declare module '@nivo/pie' {
     export type PieDatumWithColor = PieDatum & {
         color: string
     }
-    
+
     export type PieTooltip = PieDatumWithColor & {
         label: string | number
     }
