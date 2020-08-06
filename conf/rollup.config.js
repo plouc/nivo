@@ -14,6 +14,7 @@ const typescriptPackages = [
     'core',
     'generators',
     'legends',
+    'line',
     'radar',
     'scales',
     'tooltip',

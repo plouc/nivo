@@ -6,17 +6,24 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 import { useSprings, animated } from 'react-spring'
-import { useMotionConfig, blendModePropType } from '@nivo/core'
+import { useMotionConfig, CssMixBlendMode } from '@nivo/core';
+import { ComputedSerie } from './hooks'
 
-const Areas = ({ areaGenerator, areaOpacity, areaBlendMode, lines }) => {
+interface AreasProps {
+    areaGenerator: any
+    areaOpacity: number
+    areaBlendMode: CssMixBlendMode
+    lines: ComputedSerie[]
+}
+
+export default function Areas({ areaGenerator, areaOpacity, areaBlendMode, lines }: AreasProps) {
     const { animate, config: springConfig } = useMotionConfig()
 
     const computedLines = lines.slice(0).reverse()
 
-    const springs = useSprings(
+    const springs: any[] = useSprings(
         computedLines.length,
         computedLines.map(line => {
             return {
@@ -49,12 +56,3 @@ const Areas = ({ areaGenerator, areaOpacity, areaBlendMode, lines }) => {
         </g>
     )
 }
-
-Areas.propTypes = {
-    areaGenerator: PropTypes.func.isRequired,
-    areaOpacity: PropTypes.number.isRequired,
-    areaBlendMode: blendModePropType.isRequired,
-    lines: PropTypes.arrayOf(PropTypes.object).isRequired,
-}
-
-export default memo(Areas)

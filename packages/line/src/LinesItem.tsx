@@ -6,12 +6,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 import { useSpring, animated } from 'react-spring'
 import { useMotionConfig } from '@nivo/core'
+import { Datum, LineGenerator } from './hooks'
 
-const LinesItem = ({ lineGenerator, points, color, thickness }) => {
+interface LinesItemProps {
+    points: Datum[]
+    lineGenerator: LineGenerator
+    color: string
+    thickness: number
+}
+
+export default function LinesItem({ lineGenerator, points, color, thickness }: LinesItemProps) {
     const { animate, config: springConfig } = useMotionConfig()
 
     const animatedProps = useSpring({
@@ -24,17 +31,3 @@ const LinesItem = ({ lineGenerator, points, color, thickness }) => {
         <animated.path d={animatedProps.path} fill="none" strokeWidth={thickness} stroke={color} />
     )
 }
-
-LinesItem.propTypes = {
-    points: PropTypes.arrayOf(
-        PropTypes.shape({
-            x: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-            y: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        })
-    ),
-    lineGenerator: PropTypes.func.isRequired,
-    color: PropTypes.string.isRequired,
-    thickness: PropTypes.number.isRequired,
-}
-
-export default memo(LinesItem)

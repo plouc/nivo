@@ -6,12 +6,26 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo, useCallback } from 'react'
-import PropTypes from 'prop-types'
+import React, { useCallback } from 'react'
 import { useTooltip } from '@nivo/tooltip'
 import { Mesh as BaseMesh } from '@nivo/voronoi'
+import { Dimensions, Box } from '@nivo/core'
+import { Point, PointMouseHandler } from './hooks';
+import { PointTooltipProps } from './PointTooltip';
 
-const Mesh = ({
+interface MeshProps extends Dimensions {
+    points: Point[],
+    margin: Box,
+    setCurrent: React.Dispatch<React.SetStateAction<Point | null>>,
+    onMouseEnter?: PointMouseHandler
+    onMouseMove?: PointMouseHandler
+    onMouseLeave?: PointMouseHandler
+    onClick?: PointMouseHandler
+    tooltip: React.ComponentClass<PointTooltipProps>,
+    debug: boolean
+}
+
+export default function Mesh({
     points,
     width,
     height,
@@ -23,7 +37,7 @@ const Mesh = ({
     onClick,
     tooltip,
     debug,
-}) => {
+}: MeshProps) {
     const { showTooltipAt, hideTooltip } = useTooltip()
 
     const handleMouseEnter = useCallback(
@@ -81,19 +95,3 @@ const Mesh = ({
         />
     )
 }
-
-Mesh.propTypes = {
-    points: PropTypes.arrayOf(PropTypes.object).isRequired,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-    margin: PropTypes.object.isRequired,
-    setCurrent: PropTypes.func.isRequired,
-    onMouseEnter: PropTypes.func,
-    onMouseMove: PropTypes.func,
-    onMouseLeave: PropTypes.func,
-    onClick: PropTypes.func,
-    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-    debug: PropTypes.bool.isRequired,
-}
-
-export default memo(Mesh)

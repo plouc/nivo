@@ -6,11 +6,22 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo, useCallback } from 'react'
-import PropTypes from 'prop-types'
+import React, { useCallback } from 'react'
 import { useTooltip } from '@nivo/tooltip'
+import { Slice } from './hooks'
+import { SliceTooltipProps } from './SliceTooltip'
 
-const SlicesItem = ({ slice, axis, debug, tooltip, isCurrent, setCurrent }) => {
+interface SlicesItemProps {
+    slice: Slice
+    axis: 'x' | 'y'
+    debug: boolean
+    height: number
+    tooltip: React.ComponentClass<SliceTooltipProps>
+    isCurrent: boolean
+    setCurrent: React.Dispatch<React.SetStateAction<Slice | null>>
+}
+
+export default function SlicesItem({ slice, axis, debug, tooltip, isCurrent, setCurrent }: SlicesItemProps) {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseEnter = useCallback(
@@ -50,15 +61,3 @@ const SlicesItem = ({ slice, axis, debug, tooltip, isCurrent, setCurrent }) => {
         />
     )
 }
-
-SlicesItem.propTypes = {
-    slice: PropTypes.object.isRequired,
-    axis: PropTypes.oneOf(['x', 'y']).isRequired,
-    debug: PropTypes.bool.isRequired,
-    height: PropTypes.number.isRequired,
-    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-    isCurrent: PropTypes.bool.isRequired,
-    setCurrent: PropTypes.func.isRequired,
-}
-
-export default memo(SlicesItem)

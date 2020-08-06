@@ -8,6 +8,7 @@
  */
 import React, { Fragment, useState, useMemo } from 'react'
 import {
+    Dimensions,
     bindDefs,
     withContainer,
     useDimensions,
@@ -18,82 +19,71 @@ import {
 import { useInheritedColor } from '@nivo/colors'
 import { Axes, Grid } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
-import { Crosshair, TooltipProvider } from '@nivo/tooltip'
-import { useLine } from './hooks'
-import { LinePropTypes, LineDefaultProps } from './props'
+import { Crosshair, TooltipProvider } from '@nivo/tooltip';
+import { useLine, Point, Slice } from './hooks'
 import Areas from './Areas'
 import Lines from './Lines'
 import Slices from './Slices'
 import Points from './Points'
 import Mesh from './Mesh'
+import { ResponsiveLineProps } from './ResponsiveLine'
+import { LineDefaultProps } from './props'
 
-const Line = props => {
-    const {
-        data,
-        xScale: xScaleSpec,
-        xFormat,
-        yScale: yScaleSpec,
-        yFormat,
-        layers,
-        curve,
-        areaBaselineValue,
+export interface LineProps extends ResponsiveLineProps, Dimensions {};
 
-        colors,
-
-        margin: partialMargin,
-        width,
-        height,
-
-        axisTop,
-        axisRight,
-        axisBottom,
-        axisLeft,
-        enableGridX,
-        enableGridY,
-        gridXValues,
-        gridYValues,
-
-        lineWidth,
-        enableArea,
-        areaOpacity,
-        areaBlendMode,
-
-        enablePoints,
-        pointSymbol,
-        pointSize,
-        pointColor,
-        pointBorderWidth,
-        pointBorderColor,
-        enablePointLabel,
-        pointLabel,
-        pointLabelYOffset,
-
-        defs,
-        fill,
-
-        markers,
-
-        legends,
-
-        isInteractive,
-
-        useMesh,
-        debugMesh,
-
-        onMouseEnter,
-        onMouseMove,
-        onMouseLeave,
-        onClick,
-
-        tooltip,
-
-        enableSlices,
-        debugSlices,
-        sliceTooltip,
-
-        enableCrosshair,
-        crosshairType,
-    } = props
+export function Line(props: LineProps) {
+  const {
+    width,
+    height,
+    margin: partialMargin,
+    data,
+    xScale: xScaleSpec = LineDefaultProps.xScale,
+    xFormat,
+    yScale: yScaleSpec = LineDefaultProps.yScale,
+    yFormat,
+    curve = LineDefaultProps.curve,
+    layers = LineDefaultProps.layers,
+    colors = LineDefaultProps.colors,
+    lineWidth = LineDefaultProps.lineWidth,
+    enableArea = LineDefaultProps.enableArea,
+    areaBaselineValue = LineDefaultProps.areaBaselineValue,
+    areaOpacity = LineDefaultProps.areaOpacity,
+    enablePoints = LineDefaultProps.enablePoints,
+    pointSize = LineDefaultProps.pointSize,
+    pointColor = LineDefaultProps.pointColor,
+    pointBorderWidth = LineDefaultProps.pointBorderWidth,
+    pointBorderColor = LineDefaultProps.pointBorderColor,
+    axisTop = LineDefaultProps.axisTop,
+    axisRight= LineDefaultProps.axisRight,
+    axisBottom = LineDefaultProps.axisBottom,
+    axisLeft = LineDefaultProps.axisLeft,
+    legends = LineDefaultProps.legends,
+    enableGridX = LineDefaultProps.enableGridX,
+    gridXValues,
+    enableGridY = LineDefaultProps.enableGridY,
+    gridYValues,
+    areaBlendMode = LineDefaultProps.areaBlendMode,
+    pointSymbol,
+    enablePointLabel = LineDefaultProps.enablePointLabel,
+    pointLabel = LineDefaultProps.pointLabel,
+    pointLabelYOffset,
+    defs = LineDefaultProps.defs,
+    fill = LineDefaultProps.fill,
+    markers,
+    isInteractive = LineDefaultProps.isInteractive,
+    useMesh,
+    debugMesh = LineDefaultProps.debugMesh,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+    onClick,
+    tooltip = LineDefaultProps.tooltip,
+    enableSlices = LineDefaultProps.enableSlices,
+    debugSlices = LineDefaultProps.debugSlices,
+    sliceTooltip = LineDefaultProps.sliceTooltip,
+    enableCrosshair = LineDefaultProps.enableCrosshair,
+    crosshairType = LineDefaultProps.crosshairType
+  } = props;
 
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -121,8 +111,8 @@ const Line = props => {
     const getPointColor = useInheritedColor(pointColor, theme)
     const getPointBorderColor = useInheritedColor(pointBorderColor, theme)
 
-    const [currentPoint, setCurrentPoint] = useState(null)
-    const [currentSlice, setCurrentSlice] = useState(null)
+    const [currentPoint, setCurrentPoint] = useState<Point | null>(null)
+    const [currentSlice, setCurrentSlice] = useState<Slice | null>(null)
 
     const legendData = useMemo(
         () =>
@@ -136,15 +126,16 @@ const Line = props => {
         [series]
     )
 
-    const layerById = {
+    const layerById: {
+        [layer: string]: React.ReactNode;
+    } = {
         grid: (
             <Grid
                 key="grid"
-                theme={theme}
                 width={innerWidth}
                 height={innerHeight}
-                xScale={enableGridX ? xScale : null}
-                yScale={enableGridY ? yScale : null}
+                xScale={enableGridX ? xScale : undefined}
+                yScale={enableGridY ? yScale : undefined}
                 xValues={gridXValues}
                 yValues={gridYValues}
             />
@@ -167,7 +158,6 @@ const Line = props => {
                 yScale={yScale}
                 width={innerWidth}
                 height={innerHeight}
-                theme={theme}
                 top={axisTop}
                 right={axisRight}
                 bottom={axisBottom}
@@ -182,16 +172,18 @@ const Line = props => {
         points: null,
         crosshair: null,
         mesh: null,
-        legends: legends.map((legend, i) => (
-            <BoxLegendSvg
-                key={`legend.${i}`}
-                {...legend}
-                containerWidth={innerWidth}
-                containerHeight={innerHeight}
-                data={legend.data || legendData}
-                theme={theme}
-            />
-        )),
+        legends: <>
+            {legends.map((legend, i) => (
+                <BoxLegendSvg
+                    key={`legend.${i}`}
+                    {...legend}
+                    containerWidth={innerWidth}
+                    containerHeight={innerHeight}
+                    data={legend.data || legendData}
+                    theme={theme}
+                />
+            ))}
+        </>,
     }
 
     const boundDefs = bindDefs(defs, series, fill)
@@ -275,7 +267,6 @@ const Line = props => {
                 width={innerWidth}
                 height={innerHeight}
                 margin={margin}
-                current={currentPoint}
                 setCurrent={setCurrentPoint}
                 onMouseEnter={onMouseEnter}
                 onMouseMove={onMouseMove}
@@ -320,8 +311,5 @@ const Line = props => {
         </TooltipProvider>
     )
 }
-
-Line.propTypes = LinePropTypes
-Line.defaultProps = LineDefaultProps
 
 export default withContainer(Line)

@@ -6,11 +6,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 import { BasicTooltip } from '@nivo/tooltip'
+import { Point } from './hooks'
 
-const LinePointTooltip = ({ point }) => {
+export interface PointTooltipProps {
+    point: Point
+}
+
+export default function LinePointTooltip({ point }: PointTooltipProps) {
     return (
         <BasicTooltip
             id={
@@ -24,9 +28,3 @@ const LinePointTooltip = ({ point }) => {
         />
     )
 }
-
-LinePointTooltip.propTypes = {
-    point: PropTypes.object.isRequired,
-}
-
-export default memo(LinePointTooltip)

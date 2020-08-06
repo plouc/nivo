@@ -6,19 +6,24 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 import { TableTooltip } from '@nivo/tooltip'
+import { Slice } from './hooks'
 
-const Chip = ({ color }) => (
+interface ChipProps {
+    color: string
+}
+
+const Chip = ({ color }: ChipProps) => (
     <span style={{ display: 'block', width: '12px', height: '12px', background: color }} />
 )
 
-Chip.propTypes = {
-    color: PropTypes.string.isRequired,
+export interface SliceTooltipProps {
+    axis: 'x' | 'y'
+    slice: Slice
 }
 
-const SliceTooltip = ({ slice, axis }) => {
+export default function SliceTooltip({ slice, axis }: SliceTooltipProps) {
     const otherAxis = axis === 'x' ? 'y' : 'x'
 
     return (
@@ -31,10 +36,3 @@ const SliceTooltip = ({ slice, axis }) => {
         />
     )
 }
-
-SliceTooltip.propTypes = {
-    slice: PropTypes.object.isRequired,
-    axis: PropTypes.oneOf(['x', 'y']).isRequired,
-}
-
-export default memo(SliceTooltip)

@@ -6,11 +6,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 import { getLabelGenerator, DotsItem, useTheme } from '@nivo/core'
+import { PointSymbolProps, AccessorFunc, Point, PointSymbol } from './hooks';
 
-const Points = ({ points, symbol, size, borderWidth, enableLabel, label, labelYOffset }) => {
+interface PointsProps extends Omit<PointSymbolProps, 'datum'> {
+    points: Point[]
+    symbol?: PointSymbol
+    enableLabel?: boolean
+    label?: string | AccessorFunc
+    labelYOffset?: number
+}
+
+export default function Points({ points, symbol, size, borderWidth, enableLabel, label, labelYOffset }: PointsProps) {
     const theme = useTheme()
     const getLabel = getLabelGenerator(label)
 
@@ -49,17 +57,3 @@ const Points = ({ points, symbol, size, borderWidth, enableLabel, label, labelYO
         </g>
     )
 }
-
-Points.propTypes = {
-    points: PropTypes.arrayOf(PropTypes.object),
-    symbol: PropTypes.func,
-    size: PropTypes.number.isRequired,
-    color: PropTypes.func.isRequired,
-    borderWidth: PropTypes.number.isRequired,
-    borderColor: PropTypes.func.isRequired,
-    enableLabel: PropTypes.bool.isRequired,
-    label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
-    labelYOffset: PropTypes.number,
-}
-
-export default memo(Points)
