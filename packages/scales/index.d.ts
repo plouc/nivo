@@ -43,7 +43,19 @@ declare module '@nivo/scales' {
         max?: 'auto' | number
     }
 
-    export type Scale = LinearScale | PointScale | TimeScale | TimeScaleFormatted | LogScale
+    export interface SymlogScale {
+        type: 'symlog'
+        min?: 'auto' | number
+        max?: 'auto' | number
+    }
+
+    export type Scale =
+        | LinearScale
+        | PointScale
+        | TimeScale
+        | TimeScaleFormatted
+        | LogScale
+        | SymlogScale
 
     export type ScaleFunc = (value: string | number | Date) => number
 }
