@@ -24,7 +24,7 @@ import { LegendProps } from '@nivo/legends'
 import { AxisProps, GridValues } from '@nivo/axes'
 import { CrosshairType } from '@nivo/tooltip'
 import { useInheritedColor, useOrdinalColorScale, OrdinalColorScale, InheritedColorGenerator } from '@nivo/colors'
-import { computeXYScalesForSeries, ScaleOptions, Scale } from '@nivo/scales'
+import { computeXYScalesForSeries, ScaleOptions, Scale, ScaleFunc } from '@nivo/scales'
 import { LineDefaultProps } from './props'
 import { ResponsiveLineProps } from './ResponsiveLine'
 import { SliceTooltipProps } from './SliceTooltip'
@@ -198,7 +198,7 @@ const useAreaGenerator = ({
   areaBaselineValue
 }: {
   curve: Curve
-  yScale: Scale
+  yScale: ScaleFunc
   areaBaselineValue: DatumValue
 }) => {
   return useMemo(() => {
@@ -353,8 +353,8 @@ export const useLine = ({
     const getPointBorderColor = useInheritedColor(pointBorderColor, theme)
 
     const { xScale, yScale, series: rawSeries }: {
-      xScale: Scale,
-      yScale: Scale,
+      xScale: ScaleFunc,
+      yScale: ScaleFunc,
       series: ComputedSerie[]
     } = useMemo(
         () => computeXYScalesForSeries(data, xScaleSpec, yScaleSpec, width, height),
