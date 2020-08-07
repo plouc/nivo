@@ -28,7 +28,7 @@ export const symlogScale = ({ axis, min = 'auto', max = 'auto' }, xy, width, hei
         .rangeRound(axis === 'x' ? [0, size] : [size, 0])
         .nice()
 
-    scale.type = 'log'
+    scale.type = 'symlog'
 
     return scale
 }
