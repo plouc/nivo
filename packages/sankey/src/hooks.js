@@ -12,6 +12,7 @@ export const computeNodeAndLinks = ({
     layout,
     alignFunction,
     sortFunction,
+    linkSortMode,
     nodeThickness,
     nodeSpacing,
     nodeInnerPadding,
@@ -24,6 +25,7 @@ export const computeNodeAndLinks = ({
     const sankey = d3Sankey()
         .nodeAlign(alignFunction)
         .nodeSort(sortFunction)
+        .linkSort(linkSortMode)
         .nodeWidth(nodeThickness)
         .nodePadding(nodeSpacing)
         .size(layout === 'horizontal' ? [width, height] : [height, width])
@@ -99,6 +101,10 @@ export const useSankey = ({
         return sort
     }, [sort])
 
+    // If "input" sorting is used, apply this setting to links, too.
+    // (In d3, `null` means input sorting and `undefined` is the default)
+    const linkSortMode = sort === 'input' ? null : undefined
+
     const alignFunction = useMemo(() => sankeyAlignmentFromProp(align), [align])
 
     const theme = useTheme()
@@ -117,6 +123,7 @@ export const useSankey = ({
                 layout,
                 alignFunction,
                 sortFunction,
+                linkSortMode,
                 nodeThickness,
                 nodeSpacing,
                 nodeInnerPadding,
@@ -131,6 +138,7 @@ export const useSankey = ({
             layout,
             alignFunction,
             sortFunction,
+            linkSortMode,
             nodeThickness,
             nodeSpacing,
             nodeInnerPadding,
