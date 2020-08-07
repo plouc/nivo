@@ -13,25 +13,24 @@ import {
   useTheme,
   useValueFormatter,
   Box,
-  Theme,
-  DataFormatter,
-  DatumValue as CoreDatumValue,
   CartesianMarkerSpec,
   CurveInterpolationId,
   Dimensions
 } from '@nivo/core'
-import { LegendProps } from '@nivo/legends'
-import { AxisProps, GridValues } from '@nivo/axes'
+import { LegendProp } from '@nivo/legends'
+import { AxisProp } from '@nivo/axes'
 import { CrosshairType } from '@nivo/tooltip'
-import { useInheritedColor, useOrdinalColorScale, OrdinalColorScale, InheritedColorGenerator } from '@nivo/colors'
-import { computeXYScalesForSeries, ScaleOptions, Scale, ScaleFunc } from '@nivo/scales'
+import { useInheritedColor, useOrdinalColorScale, OrdinalColorScale, InheritedColorGenerator, InheritedColor } from '@nivo/colors';
+import { computeXYScalesForSeries, ScaleFunc } from '@nivo/scales'
 import { LineDefaultProps } from './props'
 import { ResponsiveLineProps } from './ResponsiveLine'
 import { SliceTooltipProps } from './SliceTooltip'
 import { PointTooltipProps } from './PointTooltip'
 import { LineProps } from './Line'
+import { PointScale } from '../../scales/dist/pointScale';
+import { LinearScale } from '../../scales/dist/linearScale';
 
-export type DatumValue = CoreDatumValue
+export type DatumValue = string | number | Date
 
 export interface Datum {
   x: DatumValue | null
@@ -70,7 +69,7 @@ export type LineLayerType =
   | 'mesh'
   | 'legends'
 
-export type LineGenerator = (data: Datum[]) => string | null
+export type LineGenerator = any
 
 export type Curve = CurveInterpolationId
 
@@ -80,8 +79,8 @@ export interface CustomLayerProps extends Omit<ResponsiveLineProps, 'xScale' | '
   lineGenerator: LineGenerator
   points: Point[]
   series: ComputedSerie[]
-  xScale: Scale
-  yScale: Scale
+  xScale: LinearScale | PointScale
+  yScale: LinearScale | PointScale
 }
 
 export type CustomLayer = (props: CustomLayerProps) => React.ReactNode
@@ -130,36 +129,38 @@ export interface PointSymbolProps {
 
 export type PointSymbol = React.ComponentClass<PointSymbolProps>
 
+type DataFormatter = (value: string) => string
+
 export interface LineBaseProps {
   data: Serie[]
-  xScale?: ScaleOptions
+  xScale?: LinearScale | PointScale
   xFormat?: string | DataFormatter
-  yScale?: ScaleOptions
+  yScale?: LinearScale | PointScale
   yFormat?: string | DataFormatter
   layers?: Layer[]
   margin?: Box
   curve?: Curve
   lineWidth?: number
   colors?: OrdinalColorScale<ComputedSerie>
-  theme?: Theme
-  axisTop?: AxisProps
-  axisRight?: AxisProps
-  axisBottom?: AxisProps
-  axisLeft?: AxisProps
+  theme?: any
+  axisTop?: AxisProp<DatumValue>
+  axisRight?: AxisProp<DatumValue>
+  axisBottom?: AxisProp<DatumValue>
+  axisLeft?: AxisProp<DatumValue>
   enableGridX?: boolean
-  gridXValues?: GridValues<DatumValue>
+  gridXValues?: DatumValue[]
   enableGridY?: boolean
-  gridYValues?: GridValues<DatumValue>
+  gridYValues?: DatumValue[]
   enablePoints?: boolean
   pointSymbol?: PointSymbol
   pointSize?: number
-  pointColor?: any
+  pointColor?: InheritedColor
   pointBorderWidth?: number
-  pointBorderColor?: any
+  pointBorderColor?: InheritedColor
   enableArea?: boolean
   areaOpacity?: number
-  areaBaselineValue?: DatumValue
-  markers?: CartesianMarkerSpec<number>[]
+  areaBaselineValue?: number
+  markers?: CartesianMarkerSpec<DatumValue>[]
   isInteractive?: boolean
   onMouseEnter?: PointMouseHandler
   onMouseMove?: PointMouseHandler
@@ -168,25 +169,25 @@ export interface LineBaseProps {
   debugMesh?: boolean
   enableSlices?: 'x' | 'y' | false
   debugSlices?: boolean
-  sliceTooltip?: React.ComponentClass<SliceTooltipProps>
+  sliceTooltip?: (props: SliceTooltipProps) => React.ReactElement
   tooltipFormat?: DataFormatter | string
-  tooltip?: React.ComponentClass<PointTooltipProps>
+  tooltip?: (props: PointTooltipProps) => React.ReactElement
   enableCrosshair?: boolean
   crosshairType?: CrosshairType
-  legends?: LegendProps[]
+  legends?: LegendProp[]
 }
 
 export const useLineGenerator = ({
   curve
 }: {
   curve: Curve
-}): LineGenerator => {
+}) => {
   return useMemo(
     () =>
-      line<any>()
-        .defined((d) => d.x !== null && d.y !== null)
-        .x((d) => d.x)
-        .y((d) => d.y)
+      line()
+        // .defined((d: Datum) => d.x !== null && d.y !== null)
+        .x((d: [number, number]) => d[0])
+        .y((d: [number, number]) => d[1])
         .curve(curveFromProp(curve)),
     [curve]
   )
@@ -199,13 +200,13 @@ const useAreaGenerator = ({
 }: {
   curve: Curve
   yScale: ScaleFunc
-  areaBaselineValue: DatumValue
+  areaBaselineValue: number
 }) => {
   return useMemo(() => {
-    return area<any>()
-      .defined((d) => d.x !== null && d.y !== null)
-      .x((d) => d.x)
-      .y1((d) => d.y)
+    return area()
+      // .defined((d: Datum) => d.x !== null && d.y !== null)
+      .x((d) => d[0])
+      .y1((d) => d[1])
       .curve(curveFromProp(curve) as CurveFactory)
       .y0(yScale(areaBaselineValue))
   }, [curve, yScale, areaBaselineValue])

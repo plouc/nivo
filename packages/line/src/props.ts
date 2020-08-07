@@ -8,31 +8,32 @@
  */
 import PointTooltip from './PointTooltip'
 import SliceTooltip from './SliceTooltip'
-import { LineCanvasProps, LineProps } from './hooks';
+import { ResponsiveLineCanvasProps } from './ResponsiveLineCanvas';
+import { ResponsiveLineProps } from './ResponsiveLine';
 
 const commonDefaultProps = {
     curve: 'linear' as const,
 
     xScale: {
-        type: 'point',
+        type: 'point' as const,
     },
     yScale: {
-        type: 'linear',
+        type: 'linear' as const,
         min: 0,
-        max: 'auto',
+        max: 'auto' as const,
     },
 
     layers: [
-        'grid',
-        'markers',
-        'axes',
-        'areas',
-        'crosshair',
-        'lines',
-        'points',
-        'slices',
-        'mesh',
-        'legends',
+        'grid' as const,
+        'markers' as const,
+        'axes' as const,
+        'areas' as const,
+        'crosshair' as const,
+        'lines' as const,
+        'points' as const,
+        'slices' as const,
+        'mesh' as const,
+        'legends' as const,
     ],
     axisBottom: {},
     axisLeft: {},
@@ -47,7 +48,7 @@ const commonDefaultProps = {
     enablePointLabel: false,
     pointLabel: 'yFormatted',
 
-    colors: { scheme: 'nivo' },
+    colors: { scheme: 'nivo' as const },
     enableArea: false,
     areaBaselineValue: 0,
     areaOpacity: 0.2,
@@ -63,10 +64,10 @@ const commonDefaultProps = {
     sliceTooltip: SliceTooltip,
     debugMesh: false,
     enableCrosshair: true,
-    crosshairType: 'bottom-left',
+    crosshairType: 'bottom-left' as const,
 }
 
-export const LineDefaultProps: LineProps = {
+export const LineDefaultProps: Omit<ResponsiveLineProps, 'data'> = {
     ...commonDefaultProps,
     enablePointLabel: false,
     useMesh: false,
@@ -74,8 +75,8 @@ export const LineDefaultProps: LineProps = {
     fill: [],
 }
 
-export const LineCanvasDefaultProps: LineCanvasProps = {
+export const LineCanvasDefaultProps: Omit<ResponsiveLineCanvasProps, 'data'> = {
     ...commonDefaultProps,
     pixelRatio:
-        global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
+        typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
 }

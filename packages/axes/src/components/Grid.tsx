@@ -14,9 +14,9 @@ export interface GridProps<X extends number | string | Date, Y extends number | 
     width: number
     height: number
     xScale?: (v: X) => number
-    xValues?: number | X[]
+    xValues?: X[]
     yScale?: (v: Y) => number
-    yValues?: number | Y[]
+    yValues?: Y[]
 }
 
 export const Grid = <X extends number | string | Date, Y extends number | string | Date>({

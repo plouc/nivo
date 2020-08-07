@@ -9,7 +9,7 @@
 import React, { memo } from 'react'
 import { CrosshairLine } from './CrosshairLine'
 
-type CrosshairType =
+export type CrosshairType =
     | 'x'
     | 'y'
     | 'top-left'

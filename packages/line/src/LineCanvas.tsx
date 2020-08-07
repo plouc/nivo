@@ -13,7 +13,6 @@ import {
     useTheme,
     getRelativeCursor,
     isCursorInRect,
-    withContainer,
 } from '@nivo/core'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
@@ -22,6 +21,7 @@ import { useVoronoiMesh, renderVoronoiToCanvas, renderVoronoiCellToCanvas } from
 import { LineCanvasDefaultProps } from './props'
 import { useLine } from './hooks'
 import { ResponsiveLineCanvasProps } from './ResponsiveLineCanvas'
+import { withContainer } from '@nivo/core'
 
 export interface LineCanvasProps extends ResponsiveLineCanvasProps, Dimensions {}
 
