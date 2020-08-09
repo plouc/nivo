@@ -14,8 +14,8 @@ declare module '@nivo/bump' {
     type SerieDerivedProp<Serie, T> = (serie: Serie) => T
 
     export interface BumpInputDatum {
-        x: string | number
-        y: string | number
+        x: any
+        y: any
         [key: string]: any
     }
 
