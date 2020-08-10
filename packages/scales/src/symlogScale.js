@@ -9,7 +9,12 @@
 import { scaleSymlog } from 'd3-scale'
 import PropTypes from 'prop-types'
 
-export const symlogScale = ({ axis, min = 'auto', max = 'auto' }, xy, width, height) => {
+export const symlogScale = (
+    { axis, constant = 1, min = 'auto', max = 'auto' },
+    xy,
+    width,
+    height
+) => {
     const values = xy[axis]
     const size = axis === 'x' ? width : height
 
@@ -25,6 +30,7 @@ export const symlogScale = ({ axis, min = 'auto', max = 'auto' }, xy, width, hei
 
     const scale = scaleSymlog()
         .domain([minValue, maxValue])
+        .constant(constant)
         .rangeRound(axis === 'x' ? [0, size] : [size, 0])
         .nice()
 
@@ -35,6 +41,7 @@ export const symlogScale = ({ axis, min = 'auto', max = 'auto' }, xy, width, hei
 
 export const symLogScalePropTypes = {
     type: PropTypes.oneOf(['symLog']).isRequired,
+    constant: PropTypes.number,
     min: PropTypes.oneOfType([PropTypes.oneOf(['auto']), PropTypes.number]),
     max: PropTypes.oneOfType([PropTypes.oneOf(['auto']), PropTypes.number]),
 }

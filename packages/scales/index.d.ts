@@ -45,6 +45,7 @@ declare module '@nivo/scales' {
 
     export interface SymlogScale {
         type: 'symlog'
+        constant?: number
         min?: 'auto' | number
         max?: 'auto' | number
     }
