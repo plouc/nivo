@@ -16,7 +16,7 @@ export const logScale = ({ axis, base = 10, min = 'auto', max = 'auto' }, xy, wi
     const hasZero = values.all.some(v => v === 0)
     let sign
     let hasMixedSign = false
-    values.all.forEach(v => {
+    values.all.filter(v => v != null).forEach(v => {
         if (hasMixedSign === true) return
         if (sign === undefined) {
             sign = Math.sign(v)
