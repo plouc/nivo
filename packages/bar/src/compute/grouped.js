@@ -113,7 +113,7 @@ export const generateVerticalGroupedBars = ({
         })
     }
 
-    return { xScale, yScale, bars }
+    return { xScale, yScale, bars, barWidth }
 }
 
 /**
@@ -190,7 +190,7 @@ export const generateHorizontalGroupedBars = ({
         })
     }
 
-    return { xScale, yScale, bars }
+    return { xScale, yScale, bars, barHeight }
 }
 
 /**
