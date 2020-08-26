@@ -12,6 +12,7 @@ import compose from 'recompose/compose'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
 import { BasicTooltip } from '@nivo/tooltip'
+import { generateLabelProps } from './compute'
 
 const BarItem = ({
     data,
@@ -28,6 +29,7 @@ const BarItem = ({
     label,
     shouldRenderLabel,
     labelColor,
+    labelAnchor,
 
     showTooltip,
     hideTooltip,
@@ -37,6 +39,10 @@ const BarItem = ({
     tooltip,
 
     theme,
+
+    groupMode,
+    layout,
+    reverse,
 }) => {
     const handleTooltip = e => showTooltip(tooltip, e)
     const handleMouseEnter = e => {
@@ -47,6 +53,17 @@ const BarItem = ({
         onMouseLeave(data, e)
         hideTooltip(e)
     }
+
+    const labelProps = generateLabelProps(
+        width,
+        height,
+        groupMode,
+        labelAnchor,
+        reverse,
+        theme,
+        layout,
+        data.value
+    )
 
     return (
         <g transform={`translate(${x}, ${y})`}>
@@ -65,9 +82,9 @@ const BarItem = ({
             />
             {shouldRenderLabel && (
                 <text
-                    x={width / 2}
-                    y={height / 2}
-                    textAnchor="middle"
+                    x={labelProps.x}
+                    y={labelProps.y}
+                    textAnchor={labelProps.textAnchor}
                     dominantBaseline="central"
                     style={{
                         ...theme.labels.text,
@@ -102,6 +119,7 @@ BarItem.propTypes = {
     label: PropTypes.node.isRequired,
     shouldRenderLabel: PropTypes.bool.isRequired,
     labelColor: PropTypes.string.isRequired,
+    labelAnchor: PropTypes.string.isRequired,
 
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
@@ -118,6 +136,9 @@ BarItem.propTypes = {
             text: PropTypes.object.isRequired,
         }).isRequired,
     }).isRequired,
+    groupMode: PropTypes.oneOf(['stacked', 'grouped']).isRequired,
+    layout: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
+    reverse: PropTypes.bool.isRequired,
 }
 
 const enhance = compose(

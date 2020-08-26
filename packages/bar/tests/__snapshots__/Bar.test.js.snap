@@ -4418,3 +4418,2855 @@ exports[`should render a basic bar chart 1`] = `
   </svg>
 </div>
 `;
+
+exports[`should render label at the end of bar, horizontal 1`] = `
+<div
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={300}
+    role="img"
+    width={500}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      fill="transparent"
+      height={300}
+      width={500}
+    />
+    <g
+      transform="translate(0,0)"
+    >
+      <g>
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={246}
+          y2={246}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={150}
+          y2={150}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={54}
+          y2={54}
+        />
+      </g>
+      <g
+        transform="translate(0,300)"
+      >
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            -20
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(50,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            -15
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(100,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            -10
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(150,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            -5
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(200,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            0
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(250,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            5
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(300,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            10
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(350,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            15
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(400,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            20
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(450,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            25
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(500,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            30
+          </text>
+        </g>
+        <line
+          style={
+            Object {
+              "stroke": "transparent",
+              "strokeWidth": 1,
+            }
+          }
+          x1={0}
+          x2={500}
+          y1={0}
+          y2={0}
+        />
+      </g>
+      <g
+        transform="translate(0,0)"
+      >
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,246)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            one
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,150)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            two
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,54)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            three
+          </text>
+        </g>
+        <line
+          style={
+            Object {
+              "stroke": "transparent",
+              "strokeWidth": 1,
+            }
+          }
+          x1={0}
+          x2={0}
+          y1={0}
+          y2={300}
+        />
+      </g>
+      <g
+        transform="translate(200, 203)"
+      >
+        <rect
+          fill="#e8c1a0"
+          height={86}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          rx={0}
+          ry={0}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          width={100}
+        />
+        <text
+          dominantBaseline="central"
+          style={
+            Object {
+              "fill": "theme",
+              "fontFamily": "sans-serif",
+              "fontSize": 11,
+              "pointerEvents": "none",
+            }
+          }
+          textAnchor="start"
+          x={111}
+          y={43}
+        >
+          10
+        </text>
+      </g>
+      <g
+        transform="translate(0, 107)"
+      >
+        <rect
+          fill="#e8c1a0"
+          height={86}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          rx={0}
+          ry={0}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          width={200}
+        />
+        <text
+          dominantBaseline="central"
+          style={
+            Object {
+              "fill": "theme",
+              "fontFamily": "sans-serif",
+              "fontSize": 11,
+              "pointerEvents": "none",
+            }
+          }
+          textAnchor="end"
+          x={-11}
+          y={43}
+        >
+          -20
+        </text>
+      </g>
+      <g
+        transform="translate(200, 11)"
+      >
+        <rect
+          fill="#e8c1a0"
+          height={86}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          rx={0}
+          ry={0}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          width={300}
+        />
+        <text
+          dominantBaseline="central"
+          style={
+            Object {
+              "fill": "theme",
+              "fontFamily": "sans-serif",
+              "fontSize": 11,
+              "pointerEvents": "none",
+            }
+          }
+          textAnchor="start"
+          x={311}
+          y={43}
+        >
+          30
+        </text>
+      </g>
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`should render label at the end of bar, horizontal and reverse 1`] = `
+<div
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={300}
+    role="img"
+    width={500}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      fill="transparent"
+      height={300}
+      width={500}
+    />
+    <g
+      transform="translate(0,0)"
+    >
+      <g>
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={246}
+          y2={246}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={150}
+          y2={150}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={54}
+          y2={54}
+        />
+      </g>
+      <g
+        transform="translate(0,300)"
+      >
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(500,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            -20
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(450,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            -15
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(400,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            -10
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(350,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            -5
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(300,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            0
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(250,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            5
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(200,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            10
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(150,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            15
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(100,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            20
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(50,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            25
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            30
+          </text>
+        </g>
+        <line
+          style={
+            Object {
+              "stroke": "transparent",
+              "strokeWidth": 1,
+            }
+          }
+          x1={0}
+          x2={500}
+          y1={0}
+          y2={0}
+        />
+      </g>
+      <g
+        transform="translate(0,0)"
+      >
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,246)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            one
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,150)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            two
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,54)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            three
+          </text>
+        </g>
+        <line
+          style={
+            Object {
+              "stroke": "transparent",
+              "strokeWidth": 1,
+            }
+          }
+          x1={0}
+          x2={0}
+          y1={0}
+          y2={300}
+        />
+      </g>
+      <g
+        transform="translate(200, 203)"
+      >
+        <rect
+          fill="#e8c1a0"
+          height={86}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          rx={0}
+          ry={0}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          width={100}
+        />
+        <text
+          dominantBaseline="central"
+          style={
+            Object {
+              "fill": "theme",
+              "fontFamily": "sans-serif",
+              "fontSize": 11,
+              "pointerEvents": "none",
+            }
+          }
+          textAnchor="end"
+          x={-11}
+          y={43}
+        >
+          10
+        </text>
+      </g>
+      <g
+        transform="translate(300, 107)"
+      >
+        <rect
+          fill="#e8c1a0"
+          height={86}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          rx={0}
+          ry={0}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          width={200}
+        />
+        <text
+          dominantBaseline="central"
+          style={
+            Object {
+              "fill": "theme",
+              "fontFamily": "sans-serif",
+              "fontSize": 11,
+              "pointerEvents": "none",
+            }
+          }
+          textAnchor="start"
+          x={211}
+          y={43}
+        >
+          -20
+        </text>
+      </g>
+      <g
+        transform="translate(0, 11)"
+      >
+        <rect
+          fill="#e8c1a0"
+          height={86}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          rx={0}
+          ry={0}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          width={300}
+        />
+        <text
+          dominantBaseline="central"
+          style={
+            Object {
+              "fill": "theme",
+              "fontFamily": "sans-serif",
+              "fontSize": 11,
+              "pointerEvents": "none",
+            }
+          }
+          textAnchor="end"
+          x={-11}
+          y={43}
+        >
+          30
+        </text>
+      </g>
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`should render label at the end of bar, vertical 1`] = `
+<div
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={300}
+    role="img"
+    width={500}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      fill="transparent"
+      height={300}
+      width={500}
+    />
+    <g
+      transform="translate(0,0)"
+    >
+      <g>
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={300}
+          y2={300}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={270}
+          y2={270}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={240}
+          y2={240}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={210}
+          y2={210}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={180}
+          y2={180}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={150}
+          y2={150}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={120}
+          y2={120}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={90}
+          y2={90}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={60}
+          y2={60}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={30}
+          y2={30}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={0}
+          y2={0}
+        />
+      </g>
+      <g
+        transform="translate(0,300)"
+      >
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(90,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            one
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(251,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            two
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(412,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            three
+          </text>
+        </g>
+        <line
+          style={
+            Object {
+              "stroke": "transparent",
+              "strokeWidth": 1,
+            }
+          }
+          x1={0}
+          x2={500}
+          y1={0}
+          y2={0}
+        />
+      </g>
+      <g
+        transform="translate(0,0)"
+      >
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,300)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            -20
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,270)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            -15
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,240)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            -10
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,210)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            -5
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,180)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            0
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,150)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            5
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,120)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            10
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,90)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            15
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,60)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            20
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,30)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            25
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            30
+          </text>
+        </g>
+        <line
+          style={
+            Object {
+              "stroke": "transparent",
+              "strokeWidth": 1,
+            }
+          }
+          x1={0}
+          x2={0}
+          y1={0}
+          y2={300}
+        />
+      </g>
+      <g
+        transform="translate(17, 120)"
+      >
+        <rect
+          fill="#e8c1a0"
+          height={60}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          rx={0}
+          ry={0}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          width={145}
+        />
+        <text
+          dominantBaseline="central"
+          style={
+            Object {
+              "fill": "theme",
+              "fontFamily": "sans-serif",
+              "fontSize": 11,
+              "pointerEvents": "none",
+            }
+          }
+          textAnchor="middle"
+          x={72.5}
+          y={-11}
+        >
+          10
+        </text>
+      </g>
+      <g
+        transform="translate(178, 180)"
+      >
+        <rect
+          fill="#e8c1a0"
+          height={120}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          rx={0}
+          ry={0}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          width={145}
+        />
+        <text
+          dominantBaseline="central"
+          style={
+            Object {
+              "fill": "theme",
+              "fontFamily": "sans-serif",
+              "fontSize": 11,
+              "pointerEvents": "none",
+            }
+          }
+          textAnchor="middle"
+          x={72.5}
+          y={131}
+        >
+          -20
+        </text>
+      </g>
+      <g
+        transform="translate(339, 0)"
+      >
+        <rect
+          fill="#e8c1a0"
+          height={180}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          rx={0}
+          ry={0}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          width={145}
+        />
+        <text
+          dominantBaseline="central"
+          style={
+            Object {
+              "fill": "theme",
+              "fontFamily": "sans-serif",
+              "fontSize": 11,
+              "pointerEvents": "none",
+            }
+          }
+          textAnchor="middle"
+          x={72.5}
+          y={-11}
+        >
+          30
+        </text>
+      </g>
+    </g>
+  </svg>
+</div>
+`;
+
+exports[`should render label at the end of bar, vertical and reverse 1`] = `
+<div
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
+>
+  <svg
+    height={300}
+    role="img"
+    width={500}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      fill="transparent"
+      height={300}
+      width={500}
+    />
+    <g
+      transform="translate(0,0)"
+    >
+      <g>
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={0}
+          y2={0}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={30}
+          y2={30}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={60}
+          y2={60}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={90}
+          y2={90}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={120}
+          y2={120}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={150}
+          y2={150}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={180}
+          y2={180}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={210}
+          y2={210}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={240}
+          y2={240}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={270}
+          y2={270}
+        />
+        <line
+          opacity={1}
+          stroke="#dddddd"
+          strokeWidth={1}
+          x1={0}
+          x2={500}
+          y1={300}
+          y2={300}
+        />
+      </g>
+      <g
+        transform="translate(0,300)"
+      >
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(90,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            one
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(251,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            two
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(412,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={0}
+            y1={0}
+            y2={5}
+          />
+          <text
+            dominantBaseline="text-before-edge"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="middle"
+            transform="translate(0,10) rotate(0)"
+          >
+            three
+          </text>
+        </g>
+        <line
+          style={
+            Object {
+              "stroke": "transparent",
+              "strokeWidth": 1,
+            }
+          }
+          x1={0}
+          x2={500}
+          y1={0}
+          y2={0}
+        />
+      </g>
+      <g
+        transform="translate(0,0)"
+      >
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,0)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            -20
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,30)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            -15
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,60)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            -10
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,90)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            -5
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,120)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            0
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,150)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            5
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,180)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            10
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,210)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            15
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,240)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            20
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,270)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            25
+          </text>
+        </g>
+        <g
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+          transform="translate(0,300)"
+        >
+          <line
+            style={
+              Object {
+                "stroke": "#777777",
+                "strokeWidth": 1,
+              }
+            }
+            x1={0}
+            x2={-5}
+            y1={0}
+            y2={0}
+          />
+          <text
+            dominantBaseline="central"
+            style={
+              Object {
+                "fill": "#333333",
+                "fontFamily": "sans-serif",
+                "fontSize": 11,
+              }
+            }
+            textAnchor="end"
+            transform="translate(-10,0) rotate(0)"
+          >
+            30
+          </text>
+        </g>
+        <line
+          style={
+            Object {
+              "stroke": "transparent",
+              "strokeWidth": 1,
+            }
+          }
+          x1={0}
+          x2={0}
+          y1={0}
+          y2={300}
+        />
+      </g>
+      <g
+        transform="translate(17, 120)"
+      >
+        <rect
+          fill="#e8c1a0"
+          height={60}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          rx={0}
+          ry={0}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          width={145}
+        />
+        <text
+          dominantBaseline="central"
+          style={
+            Object {
+              "fill": "theme",
+              "fontFamily": "sans-serif",
+              "fontSize": 11,
+              "pointerEvents": "none",
+            }
+          }
+          textAnchor="middle"
+          x={72.5}
+          y={71}
+        >
+          10
+        </text>
+      </g>
+      <g
+        transform="translate(178, 0)"
+      >
+        <rect
+          fill="#e8c1a0"
+          height={120}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          rx={0}
+          ry={0}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          width={145}
+        />
+        <text
+          dominantBaseline="central"
+          style={
+            Object {
+              "fill": "theme",
+              "fontFamily": "sans-serif",
+              "fontSize": 11,
+              "pointerEvents": "none",
+            }
+          }
+          textAnchor="middle"
+          x={72.5}
+          y={-11}
+        >
+          -20
+        </text>
+      </g>
+      <g
+        transform="translate(339, 120)"
+      >
+        <rect
+          fill="#e8c1a0"
+          height={180}
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onMouseMove={[Function]}
+          rx={0}
+          ry={0}
+          stroke="#e8c1a0"
+          strokeWidth={0}
+          width={145}
+        />
+        <text
+          dominantBaseline="central"
+          style={
+            Object {
+              "fill": "theme",
+              "fontFamily": "sans-serif",
+              "fontSize": 11,
+              "pointerEvents": "none",
+            }
+          }
+          textAnchor="middle"
+          x={72.5}
+          y={191}
+        >
+          30
+        </text>
+      </g>
+    </g>
+  </svg>
+</div>
+`;

@@ -112,6 +112,7 @@ const initialProperties = {
         from: 'color',
         modifiers: [['darker', 1.6]],
     },
+    labelAnchor: 'center',
 
     legends: [
         {

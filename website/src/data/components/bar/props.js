@@ -394,6 +394,21 @@ const props = [
         group: 'Labels',
     },
     {
+        key: 'labelAnchor',
+        help: 'Defines how to place label text. Only valid in grouped mode.',
+        type: 'string',
+        required: false,
+        defaultValue: defaults.labelAnchor,
+        controlType: 'radio',
+        group: 'Labels',
+        controlOptions: {
+            choices: [
+                { label: 'center', value: 'center' },
+                { label: 'end', value: 'end' },
+            ],
+        },
+    },
+    {
         key: 'enableGridX',
         group: 'Grid & Axes',
         help: 'Enable/disable x grid.',

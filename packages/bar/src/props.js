@@ -65,6 +65,7 @@ export const BarPropTypes = {
     getLabelTextColor: PropTypes.func.isRequired, // computed
     labelLinkColor: inheritedColorPropType.isRequired,
     getLabelLinkColor: PropTypes.func.isRequired, // computed
+    labelAnchor: PropTypes.oneOf(['center', 'end']).isRequired,
 
     colors: ordinalColorsPropType.isRequired,
     colorBy: colorPropertyAccessorPropType.isRequired,
@@ -121,6 +122,7 @@ export const BarDefaultProps = {
     labelSkipHeight: 0,
     labelLinkColor: 'theme',
     labelTextColor: 'theme',
+    labelAnchor: 'center',
 
     colors: { scheme: 'nivo' },
     colorBy: 'id',

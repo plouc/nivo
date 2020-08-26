@@ -44,6 +44,7 @@ module.exports = {
             labelSkipHeight: Joi.number(),
             labelLinkColor: Joi.string(),
             labelTextColor: inheritedColor,
+            labelAnchor: Joi.string(),
 
             colors: ordinalColors,
             colorBy: Joi.string(),

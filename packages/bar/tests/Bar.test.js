@@ -239,3 +239,87 @@ it(`should reverse legend items if chart layout is horizontal reversed`, () => {
     expect(legendItems.at(0).prop('data').id).toEqual('B')
     expect(legendItems.at(1).prop('data').id).toEqual('A')
 })
+
+it('should render label at the end of bar, vertical', () => {
+    const component = renderer.create(
+        <Bar
+            width={500}
+            height={300}
+            groupMode="grouped"
+            data={[
+                { id: 'one', value: 10 },
+                { id: 'two', value: -20 },
+                { id: 'three', value: 30 },
+            ]}
+            labelAnchor="end"
+            animate={false}
+        />
+    )
+
+    let tree = component.toJSON()
+    expect(tree).toMatchSnapshot()
+})
+
+it('should render label at the end of bar, vertical and reverse', () => {
+    const component = renderer.create(
+        <Bar
+            width={500}
+            height={300}
+            groupMode="grouped"
+            reverse={true}
+            data={[
+                { id: 'one', value: 10 },
+                { id: 'two', value: -20 },
+                { id: 'three', value: 30 },
+            ]}
+            labelAnchor="end"
+            animate={false}
+        />
+    )
+
+    let tree = component.toJSON()
+    expect(tree).toMatchSnapshot()
+})
+
+it('should render label at the end of bar, horizontal', () => {
+    const component = renderer.create(
+        <Bar
+            width={500}
+            height={300}
+            groupMode="grouped"
+            layout="horizontal"
+            data={[
+                { id: 'one', value: 10 },
+                { id: 'two', value: -20 },
+                { id: 'three', value: 30 },
+            ]}
+            labelAnchor="end"
+            animate={false}
+        />
+    )
+
+    let tree = component.toJSON()
+    expect(tree).toMatchSnapshot()
+})
+
+it('should render label at the end of bar, horizontal and reverse', () => {
+    const component = renderer.create(
+        <Bar
+            width={500}
+            height={300}
+            groupMode="grouped"
+            layout="horizontal"
+            reverse={true}
+            data={[
+                { id: 'one', value: 10 },
+                { id: 'two', value: -20 },
+                { id: 'three', value: 30 },
+            ]}
+            labelAnchor="end"
+            animate={false}
+        />
+    )
+
+    let tree = component.toJSON()
+    expect(tree).toMatchSnapshot()
+})

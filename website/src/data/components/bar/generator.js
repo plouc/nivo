@@ -65,6 +65,6 @@ export const generateLightDataSet = () => ({
 })
 
 export const generateHeavyDataSet = () => ({
-    data: generateCountriesData(dishes, { size: 21, max: 200 }),
+    data: generateCountriesData(dishes, { size: 21, max: 200, min: -200 }),
     keys: dishes,
 })

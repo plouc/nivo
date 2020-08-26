@@ -82,6 +82,7 @@ const Bar = props => {
         labelSkipWidth,
         labelSkipHeight,
         getLabelTextColor,
+        labelAnchor,
 
         markers,
 
@@ -122,6 +123,8 @@ const Bar = props => {
         getColor,
         padding,
         innerPadding,
+        labelAnchor,
+        theme,
     }
     const result =
         groupMode === 'grouped' ? generateGroupedBars(options) : generateStackedBars(options)
@@ -170,6 +173,7 @@ const Bar = props => {
                     enableLabel,
                     labelSkipWidth,
                     labelSkipHeight,
+                    labelAnchor,
                     showTooltip,
                     hideTooltip,
                     onClick,
@@ -179,6 +183,9 @@ const Bar = props => {
                     getTooltipLabel,
                     tooltipFormat,
                     tooltip,
+                    groupMode,
+                    layout,
+                    reverse,
                 }
 
                 let bars

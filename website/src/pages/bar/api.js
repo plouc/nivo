@@ -104,6 +104,7 @@ const BarApi = () => {
                         from: 'color',
                         modifiers: [['darker', 1.6]],
                     },
+                    labelAnchor: 'center',
                 }}
             />
         </>
