@@ -24,6 +24,7 @@ const GeoMapFeature = memo(
         return (
             <path
                 key={feature.id}
+                id={feature.id}
                 fill={fillColor}
                 strokeWidth={borderWidth}
                 stroke={borderColor}
