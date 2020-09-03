@@ -48,7 +48,7 @@
     "lodash": "^4.17.15",
     "prettier": "^2.0.5",
     "prop-types": "^15.7.2",
-    "puppeteer": "^0.13.0",
+    "puppeteer": "^1.13.0",
     "raf": "^3.4.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
