@@ -17,6 +17,7 @@ export * from './linearScale'
 export * from './logScale'
 export * from './pointScale'
 export * from './timeScale'
+export * from './timeHelpers'
 
 export const scalePropType = PropTypes.oneOfType([
     PropTypes.shape(linearScalePropTypes),
