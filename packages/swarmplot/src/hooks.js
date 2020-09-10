@@ -134,6 +134,7 @@ export const useSwarmPlot = ({
                 getSize,
                 forces,
                 simulationIterations,
+                valueScaleConfig,
             }),
         [
             data,

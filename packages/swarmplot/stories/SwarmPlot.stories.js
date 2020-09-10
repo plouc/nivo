@@ -74,3 +74,73 @@ stories.add('using annotations', () => (
         ]}
     />
 ))
+
+const localeTimeFormat = value => new Date(value).toLocaleString()
+
+stories.add('using time scale', () => (
+    <SwarmPlot
+        {...commonProps}
+        data={[
+            {
+                group: 'group A',
+                id: '21c4519f-713f-473b-8ce5-e4078d8822c9',
+                timestamp: '2020-09-04T23:10:13.002Z',
+                volume: 18,
+            },
+            {
+                group: 'group A',
+                id: '91c4519f-713f-473b-8ce5-e4078d882e77',
+                timestamp: '2020-09-05T15:10:13.002Z',
+                volume: 16,
+            },
+            {
+                group: 'group B',
+                id: '91c4519f-713f-473b-8ce5-e4078d882e67',
+                timestamp: '2020-09-05T05:10:13.002Z',
+                volume: 16,
+            },
+            {
+                group: 'group C',
+                id: '91c4519f-713f-473b-8ce5-e4078d882t67',
+                timestamp: '2020-09-05T05:10:13.002Z',
+                volume: 14,
+            },
+        ]}
+        margin={{
+            top: 40,
+            right: 40,
+            bottom: 40,
+            left: 100,
+        }}
+        value="timestamp"
+        valueFormat={localeTimeFormat}
+        valueScale={{
+            type: 'time',
+            format: '%Y-%m-%dT%H:%M:%S.%LZ',
+        }}
+        size={{ key: 'volume', values: [4, 20], sizes: [6, 20] }}
+        axisTop={null}
+        axisRight={null}
+        axisBottom={{
+            format: localeTimeFormat,
+            orient: 'bottom',
+            tickSize: 10,
+            tickPadding: 5,
+            tickRotation: 0,
+            legend: 'timestamp',
+            legendPosition: 'middle',
+            legendOffset: 46,
+            tickValues: 'every 4 hours',
+        }}
+        axisLeft={{
+            orient: 'left',
+            tickSize: 10,
+            tickPadding: 5,
+            tickRotation: 0,
+            legend: 'groups',
+            legendPosition: 'middle',
+            legendOffset: -76,
+        }}
+        layout="horizontal"
+    />
+))
