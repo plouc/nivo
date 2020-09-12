@@ -132,6 +132,8 @@ declare module '@nivo/bar' {
         legends: ({ dataFrom: 'indexes' | 'keys' } & LegendProps)[]
 
         markers: CartesianMarkerProps[]
+
+        role: string
     }>
 
     export enum BarLayerType {
