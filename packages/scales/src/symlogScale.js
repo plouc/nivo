@@ -40,7 +40,7 @@ export const symlogScale = (
 }
 
 export const symLogScalePropTypes = {
-    type: PropTypes.oneOf(['symLog']).isRequired,
+    type: PropTypes.oneOf(['symlog']).isRequired,
     constant: PropTypes.number,
     min: PropTypes.oneOfType([PropTypes.oneOf(['auto']), PropTypes.number]),
     max: PropTypes.oneOfType([PropTypes.oneOf(['auto']), PropTypes.number]),
