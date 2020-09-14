@@ -84,6 +84,7 @@ export class Waffle extends Component {
             legendData,
 
             legends,
+            role,
         } = this.props
 
         cells.forEach(cell => {
@@ -190,6 +191,7 @@ export class Waffle extends Component {
                             margin={margin}
                             defs={defs}
                             theme={theme}
+                            role={role}
                         >
                             <g transform={`translate(${origin.x}, ${origin.y})`}>{cellsRender}</g>
                             {legends.map((legend, i) => (

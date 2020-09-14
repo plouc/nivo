@@ -67,7 +67,10 @@ const commonPropTypes = {
     ).isRequired,
 }
 
-export const CalendarPropTypes = commonPropTypes
+export const CalendarPropTypes = {
+    ...commonPropTypes,
+    role: PropTypes.string.isRequired,
+}
 
 export const CalendarCanvasPropTypes = {
     ...commonPropTypes,
@@ -107,7 +110,10 @@ const commonDefaultProps = {
     tooltip: CalendarTooltip,
 }
 
-export const CalendarDefaultProps = commonDefaultProps
+export const CalendarDefaultProps = {
+    ...commonDefaultProps,
+    role: 'img',
+}
 
 export const CalendarCanvasDefaultProps = {
     ...commonDefaultProps,

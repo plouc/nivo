@@ -49,6 +49,7 @@ const commonPropTypes = {
 
 export const GeoMapPropTypes = {
     ...commonPropTypes,
+    role: PropTypes.string.isRequired,
 }
 
 export const GeoMapCanvasPropTypes = {
@@ -73,6 +74,7 @@ const commonChoroplethPropTypes = {
 export const ChoroplethPropTypes = {
     ...GeoMapPropTypes,
     ...commonChoroplethPropTypes,
+    role: PropTypes.string.isRequired,
 }
 
 export const ChoroplethCanvasPropTypes = {
@@ -106,6 +108,7 @@ const commonDefaultProps = {
 
 export const GeoMapDefaultProps = {
     ...commonDefaultProps,
+    role: 'img',
 }
 
 export const GeoMapCanvasDefaultProps = {
@@ -127,6 +130,7 @@ const commonChoroplethDefaultProps = {
 export const ChoroplethDefaultProps = {
     ...GeoMapDefaultProps,
     ...commonChoroplethDefaultProps,
+    role: 'img',
 }
 
 export const ChoroplethCanvasDefaultProps = {

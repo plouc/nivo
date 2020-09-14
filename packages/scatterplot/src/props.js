@@ -93,6 +93,7 @@ const commonPropTypes = {
 
 export const ScatterPlotPropTypes = {
     ...commonPropTypes,
+    role: PropTypes.string.isRequired,
     useMesh: PropTypes.bool.isRequired,
     ...motionPropTypes,
 }
@@ -140,6 +141,7 @@ const commonDefaultProps = {
 export const ScatterPlotDefaultProps = {
     ...commonDefaultProps,
     layers: ['grid', 'axes', 'nodes', 'markers', 'mesh', 'legends', 'annotations'],
+    role: 'img',
     useMesh: true,
     animate: true,
     motionStiffness: 90,

@@ -9,7 +9,7 @@
 import React from 'react'
 import { SvgWrapper, useDimensions, withContainer } from '@nivo/core'
 import { Axis } from '@nivo/axes'
-import { commonPropTypes, commonDefaultProps } from './props'
+import { svgPropTypes, svgDefaultProps } from './props'
 import { useParallelCoordinates } from './hooks'
 import ParallelCoordinatesLine from './ParallelCoordinatesLine'
 
@@ -26,6 +26,7 @@ const ParallelCoordinates = ({
     lineOpacity,
     curve,
     colors,
+    role,
 }) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -70,7 +71,7 @@ const ParallelCoordinates = ({
     ))
 
     return (
-        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
+        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} role={role}>
             {axesPlan === 'background' && axes}
             {dataWithPoints.map(datum => (
                 <ParallelCoordinatesLine
@@ -89,9 +90,9 @@ const ParallelCoordinates = ({
     )
 }
 
-ParallelCoordinates.propTypes = commonPropTypes
+ParallelCoordinates.propTypes = svgPropTypes
 
 const WrappedParallelCoordinates = withContainer(ParallelCoordinates)
-WrappedParallelCoordinates.defaultProps = commonDefaultProps
+WrappedParallelCoordinates.defaultProps = svgDefaultProps
 
 export default WrappedParallelCoordinates

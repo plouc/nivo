@@ -90,7 +90,7 @@ declare module '@nivo/swarmplot' {
         tooltip?: any
     }
 
-    export type SwarmPlotProps = CommonSwarmPlotProps & MotionProps
+    export type SwarmPlotProps = CommonSwarmPlotProps & MotionProps & { role?: string }
 
     export class SwarmPlot extends Component<SwarmPlotProps & Dimensions> {}
     export class ResponsiveSwarmPlot extends Component<SwarmPlotProps> {}

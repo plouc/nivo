@@ -49,6 +49,7 @@ const commonPropTypes = {
 export const BubblePropTypes = {
     ...commonPropTypes,
     nodeComponent: PropTypes.func.isRequired,
+    role: PropTypes.string.isRequired,
     ...defsPropTypes,
 }
 
@@ -89,6 +90,7 @@ const commonDefaultProps = {
 export const BubbleDefaultProps = {
     ...commonDefaultProps,
     nodeComponent: BubbleNode,
+    role: 'img',
     defs: [],
     fill: [],
 }

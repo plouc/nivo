@@ -59,6 +59,8 @@ export class Bullet extends Component {
             onRangeClick,
             onMeasureClick,
             onMarkerClick,
+
+            role,
         } = this.props
 
         let itemHeight
@@ -105,6 +107,7 @@ export class Bullet extends Component {
                         height={outerHeight}
                         margin={margin}
                         theme={theme}
+                        role={role}
                     >
                         {enhancedData.map((d, i) => (
                             <BulletItem

@@ -73,6 +73,7 @@ declare module '@nivo/bump' {
         onMouseLeave?: BumpMouseHandler
         onClick?: BumpMouseHandler
         tooltip?: any
+        role?: string
     }
 
     export type BumpSvgProps = BumpProps & MotionProps
@@ -170,6 +171,7 @@ declare module '@nivo/bump' {
         onMouseLeave?: AreaBumpMouseHandler
         onClick?: AreaBumpMouseHandler
         tooltip?: any
+        role?: string
     }
 
     export type AreaBumpSvgProps = AreaBumpProps & MotionProps & SvgDefsAndFill<BumpInputDatum>

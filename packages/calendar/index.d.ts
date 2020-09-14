@@ -99,6 +99,7 @@ declare module '@nivo/calendar' {
         CalendarCommonProps &
         Partial<{
             onClick: (datum: CalendarDayData, event: React.MouseEvent<SVGRectElement>) => void
+            role: string
         }>
 
     export class Calendar extends React.Component<CalendarSvgProps & Dimensions> {}

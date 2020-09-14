@@ -85,6 +85,7 @@ declare module '@nivo/heatmap' {
         Partial<{
             onClick: (datum: NodeData, event: React.MouseEvent<HTMLCanvasElement>) => void
             pixelRatio: number
+            role: string
         }>
 
     export class HeatMapCanvas extends React.Component<HeatMapCanvasProps & Dimensions> {}

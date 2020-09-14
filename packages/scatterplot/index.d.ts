@@ -155,6 +155,7 @@ declare module '@nivo/scatterplot' {
         layers?: (CustomLayerId | CustomSvgLayer)[]
         renderNode?: NodeComponent
         markers?: CartesianMarkerProps[]
+        role?: string
     }
 
     export class ScatterPlot extends React.Component<ScatterPlotSvgProps & Dimensions> {}

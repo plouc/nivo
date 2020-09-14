@@ -66,6 +66,7 @@ const SwarmPlot = memo(
         onMouseLeave,
         onClick,
         tooltip,
+        role,
 
         animate,
         motionStiffness,
@@ -219,7 +220,13 @@ const SwarmPlot = memo(
         }
 
         return (
-            <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
+            <SvgWrapper
+                width={outerWidth}
+                height={outerHeight}
+                margin={margin}
+                theme={theme}
+                role={role}
+            >
                 {layers.map((layer, i) => {
                     if (layerById[layer] !== undefined) {
                         return layerById[layer]

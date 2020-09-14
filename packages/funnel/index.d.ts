@@ -118,7 +118,9 @@ declare module '@nivo/funnel' {
         animate?: boolean
     }
 
-    export interface FunnelSvgProps extends FunnelProps, MotionProps {}
+    export interface FunnelSvgProps extends FunnelProps, MotionProps {
+        role?: string
+    }
 
     export class Funnel extends React.Component<FunnelSvgProps & Dimensions> {}
     export class ResponsiveFunnel extends React.Component<FunnelSvgProps> {}

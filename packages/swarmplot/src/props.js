@@ -78,6 +78,7 @@ const commonPropTypes = {
 
 export const SwarmPlotPropTypes = {
     ...commonPropTypes,
+    role: PropTypes.string.isRequired,
     ...motionPropTypes,
 }
 
@@ -126,6 +127,7 @@ export const SwarmPlotDefaultProps = {
     animate: true,
     motionStiffness: 90,
     motionDamping: 15,
+    role: 'img',
 }
 
 export const SwarmPlotCanvasDefaultProps = {

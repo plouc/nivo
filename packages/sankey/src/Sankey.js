@@ -53,6 +53,7 @@ const Sankey = ({
     tooltipFormat,
     legends,
     layers,
+    role,
 }) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -193,7 +194,7 @@ const Sankey = ({
     }
 
     return (
-        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
+        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} role={role}>
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
                     return <Fragment key={i}>{layer(layerProps)}</Fragment>
