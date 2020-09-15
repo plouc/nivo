@@ -56,10 +56,14 @@ const props = [
     },
     {
         key: 'valueFormat',
-        group: 'Base',
-        type: 'string | Function',
+        help: `
+            Value format supporting d3-format notation, this formatted value
+            will then be used for labels and tooltips.
+        `,
+        type: 'string | Function',
         required: false,
-        help: `Optional value formatter.`,
+        controlType: 'valueFormat',
+        group: 'Base',
     },
     {
         key: 'width',
@@ -202,6 +206,20 @@ const props = [
         defaultValue: defaults.arcBorderColor,
         type: 'string | object | Function',
         controlType: 'inheritedColor',
+        group: 'Style',
+    },
+    {
+        key: 'ribbonBlendMode',
+        flavors: ['svg'],
+        help: 'Defines CSS mix-blend-mode property for ribbons.',
+        description: `
+            Defines CSS \`mix-blend-mode\` property for arcs, see
+            [MDN documentation](https://developer.mozilla.org/fr/docs/Web/CSS/mix-blend-mode).
+        `,
+        type: 'string',
+        required: false,
+        defaultValue: defaults.ribbonBlendMode,
+        controlType: 'blendMode',
         group: 'Style',
     },
     {
@@ -494,7 +512,7 @@ const props = [
             },
         },
     },
-    ...motionProperties(['svg'], defaults),
+    ...motionProperties(['svg'], defaults, 'react-spring'),
 ]
 
 export const groups = groupProperties(props)

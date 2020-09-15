@@ -8,7 +8,7 @@
  */
 import React from 'react'
 import { generateChordData } from '@nivo/generators'
-import { ResponsiveChord } from '@nivo/chord'
+import { ResponsiveChord, ChordDefaultProps } from '@nivo/chord'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/chord/meta.yml'
 import mapper from '../../data/components/chord/mapper'
@@ -17,54 +17,16 @@ import { groups } from '../../data/components/chord/props'
 const MATRIX_SIZE = 5
 
 const initialProperties = {
+    ...ChordDefaultProps,
     margin: {
         top: 60,
         right: 60,
         bottom: 90,
         left: 60,
     },
-
-    valueFormat: '.2f',
-
-    padAngle: 0.02,
-    innerRadiusRatio: 0.96,
-    innerRadiusOffset: 0.02,
-
-    arcOpacity: 1,
-    arcBorderWidth: 1,
-    arcBorderColor: {
-        from: 'color',
-        modifiers: [['darker', 0.4]],
-    },
-
-    ribbonOpacity: 0.5,
-    ribbonBorderWidth: 1,
-    ribbonBorderColor: {
-        from: 'color',
-        modifiers: [['darker', 0.4]],
-    },
-
-    enableLabel: true,
-    label: 'id',
-    labelOffset: 12,
+    valueFormat: { format: '.2f', enabled: true },
     labelRotation: -90,
-    labelTextColor: {
-        from: 'color',
-        modifiers: [['darker', 1]],
-    },
-
-    colors: { scheme: 'nivo' },
-
-    isInteractive: true,
-    arcHoverOpacity: 1,
-    arcHoverOthersOpacity: 0.25,
-    ribbonHoverOpacity: 0.75,
-    ribbonHoverOthersOpacity: 0.25,
-
-    animate: true,
-    motionStiffness: 90,
-    motionDamping: 7,
-
+    motionConfig: 'wobbly',
     legends: [
         {
             anchor: 'bottom',
@@ -106,6 +68,7 @@ const Chord = () => {
             currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
+            defaultProperties={ChordDefaultProps}
             propertiesMapper={mapper}
             codePropertiesMapper={(properties, data) => ({
                 keys: data.keys,

@@ -6,11 +6,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { settingsMapper } from '../../../lib/settings'
+import { settingsMapper, mapFormat } from '../../../lib/settings'
 
 export default settingsMapper({
     label: value => {
         if (value === `d => \`\${d.id} [\${d.value}]\``) return d => `${d.id} [${d.value}]`
         return value
     },
+    valueFormat: mapFormat,
 })

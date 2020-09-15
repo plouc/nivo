@@ -76,9 +76,9 @@ export const ChordCanvasPropTypes = {
 }
 
 const commonDefaultProps = {
-    padAngle: 0,
-    innerRadiusRatio: 0.9,
-    innerRadiusOffset: 0,
+    padAngle: 0.02,
+    innerRadiusRatio: 0.94,
+    innerRadiusOffset: 0.02,
 
     layers: ['ribbons', 'arcs', 'labels', 'legends'],
 
@@ -100,7 +100,7 @@ const commonDefaultProps = {
         from: 'color',
         modifiers: [['darker', 0.4]],
     },
-    ribbonBlendMode: 'normal',
+    ribbonBlendMode: 'multiply',
     ribbonTooltip: ChordRibbonTooltip,
 
     enableLabel: true,
@@ -117,13 +117,13 @@ const commonDefaultProps = {
     legends: [],
 
     isInteractive: true,
+
+    animate: true,
+    motionConfig: 'gentle',
 }
 
 export const ChordDefaultProps = {
     ...commonDefaultProps,
-    animate: true,
-    motionStiffness: 90,
-    motionDamping: 15,
 }
 
 export const ChordCanvasDefaultProps = {

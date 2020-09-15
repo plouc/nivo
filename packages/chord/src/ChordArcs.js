@@ -8,107 +8,72 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { TransitionMotion, spring } from 'react-motion'
-import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
+import { useTransition, interpolate } from 'react-spring'
 import { useMotionConfig } from '@nivo/core'
 import ChordArc from './ChordArc'
 
-const ChordArcs = memo(
-    ({
-        arcs,
-        borderWidth,
-        getBorderColor,
-        getOpacity,
-        arcGenerator,
-        setCurrent,
-        isInteractive,
-        onMouseEnter,
-        onMouseMove,
-        onMouseLeave,
-        onClick,
-        tooltip,
-    }) => {
-        const { animate, springConfig: _springConfig } = useMotionConfig()
+const ChordArcs = ({
+    arcs,
+    borderWidth,
+    getBorderColor,
+    getOpacity,
+    arcGenerator,
+    setCurrent,
+    isInteractive,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+    onClick,
+    tooltip,
+}) => {
+    const { animate, config: springConfig } = useMotionConfig()
+    const transitions = useTransition(arcs, arc => arc.id, {
+        enter: arc => ({
+            startAngle: arc.startAngle,
+            endAngle: arc.endAngle,
+            opacity: getOpacity(arc),
+            color: arc.color,
+        }),
+        update: arc => ({
+            startAngle: arc.startAngle,
+            endAngle: arc.endAngle,
+            opacity: getOpacity(arc),
+            color: arc.color,
+        }),
+        unique: true,
+        config: springConfig,
+        immediate: !animate,
+    })
 
-        if (animate !== true) {
-            return arcs.map(arc => {
-                return (
-                    <ChordArc
-                        key={arc.id}
-                        arc={arc}
-                        arcGenerator={arcGenerator}
-                        startAngle={arc.startAngle}
-                        endAngle={arc.endAngle}
-                        color={arc.color}
-                        opacity={getOpacity(arc)}
-                        borderWidth={borderWidth}
-                        getBorderColor={getBorderColor}
-                        getOpacity={getOpacity}
-                        isInteractive={isInteractive}
-                        setCurrent={setCurrent}
-                        onMouseEnter={onMouseEnter}
-                        onMouseMove={onMouseMove}
-                        onMouseLeave={onMouseLeave}
-                        onClick={onClick}
-                        tooltip={tooltip}
-                    />
-                )
-            })
-        }
-
-        const springConfig = {
-            ..._springConfig,
-            precision: 0.001,
-        }
+    return transitions.map(({ key, item: arc, props }) => {
+        const path = interpolate([props.startAngle, props.endAngle], (startAngle, endAngle) =>
+            arcGenerator({ startAngle, endAngle })
+        )
 
         return (
-            <TransitionMotion
-                styles={arcs.map(arc => {
-                    return {
-                        key: arc.id,
-                        data: arc,
-                        style: {
-                            startAngle: spring(arc.startAngle, springConfig),
-                            endAngle: spring(arc.endAngle, springConfig),
-                            opacity: spring(getOpacity(arc), springConfig),
-                            ...interpolateColor(arc.color, springConfig),
-                        },
-                    }
-                })}
-            >
-                {interpolatedStyles => (
-                    <>
-                        {interpolatedStyles.map(({ key, style, data: arc }) => {
-                            const color = getInterpolatedColor(style)
-
-                            return (
-                                <ChordArc
-                                    key={key}
-                                    arc={arc}
-                                    arcGenerator={arcGenerator}
-                                    startAngle={style.startAngle}
-                                    endAngle={style.endAngle}
-                                    color={color}
-                                    opacity={style.opacity}
-                                    borderWidth={borderWidth}
-                                    getBorderColor={getBorderColor}
-                                    getOpacity={getOpacity}
-                                    isInteractive={isInteractive}
-                                    setCurrent={setCurrent}
-                                    onMouseEnter={onMouseEnter}
-                                    onMouseMove={onMouseMove}
-                                    onMouseLeave={onMouseLeave}
-                                    onClick={onClick}
-                                    tooltip={tooltip}
-                                />
-                            )
-                        })}
-                    </>
-                )}
-            </TransitionMotion>
+            <ChordArc
+                key={key}
+                arc={arc}
+                color={arc.color}
+                opacity={getOpacity(arc)}
+                borderWidth={borderWidth}
+                getBorderColor={getBorderColor}
+                getOpacity={getOpacity}
+                isInteractive={isInteractive}
+                setCurrent={setCurrent}
+                animatedProps={{
+                    ...props,
+                    path,
+                }}
+                onMouseEnter={onMouseEnter}
+                onMouseMove={onMouseMove}
+                onMouseLeave={onMouseLeave}
+                onClick={onClick}
+                tooltip={tooltip}
+            />
         )
-    }
-)
+    })
+}
 
 ChordArcs.displayName = 'ChordArcs'
 ChordArcs.propTypes = {
@@ -126,4 +91,4 @@ ChordArcs.propTypes = {
     tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 }
 
-export default ChordArcs
+export default memo(ChordArcs)

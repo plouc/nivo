@@ -8,7 +8,7 @@
  */
 import React from 'react'
 import { generateChordData } from '@nivo/generators'
-import { ResponsiveChordCanvas } from '@nivo/chord'
+import { ResponsiveChordCanvas, ChordCanvasDefaultProps } from '@nivo/chord'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/chord/meta.yml'
 import mapper from '../../data/components/chord/mapper'
@@ -17,53 +17,26 @@ import { groups } from '../../data/components/chord/props'
 const MATRIX_SIZE = 38
 
 const initialProperties = {
+    ...ChordCanvasDefaultProps,
     margin: {
         top: 60,
         right: 200,
         bottom: 60,
         left: 60,
     },
-
-    valueFormat: '.2f',
-
+    valueFormat: { format: '.2f', enabled: true },
     pixelRatio:
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
-
-    padAngle: 0.006,
-    innerRadiusRatio: 0.86,
-    innerRadiusOffset: 0,
-
-    arcOpacity: 1,
+    padAngle: 0,
+    colors: { scheme: 'paired' },
     arcBorderWidth: 0,
-    arcBorderColor: {
-        from: 'color',
-        modifiers: [['darker', 0.4]],
-    },
-
-    ribbonOpacity: 0.5,
     ribbonBorderWidth: 0,
-    ribbonBorderColor: {
-        from: 'color',
-        modifiers: [['darker', 0.4]],
-    },
-
-    enableLabel: true,
-    label: 'id',
     labelOffset: 9,
     labelRotation: -90,
     labelTextColor: {
         from: 'color',
         modifiers: [['darker', 1]],
     },
-
-    colors: { scheme: 'paired' },
-
-    isInteractive: true,
-    arcHoverOpacity: 1,
-    arcHoverOthersOpacity: 0.4,
-    ribbonHoverOpacity: 0.75,
-    ribbonHoverOthersOpacity: 0,
-
     legends: [
         {
             anchor: 'right',
@@ -104,6 +77,7 @@ const ChordCanvas = () => {
             currentFlavor="canvas"
             properties={groups}
             initialProperties={initialProperties}
+            defaultProperties={ChordCanvasDefaultProps}
             propertiesMapper={mapper}
             codePropertiesMapper={(properties, data) => ({
                 keys: data.keys,
