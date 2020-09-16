@@ -74,7 +74,10 @@ const timeByType = {
 }
 
 const timeTypes = Object.keys(timeByType)
-const timeIntervalRegexp = new RegExp(`^every\\s*(\\d+)?\\s*(${timeTypes.join('|')})s?$`, 'i')
+const timeIntervalRegexp = new RegExp(
+    `^every\\s*(\\d+)?\\s*(${timeTypes.join('|')})s?(, no first day)?$`,
+    'i'
+)
 
 const isInteger = value =>
     typeof value === 'number' && isFinite(value) && Math.floor(value) === value
@@ -109,6 +112,11 @@ export const getScaleTicks = (scale, spec) => {
                     return scale.ticks(timeType)
                 }
 
+                if (matches[3] !== undefined) {
+                    return scale.ticks(
+                        timeType.filter(d => timeType.count(0, d) % Number(matches[1]) === 0)
+                    )
+                }
                 return scale.ticks(timeType.every(Number(matches[1])))
             }
 
