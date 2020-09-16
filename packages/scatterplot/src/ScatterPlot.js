@@ -67,6 +67,7 @@ const ScatterPlot = props => {
         markers,
 
         legends,
+        role,
     } = props
 
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
@@ -195,7 +196,13 @@ const ScatterPlot = props => {
     }
 
     return (
-        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
+        <SvgWrapper
+            width={outerWidth}
+            height={outerHeight}
+            margin={margin}
+            theme={theme}
+            role={role}
+        >
             {layers.map((layer, i) => {
                 if (layerById[layer] !== undefined) {
                     return layerById[layer]

@@ -88,8 +88,12 @@ declare module '@nivo/treemap' {
         onClick?: NodeEventHandler
     }
 
-    export class TreeMap extends React.Component<TreeMapSvgAndHtmlProps & Dimensions> {}
-    export class ResponsiveTreeMap extends React.Component<TreeMapSvgAndHtmlProps> {}
+    export interface TreeMapSvgProps extends TreeMapSvgAndHtmlProps {
+        role?: string
+    }
+
+    export class TreeMap extends React.Component<TreeMapSvgProps & Dimensions> {}
+    export class ResponsiveTreeMap extends React.Component<TreeMapSvgProps> {}
 
     export class TreeMapHtml extends React.Component<TreeMapSvgAndHtmlProps & Dimensions> {}
     export class ResponsiveTreeMapHtml extends React.Component<TreeMapSvgAndHtmlProps> {}

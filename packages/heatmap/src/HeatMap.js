@@ -10,7 +10,7 @@ import React, { useCallback } from 'react'
 import { SvgWrapper, withContainer, useDimensions } from '@nivo/core'
 import { Axes, Grid } from '@nivo/axes'
 import { useTooltip } from '@nivo/tooltip'
-import { HeatMapPropTypes, HeatMapDefaultProps } from './props'
+import { HeatMapSvgPropTypes, HeatMapSvgDefaultProps } from './props'
 import { useHeatMap } from './hooks'
 import HeatMapCells from './HeatMapCells'
 import HeatMapCellRect from './HeatMapCellRect'
@@ -50,6 +50,7 @@ const HeatMap = ({
     cellHoverOthersOpacity,
     tooltipFormat,
     tooltip,
+    role,
 }) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -122,6 +123,7 @@ const HeatMap = ({
                 top: margin.top + offsetY,
                 left: margin.left + offsetX,
             })}
+            role={role}
         >
             <Grid
                 width={innerWidth - offsetX * 2}
@@ -154,9 +156,9 @@ const HeatMap = ({
     )
 }
 
-HeatMap.propTypes = HeatMapPropTypes
+HeatMap.propTypes = HeatMapSvgPropTypes
 
 const WrappedHeatMap = withContainer(HeatMap)
-WrappedHeatMap.defaultProps = HeatMapDefaultProps
+WrappedHeatMap.defaultProps = HeatMapSvgDefaultProps
 
 export default WrappedHeatMap

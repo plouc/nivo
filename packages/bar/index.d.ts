@@ -132,8 +132,6 @@ declare module '@nivo/bar' {
         legends: ({ dataFrom: 'indexes' | 'keys' } & LegendProps)[]
 
         markers: CartesianMarkerProps[]
-
-        role: string
     }>
 
     export enum BarLayerType {
@@ -155,6 +153,7 @@ declare module '@nivo/bar' {
             onClick: BarMouseEventHandler<SVGRectElement>
             onMouseEnter: BarMouseEventHandler<SVGRectElement>
             onMouseLeave: BarMouseEventHandler<SVGRectElement>
+            role: string
         }>
 
     export class Bar extends React.Component<BarSvgProps & Dimensions> {}

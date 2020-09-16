@@ -82,6 +82,7 @@ declare module '@nivo/pie' {
             onClick: PieMouseEventHandler<SVGPathElement>
             onMouseEnter: PieMouseEventHandler<SVGPathElement>
             onMouseLeave: PieMouseEventHandler<SVGPathElement>
+            role: string
         }>
 
     export class Pie extends React.Component<PieSvgProps & Dimensions> {}

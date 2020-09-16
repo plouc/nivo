@@ -58,6 +58,7 @@ const Calendar = ({
     onMouseMove,
 
     legends,
+    role,
 }) => {
     const theme = useTheme()
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
@@ -89,7 +90,13 @@ const Calendar = ({
     const formatValue = useValueFormatter(valueFormat)
 
     return (
-        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
+        <SvgWrapper
+            width={outerWidth}
+            height={outerHeight}
+            margin={margin}
+            theme={theme}
+            role={role}
+        >
             {days.map(d => (
                 <CalendarDay
                     key={d.date.toString()}

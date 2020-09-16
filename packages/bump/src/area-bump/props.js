@@ -84,6 +84,7 @@ const commonPropTypes = {
 export const AreaBumpPropTypes = {
     ...commonPropTypes,
     ...motionPropTypes,
+    role: PropTypes.string.isRequired,
 }
 
 const commonDefaultProps = {
@@ -129,4 +130,5 @@ export const AreaBumpDefaultProps = {
     ...commonDefaultProps,
     animate: true,
     motionConfig: 'gentle',
+    role: 'img',
 }

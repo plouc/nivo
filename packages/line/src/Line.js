@@ -93,6 +93,8 @@ const Line = props => {
 
         enableCrosshair,
         crosshairType,
+
+        role,
     } = props
 
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
@@ -288,7 +290,13 @@ const Line = props => {
     }
 
     return (
-        <SvgWrapper defs={boundDefs} width={outerWidth} height={outerHeight} margin={margin}>
+        <SvgWrapper
+            defs={boundDefs}
+            width={outerWidth}
+            height={outerHeight}
+            margin={margin}
+            role={role}
+        >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
                     return (

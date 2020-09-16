@@ -58,6 +58,7 @@ const commonPropTypes = {
 export const TreeMapPropTypes = {
     ...commonPropTypes,
     nodeComponent: PropTypes.elementType.isRequired,
+    role: PropTypes.string.isRequired,
     ...defsPropTypes,
 }
 
@@ -109,6 +110,7 @@ const commonDefaultProps = {
 export const TreeMapDefaultProps = {
     ...commonDefaultProps,
     nodeComponent: TreeMapNode,
+    role: 'img',
     defs: [],
     fill: [],
 }

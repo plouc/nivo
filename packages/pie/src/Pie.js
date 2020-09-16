@@ -21,16 +21,15 @@ import {
     bindDefs,
 } from '@nivo/core'
 import { getInheritedColorGenerator } from '@nivo/colors'
-import { PieDefaultProps } from './props'
+import { PieSvgDefaultProps, PieSvgPropTypes } from './props'
 import PieSlice from './PieSlice'
 import PieRadialLabels from './PieRadialLabels'
 import PieSlicesLabels from './PieSlicesLabels'
-import { PiePropTypes } from './props'
 import PieLayout from './PieLayout'
 import PieLegends from './PieLegends'
 
 class Pie extends Component {
-    static propTypes = PiePropTypes
+    static propTypes = PieSvgPropTypes
 
     render() {
         const {
@@ -90,6 +89,7 @@ class Pie extends Component {
             tooltip,
 
             legends,
+            role,
         } = this.props
 
         const borderColor = getInheritedColorGenerator(_borderColor, theme)
@@ -123,6 +123,7 @@ class Pie extends Component {
                                     margin={margin}
                                     defs={boundDefs}
                                     theme={theme}
+                                    role={role}
                                 >
                                     <g transform={`translate(${centerX},${centerY})`}>
                                         {arcs.map(arc => (
@@ -202,7 +203,7 @@ class Pie extends Component {
 
 const enhance = Component =>
     compose(
-        defaultProps(PieDefaultProps),
+        defaultProps(PieSvgDefaultProps),
         withTheme(),
         withDimensions(),
         withPropsOnChange(['radialLabel'], ({ radialLabel }) => ({

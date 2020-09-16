@@ -34,6 +34,7 @@ const GeoMap = memo(props => {
         isInteractive,
         onClick,
         tooltip: Tooltip,
+        role,
     } = props
     const { margin, outerWidth, outerHeight } = useDimensions(width, height, partialMargin)
     const { graticule, path, getFillColor, getBorderWidth, getBorderColor } = useGeoMap({
@@ -71,7 +72,13 @@ const GeoMap = memo(props => {
     ])
 
     return (
-        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
+        <SvgWrapper
+            width={outerWidth}
+            height={outerHeight}
+            margin={margin}
+            theme={theme}
+            role={role}
+        >
             {layers.map((layer, i) => {
                 if (layer === 'graticule') {
                     if (enableGraticule !== true) return null

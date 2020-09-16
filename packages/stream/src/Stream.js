@@ -55,6 +55,7 @@ const Stream = ({
     enableStackTooltip,
 
     legends,
+    role,
 }) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -95,7 +96,13 @@ const Stream = ({
     const boundDefs = bindDefs(defs, layers, fill)
 
     return (
-        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} defs={boundDefs}>
+        <SvgWrapper
+            width={outerWidth}
+            height={outerHeight}
+            margin={margin}
+            defs={boundDefs}
+            role={role}
+        >
             <Grid
                 width={innerWidth}
                 height={innerHeight}

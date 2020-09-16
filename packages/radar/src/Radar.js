@@ -56,6 +56,7 @@ const Radar = memo(
         isInteractive,
         tooltipFormat,
         legends,
+        role,
     }) => {
         const getIndex = useMemo(() => getAccessorFor(indexBy), [indexBy])
         const indices = useMemo(() => data.map(getIndex), [data, getIndex])
@@ -104,7 +105,13 @@ const Radar = memo(
         const curveInterpolator = useCurveInterpolation(curve)
 
         return (
-            <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
+            <SvgWrapper
+                width={outerWidth}
+                height={outerHeight}
+                margin={margin}
+                theme={theme}
+                role={role}
+            >
                 <g transform={`translate(${centerX}, ${centerY})`}>
                     <RadarGrid
                         levels={gridLevels}

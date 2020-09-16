@@ -52,6 +52,7 @@ const commonPropTypes = {
 export const WafflePropTypes = {
     ...commonPropTypes,
     cellComponent: PropTypes.func.isRequired,
+    role: PropTypes.string.isRequired,
     ...defsPropTypes,
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
 }
@@ -88,6 +89,7 @@ const commonDefaultProps = {
 export const WaffleDefaultProps = {
     ...commonDefaultProps,
     cellComponent: WaffleCell,
+    role: 'img',
     defs: [],
     fill: [],
     legends: [],

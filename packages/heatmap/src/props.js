@@ -54,6 +54,11 @@ export const HeatMapPropTypes = {
     pixelRatio: PropTypes.number.isRequired,
 }
 
+export const HeatMapSvgPropTypes = {
+    ...HeatMapPropTypes,
+    role: PropTypes.string.isRequired,
+}
+
 export const HeatMapDefaultProps = {
     indexBy: 'id',
 
@@ -94,4 +99,9 @@ export const HeatMapDefaultProps = {
     // canvas specific
     pixelRatio:
         global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
+}
+
+export const HeatMapSvgDefaultProps = {
+    ...HeatMapDefaultProps,
+    role: 'img',
 }

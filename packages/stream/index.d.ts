@@ -84,6 +84,7 @@ declare module '@nivo/stream' {
         enableStackTooltip: boolean
 
         theme: Theme
+        role: string
 
         legends: LegendProps[]
     }

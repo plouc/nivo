@@ -89,6 +89,8 @@ export const SankeyPropTypes = {
         ])
     ).isRequired,
 
+    role: PropTypes.string.isRequired,
+
     ...motionPropTypes,
 }
 
@@ -128,6 +130,8 @@ export const SankeyDefaultProps = {
     legends: [],
 
     layers: ['links', 'nodes', 'labels', 'legends'],
+
+    role: 'img',
 
     animate: true,
     motionConfig: 'gentle',
