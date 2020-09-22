@@ -137,7 +137,7 @@ declare module '@nivo/scatterplot' {
         axisBottom?: AxisProps | null
         axisLeft?: AxisProps | null
 
-        nodeSize?: number | DerivedDatumProp<number> | DynamicSizeSpec
+        nodeSize?: number | DerivedDatumProp<number> | DynamicSizeSpec | DerivedNodeProp<number>
 
         isInteractive?: boolean
         useMesh?: boolean
