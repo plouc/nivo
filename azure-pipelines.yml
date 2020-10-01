@@ -22,3 +22,22 @@ steps:
     npm install
     npm run build
   displayName: 'npm install and build'
+
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: '$(Build.SourcesDirectory)'
+    contents: 'index.js'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  # condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: nivo
+  # condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
+
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: '$(Build.ArtifactStagingDirectory)'
+    targetFolder: "C:\\Users\\mike\\Documents\\BitBloom\\BitBloom Ltd\\nivo"
+  # condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
