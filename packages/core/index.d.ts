@@ -143,4 +143,46 @@ declare module '@nivo/core' {
     export type DataFormatter = (value: DatumValue) => string | number
 
     export function useValueFormatter(formatter?: DataFormatter | string): DataFormatter
+
+    export type LinearGradientDef = {
+        id: string
+        type: 'linearGradient'
+        colors: {
+            offset: number
+            color: string
+            opacity?: number
+        }[]
+    }
+
+    export type PatternDotsDef = {
+        id: string
+        type: 'patternDots'
+        color?: string
+        background?: string
+        size?: number
+        padding?: number
+        stagger?: boolean
+    }
+
+    export type PatternSquaresDef = Omit<PatternDotsDef, 'type'> & {
+        type: 'patternDots'
+    }
+
+    export type PatternLinesDef = {
+        id: string
+        type: 'patternLines'
+        spacing?: number
+        rotation?: number
+        background?: string
+        color?: string
+        lineWidth?: number
+    }
+
+    export type Def = LinearGradientDef | PatternDotsDef | PatternSquaresDef | PatternLinesDef
+
+    export type DefsProps = {
+        defs: Def[]
+    }
+
+    export function Defs(props: DefsProps): JSX.Element
 }
