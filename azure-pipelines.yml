@@ -13,31 +13,12 @@ trigger:
 pool: 'Default'
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '12.x'
-  displayName: 'Install Node.js'
-
 - script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
+    docker run -v '$(Build.SourcesDirectory)':/app -w /app node:12.18.4 ./build.sh
+  displayName: 'Run docker'
 
-- task: CopyFiles@2
+- task: npmAuthenticate@0
   inputs:
-    sourceFolder: '$(Build.SourcesDirectory)'
-    contents: 'index.js'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
-  # condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
+    workingFile: .npmrc
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    artifactName: nivo
-  # condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
-
-- task: CopyFiles@2
-  inputs:
-    sourceFolder: '$(Build.ArtifactStagingDirectory)'
-    targetFolder: "C:\\Users\\mike\\Documents\\BitBloom\\BitBloom Ltd\\nivo"
-  # condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
+- script: npm publish
