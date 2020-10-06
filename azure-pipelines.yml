@@ -14,8 +14,8 @@ pool: 'Default'
 
 steps:
 - script: |
-    docker run -v '$(Build.SourcesDirectory)':/app -w /app node:12.18.4 ./build.sh
-  displayName: 'Run docker'
+    docker run -v'$(Build.SourcesDirectory):/app -w /app node:12.18.4 ./build.sh
+  displayName: 'Run docker & build modules'
 
 - task: npmAuthenticate@0
   inputs:
