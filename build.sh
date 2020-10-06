@@ -4,8 +4,5 @@ set -e
 
 npm install yarn
 make init
-make fmt-check
-make packages-lint
-make packages-tslint
-make packages-test
+make test
 make packages-publish
