@@ -13,12 +13,10 @@ trigger:
 pool: 'Default'
 
 steps:
-- script: |
-    docker run -v $(Build.SourcesDirectory):/app -w /app node:12.18.4 ./build.sh
-  displayName: 'Run docker & build modules'
-
 - task: npmAuthenticate@0
   inputs:
     workingFile: .npmrc
 
-- script: npm publish
+- script: |
+    docker run -v $(Build.SourcesDirectory):/app -w /app node:12.18.4 ./build.sh
+  displayName: 'Build & publish modules'
