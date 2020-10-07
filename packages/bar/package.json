@@ -1,5 +1,5 @@
 {
-    "name": "@nivo/bar",
+  "name": "@bitbloom/nivo-bar",
     "version": "0.83.0",
     "license": "MIT",
     "author": {
@@ -45,6 +45,10 @@
     },
     "peerDependencies": {
         "react": ">= 16.14.0 < 19.0.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:BitBloomTech/nivo.git"
     },
     "publishConfig": {
         "access": "public"
