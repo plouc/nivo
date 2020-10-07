@@ -1,5 +1,5 @@
 {
-  "name": "@nivo/bar",
+  "name": "@bitbloom/nivo-bar",
   "version": "0.62.0",
   "license": "MIT",
   "author": {
@@ -39,7 +39,12 @@
     "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.8.4 < 17.0.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:BitBloomTech/nivo.git"
+  },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"
   }
 }
