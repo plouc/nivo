@@ -5,7 +5,7 @@ set -e
 npm install yarn
 # test publishing one module
 make init
-package-build-bar
+make package-build-bar
 echo "Publishing packages"
 cd packages/bar
 npm publish
