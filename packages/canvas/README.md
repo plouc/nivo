@@ -2,5 +2,5 @@
 
 # `@bitbloom/nivo-canvas`
 
-[![version](https://img.shields.io/npm/v/@bitbloom/nivo-canvas?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-canvas)
-[![downloads](https://img.shields.io/npm/dm/@bitbloom/nivo-canvas?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-canvas)
+[![version](https://img.shields.io/npm/v/@bitbloom/nivo-/canvas?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-/canvas)
+[![downloads](https://img.shields.io/npm/dm/@bitbloom/nivo-/canvas?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-/canvas)

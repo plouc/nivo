@@ -96,7 +96,7 @@ export const generateChartCode = (
         ].join('\n')
     }
 
-    return `// install (please try to align the version of installed @nivo packages)
+    return `// install (please try to align the version of installed @bitbloom/nivo- packages)
 ${install}
 ${imports.join('\n')}
 ${responsiveWarning}

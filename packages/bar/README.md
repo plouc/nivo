@@ -2,8 +2,8 @@
 
 # `@bitbloom/nivo-bar`
 
-[![version](https://img.shields.io/npm/v/@bitbloom/nivo-bar?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-bar)
-[![downloads](https://img.shields.io/npm/dm/@bitbloom/nivo-bar?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-bar)
+[![version](https://img.shields.io/npm/v/@bitbloom/nivo-/bar?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-/bar)
+[![downloads](https://img.shields.io/npm/dm/@bitbloom/nivo-/bar?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-/bar)
 
 ## Bar
 

@@ -35,7 +35,7 @@ const common = {
     external: id => externals.includes(id)
         || id.indexOf('react') === 0
         || id.indexOf('d3') === 0
-        || id.indexOf('@nivo') === 0
+        || id.indexOf('@bitbloom/nivo-') === 0
         || id.indexOf('lodash') === 0
         || id.indexOf('@react-spring') === 0,
 }

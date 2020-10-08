@@ -2,5 +2,5 @@
 
 # `@bitbloom/nivo-grid`
 
-[![version](https://img.shields.io/npm/v/@bitbloom/nivo-grid?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-grid)
-[![downloads](https://img.shields.io/npm/dm/@bitbloom/nivo-grid?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-grid)
+[![version](https://img.shields.io/npm/v/@bitbloom/nivo-/grid?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-/grid)
+[![downloads](https://img.shields.io/npm/dm/@bitbloom/nivo-/grid?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-/grid)

@@ -2,5 +2,5 @@
 
 # `@bitbloom/nivo-static`
 
-[![version](https://img.shields.io/npm/v/@bitbloom/nivo-static?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-static)
-[![downloads](https://img.shields.io/npm/dm/@bitbloom/nivo-static?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-static)
+[![version](https://img.shields.io/npm/v/@bitbloom/nivo-/static?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-/static)
+[![downloads](https://img.shields.io/npm/dm/@bitbloom/nivo-/static?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-/static)

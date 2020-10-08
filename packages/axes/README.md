@@ -2,5 +2,5 @@
 
 # `@bitbloom/nivo-axes`
 
-[![version](https://img.shields.io/npm/v/@bitbloom/nivo-axes?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-axes)
-[![downloads](https://img.shields.io/npm/dm/@bitbloom/nivo-axes?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-axes)
+[![version](https://img.shields.io/npm/v/@bitbloom/nivo-/axes?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-/axes)
+[![downloads](https://img.shields.io/npm/dm/@bitbloom/nivo-/axes?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-/axes)
