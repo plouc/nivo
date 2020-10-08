@@ -9,7 +9,7 @@
 'use strict'
 
 const Joi = require('joi')
-const { Bar } = require('@nivo/bar')
+const { Bar } = require('@bitbloom/nivo-bar')
 const common = require('./common')
 const { dimensions } = require('./commons/dimensions')
 const { inheritedColor, ordinalColors } = require('./commons/colors')

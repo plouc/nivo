@@ -1,11 +1,12 @@
 {
-  "name": "@nivo/annotations",
+  "name": "@bitbloom/nivo-annotations",
   "version": "0.62.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
     "url": "https://github.com/plouc"
   },
+  "maintainers": [{"name": "Bitbloom"}],
   "keywords": [
     "nivo",
     "dataviz",
@@ -22,16 +23,20 @@
     "dist/"
   ],
   "dependencies": {
-    "@nivo/colors": "0.62.0",
+    "@bitbloom/nivo-colors": "0.62.0",
     "lodash": "^4.17.11",
     "react-spring": "^8.0.27"
   },
   "peerDependencies": {
-    "@nivo/core": "0.62.0",
+    "@bitbloom/nivo-core": "0.62.0",
     "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.8.4 < 17.0.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:BitBloomTech/nivo.git"
+  },
   "publishConfig": {
-    "access": "public"
+    "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"
   }
 }
