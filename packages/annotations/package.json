@@ -8,7 +8,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git@github.com:BitBloomTech/nivo.git"
+        "url": "git@github.com:BitBloomTech/nivo.git",
         "directory": "packages/annotations"
     },
     "maintainers": [{"name": "Bitbloom"}],
