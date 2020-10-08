@@ -6,11 +6,6 @@
         "name": "Raphaël Benitte",
         "url": "https://github.com/plouc"
     },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/plouc/nivo.git",
-        "directory": "packages/bar"
-    },
     "keywords": [
         "nivo",
         "dataviz",
@@ -51,6 +46,6 @@
         "url": "git@github.com:BitBloomTech/nivo.git"
     },
     "publishConfig": {
-        "access": "public"
+    "access": "public",
     }
 }
