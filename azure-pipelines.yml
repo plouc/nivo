@@ -22,7 +22,7 @@ steps:
   displayName: 'Build modules on nivo docker container'
 
 - script: |
-    docker cp nivo:/app/packages/. $(Build.SourcesDirectory)/packages
+    docker cp nivo:/app/packages/. $(Build.SourcesDirectory)\packages
   displayName: 'Copy modules from nivo docker container'
 
 - script: |
