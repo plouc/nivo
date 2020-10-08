@@ -39,10 +39,6 @@
     "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.8.4 < 17.0.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:BitBloomTech/nivo.git"
-  },
   "publishConfig": {
     "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"
   }
