@@ -13,7 +13,7 @@ import {
     DIRECTION_RIGHT_TO_LEFT,
     DIRECTION_TOP_TO_BOTTOM,
     DIRECTION_BOTTOM_TO_TOP,
-} from '@nivo/legends'
+} from '@bitbloom/nivo-legends'
 import { useTheme } from '../../../theming/context'
 
 const itemDirections = [

@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { BarDefaultProps as defaults } from '@nivo/bar'
+import { BarDefaultProps as defaults } from '@bitbloom/nivo-bar'
 import {
     themeProperty,
     axesProperties,

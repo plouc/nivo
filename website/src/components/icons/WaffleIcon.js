@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { Waffle } from '@nivo/waffle'
+import { Waffle } from '@bitbloom/nivo-waffle'
 import waffleLightNeutralImg from '../../assets/icons/waffle-light-neutral.png'
 import waffleLightColoredImg from '../../assets/icons/waffle-light-colored.png'
 import waffleDarkNeutralImg from '../../assets/icons/waffle-dark-neutral.png'

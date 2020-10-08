@@ -8,7 +8,7 @@
  */
 import upperFirst from 'lodash/upperFirst'
 import uniq from 'lodash/uniq'
-import { defaultAnimate, defaultMotionStiffness, defaultMotionDamping } from '@nivo/core'
+import { defaultAnimate, defaultMotionStiffness, defaultMotionDamping } from '@bitbloom/nivo-core'
 
 export const themeProperty = {
     key: 'theme',

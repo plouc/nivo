@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { AreaBump } from '@nivo/bump'
+import { AreaBump } from '@bitbloom/nivo-bump'
 import areaBumpLightNeutralImg from '../../assets/icons/area-bump-light-neutral.png'
 import areaBumpLightColoredImg from '../../assets/icons/area-bump-light-colored.png'
 import areaBumpDarkNeutralImg from '../../assets/icons/area-bump-dark-neutral.png'

@@ -9,7 +9,7 @@
 'use strict'
 
 const Joi = require('joi')
-const { Bubble } = require('@nivo/circle-packing')
+const { Bubble } = require('@bitbloom/nivo-circle-packing')
 const { dimensions } = require('./commons/dimensions')
 const { inheritedColor, ordinalColors } = require('./commons/colors')
 

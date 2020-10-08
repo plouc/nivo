@@ -6,8 +6,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { lineCurvePropKeys, DotsItemDefaultProps as dotDefaults } from '@nivo/core'
-import { LineDefaultProps as defaults } from '@nivo/line'
+import { lineCurvePropKeys, DotsItemDefaultProps as dotDefaults } from '@bitbloom/nivo-core'
+import { LineDefaultProps as defaults } from '@bitbloom/nivo-line'
 import {
     themeProperty,
     axesProperties,

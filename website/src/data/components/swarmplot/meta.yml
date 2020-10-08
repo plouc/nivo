@@ -5,7 +5,7 @@ flavors:
     path: /swarmplot/canvas/
 
 SwarmPlot:
-  package: '@nivo/swarmplot'
+  package: '@bitbloom/nivo-swarmplot'
   tags:
     - svg
     - isomorphic
@@ -41,7 +41,7 @@ SwarmPlot:
     The responsive alternative of this component is `ResponsiveSwarmPlot`.
 
 SwarmPlotCanvas:
-  package: '@nivo/swarmplot'
+  package: '@bitbloom/nivo-swarmplot'
   tags:
     - canvas
   stories:

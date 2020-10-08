@@ -57,7 +57,7 @@ const configs = [
         output: {
             file: `./packages/${pkg}/dist/nivo-${pkg}.es.js`,
             format: 'es',
-            name: `@nivo/${pkg}`,
+            name: `@bitbloom/nivo-${pkg}`,
             sourcemap: true,
         },
         plugins: commonPlugins,
@@ -70,7 +70,7 @@ if (!isWatching) {
         output: {
             file: `./packages/${pkg}/dist/nivo-${pkg}.cjs.js`,
             format: 'cjs',
-            name: `@nivo/${pkg}`,
+            name: `@bitbloom/nivo-${pkg}`,
             sourcemap: true,
         },
         plugins: commonPlugins,

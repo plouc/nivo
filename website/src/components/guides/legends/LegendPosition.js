@@ -19,7 +19,7 @@ import {
     ANCHOR_BOTTOM_LEFT,
     ANCHOR_LEFT,
     ANCHOR_CENTER,
-} from '@nivo/legends'
+} from '@bitbloom/nivo-legends'
 import { useTheme } from '../../../theming/context'
 
 const anchors = [

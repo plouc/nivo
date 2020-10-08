@@ -7,8 +7,8 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { generateCountriesData } from '@nivo/generators'
-import { ResponsiveBar } from '@nivo/bar'
+import { generateCountriesData } from '@bitbloom/nivo-generators'
+import { ResponsiveBar } from '@bitbloom/nivo-bar'
 import { HomeItem, HomeItemLabel } from './styled'
 import { commonAxes } from './settings'
 

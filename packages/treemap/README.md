@@ -1,6 +1,6 @@
-# `@nivo/treemap`
+# `@bitbloom/nivo-treemap`
 
-[![version](https://img.shields.io/npm/v/@nivo/treemap.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/treemap)
+[![version](https://img.shields.io/npm/v/@bitbloom/nivo-treemap.svg?style=flat-square)](https://www.npmjs.com/package/@bitbloom/nivo-treemap)
 
 ## TreeMap
 

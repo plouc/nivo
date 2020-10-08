@@ -18,7 +18,7 @@ but just a few provide server side rendering ability and fully declarative chart
 In order to use nivo, you just have to pick the scoped `@nivo` packages according to the charts you wish to use.
 
 ```
-yarn add @nivo/bar @nivo/sankey ...
+yarn add @bitbloom/nivo-bar @bitbloom/nivo-sankey ...
 ```
 
 ## Features
@@ -93,7 +93,7 @@ your logo will show up here with a link to your website. [[Become a sponsor](htt
 
 [license-image]: https://img.shields.io/github/license/plouc/nivo.svg?style=flat-square
 [license-url]: https://github.com/plouc/nivo/blob/master/LICENSE.md
-[npm-image]: https://img.shields.io/npm/v/@nivo/core.svg?style=flat-square
+[npm-image]: https://img.shields.io/npm/v/@bitbloom/nivo-core.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/~nivo
 [travis-image]: https://img.shields.io/travis/plouc/nivo.svg?style=flat-square
 [travis-url]: https://travis-ci.org/plouc/nivo

@@ -8,7 +8,7 @@
  */
 import React from 'react'
 import merge from 'lodash/merge'
-import { ResponsiveFunnel, FunnelDefaultProps } from '@nivo/funnel'
+import { ResponsiveFunnel, FunnelDefaultProps } from '@bitbloom/nivo-funnel'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/funnel/meta.yml'
 import mapper from '../../data/components/funnel/mapper'

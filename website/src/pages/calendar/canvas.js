@@ -7,8 +7,8 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { ResponsiveCalendarCanvas, CalendarCanvasDefaultProps } from '@nivo/calendar'
-import { generateDayCounts } from '@nivo/generators'
+import { ResponsiveCalendarCanvas, CalendarCanvasDefaultProps } from '@bitbloom/nivo-calendar'
+import { generateDayCounts } from '@bitbloom/nivo-generators'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/calendar/meta.yml'
 import mapper from '../../data/components/calendar/mapper'

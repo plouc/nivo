@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { TreeMapDefaultProps } from '@nivo/treemap'
+import { TreeMapDefaultProps } from '@bitbloom/nivo-treemap'
 import SEO from '../../components/seo'
 import ApiClient from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/treemap/props'

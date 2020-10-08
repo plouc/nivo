@@ -8,8 +8,8 @@
  */
 import React from 'react'
 import shuffle from 'lodash/shuffle'
-import { ResponsiveBullet, BulletDefaultProps } from '@nivo/bullet'
-import { generateBulletData } from '@nivo/generators'
+import { ResponsiveBullet, BulletDefaultProps } from '@bitbloom/nivo-bullet'
+import { generateBulletData } from '@bitbloom/nivo-generators'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bullet/meta.yml'
 import { groups } from '../../data/components/bullet/props'

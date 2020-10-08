@@ -4,7 +4,7 @@ import {
     divergingColorSchemeIds,
     sequentialColorSchemeIds,
     colorSchemes,
-} from '@nivo/colors'
+} from '@bitbloom/nivo-colors'
 import { Card } from '../../styled'
 
 const ColorsRanges = () => (

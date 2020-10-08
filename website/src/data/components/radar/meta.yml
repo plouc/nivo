@@ -5,7 +5,7 @@ flavors:
     path: /radar/api/
 
 Radar:
-  package: '@nivo/radar'
+  package: '@bitbloom/nivo-radar'
   tags:
     - radial
     - svg
@@ -23,7 +23,7 @@ Radar:
     The responsive alternative of this component is
     `ResponsiveRadar`.
 
-    This component is available in the `@nivo/api`, see
+    This component is available in the `@bitbloom/nivo-api`, see
     [sample](api:/samples/radar.svg) or
     [try it using the API client](self:/radar/api).
 

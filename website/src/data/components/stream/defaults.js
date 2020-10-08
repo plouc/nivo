@@ -6,8 +6,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { patternDotsDef, patternSquaresDef } from '@nivo/core'
-import { StreamDefaultProps } from '@nivo/stream'
+import { patternDotsDef, patternSquaresDef } from '@bitbloom/nivo-core'
+import { StreamDefaultProps } from '@bitbloom/nivo-stream'
 
 export default {
     margin: {

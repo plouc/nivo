@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { themeContext } from '@nivo/core'
+import { themeContext } from '@bitbloom/nivo-core'
 import { useTheme } from '../../theming/context'
 import Layout from '../../components/Layout'
 import SEO from '../../components/seo'
@@ -33,7 +33,7 @@ const Legends = () => {
                 <DescriptionBlock>
                     <p>Let's see how to add legends to your charts.</p>
                     <p>
-                        Legend components are available via the <code>@nivo/legends</code> package,
+                        Legend components are available via the <code>@bitbloom/nivo-legends</code> package,
                         however it's added as a dependency for most chart packages supporting them,
                         in most cases you won't have to add it as a direct dependency.
                     </p>

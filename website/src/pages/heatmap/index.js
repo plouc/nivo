@@ -7,8 +7,8 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { ResponsiveHeatMap, HeatMapDefaultProps } from '@nivo/heatmap'
-import { patternLinesDef } from '@nivo/core'
+import { ResponsiveHeatMap, HeatMapDefaultProps } from '@bitbloom/nivo-heatmap'
+import { patternLinesDef } from '@bitbloom/nivo-core'
 import isFunction from 'lodash/isFunction'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/heatmap/meta.yml'

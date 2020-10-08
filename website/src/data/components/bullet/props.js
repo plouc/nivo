@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { BulletDefaultProps as defaults } from '@nivo/bullet'
+import { BulletDefaultProps as defaults } from '@bitbloom/nivo-bullet'
 import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
 
 const props = [

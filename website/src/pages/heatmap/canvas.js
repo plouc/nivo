@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { ResponsiveHeatMapCanvas } from '@nivo/heatmap'
+import { ResponsiveHeatMapCanvas } from '@bitbloom/nivo-heatmap'
 import isFunction from 'lodash/isFunction'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/heatmap/meta.yml'

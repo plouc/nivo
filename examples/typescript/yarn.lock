@@ -23,21 +23,21 @@
   dependencies:
     regenerator-runtime "^0.13.2"
 
-"@nivo/axes@0.55.0":
+"@bitbloom/nivo-axes@0.55.0":
   version "0.55.0"
-  resolved "https://registry.yarnpkg.com/@nivo/axes/-/axes-0.55.0.tgz#0f886505462d078bbdfd5569747c646c32990886"
+  resolved "https://registry.yarnpkg.com/@bitbloom/nivo-axes/-/axes-0.55.0.tgz#0f886505462d078bbdfd5569747c646c32990886"
   integrity sha512-LAWgcLIcsyhBEBfXVc7Z7v0u5uLW89eicjWxeWcIxYup6sSGm6Dnhhdv4i4BDzt1K0WlQ6Rbm9Aj7lR6O7o9Zw==
   dependencies:
-    "@nivo/core" "0.55.0"
+    "@bitbloom/nivo-core" "0.55.0"
     d3-format "^1.3.2"
     d3-time-format "^2.1.3"
     lodash "^4.17.4"
     react-motion "^0.5.2"
     recompose "^0.30.0"
 
-"@nivo/core@0.55.0":
+"@bitbloom/nivo-core@0.55.0":
   version "0.55.0"
-  resolved "https://registry.yarnpkg.com/@nivo/core/-/core-0.55.0.tgz#913fa301768f5fa929dbe17a5cbd2978adef6051"
+  resolved "https://registry.yarnpkg.com/@bitbloom/nivo-core/-/core-0.55.0.tgz#913fa301768f5fa929dbe17a5cbd2978adef6051"
   integrity sha512-3RzlMJqBhGnWvLmhyG9U63JlsxnrrlT2NFAMXo2PzpByzd21EZ9V1iPu7bhLPNm3otuMqmg9vR3dSAvzOZptqQ==
   dependencies:
     d3-color "^1.0.3"
@@ -53,23 +53,23 @@
     react-motion "^0.5.2"
     recompose "^0.30.0"
 
-"@nivo/legends@0.55.0":
+"@bitbloom/nivo-legends@0.55.0":
   version "0.55.0"
-  resolved "https://registry.yarnpkg.com/@nivo/legends/-/legends-0.55.0.tgz#a9a5dccef2ea87a47689fcc499ac2e5fe0598d9e"
+  resolved "https://registry.yarnpkg.com/@bitbloom/nivo-legends/-/legends-0.55.0.tgz#a9a5dccef2ea87a47689fcc499ac2e5fe0598d9e"
   integrity sha512-zrGBRlXQ+VAZ0KX2WCtvhkP/mm7ux9GXtVIcmy1AdJ9jqxCY8G7o/W5io9Pk5LbtslshqyUpI3E9cJAg20tnKA==
   dependencies:
     lodash "^4.17.4"
     recompose "^0.30.0"
 
-"@nivo/line@0.55.0":
+"@bitbloom/nivo-line@0.55.0":
   version "0.55.0"
-  resolved "https://registry.yarnpkg.com/@nivo/line/-/line-0.55.0.tgz#77102260e676fea6ef491955c99c4f4b222dda2f"
+  resolved "https://registry.yarnpkg.com/@bitbloom/nivo-line/-/line-0.55.0.tgz#77102260e676fea6ef491955c99c4f4b222dda2f"
   integrity sha512-QGCoppyyE5MOYsUT4SuMd7Sp9J8o49HVZY5hC23PVit8nEDqGOYGjFZyZY8PGgtQo2k95ydu8Syj9aLoPVomtA==
   dependencies:
-    "@nivo/axes" "0.55.0"
-    "@nivo/core" "0.55.0"
-    "@nivo/legends" "0.55.0"
-    "@nivo/scales" "0.55.0"
+    "@bitbloom/nivo-axes" "0.55.0"
+    "@bitbloom/nivo-core" "0.55.0"
+    "@bitbloom/nivo-legends" "0.55.0"
+    "@bitbloom/nivo-scales" "0.55.0"
     d3-format "^1.3.2"
     d3-scale "^2.1.2"
     d3-shape "^1.3.5"
@@ -77,37 +77,37 @@
     react-motion "^0.5.2"
     recompose "^0.30.0"
 
-"@nivo/scales@0.55.0":
+"@bitbloom/nivo-scales@0.55.0":
   version "0.55.0"
-  resolved "https://registry.yarnpkg.com/@nivo/scales/-/scales-0.55.0.tgz#ee8793d6c876b032c99f46a90b2ea40ee77b2731"
+  resolved "https://registry.yarnpkg.com/@bitbloom/nivo-scales/-/scales-0.55.0.tgz#ee8793d6c876b032c99f46a90b2ea40ee77b2731"
   integrity sha512-AgBZzClBxaJ3aOcNmPzuXTeE1EtVCyzHhV2IkFhXDi8pdY7/SQoVK1K/jEl2Mn9XOT4nVzIxotbbSqQQjDrhLg==
   dependencies:
     d3-scale "^2.1.2"
     d3-time-format "^2.1.3"
     lodash "^4.17.4"
 
-"@nivo/scatterplot@0.55.0":
+"@bitbloom/nivo-scatterplot@0.55.0":
   version "0.55.0"
-  resolved "https://registry.yarnpkg.com/@nivo/scatterplot/-/scatterplot-0.55.0.tgz#9ed086417814ff3392137073a6da55632e9e0a39"
+  resolved "https://registry.yarnpkg.com/@bitbloom/nivo-scatterplot/-/scatterplot-0.55.0.tgz#9ed086417814ff3392137073a6da55632e9e0a39"
   integrity sha512-nMJYDUXT6rMaObcjPfvDUZCPYhDEei4TJND3avZJxc9z2zg+BnPQJxtzMODujRPq7EWeC3AYZow0iC3RZcDwuQ==
   dependencies:
-    "@nivo/axes" "0.55.0"
-    "@nivo/core" "0.55.0"
-    "@nivo/legends" "0.55.0"
-    "@nivo/scales" "0.55.0"
-    "@nivo/voronoi" "0.55.0"
+    "@bitbloom/nivo-axes" "0.55.0"
+    "@bitbloom/nivo-core" "0.55.0"
+    "@bitbloom/nivo-legends" "0.55.0"
+    "@bitbloom/nivo-scales" "0.55.0"
+    "@bitbloom/nivo-voronoi" "0.55.0"
     d3-scale "^2.1.2"
     d3-shape "^1.3.5"
     lodash "^4.17.4"
     react-motion "^0.5.2"
     recompose "^0.30.0"
 
-"@nivo/voronoi@0.55.0":
+"@bitbloom/nivo-voronoi@0.55.0":
   version "0.55.0"
-  resolved "https://registry.yarnpkg.com/@nivo/voronoi/-/voronoi-0.55.0.tgz#3af43dea87d57248f35355a6fae57fd75d49c8ab"
+  resolved "https://registry.yarnpkg.com/@bitbloom/nivo-voronoi/-/voronoi-0.55.0.tgz#3af43dea87d57248f35355a6fae57fd75d49c8ab"
   integrity sha512-b3jRo2wd+A0po9I2VNFNnuTmCXcpY4CkJB4Zl4vBsT6UR7gk14arAFj6aeORkx8YRHpzuhwLoBGovddagISQ5Q==
   dependencies:
-    "@nivo/core" "0.55.0"
+    "@bitbloom/nivo-core" "0.55.0"
     d3-delaunay "^4.1.5"
     d3-scale "^2.1.2"
     recompose "^0.30.0"

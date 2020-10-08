@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { BumpDefaultProps as defaults } from '@nivo/bump'
+import { BumpDefaultProps as defaults } from '@bitbloom/nivo-bump'
 import {
     themeProperty,
     motionProperties,

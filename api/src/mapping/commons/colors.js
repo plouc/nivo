@@ -9,7 +9,7 @@
 'use strict'
 
 const Joi = require('joi')
-const { colorSchemeIds } = require('@nivo/colors')
+const { colorSchemeIds } = require('@bitbloom/nivo-colors')
 
 exports.ordinalColors = Joi.alternatives().try(
     Joi.array().items(Joi.string()),

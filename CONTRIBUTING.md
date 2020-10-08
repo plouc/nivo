@@ -55,7 +55,7 @@ the version from npm, however if you make some change to the source
 of a package, you'll have to rebuild it to see the changes.
 
 To automate this process, you can start a watcher on the package you're working
-on, for example if you want to make some change on the `@nivo/bar` package,
+on, for example if you want to make some change on the `@bitbloom/nivo-bar` package,
 you should run `make package-dev-bar` and then start the website `make website`,
 this way each change you make will trigger a build and will be (almost :))
 immedialty visible on the website.
@@ -63,7 +63,7 @@ immedialty visible on the website.
 You can also build the packages without running a watcher, you have two options:
 
  1. Rebuild all the packages via `make packages-build` or…
- 2. Rebuild only a specific package, for example `make package-build-bar` for `@nivo/bar` package
+ 2. Rebuild only a specific package, for example `make package-build-bar` for `@bitbloom/nivo-bar` package
 
 ### Testing
 

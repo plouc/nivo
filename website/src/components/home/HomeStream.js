@@ -9,7 +9,7 @@
 import React from 'react'
 import range from 'lodash/range'
 import random from 'lodash/random'
-import { ResponsiveStream } from '@nivo/stream'
+import { ResponsiveStream } from '@bitbloom/nivo-stream'
 import { HomeItem, HomeItemLabel } from './styled'
 import { commonAxes } from './settings'
 

@@ -1,6 +1,6 @@
-# `@nivo/voronoi`
+# `@bitbloom/nivo-voronoi`
 
-[![version](https://img.shields.io/npm/v/@nivo/voronoi.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/voronoi)
+[![version](https://img.shields.io/npm/v/@bitbloom/nivo-voronoi.svg?style=flat-square)](https://www.npmjs.com/package/@bitbloom/nivo-voronoi)
 
 ## Voronoi
 

@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { ResponsiveStream, StreamDefaultProps } from '@nivo/stream'
+import { ResponsiveStream, StreamDefaultProps } from '@bitbloom/nivo-stream'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/stream/meta.yml'
 import mapper from '../../data/components/stream/mapper'

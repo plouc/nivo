@@ -1,6 +1,6 @@
-# `@nivo/bump`
+# `@bitbloom/nivo-bump`
 
-[![version](https://img.shields.io/npm/v/@nivo/bump.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/bump)
+[![version](https://img.shields.io/npm/v/@bitbloom/nivo-bump.svg?style=flat-square)](https://www.npmjs.com/package/@bitbloom/nivo-bump)
 
 ## Bump
 

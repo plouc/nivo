@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { PieDefaultProps as defaults } from '@nivo/pie'
+import { PieDefaultProps as defaults } from '@bitbloom/nivo-pie'
 import { themeProperty, defsProperties, groupProperties } from '../../../lib/componentProperties'
 
 const props = [

@@ -9,7 +9,7 @@
 'use strict'
 
 const Joi = require('joi')
-const { TreeMap } = require('@nivo/treemap')
+const { TreeMap } = require('@bitbloom/nivo-treemap')
 const { ordinalColors, inheritedColor } = require('./commons/colors')
 const { dimensions } = require('./commons/dimensions')
 

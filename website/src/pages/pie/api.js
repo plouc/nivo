@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { generateProgrammingLanguageStats } from '@nivo/generators'
+import { generateProgrammingLanguageStats } from '@bitbloom/nivo-generators'
 import SEO from '../../components/seo'
 import ApiClient from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/pie/props'

@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { Bubble } from '@nivo/circle-packing'
+import { Bubble } from '@bitbloom/nivo-circle-packing'
 import circlePackingLightNeutralImg from '../../assets/icons/circle-packing-light-neutral.png'
 import circlePackingLightColoredImg from '../../assets/icons/circle-packing-light-colored.png'
 import circlePackingDarkNeutralImg from '../../assets/icons/circle-packing-dark-neutral.png'

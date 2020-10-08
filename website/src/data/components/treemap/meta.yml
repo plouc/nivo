@@ -9,7 +9,7 @@ flavors:
     path: /treemap/api/
 
 TreeMap:
-  package: '@nivo/treemap'
+  package: '@bitbloom/nivo-treemap'
   tags:
     - hierarchy
     - svg
@@ -34,12 +34,12 @@ TreeMap:
     [TreeMapHtml](self:/treemap/html) and
     [TreeMapCanvas](self:/treemap/canvas).
 
-    The `TreeMap` component is also available in the `@nivo/api`,
+    The `TreeMap` component is also available in the `@bitbloom/nivo-api`,
     see [sample](api:/samples/treemap)
     or [try it using the API client](self:/treemap/api).
 
 TreeMapHtml:
-  package: '@nivo/treemap'
+  package: '@bitbloom/nivo-treemap'
   tags:
     - hierarchy
     - html
@@ -63,7 +63,7 @@ TreeMapHtml:
     [TreeMapCanvas](self:/treemap/canvas).
 
 TreeMapCanvas:
-  package: '@nivo/treemap'
+  package: '@bitbloom/nivo-treemap'
   tags:
     - hierarchy
     - canvas

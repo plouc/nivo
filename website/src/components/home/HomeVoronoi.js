@@ -8,7 +8,7 @@
  */
 import React from 'react'
 import range from 'lodash/range'
-import { ResponsiveVoronoi } from '@nivo/voronoi'
+import { ResponsiveVoronoi } from '@bitbloom/nivo-voronoi'
 import { HomeItem, HomeItemLabel } from './styled'
 
 const voronoi = {

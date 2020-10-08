@@ -14,7 +14,7 @@ import {
     colorSchemes,
     colorInterpolatorIds,
     colorInterpolators,
-} from '@nivo/colors'
+} from '@bitbloom/nivo-colors'
 import { components } from 'react-select'
 import ColorsControlItem from './ColorsControlItem'
 import Control from './Control'

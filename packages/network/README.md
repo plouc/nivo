@@ -1,6 +1,6 @@
-# `@nivo/network`
+# `@bitbloom/nivo-network`
 
-[![version](https://img.shields.io/npm/v/@nivo/network.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/network)
+[![version](https://img.shields.io/npm/v/@bitbloom/nivo-network.svg?style=flat-square)](https://www.npmjs.com/package/@bitbloom/nivo-network)
 
 ## Network
 

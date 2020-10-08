@@ -1,6 +1,6 @@
-# `@nivo/funnel`
+# `@bitbloom/nivo-funnel`
 
-[![version](https://img.shields.io/npm/v/@nivo/funnel.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/funnel)
+[![version](https://img.shields.io/npm/v/@bitbloom/nivo-funnel.svg?style=flat-square)](https://www.npmjs.com/package/@bitbloom/nivo-funnel)
 
 ## Funnel
 

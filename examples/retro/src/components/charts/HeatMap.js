@@ -1,6 +1,6 @@
 import React from 'react'
-import { ResponsiveHeatMap } from '@nivo/heatmap'
-import { generateCountriesData } from '@nivo/generators'
+import { ResponsiveHeatMap } from '@bitbloom/nivo-heatmap'
+import { generateCountriesData } from '@bitbloom/nivo-generators'
 import { colors } from '../../constants'
 
 const HeatMap = () => (

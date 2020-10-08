@@ -1,1 +1,1 @@
-# `@nivo/annotations`
+# `@bitbloom/nivo-annotations`

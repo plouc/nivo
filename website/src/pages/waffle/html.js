@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { ResponsiveWaffleHtml, WaffleDefaultProps } from '@nivo/waffle'
+import { ResponsiveWaffleHtml, WaffleDefaultProps } from '@bitbloom/nivo-waffle'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/waffle/meta.yml'
 import { groups } from '../../data/components/waffle/props'

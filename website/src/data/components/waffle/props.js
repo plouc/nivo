@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { WaffleDefaultProps } from '@nivo/waffle'
+import { WaffleDefaultProps } from '@bitbloom/nivo-waffle'
 import {
     themeProperty,
     motionProperties,

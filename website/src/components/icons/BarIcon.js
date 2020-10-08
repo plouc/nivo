@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { Bar } from '@nivo/bar'
+import { Bar } from '@bitbloom/nivo-bar'
 import barLightNeutralImg from '../../assets/icons/bar-light-neutral.png'
 import barLightColoredImg from '../../assets/icons/bar-light-colored.png'
 import barDarkNeutralImg from '../../assets/icons/bar-dark-neutral.png'

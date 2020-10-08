@@ -3,7 +3,7 @@ flavors:
     path: /area-bump/
 
 AreaBump:
-  package: '@nivo/bump'
+  package: '@bitbloom/nivo-bump'
   tags:
     - svg
     - isomorphic

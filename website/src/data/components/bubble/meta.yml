@@ -9,7 +9,7 @@ flavors:
     path: /bubble/api/
 
 Bubble:
-  package: '@nivo/circle-packing'
+  package: '@bitbloom/nivo-circle-packing'
   tags:
     - hierarchy
     - svg
@@ -32,14 +32,14 @@ Bubble:
     [BubbleHtml](self:/bubble/html) and
     [BubbleCanvas](self:/bubble/canvas).
 
-    This component is available in the `@nivo/api`,
+    This component is available in the `@bitbloom/nivo-api`,
     see [sample](api:/samples/bubble.svg)
     or [try it using the API client](self:/bubble/api).
     You can also see more example usages in
     [the storybook](storybook:bubble--default).
 
 BubbleHtml:
-  package: '@nivo/circle-packing'
+  package: '@bitbloom/nivo-circle-packing'
   tags:
     - hierarchy
     - html
@@ -60,7 +60,7 @@ BubbleHtml:
     [the storybook](storybook:bubblehtml--default).
 
 BubbleCanvas:
-  package: '@nivo/circle-packing'
+  package: '@bitbloom/nivo-circle-packing'
   tags:
     - hierarchy
     - canvas

@@ -10,8 +10,8 @@ import React from 'react'
 import Highlight from '../../Highlight'
 
 const code = `
-import { patternDotsDef, patternSquaresDef } from '@nivo/core'
-import { Stream } from '@nivo/stream'
+import { patternDotsDef, patternSquaresDef } from '@bitbloom/nivo-core'
+import { Stream } from '@bitbloom/nivo-stream'
 
 const MyChart = () => (
     <Stream

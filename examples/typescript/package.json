@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@nivo/line": "0.55.0",
-    "@nivo/scatterplot": "0.55.0",
+    "@bitbloom/nivo-line": "0.55.0",
+    "@bitbloom/nivo-scatterplot": "0.55.0",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
     "react-scripts-ts": "3.1.0"

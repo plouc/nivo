@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { Line } from '@nivo/line'
+import { Line } from '@bitbloom/nivo-line'
 import lineLightNeutralImg from '../../assets/icons/line-light-neutral.png'
 import lineLightColoredImg from '../../assets/icons/line-light-colored.png'
 import lineDarkNeutralImg from '../../assets/icons/line-dark-neutral.png'

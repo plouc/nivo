@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { ResponsiveScatterPlot, ScatterPlotDefaultProps } from '@nivo/scatterplot'
+import { ResponsiveScatterPlot, ScatterPlotDefaultProps } from '@bitbloom/nivo-scatterplot'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/scatterplot/meta.yml'
 import mapper from '../../data/components/scatterplot/mapper'
