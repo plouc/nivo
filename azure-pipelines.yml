@@ -21,14 +21,14 @@ steps:
     docker run --name nivo -v $(Build.SourcesDirectory):/app -w /app node:12.18.4 ./build.sh
   displayName: 'Build modules on nivo docker container'
 
-- script: |
-    docker cp nivo:/app/packages/. $(Build.SourcesDirectory)\packages
-  displayName: 'Copy modules from nivo docker container'
-
-- script: |
-    cd .\packages\bar
-    npm publish
-  displayName: 'Publishing bar module'
+#- script: |
+#    docker cp nivo:/app/packages/. $(Build.SourcesDirectory)\packages
+#  displayName: 'Copy modules from nivo docker container'
+#
+#- script: |
+#    cd .\packages\bar
+#    npm publish
+#  displayName: 'Publishing bar module'
 
 - script: |
     docker rm -f nivo
