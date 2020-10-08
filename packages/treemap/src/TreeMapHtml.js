@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { withContainer, useDimensions } from '@nivo/core'
+import { withContainer, useDimensions } from '@bitbloom/nivo-core'
 import { TreeMapHtmlPropTypes, TreeMapHtmlDefaultProps } from './props'
 import { useTreeMap } from './hooks'
 import TreeMapNodes from './TreeMapNodes'

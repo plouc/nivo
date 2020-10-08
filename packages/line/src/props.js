@@ -7,12 +7,12 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
-import { lineCurvePropType, blendModePropType, motionPropTypes, defsPropTypes } from '@nivo/core'
-import { ordinalColorsPropType } from '@nivo/colors'
-import { axisPropType } from '@nivo/axes'
-import { scalePropType } from '@nivo/scales'
-import { LegendPropShape } from '@nivo/legends'
-import { crosshairPropTypes } from '@nivo/tooltip'
+import { lineCurvePropType, blendModePropType, motionPropTypes, defsPropTypes } from '@bitbloom/nivo-core'
+import { ordinalColorsPropType } from '@bitbloom/nivo-colors'
+import { axisPropType } from '@bitbloom/nivo-axes'
+import { scalePropType } from '@bitbloom/nivo-scales'
+import { LegendPropShape } from '@bitbloom/nivo-legends'
+import { crosshairPropTypes } from '@bitbloom/nivo-tooltip'
 import PointTooltip from './PointTooltip'
 import SliceTooltip from './SliceTooltip'
 

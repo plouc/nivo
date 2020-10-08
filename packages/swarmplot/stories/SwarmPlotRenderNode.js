@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React, { useMemo } from 'react'
-import { generateSwarmPlotData } from '@nivo/generators'
+import { generateSwarmPlotData } from '@bitbloom/nivo-generators'
 import { useOrdinalColorScale } from '../../colors/src'
 import { usePie } from '../../pie/src'
 import { SwarmPlot } from '../src'
@@ -122,7 +122,7 @@ const SwarmPlotRenderNode = () => {
             axisRight={null}
             axisLeft={null}
             axisBottom={{
-                legend: `custom node rendering with donut charts using usePie() React hook from @nivo/pie package`,
+                legend: `custom node rendering with donut charts using usePie() React hook from @bitbloom/nivo-pie package`,
                 legendPosition: 'middle',
                 legendOffset: 50,
             }}

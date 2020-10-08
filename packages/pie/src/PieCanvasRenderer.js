@@ -8,9 +8,9 @@
  */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { getHoveredArc, getRelativeCursor, getLabelGenerator, Container } from '@nivo/core'
-import { getInheritedColorGenerator } from '@nivo/colors'
-import { renderLegendToCanvas } from '@nivo/legends'
+import { getHoveredArc, getRelativeCursor, getLabelGenerator, Container } from '@bitbloom/nivo-core'
+import { getInheritedColorGenerator } from '@bitbloom/nivo-colors'
+import { renderLegendToCanvas } from '@bitbloom/nivo-legends'
 import { arcPropType } from './props'
 import { drawSliceLabels, drawRadialLabels } from './canvas'
 import PieTooltip from './PieTooltip'

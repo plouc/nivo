@@ -10,8 +10,8 @@ import React, { memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { useSprings, animated } from 'react-spring'
 import { lineRadial } from 'd3-shape'
-import { useMotionConfig, useTheme, blendModePropType } from '@nivo/core'
-import { useInheritedColor, inheritedColorPropType } from '@nivo/colors'
+import { useMotionConfig, useTheme, blendModePropType } from '@bitbloom/nivo-core'
+import { useInheritedColor, inheritedColorPropType } from '@bitbloom/nivo-colors'
 
 const RadarShapes = memo(
     ({

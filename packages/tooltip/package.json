@@ -1,5 +1,5 @@
 {
-  "name": "@nivo/tooltip",
+  "name": "@bitbloom/nivo-tooltip",
   "version": "0.62.0",
   "license": "MIT",
   "author": {
@@ -18,7 +18,7 @@
     "react-spring": "^8.0.27"
   },
   "peerDependencies": {
-    "@nivo/core": "0.62.0",
+    "@bitbloom/nivo-core": "0.62.0",
     "prop-types": ">= 15.5.10 < 16.0.0"
   },
   "publishConfig": {

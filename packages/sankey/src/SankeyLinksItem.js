@@ -9,8 +9,8 @@
 import React, { memo, useCallback, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { useSpring, animated } from 'react-spring'
-import { blendModePropType, useMotionConfig } from '@nivo/core'
-import { BasicTooltip, Chip, useTooltip } from '@nivo/tooltip'
+import { blendModePropType, useMotionConfig } from '@bitbloom/nivo-core'
+import { BasicTooltip, Chip, useTooltip } from '@bitbloom/nivo-tooltip'
 import SankeyLinkGradient from './SankeyLinkGradient'
 
 const tooltipStyles = {

@@ -1,5 +1,5 @@
 {
-  "name": "@nivo/core",
+  "name": "@bitbloom/nivo-core",
   "version": "0.62.0",
   "license": "MIT",
   "author": {
@@ -28,7 +28,7 @@
     "resize-observer-polyfill": "^1.5.1"
   },
   "peerDependencies": {
-    "@nivo/tooltip": "0.62.0",
+    "@bitbloom/nivo-tooltip": "0.62.0",
     "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.8.4 < 17.0.0"
   },

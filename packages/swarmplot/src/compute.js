@@ -12,7 +12,7 @@ import isNumber from 'lodash/isNumber'
 import isPlainObject from 'lodash/isPlainObject'
 import { scaleOrdinal, scaleLinear } from 'd3-scale'
 import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force'
-import { computeScale, generateSeriesAxis, createDateNormalizer } from '@nivo/scales'
+import { computeScale, generateSeriesAxis, createDateNormalizer } from '@bitbloom/nivo-scales'
 
 export const getSizeGenerator = size => {
     if (typeof size === 'function') return size

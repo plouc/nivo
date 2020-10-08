@@ -7,14 +7,14 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
-import { noop, defsPropTypes } from '@nivo/core'
+import { noop, defsPropTypes } from '@bitbloom/nivo-core'
 import {
     ordinalColorsPropType,
     colorPropertyAccessorPropType,
     inheritedColorPropType,
-} from '@nivo/colors'
-import { axisPropType } from '@nivo/axes'
-import { LegendPropShape } from '@nivo/legends'
+} from '@bitbloom/nivo-colors'
+import { axisPropType } from '@bitbloom/nivo-axes'
+import { LegendPropShape } from '@bitbloom/nivo-legends'
 import BarItem from './BarItem'
 
 export const BarPropTypes = {

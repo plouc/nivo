@@ -19,8 +19,8 @@ import {
     Container,
     SvgWrapper,
     bindDefs,
-} from '@nivo/core'
-import { getInheritedColorGenerator } from '@nivo/colors'
+} from '@bitbloom/nivo-core'
+import { getInheritedColorGenerator } from '@bitbloom/nivo-colors'
 import { PieSvgDefaultProps, PieSvgPropTypes } from './props'
 import PieSlice from './PieSlice'
 import PieRadialLabels from './PieRadialLabels'

@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 import React, { Fragment, useCallback } from 'react'
-import { withContainer, useDimensions, SvgWrapper, useTheme, useMotionConfig } from '@nivo/core'
-import { useInheritedColor } from '@nivo/colors'
-import { useTooltip } from '@nivo/tooltip'
+import { withContainer, useDimensions, SvgWrapper, useTheme, useMotionConfig } from '@bitbloom/nivo-core'
+import { useInheritedColor } from '@bitbloom/nivo-colors'
+import { useTooltip } from '@bitbloom/nivo-tooltip'
 import { NetworkPropTypes, NetworkDefaultProps } from './props'
 import { useNetwork, useNodeColor, useLinkThickness } from './hooks'
 import AnimatedNodes from './AnimatedNodes'

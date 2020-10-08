@@ -8,7 +8,7 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { themePropType } from '@nivo/core'
+import { themePropType } from '@bitbloom/nivo-core'
 
 const BubbleNode = ({ node, style, handlers, theme }) => {
     if (style.r <= 0) return null

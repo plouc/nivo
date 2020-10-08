@@ -8,7 +8,7 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { BasicTooltip } from '@nivo/tooltip'
+import { BasicTooltip } from '@bitbloom/nivo-tooltip'
 
 const CalendarTooltip = memo(({ value, day, color }) => {
     if (value === undefined || isNaN(value)) return null

@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { NetworkDefaultProps } from '../src/props'
-import { generateNetworkData } from '@nivo/generators'
+import { generateNetworkData } from '@bitbloom/nivo-generators'
 import { Network } from '../src'
 
 const data = generateNetworkData()

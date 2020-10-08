@@ -8,7 +8,7 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { BasicTooltip } from '@nivo/tooltip'
+import { BasicTooltip } from '@bitbloom/nivo-tooltip'
 
 const LineTooltip = ({ serie }) => {
     return <BasicTooltip id={serie.id} enableChip={true} color={serie.color} />

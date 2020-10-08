@@ -1,5 +1,5 @@
 {
-  "name": "@nivo/network",
+  "name": "@bitbloom/nivo-network",
   "version": "0.62.0",
   "license": "MIT",
   "author": {
@@ -25,9 +25,9 @@
     "dist/"
   ],
   "dependencies": {
-    "@nivo/colors": "0.62.0",
-    "@nivo/core": "0.62.0",
-    "@nivo/tooltip": "0.62.0",
+    "@bitbloom/nivo-colors": "0.62.0",
+    "@bitbloom/nivo-core": "0.62.0",
+    "@bitbloom/nivo-tooltip": "0.62.0",
     "d3-force": "^2.0.1",
     "lodash": "^4.17.11",
     "react-motion": "^0.5.2"

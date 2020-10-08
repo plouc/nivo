@@ -1,5 +1,5 @@
 {
-  "name": "@nivo/waffle",
+  "name": "@bitbloom/nivo-waffle",
   "version": "0.62.0",
   "license": "MIT",
   "author": {
@@ -23,10 +23,10 @@
     "dist/"
   ],
   "dependencies": {
-    "@nivo/colors": "0.62.0",
-    "@nivo/core": "0.62.0",
-    "@nivo/legends": "0.62.0",
-    "@nivo/tooltip": "0.62.0",
+    "@bitbloom/nivo-colors": "0.62.0",
+    "@bitbloom/nivo-core": "0.62.0",
+    "@bitbloom/nivo-legends": "0.62.0",
+    "@bitbloom/nivo-tooltip": "0.62.0",
     "lodash.partial": "^4.2.1",
     "lodash.range": "^3.2.0",
     "react-motion": "^0.5.2",

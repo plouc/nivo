@@ -9,7 +9,7 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { line } from 'd3-shape'
-import { textPropsByEngine, axisThemePropType, labelsThemePropType } from '@nivo/core'
+import { textPropsByEngine, axisThemePropType, labelsThemePropType } from '@bitbloom/nivo-core'
 import { arcPropType } from './props'
 import { computeRadialLabels } from './compute'
 

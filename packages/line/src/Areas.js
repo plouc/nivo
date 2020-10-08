@@ -9,7 +9,7 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { useSprings, animated } from 'react-spring'
-import { useMotionConfig, blendModePropType } from '@nivo/core'
+import { useMotionConfig, blendModePropType } from '@bitbloom/nivo-core'
 
 const Areas = ({ areaGenerator, areaOpacity, areaBlendMode, lines }) => {
     const { animate, config: springConfig } = useMotionConfig()

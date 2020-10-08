@@ -7,10 +7,10 @@
  * file that was distributed with this source code.
  */
 import React, { memo, Fragment } from 'react'
-import { SvgWrapper, withContainer, useDimensions, useTheme } from '@nivo/core'
-import { useInheritedColor } from '@nivo/colors'
-import { Axes, Grid } from '@nivo/axes'
-import { Mesh } from '@nivo/voronoi'
+import { SvgWrapper, withContainer, useDimensions, useTheme } from '@bitbloom/nivo-core'
+import { useInheritedColor } from '@bitbloom/nivo-colors'
+import { Axes, Grid } from '@bitbloom/nivo-axes'
+import { Mesh } from '@bitbloom/nivo-voronoi'
 import { SwarmPlotPropTypes, SwarmPlotDefaultProps } from './props'
 import { useSwarmPlot, useBorderWidth, useNodeMouseHandlers } from './hooks'
 import AnimatedSwarmPlotNodes from './AnimatedSwarmPlotNodes'

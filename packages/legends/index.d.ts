@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-declare module '@nivo/legends' {
+declare module '@bitbloom/nivo-legends' {
     interface ContainerDimensions {
         containerHeight: number
         containerWidth: number

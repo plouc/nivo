@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { Annotation } from '@nivo/annotations'
+import { Annotation } from '@bitbloom/nivo-annotations'
 import { useSwarmPlotAnnotations } from './hooks'
 
 const SwarmPlotAnnotations = ({ nodes, annotations, innerWidth, innerHeight }) => {

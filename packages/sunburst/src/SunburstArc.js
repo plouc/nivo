@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
 import compose from 'recompose/compose'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
-import { BasicTooltip } from '@nivo/tooltip'
+import { BasicTooltip } from '@bitbloom/nivo-tooltip'
 
 const SunburstArc = ({ node, path, borderWidth, borderColor, showTooltip, hideTooltip }) => (
     <path

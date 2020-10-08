@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { Annotation, useAnnotations } from '@nivo/annotations'
+import { Annotation, useAnnotations } from '@bitbloom/nivo-annotations'
 
 const BarAnnotations = ({ bars, annotations, animate, motionStiffness, motionDamping }) => {
     const boundAnnotations = useAnnotations({

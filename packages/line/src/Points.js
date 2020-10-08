@@ -8,7 +8,7 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { getLabelGenerator, DotsItem, useTheme } from '@nivo/core'
+import { getLabelGenerator, DotsItem, useTheme } from '@bitbloom/nivo-core'
 
 const Points = ({ points, symbol, size, borderWidth, enableLabel, label, labelYOffset }) => {
     const theme = useTheme()

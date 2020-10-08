@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
-import { themePropType, noop } from '@nivo/core'
+import { themePropType, noop } from '@bitbloom/nivo-core'
 import BulletItem from './BulletItem'
 
 const commonPropTypes = {

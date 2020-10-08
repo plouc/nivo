@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React, { Fragment } from 'react'
-import { SvgWrapper, withContainer, useDimensions } from '@nivo/core'
+import { SvgWrapper, withContainer, useDimensions } from '@bitbloom/nivo-core'
 import { FunnelPropTypes, FunnelDefaultProps } from './props'
 import { useFunnel } from './hooks'
 import { Parts } from './Parts'

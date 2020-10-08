@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React, { Fragment } from 'react'
-import { Container, SvgWrapper } from '@nivo/core'
+import { Container, SvgWrapper } from '@bitbloom/nivo-core'
 import enhance from './enhance'
 import { VoronoiPropTypes } from './props'
 

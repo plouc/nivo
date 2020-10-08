@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs } from '@storybook/addon-knobs'
-import { generateLibTree } from '@nivo/generators'
+import { generateLibTree } from '@bitbloom/nivo-generators'
 import { Sunburst } from '../src'
 
 const commonProperties = {

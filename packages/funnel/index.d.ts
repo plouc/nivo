@@ -7,10 +7,10 @@
  * file that was distributed with this source code.
  */
 import * as React from 'react'
-import { Dimensions, Box, Theme, MotionProps } from '@nivo/core'
-import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
+import { Dimensions, Box, Theme, MotionProps } from '@bitbloom/nivo-core'
+import { OrdinalColorsInstruction, InheritedColorProp } from '@bitbloom/nivo-colors'
 
-declare module '@nivo/funnel' {
+declare module '@bitbloom/nivo-funnel' {
     export interface Position {
         x: number
         y: number

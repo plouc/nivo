@@ -1,5 +1,5 @@
 {
-  "name": "@nivo/treemap",
+  "name": "@bitbloom/nivo-treemap",
   "version": "0.62.0",
   "license": "MIT",
   "author": {
@@ -23,14 +23,14 @@
     "dist/"
   ],
   "dependencies": {
-    "@nivo/colors": "0.62.0",
-    "@nivo/tooltip": "0.62.0",
+    "@bitbloom/nivo-colors": "0.62.0",
+    "@bitbloom/nivo-tooltip": "0.62.0",
     "d3-hierarchy": "^1.1.8",
     "lodash": "^4.17.11",
     "react-spring": "^8.0.27"
   },
   "peerDependencies": {
-    "@nivo/core": "0.62.0",
+    "@bitbloom/nivo-core": "0.62.0",
     "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.8.4 < 17.0.0"
   },

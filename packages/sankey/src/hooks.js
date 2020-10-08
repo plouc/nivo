@@ -1,8 +1,8 @@
 import { useState, useMemo } from 'react'
 import { cloneDeep } from 'lodash'
 import { sankey as d3Sankey } from 'd3-sankey'
-import { useTheme, getLabelGenerator } from '@nivo/core'
-import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
+import { useTheme, getLabelGenerator } from '@bitbloom/nivo-core'
+import { useOrdinalColorScale, useInheritedColor } from '@bitbloom/nivo-colors'
 import { sankeyAlignmentFromProp } from './props'
 
 const getId = d => d.id

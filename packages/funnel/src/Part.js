@@ -9,7 +9,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useSpring, animated } from 'react-spring'
-import { useMotionConfig } from '@nivo/core'
+import { useMotionConfig } from '@bitbloom/nivo-core'
 
 export const Part = ({ part, areaGenerator, borderGenerator }) => {
     const { animate, config: motionConfig } = useMotionConfig()

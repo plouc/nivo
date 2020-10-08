@@ -8,8 +8,8 @@
  */
 import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { useTheme, positionFromAngle, getLabelGenerator, DotsItem } from '@nivo/core'
-import { getInheritedColorGenerator, inheritedColorPropType } from '@nivo/colors'
+import { useTheme, positionFromAngle, getLabelGenerator, DotsItem } from '@bitbloom/nivo-core'
+import { getInheritedColorGenerator, inheritedColorPropType } from '@bitbloom/nivo-colors'
 
 const RadarDots = ({
     data,

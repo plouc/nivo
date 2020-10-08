@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { generateDayCounts } from '@nivo/generators'
+import { generateDayCounts } from '@bitbloom/nivo-generators'
 import { Calendar } from '../src'
 
 const from = new Date(2019, 0, 1)

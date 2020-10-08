@@ -10,7 +10,7 @@ import React, { memo } from 'react'
 import omit from 'lodash/omit'
 import PropTypes from 'prop-types'
 import { useSpring, animated } from 'react-spring'
-import { useTheme, useMotionConfig } from '@nivo/core'
+import { useTheme, useMotionConfig } from '@bitbloom/nivo-core'
 
 const AnnotationNote = memo(({ datum, x, y, note }) => {
     const theme = useTheme()

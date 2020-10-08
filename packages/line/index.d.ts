@@ -16,16 +16,16 @@ import {
     SvgDefsAndFill,
     DataFormatter,
     DatumValue as CoreDatumValue,
-} from '@nivo/core'
-import { OrdinalColorsInstruction } from '@nivo/colors'
-import { LegendProps } from '@nivo/legends'
-import { Scale, ScaleFunc } from '@nivo/scales'
-import { AxisProps, GridValues } from '@nivo/axes'
-import { CrosshairType } from '@nivo/tooltip'
+} from '@bitbloom/nivo-core'
+import { OrdinalColorsInstruction } from '@bitbloom/nivo-colors'
+import { LegendProps } from '@bitbloom/nivo-legends'
+import { Scale, ScaleFunc } from '@bitbloom/nivo-scales'
+import { AxisProps, GridValues } from '@bitbloom/nivo-axes'
+import { CrosshairType } from '@bitbloom/nivo-tooltip'
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
-declare module '@nivo/line' {
+declare module '@bitbloom/nivo-line' {
     export type DatumValue = CoreDatumValue
 
     export interface Datum {

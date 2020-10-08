@@ -9,7 +9,7 @@
 import React, { Component } from 'react'
 import { scaleLinear } from 'd3-scale'
 import setDisplayName from 'recompose/setDisplayName'
-import { Container, SvgWrapper } from '@nivo/core'
+import { Container, SvgWrapper } from '@bitbloom/nivo-core'
 import { BulletPropTypes } from './props'
 import enhance from './enhance'
 import BulletItem from './BulletItem'

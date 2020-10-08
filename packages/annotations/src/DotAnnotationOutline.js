@@ -9,7 +9,7 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { useSpring, animated } from 'react-spring'
-import { useMotionConfig, useTheme } from '@nivo/core'
+import { useMotionConfig, useTheme } from '@bitbloom/nivo-core'
 
 const DotAnnotationOutline = memo(({ x, y, size }) => {
     const theme = useTheme()

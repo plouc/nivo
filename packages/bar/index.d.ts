@@ -14,12 +14,12 @@ import {
     MotionProps,
     SvgDefsAndFill,
     CartesianMarkerProps,
-} from '@nivo/core'
-import { AxisProps, GridValues } from '@nivo/axes'
-import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
-import { LegendProps } from '@nivo/legends'
+} from '@bitbloom/nivo-core'
+import { AxisProps, GridValues } from '@bitbloom/nivo-axes'
+import { OrdinalColorsInstruction, InheritedColorProp } from '@bitbloom/nivo-colors'
+import { LegendProps } from '@bitbloom/nivo-legends'
 
-declare module '@nivo/bar' {
+declare module '@bitbloom/nivo-bar' {
     export type Value = string | number
 
     export interface Data {

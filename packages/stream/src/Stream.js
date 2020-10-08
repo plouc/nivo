@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { bindDefs, SvgWrapper, useDimensions, withContainer } from '@nivo/core'
-import { Axes, Grid } from '@nivo/axes'
-import { BoxLegendSvg } from '@nivo/legends'
+import { bindDefs, SvgWrapper, useDimensions, withContainer } from '@bitbloom/nivo-core'
+import { Axes, Grid } from '@bitbloom/nivo-axes'
+import { BoxLegendSvg } from '@bitbloom/nivo-legends'
 import StreamLayers from './StreamLayers'
 import StreamDots from './StreamDots'
 import StreamSlices from './StreamSlices'

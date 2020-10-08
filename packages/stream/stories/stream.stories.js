@@ -3,7 +3,7 @@ import range from 'lodash/range'
 import random from 'lodash/random'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, select } from '@storybook/addon-knobs'
-import { areaCurvePropKeys } from '@nivo/core'
+import { areaCurvePropKeys } from '@bitbloom/nivo-core'
 import { Stream } from '../src'
 
 const keys = ['Raoul', 'Josiane', 'Marcel', 'René', 'Paul', 'Jacques']

@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { generateBulletData } from '@nivo/generators'
+import { generateBulletData } from '@bitbloom/nivo-generators'
 import { Bullet } from '../src'
 
 const data = [

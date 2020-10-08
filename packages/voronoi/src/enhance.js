@@ -12,7 +12,7 @@ import compose from 'recompose/compose'
 import defaultProps from 'recompose/defaultProps'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
-import { withTheme, withDimensions } from '@nivo/core'
+import { withTheme, withDimensions } from '@bitbloom/nivo-core'
 import { VoronoiDefaultProps } from './props'
 
 export default Component =>

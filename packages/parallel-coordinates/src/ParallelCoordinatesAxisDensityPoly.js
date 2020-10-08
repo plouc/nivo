@@ -10,7 +10,7 @@ import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { line } from 'd3-shape'
 import { useSpring, animated } from 'react-spring'
-import { curveFromProp, useMotionConfig } from '@nivo/core'
+import { curveFromProp, useMotionConfig } from '@bitbloom/nivo-core'
 
 const lineGenerator = line()
     .x(d => d.x)

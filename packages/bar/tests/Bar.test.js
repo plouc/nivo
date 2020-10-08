@@ -9,7 +9,7 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { mount } from 'enzyme'
-import { LegendSvg, LegendSvgItem } from '@nivo/legends'
+import { LegendSvg, LegendSvgItem } from '@bitbloom/nivo-legends'
 import Bar from '../src/Bar'
 
 it('should render a basic bar chart', () => {

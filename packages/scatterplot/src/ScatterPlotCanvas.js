@@ -13,12 +13,12 @@ import {
     useTheme,
     getRelativeCursor,
     isCursorInRect,
-} from '@nivo/core'
-import { renderAnnotationsToCanvas } from '@nivo/annotations'
-import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
-import { renderLegendToCanvas } from '@nivo/legends'
-import { useTooltip } from '@nivo/tooltip'
-import { useVoronoiMesh, renderVoronoiToCanvas, renderVoronoiCellToCanvas } from '@nivo/voronoi'
+} from '@bitbloom/nivo-core'
+import { renderAnnotationsToCanvas } from '@bitbloom/nivo-annotations'
+import { renderAxesToCanvas, renderGridLinesToCanvas } from '@bitbloom/nivo-axes'
+import { renderLegendToCanvas } from '@bitbloom/nivo-legends'
+import { useTooltip } from '@bitbloom/nivo-tooltip'
+import { useVoronoiMesh, renderVoronoiToCanvas, renderVoronoiCellToCanvas } from '@bitbloom/nivo-voronoi'
 import { ScatterPlotCanvasPropTypes, ScatterPlotCanvasDefaultProps } from './props'
 import { useScatterPlot, useScatterPlotAnnotations } from './hooks'
 

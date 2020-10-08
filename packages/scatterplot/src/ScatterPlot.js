@@ -14,9 +14,9 @@ import {
     useTheme,
     useMotionConfig,
     CartesianMarkers,
-} from '@nivo/core'
-import { Axes, Grid } from '@nivo/axes'
-import { BoxLegendSvg } from '@nivo/legends'
+} from '@bitbloom/nivo-core'
+import { Axes, Grid } from '@bitbloom/nivo-axes'
+import { BoxLegendSvg } from '@bitbloom/nivo-legends'
 import { useScatterPlot } from './hooks'
 import { ScatterPlotPropTypes, ScatterPlotDefaultProps } from './props'
 import AnimatedNodes from './AnimatedNodes'

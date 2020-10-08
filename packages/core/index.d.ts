@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-declare module '@nivo/core' {
+declare module '@bitbloom/nivo-core' {
     export type DatumValue = string | number | Date
 
     export interface Dimensions {

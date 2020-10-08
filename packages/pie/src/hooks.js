@@ -9,7 +9,7 @@
 import { useMemo } from 'react'
 import get from 'lodash/get'
 import { arc as d3Arc, pie as d3Pie } from 'd3-shape'
-import { degreesToRadians, radiansToDegrees } from '@nivo/core'
+import { degreesToRadians, radiansToDegrees } from '@bitbloom/nivo-core'
 
 export const usePie = ({
     data,

@@ -8,7 +8,7 @@
  */
 import React, { useRef, useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
-import { tooltipContext } from '@nivo/tooltip'
+import { tooltipContext } from '@bitbloom/nivo-tooltip'
 import noop from '../lib/noop'
 import { themeContext } from '../theming'
 import { MotionConfigProvider } from '../motion'
