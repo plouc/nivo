@@ -1,5 +1,5 @@
 {
-    "name": "@nivo/annotations",
+    "name": "@bitbloom/nivo-annotations",
     "version": "0.83.0",
     "license": "MIT",
     "author": {
@@ -8,9 +8,10 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/plouc/nivo.git",
+        "url": "git@github.com:BitBloomTech/nivo.git"
         "directory": "packages/annotations"
     },
+    "maintainers": [{"name": "Bitbloom"}],
     "keywords": [
         "nivo",
         "dataviz",
@@ -28,8 +29,8 @@
         "!dist/tsconfig.tsbuildinfo"
     ],
     "dependencies": {
-        "@nivo/colors": "workspace:*",
-        "@nivo/core": "workspace:*",
+        "@bitbloom/nivo-colors": "workspace:*",
+        "@bitbloom/nivo-core": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",
         "@types/prop-types": "^15.7.2",
         "lodash": "^4.17.21",
@@ -39,6 +40,6 @@
         "react": ">= 16.14.0 < 19.0.0"
     },
     "publishConfig": {
-        "access": "public"
+        "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"
     }
 }

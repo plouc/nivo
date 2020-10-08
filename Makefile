@@ -2,7 +2,7 @@ MAKEFLAGS += --no-print-directory
 
 SOURCES = packages
 
-.PHONY: help bootstrap init pkgs-build pkgs-publish clean-all website-install website website-build website-deploy storybook storybook-build storybook-deploy deploy-all e2e-open
+.PHONY: help bootstrap init packages-build packages-publish clean-all website-install website website-build website-deploy storybook storybook-build storybook-deploy deploy-all examples-install
 
 ########################################################################################################################
 #
@@ -39,52 +39,49 @@ help: ##prints help
 
 ########################################################################################################################
 #
-# 0. GLOBAL
+# GLOBAL
 #
 ########################################################################################################################
 
-install: ##@0 global install
-	@pnpm install
+bootstrap: ##@0 global lerna bootstrap
+	@./node_modules/.bin/lerna bootstrap
 
 init: ##@0 global cleanup/install/bootstrap
 	@$(MAKE) clean-all
-	@$(MAKE) install
-	@$(MAKE) pkgs-build
+	@yarn install
+	@$(MAKE) bootstrap
+	#@$(MAKE) packages-build
+	#@$(MAKE) examples-install
 
 fmt: ##@0 global format code using prettier (js, css, md)
-	@pnpm prettier --color --write \
-		"packages/*/{src,tests}/**/*.{js,ts,tsx}" \
+	@./node_modules/.bin/prettier --color --write \
+		"packages/*/{src,stories,tests}/**/*.{js,ts}" \
 		"packages/*/index.d.ts" \
 		"packages/*/README.md" \
-		"website/src/**/*.{js,ts,tsx,css}" \
+		"website/src/**/*.{js,css}" \
+		"examples/*/src/**/*.{js,ts,tsx,css}" \
 		"api/**/*.{js,ts,tsx}" \
-		"storybook/.storybook/*.{js,ts,tsx}" \
-		"storybook/stories/**/*.{js,ts,tsx}" \
-		"cypress/src/**/*.{js,ts,tsx}" \
 		"README.md"
 
 fmt-check: ##@0 global check if files were all formatted using prettier
 	@echo "${YELLOW}Checking formatting${RESET}"
-	@pnpm prettier --color --list-different \
-        "packages/*/{src,tests}/**/*.{js,ts,tsx}" \
+	@./node_modules/.bin/prettier --color --list-different \
+        "packages/*/{src,stories,tests}/**/*.{js,ts}" \
         "packages/*/index.d.ts" \
         "packages/*/README.md" \
-        "website/src/**/*.{js,ts,tsx,css}" \
+        "website/src/**/*.{js,css}" \
+        "examples/*/src/**/*.{js,ts,tsx,css}" \
 		"api/**/*.{js,ts,tsx}" \
-		"storybook/.storybook/*.{js,ts,tsx}" \
-		"storybook/stories/**/*.{js,ts,tsx}" \
-		"cypress/src/**/*.{js,ts,tsx}" \
         "README.md"
 
-test: ##@0 global run all checks/tests (packages, website)
+test: ##@0 global run all checks/tests (packages, website & examples)
 	@$(MAKE) fmt-check
 	@$(MAKE) lint
-	@$(MAKE) pkgs-test
+	@$(MAKE) packages-test
 
-vercel-build: ##@0 global Build the website and storybook to vercel
-	@$(MAKE) website-build
-	@$(MAKE) storybook-build
-	@cp -a storybook/storybook-static website/public/storybook
+deploy-all: ##@0 global deploy website & storybook
+	@$(MAKE) website-deploy
+	@$(MAKE) storybook-deploy
 
 clean-all: ##@0 global uninstall node modules, remove transpiled code & lock files
 	@rm -rf node_modules
@@ -92,208 +89,215 @@ clean-all: ##@0 global uninstall node modules, remove transpiled code & lock fil
 	@$(foreach source, $(SOURCES), $(call clean-source-all, $(source)))
 	@rm -rf website/node_modules
 	@rm -rf website/package-lock.json
-	@rm -rf api/node_modules
-	@rm -rf api/package-lock.json
 
 define clean-source-lib
 	rm -rf $(1)/*/cjs
+	rm -rf $(1)/*/umd
 endef
 
 define clean-source-all
 	rm -rf $(1)/*/cjs
+	rm -rf $(1)/*/umd
 	rm -rf $(1)/*/node_modules
 	rm -rf $(1)/*/package-lock.json
 endef
 
+lint: ##@0 run eslint & tslint
+	@$(MAKE) packages-lint
+	@$(MAKE) packages-tslint
+
 ########################################################################################################################
 #
-# 1. PACKAGES
+# PACKAGES
 #
 ########################################################################################################################
 
-pkg-lint-%: ##@1 packages run eslint on package
-	@echo "${YELLOW}Running eslint on package ${WHITE}@nivo/${*}${RESET}"
-	@pnpm eslint ./packages/${*}/{src,tests}/**/*.{js,ts,tsx}
+package-lint-%: ##@1 packages run eslint on package
+	@echo "${YELLOW}Running eslint on package ${WHITE}@bitbloom/nivo-${*}${RESET}"
+	@./node_modules/.bin/eslint ./packages/${*}/{src,tests}
 
-pkgs-lint: ##@1 packages run eslint on all packages
+packages-lint: ##@1 packages run eslint on all packages
 	@echo "${YELLOW}Running eslint on all packages${RESET}"
-	@pnpm eslint "./packages/*/{src,tests}/**/*.{js,ts,tsx}"
+	@./node_modules/.bin/eslint "./packages/*/{src,tests}/**/*.js"
 
-pkgs-lint-fix: ##@1 packages run eslint on all packages with a fix option
-	@echo "${YELLOW}Running eslint on all packages${RESET}"
-	@pnpm eslint "./packages/*/{src,tests}/**/*.{js,ts,tsx}" --fix
+package-tslint-%: ##@1 packages run tslint on package
+	@echo "${YELLOW}Running tslint on package ${WHITE}@bitbloom/nivo-${*}${RESET}"
+	@./node_modules/.bin/tslint ./packages/${*}/index.d.ts
 
-pkg-test-cover-%: ##@1 packages run tests for a package with code coverage
-	@export BABEL_ENV=development; pnpm jest -c ./packages/jest.config.js --rootDir . --coverage ./packages/${*}/tests
+packages-tslint: ##@1 packages run tslint on all packages
+	@echo "${YELLOW}Running tslint on all packages${RESET}"
+	@./node_modules/.bin/tslint \
+        ./packages/annotations/index.d.ts \
+        ./packages/axes/index.d.ts \
+        ./packages/bar/index.d.ts \
+        ./packages/calendar/index.d.ts \
+        ./packages/chord/index.d.ts \
+        ./packages/colors/index.d.ts \
+        ./packages/core/index.d.ts \
+        ./packages/geo/index.d.ts \
+        ./packages/heatmap/index.d.ts \
+        ./packages/legends/index.d.ts \
+        ./packages/line/index.d.ts \
+        ./packages/network/index.d.ts \
+        ./packages/pie/index.d.ts \
+        ./packages/radar/index.d.ts \
+        ./packages/sankey/index.d.ts \
+        ./packages/scales/index.d.ts \
+        ./packages/scatterplot/index.d.ts \
+        ./packages/stream/index.d.ts \
+        ./packages/swarmplot/index.d.ts \
+        ./packages/waffle/index.d.ts \
+        ./packages/voronoi/index.d.ts
 
-pkg-test-%: ##@1 packages run tests for a package
-	@export BABEL_ENV=development; pnpm jest -c ./packages/jest.config.js --rootDir . ./packages/${*}/tests
+package-test-cover-%: ##@1 packages run tests for a package with code coverage
+	@yarn jest -c ./packages/jest.config.js --rootDir . --coverage ./packages/${*}/tests
 
-pkg-watch-test-%: ##@1 packages run tests for a package and watch for changes
-	@export BABEL_ENV=development; pnpm jest -c ./packages/jest.config.js --rootDir . ./packages/${*}/tests --watch
+package-test-%: ##@1 packages run tests for a package
+	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/${*}/tests
 
-pkg-update-test-%: ##@1 packages run tests for a package and update its snapshots
-	@export BABEL_ENV=development; pnpm jest -c ./packages/jest.config.js --rootDir . ./packages/${*}/tests -u
+package-update-test-%: ##@1 packages run tests for a package and update its snapshots
+	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/${*}/tests -u
 
-pkg-watch-test-%: ##@1 packages run tests for a package and watch for changes
-	@export BABEL_ENV=development; pnpm jest -c ./packages/jest.config.js --rootDir . ./packages/${*}/tests --watch
-
-pkgs-test: ##@1 packages run tests for all packages
+packages-test: ##@1 packages run tests for all packages
 	@echo "${YELLOW}Running test suites for all packages${RESET}"
-	@export BABEL_ENV=development; pnpm jest -c ./packages/jest.config.js --workerThreads --rootDir . ./packages/*/tests
+	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/*/tests
 
-pkgs-watch-test: ##@1 packages run tests for all packages and watch for changes
-	@echo "${YELLOW}Running test suites watcher for all packages${RESET}"
-	@export BABEL_ENV=development; pnpm jest -c ./packages/jest.config.js --rootDir . ./packages/*/tests --watch
+packages-test-cover: ##@1 packages run tests for all packages with code coverage
+	@echo "${YELLOW}Running test suites for all packages${RESET}"
+	@yarn jest -c ./packages/jest.config.js --rootDir . --coverage ./packages/*/tests
 
-pkgs-test-cover: ##@1 packages run tests for all packages with code coverage
-	@echo "${YELLOW}Running test suites coverage for all packages${RESET}"
-	@export BABEL_ENV=development; pnpm jest -c ./packages/jest.config.js --rootDir . --coverage ./packages/*/tests
-
-pkgs-build: pkgs-types ##@1 packages build all packages
-	@# Using exit code 255 in case of error as it'll make xargs stop immediately.
-	@export SKIP_TYPES=TRUE;find ./packages -type d -maxdepth 1 ! -path ./packages \
+packages-build: ##@1 packages build all packages
+	@echo "${YELLOW}Building all packages${RESET}"
+	@find ./packages -type d -maxdepth 1 ! -path ./packages ! -path ./packages/babel-preset \
         | sed 's|^./packages/||' \
-        | xargs -P 8 -I '{}' sh -c '$(MAKE) pkg-build-{} || exit 255'
+        | xargs -I '{}' sh -c '$(MAKE) package-build-{}'
 
-pkgs-types: ##@1 packages build all package types
-	@pnpm tsc --build ./tsconfig.monorepo.json
+package-build-%: ##@1 packages build a package
+	@echo "${YELLOW}Building package ${WHITE}@bitbloom/nivo-${*}${RESET}"
+	@rm -rf ./packages/${*}/dist
+	@export PACKAGE=${*}; NODE_ENV=production BABEL_ENV=production ./node_modules/.bin/rollup -c conf/rollup.config.js
 
-pkgs-types-clean: ##@1 packages clean all package types
-	@pnpm tsc --build --clean ./tsconfig.monorepo.json
+packages-screenshots: ##@1 packages generate screenshots for packages readme (website dev server must be running)
+	@node scripts/capture.js
 
-pkg-types-%: ##@1 packages generate types for a specific package
-	@if [ "$${SKIP_TYPES}" != "TRUE" ]; \
-    then \
-        if [ -f "./packages/${*}/tsconfig.json" ]; \
-		then \
-			echo "${YELLOW}Building TypeScript types for package ${WHITE}@nivo/${*}${RESET}"; \
-			rm -rf ./packages/${*}/dist/types; \
-			rm -rf ./packages/${*}/dist/tsconfig.tsbuildinfo; \
-			pnpm tsc --build ./packages/${*}; \
-        fi \
-	fi;
-
-pkg-build-%: pkg-types-% ##@1 packages build a package
-	@-rm -rf ./packages/${*}/dist/nivo-${*}*
-	@export PACKAGE=${*}; NODE_ENV=production BABEL_ENV=production ./node_modules/.bin/rollup -c conf/rollup.config.mjs
-
-pkgs-screenshots: ##@1 packages generate screenshots for packages readme (website dev server must be running)
-	@node scripts/capture.mjs
-
-pkgs-publish-dry-run: ##@1 packages dry run for packages publication
-	#@$(MAKE) pkgs-build
-	@pnpm lerna publish \
-        --exact \
-        --no-git-tag-version \
-        --no-push \
-        --force-publish \
-        --registry "http://localhost:4873" \
-        --loglevel verbose
-
-pkgs-publish: ##@1 packages publish all packages
-	@$(MAKE) pkgs-build
+packages-publish: ##@1 packages publish all packages
+	@$(MAKE) packages-build
 
 	@echo "${YELLOW}Publishing packages${RESET}"
-	@pnpm lerna publish --exact
+	@./node_modules/.bin/lerna publish --exact
 
-pkgs-publish-next: ##@1 packages publish all packages for @next npm tag
-	@$(MAKE) pkgs-build
+packages-publish-next: ##@1 packages publish all packages for @next npm tag
+	@$(MAKE) packages-build
 
 	@echo "${YELLOW}Publishing packages${RESET}"
-	@pnpm lerna publish --exact --npm-tag=next
+	@./node_modules/.bin/lerna publish --exact --npm-tag=next
 
-pkg-dev-%: ##@1 packages build package (es flavor) on change, eg. `package-watch-bar`
-	@echo "${YELLOW}Running build watcher for package ${WHITE}@nivo/${*}${RESET}"
+package-watch-%: ##@1 packages build package (es flavor) on change, eg. `package-build-watch-bar`
+	@echo "${YELLOW}Running build watcher for package ${WHITE}@bitbloom/nivo-${*}${RESET}"
 	@rm -rf ./packages/${*}/cjs
-	@export PACKAGE=${*}; NODE_ENV=development BABEL_ENV=development ./node_modules/.bin/rollup -c conf/rollup.config.mjs -w
+	@rm -rf ./packages/${*}/umd
+	@export PACKAGE=${*}; NODE_ENV=development BABEL_ENV=development ./node_modules/.bin/rollup -c conf/rollup.config.js -w
+
+package-dev-%: ##@1 packages setup package for development, link to website, run watcher
+	@echo "${YELLOW}Preparing package ${WHITE}${*}${YELLOW} for development${RESET}"
+	@cd packages/${*} && yarn link
+	@cd examples/typescript && yarn link @bitbloom/nivo-${*}
+	@$(MAKE) package-watch-${*}
 
 ########################################################################################################################
 #
-# 2. WEBSITE
+# WEBSITE
 #
 ########################################################################################################################
 
 website-deps-up: ##@2 website interactive upgrade of website's dependencies
-	@pnpm upgrade-interactive --latest
+	@yarn upgrade-interactive --latest
 
 website: ##@2 website start website in dev mode
 	@echo "${YELLOW}Starting website dev server${RESET}"
-	@cd website && pnpm start
+	@cd website && yarn start
 
 website-build: ##@2 website build website
 	@echo "${YELLOW}Building website${RESET}"
-	@-rm -rf website/.cache
-	@cd website && pnpm build
+	@cd website && yarn build
 
 website-serve: ##@2 website build & serve website
 	@$(MAKE) website-build
-	@cd website && pnpm serve
+	@cd website && yarn serve
 
 website-deploy: ##@2 website build & deploy website
 	@$(MAKE) website-build
 
 	@echo "${YELLOW}Deploying website${RESET}"
-	@pnpm gh-pages -d website/public -r git@github.com:plouc/nivo.git -b gh-pages
+	@./node_modules/.bin/gh-pages -d website/public -r git@github.com:plouc/nivo.git -b gh-pages
 
 website-audit: ##@2 website audit website build
-	@cd website && pnpm analyze
-
-website-lint: ##@2 website run eslint on the website code
-	@pnpm eslint ./website/src
+	@cd website && yarn analyze
 
 website-sprites: ##@2 website build sprite sheet
 	@glue --img website/src/assets --css website/src/styles website/src/assets/icons
 
 ########################################################################################################################
 #
-# 3. STORYBOOK
+# STORYBOOK
 #
 ########################################################################################################################
 
 storybook: ##@3 storybook start storybook in dev mode on port 6006
-	@pnpm --filter storybook dev
+	@yarn start-storybook -p 6006
 
 storybook-build: ##@3 storybook build storybook
 	@echo "${YELLOW}Building storybook${RESET}"
-	@pnpm --filter storybook build
+	@yarn build-storybook
 
 storybook-deploy: ##@3 storybook build and deploy storybook
 	@$(MAKE) storybook-build
 
 	@echo "${YELLOW}Deploying storybook${RESET}"
-	@pnpm gh-pages -d storybook/storybook-static -r git@github.com:plouc/nivo.git -b gh-pages -e storybook
-
-
-########################################################################################################################
-#
-# 4. End-to-end tests
-#
-########################################################################################################################
-
-end-to-end-open: ##@4 end-to-end open cypress
-	pnpm --filter nivo-e2e open
-
-end-to-end-test: ##@4 end-to-end build
-	pnpm --filter nivo-e2e test
-
+	@./node_modules/.bin/gh-pages -d storybook-static -r git@github.com:plouc/nivo.git -b gh-pages -e storybook
 
 ########################################################################################################################
 #
-# 5. API
+# EXAMPLES
+#
+########################################################################################################################
+
+examples-install: ##@4 examples install all examples dependencies
+	@$(MAKE) example-install-retro
+	@$(MAKE) example-install-typescript
+
+example-install-%: ##@4 examples install example dependencies, eg. example-install-retro
+	@echo "${YELLOW}Installing ${WHITE}${*}${YELLOW} example dependencies${RESET}"
+	@cd examples/${*} && yarn install
+
+example-deps-up-%: ##@4 examples interactive upgrade of example's dependencies
+	@cd examples/${*} && yarn upgrade-interactive --latest
+
+example-start-%: ##@4 examples start example in dev mode, eg. example-start-retro
+	@echo "${YELLOW}Starting ${WHITE}${*}${YELLOW} example dev server${RESET}"
+	@cd examples/${*} && yarn start
+
+examples-build: ##@4 examples build all examples
+	@$(MAKE) example-build-retro
+	@$(MAKE) example-build-typescript
+
+example-build-%: ##@4 examples build an example, eg. example-build-retro
+	@echo "${YELLOW}Building ${WHITE}${*}${YELLOW} example${RESET}"
+	@cd examples/${*} && yarn build
+
+########################################################################################################################
+#
+# API
 #
 ########################################################################################################################
 
 api-dev: ##@5 API run API in dev mode (watcher)
 	@echo "${YELLOW}Starting API in dev mode${RESET}"
-	@cd api && pnpm dev
+	@cd api && yarn dev
 
 api: ##@5 API run API in regular mode (no watcher)
 	@echo "${YELLOW}Starting API${RESET}"
-	@cd api && pnpm start
+	@cd api && yarn start
 
-api-lint: ##@5 API run eslint on the API code
-	@pnpm eslint ./api/src
-
-api-deploy: ##@5 API Deploy API on heroku
+api-deploy: ##@5 Deploy API on heroku
 	git subtree push --prefix api heroku master
