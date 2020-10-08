@@ -1,5 +1,5 @@
 import { useSpring, animated } from '@react-spring/web'
-import { useAnimatedPath, useMotionConfig } from '@nivo/core'
+import { useAnimatedPath, useMotionConfig } from '@bitbloom/nivo-core'
 import {
     FunnelDatum,
     FunnelPartWithHandlers,

@@ -1,8 +1,8 @@
 import { useCallback, MouseEvent, createElement } from 'react'
 import { Line } from 'd3-shape'
 import { useSpring, animated } from '@react-spring/web'
-import { useAnimatedPath, useMotionConfig } from '@nivo/core'
-import { useTooltip } from '@nivo/tooltip'
+import { useAnimatedPath, useMotionConfig } from '@bitbloom/nivo-core'
+import { useTooltip } from '@bitbloom/nivo-tooltip'
 import {
     BaseDatum,
     ComputedDatum,

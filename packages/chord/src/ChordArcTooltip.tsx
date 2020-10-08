@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { BasicTooltip } from '@nivo/tooltip'
+import { BasicTooltip } from '@bitbloom/nivo-tooltip'
 import { ArcTooltipComponentProps } from './types'
 
 export const ChordArcTooltip = memo(({ arc }: ArcTooltipComponentProps) => (

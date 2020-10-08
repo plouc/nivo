@@ -1,5 +1,5 @@
 import { Fragment, ReactNode, createElement, useMemo } from 'react'
-import { Container, useDimensions, SvgWrapper } from '@nivo/core'
+import { Container, useDimensions, SvgWrapper } from '@bitbloom/nivo-core'
 import { svgDefaultProps } from './defaults'
 import { useNetwork } from './hooks'
 import { NetworkLinks } from './NetworkLinks'

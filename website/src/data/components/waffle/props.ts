@@ -1,4 +1,4 @@
-import { commonDefaultProps, svgDefaultProps } from '@nivo/waffle'
+import { commonDefaultProps, svgDefaultProps } from '@bitbloom/nivo-waffle'
 import {
     themeProperty,
     motionProperties,

@@ -1,6 +1,6 @@
 import { sankeyCenter, sankeyJustify, sankeyLeft, sankeyRight } from 'd3-sankey'
 import { SankeyLayerId, SankeyNodeDatum, SankeyAlignType } from './types'
-import { InheritedColorConfig } from '@nivo/colors'
+import { InheritedColorConfig } from '@bitbloom/nivo-colors'
 import { SankeyNodeTooltip } from './SankeyNodeTooltip'
 import { SankeyLinkTooltip } from './SankeyLinkTooltip'
 

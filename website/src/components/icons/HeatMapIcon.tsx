@@ -1,5 +1,5 @@
 import React from 'react'
-import { HeatMap, HeatMapSvgProps } from '@nivo/heatmap'
+import { HeatMap, HeatMapSvgProps } from '@bitbloom/nivo-heatmap'
 import heatmapLightNeutralImg from '../../assets/icons/heatmap-light-neutral.png'
 import heatmapLightColoredImg from '../../assets/icons/heatmap-light-colored.png'
 import heatmapDarkNeutralImg from '../../assets/icons/heatmap-dark-neutral.png'

@@ -1,4 +1,4 @@
-import { BasicTooltip } from '@nivo/tooltip'
+import { BasicTooltip } from '@bitbloom/nivo-tooltip'
 import { BumpComputedSerie, BumpDatum, BumpSerieExtraProps } from './types'
 
 interface LineTooltipProps<Datum extends BumpDatum, ExtraProps extends BumpSerieExtraProps> {

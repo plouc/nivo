@@ -1,13 +1,13 @@
 import React from 'react'
 import omit from 'lodash/omit'
 import merge from 'lodash/merge'
-import { ResponsiveFunnel, svgDefaultProps } from '@nivo/funnel'
+import { ResponsiveFunnel, svgDefaultProps } from '@bitbloom/nivo-funnel'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/funnel/meta.yml'
 import mapper from '../../data/components/funnel/mapper'
 import { groups } from '../../data/components/funnel/props'
 import { generateLightDataSet } from '../../data/components/funnel/generator'
-import { FunnelDatum, FunnelSvgProps } from '@nivo/funnel/dist/types/types'
+import { FunnelDatum, FunnelSvgProps } from '@bitbloom/nivo-funnel/dist/types/types'
 import { graphql, useStaticQuery } from 'gatsby'
 
 type MappedFunnelProps = Omit<FunnelSvgProps<FunnelDatum>, 'data' | 'width' | 'height'>

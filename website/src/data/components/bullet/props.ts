@@ -1,4 +1,4 @@
-import { defaultProps } from '@nivo/bullet'
+import { defaultProps } from '@bitbloom/nivo-bullet'
 import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
 import { chartDimensions } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'

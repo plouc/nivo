@@ -1,4 +1,4 @@
-import { Margin } from '@nivo/core'
+import { Margin } from '@bitbloom/nivo-core'
 import { ComputedDatum, Datum, WaffleHtmlProps } from './types'
 import { useAreaPathGenerator } from './hooks'
 import { WaffleAreaHtml } from './WaffleAreaHtml'

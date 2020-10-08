@@ -1,4 +1,4 @@
-import { CompleteTheme } from '@nivo/core'
+import { CompleteTheme } from '@bitbloom/nivo-core'
 import { ReactElement } from 'react'
 
 // The types below are from lodash but the babel plugin won't let us import it

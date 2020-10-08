@@ -1,4 +1,4 @@
-import { ResponsiveWrapper } from '@nivo/core'
+import { ResponsiveWrapper } from '@bitbloom/nivo-core'
 import { DefaultTreeMapDatum, TreeMapHtmlProps } from './types'
 import { TreeMapHtml } from './TreeMapHtml'
 

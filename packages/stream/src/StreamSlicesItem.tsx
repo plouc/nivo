@@ -1,5 +1,5 @@
 import { createElement, useCallback, useState, MouseEvent } from 'react'
-import { useTooltip } from '@nivo/tooltip'
+import { useTooltip } from '@bitbloom/nivo-tooltip'
 import { StreamCommonProps, StreamDatum, StreamSliceData } from './types'
 
 interface StreamSlicesItemProps<RawDatum extends StreamDatum> {

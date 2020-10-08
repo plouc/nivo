@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
-import { ComputedNode, ResponsiveNetwork, svgDefaultProps as defaults } from '@nivo/network'
-import { generateNetworkData } from '@nivo/generators'
+import { ComputedNode, ResponsiveNetwork, svgDefaultProps as defaults } from '@bitbloom/nivo-network'
+import { generateNetworkData } from '@bitbloom/nivo-generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/network/meta.yml'
 import mapper, {

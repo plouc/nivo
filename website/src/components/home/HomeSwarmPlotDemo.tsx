@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
-import { generateSwarmPlotData } from '@nivo/generators'
-import { SwarmPlot } from '@nivo/swarmplot'
+import { generateSwarmPlotData } from '@bitbloom/nivo-generators'
+import { SwarmPlot } from '@bitbloom/nivo-swarmplot'
 import { useHomeTheme } from './theme'
 import { dimensions } from './dimensions'
 

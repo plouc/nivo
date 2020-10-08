@@ -1,4 +1,4 @@
-import { Annotation, useAnnotations } from '@nivo/annotations'
+import { Annotation, useAnnotations } from '@bitbloom/nivo-annotations'
 import { BoxPlotAnnotationsProps, ComputedBoxPlotSummary } from './types'
 
 const getPosition = (boxPlot: ComputedBoxPlotSummary) => ({

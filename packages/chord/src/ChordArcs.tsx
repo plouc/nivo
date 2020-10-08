@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import { useTransition } from '@react-spring/web'
-import { useMotionConfig, useTheme } from '@nivo/core'
-import { useInheritedColor } from '@nivo/colors'
+import { useMotionConfig, useTheme } from '@bitbloom/nivo-core'
+import { useInheritedColor } from '@bitbloom/nivo-colors'
 import { ChordArc } from './ChordArc'
 import { ArcDatum, ArcGenerator, ChordCommonProps, ArcAnimatedProps } from './types'
 

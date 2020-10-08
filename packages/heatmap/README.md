@@ -1,9 +1,9 @@
 <a href="https://nivo.rocks"><img alt="nivo" src="https://raw.githubusercontent.com/plouc/nivo/master/nivo.png" width="216" height="68"/></a>
 
-# `@nivo/heatmap`
+# `@bitbloom/nivo-heatmap`
 
-[![version](https://img.shields.io/npm/v/@nivo/heatmap?style=for-the-badge)](https://www.npmjs.com/package/@nivo/heatmap)
-[![downloads](https://img.shields.io/npm/dm/@nivo/heatmap?style=for-the-badge)](https://www.npmjs.com/package/@nivo/heatmap)
+[![version](https://img.shields.io/npm/v/@bitbloom/nivo-heatmap?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-heatmap)
+[![downloads](https://img.shields.io/npm/dm/@bitbloom/nivo-heatmap?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-heatmap)
 
 ## HeatMap
 

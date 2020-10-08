@@ -1,4 +1,4 @@
-import { ResponsiveWrapper } from '@nivo/core'
+import { ResponsiveWrapper } from '@bitbloom/nivo-core'
 import { CalendarCanvas } from './CalendarCanvas'
 import { CalendarCanvasProps } from './types'
 

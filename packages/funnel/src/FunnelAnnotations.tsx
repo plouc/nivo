@@ -1,4 +1,4 @@
-import { Annotation } from '@nivo/annotations'
+import { Annotation } from '@bitbloom/nivo-annotations'
 import { useFunnelAnnotations } from './hooks'
 import { FunnelDatum, FunnelPart } from './types'
 

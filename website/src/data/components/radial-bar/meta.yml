@@ -3,7 +3,7 @@ flavors:
     path: /radial-bar/
 
 RadialBar:
-  package: '@nivo/radial-bar'
+  package: '@bitbloom/nivo-radial-bar'
   tags:
     - radial
     - bar

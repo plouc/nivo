@@ -1,5 +1,5 @@
 import React from 'react'
-import { generateChordData } from '@nivo/generators'
+import { generateChordData } from '@bitbloom/nivo-generators'
 import { Seo } from '../../components/Seo'
 import { ApiClient } from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/chord/props'

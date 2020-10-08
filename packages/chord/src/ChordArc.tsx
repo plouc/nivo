@@ -1,6 +1,6 @@
 import { createElement, memo, useMemo, MouseEvent } from 'react'
 import { SpringValues, animated } from '@react-spring/web'
-import { useTooltip } from '@nivo/tooltip'
+import { useTooltip } from '@bitbloom/nivo-tooltip'
 import { ArcAnimatedProps, ArcDatum, ArcGenerator, ChordCommonProps } from './types'
 import { computeArcPath } from './compute'
 

@@ -1,4 +1,4 @@
-import { BasicTooltip, Chip } from '@nivo/tooltip'
+import { BasicTooltip, Chip } from '@bitbloom/nivo-tooltip'
 import { DefaultLink, DefaultNode, SankeyLinkDatum } from './types'
 
 const tooltipStyles = {

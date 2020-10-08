@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useCallback, useRef } from 'react'
-import { generateDrinkStats } from '@nivo/generators'
-import { LineCanvas } from '@nivo/line'
+import { generateDrinkStats } from '@bitbloom/nivo-generators'
+import { LineCanvas } from '@bitbloom/nivo-line'
 
 const meta: Meta<typeof LineCanvas> = {
     title: 'LineCanvas',

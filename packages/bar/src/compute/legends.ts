@@ -6,7 +6,7 @@ import {
     LegendData,
     LegendLabelDatum,
 } from '../types'
-import { getPropertyAccessor } from '@nivo/core'
+import { getPropertyAccessor } from '@bitbloom/nivo-core'
 import { uniqBy } from 'lodash'
 
 export const getLegendDataForKeys = <RawDatum extends BarDatum>(

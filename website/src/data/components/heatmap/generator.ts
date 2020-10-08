@@ -1,4 +1,4 @@
-import { generateXYSeries, sets } from '@nivo/generators'
+import { generateXYSeries, sets } from '@bitbloom/nivo-generators'
 import { Data } from './types'
 
 export const getLightData = () =>

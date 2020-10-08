@@ -1,4 +1,4 @@
-import { MotionProps, SvgDefsAndFill } from '@nivo/core'
+import { MotionProps, SvgDefsAndFill } from '@bitbloom/nivo-core'
 import { AreaBumpCommonProps, AreaBumpComputedSerie, DefaultAreaBumpDatum } from './types'
 import { AreaTooltip } from './AreaTooltip'
 

@@ -3,7 +3,7 @@ flavors:
     path: /bump/
 
 Bump:
-  package: '@nivo/bump'
+  package: '@bitbloom/nivo-bump'
   tags: []
   stories:
     - label: Custom points

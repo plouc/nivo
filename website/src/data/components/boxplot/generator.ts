@@ -1,4 +1,4 @@
-import { generateBoxPlotData } from '@nivo/generators'
+import { generateBoxPlotData } from '@bitbloom/nivo-generators'
 
 export const generateLightDataSet = () =>
     generateBoxPlotData([

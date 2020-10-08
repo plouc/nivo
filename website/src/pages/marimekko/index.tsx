@@ -1,5 +1,5 @@
 import React from 'react'
-import { ResponsiveMarimekko, defaultProps } from '@nivo/marimekko'
+import { ResponsiveMarimekko, defaultProps } from '@bitbloom/nivo-marimekko'
 import { random, omit } from 'lodash'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/marimekko/meta.yml'

@@ -1,5 +1,5 @@
-import { CssMixBlendMode } from '@nivo/core'
-import { OrdinalColorScaleConfig } from '@nivo/colors'
+import { CssMixBlendMode } from '@bitbloom/nivo-core'
+import { OrdinalColorScaleConfig } from '@bitbloom/nivo-colors'
 import { ChartProperty, Flavor } from '../../types'
 
 export const ordinalColors = ({

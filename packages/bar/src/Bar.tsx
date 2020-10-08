@@ -1,4 +1,4 @@
-import { Axes, Grid } from '@nivo/axes'
+import { Axes, Grid } from '@bitbloom/nivo-axes'
 import { BarAnnotations } from './BarAnnotations'
 import {
     BarCustomLayerProps,
@@ -17,7 +17,7 @@ import {
     bindDefs,
     useDimensions,
     useMotionConfig,
-} from '@nivo/core'
+} from '@bitbloom/nivo-core'
 import { Fragment, ReactNode, createElement, useMemo } from 'react'
 import { svgDefaultProps } from './props'
 import { useTransition } from '@react-spring/web'

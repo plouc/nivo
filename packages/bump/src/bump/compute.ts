@@ -1,5 +1,5 @@
 import { scalePoint } from 'd3-scale'
-import { castPointScale } from '@nivo/scales'
+import { castPointScale } from '@bitbloom/nivo-scales'
 import {
     BumpDataProps,
     BumpDatum,

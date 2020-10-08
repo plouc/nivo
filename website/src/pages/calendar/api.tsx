@@ -1,5 +1,5 @@
 import React from 'react'
-import { generateDayCounts } from '@nivo/generators'
+import { generateDayCounts } from '@bitbloom/nivo-generators'
 import { Seo } from '../../components/Seo'
 import { ApiClient } from '../../components/components/api-client/ApiClient'
 import mapper from '../../data/components/calendar/mapper'

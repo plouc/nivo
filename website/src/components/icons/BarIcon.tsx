@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { Bar, BarSvgProps } from '@nivo/bar'
+import { Bar, BarSvgProps } from '@bitbloom/nivo-bar'
 import barLightNeutralImg from '../../assets/icons/bar-light-neutral.png'
 import barLightColoredImg from '../../assets/icons/bar-light-colored.png'
 import barDarkNeutralImg from '../../assets/icons/bar-dark-neutral.png'

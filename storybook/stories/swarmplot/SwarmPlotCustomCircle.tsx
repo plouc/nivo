@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
-import { Theme } from '@nivo/core'
-import { generateSwarmPlotData } from '@nivo/generators'
-import { useOrdinalColorScale } from '@nivo/colors'
-import { usePie } from '@nivo/pie'
-import { SwarmPlot, CircleProps, SwarmPlotCustomLayerProps } from '@nivo/swarmplot'
+import { Theme } from '@bitbloom/nivo-core'
+import { generateSwarmPlotData } from '@bitbloom/nivo-generators'
+import { useOrdinalColorScale } from '@bitbloom/nivo-colors'
+import { usePie } from '@bitbloom/nivo-pie'
+import { SwarmPlot, CircleProps, SwarmPlotCustomLayerProps } from '@bitbloom/nivo-swarmplot'
 
 type SwarmPlotDatum = ReturnType<typeof generateSwarmPlotData>['data'][number]
 
@@ -132,7 +132,7 @@ export const SwarmPlotCustomCircle = () => {
             axisRight={null}
             axisLeft={null}
             axisBottom={{
-                legend: `custom node rendering with donut charts using usePie() React hook from @nivo/pie package`,
+                legend: `custom node rendering with donut charts using usePie() React hook from @bitbloom/nivo-pie package`,
                 legendPosition: 'middle',
                 legendOffset: 50,
             }}

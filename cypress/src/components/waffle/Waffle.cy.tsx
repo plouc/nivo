@@ -1,4 +1,4 @@
-import { Waffle } from '@nivo/waffle'
+import { Waffle } from '@bitbloom/nivo-waffle'
 
 describe('<Waffle />', () => {
     it('should show a tooltip when hovering the areas', () => {

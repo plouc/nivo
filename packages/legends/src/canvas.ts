@@ -1,4 +1,4 @@
-import { CompleteTheme, degreesToRadians } from '@nivo/core'
+import { CompleteTheme, degreesToRadians } from '@bitbloom/nivo-core'
 import {
     computeDimensions,
     computePositionFromAnchor,

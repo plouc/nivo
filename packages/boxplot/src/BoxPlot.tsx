@@ -1,5 +1,5 @@
 import { Fragment, ReactNode, createElement, useMemo } from 'react'
-import { Axes, Grid } from '@nivo/axes'
+import { Axes, Grid } from '@bitbloom/nivo-axes'
 import {
     CartesianMarkers,
     Container,
@@ -8,7 +8,7 @@ import {
     bindDefs,
     useDimensions,
     useMotionConfig,
-} from '@nivo/core'
+} from '@bitbloom/nivo-core'
 import { BoxPlotAnnotations } from './BoxPlotAnnotations'
 import { BoxPlotLegends } from './BoxPlotLegends'
 import {

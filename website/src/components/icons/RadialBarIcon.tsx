@@ -1,5 +1,5 @@
 import React from 'react'
-import { RadialBar, RadialBarSvgProps } from '@nivo/radial-bar'
+import { RadialBar, RadialBarSvgProps } from '@bitbloom/nivo-radial-bar'
 import imgLightNeutralImg from '../../assets/icons/radial-bar-light-neutral.png'
 import imgLightColoredImg from '../../assets/icons/radial-bar-light-colored.png'
 import imgDarkNeutralImg from '../../assets/icons/radial-bar-dark-neutral.png'

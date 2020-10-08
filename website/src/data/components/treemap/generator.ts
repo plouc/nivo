@@ -1,4 +1,4 @@
-import { generateLibTree } from '@nivo/generators'
+import { generateLibTree } from '@bitbloom/nivo-generators'
 import range from 'lodash/range'
 import random from 'lodash/random'
 

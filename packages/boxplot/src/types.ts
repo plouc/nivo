@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { AnnotationMatcher } from '@nivo/annotations'
-import { AxisProps, GridValues } from '@nivo/axes'
+import { AnnotationMatcher } from '@bitbloom/nivo-annotations'
+import { AxisProps, GridValues } from '@bitbloom/nivo-axes'
 import {
     Box,
     CartesianMarkerProps,
@@ -11,9 +11,9 @@ import {
     SvgDefsAndFill,
     Theme,
     ValueFormat,
-} from '@nivo/core'
-import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
-import { LegendProps } from '@nivo/legends'
+} from '@bitbloom/nivo-core'
+import { InheritedColorConfig, OrdinalColorScaleConfig } from '@bitbloom/nivo-colors'
+import { LegendProps } from '@bitbloom/nivo-legends'
 import {
     ScaleBandSpec,
     AnyScale,
@@ -21,7 +21,7 @@ import {
     ScaleLogSpec,
     ScaleSymlogSpec,
     ScaleTimeSpec,
-} from '@nivo/scales'
+} from '@bitbloom/nivo-scales'
 import { SpringValues } from '@react-spring/web'
 
 export interface BoxPlotDatum {

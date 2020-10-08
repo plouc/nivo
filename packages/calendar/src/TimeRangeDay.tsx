@@ -1,5 +1,5 @@
 import { createElement, memo, useCallback, MouseEvent } from 'react'
-import { useTooltip } from '@nivo/tooltip'
+import { useTooltip } from '@bitbloom/nivo-tooltip'
 import { TimeRangeDayProps } from './types'
 
 export const TimeRangeDay = memo(

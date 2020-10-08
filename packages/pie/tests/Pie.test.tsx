@@ -1,13 +1,13 @@
 import { mount } from 'enzyme'
-import { radiansToDegrees } from '@nivo/core'
+import { radiansToDegrees } from '@bitbloom/nivo-core'
 import {
     ArcShape,
     ArcLabelsLayer,
     ArcLabelComponent as ArcLabel,
     ArcLinkLabelsLayer,
     ArcLinkLabelComponent as ArcLinkLabel,
-} from '@nivo/arcs'
-import { LegendSvgItem, SymbolSquare } from '@nivo/legends'
+} from '@bitbloom/nivo-arcs'
+import { LegendSvgItem, SymbolSquare } from '@bitbloom/nivo-legends'
 // @ts-ignore
 import { Pie } from '../src/index'
 

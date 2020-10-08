@@ -1,5 +1,5 @@
 import { scaleLinear, scalePoint, scaleTime } from 'd3-scale'
-import { castLinearScale } from '@nivo/scales'
+import { castLinearScale } from '@bitbloom/nivo-scales'
 
 export const linearXScale = castLinearScale(scaleLinear().range([0, 280]).domain([0, 80]))
 

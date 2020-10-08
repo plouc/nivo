@@ -1,4 +1,4 @@
-import { ResponsiveAreaBump, ResponsiveBump } from '@nivo/bump'
+import { ResponsiveAreaBump, ResponsiveBump } from '@bitbloom/nivo-bump'
 import { random, range, shuffle } from '../utils'
 import { useChart } from '../hooks'
 

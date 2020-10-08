@@ -1,4 +1,4 @@
-import { defaultVoronoiProps } from '@nivo/voronoi'
+import { defaultVoronoiProps } from '@bitbloom/nivo-voronoi'
 import { groupProperties } from '../../../lib/componentProperties'
 import { chartDimensions } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'

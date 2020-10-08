@@ -1,7 +1,7 @@
 import React from 'react'
 import range from 'lodash/range'
 import random from 'lodash/random'
-import { Stream } from '@nivo/stream'
+import { Stream } from '@bitbloom/nivo-stream'
 import { useHomeTheme } from './theme'
 import { dimensions } from './dimensions'
 

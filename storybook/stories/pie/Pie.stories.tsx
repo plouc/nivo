@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { animated } from '@react-spring/web'
-import { generateProgrammingLanguageStats } from '@nivo/generators'
-import { Pie } from '@nivo/pie'
+import { generateProgrammingLanguageStats } from '@bitbloom/nivo-generators'
+import { Pie } from '@bitbloom/nivo-pie'
 import { nivoTheme } from '../nivo-theme'
 
 const meta: Meta<typeof Pie> = {

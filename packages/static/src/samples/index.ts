@@ -5,7 +5,7 @@ import {
     generateProgrammingLanguageStats,
     generateWinesTastes,
     generateSankeyData,
-} from '@nivo/generators'
+} from '@bitbloom/nivo-generators'
 import { ChartProps, ChartType, LineApiProps } from '../mappings'
 
 const keys = ['hot dogs', 'burgers', 'sandwich', 'kebab', 'fries', 'donut']

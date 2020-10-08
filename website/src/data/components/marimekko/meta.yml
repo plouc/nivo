@@ -3,7 +3,7 @@ flavors:
     path: /marimekko/
 
 Marimekko:
-  package: '@nivo/marimekko'
+  package: '@bitbloom/nivo-marimekko'
   tags: []
   stories:
     - label: using arrays for data

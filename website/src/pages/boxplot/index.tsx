@@ -1,5 +1,5 @@
 import React from 'react'
-import { ResponsiveBoxPlot, svgDefaultProps } from '@nivo/boxplot'
+import { ResponsiveBoxPlot, svgDefaultProps } from '@bitbloom/nivo-boxplot'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/boxplot/meta.yml'
 import mapper from '../../data/components/boxplot/mapper'

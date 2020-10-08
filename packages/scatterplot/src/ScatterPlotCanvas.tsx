@@ -9,12 +9,12 @@ import {
     useState,
     MouseEvent,
 } from 'react'
-import { Container, useDimensions, useTheme, getRelativeCursor, isCursorInRect } from '@nivo/core'
-import { renderAnnotationsToCanvas } from '@nivo/annotations'
-import { CanvasAxisProps, renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
-import { renderLegendToCanvas } from '@nivo/legends'
-import { useTooltip } from '@nivo/tooltip'
-import { useVoronoiMesh, renderVoronoiToCanvas, renderVoronoiCellToCanvas } from '@nivo/voronoi'
+import { Container, useDimensions, useTheme, getRelativeCursor, isCursorInRect } from '@bitbloom/nivo-core'
+import { renderAnnotationsToCanvas } from '@bitbloom/nivo-annotations'
+import { CanvasAxisProps, renderAxesToCanvas, renderGridLinesToCanvas } from '@bitbloom/nivo-axes'
+import { renderLegendToCanvas } from '@bitbloom/nivo-legends'
+import { useTooltip } from '@bitbloom/nivo-tooltip'
+import { useVoronoiMesh, renderVoronoiToCanvas, renderVoronoiCellToCanvas } from '@bitbloom/nivo-voronoi'
 import { canvasDefaultProps, svgDefaultProps } from './props'
 import { useScatterPlot, useScatterPlotAnnotations } from './hooks'
 import { ScatterPlotCanvasProps, ScatterPlotDatum, ScatterPlotNodeData } from './types'

@@ -4,7 +4,7 @@ import {
     absoluteAngleDegrees,
     degreesToRadians,
     positionFromAngle,
-} from '@nivo/core'
+} from '@bitbloom/nivo-core'
 import { defaultProps } from './props'
 import {
     AnnotationPositionGetter,

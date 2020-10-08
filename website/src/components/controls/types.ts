@@ -1,4 +1,4 @@
-import { AnnotationMatcher } from '@nivo/annotations'
+import { AnnotationMatcher } from '@bitbloom/nivo-annotations'
 import { ChartProperty } from '../../types'
 
 export interface SwitchControlAttrs {

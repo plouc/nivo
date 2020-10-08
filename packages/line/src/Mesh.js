@@ -8,8 +8,8 @@
  */
 import { createElement, memo, useCallback } from 'react'
 import PropTypes from 'prop-types'
-import { useTooltip } from '@nivo/tooltip'
-import { Mesh as BaseMesh } from '@nivo/voronoi'
+import { useTooltip } from '@bitbloom/nivo-tooltip'
+import { Mesh as BaseMesh } from '@bitbloom/nivo-voronoi'
 
 const Mesh = ({
     points,

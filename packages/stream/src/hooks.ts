@@ -9,8 +9,8 @@ import {
     stackOrderFromProp,
     // @ts-ignore
     stackOffsetFromProp,
-} from '@nivo/core'
-import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
+} from '@bitbloom/nivo-core'
+import { useInheritedColor, useOrdinalColorScale } from '@bitbloom/nivo-colors'
 import {
     StreamCommonProps,
     StreamCustomLayerProps,
@@ -21,7 +21,7 @@ import {
     StreamSliceData,
 } from './types'
 import { defaultProps } from './props'
-import { createLinearScale, createPointScale } from '@nivo/scales'
+import { createLinearScale, createPointScale } from '@bitbloom/nivo-scales'
 
 export const useStream = <RawDatum extends StreamDatum>({
     width,

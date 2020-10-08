@@ -1,6 +1,6 @@
 import React from 'react'
 import omit from 'lodash/omit'
-import { ResponsiveLineCanvas, LineCanvasDefaultProps } from '@nivo/line'
+import { ResponsiveLineCanvas, LineCanvasDefaultProps } from '@bitbloom/nivo-line'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/line/meta.yml'
 import mapper from '../../data/components/line/mapper'

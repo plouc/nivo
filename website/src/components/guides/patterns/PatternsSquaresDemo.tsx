@@ -1,5 +1,5 @@
 import React from 'react'
-import { Defs, patternSquaresDef, PatternSquares } from '@nivo/core'
+import { Defs, patternSquaresDef, PatternSquares } from '@bitbloom/nivo-core'
 import { ChartProperty } from '../../../types'
 import { GuideDemoBlock } from '../GuideDemoBlock'
 
@@ -74,7 +74,7 @@ const controls: ChartProperty[] = [
 const generateCode = (settings: Settings) =>
     `
 // helper
-import { patternSquaresDef } from '@nivo/core'
+import { patternSquaresDef } from '@bitbloom/nivo-core'
 patternSquaresDef('${patternId}', ${JSON.stringify(settings, null, '  ')})
 // plain object
 ${JSON.stringify(patternSquaresDef(patternId, settings), null, '    ')}

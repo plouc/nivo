@@ -1,6 +1,6 @@
 import { createElement, MouseEvent, useCallback } from 'react'
-import { ArcsLayer, ArcGenerator } from '@nivo/arcs'
-import { useTooltip } from '@nivo/tooltip'
+import { ArcsLayer, ArcGenerator } from '@bitbloom/nivo-arcs'
+import { useTooltip } from '@bitbloom/nivo-tooltip'
 import { ComputedBar, RadialBarCommonProps, RadialBarDatum } from './types'
 
 interface RadialBarArcsProps<D extends RadialBarDatum> {

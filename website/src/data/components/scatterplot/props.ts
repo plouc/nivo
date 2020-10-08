@@ -1,4 +1,4 @@
-import { commonDefaultProps, svgDefaultProps } from '@nivo/scatterplot'
+import { commonDefaultProps, svgDefaultProps } from '@bitbloom/nivo-scatterplot'
 import {
     themeProperty,
     motionProperties,

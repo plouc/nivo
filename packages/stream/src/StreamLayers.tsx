@@ -1,4 +1,4 @@
-import { InheritedColorConfigCustomFunction } from '@nivo/colors'
+import { InheritedColorConfigCustomFunction } from '@bitbloom/nivo-colors'
 import { StreamLayer } from './StreamLayer'
 import { StreamCommonProps, StreamLayerData, StreamDatum } from './types'
 

@@ -1,5 +1,5 @@
 import { Line } from 'd3-shape'
-import { Vertex } from '@nivo/grid'
+import { Vertex } from '@bitbloom/nivo-grid'
 import { ComputedDatum, Datum, WaffleHtmlProps } from './types'
 import { useAreaMouseHandlers } from './hooks'
 

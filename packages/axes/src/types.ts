@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ScaleValue, TicksSpec } from '@nivo/scales'
+import { ScaleValue, TicksSpec } from '@bitbloom/nivo-scales'
 import { SpringValues } from '@react-spring/web'
 
 export type GridValuesBuilder<T> = T extends number

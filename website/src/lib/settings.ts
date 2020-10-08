@@ -1,6 +1,6 @@
 import omit from 'lodash/omit'
 import upperFirst from 'lodash/upperFirst'
-import { AxisProps, CanvasAxisProps } from '@nivo/axes'
+import { AxisProps, CanvasAxisProps } from '@bitbloom/nivo-axes'
 
 export const settingsMapper =
     (mapping: any, { exclude = [] }: { exclude?: string[] } = {}) =>

@@ -1,7 +1,7 @@
 import { mount } from 'enzyme'
-import { ArcShape, ArcLabelsLayer, ArcLabelComponent as ArcLabel } from '@nivo/arcs'
+import { ArcShape, ArcLabelsLayer, ArcLabelComponent as ArcLabel } from '@bitbloom/nivo-arcs'
 // @ts-ignore
-import { linearGradientDef, patternDotsDef } from '@nivo/core'
+import { linearGradientDef, patternDotsDef } from '@bitbloom/nivo-core'
 // @ts-ignore
 import { Sunburst } from '../src'
 

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
-import { svgDefaultProps as defaults } from '@nivo/heatmap'
+import { svgDefaultProps as defaults } from '@bitbloom/nivo-heatmap'
 import { Seo } from '../../components/Seo'
 import { ApiClient } from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/heatmap/props'

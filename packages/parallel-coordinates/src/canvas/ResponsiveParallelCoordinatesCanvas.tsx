@@ -1,4 +1,4 @@
-import { ResponsiveWrapper } from '@nivo/core'
+import { ResponsiveWrapper } from '@bitbloom/nivo-core'
 import { BaseDatum, ParallelCoordinatesCanvasProps } from '../types'
 import { ParallelCoordinatesCanvas } from './ParallelCoordinatesCanvas'
 

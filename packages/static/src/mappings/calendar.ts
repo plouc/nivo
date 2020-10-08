@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react'
 import Joi from 'joi'
-import { Calendar, CalendarSvgProps } from '@nivo/calendar'
+import { Calendar, CalendarSvgProps } from '@bitbloom/nivo-calendar'
 import { custom } from './common'
 import { dimensions } from './commons/dimensions'
 import { OmitStrict } from '../types'

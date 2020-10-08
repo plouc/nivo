@@ -1,5 +1,5 @@
 import { animated } from '@react-spring/web'
-import { useTheme } from '@nivo/core'
+import { useTheme } from '@bitbloom/nivo-core'
 import { GridLabelProps } from './types'
 
 export const RadarGridLabel = ({ id, anchor, animated: animatedProps }: GridLabelProps) => {

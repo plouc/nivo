@@ -7,7 +7,7 @@ flavors:
     path: /bar/api/
 
 Bar:
-  package: '@nivo/bar'
+  package: '@bitbloom/nivo-bar'
   tags: []
   stories:
     - label: Using markers
@@ -45,7 +45,7 @@ Bar:
 
     The responsive alternative of this component is `ResponsiveBar`.
 
-    This component is available in the `@nivo/api`,
+    This component is available in the `@bitbloom/nivo-api`,
     see [sample](api:/samples/bar.svg)
     or [try it using the API client](self:/bar/api).
 
@@ -58,7 +58,7 @@ Bar:
     while `keys` may be used if you have several ones (groups).
 
 BarCanvas:
-  package: '@nivo/bar'
+  package: '@bitbloom/nivo-bar'
   tags:
     - canvas
   stories:

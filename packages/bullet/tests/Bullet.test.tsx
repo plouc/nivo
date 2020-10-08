@@ -1,5 +1,5 @@
 import { mount } from 'enzyme'
-import { AxisTickProps, Axis, AxisTick } from '@nivo/axes'
+import { AxisTickProps, Axis, AxisTick } from '@bitbloom/nivo-axes'
 import { Bullet, BulletItemProps, BulletRectsItemProps } from '../src'
 
 const sampleData = [

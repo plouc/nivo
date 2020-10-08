@@ -1,4 +1,4 @@
-import { commonDefaultProps as defaults, svgDefaultProps as svgDefaults } from '@nivo/heatmap'
+import { commonDefaultProps as defaults, svgDefaultProps as svgDefaults } from '@bitbloom/nivo-heatmap'
 import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
 import {
     chartDimensions,

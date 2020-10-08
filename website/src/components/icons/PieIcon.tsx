@@ -1,5 +1,5 @@
 import React from 'react'
-import { Pie, PieSvgProps } from '@nivo/pie'
+import { Pie, PieSvgProps } from '@bitbloom/nivo-pie'
 import pieLightNeutralImg from '../../assets/icons/pie-light-neutral.png'
 import pieLightColoredImg from '../../assets/icons/pie-light-colored.png'
 import pieDarkNeutralImg from '../../assets/icons/pie-dark-neutral.png'

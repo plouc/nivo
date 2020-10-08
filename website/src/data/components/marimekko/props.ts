@@ -1,5 +1,5 @@
-import { defaultProps as defaults, offsetById } from '@nivo/marimekko'
-import { OrdinalColorScaleConfig } from '@nivo/colors'
+import { defaultProps as defaults, offsetById } from '@bitbloom/nivo-marimekko'
+import { OrdinalColorScaleConfig } from '@bitbloom/nivo-colors'
 import {
     themeProperty,
     defsProperties,

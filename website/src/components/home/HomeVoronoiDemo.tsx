@@ -1,6 +1,6 @@
 import React from 'react'
 import range from 'lodash/range'
-import { Voronoi } from '@nivo/voronoi'
+import { Voronoi } from '@bitbloom/nivo-voronoi'
 import { useHomeTheme } from './theme'
 import { dimensions } from './dimensions'
 

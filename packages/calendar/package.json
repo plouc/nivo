@@ -1,5 +1,5 @@
 {
-    "name": "@nivo/calendar",
+    "name": "@bitbloom/nivo-calendar",
     "version": "0.83.0",
     "license": "MIT",
     "author": {
@@ -8,7 +8,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/plouc/nivo.git",
+        "url": "git@github.com:BitBloomTech/nivo.git",
         "directory": "packages/calendar"
     },
     "keywords": [
@@ -29,9 +29,9 @@
         "!dist/tsconfig.tsbuildinfo"
     ],
     "dependencies": {
-        "@nivo/core": "workspace:*",
-        "@nivo/legends": "workspace:*",
-        "@nivo/tooltip": "workspace:*",
+        "@bitbloom/nivo-core": "workspace:*",
+        "@bitbloom/nivo-legends": "workspace:*",
+        "@bitbloom/nivo-tooltip": "workspace:*",
         "@types/d3-scale": "^3.2.3",
         "@types/d3-time": "^1.0.10",
         "@types/d3-time-format": "^3.0.0",

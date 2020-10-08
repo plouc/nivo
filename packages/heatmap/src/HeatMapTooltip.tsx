@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { BasicTooltip } from '@nivo/tooltip'
+import { BasicTooltip } from '@bitbloom/nivo-tooltip'
 import { HeatMapDatum, TooltipProps } from './types'
 
 const NonMemoizedHeatMapTooltip = <Datum extends HeatMapDatum>({ cell }: TooltipProps<Datum>) => {

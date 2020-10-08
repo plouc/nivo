@@ -1,4 +1,4 @@
-import { BasicTooltip } from '@nivo/tooltip'
+import { BasicTooltip } from '@bitbloom/nivo-tooltip'
 import { ScatterPlotTooltipProps, ScatterPlotDatum } from './types'
 
 export const Tooltip = <RawDatum extends ScatterPlotDatum>({

@@ -1,6 +1,6 @@
 import { SVGAttributes } from 'react'
 import { useSpring, animated, to } from '@react-spring/web'
-import { useMotionConfig } from '@nivo/core'
+import { useMotionConfig } from '@bitbloom/nivo-core'
 import { BumpDatum, BumpPoint, BumpSerieExtraProps } from './types'
 
 const pointStyle: SVGAttributes<SVGCircleElement>['style'] = { pointerEvents: 'none' }

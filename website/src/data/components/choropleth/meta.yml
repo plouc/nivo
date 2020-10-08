@@ -5,7 +5,7 @@ flavors:
     path: /choropleth/canvas/
 
 Choropleth:
-  package: '@nivo/geo'
+  package: '@bitbloom/nivo-geo'
   tags:
     - map
   stories: []
@@ -36,7 +36,7 @@ Choropleth:
     when you have complex geometries as it offers better performance.
 
 ChoroplethCanvas:
-  package: '@nivo/geo'
+  package: '@bitbloom/nivo-geo'
   tags:
     - map
     - canvas

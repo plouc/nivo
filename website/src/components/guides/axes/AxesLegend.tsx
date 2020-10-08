@@ -3,8 +3,8 @@ import {
     ThemeProvider,
     // @ts-ignore
     MotionConfigProvider,
-} from '@nivo/core'
-import { Axis } from '@nivo/axes'
+} from '@bitbloom/nivo-core'
+import { Axis } from '@bitbloom/nivo-axes'
 import { linearXScale, linearYScale } from './scales'
 import { FullWidthBanner, DescriptionBlock } from '../../styled'
 import { useAxisTheme } from './theme'

@@ -1,5 +1,5 @@
 {
-    "name": "@nivo/radial-bar",
+    "name": "@bitbloom/nivo-radial-bar",
     "version": "0.83.0",
     "license": "MIT",
     "author": {
@@ -29,13 +29,13 @@
         "!dist/tsconfig.tsbuildinfo"
     ],
     "dependencies": {
-        "@nivo/arcs": "workspace:*",
-        "@nivo/colors": "workspace:*",
-        "@nivo/core": "workspace:*",
-        "@nivo/legends": "workspace:*",
-        "@nivo/polar-axes": "workspace:*",
-        "@nivo/scales": "workspace:*",
-        "@nivo/tooltip": "workspace:*",
+        "@bitbloom/nivo-arcs": "workspace:*",
+        "@bitbloom/nivo-colors": "workspace:*",
+        "@bitbloom/nivo-core": "workspace:*",
+        "@bitbloom/nivo-legends": "workspace:*",
+        "@bitbloom/nivo-polar-axes": "workspace:*",
+        "@bitbloom/nivo-scales": "workspace:*",
+        "@bitbloom/nivo-tooltip": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",
         "@types/d3-scale": "^3.2.3",
         "@types/d3-shape": "^2.0.0",

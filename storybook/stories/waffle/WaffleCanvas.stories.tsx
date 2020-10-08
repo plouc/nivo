@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { WaffleCanvas } from '@nivo/waffle'
+import { WaffleCanvas } from '@bitbloom/nivo-waffle'
 import { CustomTooltip as CustomTooltipComponent } from './CustomTooltip'
 
 const meta: Meta<typeof WaffleCanvas> = {

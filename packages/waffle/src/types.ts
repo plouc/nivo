@@ -1,9 +1,9 @@
 import { AriaAttributes, FunctionComponent, MouseEvent } from 'react'
 import { SpringValues } from '@react-spring/web'
-import { Box, Dimensions, Theme, SvgDefsAndFill, MotionProps, ValueFormat } from '@nivo/core'
-import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
-import { LegendProps } from '@nivo/legends'
-import { Vertex, GridCell, GridFillDirection } from '@nivo/grid'
+import { Box, Dimensions, Theme, SvgDefsAndFill, MotionProps, ValueFormat } from '@bitbloom/nivo-core'
+import { InheritedColorConfig, OrdinalColorScaleConfig } from '@bitbloom/nivo-colors'
+import { LegendProps } from '@bitbloom/nivo-legends'
+import { Vertex, GridCell, GridFillDirection } from '@bitbloom/nivo-grid'
 
 export type DatumId = string | number
 

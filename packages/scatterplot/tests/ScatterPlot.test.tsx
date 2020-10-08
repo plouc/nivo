@@ -1,8 +1,8 @@
 import { mount } from 'enzyme'
-import { Axis, AxisTick } from '@nivo/axes'
-import { Annotation } from '@nivo/annotations'
+import { Axis, AxisTick } from '@bitbloom/nivo-axes'
+import { Annotation } from '@bitbloom/nivo-annotations'
 // @ts-ignore
-import { CartesianMarkersItem } from '@nivo/core'
+import { CartesianMarkersItem } from '@bitbloom/nivo-core'
 // @ts-ignore
 import { ScatterPlot, ScatterPlotNodeData } from '../src'
 import { Tooltip } from '../src/Tooltip'

@@ -1,4 +1,4 @@
-import { Annotation } from '@nivo/annotations'
+import { Annotation } from '@bitbloom/nivo-annotations'
 import { ComputedCell, HeatMapCommonProps, HeatMapDatum } from './types'
 import { useCellAnnotations } from './hooks'
 

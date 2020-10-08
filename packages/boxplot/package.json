@@ -1,5 +1,5 @@
 {
-    "name": "@nivo/boxplot",
+    "name": "@bitbloom/nivo-boxplot",
     "version": "0.83.0",
     "license": "MIT",
     "author": {
@@ -34,13 +34,13 @@
         "!dist/tsconfig.tsbuildinfo"
     ],
     "dependencies": {
-        "@nivo/annotations": "workspace:*",
-        "@nivo/axes": "workspace:*",
-        "@nivo/colors": "workspace:*",
-        "@nivo/core": "workspace:*",
-        "@nivo/legends": "workspace:*",
-        "@nivo/scales": "workspace:*",
-        "@nivo/tooltip": "workspace:*",
+        "@bitbloom/nivo-annotations": "workspace:*",
+        "@bitbloom/nivo-axes": "workspace:*",
+        "@bitbloom/nivo-colors": "workspace:*",
+        "@bitbloom/nivo-core": "workspace:*",
+        "@bitbloom/nivo-legends": "workspace:*",
+        "@bitbloom/nivo-scales": "workspace:*",
+        "@bitbloom/nivo-tooltip": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",
         "@types/d3-scale": "^3.2.3",
         "@types/d3-shape": "^2.0.0",

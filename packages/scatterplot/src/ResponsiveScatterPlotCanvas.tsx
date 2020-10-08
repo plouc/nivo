@@ -1,4 +1,4 @@
-import { ResponsiveWrapper } from '@nivo/core'
+import { ResponsiveWrapper } from '@bitbloom/nivo-core'
 import { ForwardedRef, forwardRef } from 'react'
 
 import { ScatterPlotCanvas } from './ScatterPlotCanvas'

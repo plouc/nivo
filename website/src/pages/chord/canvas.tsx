@@ -1,6 +1,6 @@
 import React from 'react'
-import { generateChordData } from '@nivo/generators'
-import { ResponsiveChordCanvas, canvasDefaultProps } from '@nivo/chord'
+import { generateChordData } from '@bitbloom/nivo-generators'
+import { ResponsiveChordCanvas, canvasDefaultProps } from '@bitbloom/nivo-chord'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/chord/meta.yml'
 import mapper from '../../data/components/chord/mapper'

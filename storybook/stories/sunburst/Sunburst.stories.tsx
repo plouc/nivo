@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
-import { linearGradientDef, patternDotsDef, useTheme } from '@nivo/core'
-import { generateLibTree } from '@nivo/generators'
-import { colorSchemes } from '@nivo/colors'
-import { Sunburst, ComputedDatum, SunburstCustomLayerProps } from '@nivo/sunburst'
+import { linearGradientDef, patternDotsDef, useTheme } from '@bitbloom/nivo-core'
+import { generateLibTree } from '@bitbloom/nivo-generators'
+import { colorSchemes } from '@bitbloom/nivo-colors'
+import { Sunburst, ComputedDatum, SunburstCustomLayerProps } from '@bitbloom/nivo-sunburst'
 
 const meta: Meta<typeof Sunburst> = {
     title: 'Sunburst',

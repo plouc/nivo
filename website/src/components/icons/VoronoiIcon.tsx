@@ -1,5 +1,5 @@
 import React from 'react'
-import { Voronoi, VoronoiSvgProps } from '@nivo/voronoi'
+import { Voronoi, VoronoiSvgProps } from '@bitbloom/nivo-voronoi'
 import voronoiLightNeutralImg from '../../assets/icons/voronoi-light-neutral.png'
 import voronoiLightColoredImg from '../../assets/icons/voronoi-light-colored.png'
 import voronoiDarkNeutralImg from '../../assets/icons/voronoi-dark-neutral.png'

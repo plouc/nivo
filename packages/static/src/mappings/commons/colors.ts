@@ -1,5 +1,5 @@
 import Joi from 'joi'
-import { colorSchemeIds } from '@nivo/colors'
+import { colorSchemeIds } from '@bitbloom/nivo-colors'
 
 export const ordinalColors = Joi.alternatives().try(
     Joi.array().items(Joi.string()),

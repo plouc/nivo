@@ -8,8 +8,8 @@ import {
     PropertyAccessor,
     MotionProps,
     SvgDefsAndFill,
-} from '@nivo/core'
-import { InheritedColorConfig, OrdinalColorScaleConfig, DatumIdentityAccessor } from '@nivo/colors'
+} from '@bitbloom/nivo-core'
+import { InheritedColorConfig, OrdinalColorScaleConfig, DatumIdentityAccessor } from '@bitbloom/nivo-colors'
 import { TileType } from './tiling'
 
 export interface DefaultTreeMapDatum {

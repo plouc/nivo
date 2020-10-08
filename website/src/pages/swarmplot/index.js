@@ -1,5 +1,5 @@
 import React from 'react'
-import { ResponsiveSwarmPlot, defaultProps } from '@nivo/swarmplot'
+import { ResponsiveSwarmPlot, defaultProps } from '@bitbloom/nivo-swarmplot'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/swarmplot/meta.yml'
 import mapper from '../../data/components/swarmplot/mapper'

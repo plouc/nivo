@@ -1,6 +1,6 @@
 import React from 'react'
-import { Bar } from '@nivo/bar'
-import { generateCountriesData } from '@nivo/generators'
+import { Bar } from '@bitbloom/nivo-bar'
+import { generateCountriesData } from '@bitbloom/nivo-generators'
 import { useHomeTheme } from './theme'
 import { dimensions } from './dimensions'
 

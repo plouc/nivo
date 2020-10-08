@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useRef } from 'react'
-import { generateNetworkData } from '@nivo/generators'
-import { NetworkCanvas, NetworkCanvasProps, ComputedNode, NodeTooltipProps } from '@nivo/network'
+import { generateNetworkData } from '@bitbloom/nivo-generators'
+import { NetworkCanvas, NetworkCanvasProps, ComputedNode, NodeTooltipProps } from '@bitbloom/nivo-network'
 
 const meta: Meta<typeof NetworkCanvas> = {
     title: 'NetworkCanvas',

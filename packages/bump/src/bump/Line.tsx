@@ -1,6 +1,6 @@
 import { useSpring, animated } from '@react-spring/web'
 import { Line as D3Line } from 'd3-shape'
-import { useAnimatedPath, useMotionConfig } from '@nivo/core'
+import { useAnimatedPath, useMotionConfig } from '@bitbloom/nivo-core'
 import { BumpCommonProps, BumpComputedSerie, BumpDatum, BumpSerieExtraProps } from './types'
 import { useBumpSerieHandlers } from './hooks'
 

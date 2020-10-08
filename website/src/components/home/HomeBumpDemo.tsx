@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { Bump } from '@nivo/bump'
+import { Bump } from '@bitbloom/nivo-bump'
 import { useHomeTheme } from './theme'
 import { dimensions } from './dimensions'
 import range from 'lodash/range'

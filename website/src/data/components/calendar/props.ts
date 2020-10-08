@@ -1,4 +1,4 @@
-import { calendarDefaultProps as defaults } from '@nivo/calendar'
+import { calendarDefaultProps as defaults } from '@bitbloom/nivo-calendar'
 import { themeProperty, groupProperties } from '../../../lib/componentProperties'
 import { chartDimensions, isInteractive } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'

@@ -1,5 +1,5 @@
 import { CSSProperties, memo, ReactNode } from 'react'
-import { useTheme } from '@nivo/core'
+import { useTheme } from '@bitbloom/nivo-core'
 
 const tableStyle = {
     width: '100%',

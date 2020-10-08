@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import * as uuid from 'uuid'
 import { forOwn } from 'lodash'
-import { chartsMapping, ChartType, renderChart, samples } from '@nivo/static'
+import { chartsMapping, ChartType, renderChart, samples } from '@bitbloom/nivo-static'
 import { validate } from './validation'
 import * as storage from './memory-storage'
 

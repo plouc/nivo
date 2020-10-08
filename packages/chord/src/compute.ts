@@ -11,7 +11,7 @@ import {
     ArcGenerator,
     ArcAnimatedProps,
 } from './types'
-import { OrdinalColorScale } from '@nivo/colors'
+import { OrdinalColorScale } from '@bitbloom/nivo-colors'
 
 export const computeChordLayout = ({ padAngle }: { padAngle: ChordCommonProps['padAngle'] }) =>
     d3Chord().padAngle(padAngle)

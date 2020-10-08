@@ -1,6 +1,6 @@
 import { BulletMarkersItem } from './BulletMarkersItem'
 import { BulletRectsItem } from './BulletRectsItem'
-import { motionDefaultProps, defaultMargin } from '@nivo/core'
+import { motionDefaultProps, defaultMargin } from '@bitbloom/nivo-core'
 import { BulletTooltip } from './BulletTooltip'
 
 export const defaultProps = {

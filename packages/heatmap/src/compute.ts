@@ -1,5 +1,5 @@
 import { scaleBand, scaleLinear } from 'd3-scale'
-import { castBandScale } from '@nivo/scales'
+import { castBandScale } from '@bitbloom/nivo-scales'
 import {
     ComputedCell,
     HeatMapCommonProps,

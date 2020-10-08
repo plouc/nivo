@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { Fragment } from 'react'
 import { random } from 'lodash'
-import { Marimekko, Layout } from '@nivo/marimekko'
+import { Marimekko, Layout } from '@bitbloom/nivo-marimekko'
 
 const meta: Meta<typeof Marimekko> = {
     title: 'Marimekko',

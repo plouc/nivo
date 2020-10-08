@@ -2,9 +2,9 @@ import { useEffect, useState, Fragment } from 'react'
 import styled from 'styled-components'
 import { startCase, sum, random } from 'lodash'
 import { randomNormal } from 'd3-random'
-import { ResponsiveWaffle } from '@nivo/waffle'
-import { ResponsiveBar } from '@nivo/bar'
-import { ResponsiveFunnel } from '@nivo/funnel'
+import { ResponsiveWaffle } from '@bitbloom/nivo-waffle'
+import { ResponsiveBar } from '@bitbloom/nivo-bar'
+import { ResponsiveFunnel } from '@bitbloom/nivo-funnel'
 
 const steps = ['sent', 'viewed', 'clicked', 'add_to_card', 'purchased']
 const baseValue = 100000
@@ -223,8 +223,8 @@ export const FunnelWithClustering = () => {
                 arbitrary clustering across each step.
                 <br />
                 Here we&apos;re using the <code>Waffle</code> component from the{' '}
-                <code>@nivo/waffle</code> package to show clustering by gender, and the{' '}
-                <code>Bar</code> component from <code>@nivo/bar</code> to show the repartition by
+                <code>@bitbloom/nivo-waffle</code> package to show clustering by gender, and the{' '}
+                <code>Bar</code> component from <code>@bitbloom/nivo-bar</code> to show the repartition by
                 age.
                 <br />
                 In order to align the charts with the funnel, we&apos;re using a CSS grid.

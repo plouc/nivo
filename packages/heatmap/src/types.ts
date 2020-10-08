@@ -8,11 +8,11 @@ import {
     MotionProps,
     PropertyAccessor,
     ValueFormat,
-} from '@nivo/core'
-import { AxisProps, CanvasAxisProps } from '@nivo/axes'
-import { InheritedColorConfig, ContinuousColorScaleConfig } from '@nivo/colors'
-import { AnchoredContinuousColorsLegendProps } from '@nivo/legends'
-import { AnnotationMatcher } from '@nivo/annotations'
+} from '@bitbloom/nivo-core'
+import { AxisProps, CanvasAxisProps } from '@bitbloom/nivo-axes'
+import { InheritedColorConfig, ContinuousColorScaleConfig } from '@bitbloom/nivo-colors'
+import { AnchoredContinuousColorsLegendProps } from '@bitbloom/nivo-legends'
+import { AnnotationMatcher } from '@bitbloom/nivo-annotations'
 
 export interface HeatMapDatum {
     x: string | number

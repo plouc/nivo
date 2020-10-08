@@ -5,8 +5,8 @@ import {
     ResponsiveParallelCoordinatesCanvas,
     commonDefaultProps,
     ParallelCoordinatesCanvasProps,
-} from '@nivo/parallel-coordinates'
-import { generateGroupedParallelCoordinatesData } from '@nivo/generators'
+} from '@bitbloom/nivo-parallel-coordinates'
+import { generateGroupedParallelCoordinatesData } from '@bitbloom/nivo-generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/parallel-coordinates/meta.yml'
 import mapper from '../../data/components/parallel-coordinates/mapper'

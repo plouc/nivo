@@ -8,9 +8,9 @@ import {
     MotionProps,
     PropertyAccessor,
     ValueFormat,
-} from '@nivo/core'
-import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
-import { LegendProps } from '@nivo/legends'
+} from '@bitbloom/nivo-core'
+import { InheritedColorConfig, OrdinalColorScaleConfig } from '@bitbloom/nivo-colors'
+import { LegendProps } from '@bitbloom/nivo-legends'
 
 export interface SankeyRawNode {
     id: string

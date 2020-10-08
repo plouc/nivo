@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState, useEffect } from 'react'
 import { line, curveLinearClosed } from 'd3-shape'
-import { Voronoi, VoronoiCustomLayerProps } from '@nivo/voronoi'
+import { Voronoi, VoronoiCustomLayerProps } from '@bitbloom/nivo-voronoi'
 
 const meta: Meta<typeof Voronoi> = {
     title: 'Voronoi',

@@ -1,5 +1,5 @@
 import { useSpring, animated } from '@react-spring/web'
-import { useTheme, useMotionConfig } from '@nivo/core'
+import { useTheme, useMotionConfig } from '@bitbloom/nivo-core'
 import { SeparatorProps as SeparatorType } from './types'
 
 interface SeparatorProps {

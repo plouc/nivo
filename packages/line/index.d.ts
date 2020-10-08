@@ -16,12 +16,12 @@ import {
     SvgDefsAndFill,
     ValueFormat,
     DatumValue as CoreDatumValue,
-} from '@nivo/core'
-import { OrdinalColorScaleConfig } from '@nivo/colors'
-import { LegendProps } from '@nivo/legends'
-import { ScaleSpec, Scale, TicksSpec } from '@nivo/scales'
-import { AxisProps } from '@nivo/axes'
-import { CrosshairType } from '@nivo/tooltip'
+} from '@bitbloom/nivo-core'
+import { OrdinalColorScaleConfig } from '@bitbloom/nivo-colors'
+import { LegendProps } from '@bitbloom/nivo-legends'
+import { ScaleSpec, Scale, TicksSpec } from '@bitbloom/nivo-scales'
+import { AxisProps } from '@bitbloom/nivo-axes'
+import { CrosshairType } from '@bitbloom/nivo-tooltip'
 import { Line as D3Line } from 'd3-shape'
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>

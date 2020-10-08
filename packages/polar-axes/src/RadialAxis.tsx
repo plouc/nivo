@@ -1,7 +1,7 @@
 import { createElement, useMemo } from 'react'
 import { useSpring, useTransition, animated } from '@react-spring/web'
-import { useMotionConfig, normalizeAngle } from '@nivo/core'
-import { AnyScale, getScaleTicks } from '@nivo/scales'
+import { useMotionConfig, normalizeAngle } from '@bitbloom/nivo-core'
+import { AnyScale, getScaleTicks } from '@bitbloom/nivo-scales'
 import { RadialAxisConfig, RadialAxisTickAnimatedProps } from './types'
 import { RadialAxisTick } from './RadialAxisTick'
 

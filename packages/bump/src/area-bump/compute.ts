@@ -1,5 +1,5 @@
 import { scalePoint, scaleLinear } from 'd3-scale'
-import { castPointScale, castLinearScale, ScalePoint, ScaleLinear } from '@nivo/scales'
+import { castPointScale, castLinearScale, ScalePoint, ScaleLinear } from '@bitbloom/nivo-scales'
 import {
     AreaBumpCommonProps,
     AreaBumpComputedSerie,

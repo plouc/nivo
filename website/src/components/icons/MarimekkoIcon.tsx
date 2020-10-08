@@ -1,5 +1,5 @@
 import React from 'react'
-import { Marimekko, SvgProps } from '@nivo/marimekko'
+import { Marimekko, SvgProps } from '@bitbloom/nivo-marimekko'
 import marimekkoLightNeutralImg from '../../assets/icons/marimekko-light-neutral.png'
 import marimekkoLightColoredImg from '../../assets/icons/marimekko-light-colored.png'
 import marimekkoDarkNeutralImg from '../../assets/icons/marimekko-dark-neutral.png'

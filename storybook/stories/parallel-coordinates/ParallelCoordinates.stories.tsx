@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react'
 import {
     generateParallelCoordinatesData,
     generateGroupedParallelCoordinatesData,
-} from '@nivo/generators'
-import { ParallelCoordinates, ParallelCoordinatesProps } from '@nivo/parallel-coordinates'
+} from '@bitbloom/nivo-generators'
+import { ParallelCoordinates, ParallelCoordinatesProps } from '@bitbloom/nivo-parallel-coordinates'
 import { nivoTheme } from '../nivo-theme'
 import { CustomTooltip as CustomTooltipComponent } from './CustomTooltip'
 

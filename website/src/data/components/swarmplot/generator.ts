@@ -1,4 +1,4 @@
-import { generateSwarmPlotData, randomizeSwarmPlotData } from '@nivo/generators'
+import { generateSwarmPlotData, randomizeSwarmPlotData } from '@bitbloom/nivo-generators'
 
 const allGroups = ['group A', 'group B', 'group C', 'group D', 'group E', 'group F', 'group G']
 

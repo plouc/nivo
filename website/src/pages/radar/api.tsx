@@ -1,5 +1,5 @@
 import React from 'react'
-import { generateWinesTastes } from '@nivo/generators'
+import { generateWinesTastes } from '@bitbloom/nivo-generators'
 import { Seo } from '../../components/Seo'
 import { ApiClient } from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/radar/props'

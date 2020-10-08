@@ -1,7 +1,7 @@
 import renderer from 'react-test-renderer'
 import { mount } from 'enzyme'
 // @ts-ignore
-import { ThemeProvider } from '@nivo/core'
+import { ThemeProvider } from '@bitbloom/nivo-core'
 import { LegendSvgItem } from '../../src'
 import * as shapes from '../../src/svg/symbols'
 

@@ -55,7 +55,7 @@ const delay = time =>
 const captureChart = async (page, { pkg, chart, flavor, theme }) => {
     const url = getChartUrl(chart, flavor)
 
-    console.log(chalk`{yellow Capturing chart {white ${chart}}} {dim (package: @nivo/${pkg}, flavor: ${flavor}, url: ${url})}`)
+    console.log(chalk`{yellow Capturing chart {white ${chart}}} {dim (package: @bitbloom/nivo-${pkg}, flavor: ${flavor}, url: ${url})}`)
 
     await page.setViewport(VIEWPORT.chart)
     await page.goto(url)

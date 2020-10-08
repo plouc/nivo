@@ -7,10 +7,10 @@ import {
     useValueFormatter,
     // @ts-ignore
     bindDefs,
-} from '@nivo/core'
-import { useTooltip } from '@nivo/tooltip'
-import { OrdinalColorScaleConfig, useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
-import { generateGrid, GridCell, GridFillDirection, Vertex, getCellsPolygons } from '@nivo/grid'
+} from '@bitbloom/nivo-core'
+import { useTooltip } from '@bitbloom/nivo-tooltip'
+import { OrdinalColorScaleConfig, useInheritedColor, useOrdinalColorScale } from '@bitbloom/nivo-colors'
+import { generateGrid, GridCell, GridFillDirection, Vertex, getCellsPolygons } from '@bitbloom/nivo-grid'
 import {
     CommonProps,
     ComputedDatum,

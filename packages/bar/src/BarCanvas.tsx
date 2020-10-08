@@ -12,7 +12,7 @@ import {
     isCursorInRect,
     useDimensions,
     useTheme,
-} from '@nivo/core'
+} from '@bitbloom/nivo-core'
 import {
     ForwardedRef,
     createElement,
@@ -27,10 +27,10 @@ import {
     renderAnnotationsToCanvas,
     useAnnotations,
     useComputedAnnotations,
-} from '@nivo/annotations'
-import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
-import { renderLegendToCanvas } from '@nivo/legends'
-import { useTooltip } from '@nivo/tooltip'
+} from '@bitbloom/nivo-annotations'
+import { renderAxesToCanvas, renderGridLinesToCanvas } from '@bitbloom/nivo-axes'
+import { renderLegendToCanvas } from '@bitbloom/nivo-legends'
+import { useTooltip } from '@bitbloom/nivo-tooltip'
 import { useBar } from './hooks'
 
 type InnerBarCanvasProps<RawDatum extends BarDatum> = Omit<

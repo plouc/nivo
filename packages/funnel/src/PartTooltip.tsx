@@ -1,4 +1,4 @@
-import { BasicTooltip } from '@nivo/tooltip'
+import { BasicTooltip } from '@bitbloom/nivo-tooltip'
 import { FunnelDatum, FunnelPartWithHandlers } from './types'
 
 export interface PartTooltipProps<D extends FunnelDatum> {

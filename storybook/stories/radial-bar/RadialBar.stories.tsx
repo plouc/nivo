@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useEffect, useMemo, useState } from 'react'
-import { Theme } from '@nivo/core'
-import { categoricalColorSchemes } from '@nivo/colors'
+import { Theme } from '@bitbloom/nivo-core'
+import { categoricalColorSchemes } from '@bitbloom/nivo-colors'
 import {
     RadialBar,
     RadialBarSvgProps,
     RadialBarCustomLayerProps,
     svgDefaultProps,
-} from '@nivo/radial-bar'
+} from '@bitbloom/nivo-radial-bar'
 
 const meta: Meta<typeof RadialBar> = {
     title: 'RadialBar',

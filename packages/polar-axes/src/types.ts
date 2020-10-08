@@ -1,5 +1,5 @@
 import { AnimatedProps } from '@react-spring/web'
-import { ValueFormat } from '@nivo/core'
+import { ValueFormat } from '@bitbloom/nivo-core'
 import { FunctionComponent } from 'react'
 
 export interface RadialAxisTickAnimatedProps {

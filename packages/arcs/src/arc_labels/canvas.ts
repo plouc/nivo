@@ -1,4 +1,4 @@
-import { CompleteTheme } from '@nivo/core'
+import { CompleteTheme } from '@bitbloom/nivo-core'
 import { DatumWithArcAndColor } from '../types'
 import { ArcLabel } from './useArcLabels'
 

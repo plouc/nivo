@@ -1,5 +1,5 @@
-import { patternDotsDef, patternSquaresDef } from '@nivo/core'
-import { defaultProps, svgDefaultProps } from '@nivo/stream'
+import { patternDotsDef, patternSquaresDef } from '@bitbloom/nivo-core'
+import { defaultProps, svgDefaultProps } from '@bitbloom/nivo-stream'
 
 export default {
     label: defaultProps.label,

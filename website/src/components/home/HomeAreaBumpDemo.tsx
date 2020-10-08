@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import random from 'lodash/random'
-import { AreaBump } from '@nivo/bump'
+import { AreaBump } from '@bitbloom/nivo-bump'
 import { useHomeTheme } from './theme'
 import { dimensions } from './dimensions'
 import range from 'lodash/range'

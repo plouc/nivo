@@ -1,5 +1,5 @@
 import uniq from 'lodash/uniq'
-import { defaultAnimate } from '@nivo/core'
+import { defaultAnimate } from '@bitbloom/nivo-core'
 import { Flavor, ChartProperty } from '../types'
 
 export const themeProperty = (flavors: Flavor[]): ChartProperty => ({

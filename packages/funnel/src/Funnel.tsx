@@ -1,5 +1,5 @@
 import { createElement, Fragment, ReactNode } from 'react'
-import { SvgWrapper, Container, useDimensions } from '@nivo/core'
+import { SvgWrapper, Container, useDimensions } from '@bitbloom/nivo-core'
 import { svgDefaultProps } from './props'
 import { useFunnel } from './hooks'
 import { Parts } from './Parts'

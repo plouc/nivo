@@ -7,7 +7,7 @@ flavors:
     path: /waffle/canvas/
 
 Waffle:
-  package: '@nivo/waffle'
+  package: '@bitbloom/nivo-waffle'
   tags: []
   stories:
     - label: Implementing a custom cell
@@ -34,7 +34,7 @@ Waffle:
     [WaffleCanvas](self:/waffle/canvas).
 
 WaffleHtml:
-  package: '@nivo/waffle'
+  package: '@bitbloom/nivo-waffle'
   tags: 
     - html
     - isomorphic
@@ -59,7 +59,7 @@ WaffleHtml:
     [WaffleCanvas](self:/waffle/canvas).
 
 WaffleCanvas:
-  package: '@nivo/waffle'
+  package: '@bitbloom/nivo-waffle'
   tags:
     - canvas
   stories:

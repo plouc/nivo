@@ -1,5 +1,5 @@
 import { animated, to, AnimatedProps } from '@react-spring/web'
-import { ExtractProps } from '@nivo/core'
+import { ExtractProps } from '@bitbloom/nivo-core'
 import { generateSvgArc } from './utils'
 
 type ArcLineProps = {

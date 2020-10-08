@@ -1,4 +1,4 @@
-import { BoxLegendSvg } from '@nivo/legends'
+import { BoxLegendSvg } from '@bitbloom/nivo-legends'
 import { CompletePieSvgProps, ComputedDatum, DatumId } from './types'
 
 interface PieLegendsProps<RawDatum> {

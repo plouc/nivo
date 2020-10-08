@@ -6,11 +6,11 @@ import {
     useDimensions,
     useTheme,
     Margin,
-} from '@nivo/core'
-import { roundedRect } from '@nivo/canvas'
-import { OrdinalColorScaleConfig } from '@nivo/colors'
-import { useTooltip } from '@nivo/tooltip'
-import { renderLegendToCanvas } from '@nivo/legends'
+} from '@bitbloom/nivo-core'
+import { roundedRect } from '@bitbloom/nivo-canvas'
+import { OrdinalColorScaleConfig } from '@bitbloom/nivo-colors'
+import { useTooltip } from '@bitbloom/nivo-tooltip'
+import { renderLegendToCanvas } from '@bitbloom/nivo-legends'
 import { CanvasProps, Datum, isDataCell, TooltipComponent, Cell } from './types'
 import { canvasDefaultProps } from './defaults'
 import { useWaffle } from './hooks'

@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo } from 'react'
 import { IGatsbyImageData } from 'gatsby-plugin-image'
 import { useTheme } from 'styled-components'
-import { Theme as NivoTheme } from '@nivo/core'
+import { Theme as NivoTheme } from '@bitbloom/nivo-core'
 import { startCase } from 'lodash'
 import { Seo } from '../Seo'
 import Layout from '../Layout'

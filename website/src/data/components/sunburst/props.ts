@@ -1,5 +1,5 @@
-import { defaultProps } from '@nivo/sunburst'
-import { arcTransitionModes } from '@nivo/arcs'
+import { defaultProps } from '@bitbloom/nivo-sunburst'
+import { arcTransitionModes } from '@bitbloom/nivo-arcs'
 import {
     groupProperties,
     defsProperties,

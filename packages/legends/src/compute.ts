@@ -1,6 +1,6 @@
 import { scaleLinear } from 'd3-scale'
-import { getValueFormatter } from '@nivo/core'
-import { computeContinuousColorScaleColorStops } from '@nivo/colors'
+import { getValueFormatter } from '@bitbloom/nivo-core'
+import { computeContinuousColorScaleColorStops } from '@bitbloom/nivo-colors'
 import {
     BoxLegendSvgProps,
     ContinuousColorsLegendProps,

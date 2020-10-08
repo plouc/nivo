@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react'
 import Joi from 'joi'
-import { DefaultHeatMapDatum, HeatMap, HeatMapDatum, HeatMapSvgProps } from '@nivo/heatmap'
+import { DefaultHeatMapDatum, HeatMap, HeatMapDatum, HeatMapSvgProps } from '@bitbloom/nivo-heatmap'
 import { custom } from './common'
 import { dimensions } from './commons/dimensions'
 import { inheritedColor } from './commons/colors'

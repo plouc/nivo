@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { generateCountriesData, sets } from '@nivo/generators'
+import { generateCountriesData, sets } from '@bitbloom/nivo-generators'
 import { random, range } from 'lodash'
-import { useTheme } from '@nivo/core'
-import { Bar, BarDatum, BarItemProps } from '@nivo/bar'
-import { AxisTickProps } from '@nivo/axes'
+import { useTheme } from '@bitbloom/nivo-core'
+import { Bar, BarDatum, BarItemProps } from '@bitbloom/nivo-bar'
+import { AxisTickProps } from '@bitbloom/nivo-axes'
 
 const meta: Meta<typeof Bar> = {
     title: 'Bar',

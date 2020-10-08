@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { Theme } from '@nivo/core'
+import { Theme } from '@bitbloom/nivo-core'
 import { useTheme } from 'styled-components'
 
 export const useAxisTheme = (): Theme => {

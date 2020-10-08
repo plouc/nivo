@@ -1,5 +1,5 @@
 {
-    "name": "@nivo/scales",
+    "name": "@bitbloom/nivo-scales",
     "version": "0.83.0",
     "license": "MIT",
     "author": {
@@ -8,7 +8,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/plouc/nivo.git",
+        "url": "git@github.com:BitBloomTech/nivo.git",
         "directory": "packages/scales"
     },
     "main": "./dist/nivo-scales.cjs.js",

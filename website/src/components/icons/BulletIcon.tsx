@@ -1,5 +1,5 @@
 import React from 'react'
-import { Bullet, BulletSvgProps, BulletRectsItemProps, BulletMarkersItemProps } from '@nivo/bullet'
+import { Bullet, BulletSvgProps, BulletRectsItemProps, BulletMarkersItemProps } from '@bitbloom/nivo-bullet'
 import bulletLightNeutralImg from '../../assets/icons/bullet-light-neutral.png'
 import bulletLightColoredImg from '../../assets/icons/bullet-light-colored.png'
 import bulletDarkNeutralImg from '../../assets/icons/bullet-dark-neutral.png'

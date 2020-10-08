@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useCallback, useState } from 'react'
 import styled from 'styled-components'
-import { Box as BoxType } from '@nivo/core'
+import { Box as BoxType } from '@bitbloom/nivo-core'
 import { ChartProperty, Flavor } from '../../../types'
 import { ControlContext, MarginControlConfig } from '../types'
 import { Control, PropertyHeader, Help, TextInput } from '../ui'

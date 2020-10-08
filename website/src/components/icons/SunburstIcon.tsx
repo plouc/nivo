@@ -1,6 +1,6 @@
 import React from 'react'
 import { arc as Arc } from 'd3-shape'
-import { degreesToRadians } from '@nivo/core'
+import { degreesToRadians } from '@bitbloom/nivo-core'
 import sunburstLightNeutralImg from '../../assets/icons/sunburst-grey.png'
 import sunburstLightColoredImg from '../../assets/icons/sunburst-red.png'
 import sunburstDarkNeutralImg from '../../assets/icons/sunburst-dark-neutral.png'

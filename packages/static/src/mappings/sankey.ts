@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react'
 import Joi from 'joi'
-import { Sankey, SankeySvgProps, sankeyAlignmentPropKeys } from '@nivo/sankey'
+import { Sankey, SankeySvgProps, sankeyAlignmentPropKeys } from '@bitbloom/nivo-sankey'
 import { OmitStrict } from '../types'
 import { ordinalColors, inheritedColor } from './commons/colors'
 import { dimensions } from './commons/dimensions'

@@ -1,9 +1,9 @@
 import { createElement, useEffect, useMemo, useRef } from 'react'
 import * as React from 'react'
-import { getRelativeCursor, useDimensions, useTheme, Container } from '@nivo/core'
-import { renderLegendToCanvas } from '@nivo/legends'
-import { useInheritedColor, InheritedColorConfig } from '@nivo/colors'
-import { useTooltip } from '@nivo/tooltip'
+import { getRelativeCursor, useDimensions, useTheme, Container } from '@bitbloom/nivo-core'
+import { renderLegendToCanvas } from '@bitbloom/nivo-legends'
+import { useInheritedColor, InheritedColorConfig } from '@bitbloom/nivo-colors'
+import { useTooltip } from '@bitbloom/nivo-tooltip'
 import {
     Arc,
     findArcUnderCursor,
@@ -11,7 +11,7 @@ import {
     drawCanvasArcLabels,
     useArcLinkLabels,
     drawCanvasArcLinkLabels,
-} from '@nivo/arcs'
+} from '@bitbloom/nivo-arcs'
 import { useNormalizedData, usePieFromBox } from './hooks'
 import { ComputedDatum, PieCanvasProps, MayHaveLabel } from './types'
 import { defaultProps } from './props'

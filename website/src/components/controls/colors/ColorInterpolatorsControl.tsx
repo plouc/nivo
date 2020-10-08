@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 // @ts-ignore
 import { components } from 'react-select'
-import { ColorInterpolatorId } from '@nivo/colors'
+import { ColorInterpolatorId } from '@bitbloom/nivo-colors'
 import { ChartProperty, Flavor } from '../../../types'
 import { ControlContext, ColorInterpolatorsControlConfig } from '../types'
 import { Control, PropertyHeader, Help, Select } from '../ui'

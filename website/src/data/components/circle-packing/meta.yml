@@ -9,7 +9,7 @@ flavors:
     path: /circle-packing/api/
 
 CirclePacking:
-  package: '@nivo/circle-packing'
+  package: '@bitbloom/nivo-circle-packing'
   tags:
     - hierarchy
   stories:
@@ -34,12 +34,12 @@ CirclePacking:
     You can also see more example usages in [storybook](storybook:circlepacking--default).
 
   # Disabled until the API is fixed
-  #   This component is available in the `@nivo/api`,
+  #   This component is available in the `@bitbloom/nivo-api`,
   #   see [sample](api:/samples/circle-packing.svg)
   #   or [try it using the API client](self:/circle-packing/api).
 
 CirclePackingHtml:
-  package: '@nivo/circle-packing'
+  package: '@bitbloom/nivo-circle-packing'
   tags:
     - hierarchy
     - html
@@ -66,7 +66,7 @@ CirclePackingHtml:
     You can also see more example usages in [storybook](storybook:circlepackinghtml--default).
 
 CirclePackingCanvas:
-  package: '@nivo/circle-packing'
+  package: '@bitbloom/nivo-circle-packing'
   tags:
     - hierarchy
     - canvas

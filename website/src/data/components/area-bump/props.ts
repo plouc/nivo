@@ -1,4 +1,4 @@
-import { areaBumpSvgDefaultProps as defaults } from '@nivo/bump'
+import { areaBumpSvgDefaultProps as defaults } from '@bitbloom/nivo-bump'
 import {
     themeProperty,
     defsProperties,

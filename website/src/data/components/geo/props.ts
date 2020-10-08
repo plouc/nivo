@@ -1,5 +1,5 @@
 // @ts-ignore
-import { GeoMapDefaultProps } from '@nivo/geo'
+import { GeoMapDefaultProps } from '@bitbloom/nivo-geo'
 import { themeProperty, defsProperties } from '../../../lib/componentProperties'
 import { chartDimensions, isInteractive } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'

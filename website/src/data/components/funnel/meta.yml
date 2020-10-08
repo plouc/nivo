@@ -3,7 +3,7 @@ flavors:
     path: /funnel/
 
 Funnel:
-  package: '@nivo/funnel'
+  package: '@bitbloom/nivo-funnel'
   tags:
     - experimental
   stories: []

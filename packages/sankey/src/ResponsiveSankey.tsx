@@ -1,4 +1,4 @@
-import { ResponsiveWrapper } from '@nivo/core'
+import { ResponsiveWrapper } from '@bitbloom/nivo-core'
 import { DefaultLink, DefaultNode, SankeySvgProps } from './types'
 import { Sankey } from './Sankey'
 

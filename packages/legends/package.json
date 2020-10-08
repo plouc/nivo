@@ -1,5 +1,5 @@
 {
-    "name": "@nivo/legends",
+    "name": "@bitbloom/nivo-legends",
     "description": "legend components for nivo dataviz library",
     "version": "0.83.0",
     "license": "MIT",
@@ -9,7 +9,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/plouc/nivo.git",
+        "url": "git@github.com:BitBloomTech/nivo.git",
         "directory": "packages/legends"
     },
     "main": "./dist/nivo-legends.cjs.js",
@@ -22,8 +22,8 @@
         "!dist/tsconfig.tsbuildinfo"
     ],
     "dependencies": {
-        "@nivo/colors": "workspace:*",
-        "@nivo/core": "workspace:*",
+        "@bitbloom/nivo-colors": "workspace:*",
+        "@bitbloom/nivo-core": "workspace:*",
         "@types/d3-scale": "^3.2.3",
         "@types/prop-types": "^15.7.2",
         "d3-scale": "^3.2.3",

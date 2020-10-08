@@ -1,5 +1,5 @@
 import React from 'react'
-import { ResponsiveScatterPlot, svgDefaultProps } from '@nivo/scatterplot'
+import { ResponsiveScatterPlot, svgDefaultProps } from '@bitbloom/nivo-scatterplot'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/scatterplot/meta.yml'
 import mapper from '../../data/components/scatterplot/mapper'

@@ -1,5 +1,5 @@
-import { Box, BoxAlign, CompleteTheme, Dimensions, Theme, ValueFormat } from '@nivo/core'
-import { LegendProps } from '@nivo/legends'
+import { Box, BoxAlign, CompleteTheme, Dimensions, Theme, ValueFormat } from '@bitbloom/nivo-core'
+import { LegendProps } from '@bitbloom/nivo-legends'
 
 export type BBox = Record<'x' | 'y' | 'height' | 'width', number>
 

@@ -2,8 +2,8 @@ import { useMemo } from 'react'
 import { useSpring, animated } from '@react-spring/web'
 import { lineRadial, CurveFactory } from 'd3-shape'
 import { ScaleLinear } from 'd3-scale'
-import { useMotionConfig, useTheme, useAnimatedPath } from '@nivo/core'
-import { useInheritedColor } from '@nivo/colors'
+import { useMotionConfig, useTheme, useAnimatedPath } from '@bitbloom/nivo-core'
+import { useInheritedColor } from '@bitbloom/nivo-colors'
 import { RadarCommonProps } from './types'
 
 interface RadarLayerProps<D extends Record<string, unknown>> {

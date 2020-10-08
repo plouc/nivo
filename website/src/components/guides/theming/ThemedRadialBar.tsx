@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
-import { CompleteTheme } from '@nivo/core'
-import { ResponsiveRadialBar } from '@nivo/radial-bar'
+import { CompleteTheme } from '@bitbloom/nivo-core'
+import { ResponsiveRadialBar } from '@bitbloom/nivo-radial-bar'
 
 export const ThemedRadialBar = ({ theme }: { theme: CompleteTheme }) => {
     const data = useMemo(

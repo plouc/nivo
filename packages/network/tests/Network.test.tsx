@@ -1,6 +1,6 @@
 import { mount } from 'enzyme'
 import { Globals } from '@react-spring/web'
-import { Annotation } from '@nivo/annotations'
+import { Annotation } from '@bitbloom/nivo-annotations'
 import {
     Network,
     NetworkSvgProps,

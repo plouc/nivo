@@ -4,7 +4,7 @@ import {
     ContinuousColorScaleConfig,
     divergingColorScaleDefaults,
     quantizeColorScaleDefaults,
-} from '@nivo/colors'
+} from '@bitbloom/nivo-colors'
 import { ChartProperty, Flavor } from '../../../types'
 import { ContinuousColorsControlConfig, ControlContext, ObjectControlConfig } from '../types'
 import { ObjectControl } from '../generics'

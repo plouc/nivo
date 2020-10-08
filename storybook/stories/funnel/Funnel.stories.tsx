@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Funnel } from '@nivo/funnel'
+import { Funnel } from '@bitbloom/nivo-funnel'
 import { FunnelWithClustering } from './Clustering'
 
 const meta: Meta<typeof Funnel> = {

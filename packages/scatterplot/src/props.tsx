@@ -1,4 +1,4 @@
-import { CssMixBlendMode } from '@nivo/core'
+import { CssMixBlendMode } from '@bitbloom/nivo-core'
 import { Node } from './Node'
 import { Tooltip } from './Tooltip'
 import {

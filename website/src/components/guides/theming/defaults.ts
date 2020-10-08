@@ -4,7 +4,7 @@ import {
     // @ts-ignore
     extendDefaultTheme,
     CompleteTheme,
-} from '@nivo/core'
+} from '@bitbloom/nivo-core'
 
 const extendedTheme: CompleteTheme = extendDefaultTheme(baseDefaultTheme)
 

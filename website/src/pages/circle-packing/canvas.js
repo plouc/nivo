@@ -1,7 +1,7 @@
 import React from 'react'
 import range from 'lodash/range'
 import random from 'lodash/random'
-import { ResponsiveCirclePackingCanvas, defaultProps } from '@nivo/circle-packing'
+import { ResponsiveCirclePackingCanvas, defaultProps } from '@bitbloom/nivo-circle-packing'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/circle-packing/meta.yml'
 import mapper from '../../data/components/circle-packing/mapper'

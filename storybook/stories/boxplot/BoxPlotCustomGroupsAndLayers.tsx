@@ -1,4 +1,4 @@
-import { BoxPlot, BoxPlotCustomLayerProps } from '@nivo/boxplot'
+import { BoxPlot, BoxPlotCustomLayerProps } from '@bitbloom/nivo-boxplot'
 
 const q5 = [0.1, 0.25, 0.5, 0.75, 0.9]
 

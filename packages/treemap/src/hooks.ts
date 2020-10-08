@@ -8,9 +8,9 @@ import {
     HierarchyNode,
     HierarchyRectangularNode,
 } from 'd3-hierarchy'
-import { useTheme, useValueFormatter, PropertyAccessor, usePropertyAccessor } from '@nivo/core'
-import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
-import { useTooltip } from '@nivo/tooltip'
+import { useTheme, useValueFormatter, PropertyAccessor, usePropertyAccessor } from '@bitbloom/nivo-core'
+import { useOrdinalColorScale, useInheritedColor } from '@bitbloom/nivo-colors'
+import { useTooltip } from '@bitbloom/nivo-tooltip'
 import { commonDefaultProps } from './defaults'
 import {
     DefaultTreeMapDatum,

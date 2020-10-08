@@ -1,5 +1,5 @@
 import React from 'react'
-import { Network } from '@nivo/network'
+import { Network } from '@bitbloom/nivo-network'
 import networkLightNeutralImg from '../../assets/icons/network-light-neutral.png'
 import networkLightColoredImg from '../../assets/icons/network-light-colored.png'
 import networkDarkNeutralImg from '../../assets/icons/network-dark-neutral.png'

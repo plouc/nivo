@@ -1,5 +1,5 @@
 import { useSpring, animated } from '@react-spring/web'
-import { useTheme, useMotionConfig } from '@nivo/core'
+import { useTheme, useMotionConfig } from '@bitbloom/nivo-core'
 import { FunnelDatum, FunnelPart } from './types'
 
 interface PartLabelProps<D extends FunnelDatum> {

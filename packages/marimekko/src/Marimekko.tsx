@@ -5,10 +5,10 @@ import {
     Container,
     SvgWrapper,
     useDimensions,
-} from '@nivo/core'
-import { Grid, Axes } from '@nivo/axes'
-import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
-import { BoxLegendSvg } from '@nivo/legends'
+} from '@bitbloom/nivo-core'
+import { Grid, Axes } from '@bitbloom/nivo-axes'
+import { InheritedColorConfig, OrdinalColorScaleConfig } from '@bitbloom/nivo-colors'
+import { BoxLegendSvg } from '@bitbloom/nivo-legends'
 import { SvgProps, LayerId, DimensionDatum } from './types'
 import { defaultProps } from './props'
 import { useMarimekko, useLayerContext, useLegendData } from './hooks'

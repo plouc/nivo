@@ -1,5 +1,5 @@
-import { defaultProps } from '@nivo/swarmplot'
-import { OrdinalColorScaleConfig } from '@nivo/colors'
+import { defaultProps } from '@bitbloom/nivo-swarmplot'
+import { OrdinalColorScaleConfig } from '@bitbloom/nivo-colors'
 import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
 import {
     chartDimensions,

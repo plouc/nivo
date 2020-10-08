@@ -1,8 +1,8 @@
 import {
   ResponsiveParallelCoordinates,
   ResponsiveParallelCoordinatesCanvas,
-} from '@nivo/parallel-coordinates'
-import { generateParallelCoordinatesData } from '@nivo/generators'
+} from '@bitbloom/nivo-parallel-coordinates'
+import { generateParallelCoordinatesData } from '@bitbloom/nivo-generators'
 import { useChart } from '../hooks'
 
 const props = {

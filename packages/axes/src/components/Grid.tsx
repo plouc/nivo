@@ -1,5 +1,5 @@
 import { useMemo, memo } from 'react'
-import { ScaleValue, AnyScale, TicksSpec } from '@nivo/scales'
+import { ScaleValue, AnyScale, TicksSpec } from '@bitbloom/nivo-scales'
 import { GridLines } from './GridLines'
 import { computeGridLines } from '../compute'
 

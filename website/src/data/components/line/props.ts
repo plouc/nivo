@@ -1,7 +1,7 @@
 // @ts-ignore
-import { lineCurvePropKeys } from '@nivo/core'
+import { lineCurvePropKeys } from '@bitbloom/nivo-core'
 // @ts-ignore
-import { LineDefaultProps as defaults } from '@nivo/line'
+import { LineDefaultProps as defaults } from '@bitbloom/nivo-line'
 import {
     themeProperty,
     motionProperties,

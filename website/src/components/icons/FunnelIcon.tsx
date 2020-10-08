@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
-import { Theme } from '@nivo/core'
-import { Funnel, FunnelSvgProps } from '@nivo/funnel'
+import { Theme } from '@bitbloom/nivo-core'
+import { Funnel, FunnelSvgProps } from '@bitbloom/nivo-funnel'
 import funnelLightNeutralImg from '../../assets/icons/funnel-light-neutral.png'
 import funnelLightColoredImg from '../../assets/icons/funnel-light-colored.png'
 import funnelDarkNeutralImg from '../../assets/icons/funnel-dark-neutral.png'

@@ -1,6 +1,6 @@
 import React from 'react'
 import range from 'lodash/range'
-import { ResponsiveVoronoi, defaultVoronoiProps } from '@nivo/voronoi'
+import { ResponsiveVoronoi, defaultVoronoiProps } from '@bitbloom/nivo-voronoi'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/voronoi/meta.yml'
 import { groups } from '../../data/components/voronoi/props'

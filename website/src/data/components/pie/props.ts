@@ -1,5 +1,5 @@
-import { defaultProps } from '@nivo/pie'
-import { arcTransitionModes } from '@nivo/arcs'
+import { defaultProps } from '@bitbloom/nivo-pie'
+import { arcTransitionModes } from '@bitbloom/nivo-arcs'
 import {
     themeProperty,
     defsProperties,

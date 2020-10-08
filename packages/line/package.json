@@ -1,5 +1,5 @@
 {
-    "name": "@nivo/line",
+    "name": "@bitbloom/nivo-line",
     "version": "0.83.0",
     "license": "MIT",
     "author": {
@@ -8,7 +8,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/plouc/nivo.git",
+        "url": "git@github.com:BitBloomTech/nivo.git",
         "directory": "packages/line"
     },
     "keywords": [
@@ -29,14 +29,14 @@
         "dist/"
     ],
     "dependencies": {
-        "@nivo/annotations": "workspace:*",
-        "@nivo/axes": "workspace:*",
-        "@nivo/colors": "workspace:*",
-        "@nivo/core": "workspace:*",
-        "@nivo/legends": "workspace:*",
-        "@nivo/scales": "workspace:*",
-        "@nivo/tooltip": "workspace:*",
-        "@nivo/voronoi": "workspace:*",
+        "@bitbloom/nivo-annotations": "workspace:*",
+        "@bitbloom/nivo-axes": "workspace:*",
+        "@bitbloom/nivo-colors": "workspace:*",
+        "@bitbloom/nivo-core": "workspace:*",
+        "@bitbloom/nivo-legends": "workspace:*",
+        "@bitbloom/nivo-scales": "workspace:*",
+        "@bitbloom/nivo-tooltip": "workspace:*",
+        "@bitbloom/nivo-voronoi": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",
         "d3-shape": "^1.3.5",
         "prop-types": "^15.7.2"

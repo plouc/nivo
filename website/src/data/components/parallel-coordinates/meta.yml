@@ -5,7 +5,7 @@ flavors:
     path: /parallel-coordinates/canvas/
   
 ParallelCoordinates:
-  package: '@nivo/parallel-coordinates'
+  package: '@bitbloom/nivo-parallel-coordinates'
   tags: []
   stories: []
   description: |
@@ -18,7 +18,7 @@ ParallelCoordinates:
     [ParallelCoordinatesCanvas](self:/parallel-coordinates/canvas).
 
 ParallelCoordinatesCanvas:
-  package: '@nivo/parallel-coordinates'
+  package: '@bitbloom/nivo-parallel-coordinates'
   tags:
     - canvas
   stories: []

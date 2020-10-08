@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Theme, Box } from '@nivo/core'
+import { Theme, Box } from '@bitbloom/nivo-core'
 import { Delaunay, Voronoi } from 'd3-delaunay'
 
 export type VoronoiDatum = {

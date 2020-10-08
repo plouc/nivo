@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
  *
  * @example
  * ```javascript
- * import { LegendPropShape } from '@nivo/legends'
+ * import { LegendPropShape } from '@bitbloom/nivo-legends'
  *
  * const customLegendPropType = PropTypes.shape({
  *     ...LegendPropShape,

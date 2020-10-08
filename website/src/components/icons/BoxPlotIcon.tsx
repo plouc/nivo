@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { BoxPlot, BoxPlotSvgProps } from '@nivo/boxplot'
+import { BoxPlot, BoxPlotSvgProps } from '@bitbloom/nivo-boxplot'
 import boxplotLightNeutralImg from '../../assets/icons/boxplot-light-neutral.png'
 import boxplotLightColoredImg from '../../assets/icons/boxplot-light-colored.png'
 import boxplotDarkNeutralImg from '../../assets/icons/boxplot-dark-neutral.png'

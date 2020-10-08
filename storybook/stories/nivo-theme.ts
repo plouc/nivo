@@ -1,4 +1,4 @@
-import { Theme } from '@nivo/core'
+import { Theme } from '@bitbloom/nivo-core'
 
 export const nivoTheme: Theme = {
     text: {

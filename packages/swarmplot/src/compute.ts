@@ -12,7 +12,7 @@ import {
     ScaleLinearSpec,
     ScaleTime,
     ScaleTimeSpec,
-} from '@nivo/scales'
+} from '@bitbloom/nivo-scales'
 import { ComputedDatum, PreSimulationDatum, SizeSpec, SimulationForces } from './types'
 
 const getParsedValue = (scaleSpec: ScaleLinearSpec | ScaleTimeSpec) => {

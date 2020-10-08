@@ -1,7 +1,7 @@
 import { BoxPlotItem } from './BoxPlotItem'
 import { BoxPlotTooltip, BoxPlotTooltipLabel } from './BoxPlotTooltip'
-import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
-import { ScaleBandSpec, ScaleLinearSpec } from '@nivo/scales'
+import { InheritedColorConfig, OrdinalColorScaleConfig } from '@bitbloom/nivo-colors'
+import { ScaleBandSpec, ScaleLinearSpec } from '@bitbloom/nivo-scales'
 import { ComputedBoxPlotSummary } from './types'
 
 export const defaultProps = {

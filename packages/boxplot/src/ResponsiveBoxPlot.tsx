@@ -1,6 +1,6 @@
 import { BoxPlot } from './BoxPlot'
 import { BoxPlotDatum, BoxPlotSvgProps } from './types'
-import { ResponsiveWrapper } from '@nivo/core'
+import { ResponsiveWrapper } from '@bitbloom/nivo-core'
 
 export const ResponsiveBoxPlot = <RawDatum extends BoxPlotDatum>(
     props: Omit<BoxPlotSvgProps<RawDatum>, 'height' | 'width'>

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import styled from 'styled-components'
-import { generateWinesTastes } from '@nivo/generators'
-import { Radar } from '@nivo/radar'
+import { generateWinesTastes } from '@bitbloom/nivo-generators'
+import { Radar } from '@bitbloom/nivo-radar'
 import { useHomeTheme } from './theme'
 import { dimensions } from './dimensions'
 

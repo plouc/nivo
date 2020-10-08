@@ -3,8 +3,8 @@ import {
     useValueFormatter,
     // @ts-ignore
     getLabelGenerator,
-} from '@nivo/core'
-import { OrdinalColorScale, useOrdinalColorScale } from '@nivo/colors'
+} from '@bitbloom/nivo-core'
+import { OrdinalColorScale, useOrdinalColorScale } from '@bitbloom/nivo-colors'
 import { computeChordLayout, computeChordGenerators, computeChordArcsAndRibbons } from './compute'
 import { ArcDatum, ChordCommonProps, ChordDataProps, CustomLayerProps, RibbonDatum } from './types'
 import { commonDefaultProps } from './defaults'

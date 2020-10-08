@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { Interpolation, SpringValue } from '@react-spring/web'
 import { ForceX, ForceY, ForceCollide } from 'd3-force'
-import { PropertyAccessor, ValueFormat, Theme, MotionProps, Box, Margin } from '@nivo/core'
-import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
-import { AxisProps, CanvasAxisProps } from '@nivo/axes'
-import { ScaleLinear, ScaleLinearSpec, ScaleTime, ScaleTimeSpec, TicksSpec } from '@nivo/scales'
-import { AnnotationMatcher } from '@nivo/annotations'
+import { PropertyAccessor, ValueFormat, Theme, MotionProps, Box, Margin } from '@bitbloom/nivo-core'
+import { InheritedColorConfig, OrdinalColorScaleConfig } from '@bitbloom/nivo-colors'
+import { AxisProps, CanvasAxisProps } from '@bitbloom/nivo-axes'
+import { ScaleLinear, ScaleLinearSpec, ScaleTime, ScaleTimeSpec, TicksSpec } from '@bitbloom/nivo-scales'
+import { AnnotationMatcher } from '@bitbloom/nivo-annotations'
 import { ScaleOrdinal } from 'd3-scale'
 
 export interface ComputedDatum<RawDatum> {

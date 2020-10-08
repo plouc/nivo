@@ -1,4 +1,4 @@
-import { ResponsiveWrapper } from '@nivo/core'
+import { ResponsiveWrapper } from '@bitbloom/nivo-core'
 import { BumpDatum, BumpSerieExtraProps, BumpSvgProps, DefaultBumpDatum } from './types'
 import { Bump } from './Bump'
 

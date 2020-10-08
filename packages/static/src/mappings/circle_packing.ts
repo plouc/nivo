@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react'
 import Joi from 'joi'
-import { CirclePacking, CirclePackingSvgProps } from '@nivo/circle-packing'
+import { CirclePacking, CirclePackingSvgProps } from '@bitbloom/nivo-circle-packing'
 import { custom } from './common'
 import { dimensions } from './commons/dimensions'
 import { inheritedColor, ordinalColors } from './commons/colors'

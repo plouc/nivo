@@ -1,6 +1,6 @@
 import React from 'react'
-import { CompleteTheme } from '@nivo/core'
-import { ResponsiveLine } from '@nivo/line'
+import { CompleteTheme } from '@bitbloom/nivo-core'
+import { ResponsiveLine } from '@bitbloom/nivo-line'
 
 export const ThemedLine = ({ theme }: { theme: CompleteTheme }) => {
     return (

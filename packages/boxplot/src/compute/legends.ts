@@ -1,5 +1,5 @@
 import { BoxPlotDatum, BoxPlotCommonProps, ComputedBoxPlotSummary, LegendData } from '../types'
-import { getPropertyAccessor } from '@nivo/core'
+import { getPropertyAccessor } from '@bitbloom/nivo-core'
 import { uniqBy, sortBy } from 'lodash'
 
 export const getLegendData = <RawDatum extends BoxPlotDatum>({
@@ -15,7 +15,7 @@ export const getLegendData = <RawDatum extends BoxPlotDatum>({
     const byGroup = dataFrom === 'group'
     const legendData = boxPlots.map(
         boxPlot =>
-            // id & label are redundant below, but needed for ts in @nivo/legends
+            // id & label are redundant below, but needed for ts in @bitbloom/nivo-legends
             ({
                 id: byGroup ? boxPlot.data.groupIndex : boxPlot.data.subGroupIndex,
                 label: getLegendLabel(boxPlot?.data),

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { svgDefaultProps as defaults } from '@nivo/treemap'
+import { svgDefaultProps as defaults } from '@bitbloom/nivo-treemap'
 import { Seo } from '../../components/Seo'
 import { ApiClient } from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/treemap/props'

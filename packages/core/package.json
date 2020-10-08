@@ -1,5 +1,5 @@
 {
-    "name": "@nivo/core",
+    "name": "@bitbloom/nivo-core",
     "version": "0.83.0",
     "license": "MIT",
     "author": {
@@ -8,7 +8,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/plouc/nivo.git",
+        "url": "git@github.com:BitBloomTech/nivo.git",
         "directory": "packages/core"
     },
     "main": "./dist/nivo-core.cjs.js",
@@ -21,8 +21,8 @@
         "dist/"
     ],
     "dependencies": {
-        "@nivo/recompose": "workspace:*",
-        "@nivo/tooltip": "workspace:*",
+        "@bitbloom/nivo-recompose": "workspace:*",
+        "@bitbloom/nivo-tooltip": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",
         "@types/d3-shape": "^2.0.0",
         "d3-color": "^3.1.0",

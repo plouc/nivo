@@ -1,4 +1,4 @@
-import { svgDefaultProps as defaults } from '@nivo/funnel'
+import { svgDefaultProps as defaults } from '@bitbloom/nivo-funnel'
 import { themeProperty, groupProperties, motionProperties } from '../../../lib/componentProperties'
 import { chartDimensions, ordinalColors, isInteractive } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'

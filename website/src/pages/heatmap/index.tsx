@@ -1,6 +1,6 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
-import { ResponsiveHeatMap, svgDefaultProps as defaults } from '@nivo/heatmap'
+import { ResponsiveHeatMap, svgDefaultProps as defaults } from '@bitbloom/nivo-heatmap'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/heatmap/meta.yml'
 import mapper from '../../data/components/heatmap/mapper'

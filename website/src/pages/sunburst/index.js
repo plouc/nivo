@@ -1,6 +1,6 @@
 import React from 'react'
-import { defaultProps, ResponsiveSunburst } from '@nivo/sunburst'
-import { generateLibTree } from '@nivo/generators'
+import { defaultProps, ResponsiveSunburst } from '@bitbloom/nivo-sunburst'
+import { generateLibTree } from '@bitbloom/nivo-generators'
 import { omit } from 'lodash'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/sunburst/meta.yml'

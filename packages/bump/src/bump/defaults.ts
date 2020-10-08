@@ -1,4 +1,4 @@
-import { MotionProps } from '@nivo/core'
+import { MotionProps } from '@bitbloom/nivo-core'
 import { LineTooltip } from './LineTooltip'
 import { Point } from './Point'
 import { BumpCommonProps, BumpPointComponent, DefaultBumpDatum } from './types'

@@ -1,5 +1,5 @@
 {
-    "name": "@nivo/arcs",
+    "name": "@bitbloom/nivo-arcs",
     "version": "0.83.0",
     "license": "MIT",
     "author": {
@@ -28,8 +28,8 @@
         "!dist/tsconfig.tsbuildinfo"
     ],
     "dependencies": {
-        "@nivo/colors": "workspace:*",
-        "@nivo/core": "workspace:*",
+        "@bitbloom/nivo-colors": "workspace:*",
+        "@bitbloom/nivo-core": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2",
         "@types/d3-shape": "^2.0.0",
         "d3-shape": "^1.3.5"

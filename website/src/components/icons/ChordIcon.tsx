@@ -1,5 +1,5 @@
 import React from 'react'
-import { Chord } from '@nivo/chord'
+import { Chord } from '@bitbloom/nivo-chord'
 import styled from 'styled-components'
 import chordLightNeutralImg from '../../assets/icons/chord-light-neutral.png'
 import chordLightColoredImg from '../../assets/icons/chord-light-colored.png'

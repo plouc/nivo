@@ -5,8 +5,8 @@ import {
     useDimensions,
     SvgWrapper,
     Container,
-} from '@nivo/core'
-import { Grid, Axes } from '@nivo/axes'
+} from '@bitbloom/nivo-core'
+import { Grid, Axes } from '@bitbloom/nivo-axes'
 import { useAreaBump } from './hooks'
 import { Area } from './Area'
 import { AreasLabels } from './AreasLabels'

@@ -1,4 +1,4 @@
-import { Annotation, useAnnotations } from '@nivo/annotations'
+import { Annotation, useAnnotations } from '@bitbloom/nivo-annotations'
 import { BarAnnotationsProps } from './types'
 
 export const BarAnnotations = <RawDatum,>({ bars, annotations }: BarAnnotationsProps<RawDatum>) => {

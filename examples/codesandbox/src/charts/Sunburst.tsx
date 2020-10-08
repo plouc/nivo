@@ -1,5 +1,5 @@
-import { ResponsiveSunburst } from '@nivo/sunburst'
-import { generateLibTree } from '@nivo/generators'
+import { ResponsiveSunburst } from '@bitbloom/nivo-sunburst'
+import { generateLibTree } from '@bitbloom/nivo-generators'
 import { useChart } from '../hooks'
 
 const props = {

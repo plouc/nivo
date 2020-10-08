@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
-import { Theme } from '@nivo/core'
-import { Radar, RadarSvgProps } from '@nivo/radar'
+import { Theme } from '@bitbloom/nivo-core'
+import { Radar, RadarSvgProps } from '@bitbloom/nivo-radar'
 import radarLightNeutralImg from '../../assets/icons/radar-light-neutral.png'
 import radarLightColoredImg from '../../assets/icons/radar-light-colored.png'
 import radarDarkNeutralImg from '../../assets/icons/radar-dark-neutral.png'

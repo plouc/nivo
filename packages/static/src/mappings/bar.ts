@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react'
 import Joi from 'joi'
-import { Bar, BarSvgProps } from '@nivo/bar'
+import { Bar, BarSvgProps } from '@bitbloom/nivo-bar'
 import { OmitStrict } from '../types'
 import { custom, axes } from './common'
 import { dimensions } from './commons/dimensions'

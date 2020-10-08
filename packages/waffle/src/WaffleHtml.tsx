@@ -1,6 +1,6 @@
 import { createElement, Fragment, ReactNode } from 'react'
-import { Container, useDimensions } from '@nivo/core'
-import { OrdinalColorScaleConfig } from '@nivo/colors'
+import { Container, useDimensions } from '@bitbloom/nivo-core'
+import { OrdinalColorScaleConfig } from '@bitbloom/nivo-colors'
 import { Datum, CellComponent, WaffleHtmlProps, TooltipComponent, HtmlLayerId } from './types'
 import { htmlDefaultProps } from './defaults'
 import { useCustomLayerProps, useWaffle } from './hooks'

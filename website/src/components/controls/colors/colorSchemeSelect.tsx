@@ -4,7 +4,7 @@ import { startCase } from 'lodash'
 // @ts-ignore
 import { components } from 'react-select'
 // @ts-ignore
-import { quantizeColorScales } from '@nivo/core'
+import { quantizeColorScales } from '@bitbloom/nivo-core'
 import {
     ColorSchemeId,
     ColorInterpolatorId,
@@ -15,7 +15,7 @@ import {
     isSequentialColorScheme,
     colorSchemes,
     colorSchemeIds,
-} from '@nivo/colors'
+} from '@bitbloom/nivo-colors'
 import { ColorsControlItem } from './ColorsControlItem'
 
 export const getColorSchemeType = (scheme: ColorSchemeId | ColorInterpolatorId) => {

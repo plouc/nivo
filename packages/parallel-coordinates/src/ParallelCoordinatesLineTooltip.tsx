@@ -1,4 +1,4 @@
-import { TableTooltip } from '@nivo/tooltip'
+import { TableTooltip } from '@bitbloom/nivo-tooltip'
 import { BaseDatum, TooltipProps, DatumGroupKeys } from './types'
 
 export const ParallelCoordinatesLineTooltip = <

@@ -1,4 +1,4 @@
-import { Bar } from '@nivo/bar'
+import { Bar } from '@bitbloom/nivo-bar'
 
 describe('<Bar />', () => {
     it('should render a bar chart', () => {

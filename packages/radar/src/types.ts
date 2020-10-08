@@ -11,9 +11,9 @@ import {
     ClosedCurveFactoryId,
     DotsItemSymbolComponent,
     SvgDefsAndFill,
-} from '@nivo/core'
-import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
-import { LegendProps } from '@nivo/legends'
+} from '@bitbloom/nivo-core'
+import { InheritedColorConfig, OrdinalColorScaleConfig } from '@bitbloom/nivo-colors'
+import { LegendProps } from '@bitbloom/nivo-legends'
 import { ScaleLinear } from 'd3-scale'
 
 export interface RadarDataProps<D extends Record<string, unknown>> {

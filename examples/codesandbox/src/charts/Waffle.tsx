@@ -2,7 +2,7 @@ import {
   ResponsiveWaffle,
   ResponsiveWaffleCanvas,
   ResponsiveWaffleHtml,
-} from '@nivo/waffle'
+} from '@bitbloom/nivo-waffle'
 import { random } from '../utils'
 import { useChart } from '../hooks'
 

@@ -1,5 +1,5 @@
 import 'styled-components'
-import { Theme as NivoTheme } from '@nivo/core'
+import { Theme as NivoTheme } from '@bitbloom/nivo-core'
 
 declare module 'styled-components' {
     export interface DefaultTheme {

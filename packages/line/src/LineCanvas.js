@@ -13,11 +13,11 @@ import {
     useTheme,
     getRelativeCursor,
     isCursorInRect,
-} from '@nivo/core'
-import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
-import { renderLegendToCanvas } from '@nivo/legends'
-import { useTooltip } from '@nivo/tooltip'
-import { useVoronoiMesh, renderVoronoiToCanvas, renderVoronoiCellToCanvas } from '@nivo/voronoi'
+} from '@bitbloom/nivo-core'
+import { renderAxesToCanvas, renderGridLinesToCanvas } from '@bitbloom/nivo-axes'
+import { renderLegendToCanvas } from '@bitbloom/nivo-legends'
+import { useTooltip } from '@bitbloom/nivo-tooltip'
+import { useVoronoiMesh, renderVoronoiToCanvas, renderVoronoiCellToCanvas } from '@bitbloom/nivo-voronoi'
 import { LineCanvasPropTypes, LineCanvasDefaultProps } from './props'
 import { useLine } from './hooks'
 

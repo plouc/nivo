@@ -1,4 +1,4 @@
-import { LineDefaultProps } from '@nivo/line'
+import { LineDefaultProps } from '@bitbloom/nivo-line'
 
 export default {
     width: 600,

@@ -5,7 +5,7 @@ flavors:
     path: /network/canvas/
 
 Network:
-  package: '@nivo/network'
+  package: '@bitbloom/nivo-network'
   tags: []
   stories:
     - label: Custom node tooltip
@@ -29,7 +29,7 @@ Network:
     the same props as the component and returns computed nodes & links.
 
 NetworkCanvas:
-  package: '@nivo/network'
+  package: '@bitbloom/nivo-network'
   tags:
     - canvas
   stories:

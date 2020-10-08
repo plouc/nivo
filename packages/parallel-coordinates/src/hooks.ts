@@ -1,9 +1,9 @@
 import { useMemo, useRef, useEffect } from 'react'
 import { line } from 'd3-shape'
 import { scaleLinear, scalePoint } from 'd3-scale'
-import { curveFromProp } from '@nivo/core'
-import { OrdinalColorScaleConfig, useOrdinalColorScale } from '@nivo/colors'
-import { castPointScale, castLinearScale, ScalePoint } from '@nivo/scales'
+import { curveFromProp } from '@bitbloom/nivo-core'
+import { OrdinalColorScaleConfig, useOrdinalColorScale } from '@bitbloom/nivo-colors'
+import { castPointScale, castLinearScale, ScalePoint } from '@bitbloom/nivo-scales'
 import {
     Variable,
     VariableWithScale,

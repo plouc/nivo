@@ -8,7 +8,7 @@
  */
 import { memo } from 'react'
 import PropTypes from 'prop-types'
-import { BasicTooltip } from '@nivo/tooltip'
+import { BasicTooltip } from '@bitbloom/nivo-tooltip'
 
 const ChoroplethTooltip = memo(({ feature }) => {
     if (feature.data === undefined) return null

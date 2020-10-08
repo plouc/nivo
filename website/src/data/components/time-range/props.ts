@@ -1,4 +1,4 @@
-import { timeRangeDefaultProps as defaults } from '@nivo/calendar'
+import { timeRangeDefaultProps as defaults } from '@bitbloom/nivo-calendar'
 import { themeProperty, getLegendsProps, groupProperties } from '../../../lib/componentProperties'
 import { chartDimensions, isInteractive } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'

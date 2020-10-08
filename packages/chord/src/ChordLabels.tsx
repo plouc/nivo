@@ -6,10 +6,10 @@ import {
     // @ts-ignore
     getPolarLabelProps,
     useTheme,
-} from '@nivo/core'
-import { useMotionConfig } from '@nivo/core'
+} from '@bitbloom/nivo-core'
+import { useMotionConfig } from '@bitbloom/nivo-core'
 import { ArcDatum, ChordCommonProps } from './types'
-import { useInheritedColor } from '@nivo/colors'
+import { useInheritedColor } from '@bitbloom/nivo-colors'
 
 interface ChordLabelsProps {
     arcs: ArcDatum[]

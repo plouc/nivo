@@ -1,4 +1,4 @@
-import { commonDefaultProps as defaults, svgDefaultProps } from '@nivo/network'
+import { commonDefaultProps as defaults, svgDefaultProps } from '@bitbloom/nivo-network'
 import { groupProperties, themeProperty, motionProperties } from '../../../lib/componentProperties'
 import {
     chartDimensions,

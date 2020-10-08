@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import range from 'lodash/range'
 import shuffle from 'lodash/shuffle'
-import { Bump, BumpPoint, BumpSvgProps } from '@nivo/bump'
+import { Bump, BumpPoint, BumpSvgProps } from '@bitbloom/nivo-bump'
 
 const meta: Meta<typeof Bump> = {
     title: 'Bump',

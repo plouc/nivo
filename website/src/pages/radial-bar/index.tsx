@@ -1,5 +1,5 @@
 import React from 'react'
-import { ResponsiveRadialBar, RadialBarSvgProps, svgDefaultProps } from '@nivo/radial-bar'
+import { ResponsiveRadialBar, RadialBarSvgProps, svgDefaultProps } from '@bitbloom/nivo-radial-bar'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/radial-bar/meta.yml'
 import mapper from '../../data/components/radial-bar/mapper'

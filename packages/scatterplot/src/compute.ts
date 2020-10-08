@@ -3,7 +3,7 @@ import isString from 'lodash/isString'
 import isNumber from 'lodash/isNumber'
 import isPlainObject from 'lodash/isPlainObject'
 import { scaleLinear } from 'd3-scale'
-import { ComputedSerie } from '@nivo/scales'
+import { ComputedSerie } from '@bitbloom/nivo-scales'
 import {
     ScatterPlotCommonProps,
     ScatterPlotDatum,

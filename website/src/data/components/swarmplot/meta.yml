@@ -5,7 +5,7 @@ flavors:
     path: /swarmplot/canvas/
 
 SwarmPlot:
-  package: '@nivo/swarmplot'
+  package: '@bitbloom/nivo-swarmplot'
   tags: []
   stories:
     - label: Custom circle component
@@ -39,7 +39,7 @@ SwarmPlot:
     The responsive alternative of this component is `ResponsiveSwarmPlot`.
 
 SwarmPlotCanvas:
-  package: '@nivo/swarmplot'
+  package: '@bitbloom/nivo-swarmplot'
   tags:
     - canvas
   stories:

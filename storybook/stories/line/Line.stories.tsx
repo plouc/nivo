@@ -2,12 +2,12 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Component, useState, useEffect } from 'react'
 import range from 'lodash/range'
 import last from 'lodash/last'
-import { generateDrinkStats } from '@nivo/generators'
-import { Defs, linearGradientDef } from '@nivo/core'
+import { generateDrinkStats } from '@bitbloom/nivo-generators'
+import { Defs, linearGradientDef } from '@bitbloom/nivo-core'
 import { area, curveMonotoneX } from 'd3-shape'
 import * as time from 'd3-time'
 import { timeFormat } from 'd3-time-format'
-import { Line } from '@nivo/line'
+import { Line } from '@bitbloom/nivo-line'
 
 const meta: Meta<typeof Line> = {
     title: 'Line',

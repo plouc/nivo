@@ -9,7 +9,7 @@
 import { memo } from 'react'
 import PropTypes from 'prop-types'
 import { useSpring, animated } from '@react-spring/web'
-import { useAnimatedPath, useMotionConfig, blendModePropType } from '@nivo/core'
+import { useAnimatedPath, useMotionConfig, blendModePropType } from '@bitbloom/nivo-core'
 
 const AreaPath = ({ areaBlendMode, areaOpacity, color, fill, path }) => {
     const { animate, config: springConfig } = useMotionConfig()

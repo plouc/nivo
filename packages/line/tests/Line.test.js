@@ -1,5 +1,5 @@
 import { mount } from 'enzyme'
-import { Axis } from '@nivo/axes'
+import { Axis } from '@bitbloom/nivo-axes'
 import Line from '../src/Line'
 import SlicesItem from '../src/SlicesItem'
 import renderer from 'react-test-renderer'

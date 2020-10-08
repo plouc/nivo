@@ -1,5 +1,5 @@
-import { ResponsiveSwarmPlot, ResponsiveSwarmPlotCanvas } from '@nivo/swarmplot'
-import { generateSwarmPlotData } from '@nivo/generators'
+import { ResponsiveSwarmPlot, ResponsiveSwarmPlotCanvas } from '@bitbloom/nivo-swarmplot'
+import { generateSwarmPlotData } from '@bitbloom/nivo-generators'
 import { useChart } from '../hooks'
 
 const props = {

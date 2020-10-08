@@ -1,5 +1,5 @@
 {
-    "name": "@nivo/colors",
+    "name": "@bitbloom/nivo-colors",
     "version": "0.83.0",
     "license": "MIT",
     "author": {
@@ -8,7 +8,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/plouc/nivo.git",
+        "url": "git@github.com:BitBloomTech/nivo.git",
         "directory": "packages/colors"
     },
     "main": "./dist/nivo-colors.cjs.js",
@@ -21,7 +21,7 @@
         "!dist/tsconfig.tsbuildinfo"
     ],
     "dependencies": {
-        "@nivo/core": "workspace:*",
+        "@bitbloom/nivo-core": "workspace:*",
         "@types/d3-color": "^2.0.0",
         "@types/d3-scale": "^3.2.3",
         "@types/d3-scale-chromatic": "^2.0.0",

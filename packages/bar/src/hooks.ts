@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
-import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
-import { usePropertyAccessor, useTheme, useValueFormatter, Margin } from '@nivo/core'
+import { useInheritedColor, useOrdinalColorScale } from '@bitbloom/nivo-colors'
+import { usePropertyAccessor, useTheme, useValueFormatter, Margin } from '@bitbloom/nivo-core'
 import {
     DataProps,
     BarCommonProps,

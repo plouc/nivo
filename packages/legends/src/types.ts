@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { ScaleDiverging, ScaleQuantize, ScaleSequential } from 'd3-scale'
-import { CompleteTheme, ValueFormat } from '@nivo/core'
+import { CompleteTheme, ValueFormat } from '@bitbloom/nivo-core'
 import { SymbolProps } from './svg/symbols/types'
 
 /**

@@ -1,6 +1,6 @@
 import { useSprings, animated } from '@react-spring/web'
-import { useTheme, useMotionConfig } from '@nivo/core'
-import { InheritedColorConfig } from '@nivo/colors'
+import { useTheme, useMotionConfig } from '@bitbloom/nivo-core'
+import { InheritedColorConfig } from '@bitbloom/nivo-colors'
 import {
     AreaBumpComputedSerie,
     AreaBumpDatum,

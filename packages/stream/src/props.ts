@@ -1,4 +1,4 @@
-import { StackOrder, StackOffset, AreaCurve } from '@nivo/core'
+import { StackOrder, StackOffset, AreaCurve } from '@bitbloom/nivo-core'
 import { StreamCommonProps, StreamLayerId } from './types'
 import { StreamDotsItem } from './StreamDotsItem'
 import { LayerTooltip } from './LayerTooltip'

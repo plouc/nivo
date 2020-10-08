@@ -1,5 +1,5 @@
 import { create } from 'react-test-renderer'
-import { LegendSvg, LegendSvgItem, LegendProps } from '@nivo/legends'
+import { LegendSvg, LegendSvgItem, LegendProps } from '@bitbloom/nivo-legends'
 // @ts-ignore
 import { Waffle, FillDirection } from '../src'
 import { WaffleCell } from '../src/WaffleCell'

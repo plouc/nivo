@@ -1,5 +1,5 @@
 import { createElement, Fragment, ReactNode } from 'react'
-import { Container, useDimensions } from '@nivo/core'
+import { Container, useDimensions } from '@bitbloom/nivo-core'
 import { useCustomLayerProps, useTreeMap } from './hooks'
 import { TreeMapNodes } from './TreeMapNodes'
 import { DefaultTreeMapDatum, TreeMapCommonProps, TreeMapHtmlProps, LayerId } from './types'

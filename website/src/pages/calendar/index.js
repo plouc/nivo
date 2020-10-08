@@ -1,6 +1,6 @@
 import React from 'react'
-import { ResponsiveCalendar, calendarDefaultProps } from '@nivo/calendar'
-import { generateDayCounts } from '@nivo/generators'
+import { ResponsiveCalendar, calendarDefaultProps } from '@bitbloom/nivo-calendar'
+import { generateDayCounts } from '@bitbloom/nivo-generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/calendar/meta.yml'
 import mapper from '../../data/components/calendar/mapper'

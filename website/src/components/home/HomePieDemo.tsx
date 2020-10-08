@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
-import { generateProgrammingLanguageStats } from '@nivo/generators'
-import { Pie } from '@nivo/pie'
+import { generateProgrammingLanguageStats } from '@bitbloom/nivo-generators'
+import { Pie } from '@bitbloom/nivo-pie'
 import { useHomeTheme } from './theme'
 import { dimensions } from './dimensions'
 

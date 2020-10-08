@@ -10,11 +10,11 @@ import {
     AreaCurve,
     SvgDefsAndFill,
     ValueFormat,
-} from '@nivo/core'
-import { AxisProps, GridValues } from '@nivo/axes'
-import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
-import { LegendProps } from '@nivo/legends'
-import { ScaleLinear, ScalePoint } from '@nivo/scales'
+} from '@bitbloom/nivo-core'
+import { AxisProps, GridValues } from '@bitbloom/nivo-axes'
+import { InheritedColorConfig, OrdinalColorScaleConfig } from '@bitbloom/nivo-colors'
+import { LegendProps } from '@bitbloom/nivo-legends'
+import { ScaleLinear, ScalePoint } from '@bitbloom/nivo-scales'
 
 export type StreamLayerId = 'grid' | 'axes' | 'layers' | 'dots' | 'slices' | 'legends'
 

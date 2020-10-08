@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import { useTheme } from '@nivo/core'
+import { useTheme } from '@bitbloom/nivo-core'
 import { computeContinuousColorsLegend } from '../compute'
 import { ContinuousColorsLegendProps } from '../types'
 import { continuousColorsLegendDefaults } from '../defaults'

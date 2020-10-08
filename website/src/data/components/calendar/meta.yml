@@ -7,7 +7,7 @@ flavors:
     path: /calendar/api/
 
 Calendar:
-  package: '@nivo/calendar'
+  package: '@bitbloom/nivo-calendar'
   tags: []
   stories: []
   description: |
@@ -22,7 +22,7 @@ Calendar:
     legends for this component.
 
 CalendarCanvas:
-  package: '@nivo/calendar'
+  package: '@bitbloom/nivo-calendar'
   tags:
     - canvas
   stories: []

@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react'
 import Joi from 'joi'
-import { Radar, RadarSvgProps } from '@nivo/radar'
+import { Radar, RadarSvgProps } from '@bitbloom/nivo-radar'
 import { blendMode, custom } from './common'
 import { ordinalColors, inheritedColor } from './commons/colors'
 import { dimensions } from './commons/dimensions'

@@ -9,7 +9,7 @@
 import { memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { animated } from '@react-spring/web'
-import { useAnimatedPath } from '@nivo/core'
+import { useAnimatedPath } from '@bitbloom/nivo-core'
 
 const LinesItem = ({ lineGenerator, points, color, thickness }) => {
     const path = useMemo(() => lineGenerator(points), [lineGenerator, points])

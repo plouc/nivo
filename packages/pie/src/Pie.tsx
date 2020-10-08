@@ -5,9 +5,9 @@ import {
     useDimensions,
     Container,
     SvgWrapper,
-} from '@nivo/core'
-import { ArcLabelsLayer, ArcLinkLabelsLayer } from '@nivo/arcs'
-import { InheritedColorConfig } from '@nivo/colors'
+} from '@bitbloom/nivo-core'
+import { ArcLabelsLayer, ArcLinkLabelsLayer } from '@bitbloom/nivo-arcs'
+import { InheritedColorConfig } from '@bitbloom/nivo-colors'
 import PieLegends from './PieLegends'
 import { useNormalizedData, usePieFromBox, usePieLayerContext } from './hooks'
 import { ComputedDatum, PieLayer, PieSvgProps, PieLayerId, MayHaveLabel } from './types'

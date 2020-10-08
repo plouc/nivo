@@ -1,5 +1,5 @@
 {
-    "name": "@nivo/tooltip",
+    "name": "@bitbloom/nivo-tooltip",
     "version": "0.83.0",
     "license": "MIT",
     "author": {
@@ -8,7 +8,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/plouc/nivo.git",
+        "url": "git@github.com:BitBloomTech/nivo.git",
         "directory": "packages/tooltip"
     },
     "main": "./dist/nivo-tooltip.cjs.js",
@@ -21,7 +21,7 @@
         "!dist/tsconfig.tsbuildinfo"
     ],
     "dependencies": {
-        "@nivo/core": "workspace:*",
+        "@bitbloom/nivo-core": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2"
     },
     "publishConfig": {

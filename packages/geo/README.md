@@ -1,9 +1,9 @@
 <a href="https://nivo.rocks"><img alt="nivo" src="https://raw.githubusercontent.com/plouc/nivo/master/nivo.png" width="216" height="68"/></a>
 
-# `@nivo/geo`
+# `@bitbloom/nivo-geo`
 
-[![version](https://img.shields.io/npm/v/@nivo/geo?style=for-the-badge)](https://www.npmjs.com/package/@nivo/geo)
-[![downloads](https://img.shields.io/npm/dm/@nivo/geo?style=for-the-badge)](https://www.npmjs.com/package/@nivo/geo)
+[![version](https://img.shields.io/npm/v/@bitbloom/nivo-geo?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-geo)
+[![downloads](https://img.shields.io/npm/dm/@bitbloom/nivo-geo?style=for-the-badge)](https://www.npmjs.com/package/@bitbloom/nivo-geo)
 
 ## GeoMap
 

@@ -7,16 +7,16 @@ import {
     MotionProps,
     ValueFormat,
     PropertyAccessor,
-} from '@nivo/core'
+} from '@bitbloom/nivo-core'
 import {
     Arc,
     ArcGenerator,
     ArcTransitionMode,
     ArcLabelsProps,
     ArcLinkLabelsProps,
-} from '@nivo/arcs'
-import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
-import { LegendProps } from '@nivo/legends'
+} from '@bitbloom/nivo-arcs'
+import { OrdinalColorScaleConfig, InheritedColorConfig } from '@bitbloom/nivo-colors'
+import { LegendProps } from '@bitbloom/nivo-legends'
 
 export type DatumId = string | number
 

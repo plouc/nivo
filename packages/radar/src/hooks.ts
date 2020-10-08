@@ -6,9 +6,9 @@ import {
     useCurveInterpolation,
     usePropertyAccessor,
     useValueFormatter,
-} from '@nivo/core'
-import { degreesToRadians } from '@nivo/core'
-import { useOrdinalColorScale } from '@nivo/colors'
+} from '@bitbloom/nivo-core'
+import { degreesToRadians } from '@bitbloom/nivo-core'
+import { useOrdinalColorScale } from '@bitbloom/nivo-colors'
 import { svgDefaultProps } from './props'
 import {
     RadarColorMapping,

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
-import { generateLibTree } from '@nivo/generators'
-import { Sunburst } from '@nivo/sunburst'
+import { generateLibTree } from '@bitbloom/nivo-generators'
+import { Sunburst } from '@bitbloom/nivo-sunburst'
 import { useHomeTheme } from './theme'
 import { dimensions } from './dimensions'
 

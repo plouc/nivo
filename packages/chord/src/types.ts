@@ -9,9 +9,9 @@ import {
     CssMixBlendMode,
     PropertyAccessor,
     ValueFormat,
-} from '@nivo/core'
-import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
-import { LegendProps } from '@nivo/legends'
+} from '@bitbloom/nivo-core'
+import { InheritedColorConfig, OrdinalColorScaleConfig } from '@bitbloom/nivo-colors'
+import { LegendProps } from '@bitbloom/nivo-legends'
 
 export type LayerId = 'ribbons' | 'arcs' | 'labels' | 'legends'
 export interface CustomLayerProps {

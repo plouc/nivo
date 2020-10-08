@@ -1,4 +1,4 @@
-import { positionFromAngle } from '@nivo/core'
+import { positionFromAngle } from '@bitbloom/nivo-core'
 import { Arc, Point } from '../types'
 import { getNormalizedAngle } from '../utils'
 import { ArcLink } from './types'

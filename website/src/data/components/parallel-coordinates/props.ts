@@ -1,6 +1,6 @@
 // @ts-ignore
-import { lineCurvePropKeys } from '@nivo/core'
-import { commonDefaultProps as defaults, svgDefaultProps } from '@nivo/parallel-coordinates'
+import { lineCurvePropKeys } from '@bitbloom/nivo-core'
+import { commonDefaultProps as defaults, svgDefaultProps } from '@bitbloom/nivo-parallel-coordinates'
 import {
     themeProperty,
     motionProperties,

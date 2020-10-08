@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 import * as React from 'react'
-import { useTheme } from '@nivo/core'
+import { useTheme } from '@bitbloom/nivo-core'
 import { LegendSvgItemProps } from '../types'
 import { computeItemLayout } from '../compute'
 import { SymbolCircle, SymbolDiamond, SymbolSquare, SymbolTriangle } from './symbols'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Stream, StreamSvgProps } from '@nivo/stream'
+import { Stream, StreamSvgProps } from '@bitbloom/nivo-stream'
 import streamLightNeutralImg from '../../assets/icons/stream-light-neutral.png'
 import streamLightColoredImg from '../../assets/icons/stream-light-colored.png'
 import streamDarkNeutralImg from '../../assets/icons/stream-dark-neutral.png'

@@ -1,5 +1,5 @@
 import { isDate, memoize, range } from 'lodash'
-import { alignBox } from '@nivo/core'
+import { alignBox } from '@bitbloom/nivo-core'
 import { timeFormat } from 'd3-time-format'
 import { timeDays, timeWeek, timeWeeks, timeMonths, timeYear } from 'd3-time'
 import { ScaleQuantize } from 'd3-scale'

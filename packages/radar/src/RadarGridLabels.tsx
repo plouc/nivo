@@ -1,6 +1,6 @@
 import { createElement } from 'react'
 import { useSprings } from '@react-spring/web'
-import { useMotionConfig, positionFromAngle, radiansToDegrees } from '@nivo/core'
+import { useMotionConfig, positionFromAngle, radiansToDegrees } from '@bitbloom/nivo-core'
 import { GridLabelComponent } from './types'
 
 const textAnchorFromAngle = (_angle: number) => {

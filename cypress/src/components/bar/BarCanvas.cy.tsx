@@ -1,4 +1,4 @@
-import { BarCanvas } from '@nivo/bar'
+import { BarCanvas } from '@bitbloom/nivo-bar'
 
 describe('<BarCanvas />', () => {
     it('should render a bar chart', () => {

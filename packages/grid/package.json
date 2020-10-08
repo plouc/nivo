@@ -1,5 +1,5 @@
 {
-    "name": "@nivo/grid",
+    "name": "@bitbloom/nivo-grid",
     "description": "grid components for nivo dataviz library",
     "version": "0.83.0",
     "license": "MIT",

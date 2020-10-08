@@ -1,5 +1,5 @@
 // @ts-ignore
-import { MotionConfigProvider } from '@nivo/core'
+import { MotionConfigProvider } from '@bitbloom/nivo-core'
 import { FunnelLayerId } from './types'
 
 export const svgDefaultProps = {

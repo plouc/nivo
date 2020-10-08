@@ -1,4 +1,4 @@
-import { ResponsiveStream } from '@nivo/stream'
+import { ResponsiveStream } from '@bitbloom/nivo-stream'
 import { random, range } from '../utils'
 import { useChart } from '../hooks'
 

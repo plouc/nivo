@@ -1,10 +1,10 @@
 import React from 'react'
 import { useTheme } from 'styled-components'
-import { patternDotsDef, patternLinesDef, patternSquaresDef } from '@nivo/core'
-import { ResponsiveBar } from '@nivo/bar'
-import { ResponsiveStream } from '@nivo/stream'
-import { ResponsiveTreeMap } from '@nivo/treemap'
-import { generateCountriesData } from '@nivo/generators'
+import { patternDotsDef, patternLinesDef, patternSquaresDef } from '@bitbloom/nivo-core'
+import { ResponsiveBar } from '@bitbloom/nivo-bar'
+import { ResponsiveStream } from '@bitbloom/nivo-stream'
+import { ResponsiveTreeMap } from '@bitbloom/nivo-treemap'
+import { generateCountriesData } from '@bitbloom/nivo-generators'
 import { FullWidthBanner } from '../../styled'
 
 export const PatternsIllustrations = () => {

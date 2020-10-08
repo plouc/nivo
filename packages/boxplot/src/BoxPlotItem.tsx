@@ -1,6 +1,6 @@
 import { createElement, MouseEvent, useCallback, useMemo } from 'react'
 import { animated, SpringValue } from '@react-spring/web'
-import { useTooltip } from '@nivo/tooltip'
+import { useTooltip } from '@bitbloom/nivo-tooltip'
 import { BoxPlotDatum, BoxPlotItemProps } from './types'
 
 const BoxPlotItemWhisker = ({

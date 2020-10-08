@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { generateWaffleData } from '@nivo/generators'
-import { WaffleHtml } from '@nivo/waffle'
+import { generateWaffleData } from '@bitbloom/nivo-generators'
+import { WaffleHtml } from '@bitbloom/nivo-waffle'
 import { CustomTooltip as CustomTooltipComponent } from './CustomTooltip'
 
 const meta: Meta<typeof WaffleHtml> = {

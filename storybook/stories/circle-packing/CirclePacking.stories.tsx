@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
-import { generateLibTree } from '@nivo/generators'
-import { CirclePacking } from '@nivo/circle-packing'
+import { generateLibTree } from '@bitbloom/nivo-generators'
+import { CirclePacking } from '@bitbloom/nivo-circle-packing'
 
 const meta: Meta<typeof CirclePacking> = {
     title: 'CirclePacking',

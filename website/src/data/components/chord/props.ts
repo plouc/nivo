@@ -1,4 +1,4 @@
-import { commonDefaultProps as defaults } from '@nivo/chord'
+import { commonDefaultProps as defaults } from '@bitbloom/nivo-chord'
 import {
     themeProperty,
     motionProperties,

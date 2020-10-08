@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react'
 import Joi from 'joi'
-import { Sunburst, SunburstSvgProps } from '@nivo/sunburst'
+import { Sunburst, SunburstSvgProps } from '@bitbloom/nivo-sunburst'
 import { custom } from './common'
 import { ordinalColors, inheritedColor } from './commons/colors'
 import { dimensions } from './commons/dimensions'

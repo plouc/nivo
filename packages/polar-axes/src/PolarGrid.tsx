@@ -1,4 +1,4 @@
-import { AnyScale } from '@nivo/scales'
+import { AnyScale } from '@bitbloom/nivo-scales'
 import { RadialGrid } from './RadialGrid'
 import { CircularGrid } from './CircularGrid'
 
