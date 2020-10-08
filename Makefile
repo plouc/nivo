@@ -50,7 +50,7 @@ init: ##@0 global cleanup/install/bootstrap
 	@$(MAKE) clean-all
 	@yarn install
 	@$(MAKE) bootstrap
-	#@$(MAKE) packages-build
+	@$(MAKE) package-build-bar
 	#@$(MAKE) examples-install
 
 fmt: ##@0 global format code using prettier (js, css, md)

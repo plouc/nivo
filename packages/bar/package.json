@@ -44,7 +44,6 @@
     "url": "git@github.com:BitBloomTech/nivo.git"
   },
   "publishConfig": {
-    "access": "public",
     "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"
   }
 }
