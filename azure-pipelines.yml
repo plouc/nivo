@@ -18,6 +18,9 @@ steps:
     workingFile: .npmrc
 
 - script: |
+    echo "Clean up container"
+    docker rm -f nivo
+    echo "Create new container"
     docker run --name nivo -v $(Build.SourcesDirectory):/app -w /app node:12.18.4 ./build.sh
   displayName: 'Build modules on nivo docker container'
 
