@@ -43,3 +43,4 @@
   "publishConfig": {
     "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"
   }
+}
