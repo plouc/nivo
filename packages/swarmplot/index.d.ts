@@ -26,6 +26,22 @@ declare module '@nivo/swarmplot' {
         data: Datum
     }
 
+    export interface LayerProps<Datum> {
+        nodes: ComputedNode<Datum>[]
+        xScale: (input: number) => number
+        yScale: (input: number) => number
+        innerWidth: number
+        innerHeight: number
+        outerWidth: number
+        outerHeight: number
+        margin: number
+        getBorderColor: () => string
+        getBorderWidth: () => number
+        animate: boolean
+        motionStiffness: number
+        motionDamping: number
+    }
+
     type DatumAccessor<Datum, T> = (datum: Datum) => T
     type ComputedNodeAccessor<Datum, T> = (node: ComputedNode<Datum>) => T
 
@@ -40,6 +56,8 @@ declare module '@nivo/swarmplot' {
         event: React.MouseEvent<any>
     ) => void
 
+    export type Layers<Datum> = ((props: LayerProps<Datum>) => JSX.Element) | string
+
     type ValueFormatter<Datum> = (datum: Datum) => string | number
 
     interface CommonSwarmPlotProps<Datum = any> {
@@ -48,7 +66,7 @@ declare module '@nivo/swarmplot' {
         margin?: Box
 
         groups: string[]
-        groupBy?: string
+        groupBy?: string | DatumAccessor<Datum, string>
         identity?: string | DatumAccessor<Datum, string>
         label?: string | DatumAccessor<Datum, string>
         value?: string | DatumAccessor<Datum, number>
@@ -62,7 +80,7 @@ declare module '@nivo/swarmplot' {
         forceStrength?: number
         simulationIterations?: number
 
-        layers: any[]
+        layers?: Layers<Datum>[]
 
         colors?: OrdinalColorsInstruction
         colorBy?: string | ComputedNodeAccessor<Datum, string | number>
