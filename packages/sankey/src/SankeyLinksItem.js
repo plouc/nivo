@@ -129,7 +129,7 @@ const SankeyLinksItem = ({
                 />
             )}
             <animated.path
-                fill={enableGradient ? `url(#${encodeURI(linkId)})` : animatedProps.color}
+                fill={enableGradient ? `url("#${encodeURI(linkId)}")` : animatedProps.color}
                 d={animatedProps.path}
                 fillOpacity={animatedProps.opacity}
                 onMouseEnter={isInteractive ? handleMouseEnter : undefined}
