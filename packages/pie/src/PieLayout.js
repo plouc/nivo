@@ -143,12 +143,7 @@ PieLayout.propTypes = {
     startAngle: PropTypes.number.isRequired,
     endAngle: PropTypes.number.isRequired,
     padAngle: PropTypes.number.isRequired,
-    // arcs: PropTypes.array.isRequired, // computed
-    // arcGenerator: PropTypes.func.isRequired, // computed
-    // centerX: PropTypes.number.isRequired, // computed
-    // centerY: PropTypes.number.isRequired, // computed
-    // radius: PropTypes.number.isRequired, // computed
-    // innerRadius: PropTypes.number.isRequired, // re-computed
+    innerRadius: PropTypes.number.isRequired, // re-computed
     cornerRadius: PropTypes.number.isRequired,
     debug: PropTypes.shape({
         points: PropTypes.array.isRequired,

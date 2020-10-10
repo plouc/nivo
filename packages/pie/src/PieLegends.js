@@ -38,7 +38,7 @@ export default function PieLegends(props) {
     ))
 }
 
-PieLegends.defaultProps = {
+PieLegends.propTypes = {
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
     arcs: PropTypes.arrayOf(arcPropType).isRequired,

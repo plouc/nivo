@@ -12,16 +12,14 @@ import { BasicTooltip } from '@nivo/tooltip'
 
 const PieSlice = ({
     data,
-
     path,
     color,
     fill,
     borderWidth,
     borderColor,
-
     showTooltip,
     hideTooltip,
-    onClick: _onClick,
+    onClick,
     onMouseEnter,
     onMouseLeave,
     tooltipFormat,
@@ -29,12 +27,6 @@ const PieSlice = ({
 
     theme,
 }) => {
-    const onClick = React.useMemo(
-        () => ({
-            onClick: event => _onClick(data, event),
-        }),
-        [data, onClick]
-    )
     const handleTooltip = e =>
         showTooltip(
             <BasicTooltip
@@ -69,7 +61,7 @@ const PieSlice = ({
             onMouseEnter={handleMouseEnter}
             onMouseMove={handleTooltip}
             onMouseLeave={handleMouseLeave}
-            onClick={onClick}
+            onClick={() => onClick(data, event)}
         />
     )
 }
