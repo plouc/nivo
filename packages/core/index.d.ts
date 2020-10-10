@@ -44,6 +44,9 @@ declare module '@nivo/core' {
             }>
         }>
         background: string
+        fontFamily: string
+        fontSize: number
+        textColor: string
         axis: Partial<{
             domain: Partial<{
                 line: Partial<React.CSSProperties>
@@ -70,6 +73,7 @@ declare module '@nivo/core' {
             lineStrokeWidth: number
             textColor: string
             fontSize: string | 0
+            text: Partial<React.CSSProperties>
         }>
         dots: Partial<{
             text: Partial<React.CSSProperties>
@@ -80,6 +84,12 @@ declare module '@nivo/core' {
             chip: Partial<React.CSSProperties>
             table: Partial<React.CSSProperties>
             tableCell: Partial<React.CSSProperties>
+        }>
+        annotations: Partial<{
+            text: Partial<React.CSSProperties>
+            link: Partial<React.CSSProperties>
+            outline: Partial<React.CSSProperties>
+            symbol: Partial<React.CSSProperties>
         }>
     }>
 
