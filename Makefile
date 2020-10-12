@@ -50,7 +50,7 @@ init: ##@0 global cleanup/install/bootstrap
 	@$(MAKE) clean-all
 	@yarn install
 	@$(MAKE) bootstrap
-	#@$(MAKE) packages-build
+	@$(MAKE) packages-build
 	#@$(MAKE) examples-install
 
 fmt: ##@0 global format code using prettier (js, css, md)
@@ -181,7 +181,7 @@ packages-screenshots: ##@1 packages generate screenshots for packages readme (we
 	@node scripts/capture.js
 
 packages-publish: ##@1 packages publish all packages
-	@$(MAKE) packages-build
+	#@$(MAKE) packages-build
 
 	@echo "${YELLOW}Publishing packages${RESET}"
 	@./node_modules/.bin/lerna publish --exact  --canary --yes --no-push
