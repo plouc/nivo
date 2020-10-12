@@ -184,7 +184,7 @@ packages-publish: ##@1 packages publish all packages
 	#@$(MAKE) packages-build
 
 	@echo "${YELLOW}Publishing packages${RESET}"
-	@./node_modules/.bin/lerna publish --exact  --canary --yes --no-push
+	@./node_modules/.bin/lerna publish --exact  --canary --yes --no-push --force-publish
 
 packages-publish-next: ##@1 packages publish all packages for @next npm tag
 	@$(MAKE) packages-build
