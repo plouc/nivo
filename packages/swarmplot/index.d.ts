@@ -42,6 +42,14 @@ declare module '@nivo/swarmplot' {
         motionDamping: number
     }
 
+    export enum SwarmPlotLayerType {
+        Grid = 'grid',
+        Axes = 'axes',
+        Nodes = 'nodes',
+        Mesh = 'mesh',
+        Annotations = 'annotations'
+    }
+
     type DatumAccessor<Datum, T> = (datum: Datum) => T
     type ComputedNodeAccessor<Datum, T> = (node: ComputedNode<Datum>) => T
 
@@ -56,7 +64,8 @@ declare module '@nivo/swarmplot' {
         event: React.MouseEvent<any>
     ) => void
 
-    export type Layers<Datum> = ((props: LayerProps<Datum>) => JSX.Element) | string
+    export type SwarmPlotCustomLayer<Datum> = (props: LayerProps<Datum>) => JSX.Element
+    export type Layers<Datum> = SwarmPlotCustomLayer<Datum> | SwarmPlotLayerType
 
     type ValueFormatter<Datum> = (datum: Datum) => string | number
 
