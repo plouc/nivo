@@ -12,3 +12,4 @@ build
 /packages/*/dist
 
 *.lerna_backup
+.npmrc
