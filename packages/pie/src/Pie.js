@@ -66,7 +66,7 @@ export default function Pie(props) {
         slicesLabelsTextColor,
 
         // styling
-        // theme,
+        theme: _theme,
         defs,
         fill,
 
@@ -82,7 +82,7 @@ export default function Pie(props) {
         role,
     } = props
 
-    const theme = usePartialTheme()
+    const theme = usePartialTheme(_theme)
 
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
         _width,

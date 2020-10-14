@@ -42,7 +42,6 @@ PieLegends.propTypes = {
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
     arcs: PropTypes.arrayOf(arcPropType).isRequired,
-    data: PropTypes.arrayOf(PropTypes.object).isRequired,
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
     theme: themePropType.isRequired,
 }
