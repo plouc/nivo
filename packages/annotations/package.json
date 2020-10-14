@@ -1,12 +1,16 @@
 {
   "name": "@bitbloom/nivo-annotations",
-  "version": "0.62.0",
+  "version": "0.62.1",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
     "url": "https://github.com/plouc"
   },
-  "maintainers": [{"name": "Bitbloom"}],
+  "maintainers": [
+    {
+      "name": "Bitbloom"
+    }
+  ],
   "keywords": [
     "nivo",
     "dataviz",
@@ -23,7 +27,7 @@
     "dist/"
   ],
   "dependencies": {
-    "@bitbloom/nivo-colors": "0.62.0",
+    "@bitbloom/nivo-colors": "^0.62.1",
     "lodash": "^4.17.11",
     "react-spring": "^8.0.27"
   },
