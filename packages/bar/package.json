@@ -23,12 +23,12 @@
     "dist/"
   ],
   "dependencies": {
-    "@bitbloom/nivo-annotations": "^0.62.1",
-    "@bitbloom/nivo-axes": "^0.62.1",
-    "@bitbloom/nivo-colors": "^0.62.1",
-    "@bitbloom/nivo-core": "^0.62.1",
-    "@bitbloom/nivo-legends": "^0.62.1",
-    "@bitbloom/nivo-tooltip": "0.62.2",
+    "@bitbloom/nivo-annotations": "^0.62.2",
+    "@bitbloom/nivo-axes": "^0.62.2",
+    "@bitbloom/nivo-colors": "^0.62.2",
+    "@bitbloom/nivo-core": "^0.62.2",
+    "@bitbloom/nivo-legends": "^0.62.2",
+    "@bitbloom/nivo-tooltip": "^0.62.2",
     "d3-scale": "^3.0.0",
     "d3-shape": "^1.2.2",
     "lodash": "^4.17.11",

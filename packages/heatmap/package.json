@@ -23,9 +23,9 @@
     "dist/"
   ],
   "dependencies": {
-    "@bitbloom/nivo-axes": "^0.62.1",
-    "@bitbloom/nivo-colors": "^0.62.1",
-    "@bitbloom/nivo-tooltip": "0.62.2",
+    "@bitbloom/nivo-axes": "^0.62.2",
+    "@bitbloom/nivo-colors": "^0.62.2",
+    "@bitbloom/nivo-tooltip": "^0.62.2",
     "d3-scale": "^3.0.0",
     "react-spring": "^8.0.27"
   },
