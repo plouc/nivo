@@ -14,7 +14,10 @@ import { scaleBand, scaleLinear } from 'd3-scale';
 
 var getIndexedScale = function getIndexedScale(data, getIndex, range, padding) {
     return scaleBand().rangeRound(range).domain(data.map(getIndex)).padding(padding);
-  };
+};
+
+type WaterfallDatum<RawDatum extends Record<string, number> & { columnType?: string }> = [number, number] & { data?: RawDatum };
+type WaterfallData<RawDatum extends Record<string, number> & { columnType?: string }> = WaterfallDatum<RawDatum>[] & { key?: string };
 /**
  * Set up data for waterfall bar chart.
  *
@@ -22,11 +25,11 @@ var getIndexedScale = function getIndexedScale(data, getIndex, range, padding) {
  * @param {Array.<String>} keys
  * @returns {Array.Array}
  */
-export const generateWaterfallData = (data, keys) => {
+export const generateWaterfallData = <RawDatum extends Record<string, number> & { columnType?: string }>(data: RawDatum[], keys: string[]) => {
     let accumulativeVal = 0;
     let [key] = keys;
-    let waterfallData = data.map(d => {
-        let result;
+    let waterfallData: WaterfallData<RawDatum> = data.map(d => {
+        let result: WaterfallDatum<RawDatum>;
         if (d.columnType === "total") {
             accumulativeVal = d[key]
             result = [0, accumulativeVal];
@@ -48,7 +51,7 @@ export const generateWaterfallData = (data, keys) => {
  * @param {Array.<number>} range
  * @returns {Function}
  */
-export const getWaterfallScale = (data, _minValue, _maxValue, range) => {
+export const getWaterfallScale = <RawDatum extends object>(data: RawDatum[], _minValue: number | 'auto', _maxValue: number | 'auto', range: number[]) => {
     const allValues = flattenDepth(data, 2);
     let minValue = _minValue;
     if (minValue === 'auto') {
@@ -59,7 +62,52 @@ export const getWaterfallScale = (data, _minValue, _maxValue, range) => {
         maxValue = max(allValues);
     }
 
-  return scaleLinear().rangeRound(range).domain([minValue, maxValue]);
+    return scaleLinear().rangeRound(range).domain([minValue, maxValue]);
+}
+
+interface WaterfallOptions<RawDatum extends Record<string, number> & { columnType?: string }> {
+    layout: 'vertical' | 'horizontal'
+    data: RawDatum[]
+    keys: string[]
+    getIndex: (d: RawDatum) => string | number
+    minValue: number | 'auto'
+    maxValue: number | 'auto'
+    reverse: boolean
+    width: number
+    height: number
+    getColor: (d: BarData) => string
+    padding?: number
+    innerPadding?: number
+}
+
+interface WaterfallResult {
+    xScale: (d: string | number) => number
+    yScale: (d: number) => number
+    bars: Bar[]
+}
+
+interface BarData {
+    id: string
+    value: number
+    index: number
+    indexValue: string | number
+    data: object
+    line?: {
+        x1: number
+        x2: number
+        y1: number
+        y2: number
+    }
+}
+
+interface Bar {
+    key: string
+    x: number
+    y: number
+    width: number
+    height: number
+    color: string
+    data: BarData
 }
 
 /**
@@ -78,10 +126,10 @@ export const getWaterfallScale = (data, _minValue, _maxValue, range) => {
  * @param {number}         [innerPadding=0]
  * @return {{ xScale: Function, yScale: Function, bars: Array.<Object> }}
  */
-export const generateVerticalWaterfallBars = ({
+export const generateVerticalWaterfallBars = <RawDatum extends Record<string, number> & { columnType?: string }>({
     data,
-    getIndex,
     keys,
+    getIndex,
     minValue,
     maxValue,
     reverse,
@@ -89,7 +137,7 @@ export const generateVerticalWaterfallBars = ({
     height,
     getColor,
     padding = 0,
-}) => {
+}: WaterfallOptions<RawDatum>): WaterfallResult => {
     const key = keys[0]
     const waterfallData = generateWaterfallData(data, keys)
 
@@ -97,24 +145,24 @@ export const generateVerticalWaterfallBars = ({
     const yRange = reverse ? [0, height] : [height, 0]
     const yScale = getWaterfallScale(waterfallData, minValue, maxValue, yRange)
 
-    const bars = []
+    const bars: Bar[] = []
     const barWidth = xScale.bandwidth()
 
-    let getY = d => yScale(max(d))
-    let getHeight = (d, y) => yScale(min(d)) - y;
+    let getY = (d: [number, number]) => yScale(max(d))
+    let getHeight = (d: [number, number], y: number) => yScale(min(d)) - y;
 
     if (reverse) {
         getY = d => yScale(min(d))
         getHeight = (d, y) => yScale(max(d)) - y;
     }
 
-    range(xScale.domain().length).forEach(index => {
+    range(xScale.domain().length).forEach((index: number) => {
         const x = xScale(getIndex(data[index]));
         const y = getY(waterfallData[index]);
         const barHeight = getHeight(waterfallData[index], y);
 
         if (barWidth > 0) {
-            const barData = {
+            const barData: BarData = {
                 id: key,
                 value: data[index][key],
                 index: index,
@@ -130,7 +178,7 @@ export const generateVerticalWaterfallBars = ({
                 }
             }
             bars.push({
-                key: "".concat(key, ".").concat(barData.indexValue),
+                key: "".concat(key, ".").concat(`${barData.indexValue}`),
                 data: barData,
                 x: x,
                 y: y,
@@ -160,7 +208,7 @@ export const generateVerticalWaterfallBars = ({
  * @param {number}         [innerPadding=0]
  * @return {{ xScale: Function, yScale: Function, bars: Array.<Object> }}
  */
-export const generateHorizontalWaterfallBars = ({data,
+export const generateHorizontalWaterfallBars = <RawDatum extends Record<string, number> & { columnType?: string | undefined; }>({ data,
     getIndex,
     keys,
     minValue,
@@ -170,7 +218,7 @@ export const generateHorizontalWaterfallBars = ({data,
     height,
     getColor,
     padding = 0,
-}) => {
+}: WaterfallOptions<RawDatum>): WaterfallResult => {
     const key = keys[0]
     const waterfallData = generateWaterfallData(data, keys)
 
@@ -178,29 +226,30 @@ export const generateHorizontalWaterfallBars = ({data,
     const xScale = getWaterfallScale(waterfallData, minValue, maxValue, xRange)
     const yScale = getIndexedScale(data, getIndex, [height, 0], padding)
 
-    const bars = []
+    const bars: Bar[] = []
     const barHeight = yScale.bandwidth()
 
-    let getX = d => xScale(min(d))
-    let getWidth = (d, x) => xScale(max(d)) - x;
+    let getX = (d: [number, number]) => xScale(min(d))
+    let getWidth = (d: [number, number], x: number) => xScale(max(d)) - x;
 
     if (reverse) {
         getX = d => xScale(max(d))
         getWidth = (d, x) => xScale(min(d)) - x;
     }
 
-    range(yScale.domain().length).forEach(index => {
+    range(yScale.domain().length).forEach((index: number) => {
         const y = yScale(getIndex(data[index]));
         const x = getX(waterfallData[index]);
         const barWidth = getWidth(waterfallData[index], x);
-        
+
         if (barHeight > 0) {
             const barData = {
                 id: key,
                 value: data[index][key],
                 index: index,
                 indexValue: getIndex(data[index]),
-                data: data[index]
+                data: data[index],
+                line: { x1: 0, x2: 0, y1: 0, y2: 0 }
             };
             if (data[index + 1]) {
                 barData.line = {
@@ -211,7 +260,7 @@ export const generateHorizontalWaterfallBars = ({data,
                 }
             }
             bars.push({
-                key: "".concat(key, ".").concat(barData.indexValue),
+                key: "".concat(key, ".").concat(`${barData.indexValue}`),
                 data: barData,
                 x: x,
                 y: y,
@@ -230,7 +279,7 @@ export const generateHorizontalWaterfallBars = ({data,
  * @param {Object} options
  * @return {{ xScale: Function, yScale: Function, bars: Array.<Object> }}
  */
-export const generateWaterfallBars = options =>
+export const generateWaterfallBars = <RawDatum extends Record<string, number> & { columnType?: string | undefined; }>(options: WaterfallOptions<RawDatum>): WaterfallResult =>
     options.layout === 'vertical'
         ? generateVerticalWaterfallBars(options)
         : generateHorizontalWaterfallBars(options)
