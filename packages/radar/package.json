@@ -31,7 +31,7 @@
     "react-spring": "^8.0.27"
   },
   "peerDependencies": {
-    "@bitbloom/nivo-core": "0.62.0",
+    "@bitbloom/nivo-core": "^0.62.0",
     "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.8.4 < 17.0.0"
   },
