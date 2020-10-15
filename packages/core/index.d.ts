@@ -194,5 +194,9 @@ declare module '@nivo/core' {
         defs: Def[]
     }
 
+    export function PatternLines(props: Omit<PatternLinesDef, 'type'>): JSX.Element
+    export function PatternSquares(props: Omit<PatternSquaresDef, 'type'>): JSX.Element
+    export function PatternDots(props: Omit<PatternDotsDef, 'type'>): JSX.Element
+
     export function Defs(props: DefsProps): JSX.Element
 }
