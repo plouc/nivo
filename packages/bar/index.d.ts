@@ -89,7 +89,7 @@ declare module '@bitbloom/nivo-bar' {
         indexBy: string | IndexByFunc
         keys: string[]
 
-        groupMode: 'stacked' | 'grouped'
+        groupMode: 'stacked' | 'grouped' | 'waterfall'
         layout: 'horizontal' | 'vertical'
         reverse: boolean
 

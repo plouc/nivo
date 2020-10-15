@@ -13,7 +13,7 @@ import { getRelativeCursor, isCursorInRect, Container } from '@bitbloom/nivo-cor
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@bitbloom/nivo-axes'
 import { renderLegendToCanvas } from '@bitbloom/nivo-legends'
 import { BasicTooltip } from '@bitbloom/nivo-tooltip'
-import { generateGroupedBars, generateStackedBars } from './compute'
+import { generateGroupedBars, generateStackedBars, generateWaterfallBars } from './compute'
 import { BarPropTypes } from './props'
 import enhance from './enhance'
 
@@ -107,7 +107,8 @@ class BarCanvas extends Component {
         }
 
         const result =
-            groupMode === 'grouped' ? generateGroupedBars(options) : generateStackedBars(options)
+            groupMode === 'grouped' ? generateGroupedBars(options)
+                : groupMode === 'waterfall' ? generateWaterfallBars(options) : generateStackedBars(options)
 
         this.bars = result.bars
 
@@ -205,6 +206,14 @@ class BarCanvas extends Component {
             this.ctx.beginPath()
             this.ctx.rect(x, y, width, height)
             this.ctx.fill()
+            if (index < result.bars.length - 1) {
+                const { x1, x2, y1, y2 } = bar.data.line
+                this.ctx.beginPath();
+                this.ctx.moveTo(x1, y1)
+                this.ctx.lineTo(x2, y2)
+                this.ctx.lineWidth = 1
+                this.ctx.stroke()
+            }
 
             if (borderWidth > 0) {
                 this.ctx.stroke()
