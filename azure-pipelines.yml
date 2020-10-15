@@ -7,7 +7,6 @@ trigger:
   branches:
     include:
       - master
-      - azure-pipelines
       - refs/tags/*
 
 pool: 'Default'
