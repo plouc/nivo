@@ -10,7 +10,7 @@ import React, { useState, useEffect } from 'react'
 import { storiesOf } from '@storybook/react'
 import { Bar } from '../src'
 
-const stories = storiesOf('Bar/race chart', module)
+const stories = storiesOf('Bar', module)
 
 const DataGenerator = (initialIndex, initialState) => {
     let index = initialIndex
@@ -141,4 +141,4 @@ const Sample = () => {
     )
 }
 
-stories.add('demo', () => <Sample />)
+stories.add('race chart', () => <Sample />)
