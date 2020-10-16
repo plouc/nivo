@@ -6,7 +6,6 @@ coverage
 storybook/storybook-static
 
 package-lock.json
-.npmrc
 
 build
 *.tsbuildinfo
