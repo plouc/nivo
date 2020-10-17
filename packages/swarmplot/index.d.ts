@@ -47,7 +47,7 @@ declare module '@nivo/swarmplot' {
         Axes = 'axes',
         Nodes = 'nodes',
         Mesh = 'mesh',
-        Annotations = 'annotations'
+        Annotations = 'annotations',
     }
 
     type DatumAccessor<Datum, T> = (datum: Datum) => T
