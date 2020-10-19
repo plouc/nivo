@@ -24,6 +24,7 @@ import {
     getLabelGenerator,
     Container,
     SvgWrapper,
+    noop
 } from '@nivo/core'
 import {
     getOrdinalColorScale,
@@ -31,7 +32,6 @@ import {
     inheritedColorPropType,
     getInheritedColorGenerator,
 } from '@nivo/colors'
-import { noop } from '@nivo/core'
 import SunburstLabels from './SunburstLabels'
 import SunburstArc from './SunburstArc'
 
