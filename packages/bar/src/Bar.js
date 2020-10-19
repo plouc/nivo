@@ -14,7 +14,7 @@ import { BoxLegendSvg } from '@nivo/legends'
 import { generateGroupedBars, generateStackedBars, getLegendData } from './compute'
 import setDisplayName from 'recompose/setDisplayName'
 import enhance from './enhance'
-import { BarPropTypes } from './props'
+import { BarSvgDefaultProps, BarSvgPropTypes } from './props'
 import BarAnnotations from './BarAnnotations'
 
 const barWillEnterHorizontal = ({ style }) => ({
@@ -108,6 +108,8 @@ const Bar = props => {
         animate,
         motionStiffness,
         motionDamping,
+
+        role,
     } = props
     const options = {
         layout,
@@ -278,6 +280,7 @@ const Bar = props => {
                             from: legend.dataFrom,
                             bars: result.bars,
                             layout,
+                            direction: legend.direction,
                             groupMode,
                             reverse,
                         })
@@ -314,10 +317,15 @@ const Bar = props => {
                         margin={margin}
                         defs={boundDefs}
                         theme={theme}
+                        role={role}
                     >
                         {layers.map((layer, i) => {
                             if (typeof layer === 'function') {
-                                return <Fragment key={i}>{layer({ ...props, ...result })}</Fragment>
+                                return (
+                                    <Fragment key={i}>
+                                        {layer({ ...props, ...result, showTooltip, hideTooltip })}
+                                    </Fragment>
+                                )
                             }
                             return layerById[layer]
                         })}
@@ -328,6 +336,7 @@ const Bar = props => {
     )
 }
 
-Bar.propTypes = BarPropTypes
+Bar.propTypes = BarSvgPropTypes
+Bar.defaultProps = BarSvgDefaultProps
 
 export default setDisplayName('Bar')(enhance(Bar))

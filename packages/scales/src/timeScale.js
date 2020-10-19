@@ -32,14 +32,14 @@ export const timeScale = (
     if (min === 'auto') {
         minValue = values.min
     } else if (format !== 'native') {
-        minValue = normalize(values.min)
+        minValue = normalize(min)
     }
 
     let maxValue = max
     if (max === 'auto') {
         maxValue = values.max
     } else if (format !== 'native') {
-        maxValue = normalize(values.max)
+        maxValue = normalize(max)
     }
 
     const scale = useUTC ? scaleUtc() : scaleTime()

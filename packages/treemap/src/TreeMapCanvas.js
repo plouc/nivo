@@ -6,12 +6,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component } from 'react'
-import { degreesToRadians } from '@nivo/core'
-import { getRelativeCursor, isCursorInRect } from '@nivo/core'
-import { Container } from '@nivo/core'
-import { TreeMapCanvasPropTypes } from './props'
-import enhance from './enhance'
+import React, { useCallback, useEffect, useRef } from 'react'
+import {
+    degreesToRadians,
+    getRelativeCursor,
+    isCursorInRect,
+    withContainer,
+    useDimensions,
+    useTheme,
+} from '@nivo/core'
+import { useTooltip } from '@nivo/tooltip'
+import { TreeMapCanvasPropTypes, TreeMapCanvasDefaultProps } from './props'
+import { useTreeMap } from './hooks'
 import TreeMapNodeTooltip from './TreeMapNodeTooltip'
 
 const findNodeUnderCursor = (nodes, margin, x, y) =>
@@ -19,144 +25,185 @@ const findNodeUnderCursor = (nodes, margin, x, y) =>
         isCursorInRect(node.x + margin.left, node.y + margin.top, node.width, node.height, x, y)
     )
 
-class TreeMapCanvas extends Component {
-    componentDidMount() {
-        this.ctx = this.surface.getContext('2d')
-        this.draw(this.props)
-    }
+const TreeMapCanvas = ({
+    data,
+    identity,
+    value,
+    tile,
+    valueFormat,
+    innerPadding,
+    outerPadding,
+    leavesOnly,
+    width,
+    height,
+    margin: partialMargin,
+    colors,
+    colorBy,
+    nodeOpacity,
+    borderWidth,
+    borderColor,
+    enableLabel,
+    label,
+    labelTextColor,
+    orientLabel,
+    labelSkipSize,
+    isInteractive,
+    onMouseMove,
+    onClick,
+    tooltip,
+    pixelRatio,
+}) => {
+    const canvasEl = useRef(null)
 
-    componentDidUpdate() {
-        this.ctx = this.surface.getContext('2d')
-        this.draw(this.props)
-    }
+    const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
+        width,
+        height,
+        partialMargin
+    )
 
-    draw(props) {
-        const {
-            nodes,
+    const { nodes } = useTreeMap({
+        data,
+        identity,
+        value,
+        valueFormat,
+        leavesOnly,
+        width: innerWidth,
+        height: innerHeight,
+        tile,
+        innerPadding,
+        outerPadding,
+        colors,
+        colorBy,
+        nodeOpacity,
+        borderColor,
+        label,
+        labelTextColor,
+        orientLabel,
+        enableParentLabel: false,
+    })
 
-            pixelRatio,
+    const theme = useTheme()
 
-            margin,
-            outerWidth,
-            outerHeight,
+    useEffect(() => {
+        canvasEl.current.width = outerWidth * pixelRatio
+        canvasEl.current.height = outerHeight * pixelRatio
 
-            borderWidth,
-            getBorderColor,
+        const ctx = canvasEl.current.getContext('2d')
 
-            enableLabel,
-            getLabelTextColor,
-            orientLabel,
+        ctx.scale(pixelRatio, pixelRatio)
 
-            theme,
-        } = props
-
-        this.surface.width = outerWidth * pixelRatio
-        this.surface.height = outerHeight * pixelRatio
-
-        this.ctx.scale(pixelRatio, pixelRatio)
-
-        this.ctx.fillStyle = theme.background
-        this.ctx.fillRect(0, 0, outerWidth, outerHeight)
-        this.ctx.translate(margin.left, margin.top)
+        ctx.fillStyle = theme.background
+        ctx.fillRect(0, 0, outerWidth, outerHeight)
+        ctx.translate(margin.left, margin.top)
 
         nodes.forEach(node => {
-            this.ctx.fillStyle = node.color
-            this.ctx.fillRect(node.x, node.y, node.width, node.height)
+            ctx.fillStyle = node.color
+            ctx.fillRect(node.x, node.y, node.width, node.height)
 
             if (borderWidth > 0) {
-                this.ctx.strokeStyle = getBorderColor(node)
-                this.ctx.lineWidth = borderWidth
-                this.ctx.strokeRect(node.x, node.y, node.width, node.height)
+                ctx.strokeStyle = node.borderColor
+                ctx.lineWidth = borderWidth
+                ctx.strokeRect(node.x, node.y, node.width, node.height)
             }
         })
 
         if (enableLabel) {
-            this.ctx.textAlign = 'center'
-            this.ctx.textBaseline = 'middle'
-            this.ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
+            ctx.textAlign = 'center'
+            ctx.textBaseline = 'middle'
+            ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
 
-            // draw labels on top
-            nodes
-                .filter(({ label }) => label !== undefined)
-                .forEach(node => {
-                    const labelTextColor = getLabelTextColor(node)
+            nodes.forEach(node => {
+                const showLabel =
+                    node.isLeaf &&
+                    (labelSkipSize === 0 || Math.min(node.width, node.height) > labelSkipSize)
 
-                    const rotate = orientLabel && node.height > node.width
+                if (!showLabel) return
 
-                    this.ctx.save()
-                    this.ctx.translate(node.x + node.width / 2, node.y + node.height / 2)
-                    this.ctx.rotate(degreesToRadians(rotate ? -90 : 0))
+                const rotate = orientLabel && node.height > node.width
 
-                    this.ctx.fillStyle = labelTextColor
-                    this.ctx.fillText(node.label, 0, 0)
+                ctx.save()
+                ctx.translate(node.x + node.width / 2, node.y + node.height / 2)
+                ctx.rotate(degreesToRadians(rotate ? -90 : 0))
 
-                    this.ctx.restore()
-                })
+                ctx.fillStyle = node.labelTextColor
+                ctx.fillText(node.label, 0, 0)
+
+                ctx.restore()
+            })
         }
-    }
+    }, [
+        canvasEl,
+        nodes,
+        outerWidth,
+        outerHeight,
+        innerWidth,
+        innerHeight,
+        margin,
+        borderWidth,
+        enableLabel,
+        orientLabel,
+        labelSkipSize,
+        theme,
+        pixelRatio,
+    ])
 
-    handleMouseHover = (showTooltip, hideTooltip) => event => {
-        const { isInteractive, nodes, margin, theme } = this.props
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
-        if (!isInteractive) return
+    const handleMouseHover = useCallback(
+        event => {
+            const [x, y] = getRelativeCursor(canvasEl.current, event)
+            const node = findNodeUnderCursor(nodes, margin, x, y)
 
-        const [x, y] = getRelativeCursor(this.surface, event)
+            if (node !== undefined) {
+                showTooltipFromEvent(
+                    <TreeMapNodeTooltip node={node} tooltip={tooltip} />,
+                    event,
+                    'left'
+                )
+                onMouseMove && onMouseMove(node, event)
+            } else {
+                hideTooltip()
+            }
+        },
+        [canvasEl, nodes, margin, showTooltipFromEvent, hideTooltip, tooltip, onMouseMove]
+    )
 
-        const node = findNodeUnderCursor(nodes, margin, x, y)
-
-        if (node !== undefined) {
-            showTooltip(<TreeMapNodeTooltip node={node} theme={theme} />, event)
-        } else {
-            hideTooltip()
-        }
-    }
-
-    handleMouseLeave = hideTooltip => () => {
+    const handleMouseLeave = useCallback(() => {
         hideTooltip()
-    }
+    }, [hideTooltip])
 
-    handleClick = event => {
-        const { isInteractive, nodes, margin, onClick } = this.props
+    const handleClick = useCallback(
+        event => {
+            const [x, y] = getRelativeCursor(canvasEl.current, event)
+            const node = findNodeUnderCursor(nodes, margin, x, y)
 
-        if (!isInteractive) return
+            if (node === undefined) return
 
-        const [x, y] = getRelativeCursor(this.surface, event)
+            onClick && onClick(node, event)
+        },
+        [canvasEl, nodes, margin, onClick]
+    )
 
-        const node = findNodeUnderCursor(nodes, margin, x, y)
-        if (node !== undefined) onClick(node, event)
-    }
-
-    render() {
-        const { outerWidth, outerHeight, pixelRatio, isInteractive, theme } = this.props
-
-        return (
-            <Container isInteractive={isInteractive} theme={theme} animate={false}>
-                {({ showTooltip, hideTooltip }) => (
-                    <canvas
-                        ref={surface => {
-                            this.surface = surface
-                        }}
-                        width={outerWidth * pixelRatio}
-                        height={outerHeight * pixelRatio}
-                        style={{
-                            width: outerWidth,
-                            height: outerHeight,
-                        }}
-                        onMouseEnter={this.handleMouseHover(showTooltip, hideTooltip)}
-                        onMouseMove={this.handleMouseHover(showTooltip, hideTooltip)}
-                        onMouseLeave={this.handleMouseLeave(hideTooltip)}
-                        onClick={this.handleClick}
-                    />
-                )}
-            </Container>
-        )
-    }
+    return (
+        <canvas
+            ref={canvasEl}
+            width={outerWidth * pixelRatio}
+            height={outerHeight * pixelRatio}
+            style={{
+                width: outerWidth,
+                height: outerHeight,
+            }}
+            onMouseEnter={isInteractive ? handleMouseHover : undefined}
+            onMouseMove={isInteractive ? handleMouseHover : undefined}
+            onMouseLeave={isInteractive ? handleMouseLeave : undefined}
+            onClick={isInteractive ? handleClick : undefined}
+        />
+    )
 }
 
 TreeMapCanvas.propTypes = TreeMapCanvasPropTypes
-TreeMapCanvas.displayName = 'TreeMapCanvas'
 
-const enhancedTreeMapCanvas = enhance(TreeMapCanvas)
-enhancedTreeMapCanvas.displayName = 'TreeMapCanvas'
+const WrappedTreeMapCanvas = withContainer(TreeMapCanvas)
+WrappedTreeMapCanvas.defaultProps = TreeMapCanvasDefaultProps
 
-export default enhancedTreeMapCanvas
+export default WrappedTreeMapCanvas

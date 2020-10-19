@@ -18,26 +18,16 @@ module.exports = {
     component: Bar,
     schema: Joi.object().keys(
         Object.assign({}, dimensions, common.axes, {
-            data: Joi.array()
-                .min(1)
-                .required(),
+            data: Joi.array().min(1).required(),
             indexBy: Joi.string().required(),
-            keys: Joi.array()
-                .sparse(false)
-                .min(1)
-                .unique()
-                .required(),
+            keys: Joi.array().sparse(false).min(1).unique().required(),
 
             groupMode: Joi.any().valid(['grouped', 'stacked']),
             layout: Joi.any().valid(['horizontal', 'vertical']),
             reverse: Joi.boolean(),
 
-            minValue: Joi.alternatives()
-                .try(Joi.any().valid('auto'), Joi.number())
-                .required(),
-            maxValue: Joi.alternatives()
-                .try(Joi.any().valid('auto'), Joi.number())
-                .required(),
+            minValue: Joi.alternatives().try(Joi.any().valid('auto'), Joi.number()).required(),
+            maxValue: Joi.alternatives().try(Joi.any().valid('auto'), Joi.number()).required(),
             padding: Joi.number(),
             innerPadding: Joi.number(),
 

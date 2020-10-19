@@ -6,4 +6,4 @@
 
 [documentation](http://nivo.rocks/voronoi)
 
-![Voronoi](./doc/voronoi.png)
+![Voronoi](https://raw.githubusercontent.com/plouc/nivo/master/packages/voronoi/doc/voronoi.png)

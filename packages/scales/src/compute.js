@@ -13,6 +13,7 @@ import last from 'lodash/last'
 import isDate from 'lodash/isDate'
 import { linearScale } from './linearScale'
 import { logScale } from './logScale'
+import { symlogScale } from './symlogScale'
 import { pointScale } from './pointScale'
 import { timeScale } from './timeScale'
 import { createDateNormalizer } from './timeHelpers'
@@ -75,6 +76,7 @@ export const computeScale = (spec, xy, width, height) => {
     else if (spec.type === 'point') return pointScale(spec, xy, width, height)
     else if (spec.type === 'time') return timeScale(spec, xy, width, height)
     else if (spec.type === 'log') return logScale(spec, xy, width, height)
+    else if (spec.type === 'symlog') return symlogScale(spec, xy, width, height)
 }
 
 export const generateSeriesXY = (series, xScaleSpec, yScaleSpec) => ({

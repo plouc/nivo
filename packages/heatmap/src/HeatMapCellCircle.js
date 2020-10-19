@@ -6,12 +6,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import pure from 'recompose/pure'
-import { themePropType } from '@nivo/core'
-
-const style = { cursor: 'pointer' }
+import { useSpring, animated } from 'react-spring'
+import { useTheme, useMotionConfig } from '@nivo/core'
 
 const HeatMapCellCircle = ({
     data,
@@ -29,41 +27,55 @@ const HeatMapCellCircle = ({
     onHover,
     onLeave,
     onClick,
-    theme,
-}) => (
-    <g
-        transform={`translate(${x}, ${y})`}
-        style={style}
-        onMouseEnter={onHover}
-        onMouseMove={onHover}
-        onMouseLeave={onLeave}
-        onClick={e => {
-            onClick(data, e)
-        }}
-    >
-        <circle
-            r={Math.min(width, height) / 2}
-            fill={color}
-            fillOpacity={opacity}
-            strokeWidth={borderWidth}
-            stroke={borderColor}
-            strokeOpacity={opacity}
-        />
-        {enableLabel && (
-            <text
-                dominantBaseline="central"
-                textAnchor="middle"
-                style={{
-                    ...theme.labels,
-                    fill: textColor,
-                }}
-                fillOpacity={opacity}
-            >
-                {value}
-            </text>
-        )}
-    </g>
-)
+}) => {
+    const theme = useTheme()
+    const { animate, config: springConfig } = useMotionConfig()
+
+    const animatedProps = useSpring({
+        transform: `translate(${x}, ${y})`,
+        radius: Math.min(width, height) / 2,
+        color,
+        opacity,
+        textColor,
+        borderWidth,
+        borderColor,
+        config: springConfig,
+        immediate: !animate,
+    })
+
+    return (
+        <animated.g
+            transform={animatedProps.transform}
+            style={{ cursor: 'pointer' }}
+            onMouseEnter={onHover}
+            onMouseMove={onHover}
+            onMouseLeave={onLeave}
+            onClick={onClick ? event => onClick(data, event) : undefined}
+        >
+            <animated.circle
+                r={animatedProps.radius}
+                fill={animatedProps.color}
+                fillOpacity={animatedProps.opacity}
+                strokeWidth={animatedProps.borderWidth}
+                stroke={animatedProps.borderColor}
+                strokeOpacity={animatedProps.opacity}
+            />
+            {enableLabel && (
+                <animated.text
+                    dominantBaseline="central"
+                    textAnchor="middle"
+                    style={{
+                        ...theme.labels.text,
+                        fill: animatedProps.textColor,
+                    }}
+                    fillOpacity={animatedProps.opacity}
+                >
+                    {value}
+                </animated.text>
+            )}
+        </animated.g>
+    )
+}
 
 HeatMapCellCircle.propTypes = {
     data: PropTypes.object.isRequired,
@@ -78,10 +90,9 @@ HeatMapCellCircle.propTypes = {
     borderColor: PropTypes.string.isRequired,
     enableLabel: PropTypes.bool.isRequired,
     textColor: PropTypes.string.isRequired,
-    onHover: PropTypes.func.isRequired,
-    onLeave: PropTypes.func.isRequired,
-    onClick: PropTypes.func.isRequired,
-    theme: themePropType.isRequired,
+    onHover: PropTypes.func,
+    onLeave: PropTypes.func,
+    onClick: PropTypes.func,
 }
 
-export default pure(HeatMapCellCircle)
+export default memo(HeatMapCellCircle)

@@ -14,7 +14,6 @@ import { axisPropType } from '@nivo/axes'
 export const HeatMapPropTypes = {
     data: PropTypes.arrayOf(PropTypes.object).isRequired,
     indexBy: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
-    getIndex: PropTypes.func.isRequired, // computed
     keys: PropTypes.arrayOf(PropTypes.string).isRequired,
 
     minValue: PropTypes.oneOfType([PropTypes.oneOf(['auto']), PropTypes.number]).isRequired,
@@ -29,7 +28,6 @@ export const HeatMapPropTypes = {
     cellOpacity: PropTypes.number.isRequired,
     cellBorderWidth: PropTypes.number.isRequired,
     cellBorderColor: inheritedColorPropType.isRequired,
-    getCellBorderColor: PropTypes.func.isRequired, // computed
 
     axisTop: axisPropType,
     axisRight: axisPropType,
@@ -41,10 +39,8 @@ export const HeatMapPropTypes = {
 
     enableLabels: PropTypes.bool.isRequired,
     labelTextColor: inheritedColorPropType.isRequired,
-    getLabelTextColor: PropTypes.func.isRequired, // computed
 
     colors: quantizeColorScalePropType.isRequired,
-    colorScale: PropTypes.func.isRequired, // computed
     nanColor: PropTypes.string,
 
     isInteractive: PropTypes.bool,
@@ -56,6 +52,11 @@ export const HeatMapPropTypes = {
     tooltip: PropTypes.func,
 
     pixelRatio: PropTypes.number.isRequired,
+}
+
+export const HeatMapSvgPropTypes = {
+    ...HeatMapPropTypes,
+    role: PropTypes.string.isRequired,
 }
 
 export const HeatMapDefaultProps = {
@@ -98,4 +99,9 @@ export const HeatMapDefaultProps = {
     // canvas specific
     pixelRatio:
         global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
+}
+
+export const HeatMapSvgDefaultProps = {
+    ...HeatMapDefaultProps,
+    role: 'img',
 }

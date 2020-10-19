@@ -18,6 +18,7 @@ import ChordIcon from './ChordIcon'
 import CirclePackingIcon from './CirclePackingIcon'
 import CodeIcon from './CodeIcon'
 import DataIcon from './DataIcon'
+import FunnelIcon from './FunnelIcon'
 import GeoMapIcon from './GeoMapIcon'
 import HeatMapIcon from './HeatMapIcon'
 import LineIcon from './LineIcon'
@@ -68,6 +69,7 @@ const Icons = () => (
         <ColorsDemo type="darkColored" />
         <AreaBumpIcon />
         <BumpIcon />
+        <FunnelIcon />
         <NetworkIcon />
         <BarIcon />
         <CirclePackingIcon />

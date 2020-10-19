@@ -50,15 +50,15 @@ const initialProperties = {
         tickRotation: 0,
         legend: 'country',
         legendPosition: 'middle',
-        legendOffset: 0,
+        legendOffset: 40,
     },
     axisBottom: {
         enable: false,
         orient: 'bottom',
         tickSize: 5,
         tickPadding: 5,
-        tickRotation: 0,
-        legend: 'country',
+        tickRotation: -90,
+        legend: '',
         legendPosition: 'middle',
         legendOffset: 36,
     },
@@ -102,6 +102,7 @@ const initialProperties = {
     fill: [{ match: d => false && d.value < 30, id: 'lines' }],
 
     animate: true,
+    motionConfig: 'wobbly',
     motionStiffness: 80,
     motionDamping: 9,
 

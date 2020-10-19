@@ -7,151 +7,110 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { TransitionMotion, spring } from 'react-motion'
-import { Container } from '@nivo/core'
-import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
-import { TreeMapHtmlPropTypes } from './props'
-import enhance from './enhance'
-import { getNodeHandlers } from './interactivity'
-import { nodeWillEnter, nodeWillLeave } from './motion'
+import { withContainer, useDimensions } from '@nivo/core'
+import { TreeMapHtmlPropTypes, TreeMapHtmlDefaultProps } from './props'
+import { useTreeMap } from './hooks'
+import TreeMapNodes from './TreeMapNodes'
 
 const TreeMapHtml = ({
-    nodes,
+    data,
+    identity,
+    value,
+    tile,
     nodeComponent,
-
-    // dimensions
-    margin,
-    outerWidth,
-    outerHeight,
-
-    // styling
-    theme,
+    valueFormat,
+    innerPadding,
+    outerPadding,
+    leavesOnly,
+    width,
+    height,
+    margin: partialMargin,
+    colors,
+    colorBy,
+    nodeOpacity,
     borderWidth,
-    getBorderColor,
-
-    // labels
-    getLabelTextColor,
+    borderColor,
+    enableLabel,
+    label,
+    labelTextColor,
     orientLabel,
-
-    // motion
-    animate,
-    motionStiffness,
-    motionDamping,
-
-    // interactivity
+    labelSkipSize,
+    enableParentLabel,
+    parentLabel,
+    parentLabelSize,
+    parentLabelPosition,
+    parentLabelPadding,
+    parentLabelTextColor,
     isInteractive,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
     onClick,
-    tooltipFormat,
     tooltip,
 }) => {
-    const springConfig = {
-        stiffness: motionStiffness,
-        damping: motionDamping,
-    }
+    const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
+        width,
+        height,
+        partialMargin
+    )
 
-    const getHandlers = (node, showTooltip, hideTooltip) =>
-        getNodeHandlers(node, {
-            isInteractive,
-            onClick,
-            showTooltip,
-            hideTooltip,
-            theme,
-            tooltipFormat,
-            tooltip,
-        })
+    const { nodes } = useTreeMap({
+        data,
+        identity,
+        value,
+        valueFormat,
+        leavesOnly,
+        width: innerWidth,
+        height: innerHeight,
+        tile,
+        innerPadding,
+        outerPadding,
+        colors,
+        colorBy,
+        nodeOpacity,
+        borderColor,
+        label,
+        labelTextColor,
+        orientLabel,
+        enableParentLabel,
+        parentLabel,
+        parentLabelSize,
+        parentLabelPosition,
+        parentLabelPadding,
+        parentLabelTextColor,
+    })
 
     return (
-        <Container
-            theme={theme}
-            animate={animate}
-            motionDamping={motionDamping}
-            motionStiffness={motionStiffness}
+        <div
+            style={{
+                position: 'relative',
+                width: outerWidth,
+                height: outerHeight,
+            }}
         >
-            {({ showTooltip, hideTooltip }) => (
-                <div
-                    style={{
-                        position: 'relative',
-                        width: outerWidth,
-                        height: outerHeight,
-                    }}
-                >
-                    {!animate && (
-                        <div style={{ position: 'absolute', top: margin.top, left: margin.left }}>
-                            {nodes.map(node =>
-                                React.createElement(nodeComponent, {
-                                    key: node.path,
-                                    node,
-                                    style: {
-                                        x: node.x,
-                                        y: node.y,
-                                        width: node.width,
-                                        height: node.height,
-                                        color: node.color,
-                                        borderWidth,
-                                        borderColor: getBorderColor(node),
-                                        labelTextColor: getLabelTextColor(node),
-                                        orientLabel,
-                                    },
-                                    handlers: getHandlers(node, showTooltip, hideTooltip),
-                                })
-                            )}
-                        </div>
-                    )}
-                    {animate && (
-                        <TransitionMotion
-                            willEnter={nodeWillEnter}
-                            willLeave={nodeWillLeave(springConfig)}
-                            styles={nodes.map(node => ({
-                                key: node.path,
-                                data: node,
-                                style: {
-                                    x: spring(node.x, springConfig),
-                                    y: spring(node.y, springConfig),
-                                    width: spring(node.width, springConfig),
-                                    height: spring(node.height, springConfig),
-                                    ...interpolateColor(node.color, springConfig),
-                                },
-                            }))}
-                        >
-                            {interpolatedStyles => (
-                                <div
-                                    style={{
-                                        position: 'absolute',
-                                        top: margin.top,
-                                        left: margin.left,
-                                    }}
-                                >
-                                    {interpolatedStyles.map(({ style, data: node }) => {
-                                        style.color = getInterpolatedColor(style)
-
-                                        return React.createElement(nodeComponent, {
-                                            key: node.path,
-                                            node,
-                                            style: {
-                                                ...style,
-                                                fill: node.fill,
-                                                borderWidth,
-                                                borderColor: getBorderColor(style),
-                                                labelTextColor: getLabelTextColor(style),
-                                                orientLabel,
-                                            },
-                                            handlers: getHandlers(node, showTooltip, hideTooltip),
-                                        })
-                                    })}
-                                </div>
-                            )}
-                        </TransitionMotion>
-                    )}
-                </div>
-            )}
-        </Container>
+            <div style={{ position: 'absolute', top: margin.top, left: margin.left }}>
+                <TreeMapNodes
+                    nodes={nodes}
+                    nodeComponent={nodeComponent}
+                    borderWidth={borderWidth}
+                    enableLabel={enableLabel}
+                    labelSkipSize={labelSkipSize}
+                    enableParentLabel={enableParentLabel}
+                    isInteractive={isInteractive}
+                    onMouseEnter={onMouseEnter}
+                    onMouseMove={onMouseMove}
+                    onMouseLeave={onMouseLeave}
+                    onClick={onClick}
+                    tooltip={tooltip}
+                />
+            </div>
+        </div>
     )
 }
 
 TreeMapHtml.propTypes = TreeMapHtmlPropTypes
-TreeMapHtml.displayName = 'TreeMapHtml'
 
-const enhancedTreeMapHtml = enhance(TreeMapHtml)
-enhancedTreeMapHtml.displayName = 'TreeMapHtml'
+const WrappedTreeMapHtml = withContainer(TreeMapHtml)
+WrappedTreeMapHtml.defaultProps = TreeMapHtmlDefaultProps
 
-export default enhancedTreeMapHtml
+export default WrappedTreeMapHtml

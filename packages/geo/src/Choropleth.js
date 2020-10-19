@@ -43,6 +43,7 @@ const Choropleth = memo(
         isInteractive,
         onClick,
         tooltip: Tooltip,
+        role,
     }) => {
         const { margin, outerWidth, outerHeight } = useDimensions(width, height, partialMargin)
         const { graticule, path, getBorderWidth, getBorderColor } = useGeoMap({
@@ -95,7 +96,13 @@ const Choropleth = memo(
         ])
 
         return (
-            <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
+            <SvgWrapper
+                width={outerWidth}
+                height={outerHeight}
+                margin={margin}
+                theme={theme}
+                role={role}
+            >
                 {layers.map((layer, i) => {
                     if (layer === 'graticule') {
                         if (enableGraticule !== true) return null

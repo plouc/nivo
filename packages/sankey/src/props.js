@@ -8,7 +8,7 @@
  */
 import PropTypes from 'prop-types'
 import { sankeyCenter, sankeyJustify, sankeyLeft, sankeyRight } from 'd3-sankey'
-import { noop, blendModePropType } from '@nivo/core'
+import { noop, blendModePropType, motionPropTypes } from '@nivo/core'
 import { ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
 import { LegendPropShape } from '@nivo/legends'
 
@@ -70,10 +70,8 @@ export const SankeyPropTypes = {
     labelPadding: PropTypes.number.isRequired,
     labelOrientation: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
     labelTextColor: inheritedColorPropType,
-    getLabelTextColor: PropTypes.func.isRequired, // computed
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     labelFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    getLabel: PropTypes.func.isRequired, // computed
 
     nodeTooltip: PropTypes.func,
     linkTooltip: PropTypes.func,
@@ -83,6 +81,17 @@ export const SankeyPropTypes = {
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
+
+    layers: PropTypes.arrayOf(
+        PropTypes.oneOfType([
+            PropTypes.oneOf(['links', 'nodes', 'labels', 'legends']),
+            PropTypes.func,
+        ])
+    ).isRequired,
+
+    role: PropTypes.string.isRequired,
+
+    ...motionPropTypes,
 }
 
 export const SankeyDefaultProps = {
@@ -119,4 +128,11 @@ export const SankeyDefaultProps = {
     onClick: noop,
 
     legends: [],
+
+    layers: ['links', 'nodes', 'labels', 'legends'],
+
+    role: 'img',
+
+    animate: true,
+    motionConfig: 'gentle',
 }

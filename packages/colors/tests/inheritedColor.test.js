@@ -58,11 +58,7 @@ describe(`from datum`, () => {
             modifiers: [['brighter', 1]],
         })
 
-        expect(getColor({ color: '#ff0099' })).toBe(
-            rgb('#ff0099')
-                .brighter(1)
-                .toString()
-        )
+        expect(getColor({ color: '#ff0099' })).toBe(rgb('#ff0099').brighter(1).toString())
     })
 
     it(`should be able to apply a darker modifier on inherited color`, () => {
@@ -71,11 +67,7 @@ describe(`from datum`, () => {
             modifiers: [['darker', 1]],
         })
 
-        expect(getColor({ color: '#ff0099' })).toBe(
-            rgb('#ff0099')
-                .darker(1)
-                .toString()
-        )
+        expect(getColor({ color: '#ff0099' })).toBe(rgb('#ff0099').darker(1).toString())
     })
 
     it(`should be able to apply an opacity modifier on inherited color`, () => {
@@ -92,7 +84,10 @@ describe(`from datum`, () => {
     it(`should be able to chain several modifiers on inherited color`, () => {
         const getColor = getInheritedColorGenerator({
             from: 'color',
-            modifiers: [['darker', 2], ['opacity', 0.5]],
+            modifiers: [
+                ['darker', 2],
+                ['opacity', 0.5],
+            ],
         })
 
         const expectedColor = rgb('#ff0099').darker(2)

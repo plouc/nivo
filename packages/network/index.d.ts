@@ -77,7 +77,9 @@ declare module '@nivo/network' {
         isInteractive?: boolean
     }
 
-    export interface NetworkSvgProps extends NetworkProps, MotionProps {}
+    export interface NetworkSvgProps extends NetworkProps, MotionProps {
+        role?: string
+    }
 
     export class Network extends React.Component<NetworkSvgProps & Dimensions> {}
     export class ResponsiveNetwork extends React.Component<NetworkSvgProps> {}

@@ -46,6 +46,7 @@ export const RadarPropTypes = {
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
+    role: PropTypes.string.isRequired,
 
     ...motionPropTypes,
 }
@@ -71,6 +72,7 @@ export const RadarDefaultProps = {
     isInteractive: true,
 
     legends: [],
+    role: 'img',
 
     animate: true,
     motionDamping: 13,

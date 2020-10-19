@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { BulletDefaultProps as defaults } from '@nivo/bullet'
-import { motionProperties, groupProperties } from '../../../lib/componentProperties'
+import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
 
 const props = [
     {
@@ -146,6 +146,7 @@ const props = [
             step: 0.05,
         },
     },
+    themeProperty,
     {
         key: 'rangeComponent',
         flavors: ['svg'],
@@ -230,7 +231,10 @@ const props = [
         controlType: 'radio',
         group: 'Axes',
         controlOptions: {
-            choices: [{ label: 'before', value: 'before' }, { label: 'after', value: 'after' }],
+            choices: [
+                { label: 'before', value: 'before' },
+                { label: 'after', value: 'after' },
+            ],
         },
     },
     {
@@ -242,7 +246,10 @@ const props = [
         controlType: 'radio',
         group: 'Title',
         controlOptions: {
-            choices: [{ label: 'before', value: 'before' }, { label: 'after', value: 'after' }],
+            choices: [
+                { label: 'before', value: 'before' },
+                { label: 'after', value: 'after' },
+            ],
         },
     },
     {

@@ -38,21 +38,14 @@ stories.add('with custom colors', () => (
     />
 ))
 
-stories.add('custom tooltip', () => (
+stories.add('with custom tooltip', () => (
     <Sunburst
         {...commonProperties}
-        tooltip={({ id, value, color }) => (
-            <strong style={{ color }}>
-                {id}: {value}
-            </strong>
+        tooltip={({ data: { id, value, color } }) => (
+            <span style={{ color }}>
+                {id}: <strong>{value}</strong>
+            </span>
         )}
-        theme={{
-            tooltip: {
-                container: {
-                    background: '#333',
-                },
-            },
-        }}
     />
 ))
 

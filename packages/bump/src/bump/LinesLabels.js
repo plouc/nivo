@@ -8,76 +8,54 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { TransitionMotion, spring } from 'react-motion'
+import { useSprings, animated } from 'react-spring'
 import { useTheme, useMotionConfig } from '@nivo/core'
 import { inheritedColorPropType } from '@nivo/colors'
 import { useSeriesLabels } from './hooks'
 
-const LinesLabels = ({ series, position, padding, color }) => {
+const LinesLabels = ({ series, getLabel, position, padding, color }) => {
     const theme = useTheme()
-    const { animate, springConfig } = useMotionConfig()
+    const { animate, config: springConfig } = useMotionConfig()
+
     const labels = useSeriesLabels({
         series,
+        getLabel,
         position,
         padding,
         color,
     })
 
-    if (!animate) {
-        return labels.map(label => {
-            return (
-                <text
-                    key={label.id}
-                    x={label.x}
-                    y={label.y}
-                    textAnchor={label.textAnchor}
-                    dominantBaseline="central"
-                    opacity={label.opacity}
-                    style={{
-                        ...theme.labels.text,
-                        fill: label.color,
-                    }}
-                >
-                    {label.id}
-                </text>
-            )
-        })
-    }
-
-    return (
-        <TransitionMotion
-            styles={labels.map(label => ({
-                key: label.id,
-                data: label,
-                style: {
-                    x: spring(label.x, springConfig),
-                    y: spring(label.y, springConfig),
-                    opacity: spring(label.opacity, springConfig),
-                },
-            }))}
-        >
-            {interpolatedStyles => (
-                <>
-                    {interpolatedStyles.map(({ key, style, data: label }) => (
-                        <text
-                            key={key}
-                            x={style.x}
-                            y={style.y}
-                            textAnchor={label.textAnchor}
-                            dominantBaseline="central"
-                            opacity={style.opacity}
-                            style={{
-                                ...theme.labels.text,
-                                fill: label.color,
-                            }}
-                        >
-                            {label.id}
-                        </text>
-                    ))}
-                </>
-            )}
-        </TransitionMotion>
+    const springs = useSprings(
+        labels.length,
+        labels.map(label => ({
+            x: label.x,
+            y: label.y,
+            opacity: label.opacity,
+            config: springConfig,
+            immediate: !animate,
+        }))
     )
+
+    return springs.map((animatedProps, index) => {
+        const label = labels[index]
+
+        return (
+            <animated.text
+                key={label.id}
+                x={animatedProps.x}
+                y={animatedProps.y}
+                textAnchor={label.textAnchor}
+                dominantBaseline="central"
+                opacity={animatedProps.opacity}
+                style={{
+                    ...theme.labels.text,
+                    fill: label.color,
+                }}
+            >
+                {label.label}
+            </animated.text>
+        )
+    })
 }
 
 LinesLabels.propTypes = {
@@ -87,11 +65,13 @@ LinesLabels.propTypes = {
             data: PropTypes.arrayOf(
                 PropTypes.shape({
                     x: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-                    y: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+                    y: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
                 })
             ).isRequired,
         })
     ).isRequired,
+    getLabel: PropTypes.oneOfType([PropTypes.oneOf([false]), PropTypes.string, PropTypes.func])
+        .isRequired,
     position: PropTypes.oneOf(['start', 'end']).isRequired,
     padding: PropTypes.number.isRequired,
     color: inheritedColorPropType.isRequired,

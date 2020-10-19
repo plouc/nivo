@@ -11,7 +11,7 @@ import { ResponsiveNetwork, NetworkDefaultProps } from '@nivo/network'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/network/meta.yml'
 import { groups } from '../../data/components/network/props'
-import { generateData } from '../../data/components/network/generator'
+import { generateNetworkData } from '@nivo/generators'
 
 const initialProperties = Object.freeze({
     margin: {
@@ -41,6 +41,8 @@ const initialProperties = Object.freeze({
     motionStiffness: 160,
     motionDamping: 12,
 })
+
+const generateData = () => generateNetworkData()
 
 const Network = () => {
     return (

@@ -25,12 +25,14 @@ import BoxAnchorControl from './BoxAnchorControl'
 import MarginControl from './MarginControl'
 import OpacityControl from './OpacityControl'
 import LineWidthControl from './LineWidthControl'
+import MotionConfigControl from './MotionConfigControl'
 import NumberArrayControl from './NumberArrayControl'
 import AngleControl from './AngleControl'
 import OrdinalColorsControl from './OrdinalColorsControl'
 import InheritedColorControl from './InheritedColorControl'
 import BlendModeControl from './BlendModeControl'
 import PropertyDocumentation from './PropertyDocumentation'
+import ValueFormatControl from './ValueFormatControl'
 
 export const shouldRenderProperty = (property, currentSettings) => {
     if (typeof property.when !== 'function') return true
@@ -38,7 +40,7 @@ export const shouldRenderProperty = (property, currentSettings) => {
 }
 
 const ControlSwitcher = memo(
-    ({ groupName, flavors, currentFlavor, property, settings, onChange }) => {
+    ({ groupName, flavors, currentFlavor, property, settings, onChange, context }) => {
         // generate a unique identifier for the property
         const id = `${snakeCase(groupName)}-${property.name}`
         const value = get(settings, property.name)
@@ -93,6 +95,7 @@ const ControlSwitcher = memo(
                         currentFlavor={currentFlavor}
                         value={value}
                         options={options}
+                        context={context}
                         onChange={handleChange}
                     />
                 )
@@ -108,6 +111,8 @@ const ControlSwitcher = memo(
                         value={value}
                         props={options.props}
                         defaults={options.defaults}
+                        isOpenedByDefault={options.isOpenedByDefault}
+                        context={context}
                         onChange={handleChange}
                     />
                 )
@@ -121,6 +126,7 @@ const ControlSwitcher = memo(
                         currentFlavor={currentFlavor}
                         options={options}
                         value={value}
+                        context={context}
                         onChange={handleChange}
                     />
                 )
@@ -134,6 +140,7 @@ const ControlSwitcher = memo(
                         currentFlavor={currentFlavor}
                         options={options}
                         value={value}
+                        context={context}
                         onChange={handleChange}
                     />
                 )
@@ -147,6 +154,7 @@ const ControlSwitcher = memo(
                         currentFlavor={currentFlavor}
                         options={options}
                         value={value}
+                        context={context}
                         onChange={handleChange}
                     />
                 )
@@ -159,6 +167,7 @@ const ControlSwitcher = memo(
                         flavors={flavors}
                         currentFlavor={currentFlavor}
                         value={value}
+                        context={context}
                         onChange={handleChange}
                     />
                 )
@@ -172,6 +181,7 @@ const ControlSwitcher = memo(
                         currentFlavor={currentFlavor}
                         options={options}
                         value={value}
+                        context={context}
                         onChange={handleChange}
                     />
                 )
@@ -185,6 +195,7 @@ const ControlSwitcher = memo(
                         currentFlavor={currentFlavor}
                         options={options}
                         value={value}
+                        context={context}
                         onChange={handleChange}
                     />
                 )
@@ -198,6 +209,7 @@ const ControlSwitcher = memo(
                         currentFlavor={currentFlavor}
                         options={options}
                         value={value}
+                        context={context}
                         onChange={handleChange}
                     />
                 )
@@ -211,6 +223,7 @@ const ControlSwitcher = memo(
                         currentFlavor={currentFlavor}
                         options={options}
                         value={value}
+                        context={context}
                         onChange={handleChange}
                     />
                 )
@@ -224,6 +237,7 @@ const ControlSwitcher = memo(
                         currentFlavor={currentFlavor}
                         options={options}
                         value={value}
+                        context={context}
                         onChange={handleChange}
                     />
                 )
@@ -237,6 +251,21 @@ const ControlSwitcher = memo(
                         currentFlavor={currentFlavor}
                         options={options}
                         value={value}
+                        context={context}
+                        onChange={handleChange}
+                    />
+                )
+
+            case 'motionConfig':
+                return (
+                    <MotionConfigControl
+                        id={id}
+                        property={property}
+                        flavors={flavors}
+                        currentFlavor={currentFlavor}
+                        options={options}
+                        value={value}
+                        context={context}
                         onChange={handleChange}
                     />
                 )
@@ -250,6 +279,7 @@ const ControlSwitcher = memo(
                         currentFlavor={currentFlavor}
                         options={options}
                         value={value}
+                        context={context}
                         onChange={handleChange}
                     />
                 )
@@ -263,6 +293,7 @@ const ControlSwitcher = memo(
                         currentFlavor={currentFlavor}
                         options={options}
                         value={value}
+                        context={context}
                         onChange={handleChange}
                     />
                 )
@@ -276,6 +307,7 @@ const ControlSwitcher = memo(
                         currentFlavor={currentFlavor}
                         options={options}
                         value={value}
+                        context={context}
                         onChange={handleChange}
                     />
                 )
@@ -289,6 +321,7 @@ const ControlSwitcher = memo(
                         currentFlavor={currentFlavor}
                         options={options}
                         value={value}
+                        context={context}
                         onChange={handleChange}
                     />
                 )
@@ -302,6 +335,7 @@ const ControlSwitcher = memo(
                         currentFlavor={currentFlavor}
                         options={options}
                         value={value}
+                        context={context}
                         onChange={handleChange}
                     />
                 )
@@ -315,6 +349,7 @@ const ControlSwitcher = memo(
                         currentFlavor={currentFlavor}
                         options={options}
                         value={value}
+                        context={context}
                         onChange={handleChange}
                     />
                 )
@@ -328,6 +363,7 @@ const ControlSwitcher = memo(
                         currentFlavor={currentFlavor}
                         options={options}
                         value={value}
+                        context={context}
                         onChange={handleChange}
                     />
                 )
@@ -341,6 +377,21 @@ const ControlSwitcher = memo(
                         currentFlavor={currentFlavor}
                         options={options}
                         value={value}
+                        context={context}
+                        onChange={handleChange}
+                    />
+                )
+
+            case 'valueFormat':
+                return (
+                    <ValueFormatControl
+                        id={id}
+                        property={property}
+                        flavors={flavors}
+                        currentFlavor={currentFlavor}
+                        options={options}
+                        value={value}
+                        context={context}
                         onChange={handleChange}
                     />
                 )
@@ -362,9 +413,10 @@ ControlSwitcher.propTypes = {
     currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
     settings: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
+    context: PropTypes.object,
 }
 
-const ControlsGroup = ({ name, flavors, currentFlavor, controls, settings, onChange }) => {
+const ControlsGroup = ({ name, flavors, currentFlavor, controls, settings, onChange, context }) => {
     return controls.map(control => (
         <ControlSwitcher
             key={control.name}
@@ -374,6 +426,7 @@ const ControlsGroup = ({ name, flavors, currentFlavor, controls, settings, onCha
             property={control}
             settings={settings}
             onChange={onChange}
+            context={context}
         />
     ))
 }

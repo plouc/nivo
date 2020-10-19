@@ -7,30 +7,25 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import range from 'lodash/range'
-import sortBy from 'lodash/sortBy'
-import { bindDefs, Container, SvgWrapper } from '@nivo/core'
+import { bindDefs, SvgWrapper, useDimensions, withContainer } from '@nivo/core'
 import { Axes, Grid } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
 import StreamLayers from './StreamLayers'
 import StreamDots from './StreamDots'
 import StreamSlices from './StreamSlices'
-import { StreamPropTypes } from './props'
-import enhance from './enhance'
+import { StreamPropTypes, StreamDefaultProps } from './props'
+import { useStream } from './hooks'
 
 const Stream = ({
     data,
     keys,
-    xScale,
-    yScale,
-    layers,
-    areaGenerator,
+    offsetType,
+    order,
+    curve,
 
-    margin,
     width,
     height,
-    outerWidth,
-    outerHeight,
+    margin: partialMargin,
 
     axisTop,
     axisRight,
@@ -39,169 +34,149 @@ const Stream = ({
     enableGridX,
     enableGridY,
 
-    theme,
-    getColor,
+    colors,
     fillOpacity,
     borderWidth,
-    getBorderColor,
+    borderColor,
     defs,
     fill,
 
     enableDots,
     dotPosition,
-    renderDot,
-    getDotSize,
-    getDotColor,
-    getDotBorderWidth,
-    getDotBorderColor,
-
-    animate,
-    motionStiffness,
-    motionDamping,
+    dotComponent,
+    dotSize,
+    dotColor,
+    dotBorderWidth,
+    dotBorderColor,
 
     isInteractive,
-    getTooltipValue,
-    getTooltipLabel,
+    tooltipLabel,
+    tooltipFormat,
     enableStackTooltip,
 
     legends,
+    role,
 }) => {
-    const enhancedLayers = layers.map((points, layerIndex) => {
-        const layer = points.map((point, i) => ({
-            index: i,
-            x: xScale(i),
-            value: point.value,
-            y1: yScale(point[0]),
-            y2: yScale(point[1]),
-        }))
+    const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
+        width,
+        height,
+        partialMargin
+    )
 
-        return {
-            id: keys[layerIndex],
-            layer,
-            path: areaGenerator(layer),
-            color: getColor({ index: layerIndex }),
-        }
+    const {
+        xScale,
+        yScale,
+        layers,
+        slices,
+        getBorderColor,
+        getDotSize,
+        getDotColor,
+        getDotBorderWidth,
+        getDotBorderColor,
+        getTooltipLabel,
+        getTooltipValue,
+    } = useStream({
+        width: innerWidth,
+        height: innerHeight,
+        data,
+        keys,
+        offsetType,
+        order,
+        curve,
+        colors,
+        borderColor,
+        dotSize,
+        dotColor,
+        dotBorderWidth,
+        dotBorderColor,
+        tooltipLabel,
+        tooltipFormat,
     })
 
-    const slices = range(data.length).map(i => ({
-        index: i,
-        x: enhancedLayers[0].layer[i].x,
-        stack: sortBy(
-            enhancedLayers.map(layer => ({
-                id: layer.id,
-                color: layer.color,
-                ...layer.layer[i],
-            })),
-            'y2'
-        ),
-    }))
-
-    const boundDefs = bindDefs(defs, enhancedLayers, fill)
+    const boundDefs = bindDefs(defs, layers, fill)
 
     return (
-        <Container
-            isInteractive={isInteractive}
-            theme={theme}
-            animate={animate}
-            motionDamping={motionDamping}
-            motionStiffness={motionStiffness}
+        <SvgWrapper
+            width={outerWidth}
+            height={outerHeight}
+            margin={margin}
+            defs={boundDefs}
+            role={role}
         >
-            {({ showTooltip, hideTooltip }) => (
-                <SvgWrapper
-                    width={outerWidth}
-                    height={outerHeight}
-                    margin={margin}
-                    defs={boundDefs}
-                    theme={theme}
-                >
-                    <Grid
-                        width={width}
-                        height={height}
-                        xScale={enableGridX ? xScale : null}
-                        yScale={enableGridY ? yScale : null}
+            <Grid
+                width={innerWidth}
+                height={innerHeight}
+                xScale={enableGridX ? xScale : null}
+                yScale={enableGridY ? yScale : null}
+            />
+            <StreamLayers
+                layers={layers}
+                fillOpacity={fillOpacity}
+                borderWidth={borderWidth}
+                getBorderColor={getBorderColor}
+                getTooltipLabel={getTooltipLabel}
+                isInteractive={isInteractive}
+            />
+            <Axes
+                xScale={xScale}
+                yScale={yScale}
+                width={innerWidth}
+                height={innerHeight}
+                top={axisTop}
+                right={axisRight}
+                bottom={axisBottom}
+                left={axisLeft}
+            />
+            {enableDots &&
+                layers.map(layer => (
+                    <StreamDots
+                        key={layer.id}
+                        id={layer.id}
+                        color={layer.color}
+                        data={layer.layer}
+                        dotComponent={dotComponent}
+                        position={dotPosition}
+                        getSize={getDotSize}
+                        getColor={getDotColor}
+                        getBorderWidth={getDotBorderWidth}
+                        getBorderColor={getDotBorderColor}
                     />
-                    <StreamLayers
-                        layers={enhancedLayers}
-                        fillOpacity={fillOpacity}
-                        borderWidth={borderWidth}
-                        getBorderColor={getBorderColor}
-                        showTooltip={showTooltip}
-                        hideTooltip={hideTooltip}
-                        getTooltipLabel={getTooltipLabel}
-                        theme={theme}
-                        animate={animate}
-                        motionDamping={motionDamping}
-                        motionStiffness={motionStiffness}
-                    />
-                    <Axes
-                        xScale={xScale}
-                        yScale={yScale}
-                        width={width}
-                        height={height}
-                        top={axisTop}
-                        right={axisRight}
-                        bottom={axisBottom}
-                        left={axisLeft}
-                    />
-                    {enableDots &&
-                        enhancedLayers.map(layer => (
-                            <StreamDots
-                                key={layer.id}
-                                id={layer.id}
-                                color={layer.color}
-                                data={layer.layer}
-                                renderDot={renderDot}
-                                position={dotPosition}
-                                getSize={getDotSize}
-                                getColor={getDotColor}
-                                getBorderWidth={getDotBorderWidth}
-                                getBorderColor={getDotBorderColor}
-                                animate={animate}
-                                motionDamping={motionDamping}
-                                motionStiffness={motionStiffness}
-                            />
-                        ))}
-                    {isInteractive && enableStackTooltip && (
-                        <StreamSlices
-                            slices={slices}
-                            height={height}
-                            showTooltip={showTooltip}
-                            hideTooltip={hideTooltip}
-                            theme={theme}
-                            getTooltipValue={getTooltipValue}
-                            getTooltipLabel={getTooltipLabel}
-                        />
-                    )}
-                    {legends.map((legend, i) => {
-                        const legendData = enhancedLayers
-                            .map(l => ({
-                                id: l.id,
-                                label: l.id,
-                                color: l.color,
-                                fill: l.fill,
-                            }))
-                            .reverse()
-
-                        return (
-                            <BoxLegendSvg
-                                key={i}
-                                {...legend}
-                                containerWidth={width}
-                                containerHeight={height}
-                                data={legendData}
-                                theme={theme}
-                            />
-                        )
-                    })}
-                </SvgWrapper>
+                ))}
+            {isInteractive && enableStackTooltip && (
+                <StreamSlices
+                    slices={slices}
+                    height={innerHeight}
+                    getTooltipValue={getTooltipValue}
+                    getTooltipLabel={getTooltipLabel}
+                />
             )}
-        </Container>
+            {legends.map((legend, i) => {
+                const legendData = layers
+                    .map(l => ({
+                        id: l.id,
+                        label: l.id,
+                        color: l.color,
+                        fill: l.fill,
+                    }))
+                    .reverse()
+
+                return (
+                    <BoxLegendSvg
+                        key={i}
+                        {...legend}
+                        containerWidth={innerWidth}
+                        containerHeight={innerHeight}
+                        data={legendData}
+                    />
+                )
+            })}
+        </SvgWrapper>
     )
 }
 
 Stream.propTypes = StreamPropTypes
 
-const enhancedStream = enhance(Stream)
-enhancedStream.displayName = 'Stream'
+const WrappedStream = withContainer(Stream)
+WrappedStream.defaultProps = StreamDefaultProps
 
-export default enhancedStream
+export default WrappedStream

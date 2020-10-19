@@ -34,7 +34,7 @@ const InheritedColorModifierControl = ({ modifier, onChange }) => {
                 type="range"
                 value={modifier[1]}
                 min={0}
-                max={2}
+                max={3}
                 step={0.1}
                 onChange={event => onChange([modifier[0], event.target.value])}
             />

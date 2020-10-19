@@ -8,7 +8,7 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { TransitionMotion, spring } from 'react-motion'
+import { useSprings, animated } from 'react-spring'
 import { useTheme, useMotionConfig, positionFromAngle, radiansToDegrees } from '@nivo/core'
 
 const textAnchorFromAngle = _angle => {
@@ -19,9 +19,8 @@ const textAnchorFromAngle = _angle => {
 }
 
 const renderLabel = (label, theme, labelComponent) => {
-    let labelNode
     if (labelComponent === undefined) {
-        labelNode = (
+        return (
             <text
                 style={theme.axis.ticks.text}
                 dominantBaseline="central"
@@ -30,20 +29,14 @@ const renderLabel = (label, theme, labelComponent) => {
                 {label.id}
             </text>
         )
-    } else {
-        labelNode = React.createElement(labelComponent, label)
     }
 
-    return (
-        <g key={label.id} transform={`translate(${label.x}, ${label.y})`}>
-            {labelNode}
-        </g>
-    )
+    return React.createElement(labelComponent, label)
 }
 
 const RadarGridLabels = memo(({ radius, angles, indices, label: labelComponent, labelOffset }) => {
     const theme = useTheme()
-    const { animate, springConfig } = useMotionConfig()
+    const { animate, config: springConfig } = useMotionConfig()
 
     const labels = indices.map((index, i) => {
         const position = positionFromAngle(angles[i], radius + labelOffset)
@@ -57,28 +50,24 @@ const RadarGridLabels = memo(({ radius, angles, indices, label: labelComponent, 
         }
     })
 
-    if (animate !== true) {
-        return <g>{labels.map(label => renderLabel(label, theme, labelComponent))}</g>
-    }
-
-    return (
-        <TransitionMotion
-            styles={labels.map(label => ({
-                key: label.id,
-                data: label,
-                style: {
-                    x: spring(label.x, springConfig),
-                    y: spring(label.y, springConfig),
-                },
-            }))}
-        >
-            {interpolatedStyles => (
-                <g>
-                    {interpolatedStyles.map(({ data }) => renderLabel(data, theme, labelComponent))}
-                </g>
-            )}
-        </TransitionMotion>
+    const springs = useSprings(
+        labels.length,
+        labels.map(label => ({
+            transform: `translate(${label.x}, ${label.y})`,
+            config: springConfig,
+            immediate: !animate,
+        }))
     )
+
+    return springs.map((animatedProps, index) => {
+        const label = labels[index]
+
+        return (
+            <animated.g key={label.id} transform={animatedProps.transform}>
+                {renderLabel(label, theme, labelComponent)}
+            </animated.g>
+        )
+    })
 })
 
 RadarGridLabels.displayName = 'RadarGridLabels'

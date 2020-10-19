@@ -119,8 +119,7 @@ const initialProperties = {
     isInteractive: true,
 
     animate: BumpDefaultProps.animate,
-    motionStiffness: BumpDefaultProps.motionStiffness,
-    motionDamping: BumpDefaultProps.motionDamping,
+    motionConfig: BumpDefaultProps.motionConfig,
 }
 
 const Bump = () => {

@@ -15,12 +15,6 @@ export const marginPropType = PropTypes.shape({
     left: PropTypes.number,
 }).isRequired
 
-export const motionPropTypes = {
-    animate: PropTypes.bool.isRequired,
-    motionStiffness: PropTypes.number.isRequired,
-    motionDamping: PropTypes.number.isRequired,
-}
-
 export const blendModes = [
     'normal',
     'multiply',

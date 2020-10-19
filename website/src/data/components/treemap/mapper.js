@@ -6,12 +6,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { settingsMapper } from '../../../lib/settings'
+import { settingsMapper, mapFormat } from '../../../lib/settings'
 
 export default settingsMapper({
     label: value => {
-        if (value === `d => \`\${d.name} (\${d.loc})\``) return d => `${d.name} (${d.loc})`
+        if (value === `node => \`\${node.id} (\${node.formattedValue})\``)
+            return node => `${node.id} (${node.formattedValue})`
         return value
     },
-    labelFormat: (value, settings) => (settings.label === 'loc' ? value : undefined),
+    parentLabel: value => {
+        if (value === `node => node.pathComponents.join(' / ')`)
+            return node => node.pathComponents.join(' / ')
+        return value
+    },
+    valueFormat: mapFormat,
 })

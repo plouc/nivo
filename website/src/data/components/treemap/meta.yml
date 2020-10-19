@@ -14,7 +14,11 @@ TreeMap:
     - hierarchy
     - svg
     - isomorphic
-  stories: []
+  stories:
+    - label: Using custom tooltip
+      link: treemap--custom-tooltip
+    - label: Patterns & Gradients
+      link: treemap--patterns-gradients
   description: |
     A tree map component using
     [d3-hierarchy.treemap](https://github.com/d3/d3-hierarchy#treemap),
@@ -40,7 +44,9 @@ TreeMapHtml:
     - hierarchy
     - html
     - isomorphic
-  stories: []
+  stories:
+    - label: Using custom tooltip
+      link: treemaphtml--custom-tooltip
   description: |
     A tree map component using
     [d3-hierarchy.treemap](https://github.com/d3/d3-hierarchy#treemap),

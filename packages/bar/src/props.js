@@ -44,8 +44,14 @@ export const BarPropTypes = {
     axisLeft: axisPropType,
     enableGridX: PropTypes.bool.isRequired,
     enableGridY: PropTypes.bool.isRequired,
-    gridXValues: PropTypes.arrayOf(PropTypes.number),
-    gridYValues: PropTypes.arrayOf(PropTypes.number),
+    gridXValues: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])),
+    ]),
+    gridYValues: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])),
+    ]),
 
     barComponent: PropTypes.func.isRequired,
 
@@ -86,6 +92,11 @@ export const BarPropTypes = {
     ).isRequired,
 
     pixelRatio: PropTypes.number.isRequired,
+}
+
+export const BarSvgPropTypes = {
+    ...BarPropTypes,
+    role: PropTypes.string.isRequired,
 }
 
 export const BarDefaultProps = {
@@ -135,4 +146,9 @@ export const BarDefaultProps = {
 
     pixelRatio:
         global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
+}
+
+export const BarSvgDefaultProps = {
+    ...BarDefaultProps,
+    role: 'img',
 }

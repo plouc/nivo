@@ -6,106 +6,58 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { PureComponent, Fragment } from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { TransitionMotion, spring } from 'react-motion'
-import { motionPropTypes } from '@nivo/core'
+import { useTransition, animated } from 'react-spring'
+import { useMotionConfig } from '@nivo/core'
 
-export default class ParallelCoordinatesAxisDensityCircles extends PureComponent {
-    static propTypes = {
-        axis: PropTypes.oneOf(['x', 'y']).isRequired,
-        variable: PropTypes.shape({
-            key: PropTypes.string.isRequired,
-            densityBins: PropTypes.arrayOf(
-                PropTypes.shape({
-                    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-                    size: PropTypes.number.isRequired,
-                })
-            ).isRequired,
-        }).isRequired,
-        variablesScale: PropTypes.func.isRequired,
-        ...motionPropTypes,
-    }
+const ParallelCoordinatesAxisDensityCircles = ({ axis, variable, variablesScale }) => {
+    const otherPosition = variablesScale(variable.key)
 
-    circleWillEnter = ({ style }) => {
-        return {
-            r: 0,
-            cx: style.cx.val || style.cx,
-            cy: style.cy.val || style.cy,
-        }
-    }
+    const { animate, config: springConfig } = useMotionConfig()
+    const transitions = useTransition(variable.densityBins, bin => bin.id, {
+        enter: bin => ({
+            radius: 0,
+            x: axis === 'y' ? otherPosition : bin.position,
+            y: axis === 'y' ? bin.position : otherPosition,
+        }),
+        update: bin => ({
+            radius: bin.size / 2,
+            x: axis === 'y' ? otherPosition : bin.position,
+            y: axis === 'y' ? bin.position : otherPosition,
+        }),
+        leave: { radius: 0 },
+        config: springConfig,
+        immediate: !animate,
+    })
 
-    circleWillLeave = ({ style }) => {
-        const { motionStiffness: stiffness, motionDamping: damping } = this.props
-        const springConfig = { stiffness, damping }
-
-        return {
-            r: spring(0, springConfig),
-            cx: style.cx && style.cx.val ? style.cx.val : style.cx || 0,
-            cy: style.cy && style.cy.val ? style.cy.val : style.cy || 0,
-        }
-    }
-
-    render() {
-        const {
-            axis,
-            variable,
-            variablesScale,
-            animate,
-            motionStiffness,
-            motionDamping,
-        } = this.props
-
-        const otherPosition = variablesScale(variable.key)
-
-        if (animate !== true) {
-            return (
-                <g>
-                    {variable.densityBins.map(bin => (
-                        <circle
-                            key={bin.id}
-                            r={bin.size / 2}
-                            cx={axis === 'y' ? otherPosition : bin.position}
-                            cy={axis === 'y' ? bin.position : otherPosition}
-                            fill="rgba(255,0,0,.1)"
-                        />
-                    ))}
-                </g>
-            )
-        }
-
-        const springConfig = {
-            stiffness: motionStiffness,
-            damping: motionDamping,
-        }
-
-        return (
-            <TransitionMotion
-                willEnter={this.circleWillEnter}
-                willLeave={this.circleWillLeave}
-                styles={variable.densityBins.map(bin => ({
-                    key: `${bin.id}`,
-                    data: bin,
-                    style: {
-                        r: spring(bin.size / 2, springConfig),
-                        cx: spring(axis === 'y' ? otherPosition : bin.position, springConfig),
-                        cy: spring(axis === 'y' ? bin.position : otherPosition, springConfig),
-                    },
-                }))}
-            >
-                {interpolatedStyles => (
-                    <Fragment>
-                        {interpolatedStyles.map(({ style, data: bin }) => (
-                            <circle
-                                key={bin.id}
-                                {...style}
-                                r={Math.max(style.r, 0)}
-                                fill="rgba(255,0,0,.1)"
-                            />
-                        ))}
-                    </Fragment>
-                )}
-            </TransitionMotion>
-        )
-    }
+    return (
+        <g>
+            {transitions.map(({ props: animatedProps, key }) => (
+                <animated.circle
+                    key={key}
+                    r={animatedProps.radius}
+                    cx={animatedProps.x}
+                    cy={animatedProps.y}
+                    fill="rgba(255,0,0,.1)"
+                />
+            ))}
+        </g>
+    )
 }
+
+ParallelCoordinatesAxisDensityCircles.propTypes = {
+    axis: PropTypes.oneOf(['x', 'y']).isRequired,
+    variable: PropTypes.shape({
+        key: PropTypes.string.isRequired,
+        densityBins: PropTypes.arrayOf(
+            PropTypes.shape({
+                id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+                size: PropTypes.number.isRequired,
+            })
+        ).isRequired,
+    }).isRequired,
+    variablesScale: PropTypes.func.isRequired,
+}
+
+export default memo(ParallelCoordinatesAxisDensityCircles)

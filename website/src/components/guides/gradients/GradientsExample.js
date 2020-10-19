@@ -37,7 +37,7 @@ const MyChart = () => (
                     { offset: 0, color: '#faf047' },
                     { offset: 100, color: '#e4b400' },
                 ],
-            ,
+            },
         ]}
         // 2. defining rules to apply those gradients
         fill={[

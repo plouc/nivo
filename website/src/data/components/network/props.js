@@ -79,7 +79,7 @@ const props = [
             from the corresponding link property, thus, this property
             should exist on each link.
 
-            If you use a **function**, it will receive a link and must return 
+            If you use a **function**, it will receive a link and must return
             the desired distance.
         `,
     },
@@ -169,6 +169,18 @@ const props = [
         controlOptions: {
             inheritableProperties: ['source.color', 'target.color'],
         },
+    },
+    {
+        key: 'tooltip',
+        group: 'Interactivity',
+        type: 'Function',
+        required: false,
+        help: 'Custom tooltip component.',
+        description: `
+            A function allowing complete tooltip customisation,
+            it must return a valid HTML
+            element and will receive the node's data.
+        `,
     },
     {
         key: 'layers',

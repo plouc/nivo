@@ -13,9 +13,7 @@ export const pointScale = ({ axis }, xy, width, height) => {
     const values = xy[axis]
     const size = axis === 'x' ? width : height
 
-    const scale = scalePoint()
-        .range([0, size])
-        .domain(values.all)
+    const scale = scalePoint().range([0, size]).domain(values.all)
 
     scale.type = 'point'
 

@@ -35,9 +35,7 @@ export const getStackedScale = (data, _minValue, _maxValue, range) => {
         maxValue = max(allValues)
     }
 
-    return scaleLinear()
-        .rangeRound(range)
-        .domain([minValue, maxValue])
+    return scaleLinear().rangeRound(range).domain([minValue, maxValue])
 }
 
 /**
@@ -69,9 +67,7 @@ export const generateVerticalStackedBars = ({
     padding = 0,
     innerPadding = 0,
 }) => {
-    const stackedData = stack()
-        .keys(keys)
-        .offset(stackOffsetDiverging)(data)
+    const stackedData = stack().keys(keys).offset(stackOffsetDiverging)(data)
 
     const xScale = getIndexedScale(data, getIndex, [0, width], padding)
     const yRange = reverse ? [0, height] : [height, 0]
@@ -155,9 +151,7 @@ export const generateHorizontalStackedBars = ({
     padding = 0,
     innerPadding = 0,
 }) => {
-    const stackedData = stack()
-        .keys(keys)
-        .offset(stackOffsetDiverging)(data)
+    const stackedData = stack().keys(keys).offset(stackOffsetDiverging)(data)
 
     const xRange = reverse ? [width, 0] : [0, width]
     const xScale = getStackedScale(stackedData, minValue, maxValue, xRange)

@@ -45,6 +45,7 @@ const Bump = props => {
         endLabelPadding,
         endLabelTextColor,
 
+        pointComponent,
         pointSize,
         activePointSize,
         inactivePointSize,
@@ -67,6 +68,7 @@ const Bump = props => {
         onMouseLeave,
         onClick,
         tooltip,
+        role,
     } = props
 
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
@@ -100,6 +102,8 @@ const Bump = props => {
         activePointBorderWidth,
         inactivePointBorderWidth,
         pointBorderColor,
+        startLabel,
+        endLabel,
         isInteractive,
         currentSerie,
     })
@@ -149,7 +153,7 @@ const Bump = props => {
                 ))}
             </Fragment>
         ),
-        points: <Points key="points" points={points} />,
+        points: <Points key="points" pointComponent={pointComponent} points={points} />,
     }
 
     if (startLabel !== false) {
@@ -157,6 +161,7 @@ const Bump = props => {
             <LinesLabels
                 key="start"
                 series={series}
+                getLabel={startLabel}
                 position="start"
                 padding={startLabelPadding}
                 color={startLabelTextColor}
@@ -168,6 +173,7 @@ const Bump = props => {
             <LinesLabels
                 key="end"
                 series={series}
+                getLabel={endLabel}
                 position="end"
                 padding={endLabelPadding}
                 color={endLabelTextColor}
@@ -176,7 +182,7 @@ const Bump = props => {
     }
 
     return (
-        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
+        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} role={role}>
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
                     return (

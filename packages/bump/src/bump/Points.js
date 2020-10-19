@@ -8,68 +8,34 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { TransitionMotion, spring } from 'react-motion'
-import { useMotionConfig } from '@nivo/core'
 
-const pointStyle = { pointerEvents: 'none' }
-
-const Points = ({ points }) => {
-    const { animate, springConfig } = useMotionConfig()
-
-    if (!animate) {
-        return points.map(point => (
-            <circle
-                key={point.id}
-                cx={point.x}
-                cy={point.y}
-                r={point.style.size / 2}
-                strokeWidth={point.style.borderWidth}
-                stroke={point.borderColor}
-                fill={point.color}
-                style={pointStyle}
-            />
-        ))
-    }
-
-    return (
-        <TransitionMotion
-            styles={points.map(point => ({
-                key: point.id,
-                data: point,
-                style: {
-                    x: spring(point.x, springConfig),
-                    y: spring(point.y, springConfig),
-                    r: spring(point.style.size / 2, springConfig),
-                    strokeWidth: spring(point.style.borderWidth, springConfig),
-                },
-            }))}
-        >
-            {interpolated => (
-                <>
-                    {interpolated.map(({ key, style, data: point }) => (
-                        <circle
-                            key={key}
-                            cx={style.x}
-                            cy={style.y}
-                            r={Math.max(style.r, 0)}
-                            strokeWidth={Math.max(style.strokeWidth, 0)}
-                            stroke={point.borderColor}
-                            fill={point.color}
-                            style={pointStyle}
-                        />
-                    ))}
-                </>
-            )}
-        </TransitionMotion>
-    )
+const Points = ({ pointComponent, points }) => {
+    return points.map(point => {
+        return React.createElement(pointComponent, {
+            key: point.id,
+            data: point.data,
+            x: point.x,
+            y: point.y,
+            isActive: point.isActive,
+            isInactive: point.isInactive,
+            size: point.style.size,
+            color: point.color,
+            borderColor: point.borderColor,
+            borderWidth: point.style.borderWidth,
+        })
+    })
 }
 
 Points.propTypes = {
+    pointComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
     points: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.string.isRequired,
+            data: PropTypes.object.isRequired,
             x: PropTypes.number.isRequired,
             y: PropTypes.number.isRequired,
+            isActive: PropTypes.bool.isRequired,
+            isInactive: PropTypes.bool.isRequired,
             color: PropTypes.string.isRequired,
             borderColor: PropTypes.string.isRequired,
             style: PropTypes.shape({

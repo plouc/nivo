@@ -8,14 +8,21 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
+import { animated } from 'react-spring'
+import { useTheme } from '@nivo/core'
 
-const GridLine = props => <line {...props} />
+const GridLine = ({ animatedProps }) => {
+    const theme = useTheme()
+
+    return <animated.line {...animatedProps} {...theme.grid.line} />
+}
 
 GridLine.propTypes = {
     x1: PropTypes.number.isRequired,
     x2: PropTypes.number.isRequired,
     y1: PropTypes.number.isRequired,
     y2: PropTypes.number.isRequired,
+    animatedProps: PropTypes.object.isRequired,
 }
 GridLine.defaultProps = {
     x1: 0,

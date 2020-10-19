@@ -9,10 +9,19 @@
 import React, { memo } from 'react'
 import omit from 'lodash/omit'
 import PropTypes from 'prop-types'
-import { useTheme } from '@nivo/core'
+import { useSpring, animated } from 'react-spring'
+import { useTheme, useMotionConfig } from '@nivo/core'
 
 const AnnotationNote = memo(({ datum, x, y, note }) => {
     const theme = useTheme()
+    const { animate, config: springConfiig } = useMotionConfig()
+
+    const animatedProps = useSpring({
+        x,
+        y,
+        config: springConfiig,
+        immediate: !animate,
+    })
 
     if (typeof note === 'function') {
         return note({ x, y, datum })
@@ -21,9 +30,9 @@ const AnnotationNote = memo(({ datum, x, y, note }) => {
     return (
         <>
             {theme.annotations.text.outlineWidth > 0 && (
-                <text
-                    x={x}
-                    y={y}
+                <animated.text
+                    x={animatedProps.x}
+                    y={animatedProps.y}
                     style={{
                         ...theme.annotations.text,
                         strokeLinejoin: 'round',
@@ -32,15 +41,15 @@ const AnnotationNote = memo(({ datum, x, y, note }) => {
                     }}
                 >
                     {note}
-                </text>
+                </animated.text>
             )}
-            <text
-                x={x}
-                y={y}
+            <animated.text
+                x={animatedProps.x}
+                y={animatedProps.y}
                 style={omit(theme.annotations.text, ['outlineWidth', 'outlineColor'])}
             >
                 {note}
-            </text>
+            </animated.text>
         </>
     )
 })

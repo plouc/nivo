@@ -6,15 +6,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Fragment } from 'react'
+import React, { Fragment, useCallback } from 'react'
 import { withContainer, useDimensions, SvgWrapper, useTheme, useMotionConfig } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
+import { useTooltip } from '@nivo/tooltip'
 import { NetworkPropTypes, NetworkDefaultProps } from './props'
 import { useNetwork, useNodeColor, useLinkThickness } from './hooks'
 import AnimatedNodes from './AnimatedNodes'
 import StaticNodes from './StaticNodes'
 import AnimatedLinks from './AnimatedLinks'
 import StaticLinks from './StaticLinks'
+import NetworkNodeTooltip from './NetworkNodeTooltip'
 
 const Network = props => {
     const {
@@ -39,6 +41,9 @@ const Network = props => {
 
         linkThickness,
         linkColor,
+        tooltip,
+        isInteractive,
+        role,
     } = props
 
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
@@ -65,6 +70,19 @@ const Network = props => {
         center: [innerWidth / 2, innerHeight / 2],
     })
 
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
+
+    const handleNodeHover = useCallback(
+        (node, event) => {
+            showTooltipFromEvent(<NetworkNodeTooltip node={node} tooltip={tooltip} />, event)
+        },
+        [showTooltipFromEvent, tooltip]
+    )
+
+    const handleNodeLeave = useCallback(() => {
+        hideTooltip()
+    }, [hideTooltip])
+
     const layerById = {
         links: React.createElement(animate === true ? AnimatedLinks : StaticLinks, {
             key: 'links',
@@ -78,11 +96,13 @@ const Network = props => {
             color: getColor,
             borderWidth: nodeBorderWidth,
             borderColor: getBorderColor,
+            handleNodeHover: isInteractive ? handleNodeHover : undefined,
+            handleNodeLeave: isInteractive ? handleNodeLeave : undefined,
         }),
     }
 
     return (
-        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
+        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} role={role}>
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
                     return (

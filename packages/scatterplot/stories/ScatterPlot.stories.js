@@ -238,6 +238,36 @@ stories.add('using logarithmic scales', () => (
     />
 ))
 
+stories.add('using symmetric logarithmic scales', () => (
+    <ScatterPlot
+        {...commonProps}
+        data={[
+            {
+                id: 'apples',
+                data: [
+                    { x: 1, y: 1 },
+                    { x: 2, y: 3 },
+                    { x: 4, y: 32 },
+                    { x: 5, y: 8 },
+                    { x: 2, y: 38 },
+                    { x: 3, y: 45 },
+                ],
+            },
+        ]}
+        xScale={{
+            type: 'linear',
+        }}
+        xFormat={undefined}
+        yScale={{
+            type: 'symlog',
+        }}
+        yFormat={undefined}
+        axisBottom={{
+            tickValues: [0, 1, 2, 3, 4, 5],
+        }}
+    />
+))
+
 stories.add('node size', () => <ScatterPlot {...commonProps} nodeSize={24} />)
 
 stories.add('varying node size', () => (
@@ -529,7 +559,28 @@ stories.add(
                 max: 10,
             }}
             legends={[]}
-            layers={['grid', 'axes', AreaLayer, 'nodes', 'markers', 'mesh', 'legends']}
+            layers={[
+                'grid',
+                'axes',
+                AreaLayer,
+                'nodes',
+                'markers',
+                'mesh',
+                'legends',
+                'annotations',
+            ]}
+            annotations={[
+                {
+                    type: 'circle',
+                    match: { index: 10 },
+                    noteX: 50,
+                    noteY: 50,
+                    offset: 3,
+                    noteTextOffset: -3,
+                    noteWidth: 10,
+                    note: 'an annotation',
+                },
+            ]}
         />
     ),
     {

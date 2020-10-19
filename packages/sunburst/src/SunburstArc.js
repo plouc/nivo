@@ -50,7 +50,11 @@ const SunburstArc = ({
 }
 
 SunburstArc.propTypes = {
-    node: PropTypes.shape({}).isRequired,
+    node: PropTypes.shape({
+        data: PropTypes.shape({
+            color: PropTypes.string.isRequired,
+        }).isRequired,
+    }).isRequired,
     arcGenerator: PropTypes.func.isRequired,
     path: PropTypes.string.isRequired,
     borderWidth: PropTypes.number.isRequired,
@@ -73,21 +77,26 @@ const enhance = compose(
         onClick: event => onClick(node.data, event),
     })),
     withPropsOnChange(
-        ['node', 'theme', 'tooltip', 'tooltipFormat'],
-        ({ node, theme, tooltip, tooltipFormat }) => ({
-            tooltip: (
-                <BasicTooltip
-                    id={node.data.id}
-                    value={`${node.data.percentage.toFixed(2)}%`}
-                    enableChip={true}
-                    color={node.data.color}
-                    theme={theme}
-                    format={tooltipFormat}
-                    renderContent={
-                        typeof tooltip === 'function' ? tooltip.bind(null, { ...node.data }) : null
-                    }
-                />
-            ),
+        ['node', 'showTooltip', 'tooltip', 'tooltipFormat', 'theme'],
+        ({ node, showTooltip, tooltip, tooltipFormat, theme }) => ({
+            showTooltip: e => {
+                showTooltip(
+                    <BasicTooltip
+                        id={node.data.id}
+                        enableChip={true}
+                        color={node.data.color}
+                        value={`${node.data.percentage.toFixed(2)}%`}
+                        theme={theme}
+                        format={tooltipFormat}
+                        renderContent={
+                            typeof tooltip === 'function'
+                                ? tooltip.bind(null, { node, ...node })
+                                : null
+                        }
+                    />,
+                    e
+                )
+            },
         })
     ),
     pure

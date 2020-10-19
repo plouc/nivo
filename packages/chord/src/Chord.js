@@ -64,6 +64,7 @@ const Chord = ({
     onRibbonClick,
 
     legends,
+    role,
 }) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -186,7 +187,13 @@ const Chord = ({
     }
 
     return (
-        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
+        <SvgWrapper
+            width={outerWidth}
+            height={outerHeight}
+            margin={margin}
+            theme={theme}
+            role={role}
+        >
             {layers.map((layer, i) => {
                 if (layerById[layer] !== undefined) {
                     return layerById[layer]

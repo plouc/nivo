@@ -52,6 +52,11 @@ const Label = styled.label`
     color: ${({ theme }) => theme.colors.text};
 `
 
+const LabelParentPath = styled.span`
+    font-weight: 400;
+    color: ${({ theme }) => theme.colors.textLight};
+`
+
 const Type = styled.span`
     display: inline-block;
     white-space: nowrap;
@@ -81,10 +86,20 @@ const Default = styled.span`
     color: ${({ theme }) => theme.colors.textLight};
 `
 
-const PropertyHeader = ({ id, name, type, required, defaultValue }) => {
+const PropertyHeader = ({ id, name, type, required, defaultValue, context }) => {
+    let label = name
+    if (context) {
+        label = (
+            <>
+                <LabelParentPath>{context.path.join('.')}.</LabelParentPath>
+                {name}
+            </>
+        )
+    }
+
     return (
         <Container>
-            <Label htmlFor={id}>{name}</Label>
+            <Label htmlFor={id}>{label}</Label>
             {type !== undefined && <Type>{type}</Type>}
             {required && <Required>required</Required>}
             {!required && <Optional>optional</Optional>}

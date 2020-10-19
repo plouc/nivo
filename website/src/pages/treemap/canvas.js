@@ -8,7 +8,11 @@
  */
 import React from 'react'
 import omit from 'lodash/omit'
-import { ResponsiveTreeMapCanvas, TreeMapCanvasDefaultProps } from '@nivo/treemap'
+import {
+    ResponsiveTreeMapCanvas,
+    TreeMapCanvasDefaultProps,
+    TreeMapDefaultProps,
+} from '@nivo/treemap'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/treemap/meta.yml'
 import mapper from '../../data/components/treemap/mapper'
@@ -16,12 +20,13 @@ import { groups } from '../../data/components/treemap/props'
 import { generateHeavyDataSet } from '../../data/components/treemap/generator'
 
 const initialProperties = {
-    identity: 'name',
-    value: 'value',
-    tile: 'squarify',
+    identity: TreeMapCanvasDefaultProps.identity,
+    value: TreeMapCanvasDefaultProps.value,
+    valueFormat: { format: '.02s', enabled: true },
+    tile: TreeMapCanvasDefaultProps.tile,
     leavesOnly: true,
-    innerPadding: 2,
-    outerPadding: 8,
+    innerPadding: 0,
+    outerPadding: 0,
 
     margin: {
         top: 10,
@@ -34,24 +39,27 @@ const initialProperties = {
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
 
     enableLabel: true,
-    label: 'value',
-    labelFormat: '.0s',
+    label: TreeMapDefaultProps.label,
     labelSkipSize: 18,
     labelTextColor: {
         from: 'color',
-        modifiers: [['darker', 1.6]],
+        modifiers: [['darker', 3]],
     },
-    orientLabel: true,
+    orientLabel: TreeMapCanvasDefaultProps.orientLabel,
 
-    colors: { scheme: 'red_blue' },
-    colorBy: 'name',
-    borderWidth: 0,
+    colors: { scheme: 'spectral' },
+    colorBy: 'id',
+    nodeOpacity: TreeMapCanvasDefaultProps.nodeOpacity,
+    borderWidth: TreeMapCanvasDefaultProps.borderWidth,
     borderColor: {
         from: 'color',
         modifiers: [['darker', 0.8]],
     },
 
-    isInteractive: true,
+    animate: TreeMapDefaultProps.animate,
+    motionConfig: TreeMapDefaultProps.motionConfig,
+
+    isInteractive: TreeMapDefaultProps.isInteractive,
 }
 
 const TreeMapCanvas = () => {
@@ -67,20 +75,19 @@ const TreeMapCanvas = () => {
             defaultProperties={TreeMapCanvasDefaultProps}
             propertiesMapper={mapper}
             generateData={generateHeavyDataSet}
-            dataKey="root"
         >
             {(properties, data, theme, logAction) => {
                 return (
                     <ResponsiveTreeMapCanvas
-                        root={data.root}
+                        data={data.root}
                         {...properties}
                         theme={theme}
                         onClick={node => {
                             logAction({
                                 type: 'click',
-                                label: `[node] ${node.id}: ${node.value}`,
+                                label: `[node] ${node.id}: ${node.formattedValue}`,
                                 color: node.color,
-                                data: omit(node, ['parent', 'children']),
+                                data: node,
                             })
                         }}
                     />

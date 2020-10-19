@@ -8,8 +8,6 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { Motion, spring } from 'react-motion'
-import { useMotionConfig } from '@nivo/core'
 import { defaultProps } from './props'
 import { useComputedAnnotation } from './hooks'
 import AnnotationNote from './AnnotationNote'
@@ -35,7 +33,6 @@ const Annotation = memo(
         noteTextOffset,
         note,
     }) => {
-        const { animate, springConfig } = useMotionConfig()
         const computed = useComputedAnnotation({
             type,
             containerWidth,
@@ -60,26 +57,12 @@ const Annotation = memo(
                     <RectAnnotationOutline x={x} y={y} width={width} height={height} />
                 )}
                 <AnnotationLink points={computed.points} />
-                {!animate && (
-                    <AnnotationNote x={computed.text[0]} y={computed.text[1]} note={note} />
-                )}
-                {animate && (
-                    <Motion
-                        style={{
-                            x: spring(computed.text[0], springConfig),
-                            y: spring(computed.text[1], springConfig),
-                        }}
-                    >
-                        {interpolated => (
-                            <AnnotationNote
-                                datum={datum}
-                                x={interpolated.x}
-                                y={interpolated.y}
-                                note={note}
-                            />
-                        )}
-                    </Motion>
-                )}
+                <AnnotationNote
+                    datum={datum}
+                    x={computed.text[0]}
+                    y={computed.text[1]}
+                    note={note}
+                />
             </>
         )
     }

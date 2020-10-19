@@ -23,11 +23,7 @@ export const usePie = ({
     padAngle = 0,
 }) => {
     const arcGenerator = useMemo(
-        () =>
-            d3Arc()
-                .outerRadius(radius)
-                .innerRadius(innerRadius)
-                .cornerRadius(cornerRadius),
+        () => d3Arc().outerRadius(radius).innerRadius(innerRadius).cornerRadius(cornerRadius),
         [radius, innerRadius, cornerRadius]
     )
 

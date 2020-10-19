@@ -72,12 +72,8 @@ module.exports = {
 
             markers: Joi.array().items(
                 Joi.object().keys({
-                    axis: Joi.any()
-                        .valid(['x', 'y'])
-                        .required(),
-                    value: Joi.alternatives()
-                        .try(Joi.string(), Joi.number())
-                        .required(),
+                    axis: Joi.any().valid(['x', 'y']).required(),
+                    value: Joi.alternatives().try(Joi.string(), Joi.number()).required(),
                     style: Joi.object(),
                 })
             ),

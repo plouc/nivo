@@ -34,12 +34,6 @@ const CalendarApi = () => {
                 defaultProps={{
                     width: 600,
                     height: 400,
-                    margin: {
-                        top: 10,
-                        right: 10,
-                        bottom: 10,
-                        left: 10,
-                    },
                     from: '2015-03-01',
                     to: '2016-07-12',
 
@@ -61,6 +55,7 @@ const CalendarApi = () => {
                     yearLegendPosition: 'before',
                     yearLegendOffset: 10,
 
+                    monthSpacing: 0,
                     monthBorderWidth: 2,
                     monthBorderColor: '#ffffff',
                     monthLegendPosition: 'before',

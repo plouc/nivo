@@ -23,6 +23,7 @@ const Container = ({
     animate,
     motionStiffness,
     motionDamping,
+    motionConfig,
 }) => {
     const container = useRef(null)
     const {
@@ -41,6 +42,7 @@ const Container = ({
                 animate={animate}
                 stiffness={motionStiffness}
                 damping={motionDamping}
+                config={motionConfig}
             >
                 <tooltipContext.Provider
                     value={{ showTooltipAt, showTooltipFromEvent, hideTooltip }}
@@ -66,9 +68,10 @@ const Container = ({
 Container.propTypes = {
     children: PropTypes.node.isRequired,
     theme: PropTypes.object,
-    animate: PropTypes.bool,
-    motionStiffness: PropTypes.number,
-    motionDamping: PropTypes.number,
+    animate: MotionConfigProvider.propTypes.animate,
+    motionStiffness: MotionConfigProvider.propTypes.stiffness,
+    motionDamping: MotionConfigProvider.propTypes.damping,
+    motionConfig: MotionConfigProvider.propTypes.config,
     renderWrapper: PropTypes.bool,
 }
 
@@ -86,6 +89,7 @@ export const withContainer = WrappedComponent => {
                     animate={childProps.animate}
                     motionStiffness={childProps.motionStiffness}
                     motionDamping={childProps.motionDamping}
+                    motionConfig={childProps.motionConfig}
                 >
                     <WrappedComponent {...childProps} />
                 </Container>

@@ -11,6 +11,7 @@ import { motionPropTypes } from '@nivo/core'
 import { ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
 import { axisPropType } from '@nivo/axes'
 import LineTooltip from './LineTooltip'
+import Point from './Point'
 
 const commonPropTypes = {
     data: PropTypes.arrayOf(
@@ -19,7 +20,7 @@ const commonPropTypes = {
             data: PropTypes.arrayOf(
                 PropTypes.shape({
                     x: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-                    y: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+                    y: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
                 })
             ).isRequired,
         })
@@ -54,6 +55,7 @@ const commonPropTypes = {
     endLabelPadding: PropTypes.number.isRequired,
     endLabelTextColor: inheritedColorPropType.isRequired,
 
+    pointComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
     pointSize: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
     activePointSize: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
     inactivePointSize: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
@@ -81,6 +83,7 @@ const commonPropTypes = {
 export const BumpPropTypes = {
     ...commonPropTypes,
     ...motionPropTypes,
+    role: PropTypes.string.isRequired,
 }
 
 const commonDefaultProps = {
@@ -127,7 +130,8 @@ const commonDefaultProps = {
 
 export const BumpDefaultProps = {
     ...commonDefaultProps,
+    pointComponent: Point,
     animate: true,
-    motionStiffness: 90,
-    motionDamping: 15,
+    motionConfig: 'gentle',
+    role: 'img',
 }

@@ -62,7 +62,12 @@ const Sunburst = ({
     slicesLabelsTextColor,
 
     // theming
+    tooltipFormat, // eslint-disable-line react/prop-types
+    tooltip, // eslint-disable-line react/prop-types
+
     theme, // eslint-disable-line react/prop-types
+
+    role,
 
     isInteractive,
     tooltipFormat,
@@ -74,7 +79,13 @@ const Sunburst = ({
     return (
         <Container isInteractive={isInteractive} theme={theme} animate={false}>
             {({ showTooltip, hideTooltip }) => (
-                <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
+                <SvgWrapper
+                    width={outerWidth}
+                    height={outerHeight}
+                    margin={margin}
+                    theme={theme}
+                    role={role}
+                >
                     <g transform={`translate(${centerX}, ${centerY})`}>
                         {nodes
                             .filter(node => node.depth > 0)
@@ -143,6 +154,8 @@ Sunburst.propTypes = {
     slicesLabelsSkipAngle: PropTypes.number,
     slicesLabelsTextColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
+    role: PropTypes.string.isRequired,
+
     isInteractive: PropTypes.bool,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
     tooltip: PropTypes.func,
@@ -162,6 +175,7 @@ export const SunburstDefaultProps = {
     borderColor: 'white',
 
     childColor: { from: 'color' },
+    role: 'img',
 
     // slices labels
     enableSlicesLabels: false,

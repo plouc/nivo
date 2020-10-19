@@ -18,7 +18,7 @@ class ColorPickerControl extends Component {
     }
 
     render() {
-        const { id, property, flavors, currentFlavor, value } = this.props
+        const { id, property, flavors, currentFlavor, value, context } = this.props
 
         return (
             <Control
@@ -28,7 +28,7 @@ class ColorPickerControl extends Component {
                 currentFlavor={currentFlavor}
                 supportedFlavors={property.flavors}
             >
-                <PropertyHeader id={id} {...property} />
+                <PropertyHeader id={id} {...property} context={context} />
                 <div>
                     <input type="color" id={id} onChange={this.handleChange} value={value} />
                     &nbsp;&nbsp;&nbsp;
@@ -47,6 +47,7 @@ ColorPickerControl.propTypes = {
     currentFlavor: PropTypes.oneOf(['svg', 'html', 'canvas', 'api']).isRequired,
     value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
+    context: PropTypes.object,
 }
 
 export default ColorPickerControl

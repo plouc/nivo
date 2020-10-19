@@ -6,6 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+import { LineDefaultProps } from '@nivo/line'
 
 export default {
     width: 600,
@@ -21,6 +22,7 @@ export default {
     xScale: {
         type: 'point',
     },
+    xFormat: { format: '', enabled: false },
     yScale: {
         type: 'linear',
         min: 'auto',
@@ -28,8 +30,9 @@ export default {
         stacked: true,
         reverse: false,
     },
+    yFormat: { format: ' >-.2f', enabled: true },
 
-    curve: 'linear',
+    curve: LineDefaultProps.curve,
 
     axisTop: {
         enable: false,
@@ -70,10 +73,10 @@ export default {
         legendPosition: 'middle',
     },
 
-    enableGridX: true,
-    enableGridY: true,
+    enableGridX: LineDefaultProps.enableGridX,
+    enableGridY: LineDefaultProps.enableGridY,
 
-    colors: { scheme: 'nivo' },
+    colors: LineDefaultProps.colors,
     lineWidth: 2,
 
     enablePoints: true,
@@ -81,16 +84,16 @@ export default {
     pointColor: { theme: 'background' },
     pointBorderWidth: 2,
     pointBorderColor: { from: 'serieColor' },
-    enablePointLabel: false,
-    pointLabel: 'y',
+    enablePointLabel: LineDefaultProps.enablePointLabel,
+    pointLabel: LineDefaultProps.pointLabel,
     pointLabelYOffset: -12,
 
-    enableArea: false,
-    areaBlendMode: 'normal',
-    areaBaselineValue: 0,
-    areaOpacity: 0.2,
+    enableArea: LineDefaultProps.enableArea,
+    areaBlendMode: LineDefaultProps.areaBlendMode,
+    areaBaselineValue: LineDefaultProps.areaBaselineValue,
+    areaOpacity: LineDefaultProps.areaOpacity,
 
-    isInteractive: true,
+    isInteractive: LineDefaultProps.isInteractive,
     enableSlices: false,
     debugSlices: false,
 

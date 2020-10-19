@@ -6,56 +6,92 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo } from 'react'
+import React, { memo, useCallback } from 'react'
 import PropTypes from 'prop-types'
-import { compose, withPropsOnChange, pure } from 'recompose'
-import { noop } from '@nivo/core'
-import { BasicTooltip } from '@nivo/tooltip'
+import { useTooltip } from '@nivo/tooltip'
 
 const CalendarDay = memo(
     ({
+        data,
         x,
         y,
         size,
-        spacing,
         color,
         borderWidth,
         borderColor,
+        isInteractive,
+        tooltip,
+        onMouseEnter,
+        onMouseMove,
+        onMouseLeave,
         onClick,
-        showTooltip,
-        hideTooltip,
+        formatValue,
     }) => {
+        const { showTooltipFromEvent, hideTooltip } = useTooltip()
+
+        const handleMouseEnter = useCallback(
+            event => {
+                const formatedData = {
+                    ...data,
+                    value: formatValue(data.value),
+                    data: { ...data.data },
+                }
+                showTooltipFromEvent(React.createElement(tooltip, { ...formatedData }), event)
+                onMouseEnter && onMouseEnter(data, event)
+            },
+            [showTooltipFromEvent, tooltip, data, onMouseEnter, formatValue]
+        )
+        const handleMouseMove = useCallback(
+            event => {
+                const formatedData = {
+                    ...data,
+                    value: formatValue(data.value),
+                    data: { ...data.data },
+                }
+                showTooltipFromEvent(React.createElement(tooltip, { ...formatedData }), event)
+                onMouseMove && onMouseMove(data, event)
+            },
+            [showTooltipFromEvent, tooltip, data, onMouseMove, formatValue]
+        )
+        const handleMouseLeave = useCallback(
+            event => {
+                hideTooltip()
+                onMouseLeave && onMouseLeave(data, event)
+            },
+            [isInteractive, hideTooltip, data, onMouseLeave]
+        )
+        const handleClick = useCallback(event => onClick && onClick(data, event), [
+            isInteractive,
+            data,
+            onClick,
+        ])
+
         return (
-            <>
-                <rect
-                    x={x}
-                    y={y}
-                    width={size}
-                    height={size}
-                    style={{
-                        fill: color,
-                        strokeWidth: borderWidth,
-                        stroke: borderColor,
-                    }}
-                />
-                <rect
-                    fill="rgba(0, 0, 0, 0)"
-                    x={x - spacing / 2}
-                    y={y - spacing / 2}
-                    width={size + spacing}
-                    height={size + spacing}
-                    onClick={onClick}
-                    onMouseEnter={showTooltip}
-                    onMouseMove={showTooltip}
-                    onMouseLeave={hideTooltip}
-                />
-            </>
+            <rect
+                x={x}
+                y={y}
+                width={size}
+                height={size}
+                style={{
+                    fill: color,
+                    strokeWidth: borderWidth,
+                    stroke: borderColor,
+                }}
+                onMouseEnter={isInteractive ? handleMouseEnter : undefined}
+                onMouseMove={isInteractive ? handleMouseMove : undefined}
+                onMouseLeave={isInteractive ? handleMouseLeave : undefined}
+                onClick={isInteractive ? handleClick : undefined}
+            />
         )
     }
 )
 
+CalendarDay.displayName = 'CalendarDay'
 CalendarDay.propTypes = {
-    onClick: PropTypes.func.isRequired,
+    onClick: PropTypes.func,
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func,
+    onMouseMove: PropTypes.func,
     data: PropTypes.object.isRequired,
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
@@ -64,50 +100,14 @@ CalendarDay.propTypes = {
     color: PropTypes.string.isRequired,
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.string.isRequired,
+    isInteractive: PropTypes.bool.isRequired,
+    formatValue: PropTypes.func,
 
-    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-    tooltip: PropTypes.func,
-    showTooltip: PropTypes.func.isRequired,
-    hideTooltip: PropTypes.func.isRequired,
+    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 
     theme: PropTypes.shape({
         tooltip: PropTypes.shape({}).isRequired,
     }).isRequired,
 }
 
-CalendarDay.displayName = 'CalendarDay'
-
-const enhance = compose(
-    withPropsOnChange(['data', 'onClick'], ({ data, onClick }) => ({
-        onClick: event => onClick(data, event),
-    })),
-    withPropsOnChange(
-        ['data', 'color', 'showTooltip', 'tooltipFormat', 'tooltip', 'theme'],
-        ({ data, color, showTooltip, tooltipFormat, tooltip, theme }) => {
-            if (data.value === undefined) return { showTooltip: noop }
-
-            return {
-                showTooltip: event =>
-                    showTooltip(
-                        <BasicTooltip
-                            id={`${data.day}`}
-                            value={data.value}
-                            enableChip={true}
-                            color={color}
-                            theme={theme}
-                            format={tooltipFormat}
-                            renderContent={
-                                typeof tooltip === 'function'
-                                    ? tooltip.bind(null, { color, ...data })
-                                    : null
-                            }
-                        />,
-                        event
-                    ),
-            }
-        }
-    ),
-    pure
-)
-
-export default enhance(CalendarDay)
+export default CalendarDay

@@ -101,6 +101,11 @@ export const PiePropTypes = {
     */
 }
 
+export const PieSvgPropTypes = {
+    ...PiePropTypes,
+    role: PropTypes.string.isRequired,
+}
+
 export const PieDefaultProps = {
     sortByValue: false,
     innerRadius: 0,
@@ -146,4 +151,9 @@ export const PieDefaultProps = {
 
     // legends
     legends: [],
+}
+
+export const PieSvgDefaultProps = {
+    ...PieDefaultProps,
+    role: 'img',
 }

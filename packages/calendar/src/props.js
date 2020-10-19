@@ -8,8 +8,9 @@
  */
 import PropTypes from 'prop-types'
 import { timeFormat } from 'd3-time-format'
-import { noop, boxAlignments } from '@nivo/core'
+import { boxAlignments } from '@nivo/core'
 import { LegendPropShape } from '@nivo/legends'
+import CalendarTooltip from './CalendarTooltip'
 
 const monthLabelFormat = timeFormat('%b')
 
@@ -24,16 +25,12 @@ const commonPropTypes = {
     ).isRequired,
 
     align: PropTypes.oneOf(boxAlignments).isRequired,
-    originX: PropTypes.number.isRequired,
-    originY: PropTypes.number.isRequired,
-    calendarWidth: PropTypes.number.isRequired,
-    calendarHeight: PropTypes.number.isRequired,
 
     minValue: PropTypes.oneOfType([PropTypes.oneOf(['auto']), PropTypes.number]).isRequired,
     maxValue: PropTypes.oneOfType([PropTypes.oneOf(['auto']), PropTypes.number]).isRequired,
 
     colors: PropTypes.arrayOf(PropTypes.string).isRequired,
-    colorScale: PropTypes.func.isRequired,
+    colorScale: PropTypes.func,
 
     direction: PropTypes.oneOf(['horizontal', 'vertical']),
     emptyColor: PropTypes.string.isRequired,
@@ -46,6 +43,7 @@ const commonPropTypes = {
     monthBorderWidth: PropTypes.number.isRequired,
     monthBorderColor: PropTypes.string.isRequired,
     monthLegend: PropTypes.func.isRequired,
+    monthSpacing: PropTypes.number.isRequired,
     monthLegendPosition: PropTypes.oneOf(['before', 'after']).isRequired,
     monthLegendOffset: PropTypes.number.isRequired,
 
@@ -54,10 +52,13 @@ const commonPropTypes = {
     dayBorderColor: PropTypes.string.isRequired,
 
     isInteractive: PropTypes.bool,
-    onClick: PropTypes.func.isRequired,
-    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-    tooltip: PropTypes.func,
-
+    onClick: PropTypes.func,
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func,
+    onMouseMove: PropTypes.func,
+    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+    valueFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    legendFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
     legends: PropTypes.arrayOf(
         PropTypes.shape({
             ...LegendPropShape,
@@ -66,7 +67,10 @@ const commonPropTypes = {
     ).isRequired,
 }
 
-export const CalendarPropTypes = commonPropTypes
+export const CalendarPropTypes = {
+    ...commonPropTypes,
+    role: PropTypes.string.isRequired,
+}
 
 export const CalendarCanvasPropTypes = {
     ...commonPropTypes,
@@ -90,6 +94,7 @@ const commonDefaultProps = {
 
     monthBorderWidth: 2,
     monthBorderColor: '#000',
+    monthSpacing: 0,
     monthLegend: (year, month, date) => monthLabelFormat(date),
     monthLegendPosition: 'before',
     monthLegendOffset: 10,
@@ -100,12 +105,15 @@ const commonDefaultProps = {
     dayBorderColor: '#000',
 
     isInteractive: true,
-    onClick: noop,
 
     legends: [],
+    tooltip: CalendarTooltip,
 }
 
-export const CalendarDefaultProps = commonDefaultProps
+export const CalendarDefaultProps = {
+    ...commonDefaultProps,
+    role: 'img',
+}
 
 export const CalendarCanvasDefaultProps = {
     ...commonDefaultProps,

@@ -32,7 +32,10 @@ describe('getLabelGenerator()', () => {
     })
 
     it(`should handle custom access & formatting functions`, () => {
-        const getLabel = getLabelGenerator(d => d.value[1], v => v + 10)
+        const getLabel = getLabelGenerator(
+            d => d.value[1],
+            v => v + 10
+        )
         expect(getLabel({ value: [18, 19] })).toBe(29)
     })
 })

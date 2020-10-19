@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { SankeyDefaultProps as defaults, sankeyAlignmentPropKeys } from '@nivo/sankey'
-import { motionProperties, groupProperties } from '../../../lib/componentProperties'
+import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
 
 const props = [
     {
@@ -98,15 +98,6 @@ const props = [
         },
     },
     {
-        key: 'colors',
-        help: 'Defines how to compute nodes color.',
-        type: 'string | Function | string[]',
-        required: false,
-        defaultValue: defaults.colors,
-        controlType: 'ordinalColors',
-        group: 'Base',
-    },
-    {
         key: 'width',
         enableControlForFlavors: ['api'],
         description: `
@@ -151,6 +142,16 @@ const props = [
         required: false,
         controlType: 'margin',
         group: 'Base',
+    },
+    themeProperty,
+    {
+        key: 'colors',
+        help: 'Defines how to compute nodes color.',
+        type: 'string | Function | string[]',
+        required: false,
+        defaultValue: defaults.colors,
+        controlType: 'ordinalColors',
+        group: 'Style',
     },
     {
         key: 'nodeThickness',
@@ -367,7 +368,7 @@ const props = [
         controlType: 'switch',
         group: 'Interactivity',
     },
-    ...motionProperties(['svg'], defaults),
+    ...motionProperties(['svg'], defaults, 'react-spring'),
 ]
 
 export const groups = groupProperties(props)

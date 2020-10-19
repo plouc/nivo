@@ -6,9 +6,10 @@ import { TreeMapHtml } from '../src'
 const commonProperties = {
     width: 900,
     height: 400,
-    root: generateLibTree(),
+    data: generateLibTree(),
     identity: 'name',
     value: 'loc',
+    valueFormat: '.02s',
     label: 'name',
     labelSkipRadius: 16,
 }
@@ -16,9 +17,9 @@ const commonProperties = {
 storiesOf('TreeMapHtml', module).add('custom tooltip', () => (
     <TreeMapHtml
         {...commonProperties}
-        tooltip={({ id, value, color }) => (
-            <strong style={{ color }}>
-                {id}: {value}
+        tooltip={({ node }) => (
+            <strong style={{ color: node.color }}>
+                {node.pathComponents.join(' / ')}: {node.formattedValue}
             </strong>
         )}
         theme={{
