@@ -17,7 +17,7 @@ const sliceStyle = {
 export default class SunburstLabels extends Component {
     static propTypes = {
         nodes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-        label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+        label: PropTypes.PropTypes.func,
         skipAngle: PropTypes.number.isRequired,
         textColor: PropTypes.func.isRequired,
         theme: PropTypes.shape({
