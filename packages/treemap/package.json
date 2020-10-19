@@ -23,8 +23,8 @@
     "dist/"
   ],
   "dependencies": {
-    "@bitbloom/nivo-colors": "^0.62.2",
-    "@bitbloom/nivo-tooltip": "^0.62.2",
+    "@bitbloom/nivo-colors": "0.62.2",
+    "@bitbloom/nivo-tooltip": "0.62.2",
     "d3-hierarchy": "^1.1.8",
     "lodash": "^4.17.11",
     "react-spring": "^8.0.27"

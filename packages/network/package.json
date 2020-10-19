@@ -25,9 +25,9 @@
     "dist/"
   ],
   "dependencies": {
-    "@bitbloom/nivo-colors": "^0.62.2",
-    "@bitbloom/nivo-core": "^0.62.2",
-    "@bitbloom/nivo-tooltip": "^0.62.2",
+    "@bitbloom/nivo-colors": "0.62.2",
+    "@bitbloom/nivo-core": "0.62.2",
+    "@bitbloom/nivo-tooltip": "0.62.2",
     "d3-force": "^2.0.1",
     "lodash": "^4.17.11",
     "react-motion": "^0.5.2"

@@ -27,7 +27,7 @@
     "dist/"
   ],
   "dependencies": {
-    "@bitbloom/nivo-colors": "^0.62.2",
+    "@bitbloom/nivo-colors": "0.62.2",
     "lodash": "^4.17.11",
     "react-spring": "^8.0.27"
   },
