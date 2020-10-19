@@ -184,13 +184,13 @@ packages-publish: ##@1 packages publish all packages
 	#@$(MAKE) packages-build
 
 	@echo "${YELLOW}Publishing packages${RESET}"
-	@./node_modules/.bin/lerna publish --exact --yes --no-push from-git
+	@./node_modules/.bin/lerna publish from-git
 
 packages-publish-next: ##@1 packages publish all packages for @next npm tag
 	@$(MAKE) packages-build
 
 	@echo "${YELLOW}Publishing packages${RESET}"
-	@./node_modules/.bin/lerna publish --exact --npm-tag=next --yes --no-push from-git
+	@./node_modules/.bin/lerna publish --npm-tag=next from-git
 
 package-watch-%: ##@1 packages build package (es flavor) on change, eg. `package-build-watch-bar`
 	@echo "${YELLOW}Running build watcher for package ${WHITE}@bitbloom/nivo-${*}${RESET}"
