@@ -12,13 +12,18 @@ trigger:
 pool: 'Default'
 
 steps:
+#- task: npmAuthenticate@0
+#  inputs:
+#    workingFile: .npmrc
+
 - task: npmAuthenticate@0
   inputs:
-    workingFile: .npmrc
+  workingFile: $(agent.tempdirectory)/.npmrc
+- script: echo vso[task.setvariable variable=NPM_CONFIG_USERCONFIG]$(agent.tempdirectory)/.npmrc
 
 - script: |
     echo "Create new container"
-    docker run --name nivo -v $(Build.SourcesDirectory):/app -w /app node:12.18.4 ./build.sh
+    docker run --name nivo -v $(Build.SourcesDirectory):/app -w /app node:12.18.4 ./build.sh -v $(agent.tempdirectory)/.npmrc:/tmp/.npmrc -e NPM_CONFIG_USERCONFIG=/tmp/.npmrc
   displayName: 'Build modules on nivo container'
   condition: succeeded()
   
