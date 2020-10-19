@@ -62,13 +62,8 @@ const Sunburst = ({
     slicesLabelsTextColor,
 
     // theming
-    tooltipFormat, // eslint-disable-line react/prop-types
-    tooltip, // eslint-disable-line react/prop-types
-
     theme, // eslint-disable-line react/prop-types
-
     role,
-
     isInteractive,
     tooltipFormat,
     tooltip,
