@@ -1,6 +1,6 @@
 {
   "name": "@nivo/annotations",
-  "version": "0.62.0",
+  "version": "0.63.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -22,7 +22,7 @@
     "dist/"
   ],
   "dependencies": {
-    "@nivo/colors": "0.62.0",
+    "@nivo/colors": "0.63.0",
     "lodash": "^4.17.11",
     "react-spring": "^8.0.27"
   },
