@@ -8,7 +8,6 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { noop } from '@nivo/core'
 import sortBy from 'lodash/sortBy'
 import cloneDeep from 'lodash/cloneDeep'
 import compose from 'recompose/compose'
@@ -32,6 +31,7 @@ import {
     inheritedColorPropType,
     getInheritedColorGenerator,
 } from '@nivo/colors'
+import { noop } from '@nivo/core'
 import SunburstLabels from './SunburstLabels'
 import SunburstArc from './SunburstArc'
 
