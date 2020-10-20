@@ -46,6 +46,7 @@ const commonPlugins = [
     babel({
         exclude: 'node_modules/**',
         babelHelpers: 'runtime',
+        plugins: ['lodash'],
         presets: ['react-app']
     }),
     cleanup()
