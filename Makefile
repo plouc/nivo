@@ -184,7 +184,7 @@ packages-publish: ##@1 packages publish all packages
 	#@$(MAKE) packages-build
 
 	@echo "${YELLOW}Publishing packages${RESET}"
-	@./node_modules/.bin/lerna publish from-git
+	@./node_modules/.bin/lerna publish from-package
 
 packages-publish-next: ##@1 packages publish all packages for @next npm tag
 	@$(MAKE) packages-build
