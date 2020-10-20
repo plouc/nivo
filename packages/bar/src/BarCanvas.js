@@ -194,7 +194,7 @@ class BarCanvas extends Component {
             theme,
         })
 
-        result.bars.forEach(bar => {
+        result.bars.forEach((bar, index) => {
             const { x, y, color, width, height } = bar
 
             this.ctx.fillStyle = color
@@ -206,7 +206,7 @@ class BarCanvas extends Component {
             this.ctx.beginPath()
             this.ctx.rect(x, y, width, height)
             this.ctx.fill()
-            if (index < result.bars.length - 1) {
+            if (bar.data.line && index < result.bars.length - 1) {
                 const { x1, x2, y1, y2 } = bar.data.line
                 this.ctx.beginPath();
                 this.ctx.moveTo(x1, y1)
