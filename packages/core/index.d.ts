@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { OpaqueInterpolation } from 'react-spring'
 
 declare module '@nivo/core' {
     export type DatumValue = string | number | Date
@@ -152,6 +153,7 @@ declare module '@nivo/core' {
 
     export type DataFormatter = (value: DatumValue) => string | number
 
+    export function useAnimatedPath(path: string): OpaqueInterpolation<string>
     export function useValueFormatter(formatter?: DataFormatter | string): DataFormatter
 
     export type LinearGradientDef = {

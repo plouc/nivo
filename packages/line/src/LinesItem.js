@@ -6,23 +6,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo } from 'react'
+import React, { memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { useSpring, animated } from 'react-spring'
-import { useMotionConfig } from '@nivo/core'
+import { animated } from 'react-spring'
+import { useAnimatedPath } from '@nivo/core'
 
 const LinesItem = ({ lineGenerator, points, color, thickness }) => {
-    const { animate, config: springConfig } = useMotionConfig()
+    const path = useMemo(() => lineGenerator(points), [lineGenerator, points])
+    const animatedPath = useAnimatedPath(path)
 
-    const animatedProps = useSpring({
-        path: lineGenerator(points),
-        config: springConfig,
-        immediate: !animate,
-    })
-
-    return (
-        <animated.path d={animatedProps.path} fill="none" strokeWidth={thickness} stroke={color} />
-    )
+    return <animated.path d={animatedPath} fill="none" strokeWidth={thickness} stroke={color} />
 }
 
 LinesItem.propTypes = {
