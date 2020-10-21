@@ -1,6 +1,6 @@
 {
   "name": "@bitbloom/nivo-scatterplot",
-  "version": "0.62.2",
+  "version": "0.62.3",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -23,7 +23,7 @@
     "dist/"
   ],
   "dependencies": {
-    "@bitbloom/nivo-annotations": "^0.62.2",
+    "@bitbloom/nivo-annotations": "0.62.3",
     "@bitbloom/nivo-axes": "0.62.2",
     "@bitbloom/nivo-colors": "0.62.2",
     "@bitbloom/nivo-core": "0.62.2",
