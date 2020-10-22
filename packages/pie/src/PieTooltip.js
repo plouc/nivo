@@ -8,7 +8,6 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import pure from 'recompose/pure'
 import { BasicTooltip } from '@nivo/tooltip'
 
 const PieTooltip = ({ data, color, tooltipFormat, tooltip, theme }) => {
@@ -41,4 +40,4 @@ PieTooltip.propTypes = {
     }).isRequired,
 }
 
-export default pure(PieTooltip)
+export default PieTooltip

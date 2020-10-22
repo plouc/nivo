@@ -94,6 +94,11 @@ export const BarPropTypes = {
     pixelRatio: PropTypes.number.isRequired,
 }
 
+export const BarSvgPropTypes = {
+    ...BarPropTypes,
+    role: PropTypes.string.isRequired,
+}
+
 export const BarDefaultProps = {
     indexBy: 'id',
     keys: ['value'],
@@ -141,4 +146,9 @@ export const BarDefaultProps = {
 
     pixelRatio:
         global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
+}
+
+export const BarSvgDefaultProps = {
+    ...BarDefaultProps,
+    role: 'img',
 }

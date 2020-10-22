@@ -57,6 +57,7 @@ function loadStories() {
     require('../packages/heatmap/stories/heatmap.stories')
     require('../packages/line/stories/line.stories')
     require('../packages/line/stories/LineCanvas.stories')
+    require('../packages/network/stories/network.stories')
     require('../packages/pie/stories/pie.stories')
     require('../packages/radar/stories/radar.stories')
     require('../packages/sankey/stories/sankey.stories')

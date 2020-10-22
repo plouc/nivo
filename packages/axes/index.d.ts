@@ -37,6 +37,7 @@ declare module '@nivo/axes' {
         legend?: React.ReactNode
         legendPosition?: 'start' | 'middle' | 'end'
         legendOffset?: number
+        ariaHidden?: boolean
     }
 
     export interface GridProps extends Dimensions, Scales {

@@ -35,6 +35,7 @@ declare module '@nivo/sunburst' {
             margin: Box
 
             isInteractive: boolean
+            role: string
         }> &
         ColorProps<SunburstDataNode> &
         MotionProps

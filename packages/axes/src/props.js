@@ -25,6 +25,7 @@ export const axisPropTypes = {
     legend: PropTypes.node,
     legendPosition: PropTypes.oneOf(['start', 'middle', 'end']),
     legendOffset: PropTypes.number,
+    ariaHidden: PropTypes.bool,
 }
 
 export const axisPropType = PropTypes.shape(axisPropTypes)

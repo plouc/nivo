@@ -19,7 +19,7 @@ import Tooltip from './Tooltip'
 const commonPropTypes = {
     data: PropTypes.arrayOf(
         PropTypes.shape({
-            id: PropTypes.string.isRequired,
+            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
             data: PropTypes.arrayOf(
                 PropTypes.shape({
                     x: PropTypes.oneOfType([
@@ -93,6 +93,7 @@ const commonPropTypes = {
 
 export const ScatterPlotPropTypes = {
     ...commonPropTypes,
+    role: PropTypes.string.isRequired,
     useMesh: PropTypes.bool.isRequired,
     ...motionPropTypes,
 }
@@ -140,6 +141,7 @@ const commonDefaultProps = {
 export const ScatterPlotDefaultProps = {
     ...commonDefaultProps,
     layers: ['grid', 'axes', 'nodes', 'markers', 'mesh', 'legends', 'annotations'],
+    role: 'img',
     useMesh: true,
     animate: true,
     motionStiffness: 90,
@@ -160,7 +162,7 @@ export const NodePropType = PropTypes.shape({
     size: PropTypes.number.isRequired,
     data: PropTypes.shape({
         id: PropTypes.string.isRequired,
-        serieId: PropTypes.string.isRequired,
+        serieId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
         x: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.instanceOf(Date)])
             .isRequired,
         formattedX: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,

@@ -34,7 +34,7 @@ declare module '@nivo/scatterplot' {
     export type DerivedDatumProp<T> = (node: Datum) => T
 
     export interface Serie {
-        id: string
+        id: string | number
         data: Datum[]
     }
 
@@ -48,6 +48,7 @@ declare module '@nivo/scatterplot' {
             color: string
         }
         data: {
+            id: string | number
             serieId: string
             x: Value
             formattedX: string | number
@@ -137,7 +138,7 @@ declare module '@nivo/scatterplot' {
         axisBottom?: AxisProps | null
         axisLeft?: AxisProps | null
 
-        nodeSize?: number | DerivedDatumProp<number> | DynamicSizeSpec
+        nodeSize?: number | DerivedDatumProp<number> | DynamicSizeSpec | DerivedNodeProp<number>
 
         isInteractive?: boolean
         useMesh?: boolean
@@ -155,6 +156,7 @@ declare module '@nivo/scatterplot' {
         layers?: (CustomLayerId | CustomSvgLayer)[]
         renderNode?: NodeComponent
         markers?: CartesianMarkerProps[]
+        role?: string
     }
 
     export class ScatterPlot extends React.Component<ScatterPlotSvgProps & Dimensions> {}

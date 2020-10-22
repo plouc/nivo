@@ -56,6 +56,7 @@ declare module '@nivo/radar' {
         tooltipFormat?: string | CustomFormatter
 
         legends: LegendProps[]
+        role?: string
     }
 
     export type RadarProps = CommonRadarProps & MotionProps

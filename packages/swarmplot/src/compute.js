@@ -12,7 +12,7 @@ import isNumber from 'lodash/isNumber'
 import isPlainObject from 'lodash/isPlainObject'
 import { scaleOrdinal, scaleLinear } from 'd3-scale'
 import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force'
-import { computeScale } from '@nivo/scales'
+import { computeScale, generateSeriesAxis, createDateNormalizer } from '@nivo/scales'
 
 export const getSizeGenerator = size => {
     if (typeof size === 'function') return size
@@ -46,10 +46,15 @@ export const getSizeGenerator = size => {
 
 export const computeValueScale = ({ width, height, axis, getValue, scale, data }) => {
     const values = data.map(getValue)
-    const min = Math.min(...values)
-    const max = Math.max(...values)
-
-    return computeScale({ ...scale, axis }, { [axis]: { min, max } }, width, height)
+    if (scale.type === 'time') {
+        const series = [{ data: values.map(p => ({ data: { [axis]: p } })) }]
+        const axes = generateSeriesAxis(series, axis, scale)
+        return computeScale({ ...scale, axis }, { [axis]: axes }, width, height)
+    } else {
+        const min = Math.min(...values)
+        const max = Math.max(...values)
+        return computeScale({ ...scale, axis }, { [axis]: { min, max } }, width, height)
+    }
 }
 
 export const computeOrdinalScale = ({ width, height, axis, groups, gap }) => {
@@ -90,6 +95,16 @@ export const computeForces = ({ axis, valueScale, ordinalScale, spacing, forceSt
     return { x: xForce, y: yForce, collision: collisionForce }
 }
 
+export const getParsedValue = scaleSpec => {
+    if (scaleSpec.type === 'linear') {
+        return parseFloat
+    } else if (scaleSpec.type === 'time' && scaleSpec.format !== 'native') {
+        return createDateNormalizer(scaleSpec)
+    } else {
+        return x => x
+    }
+}
+
 export const computeNodes = ({
     data,
     getIdentity,
@@ -101,6 +116,7 @@ export const computeNodes = ({
     getSize,
     forces,
     simulationIterations,
+    valueScaleConfig,
 }) => {
     const config = {
         horizontal: ['x', 'y'],
@@ -110,7 +126,7 @@ export const computeNodes = ({
     const simulatedNodes = data.map(d => ({
         id: getIdentity(d),
         group: getGroup(d),
-        value: getValue(d),
+        value: getParsedValue(valueScaleConfig)(getValue(d)),
         size: getSize(d),
         data: { ...d },
     }))

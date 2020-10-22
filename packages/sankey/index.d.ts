@@ -119,5 +119,6 @@ declare module '@nivo/sankey' {
         theme: Theme
 
         legends: LegendProps[]
+        role: string
     }>
 }

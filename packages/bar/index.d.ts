@@ -153,6 +153,7 @@ declare module '@nivo/bar' {
             onClick: BarMouseEventHandler<SVGRectElement>
             onMouseEnter: BarMouseEventHandler<SVGRectElement>
             onMouseLeave: BarMouseEventHandler<SVGRectElement>
+            role: string
         }>
 
     export class Bar extends React.Component<BarSvgProps & Dimensions> {}

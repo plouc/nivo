@@ -41,6 +41,7 @@ const Bubble = ({
     tooltip,
     isZoomable,
     zoomToNode,
+    role,
 }) => {
     const springConfig = {
         stiffness: motionStiffness,
@@ -75,6 +76,7 @@ const Bubble = ({
                     margin={margin}
                     defs={defs}
                     theme={theme}
+                    role={role}
                 >
                     {!animate && (
                         <g>

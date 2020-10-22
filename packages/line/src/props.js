@@ -133,6 +133,7 @@ const commonPropTypes = {
 export const LinePropTypes = {
     ...commonPropTypes,
     enablePointLabel: PropTypes.bool.isRequired,
+    role: PropTypes.string.isRequired,
     useMesh: PropTypes.bool.isRequired,
     ...motionPropTypes,
     ...defsPropTypes,
@@ -207,6 +208,7 @@ export const LineDefaultProps = {
     motionConfig: 'gentle',
     defs: [],
     fill: [],
+    role: 'img',
 }
 
 export const LineCanvasDefaultProps = {

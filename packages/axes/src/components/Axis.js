@@ -33,6 +33,7 @@ const Axis = ({
     legendPosition,
     legendOffset,
     onClick,
+    ariaHidden,
 }) => {
     const theme = useTheme()
 
@@ -133,7 +134,7 @@ const Axis = ({
     })
 
     return (
-        <animated.g transform={animatedProps.transform}>
+        <animated.g transform={animatedProps.transform} aria-hidden={ariaHidden}>
             {transitions.map(({ item: tick, props: transitionProps, key }, tickIndex) => {
                 return React.createElement(renderTick, {
                     tickIndex,
@@ -176,6 +177,7 @@ Axis.propTypes = {
     legendPosition: PropTypes.oneOf(['start', 'middle', 'end']).isRequired,
     legendOffset: PropTypes.number.isRequired,
     onClick: PropTypes.func,
+    ariaHidden: PropTypes.bool,
 }
 Axis.defaultProps = {
     x: 0,

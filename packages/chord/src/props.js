@@ -68,6 +68,7 @@ const commonPropTypes = {
 export const ChordPropTypes = {
     ...commonPropTypes,
     ...motionPropTypes,
+    role: PropTypes.string.isRequired,
 }
 
 export const ChordCanvasPropTypes = {
@@ -124,6 +125,7 @@ export const ChordDefaultProps = {
     animate: true,
     motionStiffness: 90,
     motionDamping: 15,
+    role: 'img',
 }
 
 export const ChordCanvasDefaultProps = {

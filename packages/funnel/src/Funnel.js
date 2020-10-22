@@ -48,6 +48,7 @@ const Funnel = props => {
         onMouseMove,
         onMouseLeave,
         onClick,
+        role,
     } = props
 
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
@@ -127,7 +128,7 @@ const Funnel = props => {
     }
 
     return (
-        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
+        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} role={role}>
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
                     return <Fragment key={i}>{layer(customLayerProps)}</Fragment>

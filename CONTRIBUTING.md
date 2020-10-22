@@ -20,7 +20,7 @@
 
 ## Setup
 
-Nivo is structured into multiple packages handled by [lerna](https://lernajs.io/).
+Nivo is structured into multiple packages handled by [lerna](https://lerna.js.org/).
 In order to install all the required dependencies and to establish links between
 the various packages, please execute the following:
 

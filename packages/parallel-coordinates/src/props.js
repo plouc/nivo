@@ -59,6 +59,11 @@ export const commonPropTypes = {
     colors: ordinalColorsPropType.isRequired,
 }
 
+export const svgPropTypes = {
+    ...commonPropTypes,
+    role: PropTypes.string.isRequired,
+}
+
 export const commonDefaultProps = {
     layout: 'horizontal',
     curve: 'linear',
@@ -69,4 +74,9 @@ export const commonDefaultProps = {
     axesTicksPosition: 'after',
     animate: true,
     motionConfig: 'gentle',
+}
+
+export const svgDefaultProps = {
+    ...commonDefaultProps,
+    role: 'img',
 }

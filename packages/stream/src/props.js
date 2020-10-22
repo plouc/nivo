@@ -57,6 +57,7 @@ export const StreamPropTypes = {
     enableStackTooltip: PropTypes.bool.isRequired,
 
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
+    role: PropTypes.string.isRequired,
 }
 
 export const StreamDefaultProps = {
@@ -89,6 +90,7 @@ export const StreamDefaultProps = {
     enableStackTooltip: true,
 
     legends: [],
+    role: 'img',
 
     animate: true,
     motionConfig: 'gentle',

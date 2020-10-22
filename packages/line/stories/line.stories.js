@@ -226,6 +226,41 @@ stories.add('logarithmic scale', () => (
     />
 ))
 
+stories.add('symmetric logarithmic scale', () => (
+    <Line
+        {...commonProperties}
+        data={[
+            {
+                id: 'fake corp. A',
+                data: [
+                    { x: 1, y: -12 },
+                    { x: 2, y: 123 },
+                    { x: 3, y: 870 },
+                    { x: 4, y: 210 },
+                    { x: 7, y: 400 },
+                    { x: 9, y: 100 },
+                    { x: 16, y: 1000 },
+                ],
+            },
+        ]}
+        xScale={{
+            type: 'linear',
+            max: 'auto',
+        }}
+        yScale={{
+            type: 'symlog',
+            max: 'auto',
+        }}
+        axisLeft={{
+            tickValues: [0, 100, 250, 500, 1000],
+            legend: 'symmetric logarithmic scale',
+            legendOffset: 12,
+        }}
+        useMesh={true}
+        enableSlices={false}
+    />
+))
+
 class RealTimeChart extends Component {
     constructor(props) {
         super(props)
