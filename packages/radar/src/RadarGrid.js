@@ -38,12 +38,15 @@ const RadarGrid = memo(({ indices, levels, shape, radius, angleStep, label, labe
                     />
                 )
             })}
-            <RadarGridLevels
-                shape={shape}
-                radii={radii}
-                angleStep={angleStep}
-                dataLength={indices.length}
-            />
+            {radii.map((radius, i) => (
+                <RadarGridLevels
+                    key={`level.${i}`}
+                    shape={shape}
+                    radius={radius}
+                    angleStep={angleStep}
+                    dataLength={indices.length}
+                />
+            ))}
             <RadialGridLabels
                 radius={radius}
                 angles={angles}
