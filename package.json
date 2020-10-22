@@ -20,7 +20,7 @@
   "devDependencies": {
     "@babel/core": "^7.10.3",
     "@ekino/config": "^0.3.0",
-    "@nivo/generators": "0.62.0",
+    "@nivo/generators": "*",
     "@rollup/plugin-babel": "^5.0.3",
     "@rollup/plugin-node-resolve": "^8.0.1",
     "@storybook/addon-actions": "^6.0.26",
@@ -36,6 +36,7 @@
     "babel-eslint": "^10.1.0",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.1.0",
+    "babel-plugin-lodash": "^3.3.4",
     "babel-preset-react-app": "^9.1.2",
     "chalk": "^2.4.2",
     "clog-cli": "^1.0.0",

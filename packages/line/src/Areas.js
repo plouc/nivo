@@ -8,44 +8,52 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { useSprings, animated } from 'react-spring'
-import { useMotionConfig, blendModePropType } from '@nivo/core'
+import { useSpring, animated } from 'react-spring'
+import { useAnimatedPath, useMotionConfig, blendModePropType } from '@nivo/core'
 
-const Areas = ({ areaGenerator, areaOpacity, areaBlendMode, lines }) => {
+const AreaPath = ({ areaBlendMode, areaOpacity, color, fill, path }) => {
     const { animate, config: springConfig } = useMotionConfig()
 
-    const computedLines = lines.slice(0).reverse()
+    const animatedPath = useAnimatedPath(path)
+    const animatedProps = useSpring({
+        color,
+        config: springConfig,
+        immediate: !animate,
+    })
 
-    const springs = useSprings(
-        computedLines.length,
-        computedLines.map(line => {
-            return {
-                path: areaGenerator(line.data.map(d => d.position)),
-                color: line.color,
-                config: springConfig,
-                immediate: !animate,
-            }
-        })
+    return (
+        <animated.path
+            d={animatedPath}
+            fill={fill ? fill : animatedProps.color}
+            fillOpacity={areaOpacity}
+            strokeWidth={0}
+            style={{
+                mixBlendMode: areaBlendMode,
+            }}
+        />
     )
+}
+
+AreaPath.propTypes = {
+    areaBlendMode: blendModePropType.isRequired,
+    areaOpacity: PropTypes.number.isRequired,
+    color: PropTypes.string,
+    fill: PropTypes.string,
+    path: PropTypes.string.isRequired,
+}
+
+const Areas = ({ areaGenerator, areaOpacity, areaBlendMode, lines }) => {
+    const computedLines = lines.slice(0).reverse()
 
     return (
         <g>
-            {springs.map((animatedProps, index) => {
-                const line = computedLines[index]
-
-                return (
-                    <animated.path
-                        key={line.id}
-                        d={animatedProps.path}
-                        fill={line.fill ? line.fill : animatedProps.color}
-                        fillOpacity={areaOpacity}
-                        strokeWidth={0}
-                        style={{
-                            mixBlendMode: areaBlendMode,
-                        }}
-                    />
-                )
-            })}
+            {computedLines.map(line => (
+                <AreaPath
+                    key={line.id}
+                    path={areaGenerator(line.data.map(d => d.position))}
+                    {...{ areaOpacity, areaBlendMode, ...line }}
+                />
+            ))}
         </g>
     )
 }
