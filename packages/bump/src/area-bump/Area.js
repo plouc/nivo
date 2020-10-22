@@ -9,7 +9,7 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { useSpring, animated } from 'react-spring'
-import { useMotionConfig, blendModePropType } from '@nivo/core'
+import { useAnimatedPath, useMotionConfig, blendModePropType } from '@nivo/core'
 import { useSerieHandlers } from './hooks'
 
 const Area = ({
@@ -37,8 +37,8 @@ const Area = ({
 
     const { animate, config: springConfig } = useMotionConfig()
 
+    const animatedPath = useAnimatedPath(areaGenerator(serie.areaPoints))
     const animatedProps = useSpring({
-        path: areaGenerator(serie.areaPoints),
         color: serie.color,
         fillOpacity: serie.style.fillOpacity,
         stroke: serie.style.borderColor,
@@ -49,7 +49,7 @@ const Area = ({
 
     return (
         <animated.path
-            d={animatedProps.path}
+            d={animatedPath}
             fill={serie.fill ? serie.fill : animatedProps.color}
             fillOpacity={animatedProps.fillOpacity}
             stroke={animatedProps.stroke}
