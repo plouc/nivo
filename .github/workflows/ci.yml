@@ -1,0 +1,23 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ['12', '14']
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: yarn install --frozen-lockfile
+      - run: make bootstrap
+      - run: make packages-build
+      - run: make fmt-check
+      - run: make packages-lint
+      - run: make packages-tslint
+      - run: make packages-test
