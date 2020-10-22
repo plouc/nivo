@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { useMemo } from 'react'
-import { computeLayout } from './compute'
+import { computeLayout } from './enhancedCompute'
 
 export const useCalendarLayout = ({
     width,
@@ -15,10 +15,13 @@ export const useCalendarLayout = ({
     from,
     to,
     direction,
-    yearSpacing,
+    blockSpacing,
     monthSpacing,
     daySpacing,
     align,
+    granularity,
+    weekDirection,
+    breakpoint,
 }) =>
     useMemo(
         () =>
@@ -28,10 +31,26 @@ export const useCalendarLayout = ({
                 from,
                 to,
                 direction,
-                yearSpacing,
+                blockSpacing,
                 monthSpacing,
                 daySpacing,
                 align,
+                granularity,
+                weekDirection,
+                breakpoint,
             }),
-        [width, height, from, to, direction, yearSpacing, monthSpacing, daySpacing, align]
+        [
+            width,
+            height,
+            from,
+            to,
+            direction,
+            blockSpacing,
+            monthSpacing,
+            daySpacing,
+            align,
+            granularity,
+            weekDirection,
+            breakpoint,
+        ]
     )

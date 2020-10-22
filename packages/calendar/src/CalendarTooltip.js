@@ -17,9 +17,9 @@ const CalendarTooltip = memo(({ value, day, color }) => {
 
 CalendarTooltip.displayName = 'CalendarTooltip'
 CalendarTooltip.propTypes = {
-    value: PropTypes.object.isRequired,
-    day: PropTypes.object.isRequired,
-    color: PropTypes.object.isRequired,
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    day: PropTypes.string,
+    color: PropTypes.string,
 }
 
 export default CalendarTooltip

@@ -58,13 +58,9 @@ const CalendarDay = memo(
                 hideTooltip()
                 onMouseLeave && onMouseLeave(data, event)
             },
-            [isInteractive, hideTooltip, data, onMouseLeave]
+            [hideTooltip, data, onMouseLeave]
         )
-        const handleClick = useCallback(event => onClick && onClick(data, event), [
-            isInteractive,
-            data,
-            onClick,
-        ])
+        const handleClick = useCallback(event => onClick && onClick(data, event), [data, onClick])
 
         return (
             <rect

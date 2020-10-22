@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { generateDayCounts } from '@nivo/generators'
-import { CalendarCanvas } from '../src'
+import { CalendarCanvas, EnhancedCalendarCanvas } from '../src'
 import { scaleQuantize } from 'd3-scale'
 
 const from = new Date(2013, 0, 1)
@@ -86,5 +86,23 @@ stories.add('custom value and legend formaters', () => (
                 itemDirection: 'left-to-right',
             },
         ]}
+    />
+))
+
+const blockLegend = block =>
+    block.firstMonth +
+    1 +
+    '/' +
+    String(block.firstYear).slice(-2) +
+    ' — ' +
+    (block.lastMonth + 1) +
+    '/' +
+    String(block.lastYear).slice(-2)
+stories.add('month granularity', () => (
+    <EnhancedCalendarCanvas
+        {...commonProps}
+        blockLegend={blockLegend}
+        granularity="month"
+        breakpoint={6}
     />
 ))

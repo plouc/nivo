@@ -51,6 +51,27 @@ declare module '@nivo/calendar' {
         ticks(count?: number): number[]
     }
 
+    export type YearLegend = Partial<{
+        yearLegend: (year: number) => string | number
+        yearSpacing: number
+        yearLegendOffset: number
+        yearLegendPosition: 'before' | 'after'
+    }>
+
+    export interface BlockLegendData {
+        firstMonth: number
+        firstYear: number
+        lastMonth: number
+        lastYear: number
+    }
+
+    export type BlockLegend = Partial<{
+        blockLegend: (block: BlockLegendData) => string | number
+        blockSpacing: number
+        blockLegendOffset: number
+        blockLegendPosition: 'before' | 'after'
+    }>
+
     export type CalendarCommonProps = Partial<{
         minValue: 'auto' | number
         maxValue: 'auto' | number
@@ -60,11 +81,6 @@ declare module '@nivo/calendar' {
         colorScale: ColorScale
         margin: Box
         align: BoxAlign
-
-        yearLegend: (year: number) => string | number
-        yearSpacing: number
-        yearLegendOffset: number
-        yearLegendPosition: 'before' | 'after'
 
         monthLegend: (year: number, month: number, date: Date) => string | number
         monthSpacing: number
@@ -95,15 +111,37 @@ declare module '@nivo/calendar' {
         theme: Theme
     }>
 
+    export type EnhancedCalendarCommonProps = Partial<{
+        weekDirection: CalendarDirection
+        breakpoint: number
+        granularity: 'year' | 'month'
+    }>
+
     export type CalendarSvgProps = CalendarData &
         CalendarCommonProps &
+        YearLegend &
         Partial<{
             onClick: (datum: CalendarDayData, event: React.MouseEvent<SVGRectElement>) => void
-            role: string
+        }>
+
+    export type EnhancedCalendarSvgProps = CalendarData &
+        CalendarCommonProps &
+        EnhancedCalendarCommonProps &
+        YearLegend &
+        Partial<{
+            onClick: (datum: CalendarDayData, event: React.MouseEvent<SVGRectElement>) => void
         }>
 
     export class Calendar extends React.Component<CalendarSvgProps & Dimensions> {}
+    export class EnhancedCalendar extends React.Component<EnhancedCalendarSvgProps & Dimensions> {}
     export class ResponsiveCalendar extends React.Component<CalendarSvgProps> {}
+    export class ResponsiveEnhancedCalendar extends React.Component<EnhancedCalendarSvgProps> {}
     export class CalendarCanvas extends React.Component<CalendarSvgProps & Dimensions> {}
+    export class EnhancedCalendarCanvas extends React.Component<
+        EnhancedCalendarSvgProps & Dimensions
+    > {}
     export class ResponsiveCalendarCanvas extends React.Component<CalendarSvgProps> {}
+    export class ResponsiveEnhancedCalendarCanvas extends React.Component<
+        ResponsiveEnhancedCalendarCanvas
+    > {}
 }

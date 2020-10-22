@@ -17,10 +17,13 @@ import {
     useValueFormatter,
 } from '@nivo/core'
 import { renderLegendToCanvas } from '@nivo/legends'
-import { CalendarCanvasPropTypes, CalendarCanvasDefaultProps } from './props'
-import { useCalendarLayout } from './hooks'
+import { useCalendarLayout } from './enhancedHooks'
 import { useMonthLegends, useBlockLegends, useDays, useColorScale } from './sharedHooks'
 import { useTooltip } from '@nivo/tooltip'
+import {
+    EnhancedCalendarCanvasDefaultProps,
+    EnhancedCalendarCanvasPropTypes,
+} from './enhancedProps'
 
 const findDayUnderCursor = (event, canvasEl, days, size, dayBorderWidth, margin) => {
     const [x, y] = getRelativeCursor(canvasEl, event)
@@ -39,7 +42,7 @@ const findDayUnderCursor = (event, canvasEl, days, size, dayBorderWidth, margin)
     })
 }
 
-const CalendarCanvas = memo(
+const EnhancedCalendarCanvas = memo(
     ({
         margin: partialMargin,
         width,
@@ -59,10 +62,10 @@ const CalendarCanvas = memo(
         valueFormat,
         legendFormat,
 
-        yearLegend,
-        yearLegendOffset,
-        yearLegendPosition,
-        yearSpacing,
+        blockLegend,
+        blockLegendOffset,
+        blockLegendPosition,
+        blockSpacing,
 
         monthLegend,
         monthLegendOffset,
@@ -72,6 +75,10 @@ const CalendarCanvas = memo(
         dayBorderColor,
         dayBorderWidth,
         daySpacing,
+
+        granularity,
+        weekDirection,
+        breakpoint,
 
         isInteractive,
         tooltip,
@@ -88,16 +95,19 @@ const CalendarCanvas = memo(
             height,
             partialMargin
         )
-        const { months, years, ...rest } = useCalendarLayout({
+        const { months, blocks, ...rest } = useCalendarLayout({
             width: innerWidth,
             height: innerHeight,
             from,
             to,
             direction,
-            yearSpacing,
+            blockSpacing,
             monthSpacing,
             daySpacing,
             align,
+            granularity,
+            weekDirection,
+            breakpoint,
         })
         const colorScaleFn = useColorScale({ data, minValue, maxValue, colors, colorScale })
         const monthLegends = useMonthLegends({
@@ -106,11 +116,11 @@ const CalendarCanvas = memo(
             monthLegendPosition,
             monthLegendOffset,
         })
-        const yearLegends = useBlockLegends({
-            blocks: years,
+        const blockLegends = useBlockLegends({
+            blocks,
             direction,
-            blockLegendPosition: yearLegendPosition,
-            blockLegendOffset: yearLegendOffset,
+            blockLegendPosition,
+            blockLegendOffset,
         })
         const days = useDays({ days: rest.days, data, colorScale: colorScaleFn, emptyColor })
         const [currentDay, setCurrentDay] = useState(null)
@@ -161,11 +171,11 @@ const CalendarCanvas = memo(
                 ctx.restore()
             })
 
-            yearLegends.forEach(year => {
+            blockLegends.forEach(block => {
                 ctx.save()
-                ctx.translate(year.x, year.y)
-                ctx.rotate(degreesToRadians(year.rotation))
-                ctx.fillText(yearLegend(year.year), 0, 0)
+                ctx.translate(block.x, block.y)
+                ctx.rotate(degreesToRadians(block.rotation))
+                ctx.fillText(blockLegend(block), 0, 0)
                 ctx.restore()
             })
 
@@ -196,8 +206,8 @@ const CalendarCanvas = memo(
             dayBorderColor,
             dayBorderWidth,
             colorScale,
-            yearLegend,
-            yearLegends,
+            blockLegend,
+            blockLegends,
             monthLegend,
             monthLegends,
             legends,
@@ -291,8 +301,8 @@ const CalendarCanvas = memo(
     }
 )
 
-CalendarCanvas.displayName = 'CalendarCanvas'
-CalendarCanvas.defaultProps = CalendarCanvasDefaultProps
-CalendarCanvas.propTypes = CalendarCanvasPropTypes
+EnhancedCalendarCanvas.displayName = 'EnhancedCalendarCanvas'
+EnhancedCalendarCanvas.defaultProps = EnhancedCalendarCanvasDefaultProps
+EnhancedCalendarCanvas.propTypes = EnhancedCalendarCanvasPropTypes
 
-export default withContainer(CalendarCanvas)
+export default withContainer(EnhancedCalendarCanvas)

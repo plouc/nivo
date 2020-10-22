@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { generateDayCounts } from '@nivo/generators'
-import { Calendar } from '../src'
+import { Calendar, EnhancedCalendar } from '../src'
 
 const from = new Date(2019, 0, 1)
 const to = new Date(2019, 11, 31)
@@ -85,5 +85,55 @@ stories.add('custom legend formater', () => (
                 itemDirection: 'right-to-left',
             },
         ]}
+    />
+))
+
+stories.add('gregorian calendar', () => (
+    <EnhancedCalendar
+        {...commonProps}
+        direction="horizontal"
+        granularity="month"
+        breakpoint={4}
+        weekDirection="horizontal"
+        monthSpacing={20}
+        blockLegend={() => ''}
+    />
+))
+
+stories.add('four months per row', () => (
+    <EnhancedCalendar
+        {...commonProps}
+        direction="horizontal"
+        granularity="month"
+        breakpoint={4}
+        weekDirection="vertical"
+    />
+))
+
+const smallFrom = new Date(2019, 11, 1)
+const smallTo = new Date(2020, 1, 28)
+const samallData = generateDayCounts(smallFrom, smallTo)
+
+stories.add('three months single row', () => (
+    <EnhancedCalendar
+        {...commonProps}
+        data={samallData}
+        to={smallTo.toISOString()}
+        from={smallFrom.toISOString()}
+        direction="horizontal"
+        granularity="month"
+        breakpoint={3}
+        weekDirection="vertical"
+    />
+))
+
+stories.add('two months per column', () => (
+    <EnhancedCalendar
+        {...commonProps}
+        breakpoint={2}
+        blockSpacing={50}
+        direction="vertical"
+        granularity="month"
+        weekDirection="horizontal"
     />
 ))

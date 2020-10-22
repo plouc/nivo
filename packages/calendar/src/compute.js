@@ -14,22 +14,6 @@ import { timeFormat } from 'd3-time-format'
 import { timeDays, timeWeek, timeWeeks, timeMonths, timeYear } from 'd3-time'
 
 /**
- * Compute min/max values.
- *
- * @param {Array<>}       data
- * @param {number|'auto'} minSpec - Define the strategy to use to compute min value, if number, it will be used, if 'auto', will use the lower value from the dataset
- * @param {number|'auto'} maxSpec - Define the strategy to use to compute max value, if number, it will be used, if 'auto', will use the higher value from the dataset
- * @return {[number, string]}
- */
-export const computeDomain = (data, minSpec, maxSpec) => {
-    const allValues = data.map(d => d.value)
-    const minValue = minSpec === 'auto' ? Math.min(...allValues) : minSpec
-    const maxValue = maxSpec === 'auto' ? Math.max(...allValues) : maxSpec
-
-    return [minValue, maxValue]
-}
-
-/**
  * Compute day cell size according to current context.
  *
  * @param {number} width
@@ -361,90 +345,4 @@ export const computeLayout = ({
     })
 
     return { years, months, days, cellSize, calendarWidth, calendarHeight, originX, originY }
-}
-
-/**
- * Bind current data to computed day cells.
- *
- * @param {array}  days
- * @param {array}  data
- * @param {object} colorScale
- * @param {string} emptyColor
- * @returns {Array}
- */
-export const bindDaysData = ({ days, data, colorScale, emptyColor }) => {
-    return days.map(day => {
-        const dayData = data.find(item => item.day === day.day)
-
-        if (!dayData) {
-            return { ...day, color: emptyColor }
-        }
-
-        return {
-            ...day,
-            color: colorScale(dayData.value),
-            data: dayData,
-            value: dayData.value,
-        }
-    })
-}
-
-export const computeYearLegendPositions = ({ years, direction, position, offset }) => {
-    return years.map(year => {
-        let x = 0
-        let y = 0
-        let rotation = 0
-        if (direction === 'horizontal' && position === 'before') {
-            x = year.bbox.x - offset
-            y = year.bbox.y + year.bbox.height / 2
-            rotation = -90
-        } else if (direction === 'horizontal' && position === 'after') {
-            x = year.bbox.x + year.bbox.width + offset
-            y = year.bbox.y + year.bbox.height / 2
-            rotation = -90
-        } else if (direction === 'vertical' && position === 'before') {
-            x = year.bbox.x + year.bbox.width / 2
-            y = year.bbox.y - offset
-        } else {
-            x = year.bbox.x + year.bbox.width / 2
-            y = year.bbox.y + year.bbox.height + offset
-        }
-
-        return {
-            ...year,
-            x,
-            y,
-            rotation,
-        }
-    })
-}
-
-export const computeMonthLegendPositions = ({ months, direction, position, offset }) => {
-    return months.map(month => {
-        let x = 0
-        let y = 0
-        let rotation = 0
-        if (direction === 'horizontal' && position === 'before') {
-            x = month.bbox.x + month.bbox.width / 2
-            y = month.bbox.y - offset
-        } else if (direction === 'horizontal' && position === 'after') {
-            x = month.bbox.x + month.bbox.width / 2
-            y = month.bbox.y + month.bbox.height + offset
-        } else if (direction === 'vertical' && position === 'before') {
-            x = month.bbox.x - offset
-            y = month.bbox.y + month.bbox.height / 2
-            rotation = -90
-        } else {
-            x = month.bbox.x + month.bbox.width + offset
-            y = month.bbox.y + month.bbox.height / 2
-            rotation = -90
-        }
-
-        return {
-            ...month,
-            x,
-            y,
-            rotation,
-        }
-    })
 }

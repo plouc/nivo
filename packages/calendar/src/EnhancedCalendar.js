@@ -9,15 +9,17 @@
 import React from 'react'
 import { SvgWrapper, useTheme, useDimensions, withContainer, useValueFormatter } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
-import { CalendarPropTypes, CalendarDefaultProps } from './props'
-import CalendarYearLegends from './CalendarYearLegends'
+
+import CalendarBlockLegends from './CalendarBlockLegends'
 import CalendarMonthPath from './CalendarMonthPath'
 import CalendarMonthLegends from './CalendarMonthLegends'
-import { useCalendarLayout } from './hooks'
+
+import { useCalendarLayout } from './enhancedHooks'
 import { useMonthLegends, useBlockLegends, useDays, useColorScale } from './sharedHooks'
 import CalendarDay from './CalendarDay'
+import { EnhancedCalendarPropTypes, EnhancedCalendarDefaultProps } from './enhancedProps'
 
-const Calendar = ({
+const EnhancedCalendar = ({
     margin: partialMargin,
     width,
     height,
@@ -35,10 +37,10 @@ const Calendar = ({
     valueFormat,
     legendFormat,
 
-    yearLegend,
-    yearLegendOffset,
-    yearLegendPosition,
-    yearSpacing,
+    blockLegend,
+    blockLegendOffset,
+    blockLegendPosition,
+    blockSpacing,
 
     monthBorderColor,
     monthBorderWidth,
@@ -50,6 +52,10 @@ const Calendar = ({
     dayBorderColor,
     dayBorderWidth,
     daySpacing,
+
+    granularity,
+    weekDirection,
+    breakpoint,
 
     isInteractive,
     tooltip,
@@ -67,31 +73,34 @@ const Calendar = ({
         height,
         partialMargin
     )
-    const { months, years, ...rest } = useCalendarLayout({
+    let { months, blocks, days } = useCalendarLayout({
         width: innerWidth,
         height: innerHeight,
         from,
         to,
         direction,
-        yearSpacing,
+        blockSpacing,
         monthSpacing,
         daySpacing,
         align,
+        granularity,
+        weekDirection,
+        breakpoint,
     })
-    const colorScaleFn = useColorScale({ data, minValue, maxValue, colors, colorScale })
+    colorScale = useColorScale({ data, minValue, maxValue, colors, colorScale })
     const monthLegends = useMonthLegends({
         months,
         direction,
         monthLegendPosition,
         monthLegendOffset,
     })
-    const yearLegends = useBlockLegends({
-        blocks: years,
+    const blockLegends = useBlockLegends({
+        blocks,
         direction,
-        blockLegendPosition: yearLegendPosition,
-        blockLegendOffset: yearLegendOffset,
+        blockLegendPosition,
+        blockLegendOffset,
     })
-    const days = useDays({ days: rest.days, data, colorScale: colorScaleFn, emptyColor })
+    days = useDays({ days, data, colorScale, emptyColor })
     const formatLegend = useValueFormatter(legendFormat)
     const formatValue = useValueFormatter(valueFormat)
 
@@ -133,12 +142,12 @@ const Calendar = ({
                 />
             ))}
             <CalendarMonthLegends months={monthLegends} legend={monthLegend} theme={theme} />
-            <CalendarYearLegends years={yearLegends} legend={yearLegend} theme={theme} />
+            <CalendarBlockLegends blocks={blockLegends} legend={blockLegend} theme={theme} />
             {legends.map((legend, i) => {
-                const legendData = colorScaleFn.ticks(legend.itemCount).map(value => ({
+                const legendData = colorScale.ticks(legend.itemCount).map(value => ({
                     id: value,
                     label: formatLegend(value),
-                    color: colorScaleFn(value),
+                    color: colorScale(value),
                 }))
 
                 return (
@@ -156,8 +165,8 @@ const Calendar = ({
     )
 }
 
-Calendar.displayName = 'Calendar'
-Calendar.defaultProps = CalendarDefaultProps
-Calendar.propTypes = CalendarPropTypes
+EnhancedCalendar.displayName = 'EnhancedCalendar'
+EnhancedCalendar.defaultProps = EnhancedCalendarDefaultProps
+EnhancedCalendar.propTypes = EnhancedCalendarPropTypes
 
-export default withContainer(Calendar)
+export default withContainer(EnhancedCalendar)
