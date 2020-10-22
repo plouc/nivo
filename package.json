@@ -20,7 +20,7 @@
   "devDependencies": {
     "@babel/core": "^7.10.3",
     "@ekino/config": "^0.3.0",
-    "@nivo/generators": "0.62.0",
+    "@nivo/generators": "*",
     "@rollup/plugin-babel": "^5.0.3",
     "@rollup/plugin-node-resolve": "^8.0.1",
     "@storybook/addon-actions": "^5.3.19",
