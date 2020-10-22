@@ -3,7 +3,7 @@
 [![Backers on Open Collective](https://opencollective.com/nivo/backers/badge.svg?style=flat-square)](#backers)
 [![Sponsors on Open Collective](https://opencollective.com/nivo/sponsors/badge.svg?style=flat-square)](#sponsors)
 [![License][license-image]][license-url]
-[![Travis CI][travis-image]][travis-url]
+[![GitHub Actions][actions-image]][actions-url]
 [![NPM version][npm-image]][npm-url]
 [![nivo channel on discord](https://img.shields.io/badge/discord-nivo-61dafb.svg?style=flat-square)](https://discord.gg/n7Ft74f)
 
@@ -95,7 +95,7 @@ your logo will show up here with a link to your website. [[Become a sponsor](htt
 [license-url]: https://github.com/plouc/nivo/blob/master/LICENSE.md
 [npm-image]: https://img.shields.io/npm/v/@nivo/core.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/~nivo
-[travis-image]: https://img.shields.io/travis/plouc/nivo.svg?style=flat-square
-[travis-url]: https://travis-ci.org/plouc/nivo
+[actions-image]: https://img.shields.io/github/workflow/status/plouc/nivo/CI.svg?style=flat-square
+[actions-url]: https://github.com/plouc/nivo/actions
 [prettier-image]: https://img.shields.io/badge/styled_with-prettier-ff69b4.svg?style=flat-square
 [prettier-url]: https://github.com/prettier/prettier
