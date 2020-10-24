@@ -38,9 +38,7 @@ export const defaultTheme = {
         },
     },
     legends: {
-        text: {
-            fill: '#333333',
-        },
+        text: {},
     },
     labels: {
         text: {},
