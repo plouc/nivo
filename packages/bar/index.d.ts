@@ -18,6 +18,7 @@ import {
 import { AxisProps, GridValues } from '@nivo/axes'
 import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
+import { Scale } from '@nivo/scales'
 
 declare module '@nivo/bar' {
     export type Value = string | number
@@ -96,6 +97,8 @@ declare module '@nivo/bar' {
         margin: Box
         maxValue: number | 'auto'
         padding: number
+
+        valueScale: Scale
 
         axisBottom: AxisProps | null
         axisLeft: AxisProps | null
