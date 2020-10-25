@@ -21,6 +21,8 @@ const tooltipStyle = {
     left: 0,
 }
 
+const translate = (x, y) => `translate(${x}px, ${y}px)`
+
 const TooltipWrapper = ({ position, anchor, children }) => {
     const theme = useTheme()
     const { animate, config: springConfig } = useMotionConfig()
@@ -29,12 +31,12 @@ const TooltipWrapper = ({ position, anchor, children }) => {
 
     let to = undefined
     let immediate = false
-
     const hasDimension = bounds.width > 0 && bounds.height > 0
-    if (hasDimension) {
-        let x = Math.round(position[0])
-        let y = Math.round(position[1])
 
+    let x = Math.round(position[0])
+    let y = Math.round(position[1])
+
+    if (hasDimension) {
         if (anchor === 'top') {
             x -= bounds.width / 2
             y -= bounds.height + TOOLTIP_OFFSET
@@ -53,7 +55,7 @@ const TooltipWrapper = ({ position, anchor, children }) => {
         }
 
         to = {
-            transform: `translate(${x}px, ${y}px)`,
+            transform: translate(x, y),
         }
         if (!previousPosition.current) {
             immediate = true
@@ -71,8 +73,7 @@ const TooltipWrapper = ({ position, anchor, children }) => {
     const style = {
         ...tooltipStyle,
         ...theme.tooltip,
-        transform: animatedProps.transform,
-        opacity: animatedProps.transform ? 1 : 0,
+        transform: animatedProps.transform ?? translate(x, y),
     }
 
     return (
