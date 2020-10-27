@@ -8,25 +8,65 @@
  */
 import React, { memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { lineRadial, curveBasisClosed, curveLinearClosed } from 'd3-shape'
-import { animated } from 'react-spring'
-import { useTheme, useAnimatedPath } from '@nivo/core'
+import { lineRadial, curveLinearClosed } from 'd3-shape'
+import { animated, useSpring } from 'react-spring'
+import { useTheme, useAnimatedPath, useMotionConfig } from '@nivo/core'
 
-const RadarGridLevels = memo(({ shape, radius, angleStep, dataLength }) => {
+const RadarGridLevelCircular = memo(({ radius }) => {
+    const theme = useTheme()
+    const { animate, config: springConfig } = useMotionConfig()
+
+    const animatedProps = useSpring({
+        radius,
+        config: springConfig,
+        immediate: !animate,
+    })
+
+    return (
+        <animated.circle
+            fill="none"
+            r={animatedProps.radius.interpolate(value => Math.max(value, 0))}
+            {...theme.grid.line}
+        />
+    )
+})
+
+RadarGridLevelCircular.displayName = 'RadarGridLevelCircular'
+RadarGridLevelCircular.propTypes = {
+    radius: PropTypes.number.isRequired,
+}
+
+const RadarGridLevelLinear = memo(({ radius, angleStep, dataLength }) => {
     const theme = useTheme()
 
     const radarLineGenerator = useMemo(
         () =>
             lineRadial()
                 .angle(i => i * angleStep)
-                .curve(shape === 'linear' ? curveLinearClosed : curveBasisClosed),
-        [angleStep, shape]
+                .radius(radius)
+                .curve(curveLinearClosed),
+        [angleStep, radius]
     )
 
     const points = Array.from({ length: dataLength }, (_, i) => i)
-    const animatedPath = useAnimatedPath(radarLineGenerator.radius(radius)(points))
+    const animatedPath = useAnimatedPath(radarLineGenerator(points))
 
     return <animated.path fill="none" d={animatedPath} {...theme.grid.line} />
+})
+
+RadarGridLevelLinear.displayName = 'RadarGridLevelLinear'
+RadarGridLevelLinear.propTypes = {
+    radius: PropTypes.number.isRequired,
+    angleStep: PropTypes.number.isRequired,
+    dataLength: PropTypes.number.isRequired,
+}
+
+const RadarGridLevels = memo(({ shape, ...props }) => {
+    return shape === 'circular' ? (
+        <RadarGridLevelCircular radius={props.radius} />
+    ) : (
+        <RadarGridLevelLinear {...props} />
+    )
 })
 
 RadarGridLevels.displayName = 'RadarGridLevels'
