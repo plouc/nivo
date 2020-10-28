@@ -57,6 +57,8 @@ const Bar = props => {
         minValue,
         maxValue,
 
+        valueScale,
+
         margin,
         width,
         height,
@@ -111,7 +113,8 @@ const Bar = props => {
 
         role,
     } = props
-    const options = {
+    const generateBars = groupMode === 'grouped' ? generateGroupedBars : generateStackedBars
+    const result = generateBars({
         layout,
         reverse,
         data,
@@ -124,9 +127,8 @@ const Bar = props => {
         getColor,
         padding,
         innerPadding,
-    }
-    const result =
-        groupMode === 'grouped' ? generateGroupedBars(options) : generateStackedBars(options)
+        valueScale,
+    })
 
     const motionProps = {
         animate,

@@ -38,6 +38,8 @@ const initialProperties = {
     layout: 'vertical',
     reverse: false,
 
+    valueScale: { type: 'linear' },
+
     colors: { scheme: 'nivo' },
     colorBy: 'id',
     defs: [
