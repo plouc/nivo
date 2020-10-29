@@ -33,5 +33,5 @@
     "packages/voronoi",
     "packages/waffle"
   ],
-  "sandboxes": ["react"]
+  "sandboxes": ["new"]
 }
