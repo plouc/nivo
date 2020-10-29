@@ -29,7 +29,7 @@
     "resize-observer-polyfill": "^1.5.1"
   },
   "peerDependencies": {
-    "@nivo/tooltip": "0.62.0",
+    "@nivo/tooltip": "0.63.0",
     "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.8.4 < 17.0.0"
   },
