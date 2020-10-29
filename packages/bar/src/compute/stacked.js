@@ -71,7 +71,7 @@ const generateVerticalStackedBars = (
                 }
             })
         )
-    ).filter(bar => bar.height > 0)
+    )
 
     return bars
 }
@@ -127,7 +127,7 @@ const generateHorizontalStackedBars = (
                 }
             })
         )
-    ).filter(bar => bar.width > 0)
+    )
 
     return bars
 }

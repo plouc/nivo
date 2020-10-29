@@ -68,7 +68,7 @@ const generateVerticalGroupedBars = (
                 }
             })
         )
-    ).filter(bar => gt(bar.width, 0) && gt(bar.height, 0))
+    )
 
     return bars
 }
@@ -124,7 +124,7 @@ const generateHorizontalGroupedBars = (
                 }
             })
         )
-    ).filter(bar => gt(bar.width, 0))
+    )
 
     return bars
 }
