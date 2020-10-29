@@ -71,7 +71,8 @@
     "react-dom": "16.8.6"
   },
   "scripts": {
-    "changelog": "rm CHANGELOG.md && node scripts/generate-changelog.js"
+    "changelog": "rm CHANGELOG.md && node scripts/generate-changelog.js",
+    "make:init": "make init"
   },
   "workspaces": [
     "packages/*",
