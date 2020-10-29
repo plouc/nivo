@@ -1,14 +1,14 @@
 {
-  "name": "react",
+  "name": "nivo",
   "version": "1.0.0",
-  "description": "React example starter project",
+  "description": "Nivo example starter project",
   "keywords": [
-    "react",
+    "nivo",
     "starter"
   ],
   "main": "src/index.js",
   "dependencies": {
-        "@nivo/annotations": "0.63.1",
+    "@nivo/annotations": "0.63.1",
     "@nivo/axes": "0.63.0",
     "@nivo/bar": "0.63.1",
     "@nivo/bullet": "0.63.1",
