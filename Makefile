@@ -51,7 +51,6 @@ init: ##@0 global cleanup/install/bootstrap
 	@yarn install
 	@$(MAKE) bootstrap
 	@$(MAKE) packages-build
-	@$(MAKE) examples-install
 
 fmt: ##@0 global format code using prettier (js, css, md)
 	@./node_modules/.bin/prettier --color --write \
