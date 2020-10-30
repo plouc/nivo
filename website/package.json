@@ -54,6 +54,8 @@
   },
   "scripts": {
     "build": "gatsby build",
+    "prestart": "yarn build",
+    "preserve": "yarn build",
     "start": "gatsby develop",
     "serve": "gatsby serve"
   }
