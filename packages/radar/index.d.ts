@@ -12,16 +12,28 @@ import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 
 declare module '@nivo/radar' {
-    type IndexByCustomFunctiono<D = any> = (datum: D) => string | number
-    type GridLabelCustomFunction = (...args: any[]) => string | JSX.Element
-    type CustomDotSymbol = (...args: any[]) => React.ReactNode
-    type CustomDotLabel = (...args: any[]) => React.ReactNode
-    type CustomFormatter = (...args: any[]) => React.ReactNode
+    export type GridLabelProps = {
+        id: string
+        anchor: 'start' | 'middle' | 'end'
+        angle: number
+    }
+    export type DotSymbolProps = {
+        size: number
+        color: InheritedColorProp
+        borderWidth: number
+        borderColor: InheritedColorProp
+    }
+
+    type IndexByCustomFunction<D = any> = (datum: D) => string | number
+    export type CustomGridLabel = React.FC<GridLabelProps>
+    export type CustomDotSymbol = React.FC<DotSymbolProps>
+    export type CustomDotLabel = (...args: any[]) => React.ReactNode
+    export type CustomFormatter = (...args: any[]) => React.ReactNode
 
     interface CommonRadarProps<Datum = any> {
         data: object[]
         keys: (string | number)[]
-        indexBy: number | string | IndexByCustomFunctiono<Datum>
+        indexBy: number | string | IndexByCustomFunction<Datum>
         maxValue?: 'auto' | number
 
         margin?: Box
@@ -33,7 +45,7 @@ declare module '@nivo/radar' {
 
         gridLevels?: number
         gridShape?: 'circular' | 'linear'
-        gridLabel?: GridLabelCustomFunction
+        gridLabel?: CustomGridLabel
         gridLabelOffset?: number
 
         enableDots?: boolean
@@ -55,7 +67,7 @@ declare module '@nivo/radar' {
         isInteractive?: boolean
         tooltipFormat?: string | CustomFormatter
 
-        legends: LegendProps[]
+        legends?: LegendProps[]
         role?: string
     }
 
