@@ -6,9 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { useRef } from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, boolean } from '@storybook/addon-knobs'
+import { withKnobs, boolean, button } from '@storybook/addon-knobs'
 import { generateDrinkStats } from '@nivo/generators'
 import { LineCanvas } from '../src'
 
@@ -209,3 +209,17 @@ stories.add('custom line style', () => (
         ]}
     />
 ))
+
+stories.add('Get canvas - download the chart', () => {
+    const ref = useRef(undefined)
+
+    button('Download image', () => {
+        const canvas = ref.current
+        const link = document.createElement('a')
+        link.download = 'chart.png'
+        link.href = canvas.toDataURL('image/png')
+        link.click()
+    })
+
+    return <LineCanvas {...commonProperties} ref={ref} />
+})
