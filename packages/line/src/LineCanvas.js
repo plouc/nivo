@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { useRef, useEffect, useState, useCallback } from 'react'
+import React, { useRef, useEffect, useState, useCallback, forwardRef } from 'react'
 import {
     withContainer,
     useDimensions,
@@ -67,6 +67,8 @@ const LineCanvas = ({
     onMouseLeave,
     onClick,
     tooltip,
+
+    canvasRef,
 }) => {
     const canvasEl = useRef(null)
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
@@ -100,6 +102,10 @@ const LineCanvas = ({
     })
 
     useEffect(() => {
+        if (canvasRef) {
+            canvasRef.current = canvasEl.current
+        }
+
         canvasEl.current.width = outerWidth * pixelRatio
         canvasEl.current.height = outerHeight * pixelRatio
 
@@ -326,4 +332,6 @@ const LineCanvas = ({
 LineCanvas.propTypes = LineCanvasPropTypes
 LineCanvas.defaultProps = LineCanvasDefaultProps
 
-export default withContainer(LineCanvas)
+const LineCanvasWithContainer = withContainer(LineCanvas)
+
+export default forwardRef((props, ref) => <LineCanvasWithContainer {...props} canvasRef={ref} />)
