@@ -1,7 +1,7 @@
 {
   "container": {
     "port": 8000,
-    "startScript": "yarn start"
+    "startScript": "start"
   },
   "template": "node"
 }
