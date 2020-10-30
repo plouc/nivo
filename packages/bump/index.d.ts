@@ -14,8 +14,8 @@ declare module '@nivo/bump' {
     type SerieDerivedProp<Serie, T> = (serie: Serie) => T
 
     export interface BumpInputDatum {
-        x: string | number
-        y: string | number
+        x?: string | number | null
+        y?: string | number | null
         [key: string]: any
     }
 
@@ -73,6 +73,7 @@ declare module '@nivo/bump' {
         onMouseLeave?: BumpMouseHandler
         onClick?: BumpMouseHandler
         tooltip?: any
+        role?: string
     }
 
     export type BumpSvgProps = BumpProps & MotionProps
@@ -170,6 +171,7 @@ declare module '@nivo/bump' {
         onMouseLeave?: AreaBumpMouseHandler
         onClick?: AreaBumpMouseHandler
         tooltip?: any
+        role?: string
     }
 
     export type AreaBumpSvgProps = AreaBumpProps & MotionProps & SvgDefsAndFill<BumpInputDatum>

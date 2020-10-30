@@ -59,6 +59,8 @@ export const FunnelPropTypes = {
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
 
+    role: PropTypes.string.isRequired,
+
     ...motionPropTypes,
 }
 
@@ -91,6 +93,8 @@ export const FunnelDefaultProps = {
 
     isInteractive: true,
     currentPartSizeExtension: 0,
+
+    role: 'img',
 
     animate: MotionConfigProvider.defaultProps.animate,
     motionConfig: MotionConfigProvider.defaultProps.config,

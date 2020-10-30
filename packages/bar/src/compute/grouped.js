@@ -6,38 +6,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import min from 'lodash/min'
-import max from 'lodash/max'
-import range from 'lodash/range'
-import { scaleLinear } from 'd3-scale'
+import { computeScale } from '@nivo/scales'
 import { getIndexedScale } from './common'
 
-/**
- * Generates scale for grouped bar chart.
- *
- * @param {Array.<Object>} data
- * @param {Array.<string>} keys
- * @param {number}         _minValue
- * @param {number|string}  _maxValue
- * @param {Array.<number>} range
- * @returns {Function}
- */
-export const getGroupedScale = (data, keys, _minValue, _maxValue, range) => {
-    const allValues = data.reduce((acc, entry) => [...acc, ...keys.map(k => entry[k])], [])
+const gt = (value, other) => value > other
+const lt = (value, other) => value < other
 
-    let maxValue = _maxValue
-    if (maxValue === 'auto') {
-        maxValue = max(allValues)
-    }
+const flatten = array => [].concat(...array)
+const range = (start, end) => Array.from(' '.repeat(end - start), (_, index) => start + index)
 
-    let minValue = _minValue
-    if (minValue === 'auto') {
-        minValue = min(allValues)
-        if (minValue > 0) minValue = 0
-    }
-
-    return scaleLinear().rangeRound(range).domain([minValue, maxValue])
-}
+const clampToZero = value => (gt(value, 0) ? 0 : value)
 
 /**
  * Generates x/y scales & bars for vertical grouped bar chart.
@@ -55,65 +33,44 @@ export const getGroupedScale = (data, keys, _minValue, _maxValue, range) => {
  * @param {number}         [innerPadding=0]
  * @return {{ xScale: Function, yScale: Function, bars: Array.<Object> }}
  */
-export const generateVerticalGroupedBars = ({
-    data,
-    getIndex,
-    keys,
-    minValue,
-    maxValue,
+const generateVerticalGroupedBars = (
+    { data, getIndex, keys, getColor, innerPadding, xScale, yScale },
+    barWidth,
     reverse,
-    width,
-    height,
-    getColor,
-    padding = 0,
-    innerPadding = 0,
-}) => {
-    const xScale = getIndexedScale(data, getIndex, [0, width], padding)
-    const yRange = reverse ? [0, height] : [height, 0]
-    const yScale = getGroupedScale(data, keys, minValue, maxValue, yRange)
+    yRef
+) => {
+    const compare = reverse ? lt : gt
+    const getY = d => (compare(d, 0) ? yScale(d) : yRef)
+    const getHeight = (d, y) => (compare(d, 0) ? yRef - y : yScale(d) - yRef)
 
-    const barWidth = (xScale.bandwidth() - innerPadding * (keys.length - 1)) / keys.length
-    const yRef = yScale(0)
-
-    let getY = d => (d > 0 ? yScale(d) : yRef)
-    let getHeight = (d, y) => (d > 0 ? yRef - y : yScale(d) - yRef)
-    if (reverse) {
-        getY = d => (d < 0 ? yScale(d) : yRef)
-        getHeight = (d, y) => (d < 0 ? yRef - y : yScale(d) - yRef)
-    }
-
-    const bars = []
-    if (barWidth > 0) {
-        keys.forEach((key, i) => {
-            range(xScale.domain().length).forEach(index => {
+    const bars = flatten(
+        keys.map((key, i) =>
+            range(0, xScale.domain().length).map(index => {
                 const x = xScale(getIndex(data[index])) + barWidth * i + innerPadding * i
                 const y = getY(data[index][key])
                 const barHeight = getHeight(data[index][key], y)
+                const barData = {
+                    id: key,
+                    value: data[index][key],
+                    index,
+                    indexValue: getIndex(data[index]),
+                    data: data[index],
+                }
 
-                if (barWidth > 0 && barHeight > 0) {
-                    const barData = {
-                        id: key,
-                        value: data[index][key],
-                        index,
-                        indexValue: getIndex(data[index]),
-                        data: data[index],
-                    }
-
-                    bars.push({
-                        key: `${key}.${barData.indexValue}`,
-                        data: barData,
-                        x,
-                        y,
-                        width: barWidth,
-                        height: barHeight,
-                        color: getColor(barData),
-                    })
+                return {
+                    key: `${key}.${barData.indexValue}`,
+                    data: barData,
+                    x,
+                    y,
+                    width: barWidth,
+                    height: barHeight,
+                    color: getColor(barData),
                 }
             })
-        })
-    }
+        )
+    )
 
-    return { xScale, yScale, bars }
+    return bars
 }
 
 /**
@@ -132,65 +89,44 @@ export const generateVerticalGroupedBars = ({
  * @param {number}         [innerPadding=0]
  * @return {{ xScale: Function, yScale: Function, bars: Array.<Object> }}
  */
-export const generateHorizontalGroupedBars = ({
-    data,
-    getIndex,
-    keys,
-    minValue,
-    maxValue,
+const generateHorizontalGroupedBars = (
+    { data, getIndex, keys, getColor, innerPadding = 0, xScale, yScale },
+    barHeight,
     reverse,
-    width,
-    height,
-    getColor,
-    padding = 0,
-    innerPadding = 0,
-}) => {
-    const xRange = reverse ? [width, 0] : [0, width]
-    const xScale = getGroupedScale(data, keys, minValue, maxValue, xRange)
-    const yScale = getIndexedScale(data, getIndex, [height, 0], padding)
+    xRef
+) => {
+    const compare = reverse ? lt : gt
+    const getX = d => (compare(d, 0) ? xRef : xScale(d))
+    const getWidth = (d, x) => (compare(d, 0) ? xScale(d) - xRef : xRef - x)
 
-    const barHeight = (yScale.bandwidth() - innerPadding * (keys.length - 1)) / keys.length
-    const xRef = xScale(0)
-
-    let getX = d => (d > 0 ? xRef : xScale(d))
-    let getWidth = (d, x) => (d > 0 ? xScale(d) - xRef : xRef - x)
-    if (reverse) {
-        getX = d => (d < 0 ? xRef : xScale(d))
-        getWidth = (d, x) => (d < 0 ? xScale(d) - xRef : xRef - x)
-    }
-
-    const bars = []
-    if (barHeight > 0) {
-        keys.forEach((key, i) => {
-            range(yScale.domain().length).forEach(index => {
+    const bars = flatten(
+        keys.map((key, i) =>
+            range(0, yScale.domain().length).map(index => {
                 const x = getX(data[index][key])
                 const y = yScale(getIndex(data[index])) + barHeight * i + innerPadding * i
                 const barWidth = getWidth(data[index][key], x)
+                const barData = {
+                    id: key,
+                    value: data[index][key],
+                    index,
+                    indexValue: getIndex(data[index]),
+                    data: data[index],
+                }
 
-                if (barWidth > 0) {
-                    const barData = {
-                        id: key,
-                        value: data[index][key],
-                        index,
-                        indexValue: getIndex(data[index]),
-                        data: data[index],
-                    }
-
-                    bars.push({
-                        key: `${key}.${barData.indexValue}`,
-                        data: barData,
-                        x,
-                        y,
-                        width: barWidth,
-                        height: barHeight,
-                        color: getColor(barData),
-                    })
+                return {
+                    key: `${key}.${barData.indexValue}`,
+                    data: barData,
+                    x,
+                    y,
+                    width: barWidth,
+                    height: barHeight,
+                    color: getColor(barData),
                 }
             })
-        })
-    }
+        )
+    )
 
-    return { xScale, yScale, bars }
+    return bars
 }
 
 /**
@@ -199,7 +135,54 @@ export const generateHorizontalGroupedBars = ({
  * @param {Object} options
  * @return {{ xScale: Function, yScale: Function, bars: Array.<Object> }}
  */
-export const generateGroupedBars = options =>
-    options.layout === 'vertical'
-        ? generateVerticalGroupedBars(options)
-        : generateHorizontalGroupedBars(options)
+export const generateGroupedBars = ({
+    data,
+    layout,
+    keys,
+    minValue,
+    maxValue,
+    reverse,
+    width,
+    height,
+    padding = 0,
+    innerPadding = 0,
+    valueScale,
+    ...props
+}) => {
+    const [axis, range] = layout === 'vertical' ? ['y', [0, width]] : ['x', [height, 0]]
+    const indexedScale = getIndexedScale(data, props.getIndex, range, padding)
+
+    const scaleSpec = {
+        axis,
+        max: maxValue,
+        min: minValue,
+        reverse,
+        ...valueScale,
+    }
+    const clampMin = scaleSpec.min === 'auto' ? clampToZero : value => value
+
+    const values = data.reduce((acc, entry) => [...acc, ...keys.map(k => entry[k])], [])
+    const min = clampMin(Math.min(...values))
+    const max = Math.max(...values)
+
+    const scale = computeScale(scaleSpec, { [axis]: { min, max } }, width, height)
+
+    const [xScale, yScale] = layout === 'vertical' ? [indexedScale, scale] : [scale, indexedScale]
+
+    const bandwidth = (indexedScale.bandwidth() - innerPadding * (keys.length - 1)) / keys.length
+    const params = [
+        { ...props, data, keys, innerPadding, xScale, yScale },
+        bandwidth,
+        scaleSpec.reverse,
+        scale(0),
+    ]
+
+    const bars =
+        bandwidth > 0
+            ? layout === 'vertical'
+                ? generateVerticalGroupedBars(...params)
+                : generateHorizontalGroupedBars(...params)
+            : []
+
+    return { xScale, yScale, bars }
+}

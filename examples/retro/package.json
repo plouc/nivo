@@ -1,29 +1,47 @@
 {
   "name": "nivo-example-retro",
-  "version": "0.55.0",
+  "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@nivo/bar": "0.55.0",
-    "@nivo/chord": "0.55.0",
-    "@nivo/circle-packing": "0.55.0",
-    "@nivo/core": "0.55.0",
-    "@nivo/generators": "0.55.0",
-    "@nivo/heatmap": "0.55.0",
-    "@nivo/pie": "0.55.0",
-    "@nivo/stream": "0.55.0",
-    "@nivo/treemap": "0.55.0",
-    "react": "^16.8.5",
-    "react-dom": "^16.8.5",
-    "react-scripts": "^2.1.8"
+    "@nivo/bar": "0.63.1",
+    "@nivo/chord": "0.63.1",
+    "@nivo/circle-packing": "0.63.1",
+    "@nivo/core": "0.63.1",
+    "@nivo/generators": "0.63.0",
+    "@nivo/heatmap": "0.63.0",
+    "@nivo/pie": "0.63.1",
+    "@nivo/stream": "0.63.1",
+    "@nivo/treemap": "0.63.0",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-scripts": "4.0.0",
+    "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start",
-    "build": "SKIP_PREFLIGHT_CHECK=true react-scripts build"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
+import { withKnobs, select } from '@storybook/addon-knobs'
 import { generateCountriesData, sets } from '@nivo/generators'
 import range from 'lodash/range'
 import random from 'lodash/random'
@@ -22,6 +23,8 @@ const commonProps = {
 }
 
 const stories = storiesOf('Bar', module)
+
+stories.addDecorator(withKnobs)
 
 stories.add('stacked', () => <Bar {...commonProps} />)
 
@@ -250,5 +253,18 @@ stories.add('enter/leave (check actions)', () => (
         {...commonProps}
         onMouseEnter={action('onMouseEnter')}
         onMouseLeave={action('onMouseLeave')}
+    />
+))
+
+stories.add('with symlog scale', () => (
+    <Bar
+        {...commonProps}
+        data={[
+            { country: 'A', population: 100 },
+            { country: 'B', population: 50000 },
+            { country: 'C', population: 15000 },
+        ]}
+        keys={['population']}
+        valueScale={{ type: select('scale', ['symlog', 'linear'], 'symlog') }}
     />
 ))

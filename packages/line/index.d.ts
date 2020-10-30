@@ -206,6 +206,7 @@ declare module '@nivo/line' {
         pointLabel?: string | AccessorFunc
         pointLabelYOffset?: number
         areaBlendMode?: string
+        role?: string
         useMesh?: boolean
     }
 

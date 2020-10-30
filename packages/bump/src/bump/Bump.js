@@ -68,6 +68,7 @@ const Bump = props => {
         onMouseLeave,
         onClick,
         tooltip,
+        role,
     } = props
 
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
@@ -181,7 +182,7 @@ const Bump = props => {
     }
 
     return (
-        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
+        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} role={role}>
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
                     return (

@@ -26,6 +26,30 @@ declare module '@nivo/swarmplot' {
         data: Datum
     }
 
+    export interface LayerProps<Datum> {
+        nodes: ComputedNode<Datum>[]
+        xScale: (input: number) => number
+        yScale: (input: number) => number
+        innerWidth: number
+        innerHeight: number
+        outerWidth: number
+        outerHeight: number
+        margin: number
+        getBorderColor: () => string
+        getBorderWidth: () => number
+        animate: boolean
+        motionStiffness: number
+        motionDamping: number
+    }
+
+    export enum SwarmPlotLayerType {
+        Grid = 'grid',
+        Axes = 'axes',
+        Nodes = 'nodes',
+        Mesh = 'mesh',
+        Annotations = 'annotations',
+    }
+
     type DatumAccessor<Datum, T> = (datum: Datum) => T
     type ComputedNodeAccessor<Datum, T> = (node: ComputedNode<Datum>) => T
 
@@ -40,6 +64,9 @@ declare module '@nivo/swarmplot' {
         event: React.MouseEvent<any>
     ) => void
 
+    export type SwarmPlotCustomLayer<Datum> = (props: LayerProps<Datum>) => JSX.Element
+    export type Layers<Datum> = SwarmPlotCustomLayer<Datum> | SwarmPlotLayerType
+
     type ValueFormatter<Datum> = (datum: Datum) => string | number
 
     interface CommonSwarmPlotProps<Datum = any> {
@@ -48,7 +75,7 @@ declare module '@nivo/swarmplot' {
         margin?: Box
 
         groups: string[]
-        groupBy?: string
+        groupBy?: string | DatumAccessor<Datum, string>
         identity?: string | DatumAccessor<Datum, string>
         label?: string | DatumAccessor<Datum, string>
         value?: string | DatumAccessor<Datum, number>
@@ -62,7 +89,7 @@ declare module '@nivo/swarmplot' {
         forceStrength?: number
         simulationIterations?: number
 
-        layers: any[]
+        layers?: Layers<Datum>[]
 
         colors?: OrdinalColorsInstruction
         colorBy?: string | ComputedNodeAccessor<Datum, string | number>
@@ -90,7 +117,7 @@ declare module '@nivo/swarmplot' {
         tooltip?: any
     }
 
-    export type SwarmPlotProps = CommonSwarmPlotProps & MotionProps
+    export type SwarmPlotProps = CommonSwarmPlotProps & MotionProps & { role?: string }
 
     export class SwarmPlot extends Component<SwarmPlotProps & Dimensions> {}
     export class ResponsiveSwarmPlot extends Component<SwarmPlotProps> {}

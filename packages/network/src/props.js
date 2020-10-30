@@ -46,6 +46,7 @@ const commonPropTypes = {
 
 export const NetworkPropTypes = {
     ...commonPropTypes,
+    role: PropTypes.string.isRequired,
     ...motionPropTypes,
 }
 
@@ -77,6 +78,7 @@ export const NetworkDefaultProps = {
     animate: true,
     motionStiffness: 90,
     motionDamping: 15,
+    role: 'img',
 }
 
 export const NetworkCanvasDefaultProps = {

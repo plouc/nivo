@@ -49,6 +49,7 @@ const TreeMap = ({
     onMouseLeave,
     onClick,
     tooltip,
+    role,
 }) => {
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
         width,
@@ -85,7 +86,13 @@ const TreeMap = ({
     const boundDefs = bindDefs(defs, nodes, fill)
 
     return (
-        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} defs={boundDefs}>
+        <SvgWrapper
+            width={outerWidth}
+            height={outerHeight}
+            margin={margin}
+            defs={boundDefs}
+            role={role}
+        >
             <TreeMapNodes
                 nodes={nodes}
                 nodeComponent={nodeComponent}

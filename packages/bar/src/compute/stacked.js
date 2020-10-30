@@ -6,37 +6,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import min from 'lodash/min'
-import max from 'lodash/max'
-import flattenDepth from 'lodash/flattenDepth'
-import { scaleLinear } from 'd3-scale'
+// import flattenDepth from 'lodash/flattenDepth'
+import { computeScale } from '@nivo/scales'
 import { stack, stackOffsetDiverging } from 'd3-shape'
 import { getIndexedScale } from './common'
 
-/**
- * Generates scale for stacked bar chart.
- *
- * @param {Array.<Object>} data
- * @param {number|string}  _minValue
- * @param {number|string}  _maxValue
- * @param {Array.<number>} range
- * @returns {Function}
- */
-export const getStackedScale = (data, _minValue, _maxValue, range) => {
-    const allValues = flattenDepth(data, 2)
-
-    let minValue = _minValue
-    if (minValue === 'auto') {
-        minValue = min(allValues)
-    }
-
-    let maxValue = _maxValue
-    if (maxValue === 'auto') {
-        maxValue = max(allValues)
-    }
-
-    return scaleLinear().rangeRound(range).domain([minValue, maxValue])
-}
+const flattenDeep = (array, depth = 1) =>
+    depth > 0
+        ? array.reduce(
+              (acc, value) =>
+                  acc.concat(Array.isArray(value) ? flattenDeep(value, depth - 1) : value),
+              []
+          )
+        : array.slice()
 
 /**
  * Generates x/y scales & bars for vertical stacked bar chart.
@@ -54,72 +36,44 @@ export const getStackedScale = (data, _minValue, _maxValue, range) => {
  * @param {number}         [innerPadding=0]
  * @return {{ xScale: Function, yScale: Function, bars: Array.<Object> }}
  */
-export const generateVerticalStackedBars = ({
-    data,
-    getIndex,
-    keys,
-    minValue,
-    maxValue,
-    reverse,
-    width,
-    height,
-    getColor,
-    padding = 0,
-    innerPadding = 0,
-}) => {
-    const stackedData = stack().keys(keys).offset(stackOffsetDiverging)(data)
+const generateVerticalStackedBars = (
+    { getIndex, getColor, innerPadding, stackedData, xScale, yScale },
+    barWidth,
+    reverse
+) => {
+    const getY = d => yScale(d[reverse ? 0 : 1])
+    const getHeight = (d, y) => yScale(d[reverse ? 1 : 0]) - y
 
-    const xScale = getIndexedScale(data, getIndex, [0, width], padding)
-    const yRange = reverse ? [0, height] : [height, 0]
-    const yScale = getStackedScale(stackedData, minValue, maxValue, yRange)
-
-    const bars = []
-    const barWidth = xScale.bandwidth()
-
-    let getY = d => yScale(d[1])
-    let getHeight = (d, y) => yScale(d[0]) - y
-    if (reverse) {
-        getY = d => yScale(d[0])
-        getHeight = (d, y) => yScale(d[1]) - y
-    }
-
-    if (barWidth > 0) {
-        stackedData.forEach(stackedDataItem => {
-            xScale.domain().forEach((index, i) => {
+    const bars = flattenDeep(
+        stackedData.map(stackedDataItem =>
+            xScale.domain().map((index, i) => {
                 const d = stackedDataItem[i]
                 const x = xScale(getIndex(d.data))
+                const y = getY(d) + innerPadding * 0.5
+                const barHeight = getHeight(d, y) - innerPadding
 
-                let y = getY(d)
-                let barHeight = getHeight(d, y)
-                if (innerPadding > 0) {
-                    y += innerPadding * 0.5
-                    barHeight -= innerPadding
+                const barData = {
+                    id: stackedDataItem.key,
+                    value: d.data[stackedDataItem.key],
+                    index: i,
+                    indexValue: index,
+                    data: d.data,
                 }
 
-                if (barHeight > 0) {
-                    const barData = {
-                        id: stackedDataItem.key,
-                        value: d.data[stackedDataItem.key],
-                        index: i,
-                        indexValue: index,
-                        data: d.data,
-                    }
-
-                    bars.push({
-                        key: `${stackedDataItem.key}.${index}`,
-                        data: barData,
-                        x,
-                        y,
-                        width: barWidth,
-                        height: barHeight,
-                        color: getColor(barData),
-                    })
+                return {
+                    key: `${stackedDataItem.key}.${index}`,
+                    data: barData,
+                    x,
+                    y,
+                    width: barWidth,
+                    height: barHeight,
+                    color: getColor(barData),
                 }
             })
-        })
-    }
+        )
+    )
 
-    return { xScale, yScale, bars }
+    return bars
 }
 
 /**
@@ -138,40 +92,21 @@ export const generateVerticalStackedBars = ({
  * @param {number}         [innerPadding=0]
  * @return {{ xScale: Function, yScale: Function, bars: Array.<Object> }}
  */
-export const generateHorizontalStackedBars = ({
-    data,
-    getIndex,
-    keys,
-    minValue,
-    maxValue,
-    reverse,
-    width,
-    height,
-    getColor,
-    padding = 0,
-    innerPadding = 0,
-}) => {
-    const stackedData = stack().keys(keys).offset(stackOffsetDiverging)(data)
+const generateHorizontalStackedBars = (
+    { getIndex, getColor, innerPadding, stackedData, xScale, yScale },
+    barHeight,
+    reverse
+) => {
+    const getX = d => xScale(d[reverse ? 1 : 0])
+    const getWidth = (d, x) => xScale(d[reverse ? 0 : 1]) - x
 
-    const xRange = reverse ? [width, 0] : [0, width]
-    const xScale = getStackedScale(stackedData, minValue, maxValue, xRange)
-    const yScale = getIndexedScale(data, getIndex, [height, 0], padding)
-
-    const bars = []
-    const barHeight = yScale.bandwidth()
-
-    let getX = d => xScale(d[0])
-    let getWidth = (d, x) => xScale(d[1]) - x
-    if (reverse) {
-        getX = d => xScale(d[1])
-        getWidth = (d, y) => xScale(d[0]) - y
-    }
-
-    if (barHeight > 0) {
-        stackedData.forEach(stackedDataItem => {
-            yScale.domain().forEach((index, i) => {
+    const bars = flattenDeep(
+        stackedData.map(stackedDataItem =>
+            yScale.domain().map((index, i) => {
                 const d = stackedDataItem[i]
                 const y = yScale(getIndex(d.data))
+                const x = getX(d) + innerPadding * 0.5
+                const barWidth = getWidth(d, x) - innerPadding
 
                 const barData = {
                     id: stackedDataItem.key,
@@ -181,29 +116,20 @@ export const generateHorizontalStackedBars = ({
                     data: d.data,
                 }
 
-                let x = getX(d)
-                let barWidth = getWidth(d, x)
-                if (innerPadding > 0) {
-                    x += innerPadding * 0.5
-                    barWidth -= innerPadding
-                }
-
-                if (barWidth > 0) {
-                    bars.push({
-                        key: `${stackedDataItem.key}.${index}`,
-                        data: barData,
-                        x,
-                        y,
-                        width: barWidth,
-                        height: barHeight,
-                        color: getColor(barData),
-                    })
+                return {
+                    key: `${stackedDataItem.key}.${index}`,
+                    data: barData,
+                    x,
+                    y,
+                    width: barWidth,
+                    height: barHeight,
+                    color: getColor(barData),
                 }
             })
-        })
-    }
+        )
+    )
 
-    return { xScale, yScale, bars }
+    return bars
 }
 
 /**
@@ -212,7 +138,54 @@ export const generateHorizontalStackedBars = ({
  * @param {Object} options
  * @return {{ xScale: Function, yScale: Function, bars: Array.<Object> }}
  */
-export const generateStackedBars = options =>
-    options.layout === 'vertical'
-        ? generateVerticalStackedBars(options)
-        : generateHorizontalStackedBars(options)
+export const generateStackedBars = ({
+    data,
+    keys,
+    layout,
+    minValue,
+    maxValue,
+    reverse,
+    width,
+    height,
+    padding = 0,
+    valueScale,
+    ...props
+}) => {
+    const stackedData = stack().keys(keys).offset(stackOffsetDiverging)(data)
+
+    const [axis, range] = layout === 'vertical' ? ['y', [0, width]] : ['x', [height, 0]]
+    const indexedScale = getIndexedScale(data, props.getIndex, range, padding)
+
+    const scaleSpec = {
+        axis,
+        max: maxValue,
+        min: minValue,
+        reverse,
+        ...valueScale,
+    }
+
+    const values = flattenDeep(stackedData, 2)
+    const min = Math.min(...values)
+    const max = Math.max(...values)
+
+    const scale = computeScale(scaleSpec, { [axis]: { min, max } }, width, height)
+
+    const [xScale, yScale] = layout === 'vertical' ? [indexedScale, scale] : [scale, indexedScale]
+
+    const innerPadding = props.innerPadding > 0 ? props.innerPadding : 0
+    const bandwidth = indexedScale.bandwidth()
+    const params = [
+        { ...props, innerPadding, stackedData, xScale, yScale },
+        bandwidth,
+        scaleSpec.reverse,
+    ]
+
+    const bars =
+        bandwidth > 0
+            ? layout === 'vertical'
+                ? generateVerticalStackedBars(...params)
+                : generateHorizontalStackedBars(...params)
+            : []
+
+    return { xScale, yScale, bars }
+}

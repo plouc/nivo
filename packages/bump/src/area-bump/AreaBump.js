@@ -61,6 +61,7 @@ const AreaBump = props => {
         onMouseLeave,
         onClick,
         tooltip,
+        role,
     } = props
 
     const [currentSerie, setCurrentSerie] = useState(null)
@@ -160,7 +161,13 @@ const AreaBump = props => {
     }
 
     return (
-        <SvgWrapper defs={boundDefs} width={outerWidth} height={outerHeight} margin={margin}>
+        <SvgWrapper
+            defs={boundDefs}
+            width={outerWidth}
+            height={outerHeight}
+            margin={margin}
+            role={role}
+        >
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
                     return (

@@ -43,6 +43,7 @@ const Network = props => {
         linkColor,
         tooltip,
         isInteractive,
+        role,
     } = props
 
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
@@ -101,7 +102,7 @@ const Network = props => {
     }
 
     return (
-        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin}>
+        <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} role={role}>
             {layers.map((layer, i) => {
                 if (typeof layer === 'function') {
                     return (

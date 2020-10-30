@@ -56,6 +56,7 @@ const Radar = memo(
         isInteractive,
         tooltipFormat,
         legends,
+        role,
     }) => {
         const getIndex = useMemo(() => getAccessorFor(indexBy), [indexBy])
         const indices = useMemo(() => data.map(getIndex), [data, getIndex])
@@ -104,7 +105,13 @@ const Radar = memo(
         const curveInterpolator = useCurveInterpolation(curve)
 
         return (
-            <SvgWrapper width={outerWidth} height={outerHeight} margin={margin} theme={theme}>
+            <SvgWrapper
+                width={outerWidth}
+                height={outerHeight}
+                margin={margin}
+                theme={theme}
+                role={role}
+            >
                 <g transform={`translate(${centerX}, ${centerY})`}>
                     <RadarGrid
                         levels={gridLevels}
@@ -115,18 +122,23 @@ const Radar = memo(
                         label={gridLabel}
                         labelOffset={gridLabelOffset}
                     />
-                    <RadarShapes
-                        data={data}
-                        keys={keys}
-                        colorByKey={colorByKey}
-                        radiusScale={radiusScale}
-                        angleStep={angleStep}
-                        curveInterpolator={curveInterpolator}
-                        borderWidth={borderWidth}
-                        borderColor={borderColor}
-                        fillOpacity={fillOpacity}
-                        blendMode={blendMode}
-                    />
+                    {keys.map(key => (
+                        <RadarShapes
+                            key={key}
+                            {...{
+                                data,
+                                item: key,
+                                colorByKey,
+                                radiusScale,
+                                angleStep,
+                                curveInterpolator,
+                                borderWidth,
+                                borderColor,
+                                fillOpacity,
+                                blendMode,
+                            }}
+                        />
+                    ))}
                     {isInteractive && (
                         <RadarTooltip
                             data={data}

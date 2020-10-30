@@ -53,7 +53,7 @@ declare module '@nivo/waffle' {
     export type WaffleSvgProps = WaffleBaseProps &
         WaffleCommonProps &
         MotionProps &
-        SvgDefsAndFill<WaffleDatum>
+        SvgDefsAndFill<WaffleDatum> & { role?: string }
 
     export class Waffle extends React.Component<WaffleSvgProps & Dimensions> {}
     export class ResponsiveWaffle extends React.Component<WaffleSvgProps> {}

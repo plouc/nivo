@@ -18,6 +18,7 @@ import {
 import { AxisProps, GridValues } from '@nivo/axes'
 import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
+import { Scale } from '@nivo/scales'
 
 declare module '@nivo/bar' {
     export type Value = string | number
@@ -39,7 +40,6 @@ declare module '@nivo/bar' {
         value: number
         index: number
         indexValue: Value
-        color: string
         data: BarDatum
     }
 
@@ -51,19 +51,18 @@ declare module '@nivo/bar' {
 
     export type ValueFormatter = (value: number) => string | number
 
-    export type BarMouseEventHandler<T = HTMLCanvasElement> = (
+    type GraphicsContainer = HTMLCanvasElement | SVGRectElement
+
+    export type BarMouseEventHandler<T = GraphicsContainer> = (
         datum: BarExtendedDatum,
         event: React.MouseEvent<T>
     ) => void
 
-    export type TooltipProp = React.StatelessComponent<BarExtendedDatum>
+    export type BarTooltipDatum = BarExtendedDatum & { color: string }
+    export type TooltipProp = React.FC<BarTooltipDatum>
 
     export interface BarItemProps {
-        data: {
-            id: string | number
-            value: number
-            indexValue: string | number
-        }
+        data: BarExtendedDatum
         x: number
         y: number
         width: number
@@ -80,7 +79,7 @@ declare module '@nivo/bar' {
         onMouseLeave: BarMouseEventHandler
         tooltipFormat: string | ValueFormatter
         tooltip: TooltipProp
-        showTooltip: (tooltip: React.ReactNode, event: React.MouseEvent<HTMLCanvasElement>) => void
+        showTooltip: (tooltip: React.ReactNode, event: React.MouseEvent<GraphicsContainer>) => void
         hideTooltip: () => void
         theme: Theme
     }
@@ -99,6 +98,8 @@ declare module '@nivo/bar' {
         maxValue: number | 'auto'
         padding: number
 
+        valueScale: Scale
+
         axisBottom: AxisProps | null
         axisLeft: AxisProps | null
         axisRight: AxisProps | null
@@ -109,7 +110,7 @@ declare module '@nivo/bar' {
         enableGridY: boolean
         gridYValues: GridValues<Value>
 
-        barComponent: React.StatelessComponent<BarItemProps>
+        barComponent: React.FC<BarItemProps>
 
         enableLabel: boolean
         label: string | AccessorFunc
@@ -153,6 +154,7 @@ declare module '@nivo/bar' {
             onClick: BarMouseEventHandler<SVGRectElement>
             onMouseEnter: BarMouseEventHandler<SVGRectElement>
             onMouseLeave: BarMouseEventHandler<SVGRectElement>
+            role: string
         }>
 
     export class Bar extends React.Component<BarSvgProps & Dimensions> {}
