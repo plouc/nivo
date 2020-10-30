@@ -9,7 +9,7 @@
 import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import isFunction from 'lodash/isFunction'
-import { useTheme } from '@nivo/core'
+import { useTheme } from '@bitbloom/nivo-core'
 import { datumPropType, symbolPropTypes, interactivityPropTypes } from '../props'
 import { computeItemLayout } from '../compute'
 import { SymbolCircle, SymbolDiamond, SymbolSquare, SymbolTriangle } from './symbols'

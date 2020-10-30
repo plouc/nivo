@@ -9,7 +9,7 @@
 import React, { memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { useSpring, useTransition, animated } from 'react-spring'
-import { useTheme, useMotionConfig } from '@nivo/core'
+import { useTheme, useMotionConfig } from '@bitbloom/nivo-core'
 import { computeCartesianTicks, getFormatter } from '../compute'
 import { axisPropTypes } from '../props'
 import AxisTick from './AxisTick'

@@ -9,7 +9,7 @@
 'use strict'
 
 const Joi = require('joi')
-const { Sankey, sankeyAlignmentPropKeys } = require('@nivo/sankey')
+const { Sankey, sankeyAlignmentPropKeys } = require('@bitbloom/nivo-sankey')
 const { ordinalColors, inheritedColor } = require('./commons/colors')
 const { dimensions } = require('./commons/dimensions')
 const common = require('./common')

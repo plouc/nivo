@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
-import { patternDotsDef, patternLinesDef } from '@nivo/core'
+import { patternDotsDef, patternLinesDef } from '@bitbloom/nivo-core'
 import { Waffle } from '../src'
 import CustomTooltip from './CustomTooltip'
 

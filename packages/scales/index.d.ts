@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-declare module '@nivo/scales' {
+declare module '@bitbloom/nivo-scales' {
     export interface LinearScale {
         type: 'linear'
         min?: 'auto' | number

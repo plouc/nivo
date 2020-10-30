@@ -6,8 +6,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { closedCurvePropKeys, DotsItemDefaultProps as dotDefaults } from '@nivo/core'
-import { RadarDefaultProps as defaults, RadarDots } from '@nivo/radar'
+import { closedCurvePropKeys, DotsItemDefaultProps as dotDefaults } from '@bitbloom/nivo-core'
+import { RadarDefaultProps as defaults, RadarDots } from '@bitbloom/nivo-radar'
 import { themeProperty, motionProperties, groupProperties } from '../../../lib/componentProperties'
 
 const dotsDefaults = RadarDots.defaultProps

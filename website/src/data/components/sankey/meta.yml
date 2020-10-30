@@ -5,7 +5,7 @@ flavors:
     path: /sankey/api/
 
 Sankey:
-  package: '@nivo/sankey'
+  package: '@bitbloom/nivo-sankey'
   tags:
     - relational
     - flow
@@ -22,7 +22,7 @@ Sankey:
     For example, something like `A —> A`
     or `A —> B —> C —> A` will crash.
 
-    This component is available in the `@nivo/api`,
+    This component is available in the `@bitbloom/nivo-api`,
     see [sample](api:/samples/sankey.svg) or
     [try it using the API client](self:/sankey/api).
     You can also see more example usages in

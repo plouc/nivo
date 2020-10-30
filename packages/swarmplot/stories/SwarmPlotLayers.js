@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React, { useMemo, useState } from 'react'
-import { generateSwarmPlotData } from '@nivo/generators'
+import { generateSwarmPlotData } from '@bitbloom/nivo-generators'
 import { PatternLines } from '../../core/src'
 import { SwarmPlot } from '../src'
 

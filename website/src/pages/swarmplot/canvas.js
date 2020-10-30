@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { ResponsiveSwarmPlotCanvas, SwarmPlotCanvasDefaultProps } from '@nivo/swarmplot'
+import { ResponsiveSwarmPlotCanvas, SwarmPlotCanvasDefaultProps } from '@bitbloom/nivo-swarmplot'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/swarmplot/meta.yml'
 import mapper from '../../data/components/scatterplot/mapper'

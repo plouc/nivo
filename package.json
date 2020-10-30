@@ -8,10 +8,6 @@
       "url": "https://github.com/plouc/nivo/blob/master/LICENSE.md"
     }
   ],
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/plouc/nivo"
-  },
   "author": {
     "name": "Raphaël Benitte",
     "url": "https://github.com/plouc"
@@ -20,7 +16,7 @@
   "devDependencies": {
     "@babel/core": "^7.10.3",
     "@ekino/config": "^0.3.0",
-    "@nivo/generators": "0.62.0",
+    "@bitbloom/nivo-generators": "^0.62.0",
     "@storybook/addon-actions": "^5.3.19",
     "@storybook/addon-info": "^5.3.19",
     "@storybook/addon-knobs": "^5.3.19",
@@ -78,5 +74,12 @@
   ],
   "dependencies": {
     "npm-normalize-package-bin": "^1.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:BitBloomTech/nivo.git"
+  },
+  "publishConfig": {
+    "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"
   }
 }

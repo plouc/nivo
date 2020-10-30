@@ -7,7 +7,7 @@ flavors:
     path: /heatmap/api/
 
 HeatMap:
-  package: '@nivo/heatmap'
+  package: '@bitbloom/nivo-heatmap'
   tags:
     - svg
     - isomorphic
@@ -23,14 +23,14 @@ HeatMap:
 
     The responsive alternative of this component is `ResponsiveHeatMap`.
 
-    This component is available in the `@nivo/api`, see
+    This component is available in the `@bitbloom/nivo-api`, see
     [sample](api:/samples/heatmap.svg) or
     [try it using the API client](self:/heatmap/api).
     You can also see more example usages in
     [the storybook](storybook:heatmap--default).
 
 HeatMapCanvas:
-  package: '@nivo/heatmap'
+  package: '@bitbloom/nivo-heatmap'
   tags:
     - canvas
   stories: []

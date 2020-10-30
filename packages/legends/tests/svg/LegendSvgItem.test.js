@@ -9,7 +9,7 @@
 import React, { Component } from 'react'
 import renderer from 'react-test-renderer'
 import { mount } from 'enzyme'
-import { defaultTheme, themeContext } from '@nivo/core'
+import { defaultTheme, themeContext } from '@bitbloom/nivo-core'
 import { default as BaseLegendSvgItem } from '../../src/svg/LegendSvgItem'
 import * as shapes from '../../src/svg/symbols'
 import {

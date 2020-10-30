@@ -8,7 +8,7 @@
  */
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { generateSwarmPlotData } from '@nivo/generators'
+import { generateSwarmPlotData } from '@bitbloom/nivo-generators'
 import { SwarmPlot } from '../src'
 import SwarmPlotLayers from './SwarmPlotLayers'
 import SwarmPlotRenderNode from './SwarmPlotRenderNode'

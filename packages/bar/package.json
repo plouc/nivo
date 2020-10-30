@@ -1,6 +1,6 @@
 {
-  "name": "@nivo/bar",
-  "version": "0.62.0",
+  "name": "@bitbloom/nivo-bar",
+  "version": "0.62.3",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -23,12 +23,12 @@
     "dist/"
   ],
   "dependencies": {
-    "@nivo/annotations": "0.62.0",
-    "@nivo/axes": "0.62.0",
-    "@nivo/colors": "0.62.0",
-    "@nivo/core": "0.62.0",
-    "@nivo/legends": "0.62.0",
-    "@nivo/tooltip": "0.62.0",
+    "@bitbloom/nivo-annotations": "0.62.3",
+    "@bitbloom/nivo-axes": "0.62.2",
+    "@bitbloom/nivo-colors": "0.62.2",
+    "@bitbloom/nivo-core": "0.62.2",
+    "@bitbloom/nivo-legends": "0.62.2",
+    "@bitbloom/nivo-tooltip": "0.62.2",
     "d3-scale": "^3.0.0",
     "d3-shape": "^1.2.2",
     "lodash": "^4.17.11",
@@ -40,6 +40,6 @@
     "react": ">= 16.8.4 < 17.0.0"
   },
   "publishConfig": {
-    "access": "public"
+    "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"
   }
 }

@@ -7,8 +7,8 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { generateDayCounts } from '@nivo/generators'
-import { ResponsiveCalendarCanvas } from '@nivo/calendar'
+import { generateDayCounts } from '@bitbloom/nivo-generators'
+import { ResponsiveCalendarCanvas } from '@bitbloom/nivo-calendar'
 import { HomeItem, HomeItemLabel } from './styled'
 
 const calendarFrom = new Date(2015, 3, 1)

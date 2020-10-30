@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 import React, { Fragment } from 'react'
-import { withContainer, SvgWrapper, useDimensions, useTheme } from '@nivo/core'
-import { useInheritedColor } from '@nivo/colors'
-import { BoxLegendSvg } from '@nivo/legends'
+import { withContainer, SvgWrapper, useDimensions, useTheme } from '@bitbloom/nivo-core'
+import { useInheritedColor } from '@bitbloom/nivo-colors'
+import { BoxLegendSvg } from '@bitbloom/nivo-legends'
 import { ChordPropTypes, ChordDefaultProps } from './props'
 import { useChord, useChordSelection, useChordLayerContext } from './hooks'
 import ChordRibbons from './ChordRibbons'

@@ -9,7 +9,7 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { animated } from 'react-spring'
-import { useTheme } from '@nivo/core'
+import { useTheme } from '@bitbloom/nivo-core'
 
 const GridLine = ({ animatedProps }) => {
     const theme = useTheme()

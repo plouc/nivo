@@ -17,13 +17,13 @@ import withProps from 'recompose/withProps'
 import pure from 'recompose/pure'
 import { partition as Partition, hierarchy } from 'd3-hierarchy'
 import { arc } from 'd3-shape'
-import { withTheme, withDimensions, getAccessorFor, Container, SvgWrapper } from '@nivo/core'
+import { withTheme, withDimensions, getAccessorFor, Container, SvgWrapper } from '@bitbloom/nivo-core'
 import {
     getOrdinalColorScale,
     ordinalColorsPropType,
     inheritedColorPropType,
     getInheritedColorGenerator,
-} from '@nivo/colors'
+} from '@bitbloom/nivo-colors'
 import SunburstArc from './SunburstArc'
 
 const getAncestor = node => {

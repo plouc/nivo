@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { generateCountriesData } from '@nivo/generators'
+import { generateCountriesData } from '@bitbloom/nivo-generators'
 
 const dishes = [
     'hot dog',

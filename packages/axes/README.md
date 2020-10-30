@@ -1,1 +1,1 @@
-# `@nivo/axes`
+# `@bitbloom/nivo-axes`

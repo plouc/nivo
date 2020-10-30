@@ -9,7 +9,7 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
-import { useMotionConfig, blendModePropType } from '@nivo/core'
+import { useMotionConfig, blendModePropType } from '@bitbloom/nivo-core'
 import { NodePropType } from './props'
 import NodeWrapper from './NodeWrapper'
 

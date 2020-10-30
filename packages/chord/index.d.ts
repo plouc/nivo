@@ -7,12 +7,12 @@
  * file that was distributed with this source code.
  */
 import { Component } from 'react'
-import { Box, MotionProps, Dimensions, Theme } from '@nivo/core'
-import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
+import { Box, MotionProps, Dimensions, Theme } from '@bitbloom/nivo-core'
+import { OrdinalColorsInstruction, InheritedColorProp } from '@bitbloom/nivo-colors'
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
-declare module '@nivo/chord' {
+declare module '@bitbloom/nivo-chord' {
     export interface ArcData {
         id: string
         index: number

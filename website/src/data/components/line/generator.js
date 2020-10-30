@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import range from 'lodash/range'
-import { generateSeries } from '@nivo/generators'
+import { generateSeries } from '@bitbloom/nivo-generators'
 
 export const generateLightDataSet = () => {
     return generateSeries(

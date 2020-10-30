@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { SunburstDefaultProps as defaults } from '@nivo/sunburst'
+import { SunburstDefaultProps as defaults } from '@bitbloom/nivo-sunburst'
 import { groupProperties } from '../../../lib/componentProperties'
 
 const props = [

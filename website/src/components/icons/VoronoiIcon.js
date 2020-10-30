@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { Voronoi } from '@nivo/voronoi'
+import { Voronoi } from '@bitbloom/nivo-voronoi'
 import voronoiLightNeutralImg from '../../assets/icons/voronoi-light-neutral.png'
 import voronoiLightColoredImg from '../../assets/icons/voronoi-light-colored.png'
 import voronoiDarkNeutralImg from '../../assets/icons/voronoi-dark-neutral.png'

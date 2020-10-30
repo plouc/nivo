@@ -9,7 +9,7 @@
 import React, { memo, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { TransitionMotion, spring } from 'react-motion'
-import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
+import { interpolateColor, getInterpolatedColor } from '@bitbloom/nivo-colors'
 
 const willEnter = ({ style }) => ({
     x: style.x.val,

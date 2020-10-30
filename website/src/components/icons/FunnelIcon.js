@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { Funnel } from '@nivo/funnel'
+import { Funnel } from '@bitbloom/nivo-funnel'
 import funnelLightNeutralImg from '../../assets/icons/funnel-light-neutral.png'
 import funnelLightColoredImg from '../../assets/icons/funnel-light-colored.png'
 import funnelDarkNeutralImg from '../../assets/icons/funnel-dark-neutral.png'

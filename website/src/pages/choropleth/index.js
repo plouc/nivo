@@ -8,7 +8,7 @@
  */
 import React from 'react'
 import omit from 'lodash/omit'
-import { ResponsiveChoropleth, ChoroplethDefaultProps } from '@nivo/geo'
+import { ResponsiveChoropleth, ChoroplethDefaultProps } from '@bitbloom/nivo-geo'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/choropleth/meta.yml'
 import mapper from '../../data/components/geo/mapper'

@@ -14,15 +14,15 @@ import {
     MotionProps,
     CartesianMarkerProps,
     CssMixBlendMode,
-} from '@nivo/core'
-import { OrdinalColorsInstruction } from '@nivo/colors'
-import { LegendProps } from '@nivo/legends'
-import { AxisProps, GridValues } from '@nivo/axes'
-import { Scale } from '@nivo/scales'
+} from '@bitbloom/nivo-core'
+import { OrdinalColorsInstruction } from '@bitbloom/nivo-colors'
+import { LegendProps } from '@bitbloom/nivo-legends'
+import { AxisProps, GridValues } from '@bitbloom/nivo-axes'
+import { Scale } from '@bitbloom/nivo-scales'
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
-declare module '@nivo/scatterplot' {
+declare module '@bitbloom/nivo-scatterplot' {
     export type Value = number | string | Date
     export type ValueFormatter = (value: Value) => string | number
 

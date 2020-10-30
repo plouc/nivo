@@ -1,6 +1,6 @@
-# `@nivo/bullet`
+# `@bitbloom/nivo-bullet`
 
-[![version](https://img.shields.io/npm/v/@nivo/bullet.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/bullet)
+[![version](https://img.shields.io/npm/v/@bitbloom/nivo-bullet.svg?style=flat-square)](https://www.npmjs.com/package/@bitbloom/nivo-bullet)
 
 ## Bullet
 

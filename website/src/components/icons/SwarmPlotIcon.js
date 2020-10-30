@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { SwarmPlot } from '@nivo/swarmplot'
+import { SwarmPlot } from '@bitbloom/nivo-swarmplot'
 import swarmplotLightNeutralImg from '../../assets/icons/swarmplot-light-neutral.png'
 import swarmplotLightColoredImg from '../../assets/icons/swarmplot-light-colored.png'
 import swarmplotDarkNeutralImg from '../../assets/icons/swarmplot-dark-neutral.png'

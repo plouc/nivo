@@ -7,10 +7,10 @@
  * file that was distributed with this source code.
  */
 import * as React from 'react'
-import { Dimensions, Box, Theme } from '@nivo/core'
-import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
+import { Dimensions, Box, Theme } from '@bitbloom/nivo-core'
+import { OrdinalColorsInstruction, InheritedColorProp } from '@bitbloom/nivo-colors'
 
-declare module '@nivo/treemap' {
+declare module '@bitbloom/nivo-treemap' {
     export type TreeMapTile = 'binary' | 'squarify' | 'slice' | 'dice' | 'sliceDice' | 'resquarify'
 
     export interface TreeMapNodeDatum {

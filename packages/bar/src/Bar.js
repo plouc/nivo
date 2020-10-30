@@ -8,9 +8,9 @@
  */
 import React, { Fragment } from 'react'
 import { TransitionMotion, spring } from 'react-motion'
-import { bindDefs, Container, SvgWrapper, CartesianMarkers } from '@nivo/core'
-import { Axes, Grid } from '@nivo/axes'
-import { BoxLegendSvg } from '@nivo/legends'
+import { bindDefs, Container, SvgWrapper, CartesianMarkers } from '@bitbloom/nivo-core'
+import { Axes, Grid } from '@bitbloom/nivo-axes'
+import { BoxLegendSvg } from '@bitbloom/nivo-legends'
 import { generateGroupedBars, generateStackedBars, getLegendData } from './compute'
 import setDisplayName from 'recompose/setDisplayName'
 import enhance from './enhance'

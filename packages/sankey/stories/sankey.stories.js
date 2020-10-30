@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { generateSankeyData, randColor } from '@nivo/generators'
+import { generateSankeyData, randColor } from '@bitbloom/nivo-generators'
 import { Sankey } from '../src'
 
 const sankeyData = generateSankeyData({ nodeCount: 11, maxIterations: 2 })

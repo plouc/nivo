@@ -9,7 +9,7 @@
 'use strict'
 
 const Joi = require('joi')
-const { Sunburst } = require('@nivo/sunburst')
+const { Sunburst } = require('@bitbloom/nivo-sunburst')
 const { ordinalColors, inheritedColor } = require('./commons/colors')
 const { dimensions } = require('./commons/dimensions')
 

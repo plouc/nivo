@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { BoxLegendSvg } from '@nivo/legends'
+import { BoxLegendSvg } from '@bitbloom/nivo-legends'
 import { useTheme } from '../../../theming/context'
 
 const legendProps = {

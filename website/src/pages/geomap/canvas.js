@@ -8,7 +8,7 @@
  */
 import React from 'react'
 import omit from 'lodash/omit'
-import { ResponsiveGeoMapCanvas, GeoMapCanvasDefaultProps } from '@nivo/geo'
+import { ResponsiveGeoMapCanvas, GeoMapCanvasDefaultProps } from '@bitbloom/nivo-geo'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/geomap/meta.yml'
 import mapper from '../../data/components/geo/mapper'

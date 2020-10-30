@@ -8,7 +8,7 @@
  */
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { midAngle, positionFromAngle, labelsThemePropType } from '@nivo/core'
+import { midAngle, positionFromAngle, labelsThemePropType } from '@bitbloom/nivo-core'
 import { arcPropType } from './props'
 
 const sliceStyle = {

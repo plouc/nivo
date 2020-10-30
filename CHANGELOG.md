@@ -181,7 +181,7 @@
   *  add screenshots ([edf72cae](https://github.com/plouc/nivo/commit/edf72caedd0e582a1eda166cfb3bae834e63f429))
   *  add support for area transition for AreaBump ([4553d555](https://github.com/plouc/nivo/commit/4553d5551a154fe35916e8860cf781ba4b90cf41))
   *  add AreaBump component ([9b69845e](https://github.com/plouc/nivo/commit/9b69845e9242ce09d89aca8798645339438b19e1))
-  *  init @nivo/bump package ([5501852d](https://github.com/plouc/nivo/commit/5501852db649210e6c76edb804b5fdcc00ee7b01))
+  *  init @bitbloom/nivo-bump package ([5501852d](https://github.com/plouc/nivo/commit/5501852db649210e6c76edb804b5fdcc00ee7b01))
 
 #### Bug Fixes
 
@@ -249,7 +249,7 @@
 
 #### Features
 
-* **chord**  improve @nivo/chord package ([51a58c11](https://github.com/plouc/nivo/commit/51a58c114b22961dcca6dfe9e52494c8336e0f22))
+* **chord**  improve @bitbloom/nivo-chord package ([51a58c11](https://github.com/plouc/nivo/commit/51a58c114b22961dcca6dfe9e52494c8336e0f22))
 
 
 
@@ -259,35 +259,35 @@
 
 #### Features
 
-* **annotations**  init @nivo/annotations package ([e0dc149d](https://github.com/plouc/nivo/commit/e0dc149dc14e34c18d9816dfb769875b255123be))
+* **annotations**  init @bitbloom/nivo-annotations package ([e0dc149d](https://github.com/plouc/nivo/commit/e0dc149dc14e34c18d9816dfb769875b255123be))
 * **axes**
   *  move all grid & axes stuff from core ([0b564147](https://github.com/plouc/nivo/commit/0b564147c47a08b21e9ebb34d6165a56966059ae))
   *  add support for legends to canvas implementation ([5dcebd63](https://github.com/plouc/nivo/commit/5dcebd63459a5917d82e60bacf39c7bfaff29e3a))
-* **bar**  use @nivo/colors for inherited colors ([c7cf5ce0](https://github.com/plouc/nivo/commit/c7cf5ce03f4b8ebe18554bff965159aba94a06eb))
-* **chord**  use @nivo/colors for inherited colors ([f16f8244](https://github.com/plouc/nivo/commit/f16f8244c6b9a6445ecbb2c3db17dca0817f8b52))
-* **circle-packing**  use @nivo/colors for inherited colors ([53ffed92](https://github.com/plouc/nivo/commit/53ffed924dd90d7bf0c10e7362e03d041e15f426))
+* **bar**  use @bitbloom/nivo-colors for inherited colors ([c7cf5ce0](https://github.com/plouc/nivo/commit/c7cf5ce03f4b8ebe18554bff965159aba94a06eb))
+* **chord**  use @bitbloom/nivo-colors for inherited colors ([f16f8244](https://github.com/plouc/nivo/commit/f16f8244c6b9a6445ecbb2c3db17dca0817f8b52))
+* **circle-packing**  use @bitbloom/nivo-colors for inherited colors ([53ffed92](https://github.com/plouc/nivo/commit/53ffed924dd90d7bf0c10e7362e03d041e15f426))
 * **colors**
-  *  use @nivo/colors for inherited colors for all packages ([e8955560](https://github.com/plouc/nivo/commit/e89555601c2f1a35009fa660e208ab2ff3bc9537))
+  *  use @bitbloom/nivo-colors for inherited colors for all packages ([e8955560](https://github.com/plouc/nivo/commit/e89555601c2f1a35009fa660e208ab2ff3bc9537))
   *  add colorIdentity support to bar & bubble ([32e61b16](https://github.com/plouc/nivo/commit/32e61b16db29926314b541125205de06bf0f26aa))
-  *  init @nivo/colors package ([62644b0a](https://github.com/plouc/nivo/commit/62644b0a8375e2e308fc8d48a4742d6a6873df93))
+  *  init @bitbloom/nivo-colors package ([62644b0a](https://github.com/plouc/nivo/commit/62644b0a8375e2e308fc8d48a4742d6a6873df93))
 * **examples**  upgrade examples dependencies ([e07f58f3](https://github.com/plouc/nivo/commit/e07f58f3d9e8f325762c09936eb27cdace94fe77))
 * **geo**
   *  update choropleth screenshots ([c2f64eac](https://github.com/plouc/nivo/commit/c2f64eac104205e888626adfc6e852743515f096))
   *  add legend support to choropleth components ([bb7a0a2e](https://github.com/plouc/nivo/commit/bb7a0a2ef65c0e9a0f6b47d33281f7fcd6499cfc))
-* **line**  use @nivo/colors for inherited colors ([1347fd82](https://github.com/plouc/nivo/commit/1347fd825d4ac82517ec8e7ad2ea9a04c4f23d52))
-* **pie**  use @nivo/colors for inherited colors ([a217ab8f](https://github.com/plouc/nivo/commit/a217ab8f81fe84dadc807dc9e075aa09573a8511))
+* **line**  use @bitbloom/nivo-colors for inherited colors ([1347fd82](https://github.com/plouc/nivo/commit/1347fd825d4ac82517ec8e7ad2ea9a04c4f23d52))
+* **pie**  use @bitbloom/nivo-colors for inherited colors ([a217ab8f](https://github.com/plouc/nivo/commit/a217ab8f81fe84dadc807dc9e075aa09573a8511))
 * **radar**
   *  add blend-mode support ([e46b10c9](https://github.com/plouc/nivo/commit/e46b10c9e0fab13ab644b1f7f5dbbf1dc55247a4))
-  *  improve @nivo/radar package ([96e60be0](https://github.com/plouc/nivo/commit/96e60be0d2ed4bcfcd168b9df878d33b13cb5d5d))
-  *  use @nivo/colors for inherited colors ([4686b2bf](https://github.com/plouc/nivo/commit/4686b2bfa763410c55a9c67c1768dbf975a7d995))
-* **sunburst**  use @nivo/colors for inherited colors ([9cb6b2af](https://github.com/plouc/nivo/commit/9cb6b2afca6839322925f0c4a1e3eacfdf4d696a))
+  *  improve @bitbloom/nivo-radar package ([96e60be0](https://github.com/plouc/nivo/commit/96e60be0d2ed4bcfcd168b9df878d33b13cb5d5d))
+  *  use @bitbloom/nivo-colors for inherited colors ([4686b2bf](https://github.com/plouc/nivo/commit/4686b2bfa763410c55a9c67c1768dbf975a7d995))
+* **sunburst**  use @bitbloom/nivo-colors for inherited colors ([9cb6b2af](https://github.com/plouc/nivo/commit/9cb6b2afca6839322925f0c4a1e3eacfdf4d696a))
 * **swarmplot**
   *  add support for border color ([de3e8b3a](https://github.com/plouc/nivo/commit/de3e8b3a081a9b18ee81c07934632e9b08000e66))
   *  add ability to use custom tooltip ([83f965ad](https://github.com/plouc/nivo/commit/83f965ad4d6b7007d3224202924acdddd5a0d4c5))
   *  add support for voronoi overlay) ([4b0bcb96](https://github.com/plouc/nivo/commit/4b0bcb960004942b2af6647d249ac10b86cd3101))
-  *  init @nivo/swarmplot package ([eb593954](https://github.com/plouc/nivo/commit/eb5939540d0bb73ac0af4034049253e03bcb1b7f))
+  *  init @bitbloom/nivo-swarmplot package ([eb593954](https://github.com/plouc/nivo/commit/eb5939540d0bb73ac0af4034049253e03bcb1b7f))
 * **theming**  add ability to theme crosshairs ([f03848f6](https://github.com/plouc/nivo/commit/f03848f6ff08d5cc73638b6cc16a7c3fde7e9eda))
-* **treemap**  use @nivo/colors for inherited colors ([4b5e65b6](https://github.com/plouc/nivo/commit/4b5e65b682e1b3d19115279427193aa9db100af2))
+* **treemap**  use @bitbloom/nivo-colors for inherited colors ([4b5e65b6](https://github.com/plouc/nivo/commit/4b5e65b682e1b3d19115279427193aa9db100af2))
 * **website**
   *  update colors guide ([99e66e10](https://github.com/plouc/nivo/commit/99e66e109349e0840427ca31e2dd1073bbbbfc26))
   *  add inherited color control ([4a2e0c29](https://github.com/plouc/nivo/commit/4a2e0c29f7fd68cc87b0d804e7b525f3024aa933))
@@ -520,7 +520,7 @@
 * **bubble**  trigger onClick when isZoomable is false (#322) ([787341ac](https://github.com/plouc/nivo/commit/787341acb2e540233e2a4b94799edcf7275c5b24))
 * **chord**  add support for ribbon blendmode ([2b0cfec6](https://github.com/plouc/nivo/commit/2b0cfec62751d5bb1a17dce0b76234d86d89e295))
 * **deps**  upgrade deps ([be6e96e4](https://github.com/plouc/nivo/commit/be6e96e414349df5a000de31725ad791a6b3f831))
-* **heatmap**  use @nivo/axes package for axes ([36cd9c7b](https://github.com/plouc/nivo/commit/36cd9c7b265f708b4a0a64a0244b2748d6ee58e4))
+* **heatmap**  use @bitbloom/nivo-axes package for axes ([36cd9c7b](https://github.com/plouc/nivo/commit/36cd9c7b265f708b4a0a64a0244b2748d6ee58e4))
 * **line**
   *  add support for mix-blend-mode on areas ([c434148f](https://github.com/plouc/nivo/commit/c434148f50302bffba4d3dbdb042426ea6c968fd))
   *  add typescript definitions ([cfa6a59c](https://github.com/plouc/nivo/commit/cfa6a59c87ccfd41c6069837ff72150e8440daf5))
@@ -560,7 +560,7 @@
 
 #### Features
 
-* **bar**  use @nivo/axes instead of @nivo/core for SVG axes ([3b22c6fb](https://github.com/plouc/nivo/commit/3b22c6fbfe553ee74e82481d7d7d443fe924a339))
+* **bar**  use @bitbloom/nivo-axes instead of @bitbloom/nivo-core for SVG axes ([3b22c6fb](https://github.com/plouc/nivo/commit/3b22c6fbfe553ee74e82481d7d7d443fe924a339))
 * **examples**  upgrade retro example deps ([203f7198](https://github.com/plouc/nivo/commit/203f719840a0f0287542567e2ca4bec8de08a5a5))
 * **website**  upgrade nivo packages ([531e492b](https://github.com/plouc/nivo/commit/531e492bea9b9d46a9633a2381dabbfe49584530))
 
@@ -603,8 +603,8 @@
 #### Features
 
 * **bullet**
-  *  improve @nivo/bullet package ([9154c51f](https://github.com/plouc/nivo/commit/9154c51f6ec327891fa062d35042f2b1a7a0dd05))
-  *  init @nivo/bullet package ([dc7b37f5](https://github.com/plouc/nivo/commit/dc7b37f5509923c55a3db1e89f451aeb459ec012))
+  *  improve @bitbloom/nivo-bullet package ([9154c51f](https://github.com/plouc/nivo/commit/9154c51f6ec327891fa062d35042f2b1a7a0dd05))
+  *  init @bitbloom/nivo-bullet package ([dc7b37f5](https://github.com/plouc/nivo/commit/dc7b37f5509923c55a3db1e89f451aeb459ec012))
 * **theming**  improve theming ([c7e7a9fe](https://github.com/plouc/nivo/commit/c7e7a9fe77eaf65abc1e450e1d2ce7d1b98acda9))
 * **website**  upgrade nivo packages ([1c5fd5db](https://github.com/plouc/nivo/commit/1c5fd5dbb9e99912d1df871450112c1ad678beda))
 
@@ -907,20 +907,20 @@
 #### Features
 
 * **chord**
-  *  update @nivo/chord directory layout ([a143d80f](https://github.com/plouc/nivo/commit/a143d80fbbbfe689872a0bfa51a8a1a54316b9ae))
-  *  init tests for @nivo/chord package ([a0622609](https://github.com/plouc/nivo/commit/a0622609eda265d355a23c0dbdc42036a6c41bc6))
+  *  update @bitbloom/nivo-chord directory layout ([a143d80f](https://github.com/plouc/nivo/commit/a143d80fbbbfe689872a0bfa51a8a1a54316b9ae))
+  *  init tests for @bitbloom/nivo-chord package ([a0622609](https://github.com/plouc/nivo/commit/a0622609eda265d355a23c0dbdc42036a6c41bc6))
 * **composition**  init more granular approach to components ([da5c6fbf](https://github.com/plouc/nivo/commit/da5c6fbfe34db4bb5c22724a0926acffd5477608))
 * **legends**  init SizeLegendSvg ([22c186ad](https://github.com/plouc/nivo/commit/22c186ad5cf305bb1e7eb9ca1034af1a52f4741f))
 * **line**
   *  fix dot label color ([330720ce](https://github.com/plouc/nivo/commit/330720ceaffce246cb77f3a5cb08ff307d9e9c31))
-  *  init tests & eslint for @nivo/line package ([5bf09098](https://github.com/plouc/nivo/commit/5bf0909843705aed65e49220ab076dfaaac312b0))
+  *  init tests & eslint for @bitbloom/nivo-line package ([5bf09098](https://github.com/plouc/nivo/commit/5bf0909843705aed65e49220ab076dfaaac312b0))
   *  add support for empty values + custom x scale + stacking ([4690cbc4](https://github.com/plouc/nivo/commit/4690cbc400565e35c5af463655d153d613991dc5))
   *  remove unused component ([bfec8288](https://github.com/plouc/nivo/commit/bfec82884f4a24b66ab682b32073287f998ddd9b))
   *  add LineChartCanvas component ([be930613](https://github.com/plouc/nivo/commit/be9306135d85569d9ad95da00e5266718bff9efe))
   *  rework stories ([05ea88f7](https://github.com/plouc/nivo/commit/05ea88f716ea86206258dab86f530321a747d84c))
   *  add LineChartSvg component ([42f1cfe3](https://github.com/plouc/nivo/commit/42f1cfe35027879cfeb8f62fcd09a765f6afaab6))
   *  restore ability to animate line & line area ([d517c521](https://github.com/plouc/nivo/commit/d517c521a5f652b026fe6b9a8380ad9440a12abf))
-* **sankey**  init tests & eslint for @nivo/sankey package ([b4428b1e](https://github.com/plouc/nivo/commit/b4428b1ec99e702565ce98fba1d1e50139b962de))
+* **sankey**  init tests & eslint for @bitbloom/nivo-sankey package ([b4428b1e](https://github.com/plouc/nivo/commit/b4428b1ec99e702565ce98fba1d1e50139b962de))
 * **scales**  add support for time scale ([28e8ebff](https://github.com/plouc/nivo/commit/28e8ebffe8fa9bdbd8d33c2143e61c9733655a1e))
 * **scatterplot**
   *  add tests and stories ([bbc03444](https://github.com/plouc/nivo/commit/bbc03444a1ecc69a49273c695bb37b53473fc6af))
@@ -930,8 +930,8 @@
 * **website**
   *  make chart demo layout consistent across chart types ([f3166062](https://github.com/plouc/nivo/commit/f31660625fa72fb827a8ecf662e6c9f89334ddc9))
   *  improve chart tabs ([c32c5729](https://github.com/plouc/nivo/commit/c32c5729e3402b20983c020dfb8d51d569be916c))
-  *  add illustration to @nivo/line low level components doc ([5ddaede9](https://github.com/plouc/nivo/commit/5ddaede9a86723a94b3767ff2e3f67eb79d01117))
-  *  add @nivo/line low level components doc ([cf8a5caa](https://github.com/plouc/nivo/commit/cf8a5caaa589027dc01b6486ffed8220cf0acbab))
+  *  add illustration to @bitbloom/nivo-line low level components doc ([5ddaede9](https://github.com/plouc/nivo/commit/5ddaede9a86723a94b3767ff2e3f67eb79d01117))
+  *  add @bitbloom/nivo-line low level components doc ([cf8a5caa](https://github.com/plouc/nivo/commit/cf8a5caaa589027dc01b6486ffed8220cf0acbab))
   *  upgrade @nivo packages ([71e1c4b0](https://github.com/plouc/nivo/commit/71e1c4b039feb6ef7cc9e4378a30f3a5018d6781))
 
 
@@ -1095,7 +1095,7 @@
 * **examples**
   *  ensure examples build successfully on CI ([2ad46b7a](https://github.com/plouc/nivo/commit/2ad46b7af65fdcb7a3bb63d76327e3742e846776))
   * fix retro example dependencies ([2c84d014](https://github.com/plouc/nivo/commit/2c84d014c0ad88d1574f8ec5552cd837316a4371))
-* **generators**  use @nivo/generators instead of nivo-generators ([e65976d8](https://github.com/plouc/nivo/commit/e65976d83c714da8e16b92ca6b76ff15f47b42f4))
+* **generators**  use @bitbloom/nivo-generators instead of nivo-generators ([e65976d8](https://github.com/plouc/nivo/commit/e65976d83c714da8e16b92ca6b76ff15f47b42f4))
 * **legends**  init legends package ([4063428b](https://github.com/plouc/nivo/commit/4063428baa626dd2e0810b830ca4cf6e5cde3b5a))
 * **lerna**  exclude demo & examples from lerna ([aa255ebf](https://github.com/plouc/nivo/commit/aa255ebf94cfbdf7d997ad48e6edbaaaf54657f3))
 * **line**  add support for legends on Line component ([b7cc2449](https://github.com/plouc/nivo/commit/b7cc2449dc068e53e1449e7c04f09af7ebe8c624))
@@ -1186,7 +1186,7 @@
 
 #### Features
 
-* **generators**  use @nivo/generators instead of nivo-generators ([a055d0e5](https://github.com/plouc/nivo/commit/a055d0e56d6acc46cfc73a88feb28ae386e0aeaa))
+* **generators**  use @bitbloom/nivo-generators instead of nivo-generators ([a055d0e5](https://github.com/plouc/nivo/commit/a055d0e56d6acc46cfc73a88feb28ae386e0aeaa))
 
 
 
@@ -1249,7 +1249,7 @@
 * **demo**
   *  add command to deploy demo website + storybook ([e2f5c581](https://github.com/plouc/nivo/commit/e2f5c5817765a2e6b35dce070f89b84110ef7a28))
   *  remove unused deps ([eaff4d8b](https://github.com/plouc/nivo/commit/eaff4d8bf183dcd3c5f9251cab3723e17765f42c))
-* **generators**  use @nivo/generators instead of nivo-generators ([e65976d8](https://github.com/plouc/nivo/commit/e65976d83c714da8e16b92ca6b76ff15f47b42f4))
+* **generators**  use @bitbloom/nivo-generators instead of nivo-generators ([e65976d8](https://github.com/plouc/nivo/commit/e65976d83c714da8e16b92ca6b76ff15f47b42f4))
 * **lerna**  exclude demo & examples from lerna ([aa255ebf](https://github.com/plouc/nivo/commit/aa255ebf94cfbdf7d997ad48e6edbaaaf54657f3))
 * **packages**  add command to deploy all packages ([7467315c](https://github.com/plouc/nivo/commit/7467315c5e191d0876e0938ae9c6b8b95846d118))
 * **split**  init multi packages ([158a349d](https://github.com/plouc/nivo/commit/158a349d2ba8e9e017486e32fc89baa4e5c0c0a3))
@@ -1772,7 +1772,7 @@
 
 #### Features
 
-* **annotations**  init @nivo/annotations package ([e0dc149d](https://github.com/plouc/nivo/commit/e0dc149dc14e34c18d9816dfb769875b255123be))
+* **annotations**  init @bitbloom/nivo-annotations package ([e0dc149d](https://github.com/plouc/nivo/commit/e0dc149dc14e34c18d9816dfb769875b255123be))
 * **api**
   *  fix api publication ([1ec197b5](https://github.com/plouc/nivo/commit/1ec197b58535d04a052ee7df28c818cd725e4607))
   *  move api to main nivo repo ([50245962](https://github.com/plouc/nivo/commit/5024596209bb0befb6f623d44d97f5663d881f4d))
@@ -1793,13 +1793,13 @@
   *  add support for custom tick values/count (#58) ([bd789728](https://github.com/plouc/nivo/commit/bd789728c78279d8eb5a467503e34a505cb04c54))
   *  improve axis formatting support ([69269a60](https://github.com/plouc/nivo/commit/69269a6072314cb04cb300cd55602af8ccabaf3e))
 * **bar**
-  *  use @nivo/colors for inherited colors ([c7cf5ce0](https://github.com/plouc/nivo/commit/c7cf5ce03f4b8ebe18554bff965159aba94a06eb))
+  *  use @bitbloom/nivo-colors for inherited colors ([c7cf5ce0](https://github.com/plouc/nivo/commit/c7cf5ce03f4b8ebe18554bff965159aba94a06eb))
   *  adjust legend data according to layout/mode/reverse ([0c0a6a18](https://github.com/plouc/nivo/commit/0c0a6a185f73e757d742a0d8ba41bc89fe5fc6f9))
   *  add ability to use borders with BarCanvas ([4568516e](https://github.com/plouc/nivo/commit/4568516ec4fb4d26bd71dac977a45ae9c4af4af9))
   *  add enableGridX/enableGridY/legends support to BarCanvas (#354) ([f872aaa1](https://github.com/plouc/nivo/commit/f872aaa11d51c76f2556807ca60fc43cf3bc2847))
   *  add ability to customize tooltip label ([16ae9d5c](https://github.com/plouc/nivo/commit/16ae9d5c455bad7349598d95aa746d018c2454b6))
   *  add support for layers to Bar component ([8a817ec9](https://github.com/plouc/nivo/commit/8a817ec9b632740457546aca65fb3f09c8f9ffa3))
-  *  use @nivo/axes instead of @nivo/core for SVG axes ([3b22c6fb](https://github.com/plouc/nivo/commit/3b22c6fbfe553ee74e82481d7d7d443fe924a339))
+  *  use @bitbloom/nivo-axes instead of @bitbloom/nivo-core for SVG axes ([3b22c6fb](https://github.com/plouc/nivo/commit/3b22c6fbfe553ee74e82481d7d7d443fe924a339))
   *  add ability to define grid values ([afd1ee30](https://github.com/plouc/nivo/commit/afd1ee30cc1e58a6d1dc15f75d9a1da62e8266f4))
   *  include TypeScript definition in package ([0d221c74](https://github.com/plouc/nivo/commit/0d221c747d34ba6031b3dae6e4a9d0c20821b9ca))
   *  improve custom tooltip support ([5816555e](https://github.com/plouc/nivo/commit/5816555e73021d91d8af32a4b972c2738f58c1c6))
@@ -1832,8 +1832,8 @@
 * **build**  upgrade rollup & add esm build ([f6d64802](https://github.com/plouc/nivo/commit/f6d64802236337140289baaa96c3a3ace0acdfaa))
 * **bullet**
   *  interpolate colors ([96ad5f64](https://github.com/plouc/nivo/commit/96ad5f64e8ff948885d789e16765eebf4f5677f4))
-  *  improve @nivo/bullet package ([9154c51f](https://github.com/plouc/nivo/commit/9154c51f6ec327891fa062d35042f2b1a7a0dd05))
-  *  init @nivo/bullet package ([dc7b37f5](https://github.com/plouc/nivo/commit/dc7b37f5509923c55a3db1e89f451aeb459ec012))
+  *  improve @bitbloom/nivo-bullet package ([9154c51f](https://github.com/plouc/nivo/commit/9154c51f6ec327891fa062d35042f2b1a7a0dd05))
+  *  init @bitbloom/nivo-bullet package ([dc7b37f5](https://github.com/plouc/nivo/commit/dc7b37f5509923c55a3db1e89f451aeb459ec012))
 * **bump**
   *  add support for function for start/end labels ([80c3e92b](https://github.com/plouc/nivo/commit/80c3e92b322fc94d5d85ba79e6d3cc74b3210f1e))
   *  skip serie labels for missing data ([04a13a72](https://github.com/plouc/nivo/commit/04a13a728c5185a6166ba9995bb1aa07736c297e))
@@ -1848,7 +1848,7 @@
   *  add screenshots ([edf72cae](https://github.com/plouc/nivo/commit/edf72caedd0e582a1eda166cfb3bae834e63f429))
   *  add support for area transition for AreaBump ([4553d555](https://github.com/plouc/nivo/commit/4553d5551a154fe35916e8860cf781ba4b90cf41))
   *  add AreaBump component ([9b69845e](https://github.com/plouc/nivo/commit/9b69845e9242ce09d89aca8798645339438b19e1))
-  *  init @nivo/bump package ([5501852d](https://github.com/plouc/nivo/commit/5501852db649210e6c76edb804b5fdcc00ee7b01))
+  *  init @bitbloom/nivo-bump package ([5501852d](https://github.com/plouc/nivo/commit/5501852db649210e6c76edb804b5fdcc00ee7b01))
 * **calendar**
   *  add support for custom color scale (#703) ([484d3080](https://github.com/plouc/nivo/commit/484d30804fbba793b536625f4737ecbd261a07ca))
   *  add ability to align calendar in its container ([87cc6451](https://github.com/plouc/nivo/commit/87cc6451461c4fae477747a6e6aaade10585d0c8))
@@ -1893,8 +1893,8 @@
   *  add support for HiDPI screens ([26ebb9b7](https://github.com/plouc/nivo/commit/26ebb9b7271b6348d76ea64fd8cd4cabb29a9805))
   *  add canvas support for bar & heatmap ([94ad4d97](https://github.com/plouc/nivo/commit/94ad4d97229716a5ca6e189cd1a31b778385c977))
 * **chord**
-  *  improve @nivo/chord package ([51a58c11](https://github.com/plouc/nivo/commit/51a58c114b22961dcca6dfe9e52494c8336e0f22))
-  *  use @nivo/colors for inherited colors ([f16f8244](https://github.com/plouc/nivo/commit/f16f8244c6b9a6445ecbb2c3db17dca0817f8b52))
+  *  improve @bitbloom/nivo-chord package ([51a58c11](https://github.com/plouc/nivo/commit/51a58c114b22961dcca6dfe9e52494c8336e0f22))
+  *  use @bitbloom/nivo-colors for inherited colors ([f16f8244](https://github.com/plouc/nivo/commit/f16f8244c6b9a6445ecbb2c3db17dca0817f8b52))
   *  add support for font style for ChordCanvas ([c4f29c51](https://github.com/plouc/nivo/commit/c4f29c51408b9be6ad513d0eaf9e303ac12a19eb))
   *  add support for ribbon blendmode ([2b0cfec6](https://github.com/plouc/nivo/commit/2b0cfec62751d5bb1a17dce0b76234d86d89e295))
   *  add support for legends on Chord component ([39212ef4](https://github.com/plouc/nivo/commit/39212ef4b5516cae43b4a5a3fd7ce40d15482e1a))
@@ -1904,13 +1904,13 @@
   *  improve Chord component ([16af1340](https://github.com/plouc/nivo/commit/16af1340e85b2f21c62df9e605dd6e5bec4433ea))
   *  add Chord component ([427cf8aa](https://github.com/plouc/nivo/commit/427cf8aa1e20bb7256664a418967ca894919f7bd))
 * **ci**  update travis config ([25e4cdca](https://github.com/plouc/nivo/commit/25e4cdca8cfb92d584512af03c728828b52b5b30))
-* **circle-packing**  use @nivo/colors for inherited colors ([53ffed92](https://github.com/plouc/nivo/commit/53ffed924dd90d7bf0c10e7362e03d041e15f426))
+* **circle-packing**  use @bitbloom/nivo-colors for inherited colors ([53ffed92](https://github.com/plouc/nivo/commit/53ffed924dd90d7bf0c10e7362e03d041e15f426))
 * **code style**  add prettier formatting ([9a550eb8](https://github.com/plouc/nivo/commit/9a550eb85d1db2611ada36239d8d85082317f12c))
 * **colors**
   *  allow plain color for ordinal scale ([b8d3abb4](https://github.com/plouc/nivo/commit/b8d3abb4bd86398193b988cc30dd98feaf365be4))
-  *  use @nivo/colors for inherited colors for all packages ([e8955560](https://github.com/plouc/nivo/commit/e89555601c2f1a35009fa660e208ab2ff3bc9537))
+  *  use @bitbloom/nivo-colors for inherited colors for all packages ([e8955560](https://github.com/plouc/nivo/commit/e89555601c2f1a35009fa660e208ab2ff3bc9537))
   *  add colorIdentity support to bar & bubble ([32e61b16](https://github.com/plouc/nivo/commit/32e61b16db29926314b541125205de06bf0f26aa))
-  *  init @nivo/colors package ([62644b0a](https://github.com/plouc/nivo/commit/62644b0a8375e2e308fc8d48a4742d6a6873df93))
+  *  init @bitbloom/nivo-colors package ([62644b0a](https://github.com/plouc/nivo/commit/62644b0a8375e2e308fc8d48a4742d6a6873df93))
   *  improve withColors HOC ([9e6af9b4](https://github.com/plouc/nivo/commit/9e6af9b46b40af525a5ce6192b869d17df233979))
   *  use nivo default colors id instead of value ([2a5b0757](https://github.com/plouc/nivo/commit/2a5b0757513cd3d385ee205322e28ca56851465a))
   *  improve colors generator ([8e723f13](https://github.com/plouc/nivo/commit/8e723f13adac35336d910093e08f4d5e00870268))
@@ -1949,7 +1949,7 @@
   *  ensure examples build successfully on CI ([2ad46b7a](https://github.com/plouc/nivo/commit/2ad46b7af65fdcb7a3bb63d76327e3742e846776))
   * fix retro example dependencies ([2c84d014](https://github.com/plouc/nivo/commit/2c84d014c0ad88d1574f8ec5552cd837316a4371))
 * **generators**
-  *  use @nivo/generators instead of nivo-generators ([e65976d8](https://github.com/plouc/nivo/commit/e65976d83c714da8e16b92ca6b76ff15f47b42f4))
+  *  use @bitbloom/nivo-generators instead of nivo-generators ([e65976d8](https://github.com/plouc/nivo/commit/e65976d83c714da8e16b92ca6b76ff15f47b42f4))
   *  update nivo-generators ([ada44cf7](https://github.com/plouc/nivo/commit/ada44cf79cc7edcdf35a8a97aef8d1d92b1564b9))
 * **geo**
   *  update choropleth screenshots ([c2f64eac](https://github.com/plouc/nivo/commit/c2f64eac104205e888626adfc6e852743515f096))
@@ -1961,7 +1961,7 @@
   *  add charts' icons ([54c00402](https://github.com/plouc/nivo/commit/54c00402bd40fb0148eabeb88c23a3a8c7e8490b))
   *  init geo package ([119b9e98](https://github.com/plouc/nivo/commit/119b9e985026deb72ce69441e3edfc17a6e6db4f))
 * **heatmap**
-  *  use @nivo/axes package for axes ([36cd9c7b](https://github.com/plouc/nivo/commit/36cd9c7b265f708b4a0a64a0244b2748d6ee58e4))
+  *  use @bitbloom/nivo-axes package for axes ([36cd9c7b](https://github.com/plouc/nivo/commit/36cd9c7b265f708b4a0a64a0244b2748d6ee58e4))
   *  include TypeScript definition in package ([868620eb](https://github.com/plouc/nivo/commit/868620eb2642aff5abbdac2dabb826a6b0f199dc))
   *  init TypeScript definitions (#198) ([6c5432db](https://github.com/plouc/nivo/commit/6c5432db7b1420bad94f6d7afe2931a67f6c7e0e))
   *  add support for onClick event ([52d077c7](https://github.com/plouc/nivo/commit/52d077c718f3ca039737de13a19920625e9effde))
@@ -1993,7 +1993,7 @@
   *  finalize first version of LineCanvas ([bd008153](https://github.com/plouc/nivo/commit/bd008153c80295d0f0c719c30b318b940d2559dc))
   *  fix slices spacing & add support for y axis ([d56881b8](https://github.com/plouc/nivo/commit/d56881b82f5fa480830f3dcb4d22645337f9008d))
   *  add canvas implementation ([d47d5cb1](https://github.com/plouc/nivo/commit/d47d5cb1f164cf930c70d71a305af2c701643871))
-  *  use @nivo/colors for inherited colors ([1347fd82](https://github.com/plouc/nivo/commit/1347fd825d4ac82517ec8e7ad2ea9a04c4f23d52))
+  *  use @bitbloom/nivo-colors for inherited colors ([1347fd82](https://github.com/plouc/nivo/commit/1347fd825d4ac82517ec8e7ad2ea9a04c4f23d52))
   *  add support for gridXValues and gridYValues (#391) ([fd49e83d](https://github.com/plouc/nivo/commit/fd49e83df001d358187bae513eac8d9fc69957d4))
   *  add support for layers to Line component ([35911df3](https://github.com/plouc/nivo/commit/35911df3bebc2d4fc824e5d4e9fe38915ce5b6de))
   *  add support for mix-blend-mode on areas ([c434148f](https://github.com/plouc/nivo/commit/c434148f50302bffba4d3dbdb042426ea6c968fd))
@@ -2032,7 +2032,7 @@
   *  add support for individual axis options ([b8a39070](https://github.com/plouc/nivo/commit/b8a39070024450377314d21b27f11ceaaf623c17))
   *  init package ([5a4db6ca](https://github.com/plouc/nivo/commit/5a4db6cad3c00601ad6161adb54cf8a4c5891ff3))
 * **pie**
-  *  use @nivo/colors for inherited colors ([a217ab8f](https://github.com/plouc/nivo/commit/a217ab8f81fe84dadc807dc9e075aa09573a8511))
+  *  use @bitbloom/nivo-colors for inherited colors ([a217ab8f](https://github.com/plouc/nivo/commit/a217ab8f81fe84dadc807dc9e075aa09573a8511))
   *  adjust website & docs ([8f22f893](https://github.com/plouc/nivo/commit/8f22f893ac230090b188e896a06fdf632b157a2c))
   *  improve pie components ([eb14f0cb](https://github.com/plouc/nivo/commit/eb14f0cb165b72ed1e2e19c2c03ce68cc4e4d8de))
   *  cleanup website PieCanvas demo ([31ef9e53](https://github.com/plouc/nivo/commit/31ef9e5371b508181d9dbf2a28d104f540973b2d))
@@ -2054,8 +2054,8 @@
 * **radar**
   *  pass key to tooltip format function (#587) ([cca8a9e9](https://github.com/plouc/nivo/commit/cca8a9e98b2cf3a475b81fa8fe786a9082a941a2))
   *  add blend-mode support ([e46b10c9](https://github.com/plouc/nivo/commit/e46b10c9e0fab13ab644b1f7f5dbbf1dc55247a4))
-  *  improve @nivo/radar package ([96e60be0](https://github.com/plouc/nivo/commit/96e60be0d2ed4bcfcd168b9df878d33b13cb5d5d))
-  *  use @nivo/colors for inherited colors ([4686b2bf](https://github.com/plouc/nivo/commit/4686b2bfa763410c55a9c67c1768dbf975a7d995))
+  *  improve @bitbloom/nivo-radar package ([96e60be0](https://github.com/plouc/nivo/commit/96e60be0d2ed4bcfcd168b9df878d33b13cb5d5d))
+  *  use @bitbloom/nivo-colors for inherited colors ([4686b2bf](https://github.com/plouc/nivo/commit/4686b2bfa763410c55a9c67c1768dbf975a7d995))
   *  add ability to customize label ([03b3640b](https://github.com/plouc/nivo/commit/03b3640b6aee3158e88d66868be099f16ba6e8f3))
   *  add ability to define max value ([880d7299](https://github.com/plouc/nivo/commit/880d7299c85ee7a151105773b4cd2d7566649f9f))
   *  add support for legends on Radar component ([8d53e13b](https://github.com/plouc/nivo/commit/8d53e13bb5b5f54b6fbfecbc453f7c5245337a03))
@@ -2140,14 +2140,14 @@
   *  add support for tooltip on stream chart ([c3a997be](https://github.com/plouc/nivo/commit/c3a997be2fd0fa2bdd5c166586377c65247a498d))
   *  init stream chart ([060142e6](https://github.com/plouc/nivo/commit/060142e6c67a2f4c16fcc6e6e8030c2ddf724c4d))
 * **sunburst**
-  *  use @nivo/colors for inherited colors ([9cb6b2af](https://github.com/plouc/nivo/commit/9cb6b2afca6839322925f0c4a1e3eacfdf4d696a))
+  *  use @bitbloom/nivo-colors for inherited colors ([9cb6b2af](https://github.com/plouc/nivo/commit/9cb6b2afca6839322925f0c4a1e3eacfdf4d696a))
   *  allow independent child colors (#463) ([2525ad11](https://github.com/plouc/nivo/commit/2525ad11fa6bbec6d03e2b814df4e526c5a8ea67))
   *  add Sunburst component ([a8c872a9](https://github.com/plouc/nivo/commit/a8c872a91e694721bb8a391483f9f0d9e4a15eff))
 * **swarmplot**
   *  add support for border color ([de3e8b3a](https://github.com/plouc/nivo/commit/de3e8b3a081a9b18ee81c07934632e9b08000e66))
   *  add ability to use custom tooltip ([83f965ad](https://github.com/plouc/nivo/commit/83f965ad4d6b7007d3224202924acdddd5a0d4c5))
   *  add support for voronoi overlay) ([4b0bcb96](https://github.com/plouc/nivo/commit/4b0bcb960004942b2af6647d249ac10b86cd3101))
-  *  init @nivo/swarmplot package ([eb593954](https://github.com/plouc/nivo/commit/eb5939540d0bb73ac0af4034049253e03bcb1b7f))
+  *  init @bitbloom/nivo-swarmplot package ([eb593954](https://github.com/plouc/nivo/commit/eb5939540d0bb73ac0af4034049253e03bcb1b7f))
 * **tests**
   *  centralize test command & dependencies ([eda819ca](https://github.com/plouc/nivo/commit/eda819ca03f3abfae50a5f21a9f7a8af5dcb562c))
   *  restored existing tests ([e4cf806f](https://github.com/plouc/nivo/commit/e4cf806fc42977cd717b419b13aba36cb24aae0f))
@@ -2170,7 +2170,7 @@
   *  add support for custom tooltips for bubble charts and treemaps (#200) ([092f3e0c](https://github.com/plouc/nivo/commit/092f3e0c5253d2ca66ce53b028c918953c08f97d))
   *  add support for configurable tooltips for bar charts and heat maps (#159) ([82473c10](https://github.com/plouc/nivo/commit/82473c10553e976b6e9d14c9e51d4093a3af510c))
 * **treemap**
-  *  use @nivo/colors for inherited colors ([4b5e65b6](https://github.com/plouc/nivo/commit/4b5e65b682e1b3d19115279427193aa9db100af2))
+  *  use @bitbloom/nivo-colors for inherited colors ([4b5e65b6](https://github.com/plouc/nivo/commit/4b5e65b682e1b3d19115279427193aa9db100af2))
   *  add TreeMapCanvas component ([e12a1268](https://github.com/plouc/nivo/commit/e12a1268e955442d6ba04f4e3921488c6830debc))
   *  remove placeholders and improve svg & html flavors ([ff3734da](https://github.com/plouc/nivo/commit/ff3734da80e3396ec9cc00f477e13bfce83f1863))
   *  add support for tooltip on TreeMap components ([755783d8](https://github.com/plouc/nivo/commit/755783d880e73e5b74a0045fc2a467e97e2d72f8))

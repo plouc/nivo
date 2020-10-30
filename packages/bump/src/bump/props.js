@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
-import { motionPropTypes } from '@nivo/core'
-import { ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
-import { axisPropType } from '@nivo/axes'
+import { motionPropTypes } from '@bitbloom/nivo-core'
+import { ordinalColorsPropType, inheritedColorPropType } from '@bitbloom/nivo-colors'
+import { axisPropType } from '@bitbloom/nivo-axes'
 import LineTooltip from './LineTooltip'
 import Point from './Point'
 

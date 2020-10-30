@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { Defs, patternSquaresDef, PatternSquares } from '@nivo/core'
+import { Defs, patternSquaresDef, PatternSquares } from '@bitbloom/nivo-core'
 import GuideDemoBlock from '../GuideDemoBlock'
 
 const SAMPLE_SIZE = 120

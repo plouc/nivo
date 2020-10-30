@@ -7,8 +7,8 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { ThemeProvider, MotionConfigProvider } from '@nivo/core'
-import { Axis } from '@nivo/axes'
+import { ThemeProvider, MotionConfigProvider } from '@bitbloom/nivo-core'
+import { Axis } from '@bitbloom/nivo-axes'
 import { linearXScale, pointXScale, timeXScale, timeXScaleHours } from './scales'
 import { FullWidthBanner, DescriptionBlock } from '../../styled'
 import { useAxisTheme } from './theme'

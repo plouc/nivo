@@ -7,11 +7,11 @@
  * file that was distributed with this source code.
  */
 import { Component } from 'react'
-import { Box, MotionProps, Dimensions, Theme, CssMixBlendMode } from '@nivo/core'
-import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
-import { LegendProps } from '@nivo/legends'
+import { Box, MotionProps, Dimensions, Theme, CssMixBlendMode } from '@bitbloom/nivo-core'
+import { OrdinalColorsInstruction, InheritedColorProp } from '@bitbloom/nivo-colors'
+import { LegendProps } from '@bitbloom/nivo-legends'
 
-declare module '@nivo/radar' {
+declare module '@bitbloom/nivo-radar' {
     type IndexByCustomFunctiono<D = any> = (datum: D) => string | number
     type GridLabelCustomFunction = (...args: any[]) => string | JSX.Element
     type CustomDotSymbol = (...args: any[]) => React.ReactNode

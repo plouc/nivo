@@ -9,7 +9,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, boolean } from '@storybook/addon-knobs'
-import { generateDrinkStats } from '@nivo/generators'
+import { generateDrinkStats } from '@bitbloom/nivo-generators'
 import { LineCanvas } from '../src'
 
 const data = generateDrinkStats(32)

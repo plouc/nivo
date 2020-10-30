@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { generateDayCounts } from '@nivo/generators'
+import { generateDayCounts } from '@bitbloom/nivo-generators'
 import { CalendarCanvas } from '../src'
 import { scaleQuantize } from 'd3-scale'
 

@@ -13,9 +13,9 @@ import {
     useDimensions,
     useTheme,
     withContainer,
-} from '@nivo/core'
-import { renderAxesToCanvas } from '@nivo/axes'
-import { useTooltip } from '@nivo/tooltip'
+} from '@bitbloom/nivo-core'
+import { renderAxesToCanvas } from '@bitbloom/nivo-axes'
+import { useTooltip } from '@bitbloom/nivo-tooltip'
 import { useHeatMap } from './hooks'
 import { HeatMapDefaultProps, HeatMapPropTypes } from './props'
 import { renderRect, renderCircle } from './canvas'

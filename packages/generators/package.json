@@ -1,6 +1,6 @@
 {
-  "name": "@nivo/generators",
-  "version": "0.62.0",
+  "name": "@bitbloom/nivo-generators",
+  "version": "0.62.2",
   "licenses": [
     {
       "type": "MIT",
@@ -30,6 +30,6 @@
     "lodash": "^4.17.11"
   },
   "publishConfig": {
-    "access": "public"
+    "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"
   }
 }

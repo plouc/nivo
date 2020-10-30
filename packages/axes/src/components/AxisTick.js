@@ -9,7 +9,7 @@
 import React, { memo } from 'react'
 import { animated } from 'react-spring'
 import PropTypes from 'prop-types'
-import { useTheme } from '@nivo/core'
+import { useTheme } from '@bitbloom/nivo-core'
 
 const AxisTick = ({
     value: _value,

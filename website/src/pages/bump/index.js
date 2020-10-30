@@ -9,7 +9,7 @@
 import React from 'react'
 import range from 'lodash/range'
 import shuffle from 'lodash/shuffle'
-import { ResponsiveBump, BumpDefaultProps } from '@nivo/bump'
+import { ResponsiveBump, BumpDefaultProps } from '@bitbloom/nivo-bump'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bump/meta.yml'
 import { groups } from '../../data/components/bump/props'

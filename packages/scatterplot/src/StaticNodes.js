@@ -8,7 +8,7 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { blendModePropType } from '@nivo/core'
+import { blendModePropType } from '@bitbloom/nivo-core'
 import { NodePropType } from './props'
 import NodeWrapper from './NodeWrapper'
 

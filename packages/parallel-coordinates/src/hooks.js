@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 import { line } from 'd3-shape'
 import { scaleLinear, scalePoint } from 'd3-scale'
-import { curveFromProp } from '@nivo/core'
-import { useOrdinalColorScale } from '@nivo/colors'
+import { curveFromProp } from '@bitbloom/nivo-core'
+import { useOrdinalColorScale } from '@bitbloom/nivo-colors'
 
 export const computeParallelCoordinatesLayout = ({ width, height, data, variables, layout }) => {
     const variablesScale = scalePoint()

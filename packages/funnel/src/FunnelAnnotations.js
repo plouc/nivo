@@ -1,5 +1,5 @@
 import React from 'react'
-import { Annotation } from '@nivo/annotations'
+import { Annotation } from '@bitbloom/nivo-annotations'
 import { useFunnelAnnotations } from './hooks'
 
 export const FunnelAnnotations = ({ parts, annotations, width, height }) => {

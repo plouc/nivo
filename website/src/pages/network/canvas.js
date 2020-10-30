@@ -7,11 +7,11 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { ResponsiveNetworkCanvas, NetworkCanvasDefaultProps } from '@nivo/network'
+import { ResponsiveNetworkCanvas, NetworkCanvasDefaultProps } from '@bitbloom/nivo-network'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/network/meta.yml'
 import { groups } from '../../data/components/network/props'
-import { generateNetworkData } from '@nivo/generators'
+import { generateNetworkData } from '@bitbloom/nivo-generators'
 
 const initialProperties = Object.freeze({
     pixelRatio:

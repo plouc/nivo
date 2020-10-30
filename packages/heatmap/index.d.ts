@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { Dimensions, Box, MotionProps, ColorProps, Theme } from '@nivo/core'
-import { AxisProps } from '@nivo/axes'
-import { InheritedColorProp } from '@nivo/colors'
-import { BasicTooltipProps } from '@nivo/tooltip'
+import { Dimensions, Box, MotionProps, ColorProps, Theme } from '@bitbloom/nivo-core'
+import { AxisProps } from '@bitbloom/nivo-axes'
+import { InheritedColorProp } from '@bitbloom/nivo-colors'
+import { BasicTooltipProps } from '@bitbloom/nivo-tooltip'
 
-declare module '@nivo/heatmap' {
+declare module '@bitbloom/nivo-heatmap' {
     export interface HeatMapDatum {
         [key: string]: string | number
     }

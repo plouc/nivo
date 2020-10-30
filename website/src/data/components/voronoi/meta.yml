@@ -3,7 +3,7 @@ flavors:
     path: /voronoi/
 
 Voronoi:
-  package: '@nivo/voronoi'
+  package: '@bitbloom/nivo-voronoi'
   tags:
     - svg
     - experimental

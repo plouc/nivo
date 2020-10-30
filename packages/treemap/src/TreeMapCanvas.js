@@ -14,8 +14,8 @@ import {
     withContainer,
     useDimensions,
     useTheme,
-} from '@nivo/core'
-import { useTooltip } from '@nivo/tooltip'
+} from '@bitbloom/nivo-core'
+import { useTooltip } from '@bitbloom/nivo-tooltip'
 import { TreeMapCanvasPropTypes, TreeMapCanvasDefaultProps } from './props'
 import { useTreeMap } from './hooks'
 import TreeMapNodeTooltip from './TreeMapNodeTooltip'

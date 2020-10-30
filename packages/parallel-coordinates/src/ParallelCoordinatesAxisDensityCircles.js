@@ -9,7 +9,7 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { useTransition, animated } from 'react-spring'
-import { useMotionConfig } from '@nivo/core'
+import { useMotionConfig } from '@bitbloom/nivo-core'
 
 const ParallelCoordinatesAxisDensityCircles = ({ axis, variable, variablesScale }) => {
     const otherPosition = variablesScale(variable.key)

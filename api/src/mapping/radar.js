@@ -9,7 +9,7 @@
 'use strict'
 
 const Joi = require('joi')
-const { Radar } = require('@nivo/radar')
+const { Radar } = require('@bitbloom/nivo-radar')
 const { ordinalColors, inheritedColor } = require('./commons/colors')
 const { dimensions } = require('./commons/dimensions')
 

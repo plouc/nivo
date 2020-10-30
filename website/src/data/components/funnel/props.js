@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { FunnelDefaultProps as defaults } from '@nivo/funnel'
+import { FunnelDefaultProps as defaults } from '@bitbloom/nivo-funnel'
 import { themeProperty, groupProperties, motionProperties } from '../../../lib/componentProperties'
 
 const props = [

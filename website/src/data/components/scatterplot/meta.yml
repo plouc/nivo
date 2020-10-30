@@ -5,7 +5,7 @@ flavors:
     path: /scatterplot/canvas/
 
 ScatterPlot:
-  package: '@nivo/scatterplot'
+  package: '@bitbloom/nivo-scatterplot'
   tags:
     - svg
     - isomorphic
@@ -44,7 +44,7 @@ ScatterPlot:
     legends for this component.
 
 ScatterPlotCanvas:
-  package: '@nivo/scatterplot'
+  package: '@bitbloom/nivo-scatterplot'
   tags:
     - canvas
   stories:

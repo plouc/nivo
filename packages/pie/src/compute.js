@@ -12,7 +12,7 @@ import {
     midAngle,
     positionFromAngle,
     radiansToDegrees,
-} from '@nivo/core'
+} from '@bitbloom/nivo-core'
 
 export const computeRadialLabels = (
     arcs,

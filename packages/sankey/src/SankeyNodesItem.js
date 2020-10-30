@@ -9,8 +9,8 @@
 import React, { memo, useCallback, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { useSpring, animated } from 'react-spring'
-import { useMotionConfig } from '@nivo/core'
-import { BasicTooltip, useTooltip } from '@nivo/tooltip'
+import { useMotionConfig } from '@bitbloom/nivo-core'
+import { BasicTooltip, useTooltip } from '@bitbloom/nivo-tooltip'
 
 const SankeyNodesItem = ({
     node,

@@ -20,8 +20,8 @@ import {
     getAccessorFor,
     getLabelGenerator,
     bindDefs,
-} from '@nivo/core'
-import { getOrdinalColorScale, getInheritedColorGenerator } from '@nivo/colors'
+} from '@bitbloom/nivo-core'
+import { getOrdinalColorScale, getInheritedColorGenerator } from '@bitbloom/nivo-colors'
 import { computeNodes, computeZoom } from './compute'
 import * as props from './props'
 

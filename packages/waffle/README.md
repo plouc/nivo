@@ -1,6 +1,6 @@
-# `@nivo/waffle`
+# `@bitbloom/nivo-waffle`
 
-[![version](https://img.shields.io/npm/v/@nivo/waffle.svg?style=flat-square)](https://www.npmjs.com/package/@nivo/waffle)
+[![version](https://img.shields.io/npm/v/@bitbloom/nivo-waffle.svg?style=flat-square)](https://www.npmjs.com/package/@bitbloom/nivo-waffle)
 
 ## Waffle
 

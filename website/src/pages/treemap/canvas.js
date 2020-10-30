@@ -12,7 +12,7 @@ import {
     ResponsiveTreeMapCanvas,
     TreeMapCanvasDefaultProps,
     TreeMapDefaultProps,
-} from '@nivo/treemap'
+} from '@bitbloom/nivo-treemap'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/treemap/meta.yml'
 import mapper from '../../data/components/treemap/mapper'

@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { ResponsiveTreeMap, TreeMapDefaultProps } from '@nivo/treemap'
+import { ResponsiveTreeMap, TreeMapDefaultProps } from '@bitbloom/nivo-treemap'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/treemap/meta.yml'
 import mapper from '../../data/components/treemap/mapper'

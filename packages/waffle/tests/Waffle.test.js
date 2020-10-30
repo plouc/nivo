@@ -1,7 +1,7 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { mount } from 'enzyme'
-import { LegendSvg, LegendSvgItem } from '@nivo/legends'
+import { LegendSvg, LegendSvgItem } from '@bitbloom/nivo-legends'
 import Waffle from '../src/Waffle'
 import WaffleCell from '../src/WaffleCell'
 

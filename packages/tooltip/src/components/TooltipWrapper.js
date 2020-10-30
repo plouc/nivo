@@ -9,7 +9,7 @@
 import React, { memo, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { useSpring, animated } from 'react-spring'
-import { useTheme, useMotionConfig, useMeasure } from '@nivo/core'
+import { useTheme, useMotionConfig, useMeasure } from '@bitbloom/nivo-core'
 
 const TOOLTIP_OFFSET = 14
 

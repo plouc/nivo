@@ -9,7 +9,7 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { useSprings, animated } from 'react-spring'
-import { useTheme, useMotionConfig, positionFromAngle, radiansToDegrees } from '@nivo/core'
+import { useTheme, useMotionConfig, positionFromAngle, radiansToDegrees } from '@bitbloom/nivo-core'
 
 const textAnchorFromAngle = _angle => {
     const angle = radiansToDegrees(_angle) + 90

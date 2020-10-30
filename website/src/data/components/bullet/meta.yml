@@ -3,7 +3,7 @@ flavors:
     path: /bullet/
 
 Bullet:
-  package: '@nivo/bullet'
+  package: '@bitbloom/nivo-bullet'
   tags:
     - svg
     - isomorphic

@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { Pie } from '@nivo/pie'
+import { Pie } from '@bitbloom/nivo-pie'
 import pieLightNeutralImg from '../../assets/icons/pie-light-neutral.png'
 import pieLightColoredImg from '../../assets/icons/pie-light-colored.png'
 import pieDarkNeutralImg from '../../assets/icons/pie-dark-neutral.png'

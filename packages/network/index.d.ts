@@ -7,12 +7,12 @@
  * file that was distributed with this source code.
  */
 import * as React from 'react'
-import { Dimensions, Box, Theme, MotionProps } from '@nivo/core'
-import { InheritedColorProp } from '@nivo/colors'
+import { Dimensions, Box, Theme, MotionProps } from '@bitbloom/nivo-core'
+import { InheritedColorProp } from '@bitbloom/nivo-colors'
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
-declare module '@nivo/network' {
+declare module '@bitbloom/nivo-network' {
     export interface InputNode {
         id: string
         [key: string]: any

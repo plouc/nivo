@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { ResponsiveChoroplethCanvas, ChoroplethCanvasDefaultProps } from '@nivo/geo'
+import { ResponsiveChoroplethCanvas, ChoroplethCanvasDefaultProps } from '@bitbloom/nivo-geo'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/choropleth/meta.yml'
 import mapper from '../../data/components/geo/mapper'

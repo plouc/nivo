@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { ScatterPlot } from '@nivo/scatterplot'
+import { ScatterPlot } from '@bitbloom/nivo-scatterplot'
 import scatterPlotLightNeutralImg from '../../assets/icons/scatterplot-light-neutral.png'
 import scatterPlotLightColoredImg from '../../assets/icons/scatterplot-light-colored.png'
 import scatterPlotDarkNeutralImg from '../../assets/icons/scatterplot-dark-neutral.png'

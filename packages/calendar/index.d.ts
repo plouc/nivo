@@ -7,10 +7,10 @@
  * file that was distributed with this source code.
  */
 import * as React from 'react'
-import { Dimensions, Theme, Box, BoxAlign } from '@nivo/core'
-import { LegendProps } from '@nivo/legends'
+import { Dimensions, Theme, Box, BoxAlign } from '@bitbloom/nivo-core'
+import { LegendProps } from '@bitbloom/nivo-legends'
 
-declare module '@nivo/calendar' {
+declare module '@bitbloom/nivo-calendar' {
     export type DateOrString = string | Date
 
     export interface CalendarDatum {

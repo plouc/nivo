@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { blendModes } from '@nivo/core'
+import { blendModes } from '@bitbloom/nivo-core'
 import ChoicesControl from './ChoicesControl'
 
 const choices = blendModes.map(mode => ({

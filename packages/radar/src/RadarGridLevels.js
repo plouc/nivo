@@ -10,7 +10,7 @@ import React, { memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { lineRadial, curveLinearClosed } from 'd3-shape'
 import { useTransition, animated } from 'react-spring'
-import { useTheme, useMotionConfig } from '@nivo/core'
+import { useTheme, useMotionConfig } from '@bitbloom/nivo-core'
 
 const RadarGridLevels = memo(({ shape, radii, angleStep, dataLength }) => {
     const theme = useTheme()

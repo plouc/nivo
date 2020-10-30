@@ -7,8 +7,8 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { patternDotsDef, patternLinesDef } from '@nivo/core'
-import { ResponsiveBar, BarDefaultProps } from '@nivo/bar'
+import { patternDotsDef, patternLinesDef } from '@bitbloom/nivo-core'
+import { ResponsiveBar, BarDefaultProps } from '@bitbloom/nivo-bar'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bar/meta.yml'
 import { generateLightDataSet } from '../../data/components/bar/generator'

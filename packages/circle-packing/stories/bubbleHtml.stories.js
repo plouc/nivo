@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { generateLibTree } from '@nivo/generators'
+import { generateLibTree } from '@bitbloom/nivo-generators'
 import { BubbleHtml } from '../src'
 
 const commonProperties = {

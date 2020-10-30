@@ -7,8 +7,8 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { SvgWrapper, useDimensions, withContainer } from '@nivo/core'
-import { Axis } from '@nivo/axes'
+import { SvgWrapper, useDimensions, withContainer } from '@bitbloom/nivo-core'
+import { Axis } from '@bitbloom/nivo-axes'
 import { svgPropTypes, svgDefaultProps } from './props'
 import { useParallelCoordinates } from './hooks'
 import ParallelCoordinatesLine from './ParallelCoordinatesLine'

@@ -51,7 +51,7 @@ init: ##@0 global cleanup/install/bootstrap
 	@yarn install
 	@$(MAKE) bootstrap
 	@$(MAKE) packages-build
-	@$(MAKE) examples-install
+	#@$(MAKE) examples-install
 
 fmt: ##@0 global format code using prettier (js, css, md)
 	@./node_modules/.bin/prettier --color --write \
@@ -113,7 +113,7 @@ lint: ##@0 run eslint & tslint
 ########################################################################################################################
 
 package-lint-%: ##@1 packages run eslint on package
-	@echo "${YELLOW}Running eslint on package ${WHITE}@nivo/${*}${RESET}"
+	@echo "${YELLOW}Running eslint on package ${WHITE}@bitbloom/nivo-${*}${RESET}"
 	@./node_modules/.bin/eslint ./packages/${*}/{src,tests}
 
 packages-lint: ##@1 packages run eslint on all packages
@@ -121,7 +121,7 @@ packages-lint: ##@1 packages run eslint on all packages
 	@./node_modules/.bin/eslint "./packages/*/{src,tests}/**/*.js"
 
 package-tslint-%: ##@1 packages run tslint on package
-	@echo "${YELLOW}Running tslint on package ${WHITE}@nivo/${*}${RESET}"
+	@echo "${YELLOW}Running tslint on package ${WHITE}@bitbloom/nivo-${*}${RESET}"
 	@./node_modules/.bin/tslint ./packages/${*}/index.d.ts
 
 packages-tslint: ##@1 packages run tslint on all packages
@@ -173,7 +173,7 @@ packages-build: ##@1 packages build all packages
         | xargs -I '{}' sh -c '$(MAKE) package-build-{}'
 
 package-build-%: ##@1 packages build a package
-	@echo "${YELLOW}Building package ${WHITE}@nivo/${*}${RESET}"
+	@echo "${YELLOW}Building package ${WHITE}@bitbloom/nivo-${*}${RESET}"
 	@rm -rf ./packages/${*}/dist
 	@export PACKAGE=${*}; NODE_ENV=production BABEL_ENV=production ./node_modules/.bin/rollup -c conf/rollup.config.js
 
@@ -181,19 +181,19 @@ packages-screenshots: ##@1 packages generate screenshots for packages readme (we
 	@node scripts/capture.js
 
 packages-publish: ##@1 packages publish all packages
-	@$(MAKE) packages-build
+	#@$(MAKE) packages-build
 
 	@echo "${YELLOW}Publishing packages${RESET}"
-	@./node_modules/.bin/lerna publish --exact
+	@./node_modules/.bin/lerna publish from-git --yes
 
 packages-publish-next: ##@1 packages publish all packages for @next npm tag
 	@$(MAKE) packages-build
 
 	@echo "${YELLOW}Publishing packages${RESET}"
-	@./node_modules/.bin/lerna publish --exact --npm-tag=next
+	@./node_modules/.bin/lerna publish --npm-tag=next from-git --yes
 
 package-watch-%: ##@1 packages build package (es flavor) on change, eg. `package-build-watch-bar`
-	@echo "${YELLOW}Running build watcher for package ${WHITE}@nivo/${*}${RESET}"
+	@echo "${YELLOW}Running build watcher for package ${WHITE}@bitbloom/nivo-${*}${RESET}"
 	@rm -rf ./packages/${*}/cjs
 	@rm -rf ./packages/${*}/umd
 	@export PACKAGE=${*}; NODE_ENV=development BABEL_ENV=development ./node_modules/.bin/rollup -c conf/rollup.config.js -w
@@ -201,7 +201,7 @@ package-watch-%: ##@1 packages build package (es flavor) on change, eg. `package
 package-dev-%: ##@1 packages setup package for development, link to website, run watcher
 	@echo "${YELLOW}Preparing package ${WHITE}${*}${YELLOW} for development${RESET}"
 	@cd packages/${*} && yarn link
-	@cd examples/typescript && yarn link @nivo/${*}
+	@cd examples/typescript && yarn link @bitbloom/nivo-${*}
 	@$(MAKE) package-watch-${*}
 
 ########################################################################################################################

@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { Radar } from '@nivo/radar'
+import { Radar } from '@bitbloom/nivo-radar'
 import radarLightNeutralImg from '../../assets/icons/radar-light-neutral.png'
 import radarLightColoredImg from '../../assets/icons/radar-light-colored.png'
 import radarDarkNeutralImg from '../../assets/icons/radar-dark-neutral.png'

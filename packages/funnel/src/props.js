@@ -7,10 +7,10 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
-import { ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
-import { MotionConfigProvider } from '@nivo/core'
-import { motionPropTypes } from '@nivo/core'
-import { annotationSpecPropType } from '@nivo/annotations'
+import { ordinalColorsPropType, inheritedColorPropType } from '@bitbloom/nivo-colors'
+import { MotionConfigProvider } from '@bitbloom/nivo-core'
+import { motionPropTypes } from '@bitbloom/nivo-core'
+import { annotationSpecPropType } from '@bitbloom/nivo-annotations'
 
 export const FunnelPropTypes = {
     data: PropTypes.arrayOf(

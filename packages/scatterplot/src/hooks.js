@@ -7,10 +7,10 @@
  * file that was distributed with this source code.
  */
 import { useMemo } from 'react'
-import { useValueFormatter } from '@nivo/core'
-import { useOrdinalColorScale } from '@nivo/colors'
-import { computeXYScalesForSeries } from '@nivo/scales'
-import { useAnnotations } from '@nivo/annotations'
+import { useValueFormatter } from '@bitbloom/nivo-core'
+import { useOrdinalColorScale } from '@bitbloom/nivo-colors'
+import { computeXYScalesForSeries } from '@bitbloom/nivo-scales'
+import { useAnnotations } from '@bitbloom/nivo-annotations'
 import { computePoints, getNodeSizeGenerator } from './compute'
 
 const useNodeSize = size => useMemo(() => getNodeSizeGenerator(size), [size])

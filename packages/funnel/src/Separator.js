@@ -9,7 +9,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useSpring, animated } from 'react-spring'
-import { useTheme, useMotionConfig } from '@nivo/core'
+import { useTheme, useMotionConfig } from '@bitbloom/nivo-core'
 
 export const Separator = ({ separator }) => {
     const theme = useTheme()

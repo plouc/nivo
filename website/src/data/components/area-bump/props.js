@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { AreaBumpDefaultProps as defaults } from '@nivo/bump'
+import { AreaBumpDefaultProps as defaults } from '@bitbloom/nivo-bump'
 import {
     themeProperty,
     axesProperties,

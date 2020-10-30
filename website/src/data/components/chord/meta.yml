@@ -7,7 +7,7 @@ flavors:
     path: /chord/api/
 
 Chord:
-  package: '@nivo/chord'
+  package: '@bitbloom/nivo-chord'
   tags:
     - relational
     - svg
@@ -19,7 +19,7 @@ Chord:
 
     The responsive alternative of this component is `ResponsiveChord`.
 
-    This component is available in the `@nivo/api`,
+    This component is available in the `@bitbloom/nivo-api`,
     see [sample](api:/samples/chord) or
     [try it using the API client](self:/chord/api).
 
@@ -27,7 +27,7 @@ Chord:
     legends for this component.
 
 ChordCanvas:
-  package: '@nivo/chord'
+  package: '@bitbloom/nivo-chord'
   tags:
     - relational
     - canvas

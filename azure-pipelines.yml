@@ -1,0 +1,33 @@
+# Node.js
+# Build a general Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+  branches:
+    include:
+      - master
+      - refs/tags/*
+
+pool: 'Default'
+
+steps:
+#- task: npmAuthenticate@0
+#  inputs:
+#    workingFile: .npmrc
+
+- task: npmAuthenticate@0
+  inputs:
+    workingFile: $(Agent.HomeDirectory)/.npmrc
+- script: echo vso[task.setvariable variable=NPM_CONFIG_USERCONFIG]$(Agent.HomeDirectory)/.npmrc
+
+- script: |
+    echo "Create new container"
+    docker run --name nivo -v $(Agent.HomeDirectory)/.npmrc:/tmp/.npmrc -e NPM_CONFIG_USERCONFIG=/tmp/.npmrc -v $(Build.SourcesDirectory):/app -w /app node:12.18.4 ./build.sh
+  displayName: 'Build modules on nivo container'
+  condition: succeeded()
+  
+- script: |
+    docker rm -f nivo
+  displayName: 'Remove nivo container'
+  condition: always()

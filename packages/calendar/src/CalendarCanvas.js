@@ -15,11 +15,11 @@ import {
     useTheme,
     withContainer,
     useValueFormatter,
-} from '@nivo/core'
-import { renderLegendToCanvas } from '@nivo/legends'
+} from '@bitbloom/nivo-core'
+import { renderLegendToCanvas } from '@bitbloom/nivo-legends'
 import { CalendarCanvasPropTypes, CalendarCanvasDefaultProps } from './props'
 import { useCalendarLayout, useColorScale, useMonthLegends, useYearLegends, useDays } from './hooks'
-import { useTooltip } from '@nivo/tooltip'
+import { useTooltip } from '@bitbloom/nivo-tooltip'
 
 const findDayUnderCursor = (event, canvasEl, days, size, dayBorderWidth, margin) => {
     const [x, y] = getRelativeCursor(canvasEl, event)

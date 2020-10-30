@@ -234,8 +234,8 @@ const Sample = () => {
                 arbitrary clustering across each step.
                 <br />
                 Here we&apos;re using the <code>Waffle</code> component from the{' '}
-                <code>@nivo/waffle</code> package to show clustering by gender, and the{' '}
-                <code>Bar</code> component from <code>@nivo/bar</code> to show the repartition by
+                <code>@bitbloom/nivo-waffle</code> package to show clustering by gender, and the{' '}
+                <code>Bar</code> component from <code>@bitbloom/nivo-bar</code> to show the repartition by
                 age.
                 <br />
                 In order to align the charts with the funnel, we&apos;re using a CSS grid.

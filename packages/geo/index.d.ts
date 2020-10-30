@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { Dimensions, Theme, Box, BoxAlign } from '@nivo/core'
+import { Dimensions, Theme, Box, BoxAlign } from '@bitbloom/nivo-core'
 
-declare module '@nivo/geo' {
+declare module '@bitbloom/nivo-geo' {
     ///////////////////////////////////////////////////////////////////////////
     // Common
     ///////////////////////////////////////////////////////////////////////////

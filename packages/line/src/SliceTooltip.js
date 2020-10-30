@@ -8,7 +8,7 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { TableTooltip } from '@nivo/tooltip'
+import { TableTooltip } from '@bitbloom/nivo-tooltip'
 
 const Chip = ({ color }) => (
     <span style={{ display: 'block', width: '12px', height: '12px', background: color }} />

@@ -9,7 +9,7 @@
 import React from 'react'
 import range from 'lodash/range'
 import random from 'lodash/random'
-import { ResponsiveBubbleCanvas, BubbleCanvasDefaultProps } from '@nivo/circle-packing'
+import { ResponsiveBubbleCanvas, BubbleCanvasDefaultProps } from '@bitbloom/nivo-circle-packing'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bubble/meta.yml'
 import mapper from '../../data/components/bubble/mapper'

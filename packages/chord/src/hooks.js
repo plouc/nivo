@@ -7,8 +7,8 @@
  * file that was distributed with this source code.
  */
 import { useMemo, useState } from 'react'
-import { useValueFormatter, getLabelGenerator } from '@nivo/core'
-import { useOrdinalColorScale } from '@nivo/colors'
+import { useValueFormatter, getLabelGenerator } from '@bitbloom/nivo-core'
+import { useOrdinalColorScale } from '@bitbloom/nivo-colors'
 import { computeChordLayout, computeChordGenerators, computeChordArcsAndRibbons } from './compute'
 
 export const useChordLayout = ({ padAngle }) =>

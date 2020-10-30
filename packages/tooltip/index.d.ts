@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 import * as React from 'react'
-import { Theme } from '@nivo/core'
+import { Theme } from '@bitbloom/nivo-core'
 
-declare module '@nivo/tooltip' {
+declare module '@bitbloom/nivo-tooltip' {
     export interface BasicTooltipProps {
         id: React.ReactNode
         value?: string | number

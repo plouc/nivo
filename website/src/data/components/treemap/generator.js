@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { generateLibTree } from '@nivo/generators'
+import { generateLibTree } from '@bitbloom/nivo-generators'
 import range from 'lodash/range'
 import random from 'lodash/random'
 

@@ -14,11 +14,11 @@ import {
     useTheme,
     SvgWrapper,
     CartesianMarkers,
-} from '@nivo/core'
-import { useInheritedColor } from '@nivo/colors'
-import { Axes, Grid } from '@nivo/axes'
-import { BoxLegendSvg } from '@nivo/legends'
-import { Crosshair } from '@nivo/tooltip'
+} from '@bitbloom/nivo-core'
+import { useInheritedColor } from '@bitbloom/nivo-colors'
+import { Axes, Grid } from '@bitbloom/nivo-axes'
+import { BoxLegendSvg } from '@bitbloom/nivo-legends'
+import { Crosshair } from '@bitbloom/nivo-tooltip'
 import { useLine } from './hooks'
 import { LinePropTypes, LineDefaultProps } from './props'
 import Areas from './Areas'

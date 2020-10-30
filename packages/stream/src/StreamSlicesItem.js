@@ -8,8 +8,8 @@
  */
 import React, { memo, useCallback, useMemo, useState } from 'react'
 import PropTypes from 'prop-types'
-import { TableTooltip, Chip } from '@nivo/tooltip'
-import { useTooltip } from '@nivo/tooltip'
+import { TableTooltip, Chip } from '@bitbloom/nivo-tooltip'
+import { useTooltip } from '@bitbloom/nivo-tooltip'
 
 const StreamSlicesItem = ({ slice, height, getTooltipLabel, getTooltipValue }) => {
     const [isHover, setIsHover] = useState(false)

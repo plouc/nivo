@@ -13,8 +13,8 @@ import { TransitionMotion, spring } from 'react-motion'
 import compose from 'recompose/compose'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
-import { motionPropTypes } from '@nivo/core'
-import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
+import { motionPropTypes } from '@bitbloom/nivo-core'
+import { interpolateColor, getInterpolatedColor } from '@bitbloom/nivo-colors'
 import { computeRects } from './compute'
 
 class BulletRects extends Component {

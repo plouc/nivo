@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { TreeMapDefaultProps } from '@nivo/treemap'
+import { TreeMapDefaultProps } from '@bitbloom/nivo-treemap'
 import { motionProperties, defsProperties, groupProperties } from '../../../lib/componentProperties'
 
 const defaults = TreeMapDefaultProps

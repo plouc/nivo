@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { BubbleDefaultProps as defaults } from '@nivo/circle-packing'
+import { BubbleDefaultProps as defaults } from '@bitbloom/nivo-circle-packing'
 import {
     themeProperty,
     motionProperties,

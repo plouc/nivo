@@ -1,6 +1,6 @@
 {
-  "name": "@nivo/colors",
-  "version": "0.62.0",
+  "name": "@bitbloom/nivo-colors",
+  "version": "0.62.2",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -27,6 +27,6 @@
     "react": ">= 16.8.4 < 17.0.0"
   },
   "publishConfig": {
-    "access": "public"
+    "registry": "https://pkgs.dev.azure.com/bitbloom/_packaging/bitbloom-artifacts/npm/registry/"
   }
 }
