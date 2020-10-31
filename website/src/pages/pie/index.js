@@ -113,18 +113,34 @@ const Pie = () => {
             generateData={generateData}
         >
             {(properties, data, theme, logAction) => {
+                const handleArcClick = (slice) => {
+                    logAction({
+                        type: 'click',
+                        label: `[arc] ${slice.label}: ${slice.value}`,
+                        color: slice.color,
+                        data: slice,
+                    })
+                }
+
+                const handleLegendClick = (legendItem) => {
+                    logAction({
+                        type: 'click',
+                        label: `[legend] ${legendItem.label}: ${legendItem.data.value}`,
+                        color: legendItem.color,
+                        data: legendItem,
+                    })
+                }
+
                 return (
                     <ResponsivePie
                         data={data}
                         {...properties}
                         theme={theme}
-                        onClick={slice => {
-                            logAction({
-                                type: 'click',
-                                label: `[arc] ${slice.label}: ${slice.value}`,
-                                data: slice,
-                            })
-                        }}
+                        onClick={handleArcClick}
+                        legends={properties.legends.map(legend => ({
+                            ...legend,
+                            onClick: handleLegendClick
+                        }))}
                     />
                 )
             }}

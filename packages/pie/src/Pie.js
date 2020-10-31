@@ -22,6 +22,7 @@ import PieRadialLabels from './PieRadialLabels'
 import PieSlicesLabels from './PieSlicesLabels'
 import PieLayout from './PieLayout'
 import PieLegends from './PieLegends'
+import { usePie } from './hooks'
 
 export default function Pie(props) {
     const {
@@ -66,7 +67,7 @@ export default function Pie(props) {
         slicesLabelsTextColor,
 
         // styling
-        theme: _theme,
+        theme: partialTheme,
         defs,
         fill,
 
@@ -82,7 +83,7 @@ export default function Pie(props) {
         role,
     } = props
 
-    const theme = usePartialTheme(_theme)
+    const theme = usePartialTheme(partialTheme)
 
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
         _width,

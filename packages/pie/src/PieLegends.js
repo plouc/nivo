@@ -17,12 +17,17 @@ export default function PieLegends(props) {
 
     const data = React.useMemo(
         () =>
-            arcs.map(({ color, data: { id, label }, fill }) => ({
-                id: id,
-                label: label || id,
-                color,
-                fill,
-            })),
+            arcs.map(({ color, data, fill }) => {
+                const { id, label } = data
+
+                return {
+                    id: id,
+                    label: label || id,
+                    color,
+                    fill,
+                    data,
+                }
+            }),
         [arcs]
     )
 
