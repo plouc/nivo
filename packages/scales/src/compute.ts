@@ -85,8 +85,8 @@ export const computeScale = (spec: ScaleOptions, xy: any, width: number, height:
         return timeScale(spec, xy, width, height)
     } else if (spec.type === 'log') {
         return logScale(spec, xy, width, height)
-    // } else if (spec.type === 'symlog') {
-    //     return symlogScale(spec, xy, width, height)
+        // } else if (spec.type === 'symlog') {
+        //     return symlogScale(spec, xy, width, height)
     } else {
         throw new Error(`Invalid scale type`)
     }
