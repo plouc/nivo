@@ -80,7 +80,7 @@ const props = [
     },
     {
         key: 'startAngle',
-        help: 'Start angle, useful to make gauges for example.',
+        help: 'Start angle (in degrees), useful to make gauges for example.',
         type: 'number',
         required: false,
         defaultValue: defaults.startAngle,
@@ -95,7 +95,7 @@ const props = [
     },
     {
         key: 'endAngle',
-        help: 'End angle, useful to make gauges for example.',
+        help: 'End angle (in degrees), useful to make gauges for example.',
         type: 'number',
         required: false,
         defaultValue: defaults.endAngle,
