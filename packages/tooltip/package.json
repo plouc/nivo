@@ -7,7 +7,7 @@
     "url": "https://github.com/plouc"
   },
   "main": "./dist/nivo-tooltip.cjs.js",
-  "module": "./dist/nivo-tooltip.esm.js",
+  "module": "./dist/nivo-tooltip.es.js",
   "typings": "./dist/index.d.ts",
   "files": [
     "README.md",
