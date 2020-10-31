@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { Defs, patternSquaresDef, PatternSquares } from '@nivo/core'
+import { Defs, patternSquaresDef, patternSquaresDefaults } from '@nivo/core'
 import GuideDemoBlock from '../GuideDemoBlock'
 
 const SAMPLE_SIZE = 120
@@ -18,7 +18,7 @@ const controls = [
         name: 'size',
         type: 'number',
         help: 'squares size.',
-        defaultValue: PatternSquares.defaultProps.size,
+        defaultValue: patternSquaresDefaults.size,
         controlType: 'range',
         controlOptions: {
             unit: 'px',
@@ -30,7 +30,7 @@ const controls = [
         name: 'padding',
         type: 'number',
         help: 'padding between squares.',
-        defaultValue: PatternSquares.defaultProps.padding,
+        defaultValue: patternSquaresDefaults.padding,
         controlType: 'range',
         controlOptions: {
             unit: 'px',
@@ -42,31 +42,27 @@ const controls = [
         name: 'stagger',
         type: 'boolean',
         help: 'staggered squares.',
-        defaultValue: PatternSquares.defaultProps.stagger,
+        defaultValue: patternSquaresDefaults.stagger,
         controlType: 'switch',
     },
     {
         name: 'background',
         type: 'string',
         help: 'pattern background color.',
-        defaultValue: PatternSquares.defaultProps.background,
+        defaultValue: patternSquaresDefaults.background,
         controlType: 'colorPicker',
     },
     {
         name: 'color',
         type: 'string',
         help: 'squares color.',
-        defaultValue: PatternSquares.defaultProps.color,
+        defaultValue: patternSquaresDefaults.color,
         controlType: 'colorPicker',
     },
 ]
 
 const initialSettings = {
-    size: PatternSquares.defaultProps.size,
-    padding: PatternSquares.defaultProps.padding,
-    stagger: PatternSquares.defaultProps.stagger,
-    background: PatternSquares.defaultProps.background,
-    color: PatternSquares.defaultProps.color,
+    ...patternSquaresDefaults,
 }
 
 const generateCode = settings =>

@@ -1,6 +1,5 @@
 {
   "name": "nivo",
-  "version": "0.52.0",
   "private": true,
   "licenses": [
     {
@@ -33,8 +32,10 @@
     "@storybook/theming": "^6.0.26",
     "@types/lodash": "^4.14.149",
     "@types/react": "^16.9.16",
+    "@typescript-eslint/eslint-plugin": "^3.4.0",
+    "@typescript-eslint/parser": "^3.4.0",
     "babel-eslint": "^10.1.0",
-    "babel-jest": "^24.9.0",
+    "babel-jest": "^26.6.1",
     "babel-loader": "^8.1.0",
     "babel-plugin-lodash": "^3.3.4",
     "babel-preset-react-app": "^9.1.2",
@@ -44,9 +45,10 @@
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "eslint": "^7.3.0",
+    "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-react": "^7.20.0",
     "gh-pages": "^1.0.0",
-    "jest": "^26.0.1",
+    "jest": "^26.6.1",
     "jsdom": "^16.2.2",
     "lerna": "^3.22.1",
     "lodash": "^4.17.15",
@@ -63,15 +65,17 @@
     "rollup-plugin-strip-banner": "^2.0.0",
     "rollup-plugin-typescript2": "^0.27.1",
     "serve": "^11.2.0",
-    "tslint": "^6.1.2",
     "typescript": "^3.9.5"
   },
   "resolutions": {
+    "upath": "1.1.0",
     "react": "16.8.6",
     "react-dom": "16.8.6"
   },
   "scripts": {
+    "build": "tsc -b ./tsconfig.monorepo.json",
     "changelog": "rm CHANGELOG.md && node scripts/generate-changelog.js",
+    "clean:packages": "yarn workspaces run clean",
     "make:init": "make init"
   },
   "workspaces": [

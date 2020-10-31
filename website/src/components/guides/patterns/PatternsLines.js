@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { Defs, PatternLines, patternLinesDef } from '@nivo/core'
+import { Defs, patternLinesDef, patternLinesDefaults } from '@nivo/core'
 import GuideDemoBlock from '../GuideDemoBlock'
 
 const SAMPLE_SIZE = 120
@@ -18,7 +18,7 @@ const controls = [
         name: 'spacing',
         type: 'number',
         help: 'spacing between lines.',
-        defaultValue: PatternLines.defaultProps.spacing,
+        defaultValue: patternLinesDefaults.spacing,
         controlType: 'range',
         controlOptions: {
             min: 0,
@@ -29,7 +29,7 @@ const controls = [
         name: 'rotation',
         type: 'number',
         help: 'lines rotation.',
-        defaultValue: PatternLines.defaultProps.rotation,
+        defaultValue: patternLinesDefaults.rotation,
         controlType: 'angle',
         controlOptions: {
             start: 90,
@@ -41,7 +41,7 @@ const controls = [
         name: 'lineWidth',
         type: 'number',
         help: 'lines thickness.',
-        defaultValue: PatternLines.defaultProps.lineWidth,
+        defaultValue: patternLinesDefaults.lineWidth,
         controlType: 'lineWidth',
         controlOptions: {
             min: 1,
@@ -51,24 +51,20 @@ const controls = [
         name: 'background',
         type: 'string',
         help: 'pattern background color.',
-        defaultValue: PatternLines.defaultProps.background,
+        defaultValue: patternLinesDefaults.background,
         controlType: 'colorPicker',
     },
     {
         name: 'color',
         type: 'string',
         help: 'lines color.',
-        defaultValue: PatternLines.defaultProps.color,
+        defaultValue: patternLinesDefaults.color,
         controlType: 'colorPicker',
     },
 ]
 
 const initialSettings = {
-    spacing: PatternLines.defaultProps.spacing,
-    rotation: PatternLines.defaultProps.rotation,
-    lineWidth: PatternLines.defaultProps.lineWidth,
-    background: PatternLines.defaultProps.background,
-    color: PatternLines.defaultProps.color,
+    ...patternLinesDefaults,
 }
 
 const generateCode = settings =>

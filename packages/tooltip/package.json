@@ -8,18 +8,25 @@
   },
   "main": "./dist/nivo-tooltip.cjs.js",
   "module": "./dist/nivo-tooltip.es.js",
+  "typings": "./dist/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
-    "index.d.ts",
     "dist/"
   ],
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist tsconfig.tsbuildinfo"
+  },
   "dependencies": {
     "react-spring": "^8.0.27"
   },
+  "devDependencies": {
+    "@nivo/core": "*"
+  },
   "peerDependencies": {
     "@nivo/core": "0.63.1",
-    "prop-types": ">= 15.5.10 < 16.0.0"
+    "react": ">= 16.8.4 < 17.0.0"
   },
   "publishConfig": {
     "access": "public"

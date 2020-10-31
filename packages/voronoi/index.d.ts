@@ -18,7 +18,7 @@ declare module '@nivo/voronoi' {
         xDomain?: VoronoiDomain
         yDomain?: VoronoiDomain
 
-        layers?: ('links' | 'cells' | 'points' | 'bounds' | VoronoiCustomLayer)[]
+        layers?: Array<'links' | 'cells' | 'points' | 'bounds' | VoronoiCustomLayer>
 
         theme?: Theme
 

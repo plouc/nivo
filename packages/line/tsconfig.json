@@ -1,0 +1,18 @@
+{
+    "extends": "../../tsconfig.base",
+    "include": ["src/**/*"],
+    "compilerOptions": {
+        "outDir": "./dist",
+        "rootDir": "./src"
+    },
+    "references": [
+        { "path": "../annotations" },
+        { "path": "../axes" },
+        { "path": "../colors" },
+        { "path": "../core" },
+        { "path": "../legends" },
+        { "path": "../scales" },
+        { "path": "../tooltip" },
+        { "path": "../voronoi" }
+    ]
+}

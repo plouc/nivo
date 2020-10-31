@@ -12,6 +12,7 @@ import isArray from 'lodash/isArray'
 import isString from 'lodash/isString'
 import isNumber from 'lodash/isNumber'
 import isBoolean from 'lodash/isBoolean'
+import isEqual from 'lodash/isEqual'
 import dedent from 'dedent-js'
 
 const indent = (content, spaces = 8) =>
@@ -53,7 +54,7 @@ const generate = (
 
     forOwn(props, (_value, key) => {
         if (_value === undefined) return
-        if (defaults && defaults[key] === _value) return
+        if (defaults && isEqual(defaults[key], _value)) return
         if (key === 'theme') return
 
         let value
@@ -84,11 +85,8 @@ const generate = (
     if (name.indexOf('Responsive') === 0) {
         responsiveWarning = [
             ``,
-            `// make sure parent container have a defined height when using`,
-            `// responsive component, otherwise height will be 0 and`,
-            `// no chart will be rendered.`,
-            `// website examples showcase many properties,`,
-            `// you'll often use just a few of them.`,
+            `// make sure parent container have a defined height when using responsive`,
+            `// component, otherwise height will be 0 and no chart will be rendered.`,
         ].join('\n')
     }
 

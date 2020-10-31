@@ -23,8 +23,6 @@ import { Scale, ScaleFunc } from '@nivo/scales'
 import { AxisProps, GridValues } from '@nivo/axes'
 import { CrosshairType } from '@nivo/tooltip'
 
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
-
 declare module '@nivo/line' {
     export type DatumValue = CoreDatumValue
 

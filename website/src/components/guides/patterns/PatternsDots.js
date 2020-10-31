@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { Defs, patternDotsDef, PatternDots } from '@nivo/core'
+import { Defs, patternDotsDef, patternDotsDefaults } from '@nivo/core'
 import GuideDemoBlock from '../GuideDemoBlock'
 
 const SAMPLE_SIZE = 120
@@ -19,7 +19,7 @@ const controls = [
         type: 'number',
         help: 'dots size.',
         controlType: 'range',
-        defaultValue: PatternDots.defaultProps.size,
+        defaultValue: patternDotsDefaults.size,
         controlOptions: {
             unit: 'px',
             min: 1,
@@ -31,7 +31,7 @@ const controls = [
         type: 'number',
         help: 'padding between dots.',
         controlType: 'range',
-        defaultValue: PatternDots.defaultProps.padding,
+        defaultValue: patternDotsDefaults.padding,
         controlOptions: {
             unit: 'px',
             min: 0,
@@ -42,31 +42,27 @@ const controls = [
         name: 'stagger',
         type: 'boolean',
         help: 'staggered dots.',
-        defaultValue: PatternDots.defaultProps.stagger,
+        defaultValue: patternDotsDefaults.stagger,
         controlType: 'switch',
     },
     {
         name: 'background',
         type: 'string',
         help: 'pattern background color.',
-        defaultValue: PatternDots.defaultProps.background,
+        defaultValue: patternDotsDefaults.background,
         controlType: 'colorPicker',
     },
     {
         name: 'color',
         type: 'string',
         help: 'dots color.',
-        defaultValue: PatternDots.defaultProps.color,
+        defaultValue: patternDotsDefaults.color,
         controlType: 'colorPicker',
     },
 ]
 
 const initialSettings = {
-    size: PatternDots.defaultProps.size,
-    padding: PatternDots.defaultProps.padding,
-    stagger: PatternDots.defaultProps.stagger,
-    background: PatternDots.defaultProps.background,
-    color: PatternDots.defaultProps.color,
+    ...patternDotsDefaults,
 }
 
 const generateCode = settings =>

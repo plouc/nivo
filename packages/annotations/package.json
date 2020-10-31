@@ -15,10 +15,10 @@
   ],
   "main": "./dist/nivo-annotations.cjs.js",
   "module": "./dist/nivo-annotations.es.js",
+  "typings": "./dist/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
-    "index.d.ts",
     "dist/"
   ],
   "dependencies": {
@@ -28,7 +28,6 @@
   },
   "peerDependencies": {
     "@nivo/core": "0.63.1",
-    "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.8.4 < 17.0.0"
   },
   "publishConfig": {

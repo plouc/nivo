@@ -14,6 +14,7 @@
   },
   "main": "./dist/nivo-generators.cjs.js",
   "module": "./dist/nivo-generators.es.js",
+  "typings": "./dist/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
