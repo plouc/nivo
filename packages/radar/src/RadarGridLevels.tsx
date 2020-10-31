@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { SVGAttributes, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { lineRadial, curveLinearClosed } from 'd3-shape'
 import { animated, useSpring } from 'react-spring'
 import { useTheme, useAnimatedPath, useMotionConfig } from '@nivo/core'
@@ -19,7 +19,7 @@ export interface RadarGridLevelsProps {
     dataLength: number
 }
 
-const RadarGridLevelCircular = ({ radius }) => {
+const RadarGridLevelCircular = ({ radius }: Pick<RadarGridLevelsProps, 'radius'>) => {
     const theme = useTheme()
     const { animate, config: springConfig } = useMotionConfig()
 
@@ -38,12 +38,16 @@ const RadarGridLevelCircular = ({ radius }) => {
     )
 }
 
-const RadarGridLevelLinear = ({ radius, angleStep, dataLength }) => {
+const RadarGridLevelLinear = ({
+    radius,
+    angleStep,
+    dataLength,
+}: Omit<RadarGridLevelsProps, 'shape'>) => {
     const theme = useTheme()
 
     const radarLineGenerator = useMemo(
         () =>
-            lineRadial()
+            lineRadial<number>()
                 .angle(i => i * angleStep)
                 .radius(radius)
                 .curve(curveLinearClosed),

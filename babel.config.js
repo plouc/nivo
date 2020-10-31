@@ -1,8 +1,3 @@
 module.exports = {
-    env: {
-        test: {
-            presets:['@babel/typescript']
-        }
-    },
-    presets: ['react-app'],
+    presets: [['react-app', { typescript: true }]],
 }

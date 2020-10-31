@@ -10,6 +10,7 @@ parserOptions:
 env:
   browser: true
   es6:     true
+  node:    true
 
 globals:
   global: true

@@ -8,6 +8,7 @@
   },
   "main": "./dist/nivo-colors.cjs.js",
   "module": "./dist/nivo-colors.es.js",
+  "typings": "./dist/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
@@ -15,6 +16,7 @@
     "dist/"
   ],
   "scripts": {
+    "build": "tsc",
     "clean": "rm -rf dist tsconfig.tsbuildinfo"
   },
   "dependencies": {

@@ -32,4 +32,5 @@ jobs:
             */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
       - run: make init
-      - run: make test
+      - run: make fmt-check
+      - run: make packages-lint

@@ -59,12 +59,15 @@ export const RadarGrid = ({
                     />
                 )
             })}
-            <RadarGridLevels
-                shape={shape}
-                radii={radii}
-                angleStep={angleStep}
-                dataLength={slices.length}
-            />
+            {radii.map((radius, i) => (
+                <RadarGridLevels
+                    key={`level.${i}`}
+                    shape={shape}
+                    radius={radius}
+                    angleStep={angleStep}
+                    dataLength={slices.length}
+                />
+            ))}
             <RadarGridLabels
                 slices={slices}
                 radius={radius}
