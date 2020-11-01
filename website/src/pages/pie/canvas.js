@@ -29,6 +29,8 @@ const initialProperties = {
         left: 80,
     },
 
+    valueFormat: { format: '', enabled: false },
+
     pixelRatio:
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
 

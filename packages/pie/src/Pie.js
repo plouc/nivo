@@ -37,10 +37,9 @@ const Pie = ({
     innerRadius: innerRadiusRatio,
     cornerRadius,
 
-    // dimensions
-    margin: _margin,
-    width: _width,
-    height: _height,
+    width,
+    height,
+    margin: partialMargin,
 
     colors,
 
@@ -84,9 +83,9 @@ const Pie = ({
     const theme = useTheme()
 
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
-        _width,
-        _height,
-        _margin
+        width,
+        height,
+        partialMargin
     )
 
     const normalizedData = useNormalizedData({

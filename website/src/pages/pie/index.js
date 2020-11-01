@@ -85,9 +85,6 @@ const initialProperties = {
             itemTextColor: '#999',
             symbolSize: 18,
             symbolShape: 'circle',
-            onClick: d => {
-                alert(JSON.stringify(d, null, '    '))
-            },
             effects: [
                 {
                     on: 'hover',

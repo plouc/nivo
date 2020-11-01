@@ -15,24 +15,13 @@ import { arcPropType } from './props'
 export default function PieLegends(props) {
     const { width, height, legends, theme, arcs } = props
 
-    const data = React.useMemo(
-        () =>
-            arcs.map(arc => {
-                return {
-                    ...arc,
-                    label: arc.label || arc.id,
-                }
-            }),
-        [arcs]
-    )
-
     return legends.map((legend, i) => (
         <BoxLegendSvg
             key={i}
             {...legend}
             containerWidth={width}
             containerHeight={height}
-            data={data}
+            data={arcs}
             theme={theme}
         />
     ))
