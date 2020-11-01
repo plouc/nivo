@@ -40,10 +40,12 @@ export const useNormalizedData = ({
     return useMemo(
         () =>
             data.map(datum => {
+                const datumId = getId(datum)
                 const datumValue = getValue(datum)
 
                 const normalizedDatum = {
-                    id: getId(datum),
+                    id: datumId,
+                    label: datum.label || datumId,
                     value: datumValue,
                     formattedValue: formatValue(datumValue),
                     data: datum,
