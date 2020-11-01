@@ -8,7 +8,8 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { BasicTooltip } from '@nivo/tooltip'
+import { BasicTooltip, useTooltip } from '@nivo/tooltip'
+import { arcPropType } from './props'
 
 const PieSlice = ({
     data,
@@ -17,24 +18,21 @@ const PieSlice = ({
     fill,
     borderWidth,
     borderColor,
-    showTooltip,
-    hideTooltip,
     onClick,
     onMouseEnter,
     onMouseLeave,
     tooltipFormat,
     tooltip,
-
-    theme,
 }) => {
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
+
     const handleTooltip = e =>
-        showTooltip(
+        showTooltipFromEvent(
             <BasicTooltip
                 id={data.label || data.id}
-                value={data.value}
-                enableChip={true}
+                value={data.formattedValue}
+                enableChip
                 color={color}
-                theme={theme}
                 format={tooltipFormat}
                 renderContent={
                     typeof tooltip === 'function' ? tooltip.bind(null, { color, ...data }) : null
@@ -67,11 +65,7 @@ const PieSlice = ({
 }
 
 PieSlice.propTypes = {
-    data: PropTypes.shape({
-        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-        label: PropTypes.string,
-        value: PropTypes.number.isRequired,
-    }).isRequired,
+    data: arcPropType.isRequired,
 
     path: PropTypes.string.isRequired,
     color: PropTypes.string.isRequired,
@@ -81,15 +75,9 @@ PieSlice.propTypes = {
 
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
     tooltip: PropTypes.func,
-    showTooltip: PropTypes.func.isRequired,
-    hideTooltip: PropTypes.func.isRequired,
     onClick: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
-
-    theme: PropTypes.shape({
-        tooltip: PropTypes.shape({}).isRequired,
-    }).isRequired,
 }
 
 export default PieSlice
