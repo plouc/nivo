@@ -15,7 +15,7 @@ import {
     useTheme,
     useDimensions,
 } from '@nivo/core'
-import { getInheritedColorGenerator } from '@nivo/colors'
+import { getInheritedColorGenerator, useInheritedColor } from '@nivo/colors'
 import { PieSvgDefaultProps, PieSvgPropTypes } from './props'
 import PieSlice from './PieSlice'
 import PieRadialLabels from './PieRadialLabels'
@@ -113,7 +113,7 @@ const Pie = ({
 
     const getSliceLabel = useMemo(() => getLabelGenerator(sliceLabel), [sliceLabel])
 
-    const borderColor = getInheritedColorGenerator(_borderColor, theme)
+    const borderColor = useInheritedColor(_borderColor, theme)
 
     const boundDefs = bindDefs(defs, dataWithArc, fill)
 

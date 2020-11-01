@@ -81,7 +81,6 @@ export const PiePropTypes = {
                 .isRequired,
         })
     ).isRequired,
-    //boundDefs: PropTypes.array.isRequired, // computed
 
     // interactivity
     isInteractive: PropTypes.bool,

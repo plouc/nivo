@@ -9,8 +9,10 @@
 import React, { useEffect, useRef } from 'react'
 import { useDimensions, useTheme, withContainer } from '@nivo/core'
 import { renderLegendToCanvas } from '@nivo/legends'
+import { useInheritedColor } from '@nivo/colors'
 import { PieSvgDefaultProps, PieSvgPropTypes } from './props'
 import { useNormalizedData, usePieFromBox } from './hooks'
+import { drawSliceLabels, drawRadialLabels } from './canvas'
 
 const PieCanvas = ({
     data,
@@ -29,6 +31,8 @@ const PieCanvas = ({
     innerRadius: innerRadiusRatio,
     cornerRadius,
     colors,
+    borderColor,
+    borderWidth,
     legends,
     isInteractive,
 }) => {
@@ -62,6 +66,8 @@ const PieCanvas = ({
         cornerRadius,
     })
 
+    const getBorderColor = useInheritedColor(borderColor, theme)
+
     useEffect(() => {
         canvasEl.current.width = outerWidth * pixelRatio
         canvasEl.current.height = outerHeight * pixelRatio
@@ -84,15 +90,22 @@ const PieCanvas = ({
         dataWithArc.forEach(arc => {
             ctx.beginPath()
             ctx.fillStyle = arc.color
-            //this.ctx.strokeStyle = getBorderColor({ ...arc.data, color: arc.color })
-            //this.ctx.lineWidth = borderWidth
+
+            ctx.strokeStyle = getBorderColor(arc)
+            ctx.lineWidth = borderWidth
+
             arcGenerator(arc.arc)
+            
             ctx.fill()
-            //if (borderWidth > 0) this.ctx.stroke()
+
+            if (borderWidth > 0) {
+                ctx.stroke()
+            }
         })
 
+        // legends assume a box rather than a center,
+        // that's why we restore previously saved position here.
         ctx.restore()
-
         legends.forEach(legend => {
             renderLegendToCanvas(ctx, {
                 ...legend,
@@ -117,6 +130,7 @@ const PieCanvas = ({
         dataWithArc,
         legends,
         theme,
+        getBorderColor,
     ])
 
     return (
