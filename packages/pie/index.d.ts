@@ -1,35 +1,50 @@
 import * as React from 'react'
-import { Box, Dimensions, Theme, MotionProps, ColorProps, SvgDefsAndFill } from '@nivo/core'
+import { Box, Dimensions, Theme, MotionProps, SvgDefsAndFill } from '@nivo/core'
 import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 
 declare module '@nivo/pie' {
-    export interface PieDatum {
-        id: string | number
-        value: number
+    export type DatumId = string | number
+    export type DatumValue = number
+    export type DatumFormattedValue = string | number
+
+    export interface DefaultRawDatum {
+        id: DatumId
+        value: DatumValue
         [key: string]: string | number
     }
 
-    export type PieDatumWithColor = PieDatum & {
+    export interface Datum<R = DefaultRawDatum> {
+        id: DatumId
+        value: DatumValue
+        formattedValue: DatumFormattedValue
+        data: R
+    }
+
+    export type DatumIdAccessorFunction = (datum: any) => DatumId
+    export type DatumValueAccessorFunction = (datum: any) => DatumValue
+    export type ValueFormatter = (value: number) => string | number
+
+    export interface Data {
+        data: Datum[]
+        id?: string | DatumIdAccessorFunction
+        value?: string | DatumValueAccessorFunction
+    }
+
+    export type DatumWithColor = Datum & {
         color: string
     }
 
-    export type PieTooltip = PieDatumWithColor & {
+    export type PieTooltip = DatumWithColor & {
         label: string | number
     }
 
-    export type AccessorFunc = (datum: PieDatum) => string
+    export type AccessorFunc = (datum: Datum) => string
 
-    export type ValueFormatter = (value: number) => string | number
-
-    export type PieMouseEventHandler<T = HTMLCanvasElement> = (
-        datum: PieDatum,
+    export type MouseEventHandler<T = HTMLCanvasElement> = (
+        datum: Datum,
         event: React.MouseEvent<T>
     ) => void
-
-    export interface Data {
-        data: PieDatum[]
-    }
 
     export type CommonPieProps = MotionProps &
         Partial<{
@@ -44,28 +59,28 @@ declare module '@nivo/pie' {
 
             // border
             // styling
-            colors: OrdinalColorsInstruction<PieDatum>
+            colors: OrdinalColorsInstruction<Datum>
             theme: Theme
             borderWidth: number
-            borderColor: InheritedColorProp<PieDatum>
+            borderColor: InheritedColorProp<Datum>
 
             // radial labels
             enableRadialLabels: boolean
             radialLabel: string | AccessorFunc
             radialLabelsSkipAngle: number
             radialLabelsTextXOffset: number
-            radialLabelsTextColor: InheritedColorProp<PieDatumWithColor>
+            radialLabelsTextColor: InheritedColorProp<DatumWithColor>
             radialLabelsLinkOffset: number
             radialLabelsLinkDiagonalLength: number
             radialLabelsLinkHorizontalLength: number
             radialLabelsLinkStrokeWidth: number
-            radialLabelsLinkColor: InheritedColorProp<PieDatumWithColor>
+            radialLabelsLinkColor: InheritedColorProp<DatumWithColor>
 
             // slices labels
             enableSlicesLabels: boolean
             sliceLabel: string | AccessorFunc
             slicesLabelsSkipAngle: number
-            slicesLabelsTextColor: InheritedColorProp<PieDatumWithColor>
+            slicesLabelsTextColor: InheritedColorProp<DatumWithColor>
 
             // interactivity
             isInteractive: boolean
@@ -77,11 +92,11 @@ declare module '@nivo/pie' {
 
     export type PieSvgProps = Data &
         CommonPieProps &
-        SvgDefsAndFill<PieDatum> &
+        SvgDefsAndFill<Datum> &
         Partial<{
-            onClick: PieMouseEventHandler<SVGPathElement>
-            onMouseEnter: PieMouseEventHandler<SVGPathElement>
-            onMouseLeave: PieMouseEventHandler<SVGPathElement>
+            onClick: MouseEventHandler<SVGPathElement>
+            onMouseEnter: MouseEventHandler<SVGPathElement>
+            onMouseLeave: MouseEventHandler<SVGPathElement>
             role: string
         }>
 
@@ -92,9 +107,9 @@ declare module '@nivo/pie' {
         CommonPieProps &
         Partial<{
             pixelRatio: number
-            onClick: PieMouseEventHandler
-            onMouseEnter: PieMouseEventHandler
-            onMouseLeave: PieMouseEventHandler
+            onClick: MouseEventHandler
+            onMouseEnter: MouseEventHandler
+            onMouseLeave: MouseEventHandler
         }>
 
     export class PieCanvas extends React.Component<PieCanvasProps & Dimensions> {}

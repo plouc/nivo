@@ -201,4 +201,7 @@ declare module '@nivo/core' {
     export function PatternDots(props: Omit<PatternDotsDef, 'type'>): JSX.Element
 
     export function Defs(props: DefsProps): JSX.Element
+
+    export function degreesToRadians(degrees: number): number
+    export function radiansToDegrees(radians: number): number
 }

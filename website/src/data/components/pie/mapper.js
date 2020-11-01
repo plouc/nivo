@@ -9,7 +9,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { patternDotsDef, patternLinesDef } from '@nivo/core'
-import { settingsMapper } from '../../../lib/settings'
+import { mapFormat, settingsMapper } from '../../../lib/settings'
 
 const TooltipWrapper = styled.div`
     display: grid;
@@ -36,6 +36,7 @@ const CustomTooltip = data => (
 
 export default settingsMapper(
     {
+        valueFormat: mapFormat,
         colorBy: value => {
             if (value === 'd => d.color') return d => d.color
             return value

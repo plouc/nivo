@@ -29,6 +29,8 @@ const initialProperties = {
         left: 80,
     },
 
+    valueFormat: { format: '', enabled: false },
+
     startAngle: 0,
     endAngle: 360,
     sortByValue: false,
@@ -113,19 +115,19 @@ const Pie = () => {
             generateData={generateData}
         >
             {(properties, data, theme, logAction) => {
-                const handleArcClick = (slice) => {
+                const handleArcClick = slice => {
                     logAction({
                         type: 'click',
-                        label: `[arc] ${slice.label}: ${slice.value}`,
+                        label: `[arc] ${slice.id}: ${slice.formattedValue}`,
                         color: slice.color,
                         data: slice,
                     })
                 }
 
-                const handleLegendClick = (legendItem) => {
+                const handleLegendClick = legendItem => {
                     logAction({
                         type: 'click',
-                        label: `[legend] ${legendItem.label}: ${legendItem.data.value}`,
+                        label: `[legend] ${legendItem.label}: ${legendItem.formattedValue}`,
                         color: legendItem.color,
                         data: legendItem,
                     })
@@ -139,7 +141,7 @@ const Pie = () => {
                         onClick={handleArcClick}
                         legends={properties.legends.map(legend => ({
                             ...legend,
-                            onClick: handleLegendClick
+                            onClick: handleLegendClick,
                         }))}
                     />
                 )
