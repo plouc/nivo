@@ -157,7 +157,6 @@ const Pie = ({
                         textXOffset={radialLabelsTextXOffset}
                         textColor={getInheritedColorGenerator(radialLabelsTextColor, theme)}
                         linkColor={getInheritedColorGenerator(radialLabelsLinkColor, theme)}
-                        theme={theme}
                     />
                 )}
                 {enableSlicesLabels && (
