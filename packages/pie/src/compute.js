@@ -27,9 +27,9 @@ export const computeRadialLabels = (
     }
 ) =>
     arcs
-        .filter(arc => skipAngle === 0 || arc.angleDeg > skipAngle)
+        .filter(arc => skipAngle === 0 || arc.arc.angleDeg > skipAngle)
         .map(arc => {
-            const angle = absoluteAngleRadians(midAngle(arc) - Math.PI / 2)
+            const angle = absoluteAngleRadians(midAngle(arc.arc) - Math.PI / 2)
             const positionA = positionFromAngle(angle, radius + linkOffset)
             const positionB = positionFromAngle(angle, radius + linkOffset + linkDiagonalLength)
 
@@ -58,7 +58,7 @@ export const computeRadialLabels = (
 
             return {
                 arc,
-                text: getLabel(arc.data),
+                text: getLabel(arc),
                 position: labelPosition,
                 align: textAlign,
                 line: [positionA, positionB, positionC],

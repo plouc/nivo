@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { midAngle, positionFromAngle, labelsThemePropType } from '@nivo/core'
 import { arcPropType } from './props'
@@ -37,34 +37,30 @@ export default class PieSlicesLabels extends Component {
 
         const centerRadius = innerRadius + (radius - innerRadius) / 2
 
-        return (
-            <Fragment>
-                {arcs
-                    .filter(arc => skipAngle === 0 || arc.angleDeg > skipAngle)
-                    .map(arc => {
-                        const angle = midAngle(arc) - Math.PI / 2
-                        const position = positionFromAngle(angle, centerRadius)
+        return arcs
+            .filter(arc => skipAngle === 0 || arc.arc.angleDeg > skipAngle)
+            .map(arc => {
+                const angle = midAngle(arc.arc) - Math.PI / 2
+                const position = positionFromAngle(angle, centerRadius)
 
-                        return (
-                            <g
-                                key={arc.data.id}
-                                transform={`translate(${position.x}, ${position.y})`}
-                                style={sliceStyle}
-                            >
-                                <text
-                                    textAnchor="middle"
-                                    dominantBaseline="central"
-                                    style={{
-                                        ...theme.labels.text,
-                                        fill: textColor(arc.data, theme),
-                                    }}
-                                >
-                                    {label(arc.data)}
-                                </text>
-                            </g>
-                        )
-                    })}
-            </Fragment>
-        )
+                return (
+                    <g
+                        key={arc.id}
+                        transform={`translate(${position.x}, ${position.y})`}
+                        style={sliceStyle}
+                    >
+                        <text
+                            textAnchor="middle"
+                            dominantBaseline="central"
+                            style={{
+                                ...theme.labels.text,
+                                fill: textColor(arc, theme),
+                            }}
+                        >
+                            {label(arc)}
+                        </text>
+                    </g>
+                )
+            })
     }
 }

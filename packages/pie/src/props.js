@@ -12,14 +12,16 @@ import { ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
 import { LegendPropShape } from '@nivo/legends'
 
 export const arcPropType = PropTypes.shape({
-    startAngle: PropTypes.number.isRequired,
-    endAngle: PropTypes.number.isRequired,
-    angle: PropTypes.number.isRequired,
-    angleDeg: PropTypes.number.isRequired,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    value: PropTypes.number.isRequired,
+    formattedValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     color: PropTypes.string.isRequired,
-    data: PropTypes.shape({
-        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-        value: PropTypes.number.isRequired,
+    data: PropTypes.object.isRequired,
+    arc: PropTypes.shape({
+        startAngle: PropTypes.number.isRequired,
+        endAngle: PropTypes.number.isRequired,
+        angle: PropTypes.number.isRequired,
+        angleDeg: PropTypes.number.isRequired,
     }).isRequired,
 })
 
@@ -30,6 +32,9 @@ export const PiePropTypes = {
             value: PropTypes.number.isRequired,
         })
     ).isRequired,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    valueFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 
     // layout
     startAngle: PropTypes.number.isRequired,
@@ -91,14 +96,6 @@ export const PiePropTypes = {
 
     // legends
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
-    /*
-    legendData: PropTypes.arrayOf(
-        PropTypes.shape({
-            label: PropTypes.string.isRequired,
-            fill: PropTypes.string.isRequired,
-        })
-    ).isRequired,
-    */
 }
 
 export const PieSvgPropTypes = {
@@ -107,6 +104,8 @@ export const PieSvgPropTypes = {
 }
 
 export const PieDefaultProps = {
+    id: 'id',
+    value: 'value',
     sortByValue: false,
     innerRadius: 0,
     padAngle: 0,

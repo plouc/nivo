@@ -8,9 +8,8 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { arc as d3Arc, pie as d3Pie } from 'd3-shape'
-import { degreesToRadians, radiansToDegrees, computeArcBoundingBox } from '@nivo/core'
-import { getOrdinalColorScale } from '@nivo/colors'
+import { computeArcBoundingBox } from '@nivo/core'
+import { usePieArcs, usePieArcGenerator } from './hooks'
 
 export const PieLayoutDefaultProps = {
     fit: true,
@@ -33,41 +32,18 @@ export default function PieLayout(props) {
         children: render,
         fit,
         cornerRadius,
-        colors,
         sortByValue,
         padAngle,
         data,
     } = props
 
-    const getColor = React.useMemo(() => getOrdinalColorScale(colors, 'id'), [colors])
-
-    const pie = React.useMemo(() => {
-        const pie = d3Pie()
-            .value(d => d.value)
-            .padAngle(degreesToRadians(padAngle))
-            .startAngle(degreesToRadians(startAngle))
-            .endAngle(degreesToRadians(endAngle))
-
-        if (sortByValue !== true) pie.sortValues(null)
-
-        return pie
-    }, [sortByValue, padAngle, startAngle, endAngle])
-
-    const arcs = React.useMemo(
-        () =>
-            pie(data).map(arc => {
-                const angle = Math.abs(arc.endAngle - arc.startAngle)
-
-                return {
-                    ...arc,
-                    angle,
-                    angleDeg: radiansToDegrees(angle),
-                    color: getColor(arc.data),
-                }
-            }),
-
-        [pie, data, getColor]
-    )
+    const dataWithArc = usePieArcs({
+        data,
+        startAngle,
+        endAngle,
+        padAngle,
+        sortByValue,
+    })
 
     const computedProps = React.useMemo(() => {
         let radius = Math.min(width, height) / 2
@@ -103,28 +79,27 @@ export default function PieLayout(props) {
             innerRadius = innerRadius * ratio
         }
 
-        const arcGenerator = d3Arc()
-            .outerRadius(radius)
-            .innerRadius(innerRadius)
-            .cornerRadius(cornerRadius)
-
         return {
             centerX,
             centerY,
             radius,
             innerRadius,
-            arcGenerator,
             debug: boundingBox,
         }
     }, [width, height, _innerRadius, startAngle, endAngle, fit, cornerRadius])
 
+    const arcGenerator = usePieArcGenerator({
+        radius: computedProps.radius,
+        innerRadius: computedProps.innerRadius,
+        cornerRadius,
+    })
+
     return render({
-        arcs,
-        startAngle,
-        endAngle,
+        arcs: dataWithArc,
         width,
         height,
         debug,
+        arcGenerator,
         ...computedProps,
     })
 }

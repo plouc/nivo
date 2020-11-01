@@ -13,18 +13,67 @@ const props = [
     {
         key: 'data',
         group: 'Base',
-        help: 'Chart data.',
+        help: 'Chart data, which should be immutable.',
         description: `
-            Chart data, which must conform to this structure:
+            Chart data, which must conform to this structure
+            if using the default \`id\` and \`value\` accessors:
+            
             \`\`\`
             Array<{
                 id:    string | number,
                 value: number
             }>
             \`\`\`
+            
+            If using a different data structure, you must make sure
+            to adjust both \`id\` and \`value\`. Meaning you can provide
+            a completely different data structure as long as \`id\` and \`value\`
+            return the appropriate values.
+            
+            Immutability of the data is important as re-computations
+            depends on it.
         `,
         type: 'object[]',
         required: true,
+    },
+    {
+        key: 'id',
+        group: 'Base',
+        help: 'ID accessor.',
+        description: `
+            Define how to access the ID of each datum,
+            by default, nivo will look for the \`id\` property.
+        `,
+        type: 'string | (datum: any): string | number',
+        required: false,
+        defaultValue: 'id',
+    },
+    {
+        key: 'value',
+        group: 'Base',
+        help: 'Value accessor.',
+        description: `
+            Define how to access the value of each datum,
+            by default, nivo will look for the \`value\` property.
+        `,
+        type: 'string | (datum: any): number',
+        required: false,
+        defaultValue: 'value',
+    },
+    {
+        key: 'valueFormat',
+        group: 'Base',
+        help: 'Optional formatter for values.',
+        description: `
+            The formatted value can then be used for labels & tooltips.
+            
+            Under the hood, nivo uses [d3-format](https://github.com/d3/d3-format),
+            please have a look at it for available formats, you can also pass a function
+            which will receive the raw value and should return the formatted one.
+        `,
+        required: false,
+        type: 'Function | string',
+        controlType: 'valueFormat',
     },
     {
         key: 'width',

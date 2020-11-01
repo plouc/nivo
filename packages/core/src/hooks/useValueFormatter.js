@@ -20,7 +20,7 @@ export const getValueFormatter = format => {
             return d3TimeFormat(format.slice('5'))
         }
 
-        // standard fromat specifier
+        // standard format specifier
         return d3Format(format)
     }
 
