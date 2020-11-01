@@ -43,7 +43,7 @@ const PieRadialLabels = ({
     })
 
     return labels.map(label => (
-        <Fragment key={label.arc.data.id}>
+        <Fragment key={label.arc.id}>
             <path
                 d={lineGenerator(label.line)}
                 fill="none"
