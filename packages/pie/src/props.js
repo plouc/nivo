@@ -26,12 +26,7 @@ export const arcPropType = PropTypes.shape({
 })
 
 export const PiePropTypes = {
-    data: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-            value: PropTypes.number.isRequired,
-        })
-    ).isRequired,
+    data: PropTypes.arrayOf(PropTypes.object).isRequired,
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     valueFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
