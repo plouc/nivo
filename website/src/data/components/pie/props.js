@@ -446,6 +446,31 @@ const props = [
         group: 'Slices labels',
     },
     {
+        key: 'layers',
+        group: 'Customization',
+        help: 'Defines the order of layers and add custom layers.',
+        description: `
+            You can also use this to insert extra layers
+            to the chart, the extra layer must be a function.
+            
+            The layer function which will receive the chart's
+            context & computed data and must return a valid SVG element
+            for the \`Pie\` component.
+
+            When using the canvas implementation, the function
+            will receive the canvas 2d context as first argument
+            and the chart's context and computed data as second.
+
+            Please make sure to use \`context.save()\` and
+            \`context.restore()\` if you make some global
+            modifications to the 2d context inside this function
+            to avoid side effects.
+        `,
+        required: false,
+        type: 'Array<string | Function>',
+        defaultValue: defaults.layers,
+    },
+    {
         key: 'isInteractive',
         flavors: ['svg', 'canvas'],
         group: 'Interactivity',
