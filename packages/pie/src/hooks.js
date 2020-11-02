@@ -14,8 +14,12 @@ import {
     radiansToDegrees,
     useValueFormatter,
     computeArcBoundingBox,
+    useTheme,
+    positionFromAngle,
+    midAngle,
+    getLabelGenerator,
 } from '@nivo/core'
-import { getOrdinalColorScale } from '@nivo/colors'
+import { getOrdinalColorScale, useInheritedColor } from '@nivo/colors'
 import { PieDefaultProps } from './props'
 
 /**
@@ -226,6 +230,40 @@ export const usePieFromBox = ({
         arcGenerator,
         ...computedProps,
     }
+}
+
+export const usePieSliceLabels = ({
+    enable,
+    dataWithArc,
+    skipAngle,
+    radius,
+    innerRadius,
+    radiusOffset,
+    label,
+    textColor,
+}) => {
+    const theme = useTheme()
+    const getTextColor = useInheritedColor(textColor, theme)
+
+    const getLabel = useMemo(() => getLabelGenerator(label), [label])
+
+    if (!enable) return []
+
+    return dataWithArc
+        .filter(datumWithArc => skipAngle === 0 || datumWithArc.arc.angleDeg > skipAngle)
+        .map(datumWithArc => {
+            const angle = midAngle(datumWithArc.arc) - Math.PI / 2
+            const labelRadius = innerRadius + (radius - innerRadius) * radiusOffset
+            const position = positionFromAngle(angle, labelRadius)
+            const datumTextColor = getTextColor(datumWithArc)
+
+            return {
+                ...position,
+                label: getLabel(datumWithArc),
+                textColor: datumTextColor,
+                datum: datumWithArc,
+            }
+        })
 }
 
 /**

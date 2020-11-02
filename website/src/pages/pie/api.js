@@ -73,10 +73,10 @@ const PieApi = () => {
                     radialLabelsLinkStrokeWidth: 1,
                     radialLabelsLinkColor: { from: 'color' },
 
-                    enableSlicesLabels: true,
+                    enableSliceLabels: true,
                     sliceLabel: 'value',
-                    slicesLabelsSkipAngle: 10,
-                    slicesLabelsTextColor: '#333333',
+                    sliceLabelsSkipAngle: 10,
+                    sliceLabelsTextColor: '#333333',
 
                     data: JSON.stringify(data, null, '  '),
                 }}
