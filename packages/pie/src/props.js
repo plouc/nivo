@@ -11,7 +11,7 @@ import { noop, radiansToDegrees } from '@nivo/core'
 import { ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
 import { LegendPropShape } from '@nivo/legends'
 
-export const arcPropType = PropTypes.shape({
+export const datumWithArcPropType = PropTypes.shape({
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     value: PropTypes.number.isRequired,
     formattedValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,

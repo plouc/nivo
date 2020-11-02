@@ -95,7 +95,7 @@ const PieCanvas = ({
             ctx.lineWidth = borderWidth
 
             arcGenerator(arc.arc)
-            
+
             ctx.fill()
 
             if (borderWidth > 0) {

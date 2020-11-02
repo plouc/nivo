@@ -9,10 +9,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { BasicTooltip, useTooltip } from '@nivo/tooltip'
-import { arcPropType } from './props'
+import { datumWithArcPropType } from './props'
 
 const PieSlice = ({
-    data,
+    datum,
     path,
     color,
     fill,
@@ -29,29 +29,29 @@ const PieSlice = ({
     const handleTooltip = e =>
         showTooltipFromEvent(
             <BasicTooltip
-                id={data.label || data.id}
-                value={data.formattedValue}
+                id={datum.label || datum.id}
+                value={datum.formattedValue}
                 enableChip
                 color={color}
                 format={tooltipFormat}
                 renderContent={
-                    typeof tooltip === 'function' ? tooltip.bind(null, { color, ...data }) : null
+                    typeof tooltip === 'function' ? tooltip.bind(null, { color, ...datum }) : null
                 }
             />,
             e
         )
     const handleMouseEnter = e => {
-        onMouseEnter(data, e)
+        onMouseEnter(datum, e)
         handleTooltip(e)
     }
     const handleMouseLeave = e => {
-        onMouseLeave(data, e)
+        onMouseLeave(datum, e)
         hideTooltip(e)
     }
 
     return (
         <path
-            key={data.id}
+            key={datum.id}
             d={path}
             fill={fill}
             strokeWidth={borderWidth}
@@ -59,13 +59,13 @@ const PieSlice = ({
             onMouseEnter={handleMouseEnter}
             onMouseMove={handleTooltip}
             onMouseLeave={handleMouseLeave}
-            onClick={() => onClick(data, event)}
+            onClick={() => onClick(datum, event)}
         />
     )
 }
 
 PieSlice.propTypes = {
-    data: arcPropType.isRequired,
+    datum: datumWithArcPropType.isRequired,
 
     path: PropTypes.string.isRequired,
     color: PropTypes.string.isRequired,

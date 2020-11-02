@@ -9,7 +9,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { midAngle, positionFromAngle, labelsThemePropType } from '@nivo/core'
-import { arcPropType } from './props'
+import { datumWithArcPropType } from './props'
 
 const sliceStyle = {
     pointerEvents: 'none',
@@ -17,7 +17,7 @@ const sliceStyle = {
 
 export default class PieSliceLabels extends Component {
     static propTypes = {
-        arcs: PropTypes.arrayOf(arcPropType).isRequired,
+        dataWithArc: PropTypes.arrayOf(datumWithArcPropType).isRequired,
         label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
         skipAngle: PropTypes.number.isRequired,
         radius: PropTypes.number.isRequired,
@@ -33,19 +33,19 @@ export default class PieSliceLabels extends Component {
     }
 
     render() {
-        const { arcs, label, radius, skipAngle, innerRadius, textColor, theme } = this.props
+        const { dataWithArc, label, radius, skipAngle, innerRadius, textColor, theme } = this.props
 
         const centerRadius = innerRadius + (radius - innerRadius) / 2
 
-        return arcs
-            .filter(arc => skipAngle === 0 || arc.arc.angleDeg > skipAngle)
-            .map(arc => {
-                const angle = midAngle(arc.arc) - Math.PI / 2
+        return dataWithArc
+            .filter(datumWithArc => skipAngle === 0 || datumWithArc.arc.angleDeg > skipAngle)
+            .map(datumWithArc => {
+                const angle = midAngle(datumWithArc.arc) - Math.PI / 2
                 const position = positionFromAngle(angle, centerRadius)
 
                 return (
                     <g
-                        key={arc.id}
+                        key={datumWithArc.id}
                         transform={`translate(${position.x}, ${position.y})`}
                         style={sliceStyle}
                     >
@@ -54,10 +54,10 @@ export default class PieSliceLabels extends Component {
                             dominantBaseline="central"
                             style={{
                                 ...theme.labels.text,
-                                fill: textColor(arc, theme),
+                                fill: textColor(datumWithArc, theme),
                             }}
                         >
-                            {label(arc)}
+                            {label(datumWithArc)}
                         </text>
                     </g>
                 )
