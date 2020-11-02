@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
 import { BasicTooltip, useTooltip } from '@nivo/tooltip'
 import { datumWithArcPropType } from './props'
 
-const PieSlice = ({
+export const PieSlice = ({
     datum,
     path,
     color,
@@ -79,5 +79,3 @@ PieSlice.propTypes = {
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
 }
-
-export default PieSlice

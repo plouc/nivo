@@ -17,7 +17,7 @@ import {
 } from '@nivo/core'
 import { getInheritedColorGenerator, useInheritedColor } from '@nivo/colors'
 import { PieSvgDefaultProps, PieSvgPropTypes } from './props'
-import PieSlice from './PieSlice'
+import { PieSlice } from './PieSlice'
 import PieRadialLabels from './PieRadialLabels'
 import { PieSliceLabels } from './PieSliceLabels'
 import PieLegends from './PieLegends'
@@ -73,7 +73,7 @@ const Pie = ({
     fill,
 
     // interactivity
-    isInteractive,
+    // isInteractive,
     onClick,
     onMouseEnter,
     onMouseLeave,

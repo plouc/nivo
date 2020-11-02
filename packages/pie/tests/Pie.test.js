@@ -1,7 +1,8 @@
 import React from 'react'
 import TestRenderer from 'react-test-renderer'
 import Pie from '../src/Pie'
-import PieSlice from '../src/PieSlice'
+import { PieSlice } from '../src/PieSlice'
+import { PieSliceLabels } from '../src/PieSliceLabels'
 
 const sampleData = [
     {
@@ -229,6 +230,96 @@ describe('Pie', () => {
         it('should support patterns', () => {})
 
         it('should support gradients', () => {})
+    })
+
+    describe('sliceLabels', () => {
+        it('should render labels when enabled', () => {
+            const pie = TestRenderer.create(<Pie width={400} height={400} data={sampleData} />)
+            const pieInstance = pie.root
+
+            const wrapper = pieInstance.findByType(PieSliceLabels)
+            const labels = wrapper.findAllByType('g')
+
+            expect(labels).toHaveLength(sampleData.length)
+
+            sampleData.forEach((datum, index) => {
+                const sliceLabel = labels[index]
+
+                const text = sliceLabel.findByType('text')
+                expect(text.props.children).toEqual(datum.value)
+            })
+        })
+
+        it('should allow to disable labels', () => {
+            const pie = TestRenderer.create(
+                <Pie width={400} height={400} data={sampleData} enableSliceLabels={false} />
+            )
+            const pieInstance = pie.root
+
+            expect(pieInstance.findAllByType(PieSliceLabels)).toHaveLength(0)
+        })
+
+        it('should use formattedValue', () => {
+            const pie = TestRenderer.create(
+                <Pie width={400} height={400} data={sampleData} valueFormat=" >-$.2f" />
+            )
+            const pieInstance = pie.root
+
+            const wrapper = pieInstance.findByType(PieSliceLabels)
+            const labels = wrapper.findAllByType('g')
+
+            expect(labels).toHaveLength(sampleData.length)
+
+            sampleData.forEach((datum, index) => {
+                const sliceLabel = labels[index]
+
+                const text = sliceLabel.findByType('text')
+                expect(text.props.children).toEqual(`$${datum.value}.00`)
+            })
+        })
+
+        it('should allow to change the label accessor using a path', () => {
+            const pie = TestRenderer.create(
+                <Pie width={400} height={400} data={sampleData} sliceLabel="id" />
+            )
+            const pieInstance = pie.root
+
+            const wrapper = pieInstance.findByType(PieSliceLabels)
+            const labels = wrapper.findAllByType('g')
+
+            expect(labels).toHaveLength(sampleData.length)
+
+            sampleData.forEach((datum, index) => {
+                const sliceLabel = labels[index]
+
+                const text = sliceLabel.findByType('text')
+                expect(text.props.children).toEqual(datum.id)
+            })
+        })
+
+        it('should allow to change the label accessor using a function', () => {
+            const pie = TestRenderer.create(
+                <Pie
+                    width={400}
+                    height={400}
+                    data={sampleData}
+                    sliceLabel={datum => `${datum.id} - ${datum.value}`}
+                />
+            )
+            const pieInstance = pie.root
+
+            const wrapper = pieInstance.findByType(PieSliceLabels)
+            const labels = wrapper.findAllByType('g')
+
+            expect(labels).toHaveLength(sampleData.length)
+
+            sampleData.forEach((datum, index) => {
+                const sliceLabel = labels[index]
+
+                const text = sliceLabel.findByType('text')
+                expect(text.props.children).toEqual(`${datum.id} - ${datum.value}`)
+            })
+        })
     })
 
     describe('legends', () => {
