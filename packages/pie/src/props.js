@@ -31,6 +31,13 @@ export const PiePropTypes = {
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     valueFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 
+    layers: PropTypes.arrayOf(
+        PropTypes.oneOfType([
+            PropTypes.oneOf(['slices', 'radialLabels', 'sliceLabels', 'legends']),
+            PropTypes.func,
+        ])
+    ).isRequired,
+
     // layout
     startAngle: PropTypes.number.isRequired,
     endAngle: PropTypes.number.isRequired,
@@ -104,6 +111,8 @@ export const PieDefaultProps = {
     innerRadius: 0,
     padAngle: 0,
     cornerRadius: 0,
+
+    layers: ['slices', 'radialLabels', 'sliceLabels', 'legends'],
 
     // layout
     startAngle: 0,

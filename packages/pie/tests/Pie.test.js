@@ -243,6 +243,8 @@ describe('Pie', () => {
         it('should support onMouseMove handler', () => {})
 
         it('should support onMouseLeave handler', () => {})
+
+        it('should allow to completely disable interactivity', () => {})
     })
 
     describe('tooltip', () => {
@@ -252,8 +254,50 @@ describe('Pie', () => {
     })
 
     describe('layers', () => {
-        it('should support disabling a layer', () => {})
+        it('should support disabling a layer', () => {
+            let pie = TestRenderer.create(<Pie width={400} height={400} data={sampleData} />)
+            const pieInstance = pie.root
 
-        it('should support adding a custom layer', () => {})
+            let slices = pieInstance.findAllByType(PieSlice)
+            expect(slices).toHaveLength(3)
+
+            TestRenderer.act(() => {
+                pie.update(
+                    <Pie
+                        width={400}
+                        height={400}
+                        data={sampleData}
+                        layers={['radialLabels', 'sliceLabels', 'legends']}
+                    />
+                )
+            })
+
+            slices = pieInstance.findAllByType(PieSlice)
+            expect(slices).toHaveLength(0)
+        })
+
+        it('should support adding a custom layer', () => {
+            const CustomLayer = () => null
+
+            const pie = TestRenderer.create(
+                <Pie
+                    width={400}
+                    height={400}
+                    data={sampleData}
+                    innerRadius={0.5}
+                    layers={['slices', 'radialLabels', 'sliceLabels', 'legends', CustomLayer]}
+                />
+            )
+            const pieInstance = pie.root
+
+            const customLayer = pieInstance.findByType(CustomLayer)
+
+            expect(customLayer.props.dataWithArc).toHaveLength(3)
+            expect(customLayer.props.centerX).toEqual(200)
+            expect(customLayer.props.centerY).toEqual(200)
+            expect(customLayer.props.arcGenerator).toBeDefined()
+            expect(customLayer.props.radius).toEqual(200)
+            expect(customLayer.props.innerRadius).toEqual(100)
+        })
     })
 })
