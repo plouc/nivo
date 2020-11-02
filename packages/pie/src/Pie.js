@@ -19,7 +19,7 @@ import { getInheritedColorGenerator, useInheritedColor } from '@nivo/colors'
 import { PieSvgDefaultProps, PieSvgPropTypes } from './props'
 import PieSlice from './PieSlice'
 import PieRadialLabels from './PieRadialLabels'
-import PieSliceLabels from './PieSliceLabels'
+import { PieSliceLabels } from './PieSliceLabels'
 import PieLegends from './PieLegends'
 import { useNormalizedData, usePieFromBox, usePieLayerContext } from './hooks'
 
@@ -66,6 +66,7 @@ const Pie = ({
     enableSlicesLabels,
     sliceLabelsSkipAngle,
     sliceLabelsTextColor,
+    sliceLabelsRadiusOffset,
 
     // styling
     defs,
@@ -178,6 +179,7 @@ const Pie = ({
                     innerRadius={innerRadius}
                     theme={theme}
                     label={getSliceLabel}
+                    radiusOffset={sliceLabelsRadiusOffset}
                     skipAngle={sliceLabelsSkipAngle}
                     textColor={getInheritedColorGenerator(sliceLabelsTextColor, theme)}
                 />
