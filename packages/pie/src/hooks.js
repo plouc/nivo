@@ -18,6 +18,8 @@ import {
     positionFromAngle,
     midAngle,
     getLabelGenerator,
+    absoluteAngleRadians,
+    absoluteAngleDegrees,
 } from '@nivo/core'
 import { getOrdinalColorScale, useInheritedColor } from '@nivo/colors'
 import { PieDefaultProps } from './props'
@@ -244,24 +246,86 @@ export const usePieSliceLabels = ({
 }) => {
     const theme = useTheme()
     const getTextColor = useInheritedColor(textColor, theme)
-
     const getLabel = useMemo(() => getLabelGenerator(label), [label])
 
-    if (!enable) return []
+    return useMemo(() => {
+        if (!enable) return []
+
+        return dataWithArc
+            .filter(datumWithArc => skipAngle === 0 || datumWithArc.arc.angleDeg > skipAngle)
+            .map(datumWithArc => {
+                const angle = midAngle(datumWithArc.arc) - Math.PI / 2
+                const labelRadius = innerRadius + (radius - innerRadius) * radiusOffset
+                const position = positionFromAngle(angle, labelRadius)
+                const datumTextColor = getTextColor(datumWithArc)
+
+                return {
+                    ...position,
+                    label: getLabel(datumWithArc),
+                    textColor: datumTextColor,
+                    datum: datumWithArc,
+                }
+            })
+    }, [enable, dataWithArc, skipAngle, radius, innerRadius, radiusOffset, getLabel, getTextColor])
+}
+
+export const usePieRadialLabels = ({
+    enable,
+    dataWithArc,
+    label,
+    textXOffset,
+    textColor,
+    radius,
+    skipAngle,
+    linkOffset,
+    linkDiagonalLength,
+    linkHorizontalLength,
+    linkColor,
+}) => {
+    const getLabel = useMemo(() => getLabelGenerator(label), [label])
+
+    const theme = useTheme()
+    const getTextColor = useInheritedColor(textColor, theme)
+    const getLinkColor = useInheritedColor(linkColor, theme)
 
     return dataWithArc
-        .filter(datumWithArc => skipAngle === 0 || datumWithArc.arc.angleDeg > skipAngle)
-        .map(datumWithArc => {
-            const angle = midAngle(datumWithArc.arc) - Math.PI / 2
-            const labelRadius = innerRadius + (radius - innerRadius) * radiusOffset
-            const position = positionFromAngle(angle, labelRadius)
-            const datumTextColor = getTextColor(datumWithArc)
+        .filter(datum => skipAngle === 0 || datum.arc.angleDeg > skipAngle)
+        .map(datum => {
+            const angle = absoluteAngleRadians(midAngle(datum.arc) - Math.PI / 2)
+            const positionA = positionFromAngle(angle, radius + linkOffset)
+            const positionB = positionFromAngle(angle, radius + linkOffset + linkDiagonalLength)
+
+            let positionC
+            let labelPosition
+            let textAlign
+
+            if (
+                absoluteAngleDegrees(radiansToDegrees(angle)) < 90 ||
+                absoluteAngleDegrees(radiansToDegrees(angle)) >= 270
+            ) {
+                positionC = { x: positionB.x + linkHorizontalLength, y: positionB.y }
+                labelPosition = {
+                    x: positionB.x + linkHorizontalLength + textXOffset,
+                    y: positionB.y,
+                }
+                textAlign = 'left'
+            } else {
+                positionC = { x: positionB.x - linkHorizontalLength, y: positionB.y }
+                labelPosition = {
+                    x: positionB.x - linkHorizontalLength - textXOffset,
+                    y: positionB.y,
+                }
+                textAlign = 'right'
+            }
 
             return {
-                ...position,
-                label: getLabel(datumWithArc),
-                textColor: datumTextColor,
-                datum: datumWithArc,
+                text: getLabel(datum),
+                textColor: getTextColor(datum),
+                position: labelPosition,
+                align: textAlign,
+                line: [positionA, positionB, positionC],
+                linkColor: getLinkColor(datum),
+                datum,
             }
         })
 }
