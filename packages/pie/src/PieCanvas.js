@@ -7,32 +7,96 @@
  * file that was distributed with this source code.
  */
 import React, { useEffect, useRef } from 'react'
-import { useDimensions, useTheme, withContainer } from '@nivo/core'
+import {
+    getHoveredArc,
+    getRelativeCursor,
+    textPropsByEngine,
+    useDimensions,
+    useTheme,
+    withContainer,
+} from '@nivo/core'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useInheritedColor } from '@nivo/colors'
 import { PieSvgDefaultProps, PieSvgPropTypes } from './props'
-import { useNormalizedData, usePieFromBox, usePieSliceLabels } from './hooks'
-import { drawSliceLabels } from './canvas'
+import { useNormalizedData, usePieFromBox, usePieRadialLabels, usePieSliceLabels } from './hooks'
+import PieTooltip from './PieTooltip'
+import { useTooltip } from '@nivo/tooltip'
+
+const drawSliceLabels = (ctx, labels, theme) => {
+    ctx.textAlign = 'center'
+    ctx.textBaseline = 'middle'
+    ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
+
+    labels.forEach(label => {
+        ctx.save()
+        ctx.translate(label.x, label.y)
+        ctx.fillStyle = label.textColor
+        ctx.fillText(label.label, 0, 0)
+        ctx.restore()
+    })
+}
+
+const drawRadialLabels = (ctx, labels, theme, linkStrokeWidth) => {
+    ctx.textBaseline = 'middle'
+    ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
+
+    labels.forEach(label => {
+        ctx.save()
+        ctx.translate(label.position.x, label.position.y)
+        ctx.fillStyle = label.textColor
+        ctx.textAlign = textPropsByEngine.canvas.align[label.align]
+        ctx.fillText(label.text, 0, 0)
+        ctx.restore()
+
+        ctx.beginPath()
+        ctx.strokeStyle = label.linkColor
+        ctx.lineWidth = linkStrokeWidth
+        label.line.forEach((point, index) => {
+            if (index === 0) ctx.moveTo(point.x, point.y)
+            else ctx.lineTo(point.x, point.y)
+        })
+        if (linkStrokeWidth > 0) ctx.stroke()
+    })
+}
 
 const PieCanvas = ({
     data,
     id,
     value,
     valueFormat,
+    sortByValue,
+
+    // layers,
+
+    startAngle,
+    endAngle,
+    padAngle,
+    fit,
+    innerRadius: innerRadiusRatio,
+    cornerRadius,
+
     width,
     height,
     margin: partialMargin,
     pixelRatio,
-    sortByValue,
-    startAngle,
-    endAngle,
-    fit,
-    padAngle,
-    innerRadius: innerRadiusRatio,
-    cornerRadius,
+
     colors,
-    borderColor,
+
+    // border
     borderWidth,
+    borderColor,
+
+    // radial labels
+    radialLabel,
+    enableRadialLabels,
+    radialLabelsSkipAngle,
+    radialLabelsLinkOffset,
+    radialLabelsLinkDiagonalLength,
+    radialLabelsLinkHorizontalLength,
+    radialLabelsLinkStrokeWidth,
+    radialLabelsTextXOffset,
+    radialLabelsTextColor,
+    radialLabelsLinkColor,
 
     // slices labels
     sliceLabel,
@@ -41,8 +105,16 @@ const PieCanvas = ({
     sliceLabelsTextColor,
     sliceLabelsRadiusOffset,
 
-    legends,
+    // interactivity
     isInteractive,
+    onClick,
+    // onMouseEnter,
+    // onMouseLeave,
+    // tooltipFormat,
+    // tooltip,
+
+    legends,
+    // role,
 }) => {
     const canvasEl = useRef(null)
     const theme = useTheme()
@@ -75,6 +147,20 @@ const PieCanvas = ({
     })
 
     const getBorderColor = useInheritedColor(borderColor, theme)
+
+    const radialLabels = usePieRadialLabels({
+        enable: enableRadialLabels,
+        dataWithArc,
+        label: radialLabel,
+        textXOffset: radialLabelsTextXOffset,
+        textColor: radialLabelsTextColor,
+        radius,
+        skipAngle: radialLabelsSkipAngle,
+        linkOffset: radialLabelsLinkOffset,
+        linkDiagonalLength: radialLabelsLinkDiagonalLength,
+        linkHorizontalLength: radialLabelsLinkHorizontalLength,
+        linkColor: radialLabelsLinkColor,
+    })
 
     const sliceLabels = usePieSliceLabels({
         enable: enableSliceLabels,
@@ -122,6 +208,10 @@ const PieCanvas = ({
             }
         })
 
+        if (enableRadialLabels === true) {
+            drawRadialLabels(ctx, radialLabels, theme, radialLabelsLinkStrokeWidth)
+        }
+
         if (enableSliceLabels === true) {
             drawSliceLabels(ctx, sliceLabels, theme)
         }
@@ -152,10 +242,54 @@ const PieCanvas = ({
         arcGenerator,
         dataWithArc,
         getBorderColor,
+        enableRadialLabels,
+        radialLabels,
+        enableSliceLabels,
         sliceLabels,
         legends,
         theme,
     ])
+
+    const getArcFromMouse = event => {
+        const [x, y] = getRelativeCursor(canvasEl.current, event)
+
+        return getHoveredArc(
+            margin.left + centerX,
+            margin.top + centerY,
+            radius,
+            innerRadius,
+            dataWithArc,
+            x,
+            y
+        )
+    }
+
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
+
+    const handleMouseHover = event => {
+        const arc = getArcFromMouse(event)
+        if (arc) {
+            showTooltipFromEvent(
+                <PieTooltip data={arc.data} color={arc.color} theme={this.props.theme} />,
+                event
+            )
+        } else {
+            hideTooltip()
+        }
+    }
+
+    const handleMouseLeave = () => {
+        hideTooltip()
+    }
+
+    const handleClick = event => {
+        if (!onClick) return
+
+        const arc = getArcFromMouse(event)
+        if (arc) {
+            onClick(arc, event)
+        }
+    }
 
     return (
         <canvas
@@ -167,10 +301,10 @@ const PieCanvas = ({
                 height: outerHeight,
                 cursor: isInteractive ? 'auto' : 'normal',
             }}
-            //onMouseEnter={isInteractive ? handleMouseHover : undefined}
-            //onMouseMove={isInteractive ? handleMouseHover : undefined}
-            //onMouseLeave={isInteractive ? handleMouseLeave : undefined}
-            //onClick={isInteractive ? handleClick : undefined}
+            onMouseEnter={isInteractive ? handleMouseHover : undefined}
+            onMouseMove={isInteractive ? handleMouseHover : undefined}
+            onMouseLeave={isInteractive ? handleMouseLeave : undefined}
+            onClick={isInteractive ? handleClick : undefined}
         />
     )
 }

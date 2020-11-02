@@ -289,7 +289,7 @@ const props = [
         `,
         type: 'string | Function',
         required: false,
-        defaultValue: 'id',
+        defaultValue: defaults.radialLabel,
         controlType: 'choices',
         group: 'Radial labels',
         controlOptions: {
@@ -304,7 +304,7 @@ const props = [
         help: `Skip label if corresponding slice's angle is lower than provided value.`,
         type: 'number',
         required: false,
-        defaultValue: 0,
+        defaultValue: defaults.radialLabelsSkipAngle,
         controlType: 'range',
         group: 'Radial labels',
         controlOptions: {
@@ -319,6 +319,7 @@ const props = [
         help: `Link offset from pie outer radius, useful to have links overlapping pie slices.`,
         type: 'number',
         required: false,
+        defaultValue: defaults.radialLabelsLinkOffset,
         controlType: 'range',
         group: 'Radial labels',
         controlOptions: {
@@ -333,6 +334,7 @@ const props = [
         help: `Link diagonal length.`,
         type: 'number',
         required: false,
+        defaultValue: defaults.radialLabelsLinkDiagonalLength,
         controlType: 'range',
         group: 'Radial labels',
         controlOptions: {
@@ -347,6 +349,7 @@ const props = [
         help: `Links horizontal length.`,
         type: 'number',
         required: false,
+        defaultValue: defaults.radialLabelsLinkHorizontalLength,
         controlType: 'range',
         group: 'Radial labels',
         controlOptions: {
@@ -361,6 +364,7 @@ const props = [
         help: `X offset from links' end.`,
         type: 'number',
         required: false,
+        defaultValue: defaults.radialLabelsTextXOffset,
         controlType: 'range',
         group: 'Radial labels',
         controlOptions: {
@@ -375,6 +379,7 @@ const props = [
         help: 'Links stroke width.',
         type: 'number',
         required: false,
+        defaultValue: defaults.radialLabelsLinkStrokeWidth,
         controlType: 'lineWidth',
         group: 'Radial labels',
     },

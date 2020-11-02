@@ -6,16 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Fragment, useMemo, createElement } from 'react'
-import {
-    getLabelGenerator,
-    withContainer,
-    SvgWrapper,
-    bindDefs,
-    useTheme,
-    useDimensions,
-} from '@nivo/core'
-import { getInheritedColorGenerator, useInheritedColor } from '@nivo/colors'
+import React, { Fragment, createElement } from 'react'
+import { withContainer, SvgWrapper, bindDefs, useTheme, useDimensions } from '@nivo/core'
+import { useInheritedColor } from '@nivo/colors'
 import { PieSvgDefaultProps, PieSvgPropTypes } from './props'
 import { PieSlice } from './PieSlice'
 import PieRadialLabels from './PieRadialLabels'
@@ -112,8 +105,6 @@ const Pie = ({
         cornerRadius,
     })
 
-    const getRadialLabel = useMemo(() => getLabelGenerator(radialLabel), [radialLabel])
-
     const borderColor = useInheritedColor(_borderColor, theme)
 
     const boundDefs = bindDefs(defs, dataWithArc, fill)
@@ -154,15 +145,15 @@ const Pie = ({
                 <PieRadialLabels
                     dataWithArc={dataWithArc}
                     radius={radius}
-                    label={getRadialLabel}
+                    label={radialLabel}
                     skipAngle={radialLabelsSkipAngle}
                     linkOffset={radialLabelsLinkOffset}
                     linkDiagonalLength={radialLabelsLinkDiagonalLength}
                     linkHorizontalLength={radialLabelsLinkHorizontalLength}
                     linkStrokeWidth={radialLabelsLinkStrokeWidth}
                     textXOffset={radialLabelsTextXOffset}
-                    textColor={getInheritedColorGenerator(radialLabelsTextColor, theme)}
-                    linkColor={getInheritedColorGenerator(radialLabelsLinkColor, theme)}
+                    textColor={radialLabelsTextColor}
+                    linkColor={radialLabelsLinkColor}
                 />
             </g>
         )

@@ -53,14 +53,14 @@ export const PiePropTypes = {
 
     // radial labels
     enableRadialLabels: PropTypes.bool.isRequired,
-    radialLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    radialLabelsSkipAngle: PropTypes.number,
-    radialLabelsTextXOffset: PropTypes.number,
+    radialLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+    radialLabelsSkipAngle: PropTypes.number.isRequired,
+    radialLabelsTextXOffset: PropTypes.number.isRequired,
     radialLabelsTextColor: inheritedColorPropType.isRequired,
-    radialLabelsLinkOffset: PropTypes.number,
-    radialLabelsLinkDiagonalLength: PropTypes.number,
-    radialLabelsLinkHorizontalLength: PropTypes.number,
-    radialLabelsLinkStrokeWidth: PropTypes.number,
+    radialLabelsLinkOffset: PropTypes.number.isRequired,
+    radialLabelsLinkDiagonalLength: PropTypes.number.isRequired,
+    radialLabelsLinkHorizontalLength: PropTypes.number.isRequired,
+    radialLabelsLinkStrokeWidth: PropTypes.number.isRequired,
     radialLabelsLinkColor: inheritedColorPropType.isRequired,
 
     // slices labels
@@ -128,8 +128,14 @@ export const PieDefaultProps = {
     },
 
     // radial labels
-    enableRadialLabels: true,
     radialLabel: 'id',
+    enableRadialLabels: true,
+    radialLabelsSkipAngle: 0,
+    radialLabelsLinkOffset: 0,
+    radialLabelsLinkDiagonalLength: 16,
+    radialLabelsLinkHorizontalLength: 24,
+    radialLabelsLinkStrokeWidth: 1,
+    radialLabelsTextXOffset: 6,
     radialLabelsTextColor: { theme: 'labels.text.fill' },
     radialLabelsLinkColor: { theme: 'axis.ticks.line.stroke' },
 

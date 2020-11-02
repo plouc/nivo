@@ -10,8 +10,8 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { line } from 'd3-shape'
 import { textPropsByEngine, useTheme } from '@nivo/core'
-import { datumWithArcPropType } from './props'
-import { computeRadialLabels } from './compute'
+import { datumWithArcPropType, PiePropTypes } from './props'
+import { usePieRadialLabels } from './hooks'
 
 const lineGenerator = line()
     .x(d => d.x)
@@ -32,22 +32,26 @@ const PieRadialLabels = ({
 }) => {
     const theme = useTheme()
 
-    const labels = computeRadialLabels(dataWithArc, {
-        getLabel: label,
+    const radialLabels = usePieRadialLabels({
+        enable: true,
+        dataWithArc,
+        label,
+        textXOffset,
+        textColor,
         radius,
         skipAngle,
         linkOffset,
         linkDiagonalLength,
         linkHorizontalLength,
-        textXOffset,
+        linkColor,
     })
 
-    return labels.map(label => (
-        <Fragment key={label.arc.id}>
+    return radialLabels.map(label => (
+        <Fragment key={label.datum.id}>
             <path
                 d={lineGenerator(label.line)}
                 fill="none"
-                style={{ fill: 'none', stroke: linkColor(label.arc, theme) }}
+                style={{ fill: 'none', stroke: label.linkColor }}
                 strokeWidth={linkStrokeWidth}
             />
             <g transform={`translate(${label.position.x}, ${label.position.y})`}>
@@ -56,7 +60,7 @@ const PieRadialLabels = ({
                     dominantBaseline="central"
                     style={{
                         ...theme.labels.text,
-                        fill: textColor(label.arc.data, theme),
+                        fill: label.textColor,
                     }}
                 >
                     {label.text}
@@ -68,25 +72,16 @@ const PieRadialLabels = ({
 
 PieRadialLabels.propTypes = {
     dataWithArc: PropTypes.arrayOf(datumWithArcPropType).isRequired,
-    label: PropTypes.func.isRequired,
-    skipAngle: PropTypes.number.isRequired,
+    label: PiePropTypes.radialLabel,
+    skipAngle: PiePropTypes.radialLabelsSkipAngle,
     radius: PropTypes.number.isRequired,
-    linkOffset: PropTypes.number.isRequired,
-    linkDiagonalLength: PropTypes.number.isRequired,
-    linkHorizontalLength: PropTypes.number.isRequired,
-    linkStrokeWidth: PropTypes.number.isRequired,
-    textXOffset: PropTypes.number.isRequired,
-    textColor: PropTypes.func.isRequired,
-    linkColor: PropTypes.func.isRequired,
-}
-
-PieRadialLabels.defaultProps = {
-    skipAngle: 0,
-    linkOffset: 0,
-    linkDiagonalLength: 16,
-    linkHorizontalLength: 24,
-    linkStrokeWidth: 1,
-    textXOffset: 6,
+    linkOffset: PiePropTypes.radialLabelsLinkOffset,
+    linkDiagonalLength: PiePropTypes.radialLabelsLinkDiagonalLength,
+    linkHorizontalLength: PiePropTypes.radialLabelsLinkHorizontalLength,
+    linkStrokeWidth: PiePropTypes.radialLabelsLinkStrokeWidth,
+    textXOffset: PiePropTypes.radialLabelsTextXOffset,
+    textColor: PiePropTypes.radialLabelsTextColor,
+    linkColor: PiePropTypes.radialLabelsLinkColor,
 }
 
 export default PieRadialLabels
