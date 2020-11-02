@@ -60,6 +60,7 @@ const initialProperties = {
 
     enableSlicesLabels: true,
     sliceLabel: 'value',
+    sliceLabelsRadiusOffset: 0.5,
     sliceLabelsSkipAngle: 10,
     sliceLabelsTextColor: '#333333',
 

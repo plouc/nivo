@@ -424,6 +424,23 @@ const props = [
         },
     },
     {
+        key: 'sliceLabelsRadiusOffset',
+        help: `
+            Define the radius to use to determine the label position, starting from inner radius,
+            this is expressed as a ratio.
+        `,
+        type: 'number',
+        required: false,
+        defaultValue: defaults.sliceLabelsRadiusOffset,
+        controlType: 'range',
+        group: 'Slices labels',
+        controlOptions: {
+            min: 0,
+            max: 2,
+            step: 0.05,
+        },
+    },
+    {
         key: 'sliceLabelsSkipAngle',
         help: `Skip label if corresponding slice's angle is lower than provided value.`,
         type: 'number',

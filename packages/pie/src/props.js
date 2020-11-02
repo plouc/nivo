@@ -66,7 +66,8 @@ export const PiePropTypes = {
     // slices labels
     enableSlicesLabels: PropTypes.bool.isRequired,
     sliceLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    sliceLabelsSkipAngle: PropTypes.number,
+    sliceLabelsSkipAngle: PropTypes.number.isRequired,
+    sliceLabelsRadiusOffset: PropTypes.number.isRequired,
     sliceLabelsTextColor: inheritedColorPropType.isRequired,
 
     // styling
@@ -136,6 +137,7 @@ export const PieDefaultProps = {
     enableSlicesLabels: true,
     sliceLabel: 'formattedValue',
     sliceLabelsSkipAngle: 0,
+    sliceLabelsRadiusOffset: 0.5,
     sliceLabelsTextColor: { theme: 'labels.text.fill' },
 
     // styling
