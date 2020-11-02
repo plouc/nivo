@@ -10,7 +10,7 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { line } from 'd3-shape'
 import { textPropsByEngine, useTheme } from '@nivo/core'
-import { arcPropType } from './props'
+import { datumWithArcPropType } from './props'
 import { computeRadialLabels } from './compute'
 
 const lineGenerator = line()
@@ -18,7 +18,7 @@ const lineGenerator = line()
     .y(d => d.y)
 
 const PieRadialLabels = ({
-    arcs,
+    dataWithArc,
     label,
     radius,
     skipAngle,
@@ -32,7 +32,7 @@ const PieRadialLabels = ({
 }) => {
     const theme = useTheme()
 
-    const labels = computeRadialLabels(arcs, {
+    const labels = computeRadialLabels(dataWithArc, {
         getLabel: label,
         radius,
         skipAngle,
@@ -67,7 +67,7 @@ const PieRadialLabels = ({
 }
 
 PieRadialLabels.propTypes = {
-    arcs: PropTypes.arrayOf(arcPropType).isRequired,
+    dataWithArc: PropTypes.arrayOf(datumWithArcPropType).isRequired,
     label: PropTypes.func.isRequired,
     skipAngle: PropTypes.number.isRequired,
     radius: PropTypes.number.isRequired,

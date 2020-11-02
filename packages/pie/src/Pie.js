@@ -129,15 +129,15 @@ const Pie = ({
     if (layers.includes('slices')) {
         layerById.slices = (
             <g key="slices" transform={`translate(${centerX},${centerY})`}>
-                {dataWithArc.map(arc => (
+                {dataWithArc.map(datumWithArc => (
                     <PieSlice
-                        key={arc.id}
-                        data={arc}
-                        path={arcGenerator(arc.arc)}
-                        color={arc.color}
-                        fill={arc.fill ? arc.fill : arc.color}
+                        key={datumWithArc.id}
+                        datum={datumWithArc}
+                        path={arcGenerator(datumWithArc.arc)}
+                        color={datumWithArc.color}
+                        fill={datumWithArc.fill ? datumWithArc.fill : datumWithArc.color}
                         borderWidth={borderWidth}
-                        borderColor={borderColor(arc)}
+                        borderColor={borderColor(datumWithArc)}
                         tooltipFormat={tooltipFormat}
                         tooltip={tooltip}
                         onClick={onClick}
@@ -153,7 +153,7 @@ const Pie = ({
         layerById.radialLabels = (
             <g key="radialLabels" transform={`translate(${centerX},${centerY})`}>
                 <PieRadialLabels
-                    arcs={dataWithArc}
+                    dataWithArc={dataWithArc}
                     radius={radius}
                     label={getRadialLabel}
                     skipAngle={radialLabelsSkipAngle}
@@ -173,7 +173,7 @@ const Pie = ({
         layerById.sliceLabels = (
             <g key="sliceLabels" transform={`translate(${centerX},${centerY})`}>
                 <PieSliceLabels
-                    arcs={dataWithArc}
+                    dataWithArc={dataWithArc}
                     radius={radius}
                     innerRadius={innerRadius}
                     theme={theme}
@@ -191,9 +191,8 @@ const Pie = ({
                 key="legends"
                 width={innerWidth}
                 height={innerHeight}
-                arcs={dataWithArc}
+                dataWithArc={dataWithArc}
                 legends={legends}
-                theme={theme}
             />
         )
     }

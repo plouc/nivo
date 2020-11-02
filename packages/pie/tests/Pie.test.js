@@ -42,17 +42,17 @@ describe('Pie', () => {
 
             const slices = pieInstance.findAllByType(PieSlice)
 
-            expect(slices[0].props.data.id).toEqual('A')
-            expect(slices[0].props.data.value).toEqual(30)
-            expect(slices[0].props.data.formattedValue).toEqual(30)
+            expect(slices[0].props.datum.id).toEqual('A')
+            expect(slices[0].props.datum.value).toEqual(30)
+            expect(slices[0].props.datum.formattedValue).toEqual(30)
 
-            expect(slices[1].props.data.id).toEqual('B')
-            expect(slices[1].props.data.value).toEqual(20)
-            expect(slices[1].props.data.formattedValue).toEqual(20)
+            expect(slices[1].props.datum.id).toEqual('B')
+            expect(slices[1].props.datum.value).toEqual(20)
+            expect(slices[1].props.datum.formattedValue).toEqual(20)
 
-            expect(slices[2].props.data.id).toEqual('C')
-            expect(slices[2].props.data.value).toEqual(50)
-            expect(slices[2].props.data.formattedValue).toEqual(50)
+            expect(slices[2].props.datum.id).toEqual('C')
+            expect(slices[2].props.datum.value).toEqual(50)
+            expect(slices[2].props.datum.formattedValue).toEqual(50)
         })
 
         it('should use custom id and value accessors expressed as path', () => {
@@ -70,17 +70,17 @@ describe('Pie', () => {
 
             const slices = pieInstance.findAllByType(PieSlice)
 
-            expect(slices[0].props.data.id).toEqual('A')
-            expect(slices[0].props.data.value).toEqual(30)
-            expect(slices[0].props.data.formattedValue).toEqual(30)
+            expect(slices[0].props.datum.id).toEqual('A')
+            expect(slices[0].props.datum.value).toEqual(30)
+            expect(slices[0].props.datum.formattedValue).toEqual(30)
 
-            expect(slices[1].props.data.id).toEqual('B')
-            expect(slices[1].props.data.value).toEqual(20)
-            expect(slices[1].props.data.formattedValue).toEqual(20)
+            expect(slices[1].props.datum.id).toEqual('B')
+            expect(slices[1].props.datum.value).toEqual(20)
+            expect(slices[1].props.datum.formattedValue).toEqual(20)
 
-            expect(slices[2].props.data.id).toEqual('C')
-            expect(slices[2].props.data.value).toEqual(50)
-            expect(slices[2].props.data.formattedValue).toEqual(50)
+            expect(slices[2].props.datum.id).toEqual('C')
+            expect(slices[2].props.datum.value).toEqual(50)
+            expect(slices[2].props.datum.formattedValue).toEqual(50)
         })
 
         it('should use custom id and value accessors expressed as functions', () => {
@@ -98,17 +98,17 @@ describe('Pie', () => {
 
             const slices = pieInstance.findAllByType(PieSlice)
 
-            expect(slices[0].props.data.id).toEqual('A')
-            expect(slices[0].props.data.value).toEqual(30)
-            expect(slices[0].props.data.formattedValue).toEqual(30)
+            expect(slices[0].props.datum.id).toEqual('A')
+            expect(slices[0].props.datum.value).toEqual(30)
+            expect(slices[0].props.datum.formattedValue).toEqual(30)
 
-            expect(slices[1].props.data.id).toEqual('B')
-            expect(slices[1].props.data.value).toEqual(20)
-            expect(slices[1].props.data.formattedValue).toEqual(20)
+            expect(slices[1].props.datum.id).toEqual('B')
+            expect(slices[1].props.datum.value).toEqual(20)
+            expect(slices[1].props.datum.formattedValue).toEqual(20)
 
-            expect(slices[2].props.data.id).toEqual('C')
-            expect(slices[2].props.data.value).toEqual(50)
-            expect(slices[2].props.data.formattedValue).toEqual(50)
+            expect(slices[2].props.datum.id).toEqual('C')
+            expect(slices[2].props.datum.value).toEqual(50)
+            expect(slices[2].props.datum.formattedValue).toEqual(50)
         })
 
         it('should support custom value formatting', () => {
@@ -119,17 +119,17 @@ describe('Pie', () => {
 
             const slices = pieInstance.findAllByType(PieSlice)
 
-            expect(slices[0].props.data.id).toEqual('A')
-            expect(slices[0].props.data.value).toEqual(30)
-            expect(slices[0].props.data.formattedValue).toEqual('$30.00')
+            expect(slices[0].props.datum.id).toEqual('A')
+            expect(slices[0].props.datum.value).toEqual(30)
+            expect(slices[0].props.datum.formattedValue).toEqual('$30.00')
 
-            expect(slices[1].props.data.id).toEqual('B')
-            expect(slices[1].props.data.value).toEqual(20)
-            expect(slices[1].props.data.formattedValue).toEqual('$20.00')
+            expect(slices[1].props.datum.id).toEqual('B')
+            expect(slices[1].props.datum.value).toEqual(20)
+            expect(slices[1].props.datum.formattedValue).toEqual('$20.00')
 
-            expect(slices[2].props.data.id).toEqual('C')
-            expect(slices[2].props.data.value).toEqual(50)
-            expect(slices[2].props.data.formattedValue).toEqual('$50.00')
+            expect(slices[2].props.datum.id).toEqual('C')
+            expect(slices[2].props.datum.value).toEqual(50)
+            expect(slices[2].props.datum.formattedValue).toEqual('$50.00')
         })
 
         it('should support sorting data by value', () => {
@@ -144,10 +144,10 @@ describe('Pie', () => {
             const slice20 = slices[1]
             const slice50 = slices[2]
 
-            expect(slice50.props.data.arc.startAngle).toEqual(0)
-            expect(slice30.props.data.arc.startAngle).toBeGreaterThan(0)
-            expect(slice20.props.data.arc.startAngle).toBeGreaterThan(
-                slice30.props.data.arc.startAngle
+            expect(slice50.props.datum.arc.startAngle).toEqual(0)
+            expect(slice30.props.datum.arc.startAngle).toBeGreaterThan(0)
+            expect(slice20.props.datum.arc.startAngle).toBeGreaterThan(
+                slice30.props.datum.arc.startAngle
             )
         })
     })
@@ -173,14 +173,14 @@ describe('Pie', () => {
 
             const slices = pieInstance.findAllByType(PieSlice)
 
-            expect(slices[0].props.data.id).toEqual('A')
-            expect(slices[0].props.data.color).toEqual('#7fc97f')
+            expect(slices[0].props.datum.id).toEqual('A')
+            expect(slices[0].props.datum.color).toEqual('#7fc97f')
 
-            expect(slices[1].props.data.id).toEqual('B')
-            expect(slices[1].props.data.color).toEqual('#beaed4')
+            expect(slices[1].props.datum.id).toEqual('B')
+            expect(slices[1].props.datum.color).toEqual('#beaed4')
 
-            expect(slices[2].props.data.id).toEqual('C')
-            expect(slices[2].props.data.color).toEqual('#fdc086')
+            expect(slices[2].props.datum.id).toEqual('C')
+            expect(slices[2].props.datum.color).toEqual('#fdc086')
         })
 
         it('should allow to use colors from data using a path', () => {
@@ -196,14 +196,14 @@ describe('Pie', () => {
 
             const slices = pieInstance.findAllByType(PieSlice)
 
-            expect(slices[0].props.data.id).toEqual('A')
-            expect(slices[0].props.data.color).toEqual('#ff5500')
+            expect(slices[0].props.datum.id).toEqual('A')
+            expect(slices[0].props.datum.color).toEqual('#ff5500')
 
-            expect(slices[1].props.data.id).toEqual('B')
-            expect(slices[1].props.data.color).toEqual('#ffdd00')
+            expect(slices[1].props.datum.id).toEqual('B')
+            expect(slices[1].props.datum.color).toEqual('#ffdd00')
 
-            expect(slices[2].props.data.id).toEqual('C')
-            expect(slices[2].props.data.color).toEqual('#99cc44')
+            expect(slices[2].props.datum.id).toEqual('C')
+            expect(slices[2].props.datum.color).toEqual('#99cc44')
         })
 
         it('should allow to use colors from data using a function', () => {
@@ -214,14 +214,14 @@ describe('Pie', () => {
 
             const slices = pieInstance.findAllByType(PieSlice)
 
-            expect(slices[0].props.data.id).toEqual('A')
-            expect(slices[0].props.data.color).toEqual('#ff5500')
+            expect(slices[0].props.datum.id).toEqual('A')
+            expect(slices[0].props.datum.color).toEqual('#ff5500')
 
-            expect(slices[1].props.data.id).toEqual('B')
-            expect(slices[1].props.data.color).toEqual('#ffdd00')
+            expect(slices[1].props.datum.id).toEqual('B')
+            expect(slices[1].props.datum.color).toEqual('#ffdd00')
 
-            expect(slices[2].props.data.id).toEqual('C')
-            expect(slices[2].props.data.color).toEqual('#99cc44')
+            expect(slices[2].props.datum.id).toEqual('C')
+            expect(slices[2].props.datum.color).toEqual('#99cc44')
         })
     })
 

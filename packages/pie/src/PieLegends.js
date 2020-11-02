@@ -8,12 +8,11 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { themePropType } from '@nivo/core'
 import { LegendPropShape, BoxLegendSvg } from '@nivo/legends'
-import { arcPropType } from './props'
+import { datumWithArcPropType } from './props'
 
 export default function PieLegends(props) {
-    const { width, height, legends, theme, arcs } = props
+    const { width, height, legends, dataWithArc } = props
 
     return legends.map((legend, i) => (
         <BoxLegendSvg
@@ -21,8 +20,7 @@ export default function PieLegends(props) {
             {...legend}
             containerWidth={width}
             containerHeight={height}
-            data={arcs}
-            theme={theme}
+            data={dataWithArc}
         />
     ))
 }
@@ -30,7 +28,6 @@ export default function PieLegends(props) {
 PieLegends.propTypes = {
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
-    arcs: PropTypes.arrayOf(arcPropType).isRequired,
+    dataWithArc: PropTypes.arrayOf(datumWithArcPropType).isRequired,
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
-    theme: themePropType.isRequired,
 }
