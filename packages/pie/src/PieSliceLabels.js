@@ -8,8 +8,10 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { midAngle, positionFromAngle, useTheme } from '@nivo/core'
+import { useTheme } from '@nivo/core'
+import { inheritedColorPropType } from '@nivo/colors'
 import { datumWithArcPropType } from './props'
+import { usePieSliceLabels } from './hooks'
 
 const sliceStyle = {
     pointerEvents: 'none',
@@ -19,47 +21,52 @@ export const PieSliceLabels = ({
     dataWithArc,
     label,
     radius,
+    innerRadius,
     radiusOffset,
     skipAngle,
-    innerRadius,
     textColor,
 }) => {
     const theme = useTheme()
 
-    return dataWithArc
-        .filter(datumWithArc => skipAngle === 0 || datumWithArc.arc.angleDeg > skipAngle)
-        .map(datumWithArc => {
-            const angle = midAngle(datumWithArc.arc) - Math.PI / 2
-            const labelRadius = innerRadius + (radius - innerRadius) * radiusOffset
-            const position = positionFromAngle(angle, labelRadius)
+    const labels = usePieSliceLabels({
+        enable: true,
+        dataWithArc,
+        skipAngle,
+        radius,
+        innerRadius,
+        radiusOffset,
+        label,
+        textColor,
+    })
 
-            return (
-                <g
-                    key={datumWithArc.id}
-                    transform={`translate(${position.x}, ${position.y})`}
-                    style={sliceStyle}
+    return labels.map(label => {
+        return (
+            <g
+                key={label.datum.id}
+                transform={`translate(${label.x}, ${label.y})`}
+                style={sliceStyle}
+            >
+                <text
+                    textAnchor="middle"
+                    dominantBaseline="central"
+                    style={{
+                        ...theme.labels.text,
+                        fill: label.textColor,
+                    }}
                 >
-                    <text
-                        textAnchor="middle"
-                        dominantBaseline="central"
-                        style={{
-                            ...theme.labels.text,
-                            fill: textColor(datumWithArc, theme),
-                        }}
-                    >
-                        {label(datumWithArc)}
-                    </text>
-                </g>
-            )
-        })
+                    {label.label}
+                </text>
+            </g>
+        )
+    })
 }
 
 PieSliceLabels.propTypes = {
     dataWithArc: PropTypes.arrayOf(datumWithArcPropType).isRequired,
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     radiusOffset: PropTypes.number.isRequired,
-    skipAngle: PropTypes.number.isRequired,
     radius: PropTypes.number.isRequired,
     innerRadius: PropTypes.number.isRequired,
-    textColor: PropTypes.func.isRequired,
+    skipAngle: PropTypes.number.isRequired,
+    textColor: inheritedColorPropType.isRequired,
 }

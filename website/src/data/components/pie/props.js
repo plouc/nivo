@@ -397,13 +397,13 @@ const props = [
         group: 'Radial labels',
     },
     {
-        key: 'enableSlicesLabels',
+        key: 'enableSliceLabels',
         help: 'Enable/disable slices labels.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.enableSlicesLabels,
+        defaultValue: defaults.enableSliceLabels,
         controlType: 'switch',
-        group: 'Slices labels',
+        group: 'Slice labels',
     },
     {
         key: 'sliceLabel',
@@ -413,7 +413,7 @@ const props = [
         required: false,
         defaultValue: defaults.sliceLabel,
         controlType: 'choices',
-        group: 'Slices labels',
+        group: 'Slice labels',
         controlOptions: {
             choices: ['id', 'value', 'formattedValue', `d => \`\${d.id} (\${d.value})\``].map(
                 choice => ({
@@ -433,7 +433,7 @@ const props = [
         required: false,
         defaultValue: defaults.sliceLabelsRadiusOffset,
         controlType: 'range',
-        group: 'Slices labels',
+        group: 'Slice labels',
         controlOptions: {
             min: 0,
             max: 2,
@@ -447,7 +447,7 @@ const props = [
         required: false,
         defaultValue: defaults.sliceLabelsSkipAngle,
         controlType: 'range',
-        group: 'Slices labels',
+        group: 'Slice labels',
         controlOptions: {
             unit: '°',
             min: 0,
@@ -462,7 +462,7 @@ const props = [
         required: false,
         defaultValue: defaults.sliceLabelsTextColor,
         controlType: 'inheritedColor',
-        group: 'Slices labels',
+        group: 'Slice labels',
     },
     {
         key: 'layers',

@@ -63,7 +63,7 @@ const Pie = ({
 
     // slices labels
     sliceLabel,
-    enableSlicesLabels,
+    enableSliceLabels,
     sliceLabelsSkipAngle,
     sliceLabelsTextColor,
     sliceLabelsRadiusOffset,
@@ -113,8 +113,6 @@ const Pie = ({
     })
 
     const getRadialLabel = useMemo(() => getLabelGenerator(radialLabel), [radialLabel])
-
-    const getSliceLabel = useMemo(() => getLabelGenerator(sliceLabel), [sliceLabel])
 
     const borderColor = useInheritedColor(_borderColor, theme)
 
@@ -170,18 +168,17 @@ const Pie = ({
         )
     }
 
-    if (enableSlicesLabels && layers.includes('sliceLabels')) {
+    if (enableSliceLabels && layers.includes('sliceLabels')) {
         layerById.sliceLabels = (
             <g key="sliceLabels" transform={`translate(${centerX},${centerY})`}>
                 <PieSliceLabels
                     dataWithArc={dataWithArc}
+                    label={sliceLabel}
                     radius={radius}
                     innerRadius={innerRadius}
-                    theme={theme}
-                    label={getSliceLabel}
                     radiusOffset={sliceLabelsRadiusOffset}
                     skipAngle={sliceLabelsSkipAngle}
-                    textColor={getInheritedColorGenerator(sliceLabelsTextColor, theme)}
+                    textColor={sliceLabelsTextColor}
                 />
             </g>
         )

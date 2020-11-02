@@ -9,25 +9,21 @@
 import { textPropsByEngine } from '@nivo/core'
 import { computeRadialLabels } from './compute'
 
-export const drawSliceLabels = (
-    ctx,
-    arcs,
-    { arcGenerator, getLabel, skipAngle, getTextColor, theme }
-) => {
+export const drawSliceLabels = (ctx, labels, theme) => {
+    console.log({
+        ctx,
+        labels,
+        theme,
+    })
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
     ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
 
-    arcs.filter(arc => skipAngle === 0 || arc.angleDeg > skipAngle).forEach(arc => {
-        const [centroidX, centroidY] = arcGenerator.centroid(arc)
-
-        const sliceLabel = getLabel(arc.data)
-        const textColor = getTextColor(arc, theme)
-
+    labels.forEach(label => {
         ctx.save()
-        ctx.translate(centroidX, centroidY)
-        ctx.fillStyle = textColor
-        ctx.fillText(sliceLabel, 0, 0)
+        ctx.translate(label.x, label.y)
+        ctx.fillStyle = label.textColor
+        ctx.fillText(label.label, 0, 0)
         ctx.restore()
     })
 }

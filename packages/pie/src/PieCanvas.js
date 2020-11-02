@@ -11,8 +11,8 @@ import { useDimensions, useTheme, withContainer } from '@nivo/core'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useInheritedColor } from '@nivo/colors'
 import { PieSvgDefaultProps, PieSvgPropTypes } from './props'
-import { useNormalizedData, usePieFromBox } from './hooks'
-import { drawSliceLabels, drawRadialLabels } from './canvas'
+import { useNormalizedData, usePieFromBox, usePieSliceLabels } from './hooks'
+import { drawSliceLabels } from './canvas'
 
 const PieCanvas = ({
     data,
@@ -33,6 +33,14 @@ const PieCanvas = ({
     colors,
     borderColor,
     borderWidth,
+
+    // slices labels
+    sliceLabel,
+    enableSliceLabels,
+    sliceLabelsSkipAngle,
+    sliceLabelsTextColor,
+    sliceLabelsRadiusOffset,
+
     legends,
     isInteractive,
 }) => {
@@ -67,6 +75,17 @@ const PieCanvas = ({
     })
 
     const getBorderColor = useInheritedColor(borderColor, theme)
+
+    const sliceLabels = usePieSliceLabels({
+        enable: enableSliceLabels,
+        dataWithArc,
+        label: sliceLabel,
+        radius,
+        innerRadius,
+        radiusOffset: sliceLabelsRadiusOffset,
+        skipAngle: sliceLabelsSkipAngle,
+        textColor: sliceLabelsTextColor,
+    })
 
     useEffect(() => {
         canvasEl.current.width = outerWidth * pixelRatio
@@ -103,6 +122,10 @@ const PieCanvas = ({
             }
         })
 
+        if (enableSliceLabels === true) {
+            drawSliceLabels(ctx, sliceLabels, theme)
+        }
+
         // legends assume a box rather than a center,
         // that's why we restore previously saved position here.
         ctx.restore()
@@ -128,9 +151,10 @@ const PieCanvas = ({
         centerY,
         arcGenerator,
         dataWithArc,
+        getBorderColor,
+        sliceLabels,
         legends,
         theme,
-        getBorderColor,
     ])
 
     return (

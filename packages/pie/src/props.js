@@ -64,7 +64,7 @@ export const PiePropTypes = {
     radialLabelsLinkColor: inheritedColorPropType.isRequired,
 
     // slices labels
-    enableSlicesLabels: PropTypes.bool.isRequired,
+    enableSliceLabels: PropTypes.bool.isRequired,
     sliceLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     sliceLabelsSkipAngle: PropTypes.number.isRequired,
     sliceLabelsRadiusOffset: PropTypes.number.isRequired,
@@ -134,7 +134,7 @@ export const PieDefaultProps = {
     radialLabelsLinkColor: { theme: 'axis.ticks.line.stroke' },
 
     // slices labels
-    enableSlicesLabels: true,
+    enableSliceLabels: true,
     sliceLabel: 'formattedValue',
     sliceLabelsSkipAngle: 0,
     sliceLabelsRadiusOffset: 0.5,

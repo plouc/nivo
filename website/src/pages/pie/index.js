@@ -58,15 +58,11 @@ const initialProperties = {
     radialLabelsLinkStrokeWidth: 1,
     radialLabelsLinkColor: { from: 'color' },
 
-    enableSlicesLabels: true,
-    sliceLabel: 'value',
+    enableSliceLabels: true,
+    sliceLabel: 'formattedValue',
     sliceLabelsRadiusOffset: 0.5,
     sliceLabelsSkipAngle: 10,
     sliceLabelsTextColor: '#333333',
-
-    animate: true,
-    motionStiffness: 90,
-    motionDamping: 15,
 
     isInteractive: true,
     'custom tooltip example': false,
