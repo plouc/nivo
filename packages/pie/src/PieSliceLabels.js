@@ -15,7 +15,7 @@ const sliceStyle = {
     pointerEvents: 'none',
 }
 
-export default class PieSlicesLabels extends Component {
+export default class PieSliceLabels extends Component {
     static propTypes = {
         arcs: PropTypes.arrayOf(arcPropType).isRequired,
         label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),

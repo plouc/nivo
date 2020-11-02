@@ -227,3 +227,26 @@ export const usePieFromBox = ({
         ...computedProps,
     }
 }
+
+/**
+ * Memoize the context to pass to custom layers.
+ */
+export const usePieLayerContext = ({
+    dataWithArc,
+    arcGenerator,
+    centerX,
+    centerY,
+    radius,
+    innerRadius,
+}) =>
+    useMemo(
+        () => ({
+            dataWithArc,
+            arcGenerator,
+            centerX,
+            centerY,
+            radius,
+            innerRadius,
+        }),
+        [dataWithArc, arcGenerator, centerX, centerY, radius, innerRadius]
+    )
