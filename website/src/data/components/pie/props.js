@@ -453,7 +453,7 @@ const props = [
             You can also use this to insert extra layers
             to the chart, the extra layer must be a function.
             
-            The layer function which will receive the chart's
+            The layer component which will receive the chart's
             context & computed data and must return a valid SVG element
             for the \`Pie\` component.
 
@@ -465,6 +465,19 @@ const props = [
             \`context.restore()\` if you make some global
             modifications to the 2d context inside this function
             to avoid side effects.
+            
+            The context passed to layers has the following structure:
+            
+            \`\`\`
+            {
+                dataWithArc:  DatumWithArc[],
+                arcGenerator: Function
+                centerX:      number
+                centerY:      number
+                radius:       number
+                innerRadius:  number
+            }
+            \`\`\`
         `,
         required: false,
         type: 'Array<string | Function>',
