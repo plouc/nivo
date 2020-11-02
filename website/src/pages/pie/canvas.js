@@ -63,8 +63,8 @@ const initialProperties = {
 
     enableSlicesLabels: true,
     sliceLabel: 'value',
-    slicesLabelsSkipAngle: 10,
-    slicesLabelsTextColor: '#333333',
+    sliceLabelsSkipAngle: 10,
+    sliceLabelsTextColor: '#333333',
 
     animate: true,
     motionStiffness: 90,

@@ -411,22 +411,24 @@ const props = [
             'Defines how to get label text, can be a string (used to access current node data property) or a function which will receive the actual node data.',
         type: 'string | Function',
         required: false,
-        defaultValue: 'value',
+        defaultValue: defaults.sliceLabel,
         controlType: 'choices',
         group: 'Slices labels',
         controlOptions: {
-            choices: ['id', 'value', `d => \`\${d.id} (\${d.value})\``].map(choice => ({
-                label: choice,
-                value: choice,
-            })),
+            choices: ['id', 'value', 'formattedValue', `d => \`\${d.id} (\${d.value})\``].map(
+                choice => ({
+                    label: choice,
+                    value: choice,
+                })
+            ),
         },
     },
     {
-        key: 'slicesLabelsSkipAngle',
+        key: 'sliceLabelsSkipAngle',
         help: `Skip label if corresponding slice's angle is lower than provided value.`,
         type: 'number',
         required: false,
-        defaultValue: 0,
+        defaultValue: defaults.sliceLabelsSkipAngle,
         controlType: 'range',
         group: 'Slices labels',
         controlOptions: {
@@ -437,11 +439,11 @@ const props = [
         },
     },
     {
-        key: 'slicesLabelsTextColor',
+        key: 'sliceLabelsTextColor',
         help: 'Defines how to compute slice label text color.',
         type: 'string | object | Function',
         required: false,
-        defaultValue: defaults.slicesLabelsTextColor,
+        defaultValue: defaults.sliceLabelsTextColor,
         controlType: 'inheritedColor',
         group: 'Slices labels',
     },

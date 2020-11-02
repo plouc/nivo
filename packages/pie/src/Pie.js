@@ -64,8 +64,8 @@ const Pie = ({
     // slices labels
     sliceLabel,
     enableSlicesLabels,
-    slicesLabelsSkipAngle,
-    slicesLabelsTextColor,
+    sliceLabelsSkipAngle,
+    sliceLabelsTextColor,
 
     // styling
     defs,
@@ -178,8 +178,8 @@ const Pie = ({
                     innerRadius={innerRadius}
                     theme={theme}
                     label={getSliceLabel}
-                    skipAngle={slicesLabelsSkipAngle}
-                    textColor={getInheritedColorGenerator(slicesLabelsTextColor, theme)}
+                    skipAngle={sliceLabelsSkipAngle}
+                    textColor={getInheritedColorGenerator(sliceLabelsTextColor, theme)}
                 />
             </g>
         )
