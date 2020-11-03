@@ -107,6 +107,38 @@ stories.add(
     }
 )
 
+const CenteredMetric = ({ dataWithArc, centerX, centerY }) => {
+    let total = 0
+    dataWithArc.forEach(datum => {
+        total += datum.value
+    })
+
+    return (
+        <text
+            x={centerX}
+            y={centerY}
+            textAnchor="middle"
+            dominantBaseline="central"
+            style={{
+                fontSize: '52px',
+                fontWeight: '600',
+            }}
+        >
+            {total}
+        </text>
+    )
+}
+
+stories.add('adding a metric in the center using a custom layer', () => (
+    <Pie
+        {...commonProperties}
+        innerRadius={0.8}
+        enableSliceLabels={false}
+        radialLabel={d => `${d.id} (${d.formattedValue})`}
+        layers={['slices', 'sliceLabels', 'radialLabels', 'legends', CenteredMetric]}
+    />
+))
+
 stories.add('formatted tooltip values', () => (
     <Pie
         {...commonProperties}
