@@ -7,37 +7,26 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import PropTypes from 'prop-types'
 import { BasicTooltip } from '@nivo/tooltip'
+import { datumWithArcPropType, PiePropTypes } from './props'
 
-const PieTooltip = ({ data, color, tooltipFormat, tooltip, theme }) => {
+export const PieTooltip = ({ datum, tooltipFormat, tooltip }) => {
     return (
         <BasicTooltip
-            id={data.label}
-            value={data.value}
+            id={datum.label || datum.id}
+            value={datum.formattedValue}
             enableChip={true}
-            color={color}
-            theme={theme}
+            color={datum.color}
             format={tooltipFormat}
-            renderContent={
-                typeof tooltip === 'function' ? tooltip.bind(null, { color, ...data }) : null
-            }
+            renderContent={typeof tooltip === 'function' ? tooltip.bind(null, datum) : null}
         />
     )
 }
 
 PieTooltip.propTypes = {
-    data: PropTypes.shape({
-        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-        label: PropTypes.string.isRequired,
-        value: PropTypes.number.isRequired,
-    }).isRequired,
-    color: PropTypes.string.isRequired,
-    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-    tooltip: PropTypes.func,
-    theme: PropTypes.shape({
-        tooltip: PropTypes.shape({}).isRequired,
-    }).isRequired,
+    datum: datumWithArcPropType.isRequired,
+    tooltipFormat: PiePropTypes.tooltipFormat,
+    tooltip: PiePropTypes.tooltip,
 }
 
 export default PieTooltip

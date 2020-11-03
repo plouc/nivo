@@ -8,8 +8,9 @@
  */
 import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
-import { BasicTooltip, useTooltip } from '@nivo/tooltip'
+import { useTooltip } from '@nivo/tooltip'
 import { PiePropTypes, datumWithArcPropType } from './props'
+import { PieTooltip } from './PieTooltip'
 
 export const PieSlice = ({
     datum,
@@ -28,14 +29,7 @@ export const PieSlice = ({
     const handleTooltip = useCallback(
         e =>
             showTooltipFromEvent(
-                <BasicTooltip
-                    id={datum.label || datum.id}
-                    value={datum.formattedValue}
-                    enableChip
-                    color={datum.color}
-                    format={tooltipFormat}
-                    renderContent={typeof tooltip === 'function' ? tooltip.bind(null, datum) : null}
-                />,
+                <PieTooltip datum={datum} tooltip={tooltip} tooltipFormat={tooltipFormat} />,
                 e
             ),
         [showTooltipFromEvent, datum, tooltipFormat, tooltip]
