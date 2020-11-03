@@ -65,7 +65,7 @@ export const PiePropTypes = {
 
     // slices labels
     enableSliceLabels: PropTypes.bool.isRequired,
-    sliceLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    sliceLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     sliceLabelsSkipAngle: PropTypes.number.isRequired,
     sliceLabelsRadiusOffset: PropTypes.number.isRequired,
     sliceLabelsTextColor: inheritedColorPropType.isRequired,
