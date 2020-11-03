@@ -7,7 +7,6 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
-import { radiansToDegrees } from '@nivo/core'
 import { ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
 import { LegendPropShape } from '@nivo/legends'
 
@@ -118,7 +117,7 @@ export const PieDefaultProps = {
 
     // layout
     startAngle: 0,
-    endAngle: radiansToDegrees(Math.PI * 2),
+    endAngle: 360,
     fit: true,
 
     // border
