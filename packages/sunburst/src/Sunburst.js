@@ -193,7 +193,7 @@ const enhance = compose(
                 if (node.depth === 1 || childColor === 'noinherit') {
                     node.data.color = getColor(node.data)
                 } else if (node.depth > 1) {
-                    node.data.color = getChildColor(node.parent.data)
+                    node.data.color = getChildColor(node.data)
                 }
             })
 
