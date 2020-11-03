@@ -17,10 +17,10 @@ import {
 } from '@nivo/core'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useInheritedColor } from '@nivo/colors'
+import { useTooltip } from '@nivo/tooltip'
 import { PieSvgDefaultProps, PieSvgPropTypes } from './props'
 import { useNormalizedData, usePieFromBox, usePieRadialLabels, usePieSliceLabels } from './hooks'
-import PieTooltip from './PieTooltip'
-import { useTooltip } from '@nivo/tooltip'
+import { PieTooltip } from './PieTooltip'
 
 const drawSliceLabels = (ctx, labels, theme) => {
     ctx.textAlign = 'center'

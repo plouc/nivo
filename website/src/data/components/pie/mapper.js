@@ -16,10 +16,10 @@ const TooltipWrapper = styled.div`
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 12px;
 `
-const TooltipKey = styled.span`
+const TooltipKey = styled.span``
+const TooltipValue = styled.span`
     font-weight: 600;
 `
-const TooltipValue = styled.span``
 
 const CustomTooltip = data => (
     <TooltipWrapper style={{ color: data.color }}>
@@ -27,8 +27,8 @@ const CustomTooltip = data => (
         <TooltipValue>{data.id}</TooltipValue>
         <TooltipKey>value</TooltipKey>
         <TooltipValue>{data.value}</TooltipValue>
-        <TooltipKey>label</TooltipKey>
-        <TooltipValue>{data.label}</TooltipValue>
+        <TooltipKey>formattedValue</TooltipKey>
+        <TooltipValue>{data.formattedValue}</TooltipValue>
         <TooltipKey>color</TooltipKey>
         <TooltipValue>{data.color}</TooltipValue>
     </TooltipWrapper>
