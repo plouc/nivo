@@ -89,6 +89,7 @@ export const PiePropTypes = {
     isInteractive: PropTypes.bool,
     onClick: PropTypes.func,
     onMouseEnter: PropTypes.func,
+    onMouseMove: PropTypes.func,
     onMouseLeave: PropTypes.func,
 
     // tooltip
