@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { BasicTooltip, useTooltip } from '@nivo/tooltip'
 import { PiePropTypes, datumWithArcPropType } from './props'
@@ -14,8 +14,6 @@ import { PiePropTypes, datumWithArcPropType } from './props'
 export const PieSlice = ({
     datum,
     path,
-    color,
-    fill,
     borderWidth,
     borderColor,
     isInteractive,
@@ -27,39 +25,49 @@ export const PieSlice = ({
 }) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
-    const handleTooltip = e =>
-        showTooltipFromEvent(
-            <BasicTooltip
-                id={datum.label || datum.id}
-                value={datum.formattedValue}
-                enableChip
-                color={color}
-                format={tooltipFormat}
-                renderContent={
-                    typeof tooltip === 'function' ? tooltip.bind(null, { color, ...datum }) : null
-                }
-            />,
-            e
-        )
-    const handleMouseEnter = e => {
-        onMouseEnter(datum, e)
-        handleTooltip(e)
-    }
-    const handleMouseLeave = e => {
-        onMouseLeave(datum, e)
-        hideTooltip(e)
-    }
+    const handleTooltip = useCallback(
+        e =>
+            showTooltipFromEvent(
+                <BasicTooltip
+                    id={datum.label || datum.id}
+                    value={datum.formattedValue}
+                    enableChip
+                    color={datum.color}
+                    format={tooltipFormat}
+                    renderContent={typeof tooltip === 'function' ? tooltip.bind(null, datum) : null}
+                />,
+                e
+            ),
+        [showTooltipFromEvent, datum, tooltipFormat, tooltip]
+    )
 
-    const handleClick = e => {
-        if (!onClick) return
+    const handleMouseEnter = useCallback(
+        e => {
+            onMouseEnter && onMouseEnter(datum, e)
+            handleTooltip(e)
+        },
+        [onMouseEnter, handleTooltip, datum]
+    )
 
-        onClick(datum, e)
-    }
+    const handleMouseLeave = useCallback(
+        e => {
+            onMouseLeave && onMouseLeave(datum, e)
+            hideTooltip(e)
+        },
+        [onMouseLeave, hideTooltip, datum]
+    )
+
+    const handleClick = useCallback(
+        e => {
+            onClick && onClick(datum, e)
+        },
+        [onClick, datum]
+    )
 
     return (
         <path
             d={path}
-            fill={fill}
+            fill={datum.fill || datum.color}
             strokeWidth={borderWidth}
             stroke={borderColor}
             onMouseEnter={isInteractive ? handleMouseEnter : undefined}
@@ -74,8 +82,6 @@ PieSlice.propTypes = {
     datum: datumWithArcPropType.isRequired,
 
     path: PropTypes.string.isRequired,
-    color: PropTypes.string.isRequired,
-    fill: PropTypes.string.isRequired,
     borderWidth: PiePropTypes.borderWidth,
     borderColor: PropTypes.string.isRequired,
 

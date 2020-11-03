@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
-import { noop, radiansToDegrees } from '@nivo/core'
+import { radiansToDegrees } from '@nivo/core'
 import { ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
 import { LegendPropShape } from '@nivo/legends'
 
@@ -87,9 +87,9 @@ export const PiePropTypes = {
 
     // interactivity
     isInteractive: PropTypes.bool,
-    onClick: PropTypes.func.isRequired,
-    onMouseEnter: PropTypes.func.isRequired,
-    onMouseLeave: PropTypes.func.isRequired,
+    onClick: PropTypes.func,
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func,
 
     // tooltip
     lockTooltip: PropTypes.bool.isRequired,
@@ -153,9 +153,6 @@ export const PieDefaultProps = {
 
     // interactivity
     isInteractive: true,
-    onClick: noop,
-    onMouseEnter: noop,
-    onMouseLeave: noop,
 
     // tooltip
     lockTooltip: true,
