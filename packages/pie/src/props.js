@@ -9,6 +9,7 @@
 import PropTypes from 'prop-types'
 import { ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
 import { LegendPropShape } from '@nivo/legends'
+import { PieTooltip } from './PieTooltip'
 
 export const datumWithArcPropType = PropTypes.shape({
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
@@ -92,9 +93,8 @@ export const PiePropTypes = {
     onMouseLeave: PropTypes.func,
 
     // tooltip
+    tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
     lockTooltip: PropTypes.bool.isRequired,
-    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-    tooltip: PropTypes.func,
 
     // legends
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
@@ -155,6 +155,7 @@ export const PieDefaultProps = {
     isInteractive: true,
 
     // tooltip
+    tooltip: PieTooltip,
     lockTooltip: true,
 
     // legends

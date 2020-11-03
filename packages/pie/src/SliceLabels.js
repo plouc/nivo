@@ -9,15 +9,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useTheme } from '@nivo/core'
-import { inheritedColorPropType } from '@nivo/colors'
-import { datumWithArcPropType } from './props'
+import { datumWithArcPropType, PiePropTypes } from './props'
 import { usePieSliceLabels } from './hooks'
 
 const sliceStyle = {
     pointerEvents: 'none',
 }
 
-export const PieSliceLabels = ({
+export const SliceLabels = ({
     dataWithArc,
     label,
     radius,
@@ -61,12 +60,12 @@ export const PieSliceLabels = ({
     })
 }
 
-PieSliceLabels.propTypes = {
+SliceLabels.propTypes = {
     dataWithArc: PropTypes.arrayOf(datumWithArcPropType).isRequired,
-    label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    radiusOffset: PropTypes.number.isRequired,
+    label: PiePropTypes.sliceLabel,
+    radiusOffset: PiePropTypes.sliceLabelsRadiusOffset,
     radius: PropTypes.number.isRequired,
     innerRadius: PropTypes.number.isRequired,
-    skipAngle: PropTypes.number.isRequired,
-    textColor: inheritedColorPropType.isRequired,
+    skipAngle: PiePropTypes.sliceLabelsSkipAngle,
+    textColor: PiePropTypes.sliceLabelsTextColor,
 }

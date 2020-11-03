@@ -230,7 +230,7 @@ describe('Pie', () => {
         it('should render labels when enabled', () => {
             const wrapper = mount(<Pie width={400} height={400} data={sampleData} />)
 
-            const labels = wrapper.find('PieSliceLabels').find('g')
+            const labels = wrapper.find('SliceLabels').find('g')
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
@@ -242,7 +242,7 @@ describe('Pie', () => {
             const wrapper = mount(
                 <Pie width={400} height={400} data={sampleData} enableSliceLabels={false} />
             )
-            expect(wrapper.find('PieSliceLabels')).toHaveLength(0)
+            expect(wrapper.find('SliceLabels')).toHaveLength(0)
         })
 
         it('should use formattedValue', () => {
@@ -250,7 +250,7 @@ describe('Pie', () => {
                 <Pie width={400} height={400} data={sampleData} valueFormat=" >-$.2f" />
             )
 
-            const labels = wrapper.find('PieSliceLabels').find('g')
+            const labels = wrapper.find('SliceLabels').find('g')
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
@@ -263,7 +263,7 @@ describe('Pie', () => {
                 <Pie width={400} height={400} data={sampleData} sliceLabel="id" />
             )
 
-            const labels = wrapper.find('PieSliceLabels').find('g')
+            const labels = wrapper.find('SliceLabels').find('g')
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
@@ -281,7 +281,7 @@ describe('Pie', () => {
                 />
             )
 
-            const labels = wrapper.find('PieSliceLabels').find('g')
+            const labels = wrapper.find('SliceLabels').find('g')
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
@@ -294,13 +294,9 @@ describe('Pie', () => {
         it('should render labels when enabled', () => {
             const wrapper = mount(<Pie width={400} height={400} data={sampleData} />)
 
-            const parent = wrapper.find('PieRadialLabels')
-
-            const paths = parent.find('path')
-            expect(paths).toHaveLength(sampleData.length)
-
-            const labels = parent.find('text')
+            const labels = wrapper.find('RadialLabel')
             expect(labels).toHaveLength(sampleData.length)
+
             sampleData.forEach((datum, index) => {
                 expect(labels.at(index).find('text').text()).toEqual(datum.id)
             })
@@ -310,7 +306,7 @@ describe('Pie', () => {
             const wrapper = mount(
                 <Pie width={400} height={400} data={sampleData} enableRadialLabels={false} />
             )
-            expect(wrapper.find('PieRadialLabels')).toHaveLength(0)
+            expect(wrapper.find('RadialLabel')).toHaveLength(0)
         })
 
         it('should allow to change the label accessor using a path', () => {
@@ -318,7 +314,7 @@ describe('Pie', () => {
                 <Pie width={400} height={400} data={sampleData} radialLabel="value" />
             )
 
-            const labels = wrapper.find('PieRadialLabels').find('text')
+            const labels = wrapper.find('RadialLabel')
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
@@ -336,7 +332,7 @@ describe('Pie', () => {
                 />
             )
 
-            const labels = wrapper.find('PieRadialLabels').find('text')
+            const labels = wrapper.find('RadialLabel')
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
@@ -442,9 +438,28 @@ describe('Pie', () => {
     })
 
     describe('tooltip', () => {
-        it('should render a tooltip when hovering a slice', () => {})
+        it('should render a tooltip when hovering a slice', () => {
+            const wrapper = mount(<Pie width={400} height={400} data={sampleData} />)
 
-        it('should allow to override the default tooltip', () => {})
+            expect(wrapper.find('PieTooltip').exists()).toBeFalsy()
+
+            wrapper.find('PieSlice').at(1).simulate('mouseenter')
+
+            const tooltip = wrapper.find('PieTooltip')
+            expect(tooltip.exists()).toBeTruthy()
+            expect(tooltip.text()).toEqual(`${sampleData[1].id}: ${sampleData[1].value}`)
+        })
+
+        it('should allow to override the default tooltip', () => {
+            const CustomTooltip = ({ datum }) => <span>{datum.id}</span>
+            const wrapper = mount(
+                <Pie width={400} height={400} data={sampleData} tooltip={CustomTooltip} />
+            )
+
+            wrapper.find('PieSlice').at(1).simulate('mouseenter')
+
+            expect(wrapper.find(CustomTooltip).exists()).toBeTruthy()
+        })
     })
 
     describe('layers', () => {
