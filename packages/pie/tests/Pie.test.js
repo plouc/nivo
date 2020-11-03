@@ -226,7 +226,7 @@ describe('Pie', () => {
         it('should support gradients', () => {})
     })
 
-    describe('sliceLabels', () => {
+    describe('slice labels', () => {
         it('should render labels when enabled', () => {
             const wrapper = mount(<Pie width={400} height={400} data={sampleData} />)
 
@@ -282,6 +282,61 @@ describe('Pie', () => {
             )
 
             const labels = wrapper.find('PieSliceLabels').find('g')
+            expect(labels).toHaveLength(sampleData.length)
+
+            sampleData.forEach((datum, index) => {
+                expect(labels.at(index).find('text').text()).toEqual(`${datum.id} - ${datum.value}`)
+            })
+        })
+    })
+
+    describe('radial labels', () => {
+        it('should render labels when enabled', () => {
+            const wrapper = mount(<Pie width={400} height={400} data={sampleData} />)
+
+            const parent = wrapper.find('PieRadialLabels')
+
+            const paths = parent.find('path')
+            expect(paths).toHaveLength(sampleData.length)
+
+            const labels = parent.find('text')
+            expect(labels).toHaveLength(sampleData.length)
+            sampleData.forEach((datum, index) => {
+                expect(labels.at(index).find('text').text()).toEqual(datum.id)
+            })
+        })
+
+        it('should allow to disable labels', () => {
+            const wrapper = mount(
+                <Pie width={400} height={400} data={sampleData} enableRadialLabels={false} />
+            )
+            expect(wrapper.find('PieRadialLabels')).toHaveLength(0)
+        })
+
+        it('should allow to change the label accessor using a path', () => {
+            const wrapper = mount(
+                <Pie width={400} height={400} data={sampleData} radialLabel="value" />
+            )
+
+            const labels = wrapper.find('PieRadialLabels').find('text')
+            expect(labels).toHaveLength(sampleData.length)
+
+            sampleData.forEach((datum, index) => {
+                expect(labels.at(index).find('text').text()).toEqual(`${datum.value}`)
+            })
+        })
+
+        it('should allow to change the label accessor using a function', () => {
+            const wrapper = mount(
+                <Pie
+                    width={400}
+                    height={400}
+                    data={sampleData}
+                    radialLabel={datum => `${datum.id} - ${datum.value}`}
+                />
+            )
+
+            const labels = wrapper.find('PieRadialLabels').find('text')
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
