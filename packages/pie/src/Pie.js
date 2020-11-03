@@ -66,7 +66,7 @@ const Pie = ({
     fill,
 
     // interactivity
-    // isInteractive,
+    isInteractive,
     onClick,
     onMouseEnter,
     onMouseLeave,
@@ -130,6 +130,7 @@ const Pie = ({
                         borderColor={borderColor(datumWithArc)}
                         tooltipFormat={tooltipFormat}
                         tooltip={tooltip}
+                        isInteractive={isInteractive}
                         onClick={onClick}
                         onMouseEnter={onMouseEnter}
                         onMouseLeave={onMouseLeave}

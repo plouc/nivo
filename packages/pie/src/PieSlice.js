@@ -9,7 +9,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { BasicTooltip, useTooltip } from '@nivo/tooltip'
-import { datumWithArcPropType } from './props'
+import { PiePropTypes, datumWithArcPropType } from './props'
 
 export const PieSlice = ({
     datum,
@@ -18,6 +18,7 @@ export const PieSlice = ({
     fill,
     borderWidth,
     borderColor,
+    isInteractive,
     onClick,
     onMouseEnter,
     onMouseLeave,
@@ -49,17 +50,22 @@ export const PieSlice = ({
         hideTooltip(e)
     }
 
+    const handleClick = e => {
+        if (!onClick) return
+
+        onClick(datum, e)
+    }
+
     return (
         <path
-            key={datum.id}
             d={path}
             fill={fill}
             strokeWidth={borderWidth}
             stroke={borderColor}
-            onMouseEnter={handleMouseEnter}
-            onMouseMove={handleTooltip}
-            onMouseLeave={handleMouseLeave}
-            onClick={() => onClick(datum, event)}
+            onMouseEnter={isInteractive ? handleMouseEnter : undefined}
+            onMouseMove={isInteractive ? handleTooltip : undefined}
+            onMouseLeave={isInteractive ? handleMouseLeave : undefined}
+            onClick={isInteractive ? handleClick : undefined}
         />
     )
 }
@@ -70,12 +76,13 @@ PieSlice.propTypes = {
     path: PropTypes.string.isRequired,
     color: PropTypes.string.isRequired,
     fill: PropTypes.string.isRequired,
-    borderWidth: PropTypes.number.isRequired,
+    borderWidth: PiePropTypes.borderWidth,
     borderColor: PropTypes.string.isRequired,
 
-    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-    tooltip: PropTypes.func,
-    onClick: PropTypes.func,
-    onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func,
+    isInteractive: PiePropTypes.isInteractive,
+    tooltipFormat: PiePropTypes.tooltipFormat,
+    tooltip: PiePropTypes.tooltip,
+    onClick: PiePropTypes.onClick,
+    onMouseEnter: PiePropTypes.onMouseEnter,
+    onMouseLeave: PiePropTypes.onMouseLeave,
 }
