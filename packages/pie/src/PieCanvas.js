@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 import {
     getHoveredArc,
     getRelativeCursor,
@@ -108,13 +108,11 @@ const PieCanvas = ({
     // interactivity
     isInteractive,
     onClick,
-    // onMouseEnter,
-    // onMouseLeave,
-    // tooltipFormat,
-    // tooltip,
+    onMouseMove,
+    tooltipFormat,
+    tooltip,
 
     legends,
-    // role,
 }) => {
     const canvasEl = useRef(null)
     const theme = useTheme()
@@ -250,27 +248,41 @@ const PieCanvas = ({
         theme,
     ])
 
+    const arcs = useMemo(
+        () =>
+            dataWithArc.map(datum => ({
+                id: datum.id,
+                ...datum.arc,
+            })),
+        [dataWithArc]
+    )
+
     const getArcFromMouse = event => {
         const [x, y] = getRelativeCursor(canvasEl.current, event)
 
-        return getHoveredArc(
+        const hoveredArc = getHoveredArc(
             margin.left + centerX,
             margin.top + centerY,
             radius,
             innerRadius,
-            dataWithArc,
+            arcs,
             x,
             y
         )
+
+        if (!hoveredArc) return null
+
+        return dataWithArc.find(datum => datum.id === hoveredArc.id)
     }
 
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleMouseHover = event => {
-        const arc = getArcFromMouse(event)
-        if (arc) {
+        const datum = getArcFromMouse(event)
+        if (datum) {
+            onMouseMove && onMouseMove(datum, event)
             showTooltipFromEvent(
-                <PieTooltip data={arc.data} color={arc.color} theme={this.props.theme} />,
+                <PieTooltip datum={datum} tooltip={tooltip} tooltipFormat={tooltipFormat} />,
                 event
             )
         } else {

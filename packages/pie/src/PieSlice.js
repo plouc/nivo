@@ -20,6 +20,7 @@ export const PieSlice = ({
     isInteractive,
     onClick,
     onMouseEnter,
+    onMouseMove,
     onMouseLeave,
     tooltipFormat,
     tooltip,
@@ -27,33 +28,41 @@ export const PieSlice = ({
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleTooltip = useCallback(
-        e =>
+        event =>
             showTooltipFromEvent(
                 <PieTooltip datum={datum} tooltip={tooltip} tooltipFormat={tooltipFormat} />,
-                e
+                event
             ),
         [showTooltipFromEvent, datum, tooltipFormat, tooltip]
     )
 
     const handleMouseEnter = useCallback(
-        e => {
-            onMouseEnter && onMouseEnter(datum, e)
-            handleTooltip(e)
+        event => {
+            onMouseEnter && onMouseEnter(datum, event)
+            handleTooltip(event)
         },
         [onMouseEnter, handleTooltip, datum]
     )
 
+    const handleMouseMove = useCallback(
+        event => {
+            onMouseMove && onMouseMove(datum, event)
+            handleTooltip(event)
+        },
+        [onMouseMove, handleTooltip, datum]
+    )
+
     const handleMouseLeave = useCallback(
-        e => {
-            onMouseLeave && onMouseLeave(datum, e)
-            hideTooltip(e)
+        event => {
+            onMouseLeave && onMouseLeave(datum, event)
+            hideTooltip(event)
         },
         [onMouseLeave, hideTooltip, datum]
     )
 
     const handleClick = useCallback(
-        e => {
-            onClick && onClick(datum, e)
+        event => {
+            onClick && onClick(datum, event)
         },
         [onClick, datum]
     )
@@ -65,7 +74,7 @@ export const PieSlice = ({
             strokeWidth={borderWidth}
             stroke={borderColor}
             onMouseEnter={isInteractive ? handleMouseEnter : undefined}
-            onMouseMove={isInteractive ? handleTooltip : undefined}
+            onMouseMove={isInteractive ? handleMouseMove : undefined}
             onMouseLeave={isInteractive ? handleMouseLeave : undefined}
             onClick={isInteractive ? handleClick : undefined}
         />
@@ -84,5 +93,6 @@ PieSlice.propTypes = {
     tooltip: PiePropTypes.tooltip,
     onClick: PiePropTypes.onClick,
     onMouseEnter: PiePropTypes.onMouseEnter,
+    onMouseMove: PiePropTypes.onMouseMove,
     onMouseLeave: PiePropTypes.onMouseLeave,
 }
