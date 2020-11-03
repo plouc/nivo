@@ -1,8 +1,6 @@
 import React from 'react'
-import TestRenderer from 'react-test-renderer'
+import { mount } from 'enzyme'
 import Pie from '../src/Pie'
-import { PieSlice } from '../src/PieSlice'
-import { PieSliceLabels } from '../src/PieSliceLabels'
 
 const sampleData = [
     {
@@ -38,26 +36,26 @@ const sampleDataWithCustomProps = sampleData.map(datum => ({
 describe('Pie', () => {
     describe('data', () => {
         it('should use default id and value properties', () => {
-            const pie = TestRenderer.create(<Pie width={400} height={400} data={sampleData} />)
-            const pieInstance = pie.root
+            const wrapper = mount(<Pie width={400} height={400} data={sampleData} />)
 
-            const slices = pieInstance.findAllByType(PieSlice)
+            const slices = wrapper.find('PieSlice')
+            expect(slices).toHaveLength(sampleData.length)
 
-            expect(slices[0].props.datum.id).toEqual('A')
-            expect(slices[0].props.datum.value).toEqual(30)
-            expect(slices[0].props.datum.formattedValue).toEqual(30)
+            expect(slices.at(0).prop('datum').id).toEqual('A')
+            expect(slices.at(0).prop('datum').value).toEqual(30)
+            expect(slices.at(0).prop('datum').formattedValue).toEqual(30)
 
-            expect(slices[1].props.datum.id).toEqual('B')
-            expect(slices[1].props.datum.value).toEqual(20)
-            expect(slices[1].props.datum.formattedValue).toEqual(20)
+            expect(slices.at(1).prop('datum').id).toEqual('B')
+            expect(slices.at(1).prop('datum').value).toEqual(20)
+            expect(slices.at(1).prop('datum').formattedValue).toEqual(20)
 
-            expect(slices[2].props.datum.id).toEqual('C')
-            expect(slices[2].props.datum.value).toEqual(50)
-            expect(slices[2].props.datum.formattedValue).toEqual(50)
+            expect(slices.at(2).prop('datum').id).toEqual('C')
+            expect(slices.at(2).prop('datum').value).toEqual(50)
+            expect(slices.at(2).prop('datum').formattedValue).toEqual(50)
         })
 
         it('should use custom id and value accessors expressed as path', () => {
-            const pie = TestRenderer.create(
+            const wrapper = mount(
                 <Pie
                     width={400}
                     height={400}
@@ -67,25 +65,24 @@ describe('Pie', () => {
                 />
             )
 
-            const pieInstance = pie.root
+            const slices = wrapper.find('PieSlice')
+            expect(slices).toHaveLength(sampleData.length)
 
-            const slices = pieInstance.findAllByType(PieSlice)
+            expect(slices.at(0).prop('datum').id).toEqual('A')
+            expect(slices.at(0).prop('datum').value).toEqual(30)
+            expect(slices.at(0).prop('datum').formattedValue).toEqual(30)
 
-            expect(slices[0].props.datum.id).toEqual('A')
-            expect(slices[0].props.datum.value).toEqual(30)
-            expect(slices[0].props.datum.formattedValue).toEqual(30)
+            expect(slices.at(1).prop('datum').id).toEqual('B')
+            expect(slices.at(1).prop('datum').value).toEqual(20)
+            expect(slices.at(1).prop('datum').formattedValue).toEqual(20)
 
-            expect(slices[1].props.datum.id).toEqual('B')
-            expect(slices[1].props.datum.value).toEqual(20)
-            expect(slices[1].props.datum.formattedValue).toEqual(20)
-
-            expect(slices[2].props.datum.id).toEqual('C')
-            expect(slices[2].props.datum.value).toEqual(50)
-            expect(slices[2].props.datum.formattedValue).toEqual(50)
+            expect(slices.at(2).prop('datum').id).toEqual('C')
+            expect(slices.at(2).prop('datum').value).toEqual(50)
+            expect(slices.at(2).prop('datum').formattedValue).toEqual(50)
         })
 
         it('should use custom id and value accessors expressed as functions', () => {
-            const pie = TestRenderer.create(
+            const wrapper = mount(
                 <Pie
                     width={400}
                     height={400}
@@ -95,60 +92,57 @@ describe('Pie', () => {
                 />
             )
 
-            const pieInstance = pie.root
+            const slices = wrapper.find('PieSlice')
+            expect(slices).toHaveLength(sampleData.length)
 
-            const slices = pieInstance.findAllByType(PieSlice)
+            expect(slices.at(0).prop('datum').id).toEqual('A')
+            expect(slices.at(0).prop('datum').value).toEqual(30)
+            expect(slices.at(0).prop('datum').formattedValue).toEqual(30)
 
-            expect(slices[0].props.datum.id).toEqual('A')
-            expect(slices[0].props.datum.value).toEqual(30)
-            expect(slices[0].props.datum.formattedValue).toEqual(30)
+            expect(slices.at(1).prop('datum').id).toEqual('B')
+            expect(slices.at(1).prop('datum').value).toEqual(20)
+            expect(slices.at(1).prop('datum').formattedValue).toEqual(20)
 
-            expect(slices[1].props.datum.id).toEqual('B')
-            expect(slices[1].props.datum.value).toEqual(20)
-            expect(slices[1].props.datum.formattedValue).toEqual(20)
-
-            expect(slices[2].props.datum.id).toEqual('C')
-            expect(slices[2].props.datum.value).toEqual(50)
-            expect(slices[2].props.datum.formattedValue).toEqual(50)
+            expect(slices.at(2).prop('datum').id).toEqual('C')
+            expect(slices.at(2).prop('datum').value).toEqual(50)
+            expect(slices.at(2).prop('datum').formattedValue).toEqual(50)
         })
 
         it('should support custom value formatting', () => {
-            const pie = TestRenderer.create(
+            const wrapper = mount(
                 <Pie width={400} height={400} data={sampleData} valueFormat=" >-$.2f" />
             )
-            const pieInstance = pie.root
 
-            const slices = pieInstance.findAllByType(PieSlice)
+            const slices = wrapper.find('PieSlice')
+            expect(slices).toHaveLength(sampleData.length)
 
-            expect(slices[0].props.datum.id).toEqual('A')
-            expect(slices[0].props.datum.value).toEqual(30)
-            expect(slices[0].props.datum.formattedValue).toEqual('$30.00')
+            expect(slices.at(0).prop('datum').id).toEqual('A')
+            expect(slices.at(0).prop('datum').value).toEqual(30)
+            expect(slices.at(0).prop('datum').formattedValue).toEqual('$30.00')
 
-            expect(slices[1].props.datum.id).toEqual('B')
-            expect(slices[1].props.datum.value).toEqual(20)
-            expect(slices[1].props.datum.formattedValue).toEqual('$20.00')
+            expect(slices.at(1).prop('datum').id).toEqual('B')
+            expect(slices.at(1).prop('datum').value).toEqual(20)
+            expect(slices.at(1).prop('datum').formattedValue).toEqual('$20.00')
 
-            expect(slices[2].props.datum.id).toEqual('C')
-            expect(slices[2].props.datum.value).toEqual(50)
-            expect(slices[2].props.datum.formattedValue).toEqual('$50.00')
+            expect(slices.at(2).prop('datum').id).toEqual('C')
+            expect(slices.at(2).prop('datum').value).toEqual(50)
+            expect(slices.at(2).prop('datum').formattedValue).toEqual('$50.00')
         })
 
         it('should support sorting data by value', () => {
-            const pie = TestRenderer.create(
-                <Pie width={400} height={400} data={sampleData} sortByValue />
-            )
-            const pieInstance = pie.root
+            const wrapper = mount(<Pie width={400} height={400} data={sampleData} sortByValue />)
 
-            const slices = pieInstance.findAllByType(PieSlice)
+            const slices = wrapper.find('PieSlice')
+            expect(slices).toHaveLength(sampleData.length)
 
-            const slice30 = slices[0]
-            const slice20 = slices[1]
-            const slice50 = slices[2]
+            const slice30 = slices.at(0)
+            const slice20 = slices.at(1)
+            const slice50 = slices.at(2)
 
-            expect(slice50.props.datum.arc.startAngle).toEqual(0)
-            expect(slice30.props.datum.arc.startAngle).toBeGreaterThan(0)
-            expect(slice20.props.datum.arc.startAngle).toBeGreaterThan(
-                slice30.props.datum.arc.startAngle
+            expect(slice50.prop('datum').arc.startAngle).toEqual(0)
+            expect(slice30.prop('datum').arc.startAngle).toBeGreaterThan(0)
+            expect(slice20.prop('datum').arc.startAngle).toBeGreaterThan(
+                slice30.prop('datum').arc.startAngle
             )
         })
     })
@@ -167,25 +161,25 @@ describe('Pie', () => {
 
     describe('colors', () => {
         it('should use colors from scheme', () => {
-            const pie = TestRenderer.create(
+            const wrapper = mount(
                 <Pie width={400} height={400} data={sampleData} colors={{ scheme: 'accent' }} />
             )
-            const pieInstance = pie.root
 
-            const slices = pieInstance.findAllByType(PieSlice)
+            const slices = wrapper.find('PieSlice')
+            expect(slices).toHaveLength(sampleData.length)
 
-            expect(slices[0].props.datum.id).toEqual('A')
-            expect(slices[0].props.datum.color).toEqual('#7fc97f')
+            expect(slices.at(0).prop('datum').id).toEqual('A')
+            expect(slices.at(0).prop('datum').color).toEqual('#7fc97f')
 
-            expect(slices[1].props.datum.id).toEqual('B')
-            expect(slices[1].props.datum.color).toEqual('#beaed4')
+            expect(slices.at(1).prop('datum').id).toEqual('B')
+            expect(slices.at(1).prop('datum').color).toEqual('#beaed4')
 
-            expect(slices[2].props.datum.id).toEqual('C')
-            expect(slices[2].props.datum.color).toEqual('#fdc086')
+            expect(slices.at(2).prop('datum').id).toEqual('C')
+            expect(slices.at(2).prop('datum').color).toEqual('#fdc086')
         })
 
         it('should allow to use colors from data using a path', () => {
-            const pie = TestRenderer.create(
+            const wrapper = mount(
                 <Pie
                     width={400}
                     height={400}
@@ -193,36 +187,36 @@ describe('Pie', () => {
                     colors={{ datum: 'data.nested.color' }}
                 />
             )
-            const pieInstance = pie.root
 
-            const slices = pieInstance.findAllByType(PieSlice)
+            const slices = wrapper.find('PieSlice')
+            expect(slices).toHaveLength(sampleData.length)
 
-            expect(slices[0].props.datum.id).toEqual('A')
-            expect(slices[0].props.datum.color).toEqual('#ff5500')
+            expect(slices.at(0).prop('datum').id).toEqual('A')
+            expect(slices.at(0).prop('datum').color).toEqual('#ff5500')
 
-            expect(slices[1].props.datum.id).toEqual('B')
-            expect(slices[1].props.datum.color).toEqual('#ffdd00')
+            expect(slices.at(1).prop('datum').id).toEqual('B')
+            expect(slices.at(1).prop('datum').color).toEqual('#ffdd00')
 
-            expect(slices[2].props.datum.id).toEqual('C')
-            expect(slices[2].props.datum.color).toEqual('#99cc44')
+            expect(slices.at(2).prop('datum').id).toEqual('C')
+            expect(slices.at(2).prop('datum').color).toEqual('#99cc44')
         })
 
         it('should allow to use colors from data using a function', () => {
-            const pie = TestRenderer.create(
+            const wrapper = mount(
                 <Pie width={400} height={400} data={sampleData} colors={d => d.data.color} />
             )
-            const pieInstance = pie.root
 
-            const slices = pieInstance.findAllByType(PieSlice)
+            const slices = wrapper.find('PieSlice')
+            expect(slices).toHaveLength(sampleData.length)
 
-            expect(slices[0].props.datum.id).toEqual('A')
-            expect(slices[0].props.datum.color).toEqual('#ff5500')
+            expect(slices.at(0).prop('datum').id).toEqual('A')
+            expect(slices.at(0).prop('datum').color).toEqual('#ff5500')
 
-            expect(slices[1].props.datum.id).toEqual('B')
-            expect(slices[1].props.datum.color).toEqual('#ffdd00')
+            expect(slices.at(1).prop('datum').id).toEqual('B')
+            expect(slices.at(1).prop('datum').color).toEqual('#ffdd00')
 
-            expect(slices[2].props.datum.id).toEqual('C')
-            expect(slices[2].props.datum.color).toEqual('#99cc44')
+            expect(slices.at(2).prop('datum').id).toEqual('C')
+            expect(slices.at(2).prop('datum').color).toEqual('#99cc44')
         })
     })
 
@@ -234,71 +228,51 @@ describe('Pie', () => {
 
     describe('sliceLabels', () => {
         it('should render labels when enabled', () => {
-            const pie = TestRenderer.create(<Pie width={400} height={400} data={sampleData} />)
-            const pieInstance = pie.root
+            const wrapper = mount(<Pie width={400} height={400} data={sampleData} />)
 
-            const wrapper = pieInstance.findByType(PieSliceLabels)
-            const labels = wrapper.findAllByType('g')
-
+            const labels = wrapper.find('PieSliceLabels').find('g')
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
-                const sliceLabel = labels[index]
-
-                const text = sliceLabel.findByType('text')
-                expect(text.props.children).toEqual(datum.value)
+                expect(labels.at(index).find('text').text()).toEqual(`${datum.value}`)
             })
         })
 
         it('should allow to disable labels', () => {
-            const pie = TestRenderer.create(
+            const wrapper = mount(
                 <Pie width={400} height={400} data={sampleData} enableSliceLabels={false} />
             )
-            const pieInstance = pie.root
-
-            expect(pieInstance.findAllByType(PieSliceLabels)).toHaveLength(0)
+            expect(wrapper.find('PieSliceLabels')).toHaveLength(0)
         })
 
         it('should use formattedValue', () => {
-            const pie = TestRenderer.create(
+            const wrapper = mount(
                 <Pie width={400} height={400} data={sampleData} valueFormat=" >-$.2f" />
             )
-            const pieInstance = pie.root
 
-            const wrapper = pieInstance.findByType(PieSliceLabels)
-            const labels = wrapper.findAllByType('g')
-
+            const labels = wrapper.find('PieSliceLabels').find('g')
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
-                const sliceLabel = labels[index]
-
-                const text = sliceLabel.findByType('text')
-                expect(text.props.children).toEqual(`$${datum.value}.00`)
+                expect(labels.at(index).find('text').text()).toEqual(`$${datum.value}.00`)
             })
         })
 
         it('should allow to change the label accessor using a path', () => {
-            const pie = TestRenderer.create(
+            const wrapper = mount(
                 <Pie width={400} height={400} data={sampleData} sliceLabel="id" />
             )
-            const pieInstance = pie.root
 
-            const wrapper = pieInstance.findByType(PieSliceLabels)
-            const labels = wrapper.findAllByType('g')
-
+            const labels = wrapper.find('PieSliceLabels').find('g')
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
-                const sliceLabel = labels[index]
-
-                const text = sliceLabel.findByType('text')
-                expect(text.props.children).toEqual(datum.id)
+                expect(labels.at(index).find('text').text()).toEqual(datum.id)
             })
         })
 
         it('should allow to change the label accessor using a function', () => {
-            const pie = TestRenderer.create(
+            const wrapper = mount(
                 <Pie
                     width={400}
                     height={400}
@@ -306,18 +280,12 @@ describe('Pie', () => {
                     sliceLabel={datum => `${datum.id} - ${datum.value}`}
                 />
             )
-            const pieInstance = pie.root
 
-            const wrapper = pieInstance.findByType(PieSliceLabels)
-            const labels = wrapper.findAllByType('g')
-
+            const labels = wrapper.find('PieSliceLabels').find('g')
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
-                const sliceLabel = labels[index]
-
-                const text = sliceLabel.findByType('text')
-                expect(text.props.children).toEqual(`${datum.id} - ${datum.value}`)
+                expect(labels.at(index).find('text').text()).toEqual(`${datum.id} - ${datum.value}`)
             })
         })
     })
@@ -327,15 +295,95 @@ describe('Pie', () => {
     })
 
     describe('interactivity', () => {
-        it('should support onClick handler', () => {})
+        it('should support onClick handler', () => {
+            const onClick = jest.fn()
+            const wrapper = mount(
+                <Pie width={400} height={400} data={sampleData} onClick={onClick} />
+            )
 
-        it('should support onMouseEnter handler', () => {})
+            wrapper.find('PieSlice').at(0).simulate('click')
 
-        it('should support onMouseMove handler', () => {})
+            expect(onClick).toHaveBeenCalledTimes(1)
+            const [datum] = onClick.mock.calls[0]
+            expect(datum.id).toEqual('A')
+        })
 
-        it('should support onMouseLeave handler', () => {})
+        it('should support onMouseEnter handler', () => {
+            const onMouseEnter = jest.fn()
+            const wrapper = mount(
+                <Pie width={400} height={400} data={sampleData} onMouseEnter={onMouseEnter} />
+            )
 
-        it('should allow to completely disable interactivity', () => {})
+            wrapper.find('PieSlice').at(1).simulate('mouseenter')
+
+            expect(onMouseEnter).toHaveBeenCalledTimes(1)
+            const [datum] = onMouseEnter.mock.calls[0]
+            expect(datum.id).toEqual('B')
+        })
+
+        it('should support onMouseMove handler', () => {
+            const onMouseMove = jest.fn()
+            const wrapper = mount(
+                <Pie width={400} height={400} data={sampleData} onMouseMove={onMouseMove} />
+            )
+
+            wrapper.find('PieSlice').at(2).simulate('mousemove')
+
+            expect(onMouseMove).toHaveBeenCalledTimes(1)
+            const [datum] = onMouseMove.mock.calls[0]
+            expect(datum.id).toEqual('C')
+        })
+
+        it('should support onMouseLeave handler', () => {
+            const onMouseLeave = jest.fn()
+            const wrapper = mount(
+                <Pie width={400} height={400} data={sampleData} onMouseLeave={onMouseLeave} />
+            )
+
+            wrapper.find('PieSlice').at(0).simulate('mouseleave')
+
+            expect(onMouseLeave).toHaveBeenCalledTimes(1)
+            const [datum] = onMouseLeave.mock.calls[0]
+            expect(datum.id).toEqual('A')
+        })
+
+        it('should allow to completely disable interactivity', () => {
+            const onClick = jest.fn()
+            const onMouseEnter = jest.fn()
+            const onMouseMove = jest.fn()
+            const onMouseLeave = jest.fn()
+
+            const wrapper = mount(
+                <Pie
+                    width={400}
+                    height={400}
+                    data={sampleData}
+                    onClick={onClick}
+                    onMouseEnter={onMouseEnter}
+                    onMouseMove={onMouseMove}
+                    onMouseLeave={onMouseLeave}
+                    isInteractive={false}
+                />
+            )
+
+            wrapper.find('PieSlice').at(0).simulate('click')
+            wrapper.find('PieSlice').at(0).simulate('mouseenter')
+            wrapper.find('PieSlice').at(0).simulate('mousemove')
+            wrapper.find('PieSlice').at(0).simulate('mouseleave')
+
+            expect(onClick).not.toHaveBeenCalled()
+            expect(onMouseEnter).not.toHaveBeenCalled()
+            expect(onMouseMove).not.toHaveBeenCalled()
+            expect(onMouseLeave).not.toHaveBeenCalled()
+
+            wrapper.find('PieSlice').forEach(slice => {
+                const shape = slice.find('path')
+                expect(shape.prop('onClick')).toBeUndefined()
+                expect(shape.prop('onMouseEnter')).toBeUndefined()
+                expect(shape.prop('onMouseMove')).toBeUndefined()
+                expect(shape.prop('onMouseLeave')).toBeUndefined()
+            })
+        })
     })
 
     describe('tooltip', () => {
@@ -346,31 +394,17 @@ describe('Pie', () => {
 
     describe('layers', () => {
         it('should support disabling a layer', () => {
-            let pie = TestRenderer.create(<Pie width={400} height={400} data={sampleData} />)
-            const pieInstance = pie.root
+            const wrapper = mount(<Pie width={400} height={400} data={sampleData} />)
+            expect(wrapper.find('PieSlice')).toHaveLength(3)
 
-            let slices = pieInstance.findAllByType(PieSlice)
-            expect(slices).toHaveLength(3)
-
-            TestRenderer.act(() => {
-                pie.update(
-                    <Pie
-                        width={400}
-                        height={400}
-                        data={sampleData}
-                        layers={['radialLabels', 'sliceLabels', 'legends']}
-                    />
-                )
-            })
-
-            slices = pieInstance.findAllByType(PieSlice)
-            expect(slices).toHaveLength(0)
+            wrapper.setProps({ layers: ['radialLabels', 'sliceLabels', 'legends'] })
+            expect(wrapper.find('PieSlice')).toHaveLength(0)
         })
 
         it('should support adding a custom layer', () => {
             const CustomLayer = () => null
 
-            const pie = TestRenderer.create(
+            const wrapper = mount(
                 <Pie
                     width={400}
                     height={400}
@@ -379,16 +413,15 @@ describe('Pie', () => {
                     layers={['slices', 'radialLabels', 'sliceLabels', 'legends', CustomLayer]}
                 />
             )
-            const pieInstance = pie.root
 
-            const customLayer = pieInstance.findByType(CustomLayer)
+            const customLayer = wrapper.find(CustomLayer)
 
-            expect(customLayer.props.dataWithArc).toHaveLength(3)
-            expect(customLayer.props.centerX).toEqual(200)
-            expect(customLayer.props.centerY).toEqual(200)
-            expect(customLayer.props.arcGenerator).toBeDefined()
-            expect(customLayer.props.radius).toEqual(200)
-            expect(customLayer.props.innerRadius).toEqual(100)
+            expect(customLayer.prop('dataWithArc')).toHaveLength(3)
+            expect(customLayer.prop('centerX')).toEqual(200)
+            expect(customLayer.prop('centerY')).toEqual(200)
+            expect(customLayer.prop('arcGenerator')).toBeDefined()
+            expect(customLayer.prop('radius')).toEqual(200)
+            expect(customLayer.prop('innerRadius')).toEqual(100)
         })
     })
 })
