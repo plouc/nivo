@@ -69,6 +69,7 @@ const Pie = ({
     isInteractive,
     onClick,
     onMouseEnter,
+    onMouseMove,
     onMouseLeave,
     tooltipFormat,
     tooltip,
@@ -131,6 +132,7 @@ const Pie = ({
                         isInteractive={isInteractive}
                         onClick={onClick}
                         onMouseEnter={onMouseEnter}
+                        onMouseMove={onMouseMove}
                         onMouseLeave={onMouseLeave}
                     />
                 ))}
