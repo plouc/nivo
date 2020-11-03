@@ -46,6 +46,8 @@ const PieApi = () => {
                         left: 80,
                     },
 
+                    valueFormat: { format: '', enabled: false },
+
                     startAngle: 0,
                     endAngle: 360,
                     sortByValue: false,
@@ -75,6 +77,7 @@ const PieApi = () => {
 
                     enableSliceLabels: true,
                     sliceLabel: 'value',
+                    sliceLabelsRadiusOffset: 0.5,
                     sliceLabelsSkipAngle: 10,
                     sliceLabelsTextColor: '#333333',
 
