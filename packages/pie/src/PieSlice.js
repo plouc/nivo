@@ -6,11 +6,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { useCallback } from 'react'
+import React, { createElement, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { useTooltip } from '@nivo/tooltip'
 import { PiePropTypes, datumWithArcPropType } from './props'
-import { PieTooltip } from './PieTooltip'
 
 export const PieSlice = ({
     datum,
@@ -22,18 +21,13 @@ export const PieSlice = ({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
-    tooltipFormat,
     tooltip,
 }) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleTooltip = useCallback(
-        event =>
-            showTooltipFromEvent(
-                <PieTooltip datum={datum} tooltip={tooltip} tooltipFormat={tooltipFormat} />,
-                event
-            ),
-        [showTooltipFromEvent, datum, tooltipFormat, tooltip]
+        event => showTooltipFromEvent(createElement(tooltip, { datum }), event),
+        [showTooltipFromEvent, datum, tooltip]
     )
 
     const handleMouseEnter = useCallback(
@@ -89,7 +83,6 @@ PieSlice.propTypes = {
     borderColor: PropTypes.string.isRequired,
 
     isInteractive: PiePropTypes.isInteractive,
-    tooltipFormat: PiePropTypes.tooltipFormat,
     tooltip: PiePropTypes.tooltip,
     onClick: PiePropTypes.onClick,
     onMouseEnter: PiePropTypes.onMouseEnter,

@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { useEffect, useMemo, useRef } from 'react'
+import React, { createElement, useEffect, useMemo, useRef } from 'react'
 import {
     getHoveredArc,
     getRelativeCursor,
@@ -20,7 +20,6 @@ import { useInheritedColor } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
 import { PieSvgDefaultProps, PieSvgPropTypes } from './props'
 import { useNormalizedData, usePieFromBox, usePieRadialLabels, usePieSliceLabels } from './hooks'
-import { PieTooltip } from './PieTooltip'
 
 const drawSliceLabels = (ctx, labels, theme) => {
     ctx.textAlign = 'center'
@@ -109,7 +108,6 @@ const PieCanvas = ({
     isInteractive,
     onClick,
     onMouseMove,
-    tooltipFormat,
     tooltip,
 
     legends,
@@ -281,10 +279,7 @@ const PieCanvas = ({
         const datum = getArcFromMouse(event)
         if (datum) {
             onMouseMove && onMouseMove(datum, event)
-            showTooltipFromEvent(
-                <PieTooltip datum={datum} tooltip={tooltip} tooltipFormat={tooltipFormat} />,
-                event
-            )
+            showTooltipFromEvent(createElement(tooltip, { datum }), event)
         } else {
             hideTooltip()
         }

@@ -7,26 +7,20 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
+import PropTypes from 'prop-types'
 import { BasicTooltip } from '@nivo/tooltip'
-import { datumWithArcPropType, PiePropTypes } from './props'
 
-export const PieTooltip = ({ datum, tooltipFormat, tooltip }) => {
-    return (
-        <BasicTooltip
-            id={datum.label || datum.id}
-            value={datum.formattedValue}
-            enableChip={true}
-            color={datum.color}
-            format={tooltipFormat}
-            renderContent={typeof tooltip === 'function' ? tooltip.bind(null, datum) : null}
-        />
-    )
-}
+export const PieTooltip = ({ datum }) => (
+    <BasicTooltip
+        id={datum.label || datum.id}
+        value={datum.formattedValue}
+        enableChip={true}
+        color={datum.color}
+    />
+)
 
 PieTooltip.propTypes = {
-    datum: datumWithArcPropType.isRequired,
-    tooltipFormat: PiePropTypes.tooltipFormat,
-    tooltip: PiePropTypes.tooltip,
+    datum: PropTypes.object.isRequired,
 }
 
 export default PieTooltip

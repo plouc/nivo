@@ -11,8 +11,8 @@ import { withContainer, SvgWrapper, bindDefs, useTheme, useDimensions } from '@n
 import { useInheritedColor } from '@nivo/colors'
 import { PieSvgDefaultProps, PieSvgPropTypes } from './props'
 import { PieSlice } from './PieSlice'
-import PieRadialLabels from './PieRadialLabels'
-import { PieSliceLabels } from './PieSliceLabels'
+import { RadialLabels } from './RadialLabels'
+import { SliceLabels } from './SliceLabels'
 import PieLegends from './PieLegends'
 import { useNormalizedData, usePieFromBox, usePieLayerContext } from './hooks'
 
@@ -71,7 +71,6 @@ const Pie = ({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
-    tooltipFormat,
     tooltip,
 
     legends,
@@ -127,7 +126,6 @@ const Pie = ({
                         path={arcGenerator(datumWithArc.arc)}
                         borderWidth={borderWidth}
                         borderColor={borderColor(datumWithArc)}
-                        tooltipFormat={tooltipFormat}
                         tooltip={tooltip}
                         isInteractive={isInteractive}
                         onClick={onClick}
@@ -143,7 +141,7 @@ const Pie = ({
     if (enableRadialLabels && layers.includes('radialLabels')) {
         layerById.radialLabels = (
             <g key="radialLabels" transform={`translate(${centerX},${centerY})`}>
-                <PieRadialLabels
+                <RadialLabels
                     dataWithArc={dataWithArc}
                     radius={radius}
                     label={radialLabel}
@@ -163,7 +161,7 @@ const Pie = ({
     if (enableSliceLabels && layers.includes('sliceLabels')) {
         layerById.sliceLabels = (
             <g key="sliceLabels" transform={`translate(${centerX},${centerY})`}>
-                <PieSliceLabels
+                <SliceLabels
                     dataWithArc={dataWithArc}
                     label={sliceLabel}
                     radius={radius}
