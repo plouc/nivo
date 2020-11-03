@@ -46,7 +46,7 @@ const props = [
         `,
         type: 'string | (datum: any): string | number',
         required: false,
-        defaultValue: 'id',
+        defaultValue: defaults.id,
     },
     {
         key: 'value',
@@ -58,7 +58,7 @@ const props = [
         `,
         type: 'string | (datum: any): number',
         required: false,
-        defaultValue: 'value',
+        defaultValue: defaults.id,
     },
     {
         key: 'valueFormat',

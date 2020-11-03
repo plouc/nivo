@@ -52,9 +52,14 @@ stories.add('fancy slices', () => (
         innerRadius={0.6}
         padAngle={0.5}
         cornerRadius={5}
-        radialLabelsLinkColor="inherit"
+        radialLabelsLinkColor={{
+            from: 'color',
+        }}
         radialLabelsLinkStrokeWidth={3}
-        radialLabelsTextColor="inherit:darker(1.2)"
+        radialLabelsTextColor={{
+            from: 'color',
+            modifiers: [['darker', 1.2]],
+        }}
     />
 ))
 
@@ -65,12 +70,42 @@ stories.add('custom radial label', () => (
         padAngle={0.5}
         cornerRadius={5}
         radialLabel={d => `${d.id}: ${d.value}`}
-        radialLabelsLinkColor="inherit"
+        radialLabelsLinkColor={{
+            from: 'color',
+        }}
         radialLabelsLinkStrokeWidth={3}
-        radialLabelsTextColor="inherit:darker(1.2)"
-        enableSlicesLabels={false}
+        radialLabelsTextColor={{
+            from: 'color',
+            modifiers: [['darker', 1.2]],
+        }}
+        enableSliceLabels={false}
     />
 ))
+
+stories.add(
+    'using colors from data',
+    () => <Pie {...commonProperties} colors={{ datum: 'data.color' }} />,
+    {
+        info: {
+            text: `
+            It is possible to use colors coming from the provided dataset instead of using
+            a color scheme, to do so, you should pass:
+            
+            \`\`\`
+            colors={{ datum: 'data.color' }}
+            \`\`\`
+            
+            given that each data point you pass has a \`color\` property.
+            
+            It's also possible to pass a function if you want to handle more advanced computation:
+            
+            \`\`\`
+            colors={(datum) => datum.color }}
+            \`\`\`
+        `,
+        },
+    }
+)
 
 stories.add('formatted tooltip values', () => (
     <Pie
