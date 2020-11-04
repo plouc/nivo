@@ -160,9 +160,10 @@ export const PieDefaultProps = {
 
     // legends
     legends: [],
-}
 
-export const PieSvgDefaultProps = {
-    ...PieDefaultProps,
     role: 'img',
 }
+
+export const defaultProps = PieDefaultProps
+
+export const PieSvgDefaultProps = PieDefaultProps

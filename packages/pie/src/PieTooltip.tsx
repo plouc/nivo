@@ -7,20 +7,17 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import PropTypes from 'prop-types'
 import { BasicTooltip } from '@nivo/tooltip'
+import { ComputedDatum } from './definitions'
 
-export const PieTooltip = ({ datum }) => (
+// prettier-ignore
+export const PieTooltip = <R, >({ datum }: { datum: ComputedDatum<R> }) => (
     <BasicTooltip
-        id={datum.label || datum.id}
+        id={datum.id}
         value={datum.formattedValue}
         enableChip={true}
         color={datum.color}
     />
 )
-
-PieTooltip.propTypes = {
-    datum: PropTypes.object.isRequired,
-}
 
 export default PieTooltip
