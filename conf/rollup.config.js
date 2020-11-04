@@ -1,3 +1,4 @@
+import fs from 'fs'
 import { camelCase, upperFirst } from 'lodash'
 import babel from '@rollup/plugin-babel'
 import resolve from '@rollup/plugin-node-resolve'
@@ -8,6 +9,14 @@ import visualizer from 'rollup-plugin-visualizer'
 
 const pkg = process.env.PACKAGE
 const isWatching = process.env.ROLLUP_WATCH === 'TRUE'
+
+const extensions = ['.js', '.jsx', '.es6', '.es', '.mjs', '.ts', '.tsx']
+const babelConfig = {
+    extensions,
+    exclude: 'node_modules/**',
+    babelHelpers: 'runtime',
+    plugins: ['lodash'],
+}
 
 const externals = [
     'prop-types',
@@ -23,8 +32,15 @@ const mapGlobal = name => {
     return name
 }
 
+let input = `./packages/${pkg}/src/index.js`
+
+// detect TS entry index file
+if (fs.existsSync(`./packages/${pkg}/src/index.ts`)) {
+    input = `./packages/${pkg}/src/index.ts`
+}
+
 const common = {
-    input: `./packages/${pkg}/src/index.js`,
+    input,
     external: id => externals.includes(id)
         || id.indexOf('react') === 0
         || id.indexOf('d3') === 0
@@ -42,15 +58,10 @@ const commonPlugins = [
         jsnext: true,
         main: true,
         browser: true,
-        extensions: ['.js'],
+        extensions,
         modulesOnly: true,
     }),
-    babel({
-        exclude: 'node_modules/**',
-        babelHelpers: 'runtime',
-        plugins: ['lodash'],
-        presets: ['react-app']
-    }),
+    babel(babelConfig),
     cleanup()
 ]
 
