@@ -1,3 +1,3 @@
 module.exports = {
-  presets: ['react-app']
+    presets: [['react-app', { typescript: true }]]
 }
