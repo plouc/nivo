@@ -182,7 +182,7 @@ package-types-%: ##@1 packages build a package types
 	@-rm -rf ./packages/${*}/dist/tsconfig.tsbuildinfo
 	@yarn tsc -b ./packages/${*}
 
-package-build-%: ##@1 packages build a package
+package-build-%: package-types-% ##@1 packages build a package
 	@echo "${YELLOW}Building package ${WHITE}@nivo/${*}${RESET}"
 	@-rm -rf ./packages/${*}/dist
 	@export PACKAGE=${*}; NODE_ENV=production BABEL_ENV=production ./node_modules/.bin/rollup -c conf/rollup.config.js
@@ -202,7 +202,7 @@ packages-publish-next: ##@1 packages publish all packages for @next npm tag
 	@echo "${YELLOW}Publishing packages${RESET}"
 	@./node_modules/.bin/lerna publish --exact --npm-tag=next
 
-package-watch-%: ##@1 packages build package (es flavor) on change, eg. `package-build-watch-bar`
+package-watch-%: ##@1 packages build package (es flavor) on change, eg. `package-watch-bar`
 	@echo "${YELLOW}Running build watcher for package ${WHITE}@nivo/${*}${RESET}"
 	@rm -rf ./packages/${*}/cjs
 	@rm -rf ./packages/${*}/umd
