@@ -63,10 +63,7 @@ export const useNormalizedData = <R>({
     colors = PieDefaultProps.colors as OrdinalColorsInstruction,
 }: Pick<CompletePieSvgProps<R>, 'id' | 'value' | 'valueFormat' | 'colors'> & {
     data: R[]
-}): Omit<
-    ComputedDatum<R>,
-    'arc' | 'fill'
->[] => {
+}): Omit<ComputedDatum<R>, 'arc' | 'fill'>[] => {
     const getId = useMemo(() => (typeof id === 'function' ? id : (d: R) => get(d, id)), [id])
     const getValue = useMemo(
         () => (typeof value === 'function' ? value : (d: R) => get(d, value)),
@@ -78,7 +75,7 @@ export const useNormalizedData = <R>({
 
     return useMemo(
         () =>
-            data.map((datum) => {
+            data.map(datum => {
                 const datumId = getId(datum)
                 const datumValue = getValue(datum)
 
