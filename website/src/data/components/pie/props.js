@@ -7,7 +7,12 @@
  * file that was distributed with this source code.
  */
 import { PieDefaultProps as defaults } from '@nivo/pie'
-import { themeProperty, defsProperties, groupProperties } from '../../../lib/componentProperties'
+import {
+    themeProperty,
+    defsProperties,
+    groupProperties,
+    getLegendsProps,
+} from '../../../lib/componentProperties'
 
 const props = [
     {
@@ -44,7 +49,7 @@ const props = [
             Define how to access the ID of each datum,
             by default, nivo will look for the \`id\` property.
         `,
-        type: 'string | (datum: any): string | number',
+        type: 'string | (datum: RawDatum): string | number',
         required: false,
         defaultValue: defaults.id,
     },
@@ -56,7 +61,7 @@ const props = [
             Define how to access the value of each datum,
             by default, nivo will look for the \`value\` property.
         `,
-        type: 'string | (datum: any): number',
+        type: 'string | (datum: RawDatum): number',
         required: false,
         defaultValue: defaults.id,
     },
@@ -72,7 +77,7 @@ const props = [
             which will receive the raw value and should return the formatted one.
         `,
         required: false,
-        type: 'Function | string',
+        type: 'string | (value: number) => string | number',
         controlType: 'valueFormat',
     },
     {
@@ -553,7 +558,7 @@ const props = [
         key: 'tooltip',
         flavors: ['svg', 'canvas'],
         group: 'Interactivity',
-        type: 'Function',
+        type: 'Component',
         required: false,
         help: 'Custom tooltip component',
         description: `
@@ -578,6 +583,37 @@ const props = [
         type: 'boolean',
         controlType: 'switch',
         group: 'Interactivity',
+    },
+    {
+        key: 'legends',
+        flavors: ['svg', 'canvas'],
+        type: 'Legend[]',
+        help: `Optional chart's legends.`,
+        group: 'Legends',
+        controlType: 'array',
+        controlOptions: {
+            props: getLegendsProps(['svg', 'canvas']),
+            shouldCreate: true,
+            addLabel: 'add legend',
+            shouldRemove: true,
+            getItemTitle: (index, legend) =>
+                `legend[${index}]: ${legend.anchor}, ${legend.direction}`,
+            defaults: {
+                anchor: 'top-left',
+                direction: 'column',
+                justify: false,
+                translateX: 0,
+                translateY: 0,
+                itemWidth: 100,
+                itemHeight: 20,
+                itemsSpacing: 0,
+                symbolSize: 20,
+                itemDirection: 'left-to-right',
+                onClick: data => {
+                    alert(JSON.stringify(data, null, '    '))
+                },
+            },
+        },
     },
 ]
 
