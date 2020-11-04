@@ -7,58 +7,94 @@
  * file that was distributed with this source code.
  */
 import { useMemo } from 'react'
-import get from 'lodash/get'
+import { get } from 'lodash'
+// @ts-ignore
 import { arc as d3Arc, pie as d3Pie } from 'd3-shape'
 import {
+    // @ts-ignore
     degreesToRadians,
+    // @ts-ignore
     radiansToDegrees,
+    // @ts-ignore
     useValueFormatter,
+    // @ts-ignore
     computeArcBoundingBox,
+    // @ts-ignore
     useTheme,
+    // @ts-ignore
     positionFromAngle,
+    // @ts-ignore
     midAngle,
+    // @ts-ignore
     getLabelGenerator,
+    // @ts-ignore
     absoluteAngleRadians,
+    // @ts-ignore
     absoluteAngleDegrees,
 } from '@nivo/core'
-import { getOrdinalColorScale, useInheritedColor } from '@nivo/colors'
+import {
+    // @ts-ignore
+    getOrdinalColorScale,
+    // @ts-ignore
+    useInheritedColor,
+    OrdinalColorsInstruction,
+    InheritedColorProp,
+} from '@nivo/colors'
 import { PieDefaultProps } from './props'
+import {
+    CompletePieSvgProps,
+    ComputedDatum,
+    PieArc,
+    PieArcGenerator,
+    LabelAccessorFunction,
+    PieCustomLayerProps,
+    RadialLabelData,
+} from './definitions'
 
 /**
  * Format data so that we get a consistent data structure.
  * It will also add the `formattedValue` and `color` property.
  */
-export const useNormalizedData = ({
+export const useNormalizedData = <R>({
     data,
     id = PieDefaultProps.id,
     value = PieDefaultProps.value,
     valueFormat,
-    colors = PieDefaultProps.colors,
-}) => {
-    const getId = useMemo(() => (typeof id === 'function' ? id : d => get(d, id)), [id])
-    const getValue = useMemo(() => (typeof value === 'function' ? value : d => get(d, value)), [
-        value,
-    ])
-    const formatValue = useValueFormatter(valueFormat)
+    colors = PieDefaultProps.colors as OrdinalColorsInstruction,
+}: Pick<CompletePieSvgProps<R>, 'id' | 'value' | 'valueFormat' | 'colors'> & {
+    data: R[]
+}): Omit<
+    ComputedDatum<R>,
+    'arc' | 'fill'
+>[] => {
+    const getId = useMemo(() => (typeof id === 'function' ? id : (d: R) => get(d, id)), [id])
+    const getValue = useMemo(
+        () => (typeof value === 'function' ? value : (d: R) => get(d, value)),
+        [value]
+    )
+    const formatValue = useValueFormatter(valueFormat as any)
 
     const getColor = useMemo(() => getOrdinalColorScale(colors, 'id'), [colors])
 
     return useMemo(
         () =>
-            data.map(datum => {
+            data.map((datum) => {
                 const datumId = getId(datum)
                 const datumValue = getValue(datum)
 
-                const normalizedDatum = {
+                const normalizedDatum: Omit<ComputedDatum<R>, 'arc' | 'color' | 'fill'> = {
                     id: datumId,
+                    // @ts-ignore
                     label: datum.label || datumId,
                     value: datumValue,
                     formattedValue: formatValue(datumValue),
                     data: datum,
                 }
-                normalizedDatum.color = getColor(normalizedDatum)
 
-                return normalizedDatum
+                return {
+                    ...normalizedDatum,
+                    color: getColor(normalizedDatum),
+                }
             }),
         [data, getId, getValue, formatValue, getColor]
     )
@@ -67,42 +103,54 @@ export const useNormalizedData = ({
 /**
  * Compute arcs, which don't depend yet on radius.
  */
-export const usePieArcs = ({
+export const usePieArcs = <R>({
     data,
     startAngle = PieDefaultProps.startAngle,
     endAngle = PieDefaultProps.endAngle,
     padAngle = PieDefaultProps.padAngle,
     sortByValue = PieDefaultProps.sortByValue,
-}) => {
+}: {
+    data: Omit<ComputedDatum<R>, 'arc' | 'fill'>[]
+    startAngle: number
+    endAngle: number
+    padAngle: number
+    sortByValue: boolean
+}): Omit<ComputedDatum<R>, 'fill'>[] => {
     const pie = useMemo(() => {
-        const pie = d3Pie()
-            .value(d => d.value)
+        const innerPie = d3Pie()
+            .value((d: Omit<ComputedDatum<R>, 'arc' | 'fill'>) => d.value)
             .padAngle(degreesToRadians(padAngle))
             .startAngle(degreesToRadians(startAngle))
             .endAngle(degreesToRadians(endAngle))
 
-        if (sortByValue !== true) pie.sortValues(null)
+        if (sortByValue !== true) innerPie.sortValues(null)
 
-        return pie
+        return innerPie
     }, [startAngle, endAngle, padAngle, sortByValue])
 
     return useMemo(
         () =>
-            pie(data).map(arc => {
-                const angle = Math.abs(arc.endAngle - arc.startAngle)
+            pie(data).map(
+                (
+                    arc: Omit<PieArc, 'angle' | 'angleDeg'> & {
+                        data: Omit<ComputedDatum<R>, 'arc' | 'fill'>
+                    }
+                ) => {
+                    const angle = Math.abs(arc.endAngle - arc.startAngle)
 
-                return {
-                    ...arc.data,
-                    arc: {
-                        index: arc.index,
-                        startAngle: arc.startAngle,
-                        endAngle: arc.endAngle,
-                        padAngle: arc.padAngle,
-                        angle,
-                        angleDeg: radiansToDegrees(angle),
-                    },
+                    return {
+                        ...arc.data,
+                        arc: {
+                            index: arc.index,
+                            startAngle: arc.startAngle,
+                            endAngle: arc.endAngle,
+                            padAngle: arc.padAngle,
+                            angle,
+                            angleDeg: radiansToDegrees(angle),
+                        },
+                    }
                 }
-            }),
+            ),
 
         [pie, data]
     )
@@ -112,7 +160,11 @@ export const usePieArcGenerator = ({
     radius,
     innerRadius,
     cornerRadius = PieDefaultProps.cornerRadius,
-}) =>
+}: {
+    radius: number
+    innerRadius: number
+    cornerRadius: number
+}): PieArcGenerator =>
     useMemo(() => d3Arc().outerRadius(radius).innerRadius(innerRadius).cornerRadius(cornerRadius), [
         radius,
         innerRadius,
@@ -123,7 +175,7 @@ export const usePieArcGenerator = ({
  * Compute pie layout using explicit radius/innerRadius,
  * expressed in pixels.
  */
-export const usePie = ({
+export const usePie = <R>({
     data,
     radius,
     innerRadius,
@@ -132,6 +184,13 @@ export const usePie = ({
     padAngle = PieDefaultProps.padAngle,
     sortByValue = PieDefaultProps.sortByValue,
     cornerRadius = PieDefaultProps.cornerRadius,
+}: Pick<
+    CompletePieSvgProps<R>,
+    'startAngle' | 'endAngle' | 'padAngle' | 'sortByValue' | 'cornerRadius'
+> & {
+    data: Omit<ComputedDatum<R>, 'arc'>[]
+    radius: number
+    innerRadius: number
 }) => {
     const dataWithArc = usePieArcs({
         data,
@@ -158,7 +217,7 @@ export const usePie = ({
  * It also returns `centerX`/`centerY` as those can be altered
  * if `fit` is `true`.
  */
-export const usePieFromBox = ({
+export const usePieFromBox = <R>({
     data,
     width,
     height,
@@ -169,6 +228,19 @@ export const usePieFromBox = ({
     sortByValue = PieDefaultProps.sortByValue,
     cornerRadius = PieDefaultProps.cornerRadius,
     fit = PieDefaultProps.fit,
+}: Pick<
+    CompletePieSvgProps<R>,
+    | 'width'
+    | 'height'
+    | 'innerRadius'
+    | 'startAngle'
+    | 'endAngle'
+    | 'padAngle'
+    | 'sortByValue'
+    | 'cornerRadius'
+    | 'fit'
+> & {
+    data: Omit<ComputedDatum<R>, 'arc'>[]
 }) => {
     const dataWithArc = usePieArcs({
         data,
@@ -196,7 +268,12 @@ export const usePieFromBox = ({
             )
             const ratio = Math.min(width / box.width, height / box.height)
 
-            const adjustedBox = {
+            const adjustedBox: {
+                width: number
+                height: number
+                x?: number
+                y?: number
+            } = {
                 width: box.width * ratio,
                 height: box.height * ratio,
             }
@@ -234,7 +311,7 @@ export const usePieFromBox = ({
     }
 }
 
-export const usePieSliceLabels = ({
+export const usePieSliceLabels = <R>({
     enable,
     dataWithArc,
     skipAngle,
@@ -243,6 +320,15 @@ export const usePieSliceLabels = ({
     radiusOffset,
     label,
     textColor,
+}: {
+    enable: boolean
+    dataWithArc: ComputedDatum<R>[]
+    skipAngle: number
+    radius: number
+    innerRadius: number
+    radiusOffset: number
+    label: string | LabelAccessorFunction<R>
+    textColor: InheritedColorProp<ComputedDatum<R>>
 }) => {
     const theme = useTheme()
     const getTextColor = useInheritedColor(textColor, theme)
@@ -269,7 +355,7 @@ export const usePieSliceLabels = ({
     }, [enable, dataWithArc, skipAngle, radius, innerRadius, radiusOffset, getLabel, getTextColor])
 }
 
-export const usePieRadialLabels = ({
+export const usePieRadialLabels = <R>({
     enable,
     dataWithArc,
     label,
@@ -281,7 +367,19 @@ export const usePieRadialLabels = ({
     linkDiagonalLength,
     linkHorizontalLength,
     linkColor,
-}) => {
+}: {
+    enable: boolean
+    dataWithArc: ComputedDatum<R>[]
+    label: string | LabelAccessorFunction<R>
+    textXOffset: number
+    textColor: InheritedColorProp<ComputedDatum<R>>
+    radius: number
+    skipAngle: number
+    linkOffset: number
+    linkDiagonalLength: number
+    linkHorizontalLength: number
+    linkColor: InheritedColorProp<ComputedDatum<R>>
+}): RadialLabelData<R>[] => {
     const getLabel = useMemo(() => getLabelGenerator(label), [label])
 
     const theme = useTheme()
@@ -348,14 +446,21 @@ export const usePieRadialLabels = ({
 /**
  * Memoize the context to pass to custom layers.
  */
-export const usePieLayerContext = ({
+export const usePieLayerContext = <R>({
     dataWithArc,
     arcGenerator,
     centerX,
     centerY,
     radius,
     innerRadius,
-}) =>
+}: {
+    dataWithArc: ComputedDatum<R>[]
+    arcGenerator: PieArcGenerator
+    centerX: number
+    centerY: number
+    radius: number
+    innerRadius: number
+}): PieCustomLayerProps<R> =>
     useMemo(
         () => ({
             dataWithArc,

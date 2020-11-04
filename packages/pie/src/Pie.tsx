@@ -6,76 +6,80 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Fragment, createElement } from 'react'
+import React, { ReactNode, Fragment, createElement } from 'react'
+// @ts-ignore
 import { withContainer, SvgWrapper, bindDefs, useTheme, useDimensions } from '@nivo/core'
-import { useInheritedColor } from '@nivo/colors'
-import { PieSvgDefaultProps, PieSvgPropTypes } from './props'
+// @ts-ignore
+import { useInheritedColor, OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
 import { PieSlice } from './PieSlice'
 import { RadialLabels } from './RadialLabels'
 import { SliceLabels } from './SliceLabels'
 import PieLegends from './PieLegends'
 import { useNormalizedData, usePieFromBox, usePieLayerContext } from './hooks'
+import { ComputedDatum, PieLayer, PieSvgProps, PieLayerId } from './definitions'
+import { defaultProps } from './props'
 
-const Pie = ({
+// prettier-ignore
+const Pie = <R, >({
     data,
-    id,
-    value,
+    id = defaultProps.id,
+    value = defaultProps.value,
     valueFormat,
-    sortByValue,
+    sortByValue = defaultProps.sortByValue,
 
-    layers,
+    layers = defaultProps.layers as PieLayer<R>[],
 
-    startAngle,
-    endAngle,
-    padAngle,
-    fit,
-    innerRadius: innerRadiusRatio,
-    cornerRadius,
+    startAngle = defaultProps.startAngle,
+    endAngle = defaultProps.endAngle,
+    padAngle = defaultProps.padAngle,
+    fit = defaultProps.fit,
+    innerRadius: innerRadiusRatio = defaultProps.innerRadius,
+    cornerRadius = defaultProps.cornerRadius,
 
     width,
     height,
     margin: partialMargin,
 
-    colors,
+    colors = defaultProps.colors as OrdinalColorsInstruction,
 
     // border
-    borderWidth,
-    borderColor: _borderColor,
+    borderWidth = defaultProps.borderWidth,
+    borderColor: _borderColor = defaultProps.borderColor as InheritedColorProp<ComputedDatum<R>>,
 
     // radial labels
-    radialLabel,
-    enableRadialLabels,
-    radialLabelsSkipAngle,
-    radialLabelsLinkOffset,
-    radialLabelsLinkDiagonalLength,
-    radialLabelsLinkHorizontalLength,
-    radialLabelsLinkStrokeWidth,
-    radialLabelsTextXOffset,
-    radialLabelsTextColor,
-    radialLabelsLinkColor,
+    radialLabel = defaultProps.radialLabel,
+    enableRadialLabels = defaultProps.enableRadialLabels,
+    radialLabelsSkipAngle = defaultProps.radialLabelsSkipAngle,
+    radialLabelsLinkOffset = defaultProps.radialLabelsLinkOffset,
+    radialLabelsLinkDiagonalLength = defaultProps.radialLabelsLinkDiagonalLength,
+    radialLabelsLinkHorizontalLength = defaultProps.radialLabelsLinkHorizontalLength,
+    radialLabelsLinkStrokeWidth = defaultProps.radialLabelsLinkStrokeWidth,
+    radialLabelsTextXOffset = defaultProps.radialLabelsTextXOffset,
+    radialLabelsTextColor = defaultProps.radialLabelsTextColor,
+    radialLabelsLinkColor = defaultProps.radialLabelsLinkColor,
 
     // slices labels
-    sliceLabel,
-    enableSliceLabels,
-    sliceLabelsSkipAngle,
-    sliceLabelsTextColor,
-    sliceLabelsRadiusOffset,
+    sliceLabel = defaultProps.sliceLabel,
+    enableSliceLabels = defaultProps.enableSliceLabels,
+    sliceLabelsSkipAngle = defaultProps.sliceLabelsSkipAngle,
+    sliceLabelsTextColor = defaultProps.sliceLabelsTextColor,
+    sliceLabelsRadiusOffset = defaultProps.sliceLabelsRadiusOffset,
 
     // styling
-    defs,
-    fill,
+    defs = defaultProps.defs,
+    fill = defaultProps.fill,
 
     // interactivity
-    isInteractive,
+    isInteractive = defaultProps.isInteractive,
     onClick,
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
-    tooltip,
+    tooltip = defaultProps.tooltip,
 
-    legends,
-    role,
-}) => {
+    legends = defaultProps.legends,
+    role = defaultProps.role,
+}: PieSvgProps<R>) => {
     const theme = useTheme()
 
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
@@ -84,7 +88,7 @@ const Pie = ({
         partialMargin
     )
 
-    const normalizedData = useNormalizedData({
+    const normalizedData = useNormalizedData<R>({
         data,
         id,
         value,
@@ -109,7 +113,7 @@ const Pie = ({
 
     const boundDefs = bindDefs(defs, dataWithArc, fill)
 
-    const layerById = {
+    const layerById: Record<PieLayerId, ReactNode> = {
         slices: null,
         radialLabels: null,
         sliceLabels: null,
@@ -120,7 +124,7 @@ const Pie = ({
         layerById.slices = (
             <g key="slices" transform={`translate(${centerX},${centerY})`}>
                 {dataWithArc.map(datumWithArc => (
-                    <PieSlice
+                    <PieSlice<R>
                         key={datumWithArc.id}
                         datum={datumWithArc}
                         path={arcGenerator(datumWithArc.arc)}
@@ -141,7 +145,7 @@ const Pie = ({
     if (enableRadialLabels && layers.includes('radialLabels')) {
         layerById.radialLabels = (
             <g key="radialLabels" transform={`translate(${centerX},${centerY})`}>
-                <RadialLabels
+                <RadialLabels<R>
                     dataWithArc={dataWithArc}
                     radius={radius}
                     label={radialLabel}
@@ -162,6 +166,7 @@ const Pie = ({
         layerById.sliceLabels = (
             <g key="sliceLabels" transform={`translate(${centerX},${centerY})`}>
                 <SliceLabels
+                    // @ts-ignore
                     dataWithArc={dataWithArc}
                     label={sliceLabel}
                     radius={radius}
@@ -180,13 +185,14 @@ const Pie = ({
                 key="legends"
                 width={innerWidth}
                 height={innerHeight}
+                // @ts-ignore
                 dataWithArc={dataWithArc}
                 legends={legends}
             />
         )
     }
 
-    const layerContext = usePieLayerContext({
+    const layerContext = usePieLayerContext<R>({
         dataWithArc,
         arcGenerator,
         centerX,
@@ -205,8 +211,8 @@ const Pie = ({
             role={role}
         >
             {layers.map((layer, i) => {
-                if (layerById[layer] !== undefined) {
-                    return layerById[layer]
+                if (layerById[layer as PieLayerId] !== undefined) {
+                    return layerById[layer as PieLayerId]
                 }
 
                 if (typeof layer === 'function') {
@@ -219,8 +225,4 @@ const Pie = ({
     )
 }
 
-Pie.displayName = 'Pie'
-Pie.propTypes = PieSvgPropTypes
-Pie.defaultProps = PieSvgDefaultProps
-
-export default withContainer(Pie)
+export default withContainer(Pie) as <R>(props: PieSvgProps<R>) => JSX.Element

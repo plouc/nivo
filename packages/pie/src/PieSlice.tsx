@@ -7,11 +7,25 @@
  * file that was distributed with this source code.
  */
 import React, { createElement, useCallback } from 'react'
-import PropTypes from 'prop-types'
+// @ts-ignore
 import { useTooltip } from '@nivo/tooltip'
-import { PiePropTypes, datumWithArcPropType } from './props'
+import { ComputedDatum, CompletePieSvgProps } from './definitions'
 
-export const PieSlice = ({
+interface PieSliceProps<R> {
+    datum: ComputedDatum<R>
+    path: string
+    borderWidth: CompletePieSvgProps<R>['borderWidth']
+    borderColor: string
+    isInteractive: CompletePieSvgProps<R>['isInteractive']
+    tooltip: CompletePieSvgProps<R>['tooltip']
+    onClick: CompletePieSvgProps<R>['onClick']
+    onMouseEnter: CompletePieSvgProps<R>['onMouseEnter']
+    onMouseMove: CompletePieSvgProps<R>['onMouseMove']
+    onMouseLeave: CompletePieSvgProps<R>['onMouseLeave']
+}
+
+// prettier-ignore
+export const PieSlice = <R, >({
     datum,
     path,
     borderWidth,
@@ -22,7 +36,7 @@ export const PieSlice = ({
     onMouseMove,
     onMouseLeave,
     tooltip,
-}) => {
+}: PieSliceProps<R>) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleTooltip = useCallback(
@@ -32,7 +46,7 @@ export const PieSlice = ({
 
     const handleMouseEnter = useCallback(
         event => {
-            onMouseEnter && onMouseEnter(datum, event)
+            if (onMouseEnter) onMouseEnter(datum, event)
             handleTooltip(event)
         },
         [onMouseEnter, handleTooltip, datum]
@@ -40,7 +54,7 @@ export const PieSlice = ({
 
     const handleMouseMove = useCallback(
         event => {
-            onMouseMove && onMouseMove(datum, event)
+            if (onMouseMove) onMouseMove(datum, event)
             handleTooltip(event)
         },
         [onMouseMove, handleTooltip, datum]
@@ -48,7 +62,7 @@ export const PieSlice = ({
 
     const handleMouseLeave = useCallback(
         event => {
-            onMouseLeave && onMouseLeave(datum, event)
+            if (onMouseLeave) onMouseLeave(datum, event)
             hideTooltip(event)
         },
         [onMouseLeave, hideTooltip, datum]
@@ -56,7 +70,7 @@ export const PieSlice = ({
 
     const handleClick = useCallback(
         event => {
-            onClick && onClick(datum, event)
+            if (onClick) onClick(datum, event)
         },
         [onClick, datum]
     )
@@ -73,19 +87,4 @@ export const PieSlice = ({
             onClick={isInteractive ? handleClick : undefined}
         />
     )
-}
-
-PieSlice.propTypes = {
-    datum: datumWithArcPropType.isRequired,
-
-    path: PropTypes.string.isRequired,
-    borderWidth: PiePropTypes.borderWidth,
-    borderColor: PropTypes.string.isRequired,
-
-    isInteractive: PiePropTypes.isInteractive,
-    tooltip: PiePropTypes.tooltip,
-    onClick: PiePropTypes.onClick,
-    onMouseEnter: PiePropTypes.onMouseEnter,
-    onMouseMove: PiePropTypes.onMouseMove,
-    onMouseLeave: PiePropTypes.onMouseLeave,
 }

@@ -7,12 +7,15 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
+// @ts-ignore
 import { ResponsiveWrapper } from '@nivo/core'
 import Pie from './Pie'
+import { PieSvgProps } from './definitions'
 
-const ResponsivePie = props => (
+// prettier-ignore
+const ResponsivePie = <R, >(props: Omit<PieSvgProps<R>, 'width' | 'height'>) => (
     <ResponsiveWrapper>
-        {({ width, height }) => <Pie width={width} height={height} {...props} />}
+        {({ width, height }: { width: number, height: number }) => <Pie<R> width={width} height={height} {...props} />}
     </ResponsiveWrapper>
 )
 

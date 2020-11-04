@@ -7,16 +7,21 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import PropTypes from 'prop-types'
+// @ts-ignore
 import { line } from 'd3-shape'
+// @ts-ignore
 import { textPropsByEngine, useTheme } from '@nivo/core'
-import { datumWithArcPropType, PiePropTypes } from './props'
+import { RadialLabelData, Point } from './definitions'
 
 const lineGenerator = line()
-    .x(d => d.x)
-    .y(d => d.y)
+    .x((d: Point) => d.x)
+    .y((d: Point) => d.y)
 
-export const RadialLabel = ({ label, linkStrokeWidth }) => {
+// prettier-ignore
+export const RadialLabel = <R, >({ label, linkStrokeWidth }: {
+    label: RadialLabelData<R>
+    linkStrokeWidth: number
+}) => {
     const theme = useTheme()
 
     return (
@@ -41,25 +46,4 @@ export const RadialLabel = ({ label, linkStrokeWidth }) => {
             </g>
         </>
     )
-}
-
-RadialLabel.propTypes = {
-    label: PropTypes.shape({
-        line: PropTypes.arrayOf(
-            PropTypes.shape({
-                x: PropTypes.number,
-                y: PropTypes.number,
-            })
-        ).isRequired,
-        position: PropTypes.shape({
-            x: PropTypes.number,
-            y: PropTypes.number,
-        }).isRequired,
-        textColor: PropTypes.string.isRequired,
-        linkColor: PropTypes.string.isRequired,
-        align: PropTypes.string.isRequired,
-        text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-        datum: datumWithArcPropType.isRequired,
-    }).isRequired,
-    linkStrokeWidth: PiePropTypes.radialLabelsLinkStrokeWidth,
 }

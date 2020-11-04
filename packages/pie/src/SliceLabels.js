@@ -38,26 +38,30 @@ export const SliceLabels = ({
         textColor,
     })
 
-    return labels.map(label => {
-        return (
-            <g
-                key={label.datum.id}
-                transform={`translate(${label.x}, ${label.y})`}
-                style={sliceStyle}
-            >
-                <text
-                    textAnchor="middle"
-                    dominantBaseline="central"
-                    style={{
-                        ...theme.labels.text,
-                        fill: label.textColor,
-                    }}
-                >
-                    {label.label}
-                </text>
-            </g>
-        )
-    })
+    return (
+        <>
+            {labels.map(label => {
+                return (
+                    <g
+                        key={label.datum.id}
+                        transform={`translate(${label.x}, ${label.y})`}
+                        style={sliceStyle}
+                    >
+                        <text
+                            textAnchor="middle"
+                            dominantBaseline="central"
+                            style={{
+                                ...theme.labels.text,
+                                fill: label.textColor,
+                            }}
+                        >
+                            {label.label}
+                        </text>
+                    </g>
+                )
+            })}
+        </>
+    )
 }
 
 SliceLabels.propTypes = {
