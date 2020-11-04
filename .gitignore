@@ -12,3 +12,5 @@ build
 /packages/*/dist
 
 *.lerna_backup
+
+/stats
