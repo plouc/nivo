@@ -182,7 +182,7 @@ package-types-%: ##@1 packages build a package types
 	@-rm -rf ./packages/${*}/dist/tsconfig.tsbuildinfo
 	@yarn tsc -b ./packages/${*}
 
-package-build-%: package-types-% ##@1 packages build a package
+package-build-%: ##@1 packages build a package
 	@echo "${YELLOW}Building package ${WHITE}@nivo/${*}${RESET}"
 	@-rm -rf ./packages/${*}/dist
 	@export PACKAGE=${*}; NODE_ENV=production BABEL_ENV=production ./node_modules/.bin/rollup -c conf/rollup.config.js
