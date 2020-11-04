@@ -558,17 +558,16 @@ const props = [
         help: 'Custom tooltip component',
         description: `
             A function allowing complete tooltip customisation,
-            it must return a valid HTML
-            element and will receive the following data:
+            it must return a valid HTML element and will receive
+            the following props:
+            
             \`\`\`
             {
-                id:    {string|number},
-                value: number,
-                label: {string|number},
-                color: string
+                datum: PieComputedDatum
             }
             \`\`\`
-            You can customize the style of the tooltip using
+            
+            You can also customize the style of the tooltip using
             the \`theme.tooltip\` object.
         `,
     },
