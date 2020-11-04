@@ -41,10 +41,6 @@ const CustomTooltip = ({ datum }) => (
 export default settingsMapper(
     {
         valueFormat: mapFormat,
-        colorBy: value => {
-            if (value === 'd => d.color') return d => d.color
-            return value
-        },
         radialLabel: value => {
             if (value === `d => \`\${d.id} (\${d.value})\``) return d => `${d.id} (${d.value})`
             return value

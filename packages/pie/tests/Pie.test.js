@@ -1,5 +1,6 @@
 import React from 'react'
 import { mount } from 'enzyme'
+import { radiansToDegrees } from '@nivo/core'
 import Pie from '../src/Pie'
 
 const sampleData = [
@@ -148,15 +149,83 @@ describe('Pie', () => {
     })
 
     describe('layout', () => {
-        it('should support donut charts', () => {})
+        it('should support donut charts', () => {
+            const wrapper = mount(
+                <Pie width={400} height={400} data={sampleData} innerRadius={0.5} />
+            )
 
-        it('should support padAngle', () => {})
+            // we can use the slice labels main component to check computed radii
+            const sliceLabels = wrapper.find('SliceLabels')
+            expect(sliceLabels.exists()).toBeTruthy()
+            expect(sliceLabels.prop('radius')).toEqual(200)
+            expect(sliceLabels.prop('innerRadius')).toEqual(100)
+        })
 
-        it('should support cornerRadius', () => {})
+        it('should support padAngle', () => {
+            const wrapper = mount(<Pie width={400} height={400} data={sampleData} padAngle={10} />)
 
-        it('should support custom start and end angles', () => {})
+            const slices = wrapper.find('PieSlice')
+            expect(slices).toHaveLength(sampleData.length)
+            slices.forEach(slice => {
+                expect(radiansToDegrees(slice.prop('datum').arc.padAngle)).toEqual(10)
+            })
+        })
 
-        it('should support optimizing space usage via the fit property', () => {})
+        it('should support cornerRadius', () => {
+            // using a custom layer to inspect the `arcGenerator`
+            const CustomLayer = () => null
+            const wrapper = mount(
+                <Pie
+                    width={400}
+                    height={400}
+                    data={sampleData}
+                    cornerRadius={3}
+                    layers={[CustomLayer]}
+                />
+            )
+
+            const layer = wrapper.find(CustomLayer)
+            expect(layer.exists()).toBeTruthy()
+            expect(layer.prop('arcGenerator').cornerRadius()()).toEqual(3)
+        })
+
+        it('should support custom start and end angles', () => {
+            const wrapper = mount(
+                <Pie
+                    width={400}
+                    height={400}
+                    data={sampleData}
+                    innerRadius={0.5}
+                    startAngle={90}
+                    endAngle={180}
+                />
+            )
+
+            const slices = wrapper.find('PieSlice')
+            expect(slices).toHaveLength(sampleData.length)
+            expect(radiansToDegrees(slices.at(0).prop('datum').arc.startAngle)).toEqual(90)
+            expect(radiansToDegrees(slices.at(2).prop('datum').arc.endAngle)).toEqual(180)
+        })
+
+        it('should support optimizing space usage via the fit property', () => {
+            const wrapper = mount(
+                <Pie
+                    width={800}
+                    height={400}
+                    data={sampleData}
+                    innerRadius={0.5}
+                    startAngle={-90}
+                    endAngle={90}
+                    fit
+                />
+            )
+
+            // we can use the slice labels main component to check computed radii
+            const sliceLabels = wrapper.find('SliceLabels')
+            expect(sliceLabels.exists()).toBeTruthy()
+            expect(sliceLabels.prop('radius')).toEqual(400)
+            expect(sliceLabels.prop('innerRadius')).toEqual(200)
+        })
     })
 
     describe('colors', () => {
@@ -221,9 +290,13 @@ describe('Pie', () => {
     })
 
     describe('patterns & gradients', () => {
-        it('should support patterns', () => {})
+        it('should support patterns', () => {
+            // @todo
+        })
 
-        it('should support gradients', () => {})
+        it('should support gradients', () => {
+            // @todo
+        })
     })
 
     describe('slice labels', () => {
