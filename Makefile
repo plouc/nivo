@@ -177,12 +177,17 @@ packages-build: packages-types ##@1 packages build all packages
         | xargs -I '{}' sh -c '$(MAKE) package-build-{}'
 
 package-types-%: ##@1 packages build a package types
-	@echo "${YELLOW}Building TypeScript types for package ${WHITE}@nivo/${*}${RESET}"
-	@-rm -rf ./packages/${*}/dist/types
-	@-rm -rf ./packages/${*}/dist/tsconfig.tsbuildinfo
-	@yarn tsc -b ./packages/${*}
+	@if [ -f "./packages/${*}/tsconfig.json" ]; \
+    then \
+        echo "${YELLOW}Building TypeScript types for package ${WHITE}@nivo/${*}${RESET}"; \
+        rm -rf ./packages/${*}/dist/types; \
+        rm -rf ./packages/${*}/dist/tsconfig.tsbuildinfo; \
+        yarn tsc -b ./packages/${*}; \
+    else \
+        echo "${YELLOW}Package ${WHITE}@nivo/${*}${RESET}${YELLOW} does not have tsconfig, skipping"; \
+    fi;
 
-package-build-%: ##@1 packages build a package
+package-build-%: package-types-% ##@1 packages build a package
 	@echo "${YELLOW}Building package ${WHITE}@nivo/${*}${RESET}"
 	@-rm -rf ./packages/${*}/dist
 	@export PACKAGE=${*}; NODE_ENV=production BABEL_ENV=production ./node_modules/.bin/rollup -c conf/rollup.config.js
