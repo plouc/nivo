@@ -78,7 +78,7 @@ export const useNormalizedData = <RawDatum extends MayHaveLabel>({
 
                 const normalizedDatum: Omit<ComputedDatum<RawDatum>, 'arc' | 'color' | 'fill'> = {
                     id: datumId,
-                    label: datum.label || datumId,
+                    label: datum.label ?? datumId,
                     value: datumValue,
                     formattedValue: formatValue(datumValue),
                     data: datum,
