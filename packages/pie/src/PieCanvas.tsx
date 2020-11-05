@@ -128,7 +128,7 @@ const PieCanvas = <R, >({
 
     legends = defaultProps.legends,
 }: PieCanvasProps<R>) => {
-    const canvasEl = useRef<HTMLCanvasElement>(null)
+    const canvasEl = useRef<HTMLCanvasElement | null>(null)
     const theme = useTheme()
 
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
@@ -296,7 +296,7 @@ const PieCanvas = <R, >({
     const handleMouseHover = (event: React.MouseEvent<HTMLCanvasElement>) => {
         const datum = getArcFromMouse(event)
         if (datum) {
-            if (onMouseMove) onMouseMove(datum, event)
+            onMouseMove?.(datum, event)
             showTooltipFromEvent(createElement(tooltip, { datum }), event)
         } else {
             hideTooltip()

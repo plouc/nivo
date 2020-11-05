@@ -38,7 +38,7 @@ export const PieSlice = <R, >({
 
     const handleMouseEnter = useCallback(
         event => {
-            if (onMouseEnter) onMouseEnter(datum, event)
+            onMouseEnter?.(datum, event)
             handleTooltip(event)
         },
         [onMouseEnter, handleTooltip, datum]
@@ -46,7 +46,7 @@ export const PieSlice = <R, >({
 
     const handleMouseMove = useCallback(
         event => {
-            if (onMouseMove) onMouseMove(datum, event)
+            onMouseMove?.(datum, event)
             handleTooltip(event)
         },
         [onMouseMove, handleTooltip, datum]
@@ -54,7 +54,7 @@ export const PieSlice = <R, >({
 
     const handleMouseLeave = useCallback(
         event => {
-            if (onMouseLeave) onMouseLeave(datum, event)
+            onMouseLeave?.(datum, event)
             hideTooltip(event)
         },
         [onMouseLeave, hideTooltip, datum]
@@ -62,7 +62,7 @@ export const PieSlice = <R, >({
 
     const handleClick = useCallback(
         event => {
-            if (onClick) onClick(datum, event)
+            onClick?.(datum, event)
         },
         [onClick, datum]
     )
