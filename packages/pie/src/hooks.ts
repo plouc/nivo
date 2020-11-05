@@ -44,11 +44,15 @@ import {
     SliceLabelData,
 } from './types'
 
+interface MayHaveLabel {
+    label?: string | number
+}
+
 /**
  * Format data so that we get a consistent data structure.
  * It will also add the `formattedValue` and `color` property.
  */
-export const useNormalizedData = <RawDatum>({
+export const useNormalizedData = <RawDatum extends MayHaveLabel>({
     data,
     id = defaultProps.id,
     value = defaultProps.value,
@@ -74,7 +78,6 @@ export const useNormalizedData = <RawDatum>({
 
                 const normalizedDatum: Omit<ComputedDatum<RawDatum>, 'arc' | 'color' | 'fill'> = {
                     id: datumId,
-                    // @ts-ignore
                     label: datum.label || datumId,
                     value: datumValue,
                     formattedValue: formatValue(datumValue),
