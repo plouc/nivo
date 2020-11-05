@@ -1,18 +1,9 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React, { ReactNode, Fragment, createElement } from 'react'
 // @ts-ignore
 import { withContainer, SvgWrapper, bindDefs, useTheme, useDimensions } from '@nivo/core'
 import {
     // @ts-ignore
     useInheritedColor,
-    OrdinalColorsInstruction,
     InheritedColorProp,
 } from '@nivo/colors'
 import { PieSlice } from './PieSlice'
@@ -44,7 +35,7 @@ const Pie = <R, >({
     height,
     margin: partialMargin,
 
-    colors = defaultProps.colors as OrdinalColorsInstruction,
+    colors = defaultProps.colors,
 
     // border
     borderWidth = defaultProps.borderWidth,
@@ -169,7 +160,7 @@ const Pie = <R, >({
     if (enableSliceLabels && layers.includes('sliceLabels')) {
         layerById.sliceLabels = (
             <g key="sliceLabels" transform={`translate(${centerX},${centerY})`}>
-                <SliceLabels
+                <SliceLabels<R>
                     // @ts-ignore
                     dataWithArc={dataWithArc}
                     label={sliceLabel}
@@ -185,7 +176,7 @@ const Pie = <R, >({
 
     if (legends.length > 0 && layers.includes('legends')) {
         layerById.legends = (
-            <PieLegends
+            <PieLegends<R>
                 key="legends"
                 width={innerWidth}
                 height={innerHeight}

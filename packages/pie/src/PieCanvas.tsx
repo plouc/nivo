@@ -1,50 +1,67 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React, { createElement, useEffect, useMemo, useRef } from 'react'
 import {
+    // @ts-ignore
     getHoveredArc,
+    // @ts-ignore
     getRelativeCursor,
+    // @ts-ignore
     textPropsByEngine,
+    // @ts-ignore
     useDimensions,
+    // @ts-ignore
     useTheme,
+    // @ts-ignore
     withContainer,
+    Theme,
 } from '@nivo/core'
+// @ts-ignore
 import { renderLegendToCanvas } from '@nivo/legends'
-import { useInheritedColor } from '@nivo/colors'
+import {
+    // @ts-ignore
+    useInheritedColor,
+    InheritedColorProp,
+} from '@nivo/colors'
+// @ts-ignore
 import { useTooltip } from '@nivo/tooltip'
-import { PieSvgDefaultProps, PieSvgPropTypes } from './props'
 import { useNormalizedData, usePieFromBox, usePieRadialLabels, usePieSliceLabels } from './hooks'
+import { ComputedDatum, PieCanvasProps, RadialLabelData, SliceLabelData } from './types'
+import { defaultProps } from './props'
 
-const drawSliceLabels = (ctx, labels, theme) => {
+// prettier-ignore
+const drawSliceLabels = <R, >(
+    ctx: CanvasRenderingContext2D,
+    labels: SliceLabelData<R>[],
+    theme: Theme
+) => {
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
-    ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
+    ctx.font = `${theme.labels!.text!.fontSize}px ${theme.labels!.text!.fontFamily}`
 
     labels.forEach(label => {
         ctx.save()
         ctx.translate(label.x, label.y)
         ctx.fillStyle = label.textColor
-        ctx.fillText(label.label, 0, 0)
+        ctx.fillText(`${label.label}`, 0, 0)
         ctx.restore()
     })
 }
 
-const drawRadialLabels = (ctx, labels, theme, linkStrokeWidth) => {
+// prettier-ignore
+const drawRadialLabels = <R, >(
+    ctx: CanvasRenderingContext2D,
+    labels: RadialLabelData<R>[],
+    theme: Theme,
+    linkStrokeWidth: number
+) => {
     ctx.textBaseline = 'middle'
-    ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
+    ctx.font = `${theme.labels!.text!.fontSize}px ${theme.labels!.text!.fontFamily}`
 
     labels.forEach(label => {
         ctx.save()
         ctx.translate(label.position.x, label.position.y)
         ctx.fillStyle = label.textColor
         ctx.textAlign = textPropsByEngine.canvas.align[label.align]
-        ctx.fillText(label.text, 0, 0)
+        ctx.fillText(`${label.text}`, 0, 0)
         ctx.restore()
 
         ctx.beginPath()
@@ -58,61 +75,60 @@ const drawRadialLabels = (ctx, labels, theme, linkStrokeWidth) => {
     })
 }
 
-const PieCanvas = ({
+// prettier-ignore
+const PieCanvas = <R, >({
     data,
-    id,
-    value,
+    id = defaultProps.id,
+    value = defaultProps.value,
     valueFormat,
-    sortByValue,
+    sortByValue = defaultProps.sortByValue,
 
-    // layers,
-
-    startAngle,
-    endAngle,
-    padAngle,
-    fit,
-    innerRadius: innerRadiusRatio,
-    cornerRadius,
+    startAngle = defaultProps.startAngle,
+    endAngle = defaultProps.endAngle,
+    padAngle = defaultProps.padAngle,
+    fit = defaultProps.fit,
+    innerRadius: innerRadiusRatio = defaultProps.innerRadius,
+    cornerRadius = defaultProps.cornerRadius,
 
     width,
     height,
     margin: partialMargin,
-    pixelRatio,
+    pixelRatio = 1,
 
-    colors,
+    colors = defaultProps.colors,
 
     // border
-    borderWidth,
-    borderColor,
+    borderWidth = defaultProps.borderWidth,
+    borderColor = defaultProps.borderColor as InheritedColorProp<ComputedDatum<R>>,
 
     // radial labels
-    radialLabel,
-    enableRadialLabels,
-    radialLabelsSkipAngle,
-    radialLabelsLinkOffset,
-    radialLabelsLinkDiagonalLength,
-    radialLabelsLinkHorizontalLength,
-    radialLabelsLinkStrokeWidth,
-    radialLabelsTextXOffset,
-    radialLabelsTextColor,
-    radialLabelsLinkColor,
+    radialLabel = defaultProps.radialLabel,
+    enableRadialLabels = defaultProps.enableRadialLabels,
+    radialLabelsSkipAngle = defaultProps.radialLabelsSkipAngle,
+    radialLabelsLinkOffset = defaultProps.radialLabelsLinkOffset,
+    radialLabelsLinkDiagonalLength = defaultProps.radialLabelsLinkDiagonalLength,
+    radialLabelsLinkHorizontalLength = defaultProps.radialLabelsLinkHorizontalLength,
+    radialLabelsLinkStrokeWidth = defaultProps.radialLabelsLinkStrokeWidth,
+    radialLabelsTextXOffset = defaultProps.radialLabelsTextXOffset,
+    radialLabelsTextColor = defaultProps.radialLabelsTextColor,
+    radialLabelsLinkColor = defaultProps.radialLabelsLinkColor,
 
     // slices labels
-    sliceLabel,
-    enableSliceLabels,
-    sliceLabelsSkipAngle,
-    sliceLabelsTextColor,
-    sliceLabelsRadiusOffset,
+    sliceLabel = defaultProps.sliceLabel,
+    enableSliceLabels = defaultProps.enableSliceLabels,
+    sliceLabelsSkipAngle = defaultProps.sliceLabelsSkipAngle,
+    sliceLabelsTextColor = defaultProps.sliceLabelsTextColor,
+    sliceLabelsRadiusOffset = defaultProps.sliceLabelsRadiusOffset,
 
     // interactivity
-    isInteractive,
+    isInteractive = defaultProps.isInteractive,
     onClick,
     onMouseMove,
-    tooltip,
+    tooltip = defaultProps.tooltip,
 
-    legends,
-}) => {
-    const canvasEl = useRef(null)
+    legends = defaultProps.legends,
+}: PieCanvasProps<R>) => {
+    const canvasEl = useRef<HTMLCanvasElement>(null)
     const theme = useTheme()
 
     const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
@@ -121,7 +137,7 @@ const PieCanvas = ({
         partialMargin
     )
 
-    const normalizedData = useNormalizedData({
+    const normalizedData = useNormalizedData<R>({
         data,
         id,
         value,
@@ -129,7 +145,7 @@ const PieCanvas = ({
         colors,
     })
 
-    const { dataWithArc, arcGenerator, centerX, centerY, radius, innerRadius } = usePieFromBox({
+    const { dataWithArc, arcGenerator, centerX, centerY, radius, innerRadius } = usePieFromBox<R>({
         data: normalizedData,
         width: innerWidth,
         height: innerHeight,
@@ -144,7 +160,7 @@ const PieCanvas = ({
 
     const getBorderColor = useInheritedColor(borderColor, theme)
 
-    const radialLabels = usePieRadialLabels({
+    const radialLabels = usePieRadialLabels<R>({
         enable: enableRadialLabels,
         dataWithArc,
         label: radialLabel,
@@ -158,7 +174,7 @@ const PieCanvas = ({
         linkColor: radialLabelsLinkColor,
     })
 
-    const sliceLabels = usePieSliceLabels({
+    const sliceLabels = usePieSliceLabels<R>({
         enable: enableSliceLabels,
         dataWithArc,
         label: sliceLabel,
@@ -170,10 +186,12 @@ const PieCanvas = ({
     })
 
     useEffect(() => {
+        if (!canvasEl.current) return
+
         canvasEl.current.width = outerWidth * pixelRatio
         canvasEl.current.height = outerHeight * pixelRatio
 
-        const ctx = canvasEl.current.getContext('2d')
+        const ctx = canvasEl.current.getContext('2d')!
 
         ctx.scale(pixelRatio, pixelRatio)
 
@@ -181,9 +199,9 @@ const PieCanvas = ({
         ctx.fillRect(0, 0, outerWidth, outerHeight)
 
         ctx.save()
-        ctx.translate(margin.left, margin.top)
+        ctx.translate(margin.left, margin.top);
 
-        arcGenerator.context(ctx)
+        (arcGenerator as any).context(ctx)
 
         ctx.save()
         ctx.translate(centerX, centerY)
@@ -255,7 +273,7 @@ const PieCanvas = ({
         [dataWithArc]
     )
 
-    const getArcFromMouse = event => {
+    const getArcFromMouse = (event: React.MouseEvent<HTMLCanvasElement>) => {
         const [x, y] = getRelativeCursor(canvasEl.current, event)
 
         const hoveredArc = getHoveredArc(
@@ -275,10 +293,10 @@ const PieCanvas = ({
 
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
-    const handleMouseHover = event => {
+    const handleMouseHover = (event: React.MouseEvent<HTMLCanvasElement>) => {
         const datum = getArcFromMouse(event)
         if (datum) {
-            onMouseMove && onMouseMove(datum, event)
+            if (onMouseMove) onMouseMove(datum, event)
             showTooltipFromEvent(createElement(tooltip, { datum }), event)
         } else {
             hideTooltip()
@@ -289,7 +307,7 @@ const PieCanvas = ({
         hideTooltip()
     }
 
-    const handleClick = event => {
+    const handleClick = (event: React.MouseEvent<HTMLCanvasElement>) => {
         if (!onClick) return
 
         const arc = getArcFromMouse(event)
@@ -316,8 +334,4 @@ const PieCanvas = ({
     )
 }
 
-PieCanvas.displayName = 'PieCanvas'
-PieCanvas.propTypes = PieSvgPropTypes
-PieCanvas.defaultProps = PieSvgDefaultProps
-
-export default withContainer(PieCanvas)
+export default withContainer(PieCanvas) as <R>(props: PieCanvasProps<R>) => JSX.Element

@@ -169,3 +169,11 @@ export type RadialLabelData<R> = {
     linkColor: string
     datum: ComputedDatum<R>
 }
+
+export type SliceLabelData<R> = {
+    x: number
+    y: number
+    label: string | number
+    textColor: string
+    datum: ComputedDatum<R>
+}

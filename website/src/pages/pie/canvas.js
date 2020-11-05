@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { PieDefaultProps, ResponsivePieCanvas } from '@nivo/pie'
+import { defaultProps, ResponsivePieCanvas } from '@nivo/pie'
 import { generateProgrammingLanguageStats } from '@nivo/generators'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/pie/meta.yml'
@@ -104,7 +104,7 @@ const PieCanvas = () => {
             currentFlavor="canvas"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={PieDefaultProps}
+            defaultProperties={defaultProps}
             propertiesMapper={mapper}
             generateData={generateData}
             getDataSize={data => data.length}
