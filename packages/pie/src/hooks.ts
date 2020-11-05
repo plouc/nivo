@@ -1,11 +1,3 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { useMemo } from 'react'
 import { get } from 'lodash'
 // @ts-ignore
@@ -40,7 +32,7 @@ import {
     OrdinalColorsInstruction,
     InheritedColorProp,
 } from '@nivo/colors'
-import { PieDefaultProps } from './props'
+import { defaultProps } from './props'
 import {
     CompletePieSvgProps,
     ComputedDatum,
@@ -49,6 +41,7 @@ import {
     LabelAccessorFunction,
     PieCustomLayerProps,
     RadialLabelData,
+    SliceLabelData,
 } from './types'
 
 /**
@@ -57,10 +50,10 @@ import {
  */
 export const useNormalizedData = <R>({
     data,
-    id = PieDefaultProps.id,
-    value = PieDefaultProps.value,
+    id = defaultProps.id,
+    value = defaultProps.value,
     valueFormat,
-    colors = PieDefaultProps.colors as OrdinalColorsInstruction,
+    colors = defaultProps.colors as OrdinalColorsInstruction,
 }: Pick<CompletePieSvgProps<R>, 'id' | 'value' | 'valueFormat' | 'colors'> & {
     data: R[]
 }): Omit<ComputedDatum<R>, 'arc' | 'fill'>[] => {
@@ -102,10 +95,10 @@ export const useNormalizedData = <R>({
  */
 export const usePieArcs = <R>({
     data,
-    startAngle = PieDefaultProps.startAngle,
-    endAngle = PieDefaultProps.endAngle,
-    padAngle = PieDefaultProps.padAngle,
-    sortByValue = PieDefaultProps.sortByValue,
+    startAngle = defaultProps.startAngle,
+    endAngle = defaultProps.endAngle,
+    padAngle = defaultProps.padAngle,
+    sortByValue = defaultProps.sortByValue,
 }: {
     data: Omit<ComputedDatum<R>, 'arc' | 'fill'>[]
     startAngle: number
@@ -156,7 +149,7 @@ export const usePieArcs = <R>({
 export const usePieArcGenerator = ({
     radius,
     innerRadius,
-    cornerRadius = PieDefaultProps.cornerRadius,
+    cornerRadius = defaultProps.cornerRadius,
 }: {
     radius: number
     innerRadius: number
@@ -176,11 +169,11 @@ export const usePie = <R>({
     data,
     radius,
     innerRadius,
-    startAngle = PieDefaultProps.startAngle,
-    endAngle = PieDefaultProps.endAngle,
-    padAngle = PieDefaultProps.padAngle,
-    sortByValue = PieDefaultProps.sortByValue,
-    cornerRadius = PieDefaultProps.cornerRadius,
+    startAngle = defaultProps.startAngle,
+    endAngle = defaultProps.endAngle,
+    padAngle = defaultProps.padAngle,
+    sortByValue = defaultProps.sortByValue,
+    cornerRadius = defaultProps.cornerRadius,
 }: Pick<
     CompletePieSvgProps<R>,
     'startAngle' | 'endAngle' | 'padAngle' | 'sortByValue' | 'cornerRadius'
@@ -218,13 +211,13 @@ export const usePieFromBox = <R>({
     data,
     width,
     height,
-    innerRadius: innerRadiusRatio = PieDefaultProps.innerRadius,
-    startAngle = PieDefaultProps.startAngle,
-    endAngle = PieDefaultProps.endAngle,
-    padAngle = PieDefaultProps.padAngle,
-    sortByValue = PieDefaultProps.sortByValue,
-    cornerRadius = PieDefaultProps.cornerRadius,
-    fit = PieDefaultProps.fit,
+    innerRadius: innerRadiusRatio = defaultProps.innerRadius,
+    startAngle = defaultProps.startAngle,
+    endAngle = defaultProps.endAngle,
+    padAngle = defaultProps.padAngle,
+    sortByValue = defaultProps.sortByValue,
+    cornerRadius = defaultProps.cornerRadius,
+    fit = defaultProps.fit,
 }: Pick<
     CompletePieSvgProps<R>,
     | 'width'
@@ -326,7 +319,7 @@ export const usePieSliceLabels = <R>({
     radiusOffset: number
     label: string | LabelAccessorFunction<R>
     textColor: InheritedColorProp<ComputedDatum<R>>
-}) => {
+}): SliceLabelData<R>[] => {
     const theme = useTheme()
     const getTextColor = useInheritedColor(textColor, theme)
     const getLabel = useMemo(() => getLabelGenerator(label), [label])

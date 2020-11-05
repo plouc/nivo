@@ -15,6 +15,7 @@ const babelConfig = {
     extensions,
     exclude: 'node_modules/**',
     babelHelpers: 'runtime',
+    comments: false,
     plugins: ['lodash'],
 }
 
