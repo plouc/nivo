@@ -57,4 +57,6 @@ export const defaultProps = {
     legends: [],
 
     role: 'img',
+
+    pixelRatio: window && window.devicePixelRatio ? window.devicePixelRatio : 1,
 }
