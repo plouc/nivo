@@ -65,7 +65,7 @@ fmt: ##@0 global format code using prettier (js, css, md)
 fmt-check: ##@0 global check if files were all formatted using prettier
 	@echo "${YELLOW}Checking formatting${RESET}"
 	@./node_modules/.bin/prettier --color --list-different \
-        "packages/*/{src,stories,tests}/**/*.{js,ts}" \
+        "packages/*/{src,stories,tests}/**/*.{js,ts,tsx}" \
         "packages/*/index.d.ts" \
         "packages/*/README.md" \
         "website/src/**/*.{js,css}" \
