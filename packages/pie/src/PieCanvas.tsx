@@ -28,9 +28,9 @@ import { ComputedDatum, PieCanvasProps, RadialLabelData, SliceLabelData } from '
 import { defaultProps } from './props'
 
 // prettier-ignore
-const drawSliceLabels = <R, >(
+const drawSliceLabels = <RawDatum, >(
     ctx: CanvasRenderingContext2D,
-    labels: SliceLabelData<R>[],
+    labels: SliceLabelData<RawDatum>[],
     theme: Theme
 ) => {
     ctx.textAlign = 'center'
@@ -47,9 +47,9 @@ const drawSliceLabels = <R, >(
 }
 
 // prettier-ignore
-const drawRadialLabels = <R, >(
+const drawRadialLabels = <RawDatum, >(
     ctx: CanvasRenderingContext2D,
-    labels: RadialLabelData<R>[],
+    labels: RadialLabelData<RawDatum>[],
     theme: Theme,
     linkStrokeWidth: number
 ) => {
@@ -76,7 +76,7 @@ const drawRadialLabels = <R, >(
 }
 
 // prettier-ignore
-const PieCanvas = <R, >({
+const PieCanvas = <RawDatum, >({
     data,
     id = defaultProps.id,
     value = defaultProps.value,
@@ -99,7 +99,7 @@ const PieCanvas = <R, >({
 
     // border
     borderWidth = defaultProps.borderWidth,
-    borderColor = defaultProps.borderColor as InheritedColorProp<ComputedDatum<R>>,
+    borderColor = defaultProps.borderColor as InheritedColorProp<ComputedDatum<RawDatum>>,
 
     // radial labels
     radialLabel = defaultProps.radialLabel,
@@ -127,7 +127,7 @@ const PieCanvas = <R, >({
     tooltip = defaultProps.tooltip,
 
     legends = defaultProps.legends,
-}: PieCanvasProps<R>) => {
+}: PieCanvasProps<RawDatum>) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
     const theme = useTheme()
 
@@ -137,7 +137,7 @@ const PieCanvas = <R, >({
         partialMargin
     )
 
-    const normalizedData = useNormalizedData<R>({
+    const normalizedData = useNormalizedData<RawDatum>({
         data,
         id,
         value,
@@ -145,7 +145,7 @@ const PieCanvas = <R, >({
         colors,
     })
 
-    const { dataWithArc, arcGenerator, centerX, centerY, radius, innerRadius } = usePieFromBox<R>({
+    const { dataWithArc, arcGenerator, centerX, centerY, radius, innerRadius } = usePieFromBox<RawDatum>({
         data: normalizedData,
         width: innerWidth,
         height: innerHeight,
@@ -160,7 +160,7 @@ const PieCanvas = <R, >({
 
     const getBorderColor = useInheritedColor(borderColor, theme)
 
-    const radialLabels = usePieRadialLabels<R>({
+    const radialLabels = usePieRadialLabels<RawDatum>({
         enable: enableRadialLabels,
         dataWithArc,
         label: radialLabel,
@@ -174,7 +174,7 @@ const PieCanvas = <R, >({
         linkColor: radialLabelsLinkColor,
     })
 
-    const sliceLabels = usePieSliceLabels<R>({
+    const sliceLabels = usePieSliceLabels<RawDatum>({
         enable: enableSliceLabels,
         dataWithArc,
         label: sliceLabel,
@@ -334,4 +334,6 @@ const PieCanvas = <R, >({
     )
 }
 
-export default withContainer(PieCanvas) as <R>(props: PieCanvasProps<R>) => JSX.Element
+export default withContainer(PieCanvas) as <RawDatum>(
+    props: PieCanvasProps<RawDatum>
+) => JSX.Element

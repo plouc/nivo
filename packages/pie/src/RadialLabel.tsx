@@ -10,8 +10,8 @@ const lineGenerator = line()
     .y((d: Point) => d.y)
 
 // prettier-ignore
-export const RadialLabel = <R, >({ label, linkStrokeWidth }: {
-    label: RadialLabelData<R>
+export const RadialLabel = <RawDatum, >({ label, linkStrokeWidth }: {
+    label: RadialLabelData<RawDatum>
     linkStrokeWidth: number
 }) => {
     const theme = useTheme()

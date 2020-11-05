@@ -5,10 +5,8 @@ import PieCanvas from './PieCanvas'
 import { PieCanvasProps } from './types'
 
 // prettier-ignore
-const ResponsivePieCanvas = <R, >(props: Omit<PieCanvasProps<R>, 'width' | 'height'>) => (
+export const ResponsivePieCanvas = <RawDatum, >(props: Omit<PieCanvasProps<RawDatum>, 'width' | 'height'>) => (
     <ResponsiveWrapper>
-        {({ width, height }: { width: number, height: number }) => <PieCanvas width={width} height={height} {...props} />}
+        {({ width, height }: { width: number, height: number }) => <PieCanvas<RawDatum> width={width} height={height} {...props} />}
     </ResponsiveWrapper>
 )
-
-export default ResponsivePieCanvas

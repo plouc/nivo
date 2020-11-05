@@ -2,15 +2,15 @@ import React from 'react'
 import { BoxLegendSvg } from '@nivo/legends'
 import { CompletePieSvgProps, ComputedDatum } from './types'
 
-interface PieLegendsProps<R> {
+interface PieLegendsProps<RawDatum> {
     width: number
     height: number
-    legends: CompletePieSvgProps<R>['legends']
-    dataWithArc: ComputedDatum<R>[]
+    legends: CompletePieSvgProps<RawDatum>['legends']
+    dataWithArc: ComputedDatum<RawDatum>[]
 }
 
 // prettier-ignore
-const PieLegends = <R, >({ width, height, legends, dataWithArc }: PieLegendsProps<R>) => {
+const PieLegends = <RawDatum, >({ width, height, legends, dataWithArc }: PieLegendsProps<RawDatum>) => {
     return (
         <>
             {legends.map((legend, i) => (

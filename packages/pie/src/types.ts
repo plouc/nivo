@@ -26,7 +26,7 @@ export interface PieArc {
     padAngle: number
 }
 
-export interface ComputedDatum<R> {
+export interface ComputedDatum<RawDatum> {
     id: DatumId
     label: DatumId
     value: DatumValue
@@ -36,33 +36,33 @@ export interface ComputedDatum<R> {
     // and the datum matches one of the rules.
     fill?: string
     // contains the raw datum as passed to the chart
-    data: R
+    data: RawDatum
     arc: PieArc
 }
 
-export type DatumIdAccessorFunction<R> = (datum: R) => DatumId
-export type DatumValueAccessorFunction<R> = (datum: R) => DatumValue
-export type LabelAccessorFunction<R> = (datum: ComputedDatum<R>) => string | number
+export type DatumIdAccessorFunction<RawDatum> = (datum: RawDatum) => DatumId
+export type DatumValueAccessorFunction<RawDatum> = (datum: RawDatum) => DatumValue
+export type LabelAccessorFunction<RawDatum> = (datum: ComputedDatum<RawDatum>) => string | number
 
-export interface DataProps<R> {
-    data: R[]
+export interface DataProps<RawDatum> {
+    data: RawDatum[]
 }
 
-export interface PieTooltipProps<R> {
-    datum: ComputedDatum<R>
+export interface PieTooltipProps<RawDatum> {
+    datum: ComputedDatum<RawDatum>
 }
 
-export type MouseEventHandler<R, T = HTMLCanvasElement> = (
-    datum: ComputedDatum<R>,
-    event: React.MouseEvent<T>
+export type MouseEventHandler<RawDatum, ElementType = HTMLCanvasElement> = (
+    datum: ComputedDatum<RawDatum>,
+    event: React.MouseEvent<ElementType>
 ) => void
 
 export type PieArcGenerator = (arc: PieArc) => string
 
 export type PieLayerId = 'slices' | 'radialLabels' | 'sliceLabels' | 'legends'
 
-export interface PieCustomLayerProps<R> {
-    dataWithArc: ComputedDatum<R>[]
+export interface PieCustomLayerProps<RawDatum> {
+    dataWithArc: ComputedDatum<RawDatum>[]
     centerX: number
     centerY: number
     radius: number
@@ -70,13 +70,13 @@ export interface PieCustomLayerProps<R> {
     arcGenerator: PieArcGenerator
 }
 
-export type PieCustomLayer<R> = React.FC<PieCustomLayerProps<R>>
+export type PieCustomLayer<RawDatum> = React.FC<PieCustomLayerProps<RawDatum>>
 
-export type PieLayer<R> = PieLayerId | PieCustomLayer<R>
+export type PieLayer<RawDatum> = PieLayerId | PieCustomLayer<RawDatum>
 
-export type CommonPieProps<R> = Dimensions & {
-    id: string | DatumIdAccessorFunction<R>
-    value: string | DatumValueAccessorFunction<R>
+export type CommonPieProps<RawDatum> = Dimensions & {
+    id: string | DatumIdAccessorFunction<RawDatum>
+    value: string | DatumValueAccessorFunction<RawDatum>
     valueFormat?: ValueFormatter
 
     margin: Box
@@ -89,69 +89,69 @@ export type CommonPieProps<R> = Dimensions & {
     fit: boolean
 
     // colors, theme and border
-    colors: OrdinalColorsInstruction<Omit<ComputedDatum<R>, 'color' | 'fill'>>
+    colors: OrdinalColorsInstruction<Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>>
     theme: Theme
     borderWidth: number
-    borderColor: InheritedColorProp<ComputedDatum<R>>
+    borderColor: InheritedColorProp<ComputedDatum<RawDatum>>
 
     // radial labels
     enableRadialLabels: boolean
-    radialLabel: string | LabelAccessorFunction<R>
+    radialLabel: string | LabelAccessorFunction<RawDatum>
     radialLabelsSkipAngle: number
     radialLabelsTextXOffset: number
-    radialLabelsTextColor: InheritedColorProp<ComputedDatum<R>>
+    radialLabelsTextColor: InheritedColorProp<ComputedDatum<RawDatum>>
     radialLabelsLinkOffset: number
     radialLabelsLinkDiagonalLength: number
     radialLabelsLinkHorizontalLength: number
     radialLabelsLinkStrokeWidth: number
-    radialLabelsLinkColor: InheritedColorProp<ComputedDatum<R>>
+    radialLabelsLinkColor: InheritedColorProp<ComputedDatum<RawDatum>>
 
     // slices labels
     enableSliceLabels: boolean
-    sliceLabel: string | LabelAccessorFunction<R>
+    sliceLabel: string | LabelAccessorFunction<RawDatum>
     sliceLabelsRadiusOffset: number
     sliceLabelsSkipAngle: number
-    sliceLabelsTextColor: InheritedColorProp<ComputedDatum<R>>
+    sliceLabelsTextColor: InheritedColorProp<ComputedDatum<RawDatum>>
 
     // interactivity
     isInteractive: boolean
-    tooltip: React.FC<PieTooltipProps<R>>
+    tooltip: React.FC<PieTooltipProps<RawDatum>>
 
     legends: LegendProps[]
 
     role: string
 }
 
-export type PieHandlers<R, E> = {
-    onClick?: MouseEventHandler<R, E>
-    onMouseEnter?: MouseEventHandler<R, E>
-    onMouseMove?: MouseEventHandler<R, E>
-    onMouseLeave?: MouseEventHandler<R, E>
+export type PieHandlers<RawDatum, ElementType> = {
+    onClick?: MouseEventHandler<RawDatum, ElementType>
+    onMouseEnter?: MouseEventHandler<RawDatum, ElementType>
+    onMouseMove?: MouseEventHandler<RawDatum, ElementType>
+    onMouseLeave?: MouseEventHandler<RawDatum, ElementType>
 }
 
-export type PieSvgProps<R> = DataProps<R> &
-    Partial<CommonPieProps<R>> &
-    SvgDefsAndFill<ComputedDatum<R>> &
-    PieHandlers<R, SVGPathElement> & {
-        layers?: PieLayer<R>[]
+export type PieSvgProps<RawDatum> = DataProps<RawDatum> &
+    Partial<CommonPieProps<RawDatum>> &
+    SvgDefsAndFill<ComputedDatum<RawDatum>> &
+    PieHandlers<RawDatum, SVGPathElement> & {
+        layers?: PieLayer<RawDatum>[]
     }
 
-export type CompletePieSvgProps<R> = DataProps<R> &
-    CommonPieProps<R> &
-    SvgDefsAndFill<ComputedDatum<R>> &
-    PieHandlers<R, SVGPathElement> & {
-        layers: PieLayer<R>[]
+export type CompletePieSvgProps<RawDatum> = DataProps<RawDatum> &
+    CommonPieProps<RawDatum> &
+    SvgDefsAndFill<ComputedDatum<RawDatum>> &
+    PieHandlers<RawDatum, SVGPathElement> & {
+        layers: PieLayer<RawDatum>[]
     }
 
-export type PieCanvasProps<R> = DataProps<R> &
-    Partial<CommonPieProps<R>> &
-    PieHandlers<R, HTMLCanvasElement> & {
+export type PieCanvasProps<RawDatum> = DataProps<RawDatum> &
+    Partial<CommonPieProps<RawDatum>> &
+    Pick<PieHandlers<RawDatum, HTMLCanvasElement>, 'onClick' | 'onMouseMove'> & {
         pixelRatio?: number
     }
 
-export type CompletePieCanvasProps<R> = DataProps<R> &
-    CommonPieProps<R> &
-    PieHandlers<R, HTMLCanvasElement> & {
+export type CompletePieCanvasProps<RawDatum> = DataProps<RawDatum> &
+    CommonPieProps<RawDatum> &
+    Pick<PieHandlers<RawDatum, HTMLCanvasElement>, 'onClick' | 'onMouseMove'> & {
         pixelRatio: number
     }
 
@@ -160,20 +160,20 @@ export type Point = {
     y: number
 }
 
-export type RadialLabelData<R> = {
+export type RadialLabelData<RawDatum> = {
     text: string | number
     textColor: string
     position: Point
     align: string
     line: [Point, Point, Point]
     linkColor: string
-    datum: ComputedDatum<R>
+    datum: ComputedDatum<RawDatum>
 }
 
-export type SliceLabelData<R> = {
+export type SliceLabelData<RawDatum> = {
     x: number
     y: number
     label: string | number
     textColor: string
-    datum: ComputedDatum<R>
+    datum: ComputedDatum<RawDatum>
 }

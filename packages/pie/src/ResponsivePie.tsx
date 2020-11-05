@@ -5,10 +5,8 @@ import Pie from './Pie'
 import { PieSvgProps } from './types'
 
 // prettier-ignore
-const ResponsivePie = <R, >(props: Omit<PieSvgProps<R>, 'width' | 'height'>) => (
+export const ResponsivePie = <RawDatum, >(props: Omit<PieSvgProps<RawDatum>, 'width' | 'height'>) => (
     <ResponsiveWrapper>
-        {({ width, height }: { width: number, height: number }) => <Pie<R> width={width} height={height} {...props} />}
+        {({ width, height }: { width: number, height: number }) => <Pie<RawDatum> width={width} height={height} {...props} />}
     </ResponsiveWrapper>
 )
-
-export default ResponsivePie

@@ -15,14 +15,14 @@ import { ComputedDatum, PieLayer, PieSvgProps, PieLayerId } from './types'
 import { defaultProps } from './props'
 
 // prettier-ignore
-const Pie = <R, >({
+const Pie = <RawDatum, >({
     data,
     id = defaultProps.id,
     value = defaultProps.value,
     valueFormat,
     sortByValue = defaultProps.sortByValue,
 
-    layers = defaultProps.layers as PieLayer<R>[],
+    layers = defaultProps.layers as PieLayer<RawDatum>[],
 
     startAngle = defaultProps.startAngle,
     endAngle = defaultProps.endAngle,
@@ -39,7 +39,7 @@ const Pie = <R, >({
 
     // border
     borderWidth = defaultProps.borderWidth,
-    borderColor: _borderColor = defaultProps.borderColor as InheritedColorProp<ComputedDatum<R>>,
+    borderColor: _borderColor = defaultProps.borderColor as InheritedColorProp<ComputedDatum<RawDatum>>,
 
     // radial labels
     radialLabel = defaultProps.radialLabel,
@@ -74,7 +74,7 @@ const Pie = <R, >({
 
     legends = defaultProps.legends,
     role = defaultProps.role,
-}: PieSvgProps<R>) => {
+}: PieSvgProps<RawDatum>) => {
     const theme = useTheme()
 
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
@@ -83,7 +83,7 @@ const Pie = <R, >({
         partialMargin
     )
 
-    const normalizedData = useNormalizedData<R>({
+    const normalizedData = useNormalizedData<RawDatum>({
         data,
         id,
         value,
@@ -91,7 +91,7 @@ const Pie = <R, >({
         colors,
     })
 
-    const { dataWithArc, arcGenerator, centerX, centerY, radius, innerRadius } = usePieFromBox({
+    const { dataWithArc, arcGenerator, centerX, centerY, radius, innerRadius } = usePieFromBox<RawDatum>({
         data: normalizedData,
         width: innerWidth,
         height: innerHeight,
@@ -119,7 +119,7 @@ const Pie = <R, >({
         layerById.slices = (
             <g key="slices" transform={`translate(${centerX},${centerY})`}>
                 {dataWithArc.map(datumWithArc => (
-                    <PieSlice<R>
+                    <PieSlice<RawDatum>
                         key={datumWithArc.id}
                         datum={datumWithArc}
                         path={arcGenerator(datumWithArc.arc)}
@@ -140,7 +140,7 @@ const Pie = <R, >({
     if (enableRadialLabels && layers.includes('radialLabels')) {
         layerById.radialLabels = (
             <g key="radialLabels" transform={`translate(${centerX},${centerY})`}>
-                <RadialLabels<R>
+                <RadialLabels<RawDatum>
                     dataWithArc={dataWithArc}
                     radius={radius}
                     label={radialLabel}
@@ -160,7 +160,7 @@ const Pie = <R, >({
     if (enableSliceLabels && layers.includes('sliceLabels')) {
         layerById.sliceLabels = (
             <g key="sliceLabels" transform={`translate(${centerX},${centerY})`}>
-                <SliceLabels<R>
+                <SliceLabels<RawDatum>
                     dataWithArc={dataWithArc}
                     label={sliceLabel}
                     radius={radius}
@@ -175,7 +175,7 @@ const Pie = <R, >({
 
     if (legends.length > 0 && layers.includes('legends')) {
         layerById.legends = (
-            <PieLegends<R>
+            <PieLegends<RawDatum>
                 key="legends"
                 width={innerWidth}
                 height={innerHeight}
@@ -185,7 +185,7 @@ const Pie = <R, >({
         )
     }
 
-    const layerContext = usePieLayerContext<R>({
+    const layerContext = usePieLayerContext<RawDatum>({
         dataWithArc,
         arcGenerator,
         centerX,
@@ -218,4 +218,4 @@ const Pie = <R, >({
     )
 }
 
-export default withContainer(Pie) as <R>(props: PieSvgProps<R>) => JSX.Element
+export default withContainer(Pie) as <RawDatum>(props: PieSvgProps<RawDatum>) => JSX.Element

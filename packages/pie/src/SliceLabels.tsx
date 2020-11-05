@@ -8,18 +8,18 @@ const sliceStyle: CSSProperties = {
     pointerEvents: 'none',
 }
 
-interface SliceLabelsProps<R> {
-    dataWithArc: ComputedDatum<R>[]
-    label: CompletePieSvgProps<R>['sliceLabel']
-    radiusOffset: CompletePieSvgProps<R>['sliceLabelsRadiusOffset']
+interface SliceLabelsProps<RawDatum> {
+    dataWithArc: ComputedDatum<RawDatum>[]
+    label: CompletePieSvgProps<RawDatum>['sliceLabel']
+    radiusOffset: CompletePieSvgProps<RawDatum>['sliceLabelsRadiusOffset']
     radius: number
     innerRadius: number
-    skipAngle: CompletePieSvgProps<R>['sliceLabelsSkipAngle']
-    textColor: CompletePieSvgProps<R>['sliceLabelsTextColor']
+    skipAngle: CompletePieSvgProps<RawDatum>['sliceLabelsSkipAngle']
+    textColor: CompletePieSvgProps<RawDatum>['sliceLabelsTextColor']
 }
 
 // prettier-ignore
-export const SliceLabels = <R, >({
+export const SliceLabels = <RawDatum, >({
     dataWithArc,
     label: labelAccessor,
     radius,
@@ -27,7 +27,7 @@ export const SliceLabels = <R, >({
     radiusOffset,
     skipAngle,
     textColor,
-}: SliceLabelsProps<R>) => {
+}: SliceLabelsProps<RawDatum>) => {
     const theme = useTheme()
 
     const labels = usePieSliceLabels({
