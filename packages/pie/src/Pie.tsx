@@ -161,7 +161,6 @@ const Pie = <R, >({
         layerById.sliceLabels = (
             <g key="sliceLabels" transform={`translate(${centerX},${centerY})`}>
                 <SliceLabels<R>
-                    // @ts-ignore
                     dataWithArc={dataWithArc}
                     label={sliceLabel}
                     radius={radius}
@@ -180,7 +179,6 @@ const Pie = <R, >({
                 key="legends"
                 width={innerWidth}
                 height={innerHeight}
-                // @ts-ignore
                 dataWithArc={dataWithArc}
                 legends={legends}
             />
