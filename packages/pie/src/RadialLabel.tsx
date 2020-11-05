@@ -11,7 +11,7 @@ import React from 'react'
 import { line } from 'd3-shape'
 // @ts-ignore
 import { textPropsByEngine, useTheme } from '@nivo/core'
-import { RadialLabelData, Point } from './definitions'
+import { RadialLabelData, Point } from './types'
 
 const lineGenerator = line()
     .x((d: Point) => d.x)

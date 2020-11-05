@@ -9,7 +9,7 @@
 import React from 'react'
 import { usePieRadialLabels } from './hooks'
 import { RadialLabel } from './RadialLabel'
-import { ComputedDatum, CompletePieSvgProps } from './definitions'
+import { ComputedDatum, CompletePieSvgProps } from './types'
 
 interface RadialLabelsProps<R> {
     dataWithArc: ComputedDatum<R>[]
