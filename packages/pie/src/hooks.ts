@@ -48,18 +48,18 @@ import {
  * Format data so that we get a consistent data structure.
  * It will also add the `formattedValue` and `color` property.
  */
-export const useNormalizedData = <R>({
+export const useNormalizedData = <RawDatum>({
     data,
     id = defaultProps.id,
     value = defaultProps.value,
     valueFormat,
     colors = defaultProps.colors as OrdinalColorsInstruction,
-}: Pick<CompletePieSvgProps<R>, 'id' | 'value' | 'valueFormat' | 'colors'> & {
-    data: R[]
-}): Omit<ComputedDatum<R>, 'arc' | 'fill'>[] => {
-    const getId = useMemo(() => (typeof id === 'function' ? id : (d: R) => get(d, id)), [id])
+}: Pick<CompletePieSvgProps<RawDatum>, 'id' | 'value' | 'valueFormat' | 'colors'> & {
+    data: RawDatum[]
+}): Omit<ComputedDatum<RawDatum>, 'arc' | 'fill'>[] => {
+    const getId = useMemo(() => (typeof id === 'function' ? id : (d: RawDatum) => get(d, id)), [id])
     const getValue = useMemo(
-        () => (typeof value === 'function' ? value : (d: R) => get(d, value)),
+        () => (typeof value === 'function' ? value : (d: RawDatum) => get(d, value)),
         [value]
     )
     const formatValue = useValueFormatter(valueFormat as any)
@@ -72,7 +72,7 @@ export const useNormalizedData = <R>({
                 const datumId = getId(datum)
                 const datumValue = getValue(datum)
 
-                const normalizedDatum: Omit<ComputedDatum<R>, 'arc' | 'color' | 'fill'> = {
+                const normalizedDatum: Omit<ComputedDatum<RawDatum>, 'arc' | 'color' | 'fill'> = {
                     id: datumId,
                     // @ts-ignore
                     label: datum.label || datumId,
@@ -93,22 +93,22 @@ export const useNormalizedData = <R>({
 /**
  * Compute arcs, which don't depend yet on radius.
  */
-export const usePieArcs = <R>({
+export const usePieArcs = <RawDatum>({
     data,
     startAngle = defaultProps.startAngle,
     endAngle = defaultProps.endAngle,
     padAngle = defaultProps.padAngle,
     sortByValue = defaultProps.sortByValue,
 }: {
-    data: Omit<ComputedDatum<R>, 'arc' | 'fill'>[]
+    data: Omit<ComputedDatum<RawDatum>, 'arc' | 'fill'>[]
     startAngle: number
     endAngle: number
     padAngle: number
     sortByValue: boolean
-}): Omit<ComputedDatum<R>, 'fill'>[] => {
+}): Omit<ComputedDatum<RawDatum>, 'fill'>[] => {
     const pie = useMemo(() => {
         const innerPie = d3Pie()
-            .value((d: Omit<ComputedDatum<R>, 'arc' | 'fill'>) => d.value)
+            .value((d: Omit<ComputedDatum<RawDatum>, 'arc' | 'fill'>) => d.value)
             .padAngle(degreesToRadians(padAngle))
             .startAngle(degreesToRadians(startAngle))
             .endAngle(degreesToRadians(endAngle))
@@ -123,7 +123,7 @@ export const usePieArcs = <R>({
             pie(data).map(
                 (
                     arc: Omit<PieArc, 'angle' | 'angleDeg'> & {
-                        data: Omit<ComputedDatum<R>, 'arc' | 'fill'>
+                        data: Omit<ComputedDatum<RawDatum>, 'arc' | 'fill'>
                     }
                 ) => {
                     const angle = Math.abs(arc.endAngle - arc.startAngle)
@@ -165,7 +165,7 @@ export const usePieArcGenerator = ({
  * Compute pie layout using explicit radius/innerRadius,
  * expressed in pixels.
  */
-export const usePie = <R>({
+export const usePie = <RawDatum>({
     data,
     radius,
     innerRadius,
@@ -175,10 +175,10 @@ export const usePie = <R>({
     sortByValue = defaultProps.sortByValue,
     cornerRadius = defaultProps.cornerRadius,
 }: Pick<
-    CompletePieSvgProps<R>,
+    CompletePieSvgProps<RawDatum>,
     'startAngle' | 'endAngle' | 'padAngle' | 'sortByValue' | 'cornerRadius'
 > & {
-    data: Omit<ComputedDatum<R>, 'arc'>[]
+    data: Omit<ComputedDatum<RawDatum>, 'arc'>[]
     radius: number
     innerRadius: number
 }) => {
@@ -207,7 +207,7 @@ export const usePie = <R>({
  * It also returns `centerX`/`centerY` as those can be altered
  * if `fit` is `true`.
  */
-export const usePieFromBox = <R>({
+export const usePieFromBox = <RawDatum>({
     data,
     width,
     height,
@@ -219,7 +219,7 @@ export const usePieFromBox = <R>({
     cornerRadius = defaultProps.cornerRadius,
     fit = defaultProps.fit,
 }: Pick<
-    CompletePieSvgProps<R>,
+    CompletePieSvgProps<RawDatum>,
     | 'width'
     | 'height'
     | 'innerRadius'
@@ -230,7 +230,7 @@ export const usePieFromBox = <R>({
     | 'cornerRadius'
     | 'fit'
 > & {
-    data: Omit<ComputedDatum<R>, 'arc'>[]
+    data: Omit<ComputedDatum<RawDatum>, 'arc'>[]
 }) => {
     const dataWithArc = usePieArcs({
         data,
@@ -248,7 +248,7 @@ export const usePieFromBox = <R>({
         let centerY = height / 2
 
         let boundingBox
-        if (fit === true) {
+        if (fit) {
             const { points, ...box } = computeArcBoundingBox(
                 centerX,
                 centerY,
@@ -301,7 +301,7 @@ export const usePieFromBox = <R>({
     }
 }
 
-export const usePieSliceLabels = <R>({
+export const usePieSliceLabels = <RawDatum>({
     enable,
     dataWithArc,
     skipAngle,
@@ -312,14 +312,14 @@ export const usePieSliceLabels = <R>({
     textColor,
 }: {
     enable: boolean
-    dataWithArc: ComputedDatum<R>[]
+    dataWithArc: ComputedDatum<RawDatum>[]
     skipAngle: number
     radius: number
     innerRadius: number
     radiusOffset: number
-    label: string | LabelAccessorFunction<R>
-    textColor: InheritedColorProp<ComputedDatum<R>>
-}): SliceLabelData<R>[] => {
+    label: string | LabelAccessorFunction<RawDatum>
+    textColor: InheritedColorProp<ComputedDatum<RawDatum>>
+}): SliceLabelData<RawDatum>[] => {
     const theme = useTheme()
     const getTextColor = useInheritedColor(textColor, theme)
     const getLabel = useMemo(() => getLabelGenerator(label), [label])
@@ -345,7 +345,7 @@ export const usePieSliceLabels = <R>({
     }, [enable, dataWithArc, skipAngle, radius, innerRadius, radiusOffset, getLabel, getTextColor])
 }
 
-export const usePieRadialLabels = <R>({
+export const usePieRadialLabels = <RawDatum>({
     enable,
     dataWithArc,
     label,
@@ -359,17 +359,17 @@ export const usePieRadialLabels = <R>({
     linkColor,
 }: {
     enable: boolean
-    dataWithArc: ComputedDatum<R>[]
-    label: string | LabelAccessorFunction<R>
+    dataWithArc: ComputedDatum<RawDatum>[]
+    label: string | LabelAccessorFunction<RawDatum>
     textXOffset: number
-    textColor: InheritedColorProp<ComputedDatum<R>>
+    textColor: InheritedColorProp<ComputedDatum<RawDatum>>
     radius: number
     skipAngle: number
     linkOffset: number
     linkDiagonalLength: number
     linkHorizontalLength: number
-    linkColor: InheritedColorProp<ComputedDatum<R>>
-}): RadialLabelData<R>[] => {
+    linkColor: InheritedColorProp<ComputedDatum<RawDatum>>
+}): RadialLabelData<RawDatum>[] => {
     const getLabel = useMemo(() => getLabelGenerator(label), [label])
 
     const theme = useTheme()
@@ -436,7 +436,7 @@ export const usePieRadialLabels = <R>({
 /**
  * Memoize the context to pass to custom layers.
  */
-export const usePieLayerContext = <R>({
+export const usePieLayerContext = <RawDatum>({
     dataWithArc,
     arcGenerator,
     centerX,
@@ -444,13 +444,13 @@ export const usePieLayerContext = <R>({
     radius,
     innerRadius,
 }: {
-    dataWithArc: ComputedDatum<R>[]
+    dataWithArc: ComputedDatum<RawDatum>[]
     arcGenerator: PieArcGenerator
     centerX: number
     centerY: number
     radius: number
     innerRadius: number
-}): PieCustomLayerProps<R> =>
+}): PieCustomLayerProps<RawDatum> =>
     useMemo(
         () => ({
             dataWithArc,

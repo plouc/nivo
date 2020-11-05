@@ -3,21 +3,21 @@ import React, { createElement, useCallback } from 'react'
 import { useTooltip } from '@nivo/tooltip'
 import { ComputedDatum, CompletePieSvgProps } from './types'
 
-interface PieSliceProps<R> {
-    datum: ComputedDatum<R>
+interface PieSliceProps<RawDatum> {
+    datum: ComputedDatum<RawDatum>
     path: string
-    borderWidth: CompletePieSvgProps<R>['borderWidth']
+    borderWidth: CompletePieSvgProps<RawDatum>['borderWidth']
     borderColor: string
-    isInteractive: CompletePieSvgProps<R>['isInteractive']
-    tooltip: CompletePieSvgProps<R>['tooltip']
-    onClick: CompletePieSvgProps<R>['onClick']
-    onMouseEnter: CompletePieSvgProps<R>['onMouseEnter']
-    onMouseMove: CompletePieSvgProps<R>['onMouseMove']
-    onMouseLeave: CompletePieSvgProps<R>['onMouseLeave']
+    isInteractive: CompletePieSvgProps<RawDatum>['isInteractive']
+    tooltip: CompletePieSvgProps<RawDatum>['tooltip']
+    onClick: CompletePieSvgProps<RawDatum>['onClick']
+    onMouseEnter: CompletePieSvgProps<RawDatum>['onMouseEnter']
+    onMouseMove: CompletePieSvgProps<RawDatum>['onMouseMove']
+    onMouseLeave: CompletePieSvgProps<RawDatum>['onMouseLeave']
 }
 
 // prettier-ignore
-export const PieSlice = <R, >({
+export const PieSlice = <RawDatum, >({
     datum,
     path,
     borderWidth,
@@ -28,7 +28,7 @@ export const PieSlice = <R, >({
     onMouseMove,
     onMouseLeave,
     tooltip,
-}: PieSliceProps<R>) => {
+}: PieSliceProps<RawDatum>) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleTooltip = useCallback(

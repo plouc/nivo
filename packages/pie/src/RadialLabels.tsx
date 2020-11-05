@@ -3,22 +3,22 @@ import { usePieRadialLabels } from './hooks'
 import { RadialLabel } from './RadialLabel'
 import { ComputedDatum, CompletePieSvgProps } from './types'
 
-interface RadialLabelsProps<R> {
-    dataWithArc: ComputedDatum<R>[]
-    label: CompletePieSvgProps<R>['radialLabel']
-    skipAngle: CompletePieSvgProps<R>['radialLabelsSkipAngle']
+interface RadialLabelsProps<RawDatum> {
+    dataWithArc: ComputedDatum<RawDatum>[]
+    label: CompletePieSvgProps<RawDatum>['radialLabel']
+    skipAngle: CompletePieSvgProps<RawDatum>['radialLabelsSkipAngle']
     radius: number
-    linkOffset: CompletePieSvgProps<R>['radialLabelsLinkOffset']
-    linkDiagonalLength: CompletePieSvgProps<R>['radialLabelsLinkDiagonalLength']
-    linkHorizontalLength: CompletePieSvgProps<R>['radialLabelsLinkHorizontalLength']
-    linkStrokeWidth: CompletePieSvgProps<R>['radialLabelsLinkStrokeWidth']
-    textXOffset: CompletePieSvgProps<R>['radialLabelsTextXOffset']
-    textColor: CompletePieSvgProps<R>['radialLabelsTextColor']
-    linkColor: CompletePieSvgProps<R>['radialLabelsLinkColor']
+    linkOffset: CompletePieSvgProps<RawDatum>['radialLabelsLinkOffset']
+    linkDiagonalLength: CompletePieSvgProps<RawDatum>['radialLabelsLinkDiagonalLength']
+    linkHorizontalLength: CompletePieSvgProps<RawDatum>['radialLabelsLinkHorizontalLength']
+    linkStrokeWidth: CompletePieSvgProps<RawDatum>['radialLabelsLinkStrokeWidth']
+    textXOffset: CompletePieSvgProps<RawDatum>['radialLabelsTextXOffset']
+    textColor: CompletePieSvgProps<RawDatum>['radialLabelsTextColor']
+    linkColor: CompletePieSvgProps<RawDatum>['radialLabelsLinkColor']
 }
 
 // prettier-ignore
-export const RadialLabels = <R, >({
+export const RadialLabels = <RawDatum, >({
     dataWithArc,
     label,
     radius,
@@ -30,8 +30,8 @@ export const RadialLabels = <R, >({
     textXOffset,
     textColor,
     linkColor,
-}: RadialLabelsProps<R>) => {
-    const radialLabels = usePieRadialLabels<R>({
+}: RadialLabelsProps<RawDatum>) => {
+    const radialLabels = usePieRadialLabels<RawDatum>({
         enable: true,
         dataWithArc,
         label,
