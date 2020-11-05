@@ -16,7 +16,7 @@
   ],
   "main": "./dist/nivo-pie.cjs.js",
   "module": "./dist/nivo-pie.es.js",
-  "typings": "./dist/index.d.ts",
+  "typings": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
