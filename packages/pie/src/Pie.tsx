@@ -9,14 +9,18 @@
 import React, { ReactNode, Fragment, createElement } from 'react'
 // @ts-ignore
 import { withContainer, SvgWrapper, bindDefs, useTheme, useDimensions } from '@nivo/core'
-// @ts-ignore
-import { useInheritedColor, OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
+import {
+    // @ts-ignore
+    useInheritedColor,
+    OrdinalColorsInstruction,
+    InheritedColorProp,
+} from '@nivo/colors'
 import { PieSlice } from './PieSlice'
 import { RadialLabels } from './RadialLabels'
 import { SliceLabels } from './SliceLabels'
 import PieLegends from './PieLegends'
 import { useNormalizedData, usePieFromBox, usePieLayerContext } from './hooks'
-import { ComputedDatum, PieLayer, PieSvgProps, PieLayerId } from './definitions'
+import { ComputedDatum, PieLayer, PieSvgProps, PieLayerId } from './types'
 import { defaultProps } from './props'
 
 // prettier-ignore

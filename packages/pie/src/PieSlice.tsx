@@ -9,7 +9,7 @@
 import React, { createElement, useCallback } from 'react'
 // @ts-ignore
 import { useTooltip } from '@nivo/tooltip'
-import { ComputedDatum, CompletePieSvgProps } from './definitions'
+import { ComputedDatum, CompletePieSvgProps } from './types'
 
 interface PieSliceProps<R> {
     datum: ComputedDatum<R>

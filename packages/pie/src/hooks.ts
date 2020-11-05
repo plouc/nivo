@@ -49,7 +49,7 @@ import {
     LabelAccessorFunction,
     PieCustomLayerProps,
     RadialLabelData,
-} from './definitions'
+} from './types'
 
 /**
  * Format data so that we get a consistent data structure.
