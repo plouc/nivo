@@ -189,7 +189,7 @@ package-types-%: ##@1 packages build a package types
 
 package-build-%: package-types-% ##@1 packages build a package
 	@echo "${YELLOW}Building package ${WHITE}@nivo/${*}${RESET}"
-	@-rm -rf ./packages/${*}/dist
+	@-rm -rf ./packages/${*}/dist/nivo-${*}*
 	@export PACKAGE=${*}; NODE_ENV=production BABEL_ENV=production ./node_modules/.bin/rollup -c conf/rollup.config.js
 
 packages-screenshots: ##@1 packages generate screenshots for packages readme (website dev server must be running)
