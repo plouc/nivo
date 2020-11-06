@@ -32,13 +32,6 @@ export interface ComputedRangeDatum {
     color: string
 }
 
-export interface ComputedMeasuresDatum {
-    index: number
-    v0: number
-    v1: number
-    color: string
-}
-
 export interface ComputedMarkersDatum {
     index: number
     value: number
@@ -84,7 +77,7 @@ export type CommonBulletProps = Dimensions & {
 
 export type BulletHandlers = {
     onRangeClick?: MouseEventHandler<WithDatumId<ComputedRangeDatum>, SVGRectElement>
-    onMeasureClick?: MouseEventHandler<WithDatumId<ComputedMeasuresDatum>, SVGRectElement>
+    onMeasureClick?: MouseEventHandler<WithDatumId<ComputedRangeDatum>, SVGRectElement>
     onMarkerClick?: MouseEventHandler<WithDatumId<ComputedMarkersDatum>, SVGLineElement>
 }
 
@@ -193,5 +186,4 @@ export type BulletItemProps = Omit<
     Point & {
         measureHeight: number
         markerHeight: number
-        theme?: Theme
     }

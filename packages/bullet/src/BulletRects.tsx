@@ -50,20 +50,6 @@ export const BulletRects = ({
         rects,
         rects.map(rect => `${rect.data.index}`),
         {
-            initial: (rect: BulletRectComputedRect) => ({
-                x: rect.x,
-                y: rect.y,
-                width: rect.width,
-                height: rect.height,
-                color: rect.data.color,
-            }),
-            from: (rect: BulletRectComputedRect) => ({
-                x: rect.x,
-                y: rect.y,
-                width: rect.width,
-                height: rect.height,
-                color: rect.data.color,
-            }),
             enter: (rect: BulletRectComputedRect) => ({
                 x: rect.x,
                 y: rect.y,
