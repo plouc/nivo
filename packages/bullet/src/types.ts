@@ -1,6 +1,7 @@
 import * as React from 'react'
-import { Box, Dimensions, Theme, Colors, MotionProps } from '@nivo/core'
+import { Box, Dimensions, Theme, Colors, ModernMotionProps } from '@nivo/core'
 import { ScaleLinear } from 'd3-scale'
+import { AnimatedValue } from 'react-spring'
 
 export type DatumId = string
 export type DatumValue = number
@@ -90,12 +91,20 @@ export type BulletHandlers = {
 export type BulletSvgProps = DataProps<DefaultRawDatum> &
     Partial<CommonBulletProps> &
     BulletHandlers &
-    MotionProps
+    ModernMotionProps
 
 type BulletMouseEvent<E> = (event: React.MouseEvent<E, MouseEvent>) => void
 
+export type BulletRectComputedRect = Point &
+    Dimensions & {
+        data: ComputedRangeDatum
+    }
+
+export type BulletRectAnimatedProps = Point & Dimensions & Pick<ComputedRangeDatum, 'color'>
+
 export type BulletRectsItemProps = Point &
     Dimensions & {
+        animatedProps: AnimatedValue<BulletRectAnimatedProps>
         index: number
         color: string
         data: {
@@ -109,6 +118,7 @@ export type BulletRectsItemProps = Point &
     }
 
 export type BulletMarkersItemProps = Point & {
+    animatedProps: AnimatedValue<PositionWithColor>
     size: number
     rotation: number
     color: string
@@ -125,16 +135,35 @@ export type BulletMarkersItemProps = Point & {
 
 export type BulletRectsProps = Pick<CommonBulletProps, 'layout' | 'reverse'> &
     Dimensions &
-    Point &
-    MotionProps & {
+    Point & {
+        animatedProps?: AnimatedValue<{
+            measuresY: number
+            transform: string
+        }>
         scale: ScaleLinear<number, number, never>
         data: ComputedRangeDatum[]
         component: CommonBulletProps['rangeComponent']
     }
 
+export type Position = Point & {
+    size: number
+    rotation: number
+}
+
+export type MarkerWithPosition = ComputedMarkersDatum & {
+    position: Position
+}
+
+export type PositionWithColor = {
+    color: string
+    transform: string
+    x: number
+    y1: number
+    y2: number
+}
+
 export type BulletMarkersProps = Pick<CommonBulletProps, 'layout' | 'reverse'> &
-    Pick<Dimensions, 'height'> &
-    MotionProps & {
+    Pick<Dimensions, 'height'> & {
         scale: ScaleLinear<number, number, never>
         markerSize: number
         markers: ComputedMarkersDatum[]
@@ -160,7 +189,7 @@ export type BulletItemProps = Omit<
     TooltipHandlers<unknown> &
     BulletHandlers &
     EnhancedDatum &
-    MotionProps &
+    ModernMotionProps &
     Point & {
         measureHeight: number
         markerHeight: number

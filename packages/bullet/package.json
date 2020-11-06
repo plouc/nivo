@@ -28,12 +28,11 @@
     "@nivo/legends": "0.64.0",
     "@nivo/tooltip": "0.64.0",
     "d3-scale": "^3.0.0",
-    "react-motion": "^0.5.2"
+    "react-spring": "^8.0.27"
   },
   "devDependencies": {
     "@nivo/core": "*",
-    "@types/d3-scale": "^3.2.1",
-    "@types/react-motion": "^0.0.29"
+    "@types/d3-scale": "^3.2.1"
   },
   "peerDependencies": {
     "@nivo/core": "^0.64.0",

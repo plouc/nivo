@@ -1,11 +1,10 @@
 import React from 'react'
-import { Motion, spring } from 'react-motion'
+import { AnimatedValue, useSpring, animated } from 'react-spring'
 import { Axis } from '@nivo/axes'
 // @ts-ignore
-import { getColorScale, defaultTheme, extendDefaultTheme } from '@nivo/core'
+import { getColorScale, defaultTheme, extendDefaultTheme, useMotionConfig } from '@nivo/core'
 import { BasicTooltip } from '@nivo/tooltip'
 import { stackValues } from './compute'
-import { defaultProps } from './props'
 import { BulletMarkers } from './BulletMarkers'
 import { BulletRects } from './BulletRects'
 import { BulletItemProps } from './types'
@@ -51,10 +50,6 @@ export const BulletItem = ({
 
     showTooltip,
     hideTooltip,
-
-    animate = defaultProps.animate,
-    motionStiffness = defaultProps.motionStiffness,
-    motionDamping = defaultProps.motionDamping,
 }: BulletItemProps) => {
     const theme = extendDefaultTheme(defaultTheme, _theme)
 
@@ -70,12 +65,6 @@ export const BulletItem = ({
         index,
         color: markerColorScale(markerColorScale.type === 'sequential' ? marker : index) as string,
     }))
-
-    const motionProps = {
-        animate,
-        motionStiffness,
-        motionDamping,
-    }
 
     const rangeNodes = (
         <BulletRects
@@ -106,7 +95,6 @@ export const BulletItem = ({
             onClick={(range, event) => {
                 onRangeClick?.({ id, ...range }, event)
             }}
-            {...motionProps}
         />
     )
 
@@ -133,7 +121,6 @@ export const BulletItem = ({
             onClick={(marker, event) => {
                 onMarkerClick?.({ id, ...marker }, event)
             }}
-            {...motionProps}
         />
     )
 
@@ -186,90 +173,49 @@ export const BulletItem = ({
         </g>
     )
 
-    if (animate !== true) {
-        return (
-            <g transform={`translate(${x},${y})`}>
-                {rangeNodes}
-                <BulletRects
-                    data={computedMeasures}
-                    scale={scale}
-                    layout={layout}
-                    reverse={reverse}
-                    x={0}
-                    y={(height - measureHeight) / 2}
-                    width={width}
-                    height={measureHeight}
-                    component={measureComponent}
-                    onMouseEnter={(measure, event) => {
-                        showTooltip(
-                            <BasicTooltip
-                                id={<strong>{measure.v1}</strong>}
-                                enableChip={true}
-                                color={measure.color}
-                            />,
-                            event
-                        )
-                    }}
-                    onMouseLeave={hideTooltip}
-                    onClick={(measure, event) => {
-                        onMeasureClick?.({ id, ...measure }, event)
-                    }}
-                    {...motionProps}
-                />
-                {axis}
-                {markerNodes}
-                {titleNode}
-            </g>
-        )
-    }
-
-    const springConfig = {
-        damping: motionDamping,
-        stiffness: motionStiffness,
-    }
+    const { animate, config: springConfig } = useMotionConfig()
+    const animatedProps = useSpring({
+        measuresY: (height - measureHeight) / 2,
+        transform: `translate(${x},${y})`,
+        config: springConfig,
+        immediate: !animate,
+    }) as AnimatedValue<{
+        measuresY: number;
+        transform: string;
+    }>
 
     return (
-        <Motion
-            style={{
-                x: spring(x, springConfig),
-                y: spring(y, springConfig),
-                measuresY: spring((height - measureHeight) / 2, springConfig),
-            }}
-        >
-            {values => (
-                <g transform={`translate(${values.x},${values.y})`}>
-                    {rangeNodes}
-                    <BulletRects
-                        data={computedMeasures}
-                        scale={scale}
-                        layout={layout}
-                        reverse={reverse}
-                        x={0}
-                        y={values.measuresY}
-                        width={width}
-                        height={measureHeight}
-                        component={measureComponent}
-                        onMouseEnter={(measure, event) => {
-                            showTooltip(
-                                <BasicTooltip
-                                    id={<strong>{measure.v1}</strong>}
-                                    enableChip={true}
-                                    color={measure.color}
-                                />,
-                                event
-                            )
-                        }}
-                        onMouseLeave={hideTooltip}
-                        onClick={(measure, event) => {
-                            onMeasureClick?.({ id, ...measure }, event)
-                        }}
-                        {...motionProps}
-                    />
-                    {axis}
-                    {markerNodes}
-                    {titleNode}
-                </g>
-            )}
-        </Motion>
+        <animated.g transform={animatedProps.transform}>
+            {rangeNodes}
+            <BulletRects
+                animatedProps={animatedProps}
+                data={computedMeasures}
+                scale={scale}
+                layout={layout}
+                reverse={reverse}
+                x={0}
+                y={0}
+                width={width}
+                height={measureHeight}
+                component={measureComponent}
+                onMouseEnter={(measure, event) => {
+                    showTooltip(
+                        <BasicTooltip
+                            id={<strong>{measure.v1}</strong>}
+                            enableChip={true}
+                            color={measure.color}
+                        />,
+                        event
+                    )
+                }}
+                onMouseLeave={hideTooltip}
+                onClick={(measure, event) => {
+                    onMeasureClick?.({ id, ...measure }, event)
+                }}
+            />
+            {axis}
+            {markerNodes}
+            {titleNode}
+        </animated.g>
     )
 }

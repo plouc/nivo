@@ -385,7 +385,7 @@ const props = [
             \`\`\`
         `,
     },
-    ...motionProperties(['svg'], defaultProps),
+    ...motionProperties(['svg'], defaultProps, 'react-spring'),
 ]
 
 export const groups = groupProperties(props)

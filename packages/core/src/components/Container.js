@@ -30,6 +30,7 @@ const Container = ({
     animate,
     motionStiffness,
     motionDamping,
+    motionConfig,
 }) => {
     const containerEl = useRef(null)
     const [state, setState] = useState({
@@ -103,6 +104,7 @@ const Container = ({
                 animate={animate}
                 stiffness={motionStiffness}
                 damping={motionDamping}
+                config={motionConfig}
             >
                 <tooltipContext.Provider value={[showTooltip, hideTooltip]}>
                     {content}
@@ -119,6 +121,7 @@ Container.propTypes = {
     animate: PropTypes.bool.isRequired,
     motionStiffness: PropTypes.number,
     motionDamping: PropTypes.number,
+    motionConfig: PropTypes.string,
 }
 
 export default Container

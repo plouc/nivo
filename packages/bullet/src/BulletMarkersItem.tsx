@@ -1,24 +1,21 @@
 import React from 'react'
 import { BulletMarkersItemProps } from './types'
+import { animated } from 'react-spring'
 
 export const BulletMarkersItem = ({
-    x,
-    y,
-    size,
-    rotation,
-    color,
+    animatedProps: { color, transform, x, y1, y2 },
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
     onClick,
 }: BulletMarkersItemProps) => {
     return (
-        <line
-            transform={`rotate(${rotation}, ${x}, ${y})`}
+        <animated.line
+            transform={transform}
             x1={x}
             x2={x}
-            y1={y - size / 2}
-            y2={y + size / 2}
+            y1={y1}
+            y2={y2}
             fill="none"
             stroke={color}
             strokeWidth="5"
