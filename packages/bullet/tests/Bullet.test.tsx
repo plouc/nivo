@@ -1,6 +1,6 @@
 import React from 'react'
+// tslint:disable-next-line no-implicit-dependencies
 import { mount } from 'enzyme'
-import { radiansToDegrees } from '@nivo/core'
 import { Bullet } from '../src'
 
 const sampleData = [
@@ -8,19 +8,19 @@ const sampleData = [
         id: 'A',
         ranges: [10, 20, 40],
         measures: [30],
-        markers: [20]
+        markers: [20],
     },
     {
         id: 'B',
         ranges: [100],
         measures: [20, 50],
-        markers: [80]
+        markers: [80],
     },
     {
         id: 'C',
         ranges: [50],
         measures: [10],
-        markers: [40]
+        markers: [40],
     },
 ]
 

@@ -1,4 +1,3 @@
-import { last } from 'lodash'
 import { BulletRectsProps, ComputedRangeDatum } from './types'
 // @ts-ignore
 import { getColorScale } from '@nivo/core'
@@ -13,7 +12,8 @@ export const stackValues = (
     const normalized = [...values].filter(v => v !== 0).sort((a, b) => a - b)
 
     return normalized.reduce<ComputedRangeDatum[]>((acc, v1, index) => {
-        const v0 = last(acc)?.v1 ?? 0
+        const [last] = acc.slice(-1)
+        const v0 = last?.v1 ?? 0
         const sequentialValue = useAverage === true ? v0 + (v1 - v0) / 2 : v1
 
         return [
