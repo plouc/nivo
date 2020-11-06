@@ -161,7 +161,9 @@ export const generateGroupedBars = ({
     }
     const clampMin = scaleSpec.min === 'auto' ? clampToZero : value => value
 
-    const values = data.reduce((acc, entry) => [...acc, ...keys.map(k => entry[k])], [])
+    const values = data
+        .reduce((acc, entry) => [...acc, ...keys.map(k => entry[k])], [])
+        .filter(Boolean)
     const min = clampMin(Math.min(...values))
     const max = Math.max(...values)
 
