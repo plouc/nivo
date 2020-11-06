@@ -1,8 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { TransitionMotion, spring } from 'react-motion'
 // @ts-ignore
 import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
-import { partial } from 'lodash'
 import { BulletMarkersProps, ComputedMarkersDatum } from './types'
 
 type MouseEventWithDatum = (
@@ -38,97 +37,84 @@ const getPositionGenerator = ({
     }
 }
 
-export default class BulletMarkers extends Component<BulletMarkersProps & EventHandlers> {
-    handleMouseEnter: MouseEventWithDatum = (data, event) => {
-        this.props.onMouseEnter(data, event)
-    }
+export const BulletMarkers = ({
+    scale,
+    layout,
+    reverse,
+    markers,
+    height,
+    markerSize,
+    component,
+    animate,
+    motionStiffness,
+    motionDamping,
+    onMouseEnter,
+    onMouseLeave,
+    onClick,
+}: BulletMarkersProps & EventHandlers) => {
+    const getPosition = getPositionGenerator({ layout, reverse, scale, height, markerSize })
 
-    handleMouseLeave: MouseEventWithDatum = (data, event) => {
-        this.props.onMouseLeave(data, event)
-    }
-
-    handleClick: MouseEventWithDatum = (data, event) => {
-        this.props.onClick(data, event)
-    }
-
-    render() {
-        const {
-            scale,
-            layout,
-            reverse,
-            markers,
-            height,
-            markerSize,
-            component,
-            animate,
-            motionStiffness,
-            motionDamping,
-        } = this.props
-
-        const getPosition = getPositionGenerator({ layout, reverse, scale, height, markerSize })
-
-        if (animate !== true) {
-            return (
-                <>
-                    {markers.map(marker =>
-                        React.createElement(component, {
-                            key: marker.index,
-                            ...marker,
-                            ...getPosition(marker),
-                            data: marker,
-                            onMouseEnter: partial(this.handleMouseEnter, marker),
-                            onMouseMove: partial(this.handleMouseEnter, marker),
-                            onMouseLeave: partial(this.handleMouseLeave, marker),
-                            onClick: partial(this.handleClick, marker),
-                        })
-                    )}
-                </>
-            )
-        }
-
-        const springConfig = {
-            damping: motionDamping,
-            stiffness: motionStiffness,
-        }
-
+    if (animate !== true) {
         return (
-            <TransitionMotion
-                styles={markers.map((marker, i) => {
-                    const position = getPosition(marker)
-
-                    return {
-                        key: `${i}`,
+            <>
+                {markers.map(marker =>
+                    React.createElement(component, {
+                        key: marker.index,
+                        ...marker,
+                        ...getPosition(marker),
                         data: marker,
-                        style: {
-                            x: spring(position.x, springConfig),
-                            y: spring(position.y, springConfig),
-                            size: spring(position.size, springConfig),
-                            rotation: spring(position.rotation, springConfig),
-                            ...interpolateColor(marker.color, springConfig),
-                        },
-                    }
-                })}
-            >
-                {interpolatedStyles => (
-                    <>
-                        {interpolatedStyles.map(({ key, style, data: marker }) => {
-                            const color = getInterpolatedColor(style)
-
-                            return React.createElement(component, {
-                                key,
-                                ...marker,
-                                ...style,
-                                color,
-                                data: marker,
-                                onMouseEnter: partial(this.handleMouseEnter, marker),
-                                onMouseMove: partial(this.handleMouseEnter, marker),
-                                onMouseLeave: partial(this.handleMouseLeave, marker),
-                                onClick: partial(this.handleClick, marker),
-                            })
-                        })}
-                    </>
+                        onMouseEnter: event => onMouseEnter(marker, event),
+                        onMouseMove: event => onMouseEnter(marker, event),
+                        onMouseLeave: event => onMouseLeave(marker, event),
+                        onClick: event => onClick(marker, event),
+                    })
                 )}
-            </TransitionMotion>
+            </>
         )
     }
+
+    const springConfig = {
+        damping: motionDamping,
+        stiffness: motionStiffness,
+    }
+
+    return (
+        <TransitionMotion
+            styles={markers.map((marker, i) => {
+                const position = getPosition(marker)
+
+                return {
+                    key: `${i}`,
+                    data: marker,
+                    style: {
+                        x: spring(position.x, springConfig),
+                        y: spring(position.y, springConfig),
+                        size: spring(position.size, springConfig),
+                        rotation: spring(position.rotation, springConfig),
+                        ...interpolateColor(marker.color, springConfig),
+                    },
+                }
+            })}
+        >
+            {interpolatedStyles => (
+                <>
+                    {interpolatedStyles.map(({ key, style, data: marker }) => {
+                        const color = getInterpolatedColor(style)
+
+                        return React.createElement(component, {
+                            key,
+                            ...marker,
+                            ...style,
+                            color,
+                            data: marker,
+                            onMouseEnter: event => onMouseEnter(marker, event),
+                            onMouseMove: event => onMouseEnter(marker, event),
+                            onMouseLeave: event => onMouseLeave(marker, event),
+                            onClick: event => onClick(marker, event),
+                        })
+                    })}
+                </>
+            )}
+        </TransitionMotion>
+    )
 }
