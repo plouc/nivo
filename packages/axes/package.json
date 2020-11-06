@@ -1,6 +1,6 @@
 {
   "name": "@nivo/axes",
-  "version": "0.63.0",
+  "version": "0.64.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -21,7 +21,7 @@
     "dist/"
   ],
   "dependencies": {
-    "@nivo/scales": "0.63.0",
+    "@nivo/scales": "0.64.0",
     "d3-format": "^1.4.4",
     "d3-time": "^1.0.11",
     "d3-time-format": "^2.1.3",
