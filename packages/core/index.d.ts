@@ -100,6 +100,11 @@ declare module '@nivo/core' {
         motionStiffness: number
     }>
 
+    export type ModernMotionProps = Partial<{
+        animate: boolean
+        motionConfig: string
+    }>
+
     export type SvgFillMatcher<T> = (datum: T) => boolean
     export interface SvgDefsAndFill<T> {
         defs?: {
@@ -199,6 +204,20 @@ declare module '@nivo/core' {
     export declare const defaultAnimate = true
     export declare const defaultMotionStiffness = 90
     export declare const defaultMotionDamping = 15
+
+    export declare const motionDefaultProps = {
+        animate: true,
+        stiffness: 90,
+        damping: 15,
+        config: 'default',
+    }
+
+    export declare const defaultMargin = {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
+    }
 
     export function PatternLines(props: Omit<PatternLinesDef, 'type'>): JSX.Element
     export function PatternSquares(props: Omit<PatternSquaresDef, 'type'>): JSX.Element

@@ -3,7 +3,6 @@ import { BulletRectsProps, ComputedRangeDatum } from './types'
 // @ts-ignore
 import { getColorScale } from '@nivo/core'
 
-type ComputeDatum = BulletRectsProps['data'] extends (infer U)[] ? U : never
 type ComputeRect = Pick<BulletRectsProps, 'layout' | 'reverse' | 'scale' | 'height'>
 
 export const stackValues = (
@@ -32,7 +31,7 @@ export const stackValues = (
 export const getComputeRect = ({ layout, reverse, scale, height }: ComputeRect) => {
     if (layout === 'horizontal') {
         if (reverse === true) {
-            return (d: ComputeDatum) => {
+            return (d: ComputedRangeDatum) => {
                 const x = scale(d.v1)
                 const w = scale(d.v0) - x
 
@@ -40,7 +39,7 @@ export const getComputeRect = ({ layout, reverse, scale, height }: ComputeRect) 
             }
         }
 
-        return (d: ComputeDatum) => {
+        return (d: ComputedRangeDatum) => {
             const x = scale(d.v0)
             const w = scale(d.v1) - x
 
@@ -49,7 +48,7 @@ export const getComputeRect = ({ layout, reverse, scale, height }: ComputeRect) 
     }
 
     if (reverse === true) {
-        return (d: ComputeDatum) => {
+        return (d: ComputedRangeDatum) => {
             const y = scale(d.v0)
             const h = scale(d.v1) - y
 
@@ -57,7 +56,7 @@ export const getComputeRect = ({ layout, reverse, scale, height }: ComputeRect) 
         }
     }
 
-    return (d: ComputeDatum) => {
+    return (d: ComputedRangeDatum) => {
         const y = scale(d.v1)
         const h = scale(d.v0) - y
 

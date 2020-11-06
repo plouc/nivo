@@ -43,9 +43,8 @@ const initialProperties = {
     rangeColors: defaultProps.rangeColors,
     measureColors: defaultProps.measureColors,
     markerColors: defaultProps.markerColors,
-    animate: true,
-    motionStiffness: 90,
-    motionDamping: 12,
+    animate: defaultProps.animate,
+    motionConfig: defaultProps.motionConfig,
 }
 
 const Bullet = () => {

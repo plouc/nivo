@@ -39,8 +39,7 @@ export const Bullet = (props: BulletSvgProps) => {
         theme: _theme,
 
         animate,
-        motionStiffness,
-        motionDamping,
+        motionConfig,
 
         isInteractive,
         onRangeClick,
@@ -89,8 +88,7 @@ export const Bullet = (props: BulletSvgProps) => {
             isInteractive={isInteractive}
             theme={theme}
             animate={animate}
-            motionStiffness={motionStiffness}
-            motionDamping={motionDamping}
+            motionConfig={motionConfig}
         >
             {({ showTooltip, hideTooltip }: TooltipHandlers<unknown>) => (
                 <SvgWrapper
@@ -125,9 +123,6 @@ export const Bullet = (props: BulletSvgProps) => {
                             markerColors={markerColors}
                             theme={theme}
                             axisPosition={axisPosition}
-                            animate={animate}
-                            motionStiffness={motionStiffness}
-                            motionDamping={motionDamping}
                             showTooltip={showTooltip}
                             hideTooltip={hideTooltip}
                             onRangeClick={onRangeClick}

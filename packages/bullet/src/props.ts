@@ -1,12 +1,6 @@
 import { BulletMarkersItem } from './BulletMarkersItem'
 import { BulletRectsItem } from './BulletRectsItem'
-import {
-    defaultAnimate,
-    defaultMotionStiffness,
-    defaultMotionDamping,
-    // @ts-ignore
-    defaultMargin,
-} from '@nivo/core'
+import { motionDefaultProps, defaultMargin } from '@nivo/core'
 
 export const defaultProps = {
     layout: 'horizontal',
@@ -32,9 +26,8 @@ export const defaultProps = {
     measureBorderColor: { from: 'color' },
     markerSize: 0.6,
     isInteractive: true,
-    animate: defaultAnimate,
-    motionStiffness: defaultMotionStiffness,
-    motionDamping: defaultMotionDamping,
+    animate: motionDefaultProps.animate,
+    motionConfig: motionDefaultProps.config,
     margin: defaultMargin,
     role: 'img',
 } as const
