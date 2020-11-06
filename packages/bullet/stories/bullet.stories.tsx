@@ -1,6 +1,8 @@
 import React from 'react'
+/* tslint:disable no-implicit-dependencies */
 import { storiesOf } from '@storybook/react'
 import { generateBulletData } from '@nivo/generators'
+/* tslint:enable no-implicit-dependencies */
 import { Bullet } from '../src'
 
 const data = [
