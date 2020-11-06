@@ -50,12 +50,7 @@ export interface DataProps<T> {
     data: T[]
 }
 
-export type WithDimensions = Dimensions & {
-    outerWidth: number
-    outerHeight: number
-}
-
-export type CommonBulletProps = WithDimensions & {
+export type CommonBulletProps = Dimensions & {
     margin: Box
 
     layout: 'horizontal' | 'vertical'
@@ -133,8 +128,7 @@ export type BulletRectsProps = Pick<CommonBulletProps, 'layout' | 'reverse'> &
     Point &
     MotionProps & {
         scale: ScaleLinear<number, number, never>
-        data: Pick<ComputedRangeDatum, 'v0' | 'v1'>[]
-        rects: (Point & Dimensions & { data: ComputedRangeDatum })[]
+        data: ComputedRangeDatum[]
         component: CommonBulletProps['rangeComponent']
     }
 
@@ -168,12 +162,6 @@ export type BulletItemProps = Omit<
     EnhancedDatum &
     MotionProps &
     Point & {
-        rangeColorScale: (datum: DatumValue) => string
-        computedRanges: ComputedRangeDatum[]
-        measureColorScale: (datum: DatumValue) => string
-        computedMeasures: ComputedMeasuresDatum[]
-        markerColorScale: (datum: DatumValue) => string
-        computedMarkers: ComputedMarkersDatum[]
         measureHeight: number
         markerHeight: number
         theme?: Theme
