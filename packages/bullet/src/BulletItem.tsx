@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
-import isString from 'lodash/isString'
 import { Motion, spring } from 'react-motion'
-import partial from 'lodash/partial'
-import compose from 'recompose/compose'
-import withPropsOnChange from 'recompose/withPropsOnChange'
-import pure from 'recompose/pure'
+import { partial, isString } from 'lodash'
+import { compose, withPropsOnChange, pure } from 'recompose'
 import { Axis } from '@nivo/axes'
 // @ts-ignore
 import { getColorScale, withMotion, themePropType, noop } from '@nivo/core'
