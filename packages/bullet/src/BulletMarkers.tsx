@@ -1,21 +1,26 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import React, { Component, Fragment } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import { TransitionMotion, spring } from 'react-motion'
-import { motionPropTypes } from '@nivo/core'
+// @ts-ignore
 import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
 import partial from 'lodash/partial'
+import { BulletMarkersProps, ComputedMarkersDatum } from './types'
 
-const getPositionGenerator = ({ layout, reverse, scale, height, markerSize }) => {
+type MouseEventWithDatum = (
+    datum: ComputedMarkersDatum,
+    event: React.MouseEvent<SVGLineElement, MouseEvent>
+) => void
+
+type EventHandlers = Record<'onMouseEnter' | 'onMouseLeave' | 'onClick', MouseEventWithDatum>
+
+const getPositionGenerator = ({
+    layout,
+    reverse,
+    scale,
+    height,
+    markerSize,
+}: Pick<BulletMarkersProps, 'layout' | 'reverse' | 'scale' | 'height' | 'markerSize'>) => {
     if (layout === 'horizontal') {
-        return marker => {
+        return (marker: ComputedMarkersDatum) => {
             const x = scale(marker.value)
             const y = height / 2
             const rotation = reverse === true ? 180 : 0
@@ -24,7 +29,7 @@ const getPositionGenerator = ({ layout, reverse, scale, height, markerSize }) =>
         }
     }
 
-    return marker => {
+    return (marker: ComputedMarkersDatum) => {
         const x = height / 2
         const y = scale(marker.value)
         const rotation = reverse === true ? 270 : 90
@@ -33,36 +38,16 @@ const getPositionGenerator = ({ layout, reverse, scale, height, markerSize }) =>
     }
 }
 
-export default class BulletMarkers extends Component {
-    static propTypes = {
-        scale: PropTypes.func.isRequired,
-        layout: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
-        reverse: PropTypes.bool.isRequired,
-        markers: PropTypes.arrayOf(
-            PropTypes.shape({
-                value: PropTypes.number.isRequired,
-                index: PropTypes.number.isRequired,
-                color: PropTypes.string.isRequired,
-            })
-        ).isRequired,
-        height: PropTypes.number.isRequired,
-        markerSize: PropTypes.number.isRequired,
-        component: PropTypes.func.isRequired,
-        onMouseEnter: PropTypes.func.isRequired,
-        onMouseLeave: PropTypes.func.isRequired,
-        onClick: PropTypes.func.isRequired,
-        ...motionPropTypes,
-    }
-
-    handleMouseEnter = (data, event) => {
+export default class BulletMarkers extends Component<BulletMarkersProps & EventHandlers> {
+    handleMouseEnter: MouseEventWithDatum = (data, event) => {
         this.props.onMouseEnter(data, event)
     }
 
-    handleMouseLeave = (data, event) => {
+    handleMouseLeave: MouseEventWithDatum = (data, event) => {
         this.props.onMouseLeave(data, event)
     }
 
-    handleClick = (data, event) => {
+    handleClick: MouseEventWithDatum = (data, event) => {
         this.props.onClick(data, event)
     }
 
@@ -84,7 +69,7 @@ export default class BulletMarkers extends Component {
 
         if (animate !== true) {
             return (
-                <Fragment>
+                <>
                     {markers.map(marker =>
                         React.createElement(component, {
                             key: marker.index,
@@ -97,7 +82,7 @@ export default class BulletMarkers extends Component {
                             onClick: partial(this.handleClick, marker),
                         })
                     )}
-                </Fragment>
+                </>
             )
         }
 
@@ -125,7 +110,7 @@ export default class BulletMarkers extends Component {
                 })}
             >
                 {interpolatedStyles => (
-                    <Fragment>
+                    <>
                         {interpolatedStyles.map(({ key, style, data: marker }) => {
                             const color = getInterpolatedColor(style)
 
@@ -141,7 +126,7 @@ export default class BulletMarkers extends Component {
                                 onClick: partial(this.handleClick, marker),
                             })
                         })}
-                    </Fragment>
+                    </>
                 )}
             </TransitionMotion>
         )

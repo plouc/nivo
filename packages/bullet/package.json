@@ -16,16 +16,15 @@
   ],
   "main": "./dist/nivo-bullet.cjs.js",
   "module": "./dist/nivo-bullet.es.js",
+  "typings": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
-    "index.d.ts",
     "dist/"
   ],
   "dependencies": {
     "@nivo/axes": "0.64.0",
     "@nivo/colors": "0.64.0",
-    "@nivo/core": "0.64.0",
     "@nivo/legends": "0.64.0",
     "@nivo/tooltip": "0.64.0",
     "d3-scale": "^3.0.0",
@@ -33,8 +32,14 @@
     "react-motion": "^0.5.2",
     "recompose": "^0.30.0"
   },
+  "devDependencies": {
+    "@nivo/core": "*",
+    "@types/d3-scale": "^3.2.1",
+    "@types/react-motion": "^0.0.29",
+    "@types/recompose": "^0.30.7"
+  },
   "peerDependencies": {
-    "prop-types": ">= 15.5.10 < 16.0.0",
+    "@nivo/core": "^0.64.0",
     "react": ">= 16.8.4 < 17.0.0"
   },
   "publishConfig": {

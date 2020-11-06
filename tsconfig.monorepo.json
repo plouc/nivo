@@ -15,6 +15,7 @@
         // { "path": "./packages/generators" },
 
         // Charts now
+        { "path": "./packages/bullet" },
         { "path": "./packages/pie" },
     ]
 }
