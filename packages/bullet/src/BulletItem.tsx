@@ -180,8 +180,8 @@ export const BulletItem = ({
         config: springConfig,
         immediate: !animate,
     }) as AnimatedValue<{
-        measuresY: number;
-        transform: string;
+        measuresY: number
+        transform: string
     }>
 
     return (
