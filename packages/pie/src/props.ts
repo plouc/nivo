@@ -58,5 +58,5 @@ export const defaultProps = {
 
     role: 'img',
 
-    pixelRatio: window?.devicePixelRatio ?? 1,
+    pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio ?? 1 : 1,
 }
