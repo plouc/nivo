@@ -70,14 +70,10 @@ export type CommonBulletProps = WithDimensions & {
 
     rangeComponent: React.ComponentType<BulletRectsItemProps>
     rangeColors: Colors
-    // rangeBorderWidth: number
-    // rangeBorderColor: InheritedColorProp<ComputedRangeDatum>
 
     measureComponent: React.ComponentType<BulletRectsItemProps>
     measureColors: Colors
     measureSize: number
-    // measureBorderWidth: number
-    // measureBorderColor: InheritedColorProp<ComputedMeasuresDatum>
 
     markerComponent: React.ComponentType<BulletMarkersItemProps>
     markerColors: Colors
@@ -137,8 +133,8 @@ export type BulletRectsProps = Pick<CommonBulletProps, 'layout' | 'reverse'> &
     Point &
     MotionProps & {
         scale: ScaleLinear<number, number, never>
-        data: Array<Pick<ComputedRangeDatum, 'v0' | 'v1'>>
-        rects: Array<Point & Dimensions & { data: ComputedRangeDatum }>
+        data: Pick<ComputedRangeDatum, 'v0' | 'v1'>[]
+        rects: (Point & Dimensions & { data: ComputedRangeDatum })[]
         component: CommonBulletProps['rangeComponent']
     }
 

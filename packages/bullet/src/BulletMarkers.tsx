@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { TransitionMotion, spring } from 'react-motion'
 // @ts-ignore
 import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
-import partial from 'lodash/partial'
+import { partial } from 'lodash'
 import { BulletMarkersProps, ComputedMarkersDatum } from './types'
 
 type MouseEventWithDatum = (

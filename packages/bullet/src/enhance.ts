@@ -1,6 +1,4 @@
-import compose from 'recompose/compose'
-import defaultProps from 'recompose/defaultProps'
-import pure from 'recompose/pure'
+import { compose, defaultProps, pure } from 'recompose'
 // @ts-ignore
 import { withDimensions, withTheme, withMotion } from '@nivo/core'
 import { defaultProps as bulletDefaultProps } from './props'

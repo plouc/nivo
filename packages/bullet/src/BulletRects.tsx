@@ -1,9 +1,7 @@
 import React, { Component, Fragment } from 'react'
-import partial from 'lodash/partial'
+import { partial } from 'lodash'
 import { TransitionMotion, spring } from 'react-motion'
-import compose from 'recompose/compose'
-import withPropsOnChange from 'recompose/withPropsOnChange'
-import pure from 'recompose/pure'
+import { compose, withPropsOnChange, pure } from 'recompose'
 // @ts-ignore
 import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
 import { computeRects } from './compute'

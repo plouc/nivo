@@ -1,9 +1,9 @@
-import last from 'lodash/last'
+import { last } from 'lodash'
 import { BulletRectsProps, ComputedRangeDatum } from './types'
 // @ts-ignore
 import { getColorScale } from '@nivo/core'
 
-type ComputeDatum = BulletRectsProps['data'] extends Array<infer U> ? U : never
+type ComputeDatum = BulletRectsProps['data'] extends (infer U)[] ? U : never
 type ComputeRect = Pick<BulletRectsProps, 'layout' | 'reverse' | 'scale' | 'height'>
 
 export const stackValues = (

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { scaleLinear } from 'd3-scale'
-// @ts-ignore
-import setDisplayName from 'recompose/setDisplayName'
+import { setDisplayName } from 'recompose'
 // @ts-ignore
 import { Container, SvgWrapper } from '@nivo/core'
 import { defaultProps } from './props'
@@ -58,12 +57,11 @@ export class Bullet extends Component<BulletSvgProps> {
             role,
         } = { height: 0, width: 0, ...defaultProps, ...this.props }
 
-        let itemHeight: number
-        if (layout === 'horizontal') {
-            itemHeight = (height - spacing * (data.length - 1)) / data.length
-        } else {
-            itemHeight = (width - spacing * (data.length - 1)) / data.length
-        }
+        const itemHeight =
+            layout === 'horizontal'
+                ? (height - spacing * (data.length - 1)) / data.length
+                : (width - spacing * (data.length - 1)) / data.length
+
         const measureHeight = itemHeight * measureSize
         const markerHeight = itemHeight * markerSize
 
