@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { Motion, spring } from 'react-motion'
 import { partial, isString } from 'lodash'
-import { compose, withPropsOnChange, pure } from 'recompose'
 import { Axis } from '@nivo/axes'
 // @ts-ignore
-import { getColorScale, withMotion, themePropType, noop } from '@nivo/core'
+import { getColorScale, defaultTheme, extendDefaultTheme } from '@nivo/core'
 import { BasicTooltip } from '@nivo/tooltip'
 import { stackValues } from './compute'
+import { defaultProps } from './props'
 import BulletMarkers from './BulletMarkers'
 import BulletRects from './BulletRects'
 import { BulletItemProps, ComputedRangeDatum, ComputedMarkersDatum, TooltipHandlers } from './types'
@@ -113,26 +113,46 @@ class BulletItem extends Component<BulletItemProps> {
             titleOffsetY,
             titleRotation,
 
-            computedRanges,
             rangeComponent,
+            rangeColors,
+            ranges,
 
-            computedMeasures,
             measureComponent,
             measureHeight,
+            measureColors,
+            measures,
 
-            computedMarkers,
             markerComponent,
+            markerColors,
             markerHeight,
+            markers = [],
 
-            theme,
+            theme: _theme,
 
             showTooltip,
             hideTooltip,
 
-            animate,
-            motionStiffness,
-            motionDamping,
+            animate = defaultProps.animate,
+            motionStiffness = defaultProps.motionStiffness,
+            motionDamping = defaultProps.motionDamping,
         } = this.props
+
+        const theme = extendDefaultTheme(defaultTheme, _theme)
+
+        const rangeColorScale = getColorScale(rangeColors, scale, true)
+        const computedRanges = stackValues(ranges, rangeColorScale)
+
+        const measureColorScale = getColorScale(measureColors, scale)
+        const computedMeasures = stackValues(measures, measureColorScale)
+
+        const markerColorScale = getColorScale(markerColors, scale)
+        const computedMarkers = markers.map((marker: number, index: number) => ({
+            value: marker,
+            index,
+            color: markerColorScale(
+                markerColorScale.type === 'sequential' ? marker : index
+            ) as string,
+        }))
 
         const motionProps = {
             animate,
@@ -290,49 +310,4 @@ class BulletItem extends Component<BulletItemProps> {
     }
 }
 
-const EnhancedBulletItem = compose(
-    withMotion(),
-    withPropsOnChange<any, any>(['rangeColors', 'scale'], ({ rangeColors, scale }) => ({
-        rangeColorScale: getColorScale(rangeColors, scale, true),
-    })),
-    withPropsOnChange<any, any>(['ranges', 'rangeColorScale'], ({ ranges, rangeColorScale }) => ({
-        computedRanges: stackValues(ranges, rangeColorScale),
-    })),
-    withPropsOnChange<any, any>(['measureColors', 'scale'], ({ measureColors, scale }) => ({
-        measureColorScale: getColorScale(measureColors, scale),
-    })),
-    withPropsOnChange<any, any>(
-        ['measures', 'measureColorScale'],
-        ({ measures, measureColorScale }) => ({
-            computedMeasures: stackValues(measures, measureColorScale),
-        })
-    ),
-    withPropsOnChange<any, any>(['markerColors', 'scale'], ({ markerColors, scale }) => ({
-        markerColorScale: getColorScale(markerColors, scale),
-    })),
-    withPropsOnChange<any, any>(
-        ['markers', 'markerColorScale'],
-        ({ markers, markerColorScale }) => ({
-            computedMarkers: markers.map((marker: number, index: number) => ({
-                value: marker,
-                index,
-                color: markerColorScale(markerColorScale.type === 'sequential' ? marker : index),
-            })),
-        })
-    ),
-    pure
-)(BulletItem as any) as React.ComponentType<
-    Omit<
-        BulletItemProps,
-        | 'computedRanges'
-        | 'rangeColorScale'
-        | 'computedMeasures'
-        | 'measureColorScale'
-        | 'computedMarkers'
-        | 'markerColorScale'
-    >
->
-
-EnhancedBulletItem.displayName = 'BulletItem'
-
-export default EnhancedBulletItem
+export default BulletItem

@@ -1,7 +1,6 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { partial } from 'lodash'
 import { TransitionMotion, spring } from 'react-motion'
-import { compose, withPropsOnChange, pure } from 'recompose'
 // @ts-ignore
 import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
 import { computeRects } from './compute'
@@ -28,7 +27,26 @@ class BulletRects extends Component<BulletRectsProps & EventHandlers> {
     }
 
     render() {
-        const { rects, layout, y, component, animate, motionStiffness, motionDamping } = this.props
+        const {
+            data,
+            layout,
+            y,
+            component,
+            animate,
+            motionStiffness,
+            motionDamping,
+            reverse,
+            scale,
+            height,
+        } = this.props
+
+        const rects = computeRects({
+            data,
+            layout,
+            reverse,
+            scale,
+            height,
+        })
 
         const transform = `translate(${layout === 'horizontal' ? 0 : y},${
             layout === 'horizontal' ? y : 0
@@ -74,7 +92,7 @@ class BulletRects extends Component<BulletRectsProps & EventHandlers> {
                     }))}
                 >
                     {interpolatedStyles => (
-                        <Fragment>
+                        <>
                             {interpolatedStyles.map(({ key, style, data }) => {
                                 const color = getInterpolatedColor(style)
 
@@ -93,7 +111,7 @@ class BulletRects extends Component<BulletRectsProps & EventHandlers> {
                                     onClick: partial(this.handleClick, data),
                                 })
                             })}
-                        </Fragment>
+                        </>
                     )}
                 </TransitionMotion>
             </g>
@@ -101,28 +119,4 @@ class BulletRects extends Component<BulletRectsProps & EventHandlers> {
     }
 }
 
-const EnhancedBulletRects = compose(
-    withPropsOnChange(
-        ['data', 'layout', 'reverse', 'scale', 'height'],
-        ({
-            data,
-            layout,
-            reverse,
-            scale,
-            height,
-        }: Pick<BulletRectsProps, 'data' | 'layout' | 'reverse' | 'scale' | 'height'>) => ({
-            rects: computeRects({
-                data,
-                layout,
-                reverse,
-                scale,
-                height,
-            }),
-        })
-    ),
-    pure
-)(BulletRects as any) as React.ComponentClass<Omit<BulletRectsProps, 'rects'> & EventHandlers>
-
-EnhancedBulletRects.displayName = 'BulletRects'
-
-export default EnhancedBulletRects
+export default BulletRects

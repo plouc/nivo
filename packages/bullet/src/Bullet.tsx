@@ -1,16 +1,12 @@
 import React, { Component } from 'react'
 import { scaleLinear } from 'd3-scale'
-import { setDisplayName } from 'recompose'
 // @ts-ignore
-import { Container, SvgWrapper } from '@nivo/core'
+import { Container, SvgWrapper, defaultTheme, extendDefaultTheme, defaultMargin } from '@nivo/core'
 import { defaultProps } from './props'
 import { BulletSvgProps, TooltipHandlers } from './types'
-import enhance from './enhance'
 import BulletItem from './BulletItem'
 
 export class Bullet extends Component<BulletSvgProps> {
-    static displayName = 'Bullet'
-
     render() {
         const {
             data,
@@ -22,11 +18,9 @@ export class Bullet extends Component<BulletSvgProps> {
             reverse,
             axisPosition,
 
-            margin,
-            width,
-            height,
-            outerWidth,
-            outerHeight,
+            margin: _margin,
+            width: outerWidth,
+            height: outerHeight,
 
             titlePosition,
             titleAlign,
@@ -43,7 +37,7 @@ export class Bullet extends Component<BulletSvgProps> {
             markerComponent,
             markerColors,
 
-            theme,
+            theme: _theme,
 
             animate,
             motionStiffness,
@@ -56,6 +50,11 @@ export class Bullet extends Component<BulletSvgProps> {
 
             role,
         } = { height: 0, width: 0, ...defaultProps, ...this.props }
+
+        const theme = extendDefaultTheme(defaultTheme, _theme)
+        const margin = { ...defaultMargin, ..._margin }
+        const width = outerWidth - margin.left - margin.right
+        const height = outerHeight - margin.top - margin.bottom
 
         const itemHeight =
             layout === 'horizontal'
@@ -144,4 +143,4 @@ export class Bullet extends Component<BulletSvgProps> {
     }
 }
 
-export default setDisplayName(Bullet.displayName)(enhance(Bullet))
+export default Bullet

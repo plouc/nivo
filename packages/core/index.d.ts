@@ -196,6 +196,10 @@ declare module '@nivo/core' {
         defs: Def[]
     }
 
+    export declare const defaultAnimate = true
+    export declare const defaultMotionStiffness = 90
+    export declare const defaultMotionDamping = 15
+
     export function PatternLines(props: Omit<PatternLinesDef, 'type'>): JSX.Element
     export function PatternSquares(props: Omit<PatternSquaresDef, 'type'>): JSX.Element
     export function PatternDots(props: Omit<PatternDotsDef, 'type'>): JSX.Element
