@@ -77,7 +77,7 @@ export type PieLayer<RawDatum> = PieLayerId | PieCustomLayer<RawDatum>
 export type CommonPieProps<RawDatum> = Dimensions & {
     id: string | DatumIdAccessorFunction<RawDatum>
     value: string | DatumValueAccessorFunction<RawDatum>
-    valueFormat?: ValueFormatter
+    valueFormat?: string | ValueFormatter
 
     margin: Box
     sortByValue: boolean
