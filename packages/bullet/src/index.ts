@@ -1,5 +1,5 @@
-export { default as Bullet } from './Bullet'
-export { default as BulletItem } from './BulletItem'
-export { default as ResponsiveBullet } from './ResponsiveBullet'
+export * from './Bullet'
+export * from './BulletItem'
+export * from './ResponsiveBullet'
 export * from './props'
 export * from './types'

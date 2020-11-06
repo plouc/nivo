@@ -1,5 +1,5 @@
-import BulletMarkersItem from './BulletMarkersItem'
-import BulletRectsItem from './BulletRectsItem'
+import { BulletMarkersItem } from './BulletMarkersItem'
+import { BulletRectsItem } from './BulletRectsItem'
 import {
     defaultAnimate,
     defaultMotionStiffness,
