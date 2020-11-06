@@ -1,98 +1,36 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import isString from 'lodash/isString'
 import { Motion, spring } from 'react-motion'
 import partial from 'lodash/partial'
 import compose from 'recompose/compose'
-import defaultProps from 'recompose/defaultProps'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
 import { Axis } from '@nivo/axes'
+// @ts-ignore
 import { getColorScale, withMotion, themePropType, noop } from '@nivo/core'
 import { BasicTooltip } from '@nivo/tooltip'
 import { stackValues } from './compute'
 import BulletMarkers from './BulletMarkers'
 import BulletRects from './BulletRects'
-import BulletRectsItem from './BulletRectsItem'
-import BulletMarkersItem from './BulletMarkersItem'
+import { BulletItemProps, ComputedRangeDatum, ComputedMarkersDatum, TooltipHandlers } from './types'
 
-class BulletItem extends Component {
-    static propTypes = {
-        id: PropTypes.string.isRequired,
-        scale: PropTypes.func.isRequired,
-        ranges: PropTypes.arrayOf(PropTypes.number).isRequired,
-        computedRanges: PropTypes.arrayOf(
-            PropTypes.shape({
-                index: PropTypes.number.isRequired,
-                v0: PropTypes.number.isRequired,
-                v1: PropTypes.number.isRequired,
-                color: PropTypes.string.isRequired,
-            })
-        ).isRequired,
-        measures: PropTypes.arrayOf(PropTypes.number).isRequired,
-        computedMeasures: PropTypes.arrayOf(
-            PropTypes.shape({
-                index: PropTypes.number.isRequired,
-                v0: PropTypes.number.isRequired,
-                v1: PropTypes.number.isRequired,
-                color: PropTypes.string.isRequired,
-            })
-        ).isRequired,
-        markers: PropTypes.arrayOf(PropTypes.number).isRequired,
-        computedMarkers: PropTypes.arrayOf(
-            PropTypes.shape({
-                value: PropTypes.number.isRequired,
-                index: PropTypes.number.isRequired,
-                color: PropTypes.string.isRequired,
-            })
-        ).isRequired,
-        layout: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
-        reverse: PropTypes.bool.isRequired,
-        axisPosition: PropTypes.oneOf(['before', 'after']).isRequired,
-        x: PropTypes.number.isRequired,
-        y: PropTypes.number.isRequired,
-        width: PropTypes.number.isRequired,
-        height: PropTypes.number.isRequired,
+type TooltipEvent<Datum, Element> = (
+    showTooltip: TooltipHandlers<Element>['showTooltip'],
+    datum: Datum,
+    event: React.MouseEvent<Element, MouseEvent>
+) => void
 
-        title: PropTypes.node,
-        titlePosition: PropTypes.oneOf(['before', 'after']).isRequired,
-        titleAlign: PropTypes.oneOf(['start', 'middle', 'end']).isRequired,
-        titleOffsetX: PropTypes.number.isRequired,
-        titleOffsetY: PropTypes.number.isRequired,
-        titleRotation: PropTypes.number.isRequired,
+type MouseEventWithDatum<Datum, Element> = (
+    datum: Datum,
+    event: React.MouseEvent<Element, MouseEvent>
+) => void
 
-        rangeComponent: PropTypes.func.isRequired,
-        rangeColors: PropTypes.any.isRequired,
-        rangeColorScale: PropTypes.func.isRequired,
-        onRangeClick: PropTypes.func.isRequired,
-
-        measureHeight: PropTypes.number.isRequired,
-        measureComponent: PropTypes.func.isRequired,
-        measureColors: PropTypes.any.isRequired,
-        measureColorScale: PropTypes.func.isRequired,
-        onMeasureClick: PropTypes.func.isRequired,
-
-        markerHeight: PropTypes.number.isRequired,
-        markerComponent: PropTypes.func.isRequired,
-        markerColors: PropTypes.any.isRequired,
-        markerColorScale: PropTypes.func.isRequired,
-        onMarkerClick: PropTypes.func.isRequired,
-
-        theme: themePropType.isRequired,
-        showTooltip: PropTypes.func.isRequired,
-        hideTooltip: PropTypes.func.isRequired,
-    }
-
-    handleRangeTooltip = (showTooltip, range, event) => {
-        const { theme } = this.props
+class BulletItem extends Component<BulletItemProps> {
+    handleRangeTooltip: TooltipEvent<ComputedRangeDatum, SVGRectElement> = (
+        showTooltip,
+        range,
+        event
+    ) => {
         showTooltip(
             <BasicTooltip
                 id={
@@ -102,57 +40,60 @@ class BulletItem extends Component {
                 }
                 enableChip={true}
                 color={range.color}
-                theme={theme}
-                //format={format}
-                //renderContent={typeof tooltip === 'function' ? tooltip.bind(null, { ...node }) : null}
             />,
             event
         )
     }
 
-    handleMeasureTooltip = (showTooltip, measure, event) => {
-        const { theme } = this.props
+    handleMeasureTooltip: TooltipEvent<ComputedRangeDatum, SVGRectElement> = (
+        showTooltip,
+        measure,
+        event
+    ) => {
         showTooltip(
             <BasicTooltip
                 id={<strong>{measure.v1}</strong>}
                 enableChip={true}
                 color={measure.color}
-                theme={theme}
-                //format={format}
-                //renderContent={typeof tooltip === 'function' ? tooltip.bind(null, { ...node }) : null}
             />,
             event
         )
     }
 
-    handleMarkerTooltip = (showTooltip, marker, event) => {
-        const { theme } = this.props
+    handleMarkerTooltip: TooltipEvent<ComputedMarkersDatum, SVGLineElement> = (
+        showTooltip,
+        marker,
+        event
+    ) => {
         showTooltip(
             <BasicTooltip
                 id={<strong>{marker.value}</strong>}
                 enableChip={true}
                 color={marker.color}
-                theme={theme}
-                //format={format}
-                //renderContent={typeof tooltip === 'function' ? tooltip.bind(null, { ...node }) : null}
             />,
             event
         )
     }
 
-    handleRangeClick = (range, event) => {
+    handleRangeClick: MouseEventWithDatum<ComputedRangeDatum, SVGRectElement> = (range, event) => {
         const { id, onRangeClick } = this.props
-        onRangeClick({ id, ...range }, event)
+        onRangeClick?.({ id, ...range }, event)
     }
 
-    handleMeasureClick = (measure, event) => {
+    handleMeasureClick: MouseEventWithDatum<ComputedRangeDatum, SVGRectElement> = (
+        measure,
+        event
+    ) => {
         const { id, onMeasureClick } = this.props
-        onMeasureClick({ id, ...measure }, event)
+        onMeasureClick?.({ id, ...measure }, event)
     }
 
-    handleMarkerClick = (marker, event) => {
+    handleMarkerClick: MouseEventWithDatum<ComputedMarkersDatum, SVGLineElement> = (
+        marker,
+        event
+    ) => {
         const { id, onMarkerClick } = this.props
-        onMarkerClick({ id, ...marker }, event)
+        onMarkerClick?.({ id, ...marker }, event)
     }
 
     render() {
@@ -191,9 +132,9 @@ class BulletItem extends Component {
             showTooltip,
             hideTooltip,
 
-            animate, // eslint-disable-line react/prop-types
-            motionStiffness, // eslint-disable-line react/prop-types
-            motionDamping, // eslint-disable-line react/prop-types
+            animate,
+            motionStiffness,
+            motionDamping,
         } = this.props
 
         const motionProps = {
@@ -247,6 +188,7 @@ class BulletItem extends Component {
         const axis = (
             <g transform={`translate(${axisX},${axisY})`}>
                 <Axis
+                    // @ts-ignore
                     axis={layout === 'horizontal' ? 'x' : 'y'}
                     length={layout === 'horizontal' ? width : height}
                     scale={scale}
@@ -271,7 +213,7 @@ class BulletItem extends Component {
                 {isString(title) ? (
                     <text
                         style={{
-                            ...theme.labels.text,
+                            ...theme?.labels?.text,
                             dominantBaseline: 'central',
                             textAnchor: titleAlign,
                         }}
@@ -352,53 +294,47 @@ class BulletItem extends Component {
 }
 
 const EnhancedBulletItem = compose(
-    defaultProps({
-        layout: 'horizontal',
-        reverse: false,
-        axisPosition: 'after',
-        titlePosition: 'before',
-        titleAlign: 'middle',
-        titleRotation: 0,
-        titleOffsetX: 0,
-        titleOffsetY: 0,
-        rangeComponent: BulletRectsItem,
-        rangeColors: 'seq:cool',
-        onRangeClick: noop,
-        measureComponent: BulletRectsItem,
-        measureColors: 'seq:red_purple',
-        onMeasureClick: noop,
-        markers: [],
-        markerComponent: BulletMarkersItem,
-        markerColors: 'seq:red_purple',
-        onMarkerClick: noop,
-        showTooltip: noop,
-        hideTooltip: noop,
-    }),
     withMotion(),
-    withPropsOnChange(['rangeColors', 'scale'], ({ rangeColors, scale }) => ({
+    withPropsOnChange<any, any>(['rangeColors', 'scale'], ({ rangeColors, scale }) => ({
         rangeColorScale: getColorScale(rangeColors, scale, true),
     })),
-    withPropsOnChange(['ranges', 'rangeColorScale'], ({ ranges, rangeColorScale }) => ({
+    withPropsOnChange<any, any>(['ranges', 'rangeColorScale'], ({ ranges, rangeColorScale }) => ({
         computedRanges: stackValues(ranges, rangeColorScale),
     })),
-    withPropsOnChange(['measureColors', 'scale'], ({ measureColors, scale }) => ({
+    withPropsOnChange<any, any>(['measureColors', 'scale'], ({ measureColors, scale }) => ({
         measureColorScale: getColorScale(measureColors, scale),
     })),
-    withPropsOnChange(['measures', 'measureColorScale'], ({ measures, measureColorScale }) => ({
-        computedMeasures: stackValues(measures, measureColorScale),
-    })),
-    withPropsOnChange(['markerColors', 'scale'], ({ markerColors, scale }) => ({
+    withPropsOnChange<any, any>(
+        ['measures', 'measureColorScale'],
+        ({ measures, measureColorScale }) => ({
+            computedMeasures: stackValues(measures, measureColorScale),
+        })
+    ),
+    withPropsOnChange<any, any>(['markerColors', 'scale'], ({ markerColors, scale }) => ({
         markerColorScale: getColorScale(markerColors, scale),
     })),
-    withPropsOnChange(['markers', 'markerColorScale'], ({ markers, markerColorScale }) => ({
-        computedMarkers: markers.map((marker, index) => ({
-            value: marker,
-            index,
-            color: markerColorScale(markerColorScale.type === 'sequential' ? marker : index),
-        })),
-    })),
+    withPropsOnChange<any, any>(
+        ['markers', 'markerColorScale'],
+        ({ markers, markerColorScale }) => ({
+            computedMarkers: markers.map((marker: number, index: number) => ({
+                value: marker,
+                index,
+                color: markerColorScale(markerColorScale.type === 'sequential' ? marker : index),
+            })),
+        })
+    ),
     pure
-)(BulletItem)
+)(BulletItem as any) as React.ComponentType<
+    Omit<
+        BulletItemProps,
+        | 'computedRanges'
+        | 'rangeColorScale'
+        | 'computedMeasures'
+        | 'measureColorScale'
+        | 'computedMarkers'
+        | 'markerColorScale'
+    >
+>
 
 EnhancedBulletItem.displayName = 'BulletItem'
 

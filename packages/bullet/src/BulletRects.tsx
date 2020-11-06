@@ -1,67 +1,31 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React, { Component, Fragment } from 'react'
-import PropTypes from 'prop-types'
 import partial from 'lodash/partial'
 import { TransitionMotion, spring } from 'react-motion'
 import compose from 'recompose/compose'
 import withPropsOnChange from 'recompose/withPropsOnChange'
 import pure from 'recompose/pure'
-import { motionPropTypes } from '@nivo/core'
+// @ts-ignore
 import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
 import { computeRects } from './compute'
+import { BulletRectsProps, ComputedRangeDatum } from './types'
 
-class BulletRects extends Component {
-    static propTypes = {
-        scale: PropTypes.func.isRequired,
-        data: PropTypes.arrayOf(
-            PropTypes.shape({
-                v0: PropTypes.number.isRequired,
-                v1: PropTypes.number.isRequired,
-            })
-        ).isRequired,
-        layout: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
-        reverse: PropTypes.bool.isRequired,
-        x: PropTypes.number.isRequired,
-        y: PropTypes.number.isRequired,
-        width: PropTypes.number.isRequired,
-        height: PropTypes.number.isRequired,
-        rects: PropTypes.arrayOf(
-            PropTypes.shape({
-                x: PropTypes.number.isRequired,
-                y: PropTypes.number.isRequired,
-                width: PropTypes.number.isRequired,
-                height: PropTypes.number.isRequired,
-                data: PropTypes.shape({
-                    index: PropTypes.number.isRequired,
-                    v0: PropTypes.number.isRequired,
-                    v1: PropTypes.number.isRequired,
-                    color: PropTypes.string.isRequired,
-                }).isRequired,
-            })
-        ).isRequired,
-        component: PropTypes.func.isRequired,
-        onMouseEnter: PropTypes.func.isRequired,
-        onMouseLeave: PropTypes.func.isRequired,
-        onClick: PropTypes.func.isRequired,
-        ...motionPropTypes,
-    }
+type MouseEventWithDatum = (
+    datum: ComputedRangeDatum,
+    event: React.MouseEvent<SVGRectElement, MouseEvent>
+) => void
 
-    handleMouseEnter = (data, event) => {
+type EventHandlers = Record<'onMouseEnter' | 'onMouseLeave' | 'onClick', MouseEventWithDatum>
+
+class BulletRects extends Component<BulletRectsProps & EventHandlers> {
+    handleMouseEnter: MouseEventWithDatum = (data, event) => {
         this.props.onMouseEnter(data, event)
     }
 
-    handleMouseLeave = (data, event) => {
+    handleMouseLeave: MouseEventWithDatum = (data, event) => {
         this.props.onMouseLeave(data, event)
     }
 
-    handleClick = (data, event) => {
+    handleClick: MouseEventWithDatum = (data, event) => {
         this.props.onClick(data, event)
     }
 
@@ -142,7 +106,13 @@ class BulletRects extends Component {
 const EnhancedBulletRects = compose(
     withPropsOnChange(
         ['data', 'layout', 'reverse', 'scale', 'height'],
-        ({ data, layout, reverse, scale, height }) => ({
+        ({
+            data,
+            layout,
+            reverse,
+            scale,
+            height,
+        }: Pick<BulletRectsProps, 'data' | 'layout' | 'reverse' | 'scale' | 'height'>) => ({
             rects: computeRects({
                 data,
                 layout,
@@ -153,7 +123,7 @@ const EnhancedBulletRects = compose(
         })
     ),
     pure
-)(BulletRects)
+)(BulletRects as any) as React.ComponentClass<Omit<BulletRectsProps, 'rects'> & EventHandlers>
 
 EnhancedBulletRects.displayName = 'BulletRects'
 

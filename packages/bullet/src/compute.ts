@@ -1,19 +1,21 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import last from 'lodash/last'
+import { BulletRectsProps, ComputedRangeDatum } from './types'
+// @ts-ignore
+import { getColorScale } from '@nivo/core'
 
-export const stackValues = (values, colorScale, useAverage = false) => {
+type ComputeDatum = BulletRectsProps['data'] extends Array<infer U> ? U : never
+type ComputeRect = Pick<BulletRectsProps, 'layout' | 'reverse' | 'scale' | 'height'>
+
+export const stackValues = (
+    values: number[],
+    colorScale: ReturnType<getColorScale>,
+    useAverage = false
+) => {
     const normalized = [...values].filter(v => v !== 0).sort((a, b) => a - b)
 
-    return normalized.reduce((acc, v1, index) => {
-        const v0 = last(acc) !== undefined ? last(acc).v1 : 0
-        let sequentialValue = useAverage === true ? v0 + (v1 - v0) / 2 : v1
+    return normalized.reduce<ComputedRangeDatum[]>((acc, v1, index) => {
+        const v0 = last(acc)?.v1 ?? 0
+        const sequentialValue = useAverage === true ? v0 + (v1 - v0) / 2 : v1
 
         return [
             ...acc,
@@ -27,10 +29,10 @@ export const stackValues = (values, colorScale, useAverage = false) => {
     }, [])
 }
 
-export const getComputeRect = ({ layout, reverse, scale, height }) => {
+export const getComputeRect = ({ layout, reverse, scale, height }: ComputeRect) => {
     if (layout === 'horizontal') {
         if (reverse === true) {
-            return d => {
+            return (d: ComputeDatum) => {
                 const x = scale(d.v1)
                 const w = scale(d.v0) - x
 
@@ -38,7 +40,7 @@ export const getComputeRect = ({ layout, reverse, scale, height }) => {
             }
         }
 
-        return d => {
+        return (d: ComputeDatum) => {
             const x = scale(d.v0)
             const w = scale(d.v1) - x
 
@@ -47,7 +49,7 @@ export const getComputeRect = ({ layout, reverse, scale, height }) => {
     }
 
     if (reverse === true) {
-        return d => {
+        return (d: ComputeDatum) => {
             const y = scale(d.v0)
             const h = scale(d.v1) - y
 
@@ -55,7 +57,7 @@ export const getComputeRect = ({ layout, reverse, scale, height }) => {
         }
     }
 
-    return d => {
+    return (d: ComputeDatum) => {
         const y = scale(d.v1)
         const h = scale(d.v0) - y
 
@@ -63,7 +65,13 @@ export const getComputeRect = ({ layout, reverse, scale, height }) => {
     }
 }
 
-export const computeRects = ({ data, layout, reverse, scale, height }) => {
+export const computeRects = ({
+    data,
+    layout,
+    reverse,
+    scale,
+    height,
+}: Pick<BulletRectsProps, 'data'> & ComputeRect) => {
     const computeRect = getComputeRect({
         layout,
         reverse,

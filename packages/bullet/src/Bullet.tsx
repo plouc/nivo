@@ -1,21 +1,16 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React, { Component } from 'react'
 import { scaleLinear } from 'd3-scale'
+// @ts-ignore
 import setDisplayName from 'recompose/setDisplayName'
+// @ts-ignore
 import { Container, SvgWrapper } from '@nivo/core'
-import { BulletPropTypes } from './props'
+import { defaultProps } from './props'
+import { BulletSvgProps, TooltipHandlers } from './types'
 import enhance from './enhance'
 import BulletItem from './BulletItem'
 
-export class Bullet extends Component {
-    static propTypes = BulletPropTypes
+export class Bullet extends Component<BulletSvgProps> {
+    static displayName = 'Bullet'
 
     render() {
         const {
@@ -61,9 +56,9 @@ export class Bullet extends Component {
             onMarkerClick,
 
             role,
-        } = this.props
+        } = { height: 0, width: 0, ...defaultProps, ...this.props }
 
-        let itemHeight
+        let itemHeight: number
         if (layout === 'horizontal') {
             itemHeight = (height - spacing * (data.length - 1)) / data.length
         } else {
@@ -73,7 +68,7 @@ export class Bullet extends Component {
         const markerHeight = itemHeight * markerSize
 
         const enhancedData = data.map(d => {
-            const all = [...d.ranges, ...d.measures, ...d.markers]
+            const all = [...d.ranges, ...d.measures, ...(d.markers ?? [])]
 
             const max = Math.max(...all)
 
@@ -101,7 +96,7 @@ export class Bullet extends Component {
                 motionStiffness={motionStiffness}
                 motionDamping={motionDamping}
             >
-                {({ showTooltip, hideTooltip }) => (
+                {({ showTooltip, hideTooltip }: TooltipHandlers<unknown>) => (
                     <SvgWrapper
                         width={outerWidth}
                         height={outerHeight}
@@ -150,7 +145,5 @@ export class Bullet extends Component {
         )
     }
 }
-
-Bullet.displayName = 'Bullet'
 
 export default setDisplayName(Bullet.displayName)(enhance(Bullet))
