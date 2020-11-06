@@ -1,7 +1,7 @@
 import React from 'react'
 import { scaleLinear } from 'd3-scale'
 // @ts-ignore
-import { Container, SvgWrapper, defaultTheme, extendDefaultTheme, defaultMargin } from '@nivo/core'
+import { Container, SvgWrapper, defaultMargin, usePartialTheme } from '@nivo/core'
 import { defaultProps } from './props'
 import { BulletSvgProps, TooltipHandlers } from './types'
 import { BulletItem } from './BulletItem'
@@ -49,7 +49,7 @@ export const Bullet = (props: BulletSvgProps) => {
         role,
     } = { height: 0, width: 0, ...defaultProps, ...props }
 
-    const theme = extendDefaultTheme(defaultTheme, _theme)
+    const theme = usePartialTheme(_theme)
     const margin = { ...defaultMargin, ..._margin }
     const width = outerWidth - margin.left - margin.right
     const height = outerHeight - margin.top - margin.bottom
@@ -121,7 +121,6 @@ export const Bullet = (props: BulletSvgProps) => {
                             measureColors={measureColors}
                             markerComponent={markerComponent}
                             markerColors={markerColors}
-                            theme={theme}
                             axisPosition={axisPosition}
                             showTooltip={showTooltip}
                             hideTooltip={hideTooltip}

@@ -1,8 +1,18 @@
 import React from 'react'
 import { AnimatedValue, useSpring, animated } from 'react-spring'
 import { Axis } from '@nivo/axes'
-// @ts-ignore
-import { getColorScale, defaultTheme, extendDefaultTheme, useMotionConfig } from '@nivo/core'
+import {
+    // @ts-ignore
+    getColorScale,
+    // @ts-ignore
+    defaultTheme,
+    // @ts-ignore
+    extendDefaultTheme,
+    // @ts-ignore
+    useMotionConfig,
+    // @ts-ignore
+    useTheme,
+} from '@nivo/core'
 import { BasicTooltip } from '@nivo/tooltip'
 import { stackValues } from './compute'
 import { BulletMarkers } from './BulletMarkers'
@@ -21,7 +31,7 @@ export const BulletItem = ({
     width,
     height,
 
-    title: _title,
+    title = id,
     titlePosition,
     titleAlign,
     titleOffsetX,
@@ -46,12 +56,10 @@ export const BulletItem = ({
     onMeasureClick,
     onMarkerClick,
 
-    theme: _theme,
-
     showTooltip,
     hideTooltip,
 }: BulletItemProps) => {
-    const theme = extendDefaultTheme(defaultTheme, _theme)
+    const theme = useTheme()
 
     const rangeColorScale = getColorScale(rangeColors, scale, true)
     const computedRanges = stackValues(ranges, rangeColorScale)
@@ -124,13 +132,8 @@ export const BulletItem = ({
         />
     )
 
-    let axisX = 0
-    let axisY = 0
-    if (layout === 'horizontal' && axisPosition === 'after') {
-        axisY = height
-    } else if (layout === 'vertical' && axisPosition === 'after') {
-        axisX = height
-    }
+    const axisX = layout === 'vertical' && axisPosition === 'after' ? height : 0
+    const axisY = layout === 'horizontal' && axisPosition === 'after' ? height : 0
 
     const axis = (
         <g transform={`translate(${axisX},${axisY})`}>
@@ -144,16 +147,18 @@ export const BulletItem = ({
         </g>
     )
 
-    const title = _title || id
-    let titleX
-    let titleY
-    if (layout === 'horizontal') {
-        titleX = titlePosition === 'before' ? titleOffsetX : width + titleOffsetX
-        titleY = height / 2 + titleOffsetY
-    } else {
-        titleX = height / 2 + titleOffsetX
-        titleY = titlePosition === 'before' ? titleOffsetY : width + titleOffsetY
-    }
+    const titleX =
+        layout === 'horizontal'
+            ? titlePosition === 'before'
+                ? titleOffsetX
+                : width + titleOffsetX
+            : height / 2 + titleOffsetX
+    const titleY =
+        layout === 'horizontal'
+            ? height / 2 + titleOffsetY
+            : titlePosition === 'before'
+            ? titleOffsetY
+            : width + titleOffsetY
 
     const titleNode = (
         <g transform={`translate(${titleX},${titleY}) rotate(${titleRotation})`}>
