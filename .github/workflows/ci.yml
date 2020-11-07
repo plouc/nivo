@@ -34,7 +34,5 @@ jobs:
       - run: yarn install --frozen-lockfile
       - run: make bootstrap
       - run: make packages-build
-      - run: make fmt-check
       - run: make packages-lint
-      - run: make packages-tslint
       - run: make packages-test
