@@ -68,7 +68,7 @@ const LegendSvgItem = ({
         },
         [onMouseEnter, data, effects]
     )
-    const handleMouseLeave = useCallback(() => {
+    const handleMouseLeave = useCallback((event) => {
         if (effects.length > 0) {
             const applyEffects = effects.filter(({ on }) => on !== 'hover')
             const style = applyEffects.reduce(
