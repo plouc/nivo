@@ -8,7 +8,6 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { noop } from '@nivo/core'
 import sortBy from 'lodash/sortBy'
 import cloneDeep from 'lodash/cloneDeep'
 import compose from 'recompose/compose'
@@ -19,6 +18,7 @@ import pure from 'recompose/pure'
 import { partition as Partition, hierarchy } from 'd3-hierarchy'
 import { arc } from 'd3-shape'
 import {
+    noop,
     withTheme,
     withDimensions,
     getAccessorFor,

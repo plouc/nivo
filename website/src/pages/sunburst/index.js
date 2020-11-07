@@ -75,9 +75,9 @@ const Sunburst = () => {
                         onClick={node =>
                             logAction({
                                 type: 'click',
-                                label: `[sunburst] ${node.id} - ${node.value}: ${Math.round(
-                                    node.percentage * 100
-                                ) / 100}%`,
+                                label: `[sunburst] ${node.id} - ${node.value}: ${
+                                    Math.round(node.percentage * 100) / 100
+                                }%`,
                                 color: node.color,
                                 data: node,
                             })
