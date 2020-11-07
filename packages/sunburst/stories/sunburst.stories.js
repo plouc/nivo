@@ -1,5 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
+import { action } from '@storybook/addon-actions'
 import { withKnobs } from '@storybook/addon-knobs'
 import { generateLibTree } from '@nivo/generators'
 import { Sunburst } from '../src'
@@ -27,6 +28,16 @@ stories.add('with child colors independent of parent', () => (
     <Sunburst {...commonProperties} childColor="noinherit" />
 ))
 
+const customPalette = ['#ffd700', '#ffb14e', '#fa8775', '#ea5f94', '#cd34b5', '#9d02d7', '#0000ff']
+
+stories.add('with custom colors', () => (
+    <Sunburst
+        {...commonProperties}
+        colors={({ value }) => customPalette[value % (customPalette.length - 1)]}
+        childColor="noinherit"
+    />
+))
+
 stories.add('with formatted tooltip value', () => (
     <Sunburst
         {...commonProperties}
@@ -36,13 +47,28 @@ stories.add('with formatted tooltip value', () => (
     />
 ))
 
-stories.add('with custom tooltip', () => (
+stories.add('custom tooltip', () => (
     <Sunburst
         {...commonProperties}
-        tooltip={({ data: { id, value, color } }) => (
-            <span style={{ color }}>
-                {id}: <strong>{value}</strong>
-            </span>
+        tooltip={({ id, value, color }) => (
+            <strong style={{ color }}>
+                {id}: {value}
+            </strong>
         )}
+        theme={{
+            tooltip: {
+                container: {
+                    background: '#333',
+                },
+            },
+        }}
+    />
+))
+
+stories.add('enter/leave (check actions)', () => (
+    <Sunburst
+        {...commonProperties}
+        onMouseEnter={action('onMouseEnter')}
+        onMouseLeave={action('onMouseLeave')}
     />
 ))
