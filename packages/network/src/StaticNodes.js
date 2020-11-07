@@ -10,7 +10,14 @@ import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import Node from './Node'
 
-const StaticNodes = ({ nodes, color, borderWidth, borderColor }) => {
+const StaticNodes = ({
+    nodes,
+    color,
+    borderWidth,
+    borderColor,
+    handleNodeHover,
+    handleNodeLeave,
+}) => {
     return nodes.map(node => {
         return (
             <Node
@@ -22,6 +29,8 @@ const StaticNodes = ({ nodes, color, borderWidth, borderColor }) => {
                 color={color(node)}
                 borderWidth={borderWidth}
                 borderColor={borderColor(node)}
+                handleNodeHover={handleNodeHover}
+                handleNodeLeave={handleNodeLeave}
             />
         )
     })
@@ -32,6 +41,8 @@ StaticNodes.propTypes = {
     color: PropTypes.func.isRequired,
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.func.isRequired,
+    handleNodeHover: PropTypes.func.isRequired,
+    handleNodeLeave: PropTypes.func.isRequired,
 }
 
 export default memo(StaticNodes)

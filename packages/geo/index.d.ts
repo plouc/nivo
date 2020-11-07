@@ -62,7 +62,9 @@ declare module '@nivo/geo' {
         tooltip?: GeoMapTooltip
     }
 
-    export interface GeoMapProps extends GeoMapCommonProps {}
+    export interface GeoMapProps extends GeoMapCommonProps {
+        role?: string
+    }
     export interface GeoMapCanvasProps extends GeoMapCommonProps {
         pixelRatio?: number
     }
@@ -118,7 +120,9 @@ declare module '@nivo/geo' {
         onClick?: ChoroplethEventHandler
     }
 
-    export interface ChoroplethProps extends ChoroplethCommonProps {}
+    export interface ChoroplethProps extends ChoroplethCommonProps {
+        role?: string
+    }
     export interface ChoroplethCanvasProps extends ChoroplethCommonProps {
         pixelRatio?: number
     }

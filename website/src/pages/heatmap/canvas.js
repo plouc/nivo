@@ -52,7 +52,7 @@ const initialProperties = {
         tickRotation: 0,
         legend: 'country',
         legendPosition: 'middle',
-        legendOffset: 0,
+        legendOffset: 40,
     },
     axisBottom: {
         enable: true,
@@ -60,7 +60,7 @@ const initialProperties = {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: -90,
-        legend: 'country',
+        legend: '',
         legendPosition: 'middle',
         legendOffset: 36,
     },

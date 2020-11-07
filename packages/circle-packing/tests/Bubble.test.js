@@ -15,11 +15,17 @@ const sampleData = {
         },
         {
             id: 'line',
-            children: [{ id: 'svg', value: 43 }, { id: 'canvas', value: 27 }],
+            children: [
+                { id: 'svg', value: 43 },
+                { id: 'canvas', value: 27 },
+            ],
         },
         {
             id: 'pie',
-            children: [{ id: 'svg', value: 17 }, { id: 'canvas', value: 23 }],
+            children: [
+                { id: 'svg', value: 17 },
+                { id: 'canvas', value: 23 },
+            ],
         },
     ],
 }

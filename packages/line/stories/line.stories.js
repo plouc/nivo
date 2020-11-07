@@ -12,7 +12,7 @@ import last from 'lodash/last'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, boolean, select } from '@storybook/addon-knobs'
 import { generateDrinkStats } from '@nivo/generators'
-import { Defs } from '@nivo/core'
+import { Defs, linearGradientDef } from '@nivo/core'
 import { area, curveMonotoneX } from 'd3-shape'
 import * as time from 'd3-time'
 import { timeFormat } from 'd3-time-format'
@@ -110,7 +110,7 @@ stories.add(
                 By default, \`xScale\` is a point scale, but you can switch to linear using
                 the \`xScale.type\` property. It supports irregular intervals while \`point\`
                 scale doesn't.
-                
+
                 If you want missing datums to appear as holes instead of connecting defined ones,
                 you should set their y value to \`null\`.
             `,
@@ -152,6 +152,7 @@ stories.add('time scale', () => (
         xScale={{
             type: 'time',
             format: '%Y-%m-%d',
+            useUTC: false,
             precision: 'day',
         }}
         xFormat="time:%Y-%m-%d"
@@ -218,6 +219,41 @@ stories.add('logarithmic scale', () => (
         axisLeft={{
             tickValues: [10, 100, 1000, 10000, 100000, 1000000, 10000000],
             legend: 'logarithmic scale (base: 10)',
+            legendOffset: 12,
+        }}
+        useMesh={true}
+        enableSlices={false}
+    />
+))
+
+stories.add('symmetric logarithmic scale', () => (
+    <Line
+        {...commonProperties}
+        data={[
+            {
+                id: 'fake corp. A',
+                data: [
+                    { x: 1, y: -12 },
+                    { x: 2, y: 123 },
+                    { x: 3, y: 870 },
+                    { x: 4, y: 210 },
+                    { x: 7, y: 400 },
+                    { x: 9, y: 100 },
+                    { x: 16, y: 1000 },
+                ],
+            },
+        ]}
+        xScale={{
+            type: 'linear',
+            max: 'auto',
+        }}
+        yScale={{
+            type: 'symlog',
+            max: 'auto',
+        }}
+        axisLeft={{
+            tickValues: [0, 100, 250, 500, 1000],
+            legend: 'symmetric logarithmic scale',
             legendOffset: 12,
         }}
         useMesh={true}
@@ -526,7 +562,7 @@ stories.add(
             text: `
                 Please note that when using stacked y scale with variable length/data holes,
                 if one of the y value is \`null\` all subsequent values will be skipped
-                as we cannot properly compute the sum. 
+                as we cannot properly compute the sum.
             `,
         },
     }
@@ -1011,3 +1047,22 @@ stories.add(
         },
     }
 )
+
+stories.add('area gradients', () => (
+    <Line
+        {...commonProperties}
+        enableArea={true}
+        yScale={{
+            type: 'linear',
+            stacked: true,
+        }}
+        curve={select('curve', curveOptions, 'linear')}
+        defs={[
+            linearGradientDef('gradientA', [
+                { offset: 0, color: 'inherit' },
+                { offset: 100, color: 'inherit', opacity: 0 },
+            ]),
+        ]}
+        fill={[{ match: '*', id: 'gradientA' }]}
+    />
+))

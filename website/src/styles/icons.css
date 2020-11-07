@@ -1,4 +1,4 @@
-/* glue: 0.13 hash: 0a618edcf6 */
+/* glue: 0.13 hash: f78f8b2c8e */
 .sprite-icons-waffle-light-neutral,
 .sprite-icons-waffle-light-colored,
 .sprite-icons-waffle-dark-neutral,
@@ -68,6 +68,10 @@
 .sprite-icons-geomap-light-colored,
 .sprite-icons-geomap-dark-neutral,
 .sprite-icons-geomap-dark-colored,
+.sprite-icons-funnel-light-neutral,
+.sprite-icons-funnel-light-colored,
+.sprite-icons-funnel-dark-neutral,
+.sprite-icons-funnel-dark-colored,
 .sprite-icons-data-light-neutral,
 .sprite-icons-data-light-colored,
 .sprite-icons-data-dark-neutral,
@@ -526,242 +530,266 @@
     height: 52px;
 }
 
-.sprite-icons-data-light-neutral {
+.sprite-icons-funnel-light-neutral {
     background-position: -484px -304px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-data-light-colored {
+.sprite-icons-funnel-light-colored {
     background-position: -484px -364px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-data-dark-neutral {
+.sprite-icons-funnel-dark-neutral {
     background-position: -484px -424px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-data-dark-colored {
+.sprite-icons-funnel-dark-colored {
     background-position: -4px -484px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-code-light-neutral {
+.sprite-icons-data-light-neutral {
     background-position: -64px -484px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-code-light-colored {
+.sprite-icons-data-light-colored {
     background-position: -124px -484px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-code-dark-neutral {
+.sprite-icons-data-dark-neutral {
     background-position: -184px -484px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-code-dark-colored {
+.sprite-icons-data-dark-colored {
     background-position: -244px -484px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-circle-packing-light-neutral {
+.sprite-icons-code-light-neutral {
     background-position: -304px -484px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-circle-packing-light-colored {
+.sprite-icons-code-light-colored {
     background-position: -364px -484px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-circle-packing-dark-neutral {
+.sprite-icons-code-dark-neutral {
     background-position: -424px -484px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-circle-packing-dark-colored {
+.sprite-icons-code-dark-colored {
     background-position: -484px -484px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-choropleth-light-neutral {
+.sprite-icons-circle-packing-light-neutral {
     background-position: -544px -4px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-choropleth-light-colored {
+.sprite-icons-circle-packing-light-colored {
     background-position: -544px -64px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-choropleth-dark-neutral {
+.sprite-icons-circle-packing-dark-neutral {
     background-position: -544px -124px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-choropleth-dark-colored {
+.sprite-icons-circle-packing-dark-colored {
     background-position: -544px -184px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-chord-light-neutral {
+.sprite-icons-choropleth-light-neutral {
     background-position: -544px -244px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-chord-light-colored {
+.sprite-icons-choropleth-light-colored {
     background-position: -544px -304px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-chord-dark-neutral {
+.sprite-icons-choropleth-dark-neutral {
     background-position: -544px -364px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-chord-dark-colored {
+.sprite-icons-choropleth-dark-colored {
     background-position: -544px -424px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-calendar-light-neutral {
+.sprite-icons-chord-light-neutral {
     background-position: -544px -484px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-calendar-light-colored {
+.sprite-icons-chord-light-colored {
     background-position: -4px -544px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-calendar-dark-neutral {
+.sprite-icons-chord-dark-neutral {
     background-position: -64px -544px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-calendar-dark-colored {
+.sprite-icons-chord-dark-colored {
     background-position: -124px -544px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bump-light-neutral {
+.sprite-icons-calendar-light-neutral {
     background-position: -184px -544px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bump-light-colored {
+.sprite-icons-calendar-light-colored {
     background-position: -244px -544px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bump-dark-neutral {
+.sprite-icons-calendar-dark-neutral {
     background-position: -304px -544px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bump-dark-colored {
+.sprite-icons-calendar-dark-colored {
     background-position: -364px -544px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bullet-light-neutral {
+.sprite-icons-bump-light-neutral {
     background-position: -424px -544px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bullet-light-colored {
+.sprite-icons-bump-light-colored {
     background-position: -484px -544px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bullet-dark-neutral {
+.sprite-icons-bump-dark-neutral {
     background-position: -544px -544px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bullet-dark-colored {
+.sprite-icons-bump-dark-colored {
     background-position: -604px -4px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bar-light-neutral {
+.sprite-icons-bullet-light-neutral {
     background-position: -604px -64px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bar-light-colored {
+.sprite-icons-bullet-light-colored {
     background-position: -604px -124px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bar-dark-neutral {
+.sprite-icons-bullet-dark-neutral {
     background-position: -604px -184px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-bar-dark-colored {
+.sprite-icons-bullet-dark-colored {
     background-position: -604px -244px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-area-bump-light-neutral {
+.sprite-icons-bar-light-neutral {
     background-position: -604px -304px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-area-bump-light-colored {
+.sprite-icons-bar-light-colored {
     background-position: -604px -364px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-area-bump-dark-neutral {
+.sprite-icons-bar-dark-neutral {
     background-position: -604px -424px;
     width: 52px;
     height: 52px;
 }
 
-.sprite-icons-area-bump-dark-colored {
+.sprite-icons-bar-dark-colored {
     background-position: -604px -484px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-area-bump-light-neutral {
+    background-position: -604px -544px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-area-bump-light-colored {
+    background-position: -4px -604px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-area-bump-dark-neutral {
+    background-position: -64px -604px;
+    width: 52px;
+    height: 52px;
+}
+
+.sprite-icons-area-bump-dark-colored {
+    background-position: -124px -604px;
     width: 52px;
     height: 52px;
 }
@@ -840,6 +868,10 @@
     .sprite-icons-geomap-light-colored,
     .sprite-icons-geomap-dark-neutral,
     .sprite-icons-geomap-dark-colored,
+    .sprite-icons-funnel-light-neutral,
+    .sprite-icons-funnel-light-colored,
+    .sprite-icons-funnel-dark-neutral,
+    .sprite-icons-funnel-dark-colored,
     .sprite-icons-data-light-neutral,
     .sprite-icons-data-light-colored,
     .sprite-icons-data-dark-neutral,
@@ -881,9 +913,9 @@
     .sprite-icons-area-bump-dark-neutral,
     .sprite-icons-area-bump-dark-colored {
         background-image: url('../assets/icons.png');
-        -webkit-background-size: 660px 600px;
-        -moz-background-size: 660px 600px;
-        background-size: 660px 600px;
+        -webkit-background-size: 660px 660px;
+        -moz-background-size: 660px 660px;
+        background-size: 660px 660px;
     }
 }
 
@@ -961,6 +993,10 @@
     .sprite-icons-geomap-light-colored,
     .sprite-icons-geomap-dark-neutral,
     .sprite-icons-geomap-dark-colored,
+    .sprite-icons-funnel-light-neutral,
+    .sprite-icons-funnel-light-colored,
+    .sprite-icons-funnel-dark-neutral,
+    .sprite-icons-funnel-dark-colored,
     .sprite-icons-data-light-neutral,
     .sprite-icons-data-light-colored,
     .sprite-icons-data-dark-neutral,
@@ -1002,8 +1038,8 @@
     .sprite-icons-area-bump-dark-neutral,
     .sprite-icons-area-bump-dark-colored {
         background-image: url('../assets/icons@2x.png');
-        -webkit-background-size: 660px 600px;
-        -moz-background-size: 660px 600px;
-        background-size: 660px 600px;
+        -webkit-background-size: 660px 660px;
+        -moz-background-size: 660px 660px;
+        background-size: 660px 660px;
     }
 }

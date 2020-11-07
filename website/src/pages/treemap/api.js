@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
+import { TreeMapDefaultProps } from '@nivo/treemap'
 import SEO from '../../components/seo'
 import ApiClient from '../../components/components/api-client/ApiClient'
 import { groups } from '../../data/components/treemap/props'
@@ -25,17 +26,17 @@ const TreeMapApi = () => {
                 chartClass="treemap"
                 apiPath="/charts/treemap"
                 flavors={meta.flavors}
-                dataProperty="root"
                 controlGroups={groups}
                 propsMapper={mapper}
                 defaultProps={{
                     root: JSON.stringify(data.root, null, '  '),
                     identity: 'name',
                     value: 'loc',
-                    tile: 'squarify',
-                    leavesOnly: false,
-                    innerPadding: 3,
-                    outerPadding: 3,
+                    valueFormat: { format: '.02s', enabled: true },
+                    tile: TreeMapDefaultProps.tile,
+                    leavesOnly: TreeMapDefaultProps.leavesOnly,
+                    innerPadding: TreeMapDefaultProps.innerPadding,
+                    outerPadding: TreeMapDefaultProps.outerPadding,
 
                     margin: {
                         top: 10,
@@ -44,18 +45,27 @@ const TreeMapApi = () => {
                         left: 10,
                     },
 
-                    enableLabel: true,
-                    label: 'loc',
-                    labelFormat: '.0s',
+                    enableLabel: TreeMapDefaultProps.enableLabel,
+                    label: TreeMapDefaultProps.label,
                     labelSkipSize: 12,
                     labelTextColor: {
                         from: 'color',
                         modifiers: [['darker', 1.2]],
                     },
-                    orientLabel: true,
+                    orientLabel: TreeMapDefaultProps.orientLabel,
+                    enableParentLabel: TreeMapDefaultProps.enableParentLabel,
+                    parentLabel: TreeMapDefaultProps.parentLabel,
+                    parentLabelSize: TreeMapDefaultProps.parentLabelSize,
+                    parentLabelPosition: TreeMapDefaultProps.parentLabelPosition,
+                    parentLabelPadding: TreeMapDefaultProps.parentLabelPadding,
+                    parentLabelTextColor: {
+                        from: 'color',
+                        modifiers: [['darker', 2]],
+                    },
 
                     colors: { scheme: 'nivo' },
-                    colorBy: 'depth',
+                    colorBy: 'path.1',
+                    nodeOpacity: 0.5,
                     borderWidth: 0,
                     borderColor: {
                         from: 'color',

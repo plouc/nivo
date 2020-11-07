@@ -8,11 +8,15 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { useTheme, useMotionConfig, SmartMotion } from '@nivo/core'
+import { animated } from 'react-spring'
+import { useAnimatedPath, useTheme } from '@nivo/core'
 
-const AnnotationLink = memo(({ points, isOutline }) => {
+const AnnotationLink = memo(({ isOutline, ...props }) => {
     const theme = useTheme()
-    const { animate, springConfig } = useMotionConfig()
+    const [point, ...points] = props.points
+
+    const path = points.reduce((acc, [x, y]) => `${acc} L${x},${y}`, `M${point[0]},${point[1]}`)
+    const animatedPath = useAnimatedPath(path)
 
     if (isOutline && theme.annotations.link.outlineWidth <= 0) {
         return null
@@ -26,24 +30,7 @@ const AnnotationLink = memo(({ points, isOutline }) => {
         style.stroke = theme.annotations.link.outlineColor
     }
 
-    let path = `M${points[0][0]},${points[0][1]}`
-    points.slice(1).forEach(point => {
-        path = `${path} L${point[0]},${point[1]}`
-    })
-
-    if (!animate) {
-        return <path fill="none" d={path} style={style} />
-    }
-
-    return (
-        <SmartMotion
-            style={spring => ({
-                d: spring(path, springConfig),
-            })}
-        >
-            {interpolated => <path fill="none" d={interpolated.d} style={style} />}
-        </SmartMotion>
-    )
+    return <animated.path fill="none" d={animatedPath} style={style} />
 })
 
 AnnotationLink.displayName = 'AnnotationLink'

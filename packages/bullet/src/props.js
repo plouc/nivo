@@ -70,6 +70,7 @@ const commonPropTypes = {
 
 export const BulletPropTypes = {
     ...commonPropTypes,
+    role: PropTypes.string.isRequired,
 }
 
 const commonDefaultProps = {
@@ -98,4 +99,5 @@ const commonDefaultProps = {
 
 export const BulletDefaultProps = {
     ...commonDefaultProps,
+    role: 'img',
 }

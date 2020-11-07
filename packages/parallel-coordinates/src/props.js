@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import PropTypes from 'prop-types'
-import { themePropType, lineCurvePropType } from '@nivo/core'
+import { lineCurvePropType } from '@nivo/core'
 import { ordinalColorsPropType } from '@nivo/colors'
 
 const commonVariablePropTypes = {
@@ -52,13 +52,16 @@ export const commonPropTypes = {
     ).isRequired,
     layout: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
     curve: lineCurvePropType.isRequired,
-    lineGenerator: PropTypes.func.isRequired,
     strokeWidth: PropTypes.number.isRequired,
     lineOpacity: PropTypes.number.isRequired,
     axesPlan: PropTypes.oneOf(['foreground', 'background']).isRequired,
     axesTicksPosition: PropTypes.oneOf(['before', 'after']).isRequired,
     colors: ordinalColorsPropType.isRequired,
-    theme: themePropType.isRequired,
+}
+
+export const svgPropTypes = {
+    ...commonPropTypes,
+    role: PropTypes.string.isRequired,
 }
 
 export const commonDefaultProps = {
@@ -69,4 +72,11 @@ export const commonDefaultProps = {
     lineOpacity: 0.35,
     axesPlan: 'foreground',
     axesTicksPosition: 'after',
+    animate: true,
+    motionConfig: 'gentle',
+}
+
+export const svgDefaultProps = {
+    ...commonDefaultProps,
+    role: 'img',
 }

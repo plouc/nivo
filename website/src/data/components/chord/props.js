@@ -8,6 +8,7 @@
  */
 import { ChordDefaultProps as defaults } from '@nivo/chord'
 import {
+    themeProperty,
     motionProperties,
     groupProperties,
     getLegendsProps,
@@ -166,6 +167,7 @@ const props = [
             step: 0.01,
         },
     },
+    themeProperty,
     {
         key: 'colors',
         help: 'Defines how to compute arc/ribbon color.',
@@ -284,7 +286,6 @@ const props = [
     },
     {
         key: 'labelTextColor',
-        help: 'Labels color.',
         description: `
             How to compute label text color,
             [see dedicated documentation](self:/guides/colors).

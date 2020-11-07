@@ -7,15 +7,15 @@
  * file that was distributed with this source code.
  */
 import { Component, MouseEvent } from 'react'
-import { Dimensions, Box, Theme, MotionProps, CssMixBlendMode } from '@nivo/core'
+import { Dimensions, Box, Theme, MotionProps, SvgDefsAndFill, CssMixBlendMode } from '@nivo/core'
 import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
 
 declare module '@nivo/bump' {
     type SerieDerivedProp<Serie, T> = (serie: Serie) => T
 
     export interface BumpInputDatum {
-        x: string | number
-        y: string | number
+        x?: string | number | null
+        y?: string | number | null
         [key: string]: any
     }
 
@@ -73,6 +73,7 @@ declare module '@nivo/bump' {
         onMouseLeave?: BumpMouseHandler
         onClick?: BumpMouseHandler
         tooltip?: any
+        role?: string
     }
 
     export type BumpSvgProps = BumpProps & MotionProps
@@ -170,9 +171,10 @@ declare module '@nivo/bump' {
         onMouseLeave?: AreaBumpMouseHandler
         onClick?: AreaBumpMouseHandler
         tooltip?: any
+        role?: string
     }
 
-    export type AreaBumpSvgProps = AreaBumpProps & MotionProps
+    export type AreaBumpSvgProps = AreaBumpProps & MotionProps & SvgDefsAndFill<BumpInputDatum>
     export class AreaBump extends Component<AreaBumpSvgProps & Dimensions> {}
     export class ResponsiveAreaBump extends Component<AreaBumpSvgProps> {}
 }

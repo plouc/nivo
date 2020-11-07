@@ -6,146 +6,132 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { Component } from 'react'
+import React, { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
-import compose from 'recompose/compose'
-import defaultProps from 'recompose/defaultProps'
-import withPropsOnChange from 'recompose/withPropsOnChange'
-import pure from 'recompose/pure'
-import setDisplayName from 'recompose/setDisplayName'
-import { Container } from '@nivo/core'
+import { useDimensions, useTheme, withContainer } from '@nivo/core'
 import { renderAxisToCanvas } from '@nivo/axes'
 import { commonPropTypes, commonDefaultProps } from './props'
-import { commonEnhancers } from './enhance'
-import { computeParallelCoordinatesLayout } from './compute'
+import { useParallelCoordinates } from './hooks'
 
-export class ParallelCoordinatesCanvas extends Component {
-    static propTypes = {
-        ...commonPropTypes,
-        pixelRatio: PropTypes.number.isRequired,
-    }
+const ParallelCoordinatesCanvas = ({
+    data,
+    layout,
+    variables,
+    width,
+    height,
+    margin: partialMargin,
+    curve,
+    colors,
+    lineOpacity,
+    strokeWidth,
+    axesTicksPosition,
+    pixelRatio,
+}) => {
+    const canvasEl = useRef(null)
 
-    componentDidMount() {
-        this.ctx = this.surface.getContext('2d')
-        this.draw(this.props)
-    }
+    const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(
+        width,
+        height,
+        partialMargin
+    )
 
-    shouldComponentUpdate(props) {
-        if (
-            this.props.outerWidth !== props.outerWidth ||
-            this.props.outerHeight !== props.outerHeight ||
-            this.props.isInteractive !== props.isInteractive ||
-            this.props.theme !== props.theme
-        ) {
-            return true
-        } else {
-            this.draw(props)
-            return false
-        }
-    }
+    const {
+        variablesScale,
+        variablesWithScale,
+        dataWithPoints,
+        lineGenerator,
+        getLineColor,
+    } = useParallelCoordinates({
+        width: innerWidth,
+        height: innerHeight,
+        data,
+        variables,
+        layout,
+        colors,
+        curve,
+    })
 
-    componentDidUpdate() {
-        this.ctx = this.surface.getContext('2d')
-        this.draw(this.props)
-    }
+    const theme = useTheme()
 
-    draw(props) {
-        const {
-            layout,
-            dataWithPoints,
-            variablesWithScale,
-            variablesScale,
-            width,
-            height,
-            outerWidth,
-            outerHeight,
-            pixelRatio,
-            getLineColor,
-            margin,
-            lineOpacity,
-            strokeWidth,
-            lineGenerator,
-            axesTicksPosition,
-            theme,
-        } = props
+    useEffect(() => {
+        canvasEl.current.width = outerWidth * pixelRatio
+        canvasEl.current.height = outerHeight * pixelRatio
 
-        this.surface.width = outerWidth * pixelRatio
-        this.surface.height = outerHeight * pixelRatio
+        const ctx = canvasEl.current.getContext('2d')
 
-        this.ctx.scale(pixelRatio, pixelRatio)
-        this.ctx.fillStyle = theme.background
-        this.ctx.fillRect(0, 0, outerWidth, outerHeight)
-        this.ctx.translate(margin.left, margin.top)
+        ctx.scale(pixelRatio, pixelRatio)
 
-        lineGenerator.context(this.ctx)
+        ctx.fillStyle = theme.background
+        ctx.fillRect(0, 0, outerWidth, outerHeight)
+        ctx.translate(margin.left, margin.top)
+
+        lineGenerator.context(ctx)
         dataWithPoints.forEach(datum => {
-            this.ctx.save()
-            this.ctx.globalAlpha = lineOpacity
+            ctx.save()
+            ctx.globalAlpha = lineOpacity
 
-            this.ctx.beginPath()
+            ctx.beginPath()
             lineGenerator(datum.points)
-            this.ctx.strokeStyle = getLineColor(datum)
-            this.ctx.lineWidth = strokeWidth
-            this.ctx.stroke()
+            ctx.strokeStyle = getLineColor(datum)
+            ctx.lineWidth = strokeWidth
+            ctx.stroke()
 
-            this.ctx.restore()
+            ctx.restore()
         })
 
         variablesWithScale.map(variable => {
-            renderAxisToCanvas(this.ctx, {
+            renderAxisToCanvas(ctx, {
                 axis: layout === 'horizontal' ? 'y' : 'x',
                 scale: variable.scale,
                 x: layout === 'horizontal' ? variablesScale(variable.key) : 0,
                 y: layout === 'horizontal' ? 0 : variablesScale(variable.key),
-                length: layout === 'horizontal' ? height : width,
+                length: layout === 'horizontal' ? innerHeight : innerWidth,
                 ticksPosition: axesTicksPosition,
                 theme,
             })
         })
-    }
+    }, [
+        canvasEl,
+        outerWidth,
+        outerHeight,
+        innerWidth,
+        innerHeight,
+        margin,
+        lineGenerator,
+        getLineColor,
+        lineOpacity,
+        strokeWidth,
+        dataWithPoints,
+        variablesWithScale,
+        layout,
+        axesTicksPosition,
+        theme,
+        pixelRatio,
+    ])
 
-    render() {
-        const { pixelRatio, outerWidth, outerHeight, theme, isInteractive } = this.props
-
-        return (
-            <Container isInteractive={isInteractive} theme={theme} animate={false}>
-                {() => (
-                    <canvas
-                        ref={surface => {
-                            this.surface = surface
-                        }}
-                        width={outerWidth * pixelRatio}
-                        height={outerHeight * pixelRatio}
-                        style={{
-                            width: outerWidth,
-                            height: outerHeight,
-                        }}
-                    />
-                )}
-            </Container>
-        )
-    }
+    return (
+        <canvas
+            ref={canvasEl}
+            width={outerWidth * pixelRatio}
+            height={outerHeight * pixelRatio}
+            style={{
+                width: outerWidth,
+                height: outerHeight,
+            }}
+        />
+    )
 }
 
-const enhance = compose(
-    defaultProps({
-        ...commonDefaultProps,
-        pixelRatio:
-            global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
-    }),
-    ...commonEnhancers,
-    withPropsOnChange(
-        ['width', 'height', 'data', 'variables', 'layout'],
-        ({ width, height, data, variables, layout }) =>
-            computeParallelCoordinatesLayout({
-                width,
-                height,
-                data,
-                variables,
-                layout,
-            })
-    ),
-    pure
-)
+ParallelCoordinatesCanvas.propTypes = {
+    ...commonPropTypes,
+    pixelRatio: PropTypes.number.isRequired,
+}
 
-export default setDisplayName('ParallelCoordinatesCanvas')(enhance(ParallelCoordinatesCanvas))
+const WrappedParallelCoordinatesCanvas = withContainer(ParallelCoordinatesCanvas)
+WrappedParallelCoordinatesCanvas.defaultProps = {
+    ...commonDefaultProps,
+    pixelRatio:
+        global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
+}
+
+export default WrappedParallelCoordinatesCanvas

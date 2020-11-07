@@ -14,11 +14,19 @@ export default class ScatterPlot extends React.Component {
         const data = [
             {
                 id: 'group A',
-                data: [{ x: 0, y: 0 }, { x: 2, y: 7 }, { x: 7, y: 23 }],
+                data: [
+                    { x: 0, y: 0 },
+                    { x: 2, y: 7 },
+                    { x: 7, y: 23 },
+                ],
             },
             {
                 id: 'group B',
-                data: [{ x: 3, y: 13 }, { x: 5, y: 7 }, { x: 6, y: 19 }],
+                data: [
+                    { x: 3, y: 13 },
+                    { x: 5, y: 7 },
+                    { x: 6, y: 19 },
+                ],
             },
         ]
 

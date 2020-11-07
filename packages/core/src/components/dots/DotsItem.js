@@ -8,7 +8,9 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
+import { useSpring, animated } from 'react-spring'
 import { dotsThemePropType } from '../../theming'
+import { useMotionConfig } from '../../motion'
 import DotsItemSymbol from './DotsItemSymbol'
 
 const DotsItem = ({
@@ -24,22 +26,32 @@ const DotsItem = ({
     labelTextAnchor,
     labelYOffset,
     theme,
-}) => (
-    <g transform={`translate(${x}, ${y})`} style={{ pointerEvents: 'none' }}>
-        {React.createElement(symbol, {
-            size,
-            color,
-            datum,
-            borderWidth,
-            borderColor,
-        })}
-        {label && (
-            <text textAnchor={labelTextAnchor} y={labelYOffset} style={theme.dots.text}>
-                {label}
-            </text>
-        )}
-    </g>
-)
+}) => {
+    const { animate, config: springConfig } = useMotionConfig()
+
+    const animatedProps = useSpring({
+        transform: `translate(${x}, ${y})`,
+        config: springConfig,
+        immediate: !animate,
+    })
+
+    return (
+        <animated.g transform={animatedProps.transform} style={{ pointerEvents: 'none' }}>
+            {React.createElement(symbol, {
+                size,
+                color,
+                datum,
+                borderWidth,
+                borderColor,
+            })}
+            {label && (
+                <text textAnchor={labelTextAnchor} y={labelYOffset} style={theme.dots.text}>
+                    {label}
+                </text>
+            )}
+        </animated.g>
+    )
+}
 
 DotsItem.propTypes = {
     x: PropTypes.number.isRequired,

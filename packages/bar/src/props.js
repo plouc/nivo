@@ -15,6 +15,7 @@ import {
 } from '@nivo/colors'
 import { axisPropType } from '@nivo/axes'
 import { LegendPropShape } from '@nivo/legends'
+import { scalePropType } from '@nivo/scales'
 import BarItem from './BarItem'
 
 export const BarPropTypes = {
@@ -32,7 +33,7 @@ export const BarPropTypes = {
     groupMode: PropTypes.oneOf(['stacked', 'grouped']).isRequired,
     layout: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
     reverse: PropTypes.bool.isRequired,
-
+    valueScale: scalePropType.isRequired,
     minValue: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]).isRequired,
     maxValue: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]).isRequired,
     padding: PropTypes.number.isRequired,
@@ -44,8 +45,14 @@ export const BarPropTypes = {
     axisLeft: axisPropType,
     enableGridX: PropTypes.bool.isRequired,
     enableGridY: PropTypes.bool.isRequired,
-    gridXValues: PropTypes.arrayOf(PropTypes.number),
-    gridYValues: PropTypes.arrayOf(PropTypes.number),
+    gridXValues: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])),
+    ]),
+    gridYValues: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])),
+    ]),
 
     barComponent: PropTypes.func.isRequired,
 
@@ -88,6 +95,11 @@ export const BarPropTypes = {
     pixelRatio: PropTypes.number.isRequired,
 }
 
+export const BarSvgPropTypes = {
+    ...BarPropTypes,
+    role: PropTypes.string.isRequired,
+}
+
 export const BarDefaultProps = {
     indexBy: 'id',
     keys: ['value'],
@@ -99,6 +111,9 @@ export const BarDefaultProps = {
 
     minValue: 'auto',
     maxValue: 'auto',
+
+    valueScale: { type: 'linear' },
+
     padding: 0.1,
     innerPadding: 0,
 
@@ -135,4 +150,9 @@ export const BarDefaultProps = {
 
     pixelRatio:
         global.window && global.window.devicePixelRatio ? global.window.devicePixelRatio : 1,
+}
+
+export const BarSvgDefaultProps = {
+    ...BarDefaultProps,
+    role: 'img',
 }

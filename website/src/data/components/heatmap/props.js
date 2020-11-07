@@ -7,7 +7,12 @@
  * file that was distributed with this source code.
  */
 import { HeatMapDefaultProps as defaults } from '@nivo/heatmap'
-import { axesProperties, motionProperties, groupProperties } from '../../../lib/componentProperties'
+import {
+    themeProperty,
+    axesProperties,
+    motionProperties,
+    groupProperties,
+} from '../../../lib/componentProperties'
 
 const props = [
     {
@@ -181,6 +186,7 @@ const props = [
         controlType: 'margin',
         group: 'Base',
     },
+    themeProperty,
     {
         key: 'cellShape',
         help: `Cell shape/component.`,
@@ -377,7 +383,7 @@ const props = [
         controlType: 'opacity',
         group: 'Interactivity',
     },
-    ...motionProperties(['svg'], defaults),
+    ...motionProperties(['svg'], defaults, 'react-spring'),
 ]
 
 export const groups = groupProperties(props)

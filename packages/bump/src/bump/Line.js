@@ -8,10 +8,9 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { useMotionConfig } from '@nivo/core'
+import { useSpring, animated } from 'react-spring'
+import { useAnimatedPath, useMotionConfig } from '@nivo/core'
 import { useSerieHandlers } from './hooks'
-import AnimatedLine from './AnimatedLine'
-import StaticLine from './StaticLine'
 
 const Line = ({
     serie,
@@ -36,25 +35,53 @@ const Line = ({
         tooltip,
     })
 
-    const { animate } = useMotionConfig()
-    const LineComponent = animate ? AnimatedLine : StaticLine
+    const { animate, config: springConfig } = useMotionConfig()
 
-    return React.createElement(LineComponent, {
-        serie,
-        lineGenerator,
-        yStep,
-        isInteractive,
-        onMouseEnter: handlers.onMouseEnter,
-        onMouseMove: handlers.onMouseMove,
-        onMouseLeave: handlers.onMouseLeave,
-        onClick: handlers.onClick,
+    const linePath = lineGenerator(serie.linePoints)
+
+    const animatedPath = useAnimatedPath(linePath)
+    const animatedProps = useSpring({
+        color: serie.color,
+        opacity: serie.style.opacity,
+        lineWidth: serie.style.lineWidth,
+        config: springConfig,
+        immediate: !animate,
     })
+
+    return (
+        <>
+            <animated.path
+                fill="none"
+                d={animatedPath}
+                stroke={animatedProps.color}
+                strokeWidth={animatedProps.lineWidth}
+                strokeLinecap="round"
+                strokeOpacity={animatedProps.opacity}
+                style={{ pointerEvents: 'none' }}
+            />
+            {isInteractive && (
+                <path
+                    fill="none"
+                    stroke="red"
+                    strokeOpacity={0}
+                    strokeWidth={yStep}
+                    d={linePath}
+                    strokeLinecap="butt"
+                    onMouseEnter={handlers.onMouseEnter}
+                    onMouseMove={handlers.onMouseMove}
+                    onMouseLeave={handlers.onMouseLeave}
+                    onClick={handlers.onClick}
+                />
+            )}
+        </>
+    )
 }
 
 Line.propTypes = {
     serie: PropTypes.shape({
         id: PropTypes.string.isRequired,
         color: PropTypes.string.isRequired,
+        linePoints: PropTypes.array.isRequired,
         style: PropTypes.shape({
             lineWidth: PropTypes.number.isRequired,
             opacity: PropTypes.number.isRequired,

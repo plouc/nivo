@@ -95,7 +95,7 @@ const Choropleth = () => {
             defaultProperties={ChoroplethDefaultProps}
             propertiesMapper={mapper}
             codePropertiesMapper={properties => ({
-                features: [],
+                features: '/* please have a look at the description for usage */',
                 ...properties,
                 tooltip: properties.tooltip ? Tooltip : undefined,
             })}
@@ -111,9 +111,7 @@ const Choropleth = () => {
                         onClick={feature => {
                             logAction({
                                 type: 'click',
-                                label: `${feature.label}: ${feature.formattedValue} (${
-                                    feature.id
-                                })`,
+                                label: `${feature.label}: ${feature.formattedValue} (${feature.id})`,
                                 color: feature.color,
                                 data: omit(feature, 'geometry'),
                             })

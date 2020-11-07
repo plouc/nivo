@@ -8,7 +8,6 @@
  */
 import React, { memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import range from 'lodash/range'
 import { positionFromAngle, useTheme } from '@nivo/core'
 import RadialGridLabels from './RadarGridLabels'
 import RadarGridLevels from './RadarGridLevels'
@@ -17,10 +16,10 @@ const RadarGrid = memo(({ indices, levels, shape, radius, angleStep, label, labe
     const theme = useTheme()
     const { radii, angles } = useMemo(() => {
         return {
-            radii: range(levels)
-                .map(i => (radius / levels) * (i + 1))
+            radii: Array.from({ length: levels })
+                .map((_, i) => (radius / levels) * (i + 1))
                 .reverse(),
-            angles: range(indices.length).map(i => i * angleStep - Math.PI / 2),
+            angles: Array.from({ length: indices.length }, (_, i) => i * angleStep - Math.PI / 2),
         }
     }, [indices, levels, radius, angleStep])
 
@@ -39,12 +38,15 @@ const RadarGrid = memo(({ indices, levels, shape, radius, angleStep, label, labe
                     />
                 )
             })}
-            <RadarGridLevels
-                shape={shape}
-                radii={radii}
-                angleStep={angleStep}
-                dataLength={indices.length}
-            />
+            {radii.map((radius, i) => (
+                <RadarGridLevels
+                    key={`level.${i}`}
+                    shape={shape}
+                    radius={radius}
+                    angleStep={angleStep}
+                    dataLength={indices.length}
+                />
+            ))}
             <RadialGridLabels
                 radius={radius}
                 angles={angles}

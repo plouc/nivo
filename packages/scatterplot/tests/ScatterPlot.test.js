@@ -13,7 +13,12 @@ const sampleData = [
 
 it('should render a basic scatterplot chart', () => {
     const component = renderer.create(
-        <ScatterPlot width={500} height={300} data={[{ id: 'default', data: sampleData }]} />
+        <ScatterPlot
+            width={500}
+            height={300}
+            data={[{ id: 'default', data: sampleData }]}
+            animate={false}
+        />
     )
 
     const tree = component.toJSON()
@@ -25,7 +30,11 @@ it('should allow to render several series', () => {
         <ScatterPlot
             width={500}
             height={300}
-            data={[{ id: 'default', data: sampleData }, { id: 'extra', data: sampleData }]}
+            data={[
+                { id: 'default', data: sampleData },
+                { id: 'extra', data: sampleData },
+            ]}
+            animate={false}
         />
     )
 
@@ -40,10 +49,11 @@ it('should allow to customize node size', () => {
             height={300}
             nodeSize={12}
             data={[{ id: 'default', data: sampleData }]}
+            animate={false}
         />
     )
 
-    const nodes = wrapper.find('Node')
+    const nodes = wrapper.find('Memo(Node)')
     expect(nodes).toHaveLength(5)
     nodes.forEach(node => {
         expect(node.prop('size')).toBe(12)
@@ -59,7 +69,11 @@ it('should allow to use a varying node size', () => {
             data={[
                 {
                     id: 'default',
-                    data: [{ x: 0, y: 0, z: 3 }, { x: 1, y: 1, z: 5 }, { x: 2, y: 2, z: 8 }],
+                    data: [
+                        { x: 0, y: 0, z: 3 },
+                        { x: 1, y: 1, z: 5 },
+                        { x: 2, y: 2, z: 8 },
+                    ],
                 },
             ]}
             nodeSize={{
@@ -67,10 +81,11 @@ it('should allow to use a varying node size', () => {
                 values: [0, 10],
                 sizes: [0, 20],
             }}
+            animate={false}
         />
     )
 
-    const nodes = wrapper.find('Node')
+    const nodes = wrapper.find('Memo(Node)')
     expect(nodes).toHaveLength(3)
     expect(nodes.at(0).prop('size')).toBe(6)
     expect(nodes.at(1).prop('size')).toBe(10)
@@ -86,6 +101,7 @@ it('should allow to use a custom node', () => {
             height={300}
             data={[{ id: 'default', data: sampleData }]}
             renderNode={CustomNode}
+            animate={false}
         />
     )
 
@@ -112,10 +128,11 @@ it('should allow to disable interactivity', () => {
             data={[{ id: 'default', data: sampleData }]}
             isInteractive={false}
             onClick={() => {}}
+            animate={false}
         />
     )
 
-    const nodes = wrapper.find('Node')
+    const nodes = wrapper.find('Memo(Node)')
     expect(nodes).toHaveLength(5)
     nodes.forEach(node => {
         expect(node.prop('onMouseEnter')).toBeUndefined()

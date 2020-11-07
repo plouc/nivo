@@ -47,6 +47,7 @@ const initialProperties = {
     yearLegendPosition: 'before',
     yearLegendOffset: 10,
 
+    monthSpacing: 0,
     monthBorderWidth: 2,
     monthBorderColor: '#ffffff',
     monthLegendPosition: 'before',
@@ -58,7 +59,6 @@ const initialProperties = {
 
     isInteractive: true,
     'custom tooltip example': false,
-    tooltip: null,
 
     legends: [
         {

@@ -662,47 +662,7 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
               "pointerEvents": "none",
             }
           }
-          transform="translate(0, 218)"
-        >
-          <circle
-            fill="#e8c1a0"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(125, 109)"
-        >
-          <circle
-            fill="#e8c1a0"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(250, 0)"
+          transform="translate(500, 82)"
         >
           <circle
             fill="#e8c1a0"
@@ -742,7 +702,47 @@ exports[`curve interpolation should support basis curve interpolation 1`] = `
               "pointerEvents": "none",
             }
           }
-          transform="translate(500, 82)"
+          transform="translate(250, 0)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(125, 109)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(0, 218)"
         >
           <circle
             fill="#e8c1a0"
@@ -1424,47 +1424,7 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
               "pointerEvents": "none",
             }
           }
-          transform="translate(0, 218)"
-        >
-          <circle
-            fill="#e8c1a0"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(125, 109)"
-        >
-          <circle
-            fill="#e8c1a0"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(250, 0)"
+          transform="translate(500, 82)"
         >
           <circle
             fill="#e8c1a0"
@@ -1504,7 +1464,47 @@ exports[`curve interpolation should support cardinal curve interpolation 1`] = `
               "pointerEvents": "none",
             }
           }
-          transform="translate(500, 82)"
+          transform="translate(250, 0)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(125, 109)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(0, 218)"
         >
           <circle
             fill="#e8c1a0"
@@ -2186,47 +2186,7 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
               "pointerEvents": "none",
             }
           }
-          transform="translate(0, 218)"
-        >
-          <circle
-            fill="#e8c1a0"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(125, 109)"
-        >
-          <circle
-            fill="#e8c1a0"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(250, 0)"
+          transform="translate(500, 82)"
         >
           <circle
             fill="#e8c1a0"
@@ -2266,7 +2226,47 @@ exports[`curve interpolation should support catmullRom curve interpolation 1`] =
               "pointerEvents": "none",
             }
           }
-          transform="translate(500, 82)"
+          transform="translate(250, 0)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(125, 109)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(0, 218)"
         >
           <circle
             fill="#e8c1a0"
@@ -2948,47 +2948,7 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
               "pointerEvents": "none",
             }
           }
-          transform="translate(0, 218)"
-        >
-          <circle
-            fill="#e8c1a0"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(125, 109)"
-        >
-          <circle
-            fill="#e8c1a0"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(250, 0)"
+          transform="translate(500, 82)"
         >
           <circle
             fill="#e8c1a0"
@@ -3028,7 +2988,47 @@ exports[`curve interpolation should support linear curve interpolation 1`] = `
               "pointerEvents": "none",
             }
           }
-          transform="translate(500, 82)"
+          transform="translate(250, 0)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(125, 109)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(0, 218)"
         >
           <circle
             fill="#e8c1a0"
@@ -3710,47 +3710,7 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
               "pointerEvents": "none",
             }
           }
-          transform="translate(0, 218)"
-        >
-          <circle
-            fill="#e8c1a0"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(125, 109)"
-        >
-          <circle
-            fill="#e8c1a0"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(250, 0)"
+          transform="translate(500, 82)"
         >
           <circle
             fill="#e8c1a0"
@@ -3790,7 +3750,47 @@ exports[`curve interpolation should support monotoneX curve interpolation 1`] = 
               "pointerEvents": "none",
             }
           }
-          transform="translate(500, 82)"
+          transform="translate(250, 0)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(125, 109)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(0, 218)"
         >
           <circle
             fill="#e8c1a0"
@@ -4472,47 +4472,7 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
               "pointerEvents": "none",
             }
           }
-          transform="translate(0, 218)"
-        >
-          <circle
-            fill="#e8c1a0"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(125, 109)"
-        >
-          <circle
-            fill="#e8c1a0"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(250, 0)"
+          transform="translate(500, 82)"
         >
           <circle
             fill="#e8c1a0"
@@ -4552,7 +4512,47 @@ exports[`curve interpolation should support monotoneY curve interpolation 1`] = 
               "pointerEvents": "none",
             }
           }
-          transform="translate(500, 82)"
+          transform="translate(250, 0)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(125, 109)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(0, 218)"
         >
           <circle
             fill="#e8c1a0"
@@ -5234,47 +5234,7 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
               "pointerEvents": "none",
             }
           }
-          transform="translate(0, 218)"
-        >
-          <circle
-            fill="#e8c1a0"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(125, 109)"
-        >
-          <circle
-            fill="#e8c1a0"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(250, 0)"
+          transform="translate(500, 82)"
         >
           <circle
             fill="#e8c1a0"
@@ -5314,7 +5274,47 @@ exports[`curve interpolation should support natural curve interpolation 1`] = `
               "pointerEvents": "none",
             }
           }
-          transform="translate(500, 82)"
+          transform="translate(250, 0)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(125, 109)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(0, 218)"
         >
           <circle
             fill="#e8c1a0"
@@ -5996,47 +5996,7 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
               "pointerEvents": "none",
             }
           }
-          transform="translate(0, 218)"
-        >
-          <circle
-            fill="#e8c1a0"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(125, 109)"
-        >
-          <circle
-            fill="#e8c1a0"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(250, 0)"
+          transform="translate(500, 82)"
         >
           <circle
             fill="#e8c1a0"
@@ -6076,7 +6036,47 @@ exports[`curve interpolation should support step curve interpolation 1`] = `
               "pointerEvents": "none",
             }
           }
-          transform="translate(500, 82)"
+          transform="translate(250, 0)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(125, 109)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(0, 218)"
         >
           <circle
             fill="#e8c1a0"
@@ -6758,47 +6758,7 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
               "pointerEvents": "none",
             }
           }
-          transform="translate(0, 218)"
-        >
-          <circle
-            fill="#e8c1a0"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(125, 109)"
-        >
-          <circle
-            fill="#e8c1a0"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(250, 0)"
+          transform="translate(500, 82)"
         >
           <circle
             fill="#e8c1a0"
@@ -6838,7 +6798,47 @@ exports[`curve interpolation should support stepAfter curve interpolation 1`] = 
               "pointerEvents": "none",
             }
           }
-          transform="translate(500, 82)"
+          transform="translate(250, 0)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(125, 109)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(0, 218)"
         >
           <circle
             fill="#e8c1a0"
@@ -7520,47 +7520,7 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
               "pointerEvents": "none",
             }
           }
-          transform="translate(0, 218)"
-        >
-          <circle
-            fill="#e8c1a0"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(125, 109)"
-        >
-          <circle
-            fill="#e8c1a0"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(250, 0)"
+          transform="translate(500, 82)"
         >
           <circle
             fill="#e8c1a0"
@@ -7600,7 +7560,47 @@ exports[`curve interpolation should support stepBefore curve interpolation 1`] =
               "pointerEvents": "none",
             }
           }
-          transform="translate(500, 82)"
+          transform="translate(250, 0)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(125, 109)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(0, 218)"
         >
           <circle
             fill="#e8c1a0"
@@ -8429,7 +8429,7 @@ exports[`should render a basic line chart 1`] = `
       <path
         d="M0,218L125,109L250,0L375,55L500,82"
         fill="none"
-        stroke="rgb(232, 193, 160)"
+        stroke="#e8c1a0"
         strokeWidth={2}
       />
       <g>
@@ -8439,47 +8439,7 @@ exports[`should render a basic line chart 1`] = `
               "pointerEvents": "none",
             }
           }
-          transform="translate(0, 218)"
-        >
-          <circle
-            fill="#e8c1a0"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(125, 109)"
-        >
-          <circle
-            fill="#e8c1a0"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(250, 0)"
+          transform="translate(500, 82)"
         >
           <circle
             fill="#e8c1a0"
@@ -8519,7 +8479,47 @@ exports[`should render a basic line chart 1`] = `
               "pointerEvents": "none",
             }
           }
-          transform="translate(500, 82)"
+          transform="translate(250, 0)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(125, 109)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(0, 218)"
         >
           <circle
             fill="#e8c1a0"
@@ -9346,15 +9346,15 @@ exports[`should support multiple lines 1`] = `
         />
       </g>
       <path
-        d="M0,218L125,109L250,0L375,55L500,82"
+        d="M0,273L125,218L250,164L375,109L500,0"
         fill="none"
-        stroke="rgb(232, 193, 160)"
+        stroke="#f47560"
         strokeWidth={2}
       />
       <path
-        d="M0,273L125,218L250,164L375,109L500,0"
+        d="M0,218L125,109L250,0L375,55L500,82"
         fill="none"
-        stroke="rgb(244, 117, 96)"
+        stroke="#e8c1a0"
         strokeWidth={2}
       />
       <g>
@@ -9364,147 +9364,7 @@ exports[`should support multiple lines 1`] = `
               "pointerEvents": "none",
             }
           }
-          transform="translate(0, 218)"
-        >
-          <circle
-            fill="#e8c1a0"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(125, 109)"
-        >
-          <circle
-            fill="#e8c1a0"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(250, 0)"
-        >
-          <circle
-            fill="#e8c1a0"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(375, 55)"
-        >
-          <circle
-            fill="#e8c1a0"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(500, 82)"
-        >
-          <circle
-            fill="#e8c1a0"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(0, 273)"
-        >
-          <circle
-            fill="#f47560"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(125, 218)"
-        >
-          <circle
-            fill="#f47560"
-            r={3}
-            stroke="transparent"
-            strokeWidth={0}
-            style={
-              Object {
-                "pointerEvents": "none",
-              }
-            }
-          />
-        </g>
-        <g
-          style={
-            Object {
-              "pointerEvents": "none",
-            }
-          }
-          transform="translate(250, 164)"
+          transform="translate(500, 0)"
         >
           <circle
             fill="#f47560"
@@ -9544,10 +9404,150 @@ exports[`should support multiple lines 1`] = `
               "pointerEvents": "none",
             }
           }
-          transform="translate(500, 0)"
+          transform="translate(250, 164)"
         >
           <circle
             fill="#f47560"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(125, 218)"
+        >
+          <circle
+            fill="#f47560"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(0, 273)"
+        >
+          <circle
+            fill="#f47560"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(500, 82)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(375, 55)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(250, 0)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(125, 109)"
+        >
+          <circle
+            fill="#e8c1a0"
+            r={3}
+            stroke="transparent"
+            strokeWidth={0}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
+          />
+        </g>
+        <g
+          style={
+            Object {
+              "pointerEvents": "none",
+            }
+          }
+          transform="translate(0, 218)"
+        >
+          <circle
+            fill="#e8c1a0"
             r={3}
             stroke="transparent"
             strokeWidth={0}

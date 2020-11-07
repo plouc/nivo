@@ -21,22 +21,14 @@ module.exports = {
             keys: Joi.array().required(),
 
             padAngle: Joi.number(),
-            innerRadiusRatio: Joi.number()
-                .min(0)
-                .max(1),
-            innerRadiusOffset: Joi.number()
-                .min(0)
-                .max(1),
+            innerRadiusRatio: Joi.number().min(0).max(1),
+            innerRadiusOffset: Joi.number().min(0).max(1),
 
-            ribbonOpacity: Joi.number()
-                .min(0)
-                .max(1),
+            ribbonOpacity: Joi.number().min(0).max(1),
             ribbonBorderWidth: Joi.number().min(0),
             ribbonBorderColor: inheritedColor,
 
-            arcOpacity: Joi.number()
-                .min(0)
-                .max(1),
+            arcOpacity: Joi.number().min(0).max(1),
             arcBorderWidth: Joi.number().min(0),
             arcBorderColor: inheritedColor,
 

@@ -6,11 +6,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo, useMemo, useState } from 'react'
+import React, { memo, useRef } from 'react'
 import PropTypes from 'prop-types'
-import Measure from 'react-measure'
-import { Motion, spring } from 'react-motion'
-import { useTheme, useMotionConfig } from '@nivo/core'
+import { useSpring, animated } from 'react-spring'
+import { useTheme, useMotionConfig, useMeasure } from '@nivo/core'
 
 const TOOLTIP_OFFSET = 14
 
@@ -22,103 +21,68 @@ const tooltipStyle = {
     left: 0,
 }
 
-const TooltipWrapper = memo(({ position, anchor, children }) => {
-    const [dimensions, setDimensions] = useState(null)
+const translate = (x, y) => `translate(${x}px, ${y}px)`
+
+const TooltipWrapper = ({ position, anchor, children }) => {
     const theme = useTheme()
-    const { animate, springConfig } = useMotionConfig()
+    const { animate, config: springConfig } = useMotionConfig()
+    const [measureRef, bounds] = useMeasure()
+    const previousPosition = useRef(false)
+
+    let to = undefined
+    let immediate = false
+    const hasDimension = bounds.width > 0 && bounds.height > 0
 
     let x = Math.round(position[0])
     let y = Math.round(position[1])
-    if (dimensions !== null) {
+
+    if (hasDimension) {
         if (anchor === 'top') {
-            x -= dimensions[0] / 2
-            y -= dimensions[1] + TOOLTIP_OFFSET
+            x -= bounds.width / 2
+            y -= bounds.height + TOOLTIP_OFFSET
         } else if (anchor === 'right') {
             x += TOOLTIP_OFFSET
-            y -= dimensions[1] / 2
+            y -= bounds.height / 2
         } else if (anchor === 'bottom') {
-            x -= dimensions[0] / 2
+            x -= bounds.width / 2
             y += TOOLTIP_OFFSET
         } else if (anchor === 'left') {
-            x -= dimensions[0] + TOOLTIP_OFFSET
-            y -= dimensions[1] / 2
+            x -= bounds.width + TOOLTIP_OFFSET
+            y -= bounds.height / 2
         } else if (anchor === 'center') {
-            x -= dimensions[0] / 2
-            y -= dimensions[1] / 2
+            x -= bounds.width / 2
+            y -= bounds.height / 2
         }
+
+        to = {
+            transform: translate(x, y),
+        }
+        if (!previousPosition.current) {
+            immediate = true
+        }
+
+        previousPosition.current = [x, y]
     }
 
-    const style = useMemo(
-        () => ({
-            ...tooltipStyle,
-            ...theme.tooltip,
-            transform: `translate(${x}px, ${y}px)`,
-            opacity: dimensions === null ? 0 : 1,
-        }),
-        [x, y, dimensions, theme.tooltip]
-    )
+    const animatedProps = useSpring({
+        to,
+        config: springConfig,
+        immediate: !animate || immediate,
+    })
 
-    // if we don't have dimensions yet, we use
-    // the non animated version with a 0 opacity
-    // to avoid a flash effect and weird initial transition
-    if (animate !== true || dimensions === null) {
-        return (
-            <Measure
-                client={false}
-                offset={false}
-                bounds={true}
-                margin={false}
-                onResize={({ bounds }) => {
-                    setDimensions([bounds.width, bounds.height])
-                }}
-            >
-                {({ measureRef }) => (
-                    <div ref={measureRef} style={style}>
-                        {children}
-                    </div>
-                )}
-            </Measure>
-        )
+    const style = {
+        ...tooltipStyle,
+        ...theme.tooltip,
+        transform: animatedProps.transform ?? translate(x, y),
     }
 
     return (
-        <Motion
-            style={{
-                x: spring(x, springConfig),
-                y: spring(y, springConfig),
-            }}
-        >
-            {animatedPosition => (
-                <Measure
-                    client={false}
-                    offset={false}
-                    bounds={true}
-                    margin={false}
-                    onResize={({ bounds }) => {
-                        setDimensions([bounds.width, bounds.height])
-                    }}
-                >
-                    {({ measureRef }) => (
-                        <div
-                            ref={measureRef}
-                            style={{
-                                ...tooltipStyle,
-                                ...theme.tooltip,
-                                transform: `translate3d(${animatedPosition.x}px, ${
-                                    animatedPosition.y
-                                }px, 0)`,
-                            }}
-                        >
-                            {children}
-                        </div>
-                    )}
-                </Measure>
-            )}
-        </Motion>
+        <animated.div ref={measureRef} style={style}>
+            {children}
+        </animated.div>
     )
-})
+}
 
-TooltipWrapper.displayName = 'TooltipWrapper'
 TooltipWrapper.propTypes = {
     position: PropTypes.array.isRequired,
     anchor: PropTypes.oneOf(['top', 'right', 'bottom', 'left', 'center']).isRequired,
@@ -128,4 +92,4 @@ TooltipWrapper.defaultProps = {
     anchor: 'top',
 }
 
-export default TooltipWrapper
+export default memo(TooltipWrapper)

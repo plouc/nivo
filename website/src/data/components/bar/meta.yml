@@ -26,6 +26,8 @@ Bar:
       link: bar--custom-tooltip
     - label: Custom axis ticks
       link: bar--custom-axis-ticks
+    - label: With symlog scale
+      link: bar--with-symlog-scale
     - label: Race bar chart
       link: bar-race-chart--demo
   description: |

@@ -6,45 +6,91 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { memo, useCallback, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import compose from 'recompose/compose'
-import withPropsOnChange from 'recompose/withPropsOnChange'
-import withHandlers from 'recompose/withHandlers'
-import pure from 'recompose/pure'
-import { BasicTooltip } from '@nivo/tooltip'
+import { useSpring, animated } from 'react-spring'
+import { useMotionConfig } from '@nivo/core'
+import { BasicTooltip, useTooltip } from '@nivo/tooltip'
 
 const SankeyNodesItem = ({
+    node,
     x,
     y,
     width,
     height,
-
     color,
     opacity,
     borderWidth,
     borderColor,
-
-    handleMouseEnter,
-    handleMouseMove,
-    handleMouseLeave,
+    setCurrent,
+    isInteractive,
     onClick,
+    tooltip,
 }) => {
+    const { animate, config: springConfig } = useMotionConfig()
+    const animatedProps = useSpring({
+        x,
+        y,
+        width,
+        height,
+        opacity,
+        color,
+        config: springConfig,
+        immediate: !animate,
+    })
+
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
+
+    const tooltipContent = useMemo(() => {
+        if (tooltip) {
+            return <BasicTooltip id={tooltip(node)} enableChip={false} />
+        }
+
+        return <BasicTooltip id={node.label} enableChip={true} color={node.color} />
+    }, [tooltip, node])
+
+    const handleMouseEnter = useCallback(
+        event => {
+            setCurrent(node)
+            showTooltipFromEvent(tooltipContent, event, 'left')
+        },
+        [setCurrent, node, showTooltipFromEvent, tooltipContent]
+    )
+
+    const handleMouseMove = useCallback(
+        event => {
+            showTooltipFromEvent(tooltipContent, event, 'left')
+        },
+        [showTooltipFromEvent, tooltipContent]
+    )
+
+    const handleMouseLeave = useCallback(() => {
+        setCurrent(null)
+        hideTooltip()
+    }, [setCurrent, hideTooltip])
+
+    const handleClick = useCallback(
+        event => {
+            onClick(node, event)
+        },
+        [onClick, node]
+    )
+
     return (
-        <rect
-            x={x}
-            y={y}
-            width={width}
-            height={height}
-            fill={color}
-            fillOpacity={opacity}
+        <animated.rect
+            x={animatedProps.x}
+            y={animatedProps.y}
+            width={animatedProps.width.interpolate(v => Math.max(v, 0))}
+            height={animatedProps.height.interpolate(v => Math.max(v, 0))}
+            fill={animatedProps.color}
+            fillOpacity={animatedProps.opacity}
             strokeWidth={borderWidth}
             stroke={borderColor}
             strokeOpacity={opacity}
-            onMouseEnter={handleMouseEnter}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            onClick={onClick}
+            onMouseEnter={isInteractive ? handleMouseEnter : undefined}
+            onMouseMove={isInteractive ? handleMouseMove : undefined}
+            onMouseLeave={isInteractive ? handleMouseLeave : undefined}
+            onClick={isInteractive ? handleClick : undefined}
         />
     )
 }
@@ -55,59 +101,18 @@ SankeyNodesItem.propTypes = {
         label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
         color: PropTypes.string.isRequired,
     }),
-
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
-
     color: PropTypes.string.isRequired,
     opacity: PropTypes.number.isRequired,
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.string.isRequired,
-
-    showTooltip: PropTypes.func.isRequired,
-    hideTooltip: PropTypes.func.isRequired,
     setCurrent: PropTypes.func.isRequired,
+    isInteractive: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,
-    handleMouseEnter: PropTypes.func.isRequired,
-    handleMouseMove: PropTypes.func.isRequired,
-    handleMouseLeave: PropTypes.func.isRequired,
-
-    tooltip: PropTypes.element.isRequired,
-    theme: PropTypes.object.isRequired,
+    tooltip: PropTypes.func,
 }
 
-const enhance = compose(
-    withPropsOnChange(['node', 'theme', 'tooltip'], ({ node, theme, tooltip }) => {
-        if (tooltip) {
-            return {
-                tooltip: <BasicTooltip id={tooltip(node)} enableChip={false} theme={theme} />,
-            }
-        }
-        return {
-            tooltip: (
-                <BasicTooltip id={node.label} enableChip={true} color={node.color} theme={theme} />
-            ),
-        }
-    }),
-    withPropsOnChange(['onClick', 'node'], ({ onClick, node }) => ({
-        onClick: event => onClick(node, event),
-    })),
-    withHandlers({
-        handleMouseEnter: ({ showTooltip, setCurrent, node, tooltip }) => e => {
-            setCurrent(node)
-            showTooltip(tooltip, e)
-        },
-        handleMouseMove: ({ showTooltip, tooltip }) => e => {
-            showTooltip(tooltip, e)
-        },
-        handleMouseLeave: ({ hideTooltip, setCurrent }) => () => {
-            setCurrent(null)
-            hideTooltip()
-        },
-    }),
-    pure
-)
-
-export default enhance(SankeyNodesItem)
+export default memo(SankeyNodesItem)

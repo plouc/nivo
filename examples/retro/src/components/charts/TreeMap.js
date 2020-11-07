@@ -12,7 +12,7 @@ const TreeMap = () => (
                 bottom: 1.5,
                 left: 1.5,
             }}
-            root={{
+            data={{
                 country: 'root',
                 children: generateCountriesData(['value'], { size: 24 }),
             }}
@@ -20,8 +20,9 @@ const TreeMap = () => (
             value="value"
             leavesOnly={true}
             colors={colors}
+            nodeOpacity={1}
             enableLabel={false}
-            colorBy="country"
+            colorBy="id"
             borderWidth={3}
             borderColor="#000"
             labelTextColor="#000"

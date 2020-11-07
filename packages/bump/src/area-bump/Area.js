@@ -8,10 +8,9 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { useMotionConfig, blendModePropType } from '@nivo/core'
+import { useSpring, animated } from 'react-spring'
+import { useAnimatedPath, useMotionConfig, blendModePropType } from '@nivo/core'
 import { useSerieHandlers } from './hooks'
-import AnimatedArea from './AnimatedArea'
-import StaticArea from './StaticArea'
 
 const Area = ({
     serie,
@@ -36,27 +35,45 @@ const Area = ({
         tooltip,
     })
 
-    const { animate } = useMotionConfig()
-    const AreaComponent = animate ? AnimatedArea : StaticArea
+    const { animate, config: springConfig } = useMotionConfig()
 
-    return React.createElement(AreaComponent, {
-        serie,
-        areaGenerator,
-        blendMode,
-        onMouseEnter: handlers.onMouseEnter,
-        onMouseMove: handlers.onMouseMove,
-        onMouseLeave: handlers.onMouseLeave,
-        onClick: handlers.onClick,
+    const animatedPath = useAnimatedPath(areaGenerator(serie.areaPoints))
+    const animatedProps = useSpring({
+        color: serie.color,
+        fillOpacity: serie.style.fillOpacity,
+        stroke: serie.style.borderColor,
+        strokeOpacity: serie.style.borderOpacity,
+        config: springConfig,
+        immediate: !animate,
     })
+
+    return (
+        <animated.path
+            d={animatedPath}
+            fill={serie.fill ? serie.fill : animatedProps.color}
+            fillOpacity={animatedProps.fillOpacity}
+            stroke={animatedProps.stroke}
+            strokeWidth={serie.style.borderWidth}
+            strokeOpacity={animatedProps.strokeOpacity}
+            style={{ mixBlendMode: blendMode }}
+            onMouseEnter={handlers.onMouseEnter}
+            onMouseMove={handlers.onMouseMove}
+            onMouseLeave={handlers.onMouseLeave}
+            onClick={handlers.onClick}
+        />
+    )
 }
 
 Area.propTypes = {
     serie: PropTypes.shape({
         id: PropTypes.string.isRequired,
         color: PropTypes.string.isRequired,
+        fill: PropTypes.string,
+        areaPoints: PropTypes.array.isRequired,
         style: PropTypes.shape({
             fillOpacity: PropTypes.number.isRequired,
             borderWidth: PropTypes.number.isRequired,
+            borderColor: PropTypes.string.isRequired,
             borderOpacity: PropTypes.number.isRequired,
         }).isRequired,
     }).isRequired,

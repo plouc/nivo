@@ -3,6 +3,9 @@
 - [requirements](#requirements)
 - [setup](#setup)
 - [development](#development)
+  - [storybook](#storybook)
+  - [demo/doc website](#demodoc-website)
+  - [testing](#testing)
   - [formatting](#formatting)
   - [linting](#linting)
   - [screenshots](#screenshots)
@@ -17,7 +20,7 @@
 
 ## Setup
 
-Nivo is structured into multiple packages handled by [lerna](https://lernajs.io/).
+Nivo is structured into multiple packages handled by [lerna](https://lerna.js.org/).
 In order to install all the required dependencies and to establish links between
 the various packages, please execute the following:
 
@@ -61,6 +64,23 @@ You can also build the packages without running a watcher, you have two options:
 
  1. Rebuild all the packages via `make packages-build` or…
  2. Rebuild only a specific package, for example `make package-build-bar` for `@nivo/bar` package
+
+### Testing
+
+To run unit tests on all packages, run the following command:
+
+```
+make packages-test
+```
+
+If you only made modifications on a specific package,
+you can use the scoped form to speed up the process:
+
+```
+make package-test-bar
+```
+
+where `bar` is the name of the targeted nivo package.
 
 ### Formatting
 

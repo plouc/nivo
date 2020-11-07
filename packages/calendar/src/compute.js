@@ -37,6 +37,7 @@ export const computeDomain = (data, minSpec, maxSpec) => {
  * @param {number} direction
  * @param {array}  yearRange
  * @param {number} yearSpacing
+ * @param {number} monthSpacing
  * @param {number} daySpacing
  * @param {number} maxWeeks
  * @returns {number}
@@ -47,6 +48,7 @@ const computeCellSize = ({
     direction,
     yearRange,
     yearSpacing,
+    monthSpacing,
     daySpacing,
     maxWeeks,
 }) => {
@@ -54,7 +56,7 @@ const computeCellSize = ({
     let vCellSize
 
     if (direction === 'horizontal') {
-        hCellSize = (width - daySpacing * maxWeeks) / maxWeeks
+        hCellSize = (width - monthSpacing * 12 - daySpacing * maxWeeks) / maxWeeks
         vCellSize =
             (height - (yearRange.length - 1) * yearSpacing - yearRange.length * (8 * daySpacing)) /
             (yearRange.length * 7)
@@ -62,7 +64,7 @@ const computeCellSize = ({
         hCellSize =
             (width - (yearRange.length - 1) * yearSpacing - yearRange.length * (8 * daySpacing)) /
             (yearRange.length * 7)
-        vCellSize = (height - daySpacing * maxWeeks) / maxWeeks
+        vCellSize = (height - monthSpacing * 12 - daySpacing * maxWeeks) / maxWeeks
     }
 
     return Math.min(hCellSize, vCellSize)
@@ -75,6 +77,7 @@ const computeCellSize = ({
  * @param {number} cellSize
  * @param {number} yearIndex
  * @param {number} yearSpacing
+ * @param {number} monthSpacing
  * @param {number} daySpacing
  * @param {string} direction
  * @param {number} originX
@@ -86,6 +89,7 @@ const monthPathAndBBox = ({
     cellSize,
     yearIndex,
     yearSpacing,
+    monthSpacing,
     daySpacing,
     direction,
     originX,
@@ -100,13 +104,16 @@ const monthPathAndBBox = ({
     const firstDay = date.getDay()
     const lastDay = t1.getDay()
 
-    // offset according to year index
+    // offset according to year index and month
     let xO = originX
     let yO = originY
     const yearOffset = yearIndex * (7 * (cellSize + daySpacing) + yearSpacing)
+    const monthOffset = date.getMonth() * monthSpacing
     if (direction === 'horizontal') {
         yO += yearOffset
+        xO += monthOffset
     } else {
+        yO += monthOffset
         xO += yearOffset
     }
 
@@ -114,11 +121,13 @@ const monthPathAndBBox = ({
     let bbox = { x: xO, y: yO, width: 0, height: 0 }
     if (direction === 'horizontal') {
         path = [
-            `M${xO + (firstWeek + 1) * (cellSize + daySpacing)},${yO +
-                firstDay * (cellSize + daySpacing)}`,
+            `M${xO + (firstWeek + 1) * (cellSize + daySpacing)},${
+                yO + firstDay * (cellSize + daySpacing)
+            }`,
             `H${xO + firstWeek * (cellSize + daySpacing)}V${yO + 7 * (cellSize + daySpacing)}`,
-            `H${xO + lastWeek * (cellSize + daySpacing)}V${yO +
-                (lastDay + 1) * (cellSize + daySpacing)}`,
+            `H${xO + lastWeek * (cellSize + daySpacing)}V${
+                yO + (lastDay + 1) * (cellSize + daySpacing)
+            }`,
             `H${xO + (lastWeek + 1) * (cellSize + daySpacing)}V${yO}`,
             `H${xO + (firstWeek + 1) * (cellSize + daySpacing)}Z`,
         ].join('')
@@ -128,11 +137,13 @@ const monthPathAndBBox = ({
         bbox.height = 7 * (cellSize + daySpacing)
     } else {
         path = [
-            `M${xO + firstDay * (cellSize + daySpacing)},${yO +
-                (firstWeek + 1) * (cellSize + daySpacing)}`,
+            `M${xO + firstDay * (cellSize + daySpacing)},${
+                yO + (firstWeek + 1) * (cellSize + daySpacing)
+            }`,
             `H${xO}V${yO + (lastWeek + 1) * (cellSize + daySpacing)}`,
-            `H${xO + (lastDay + 1) * (cellSize + daySpacing)}V${yO +
-                lastWeek * (cellSize + daySpacing)}`,
+            `H${xO + (lastDay + 1) * (cellSize + daySpacing)}V${
+                yO + lastWeek * (cellSize + daySpacing)
+            }`,
             `H${xO + 7 * (cellSize + daySpacing)}V${yO + firstWeek * (cellSize + daySpacing)}`,
             `H${xO + firstDay * (cellSize + daySpacing)}Z`,
         ].join('')
@@ -150,8 +161,18 @@ const monthPathAndBBox = ({
  */
 const memoMonthPathAndBBox = memoize(
     monthPathAndBBox,
-    ({ date, cellSize, yearIndex, yearSpacing, daySpacing, direction, originX, originY }) => {
-        return `${date.toString()}.${cellSize}.${yearIndex}.${yearSpacing}.${daySpacing}.${direction}.${originX}.${originY}`
+    ({
+        date,
+        cellSize,
+        yearIndex,
+        yearSpacing,
+        monthSpacing,
+        daySpacing,
+        direction,
+        originX,
+        originY,
+    }) => {
+        return `${date.toString()}.${cellSize}.${yearIndex}.${yearSpacing}.${monthSpacing}.${daySpacing}.${direction}.${originX}.${originY}`
     }
 )
 
@@ -160,15 +181,20 @@ const memoMonthPathAndBBox = memoize(
  *
  * @param {number} cellSize
  * @param {number} yearSpacing
+ * @param {number} monthSpacing
  * @param {number} daySpacing
  * @returns { function(): { x: number, y: number } }
  */
-const cellPositionHorizontal = (cellSize, yearSpacing, daySpacing) => {
+const cellPositionHorizontal = (cellSize, yearSpacing, monthSpacing, daySpacing) => {
     return (originX, originY, d, yearIndex) => {
         const weekOfYear = timeWeek.count(timeYear(d), d)
 
         return {
-            x: originX + weekOfYear * (cellSize + daySpacing) + daySpacing / 2,
+            x:
+                originX +
+                weekOfYear * (cellSize + daySpacing) +
+                daySpacing / 2 +
+                d.getMonth() * monthSpacing,
             y:
                 originY +
                 d.getDay() * (cellSize + daySpacing) +
@@ -183,10 +209,11 @@ const cellPositionHorizontal = (cellSize, yearSpacing, daySpacing) => {
  *
  * @param {number} cellSize
  * @param {number} yearSpacing
+ * @param {number} monthSpacing
  * @param {number} daySpacing
  * @returns { function(): { x: number, y: number } }
  */
-const cellPositionVertical = (cellSize, yearSpacing, daySpacing) => {
+const cellPositionVertical = (cellSize, yearSpacing, monthSpacing, daySpacing) => {
     return (originX, originY, d, yearIndex) => {
         const weekOfYear = timeWeek.count(timeYear(d), d)
 
@@ -196,7 +223,11 @@ const cellPositionVertical = (cellSize, yearSpacing, daySpacing) => {
                 d.getDay() * (cellSize + daySpacing) +
                 daySpacing / 2 +
                 yearIndex * (yearSpacing + 7 * (cellSize + daySpacing)),
-            y: originY + weekOfYear * (cellSize + daySpacing) + daySpacing / 2,
+            y:
+                originY +
+                weekOfYear * (cellSize + daySpacing) +
+                daySpacing / 2 +
+                d.getMonth() * monthSpacing,
         }
     }
 }
@@ -213,6 +244,7 @@ const dayFormat = timeFormat('%Y-%m-%d')
  * @param {string|Date} to
  * @param {string}      direction
  * @param {number}      yearSpacing
+ * @param {number}      monthSpacing
  * @param {number}      daySpacing
  * @param {string}      align
  * @returns {object}
@@ -224,6 +256,7 @@ export const computeLayout = ({
     to,
     direction,
     yearSpacing,
+    monthSpacing,
     daySpacing,
     align,
 }) => {
@@ -244,11 +277,12 @@ export const computeLayout = ({
         direction,
         yearRange,
         yearSpacing,
+        monthSpacing,
         daySpacing,
         maxWeeks,
     })
 
-    const monthsSize = cellSize * maxWeeks + daySpacing * maxWeeks
+    const monthsSize = cellSize * maxWeeks + daySpacing * maxWeeks + monthSpacing * 12
     const yearsSize =
         (cellSize + daySpacing) * 7 * yearRange.length + yearSpacing * (yearRange.length - 1)
 
@@ -272,9 +306,9 @@ export const computeLayout = ({
 
     let cellPosition
     if (direction === 'horizontal') {
-        cellPosition = cellPositionHorizontal(cellSize, yearSpacing, daySpacing)
+        cellPosition = cellPositionHorizontal(cellSize, yearSpacing, monthSpacing, daySpacing)
     } else {
-        cellPosition = cellPositionVertical(cellSize, yearSpacing, daySpacing)
+        cellPosition = cellPositionVertical(cellSize, yearSpacing, monthSpacing, daySpacing)
     }
 
     let years = []
@@ -307,6 +341,7 @@ export const computeLayout = ({
                 direction,
                 yearIndex: i,
                 yearSpacing,
+                monthSpacing,
                 daySpacing,
                 cellSize,
             }),
@@ -339,16 +374,18 @@ export const computeLayout = ({
  */
 export const bindDaysData = ({ days, data, colorScale, emptyColor }) => {
     return days.map(day => {
-        day.color = emptyColor
-        data.forEach(dayData => {
-            if (dayData.day === day.day) {
-                day.value = dayData.value
-                day.color = colorScale(dayData.value)
-                day.data = dayData
-            }
-        })
+        const dayData = data.find(item => item.day === day.day)
 
-        return day
+        if (!dayData) {
+            return { ...day, color: emptyColor }
+        }
+
+        return {
+            ...day,
+            color: colorScale(dayData.value),
+            data: dayData,
+            value: dayData.value,
+        }
     })
 }
 

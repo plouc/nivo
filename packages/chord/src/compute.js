@@ -17,9 +17,7 @@ export const computeChordGenerators = ({ width, height, innerRadiusRatio, innerR
     const innerRadius = radius * innerRadiusRatio
     const ribbonRadius = radius * (innerRadiusRatio - innerRadiusOffset)
 
-    const arcGenerator = d3Arc()
-        .outerRadius(radius)
-        .innerRadius(innerRadius)
+    const arcGenerator = d3Arc().outerRadius(radius).innerRadius(innerRadius)
 
     const ribbonGenerator = d3Ribbon().radius(ribbonRadius)
 

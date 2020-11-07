@@ -9,6 +9,7 @@
 import React from 'react'
 import range from 'lodash/range'
 import random from 'lodash/random'
+import { patternDotsDef, patternLinesDef } from '@nivo/core'
 import { ResponsiveAreaBump, AreaBumpDefaultProps } from '@nivo/bump'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/area-bump/meta.yml'
@@ -48,6 +49,26 @@ const initialProperties = {
     fillOpacity: AreaBumpDefaultProps.fillOpacity,
     activeFillOpacity: AreaBumpDefaultProps.activeFillOpacity,
     inactiveFillOpacity: AreaBumpDefaultProps.inactiveFillOpacity,
+    defs: [
+        patternDotsDef('dots', {
+            background: 'inherit',
+            color: '#38bcb2',
+            size: 4,
+            padding: 1,
+            stagger: true,
+        }),
+        patternLinesDef('lines', {
+            background: 'inherit',
+            color: '#eed312',
+            rotation: -45,
+            lineWidth: 6,
+            spacing: 10,
+        }),
+    ],
+    fill: [
+        { match: { id: 'CoffeeScript' }, id: 'dots' },
+        { match: { id: 'TypeScript' }, id: 'lines' },
+    ],
     borderWidth: AreaBumpDefaultProps.borderWidth,
     activeBorderWidth: AreaBumpDefaultProps.activeBorderWidth,
     inactiveBorderWidth: AreaBumpDefaultProps.inactiveBorderWidth,
@@ -86,8 +107,7 @@ const initialProperties = {
     isInteractive: true,
 
     animate: AreaBumpDefaultProps.animate,
-    motionStiffness: AreaBumpDefaultProps.motionStiffness,
-    motionDamping: AreaBumpDefaultProps.motionDamping,
+    motionConfig: AreaBumpDefaultProps.motionConfig,
 }
 
 const Bump = () => {

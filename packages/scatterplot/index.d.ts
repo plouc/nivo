@@ -17,7 +17,7 @@ import {
 } from '@nivo/core'
 import { OrdinalColorsInstruction } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
-import { AxisProps } from '@nivo/axes'
+import { AxisProps, GridValues } from '@nivo/axes'
 import { Scale } from '@nivo/scales'
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
@@ -34,14 +34,13 @@ declare module '@nivo/scatterplot' {
     export type DerivedDatumProp<T> = (node: Datum) => T
 
     export interface Serie {
-        id: string
+        id: string | number
         data: Datum[]
     }
 
     export interface Node {
         index: number
         id: string
-        serieId: string
         x: number
         y: number
         size: number
@@ -49,6 +48,8 @@ declare module '@nivo/scatterplot' {
             color: string
         }
         data: {
+            id: string | number
+            serieId: string
             x: Value
             formattedX: string | number
             y: Value
@@ -84,9 +85,10 @@ declare module '@nivo/scatterplot' {
         sizes: [number, number]
     }
 
-    export type CustomTooltip = ({ node: Node }) => React.ReactNode
-
-    type Scale = (value: Value) => number
+    export interface TooltipProps {
+        node: Node
+    }
+    export type CustomTooltip = (props: TooltipProps) => React.ReactNode
 
     export interface ScatterPlotComputedProps {
         xScale: Scale
@@ -128,13 +130,15 @@ declare module '@nivo/scatterplot' {
         blendMode?: CssMixBlendMode
 
         enableGridX?: boolean
+        gridXValues?: GridValues<Value>
         enableGridY?: boolean
+        gridYValues?: GridValues<Value>
         axisTop?: AxisProps | null
         axisRight?: AxisProps | null
         axisBottom?: AxisProps | null
         axisLeft?: AxisProps | null
 
-        nodeSize?: number | DerivedDatumProp<number> | DynamicSizeSpec
+        nodeSize?: number | DerivedDatumProp<number> | DynamicSizeSpec | DerivedNodeProp<number>
 
         isInteractive?: boolean
         useMesh?: boolean
@@ -149,9 +153,10 @@ declare module '@nivo/scatterplot' {
     }
 
     export interface ScatterPlotSvgProps extends ScatterPlotProps, MotionProps {
-        layers?: Array<CustomLayerId | CustomSvgLayer>
+        layers?: (CustomLayerId | CustomSvgLayer)[]
         renderNode?: NodeComponent
         markers?: CartesianMarkerProps[]
+        role?: string
     }
 
     export class ScatterPlot extends React.Component<ScatterPlotSvgProps & Dimensions> {}
@@ -159,7 +164,7 @@ declare module '@nivo/scatterplot' {
 
     export interface ScatterPlotCanvasProps extends ScatterPlotProps {
         pixelRatio?: number
-        layers?: Array<CustomLayerId | CustomCanvasLayer>
+        layers?: (CustomLayerId | CustomCanvasLayer)[]
         renderNode?: NodeCanvasComponent
     }
 

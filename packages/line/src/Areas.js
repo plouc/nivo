@@ -8,58 +8,52 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { useMotionConfig, SmartMotion, blendModePropType } from '@nivo/core'
+import { useSpring, animated } from 'react-spring'
+import { useAnimatedPath, useMotionConfig, blendModePropType } from '@nivo/core'
+
+const AreaPath = ({ areaBlendMode, areaOpacity, color, fill, path }) => {
+    const { animate, config: springConfig } = useMotionConfig()
+
+    const animatedPath = useAnimatedPath(path)
+    const animatedProps = useSpring({
+        color,
+        config: springConfig,
+        immediate: !animate,
+    })
+
+    return (
+        <animated.path
+            d={animatedPath}
+            fill={fill ? fill : animatedProps.color}
+            fillOpacity={areaOpacity}
+            strokeWidth={0}
+            style={{
+                mixBlendMode: areaBlendMode,
+            }}
+        />
+    )
+}
+
+AreaPath.propTypes = {
+    areaBlendMode: blendModePropType.isRequired,
+    areaOpacity: PropTypes.number.isRequired,
+    color: PropTypes.string,
+    fill: PropTypes.string,
+    path: PropTypes.string.isRequired,
+}
 
 const Areas = ({ areaGenerator, areaOpacity, areaBlendMode, lines }) => {
-    const { animate, springConfig } = useMotionConfig()
-
-    if (animate !== true) {
-        return (
-            <g>
-                {lines
-                    .slice(0)
-                    .reverse()
-                    .map(({ id, data, color: areaColor }) => (
-                        <path
-                            key={id}
-                            d={areaGenerator(data.map(d => d.position))}
-                            fill={areaColor}
-                            fillOpacity={areaOpacity}
-                            strokeWidth={0}
-                            style={{
-                                mixBlendMode: areaBlendMode,
-                            }}
-                        />
-                    ))}
-            </g>
-        )
-    }
+    const computedLines = lines.slice(0).reverse()
 
     return (
         <g>
-            {lines
-                .slice(0)
-                .reverse()
-                .map(({ id, data, color: areaColor }) => (
-                    <SmartMotion
-                        key={id}
-                        style={spring => ({
-                            d: spring(areaGenerator(data.map(d => d.position)), springConfig),
-                            fill: spring(areaColor, springConfig),
-                        })}
-                    >
-                        {style => (
-                            <path
-                                key={id}
-                                d={style.d}
-                                fill={areaColor}
-                                fillOpacity={areaOpacity}
-                                strokeWidth={0}
-                                style={{ mixBlendMode: areaBlendMode }}
-                            />
-                        )}
-                    </SmartMotion>
-                ))}
+            {computedLines.map(line => (
+                <AreaPath
+                    key={line.id}
+                    path={areaGenerator(line.data.map(d => d.position))}
+                    {...{ areaOpacity, areaBlendMode, ...line }}
+                />
+            ))}
         </g>
     )
 }

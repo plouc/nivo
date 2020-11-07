@@ -13,9 +13,10 @@ import bubble from './components/bubble/meta.yml'
 import bump from './components/bump/meta.yml'
 import bullet from './components/bullet/meta.yml'
 import calendar from './components/calendar/meta.yml'
-import geomap from './components/geomap/meta.yml'
 import choropleth from './components/choropleth/meta.yml'
 import chord from './components/chord/meta.yml'
+import funnel from './components/funnel/meta.yml'
+import geomap from './components/geomap/meta.yml'
 import heatmap from './components/heatmap/meta.yml'
 import line from './components/line/meta.yml'
 import network from './components/network/meta.yml'
@@ -79,6 +80,12 @@ export const components = [
         path: '/chord/',
         icon: 'chord',
         tags: chord.Chord.tags,
+    },
+    {
+        label: 'Funnel',
+        path: '/funnel/',
+        icon: 'funnel',
+        tags: funnel.Funnel.tags,
     },
     {
         label: 'GeoMap',
@@ -372,8 +379,8 @@ export const guides = [
         label: 'Patterns',
         path: '/guides/patterns',
     },
-    // {
-    //     label: 'Theming',
-    //     path: '/guides/theming',
-    // },
+    {
+        label: 'Theming',
+        path: '/guides/theming',
+    },
 ]

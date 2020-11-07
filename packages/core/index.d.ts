@@ -1,7 +1,9 @@
 import * as React from 'react'
-import { number } from 'prop-types'
+import { OpaqueInterpolation } from 'react-spring'
 
 declare module '@nivo/core' {
+    export type DatumValue = string | number | Date
+
     export interface Dimensions {
         height: number
         width: number
@@ -34,7 +36,18 @@ declare module '@nivo/core' {
     }
 
     export type Theme = Partial<{
+        crosshair: Partial<{
+            line: Partial<{
+                stroke: string
+                strokeWidth: number
+                strokeOpacity: number
+                strokeDasharray: string
+            }>
+        }>
         background: string
+        fontFamily: string
+        fontSize: number
+        textColor: string
         axis: Partial<{
             domain: Partial<{
                 line: Partial<React.CSSProperties>
@@ -61,6 +74,7 @@ declare module '@nivo/core' {
             lineStrokeWidth: number
             textColor: string
             fontSize: string | 0
+            text: Partial<React.CSSProperties>
         }>
         dots: Partial<{
             text: Partial<React.CSSProperties>
@@ -72,6 +86,12 @@ declare module '@nivo/core' {
             table: Partial<React.CSSProperties>
             tableCell: Partial<React.CSSProperties>
         }>
+        annotations: Partial<{
+            text: Partial<React.CSSProperties>
+            link: Partial<React.CSSProperties>
+            outline: Partial<React.CSSProperties>
+            symbol: Partial<React.CSSProperties>
+        }>
     }>
 
     export type MotionProps = Partial<{
@@ -82,11 +102,11 @@ declare module '@nivo/core' {
 
     export type SvgFillMatcher<T> = (datum: T) => boolean
     export interface SvgDefsAndFill<T> {
-        defs?: Array<{
+        defs?: {
             id: string
             [key: string]: any
-        }>
-        fill?: Array<{ id: string; match: object | SvgFillMatcher<T> | '*' }>
+        }[]
+        fill?: { id: string; match: object | SvgFillMatcher<T> | '*' }[]
     }
 
     export interface CartesianMarkerProps {
@@ -130,4 +150,58 @@ declare module '@nivo/core' {
         | 'step'
         | 'stepAfter'
         | 'stepBefore'
+
+    export type DataFormatter = (value: DatumValue) => string | number
+
+    export function useAnimatedPath(path: string): OpaqueInterpolation<string>
+    export function useValueFormatter(formatter?: DataFormatter | string): DataFormatter
+
+    export type LinearGradientDef = {
+        id: string
+        type: 'linearGradient'
+        colors: {
+            offset: number
+            color: string
+            opacity?: number
+        }[]
+    }
+
+    export type PatternDotsDef = {
+        id: string
+        type: 'patternDots'
+        color?: string
+        background?: string
+        size?: number
+        padding?: number
+        stagger?: boolean
+    }
+
+    export type PatternSquaresDef = Omit<PatternDotsDef, 'type'> & {
+        type: 'patternDots'
+    }
+
+    export type PatternLinesDef = {
+        id: string
+        type: 'patternLines'
+        spacing?: number
+        rotation?: number
+        background?: string
+        color?: string
+        lineWidth?: number
+    }
+
+    export type Def = LinearGradientDef | PatternDotsDef | PatternSquaresDef | PatternLinesDef
+
+    export type DefsProps = {
+        defs: Def[]
+    }
+
+    export function PatternLines(props: Omit<PatternLinesDef, 'type'>): JSX.Element
+    export function PatternSquares(props: Omit<PatternSquaresDef, 'type'>): JSX.Element
+    export function PatternDots(props: Omit<PatternDotsDef, 'type'>): JSX.Element
+
+    export function Defs(props: DefsProps): JSX.Element
+
+    export function degreesToRadians(degrees: number): number
+    export function radiansToDegrees(radians: number): number
 }

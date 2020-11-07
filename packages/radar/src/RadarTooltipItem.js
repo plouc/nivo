@@ -8,9 +8,7 @@
  */
 import React, { memo, useMemo, useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
-import sortBy from 'lodash/sortBy'
-import { format as d3Format } from 'd3-format'
-import { positionFromAngle, useTheme } from '@nivo/core'
+import { positionFromAngle, useTheme, useValueFormatter } from '@nivo/core'
 import { TableTooltip, Chip, useTooltip } from '@nivo/tooltip'
 
 const RadarTooltipItem = memo(
@@ -29,27 +27,18 @@ const RadarTooltipItem = memo(
         const theme = useTheme()
         const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
+        const tooltipFormatter = useValueFormatter(tooltipFormat)
         const tooltip = useMemo(() => {
-            const format =
-                !tooltipFormat || typeof tooltipFormat === 'function'
-                    ? tooltipFormat
-                    : d3Format(tooltipFormat)
+            const rows = keys.map(key => [
+                <Chip key={key} color={colorByKey[key]} />,
+                key,
+                tooltipFormatter(datum[key], key),
+            ])
+            rows.sort((a, b) => a[2] - b[2])
+            rows.reverse()
 
-            return (
-                <TableTooltip
-                    title={<strong>{index}</strong>}
-                    rows={sortBy(
-                        keys.map(key => [
-                            <Chip key={key} color={colorByKey[key]} />,
-                            key,
-                            format ? format(datum[key], key) : datum[key],
-                        ]),
-                        '2'
-                    ).reverse()}
-                    theme={theme}
-                />
-            )
-        }, [datum, keys, index, colorByKey, theme, tooltipFormat])
+            return <TableTooltip title={<strong>{index}</strong>} rows={rows} theme={theme} />
+        }, [datum, keys, index, colorByKey, theme, tooltipFormatter])
         const showItemTooltip = useCallback(
             event => {
                 setIsHover(true)

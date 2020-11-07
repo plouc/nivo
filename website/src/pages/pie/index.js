@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { ResponsivePie, PieDefaultProps } from '@nivo/pie'
+import { ResponsivePie, defaultProps } from '@nivo/pie'
 import { generateProgrammingLanguageStats } from '@nivo/generators'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/pie/meta.yml'
@@ -28,6 +28,8 @@ const initialProperties = {
         bottom: 80,
         left: 80,
     },
+
+    valueFormat: { format: '', enabled: false },
 
     startAngle: 0,
     endAngle: 360,
@@ -56,14 +58,11 @@ const initialProperties = {
     radialLabelsLinkStrokeWidth: 1,
     radialLabelsLinkColor: { from: 'color' },
 
-    enableSlicesLabels: true,
-    sliceLabel: 'value',
-    slicesLabelsSkipAngle: 10,
-    slicesLabelsTextColor: '#333333',
-
-    animate: true,
-    motionStiffness: 90,
-    motionDamping: 15,
+    enableSliceLabels: true,
+    sliceLabel: 'formattedValue',
+    sliceLabelsRadiusOffset: 0.5,
+    sliceLabelsSkipAngle: 10,
+    sliceLabelsTextColor: '#333333',
 
     isInteractive: true,
     'custom tooltip example': false,
@@ -77,15 +76,17 @@ const initialProperties = {
         {
             anchor: 'bottom',
             direction: 'row',
+            justify: false,
+            translateX: 0,
             translateY: 56,
+            itemsSpacing: 0,
             itemWidth: 100,
             itemHeight: 18,
             itemTextColor: '#999',
+            itemDirection: 'left-to-right',
+            itemOpacity: 1,
             symbolSize: 18,
             symbolShape: 'circle',
-            onClick: d => {
-                alert(JSON.stringify(d, null, '    '))
-            },
             effects: [
                 {
                     on: 'hover',
@@ -108,23 +109,39 @@ const Pie = () => {
             currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={PieDefaultProps}
+            defaultProperties={defaultProps}
             propertiesMapper={mapper}
             generateData={generateData}
         >
             {(properties, data, theme, logAction) => {
+                const handleArcClick = slice => {
+                    logAction({
+                        type: 'click',
+                        label: `[arc] ${slice.id}: ${slice.formattedValue}`,
+                        color: slice.color,
+                        data: slice,
+                    })
+                }
+
+                const handleLegendClick = legendItem => {
+                    logAction({
+                        type: 'click',
+                        label: `[legend] ${legendItem.label}: ${legendItem.formattedValue}`,
+                        color: legendItem.color,
+                        data: legendItem,
+                    })
+                }
+
                 return (
                     <ResponsivePie
                         data={data}
                         {...properties}
                         theme={theme}
-                        onClick={slice => {
-                            logAction({
-                                type: 'click',
-                                label: `[arc] ${slice.label}: ${slice.value}`,
-                                data: slice,
-                            })
-                        }}
+                        onClick={handleArcClick}
+                        legends={properties.legends.map(legend => ({
+                            ...legend,
+                            onClick: handleLegendClick,
+                        }))}
                     />
                 )
             }}

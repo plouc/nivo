@@ -23,6 +23,7 @@ SwarmPlotTooltip.propTypes = {
     node: PropTypes.shape({
         label: PropTypes.string.isRequired,
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        formattedValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
         color: PropTypes.string.isRequired,
     }).isRequired,
 }

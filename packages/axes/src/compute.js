@@ -6,7 +6,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import isNumber from 'lodash/isNumber'
 import {
     timeMillisecond,
     utcMillisecond,
@@ -77,6 +76,9 @@ const timeByType = {
 const timeTypes = Object.keys(timeByType)
 const timeIntervalRegexp = new RegExp(`^every\\s*(\\d+)?\\s*(${timeTypes.join('|')})s?$`, 'i')
 
+const isInteger = value =>
+    typeof value === 'number' && isFinite(value) && Math.floor(value) === value
+
 export const getScaleTicks = (scale, spec) => {
     // specific values
     if (Array.isArray(spec)) {
@@ -91,7 +93,7 @@ export const getScaleTicks = (scale, spec) => {
         }
 
         // specific tick count
-        if (isNumber(spec)) {
+        if (isInteger(spec)) {
             return scale.ticks(spec)
         }
 
@@ -208,7 +210,7 @@ export const getFormatter = (format, scale) => {
 
 export const computeGridLines = ({ width, height, scale, axis, values: _values }) => {
     const lineValues = Array.isArray(_values) ? _values : undefined
-    const lineCount = isNumber(_values) ? _values : undefined
+    const lineCount = isInteger(_values) ? _values : undefined
 
     const values = lineValues || getScaleTicks(scale, lineCount)
 

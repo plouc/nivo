@@ -90,6 +90,7 @@ declare module '@nivo/chord' {
             onRibbonMouseLeave?: ChordRibbonMouseHandler
             onRibbonClick?: ChordRibbonMouseHandler
             ribbonTooltip?: any
+            role?: string
         }
 
     export class Chord extends Component<ChordProps & Dimensions> {}

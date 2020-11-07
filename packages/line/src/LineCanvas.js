@@ -29,7 +29,9 @@ const LineCanvas = ({
 
     data,
     xScale: xScaleSpec,
+    xFormat,
     yScale: yScaleSpec,
+    yFormat,
     curve,
 
     layers,
@@ -78,7 +80,9 @@ const LineCanvas = ({
     const { lineGenerator, areaGenerator, series, xScale, yScale, points } = useLine({
         data,
         xScale: xScaleSpec,
+        xFormat,
         yScale: yScaleSpec,
+        yFormat,
         width: innerWidth,
         height: innerHeight,
         colors,
@@ -108,6 +112,23 @@ const LineCanvas = ({
         ctx.translate(margin.left, margin.top)
 
         layers.forEach(layer => {
+            if (typeof layer === 'function') {
+                layer({
+                    ctx,
+                    innerWidth,
+                    innerHeight,
+                    series,
+                    points,
+                    xScale,
+                    yScale,
+                    lineWidth,
+                    lineGenerator,
+                    areaGenerator,
+                    currentPoint,
+                    setCurrentPoint,
+                })
+            }
+
             if (layer === 'grid' && theme.grid.line.strokeWidth > 0) {
                 ctx.lineWidth = theme.grid.line.strokeWidth
                 ctx.strokeStyle = theme.grid.line.stroke

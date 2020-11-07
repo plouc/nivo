@@ -8,7 +8,10 @@ coverage
 package-lock.json
 
 build
+*.tsbuildinfo
 
 /packages/*/dist
 
 *.lerna_backup
+
+/stats

@@ -1,13 +1,22 @@
 {
   "compilerOptions": {
-    "outDir": "./build",
-    "allowJs": true,
-    "target": "es2017",
-    "alwaysStrict": true,
-    "sourceMap": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
     "jsx": "react",
-    "moduleResolution": "node",
-    "esModuleInterop": true
+    "lib": ["ESNext", "dom"],
+    "target": "es5",
+    "noEmit": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": false,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "allowJs": true,
+    "composite": true,
+    "declarationMap": true,
+    "moduleResolution": "node"
   },
   "include": ["./packages/*/index.d.ts"]
 }

@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React from 'react'
-import { PieDefaultProps, ResponsivePieCanvas } from '@nivo/pie'
+import { defaultProps, ResponsivePieCanvas } from '@nivo/pie'
 import { generateProgrammingLanguageStats } from '@nivo/generators'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/pie/meta.yml'
@@ -28,6 +28,8 @@ const initialProperties = {
         bottom: 40,
         left: 80,
     },
+
+    valueFormat: { format: '', enabled: false },
 
     pixelRatio:
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
@@ -59,14 +61,11 @@ const initialProperties = {
     radialLabelsLinkStrokeWidth: 1,
     radialLabelsLinkColor: { from: 'color' },
 
-    enableSlicesLabels: true,
-    sliceLabel: 'value',
-    slicesLabelsSkipAngle: 10,
-    slicesLabelsTextColor: '#333333',
-
-    animate: true,
-    motionStiffness: 90,
-    motionDamping: 15,
+    enableSliceLabels: true,
+    sliceLabel: 'formattedValue',
+    sliceLabelsRadiusOffset: 0.5,
+    sliceLabelsSkipAngle: 10,
+    sliceLabelsTextColor: '#333333',
 
     isInteractive: true,
     'custom tooltip example': false,
@@ -80,10 +79,15 @@ const initialProperties = {
         {
             anchor: 'right',
             direction: 'column',
+            justify: false,
             translateX: 140,
+            translateY: 0,
+            itemsSpacing: 2,
             itemWidth: 60,
             itemHeight: 14,
-            itemsSpacing: 2,
+            itemTextColor: '#999',
+            itemDirection: 'left-to-right',
+            itemOpacity: 1,
             symbolSize: 14,
             symbolShape: 'circle',
         },
@@ -100,24 +104,40 @@ const PieCanvas = () => {
             currentFlavor="canvas"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={PieDefaultProps}
+            defaultProperties={defaultProps}
             propertiesMapper={mapper}
             generateData={generateData}
             getDataSize={data => data.length}
         >
             {(properties, data, theme, logAction) => {
+                const handleArcClick = slice => {
+                    logAction({
+                        type: 'click',
+                        label: `[arc] ${slice.label}: ${slice.value}`,
+                        color: slice.color,
+                        data: slice,
+                    })
+                }
+
+                const handleLegendClick = legendItem => {
+                    logAction({
+                        type: 'click',
+                        label: `[legend] ${legendItem.label}: ${legendItem.data.value}`,
+                        color: legendItem.color,
+                        data: legendItem,
+                    })
+                }
+
                 return (
                     <ResponsivePieCanvas
                         data={data}
                         {...properties}
                         theme={theme}
-                        onClick={slice => {
-                            logAction({
-                                type: 'click',
-                                label: `[arc] ${slice.label}: ${slice.value}`,
-                                data: slice,
-                            })
-                        }}
+                        onClick={handleArcClick}
+                        legends={properties.legends.map(legend => ({
+                            ...legend,
+                            onClick: handleLegendClick,
+                        }))}
                     />
                 )
             }}

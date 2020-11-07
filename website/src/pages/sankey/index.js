@@ -55,11 +55,10 @@ const initialProperties = {
         modifiers: [['darker', 1]],
     },
 
-    animate: true,
-    motionStiffness: 140,
-    motionDamping: 13,
+    animate: SankeyDefaultProps.animate,
+    motionConfig: SankeyDefaultProps.motionConfig,
 
-    isInteractive: true,
+    isInteractive: SankeyDefaultProps.isInteractive,
 
     legends: [
         {
@@ -114,9 +113,7 @@ const Sankey = () => {
                             if (node.id) {
                                 label = `[node] ${node.id}: ${node.value}`
                             } else {
-                                label = `[link] ${node.source.id} > ${node.target.id}: ${
-                                    node.value
-                                }`
+                                label = `[link] ${node.source.id} > ${node.target.id}: ${node.value}`
                             }
 
                             logAction({

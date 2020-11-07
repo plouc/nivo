@@ -14,9 +14,14 @@ import { useTooltip } from '@nivo/tooltip'
 import { computeSeries } from './compute'
 
 export const useLineGenerator = interpolation =>
-    useMemo(() => d3Line().curve(interpolation === 'smooth' ? curveBasis : curveLinear), [
-        interpolation,
-    ])
+    useMemo(
+        () =>
+            d3Line()
+                .curve(interpolation === 'smooth' ? curveBasis : curveLinear)
+                .defined(d => d[0] !== null && d[1] !== null),
+
+        [interpolation]
+    )
 
 export const useSerieDerivedProp = instruction =>
     useMemo(() => {
@@ -211,6 +216,8 @@ export const useBump = ({
                     ...rawPoint,
                     serie,
                     serieId: serie.id,
+                    isActive: currentSerie === serie.id,
+                    isInactive: currentSerie !== null && currentSerie !== serie.id,
                 }
                 point.color = getPointColor(point)
                 point.borderColor = getPointBorderColor(point)
@@ -220,7 +227,7 @@ export const useBump = ({
         })
 
         return pts
-    }, [series, getPointColor, getPointBorderColor, getPointStyle])
+    }, [series, getPointColor, getPointBorderColor, getPointStyle, currentSerie])
 
     return {
         xScale,
@@ -289,7 +296,7 @@ export const useSerieHandlers = ({
     return handlers
 }
 
-export const useSeriesLabels = ({ series, position, padding, color }) => {
+export const useSeriesLabels = ({ series, position, padding, color, getLabel }) => {
     const theme = useTheme()
     const getColor = useInheritedColor(color, theme)
 
@@ -304,21 +311,35 @@ export const useSeriesLabels = ({ series, position, padding, color }) => {
             signedPadding = padding
         }
 
-        return series.map(serie => {
+        const labels = []
+        series.forEach(serie => {
+            let label = serie.id
+            if (typeof getLabel === 'function') {
+                label = getLabel(serie)
+            }
+
             const point =
                 position === 'start'
                     ? serie.linePoints[0]
                     : serie.linePoints[serie.linePoints.length - 1]
 
-            return {
+            // exclude labels for series having missing data at the beginning/end
+            if (point[0] === null || point[1] === null) {
+                return
+            }
+
+            labels.push({
                 id: serie.id,
+                label,
                 x: point[0] + signedPadding,
                 y: point[1],
                 color: getColor(serie),
                 opacity: serie.style.opacity,
                 serie,
                 textAnchor,
-            }
+            })
         })
+
+        return labels
     }, [series, position, padding, getColor])
 }

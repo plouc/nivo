@@ -96,3 +96,30 @@ const minNodeValueOnTop = (nodeA, nodeB) => {
 stories.add('with reverse sort ordering (min node value on top)', () => (
     <Sankey {...commonProperties} sort={minNodeValueOnTop} />
 ))
+
+stories.add('sort links by input', () => (
+    <Sankey
+        {...commonProperties}
+        data={{
+            nodes: [
+                { id: 'foo_left', color: '#ff0000' },
+                { id: 'bar_left', color: '#0000ff' },
+                { id: 'baz_left', color: '#00ff00' },
+                { id: 'foo_right', color: '#ff0000' },
+                { id: 'bar_right', color: '#0000ff' },
+                { id: 'baz_right', color: '#00ff00' },
+            ],
+            links: [
+                { source: 'foo_left', target: 'bar_right', value: 5 },
+                { source: 'foo_left', target: 'baz_right', value: 5 },
+                { source: 'bar_left', target: 'foo_right', value: 5 },
+                { source: 'bar_left', target: 'bar_right', value: 5 },
+                { source: 'bar_left', target: 'baz_right', value: 5 },
+                { source: 'baz_left', target: 'bar_right', value: 5 },
+            ],
+        }}
+        colors={d => d.color ?? ''}
+        sort="input"
+        enableLinkGradient
+    />
+))

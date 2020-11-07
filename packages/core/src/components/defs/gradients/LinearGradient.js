@@ -28,6 +28,7 @@ LinearGradient.propTypes = {
         PropTypes.shape({
             offset: PropTypes.number.isRequired,
             color: PropTypes.string.isRequired,
+            opacity: PropTypes.number,
         })
     ).isRequired,
 }

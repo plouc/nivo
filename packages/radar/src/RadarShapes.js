@@ -8,14 +8,15 @@
  */
 import React, { memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { useMotionConfig, SmartMotion, useTheme, blendModePropType } from '@nivo/core'
-import { useInheritedColor, inheritedColorPropType } from '@nivo/colors'
+import { useSpring, animated } from 'react-spring'
 import { lineRadial } from 'd3-shape'
+import { useMotionConfig, useTheme, useAnimatedPath, blendModePropType } from '@nivo/core'
+import { useInheritedColor, inheritedColorPropType } from '@nivo/colors'
 
 const RadarShapes = memo(
     ({
         data,
-        keys,
+        item: key,
         colorByKey,
         radiusScale,
         angleStep,
@@ -26,8 +27,8 @@ const RadarShapes = memo(
         blendMode,
     }) => {
         const theme = useTheme()
-        const { animate, springConfig } = useMotionConfig()
         const getBorderColor = useInheritedColor(borderColor, theme)
+
         const lineGenerator = useMemo(() => {
             return lineRadial()
                 .radius(d => radiusScale(d))
@@ -35,53 +36,25 @@ const RadarShapes = memo(
                 .curve(curveInterpolator)
         }, [radiusScale, angleStep, curveInterpolator])
 
-        if (animate !== true) {
-            return (
-                <g>
-                    {keys.map(key => {
-                        return (
-                            <path
-                                key={key}
-                                d={lineGenerator(data.map(d => d[key]))}
-                                fill={colorByKey[key]}
-                                fillOpacity={fillOpacity}
-                                stroke={getBorderColor({ key, color: colorByKey[key] })}
-                                strokeWidth={borderWidth}
-                                style={{ mixBlendMode: blendMode }}
-                            />
-                        )
-                    })}
-                </g>
-            )
-        }
+        const { animate, config: springConfig } = useMotionConfig()
+        const animatedPath = useAnimatedPath(lineGenerator(data.map(d => d[key])))
+        const animatedProps = useSpring({
+            fill: colorByKey[key],
+            stroke: getBorderColor({ key, color: colorByKey[key] }),
+            config: springConfig,
+            immediate: !animate,
+        })
 
         return (
-            <g>
-                {keys.map(key => {
-                    return (
-                        <SmartMotion
-                            key={key}
-                            style={spring => ({
-                                d: spring(lineGenerator(data.map(d => d[key])), springConfig),
-                                fill: spring(colorByKey[key], springConfig),
-                                stroke: spring(
-                                    getBorderColor({ key, color: colorByKey[key] }),
-                                    springConfig
-                                ),
-                            })}
-                        >
-                            {style => (
-                                <path
-                                    fillOpacity={fillOpacity}
-                                    strokeWidth={borderWidth}
-                                    style={{ mixBlendMode: blendMode }}
-                                    {...style}
-                                />
-                            )}
-                        </SmartMotion>
-                    )
-                })}
-            </g>
+            <animated.path
+                key={key}
+                d={animatedPath}
+                fill={animatedProps.fill}
+                fillOpacity={fillOpacity}
+                stroke={animatedProps.stroke}
+                strokeWidth={borderWidth}
+                style={{ mixBlendMode: blendMode }}
+            />
         )
     }
 )
@@ -89,7 +62,7 @@ const RadarShapes = memo(
 RadarShapes.displayName = 'RadarShapes'
 RadarShapes.propTypes = {
     data: PropTypes.arrayOf(PropTypes.object).isRequired,
-    keys: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
+    item: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     colorByKey: PropTypes.object.isRequired,
 
     radiusScale: PropTypes.func.isRequired,

@@ -40,7 +40,9 @@ exports[`should support bottom-to-top direction 1`] = `
     style={
       Object {
         "dominantBaseline": "alphabetic",
-        "fill": "black",
+        "fill": "#333333",
+        "fontFamily": "sans-serif",
+        "fontSize": 11,
         "pointerEvents": "none",
         "userSelect": "none",
       }
@@ -94,7 +96,9 @@ exports[`should support bottom-to-top direction justified 1`] = `
     style={
       Object {
         "dominantBaseline": "text-before-edge",
-        "fill": "black",
+        "fill": "#333333",
+        "fontFamily": "sans-serif",
+        "fontSize": 11,
         "pointerEvents": "none",
         "userSelect": "none",
       }
@@ -148,7 +152,9 @@ exports[`should support left-to-right direction 1`] = `
     style={
       Object {
         "dominantBaseline": "central",
-        "fill": "black",
+        "fill": "#333333",
+        "fontFamily": "sans-serif",
+        "fontSize": 11,
         "pointerEvents": "none",
         "userSelect": "none",
       }
@@ -202,7 +208,9 @@ exports[`should support left-to-right direction justified 1`] = `
     style={
       Object {
         "dominantBaseline": "central",
-        "fill": "black",
+        "fill": "#333333",
+        "fontFamily": "sans-serif",
+        "fontSize": 11,
         "pointerEvents": "none",
         "userSelect": "none",
       }
@@ -256,7 +264,9 @@ exports[`should support right-to-left direction 1`] = `
     style={
       Object {
         "dominantBaseline": "central",
-        "fill": "black",
+        "fill": "#333333",
+        "fontFamily": "sans-serif",
+        "fontSize": 11,
         "pointerEvents": "none",
         "userSelect": "none",
       }
@@ -310,7 +320,9 @@ exports[`should support right-to-left direction justified 1`] = `
     style={
       Object {
         "dominantBaseline": "central",
-        "fill": "black",
+        "fill": "#333333",
+        "fontFamily": "sans-serif",
+        "fontSize": 11,
         "pointerEvents": "none",
         "userSelect": "none",
       }
@@ -364,7 +376,9 @@ exports[`should support top-to-bottom direction 1`] = `
     style={
       Object {
         "dominantBaseline": "text-before-edge",
-        "fill": "black",
+        "fill": "#333333",
+        "fontFamily": "sans-serif",
+        "fontSize": 11,
         "pointerEvents": "none",
         "userSelect": "none",
       }
@@ -418,7 +432,9 @@ exports[`should support top-to-bottom direction justified 1`] = `
     style={
       Object {
         "dominantBaseline": "alphabetic",
-        "fill": "black",
+        "fill": "#333333",
+        "fontFamily": "sans-serif",
+        "fontSize": 11,
         "pointerEvents": "none",
         "userSelect": "none",
       }

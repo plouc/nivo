@@ -59,6 +59,8 @@ const BarApi = () => {
                     layout: 'vertical',
                     reverse: false,
 
+                    valueScale: { type: 'linear' },
+
                     axisTop: {
                         enable: false,
                         tickSize: 5,

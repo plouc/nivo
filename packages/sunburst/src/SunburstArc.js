@@ -50,18 +50,22 @@ const SunburstArc = ({
 }
 
 SunburstArc.propTypes = {
-    node: PropTypes.shape({}).isRequired,
+    node: PropTypes.shape({
+        data: PropTypes.shape({
+            color: PropTypes.string.isRequired,
+        }).isRequired,
+    }).isRequired,
     arcGenerator: PropTypes.func.isRequired,
     path: PropTypes.string.isRequired,
     borderWidth: PropTypes.number.isRequired,
     borderColor: PropTypes.string.isRequired,
     showTooltip: PropTypes.func.isRequired,
     hideTooltip: PropTypes.func.isRequired,
-    tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-    tooltip: PropTypes.element.isRequired,
     onClick: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
+    tooltipFormat: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    tooltip: PropTypes.func,
     theme: PropTypes.object.isRequired,
 }
 

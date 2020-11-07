@@ -11,11 +11,11 @@ import PropTypes from 'prop-types'
 import { Defs } from './defs'
 import { useTheme } from '../theming'
 
-const SvgWrapper = ({ width, height, margin, defs, children }) => {
+const SvgWrapper = ({ width, height, margin, defs, children, role }) => {
     const theme = useTheme()
 
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" role="img" width={width} height={height}>
+        <svg xmlns="http://www.w3.org/2000/svg" role={role} width={width} height={height}>
             <Defs defs={defs} />
             <rect width={width} height={height} fill={theme.background} />
             <g transform={`translate(${margin.left},${margin.top})`}>{children}</g>
@@ -32,6 +32,7 @@ SvgWrapper.propTypes = {
     }).isRequired,
     defs: PropTypes.array,
     children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
+    role: PropTypes.string,
 }
 
 export default SvgWrapper

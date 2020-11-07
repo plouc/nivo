@@ -8,14 +8,10 @@
  */
 import { scaleLinear, scalePoint, scaleTime } from 'd3-scale'
 
-export const linearXScale = scaleLinear()
-    .range([0, 280])
-    .domain([0, 80])
+export const linearXScale = scaleLinear().range([0, 280]).domain([0, 80])
 linearXScale.type = 'linear'
 
-export const linearYScale = scaleLinear()
-    .range([160, 0])
-    .domain([0, 35])
+export const linearYScale = scaleLinear().range([160, 0]).domain([0, 35])
 linearYScale.type = 'linear'
 
 export const pointXScale = scalePoint()

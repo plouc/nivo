@@ -6,49 +6,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo } from 'react'
+import React, { memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { useMotionConfig } from '@nivo/core'
-import { SmartMotion } from '@nivo/core'
+import { animated } from 'react-spring'
+import { useAnimatedPath } from '@nivo/core'
 
-const LinesItem = ({ lineGenerator, id, points, color, thickness }) => {
-    const { animate, springConfig } = useMotionConfig()
+const LinesItem = ({ lineGenerator, points, color, thickness }) => {
+    const path = useMemo(() => lineGenerator(points), [lineGenerator, points])
+    const animatedPath = useAnimatedPath(path)
 
-    if (animate !== true) {
-        return (
-            <path
-                key={id}
-                d={lineGenerator(points)}
-                fill="none"
-                strokeWidth={thickness}
-                stroke={color}
-            />
-        )
-    }
-
-    return (
-        <SmartMotion
-            key={id}
-            style={spring => ({
-                d: spring(lineGenerator(points), springConfig),
-                stroke: spring(color, springConfig),
-            })}
-        >
-            {style => (
-                <path
-                    key={id}
-                    d={style.d}
-                    fill="none"
-                    strokeWidth={thickness}
-                    stroke={style.stroke}
-                />
-            )}
-        </SmartMotion>
-    )
+    return <animated.path d={animatedPath} fill="none" strokeWidth={thickness} stroke={color} />
 }
 
 LinesItem.propTypes = {
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     points: PropTypes.arrayOf(
         PropTypes.shape({
             x: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

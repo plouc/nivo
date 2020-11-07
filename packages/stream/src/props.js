@@ -15,15 +15,9 @@ import StreamDotsItem from './StreamDotsItem'
 export const StreamPropTypes = {
     data: PropTypes.arrayOf(PropTypes.object).isRequired,
     keys: PropTypes.array.isRequired,
-
-    stack: PropTypes.func.isRequired,
-    xScale: PropTypes.func.isRequired,
-    yScale: PropTypes.func.isRequired,
-
     order: stackOrderPropType.isRequired,
     offsetType: stackOffsetPropType.isRequired,
     curve: areaCurvePropType.isRequired,
-    areaGenerator: PropTypes.func.isRequired,
 
     axisTop: PropTypes.object,
     axisRight: PropTypes.object,
@@ -34,7 +28,6 @@ export const StreamPropTypes = {
 
     colors: ordinalColorsPropType.isRequired,
     fillOpacity: PropTypes.number.isRequired,
-    getColor: PropTypes.func.isRequired, // computed
     defs: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.string.isRequired,
@@ -49,26 +42,22 @@ export const StreamPropTypes = {
     ).isRequired,
     borderWidth: PropTypes.number.isRequired,
     borderColor: inheritedColorPropType.isRequired,
-    getBorderColor: PropTypes.func.isRequired, // computed
 
     enableDots: PropTypes.bool.isRequired,
-    renderDot: PropTypes.func.isRequired,
+    dotComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
     dotPosition: PropTypes.oneOf(['start', 'center', 'end']).isRequired,
     dotSize: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
-    getDotSize: PropTypes.func.isRequired,
     dotColor: inheritedColorPropType.isRequired,
     dotBorderWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
-    getDotBorderWidth: PropTypes.func.isRequired,
     dotBorderColor: inheritedColorPropType.isRequired,
 
     isInteractive: PropTypes.bool,
     tooltipLabel: PropTypes.func,
-    getTooltipLabel: PropTypes.func.isRequired,
     tooltipFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-    getTooltipValue: PropTypes.func.isRequired,
     enableStackTooltip: PropTypes.bool.isRequired,
 
     legends: PropTypes.arrayOf(PropTypes.shape(LegendPropShape)).isRequired,
+    role: PropTypes.string.isRequired,
 }
 
 export const StreamDefaultProps = {
@@ -90,7 +79,7 @@ export const StreamDefaultProps = {
 
     enableDots: false,
     dotPosition: 'center',
-    renderDot: StreamDotsItem,
+    dotComponent: StreamDotsItem,
     dotSize: 6,
     dotColor: { from: 'color' },
     dotBorderWidth: 0,
@@ -101,4 +90,8 @@ export const StreamDefaultProps = {
     enableStackTooltip: true,
 
     legends: [],
+    role: 'img',
+
+    animate: true,
+    motionConfig: 'gentle',
 }

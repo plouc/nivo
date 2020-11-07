@@ -38,6 +38,15 @@ stories.add('with custom colors', () => (
     />
 ))
 
+stories.add('with formatted tooltip value', () => (
+    <Sunburst
+        {...commonProperties}
+        tooltipFormat={value => {
+            return `~${Math.floor(Number.parseFloat(value))}%`
+        }}
+    />
+))
+
 stories.add('custom tooltip', () => (
     <Sunburst
         {...commonProperties}
