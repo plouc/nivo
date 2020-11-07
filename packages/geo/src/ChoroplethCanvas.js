@@ -148,7 +148,7 @@ const ChoroplethCanvas = memo(
         ])
 
         const { showTooltipFromEvent, hideTooltip } = useTooltip()
-        const handleMouseMove = useCallback(() => {
+        const handleMouseMove = useCallback((event) => {
             if (!isInteractive || !Tooltip) return
 
             const feature = getFeatureFromMouseEvent(
@@ -176,7 +176,7 @@ const ChoroplethCanvas = memo(
             isInteractive,
             hideTooltip,
         ])
-        const handleClick = useCallback(() => {
+        const handleClick = useCallback((event) => {
             if (!isInteractive || !onClick) return
 
             const feature = getFeatureFromMouseEvent(

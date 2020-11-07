@@ -124,7 +124,7 @@ const GeoMapCanvas = memo(props => {
     ])
 
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
-    const handleMouseMove = useCallback(() => {
+    const handleMouseMove = useCallback((event) => {
         if (!isInteractive || !Tooltip) return
 
         const feature = getFeatureFromMouseEvent(event, canvasEl.current, features, projection)
@@ -139,7 +139,7 @@ const GeoMapCanvas = memo(props => {
         isInteractive,
         hideTooltip,
     ])
-    const handleClick = useCallback(() => {
+    const handleClick = useCallback((event) => {
         if (!isInteractive || !onClick) return
 
         const feature = getFeatureFromMouseEvent(event, canvasEl.current, features, projection)
