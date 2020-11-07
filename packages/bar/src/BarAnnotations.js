@@ -9,7 +9,15 @@
 import React from 'react'
 import { Annotation, useAnnotations } from '@nivo/annotations'
 
-const BarAnnotations = ({ bars, annotations, animate, motionStiffness, motionDamping }) => {
+const BarAnnotations = ({
+    bars,
+    annotations,
+    animate,
+    innerWidth,
+    innerHeight,
+    motionStiffness,
+    motionDamping,
+}) => {
     const boundAnnotations = useAnnotations({
         items: bars,
         annotations,
