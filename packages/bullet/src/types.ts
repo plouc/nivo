@@ -3,7 +3,7 @@ import { Box, Dimensions, Theme, Colors, ModernMotionProps } from '@nivo/core'
 import { ScaleLinear } from 'd3-scale'
 import { AnimatedValue } from 'react-spring'
 
-export type DatumId = string
+export type DatumId = string | number
 export type DatumValue = number
 
 export type WithDatumId<R> = R & { id: DatumId }
@@ -13,7 +13,7 @@ type Point = {
     y: number
 }
 
-export interface DefaultRawDatum {
+export interface Datum {
     id: DatumId
     title?: React.ReactNode
     ranges: number[]
@@ -21,7 +21,7 @@ export interface DefaultRawDatum {
     markers?: number[]
 }
 
-export type EnhancedDatum = DefaultRawDatum & {
+export type EnhancedDatum = Datum & {
     scale: ScaleLinear<number, number, never>
 }
 
@@ -38,11 +38,7 @@ export interface ComputedMarkersDatum {
     color: string
 }
 
-export type MouseEventHandler<R, T> = (datum: R, event: React.MouseEvent<T>) => void
-
-export interface DataProps<T> {
-    data: T[]
-}
+export type MouseEventHandler<D, T> = (datum: D, event: React.MouseEvent<T>) => void
 
 export type CommonBulletProps = Dimensions & {
     margin: Box
@@ -81,50 +77,55 @@ export type BulletHandlers = {
     onMarkerClick?: MouseEventHandler<WithDatumId<ComputedMarkersDatum>, SVGLineElement>
 }
 
-export type BulletSvgProps = DataProps<DefaultRawDatum> &
-    Partial<CommonBulletProps> &
+export type BulletSvgProps = Partial<CommonBulletProps> &
     BulletHandlers &
-    ModernMotionProps
+    ModernMotionProps & {
+        data: Datum[]
+    }
 
-type BulletMouseEvent<E> = (event: React.MouseEvent<E, MouseEvent>) => void
+type MouseEventWithDatum<D, Element> = (
+    datum: D,
+    event: React.MouseEvent<Element, MouseEvent>
+) => void
 
 export type BulletRectComputedRect = Point &
     Dimensions & {
         data: ComputedRangeDatum
     }
 
-export type BulletRectAnimatedProps = Point & Dimensions & Pick<ComputedRangeDatum, 'color'>
+export type BulletRectAnimatedProps = Point &
+    Dimensions &
+    Pick<ComputedRangeDatum, 'color'>
 
-export type BulletRectsItemProps = Point &
+export type BulletRectsItemProps = Pick<
+    BulletRectsProps,
+    'onMouseEnter' | 'onMouseLeave' | 'onClick'
+> &
+    Point &
     Dimensions & {
         animatedProps: AnimatedValue<BulletRectAnimatedProps>
         index: number
         color: string
-        data: {
-            v0: number
-            v1: number
-        }
-        onMouseEnter: BulletMouseEvent<SVGRectElement>
-        onMouseMove: BulletMouseEvent<SVGRectElement>
-        onMouseLeave: BulletMouseEvent<SVGRectElement>
-        onClick: BulletMouseEvent<SVGRectElement>
+        data: ComputedRangeDatum
+        onMouseMove: BulletRectsProps['onMouseEnter']
     }
 
-export type BulletMarkersItemProps = Point & {
-    animatedProps: AnimatedValue<PositionWithColor>
-    size: number
-    rotation: number
-    color: string
-    data: {
-        index: number
-        value: number
+export type BulletMarkersItemProps = Pick<
+    BulletMarkersProps,
+    'onMouseEnter' | 'onMouseLeave' | 'onClick'
+> &
+    Point & {
+        animatedProps: AnimatedValue<PositionWithColor>
+        size: number
+        rotation: number
         color: string
+        data: {
+            index: number
+            value: number
+            color: string
+        }
+        onMouseMove: BulletMarkersProps['onMouseEnter']
     }
-    onMouseEnter: BulletMouseEvent<SVGLineElement>
-    onMouseMove: BulletMouseEvent<SVGLineElement>
-    onMouseLeave: BulletMouseEvent<SVGLineElement>
-    onClick: BulletMouseEvent<SVGLineElement>
-}
 
 export type BulletRectsProps = Pick<CommonBulletProps, 'layout' | 'reverse'> &
     Dimensions &
@@ -136,6 +137,9 @@ export type BulletRectsProps = Pick<CommonBulletProps, 'layout' | 'reverse'> &
         scale: ScaleLinear<number, number, never>
         data: ComputedRangeDatum[]
         component: CommonBulletProps['rangeComponent']
+        onMouseEnter: MouseEventWithDatum<ComputedRangeDatum, SVGRectElement>
+        onMouseLeave: MouseEventWithDatum<ComputedRangeDatum, SVGRectElement>
+        onClick: MouseEventWithDatum<ComputedRangeDatum, SVGRectElement>
     }
 
 export type Position = Point & {
@@ -161,12 +165,10 @@ export type BulletMarkersProps = Pick<CommonBulletProps, 'layout' | 'reverse'> &
         markerSize: number
         markers: ComputedMarkersDatum[]
         component: CommonBulletProps['markerComponent']
+        onMouseEnter: MouseEventWithDatum<ComputedMarkersDatum, SVGLineElement>
+        onMouseLeave: MouseEventWithDatum<ComputedMarkersDatum, SVGLineElement>
+        onClick: MouseEventWithDatum<ComputedMarkersDatum, SVGLineElement>
     }
-
-export type TooltipHandlers<Element> = {
-    hideTooltip: () => void
-    showTooltip: (content: React.ReactNode, event: React.MouseEvent<Element, MouseEvent>) => void
-}
 
 export type BulletItemProps = Omit<
     CommonBulletProps,
@@ -179,7 +181,6 @@ export type BulletItemProps = Omit<
     | 'markerSize'
     | 'theme'
 > &
-    TooltipHandlers<unknown> &
     BulletHandlers &
     EnhancedDatum &
     ModernMotionProps &

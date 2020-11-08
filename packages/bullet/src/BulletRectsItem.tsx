@@ -4,6 +4,7 @@ import { animated } from 'react-spring'
 
 export const BulletRectsItem = ({
     animatedProps: { x, y, width, height, color },
+    data,
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
@@ -16,10 +17,10 @@ export const BulletRectsItem = ({
             width={width.interpolate(value => Math.max(value, 0))}
             height={height.interpolate(value => Math.max(value, 0))}
             fill={color}
-            onMouseMove={onMouseMove}
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-            onClick={onClick}
+            onMouseMove={event => onMouseMove(data, event)}
+            onMouseEnter={event => onMouseEnter(data, event)}
+            onMouseLeave={event => onMouseLeave(data, event)}
+            onClick={event => onClick(data, event)}
         />
     )
 }

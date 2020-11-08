@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useTransition, animated } from 'react-spring'
 // @ts-ignore
 import { useMotionConfig } from '@nivo/core'
@@ -7,17 +7,17 @@ import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
 import { computeRects } from './compute'
 import {
     BulletRectsProps,
-    ComputedRangeDatum,
+    // ComputedRangeDatum,
     BulletRectComputedRect,
     BulletRectAnimatedProps,
 } from './types'
 
-type MouseEventWithDatum = (
-    datum: ComputedRangeDatum,
-    event: React.MouseEvent<SVGRectElement, MouseEvent>
-) => void
+// type MouseEventWithDatum = (
+//     datum: ComputedRangeDatum,
+//     event: React.MouseEvent<SVGRectElement, MouseEvent>
+// ) => void
 
-type EventHandlers = Record<'onMouseEnter' | 'onMouseLeave' | 'onClick', MouseEventWithDatum>
+// type EventHandlers = Record<'onMouseEnter' | 'onMouseLeave' | 'onClick', MouseEventWithDatum>
 
 export const BulletRects = ({
     animatedProps,
@@ -31,14 +31,18 @@ export const BulletRects = ({
     onMouseEnter,
     onMouseLeave,
     onClick,
-}: BulletRectsProps & EventHandlers) => {
-    const rects = computeRects({
-        data,
-        layout,
-        reverse,
-        scale,
-        height,
-    })
+}: BulletRectsProps) => {
+    const rects = useMemo(
+        () =>
+            computeRects({
+                data,
+                layout,
+                reverse,
+                scale,
+                height,
+            }),
+        [data, layout, reverse, scale, height]
+    )
 
     const getTransform = (value: number) =>
         `translate(${layout === 'horizontal' ? 0 : value},${layout === 'horizontal' ? value : 0})`
@@ -82,10 +86,10 @@ export const BulletRects = ({
                     width: props.width.interpolate(value => Math.max(value, 0)).getValue(),
                     height: props.height.interpolate(value => Math.max(value, 0)).getValue(),
                     color: props.color.getValue(),
-                    onMouseEnter: event => onMouseEnter(rect.data, event),
-                    onMouseMove: event => onMouseEnter(rect.data, event),
-                    onMouseLeave: event => onMouseLeave(rect.data, event),
-                    onClick: event => onClick(rect.data, event),
+                    onMouseEnter,
+                    onMouseMove: onMouseEnter,
+                    onMouseLeave,
+                    onClick,
                 })
             )}
         </animated.g>
