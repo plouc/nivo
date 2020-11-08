@@ -90,8 +90,8 @@ const PieCanvas = <RawDatum, >({
     innerRadius: innerRadiusRatio = defaultProps.innerRadius,
     cornerRadius = defaultProps.cornerRadius,
 
-    width,
-    height,
+    width = 0,
+    height = 0,
     margin: partialMargin,
     pixelRatio = 1,
 

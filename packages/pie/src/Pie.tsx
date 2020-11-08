@@ -31,8 +31,8 @@ const Pie = <RawDatum, >({
     innerRadius: innerRadiusRatio = defaultProps.innerRadius,
     cornerRadius = defaultProps.cornerRadius,
 
-    width,
-    height,
+    width = 0,
+    height = 0,
     margin: partialMargin,
 
     colors = defaultProps.colors,
