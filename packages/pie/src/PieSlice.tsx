@@ -55,7 +55,7 @@ export const PieSlice = <RawDatum, >({
     const handleMouseLeave = useCallback(
         event => {
             onMouseLeave?.(datum, event)
-            hideTooltip(event)
+            hideTooltip()
         },
         [onMouseLeave, hideTooltip, datum]
     )
