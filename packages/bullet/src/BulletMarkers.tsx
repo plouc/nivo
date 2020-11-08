@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useTransition } from 'react-spring'
 // @ts-ignore
 import { useMotionConfig } from '@nivo/core'
@@ -56,7 +56,10 @@ export const BulletMarkers = ({
     onMouseLeave,
     onClick,
 }: BulletMarkersProps & EventHandlers) => {
-    const getPosition = getPositionGenerator({ layout, reverse, scale, height, markerSize })
+    const getPosition = useMemo(
+        () => getPositionGenerator({ layout, reverse, scale, height, markerSize }),
+        [layout, reverse, scale, height, markerSize]
+    )
 
     const { animate, config: springConfig } = useMotionConfig()
     const transitions = useTransition<MarkerWithPosition, PositionWithColor>(
@@ -91,10 +94,10 @@ export const BulletMarkers = ({
                     ...position,
                     animatedProps: props,
                     data: marker,
-                    onMouseEnter: event => onMouseEnter(marker, event),
-                    onMouseMove: event => onMouseEnter(marker, event),
-                    onMouseLeave: event => onMouseLeave(marker, event),
-                    onClick: event => onClick(marker, event),
+                    onMouseEnter,
+                    onMouseMove: onMouseEnter,
+                    onMouseLeave,
+                    onClick,
                 })
             )}
         </>

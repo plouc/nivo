@@ -4,6 +4,7 @@ import { animated } from 'react-spring'
 
 export const BulletMarkersItem = ({
     animatedProps: { color, transform, x, y1, y2 },
+    data,
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
@@ -19,10 +20,10 @@ export const BulletMarkersItem = ({
             fill="none"
             stroke={color}
             strokeWidth="5"
-            onMouseMove={onMouseMove}
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-            onClick={onClick}
+            onMouseMove={event => onMouseMove(data, event)}
+            onMouseEnter={event => onMouseEnter(data, event)}
+            onMouseLeave={event => onMouseLeave(data, event)}
+            onClick={event => onClick(data, event)}
         />
     )
 }

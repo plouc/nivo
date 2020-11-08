@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { AnimatedValue, useSpring, animated } from 'react-spring'
 import { Axis } from '@nivo/axes'
 import {
@@ -13,7 +13,7 @@ import {
     // @ts-ignore
     useTheme,
 } from '@nivo/core'
-import { BasicTooltip } from '@nivo/tooltip'
+import { BasicTooltip, useTooltip } from '@nivo/tooltip'
 import { stackValues } from './compute'
 import { BulletMarkers } from './BulletMarkers'
 import { BulletRects } from './BulletRects'
@@ -55,24 +55,33 @@ export const BulletItem = ({
     onRangeClick,
     onMeasureClick,
     onMarkerClick,
-
-    showTooltip,
-    hideTooltip,
 }: BulletItemProps) => {
     const theme = useTheme()
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
-    const rangeColorScale = getColorScale(rangeColors, scale, true)
-    const computedRanges = stackValues(ranges, rangeColorScale)
+    const computedRanges = useMemo(() => {
+        const rangeColorScale = getColorScale(rangeColors, scale, true)
 
-    const measureColorScale = getColorScale(measureColors, scale)
-    const computedMeasures = stackValues(measures, measureColorScale)
+        return stackValues(ranges, rangeColorScale)
+    }, [rangeColors, ranges, scale])
 
-    const markerColorScale = getColorScale(markerColors, scale)
-    const computedMarkers = markers.map((marker: number, index: number) => ({
-        value: marker,
-        index,
-        color: markerColorScale(markerColorScale.type === 'sequential' ? marker : index) as string,
-    }))
+    const computedMeasures = useMemo(() => {
+        const measureColorScale = getColorScale(measureColors, scale)
+
+        return stackValues(measures, measureColorScale)
+    }, [measureColors, measures, scale])
+
+    const computedMarkers = useMemo(() => {
+        const markerColorScale = getColorScale(markerColors, scale)
+
+        return markers.map((marker: number, index: number) => ({
+            value: marker,
+            index,
+            color: markerColorScale(
+                markerColorScale.type === 'sequential' ? marker : index
+            ) as string,
+        }))
+    }, [markerColors, markers, scale])
 
     const rangeNodes = (
         <BulletRects
@@ -86,7 +95,7 @@ export const BulletItem = ({
             height={height}
             component={rangeComponent}
             onMouseEnter={(range, event) => {
-                showTooltip(
+                showTooltipFromEvent(
                     <BasicTooltip
                         id={
                             <span>
@@ -116,7 +125,7 @@ export const BulletItem = ({
             markerSize={markerHeight}
             component={markerComponent}
             onMouseEnter={(marker, event) => {
-                showTooltip(
+                showTooltipFromEvent(
                     <BasicTooltip
                         id={<strong>{marker.value}</strong>}
                         enableChip={true}
@@ -204,7 +213,7 @@ export const BulletItem = ({
                 height={measureHeight}
                 component={measureComponent}
                 onMouseEnter={(measure, event) => {
-                    showTooltip(
+                    showTooltipFromEvent(
                         <BasicTooltip
                             id={<strong>{measure.v1}</strong>}
                             enableChip={true}
