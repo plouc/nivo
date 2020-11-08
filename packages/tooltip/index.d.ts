@@ -49,4 +49,16 @@ declare module '@nivo/tooltip' {
         | 'bottom-left'
         | 'left'
         | 'cross'
+
+    export type TooltipAnchor = 'top' | 'right' | 'bottom' | 'left' | 'center'
+
+    export function useTooltip(): {
+        showTooltipAt: (
+            content: JSX.Element,
+            position: [number, number],
+            anchor?: TooltipAnchor
+        ) => void
+        showTooltipFromEvent: <Event>(content: JSX.Element, event: Event) => void
+        hideTooltip: () => void
+    }
 }
