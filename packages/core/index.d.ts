@@ -9,12 +9,14 @@ declare module '@nivo/core' {
         width: number
     }
 
-    export type Box = Partial<{
+    export type Margin = {
         bottom: number
         left: number
         right: number
         top: number
-    }>
+    }
+
+    export type Box = Partial<Margin>
     export type BoxAlign =
         | 'center'
         | 'top-left'
@@ -227,4 +229,16 @@ declare module '@nivo/core' {
 
     export function degreesToRadians(degrees: number): number
     export function radiansToDegrees(radians: number): number
+
+    export function useDimensions(
+        width: number,
+        height: number,
+        margin?: Box
+    ): {
+        margin: Margin
+        innerWidth: number
+        innerHeight: number
+        outerWidth: number
+        outerHeight: number
+    }
 }
