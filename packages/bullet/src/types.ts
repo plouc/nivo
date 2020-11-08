@@ -93,9 +93,7 @@ export type BulletRectComputedRect = Point &
         data: ComputedRangeDatum
     }
 
-export type BulletRectAnimatedProps = Point &
-    Dimensions &
-    Pick<ComputedRangeDatum, 'color'>
+export type BulletRectAnimatedProps = Point & Dimensions & Pick<ComputedRangeDatum, 'color'>
 
 export type BulletRectsItemProps = Pick<
     BulletRectsProps,
