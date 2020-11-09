@@ -2,22 +2,8 @@ import React, { useMemo } from 'react'
 import { useTransition, animated } from 'react-spring'
 // @ts-ignore
 import { useMotionConfig } from '@nivo/core'
-// @ts-ignore
-import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
 import { computeRects } from './compute'
-import {
-    BulletRectsProps,
-    // ComputedRangeDatum,
-    BulletRectComputedRect,
-    BulletRectAnimatedProps,
-} from './types'
-
-// type MouseEventWithDatum = (
-//     datum: ComputedRangeDatum,
-//     event: React.MouseEvent<SVGRectElement, MouseEvent>
-// ) => void
-
-// type EventHandlers = Record<'onMouseEnter' | 'onMouseLeave' | 'onClick', MouseEventWithDatum>
+import { BulletRectsProps, BulletRectComputedRect, BulletRectAnimatedProps } from './types'
 
 export const BulletRects = ({
     animatedProps,

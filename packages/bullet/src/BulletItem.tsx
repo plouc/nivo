@@ -1,18 +1,8 @@
 import React, { useMemo } from 'react'
 import { AnimatedValue, useSpring, animated } from 'react-spring'
 import { Axis } from '@nivo/axes'
-import {
-    // @ts-ignore
-    getColorScale,
-    // @ts-ignore
-    defaultTheme,
-    // @ts-ignore
-    extendDefaultTheme,
-    // @ts-ignore
-    useMotionConfig,
-    // @ts-ignore
-    useTheme,
-} from '@nivo/core'
+// @ts-ignore
+import { getColorScale, useMotionConfig, useTheme } from '@nivo/core'
 import { BasicTooltip, useTooltip } from '@nivo/tooltip'
 import { stackValues } from './compute'
 import { BulletMarkers } from './BulletMarkers'

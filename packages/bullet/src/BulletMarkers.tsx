@@ -2,8 +2,6 @@ import React, { useMemo } from 'react'
 import { useTransition } from 'react-spring'
 // @ts-ignore
 import { useMotionConfig } from '@nivo/core'
-// @ts-ignore
-import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
 import {
     BulletMarkersProps,
     ComputedMarkersDatum,
