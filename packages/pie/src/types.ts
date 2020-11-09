@@ -74,7 +74,7 @@ export type PieCustomLayer<RawDatum> = React.FC<PieCustomLayerProps<RawDatum>>
 
 export type PieLayer<RawDatum> = PieLayerId | PieCustomLayer<RawDatum>
 
-export type CommonPieProps<RawDatum> = Dimensions & {
+export type CommonPieProps<RawDatum> = {
     id: string | DatumIdAccessorFunction<RawDatum>
     value: string | DatumValueAccessorFunction<RawDatum>
     valueFormat?: string | ValueFormatter
@@ -130,6 +130,7 @@ export type PieHandlers<RawDatum, ElementType> = {
 }
 
 export type PieSvgProps<RawDatum> = DataProps<RawDatum> &
+    Dimensions &
     Partial<CommonPieProps<RawDatum>> &
     SvgDefsAndFill<ComputedDatum<RawDatum>> &
     PieHandlers<RawDatum, SVGPathElement> & {
@@ -137,6 +138,7 @@ export type PieSvgProps<RawDatum> = DataProps<RawDatum> &
     }
 
 export type CompletePieSvgProps<RawDatum> = DataProps<RawDatum> &
+    Dimensions &
     CommonPieProps<RawDatum> &
     SvgDefsAndFill<ComputedDatum<RawDatum>> &
     PieHandlers<RawDatum, SVGPathElement> & {
@@ -144,12 +146,14 @@ export type CompletePieSvgProps<RawDatum> = DataProps<RawDatum> &
     }
 
 export type PieCanvasProps<RawDatum> = DataProps<RawDatum> &
+    Dimensions &
     Partial<CommonPieProps<RawDatum>> &
     Pick<PieHandlers<RawDatum, HTMLCanvasElement>, 'onClick' | 'onMouseMove'> & {
         pixelRatio?: number
     }
 
 export type CompletePieCanvasProps<RawDatum> = DataProps<RawDatum> &
+    Dimensions &
     CommonPieProps<RawDatum> &
     Pick<PieHandlers<RawDatum, HTMLCanvasElement>, 'onClick' | 'onMouseMove'> & {
         pixelRatio: number
