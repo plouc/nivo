@@ -78,6 +78,7 @@ export type BulletHandlers = {
 }
 
 export type BulletSvgProps = Partial<CommonBulletProps> &
+    Dimensions &
     BulletHandlers &
     ModernMotionProps & {
         data: Datum[]

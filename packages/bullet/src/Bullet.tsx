@@ -47,7 +47,7 @@ export const Bullet = (props: BulletSvgProps) => {
         onMarkerClick,
 
         role,
-    } = { height: 0, width: 0, ...defaultProps, ...props }
+    } = { ...defaultProps, ...props }
 
     const { margin, innerWidth, innerHeight } = useDimensions(width, height, partialMargin)
 
