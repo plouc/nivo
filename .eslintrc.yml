@@ -2,8 +2,10 @@ extends:
   - react-app
   - eslint:recommended
   - plugin:@typescript-eslint/recommended
+  - plugin:prettier/recommended
   - prettier
   - prettier/@typescript-eslint
+  - prettier/react
 
 rules:
   # Leave this as a warning while we convert the codebase, then remove it
