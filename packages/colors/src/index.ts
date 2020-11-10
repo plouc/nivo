@@ -1,5 +1,5 @@
 export * from './schemes'
-export * from './ordinalColorScale'
 export * from './inheritedColor'
-export * from './props'
 export * from './motion'
+export * from './ordinalColorScale'
+export * from './props'
