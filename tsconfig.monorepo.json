@@ -6,7 +6,7 @@
 
         // Shared next because charts need them
         // { "path": "./packages/axes" },
-        // { "path": "./packages/colors" },
+        { "path": "./packages/colors" },
         // { "path": "./packages/legends" },
         // { "path": "./packages/scales" },
         // { "path": "./packages/tooltip" },
