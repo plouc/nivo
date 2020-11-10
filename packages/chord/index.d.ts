@@ -8,7 +8,7 @@
  */
 import { Component } from 'react'
 import { Box, MotionProps, Dimensions, Theme } from '@nivo/core'
-import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
+import { OrdinalColorsInstruction, InheritedColor } from '@nivo/colors'
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
@@ -62,7 +62,7 @@ declare module '@nivo/chord' {
         arcHoverOpacity?: number
         arcHoverOthersOpacity?: number
         arcBorderWidth?: number
-        arcBorderColor?: InheritedColorProp
+        arcBorderColor?: InheritedColor
         onArcMouseEnter?: ChordArcMouseHandler
         onArcMouseMove?: ChordArcMouseHandler
         onArcMouseLeave?: ChordArcMouseHandler
@@ -73,12 +73,12 @@ declare module '@nivo/chord' {
         ribbonHoverOpacity?: number
         ribbonHoverOthersOpacity?: number
         ribbonBorderWidth?: number
-        BorderColor?: InheritedColorProp
+        BorderColor?: InheritedColor
 
         enableLabel?: boolean
         labelOffset?: number
         labelRotation?: number
-        labelTextColor?: InheritedColorProp
+        labelTextColor?: InheritedColor
 
         isInteractive?: boolean
     }

@@ -17,7 +17,7 @@ import {
     AreaCurve,
     SvgDefsAndFill,
 } from '@nivo/core'
-import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
+import { OrdinalColorsInstruction, InheritedColor } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { Scale } from '@nivo/scales'
 import { AxisProps } from '@nivo/axes'
@@ -68,15 +68,15 @@ declare module '@nivo/stream' {
         fillOpacity: number
 
         borderWidth: number
-        borderColor: InheritedColorProp
+        borderColor: InheritedColor
 
         enableDots: boolean
         renderDot: StreamDotsItem
         dotPosition: 'start' | 'center' | 'end'
         dotSize: DatumToNumber | number
-        dotColor: InheritedColorProp
+        dotColor: InheritedColor
         dotBorderWidth: DatumToNumber | number
-        dotBorderColor: InheritedColorProp
+        dotBorderColor: InheritedColor
 
         isInteractive: boolean
         tooltipLabel: TooltipLabel<T>

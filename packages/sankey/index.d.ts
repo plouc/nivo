@@ -8,7 +8,7 @@
  */
 import * as React from 'react'
 import { Theme, CssMixBlendMode, Box, Dimensions, MotionProps } from '@nivo/core'
-import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
+import { OrdinalColorsInstruction, InheritedColor } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 
 declare module '@nivo/sankey' {
@@ -92,7 +92,7 @@ declare module '@nivo/sankey' {
         nodeSpacing: number
         nodeInnerPadding: number
         nodeBorderWidth: number
-        nodeBorderColor: InheritedColorProp<SankeyNodeDatum>
+        nodeBorderColor: InheritedColor<SankeyNodeDatum>
 
         linkOpacity: number
         linkHoverOpacity: number
@@ -106,7 +106,7 @@ declare module '@nivo/sankey' {
         labelPosition: 'inside' | 'outside'
         labelPadding: number
         labelOrientation: 'horizontal' | 'vertical'
-        labelTextColor: InheritedColorProp<SankeyNodeDatum>
+        labelTextColor: InheritedColor<SankeyNodeDatum>
         labelFormat: string | LabelFormatter
 
         isInteractive: boolean

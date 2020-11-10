@@ -8,7 +8,7 @@
  */
 import { Component, MouseEvent } from 'react'
 import { Dimensions, Box, Theme, MotionProps, SvgDefsAndFill, CssMixBlendMode } from '@nivo/core'
-import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
+import { OrdinalColorsInstruction, InheritedColor } from '@nivo/colors'
 
 declare module '@nivo/bump' {
     type SerieDerivedProp<Serie, T> = (serie: Serie) => T
@@ -46,19 +46,19 @@ declare module '@nivo/bump' {
 
         startLabel?: BumpLabel
         startLabelPadding?: number
-        startLabelTextColor?: InheritedColorProp
+        startLabelTextColor?: InheritedColor
         endLabel?: BumpLabel
         endLabelPadding?: number
-        endLabelTextColor?: InheritedColorProp
+        endLabelTextColor?: InheritedColor
 
         pointSize?: number
         activePointSize?: number
         inactivePointSize?: number
-        pointColor?: InheritedColorProp
+        pointColor?: InheritedColor
         pointBorderWidth?: number
         activePointBorderWidth?: number
         inactivePointBorderWidth?: number
-        pointBorderColor?: InheritedColorProp
+        pointBorderColor?: InheritedColor
 
         enableGridX?: boolean
         enableGridY?: boolean
@@ -149,17 +149,17 @@ declare module '@nivo/bump' {
         borderWidth?: number | SerieDerivedProp<AreaBumpInputSerie, number>
         activeBorderWidth?: number | SerieDerivedProp<AreaBumpInputSerie, number>
         inactiveBorderWidth?: number | SerieDerivedProp<AreaBumpInputSerie, number>
-        borderColor?: InheritedColorProp
+        borderColor?: InheritedColor
         borderOpacity?: number | SerieDerivedProp<AreaBumpInputSerie, number>
         activeBorderOpacity?: number | SerieDerivedProp<AreaBumpInputSerie, number>
         inactiveBorderOpacity?: number | SerieDerivedProp<AreaBumpInputSerie, number>
 
         startLabel?: AreaBumpLabel
         startLabelPadding?: number
-        startLabelTextColor?: InheritedColorProp
+        startLabelTextColor?: InheritedColor
         endLabel?: AreaBumpLabel
         endLabelPadding?: number
-        endLabelTextColor?: InheritedColorProp
+        endLabelTextColor?: InheritedColor
 
         enableGridX?: boolean
         axisTop?: any

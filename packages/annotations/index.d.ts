@@ -8,7 +8,6 @@
  */
 import { Component, ReactNode } from 'react'
 import { MotionProps } from '@nivo/core'
-import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
 
 declare module '@nivo/annotations' {
     export type AnnotationType = 'circle' | 'dot' | 'rect'

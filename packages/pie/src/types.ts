@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Box, Dimensions, Theme, SvgDefsAndFill } from '@nivo/core'
-import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
+import { OrdinalColorsInstruction, InheritedColor } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 
 export type DatumId = string | number
@@ -92,26 +92,26 @@ export type CommonPieProps<RawDatum> = {
     colors: OrdinalColorsInstruction<Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>>
     theme: Theme
     borderWidth: number
-    borderColor: InheritedColorProp<ComputedDatum<RawDatum>>
+    borderColor: InheritedColor<ComputedDatum<RawDatum>>
 
     // radial labels
     enableRadialLabels: boolean
     radialLabel: string | LabelAccessorFunction<RawDatum>
     radialLabelsSkipAngle: number
     radialLabelsTextXOffset: number
-    radialLabelsTextColor: InheritedColorProp<ComputedDatum<RawDatum>>
+    radialLabelsTextColor: InheritedColor<ComputedDatum<RawDatum>>
     radialLabelsLinkOffset: number
     radialLabelsLinkDiagonalLength: number
     radialLabelsLinkHorizontalLength: number
     radialLabelsLinkStrokeWidth: number
-    radialLabelsLinkColor: InheritedColorProp<ComputedDatum<RawDatum>>
+    radialLabelsLinkColor: InheritedColor<ComputedDatum<RawDatum>>
 
     // slices labels
     enableSliceLabels: boolean
     sliceLabel: string | LabelAccessorFunction<RawDatum>
     sliceLabelsRadiusOffset: number
     sliceLabelsSkipAngle: number
-    sliceLabelsTextColor: InheritedColorProp<ComputedDatum<RawDatum>>
+    sliceLabelsTextColor: InheritedColor<ComputedDatum<RawDatum>>
 
     // interactivity
     isInteractive: boolean

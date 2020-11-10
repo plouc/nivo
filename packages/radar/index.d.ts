@@ -8,7 +8,7 @@
  */
 import { Component } from 'react'
 import { Box, MotionProps, Dimensions, Theme, CssMixBlendMode } from '@nivo/core'
-import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
+import { OrdinalColorsInstruction, InheritedColor } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 
 declare module '@nivo/radar' {
@@ -19,9 +19,9 @@ declare module '@nivo/radar' {
     }
     export type DotSymbolProps = {
         size: number
-        color: InheritedColorProp
+        color: InheritedColor
         borderWidth: number
-        borderColor: InheritedColorProp
+        borderColor: InheritedColor
     }
 
     type IndexByCustomFunction<D = any> = (datum: D) => string | number
@@ -41,7 +41,7 @@ declare module '@nivo/radar' {
         curve?: string
 
         borderWidth?: number
-        borderColor?: InheritedColorProp
+        borderColor?: InheritedColor
 
         gridLevels?: number
         gridShape?: 'circular' | 'linear'
@@ -51,9 +51,9 @@ declare module '@nivo/radar' {
         enableDots?: boolean
         dotSymbol?: CustomDotSymbol
         dotSize?: number
-        dotColor?: InheritedColorProp
+        dotColor?: InheritedColor
         dotBorderWidth?: number
-        dotBorderColor?: InheritedColorProp
+        dotBorderColor?: InheritedColor
         enableDotLabel?: boolean
         dotLabel?: string | CustomDotLabel
         dotLabelFormat?: string | CustomFormatter
