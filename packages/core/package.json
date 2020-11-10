@@ -20,12 +20,12 @@
     "dist/"
   ],
   "dependencies": {
-    "d3-color": "^1.2.3",
+    "d3-color": "^2.0.0",
     "d3-format": "^1.4.4",
     "d3-hierarchy": "^1.1.8",
     "d3-interpolate": "^2.0.1",
     "d3-scale": "^3.0.0",
-    "d3-scale-chromatic": "^1.3.3",
+    "d3-scale-chromatic": "^2.0.0",
     "d3-shape": "^1.3.5",
     "d3-time-format": "^2.1.3",
     "lodash": "^4.17.11",
