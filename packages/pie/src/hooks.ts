@@ -25,11 +25,10 @@ import {
     absoluteAngleDegrees,
 } from '@nivo/core'
 import {
-    // @ts-ignore
-    getOrdinalColorScale,
+    OrdinalColorScaleConfig,
+    useOrdinalColorScale,
+    InheritedColorConfig,
     useInheritedColor,
-    OrdinalColorsInstruction,
-    InheritedColor,
 } from '@nivo/colors'
 import { defaultProps } from './props'
 import {
@@ -56,7 +55,9 @@ export const useNormalizedData = <RawDatum extends MayHaveLabel>({
     id = defaultProps.id,
     value = defaultProps.value,
     valueFormat,
-    colors = defaultProps.colors as OrdinalColorsInstruction,
+    colors = defaultProps.colors as OrdinalColorScaleConfig<
+        Omit<ComputedDatum<RawDatum>, 'arc' | 'color' | 'fill'>
+    >,
 }: Pick<CompletePieSvgProps<RawDatum>, 'id' | 'value' | 'valueFormat' | 'colors'> & {
     data: RawDatum[]
 }): Omit<ComputedDatum<RawDatum>, 'arc' | 'fill'>[] => {
@@ -67,7 +68,10 @@ export const useNormalizedData = <RawDatum extends MayHaveLabel>({
     )
     const formatValue = useValueFormatter(valueFormat as any)
 
-    const getColor = useMemo(() => getOrdinalColorScale(colors, 'id'), [colors])
+    const getColor = useOrdinalColorScale<Omit<ComputedDatum<RawDatum>, 'arc' | 'color' | 'fill'>>(
+        colors,
+        'id'
+    )
 
     return useMemo(
         () =>
@@ -320,7 +324,7 @@ export const usePieSliceLabels = <RawDatum>({
     innerRadius: number
     radiusOffset: number
     label: string | LabelAccessorFunction<RawDatum>
-    textColor: InheritedColor<ComputedDatum<RawDatum>>
+    textColor: InheritedColorConfig<ComputedDatum<RawDatum>>
 }): SliceLabelData<RawDatum>[] => {
     const theme = useTheme()
     const getTextColor = useInheritedColor<ComputedDatum<RawDatum>>(textColor, theme)
@@ -364,13 +368,13 @@ export const usePieRadialLabels = <RawDatum>({
     dataWithArc: ComputedDatum<RawDatum>[]
     label: string | LabelAccessorFunction<RawDatum>
     textXOffset: number
-    textColor: InheritedColor<ComputedDatum<RawDatum>>
+    textColor: InheritedColorConfig<ComputedDatum<RawDatum>>
     radius: number
     skipAngle: number
     linkOffset: number
     linkDiagonalLength: number
     linkHorizontalLength: number
-    linkColor: InheritedColor<ComputedDatum<RawDatum>>
+    linkColor: InheritedColorConfig<ComputedDatum<RawDatum>>
 }): RadialLabelData<RawDatum>[] => {
     const getLabel = useMemo(() => getLabelGenerator(label), [label])
 

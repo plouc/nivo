@@ -1,7 +1,7 @@
 import React, { ReactNode, Fragment, createElement } from 'react'
 // @ts-ignore
 import { withContainer, SvgWrapper, bindDefs, useTheme, useDimensions } from '@nivo/core'
-import { useInheritedColor, InheritedColor } from '@nivo/colors'
+import { useInheritedColor, InheritedColorConfig } from '@nivo/colors'
 import { PieSlice } from './PieSlice'
 import { RadialLabels } from './RadialLabels'
 import { SliceLabels } from './SliceLabels'
@@ -35,7 +35,7 @@ const Pie = <RawDatum, >({
 
     // border
     borderWidth = defaultProps.borderWidth,
-    borderColor: _borderColor = defaultProps.borderColor as InheritedColor<ComputedDatum<RawDatum>>,
+    borderColor: _borderColor = defaultProps.borderColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
 
     // radial labels
     radialLabel = defaultProps.radialLabel,

@@ -45,7 +45,7 @@ export interface OrdinalColorScaleConfigDatumProperty {
     datum: string
 }
 
-export type OrdinalColorScaleConfig<Datum> =
+export type OrdinalColorScaleConfig<Datum = any> =
     | OrdinalColorScaleConfigStaticColor
     | OrdinalColorScaleConfigCustomFunction<Datum>
     | OrdinalColorScaleConfigScheme

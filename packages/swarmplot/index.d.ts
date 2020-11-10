@@ -9,7 +9,7 @@
 import { Component } from 'react'
 import { AxisProps, GridValues } from '@nivo/axes'
 import { Box, MotionProps, Dimensions, Theme } from '@nivo/core'
-import { OrdinalColorsInstruction, InheritedColor } from '@nivo/colors'
+import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 
 declare module '@nivo/swarmplot' {
     export interface ComputedNode<Datum> {
@@ -91,11 +91,11 @@ declare module '@nivo/swarmplot' {
 
         layers?: Layers<Datum>[]
 
-        colors?: OrdinalColorsInstruction
+        colors?: OrdinalColorScaleConfig
         colorBy?: string | ComputedNodeAccessor<Datum, string | number>
         theme?: Theme
         borderWidth?: number | ComputedNodeAccessor<Datum, number>
-        borderColor?: InheritedColor<ComputedNode<Datum>>
+        borderColor?: InheritedColorConfig<ComputedNode<Datum>>
 
         enableGridX?: boolean
         gridXValues?: GridValues<number>

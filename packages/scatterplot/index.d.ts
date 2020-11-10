@@ -15,7 +15,7 @@ import {
     CartesianMarkerProps,
     CssMixBlendMode,
 } from '@nivo/core'
-import { OrdinalColorsInstruction } from '@nivo/colors'
+import { OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { AxisProps, GridValues } from '@nivo/axes'
 import { Scale } from '@nivo/scales'
@@ -126,7 +126,7 @@ declare module '@nivo/scatterplot' {
         margin?: Box
 
         theme?: Theme
-        colors?: OrdinalColorsInstruction
+        colors?: OrdinalColorScaleConfig
         blendMode?: CssMixBlendMode
 
         enableGridX?: boolean

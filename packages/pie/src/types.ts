@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Box, Dimensions, Theme, SvgDefsAndFill } from '@nivo/core'
-import { OrdinalColorsInstruction, InheritedColor } from '@nivo/colors'
+import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 
 export type DatumId = string | number
@@ -89,29 +89,29 @@ export type CommonPieProps<RawDatum> = {
     fit: boolean
 
     // colors, theme and border
-    colors: OrdinalColorsInstruction<Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>>
+    colors: OrdinalColorScaleConfig<Omit<ComputedDatum<RawDatum>, 'color' | 'fill' | 'arc'>>
     theme: Theme
     borderWidth: number
-    borderColor: InheritedColor<ComputedDatum<RawDatum>>
+    borderColor: InheritedColorConfig<ComputedDatum<RawDatum>>
 
     // radial labels
     enableRadialLabels: boolean
     radialLabel: string | LabelAccessorFunction<RawDatum>
     radialLabelsSkipAngle: number
     radialLabelsTextXOffset: number
-    radialLabelsTextColor: InheritedColor<ComputedDatum<RawDatum>>
+    radialLabelsTextColor: InheritedColorConfig<ComputedDatum<RawDatum>>
     radialLabelsLinkOffset: number
     radialLabelsLinkDiagonalLength: number
     radialLabelsLinkHorizontalLength: number
     radialLabelsLinkStrokeWidth: number
-    radialLabelsLinkColor: InheritedColor<ComputedDatum<RawDatum>>
+    radialLabelsLinkColor: InheritedColorConfig<ComputedDatum<RawDatum>>
 
     // slices labels
     enableSliceLabels: boolean
     sliceLabel: string | LabelAccessorFunction<RawDatum>
     sliceLabelsRadiusOffset: number
     sliceLabelsSkipAngle: number
-    sliceLabelsTextColor: InheritedColor<ComputedDatum<RawDatum>>
+    sliceLabelsTextColor: InheritedColorConfig<ComputedDatum<RawDatum>>
 
     // interactivity
     isInteractive: boolean

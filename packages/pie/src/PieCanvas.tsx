@@ -16,7 +16,7 @@ import {
 } from '@nivo/core'
 // @ts-ignore
 import { renderLegendToCanvas } from '@nivo/legends'
-import { useInheritedColor, InheritedColor } from '@nivo/colors'
+import { useInheritedColor, InheritedColorConfig } from '@nivo/colors'
 // @ts-ignore
 import { useTooltip } from '@nivo/tooltip'
 import { useNormalizedData, usePieFromBox, usePieRadialLabels, usePieSliceLabels } from './hooks'
@@ -95,7 +95,7 @@ const PieCanvas = <RawDatum, >({
 
     // border
     borderWidth = defaultProps.borderWidth,
-    borderColor = defaultProps.borderColor as InheritedColor<ComputedDatum<RawDatum>>,
+    borderColor = defaultProps.borderColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
 
     // radial labels
     radialLabel = defaultProps.radialLabel,

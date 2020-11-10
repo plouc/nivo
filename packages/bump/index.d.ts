@@ -8,7 +8,7 @@
  */
 import { Component, MouseEvent } from 'react'
 import { Dimensions, Box, Theme, MotionProps, SvgDefsAndFill, CssMixBlendMode } from '@nivo/core'
-import { OrdinalColorsInstruction, InheritedColor } from '@nivo/colors'
+import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 
 declare module '@nivo/bump' {
     type SerieDerivedProp<Serie, T> = (serie: Serie) => T
@@ -42,23 +42,23 @@ declare module '@nivo/bump' {
         xPadding?: number
 
         theme?: Theme
-        colors?: OrdinalColorsInstruction
+        colors?: OrdinalColorScaleConfig
 
         startLabel?: BumpLabel
         startLabelPadding?: number
-        startLabelTextColor?: InheritedColor
+        startLabelTextColor?: InheritedColorConfig
         endLabel?: BumpLabel
         endLabelPadding?: number
-        endLabelTextColor?: InheritedColor
+        endLabelTextColor?: InheritedColorConfig
 
         pointSize?: number
         activePointSize?: number
         inactivePointSize?: number
-        pointColor?: InheritedColor
+        pointColor?: InheritedColorConfig
         pointBorderWidth?: number
         activePointBorderWidth?: number
         inactivePointBorderWidth?: number
-        pointBorderColor?: InheritedColor
+        pointBorderColor?: InheritedColorConfig
 
         enableGridX?: boolean
         enableGridY?: boolean
@@ -141,7 +141,7 @@ declare module '@nivo/bump' {
         xPadding?: number
 
         theme?: Theme
-        colors?: OrdinalColorsInstruction
+        colors?: OrdinalColorScaleConfig
         blendMode?: CssMixBlendMode
         fillOpacity?: number | SerieDerivedProp<AreaBumpInputSerie, number>
         activeFillOpacity?: number | SerieDerivedProp<AreaBumpInputSerie, number>
@@ -149,17 +149,17 @@ declare module '@nivo/bump' {
         borderWidth?: number | SerieDerivedProp<AreaBumpInputSerie, number>
         activeBorderWidth?: number | SerieDerivedProp<AreaBumpInputSerie, number>
         inactiveBorderWidth?: number | SerieDerivedProp<AreaBumpInputSerie, number>
-        borderColor?: InheritedColor
+        borderColor?: InheritedColorConfig
         borderOpacity?: number | SerieDerivedProp<AreaBumpInputSerie, number>
         activeBorderOpacity?: number | SerieDerivedProp<AreaBumpInputSerie, number>
         inactiveBorderOpacity?: number | SerieDerivedProp<AreaBumpInputSerie, number>
 
         startLabel?: AreaBumpLabel
         startLabelPadding?: number
-        startLabelTextColor?: InheritedColor
+        startLabelTextColor?: InheritedColorConfig
         endLabel?: AreaBumpLabel
         endLabelPadding?: number
-        endLabelTextColor?: InheritedColor
+        endLabelTextColor?: InheritedColorConfig
 
         enableGridX?: boolean
         axisTop?: any
