@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { SunburstDefaultProps as defaults } from '@nivo/sunburst'
+import { defaultProps } from '@nivo/sunburst'
 import { groupProperties } from '../../../lib/componentProperties'
 
 const props = [
@@ -70,7 +70,7 @@ const props = [
         `,
         type: 'string | Function',
         required: false,
-        defaultValue: defaults.identity,
+        defaultValue: defaultProps.identity,
     },
     {
         key: 'value',
@@ -86,13 +86,13 @@ const props = [
         `,
         type: 'string | Function',
         required: false,
-        defaultValue: defaults.value,
+        defaultValue: defaultProps.value,
     },
     {
         key: 'colors',
         help: 'Defines how to compute node color.',
         required: false,
-        defaultValue: defaults.colors,
+        defaultValue: defaultProps.colors,
         controlType: 'ordinalColors',
         type: 'string | Function | string[]',
         group: 'Base',
@@ -102,7 +102,7 @@ const props = [
         help: 'Defines how to compute child nodes color.',
         type: 'string | object | Function',
         required: false,
-        defaultValue: defaults.childColor,
+        defaultValue: defaultProps.childColor,
         controlType: 'inheritedColor',
         group: 'Base',
     },
@@ -111,7 +111,7 @@ const props = [
         help: 'Node border width.',
         type: 'number',
         required: false,
-        defaultValue: defaults.borderWidth,
+        defaultValue: defaultProps.borderWidth,
         controlType: 'lineWidth',
         group: 'Base',
     },
@@ -120,7 +120,7 @@ const props = [
         help: 'Round node shape.',
         type: 'number',
         required: false,
-        defaultValue: defaults.cornerRadius,
+        defaultValue: defaultProps.cornerRadius,
         controlType: 'range',
         group: 'Base',
         controlOptions: {
@@ -136,7 +136,7 @@ const props = [
         help: 'Enable/disable interactivity.',
         type: '{boolean}',
         required: false,
-        defaultValue: defaults.isInteractive,
+        defaultValue: defaultProps.isInteractive,
         controlType: 'switch',
         group: 'Interactivity',
     },

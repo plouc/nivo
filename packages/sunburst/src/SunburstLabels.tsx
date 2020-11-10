@@ -1,41 +1,20 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import React, { Component, Fragment } from 'react'
-import PropTypes from 'prop-types'
-import { midAngle, positionFromAngle, radiansToDegrees, labelsThemePropType } from '@nivo/core'
+import React, { Component } from 'react'
+// @ts-ignore
+import { midAngle, positionFromAngle, radiansToDegrees } from '@nivo/core'
+import { SunburstLabelProps } from './types'
 
 const sliceStyle = {
     pointerEvents: 'none',
-}
+} as const
 
-export default class SunburstLabels extends Component {
-    static propTypes = {
-        nodes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-        label: PropTypes.func.isRequired,
-        skipAngle: PropTypes.number.isRequired,
-        textColor: PropTypes.func.isRequired,
-        theme: PropTypes.shape({
-            labels: labelsThemePropType.isRequired,
-        }).isRequired,
-    }
-
-    static defaultProps = {
-        skipAngle: 0,
-    }
-
+export default class SunburstLabels extends Component<SunburstLabelProps> {
     render() {
-        const { nodes, label, skipAngle, textColor, theme } = this.props
+        const { nodes, label, skipAngle = 0, textColor, theme } = this.props
 
-        let centerRadius = false
+        let centerRadius: number
 
         return (
-            <Fragment>
+            <>
                 {nodes
                     .filter(node => node.depth === 1)
                     .map(node => {
@@ -64,7 +43,7 @@ export default class SunburstLabels extends Component {
                                 <text
                                     textAnchor="middle"
                                     style={{
-                                        ...theme.labels.text,
+                                        ...theme?.labels?.text,
                                         fill: textColor(node.data, theme),
                                     }}
                                 >
@@ -73,7 +52,7 @@ export default class SunburstLabels extends Component {
                             </g>
                         )
                     })}
-            </Fragment>
+            </>
         )
     }
 }
