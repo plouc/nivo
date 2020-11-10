@@ -29,7 +29,8 @@
   },
   "devDependencies": {
     "@types/d3-color": "^2.0.0",
-    "@types/d3-scale-chromatic": "^2.0.0"
+    "@types/d3-scale-chromatic": "^2.0.0",
+    "@types/react-motion": "^0.0.29"
   },
   "peerDependencies": {
     "prop-types": ">= 15.5.10 < 16.0.0",
