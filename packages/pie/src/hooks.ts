@@ -27,10 +27,9 @@ import {
 import {
     // @ts-ignore
     getOrdinalColorScale,
-    // @ts-ignore
     useInheritedColor,
     OrdinalColorsInstruction,
-    InheritedColorProp,
+    InheritedColor,
 } from '@nivo/colors'
 import { defaultProps } from './props'
 import {
@@ -321,10 +320,10 @@ export const usePieSliceLabels = <RawDatum>({
     innerRadius: number
     radiusOffset: number
     label: string | LabelAccessorFunction<RawDatum>
-    textColor: InheritedColorProp<ComputedDatum<RawDatum>>
+    textColor: InheritedColor<ComputedDatum<RawDatum>>
 }): SliceLabelData<RawDatum>[] => {
     const theme = useTheme()
-    const getTextColor = useInheritedColor(textColor, theme)
+    const getTextColor = useInheritedColor<ComputedDatum<RawDatum>>(textColor, theme)
     const getLabel = useMemo(() => getLabelGenerator(label), [label])
 
     return useMemo(() => {
@@ -365,19 +364,19 @@ export const usePieRadialLabels = <RawDatum>({
     dataWithArc: ComputedDatum<RawDatum>[]
     label: string | LabelAccessorFunction<RawDatum>
     textXOffset: number
-    textColor: InheritedColorProp<ComputedDatum<RawDatum>>
+    textColor: InheritedColor<ComputedDatum<RawDatum>>
     radius: number
     skipAngle: number
     linkOffset: number
     linkDiagonalLength: number
     linkHorizontalLength: number
-    linkColor: InheritedColorProp<ComputedDatum<RawDatum>>
+    linkColor: InheritedColor<ComputedDatum<RawDatum>>
 }): RadialLabelData<RawDatum>[] => {
     const getLabel = useMemo(() => getLabelGenerator(label), [label])
 
     const theme = useTheme()
-    const getTextColor = useInheritedColor(textColor, theme)
-    const getLinkColor = useInheritedColor(linkColor, theme)
+    const getTextColor = useInheritedColor<ComputedDatum<RawDatum>>(textColor, theme)
+    const getLinkColor = useInheritedColor<ComputedDatum<RawDatum>>(linkColor, theme)
 
     return useMemo(() => {
         if (!enable) return []

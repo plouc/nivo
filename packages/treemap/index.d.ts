@@ -8,7 +8,7 @@
  */
 import * as React from 'react'
 import { Dimensions, Box, Theme } from '@nivo/core'
-import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
+import { OrdinalColorsInstruction, InheritedColor } from '@nivo/colors'
 
 declare module '@nivo/treemap' {
     export type TreeMapTile = 'binary' | 'squarify' | 'slice' | 'dice' | 'sliceDice' | 'resquarify'
@@ -61,14 +61,14 @@ declare module '@nivo/treemap' {
         colorBy?: string
         nodeOpacity?: number
         borderWidth?: number
-        borderColor?: InheritedColorProp<
+        borderColor?: InheritedColor<
             Omit<TreeMapNodeDatum, 'borderColor' | 'labelTextColor' | 'parentLabelTextColor'>
         >
         enableLabel?: boolean
         label?: string
         labelSkipSize?: number
         orientLabel?: boolean
-        labelTextColor?: InheritedColorProp<
+        labelTextColor?: InheritedColor<
             Omit<TreeMapNodeDatum, 'labelTextColor' | 'parentLabelTextColor'>
         >
         enableParentLabel?: boolean
@@ -76,7 +76,7 @@ declare module '@nivo/treemap' {
         parentLabelSize?: number
         parentLabelPosition?: 'top' | 'right' | 'bottom' | 'left'
         parentLabelPadding?: number
-        parentLabelTextColor?: InheritedColorProp<Omit<TreeMapNodeDatum, 'parentLabelTextColor'>>
+        parentLabelTextColor?: InheritedColor<Omit<TreeMapNodeDatum, 'parentLabelTextColor'>>
         isInteractive?: boolean
         animate?: boolean
     }
