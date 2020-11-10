@@ -68,7 +68,7 @@ export const PieSlice = <RawDatum,>({
 
     return (
         <path
-            d={path}
+            d={path ?? undefined}
             fill={datum.fill || datum.color}
             strokeWidth={borderWidth}
             stroke={borderColor}
