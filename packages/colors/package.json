@@ -8,10 +8,10 @@
   },
   "main": "./dist/nivo-colors.cjs.js",
   "module": "./dist/nivo-colors.es.js",
+  "typings": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
-    "index.d.ts",
     "dist/"
   ],
   "dependencies": {
