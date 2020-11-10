@@ -1,4 +1,4 @@
-import { OrdinalColorsInstruction } from '@nivo/colors'
+import { OrdinalColorScaleConfig } from '@nivo/colors'
 import { PieTooltip } from './PieTooltip'
 
 export const defaultProps = {
@@ -43,7 +43,7 @@ export const defaultProps = {
     sliceLabelsTextColor: { theme: 'labels.text.fill' },
 
     // styling
-    colors: ({ scheme: 'nivo' } as unknown) as OrdinalColorsInstruction,
+    colors: ({ scheme: 'nivo' } as unknown) as OrdinalColorScaleConfig,
     defs: [],
     fill: [],
 

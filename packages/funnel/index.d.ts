@@ -8,7 +8,7 @@
  */
 import * as React from 'react'
 import { Dimensions, Box, Theme, MotionProps } from '@nivo/core'
-import { OrdinalColorsInstruction, InheritedColor } from '@nivo/colors'
+import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 
 declare module '@nivo/funnel' {
     export interface Position {
@@ -89,14 +89,14 @@ declare module '@nivo/funnel' {
         shapeBlending?: number
 
         theme?: Theme
-        colors?: OrdinalColorsInstruction
+        colors?: OrdinalColorScaleConfig
 
         borderWidth?: number
-        borderColor?: InheritedColor<Omit<Part, 'borderColor' | 'labelColor'>>
+        borderColor?: InheritedColorConfig<Omit<Part, 'borderColor' | 'labelColor'>>
         borderOpacity?: number
 
         enableLabel?: boolean
-        labelColor?: InheritedColor<Omit<Part, 'labelColor'>>
+        labelColor?: InheritedColorConfig<Omit<Part, 'labelColor'>>
 
         enableBeforeSeparators?: boolean
         beforeSeparatorLength?: number

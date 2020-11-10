@@ -17,7 +17,7 @@ import {
     DataFormatter,
     DatumValue as CoreDatumValue,
 } from '@nivo/core'
-import { OrdinalColorsInstruction } from '@nivo/colors'
+import { OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { Scale, ScaleFunc } from '@nivo/scales'
 import { AxisProps, GridValues } from '@nivo/axes'
@@ -154,7 +154,7 @@ declare module '@nivo/line' {
 
         lineWidth?: number
 
-        colors?: OrdinalColorsInstruction
+        colors?: OrdinalColorScaleConfig
         theme?: Theme
 
         axisTop?: AxisProps | null

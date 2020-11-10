@@ -16,7 +16,7 @@ import {
     CartesianMarkerProps,
 } from '@nivo/core'
 import { AxisProps, GridValues } from '@nivo/axes'
-import { OrdinalColorsInstruction, InheritedColor } from '@nivo/colors'
+import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { Scale } from '@nivo/scales'
 
@@ -115,13 +115,13 @@ declare module '@nivo/bar' {
         enableLabel: boolean
         label: string | AccessorFunc
         labelFormat: string | LabelFormatter
-        labelLinkColor: InheritedColor<BarDatumWithColor>
+        labelLinkColor: InheritedColorConfig<BarDatumWithColor>
         labelSkipWidth: number
         labelSkipHeight: number
-        labelTextColor: InheritedColor<BarDatumWithColor>
+        labelTextColor: InheritedColorConfig<BarDatumWithColor>
 
-        colors: OrdinalColorsInstruction
-        borderColor: InheritedColor<BarDatumWithColor>
+        colors: OrdinalColorScaleConfig
+        borderColor: InheritedColorConfig<BarDatumWithColor>
         borderRadius: number
         borderWidth: number
         theme: Theme
