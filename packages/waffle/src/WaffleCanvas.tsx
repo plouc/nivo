@@ -16,7 +16,7 @@ import { useTooltip } from '@nivo/tooltip'
 import { Datum, DefaultRawDatum, CanvasProps, Cell, isDataCell } from './types'
 import { defaultProps } from './props'
 import { useWaffle, useMergeCellsData } from './hooks'
-import { CellTooltip } from './CellTooltip'
+import { CellTooltip, TooltipProps } from './CellTooltip'
 
 const findCellUnderCursor = <RawDatum extends Datum>(
     cells: Cell<RawDatum>[],
@@ -172,12 +172,14 @@ const WaffleCanvas = <RawDatum extends Datum = DefaultRawDatum>({
 
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
+    const TooltipComponent = tooltip as (props: TooltipProps<RawDatum>) => JSX.Element
+
     const handleMouseHover = useCallback(
         (event: React.MouseEvent<HTMLCanvasElement>) => {
             const [x, y] = getRelativeCursor(canvasEl.current!, event)
             const cell = findCellUnderCursor(mergedCells, grid.cellSize, grid.origin, margin, x, y)
             if (cell && isDataCell(cell)) {
-                showTooltipFromEvent(createElement(tooltip, { cell }), event)
+                showTooltipFromEvent(createElement(TooltipComponent, { cell }), event)
             } else {
                 hideTooltip()
             }
@@ -190,7 +192,7 @@ const WaffleCanvas = <RawDatum extends Datum = DefaultRawDatum>({
             margin,
             showTooltipFromEvent,
             hideTooltip,
-            tooltip,
+            TooltipComponent,
         ]
     )
 
