@@ -21,6 +21,7 @@ import { CellTooltip, TooltipProps } from './CellTooltip'
 const findCellUnderCursor = <RawDatum extends Datum>(
     cells: Cell<RawDatum>[],
     cellSize: number,
+    padding: number,
     origin: {
         x: number
         y: number
@@ -38,8 +39,8 @@ const findCellUnderCursor = <RawDatum extends Datum>(
         isCursorInRect(
             cell.x + origin.x + margin.left,
             cell.y + origin.y + margin.top,
-            cellSize,
-            cellSize,
+            cellSize + padding,
+            cellSize + padding,
             x,
             y
         )
@@ -165,12 +166,20 @@ const WaffleCanvas = <RawDatum extends Datum = DefaultRawDatum>({
             if (!onClick) return
 
             const [x, y] = getRelativeCursor(canvasEl.current!, event)
-            const cell = findCellUnderCursor(mergedCells, grid.cellSize, grid.origin, margin, x, y)
+            const cell = findCellUnderCursor(
+                mergedCells,
+                grid.cellSize,
+                padding,
+                grid.origin,
+                margin,
+                x,
+                y
+            )
             if (cell) {
                 onClick(cell, event)
             }
         },
-        [canvasEl, mergedCells, grid.origin, grid.cellSize, margin]
+        [canvasEl, mergedCells, grid.origin, grid.cellSize, padding, margin]
     )
 
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
@@ -180,7 +189,15 @@ const WaffleCanvas = <RawDatum extends Datum = DefaultRawDatum>({
     const handleMouseHover = useCallback(
         (event: React.MouseEvent<HTMLCanvasElement>) => {
             const [x, y] = getRelativeCursor(canvasEl.current!, event)
-            const cell = findCellUnderCursor(mergedCells, grid.cellSize, grid.origin, margin, x, y)
+            const cell = findCellUnderCursor(
+                mergedCells,
+                grid.cellSize,
+                padding,
+                grid.origin,
+                margin,
+                x,
+                y
+            )
 
             if (cell && isDataCell(cell)) {
                 showTooltipFromEvent(createElement(TooltipComponent, { cell }), event)
@@ -197,6 +214,7 @@ const WaffleCanvas = <RawDatum extends Datum = DefaultRawDatum>({
             mergedCells,
             grid.origin,
             grid.cellSize,
+            padding,
             margin,
             showTooltipFromEvent,
             hideTooltip,
