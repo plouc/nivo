@@ -1,13 +1,5 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
-import { settingsMapper } from '../../../lib/settings'
+import { mapFormat, settingsMapper } from '../../../lib/settings'
 import CustomTooltip from './CustomTooltip'
 
 const CustomSvgCell = ({
@@ -82,6 +74,7 @@ const CustomHtmlCell = ({
 
 export default settingsMapper(
     {
+        valueFormat: mapFormat,
         cellComponent: (value, values, options) => {
             if (value === `Custom(props) => (…)`) {
                 if (options.component === 'Waffle') return CustomSvgCell

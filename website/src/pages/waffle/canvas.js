@@ -53,6 +53,8 @@ const generateData = () => [
 const initialProperties = {
     pixelRatio: defaultProps.pixelRatio,
 
+    valueFormat: { format: ' >-,.3f', enabled: true },
+
     total: 140,
 
     rows: 40,

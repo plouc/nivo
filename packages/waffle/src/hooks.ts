@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { range } from 'lodash'
 // @ts-ignore
-import { useTheme } from '@nivo/core'
+import { useTheme, useValueFormatter } from '@nivo/core'
 import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
 import {
     CommonProps,
@@ -125,6 +125,7 @@ export const useWaffle = <RawDatum extends Datum = DefaultRawDatum>({
     width,
     height,
     data,
+    valueFormat,
     total,
     rows,
     columns,
@@ -135,12 +136,14 @@ export const useWaffle = <RawDatum extends Datum = DefaultRawDatum>({
     borderColor = defaultProps.borderColor,
 }: Pick<
     CommonProps<RawDatum>,
-    'fillDirection' | 'padding' | 'colors' | 'emptyColor' | 'borderColor'
+    'valueFormat' | 'fillDirection' | 'padding' | 'colors' | 'emptyColor' | 'borderColor'
 > &
     DataProps<RawDatum> & {
         width: number
         height: number
     }) => {
+    const formatValue = useValueFormatter(valueFormat as any)
+
     const getColor = useOrdinalColorScale<RawDatum>(colors, 'id')
     const theme = useTheme()
     const getBorderColor = useInheritedColor<Cell<RawDatum>>(borderColor, theme)
@@ -160,7 +163,7 @@ export const useWaffle = <RawDatum extends Datum = DefaultRawDatum>({
                 id: datum.id,
                 label: datum.label,
                 value: datum.value,
-                formattedValue: datum.value,
+                formattedValue: formatValue(datum.value),
                 groupIndex,
                 startAt: currentPosition,
                 endAt: currentPosition + Math.round(datum.value / unit),
@@ -196,7 +199,7 @@ export const useWaffle = <RawDatum extends Datum = DefaultRawDatum>({
             }
              */
         })
-    }, [data, getColor, unit])
+    }, [data, formatValue, getColor, unit])
 
     const legendData = useMemo(
         () =>

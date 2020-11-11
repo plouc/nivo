@@ -72,7 +72,7 @@ export interface DataProps<RawDatum extends Datum> {
 // but required internally, using defaults.
 export interface CommonProps<RawDatum extends Datum> {
     margin: Box
-    valueFormat: string | ValueFormatter
+    valueFormat?: string | ValueFormatter
     fillDirection: FillDirection
     padding: number
     theme: Theme

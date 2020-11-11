@@ -27,6 +27,8 @@ const generateData = () => [
 ]
 
 const initialProperties = {
+    valueFormat: { format: '', enabled: false },
+
     total: 100,
 
     rows: 18,

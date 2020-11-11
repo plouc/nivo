@@ -9,7 +9,7 @@ export interface TooltipProps<RawDatum extends Datum> {
 export const CellTooltip = <RawDatum extends Datum>({ cell }: TooltipProps<RawDatum>) => (
     <BasicTooltip
         id={cell.data.label}
-        value={cell.data.value}
+        value={cell.data.formattedValue}
         enableChip={true}
         color={cell.data.color}
     />
