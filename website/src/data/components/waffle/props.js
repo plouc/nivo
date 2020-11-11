@@ -240,29 +240,41 @@ const props = [
     {
         key: 'tooltip',
         group: 'Interactivity',
-        type: 'Function',
+        type: '({ cell: DataCell }) => JSX.Element',
         required: false,
-        help: 'Custom tooltip component',
+        help: 'Overrides default tooltip component.',
         description: `
             A function allowing complete tooltip customisation,
             it must return a valid HTML element and will
-            receive the following data:
+            receive the following properties:
             \`\`\`
             {
-                id:         {string|number},
-                value:      number,
-                label:      {string|number},
-                color:      string,
-                position:   number,
-                row:        number,
-                column:     number,
-                groupIndex: number,
-                startAt:    number,
-                endAt:      number,
+                // cell with data, only cell having data
+                // trigger the tooltip
+                cell: {
+                    position: number
+                    column:   number
+                    row:      number
+                    x:        number
+                    y:        number
+                    color:    string
+                    // normalized data
+                    data: {
+                        id:             string | number
+                        label:          string | number
+                        value:          number
+                        formattedValue: string | number
+                        groupIndex:     number
+                        startAt:        number
+                        endAt:          number
+                        // raw data as passed to the chart
+                        data: { /* ... */ }
+                    }
+                }
             }
             \`\`\`
-            You can customize the tooltip style
-            using the \`theme.tooltip\` object.
+            Please note that you can also customize the default
+            tooltip style using the \`theme.tooltip\` object.
         `,
     },
     {

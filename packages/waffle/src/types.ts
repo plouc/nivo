@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Box, Dimensions, Theme, SvgDefsAndFill } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
+import { TooltipProps } from './CellTooltip'
 
 export type DatumId = string | number
 export type DatumLabel = string | number
@@ -51,11 +52,13 @@ export interface DataCell<RawDatum extends Datum> extends EmptyCell {
 
 export type Cell<RawDatum extends Datum> = EmptyCell | DataCell<RawDatum>
 
-export type FillDirection = 'top' | 'right' | 'bottom' | 'left'
-
-export interface TooltipProps<RawDatum> {
-    datum: ComputedDatum<RawDatum>
+export const isDataCell = <RawDatum extends Datum>(
+    cell: Cell<RawDatum>
+): cell is DataCell<RawDatum> => {
+    return (cell as DataCell<RawDatum>).data !== undefined
 }
+
+export type FillDirection = 'top' | 'right' | 'bottom' | 'left'
 
 // all those props are required
 export interface DataProps<RawDatum extends Datum> {
@@ -97,7 +100,9 @@ interface MouseHandlers<RawDatum extends Datum, ElementType = HTMLCanvasElement>
 
 export type LayerId = 'cells' | 'legends'
 
-export interface CustomLayerProps<RawDatum extends Datum> {}
+export interface CustomLayerProps<RawDatum extends Datum> {
+    yay?: RawDatum
+}
 
 export type SvgLayer<RawDatum extends Datum> = LayerId | React.FC<CustomLayerProps<RawDatum>>
 

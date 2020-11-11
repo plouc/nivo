@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from 'react'
+import React, { useEffect, useRef, useCallback, createElement } from 'react'
 import {
     // @ts-ignore
     withContainer,
@@ -12,9 +12,11 @@ import {
 } from '@nivo/core'
 // @ts-ignore
 import { renderLegendToCanvas } from '@nivo/legends'
-import { Datum, DefaultRawDatum, CanvasProps, Cell } from './types'
+import { useTooltip } from '@nivo/tooltip'
+import { Datum, DefaultRawDatum, CanvasProps, Cell, isDataCell } from './types'
 import { defaultProps } from './props'
 import { useWaffle, useMergeCellsData } from './hooks'
+import { CellTooltip } from './CellTooltip'
 
 const findCellUnderCursor = <RawDatum extends Datum>(
     cells: Cell<RawDatum>[],
@@ -60,6 +62,7 @@ const WaffleCanvas = <RawDatum extends Datum = DefaultRawDatum>({
     borderColor = defaultProps.borderColor,
     isInteractive = defaultProps.isInteractive,
     onClick,
+    tooltip = CellTooltip,
     legends = defaultProps.legends,
     role = defaultProps.role,
     pixelRatio = defaultProps.pixelRatio,
@@ -156,9 +159,7 @@ const WaffleCanvas = <RawDatum extends Datum = DefaultRawDatum>({
 
     const handleClick = useCallback(
         (event: React.MouseEvent<HTMLCanvasElement>) => {
-            if (!isInteractive || !onClick) {
-                return
-            }
+            if (!onClick) return
 
             const [x, y] = getRelativeCursor(canvasEl.current!, event)
             const cell = findCellUnderCursor(mergedCells, grid.cellSize, grid.origin, margin, x, y)
@@ -166,8 +167,36 @@ const WaffleCanvas = <RawDatum extends Datum = DefaultRawDatum>({
                 onClick(cell, event)
             }
         },
-        [isInteractive, canvasEl, mergedCells, grid.origin, grid.cellSize, margin]
+        [canvasEl, mergedCells, grid.origin, grid.cellSize, margin]
     )
+
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
+
+    const handleMouseHover = useCallback(
+        (event: React.MouseEvent<HTMLCanvasElement>) => {
+            const [x, y] = getRelativeCursor(canvasEl.current!, event)
+            const cell = findCellUnderCursor(mergedCells, grid.cellSize, grid.origin, margin, x, y)
+            if (cell && isDataCell(cell)) {
+                showTooltipFromEvent(createElement(tooltip, { cell }), event)
+            } else {
+                hideTooltip()
+            }
+        },
+        [
+            canvasEl,
+            mergedCells,
+            grid.origin,
+            grid.cellSize,
+            margin,
+            showTooltipFromEvent,
+            hideTooltip,
+            tooltip,
+        ]
+    )
+
+    const handleMouseLeave = useCallback(() => {
+        hideTooltip()
+    }, [hideTooltip])
 
     return (
         <canvas
@@ -179,9 +208,9 @@ const WaffleCanvas = <RawDatum extends Datum = DefaultRawDatum>({
                 height: outerHeight,
                 cursor: isInteractive ? 'auto' : 'normal',
             }}
-            //onMouseEnter={isInteractive ? handleMouseHover : undefined}
-            //onMouseMove={isInteractive ? handleMouseHover : undefined}
-            //onMouseLeave={isInteractive ? handleMouseLeave : undefined}
+            onMouseEnter={isInteractive ? handleMouseHover : undefined}
+            onMouseMove={isInteractive ? handleMouseHover : undefined}
+            onMouseLeave={isInteractive ? handleMouseLeave : undefined}
             onClick={isInteractive ? handleClick : undefined}
             role={role}
         />
@@ -191,57 +220,3 @@ const WaffleCanvas = <RawDatum extends Datum = DefaultRawDatum>({
 export default withContainer(WaffleCanvas) as <RawDatum extends Datum = DefaultRawDatum>(
     props: CanvasProps<RawDatum>
 ) => JSX.Element
-
-/*
-    handleMouseHover = (showTooltip, hideTooltip) => event => {
-        const {
-            isInteractive,
-            margin,
-            theme,
-            cells,
-            cellSize,
-            origin,
-            tooltipFormat,
-            tooltip,
-        } = this.props
-
-        if (!isInteractive || !cells) return
-
-        const [x, y] = getRelativeCursor(this.surface, event)
-        const cell = findCellUnderCursor(cells, cellSize, origin, margin, x, y)
-
-        if (cell !== undefined && cell.data) {
-            showTooltip(
-                <WaffleCellTooltip
-                    position={cell.position}
-                    row={cell.row}
-                    column={cell.column}
-                    color={cell.color}
-                    data={cell.data}
-                    theme={theme}
-                    tooltipFormat={tooltipFormat}
-                    tooltip={tooltip}
-                />,
-                event
-            )
-        } else {
-            hideTooltip()
-        }
-    }
-
-    handleMouseLeave = hideTooltip => () => {
-        if (this.props.isInteractive !== true) return
-
-        hideTooltip()
-    }
-
-    handleClick = event => {
-        const { isInteractive, margin, onClick, cells, cellSize, origin } = this.props
-
-        if (!isInteractive || !cells) return
-
-        const [x, y] = getRelativeCursor(this.surface, event)
-        const cell = findCellUnderCursor(cells, cellSize, origin, margin, x, y)
-        if (cell !== undefined) onClick(cell, event)
-    }
-*/
