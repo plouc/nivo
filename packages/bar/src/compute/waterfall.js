@@ -124,7 +124,7 @@ export const generateVerticalWaterfallBars = ({
             if (data[index + 1]) {
                 barData.line = {
                     x1: x + barWidth,
-                    x2: xScale(getIndex(data[index + 1])),
+                    x2: (data[index + 1][key] === 0 ? barWidth : 0) + xScale(getIndex(data[index + 1])),
                     y1: data[index][key] > 0 ? y : y + barHeight,
                     y2: data[index + 1].columnType === 'relative' ? (data[index][key] > 0 ? y : y + barHeight) : getY(waterfallData[index + 1])
                 }
@@ -207,7 +207,7 @@ export const generateHorizontalWaterfallBars = ({data,
                     x1: data[index][key] >= 0 ? x + barWidth : x,
                     x2: data[index + 1].columnType === 'relative' ? (data[index][key] >= 0 ? x + barWidth : x) : getX(waterfallData[index + 1]) + getWidth(waterfallData[index + 1], getX(waterfallData[index + 1])),
                     y1: y,
-                    y2: yScale(getIndex(data[index + 1])) + barHeight
+                    y2: (data[index + 1][key] === 0 ? 0 : barHeight) + yScale(getIndex(data[index + 1]))
                 }
             }
             bars.push({
