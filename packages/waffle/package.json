@@ -21,10 +21,10 @@
   ],
   "main": "./dist/nivo-waffle.cjs.js",
   "module": "./dist/nivo-waffle.es.js",
+  "typings": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
-    "index.d.ts",
     "dist/"
   ],
   "dependencies": {
