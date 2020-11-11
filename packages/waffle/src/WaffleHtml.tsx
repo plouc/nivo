@@ -1,6 +1,7 @@
+import { createElement, Fragment, ReactNode } from 'react'
 // @ts-ignore
 import { withContainer, useDimensions } from '@nivo/core'
-import { Datum, DefaultRawDatum, HtmlProps } from './types'
+import { Datum, DefaultRawDatum, HtmlProps, HtmlLayerId } from './types'
 import { defaultProps } from './props'
 import { useWaffle, useMergeCellsData } from './hooks'
 
@@ -14,6 +15,7 @@ const WaffleHtml = <RawDatum extends Datum = DefaultRawDatum>({
     columns,
     fillDirection = defaultProps.fillDirection,
     padding = defaultProps.padding,
+    layers = ['cells'],
     colors = defaultProps.colors,
     emptyColor = defaultProps.emptyColor,
     // emptyOpacity = defaultProps.emptyOpacity,
@@ -44,16 +46,14 @@ const WaffleHtml = <RawDatum extends Datum = DefaultRawDatum>({
 
     const mergedCells = useMergeCellsData<RawDatum>(grid.cells, computedData)
 
-    return (
-        <div
-            style={{
-                position: 'relative',
-                width: outerWidth,
-                height: outerHeight,
-            }}
-            role={role}
-        >
+    const layerById: Record<HtmlLayerId, ReactNode> = {
+        cells: null,
+    }
+
+    if (layers.includes('cells')) {
+        layerById.cells = (
             <div
+                key="cells"
                 style={{
                     position: 'absolute',
                     top: margin.top + grid.origin.y,
@@ -81,6 +81,29 @@ const WaffleHtml = <RawDatum extends Datum = DefaultRawDatum>({
                     )
                 })}
             </div>
+        )
+    }
+
+    return (
+        <div
+            style={{
+                position: 'relative',
+                width: outerWidth,
+                height: outerHeight,
+            }}
+            role={role}
+        >
+            {layers.map((layer, i) => {
+                if (layerById[layer as HtmlLayerId] !== undefined) {
+                    return layerById[layer as HtmlLayerId]
+                }
+
+                if (typeof layer === 'function') {
+                    return <Fragment key={i}>{createElement(layer)}</Fragment>
+                }
+
+                return null
+            })}
         </div>
     )
 }

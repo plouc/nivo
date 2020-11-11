@@ -1,11 +1,47 @@
-import React, { useEffect, useRef } from 'react'
-// @ts-ignore
-import { withContainer, useDimensions, useTheme } from '@nivo/core'
+import React, { useEffect, useRef, useCallback } from 'react'
+import {
+    // @ts-ignore
+    withContainer,
+    useDimensions,
+    // @ts-ignore
+    useTheme,
+    // @ts-ignore
+    isCursorInRect,
+    // @ts-ignore
+    getRelativeCursor,
+} from '@nivo/core'
 // @ts-ignore
 import { renderLegendToCanvas } from '@nivo/legends'
-import { Datum, DefaultRawDatum, CanvasProps } from './types'
+import { Datum, DefaultRawDatum, CanvasProps, Cell } from './types'
 import { defaultProps } from './props'
 import { useWaffle, useMergeCellsData } from './hooks'
+
+const findCellUnderCursor = <RawDatum extends Datum>(
+    cells: Cell<RawDatum>[],
+    cellSize: number,
+    origin: {
+        x: number
+        y: number
+    },
+    margin: {
+        top: number
+        right: number
+        bottom: number
+        left: number
+    },
+    x: number,
+    y: number
+) =>
+    cells.find(cell =>
+        isCursorInRect(
+            cell.x + origin.x + margin.left,
+            cell.y + origin.y + margin.top,
+            cellSize,
+            cellSize,
+            x,
+            y
+        )
+    )
 
 const WaffleCanvas = <RawDatum extends Datum = DefaultRawDatum>({
     width,
@@ -23,6 +59,7 @@ const WaffleCanvas = <RawDatum extends Datum = DefaultRawDatum>({
     borderWidth = defaultProps.borderWidth,
     borderColor = defaultProps.borderColor,
     isInteractive = defaultProps.isInteractive,
+    onClick,
     legends = defaultProps.legends,
     role = defaultProps.role,
     pixelRatio = defaultProps.pixelRatio,
@@ -113,7 +150,24 @@ const WaffleCanvas = <RawDatum extends Datum = DefaultRawDatum>({
         legendData,
         mergedCells,
         grid,
+        borderWidth,
+        getBorderColor,
     ])
+
+    const handleClick = useCallback(
+        (event: React.MouseEvent<HTMLCanvasElement>) => {
+            if (!isInteractive || !onClick) {
+                return
+            }
+
+            const [x, y] = getRelativeCursor(canvasEl.current!, event)
+            const cell = findCellUnderCursor(mergedCells, grid.cellSize, grid.origin, margin, x, y)
+            if (cell) {
+                onClick(cell, event)
+            }
+        },
+        [isInteractive, canvasEl, mergedCells, grid.origin, grid.cellSize, margin]
+    )
 
     return (
         <canvas
@@ -128,7 +182,7 @@ const WaffleCanvas = <RawDatum extends Datum = DefaultRawDatum>({
             //onMouseEnter={isInteractive ? handleMouseHover : undefined}
             //onMouseMove={isInteractive ? handleMouseHover : undefined}
             //onMouseLeave={isInteractive ? handleMouseLeave : undefined}
-            //onClick={isInteractive ? handleClick : undefined}
+            onClick={isInteractive ? handleClick : undefined}
             role={role}
         />
     )
@@ -139,56 +193,6 @@ export default withContainer(WaffleCanvas) as <RawDatum extends Datum = DefaultR
 ) => JSX.Element
 
 /*
-import React, { Component } from 'react'
-import range from 'lodash.range'
-import setDisplayName from 'recompose/setDisplayName'
-import { isCursorInRect, getRelativeCursor, Container } from '@nivo/core'
-import { renderLegendToCanvas } from '@nivo/legends'
-import enhance from './enhance'
-import { WaffleCanvasPropTypes } from './props'
-import WaffleCellTooltip from './WaffleCellTooltip'
-
-const findCellUnderCursor = (cells, cellSize, origin, margin, x, y) =>
-    cells.find(cell =>
-        isCursorInRect(
-            cell.x + origin.x + margin.left,
-            cell.y + origin.y + margin.top,
-            cellSize,
-            cellSize,
-            x,
-            y
-        )
-    )
-
-class WaffleCanvas extends Component {
-    draw(props) {
-        const {
-            pixelRatio,
-
-            margin,
-            width,
-            height,
-            outerWidth,
-            outerHeight,
-
-            getColor,
-            emptyColor,
-            emptyOpacity,
-            borderWidth,
-            getBorderColor,
-
-            cells,
-            cellSize,
-            origin,
-            computedData,
-            legendData,
-
-            legends,
-
-            theme,
-        } = props
-    }
-
     handleMouseHover = (showTooltip, hideTooltip) => event => {
         const {
             isInteractive,

@@ -1,7 +1,8 @@
+import { createElement, Fragment, ReactNode } from 'react'
 // @ts-ignore
 import { SvgWrapper, withContainer, useDimensions } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
-import { Datum, DefaultRawDatum, SvgProps } from './types'
+import { Datum, DefaultRawDatum, SvgProps, LayerId } from './types'
 import { defaultProps } from './props'
 import { useWaffle, useMergeCellsData } from './hooks'
 
@@ -15,6 +16,7 @@ const Waffle = <RawDatum extends Datum = DefaultRawDatum>({
     columns,
     fillDirection = defaultProps.fillDirection,
     padding = defaultProps.padding,
+    layers = ['cells', 'legends'],
     colors = defaultProps.colors,
     emptyColor = defaultProps.emptyColor,
     // emptyOpacity = defaultProps.emptyOpacity,
@@ -48,15 +50,14 @@ const Waffle = <RawDatum extends Datum = DefaultRawDatum>({
 
     const mergedCells = useMergeCellsData<RawDatum>(grid.cells, computedData)
 
-    return (
-        <SvgWrapper
-            width={outerWidth}
-            height={outerHeight}
-            margin={margin}
-            //defs={boundDefs}
-            role={role}
-        >
-            <g transform={`translate(${grid.origin.x}, ${grid.origin.y})`}>
+    const layerById: Record<LayerId, ReactNode> = {
+        cells: null,
+        legends: null,
+    }
+
+    if (layers.includes('cells')) {
+        layerById.cells = (
+            <g key="cells" transform={`translate(${grid.origin.x}, ${grid.origin.y})`}>
                 {mergedCells.map(cell => {
                     return (
                         <rect
@@ -72,15 +73,44 @@ const Waffle = <RawDatum extends Datum = DefaultRawDatum>({
                     )
                 })}
             </g>
-            {legends.map((legend, i) => (
-                <BoxLegendSvg
-                    key={i}
-                    {...legend}
-                    containerWidth={width}
-                    containerHeight={height}
-                    data={legendData}
-                />
-            ))}
+        )
+    }
+
+    if (layers.includes('legends')) {
+        layerById.legends = (
+            <g key="legends">
+                {legends.map((legend, i) => (
+                    <BoxLegendSvg
+                        key={i}
+                        {...legend}
+                        containerWidth={width}
+                        containerHeight={height}
+                        data={legendData}
+                    />
+                ))}
+            </g>
+        )
+    }
+
+    return (
+        <SvgWrapper
+            width={outerWidth}
+            height={outerHeight}
+            margin={margin}
+            //defs={boundDefs}
+            role={role}
+        >
+            {layers.map((layer, i) => {
+                if (layerById[layer as LayerId] !== undefined) {
+                    return layerById[layer as LayerId]
+                }
+
+                if (typeof layer === 'function') {
+                    return <Fragment key={i}>{createElement(layer)}</Fragment>
+                }
+
+                return null
+            })}
         </SvgWrapper>
     )
 }

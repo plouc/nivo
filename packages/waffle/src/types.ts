@@ -84,28 +84,40 @@ export interface CommonProps<RawDatum extends Datum> {
 }
 
 export type MouseHandler<RawDatum extends Datum, ElementType = HTMLCanvasElement> = (
-    datum: ComputedDatum<RawDatum>,
+    cell: Cell<RawDatum>,
     event: React.MouseEvent<ElementType>
 ) => void
 
 interface MouseHandlers<RawDatum extends Datum, ElementType = HTMLCanvasElement> {
-    onClick?: MouseHandler<ComputedDatum<RawDatum>, ElementType>
-    onMouseEnter?: MouseHandler<ComputedDatum<RawDatum>, ElementType>
-    onMouseMove?: MouseHandler<ComputedDatum<RawDatum>, ElementType>
-    onMouseLeave?: MouseHandler<ComputedDatum<RawDatum>, ElementType>
+    onClick?: MouseHandler<RawDatum, ElementType>
+    onMouseEnter?: MouseHandler<RawDatum, ElementType>
+    onMouseMove?: MouseHandler<RawDatum, ElementType>
+    onMouseLeave?: MouseHandler<RawDatum, ElementType>
 }
+
+export type LayerId = 'cells' | 'legends'
+
+export interface CustomLayerProps<RawDatum extends Datum> {}
+
+export type SvgLayer<RawDatum extends Datum> = LayerId | React.FC<CustomLayerProps<RawDatum>>
 
 export type SvgProps<RawDatum extends Datum = DefaultRawDatum> = DataProps<RawDatum> &
     Dimensions &
-    Partial<CommonProps<RawDatum>> &
-    SvgDefsAndFill<ComputedDatum<RawDatum>> & {
+    Partial<CommonProps<RawDatum>> & {
+        layers?: SvgLayer<RawDatum>[]
+    } & SvgDefsAndFill<ComputedDatum<RawDatum>> & {
         legends?: LegendProps[]
     } & MouseHandlers<RawDatum>
 
+export type HtmlLayerId = Exclude<LayerId, 'legends'>
+
+export type HtmlLayer<RawDatum extends Datum> = HtmlLayerId | React.FC<CustomLayerProps<RawDatum>>
+
 export type HtmlProps<RawDatum extends Datum = DefaultRawDatum> = DataProps<RawDatum> &
     Dimensions &
-    Partial<CommonProps<RawDatum>> &
-    MouseHandlers<RawDatum>
+    Partial<CommonProps<RawDatum>> & {
+        layers?: HtmlLayer<RawDatum>[]
+    } & MouseHandlers<RawDatum>
 
 export type CanvasProps<RawDatum extends Datum = DefaultRawDatum> = DataProps<RawDatum> &
     Dimensions &
