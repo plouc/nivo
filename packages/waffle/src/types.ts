@@ -130,4 +130,4 @@ export type CanvasProps<RawDatum extends Datum = DefaultRawDatum> = DataProps<Ra
         legends?: LegendProps[]
     } & {
         pixelRatio?: number
-    } & MouseHandlers<RawDatum>
+    } & Omit<MouseHandlers<RawDatum>, 'onMouseEnter' | 'onMouseLeave'>

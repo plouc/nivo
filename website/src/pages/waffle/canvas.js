@@ -140,7 +140,7 @@ const WaffleCanvas = () => {
                         onClick={node => {
                             let label
                             if (node.data !== undefined) {
-                                label = `${node.data.label}: ${node.data.value} (position: ${node.position})`
+                                label = `${node.data.label}: ${node.data.formattedValue} (position: ${node.position})`
                             } else {
                                 label = `empty at position: ${node.position}`
                             }

@@ -62,6 +62,7 @@ const WaffleCanvas = <RawDatum extends Datum = DefaultRawDatum>({
     borderWidth = defaultProps.borderWidth,
     borderColor = defaultProps.borderColor,
     isInteractive = defaultProps.isInteractive,
+    onMouseMove,
     onClick,
     tooltip = CellTooltip,
     legends = defaultProps.legends,
@@ -180,10 +181,15 @@ const WaffleCanvas = <RawDatum extends Datum = DefaultRawDatum>({
         (event: React.MouseEvent<HTMLCanvasElement>) => {
             const [x, y] = getRelativeCursor(canvasEl.current!, event)
             const cell = findCellUnderCursor(mergedCells, grid.cellSize, grid.origin, margin, x, y)
+
             if (cell && isDataCell(cell)) {
                 showTooltipFromEvent(createElement(TooltipComponent, { cell }), event)
             } else {
                 hideTooltip()
+            }
+
+            if (cell) {
+                onMouseMove?.(cell, event)
             }
         },
         [
@@ -195,6 +201,7 @@ const WaffleCanvas = <RawDatum extends Datum = DefaultRawDatum>({
             showTooltipFromEvent,
             hideTooltip,
             TooltipComponent,
+            onMouseMove,
         ]
     )
 
