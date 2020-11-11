@@ -45,7 +45,6 @@ const computeGrid = (
     padding: number,
     emptyColor: string
 ) => {
-    console.log('computing grid')
     const cellSize = computeCellSize(width, height, rows, columns, padding)
 
     const cells: EmptyCell[] = []

@@ -111,4 +111,6 @@ export type CanvasProps<RawDatum extends Datum = DefaultRawDatum> = DataProps<Ra
     Dimensions &
     Partial<CommonProps<RawDatum>> & {
         legends?: LegendProps[]
+    } & {
+        pixelRatio?: number
     } & MouseHandlers<RawDatum>
