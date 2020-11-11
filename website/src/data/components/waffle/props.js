@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import { WaffleDefaultProps } from '@nivo/waffle'
+import { defaultProps as defaults } from '@nivo/waffle'
 import {
     themeProperty,
     motionProperties,
@@ -14,8 +14,6 @@ import {
     getLegendsProps,
     groupProperties,
 } from '../../../lib/componentProperties'
-
-const defaults = WaffleDefaultProps
 
 const props = [
     {
@@ -103,7 +101,8 @@ const props = [
         key: 'padding',
         type: 'number',
         help: 'Padding between each cell.',
-        required: true,
+        required: false,
+        defaultValue: defaults.padding,
         controlType: 'range',
         group: 'Base',
         controlOptions: {
