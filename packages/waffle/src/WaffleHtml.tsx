@@ -1,16 +1,107 @@
-import { createElement, Component, Fragment } from 'react'
-import partial from 'lodash/partial'
+// @ts-ignore
+import { withContainer, useDimensions } from '@nivo/core'
+import { Datum, DefaultRawDatum, HtmlProps } from './types'
+import { defaultProps } from './props'
+import { useWaffle, useMergeCellsData } from './hooks'
+
+const WaffleHtml = <RawDatum extends Datum = DefaultRawDatum>({
+    width,
+    height,
+    margin: partialMargin,
+    data,
+    total,
+    rows,
+    columns,
+    fillDirection = defaultProps.fillDirection,
+    padding = defaultProps.padding,
+    colors = defaultProps.colors,
+    emptyColor = defaultProps.emptyColor,
+    // emptyOpacity = defaultProps.emptyOpacity,
+    borderWidth = defaultProps.borderWidth,
+    borderColor = defaultProps.borderColor,
+    // isInteractive = defaultProps.isInteractive,
+    role = defaultProps.role,
+}: HtmlProps<RawDatum>) => {
+    const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
+        width,
+        height,
+        partialMargin
+    )
+
+    const { grid, computedData, getBorderColor } = useWaffle<RawDatum>({
+        width: innerWidth,
+        height: innerHeight,
+        data,
+        total,
+        rows,
+        columns,
+        fillDirection,
+        padding,
+        colors,
+        emptyColor,
+        borderColor,
+    })
+
+    const mergedCells = useMergeCellsData<RawDatum>(grid.cells, computedData)
+
+    return (
+        <div
+            style={{
+                position: 'relative',
+                width: outerWidth,
+                height: outerHeight,
+            }}
+            role={role}
+        >
+            <div
+                style={{
+                    position: 'absolute',
+                    top: margin.top + grid.origin.y,
+                    left: margin.left + grid.origin.x,
+                }}
+            >
+                {mergedCells.map(cell => {
+                    return (
+                        <div
+                            key={cell.position}
+                            style={{
+                                position: 'absolute',
+                                top: cell.y,
+                                left: cell.x,
+                                width: grid.cellSize,
+                                height: grid.cellSize,
+                                background: cell.color,
+                                // opacity: ,
+                                boxSizing: 'content-box',
+                                borderStyle: 'solid',
+                                borderWidth: `${borderWidth}px`,
+                                borderColor: getBorderColor(cell),
+                            }}
+                        />
+                    )
+                })}
+            </div>
+        </div>
+    )
+}
+
+export default withContainer(WaffleHtml) as <RawDatum extends Datum = DefaultRawDatum>(
+    props: HtmlProps<RawDatum>
+) => JSX.Element
+
+/*
+import React, { Component, Fragment } from 'react'
+import partial from 'lodash.partial'
+import setDisplayName from 'recompose/setDisplayName'
 import { TransitionMotion, spring } from 'react-motion'
-import { setDisplayName } from '@nivo/recompose'
-import { LegacyContainer, SvgWrapper } from '@nivo/core'
-import { BoxLegendSvg } from '@nivo/legends'
-import { WafflePropTypes } from './props'
+import { LegacyContainer } from '@nivo/core'
 import enhance from './enhance'
+import { WaffleHtmlPropTypes } from './props'
 import { applyDataToGrid } from './compute'
 import WaffleCellTooltip from './WaffleCellTooltip'
 
-export class Waffle extends Component {
-    static propTypes = WafflePropTypes
+class WaffleHtml extends Component {
+    static propTypes = WaffleHtmlPropTypes
 
     handleCellHover = (showTooltip, cell, event) => {
         const { setCurrentCell, theme, tooltipFormat, tooltip } = this.props
@@ -41,12 +132,8 @@ export class Waffle extends Component {
 
     render() {
         const {
-            hiddenIds,
-
             // dimensions
             margin,
-            width,
-            height,
             outerWidth,
             outerHeight,
 
@@ -57,7 +144,6 @@ export class Waffle extends Component {
             borderWidth,
             getBorderColor,
             theme,
-            defs,
 
             // motion
             animate,
@@ -73,10 +159,6 @@ export class Waffle extends Component {
             cellSize,
             origin,
             computedData,
-            legendData,
-
-            legends,
-            role,
         } = this.props
 
         cells.forEach(cell => {
@@ -120,8 +202,7 @@ export class Waffle extends Component {
                                             ...s.data,
                                             startAt: Math.round(s.style.startAt),
                                             endAt: Math.round(s.style.endAt),
-                                        })),
-                                        hiddenIds
+                                        }))
                                     )
 
                                     return (
@@ -150,7 +231,7 @@ export class Waffle extends Component {
                             </TransitionMotion>
                         )
                     } else {
-                        const computedCells = applyDataToGrid(cells, computedData, hiddenIds)
+                        const computedCells = applyDataToGrid(cells, computedData)
 
                         cellsRender = (
                             <Fragment>
@@ -177,26 +258,23 @@ export class Waffle extends Component {
                     }
 
                     return (
-                        <SvgWrapper
-                            width={outerWidth}
-                            height={outerHeight}
-                            margin={margin}
-                            defs={defs}
-                            theme={theme}
-                            role={role}
+                        <div
+                            style={{
+                                position: 'relative',
+                                width: outerWidth,
+                                height: outerHeight,
+                            }}
                         >
-                            <g transform={`translate(${origin.x}, ${origin.y})`}>{cellsRender}</g>
-                            {legends.map((legend, i) => (
-                                <BoxLegendSvg
-                                    key={i}
-                                    {...legend}
-                                    containerWidth={width}
-                                    containerHeight={height}
-                                    data={legendData}
-                                    theme={theme}
-                                />
-                            ))}
-                        </SvgWrapper>
+                            <div
+                                style={{
+                                    position: 'absolute',
+                                    top: margin.top + origin.y,
+                                    left: margin.left + origin.x,
+                                }}
+                            >
+                                {cellsRender}
+                            </div>
+                        </div>
                     )
                 }}
             </LegacyContainer>
@@ -204,6 +282,7 @@ export class Waffle extends Component {
     }
 }
 
-Waffle.displayName = 'Waffle'
+WaffleHtml.displayName = 'WaffleHtml'
 
-export default setDisplayName(Waffle.displayName)(enhance(Waffle))
+export default setDisplayName(WaffleHtml.displayName)(enhance(WaffleHtml))
+ */

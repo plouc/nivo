@@ -73,11 +73,11 @@ export interface CommonProps<RawDatum extends Datum> {
     fillDirection: FillDirection
     padding: number
     theme: Theme
-    colors: OrdinalColorScaleConfig<Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>>
+    colors: OrdinalColorScaleConfig<RawDatum>
     emptyColor: string
     emptyOpacity: number
     borderWidth: number
-    borderColor: InheritedColorConfig<ComputedDatum<RawDatum>>
+    borderColor: InheritedColorConfig<Cell<RawDatum>>
     isInteractive: boolean
     tooltip: React.FC<TooltipProps<RawDatum>>
     role: string
@@ -95,17 +95,20 @@ interface MouseHandlers<RawDatum extends Datum, ElementType = HTMLCanvasElement>
     onMouseLeave?: MouseHandler<ComputedDatum<RawDatum>, ElementType>
 }
 
-export type SvgProps<RawDatum extends Datum = DefaultRawDatum> = Dimensions &
+export type SvgProps<RawDatum extends Datum = DefaultRawDatum> = DataProps<RawDatum> &
+    Dimensions &
     Partial<CommonProps<RawDatum>> &
     SvgDefsAndFill<ComputedDatum<RawDatum>> & {
         legends?: LegendProps[]
     } & MouseHandlers<RawDatum>
 
-export type HtmlProps<RawDatum extends Datum = DefaultRawDatum> = Dimensions &
+export type HtmlProps<RawDatum extends Datum = DefaultRawDatum> = DataProps<RawDatum> &
+    Dimensions &
     Partial<CommonProps<RawDatum>> &
     MouseHandlers<RawDatum>
 
-export type CanvasProps<RawDatum extends Datum = DefaultRawDatum> = Dimensions &
+export type CanvasProps<RawDatum extends Datum = DefaultRawDatum> = DataProps<RawDatum> &
+    Dimensions &
     Partial<CommonProps<RawDatum>> & {
         legends?: LegendProps[]
     } & MouseHandlers<RawDatum>

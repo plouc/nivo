@@ -1,7 +1,15 @@
 import PropTypes from 'prop-types'
+// @ts-ignore
 import { defsPropTypes, noop } from '@nivo/core'
-import { ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
+import {
+    ordinalColorsPropType,
+    inheritedColorPropType,
+    OrdinalColorScaleConfigScheme,
+    InheritedColorConfigFromContext,
+} from '@nivo/colors'
+// @ts-ignore
 import { LegendPropShape } from '@nivo/legends'
+import { FillDirection } from './types'
 import WaffleCell from './WaffleCell'
 import WaffleCellHtml from './WaffleCellHtml'
 
@@ -95,5 +103,21 @@ export const WaffleHtmlDefaultProps = {
 export const WaffleCanvasDefaultProps = {
     ...commonDefaultProps,
     legends: [],
-    pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1,
+    pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio ?? 1 : 1,
+}
+
+export const defaultProps = {
+    fillDirection: 'bottom' as FillDirection,
+    padding: 1,
+    colors: { scheme: 'nivo' } as OrdinalColorScaleConfigScheme,
+    emptyColor: '#cccccc',
+    emptyOpacity: 1,
+    borderWidth: 0,
+    borderColor: { from: 'color', modifiers: [['darker', 1]] } as InheritedColorConfigFromContext,
+    defs: [],
+    fill: [],
+    isInteractive: true,
+    legends: [],
+    role: 'img',
+    pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio ?? 1 : 1,
 }
