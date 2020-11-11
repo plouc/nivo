@@ -6,6 +6,11 @@
     "name": "Raphaël Benitte",
     "url": "https://github.com/plouc"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/plouc/nivo.git",
+    "directory": "packages/calendar"
+  },
   "keywords": [
     "nivo",
     "dataviz",

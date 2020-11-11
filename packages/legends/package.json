@@ -7,6 +7,11 @@
     "name": "Raphaël Benitte",
     "url": "https://github.com/plouc"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/plouc/nivo.git",
+    "directory": "packages/legends"
+  },
   "main": "./dist/nivo-legends.cjs.js",
   "module": "./dist/nivo-legends.es.js",
   "typings": "./index.d.ts",
