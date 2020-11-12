@@ -260,7 +260,7 @@ class BarCanvas extends Component {
     }
 
     render() {
-        const { outerWidth, outerHeight, pixelRatio, isInteractive, theme } = this.props
+        const { outerWidth, outerHeight, pixelRatio, isInteractive, theme, ref } = this.props
 
         return (
             <Container isInteractive={isInteractive} theme={theme} animate={false}>
@@ -268,6 +268,7 @@ class BarCanvas extends Component {
                     <canvas
                         ref={surface => {
                             this.surface = surface
+                            if (ref) ref.current = surface
                         }}
                         width={outerWidth * pixelRatio}
                         height={outerHeight * pixelRatio}
