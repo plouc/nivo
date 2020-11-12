@@ -404,7 +404,7 @@ const props = [
             },
         },
     },
-    ...motionProperties(['svg', 'html'], defaults),
+    ...motionProperties(['svg', 'html'], defaults, 'react-spring'),
 ]
 
 export const groups = groupProperties(props)

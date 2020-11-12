@@ -1,3 +1,4 @@
+import { motionDefaultProps } from '@nivo/core'
 // @ts-ignore
 import { OrdinalColorScaleConfigScheme, InheritedColorConfigFromContext } from '@nivo/colors'
 import { FillDirection } from './types'
@@ -15,6 +16,8 @@ export const defaultProps = {
     fill: [],
     isInteractive: true,
     legends: [],
+    animate: motionDefaultProps.animate,
+    motionConfig: motionDefaultProps.config,
     role: 'img',
     pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio ?? 1 : 1,
 }

@@ -4,7 +4,8 @@ import { SvgWrapper, withContainer, useDimensions } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
 import { Datum, DefaultRawDatum, SvgProps, LayerId } from './types'
 import { defaultProps } from './props'
-import { useWaffle, useMergeCellsData } from './hooks'
+import { useWaffle } from './hooks'
+import { CellsSvg } from './CellsSvg'
 
 const Waffle = <RawDatum extends Datum = DefaultRawDatum>({
     width,
@@ -50,8 +51,6 @@ const Waffle = <RawDatum extends Datum = DefaultRawDatum>({
         borderColor,
     })
 
-    const mergedCells = useMergeCellsData<RawDatum>(grid.cells, computedData)
-
     const layerById: Record<LayerId, ReactNode> = {
         cells: null,
         legends: null,
@@ -59,22 +58,15 @@ const Waffle = <RawDatum extends Datum = DefaultRawDatum>({
 
     if (layers.includes('cells')) {
         layerById.cells = (
-            <g key="cells" transform={`translate(${grid.origin.x}, ${grid.origin.y})`}>
-                {mergedCells.map(cell => {
-                    return (
-                        <rect
-                            key={cell.position}
-                            x={cell.x}
-                            y={cell.y}
-                            width={grid.cellSize}
-                            height={grid.cellSize}
-                            fill={cell.color}
-                            stroke={getBorderColor(cell)}
-                            strokeWidth={borderWidth}
-                        />
-                    )
-                })}
-            </g>
+            <CellsSvg<RawDatum>
+                key="cells"
+                cells={grid.cells}
+                computedData={computedData}
+                cellSize={grid.cellSize}
+                origin={grid.origin}
+                borderWidth={borderWidth}
+                getBorderColor={getBorderColor}
+            />
         )
     }
 
@@ -125,32 +117,6 @@ export default withContainer(Waffle) as <RawDatum extends Datum = DefaultRawDatu
 export class Waffle extends Component {
     static propTypes = WafflePropTypes
 
-    handleCellHover = (showTooltip, cell, event) => {
-        const { setCurrentCell, theme, tooltipFormat, tooltip } = this.props
-
-        setCurrentCell(cell)
-
-        if (!cell.data) return
-
-        showTooltip(
-            <WaffleCellTooltip
-                position={cell.position}
-                row={cell.row}
-                column={cell.column}
-                color={cell.color}
-                data={cell.data}
-                theme={theme}
-                tooltipFormat={tooltipFormat}
-                tooltip={tooltip}
-            />,
-            event
-        )
-    }
-
-    handleCellLeave = hideTooltip => {
-        this.props.setCurrentCell(null)
-        hideTooltip()
-    }
 
     render() {
         const {

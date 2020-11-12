@@ -53,9 +53,8 @@ const initialProperties = {
         modifiers: [['darker', 0.3]],
     },
 
-    animate: true,
-    motionStiffness: 90,
-    motionDamping: 11,
+    animate: defaultProps.animate,
+    motionConfig: defaultProps.motionConfig,
 
     isInteractive: true,
     'custom tooltip example': false,

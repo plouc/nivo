@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Box, Dimensions, Theme, SvgDefsAndFill } from '@nivo/core'
+import { Box, Dimensions, Theme, SvgDefsAndFill, ModernMotionProps } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { TooltipProps } from './CellTooltip'
@@ -110,7 +110,8 @@ export type SvgProps<RawDatum extends Datum = DefaultRawDatum> = DataProps<RawDa
     Dimensions &
     Partial<CommonProps<RawDatum>> & {
         layers?: SvgLayer<RawDatum>[]
-    } & SvgDefsAndFill<ComputedDatum<RawDatum>> & {
+    } & ModernMotionProps &
+    SvgDefsAndFill<ComputedDatum<RawDatum>> & {
         legends?: LegendProps[]
     } & MouseHandlers<RawDatum>
 
@@ -122,7 +123,8 @@ export type HtmlProps<RawDatum extends Datum = DefaultRawDatum> = DataProps<RawD
     Dimensions &
     Partial<CommonProps<RawDatum>> & {
         layers?: HtmlLayer<RawDatum>[]
-    } & MouseHandlers<RawDatum>
+    } & ModernMotionProps &
+    MouseHandlers<RawDatum>
 
 export type CanvasProps<RawDatum extends Datum = DefaultRawDatum> = DataProps<RawDatum> &
     Dimensions &

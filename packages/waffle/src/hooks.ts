@@ -19,7 +19,7 @@ import { defaultProps } from './props'
 /**
  * Computes optimal cell size according to dimensions/layout/padding.
  */
-const computeCellSize = (
+export const computeCellSize = (
     width: number,
     height: number,
     rows: number,
@@ -36,7 +36,7 @@ const computeCellSize = (
  * Computes empty cells according to dimensions/layout/padding.
  * At this stage the cells aren't bound to any data.
  */
-const computeGrid = (
+export const computeGrid = (
     width: number,
     height: number,
     rows: number,
@@ -220,7 +220,7 @@ export const useWaffle = <RawDatum extends Datum = DefaultRawDatum>({
     }
 }
 
-const mergeCellsData = <RawDatum extends Datum>(
+export const mergeCellsData = <RawDatum extends Datum>(
     cells: EmptyCell[],
     data: ComputedDatum<RawDatum>[]
 ) => {
@@ -243,4 +243,7 @@ const mergeCellsData = <RawDatum extends Datum>(
 export const useMergeCellsData = <RawDatum extends Datum = DefaultRawDatum>(
     cells: EmptyCell[],
     data: ComputedDatum<RawDatum>[]
-) => useMemo(() => mergeCellsData(cells, data), [cells, data])
+) =>
+    useMemo(() => {
+        return mergeCellsData(cells, data)
+    }, [cells, data])
