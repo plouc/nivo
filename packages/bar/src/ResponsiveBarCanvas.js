@@ -6,14 +6,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React from 'react'
+import React, { forwardRef } from 'react'
 import { ResponsiveWrapper } from '@nivo/core'
 import BarCanvas from './BarCanvas'
 
-const ResponsiveBarCanvas = props => (
+const ResponsiveBarCanvas = (props, ref) => (
     <ResponsiveWrapper>
-        {({ width, height }) => <BarCanvas width={width} height={height} {...props} />}
+        {({ width, height }) => <BarCanvas width={width} height={height} {...props} ref={ref} />}
     </ResponsiveWrapper>
 )
 
-export default ResponsiveBarCanvas
+export default forwardRef(ResponsiveBarCanvas)
