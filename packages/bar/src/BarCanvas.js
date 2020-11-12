@@ -14,7 +14,7 @@ import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { BasicTooltip } from '@nivo/tooltip'
 import { generateGroupedBars, generateStackedBars } from './compute'
-import { BarPropTypes } from './props'
+import { BarDefaultProps, BarPropTypes } from './props'
 import enhance from './enhance'
 
 const findNodeUnderCursor = (nodes, margin, x, y) =>
@@ -54,6 +54,8 @@ class BarCanvas extends Component {
             getIndex,
             minValue,
             maxValue,
+
+            valueScale,
 
             width,
             height,
@@ -104,6 +106,7 @@ class BarCanvas extends Component {
             getColor,
             padding,
             innerPadding,
+            valueScale,
         }
 
         const result =
@@ -284,5 +287,6 @@ class BarCanvas extends Component {
 }
 
 BarCanvas.propTypes = BarPropTypes
+BarCanvas.defaultProps = BarDefaultProps
 
 export default setDisplayName('BarCanvas')(enhance(BarCanvas))
