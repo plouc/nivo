@@ -1,12 +1,14 @@
 import React from 'react'
 // @ts-ignore
 import { ResponsiveWrapper } from '@nivo/core'
-import Sunburst from './Sunburst'
+import { Sunburst } from './Sunburst'
 import { SunburstSvgProps } from './types'
 
-export const ResponsiveSunburst = (props: Omit<SunburstSvgProps, 'width' | 'height'>) => (
+export const ResponsiveSunburst = <Datum extends Record<string, unknown>>(
+    props: Omit<SunburstSvgProps<Datum>, 'width' | 'height'>
+) => (
     <ResponsiveWrapper>
-        {({ width, height }: Required<Pick<SunburstSvgProps, 'width' | 'height'>>) => (
+        {({ width, height }: Required<Pick<SunburstSvgProps<Datum>, 'width' | 'height'>>) => (
             <Sunburst width={width} height={height} {...props} />
         )}
     </ResponsiveWrapper>

@@ -1,24 +1,13 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import sortBy from 'lodash/sortBy'
 import cloneDeep from 'lodash/cloneDeep'
-// @ts-ignore
-import compose from 'recompose/compose'
-// @ts-ignore
-import defaultProps from 'recompose/defaultProps'
-// @ts-ignore
-import withPropsOnChange from 'recompose/withPropsOnChange'
-// @ts-ignore
-import withProps from 'recompose/withProps'
-// @ts-ignore
-import pure from 'recompose/pure'
-import { partition as Partition, hierarchy } from 'd3-hierarchy'
+import { partition as d3Partition, hierarchy } from 'd3-hierarchy'
 import { arc } from 'd3-shape'
 import {
     // @ts-ignore
     withTheme,
     // @ts-ignore
     withDimensions,
-    // @ts-ignore
     getAccessorFor,
     // @ts-ignore
     getLabelGenerator,
@@ -26,13 +15,15 @@ import {
     Container,
     // @ts-ignore
     SvgWrapper,
+    useDimensions,
+    usePartialTheme,
 } from '@nivo/core'
 // @ts-ignore
-import { getOrdinalColorScale, getInheritedColorGenerator } from '@nivo/colors'
-import SunburstLabels from './SunburstLabels'
-import SunburstArc from './SunburstArc'
-import { defaultProps as defaultSunburstProps } from './props'
-import { SunburstSvgProps, SunburstNode, TooltipHandlers } from './types'
+import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
+import { SunburstLabels } from './SunburstLabels'
+import { SunburstArc } from './SunburstArc'
+import { defaultProps } from './props'
+import { SunburstSvgProps, SunburstNode, Data } from './types'
 
 const getAncestor = (node: any): any => {
     if (node.depth === 1) return node
@@ -40,167 +31,137 @@ const getAncestor = (node: any): any => {
     return node
 }
 
-const Sunburst = ({
-    nodes,
+export const Sunburst = <Datum extends Record<string, unknown>>(props: SunburstSvgProps<Datum>) => {
+    const {
+        data: _data,
+        identity,
+        value,
 
-    margin,
-    centerX,
-    centerY,
-    outerWidth,
-    outerHeight,
+        colors,
+        childColor,
 
-    arcGenerator,
+        margin: partialMargin,
+        width,
+        height,
 
-    borderWidth,
-    borderColor,
+        cornerRadius,
+        // arcGenerator,
 
-    // slices labels
-    enableSlicesLabels,
-    getSliceLabel,
-    slicesLabelsSkipAngle,
-    slicesLabelsTextColor,
+        borderWidth,
+        borderColor,
 
-    // theming
-    theme,
+        // slices labels
+        enableSlicesLabels,
+        sliceLabel,
+        slicesLabelsSkipAngle,
+        slicesLabelsTextColor,
 
-    role,
+        // theming
+        theme: _theme,
 
-    // interactivity
-    isInteractive,
-    tooltipFormat,
-    tooltip,
+        role,
 
-    // event handlers
-    onClick,
-    onMouseEnter,
-    onMouseLeave,
-}: SunburstSvgProps & Required<typeof defaultSunburstProps>) => {
+        // interactivity
+        isInteractive,
+        tooltipFormat,
+        tooltip,
+
+        // event handlers
+        onClick,
+        onMouseEnter,
+        onMouseLeave,
+    } = { ...defaultProps, ...props }
+
+    const { margin } = useDimensions(width, height, partialMargin)
+    const theme = usePartialTheme(_theme)
+
+    const { centerX, centerY, radius } = useMemo(() => {
+        const radius = Math.min(width, height) / 2
+
+        return { radius, centerX: width / 2, centerY: height / 2 }
+    }, [height, width])
+
+    const arcGenerator = useMemo(
+        () =>
+            arc<SunburstNode>()
+                .startAngle(d => d.x0)
+                .endAngle(d => d.x1)
+                .innerRadius(d => Math.sqrt(d.y0))
+                .outerRadius(d => Math.sqrt(d.y1))
+                .cornerRadius(cornerRadius),
+        [cornerRadius]
+    )
+
+    const getColor = useOrdinalColorScale(colors, 'id')
+    const getChildColor = useInheritedColor(childColor, theme)
+
+    const getSliceLabel = useMemo(() => getLabelGenerator(sliceLabel), [sliceLabel])
+    const getIdentity = useMemo(() => getAccessorFor(identity), [identity])
+    const getValue = useMemo(() => getAccessorFor(value), [value])
+
+    const nodes = useMemo(() => {
+        const partition = d3Partition<Data<Datum>>().size([2 * Math.PI, radius * radius])
+        const data = hierarchy(_data).sum(getValue)
+        const total = data.value ?? 0
+
+        return sortBy(partition(cloneDeep(data)).descendants(), 'depth').reduce(
+            (acc, { children: _children, ...node }) => {
+                const ancestor = getAncestor(node).data
+                const value = node.value ?? 0
+                const id = getIdentity<Data<Datum>, string>(node.data)
+                const data = {
+                    id,
+                    value,
+                    percentage: (100 * value) / total,
+                    depth: node.depth,
+                    ancestor,
+                }
+                const parent = acc.find(
+                    n => node.parent && n.data.id === getIdentity(node.parent.data)
+                )
+                const color =
+                    node.depth === 1 || childColor === 'noinherit'
+                        ? getColor(data)
+                        : parent
+                        ? getChildColor(parent.data)
+                        : node.data.color
+
+                return [...acc, { ...node, data: { ...data, color } }]
+            },
+            [] as SunburstNode<Datum>[]
+        )
+    }, [_data, childColor, getChildColor, getColor, getIdentity, getValue, radius])
+
     return (
         <Container isInteractive={isInteractive} theme={theme} animate={false}>
-            {({ showTooltip, hideTooltip }: TooltipHandlers) => (
-                <SvgWrapper
-                    width={outerWidth}
-                    height={outerHeight}
-                    margin={margin}
-                    theme={theme}
-                    role={role}
-                >
-                    <g transform={`translate(${centerX}, ${centerY})`}>
-                        {nodes
-                            .filter(node => node.depth > 0)
-                            .map((node, i) => (
-                                <SunburstArc
-                                    key={i}
-                                    node={node}
-                                    arcGenerator={arcGenerator}
-                                    borderWidth={borderWidth}
-                                    borderColor={borderColor}
-                                    showTooltip={showTooltip}
-                                    hideTooltip={hideTooltip}
-                                    tooltipFormat={tooltipFormat}
-                                    tooltip={tooltip}
-                                    onClick={onClick}
-                                    onMouseEnter={onMouseEnter}
-                                    onMouseLeave={onMouseLeave}
-                                />
-                            ))}
-                        {enableSlicesLabels && (
-                            <SunburstLabels
-                                nodes={nodes}
-                                theme={theme}
-                                label={getSliceLabel}
-                                skipAngle={slicesLabelsSkipAngle}
-                                textColor={getInheritedColorGenerator(
-                                    slicesLabelsTextColor,
-                                    'labels.text.fill'
-                                )}
+            <SvgWrapper width={width} height={height} margin={margin} role={role}>
+                <g transform={`translate(${centerX}, ${centerY})`}>
+                    {nodes
+                        .filter(node => node.depth > 0)
+                        .map((node, i) => (
+                            <SunburstArc
+                                key={i}
+                                node={node}
+                                arcGenerator={arcGenerator}
+                                borderWidth={borderWidth}
+                                borderColor={borderColor}
+                                tooltipFormat={tooltipFormat}
+                                tooltip={tooltip}
+                                onClick={onClick}
+                                onMouseEnter={onMouseEnter}
+                                onMouseLeave={onMouseLeave}
                             />
-                        )}
-                    </g>
-                </SvgWrapper>
-            )}
+                        ))}
+                    {enableSlicesLabels && (
+                        <SunburstLabels
+                            nodes={nodes}
+                            label={getSliceLabel}
+                            skipAngle={slicesLabelsSkipAngle}
+                            textColor={slicesLabelsTextColor}
+                        />
+                    )}
+                </g>
+            </SvgWrapper>
         </Container>
     )
 }
-
-const enhance = compose(
-    defaultProps(defaultSunburstProps),
-    withTheme(),
-    withDimensions(),
-    withPropsOnChange(['colors'], ({ colors }: Required<SunburstSvgProps>) => ({
-        getColor: getOrdinalColorScale(colors, 'id'),
-    })),
-    withProps(({ width, height }: Record<string, number>) => {
-        const radius = Math.min(width, height) / 2
-
-        const partition = Partition().size([2 * Math.PI, radius * radius])
-
-        return { radius, partition, centerX: width / 2, centerY: height / 2 }
-    }),
-    withPropsOnChange(['cornerRadius'], ({ cornerRadius }: { cornerRadius: number }) => ({
-        arcGenerator: arc<SunburstNode>()
-            .startAngle(d => d.x0)
-            .endAngle(d => d.x1)
-            .innerRadius(d => Math.sqrt(d.y0))
-            .outerRadius(d => Math.sqrt(d.y1))
-            .cornerRadius(cornerRadius),
-    })),
-    withPropsOnChange(['identity'], ({ identity }: SunburstSvgProps) => ({
-        getIdentity: getAccessorFor(identity),
-    })),
-    withPropsOnChange(['value'], ({ value }: SunburstSvgProps) => ({
-        getValue: getAccessorFor(value),
-    })),
-    withPropsOnChange(['data', 'getValue'], ({ data, getValue }: Required<SunburstSvgProps>) => ({
-        data: hierarchy(data).sum(getValue as any),
-    })),
-    withPropsOnChange(['childColor', 'theme'], ({ childColor, theme }: SunburstSvgProps) => ({
-        getChildColor: getInheritedColorGenerator(childColor, theme),
-    })),
-    withPropsOnChange(
-        ['data', 'partition', 'getIdentity', 'getChildColor'],
-        ({
-            data,
-            partition,
-            getIdentity,
-            getColor,
-            childColor,
-            getChildColor,
-        }: Required<SunburstSvgProps>) => {
-            const total = (data as any).value
-
-            const nodes = sortBy(partition(cloneDeep(data)).descendants(), 'depth')
-            nodes.forEach(node => {
-                const ancestor = getAncestor(node).data
-
-                delete node.children
-                delete node.data.children
-
-                Object.assign(node.data, {
-                    id: getIdentity(node.data),
-                    value: node.value,
-                    percentage: (100 * node.value) / total,
-                    depth: node.depth,
-                    ancestor,
-                })
-
-                if (node.depth === 1 || childColor === 'noinherit') {
-                    node.data.color = getColor(node.data)
-                } else if (node.depth > 1) {
-                    node.data.color = getChildColor(node.parent.data)
-                }
-            })
-
-            return { nodes }
-        }
-    ),
-    withPropsOnChange(['sliceLabel'], ({ sliceLabel }: SunburstSvgProps) => ({
-        getSliceLabel: getLabelGenerator(sliceLabel),
-    })),
-    pure
-)
-
-const enhancedSunburst = (enhance(Sunburst as any) as unknown) as React.FC<SunburstSvgProps>
-enhancedSunburst.displayName = 'Sunburst'
-
-export default enhancedSunburst

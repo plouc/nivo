@@ -1,23 +1,24 @@
-import { OrdinalColorsInstruction, InheritedColorProp } from '@nivo/colors'
-import { Theme, Dimensions, Box } from '@nivo/core'
+import { Arc } from 'd3-shape'
+import { HierarchyRectangularNode } from 'd3-hierarchy'
+import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
+import { Theme, MergedTheme, Dimensions, Box } from '@nivo/core'
+import { DefaultSunburstProps } from './props'
 
 type NameAndColor = {
-    name: string
+    // name: string
     color: string
 }
 
 // Pretty sure this should be generic.. loc is example from website
-type DataLocation = NameAndColor & {
-    loc: number
+type DataLocation<Datum extends Record<string, unknown>> = NameAndColor & Datum
+
+type DataChildren<Datum extends Record<string, unknown>> = NameAndColor & {
+    children: DataChildren<Datum>[] | DataLocation<Datum>[]
 }
 
-type DataChildren = NameAndColor & {
-    children: DataChildren[] | DataLocation[]
-}
+export type Data<Datum extends Record<string, unknown>> = NameAndColor & DataChildren<Datum>
 
-type Data = NameAndColor & DataChildren
-
-export type SunburstNode = {
+export type SunburstNodeOld = {
     data: {
         id: string
         color: string
@@ -29,28 +30,47 @@ export type SunburstNode = {
     y1: number
 }
 
-type CommonSunburstProps = {
-    data: Data
+type ComputedNode<Datum extends Record<string, unknown> = any> = HierarchyRectangularNode<
+    DataChildren<Datum>
+>
 
-    identity: string | ((node: SunburstNode['data']) => string)
-    value: string | ((node: SunburstNode['data']) => number)
+export type SunburstNode<Datum extends Record<string, unknown> = any> = Omit<
+    ComputedNode<Datum>,
+    'children' | 'data'
+> & {
+    data: {
+        // children: never
+        color: string
+        id: string
+        value: number
+        percentage: number
+        depth: number
+        ancestor: SunburstNode<Datum>['data']
+    }
+}
+
+type CommonSunburstProps = {
+    // data: Data
+
+    identity: string | ((node: ComputedNode['data']) => string)
+    value: string | ((node: ComputedNode['data']) => number)
 
     margin: Box
 
     cornerRadius: number
 
-    colors: OrdinalColorsInstruction<SunburstNode>
+    colors: OrdinalColorScaleConfig<Omit<SunburstNode['data'], 'color'>>
     borderWidth: number
     borderColor: string
 
-    childColor: InheritedColorProp<SunburstNode>
+    childColor: InheritedColorConfig<SunburstNode['data']>
 
     // slices labels
     enableSlicesLabels: boolean
-    sliceLabel: string | ((node: SunburstNode['data']) => string)
+    sliceLabel: string | ((node: ComputedNode['data']) => string)
 
-    slicesLabelsSkipAngle?: number
-    slicesLabelsTextColor?: InheritedColorProp<SunburstNode>
+    slicesLabelsSkipAngle: number
+    slicesLabelsTextColor: InheritedColorConfig<SunburstNode['data']>
 
     role: string
 
@@ -84,7 +104,8 @@ type ComputedSunburstProps = {
 
     partition: any // computed
 
-    arcGenerator: (node: SunburstNode) => string // computed
+    // arcGenerator: (node: SunburstNode) => string // computed
+    arcGenerator: Arc<any, SunburstNode<any>>
 
     radius: number // computed
     centerX: number // computed
@@ -99,12 +120,14 @@ type ComputedSunburstProps = {
     getSliceLabel: (node: SunburstNode['data']) => string
 }
 
-export type SunburstSvgProps = Dimensions &
-    Partial<CommonSunburstProps> &
-    ComputedSunburstProps & { nodes: ComputedSunburstProps['nodes'] }
+export type SunburstSvgProps<Datum extends Record<string, unknown>> = Dimensions &
+    DefaultSunburstProps &
+    Partial<CommonSunburstProps> & {
+        data: Data<Datum>
+    }
 
 export type SunburstArcProps = Pick<
-    SunburstSvgProps,
+    SunburstSvgProps<any>,
     | 'tooltip'
     | 'tooltipFormat'
     | 'onClick'
@@ -113,16 +136,14 @@ export type SunburstArcProps = Pick<
     | 'borderWidth'
     | 'borderColor'
 > &
-    Pick<ComputedSunburstProps, 'arcGenerator'> &
-    TooltipHandlers & {
+    Pick<ComputedSunburstProps, 'arcGenerator'> & {
         node: SunburstNode
-        path?: string // computed
     }
 
-export type SunburstLabelProps = Pick<SunburstSvgProps, 'nodes' | 'theme'> & {
-    label: SunburstSvgProps['getSliceLabel']
+export type SunburstLabelProps = Pick<ComputedSunburstProps, 'nodes'> & {
+    label: ComputedSunburstProps['getSliceLabel']
     skipAngle?: number
-    textColor: (payload: SunburstNode['data'], theme?: Theme) => string
+    textColor: CommonSunburstProps['slicesLabelsTextColor']
 }
 
 export type TooltipHandlers = {
