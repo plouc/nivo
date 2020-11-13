@@ -42,7 +42,6 @@
     "babel-plugin-lodash": "^3.3.4",
     "babel-preset-react-app": "^9.1.2",
     "chalk": "^2.4.2",
-    "clog-cli": "^1.0.0",
     "core-js": "^3.0.1",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",

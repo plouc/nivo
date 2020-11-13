@@ -9304,11 +9304,6 @@ cliui@^7.0.2:
     strip-ansi "^6.0.0"
     wrap-ansi "^7.0.0"
 
-clog-cli@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/clog-cli/-/clog-cli-1.0.0.tgz#e5ee1f9f1baa4717585e1b67cbdf613189b73a27"
-  integrity sha1-5e4fnxuqRxdYXhtny99hMYm3Oic=
-
 clone-deep@^0.2.4:
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/clone-deep/-/clone-deep-0.2.4.tgz#4e73dd09e9fb971cc38670c5dced9c1896481cc6"
