@@ -18,5 +18,6 @@
         { "path": "./packages/bullet" },
         { "path": "./packages/marimekko" },
         { "path": "./packages/pie" },
+        { "path": "./packages/sunburst" },
     ]
 }

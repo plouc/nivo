@@ -1,37 +1,39 @@
-import React from 'react'
-// @ts-ignore
-import compose from 'recompose/compose'
-// @ts-ignore
-import withPropsOnChange from 'recompose/withPropsOnChange'
-// @ts-ignore
-import pure from 'recompose/pure'
-import { BasicTooltip } from '@nivo/tooltip'
+import React, { useMemo } from 'react'
+import { BasicTooltip, useTooltip } from '@nivo/tooltip'
 import { SunburstArcProps } from './types'
 
-const SunburstArc = ({
+export const SunburstArc = ({
     node,
-    path,
+    arcGenerator,
     borderWidth,
     borderColor,
-    showTooltip,
-    hideTooltip,
-    tooltip,
+    tooltip: _tooltip,
+    tooltipFormat,
     onClick,
     onMouseEnter,
     onMouseLeave,
-}: SunburstArcProps & {
-    onClick: (event: React.MouseEvent<SVGPathElement, MouseEvent>) => void
-}) => {
-    // @ts-ignore
-    const handleTooltip = e => showTooltip(tooltip, e)
-    const handleMouseEnter = (e: React.MouseEvent<SVGPathElement, MouseEvent>) => {
-        onMouseEnter?.(node.data, e)
-        // @ts-ignore
-        showTooltip(tooltip, e)
-    }
-    const handleMouseLeave = (e: React.MouseEvent<SVGPathElement, MouseEvent>) => {
-        onMouseLeave?.(node.data, e)
-        hideTooltip()
+}: SunburstArcProps) => {
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
+
+    const path = useMemo(() => arcGenerator(node), [arcGenerator, node])
+    const tooltip = useMemo(
+        () => (
+            <BasicTooltip
+                id={node.data.id}
+                value={`${node.data.percentage.toFixed(2)}%`}
+                enableChip={true}
+                color={node.data.color}
+                format={tooltipFormat}
+                renderContent={
+                    typeof _tooltip === 'function' ? _tooltip.bind(null, { ...node.data }) : null
+                }
+            />
+        ),
+        [_tooltip, node.data, tooltipFormat]
+    )
+
+    if (!path) {
+        return null
     }
 
     return (
@@ -40,41 +42,16 @@ const SunburstArc = ({
             fill={node.data.color}
             stroke={borderColor}
             strokeWidth={borderWidth}
-            onMouseEnter={handleMouseEnter}
-            onMouseMove={handleTooltip}
-            onMouseLeave={handleMouseLeave}
-            onClick={onClick}
+            onMouseEnter={event => {
+                onMouseEnter?.(node.data, event)
+                showTooltipFromEvent(tooltip, event)
+            }}
+            onMouseMove={event => showTooltipFromEvent(tooltip, event)}
+            onMouseLeave={event => {
+                onMouseLeave?.(node.data, event)
+                hideTooltip()
+            }}
+            onClick={event => onClick?.(node.data, event)}
         />
     )
 }
-
-const enhance = compose(
-    withPropsOnChange(['node', 'arcGenerator'], ({ node, arcGenerator }: SunburstArcProps) => ({
-        path: arcGenerator(node),
-    })),
-    withPropsOnChange(['node', 'onClick'], ({ node, onClick }: SunburstArcProps) => ({
-        onClick: (event: React.MouseEvent<SVGPathElement, MouseEvent>) =>
-            onClick?.(node.data, event),
-    })),
-    withPropsOnChange(
-        ['node', 'tooltip', 'tooltipFormat'],
-        ({ node, tooltip, tooltipFormat }: SunburstArcProps) => ({
-            tooltip: (
-                <BasicTooltip
-                    id={node.data.id}
-                    value={`${(node.data as any).percentage.toFixed(2)}%`}
-                    enableChip={true}
-                    color={node.data.color}
-                    format={tooltipFormat}
-                    // @ts-ignore
-                    renderContent={
-                        typeof tooltip === 'function' ? tooltip.bind(null, { ...node.data }) : null
-                    }
-                />
-            ),
-        })
-    ),
-    pure
-)
-
-export default (enhance(SunburstArc as any) as unknown) as React.FC<SunburstArcProps>

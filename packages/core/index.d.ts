@@ -132,6 +132,7 @@ declare module '@nivo/core' {
     >
 
     export function useTheme(): CompleteTheme
+    export function usePartialTheme(theme?: Theme): CompleteTheme
 
     export type MotionProps = Partial<{
         animate: boolean
@@ -159,7 +160,7 @@ declare module '@nivo/core' {
             id: string
             [key: string]: any
         }[]
-        fill?: { id: string; match: object | SvgFillMatcher<T> | '*' }[]
+        fill?: { id: string; match: Record<string, unknown> | SvgFillMatcher<T> | '*' }[]
     }
 
     export interface CartesianMarkerProps {
@@ -275,6 +276,12 @@ declare module '@nivo/core' {
 
     export function degreesToRadians(degrees: number): number
     export function radiansToDegrees(radians: number): number
+
+    type Accessor<T, U> = T extends string ? U[T] : never
+
+    export function getAccessorFor(
+        directive: string | number
+    ): <Datum, Value>(datum: Datum) => Value
 
     export function useDimensions(
         width: number,
