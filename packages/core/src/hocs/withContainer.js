@@ -28,6 +28,7 @@ export const withContainer = WrappedComponent => {
                 <Container
                     theme={theme}
                     renderWrapper={renderWrapper}
+                    isInteractive={childProps.isInteractive}
                     animate={animate}
                     motionStiffness={motionStiffness}
                     motionDamping={motionDamping}
