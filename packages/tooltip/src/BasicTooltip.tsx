@@ -9,6 +9,9 @@ interface BasicTooltipProps {
     format?: DataFormatter
     color?: string
     enableChip?: boolean
+    /**
+     * @deprecated This should be replaced by custom tooltip components.
+     */
     renderContent?: () => JSX.Element
 }
 
@@ -42,18 +45,3 @@ export const BasicTooltip = memo<BasicTooltipProps>(
         return <div style={theme.tooltip.container}>{content}</div>
     }
 )
-
-/*
-BasicTooltip.displayName = 'BasicTooltip'
-BasicTooltip.propTypes = {
-    id: PropTypes.node.isRequired,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    enableChip: PropTypes.bool.isRequired,
-    color: PropTypes.string,
-    format: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    renderContent: PropTypes.func,
-}
-BasicTooltip.defaultProps = {
-    enableChip: false,
-}
-*/
