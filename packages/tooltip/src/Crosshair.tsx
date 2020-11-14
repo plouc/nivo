@@ -49,3 +49,5 @@ export const Crosshair = memo(({ width, height, type, x, y }: CrosshairProps) =>
         </>
     )
 })
+
+Crosshair.displayName = 'Crosshair'

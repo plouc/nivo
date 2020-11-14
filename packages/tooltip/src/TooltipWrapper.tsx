@@ -83,3 +83,5 @@ export const TooltipWrapper = memo<PropsWithChildren<TooltipWrapperProps>>(
         )
     }
 )
+
+TooltipWrapper.displayName = 'TooltipWrapper'
