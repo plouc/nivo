@@ -9,7 +9,7 @@
 import React, { Component } from 'react'
 import uniqBy from 'lodash/uniqBy'
 import setDisplayName from 'recompose/setDisplayName'
-import { getRelativeCursor, isCursorInRect, Container } from '@nivo/core'
+import { getRelativeCursor, isCursorInRect, LegacyContainer } from '@nivo/core'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { BasicTooltip } from '@nivo/tooltip'
@@ -263,7 +263,7 @@ class BarCanvas extends Component {
         const { outerWidth, outerHeight, pixelRatio, isInteractive, theme, canvasRef } = this.props
 
         return (
-            <Container isInteractive={isInteractive} theme={theme} animate={false}>
+            <LegacyContainer isInteractive={isInteractive} theme={theme} animate={false}>
                 {({ showTooltip, hideTooltip }) => (
                     <canvas
                         ref={surface => {
@@ -282,7 +282,7 @@ class BarCanvas extends Component {
                         onClick={this.handleClick}
                     />
                 )}
-            </Container>
+            </LegacyContainer>
         )
     }
 }

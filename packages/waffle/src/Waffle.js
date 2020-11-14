@@ -10,7 +10,7 @@ import React, { Component, Fragment } from 'react'
 import partial from 'lodash.partial'
 import { TransitionMotion, spring } from 'react-motion'
 import setDisplayName from 'recompose/setDisplayName'
-import { Container, SvgWrapper } from '@nivo/core'
+import { LegacyContainer, SvgWrapper } from '@nivo/core'
 import { BoxLegendSvg } from '@nivo/legends'
 import { WafflePropTypes } from './props'
 import enhance from './enhance'
@@ -92,7 +92,7 @@ export class Waffle extends Component {
         })
 
         return (
-            <Container
+            <LegacyContainer
                 isInteractive={isInteractive}
                 theme={theme}
                 animate={animate}
@@ -207,7 +207,7 @@ export class Waffle extends Component {
                         </SvgWrapper>
                     )
                 }}
-            </Container>
+            </LegacyContainer>
         )
     }
 }

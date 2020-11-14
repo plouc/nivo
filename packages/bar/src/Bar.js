@@ -8,7 +8,7 @@
  */
 import React, { Fragment } from 'react'
 import { TransitionMotion, spring } from 'react-motion'
-import { bindDefs, Container, SvgWrapper, CartesianMarkers } from '@nivo/core'
+import { bindDefs, LegacyContainer, SvgWrapper, CartesianMarkers } from '@nivo/core'
 import { Axes, Grid } from '@nivo/axes'
 import { BoxLegendSvg } from '@nivo/legends'
 import { generateGroupedBars, generateStackedBars, getLegendData } from './compute'
@@ -160,7 +160,7 @@ const Bar = props => {
     })
 
     return (
-        <Container
+        <LegacyContainer
             isInteractive={isInteractive}
             theme={theme}
             animate={animate}
@@ -334,7 +334,7 @@ const Bar = props => {
                     </SvgWrapper>
                 )
             }}
-        </Container>
+        </LegacyContainer>
     )
 }
 

@@ -23,7 +23,7 @@ import {
     withDimensions,
     getAccessorFor,
     getLabelGenerator,
-    Container,
+    LegacyContainer,
     SvgWrapper,
 } from '@nivo/core'
 import {
@@ -74,7 +74,7 @@ const Sunburst = ({
     onMouseLeave,
 }) => {
     return (
-        <Container isInteractive={isInteractive} theme={theme} animate={false}>
+        <LegacyContainer isInteractive={isInteractive} theme={theme} animate={false}>
             {({ showTooltip, hideTooltip }) => (
                 <SvgWrapper
                     width={outerWidth}
@@ -118,7 +118,7 @@ const Sunburst = ({
                     </g>
                 </SvgWrapper>
             )}
-        </Container>
+        </LegacyContainer>
     )
 }
 

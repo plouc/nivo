@@ -8,7 +8,7 @@
  */
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react'
-import { Container } from '@nivo/core'
+import { LegacyContainer } from '@nivo/core'
 import enhance from './enhance'
 
 class BubbleCanvas extends Component {
@@ -90,7 +90,7 @@ class BubbleCanvas extends Component {
         const { outerWidth, outerHeight, pixelRatio, isInteractive, theme } = this.props
 
         return (
-            <Container isInteractive={isInteractive} theme={theme} animate={false}>
+            <LegacyContainer isInteractive={isInteractive} theme={theme} animate={false}>
                 {() => (
                     <canvas
                         ref={surface => {
@@ -104,7 +104,7 @@ class BubbleCanvas extends Component {
                         }}
                     />
                 )}
-            </Container>
+            </LegacyContainer>
         )
     }
 }

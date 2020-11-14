@@ -10,7 +10,7 @@
 import React from 'react'
 import { TransitionMotion, spring } from 'react-motion'
 import pick from 'lodash/pick'
-import { Container, SvgWrapper } from '@nivo/core'
+import { LegacyContainer, SvgWrapper } from '@nivo/core'
 import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
 import enhance from './enhance'
 import { nodeWillEnter, nodeWillLeave } from './motion'
@@ -62,7 +62,7 @@ const Bubble = ({
         })
 
     return (
-        <Container
+        <LegacyContainer
             isInteractive={isInteractive}
             theme={theme}
             animate={animate}
@@ -139,7 +139,7 @@ const Bubble = ({
                     )}
                 </SvgWrapper>
             )}
-        </Container>
+        </LegacyContainer>
     )
 }
 

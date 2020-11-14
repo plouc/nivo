@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import React, { Fragment } from 'react'
-import { Container, SvgWrapper } from '@nivo/core'
+import { LegacyContainer, SvgWrapper } from '@nivo/core'
 import enhance from './enhance'
 import { VoronoiPropTypes } from './props'
 
@@ -91,7 +91,7 @@ const Voronoi = ({
     }
 
     return (
-        <Container isInteractive={false} theme={theme} animate={false}>
+        <LegacyContainer isInteractive={false} theme={theme} animate={false}>
             {
                 (/*{ showTooltip, hideTooltip }*/) => (
                     <SvgWrapper
@@ -109,7 +109,7 @@ const Voronoi = ({
                     </SvgWrapper>
                 )
             }
-        </Container>
+        </LegacyContainer>
     )
 }
 
