@@ -32,3 +32,5 @@ export const CrosshairLine = memo(({ x0, x1, y0, y1 }: CrosshairLineProps) => {
 
     return <animated.line {...animatedProps} fill="none" style={style} />
 })
+
+CrosshairLine.displayName = 'CrosshairLine'
