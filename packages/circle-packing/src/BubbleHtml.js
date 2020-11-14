@@ -10,7 +10,7 @@
 import React from 'react'
 import { TransitionMotion, spring } from 'react-motion'
 import pick from 'lodash/pick'
-import { Container } from '@nivo/core'
+import { LegacyContainer } from '@nivo/core'
 import { interpolateColor, getInterpolatedColor } from '@nivo/colors'
 import enhance from './enhance'
 import { nodeWillEnter, nodeWillLeave } from './motion'
@@ -60,7 +60,7 @@ const BubbleHtml = ({
         })
 
     return (
-        <Container
+        <LegacyContainer
             isInteractive={isInteractive}
             theme={theme}
             animate={animate}
@@ -138,7 +138,7 @@ const BubbleHtml = ({
                     )}
                 </div>
             )}
-        </Container>
+        </LegacyContainer>
     )
 }
 

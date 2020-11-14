@@ -6,22 +6,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { useRef, useMemo, useCallback } from 'react'
+import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
-import { tooltipContext, useTooltipHandlers, TooltipWrapper } from '@nivo/tooltip'
-import noop from '../lib/noop'
+import { TooltipProvider, Tooltip } from '@nivo/tooltip'
 import { ThemeProvider } from '../theming'
 import { MotionConfigProvider } from '../motion'
-import ConditionalWrapper from './ConditionalWrapper'
+import { ConditionalWrapper } from './ConditionalWrapper'
 
 const containerStyle = {
     position: 'relative',
 }
 
-const Container = ({
+export const Container = ({
     children,
     theme,
-    isInteractive = true,
     renderWrapper = true,
     animate,
     motionStiffness,
@@ -29,27 +27,6 @@ const Container = ({
     motionConfig,
 }) => {
     const container = useRef(null)
-    const {
-        showTooltipAt,
-        showTooltipFromEvent,
-        hideTooltip,
-        isTooltipVisible,
-        tooltipContent,
-        tooltipPosition,
-        tooltipAnchor,
-    } = useTooltipHandlers(container)
-
-    const showTooltip = useCallback((content, event) => showTooltipFromEvent(content, event), [
-        showTooltipFromEvent,
-    ])
-
-    const handlers = useMemo(
-        () => ({
-            showTooltip: isInteractive ? showTooltip : noop,
-            hideTooltip: isInteractive ? hideTooltip : noop,
-        }),
-        [hideTooltip, isInteractive, showTooltip]
-    )
 
     return (
         <ThemeProvider theme={theme}>
@@ -59,40 +36,27 @@ const Container = ({
                 damping={motionDamping}
                 config={motionConfig}
             >
-                <tooltipContext.Provider
-                    value={{ showTooltipAt, showTooltipFromEvent, hideTooltip }}
-                >
+                <TooltipProvider container={container}>
                     {/* we should not render the div element if using the HTTP API */}
                     <ConditionalWrapper
                         condition={renderWrapper}
-                        wrapper={children => (
-                            <div style={containerStyle} ref={container}>
-                                {children}
-                                {isTooltipVisible && (
-                                    <TooltipWrapper
-                                        position={tooltipPosition}
-                                        anchor={tooltipAnchor}
-                                    >
-                                        {tooltipContent}
-                                    </TooltipWrapper>
-                                )}
-                            </div>
-                        )}
+                        wrapper={<div style={containerStyle} ref={container} />}
                     >
-                        {typeof children === 'function' ? children(handlers) : children}
+                        {children}
+                        <Tooltip />
                     </ConditionalWrapper>
-                </tooltipContext.Provider>
+                </TooltipProvider>
             </MotionConfigProvider>
         </ThemeProvider>
     )
 }
 
 Container.propTypes = {
-    children: PropTypes.oneOf([PropTypes.func, PropTypes.node]).isRequired,
+    children: PropTypes.element.isRequired,
     isInteractive: PropTypes.bool,
     renderWrapper: PropTypes.bool,
     theme: PropTypes.object.isRequired,
-    animate: PropTypes.bool.isRequired,
+    animate: PropTypes.bool,
     motionStiffness: PropTypes.number,
     motionDamping: PropTypes.number,
     motionConfig: PropTypes.string,

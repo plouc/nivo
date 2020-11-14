@@ -10,7 +10,7 @@ import React, { Component, Fragment } from 'react'
 import partial from 'lodash.partial'
 import setDisplayName from 'recompose/setDisplayName'
 import { TransitionMotion, spring } from 'react-motion'
-import { Container } from '@nivo/core'
+import { LegacyContainer } from '@nivo/core'
 import enhance from './enhance'
 import { WaffleHtmlPropTypes } from './props'
 import { applyDataToGrid } from './compute'
@@ -82,7 +82,7 @@ class WaffleHtml extends Component {
         })
 
         return (
-            <Container
+            <LegacyContainer
                 isInteractive={isInteractive}
                 theme={theme}
                 animate={animate}
@@ -193,7 +193,7 @@ class WaffleHtml extends Component {
                         </div>
                     )
                 }}
-            </Container>
+            </LegacyContainer>
         )
     }
 }

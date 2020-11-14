@@ -13,14 +13,17 @@
   },
   "main": "./dist/nivo-tooltip.cjs.js",
   "module": "./dist/nivo-tooltip.es.js",
+  "typings": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
-    "index.d.ts",
     "dist/"
   ],
   "dependencies": {
     "react-spring": "^8.0.27"
+  },
+  "devDependencies": {
+    "@nivo/core": "*"
   },
   "peerDependencies": {
     "@nivo/core": "0.63.1",

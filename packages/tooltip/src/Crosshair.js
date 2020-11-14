@@ -1,14 +1,6 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { crosshairPropTypes } from '../props'
+import { crosshairPropTypes } from './props'
 import CrosshairLine from './CrosshairLine'
 
 const Crosshair = memo(({ width, height, type, x, y }) => {

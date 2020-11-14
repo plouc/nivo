@@ -7,13 +7,14 @@ import PropTypes from 'prop-types'
 //     wrapper: (children: JSX.Element) => JSX.Element
 //   }
 
-const ConditionalWrapper = ({ children, condition, wrapper }) =>
-    condition ? cloneElement(wrapper(children)) : children
+export const ConditionalWrapper = ({ children, condition, wrapper }) => {
+    if (!condition) return children
+
+    return cloneElement(wrapper, {}, children)
+}
 
 ConditionalWrapper.propTypes = {
     children: PropTypes.node.isRequired,
     condition: PropTypes.bool.isRequired,
-    wrapper: PropTypes.func.isRequired,
+    wrapper: PropTypes.element.isRequired,
 }
-
-export default ConditionalWrapper
