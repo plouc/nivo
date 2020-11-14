@@ -21,6 +21,7 @@ export const Container = ({
     children,
     theme,
     renderWrapper = true,
+    isInteractive = true,
     animate,
     motionStiffness,
     motionDamping,
@@ -43,7 +44,7 @@ export const Container = ({
                         wrapper={<div style={containerStyle} ref={container} />}
                     >
                         {children}
-                        <Tooltip />
+                        {isInteractive && <Tooltip />}
                     </ConditionalWrapper>
                 </TooltipProvider>
             </MotionConfigProvider>
