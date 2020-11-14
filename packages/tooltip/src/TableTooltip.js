@@ -1,5 +1,4 @@
 import React, { memo } from 'react'
-import PropTypes from 'prop-types'
 import { useTheme } from '@nivo/core'
 
 const tableStyle = {
@@ -7,7 +6,7 @@ const tableStyle = {
     borderCollapse: 'collapse',
 }
 
-const TableTooltip = memo(({ title, rows, renderContent }) => {
+export const TableTooltip = memo(({ title, rows, renderContent }) => {
     const theme = useTheme()
 
     if (!rows.length) return null
@@ -38,7 +37,7 @@ const TableTooltip = memo(({ title, rows, renderContent }) => {
 
     return <div style={theme.tooltip.container}>{content}</div>
 })
-
+/*
 TableTooltip.propTypes = {
     title: PropTypes.node,
     rows: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.node)).isRequired,
@@ -48,3 +47,4 @@ TableTooltip.propTypes = {
 TableTooltip.displayName = 'TableTooltip'
 
 export default TableTooltip
+*/
