@@ -1,7 +1,16 @@
 import React, { memo } from 'react'
 import { CrosshairLine } from './CrosshairLine'
+import { CrosshairType } from './types'
 
-export const Crosshair = memo(({ width, height, type, x, y }) => {
+interface CrosshairProps {
+    width: number
+    height: number
+    type: CrosshairType
+    x: number
+    y: number
+}
+
+export const Crosshair = memo(({ width, height, type, x, y }: CrosshairProps) => {
     let xLine
     let yLine
     if (type === 'cross') {
@@ -40,19 +49,3 @@ export const Crosshair = memo(({ width, height, type, x, y }) => {
         </>
     )
 })
-
-/*
-Crosshair.displayName = 'Crosshair'
-Crosshair.propTypes = {
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-    type: crosshairPropTypes.type.isRequired,
-}
-Crosshair.defaultProps = {
-    type: 'cross',
-}
-
-export default Crosshair
-*/

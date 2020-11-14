@@ -1,8 +1,16 @@
 import React, { memo, useMemo } from 'react'
 import { useSpring, animated } from 'react-spring'
+// @ts-ignore
 import { useTheme, useMotionConfig } from '@nivo/core'
 
-export const CrosshairLine = memo(({ x0, x1, y0, y1 }) => {
+interface CrosshairLineProps {
+    x0: number
+    x1: number
+    y0: number
+    y1: number
+}
+
+export const CrosshairLine = memo(({ x0, x1, y0, y1 }: CrosshairLineProps) => {
     const theme = useTheme()
     const { animate, config: springConfig } = useMotionConfig()
     const style = useMemo(
@@ -24,15 +32,3 @@ export const CrosshairLine = memo(({ x0, x1, y0, y1 }) => {
 
     return <animated.line {...animatedProps} fill="none" style={style} />
 })
-
-/*
-CrosshairLine.displayName = 'CrosshairLine'
-CrosshairLine.propTypes = {
-    x0: PropTypes.number.isRequired,
-    x1: PropTypes.number.isRequired,
-    y0: PropTypes.number.isRequired,
-    y1: PropTypes.number.isRequired,
-}
-
-export default CrosshairLine
-*/
