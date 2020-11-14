@@ -1,11 +1,12 @@
 import React, { memo, ReactNode } from 'react'
 // @ts-ignore
-import { useTheme, useValueFormatter } from '@nivo/core'
+import { useTheme, DataFormatter, useValueFormatter } from '@nivo/core'
 import { Chip } from './Chip'
 
 interface BasicTooltipProps {
     id: ReactNode
-    value?: number | string
+    value?: number | string | Date
+    format?: DataFormatter
     color?: string
     enableChip?: boolean
     renderContent?: () => JSX.Element
@@ -26,10 +27,10 @@ export const BasicTooltip = memo<BasicTooltipProps>(
             }
             content = (
                 <div style={theme.tooltip.basic}>
-                    {enableChip && <Chip color={color} style={theme.tooltip.chip} />}
+                    {enableChip && <Chip color={color!} style={theme.tooltip.chip} />}
                     {value !== undefined ? (
                         <span>
-                            {id}: <strong>{isNaN(value) ? String(value) : value}</strong>
+                            {id}: <strong>{`${value}`}</strong>
                         </span>
                     ) : (
                         id
