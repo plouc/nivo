@@ -1,13 +1,12 @@
-import React, { createElement, useMemo, MouseEvent } from 'react'
-// import { useTransition } from 'react-spring'
+import React, { useMemo } from 'react'
+import { useTransition, config } from 'react-spring'
 // @ts-ignore
 import { useTheme } from '@nivo/core'
 import { InheritedColorConfig, useInheritedColor } from '@nivo/colors'
-import { useTooltip } from '@nivo/tooltip'
 import { ComputedDatum, DimensionDatum } from './types'
-import { BarTooltip } from './BarTooltip'
+import { Bar } from './Bar'
 
-interface NodesProps<RawDatum> {
+interface BarsProps<RawDatum> {
     data: ComputedDatum<RawDatum>[]
     borderWidth: number
     borderColor: InheritedColorConfig<DimensionDatum<RawDatum>>
@@ -18,7 +17,7 @@ interface BarData<RawDatum> extends DimensionDatum<RawDatum> {
     borderColor: string
 }
 
-export const Bars = <RawDatum,>({ data, borderWidth, borderColor }: NodesProps<RawDatum>) => {
+export const Bars = <RawDatum,>({ data, borderWidth, borderColor }: BarsProps<RawDatum>) => {
     const theme = useTheme()
     const getBorderColor = useInheritedColor<DimensionDatum<RawDatum>>(borderColor, theme)
 
@@ -37,32 +36,77 @@ export const Bars = <RawDatum,>({ data, borderWidth, borderColor }: NodesProps<R
         return all
     }, [data, borderWidth, getBorderColor])
 
-    const { showTooltipFromEvent, hideTooltip } = useTooltip()
-
-    const handle = (datum: DimensionDatum<RawDatum>, event: MouseEvent) => {
-        showTooltipFromEvent(
-            createElement<{ datum: DimensionDatum<RawDatum> }>(BarTooltip, { datum }),
-            event
-        )
-    }
+    const transition = useTransition<
+        BarData<RawDatum>,
+        {
+            x: number
+            y: number
+            width: number
+            height: number
+            color: string
+            opacity: number
+            borderColor: string
+        }
+    >(allBars, {
+        key: bar => bar.key,
+        initial: bar => ({
+            x: bar.x,
+            y: bar.y,
+            width: bar.width,
+            height: bar.height,
+            color: bar.color,
+            opacity: 1,
+            borderColor: bar.borderColor,
+        }),
+        from: bar => ({
+            x: bar.x,
+            y: bar.y,
+            width: bar.width,
+            height: bar.height,
+            color: bar.color,
+            opacity: 0,
+            borderColor: bar.borderColor,
+        }),
+        enter: bar => ({
+            x: bar.x,
+            y: bar.y,
+            width: bar.width,
+            height: bar.height,
+            color: bar.color,
+            opacity: 1,
+            borderColor: bar.borderColor,
+        }),
+        update: bar => ({
+            x: bar.x,
+            y: bar.y,
+            width: bar.width,
+            height: bar.height,
+            color: bar.color,
+            opacity: 1,
+            borderColor: bar.borderColor,
+        }),
+        leave: bar => ({
+            opacity: 0,
+            x: bar.x,
+            y: bar.y,
+            width: bar.width,
+            height: bar.height,
+            color: bar.color,
+        }),
+        config: config.wobbly,
+        //immediate: !animate,
+    })
 
     return (
         <>
-            {allBars.map(bar => {
+            {transition((style, bar) => {
                 return (
-                    <rect
+                    <Bar<RawDatum>
                         key={bar.key}
-                        id={bar.key}
-                        x={bar.x}
-                        y={bar.y}
-                        width={bar.width}
-                        height={bar.height}
-                        fill={bar.color}
-                        stroke={bar.borderColor}
-                        strokeWidth={borderWidth}
-                        onMouseEnter={event => handle(bar, event)}
-                        onMouseMove={event => handle(bar, event)}
-                        onMouseLeave={hideTooltip}
+                        datum={bar}
+                        borderWidth={borderWidth}
+                        borderColor={bar.borderColor}
+                        animatedProps={style}
                     />
                 )
             })}
