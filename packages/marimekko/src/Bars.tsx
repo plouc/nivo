@@ -1,13 +1,21 @@
 import React from 'react'
 import { useTransition, config } from 'react-spring'
-import { BarDatum } from './types'
+import { BarDatum, MouseEventHandlers } from './types'
 import { Bar } from './Bar'
 
-interface BarsProps<RawDatum> {
+interface BarsProps<RawDatum> extends MouseEventHandlers<RawDatum, SVGRectElement> {
+    isInteractive: boolean
     bars: BarDatum<RawDatum>[]
 }
 
-export const Bars = <RawDatum,>({ bars }: BarsProps<RawDatum>) => {
+export const Bars = <RawDatum,>({
+    bars,
+    isInteractive,
+    onClick,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+}: BarsProps<RawDatum>) => {
     const transition = useTransition<
         BarDatum<RawDatum>,
         {
@@ -71,9 +79,18 @@ export const Bars = <RawDatum,>({ bars }: BarsProps<RawDatum>) => {
 
     return (
         <>
-            {transition((style, bar) => {
-                return <Bar<RawDatum> key={bar.key} bar={bar} animatedProps={style} />
-            })}
+            {transition((style, bar) => (
+                <Bar<RawDatum>
+                    key={bar.key}
+                    bar={bar}
+                    animatedProps={style}
+                    isInteractive={isInteractive}
+                    onClick={onClick}
+                    onMouseEnter={onMouseEnter}
+                    onMouseMove={onMouseMove}
+                    onMouseLeave={onMouseLeave}
+                />
+            ))}
         </>
     )
 }

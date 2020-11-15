@@ -1,6 +1,6 @@
 import React from 'react'
 import { ResponsiveMarimekko, defaultProps } from '@nivo/marimekko'
-import { random } from 'lodash'
+import { random, omit } from 'lodash'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/marimekko/meta.yml'
 import mapper from '../../data/components/marimekko/mapper'
@@ -103,12 +103,16 @@ const Marimekko = () => {
             generateData={generateData}
         >
             {(properties, data, theme, logAction) => {
-                const handleArcClick = slice => {
+                const handleClick = bar => {
                     logAction({
                         type: 'click',
-                        label: `[arc] ${slice.id}: ${slice.formattedValue}`,
-                        color: slice.color,
-                        data: slice,
+                        label: `[bar] ${bar.datum.id} - ${bar.id}: ${bar.value}`,
+                        color: bar.color,
+                        // prevent cyclic dependency
+                        data: {
+                            ...omit(bar, ['datum']),
+                            datum: omit(bar.datum, ['dimensions']),
+                        },
                     })
                 }
 
@@ -126,7 +130,7 @@ const Marimekko = () => {
                         data={data}
                         {...properties}
                         theme={theme}
-                        onClick={handleArcClick}
+                        onClick={handleClick}
                         legends={properties.legends.map(legend => ({
                             ...legend,
                             onClick: handleLegendClick,

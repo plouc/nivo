@@ -11,4 +11,8 @@ export const defaultProps = {
         from: 'color',
         modifiers: [['darker', 1]],
     },
+
+    isInteractive: true,
+
+    animate: true,
 }
