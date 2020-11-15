@@ -1,7 +1,7 @@
 import { interpolateString } from 'd3-interpolate'
 import { useEffect, useMemo, useRef } from 'react'
+import { useSpring, to } from 'react-spring'
 import { useMotionConfig } from '../motion'
-import { useSpring } from 'react-spring'
 
 const usePrevious = value => {
     const ref = useRef()
@@ -27,5 +27,5 @@ export const useAnimatedPath = path => {
         immediate: !animate,
     })
 
-    return value.interpolate(interpolator)
+    return to(value, interpolator)
 }

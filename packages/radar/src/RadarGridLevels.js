@@ -9,7 +9,7 @@
 import React, { memo, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { lineRadial, curveLinearClosed } from 'd3-shape'
-import { animated, useSpring } from 'react-spring'
+import { animated, useSpring, to } from 'react-spring'
 import { useTheme, useAnimatedPath, useMotionConfig } from '@nivo/core'
 
 const RadarGridLevelCircular = memo(({ radius }) => {
@@ -25,7 +25,7 @@ const RadarGridLevelCircular = memo(({ radius }) => {
     return (
         <animated.circle
             fill="none"
-            r={animatedProps.radius.interpolate(value => Math.max(value, 0))}
+            r={to(animatedProps.radius, value => Math.max(value, 0))}
             {...theme.grid.line}
         />
     )

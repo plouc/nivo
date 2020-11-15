@@ -8,7 +8,7 @@
  */
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { animated } from 'react-spring'
+import { animated, to } from 'react-spring'
 import { useTheme } from '@nivo/core'
 
 const TreeMapNode = ({
@@ -31,8 +31,8 @@ const TreeMapNode = ({
     return (
         <animated.g transform={animatedProps.transform}>
             <animated.rect
-                width={animatedProps.width.interpolate(v => Math.max(v, 0))}
-                height={animatedProps.height.interpolate(v => Math.max(v, 0))}
+                width={to(animatedProps.width, v => Math.max(v, 0))}
+                height={to(animatedProps.height, v => Math.max(v, 0))}
                 fill={node.fill ? node.fill : animatedProps.color}
                 strokeWidth={borderWidth}
                 stroke={node.borderColor}
