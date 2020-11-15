@@ -16,6 +16,7 @@
 
         // Charts now
         { "path": "./packages/bullet" },
+        { "path": "./packages/marimekko" },
         { "path": "./packages/pie" },
     ]
 }

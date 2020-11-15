@@ -241,4 +241,30 @@ declare module '@nivo/core' {
         outerWidth: number
         outerHeight: number
     }
+
+    export const SvgWrapper = (
+        props: React.PropsWithChildren<{
+            width: number
+            height: number
+            margin: Margin
+            defs?: any
+            role?: string
+        }>
+    ) => JSX.Element
+
+    interface ContainerProps {
+        theme?: Theme
+        renderWrapper?: boolean
+        isInteractive?: boolean
+        animate?: boolean
+        motionStiffness?: number
+        motionDamping?: number
+        // motionConfig
+    }
+
+    export const Container = (props: React.PropsWithChildren<ContainerProps>) => JSX.Element
+
+    export const ResponsiveWrapper = (props: {
+        children: (dimensions: { width: number; height: number }) => JSX.Element
+    }) => JSX.Element
 }
