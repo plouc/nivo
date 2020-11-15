@@ -78,7 +78,8 @@ const TreeMapNodes = ({
     })
 
     const { animate, config: springConfig } = useMotionConfig()
-    const transitions = useTransition(interactiveNodes, node => node.path, {
+    const transition = useTransition(interactiveNodes, {
+        key: node => node.path,
         initial: node => getAnimatedNodeProps(node),
         from: node => getEndingAnimatedNodeProps(node),
         enter: node => getAnimatedNodeProps(node),
@@ -88,9 +89,9 @@ const TreeMapNodes = ({
         immediate: !animate,
     })
 
-    return transitions.map(({ item: node, props: animatedProps, key }) => {
+    return transition((animatedProps, node) => {
         return React.createElement(nodeComponent, {
-            key,
+            key: node.path,
             node,
             animatedProps,
             borderWidth,
