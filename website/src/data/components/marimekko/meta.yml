@@ -1,0 +1,22 @@
+flavors:
+  - flavor: svg
+    path: /marimekko/
+
+Marimekko:
+  package: '@nivo/marimekko'
+  tags: 
+    - svg
+    - isomorphic
+  stories: []
+  description: |
+    The `Marimekko` component is somehow similar to a bar chart,
+    but it allows you to use an extra dimension to compute the
+    thickness of each bar.
+
+    The responsive alternative of this component is `ResponsiveMarimekko`.
+
+    You can also see more example usages in
+    [the storybook](storybook:marimekko--default).
+
+    See the [dedicated guide](self:/guides/legends) on how to setup
+    legends for this component.

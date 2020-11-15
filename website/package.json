@@ -18,6 +18,7 @@
     "@nivo/heatmap": "0.64.0",
     "@nivo/legends": "0.64.0",
     "@nivo/line": "0.64.0",
+    "@nivo/marimekko": "0.64.0",
     "@nivo/network": "0.64.0",
     "@nivo/parallel-coordinates": "0.64.0",
     "@nivo/pie": "0.64.0",

@@ -1,11 +1,3 @@
-/*
- * This file is part of the nivo project.
- *
- * (c) 2016 Raphaël Benitte
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import sortBy from 'lodash/sortBy'
 import areaBump from './components/area-bump/meta.yml'
 import bar from './components/bar/meta.yml'
@@ -19,6 +11,7 @@ import funnel from './components/funnel/meta.yml'
 import geomap from './components/geomap/meta.yml'
 import heatmap from './components/heatmap/meta.yml'
 import line from './components/line/meta.yml'
+import marimekko from './components/marimekko/meta.yml'
 import network from './components/network/meta.yml'
 import parallelCoordinates from './components/parallel-coordinates/meta.yml'
 import pie from './components/pie/meta.yml'
@@ -104,6 +97,12 @@ export const components = [
         path: '/line/',
         icon: 'line',
         tags: line.Line.tags,
+    },
+    {
+        label: 'Marimekko',
+        path: '/marimekko/',
+        icon: 'bar',
+        tags: marimekko.Marimekko.tags,
     },
     {
         label: 'Network',
