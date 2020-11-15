@@ -27,7 +27,7 @@ export interface NormalizedDatum<RawDatum> {
     data: RawDatum
 }
 
-export interface DimensionDatum {
+export interface DimensionDatum<RawDatum> {
     id: string
     value: number
     color: string
@@ -35,13 +35,14 @@ export interface DimensionDatum {
     y: number
     width: number
     height: number
+    datum: ComputedDatum<RawDatum>
 }
 
 export interface ComputedDatum<RawDatum> extends NormalizedDatum<RawDatum> {
     x: number
     y: number
     thickness: number
-    dimensions: DimensionDatum[]
+    dimensions: DimensionDatum<RawDatum>[]
 }
 
 export type LabelAccessorFunction<RawDatum> = (datum: ComputedDatum<RawDatum>) => string | number
@@ -69,17 +70,17 @@ export type CommonProps<RawDatum> = {
     layout: Layout
 
     // colors, theme and border
-    colors: OrdinalColorScaleConfig<Omit<DimensionDatum, 'color' | 'fill'>>
+    colors: OrdinalColorScaleConfig<Omit<DimensionDatum<RawDatum>, 'color' | 'fill'>>
     theme: Theme
     borderWidth: number
-    borderColor: InheritedColorConfig<DimensionDatum>
+    borderColor: InheritedColorConfig<DimensionDatum<RawDatum>>
 
     // labels
     enableLabels: boolean
     label: string | LabelAccessorFunction<RawDatum>
     labelSkipWidth: number
     labelSkipHeight: number
-    labelTextColor: InheritedColorConfig<DimensionDatum>
+    labelTextColor: InheritedColorConfig<DimensionDatum<RawDatum>>
 
     // interactivity
     isInteractive: boolean

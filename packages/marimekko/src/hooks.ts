@@ -96,20 +96,22 @@ export const useNormalizedData = <RawDatum>(
     const getValue: DatumPropertyAccessor<RawDatum, number> =
         typeof value === 'function' ? value : (datum: RawDatum) => get(datum, value, 0)
 
-    const normalized: NormalizedDatum<RawDatum>[] = []
-    data.forEach((datum, index) => {
-        const datumId = getId(datum)
-        const datumValue = getValue(datum)
+    return useMemo(() => {
+        const normalized: NormalizedDatum<RawDatum>[] = []
+        data.forEach((datum, index) => {
+            const datumId = getId(datum)
+            const datumValue = getValue(datum)
 
-        normalized.push({
-            index,
-            id: datumId,
-            value: datumValue,
-            data: datum,
+            normalized.push({
+                index,
+                id: datumId,
+                value: datumValue,
+                data: datum,
+            })
         })
-    })
 
-    return normalized
+        return normalized
+    }, [data, getId, getValue])
 }
 
 export const useThicknessScale = <RawDatum>(
@@ -148,7 +150,7 @@ export const useComputedData = <RawDatum>({
     colors: CommonProps<RawDatum>['colors']
     layout: Layout
 }) => {
-    const getColor = useOrdinalColorScale<Omit<DimensionDatum, 'color'>>(colors, 'id')
+    const getColor = useOrdinalColorScale<Omit<DimensionDatum<RawDatum>, 'color'>>(colors, 'id')
 
     const computedData: ComputedDatum<RawDatum>[] = []
 
@@ -171,8 +173,9 @@ export const useComputedData = <RawDatum>({
             const dimension = stacked.find(stack => stack.key === dimensionId)
             if (dimension) {
                 const dimensionPoint = dimension[datum.index]
-                const dimensionDatum: DimensionDatum = {
+                const dimensionDatum: DimensionDatum<RawDatum> = {
                     id: dimensionId,
+                    datum: computedDatum,
                     value: dimensionPoint[1] - dimensionPoint[0],
                     color: 'rgba(0, 0, 0, 0)',
                     x: 0,

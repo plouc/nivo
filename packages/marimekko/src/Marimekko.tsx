@@ -1,9 +1,10 @@
 import React, { createElement, Fragment, ReactNode } from 'react'
 import { Container, SvgWrapper, useDimensions } from '@nivo/core'
-import { InheritedColorConfig, OrdinalColorScaleConfig, useInheritedColor } from '@nivo/colors'
+import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { SvgProps, LayerId, DimensionDatum } from './types'
 import { defaultProps } from './props'
 import { useMarimekko } from './hooks'
+import { Bars } from './Bars'
 
 const InnerMarimekko = <RawDatum,>({
     data,
@@ -15,9 +16,11 @@ const InnerMarimekko = <RawDatum,>({
     margin: partialMargin,
     layout = defaultProps.layout,
     layers = defaultProps.layers,
-    colors = defaultProps.colors as OrdinalColorScaleConfig<Omit<DimensionDatum, 'color'>>,
+    colors = defaultProps.colors as OrdinalColorScaleConfig<
+        Omit<DimensionDatum<RawDatum>, 'color'>
+    >,
     borderWidth = defaultProps.borderWidth,
-    borderColor = defaultProps.borderColor as InheritedColorConfig<DimensionDatum>,
+    borderColor = defaultProps.borderColor as InheritedColorConfig<DimensionDatum<RawDatum>>,
     role,
 }: SvgProps<RawDatum>) => {
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
@@ -44,32 +47,13 @@ const InnerMarimekko = <RawDatum,>({
         legends: null,
     }
 
-    const getBorderColor = useInheritedColor<DimensionDatum>(borderColor)
-
     layerById.bars = (
-        <g key="bars">
-            {computedData.map(datum => {
-                return (
-                    <g key={datum.id}>
-                        {datum.dimensions.map(dimension => {
-                            return (
-                                <rect
-                                    key={dimension.id}
-                                    id={`${datum.id}-${dimension.id}`}
-                                    x={dimension.x}
-                                    y={dimension.y}
-                                    width={dimension.width}
-                                    height={dimension.height}
-                                    fill={dimension.color}
-                                    stroke={getBorderColor(dimension)}
-                                    strokeWidth={borderWidth}
-                                />
-                            )
-                        })}
-                    </g>
-                )
-            })}
-        </g>
+        <Bars<RawDatum>
+            key="bars"
+            data={computedData}
+            borderWidth={borderWidth}
+            borderColor={borderColor}
+        />
     )
 
     const layerContext: any = {}
