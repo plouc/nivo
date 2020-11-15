@@ -12,25 +12,11 @@ const props = [
         group: 'Base',
         help: 'Chart data, which should be immutable.',
         description: `
-            Chart data, which must conform to this structure
-            if using the default \`id\` and \`value\` accessors:
-            
-            \`\`\`
-            Array<{
-                id:    string | number,
-                value: number
-            }>
-            \`\`\`
-            
-            If using a different data structure, you must make sure
-            to adjust both \`id\` and \`value\`. Meaning you can provide
-            a completely different data structure as long as \`id\` and \`value\`
-            return the appropriate values.
-            
-            Immutability of the data is important as re-computations
-            depends on it.
+            The data doesn't have to conform to a specific schema,
+            it's gonna depend on how you configure \`id\`, \`value\`
+            and \`dimensions\`.
         `,
-        type: 'object[]',
+        type: 'RawDatum[]',
         required: true,
     },
     {
