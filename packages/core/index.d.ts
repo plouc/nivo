@@ -37,64 +37,99 @@ declare module '@nivo/core' {
         colorBy?: string | GetColor<T>
     }
 
-    export type Theme = Partial<{
-        crosshair: Partial<{
-            line: Partial<{
+    export type CompleteTheme = {
+        crosshair: {
+            line: {
                 stroke: string
                 strokeWidth: number
                 strokeOpacity: number
                 strokeDasharray: string
-            }>
-        }>
+            }
+        }
         background: string
         fontFamily: string
         fontSize: number
         textColor: string
-        axis: Partial<{
-            domain: Partial<{
+        axis: {
+            domain: {
                 line: Partial<React.CSSProperties>
-            }>
-            ticks: Partial<{
+            }
+            ticks: {
                 line: Partial<React.CSSProperties>
                 text: Partial<React.CSSProperties>
-            }>
-            legend: Partial<{
+            }
+            legend: {
                 text: Partial<React.CSSProperties>
-            }>
-        }>
-        grid: Partial<{
+            }
+        }
+        grid: {
             line: Partial<React.CSSProperties>
-        }>
-        legends: Partial<{
+        }
+        legends: {
             text: Partial<React.CSSProperties>
-        }>
-        labels: Partial<{
+        }
+        labels: {
             text: Partial<React.CSSProperties>
-        }>
-        markers: Partial<{
+        }
+        markers: {
             lineColor: string
             lineStrokeWidth: number
             textColor: string
             fontSize: string | 0
             text: Partial<React.CSSProperties>
-        }>
-        dots: Partial<{
+        }
+        dots: {
             text: Partial<React.CSSProperties>
-        }>
-        tooltip: Partial<{
+        }
+        tooltip: {
             container: Partial<React.CSSProperties>
             basic: Partial<React.CSSProperties>
             chip: Partial<React.CSSProperties>
             table: Partial<React.CSSProperties>
             tableCell: Partial<React.CSSProperties>
-        }>
-        annotations: Partial<{
+        }
+        annotations: {
             text: Partial<React.CSSProperties>
             link: Partial<React.CSSProperties>
             outline: Partial<React.CSSProperties>
             symbol: Partial<React.CSSProperties>
+        }
+    }
+
+    export type Theme = Partial<{
+        crosshair: Partial<{
+            line: Partial<CompleteTheme['crosshair']['line']>
         }>
+        axis: Partial<{
+            domain: Partial<{
+                line: Partial<CompleteTheme['axis']['domain']['line']>
+            }>
+            ticks: Partial<{
+                line: Partial<CompleteTheme['axis']['ticks']['line']>
+                text: Partial<CompleteTheme['axis']['ticks']['text']>
+            }>
+            legend: Partial<{
+                text: Partial<CompleteTheme['axis']['legend']['text']>
+            }>
+        }>
+        grid: Partial<{
+            line: Partial<CompleteTheme['grid']['line']>
+        }>
+        legends: Partial<{
+            text: Partial<CompleteTheme['legends']['text']>
+        }>
+        labels: Partial<{
+            text: Partial<CompleteTheme['labels']['text']>
+        }>
+        markers: Partial<CompleteTheme['markers']>
+        dots: Partial<{
+            text: Partial<CompleteTheme['dots']['text']>
+        }>
+        tooltip: Partial<CompleteTheme['tooltip']>
+        annotations: Partial<CompleteTheme['annotations']>
     }>
+
+    export function useTheme(): CompleteTheme
 
     export type MotionProps = Partial<{
         animate: boolean
