@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Box, Dimensions, Theme, Colors, ModernMotionProps } from '@nivo/core'
 import { ScaleLinear } from 'd3-scale'
-import { AnimatedValue } from 'react-spring'
+import { SpringValues } from 'react-spring'
 
 export type DatumId = string | number
 export type DatumValue = number
@@ -102,7 +102,7 @@ export type BulletRectsItemProps = Pick<
 > &
     Point &
     Dimensions & {
-        animatedProps: AnimatedValue<BulletRectAnimatedProps>
+        animatedProps: SpringValues<BulletRectAnimatedProps>
         index: number
         color: string
         data: ComputedRangeDatum
@@ -114,7 +114,7 @@ export type BulletMarkersItemProps = Pick<
     'onMouseEnter' | 'onMouseLeave' | 'onClick'
 > &
     Point & {
-        animatedProps: AnimatedValue<PositionWithColor>
+        animatedProps: SpringValues<PositionWithColor>
         size: number
         rotation: number
         color: string
@@ -129,7 +129,7 @@ export type BulletMarkersItemProps = Pick<
 export type BulletRectsProps = Pick<CommonBulletProps, 'layout' | 'reverse'> &
     Dimensions &
     Point & {
-        animatedProps?: AnimatedValue<{
+        animatedProps?: SpringValues<{
             measuresY: number
             transform: string
         }>

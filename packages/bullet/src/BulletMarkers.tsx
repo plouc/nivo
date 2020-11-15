@@ -60,10 +60,10 @@ export const BulletMarkers = ({
     )
 
     const { animate, config: springConfig } = useMotionConfig()
-    const transitions = useTransition<MarkerWithPosition, PositionWithColor>(
+    const transition = useTransition<MarkerWithPosition, PositionWithColor>(
         markers.map(marker => ({ ...marker, position: getPosition(marker) })),
-        markers.map(marker => `${marker.index}`),
         {
+            key: marker => `${marker.index}`,
             enter: ({ color, position }: MarkerWithPosition) => ({
                 color,
                 transform: `rotate(${position.rotation}, ${position.x}, ${position.y})`,
@@ -80,14 +80,14 @@ export const BulletMarkers = ({
             }),
             config: springConfig,
             immediate: !animate,
-        } as any
+        }
     )
 
     return (
         <>
-            {transitions.map(({ item: { position, ...marker }, props, key }) =>
+            {transition((props, { position, ...marker }) =>
                 React.createElement(component, {
-                    key,
+                    key: marker.index,
                     ...marker,
                     ...position,
                     animatedProps: props,

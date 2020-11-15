@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { AnimatedValue, useSpring, animated } from 'react-spring'
+import { useSpring, animated } from 'react-spring'
 import { Axis } from '@nivo/axes'
 // @ts-ignore
 import { getColorScale, useMotionConfig, useTheme } from '@nivo/core'
@@ -183,10 +183,7 @@ export const BulletItem = ({
         transform: `translate(${x},${y})`,
         config: springConfig,
         immediate: !animate,
-    }) as AnimatedValue<{
-        measuresY: number
-        transform: string
-    }>
+    })
 
     return (
         <animated.g transform={animatedProps.transform}>
