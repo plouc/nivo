@@ -97,14 +97,20 @@ const InnerMarimekko = <RawDatum,>({
 export const Marimekko = <RawDatum,>({
     isInteractive = defaultProps.isInteractive,
     animate = defaultProps.animate,
+    motionConfig = defaultProps.motionConfig,
     ...otherProps
 }: SvgProps<RawDatum>) => (
     <Container
         theme={otherProps.theme}
         isInteractive={isInteractive}
         animate={animate}
-        motionConfig={otherProps.motionConfig}
+        motionConfig={motionConfig}
     >
-        <InnerMarimekko<RawDatum> isInteractive={isInteractive} animate={animate} {...otherProps} />
+        <InnerMarimekko<RawDatum>
+            isInteractive={isInteractive}
+            animate={animate}
+            motionConfig={motionConfig}
+            {...otherProps}
+        />
     </Container>
 )
