@@ -50,9 +50,17 @@ const props = [
         help: 'Value accessor.',
         description: `
             Define how to access the value of each datum,
+            wich is gonna dictate the thickness of the bars,
             by default, nivo will look for the \`value\` property.
         `,
         type: 'string | (datum: RawDatum): number',
+        required: true,
+    },
+    {
+        key: 'dimensions',
+        group: 'Base',
+        help: 'Data dimensions configuration.',
+        type: '{ id: string, value: string | (datum: RawDatum) => number }',
         required: true,
     },
     {

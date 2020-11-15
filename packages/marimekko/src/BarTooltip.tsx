@@ -1,12 +1,12 @@
 import React from 'react'
 import { BasicTooltip } from '@nivo/tooltip'
-import { DimensionDatum } from './types'
+import { BarDatum } from './types'
 
-export const BarTooltip = <RawDatum,>({ datum }: { datum: DimensionDatum<RawDatum> }) => (
+export const BarTooltip = <RawDatum,>({ bar }: { bar: BarDatum<RawDatum> }) => (
     <BasicTooltip
-        id={`${datum.datum.id} - ${datum.id}`}
-        value={datum.value}
+        id={`${bar.datum.id} - ${bar.id}`}
+        value={bar.value}
         enableChip={true}
-        color={datum.color}
+        color={bar.color}
     />
 )

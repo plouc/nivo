@@ -2,6 +2,9 @@ import { useMemo } from 'react'
 import { get } from 'lodash'
 import { stack as d3Stack, Stack, stackOffsetDiverging, Series } from 'd3-shape'
 import { ScaleLinear, scaleLinear } from 'd3-scale'
+// @ts-ignore
+import { useTheme } from '@nivo/core'
+import { InheritedColorConfig, useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
 import {
     NormalizedDatum,
     ComputedDatum,
@@ -10,8 +13,9 @@ import {
     Layout,
     DimensionDatum,
     CommonProps,
+    CustomLayerProps,
+    BarDatum,
 } from './types'
-import { useOrdinalColorScale } from '@nivo/colors'
 
 // d3 stack does not support defining `.keys()` using
 // a mix of keys and custom value accessors, so we're
@@ -212,6 +216,31 @@ export const useComputedData = <RawDatum>({
     return computedData
 }
 
+export const useBars = <RawDatum>(
+    data: ComputedDatum<RawDatum>[],
+    borderColor: InheritedColorConfig<DimensionDatum<RawDatum>>,
+    borderWidth: number
+) => {
+    const theme = useTheme()
+    const getBorderColor = useInheritedColor<DimensionDatum<RawDatum>>(borderColor, theme)
+
+    return useMemo(() => {
+        const all: BarDatum<RawDatum>[] = []
+        data.forEach(datum => {
+            datum.dimensions.forEach(dimension => {
+                all.push({
+                    key: `${datum.id}-${dimension.id}`,
+                    ...dimension,
+                    borderColor: getBorderColor(dimension),
+                    borderWidth,
+                })
+            })
+        })
+
+        return all
+    }, [data, borderWidth, getBorderColor])
+}
+
 export const useMarimekko = <RawDatum>({
     data,
     id,
@@ -219,6 +248,8 @@ export const useMarimekko = <RawDatum>({
     dimensions: rawDimensions,
     layout,
     colors,
+    borderColor,
+    borderWidth,
     width,
     height,
 }: {
@@ -228,6 +259,8 @@ export const useMarimekko = <RawDatum>({
     dimensions: DataProps<RawDatum>['dimensions']
     layout: Layout
     colors: CommonProps<RawDatum>['colors']
+    borderColor: InheritedColorConfig<DimensionDatum<RawDatum>>
+    borderWidth: number
     width: number
     height: number
 }) => {
@@ -246,8 +279,25 @@ export const useMarimekko = <RawDatum>({
         colors,
         layout,
     })
+    const bars = useBars<RawDatum>(computedData, borderColor, borderWidth)
 
     return {
         computedData,
+        bars,
     }
 }
+
+export const useLayerContext = <RawDatum>({
+    data,
+    bars,
+}: {
+    data: ComputedDatum<RawDatum>[]
+    bars: BarDatum<RawDatum>[]
+}): CustomLayerProps<RawDatum> =>
+    useMemo(
+        () => ({
+            data,
+            bars,
+        }),
+        [data, bars]
+    )

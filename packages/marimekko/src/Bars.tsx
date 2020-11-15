@@ -1,43 +1,15 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { useTransition, config } from 'react-spring'
-// @ts-ignore
-import { useTheme } from '@nivo/core'
-import { InheritedColorConfig, useInheritedColor } from '@nivo/colors'
-import { ComputedDatum, DimensionDatum } from './types'
+import { BarDatum } from './types'
 import { Bar } from './Bar'
 
 interface BarsProps<RawDatum> {
-    data: ComputedDatum<RawDatum>[]
-    borderWidth: number
-    borderColor: InheritedColorConfig<DimensionDatum<RawDatum>>
+    bars: BarDatum<RawDatum>[]
 }
 
-interface BarData<RawDatum> extends DimensionDatum<RawDatum> {
-    key: string
-    borderColor: string
-}
-
-export const Bars = <RawDatum,>({ data, borderWidth, borderColor }: BarsProps<RawDatum>) => {
-    const theme = useTheme()
-    const getBorderColor = useInheritedColor<DimensionDatum<RawDatum>>(borderColor, theme)
-
-    const allBars = useMemo(() => {
-        const all: BarData<RawDatum>[] = []
-        data.forEach(datum => {
-            datum.dimensions.forEach(dimension => {
-                all.push({
-                    key: `${datum.id}-${dimension.id}`,
-                    ...dimension,
-                    borderColor: getBorderColor(dimension),
-                })
-            })
-        })
-
-        return all
-    }, [data, borderWidth, getBorderColor])
-
+export const Bars = <RawDatum,>({ bars }: BarsProps<RawDatum>) => {
     const transition = useTransition<
-        BarData<RawDatum>,
+        BarDatum<RawDatum>,
         {
             x: number
             y: number
@@ -47,7 +19,7 @@ export const Bars = <RawDatum,>({ data, borderWidth, borderColor }: BarsProps<Ra
             opacity: number
             borderColor: string
         }
-    >(allBars, {
+    >(bars, {
         key: bar => bar.key,
         initial: bar => ({
             x: bar.x,
@@ -100,15 +72,7 @@ export const Bars = <RawDatum,>({ data, borderWidth, borderColor }: BarsProps<Ra
     return (
         <>
             {transition((style, bar) => {
-                return (
-                    <Bar<RawDatum>
-                        key={bar.key}
-                        datum={bar}
-                        borderWidth={borderWidth}
-                        borderColor={bar.borderColor}
-                        animatedProps={style}
-                    />
-                )
+                return <Bar<RawDatum> key={bar.key} bar={bar} animatedProps={style} />
             })}
         </>
     )
