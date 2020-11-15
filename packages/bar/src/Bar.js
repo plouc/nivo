@@ -66,6 +66,7 @@ const Bar = props => {
         outerHeight,
         padding,
         innerPadding,
+        nice,
 
         axisTop,
         axisRight,
@@ -128,6 +129,7 @@ const Bar = props => {
         padding,
         innerPadding,
         valueScale,
+        nice,
     })
 
     const motionProps = {

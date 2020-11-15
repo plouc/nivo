@@ -145,12 +145,13 @@ export const generateGroupedBars = ({
     height,
     padding = 0,
     innerPadding = 0,
+    nice,
     valueScale,
     ...props
 }) => {
     const data = normalizeData(props.data, keys)
     const [axis, range] = layout === 'vertical' ? ['y', [0, width]] : ['x', [height, 0]]
-    const indexedScale = getIndexedScale(data, props.getIndex, range, padding)
+    const indexedScale = getIndexedScale(data, props.getIndex, range, padding, nice)
 
     const scaleSpec = {
         axis,

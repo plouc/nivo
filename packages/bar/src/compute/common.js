@@ -15,10 +15,15 @@ import { scaleBand } from 'd3-scale'
  * @param {Function}       getIndex
  * @param {Array.<number>} range
  * @param {number}         padding
+ * @Param {boolean}        nice
  * @returns {Function}
  */
-export const getIndexedScale = (data, getIndex, range, padding) =>
-    scaleBand().rangeRound(range).domain(data.map(getIndex)).padding(padding)
+export const getIndexedScale = (data, getIndex, range, padding, nice) => {
+    const scale = scaleBand()
+        .domain(data.map(getIndex))
+        .padding(padding)
+    return nice ? scale.rangeRound(range) : scale.range(range)
+}    
 
 export const normalizeData = (data, keys) =>
     data.map(item => ({
