@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Box, Dimensions, Theme, SvgDefsAndFill } from '@nivo/core'
+import { Box, Dimensions, Theme, SvgDefsAndFill, ModernMotionProps } from '@nivo/core'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 
@@ -95,8 +95,6 @@ export type CommonProps<RawDatum> = {
 
     legends: LegendProps[]
 
-    animate: boolean
-
     role: string
 }
 
@@ -115,6 +113,7 @@ export type MouseEventHandlers<RawDatum, ElementType> = Partial<{
 export type SvgProps<RawDatum> = DataProps<RawDatum> &
     Dimensions &
     Partial<CommonProps<RawDatum>> &
+    ModernMotionProps &
     SvgDefsAndFill<ComputedDatum<RawDatum>> &
     MouseEventHandlers<RawDatum, SVGRectElement> & {
         layers?: Layer<RawDatum>[]
@@ -123,6 +122,7 @@ export type SvgProps<RawDatum> = DataProps<RawDatum> &
 export type CompleteSvgProps<RawDatum> = DataProps<RawDatum> &
     Dimensions &
     CommonProps<RawDatum> &
+    ModernMotionProps &
     SvgDefsAndFill<ComputedDatum<RawDatum>> &
     MouseEventHandlers<RawDatum, SVGRectElement> & {
         layers: Layer<RawDatum>[]

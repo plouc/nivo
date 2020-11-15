@@ -4,6 +4,7 @@ import {
     defsProperties,
     groupProperties,
     getLegendsProps,
+    motionProperties,
 } from '../../../lib/componentProperties'
 
 const props = [
@@ -264,6 +265,7 @@ const props = [
         controlType: 'switch',
         group: 'Interactivity',
     },
+    ...motionProperties(['svg'], defaults, 'react-spring'),
     {
         key: 'legends',
         flavors: ['svg', 'canvas'],

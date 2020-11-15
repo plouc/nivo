@@ -1,5 +1,6 @@
 import React from 'react'
-import { useTransition, config } from 'react-spring'
+import { useTransition } from 'react-spring'
+import { useMotionConfig } from '@nivo/core'
 import { BarDatum, MouseEventHandlers } from './types'
 import { Bar } from './Bar'
 
@@ -16,6 +17,8 @@ export const Bars = <RawDatum,>({
     onMouseMove,
     onMouseLeave,
 }: BarsProps<RawDatum>) => {
+    const { animate, config: springConfig } = useMotionConfig()
+
     const transition = useTransition<
         BarDatum<RawDatum>,
         {
@@ -73,8 +76,8 @@ export const Bars = <RawDatum,>({
             height: bar.height,
             color: bar.color,
         }),
-        config: config.wobbly,
-        //immediate: !animate,
+        config: springConfig,
+        immediate: !animate,
     })
 
     return (
