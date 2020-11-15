@@ -45,12 +45,19 @@ export interface ComputedDatum<RawDatum> extends NormalizedDatum<RawDatum> {
     dimensions: DimensionDatum<RawDatum>[]
 }
 
+export interface BarDatum<RawDatum> extends DimensionDatum<RawDatum> {
+    key: string
+    borderColor: string
+    borderWidth: number
+}
+
 export type LabelAccessorFunction<RawDatum> = (datum: ComputedDatum<RawDatum>) => string | number
 
 export type LayerId = 'grid' | 'axes' | 'bars' | 'legends'
 
 export interface CustomLayerProps<RawDatum> {
-    nodes: ComputedDatum<RawDatum>
+    data: ComputedDatum<RawDatum>[]
+    bars: BarDatum<RawDatum>[]
 }
 
 export type CustomLayer<RawDatum> = React.FC<CustomLayerProps<RawDatum>>
