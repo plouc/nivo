@@ -61,6 +61,9 @@ const initialProperties = {
     defs: [],
     fill: [],
 
+    animate: defaultProps.animate,
+    motionConfig: defaultProps.motionConfig,
+
     legends: [
         {
             anchor: 'bottom',

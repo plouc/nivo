@@ -15,4 +15,5 @@ export const defaultProps = {
     isInteractive: true,
 
     animate: true,
+    motionConfig: 'gentle',
 }

@@ -139,8 +139,17 @@ declare module '@nivo/core' {
 
     export type ModernMotionProps = Partial<{
         animate: boolean
-        motionConfig: string
+        motionConfig: string | SpringConfig
     }>
+
+    export function useMotionConfig(): {
+        animate: boolean
+        config: SpringConfig
+        springConfig: {
+            stiffness: number
+            damping: number
+        }
+    }
 
     export type SvgFillMatcher<T> = (datum: T) => boolean
     export interface SvgDefsAndFill<T> {
