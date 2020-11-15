@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { useTransition, animated } from 'react-spring'
+import { useTransition, animated, to } from 'react-spring'
 // @ts-ignore
 import { useMotionConfig } from '@nivo/core'
 import { computeRects } from './compute'
@@ -33,45 +33,42 @@ export const BulletRects = ({
     const getTransform = (value: number) =>
         `translate(${layout === 'horizontal' ? 0 : value},${layout === 'horizontal' ? value : 0})`
 
-    const transform = animatedProps?.measuresY.interpolate(getTransform) ?? getTransform(y)
+    const transform = animatedProps ? to(animatedProps.measuresY, getTransform) : getTransform(y)
 
     const { animate, config: springConfig } = useMotionConfig()
-    const transitions = useTransition<BulletRectComputedRect, BulletRectAnimatedProps>(
-        rects,
-        rects.map(rect => `${rect.data.index}`),
-        {
-            enter: (rect: BulletRectComputedRect) => ({
-                x: rect.x,
-                y: rect.y,
-                width: rect.width,
-                height: rect.height,
-                color: rect.data.color,
-            }),
-            update: (rect: BulletRectComputedRect) => ({
-                x: rect.x,
-                y: rect.y,
-                width: rect.width,
-                height: rect.height,
-                color: rect.data.color,
-            }),
-            config: springConfig,
-            immediate: !animate,
-        } as any
-    )
+    const transition = useTransition<BulletRectComputedRect, BulletRectAnimatedProps>(rects, {
+        key: rect => `${rect.data.index}`,
+        enter: rect => ({
+            x: rect.x,
+            y: rect.y,
+            width: rect.width,
+            height: rect.height,
+            color: rect.data.color,
+        }),
+        update: rect => ({
+            x: rect.x,
+            y: rect.y,
+            width: rect.width,
+            height: rect.height,
+            color: rect.data.color,
+        }),
+        config: springConfig,
+        immediate: !animate,
+    })
 
     return (
         <animated.g transform={transform}>
-            {transitions.map(({ item: rect, props, key }) =>
+            {transition((props, rect) =>
                 React.createElement(component, {
-                    key,
-                    index: Number(key),
+                    key: rect.data.index,
+                    index: rect.data.index,
                     animatedProps: props,
                     data: rect.data,
-                    x: props.x.getValue(),
-                    y: props.y.getValue(),
-                    width: props.width.interpolate(value => Math.max(value, 0)).getValue(),
-                    height: props.height.interpolate(value => Math.max(value, 0)).getValue(),
-                    color: props.color.getValue(),
+                    x: props.x.get(),
+                    y: props.y.get(),
+                    width: to(props.width, value => Math.max(value, 0)).get(),
+                    height: to(props.height, value => Math.max(value, 0)).get(),
+                    color: props.color.get(),
                     onMouseEnter,
                     onMouseMove: onMouseEnter,
                     onMouseLeave,

@@ -61,7 +61,7 @@ describe('Bullet', () => {
             const ticks = wrapper.find('Axis').first().find('AxisTick')
 
             expect(
-                ticks.map(el => el.prop('animatedProps').transform.getValue()).join('; ')
+                ticks.map(el => el.prop('animatedProps').transform.get()).join('; ')
             ).toMatchInlineSnapshot(
                 `"translate(0,0); translate(37.5,0); translate(75,0); translate(112.5,0); translate(150,0); translate(187.5,0); translate(225,0); translate(262.5,0); translate(300,0)"`
             )
@@ -86,7 +86,7 @@ describe('Bullet', () => {
             const ticks = wrapper.find('Axis').first().find('AxisTick')
 
             expect(
-                ticks.map(el => el.prop('animatedProps').transform.getValue()).join('; ')
+                ticks.map(el => el.prop('animatedProps').transform.get()).join('; ')
             ).toMatchInlineSnapshot(
                 `"translate(300,0); translate(262.5,0); translate(225,0); translate(187.5,0); translate(150,0); translate(112.5,0); translate(75,0); translate(37.5,0); translate(0,0)"`
             )
@@ -257,7 +257,7 @@ describe('Bullet', () => {
                     "v1": 10,
                   },
                   "height": 80,
-                  "index": 504,
+                  "index": 0,
                   "onClick": [Function],
                   "onMouseEnter": [Function],
                   "onMouseLeave": [Function],
@@ -294,7 +294,7 @@ describe('Bullet', () => {
                     "v1": 30,
                   },
                   "height": 32,
-                  "index": 549,
+                  "index": 0,
                   "onClick": [Function],
                   "onMouseEnter": [Function],
                   "onMouseLeave": [Function],
