@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { OpaqueInterpolation } from 'react-spring'
+import { OpaqueInterpolation, SpringConfig } from 'react-spring'
 
 declare module '@nivo/core' {
     export type DatumValue = string | number | Date
@@ -259,7 +259,7 @@ declare module '@nivo/core' {
         animate?: boolean
         motionStiffness?: number
         motionDamping?: number
-        // motionConfig
+        motionConfig?: string | SpringConfig
     }
 
     export const Container = (props: React.PropsWithChildren<ContainerProps>) => JSX.Element
