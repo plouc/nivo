@@ -62,7 +62,8 @@ export default settingsMapper(
         defs: (value, values) => {
             if (!values['showcase pattern usage']) return
 
-            return [
+            /*
+            [
                 patternDotsDef('dots', {
                     background: 'inherit',
                     color: 'rgba(255, 255, 255, 0.3)',
@@ -78,11 +79,15 @@ export default settingsMapper(
                     spacing: 10,
                 }),
             ]
+            */
+
+            return
         },
         fill: (value, values) => {
             if (!values['showcase pattern usage']) return
 
-            return [
+            /*
+            [
                 { match: { id: 'ruby' }, id: 'dots' },
                 { match: { id: 'c' }, id: 'dots' },
                 { match: { id: 'go' }, id: 'dots' },
@@ -92,6 +97,9 @@ export default settingsMapper(
                 { match: { id: 'elixir' }, id: 'lines' },
                 { match: { id: 'javascript' }, id: 'lines' },
             ]
+            */
+
+            return
         },
     },
     {
