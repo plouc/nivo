@@ -22,7 +22,7 @@ const Grid = ({ width, height, xScale, yScale, xValues, yValues }) => {
             axis: 'x',
             values: xValues,
         })
-    }, [xScale, xValues])
+    }, [xScale, xValues, width, height])
 
     const yLines = yScale
         ? computeGridLines({
