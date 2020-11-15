@@ -21,6 +21,11 @@ const InnerMarimekko = <RawDatum,>({
     >,
     borderWidth = defaultProps.borderWidth,
     borderColor = defaultProps.borderColor as InheritedColorConfig<DimensionDatum<RawDatum>>,
+    isInteractive = defaultProps.isInteractive,
+    onClick,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
     role,
 }: SvgProps<RawDatum>) => {
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
@@ -49,7 +54,17 @@ const InnerMarimekko = <RawDatum,>({
         legends: null,
     }
 
-    layerById.bars = <Bars<RawDatum> key="bars" bars={bars} />
+    layerById.bars = (
+        <Bars<RawDatum>
+            key="bars"
+            bars={bars}
+            isInteractive={isInteractive}
+            onClick={onClick}
+            onMouseEnter={onMouseEnter}
+            onMouseMove={onMouseMove}
+            onMouseLeave={onMouseLeave}
+        />
+    )
 
     const layerContext = useLayerContext<RawDatum>({
         data: computedData,
@@ -79,8 +94,12 @@ const InnerMarimekko = <RawDatum,>({
     )
 }
 
-export const Marimekko = <RawDatum,>(props: SvgProps<RawDatum>) => (
-    <Container theme={props.theme} isInteractive={props.isInteractive} animate={props.animate}>
-        <InnerMarimekko<RawDatum> {...props} />
+export const Marimekko = <RawDatum,>({
+    isInteractive = defaultProps.isInteractive,
+    animate = defaultProps.animate,
+    ...otherProps
+}: SvgProps<RawDatum>) => (
+    <Container theme={otherProps.theme} isInteractive={isInteractive} animate={animate}>
+        <InnerMarimekko<RawDatum> isInteractive={isInteractive} animate={animate} {...otherProps} />
     </Container>
 )

@@ -1,10 +1,10 @@
-import React, { createElement, MouseEvent } from 'react'
+import React, { createElement, MouseEvent, useCallback } from 'react'
 import { animated, SpringValues, to } from 'react-spring'
 import { useTooltip } from '@nivo/tooltip'
-import { BarDatum } from './types'
+import { BarDatum, MouseEventHandlers } from './types'
 import { BarTooltip } from './BarTooltip'
 
-interface BarProps<RawDatum> {
+interface BarProps<RawDatum> extends MouseEventHandlers<RawDatum, SVGRectElement> {
     bar: BarDatum<RawDatum>
     animatedProps: SpringValues<{
         x: number
@@ -15,17 +15,59 @@ interface BarProps<RawDatum> {
         color: string
         borderColor: string
     }>
+    isInteractive: boolean
 }
 
-export const Bar = <RawDatum,>({ bar, animatedProps }: BarProps<RawDatum>) => {
+export const Bar = <RawDatum,>({
+    bar,
+    animatedProps,
+    isInteractive,
+    onClick,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+}: BarProps<RawDatum>) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
-    const handle = (event: MouseEvent) => {
-        showTooltipFromEvent(
-            createElement<{ bar: BarDatum<RawDatum> }>(BarTooltip, { bar }),
-            event
-        )
-    }
+    const showTooltip = useCallback(
+        event =>
+            showTooltipFromEvent(
+                createElement<{ bar: BarDatum<RawDatum> }>(BarTooltip, { bar }),
+                event
+            ),
+        [showTooltipFromEvent, bar]
+    )
+
+    const handleClick = useCallback(
+        (event: MouseEvent<SVGRectElement>) => {
+            onClick?.(bar, event)
+        },
+        [onClick, bar]
+    )
+
+    const handleMouseEnter = useCallback(
+        (event: MouseEvent<SVGRectElement>) => {
+            onMouseEnter?.(bar, event)
+            showTooltip(event)
+        },
+        [showTooltip, bar]
+    )
+
+    const handleMouseMove = useCallback(
+        (event: MouseEvent<SVGRectElement>) => {
+            onMouseMove?.(bar, event)
+            showTooltip(event)
+        },
+        [showTooltip, bar]
+    )
+
+    const handleMouseLeave = useCallback(
+        (event: MouseEvent<SVGRectElement>) => {
+            onMouseLeave?.(bar, event)
+            hideTooltip()
+        },
+        [onMouseLeave, bar, hideTooltip]
+    )
 
     return (
         <animated.rect
@@ -36,9 +78,10 @@ export const Bar = <RawDatum,>({ bar, animatedProps }: BarProps<RawDatum>) => {
             fill={animatedProps.color}
             stroke={animatedProps.borderColor}
             strokeWidth={bar.borderWidth}
-            onMouseEnter={handle}
-            onMouseMove={handle}
-            onMouseLeave={hideTooltip}
+            onClick={isInteractive ? handleClick : undefined}
+            onMouseEnter={isInteractive ? handleMouseEnter : undefined}
+            onMouseMove={isInteractive ? handleMouseMove : undefined}
+            onMouseLeave={isInteractive ? handleMouseLeave : undefined}
         />
     )
 }

@@ -101,22 +101,22 @@ export type CommonProps<RawDatum> = {
 }
 
 export type MouseEventHandler<RawDatum, ElementType> = (
-    datum: ComputedDatum<RawDatum>,
+    datum: BarDatum<RawDatum>,
     event: React.MouseEvent<ElementType>
 ) => void
 
-export type MouseEventHandlers<RawDatum, ElementType> = {
+export type MouseEventHandlers<RawDatum, ElementType> = Partial<{
     onClick: MouseEventHandler<RawDatum, ElementType>
     onMouseEnter: MouseEventHandler<RawDatum, ElementType>
     onMouseMove: MouseEventHandler<RawDatum, ElementType>
     onMouseLeave: MouseEventHandler<RawDatum, ElementType>
-}
+}>
 
 export type SvgProps<RawDatum> = DataProps<RawDatum> &
     Dimensions &
     Partial<CommonProps<RawDatum>> &
     SvgDefsAndFill<ComputedDatum<RawDatum>> &
-    Partial<MouseEventHandlers<RawDatum, SVGPathElement>> & {
+    MouseEventHandlers<RawDatum, SVGRectElement> & {
         layers?: Layer<RawDatum>[]
     }
 
@@ -124,6 +124,6 @@ export type CompleteSvgProps<RawDatum> = DataProps<RawDatum> &
     Dimensions &
     CommonProps<RawDatum> &
     SvgDefsAndFill<ComputedDatum<RawDatum>> &
-    Partial<MouseEventHandlers<RawDatum, SVGPathElement>> & {
+    MouseEventHandlers<RawDatum, SVGRectElement> & {
         layers: Layer<RawDatum>[]
     }
