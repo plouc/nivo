@@ -1,6 +1,5 @@
 {
   "name": "nivo",
-  "version": "0.52.0",
   "private": true,
   "licenses": [
     {
@@ -73,6 +72,7 @@
     "rollup-plugin-strip-banner": "^2.0.0",
     "rollup-plugin-visualizer": "^4.2.0",
     "serve": "^11.2.0",
+    "standard-version": "^9.0.0",
     "typescript": "^4.0.5"
   },
   "resolutions": {
@@ -80,9 +80,9 @@
     "react-dom": "16.8.6"
   },
   "scripts": {
-    "changelog": "rm CHANGELOG.md && node scripts/generate-changelog.js",
+    "changelog": "standard-version",
     "make:init": "make init",
-    "version": "node scripts/bump-peer-deps.js"
+    "version": "yarn changelog && node scripts/bump-peer-deps.js"
   },
   "workspaces": [
     "packages/*",
@@ -91,5 +91,12 @@
   ],
   "dependencies": {
     "npm-normalize-package-bin": "^1.0.1"
+  },
+  "standard-version": {
+    "skip": {
+      "bump": true,
+      "commit": true,
+      "tag": true
+    }
   }
 }

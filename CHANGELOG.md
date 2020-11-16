@@ -1,3 +1,14 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [](https://github.com/plouc/nivo/compare/v0.65.1...v) (2020-11-16)
+
+
+### Bug Fixes
+
+* **changelog:** vendor clog and allow setting a tag date ([193372c](https://github.com/plouc/nivo/commit/193372cb481a5655738aa949fec4d938312f9d36))
+
 <a name="v0.65.1"></a>
 ## v0.65.1 (2020-11-17)
 
@@ -109,6 +120,11 @@
   *  changes to get deployment to work ([09f46839](https://github.com/plouc/nivo/commit/09f468393643580bb6d2c2fdb35c01d737109a4b))
 
 
+=======
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+>>>>>>> Stashed changes
 
 <a name="v0.64.0"></a>
 ## v0.64.0 (2020-11-06)
@@ -2231,6 +2247,3 @@
 
 * **calendar:**  memoize CalendarLayout monthPathAndBBox function ([9c435722](https://github.com/plouc/nivo/commit/9c43572236b03189e098949c9e849195413db70a))
 * **radar:**  improve radar chart performance ([40d8bc65](https://github.com/plouc/nivo/commit/40d8bc65f528fd3e5ada2c498eb83fc42c309d02))
-
-
-
