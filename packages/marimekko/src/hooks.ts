@@ -84,14 +84,11 @@ export const useDimensionsScale = (
     layout: Layout
 ) =>
     useMemo(() => {
-        const dimensionsScale = scaleLinear().domain([min, max])
         if (layout === 'vertical') {
-            dimensionsScale.range([0, height])
-        } else {
-            dimensionsScale.range([0, width])
+            return scaleLinear().domain([max, min]).range([0, height])
         }
 
-        return dimensionsScale
+        return scaleLinear().domain([min, max]).range([0, width])
     }, [min, max, width, height, layout])
 
 export const useNormalizedData = <RawDatum>(
@@ -192,19 +189,18 @@ export const useComputedData = <RawDatum>({
                     height: 0,
                 }
 
-                const position0 = dimensionsScale(Math.min(dimensionPoint[0], dimensionPoint[1]))
-                const position1 = dimensionsScale(Math.max(dimensionPoint[0], dimensionPoint[1]))
-                const size = position1 - position0
+                const position0 = dimensionsScale(dimensionPoint[0])
+                const position1 = dimensionsScale(dimensionPoint[1])
 
                 if (layout === 'vertical') {
                     dimensionDatum.x = computedDatum.x
-                    dimensionDatum.y = position0
+                    dimensionDatum.y = Math.min(position0, position1)
                     dimensionDatum.width = computedDatum.thickness
-                    dimensionDatum.height = size
+                    dimensionDatum.height = Math.max(position0, position1) - dimensionDatum.y
                 } else {
-                    dimensionDatum.x = position0
+                    dimensionDatum.x = Math.min(position0, position1)
                     dimensionDatum.y = computedDatum.y
-                    dimensionDatum.width = size
+                    dimensionDatum.width = Math.max(position0, position1) - dimensionDatum.x
                     dimensionDatum.height = computedDatum.thickness
                 }
 

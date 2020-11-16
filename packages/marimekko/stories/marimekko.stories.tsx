@@ -15,6 +15,8 @@ const commonProps = {
     id: 'id',
     value: 'value',
     layout: 'vertical' as Layout,
+    axisLeft: {},
+    axisBottom: {},
     dimensions: [
         {
             id: 'cool stuff',
@@ -118,5 +120,15 @@ stories.add('diverging', () => {
         },
     ]
 
-    return <Marimekko {...commonProps} data={data} layout="vertical" offset="diverging" />
+    return (
+        <Marimekko
+            {...commonProps}
+            data={data}
+            layout="vertical"
+            offset="diverging"
+            axisLeft={{
+                format: (v: number) => Math.abs(v),
+            }}
+        />
+    )
 })
