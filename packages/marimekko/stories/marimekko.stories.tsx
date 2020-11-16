@@ -126,7 +126,7 @@ stories.add('diverging', () => {
             data={data}
             layout="horizontal"
             offset="diverging"
-            axisLeft={{
+            axisBottom={{
                 format: (v: number) => Math.abs(v),
             }}
         />

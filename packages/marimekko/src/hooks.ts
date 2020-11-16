@@ -2,7 +2,11 @@ import { useMemo } from 'react'
 import { get } from 'lodash'
 import { stack as d3Stack, Stack, Series } from 'd3-shape'
 import { ScaleLinear, scaleLinear } from 'd3-scale'
-import { useTheme } from '@nivo/core'
+import {
+    // @ts-ignore
+    useValueFormatter,
+    useTheme,
+} from '@nivo/core'
 import { InheritedColorConfig, useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
 import {
     NormalizedDatum,
@@ -154,6 +158,7 @@ export const useComputedData = <RawDatum>({
     data,
     stacked,
     dimensionIds,
+    valueFormat,
     thicknessScale,
     dimensionsScale,
     colors,
@@ -164,6 +169,7 @@ export const useComputedData = <RawDatum>({
     data: NormalizedDatum<RawDatum>[]
     stacked: Series<RawDatum, string>[]
     dimensionIds: string[]
+    valueFormat: DataProps<RawDatum>['valueFormat']
     thicknessScale: ScaleLinear<number, number>
     dimensionsScale: ScaleLinear<number, number>
     colors: CommonProps<RawDatum>['colors']
@@ -172,6 +178,8 @@ export const useComputedData = <RawDatum>({
     innerPadding: number
 }) => {
     const getColor = useOrdinalColorScale<Omit<DimensionDatum<RawDatum>, 'color'>>(colors, 'id')
+
+    const formatValue = useValueFormatter(valueFormat)
 
     return useMemo(() => {
         const computedData: ComputedDatum<RawDatum>[] = []
@@ -203,6 +211,7 @@ export const useComputedData = <RawDatum>({
                         id: dimensionId,
                         datum: computedDatum,
                         value: dimensionPoint[1] - dimensionPoint[0],
+                        formattedValue: formatValue(dimensionPoint[1] - dimensionPoint[0]),
                         color: 'rgba(0, 0, 0, 0)',
                         x: 0,
                         y: 0,
@@ -258,6 +267,7 @@ export const useComputedData = <RawDatum>({
         outerPadding,
         innerPadding,
         getColor,
+        formatValue,
     ])
 }
 
@@ -290,6 +300,7 @@ export const useMarimekko = <RawDatum>({
     data,
     id,
     value,
+    valueFormat,
     dimensions: rawDimensions,
     layout,
     offset,
@@ -304,6 +315,7 @@ export const useMarimekko = <RawDatum>({
     data: DataProps<RawDatum>['data']
     id: DataProps<RawDatum>['id']
     value: DataProps<RawDatum>['value']
+    valueFormat: DataProps<RawDatum>['valueFormat']
     dimensions: DataProps<RawDatum>['dimensions']
     layout: Layout
     offset: OffsetId
@@ -332,6 +344,7 @@ export const useMarimekko = <RawDatum>({
         data: normalizedData,
         stacked,
         dimensionIds,
+        valueFormat,
         thicknessScale,
         dimensionsScale,
         colors,

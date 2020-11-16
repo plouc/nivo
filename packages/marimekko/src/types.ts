@@ -6,7 +6,14 @@ import {
     stackOffsetSilhouette,
     stackOffsetWiggle,
 } from 'd3-shape'
-import { Box, Dimensions, Theme, SvgDefsAndFill, ModernMotionProps } from '@nivo/core'
+import {
+    Box,
+    Dimensions,
+    Theme,
+    SvgDefsAndFill,
+    ModernMotionProps,
+    DataFormatter,
+} from '@nivo/core'
 import { AxisProps } from '@nivo/axes'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
@@ -14,7 +21,6 @@ import { LegendProps } from '@nivo/legends'
 export type DatumId = string | number
 export type DatumValue = number
 export type DatumFormattedValue = string | number
-export type ValueFormatter = (value: number) => DatumFormattedValue
 
 export type DatumPropertyAccessor<RawDatum, T> = (datum: RawDatum) => T
 
@@ -26,6 +32,7 @@ export interface DataProps<RawDatum> {
         id: string
         value: string | number | DatumPropertyAccessor<RawDatum, DatumValue>
     }[]
+    valueFormat?: string | DataFormatter
 }
 
 export interface NormalizedDatum<RawDatum> {
@@ -38,6 +45,7 @@ export interface NormalizedDatum<RawDatum> {
 export interface DimensionDatum<RawDatum> {
     id: string
     value: number
+    formattedValue: string | number
     color: string
     x: number
     y: number
@@ -103,8 +111,6 @@ export const offsetById = {
 export type OffsetId = keyof typeof offsetById
 
 export type CommonProps<RawDatum> = {
-    valueFormat?: string | ValueFormatter
-
     margin: Box
     layout: Layout
     offset: OffsetId
