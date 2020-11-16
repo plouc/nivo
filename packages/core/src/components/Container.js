@@ -56,7 +56,7 @@ Container.propTypes = {
     children: PropTypes.element.isRequired,
     isInteractive: PropTypes.bool,
     renderWrapper: PropTypes.bool,
-    theme: PropTypes.object.isRequired,
+    theme: PropTypes.object,
     animate: PropTypes.bool,
     motionStiffness: PropTypes.number,
     motionDamping: PropTypes.number,
