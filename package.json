@@ -82,7 +82,8 @@
   },
   "scripts": {
     "changelog": "rm CHANGELOG.md && node scripts/generate-changelog.js",
-    "make:init": "make init"
+    "make:init": "make init",
+    "version": "node scripts/bump-peer-deps.js"
   },
   "workspaces": [
     "packages/*",
