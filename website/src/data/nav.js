@@ -101,7 +101,7 @@ export const components = [
     {
         label: 'Marimekko',
         path: '/marimekko/',
-        icon: 'bar',
+        icon: 'marimekko',
         tags: marimekko.Marimekko.tags,
     },
     {

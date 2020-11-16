@@ -145,7 +145,7 @@ const Marimekko = () => {
         <ComponentTemplate
             name="Marimekko"
             meta={meta.Marimekko}
-            icon="pie"
+            icon="marimekko"
             flavors={meta.flavors}
             currentFlavor="svg"
             properties={groups}
