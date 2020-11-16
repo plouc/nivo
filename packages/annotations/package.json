@@ -29,7 +29,7 @@
   "dependencies": {
     "@nivo/colors": "0.64.0",
     "lodash": "^4.17.11",
-    "react-spring": "next"
+    "react-spring": "9.0.0-rc.3"
   },
   "peerDependencies": {
     "@nivo/core": "0.63.1",
