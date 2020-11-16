@@ -17,6 +17,9 @@ Marimekko:
     but it allows you to use an extra dimension to compute the
     thickness of each bar.
 
+    It also shares some behavior of the `Stream` chart regarding
+    the way we can configure `offset` and `order`.
+
     The responsive alternative of this component is `ResponsiveMarimekko`.
 
     You can also see more example usages in

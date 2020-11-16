@@ -35,6 +35,7 @@ const initialProperties = {
         },
     ],
     layout: defaultProps.layout,
+    offset: defaultProps.offset,
 
     margin: {
         top: 40,

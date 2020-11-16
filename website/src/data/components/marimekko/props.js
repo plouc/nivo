@@ -1,4 +1,4 @@
-import { defaultProps as defaults } from '@nivo/marimekko'
+import { defaultProps as defaults, offsetById } from '@nivo/marimekko'
 import {
     themeProperty,
     defsProperties,
@@ -78,6 +78,21 @@ const props = [
                 { label: 'horizontal', value: 'horizontal' },
                 { label: 'vertical', value: 'vertical' },
             ],
+        },
+    },
+    {
+        key: 'offset',
+        help: 'Offset type.',
+        type: 'OffsetId',
+        required: false,
+        controlType: 'choices',
+        group: 'Base',
+        defaultValue: defaults.offset,
+        controlOptions: {
+            choices: Object.keys(offsetById).map(key => ({
+                label: key,
+                value: key,
+            })),
         },
     },
     {
