@@ -15,6 +15,7 @@ const InnerMarimekko = <RawDatum,>({
     height,
     margin: partialMargin,
     layout = defaultProps.layout,
+    offset = defaultProps.offset,
     layers = defaultProps.layers,
     colors = defaultProps.colors as OrdinalColorScaleConfig<
         Omit<DimensionDatum<RawDatum>, 'color'>
@@ -40,6 +41,7 @@ const InnerMarimekko = <RawDatum,>({
         value,
         dimensions,
         layout,
+        offset,
         colors,
         borderColor,
         borderWidth,

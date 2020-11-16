@@ -112,5 +112,5 @@ stories.add('diverging', () => {
         },
     ]
 
-    return <Marimekko {...commonProps} data={data} />
+    return <Marimekko {...commonProps} data={data} layout="horizontal" offset="diverging" />
 })

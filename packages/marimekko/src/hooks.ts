@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { get } from 'lodash'
-import { stack as d3Stack, Stack, stackOffsetDiverging, Series } from 'd3-shape'
+import { stack as d3Stack, Stack, Series } from 'd3-shape'
 import { ScaleLinear, scaleLinear } from 'd3-scale'
 import { useTheme } from '@nivo/core'
 import { InheritedColorConfig, useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
@@ -14,6 +14,8 @@ import {
     CommonProps,
     CustomLayerProps,
     BarDatum,
+    OffsetId,
+    offsetById,
 } from './types'
 
 // d3 stack does not support defining `.keys()` using
@@ -37,14 +39,17 @@ export const useDataDimensions = <RawDatum>(rawDimensions: DataProps<RawDatum>['
 
 export const useStack = <RawDatum>(
     dimensionIds: string[],
-    dimensions: Record<string, (datum: RawDatum) => number>
+    dimensions: Record<string, (datum: RawDatum) => number>,
+    offset: OffsetId
 ) =>
     useMemo(() => {
+        const offsetFunction = offsetById[offset]
+
         return d3Stack<RawDatum>()
             .keys(dimensionIds)
             .value((datum, key) => dimensions[key](datum))
-            .offset(stackOffsetDiverging)
-    }, [dimensionIds, dimensions])
+            .offset(offsetFunction)
+    }, [dimensionIds, dimensions, offset])
 
 export const useStackedData = <RawDatum>(
     stack: Stack<any, RawDatum, string>,
@@ -246,6 +251,7 @@ export const useMarimekko = <RawDatum>({
     value,
     dimensions: rawDimensions,
     layout,
+    offset,
     colors,
     borderColor,
     borderWidth,
@@ -257,6 +263,7 @@ export const useMarimekko = <RawDatum>({
     value: DataProps<RawDatum>['value']
     dimensions: DataProps<RawDatum>['dimensions']
     layout: Layout
+    offset: OffsetId
     colors: CommonProps<RawDatum>['colors']
     borderColor: InheritedColorConfig<DimensionDatum<RawDatum>>
     borderWidth: number
@@ -264,7 +271,7 @@ export const useMarimekko = <RawDatum>({
     height: number
 }) => {
     const { dimensionIds, dimensions } = useDataDimensions<RawDatum>(rawDimensions)
-    const stack = useStack<RawDatum>(dimensionIds, dimensions)
+    const stack = useStack<RawDatum>(dimensionIds, dimensions, offset)
     const { stacked, min, max } = useStackedData<RawDatum>(stack, data)
     const normalizedData = useNormalizedData<RawDatum>(data, id, value)
     const thicknessScale = useThicknessScale(normalizedData, width, height, layout)
