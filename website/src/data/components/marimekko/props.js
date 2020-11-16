@@ -66,12 +66,27 @@ const props = [
         controlType: 'valueFormat',
     },
     {
+        key: 'layout',
+        help: `How to display bars.`,
+        type: 'string',
+        required: false,
+        defaultValue: defaults.layout,
+        controlType: 'radio',
+        group: 'Base',
+        controlOptions: {
+            choices: [
+                { label: 'horizontal', value: 'horizontal' },
+                { label: 'vertical', value: 'vertical' },
+            ],
+        },
+    },
+    {
         key: 'width',
         enableControlForFlavors: ['api'],
         help: 'Chart width.',
         description: `
             not required if using
-            \`<ResponsivePie/>\`.
+            \`<ResponsiveMarimekko />\`.
         `,
         type: 'number',
         required: true,
@@ -90,7 +105,7 @@ const props = [
         help: 'Chart height.',
         description: `
             not required if using
-            \`<ResponsivePie/>\`.
+            \`<ResponsiveMarimekko />\`.
         `,
         type: 'number',
         required: true,
@@ -110,21 +125,6 @@ const props = [
         required: false,
         controlType: 'margin',
         group: 'Base',
-    },
-    {
-        key: 'layout',
-        help: `How to display bars.`,
-        type: 'string',
-        required: false,
-        defaultValue: defaults.layout,
-        controlType: 'radio',
-        group: 'Base',
-        controlOptions: {
-            choices: [
-                { label: 'horizontal', value: 'horizontal' },
-                { label: 'vertical', value: 'vertical' },
-            ],
-        },
     },
     themeProperty,
     {
@@ -195,7 +195,7 @@ const props = [
     },
     {
         key: 'isInteractive',
-        flavors: ['svg', 'canvas'],
+        flavors: ['svg'],
         group: 'Interactivity',
         help: 'Enable/disable interactivity.',
         type: 'boolean',
@@ -205,7 +205,7 @@ const props = [
     },
     {
         key: 'onClick',
-        flavors: ['svg', 'canvas'],
+        flavors: ['svg'],
         group: 'Interactivity',
         help: 'onClick handler, it receives target bar data and mouse event.',
         type: '(bar: BarDatum<RawDatum>, event: MouseEvent) => void',
@@ -213,7 +213,7 @@ const props = [
     },
     {
         key: 'onMouseEnter',
-        flavors: ['svg', 'canvas'],
+        flavors: ['svg'],
         group: 'Interactivity',
         help: 'onMouseEnter handler, it receives target bar data and mouse event.',
         type: '(bar: BarDatum<RawDatum>, event: MouseEvent) => void',
@@ -221,7 +221,7 @@ const props = [
     },
     {
         key: 'onMouseMove',
-        flavors: ['svg', 'canvas'],
+        flavors: ['svg'],
         group: 'Interactivity',
         help: 'onMouseMove handler, it receives target bar data and mouse event.',
         type: '(bar: BarDatum<RawDatum>, event: MouseEvent) => void',
@@ -229,7 +229,7 @@ const props = [
     },
     {
         key: 'onMouseLeave',
-        flavors: ['svg', 'canvas'],
+        flavors: ['svg'],
         group: 'Interactivity',
         help: 'onMouseLeave handler, it receives target bar data and mouse event.',
         type: '(bar: BarDatum<RawDatum>, event: MouseEvent) => void',
@@ -237,7 +237,6 @@ const props = [
     },
     {
         key: 'tooltip',
-        flavors: ['svg', 'canvas'],
         group: 'Interactivity',
         type: 'Component',
         required: false,
@@ -249,7 +248,7 @@ const props = [
             
             \`\`\`
             {
-                datum: PieComputedDatum
+                bar: BarDatum<RawDatum>
             }
             \`\`\`
             
@@ -259,7 +258,6 @@ const props = [
     },
     {
         key: 'custom tooltip example',
-        flavors: ['svg', 'canvas'],
         help: 'Showcase custom tooltip.',
         type: 'boolean',
         controlType: 'switch',
@@ -268,13 +266,13 @@ const props = [
     ...motionProperties(['svg'], defaults, 'react-spring'),
     {
         key: 'legends',
-        flavors: ['svg', 'canvas'],
+        flavors: ['svg'],
         type: 'Legend[]',
         help: `Optional chart's legends.`,
         group: 'Legends',
         controlType: 'array',
         controlOptions: {
-            props: getLegendsProps(['svg', 'canvas']),
+            props: getLegendsProps(['svg']),
             shouldCreate: true,
             addLabel: 'add legend',
             shouldRemove: true,

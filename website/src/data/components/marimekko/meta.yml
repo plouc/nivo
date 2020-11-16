@@ -7,7 +7,11 @@ Marimekko:
   tags: 
     - svg
     - isomorphic
-  stories: []
+  stories:
+    - label: using arrays for data
+      link: marimekko--using-arrays-for-data
+    - label: diverging chart
+      link: marimekko--diverging
   description: |
     The `Marimekko` component is somehow similar to a bar chart,
     but it allows you to use an extra dimension to compute the

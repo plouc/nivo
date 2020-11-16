@@ -1,4 +1,11 @@
 import * as React from 'react'
+import {
+    stackOffsetDiverging,
+    stackOffsetExpand,
+    stackOffsetNone,
+    stackOffsetSilhouette,
+    stackOffsetWiggle,
+} from 'd3-shape'
 import { Box, Dimensions, Theme, SvgDefsAndFill, ModernMotionProps } from '@nivo/core'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
@@ -70,11 +77,32 @@ export interface TooltipProps<RawDatum> {
 
 export type Layout = 'horizontal' | 'vertical'
 
+export const offsetById = {
+    // Applies a zero baseline and normalizes the values
+    // for each point such that the topline is always one.
+    expand: stackOffsetExpand,
+    // Positive values are stacked above zero, negative values
+    // are stacked below zero, and zero values are stacked at zero.
+    diverging: stackOffsetDiverging,
+    // Applies a zero baseline.
+    none: stackOffsetNone,
+    // Shifts the baseline down such that the center of the streamgraph
+    // is always at zero.
+    silouhette: stackOffsetSilhouette,
+    // Shifts the baseline so as to minimize the weighted wiggle of layers.
+    // This offset is recommended for streamgraphs in conjunction with the inside-out order.
+    // See Stacked Graphs—Geometry & Aesthetics by Bryon & Wattenberg for more information.
+    wiggle: stackOffsetWiggle,
+}
+
+export type OffsetId = keyof typeof offsetById
+
 export type CommonProps<RawDatum> = {
     valueFormat?: string | ValueFormatter
 
     margin: Box
     layout: Layout
+    offset: OffsetId
 
     // colors, theme and border
     colors: OrdinalColorScaleConfig<Omit<DimensionDatum<RawDatum>, 'color' | 'fill'>>

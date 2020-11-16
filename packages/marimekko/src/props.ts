@@ -1,7 +1,8 @@
-import { LayerId, Layout } from './types'
+import { LayerId, Layout, OffsetId } from './types'
 
 export const defaultProps = {
     layout: 'vertical' as Layout,
+    offset: 'none' as OffsetId,
 
     layers: ['grid', 'axes', 'bars', 'legends'] as LayerId[],
 
