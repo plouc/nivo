@@ -34,7 +34,7 @@
     "@types/react-motion": "^0.0.29"
   },
   "peerDependencies": {
-    "@nivo/core": "^0.64.0",
+    "@nivo/core": "0.64.0",
     "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.8.4 <= 17.0.0"
   },

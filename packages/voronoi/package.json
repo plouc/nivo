@@ -29,12 +29,15 @@
     "index.d.ts"
   ],
   "dependencies": {
-    "@nivo/core": "0.64.0",
     "d3-delaunay": "^5.1.1",
     "d3-scale": "^3.0.0",
     "recompose": "^0.30.0"
   },
+  "devDependencies": {
+    "@nivo/core": "*"
+  },
   "peerDependencies": {
+    "@nivo/core": "0.64.0",
     "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.8.4 < 18.0.0"
   },
