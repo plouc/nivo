@@ -17,16 +17,18 @@ const TooltipValue = styled.span`
     font-weight: 600;
 `
 
-const CustomTooltip = ({ datum }) => (
-    <TooltipWrapper style={{ color: datum.color }}>
+const CustomTooltip = ({ bar }) => (
+    <TooltipWrapper style={{ color: bar.color }}>
+        <TooltipKey>datum.id</TooltipKey>
+        <TooltipValue>{bar.datum.id}</TooltipValue>
         <TooltipKey>id</TooltipKey>
-        <TooltipValue>{datum.id}</TooltipValue>
+        <TooltipValue>{bar.id}</TooltipValue>
         <TooltipKey>value</TooltipKey>
-        <TooltipValue>{datum.value}</TooltipValue>
-        <TooltipKey>formattedValue</TooltipKey>
-        <TooltipValue>{datum.formattedValue}</TooltipValue>
+        <TooltipValue>{bar.value}</TooltipValue>
         <TooltipKey>color</TooltipKey>
-        <TooltipValue>{datum.color}</TooltipValue>
+        <TooltipValue>{bar.color}</TooltipValue>
+        <TooltipKey>thickness</TooltipKey>
+        <TooltipValue>{bar.datum.thickness}</TooltipValue>
     </TooltipWrapper>
 )
 

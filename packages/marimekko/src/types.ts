@@ -72,8 +72,10 @@ export type CustomLayer<RawDatum> = React.FC<CustomLayerProps<RawDatum>>
 export type Layer<RawDatum> = LayerId | CustomLayer<RawDatum>
 
 export interface TooltipProps<RawDatum> {
-    datum: ComputedDatum<RawDatum>
+    bar: BarDatum<RawDatum>
 }
+
+export type BarTooltipType<RawDatum> = (props: TooltipProps<RawDatum>) => JSX.Element
 
 export type Layout = 'horizontal' | 'vertical'
 
@@ -119,7 +121,7 @@ export type CommonProps<RawDatum> = {
 
     // interactivity
     isInteractive: boolean
-    tooltip: React.FC<TooltipProps<RawDatum>>
+    tooltip: BarTooltipType<RawDatum>
 
     legends: LegendProps[]
 

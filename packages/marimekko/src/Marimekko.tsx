@@ -5,6 +5,7 @@ import { SvgProps, LayerId, DimensionDatum } from './types'
 import { defaultProps } from './props'
 import { useMarimekko, useLayerContext } from './hooks'
 import { Bars } from './Bars'
+import { BarTooltip } from './BarTooltip'
 
 const InnerMarimekko = <RawDatum,>({
     data,
@@ -23,6 +24,7 @@ const InnerMarimekko = <RawDatum,>({
     borderWidth = defaultProps.borderWidth,
     borderColor = defaultProps.borderColor as InheritedColorConfig<DimensionDatum<RawDatum>>,
     isInteractive = defaultProps.isInteractive,
+    tooltip = BarTooltip,
     onClick,
     onMouseEnter,
     onMouseMove,
@@ -61,6 +63,7 @@ const InnerMarimekko = <RawDatum,>({
             key="bars"
             bars={bars}
             isInteractive={isInteractive}
+            tooltip={tooltip}
             onClick={onClick}
             onMouseEnter={onMouseEnter}
             onMouseMove={onMouseMove}
