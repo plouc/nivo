@@ -1,7 +1,20 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+import { random } from 'lodash'
 import { storiesOf } from '@storybook/react'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Marimekko, Layout } from '../src'
+
+const getRandomValue = () => random(0, 32)
+
+const generateData = () =>
+    [`it's good`, `it's sweet`, `it's spicy`, 'worth eating', 'worth buying'].map(statement => ({
+        statement,
+        participation: getRandomValue(),
+        stronglyAgree: getRandomValue(),
+        agree: getRandomValue(),
+        disagree: getRandomValue(),
+        stronglyDisagree: getRandomValue(),
+    }))
 
 const commonProps = {
     width: 900,
@@ -12,46 +25,27 @@ const commonProps = {
         bottom: 40,
         left: 80,
     },
-    id: 'id',
-    value: 'value',
+    id: 'statement',
+    value: 'participation',
     layout: 'vertical' as Layout,
     axisLeft: {},
     axisBottom: {},
     dimensions: [
         {
-            id: 'cool stuff',
-            value: 'cool',
+            id: 'disagree strongly',
+            value: 'stronglyDisagree',
         },
         {
-            id: 'not cool stuff',
-            value: 'notCool',
+            id: 'disagree',
+            value: 'disagree',
         },
         {
-            id: 'YABAI!',
-            value: 'yabai',
-        },
-    ],
-    data: [
-        {
-            id: 'A',
-            value: 42,
-            cool: 9,
-            notCool: 13,
-            yabai: 32,
+            id: 'agree',
+            value: 'agree',
         },
         {
-            id: 'B',
-            value: 7,
-            cool: 12,
-            notCool: 24,
-            yabai: 17,
-        },
-        {
-            id: 'C',
-            value: 15,
-            cool: 21,
-            notCool: 8,
-            yabai: 12,
+            id: 'agree strongly',
+            value: 'stronglyAgree',
         },
     ],
 }
@@ -60,7 +54,7 @@ const stories = storiesOf('Marimekko', module)
 
 stories.addDecorator(withKnobs)
 
-stories.add('default', () => <Marimekko {...commonProps} />)
+stories.add('default', () => <Marimekko {...commonProps} data={generateData()} />)
 
 stories.add('using arrays for data', () => {
     type RawDatum = [string, number, number, number, number]
@@ -96,29 +90,11 @@ stories.add('using arrays for data', () => {
 })
 
 stories.add('diverging', () => {
-    const data = [
-        {
-            id: 'A',
-            value: 42,
-            cool: 9,
-            notCool: -13,
-            yabai: 32,
-        },
-        {
-            id: 'B',
-            value: 7,
-            cool: 12,
-            notCool: -24,
-            yabai: 17,
-        },
-        {
-            id: 'C',
-            value: 15,
-            cool: 21,
-            notCool: -8,
-            yabai: 12,
-        },
-    ]
+    const data = generateData()
+    data.forEach(datum => {
+        datum.disagree *= -1
+        datum.stronglyDisagree *= -1
+    })
 
     return (
         <Marimekko
@@ -129,6 +105,61 @@ stories.add('diverging', () => {
             axisBottom={{
                 format: (v: number) => Math.abs(v),
             }}
+        />
+    )
+})
+
+const ShadowsLayer = ({ data }) => (
+    <>
+        {data.map(datum => (
+            <Fragment key={datum.id}>
+                <rect
+                    x={datum.x - 6}
+                    y={datum.y + 9}
+                    width={datum.width}
+                    height={datum.height}
+                    opacity={0.15}
+                />
+                <rect
+                    x={datum.x}
+                    y={datum.y}
+                    width={datum.width}
+                    height={datum.height}
+                    stroke="#ffffff"
+                    strokeWidth={4}
+                />
+            </Fragment>
+        ))}
+    </>
+)
+
+const StatementsLayer = ({ data }) => (
+    <>
+        {data.map(datum => {
+            return (
+                <g key={datum.id} transform={`translate(370, ${datum.y - 9})`}>
+                    <text textAnchor="middle" style={{ fontWeight: '600', fontSize: 14 }}>
+                        {datum.id}
+                    </text>
+                </g>
+            )
+        })}
+    </>
+)
+
+stories.add('custom layers', () => {
+    return (
+        <Marimekko
+            {...commonProps}
+            height={700}
+            data={generateData()}
+            innerPadding={32}
+            enableGridY={false}
+            layout="horizontal"
+            offset="silouhette"
+            layers={['grid', 'axes', ShadowsLayer, 'bars', StatementsLayer]}
+            axisLeft={undefined}
+            axisBottom={undefined}
         />
     )
 })

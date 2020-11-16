@@ -12,6 +12,8 @@ Marimekko:
       link: marimekko--using-arrays-for-data
     - label: diverging chart
       link: marimekko--diverging
+    - label: custom layers
+      link: marimekko--custom-layers
   description: |
     The `Marimekko` component is somehow similar to a bar chart,
     but it allows you to use an extra dimension to compute the
