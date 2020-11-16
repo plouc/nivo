@@ -1,6 +1,5 @@
-import React, { memo, useMemo } from 'react'
+import React, { CSSProperties, memo, useMemo } from 'react'
 import { useSpring, animated } from 'react-spring'
-// @ts-ignore
 import { useTheme, useMotionConfig } from '@nivo/core'
 
 interface CrosshairLineProps {
@@ -16,7 +15,7 @@ export const CrosshairLine = memo(({ x0, x1, y0, y1 }: CrosshairLineProps) => {
     const style = useMemo(
         () => ({
             ...theme.crosshair.line,
-            pointerEvents: 'none',
+            pointerEvents: 'none' as CSSProperties['pointerEvents'],
         }),
         [theme.crosshair.line]
     )

@@ -1,14 +1,18 @@
-import React, { memo, useRef, PropsWithChildren } from 'react'
+import React, { memo, useRef, PropsWithChildren, CSSProperties } from 'react'
 import { useSpring, animated } from 'react-spring'
-// @ts-ignore
-import { useTheme, useMotionConfig, useMeasure } from '@nivo/core'
+import {
+    useTheme,
+    useMotionConfig,
+    // @ts-ignore
+    useMeasure,
+} from '@nivo/core'
 import { TooltipStateContextDataVisible } from './context'
 
 const TOOLTIP_OFFSET = 14
 
 const tooltipStyle = {
-    pointerEvents: 'none',
-    position: 'absolute',
+    pointerEvents: 'none' as CSSProperties['pointerEvents'],
+    position: 'absolute' as CSSProperties['position'],
     zIndex: 10,
     top: 0,
     left: 0,
@@ -64,7 +68,9 @@ export const TooltipWrapper = memo<PropsWithChildren<TooltipWrapperProps>>(
             previousPosition.current = [x, y]
         }
 
-        const animatedProps = useSpring<any>({
+        const animatedProps = useSpring<{
+            transform: string
+        }>({
             to,
             config: springConfig,
             immediate: !animate || immediate,

@@ -1,10 +1,10 @@
-import React, { memo, ReactNode } from 'react'
+import React, { CSSProperties, memo, ReactNode } from 'react'
 // @ts-ignore
 import { useTheme } from '@nivo/core'
 
 const tableStyle = {
     width: '100%',
-    borderCollapse: 'collapse',
+    borderCollapse: 'collapse' as CSSProperties['borderCollapse'],
 }
 
 interface TableTooltipProps {
