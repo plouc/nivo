@@ -5,6 +5,7 @@ import {
     groupProperties,
     getLegendsProps,
     motionProperties,
+    axesProperties,
 } from '../../../lib/componentProperties'
 
 const props = [
@@ -183,6 +184,39 @@ const props = [
         defaultValue: defaults.borderColor,
         controlType: 'inheritedColor',
         group: 'Style',
+    },
+    ...axesProperties(),
+    {
+        key: 'enableGridX',
+        help: 'Enable/disable x grid.',
+        type: 'boolean',
+        required: false,
+        defaultValue: defaults.enableGridX,
+        controlType: 'switch',
+        group: 'Grid & Axes',
+    },
+    {
+        key: 'gridXValues',
+        group: 'Grid & Axes',
+        help: 'Specify values to use for vertical grid lines.',
+        type: 'number[]',
+        required: false,
+    },
+    {
+        key: 'enableGridY',
+        help: 'Enable/disable y grid.',
+        type: 'boolean',
+        required: false,
+        defaultValue: defaults.enableGridY,
+        controlType: 'switch',
+        group: 'Grid & Axes',
+    },
+    {
+        key: 'gridYValues',
+        group: 'Grid & Axes',
+        help: 'Specify values to use for horizontal grid lines.',
+        type: 'number[]',
+        required: false,
     },
     {
         key: 'layers',

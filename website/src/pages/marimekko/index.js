@@ -11,7 +11,7 @@ const getRandomValue = () => random(0, 32)
 const generateData = () =>
     [`it's good`, `it's sweet`, `it's spicy`, 'worth eating', 'worth buying'].map(statement => ({
         statement,
-        value: getRandomValue(),
+        participation: getRandomValue(),
         stronglyAgree: getRandomValue(),
         agree: getRandomValue(),
         disagree: getRandomValue(),
@@ -20,7 +20,7 @@ const generateData = () =>
 
 const initialProperties = {
     id: 'statement',
-    value: 'value',
+    value: 'participation',
     dimensions: [
         {
             id: 'agree strongly',
@@ -41,6 +41,47 @@ const initialProperties = {
     ],
     layout: defaultProps.layout,
     offset: defaultProps.offset,
+
+    axisTop: {
+        enable: false,
+        orient: 'top',
+        tickSize: 5,
+        tickPadding: 5,
+        tickRotation: 0,
+        legend: '',
+        legendOffset: 36,
+    },
+    axisRight: {
+        enable: true,
+        orient: 'right',
+        tickSize: 5,
+        tickPadding: 5,
+        tickRotation: 0,
+        legend: '',
+        legendOffset: 0,
+    },
+    axisBottom: {
+        enable: true,
+        orient: 'bottom',
+        tickSize: 5,
+        tickPadding: 5,
+        tickRotation: 0,
+        legend: 'participation',
+        legendOffset: 36,
+        legendPosition: 'middle',
+    },
+    axisLeft: {
+        enable: true,
+        orient: 'left',
+        tickSize: 5,
+        tickPadding: 5,
+        tickRotation: 0,
+        legend: 'opinions',
+        legendOffset: -40,
+        legendPosition: 'middle',
+    },
+    enableGridX: defaultProps.enableGridX,
+    enableGridY: defaultProps.enableGridY,
 
     margin: {
         top: 40,

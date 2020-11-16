@@ -7,6 +7,7 @@ import {
     stackOffsetWiggle,
 } from 'd3-shape'
 import { Box, Dimensions, Theme, SvgDefsAndFill, ModernMotionProps } from '@nivo/core'
+import { AxisProps } from '@nivo/axes'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 
@@ -105,6 +106,16 @@ export type CommonProps<RawDatum> = {
     margin: Box
     layout: Layout
     offset: OffsetId
+
+    // axes and grid
+    axisTop?: AxisProps
+    axisRight?: AxisProps
+    axisBottom?: AxisProps
+    axisLeft?: AxisProps
+    enableGridX: boolean
+    gridXValues?: number[]
+    enableGridY: boolean
+    gridYValues?: number[]
 
     // colors, theme and border
     colors: OrdinalColorScaleConfig<Omit<DimensionDatum<RawDatum>, 'color' | 'fill'>>

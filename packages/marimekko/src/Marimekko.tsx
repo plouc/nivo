@@ -1,5 +1,6 @@
 import React, { createElement, Fragment, ReactNode } from 'react'
 import { Container, SvgWrapper, useDimensions } from '@nivo/core'
+import { Grid, Axes } from '@nivo/axes'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { SvgProps, LayerId, DimensionDatum } from './types'
 import { defaultProps } from './props'
@@ -18,6 +19,14 @@ const InnerMarimekko = <RawDatum,>({
     layout = defaultProps.layout,
     offset = defaultProps.offset,
     layers = defaultProps.layers,
+    axisTop,
+    axisRight,
+    axisBottom,
+    axisLeft,
+    enableGridX = defaultProps.enableGridX,
+    gridXValues,
+    enableGridY = defaultProps.enableGridY,
+    gridYValues,
     colors = defaultProps.colors as OrdinalColorScaleConfig<
         Omit<DimensionDatum<RawDatum>, 'color'>
     >,
@@ -58,18 +67,53 @@ const InnerMarimekko = <RawDatum,>({
         legends: null,
     }
 
-    layerById.bars = (
-        <Bars<RawDatum>
-            key="bars"
-            bars={bars}
-            isInteractive={isInteractive}
-            tooltip={tooltip}
-            onClick={onClick}
-            onMouseEnter={onMouseEnter}
-            onMouseMove={onMouseMove}
-            onMouseLeave={onMouseLeave}
-        />
-    )
+    if (layers.includes('bars')) {
+        layerById.bars = (
+            <Bars<RawDatum>
+                key="bars"
+                bars={bars}
+                isInteractive={isInteractive}
+                tooltip={tooltip}
+                onClick={onClick}
+                onMouseEnter={onMouseEnter}
+                onMouseMove={onMouseMove}
+                onMouseLeave={onMouseLeave}
+            />
+        )
+    }
+
+    const xScale = layout === 'vertical' ? thicknessScale : dimensionsScale
+    const yScale = layout === 'vertical' ? dimensionsScale : thicknessScale
+
+    if (layers.includes('grid')) {
+        layerById.grid = (
+            <Grid
+                key="grid"
+                xScale={enableGridX ? (xScale as any) : undefined}
+                yScale={enableGridY ? (yScale as any) : undefined}
+                width={innerWidth}
+                height={innerHeight}
+                xValues={gridXValues}
+                yValues={gridYValues}
+            />
+        )
+    }
+
+    if (layers.includes('axes')) {
+        layerById.axes = (
+            <Axes
+                key="axes"
+                xScale={xScale as any}
+                yScale={yScale as any}
+                width={innerWidth}
+                height={innerHeight}
+                top={axisTop}
+                right={axisRight}
+                bottom={axisBottom}
+                left={axisLeft}
+            />
+        )
+    }
 
     const layerContext = useLayerContext<RawDatum>({
         data: computedData,
