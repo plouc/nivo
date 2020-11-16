@@ -1,17 +1,19 @@
 import React from 'react'
 import { useTransition } from 'react-spring'
 import { useMotionConfig } from '@nivo/core'
-import { BarDatum, MouseEventHandlers } from './types'
+import { BarDatum, CommonProps, MouseEventHandlers } from './types'
 import { Bar } from './Bar'
 
 interface BarsProps<RawDatum> extends MouseEventHandlers<RawDatum, SVGRectElement> {
     isInteractive: boolean
     bars: BarDatum<RawDatum>[]
+    tooltip: CommonProps<RawDatum>['tooltip']
 }
 
 export const Bars = <RawDatum,>({
     bars,
     isInteractive,
+    tooltip,
     onClick,
     onMouseEnter,
     onMouseMove,
@@ -88,6 +90,7 @@ export const Bars = <RawDatum,>({
                     bar={bar}
                     animatedProps={style}
                     isInteractive={isInteractive}
+                    tooltip={tooltip}
                     onClick={onClick}
                     onMouseEnter={onMouseEnter}
                     onMouseMove={onMouseMove}

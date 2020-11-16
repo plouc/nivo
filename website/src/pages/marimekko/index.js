@@ -9,29 +9,34 @@ import { groups } from '../../data/components/marimekko/props'
 const getRandomValue = () => random(0, 32)
 
 const generateData = () =>
-    ['A', 'B', 'C', 'D', 'E'].map(id => ({
-        id,
+    [`it's good`, `it's sweet`, `it's spicy`, 'worth eating', 'worth buying'].map(statement => ({
+        statement,
         value: getRandomValue(),
-        cool: getRandomValue(),
-        notCool: getRandomValue(),
-        yabai: getRandomValue(),
+        stronglyAgree: getRandomValue(),
+        agree: getRandomValue(),
+        disagree: getRandomValue(),
+        stronglyDisagree: getRandomValue(),
     }))
 
 const initialProperties = {
-    id: 'id',
+    id: 'statement',
     value: 'value',
     dimensions: [
         {
-            id: 'cool stuff',
-            value: 'cool',
+            id: 'agree strongly',
+            value: 'stronglyAgree',
         },
         {
-            id: 'not cool stuff',
-            value: 'notCool',
+            id: 'agree',
+            value: 'agree',
         },
         {
-            id: 'YABAI!',
-            value: 'yabai',
+            id: 'disagree',
+            value: 'disagree',
+        },
+        {
+            id: 'disagree strongly',
+            value: 'stronglyDisagree',
         },
     ],
     layout: defaultProps.layout,
