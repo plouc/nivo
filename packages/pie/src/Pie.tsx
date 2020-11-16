@@ -196,7 +196,6 @@ const Pie = <RawDatum, >({
             height={outerHeight}
             margin={margin}
             defs={boundDefs}
-            theme={theme}
             role={role}
         >
             {layers.map((layer, i) => {

@@ -1,5 +1,11 @@
 import React, { createElement, Fragment, ReactNode } from 'react'
-import { Container, SvgWrapper, useDimensions } from '@nivo/core'
+import {
+    // @ts-ignore
+    bindDefs,
+    Container,
+    SvgWrapper,
+    useDimensions,
+} from '@nivo/core'
 import { Grid, Axes } from '@nivo/axes'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { SvgProps, LayerId, DimensionDatum } from './types'
@@ -18,6 +24,8 @@ const InnerMarimekko = <RawDatum,>({
     margin: partialMargin,
     layout = defaultProps.layout,
     offset = defaultProps.offset,
+    outerPadding = defaultProps.outerPadding,
+    innerPadding = defaultProps.innerPadding,
     layers = defaultProps.layers,
     axisTop,
     axisRight,
@@ -30,6 +38,8 @@ const InnerMarimekko = <RawDatum,>({
     colors = defaultProps.colors as OrdinalColorScaleConfig<
         Omit<DimensionDatum<RawDatum>, 'color'>
     >,
+    defs = [],
+    fill = [],
     borderWidth = defaultProps.borderWidth,
     borderColor = defaultProps.borderColor as InheritedColorConfig<DimensionDatum<RawDatum>>,
     isInteractive = defaultProps.isInteractive,
@@ -53,6 +63,8 @@ const InnerMarimekko = <RawDatum,>({
         dimensions,
         layout,
         offset,
+        outerPadding,
+        innerPadding,
         colors,
         borderColor,
         borderWidth,
@@ -66,6 +78,8 @@ const InnerMarimekko = <RawDatum,>({
         bars: null,
         legends: null,
     }
+
+    const boundDefs = bindDefs(defs, bars, fill)
 
     if (layers.includes('bars')) {
         layerById.bars = (
@@ -127,7 +141,7 @@ const InnerMarimekko = <RawDatum,>({
             width={outerWidth}
             height={outerHeight}
             margin={margin}
-            // defs={boundDefs}
+            defs={boundDefs}
             role={role}
         >
             {layers.map((layer, i) => {

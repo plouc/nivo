@@ -55,6 +55,7 @@ export interface ComputedDatum<RawDatum> extends NormalizedDatum<RawDatum> {
 
 export interface BarDatum<RawDatum> extends DimensionDatum<RawDatum> {
     key: string
+    fill?: string
     borderColor: string
     borderWidth: number
 }
@@ -106,6 +107,8 @@ export type CommonProps<RawDatum> = {
     margin: Box
     layout: Layout
     offset: OffsetId
+    outerPadding: number
+    innerPadding: number
 
     // axes and grid
     axisTop?: AxisProps
@@ -155,16 +158,7 @@ export type SvgProps<RawDatum> = DataProps<RawDatum> &
     Dimensions &
     Partial<CommonProps<RawDatum>> &
     ModernMotionProps &
-    SvgDefsAndFill<ComputedDatum<RawDatum>> &
+    SvgDefsAndFill<BarDatum<RawDatum>> &
     MouseEventHandlers<RawDatum, SVGRectElement> & {
         layers?: Layer<RawDatum>[]
-    }
-
-export type CompleteSvgProps<RawDatum> = DataProps<RawDatum> &
-    Dimensions &
-    CommonProps<RawDatum> &
-    ModernMotionProps &
-    SvgDefsAndFill<ComputedDatum<RawDatum>> &
-    MouseEventHandlers<RawDatum, SVGRectElement> & {
-        layers: Layer<RawDatum>[]
     }
