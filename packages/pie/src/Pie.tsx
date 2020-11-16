@@ -1,6 +1,13 @@
 import React, { ReactNode, Fragment, createElement } from 'react'
-// @ts-ignore
-import { withContainer, SvgWrapper, bindDefs, useTheme, useDimensions } from '@nivo/core'
+import {
+    // @ts-ignore
+    withContainer,
+    SvgWrapper,
+    // @ts-ignore
+    bindDefs,
+    useTheme,
+    useDimensions,
+} from '@nivo/core'
 import { useInheritedColor, InheritedColorConfig } from '@nivo/colors'
 import { PieSlice } from './PieSlice'
 import { RadialLabels } from './RadialLabels'
@@ -10,8 +17,7 @@ import { useNormalizedData, usePieFromBox, usePieLayerContext } from './hooks'
 import { ComputedDatum, PieLayer, PieSvgProps, PieLayerId } from './types'
 import { defaultProps } from './props'
 
-// prettier-ignore
-const Pie = <RawDatum, >({
+const Pie = <RawDatum,>({
     data,
     id = defaultProps.id,
     value = defaultProps.value,
@@ -35,7 +41,9 @@ const Pie = <RawDatum, >({
 
     // border
     borderWidth = defaultProps.borderWidth,
-    borderColor: _borderColor = defaultProps.borderColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
+    borderColor: _borderColor = defaultProps.borderColor as InheritedColorConfig<
+        ComputedDatum<RawDatum>
+    >,
 
     // radial labels
     radialLabel = defaultProps.radialLabel,
@@ -87,7 +95,9 @@ const Pie = <RawDatum, >({
         colors,
     })
 
-    const { dataWithArc, arcGenerator, centerX, centerY, radius, innerRadius } = usePieFromBox<RawDatum>({
+    const { dataWithArc, arcGenerator, centerX, centerY, radius, innerRadius } = usePieFromBox<
+        RawDatum
+    >({
         data: normalizedData,
         width: innerWidth,
         height: innerHeight,
@@ -118,7 +128,7 @@ const Pie = <RawDatum, >({
                     <PieSlice<RawDatum>
                         key={datumWithArc.id}
                         datum={datumWithArc}
-                        path={arcGenerator(datumWithArc.arc)}
+                        path={arcGenerator(datumWithArc.arc) ?? undefined}
                         borderWidth={borderWidth}
                         borderColor={borderColor(datumWithArc)}
                         tooltip={tooltip}

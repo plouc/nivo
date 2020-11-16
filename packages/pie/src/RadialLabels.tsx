@@ -17,8 +17,7 @@ interface RadialLabelsProps<RawDatum> {
     linkColor: CompletePieSvgProps<RawDatum>['radialLabelsLinkColor']
 }
 
-// prettier-ignore
-export const RadialLabels = <RawDatum, >({
+export const RadialLabels = <RawDatum,>({
     dataWithArc,
     label,
     radius,
@@ -48,7 +47,11 @@ export const RadialLabels = <RawDatum, >({
     return (
         <>
             {radialLabels.map(labelData => (
-                <RadialLabel key={labelData.datum.id} label={labelData} linkStrokeWidth={linkStrokeWidth} />
+                <RadialLabel
+                    key={labelData.datum.id}
+                    label={labelData}
+                    linkStrokeWidth={linkStrokeWidth}
+                />
             ))}
         </>
     )

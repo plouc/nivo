@@ -6,9 +6,7 @@ import {
     getRelativeCursor,
     // @ts-ignore
     textPropsByEngine,
-    // @ts-ignore
     useDimensions,
-    // @ts-ignore
     useTheme,
     // @ts-ignore
     withContainer,
@@ -23,8 +21,7 @@ import { useNormalizedData, usePieFromBox, usePieRadialLabels, usePieSliceLabels
 import { ComputedDatum, PieCanvasProps, RadialLabelData, SliceLabelData } from './types'
 import { defaultProps } from './props'
 
-// prettier-ignore
-const drawSliceLabels = <RawDatum, >(
+const drawSliceLabels = <RawDatum,>(
     ctx: CanvasRenderingContext2D,
     labels: SliceLabelData<RawDatum>[],
     theme: Theme

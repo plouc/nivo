@@ -1,5 +1,4 @@
 import React, { CSSProperties } from 'react'
-// @ts-ignore
 import { useTheme } from '@nivo/core'
 import { usePieSliceLabels } from './hooks'
 import { CompletePieSvgProps, ComputedDatum } from './types'
@@ -18,8 +17,7 @@ interface SliceLabelsProps<RawDatum> {
     textColor: CompletePieSvgProps<RawDatum>['sliceLabelsTextColor']
 }
 
-// prettier-ignore
-export const SliceLabels = <RawDatum, >({
+export const SliceLabels = <RawDatum,>({
     dataWithArc,
     label: labelAccessor,
     radius,

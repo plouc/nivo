@@ -9,8 +9,12 @@ interface PieLegendsProps<RawDatum> {
     dataWithArc: ComputedDatum<RawDatum>[]
 }
 
-// prettier-ignore
-const PieLegends = <RawDatum, >({ width, height, legends, dataWithArc }: PieLegendsProps<RawDatum>) => {
+const PieLegends = <RawDatum,>({
+    width,
+    height,
+    legends,
+    dataWithArc,
+}: PieLegendsProps<RawDatum>) => {
     return (
         <>
             {legends.map((legend, i) => (
