@@ -124,7 +124,7 @@ stories.add('diverging', () => {
         <Marimekko
             {...commonProps}
             data={data}
-            layout="vertical"
+            layout="horizontal"
             offset="diverging"
             axisLeft={{
                 format: (v: number) => Math.abs(v),
