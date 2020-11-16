@@ -20,7 +20,7 @@
     "dist/"
   ],
   "dependencies": {
-    "react-spring": "next"
+    "react-spring": "9.0.0-rc.3"
   },
   "devDependencies": {
     "@nivo/core": "*"
