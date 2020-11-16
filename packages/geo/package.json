@@ -1,6 +1,6 @@
 {
   "name": "@nivo/geo",
-  "version": "0.65.0",
+  "version": "0.65.1",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -29,9 +29,9 @@
     "index.d.ts"
   ],
   "dependencies": {
-    "@nivo/colors": "0.65.0",
-    "@nivo/legends": "0.65.0",
-    "@nivo/tooltip": "0.65.0",
+    "@nivo/colors": "0.65.1",
+    "@nivo/legends": "0.65.1",
+    "@nivo/tooltip": "0.65.1",
     "d3-format": "^1.4.4",
     "d3-geo": "^1.11.3",
     "lodash": "^4.17.11"
