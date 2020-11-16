@@ -6,6 +6,7 @@ import {
     stackOffsetSilhouette,
     stackOffsetWiggle,
 } from 'd3-shape'
+import { ScaleLinear } from 'd3-scale'
 import {
     Box,
     Dimensions,
@@ -76,6 +77,8 @@ export type LayerId = 'grid' | 'axes' | 'bars' | 'legends'
 export interface CustomLayerProps<RawDatum> {
     data: ComputedDatum<RawDatum>[]
     bars: BarDatum<RawDatum>[]
+    thicknessScale: ScaleLinear<number, number>
+    dimensionsScale: ScaleLinear<number, number>
 }
 
 export type CustomLayer<RawDatum> = React.FC<CustomLayerProps<RawDatum>>

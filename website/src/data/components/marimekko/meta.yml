@@ -15,12 +15,12 @@ Marimekko:
     - label: custom layers
       link: marimekko--custom-layers
   description: |
-    The `Marimekko` component is somehow similar to a bar chart,
+    The `Marimekko` component is somewhat similar to a bar chart,
     but it allows you to use an extra dimension to compute the
     thickness of each bar.
 
     It also shares some behavior of the `Stream` chart regarding
-    the way we can configure `offset` and `order`.
+    the way we can configure the `offset`.
 
     The responsive alternative of this component is `ResponsiveMarimekko`.
 
