@@ -47,44 +47,23 @@ export default settingsMapper(
         defs: (value, values) => {
             if (!values['showcase pattern usage']) return
 
-            /*
-            [
-                patternDotsDef('dots', {
-                    background: 'inherit',
-                    color: 'rgba(255, 255, 255, 0.3)',
-                    size: 4,
-                    padding: 1,
-                    stagger: true,
-                }),
+            return [
                 patternLinesDef('lines', {
-                    background: 'inherit',
-                    color: 'rgba(255, 255, 255, 0.3)',
+                    background: 'rgba(0, 0, 0, 0)',
+                    color: 'inherit',
                     rotation: -45,
-                    lineWidth: 6,
-                    spacing: 10,
+                    lineWidth: 4,
+                    spacing: 8,
                 }),
             ]
-            */
-
-            return
         },
         fill: (value, values) => {
             if (!values['showcase pattern usage']) return
 
-            /*
-            [
-                { match: { id: 'ruby' }, id: 'dots' },
-                { match: { id: 'c' }, id: 'dots' },
-                { match: { id: 'go' }, id: 'dots' },
-                { match: { id: 'python' }, id: 'dots' },
-                { match: { id: 'scala' }, id: 'lines' },
-                { match: { id: 'lisp' }, id: 'lines' },
-                { match: { id: 'elixir' }, id: 'lines' },
-                { match: { id: 'javascript' }, id: 'lines' },
+            return [
+                { match: { id: 'agree strongly' }, id: 'lines' },
+                { match: { id: 'disagree strongly' }, id: 'lines' },
             ]
-            */
-
-            return
         },
     },
     {

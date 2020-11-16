@@ -72,7 +72,7 @@ export const Bar = <RawDatum,>({
             y={animatedProps.y}
             width={to(animatedProps.width, value => Math.max(value, 0))}
             height={to(animatedProps.height, value => Math.max(value, 0))}
-            fill={animatedProps.color}
+            fill={bar.fill ?? animatedProps.color}
             stroke={animatedProps.borderColor}
             strokeWidth={bar.borderWidth}
             onClick={isInteractive ? handleClick : undefined}

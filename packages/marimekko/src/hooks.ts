@@ -119,20 +119,32 @@ export const useNormalizedData = <RawDatum>(
     }, [data, getId, getValue])
 }
 
-export const useThicknessScale = <RawDatum>(
-    data: NormalizedDatum<RawDatum>[],
-    width: number,
-    height: number,
+export const useThicknessScale = <RawDatum>({
+    data,
+    width,
+    height,
+    layout,
+    outerPadding,
+    innerPadding,
+}: {
+    data: NormalizedDatum<RawDatum>[]
+    width: number
+    height: number
     layout: Layout
-) =>
+    outerPadding: number
+    innerPadding: number
+}) =>
     useMemo(() => {
         const totalValue = data.reduce((acc, datum) => acc + datum.value, 0)
 
         const thicknessScale = scaleLinear().domain([0, totalValue])
+
+        const totalPadding = 2 * outerPadding + (data.length - 1) * innerPadding
+
         if (layout === 'vertical') {
-            thicknessScale.range([0, width])
+            thicknessScale.range([0, width - totalPadding])
         } else {
-            thicknessScale.range([0, height])
+            thicknessScale.range([0, height - totalPadding])
         }
 
         return thicknessScale
@@ -146,6 +158,8 @@ export const useComputedData = <RawDatum>({
     dimensionsScale,
     colors,
     layout,
+    outerPadding,
+    innerPadding,
 }: {
     data: NormalizedDatum<RawDatum>[]
     stacked: Series<RawDatum, string>[]
@@ -154,12 +168,14 @@ export const useComputedData = <RawDatum>({
     dimensionsScale: ScaleLinear<number, number>
     colors: CommonProps<RawDatum>['colors']
     layout: Layout
+    outerPadding: number
+    innerPadding: number
 }) => {
     const getColor = useOrdinalColorScale<Omit<DimensionDatum<RawDatum>, 'color'>>(colors, 'id')
 
     const computedData: ComputedDatum<RawDatum>[] = []
 
-    let position = 0
+    let position = outerPadding
 
     data.forEach(datum => {
         const thickness = thicknessScale(datum.value)
@@ -172,7 +188,7 @@ export const useComputedData = <RawDatum>({
             dimensions: [],
         }
 
-        position += thickness
+        position += thickness + innerPadding
 
         dimensionIds.forEach(dimensionId => {
             const dimension = stacked.find(stack => stack.key === dimensionId)
@@ -248,6 +264,8 @@ export const useMarimekko = <RawDatum>({
     dimensions: rawDimensions,
     layout,
     offset,
+    outerPadding,
+    innerPadding,
     colors,
     borderColor,
     borderWidth,
@@ -260,6 +278,8 @@ export const useMarimekko = <RawDatum>({
     dimensions: DataProps<RawDatum>['dimensions']
     layout: Layout
     offset: OffsetId
+    outerPadding: number
+    innerPadding: number
     colors: CommonProps<RawDatum>['colors']
     borderColor: InheritedColorConfig<DimensionDatum<RawDatum>>
     borderWidth: number
@@ -270,7 +290,14 @@ export const useMarimekko = <RawDatum>({
     const stack = useStack<RawDatum>(dimensionIds, dimensions, offset)
     const { stacked, min, max } = useStackedData<RawDatum>(stack, data)
     const normalizedData = useNormalizedData<RawDatum>(data, id, value)
-    const thicknessScale = useThicknessScale(normalizedData, width, height, layout)
+    const thicknessScale = useThicknessScale({
+        data: normalizedData,
+        width,
+        height,
+        layout,
+        outerPadding,
+        innerPadding,
+    })
     const dimensionsScale = useDimensionsScale(min, max, width, height, layout)
     const computedData = useComputedData<RawDatum>({
         data: normalizedData,
@@ -280,6 +307,8 @@ export const useMarimekko = <RawDatum>({
         dimensionsScale,
         colors,
         layout,
+        outerPadding,
+        innerPadding,
     })
     const bars = useBars<RawDatum>(computedData, borderColor, borderWidth)
 

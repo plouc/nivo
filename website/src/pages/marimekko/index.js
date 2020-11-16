@@ -23,24 +23,26 @@ const initialProperties = {
     value: 'participation',
     dimensions: [
         {
-            id: 'agree strongly',
-            value: 'stronglyAgree',
-        },
-        {
-            id: 'agree',
-            value: 'agree',
+            id: 'disagree strongly',
+            value: 'stronglyDisagree',
         },
         {
             id: 'disagree',
             value: 'disagree',
         },
         {
-            id: 'disagree strongly',
-            value: 'stronglyDisagree',
+            id: 'agree',
+            value: 'agree',
+        },
+        {
+            id: 'agree strongly',
+            value: 'stronglyAgree',
         },
     ],
     layout: defaultProps.layout,
     offset: defaultProps.offset,
+    outerPadding: defaultProps.outerPadding,
+    innerPadding: 9,
 
     axisTop: {
         enable: false,
@@ -92,7 +94,7 @@ const initialProperties = {
 
     valueFormat: { format: '', enabled: false },
 
-    colors: { scheme: 'nivo' },
+    colors: ['#ac402f', '#F47560', '#97E3D5', '#58b0a0'],
 
     borderWidth: 1,
     borderColor: {
