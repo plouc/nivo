@@ -2,8 +2,7 @@ import React from 'react'
 import { BasicTooltip } from '@nivo/tooltip'
 import { ComputedDatum } from './types'
 
-// prettier-ignore
-export const PieTooltip = <RawDatum, >({ datum }: { datum: ComputedDatum<RawDatum> }) => (
+export const PieTooltip = <RawDatum,>({ datum }: { datum: ComputedDatum<RawDatum> }) => (
     <BasicTooltip
         id={datum.id}
         value={datum.formattedValue}

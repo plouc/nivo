@@ -5,7 +5,7 @@ import { ComputedDatum, CompletePieSvgProps } from './types'
 
 interface PieSliceProps<RawDatum> {
     datum: ComputedDatum<RawDatum>
-    path: string
+    path?: string
     borderWidth: CompletePieSvgProps<RawDatum>['borderWidth']
     borderColor: string
     isInteractive: CompletePieSvgProps<RawDatum>['isInteractive']
@@ -16,8 +16,7 @@ interface PieSliceProps<RawDatum> {
     onMouseLeave: CompletePieSvgProps<RawDatum>['onMouseLeave']
 }
 
-// prettier-ignore
-export const PieSlice = <RawDatum, >({
+export const PieSlice = <RawDatum,>({
     datum,
     path,
     borderWidth,

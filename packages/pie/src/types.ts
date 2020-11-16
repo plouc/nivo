@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Arc as ArcGenerator } from 'd3-shape'
 import { Box, Dimensions, Theme, SvgDefsAndFill } from '@nivo/core'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
@@ -57,7 +58,7 @@ export type MouseEventHandler<RawDatum, ElementType = HTMLCanvasElement> = (
     event: React.MouseEvent<ElementType>
 ) => void
 
-export type PieArcGenerator = (arc: PieArc) => string
+export type PieArcGenerator = ArcGenerator<any, PieArc>
 
 export type PieLayerId = 'slices' | 'radialLabels' | 'sliceLabels' | 'legends'
 

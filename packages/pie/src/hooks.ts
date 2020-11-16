@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 import { get } from 'lodash'
-// @ts-ignore
 import { arc as d3Arc, pie as d3Pie } from 'd3-shape'
 import {
     // @ts-ignore
@@ -11,7 +10,6 @@ import {
     useValueFormatter,
     // @ts-ignore
     computeArcBoundingBox,
-    // @ts-ignore
     useTheme,
     // @ts-ignore
     positionFromAngle,
@@ -113,8 +111,8 @@ export const usePieArcs = <RawDatum>({
     sortByValue: boolean
 }): Omit<ComputedDatum<RawDatum>, 'fill'>[] => {
     const pie = useMemo(() => {
-        const innerPie = d3Pie()
-            .value((d: Omit<ComputedDatum<RawDatum>, 'arc' | 'fill'>) => d.value)
+        const innerPie = d3Pie<Omit<ComputedDatum<RawDatum>, 'arc' | 'fill'>>()
+            .value(d => d.value)
             .padAngle(degreesToRadians(padAngle))
             .startAngle(degreesToRadians(startAngle))
             .endAngle(degreesToRadians(endAngle))
@@ -161,11 +159,11 @@ export const usePieArcGenerator = ({
     innerRadius: number
     cornerRadius: number
 }): PieArcGenerator =>
-    useMemo(() => d3Arc().outerRadius(radius).innerRadius(innerRadius).cornerRadius(cornerRadius), [
-        radius,
-        innerRadius,
-        cornerRadius,
-    ])
+    useMemo(
+        () =>
+            d3Arc<PieArc>().outerRadius(radius).innerRadius(innerRadius).cornerRadius(cornerRadius),
+        [radius, innerRadius, cornerRadius]
+    )
 
 /**
  * Compute pie layout using explicit radius/innerRadius,
