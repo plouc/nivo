@@ -236,7 +236,7 @@ export const useComputedData = <RawDatum>({
                         dimensionDatum.width = Math.max(position0, position1) - dimensionDatum.x
                         dimensionDatum.height = computedDatum.height
 
-                        allPositions.push(dimensionDatum.y)
+                        allPositions.push(dimensionDatum.x)
                         totalSize += dimensionDatum.width
                     }
 
@@ -246,9 +246,10 @@ export const useComputedData = <RawDatum>({
                 }
 
                 if (layout === 'vertical') {
-                    computedDatum.height = totalSize
                     computedDatum.y = Math.min(...allPositions)
+                    computedDatum.height = totalSize
                 } else {
+                    computedDatum.x = Math.min(...allPositions)
                     computedDatum.width = totalSize
                 }
             })
