@@ -504,15 +504,15 @@ capture:
       #   selector: '#swarmplot-darkColored'
       #   output: ./website/src/assets/icons/swarmplot-dark-colored.png
 
-      - path: /internal/icons/
-        selector: '#marimekko-lightNeutral'
-        output: ./website/src/assets/icons/marimekko-light-neutral.png
-      - path: /internal/icons/
-        selector: '#marimekko-lightColored'
-        output: ./website/src/assets/icons/marimekko-light-colored.png
-      - path: /internal/icons/
-        selector: '#marimekko-darkNeutral'
-        output: ./website/src/assets/icons/marimekko-dark-neutral.png
-      - path: /internal/icons/
-        selector: '#marimekko-darkColored'
-        output: ./website/src/assets/icons/marimekko-dark-colored.png
+      # - path: /internal/icons/
+      #   selector: '#marimekko-lightNeutral'
+      #   output: ./website/src/assets/icons/marimekko-light-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#marimekko-lightColored'
+      #   output: ./website/src/assets/icons/marimekko-light-colored.png
+      # - path: /internal/icons/
+      #   selector: '#marimekko-darkNeutral'
+      #   output: ./website/src/assets/icons/marimekko-dark-neutral.png
+      # - path: /internal/icons/
+      #   selector: '#marimekko-darkColored'
+      #   output: ./website/src/assets/icons/marimekko-dark-colored.png
