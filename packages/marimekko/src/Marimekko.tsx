@@ -8,9 +8,10 @@ import {
 } from '@nivo/core'
 import { Grid, Axes } from '@nivo/axes'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
+import { BoxLegendSvg } from '@nivo/legends'
 import { SvgProps, LayerId, DimensionDatum } from './types'
 import { defaultProps } from './props'
-import { useMarimekko, useLayerContext } from './hooks'
+import { useMarimekko, useLayerContext, useLegendData } from './hooks'
 import { Bars } from './Bars'
 import { BarTooltip } from './BarTooltip'
 
@@ -49,6 +50,7 @@ const InnerMarimekko = <RawDatum,>({
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
+    legends = [],
     role,
 }: SvgProps<RawDatum>) => {
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
@@ -57,7 +59,9 @@ const InnerMarimekko = <RawDatum,>({
         partialMargin
     )
 
-    const { computedData, bars, thicknessScale, dimensionsScale } = useMarimekko<RawDatum>({
+    const { computedData, bars, thicknessScale, dimensionsScale, dimensionIds } = useMarimekko<
+        RawDatum
+    >({
         data,
         id,
         value,
@@ -128,6 +132,24 @@ const InnerMarimekko = <RawDatum,>({
                 bottom={axisBottom}
                 left={axisLeft}
             />
+        )
+    }
+
+    const legendData = useLegendData<RawDatum>(dimensionIds, bars)
+
+    if (layers.includes('legends')) {
+        layerById.legends = (
+            <g key="legends">
+                {legends.map((legend, i) => (
+                    <BoxLegendSvg
+                        key={i}
+                        {...legend}
+                        containerWidth={innerWidth}
+                        containerHeight={innerHeight}
+                        data={legendData}
+                    />
+                ))}
+            </g>
         )
     }
 

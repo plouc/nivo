@@ -88,7 +88,7 @@ const initialProperties = {
     margin: {
         top: 40,
         right: 80,
-        bottom: 80,
+        bottom: 100,
         left: 80,
     },
 
@@ -119,15 +119,15 @@ const initialProperties = {
             direction: 'row',
             justify: false,
             translateX: 0,
-            translateY: 56,
+            translateY: 80,
             itemsSpacing: 0,
-            itemWidth: 100,
+            itemWidth: 140,
             itemHeight: 18,
             itemTextColor: '#999',
-            itemDirection: 'left-to-right',
+            itemDirection: 'right-to-left',
             itemOpacity: 1,
             symbolSize: 18,
-            symbolShape: 'circle',
+            symbolShape: 'square',
             effects: [
                 {
                     on: 'hover',

@@ -360,6 +360,7 @@ export const useMarimekko = <RawDatum>({
         bars,
         thicknessScale,
         dimensionsScale,
+        dimensionIds,
     }
 }
 
@@ -383,3 +384,26 @@ export const useLayerContext = <RawDatum>({
         }),
         [data, bars, thicknessScale, dimensionsScale]
     )
+
+export const useLegendData = <RawDatum>(dimensionIds: string[], bars: BarDatum<RawDatum>[]) => {
+    const legendData: {
+        id: string
+        label: string
+        color: string
+        fill?: string
+    }[] = []
+
+    dimensionIds.forEach(dimensionId => {
+        const bar = bars.find(bar => bar.id === dimensionId)
+        if (bar) {
+            legendData.push({
+                id: dimensionId,
+                label: dimensionId,
+                color: bar.color,
+                fill: bar.fill,
+            })
+        }
+    })
+
+    return legendData
+}
