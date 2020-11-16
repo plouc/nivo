@@ -38,7 +38,7 @@ const props = [
         help: 'Value accessor.',
         description: `
             Define how to access the value of each datum,
-            wich is gonna dictate the thickness of the bars,
+            which will dictate the thickness of the bars,
             by default, nivo will look for the \`value\` property.
         `,
         type: 'string | (datum: RawDatum): number',
@@ -262,7 +262,10 @@ const props = [
             
             \`\`\`
             {
-                data: ComputedData<RawDatum>[],
+                data: ComputedDatum<RawDatum>[]
+                bars: BarDatum<RawDatum>[]
+                thicknessScale: ScaleLinear<number, number>
+                dimensionsScale: ScaleLinear<number, number>
             }
             \`\`\`
         `,
