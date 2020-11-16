@@ -184,9 +184,13 @@ export const useComputedData = <RawDatum>({
             ...datum,
             x: layout === 'vertical' ? position : 0,
             y: layout === 'vertical' ? 0 : position,
-            thickness,
+            width: layout === 'vertical' ? thickness : 0,
+            height: layout === 'vertical' ? 0 : thickness,
             dimensions: [],
         }
+
+        const allPositions: number[] = []
+        let totalSize = 0
 
         position += thickness + innerPadding
 
@@ -211,18 +215,31 @@ export const useComputedData = <RawDatum>({
                 if (layout === 'vertical') {
                     dimensionDatum.x = computedDatum.x
                     dimensionDatum.y = Math.min(position0, position1)
-                    dimensionDatum.width = computedDatum.thickness
+                    dimensionDatum.width = computedDatum.width
                     dimensionDatum.height = Math.max(position0, position1) - dimensionDatum.y
+
+                    allPositions.push(dimensionDatum.y)
+                    totalSize += dimensionDatum.height
                 } else {
                     dimensionDatum.x = Math.min(position0, position1)
                     dimensionDatum.y = computedDatum.y
                     dimensionDatum.width = Math.max(position0, position1) - dimensionDatum.x
-                    dimensionDatum.height = computedDatum.thickness
+                    dimensionDatum.height = computedDatum.height
+
+                    allPositions.push(dimensionDatum.y)
+                    totalSize += dimensionDatum.width
                 }
 
                 dimensionDatum.color = getColor(dimensionDatum)
 
                 computedDatum.dimensions.push(dimensionDatum)
+            }
+
+            if (layout === 'vertical') {
+                computedDatum.height = totalSize
+                computedDatum.y = Math.min(...allPositions)
+            } else {
+                computedDatum.width = totalSize
             }
         })
 

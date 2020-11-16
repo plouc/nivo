@@ -49,7 +49,8 @@ export interface DimensionDatum<RawDatum> {
 export interface ComputedDatum<RawDatum> extends NormalizedDatum<RawDatum> {
     x: number
     y: number
-    thickness: number
+    width: number
+    height: number
     dimensions: DimensionDatum<RawDatum>[]
 }
 

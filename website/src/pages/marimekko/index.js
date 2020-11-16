@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { ResponsiveMarimekko, defaultProps } from '@nivo/marimekko'
 import { random, omit } from 'lodash'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
@@ -94,7 +94,7 @@ const initialProperties = {
 
     valueFormat: { format: '', enabled: false },
 
-    colors: ['#ac402f', '#F47560', '#97E3D5', '#58b0a0'],
+    colors: { scheme: 'spectral' },
 
     borderWidth: 1,
     borderColor: {
@@ -168,15 +168,6 @@ const Marimekko = () => {
                     })
                 }
 
-                const handleLegendClick = legendItem => {
-                    logAction({
-                        type: 'click',
-                        label: `[legend] ${legendItem.label}: ${legendItem.formattedValue}`,
-                        color: legendItem.color,
-                        data: legendItem,
-                    })
-                }
-
                 return (
                     <ResponsiveMarimekko
                         data={data}
@@ -185,7 +176,6 @@ const Marimekko = () => {
                         onClick={handleClick}
                         legends={properties.legends.map(legend => ({
                             ...legend,
-                            onClick: handleLegendClick,
                         }))}
                     />
                 )
