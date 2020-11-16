@@ -290,20 +290,28 @@ export const useMarimekko = <RawDatum>({
     return {
         computedData,
         bars,
+        thicknessScale,
+        dimensionsScale,
     }
 }
 
 export const useLayerContext = <RawDatum>({
     data,
     bars,
+    thicknessScale,
+    dimensionsScale,
 }: {
     data: ComputedDatum<RawDatum>[]
     bars: BarDatum<RawDatum>[]
+    thicknessScale: ScaleLinear<number, number>
+    dimensionsScale: ScaleLinear<number, number>
 }): CustomLayerProps<RawDatum> =>
     useMemo(
         () => ({
             data,
             bars,
+            thicknessScale,
+            dimensionsScale,
         }),
-        [data, bars]
+        [data, bars, thicknessScale, dimensionsScale]
     )

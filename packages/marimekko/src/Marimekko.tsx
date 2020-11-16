@@ -35,7 +35,7 @@ const InnerMarimekko = <RawDatum,>({
         partialMargin
     )
 
-    const { computedData, bars } = useMarimekko<RawDatum>({
+    const { computedData, bars, thicknessScale, dimensionsScale } = useMarimekko<RawDatum>({
         data,
         id,
         value,
@@ -71,6 +71,8 @@ const InnerMarimekko = <RawDatum,>({
     const layerContext = useLayerContext<RawDatum>({
         data: computedData,
         bars,
+        thicknessScale,
+        dimensionsScale,
     })
 
     return (
