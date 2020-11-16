@@ -1,6 +1,6 @@
 {
   "name": "@nivo/funnel",
-  "version": "0.64.0",
+  "version": "0.65.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -33,7 +33,7 @@
     "react-spring": "9.0.0-rc.3"
   },
   "devDependencies": {
-    "@nivo/core": "*"
+    "@nivo/core": "0.65.0"
   },
   "peerDependencies": {
     "@nivo/annotations": "0.63.1",

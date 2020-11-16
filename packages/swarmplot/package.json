@@ -1,15 +1,15 @@
 {
     "name": "@nivo/swarmplot",
-    "version": "0.64.0",
+    "version": "0.65.0",
     "license": "MIT",
     "author": {
         "name": "Raphaël Benitte",
         "url": "https://github.com/plouc"
     },
     "repository": {
-      "type": "git",
-      "url": "https://github.com/plouc/nivo.git",
-      "directory": "packages/swarmplot"
+        "type": "git",
+        "url": "https://github.com/plouc/nivo.git",
+        "directory": "packages/swarmplot"
     },
     "keywords": [
         "nivo",
@@ -29,20 +29,20 @@
         "dist/"
     ],
     "dependencies": {
-        "@nivo/annotations": "0.64.0",
-        "@nivo/axes": "0.64.0",
-        "@nivo/colors": "0.64.0",
-        "@nivo/legends": "0.64.0",
-        "@nivo/scales": "0.64.0",
-        "@nivo/tooltip": "0.64.0",
-        "@nivo/voronoi": "0.64.0",
+        "@nivo/annotations": "0.65.0",
+        "@nivo/axes": "0.65.0",
+        "@nivo/colors": "0.65.0",
+        "@nivo/legends": "0.65.0",
+        "@nivo/scales": "0.65.0",
+        "@nivo/tooltip": "0.65.0",
+        "@nivo/voronoi": "0.65.0",
         "d3-force": "^2.0.1",
         "d3-scale": "^3.0.0",
         "lodash": "^4.17.11",
         "react-motion": "^0.5.2"
     },
     "devDependencies": {
-        "@nivo/core": "*"
+        "@nivo/core": "0.65.0"
     },
     "peerDependencies": {
         "@nivo/core": "0.64.0",
