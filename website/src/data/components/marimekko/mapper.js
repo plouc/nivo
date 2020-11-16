@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { patternDotsDef, patternLinesDef } from '@nivo/core'
-import { mapFormat, settingsMapper } from '../../../lib/settings'
+import { mapAxis, mapFormat, settingsMapper } from '../../../lib/settings'
 
 const TooltipWrapper = styled.div`
     display: grid;
@@ -35,31 +35,14 @@ const CustomTooltip = ({ bar }) => (
 export default settingsMapper(
     {
         valueFormat: mapFormat,
-        radialLabel: value => {
-            if (value === `d => \`\${d.id} (\${d.value})\``) return d => `${d.id} (${d.value})`
-            return value
-        },
-        sliceLabel: value => {
-            if (value === `d => \`\${d.id} (\${d.value})\``) return d => `${d.id} (${d.value})`
-            return value
-        },
+        axisTop: mapAxis('top'),
+        axisRight: mapAxis('right'),
+        axisBottom: mapAxis('bottom'),
+        axisLeft: mapAxis('left'),
         tooltip: (value, values) => {
             if (!values['custom tooltip example']) return undefined
 
             return CustomTooltip
-        },
-        theme: (value, values) => {
-            if (!values['custom tooltip example']) return value
-
-            return {
-                ...values.theme,
-                tooltip: {
-                    container: {
-                        ...values.theme.tooltip.container,
-                        background: '#333',
-                    },
-                },
-            }
         },
         defs: (value, values) => {
             if (!values['showcase pattern usage']) return

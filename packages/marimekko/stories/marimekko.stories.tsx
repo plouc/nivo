@@ -6,6 +6,12 @@ import { Marimekko, Layout } from '../src'
 const commonProps = {
     width: 900,
     height: 500,
+    margin: {
+        top: 40,
+        right: 80,
+        bottom: 40,
+        left: 80,
+    },
     id: 'id',
     value: 'value',
     layout: 'vertical' as Layout,
@@ -112,5 +118,5 @@ stories.add('diverging', () => {
         },
     ]
 
-    return <Marimekko {...commonProps} data={data} layout="horizontal" offset="diverging" />
+    return <Marimekko {...commonProps} data={data} layout="vertical" offset="diverging" />
 })

@@ -6,6 +6,13 @@ export const defaultProps = {
 
     layers: ['grid', 'axes', 'bars', 'legends'] as LayerId[],
 
+    //axisTop: any,
+    //axisRight: any,
+    //axisBottom: any,
+    //axisLeft: any,
+    enableGridX: false,
+    enableGridY: true,
+
     colors: { scheme: 'nivo' },
     borderWidth: 0,
     borderColor: {
