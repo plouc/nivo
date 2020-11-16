@@ -1,19 +1,112 @@
-<a name="v0.64.0"></a>
-## v0.64.0 (2020-11-06)
+<a name="v0.65.0"></a>
+## v0.65.0 (2020-11-16)
 
+
+#### Features
+
+* **BarCanvas**
+  *  allow to use ref to access the underlying canvas ([fb91ca4e](https://github.com/plouc/nivo/commit/fb91ca4e0cb4d53754fa75bf2f0a2825b78b4129))
+  *  add a ref to access the canvas ([ce5b67a1](https://github.com/plouc/nivo/commit/ce5b67a10a42bf8b1be9735ec1823cfaf75d1e7b))
+* **axes**  adjustments for react-spring@next ([46dbb5a4](https://github.com/plouc/nivo/commit/46dbb5a45de31674bab92efe89dd576ac1aafbf8))
+* **bar**  add BarItem component to the exposed package API (#1261) ([df211c03](https://github.com/plouc/nivo/commit/df211c036c50a285f40eb81609f3840a286424dc))
+* **bullet**
+  *  adjustments for react-spring@next ([c567ae18](https://github.com/plouc/nivo/commit/c567ae18f97ed0349105f6a55a82f655af6465c5))
+  *  convert stories to typescript ([b2894a91](https://github.com/plouc/nivo/commit/b2894a91272f18e86801927947647e323e7893c5))
+  *  switch from react-motion to react-spring ([04f07093](https://github.com/plouc/nivo/commit/04f0709341c1c7371722bb110dc9eb275b416120))
+  *  convert to functional components ([3f63fd99](https://github.com/plouc/nivo/commit/3f63fd99fdca967f1046f3c7acce10d98306da07))
+  *  remove recompose dependency ([ff7f1bc8](https://github.com/plouc/nivo/commit/ff7f1bc86aba13937f4475524976c80319d16427))
+  *  init package migration to typescript ([d07378a3](https://github.com/plouc/nivo/commit/d07378a349631728bf14a3df2ff1ac74b64442aa))
+* **colors**
+  *  update package typings according to TypeScript migration ([e98d8e07](https://github.com/plouc/nivo/commit/e98d8e071ae474526621761ba03d608d9a2971ec))
+  *  migrate ordinalColorScale to TypeScript ([7bb42c68](https://github.com/plouc/nivo/commit/7bb42c688c718c68d5d734dbf401156cc04da496))
+  *  migrate prop types to TypeScript ([6bf1f7d4](https://github.com/plouc/nivo/commit/6bf1f7d429a182776bed2d64778eebeb4f25dd20))
+  *  rename InheritedColorProp to InheritedColor in all package typings ([29a73083](https://github.com/plouc/nivo/commit/29a73083447fec20d397f9dafc8a29694b516f73))
+  *  migrate inheritedColor to TypeScript ([436117da](https://github.com/plouc/nivo/commit/436117dae71499a3db6db1129462a74bed4f7ac1))
+  *  migrate motion to TypeScript ([e1785918](https://github.com/plouc/nivo/commit/e1785918de1eb57af7ca755ce3c3f1fb9b42d562))
+  *  add typings for color schemes and interpolators ([1093da12](https://github.com/plouc/nivo/commit/1093da12ac0ec2e11b455d823f0749dc1a5277f6))
+  *  init TypeScript migration ([2383b4d5](https://github.com/plouc/nivo/commit/2383b4d5c88b7e3b64deb66859b134faefa6cf7e))
+* **core**
+  *  add proper type for useTheme hook ([66d2f4f0](https://github.com/plouc/nivo/commit/66d2f4f09b2d9a47258779ebb199e8741a0e1658))
+  *  add missing spring config to Container ([25aa18fb](https://github.com/plouc/nivo/commit/25aa18fbdd0a8b5a97d31fac425b61bc57f401b2))
+* **line**  forward ref to the canvas element ([4be9c8ab](https://github.com/plouc/nivo/commit/4be9c8ab2e7e8315dccce28673ca52afd9e8a199))
+* **marimekko**
+  *  fix doc typos and add missing custom layer props to the doc ([ae4c329c](https://github.com/plouc/nivo/commit/ae4c329cc59c3f0a74cd4ace886762e7e96d0305))
+  *  update README preview ([ca4a0d66](https://github.com/plouc/nivo/commit/ca4a0d6628b36a104c22dd5a23d1d606c6cfb423))
+  *  add support for legends ([f39f12a7](https://github.com/plouc/nivo/commit/f39f12a700ed37131650ff16c61b794f5a484628))
+  *  add story about custom layers ([8560b6ad](https://github.com/plouc/nivo/commit/8560b6ad2acce4856074a28ecf61aa34580dbb9d))
+  *  add support for value formatter ([c5429db2](https://github.com/plouc/nivo/commit/c5429db2761103a086a4c078f684d8ff910494a8))
+  *  add icons and preview for README ([71b06a84](https://github.com/plouc/nivo/commit/71b06a84360750479127e94f4b8ecbb2a5de1120))
+  *  add bar groups position and dimensions to layers context ([8ba4c018](https://github.com/plouc/nivo/commit/8ba4c018e0c16c99cd5649f267771386fe184957))
+  *  add support for patterns and gradients ([d75a3952](https://github.com/plouc/nivo/commit/d75a3952b351778fff831e30393f13317a85e599))
+  *  fix vertical layout and diverging offset ([604b523f](https://github.com/plouc/nivo/commit/604b523f7240332b5e713ddbf8545ef46cc51525))
+  *  add support for axes and grid ([8e4cd0d6](https://github.com/plouc/nivo/commit/8e4cd0d659c79485aadd688d3947458959e4363f))
+  *  add support for custom tooltip ([ed74e9f1](https://github.com/plouc/nivo/commit/ed74e9f11aee80f001450e33ccedfd6de94ab08f))
+  *  expose thickness and dimensions scale ([914f1857](https://github.com/plouc/nivo/commit/914f1857c19f56a3e3e732f050ea1e25525175e2))
+  *  add the ability to configure the stack offset ([a8437cca](https://github.com/plouc/nivo/commit/a8437ccab00f25192a46e262b384687059fb0afc))
+  *  add stories ([6b6aa949](https://github.com/plouc/nivo/commit/6b6aa949c1fc72cd38c71fca424b9e70765300e4))
+  *  pass default props to InnerMarimekko ([bb85398f](https://github.com/plouc/nivo/commit/bb85398f70f1192ae40664754a954f68c7787628))
+  *  improve motion configuration ([7df05809](https://github.com/plouc/nivo/commit/7df05809689bb95b5ec1b82aa41dfb841e6a1497))
+  *  add support for mouse handlers ([4f244ea3](https://github.com/plouc/nivo/commit/4f244ea346b87dfd9e10e0051287dab98248878a))
+  *  improve documentation about data props ([3178ce81](https://github.com/plouc/nivo/commit/3178ce81f70371f1c18f5bbd9dc806c810aa7699))
+  *  compute bars from top level component and pass them to custom layers ([146a04b2](https://github.com/plouc/nivo/commit/146a04b219a24afcd3b9749a04bf3d41a9aeb427))
+  *  use react-spring@next and add animation support to bars ([001b6719](https://github.com/plouc/nivo/commit/001b6719072fd47b480a87f1575d7009d003e0f6))
+  *  add to website and improve bars ([5f18b057](https://github.com/plouc/nivo/commit/5f18b057fb46d9cd2305f2b56187d58e46a5dd25))
+  *  init package ([35556143](https://github.com/plouc/nivo/commit/35556143d9d786f7ede30ba0698cb3a77fa57d44))
+* **parallel-coordinates**  adjustments for react-spring@next ([df7d665c](https://github.com/plouc/nivo/commit/df7d665c232249028ba96116eb78838d4fe429cb))
+* **scales**  exclude null and undefined values in log scale validation (#1099) ([c87eba7d](https://github.com/plouc/nivo/commit/c87eba7d6e7539bc5de1a864d116191f852b9471))
+* **sunburst**  add mouse events and some labels (#880) ([1b3dd8f0](https://github.com/plouc/nivo/commit/1b3dd8f0844cad8d41bd0f46c41469ee0c73537b))
+* **tooltip**
+  *  add a display name to memoized components to ease testing ([218e237f](https://github.com/plouc/nivo/commit/218e237f1db2329ad59f37f75926973b6538a713))
+  *  migrate TableTooltip component to TypeScript ([0a54e62f](https://github.com/plouc/nivo/commit/0a54e62fc87bcaaeaa3342fe13056ed778050562))
+  *  migrate Crosshair component to TypeScript ([1416e8cf](https://github.com/plouc/nivo/commit/1416e8cfb070fa3c038aaa5379b6e18ffe5ad1c1))
+  *  ensure we only render the tooltip when the charts are interactive ([6623000f](https://github.com/plouc/nivo/commit/6623000f54d1f97e8cf0df8303129703084d4ffa))
+  *  remove usage of tooltip prop types from other packages ([8addc8d4](https://github.com/plouc/nivo/commit/8addc8d4ec48d838ce871e78214e89c515d7fed7))
+  *  adapt BasicTooltip for new typings ([cb87d9a4](https://github.com/plouc/nivo/commit/cb87d9a4e06b9e8cacf8387aa0f43f691aa3a88e))
+  *  remove prop types ([b187c618](https://github.com/plouc/nivo/commit/b187c6186e22e12679889dcd5e7afd46469dae8f))
+  *  init TypeScript migration ([3413142d](https://github.com/plouc/nivo/commit/3413142d056830bffef4f39e8550020928098b3b))
+* **treemap**  adjustments for react-spring@next ([e5611c30](https://github.com/plouc/nivo/commit/e5611c3064908713f811ffc0ff4e5bb4483244bb))
 
 #### Bug Fixes
 
-* **bar**  include bars with zero height/width ([32f48235](https://github.com/plouc/nivo/commit/32f482354b02e6294da8f918f9773025b4120cac))
-* **bump**  add missing @nivo/axes module to dependencies ([d79d0a18](https://github.com/plouc/nivo/commit/d79d0a189803d28f0c17a4a3ddb2eaf90e0ca74b))
-* **deps**  fix @nivo peer dependency versions ([505a7c08](https://github.com/plouc/nivo/commit/505a7c08566eacc481dfd0dafe80d50cf8ac7960))
-* **pie**  fix path to typings ([243613d3](https://github.com/plouc/nivo/commit/243613d396b69f2c5a78e1ba3d53386f4e6b9297))
-* **radar**
-  *  typing for custom functions (#1089) ([20a5c124](https://github.com/plouc/nivo/commit/20a5c124ea81a9842a2605a0daa27247a423579f))
-  *  fix issue with points being outside circular grid (#1189) ([beb3ac84](https://github.com/plouc/nivo/commit/beb3ac8440a31288eacec329e0ad82aab7f6fb0d))
-* **theme**  remove default fill for legends.text theme (#1181) ([2216f129](https://github.com/plouc/nivo/commit/2216f129da1104076485a6b89539ed7e0ea7cbe6))
-* **tooltip**  Show tooltip on first tap for touch devices (#1185) ([f712cfaa](https://github.com/plouc/nivo/commit/f712cfaa1b75917784506989949a2483f652cd8b))
-* **website**  fix crash caused by calendar tooltip (#1214) ([7eb69175](https://github.com/plouc/nivo/commit/7eb69175f10855cc433ec7d75faa33a43baee3a5))
+* **BarCanvas**  stories demonstrating the canvas ref ([96cff43e](https://github.com/plouc/nivo/commit/96cff43e69bbf77a47959b51a4d4693e5d4e032a))
+* **bar**
+  *  add new prop valueScale to BarCanvas (#1274) ([d66acd6a](https://github.com/plouc/nivo/commit/d66acd6ad130b6ada3aeff493c85d878581ab727))
+  *  fix lint errors ([640c883b](https://github.com/plouc/nivo/commit/640c883be1a51834ea6abb087f8e727c22f15ade))
+  *  prevent missing values causing bad scales (#1257) ([b9687754](https://github.com/plouc/nivo/commit/b96877547f504ba6249bc0df4bd92ddf29f7992c))
+* **bullet**
+  *  make dimensions required props ([8451c279](https://github.com/plouc/nivo/commit/8451c279099d3931afc35950ae52aa22b84ee7f6))
+  *  fix linting errors round 3 ([a5eac4a9](https://github.com/plouc/nivo/commit/a5eac4a910601678522148c95fcec58e1264a8ce))
+  *  fix linting errors round 2 ([c446b46c](https://github.com/plouc/nivo/commit/c446b46cb98bdcff19d299b9e3fbc9a0363067ed))
+  *  fix linting errors ([3df88ed5](https://github.com/plouc/nivo/commit/3df88ed5db3bb8556116b9ccdec6df22bbf7d115))
+  *  fix website paths ([8dd28feb](https://github.com/plouc/nivo/commit/8dd28febc9618275e019d95cac9f57ac7c4ea838))
+  *  fix tslint errors ([b6f67018](https://github.com/plouc/nivo/commit/b6f6701849ab8aecf2f6e82a84a592ede9b1a322))
+* **core**  add useDimensions hook to types ([4ce35386](https://github.com/plouc/nivo/commit/4ce35386d16dc1a7d3a088a5246d5fbd7ab75c48))
+* **funnel**  fix lint errors ([e66b51c5](https://github.com/plouc/nivo/commit/e66b51c531e02bea99d24e058b756ab7ee164211))
+* **geo**  fix lint errors ([bc398839](https://github.com/plouc/nivo/commit/bc398839d75ceccef6652e74d11a949e28be101d))
+* **legends**  fix lint errors ([275b2b55](https://github.com/plouc/nivo/commit/275b2b557008ef3d7409ce32fa21758afd7253e0))
+* **line**
+  *  add a stories for the responsive canvas component ([0fe9c9d3](https://github.com/plouc/nivo/commit/0fe9c9d305541890132cf203e1260719ca8c733e))
+  *  add a story showcasing the usage of the ref in canvas ([190acd7e](https://github.com/plouc/nivo/commit/190acd7e9487f388aaaeddcd156a87e971a6306d))
+* **motion**  replace deprecated  method with the new  helper ([57b27d8d](https://github.com/plouc/nivo/commit/57b27d8d0052372a8102ce48424aefd5641b0862))
+* **packages**  allow react 17 in peer dependencies ([a4f370b4](https://github.com/plouc/nivo/commit/a4f370b464b452038e3a68ed75dc475c5ed69f18))
+* **pie**
+  *  fix typings issues due to better d3 types ([ad9cc2c6](https://github.com/plouc/nivo/commit/ad9cc2c61df170532f6b9d93f1428b73390a611f))
+  *  make dimensions required props ([d502a409](https://github.com/plouc/nivo/commit/d502a40982894025e5d2e2a626b2efe92923dd8c))
+  *  fix incomplete type for valueFormat ([0793553e](https://github.com/plouc/nivo/commit/0793553e73254db70586de093efc5c898f21548b))
+* **storybook**  move bar/race chart story to main bar stories (#1258) ([e9c5932d](https://github.com/plouc/nivo/commit/e9c5932d92f933259f15b73048f750dd220b44ce))
+* **sunburst**  apply my own fixes from pr review ([cbb9e37a](https://github.com/plouc/nivo/commit/cbb9e37acbcdf82cb72af78c8afccd23254ca050))
+* **tooltip**
+  *  fix typings due to core adjustments ([87e5edb2](https://github.com/plouc/nivo/commit/87e5edb2588fbcfecd245a1bb28775e356350b18))
+  *  export useTooltip hook in types ([7eb1b30b](https://github.com/plouc/nivo/commit/7eb1b30b6210620d83c51b8e81692acafa4ecb13))
+* **website**
+  *  patch react-spring due to known issue with Gatsby ([c35b4e96](https://github.com/plouc/nivo/commit/c35b4e96c6f7103f3400ff02fc2b423eb741081b))
+  *  changes to get deployment to work ([09f46839](https://github.com/plouc/nivo/commit/09f468393643580bb6d2c2fdb35c01d737109a4b))
+
+
+
+<a name="v0.64.0"></a>
+## v0.64.0 (2020-11-16)
+
 
 #### Features
 
@@ -80,10 +173,23 @@
   *  pass datum to pie legend data ([5292831f](https://github.com/plouc/nivo/commit/5292831f0c5002b3163c1a73314057204cbd1b74))
   *  remove unused react-motion dependency ([3c7d65ce](https://github.com/plouc/nivo/commit/3c7d65ce58cd276dd234dadad10583cb2aa8996d))
 
+#### Bug Fixes
+
+* **bar**  include bars with zero height/width ([32f48235](https://github.com/plouc/nivo/commit/32f482354b02e6294da8f918f9773025b4120cac))
+* **bump**  add missing @nivo/axes module to dependencies ([d79d0a18](https://github.com/plouc/nivo/commit/d79d0a189803d28f0c17a4a3ddb2eaf90e0ca74b))
+* **deps**  fix @nivo peer dependency versions ([505a7c08](https://github.com/plouc/nivo/commit/505a7c08566eacc481dfd0dafe80d50cf8ac7960))
+* **pie**  fix path to typings ([243613d3](https://github.com/plouc/nivo/commit/243613d396b69f2c5a78e1ba3d53386f4e6b9297))
+* **radar**
+  *  typing for custom functions (#1089) ([20a5c124](https://github.com/plouc/nivo/commit/20a5c124ea81a9842a2605a0daa27247a423579f))
+  *  fix issue with points being outside circular grid (#1189) ([beb3ac84](https://github.com/plouc/nivo/commit/beb3ac8440a31288eacec329e0ad82aab7f6fb0d))
+* **theme**  remove default fill for legends.text theme (#1181) ([2216f129](https://github.com/plouc/nivo/commit/2216f129da1104076485a6b89539ed7e0ea7cbe6))
+* **tooltip**  Show tooltip on first tap for touch devices (#1185) ([f712cfaa](https://github.com/plouc/nivo/commit/f712cfaa1b75917784506989949a2483f652cd8b))
+* **website**  fix crash caused by calendar tooltip (#1214) ([7eb69175](https://github.com/plouc/nivo/commit/7eb69175f10855cc433ec7d75faa33a43baee3a5))
+
 
 
 <a name="v0.63.1"></a>
-## v0.63.1 (2020-11-06)
+## v0.63.1 (2020-11-16)
 
 
 #### Bug Fixes
@@ -105,7 +211,7 @@
 
 
 <a name="v0.63.0"></a>
-## v0.63.0 (2020-11-06)
+## v0.63.0 (2020-11-16)
 
 
 #### Bug Fixes
@@ -223,7 +329,7 @@
 
 
 <a name="v0.62.0"></a>
-## v0.62.0 (2020-11-06)
+## v0.62.0 (2020-11-16)
 
 
 #### Bug Fixes
@@ -272,7 +378,7 @@
 
 
 <a name="v0.61.2"></a>
-## v0.61.2 (2020-11-06)
+## v0.61.2 (2020-11-16)
 
 
 #### Features
@@ -282,7 +388,7 @@
 
 
 <a name="v0.61.1"></a>
-## v0.61.1 (2020-11-06)
+## v0.61.1 (2020-11-16)
 
 
 #### Bug Fixes
@@ -296,7 +402,7 @@
 
 
 <a name="v0.61.0"></a>
-## v0.61.0 (2020-11-06)
+## v0.61.0 (2020-11-16)
 
 
 #### Bug Fixes
@@ -315,7 +421,7 @@
 
 
 <a name="v0.60.1"></a>
-## v0.60.1 (2020-11-06)
+## v0.60.1 (2020-11-16)
 
 
 #### Bug Fixes
@@ -335,7 +441,7 @@
 
 
 <a name="v0.60.0"></a>
-## v0.60.0 (2020-11-06)
+## v0.60.0 (2020-11-16)
 
 
 #### Features
@@ -363,21 +469,21 @@
 
 
 <a name="v0.59.3"></a>
-## v0.59.3 (2020-11-06)
+## v0.59.3 (2020-11-16)
 
-
-#### Features
-
-* **scales**  add ability to reverse linear scale ([2f4ddc47](https://github.com/plouc/nivo/commit/2f4ddc478939acf4fee3fa37ff59a80f44a4b61b))
 
 #### Bug Fixes
 
 * **voronoi**  upgrade d3-delaunay to fix single/collinear points (#640) ([b93c96a5](https://github.com/plouc/nivo/commit/b93c96a58d4614d020142648630ab7cdffc84094))
 
+#### Features
+
+* **scales**  add ability to reverse linear scale ([2f4ddc47](https://github.com/plouc/nivo/commit/2f4ddc478939acf4fee3fa37ff59a80f44a4b61b))
+
 
 
 <a name="v0.59.2"></a>
-## v0.59.2 (2020-11-06)
+## v0.59.2 (2020-11-16)
 
 
 #### Features
@@ -393,14 +499,8 @@
 
 
 <a name="v0.59.1"></a>
-## v0.59.1 (2020-11-06)
+## v0.59.1 (2020-11-16)
 
-
-#### Features
-
-* **line**  add missing types (#605) ([f8562008](https://github.com/plouc/nivo/commit/f856200873324f08a8b317a1223834f0167063e4))
-* **radar**  pass key to tooltip format function (#587) ([cca8a9e9](https://github.com/plouc/nivo/commit/cca8a9e98b2cf3a475b81fa8fe786a9082a941a2))
-* **tooltip**  move Chip style to theme (#589) ([343e38c5](https://github.com/plouc/nivo/commit/343e38c5eb663ee0029a95c21c7dc5d93472ab35))
 
 #### Bug Fixes
 
@@ -410,10 +510,16 @@
   *  remove unnecessary ColorProps ([865e9a61](https://github.com/plouc/nivo/commit/865e9a61a15d9ec8f45b182e30374194e33cd1ca))
 * **stream**  fix bugs in typings (#593) ([9b157510](https://github.com/plouc/nivo/commit/9b157510d7bacca846d984bc166ff486938b60c8))
 
+#### Features
+
+* **line**  add missing types (#605) ([f8562008](https://github.com/plouc/nivo/commit/f856200873324f08a8b317a1223834f0167063e4))
+* **radar**  pass key to tooltip format function (#587) ([cca8a9e9](https://github.com/plouc/nivo/commit/cca8a9e98b2cf3a475b81fa8fe786a9082a941a2))
+* **tooltip**  move Chip style to theme (#589) ([343e38c5](https://github.com/plouc/nivo/commit/343e38c5eb663ee0029a95c21c7dc5d93472ab35))
+
 
 
 <a name="v0.59.0"></a>
-## v0.59.0 (2020-11-06)
+## v0.59.0 (2020-11-16)
 
 
 #### Bug Fixes
@@ -441,7 +547,7 @@
 
 
 <a name="v0.58.0"></a>
-## v0.58.0 (2020-11-06)
+## v0.58.0 (2020-11-16)
 
 
 #### Bug Fixes
@@ -463,7 +569,7 @@
 
 
 <a name="v0.57.2"></a>
-## v0.57.2 (2020-11-06)
+## v0.57.2 (2020-11-16)
 
 
 #### Bug Fixes
@@ -474,7 +580,7 @@
 
 
 <a name="v0.57.1"></a>
-## v0.57.1 (2020-11-06)
+## v0.57.1 (2020-11-16)
 
 
 #### Bug Fixes
@@ -484,13 +590,8 @@
 
 
 <a name="v0.57.0"></a>
-## v0.57.0 (2020-11-06)
+## v0.57.0 (2020-11-16)
 
-
-#### Bug Fixes
-
-* **svg**  fix text vertical alignment ([d59fb722](https://github.com/plouc/nivo/commit/d59fb722ad8cc618f257cbb90faf067ccc58c9f4))
-* **website**  fix InheritedColorControl ([862fa0bd](https://github.com/plouc/nivo/commit/862fa0bd4ea0b7a8f1abf17c87f922f76d540392))
 
 #### Features
 
@@ -503,10 +604,15 @@
   *  add separated node and link components ([a54ac593](https://github.com/plouc/nivo/commit/a54ac593cf59f412780d0ae3967d71610b26bd0c))
   *  init network package ([2ea85816](https://github.com/plouc/nivo/commit/2ea85816dad1653d1258158d03b24ff3081b5262))
 
+#### Bug Fixes
+
+* **svg**  fix text vertical alignment ([d59fb722](https://github.com/plouc/nivo/commit/d59fb722ad8cc618f257cbb90faf067ccc58c9f4))
+* **website**  fix InheritedColorControl ([862fa0bd](https://github.com/plouc/nivo/commit/862fa0bd4ea0b7a8f1abf17c87f922f76d540392))
+
 
 
 <a name="v0.56.2"></a>
-## v0.56.2 (2020-11-06)
+## v0.56.2 (2020-11-16)
 
 
 #### Features
@@ -517,7 +623,7 @@
 
 
 <a name="v0.56.1"></a>
-## v0.56.1 (2020-11-06)
+## v0.56.1 (2020-11-16)
 
 
 #### Features
@@ -527,7 +633,7 @@
 
 
 <a name="v0.56.0"></a>
-## v0.56.0 (2020-11-06)
+## v0.56.0 (2020-11-16)
 
 
 #### Features
@@ -578,7 +684,7 @@
 
 
 <a name="v0.55.0"></a>
-## v0.55.0 (2020-11-06)
+## v0.55.0 (2020-11-16)
 
 
 #### Features
@@ -609,7 +715,7 @@
 
 
 <a name="v0.54.0"></a>
-## v0.54.0 (2020-11-06)
+## v0.54.0 (2020-11-16)
 
 
 #### Features
@@ -641,7 +747,7 @@
 
 
 <a name="v0.53.1"></a>
-## v0.53.1 (2020-11-06)
+## v0.53.1 (2020-11-16)
 
 
 #### Features
@@ -657,7 +763,7 @@
 
 
 <a name="v0.53.0"></a>
-## v0.53.0 (2020-11-06)
+## v0.53.0 (2020-11-16)
 
 
 #### Bug Fixes
@@ -680,7 +786,7 @@
 
 
 <a name="v0.52.1"></a>
-## v0.52.1 (2020-11-06)
+## v0.52.1 (2020-11-16)
 
 
 #### Bug Fixes
@@ -701,7 +807,7 @@
 
 
 <a name="v0.52.0"></a>
-## v0.52.0 (2020-11-06)
+## v0.52.0 (2020-11-16)
 
 
 #### Features
@@ -721,7 +827,7 @@
 
 
 <a name="v0.51.6"></a>
-## v0.51.6 (2020-11-06)
+## v0.51.6 (2020-11-16)
 
 
 #### Features
@@ -732,7 +838,7 @@
 
 
 <a name="v0.51.5"></a>
-## v0.51.5 (2020-11-06)
+## v0.51.5 (2020-11-16)
 
 
 #### Features
@@ -742,7 +848,7 @@
 
 
 <a name="v0.51.4"></a>
-## v0.51.4 (2020-11-06)
+## v0.51.4 (2020-11-16)
 
 
 #### Features
@@ -752,7 +858,7 @@
 
 
 <a name="v0.51.3"></a>
-## v0.51.3 (2020-11-06)
+## v0.51.3 (2020-11-16)
 
 
 #### Features
@@ -762,7 +868,7 @@
 
 
 <a name="v0.51.2"></a>
-## v0.51.2 (2020-11-06)
+## v0.51.2 (2020-11-16)
 
 
 #### Features
@@ -772,7 +878,7 @@
 
 
 <a name="v0.51.1"></a>
-## v0.51.1 (2020-11-06)
+## v0.51.1 (2020-11-16)
 
 
 #### Features
@@ -785,7 +891,7 @@
 
 
 <a name="v0.51.0"></a>
-## v0.51.0 (2020-11-06)
+## v0.51.0 (2020-11-16)
 
 
 #### Features
@@ -811,8 +917,12 @@
 
 
 <a name="v0.50.0"></a>
-## v0.50.0 (2020-11-06)
+## v0.50.0 (2020-11-16)
 
+
+#### Bug Fixes
+
+* **website**  remove extra space in heatmap package name ([93077734](https://github.com/plouc/nivo/commit/93077734b6faed1beed595bff13fd8a0b16e85f2))
 
 #### Features
 
@@ -821,14 +931,10 @@
 * **scatterplot-markers**  add markers to scatterplot SVG (#287) ([d7192461](https://github.com/plouc/nivo/commit/d71924612f3c5a141defd06e5eab0d2487791403))
 * **stream**  add support for dots ([4860ef53](https://github.com/plouc/nivo/commit/4860ef5307af2a63662e3062cf2beef2e9286b42))
 
-#### Bug Fixes
-
-* **website**  remove extra space in heatmap package name ([93077734](https://github.com/plouc/nivo/commit/93077734b6faed1beed595bff13fd8a0b16e85f2))
-
 
 
 <a name="v0.49.1"></a>
-## v0.49.1 (2020-11-06)
+## v0.49.1 (2020-11-16)
 
 
 #### Features
@@ -840,7 +946,7 @@
 
 
 <a name="v0.49.0"></a>
-## v0.49.0 (2020-11-06)
+## v0.49.0 (2020-11-16)
 
 
 #### Features
@@ -855,7 +961,7 @@
 
 
 <a name="v0.48.1"></a>
-## v0.48.1 (2020-11-06)
+## v0.48.1 (2020-11-16)
 
 
 #### Features
@@ -870,7 +976,7 @@
 
 
 <a name="v0.48.0"></a>
-## v0.48.0 (2020-11-06)
+## v0.48.0 (2020-11-16)
 
 
 #### Features
@@ -884,7 +990,7 @@
 
 
 <a name="v0.47.1"></a>
-## v0.47.1 (2020-11-06)
+## v0.47.1 (2020-11-16)
 
 
 #### Features
@@ -895,7 +1001,7 @@
 
 
 <a name="v0.47.0"></a>
-## v0.47.0 (2020-11-06)
+## v0.47.0 (2020-11-16)
 
 
 #### Bug Fixes
@@ -922,7 +1028,7 @@
 
 
 <a name="v0.46.0"></a>
-## v0.46.0 (2020-11-06)
+## v0.46.0 (2020-11-16)
 
 
 #### Features
@@ -938,8 +1044,12 @@
 
 
 <a name="v0.45.0"></a>
-## v0.45.0 (2020-11-06)
+## v0.45.0 (2020-11-16)
 
+
+#### Bug Fixes
+
+* **website**  fix legends guide ([6828c33f](https://github.com/plouc/nivo/commit/6828c33f733c39026914e7d18c2fe0b8493b3157))
 
 #### Features
 
@@ -960,15 +1070,18 @@
   *  add ability to manage array of props ([8f44ab94](https://github.com/plouc/nivo/commit/8f44ab94bc198e10cdeebf2c6480ceb669a548b8))
   *  upgrade nivo packages ([4d819df6](https://github.com/plouc/nivo/commit/4d819df62f3a63b8b6665701a2f06e80e99719b1))
 
-#### Bug Fixes
-
-* **website**  fix legends guide ([6828c33f](https://github.com/plouc/nivo/commit/6828c33f733c39026914e7d18c2fe0b8493b3157))
-
 
 
 <a name="v0.44.0"></a>
-## v0.44.0 (2020-11-06)
+## v0.44.0 (2020-11-16)
 
+
+#### Bug Fixes
+
+* **Makefile**  disable command priting for packages-build recipe ([1046ee2c](https://github.com/plouc/nivo/commit/1046ee2c723cd3f9d89c546f0785c72f6098f530))
+* **calendar**  fix crash when no data is empty ([5ac42141](https://github.com/plouc/nivo/commit/5ac42141d2495aa1b4afc22e6e2ada3e7b7e9a51))
+* **eslint**  fix eslint for all packages ([27bf8d0c](https://github.com/plouc/nivo/commit/27bf8d0cec55f7caf7bb18fc5f5eeeb9c4e7875e))
+* **heatmap**  better handling of NaN values ([02ef5577](https://github.com/plouc/nivo/commit/02ef55773bb3df971b5fefc876281eb72ccaae91))
 
 #### Features
 
@@ -979,17 +1092,10 @@
 * **scatterplot**  remove unused min/max x/y ([efbda0fb](https://github.com/plouc/nivo/commit/efbda0fb54cf6b7a6c42537a6ec813975805571b))
 * **website**  add option to showcase custom scatterplot tooltip ([68b72a44](https://github.com/plouc/nivo/commit/68b72a448217963f0a7d287674be45aabef3257b))
 
-#### Bug Fixes
-
-* **Makefile**  disable command priting for packages-build recipe ([1046ee2c](https://github.com/plouc/nivo/commit/1046ee2c723cd3f9d89c546f0785c72f6098f530))
-* **calendar**  fix crash when no data is empty ([5ac42141](https://github.com/plouc/nivo/commit/5ac42141d2495aa1b4afc22e6e2ada3e7b7e9a51))
-* **eslint**  fix eslint for all packages ([27bf8d0c](https://github.com/plouc/nivo/commit/27bf8d0cec55f7caf7bb18fc5f5eeeb9c4e7875e))
-* **heatmap**  better handling of NaN values ([02ef5577](https://github.com/plouc/nivo/commit/02ef55773bb3df971b5fefc876281eb72ccaae91))
-
 
 
 <a name="v0.43.0"></a>
-## v0.43.0 (2020-11-06)
+## v0.43.0 (2020-11-16)
 
 
 #### Features
@@ -1003,7 +1109,7 @@
 
 
 <a name="v0.42.1"></a>
-## v0.42.1 (2020-11-06)
+## v0.42.1 (2020-11-16)
 
 
 #### Features
@@ -1019,7 +1125,7 @@
 
 
 <a name="v0.42.0"></a>
-## v0.42.0 (2020-11-06)
+## v0.42.0 (2020-11-16)
 
 
 #### Features
@@ -1033,7 +1139,7 @@
 
 
 <a name="v0.41.0"></a>
-## v0.41.0 (2020-11-06)
+## v0.41.0 (2020-11-16)
 
 
 #### Features
@@ -1046,7 +1152,7 @@
 
 
 <a name="v0.40.0"></a>
-## v0.40.0 (2020-11-06)
+## v0.40.0 (2020-11-16)
 
 
 #### Bug Fixes
@@ -1067,7 +1173,7 @@
 
 
 <a name="v0.39.0"></a>
-## v0.39.0 (2020-11-06)
+## v0.39.0 (2020-11-16)
 
 
 #### Features
@@ -1077,7 +1183,7 @@
 
 
 <a name="v0.38.0"></a>
-## v0.38.0 (2020-11-06)
+## v0.38.0 (2020-11-16)
 
 
 #### Features
@@ -1094,7 +1200,7 @@
 
 
 <a name="v0.37.0"></a>
-## v0.37.0 (2020-11-06)
+## v0.37.0 (2020-11-16)
 
 
 #### Features
@@ -1105,7 +1211,7 @@
 
 
 <a name="v0.36.0"></a>
-## v0.36.0 (2020-11-06)
+## v0.36.0 (2020-11-16)
 
 
 #### Features
@@ -1117,7 +1223,7 @@
 
 
 <a name="v0.35.2"></a>
-## v0.35.2 (2020-11-06)
+## v0.35.2 (2020-11-16)
 
 
 #### Bug Fixes
@@ -1131,7 +1237,7 @@
 
 
 <a name="v0.35.1"></a>
-## v0.35.1 (2020-11-06)
+## v0.35.1 (2020-11-16)
 
 
 #### Bug Fixes
@@ -1141,8 +1247,16 @@
 
 
 <a name="v0.35.0"></a>
-## v0.35.0 (2020-11-06)
+## v0.35.0 (2020-11-16)
 
+
+#### Bug Fixes
+
+* **deps**  do not ignore yarn.lock ([1a60cfb8](https://github.com/plouc/nivo/commit/1a60cfb84ccc17ee933866e3c573d03546e6c066))
+* **scripts**  fix make targets documentation ([48d87ec2](https://github.com/plouc/nivo/commit/48d87ec2a62b2e5bcd61110c132b8863776ceebb))
+* **security**  Upgrade transitive hoek dep ([50d6fd52](https://github.com/plouc/nivo/commit/50d6fd521150098093c2d633efed8116fa63a0c2))
+* **storybook**  fix storybook packages import ([d3abafdc](https://github.com/plouc/nivo/commit/d3abafdcaf612df8602c961e63e2c1d7a22fb94b))
+* **website**  fix website Stream example code (#188) ([129572e6](https://github.com/plouc/nivo/commit/129572e621b7e6b246b61a0a7cccdb484bd5d31f))
 
 #### Features
 
@@ -1157,18 +1271,10 @@
 * **tests**  centralize test command & dependencies ([eda819ca](https://github.com/plouc/nivo/commit/eda819ca03f3abfae50a5f21a9f7a8af5dcb562c))
 * **website**  improve chart tabs ([2c2265f5](https://github.com/plouc/nivo/commit/2c2265f5671b82997515ea26c978b575e86dd3e7))
 
-#### Bug Fixes
-
-* **deps**  do not ignore yarn.lock ([1a60cfb8](https://github.com/plouc/nivo/commit/1a60cfb84ccc17ee933866e3c573d03546e6c066))
-* **scripts**  fix make targets documentation ([48d87ec2](https://github.com/plouc/nivo/commit/48d87ec2a62b2e5bcd61110c132b8863776ceebb))
-* **security**  Upgrade transitive hoek dep ([50d6fd52](https://github.com/plouc/nivo/commit/50d6fd521150098093c2d633efed8116fa63a0c2))
-* **storybook**  fix storybook packages import ([d3abafdc](https://github.com/plouc/nivo/commit/d3abafdcaf612df8602c961e63e2c1d7a22fb94b))
-* **website**  fix website Stream example code (#188) ([129572e6](https://github.com/plouc/nivo/commit/129572e621b7e6b246b61a0a7cccdb484bd5d31f))
-
 
 
 <a name="v0.34.0-1"></a>
-## v0.34.0-1 (2020-11-06)
+## v0.34.0-1 (2020-11-16)
 
 
 #### Features
@@ -1210,7 +1316,7 @@
 
 
 <a name="v0.33.0-8"></a>
-## v0.33.0-8 (2020-11-06)
+## v0.33.0-8 (2020-11-16)
 
 
 #### Features
@@ -1220,13 +1326,13 @@
 
 
 <a name="v0.33.0-7"></a>
-## v0.33.0-7 (2020-11-06)
+## v0.33.0-7 (2020-11-16)
 
 
 
 
 <a name="v0.33.0-6"></a>
-## v0.33.0-6 (2020-11-06)
+## v0.33.0-6 (2020-11-16)
 
 
 #### Bug Fixes
@@ -1236,7 +1342,7 @@
 
 
 <a name="v0.33.0-5"></a>
-## v0.33.0-5 (2020-11-06)
+## v0.33.0-5 (2020-11-16)
 
 
 #### Features
@@ -1267,7 +1373,7 @@
 
 
 <a name="v0.33.0-4"></a>
-## v0.33.0-4 (2020-11-06)
+## v0.33.0-4 (2020-11-16)
 
 
 #### Features
@@ -1290,7 +1396,7 @@
 
 
 <a name="v0.33.0-3"></a>
-## v0.33.0-3 (2020-11-06)
+## v0.33.0-3 (2020-11-16)
 
 
 #### Features
@@ -1301,7 +1407,7 @@
 
 
 <a name="v0.33.0-2"></a>
-## v0.33.0-2 (2020-11-06)
+## v0.33.0-2 (2020-11-16)
 
 
 #### Features
@@ -1311,7 +1417,7 @@
 
 
 <a name="v0.33.0-1"></a>
-## v0.33.0-1 (2020-11-06)
+## v0.33.0-1 (2020-11-16)
 
 
 #### Features
@@ -1324,7 +1430,7 @@
 
 
 <a name="v0.33.0-0"></a>
-## v0.33.0-0 (2020-11-06)
+## v0.33.0-0 (2020-11-16)
 
 
 #### Features
@@ -1337,7 +1443,7 @@
 
 
 <a name="v0.33.0"></a>
-## v0.33.0 (2020-11-06)
+## v0.33.0 (2020-11-16)
 
 
 #### Bug Fixes
@@ -1396,7 +1502,7 @@
 
 
 <a name="v0.32.0-9"></a>
-## v0.32.0-9 (2020-11-06)
+## v0.32.0-9 (2020-11-16)
 
 
 #### Bug Fixes
@@ -1406,7 +1512,7 @@
 
 
 <a name="v0.32.0-8"></a>
-## v0.32.0-8 (2020-11-06)
+## v0.32.0-8 (2020-11-16)
 
 
 #### Features
@@ -1416,7 +1522,7 @@
 
 
 <a name="v0.32.0-7"></a>
-## v0.32.0-7 (2020-11-06)
+## v0.32.0-7 (2020-11-16)
 
 
 #### Bug Fixes
@@ -1426,7 +1532,7 @@
 
 
 <a name="v0.32.0-5"></a>
-## v0.32.0-5 (2020-11-06)
+## v0.32.0-5 (2020-11-16)
 
 
 #### Bug Fixes
@@ -1436,25 +1542,25 @@
 
 
 <a name="v0.32.0-4"></a>
-## v0.32.0-4 (2020-11-06)
+## v0.32.0-4 (2020-11-16)
 
 
 
 
 <a name="v0.32.0-3"></a>
-## v0.32.0-3 (2020-11-06)
+## v0.32.0-3 (2020-11-16)
 
 
 
 
 <a name="v0.32.0-2"></a>
-## v0.32.0-2 (2020-11-06)
+## v0.32.0-2 (2020-11-16)
 
 
 
 
 <a name="v0.32.0-12"></a>
-## v0.32.0-12 (2020-11-06)
+## v0.32.0-12 (2020-11-16)
 
 
 #### Features
@@ -1464,7 +1570,7 @@
 
 
 <a name="v0.32.0-11"></a>
-## v0.32.0-11 (2020-11-06)
+## v0.32.0-11 (2020-11-16)
 
 
 #### Features
@@ -1476,15 +1582,8 @@
 
 
 <a name="v0.32.0-10"></a>
-## v0.32.0-10 (2020-11-06)
+## v0.32.0-10 (2020-11-16)
 
-
-#### Bug Fixes
-
-* **split**
-  *  add missing deps ([0c222f70](https://github.com/plouc/nivo/commit/0c222f702e44bbb9c6c8f1764d035aeba795e70e))
-  *  add missing deps ([dd9676bd](https://github.com/plouc/nivo/commit/dd9676bdb910f497980c08f982d1207340f685ac))
-  *  add missing dep react-motion ([74e0bf54](https://github.com/plouc/nivo/commit/74e0bf543e4b6b973997304920a64d19906864bd))
 
 #### Features
 
@@ -1495,24 +1594,31 @@
 * **lerna**  exclude demo & examples from lerna ([5c815ccc](https://github.com/plouc/nivo/commit/5c815ccc38ece06424627eb4758cf843486fc39d))
 * **website**  rename demo to website ([14a375c1](https://github.com/plouc/nivo/commit/14a375c1da0d2f4c6ff774b5a936dd610bcc2fcd))
 
+#### Bug Fixes
+
+* **split**
+  *  add missing deps ([0c222f70](https://github.com/plouc/nivo/commit/0c222f702e44bbb9c6c8f1764d035aeba795e70e))
+  *  add missing deps ([dd9676bd](https://github.com/plouc/nivo/commit/dd9676bdb910f497980c08f982d1207340f685ac))
+  *  add missing dep react-motion ([74e0bf54](https://github.com/plouc/nivo/commit/74e0bf543e4b6b973997304920a64d19906864bd))
+
 
 
 <a name="v0.32.0-1"></a>
-## v0.32.0-1 (2020-11-06)
+## v0.32.0-1 (2020-11-16)
 
-
-#### Bug Fixes
-
-* **babel-preset**  add missing ignored script ([7fbc5951](https://github.com/plouc/nivo/commit/7fbc5951c1896164a01a5e2222dd3fb599f126e5))
 
 #### Features
 
 * **split**  init multi packages ([2e78776d](https://github.com/plouc/nivo/commit/2e78776db811c8710dfa957d769e3841b548e973))
 
+#### Bug Fixes
+
+* **babel-preset**  add missing ignored script ([7fbc5951](https://github.com/plouc/nivo/commit/7fbc5951c1896164a01a5e2222dd3fb599f126e5))
+
 
 
 <a name="v0.32.0"></a>
-## v0.32.0 (2020-11-06)
+## v0.32.0 (2020-11-16)
 
 
 #### Bug Fixes
@@ -1542,7 +1648,7 @@
 
 
 <a name="v0.31.0"></a>
-## v0.31.0 (2020-11-06)
+## v0.31.0 (2020-11-16)
 
 
 #### Features
@@ -1554,7 +1660,7 @@
 
 
 <a name="v0.30.1"></a>
-## v0.30.1 (2020-11-06)
+## v0.30.1 (2020-11-16)
 
 
 #### Features
@@ -1569,8 +1675,12 @@
 
 
 <a name="v0.30.0"></a>
-## v0.30.0 (2020-11-06)
+## v0.30.0 (2020-11-16)
 
+
+#### Bug Fixes
+
+* **bar**  getLabel is defined twice (#76) ([4cfd3a11](https://github.com/plouc/nivo/commit/4cfd3a1121d8e7de1948a68eca805f20e94aa891))
 
 #### Features
 
@@ -1582,20 +1692,16 @@
   *  Support complete configuration of the tooltips (#78) ([f3aecf6c](https://github.com/plouc/nivo/commit/f3aecf6c91a078af8f748613aaa1e79c820b5526))
   *  Support configurable labels (#77) ([5ac962b1](https://github.com/plouc/nivo/commit/5ac962b1eb60982a99726b1b2909bb233281999c))
 
-#### Bug Fixes
-
-* **bar**  getLabel is defined twice (#76) ([4cfd3a11](https://github.com/plouc/nivo/commit/4cfd3a1121d8e7de1948a68eca805f20e94aa891))
-
 
 
 <a name="v0.29.4"></a>
-## v0.29.4 (2020-11-06)
+## v0.29.4 (2020-11-16)
 
 
 
 
 <a name="v0.29.3"></a>
-## v0.29.3 (2020-11-06)
+## v0.29.3 (2020-11-16)
 
 
 #### Features
@@ -1605,13 +1711,13 @@
 
 
 <a name="v0.29.2"></a>
-## v0.29.2 (2020-11-06)
+## v0.29.2 (2020-11-16)
 
 
 
 
 <a name="v0.29.1"></a>
-## v0.29.1 (2020-11-06)
+## v0.29.1 (2020-11-16)
 
 
 #### Features
@@ -1622,7 +1728,7 @@
 
 
 <a name="v0.29.0"></a>
-## v0.29.0 (2020-11-06)
+## v0.29.0 (2020-11-16)
 
 
 #### Features
@@ -1633,7 +1739,7 @@
 
 
 <a name="v0.28.1"></a>
-## v0.28.1 (2020-11-06)
+## v0.28.1 (2020-11-16)
 
 
 #### Bug Fixes
@@ -1643,7 +1749,7 @@
 
 
 <a name="v0.28.0"></a>
-## v0.28.0 (2020-11-06)
+## v0.28.0 (2020-11-16)
 
 
 #### Features
@@ -1658,7 +1764,7 @@
 
 
 <a name="v0.27.0"></a>
-## v0.27.0 (2020-11-06)
+## v0.27.0 (2020-11-16)
 
 
 #### Features
@@ -1670,13 +1776,13 @@
 
 
 <a name="v0.26.3"></a>
-## v0.26.3 (2020-11-06)
+## v0.26.3 (2020-11-16)
 
 
 
 
 <a name="v0.26.2"></a>
-## v0.26.2 (2020-11-06)
+## v0.26.2 (2020-11-16)
 
 
 #### Bug Fixes
@@ -1686,7 +1792,7 @@
 
 
 <a name="v0.26.1"></a>
-## v0.26.1 (2020-11-06)
+## v0.26.1 (2020-11-16)
 
 
 #### Features
@@ -1696,12 +1802,8 @@
 
 
 <a name="v0.26.0"></a>
-## v0.26.0 (2020-11-06)
+## v0.26.0 (2020-11-16)
 
-
-#### Bug Fixes
-
-* **tooltip**  fix tooltip offset with scroll ([c320c23f](https://github.com/plouc/nivo/commit/c320c23f330e15607479d22224143811bfd3936b))
 
 #### Features
 
@@ -1710,10 +1812,14 @@
 * **bubble**  fix bubble color transition ([675c6689](https://github.com/plouc/nivo/commit/675c66897f51b8b450a4d2b9f29c3985604bd38b))
 * **sankey**  improve sankey interactivity ([27a5ff54](https://github.com/plouc/nivo/commit/27a5ff54ff5c223afec2fb225b7105f7065ece1c))
 
+#### Bug Fixes
+
+* **tooltip**  fix tooltip offset with scroll ([c320c23f](https://github.com/plouc/nivo/commit/c320c23f330e15607479d22224143811bfd3936b))
+
 
 
 <a name="v0.25.0"></a>
-## v0.25.0 (2020-11-06)
+## v0.25.0 (2020-11-16)
 
 
 #### Features
@@ -1723,7 +1829,7 @@
 
 
 <a name="v0.24.0"></a>
-## v0.24.0 (2020-11-06)
+## v0.24.0 (2020-11-16)
 
 
 #### Features
@@ -1735,7 +1841,7 @@
 
 
 <a name="v0.23.4"></a>
-## v0.23.4 (2020-11-06)
+## v0.23.4 (2020-11-16)
 
 
 #### Features
@@ -1748,7 +1854,7 @@
 
 
 <a name="v0.23.3"></a>
-## v0.23.3 (2020-11-06)
+## v0.23.3 (2020-11-16)
 
 
 #### Bug Fixes
@@ -1758,7 +1864,7 @@
 
 
 <a name="v0.23.2"></a>
-## v0.23.2 (2020-11-06)
+## v0.23.2 (2020-11-16)
 
 
 #### Features
@@ -1768,7 +1874,7 @@
 
 
 <a name="v0.23.1"></a>
-## v0.23.1 (2020-11-06)
+## v0.23.1 (2020-11-16)
 
 
 #### Features
@@ -1779,27 +1885,27 @@
 
 
 <a name="v0.23.0"></a>
-## v0.23.0 (2020-11-06)
+## v0.23.0 (2020-11-16)
 
-
-#### Bug Fixes
-
-* **stream**  fix stream stacked tooltip ([05fbcc9f](https://github.com/plouc/nivo/commit/05fbcc9fadf6d540f6788de5cb98072b92cdd103))
 
 #### Features
 
 * **canvas**  add canvas support for bar & heatmap ([94ad4d97](https://github.com/plouc/nivo/commit/94ad4d97229716a5ca6e189cd1a31b778385c977))
 
+#### Bug Fixes
+
+* **stream**  fix stream stacked tooltip ([05fbcc9f](https://github.com/plouc/nivo/commit/05fbcc9fadf6d540f6788de5cb98072b92cdd103))
+
 
 
 <a name="v0.22.1"></a>
-## v0.22.1 (2020-11-06)
+## v0.22.1 (2020-11-16)
 
 
 
 
 <a name="v0.22.0"></a>
-## v0.22.0 (2020-11-06)
+## v0.22.0 (2020-11-16)
 
 
 #### Features
@@ -1809,13 +1915,13 @@
 
 
 <a name="v0.21.0"></a>
-## v0.21.0 (2020-11-06)
+## v0.21.0 (2020-11-16)
 
 
 
 
 <a name="v0.20.0"></a>
-## v0.20.0 (2020-11-06)
+## v0.20.0 (2020-11-16)
 
 
 #### Features
@@ -1833,7 +1939,7 @@
 
 
 <a name="v0.19.0"></a>
-## v0.19.0 (2020-11-06)
+## v0.19.0 (2020-11-16)
 
 
 #### Bug Fixes
@@ -1843,7 +1949,7 @@
 
 
 <a name="v0.18.0"></a>
-## v0.18.0 (2020-11-06)
+## v0.18.0 (2020-11-16)
 
 
 #### Features
@@ -1860,13 +1966,13 @@
 
 
 <a name="v0.17.0"></a>
-## v0.17.0 (2020-11-06)
+## v0.17.0 (2020-11-16)
 
 
 
 
 <a name="v0.16.0"></a>
-## v0.16.0 (2020-11-06)
+## v0.16.0 (2020-11-16)
 
 
 #### Features
@@ -1877,7 +1983,7 @@
 
 
 <a name="v0.15.0"></a>
-## v0.15.0 (2020-11-06)
+## v0.15.0 (2020-11-16)
 
 
 #### Features
@@ -1887,7 +1993,7 @@
 
 
 <a name="v0.14.0"></a>
-## v0.14.0 (2020-11-06)
+## v0.14.0 (2020-11-16)
 
 
 #### Features
@@ -1897,7 +2003,7 @@
 
 
 <a name="v0.13.0"></a>
-## v0.13.0 (2020-11-06)
+## v0.13.0 (2020-11-16)
 
 
 #### Features
@@ -1907,11 +2013,12 @@
 
 
 <a name="v0.12.0"></a>
-## v0.12.0 (2020-11-06)
+## v0.12.0 (2020-11-16)
 
 
 #### Bug Fixes
 
+* **BarCanvas**  stories demonstrating the canvas ref ([96cff43e](https://github.com/plouc/nivo/commit/96cff43e69bbf77a47959b51a4d4693e5d4e032a))
 * **Makefile**  disable command priting for packages-build recipe ([1046ee2c](https://github.com/plouc/nivo/commit/1046ee2c723cd3f9d89c546f0785c72f6098f530))
 * **annotations**  switch to useAnimatedPath hook ([6c8b767e](https://github.com/plouc/nivo/commit/6c8b767e1b05a1434099ac6dd3169431159d05da))
 * **api**  fix api mappings ([80b281cc](https://github.com/plouc/nivo/commit/80b281cc6a8580101499f8da747beab4412e904d))
@@ -1921,6 +2028,9 @@
   *  respect useUTC option on x/y scale property (#574) ([b4ca5ecc](https://github.com/plouc/nivo/commit/b4ca5ecc576226ba345e77bd918e04eb1ab98b23))
 * **babel-preset**  add missing ignored script ([17ac44e1](https://github.com/plouc/nivo/commit/17ac44e1815c4f19d707595cf4bf59dda810abdd))
 * **bar**
+  *  add new prop valueScale to BarCanvas (#1274) ([d66acd6a](https://github.com/plouc/nivo/commit/d66acd6ad130b6ada3aeff493c85d878581ab727))
+  *  fix lint errors ([640c883b](https://github.com/plouc/nivo/commit/640c883be1a51834ea6abb087f8e727c22f15ade))
+  *  prevent missing values causing bad scales (#1257) ([b9687754](https://github.com/plouc/nivo/commit/b96877547f504ba6249bc0df4bd92ddf29f7992c))
   *  include bars with zero height/width ([32f48235](https://github.com/plouc/nivo/commit/32f482354b02e6294da8f918f9773025b4120cac))
   *  Fix BarItemProps types (#1163) ([7f19561a](https://github.com/plouc/nivo/commit/7f19561a444d3e01910239c3b3894b20c638ff86))
   *  add missing grid value types (#855) ([033cf9ee](https://github.com/plouc/nivo/commit/033cf9ee6d4249cc2ff3c27dc3cfcfb3e14f042a))
@@ -1939,7 +2049,14 @@
   *  fix bubble props export ([37067061](https://github.com/plouc/nivo/commit/37067061cf1d4353da4fed3dd60dabb61a449cf7))
   *  add missing tooltip when using static bubble chart ([9faae318](https://github.com/plouc/nivo/commit/9faae318d23b6d74e65ecdac2d3a6812fd009102))
 * **build**  add missing externals in rollup config ([e23182f2](https://github.com/plouc/nivo/commit/e23182f2de917835bd7cda267a57484b93c77290))
-* **bullet**  remove deprecated property titleWidth ([0c8e8bbb](https://github.com/plouc/nivo/commit/0c8e8bbb734e804c50e3bc235685c91d967c7c7d))
+* **bullet**
+  *  make dimensions required props ([8451c279](https://github.com/plouc/nivo/commit/8451c279099d3931afc35950ae52aa22b84ee7f6))
+  *  fix linting errors round 3 ([a5eac4a9](https://github.com/plouc/nivo/commit/a5eac4a910601678522148c95fcec58e1264a8ce))
+  *  fix linting errors round 2 ([c446b46c](https://github.com/plouc/nivo/commit/c446b46cb98bdcff19d299b9e3fbc9a0363067ed))
+  *  fix linting errors ([3df88ed5](https://github.com/plouc/nivo/commit/3df88ed5db3bb8556116b9ccdec6df22bbf7d115))
+  *  fix website paths ([8dd28feb](https://github.com/plouc/nivo/commit/8dd28febc9618275e019d95cac9f57ac7c4ea838))
+  *  fix tslint errors ([b6f67018](https://github.com/plouc/nivo/commit/b6f6701849ab8aecf2f6e82a84a592ede9b1a322))
+  *  remove deprecated property titleWidth ([0c8e8bbb](https://github.com/plouc/nivo/commit/0c8e8bbb734e804c50e3bc235685c91d967c7c7d))
 * **bump**
   *  add missing @nivo/axes module to dependencies ([d79d0a18](https://github.com/plouc/nivo/commit/d79d0a189803d28f0c17a4a3ddb2eaf90e0ca74b))
   *  switch to useAnimatedPath hook ([5ddb2ec2](https://github.com/plouc/nivo/commit/5ddb2ec2c11b40894a01cfe354397202ba9a6957))
@@ -1962,6 +2079,7 @@
 * **color**  fix ColorUtils unit test ([bd9e03d3](https://github.com/plouc/nivo/commit/bd9e03d3cf6fa287e1f089259eb64f7846ac327e))
 * **colors**  fix colors due to d3 packages upgrade ([a17d93bc](https://github.com/plouc/nivo/commit/a17d93bc859d2f202f4c2960e9c3fbee4590e581))
 * **core**
+  *  add useDimensions hook to types ([4ce35386](https://github.com/plouc/nivo/commit/4ce35386d16dc1a7d3a088a5246d5fbd7ab75c48))
   *  Add missing Theme types to match default theme object (#1135) ([861000fc](https://github.com/plouc/nivo/commit/861000fcb31a95ed9053b9c2735dc9d19ba665d5))
   *  add Defs types and export for typescript (#1146) ([99b520e9](https://github.com/plouc/nivo/commit/99b520e9621e77472b8c922d85a0fcd7bc5e00cc))
   *  add missing crosshair definitions to theme (#915) ([211d76d8](https://github.com/plouc/nivo/commit/211d76d8749e273969ac15fef59647589bc84baa))
@@ -1971,9 +2089,12 @@
   *  fix @nivo peer dependency versions ([505a7c08](https://github.com/plouc/nivo/commit/505a7c08566eacc481dfd0dafe80d50cf8ac7960))
   *  do not ignore yarn.lock ([1a60cfb8](https://github.com/plouc/nivo/commit/1a60cfb84ccc17ee933866e3c573d03546e6c066))
 * **eslint**  fix eslint for all packages ([27bf8d0c](https://github.com/plouc/nivo/commit/27bf8d0cec55f7caf7bb18fc5f5eeeb9c4e7875e))
-* **funnel**  switch to useAnimatedPath hook ([d4578414](https://github.com/plouc/nivo/commit/d457841430812520d5068b5888883f497a60c702))
+* **funnel**
+  *  fix lint errors ([e66b51c5](https://github.com/plouc/nivo/commit/e66b51c531e02bea99d24e058b756ab7ee164211))
+  *  switch to useAnimatedPath hook ([d4578414](https://github.com/plouc/nivo/commit/d457841430812520d5068b5888883f497a60c702))
 * **generators**  use modules ([9cec118c](https://github.com/plouc/nivo/commit/9cec118c0024af202a9fe24e94715916e1088069))
 * **geo**
+  *  fix lint errors ([bc398839](https://github.com/plouc/nivo/commit/bc398839d75ceccef6652e74d11a949e28be101d))
   *  add missing dependency for legend data memoization ([887c57e7](https://github.com/plouc/nivo/commit/887c57e7b91ff7052fa657290e2b29889f87362a))
   *  fix custom layers ([069e4e61](https://github.com/plouc/nivo/commit/069e4e61a048c6f672a3928c2a7d648397f688a2))
 * **heatmap**
@@ -1984,12 +2105,15 @@
 * **install**  force resolution of fsevents package ([fbcafd14](https://github.com/plouc/nivo/commit/fbcafd1491d47fa878338b2cdd87b54d34f36b6d))
 * **jest**  fix jest babel config ([da5edb0d](https://github.com/plouc/nivo/commit/da5edb0d3986d791507fdcc7e5e873f7bc941467))
 * **legends**
+  *  fix lint errors ([275b2b55](https://github.com/plouc/nivo/commit/275b2b557008ef3d7409ce32fa21758afd7253e0))
   *  Respect theme fill color (#941) ([fa847f6a](https://github.com/plouc/nivo/commit/fa847f6ad76c6841ff094cd1c7f3b4f160fa7d1c))
   *  make sure to pass the theme object when using canvas legends ([ae621162](https://github.com/plouc/nivo/commit/ae6211629fd5ed56f98bceb83e9355a74b962dc7))
   *  honor theme font settings for labels ([e4a65fc4](https://github.com/plouc/nivo/commit/e4a65fc4199465bfe1a0920d30c0c7bc2aa72711))
   *  fix vertical alignment of canvas labels ([559e3c78](https://github.com/plouc/nivo/commit/559e3c78ff1298584f8e410b9c5cf8a47f7cce76))
   *  fix legends unit tests ([41dd564f](https://github.com/plouc/nivo/commit/41dd564fcc740e99fa4a1a58ba707b22a877a7b8))
 * **line**
+  *  add a stories for the responsive canvas component ([0fe9c9d3](https://github.com/plouc/nivo/commit/0fe9c9d305541890132cf203e1260719ca8c733e))
+  *  add a story showcasing the usage of the ref in canvas ([190acd7e](https://github.com/plouc/nivo/commit/190acd7e9487f388aaaeddcd156a87e971a6306d))
   *  animate paths properly ([6d2cd274](https://github.com/plouc/nivo/commit/6d2cd274e3c5b52c322e50f8e3708d560ef58513))
   *  change points ordering on stacked lines (#1060) ([c10edbf0](https://github.com/plouc/nivo/commit/c10edbf027fe8346f64da0b39f57b9af303a81c5))
   *  typings fix for custom layer props (#887) ([a293a648](https://github.com/plouc/nivo/commit/a293a648f324a7ed4090851f7f411784902d77ba))
@@ -2006,8 +2130,13 @@
 * **lodash**
   *  use scoped imports ([dea6a75f](https://github.com/plouc/nivo/commit/dea6a75f921e4e6e9c62a7ebb987c32fafbe04f8))
   *  add missing deps & use scoped imports ([f04660f2](https://github.com/plouc/nivo/commit/f04660f2ff1cd965b0a9d2609782e0409cb486d5))
+* **motion**  replace deprecated  method with the new  helper ([57b27d8d](https://github.com/plouc/nivo/commit/57b27d8d0052372a8102ce48424aefd5641b0862))
+* **packages**  allow react 17 in peer dependencies ([a4f370b4](https://github.com/plouc/nivo/commit/a4f370b464b452038e3a68ed75dc475c5ed69f18))
 * **parallel-coordinates**  switch to useAnimatedPath hook ([d755a11d](https://github.com/plouc/nivo/commit/d755a11d3c58000607b08be4907b5174a4eacb28))
 * **pie**
+  *  fix typings issues due to better d3 types ([ad9cc2c6](https://github.com/plouc/nivo/commit/ad9cc2c61df170532f6b9d93f1428b73390a611f))
+  *  make dimensions required props ([d502a409](https://github.com/plouc/nivo/commit/d502a40982894025e5d2e2a626b2efe92923dd8c))
+  *  fix incomplete type for valueFormat ([0793553e](https://github.com/plouc/nivo/commit/0793553e73254db70586de093efc5c898f21548b))
   *  fix path to typings ([243613d3](https://github.com/plouc/nivo/commit/243613d396b69f2c5a78e1ba3d53386f4e6b9297))
   *  tooltip props typing (#1088) ([54215e7e](https://github.com/plouc/nivo/commit/54215e7e77be7a1b42e365ceddf187f279dea3c2))
   *  address some issues with data label prop (#967) ([d4714b6c](https://github.com/plouc/nivo/commit/d4714b6ceda90698f8f335fa1c5730a10599a7ae))
@@ -2063,6 +2192,7 @@
   *  add missing dep react-motion ([cefabeb9](https://github.com/plouc/nivo/commit/cefabeb9d451ae2f70e7126f9f0dc81d8e7a9a8d))
 * **stack**  fix broken Stack tests ([6ef978c4](https://github.com/plouc/nivo/commit/6ef978c45596d54c44011f3e91eba86cd41b7e80))
 * **storybook**
+  *  move bar/race chart story to main bar stories (#1258) ([e9c5932d](https://github.com/plouc/nivo/commit/e9c5932d92f933259f15b73048f750dd220b44ce))
   *  always pull latest version of generators package (#1176) ([9e230cef](https://github.com/plouc/nivo/commit/9e230cefc80944a28a3e903ac0756777895832e0))
   *  add useUTC:false to line timeScale ([f3ba3f98](https://github.com/plouc/nivo/commit/f3ba3f985d3c78fa0358a6154e6d797d120caec4))
   *  fix typo in line's story (#680) ([680a6ed3](https://github.com/plouc/nivo/commit/680a6ed357843d8a1c5b527d90a6f76f45e67621))
@@ -2071,6 +2201,7 @@
   *  switch to useAnimatedPath hook ([d983b19c](https://github.com/plouc/nivo/commit/d983b19c844f3208d3e21d81e979ec99ac976c3f))
   *  fix bugs in typings (#593) ([9b157510](https://github.com/plouc/nivo/commit/9b157510d7bacca846d984bc166ff486938b60c8))
   *  fix stream stacked tooltip ([05fbcc9f](https://github.com/plouc/nivo/commit/05fbcc9fadf6d540f6788de5cb98072b92cdd103))
+* **sunburst**  apply my own fixes from pr review ([cbb9e37a](https://github.com/plouc/nivo/commit/cbb9e37acbcdf82cb72af78c8afccd23254ca050))
 * **svg**
   *  fix text vertical alignment ([d59fb722](https://github.com/plouc/nivo/commit/d59fb722ad8cc618f257cbb90faf067ccc58c9f4))
   *  fix svg for server side rendering ([ae77d432](https://github.com/plouc/nivo/commit/ae77d432d8079d910b9de54e433613dc55eab9fc))
@@ -2079,6 +2210,8 @@
   *  add missing webpack package ([9be90ace](https://github.com/plouc/nivo/commit/9be90acec37ca1bfec3a0d37a1a4deb6bb3dbec7))
 * **theme**  remove default fill for legends.text theme (#1181) ([2216f129](https://github.com/plouc/nivo/commit/2216f129da1104076485a6b89539ed7e0ea7cbe6))
 * **tooltip**
+  *  fix typings due to core adjustments ([87e5edb2](https://github.com/plouc/nivo/commit/87e5edb2588fbcfecd245a1bb28775e356350b18))
+  *  export useTooltip hook in types ([7eb1b30b](https://github.com/plouc/nivo/commit/7eb1b30b6210620d83c51b8e81692acafa4ecb13))
   *  Show tooltip on first tap for touch devices (#1185) ([f712cfaa](https://github.com/plouc/nivo/commit/f712cfaa1b75917784506989949a2483f652cd8b))
   *  update tooltip TypeScript types. (#657) ([305a536f](https://github.com/plouc/nivo/commit/305a536f4cff6401da179598d9bc688822528b16))
   *  fix tooltip offset with scroll ([c320c23f](https://github.com/plouc/nivo/commit/c320c23f330e15607479d22224143811bfd3936b))
@@ -2095,6 +2228,8 @@
 * **voronoi**  upgrade d3-delaunay to fix single/collinear points (#640) ([b93c96a5](https://github.com/plouc/nivo/commit/b93c96a58d4614d020142648630ab7cdffc84094))
 * **waffle**  remove self import from TypeScript def ([867a545a](https://github.com/plouc/nivo/commit/867a545aba2ffb6110e226c2490572011049c895))
 * **website**
+  *  patch react-spring due to known issue with Gatsby ([c35b4e96](https://github.com/plouc/nivo/commit/c35b4e96c6f7103f3400ff02fc2b423eb741081b))
+  *  changes to get deployment to work ([09f46839](https://github.com/plouc/nivo/commit/09f468393643580bb6d2c2fdb35c01d737109a4b))
   *  fix crash caused by calendar tooltip (#1214) ([7eb69175](https://github.com/plouc/nivo/commit/7eb69175f10855cc433ec7d75faa33a43baee3a5))
   *  fix missing prop for Calendar API demo ([b8c7c995](https://github.com/plouc/nivo/commit/b8c7c995ecf6f266c25dc77c5dfa32fbee5ed29a))
   *  fix TreeMap usage on homepage ([09d3bc9f](https://github.com/plouc/nivo/commit/09d3bc9ff2efcbc4a387012dc68e3be368d2a13d))
@@ -2116,6 +2251,9 @@
 
 #### Features
 
+* **BarCanvas**
+  *  allow to use ref to access the underlying canvas ([fb91ca4e](https://github.com/plouc/nivo/commit/fb91ca4e0cb4d53754fa75bf2f0a2825b78b4129))
+  *  add a ref to access the canvas ([ce5b67a1](https://github.com/plouc/nivo/commit/ce5b67a10a42bf8b1be9735ec1823cfaf75d1e7b))
 * **a11y**
   *  add ability to set `role` prop on all charts (#1128) ([7d52c072](https://github.com/plouc/nivo/commit/7d52c072cc27fbb9cd1728c8127e676cb56c324a))
   *  add changes to allow for improved accessibility on charts (#1054) ([464185c8](https://github.com/plouc/nivo/commit/464185c8758f72880c40778f1507edff5bfef697))
@@ -2127,6 +2265,7 @@
   *  move api to main nivo repo ([50245962](https://github.com/plouc/nivo/commit/5024596209bb0befb6f623d44d97f5663d881f4d))
   *  remove empty api package ([dd47b293](https://github.com/plouc/nivo/commit/dd47b293edcb07a6ed23cd0a26e29c4352ecfb3d))
 * **axes**
+  *  adjustments for react-spring@next ([46dbb5a4](https://github.com/plouc/nivo/commit/46dbb5a45de31674bab92efe89dd576ac1aafbf8))
   *  replace react-motion by react-spring ([50c135d6](https://github.com/plouc/nivo/commit/50c135d6b983948b6b7ad87300772faa583dd9ca))
   *  move all grid & axes stuff from core ([0b564147](https://github.com/plouc/nivo/commit/0b564147c47a08b21e9ebb34d6165a56966059ae))
   *  add support for legends to canvas implementation ([5dcebd63](https://github.com/plouc/nivo/commit/5dcebd63459a5917d82e60bacf39c7bfaff29e3a))
@@ -2143,6 +2282,7 @@
   *  add support for custom tick values/count (#58) ([bd789728](https://github.com/plouc/nivo/commit/bd789728c78279d8eb5a467503e34a505cb04c54))
   *  improve axis formatting support ([69269a60](https://github.com/plouc/nivo/commit/69269a6072314cb04cb300cd55602af8ccabaf3e))
 * **bar**
+  *  add BarItem component to the exposed package API (#1261) ([df211c03](https://github.com/plouc/nivo/commit/df211c036c50a285f40eb81609f3840a286424dc))
   *  add ability to set scale config via `valueScale` prop (#1183) ([bea61cd9](https://github.com/plouc/nivo/commit/bea61cd9b5f0e8dfc37ce2d776c592e0a3bebdfd))
   *  pass showTooltip and hideTooltip functions to custom layers ([f1bff166](https://github.com/plouc/nivo/commit/f1bff166d0ca4a1ba12b9d54420e2983167f3854))
   *  use @nivo/colors for inherited colors ([c7cf5ce0](https://github.com/plouc/nivo/commit/c7cf5ce03f4b8ebe18554bff965159aba94a06eb))
@@ -2195,6 +2335,12 @@
   *  generate source maps for packages ([39a83fd4](https://github.com/plouc/nivo/commit/39a83fd401d59fd5125c22a1755bff33c226819c))
   *  upgrade rollup & add esm build ([f6d64802](https://github.com/plouc/nivo/commit/f6d64802236337140289baaa96c3a3ace0acdfaa))
 * **bullet**
+  *  adjustments for react-spring@next ([c567ae18](https://github.com/plouc/nivo/commit/c567ae18f97ed0349105f6a55a82f655af6465c5))
+  *  convert stories to typescript ([b2894a91](https://github.com/plouc/nivo/commit/b2894a91272f18e86801927947647e323e7893c5))
+  *  switch from react-motion to react-spring ([04f07093](https://github.com/plouc/nivo/commit/04f0709341c1c7371722bb110dc9eb275b416120))
+  *  convert to functional components ([3f63fd99](https://github.com/plouc/nivo/commit/3f63fd99fdca967f1046f3c7acce10d98306da07))
+  *  remove recompose dependency ([ff7f1bc8](https://github.com/plouc/nivo/commit/ff7f1bc86aba13937f4475524976c80319d16427))
+  *  init package migration to typescript ([d07378a3](https://github.com/plouc/nivo/commit/d07378a349631728bf14a3df2ff1ac74b64442aa))
   *  support ranges that support < 0 ([5dc5ce69](https://github.com/plouc/nivo/commit/5dc5ce699347ffa2a4088bd12005e684fd2abf73))
   *  interpolate colors ([96ad5f64](https://github.com/plouc/nivo/commit/96ad5f64e8ff948885d789e16765eebf4f5677f4))
   *  improve @nivo/bullet package ([9154c51f](https://github.com/plouc/nivo/commit/9154c51f6ec327891fa062d35042f2b1a7a0dd05))
@@ -2285,6 +2431,14 @@
 * **circle-packing**  use @nivo/colors for inherited colors ([53ffed92](https://github.com/plouc/nivo/commit/53ffed924dd90d7bf0c10e7362e03d041e15f426))
 * **code style**  add prettier formatting ([9a550eb8](https://github.com/plouc/nivo/commit/9a550eb85d1db2611ada36239d8d85082317f12c))
 * **colors**
+  *  update package typings according to TypeScript migration ([e98d8e07](https://github.com/plouc/nivo/commit/e98d8e071ae474526621761ba03d608d9a2971ec))
+  *  migrate ordinalColorScale to TypeScript ([7bb42c68](https://github.com/plouc/nivo/commit/7bb42c688c718c68d5d734dbf401156cc04da496))
+  *  migrate prop types to TypeScript ([6bf1f7d4](https://github.com/plouc/nivo/commit/6bf1f7d429a182776bed2d64778eebeb4f25dd20))
+  *  rename InheritedColorProp to InheritedColor in all package typings ([29a73083](https://github.com/plouc/nivo/commit/29a73083447fec20d397f9dafc8a29694b516f73))
+  *  migrate inheritedColor to TypeScript ([436117da](https://github.com/plouc/nivo/commit/436117dae71499a3db6db1129462a74bed4f7ac1))
+  *  migrate motion to TypeScript ([e1785918](https://github.com/plouc/nivo/commit/e1785918de1eb57af7ca755ce3c3f1fb9b42d562))
+  *  add typings for color schemes and interpolators ([1093da12](https://github.com/plouc/nivo/commit/1093da12ac0ec2e11b455d823f0749dc1a5277f6))
+  *  init TypeScript migration ([2383b4d5](https://github.com/plouc/nivo/commit/2383b4d5c88b7e3b64deb66859b134faefa6cf7e))
   *  allow plain color for ordinal scale ([b8d3abb4](https://github.com/plouc/nivo/commit/b8d3abb4bd86398193b988cc30dd98feaf365be4))
   *  use @nivo/colors for inherited colors for all packages ([e8955560](https://github.com/plouc/nivo/commit/e89555601c2f1a35009fa660e208ab2ff3bc9537))
   *  add colorIdentity support to bar & bubble ([32e61b16](https://github.com/plouc/nivo/commit/32e61b16db29926314b541125205de06bf0f26aa))
@@ -2303,6 +2457,8 @@
 * **components**  fix components display name ([84aa832d](https://github.com/plouc/nivo/commit/84aa832da4d26c55e7920e3e3ad740437f124eea))
 * **container**  add ability to disable interactivity ([73a33f92](https://github.com/plouc/nivo/commit/73a33f92f66f0ea9488843ec13924458f3dac7ca))
 * **core**
+  *  add proper type for useTheme hook ([66d2f4f0](https://github.com/plouc/nivo/commit/66d2f4f09b2d9a47258779ebb199e8741a0e1658))
+  *  add missing spring config to Container ([25aa18fb](https://github.com/plouc/nivo/commit/25aa18fbdd0a8b5a97d31fac425b61bc57f401b2))
   *  replace react-measure with custom hook ([3e337cda](https://github.com/plouc/nivo/commit/3e337cda0a93b8665c7843280a6dea991d076751))
   *  remove SmartMotion component in favor of react-spring built-in support for various interpolators ([15177207](https://github.com/plouc/nivo/commit/15177207d55e818621e0b918b5c9f2ab6a4100a4))
   *  allow string format spec in BasicTooltip ([8b382dc3](https://github.com/plouc/nivo/commit/8b382dc3d4c7eb6b75ee0b843a2b58a9c8627862))
@@ -2390,6 +2546,7 @@
   *  init legends package ([4063428b](https://github.com/plouc/nivo/commit/4063428baa626dd2e0810b830ca4cf6e5cde3b5a))
 * **lerna**  exclude demo & examples from lerna ([aa255ebf](https://github.com/plouc/nivo/commit/aa255ebf94cfbdf7d997ad48e6edbaaaf54657f3))
 * **line**
+  *  forward ref to the canvas element ([4be9c8ab](https://github.com/plouc/nivo/commit/4be9c8ab2e7e8315dccce28673ca52afd9e8a199))
   *  add custom layer support to LineCanvas (#987) ([1e5fd14d](https://github.com/plouc/nivo/commit/1e5fd14d30f0a55731e6a704491a7ede8c9e7d70))
   *  replace react-motion by react-spring ([ca452490](https://github.com/plouc/nivo/commit/ca45249082b81a9c37194a2ca7c695865a2c1592))
   *  pass the state to a custom layer (#656) ([07d2c3f2](https://github.com/plouc/nivo/commit/07d2c3f2e78b04ef47a8681a0698df98e0703fc2))
@@ -2426,6 +2583,29 @@
   *  improve Line component ([63ee809f](https://github.com/plouc/nivo/commit/63ee809fdb4bd822a1c73ec342a6bbc41d7e2423))
 * **lint**  centralize lint command & config ([e8e38da4](https://github.com/plouc/nivo/commit/e8e38da4a0f20e0a9f07606ab36853fdab4d44ed))
 * **linting**  add eslint on several packages ([38ba981d](https://github.com/plouc/nivo/commit/38ba981d5c2a1411367ca326c7b449a9685135ea))
+* **marimekko**
+  *  fix doc typos and add missing custom layer props to the doc ([ae4c329c](https://github.com/plouc/nivo/commit/ae4c329cc59c3f0a74cd4ace886762e7e96d0305))
+  *  update README preview ([ca4a0d66](https://github.com/plouc/nivo/commit/ca4a0d6628b36a104c22dd5a23d1d606c6cfb423))
+  *  add support for legends ([f39f12a7](https://github.com/plouc/nivo/commit/f39f12a700ed37131650ff16c61b794f5a484628))
+  *  add story about custom layers ([8560b6ad](https://github.com/plouc/nivo/commit/8560b6ad2acce4856074a28ecf61aa34580dbb9d))
+  *  add support for value formatter ([c5429db2](https://github.com/plouc/nivo/commit/c5429db2761103a086a4c078f684d8ff910494a8))
+  *  add icons and preview for README ([71b06a84](https://github.com/plouc/nivo/commit/71b06a84360750479127e94f4b8ecbb2a5de1120))
+  *  add bar groups position and dimensions to layers context ([8ba4c018](https://github.com/plouc/nivo/commit/8ba4c018e0c16c99cd5649f267771386fe184957))
+  *  add support for patterns and gradients ([d75a3952](https://github.com/plouc/nivo/commit/d75a3952b351778fff831e30393f13317a85e599))
+  *  fix vertical layout and diverging offset ([604b523f](https://github.com/plouc/nivo/commit/604b523f7240332b5e713ddbf8545ef46cc51525))
+  *  add support for axes and grid ([8e4cd0d6](https://github.com/plouc/nivo/commit/8e4cd0d659c79485aadd688d3947458959e4363f))
+  *  add support for custom tooltip ([ed74e9f1](https://github.com/plouc/nivo/commit/ed74e9f11aee80f001450e33ccedfd6de94ab08f))
+  *  expose thickness and dimensions scale ([914f1857](https://github.com/plouc/nivo/commit/914f1857c19f56a3e3e732f050ea1e25525175e2))
+  *  add the ability to configure the stack offset ([a8437cca](https://github.com/plouc/nivo/commit/a8437ccab00f25192a46e262b384687059fb0afc))
+  *  add stories ([6b6aa949](https://github.com/plouc/nivo/commit/6b6aa949c1fc72cd38c71fca424b9e70765300e4))
+  *  pass default props to InnerMarimekko ([bb85398f](https://github.com/plouc/nivo/commit/bb85398f70f1192ae40664754a954f68c7787628))
+  *  improve motion configuration ([7df05809](https://github.com/plouc/nivo/commit/7df05809689bb95b5ec1b82aa41dfb841e6a1497))
+  *  add support for mouse handlers ([4f244ea3](https://github.com/plouc/nivo/commit/4f244ea346b87dfd9e10e0051287dab98248878a))
+  *  improve documentation about data props ([3178ce81](https://github.com/plouc/nivo/commit/3178ce81f70371f1c18f5bbd9dc806c810aa7699))
+  *  compute bars from top level component and pass them to custom layers ([146a04b2](https://github.com/plouc/nivo/commit/146a04b219a24afcd3b9749a04bf3d41a9aeb427))
+  *  use react-spring@next and add animation support to bars ([001b6719](https://github.com/plouc/nivo/commit/001b6719072fd47b480a87f1575d7009d003e0f6))
+  *  add to website and improve bars ([5f18b057](https://github.com/plouc/nivo/commit/5f18b057fb46d9cd2305f2b56187d58e46a5dd25))
+  *  init package ([35556143](https://github.com/plouc/nivo/commit/35556143d9d786f7ede30ba0698cb3a77fa57d44))
 * **markers**
   *  add support for markers on Line & Bar charts ([e36a7a2b](https://github.com/plouc/nivo/commit/e36a7a2bd2616bc4e4c2a4a927dfb14299ee9d4c))
   *  improve radar & line charts markers ([18c43473](https://github.com/plouc/nivo/commit/18c43473bb28764c4515dc12a9a8bf24f55e5b41))
@@ -2438,6 +2618,7 @@
   *  use rollup for packages build ([f24cb08d](https://github.com/plouc/nivo/commit/f24cb08d8a8eb2feecb858fb41875ac99b782db0))
   *  add command to deploy all packages ([7467315c](https://github.com/plouc/nivo/commit/7467315c5e191d0876e0938ae9c6b8b95846d118))
 * **parallel-coordinates**
+  *  adjustments for react-spring@next ([df7d665c](https://github.com/plouc/nivo/commit/df7d665c232249028ba96116eb78838d4fe429cb))
   *  use hooks instead of recompose and migrate to react-spring ([0760d942](https://github.com/plouc/nivo/commit/0760d942c4711bba6191efe07e146e0ebd034c25))
   *  add support for individual axis options ([b8a39070](https://github.com/plouc/nivo/commit/b8a39070024450377314d21b27f11ceaaf623c17))
   *  init package ([5a4db6ca](https://github.com/plouc/nivo/commit/5a4db6cad3c00601ad6161adb54cf8a4c5891ff3))
@@ -2542,6 +2723,7 @@
   *  add support for label on Sankey diagram ([b90de33a](https://github.com/plouc/nivo/commit/b90de33ad818f86a0ed1a6af24bed831c221834c))
   *  add sankey diagram component ([f358d2f9](https://github.com/plouc/nivo/commit/f358d2f9709555833fd9ca550b5c0a2f30c63f3b))
 * **scales**
+  *  exclude null and undefined values in log scale validation (#1099) ([c87eba7d](https://github.com/plouc/nivo/commit/c87eba7d6e7539bc5de1a864d116191f852b9471))
   *  Add support for symlog scale (#1097) ([954bef75](https://github.com/plouc/nivo/commit/954bef7545ba6d279e9d61b813960a748d13144f))
   *  add ability to reverse linear scale ([2f4ddc47](https://github.com/plouc/nivo/commit/2f4ddc478939acf4fee3fa37ff59a80f44a4b61b))
   *  add support for log scale (#378) ([971925f8](https://github.com/plouc/nivo/commit/971925f89fe67f02dc3ab5e2be601bf4666d273b))
@@ -2601,6 +2783,7 @@
   *  add support for tooltip on stream chart ([c3a997be](https://github.com/plouc/nivo/commit/c3a997be2fd0fa2bdd5c166586377c65247a498d))
   *  init stream chart ([060142e6](https://github.com/plouc/nivo/commit/060142e6c67a2f4c16fcc6e6e8030c2ddf724c4d))
 * **sunburst**
+  *  add mouse events and some labels (#880) ([1b3dd8f0](https://github.com/plouc/nivo/commit/1b3dd8f0844cad8d41bd0f46c41469ee0c73537b))
   *  add support for custom tooltip #1024 ([9a5b1e42](https://github.com/plouc/nivo/commit/9a5b1e42151b187ea6bf4409658e12b3187314c9))
   *  Add typescript definition (#995) ([a32603ce](https://github.com/plouc/nivo/commit/a32603ce793f839eccf58d2cb22bdfc7abfd83fb))
   *  use @nivo/colors for inherited colors ([9cb6b2af](https://github.com/plouc/nivo/commit/9cb6b2afca6839322925f0c4a1e3eacfdf4d696a))
@@ -2622,6 +2805,14 @@
   *  improve theming ([c7e7a9fe](https://github.com/plouc/nivo/commit/c7e7a9fe77eaf65abc1e450e1d2ce7d1b98acda9))
   *  fix tooltip theming ([9385dd67](https://github.com/plouc/nivo/commit/9385dd67ed8ec1d55ef12a84328b831be701edc2))
 * **tooltip**
+  *  add a display name to memoized components to ease testing ([218e237f](https://github.com/plouc/nivo/commit/218e237f1db2329ad59f37f75926973b6538a713))
+  *  migrate TableTooltip component to TypeScript ([0a54e62f](https://github.com/plouc/nivo/commit/0a54e62fc87bcaaeaa3342fe13056ed778050562))
+  *  migrate Crosshair component to TypeScript ([1416e8cf](https://github.com/plouc/nivo/commit/1416e8cfb070fa3c038aaa5379b6e18ffe5ad1c1))
+  *  ensure we only render the tooltip when the charts are interactive ([6623000f](https://github.com/plouc/nivo/commit/6623000f54d1f97e8cf0df8303129703084d4ffa))
+  *  remove usage of tooltip prop types from other packages ([8addc8d4](https://github.com/plouc/nivo/commit/8addc8d4ec48d838ce871e78214e89c515d7fed7))
+  *  adapt BasicTooltip for new typings ([cb87d9a4](https://github.com/plouc/nivo/commit/cb87d9a4e06b9e8cacf8387aa0f43f691aa3a88e))
+  *  remove prop types ([b187c618](https://github.com/plouc/nivo/commit/b187c6186e22e12679889dcd5e7afd46469dae8f))
+  *  init TypeScript migration ([3413142d](https://github.com/plouc/nivo/commit/3413142d056830bffef4f39e8550020928098b3b))
   *  improve TooltipWrapper component for animation ([d969d836](https://github.com/plouc/nivo/commit/d969d836e89f731546ff241bee6daa9c3c09b895))
   *  restore animation and use new measure hook ([691125c1](https://github.com/plouc/nivo/commit/691125c1d12bb8cd53018ec1c5ab956a8d654a13))
   *  replace react-motion by react-spring ([a5850bc5](https://github.com/plouc/nivo/commit/a5850bc54119b0b5cf3083f735134c838239b2d7))
@@ -2637,6 +2828,7 @@
   *  add support for custom tooltips for bubble charts and treemaps (#200) ([092f3e0c](https://github.com/plouc/nivo/commit/092f3e0c5253d2ca66ce53b028c918953c08f97d))
   *  add support for configurable tooltips for bar charts and heat maps (#159) ([82473c10](https://github.com/plouc/nivo/commit/82473c10553e976b6e9d14c9e51d4093a3af510c))
 * **treemap**
+  *  adjustments for react-spring@next ([e5611c30](https://github.com/plouc/nivo/commit/e5611c3064908713f811ffc0ff4e5bb4483244bb))
   *  restore pattern and gradient support for TreeMap component ([5e4ea120](https://github.com/plouc/nivo/commit/5e4ea120ffdb93134616c4f5677a6338539b0544))
   *  add stories to demo pages ([4b3241cd](https://github.com/plouc/nivo/commit/4b3241cd3bf8eff5198526e0f415d20510954e39))
   *  update treemap documentation screenshots ([43e625fa](https://github.com/plouc/nivo/commit/43e625fa33de7154683653d1ca7006e15b5c8e22))
