@@ -1,15 +1,13 @@
 import { Arc } from 'd3-shape'
 import { HierarchyRectangularNode } from 'd3-hierarchy'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
-import { Theme, MergedTheme, Dimensions, Box } from '@nivo/core'
+import { Theme, Dimensions, Box, DataFormatter } from '@nivo/core'
 import { DefaultSunburstProps } from './props'
 
 type NameAndColor = {
-    // name: string
     color: string
 }
 
-// Pretty sure this should be generic.. loc is example from website
 type DataLocation<Datum extends Record<string, unknown>> = NameAndColor & Datum
 
 type DataChildren<Datum extends Record<string, unknown>> = NameAndColor & {
@@ -39,19 +37,15 @@ export type SunburstNode<Datum extends Record<string, unknown> = any> = Omit<
     'children' | 'data'
 > & {
     data: {
-        // children: never
         color: string
         id: string
         value: number
         percentage: number
         depth: number
-        ancestor: SunburstNode<Datum>['data']
     }
 }
 
 type CommonSunburstProps = {
-    // data: Data
-
     identity: string | ((node: ComputedNode['data']) => string)
     value: string | ((node: ComputedNode['data']) => number)
 
@@ -77,7 +71,7 @@ type CommonSunburstProps = {
     theme: Theme
 
     isInteractive: boolean
-    tooltipFormat: (value: React.ReactText) => React.ReactText
+    tooltipFormat: DataFormatter
     tooltip: (payload: SunburstNode['data']) => JSX.Element
 
     onClick: (
@@ -144,9 +138,4 @@ export type SunburstLabelProps = Pick<ComputedSunburstProps, 'nodes'> & {
     label: ComputedSunburstProps['getSliceLabel']
     skipAngle?: number
     textColor: CommonSunburstProps['slicesLabelsTextColor']
-}
-
-export type TooltipHandlers = {
-    showTooltip: (payload: JSX.Element, event: React.MouseEvent<SVGPathElement, MouseEvent>) => void
-    hideTooltip: () => void
 }

@@ -4,32 +4,19 @@ import cloneDeep from 'lodash/cloneDeep'
 import { partition as d3Partition, hierarchy } from 'd3-hierarchy'
 import { arc } from 'd3-shape'
 import {
-    // @ts-ignore
-    withTheme,
-    // @ts-ignore
-    withDimensions,
     getAccessorFor,
     // @ts-ignore
     getLabelGenerator,
-    // @ts-ignore
     Container,
-    // @ts-ignore
     SvgWrapper,
     useDimensions,
     usePartialTheme,
 } from '@nivo/core'
-// @ts-ignore
 import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
 import { SunburstLabels } from './SunburstLabels'
 import { SunburstArc } from './SunburstArc'
 import { defaultProps } from './props'
 import { SunburstSvgProps, SunburstNode, Data } from './types'
-
-const getAncestor = (node: any): any => {
-    if (node.depth === 1) return node
-    if (node.parent) return getAncestor(node.parent)
-    return node
-}
 
 export const Sunburst = <Datum extends Record<string, unknown>>(props: SunburstSvgProps<Datum>) => {
     const {
@@ -45,7 +32,6 @@ export const Sunburst = <Datum extends Record<string, unknown>>(props: SunburstS
         height,
 
         cornerRadius,
-        // arcGenerator,
 
         borderWidth,
         borderColor,
@@ -106,7 +92,6 @@ export const Sunburst = <Datum extends Record<string, unknown>>(props: SunburstS
 
         return sortBy(partition(cloneDeep(data)).descendants(), 'depth').reduce(
             (acc, { children: _children, ...node }) => {
-                const ancestor = getAncestor(node).data
                 const value = node.value ?? 0
                 const id = getIdentity<Data<Datum>, string>(node.data)
                 const data = {
@@ -114,7 +99,6 @@ export const Sunburst = <Datum extends Record<string, unknown>>(props: SunburstS
                     value,
                     percentage: (100 * value) / total,
                     depth: node.depth,
-                    ancestor,
                 }
                 const parent = acc.find(
                     n => node.parent && n.data.id === getIdentity(node.parent.data)
