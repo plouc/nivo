@@ -25,7 +25,9 @@ export const SunburstArc = ({
                 color={node.data.color}
                 format={tooltipFormat}
                 renderContent={
-                    typeof _tooltip === 'function' ? _tooltip.bind(null, { ...node.data }) : null
+                    typeof _tooltip === 'function'
+                        ? _tooltip.bind(null, { ...node.data })
+                        : undefined
                 }
             />
         ),

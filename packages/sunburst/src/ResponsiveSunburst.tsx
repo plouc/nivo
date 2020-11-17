@@ -1,5 +1,4 @@
 import React from 'react'
-// @ts-ignore
 import { ResponsiveWrapper } from '@nivo/core'
 import { Sunburst } from './Sunburst'
 import { SunburstSvgProps } from './types'
