@@ -9,7 +9,7 @@
 // import flattenDepth from 'lodash/flattenDepth'
 import { computeScale } from '@nivo/scales'
 import { stack, stackOffsetDiverging } from 'd3-shape'
-import { getIndexedScale, normalizeData } from './common'
+import { getIndexedScale, filterNullValues, normalizeData } from './common'
 
 const flattenDeep = (array, depth = 1) =>
     depth > 0
@@ -57,7 +57,7 @@ const generateVerticalStackedBars = (
                     value: d.data[stackedDataItem.key],
                     index: i,
                     indexValue: index,
-                    data: d.data,
+                    data: filterNullValues(d.data),
                 }
 
                 return {
@@ -113,7 +113,7 @@ const generateHorizontalStackedBars = (
                     value: d.data[stackedDataItem.key],
                     index: i,
                     indexValue: index,
-                    data: d.data,
+                    data: filterNullValues(d.data),
                 }
 
                 return {
