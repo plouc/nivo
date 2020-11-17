@@ -6722,6 +6722,11 @@
     text-table "^0.2.0"
     webpack-log "^1.1.2"
 
+"@wyze/clog-cli@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@wyze/clog-cli/-/clog-cli-1.0.0.tgz#af5413b0162e1ef77f0aaa70bff19f524bbc2400"
+  integrity sha512-bC+TWw8ZTsVFJtYc0X1PqCRNRzA8yhI1eNAY79jvKG+fC4eDQpjfTl5SpsuIBJZIR3gnT91CcRo5tWnGGFDbOg==
+
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@xtuc/ieee754/-/ieee754-1.2.0.tgz#eef014a3145ae477a1cbc00cd1e552336dceb790"
@@ -9303,11 +9308,6 @@ cliui@^7.0.2:
     string-width "^4.2.0"
     strip-ansi "^6.0.0"
     wrap-ansi "^7.0.0"
-
-clog-cli@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/clog-cli/-/clog-cli-1.0.0.tgz#e5ee1f9f1baa4717585e1b67cbdf613189b73a27"
-  integrity sha1-5e4fnxuqRxdYXhtny99hMYm3Oic=
 
 clone-deep@^0.2.4:
   version "0.2.4"
