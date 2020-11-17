@@ -96,38 +96,40 @@ declare module '@nivo/core' {
         }
     }
 
-    export type Theme = Partial<{
-        crosshair: Partial<{
-            line: Partial<CompleteTheme['crosshair']['line']>
-        }>
-        axis: Partial<{
-            domain: Partial<{
-                line: Partial<CompleteTheme['axis']['domain']['line']>
+    export type Theme = Partial<
+        Pick<CompleteTheme, 'background' | 'fontFamily' | 'fontSize' | 'textColor'> & {
+            crosshair: Partial<{
+                line: Partial<CompleteTheme['crosshair']['line']>
             }>
-            ticks: Partial<{
-                line: Partial<CompleteTheme['axis']['ticks']['line']>
-                text: Partial<CompleteTheme['axis']['ticks']['text']>
+            axis: Partial<{
+                domain: Partial<{
+                    line: Partial<CompleteTheme['axis']['domain']['line']>
+                }>
+                ticks: Partial<{
+                    line: Partial<CompleteTheme['axis']['ticks']['line']>
+                    text: Partial<CompleteTheme['axis']['ticks']['text']>
+                }>
+                legend: Partial<{
+                    text: Partial<CompleteTheme['axis']['legend']['text']>
+                }>
             }>
-            legend: Partial<{
-                text: Partial<CompleteTheme['axis']['legend']['text']>
+            grid: Partial<{
+                line: Partial<CompleteTheme['grid']['line']>
             }>
-        }>
-        grid: Partial<{
-            line: Partial<CompleteTheme['grid']['line']>
-        }>
-        legends: Partial<{
-            text: Partial<CompleteTheme['legends']['text']>
-        }>
-        labels: Partial<{
-            text: Partial<CompleteTheme['labels']['text']>
-        }>
-        markers: Partial<CompleteTheme['markers']>
-        dots: Partial<{
-            text: Partial<CompleteTheme['dots']['text']>
-        }>
-        tooltip: Partial<CompleteTheme['tooltip']>
-        annotations: Partial<CompleteTheme['annotations']>
-    }>
+            legends: Partial<{
+                text: Partial<CompleteTheme['legends']['text']>
+            }>
+            labels: Partial<{
+                text: Partial<CompleteTheme['labels']['text']>
+            }>
+            markers: Partial<CompleteTheme['markers']>
+            dots: Partial<{
+                text: Partial<CompleteTheme['dots']['text']>
+            }>
+            tooltip: Partial<CompleteTheme['tooltip']>
+            annotations: Partial<CompleteTheme['annotations']>
+        }
+    >
 
     export function useTheme(): CompleteTheme
 
