@@ -33,6 +33,9 @@
     "recompose": "^0.30.0",
     "resize-observer-polyfill": "^1.5.1"
   },
+  "devDependencies": {
+    "@nivo/tooltip": "0.65.1"
+  },
   "peerDependencies": {
     "@nivo/tooltip": "0.63.0",
     "prop-types": ">= 15.5.10 < 16.0.0",
