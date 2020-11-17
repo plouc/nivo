@@ -35,6 +35,7 @@
     "@types/react": "^16.9.16",
     "@typescript-eslint/eslint-plugin": "^4.6.1",
     "@typescript-eslint/parser": "^4.6.1",
+    "@wyze/clog-cli": "^1.0.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.1.0",
@@ -72,7 +73,6 @@
     "rollup-plugin-strip-banner": "^2.0.0",
     "rollup-plugin-visualizer": "^4.2.0",
     "serve": "^11.2.0",
-    "standard-version": "^9.0.0",
     "typescript": "^4.0.5"
   },
   "resolutions": {
@@ -80,7 +80,7 @@
     "react-dom": "16.8.6"
   },
   "scripts": {
-    "changelog": "standard-version",
+    "changelog": "rm CHANGELOG.md && node scripts/generate-changelog.js",
     "make:init": "make init",
     "version": "yarn changelog && node scripts/bump-peer-deps.js"
   },
@@ -91,12 +91,5 @@
   ],
   "dependencies": {
     "npm-normalize-package-bin": "^1.0.1"
-  },
-  "standard-version": {
-    "skip": {
-      "bump": true,
-      "commit": true,
-      "tag": true
-    }
   }
 }

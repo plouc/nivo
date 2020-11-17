@@ -1,17 +1,11 @@
-# Changelog
-
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
-
-## [](https://github.com/plouc/nivo/compare/v0.65.1...v) (2020-11-16)
-
-
-### Bug Fixes
-
-* **changelog:** vendor clog and allow setting a tag date ([193372c](https://github.com/plouc/nivo/commit/193372cb481a5655738aa949fec4d938312f9d36))
-
 <a name="v0.65.1"></a>
 ## v0.65.1 (2020-11-17)
 
+
+#### Chore
+
+* **build:**  add version script to bump peer dependencies on new version ([ea55db20](https://github.com/plouc/nivo/commit/ea55db2054b240cd0e8f90f55d635cec9b85ed88))
+* **changelog:**  update changelog ([1d5a4830](https://github.com/plouc/nivo/commit/1d5a4830865210eebbd6eb705420978f55aa4848))
 
 
 
@@ -119,12 +113,19 @@ All notable changes to this project will be documented in this file. See [standa
   *  patch react-spring due to known issue with Gatsby ([c35b4e96](https://github.com/plouc/nivo/commit/c35b4e96c6f7103f3400ff02fc2b423eb741081b))
   *  changes to get deployment to work ([09f46839](https://github.com/plouc/nivo/commit/09f468393643580bb6d2c2fdb35c01d737109a4b))
 
+#### Chore
 
-=======
-# Changelog
+* **bullet:**  add proper tests ([6168b680](https://github.com/plouc/nivo/commit/6168b6809bca15047495e1383bbe932741cde20e))
+* **changelog:**  update changelog ([ea1ff453](https://github.com/plouc/nivo/commit/ea1ff453e30d9890a858b39e90026d7cf1d80b8a))
+* **core:**  move @nivo/core to peer deps and add it to dev deps ([d22679c0](https://github.com/plouc/nivo/commit/d22679c0bb3369763f757ca73d26410a47a95092))
+* **deps:**
+  *  pin react-spring version ([3ba34a22](https://github.com/plouc/nivo/commit/3ba34a22aed3c85f09976f6afee0b42805a04a40))
+  *  add repository field to every package.json (#1268) ([7f50401b](https://github.com/plouc/nivo/commit/7f50401bc041191311a5774f11a4bbff487ab91f))
+* **lint:**
+  *  add eslint-plugin-prettier ([daa9262a](https://github.com/plouc/nivo/commit/daa9262a416021e5728e4a79e44d4105d4ece8e6))
+  *  switch from tslint to eslint ([10642f16](https://github.com/plouc/nivo/commit/10642f169c0edea66637e0d1ca041b9ed9c5c602))
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
->>>>>>> Stashed changes
+
 
 <a name="v0.64.0"></a>
 ## v0.64.0 (2020-11-06)
@@ -208,6 +209,13 @@ All notable changes to this project will be documented in this file. See [standa
 * **tooltip:**  Show tooltip on first tap for touch devices (#1185) ([f712cfaa](https://github.com/plouc/nivo/commit/f712cfaa1b75917784506989949a2483f652cd8b))
 * **website:**  fix crash caused by calendar tooltip (#1214) ([7eb69175](https://github.com/plouc/nivo/commit/7eb69175f10855cc433ec7d75faa33a43baee3a5))
 
+#### Chore
+
+* **changelog:**  update changelog ([78545294](https://github.com/plouc/nivo/commit/785452949ae3c266edb86cabdf70d3e16cbca045))
+* **ci:**  add website to codesandbox ci (#1199) ([f14c5234](https://github.com/plouc/nivo/commit/f14c523447463807d157aad629af2b2aa859b736))
+* **infrastructure:**  remove examples install during init ([98ddad4a](https://github.com/plouc/nivo/commit/98ddad4a0fb6499e29c189ff95b819d4aeec1519))
+* **storybook:**  Storybook 6.0.X Upgrade (#1177) ([48d402e9](https://github.com/plouc/nivo/commit/48d402e98a4fc08575b48e4518d568ace438c9f6))
+
 
 
 <a name="v0.63.1"></a>
@@ -229,6 +237,10 @@ All notable changes to this project will be documented in this file. See [standa
 * **sankey:**  switch to useAnimatedPath hook ([a5cdf26f](https://github.com/plouc/nivo/commit/a5cdf26f789ef3d55981f0cdcc579c7f37c4ebcc))
 * **storybook:**  always pull latest version of generators package (#1176) ([9e230cef](https://github.com/plouc/nivo/commit/9e230cefc80944a28a3e903ac0756777895832e0))
 * **stream:**  switch to useAnimatedPath hook ([d983b19c](https://github.com/plouc/nivo/commit/d983b19c844f3208d3e21d81e979ec99ac976c3f))
+
+#### Chore
+
+* **changelog:**  update changelog (#1166) ([55954821](https://github.com/plouc/nivo/commit/5595482133d85a8bf4fdddcc23f32fe8e956ed13))
 
 
 
@@ -348,6 +360,12 @@ All notable changes to this project will be documented in this file. See [standa
   *  fix TreeMap usage on homepage ([09d3bc9f](https://github.com/plouc/nivo/commit/09d3bc9ff2efcbc4a387012dc68e3be368d2a13d))
   *  fix TreeMap in colors guide ([24327df4](https://github.com/plouc/nivo/commit/24327df4e032c4f089ca1fb5550e639e82526982))
 
+#### Chore
+
+* **docs:**  Add Testing section in CONTRIBUTING.md (#1059) ([565dc755](https://github.com/plouc/nivo/commit/565dc7559f8eca987e1bc955c7fd2c47dfb3ba29))
+* **funding:**  add wyze to the list of contributors in funding config ([e2f8cec4](https://github.com/plouc/nivo/commit/e2f8cec455fe447db411d8cad7fb75ca39490733))
+* **legends:**  fix broken snapshots (#1023) ([2e7deed7](https://github.com/plouc/nivo/commit/2e7deed7460f6327264ccd6664ab0eb512f15617))
+
 
 
 <a name="v0.62.0"></a>
@@ -397,6 +415,11 @@ All notable changes to this project will be documented in this file. See [standa
   *  fix spelling mistake (#805) ([468a5538](https://github.com/plouc/nivo/commit/468a5538cde92b6125b149d14a11a714baee7382))
   *  Add closed bracket in gradients example code (#889) ([15bc0ee7](https://github.com/plouc/nivo/commit/15bc0ee73e2890c65f2effd13923a78f6269a6e0))
 
+#### Chore
+
+* **changelog:**  update changelog ([793bebc8](https://github.com/plouc/nivo/commit/793bebc8a972607820227ee87da1d3221caff9fc))
+* **generators:**  change up treemap data ([54c9bf8f](https://github.com/plouc/nivo/commit/54c9bf8f38155fb728186281e0af8c1cac4164de))
+
 
 
 <a name="v0.61.2"></a>
@@ -406,6 +429,10 @@ All notable changes to this project will be documented in this file. See [standa
 #### Features
 
 * **sankey:**  add support for layers to Sankey ([842ae0df](https://github.com/plouc/nivo/commit/842ae0df00c239dac526d148645841027bd60552))
+
+#### Chore
+
+* **changelog:**  update changelog ([48a9ecec](https://github.com/plouc/nivo/commit/48a9ecec535fb834253e78afc9b8b702d0d152e7))
 
 
 
@@ -420,6 +447,10 @@ All notable changes to this project will be documented in this file. See [standa
   *  make sure to pass the theme object when using canvas legends ([ae621162](https://github.com/plouc/nivo/commit/ae6211629fd5ed56f98bceb83e9355a74b962dc7))
   *  honor theme font settings for labels ([e4a65fc4](https://github.com/plouc/nivo/commit/e4a65fc4199465bfe1a0920d30c0c7bc2aa72711))
   *  fix vertical alignment of canvas labels ([559e3c78](https://github.com/plouc/nivo/commit/559e3c78ff1298584f8e410b9c5cf8a47f7cce76))
+
+#### Chore
+
+* **doc:**  add explanation about the geo features file ([b199b278](https://github.com/plouc/nivo/commit/b199b2789c9faeed7f88227344c07f4dff1245fb))
 
 
 
@@ -440,6 +471,10 @@ All notable changes to this project will be documented in this file. See [standa
   *  fix lerna arg ([97fcb868](https://github.com/plouc/nivo/commit/97fcb86849a8d90bc056cda184c22b37d2680a40))
 * **scatterplot:**  fix scatterplot unit tests ([c6b01ff1](https://github.com/plouc/nivo/commit/c6b01ff1a608f8bee0b1c77b8db0f264cb88dbf5))
 
+#### Chore
+
+* **deps:**  upgrade deps ([5098e530](https://github.com/plouc/nivo/commit/5098e530c08185bdf81e1421f38edc52a1674a3e))
+
 
 
 <a name="v0.60.1"></a>
@@ -459,6 +494,10 @@ All notable changes to this project will be documented in this file. See [standa
 #### Bug Fixes
 
 * **bar:**  add ability to use number for grid lines (#669) ([3d48b94d](https://github.com/plouc/nivo/commit/3d48b94d5e8e66665691129578fab4c55fa61d49))
+
+#### Chore
+
+* **website:**  upgrade dependencies ([6743820f](https://github.com/plouc/nivo/commit/6743820fe8f15686a90f1bd0a599d773f8e98713))
 
 
 
@@ -488,6 +527,27 @@ All notable changes to this project will be documented in this file. See [standa
 * **tooltip:**  update tooltip TypeScript types. (#657) ([305a536f](https://github.com/plouc/nivo/commit/305a536f4cff6401da179598d9bc688822528b16))
 * **website:**  fix responsive problems with component's tab (#722) ([ccbb4de0](https://github.com/plouc/nivo/commit/ccbb4de0211f0a166903750aac17ab5e74dade75))
 
+#### Chore
+
+* **doc:**
+  *  fix broken markdown description of the 'labelFormat' property (#748) ([d1efd7d3](https://github.com/plouc/nivo/commit/d1efd7d3f939ef0c1604d0da33eab09b9a6b4b32))
+  *  fix bar previews in README.md (#759) ([cdfec980](https://github.com/plouc/nivo/commit/cdfec980cd9900804501fd36de555507a3a41e47))
+  *  fix bullet previews in README.md (#760) ([a9442eba](https://github.com/plouc/nivo/commit/a9442eba6155ca8af13e9b064dcaaa888889127b))
+  *  fix calendar previews in README.md (#761) ([62d4f4dc](https://github.com/plouc/nivo/commit/62d4f4dc60e99a22f40d0cf815d46849efca4596))
+  *  fix circle-packing previews in README.md (#762) ([90afc53b](https://github.com/plouc/nivo/commit/90afc53bf198f4106a3ffaa9fc01fecbcafcd082))
+  *  fix geo previews in README.md (#763) ([3a7267a3](https://github.com/plouc/nivo/commit/3a7267a33994769a2bd3fe86a0c52909fee7f73b))
+  *  fix heatmap previews in README.md (#764) ([304825ce](https://github.com/plouc/nivo/commit/304825ce25174fe7078b4777d3e868e7ba36d11e))
+  *  fix parallel-coordinates previews in README.md (#765) ([6a7ce3e7](https://github.com/plouc/nivo/commit/6a7ce3e71b93a1efd42a766a55c2e03583322097))
+  *  fix pie previews in README.md (#766) ([a94c9c40](https://github.com/plouc/nivo/commit/a94c9c40ef8d0e7a2de206dbfc2038b740decce9))
+  *  fix radar previews in README.md (#767) ([c557d303](https://github.com/plouc/nivo/commit/c557d303dde079afa6f08e2396a37196cfe95a46))
+  *  fix sankey previews in README.md (#768) ([0eada510](https://github.com/plouc/nivo/commit/0eada510a2aff0e4b12d7babe3fee20e7e568e76))
+  *  fix scatterplot previews in README.md (#769) ([b952aded](https://github.com/plouc/nivo/commit/b952aded8e7132a7f7e7fe6db243922e97442a6a))
+  *  fix sunburst previews in README.md (#770) ([35706ad2](https://github.com/plouc/nivo/commit/35706ad2404b61516e20247a9290891e96b3b637))
+  *  fix stream previews in README.md (#771) ([ea2b9a8a](https://github.com/plouc/nivo/commit/ea2b9a8a67d81407a64dd1b0b2a78b3ce9fa3ed0))
+  *  fix treemap previews in README.md (#772) ([58c9e268](https://github.com/plouc/nivo/commit/58c9e268d09627154d1aaff7b5b58b5b2a9f7493))
+  *  fix voronoi previews in README.md (#773) ([0820afe7](https://github.com/plouc/nivo/commit/0820afe7d2f4e7b5979dcdf44f0b3a6e3547ebcc))
+  *  fix waffle previews in README.md (#774) ([474f9f75](https://github.com/plouc/nivo/commit/474f9f75f9f1826e029f430d28f506a79b03ed38))
+
 
 
 <a name="v0.59.3"></a>
@@ -501,6 +561,11 @@ All notable changes to this project will be documented in this file. See [standa
 #### Bug Fixes
 
 * **voronoi:**  upgrade d3-delaunay to fix single/collinear points (#640) ([b93c96a5](https://github.com/plouc/nivo/commit/b93c96a58d4614d020142648630ab7cdffc84094))
+
+#### Chore
+
+* **ci:**  disable build steps ([cdaf6fdf](https://github.com/plouc/nivo/commit/cdaf6fdf5a725dbd8235a245fcea433a2c34a7c1))
+* **website:**  upgrade gatsby ([e8a8671f](https://github.com/plouc/nivo/commit/e8a8671f8066387fb6972451b556503a64cd72c9))
 
 
 
@@ -703,6 +768,10 @@ All notable changes to this project will be documented in this file. See [standa
 * **scatterplot:**  fix scatterplot voronoi overlay ([3bdc783e](https://github.com/plouc/nivo/commit/3bdc783e215362bd039a13eb22bd4918ca38e4a9))
 * **treemap:**  add missing default colorBy ([ba91da53](https://github.com/plouc/nivo/commit/ba91da53d7e843681db0440203a9d14ae94a8f2f))
 
+#### Chore
+
+* **lockfile:**  update lockfile ([6285d548](https://github.com/plouc/nivo/commit/6285d548440beee68d8450d374e6865b52fa36c1))
+
 
 
 <a name="v0.55.0"></a>
@@ -766,6 +835,10 @@ All notable changes to this project will be documented in this file. See [standa
 
 * **website:**  fix broken legends guide ([cc3cb0b1](https://github.com/plouc/nivo/commit/cc3cb0b15171a0d1fa7851420841adc74c2cc8d4))
 
+#### Chore
+
+* **react:**  require React 16.8.4 for future hook usage ([16253fab](https://github.com/plouc/nivo/commit/16253fab9f7bc7e2aa7a13f0d060ceedf5420892))
+
 
 
 <a name="v0.53.1"></a>
@@ -805,6 +878,11 @@ All notable changes to this project will be documented in this file. See [standa
 * **typescript:**  fix TableTooltip and LineComputedSerieDatum-type (#428) ([fd35f78e](https://github.com/plouc/nivo/commit/fd35f78e93198d459b0ac14afdde09625f156e96))
 * **website:**  fix wrong title on the guides/axes page (#441) ([91eacdbe](https://github.com/plouc/nivo/commit/91eacdbe6e19ecf2ba454f8d7c0a07a35e4a5f25))
 
+#### Chore
+
+* **deps:**  upgrade few dependencies ([233e2eaf](https://github.com/plouc/nivo/commit/233e2eaf0b2fa93a840d71cf03a990d5cca62504))
+* **github:**  add issue template ([944f8bdf](https://github.com/plouc/nivo/commit/944f8bdfac058ccce0ee48f331a0b4b1f47c5d22))
+
 
 
 <a name="v0.52.1"></a>
@@ -825,6 +903,11 @@ All notable changes to this project will be documented in this file. See [standa
 * **bar:**  Allow BarItem label property to accept React.Element ([48c8e410](https://github.com/plouc/nivo/commit/48c8e410ba8acc5b05add184bad2542c026a21f8))
 * **lodash:**  use scoped imports ([dea6a75f](https://github.com/plouc/nivo/commit/dea6a75f921e4e6e9c62a7ebb987c32fafbe04f8))
 * **typescript:**  Allow axis to be AxisProps or `null` ([5d45796f](https://github.com/plouc/nivo/commit/5d45796f5a9ed8c4e7c55e979a5681e2edc10948))
+
+#### Chore
+
+* **line:**  Pass showTooltip and hideTooltip to custom layers (#425) ([a6a120ed](https://github.com/plouc/nivo/commit/a6a120ed905a8bd5e5cc51f7d53e70a1aca0a11a))
+* **packages:**  cleanup packages on build ([75361dc4](https://github.com/plouc/nivo/commit/75361dc476ccbfce03e69d78d2e9e1e32cd4288f))
 
 
 
@@ -2063,6 +2146,7 @@ All notable changes to this project will be documented in this file. See [standa
   *  fix crash when no data is empty ([5ac42141](https://github.com/plouc/nivo/commit/5ac42141d2495aa1b4afc22e6e2ada3e7b7e9a51))
   *  fix regression on calendar ([b687ec84](https://github.com/plouc/nivo/commit/b687ec8483905da27989da4a91df3c7c78a61eec))
 * **canvas:**  fix resizing when using canvas based components ([0d41f563](https://github.com/plouc/nivo/commit/0d41f563783d9ef0428808ff2439dd9e90042aee))
+* **changelog:**  vendor clog and allow setting a tag date ([193372cb](https://github.com/plouc/nivo/commit/193372cb481a5655738aa949fec4d938312f9d36))
 * **chord:**
   *  skip rendering for zero/negative radius ([647a496a](https://github.com/plouc/nivo/commit/647a496a250f1d558fff18ec193d2554043d1eb0))
   *  fix broken imports ([252efc0f](https://github.com/plouc/nivo/commit/252efc0f0a6694af0191b951bca3a7f93c0aef7a))
@@ -2247,3 +2331,93 @@ All notable changes to this project will be documented in this file. See [standa
 
 * **calendar:**  memoize CalendarLayout monthPathAndBBox function ([9c435722](https://github.com/plouc/nivo/commit/9c43572236b03189e098949c9e849195413db70a))
 * **radar:**  improve radar chart performance ([40d8bc65](https://github.com/plouc/nivo/commit/40d8bc65f528fd3e5ada2c498eb83fc42c309d02))
+
+#### Chore
+
+* **build:**  add version script to bump peer dependencies on new version ([ea55db20](https://github.com/plouc/nivo/commit/ea55db2054b240cd0e8f90f55d635cec9b85ed88))
+* **bullet:**  add proper tests ([6168b680](https://github.com/plouc/nivo/commit/6168b6809bca15047495e1383bbe932741cde20e))
+* **changelog:**
+  *  switch to standard-version ([26b9e8fe](https://github.com/plouc/nivo/commit/26b9e8fee42068efd069de9295296062caf838bc))
+  *  update changelog ([1d5a4830](https://github.com/plouc/nivo/commit/1d5a4830865210eebbd6eb705420978f55aa4848))
+  *  update changelog ([ea1ff453](https://github.com/plouc/nivo/commit/ea1ff453e30d9890a858b39e90026d7cf1d80b8a))
+  *  update changelog ([78545294](https://github.com/plouc/nivo/commit/785452949ae3c266edb86cabdf70d3e16cbca045))
+  *  update changelog (#1166) ([55954821](https://github.com/plouc/nivo/commit/5595482133d85a8bf4fdddcc23f32fe8e956ed13))
+  *  update changelog ([793bebc8](https://github.com/plouc/nivo/commit/793bebc8a972607820227ee87da1d3221caff9fc))
+  *  update changelog ([48a9ecec](https://github.com/plouc/nivo/commit/48a9ecec535fb834253e78afc9b8b702d0d152e7))
+* **ci:**
+  *  add website to codesandbox ci (#1199) ([f14c5234](https://github.com/plouc/nivo/commit/f14c523447463807d157aad629af2b2aa859b736))
+  *  disable build steps ([cdaf6fdf](https://github.com/plouc/nivo/commit/cdaf6fdf5a725dbd8235a245fcea433a2c34a7c1))
+* **cleanup:**  cleanup structure & unused code ([ac2bb9e6](https://github.com/plouc/nivo/commit/ac2bb9e66d486b05d599195c7d084e1fc351e12c))
+* **colorUtils:**  replace getColorGenerator() with getInheritedColorGenerator() ([0816ff37](https://github.com/plouc/nivo/commit/0816ff37a25e3efa1fc473cab9f050d345641d5b))
+* **core:**
+  *  move @nivo/core to peer deps and add it to dev deps ([d22679c0](https://github.com/plouc/nivo/commit/d22679c0bb3369763f757ca73d26410a47a95092))
+  *  improve build & publish ([bbc40177](https://github.com/plouc/nivo/commit/bbc40177b871a1dcb6e318504b7e61f91bdfc6b5))
+* **d3:**  upgrade to d3 v4 ([4827b700](https://github.com/plouc/nivo/commit/4827b700a3f4cdda87e68dbea0de59e9a73a1e29))
+* **defaults:**
+  *  move Chart margin defaults to Nivo ([304d6edf](https://github.com/plouc/nivo/commit/304d6edf4b55573b56fa6ea1620f2b66380bec30))
+  *  attach common defaults props to global module ([50fee176](https://github.com/plouc/nivo/commit/50fee176f5009a4cb06d129d3c93b13cc8f856f7))
+* **deps:**
+  *  pin react-spring version ([3ba34a22](https://github.com/plouc/nivo/commit/3ba34a22aed3c85f09976f6afee0b42805a04a40))
+  *  add repository field to every package.json (#1268) ([7f50401b](https://github.com/plouc/nivo/commit/7f50401bc041191311a5774f11a4bbff487ab91f))
+  *  upgrade deps ([5098e530](https://github.com/plouc/nivo/commit/5098e530c08185bdf81e1421f38edc52a1674a3e))
+  *  upgrade few dependencies ([233e2eaf](https://github.com/plouc/nivo/commit/233e2eaf0b2fa93a840d71cf03a990d5cca62504))
+  *  upgrade deps ([9728dd85](https://github.com/plouc/nivo/commit/9728dd85662c9c26c3193b7db5bea5eaf61377ec))
+  *  remove unused dependencies ([f7b0557b](https://github.com/plouc/nivo/commit/f7b0557be5bc664bcd5a72ba2d521f76e1e8aace))
+  *  upgrade deps ([abb01397](https://github.com/plouc/nivo/commit/abb01397bd6d2c960e9ac12bf014771e69b37d63))
+* **displayName:**  override wrapped component displayName ([d9a4cf9a](https://github.com/plouc/nivo/commit/d9a4cf9afc8315220d5246752853891794670b0e))
+* **doc:**
+  *  add explanation about the geo features file ([b199b278](https://github.com/plouc/nivo/commit/b199b2789c9faeed7f88227344c07f4dff1245fb))
+  *  fix broken markdown description of the 'labelFormat' property (#748) ([d1efd7d3](https://github.com/plouc/nivo/commit/d1efd7d3f939ef0c1604d0da33eab09b9a6b4b32))
+  *  fix bar previews in README.md (#759) ([cdfec980](https://github.com/plouc/nivo/commit/cdfec980cd9900804501fd36de555507a3a41e47))
+  *  fix bullet previews in README.md (#760) ([a9442eba](https://github.com/plouc/nivo/commit/a9442eba6155ca8af13e9b064dcaaa888889127b))
+  *  fix calendar previews in README.md (#761) ([62d4f4dc](https://github.com/plouc/nivo/commit/62d4f4dc60e99a22f40d0cf815d46849efca4596))
+  *  fix circle-packing previews in README.md (#762) ([90afc53b](https://github.com/plouc/nivo/commit/90afc53bf198f4106a3ffaa9fc01fecbcafcd082))
+  *  fix geo previews in README.md (#763) ([3a7267a3](https://github.com/plouc/nivo/commit/3a7267a33994769a2bd3fe86a0c52909fee7f73b))
+  *  fix heatmap previews in README.md (#764) ([304825ce](https://github.com/plouc/nivo/commit/304825ce25174fe7078b4777d3e868e7ba36d11e))
+  *  fix parallel-coordinates previews in README.md (#765) ([6a7ce3e7](https://github.com/plouc/nivo/commit/6a7ce3e71b93a1efd42a766a55c2e03583322097))
+  *  fix pie previews in README.md (#766) ([a94c9c40](https://github.com/plouc/nivo/commit/a94c9c40ef8d0e7a2de206dbfc2038b740decce9))
+  *  fix radar previews in README.md (#767) ([c557d303](https://github.com/plouc/nivo/commit/c557d303dde079afa6f08e2396a37196cfe95a46))
+  *  fix sankey previews in README.md (#768) ([0eada510](https://github.com/plouc/nivo/commit/0eada510a2aff0e4b12d7babe3fee20e7e568e76))
+  *  fix scatterplot previews in README.md (#769) ([b952aded](https://github.com/plouc/nivo/commit/b952aded8e7132a7f7e7fe6db243922e97442a6a))
+  *  fix sunburst previews in README.md (#770) ([35706ad2](https://github.com/plouc/nivo/commit/35706ad2404b61516e20247a9290891e96b3b637))
+  *  fix stream previews in README.md (#771) ([ea2b9a8a](https://github.com/plouc/nivo/commit/ea2b9a8a67d81407a64dd1b0b2a78b3ce9fa3ed0))
+  *  fix treemap previews in README.md (#772) ([58c9e268](https://github.com/plouc/nivo/commit/58c9e268d09627154d1aaff7b5b58b5b2a9f7493))
+  *  fix voronoi previews in README.md (#773) ([0820afe7](https://github.com/plouc/nivo/commit/0820afe7d2f4e7b5979dcdf44f0b3a6e3547ebcc))
+  *  fix waffle previews in README.md (#774) ([474f9f75](https://github.com/plouc/nivo/commit/474f9f75f9f1826e029f430d28f506a79b03ed38))
+* **docs:**  Add Testing section in CONTRIBUTING.md (#1059) ([565dc755](https://github.com/plouc/nivo/commit/565dc7559f8eca987e1bc955c7fd2c47dfb3ba29))
+* **dx:**  validate commit msg & run formatting on commit ([516b0971](https://github.com/plouc/nivo/commit/516b0971c4f10b9dfaa86f30c135deb7adedabfb))
+* **funding:**  add wyze to the list of contributors in funding config ([e2f8cec4](https://github.com/plouc/nivo/commit/e2f8cec455fe447db411d8cad7fb75ca39490733))
+* **generators:**  change up treemap data ([54c9bf8f](https://github.com/plouc/nivo/commit/54c9bf8f38155fb728186281e0af8c1cac4164de))
+* **github:**  add issue template ([944f8bdf](https://github.com/plouc/nivo/commit/944f8bdfac058ccce0ee48f331a0b4b1f47c5d22))
+* **header:**  update src files header ([786dc9a5](https://github.com/plouc/nivo/commit/786dc9a5dbcbd07fc85ba1c38b6564b8be2df35a))
+* **infrastructure:**  remove examples install during init ([98ddad4a](https://github.com/plouc/nivo/commit/98ddad4a0fb6499e29c189ff95b819d4aeec1519))
+* **init:**
+  *  init tests ([17c9c940](https://github.com/plouc/nivo/commit/17c9c940c8e2121ea06e6f65fa2a1a954c473880))
+  *  init project ([266fad50](https://github.com/plouc/nivo/commit/266fad5016e3f8f5e59eb70fea88e5529bdf7d20))
+* **legends:**  fix broken snapshots (#1023) ([2e7deed7](https://github.com/plouc/nivo/commit/2e7deed7460f6327264ccd6664ab0eb512f15617))
+* **license:**  add missing file headers ([7990f0a6](https://github.com/plouc/nivo/commit/7990f0a69317915cce01ee32953835b5b278b08b))
+* **line:**  Pass showTooltip and hideTooltip to custom layers (#425) ([a6a120ed](https://github.com/plouc/nivo/commit/a6a120ed905a8bd5e5cc51f7d53e70a1aca0a11a))
+* **lint:**
+  *  add eslint-plugin-prettier ([daa9262a](https://github.com/plouc/nivo/commit/daa9262a416021e5728e4a79e44d4105d4ece8e6))
+  *  switch from tslint to eslint ([10642f16](https://github.com/plouc/nivo/commit/10642f169c0edea66637e0d1ca041b9ed9c5c602))
+* **lockfile:**  update lockfile ([6285d548](https://github.com/plouc/nivo/commit/6285d548440beee68d8450d374e6865b52fa36c1))
+* **logo:**  update nivo logo ([ef776791](https://github.com/plouc/nivo/commit/ef7767914b8d76896278b9f222063493ae847d3a))
+* **packages:**  cleanup packages on build ([75361dc4](https://github.com/plouc/nivo/commit/75361dc476ccbfce03e69d78d2e9e1e32cd4288f))
+* **propTypes:**  add custom margin propType ([8aea537b](https://github.com/plouc/nivo/commit/8aea537baf8311bb133e3bcfb7fe1cbaeb96b01c))
+* **react:**  require React 16.8.4 for future hook usage ([16253fab](https://github.com/plouc/nivo/commit/16253fab9f7bc7e2aa7a13f0d060ceedf5420892))
+* **refacto:**  update project structure ([3bc33ca6](https://github.com/plouc/nivo/commit/3bc33ca6349497b4d94ed06786e094d15d3e6894))
+* **rename:**  rename test commands ([0f9544b0](https://github.com/plouc/nivo/commit/0f9544b00f604eaf2c45d87d5edf3bdf88374ade))
+* **storybook:**  Storybook 6.0.X Upgrade (#1177) ([48d402e9](https://github.com/plouc/nivo/commit/48d402e98a4fc08575b48e4518d568ace438c9f6))
+* **style:**  add missing formatting ([cae0b423](https://github.com/plouc/nivo/commit/cae0b423dc99d98e515be86d7617113c01c00f44))
+* **tests:**
+  *  disable test coverage for browser tests ([30b4338b](https://github.com/plouc/nivo/commit/30b4338b5b558bee8995507b9a6fb984e1027426))
+  *  disable test coverage for browser tests ([0591c404](https://github.com/plouc/nivo/commit/0591c404733498a44127951114be3b603d93493e))
+  *  init browser tests via karma ([f649ee2d](https://github.com/plouc/nivo/commit/f649ee2d5f71b5693a109a54a97e914a3db43ecd))
+  *  add test:watch command ([bf8e189f](https://github.com/plouc/nivo/commit/bf8e189ff12b42bd6a24e339714aa8a05228672b))
+* **upgrade:**  upgrade deps ([5a4fe263](https://github.com/plouc/nivo/commit/5a4fe2637db8d12e2674cef75fc36c7c060fb1c9))
+* **website:**
+  *  upgrade dependencies ([6743820f](https://github.com/plouc/nivo/commit/6743820fe8f15686a90f1bd0a599d773f8e98713))
+  *  upgrade gatsby ([e8a8671f](https://github.com/plouc/nivo/commit/e8a8671f8066387fb6972451b556503a64cd72c9))
+
+
+
