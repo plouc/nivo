@@ -99,6 +99,7 @@ declare module '@nivo/bar' {
         padding: number
 
         valueScale: Scale
+        indexedScale: Scale
 
         axisBottom: AxisProps | null
         axisLeft: AxisProps | null
