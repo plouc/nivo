@@ -19,3 +19,12 @@ import { scaleBand } from 'd3-scale'
  */
 export const getIndexedScale = (data, getIndex, range, padding) =>
     scaleBand().rangeRound(range).domain(data.map(getIndex)).padding(padding)
+
+export const normalizeData = (data, keys) =>
+    data.map(item => ({
+        ...keys.reduce((acc, key) => ({ ...acc, [key]: null }), {}),
+        ...item,
+    }))
+
+export const filterNullValues = data =>
+    Object.keys(data).reduce((acc, key) => (data[key] ? { ...acc, [key]: data[key] } : acc), {})

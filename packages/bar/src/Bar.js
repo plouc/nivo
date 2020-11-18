@@ -192,16 +192,18 @@ const Bar = props => {
                             key="bars"
                             willEnter={willEnter}
                             willLeave={willLeave}
-                            styles={result.bars.map(bar => ({
-                                key: bar.key,
-                                data: bar,
-                                style: {
-                                    x: spring(bar.x, springConfig),
-                                    y: spring(bar.y, springConfig),
-                                    width: spring(bar.width, springConfig),
-                                    height: spring(bar.height, springConfig),
-                                },
-                            }))}
+                            styles={result.bars
+                                .filter(bar => bar.data.value !== null)
+                                .map(bar => ({
+                                    key: bar.key,
+                                    data: bar,
+                                    style: {
+                                        x: spring(bar.x, springConfig),
+                                        y: spring(bar.y, springConfig),
+                                        width: spring(bar.width, springConfig),
+                                        height: spring(bar.height, springConfig),
+                                    },
+                                }))}
                         >
                             {interpolatedStyles => (
                                 <g>
@@ -226,18 +228,20 @@ const Bar = props => {
                         </TransitionMotion>
                     )
                 } else {
-                    bars = result.bars.map(d =>
-                        React.createElement(barComponent, {
-                            key: d.key,
-                            ...d,
-                            ...commonProps,
-                            label: getLabel(d.data),
-                            shouldRenderLabel: shouldRenderLabel(d),
-                            labelColor: getLabelTextColor(d, theme),
-                            borderColor: getBorderColor(d),
-                            theme,
-                        })
-                    )
+                    bars = result.bars
+                        .filter(bar => bar.data.value !== null)
+                        .map(d =>
+                            React.createElement(barComponent, {
+                                key: d.key,
+                                ...d,
+                                ...commonProps,
+                                label: getLabel(d.data),
+                                shouldRenderLabel: shouldRenderLabel(d),
+                                labelColor: getLabelTextColor(d, theme),
+                                borderColor: getBorderColor(d),
+                                theme,
+                            })
+                        )
                 }
 
                 const layerById = {

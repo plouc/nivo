@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { computeScale } from '@nivo/scales'
-import { getIndexedScale } from './common'
+import { getIndexedScale, filterNullValues, normalizeData } from './common'
 
 const gt = (value, other) => value > other
 const lt = (value, other) => value < other
@@ -54,7 +54,7 @@ const generateVerticalGroupedBars = (
                     value: data[index][key],
                     index,
                     indexValue: getIndex(data[index]),
-                    data: data[index],
+                    data: filterNullValues(data[index]),
                 }
 
                 return {
@@ -110,7 +110,7 @@ const generateHorizontalGroupedBars = (
                     value: data[index][key],
                     index,
                     indexValue: getIndex(data[index]),
-                    data: data[index],
+                    data: filterNullValues(data[index]),
                 }
 
                 return {
@@ -136,7 +136,6 @@ const generateHorizontalGroupedBars = (
  * @return {{ xScale: Function, yScale: Function, bars: Array.<Object> }}
  */
 export const generateGroupedBars = ({
-    data,
     layout,
     keys,
     minValue,
@@ -149,6 +148,7 @@ export const generateGroupedBars = ({
     valueScale,
     ...props
 }) => {
+    const data = normalizeData(props.data, keys)
     const [axis, range] = layout === 'vertical' ? ['y', [0, width]] : ['x', [height, 0]]
     const indexedScale = getIndexedScale(data, props.getIndex, range, padding)
 
