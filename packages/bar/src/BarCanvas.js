@@ -56,6 +56,7 @@ class BarCanvas extends Component {
             maxValue,
 
             valueScale,
+            indexScale,
 
             width,
             height,
@@ -107,6 +108,7 @@ class BarCanvas extends Component {
             padding,
             innerPadding,
             valueScale,
+            indexScale,
         }
 
         const result =

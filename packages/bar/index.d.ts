@@ -18,7 +18,7 @@ import {
 import { AxisProps, GridValues } from '@nivo/axes'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
-import { Scale } from '@nivo/scales'
+import { Scale, BandScale } from '@nivo/scales'
 
 declare module '@nivo/bar' {
     export type Value = string | number
@@ -99,7 +99,7 @@ declare module '@nivo/bar' {
         padding: number
 
         valueScale: Scale
-        indexScale: Scale
+        indexScale: BandScale
 
         axisBottom: AxisProps | null
         axisLeft: AxisProps | null

@@ -9,7 +9,7 @@
 // import flattenDepth from 'lodash/flattenDepth'
 import { computeScale } from '@nivo/scales'
 import { stack, stackOffsetDiverging } from 'd3-shape'
-import { getIndexedScale, filterNullValues, normalizeData } from './common'
+import { getIndexScale, filterNullValues, normalizeData } from './common'
 
 const flattenDeep = (array, depth = 1) =>
     depth > 0
@@ -149,13 +149,13 @@ export const generateStackedBars = ({
     height,
     padding = 0,
     valueScale,
-    indexScale,
+    indexScale: indexScaleConfig,
     ...props
 }) => {
     const stackedData = stack().keys(keys).offset(stackOffsetDiverging)(normalizeData(data, keys))
 
     const [axis, range] = layout === 'vertical' ? ['y', [0, width]] : ['x', [height, 0]]
-    const indexedScale = getIndexedScale(data, props.getIndex, range, padding, indexScale)
+    const indexScale = getIndexScale(data, props.getIndex, range, padding, indexScaleConfig)
 
     const scaleSpec = {
         axis,
@@ -171,10 +171,10 @@ export const generateStackedBars = ({
 
     const scale = computeScale(scaleSpec, { [axis]: { min, max } }, width, height)
 
-    const [xScale, yScale] = layout === 'vertical' ? [indexedScale, scale] : [scale, indexedScale]
+    const [xScale, yScale] = layout === 'vertical' ? [indexScale, scale] : [scale, indexScale]
 
     const innerPadding = props.innerPadding > 0 ? props.innerPadding : 0
-    const bandwidth = indexedScale.bandwidth()
+    const bandwidth = indexScale.bandwidth()
     const params = [
         { ...props, innerPadding, stackedData, xScale, yScale },
         bandwidth,

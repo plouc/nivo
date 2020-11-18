@@ -18,9 +18,12 @@ import { scaleBand } from 'd3-scale'
  * @Param {scalePropType}  indexScale
  * @returns {Function}
  */
-export const getIndexedScale = (data, getIndex, range, padding, indexScale) => {
-    const scale = scaleBand().domain(data.map(getIndex)).padding(padding)
-    return indexScale.round ? scale.rangeRound(range) : scale.range(range)
+export const getIndexScale = (data, getIndex, range, padding, indexScale) => {
+    return scaleBand()
+        .domain(data.map(getIndex))
+        .range(range)
+        .round(Boolean(indexScale.round))
+        .padding(padding)
 }
 
 export const normalizeData = (data, keys) =>

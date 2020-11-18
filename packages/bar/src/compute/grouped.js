@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { computeScale } from '@nivo/scales'
-import { getIndexedScale, filterNullValues, normalizeData } from './common'
+import { getIndexScale, filterNullValues, normalizeData } from './common'
 
 const gt = (value, other) => value > other
 const lt = (value, other) => value < other
@@ -146,12 +146,12 @@ export const generateGroupedBars = ({
     padding = 0,
     innerPadding = 0,
     valueScale,
-    indexScale,
+    indexScale: indexScaleConfig,
     ...props
 }) => {
     const data = normalizeData(props.data, keys)
     const [axis, range] = layout === 'vertical' ? ['y', [0, width]] : ['x', [height, 0]]
-    const indexedScale = getIndexedScale(data, props.getIndex, range, padding, indexScale)
+    const indexScale = getIndexScale(data, props.getIndex, range, padding, indexScaleConfig)
 
     const scaleSpec = {
         axis,
@@ -170,9 +170,9 @@ export const generateGroupedBars = ({
 
     const scale = computeScale(scaleSpec, { [axis]: { min, max } }, width, height)
 
-    const [xScale, yScale] = layout === 'vertical' ? [indexedScale, scale] : [scale, indexedScale]
+    const [xScale, yScale] = layout === 'vertical' ? [indexScale, scale] : [scale, indexScale]
 
-    const bandwidth = (indexedScale.bandwidth() - innerPadding * (keys.length - 1)) / keys.length
+    const bandwidth = (indexScale.bandwidth() - innerPadding * (keys.length - 1)) / keys.length
     const params = [
         { ...props, data, keys, innerPadding, xScale, yScale },
         bandwidth,
