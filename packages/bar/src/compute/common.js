@@ -11,17 +11,17 @@ import { scaleBand } from 'd3-scale'
 /**
  * Generates indexed scale.
  *
- * @param {Array.<Object>} data
- * @param {Function}       getIndex
- * @param {Array.<number>} range
- * @param {number}         padding
- * @Param {boolean}        nice
+ * @param {Array.<Object>}   data
+ * @param {Function}         getIndex
+ * @param {Array.<number>}   range
+ * @param {number}           padding
+ * @Param {indexedPropType}  indexedScale
  * @returns {Function}
  */
-export const getIndexedScale = (data, getIndex, range, padding, nice) => {
+export const getIndexedScale = (data, getIndex, range, padding, indexedScale) => {
     const scale = scaleBand().domain(data.map(getIndex)).padding(padding)
-    return nice ? scale.rangeRound(range) : scale.range(range)
-}    
+    return indexedScale.round ? scale.rangeRound(range) : scale.range(range)
+}   
 
 export const normalizeData = (data, keys) =>
     data.map(item => ({

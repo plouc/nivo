@@ -12,6 +12,7 @@ import { logScalePropTypes } from './logScale'
 import { symLogScalePropTypes } from './symlogScale'
 import { pointScalePropTypes } from './pointScale'
 import { timeScalePropTypes } from './timeScale'
+import { indexedScalePropTypes } from './indexedScale'
 
 export * from './compute'
 export * from './linearScale'
@@ -26,4 +27,5 @@ export const scalePropType = PropTypes.oneOfType([
     PropTypes.shape(timeScalePropTypes),
     PropTypes.shape(logScalePropTypes),
     PropTypes.shape(symLogScalePropTypes),
+    PropTypes.shape(indexedScalePropTypes),
 ])

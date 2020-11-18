@@ -15,7 +15,7 @@ import {
 } from '@nivo/colors'
 import { axisPropType } from '@nivo/axes'
 import { LegendPropShape } from '@nivo/legends'
-import { scalePropType } from '@nivo/scales'
+import { scalePropType, indexedPropType } from '@nivo/scales'
 import BarItem from './BarItem'
 
 export const BarPropTypes = {
@@ -34,11 +34,12 @@ export const BarPropTypes = {
     layout: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
     reverse: PropTypes.bool.isRequired,
     valueScale: scalePropType.isRequired,
+    indexedScale: indexedPropType.isRequired,
+
     minValue: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]).isRequired,
     maxValue: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]).isRequired,
     padding: PropTypes.number.isRequired,
     innerPadding: PropTypes.number.isRequired,
-    nice: PropTypes.bool.isRequired,
 
     axisTop: axisPropType,
     axisRight: axisPropType,
@@ -114,10 +115,10 @@ export const BarDefaultProps = {
     maxValue: 'auto',
 
     valueScale: { type: 'linear' },
+    indexedScale: { round: true },
 
     padding: 0.1,
     innerPadding: 0,
-    nice: true,
 
     axisBottom: {},
     axisLeft: {},
