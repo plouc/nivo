@@ -364,7 +364,9 @@ it(`should apply scale rounding by default`, () => {
             animate={false}
         />
     )
-    const firstBarWidth = wrapper.find('g rect').first(3).props().width
+
+    const bars = wrapper.find('BarItem')
+    const firstBarWidth = bars.at(0).prop('width')
     expect(firstBarWidth).toEqual(Math.floor(firstBarWidth))
 })
 
@@ -382,7 +384,8 @@ it(`should not apply scale rounding when passed indexedScale.round: false`, () =
             indexedScale={{ type: 'indexed', round: false }}
         />
     )
-    const firstBarWidth = wrapper.find('g rect').first(3).props().width
+
+    const bars = wrapper.find('BarItem')
+    const firstBarWidth = bars.at(0).prop('width')
     expect(firstBarWidth).not.toEqual(Math.floor(firstBarWidth))
 })
-
