@@ -60,7 +60,7 @@ const BarApi = () => {
                     reverse: false,
 
                     valueScale: { type: 'linear' },
-                    indexScale: { type: 'band', round: false },
+                    indexScale: { type: 'band', round: true },
 
                     axisTop: {
                         enable: false,

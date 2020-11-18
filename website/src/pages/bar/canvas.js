@@ -41,7 +41,7 @@ const initialProperties = {
     reverse: false,
 
     valueScale: { type: 'linear' },
-    indexScale: { type: 'band', round: false },
+    indexScale: { type: 'band', round: true },
 
     colors: { scheme: 'red_blue' },
     colorBy: 'id',
