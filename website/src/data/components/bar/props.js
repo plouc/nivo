@@ -106,7 +106,7 @@ const props = [
         key: 'indexScale',
         type: 'object',
         group: 'Base',
-        help: `indexed scale configuration.`,
+        help: `index scale configuration.`,
         defaultValue: defaults.indexScale,
         controlType: 'object',
         controlOptions: {
@@ -126,7 +126,7 @@ const props = [
                 },
                 {
                     key: 'round',
-                    help: 'Toggle indexed scale (for bar width) rounding.',
+                    help: 'Toggle index scale (for bar width) rounding.',
                     type: 'boolean',
                     controlType: 'switch',
                 },
