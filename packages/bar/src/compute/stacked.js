@@ -149,13 +149,13 @@ export const generateStackedBars = ({
     height,
     padding = 0,
     valueScale,
-    indexedScale: indexedScaleOptions,
+    indexScale,
     ...props
 }) => {
     const stackedData = stack().keys(keys).offset(stackOffsetDiverging)(normalizeData(data, keys))
 
     const [axis, range] = layout === 'vertical' ? ['y', [0, width]] : ['x', [height, 0]]
-    const indexedScale = getIndexedScale(data, props.getIndex, range, padding, indexedScaleOptions)
+    const indexedScale = getIndexedScale(data, props.getIndex, range, padding, indexScale)
 
     const scaleSpec = {
         axis,

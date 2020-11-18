@@ -103,11 +103,11 @@ const props = [
         },
     },
     {
-        key: 'indexedScale',
+        key: 'indexScale',
         type: 'object',
         group: 'Base',
         help: `indexed scale configuration.`,
-        defaultValue: defaults.indexedScale,
+        defaultValue: defaults.indexScale,
         controlType: 'object',
         controlOptions: {
             props: [
@@ -118,7 +118,7 @@ const props = [
                     controlType: 'choices',
                     controlOptions: {
                         disabled: true,
-                        choices: ['indexed'].map(v => ({
+                        choices: ['band'].map(v => ({
                             label: v,
                             value: v,
                         })),

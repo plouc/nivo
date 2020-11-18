@@ -39,7 +39,7 @@ const initialProperties = {
     reverse: false,
 
     valueScale: { type: 'linear' },
-    indexedScale: { type: 'indexed', round: false },
+    indexScale: { type: 'band', round: false },
 
     colors: { scheme: 'nivo' },
     colorBy: 'id',

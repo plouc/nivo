@@ -34,7 +34,7 @@ export const BarPropTypes = {
     layout: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
     reverse: PropTypes.bool.isRequired,
     valueScale: scalePropType.isRequired,
-    indexedScale: scalePropType.isRequired,
+    indexScale: scalePropType.isRequired,
 
     minValue: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]).isRequired,
     maxValue: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]).isRequired,
@@ -115,7 +115,7 @@ export const BarDefaultProps = {
     maxValue: 'auto',
 
     valueScale: { type: 'linear' },
-    indexedScale: { type: 'indexed', round: true },
+    indexScale: { type: 'band', round: true },
 
     padding: 0.1,
     innerPadding: 0,

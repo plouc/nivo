@@ -370,7 +370,7 @@ it(`should apply scale rounding by default`, () => {
     expect(firstBarWidth).toEqual(Math.floor(firstBarWidth))
 })
 
-it(`should not apply scale rounding when passed indexedScale.round: false`, () => {
+it(`should not apply scale rounding when passed indexScale.round: false`, () => {
     const wrapper = mount(
         <Bar
             width={500}
@@ -381,7 +381,7 @@ it(`should not apply scale rounding when passed indexedScale.round: false`, () =
                 { id: 'three', value: 30 },
             ]}
             animate={false}
-            indexedScale={{ type: 'indexed', round: false }}
+            indexScale={{ type: 'band', round: false }}
         />
     )
 

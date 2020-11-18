@@ -50,8 +50,8 @@ declare module '@nivo/scales' {
         max?: 'auto' | number
     }
 
-    export interface IndexedScale {
-        type: 'indexed'
+    export interface BandScale {
+        type: 'band'
         round?: boolean
     }
 
@@ -62,7 +62,7 @@ declare module '@nivo/scales' {
         | TimeScaleFormatted
         | LogScale
         | SymlogScale
-        | IndexedScale
+        | BandScale
 
     export type ScaleFunc = (value: string | number | Date) => number
 }
