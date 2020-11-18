@@ -103,6 +103,37 @@ const props = [
         },
     },
     {
+        key: 'indexScale',
+        type: 'object',
+        group: 'Base',
+        help: `index scale configuration.`,
+        defaultValue: defaults.indexScale,
+        controlType: 'object',
+        controlOptions: {
+            props: [
+                {
+                    key: 'type',
+                    help: `Scale type.`,
+                    type: 'string',
+                    controlType: 'choices',
+                    controlOptions: {
+                        disabled: true,
+                        choices: ['band'].map(v => ({
+                            label: v,
+                            value: v,
+                        })),
+                    },
+                },
+                {
+                    key: 'round',
+                    help: 'Toggle index scale (for bar width) rounding.',
+                    type: 'boolean',
+                    controlType: 'switch',
+                },
+            ],
+        },
+    },
+    {
         key: 'reverse',
         help:
             'Reverse bars, starts on top instead of bottom for vertical layout and right instead of left for horizontal one.',

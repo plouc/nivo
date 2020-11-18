@@ -50,6 +50,11 @@ declare module '@nivo/scales' {
         max?: 'auto' | number
     }
 
+    export interface BandScale {
+        type: 'band'
+        round?: boolean
+    }
+
     export type Scale =
         | LinearScale
         | PointScale
@@ -57,6 +62,7 @@ declare module '@nivo/scales' {
         | TimeScaleFormatted
         | LogScale
         | SymlogScale
+        | BandScale
 
     export type ScaleFunc = (value: string | number | Date) => number
 }
