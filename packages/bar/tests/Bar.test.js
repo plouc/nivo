@@ -350,3 +350,39 @@ it(`should generate stacked bars correctly when keys are mismatched`, () => {
     expect(bars.at(2).prop('height')).toEqual(69)
     expect(bars.at(2).prop('width')).toEqual(214)
 })
+
+it(`should apply scale rounding by default`, () => {
+    const wrapper = mount(
+        <Bar
+            width={500}
+            height={300}
+            data={[
+                { id: 'one', value: 10 },
+                { id: 'two', value: 20 },
+                { id: 'three', value: 30 },
+            ]}
+            animate={false}
+        />
+    )
+    const firstBarWidth = wrapper.find('g rect').first(3).props().width
+    expect(firstBarWidth).toEqual(Math.floor(firstBarWidth))
+})
+
+it(`should not apply scale rounding when passed indexedScale.round: false`, () => {
+    const wrapper = mount(
+        <Bar
+            width={500}
+            height={300}
+            data={[
+                { id: 'one', value: 10 },
+                { id: 'two', value: 20 },
+                { id: 'three', value: 30 },
+            ]}
+            animate={false}
+            indexedScale={{ type: 'indexed', round: false }}
+        />
+    )
+    const firstBarWidth = wrapper.find('g rect').first(3).props().width
+    expect(firstBarWidth).not.toEqual(Math.floor(firstBarWidth))
+})
+
