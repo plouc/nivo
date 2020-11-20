@@ -1,6 +1,14 @@
 import React, { useMemo } from 'react'
-// @ts-ignore
-import { midAngle, positionFromAngle, radiansToDegrees, useTheme } from '@nivo/core'
+import {
+    // @ts-ignore
+    midAngle,
+    // @ts-ignore
+    positionFromAngle,
+    // @ts-ignore
+    getLabelGenerator,
+    radiansToDegrees,
+    useTheme,
+} from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 import { SunburstLabelProps } from './types'
 
@@ -8,14 +16,16 @@ const sliceStyle = {
     pointerEvents: 'none',
 } as const
 
-export const SunburstLabels = ({
-    nodes,
+export const SunburstLabels = <RawDatum,>({
     label,
+    nodes,
     skipAngle = 0,
     textColor: _textColor,
-}: SunburstLabelProps) => {
+}: SunburstLabelProps<RawDatum>) => {
     const theme = useTheme()
     const textColor = useInheritedColor(_textColor, theme)
+
+    const getLabel = useMemo(() => getLabelGenerator(label), [label])
 
     const { centerRadius, labelNodes } = useMemo(() => {
         const labelNodes = nodes.filter(node => node.depth === 1)
@@ -53,7 +63,7 @@ export const SunburstLabels = ({
                                 fill: textColor(node.data),
                             }}
                         >
-                            {label(node.data)}
+                            {getLabel(node.data)}
                         </text>
                     </g>
                 )

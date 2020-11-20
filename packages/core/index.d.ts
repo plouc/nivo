@@ -279,9 +279,11 @@ declare module '@nivo/core' {
 
     type Accessor<T, U> = T extends string ? U[T] : never
 
-    export function getAccessorFor(
-        directive: string | number
-    ): <Datum, Value>(datum: Datum) => Value
+    export type DatumPropertyAccessor<RawDatum, T> = (datum: RawDatum) => T
+
+    export function getAccessorFor<RawDatum, T>(
+        directive: string | number | DatumPropertyAccessor<RawDatum, T>
+    ): DatumPropertyAccessor<RawDatum, T>
 
     export function useDimensions(
         width: number,

@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import { BasicTooltip, useTooltip } from '@nivo/tooltip'
 import { SunburstArcProps } from './types'
 
-export const SunburstArc = ({
+export const SunburstArc = <RawDatum,>({
     node,
     arcGenerator,
     borderWidth,
@@ -12,7 +12,7 @@ export const SunburstArc = ({
     onClick,
     onMouseEnter,
     onMouseLeave,
-}: SunburstArcProps) => {
+}: SunburstArcProps<RawDatum>) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const path = useMemo(() => arcGenerator(node), [arcGenerator, node])
