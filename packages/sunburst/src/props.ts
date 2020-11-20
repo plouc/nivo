@@ -1,7 +1,7 @@
 export type DefaultSunburstProps = Required<typeof defaultProps>
 
 export const defaultProps = {
-    identity: 'id',
+    id: 'id',
     value: 'value',
 
     cornerRadius: 0,
@@ -19,4 +19,4 @@ export const defaultProps = {
     sliceLabelsTextColor: { theme: 'labels.text.fill' },
 
     isInteractive: true,
-}
+} as const

@@ -2,7 +2,6 @@ import { Arc } from 'd3-shape'
 import { HierarchyRectangularNode } from 'd3-hierarchy'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { Theme, Dimensions, Box, DataFormatter } from '@nivo/core'
-import { DefaultSunburstProps } from './props'
 
 export type DatumId = string | number
 export type DatumValue = number
@@ -75,7 +74,6 @@ export type MouseEventHandlers<ElementType> = Partial<{
 
 export type SvgProps<RawDatum> = DataProps<RawDatum> &
     Dimensions &
-    DefaultSunburstProps &
     MouseEventHandlers<SVGPathElement> &
     Partial<CommonProps>
 

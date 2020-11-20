@@ -9,9 +9,8 @@ const commonProperties = {
     width: 900,
     height: 500,
     data: generateLibTree(),
-    identity: 'name',
+    id: 'name',
     value: 'loc',
-    animate: true,
 }
 
 const stories = storiesOf('Sunburst', module)
@@ -45,7 +44,7 @@ stories.add('with formatted tooltip value', () => (
     <Sunburst
         {...commonProperties}
         tooltipFormat={value => {
-            return `~${Math.floor(Number.parseFloat(value))}%`
+            return `~${typeof value === 'number' ? Math.floor(value) : value}%`
         }}
     />
 ))
