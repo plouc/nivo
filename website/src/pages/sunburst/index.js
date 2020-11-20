@@ -26,7 +26,7 @@ const initialProperties = {
         left: 20,
     },
 
-    identity: 'name',
+    id: 'name',
     value: 'loc',
 
     cornerRadius: 2,
@@ -39,6 +39,9 @@ const initialProperties = {
         from: 'color',
     },
 
+    defs: [],
+    fill: [],
+
     animate: true,
     motionStiffness: 90,
     motionDamping: 15,
@@ -46,6 +49,7 @@ const initialProperties = {
     isInteractive: true,
     'custom tooltip example': false,
     tooltip: null,
+    'showcase pattern usage': false,
 }
 
 const Sunburst = () => {

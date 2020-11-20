@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { defaultProps } from '@nivo/sunburst'
-import { groupProperties } from '../../../lib/componentProperties'
+import { groupProperties, defsProperties } from '../../../lib/componentProperties'
 
 const props = [
     {
@@ -57,20 +57,20 @@ const props = [
         group: 'Base',
     },
     {
-        key: 'identity',
+        key: 'id',
         group: 'Base',
         help: 'Id accessor.',
         description: `
-            define identity accessor, if string given,
+            define id accessor, if string given,
             will use \`node[value]\`,
             if function given, it will be invoked
             for each node and will receive the node as
             first argument, it must return the node
-            identity (string).
+            id (string | number).
         `,
         type: 'string | Function',
         required: false,
-        defaultValue: defaultProps.identity,
+        defaultValue: defaultProps.id,
     },
     {
         key: 'value',
@@ -96,6 +96,21 @@ const props = [
         controlType: 'ordinalColors',
         type: 'string | Function | string[]',
         group: 'Base',
+    },
+    ...defsProperties('Style', ['svg', 'api']),
+    {
+        key: 'showcase pattern usage',
+        flavors: ['svg'],
+        help: 'Patterns.',
+        description: `
+            You can use \`defs\` and \`fill\` properties
+            to use patterns, see
+            [dedicated guide](self:/guides/patterns)
+            for further information.
+        `,
+        type: 'boolean',
+        controlType: 'switch',
+        group: 'Style',
     },
     {
         key: 'childColor',

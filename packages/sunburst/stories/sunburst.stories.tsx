@@ -3,6 +3,8 @@ import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { withKnobs } from '@storybook/addon-knobs'
 import { generateLibTree } from '@nivo/generators'
+// @ts-ignore
+import { linearGradientDef, patternDotsDef } from '@nivo/core'
 import { Sunburst } from '../src'
 
 const commonProperties = {
@@ -72,5 +74,35 @@ stories.add('enter/leave (check actions)', () => (
         {...commonProperties}
         onMouseEnter={action('onMouseEnter')}
         onMouseLeave={action('onMouseLeave')}
+    />
+))
+
+stories.add('patterns & gradients', () => (
+    <Sunburst
+        {...commonProperties}
+        defs={[
+            linearGradientDef('gradient', [
+                { offset: 0, color: '#ffffff' },
+                { offset: 15, color: 'inherit' },
+                { offset: 100, color: 'inherit' },
+            ]),
+            patternDotsDef('pattern', {
+                background: 'inherit',
+                color: '#ffffff',
+                size: 1,
+                padding: 4,
+                stagger: true,
+            }),
+        ]}
+        fill={[
+            {
+                match: node => ['viz', 'text', 'utils'].includes(node.data.id),
+                id: 'gradient',
+            },
+            {
+                match: node => ['set', 'generators', 'misc'].includes(node.data.id),
+                id: 'pattern',
+            },
+        ]}
     />
 ))

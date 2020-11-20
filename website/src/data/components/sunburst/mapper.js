@@ -8,6 +8,7 @@
  */
 import React from 'react'
 import styled from 'styled-components'
+import { patternLinesDef } from '@nivo/core'
 import { settingsMapper } from '../../../lib/settings'
 
 const TooltipWrapper = styled.div`
@@ -42,8 +43,29 @@ export default settingsMapper(
 
             return CustomTooltip
         },
+        defs: (value, values) => {
+            if (!values['showcase pattern usage']) return
+
+            return [
+                patternLinesDef('lines', {
+                    background: 'rgba(0, 0, 0, 0)',
+                    color: 'inherit',
+                    rotation: -45,
+                    lineWidth: 4,
+                    spacing: 8,
+                }),
+            ]
+        },
+        fill: (value, values) => {
+            if (!values['showcase pattern usage']) return
+
+            return [
+                { match: { id: 'set' }, id: 'lines' },
+                { match: { id: 'misc' }, id: 'lines' },
+            ]
+        },
     },
     {
-        exclude: ['custom tooltip example'],
+        exclude: ['custom tooltip example', 'showcase pattern usage'],
     }
 )

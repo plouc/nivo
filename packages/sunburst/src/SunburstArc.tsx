@@ -41,7 +41,7 @@ export const SunburstArc = <RawDatum,>({
     return (
         <path
             d={path}
-            fill={node.data.color}
+            fill={node.data.fill ?? node.data.color}
             stroke={borderColor}
             strokeWidth={borderWidth}
             onMouseEnter={event => {

@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react'
-import { Container, SvgWrapper, useDimensions } from '@nivo/core'
+// @ts-ignore
+import { Container, SvgWrapper, useDimensions, bindDefs } from '@nivo/core'
 import { SunburstLabels } from './SunburstLabels'
 import { SunburstArc } from './SunburstArc'
 import { defaultProps } from './props'
@@ -29,6 +30,9 @@ const InnerSunburst = <RawDatum,>(props: SvgProps<RawDatum>) => {
         sliceLabel,
         sliceLabelsSkipAngle,
         sliceLabelsTextColor,
+
+        defs = [],
+        fill = [],
 
         role,
 
@@ -60,14 +64,20 @@ const InnerSunburst = <RawDatum,>(props: SvgProps<RawDatum>) => {
         radius,
     })
 
+    const boundDefs = bindDefs(defs, nodes, fill, {
+        dataKey: 'data',
+        colorKey: 'data.color',
+        targetKey: 'data.fill',
+    })
+
     return (
-        <SvgWrapper width={width} height={height} margin={margin} role={role}>
+        <SvgWrapper width={width} height={height} defs={boundDefs} margin={margin} role={role}>
             <g transform={`translate(${centerX}, ${centerY})`}>
                 {nodes
                     .filter(node => node.depth > 0)
-                    .map((node, i) => (
+                    .map(node => (
                         <SunburstArc
-                            key={i}
+                            key={node.data.id}
                             node={node}
                             arcGenerator={arcGenerator}
                             borderWidth={borderWidth}
