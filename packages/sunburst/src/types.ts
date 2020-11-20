@@ -60,11 +60,10 @@ type CommonSunburstProps = {
     childColor: InheritedColorConfig<SunburstNode['data']>
 
     // slices labels
-    enableSlicesLabels: boolean
+    enableSliceLabels: boolean
     sliceLabel: string | ((node: ComputedNode['data']) => string)
-
-    slicesLabelsSkipAngle: number
-    slicesLabelsTextColor: InheritedColorConfig<SunburstNode['data']>
+    sliceLabelsSkipAngle: number
+    sliceLabelsTextColor: InheritedColorConfig<SunburstNode['data']>
 
     role: string
 
@@ -137,5 +136,5 @@ export type SunburstArcProps = Pick<
 export type SunburstLabelProps = Pick<ComputedSunburstProps, 'nodes'> & {
     label: ComputedSunburstProps['getSliceLabel']
     skipAngle?: number
-    textColor: CommonSunburstProps['slicesLabelsTextColor']
+    textColor: CommonSunburstProps['sliceLabelsTextColor']
 }
