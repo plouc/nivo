@@ -4,66 +4,54 @@ import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { Theme, Dimensions, Box, DataFormatter } from '@nivo/core'
 import { DefaultSunburstProps } from './props'
 
-type NameAndColor = {
-    color: string
+export type DatumId = string | number
+export type DatumValue = number
+
+export type DatumPropertyAccessor<RawDatum, T> = (datum: RawDatum) => T
+export type LabelAccessorFunction<RawDatum> = (datum: ComputedDatum<RawDatum>) => string | number
+
+export interface DataProps<RawDatum> {
+    data: RawDatum
+    id: string | number | DatumPropertyAccessor<RawDatum, DatumId>
+    value: string | number | DatumPropertyAccessor<RawDatum, DatumValue>
 }
 
-type DataLocation<Datum extends Record<string, unknown>> = NameAndColor & Datum
-
-type DataChildren<Datum extends Record<string, unknown>> = NameAndColor & {
-    children: DataChildren<Datum>[] | DataLocation<Datum>[]
-}
-
-export type Data<Datum extends Record<string, unknown>> = NameAndColor & DataChildren<Datum>
-
-export type SunburstNodeOld = {
-    data: {
-        id: string
-        color: string
-    }
+export interface NormalizedDatum {
+    color?: string
+    id: DatumId
+    value: DatumValue
     depth: number
+    percentage: number
+}
+
+export interface ComputedDatum<RawDatum> {
     x0: number
-    x1: number
     y0: number
+    x1: number
     y1: number
+    data: NormalizedDatum
+    depth: number
+    height: number
+    parent: HierarchyRectangularNode<RawDatum> | null
+    value: number
 }
 
-type ComputedNode<Datum extends Record<string, unknown> = any> = HierarchyRectangularNode<
-    DataChildren<Datum>
->
-
-export type SunburstNode<Datum extends Record<string, unknown> = any> = Omit<
-    ComputedNode<Datum>,
-    'children' | 'data'
-> & {
-    data: {
-        color: string
-        id: string
-        value: number
-        percentage: number
-        depth: number
-    }
-}
-
-type CommonSunburstProps = {
-    identity: string | ((node: ComputedNode['data']) => string)
-    value: string | ((node: ComputedNode['data']) => number)
-
+export type CommonProps = {
     margin: Box
 
     cornerRadius: number
 
-    colors: OrdinalColorScaleConfig<Omit<SunburstNode['data'], 'color'>>
+    colors: OrdinalColorScaleConfig<Omit<NormalizedDatum, 'color'>>
     borderWidth: number
     borderColor: string
 
-    childColor: InheritedColorConfig<SunburstNode['data']>
+    childColor: InheritedColorConfig<NormalizedDatum>
 
-    // slices labels
+    // slice labels
     enableSliceLabels: boolean
-    sliceLabel: string | ((node: ComputedNode['data']) => string)
+    sliceLabel: string | LabelAccessorFunction<NormalizedDatum>
     sliceLabelsSkipAngle: number
-    sliceLabelsTextColor: InheritedColorConfig<SunburstNode['data']>
+    sliceLabelsTextColor: InheritedColorConfig<NormalizedDatum>
 
     role: string
 
@@ -71,56 +59,28 @@ type CommonSunburstProps = {
 
     isInteractive: boolean
     tooltipFormat: DataFormatter
-    tooltip: (payload: SunburstNode['data']) => JSX.Element
-
-    onClick: (
-        payload: SunburstNode['data'],
-        event: React.MouseEvent<SVGPathElement, MouseEvent>
-    ) => void
-    onMouseEnter: (
-        payload: SunburstNode['data'],
-        event: React.MouseEvent<SVGPathElement, MouseEvent>
-    ) => void
-    onMouseLeave: (
-        payload: SunburstNode['data'],
-        event: React.MouseEvent<SVGPathElement, MouseEvent>
-    ) => void
+    tooltip: (payload: NormalizedDatum) => JSX.Element
 }
 
-type ComputedSunburstProps = {
-    identity: string | ((node: SunburstNode['data']) => string)
-    getIdentity: (node: SunburstNode['data']) => string // computed
+export type MouseEventHandler<ElementType> = (
+    datum: NormalizedDatum,
+    event: React.MouseEvent<ElementType>
+) => void
 
-    getValue: (node: SunburstNode['data']) => number // computed
+export type MouseEventHandlers<ElementType> = Partial<{
+    onClick: MouseEventHandler<ElementType>
+    onMouseEnter: MouseEventHandler<ElementType>
+    onMouseLeave: MouseEventHandler<ElementType>
+}>
 
-    nodes: SunburstNode[] // computed
-
-    partition: any // computed
-
-    // arcGenerator: (node: SunburstNode) => string // computed
-    arcGenerator: Arc<any, SunburstNode<any>>
-
-    radius: number // computed
-    centerX: number // computed
-    centerY: number // computed
-
-    outerWidth: number
-    outerHeight: number
-
-    getColor: (payload: unknown) => string
-    getChildColor: (payload: unknown) => string
-
-    getSliceLabel: (node: SunburstNode['data']) => string
-}
-
-export type SunburstSvgProps<Datum extends Record<string, unknown>> = Dimensions &
+export type SvgProps<RawDatum> = DataProps<RawDatum> &
+    Dimensions &
     DefaultSunburstProps &
-    Partial<CommonSunburstProps> & {
-        data: Data<Datum>
-    }
+    MouseEventHandlers<SVGPathElement> &
+    Partial<CommonProps>
 
-export type SunburstArcProps = Pick<
-    SunburstSvgProps<any>,
+export type SunburstArcProps<RawDatum> = Pick<
+    SvgProps<RawDatum>,
     | 'tooltip'
     | 'tooltipFormat'
     | 'onClick'
@@ -128,13 +88,14 @@ export type SunburstArcProps = Pick<
     | 'onMouseLeave'
     | 'borderWidth'
     | 'borderColor'
-> &
-    Pick<ComputedSunburstProps, 'arcGenerator'> & {
-        node: SunburstNode
-    }
+> & {
+    arcGenerator: Arc<any, ComputedDatum<RawDatum>>
+    node: ComputedDatum<RawDatum>
+}
 
-export type SunburstLabelProps = Pick<ComputedSunburstProps, 'nodes'> & {
-    label: ComputedSunburstProps['getSliceLabel']
+export type SunburstLabelProps<RawDatum> = {
+    label: CommonProps['sliceLabel']
+    nodes: Array<ComputedDatum<RawDatum>>
     skipAngle?: number
-    textColor: CommonSunburstProps['sliceLabelsTextColor']
+    textColor: CommonProps['sliceLabelsTextColor']
 }

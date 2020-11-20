@@ -21,6 +21,7 @@ export const getLabelGenerator = (_label, labelFormat) => {
     return getRawLabel
 }
 
-export const getAccessorFor = directive => (isFunction(directive) ? directive : d => d[directive])
+export const getAccessorFor = directive =>
+    isFunction(directive) ? directive : d => get(d, directive)
 
 export const getAccessorOrValue = value => (isFunction(value) ? value : () => value)
