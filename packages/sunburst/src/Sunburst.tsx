@@ -37,10 +37,10 @@ export const Sunburst = <Datum extends Record<string, unknown>>(props: SunburstS
         borderColor,
 
         // slices labels
-        enableSlicesLabels,
+        enableSliceLabels,
         sliceLabel,
-        slicesLabelsSkipAngle,
-        slicesLabelsTextColor,
+        sliceLabelsSkipAngle,
+        sliceLabelsTextColor,
 
         // theming
         theme: _theme,
@@ -136,12 +136,12 @@ export const Sunburst = <Datum extends Record<string, unknown>>(props: SunburstS
                                 onMouseLeave={onMouseLeave}
                             />
                         ))}
-                    {enableSlicesLabels && (
+                    {enableSliceLabels && (
                         <SunburstLabels
                             nodes={nodes}
                             label={getSliceLabel}
-                            skipAngle={slicesLabelsSkipAngle}
-                            textColor={slicesLabelsTextColor}
+                            skipAngle={sliceLabelsSkipAngle}
+                            textColor={sliceLabelsTextColor}
                         />
                     )}
                 </g>

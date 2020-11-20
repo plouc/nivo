@@ -14,9 +14,9 @@ export const defaultProps = {
     role: 'img',
 
     // slices labels
-    enableSlicesLabels: false,
+    enableSliceLabels: false,
     sliceLabel: 'value',
-    slicesLabelsTextColor: { theme: 'labels.text.fill' },
+    sliceLabelsTextColor: { theme: 'labels.text.fill' },
 
     isInteractive: true,
 }
