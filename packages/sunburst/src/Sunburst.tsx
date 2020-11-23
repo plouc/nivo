@@ -46,13 +46,13 @@ const InnerSunburst = <RawDatum,>(props: SvgProps<RawDatum>) => {
         onMouseLeave,
     } = { ...defaultProps, ...props }
 
-    const { margin } = useDimensions(width, height, partialMargin)
+    const { innerWidth, innerHeight, margin } = useDimensions(width, height, partialMargin)
 
     const { centerX, centerY, radius } = useMemo(() => {
-        const radius = Math.min(width, height) / 2
+        const radius = Math.min(innerWidth, innerHeight) / 2
 
-        return { radius, centerX: width / 2, centerY: height / 2 }
-    }, [height, width])
+        return { radius, centerX: innerWidth / 2, centerY: innerHeight / 2 }
+    }, [innerHeight, innerWidth])
 
     const { arcGenerator, nodes } = useSunburst({
         childColor,
