@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 import { defaultProps } from '@nivo/sunburst'
-import { groupProperties, defsProperties } from '../../../lib/componentProperties'
+import { groupProperties, defsProperties, motionProperties } from '../../../lib/componentProperties'
 
 const props = [
     {
@@ -155,6 +155,7 @@ const props = [
         controlType: 'switch',
         group: 'Interactivity',
     },
+    ...motionProperties(['svg'], defaultProps, 'react-spring'),
     {
         key: 'tooltip',
         flavors: ['svg'],

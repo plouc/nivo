@@ -32,7 +32,8 @@
     "@nivo/tooltip": "0.66.0",
     "d3-hierarchy": "^1.1.8",
     "d3-shape": "^1.3.5",
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.11",
+    "react-spring": "9.0.0-rc.3"
   },
   "devDependencies": {
     "@nivo/core": "0.66.0",
