@@ -9,6 +9,7 @@ export const useEnhancedData = (
         reverse,
         height,
         width,
+		minValue,
     }: Pick<CommonBulletProps, 'layout' | 'reverse' | 'height' | 'width'>
 ) => {
     return useMemo(
@@ -18,14 +19,14 @@ export const useEnhancedData = (
 
                 const max = Math.max(...all)
 
-                const min = Math.min(...all, 0)
+                const min = Math.min(...all, minValue)
 
                 const scale = scaleLinear().domain([min, max])
 
                 if (layout === 'horizontal') {
-                    scale.range(reverse === true ? [width, 0] : [0, width])
+                    scale.range(reverse === true ? [width, minValue] : [minValue, width])
                 } else {
-                    scale.range(reverse === true ? [0, height] : [height, 0])
+                    scale.range(reverse === true ? [minValue, height] : [height, minValue])
                 }
 
                 return {

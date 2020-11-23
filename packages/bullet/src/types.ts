@@ -46,6 +46,7 @@ export type CommonBulletProps = Dimensions & {
     layout: 'horizontal' | 'vertical'
     reverse: boolean
     spacing: number
+	minValue: number
 
     titlePosition: 'before' | 'after'
     titleAlign: 'start' | 'middle' | 'end'

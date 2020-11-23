@@ -16,7 +16,9 @@ export const Bullet = (props: BulletSvgProps) => {
         markerSize,
         reverse,
         axisPosition,
-
+		minValue,
+		maxValue,
+		
         margin: partialMargin,
         width,
         height,
@@ -64,6 +66,8 @@ export const Bullet = (props: BulletSvgProps) => {
         reverse,
         width: innerWidth,
         height: innerHeight,
+		minValue: minValue,
+		maxValue: maxValue
     })
 
     return (
