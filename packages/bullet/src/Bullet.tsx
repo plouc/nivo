@@ -66,7 +66,6 @@ export const Bullet = (props: BulletSvgProps) => {
         width: innerWidth,
         height: innerHeight,
 		minValue: minValue,
-		maxValue: maxValue
     })
 
     return (
