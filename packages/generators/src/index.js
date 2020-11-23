@@ -143,9 +143,9 @@ const libTreeItems = [
     [
         'viz',
         [
-            ['stack', [['chart'], ['xAxis'], ['yAxis'], ['layers']]],
+            ['stack', [['cchart'], ['xAxis'], ['yAxis'], ['layers']]],
             [
-                'pie',
+                'ppie',
                 [
                     ['chart', [['pie', [['outline'], ['slices'], ['bbox']]], ['donut'], ['gauge']]],
                     ['legends'],
