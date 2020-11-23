@@ -17,7 +17,6 @@ export const Bullet = (props: BulletSvgProps) => {
         reverse,
         axisPosition,
 		minValue,
-		maxValue,
 		
         margin: partialMargin,
         width,
