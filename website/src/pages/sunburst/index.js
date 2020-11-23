@@ -39,12 +39,11 @@ const initialProperties = {
         from: 'color',
     },
 
+    animate: false,
+    motionConfig: 'gentle',
+
     defs: [],
     fill: [],
-
-    animate: true,
-    motionStiffness: 90,
-    motionDamping: 15,
 
     isInteractive: true,
     'custom tooltip example': false,
@@ -63,11 +62,6 @@ const Sunburst = () => {
             properties={groups}
             initialProperties={initialProperties}
             propertiesMapper={mapper}
-            codePropertiesMapper={(properties, data) => ({
-                keys: data.keys,
-                ...properties,
-                tooltip: properties.tooltip ? Tooltip : undefined,
-            })}
             generateData={generateLibTree}
         >
             {(properties, data, theme, logAction) => {

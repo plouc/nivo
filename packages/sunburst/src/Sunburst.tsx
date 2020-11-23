@@ -104,10 +104,12 @@ const InnerSunburst = <RawDatum,>(props: SvgProps<RawDatum>) => {
 
 export const Sunburst = <RawDatum,>({
     isInteractive = defaultProps.isInteractive,
+    animate = defaultProps.animate,
+    motionConfig = defaultProps.motionConfig,
     theme,
     ...otherProps
 }: SvgProps<RawDatum>) => (
-    <Container theme={theme} isInteractive={isInteractive} animate={false}>
+    <Container theme={theme} {...{ isInteractive, animate, motionConfig }}>
         <InnerSunburst<RawDatum> isInteractive={isInteractive} {...otherProps} />
     </Container>
 )

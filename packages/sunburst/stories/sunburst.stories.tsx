@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
-import { withKnobs } from '@storybook/addon-knobs'
+import { withKnobs, boolean, select } from '@storybook/addon-knobs'
 import { generateLibTree } from '@nivo/generators'
 // @ts-ignore
 import { linearGradientDef, patternDotsDef } from '@nivo/core'
@@ -106,3 +106,50 @@ stories.add('patterns & gradients', () => (
         ]}
     />
 ))
+
+const flatten = data =>
+    data.reduce((acc, item) => {
+        if (item.children) {
+            return [...acc, item, ...flatten(item.children)]
+        }
+
+        return [...acc, item]
+    }, [])
+
+const findObject = (data, name) => data.find(searchedName => searchedName.name === name)
+
+stories.add(
+    'children drill down',
+    () => {
+        const [data, setData] = useState(commonProperties.data)
+
+        return (
+            <>
+                <button onClick={() => setData(commonProperties.data)}>Reset</button>
+                <Sunburst
+                    {...commonProperties}
+                    animate={boolean('animate', false)}
+                    motionConfig={select(
+                        'motion config',
+                        ['default', 'gentle', 'wobbly', 'stiff', 'slow', 'molasses'],
+                        'gentle'
+                    )}
+                    data={data}
+                    onClick={clickedData => {
+                        const foundObject = findObject(flatten(data.children), clickedData.id)
+                        if (foundObject && foundObject.children) {
+                            setData(foundObject)
+                        }
+                    }}
+                />
+            </>
+        )
+    },
+    {
+        info: {
+            text: `
+            You can drill down into individual children by clicking on them
+        `,
+        },
+    }
+)

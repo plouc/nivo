@@ -19,4 +19,6 @@ export const defaultProps = {
     sliceLabelsTextColor: { theme: 'labels.text.fill' },
 
     isInteractive: true,
+    animate: false,
+    motionConfig: 'gentle',
 } as const

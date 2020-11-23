@@ -1,5 +1,7 @@
 import React, { useMemo } from 'react'
 import { BasicTooltip, useTooltip } from '@nivo/tooltip'
+import { animated } from 'react-spring'
+import { useAnimatedPath } from '@nivo/core'
 import { SunburstArcProps } from './types'
 
 export const SunburstArc = <RawDatum,>({
@@ -34,13 +36,15 @@ export const SunburstArc = <RawDatum,>({
         [_tooltip, node.data, tooltipFormat]
     )
 
+    const animatedPath = useAnimatedPath(path ?? '')
+
     if (!path) {
         return null
     }
 
     return (
-        <path
-            d={path}
+        <animated.path
+            d={animatedPath}
             fill={node.data.fill ?? node.data.color}
             stroke={borderColor}
             strokeWidth={borderWidth}
