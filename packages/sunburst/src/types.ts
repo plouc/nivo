@@ -14,18 +14,25 @@ export type DatumId = string | number
 export type DatumValue = number
 
 export type DatumPropertyAccessor<RawDatum, T> = (datum: RawDatum) => T
-export type LabelAccessorFunction<RawDatum> = (datum: ComputedDatum<RawDatum>) => string | number
+export type LabelAccessorFunction<RawDatum> = (datum: RawDatum) => string | number
 
 export interface DataProps<RawDatum> {
     data: RawDatum
-    id: string | number | DatumPropertyAccessor<RawDatum, DatumId>
-    value: string | number | DatumPropertyAccessor<RawDatum, DatumValue>
+    id?: string | number | DatumPropertyAccessor<RawDatum, DatumId>
+    value?: string | number | DatumPropertyAccessor<RawDatum, DatumValue>
+    valueFormat?: string | DataFormatter
+}
+
+export interface ChildrenDatum<RawDatum> {
+    children?: Array<RawDatum & ChildrenDatum<RawDatum>>
 }
 
 export interface NormalizedDatum<RawDatum> {
     color?: string
+    data: RawDatum & ChildrenDatum<RawDatum>
     depth: number
     id: DatumId
+    formattedValue: string | number
     fill?: string
     parent?: ComputedDatum<RawDatum>
     percentage: number
@@ -49,7 +56,7 @@ export type CommonProps<RawDatum> = {
 
     cornerRadius: number
 
-    colors: OrdinalColorScaleConfig<Omit<NormalizedDatum<RawDatum>, 'color' | 'fill' | 'parent'>>
+    colors: OrdinalColorScaleConfig<Omit<NormalizedDatum<RawDatum>, 'fill' | 'parent'>>
     borderWidth: number
     borderColor: string
 
@@ -66,8 +73,7 @@ export type CommonProps<RawDatum> = {
     theme: Theme
 
     isInteractive: boolean
-    tooltipFormat: DataFormatter
-    tooltip: (payload: NormalizedDatum<RawDatum>) => JSX.Element
+    tooltip: (props: NormalizedDatum<RawDatum>) => JSX.Element
 }
 
 export type MouseEventHandler<RawDatum, ElementType> = (
@@ -79,6 +85,7 @@ export type MouseEventHandlers<RawDatum, ElementType> = Partial<{
     onClick: MouseEventHandler<RawDatum, ElementType>
     onMouseEnter: MouseEventHandler<RawDatum, ElementType>
     onMouseLeave: MouseEventHandler<RawDatum, ElementType>
+    onMouseMove: MouseEventHandler<RawDatum, ElementType>
 }>
 
 export type SvgProps<RawDatum> = DataProps<RawDatum> &
@@ -90,17 +97,18 @@ export type SvgProps<RawDatum> = DataProps<RawDatum> &
 
 export type SunburstArcProps<RawDatum> = Pick<
     SvgProps<RawDatum>,
-    | 'tooltip'
-    | 'tooltipFormat'
     | 'onClick'
     | 'onMouseEnter'
     | 'onMouseLeave'
+    | 'onMouseMove'
     | 'borderWidth'
     | 'borderColor'
-> & {
-    arcGenerator: Arc<any, ComputedDatum<RawDatum>>
-    node: ComputedDatum<RawDatum>
-}
+    | 'valueFormat'
+> &
+    Pick<CommonProps<RawDatum>, 'isInteractive' | 'tooltip'> & {
+        arcGenerator: Arc<any, ComputedDatum<RawDatum>>
+        node: ComputedDatum<RawDatum>
+    }
 
 export type SunburstLabelProps<RawDatum> = {
     label: CommonProps<RawDatum>['sliceLabel']

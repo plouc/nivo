@@ -12,6 +12,7 @@ const InnerSunburst = <RawDatum,>(props: SvgProps<RawDatum>) => {
         data,
         id,
         value,
+        valueFormat,
 
         colors,
         childColor,
@@ -37,13 +38,14 @@ const InnerSunburst = <RawDatum,>(props: SvgProps<RawDatum>) => {
         role,
 
         // interactivity
-        tooltipFormat,
+        isInteractive,
         tooltip,
 
         // event handlers
         onClick,
         onMouseEnter,
         onMouseLeave,
+        onMouseMove,
     } = { ...defaultProps, ...props }
 
     const { innerWidth, innerHeight, margin } = useDimensions(width, height, partialMargin)
@@ -60,8 +62,9 @@ const InnerSunburst = <RawDatum,>(props: SvgProps<RawDatum>) => {
         cornerRadius,
         data,
         id,
-        value,
         radius,
+        value,
+        valueFormat,
     })
 
     const boundDefs = bindDefs(defs, nodes, fill, {
@@ -82,11 +85,13 @@ const InnerSunburst = <RawDatum,>(props: SvgProps<RawDatum>) => {
                             arcGenerator={arcGenerator}
                             borderWidth={borderWidth}
                             borderColor={borderColor}
-                            tooltipFormat={tooltipFormat}
+                            isInteractive={isInteractive}
                             tooltip={tooltip}
                             onClick={onClick}
                             onMouseEnter={onMouseEnter}
                             onMouseLeave={onMouseLeave}
+                            onMouseMove={onMouseMove}
+                            valueFormat={valueFormat}
                         />
                     ))}
                 {enableSliceLabels && (
@@ -109,7 +114,7 @@ export const Sunburst = <RawDatum,>({
     theme,
     ...otherProps
 }: SvgProps<RawDatum>) => (
-    <Container theme={theme} {...{ isInteractive, animate, motionConfig }}>
+    <Container {...{ isInteractive, animate, motionConfig, theme }}>
         <InnerSunburst<RawDatum> isInteractive={isInteractive} {...otherProps} />
     </Container>
 )

@@ -4,8 +4,8 @@ import { action } from '@storybook/addon-actions'
 import { withKnobs, boolean, select } from '@storybook/addon-knobs'
 import { generateLibTree } from '@nivo/generators'
 // @ts-ignore
-import { linearGradientDef, patternDotsDef } from '@nivo/core'
-import { Sunburst } from '../src'
+import { linearGradientDef, patternDotsDef, useTheme } from '@nivo/core'
+import { Sunburst, NormalizedDatum } from '../src'
 
 const commonProperties = {
     width: 900,
@@ -43,22 +43,23 @@ stories.add('with custom colors', () => (
 ))
 
 stories.add('with formatted tooltip value', () => (
-    <Sunburst
-        {...commonProperties}
-        tooltipFormat={value => {
-            return `~${typeof value === 'number' ? Math.floor(value) : value}%`
-        }}
-    />
+    <Sunburst {...commonProperties} valueFormat=" >-$,.2f" />
 ))
+
+const CustomTooltip = ({ id, value, color }: NormalizedDatum<unknown>) => {
+    const theme = useTheme()
+
+    return (
+        <strong style={{ ...theme.tooltip.container, color }}>
+            {id}: {value}
+        </strong>
+    )
+}
 
 stories.add('custom tooltip', () => (
     <Sunburst
         {...commonProperties}
-        tooltip={({ id, value, color }) => (
-            <strong style={{ color }}>
-                {id}: {value}
-            </strong>
-        )}
+        tooltip={CustomTooltip}
         theme={{
             tooltip: {
                 container: {
