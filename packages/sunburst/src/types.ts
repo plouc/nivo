@@ -22,13 +22,14 @@ export interface DataProps<RawDatum> {
     value: string | number | DatumPropertyAccessor<RawDatum, DatumValue>
 }
 
-export interface NormalizedDatum {
+export interface NormalizedDatum<RawDatum> {
     color?: string
-    fill?: string
-    id: DatumId
-    value: DatumValue
     depth: number
+    id: DatumId
+    fill?: string
+    parent?: ComputedDatum<RawDatum>
     percentage: number
+    value: DatumValue
 }
 
 export interface ComputedDatum<RawDatum> {
@@ -36,29 +37,29 @@ export interface ComputedDatum<RawDatum> {
     y0: number
     x1: number
     y1: number
-    data: NormalizedDatum
+    data: NormalizedDatum<RawDatum>
     depth: number
     height: number
     parent: HierarchyRectangularNode<RawDatum> | null
     value: number
 }
 
-export type CommonProps = {
+export type CommonProps<RawDatum> = {
     margin: Box
 
     cornerRadius: number
 
-    colors: OrdinalColorScaleConfig<Omit<NormalizedDatum, 'color' | 'fill'>>
+    colors: OrdinalColorScaleConfig<Omit<NormalizedDatum<RawDatum>, 'color' | 'fill' | 'parent'>>
     borderWidth: number
     borderColor: string
 
-    childColor: InheritedColorConfig<NormalizedDatum>
+    childColor: InheritedColorConfig<NormalizedDatum<RawDatum>>
 
     // slice labels
     enableSliceLabels: boolean
-    sliceLabel: string | LabelAccessorFunction<NormalizedDatum>
+    sliceLabel: string | LabelAccessorFunction<NormalizedDatum<RawDatum>>
     sliceLabelsSkipAngle: number
-    sliceLabelsTextColor: InheritedColorConfig<NormalizedDatum>
+    sliceLabelsTextColor: InheritedColorConfig<NormalizedDatum<RawDatum>>
 
     role: string
 
@@ -66,26 +67,26 @@ export type CommonProps = {
 
     isInteractive: boolean
     tooltipFormat: DataFormatter
-    tooltip: (payload: NormalizedDatum) => JSX.Element
+    tooltip: (payload: NormalizedDatum<RawDatum>) => JSX.Element
 }
 
-export type MouseEventHandler<ElementType> = (
-    datum: NormalizedDatum,
+export type MouseEventHandler<RawDatum, ElementType> = (
+    datum: NormalizedDatum<RawDatum>,
     event: React.MouseEvent<ElementType>
 ) => void
 
-export type MouseEventHandlers<ElementType> = Partial<{
-    onClick: MouseEventHandler<ElementType>
-    onMouseEnter: MouseEventHandler<ElementType>
-    onMouseLeave: MouseEventHandler<ElementType>
+export type MouseEventHandlers<RawDatum, ElementType> = Partial<{
+    onClick: MouseEventHandler<RawDatum, ElementType>
+    onMouseEnter: MouseEventHandler<RawDatum, ElementType>
+    onMouseLeave: MouseEventHandler<RawDatum, ElementType>
 }>
 
 export type SvgProps<RawDatum> = DataProps<RawDatum> &
     Dimensions &
     SvgDefsAndFill<RawDatum> &
-    MouseEventHandlers<SVGPathElement> &
+    MouseEventHandlers<RawDatum, SVGPathElement> &
     ModernMotionProps &
-    Partial<CommonProps>
+    Partial<CommonProps<RawDatum>>
 
 export type SunburstArcProps<RawDatum> = Pick<
     SvgProps<RawDatum>,
@@ -102,8 +103,8 @@ export type SunburstArcProps<RawDatum> = Pick<
 }
 
 export type SunburstLabelProps<RawDatum> = {
-    label: CommonProps['sliceLabel']
+    label: CommonProps<RawDatum>['sliceLabel']
     nodes: Array<ComputedDatum<RawDatum>>
     skipAngle?: number
-    textColor: CommonProps['sliceLabelsTextColor']
+    textColor: CommonProps<RawDatum>['sliceLabelsTextColor']
 }

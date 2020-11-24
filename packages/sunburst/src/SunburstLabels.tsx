@@ -20,10 +20,10 @@ export const SunburstLabels = <RawDatum,>({
     label,
     nodes,
     skipAngle = 0,
-    textColor: _textColor,
+    textColor,
 }: SunburstLabelProps<RawDatum>) => {
     const theme = useTheme()
-    const textColor = useInheritedColor(_textColor, theme)
+    const getTextColor = useInheritedColor(textColor, theme)
 
     const getLabel = useMemo(() => getLabelGenerator(label), [label])
 
@@ -60,7 +60,7 @@ export const SunburstLabels = <RawDatum,>({
                             textAnchor="middle"
                             style={{
                                 ...theme.labels.text,
-                                fill: textColor(node.data),
+                                fill: getTextColor(node.data),
                             }}
                         >
                             {getLabel(node.data)}
