@@ -2,9 +2,9 @@ import sortBy from 'lodash/sortBy'
 import cloneDeep from 'lodash/cloneDeep'
 import { getAccessorFor, useTheme } from '@nivo/core'
 import { arc } from 'd3-shape'
-import { partition as d3Partition, hierarchy as d3Hierarchy } from 'd3-hierarchy'
 import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
 import { useMemo } from 'react'
+import { partition as d3Partition, hierarchy as d3Hierarchy } from 'd3-hierarchy'
 import { CommonProps, ComputedDatum, DataProps, NormalizedDatum } from './types'
 
 type MaybeColor = { color?: string }
@@ -21,9 +21,9 @@ export const useSunburst = <RawDatum extends MaybeColor>({
     value,
     radius,
 }: {
-    childColor: CommonProps['childColor']
-    colors: CommonProps['colors']
-    cornerRadius: CommonProps['cornerRadius']
+    childColor: CommonProps<RawDatum>['childColor']
+    colors: CommonProps<RawDatum>['colors']
+    cornerRadius: CommonProps<RawDatum>['cornerRadius']
     data: DataProps<RawDatum>['data']
     id: DataProps<RawDatum>['id']
     radius: number
@@ -31,7 +31,9 @@ export const useSunburst = <RawDatum extends MaybeColor>({
 }) => {
     const theme = useTheme()
     const getColor = useOrdinalColorScale(colors, 'id')
-    const getChildColor = useInheritedColor(childColor, theme) as (datum: NormalizedDatum) => string
+    const getChildColor = useInheritedColor(childColor, theme) as (
+        datum: NormalizedDatum<RawDatum>
+    ) => string
 
     const getId = useMemo(() => getAccessorFor(id), [id])
     const getValue = useMemo(() => getAccessorFor(value), [value])
@@ -43,32 +45,34 @@ export const useSunburst = <RawDatum extends MaybeColor>({
 
         return sortBy(partition(cloneDeep(hierarchy)).descendants(), 'depth').reduce<
             Array<ComputedDatum<RawDatum>>
-        >((acc, xx) => {
+        >((acc, descendant) => {
             // Maybe the types are wrong from d3, but value prop is always present, but types make it optional
             const node = {
                 value: 0,
-                ...pick(xx, 'x0', 'y0', 'x1', 'y1', 'depth', 'height', 'parent', 'value'),
+                ...pick(descendant, 'x0', 'y0', 'x1', 'y1', 'depth', 'height', 'parent', 'value'),
             }
 
             const { value } = node
-            const id = getId(xx.data)
-
+            const id = getId(descendant.data)
             const data = {
-                id,
-                value,
-                percentage: (100 * value) / total,
                 depth: node.depth,
+                id,
+                percentage: (100 * value) / total,
+                value,
             }
 
-            const parent = acc.find(n => node.parent && n.data.id === getId(node.parent.data))
+            const parent = acc.find(
+                computed => node.parent && computed.data.id === getId(node.parent.data)
+            )
+
             const color =
                 node.depth === 1 || childColor === 'noinherit'
                     ? getColor(data)
                     : parent
                     ? getChildColor(parent.data)
-                    : xx.data.color
+                    : descendant.data.color
 
-            return [...acc, { ...node, data: { ...data, color } }]
+            return [...acc, { ...node, data: { ...data, color, parent } }]
         }, [])
     }, [data, childColor, getChildColor, getColor, getId, getValue, radius])
 

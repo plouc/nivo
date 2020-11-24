@@ -9,6 +9,7 @@
 import React from 'react'
 import { ResponsiveSunburst } from '@nivo/sunburst'
 import { generateLibTree } from '@nivo/generators'
+import { omit } from 'lodash'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/sunburst/meta.yml'
 import mapper from '../../data/components/sunburst/mapper'
@@ -77,7 +78,11 @@ const Sunburst = () => {
                                     Math.round(node.percentage * 100) / 100
                                 }%`,
                                 color: node.color,
-                                data: node,
+                                // prevent cyclic dependency
+                                data: {
+                                    ...omit(node, ['parent']),
+                                    parent: omit(node.parent, ['data', 'parent', 'children']),
+                                },
                             })
                         }
                     />
