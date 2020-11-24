@@ -1,3 +1,5 @@
+import { SunburstTooltip } from './SunburstTooltip'
+
 export type DefaultSunburstProps = Required<typeof defaultProps>
 
 export const defaultProps = {
@@ -15,10 +17,12 @@ export const defaultProps = {
 
     // slices labels
     enableSliceLabels: false,
-    sliceLabel: 'value',
+    sliceLabel: 'formattedValue',
     sliceLabelsTextColor: { theme: 'labels.text.fill' },
 
     isInteractive: true,
     animate: false,
     motionConfig: 'gentle',
+
+    tooltip: SunburstTooltip,
 } as const
