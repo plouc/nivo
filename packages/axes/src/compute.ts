@@ -1,12 +1,5 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import {
+    CountableTimeInterval,
     timeMillisecond,
     utcMillisecond,
     timeSecond,
@@ -40,9 +33,11 @@ import {
 } from 'd3-time'
 import { timeFormat } from 'd3-time-format'
 import { format as d3Format } from 'd3-format'
+// @ts-ignore
 import { textPropsByEngine } from '@nivo/core'
+import { Point, TicksSpec, AllScales, ScaleWithBandwidth, ValueFormatter, Line } from './types'
 
-export const centerScale = scale => {
+export const centerScale = (scale: ScaleWithBandwidth) => {
     const bandwidth = scale.bandwidth()
 
     if (bandwidth === 0) return scale
@@ -52,10 +47,10 @@ export const centerScale = scale => {
         offset = Math.round(offset)
     }
 
-    return d => scale(d) + offset
+    return (d: unknown) => (scale(d) ?? 0) + offset
 }
 
-const timeByType = {
+const timeByType: Record<string, [CountableTimeInterval, CountableTimeInterval]> = {
     millisecond: [timeMillisecond, utcMillisecond],
     second: [timeSecond, utcSecond],
     minute: [timeMinute, utcMinute],
@@ -76,10 +71,12 @@ const timeByType = {
 const timeTypes = Object.keys(timeByType)
 const timeIntervalRegexp = new RegExp(`^every\\s*(\\d+)?\\s*(${timeTypes.join('|')})s?$`, 'i')
 
-const isInteger = value =>
+const isInteger = (value: unknown): value is number =>
     typeof value === 'number' && isFinite(value) && Math.floor(value) === value
 
-export const getScaleTicks = (scale, spec) => {
+const isArray = <T>(value: unknown): value is T[] => Array.isArray(value)
+
+export const getScaleTicks = <Value>(scale: AllScales, spec?: TicksSpec<Value>) => {
     // specific values
     if (Array.isArray(spec)) {
         return spec
@@ -120,7 +117,7 @@ export const getScaleTicks = (scale, spec) => {
     return scale.domain()
 }
 
-export const computeCartesianTicks = ({
+export const computeCartesianTicks = <Value>({
     axis,
     scale,
     ticksPosition,
@@ -129,21 +126,30 @@ export const computeCartesianTicks = ({
     tickPadding,
     tickRotation,
     engine = 'svg',
+}: {
+    axis: 'x' | 'y'
+    scale: AllScales
+    ticksPosition: 'after' | 'before'
+    tickValues?: TicksSpec<Value>
+    tickSize: number
+    tickPadding: number
+    tickRotation: number
+    engine?: 'svg' | 'canvas'
 }) => {
-    const values = getScaleTicks(scale, tickValues)
+    const values = getScaleTicks(scale, tickValues) as Array<string | number>
 
     const textProps = textPropsByEngine[engine]
 
-    const position = scale.bandwidth ? centerScale(scale) : scale
+    const position = 'bandwidth' in scale ? centerScale(scale as any) : scale
     const line = { lineX: 0, lineY: 0 }
     const text = { textX: 0, textY: 0 }
 
-    let translate
-    let textAlign = textProps.align.center
-    let textBaseline = textProps.baseline.center
+    let translate: (value: unknown) => Point
+    let textAlign: CanvasTextAlign = textProps.align.center
+    let textBaseline: CanvasTextBaseline = textProps.baseline.center
 
     if (axis === 'x') {
-        translate = d => ({ x: position(d), y: 0 })
+        translate = d => ({ x: position(d) ?? 0, y: 0 })
 
         line.lineY = tickSize * (ticksPosition === 'after' ? 1 : -1)
         text.textY = (tickSize + tickPadding) * (ticksPosition === 'after' ? 1 : -1)
@@ -170,7 +176,7 @@ export const computeCartesianTicks = ({
             textBaseline = textProps.baseline.center
         }
     } else {
-        translate = d => ({ x: 0, y: position(d) })
+        translate = d => ({ x: 0, y: position(d) ?? 0 })
 
         line.lineX = tickSize * (ticksPosition === 'after' ? 1 : -1)
         text.textX = (tickSize + tickPadding) * (ticksPosition === 'after' ? 1 : -1)
@@ -197,43 +203,59 @@ export const computeCartesianTicks = ({
     }
 }
 
-export const getFormatter = (format, scale) => {
-    if (!format || typeof format === 'function') return format
+export const getFormatter = (
+    format: string | ValueFormatter,
+    scale: AllScales
+): ValueFormatter | undefined => {
+    if (typeof format === 'undefined' || typeof format === 'function') return format
 
     if (scale.type === 'time') {
-        const f = timeFormat(format)
-        return d => f(new Date(d))
+        const formatter = timeFormat(format)
+        return (d: number | string) => formatter(new Date(d))
     }
 
-    return d3Format(format)
+    return d3Format(format) as ValueFormatter
 }
 
-export const computeGridLines = ({ width, height, scale, axis, values: _values }) => {
-    const lineValues = Array.isArray(_values) ? _values : undefined
+export const computeGridLines = <Value>({
+    width,
+    height,
+    scale,
+    axis,
+    values: _values,
+}: {
+    width: number
+    height: number
+    scale: AllScales
+    axis: 'x' | 'y'
+    values?: TicksSpec<Value>
+}) => {
+    const lineValues = isArray<Value>(_values) ? _values : undefined
     const lineCount = isInteger(_values) ? _values : undefined
 
     const values = lineValues || getScaleTicks(scale, lineCount)
 
-    const position = scale.bandwidth ? centerScale(scale) : scale
+    const position = 'bandwidth' in scale ? centerScale(scale as any) : scale
 
-    let lines
-    if (axis === 'x') {
-        lines = values.map(v => ({
-            key: `${v}`,
-            x1: position(v),
-            x2: position(v),
-            y1: 0,
-            y2: height,
-        }))
-    } else if (axis === 'y') {
-        lines = values.map(v => ({
-            key: `${v}`,
-            x1: 0,
-            x2: width,
-            y1: position(v),
-            y2: position(v),
-        }))
-    }
+    const lines: Line[] = values.map(value => {
+        const key = `${value}`
+
+        return axis === 'x'
+            ? {
+                  key,
+                  x1: position(value) ?? 0,
+                  x2: position(value) ?? 0,
+                  y1: 0,
+                  y2: height,
+              }
+            : {
+                  key,
+                  x1: 0,
+                  x2: width,
+                  y1: position(value) ?? 0,
+                  y2: position(value) ?? 0,
+              }
+    })
 
     return lines
 }
