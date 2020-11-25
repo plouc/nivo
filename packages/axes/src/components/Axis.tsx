@@ -1,45 +1,36 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import React, { memo, useMemo } from 'react'
-import PropTypes from 'prop-types'
+import React, { useMemo } from 'react'
 import { useSpring, useTransition, animated } from 'react-spring'
 import { useTheme, useMotionConfig } from '@nivo/core'
 import { computeCartesianTicks, getFormatter } from '../compute'
-import { axisPropTypes } from '../props'
-import AxisTick from './AxisTick'
+import { AxisTick } from './AxisTick'
+import { AxisProps, AxisTickProps } from '../types'
 
-const Axis = ({
+export const Axis = <Scale,>({
     axis,
     scale,
-    x,
-    y,
+    x = 0,
+    y = 0,
     length,
     ticksPosition,
     tickValues,
-    tickSize,
-    tickPadding,
-    tickRotation,
+    tickSize = 5,
+    tickPadding = 5,
+    tickRotation = 0,
     format,
-    renderTick,
+    renderTick = AxisTick,
     legend,
-    legendPosition,
-    legendOffset,
+    legendPosition = 'end',
+    legendOffset = 0,
     onClick,
     ariaHidden,
-}) => {
+}: AxisProps<Scale>) => {
     const theme = useTheme()
 
-    const formatValue = useMemo(() => getFormatter(format, scale), [format, scale])
+    const formatValue = useMemo(() => getFormatter(format, scale as any), [format, scale])
 
     const { ticks, textAlign, textBaseline } = computeCartesianTicks({
         axis,
-        scale,
+        scale: scale as any,
         ticksPosition,
         tickValues,
         tickSize,
@@ -134,7 +125,7 @@ const Axis = ({
 
     return (
         <animated.g transform={animatedProps.transform} aria-hidden={ariaHidden}>
-            {transition((transitionProps, tick, state, tickIndex) => {
+            {transition((transitionProps, tick, _state, tickIndex) => {
                 return React.createElement(renderTick, {
                     tickIndex,
                     format: formatValue,
@@ -157,35 +148,3 @@ const Axis = ({
         </animated.g>
     )
 }
-
-Axis.propTypes = {
-    axis: PropTypes.oneOf(['x', 'y']).isRequired,
-    scale: PropTypes.func.isRequired,
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-    length: PropTypes.number.isRequired,
-    ticksPosition: PropTypes.oneOf(['before', 'after']).isRequired,
-    tickValues: axisPropTypes.tickValues,
-    tickSize: PropTypes.number.isRequired,
-    tickPadding: PropTypes.number.isRequired,
-    tickRotation: PropTypes.number.isRequired,
-    format: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-    renderTick: PropTypes.elementType,
-    legend: PropTypes.node,
-    legendPosition: PropTypes.oneOf(['start', 'middle', 'end']).isRequired,
-    legendOffset: PropTypes.number.isRequired,
-    onClick: PropTypes.func,
-    ariaHidden: PropTypes.bool,
-}
-Axis.defaultProps = {
-    x: 0,
-    y: 0,
-    tickSize: 5,
-    tickPadding: 5,
-    tickRotation: 0,
-    renderTick: AxisTick,
-    legendPosition: 'end',
-    legendOffset: 0,
-}
-
-export default memo(Axis)
