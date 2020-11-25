@@ -35,7 +35,7 @@ import { timeFormat } from 'd3-time-format'
 import { format as d3Format } from 'd3-format'
 // @ts-ignore
 import { textPropsByEngine } from '@nivo/core'
-import { Point, TicksSpec, AllScales, ScaleWithBandwidth, ValueFormatter, Line } from './types'
+import { Point, TicksSpec, AnyScale, ScaleWithBandwidth, ValueFormatter, Line } from './types'
 
 export const centerScale = (scale: ScaleWithBandwidth) => {
     const bandwidth = scale.bandwidth()
@@ -47,7 +47,7 @@ export const centerScale = (scale: ScaleWithBandwidth) => {
         offset = Math.round(offset)
     }
 
-    return (d: unknown) => (scale(d) ?? 0) + offset
+    return <T>(d: T) => (scale(d) ?? 0) + offset
 }
 
 const timeByType: Record<string, [CountableTimeInterval, CountableTimeInterval]> = {
@@ -76,14 +76,14 @@ const isInteger = (value: unknown): value is number =>
 
 const isArray = <T>(value: unknown): value is T[] => Array.isArray(value)
 
-export const getScaleTicks = <Value>(scale: AllScales, spec?: TicksSpec<Value>) => {
+export const getScaleTicks = <Value>(scale: AnyScale, spec?: TicksSpec<Value>) => {
     // specific values
     if (Array.isArray(spec)) {
         return spec
     }
 
     // continuous scales
-    if (scale.ticks) {
+    if ('ticks' in scale) {
         // default behaviour
         if (spec === undefined) {
             return scale.ticks()
@@ -94,7 +94,7 @@ export const getScaleTicks = <Value>(scale: AllScales, spec?: TicksSpec<Value>) 
             return scale.ticks(spec)
         }
 
-        if (typeof spec === 'string') {
+        if (typeof spec === 'string' && 'useUTC' in scale) {
             // time interval
             const matches = spec.match(timeIntervalRegexp)
             if (matches) {
@@ -102,11 +102,16 @@ export const getScaleTicks = <Value>(scale: AllScales, spec?: TicksSpec<Value>) 
                 // however local time could be used too
                 // let's see how it fits users' requirements
                 const timeType = timeByType[matches[2]][scale.useUTC ? 1 : 0]
+
                 if (matches[1] === undefined) {
                     return scale.ticks(timeType)
                 }
 
-                return scale.ticks(timeType.every(Number(matches[1])))
+                const interval = timeType.every(Number(matches[1]))
+
+                if (interval) {
+                    return scale.ticks(interval)
+                }
             }
 
             throw new Error(`Invalid tickValues: ${spec}`)
@@ -122,29 +127,29 @@ export const computeCartesianTicks = <Value>({
     scale,
     ticksPosition,
     tickValues,
-    tickSize,
-    tickPadding,
-    tickRotation,
+    tickSize = NaN,
+    tickPadding = NaN,
+    tickRotation = NaN,
     engine = 'svg',
 }: {
     axis: 'x' | 'y'
-    scale: AllScales
-    ticksPosition: 'after' | 'before'
+    scale: AnyScale
+    ticksPosition?: 'after' | 'before'
     tickValues?: TicksSpec<Value>
-    tickSize: number
-    tickPadding: number
-    tickRotation: number
+    tickSize?: number
+    tickPadding?: number
+    tickRotation?: number
     engine?: 'svg' | 'canvas'
 }) => {
-    const values = getScaleTicks(scale, tickValues) as Array<string | number>
+    const values = getScaleTicks(scale, tickValues)
 
     const textProps = textPropsByEngine[engine]
 
-    const position = 'bandwidth' in scale ? centerScale(scale as any) : scale
+    const position = 'bandwidth' in scale ? centerScale(scale) : scale
     const line = { lineX: 0, lineY: 0 }
     const text = { textX: 0, textY: 0 }
 
-    let translate: (value: unknown) => Point
+    let translate: (value: string | number) => Point
     let textAlign: CanvasTextAlign = textProps.align.center
     let textBaseline: CanvasTextBaseline = textProps.baseline.center
 
@@ -205,7 +210,7 @@ export const computeCartesianTicks = <Value>({
 
 export const getFormatter = (
     format: string | ValueFormatter,
-    scale: AllScales
+    scale: AnyScale
 ): ValueFormatter | undefined => {
     if (typeof format === 'undefined' || typeof format === 'function') return format
 
@@ -226,16 +231,16 @@ export const computeGridLines = <Value>({
 }: {
     width: number
     height: number
-    scale: AllScales
+    scale: AnyScale
     axis: 'x' | 'y'
     values?: TicksSpec<Value>
 }) => {
-    const lineValues = isArray<Value>(_values) ? _values : undefined
+    const lineValues = isArray<number>(_values) ? _values : undefined
     const lineCount = isInteger(_values) ? _values : undefined
 
     const values = lineValues || getScaleTicks(scale, lineCount)
 
-    const position = 'bandwidth' in scale ? centerScale(scale as any) : scale
+    const position = 'bandwidth' in scale ? centerScale(scale) : scale
 
     const lines: Line[] = values.map(value => {
         const key = `${value}`

@@ -9,7 +9,7 @@ const defaultTickRenderer = <Value extends string | number | Date>(props: AxisTi
     <AxisTick {...props} />
 )
 
-export const Axis = <Scale,>({
+export const Axis = ({
     axis,
     scale,
     x = 0,
@@ -27,10 +27,10 @@ export const Axis = <Scale,>({
     legendOffset = 0,
     onClick,
     ariaHidden,
-}: AxisProps<Scale>) => {
+}: AxisProps) => {
     const theme = useTheme()
 
-    const formatValue = useMemo(() => getFormatter(format, scale as any), [format, scale])
+    const formatValue = useMemo(() => getFormatter(format, scale), [format, scale])
 
     const { ticks, textAlign, textBaseline } = computeCartesianTicks({
         axis,

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Axis } from './Axis'
-import { AllScales, AxisProp } from '../types'
+import { AnyScale, AxisProp } from '../types'
 
 const positions = ['top', 'right', 'bottom', 'left'] as const
 
@@ -14,8 +14,8 @@ export const Axes = <X extends number | string | Date, Y extends number | string
     bottom,
     left,
 }: {
-    xScale: AllScales
-    yScale: AllScales
+    xScale: AnyScale
+    yScale: AnyScale
     width: number
     height: number
     top?: AxisProp<X>
