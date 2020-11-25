@@ -1,11 +1,3 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { scaleLinear, scaleOrdinal, scalePoint, scaleBand, scaleTime, scaleUtc } from 'd3-scale'
 import { getScaleTicks, computeCartesianTicks } from '../src/compute'
 
@@ -183,7 +175,8 @@ describe('getTicks', () => {
             it(`should support ${interval.interval} interval`, () => {
                 const intervalTimeScale = scaleUtc().domain(interval.domain)
 
-                intervalTimeScale.useUTC = true
+                // set utc flag on our scale
+                ;(intervalTimeScale as any).useUTC = true
 
                 expect(getScaleTicks(intervalTimeScale, `every ${interval.interval}`)).toEqual(
                     interval.expect
