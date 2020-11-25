@@ -1,18 +1,10 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import React, { memo } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 import { useTransition } from 'react-spring'
 import { useMotionConfig } from '@nivo/core'
-import GridLine from './GridLine'
+import { GridLine } from './GridLine'
+import { Line } from '../types'
 
-const GridLines = ({ lines }) => {
+export const GridLines = ({ lines }: { lines: Line[] }) => {
     const { animate, config: springConfig } = useMotionConfig()
 
     const transition = useTransition(lines, {
@@ -60,18 +52,3 @@ const GridLines = ({ lines }) => {
         </g>
     )
 }
-
-GridLines.propTypes = {
-    type: PropTypes.oneOf(['x', 'y']).isRequired,
-    lines: PropTypes.arrayOf(
-        PropTypes.shape({
-            key: PropTypes.string.isRequired,
-            x1: PropTypes.number,
-            x2: PropTypes.number,
-            y1: PropTypes.number,
-            y2: PropTypes.number,
-        })
-    ).isRequired,
-}
-
-export default memo(GridLines)
