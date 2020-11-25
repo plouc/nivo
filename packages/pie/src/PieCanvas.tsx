@@ -15,7 +15,6 @@ import {
 // @ts-ignore
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useInheritedColor, InheritedColorConfig } from '@nivo/colors'
-// @ts-ignore
 import { useTooltip } from '@nivo/tooltip'
 import { useNormalizedData, usePieFromBox, usePieRadialLabels, usePieSliceLabels } from './hooks'
 import { ComputedDatum, PieCanvasProps, RadialLabelData, SliceLabelData } from './types'
