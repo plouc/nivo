@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { GridLines } from './GridLines'
 import { computeGridLines } from '../compute'
-import { AllScales } from '../types'
+import { AnyScale } from '../types'
 
 export const Grid = <X extends number | string | Date, Y extends number | string | Date>({
     width,
@@ -13,9 +13,9 @@ export const Grid = <X extends number | string | Date, Y extends number | string
 }: {
     width: number
     height: number
-    xScale?: AllScales
+    xScale?: AnyScale
     xValues?: number | X[]
-    yScale?: AllScales
+    yScale?: AnyScale
     yValues?: number | Y[]
 }) => {
     const xLines = useMemo(() => {
