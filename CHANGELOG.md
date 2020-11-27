@@ -1,3 +1,23 @@
+<a name="v0.66.0"></a>
+## v0.66.0 (2020-11-27)
+
+
+#### Features
+
+* **bar:**  add the ability to round index scale (#1282) ([1ab12579](https://github.com/plouc/nivo/commit/1ab12579594baa2eb2c89e65c6bdf81a0e85cfd0))
+
+#### Bug Fixes
+
+* **bar:**  fix stacked bars when key is missing (#1291) ([484235ff](https://github.com/plouc/nivo/commit/484235ff44bf3cb516e906f8c2b101669b17fc8a))
+* **changelog:**  update clog to allow setting a tag date (#1278) ([e984d72b](https://github.com/plouc/nivo/commit/e984d72beab35644a437d87ce7d2d6f8811eef10))
+* **core:**  add missing properties back to theme type (#1292) ([681e0c28](https://github.com/plouc/nivo/commit/681e0c28fcf8ef593a8d5bc71b7b3256342982ac))
+
+#### Chore
+
+* **build:**  bump any nivo peer dep on version mismatch ([b0dd147c](https://github.com/plouc/nivo/commit/b0dd147c7f21074afaac9bbda1a27f2c01cdafc4))
+
+
+
 <a name="v0.65.1"></a>
 ## v0.65.1 (2020-11-17)
 
