@@ -15,10 +15,11 @@ but just a few provide server side rendering ability and fully declarative chart
 
 ## Installation
 
-In order to use nivo, you just have to pick the scoped `@nivo` packages according to the charts you wish to use.
+In order to use nivo, you have to install the `@nivo/core` package and then choose
+some of the scoped `@nivo` packages according to the charts you wish to use:
 
 ```
-yarn add @nivo/bar @nivo/sankey ...
+yarn add @nivo/core @nivo/bar
 ```
 
 ## Features
@@ -78,17 +79,10 @@ Donations are welcome to help improving **nivo** [[Become a backer](https://open
 Support this project by becoming a sponsor,
 your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/nivo#sponsor)]
 
-## Repositories
-
--   [nivo](https://github.com/plouc/nivo) - nivo packages, website, storybook and examples
--   [nivo-api](https://github.com/plouc/nivo-api) - the nivo http api
--   [nivo-api-docker](https://github.com/plouc/nivo-api-docker) - a Docker image for the nivo http api
-
 ## Credits
 
 -   [d3](https://d3js.org/)
 -   [react](https://facebook.github.io/react/)
--   [react-motion](https://github.com/chenglou/react-motion)
 -   …
 
 [license-image]: https://img.shields.io/github/license/plouc/nivo.svg?style=flat-square
