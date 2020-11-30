@@ -12,10 +12,6 @@ trigger:
 pool: 'Default'
 
 steps:
-#- task: npmAuthenticate@0
-#  inputs:
-#    workingFile: .npmrc
-
 - task: npmAuthenticate@0
   inputs:
     workingFile: $(Agent.HomeDirectory)/.npmrc
