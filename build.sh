@@ -2,6 +2,7 @@
 
 set -e
 
-make test
+make lint
+make packages-test
 make init
 make packages-publish
