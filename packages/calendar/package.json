@@ -1,6 +1,6 @@
 {
   "name": "@bitbloom/nivo-calendar",
-  "version": "0.62.2",
+  "version": "0.62.4",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -23,9 +23,9 @@
     "dist/"
   ],
   "dependencies": {
-    "@bitbloom/nivo-core": "0.62.2",
-    "@bitbloom/nivo-legends": "0.62.2",
-    "@bitbloom/nivo-tooltip": "0.62.2",
+    "@bitbloom/nivo-core": "^0.62.4",
+    "@bitbloom/nivo-legends": "^0.62.4",
+    "@bitbloom/nivo-tooltip": "^0.62.4",
     "d3-scale": "^3.0.0",
     "d3-time": "^1.0.10",
     "d3-time-format": "^2.1.3",
