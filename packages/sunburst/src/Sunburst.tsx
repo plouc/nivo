@@ -48,7 +48,11 @@ const InnerSunburst = <RawDatum,>(props: SvgProps<RawDatum>) => {
         onMouseMove,
     } = { ...defaultProps, ...props }
 
-    const { innerWidth, innerHeight, margin } = useDimensions(width, height, partialMargin)
+    const { innerHeight, innerWidth, margin, outerHeight, outerWidth } = useDimensions(
+        width,
+        height,
+        partialMargin
+    )
 
     const { centerX, centerY, radius } = useMemo(() => {
         const radius = Math.min(innerWidth, innerHeight) / 2
@@ -67,6 +71,8 @@ const InnerSunburst = <RawDatum,>(props: SvgProps<RawDatum>) => {
         valueFormat,
     })
 
+    const filteredNodes = useMemo(() => nodes.filter(node => node.depth > 0), [nodes])
+
     const boundDefs = bindDefs(defs, nodes, fill, {
         dataKey: 'data',
         colorKey: 'data.color',
@@ -74,28 +80,31 @@ const InnerSunburst = <RawDatum,>(props: SvgProps<RawDatum>) => {
     })
 
     return (
-        <SvgWrapper width={width} height={height} defs={boundDefs} margin={margin} role={role}>
+        <SvgWrapper
+            width={outerWidth}
+            height={outerHeight}
+            defs={boundDefs}
+            margin={margin}
+            role={role}
+        >
             <g transform={`translate(${centerX}, ${centerY})`}>
-                {nodes
-                    .filter(node => node.depth > 0)
-                    .map(node => (
-                        <SunburstArc
-                            key={node.data.id}
-                            node={node}
-                            arcGenerator={arcGenerator}
-                            borderWidth={borderWidth}
-                            borderColor={borderColor}
-                            isInteractive={isInteractive}
-                            tooltip={tooltip}
-                            onClick={onClick}
-                            onMouseEnter={onMouseEnter}
-                            onMouseLeave={onMouseLeave}
-                            onMouseMove={onMouseMove}
-                            valueFormat={valueFormat}
-                        />
-                    ))}
+                {filteredNodes.map(node => (
+                    <SunburstArc<RawDatum>
+                        key={node.data.id}
+                        node={node}
+                        arcGenerator={arcGenerator}
+                        borderWidth={borderWidth}
+                        borderColor={borderColor}
+                        isInteractive={isInteractive}
+                        tooltip={tooltip}
+                        onClick={onClick}
+                        onMouseEnter={onMouseEnter}
+                        onMouseLeave={onMouseLeave}
+                        onMouseMove={onMouseMove}
+                    />
+                ))}
                 {enableSliceLabels && (
-                    <SunburstLabels
+                    <SunburstLabels<RawDatum>
                         nodes={nodes}
                         label={sliceLabel}
                         skipAngle={sliceLabelsSkipAngle}
