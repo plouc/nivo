@@ -1,3 +1,4 @@
+import pick from 'lodash/pick'
 import sortBy from 'lodash/sortBy'
 import cloneDeep from 'lodash/cloneDeep'
 import React, { createElement, useCallback, useMemo } from 'react'
@@ -10,9 +11,6 @@ import { CommonProps, ComputedDatum, DataProps, NormalizedDatum, MouseEventHandl
 
 type MaybeColor = { color?: string }
 
-const pick = <T, K extends keyof T>(obj: T, ...keys: K[]): Pick<T, K> =>
-    keys.reduce((acc, prop) => ({ ...acc, [prop]: obj[prop] }), {} as Pick<T, K>)
-
 export const useEventHandlers = <RawDatum>({
     data,
     isInteractive,
@@ -21,18 +19,16 @@ export const useEventHandlers = <RawDatum>({
     onMouseLeave: onMouseLeaveHandler,
     onMouseMove: onMouseMoveHandler,
     tooltip,
-    valueFormat,
 }: Pick<CommonProps<RawDatum>, 'isInteractive' | 'tooltip'> &
     MouseEventHandlers<RawDatum, SVGPathElement> & {
         data: NormalizedDatum<RawDatum>
-        valueFormat?: DataProps<RawDatum>['valueFormat']
     }) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleTooltip = useCallback(
         (event: React.MouseEvent<SVGPathElement>) =>
-            showTooltipFromEvent(createElement(tooltip, { ...data, valueFormat }), event),
-        [data, showTooltipFromEvent, tooltip, valueFormat]
+            showTooltipFromEvent(createElement(tooltip, data), event),
+        [data, showTooltipFromEvent, tooltip]
     )
 
     const onClick = useCallback(
@@ -100,7 +96,7 @@ export const useSunburst = <RawDatum extends MaybeColor>({
     valueFormat: DataProps<RawDatum>['valueFormat']
 }) => {
     const theme = useTheme()
-    const getColor = useOrdinalColorScale(colors, 'id')
+    const getColor = useOrdinalColorScale<NormalizedDatum<RawDatum>>(colors, 'id')
     const getChildColor = useInheritedColor(childColor, theme) as (
         datum: NormalizedDatum<RawDatum>
     ) => string
@@ -121,8 +117,7 @@ export const useSunburst = <RawDatum extends MaybeColor>({
                 // Maybe the types are wrong from d3, but value prop is always present, but types make it optional
                 const node = {
                     value: 0,
-                    ...pick(
-                        descendant,
+                    ...pick(descendant, [
                         'x0',
                         'y0',
                         'x1',
@@ -130,19 +125,20 @@ export const useSunburst = <RawDatum extends MaybeColor>({
                         'depth',
                         'height',
                         'parent',
-                        'value'
-                    ),
+                        'value',
+                    ]),
                 }
 
                 const { value } = node
                 const id = getId(descendant.data)
+                const percentage = (100 * value) / total
                 const data = {
                     color: descendant.data.color,
                     data: descendant.data,
                     depth: node.depth,
-                    formattedValue: formatValue(value),
+                    formattedValue: valueFormat ? formatValue(value) : `${percentage.toFixed(2)}%`,
                     id,
-                    percentage: (100 * value) / total,
+                    percentage,
                     value,
                 }
 
@@ -161,7 +157,17 @@ export const useSunburst = <RawDatum extends MaybeColor>({
             },
             []
         )
-    }, [radius, data, getValue, getId, formatValue, childColor, getColor, getChildColor])
+    }, [
+        radius,
+        data,
+        getValue,
+        getId,
+        valueFormat,
+        formatValue,
+        childColor,
+        getColor,
+        getChildColor,
+    ])
 
     const arcGenerator = useMemo(
         () =>

@@ -97,13 +97,7 @@ export type SvgProps<RawDatum> = DataProps<RawDatum> &
 
 export type SunburstArcProps<RawDatum> = Pick<
     SvgProps<RawDatum>,
-    | 'onClick'
-    | 'onMouseEnter'
-    | 'onMouseLeave'
-    | 'onMouseMove'
-    | 'borderWidth'
-    | 'borderColor'
-    | 'valueFormat'
+    'onClick' | 'onMouseEnter' | 'onMouseLeave' | 'onMouseMove' | 'borderWidth' | 'borderColor'
 > &
     Pick<CommonProps<RawDatum>, 'isInteractive' | 'tooltip'> & {
         arcGenerator: Arc<any, ComputedDatum<RawDatum>>

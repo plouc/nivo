@@ -375,8 +375,8 @@ describe('Sunburst', () => {
             const labels = wrapper.find('SunburstLabels').find('g')
             expect(labels).toHaveLength(2)
 
-            expect(labels.at(0).find('text').text()).toEqual('110')
-            expect(labels.at(1).find('text').text()).toEqual('20')
+            expect(labels.at(0).find('text').text()).toEqual('84.62%')
+            expect(labels.at(1).find('text').text()).toEqual('15.38%')
         })
 
         it('should use formattedValue', () => {
