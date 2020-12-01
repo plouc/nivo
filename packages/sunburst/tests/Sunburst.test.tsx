@@ -568,4 +568,35 @@ describe('Sunburst', () => {
             expect(tooltip.text()).toEqual('B')
         })
     })
+
+    describe('layers', () => {
+        it('should support disabling a layer', () => {
+            const wrapper = mount(<Sunburst width={400} height={400} data={sampleData} />)
+            expect(wrapper.find('SunburstArc')).toHaveLength(5)
+
+            wrapper.setProps({ layers: ['sliceLabels'] })
+            expect(wrapper.find('SunburstArc')).toHaveLength(0)
+        })
+
+        it('should support adding a custom layer', () => {
+            const CustomLayer = () => null
+
+            const wrapper = mount(
+                <Sunburst
+                    width={400}
+                    height={400}
+                    data={sampleData}
+                    layers={['slices', 'sliceLabels', CustomLayer]}
+                />
+            )
+
+            const customLayer = wrapper.find(CustomLayer)
+
+            expect(customLayer.prop('nodes')).toHaveLength(5)
+            expect(customLayer.prop('centerX')).toEqual(200)
+            expect(customLayer.prop('centerY')).toEqual(200)
+            expect(customLayer.prop('arcGenerator')).toBeDefined()
+            expect(customLayer.prop('radius')).toEqual(200)
+        })
+    })
 })

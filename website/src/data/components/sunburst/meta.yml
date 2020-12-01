@@ -28,6 +28,8 @@ Sunburst:
       link: sunburst--patterns-gradients
     - label: drill down to children
       link: sunburst--children-drill-down
+    - label: adding a metric in the center using a custom layer
+      link: sunburst--adding-a-metric-in-the-center-using-a-custom-layer
   description: |
     The responsive alternative of this component is
     `ResponsiveSunburst`.

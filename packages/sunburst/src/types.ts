@@ -16,6 +16,20 @@ export type DatumValue = number
 export type DatumPropertyAccessor<RawDatum, T> = (datum: RawDatum) => T
 export type LabelAccessorFunction<RawDatum> = (datum: RawDatum) => string | number
 
+export type SunburstLayerId = 'slices' | 'sliceLabels'
+
+export interface SunburstCustomLayerProps<RawDatum> {
+    nodes: ComputedDatum<RawDatum>[]
+    centerX: number
+    centerY: number
+    radius: number
+    arcGenerator: Arc<any, ComputedDatum<RawDatum>>
+}
+
+export type SunburstCustomLayer<RawDatum> = React.FC<SunburstCustomLayerProps<RawDatum>>
+
+export type SunburstLayer<RawDatum> = SunburstLayerId | SunburstCustomLayer<RawDatum>
+
 export interface DataProps<RawDatum> {
     data: RawDatum
     id?: string | number | DatumPropertyAccessor<RawDatum, DatumId>
@@ -52,6 +66,8 @@ export interface ComputedDatum<RawDatum> {
 }
 
 export type CommonProps<RawDatum> = {
+    layers: SunburstLayer<RawDatum>[]
+
     margin: Box
 
     cornerRadius: number

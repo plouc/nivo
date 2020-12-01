@@ -1,11 +1,11 @@
-import React, { useMemo } from 'react'
+import React, { Fragment, ReactNode, createElement, useMemo } from 'react'
 // @ts-ignore
 import { Container, SvgWrapper, useDimensions, bindDefs } from '@nivo/core'
 import { SunburstLabels } from './SunburstLabels'
 import { SunburstArc } from './SunburstArc'
 import { defaultProps } from './props'
-import { useSunburst } from './hooks'
-import { SvgProps } from './types'
+import { useSunburst, useSunburstLayerContext } from './hooks'
+import { SvgProps, SunburstLayerId, SunburstLayer } from './types'
 
 const InnerSunburst = <RawDatum,>(props: SvgProps<RawDatum>) => {
     const {
@@ -13,6 +13,8 @@ const InnerSunburst = <RawDatum,>(props: SvgProps<RawDatum>) => {
         id,
         value,
         valueFormat,
+
+        layers = defaultProps.layers as SunburstLayer<RawDatum>[],
 
         colors,
         childColor,
@@ -79,15 +81,14 @@ const InnerSunburst = <RawDatum,>(props: SvgProps<RawDatum>) => {
         targetKey: 'data.fill',
     })
 
-    return (
-        <SvgWrapper
-            width={outerWidth}
-            height={outerHeight}
-            defs={boundDefs}
-            margin={margin}
-            role={role}
-        >
-            <g transform={`translate(${centerX}, ${centerY})`}>
+    const layerById: Record<SunburstLayerId, ReactNode> = {
+        slices: null,
+        sliceLabels: null,
+    }
+
+    if (layers.includes('slices')) {
+        layerById.slices = (
+            <g key="slices" transform={`translate(${centerX},${centerY})`}>
                 {filteredNodes.map(node => (
                     <SunburstArc<RawDatum>
                         key={node.data.id}
@@ -103,15 +104,49 @@ const InnerSunburst = <RawDatum,>(props: SvgProps<RawDatum>) => {
                         onMouseMove={onMouseMove}
                     />
                 ))}
-                {enableSliceLabels && (
-                    <SunburstLabels<RawDatum>
-                        nodes={nodes}
-                        label={sliceLabel}
-                        skipAngle={sliceLabelsSkipAngle}
-                        textColor={sliceLabelsTextColor}
-                    />
-                )}
             </g>
+        )
+    }
+
+    if (enableSliceLabels && layers.includes('sliceLabels')) {
+        layerById.sliceLabels = (
+            <SunburstLabels<RawDatum>
+                key="sliceLabels"
+                nodes={nodes}
+                label={sliceLabel}
+                skipAngle={sliceLabelsSkipAngle}
+                textColor={sliceLabelsTextColor}
+            />
+        )
+    }
+
+    const layerContext = useSunburstLayerContext<RawDatum>({
+        nodes: filteredNodes,
+        arcGenerator,
+        centerX,
+        centerY,
+        radius,
+    })
+
+    return (
+        <SvgWrapper
+            width={outerWidth}
+            height={outerHeight}
+            defs={boundDefs}
+            margin={margin}
+            role={role}
+        >
+            {layers.map((layer, i) => {
+                if (layerById[layer as SunburstLayerId] !== undefined) {
+                    return layerById[layer as SunburstLayerId]
+                }
+
+                if (typeof layer === 'function') {
+                    return <Fragment key={i}>{createElement(layer, layerContext)}</Fragment>
+                }
+
+                return null
+            })}
         </SvgWrapper>
     )
 }
