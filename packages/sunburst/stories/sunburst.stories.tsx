@@ -154,3 +154,26 @@ stories.add(
         },
     }
 )
+
+const CenteredMetric = ({ nodes, centerX, centerY }) => {
+    const total = nodes.reduce((total, datum) => total + datum.value, 0)
+
+    return (
+        <text
+            x={centerX}
+            y={centerY}
+            textAnchor="middle"
+            dominantBaseline="central"
+            style={{
+                fontSize: '42px',
+                fontWeight: 600,
+            }}
+        >
+            {Number.parseFloat(total).toExponential(2)}
+        </text>
+    )
+}
+
+stories.add('adding a metric in the center using a custom layer', () => (
+    <Sunburst {...commonProperties} layers={['slices', 'sliceLabels', CenteredMetric]} />
+))

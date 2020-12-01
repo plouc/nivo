@@ -146,6 +146,34 @@ const props = [
         },
     },
     {
+        key: 'layers',
+        group: 'Customization',
+        help: 'Defines the order of layers and add custom layers.',
+        description: `
+            You can also use this to insert extra layers
+            to the chart, the extra layer must be a function.
+
+            The layer component which will receive the chart's
+            context & computed data and must return a valid SVG element
+            for the \`Sunburst\` component.
+
+            The context passed to layers has the following structure:
+
+            \`\`\`
+            {
+                nodes:  ComputedDatum<RawDatum>[],
+                arcGenerator: Function
+                centerX:      number
+                centerY:      number
+                radius:       number
+            }
+            \`\`\`
+        `,
+        required: false,
+        type: 'Array<string | Function>',
+        defaultValue: defaultProps.layers,
+    },
+    {
         key: 'isInteractive',
         flavors: ['svg'],
         help: 'Enable/disable interactivity.',

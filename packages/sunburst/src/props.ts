@@ -1,6 +1,6 @@
+import { OrdinalColorScaleConfig } from '@nivo/colors'
 import { SunburstTooltip } from './SunburstTooltip'
-
-export type DefaultSunburstProps = Required<typeof defaultProps>
+import { SunburstLayerId } from './types'
 
 export const defaultProps = {
     id: 'id',
@@ -8,7 +8,9 @@ export const defaultProps = {
 
     cornerRadius: 0,
 
-    colors: { scheme: 'nivo' },
+    layers: ['slices', 'sliceLabels'] as SunburstLayerId[],
+
+    colors: ({ scheme: 'nivo' } as unknown) as OrdinalColorScaleConfig,
     borderWidth: 1,
     borderColor: 'white',
 
@@ -18,6 +20,7 @@ export const defaultProps = {
     // slices labels
     enableSliceLabels: false,
     sliceLabel: 'formattedValue',
+    sliceLabelsSkipAngle: 0,
     sliceLabelsTextColor: { theme: 'labels.text.fill' },
 
     isInteractive: true,
@@ -25,4 +28,4 @@ export const defaultProps = {
     motionConfig: 'gentle',
 
     tooltip: SunburstTooltip,
-} as const
+}

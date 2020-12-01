@@ -3,11 +3,18 @@ import sortBy from 'lodash/sortBy'
 import cloneDeep from 'lodash/cloneDeep'
 import React, { createElement, useCallback, useMemo } from 'react'
 import { getAccessorFor, useTheme, useValueFormatter } from '@nivo/core'
-import { arc } from 'd3-shape'
+import { arc, Arc } from 'd3-shape'
 import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
 import { partition as d3Partition, hierarchy as d3Hierarchy } from 'd3-hierarchy'
-import { CommonProps, ComputedDatum, DataProps, NormalizedDatum, MouseEventHandlers } from './types'
+import {
+    CommonProps,
+    ComputedDatum,
+    DataProps,
+    NormalizedDatum,
+    MouseEventHandlers,
+    SunburstCustomLayerProps,
+} from './types'
 
 type MaybeColor = { color?: string }
 
@@ -182,3 +189,30 @@ export const useSunburst = <RawDatum extends MaybeColor>({
 
     return { arcGenerator, nodes }
 }
+
+/**
+ * Memoize the context to pass to custom layers.
+ */
+export const useSunburstLayerContext = <RawDatum>({
+    nodes,
+    arcGenerator,
+    centerX,
+    centerY,
+    radius,
+}: {
+    nodes: ComputedDatum<RawDatum>[]
+    arcGenerator: Arc<any, ComputedDatum<RawDatum>>
+    centerX: number
+    centerY: number
+    radius: number
+}): SunburstCustomLayerProps<RawDatum> =>
+    useMemo(
+        () => ({
+            nodes,
+            arcGenerator,
+            centerX,
+            centerY,
+            radius,
+        }),
+        [nodes, arcGenerator, centerX, centerY, radius]
+    )
