@@ -1,6 +1,6 @@
 {
   "name": "@bitbloom/nivo-axes",
-  "version": "0.62.2",
+  "version": "0.62.4",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -21,7 +21,7 @@
     "dist/"
   ],
   "dependencies": {
-    "@bitbloom/nivo-scales": "0.62.2",
+    "@bitbloom/nivo-scales": "^0.62.4",
     "d3-format": "^1.4.4",
     "d3-time": "^1.0.11",
     "d3-time-format": "^2.1.3",
