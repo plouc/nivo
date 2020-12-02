@@ -136,13 +136,7 @@ declare module '@nivo/bar' {
         markers: CartesianMarkerProps[]
     }>
 
-    export enum BarLayerType {
-        Grid = 'grid',
-        Axes = 'axes',
-        Bars = 'bars',
-        Markers = 'markers',
-        Legends = 'legends',
-    }
+    export type BarLayerType = 'grid' | 'axes' | 'bars' | 'markers' | 'legends'
     export type BarCustomLayer = (props: any) => React.ReactNode
     export type Layer = BarLayerType | BarCustomLayer
 
