@@ -64,6 +64,13 @@ const run = async () => {
         if (i === 0) await changes({ tag: tags[i], from: '0.31.0', to: tags[i][1] })
         else await changes({ tag: tags[i], from: tags[i - 1][1], to: tags[i][1] })
     }
+
+    await new Promise((resolve, reject) => {
+        exec('git add --all', err => {
+            if (err) return reject(err)
+            resolve()
+        })
+    })
 }
 
 run()

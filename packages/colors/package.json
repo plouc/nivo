@@ -17,7 +17,8 @@
   "files": [
     "README.md",
     "LICENSE.md",
-    "dist/"
+    "dist/",
+    "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
     "d3-color": "^2.0.0",

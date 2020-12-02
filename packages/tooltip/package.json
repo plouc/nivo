@@ -17,7 +17,8 @@
   "files": [
     "README.md",
     "LICENSE.md",
-    "dist/"
+    "dist/",
+    "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
     "react-spring": "9.0.0-rc.3"
