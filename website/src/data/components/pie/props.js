@@ -22,19 +22,19 @@ const props = [
         description: `
             Chart data, which must conform to this structure
             if using the default \`id\` and \`value\` accessors:
-            
+
             \`\`\`
             Array<{
                 id:    string | number,
                 value: number
             }>
             \`\`\`
-            
+
             If using a different data structure, you must make sure
             to adjust both \`id\` and \`value\`. Meaning you can provide
             a completely different data structure as long as \`id\` and \`value\`
             return the appropriate values.
-            
+
             Immutability of the data is important as re-computations
             depends on it.
         `,
@@ -63,7 +63,7 @@ const props = [
         `,
         type: 'string | (datum: RawDatum): number',
         required: false,
-        defaultValue: defaults.id,
+        defaultValue: defaults.value,
     },
     {
         key: 'valueFormat',
@@ -71,7 +71,7 @@ const props = [
         help: 'Optional formatter for values.',
         description: `
             The formatted value can then be used for labels & tooltips.
-            
+
             Under the hood, nivo uses [d3-format](https://github.com/d3/d3-format),
             please have a look at it for available formats, you can also pass a function
             which will receive the raw value and should return the formatted one.
@@ -481,7 +481,7 @@ const props = [
         description: `
             You can also use this to insert extra layers
             to the chart, the extra layer must be a function.
-            
+
             The layer component which will receive the chart's
             context & computed data and must return a valid SVG element
             for the \`Pie\` component.
@@ -494,9 +494,9 @@ const props = [
             \`context.restore()\` if you make some global
             modifications to the 2d context inside this function
             to avoid side effects.
-            
+
             The context passed to layers has the following structure:
-            
+
             \`\`\`
             {
                 dataWithArc:  DatumWithArc[],
@@ -565,13 +565,13 @@ const props = [
             A function allowing complete tooltip customisation,
             it must return a valid HTML element and will receive
             the following props:
-            
+
             \`\`\`
             {
                 datum: PieComputedDatum
             }
             \`\`\`
-            
+
             You can also customize the style of the tooltip using
             the \`theme.tooltip\` object.
         `,

@@ -27,5 +27,8 @@ export const defaultProps = {
     animate: false,
     motionConfig: 'gentle',
 
+    defs: [],
+    fill: [],
+
     tooltip: SunburstTooltip,
 }
