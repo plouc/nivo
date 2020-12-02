@@ -25,7 +25,8 @@
   "files": [
     "README.md",
     "LICENSE.md",
-    "dist/"
+    "dist/",
+    "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
     "@nivo/colors": "0.66.0",

@@ -82,7 +82,9 @@
   "scripts": {
     "changelog": "rm CHANGELOG.md && node scripts/generate-changelog.js",
     "make:init": "make init",
-    "version": "yarn changelog && node scripts/bump-peer-deps.js"
+    "prepublishOnly": "yarn release:prepare",
+    "release:prepare": "node scripts/bump-peer-deps.js && yarn changelog",
+    "version": "yarn release:prepare"
   },
   "workspaces": [
     "packages/*",
