@@ -13,8 +13,12 @@ import { settingsMapper } from '../../../lib/settings'
 
 const TooltipWrapper = styled.div`
     display: grid;
+    background: #fff;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 12px;
+    font-size: 12px;
+    border-radius: 2px;
+    box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.15);
 `
 const TooltipKey = styled.span`
     font-weight: 600;
@@ -39,7 +43,7 @@ const CustomTooltip = node => {
 export default settingsMapper(
     {
         tooltip: (value, values) => {
-            if (!values['custom tooltip example']) return null
+            if (!values['custom tooltip example']) return undefined
 
             return CustomTooltip
         },

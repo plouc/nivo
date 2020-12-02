@@ -7,49 +7,47 @@ import { defaultProps } from './props'
 import { useSunburst, useSunburstLayerContext } from './hooks'
 import { SvgProps, SunburstLayerId, SunburstLayer } from './types'
 
-const InnerSunburst = <RawDatum,>(props: SvgProps<RawDatum>) => {
-    const {
-        data,
-        id,
-        value,
-        valueFormat,
+const InnerSunburst = <RawDatum,>({
+    data,
+    id = defaultProps.id,
+    value = defaultProps.value,
+    valueFormat,
 
-        layers = defaultProps.layers as SunburstLayer<RawDatum>[],
+    layers = defaultProps.layers as SunburstLayer<RawDatum>[],
 
-        colors,
-        childColor,
+    colors = defaultProps.colors,
+    childColor = defaultProps.childColor,
 
-        margin: partialMargin,
-        width,
-        height,
+    margin: partialMargin,
+    width,
+    height,
 
-        cornerRadius,
+    cornerRadius = defaultProps.cornerRadius,
 
-        borderWidth,
-        borderColor,
+    borderWidth = defaultProps.borderWidth,
+    borderColor = defaultProps.borderColor,
 
-        // slices labels
-        enableSliceLabels,
-        sliceLabel,
-        sliceLabelsSkipAngle,
-        sliceLabelsTextColor,
+    // slices labels
+    enableSliceLabels = defaultProps.enableSliceLabels,
+    sliceLabel = defaultProps.sliceLabel,
+    sliceLabelsSkipAngle = defaultProps.sliceLabelsSkipAngle,
+    sliceLabelsTextColor = defaultProps.sliceLabelsTextColor,
 
-        defs = [],
-        fill = [],
+    defs = defaultProps.defs,
+    fill = defaultProps.fill,
 
-        role,
+    role = defaultProps.role,
 
-        // interactivity
-        isInteractive,
-        tooltip,
+    // interactivity
+    isInteractive = defaultProps.isInteractive,
+    tooltip = defaultProps.tooltip,
 
-        // event handlers
-        onClick,
-        onMouseEnter,
-        onMouseLeave,
-        onMouseMove,
-    } = { ...defaultProps, ...props }
-
+    // event handlers
+    onClick,
+    onMouseEnter,
+    onMouseLeave,
+    onMouseMove,
+}: SvgProps<RawDatum>) => {
     const { innerHeight, innerWidth, margin, outerHeight, outerWidth } = useDimensions(
         width,
         height,
