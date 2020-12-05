@@ -1,10 +1,12 @@
 import React, { createElement, useCallback } from 'react'
-// @ts-ignore
+import { animated } from 'react-spring'
 import { useTooltip } from '@nivo/tooltip'
+import { useAnimatedArc, ArcGenerator } from '@nivo/arcs'
 import { ComputedDatum, CompletePieSvgProps } from './types'
 
 interface PieSliceProps<RawDatum> {
     datum: ComputedDatum<RawDatum>
+    arcGenerator: ArcGenerator
     path?: string
     borderWidth: CompletePieSvgProps<RawDatum>['borderWidth']
     borderColor: string
@@ -14,11 +16,12 @@ interface PieSliceProps<RawDatum> {
     onMouseEnter: CompletePieSvgProps<RawDatum>['onMouseEnter']
     onMouseMove: CompletePieSvgProps<RawDatum>['onMouseMove']
     onMouseLeave: CompletePieSvgProps<RawDatum>['onMouseLeave']
+    setActiveId: (id: null | string | number) => void
 }
 
 export const PieSlice = <RawDatum,>({
     datum,
-    path,
+    arcGenerator,
     borderWidth,
     borderColor,
     isInteractive,
@@ -27,6 +30,7 @@ export const PieSlice = <RawDatum,>({
     onMouseMove,
     onMouseLeave,
     tooltip,
+    setActiveId,
 }: PieSliceProps<RawDatum>) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
@@ -38,9 +42,10 @@ export const PieSlice = <RawDatum,>({
     const handleMouseEnter = useCallback(
         event => {
             onMouseEnter?.(datum, event)
+            setActiveId(datum.id)
             handleTooltip(event)
         },
-        [onMouseEnter, handleTooltip, datum]
+        [onMouseEnter, setActiveId, handleTooltip, datum]
     )
 
     const handleMouseMove = useCallback(
@@ -54,6 +59,7 @@ export const PieSlice = <RawDatum,>({
     const handleMouseLeave = useCallback(
         event => {
             onMouseLeave?.(datum, event)
+            setActiveId(null)
             hideTooltip()
         },
         [onMouseLeave, hideTooltip, datum]
@@ -66,9 +72,11 @@ export const PieSlice = <RawDatum,>({
         [onClick, datum]
     )
 
+    const animatedArc = useAnimatedArc(datum, arcGenerator)
+
     return (
-        <path
-            d={path ?? undefined}
+        <animated.path
+            d={animatedArc.path}
             fill={datum.fill || datum.color}
             strokeWidth={borderWidth}
             stroke={borderColor}

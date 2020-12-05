@@ -9,7 +9,7 @@ export const defaultProps = {
     padAngle: 0,
     cornerRadius: 0,
 
-    layers: ['slices', 'radialLabels', 'sliceLabels', 'legends'],
+    layers: ['radialLabels', 'slices', 'sliceLabels', 'legends'],
 
     // layout
     startAngle: 0,
@@ -42,18 +42,17 @@ export const defaultProps = {
     sliceLabelsRadiusOffset: 0.5,
     sliceLabelsTextColor: { theme: 'labels.text.fill' },
 
-    // styling
     colors: ({ scheme: 'nivo' } as unknown) as OrdinalColorScaleConfig,
     defs: [],
     fill: [],
 
-    // interactivity
     isInteractive: true,
 
-    // tooltip
+    animate: true,
+    motionConfig: 'gentle',
+
     tooltip: PieTooltip,
 
-    // legends
     legends: [],
 
     role: 'img',

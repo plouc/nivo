@@ -10,6 +10,7 @@
         // { "path": "./packages/legends" },
         // { "path": "./packages/scales" },
         { "path": "./packages/tooltip" },
+        { "path": "./packages/arcs" },
 
         // Utility package
         // { "path": "./packages/generators" },
