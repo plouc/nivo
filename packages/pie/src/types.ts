@@ -1,9 +1,8 @@
 import * as React from 'react'
-import { Arc as ArcGenerator } from 'd3-shape'
 import { Box, Dimensions, Theme, SvgDefsAndFill } from '@nivo/core'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
-import { Arc } from '@nivo/arcs'
+import { Arc, ArcGenerator } from '@nivo/arcs'
 
 export type DatumId = string | number
 export type DatumValue = number
@@ -59,7 +58,7 @@ export type MouseEventHandler<RawDatum, ElementType = HTMLCanvasElement> = (
     event: React.MouseEvent<ElementType>
 ) => void
 
-export type PieLayerId = 'slices' | 'radialLabels' | 'sliceLabels' | 'legends'
+export type PieLayerId = 'radialLabels' | 'slices' | 'sliceLabels' | 'legends'
 
 export interface PieCustomLayerProps<RawDatum> {
     dataWithArc: ComputedDatum<RawDatum>[]
@@ -67,7 +66,7 @@ export interface PieCustomLayerProps<RawDatum> {
     centerY: number
     radius: number
     innerRadius: number
-    arcGenerator: ArcGenerator<any, Arc>
+    arcGenerator: ArcGenerator
 }
 
 export type PieCustomLayer<RawDatum> = React.FC<PieCustomLayerProps<RawDatum>>

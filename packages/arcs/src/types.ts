@@ -12,6 +12,7 @@ export interface Arc {
 }
 
 export interface DatumWithArc {
+    id: string | number
     arc: Arc
 }
 
