@@ -3,6 +3,7 @@ import { Arc as ArcGenerator } from 'd3-shape'
 import { Box, Dimensions, Theme, SvgDefsAndFill } from '@nivo/core'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
+import { Arc } from '@nivo/arcs'
 
 export type DatumId = string | number
 export type DatumValue = number
@@ -17,13 +18,13 @@ export interface DefaultRawDatum {
     value: DatumValue
 }
 
-export interface PieArc {
+export interface PieArc extends Arc {
     index: number
-    startAngle: number
-    endAngle: number
-    // center angle
+    // middle angle in radians
     angle: number
     angleDeg: number
+    // outer radius - inner radius in pixels
+    thickness: number
     padAngle: number
 }
 
@@ -58,8 +59,6 @@ export type MouseEventHandler<RawDatum, ElementType = HTMLCanvasElement> = (
     event: React.MouseEvent<ElementType>
 ) => void
 
-export type PieArcGenerator = ArcGenerator<any, PieArc>
-
 export type PieLayerId = 'slices' | 'radialLabels' | 'sliceLabels' | 'legends'
 
 export interface PieCustomLayerProps<RawDatum> {
@@ -68,7 +67,7 @@ export interface PieCustomLayerProps<RawDatum> {
     centerY: number
     radius: number
     innerRadius: number
-    arcGenerator: PieArcGenerator
+    arcGenerator: ArcGenerator<any, Arc>
 }
 
 export type PieCustomLayer<RawDatum> = React.FC<PieCustomLayerProps<RawDatum>>

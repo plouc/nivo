@@ -1,18 +1,12 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { defaultProps as defaults } from '@nivo/pie'
 import {
     themeProperty,
     defsProperties,
     groupProperties,
     getLegendsProps,
+    motionProperties,
 } from '../../../lib/componentProperties'
+import { defaultProps } from '@nivo/sunburst'
 
 const props = [
     {
@@ -25,6 +19,7 @@ const props = [
 
             \`\`\`
             Array<{
+                // must be unique for the whole dataset
                 id:    string | number,
                 value: number
             }>
@@ -44,7 +39,7 @@ const props = [
     {
         key: 'id',
         group: 'Base',
-        help: 'ID accessor.',
+        help: 'ID accessor which should return a unique value for the whole dataset.',
         description: `
             Define how to access the ID of each datum,
             by default, nivo will look for the \`id\` property.
@@ -584,6 +579,7 @@ const props = [
         controlType: 'switch',
         group: 'Interactivity',
     },
+    ...motionProperties(['svg'], defaultProps, 'react-spring'),
     {
         key: 'legends',
         flavors: ['svg', 'canvas'],

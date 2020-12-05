@@ -95,9 +95,15 @@ const Pie = <RawDatum,>({
         colors,
     })
 
-    const { dataWithArc, arcGenerator, centerX, centerY, radius, innerRadius } = usePieFromBox<
-        RawDatum
-    >({
+    const {
+        dataWithArc,
+        arcGenerator,
+        centerX,
+        centerY,
+        radius,
+        innerRadius,
+        setActiveId,
+    } = usePieFromBox<RawDatum>({
         data: normalizedData,
         width: innerWidth,
         height: innerHeight,
@@ -128,7 +134,7 @@ const Pie = <RawDatum,>({
                     <PieSlice<RawDatum>
                         key={datumWithArc.id}
                         datum={datumWithArc}
-                        path={arcGenerator(datumWithArc.arc) ?? undefined}
+                        arcGenerator={arcGenerator}
                         borderWidth={borderWidth}
                         borderColor={borderColor(datumWithArc)}
                         tooltip={tooltip}
@@ -137,6 +143,7 @@ const Pie = <RawDatum,>({
                         onMouseEnter={onMouseEnter}
                         onMouseMove={onMouseMove}
                         onMouseLeave={onMouseLeave}
+                        setActiveId={setActiveId}
                     />
                 ))}
             </g>
