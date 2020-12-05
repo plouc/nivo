@@ -1,6 +1,7 @@
-import { to, useSpring } from 'react-spring'
+import { useSpring } from 'react-spring'
 import { useMotionConfig } from '@nivo/core'
 import { Arc, ArcGenerator } from './types'
+import { interpolateArc } from './arcInterpolator'
 
 export const useAnimatedArc = (datumWithArc: { arc: Arc }, arcGenerator: ArcGenerator) => {
     const { animate, config: springConfig } = useMotionConfig()
@@ -16,20 +17,12 @@ export const useAnimatedArc = (datumWithArc: { arc: Arc }, arcGenerator: ArcGene
 
     return {
         ...animatedValues,
-        path: to(
-            [
-                animatedValues.startAngle,
-                animatedValues.endAngle,
-                animatedValues.innerRadius,
-                animatedValues.outerRadius,
-            ],
-            (startAngle, endAngle, innerRadius, outerRadius) =>
-                arcGenerator({
-                    startAngle,
-                    endAngle,
-                    innerRadius,
-                    outerRadius,
-                })
+        path: interpolateArc(
+            animatedValues.startAngle,
+            animatedValues.endAngle,
+            animatedValues.innerRadius,
+            animatedValues.outerRadius,
+            arcGenerator
         ),
     }
 }

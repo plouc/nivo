@@ -16,6 +16,7 @@ import PieLegends from './PieLegends'
 import { useNormalizedData, usePieFromBox, usePieLayerContext } from './hooks'
 import { ComputedDatum, PieLayer, PieSvgProps, PieLayerId } from './types'
 import { defaultProps } from './props'
+import { Slices } from './Slices'
 
 const Pie = <RawDatum,>({
     data,
@@ -129,24 +130,12 @@ const Pie = <RawDatum,>({
 
     if (layers.includes('slices')) {
         layerById.slices = (
-            <g key="slices" transform={`translate(${centerX},${centerY})`}>
-                {dataWithArc.map(datumWithArc => (
-                    <PieSlice<RawDatum>
-                        key={datumWithArc.id}
-                        datum={datumWithArc}
-                        arcGenerator={arcGenerator}
-                        borderWidth={borderWidth}
-                        borderColor={borderColor(datumWithArc)}
-                        tooltip={tooltip}
-                        isInteractive={isInteractive}
-                        onClick={onClick}
-                        onMouseEnter={onMouseEnter}
-                        onMouseMove={onMouseMove}
-                        onMouseLeave={onMouseLeave}
-                        setActiveId={setActiveId}
-                    />
-                ))}
-            </g>
+            <Slices
+                key="slices"
+                center={[centerX, centerY]}
+                data={dataWithArc}
+                arcGenerator={arcGenerator}
+            />
         )
     }
 
