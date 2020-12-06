@@ -1,5 +1,6 @@
 export * from './arcTransitionMode'
 export * from './centers'
+export * from './interactivity'
 export * from './interpolateArc'
 export * from './types'
 export * from './useAnimatedArc'
