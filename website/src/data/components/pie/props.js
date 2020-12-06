@@ -519,6 +519,7 @@ const props = [
     },
     {
         key: 'activeInnerRadiusOffset',
+        flavors: ['svg', 'canvas'],
         help: `Skip label if corresponding slice's angle is lower than provided value.`,
         type: 'number',
         required: false,
@@ -533,6 +534,7 @@ const props = [
     },
     {
         key: 'activeOuterRadiusOffset',
+        flavors: ['svg', 'canvas'],
         help: `Skip label if corresponding slice's angle is lower than provided value.`,
         type: 'number',
         required: false,

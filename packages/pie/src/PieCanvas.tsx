@@ -201,7 +201,7 @@ const InnerPieCanvas = <RawDatum,>({
 
         ctx.save()
         ctx.translate(margin.left, margin.top)
-        ;(arcGenerator as any).context(ctx)
+        arcGenerator.context(ctx)
 
         ctx.save()
         ctx.translate(centerX, centerY)
