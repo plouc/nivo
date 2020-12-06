@@ -86,6 +86,8 @@ export type CommonPieProps<RawDatum> = {
     startAngle: number
     endAngle: number
     fit: boolean
+    activeInnerRadiusOffset: number
+    activeOuterRadiusOffset: number
 
     // colors, theme and border
     colors: OrdinalColorScaleConfig<Omit<ComputedDatum<RawDatum>, 'color' | 'fill' | 'arc'>>

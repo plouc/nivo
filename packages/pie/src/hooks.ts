@@ -98,13 +98,15 @@ export const useNormalizedData = <RawDatum extends MayHaveLabel>({
  */
 export const usePieArcs = <RawDatum>({
     data,
-    startAngle = defaultProps.startAngle,
-    endAngle = defaultProps.endAngle,
+    startAngle,
+    endAngle,
     innerRadius,
     outerRadius,
-    padAngle = defaultProps.padAngle,
-    sortByValue = defaultProps.sortByValue,
-    activeId = null,
+    padAngle,
+    sortByValue,
+    activeId,
+    activeInnerRadiusOffset,
+    activeOuterRadiusOffset,
 }: {
     data: Omit<ComputedDatum<RawDatum>, 'arc' | 'fill'>[]
     // in degrees
@@ -117,7 +119,9 @@ export const usePieArcs = <RawDatum>({
     outerRadius: number
     padAngle: number
     sortByValue: boolean
-    activeId?: null | string | number
+    activeId: null | string | number
+    activeInnerRadiusOffset: number
+    activeOuterRadiusOffset: number
 }): Omit<ComputedDatum<RawDatum>, 'fill'>[] => {
     const pie = useMemo(() => {
         const innerPie = d3Pie<Omit<ComputedDatum<RawDatum>, 'arc' | 'fill'>>()
@@ -152,8 +156,14 @@ export const usePieArcs = <RawDatum>({
                             index: arc.index,
                             startAngle: arc.startAngle,
                             endAngle: arc.endAngle,
-                            innerRadius: innerRadius,
-                            outerRadius: activeId === arc.data.id ? outerRadius + 20 : outerRadius,
+                            innerRadius:
+                                activeId === arc.data.id
+                                    ? innerRadius - activeInnerRadiusOffset
+                                    : innerRadius,
+                            outerRadius:
+                                activeId === arc.data.id
+                                    ? outerRadius + activeOuterRadiusOffset
+                                    : outerRadius,
                             thickness: outerRadius - innerRadius,
                             padAngle: arc.padAngle,
                             angle,
@@ -163,7 +173,15 @@ export const usePieArcs = <RawDatum>({
                 }
             ),
 
-        [pie, data, innerRadius, outerRadius, activeId]
+        [
+            pie,
+            data,
+            innerRadius,
+            outerRadius,
+            activeId,
+            activeInnerRadiusOffset,
+            activeInnerRadiusOffset,
+        ]
     )
 }
 
@@ -180,14 +198,23 @@ export const usePie = <RawDatum>({
     padAngle = defaultProps.padAngle,
     sortByValue = defaultProps.sortByValue,
     cornerRadius = defaultProps.cornerRadius,
+    activeInnerRadiusOffset = defaultProps.activeInnerRadiusOffset,
+    activeOuterRadiusOffset = defaultProps.activeOuterRadiusOffset,
 }: Pick<
     CompletePieSvgProps<RawDatum>,
-    'startAngle' | 'endAngle' | 'padAngle' | 'sortByValue' | 'cornerRadius'
+    | 'startAngle'
+    | 'endAngle'
+    | 'padAngle'
+    | 'sortByValue'
+    | 'cornerRadius'
+    | 'activeInnerRadiusOffset'
+    | 'activeOuterRadiusOffset'
 > & {
     data: Omit<ComputedDatum<RawDatum>, 'arc'>[]
     radius: number
     innerRadius: number
 }) => {
+    const [activeId, setActiveId] = useState<string | number | null>(null)
     const dataWithArc = usePieArcs({
         data,
         startAngle,
@@ -196,11 +223,14 @@ export const usePie = <RawDatum>({
         outerRadius: radius,
         padAngle,
         sortByValue,
+        activeId,
+        activeInnerRadiusOffset,
+        activeOuterRadiusOffset,
     })
 
     const arcGenerator = useArcGenerator({ cornerRadius })
 
-    return { dataWithArc, arcGenerator }
+    return { dataWithArc, arcGenerator, setActiveId }
 }
 
 /**
@@ -222,6 +252,8 @@ export const usePieFromBox = <RawDatum>({
     sortByValue = defaultProps.sortByValue,
     cornerRadius = defaultProps.cornerRadius,
     fit = defaultProps.fit,
+    activeInnerRadiusOffset = defaultProps.activeInnerRadiusOffset,
+    activeOuterRadiusOffset = defaultProps.activeOuterRadiusOffset,
 }: Pick<
     CompletePieSvgProps<RawDatum>,
     | 'width'
@@ -233,6 +265,8 @@ export const usePieFromBox = <RawDatum>({
     | 'sortByValue'
     | 'cornerRadius'
     | 'fit'
+    | 'activeInnerRadiusOffset'
+    | 'activeOuterRadiusOffset'
 > & {
     data: Omit<ComputedDatum<RawDatum>, 'arc'>[]
 }) => {
@@ -294,6 +328,8 @@ export const usePieFromBox = <RawDatum>({
         padAngle,
         sortByValue,
         activeId,
+        activeInnerRadiusOffset,
+        activeOuterRadiusOffset,
     })
 
     const arcGenerator = useArcGenerator({
