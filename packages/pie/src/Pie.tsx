@@ -73,6 +73,8 @@ const Pie = <RawDatum,>({
     onMouseLeave,
     tooltip = defaultProps.tooltip,
 
+    transitionMode = defaultProps.transitionMode,
+
     legends = defaultProps.legends,
     role = defaultProps.role,
 }: PieSvgProps<RawDatum>) => {
@@ -136,6 +138,7 @@ const Pie = <RawDatum,>({
                 onMouseLeave={onMouseLeave}
                 setActiveId={setActiveId}
                 tooltip={tooltip}
+                transitionMode={transitionMode}
             />
         )
     }
@@ -162,17 +165,16 @@ const Pie = <RawDatum,>({
 
     if (enableSliceLabels && layers.includes('sliceLabels')) {
         layerById.sliceLabels = (
-            <g key="sliceLabels" transform={`translate(${centerX},${centerY})`}>
-                <SliceLabels<RawDatum>
-                    dataWithArc={dataWithArc}
-                    label={sliceLabel}
-                    radius={radius}
-                    innerRadius={innerRadius}
-                    radiusOffset={sliceLabelsRadiusOffset}
-                    skipAngle={sliceLabelsSkipAngle}
-                    textColor={sliceLabelsTextColor}
-                />
-            </g>
+            <SliceLabels<RawDatum>
+                key="sliceLabels"
+                center={[centerX, centerY]}
+                data={dataWithArc}
+                label={sliceLabel}
+                radiusOffset={sliceLabelsRadiusOffset}
+                skipAngle={sliceLabelsSkipAngle}
+                textColor={sliceLabelsTextColor}
+                transitionMode={transitionMode}
+            />
         )
     }
 

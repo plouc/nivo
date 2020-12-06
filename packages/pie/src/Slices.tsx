@@ -19,6 +19,7 @@ interface SlicesProps<RawDatum> {
     onMouseLeave?: CompletePieSvgProps<RawDatum>['onMouseLeave']
     setActiveId: (id: null | string | number) => void
     tooltip: CompletePieSvgProps<RawDatum>['tooltip']
+    transitionMode: CompletePieSvgProps<RawDatum>['transitionMode']
 }
 
 export const Slices = <RawDatum,>({
@@ -34,10 +35,20 @@ export const Slices = <RawDatum,>({
     onMouseLeave,
     setActiveId,
     tooltip,
+    transitionMode,
 }: SlicesProps<RawDatum>) => {
     const theme = useTheme()
     const getBorderColor = useInheritedColor<ComputedDatum<RawDatum>>(borderColor, theme)
-    const { transition, interpolate } = useArcsTransition<ComputedDatum<RawDatum>>(data)
+    const { transition, interpolate } = useArcsTransition<
+        ComputedDatum<RawDatum>,
+        {
+            color: string
+        }
+    >(data, transitionMode, {
+        enter: datum => ({ color: datum.color }),
+        update: datum => ({ color: datum.color }),
+        leave: datum => ({ color: datum.color }),
+    })
 
     return (
         <g transform={`translate(${center[0]},${center[1]})`}>
@@ -55,6 +66,8 @@ export const Slices = <RawDatum,>({
                                 arcGenerator
                             ) as Interpolation<string>
                         }
+                        color={transitionProps.color}
+                        opacity={transitionProps.progress}
                         borderWidth={borderWidth}
                         borderColor={getBorderColor(datum)}
                         isInteractive={isInteractive}

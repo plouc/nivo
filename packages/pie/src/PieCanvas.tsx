@@ -17,27 +17,27 @@ import { renderLegendToCanvas } from '@nivo/legends'
 import { useInheritedColor, InheritedColorConfig } from '@nivo/colors'
 // @ts-ignore
 import { useTooltip } from '@nivo/tooltip'
-import { useNormalizedData, usePieFromBox, usePieRadialLabels, usePieSliceLabels } from './hooks'
-import { ComputedDatum, PieCanvasProps, RadialLabelData, SliceLabelData } from './types'
+import { useNormalizedData, usePieFromBox, usePieRadialLabels } from './hooks'
+import { ComputedDatum, PieCanvasProps, RadialLabelData } from './types'
 import { defaultProps } from './props'
 
-const drawSliceLabels = <RawDatum,>(
-    ctx: CanvasRenderingContext2D,
-    labels: SliceLabelData<RawDatum>[],
-    theme: Theme
-) => {
-    ctx.textAlign = 'center'
-    ctx.textBaseline = 'middle'
-    ctx.font = `${theme.labels!.text!.fontSize}px ${theme.labels!.text!.fontFamily}`
-
-    labels.forEach(label => {
-        ctx.save()
-        ctx.translate(label.x, label.y)
-        ctx.fillStyle = label.textColor
-        ctx.fillText(`${label.label}`, 0, 0)
-        ctx.restore()
-    })
-}
+// const drawSliceLabels = <RawDatum,>(
+//     ctx: CanvasRenderingContext2D,
+//     labels: SliceLabelData<RawDatum>[],
+//     theme: Theme
+// ) => {
+//     ctx.textAlign = 'center'
+//     ctx.textBaseline = 'middle'
+//     ctx.font = `${theme.labels!.text!.fontSize}px ${theme.labels!.text!.fontFamily}`
+//
+//     labels.forEach(label => {
+//         ctx.save()
+//         ctx.translate(label.x, label.y)
+//         ctx.fillStyle = label.textColor
+//         ctx.fillText(`${label.label}`, 0, 0)
+//         ctx.restore()
+//     })
+// }
 
 // prettier-ignore
 const drawRadialLabels = <RawDatum, >(
@@ -107,11 +107,11 @@ const PieCanvas = <RawDatum, >({
     radialLabelsLinkColor = defaultProps.radialLabelsLinkColor,
 
     // slices labels
-    sliceLabel = defaultProps.sliceLabel,
+    // sliceLabel = defaultProps.sliceLabel,
     enableSliceLabels = defaultProps.enableSliceLabels,
-    sliceLabelsSkipAngle = defaultProps.sliceLabelsSkipAngle,
-    sliceLabelsTextColor = defaultProps.sliceLabelsTextColor,
-    sliceLabelsRadiusOffset = defaultProps.sliceLabelsRadiusOffset,
+    // sliceLabelsSkipAngle = defaultProps.sliceLabelsSkipAngle,
+    // sliceLabelsTextColor = defaultProps.sliceLabelsTextColor,
+    // sliceLabelsRadiusOffset = defaultProps.sliceLabelsRadiusOffset,
 
     // interactivity
     isInteractive = defaultProps.isInteractive,
@@ -167,16 +167,16 @@ const PieCanvas = <RawDatum, >({
         linkColor: radialLabelsLinkColor,
     })
 
-    const sliceLabels = usePieSliceLabels<RawDatum>({
-        enable: enableSliceLabels,
-        dataWithArc,
-        label: sliceLabel,
-        radius,
-        innerRadius,
-        radiusOffset: sliceLabelsRadiusOffset,
-        skipAngle: sliceLabelsSkipAngle,
-        textColor: sliceLabelsTextColor,
-    })
+    // const sliceLabels = usePieSliceLabels<RawDatum>({
+    //     enable: enableSliceLabels,
+    //     dataWithArc,
+    //     label: sliceLabel,
+    //     radius,
+    //     innerRadius,
+    //     radiusOffset: sliceLabelsRadiusOffset,
+    //     skipAngle: sliceLabelsSkipAngle,
+    //     textColor: sliceLabelsTextColor,
+    // })
 
     useEffect(() => {
         if (!canvasEl.current) return
@@ -219,9 +219,9 @@ const PieCanvas = <RawDatum, >({
             drawRadialLabels(ctx, radialLabels, theme, radialLabelsLinkStrokeWidth)
         }
 
-        if (enableSliceLabels === true) {
-            drawSliceLabels(ctx, sliceLabels, theme)
-        }
+        // if (enableSliceLabels === true) {
+        //     drawSliceLabels(ctx, sliceLabels, theme)
+        // }
 
         // legends assume a box rather than a center,
         // that's why we restore previously saved position here.
@@ -252,7 +252,7 @@ const PieCanvas = <RawDatum, >({
         enableRadialLabels,
         radialLabels,
         enableSliceLabels,
-        sliceLabels,
+        // sliceLabels,
         legends,
         theme,
     ])
