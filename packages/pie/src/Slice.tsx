@@ -1,11 +1,13 @@
 import React, { createElement, useCallback } from 'react'
-import { animated, Interpolation } from 'react-spring'
+import { animated, Interpolation, SpringValue } from 'react-spring'
 import { useTooltip } from '@nivo/tooltip'
 import { ComputedDatum, CompletePieSvgProps } from './types'
 
 interface SliceProps<RawDatum> {
     datum: ComputedDatum<RawDatum>
     path: string | Interpolation<string>
+    color: string | SpringValue<string>
+    opacity: number | SpringValue<number>
     borderWidth: number
     borderColor: string
     isInteractive: boolean
@@ -20,6 +22,8 @@ interface SliceProps<RawDatum> {
 export const Slice = <RawDatum,>({
     datum,
     path,
+    color,
+    opacity,
     borderWidth,
     borderColor,
     isInteractive,
@@ -73,7 +77,8 @@ export const Slice = <RawDatum,>({
     return (
         <animated.path
             d={path}
-            fill={datum.fill || datum.color}
+            fill={datum.fill || color}
+            opacity={opacity}
             strokeWidth={borderWidth}
             stroke={borderColor}
             onMouseEnter={isInteractive ? handleMouseEnter : undefined}

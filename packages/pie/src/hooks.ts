@@ -37,7 +37,6 @@ import {
     LabelAccessorFunction,
     PieCustomLayerProps,
     RadialLabelData,
-    SliceLabelData,
 } from './types'
 
 interface MayHaveLabel {
@@ -307,50 +306,6 @@ export const usePieFromBox = <RawDatum>({
         setActiveId,
         ...computedProps,
     }
-}
-
-export const usePieSliceLabels = <RawDatum>({
-    enable,
-    dataWithArc,
-    skipAngle,
-    radius,
-    innerRadius,
-    radiusOffset,
-    label,
-    textColor,
-}: {
-    enable: boolean
-    dataWithArc: ComputedDatum<RawDatum>[]
-    skipAngle: number
-    radius: number
-    innerRadius: number
-    radiusOffset: number
-    label: string | LabelAccessorFunction<RawDatum>
-    textColor: InheritedColorConfig<ComputedDatum<RawDatum>>
-}): SliceLabelData<RawDatum>[] => {
-    const theme = useTheme()
-    const getTextColor = useInheritedColor<ComputedDatum<RawDatum>>(textColor, theme)
-    const getLabel = useMemo(() => getLabelGenerator(label), [label])
-
-    return useMemo(() => {
-        if (!enable) return []
-
-        return dataWithArc
-            .filter(datumWithArc => skipAngle === 0 || datumWithArc.arc.angleDeg > skipAngle)
-            .map(datumWithArc => {
-                const angle = midAngle(datumWithArc.arc) - Math.PI / 2
-                const labelRadius = innerRadius + (radius - innerRadius) * radiusOffset
-                const position = positionFromAngle(angle, labelRadius)
-                const datumTextColor = getTextColor(datumWithArc)
-
-                return {
-                    ...position,
-                    label: getLabel(datumWithArc),
-                    textColor: datumTextColor,
-                    datum: datumWithArc,
-                }
-            })
-    }, [enable, dataWithArc, skipAngle, radius, innerRadius, radiusOffset, getLabel, getTextColor])
 }
 
 export const usePieRadialLabels = <RawDatum>({

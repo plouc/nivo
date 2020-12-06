@@ -23,15 +23,15 @@ const initialProperties = {
 
     valueFormat: { format: '', enabled: false },
 
-    startAngle: 0,
-    endAngle: 360,
-    sortByValue: false,
+    startAngle: defaultProps.startAngle,
+    endAngle: defaultProps.endAngle,
+    sortByValue: defaultProps.sortByValue,
     innerRadius: 0.5,
     padAngle: 0.7,
     cornerRadius: 3,
-    fit: true,
+    fit: defaultProps.fit,
 
-    colors: { scheme: 'nivo' },
+    colors: defaultProps.colors,
 
     borderWidth: 1,
     borderColor: {
@@ -39,8 +39,8 @@ const initialProperties = {
         modifiers: [['darker', 0.2]],
     },
 
-    enableRadialLabels: true,
-    radialLabel: 'id',
+    enableRadialLabels: defaultProps.enableRadialLabels,
+    radialLabel: defaultProps.radialLabel,
     radialLabelsSkipAngle: 10,
     radialLabelsTextXOffset: 6,
     radialLabelsTextColor: '#333333',
@@ -64,8 +64,9 @@ const initialProperties = {
     defs: [],
     fill: [],
 
-    animate: true,
-    motionConfig: 'wobbly',
+    animate: defaultProps.animate,
+    motionConfig: defaultProps.motionConfig,
+    transitionMode: defaultProps.transitionMode,
 
     legends: [
         {

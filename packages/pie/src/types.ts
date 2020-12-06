@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Box, Dimensions, Theme, SvgDefsAndFill } from '@nivo/core'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
-import { Arc, ArcGenerator } from '@nivo/arcs'
+import { Arc, ArcGenerator, ArcTransitionMode } from '@nivo/arcs'
 
 export type DatumId = string | number
 export type DatumValue = number
@@ -134,6 +134,7 @@ export type PieSvgProps<RawDatum> = DataProps<RawDatum> &
     SvgDefsAndFill<ComputedDatum<RawDatum>> &
     PieHandlers<RawDatum, SVGPathElement> & {
         layers?: PieLayer<RawDatum>[]
+        transitionMode?: ArcTransitionMode
     }
 
 export type CompletePieSvgProps<RawDatum> = DataProps<RawDatum> &
@@ -142,6 +143,7 @@ export type CompletePieSvgProps<RawDatum> = DataProps<RawDatum> &
     SvgDefsAndFill<ComputedDatum<RawDatum>> &
     PieHandlers<RawDatum, SVGPathElement> & {
         layers: PieLayer<RawDatum>[]
+        transitionMode: ArcTransitionMode
     }
 
 export type PieCanvasProps<RawDatum> = DataProps<RawDatum> &
@@ -170,13 +172,5 @@ export type RadialLabelData<RawDatum> = {
     align: string
     line: [Point, Point, Point]
     linkColor: string
-    datum: ComputedDatum<RawDatum>
-}
-
-export type SliceLabelData<RawDatum> = {
-    x: number
-    y: number
-    label: string | number
-    textColor: string
     datum: ComputedDatum<RawDatum>
 }
