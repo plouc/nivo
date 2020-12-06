@@ -1,11 +1,3 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React, { memo, useRef, useEffect, useCallback } from 'react'
 import {
     withContainer,
@@ -15,8 +7,8 @@ import {
     getPolarLabelProps,
     degreesToRadians,
     getRelativeCursor,
-    getHoveredArc,
 } from '@nivo/core'
+import { findArcUnderCursor } from '@nivo/arcs'
 import { useInheritedColor } from '@nivo/colors'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'
@@ -28,7 +20,7 @@ const getArcFromMouseEvent = ({ event, canvasEl, center, margin, radius, innerRa
     const centerX = margin.left + center[0]
     const centerY = margin.top + center[1]
 
-    return getHoveredArc(centerX, centerY, radius, innerRadius, arcs, x, y)
+    return findArcUnderCursor(centerX, centerY, radius, innerRadius, arcs, x, y)
 }
 
 const ChordCanvas = memo(
