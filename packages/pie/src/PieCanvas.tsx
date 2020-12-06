@@ -13,7 +13,6 @@ import {
 // @ts-ignore
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useInheritedColor, InheritedColorConfig } from '@nivo/colors'
-// @ts-ignore
 import { useTooltip } from '@nivo/tooltip'
 import { Arc, findArcUnderCursor } from '@nivo/arcs'
 import { useNormalizedData, usePieFromBox, usePieRadialLabels } from './hooks'

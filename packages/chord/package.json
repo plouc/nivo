@@ -28,6 +28,7 @@
     "dist/"
   ],
   "dependencies": {
+    "@nivo/arcs": "0.66.0",
     "@nivo/colors": "0.67.0",
     "@nivo/legends": "0.67.0",
     "@nivo/tooltip": "0.67.0",
