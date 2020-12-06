@@ -1,8 +1,6 @@
 import React, { createElement, useEffect, useMemo, useRef } from 'react'
 import {
     // @ts-ignore
-    getHoveredArc,
-    // @ts-ignore
     getRelativeCursor,
     // @ts-ignore
     textPropsByEngine,
@@ -17,6 +15,7 @@ import { renderLegendToCanvas } from '@nivo/legends'
 import { useInheritedColor, InheritedColorConfig } from '@nivo/colors'
 // @ts-ignore
 import { useTooltip } from '@nivo/tooltip'
+import { Arc, findArcUnderCursor } from '@nivo/arcs'
 import { useNormalizedData, usePieFromBox, usePieRadialLabels } from './hooks'
 import { ComputedDatum, PieCanvasProps, RadialLabelData } from './types'
 import { defaultProps } from './props'
@@ -269,7 +268,7 @@ const PieCanvas = <RawDatum, >({
     const getArcFromMouse = (event: React.MouseEvent<HTMLCanvasElement>) => {
         const [x, y] = getRelativeCursor(canvasEl.current, event)
 
-        const hoveredArc = getHoveredArc(
+        const hoveredArc = findArcUnderCursor<Arc & { id: string | number }>(
             margin.left + centerX,
             margin.top + centerY,
             radius,

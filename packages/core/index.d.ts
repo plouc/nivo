@@ -322,4 +322,7 @@ declare module '@nivo/core' {
     export const ResponsiveWrapper = (props: {
         children: (dimensions: { width: number; height: number }) => JSX.Element
     }) => JSX.Element
+
+    export function getDistance(x1: number, y1: number, x2: number, y2: number): number
+    export function getAngle(x1: number, y1: number, x2: number, y2: number): number
 }
