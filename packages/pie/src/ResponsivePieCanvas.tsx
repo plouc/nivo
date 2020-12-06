@@ -1,7 +1,6 @@
 import React from 'react'
-// @ts-ignore
 import { ResponsiveWrapper } from '@nivo/core'
-import PieCanvas from './PieCanvas'
+import { PieCanvas } from './PieCanvas'
 import { PieCanvasProps } from './types'
 
 export const ResponsivePieCanvas = <RawDatum,>(

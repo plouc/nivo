@@ -1,11 +1,10 @@
 import React, { ReactNode, Fragment, createElement } from 'react'
 import {
     // @ts-ignore
-    withContainer,
-    SvgWrapper,
-    // @ts-ignore
     bindDefs,
     useDimensions,
+    Container,
+    SvgWrapper,
 } from '@nivo/core'
 import { InheritedColorConfig } from '@nivo/colors'
 import { RadialLabels } from './RadialLabels'
@@ -16,7 +15,7 @@ import { ComputedDatum, PieLayer, PieSvgProps, PieLayerId } from './types'
 import { defaultProps } from './props'
 import { Slices } from './Slices'
 
-const Pie = <RawDatum,>({
+const InnerPie = <RawDatum,>({
     data,
     id = defaultProps.id,
     value = defaultProps.value,
@@ -226,4 +225,19 @@ const Pie = <RawDatum,>({
     )
 }
 
-export default withContainer(Pie) as <RawDatum>(props: PieSvgProps<RawDatum>) => JSX.Element
+export const Pie = <RawDatum,>({
+    isInteractive = defaultProps.isInteractive,
+    animate = defaultProps.animate,
+    motionConfig = defaultProps.motionConfig,
+    theme,
+    ...otherProps
+}: PieSvgProps<RawDatum>) => (
+    <Container
+        isInteractive={isInteractive}
+        animate={animate}
+        motionConfig={motionConfig}
+        theme={theme}
+    >
+        <InnerPie<RawDatum> isInteractive={isInteractive} {...otherProps} />
+    </Container>
+)

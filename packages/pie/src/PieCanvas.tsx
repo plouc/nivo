@@ -6,8 +6,7 @@ import {
     textPropsByEngine,
     useDimensions,
     useTheme,
-    // @ts-ignore
-    withContainer,
+    Container,
     Theme,
 } from '@nivo/core'
 // @ts-ignore
@@ -66,8 +65,7 @@ const drawRadialLabels = <RawDatum, >(
     })
 }
 
-// prettier-ignore
-const PieCanvas = <RawDatum, >({
+const InnerPieCanvas = <RawDatum,>({
     data,
     id = defaultProps.id,
     value = defaultProps.value,
@@ -138,7 +136,15 @@ const PieCanvas = <RawDatum, >({
         colors,
     })
 
-    const { dataWithArc, arcGenerator, centerX, centerY, radius, innerRadius, setActiveId } = usePieFromBox<RawDatum>({
+    const {
+        dataWithArc,
+        arcGenerator,
+        centerX,
+        centerY,
+        radius,
+        innerRadius,
+        setActiveId,
+    } = usePieFromBox<RawDatum>({
         data: normalizedData,
         width: innerWidth,
         height: innerHeight,
@@ -194,9 +200,8 @@ const PieCanvas = <RawDatum, >({
         ctx.fillRect(0, 0, outerWidth, outerHeight)
 
         ctx.save()
-        ctx.translate(margin.left, margin.top);
-
-        (arcGenerator as any).context(ctx)
+        ctx.translate(margin.left, margin.top)
+        ;(arcGenerator as any).context(ctx)
 
         ctx.save()
         ctx.translate(centerX, centerY)
@@ -331,6 +336,12 @@ const PieCanvas = <RawDatum, >({
     )
 }
 
-export default withContainer(PieCanvas) as <RawDatum>(
-    props: PieCanvasProps<RawDatum>
-) => JSX.Element
+export const PieCanvas = <RawDatum,>({
+    isInteractive = defaultProps.isInteractive,
+    theme,
+    ...otherProps
+}: PieCanvasProps<RawDatum>) => (
+    <Container isInteractive={isInteractive} theme={theme}>
+        <InnerPieCanvas<RawDatum> isInteractive={isInteractive} {...otherProps} />
+    </Container>
+)
