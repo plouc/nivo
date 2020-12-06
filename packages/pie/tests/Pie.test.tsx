@@ -1,5 +1,6 @@
 import React from 'react'
 import { mount } from 'enzyme'
+import { animated } from 'react-spring'
 import { radiansToDegrees } from '@nivo/core'
 import { Pie } from '../src/index'
 
@@ -37,9 +38,11 @@ const sampleDataWithCustomProps = sampleData.map(datum => ({
 describe('Pie', () => {
     describe('data', () => {
         it('should use default id and value properties', () => {
-            const wrapper = mount(<Pie width={400} height={400} data={sampleData} />)
+            const wrapper = mount(
+                <Pie width={400} height={400} data={sampleData} animate={false} />
+            )
 
-            const slices = wrapper.find('PieSlice')
+            const slices = wrapper.find('Slice')
             expect(slices).toHaveLength(sampleData.length)
 
             expect(slices.at(0).prop('datum').id).toEqual('A')
@@ -63,10 +66,11 @@ describe('Pie', () => {
                     data={sampleDataWithCustomProps}
                     id="name"
                     value="attributes.volume"
+                    animate={false}
                 />
             )
 
-            const slices = wrapper.find('PieSlice')
+            const slices = wrapper.find('Slice')
             expect(slices).toHaveLength(sampleData.length)
 
             expect(slices.at(0).prop('datum').id).toEqual('A')
@@ -90,10 +94,11 @@ describe('Pie', () => {
                     data={sampleDataWithCustomProps}
                     id={d => d.name}
                     value={d => d.attributes.volume}
+                    animate={false}
                 />
             )
 
-            const slices = wrapper.find('PieSlice')
+            const slices = wrapper.find('Slice')
             expect(slices).toHaveLength(sampleData.length)
 
             expect(slices.at(0).prop('datum').id).toEqual('A')
@@ -111,10 +116,16 @@ describe('Pie', () => {
 
         it('should support custom value formatting', () => {
             const wrapper = mount(
-                <Pie width={400} height={400} data={sampleData} valueFormat=" >-$.2f" />
+                <Pie
+                    width={400}
+                    height={400}
+                    data={sampleData}
+                    valueFormat=" >-$.2f"
+                    animate={false}
+                />
             )
 
-            const slices = wrapper.find('PieSlice')
+            const slices = wrapper.find('Slice')
             expect(slices).toHaveLength(sampleData.length)
 
             expect(slices.at(0).prop('datum').id).toEqual('A')
@@ -131,9 +142,11 @@ describe('Pie', () => {
         })
 
         it('should support sorting data by value', () => {
-            const wrapper = mount(<Pie width={400} height={400} data={sampleData} sortByValue />)
+            const wrapper = mount(
+                <Pie width={400} height={400} data={sampleData} sortByValue animate={false} />
+            )
 
-            const slices = wrapper.find('PieSlice')
+            const slices = wrapper.find('Slice')
             expect(slices).toHaveLength(sampleData.length)
 
             const slice30 = slices.at(0)
@@ -151,20 +164,21 @@ describe('Pie', () => {
     describe('layout', () => {
         it('should support donut charts', () => {
             const wrapper = mount(
-                <Pie width={400} height={400} data={sampleData} innerRadius={0.5} />
+                <Pie width={400} height={400} data={sampleData} innerRadius={0.5} animate={false} />
             )
 
-            // we can use the slice labels main component to check computed radii
-            const sliceLabels = wrapper.find('SliceLabels')
-            expect(sliceLabels.exists()).toBeTruthy()
-            expect(sliceLabels.prop('radius')).toEqual(200)
-            expect(sliceLabels.prop('innerRadius')).toEqual(100)
+            // we can use a slice to check computed radii
+            const slice = wrapper.find('Slice').at(0)
+            expect(slice.prop('datum').arc.innerRadius).toEqual(100)
+            expect(slice.prop('datum').arc.outerRadius).toEqual(200)
         })
 
         it('should support padAngle', () => {
-            const wrapper = mount(<Pie width={400} height={400} data={sampleData} padAngle={10} />)
+            const wrapper = mount(
+                <Pie width={400} height={400} data={sampleData} padAngle={10} animate={false} />
+            )
 
-            const slices = wrapper.find('PieSlice')
+            const slices = wrapper.find('Slice')
             expect(slices).toHaveLength(sampleData.length)
             slices.forEach(slice => {
                 expect(radiansToDegrees(slice.prop('datum').arc.padAngle)).toEqual(10)
@@ -181,6 +195,7 @@ describe('Pie', () => {
                     data={sampleData}
                     cornerRadius={3}
                     layers={[CustomLayer]}
+                    animate={false}
                 />
             )
 
@@ -198,10 +213,11 @@ describe('Pie', () => {
                     innerRadius={0.5}
                     startAngle={90}
                     endAngle={180}
+                    animate={false}
                 />
             )
 
-            const slices = wrapper.find('PieSlice')
+            const slices = wrapper.find('Slice')
             expect(slices).toHaveLength(sampleData.length)
             expect(radiansToDegrees(slices.at(0).prop('datum').arc.startAngle)).toEqual(90)
             expect(radiansToDegrees(slices.at(2).prop('datum').arc.endAngle)).toEqual(180)
@@ -217,24 +233,30 @@ describe('Pie', () => {
                     startAngle={-90}
                     endAngle={90}
                     fit
+                    animate={false}
                 />
             )
 
-            // we can use the slice labels main component to check computed radii
-            const sliceLabels = wrapper.find('SliceLabels')
-            expect(sliceLabels.exists()).toBeTruthy()
-            expect(sliceLabels.prop('radius')).toEqual(400)
-            expect(sliceLabels.prop('innerRadius')).toEqual(200)
+            // we can use a slice to check computed radii
+            const slice = wrapper.find('Slice').at(0)
+            expect(slice.prop('datum').arc.innerRadius).toEqual(200)
+            expect(slice.prop('datum').arc.outerRadius).toEqual(400)
         })
     })
 
     describe('colors', () => {
         it('should use colors from scheme', () => {
             const wrapper = mount(
-                <Pie width={400} height={400} data={sampleData} colors={{ scheme: 'accent' }} />
+                <Pie
+                    width={400}
+                    height={400}
+                    data={sampleData}
+                    colors={{ scheme: 'accent' }}
+                    animate={false}
+                />
             )
 
-            const slices = wrapper.find('PieSlice')
+            const slices = wrapper.find('Slice')
             expect(slices).toHaveLength(sampleData.length)
 
             expect(slices.at(0).prop('datum').id).toEqual('A')
@@ -254,10 +276,11 @@ describe('Pie', () => {
                     height={400}
                     data={sampleData}
                     colors={{ datum: 'data.nested.color' }}
+                    animate={false}
                 />
             )
 
-            const slices = wrapper.find('PieSlice')
+            const slices = wrapper.find('Slice')
             expect(slices).toHaveLength(sampleData.length)
 
             expect(slices.at(0).prop('datum').id).toEqual('A')
@@ -272,10 +295,16 @@ describe('Pie', () => {
 
         it('should allow to use colors from data using a function', () => {
             const wrapper = mount(
-                <Pie width={400} height={400} data={sampleData} colors={d => d.data.color} />
+                <Pie
+                    width={400}
+                    height={400}
+                    data={sampleData}
+                    colors={d => d.data.color}
+                    animate={false}
+                />
             )
 
-            const slices = wrapper.find('PieSlice')
+            const slices = wrapper.find('Slice')
             expect(slices).toHaveLength(sampleData.length)
 
             expect(slices.at(0).prop('datum').id).toEqual('A')
@@ -301,9 +330,11 @@ describe('Pie', () => {
 
     describe('slice labels', () => {
         it('should render labels when enabled', () => {
-            const wrapper = mount(<Pie width={400} height={400} data={sampleData} />)
+            const wrapper = mount(
+                <Pie width={400} height={400} data={sampleData} animate={false} />
+            )
 
-            const labels = wrapper.find('SliceLabels').find('g')
+            const labels = wrapper.find('SliceLabels').find(animated.g)
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
@@ -313,17 +344,29 @@ describe('Pie', () => {
 
         it('should allow to disable labels', () => {
             const wrapper = mount(
-                <Pie width={400} height={400} data={sampleData} enableSliceLabels={false} />
+                <Pie
+                    width={400}
+                    height={400}
+                    data={sampleData}
+                    enableSliceLabels={false}
+                    animate={false}
+                />
             )
             expect(wrapper.find('SliceLabels')).toHaveLength(0)
         })
 
         it('should use formattedValue', () => {
             const wrapper = mount(
-                <Pie width={400} height={400} data={sampleData} valueFormat=" >-$.2f" />
+                <Pie
+                    width={400}
+                    height={400}
+                    data={sampleData}
+                    valueFormat=" >-$.2f"
+                    animate={false}
+                />
             )
 
-            const labels = wrapper.find('SliceLabels').find('g')
+            const labels = wrapper.find('SliceLabels').find(animated.g)
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
@@ -333,10 +376,10 @@ describe('Pie', () => {
 
         it('should allow to change the label accessor using a path', () => {
             const wrapper = mount(
-                <Pie width={400} height={400} data={sampleData} sliceLabel="id" />
+                <Pie width={400} height={400} data={sampleData} sliceLabel="id" animate={false} />
             )
 
-            const labels = wrapper.find('SliceLabels').find('g')
+            const labels = wrapper.find('SliceLabels').find(animated.g)
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
@@ -351,10 +394,11 @@ describe('Pie', () => {
                     height={400}
                     data={sampleData}
                     sliceLabel={datum => `${datum.id} - ${datum.value}`}
+                    animate={false}
                 />
             )
 
-            const labels = wrapper.find('SliceLabels').find('g')
+            const labels = wrapper.find('SliceLabels').find(animated.g)
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
@@ -365,7 +409,9 @@ describe('Pie', () => {
 
     describe('radial labels', () => {
         it('should render labels when enabled', () => {
-            const wrapper = mount(<Pie width={400} height={400} data={sampleData} />)
+            const wrapper = mount(
+                <Pie width={400} height={400} data={sampleData} animate={false} />
+            )
 
             const labels = wrapper.find('RadialLabel')
             expect(labels).toHaveLength(sampleData.length)
@@ -377,14 +423,26 @@ describe('Pie', () => {
 
         it('should allow to disable labels', () => {
             const wrapper = mount(
-                <Pie width={400} height={400} data={sampleData} enableRadialLabels={false} />
+                <Pie
+                    width={400}
+                    height={400}
+                    data={sampleData}
+                    enableRadialLabels={false}
+                    animate={false}
+                />
             )
             expect(wrapper.find('RadialLabel')).toHaveLength(0)
         })
 
         it('should allow to change the label accessor using a path', () => {
             const wrapper = mount(
-                <Pie width={400} height={400} data={sampleData} radialLabel="value" />
+                <Pie
+                    width={400}
+                    height={400}
+                    data={sampleData}
+                    radialLabel="value"
+                    animate={false}
+                />
             )
 
             const labels = wrapper.find('RadialLabel')
@@ -402,6 +460,7 @@ describe('Pie', () => {
                     height={400}
                     data={sampleData}
                     radialLabel={datum => `${datum.id} - ${datum.value}`}
+                    animate={false}
                 />
             )
 
@@ -430,6 +489,7 @@ describe('Pie', () => {
                             itemHeight: 20,
                         },
                     ]}
+                    animate={false}
                 />
             )
 
@@ -450,10 +510,10 @@ describe('Pie', () => {
         it('should support onClick handler', () => {
             const onClick = jest.fn()
             const wrapper = mount(
-                <Pie width={400} height={400} data={sampleData} onClick={onClick} />
+                <Pie width={400} height={400} data={sampleData} onClick={onClick} animate={false} />
             )
 
-            wrapper.find('PieSlice').at(0).simulate('click')
+            wrapper.find('Slice').at(0).simulate('click')
 
             expect(onClick).toHaveBeenCalledTimes(1)
             const [datum] = onClick.mock.calls[0]
@@ -463,10 +523,16 @@ describe('Pie', () => {
         it('should support onMouseEnter handler', () => {
             const onMouseEnter = jest.fn()
             const wrapper = mount(
-                <Pie width={400} height={400} data={sampleData} onMouseEnter={onMouseEnter} />
+                <Pie
+                    width={400}
+                    height={400}
+                    data={sampleData}
+                    onMouseEnter={onMouseEnter}
+                    animate={false}
+                />
             )
 
-            wrapper.find('PieSlice').at(1).simulate('mouseenter')
+            wrapper.find('Slice').at(1).simulate('mouseenter')
 
             expect(onMouseEnter).toHaveBeenCalledTimes(1)
             const [datum] = onMouseEnter.mock.calls[0]
@@ -476,10 +542,16 @@ describe('Pie', () => {
         it('should support onMouseMove handler', () => {
             const onMouseMove = jest.fn()
             const wrapper = mount(
-                <Pie width={400} height={400} data={sampleData} onMouseMove={onMouseMove} />
+                <Pie
+                    width={400}
+                    height={400}
+                    data={sampleData}
+                    onMouseMove={onMouseMove}
+                    animate={false}
+                />
             )
 
-            wrapper.find('PieSlice').at(2).simulate('mousemove')
+            wrapper.find('Slice').at(2).simulate('mousemove')
 
             expect(onMouseMove).toHaveBeenCalledTimes(1)
             const [datum] = onMouseMove.mock.calls[0]
@@ -489,10 +561,16 @@ describe('Pie', () => {
         it('should support onMouseLeave handler', () => {
             const onMouseLeave = jest.fn()
             const wrapper = mount(
-                <Pie width={400} height={400} data={sampleData} onMouseLeave={onMouseLeave} />
+                <Pie
+                    width={400}
+                    height={400}
+                    data={sampleData}
+                    onMouseLeave={onMouseLeave}
+                    animate={false}
+                />
             )
 
-            wrapper.find('PieSlice').at(0).simulate('mouseleave')
+            wrapper.find('Slice').at(0).simulate('mouseleave')
 
             expect(onMouseLeave).toHaveBeenCalledTimes(1)
             const [datum] = onMouseLeave.mock.calls[0]
@@ -515,20 +593,22 @@ describe('Pie', () => {
                     onMouseMove={onMouseMove}
                     onMouseLeave={onMouseLeave}
                     isInteractive={false}
+                    animate={false}
                 />
             )
 
-            wrapper.find('PieSlice').at(0).simulate('click')
-            wrapper.find('PieSlice').at(0).simulate('mouseenter')
-            wrapper.find('PieSlice').at(0).simulate('mousemove')
-            wrapper.find('PieSlice').at(0).simulate('mouseleave')
+            const slice = wrapper.find('Slice').at(0)
+            slice.simulate('click')
+            slice.simulate('mouseenter')
+            slice.simulate('mousemove')
+            slice.simulate('mouseleave')
 
             expect(onClick).not.toHaveBeenCalled()
             expect(onMouseEnter).not.toHaveBeenCalled()
             expect(onMouseMove).not.toHaveBeenCalled()
             expect(onMouseLeave).not.toHaveBeenCalled()
 
-            wrapper.find('PieSlice').forEach(slice => {
+            wrapper.find('Slice').forEach(slice => {
                 const shape = slice.find('path')
                 expect(shape.prop('onClick')).toBeUndefined()
                 expect(shape.prop('onMouseEnter')).toBeUndefined()
@@ -540,11 +620,13 @@ describe('Pie', () => {
 
     describe('tooltip', () => {
         it('should render a tooltip when hovering a slice', () => {
-            const wrapper = mount(<Pie width={400} height={400} data={sampleData} />)
+            const wrapper = mount(
+                <Pie width={400} height={400} data={sampleData} animate={false} />
+            )
 
             expect(wrapper.find('PieTooltip').exists()).toBeFalsy()
 
-            wrapper.find('PieSlice').at(1).simulate('mouseenter')
+            wrapper.find('Slice').at(1).simulate('mouseenter')
 
             const tooltip = wrapper.find('PieTooltip')
             expect(tooltip.exists()).toBeTruthy()
@@ -554,10 +636,16 @@ describe('Pie', () => {
         it('should allow to override the default tooltip', () => {
             const CustomTooltip = ({ datum }) => <span>{datum.id}</span>
             const wrapper = mount(
-                <Pie width={400} height={400} data={sampleData} tooltip={CustomTooltip} />
+                <Pie
+                    width={400}
+                    height={400}
+                    data={sampleData}
+                    tooltip={CustomTooltip}
+                    animate={false}
+                />
             )
 
-            wrapper.find('PieSlice').at(1).simulate('mouseenter')
+            wrapper.find('Slice').at(1).simulate('mouseenter')
 
             expect(wrapper.find(CustomTooltip).exists()).toBeTruthy()
         })
@@ -565,11 +653,13 @@ describe('Pie', () => {
 
     describe('layers', () => {
         it('should support disabling a layer', () => {
-            const wrapper = mount(<Pie width={400} height={400} data={sampleData} />)
-            expect(wrapper.find('PieSlice')).toHaveLength(3)
+            const wrapper = mount(
+                <Pie width={400} height={400} data={sampleData} animate={false} />
+            )
+            expect(wrapper.find('Slice')).toHaveLength(3)
 
             wrapper.setProps({ layers: ['radialLabels', 'sliceLabels', 'legends'] })
-            expect(wrapper.find('PieSlice')).toHaveLength(0)
+            expect(wrapper.find('Slice')).toHaveLength(0)
         })
 
         it('should support adding a custom layer', () => {
@@ -582,6 +672,7 @@ describe('Pie', () => {
                     data={sampleData}
                     innerRadius={0.5}
                     layers={['slices', 'radialLabels', 'sliceLabels', 'legends', CustomLayer]}
+                    animate={false}
                 />
             )
 

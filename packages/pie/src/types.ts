@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Box, Dimensions, Theme, SvgDefsAndFill } from '@nivo/core'
+import { Box, Dimensions, Theme, SvgDefsAndFill, ModernMotionProps } from '@nivo/core'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { Arc, ArcGenerator, ArcTransitionMode } from '@nivo/arcs'
@@ -134,6 +134,8 @@ export type PieSvgProps<RawDatum> = DataProps<RawDatum> &
     SvgDefsAndFill<ComputedDatum<RawDatum>> &
     PieHandlers<RawDatum, SVGPathElement> & {
         layers?: PieLayer<RawDatum>[]
+        animate?: boolean
+        motionConfig?: ModernMotionProps['motionConfig']
         transitionMode?: ArcTransitionMode
     }
 
@@ -143,6 +145,8 @@ export type CompletePieSvgProps<RawDatum> = DataProps<RawDatum> &
     SvgDefsAndFill<ComputedDatum<RawDatum>> &
     PieHandlers<RawDatum, SVGPathElement> & {
         layers: PieLayer<RawDatum>[]
+        animate: boolean
+        motionConfig: ModernMotionProps['motionConfig']
         transitionMode: ArcTransitionMode
     }
 
