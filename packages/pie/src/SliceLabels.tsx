@@ -42,7 +42,7 @@ export const SliceLabels = <RawDatum,>({
         () =>
             data.filter(datum => {
                 return (
-                    Math.abs(radiansToDegrees(datum.arc.endAngle - datum.arc.startAngle)) <
+                    Math.abs(radiansToDegrees(datum.arc.endAngle - datum.arc.startAngle)) >=
                     skipAngle
                 )
             }),
