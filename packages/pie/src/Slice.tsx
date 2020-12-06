@@ -1,16 +1,14 @@
 import React, { createElement, useCallback } from 'react'
-import { animated } from 'react-spring'
+import { animated, Interpolation } from 'react-spring'
 import { useTooltip } from '@nivo/tooltip'
-import { useAnimatedArc, ArcGenerator } from '@nivo/arcs'
 import { ComputedDatum, CompletePieSvgProps } from './types'
 
-interface PieSliceProps<RawDatum> {
+interface SliceProps<RawDatum> {
     datum: ComputedDatum<RawDatum>
-    arcGenerator: ArcGenerator
-    path?: string
-    borderWidth: CompletePieSvgProps<RawDatum>['borderWidth']
+    path: string | Interpolation<string>
+    borderWidth: number
     borderColor: string
-    isInteractive: CompletePieSvgProps<RawDatum>['isInteractive']
+    isInteractive: boolean
     tooltip: CompletePieSvgProps<RawDatum>['tooltip']
     onClick: CompletePieSvgProps<RawDatum>['onClick']
     onMouseEnter: CompletePieSvgProps<RawDatum>['onMouseEnter']
@@ -19,9 +17,9 @@ interface PieSliceProps<RawDatum> {
     setActiveId: (id: null | string | number) => void
 }
 
-export const PieSlice = <RawDatum,>({
+export const Slice = <RawDatum,>({
     datum,
-    arcGenerator,
+    path,
     borderWidth,
     borderColor,
     isInteractive,
@@ -31,7 +29,7 @@ export const PieSlice = <RawDatum,>({
     onMouseLeave,
     tooltip,
     setActiveId,
-}: PieSliceProps<RawDatum>) => {
+}: SliceProps<RawDatum>) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleTooltip = useCallback(
@@ -72,11 +70,9 @@ export const PieSlice = <RawDatum,>({
         [onClick, datum]
     )
 
-    const animatedArc = useAnimatedArc(datum, arcGenerator)
-
     return (
         <animated.path
-            d={animatedArc.path}
+            d={path}
             fill={datum.fill || datum.color}
             strokeWidth={borderWidth}
             stroke={borderColor}

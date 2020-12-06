@@ -5,11 +5,9 @@ import {
     SvgWrapper,
     // @ts-ignore
     bindDefs,
-    useTheme,
     useDimensions,
 } from '@nivo/core'
-import { useInheritedColor, InheritedColorConfig } from '@nivo/colors'
-import { PieSlice } from './PieSlice'
+import { InheritedColorConfig } from '@nivo/colors'
 import { RadialLabels } from './RadialLabels'
 import { SliceLabels } from './SliceLabels'
 import PieLegends from './PieLegends'
@@ -42,9 +40,7 @@ const Pie = <RawDatum,>({
 
     // border
     borderWidth = defaultProps.borderWidth,
-    borderColor: _borderColor = defaultProps.borderColor as InheritedColorConfig<
-        ComputedDatum<RawDatum>
-    >,
+    borderColor = defaultProps.borderColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
 
     // radial labels
     radialLabel = defaultProps.radialLabel,
@@ -80,8 +76,6 @@ const Pie = <RawDatum,>({
     legends = defaultProps.legends,
     role = defaultProps.role,
 }: PieSvgProps<RawDatum>) => {
-    const theme = useTheme()
-
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
         width,
         height,
@@ -117,8 +111,6 @@ const Pie = <RawDatum,>({
         cornerRadius,
     })
 
-    const borderColor = useInheritedColor<ComputedDatum<RawDatum>>(_borderColor, theme)
-
     const boundDefs = bindDefs(defs, dataWithArc, fill)
 
     const layerById: Record<PieLayerId, ReactNode> = {
@@ -130,11 +122,20 @@ const Pie = <RawDatum,>({
 
     if (layers.includes('slices')) {
         layerById.slices = (
-            <Slices
+            <Slices<RawDatum>
                 key="slices"
                 center={[centerX, centerY]}
                 data={dataWithArc}
                 arcGenerator={arcGenerator}
+                borderWidth={borderWidth}
+                borderColor={borderColor}
+                isInteractive={isInteractive}
+                onClick={onClick}
+                onMouseEnter={onMouseEnter}
+                onMouseMove={onMouseMove}
+                onMouseLeave={onMouseLeave}
+                setActiveId={setActiveId}
+                tooltip={tooltip}
             />
         )
     }
