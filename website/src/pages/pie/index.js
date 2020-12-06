@@ -56,7 +56,10 @@ const initialProperties = {
     sliceLabel: 'formattedValue',
     sliceLabelsRadiusOffset: 0.5,
     sliceLabelsSkipAngle: 10,
-    sliceLabelsTextColor: '#333333',
+    sliceLabelsTextColor: {
+        from: 'color',
+        modifiers: [['darker', 2]],
+    },
 
     isInteractive: true,
     'custom tooltip example': false,

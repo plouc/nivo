@@ -13,6 +13,7 @@ const commonProperties = {
         ...d,
     })),
     animate: true,
+    activeOuterRadiusOffset: 20,
 }
 
 const legends = [
@@ -139,10 +140,11 @@ stories.add('adding a metric in the center using a custom layer', () => (
     />
 ))
 
-stories.add('formatted tooltip values', () => (
+stories.add('formatted values', () => (
     <Pie
         {...commonProperties}
-        tooltipFormat={value =>
+        sliceLabelsRadiusOffset={0.7}
+        valueFormat={value =>
             `${Number(value).toLocaleString('ru-RU', {
                 minimumFractionDigits: 2,
             })} ₽`
