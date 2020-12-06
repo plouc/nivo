@@ -125,6 +125,9 @@ package-test-cover-%: ##@1 packages run tests for a package with code coverage
 package-test-%: ##@1 packages run tests for a package
 	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/${*}/tests
 
+package-watch-test-%: ##@1 packages run tests for a package and watch for changes
+	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/${*}/tests --watch
+
 package-update-test-%: ##@1 packages run tests for a package and update its snapshots
 	@yarn jest -c ./packages/jest.config.js --rootDir . ./packages/${*}/tests -u
 
