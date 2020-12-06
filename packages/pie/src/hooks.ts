@@ -228,7 +228,7 @@ export const usePie = <RawDatum>({
         activeOuterRadiusOffset,
     })
 
-    const arcGenerator = useArcGenerator({ cornerRadius })
+    const arcGenerator = useArcGenerator({ cornerRadius, padAngle: degreesToRadians(padAngle) })
 
     return { dataWithArc, arcGenerator, setActiveId }
 }
@@ -334,6 +334,7 @@ export const usePieFromBox = <RawDatum>({
 
     const arcGenerator = useArcGenerator({
         cornerRadius,
+        padAngle: degreesToRadians(padAngle),
     })
 
     return {
