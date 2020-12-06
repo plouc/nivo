@@ -41,6 +41,8 @@ const initialProperties = {
     padAngle: 0.7,
     cornerRadius: 3,
     fit: true,
+    activeInnerRadiusOffset: defaultProps.activeInnerRadiusOffset,
+    activeOuterRadiusOffset: 16,
 
     colors: { scheme: 'paired' },
 

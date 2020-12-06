@@ -16,6 +16,8 @@ export const defaultProps = {
     startAngle: 0,
     endAngle: 360,
     fit: true,
+    activeInnerRadiusOffset: 0,
+    activeOuterRadiusOffset: 0,
 
     // border
     borderWidth: 0,

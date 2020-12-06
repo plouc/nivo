@@ -30,6 +30,8 @@ const initialProperties = {
     padAngle: 0.7,
     cornerRadius: 3,
     fit: defaultProps.fit,
+    activeInnerRadiusOffset: defaultProps.activeInnerRadiusOffset,
+    activeOuterRadiusOffset: 16,
 
     colors: defaultProps.colors,
 

@@ -31,6 +31,8 @@ const Pie = <RawDatum,>({
     fit = defaultProps.fit,
     innerRadius: innerRadiusRatio = defaultProps.innerRadius,
     cornerRadius = defaultProps.cornerRadius,
+    activeInnerRadiusOffset = defaultProps.activeInnerRadiusOffset,
+    activeOuterRadiusOffset = defaultProps.activeOuterRadiusOffset,
 
     width,
     height,
@@ -111,6 +113,8 @@ const Pie = <RawDatum,>({
         padAngle,
         sortByValue,
         cornerRadius,
+        activeInnerRadiusOffset,
+        activeOuterRadiusOffset,
     })
 
     const boundDefs = bindDefs(defs, dataWithArc, fill)

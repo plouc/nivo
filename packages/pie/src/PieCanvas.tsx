@@ -80,6 +80,8 @@ const PieCanvas = <RawDatum, >({
     fit = defaultProps.fit,
     innerRadius: innerRadiusRatio = defaultProps.innerRadius,
     cornerRadius = defaultProps.cornerRadius,
+    activeInnerRadiusOffset = defaultProps.activeInnerRadiusOffset,
+    activeOuterRadiusOffset = defaultProps.activeOuterRadiusOffset,
 
     width,
     height,
@@ -136,7 +138,7 @@ const PieCanvas = <RawDatum, >({
         colors,
     })
 
-    const { dataWithArc, arcGenerator, centerX, centerY, radius, innerRadius } = usePieFromBox<RawDatum>({
+    const { dataWithArc, arcGenerator, centerX, centerY, radius, innerRadius, setActiveId } = usePieFromBox<RawDatum>({
         data: normalizedData,
         width: innerWidth,
         height: innerHeight,
@@ -147,6 +149,8 @@ const PieCanvas = <RawDatum, >({
         padAngle,
         sortByValue,
         cornerRadius,
+        activeInnerRadiusOffset,
+        activeOuterRadiusOffset,
     })
 
     const getBorderColor = useInheritedColor<ComputedDatum<RawDatum>>(borderColor, theme)
@@ -288,8 +292,10 @@ const PieCanvas = <RawDatum, >({
         const datum = getArcFromMouse(event)
         if (datum) {
             onMouseMove?.(datum, event)
+            setActiveId(datum.id)
             showTooltipFromEvent(createElement(tooltip, { datum }), event)
         } else {
+            setActiveId(null)
             hideTooltip()
         }
     }
