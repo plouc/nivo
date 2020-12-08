@@ -16,7 +16,7 @@ export const AxisTick = <Value extends string | number | Date>({
     const theme = useTheme()
 
     let value = _value
-    if (format !== undefined) {
+    if (typeof format === 'function') {
         value = format(value)
     }
 

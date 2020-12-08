@@ -76,7 +76,10 @@ const isInteger = (value: unknown): value is number =>
 
 const isArray = <T>(value: unknown): value is T[] => Array.isArray(value)
 
-export const getScaleTicks = <Value>(scale: AnyScale, spec?: TicksSpec<Value>) => {
+export const getScaleTicks = <Value extends string | number | Date>(
+    scale: AnyScale,
+    spec?: TicksSpec<Value>
+) => {
     // specific values
     if (Array.isArray(spec)) {
         return spec
@@ -122,7 +125,7 @@ export const getScaleTicks = <Value>(scale: AnyScale, spec?: TicksSpec<Value>) =
     return scale.domain()
 }
 
-export const computeCartesianTicks = <Value>({
+export const computeCartesianTicks = <Value extends string | number | Date>({
     axis,
     scale,
     ticksPosition,
@@ -209,21 +212,22 @@ export const computeCartesianTicks = <Value>({
     }
 }
 
-export const getFormatter = (
-    format: string | ValueFormatter,
+export const getFormatter = <Value extends string | number | Date>(
+    format: string | ValueFormatter<Value> | undefined,
     scale: AnyScale
-): ValueFormatter | undefined => {
+): ValueFormatter<Value> | undefined => {
     if (typeof format === 'undefined' || typeof format === 'function') return format
 
     if (scale.type === 'time') {
         const formatter = timeFormat(format)
-        return (d: number | string) => formatter(new Date(d))
+
+        return (d => formatter(d instanceof Date ? d : new Date(d))) as ValueFormatter<Value>
     }
 
-    return d3Format(format) as ValueFormatter
+    return (d3Format(format) as unknown) as ValueFormatter<Value>
 }
 
-export const computeGridLines = <Value>({
+export const computeGridLines = <Value extends string | number | Date>({
     width,
     height,
     scale,

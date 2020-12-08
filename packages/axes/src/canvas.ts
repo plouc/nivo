@@ -2,7 +2,7 @@ import { degreesToRadians, CompleteTheme } from '@nivo/core'
 import { computeCartesianTicks, getFormatter, computeGridLines } from './compute'
 import { TicksSpec, AnyScale, AxisLegendPosition, CanvasAxisProp, ValueFormatter } from './types'
 
-export const renderAxisToCanvas = <Value>(
+export const renderAxisToCanvas = <Value extends string | number | Date>(
     ctx: CanvasRenderingContext2D,
     {
         axis,
@@ -34,7 +34,7 @@ export const renderAxisToCanvas = <Value>(
         tickSize?: number
         tickPadding?: number
         tickRotation?: number
-        format?: ValueFormatter
+        format?: string | ValueFormatter<Value>
         legend?: string
         legendPosition?: AxisLegendPosition
         legendOffset?: number
@@ -88,7 +88,7 @@ export const renderAxisToCanvas = <Value>(
             ctx.stroke()
         }
 
-        const value = format !== undefined ? format(String(tick.value)) : (tick.value as string)
+        const value = typeof format === 'function' ? format(tick.value) : (tick.value as string)
 
         ctx.save()
         ctx.translate(tick.x + tick.textX, tick.y + tick.textY)
@@ -98,7 +98,7 @@ export const renderAxisToCanvas = <Value>(
             ctx.fillStyle = theme.axis.ticks.text.fill
         }
 
-        ctx.fillText(value, 0, 0)
+        ctx.fillText(String(value), 0, 0)
         ctx.restore()
     })
 
@@ -153,7 +153,10 @@ export const renderAxisToCanvas = <Value>(
 
 const positions = ['top', 'right', 'bottom', 'left'] as const
 
-export const renderAxesToCanvas = <X, Y>(
+export const renderAxesToCanvas = <
+    X extends string | number | Date,
+    Y extends string | number | Date
+>(
     ctx: CanvasRenderingContext2D,
     {
         xScale,
@@ -182,7 +185,9 @@ export const renderAxesToCanvas = <X, Y>(
     const axes = { top, right, bottom, left }
 
     positions.forEach(position => {
-        const axis = axes[position]
+        const axis = axes[position] as typeof position extends 'bottom' | 'top'
+            ? CanvasAxisProp<X> | undefined
+            : CanvasAxisProp<Y> | undefined
 
         if (!axis) return null
 
@@ -191,7 +196,7 @@ export const renderAxesToCanvas = <X, Y>(
         const scale = isXAxis ? xScale : yScale
         const format = getFormatter(axis.format, scale)
 
-        renderAxisToCanvas<unknown>(ctx, {
+        renderAxisToCanvas(ctx, {
             ...axis,
             axis: isXAxis ? 'x' : 'y',
             x: position === 'right' ? width : 0,
@@ -205,7 +210,7 @@ export const renderAxesToCanvas = <X, Y>(
     })
 }
 
-export const renderGridLinesToCanvas = <Value>(
+export const renderGridLinesToCanvas = <Value extends string | number | Date>(
     ctx: CanvasRenderingContext2D,
     {
         width,
