@@ -32,7 +32,7 @@ const RadarTooltipItem = memo(
             const rows = keys.map(key => [
                 <Chip key={key} color={colorByKey[key]} />,
                 key,
-                tooltipFormatter(datum[key], key),
+                tooltipFormatter(datum[key], key, index),
             ])
             rows.sort((a, b) => a[2] - b[2])
             rows.reverse()
