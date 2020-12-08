@@ -28,7 +28,9 @@ export const Axes = <X extends number | string | Date, Y extends number | string
     return (
         <>
             {positions.map(position => {
-                const axis = axes[position]
+                const axis = axes[position] as typeof position extends 'bottom' | 'top'
+                    ? AxisProp<X> | undefined
+                    : AxisProp<Y> | undefined
 
                 if (!axis) return null
 
