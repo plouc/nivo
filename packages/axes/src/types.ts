@@ -10,8 +10,6 @@ import {
 } from 'd3-scale'
 import React from 'react'
 
-// export type AxisValue = string | number | Date
-
 export type GridValuesBuilder<T> = T extends number
     ? number[]
     : T extends string
@@ -39,7 +37,7 @@ export type AnyScale =
     | (ScaleLogarithmic<any, any> & { type: 'log' })
     | ScaleWithBandwidth
 
-export type TicksSpec<Value> =
+export type TicksSpec<Value extends string | number | Date> =
     // exact number of ticks, please note that
     // depending on the current range of values,
     // you might not get this exact count
@@ -53,46 +51,50 @@ export type TicksSpec<Value> =
 
 export type AxisLegendPosition = 'start' | 'middle' | 'end'
 
-export interface AxisProp<Value> {
+export type ValueFormatter<Value extends string | number | Date> = (value: Value) => Value
+
+export interface AxisProp<Value extends string | number | Date> {
     ticksPosition?: 'before' | 'after'
     tickValues?: TicksSpec<Value>
     tickSize?: number
     tickPadding?: number
     tickRotation?: number
-    format?: any
-    renderTick?: any
+    format?: string | ValueFormatter<Value>
+    renderTick?: (props: AxisTickProps<Value>) => JSX.Element
     legend?: React.ReactNode
     legendPosition?: AxisLegendPosition
     legendOffset?: number
 }
 
-export interface CanvasAxisProp<Value> extends Omit<AxisProp<Value>, 'legend'> {
+export interface CanvasAxisProp<Value extends string | number | Date>
+    extends Omit<AxisProp<Value>, 'legend'> {
     legend?: string
 }
 
-export interface AxisProps {
+export interface AxisProps<Value extends number | string | Date = any> {
     axis: 'x' | 'y'
     scale: AnyScale
     x?: number
     y?: number
     length: number
     ticksPosition: 'before' | 'after'
-    tickValues?: TicksSpec<number | string | Date>
+    tickValues?: TicksSpec<Value>
     tickSize?: number
     tickPadding?: number
     tickRotation?: number
-    format?: any
-    renderTick?: any
+    format?: string | ValueFormatter<Value>
+    renderTick?: (props: AxisTickProps<Value>) => JSX.Element
     legend?: React.ReactNode
     legendPosition?: 'start' | 'middle' | 'end'
     legendOffset?: number
-    onClick?: any
+    onClick?: (event: React.MouseEvent<SVGGElement, MouseEvent>, value: Value) => void
     ariaHidden?: boolean
 }
 
 export interface AxisTickProps<Value extends number | string | Date> {
+    tickIndex: number
     value: Value
-    format?: any
+    format?: string | ValueFormatter<Value>
     x: number
     y: number
     lineX: number
@@ -110,8 +112,6 @@ export interface AxisTickProps<Value extends number | string | Date> {
     }>
     onClick?: (event: React.MouseEvent<SVGGElement, MouseEvent>, value: Value) => void
 }
-
-export type ValueFormatter = (value: number | string) => string
 
 export type Line = {
     key: string
