@@ -1,6 +1,6 @@
 {
   "name": "@nivo/voronoi",
-  "version": "0.66.0",
+  "version": "0.67.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -34,10 +34,10 @@
     "recompose": "^0.30.0"
   },
   "devDependencies": {
-    "@nivo/core": "0.66.0"
+    "@nivo/core": "0.67.0"
   },
   "peerDependencies": {
-    "@nivo/core": "0.66.0",
+    "@nivo/core": "0.67.0",
     "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.8.4 < 18.0.0"
   },

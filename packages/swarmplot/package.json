@@ -1,6 +1,6 @@
 {
   "name": "@nivo/swarmplot",
-  "version": "0.66.0",
+  "version": "0.67.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -29,23 +29,23 @@
     "dist/"
   ],
   "dependencies": {
-    "@nivo/annotations": "0.66.0",
-    "@nivo/axes": "0.66.0",
-    "@nivo/colors": "0.66.0",
-    "@nivo/legends": "0.66.0",
-    "@nivo/scales": "0.66.0",
-    "@nivo/tooltip": "0.66.0",
-    "@nivo/voronoi": "0.66.0",
+    "@nivo/annotations": "0.67.0",
+    "@nivo/axes": "0.67.0",
+    "@nivo/colors": "0.67.0",
+    "@nivo/legends": "0.67.0",
+    "@nivo/scales": "0.67.0",
+    "@nivo/tooltip": "0.67.0",
+    "@nivo/voronoi": "0.67.0",
     "d3-force": "^2.0.1",
     "d3-scale": "^3.0.0",
     "lodash": "^4.17.11",
     "react-motion": "^0.5.2"
   },
   "devDependencies": {
-    "@nivo/core": "0.66.0"
+    "@nivo/core": "0.67.0"
   },
   "peerDependencies": {
-    "@nivo/core": "0.66.0",
+    "@nivo/core": "0.67.0",
     "prop-types": ">= 15.5.10 < 16.0.0",
     "react": ">= 16.8.4 < 18.0.0"
   },
