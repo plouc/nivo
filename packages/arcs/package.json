@@ -1,6 +1,6 @@
 {
   "name": "@nivo/arcs",
-  "version": "0.66.0",
+  "version": "0.67.0",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -32,11 +32,11 @@
     "react-spring": "9.0.0-rc.3"
   },
   "devDependencies": {
-    "@nivo/core": "0.66.0",
+    "@nivo/core": "0.67.0",
     "@types/d3-shape": "^2.0.0"
   },
   "peerDependencies": {
-    "@nivo/core": "0.66.0",
+    "@nivo/core": "0.67.0",
     "react": ">= 16.8.4 < 18.0.0"
   },
   "publishConfig": {

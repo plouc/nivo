@@ -4,7 +4,7 @@
   "private": true,
   "description": "nivo website",
   "dependencies": {
-    "@nivo/arcs": "0.66.0",
+    "@nivo/arcs": "0.67.0",
     "@nivo/bar": "0.67.0",
     "@nivo/bullet": "0.67.0",
     "@nivo/bump": "0.67.0",
