@@ -59,3 +59,17 @@ it(`should allow to reverse domain`, () => {
     expect(scale(0.5)).toBe(50)
     expect(scale(1)).toBe(100)
 })
+
+it(`should allow to clamping`, () => {
+    const scale = linearScale(
+        { axis: 'y', clamp: true, min: 0.5 },
+        { y: { min: 0, max: 1 } },
+        100,
+        100
+    )
+
+    expect(scale.domain()[0]).toBe(0.5)
+    expect(scale(0)).toBe(100)
+    expect(scale(0.5)).toBe(100)
+    expect(scale(1)).toBe(0)
+})
