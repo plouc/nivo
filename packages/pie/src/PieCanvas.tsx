@@ -1,9 +1,11 @@
-import React, { createElement, useEffect, useMemo, useRef } from 'react'
+import React, { createElement, useCallback, useEffect, useMemo, useRef } from 'react'
 import {
     // @ts-ignore
     getRelativeCursor,
     // @ts-ignore
     textPropsByEngine,
+    // @ts-ignore
+    getLabelGenerator,
     useDimensions,
     useTheme,
     Container,
@@ -13,31 +15,36 @@ import {
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useInheritedColor, InheritedColorConfig } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
-import { Arc, findArcUnderCursor } from '@nivo/arcs'
+import { Arc, findArcUnderCursor, useArcCenters } from '@nivo/arcs'
 import { useNormalizedData, usePieFromBox, usePieRadialLabels } from './hooks'
 import { ComputedDatum, PieCanvasProps, RadialLabelData } from './types'
 import { defaultProps } from './props'
 
-// const drawSliceLabels = <RawDatum,>(
-//     ctx: CanvasRenderingContext2D,
-//     labels: SliceLabelData<RawDatum>[],
-//     theme: Theme
-// ) => {
-//     ctx.textAlign = 'center'
-//     ctx.textBaseline = 'middle'
-//     ctx.font = `${theme.labels!.text!.fontSize}px ${theme.labels!.text!.fontFamily}`
-//
-//     labels.forEach(label => {
-//         ctx.save()
-//         ctx.translate(label.x, label.y)
-//         ctx.fillStyle = label.textColor
-//         ctx.fillText(`${label.label}`, 0, 0)
-//         ctx.restore()
-//     })
-// }
+const drawSliceLabels = <RawDatum,>(
+    ctx: CanvasRenderingContext2D,
+    labels: {
+        x: number
+        y: number
+        label: string
+        color: string
+        data: ComputedDatum<RawDatum>
+    }[],
+    theme: Theme
+) => {
+    ctx.textAlign = 'center'
+    ctx.textBaseline = 'middle'
+    ctx.font = `${theme.labels!.text!.fontSize}px ${theme.labels!.text!.fontFamily}`
 
-// prettier-ignore
-const drawRadialLabels = <RawDatum, >(
+    labels.forEach(label => {
+        ctx.save()
+        ctx.translate(label.x, label.y)
+        ctx.fillStyle = label.color
+        ctx.fillText(`${label.label}`, 0, 0)
+        ctx.restore()
+    })
+}
+
+const drawRadialLabels = <RawDatum,>(
     ctx: CanvasRenderingContext2D,
     labels: RadialLabelData<RawDatum>[],
     theme: Theme,
@@ -105,11 +112,11 @@ const InnerPieCanvas = <RawDatum,>({
     radialLabelsLinkColor = defaultProps.radialLabelsLinkColor,
 
     // slices labels
-    // sliceLabel = defaultProps.sliceLabel,
+    sliceLabel = defaultProps.sliceLabel,
     enableSliceLabels = defaultProps.enableSliceLabels,
-    // sliceLabelsSkipAngle = defaultProps.sliceLabelsSkipAngle,
-    // sliceLabelsTextColor = defaultProps.sliceLabelsTextColor,
-    // sliceLabelsRadiusOffset = defaultProps.sliceLabelsRadiusOffset,
+    sliceLabelsSkipAngle = defaultProps.sliceLabelsSkipAngle,
+    sliceLabelsTextColor = defaultProps.sliceLabelsTextColor,
+    sliceLabelsRadiusOffset = defaultProps.sliceLabelsRadiusOffset,
 
     // interactivity
     isInteractive = defaultProps.isInteractive,
@@ -175,16 +182,30 @@ const InnerPieCanvas = <RawDatum,>({
         linkColor: radialLabelsLinkColor,
     })
 
-    // const sliceLabels = usePieSliceLabels<RawDatum>({
-    //     enable: enableSliceLabels,
-    //     dataWithArc,
-    //     label: sliceLabel,
-    //     radius,
-    //     innerRadius,
-    //     radiusOffset: sliceLabelsRadiusOffset,
-    //     skipAngle: sliceLabelsSkipAngle,
-    //     textColor: sliceLabelsTextColor,
-    // })
+    const getSliceLabel = useMemo(() => getLabelGenerator(sliceLabel), [sliceLabel])
+    const getSliceLabelColor = useInheritedColor<ComputedDatum<RawDatum>>(
+        sliceLabelsTextColor,
+        theme
+    )
+    const computeSliceLabel = useCallback(
+        (datum: ComputedDatum<RawDatum>) => ({
+            label: getSliceLabel(datum),
+            color: getSliceLabelColor(datum),
+        }),
+        [getSliceLabel, getSliceLabelColor]
+    )
+    const sliceLabels = useArcCenters<
+        ComputedDatum<RawDatum>,
+        {
+            label: string
+            color: string
+        }
+    >({
+        data: dataWithArc,
+        skipAngle: sliceLabelsSkipAngle,
+        offset: sliceLabelsRadiusOffset,
+        computeExtraProps: computeSliceLabel,
+    })
 
     useEffect(() => {
         if (!canvasEl.current) return
@@ -226,9 +247,9 @@ const InnerPieCanvas = <RawDatum,>({
             drawRadialLabels(ctx, radialLabels, theme, radialLabelsLinkStrokeWidth)
         }
 
-        // if (enableSliceLabels === true) {
-        //     drawSliceLabels(ctx, sliceLabels, theme)
-        // }
+        if (enableSliceLabels === true) {
+            drawSliceLabels(ctx, sliceLabels, theme)
+        }
 
         // legends assume a box rather than a center,
         // that's why we restore previously saved position here.
@@ -259,7 +280,7 @@ const InnerPieCanvas = <RawDatum,>({
         enableRadialLabels,
         radialLabels,
         enableSliceLabels,
-        // sliceLabels,
+        sliceLabels,
         legends,
         theme,
     ])
