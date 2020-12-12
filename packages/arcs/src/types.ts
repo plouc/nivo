@@ -16,4 +16,8 @@ export interface DatumWithArc {
     arc: Arc
 }
 
+export interface DatumWithArcAndColor extends DatumWithArc {
+    color: string
+}
+
 export type ArcGenerator = D3Arc<any, Arc>

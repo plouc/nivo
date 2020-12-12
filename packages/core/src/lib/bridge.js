@@ -13,6 +13,9 @@ export const textPropsByEngine = {
             left: 'start',
             center: 'middle',
             right: 'end',
+            start: 'start',
+            middle: 'middle',
+            end: 'end',
         },
         baseline: {
             top: 'text-before-edge',
@@ -25,6 +28,9 @@ export const textPropsByEngine = {
             left: 'left',
             center: 'center',
             right: 'right',
+            start: 'left',
+            middle: 'center',
+            end: 'right',
         },
         baseline: {
             top: 'top',

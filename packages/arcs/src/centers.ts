@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useTransition, to, SpringValue } from 'react-spring'
 import {
     // @ts-ignore
@@ -10,7 +11,6 @@ import {
 } from '@nivo/core'
 import { Arc, DatumWithArc } from './types'
 import { ArcTransitionMode, TransitionExtra, useArcTransitionMode } from './arcTransitionMode'
-import { useMemo } from 'react'
 
 export const computeArcCenter = (
     arc: Arc,
@@ -83,6 +83,12 @@ export const useArcCentersTransition = <Datum extends DatumWithArc, ExtraProps =
     }
 }
 
+export interface ArcCenter<Datum extends DatumWithArc> {
+    x: number
+    y: number
+    data: Datum
+}
+
 /**
  * Compute an array of arc centers from an array of data containing arcs.
  *
@@ -105,19 +111,15 @@ export const useArcCenters = <
     // 0.0: inner radius
     // 0.5: center
     // 1.0: outer radius
-    offset: number
+    offset?: number
     // arcs with a length below this (end angle - start angle in degrees)
     // are gonna be excluded, this can be typically used to avoid having
     // overlapping labels.
-    skipAngle: number
+    skipAngle?: number
     // this can be used to append extra properties to the centers,
     // can be used to compute a color/label for example.
-    computeExtraProps: (datum: Datum) => ExtraProps
-}): ({
-    x: number
-    y: number
-    data: Datum
-} & ExtraProps)[] =>
+    computeExtraProps?: (datum: Datum) => ExtraProps
+}): (ArcCenter<Datum> & ExtraProps)[] =>
     useMemo(
         () =>
             data

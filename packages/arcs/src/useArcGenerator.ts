@@ -2,6 +2,15 @@ import { useMemo } from 'react'
 import { arc as d3Arc } from 'd3-shape'
 import { ArcGenerator, Arc } from './types'
 
+/**
+ * Memoize a d3 arc generator.
+ * 
+ * Please note that both inner/outer radius should come
+ * aren't static and should come from the arc itself,
+ * while it requires more props on the arcs, it provides
+ * more flexibility because it's not limited to pie then
+ * but can also works with charts such as sunbursts.
+ */
 export const useArcGenerator = ({
     cornerRadius = 0,
     padAngle = 0,
