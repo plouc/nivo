@@ -1,3 +1,5 @@
+export * from './ArcShape'
+export * from './ArcsLayer'
 export * from './arcTransitionMode'
 export * from './boundingBox'
 export * from './canvas'

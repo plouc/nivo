@@ -1,10 +1,7 @@
-import React from 'react'
-import { Interpolation } from 'react-spring'
-import { useTheme } from '@nivo/core'
-import { useInheritedColor } from '@nivo/colors'
-import { ArcGenerator, useArcsTransition } from '@nivo/arcs'
+import React, { createElement, useMemo } from 'react'
+import { ArcGenerator, ArcsLayer } from '@nivo/arcs'
+import { useTooltip } from '@nivo/tooltip'
 import { ComputedDatum, CompletePieSvgProps } from './types'
-import { Slice } from './Slice'
 
 interface SlicesProps<RawDatum> {
     center: [number, number]
@@ -37,49 +34,57 @@ export const Slices = <RawDatum,>({
     tooltip,
     transitionMode,
 }: SlicesProps<RawDatum>) => {
-    const theme = useTheme()
-    const getBorderColor = useInheritedColor<ComputedDatum<RawDatum>>(borderColor, theme)
-    const { transition, interpolate } = useArcsTransition<
-        ComputedDatum<RawDatum>,
-        {
-            color: string
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
+
+    const handleClick = useMemo(() => {
+        if (!isInteractive) return undefined
+
+        return (datum: ComputedDatum<RawDatum>, event: any) => {
+            onClick?.(datum, event)
         }
-    >(data, transitionMode, {
-        enter: datum => ({ color: datum.color }),
-        update: datum => ({ color: datum.color }),
-        leave: datum => ({ color: datum.color }),
-    })
+    }, [isInteractive, onClick])
+
+    const handleMouseEnter = useMemo(() => {
+        if (!isInteractive) return undefined
+
+        return (datum: ComputedDatum<RawDatum>, event: any) => {
+            showTooltipFromEvent(createElement(tooltip, { datum }), event)
+            setActiveId(datum.id)
+            onMouseEnter?.(datum, event)
+        }
+    }, [isInteractive, showTooltipFromEvent, setActiveId, onMouseEnter])
+
+    const handleMouseMove = useMemo(() => {
+        if (!isInteractive) return undefined
+
+        return (datum: ComputedDatum<RawDatum>, event: any) => {
+            showTooltipFromEvent(createElement(tooltip, { datum }), event)
+            onMouseMove?.(datum, event)
+        }
+    }, [isInteractive, showTooltipFromEvent, onMouseMove])
+
+    const handleMouseLeave = useMemo(() => {
+        if (!isInteractive) return undefined
+
+        return (datum: ComputedDatum<RawDatum>, event: any) => {
+            hideTooltip()
+            setActiveId(null)
+            onMouseLeave?.(datum, event)
+        }
+    }, [isInteractive, hideTooltip, setActiveId, onMouseLeave])
 
     return (
-        <g transform={`translate(${center[0]},${center[1]})`}>
-            {transition((transitionProps, datum) => {
-                return (
-                    <Slice<RawDatum>
-                        key={datum.id}
-                        datum={datum}
-                        path={
-                            interpolate(
-                                transitionProps.startAngle,
-                                transitionProps.endAngle,
-                                transitionProps.innerRadius,
-                                transitionProps.outerRadius,
-                                arcGenerator
-                            ) as Interpolation<string>
-                        }
-                        color={transitionProps.color}
-                        opacity={transitionProps.progress}
-                        borderWidth={borderWidth}
-                        borderColor={getBorderColor(datum)}
-                        isInteractive={isInteractive}
-                        onClick={onClick}
-                        onMouseEnter={onMouseEnter}
-                        onMouseMove={onMouseMove}
-                        onMouseLeave={onMouseLeave}
-                        setActiveId={setActiveId}
-                        tooltip={tooltip}
-                    />
-                )
-            })}
-        </g>
+        <ArcsLayer<ComputedDatum<RawDatum>>
+            center={center}
+            data={data}
+            arcGenerator={arcGenerator}
+            borderWidth={borderWidth}
+            borderColor={borderColor}
+            transitionMode={transitionMode}
+            onClick={handleClick}
+            onMouseEnter={handleMouseEnter}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+        />
     )
 }
