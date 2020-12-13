@@ -4,7 +4,7 @@ import { ArcGenerator, Arc } from './types'
 
 /**
  * Memoize a d3 arc generator.
- * 
+ *
  * Please note that both inner/outer radius should come
  * aren't static and should come from the arc itself,
  * while it requires more props on the arcs, it provides

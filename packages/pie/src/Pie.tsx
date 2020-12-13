@@ -148,21 +148,20 @@ const InnerPie = <RawDatum,>({
 
     if (enableRadialLabels && layers.includes('radialLabels')) {
         layerById.radialLabels = (
-            <g key="radialLabels" transform={`translate(${centerX},${centerY})`}>
-                <RadialLabels<RawDatum>
-                    dataWithArc={dataWithArc}
-                    radius={radius}
-                    label={radialLabel}
-                    skipAngle={radialLabelsSkipAngle}
-                    linkOffset={radialLabelsLinkOffset}
-                    linkDiagonalLength={radialLabelsLinkDiagonalLength}
-                    linkHorizontalLength={radialLabelsLinkHorizontalLength}
-                    linkStrokeWidth={radialLabelsLinkStrokeWidth}
-                    textXOffset={radialLabelsTextXOffset}
-                    textColor={radialLabelsTextColor}
-                    linkColor={radialLabelsLinkColor}
-                />
-            </g>
+            <RadialLabels<RawDatum>
+                key="radialLabels"
+                center={[centerX, centerY]}
+                data={dataWithArc}
+                label={radialLabel}
+                skipAngle={radialLabelsSkipAngle}
+                offset={radialLabelsLinkOffset}
+                diagonalLength={radialLabelsLinkDiagonalLength}
+                straightLength={radialLabelsLinkHorizontalLength}
+                strokeWidth={radialLabelsLinkStrokeWidth}
+                textOffset={radialLabelsTextXOffset}
+                textColor={radialLabelsTextColor}
+                linkColor={radialLabelsLinkColor}
+            />
         )
     }
 

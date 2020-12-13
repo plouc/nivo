@@ -1,5 +1,10 @@
 import { Arc as D3Arc } from 'd3-shape'
 
+export interface Point {
+    x: number
+    y: number
+}
+
 export interface Arc {
     // start angle in radians
     startAngle: number

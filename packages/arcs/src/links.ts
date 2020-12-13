@@ -1,25 +1,21 @@
 import { useCallback, useMemo } from 'react'
 import {
-    // @ts-ignore
     positionFromAngle,
-    // @ts-ignore
     radiansToDegrees,
     // @ts-ignore
     getLabelGenerator,
     useTheme,
 } from '@nivo/core'
 import { InheritedColorConfig, useInheritedColor } from '@nivo/colors'
-import { DatumWithArc, DatumWithArcAndColor } from './types'
+import { Arc, DatumWithArc, DatumWithArcAndColor, Point } from './types'
 import { getNormalizedAngle } from './utils'
 
-interface Point {
-    x: number
-    y: number
-}
-
-export interface ArcLink<Datum extends DatumWithArc> {
+export interface ArcLink {
     side: 'before' | 'after'
     points: [Point, Point, Point]
+}
+
+export interface ArcLinkWithDatum<Datum extends DatumWithArc> extends ArcLink {
     data: Datum
 }
 
@@ -28,22 +24,19 @@ export interface ArcLink<Datum extends DatumWithArc> {
  * please not that points coordinates are relative to
  * the center of the arc.
  */
-export const computeArcLink = <Datum extends DatumWithArc>(
-    datum: Datum,
+export const computeArcLink = (
+    arc: Arc,
     offset: number,
     diagonalLength: number,
     straightLength: number
-): ArcLink<Datum> => {
+): ArcLink => {
     const centerAngle = getNormalizedAngle(
-        datum.arc.startAngle + (datum.arc.endAngle - datum.arc.startAngle) / 2 - Math.PI / 2
+        arc.startAngle + (arc.endAngle - arc.startAngle) / 2 - Math.PI / 2
     )
-    const point0: Point = positionFromAngle(centerAngle, datum.arc.outerRadius + offset)
-    const point1: Point = positionFromAngle(
-        centerAngle,
-        datum.arc.outerRadius + offset + diagonalLength
-    )
+    const point0: Point = positionFromAngle(centerAngle, arc.outerRadius + offset)
+    const point1: Point = positionFromAngle(centerAngle, arc.outerRadius + offset + diagonalLength)
 
-    let side: ArcLink<Datum>['side']
+    let side: ArcLink['side']
     let point2: Point
     if (centerAngle < Math.PI / 2 || centerAngle > Math.PI * 1.5) {
         side = 'after'
@@ -62,7 +55,6 @@ export const computeArcLink = <Datum extends DatumWithArc>(
     return {
         side,
         points: [point0, point1, point2],
-        data: datum,
     }
 }
 
@@ -95,9 +87,9 @@ export const useArcLinks = <
     straightLength: number
     // this can be used to append extra properties to the links,
     // can be used to compute a color/label for example.
-    computeExtraProps?: (datum: ArcLink<Datum>) => ExtraProps
-}): (ArcLink<Datum> & ExtraProps)[] => {
-    const links: ArcLink<Datum>[] = useMemo(
+    computeExtraProps?: (datum: ArcLinkWithDatum<Datum>) => ExtraProps
+}): (ArcLinkWithDatum<Datum> & ExtraProps)[] => {
+    const links = useMemo(
         () =>
             data
                 // filter out arcs with a length below `skipAngle`
@@ -107,7 +99,10 @@ export const useArcLinks = <
                         skipAngle
                 )
                 // compute the link for each eligible arc
-                .map(datum => computeArcLink<Datum>(datum, offset, diagonalLength, straightLength)),
+                .map(datum => ({
+                    ...computeArcLink(datum.arc, offset, diagonalLength, straightLength),
+                    data: datum,
+                })),
         [data, skipAngle, offset, diagonalLength, straightLength]
     )
 
@@ -123,7 +118,7 @@ export const useArcLinks = <
     )
 }
 
-export interface ArcLinkLabel<Datum extends DatumWithArcAndColor> extends ArcLink<Datum> {
+export interface ArcLinkLabel<Datum extends DatumWithArcAndColor> extends ArcLinkWithDatum<Datum> {
     x: number
     y: number
     label: string
@@ -168,7 +163,7 @@ export const useArcLinkLabels = <Datum extends DatumWithArcAndColor>({
     const getTextColor = useInheritedColor<Datum>(textColor, theme)
 
     const computeExtraProps = useCallback(
-        (link: ArcLink<Datum>) => {
+        (link: ArcLinkWithDatum<Datum>) => {
             const position = {
                 x: link.points[2].x,
                 y: link.points[2].y,
@@ -193,7 +188,7 @@ export const useArcLinkLabels = <Datum extends DatumWithArcAndColor>({
         [getLabel, getLinkColor, getTextColor]
     )
 
-    return useArcLinks<Datum, Omit<ArcLinkLabel<Datum>, keyof ArcLink<Datum>>>({
+    return useArcLinks<Datum, Omit<ArcLinkLabel<Datum>, keyof ArcLinkWithDatum<Datum>>>({
         data,
         skipAngle,
         offset,

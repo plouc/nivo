@@ -1,43 +1,16 @@
 import { useMemo, useState } from 'react'
 import { get } from 'lodash'
 import { pie as d3Pie } from 'd3-shape'
-import { ArcGenerator, useArcGenerator } from '@nivo/arcs'
+import { ArcGenerator, useArcGenerator, computeArcBoundingBox } from '@nivo/arcs'
 import {
-    // @ts-ignore
     degreesToRadians,
-    // @ts-ignore
     radiansToDegrees,
     // @ts-ignore
     useValueFormatter,
-    // @ts-ignore
-    computeArcBoundingBox,
-    useTheme,
-    // @ts-ignore
-    positionFromAngle,
-    // @ts-ignore
-    midAngle,
-    // @ts-ignore
-    getLabelGenerator,
-    // @ts-ignore
-    absoluteAngleRadians,
-    // @ts-ignore
-    absoluteAngleDegrees,
 } from '@nivo/core'
-import {
-    OrdinalColorScaleConfig,
-    useOrdinalColorScale,
-    InheritedColorConfig,
-    useInheritedColor,
-} from '@nivo/colors'
+import { OrdinalColorScaleConfig, useOrdinalColorScale } from '@nivo/colors'
 import { defaultProps } from './props'
-import {
-    CompletePieSvgProps,
-    ComputedDatum,
-    PieArc,
-    LabelAccessorFunction,
-    PieCustomLayerProps,
-    RadialLabelData,
-} from './types'
+import { CompletePieSvgProps, ComputedDatum, PieArc, PieCustomLayerProps } from './types'
 
 interface MayHaveLabel {
     label?: string | number
@@ -343,94 +316,6 @@ export const usePieFromBox = <RawDatum>({
         setActiveId,
         ...computedProps,
     }
-}
-
-export const usePieRadialLabels = <RawDatum>({
-    enable,
-    dataWithArc,
-    label,
-    textXOffset,
-    textColor,
-    radius,
-    skipAngle,
-    linkOffset,
-    linkDiagonalLength,
-    linkHorizontalLength,
-    linkColor,
-}: {
-    enable: boolean
-    dataWithArc: ComputedDatum<RawDatum>[]
-    label: string | LabelAccessorFunction<RawDatum>
-    textXOffset: number
-    textColor: InheritedColorConfig<ComputedDatum<RawDatum>>
-    radius: number
-    skipAngle: number
-    linkOffset: number
-    linkDiagonalLength: number
-    linkHorizontalLength: number
-    linkColor: InheritedColorConfig<ComputedDatum<RawDatum>>
-}): RadialLabelData<RawDatum>[] => {
-    const getLabel = useMemo(() => getLabelGenerator(label), [label])
-
-    const theme = useTheme()
-    const getTextColor = useInheritedColor<ComputedDatum<RawDatum>>(textColor, theme)
-    const getLinkColor = useInheritedColor<ComputedDatum<RawDatum>>(linkColor, theme)
-
-    return useMemo(() => {
-        if (!enable) return []
-
-        return dataWithArc
-            .filter(datum => skipAngle === 0 || datum.arc.angleDeg > skipAngle)
-            .map(datum => {
-                const angle = absoluteAngleRadians(midAngle(datum.arc) - Math.PI / 2)
-                const positionA = positionFromAngle(angle, radius + linkOffset)
-                const positionB = positionFromAngle(angle, radius + linkOffset + linkDiagonalLength)
-
-                let positionC
-                let labelPosition
-                let textAlign
-
-                if (
-                    absoluteAngleDegrees(radiansToDegrees(angle)) < 90 ||
-                    absoluteAngleDegrees(radiansToDegrees(angle)) >= 270
-                ) {
-                    positionC = { x: positionB.x + linkHorizontalLength, y: positionB.y }
-                    labelPosition = {
-                        x: positionB.x + linkHorizontalLength + textXOffset,
-                        y: positionB.y,
-                    }
-                    textAlign = 'left'
-                } else {
-                    positionC = { x: positionB.x - linkHorizontalLength, y: positionB.y }
-                    labelPosition = {
-                        x: positionB.x - linkHorizontalLength - textXOffset,
-                        y: positionB.y,
-                    }
-                    textAlign = 'right'
-                }
-
-                return {
-                    text: getLabel(datum),
-                    textColor: getTextColor(datum),
-                    position: labelPosition,
-                    align: textAlign,
-                    line: [positionA, positionB, positionC],
-                    linkColor: getLinkColor(datum),
-                    datum,
-                }
-            })
-    }, [
-        dataWithArc,
-        skipAngle,
-        radius,
-        linkOffset,
-        linkDiagonalLength,
-        linkHorizontalLength,
-        textXOffset,
-        getLabel,
-        getTextColor,
-        getLinkColor,
-    ])
 }
 
 /**

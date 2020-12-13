@@ -3,22 +3,14 @@ import { useTransition, to, SpringValue } from 'react-spring'
 import {
     // @ts-ignore
     midAngle,
-    // @ts-ignore
     positionFromAngle,
-    // @ts-ignore
-    radiansToDegrees,
     useMotionConfig,
 } from '@nivo/core'
-import { Arc, DatumWithArc } from './types'
+import { Arc, DatumWithArc, Point } from './types'
+import { filterDataBySkipAngle } from './utils'
 import { ArcTransitionMode, TransitionExtra, useArcTransitionMode } from './arcTransitionMode'
 
-export const computeArcCenter = (
-    arc: Arc,
-    offset: number
-): {
-    x: number
-    y: number
-} => {
+export const computeArcCenter = (arc: Arc, offset: number): Point => {
     const angle = midAngle(arc) - Math.PI / 2
     const radius = arc.innerRadius + (arc.outerRadius - arc.innerRadius) * offset
 
@@ -83,9 +75,7 @@ export const useArcCentersTransition = <Datum extends DatumWithArc, ExtraProps =
     }
 }
 
-export interface ArcCenter<Datum extends DatumWithArc> {
-    x: number
-    y: number
+export interface ArcCenter<Datum extends DatumWithArc> extends Point {
     data: Datum
 }
 
@@ -122,13 +112,7 @@ export const useArcCenters = <
 }): (ArcCenter<Datum> & ExtraProps)[] =>
     useMemo(
         () =>
-            data
-                // filter out arcs with a length below `skipAngle`
-                .filter(
-                    datum =>
-                        Math.abs(radiansToDegrees(datum.arc.endAngle - datum.arc.startAngle)) >=
-                        skipAngle
-                )
+            filterDataBySkipAngle<Datum>(data, skipAngle)
                 // compute position and extra props for each eligible datum
                 .map(datum => {
                     const position = computeArcCenter(datum.arc, offset)
