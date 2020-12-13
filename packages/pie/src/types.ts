@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { Box, Dimensions, Theme, SvgDefsAndFill, ModernMotionProps } from '@nivo/core'
+import { Arc, ArcGenerator, ArcTransitionMode } from '@nivo/arcs'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
-import { Arc, ArcGenerator, ArcTransitionMode } from '@nivo/arcs'
 
 export type DatumId = string | number
 export type DatumValue = number
@@ -165,18 +165,3 @@ export type CompletePieCanvasProps<RawDatum> = DataProps<RawDatum> &
     Pick<PieHandlers<RawDatum, HTMLCanvasElement>, 'onClick' | 'onMouseMove'> & {
         pixelRatio: number
     }
-
-export type Point = {
-    x: number
-    y: number
-}
-
-export type RadialLabelData<RawDatum> = {
-    text: string | number
-    textColor: string
-    position: Point
-    align: string
-    line: [Point, Point, Point]
-    linkColor: string
-    datum: ComputedDatum<RawDatum>
-}

@@ -3,7 +3,6 @@ import { animated } from 'react-spring'
 import {
     // @ts-ignore
     getLabelGenerator,
-    // @ts-ignore
     radiansToDegrees,
     useTheme,
 } from '@nivo/core'

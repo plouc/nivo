@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { OpaqueInterpolation, SpringConfig } from 'react-spring'
+import { number } from 'prop-types'
 
 declare module '@nivo/core' {
     export type DatumValue = string | number | Date
@@ -325,4 +326,15 @@ declare module '@nivo/core' {
 
     export function getDistance(x1: number, y1: number, x2: number, y2: number): number
     export function getAngle(x1: number, y1: number, x2: number, y2: number): number
+
+    export function radiansToDegrees(radians: number): number
+    export function degreesToRadians(degrees: number): number
+
+    export function positionFromAngle(
+        angle: number,
+        distance: number
+    ): {
+        x: number
+        y: number
+    }
 }

@@ -1,58 +1,69 @@
 import React from 'react'
-import { usePieRadialLabels } from './hooks'
-import { RadialLabel } from './RadialLabel'
+import { animated } from 'react-spring'
+import { useArcLinkLabelsTransition } from '@nivo/arcs'
 import { ComputedDatum, CompletePieSvgProps } from './types'
 
 interface RadialLabelsProps<RawDatum> {
-    dataWithArc: ComputedDatum<RawDatum>[]
+    center: [number, number]
+    data: ComputedDatum<RawDatum>[]
     label: CompletePieSvgProps<RawDatum>['radialLabel']
     skipAngle: CompletePieSvgProps<RawDatum>['radialLabelsSkipAngle']
-    radius: number
-    linkOffset: CompletePieSvgProps<RawDatum>['radialLabelsLinkOffset']
-    linkDiagonalLength: CompletePieSvgProps<RawDatum>['radialLabelsLinkDiagonalLength']
-    linkHorizontalLength: CompletePieSvgProps<RawDatum>['radialLabelsLinkHorizontalLength']
-    linkStrokeWidth: CompletePieSvgProps<RawDatum>['radialLabelsLinkStrokeWidth']
-    textXOffset: CompletePieSvgProps<RawDatum>['radialLabelsTextXOffset']
+    offset: CompletePieSvgProps<RawDatum>['radialLabelsLinkOffset']
+    diagonalLength: CompletePieSvgProps<RawDatum>['radialLabelsLinkDiagonalLength']
+    straightLength: CompletePieSvgProps<RawDatum>['radialLabelsLinkHorizontalLength']
+    strokeWidth: CompletePieSvgProps<RawDatum>['radialLabelsLinkStrokeWidth']
+    textOffset: CompletePieSvgProps<RawDatum>['radialLabelsTextXOffset']
     textColor: CompletePieSvgProps<RawDatum>['radialLabelsTextColor']
     linkColor: CompletePieSvgProps<RawDatum>['radialLabelsLinkColor']
 }
 
 export const RadialLabels = <RawDatum,>({
-    dataWithArc,
+    center,
+    data,
     label,
-    radius,
     skipAngle,
-    linkOffset,
-    linkDiagonalLength,
-    linkHorizontalLength,
-    linkStrokeWidth,
-    textXOffset,
+    offset,
+    diagonalLength,
+    straightLength,
+    strokeWidth,
+    textOffset,
     textColor,
     linkColor,
 }: RadialLabelsProps<RawDatum>) => {
-    const radialLabels = usePieRadialLabels<RawDatum>({
-        enable: true,
-        dataWithArc,
+    const { transition, interpolateLink } = useArcLinkLabelsTransition<ComputedDatum<RawDatum>>({
+        data,
         label,
-        textXOffset,
-        textColor,
-        radius,
         skipAngle,
-        linkOffset,
-        linkDiagonalLength,
-        linkHorizontalLength,
+        offset,
+        diagonalLength,
+        straightLength,
+        textOffset,
         linkColor,
+        textColor,
     })
 
     return (
-        <>
-            {radialLabels.map(labelData => (
-                <RadialLabel
-                    key={labelData.datum.id}
-                    label={labelData}
-                    linkStrokeWidth={linkStrokeWidth}
-                />
-            ))}
-        </>
+        <g transform={`translate(${center[0]},${center[1]})`}>
+            {transition((transitionProps, datum) => {
+                return (
+                    <animated.path
+                        key={datum.id}
+                        fill="none"
+                        stroke={transitionProps.linkColor}
+                        strokeWidth={strokeWidth}
+                        opacity={transitionProps.opacity}
+                        d={interpolateLink(
+                            transitionProps.startAngle,
+                            transitionProps.endAngle,
+                            transitionProps.innerRadius,
+                            transitionProps.outerRadius,
+                            transitionProps.offset,
+                            transitionProps.diagonalLength,
+                            transitionProps.straightLength
+                        )}
+                    />
+                )
+            })}
+        </g>
     )
 }
