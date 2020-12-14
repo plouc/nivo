@@ -17,10 +17,10 @@ const sliceStyle: CSSProperties = {
 interface SliceLabelsProps<RawDatum> {
     center: [number, number]
     data: ComputedDatum<RawDatum>[]
-    label: CompletePieSvgProps<RawDatum>['sliceLabel']
-    radiusOffset: CompletePieSvgProps<RawDatum>['sliceLabelsRadiusOffset']
-    skipAngle: CompletePieSvgProps<RawDatum>['sliceLabelsSkipAngle']
-    textColor: CompletePieSvgProps<RawDatum>['sliceLabelsTextColor']
+    label: CompletePieSvgProps<RawDatum>['arcLabel']
+    radiusOffset: CompletePieSvgProps<RawDatum>['arcLabelsRadiusOffset']
+    skipAngle: CompletePieSvgProps<RawDatum>['arcLabelsSkipAngle']
+    textColor: CompletePieSvgProps<RawDatum>['arcLabelsTextColor']
     transitionMode: CompletePieSvgProps<RawDatum>['transitionMode']
 }
 

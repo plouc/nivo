@@ -52,11 +52,11 @@ const initialProperties = {
     radialLabelsLinkStrokeWidth: 1,
     radialLabelsLinkColor: { from: 'color' },
 
-    enableSliceLabels: true,
-    sliceLabel: 'formattedValue',
-    sliceLabelsRadiusOffset: 0.5,
-    sliceLabelsSkipAngle: 10,
-    sliceLabelsTextColor: {
+    enableArcLabels: true,
+    arcLabel: 'formattedValue',
+    arcLabelsRadiusOffset: 0.5,
+    arcLabelsSkipAngle: 10,
+    arcLabelsTextColor: {
         from: 'color',
         modifiers: [['darker', 2]],
     },

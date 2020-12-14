@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Box, Dimensions, Theme, SvgDefsAndFill, ModernMotionProps } from '@nivo/core'
-import { Arc, ArcGenerator, ArcTransitionMode } from '@nivo/arcs'
+import { Arc, ArcGenerator, ArcTransitionMode, ArcLabelsProps } from '@nivo/arcs'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 
@@ -58,7 +58,7 @@ export type MouseEventHandler<RawDatum, ElementType = HTMLCanvasElement> = (
     event: React.MouseEvent<ElementType>
 ) => void
 
-export type PieLayerId = 'radialLabels' | 'arcs' | 'sliceLabels' | 'legends'
+export type PieLayerId = 'radialLabels' | 'arcs' | 'arcLabels' | 'legends'
 
 export interface PieCustomLayerProps<RawDatum> {
     dataWithArc: ComputedDatum<RawDatum>[]
@@ -107,12 +107,7 @@ export type CommonPieProps<RawDatum> = {
     radialLabelsLinkStrokeWidth: number
     radialLabelsLinkColor: InheritedColorConfig<ComputedDatum<RawDatum>>
 
-    // slices labels
-    enableSliceLabels: boolean
-    sliceLabel: string | LabelAccessorFunction<RawDatum>
-    sliceLabelsRadiusOffset: number
-    sliceLabelsSkipAngle: number
-    sliceLabelsTextColor: InheritedColorConfig<ComputedDatum<RawDatum>>
+    enableArcLabels: boolean
 
     // interactivity
     isInteractive: boolean
@@ -121,7 +116,7 @@ export type CommonPieProps<RawDatum> = {
     legends: LegendProps[]
 
     role: string
-}
+} & Partial<ArcLabelsProps<RawDatum, ComputedDatum<RawDatum>>>
 
 export type PieHandlers<RawDatum, ElementType> = {
     onClick?: MouseEventHandler<RawDatum, ElementType>

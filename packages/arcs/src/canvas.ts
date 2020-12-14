@@ -4,7 +4,7 @@ import {
     CompleteTheme,
 } from '@nivo/core'
 import { DatumWithArcAndColor } from './types'
-import { ArcLabel } from './useArcLabels'
+import { ArcLabel } from './arc_labels'
 import { ArcLinkLabel } from './links'
 
 export const drawCanvasArcLabels = <Datum extends DatumWithArcAndColor>(
