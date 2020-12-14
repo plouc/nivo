@@ -17,6 +17,8 @@ Pie:
       link: pie--using-colors-from-data
     - label: Adding a metric in the center using a custom layer
       link: pie--adding-a-metric-in-the-center-using-a-custom-layer
+    - label: Custom arc label component
+      link: pie--custom-arc-label-component
   description: |
     Generates a pie chart from an array of data, each datum must have an
     id and a value property.
