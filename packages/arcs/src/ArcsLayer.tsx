@@ -6,7 +6,9 @@ import { useArcsTransition } from './useArcsTransition'
 import { ArcTransitionMode } from './arcTransitionMode'
 import { ArcMouseHandler, ArcShape, ArcShapeProps } from './ArcShape'
 
-type ArcComponent<Datum extends DatumWithArcAndColor> = (props: ArcShapeProps<Datum>) => JSX.Element
+export type ArcComponent<Datum extends DatumWithArcAndColor> = (
+    props: ArcShapeProps<Datum>
+) => JSX.Element
 
 interface ArcsLayerProps<Datum extends DatumWithArcAndColor> {
     center: [number, number]

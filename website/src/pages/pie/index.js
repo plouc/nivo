@@ -31,7 +31,7 @@ const initialProperties = {
     cornerRadius: 3,
     fit: defaultProps.fit,
     activeInnerRadiusOffset: defaultProps.activeInnerRadiusOffset,
-    activeOuterRadiusOffset: 16,
+    activeOuterRadiusOffset: 8,
 
     colors: defaultProps.colors,
 

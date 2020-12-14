@@ -111,14 +111,19 @@ export type CommonPieProps<RawDatum> = {
     legends: LegendProps[]
 
     role: string
-} & Partial<ArcLabelsProps<RawDatum, ComputedDatum<RawDatum>>> &
-    Partial<ArcLinkLabelsProps<RawDatum, ComputedDatum<RawDatum>>>
+} & Partial<ArcLabelsProps<ComputedDatum<RawDatum>>> &
+    Partial<ArcLinkLabelsProps<ComputedDatum<RawDatum>>>
 
 export type PieHandlers<RawDatum, ElementType> = {
     onClick?: MouseEventHandler<RawDatum, ElementType>
     onMouseEnter?: MouseEventHandler<RawDatum, ElementType>
     onMouseMove?: MouseEventHandler<RawDatum, ElementType>
     onMouseLeave?: MouseEventHandler<RawDatum, ElementType>
+}
+
+export type PieSvgCustomComponents<RawDatum> = {
+    arcLabelComponent?: ArcLabelsProps<ComputedDatum<RawDatum>>['component']
+    arcLinkLabelComponent?: ArcLinkLabelsProps<ComputedDatum<RawDatum>>['component']
 }
 
 export type PieSvgProps<RawDatum> = DataProps<RawDatum> &
@@ -130,7 +135,7 @@ export type PieSvgProps<RawDatum> = DataProps<RawDatum> &
         animate?: boolean
         motionConfig?: ModernMotionProps['motionConfig']
         transitionMode?: ArcTransitionMode
-    }
+    } & PieSvgCustomComponents<RawDatum>
 
 export type CompletePieSvgProps<RawDatum> = DataProps<RawDatum> &
     Dimensions &
@@ -141,7 +146,7 @@ export type CompletePieSvgProps<RawDatum> = DataProps<RawDatum> &
         animate: boolean
         motionConfig: ModernMotionProps['motionConfig']
         transitionMode: ArcTransitionMode
-    }
+    } & PieSvgCustomComponents<RawDatum>
 
 export type PieCanvasProps<RawDatum> = DataProps<RawDatum> &
     Dimensions &

@@ -42,7 +42,7 @@ const initialProperties = {
     cornerRadius: 3,
     fit: true,
     activeInnerRadiusOffset: defaultProps.activeInnerRadiusOffset,
-    activeOuterRadiusOffset: 16,
+    activeOuterRadiusOffset: 8,
 
     colors: { scheme: 'paired' },
 

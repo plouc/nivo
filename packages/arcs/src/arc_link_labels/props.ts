@@ -1,8 +1,9 @@
 import { InheritedColorConfig } from '@nivo/colors'
+import { ArcLinkLabelComponent } from './ArcLinkLabelsLayer'
+import { DatumWithArcAndColor } from '../types'
 
-// @ts-ignore
-export interface ArcLinkLabelsProps<RawDatum, Datum> {
-    // string | LabelAccessorFunction<RawDatum>
+export interface ArcLinkLabelsProps<Datum extends DatumWithArcAndColor> {
+    // string | LabelAccessorFunction<Datum['data']>
     arcLinkLabel: any
     arcLinkLabelsSkipAngle: number
     arcLinkLabelsTextOffset: number
@@ -12,4 +13,5 @@ export interface ArcLinkLabelsProps<RawDatum, Datum> {
     arcLinkLabelsStraightLength: number
     arcLinkLabelsThickness: number
     arcLinkLabelsColor: InheritedColorConfig<Datum>
+    component: ArcLinkLabelComponent<Datum>
 }

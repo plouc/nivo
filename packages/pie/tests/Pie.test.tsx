@@ -42,7 +42,7 @@ describe('Pie', () => {
                 <Pie width={400} height={400} data={sampleData} animate={false} />
             )
 
-            const slices = wrapper.find('Slice')
+            const slices = wrapper.find('ArcShape')
             expect(slices).toHaveLength(sampleData.length)
 
             expect(slices.at(0).prop('datum').id).toEqual('A')
@@ -70,7 +70,7 @@ describe('Pie', () => {
                 />
             )
 
-            const slices = wrapper.find('Slice')
+            const slices = wrapper.find('ArcShape')
             expect(slices).toHaveLength(sampleData.length)
 
             expect(slices.at(0).prop('datum').id).toEqual('A')
@@ -98,7 +98,7 @@ describe('Pie', () => {
                 />
             )
 
-            const slices = wrapper.find('Slice')
+            const slices = wrapper.find('ArcShape')
             expect(slices).toHaveLength(sampleData.length)
 
             expect(slices.at(0).prop('datum').id).toEqual('A')
@@ -125,7 +125,7 @@ describe('Pie', () => {
                 />
             )
 
-            const slices = wrapper.find('Slice')
+            const slices = wrapper.find('ArcShape')
             expect(slices).toHaveLength(sampleData.length)
 
             expect(slices.at(0).prop('datum').id).toEqual('A')
@@ -146,7 +146,7 @@ describe('Pie', () => {
                 <Pie width={400} height={400} data={sampleData} sortByValue animate={false} />
             )
 
-            const slices = wrapper.find('Slice')
+            const slices = wrapper.find('ArcShape')
             expect(slices).toHaveLength(sampleData.length)
 
             const slice30 = slices.at(0)
@@ -168,7 +168,7 @@ describe('Pie', () => {
             )
 
             // we can use a slice to check computed radii
-            const slice = wrapper.find('Slice').at(0)
+            const slice = wrapper.find('ArcShape').at(0)
             expect(slice.prop('datum').arc.innerRadius).toEqual(100)
             expect(slice.prop('datum').arc.outerRadius).toEqual(200)
         })
@@ -178,7 +178,7 @@ describe('Pie', () => {
                 <Pie width={400} height={400} data={sampleData} padAngle={10} animate={false} />
             )
 
-            const slices = wrapper.find('Slice')
+            const slices = wrapper.find('ArcShape')
             expect(slices).toHaveLength(sampleData.length)
             slices.forEach(slice => {
                 expect(radiansToDegrees(slice.prop('datum').arc.padAngle)).toEqual(10)
@@ -217,7 +217,7 @@ describe('Pie', () => {
                 />
             )
 
-            const slices = wrapper.find('Slice')
+            const slices = wrapper.find('ArcShape')
             expect(slices).toHaveLength(sampleData.length)
             expect(radiansToDegrees(slices.at(0).prop('datum').arc.startAngle)).toEqual(90)
             expect(radiansToDegrees(slices.at(2).prop('datum').arc.endAngle)).toEqual(180)
@@ -238,7 +238,7 @@ describe('Pie', () => {
             )
 
             // we can use a slice to check computed radii
-            const slice = wrapper.find('Slice').at(0)
+            const slice = wrapper.find('ArcShape').at(0)
             expect(slice.prop('datum').arc.innerRadius).toEqual(200)
             expect(slice.prop('datum').arc.outerRadius).toEqual(400)
         })
@@ -256,7 +256,7 @@ describe('Pie', () => {
                 />
             )
 
-            const slices = wrapper.find('Slice')
+            const slices = wrapper.find('ArcShape')
             expect(slices).toHaveLength(sampleData.length)
 
             expect(slices.at(0).prop('datum').id).toEqual('A')
@@ -280,7 +280,7 @@ describe('Pie', () => {
                 />
             )
 
-            const slices = wrapper.find('Slice')
+            const slices = wrapper.find('ArcShape')
             expect(slices).toHaveLength(sampleData.length)
 
             expect(slices.at(0).prop('datum').id).toEqual('A')
@@ -304,7 +304,7 @@ describe('Pie', () => {
                 />
             )
 
-            const slices = wrapper.find('Slice')
+            const slices = wrapper.find('ArcShape')
             expect(slices).toHaveLength(sampleData.length)
 
             expect(slices.at(0).prop('datum').id).toEqual('A')
@@ -328,13 +328,14 @@ describe('Pie', () => {
         })
     })
 
-    describe('slice labels', () => {
+    describe('arc labels', () => {
         it('should render labels when enabled', () => {
             const wrapper = mount(
                 <Pie width={400} height={400} data={sampleData} animate={false} />
             )
 
-            const labels = wrapper.find('SliceLabels').find(animated.g)
+            expect(wrapper.find('ArcLabelsLayer').exists()).toBeTruthy()
+            const labels = wrapper.find('ArcLabel')
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
@@ -348,11 +349,11 @@ describe('Pie', () => {
                     width={400}
                     height={400}
                     data={sampleData}
-                    enableSliceLabels={false}
+                    enableArcLabels={false}
                     animate={false}
                 />
             )
-            expect(wrapper.find('SliceLabels')).toHaveLength(0)
+            expect(wrapper.find('ArcLabelsLayer').exists()).toBeFalsy()
         })
 
         it('should use formattedValue', () => {
@@ -366,7 +367,7 @@ describe('Pie', () => {
                 />
             )
 
-            const labels = wrapper.find('SliceLabels').find(animated.g)
+            const labels = wrapper.find('ArcLabel')
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
@@ -376,10 +377,10 @@ describe('Pie', () => {
 
         it('should allow to change the label accessor using a path', () => {
             const wrapper = mount(
-                <Pie width={400} height={400} data={sampleData} sliceLabel="id" animate={false} />
+                <Pie width={400} height={400} data={sampleData} arcLabel="id" animate={false} />
             )
 
-            const labels = wrapper.find('SliceLabels').find(animated.g)
+            const labels = wrapper.find('ArcLabel')
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
@@ -393,27 +394,48 @@ describe('Pie', () => {
                     width={400}
                     height={400}
                     data={sampleData}
-                    sliceLabel={datum => `${datum.id} - ${datum.value}`}
+                    arcLabel={datum => `${datum.id} - ${datum.value}`}
                     animate={false}
                 />
             )
 
-            const labels = wrapper.find('SliceLabels').find(animated.g)
+            const labels = wrapper.find('ArcLabel')
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
                 expect(labels.at(index).find('text').text()).toEqual(`${datum.id} - ${datum.value}`)
             })
         })
+
+        it('should allow to customize the label component', () => {
+            const CustomArcLabel = () => null
+            const wrapper = mount(
+                <Pie
+                    width={400}
+                    height={400}
+                    data={sampleData}
+                    arcLabelComponent={CustomArcLabel}
+                    animate={false}
+                />
+            )
+
+            const labels = wrapper.find(CustomArcLabel)
+            expect(labels).toHaveLength(sampleData.length)
+
+            sampleData.forEach((datum, index) => {
+                expect(labels.at(index).prop('label')).toEqual(datum.value)
+            })
+        })
     })
 
-    describe('radial labels', () => {
+    describe('arc link labels', () => {
         it('should render labels when enabled', () => {
             const wrapper = mount(
                 <Pie width={400} height={400} data={sampleData} animate={false} />
             )
 
-            const labels = wrapper.find('RadialLabel')
+            expect(wrapper.find('ArcLinkLabelsLayer').exists()).toBeTruthy()
+            const labels = wrapper.find('ArcLinkLabel')
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
@@ -427,11 +449,11 @@ describe('Pie', () => {
                     width={400}
                     height={400}
                     data={sampleData}
-                    enableRadialLabels={false}
+                    enableArcLinkLabels={false}
                     animate={false}
                 />
             )
-            expect(wrapper.find('RadialLabel')).toHaveLength(0)
+            expect(wrapper.find('ArcLinkLabelsLayer').exists()).toBeFalsy()
         })
 
         it('should allow to change the label accessor using a path', () => {
@@ -445,7 +467,7 @@ describe('Pie', () => {
                 />
             )
 
-            const labels = wrapper.find('RadialLabel')
+            const labels = wrapper.find('ArcLinkLabel')
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
@@ -459,16 +481,36 @@ describe('Pie', () => {
                     width={400}
                     height={400}
                     data={sampleData}
-                    radialLabel={datum => `${datum.id} - ${datum.value}`}
+                    arcLinkLabel={datum => `${datum.id} - ${datum.value}`}
                     animate={false}
                 />
             )
 
-            const labels = wrapper.find('RadialLabel')
+            const labels = wrapper.find('ArcLinkLabel')
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
                 expect(labels.at(index).find('text').text()).toEqual(`${datum.id} - ${datum.value}`)
+            })
+        })
+
+        it('should allow to customize the label component', () => {
+            const CustomArcLinkLabel = () => null
+            const wrapper = mount(
+                <Pie
+                    width={400}
+                    height={400}
+                    data={sampleData}
+                    arcLinkLabelComponent={CustomArcLinkLabel}
+                    animate={false}
+                />
+            )
+
+            const labels = wrapper.find(CustomArcLinkLabel)
+            expect(labels).toHaveLength(sampleData.length)
+
+            sampleData.forEach((datum, index) => {
+                expect(labels.at(index).prop('label')).toEqual(datum.id)
             })
         })
     })
@@ -513,7 +555,7 @@ describe('Pie', () => {
                 <Pie width={400} height={400} data={sampleData} onClick={onClick} animate={false} />
             )
 
-            wrapper.find('Slice').at(0).simulate('click')
+            wrapper.find('ArcShape').at(0).simulate('click')
 
             expect(onClick).toHaveBeenCalledTimes(1)
             const [datum] = onClick.mock.calls[0]
@@ -532,7 +574,7 @@ describe('Pie', () => {
                 />
             )
 
-            wrapper.find('Slice').at(1).simulate('mouseenter')
+            wrapper.find('ArcShape').at(1).simulate('mouseenter')
 
             expect(onMouseEnter).toHaveBeenCalledTimes(1)
             const [datum] = onMouseEnter.mock.calls[0]
@@ -551,7 +593,7 @@ describe('Pie', () => {
                 />
             )
 
-            wrapper.find('Slice').at(2).simulate('mousemove')
+            wrapper.find('ArcShape').at(2).simulate('mousemove')
 
             expect(onMouseMove).toHaveBeenCalledTimes(1)
             const [datum] = onMouseMove.mock.calls[0]
@@ -570,7 +612,7 @@ describe('Pie', () => {
                 />
             )
 
-            wrapper.find('Slice').at(0).simulate('mouseleave')
+            wrapper.find('ArcShape').at(0).simulate('mouseleave')
 
             expect(onMouseLeave).toHaveBeenCalledTimes(1)
             const [datum] = onMouseLeave.mock.calls[0]
@@ -597,7 +639,7 @@ describe('Pie', () => {
                 />
             )
 
-            const slice = wrapper.find('Slice').at(0)
+            const slice = wrapper.find('ArcShape').at(0)
             slice.simulate('click')
             slice.simulate('mouseenter')
             slice.simulate('mousemove')
@@ -608,7 +650,7 @@ describe('Pie', () => {
             expect(onMouseMove).not.toHaveBeenCalled()
             expect(onMouseLeave).not.toHaveBeenCalled()
 
-            wrapper.find('Slice').forEach(slice => {
+            wrapper.find('ArcShape').forEach(slice => {
                 const shape = slice.find('path')
                 expect(shape.prop('onClick')).toBeUndefined()
                 expect(shape.prop('onMouseEnter')).toBeUndefined()
@@ -626,7 +668,7 @@ describe('Pie', () => {
 
             expect(wrapper.find('PieTooltip').exists()).toBeFalsy()
 
-            wrapper.find('Slice').at(1).simulate('mouseenter')
+            wrapper.find('ArcShape').at(1).simulate('mouseenter')
 
             const tooltip = wrapper.find('PieTooltip')
             expect(tooltip.exists()).toBeTruthy()
@@ -645,7 +687,7 @@ describe('Pie', () => {
                 />
             )
 
-            wrapper.find('Slice').at(1).simulate('mouseenter')
+            wrapper.find('ArcShape').at(1).simulate('mouseenter')
 
             expect(wrapper.find(CustomTooltip).exists()).toBeTruthy()
         })
@@ -656,10 +698,10 @@ describe('Pie', () => {
             const wrapper = mount(
                 <Pie width={400} height={400} data={sampleData} animate={false} />
             )
-            expect(wrapper.find('Slice')).toHaveLength(3)
+            expect(wrapper.find('ArcShape')).toHaveLength(3)
 
             wrapper.setProps({ layers: ['radialLabels', 'sliceLabels', 'legends'] })
-            expect(wrapper.find('Slice')).toHaveLength(0)
+            expect(wrapper.find('ArcShape')).toHaveLength(0)
         })
 
         it('should support adding a custom layer', () => {
