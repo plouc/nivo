@@ -13,7 +13,7 @@ const commonProperties = {
         ...d,
     })),
     animate: true,
-    activeOuterRadiusOffset: 20,
+    activeOuterRadiusOffset: 8,
 }
 
 const legends = [
@@ -53,25 +53,25 @@ stories.add('fancy slices', () => (
         innerRadius={0.6}
         padAngle={0.5}
         cornerRadius={5}
-        radialLabelsLinkColor={{
+        arcLinkLabelsColor={{
             from: 'color',
         }}
-        radialLabelsLinkStrokeWidth={3}
-        radialLabelsTextColor={{
+        arcLinkLabelsThickness={3}
+        arcLinkLabelsTextColor={{
             from: 'color',
             modifiers: [['darker', 1.2]],
         }}
     />
 ))
 
-stories.add('custom radial label', () => (
+stories.add('custom arc link label', () => (
     <Pie
         {...commonProperties}
         innerRadius={0.6}
         padAngle={0.5}
         cornerRadius={5}
-        radialLabel={d => `${d.id}: ${d.value}`}
-        radialLabelsLinkColor={{
+        arcLinkLabel={d => `${d.id}: ${d.value}`}
+        arcLinkLabelsColor={{
             from: 'color',
         }}
         radialLabelsLinkStrokeWidth={3}
@@ -79,7 +79,7 @@ stories.add('custom radial label', () => (
             from: 'color',
             modifiers: [['darker', 1.2]],
         }}
-        enableSliceLabels={false}
+        enableArcLabels={false}
     />
 ))
 
@@ -136,7 +136,8 @@ stories.add('adding a metric in the center using a custom layer', () => (
         innerRadius={0.8}
         enableSliceLabels={false}
         radialLabel={d => `${d.id} (${d.formattedValue})`}
-        layers={['slices', 'sliceLabels', 'radialLabels', 'legends', CenteredMetric]}
+        activeInnerRadiusOffset={commonProperties.activeOuterRadiusOffset}
+        layers={['arcs', 'arcLabels', 'arcLinkLabels', 'legends', CenteredMetric]}
     />
 ))
 
@@ -155,10 +156,20 @@ stories.add('formatted values', () => (
 stories.add('custom tooltip', () => (
     <Pie
         {...commonProperties}
-        tooltip={({ id, value, color }) => (
-            <strong style={{ color }}>
-                {id}: {value}
-            </strong>
+        tooltip={({ datum: { id, value, color } }) => (
+            <div
+                style={{
+                    padding: 12,
+                    color,
+                    background: '#222222',
+                }}
+            >
+                <span>Look, I'm custom :)</span>
+                <br />
+                <strong>
+                    {id}: {value}
+                </strong>
+            </div>
         )}
         theme={{
             tooltip: {
