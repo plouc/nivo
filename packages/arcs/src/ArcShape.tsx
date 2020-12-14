@@ -51,6 +51,7 @@ export const ArcShape = <Datum extends DatumWithArcAndColor>({
             // fill={datum.fill || color}
             fill={style.color}
             stroke={style.borderColor}
+            strokeWidth={style.borderWidth}
             onClick={onClick ? handleClick : undefined}
             onMouseEnter={onMouseEnter ? handleMouseEnter : undefined}
             onMouseMove={onMouseMove ? handleMouseMove : undefined}
