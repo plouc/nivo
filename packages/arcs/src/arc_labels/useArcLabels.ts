@@ -5,8 +5,8 @@ import {
     useTheme,
 } from '@nivo/core'
 import { InheritedColorConfig, useInheritedColor } from '@nivo/colors'
-import { DatumWithArcAndColor } from './types'
-import { useArcCenters, ArcCenter } from './centers'
+import { DatumWithArcAndColor } from '../types'
+import { useArcCenters, ArcCenter } from '../centers'
 
 export interface ArcLabel<Datum extends DatumWithArcAndColor> extends ArcCenter<Datum> {
     label: string

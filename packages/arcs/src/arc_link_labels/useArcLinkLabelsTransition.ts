@@ -1,11 +1,11 @@
+import { useMemo } from 'react'
 import { SpringValue, useTransition, to } from 'react-spring'
 import { line } from 'd3-shape'
 import { useMotionConfig, useTheme } from '@nivo/core'
 import { InheritedColorConfig, useInheritedColor } from '@nivo/colors'
-import { DatumWithArcAndColor, Point } from './types'
-import { computeArcLink } from './links'
-import { useFilteredDataBySkipAngle } from './utils'
-import { useMemo } from 'react'
+import { DatumWithArcAndColor, Point } from '../types'
+import { computeArcLink } from '../links'
+import { useFilteredDataBySkipAngle } from '../utils'
 
 const lineGenerator = line<Point>()
     .x(d => d.x)

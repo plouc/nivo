@@ -61,12 +61,12 @@ const InnerPieCanvas = <RawDatum,>({
     radialLabelsTextColor = defaultProps.radialLabelsTextColor,
     radialLabelsLinkColor = defaultProps.radialLabelsLinkColor,
 
-    // slices labels
-    sliceLabel = defaultProps.sliceLabel,
-    enableSliceLabels = defaultProps.enableSliceLabels,
-    sliceLabelsSkipAngle = defaultProps.sliceLabelsSkipAngle,
-    sliceLabelsTextColor = defaultProps.sliceLabelsTextColor,
-    sliceLabelsRadiusOffset = defaultProps.sliceLabelsRadiusOffset,
+    // arc labels
+    enableArcLabels = defaultProps.enableArcLabels,
+    arcLabel = defaultProps.arcLabel,
+    arcLabelsSkipAngle = defaultProps.arcLabelsSkipAngle,
+    arcLabelsTextColor = defaultProps.arcLabelsTextColor,
+    arcLabelsRadiusOffset = defaultProps.arcLabelsRadiusOffset,
 
     // interactivity
     isInteractive = defaultProps.isInteractive,
@@ -130,12 +130,12 @@ const InnerPieCanvas = <RawDatum,>({
         textColor: radialLabelsTextColor,
     })
 
-    const sliceLabels = useArcLabels<ComputedDatum<RawDatum>>({
+    const arcLabels = useArcLabels<ComputedDatum<RawDatum>>({
         data: dataWithArc,
-        skipAngle: sliceLabelsSkipAngle,
-        offset: sliceLabelsRadiusOffset,
-        label: sliceLabel,
-        textColor: sliceLabelsTextColor,
+        label: arcLabel,
+        skipAngle: arcLabelsSkipAngle,
+        offset: arcLabelsRadiusOffset,
+        textColor: arcLabelsTextColor,
     })
 
     useEffect(() => {
@@ -183,8 +183,8 @@ const InnerPieCanvas = <RawDatum,>({
             )
         }
 
-        if (enableSliceLabels === true) {
-            drawCanvasArcLabels<ComputedDatum<RawDatum>>(ctx, sliceLabels, theme)
+        if (enableArcLabels === true) {
+            drawCanvasArcLabels<ComputedDatum<RawDatum>>(ctx, arcLabels, theme)
         }
 
         // legends assume a box rather than a center,
@@ -215,8 +215,8 @@ const InnerPieCanvas = <RawDatum,>({
         getBorderColor,
         enableRadialLabels,
         radialLabels,
-        enableSliceLabels,
-        sliceLabels,
+        enableArcLabels,
+        arcLabels,
         legends,
         theme,
     ])

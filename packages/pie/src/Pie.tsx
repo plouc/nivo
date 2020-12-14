@@ -55,12 +55,12 @@ const InnerPie = <RawDatum,>({
     radialLabelsTextColor = defaultProps.radialLabelsTextColor,
     radialLabelsLinkColor = defaultProps.radialLabelsLinkColor,
 
-    // slices labels
-    sliceLabel = defaultProps.sliceLabel,
-    enableSliceLabels = defaultProps.enableSliceLabels,
-    sliceLabelsSkipAngle = defaultProps.sliceLabelsSkipAngle,
-    sliceLabelsTextColor = defaultProps.sliceLabelsTextColor,
-    sliceLabelsRadiusOffset = defaultProps.sliceLabelsRadiusOffset,
+    // arc labels
+    enableArcLabels = defaultProps.enableArcLabels,
+    arcLabel = defaultProps.arcLabel,
+    arcLabelsSkipAngle = defaultProps.arcLabelsSkipAngle,
+    arcLabelsTextColor = defaultProps.arcLabelsTextColor,
+    arcLabelsRadiusOffset = defaultProps.arcLabelsRadiusOffset,
 
     // styling
     defs = defaultProps.defs,
@@ -121,7 +121,7 @@ const InnerPie = <RawDatum,>({
     const layerById: Record<PieLayerId, ReactNode> = {
         arcs: null,
         radialLabels: null,
-        sliceLabels: null,
+        arcLabels: null,
         legends: null,
     }
 
@@ -165,16 +165,16 @@ const InnerPie = <RawDatum,>({
         )
     }
 
-    if (enableSliceLabels && layers.includes('sliceLabels')) {
-        layerById.sliceLabels = (
+    if (enableArcLabels && layers.includes('arcLabels')) {
+        layerById.arcLabels = (
             <SliceLabels<RawDatum>
-                key="sliceLabels"
+                key="arcLabels"
                 center={[centerX, centerY]}
                 data={dataWithArc}
-                label={sliceLabel}
-                radiusOffset={sliceLabelsRadiusOffset}
-                skipAngle={sliceLabelsSkipAngle}
-                textColor={sliceLabelsTextColor}
+                label={arcLabel}
+                radiusOffset={arcLabelsRadiusOffset}
+                skipAngle={arcLabelsSkipAngle}
+                textColor={arcLabelsTextColor}
                 transitionMode={transitionMode}
             />
         )

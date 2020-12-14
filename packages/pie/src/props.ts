@@ -10,7 +10,7 @@ export const defaultProps = {
     padAngle: 0,
     cornerRadius: 0,
 
-    layers: ['radialLabels', 'arcs', 'sliceLabels', 'legends'],
+    layers: ['radialLabels', 'arcs', 'arcLabels', 'legends'],
 
     // layout
     startAngle: 0,
@@ -38,12 +38,12 @@ export const defaultProps = {
     radialLabelsTextColor: { theme: 'labels.text.fill' },
     radialLabelsLinkColor: { theme: 'axis.ticks.line.stroke' },
 
-    // slices labels
-    enableSliceLabels: true,
-    sliceLabel: 'formattedValue',
-    sliceLabelsSkipAngle: 0,
-    sliceLabelsRadiusOffset: 0.5,
-    sliceLabelsTextColor: { theme: 'labels.text.fill' },
+    // arc labels
+    enableArcLabels: true,
+    arcLabel: 'formattedValue',
+    arcLabelsSkipAngle: 0,
+    arcLabelsRadiusOffset: 0.5,
+    arcLabelsTextColor: { theme: 'labels.text.fill' },
 
     colors: ({ scheme: 'nivo' } as unknown) as OrdinalColorScaleConfig,
     defs: [],

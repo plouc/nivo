@@ -271,6 +271,74 @@ const props = [
         group: 'Style',
     },
     {
+        key: 'enableArcLabels',
+        help: 'Enable/disable arc labels.',
+        type: 'boolean',
+        required: false,
+        defaultValue: defaultProps.enableArcLabels,
+        controlType: 'switch',
+        group: 'Arc labels',
+    },
+    {
+        key: 'arcLabel',
+        help:
+            'Defines how to get label text, can be a string (used to access current node data property) or a function which will receive the actual node data.',
+        type: 'string | Function',
+        required: false,
+        defaultValue: defaultProps.arcLabel,
+        controlType: 'choices',
+        group: 'Arc labels',
+        controlOptions: {
+            choices: ['id', 'value', 'formattedValue', `d => \`\${d.id} (\${d.value})\``].map(
+                choice => ({
+                    label: choice,
+                    value: choice,
+                })
+            ),
+        },
+    },
+    {
+        key: 'arcLabelsRadiusOffset',
+        help: `
+            Define the radius to use to determine the label position, starting from inner radius,
+            this is expressed as a ratio.
+        `,
+        type: 'number',
+        required: false,
+        defaultValue: defaultProps.arcLabelsRadiusOffset,
+        controlType: 'range',
+        group: 'Arc labels',
+        controlOptions: {
+            min: 0,
+            max: 2,
+            step: 0.05,
+        },
+    },
+    {
+        key: 'arcLabelsSkipAngle',
+        help: `Skip label if corresponding arc's angle is lower than provided value.`,
+        type: 'number',
+        required: false,
+        defaultValue: defaultProps.arcLabelsSkipAngle,
+        controlType: 'range',
+        group: 'Arc labels',
+        controlOptions: {
+            unit: '°',
+            min: 0,
+            max: 45,
+            step: 1,
+        },
+    },
+    {
+        key: 'arcLabelsTextColor',
+        help: 'Defines how to compute arc label text color.',
+        type: 'string | object | Function',
+        required: false,
+        defaultValue: defaultProps.arcLabelsTextColor,
+        controlType: 'inheritedColor',
+        group: 'Arc labels',
+    },
+    {
         key: 'enableRadialLabels',
         help: 'Enable/disable radial labels.',
         type: 'boolean',
@@ -400,74 +468,6 @@ const props = [
         defaultValue: defaultProps.radialLabelsLinkColor,
         controlType: 'inheritedColor',
         group: 'Radial labels',
-    },
-    {
-        key: 'enableSliceLabels',
-        help: 'Enable/disable slices labels.',
-        type: 'boolean',
-        required: false,
-        defaultValue: defaultProps.enableSliceLabels,
-        controlType: 'switch',
-        group: 'Slice labels',
-    },
-    {
-        key: 'sliceLabel',
-        help:
-            'Defines how to get label text, can be a string (used to access current node data property) or a function which will receive the actual node data.',
-        type: 'string | Function',
-        required: false,
-        defaultValue: defaultProps.sliceLabel,
-        controlType: 'choices',
-        group: 'Slice labels',
-        controlOptions: {
-            choices: ['id', 'value', 'formattedValue', `d => \`\${d.id} (\${d.value})\``].map(
-                choice => ({
-                    label: choice,
-                    value: choice,
-                })
-            ),
-        },
-    },
-    {
-        key: 'sliceLabelsRadiusOffset',
-        help: `
-            Define the radius to use to determine the label position, starting from inner radius,
-            this is expressed as a ratio.
-        `,
-        type: 'number',
-        required: false,
-        defaultValue: defaultProps.sliceLabelsRadiusOffset,
-        controlType: 'range',
-        group: 'Slice labels',
-        controlOptions: {
-            min: 0,
-            max: 2,
-            step: 0.05,
-        },
-    },
-    {
-        key: 'sliceLabelsSkipAngle',
-        help: `Skip label if corresponding slice's angle is lower than provided value.`,
-        type: 'number',
-        required: false,
-        defaultValue: defaultProps.sliceLabelsSkipAngle,
-        controlType: 'range',
-        group: 'Slice labels',
-        controlOptions: {
-            unit: '°',
-            min: 0,
-            max: 45,
-            step: 1,
-        },
-    },
-    {
-        key: 'sliceLabelsTextColor',
-        help: 'Defines how to compute slice label text color.',
-        type: 'string | object | Function',
-        required: false,
-        defaultValue: defaultProps.sliceLabelsTextColor,
-        controlType: 'inheritedColor',
-        group: 'Slice labels',
     },
     {
         key: 'layers',
