@@ -39,7 +39,7 @@ export const Slices = <RawDatum,>({
     const handleClick = useMemo(() => {
         if (!isInteractive) return undefined
 
-        return (datum: ComputedDatum<RawDatum>, event: any) => {
+        return (datum: ComputedDatum<RawDatum>, event: React.MouseEvent<SVGPathElement>) => {
             onClick?.(datum, event)
         }
     }, [isInteractive, onClick])
@@ -47,7 +47,7 @@ export const Slices = <RawDatum,>({
     const handleMouseEnter = useMemo(() => {
         if (!isInteractive) return undefined
 
-        return (datum: ComputedDatum<RawDatum>, event: any) => {
+        return (datum: ComputedDatum<RawDatum>, event: React.MouseEvent<SVGPathElement>) => {
             showTooltipFromEvent(createElement(tooltip, { datum }), event)
             setActiveId(datum.id)
             onMouseEnter?.(datum, event)
@@ -57,7 +57,7 @@ export const Slices = <RawDatum,>({
     const handleMouseMove = useMemo(() => {
         if (!isInteractive) return undefined
 
-        return (datum: ComputedDatum<RawDatum>, event: any) => {
+        return (datum: ComputedDatum<RawDatum>, event: React.MouseEvent<SVGPathElement>) => {
             showTooltipFromEvent(createElement(tooltip, { datum }), event)
             onMouseMove?.(datum, event)
         }
@@ -66,7 +66,7 @@ export const Slices = <RawDatum,>({
     const handleMouseLeave = useMemo(() => {
         if (!isInteractive) return undefined
 
-        return (datum: ComputedDatum<RawDatum>, event: any) => {
+        return (datum: ComputedDatum<RawDatum>, event: React.MouseEvent<SVGPathElement>) => {
             hideTooltip()
             setActiveId(null)
             onMouseLeave?.(datum, event)
