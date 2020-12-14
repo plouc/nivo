@@ -49,24 +49,24 @@ const InnerPieCanvas = <RawDatum,>({
     borderWidth = defaultProps.borderWidth,
     borderColor = defaultProps.borderColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
 
-    // radial labels
-    radialLabel = defaultProps.radialLabel,
-    enableRadialLabels = defaultProps.enableRadialLabels,
-    radialLabelsSkipAngle = defaultProps.radialLabelsSkipAngle,
-    radialLabelsLinkOffset = defaultProps.radialLabelsLinkOffset,
-    radialLabelsLinkDiagonalLength = defaultProps.radialLabelsLinkDiagonalLength,
-    radialLabelsLinkHorizontalLength = defaultProps.radialLabelsLinkHorizontalLength,
-    radialLabelsLinkStrokeWidth = defaultProps.radialLabelsLinkStrokeWidth,
-    radialLabelsTextXOffset = defaultProps.radialLabelsTextXOffset,
-    radialLabelsTextColor = defaultProps.radialLabelsTextColor,
-    radialLabelsLinkColor = defaultProps.radialLabelsLinkColor,
-
     // arc labels
     enableArcLabels = defaultProps.enableArcLabels,
     arcLabel = defaultProps.arcLabel,
     arcLabelsSkipAngle = defaultProps.arcLabelsSkipAngle,
     arcLabelsTextColor = defaultProps.arcLabelsTextColor,
     arcLabelsRadiusOffset = defaultProps.arcLabelsRadiusOffset,
+
+    // arc link labels
+    enableArcLinkLabels = defaultProps.enableArcLinkLabels,
+    arcLinkLabel = defaultProps.arcLinkLabel,
+    arcLinkLabelsSkipAngle = defaultProps.arcLinkLabelsSkipAngle,
+    arcLinkLabelsOffset = defaultProps.arcLinkLabelsOffset,
+    arcLinkLabelsDiagonalLength = defaultProps.arcLinkLabelsDiagonalLength,
+    arcLinkLabelsStraightLength = defaultProps.arcLinkLabelsStraightLength,
+    arcLinkLabelsThickness = defaultProps.arcLinkLabelsThickness,
+    arcLinkLabelsTextOffset = defaultProps.arcLinkLabelsTextOffset,
+    arcLinkLabelsTextColor = defaultProps.arcLinkLabelsTextColor,
+    arcLinkLabelsColor = defaultProps.arcLinkLabelsColor,
 
     // interactivity
     isInteractive = defaultProps.isInteractive,
@@ -118,24 +118,24 @@ const InnerPieCanvas = <RawDatum,>({
 
     const getBorderColor = useInheritedColor<ComputedDatum<RawDatum>>(borderColor, theme)
 
-    const radialLabels = useArcLinkLabels<ComputedDatum<RawDatum>>({
-        data: dataWithArc,
-        skipAngle: radialLabelsSkipAngle,
-        offset: radialLabelsLinkOffset,
-        diagonalLength: radialLabelsLinkDiagonalLength,
-        straightLength: radialLabelsLinkHorizontalLength,
-        label: radialLabel,
-        linkColor: radialLabelsLinkColor,
-        textOffset: radialLabelsTextXOffset,
-        textColor: radialLabelsTextColor,
-    })
-
     const arcLabels = useArcLabels<ComputedDatum<RawDatum>>({
         data: dataWithArc,
         label: arcLabel,
         skipAngle: arcLabelsSkipAngle,
         offset: arcLabelsRadiusOffset,
         textColor: arcLabelsTextColor,
+    })
+
+    const arcLinkLabels = useArcLinkLabels<ComputedDatum<RawDatum>>({
+        data: dataWithArc,
+        skipAngle: arcLinkLabelsSkipAngle,
+        offset: arcLinkLabelsOffset,
+        diagonalLength: arcLinkLabelsDiagonalLength,
+        straightLength: arcLinkLabelsStraightLength,
+        label: arcLinkLabel,
+        linkColor: arcLinkLabelsColor,
+        textOffset: arcLinkLabelsTextOffset,
+        textColor: arcLinkLabelsTextColor,
     })
 
     useEffect(() => {
@@ -174,12 +174,12 @@ const InnerPieCanvas = <RawDatum,>({
             }
         })
 
-        if (enableRadialLabels === true) {
+        if (enableArcLinkLabels === true) {
             drawCanvasArcLinkLabels<ComputedDatum<RawDatum>>(
                 ctx,
-                radialLabels,
+                arcLinkLabels,
                 theme,
-                radialLabelsLinkStrokeWidth
+                arcLinkLabelsThickness
             )
         }
 
@@ -213,10 +213,11 @@ const InnerPieCanvas = <RawDatum,>({
         arcGenerator,
         dataWithArc,
         getBorderColor,
-        enableRadialLabels,
-        radialLabels,
         enableArcLabels,
         arcLabels,
+        enableArcLinkLabels,
+        arcLinkLabels,
+        arcLinkLabelsThickness,
         legends,
         theme,
     ])

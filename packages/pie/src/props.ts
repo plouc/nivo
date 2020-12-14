@@ -10,7 +10,7 @@ export const defaultProps = {
     padAngle: 0,
     cornerRadius: 0,
 
-    layers: ['radialLabels', 'arcs', 'arcLabels', 'legends'],
+    layers: ['arcLinkLabels', 'arcs', 'arcLabels', 'legends'],
 
     // layout
     startAngle: 0,
@@ -26,24 +26,24 @@ export const defaultProps = {
         modifiers: [['darker', 1]],
     },
 
-    // radial labels
-    radialLabel: 'id',
-    enableRadialLabels: true,
-    radialLabelsSkipAngle: 0,
-    radialLabelsLinkOffset: 0,
-    radialLabelsLinkDiagonalLength: 16,
-    radialLabelsLinkHorizontalLength: 24,
-    radialLabelsLinkStrokeWidth: 1,
-    radialLabelsTextXOffset: 6,
-    radialLabelsTextColor: { theme: 'labels.text.fill' },
-    radialLabelsLinkColor: { theme: 'axis.ticks.line.stroke' },
-
     // arc labels
     enableArcLabels: true,
     arcLabel: 'formattedValue',
     arcLabelsSkipAngle: 0,
     arcLabelsRadiusOffset: 0.5,
     arcLabelsTextColor: { theme: 'labels.text.fill' },
+
+    // arc link labels
+    enableArcLinkLabels: true,
+    arcLinkLabel: 'id',
+    arcLinkLabelsSkipAngle: 0,
+    arcLinkLabelsOffset: 0,
+    arcLinkLabelsDiagonalLength: 16,
+    arcLinkLabelsStraightLength: 24,
+    arcLinkLabelsThickness: 1,
+    arcLinkLabelsTextOffset: 6,
+    arcLinkLabelsTextColor: { theme: 'labels.text.fill' },
+    arcLinkLabelsColor: { theme: 'axis.ticks.line.stroke' },
 
     colors: ({ scheme: 'nivo' } as unknown) as OrdinalColorScaleConfig,
     defs: [],
