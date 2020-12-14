@@ -70,7 +70,7 @@ export const ArcsLayer = <Datum extends DatumWithArcAndColor>({
             {transition((transitionProps, datum) => {
                 return createElement(Arc, {
                     key: datum.id,
-                    data: datum,
+                    datum,
                     style: {
                         ...transitionProps,
                         borderWidth,

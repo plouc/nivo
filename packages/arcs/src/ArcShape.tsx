@@ -8,7 +8,7 @@ export type ArcMouseHandler<Datum extends DatumWithArcAndColor> = (
 ) => void
 
 export interface ArcShapeProps<Datum extends DatumWithArcAndColor> {
-    data: Datum
+    datum: Datum
     style: {
         opacity: SpringValue<number>
         color: SpringValue<string>
@@ -29,27 +29,32 @@ export interface ArcShapeProps<Datum extends DatumWithArcAndColor> {
  * regular values to support animations.
  */
 export const ArcShape = <Datum extends DatumWithArcAndColor>({
-    data,
+    datum,
     style,
     onClick,
     onMouseEnter,
     onMouseMove,
     onMouseLeave,
 }: ArcShapeProps<Datum>) => {
-    const handleClick = useCallback(event => onClick?.(data, event), [onClick, data])
+    const handleClick = useCallback(event => onClick?.(datum, event), [onClick, datum])
 
-    const handleMouseEnter = useCallback(event => onMouseEnter?.(data, event), [onMouseEnter, data])
+    const handleMouseEnter = useCallback(event => onMouseEnter?.(datum, event), [
+        onMouseEnter,
+        datum,
+    ])
 
-    const handleMouseMove = useCallback(event => onMouseMove?.(data, event), [onMouseMove, data])
+    const handleMouseMove = useCallback(event => onMouseMove?.(datum, event), [onMouseMove, datum])
 
-    const handleMouseLeave = useCallback(event => onMouseLeave?.(data, event), [onMouseLeave, data])
+    const handleMouseLeave = useCallback(event => onMouseLeave?.(datum, event), [
+        onMouseLeave,
+        datum,
+    ])
 
     return (
         <animated.path
             d={style.path}
             opacity={style.opacity}
-            // fill={datum.fill || color}
-            fill={style.color}
+            fill={datum.fill || style.color}
             stroke={style.borderColor}
             strokeWidth={style.borderWidth}
             onClick={onClick ? handleClick : undefined}

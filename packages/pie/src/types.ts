@@ -58,7 +58,7 @@ export type MouseEventHandler<RawDatum, ElementType = HTMLCanvasElement> = (
     event: React.MouseEvent<ElementType>
 ) => void
 
-export type PieLayerId = 'radialLabels' | 'slices' | 'sliceLabels' | 'legends'
+export type PieLayerId = 'radialLabels' | 'arcs' | 'sliceLabels' | 'legends'
 
 export interface PieCustomLayerProps<RawDatum> {
     dataWithArc: ComputedDatum<RawDatum>[]

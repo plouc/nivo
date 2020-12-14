@@ -10,7 +10,7 @@ export const defaultProps = {
     padAngle: 0,
     cornerRadius: 0,
 
-    layers: ['radialLabels', 'slices', 'sliceLabels', 'legends'],
+    layers: ['radialLabels', 'arcs', 'sliceLabels', 'legends'],
 
     // layout
     startAngle: 0,
