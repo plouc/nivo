@@ -1,5 +1,4 @@
-import React, { useMemo, CSSProperties } from 'react'
-import { animated } from 'react-spring'
+import React, { useMemo } from 'react'
 import {
     // @ts-ignore
     getLabelGenerator,
@@ -11,20 +10,22 @@ import { useArcCentersTransition } from '../centers'
 import { ArcTransitionMode } from '../arcTransitionMode'
 import { DatumWithArcAndColor } from '../types'
 import { ArcLabelsProps } from './props'
+import { ArcLabel, ArcLabelProps } from './ArcLabel'
 
-const sliceStyle: CSSProperties = {
-    pointerEvents: 'none',
-}
+export type ArcLabelComponent<Datum extends DatumWithArcAndColor> = (
+    props: ArcLabelProps<Datum>
+) => JSX.Element
 
 interface ArcLabelsLayerProps<Datum extends DatumWithArcAndColor> {
     center: [number, number]
     data: Datum[]
-    // CompletePieSvgProps<RawDatum>['arcLabel']
+    // @todo add proper label accessor type
     label: any
-    radiusOffset: ArcLabelsProps<Datum, Datum>['arcLabelsRadiusOffset']
-    skipAngle: ArcLabelsProps<Datum, Datum>['arcLabelsSkipAngle']
-    textColor: ArcLabelsProps<Datum, Datum>['arcLabelsTextColor']
+    radiusOffset: ArcLabelsProps<Datum>['arcLabelsRadiusOffset']
+    skipAngle: ArcLabelsProps<Datum>['arcLabelsSkipAngle']
+    textColor: ArcLabelsProps<Datum>['arcLabelsTextColor']
     transitionMode: ArcTransitionMode
+    component?: ArcLabelComponent<Datum>
 }
 
 export const ArcLabelsLayer = <Datum extends DatumWithArcAndColor>({
@@ -35,6 +36,7 @@ export const ArcLabelsLayer = <Datum extends DatumWithArcAndColor>({
     radiusOffset,
     skipAngle,
     textColor,
+    component = ArcLabel,
 }: ArcLabelsLayerProps<Datum>) => {
     const getLabel = useMemo(() => getLabelGenerator(labelAccessor), [labelAccessor])
     const theme = useTheme()
@@ -57,33 +59,26 @@ export const ArcLabelsLayer = <Datum extends DatumWithArcAndColor>({
         transitionMode
     )
 
+    const Label: ArcLabelComponent<Datum> = component
+
     return (
         <g transform={`translate(${center[0]},${center[1]})`}>
             {transition((transitionProps, datum) => {
-                return (
-                    <animated.g
-                        key={datum.id}
-                        transform={interpolate(
+                return React.createElement(Label, {
+                    key: datum.id,
+                    datum,
+                    label: getLabel(datum),
+                    style: {
+                        ...transitionProps,
+                        transform: interpolate(
                             transitionProps.startAngle,
                             transitionProps.endAngle,
                             transitionProps.innerRadius,
                             transitionProps.outerRadius
-                        )}
-                        opacity={transitionProps.progress}
-                        style={sliceStyle}
-                    >
-                        <animated.text
-                            textAnchor="middle"
-                            dominantBaseline="central"
-                            style={{
-                                ...theme.labels.text,
-                                fill: getTextColor(datum),
-                            }}
-                        >
-                            {getLabel(datum)}
-                        </animated.text>
-                    </animated.g>
-                )
+                        ),
+                        textColor: getTextColor(datum),
+                    },
+                })
             })}
         </g>
     )
