@@ -13,7 +13,7 @@ import PieLegends from './PieLegends'
 import { useNormalizedData, usePieFromBox, usePieLayerContext } from './hooks'
 import { ComputedDatum, PieLayer, PieSvgProps, PieLayerId } from './types'
 import { defaultProps } from './props'
-import { Slices } from './Slices'
+import { Arcs } from './Arcs'
 
 const InnerPie = <RawDatum,>({
     data,
@@ -119,16 +119,16 @@ const InnerPie = <RawDatum,>({
     const boundDefs = bindDefs(defs, dataWithArc, fill)
 
     const layerById: Record<PieLayerId, ReactNode> = {
-        slices: null,
+        arcs: null,
         radialLabels: null,
         sliceLabels: null,
         legends: null,
     }
 
-    if (layers.includes('slices')) {
-        layerById.slices = (
-            <Slices<RawDatum>
-                key="slices"
+    if (layers.includes('arcs')) {
+        layerById.arcs = (
+            <Arcs<RawDatum>
+                key="arcs"
                 center={[centerX, centerY]}
                 data={dataWithArc}
                 arcGenerator={arcGenerator}

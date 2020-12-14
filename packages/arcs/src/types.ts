@@ -23,6 +23,8 @@ export interface DatumWithArc {
 
 export interface DatumWithArcAndColor extends DatumWithArc {
     color: string
+    // when using patterns/gradients
+    fill?: string
 }
 
 export type ArcGenerator = D3Arc<any, Arc>

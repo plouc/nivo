@@ -3,7 +3,7 @@ import { ArcGenerator, ArcsLayer } from '@nivo/arcs'
 import { useTooltip } from '@nivo/tooltip'
 import { ComputedDatum, CompletePieSvgProps } from './types'
 
-interface SlicesProps<RawDatum> {
+interface ArcsProps<RawDatum> {
     center: [number, number]
     data: ComputedDatum<RawDatum>[]
     arcGenerator: ArcGenerator
@@ -19,7 +19,7 @@ interface SlicesProps<RawDatum> {
     transitionMode: CompletePieSvgProps<RawDatum>['transitionMode']
 }
 
-export const Slices = <RawDatum,>({
+export const Arcs = <RawDatum,>({
     center,
     data,
     arcGenerator,
@@ -33,7 +33,7 @@ export const Slices = <RawDatum,>({
     setActiveId,
     tooltip,
     transitionMode,
-}: SlicesProps<RawDatum>) => {
+}: ArcsProps<RawDatum>) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     const handleClick = useMemo(() => {
