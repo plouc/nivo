@@ -1,23 +1,24 @@
 import React from 'react'
 import { animated } from 'react-spring'
-import { useArcLinkLabelsTransition } from '@nivo/arcs'
-import { ComputedDatum, CompletePieSvgProps } from './types'
+import { useArcLinkLabelsTransition } from './useArcLinkLabelsTransition'
+import { DatumWithArcAndColor } from '../types'
+import { ArcLinkLabelsProps } from './props'
 
-interface RadialLabelsProps<RawDatum> {
+interface ArcLinkLabelsLayerProps<Datum extends DatumWithArcAndColor> {
     center: [number, number]
-    data: ComputedDatum<RawDatum>[]
-    label: CompletePieSvgProps<RawDatum>['radialLabel']
-    skipAngle: CompletePieSvgProps<RawDatum>['radialLabelsSkipAngle']
-    offset: CompletePieSvgProps<RawDatum>['radialLabelsLinkOffset']
-    diagonalLength: CompletePieSvgProps<RawDatum>['radialLabelsLinkDiagonalLength']
-    straightLength: CompletePieSvgProps<RawDatum>['radialLabelsLinkHorizontalLength']
-    strokeWidth: CompletePieSvgProps<RawDatum>['radialLabelsLinkStrokeWidth']
-    textOffset: CompletePieSvgProps<RawDatum>['radialLabelsTextXOffset']
-    textColor: CompletePieSvgProps<RawDatum>['radialLabelsTextColor']
-    linkColor: CompletePieSvgProps<RawDatum>['radialLabelsLinkColor']
+    data: Datum[]
+    label: ArcLinkLabelsProps<Datum, Datum>['arcLinkLabel']
+    skipAngle: ArcLinkLabelsProps<Datum, Datum>['arcLinkLabelsSkipAngle']
+    offset: ArcLinkLabelsProps<Datum, Datum>['arcLinkLabelsOffset']
+    diagonalLength: ArcLinkLabelsProps<Datum, Datum>['arcLinkLabelsDiagonalLength']
+    straightLength: ArcLinkLabelsProps<Datum, Datum>['arcLinkLabelsStraightLength']
+    strokeWidth: ArcLinkLabelsProps<Datum, Datum>['arcLinkLabelsThickness']
+    textOffset: ArcLinkLabelsProps<Datum, Datum>['arcLinkLabelsTextOffset']
+    textColor: ArcLinkLabelsProps<Datum, Datum>['arcLinkLabelsTextColor']
+    linkColor: ArcLinkLabelsProps<Datum, Datum>['arcLinkLabelsColor']
 }
 
-export const RadialLabels = <RawDatum,>({
+export const ArcLinkLabelsLayer = <Datum extends DatumWithArcAndColor>({
     center,
     data,
     label,
@@ -29,8 +30,8 @@ export const RadialLabels = <RawDatum,>({
     textOffset,
     textColor,
     linkColor,
-}: RadialLabelsProps<RawDatum>) => {
-    const { transition, interpolateLink } = useArcLinkLabelsTransition<ComputedDatum<RawDatum>>({
+}: ArcLinkLabelsLayerProps<Datum>) => {
+    const { transition, interpolateLink } = useArcLinkLabelsTransition<Datum>({
         data,
         label,
         skipAngle,

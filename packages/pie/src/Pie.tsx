@@ -6,9 +6,8 @@ import {
     Container,
     SvgWrapper,
 } from '@nivo/core'
+import { ArcLabelsLayer, ArcLinkLabelsLayer } from '@nivo/arcs'
 import { InheritedColorConfig } from '@nivo/colors'
-import { RadialLabels } from './RadialLabels'
-import { SliceLabels } from './SliceLabels'
 import PieLegends from './PieLegends'
 import { useNormalizedData, usePieFromBox, usePieLayerContext } from './hooks'
 import { ComputedDatum, PieLayer, PieSvgProps, PieLayerId } from './types'
@@ -43,24 +42,24 @@ const InnerPie = <RawDatum,>({
     borderWidth = defaultProps.borderWidth,
     borderColor = defaultProps.borderColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
 
-    // radial labels
-    radialLabel = defaultProps.radialLabel,
-    enableRadialLabels = defaultProps.enableRadialLabels,
-    radialLabelsSkipAngle = defaultProps.radialLabelsSkipAngle,
-    radialLabelsLinkOffset = defaultProps.radialLabelsLinkOffset,
-    radialLabelsLinkDiagonalLength = defaultProps.radialLabelsLinkDiagonalLength,
-    radialLabelsLinkHorizontalLength = defaultProps.radialLabelsLinkHorizontalLength,
-    radialLabelsLinkStrokeWidth = defaultProps.radialLabelsLinkStrokeWidth,
-    radialLabelsTextXOffset = defaultProps.radialLabelsTextXOffset,
-    radialLabelsTextColor = defaultProps.radialLabelsTextColor,
-    radialLabelsLinkColor = defaultProps.radialLabelsLinkColor,
-
     // arc labels
     enableArcLabels = defaultProps.enableArcLabels,
     arcLabel = defaultProps.arcLabel,
     arcLabelsSkipAngle = defaultProps.arcLabelsSkipAngle,
     arcLabelsTextColor = defaultProps.arcLabelsTextColor,
     arcLabelsRadiusOffset = defaultProps.arcLabelsRadiusOffset,
+
+    // arc link labels
+    enableArcLinkLabels = defaultProps.enableArcLinkLabels,
+    arcLinkLabel = defaultProps.arcLinkLabel,
+    arcLinkLabelsSkipAngle = defaultProps.arcLinkLabelsSkipAngle,
+    arcLinkLabelsOffset = defaultProps.arcLinkLabelsOffset,
+    arcLinkLabelsDiagonalLength = defaultProps.arcLinkLabelsDiagonalLength,
+    arcLinkLabelsStraightLength = defaultProps.arcLinkLabelsStraightLength,
+    arcLinkLabelsThickness = defaultProps.arcLinkLabelsThickness,
+    arcLinkLabelsTextOffset = defaultProps.arcLinkLabelsTextOffset,
+    arcLinkLabelsTextColor = defaultProps.arcLinkLabelsTextColor,
+    arcLinkLabelsColor = defaultProps.arcLinkLabelsColor,
 
     // styling
     defs = defaultProps.defs,
@@ -119,10 +118,29 @@ const InnerPie = <RawDatum,>({
     const boundDefs = bindDefs(defs, dataWithArc, fill)
 
     const layerById: Record<PieLayerId, ReactNode> = {
+        arcLinkLabels: null,
         arcs: null,
-        radialLabels: null,
         arcLabels: null,
         legends: null,
+    }
+
+    if (enableArcLinkLabels && layers.includes('arcLinkLabels')) {
+        layerById.arcLinkLabels = (
+            <ArcLinkLabelsLayer<ComputedDatum<RawDatum>>
+                key="arcLinkLabels"
+                center={[centerX, centerY]}
+                data={dataWithArc}
+                label={arcLinkLabel}
+                skipAngle={arcLinkLabelsSkipAngle}
+                offset={arcLinkLabelsOffset}
+                diagonalLength={arcLinkLabelsDiagonalLength}
+                straightLength={arcLinkLabelsStraightLength}
+                strokeWidth={arcLinkLabelsThickness}
+                textOffset={arcLinkLabelsTextOffset}
+                textColor={arcLinkLabelsTextColor}
+                linkColor={arcLinkLabelsColor}
+            />
+        )
     }
 
     if (layers.includes('arcs')) {
@@ -146,28 +164,9 @@ const InnerPie = <RawDatum,>({
         )
     }
 
-    if (enableRadialLabels && layers.includes('radialLabels')) {
-        layerById.radialLabels = (
-            <RadialLabels<RawDatum>
-                key="radialLabels"
-                center={[centerX, centerY]}
-                data={dataWithArc}
-                label={radialLabel}
-                skipAngle={radialLabelsSkipAngle}
-                offset={radialLabelsLinkOffset}
-                diagonalLength={radialLabelsLinkDiagonalLength}
-                straightLength={radialLabelsLinkHorizontalLength}
-                strokeWidth={radialLabelsLinkStrokeWidth}
-                textOffset={radialLabelsTextXOffset}
-                textColor={radialLabelsTextColor}
-                linkColor={radialLabelsLinkColor}
-            />
-        )
-    }
-
     if (enableArcLabels && layers.includes('arcLabels')) {
         layerById.arcLabels = (
-            <SliceLabels<RawDatum>
+            <ArcLabelsLayer<ComputedDatum<RawDatum>>
                 key="arcLabels"
                 center={[centerX, centerY]}
                 data={dataWithArc}

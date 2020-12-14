@@ -7,24 +7,27 @@ import {
     useTheme,
 } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
-import { useArcCentersTransition } from '@nivo/arcs'
-import { CompletePieSvgProps, ComputedDatum } from './types'
+import { useArcCentersTransition } from '../centers'
+import { ArcTransitionMode } from '../arcTransitionMode'
+import { DatumWithArcAndColor } from '../types'
+import { ArcLabelsProps } from './props'
 
 const sliceStyle: CSSProperties = {
     pointerEvents: 'none',
 }
 
-interface SliceLabelsProps<RawDatum> {
+interface ArcLabelsLayerProps<Datum extends DatumWithArcAndColor> {
     center: [number, number]
-    data: ComputedDatum<RawDatum>[]
-    label: CompletePieSvgProps<RawDatum>['arcLabel']
-    radiusOffset: CompletePieSvgProps<RawDatum>['arcLabelsRadiusOffset']
-    skipAngle: CompletePieSvgProps<RawDatum>['arcLabelsSkipAngle']
-    textColor: CompletePieSvgProps<RawDatum>['arcLabelsTextColor']
-    transitionMode: CompletePieSvgProps<RawDatum>['transitionMode']
+    data: Datum[]
+    // CompletePieSvgProps<RawDatum>['arcLabel']
+    label: any
+    radiusOffset: ArcLabelsProps<Datum, Datum>['arcLabelsRadiusOffset']
+    skipAngle: ArcLabelsProps<Datum, Datum>['arcLabelsSkipAngle']
+    textColor: ArcLabelsProps<Datum, Datum>['arcLabelsTextColor']
+    transitionMode: ArcTransitionMode
 }
 
-export const SliceLabels = <RawDatum,>({
+export const ArcLabelsLayer = <Datum extends DatumWithArcAndColor>({
     center,
     data,
     transitionMode,
@@ -32,10 +35,10 @@ export const SliceLabels = <RawDatum,>({
     radiusOffset,
     skipAngle,
     textColor,
-}: SliceLabelsProps<RawDatum>) => {
+}: ArcLabelsLayerProps<Datum>) => {
     const getLabel = useMemo(() => getLabelGenerator(labelAccessor), [labelAccessor])
     const theme = useTheme()
-    const getTextColor = useInheritedColor<ComputedDatum<RawDatum>>(textColor, theme)
+    const getTextColor = useInheritedColor<Datum>(textColor, theme)
 
     const filteredData = useMemo(
         () =>
@@ -48,7 +51,7 @@ export const SliceLabels = <RawDatum,>({
         [data, skipAngle]
     )
 
-    const { transition, interpolate } = useArcCentersTransition<ComputedDatum<RawDatum>>(
+    const { transition, interpolate } = useArcCentersTransition<Datum>(
         filteredData,
         radiusOffset,
         transitionMode

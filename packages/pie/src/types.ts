@@ -1,6 +1,12 @@
 import * as React from 'react'
 import { Box, Dimensions, Theme, SvgDefsAndFill, ModernMotionProps } from '@nivo/core'
-import { Arc, ArcGenerator, ArcTransitionMode, ArcLabelsProps } from '@nivo/arcs'
+import {
+    Arc,
+    ArcGenerator,
+    ArcTransitionMode,
+    ArcLabelsProps,
+    ArcLinkLabelsProps,
+} from '@nivo/arcs'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 
@@ -58,7 +64,7 @@ export type MouseEventHandler<RawDatum, ElementType = HTMLCanvasElement> = (
     event: React.MouseEvent<ElementType>
 ) => void
 
-export type PieLayerId = 'radialLabels' | 'arcs' | 'arcLabels' | 'legends'
+export type PieLayerId = 'arcLinkLabels' | 'arcs' | 'arcLabels' | 'legends'
 
 export interface PieCustomLayerProps<RawDatum> {
     dataWithArc: ComputedDatum<RawDatum>[]
@@ -95,19 +101,8 @@ export type CommonPieProps<RawDatum> = {
     borderWidth: number
     borderColor: InheritedColorConfig<ComputedDatum<RawDatum>>
 
-    // radial labels
-    enableRadialLabels: boolean
-    radialLabel: string | LabelAccessorFunction<RawDatum>
-    radialLabelsSkipAngle: number
-    radialLabelsTextXOffset: number
-    radialLabelsTextColor: InheritedColorConfig<ComputedDatum<RawDatum>>
-    radialLabelsLinkOffset: number
-    radialLabelsLinkDiagonalLength: number
-    radialLabelsLinkHorizontalLength: number
-    radialLabelsLinkStrokeWidth: number
-    radialLabelsLinkColor: InheritedColorConfig<ComputedDatum<RawDatum>>
-
     enableArcLabels: boolean
+    enableArcLinkLabels: boolean
 
     // interactivity
     isInteractive: boolean
@@ -116,7 +111,8 @@ export type CommonPieProps<RawDatum> = {
     legends: LegendProps[]
 
     role: string
-} & Partial<ArcLabelsProps<RawDatum, ComputedDatum<RawDatum>>>
+} & Partial<ArcLabelsProps<RawDatum, ComputedDatum<RawDatum>>> &
+    Partial<ArcLinkLabelsProps<RawDatum, ComputedDatum<RawDatum>>>
 
 export type PieHandlers<RawDatum, ElementType> = {
     onClick?: MouseEventHandler<RawDatum, ElementType>
