@@ -1,11 +1,11 @@
 import { useMemo } from 'react'
 import { SpringValue, useTransition, to } from 'react-spring'
 import { line } from 'd3-shape'
-import { useMotionConfig, useTheme, PropertyAccessor } from '@nivo/core'
+import { useMotionConfig, useTheme } from '@nivo/core'
 import { InheritedColorConfig, useInheritedColor } from '@nivo/colors'
 import { DatumWithArcAndColor, Point } from '../types'
-import { computeArcLink } from '../links'
 import { useFilteredDataBySkipAngle } from '../utils'
+import { computeArcLink, computeArcLinkTextAnchor } from './compute'
 
 const lineGenerator = line<Point>()
     .x(d => d.x)
@@ -19,6 +19,7 @@ type AnimatedProps = {
     offset: number
     diagonalLength: number
     straightLength: number
+    textOffset: number
     linkColor: string
     textColor: string
     opacity: number
@@ -28,9 +29,10 @@ const useTransitionPhases = <Datum extends DatumWithArcAndColor>({
     offset,
     diagonalLength,
     straightLength,
+    textOffset,
     getLinkColor,
     getTextColor,
-}: Pick<AnimatedProps, 'offset' | 'diagonalLength' | 'straightLength'> & {
+}: Pick<AnimatedProps, 'offset' | 'diagonalLength' | 'straightLength' | 'textOffset'> & {
     getLinkColor: (datum: Datum) => string
     getTextColor: (datum: Datum) => string
 }): Record<'enter' | 'update' | 'leave', (datum: Datum) => AnimatedProps> =>
@@ -44,6 +46,7 @@ const useTransitionPhases = <Datum extends DatumWithArcAndColor>({
                 offset,
                 diagonalLength: 0,
                 straightLength: 0,
+                textOffset,
                 linkColor: getLinkColor(datum),
                 textColor: getTextColor(datum),
                 opacity: 0,
@@ -56,6 +59,7 @@ const useTransitionPhases = <Datum extends DatumWithArcAndColor>({
                 offset,
                 diagonalLength,
                 straightLength,
+                textOffset,
                 linkColor: getLinkColor(d),
                 textColor: getTextColor(d),
                 opacity: 1,
@@ -68,12 +72,13 @@ const useTransitionPhases = <Datum extends DatumWithArcAndColor>({
                 offset,
                 diagonalLength: 0,
                 straightLength: 0,
+                textOffset,
                 linkColor: getLinkColor(d),
                 textColor: getTextColor(d),
                 opacity: 0,
             }),
         }),
-        [diagonalLength, straightLength, getLinkColor, getTextColor]
+        [diagonalLength, straightLength, textOffset, getLinkColor, getTextColor]
     )
 
 const interpolateLink = (
@@ -120,6 +125,85 @@ const interpolateLink = (
         }
     )
 
+const interpolateTextAnchor = (
+    startAngleValue: SpringValue<AnimatedProps['startAngle']>,
+    endAngleValue: SpringValue<AnimatedProps['endAngle']>,
+    innerRadiusValue: SpringValue<AnimatedProps['innerRadius']>,
+    outerRadiusValue: SpringValue<AnimatedProps['outerRadius']>
+) =>
+    to(
+        [startAngleValue, endAngleValue, innerRadiusValue, outerRadiusValue],
+        (startAngle, endAngle, innerRadius, outerRadius) => {
+            return computeArcLinkTextAnchor({
+                startAngle,
+                endAngle,
+                innerRadius,
+                outerRadius,
+            })
+        }
+    )
+
+/**
+ * Interpolating the text position involves almost the same computatio
+ * as `interpolateLink`, unfortunately `react-spring` does not support
+ * multiple output values from a single interpolation.
+ *
+ * We should revise this if `react-spring` add this feature at some point.
+ */
+const interpolateTextPosition = (
+    startAngleValue: SpringValue<AnimatedProps['startAngle']>,
+    endAngleValue: SpringValue<AnimatedProps['endAngle']>,
+    innerRadiusValue: SpringValue<AnimatedProps['innerRadius']>,
+    outerRadiusValue: SpringValue<AnimatedProps['outerRadius']>,
+    offsetValue: SpringValue<AnimatedProps['offset']>,
+    diagonalLengthValue: SpringValue<AnimatedProps['diagonalLength']>,
+    straightLengthValue: SpringValue<AnimatedProps['straightLength']>,
+    textOffsetValue: SpringValue<AnimatedProps['textOffset']>
+) =>
+    to(
+        [
+            startAngleValue,
+            endAngleValue,
+            innerRadiusValue,
+            outerRadiusValue,
+            offsetValue,
+            diagonalLengthValue,
+            straightLengthValue,
+            textOffsetValue,
+        ],
+        (
+            startAngle,
+            endAngle,
+            innerRadius,
+            outerRadius,
+            offset,
+            diagonalLengthAnimated,
+            straightLengthAnimated,
+            textOffset
+        ) => {
+            const { points, side } = computeArcLink(
+                {
+                    startAngle,
+                    endAngle,
+                    innerRadius,
+                    outerRadius,
+                },
+                offset,
+                diagonalLengthAnimated,
+                straightLengthAnimated
+            )
+
+            const position = points[2]
+            if (side === 'before') {
+                position.x -= textOffset
+            } else {
+                position.x += textOffset
+            }
+
+            return `translate(${position.x},${position.y})`
+        }
+    )
+
 /**
  * This hook can be used to animate a group of arc link labels,
  * if you just want to compute the labels, please use `useArcLinkLabels`.
@@ -130,8 +214,7 @@ export const useArcLinkLabelsTransition = <Datum extends DatumWithArcAndColor>({
     diagonalLength,
     straightLength,
     skipAngle = 0,
-    // textOffset,
-    // label,
+    textOffset,
     linkColor,
     textColor,
 }: {
@@ -141,7 +224,6 @@ export const useArcLinkLabelsTransition = <Datum extends DatumWithArcAndColor>({
     straightLength: number
     skipAngle?: number
     textOffset: number
-    label: PropertyAccessor<Datum, string>
     linkColor: InheritedColorConfig<Datum>
     textColor: InheritedColorConfig<Datum>
 }) => {
@@ -156,6 +238,7 @@ export const useArcLinkLabelsTransition = <Datum extends DatumWithArcAndColor>({
         offset,
         diagonalLength,
         straightLength,
+        textOffset,
         getLinkColor,
         getTextColor,
     })
@@ -174,5 +257,7 @@ export const useArcLinkLabelsTransition = <Datum extends DatumWithArcAndColor>({
     return {
         transition,
         interpolateLink,
+        interpolateTextAnchor,
+        interpolateTextPosition,
     }
 }

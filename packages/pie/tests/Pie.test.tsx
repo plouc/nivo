@@ -462,7 +462,7 @@ describe('Pie', () => {
                     width={400}
                     height={400}
                     data={sampleData}
-                    radialLabel="value"
+                    arcLinkLabel="value"
                     animate={false}
                 />
             )
