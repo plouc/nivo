@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Box, Dimensions, Theme, SvgDefsAndFill, ModernMotionProps } from '@nivo/core'
+import { Box, Dimensions, Theme, SvgDefsAndFill, ModernMotionProps, ValueFormat } from '@nivo/core'
 import {
     Arc,
     ArcGenerator,
@@ -82,7 +82,7 @@ export type PieLayer<RawDatum> = PieLayerId | PieCustomLayer<RawDatum>
 export type CommonPieProps<RawDatum> = {
     id: string | DatumIdAccessorFunction<RawDatum>
     value: string | DatumValueAccessorFunction<RawDatum>
-    valueFormat?: string | ValueFormatter
+    valueFormat?: ValueFormat<number>
 
     margin: Box
     sortByValue: boolean

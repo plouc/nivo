@@ -1,12 +1,12 @@
 import React, { memo, ReactNode } from 'react'
 // @ts-ignore
-import { useTheme, DataFormatter, useValueFormatter } from '@nivo/core'
+import { useTheme, ValueFormat, useValueFormatter } from '@nivo/core'
 import { Chip } from './Chip'
 
 interface BasicTooltipProps {
     id: ReactNode
     value?: number | string | Date
-    format?: DataFormatter
+    format?: ValueFormat<number | string | Date>
     color?: string
     enableChip?: boolean
     /**

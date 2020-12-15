@@ -111,7 +111,7 @@ export const useSunburst = <RawDatum extends MaybeColor>({
     const getId = useMemo(() => getAccessorFor(id), [id])
     const getValue = useMemo(() => getAccessorFor(value), [value])
 
-    const formatValue = useValueFormatter(valueFormat)
+    const formatValue = useValueFormatter<number>(valueFormat)
 
     const nodes = useMemo(() => {
         const partition = d3Partition<RawDatum>().size([2 * Math.PI, radius * radius])

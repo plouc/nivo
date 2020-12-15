@@ -179,7 +179,7 @@ export const useComputedData = <RawDatum>({
 }) => {
     const getColor = useOrdinalColorScale<Omit<DimensionDatum<RawDatum>, 'color'>>(colors, 'id')
 
-    const formatValue = useValueFormatter(valueFormat)
+    const formatValue = useValueFormatter<number>(valueFormat)
 
     return useMemo(() => {
         const computedData: ComputedDatum<RawDatum>[] = []

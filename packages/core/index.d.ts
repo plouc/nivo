@@ -206,10 +206,7 @@ declare module '@nivo/core' {
         | 'stepAfter'
         | 'stepBefore'
 
-    export type DataFormatter = (value: DatumValue) => string | number
-
     export function useAnimatedPath(path: string): OpaqueInterpolation<string>
-    export function useValueFormatter(formatter?: DataFormatter | string): DataFormatter
 
     export type LinearGradientDef = {
         id: string
@@ -337,4 +334,12 @@ declare module '@nivo/core' {
         x: number
         y: number
     }
+
+    export type ValueFormat<V> =
+        // d3 formatter
+        | string
+        // explicit formatting function
+        | ((value: V) => string)
+    export function getValueFormatter<V>(format?: ValueFormat<V>): (value: V) => string
+    export function useValueFormatter<V>(format?: ValueFormat<V>): (value: V) => string
 }

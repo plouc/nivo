@@ -1,14 +1,7 @@
 import { Arc } from 'd3-shape'
 import { HierarchyRectangularNode } from 'd3-hierarchy'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
-import {
-    Theme,
-    Dimensions,
-    Box,
-    DataFormatter,
-    SvgDefsAndFill,
-    ModernMotionProps,
-} from '@nivo/core'
+import { Theme, Dimensions, Box, ValueFormat, SvgDefsAndFill, ModernMotionProps } from '@nivo/core'
 
 export type DatumId = string | number
 export type DatumValue = number
@@ -34,7 +27,7 @@ export interface DataProps<RawDatum> {
     data: RawDatum
     id?: string | number | DatumPropertyAccessor<RawDatum, DatumId>
     value?: string | number | DatumPropertyAccessor<RawDatum, DatumValue>
-    valueFormat?: string | DataFormatter
+    valueFormat?: ValueFormat<number>
 }
 
 export interface ChildrenDatum<RawDatum> {

@@ -7,14 +7,7 @@ import {
     stackOffsetWiggle,
 } from 'd3-shape'
 import { ScaleLinear } from 'd3-scale'
-import {
-    Box,
-    Dimensions,
-    Theme,
-    SvgDefsAndFill,
-    ModernMotionProps,
-    DataFormatter,
-} from '@nivo/core'
+import { Box, Dimensions, Theme, SvgDefsAndFill, ModernMotionProps, ValueFormat } from '@nivo/core'
 import { AxisProps } from '@nivo/axes'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
@@ -33,7 +26,7 @@ export interface DataProps<RawDatum> {
         id: string
         value: string | number | DatumPropertyAccessor<RawDatum, DatumValue>
     }[]
-    valueFormat?: string | DataFormatter
+    valueFormat?: ValueFormat<number>
 }
 
 export interface NormalizedDatum<RawDatum> {
