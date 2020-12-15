@@ -14,7 +14,7 @@ import {
     withTheme,
     withDimensions,
     withMotion,
-    getAccessorFor,
+    getPropertyAccessor,
     getLabelGenerator,
 } from '@nivo/core'
 import { getOrdinalColorScale, getInheritedColorGenerator } from '@nivo/colors'
@@ -30,7 +30,7 @@ export default Component =>
             getColor: getOrdinalColorScale(colors, colorBy),
         })),
         withPropsOnChange(['indexBy'], ({ indexBy }) => ({
-            getIndex: getAccessorFor(indexBy),
+            getIndex: getPropertyAccessor(indexBy),
         })),
         withPropsOnChange(['labelTextColor', 'theme'], ({ labelTextColor, theme }) => ({
             getLabelTextColor: getInheritedColorGenerator(labelTextColor, theme),

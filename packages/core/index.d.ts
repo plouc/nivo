@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { OpaqueInterpolation, SpringConfig } from 'react-spring'
-import { number } from 'prop-types'
 
 declare module '@nivo/core' {
     export type DatumValue = string | number | Date
@@ -279,10 +278,6 @@ declare module '@nivo/core' {
 
     export type DatumPropertyAccessor<RawDatum, T> = (datum: RawDatum) => T
 
-    export function getAccessorFor<RawDatum, T>(
-        directive: string | number | DatumPropertyAccessor<RawDatum, T>
-    ): DatumPropertyAccessor<RawDatum, T>
-
     export function useDimensions(
         width: number,
         height: number,
@@ -335,11 +330,23 @@ declare module '@nivo/core' {
         y: number
     }
 
-    export type ValueFormat<V> =
+    export type ValueFormat<Value> =
         // d3 formatter
         | string
         // explicit formatting function
-        | ((value: V) => string)
-    export function getValueFormatter<V>(format?: ValueFormat<V>): (value: V) => string
-    export function useValueFormatter<V>(format?: ValueFormat<V>): (value: V) => string
+        | ((value: Value) => string)
+    export function getValueFormatter<Value>(format?: ValueFormat<Value>): (value: Value) => string
+    export function useValueFormatter<Value>(format?: ValueFormat<Value>): (value: Value) => string
+
+    export type PropertyAccessor<Datum, Value> =
+        // path to use with `lodash.get()`
+        | string
+        // explicit accessor function
+        | ((datum: Datum) => Value)
+    export function getPropertyAccessor<Datum, Value>(
+        accessor: PropertyAccessor<Datum, Value>
+    ): (datum: Datum) => Value
+    export function usePropertyAccessor<Datum, Value>(
+        accessor: PropertyAccessor<Datum, Value>
+    ): (datum: Datum) => Value
 }

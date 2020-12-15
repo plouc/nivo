@@ -1,6 +1,7 @@
 import isFunction from 'lodash/isFunction'
 import get from 'lodash/get'
 import { format } from 'd3-format'
+import { useMemo } from 'react'
 
 export const getLabelGenerator = (_label, labelFormat) => {
     const getRawLabel = isFunction(_label) ? _label : d => get(d, _label)
@@ -13,7 +14,8 @@ export const getLabelGenerator = (_label, labelFormat) => {
     return getRawLabel
 }
 
-export const getAccessorFor = directive =>
-    isFunction(directive) ? directive : d => get(d, directive)
+export const getPropertyAccessor = accessor =>
+    isFunction(accessor) ? accessor : d => get(d, accessor)
 
-export const getAccessorOrValue = value => (isFunction(value) ? value : () => value)
+export const usePropertyAccessor = accessor =>
+    useMemo(() => getPropertyAccessor(accessor), [accessor])
