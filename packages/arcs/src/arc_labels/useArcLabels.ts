@@ -1,9 +1,5 @@
-import { useCallback, useMemo } from 'react'
-import {
-    // @ts-ignore
-    getLabelGenerator,
-    useTheme,
-} from '@nivo/core'
+import { useCallback } from 'react'
+import { PropertyAccessor, usePropertyAccessor, useTheme } from '@nivo/core'
 import { InheritedColorConfig, useInheritedColor } from '@nivo/colors'
 import { DatumWithArcAndColor } from '../types'
 import { useArcCenters, ArcCenter } from '../centers'
@@ -30,11 +26,10 @@ export const useArcLabels = <Datum extends DatumWithArcAndColor>({
     data: Datum[]
     offset?: number
     skipAngle?: number
-    // @todo come up with proper typing for label accessors, probably in `core`
-    label: any
+    label: PropertyAccessor<Datum, string>
     textColor: InheritedColorConfig<Datum>
 }) => {
-    const getLabel = useMemo(() => getLabelGenerator(label), [label])
+    const getLabel = usePropertyAccessor<Datum, string>(label)
 
     const theme = useTheme()
     const getTextColor = useInheritedColor<Datum>(textColor, theme)

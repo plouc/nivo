@@ -1,10 +1,5 @@
 import React, { useMemo } from 'react'
-import {
-    // @ts-ignore
-    getLabelGenerator,
-    radiansToDegrees,
-    useTheme,
-} from '@nivo/core'
+import { PropertyAccessor, usePropertyAccessor, radiansToDegrees, useTheme } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 import { useArcCentersTransition } from '../centers'
 import { ArcTransitionMode } from '../arcTransitionMode'
@@ -19,8 +14,7 @@ export type ArcLabelComponent<Datum extends DatumWithArcAndColor> = (
 interface ArcLabelsLayerProps<Datum extends DatumWithArcAndColor> {
     center: [number, number]
     data: Datum[]
-    // @todo add proper label accessor type
-    label: any
+    label: PropertyAccessor<Datum, string>
     radiusOffset: ArcLabelsProps<Datum>['arcLabelsRadiusOffset']
     skipAngle: ArcLabelsProps<Datum>['arcLabelsSkipAngle']
     textColor: ArcLabelsProps<Datum>['arcLabelsTextColor']
@@ -38,7 +32,7 @@ export const ArcLabelsLayer = <Datum extends DatumWithArcAndColor>({
     textColor,
     component = ArcLabel,
 }: ArcLabelsLayerProps<Datum>) => {
-    const getLabel = useMemo(() => getLabelGenerator(labelAccessor), [labelAccessor])
+    const getLabel = usePropertyAccessor<Datum, string>(labelAccessor)
     const theme = useTheme()
     const getTextColor = useInheritedColor<Datum>(textColor, theme)
 
