@@ -26,9 +26,9 @@ const HomePie = ({ colors, nivoTheme }) => {
                     ...d,
                 }))}
                 innerRadius={0.6}
-                enableSlicesLabels={false}
-                radialLabelsLinkDiagonalLength={10}
-                radialLabelsLinkHorizontalLength={16}
+                enableArcLabels={false}
+                arcLinkLabelsDiagonalLength={10}
+                arcLinkLabelsStraightLength={16}
                 colors={colors}
                 colorBy="id"
                 animate={false}
