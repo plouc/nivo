@@ -60,7 +60,7 @@ const initialProperties = {
     arcLinkLabelsOffset: 0,
     arcLinkLabelsDiagonalLength: 16,
     arcLinkLabelsStraightLength: 24,
-    arcLinkLabelsThickness: 1,
+    arcLinkLabelsThickness: 2,
     arcLinkLabelsColor: { from: 'color' },
 
     enableArcLabels: true,
