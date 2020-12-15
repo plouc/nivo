@@ -2,8 +2,8 @@ import { useCallback, useMemo } from 'react'
 import {
     positionFromAngle,
     radiansToDegrees,
-    // @ts-ignore
-    getLabelGenerator,
+    PropertyAccessor,
+    usePropertyAccessor,
     useTheme,
 } from '@nivo/core'
 import { InheritedColorConfig, useInheritedColor } from '@nivo/colors'
@@ -151,12 +151,11 @@ export const useArcLinkLabels = <Datum extends DatumWithArcAndColor>({
     diagonalLength: number
     straightLength: number
     textOffset: number
-    // @todo come up with proper typing for label accessors, probably in `core`
-    label: any
+    label: PropertyAccessor<Datum, string>
     linkColor: InheritedColorConfig<Datum>
     textColor: InheritedColorConfig<Datum>
 }) => {
-    const getLabel = useMemo(() => getLabelGenerator(label), [label])
+    const getLabel = usePropertyAccessor<Datum, string>(label)
 
     const theme = useTheme()
     const getLinkColor = useInheritedColor<Datum>(linkColor, theme)

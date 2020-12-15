@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { SpringValue, useTransition, to } from 'react-spring'
 import { line } from 'd3-shape'
-import { useMotionConfig, useTheme } from '@nivo/core'
+import { useMotionConfig, useTheme, PropertyAccessor } from '@nivo/core'
 import { InheritedColorConfig, useInheritedColor } from '@nivo/colors'
 import { DatumWithArcAndColor, Point } from '../types'
 import { computeArcLink } from '../links'
@@ -141,8 +141,7 @@ export const useArcLinkLabelsTransition = <Datum extends DatumWithArcAndColor>({
     straightLength: number
     skipAngle?: number
     textOffset: number
-    // @todo come up with proper typing for label accessors, probably in `core`
-    label: any
+    label: PropertyAccessor<Datum, string>
     linkColor: InheritedColorConfig<Datum>
     textColor: InheritedColorConfig<Datum>
 }) => {

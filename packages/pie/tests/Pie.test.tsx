@@ -42,20 +42,20 @@ describe('Pie', () => {
                 <Pie width={400} height={400} data={sampleData} animate={false} />
             )
 
-            const slices = wrapper.find('ArcShape')
-            expect(slices).toHaveLength(sampleData.length)
+            const arcs = wrapper.find('ArcShape')
+            expect(arcs).toHaveLength(sampleData.length)
 
-            expect(slices.at(0).prop('datum').id).toEqual('A')
-            expect(slices.at(0).prop('datum').value).toEqual(30)
-            expect(slices.at(0).prop('datum').formattedValue).toEqual(30)
+            expect(arcs.at(0).prop('datum').id).toEqual('A')
+            expect(arcs.at(0).prop('datum').value).toEqual(30)
+            expect(arcs.at(0).prop('datum').formattedValue).toEqual('30')
 
-            expect(slices.at(1).prop('datum').id).toEqual('B')
-            expect(slices.at(1).prop('datum').value).toEqual(20)
-            expect(slices.at(1).prop('datum').formattedValue).toEqual(20)
+            expect(arcs.at(1).prop('datum').id).toEqual('B')
+            expect(arcs.at(1).prop('datum').value).toEqual(20)
+            expect(arcs.at(1).prop('datum').formattedValue).toEqual('20')
 
-            expect(slices.at(2).prop('datum').id).toEqual('C')
-            expect(slices.at(2).prop('datum').value).toEqual(50)
-            expect(slices.at(2).prop('datum').formattedValue).toEqual(50)
+            expect(arcs.at(2).prop('datum').id).toEqual('C')
+            expect(arcs.at(2).prop('datum').value).toEqual(50)
+            expect(arcs.at(2).prop('datum').formattedValue).toEqual('50')
         })
 
         it('should use custom id and value accessors expressed as path', () => {
@@ -70,20 +70,20 @@ describe('Pie', () => {
                 />
             )
 
-            const slices = wrapper.find('ArcShape')
-            expect(slices).toHaveLength(sampleData.length)
+            const arcs = wrapper.find('ArcShape')
+            expect(arcs).toHaveLength(sampleData.length)
 
-            expect(slices.at(0).prop('datum').id).toEqual('A')
-            expect(slices.at(0).prop('datum').value).toEqual(30)
-            expect(slices.at(0).prop('datum').formattedValue).toEqual(30)
+            expect(arcs.at(0).prop('datum').id).toEqual('A')
+            expect(arcs.at(0).prop('datum').value).toEqual(30)
+            expect(arcs.at(0).prop('datum').formattedValue).toEqual('30')
 
-            expect(slices.at(1).prop('datum').id).toEqual('B')
-            expect(slices.at(1).prop('datum').value).toEqual(20)
-            expect(slices.at(1).prop('datum').formattedValue).toEqual(20)
+            expect(arcs.at(1).prop('datum').id).toEqual('B')
+            expect(arcs.at(1).prop('datum').value).toEqual(20)
+            expect(arcs.at(1).prop('datum').formattedValue).toEqual('20')
 
-            expect(slices.at(2).prop('datum').id).toEqual('C')
-            expect(slices.at(2).prop('datum').value).toEqual(50)
-            expect(slices.at(2).prop('datum').formattedValue).toEqual(50)
+            expect(arcs.at(2).prop('datum').id).toEqual('C')
+            expect(arcs.at(2).prop('datum').value).toEqual(50)
+            expect(arcs.at(2).prop('datum').formattedValue).toEqual('50')
         })
 
         it('should use custom id and value accessors expressed as functions', () => {
@@ -98,20 +98,20 @@ describe('Pie', () => {
                 />
             )
 
-            const slices = wrapper.find('ArcShape')
-            expect(slices).toHaveLength(sampleData.length)
+            const arcs = wrapper.find('ArcShape')
+            expect(arcs).toHaveLength(sampleData.length)
 
-            expect(slices.at(0).prop('datum').id).toEqual('A')
-            expect(slices.at(0).prop('datum').value).toEqual(30)
-            expect(slices.at(0).prop('datum').formattedValue).toEqual(30)
+            expect(arcs.at(0).prop('datum').id).toEqual('A')
+            expect(arcs.at(0).prop('datum').value).toEqual(30)
+            expect(arcs.at(0).prop('datum').formattedValue).toEqual('30')
 
-            expect(slices.at(1).prop('datum').id).toEqual('B')
-            expect(slices.at(1).prop('datum').value).toEqual(20)
-            expect(slices.at(1).prop('datum').formattedValue).toEqual(20)
+            expect(arcs.at(1).prop('datum').id).toEqual('B')
+            expect(arcs.at(1).prop('datum').value).toEqual(20)
+            expect(arcs.at(1).prop('datum').formattedValue).toEqual('20')
 
-            expect(slices.at(2).prop('datum').id).toEqual('C')
-            expect(slices.at(2).prop('datum').value).toEqual(50)
-            expect(slices.at(2).prop('datum').formattedValue).toEqual(50)
+            expect(arcs.at(2).prop('datum').id).toEqual('C')
+            expect(arcs.at(2).prop('datum').value).toEqual(50)
+            expect(arcs.at(2).prop('datum').formattedValue).toEqual('50')
         })
 
         it('should support custom value formatting', () => {
@@ -125,20 +125,20 @@ describe('Pie', () => {
                 />
             )
 
-            const slices = wrapper.find('ArcShape')
-            expect(slices).toHaveLength(sampleData.length)
+            const arcs = wrapper.find('ArcShape')
+            expect(arcs).toHaveLength(sampleData.length)
 
-            expect(slices.at(0).prop('datum').id).toEqual('A')
-            expect(slices.at(0).prop('datum').value).toEqual(30)
-            expect(slices.at(0).prop('datum').formattedValue).toEqual('$30.00')
+            expect(arcs.at(0).prop('datum').id).toEqual('A')
+            expect(arcs.at(0).prop('datum').value).toEqual(30)
+            expect(arcs.at(0).prop('datum').formattedValue).toEqual('$30.00')
 
-            expect(slices.at(1).prop('datum').id).toEqual('B')
-            expect(slices.at(1).prop('datum').value).toEqual(20)
-            expect(slices.at(1).prop('datum').formattedValue).toEqual('$20.00')
+            expect(arcs.at(1).prop('datum').id).toEqual('B')
+            expect(arcs.at(1).prop('datum').value).toEqual(20)
+            expect(arcs.at(1).prop('datum').formattedValue).toEqual('$20.00')
 
-            expect(slices.at(2).prop('datum').id).toEqual('C')
-            expect(slices.at(2).prop('datum').value).toEqual(50)
-            expect(slices.at(2).prop('datum').formattedValue).toEqual('$50.00')
+            expect(arcs.at(2).prop('datum').id).toEqual('C')
+            expect(arcs.at(2).prop('datum').value).toEqual(50)
+            expect(arcs.at(2).prop('datum').formattedValue).toEqual('$50.00')
         })
 
         it('should support sorting data by value', () => {
@@ -146,17 +146,17 @@ describe('Pie', () => {
                 <Pie width={400} height={400} data={sampleData} sortByValue animate={false} />
             )
 
-            const slices = wrapper.find('ArcShape')
-            expect(slices).toHaveLength(sampleData.length)
+            const arcs = wrapper.find('ArcShape')
+            expect(arcs).toHaveLength(sampleData.length)
 
-            const slice30 = slices.at(0)
-            const slice20 = slices.at(1)
-            const slice50 = slices.at(2)
+            const arc30 = arcs.at(0)
+            const arc20 = arcs.at(1)
+            const arc50 = arcs.at(2)
 
-            expect(slice50.prop('datum').arc.startAngle).toEqual(0)
-            expect(slice30.prop('datum').arc.startAngle).toBeGreaterThan(0)
-            expect(slice20.prop('datum').arc.startAngle).toBeGreaterThan(
-                slice30.prop('datum').arc.startAngle
+            expect(arc50.prop('datum').arc.startAngle).toEqual(0)
+            expect(arc30.prop('datum').arc.startAngle).toBeGreaterThan(0)
+            expect(arc20.prop('datum').arc.startAngle).toBeGreaterThan(
+                arc30.prop('datum').arc.startAngle
             )
         })
     })
@@ -168,9 +168,9 @@ describe('Pie', () => {
             )
 
             // we can use a slice to check computed radii
-            const slice = wrapper.find('ArcShape').at(0)
-            expect(slice.prop('datum').arc.innerRadius).toEqual(100)
-            expect(slice.prop('datum').arc.outerRadius).toEqual(200)
+            const arc = wrapper.find('ArcShape').at(0)
+            expect(arc.prop('datum').arc.innerRadius).toEqual(100)
+            expect(arc.prop('datum').arc.outerRadius).toEqual(200)
         })
 
         it('should support padAngle', () => {
@@ -178,10 +178,10 @@ describe('Pie', () => {
                 <Pie width={400} height={400} data={sampleData} padAngle={10} animate={false} />
             )
 
-            const slices = wrapper.find('ArcShape')
-            expect(slices).toHaveLength(sampleData.length)
-            slices.forEach(slice => {
-                expect(radiansToDegrees(slice.prop('datum').arc.padAngle)).toEqual(10)
+            const arcs = wrapper.find('ArcShape')
+            expect(arcs).toHaveLength(sampleData.length)
+            arcs.forEach(arc => {
+                expect(radiansToDegrees(arc.prop('datum').arc.padAngle)).toEqual(10)
             })
         })
 
@@ -217,10 +217,10 @@ describe('Pie', () => {
                 />
             )
 
-            const slices = wrapper.find('ArcShape')
-            expect(slices).toHaveLength(sampleData.length)
-            expect(radiansToDegrees(slices.at(0).prop('datum').arc.startAngle)).toEqual(90)
-            expect(radiansToDegrees(slices.at(2).prop('datum').arc.endAngle)).toEqual(180)
+            const arcs = wrapper.find('ArcShape')
+            expect(arcs).toHaveLength(sampleData.length)
+            expect(radiansToDegrees(arcs.at(0).prop('datum').arc.startAngle)).toEqual(90)
+            expect(radiansToDegrees(arcs.at(2).prop('datum').arc.endAngle)).toEqual(180)
         })
 
         it('should support optimizing space usage via the fit property', () => {
@@ -238,9 +238,9 @@ describe('Pie', () => {
             )
 
             // we can use a slice to check computed radii
-            const slice = wrapper.find('ArcShape').at(0)
-            expect(slice.prop('datum').arc.innerRadius).toEqual(200)
-            expect(slice.prop('datum').arc.outerRadius).toEqual(400)
+            const arc = wrapper.find('ArcShape').at(0)
+            expect(arc.prop('datum').arc.innerRadius).toEqual(200)
+            expect(arc.prop('datum').arc.outerRadius).toEqual(400)
         })
     })
 
@@ -256,17 +256,17 @@ describe('Pie', () => {
                 />
             )
 
-            const slices = wrapper.find('ArcShape')
-            expect(slices).toHaveLength(sampleData.length)
+            const arcs = wrapper.find('ArcShape')
+            expect(arcs).toHaveLength(sampleData.length)
 
-            expect(slices.at(0).prop('datum').id).toEqual('A')
-            expect(slices.at(0).prop('datum').color).toEqual('#7fc97f')
+            expect(arcs.at(0).prop('datum').id).toEqual('A')
+            expect(arcs.at(0).prop('datum').color).toEqual('#7fc97f')
 
-            expect(slices.at(1).prop('datum').id).toEqual('B')
-            expect(slices.at(1).prop('datum').color).toEqual('#beaed4')
+            expect(arcs.at(1).prop('datum').id).toEqual('B')
+            expect(arcs.at(1).prop('datum').color).toEqual('#beaed4')
 
-            expect(slices.at(2).prop('datum').id).toEqual('C')
-            expect(slices.at(2).prop('datum').color).toEqual('#fdc086')
+            expect(arcs.at(2).prop('datum').id).toEqual('C')
+            expect(arcs.at(2).prop('datum').color).toEqual('#fdc086')
         })
 
         it('should allow to use colors from data using a path', () => {
@@ -280,17 +280,17 @@ describe('Pie', () => {
                 />
             )
 
-            const slices = wrapper.find('ArcShape')
-            expect(slices).toHaveLength(sampleData.length)
+            const arcs = wrapper.find('ArcShape')
+            expect(arcs).toHaveLength(sampleData.length)
 
-            expect(slices.at(0).prop('datum').id).toEqual('A')
-            expect(slices.at(0).prop('datum').color).toEqual('#ff5500')
+            expect(arcs.at(0).prop('datum').id).toEqual('A')
+            expect(arcs.at(0).prop('datum').color).toEqual('#ff5500')
 
-            expect(slices.at(1).prop('datum').id).toEqual('B')
-            expect(slices.at(1).prop('datum').color).toEqual('#ffdd00')
+            expect(arcs.at(1).prop('datum').id).toEqual('B')
+            expect(arcs.at(1).prop('datum').color).toEqual('#ffdd00')
 
-            expect(slices.at(2).prop('datum').id).toEqual('C')
-            expect(slices.at(2).prop('datum').color).toEqual('#99cc44')
+            expect(arcs.at(2).prop('datum').id).toEqual('C')
+            expect(arcs.at(2).prop('datum').color).toEqual('#99cc44')
         })
 
         it('should allow to use colors from data using a function', () => {
@@ -408,7 +408,7 @@ describe('Pie', () => {
         })
 
         it('should allow to customize the label component', () => {
-            const CustomArcLabel = () => null
+            const CustomArcLabel = () => <span />
             const wrapper = mount(
                 <Pie
                     width={400}
@@ -423,7 +423,7 @@ describe('Pie', () => {
             expect(labels).toHaveLength(sampleData.length)
 
             sampleData.forEach((datum, index) => {
-                expect(labels.at(index).prop('label')).toEqual(datum.value)
+                expect(labels.at(index).prop('label')).toEqual(`${datum.value}`)
             })
         })
     })

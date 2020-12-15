@@ -41,11 +41,11 @@ const CustomTooltip = ({ datum }) => (
 export default settingsMapper(
     {
         valueFormat: mapFormat,
-        radialLabel: value => {
+        arcLinkLabel: value => {
             if (value === `d => \`\${d.id} (\${d.value})\``) return d => `${d.id} (${d.value})`
             return value
         },
-        sliceLabel: value => {
+        arcLabel: value => {
             if (value === `d => \`\${d.id} (\${d.value})\``) return d => `${d.id} (${d.value})`
             return value
         },
