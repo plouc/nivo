@@ -2,12 +2,7 @@ import { useMemo, useState } from 'react'
 import { get } from 'lodash'
 import { pie as d3Pie } from 'd3-shape'
 import { ArcGenerator, useArcGenerator, computeArcBoundingBox } from '@nivo/arcs'
-import {
-    degreesToRadians,
-    radiansToDegrees,
-    // @ts-ignore
-    useValueFormatter,
-} from '@nivo/core'
+import { degreesToRadians, radiansToDegrees, useValueFormatter } from '@nivo/core'
 import { OrdinalColorScaleConfig, useOrdinalColorScale } from '@nivo/colors'
 import { defaultProps } from './props'
 import { CompletePieSvgProps, ComputedDatum, PieArc, PieCustomLayerProps } from './types'

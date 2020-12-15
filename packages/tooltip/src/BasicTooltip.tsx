@@ -1,5 +1,4 @@
 import React, { memo, ReactNode } from 'react'
-// @ts-ignore
 import { useTheme, ValueFormat, useValueFormatter } from '@nivo/core'
 import { Chip } from './Chip'
 
