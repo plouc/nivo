@@ -13,7 +13,7 @@ import {
     useTheme,
     useCurveInterpolation,
     useDimensions,
-    getAccessorFor,
+    usePropertyAccessor,
     SvgWrapper,
 } from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
@@ -58,7 +58,7 @@ const Radar = memo(
         legends,
         role,
     }) => {
-        const getIndex = useMemo(() => getAccessorFor(indexBy), [indexBy])
+        const getIndex = usePropertyAccessor(indexBy)
         const indices = useMemo(() => data.map(getIndex), [data, getIndex])
 
         const { margin, innerWidth, innerHeight, outerWidth, outerHeight } = useDimensions(

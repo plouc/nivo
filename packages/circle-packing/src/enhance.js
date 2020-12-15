@@ -17,7 +17,7 @@ import {
     withDimensions,
     withTheme,
     withMotion,
-    getAccessorFor,
+    getPropertyAccessor,
     getLabelGenerator,
     bindDefs,
 } from '@nivo/core'
@@ -37,7 +37,7 @@ const commonEnhancers = [
     })),
 
     withPropsOnChange(['identity'], ({ identity }) => ({
-        getIdentity: getAccessorFor(identity),
+        getIdentity: getPropertyAccessor(identity),
     })),
 
     // border
