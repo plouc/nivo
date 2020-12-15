@@ -2,11 +2,7 @@ import { useMemo } from 'react'
 import { get } from 'lodash'
 import { stack as d3Stack, Stack, Series } from 'd3-shape'
 import { ScaleLinear, scaleLinear } from 'd3-scale'
-import {
-    // @ts-ignore
-    useValueFormatter,
-    useTheme,
-} from '@nivo/core'
+import { useValueFormatter, useTheme } from '@nivo/core'
 import { InheritedColorConfig, useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
 import {
     NormalizedDatum,
