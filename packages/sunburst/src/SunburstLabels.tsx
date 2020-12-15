@@ -3,9 +3,8 @@ import {
     // @ts-ignore
     midAngle,
     // @ts-ignore
-    positionFromAngle,
-    // @ts-ignore
     getLabelGenerator,
+    positionFromAngle,
     radiansToDegrees,
     useTheme,
     useMotionConfig,
