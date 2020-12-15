@@ -9,15 +9,15 @@ export const getValueFormatter = format => {
     if (typeof format === 'string') {
         // time format specifier
         if (format.indexOf('time:') === 0) {
-            return d3TimeFormat(format.slice('5'))
+            return `${d3TimeFormat(format.slice('5'))}`
         }
 
         // standard format specifier
-        return d3Format(format)
+        return `${d3Format(format)}`
     }
 
     // no formatting
-    return v => v
+    return v => `${v}`
 }
 
 export const useValueFormatter = format => useMemo(() => getValueFormatter(format), [format])

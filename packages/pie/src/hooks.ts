@@ -36,7 +36,7 @@ export const useNormalizedData = <RawDatum extends MayHaveLabel>({
         () => (typeof value === 'function' ? value : (d: RawDatum) => get(d, value)),
         [value]
     )
-    const formatValue = useValueFormatter(valueFormat as any)
+    const formatValue = useValueFormatter<number>(valueFormat)
 
     const getColor = useOrdinalColorScale<Omit<ComputedDatum<RawDatum>, 'arc' | 'color' | 'fill'>>(
         colors,
