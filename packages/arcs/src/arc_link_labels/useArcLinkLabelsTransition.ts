@@ -144,7 +144,7 @@ const interpolateTextAnchor = (
     )
 
 /**
- * Interpolating the text position involves almost the same computatio
+ * Interpolating the text position involves almost the same computation
  * as `interpolateLink`, unfortunately `react-spring` does not support
  * multiple output values from a single interpolation.
  *
