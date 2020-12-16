@@ -2,7 +2,12 @@ import { useMemo, useState } from 'react'
 import { get } from 'lodash'
 import { pie as d3Pie } from 'd3-shape'
 import { ArcGenerator, useArcGenerator, computeArcBoundingBox } from '@nivo/arcs'
-import { degreesToRadians, radiansToDegrees, useValueFormatter } from '@nivo/core'
+import {
+    degreesToRadians,
+    radiansToDegrees,
+    useValueFormatter,
+    usePropertyAccessor,
+} from '@nivo/core'
 import { OrdinalColorScaleConfig, useOrdinalColorScale } from '@nivo/colors'
 import { defaultProps } from './props'
 import { CompletePieSvgProps, ComputedDatum, PieArc, PieCustomLayerProps } from './types'
@@ -26,7 +31,7 @@ export const useNormalizedData = <RawDatum extends MayHaveLabel>({
 }: Pick<CompletePieSvgProps<RawDatum>, 'id' | 'value' | 'valueFormat' | 'colors'> & {
     data: RawDatum[]
 }): Omit<ComputedDatum<RawDatum>, 'arc' | 'fill'>[] => {
-    const getId = useMemo(() => (typeof id === 'function' ? id : (d: RawDatum) => get(d, id)), [id])
+    const getId = usePropertyAccessor<RawDatum, string | number>(id)
     const getValue = useMemo(
         () => (typeof value === 'function' ? value : (d: RawDatum) => get(d, value)),
         [value]

@@ -48,7 +48,7 @@ const InnerPie = <RawDatum,>({
     arcLabelsSkipAngle = defaultProps.arcLabelsSkipAngle,
     arcLabelsTextColor = defaultProps.arcLabelsTextColor,
     arcLabelsRadiusOffset = defaultProps.arcLabelsRadiusOffset,
-    arcLabelComponent,
+    arcLabelsComponent,
 
     // arc link labels
     enableArcLinkLabels = defaultProps.enableArcLinkLabels,
@@ -178,7 +178,7 @@ const InnerPie = <RawDatum,>({
                 skipAngle={arcLabelsSkipAngle}
                 textColor={arcLabelsTextColor}
                 transitionMode={transitionMode}
-                component={arcLabelComponent}
+                component={arcLabelsComponent}
             />
         )
     }

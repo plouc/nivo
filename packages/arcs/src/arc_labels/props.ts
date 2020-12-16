@@ -8,5 +8,5 @@ export interface ArcLabelsProps<Datum extends DatumWithArcAndColor> {
     arcLabelsRadiusOffset: number
     arcLabelsSkipAngle: number
     arcLabelsTextColor: InheritedColorConfig<Datum>
-    component: ArcLabelComponent<Datum>
+    arcLabelsComponent: ArcLabelComponent<Datum>
 }

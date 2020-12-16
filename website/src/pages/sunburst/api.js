@@ -1,11 +1,3 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
 import { generateLibTree } from '@nivo/generators'
 import SEO from '../../components/seo'
@@ -34,10 +26,10 @@ const SunburstApi = () => {
                     data: JSON.stringify(data, null, '  '),
 
                     margin: {
-                        top: 20,
-                        right: 20,
-                        bottom: 20,
-                        left: 20,
+                        top: 10,
+                        right: 10,
+                        bottom: 10,
+                        left: 10,
                     },
 
                     identity: 'name',
