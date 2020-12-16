@@ -25,7 +25,7 @@ export const computeArcLinkTextAnchor = (arc: Arc): 'start' | 'end' => {
 
 /**
  * Compute the link of a single arc, returning its points,
- * please not that points coordinates are relative to
+ * please note that points coordinates are relative to
  * the center of the arc.
  */
 export const computeArcLink = (
