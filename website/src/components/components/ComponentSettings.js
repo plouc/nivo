@@ -1,16 +1,9 @@
-/*
- * This file is part of the nivo project.
- *
- * (c) 2016 Raphaël Benitte
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import ControlsGroup from '../controls/ControlsGroup'
 import media from '../../theming/mediaQueries'
+import { ComponentDocumentation } from './ComponentDocumentation'
 
 const Container = styled.div`
     background: ${({ theme }) => theme.colors.cardBackground};
@@ -54,25 +47,31 @@ const Title = styled.div`
 `
 
 const ComponentSettings = ({ component, flavors, currentFlavor, settings, onChange, groups }) => {
+    const [mode] = useState('controls')
+
     return (
-        <Container>
-            {groups.map(group => {
-                return (
-                    <Group key={group.name}>
-                        <Title>{group.name}</Title>
-                        <ControlsGroup
-                            component={component}
-                            name={group.name}
-                            flavors={flavors}
-                            currentFlavor={currentFlavor}
-                            controls={group.properties}
-                            settings={settings}
-                            onChange={onChange}
-                        />
-                    </Group>
-                )
-            })}
-        </Container>
+        <>
+            {mode === 'controls' && (
+                <Container>
+                    {groups.map(group => {
+                        return (
+                            <Group key={group.name}>
+                                <Title>{group.name}</Title>
+                                <ControlsGroup
+                                    component={component}
+                                    name={group.name}
+                                    flavors={flavors}
+                                    currentFlavor={currentFlavor}
+                                    controls={group.properties}
+                                    settings={settings}
+                                    onChange={onChange}
+                                />
+                            </Group>
+                        )
+                    })}
+                </Container>
+            )}
+        </>
     )
 }
 
