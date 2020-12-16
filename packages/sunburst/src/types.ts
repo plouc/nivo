@@ -1,5 +1,4 @@
-import { Arc } from 'd3-shape'
-import { HierarchyRectangularNode } from 'd3-hierarchy'
+import { Arc, ArcGenerator, ArcLabelsProps, ArcTransitionMode } from '@nivo/arcs'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import {
     Theme,
@@ -12,18 +11,15 @@ import {
 } from '@nivo/core'
 
 export type DatumId = string | number
-export type DatumValue = number
 
-export type LabelAccessorFunction<RawDatum> = (datum: RawDatum) => string | number
-
-export type SunburstLayerId = 'slices' | 'sliceLabels'
+export type SunburstLayerId = 'arcs' | 'arcLabels'
 
 export interface SunburstCustomLayerProps<RawDatum> {
     nodes: ComputedDatum<RawDatum>[]
     centerX: number
     centerY: number
     radius: number
-    arcGenerator: Arc<any, ComputedDatum<RawDatum>>
+    arcGenerator: ArcGenerator
 }
 
 export type SunburstCustomLayer<RawDatum> = React.FC<SunburstCustomLayerProps<RawDatum>>
@@ -33,7 +29,7 @@ export type SunburstLayer<RawDatum> = SunburstLayerId | SunburstCustomLayer<RawD
 export interface DataProps<RawDatum> {
     data: RawDatum
     id?: PropertyAccessor<RawDatum, DatumId>
-    value?: PropertyAccessor<RawDatum, DatumValue>
+    value?: PropertyAccessor<RawDatum, number>
     valueFormat?: ValueFormat<number>
 }
 
@@ -41,28 +37,21 @@ export interface ChildrenDatum<RawDatum> {
     children?: Array<RawDatum & ChildrenDatum<RawDatum>>
 }
 
-export interface NormalizedDatum<RawDatum> {
-    color?: string
-    data: RawDatum & ChildrenDatum<RawDatum>
-    depth: number
-    id: DatumId
-    formattedValue: string | number
-    fill?: string
-    parent?: ComputedDatum<RawDatum>
-    percentage: number
-    value: DatumValue
-}
-
 export interface ComputedDatum<RawDatum> {
-    x0: number
-    y0: number
-    x1: number
-    y1: number
-    data: NormalizedDatum<RawDatum>
+    id: DatumId
+    // contain own id plus all ancestor ids
+    path: DatumId[]
+    value: number
+    percentage: number
+    formattedValue: string | number
+    color: string
+    fill?: string
+    arc: Arc
+    // contains the raw node's data
+    data: RawDatum
     depth: number
     height: number
-    parent: HierarchyRectangularNode<RawDatum> | null
-    value: number
+    parent?: ComputedDatum<RawDatum>
 }
 
 export type CommonProps<RawDatum> = {
@@ -72,28 +61,26 @@ export type CommonProps<RawDatum> = {
 
     cornerRadius: number
 
-    colors: OrdinalColorScaleConfig<Omit<NormalizedDatum<RawDatum>, 'fill' | 'parent'>>
+    colors: OrdinalColorScaleConfig<Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>>
     borderWidth: number
     borderColor: string
 
-    childColor: InheritedColorConfig<NormalizedDatum<RawDatum>>
+    childColor: InheritedColorConfig<ComputedDatum<RawDatum>>
 
-    // slice labels
-    enableSliceLabels: boolean
-    sliceLabel: string | LabelAccessorFunction<NormalizedDatum<RawDatum>>
-    sliceLabelsSkipAngle: number
-    sliceLabelsTextColor: InheritedColorConfig<NormalizedDatum<RawDatum>>
+    enableArcLabels: boolean
 
     role: string
 
     theme: Theme
 
+    transitionMode: ArcTransitionMode
+
     isInteractive: boolean
-    tooltip: (props: NormalizedDatum<RawDatum>) => JSX.Element
-}
+    tooltip: (props: ComputedDatum<RawDatum>) => JSX.Element
+} & ArcLabelsProps<ComputedDatum<RawDatum>>
 
 export type MouseEventHandler<RawDatum, ElementType> = (
-    datum: NormalizedDatum<RawDatum>,
+    datum: ComputedDatum<RawDatum>,
     event: React.MouseEvent<ElementType>
 ) => void
 
@@ -111,18 +98,25 @@ export type SvgProps<RawDatum> = DataProps<RawDatum> &
     ModernMotionProps &
     Partial<CommonProps<RawDatum>>
 
+export type CompleteSvgProps<RawDatum> = DataProps<RawDatum> &
+    Dimensions &
+    SvgDefsAndFill<RawDatum> &
+    MouseEventHandlers<RawDatum, SVGPathElement> &
+    ModernMotionProps &
+    CommonProps<RawDatum>
+
 export type SunburstArcProps<RawDatum> = Pick<
     SvgProps<RawDatum>,
     'onClick' | 'onMouseEnter' | 'onMouseLeave' | 'onMouseMove' | 'borderWidth' | 'borderColor'
 > &
     Pick<CommonProps<RawDatum>, 'isInteractive' | 'tooltip'> & {
-        arcGenerator: Arc<any, ComputedDatum<RawDatum>>
+        arcGenerator: ArcGenerator
         node: ComputedDatum<RawDatum>
     }
 
 export type SunburstLabelProps<RawDatum> = {
-    label: CommonProps<RawDatum>['sliceLabel']
+    label: CommonProps<RawDatum>['arcLabel']
     nodes: Array<ComputedDatum<RawDatum>>
     skipAngle?: number
-    textColor: CommonProps<RawDatum>['sliceLabelsTextColor']
+    textColor: CommonProps<RawDatum>['arcLabelsTextColor']
 }

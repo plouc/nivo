@@ -19,7 +19,7 @@ interface ArcLabelsLayerProps<Datum extends DatumWithArcAndColor> {
     skipAngle: ArcLabelsProps<Datum>['arcLabelsSkipAngle']
     textColor: ArcLabelsProps<Datum>['arcLabelsTextColor']
     transitionMode: ArcTransitionMode
-    component?: ArcLabelComponent<Datum>
+    component?: ArcLabelsProps<Datum>['arcLabelsComponent']
 }
 
 export const ArcLabelsLayer = <Datum extends DatumWithArcAndColor>({

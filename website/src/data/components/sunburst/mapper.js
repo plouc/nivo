@@ -42,6 +42,10 @@ const CustomTooltip = node => {
 
 export default settingsMapper(
     {
+        arcLabel: value => {
+            if (value === `d => \`\${d.id} (\${d.value})\``) return d => `${d.id} (${d.value})`
+            return value
+        },
         tooltip: (value, values) => {
             if (!values['custom tooltip example']) return undefined
 

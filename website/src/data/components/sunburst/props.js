@@ -1,15 +1,72 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { defaultProps } from '@nivo/sunburst'
+import { arcTransitionModes } from '@nivo/arcs'
 import { groupProperties, defsProperties, motionProperties } from '../../../lib/componentProperties'
 
 const props = [
+    {
+        key: 'data',
+        group: 'Base',
+        help: 'Chart data, which should be immutable.',
+        description: `
+            Chart data, which must conform to this structure
+            if using the default \`id\` and \`value\` accessors:
+
+            \`\`\`
+            {
+                // must be unique for the whole dataset
+                id: string | number
+                value: number
+                children: {
+                    id: string | number
+                    value: number
+                    children: ...
+                }[]
+            }
+            \`\`\`
+
+            If using a different data structure, you must make sure
+            to adjust both \`id\` and \`value\`. Meaning you can provide
+            a completely different data structure as long as \`id\` and \`value\`
+            return the appropriate values.
+
+            Immutability of the data is important as re-computations
+            depends on it.
+        `,
+        type: 'object',
+        required: true,
+    },
+    {
+        key: 'id',
+        group: 'Base',
+        help: 'Id accessor.',
+        description: `
+            define id accessor, if string given,
+            will use \`node[value]\`,
+            if function given, it will be invoked
+            for each node and will receive the node as
+            first argument, it must return the node
+            id (string | number).
+        `,
+        type: 'string | Function',
+        required: false,
+        defaultValue: defaultProps.id,
+    },
+    {
+        key: 'value',
+        group: 'Base',
+        help: 'Value accessor',
+        description: `
+            define value accessor, if string given,
+            will use \`node[value]\`,
+            if function given, it will be invoked
+            for each node and will receive the node as
+            first argument, it must return the node
+            value (number).
+        `,
+        type: 'string | Function',
+        required: false,
+        defaultValue: defaultProps.value,
+    },
     {
         key: 'width',
         enableControlForFlavors: ['api'],
@@ -57,38 +114,6 @@ const props = [
         group: 'Base',
     },
     {
-        key: 'id',
-        group: 'Base',
-        help: 'Id accessor.',
-        description: `
-            define id accessor, if string given,
-            will use \`node[value]\`,
-            if function given, it will be invoked
-            for each node and will receive the node as
-            first argument, it must return the node
-            id (string | number).
-        `,
-        type: 'string | Function',
-        required: false,
-        defaultValue: defaultProps.id,
-    },
-    {
-        key: 'value',
-        group: 'Base',
-        help: 'Value accessor',
-        description: `
-            define value accessor, if string given,
-            will use \`node[value]\`,
-            if function given, it will be invoked
-            for each node and will receive the node as
-            first argument, it must return the node
-            value (number).
-        `,
-        type: 'string | Function',
-        required: false,
-        defaultValue: defaultProps.value,
-    },
-    {
         key: 'colors',
         help: 'Defines how to compute node color.',
         required: false,
@@ -96,21 +121,6 @@ const props = [
         controlType: 'ordinalColors',
         type: 'string | Function | string[]',
         group: 'Base',
-    },
-    ...defsProperties('Style', ['svg', 'api']),
-    {
-        key: 'showcase pattern usage',
-        flavors: ['svg'],
-        help: 'Patterns.',
-        description: `
-            You can use \`defs\` and \`fill\` properties
-            to use patterns, see
-            [dedicated guide](self:/guides/patterns)
-            for further information.
-        `,
-        type: 'boolean',
-        controlType: 'switch',
-        group: 'Style',
     },
     {
         key: 'childColor',
@@ -131,6 +141,15 @@ const props = [
         group: 'Base',
     },
     {
+        key: 'borderColor',
+        help: 'Defines how to compute arcs color.',
+        type: 'string | object | Function',
+        required: false,
+        defaultValue: defaultProps.borderColor,
+        controlType: 'inheritedColor',
+        group: 'Base',
+    },
+    {
         key: 'cornerRadius',
         help: 'Round node shape.',
         type: 'number',
@@ -144,6 +163,89 @@ const props = [
             max: 45,
             step: 1,
         },
+    },
+    ...defsProperties('Style', ['svg', 'api']),
+    {
+        key: 'showcase pattern usage',
+        flavors: ['svg'],
+        help: 'Patterns.',
+        description: `
+            You can use \`defs\` and \`fill\` properties
+            to use patterns, see
+            [dedicated guide](self:/guides/patterns)
+            for further information.
+        `,
+        type: 'boolean',
+        controlType: 'switch',
+        group: 'Style',
+    },
+    {
+        key: 'enableArcLabels',
+        help: 'Enable/disable arc labels.',
+        type: 'boolean',
+        required: false,
+        defaultValue: defaultProps.enableArcLabels,
+        controlType: 'switch',
+        group: 'Arc labels',
+    },
+    {
+        key: 'arcLabel',
+        help:
+            'Defines how to get label text, can be a string (used to access current node data property) or a function which will receive the actual node data.',
+        type: 'string | Function',
+        required: false,
+        defaultValue: defaultProps.arcLabel,
+        controlType: 'choices',
+        group: 'Arc labels',
+        controlOptions: {
+            choices: ['id', 'value', 'formattedValue', `d => \`\${d.id} (\${d.value})\``].map(
+                choice => ({
+                    label: choice,
+                    value: choice,
+                })
+            ),
+        },
+    },
+    {
+        key: 'arcLabelsRadiusOffset',
+        help: `
+            Define the radius to use to determine the label position, starting from inner radius,
+            this is expressed as a ratio.
+        `,
+        type: 'number',
+        required: false,
+        defaultValue: defaultProps.arcLabelsRadiusOffset,
+        controlType: 'range',
+        group: 'Arc labels',
+        controlOptions: {
+            min: 0,
+            max: 2,
+            step: 0.05,
+        },
+    },
+    {
+        key: 'arcLabelsSkipAngle',
+        help: `Skip label if corresponding arc's angle is lower than provided value.`,
+        type: 'number',
+        required: false,
+        defaultValue: defaultProps.arcLabelsSkipAngle,
+        controlType: 'range',
+        group: 'Arc labels',
+        controlOptions: {
+            unit: '°',
+            min: 0,
+            max: 45,
+            step: 1,
+        },
+    },
+    {
+        key: 'arcLabelsTextColor',
+        help: 'Defines how to compute arc label text color.',
+        type: 'string | object | Function',
+        required: false,
+        defaultValue: defaultProps.arcLabelsTextColor,
+        controlType: 'inheritedColor',
+        group: 'Arc labels',
     },
     {
         key: 'layers',
@@ -184,6 +286,22 @@ const props = [
         group: 'Interactivity',
     },
     ...motionProperties(['svg'], defaultProps, 'react-spring'),
+    {
+        key: 'transitionMode',
+        flavors: ['svg'],
+        help: 'Define how transitions behave.',
+        type: 'string',
+        required: false,
+        defaultValue: defaultProps.transitionMode,
+        controlType: 'choices',
+        group: 'Motion',
+        controlOptions: {
+            choices: arcTransitionModes.map(choice => ({
+                label: choice,
+                value: choice,
+            })),
+        },
+    },
     {
         key: 'tooltip',
         flavors: ['svg'],

@@ -208,7 +208,7 @@ stories.add('custom arc label component', () => (
         arcLinkLabelsOffset={2}
         arcLinkLabelsColor={{ from: 'color' }}
         arcLinkLabelsThickness={3}
-        arcLabelComponent={({ datum, label, style }) => (
+        arcLabelsComponent={({ datum, label, style }) => (
             <animated.g transform={style.transform} style={{ pointerEvents: 'none' }}>
                 <circle fill={style.textColor} cy={6} r={15} />
                 <circle fill="#ffffff" stroke={datum.color} strokeWidth={2} r={16} />

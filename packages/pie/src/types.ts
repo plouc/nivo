@@ -1,5 +1,13 @@
 import * as React from 'react'
-import { Box, Dimensions, Theme, SvgDefsAndFill, ModernMotionProps, ValueFormat } from '@nivo/core'
+import {
+    Box,
+    Dimensions,
+    Theme,
+    SvgDefsAndFill,
+    ModernMotionProps,
+    ValueFormat,
+    PropertyAccessor,
+} from '@nivo/core'
 import {
     Arc,
     ArcGenerator,
@@ -11,16 +19,13 @@ import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 
 export type DatumId = string | number
-export type DatumValue = number
-export type DatumFormattedValue = string | number
-export type ValueFormatter = (value: number) => DatumFormattedValue
 
 // Default datum to use when `id` and `value` properties
 // use default values, should be redefined if using
 // a different structure.
 export interface DefaultRawDatum {
     id: DatumId
-    value: DatumValue
+    value: number
 }
 
 export interface PieArc extends Arc {
@@ -36,8 +41,8 @@ export interface PieArc extends Arc {
 export interface ComputedDatum<RawDatum> {
     id: DatumId
     label: DatumId
-    value: DatumValue
-    formattedValue: DatumFormattedValue
+    value: number
+    formattedValue: string
     color: string
     // only defined in case gradients or patterns are used
     // and the datum matches one of the rules.
@@ -46,10 +51,6 @@ export interface ComputedDatum<RawDatum> {
     data: RawDatum
     arc: PieArc
 }
-
-export type DatumIdAccessorFunction<RawDatum> = (datum: RawDatum) => DatumId
-export type DatumValueAccessorFunction<RawDatum> = (datum: RawDatum) => DatumValue
-export type LabelAccessorFunction<RawDatum> = (datum: ComputedDatum<RawDatum>) => string | number
 
 export interface DataProps<RawDatum> {
     data: RawDatum[]
@@ -80,8 +81,8 @@ export type PieCustomLayer<RawDatum> = React.FC<PieCustomLayerProps<RawDatum>>
 export type PieLayer<RawDatum> = PieLayerId | PieCustomLayer<RawDatum>
 
 export type CommonPieProps<RawDatum> = {
-    id: string | DatumIdAccessorFunction<RawDatum>
-    value: string | DatumValueAccessorFunction<RawDatum>
+    id: PropertyAccessor<RawDatum, DatumId>
+    value: PropertyAccessor<RawDatum, number>
     valueFormat?: ValueFormat<number>
 
     margin: Box
@@ -122,7 +123,6 @@ export type PieHandlers<RawDatum, ElementType> = {
 }
 
 export type PieSvgCustomComponents<RawDatum> = {
-    arcLabelComponent?: ArcLabelsProps<ComputedDatum<RawDatum>>['component']
     arcLinkLabelComponent?: ArcLinkLabelsProps<ComputedDatum<RawDatum>>['component']
 }
 
