@@ -1,3 +1,4 @@
+import { ArcTransitionMode } from '@nivo/arcs'
 import { OrdinalColorScaleConfig } from '@nivo/colors'
 import { SunburstTooltip } from './SunburstTooltip'
 import { SunburstLayerId } from './types'
@@ -8,7 +9,7 @@ export const defaultProps = {
 
     cornerRadius: 0,
 
-    layers: ['slices', 'sliceLabels'] as SunburstLayerId[],
+    layers: ['arcs', 'arcLabels'] as SunburstLayerId[],
 
     colors: ({ scheme: 'nivo' } as unknown) as OrdinalColorScaleConfig,
     borderWidth: 1,
@@ -17,15 +18,18 @@ export const defaultProps = {
     childColor: { from: 'color' },
     role: 'img',
 
-    // slices labels
-    enableSliceLabels: false,
-    sliceLabel: 'formattedValue',
-    sliceLabelsSkipAngle: 0,
-    sliceLabelsTextColor: { theme: 'labels.text.fill' },
+    // arc labels
+    enableArcLabels: false,
+    arcLabel: 'formattedValue',
+    arcLabelsRadiusOffset: 0.5,
+    arcLabelsSkipAngle: 0,
+    arcLabelsTextColor: { theme: 'labels.text.fill' },
+
+    animate: true,
+    motionConfig: 'gentle',
+    transitionMode: 'innerRadius' as ArcTransitionMode,
 
     isInteractive: true,
-    animate: false,
-    motionConfig: 'gentle',
 
     defs: [],
     fill: [],

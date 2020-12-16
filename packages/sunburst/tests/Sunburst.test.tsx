@@ -92,23 +92,23 @@ describe('Sunburst', () => {
         it('should use default id and value properties', () => {
             const wrapper = mount(<Sunburst width={400} height={400} data={sampleData} />)
 
-            const slices = wrapper.find('SunburstArc')
-            expect(slices).toHaveLength(5)
+            const arcs = wrapper.find('ArcShape')
+            expect(arcs).toHaveLength(5)
 
-            expect(slices.at(0).prop('node').data.id).toEqual('A')
-            expect(slices.at(0).prop('node').data.value).toEqual(110)
+            expect(arcs.at(0).prop('datum').id).toEqual('A')
+            expect(arcs.at(0).prop('datum').value).toEqual(110)
 
-            expect(slices.at(1).prop('node').data.id).toEqual('B')
-            expect(slices.at(1).prop('node').data.value).toEqual(20)
+            expect(arcs.at(1).prop('datum').id).toEqual('B')
+            expect(arcs.at(1).prop('datum').value).toEqual(20)
 
-            expect(slices.at(2).prop('node').data.id).toEqual('A-1')
-            expect(slices.at(2).prop('node').data.value).toEqual(60)
+            expect(arcs.at(2).prop('datum').id).toEqual('A-1')
+            expect(arcs.at(2).prop('datum').value).toEqual(60)
 
-            expect(slices.at(3).prop('node').data.id).toEqual('A-2')
-            expect(slices.at(3).prop('node').data.value).toEqual(50)
+            expect(arcs.at(3).prop('datum').id).toEqual('A-2')
+            expect(arcs.at(3).prop('datum').value).toEqual(50)
 
-            expect(slices.at(4).prop('node').data.id).toEqual('A-1-I')
-            expect(slices.at(4).prop('node').data.value).toEqual(60)
+            expect(arcs.at(4).prop('datum').id).toEqual('A-1-I')
+            expect(arcs.at(4).prop('datum').value).toEqual(60)
         })
 
         it('should use custom id and value accessors expressed as path', () => {
@@ -122,23 +122,23 @@ describe('Sunburst', () => {
                 />
             )
 
-            const slices = wrapper.find('SunburstArc')
-            expect(slices).toHaveLength(5)
+            const arcs = wrapper.find('ArcShape')
+            expect(arcs).toHaveLength(5)
 
-            expect(slices.at(0).prop('node').data.id).toEqual('A')
-            expect(slices.at(0).prop('node').data.value).toEqual(110)
+            expect(arcs.at(0).prop('datum').id).toEqual('A')
+            expect(arcs.at(0).prop('datum').value).toEqual(110)
 
-            expect(slices.at(1).prop('node').data.id).toEqual('B')
-            expect(slices.at(1).prop('node').data.value).toEqual(20)
+            expect(arcs.at(1).prop('datum').id).toEqual('B')
+            expect(arcs.at(1).prop('datum').value).toEqual(20)
 
-            expect(slices.at(2).prop('node').data.id).toEqual('A-1')
-            expect(slices.at(2).prop('node').data.value).toEqual(60)
+            expect(arcs.at(2).prop('datum').id).toEqual('A-1')
+            expect(arcs.at(2).prop('datum').value).toEqual(60)
 
-            expect(slices.at(3).prop('node').data.id).toEqual('A-2')
-            expect(slices.at(3).prop('node').data.value).toEqual(50)
+            expect(arcs.at(3).prop('datum').id).toEqual('A-2')
+            expect(arcs.at(3).prop('datum').value).toEqual(50)
 
-            expect(slices.at(4).prop('node').data.id).toEqual('A-1-I')
-            expect(slices.at(4).prop('node').data.value).toEqual(60)
+            expect(arcs.at(4).prop('datum').id).toEqual('A-1-I')
+            expect(arcs.at(4).prop('datum').value).toEqual(60)
         })
 
         it('should use custom id and value accessors expressed as functions', () => {
@@ -152,23 +152,23 @@ describe('Sunburst', () => {
                 />
             )
 
-            const slices = wrapper.find('SunburstArc')
-            expect(slices).toHaveLength(5)
+            const arcs = wrapper.find('ArcShape')
+            expect(arcs).toHaveLength(5)
 
-            expect(slices.at(0).prop('node').data.id).toEqual('A')
-            expect(slices.at(0).prop('node').data.value).toEqual(110)
+            expect(arcs.at(0).prop('datum').id).toEqual('A')
+            expect(arcs.at(0).prop('datum').value).toEqual(110)
 
-            expect(slices.at(1).prop('node').data.id).toEqual('B')
-            expect(slices.at(1).prop('node').data.value).toEqual(20)
+            expect(arcs.at(1).prop('datum').id).toEqual('B')
+            expect(arcs.at(1).prop('datum').value).toEqual(20)
 
-            expect(slices.at(2).prop('node').data.id).toEqual('A-1')
-            expect(slices.at(2).prop('node').data.value).toEqual(60)
+            expect(arcs.at(2).prop('datum').id).toEqual('A-1')
+            expect(arcs.at(2).prop('datum').value).toEqual(60)
 
-            expect(slices.at(3).prop('node').data.id).toEqual('A-2')
-            expect(slices.at(3).prop('node').data.value).toEqual(50)
+            expect(arcs.at(3).prop('datum').id).toEqual('A-2')
+            expect(arcs.at(3).prop('datum').value).toEqual(50)
 
-            expect(slices.at(4).prop('node').data.id).toEqual('A-1-I')
-            expect(slices.at(4).prop('node').data.value).toEqual(60)
+            expect(arcs.at(4).prop('datum').id).toEqual('A-1-I')
+            expect(arcs.at(4).prop('datum').value).toEqual(60)
         })
     })
 
@@ -178,7 +178,7 @@ describe('Sunburst', () => {
                 <Sunburst width={400} height={400} data={sampleData} cornerRadius={3} />
             )
 
-            const layer = wrapper.find('SunburstArc').first()
+            const layer = wrapper.find('Arcs')
             expect(layer.exists()).toBeTruthy()
             expect(layer.prop('arcGenerator').cornerRadius()()).toEqual(3)
         })
@@ -195,76 +195,81 @@ describe('Sunburst', () => {
                 />
             )
 
-            const slices = wrapper.find('SunburstArc')
-            expect(slices).toHaveLength(5)
+            const arcs = wrapper.find('ArcShape')
+            expect(arcs).toHaveLength(5)
 
-            expect(slices.at(0).prop('node').data.id).toEqual('A')
-            expect(slices.at(0).prop('node').data.color).toEqual('#7fc97f')
+            expect(arcs.at(0).prop('datum').id).toEqual('A')
+            expect(arcs.at(0).prop('datum').color).toEqual('#7fc97f')
 
-            expect(slices.at(1).prop('node').data.id).toEqual('B')
-            expect(slices.at(1).prop('node').data.color).toEqual('#beaed4')
+            expect(arcs.at(1).prop('datum').id).toEqual('B')
+            expect(arcs.at(1).prop('datum').color).toEqual('#beaed4')
 
-            expect(slices.at(2).prop('node').data.id).toEqual('A-1')
-            expect(slices.at(2).prop('node').data.color).toEqual('#7fc97f')
+            expect(arcs.at(2).prop('datum').id).toEqual('A-1')
+            expect(arcs.at(2).prop('datum').color).toEqual('#7fc97f')
 
-            expect(slices.at(3).prop('node').data.id).toEqual('A-2')
-            expect(slices.at(3).prop('node').data.color).toEqual('#7fc97f')
+            expect(arcs.at(3).prop('datum').id).toEqual('A-2')
+            expect(arcs.at(3).prop('datum').color).toEqual('#7fc97f')
 
-            expect(slices.at(4).prop('node').data.id).toEqual('A-1-I')
-            expect(slices.at(4).prop('node').data.color).toEqual('#7fc97f')
+            expect(arcs.at(4).prop('datum').id).toEqual('A-1-I')
+            expect(arcs.at(4).prop('datum').color).toEqual('#7fc97f')
         })
 
         it('should allow to use colors from data using a path', () => {
             const wrapper = mount(
-                <Sunburst width={400} height={400} data={sampleData} colors={{ datum: 'color' }} />
+                <Sunburst
+                    width={400}
+                    height={400}
+                    data={sampleData}
+                    colors={{ datum: 'data.color' }}
+                />
             )
 
-            const slices = wrapper.find('SunburstArc')
-            expect(slices).toHaveLength(5)
+            const arcs = wrapper.find('ArcShape')
+            expect(arcs).toHaveLength(5)
 
-            expect(slices.at(0).prop('node').data.id).toEqual('A')
-            expect(slices.at(0).prop('node').data.color).toEqual('#ff5500')
+            expect(arcs.at(0).prop('datum').id).toEqual('A')
+            expect(arcs.at(0).prop('datum').color).toEqual('#ff5500')
 
-            expect(slices.at(1).prop('node').data.id).toEqual('B')
-            expect(slices.at(1).prop('node').data.color).toEqual('#ffdd00')
+            expect(arcs.at(1).prop('datum').id).toEqual('B')
+            expect(arcs.at(1).prop('datum').color).toEqual('#ffdd00')
 
-            expect(slices.at(2).prop('node').data.id).toEqual('A-1')
-            expect(slices.at(2).prop('node').data.color).toEqual('#ff5500')
+            expect(arcs.at(2).prop('datum').id).toEqual('A-1')
+            expect(arcs.at(2).prop('datum').color).toEqual('#ff5500')
 
-            expect(slices.at(3).prop('node').data.id).toEqual('A-2')
-            expect(slices.at(3).prop('node').data.color).toEqual('#ff5500')
+            expect(arcs.at(3).prop('datum').id).toEqual('A-2')
+            expect(arcs.at(3).prop('datum').color).toEqual('#ff5500')
 
-            expect(slices.at(4).prop('node').data.id).toEqual('A-1-I')
-            expect(slices.at(4).prop('node').data.color).toEqual('#ff5500')
+            expect(arcs.at(4).prop('datum').id).toEqual('A-1-I')
+            expect(arcs.at(4).prop('datum').color).toEqual('#ff5500')
         })
 
         it('should allow to use colors from data using a function', () => {
             const wrapper = mount(
-                <Sunburst width={400} height={400} data={sampleData} colors={d => d.color} />
+                <Sunburst width={400} height={400} data={sampleData} colors={d => d.data.color} />
             )
 
-            const slices = wrapper.find('SunburstArc')
-            expect(slices).toHaveLength(5)
+            const arcs = wrapper.find('ArcShape')
+            expect(arcs).toHaveLength(5)
 
-            expect(slices.at(0).prop('node').data.id).toEqual('A')
-            expect(slices.at(0).prop('node').data.color).toEqual('#ff5500')
+            expect(arcs.at(0).prop('datum').id).toEqual('A')
+            expect(arcs.at(0).prop('datum').color).toEqual('#ff5500')
 
-            expect(slices.at(1).prop('node').data.id).toEqual('B')
-            expect(slices.at(1).prop('node').data.color).toEqual('#ffdd00')
+            expect(arcs.at(1).prop('datum').id).toEqual('B')
+            expect(arcs.at(1).prop('datum').color).toEqual('#ffdd00')
 
-            expect(slices.at(2).prop('node').data.id).toEqual('A-1')
-            expect(slices.at(2).prop('node').data.color).toEqual('#ff5500')
+            expect(arcs.at(2).prop('datum').id).toEqual('A-1')
+            expect(arcs.at(2).prop('datum').color).toEqual('#ff5500')
 
-            expect(slices.at(3).prop('node').data.id).toEqual('A-2')
-            expect(slices.at(3).prop('node').data.color).toEqual('#ff5500')
+            expect(arcs.at(3).prop('datum').id).toEqual('A-2')
+            expect(arcs.at(3).prop('datum').color).toEqual('#ff5500')
 
-            expect(slices.at(4).prop('node').data.id).toEqual('A-1-I')
-            expect(slices.at(4).prop('node').data.color).toEqual('#ff5500')
+            expect(arcs.at(4).prop('datum').id).toEqual('A-1-I')
+            expect(arcs.at(4).prop('datum').color).toEqual('#ff5500')
         })
     })
 
     describe('patterns & gradients', () => {
-        it('should support patterns', () => {
+        xit('should support patterns', () => {
             const wrapper = mount(
                 <Sunburst
                     width={400}
@@ -283,11 +288,11 @@ describe('Sunburst', () => {
                 />
             )
 
-            const slices = wrapper.find('SunburstArc')
-            expect(slices).toHaveLength(5)
+            const arcs = wrapper.find('ArcShape')
+            expect(arcs).toHaveLength(5)
 
-            expect(slices.at(0).prop('node').data.id).toEqual('A')
-            expect(slices.at(0).prop('node').data.fill).toEqual('url(#pattern.bg.#e8c1a0)')
+            expect(arcs.at(0).prop('datum').id).toEqual('A')
+            expect(arcs.at(0).prop('datum').fill).toEqual('url(#pattern.bg.#e8c1a0)')
 
             const svg = wrapper.find('SvgWrapper')
             expect(svg.at(0).prop('defs')).toEqual([
@@ -312,7 +317,7 @@ describe('Sunburst', () => {
             ])
         })
 
-        it('should support gradients', () => {
+        xit('should support gradients', () => {
             const wrapper = mount(
                 <Sunburst
                     width={400}
@@ -329,13 +334,11 @@ describe('Sunburst', () => {
                 />
             )
 
-            const slices = wrapper.find('SunburstArc')
-            expect(slices).toHaveLength(5)
+            const arcs = wrapper.find('ArcShape')
+            expect(arcs).toHaveLength(5)
 
-            expect(slices.at(0).prop('node').data.id).toEqual('A')
-            expect(slices.at(0).prop('node').data.fill).toEqual(
-                'url(#gradient.1.#e8c1a0.2.#e8c1a0)'
-            )
+            expect(arcs.at(0).prop('datum').id).toEqual('A')
+            expect(arcs.at(0).prop('datum').fill).toEqual('url(#gradient.1.#e8c1a0.2.#e8c1a0)')
 
             const svg = wrapper.find('SvgWrapper')
             expect(svg.at(0).prop('defs')).toEqual([
@@ -364,19 +367,22 @@ describe('Sunburst', () => {
     describe('slice labels', () => {
         it('should be disabled by default', () => {
             const wrapper = mount(<Sunburst width={400} height={400} data={sampleData} />)
-            expect(wrapper.find('SliceLabels')).toHaveLength(0)
+            expect(wrapper.find('ArcLabelsLayer').exists()).toBeFalsy()
         })
 
         it('should render labels when enabled', () => {
             const wrapper = mount(
-                <Sunburst width={400} height={400} data={sampleData} enableSliceLabels />
+                <Sunburst width={400} height={400} data={sampleData} enableArcLabels />
             )
 
-            const labels = wrapper.find('SunburstLabels').find('g')
-            expect(labels).toHaveLength(2)
+            const labels = wrapper.find('ArcLabel')
+            expect(labels).toHaveLength(5)
 
-            expect(labels.at(0).find('text').text()).toEqual('84.62%')
-            expect(labels.at(1).find('text').text()).toEqual('15.38%')
+            expect(labels.at(0).text()).toEqual('84.62%')
+            expect(labels.at(1).text()).toEqual('15.38%')
+            expect(labels.at(2).text()).toEqual('46.15%')
+            expect(labels.at(3).text()).toEqual('38.46%')
+            expect(labels.at(4).text()).toEqual('46.15%')
         })
 
         it('should use formattedValue', () => {
@@ -385,32 +391,28 @@ describe('Sunburst', () => {
                     width={400}
                     height={400}
                     data={sampleData}
-                    enableSliceLabels
+                    enableArcLabels
                     valueFormat=" >-$.2f"
                 />
             )
 
-            const label = wrapper.find('SunburstLabels')
-            const labels = label.find('g')
-            expect(labels).toHaveLength(2)
+            const labels = wrapper.find('ArcLabel')
+            expect(labels).toHaveLength(5)
 
-            const nodes = label
-                .at(0)
-                .prop('nodes')
-                .filter(node => node.depth === 1)
-
-            expect(nodes).toHaveLength(2)
-
-            expect(nodes[0].data.id).toEqual('A')
-            expect(nodes[0].data.value).toEqual(110)
-            expect(nodes[0].data.formattedValue).toEqual('$110.00')
-
-            expect(nodes[1].data.id).toEqual('B')
-            expect(nodes[1].data.value).toEqual(20)
-            expect(nodes[1].data.formattedValue).toEqual('$20.00')
-
+            expect(labels.at(0).prop('datum').formattedValue).toEqual('$110.00')
             expect(labels.at(0).find('text').text()).toEqual('$110.00')
+
+            expect(labels.at(1).prop('datum').formattedValue).toEqual('$20.00')
             expect(labels.at(1).find('text').text()).toEqual('$20.00')
+
+            expect(labels.at(2).prop('datum').formattedValue).toEqual('$60.00')
+            expect(labels.at(2).find('text').text()).toEqual('$60.00')
+
+            expect(labels.at(3).prop('datum').formattedValue).toEqual('$50.00')
+            expect(labels.at(3).find('text').text()).toEqual('$50.00')
+
+            expect(labels.at(4).prop('datum').formattedValue).toEqual('$60.00')
+            expect(labels.at(4).find('text').text()).toEqual('$60.00')
         })
 
         it('should allow to change the label accessor using a path', () => {
@@ -419,16 +421,19 @@ describe('Sunburst', () => {
                     width={400}
                     height={400}
                     data={sampleData}
-                    enableSliceLabels
-                    sliceLabel="id"
+                    enableArcLabels
+                    arcLabel="id"
                 />
             )
 
-            const labels = wrapper.find('SunburstLabels').find('g')
-            expect(labels).toHaveLength(2)
+            const labels = wrapper.find('ArcLabel')
+            expect(labels).toHaveLength(5)
 
-            expect(labels.at(0).find('text').text()).toEqual('A')
-            expect(labels.at(1).find('text').text()).toEqual('B')
+            expect(labels.at(0).text()).toEqual('A')
+            expect(labels.at(1).text()).toEqual('B')
+            expect(labels.at(2).text()).toEqual('A-1')
+            expect(labels.at(3).text()).toEqual('A-2')
+            expect(labels.at(4).text()).toEqual('A-1-I')
         })
 
         it('should allow to change the label accessor using a function', () => {
@@ -437,13 +442,13 @@ describe('Sunburst', () => {
                     width={400}
                     height={400}
                     data={sampleData}
-                    enableSliceLabels
-                    sliceLabel={datum => `${datum.id} - ${datum.value}`}
+                    enableArcLabels
+                    arcLabel={datum => `${datum.id} - ${datum.value}`}
                 />
             )
 
-            const labels = wrapper.find('SunburstLabels').find('g')
-            expect(labels).toHaveLength(2)
+            const labels = wrapper.find('ArcLabel')
+            expect(labels).toHaveLength(5)
 
             expect(labels.at(0).find('text').text()).toEqual('A - 110')
             expect(labels.at(1).find('text').text()).toEqual('B - 20')
@@ -457,7 +462,7 @@ describe('Sunburst', () => {
                 <Sunburst width={400} height={400} data={sampleData} onClick={onClick} />
             )
 
-            wrapper.find('SunburstArc').at(0).simulate('click')
+            wrapper.find('ArcShape').at(0).simulate('click')
 
             expect(onClick).toHaveBeenCalledTimes(1)
             const [datum] = onClick.mock.calls[0]
@@ -470,7 +475,7 @@ describe('Sunburst', () => {
                 <Sunburst width={400} height={400} data={sampleData} onMouseEnter={onMouseEnter} />
             )
 
-            wrapper.find('SunburstArc').at(1).simulate('mouseenter')
+            wrapper.find('ArcShape').at(1).simulate('mouseenter')
 
             expect(onMouseEnter).toHaveBeenCalledTimes(1)
             const [datum] = onMouseEnter.mock.calls[0]
@@ -483,7 +488,7 @@ describe('Sunburst', () => {
                 <Sunburst width={400} height={400} data={sampleData} onMouseMove={onMouseMove} />
             )
 
-            wrapper.find('SunburstArc').at(2).simulate('mousemove')
+            wrapper.find('ArcShape').at(2).simulate('mousemove')
 
             expect(onMouseMove).toHaveBeenCalledTimes(1)
             const [datum] = onMouseMove.mock.calls[0]
@@ -496,7 +501,7 @@ describe('Sunburst', () => {
                 <Sunburst width={400} height={400} data={sampleData} onMouseLeave={onMouseLeave} />
             )
 
-            wrapper.find('SunburstArc').at(0).simulate('mouseleave')
+            wrapper.find('ArcShape').at(0).simulate('mouseleave')
 
             expect(onMouseLeave).toHaveBeenCalledTimes(1)
             const [datum] = onMouseLeave.mock.calls[0]
@@ -522,18 +527,18 @@ describe('Sunburst', () => {
                 />
             )
 
-            wrapper.find('SunburstArc').at(0).simulate('click')
-            wrapper.find('SunburstArc').at(0).simulate('mouseenter')
-            wrapper.find('SunburstArc').at(0).simulate('mousemove')
-            wrapper.find('SunburstArc').at(0).simulate('mouseleave')
+            wrapper.find('ArcShape').at(0).simulate('click')
+            wrapper.find('ArcShape').at(0).simulate('mouseenter')
+            wrapper.find('ArcShape').at(0).simulate('mousemove')
+            wrapper.find('ArcShape').at(0).simulate('mouseleave')
 
             expect(onClick).not.toHaveBeenCalled()
             expect(onMouseEnter).not.toHaveBeenCalled()
             expect(onMouseMove).not.toHaveBeenCalled()
             expect(onMouseLeave).not.toHaveBeenCalled()
 
-            wrapper.find('SunburstArc').forEach(slice => {
-                const shape = slice.find('path')
+            wrapper.find('ArcShape').forEach(arc => {
+                const shape = arc.find('path')
                 expect(shape.prop('onClick')).toBeUndefined()
                 expect(shape.prop('onMouseEnter')).toBeUndefined()
                 expect(shape.prop('onMouseMove')).toBeUndefined()
@@ -548,7 +553,7 @@ describe('Sunburst', () => {
 
             expect(wrapper.find('SunburstTooltip').exists()).toBeFalsy()
 
-            wrapper.find('SunburstArc').at(1).simulate('mouseenter')
+            wrapper.find('ArcShape').at(1).simulate('mouseenter')
 
             const tooltip = wrapper.find('SunburstTooltip')
             expect(tooltip.exists()).toBeTruthy()
@@ -561,7 +566,7 @@ describe('Sunburst', () => {
                 <Sunburst width={400} height={400} data={sampleData} tooltip={CustomTooltip} />
             )
 
-            wrapper.find('SunburstArc').at(1).simulate('mouseenter')
+            wrapper.find('ArcShape').at(1).simulate('mouseenter')
 
             const tooltip = wrapper.find(CustomTooltip)
             expect(tooltip.exists()).toBeTruthy()
@@ -572,10 +577,10 @@ describe('Sunburst', () => {
     describe('layers', () => {
         it('should support disabling a layer', () => {
             const wrapper = mount(<Sunburst width={400} height={400} data={sampleData} />)
-            expect(wrapper.find('SunburstArc')).toHaveLength(5)
+            expect(wrapper.find('ArcShape')).toHaveLength(5)
 
-            wrapper.setProps({ layers: ['sliceLabels'] })
-            expect(wrapper.find('SunburstArc')).toHaveLength(0)
+            wrapper.setProps({ layers: ['arcLabels'] })
+            expect(wrapper.find('ArcShape')).toHaveLength(0)
         })
 
         it('should support adding a custom layer', () => {
@@ -586,7 +591,7 @@ describe('Sunburst', () => {
                     width={400}
                     height={400}
                     data={sampleData}
-                    layers={['slices', 'sliceLabels', CustomLayer]}
+                    layers={['arcs', 'arcLabels', CustomLayer]}
                 />
             )
 

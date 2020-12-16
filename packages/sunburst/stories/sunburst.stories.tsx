@@ -2,10 +2,15 @@ import React, { useState } from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { withKnobs, boolean, select } from '@storybook/addon-knobs'
-import { generateLibTree } from '@nivo/generators'
 // @ts-ignore
 import { linearGradientDef, patternDotsDef, useTheme } from '@nivo/core'
-import { Sunburst, NormalizedDatum } from '../src'
+import { generateLibTree } from '@nivo/generators'
+import { Sunburst, ComputedDatum, SunburstCustomLayerProps } from '../src'
+
+interface RawDatum {
+    name: string
+    loc: number
+}
 
 const commonProperties = {
     width: 900,
@@ -22,31 +27,27 @@ stories.addDecorator(withKnobs)
 stories.add('default', () => <Sunburst {...commonProperties} />)
 
 stories.add('with child color modifier', () => (
-    <Sunburst
+    <Sunburst<RawDatum>
         {...commonProperties}
         childColor={{ from: 'color', modifiers: [['brighter', 0.13]] }}
     />
 ))
 
 stories.add('with child colors independent of parent', () => (
-    <Sunburst {...commonProperties} childColor="noinherit" />
+    <Sunburst<RawDatum> {...commonProperties} childColor="noinherit" />
 ))
 
 const customPalette = ['#ffd700', '#ffb14e', '#fa8775', '#ea5f94', '#cd34b5', '#9d02d7', '#0000ff']
 
 stories.add('with custom colors', () => (
-    <Sunburst
-        {...commonProperties}
-        colors={({ value }) => customPalette[value % (customPalette.length - 1)]}
-        childColor="noinherit"
-    />
+    <Sunburst<RawDatum> {...commonProperties} colors={customPalette} />
 ))
 
 stories.add('with formatted tooltip value', () => (
-    <Sunburst {...commonProperties} valueFormat=" >-$,.2f" />
+    <Sunburst<RawDatum> {...commonProperties} valueFormat=" >-$,.2f" />
 ))
 
-const CustomTooltip = ({ id, value, color }: NormalizedDatum<unknown>) => {
+const CustomTooltip = ({ id, value, color }: ComputedDatum<unknown>) => {
     const theme = useTheme()
 
     return (
@@ -57,7 +58,7 @@ const CustomTooltip = ({ id, value, color }: NormalizedDatum<unknown>) => {
 }
 
 stories.add('custom tooltip', () => (
-    <Sunburst
+    <Sunburst<RawDatum>
         {...commonProperties}
         tooltip={CustomTooltip}
         theme={{
@@ -71,7 +72,7 @@ stories.add('custom tooltip', () => (
 ))
 
 stories.add('enter/leave (check actions)', () => (
-    <Sunburst
+    <Sunburst<RawDatum>
         {...commonProperties}
         onMouseEnter={action('onMouseEnter')}
         onMouseLeave={action('onMouseLeave')}
@@ -79,7 +80,7 @@ stories.add('enter/leave (check actions)', () => (
 ))
 
 stories.add('patterns & gradients', () => (
-    <Sunburst
+    <Sunburst<RawDatum>
         {...commonProperties}
         defs={[
             linearGradientDef('gradient', [
@@ -90,18 +91,20 @@ stories.add('patterns & gradients', () => (
             patternDotsDef('pattern', {
                 background: 'inherit',
                 color: '#ffffff',
-                size: 1,
-                padding: 4,
+                size: 2,
+                padding: 3,
                 stagger: true,
             }),
         ]}
         fill={[
             {
-                match: node => ['viz', 'text', 'utils'].includes(node.data.id),
+                match: (node: ComputedDatum<RawDatum>) =>
+                    ['viz', 'text', 'utils'].includes(node.id),
                 id: 'gradient',
             },
             {
-                match: node => ['set', 'generators', 'misc'].includes(node.data.id),
+                match: (node: ComputedDatum<RawDatum>) =>
+                    ['set', 'generators', 'misc'].includes(node.id),
                 id: 'pattern',
             },
         ]}
@@ -127,15 +130,22 @@ stories.add(
         return (
             <>
                 <button onClick={() => setData(commonProperties.data)}>Reset</button>
-                <Sunburst
+                <Sunburst<RawDatum>
                     {...commonProperties}
-                    animate={boolean('animate', false)}
+                    animate={boolean('animate', true)}
                     motionConfig={select(
                         'motion config',
                         ['default', 'gentle', 'wobbly', 'stiff', 'slow', 'molasses'],
                         'gentle'
                     )}
+                    enableArcLabels
+                    arcLabelsSkipAngle={12}
+                    arcLabelsTextColor={{
+                        from: 'color',
+                        modifiers: [['darker', 1.6]],
+                    }}
                     data={data}
+                    transitionMode="pushIn"
                     onClick={clickedData => {
                         const foundObject = findObject(flatten(data.children), clickedData.id)
                         if (foundObject && foundObject.children) {
@@ -155,7 +165,7 @@ stories.add(
     }
 )
 
-const CenteredMetric = ({ nodes, centerX, centerY }) => {
+const CenteredMetric = ({ nodes, centerX, centerY }: SunburstCustomLayerProps<RawDatum>) => {
     const total = nodes.reduce((total, datum) => total + datum.value, 0)
 
     return (
@@ -169,11 +179,11 @@ const CenteredMetric = ({ nodes, centerX, centerY }) => {
                 fontWeight: 600,
             }}
         >
-            {Number.parseFloat(total).toExponential(2)}
+            {Number.parseFloat(`${total}`).toExponential(2)}
         </text>
     )
 }
 
 stories.add('adding a metric in the center using a custom layer', () => (
-    <Sunburst {...commonProperties} layers={['slices', 'sliceLabels', CenteredMetric]} />
+    <Sunburst<RawDatum> {...commonProperties} layers={['arcs', 'arcLabels', CenteredMetric]} />
 ))

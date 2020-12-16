@@ -17,7 +17,7 @@ export const useArcGenerator = ({
 }: {
     cornerRadius?: number
     padAngle?: number
-}): ArcGenerator =>
+} = {}): ArcGenerator =>
     useMemo(
         () =>
             d3Arc<Arc>()

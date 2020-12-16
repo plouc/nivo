@@ -414,7 +414,7 @@ describe('Pie', () => {
                     width={400}
                     height={400}
                     data={sampleData}
-                    arcLabelComponent={CustomArcLabel}
+                    arcLabelsComponent={CustomArcLabel}
                     animate={false}
                 />
             )
@@ -700,7 +700,7 @@ describe('Pie', () => {
             )
             expect(wrapper.find('ArcShape')).toHaveLength(3)
 
-            wrapper.setProps({ layers: ['radialLabels', 'sliceLabels', 'legends'] })
+            wrapper.setProps({ layers: ['arcLinkLabels', 'arcLabels', 'legends'] })
             expect(wrapper.find('ArcShape')).toHaveLength(0)
         })
 
@@ -713,7 +713,7 @@ describe('Pie', () => {
                     height={400}
                     data={sampleData}
                     innerRadius={0.5}
-                    layers={['slices', 'radialLabels', 'sliceLabels', 'legends', CustomLayer]}
+                    layers={['arcs', 'arcLinkLabels', 'arcLabels', 'legends', CustomLayer]}
                     animate={false}
                 />
             )

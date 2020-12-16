@@ -1,13 +1,5 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
-import { ResponsiveSunburst } from '@nivo/sunburst'
+import { defaultProps, ResponsiveSunburst } from '@nivo/sunburst'
 import { generateLibTree } from '@nivo/generators'
 import { omit } from 'lodash'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
@@ -19,12 +11,14 @@ const Tooltip = () => {
     /* return custom tooltip */
 }
 
+const generateData = () => generateLibTree()
+
 const initialProperties = {
     margin: {
-        top: 40,
-        right: 20,
-        bottom: 20,
-        left: 20,
+        top: 10,
+        right: 10,
+        bottom: 10,
+        left: 10,
     },
 
     id: 'name',
@@ -33,15 +27,26 @@ const initialProperties = {
     cornerRadius: 2,
 
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: { theme: 'background' },
 
     colors: { scheme: 'nivo' },
     childColor: {
         from: 'color',
+        modifiers: [['brighter', 0.1]],
     },
 
-    animate: false,
-    motionConfig: 'gentle',
+    enableArcLabels: true,
+    arcLabel: 'formattedValue',
+    arcLabelsRadiusOffset: 0.5,
+    arcLabelsSkipAngle: 10,
+    arcLabelsTextColor: {
+        from: 'color',
+        modifiers: [['darker', 1.4]],
+    },
+
+    animate: defaultProps.animate,
+    motionConfig: defaultProps.motionConfig,
+    transitionMode: defaultProps.transitionMode,
 
     defs: [],
     fill: [],
@@ -63,7 +68,7 @@ const Sunburst = () => {
             properties={groups}
             initialProperties={initialProperties}
             propertiesMapper={mapper}
-            generateData={generateLibTree}
+            generateData={generateData}
         >
             {(properties, data, theme, logAction) => {
                 return (

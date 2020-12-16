@@ -1,11 +1,11 @@
 import React from 'react'
 import { BasicTooltip } from '@nivo/tooltip'
-import { NormalizedDatum } from './types'
+import { ComputedDatum } from './types'
 
 export const SunburstTooltip = <RawDatum,>({
-    color,
     id,
     formattedValue,
-}: NormalizedDatum<RawDatum>) => (
+    color,
+}: ComputedDatum<RawDatum>) => (
     <BasicTooltip id={id} value={formattedValue} enableChip={true} color={color} />
 )
