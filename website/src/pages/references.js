@@ -1,11 +1,3 @@
-/*
- * This file is part of the nivo project.
- *
- * (c) 2016 Raphaël Benitte
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
 import Layout from '../components/Layout'
 import SEO from '../components/seo'
@@ -13,6 +5,44 @@ import PageContent from '../components/PageContent'
 import { DescriptionBlock } from '../components/styled'
 import GitHubIcon from 'react-icons/lib/fa/github'
 import styled, { css } from 'styled-components'
+
+const references = [
+    {
+        name: 'State of JS 2020',
+        url: 'https://2020.stateofjs.com/',
+        github: 'https://github.com/StateOfJS/StateOfJS-2020',
+    },
+    {
+        name: 'State of JS 2019',
+        url: 'https://2019.stateofjs.com/',
+        github: 'https://github.com/StateOfJS/StateOfJS-2019',
+    },
+    {
+        name: 'State of JS 2018',
+        url: 'https://2018.stateofjs.com/',
+        github: 'https://github.com/StateOfJS/StateOfJS',
+    },
+    {
+        name: 'State of JS 2017',
+        url: 'https://2017.stateofjs.com/',
+        github: 'https://github.com/StateOfJS/StateOfJS',
+    },
+    {
+        name: 'State of CSS 2020',
+        url: 'https://2020.stateofcss.com/',
+        github: 'https://github.com/StateOfJS/StateOfCSS-2020',
+    },
+    {
+        name: 'State of CSS 2019',
+        url: 'https://2019.stateofcss.com/',
+        github: 'https://github.com/StateOfJS/StateOfCSS-2019',
+    },
+    {
+        name: 'Spacetime reviews',
+        url: 'https://spacetime.graph.zone/',
+        github: 'https://github.com/johnymontana/spacetime-reviews',
+    },
+]
 
 const References = () => {
     return (
@@ -36,57 +66,23 @@ const References = () => {
                     </p>
                     <h2>References</h2>
                     <ul>
-                        <li>
-                            <a
-                                href="https://2017.stateofjs.com/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                State of js 2017
-                            </a>
-                            <GitHubLink
-                                href="https://github.com/StateOfJS/StateOfJS"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                title="GitHub"
-                            >
-                                <GitHubIcon />
-                            </GitHubLink>
-                        </li>
-                        <li>
-                            <a
-                                href="https://batbstats.trevorblades.com/skaters"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                Batbstats
-                            </a>
-                            <GitHubLink
-                                href="https://github.com/batbstats/client"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                title="GitHub"
-                            >
-                                <GitHubIcon />
-                            </GitHubLink>
-                        </li>
-                        <li>
-                            <a
-                                href="https://spacetime.graph.zone/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                Spacetime reviews
-                            </a>
-                            <GitHubLink
-                                href="https://github.com/johnymontana/spacetime-reviews"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                title="GitHub"
-                            >
-                                <GitHubIcon />
-                            </GitHubLink>
-                        </li>
+                        {references.map((reference, index) => (
+                            <li>
+                                <a href={reference.url} target="_blank" rel="noopener noreferrer">
+                                    {reference.name}
+                                </a>
+                                {reference.github && (
+                                    <GitHubLink
+                                        href={reference.github}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        title="GitHub"
+                                    >
+                                        <GitHubIcon />
+                                    </GitHubLink>
+                                )}
+                            </li>
+                        ))}
                     </ul>
                 </DescriptionBlock>
             </PageContent>
