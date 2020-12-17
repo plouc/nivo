@@ -4,7 +4,7 @@ import { DatumWithArc } from './types'
 
 /**
  * Make sure an angle (expressed in radians)
- * always fall in the range 0~2*PI.
+ * always falls in the range 0~2*PI.
  */
 export const getNormalizedAngle = (angle: number) => {
     let normalizedAngle = angle % (Math.PI * 2)
