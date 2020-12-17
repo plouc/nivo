@@ -231,7 +231,7 @@ declare module '@nivo/core' {
     }
 
     export type PatternSquaresDef = Omit<PatternDotsDef, 'type'> & {
-        type: 'patternDots'
+        type: 'patternSquares'
     }
 
     export type PatternLinesDef = {
