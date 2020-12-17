@@ -28,6 +28,7 @@ export const blendModes = [
 
 export const blendModePropType = PropTypes.oneOf(blendModes)
 
+export * from './clip'
 export * from './colors'
 export * from './curve'
 export * from './defs'

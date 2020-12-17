@@ -16,3 +16,6 @@ export const defaultMargin = {
     bottom: 0,
     left: 0,
 }
+
+// overflow
+export const defaultOverflow = false
