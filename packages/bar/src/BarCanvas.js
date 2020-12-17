@@ -9,7 +9,7 @@
 import React, { Component } from 'react'
 import uniqBy from 'lodash/uniqBy'
 import setDisplayName from 'recompose/setDisplayName'
-import { getRelativeCursor, isCursorInRect, Container } from '@bitbloom/nivo-core'
+import { clip, getRelativeCursor, isCursorInRect, Container } from '@bitbloom/nivo-core'
 import { renderAxesToCanvas, renderGridLinesToCanvas } from '@bitbloom/nivo-axes'
 import { renderLegendToCanvas } from '@bitbloom/nivo-legends'
 import { BasicTooltip } from '@bitbloom/nivo-tooltip'
@@ -73,6 +73,7 @@ class BarCanvas extends Component {
             axisBottom,
             axisLeft,
 
+            overflow,
             theme,
             getColor,
             borderWidth,
@@ -193,6 +194,8 @@ class BarCanvas extends Component {
             left: axisLeft,
             theme,
         })
+
+        if (!overflow) clip({ctx: this.ctx, margin, width: outerWidth, height: outerHeight})
 
         result.bars.forEach((bar, index) => {
             const { x, y, color, width, height } = bar
