@@ -148,7 +148,7 @@ const interpolateTextAnchor = (
  * as `interpolateLink`, unfortunately `react-spring` does not support
  * multiple output values from a single interpolation.
  *
- * We should revise this if `react-spring` add this feature at some point.
+ * We should revise this if `react-spring` adds this feature at some point.
  */
 const interpolateTextPosition = (
     startAngleValue: SpringValue<AnimatedProps['startAngle']>,

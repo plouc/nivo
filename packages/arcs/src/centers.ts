@@ -103,7 +103,7 @@ export const useArcCenters = <
     // 1.0: outer radius
     offset?: number
     // arcs with a length below this (end angle - start angle in degrees)
-    // are gonna be excluded, this can be typically used to avoid having
+    // are going to be excluded, this can typically be used to avoid having
     // overlapping labels.
     skipAngle?: number
     // this can be used to append extra properties to the centers,

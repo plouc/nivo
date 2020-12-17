@@ -23,7 +23,7 @@ export const useArcLinks = <
 }: {
     data: Datum[]
     // arcs with a length below this (end angle - start angle in degrees)
-    // are gonna be excluded, this can be typically used to avoid having
+    // are going to be excluded, this can typically be used to avoid having
     // overlapping labels.
     skipAngle?: number
     // offset from arc outer radius in pixels

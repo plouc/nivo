@@ -3,8 +3,8 @@ import { ArcGenerator } from './types'
 
 /**
  * Directly animating paths for arcs leads to sub-optimal results
- * as the interpolation is gonna be linear while we deal with polar coordinates,
- * this interpolator is gonna generate proper arc transitions.
+ * as the interpolation is going to be linear while we deal with polar coordinates,
+ * this interpolator is going to generate proper arc transitions.
  * It should be used with the `useAnimatedArc` or `useArcsTransition` hooks.
  */
 export const interpolateArc = (
