@@ -187,6 +187,7 @@ export interface LineProps {
     onClick?: PointMouseHandler
 
     debugMesh?: boolean
+    overflow?: boolean
 
     enableSlices?: 'x' | 'y' | false
     debugSlices?: boolean

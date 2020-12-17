@@ -118,6 +118,7 @@ const commonPropTypes = {
     isInteractive: PropTypes.bool.isRequired,
     debugMesh: PropTypes.bool.isRequired,
 
+    overflow: PropTypes.bool.isRequired,
     tooltip: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 
     enableSlices: PropTypes.oneOf(['x', 'y', false]).isRequired,
