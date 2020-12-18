@@ -22,8 +22,7 @@
     "index.d.ts"
   ],
   "dependencies": {
-    "lodash": "^4.17.11",
-    "recompose": "^0.30.0"
+    "lodash": "^4.17.11"
   },
   "devDependencies": {
     "@nivo/core": "0.67.0"
