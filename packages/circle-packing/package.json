@@ -21,10 +21,12 @@
   ],
   "main": "./dist/nivo-circle-packing.cjs.js",
   "module": "./dist/nivo-circle-packing.es.js",
+  "typings": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
-    "dist/"
+    "dist/",
+    "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
     "@nivo/colors": "0.67.0",
