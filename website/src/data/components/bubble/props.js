@@ -16,7 +16,7 @@ import {
 
 const props = [
     {
-        key: 'root',
+        key: 'data',
         help: 'The hierarchical data object.',
         type: 'object',
         required: true,

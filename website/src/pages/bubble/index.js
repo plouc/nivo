@@ -8,7 +8,7 @@
  */
 import React from 'react'
 import { patternLinesDef } from '@nivo/core'
-import { ResponsiveBubble, BubbleDefaultProps } from '@nivo/circle-packing'
+import { ResponsiveCirclePack, BubbleDefaultProps } from '@nivo/circle-packing'
 import { generateLibTree } from '@nivo/generators'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bubble/meta.yml'
@@ -65,7 +65,7 @@ const initialProperties = {
 const Bubble = () => {
     return (
         <ComponentTemplate
-            name="Bubble"
+            name="CirclePack"
             meta={meta.Bubble}
             icon="circle-packing"
             flavors={meta.flavors}
@@ -75,12 +75,11 @@ const Bubble = () => {
             defaultProperties={BubbleDefaultProps}
             propertiesMapper={mapper}
             generateData={generateLibTree}
-            dataKey="root"
         >
             {(properties, data, theme, logAction) => {
                 return (
-                    <ResponsiveBubble
-                        root={data}
+                    <ResponsiveCirclePack
+                        data={data}
                         {...properties}
                         theme={theme}
                         onClick={({ children, parent, ...node }) => {
