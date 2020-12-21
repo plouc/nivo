@@ -125,6 +125,7 @@ declare module '@bitbloom/nivo-bar' {
         borderWidth: number
         theme: Theme
 
+        overflow: boolean
         isInteractive: boolean
         tooltipFormat: string | ValueFormatter
         tooltip: TooltipProp

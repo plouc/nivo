@@ -75,6 +75,7 @@ export const BarPropTypes = {
     borderColor: inheritedColorPropType.isRequired,
     getBorderColor: PropTypes.func.isRequired,
 
+    overflow: PropTypes.bool,
     isInteractive: PropTypes.bool,
     onClick: PropTypes.func.isRequired,
     onMouseEnter: PropTypes.func.isRequired,
