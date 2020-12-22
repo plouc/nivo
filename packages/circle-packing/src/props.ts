@@ -5,6 +5,7 @@ export const defaultProps = {
     id: 'id',
     value: 'value',
     padding: 0,
+    leavesOnly: false,
     layers: ['circles', 'labels'] as CirclePackingLayerId[],
     colors: { scheme: 'nivo' } as OrdinalColorScaleConfig,
     colorBy: 'id' as const,
