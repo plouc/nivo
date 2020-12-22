@@ -1,5 +1,5 @@
 import React from 'react'
-import { ResponsiveCirclePackingHtml, BubbleHtmlDefaultProps } from '@nivo/circle-packing'
+import { ResponsiveCirclePackingHtml, defaultProps } from '@nivo/circle-packing'
 import { generateLibTree } from '@nivo/generators'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/circle-packing/meta.yml'
@@ -18,13 +18,14 @@ const initialProperties = {
     id: 'name',
     value: 'loc',
     colors: { scheme: 'spectral' },
-    childColor: {
-        from: 'color',
-        modifiers: [['darker', 0.3]],
-    },
+    colorBy: 'depth',
+    //childColor: {
+    //    from: 'color',
+    //    modifiers: [['darker', 0.3]],
+    //},
+    childColor: 'noinherit',
     padding: 1,
     leavesOnly: false,
-
     enableLabel: true,
     label: 'id',
     labelSkipRadius: 10,
@@ -32,18 +33,14 @@ const initialProperties = {
         from: 'color',
         modifiers: [['darker', 0.8]],
     },
-
     borderWidth: 0,
     borderColor: {
         from: 'color',
         modifiers: [['darker', 0.3]],
     },
-
     animate: true,
     motionConfig: 'gentle',
-
     isInteractive: true,
-
     isZoomable: true,
 }
 
@@ -57,7 +54,7 @@ const CirclePackingHtml = () => {
             currentFlavor="html"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={BubbleHtmlDefaultProps}
+            defaultProperties={defaultProps}
             propertiesMapper={mapper}
             generateData={generateData}
         >

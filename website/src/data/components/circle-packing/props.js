@@ -1,11 +1,10 @@
-import { BubbleDefaultProps as defaults } from '@nivo/circle-packing'
+import { defaultProps } from '@nivo/circle-packing'
 import {
     themeProperty,
     motionProperties,
     defsProperties,
     groupProperties,
 } from '../../../lib/componentProperties'
-import { defaultProps } from '@nivo/sunburst'
 
 const props = [
     {
@@ -84,7 +83,7 @@ const props = [
         `,
         type: 'number',
         required: false,
-        defaultValue: defaults.padding,
+        defaultValue: defaultProps.padding,
         controlType: 'range',
         group: 'Base',
         controlOptions: {
@@ -98,7 +97,7 @@ const props = [
         help: 'Only render leaf nodes (skip parent nodes).',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.leavesOnly,
+        defaultValue: defaultProps.leavesOnly,
         controlType: 'switch',
         group: 'Base',
     },
@@ -188,7 +187,7 @@ const props = [
         help: 'Width of circle border.',
         type: 'number',
         required: false,
-        defaultValue: defaults.borderWidth,
+        defaultValue: defaultProps.borderWidth,
         controlType: 'lineWidth',
         group: 'Style',
     },
@@ -201,7 +200,7 @@ const props = [
         `,
         type: 'string | object | Function',
         required: false,
-        defaultValue: defaults.borderColor,
+        defaultValue: defaultProps.borderColor,
         controlType: 'inheritedColor',
         group: 'Style',
     },
@@ -211,7 +210,7 @@ const props = [
         help: 'Enable/disable labels.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.enableLabel,
+        defaultValue: defaultProps.enableLabel,
         controlType: 'switch',
         group: 'Labels',
     },
@@ -225,7 +224,7 @@ const props = [
         `,
         type: 'string | Function',
         required: false,
-        defaultValue: defaults.label,
+        defaultValue: defaultProps.label,
         controlType: 'choices',
         group: 'Labels',
         controlOptions: {
@@ -254,7 +253,7 @@ const props = [
         `,
         type: 'string | object | Function',
         required: false,
-        defaultValue: defaults.labelTextColor,
+        defaultValue: defaultProps.labelTextColor,
         controlType: 'inheritedColor',
         group: 'Labels',
     },
@@ -263,7 +262,7 @@ const props = [
         help: 'Skip label rendering if node radius is lower than given value, 0 to disable.',
         type: 'number',
         required: false,
-        defaultValue: defaults.labelSkipRadius,
+        defaultValue: defaultProps.labelSkipRadius,
         controlType: 'range',
         group: 'Labels',
         controlOptions: {
@@ -278,7 +277,7 @@ const props = [
         help: 'Enable/disable interactivity.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.isInteractive,
+        defaultValue: defaultProps.isInteractive,
         controlType: 'switch',
         group: 'Interactivity',
     },
@@ -288,7 +287,7 @@ const props = [
         help: `Enable/disable zooming ('isInteractive' must also be 'true').`,
         type: 'boolean',
         required: false,
-        defaultValue: defaults.isZoomable,
+        defaultValue: defaultProps.isZoomable,
         controlType: 'switch',
         group: 'Interactivity',
     },

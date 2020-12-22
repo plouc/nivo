@@ -1,19 +1,22 @@
 import React from 'react'
 import { generateLibTree } from '@nivo/generators'
-import { ResponsiveBubbleCanvas } from '@nivo/circle-packing'
+import { ResponsiveCirclePackingCanvas } from '@nivo/circle-packing'
 import { HomeItem, HomeItemLabel } from './styled'
 
 export const HomeCirclePacking = ({ reversedColors }) => {
     return (
         <HomeItem to="/circle-packing">
-            <ResponsiveBubbleCanvas
-                root={generateLibTree()}
-                identity="name"
-                enableLabel={false}
+            <ResponsiveCirclePackingCanvas
+                data={generateLibTree()}
+                id="name"
                 value="loc"
+                colors={reversedColors}
+                colorBy="depth"
+                childColor="noinherit"
+                padding={1}
+                enableLabel={false}
                 animate={false}
                 isInteractive={false}
-                colors={reversedColors}
             />
             <HomeItemLabel>
                 <span>CirclePacking documentation</span>

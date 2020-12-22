@@ -11,28 +11,13 @@ import { CirclePackingLayerId, CirclePackingSvgProps, ComputedDatum } from './ty
 import { useCirclePacking, useCirclePackingLayerContext } from './hooks'
 import { Circles } from './Circles'
 import { CircleSvg } from './CircleSvg'
-
-const defaultProps = {
-    id: 'id',
-    value: 'value',
-    padding: 0,
-    layers: ['circles', 'labels'] as CirclePackingLayerId[],
-    colors: { scheme: 'nivo' } as OrdinalColorScaleConfig,
-    childColor: {
-        from: 'color',
-        modifiers: [['darker', 0.3]],
-    },
-    isInteractive: true,
-    animate: true,
-    motionConfig: 'gentle',
-    role: 'img',
-}
+import { defaultProps } from './props'
 
 const InnerCirclePacking = <RawDatum,>({
     data,
     id = defaultProps.id,
     value = defaultProps.value,
-    // valueFormat,
+    valueFormat,
     width,
     height,
     margin: partialMargin,
@@ -40,6 +25,7 @@ const InnerCirclePacking = <RawDatum,>({
     colors = defaultProps.colors as OrdinalColorScaleConfig<
         Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>
     >,
+    colorBy = defaultProps.colorBy,
     childColor = defaultProps.childColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
     layers = defaultProps.layers,
     role = defaultProps.role,
@@ -58,10 +44,12 @@ const InnerCirclePacking = <RawDatum,>({
         data,
         id,
         value,
+        valueFormat,
         width: innerWidth,
         height: innerHeight,
         padding,
         colors,
+        colorBy,
         childColor,
     })
 
