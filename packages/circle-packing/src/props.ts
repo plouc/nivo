@@ -1,5 +1,6 @@
 import { OrdinalColorScaleConfig } from '@nivo/colors'
 import { CirclePackingLayerId } from './types'
+import { CirclePackingTooltip } from './CirclePackingTooltip'
 
 export const defaultProps = {
     id: 'id',
@@ -21,6 +22,7 @@ export const defaultProps = {
     },
     labelsSkipRadius: 8,
     isInteractive: true,
+    tooltip: CirclePackingTooltip,
     animate: true,
     motionConfig: 'gentle',
     role: 'img',

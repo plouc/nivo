@@ -1,9 +1,15 @@
+import { useMemo, MouseEvent } from 'react'
 import { pack as d3Pack, hierarchy as d3Hierarchy } from 'd3-hierarchy'
 import cloneDeep from 'lodash/cloneDeep'
 import sortBy from 'lodash/sortBy'
 import { usePropertyAccessor, useValueFormatter, useTheme } from '@nivo/core'
 import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
-import { DatumWithChildren, CirclePackSvgProps, ComputedDatum } from './types'
+import {
+    CirclePackingCommonProps,
+    CirclePackingCustomLayerProps,
+    ComputedDatum,
+    MouseHandlers,
+} from './types'
 
 export const useCirclePacking = <RawDatum extends DatumWithChildren<RawDatum>>({
     data,
@@ -28,6 +34,8 @@ export const useCirclePacking = <RawDatum extends DatumWithChildren<RawDatum>>({
     colorBy: CirclePackingCommonProps<RawDatum>['colorBy']
     childColor: CirclePackingCommonProps<RawDatum>['childColor']
 }): ComputedDatum<RawDatum>[] => {
+    console.log('compute nodes')
+
     const getId = usePropertyAccessor<RawDatum, string | number>(id)
     const getValue = usePropertyAccessor<RawDatum, number>(value)
 
@@ -114,6 +122,7 @@ export const useCirclePackingLabels = <RawDatum>({
     const theme = useTheme()
     const getTextColor = useInheritedColor<ComputedDatum<RawDatum>>(textColor, theme)
 
+    // computing the labels
     const labels = useMemo(
         () =>
             nodes
@@ -126,12 +135,45 @@ export const useCirclePackingLabels = <RawDatum>({
         [nodes, skipRadius, getLabel, getTextColor]
     )
 
+    // apply extra filtering if provided
     return useMemo(() => {
         if (!filter) return labels
 
         return labels.filter(filter)
     }, [labels, filter])
 }
+
+export const useBoundMouseHandlers = <RawDatum>(
+    node: ComputedDatum<RawDatum>,
+    { onMouseEnter, onMouseMove, onMouseLeave, onClick }: MouseHandlers<RawDatum>
+): Partial<
+    Record<'onMouseEnter' | 'onMouseMove' | 'onMouseLeave' | 'onClick', (event: MouseEvent) => void>
+> =>
+    useMemo(
+        () => ({
+            onMouseEnter: onMouseEnter
+                ? (event: MouseEvent) => {
+                      onMouseEnter(node, event)
+                  }
+                : undefined,
+            onMouseMove: onMouseMove
+                ? (event: MouseEvent) => {
+                      onMouseMove(node, event)
+                  }
+                : undefined,
+            onMouseLeave: onMouseLeave
+                ? (event: MouseEvent) => {
+                      onMouseLeave(node, event)
+                  }
+                : undefined,
+            onClick: onClick
+                ? (event: MouseEvent) => {
+                      onClick(node, event)
+                  }
+                : undefined,
+        }),
+        [node, onMouseEnter, onMouseMove, onMouseLeave, onClick]
+    )
 
 /**
  * Memoize the context to pass to custom layers.

@@ -9,6 +9,14 @@ import { defaultProps } from './props'
 import { Labels } from './Labels'
 import { LabelHtml } from './LabelHtml'
 
+type InnerCirclePackingHtmlProps<RawDatum> = Partial<
+    Omit<
+        CirclePackingHtmlProps<RawDatum>,
+        'data' | 'width' | 'height' | 'isInteractive' | 'animate' | 'motionConfig'
+    >
+> &
+    Pick<CirclePackingHtmlProps<RawDatum>, 'data' | 'width' | 'height' | 'isInteractive'>
+
 export const InnerCirclePackingHtml = <RawDatum,>({
     data,
     id = defaultProps.id,
@@ -30,11 +38,14 @@ export const InnerCirclePackingHtml = <RawDatum,>({
     labelsSkipRadius = defaultProps.labelsSkipRadius,
     labelsTextColor = defaultProps.labelsTextColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
     layers = defaultProps.layers,
+    isInteractive,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+    onClick,
+    tooltip = defaultProps.tooltip,
     role = defaultProps.role,
-}: Partial<
-    Omit<CirclePackingHtmlProps<RawDatum>, 'data' | 'width' | 'height' | 'animate' | 'motionConfig'>
-> &
-    Pick<CirclePackingHtmlProps<RawDatum>, 'data' | 'width' | 'height'>) => {
+}: InnerCirclePackingHtmlProps<RawDatum>) => {
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
         width,
         height,
@@ -61,7 +72,19 @@ export const InnerCirclePackingHtml = <RawDatum,>({
     }
 
     if (layers.includes('circles')) {
-        layerById.circles = <Circles<RawDatum> key="circles" nodes={nodes} component={CircleHtml} />
+        layerById.circles = (
+            <Circles<RawDatum>
+                key="circles"
+                nodes={nodes}
+                isInteractive={isInteractive}
+                onMouseEnter={onMouseEnter}
+                onMouseMove={onMouseMove}
+                onMouseLeave={onMouseLeave}
+                onClick={onClick}
+                component={CircleHtml}
+                tooltip={tooltip}
+            />
+        )
     }
 
     if (enableLabels && layers.includes('labels')) {
