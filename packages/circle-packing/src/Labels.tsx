@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useTransition } from 'react-spring'
 import { useMotionConfig } from '@nivo/core'
 import { CirclePackingCommonProps, ComputedDatum, LabelComponent, ComputedLabel } from './types'
@@ -13,6 +13,30 @@ interface CirclesProps<RawDatum> {
     textColor: CirclePackingCommonProps<RawDatum>['labelsTextColor']
     component: LabelComponent<RawDatum>
 }
+
+const getTransitionPhases = <RawDatum,>() => ({
+    enter: (label: ComputedLabel<RawDatum>) => ({
+        x: label.node.x,
+        y: label.node.y,
+        radius: label.node.radius,
+        textColor: label.textColor,
+        opacity: 0,
+    }),
+    update: (label: ComputedLabel<RawDatum>) => ({
+        x: label.node.x,
+        y: label.node.y,
+        radius: label.node.radius,
+        textColor: label.textColor,
+        opacity: 1,
+    }),
+    leave: (label: ComputedLabel<RawDatum>) => ({
+        x: label.node.x,
+        y: label.node.y,
+        radius: label.node.radius,
+        textColor: label.textColor,
+        opacity: 0,
+    }),
+})
 
 export const Labels = <RawDatum,>({
     nodes,
@@ -32,29 +56,7 @@ export const Labels = <RawDatum,>({
         textColor,
     })
 
-    const enter = (label: ComputedLabel<RawDatum>) => ({
-        x: label.node.x,
-        y: label.node.y,
-        radius: label.node.radius,
-        textColor: label.textColor,
-        opacity: 0,
-    })
-
-    const update = (label: ComputedLabel<RawDatum>) => ({
-        x: label.node.x,
-        y: label.node.y,
-        radius: label.node.radius,
-        textColor: label.textColor,
-        opacity: 1,
-    })
-
-    const leave = (label: ComputedLabel<RawDatum>) => ({
-        x: label.node.x,
-        y: label.node.y,
-        radius: label.node.radius,
-        textColor: label.textColor,
-        opacity: 0,
-    })
+    const transitionPhases = useMemo(() => getTransitionPhases<RawDatum>(), [])
 
     const transition = useTransition<
         ComputedLabel<RawDatum>,
@@ -67,11 +69,11 @@ export const Labels = <RawDatum,>({
         }
     >(labels, {
         key: label => label.node.id,
-        initial: update,
-        from: enter,
-        enter: update,
-        update,
-        leave,
+        initial: transitionPhases.update,
+        from: transitionPhases.enter,
+        enter: transitionPhases.update,
+        update: transitionPhases.update,
+        leave: transitionPhases.leave,
         config: springConfig,
         immediate: !animate,
     })
