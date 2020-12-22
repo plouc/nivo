@@ -12,6 +12,7 @@ export const useCirclePacking = <RawDatum extends DatumWithChildren<RawDatum>>({
     width,
     height,
     padding,
+    leavesOnly,
     colors,
     colorBy,
     childColor,
@@ -22,6 +23,7 @@ export const useCirclePacking = <RawDatum extends DatumWithChildren<RawDatum>>({
     width: number
     height: number
     padding: CirclePackingCommonProps<RawDatum>['padding']
+    leavesOnly: CirclePackingCommonProps<RawDatum>['leavesOnly']
     colors: CirclePackingCommonProps<RawDatum>['colors']
     colorBy: CirclePackingCommonProps<RawDatum>['colorBy']
     childColor: CirclePackingCommonProps<RawDatum>['childColor']
@@ -47,8 +49,7 @@ export const useCirclePacking = <RawDatum extends DatumWithChildren<RawDatum>>({
 
     const packedData = pack(hierarchy)
 
-    // let nodes = leavesOnly ? root.leaves() : root.descendants()
-    const nodes = packedData.descendants()
+    const nodes = leavesOnly ? packedData.leaves() : packedData.descendants()
 
     // It's important to sort node by depth,
     // it ensures that we assign a parent node

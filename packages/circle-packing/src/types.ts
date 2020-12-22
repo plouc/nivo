@@ -50,9 +50,7 @@ export interface CirclePackSvgProps<RawDatum extends DatumWithChildren<RawDatum>
     valueFormat?: ValueFormat<number>
 
     padding: number
-    margin: Box
-
-    layers: CirclePackLayer<RawDatum>[]
+    leavesOnly: boolean
 
     theme: Theme
     colors: OrdinalColorScaleConfig<Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>>

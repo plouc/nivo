@@ -14,6 +14,7 @@ const InnerCirclePackingCanvas = <RawDatum,>({
     height,
     margin: partialMargin,
     padding = defaultProps.padding,
+    leavesOnly = defaultProps.leavesOnly,
     colors = defaultProps.colors as OrdinalColorScaleConfig<
         Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>
     >,
@@ -22,9 +23,11 @@ const InnerCirclePackingCanvas = <RawDatum,>({
     // layers = defaultProps.layers,
     isInteractive,
     role = defaultProps.role,
-}: Omit<
-    Partial<CirclePackingCanvasProps<RawDatum>>,
-    'data' | 'width' | 'height' | 'animate' | 'motionConfig'
+}: Partial<
+    Omit<
+        CirclePackingCanvasProps<RawDatum>,
+        'data' | 'width' | 'height' | 'animate' | 'motionConfig'
+    >
 > &
     Pick<CirclePackingCanvasProps<RawDatum>, 'data' | 'width' | 'height'>) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
@@ -44,6 +47,7 @@ const InnerCirclePackingCanvas = <RawDatum,>({
         width: innerWidth,
         height: innerHeight,
         padding,
+        leavesOnly,
         colors,
         colorBy,
         childColor,
@@ -120,7 +124,7 @@ export const CirclePackingCanvas = <RawDatum,>({
     isInteractive = defaultProps.isInteractive,
     theme,
     ...otherProps
-}: Omit<Partial<CirclePackingCanvasProps<RawDatum>>, 'data' | 'width' | 'height'> &
+}: Partial<Omit<CirclePackingCanvasProps<RawDatum>, 'data' | 'width' | 'height'>> &
     Pick<CirclePackingCanvasProps<RawDatum>, 'data' | 'width' | 'height'>) => (
     <Container isInteractive={isInteractive} theme={theme}>
         <InnerCirclePackingCanvas<RawDatum> isInteractive={isInteractive} {...otherProps} />
