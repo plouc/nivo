@@ -43,7 +43,7 @@ export interface CirclePackingCommonProps<RawDatum> {
     height: number
     margin?: Box
     padding: number
-    // leavesOnly: boolean
+    leavesOnly: boolean
 
     theme?: Theme
     colors: OrdinalColorScaleConfig<Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>>

@@ -11,14 +11,16 @@ const interpolateSize = (radiusValue: Interpolation<number>) =>
     to([radiusValue], radius => radius * 2)
 
 export const CircleHtml = <RawDatum,>({ style }: CircleProps<RawDatum>) => {
+    const size = interpolateSize(style.radius)
+
     return (
         <animated.div
             style={{
                 position: 'absolute',
                 top: interpolatePosition(style.y, style.radius),
                 left: interpolatePosition(style.x, style.radius),
-                height: interpolateSize(style.radius),
-                width: interpolateSize(style.radius),
+                height: size,
+                width: size,
                 borderRadius: style.radius,
                 backgroundColor: style.color,
             }}

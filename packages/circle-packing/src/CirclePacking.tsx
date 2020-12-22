@@ -22,6 +22,7 @@ const InnerCirclePacking = <RawDatum,>({
     height,
     margin: partialMargin,
     padding = defaultProps.padding,
+    leavesOnly = defaultProps.leavesOnly,
     colors = defaultProps.colors as OrdinalColorScaleConfig<
         Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>
     >,
@@ -48,6 +49,7 @@ const InnerCirclePacking = <RawDatum,>({
         width: innerWidth,
         height: innerHeight,
         padding,
+        leavesOnly,
         colors,
         colorBy,
         childColor,
@@ -95,7 +97,7 @@ export const CirclePacking = <RawDatum,>({
     animate = defaultProps.animate,
     motionConfig = defaultProps.motionConfig,
     ...otherProps
-}: Omit<Partial<CirclePackingSvgProps<RawDatum>>, 'data' | 'width' | 'height'> &
+}: Partial<Omit<CirclePackingSvgProps<RawDatum>, 'data' | 'width' | 'height'>> &
     Pick<CirclePackingSvgProps<RawDatum>, 'data' | 'width' | 'height'>) => (
     <Container
         isInteractive={isInteractive}

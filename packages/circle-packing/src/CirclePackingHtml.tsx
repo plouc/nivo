@@ -16,6 +16,7 @@ export const InnerCirclePackingHtml = <RawDatum,>({
     height,
     margin: partialMargin,
     padding = defaultProps.padding,
+    leavesOnly = defaultProps.leavesOnly,
     colors = defaultProps.colors as OrdinalColorScaleConfig<
         Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>
     >,
@@ -42,6 +43,7 @@ export const InnerCirclePackingHtml = <RawDatum,>({
         width: innerWidth,
         height: innerHeight,
         padding,
+        leavesOnly,
         colors,
         colorBy,
         childColor,

@@ -4,7 +4,7 @@ import { CirclePackingCanvasProps } from './types'
 import { CirclePackingCanvas } from './CirclePackingCanvas'
 
 export const ResponsiveCirclePackingCanvas = <RawDatum,>(
-    props: Omit<Partial<CirclePackingCanvasProps<RawDatum>>, 'data' | 'width' | 'height'> &
+    props: Partial<Omit<CirclePackingCanvasProps<RawDatum>, 'data' | 'width' | 'height'>> &
         Pick<CirclePackingCanvasProps<RawDatum>, 'data'>
 ) => (
     <ResponsiveWrapper>
