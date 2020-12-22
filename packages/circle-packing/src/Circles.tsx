@@ -1,17 +1,22 @@
 import React from 'react'
 import { useTransition, animated, to, SpringValue } from 'react-spring'
 import { useMotionConfig } from '@nivo/core'
-import { DatumWithChildren, ComputedDatum } from './types'
+import { ComputedDatum, CircleComponent } from './types'
 
 /**
  * A negative radius value is invalid for an SVG circle,
  * this custom interpolation makes sure it's either
  * positive or zero.
  */
-const interpolateRadius = (radiusValue: SpringValue<number>) =>
+export const interpolateRadius = (radiusValue: SpringValue<number>) =>
     to([radiusValue], radius => Math.max(0, radius))
 
-export const Circles = <RawDatum extends DatumWithChildren<RawDatum>>({ data }: any) => {
+interface CirclesProps<RawDatum> {
+    nodes: ComputedDatum<RawDatum>[]
+    component: CircleComponent<RawDatum>
+}
+
+export const Circles = <RawDatum,>({ nodes, component }: CirclesProps<RawDatum>) => {
     const { animate, config: springConfig } = useMotionConfig()
 
     const enter = (node: ComputedDatum<RawDatum>) => ({

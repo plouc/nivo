@@ -13,6 +13,13 @@ export const defaultProps = {
         from: 'color',
         modifiers: [['darker', 0.3]],
     },
+    enableLabels: true,
+    label: 'id',
+    labelsTextColor: {
+        from: 'color',
+        modifiers: [['darker', 1]],
+    },
+    labelsSkipRadius: 8,
     isInteractive: true,
     animate: true,
     motionConfig: 'gentle',

@@ -7,7 +7,7 @@ import meta from '../../data/components/circle-packing/meta.yml'
 import mapper from '../../data/components/circle-packing/mapper'
 import { groups } from '../../data/components/circle-packing/props'
 
-const NODE_COUNT = 1200
+const NODE_COUNT = 800
 
 const generateData = () => {
     return {
@@ -34,12 +34,12 @@ const initialProperties = {
     childColor: 'noinherit',
     padding: 1,
     leavesOnly: true,
-    enableLabel: false,
-    label: 'name',
-    labelSkipRadius: 10,
-    labelTextColor: {
+    enableLabels: true,
+    label: 'value',
+    labelsSkipRadius: 8,
+    labelsTextColor: {
         from: 'color',
-        modifiers: [['darker', 0.8]],
+        modifiers: [['darker', 2.4]],
     },
     borderWidth: 0,
     borderColor: {

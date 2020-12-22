@@ -7,11 +7,13 @@ import {
     SvgWrapper,
 } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
-import { CirclePackLayerId, CirclePackSvgProps, ComputedDatum } from './types'
-import { useCirclePacking } from './hooks'
+import { CirclePackingLayerId, CirclePackingSvgProps, ComputedDatum } from './types'
+import { useCirclePacking, useCirclePackingLayerContext } from './hooks'
+import { defaultProps } from './props'
 import { Circles } from './Circles'
 import { CircleSvg } from './CircleSvg'
-import { defaultProps } from './props'
+import { Labels } from './Labels'
+import { LabelSvg } from './LabelSvg'
 
 const InnerCirclePacking = <RawDatum,>({
     data,
@@ -28,9 +30,17 @@ const InnerCirclePacking = <RawDatum,>({
     >,
     colorBy = defaultProps.colorBy,
     childColor = defaultProps.childColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
+    enableLabels = defaultProps.enableLabels,
+    label = defaultProps.label,
+    labelsFilter,
+    labelsSkipRadius = defaultProps.labelsSkipRadius,
+    labelsTextColor = defaultProps.labelsTextColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
     layers = defaultProps.layers,
     role = defaultProps.role,
-}: Partial<CirclePackSvgProps<RawDatum>>) => {
+}: Partial<
+    Omit<CirclePackingSvgProps<RawDatum>, 'data' | 'width' | 'height' | 'animate' | 'motionConfig'>
+> &
+    Pick<CirclePackingSvgProps<RawDatum>, 'data' | 'width' | 'height'>) => {
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
         width,
         height,
@@ -60,7 +70,23 @@ const InnerCirclePacking = <RawDatum,>({
         layerById.circles = <Circles key="circles" data={nodes} />
     }
 
-    const layerContext = {}
+    if (enableLabels && layers.includes('labels')) {
+        layerById.labels = (
+            <Labels<RawDatum>
+                key="labels"
+                nodes={nodes}
+                label={label}
+                filter={labelsFilter}
+                skipRadius={labelsSkipRadius}
+                textColor={labelsTextColor}
+                component={LabelSvg}
+            />
+        )
+    }
+
+    const layerContext = useCirclePackingLayerContext<RawDatum>({
+        nodes,
+    })
 
     return (
         <SvgWrapper

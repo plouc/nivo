@@ -1,5 +1,4 @@
 import React, { CSSProperties, memo, ReactNode } from 'react'
-// @ts-ignore
 import { useTheme } from '@nivo/core'
 
 const tableStyle = {
