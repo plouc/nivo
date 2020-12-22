@@ -56,6 +56,7 @@ export interface CirclePackSvgProps<RawDatum extends DatumWithChildren<RawDatum>
 
     theme: Theme
     colors: OrdinalColorScaleConfig<Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>>
+    colorBy: 'id' | 'depth'
     // if specified, will determine the node's color
     // according to its parent
     childColor: InheritedColorConfig<ComputedDatum<RawDatum>>
@@ -66,4 +67,22 @@ export interface CirclePackSvgProps<RawDatum extends DatumWithChildren<RawDatum>
     motionConfig: ModernMotionProps['motionConfig']
 
     role: string
+}
+
+export type CirclePackingSvgProps<RawDatum> = CirclePackingCommonProps<RawDatum>
+
+export type CirclePackingHtmlProps<RawDatum> = CirclePackingCommonProps<RawDatum>
+
+export type CirclePackingCanvasProps<RawDatum> = CirclePackingCommonProps<RawDatum>
+
+export interface CircleProps<RawDatum> {
+    node: ComputedDatum<RawDatum>
+    style: {
+        x: SpringValue<number>
+        y: SpringValue<number>
+        // using an interpolation to avoid negative values
+        radius: Interpolation<number>
+        color: SpringValue<string>
+        opacity: SpringValue<number>
+    }
 }

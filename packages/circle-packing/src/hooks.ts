@@ -1,7 +1,7 @@
 import { pack as d3Pack, hierarchy as d3Hierarchy } from 'd3-hierarchy'
 import cloneDeep from 'lodash/cloneDeep'
 import sortBy from 'lodash/sortBy'
-import { usePropertyAccessor } from '@nivo/core'
+import { usePropertyAccessor, useValueFormatter, useTheme } from '@nivo/core'
 import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
 import { DatumWithChildren, CirclePackSvgProps, ComputedDatum } from './types'
 
@@ -13,6 +13,7 @@ export const useCirclePacking = <RawDatum extends DatumWithChildren<RawDatum>>({
     height,
     padding,
     colors,
+    colorBy,
     childColor,
 }: {
     data: RawDatum
@@ -20,18 +21,20 @@ export const useCirclePacking = <RawDatum extends DatumWithChildren<RawDatum>>({
     value: CirclePackSvgProps<RawDatum>['value']
     width: number
     height: number
-    padding: CirclePackSvgProps<RawDatum>['padding']
-    colors: CirclePackSvgProps<RawDatum>['colors']
-    childColor: CirclePackSvgProps<RawDatum>['childColor']
-}) => {
+    padding: CirclePackingCommonProps<RawDatum>['padding']
+    colors: CirclePackingCommonProps<RawDatum>['colors']
+    colorBy: CirclePackingCommonProps<RawDatum>['colorBy']
+    childColor: CirclePackingCommonProps<RawDatum>['childColor']
+}): ComputedDatum<RawDatum>[] => {
     const getId = usePropertyAccessor<RawDatum, string | number>(id)
     const getValue = usePropertyAccessor<RawDatum, number>(value)
 
     const getColor = useOrdinalColorScale<Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>>(
         colors,
-        'id'
+        colorBy
     )
-    const getChildColor = useInheritedColor<ComputedDatum<RawDatum>>(childColor)
+    const theme = useTheme()
+    const getChildColor = useInheritedColor<ComputedDatum<RawDatum>>(childColor, theme)
 
     // d3 mutates the data for performance reasons,
     // however it does not work well with reactive programming,

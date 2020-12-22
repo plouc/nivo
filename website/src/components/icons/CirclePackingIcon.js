@@ -1,13 +1,5 @@
-/*
- * This file is part of the nivo project.
- *
- * (c) 2016 Raphaël Benitte
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
-import { Bubble } from '@nivo/circle-packing'
+import { CirclePacking } from '@nivo/circle-packing'
 import circlePackingLightNeutralImg from '../../assets/icons/circle-packing-light-neutral.png'
 import circlePackingLightColoredImg from '../../assets/icons/circle-packing-light-colored.png'
 import circlePackingDarkNeutralImg from '../../assets/icons/circle-packing-dark-neutral.png'
@@ -17,7 +9,7 @@ import { ICON_SIZE, Icon, colors, IconImg } from './styled'
 const chartProps = colors => ({
     width: ICON_SIZE,
     height: ICON_SIZE,
-    root: {
+    data: {
         id: 'root',
         children: [
             { id: 'v', value: 0.1, color: colors[1] },
@@ -56,7 +48,7 @@ const chartProps = colors => ({
 
 const CirclePackingIconItem = ({ type }) => (
     <Icon id={`circle-packing-${type}`} type={type}>
-        <Bubble {...chartProps([colors[type].colors[1], colors[type].colors[4]])} />
+        <CirclePacking {...chartProps([colors[type].colors[1], colors[type].colors[4]])} />
     </Icon>
 )
 

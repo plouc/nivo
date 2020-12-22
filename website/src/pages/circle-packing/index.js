@@ -1,6 +1,6 @@
 import React from 'react'
 import { patternLinesDef } from '@nivo/core'
-import { ResponsiveCirclePacking, BubbleDefaultProps } from '@nivo/circle-packing'
+import { ResponsiveCirclePacking, defaultProps } from '@nivo/circle-packing'
 import { generateLibTree } from '@nivo/generators'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/circle-packing/meta.yml'
@@ -16,14 +16,15 @@ const initialProperties = {
     },
     id: 'name',
     value: 'loc',
-    colors: { scheme: 'spectral' },
-    childColor: {
-        from: 'color',
-        modifiers: [['darker', 0.3]],
-    },
+    colors: { scheme: 'nivo' },
+    colorBy: 'depth',
+    //childColor: {
+    //    from: 'color',
+    //    modifiers: [['darker', 0.3]],
+    //},
+    childColor: 'noinherit',
     padding: 6,
     leavesOnly: false,
-
     enableLabel: true,
     label: 'id',
     labelSkipRadius: 8,
@@ -31,12 +32,10 @@ const initialProperties = {
         from: 'color',
         modifiers: [['darker', 0.8]],
     },
-
     borderWidth: 2,
     borderColor: {
         from: 'color',
     },
-
     defs: [
         patternLinesDef('lines', {
             background: 'none',
@@ -47,12 +46,9 @@ const initialProperties = {
         }),
     ],
     fill: [{ match: { depth: 1 }, id: 'lines' }],
-
     animate: true,
     motionConfig: 'gentle',
-
     isInteractive: true,
-
     isZoomable: true,
 }
 
@@ -68,7 +64,7 @@ const CirclePacking = () => {
             currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={BubbleDefaultProps}
+            defaultProperties={defaultProps}
             propertiesMapper={mapper}
             generateData={generateData}
         >
