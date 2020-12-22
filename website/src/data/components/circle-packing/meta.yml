@@ -5,8 +5,9 @@ flavors:
     path: /circle-packing/html/
   - flavor: canvas
     path: /circle-packing/canvas/
-  - flavor: api
-    path: /circle-packing/api/
+  # Disabled until the API is fixed
+  # - flavor: api
+  #   path: /circle-packing/api/
 
 CirclePacking:
   package: '@nivo/circle-packing'
@@ -32,11 +33,12 @@ CirclePacking:
     [CirclePackingHtml](self:/circle-packing/html) and
     [CirclePackingCanvas](self:/circle-packing/canvas).
 
-    This component is available in the `@nivo/api`,
-    see [sample](api:/samples/circle-packing.svg)
-    or [try it using the API client](self:/circle-packing/api).
-    You can also see more example usages in
-    [the storybook](storybook:circle-packing--default).
+  # Disabled until the API is fixed
+  #   This component is available in the `@nivo/api`,
+  #   see [sample](api:/samples/circle-packing.svg)
+  #   or [try it using the API client](self:/circle-packing/api).
+  #   You can also see more example usages in
+  #   [the storybook](storybook:circle-packing--default).
 
 CirclePackingHtml:
   package: '@nivo/circle-packing'
@@ -65,9 +67,9 @@ CirclePackingCanvas:
     - hierarchy
     - canvas
   description: |
-    A variation around the [CirclePacking](self:/circle-packing) component. Well suited
-    for large data sets as it does not impact DOM tree depth, however
-    you'll lose the isomorphic ability and transitions (for now).
+    A variation around the [CirclePacking](self:/circle-packing) component.
+    Well suited for large data sets as it does not impact DOM tree depth,
+    however you lose the isomorphic ability and transitions.
 
     The responsive alternative of this component is `ResponsiveCirclePackingCanvas`.
     It also offers various implementations, see

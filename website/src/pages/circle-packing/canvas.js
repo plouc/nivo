@@ -1,20 +1,20 @@
 import React from 'react'
 import range from 'lodash/range'
 import random from 'lodash/random'
-import { ResponsiveBubbleCanvas, BubbleCanvasDefaultProps } from '@nivo/circle-packing'
+import { ResponsiveCirclePackingCanvas, defaultProps } from '@nivo/circle-packing'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/circle-packing/meta.yml'
 import mapper from '../../data/components/circle-packing/mapper'
 import { groups } from '../../data/components/circle-packing/props'
 
-const NODE_COUNT = 2000
+const NODE_COUNT = 1200
 
 const generateData = () => {
     return {
         name: 'root',
         children: range(NODE_COUNT).map(i => ({
             name: `node.${i}`,
-            value: random(10, 100000),
+            value: random(1, 100),
         })),
     }
 }
@@ -26,18 +26,14 @@ const initialProperties = {
         bottom: 20,
         left: 20,
     },
-
     pixelRatio:
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
-
-    identity: 'name',
+    id: 'name',
     value: 'value',
-
-    colors: { scheme: 'yellow_orange_red' },
-    colorBy: 'name',
+    colors: { scheme: 'spectral' },
+    childColor: 'noinherit',
     padding: 1,
     leavesOnly: true,
-
     enableLabel: false,
     label: 'name',
     labelSkipRadius: 10,
@@ -45,19 +41,12 @@ const initialProperties = {
         from: 'color',
         modifiers: [['darker', 0.8]],
     },
-
     borderWidth: 0,
     borderColor: {
         from: 'color',
         modifiers: [['darker', 0.3]],
     },
-
-    animate: true,
-    motionStiffness: 90,
-    motionDamping: 12,
-
     isInteractive: true,
-
     isZoomable: true,
 }
 
@@ -71,16 +60,15 @@ const CirclePackingCanvas = () => {
             currentFlavor="canvas"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={BubbleCanvasDefaultProps}
+            defaultProperties={defaultProps}
             propertiesMapper={mapper}
             generateData={generateData}
-            dataKey="root"
             getDataSize={() => NODE_COUNT}
         >
             {(properties, data, theme, logAction) => {
                 return (
-                    <ResponsiveBubbleCanvas
-                        root={data}
+                    <ResponsiveCirclePackingCanvas
+                        data={data}
                         {...properties}
                         theme={theme}
                         onClick={({ children, parent, ...node }) => {

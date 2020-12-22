@@ -1,5 +1,9 @@
 import React from 'react'
+<<<<<<< HEAD
 import { ResponsiveBubbleHtml, BubbleHtmlDefaultProps } from '@nivo/circle-packing'
+=======
+import { ResponsiveCirclePackingHtml, defaultProps } from '@nivo/circle-packing'
+>>>>>>> 56ec71ff (feat(circle-packing): migrate canvas implementation to new architecture)
 import { generateLibTree } from '@nivo/generators'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/circle-packing/meta.yml'
@@ -17,11 +21,20 @@ const initialProperties = {
     },
     identity: 'name',
     value: 'loc',
+<<<<<<< HEAD
     colors: { scheme: 'paired' },
     colorBy: 'depth',
+=======
+    colors: { scheme: 'spectral' },
+    colorBy: 'depth',
+    //childColor: {
+    //    from: 'color',
+    //    modifiers: [['darker', 0.3]],
+    //},
+    childColor: 'noinherit',
+>>>>>>> 56ec71ff (feat(circle-packing): migrate canvas implementation to new architecture)
     padding: 1,
     leavesOnly: false,
-
     enableLabel: true,
     label: 'id',
     labelSkipRadius: 10,
@@ -29,19 +42,20 @@ const initialProperties = {
         from: 'color',
         modifiers: [['darker', 0.8]],
     },
-
     borderWidth: 0,
     borderColor: {
         from: 'color',
         modifiers: [['darker', 0.3]],
     },
-
     animate: true,
+<<<<<<< HEAD
     motionStiffness: 90,
     motionDamping: 12,
 
+=======
+    motionConfig: 'gentle',
+>>>>>>> 56ec71ff (feat(circle-packing): migrate canvas implementation to new architecture)
     isInteractive: true,
-
     isZoomable: true,
 }
 
@@ -55,7 +69,7 @@ const CirclePackingHtml = () => {
             currentFlavor="html"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={BubbleHtmlDefaultProps}
+            defaultProperties={defaultProps}
             propertiesMapper={mapper}
             generateData={generateData}
             dataKey="root"
