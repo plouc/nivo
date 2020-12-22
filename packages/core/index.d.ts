@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { OpaqueInterpolation, SpringConfig } from 'react-spring'
+import { Interpolation, SpringConfig } from 'react-spring'
 
 declare module '@nivo/core' {
     export type DatumValue = string | number | Date
@@ -205,7 +205,7 @@ declare module '@nivo/core' {
         | 'stepAfter'
         | 'stepBefore'
 
-    export function useAnimatedPath(path: string): OpaqueInterpolation<string>
+    export function useAnimatedPath(path: string): Interpolation<string>
 
     export type LinearGradientDef = {
         id: string
@@ -247,22 +247,22 @@ declare module '@nivo/core' {
         defs: Def[]
     }
 
-    export declare const defaultAnimate = true
-    export declare const defaultMotionStiffness = 90
-    export declare const defaultMotionDamping = 15
+    export const defaultAnimate: boolean
+    export const defaultMotionStiffness: number
+    export const defaultMotionDamping: number
 
-    export declare const motionDefaultProps = {
-        animate: true,
-        stiffness: 90,
-        damping: 15,
-        config: 'default',
+    export const motionDefaultProps: {
+        animate: boolean
+        stiffness: number
+        damping: number
+        config: string
     }
 
-    export declare const defaultMargin = {
-        top: 0,
-        right: 0,
-        bottom: 0,
-        left: 0,
+    export const defaultMargin: {
+        top: number
+        right: number
+        bottom: number
+        left: number
     }
 
     export function PatternLines(props: Omit<PatternLinesDef, 'type'>): JSX.Element
@@ -274,7 +274,7 @@ declare module '@nivo/core' {
     export function degreesToRadians(degrees: number): number
     export function radiansToDegrees(radians: number): number
 
-    type Accessor<T, U> = T extends string ? U[T] : never
+    type Accessor<T extends keyof U, U> = T extends string ? U[T] : never
 
     export type DatumPropertyAccessor<RawDatum, T> = (datum: RawDatum) => T
 
@@ -290,7 +290,7 @@ declare module '@nivo/core' {
         outerHeight: number
     }
 
-    export const SvgWrapper = (
+    export const SvgWrapper: (
         props: React.PropsWithChildren<{
             width: number
             height: number
@@ -310,17 +310,14 @@ declare module '@nivo/core' {
         motionConfig?: string | SpringConfig
     }
 
-    export const Container = (props: React.PropsWithChildren<ContainerProps>) => JSX.Element
+    export const Container: (props: React.PropsWithChildren<ContainerProps>) => JSX.Element
 
-    export const ResponsiveWrapper = (props: {
+    export const ResponsiveWrapper: (props: {
         children: (dimensions: { width: number; height: number }) => JSX.Element
     }) => JSX.Element
 
     export function getDistance(x1: number, y1: number, x2: number, y2: number): number
     export function getAngle(x1: number, y1: number, x2: number, y2: number): number
-
-    export function radiansToDegrees(radians: number): number
-    export function degreesToRadians(degrees: number): number
 
     export function positionFromAngle(
         angle: number,

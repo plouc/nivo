@@ -1,19 +1,19 @@
 import React from 'react'
 import { useTransition, to, SpringValue } from 'react-spring'
 import { useMotionConfig } from '@nivo/core'
-import { ComputedDatum, CircleProps } from './types'
+import { ComputedDatum, CircleComponent } from './types'
 
 /**
  * A negative radius value is invalid for an SVG circle,
  * this custom interpolation makes sure it's either
  * positive or zero.
  */
-const interpolateRadius = (radiusValue: SpringValue<number>) =>
+export const interpolateRadius = (radiusValue: SpringValue<number>) =>
     to([radiusValue], radius => Math.max(0, radius))
 
-interface CirclesProps<DefaultRawDatum> {
-    nodes: ComputedDatum<DefaultRawDatum>[]
-    component: (props: CircleProps<DefaultRawDatum>) => JSX.Element
+interface CirclesProps<RawDatum> {
+    nodes: ComputedDatum<RawDatum>[]
+    component: CircleComponent<RawDatum>
 }
 
 export const Circles = <RawDatum,>({ nodes, component }: CirclesProps<RawDatum>) => {

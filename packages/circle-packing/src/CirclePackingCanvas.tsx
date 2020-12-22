@@ -3,7 +3,7 @@ import { useDimensions, useTheme, Container } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { CirclePackingCanvasProps, ComputedDatum } from './types'
 import { defaultProps } from './props'
-import { useCirclePacking } from './hooks'
+import { useCirclePacking, useCirclePackingLabels } from './hooks'
 
 const InnerCirclePackingCanvas = <RawDatum,>({
     data,
@@ -20,6 +20,11 @@ const InnerCirclePackingCanvas = <RawDatum,>({
     >,
     colorBy = defaultProps.colorBy,
     childColor = defaultProps.childColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
+    enableLabels = defaultProps.enableLabels,
+    label = defaultProps.label,
+    labelsFilter,
+    labelsSkipRadius = defaultProps.labelsSkipRadius,
+    labelsTextColor = defaultProps.labelsTextColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
     // layers = defaultProps.layers,
     isInteractive,
     role = defaultProps.role,
@@ -53,6 +58,14 @@ const InnerCirclePackingCanvas = <RawDatum,>({
         childColor,
     })
 
+    const labels = useCirclePackingLabels({
+        nodes,
+        label,
+        filter: labelsFilter,
+        skipRadius: labelsSkipRadius,
+        textColor: labelsTextColor,
+    })
+
     const pixelRatio = 2
 
     useEffect(() => {
@@ -72,8 +85,6 @@ const InnerCirclePackingCanvas = <RawDatum,>({
         ctx.translate(margin.left, margin.top)
 
         nodes.forEach(node => {
-            ctx.save()
-
             //if (borderWidth > 0) {
             //    this.ctx.strokeStyle = getBorderColor(node)
             //    this.ctx.lineWidth = borderWidth
@@ -88,6 +99,17 @@ const InnerCirclePackingCanvas = <RawDatum,>({
             //    this.ctx.stroke()
             //}
         })
+
+        if (enableLabels) {
+            ctx.textAlign = 'center'
+            ctx.textBaseline = 'middle'
+            ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
+
+            labels.forEach(label => {
+                ctx.fillStyle = label.textColor
+                ctx.fillText(`${label.label}`, label.node.x, label.node.y)
+            })
+        }
     }, [
         canvasEl,
         innerWidth,
@@ -96,9 +118,11 @@ const InnerCirclePackingCanvas = <RawDatum,>({
         outerHeight,
         margin.top,
         margin.left,
+        theme,
         pixelRatio,
         nodes,
-        theme,
+        enableLabels,
+        labels,
     ])
 
     return (

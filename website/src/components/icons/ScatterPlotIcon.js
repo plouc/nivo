@@ -35,8 +35,7 @@ const chartProps = {
     },
     enableGridX: false,
     enableGridY: false,
-    lineWidth: 5,
-    dotSize: 10,
+    nodeSize: 7,
     data: [
         {
             id: 'A',
@@ -86,7 +85,6 @@ const chartProps = {
         tickSize: 0,
         tickPadding: 100,
     },
-    symbolSize: 7,
 }
 
 const ScatterPlotIconItem = ({ type }) => (

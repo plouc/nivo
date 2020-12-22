@@ -54,6 +54,12 @@ export interface CirclePackingCommonProps<RawDatum> {
     borderWidth: number
     borderColor: InheritedColorConfig<ComputedDatum<RawDatum>>
 
+    enableLabels: boolean
+    label: PropertyAccessor<ComputedDatum<RawDatum>, string | number>
+    labelsFilter?: (label: ComputedLabel<RawDatum>) => boolean
+    labelsSkipRadius: number
+    labelsTextColor: InheritedColorConfig<ComputedDatum<RawDatum>>
+
     layers: CirclePackingLayer<RawDatum>[]
 
     isInteractive: boolean
@@ -81,3 +87,26 @@ export interface CircleProps<RawDatum> {
         opacity: SpringValue<number>
     }
 }
+
+export type CircleComponent<RawDatum> = (props: CircleProps<RawDatum>) => JSX.Element
+
+export interface ComputedLabel<RawDatum> {
+    label: string | number
+    textColor: string
+    node: ComputedDatum<RawDatum>
+}
+
+export interface LabelProps<RawDatum> {
+    node: ComputedDatum<RawDatum>
+    label: string | number
+    style: {
+        x: SpringValue<number>
+        y: SpringValue<number>
+        // using an interpolation to avoid negative values
+        radius: Interpolation<number>
+        textColor: SpringValue<string>
+        opacity: SpringValue<number>
+    }
+}
+
+export type LabelComponent<RawDatum> = (props: LabelProps<RawDatum>) => JSX.Element

@@ -39,9 +39,10 @@ const chartProps = colors => ({
             { id: 'm', value: 0.2, color: colors[0] },
         ],
     },
-    colors: { datum: 'color' },
+    colors: { datum: 'data.color' },
+    childColor: 'noinherit',
     padding: 2,
-    enableLabel: false,
+    enableLabels: false,
     leavesOnly: true,
     isInteractive: false,
 })
