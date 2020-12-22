@@ -1,9 +1,5 @@
 import React from 'react'
-<<<<<<< HEAD
-import { ResponsiveBubbleHtml, BubbleHtmlDefaultProps } from '@nivo/circle-packing'
-=======
 import { ResponsiveCirclePackingHtml, defaultProps } from '@nivo/circle-packing'
->>>>>>> 56ec71ff (feat(circle-packing): migrate canvas implementation to new architecture)
 import { generateLibTree } from '@nivo/generators'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/circle-packing/meta.yml'
@@ -21,10 +17,6 @@ const initialProperties = {
     },
     identity: 'name',
     value: 'loc',
-<<<<<<< HEAD
-    colors: { scheme: 'paired' },
-    colorBy: 'depth',
-=======
     colors: { scheme: 'spectral' },
     colorBy: 'depth',
     //childColor: {
@@ -32,29 +24,20 @@ const initialProperties = {
     //    modifiers: [['darker', 0.3]],
     //},
     childColor: 'noinherit',
->>>>>>> 56ec71ff (feat(circle-packing): migrate canvas implementation to new architecture)
-    padding: 1,
+    padding: 2,
     leavesOnly: false,
-    enableLabel: true,
+    enableLabels: true,
     label: 'id',
-    labelSkipRadius: 10,
-    labelTextColor: {
-        from: 'color',
-        modifiers: [['darker', 0.8]],
-    },
+    labelsFilter: label => label.node.depth === 2,
+    labelsSkipRadius: 10,
+    labelsTextColor: '#000000',
     borderWidth: 0,
     borderColor: {
         from: 'color',
         modifiers: [['darker', 0.3]],
     },
     animate: true,
-<<<<<<< HEAD
-    motionStiffness: 90,
-    motionDamping: 12,
-
-=======
     motionConfig: 'gentle',
->>>>>>> 56ec71ff (feat(circle-packing): migrate canvas implementation to new architecture)
     isInteractive: true,
     isZoomable: true,
 }

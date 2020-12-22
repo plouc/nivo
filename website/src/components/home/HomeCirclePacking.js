@@ -14,7 +14,7 @@ export const HomeCirclePacking = ({ reversedColors }) => {
                 colorBy="depth"
                 childColor="noinherit"
                 padding={1}
-                enableLabel={false}
+                enableLabels={false}
                 animate={false}
                 isInteractive={false}
             />

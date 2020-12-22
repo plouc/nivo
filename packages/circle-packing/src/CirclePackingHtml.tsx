@@ -6,6 +6,8 @@ import { useCirclePacking, useCirclePackingLayerContext } from './hooks'
 import { Circles } from './Circles'
 import { CircleHtml } from './CircleHtml'
 import { defaultProps } from './props'
+import { Labels } from './Labels'
+import { LabelHtml } from './LabelHtml'
 
 export const InnerCirclePackingHtml = <RawDatum,>({
     data,
@@ -22,11 +24,15 @@ export const InnerCirclePackingHtml = <RawDatum,>({
     >,
     colorBy = defaultProps.colorBy,
     childColor = defaultProps.childColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
+    enableLabels = defaultProps.enableLabels,
+    label = defaultProps.label,
+    labelsFilter,
+    labelsSkipRadius = defaultProps.labelsSkipRadius,
+    labelsTextColor = defaultProps.labelsTextColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
     layers = defaultProps.layers,
     role = defaultProps.role,
-}: Omit<
-    Partial<CirclePackingHtmlProps<RawDatum>>,
-    'data' | 'width' | 'height' | 'animate' | 'motionConfig'
+}: Partial<
+    Omit<CirclePackingHtmlProps<RawDatum>, 'data' | 'width' | 'height' | 'animate' | 'motionConfig'>
 > &
     Pick<CirclePackingHtmlProps<RawDatum>, 'data' | 'width' | 'height'>) => {
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
@@ -56,6 +62,20 @@ export const InnerCirclePackingHtml = <RawDatum,>({
 
     if (layers.includes('circles')) {
         layerById.circles = <Circles<RawDatum> key="circles" nodes={nodes} component={CircleHtml} />
+    }
+
+    if (enableLabels && layers.includes('labels')) {
+        layerById.labels = (
+            <Labels<RawDatum>
+                key="labels"
+                nodes={nodes}
+                label={label}
+                filter={labelsFilter}
+                skipRadius={labelsSkipRadius}
+                textColor={labelsTextColor}
+                component={LabelHtml}
+            />
+        )
     }
 
     const layerContext = useCirclePackingLayerContext<RawDatum>({
@@ -94,7 +114,7 @@ export const CirclePackingHtml = <RawDatum,>({
     animate = defaultProps.animate,
     motionConfig = defaultProps.motionConfig,
     ...otherProps
-}: Omit<Partial<CirclePackingHtmlProps<RawDatum>>, 'data' | 'width' | 'height'> &
+}: Partial<Omit<CirclePackingHtmlProps<RawDatum>, 'data' | 'width' | 'height'>> &
     Pick<CirclePackingHtmlProps<RawDatum>, 'data' | 'width' | 'height'>) => (
     <Container
         isInteractive={isInteractive}

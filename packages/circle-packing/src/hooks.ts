@@ -96,3 +96,54 @@ export const useCirclePacking = <RawDatum extends DatumWithChildren<RawDatum>>({
 
     return computedNodes
 }
+
+export const useCirclePackingLabels = <RawDatum>({
+    nodes,
+    label,
+    filter,
+    skipRadius,
+    textColor,
+}: {
+    nodes: ComputedDatum<RawDatum>[]
+    label: CirclePackingCommonProps<RawDatum>['label']
+    filter: CirclePackingCommonProps<RawDatum>['labelsFilter']
+    skipRadius: CirclePackingCommonProps<RawDatum>['labelsSkipRadius']
+    textColor: CirclePackingCommonProps<RawDatum>['labelsTextColor']
+}) => {
+    const getLabel = usePropertyAccessor<ComputedDatum<RawDatum>, string | number>(label)
+    const theme = useTheme()
+    const getTextColor = useInheritedColor<ComputedDatum<RawDatum>>(textColor, theme)
+
+    const labels = useMemo(
+        () =>
+            nodes
+                .filter(node => node.radius >= skipRadius)
+                .map(node => ({
+                    label: getLabel(node),
+                    textColor: getTextColor(node),
+                    node,
+                })),
+        [nodes, skipRadius, getLabel, getTextColor]
+    )
+
+    return useMemo(() => {
+        if (!filter) return labels
+
+        return labels.filter(filter)
+    }, [labels, filter])
+}
+
+/**
+ * Memoize the context to pass to custom layers.
+ */
+export const useCirclePackingLayerContext = <RawDatum>({
+    nodes,
+}: {
+    nodes: ComputedDatum<RawDatum>[]
+}): CirclePackingCustomLayerProps<RawDatum> =>
+    useMemo(
+        () => ({
+            nodes,
+        }),
+        [nodes]
+    )

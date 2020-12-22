@@ -1,88 +1,109 @@
 import React from 'react'
-import { render, mount } from 'enzyme'
-import { CirclePacking } from '../src'
+import { mount } from 'enzyme'
+import { sampleData, SampleDatum } from './fixtures'
+import { CirclePacking, CirclePackingHtml } from '../src'
 
-const sampleData = {
-    id: 'nivo',
-    children: [
-        {
-            id: 'bar',
-            children: [
-                { id: 'svg', value: 12 },
-                { id: 'canvas', value: 34 },
-                { id: 'html', value: 2 },
-            ],
-        },
-        {
-            id: 'line',
-            children: [
-                { id: 'svg', value: 43 },
-                { id: 'canvas', value: 27 },
-            ],
-        },
-        {
-            id: 'pie',
-            children: [
-                { id: 'svg', value: 17 },
-                { id: 'canvas', value: 23 },
-            ],
-        },
-    ],
-}
+const testCases = [
+    {
+        Chart: CirclePacking,
+        circle: 'CircleSvg',
+        label: 'LabelSvg',
+    },
+    {
+        Chart: CirclePackingHtml,
+        circle: 'CircleHtml',
+        label: 'LabelHtml',
+    },
+]
 
-it('should render as much node as items', () => {
-    const wrapper = render(<CirclePacking width={600} height={600} data={sampleData} />)
+testCases.forEach(testCase => {
+    describe(testCase.Chart, () => {
+        it('should render as much node as items', () => {
+            const wrapper = mount(
+                <testCase.Chart<SampleDatum> width={600} height={600} data={sampleData} />
+            )
 
-    expect(wrapper.find('circle').length).toBe(11)
+            expect(wrapper.find(testCase.circle).length).toBe(11)
+        })
+
+        it(`should skip parent nodes if 'leavesOnly' is 'true'`, () => {
+            const wrapper = mount(
+                <testCase.Chart<SampleDatum>
+                    width={600}
+                    height={600}
+                    data={sampleData}
+                    leavesOnly={true}
+                />
+            )
+
+            expect(wrapper.find(testCase.circle).length).toBe(7)
+        })
+
+        it(`should render as much labels as nodes if 'enableLabels' is 'true'`, () => {
+            const wrapper = mount(
+                <testCase.Chart<SampleDatum>
+                    width={600}
+                    height={600}
+                    data={sampleData}
+                    enableLabels={true}
+                />
+            )
+
+            expect(wrapper.find(testCase.label).length).toBe(11)
+        })
+
+        it(`should render no label if 'enableLabels' is 'false'`, () => {
+            const wrapper = mount(
+                <testCase.Chart<SampleDatum>
+                    width={600}
+                    height={600}
+                    data={sampleData}
+                    enableLabels={false}
+                />
+            )
+
+            expect(wrapper.find(testCase.label).length).toBe(0)
+        })
+
+        it(`should allow to skip labels using 'labelsSkipRadius' if radius is lower than given value`, () => {
+            const wrapper = mount(
+                <testCase.Chart<SampleDatum>
+                    width={600}
+                    height={600}
+                    data={sampleData}
+                    enableLabels={true}
+                    labelsSkipRadius={24}
+                />
+            )
+
+            expect(wrapper.find(testCase.label).length).toBe(10)
+        })
+
+        it(`should allow to filter labels using a custom filter function`, () => {
+            const wrapper = mount(
+                <testCase.Chart<SampleDatum>
+                    width={600}
+                    height={600}
+                    data={sampleData}
+                    enableLabels={true}
+                    labelsFilter={label => label.node.depth === 1}
+                />
+            )
+
+            expect(wrapper.find(testCase.label).length).toBe(3)
+        })
+    })
 })
 
-it(`should skip parent nodes if 'leavesOnly' is 'true'`, () => {
-    const wrapper = render(
-        <CirclePacking width={600} height={600} data={sampleData} leavesOnly={true} />
-    )
-
-    expect(wrapper.find('circle').length).toBe(7)
-})
-
-it(`should render as much labels as leaves if 'enableLabel' is 'true'`, () => {
-    const wrapper = render(
-        <CirclePacking width={600} height={600} data={sampleData} enableLabel={true} />
-    )
-
-    expect(wrapper.find('text').length).toBe(7)
-})
-
-it(`should render no label if 'enableLabel' is 'false'`, () => {
-    const wrapper = render(
-        <CirclePacking width={600} height={600} data={sampleData} enableLabel={false} />
-    )
-
-    expect(wrapper.find('text').length).toBe(0)
-})
-
-it(`should allow to skip labels using 'labelSkipRadius' if radius is lower than given value`, () => {
-    const wrapper = render(
-        <CirclePacking
-            width={600}
-            height={600}
-            data={sampleData}
-            enableLabel={true}
-            labelSkipRadius={24}
-        />
-    )
-
-    expect(wrapper.find('text').length).toBe(6)
-})
-
-it(`should send node data to onClick when 'isZoomable' is false`, () => {
+xit(`should send node data to onClick when 'isZoomable' is false`, () => {
     const onClickHandler = jest.fn(node => node.data)
     const wrapper = mount(
-        <CirclePacking
+        <CirclePackingHtml<SampleDatum>
             width={600}
             height={600}
             data={sampleData}
-            enableLabel={true}
-            labelSkipRadius={24}
+            enableLabels={true}
+            labelsSkipRadius={24}
             isZoomable={false}
             onClick={onClickHandler}
         />

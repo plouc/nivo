@@ -18,19 +18,16 @@ const initialProperties = {
     value: 'loc',
     colors: { scheme: 'nivo' },
     colorBy: 'depth',
-    //childColor: {
-    //    from: 'color',
-    //    modifiers: [['darker', 0.3]],
-    //},
     childColor: 'noinherit',
-    padding: 6,
+    padding: 2,
     leavesOnly: false,
-    enableLabel: true,
+    enableLabels: true,
     label: 'id',
-    labelSkipRadius: 8,
-    labelTextColor: {
+    labelsFilter: label => label.node.depth === 2,
+    labelsSkipRadius: 10,
+    labelsTextColor: {
         from: 'color',
-        modifiers: [['darker', 0.8]],
+        modifiers: [['darker', 2]],
     },
     borderWidth: 2,
     borderColor: {

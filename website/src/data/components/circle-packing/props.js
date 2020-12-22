@@ -206,11 +206,11 @@ const props = [
     },
     ...defsProperties('Style', ['svg']),
     {
-        key: 'enableLabel',
+        key: 'enableLabels',
         help: 'Enable/disable labels.',
         type: 'boolean',
         required: false,
-        defaultValue: defaultProps.enableLabel,
+        defaultValue: defaultProps.enableLabels,
         controlType: 'switch',
         group: 'Labels',
     },
@@ -235,34 +235,11 @@ const props = [
         },
     },
     {
-        key: 'labelFormat',
-        group: 'Labels',
-        help: 'Labels formatting.',
-        description: `
-            How to format label,
-            [see d3.format() documentation](https://github.com/d3/d3-format/blob/master/README.md#format).
-        `,
-        type: 'string | Function',
-    },
-    {
-        key: 'labelTextColor',
-        help: 'Method to compute label text color.',
-        description: `
-            how to compute label text color,
-            [see dedicated documentation](self:/guides/colors).
-        `,
-        type: 'string | object | Function',
-        required: false,
-        defaultValue: defaultProps.labelTextColor,
-        controlType: 'inheritedColor',
-        group: 'Labels',
-    },
-    {
-        key: 'labelSkipRadius',
+        key: 'labelsSkipRadius',
         help: 'Skip label rendering if node radius is lower than given value, 0 to disable.',
         type: 'number',
         required: false,
-        defaultValue: defaultProps.labelSkipRadius,
+        defaultValue: defaultProps.labelsSkipRadius,
         controlType: 'range',
         group: 'Labels',
         controlOptions: {
@@ -270,6 +247,19 @@ const props = [
             min: 0,
             max: 32,
         },
+    },
+    {
+        key: 'labelsTextColor',
+        help: 'Method to compute label text color.',
+        description: `
+            how to compute label text color,
+            [see dedicated documentation](self:/guides/colors).
+        `,
+        type: 'string | object | Function',
+        required: false,
+        defaultValue: defaultProps.labelsTextColor,
+        controlType: 'inheritedColor',
+        group: 'Labels',
     },
     {
         key: 'isInteractive',
