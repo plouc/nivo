@@ -1,18 +1,11 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
-import { ResponsiveBubbleHtml, BubbleHtmlDefaultProps } from '@nivo/circle-packing'
+import { patternLinesDef } from '@nivo/core'
+import { ResponsiveCirclePacking, BubbleDefaultProps } from '@nivo/circle-packing'
 import { generateLibTree } from '@nivo/generators'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
-import meta from '../../data/components/bubble/meta.yml'
-import mapper from '../../data/components/bubble/mapper'
-import { groups } from '../../data/components/bubble/props'
+import meta from '../../data/components/circle-packing/meta.yml'
+import mapper from '../../data/components/circle-packing/mapper'
+import { groups } from '../../data/components/circle-packing/props'
 
 const initialProperties = {
     margin: {
@@ -21,55 +14,68 @@ const initialProperties = {
         bottom: 20,
         left: 20,
     },
-    identity: 'name',
+    id: 'name',
     value: 'loc',
-    colors: { scheme: 'paired' },
-    colorBy: 'depth',
-    padding: 1,
+    colors: { scheme: 'spectral' },
+    childColor: {
+        from: 'color',
+        modifiers: [['darker', 0.3]],
+    },
+    padding: 6,
     leavesOnly: false,
 
     enableLabel: true,
     label: 'id',
-    labelSkipRadius: 10,
+    labelSkipRadius: 8,
     labelTextColor: {
         from: 'color',
         modifiers: [['darker', 0.8]],
     },
 
-    borderWidth: 0,
+    borderWidth: 2,
     borderColor: {
         from: 'color',
-        modifiers: [['darker', 0.3]],
     },
 
+    defs: [
+        patternLinesDef('lines', {
+            background: 'none',
+            color: 'inherit',
+            rotation: -45,
+            lineWidth: 5,
+            spacing: 8,
+        }),
+    ],
+    fill: [{ match: { depth: 1 }, id: 'lines' }],
+
     animate: true,
-    motionStiffness: 90,
-    motionDamping: 12,
+    motionConfig: 'gentle',
 
     isInteractive: true,
 
     isZoomable: true,
 }
 
-const BubbleHtml = () => {
+const generateData = () => generateLibTree()
+
+const CirclePacking = () => {
     return (
         <ComponentTemplate
-            name="BubbleHtml"
-            meta={meta.BubbleHtml}
+            name="CirclePacking"
+            meta={meta.CirclePacking}
             icon="circle-packing"
             flavors={meta.flavors}
-            currentFlavor="html"
+            currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={BubbleHtmlDefaultProps}
+            defaultProperties={BubbleDefaultProps}
             propertiesMapper={mapper}
-            generateData={generateLibTree}
-            dataKey="root"
+            generateData={generateData}
         >
             {(properties, data, theme, logAction) => {
                 return (
-                    <ResponsiveBubbleHtml
-                        root={data}
+                    <ResponsiveCirclePacking
+                        data={data}
                         {...properties}
                         theme={theme}
                         onClick={({ children, parent, ...node }) => {
@@ -87,4 +93,4 @@ const BubbleHtml = () => {
     )
 }
 
-export default BubbleHtml
+export default CirclePacking

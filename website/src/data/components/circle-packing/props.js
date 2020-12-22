@@ -1,11 +1,3 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import { BubbleDefaultProps as defaults } from '@nivo/circle-packing'
 import {
     themeProperty,
@@ -13,109 +5,72 @@ import {
     defsProperties,
     groupProperties,
 } from '../../../lib/componentProperties'
+import { defaultProps } from '@nivo/sunburst'
 
 const props = [
     {
         key: 'data',
-        help: 'The hierarchical data object.',
+        group: 'Base',
+        help: 'Chart data, which should be immutable.',
+        description: `
+            Chart data, which must conform to this structure
+            if using the default \`id\` and \`value\` accessors:
+
+            \`\`\`
+            {
+                // must be unique for the whole dataset
+                id: string | number
+                value: number
+                children: {
+                    id: string | number
+                    value: number
+                    children: ...
+                }[]
+            }
+            \`\`\`
+
+            If using a different data structure, you must make sure
+            to adjust both \`id\` and \`value\`. Meaning you can provide
+            a completely different data structure as long as \`id\` and \`value\`
+            return the appropriate values.
+
+            Immutability of the data is important as re-computations
+            depends on it.
+        `,
         type: 'object',
         required: true,
-        group: 'Base',
     },
     {
-        key: 'identity',
-        help: 'Define id accessor.',
+        key: 'id',
+        group: 'Base',
+        help: 'Id accessor.',
         description: `
-            define id accessor, if string given, will use
-            \`datum[value]\`, if function given, it will be
-            invoked for each node and will receive the node as
-            first argument, it must return the node value.
+            define id accessor, if string given,
+            will use \`node[value]\`,
+            if function given, it will be invoked
+            for each node and will receive the node as
+            first argument, it must return the node
+            id (string | number).
         `,
         type: 'string | Function',
         required: false,
-        defaultValue: defaults.identity,
-        group: 'Base',
+        defaultValue: defaultProps.id,
     },
     {
         key: 'value',
-        help: 'Define value accessor.',
+        group: 'Base',
+        help: 'Value accessor',
         description: `
-            define value accessor, if string given, will use
-            \`datum[value]\`, if function given, it will be
-            invoked for each node and will receive the node as
-            first argument, it must return the node value.
+            define value accessor, if string given,
+            will use \`node[value]\`,
+            if function given, it will be invoked
+            for each node and will receive the node as
+            first argument, it must return the node
+            value (number).
         `,
         type: 'string | Function',
         required: false,
-        defaultValue: 'value',
-        group: 'Base',
-    },
-    {
-        key: 'width',
-        enableControlForFlavors: ['api'],
-        help: 'Chart width.',
-        description: `
-            not required if using \`<ResponsiveBubble/>\`.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'height',
-        enableControlForFlavors: ['api'],
-        help: 'Chart height.',
-        description: `
-            not required if using \`<ResponsiveBubble/>\`.
-        `,
-        type: 'number',
-        required: true,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 100,
-            max: 1000,
-            step: 5,
-        },
-    },
-    {
-        key: 'pixelRatio',
-        flavors: ['canvas'],
-        help: `Adjust pixel ratio, useful for HiDPI screens.`,
-        required: false,
-        defaultValue: 'Depends on device',
-        type: `number`,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            min: 1,
-            max: 2,
-        },
-    },
-    {
-        key: 'leavesOnly',
-        help: 'Only render leaf nodes (skip parent nodes).',
-        type: 'boolean',
-        required: false,
-        defaultValue: defaults.leavesOnly,
-        controlType: 'switch',
-        group: 'Base',
-    },
-    {
-        key: 'margin',
-        help: 'Chart margin.',
-        type: 'object',
-        required: false,
-        controlType: 'margin',
-        group: 'Base',
+        defaultValue: defaultProps.value,
     },
     {
         key: 'padding',
@@ -138,6 +93,73 @@ const props = [
             max: 32,
         },
     },
+    {
+        key: 'leavesOnly',
+        help: 'Only render leaf nodes (skip parent nodes).',
+        type: 'boolean',
+        required: false,
+        defaultValue: defaults.leavesOnly,
+        controlType: 'switch',
+        group: 'Base',
+    },
+    {
+        key: 'width',
+        enableControlForFlavors: ['api'],
+        help: 'Chart width.',
+        description: `
+            not required if using \`<ResponsiveCirclePacking/>\`.
+        `,
+        type: 'number',
+        required: true,
+        controlType: 'range',
+        group: 'Base',
+        controlOptions: {
+            unit: 'px',
+            min: 100,
+            max: 1000,
+            step: 5,
+        },
+    },
+    {
+        key: 'height',
+        enableControlForFlavors: ['api'],
+        help: 'Chart height.',
+        description: `
+            not required if using \`<ResponsiveCirclePacking/>\`.
+        `,
+        type: 'number',
+        required: true,
+        controlType: 'range',
+        group: 'Base',
+        controlOptions: {
+            unit: 'px',
+            min: 100,
+            max: 1000,
+            step: 5,
+        },
+    },
+    {
+        key: 'margin',
+        help: 'Chart margin.',
+        type: 'object',
+        required: false,
+        controlType: 'margin',
+        group: 'Base',
+    },
+    {
+        key: 'pixelRatio',
+        flavors: ['canvas'],
+        help: `Adjust pixel ratio, useful for HiDPI screens.`,
+        required: false,
+        defaultValue: 'Depends on device',
+        type: `number`,
+        controlType: 'range',
+        group: 'Base',
+        controlOptions: {
+            min: 1,
+            max: 2,
+        },
+    },
     themeProperty,
     {
         key: 'colors',
@@ -153,32 +175,13 @@ const props = [
         group: 'Style',
     },
     {
-        key: 'colorBy',
-        type: 'string | Function',
-        help: 'Property used to determine node color.',
-        description: `
-            Property to use to determine node color.
-            If a function is provided, it will receive
-            the current node data and must return
-            a string or number which will be passed
-            to the color generator.
-        `,
+        key: 'childColor',
+        help: 'Defines how to compute child nodes color.',
+        type: 'string | object | Function',
         required: false,
-        defaultValue: defaults.colorBy,
-        controlType: 'choices',
+        defaultValue: defaultProps.childColor,
+        controlType: 'inheritedColor',
         group: 'Style',
-        controlOptions: {
-            choices: [
-                {
-                    label: 'depth',
-                    value: 'depth',
-                },
-                {
-                    label: 'name',
-                    value: 'name',
-                },
-            ],
-        },
     },
     {
         key: 'borderWidth',
@@ -297,7 +300,7 @@ const props = [
         type: 'Function',
         required: false,
     },
-    ...motionProperties(['svg', 'html'], defaults),
+    ...motionProperties(['svg', 'html'], defaultProps, 'react-spring'),
 ]
 
 export const groups = groupProperties(props)
