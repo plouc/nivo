@@ -5,6 +5,14 @@ import { CirclePackingCanvasProps, ComputedDatum } from './types'
 import { defaultProps } from './props'
 import { useCirclePacking, useCirclePackingLabels } from './hooks'
 
+type InnerCirclePackingCanvasProps<RawDatum> = Partial<
+    Omit<
+        CirclePackingCanvasProps<RawDatum>,
+        'data' | 'width' | 'height' | 'animate' | 'motionConfig'
+    >
+> &
+    Pick<CirclePackingCanvasProps<RawDatum>, 'data' | 'width' | 'height'>
+
 const InnerCirclePackingCanvas = <RawDatum,>({
     data,
     id = defaultProps.id,
@@ -28,13 +36,7 @@ const InnerCirclePackingCanvas = <RawDatum,>({
     // layers = defaultProps.layers,
     isInteractive,
     role = defaultProps.role,
-}: Partial<
-    Omit<
-        CirclePackingCanvasProps<RawDatum>,
-        'data' | 'width' | 'height' | 'animate' | 'motionConfig'
-    >
-> &
-    Pick<CirclePackingCanvasProps<RawDatum>, 'data' | 'width' | 'height'>) => {
+}: InnerCirclePackingCanvasProps<RawDatum>) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
     const theme = useTheme()
 

@@ -15,6 +15,14 @@ import { CircleSvg } from './CircleSvg'
 import { Labels } from './Labels'
 import { LabelSvg } from './LabelSvg'
 
+type InnerCirclePackingProps<RawDatum> = Partial<
+    Omit<
+        CirclePackingSvgProps<RawDatum>,
+        'data' | 'width' | 'height' | 'isInteractive' | 'animate' | 'motionConfig'
+    >
+> &
+    Pick<CirclePackingSvgProps<RawDatum>, 'data' | 'width' | 'height' | 'isInteractive'>
+
 const InnerCirclePacking = <RawDatum,>({
     data,
     id = defaultProps.id,
@@ -36,11 +44,14 @@ const InnerCirclePacking = <RawDatum,>({
     labelsSkipRadius = defaultProps.labelsSkipRadius,
     labelsTextColor = defaultProps.labelsTextColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
     layers = defaultProps.layers,
+    isInteractive,
+    onMouseEnter,
+    onMouseMove,
+    onMouseLeave,
+    onClick,
+    tooltip = defaultProps.tooltip,
     role = defaultProps.role,
-}: Partial<
-    Omit<CirclePackingSvgProps<RawDatum>, 'data' | 'width' | 'height' | 'animate' | 'motionConfig'>
-> &
-    Pick<CirclePackingSvgProps<RawDatum>, 'data' | 'width' | 'height'>) => {
+}: InnerCirclePackingProps<RawDatum>) => {
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
         width,
         height,
@@ -67,7 +78,19 @@ const InnerCirclePacking = <RawDatum,>({
     }
 
     if (layers.includes('circles')) {
-        layerById.circles = <Circles<RawDatum> key="circles" nodes={nodes} component={CircleSvg} />
+        layerById.circles = (
+            <Circles<RawDatum>
+                key="circles"
+                nodes={nodes}
+                isInteractive={isInteractive}
+                onMouseEnter={onMouseEnter}
+                onMouseMove={onMouseMove}
+                onMouseLeave={onMouseLeave}
+                onClick={onClick}
+                component={CircleSvg}
+                tooltip={tooltip}
+            />
+        )
     }
 
     if (enableLabels && layers.includes('labels')) {

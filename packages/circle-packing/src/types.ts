@@ -33,6 +33,18 @@ export type CirclePackingCustomLayer<RawDatum> = React.FC<CirclePackingCustomLay
 
 export type CirclePackingLayer<RawDatum> = CirclePackingLayerId | CirclePackingCustomLayer<RawDatum>
 
+export type MouseHandler<RawDatum> = (
+    datum: ComputedDatum<RawDatum>,
+    event: React.MouseEvent
+) => void
+
+export type MouseHandlers<RawDatum> = {
+    onClick?: MouseHandler<RawDatum>
+    onMouseEnter?: MouseHandler<RawDatum>
+    onMouseMove?: MouseHandler<RawDatum>
+    onMouseLeave?: MouseHandler<RawDatum>
+}
+
 export interface CirclePackingCommonProps<RawDatum> {
     data: RawDatum
     id: PropertyAccessor<RawDatum, string | number>
@@ -63,6 +75,7 @@ export interface CirclePackingCommonProps<RawDatum> {
     layers: CirclePackingLayer<RawDatum>[]
 
     isInteractive: boolean
+    tooltip: (props: ComputedDatum<RawDatum>) => JSX.Element
 
     animate: boolean
     motionConfig: ModernMotionProps['motionConfig']
@@ -70,13 +83,15 @@ export interface CirclePackingCommonProps<RawDatum> {
     role: string
 }
 
-export type CirclePackingSvgProps<RawDatum> = CirclePackingCommonProps<RawDatum>
+export type CirclePackingSvgProps<RawDatum> = CirclePackingCommonProps<RawDatum> &
+    MouseHandlers<RawDatum>
 
-export type CirclePackingHtmlProps<RawDatum> = CirclePackingCommonProps<RawDatum>
+export type CirclePackingHtmlProps<RawDatum> = CirclePackingCommonProps<RawDatum> &
+    MouseHandlers<RawDatum>
 
 export type CirclePackingCanvasProps<RawDatum> = CirclePackingCommonProps<RawDatum>
 
-export interface CircleProps<RawDatum> {
+export type CircleProps<RawDatum> = {
     node: ComputedDatum<RawDatum>
     style: {
         x: SpringValue<number>
@@ -86,7 +101,7 @@ export interface CircleProps<RawDatum> {
         color: SpringValue<string>
         opacity: SpringValue<number>
     }
-}
+} & MouseHandlers<RawDatum>
 
 export type CircleComponent<RawDatum> = (props: CircleProps<RawDatum>) => JSX.Element
 
