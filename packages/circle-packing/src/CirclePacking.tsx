@@ -7,15 +7,16 @@ import {
     SvgWrapper,
 } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
-import { CirclePackLayerId, CirclePackSvgProps, ComputedDatum } from './types'
-import { useCirclePacking } from './hooks'
+import { CirclePackingLayerId, CirclePackingSvgProps, ComputedDatum } from './types'
+import { useCirclePacking, useCirclePackingLayerContext } from './hooks'
 import { Circles } from './Circles'
+import { CircleSvg } from './CircleSvg'
 
 const defaultProps = {
     id: 'id',
     value: 'value',
     padding: 0,
-    layers: ['circles', 'labels'] as CirclePackLayerId[],
+    layers: ['circles', 'labels'] as CirclePackingLayerId[],
     colors: { scheme: 'nivo' } as OrdinalColorScaleConfig,
     childColor: {
         from: 'color',
@@ -31,16 +32,22 @@ const InnerCirclePacking = <RawDatum,>({
     data,
     id = defaultProps.id,
     value = defaultProps.value,
-    valueFormat,
+    // valueFormat,
     width,
     height,
     margin: partialMargin,
     padding = defaultProps.padding,
-    colors = defaultProps.colors,
+    colors = defaultProps.colors as OrdinalColorScaleConfig<
+        Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>
+    >,
     childColor = defaultProps.childColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
     layers = defaultProps.layers,
     role = defaultProps.role,
-}: Partial<CirclePackSvgProps<RawDatum>>) => {
+}: Omit<
+    Partial<CirclePackingSvgProps<RawDatum>>,
+    'data' | 'width' | 'height' | 'animate' | 'motionConfig'
+> &
+    Pick<CirclePackingSvgProps<RawDatum>, 'data' | 'width' | 'height'>) => {
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
         width,
         height,
@@ -58,16 +65,18 @@ const InnerCirclePacking = <RawDatum,>({
         childColor,
     })
 
-    const layerById: Record<CirclePackLayerId, ReactNode> = {
+    const layerById: Record<CirclePackingLayerId, ReactNode> = {
         circles: null,
         labels: null,
     }
 
     if (layers.includes('circles')) {
-        layerById.circles = <Circles key="circles" data={nodes} />
+        layerById.circles = <Circles<RawDatum> key="circles" nodes={nodes} component={CircleSvg} />
     }
 
-    const layerContext = {}
+    const layerContext = useCirclePackingLayerContext<RawDatum>({
+        nodes,
+    })
 
     return (
         <SvgWrapper
@@ -78,8 +87,8 @@ const InnerCirclePacking = <RawDatum,>({
             role={role}
         >
             {layers.map((layer, i) => {
-                if (layerById[layer as CirclePackLayerId] !== undefined) {
-                    return layerById[layer as CirclePackLayerId]
+                if (layerById[layer as CirclePackingLayerId] !== undefined) {
+                    return layerById[layer as CirclePackingLayerId]
                 }
 
                 if (typeof layer === 'function') {
@@ -93,12 +102,13 @@ const InnerCirclePacking = <RawDatum,>({
 }
 
 export const CirclePacking = <RawDatum,>({
+    theme,
     isInteractive = defaultProps.isInteractive,
     animate = defaultProps.animate,
     motionConfig = defaultProps.motionConfig,
-    theme,
     ...otherProps
-}: CirclePackSvgProps<RawDatum>) => (
+}: Omit<Partial<CirclePackingSvgProps<RawDatum>>, 'data' | 'width' | 'height'> &
+    Pick<CirclePackingSvgProps<RawDatum>, 'data' | 'width' | 'height'>) => (
     <Container
         isInteractive={isInteractive}
         animate={animate}

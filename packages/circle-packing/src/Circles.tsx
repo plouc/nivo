@@ -1,7 +1,7 @@
 import React from 'react'
-import { useTransition, animated, to, SpringValue } from 'react-spring'
+import { useTransition, to, SpringValue } from 'react-spring'
 import { useMotionConfig } from '@nivo/core'
-import { DatumWithChildren, ComputedDatum } from './types'
+import { ComputedDatum, CircleProps } from './types'
 
 /**
  * A negative radius value is invalid for an SVG circle,
@@ -11,7 +11,12 @@ import { DatumWithChildren, ComputedDatum } from './types'
 const interpolateRadius = (radiusValue: SpringValue<number>) =>
     to([radiusValue], radius => Math.max(0, radius))
 
-export const Circles = <RawDatum extends DatumWithChildren<RawDatum>>({ data }: any) => {
+interface CirclesProps<DefaultRawDatum> {
+    nodes: ComputedDatum<DefaultRawDatum>[]
+    component: (props: CircleProps<DefaultRawDatum>) => JSX.Element
+}
+
+export const Circles = <RawDatum,>({ nodes, component }: CirclesProps<RawDatum>) => {
     const { animate, config: springConfig } = useMotionConfig()
 
     const enter = (node: ComputedDatum<RawDatum>) => ({
@@ -47,8 +52,8 @@ export const Circles = <RawDatum extends DatumWithChildren<RawDatum>>({ data }: 
             color: string
             opacity: number
         }
-    >(data, {
-        key: datum => datum.id,
+    >(nodes, {
+        key: node => node.id,
         initial: update,
         from: enter,
         enter: update,
@@ -59,19 +64,17 @@ export const Circles = <RawDatum extends DatumWithChildren<RawDatum>>({ data }: 
     })
 
     return (
-        <g>
-            {transition((transitionProps, datum) => {
-                return (
-                    <animated.circle
-                        key={datum.id}
-                        cx={transitionProps.x}
-                        cy={transitionProps.y}
-                        r={interpolateRadius(transitionProps.radius)}
-                        fill={transitionProps.color}
-                        opacity={transitionProps.opacity}
-                    />
-                )
+        <>
+            {transition((transitionProps, node) => {
+                return React.createElement(component, {
+                    key: node.id,
+                    node,
+                    style: {
+                        ...transitionProps,
+                        radius: interpolateRadius(transitionProps.radius),
+                    },
+                })
             })}
-        </g>
+        </>
     )
 }

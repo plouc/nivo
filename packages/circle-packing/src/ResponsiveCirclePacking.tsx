@@ -1,10 +1,10 @@
 import React from 'react'
 import { ResponsiveWrapper } from '@nivo/core'
+import { CirclePackingSvgProps } from './types'
 import { CirclePacking } from './CirclePacking'
-import { CirclePackSvgProps } from './types'
 
 export const ResponsiveCirclePacking = <RawDatum,>(
-    props: Omit<CirclePackSvgProps<RawDatum>, 'width' | 'height'>
+    props: Omit<CirclePackingSvgProps<RawDatum>, 'width' | 'height'>
 ) => (
     <ResponsiveWrapper>
         {({ width, height }: { width: number; height: number }) => (

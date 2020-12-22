@@ -1,19 +1,9 @@
 import * as React from 'react'
-import {
-    Box,
-    Dimensions,
-    ModernMotionProps,
-    Theme,
-    PropertyAccessor,
-    ValueFormat,
-} from '@nivo/core'
+import { Interpolation, SpringValue } from 'react-spring'
+import { Box, ModernMotionProps, Theme, PropertyAccessor, ValueFormat } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 
-export interface DatumWithChildren<RawDatum extends DatumWithChildren<RawDatum>> {
-    children?: RawDatum[]
-}
-
-export interface ComputedDatum<RawDatum extends DatumWithChildren<RawDatum>> {
+export interface ComputedDatum<RawDatum> {
     id: string | number
     // contain own id plus all ancestor ids
     path: (string | number)[]
@@ -33,32 +23,37 @@ export interface ComputedDatum<RawDatum extends DatumWithChildren<RawDatum>> {
     parent?: ComputedDatum<RawDatum>
 }
 
-export type CirclePackLayerId = 'circles' | 'labels'
+export type CirclePackingLayerId = 'circles' | 'labels'
 
-export interface CirclePackCustomLayerProps<RawDatum extends DatumWithChildren<RawDatum>> {}
+export interface CirclePackingCustomLayerProps<RawDatum> {
+    nodes: ComputedDatum<RawDatum>[]
+}
 
-export type CirclePackCustomLayer<RawDatum> = React.FC<CirclePackCustomLayerProps<RawDatum>>
+export type CirclePackingCustomLayer<RawDatum> = React.FC<CirclePackingCustomLayerProps<RawDatum>>
 
-export type CirclePackLayer<RawDatum> = CirclePackLayerId | CirclePackCustomLayer<RawDatum>
+export type CirclePackingLayer<RawDatum> = CirclePackingLayerId | CirclePackingCustomLayer<RawDatum>
 
-export interface CirclePackSvgProps<RawDatum extends DatumWithChildren<RawDatum>>
-    extends Dimensions {
+export interface CirclePackingCommonProps<RawDatum> {
     data: RawDatum
-
     id: PropertyAccessor<RawDatum, string | number>
     value: PropertyAccessor<RawDatum, number>
     valueFormat?: ValueFormat<number>
 
+    width: number
+    height: number
+    margin?: Box
     padding: number
-    margin: Box
+    // leavesOnly: boolean
 
-    layers: CirclePackLayer<RawDatum>[]
-
-    theme: Theme
+    theme?: Theme
     colors: OrdinalColorScaleConfig<Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>>
     // if specified, will determine the node's color
     // according to its parent
     childColor: InheritedColorConfig<ComputedDatum<RawDatum>>
+    borderWidth: number
+    borderColor: InheritedColorConfig<ComputedDatum<RawDatum>>
+
+    layers: CirclePackingLayer<RawDatum>[]
 
     isInteractive: boolean
 
@@ -66,4 +61,20 @@ export interface CirclePackSvgProps<RawDatum extends DatumWithChildren<RawDatum>
     motionConfig: ModernMotionProps['motionConfig']
 
     role: string
+}
+
+export type CirclePackingSvgProps<RawDatum> = CirclePackingCommonProps<RawDatum>
+
+export type CirclePackingHtmlProps<RawDatum> = CirclePackingCommonProps<RawDatum>
+
+export interface CircleProps<RawDatum> {
+    node: ComputedDatum<RawDatum>
+    style: {
+        x: SpringValue<number>
+        y: SpringValue<number>
+        // using an interpolation to avoid negative values
+        radius: Interpolation<number>
+        color: SpringValue<string>
+        opacity: SpringValue<number>
+    }
 }
