@@ -1,15 +1,15 @@
 import { useMemo } from 'react'
-import sortBy from 'lodash/sortBy'
+import { partition as d3Partition, hierarchy as d3Hierarchy } from 'd3-hierarchy'
 import cloneDeep from 'lodash/cloneDeep'
+import sortBy from 'lodash/sortBy'
 import { usePropertyAccessor, useTheme, useValueFormatter } from '@nivo/core'
 import { Arc, ArcGenerator, useArcGenerator } from '@nivo/arcs'
 import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
-import { partition as d3Partition, hierarchy as d3Hierarchy } from 'd3-hierarchy'
 import { CommonProps, ComputedDatum, DataProps, DatumId, SunburstCustomLayerProps } from './types'
 
 export const useSunburst = <RawDatum>({
-    childColor,
     colors,
+    childColor,
     cornerRadius,
     data,
     id,
@@ -17,8 +17,8 @@ export const useSunburst = <RawDatum>({
     valueFormat,
     radius,
 }: {
-    childColor: CommonProps<RawDatum>['childColor']
     colors: CommonProps<RawDatum>['colors']
+    childColor: CommonProps<RawDatum>['childColor']
     cornerRadius: CommonProps<RawDatum>['cornerRadius']
     data: DataProps<RawDatum>['data']
     id: NonNullable<DataProps<RawDatum>['id']>

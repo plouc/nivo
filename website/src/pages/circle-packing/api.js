@@ -1,29 +1,24 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
 import { generateLibTree } from '@nivo/generators'
 import SEO from '../../components/seo'
 import ApiClient from '../../components/components/api-client/ApiClient'
-import { groups } from '../../data/components/bubble/props'
-import mapper from '../../data/components/bubble/mapper'
-import meta from '../../data/components/bubble/meta.yml'
+import { groups } from '../../data/components/circle-packing/props'
+import mapper from '../../data/components/circle-packing/mapper'
+import meta from '../../data/components/circle-packing/meta.yml'
 
 const root = generateLibTree()
 
-const BubbleApi = () => {
+const CirclePackingApi = () => {
     return (
         <>
-            <SEO title="Bubble HTTP API" keywords={[...meta.Bubble.tags, 'HTTP API']} />
+            <SEO
+                title="CirclePacking HTTP API"
+                keywords={[...meta.CirclePacking.tags, 'HTTP API']}
+            />
             <ApiClient
-                componentName="Bubble"
+                componentName="CirclePacking"
                 chartClass="circle-packing"
-                apiPath="/charts/bubble"
+                apiPath="/charts/circle-packing"
                 flavors={meta.flavors}
                 dataProperty="root"
                 controlGroups={groups}
@@ -63,4 +58,4 @@ const BubbleApi = () => {
     )
 }
 
-export default BubbleApi
+export default CirclePackingApi

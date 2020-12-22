@@ -1,19 +1,11 @@
-/*
- * This file is part of the nivo project.
- *
- * (c) 2016 Raphaël Benitte
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
 import { generateLibTree } from '@nivo/generators'
 import { ResponsiveBubbleCanvas } from '@nivo/circle-packing'
 import { HomeItem, HomeItemLabel } from './styled'
 
-const HomeBubble = ({ reversedColors }) => {
+export const HomeCirclePacking = ({ reversedColors }) => {
     return (
-        <HomeItem to="/bubble">
+        <HomeItem to="/circle-packing">
             <ResponsiveBubbleCanvas
                 root={generateLibTree()}
                 identity="name"
@@ -24,10 +16,8 @@ const HomeBubble = ({ reversedColors }) => {
                 colors={reversedColors}
             />
             <HomeItemLabel>
-                <span>Bubble documentation</span>
+                <span>CirclePacking documentation</span>
             </HomeItemLabel>
         </HomeItem>
     )
 }
-
-export default HomeBubble
