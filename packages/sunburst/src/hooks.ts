@@ -55,7 +55,7 @@ export const useSunburst = <RawDatum>({
         // It's important to sort node by depth,
         // it ensures that we assign a parent node
         // which has already been computed, because parent nodes
-        // are gonna be computed first
+        // are going to be computed first
         const sortedNodes = sortBy(descendants, 'depth')
 
         return sortedNodes.reduce<ComputedDatum<RawDatum>[]>((acc, descendant) => {
@@ -109,9 +109,7 @@ export const useSunburst = <RawDatum>({
         getChildColor,
     ])
 
-    const arcGenerator = useArcGenerator({
-        cornerRadius,
-    })
+    const arcGenerator = useArcGenerator({ cornerRadius })
 
     return { arcGenerator, nodes }
 }
