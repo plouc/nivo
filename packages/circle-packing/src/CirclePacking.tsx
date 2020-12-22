@@ -5,37 +5,40 @@ import {
     useDimensions,
     Container,
     SvgWrapper,
-    usePropertyAccessor,
 } from '@nivo/core'
-import { CirclePackLayerId, CirclePackSvgProps } from './types'
-import { useCirclePack } from './hooks'
+import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
+import { CirclePackLayerId, CirclePackSvgProps, ComputedDatum } from './types'
+import { useCirclePacking } from './hooks'
+import { Circles } from './Circles'
 
 const defaultProps = {
     id: 'id',
     value: 'value',
-
+    padding: 0,
     layers: ['circles', 'labels'] as CirclePackLayerId[],
-
+    colors: { scheme: 'nivo' } as OrdinalColorScaleConfig,
+    childColor: {
+        from: 'color',
+        modifiers: [['darker', 0.3]],
+    },
     isInteractive: true,
-
     animate: true,
     motionConfig: 'gentle',
-
     role: 'img',
 }
 
-const InnerCirclePack = <RawDatum,>({
+const InnerCirclePacking = <RawDatum,>({
     data,
     id = defaultProps.id,
     value = defaultProps.value,
     valueFormat,
-
     width,
     height,
     margin: partialMargin,
-
+    padding = defaultProps.padding,
+    colors = defaultProps.colors,
+    childColor = defaultProps.childColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
     layers = defaultProps.layers,
-
     role = defaultProps.role,
 }: Partial<CirclePackSvgProps<RawDatum>>) => {
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
@@ -44,14 +47,24 @@ const InnerCirclePack = <RawDatum,>({
         partialMargin
     )
 
-    useCirclePack<RawDatum>({
+    const nodes = useCirclePacking<RawDatum>({
         data,
         id,
         value,
+        width: innerWidth,
+        height: innerHeight,
+        padding,
+        colors,
+        childColor,
     })
+
     const layerById: Record<CirclePackLayerId, ReactNode> = {
         circles: null,
         labels: null,
+    }
+
+    if (layers.includes('circles')) {
+        layerById.circles = <Circles key="circles" data={nodes} />
     }
 
     const layerContext = {}
@@ -79,7 +92,7 @@ const InnerCirclePack = <RawDatum,>({
     )
 }
 
-export const CirclePack = <RawDatum,>({
+export const CirclePacking = <RawDatum,>({
     isInteractive = defaultProps.isInteractive,
     animate = defaultProps.animate,
     motionConfig = defaultProps.motionConfig,
@@ -92,6 +105,6 @@ export const CirclePack = <RawDatum,>({
         motionConfig={motionConfig}
         theme={theme}
     >
-        <InnerCirclePack<RawDatum> isInteractive={isInteractive} {...otherProps} />
+        <InnerCirclePacking<RawDatum> isInteractive={isInteractive} {...otherProps} />
     </Container>
 )

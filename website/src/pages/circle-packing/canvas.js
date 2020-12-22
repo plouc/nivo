@@ -1,19 +1,11 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
 import range from 'lodash/range'
 import random from 'lodash/random'
 import { ResponsiveBubbleCanvas, BubbleCanvasDefaultProps } from '@nivo/circle-packing'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
-import meta from '../../data/components/bubble/meta.yml'
-import mapper from '../../data/components/bubble/mapper'
-import { groups } from '../../data/components/bubble/props'
+import meta from '../../data/components/circle-packing/meta.yml'
+import mapper from '../../data/components/circle-packing/mapper'
+import { groups } from '../../data/components/circle-packing/props'
 
 const NODE_COUNT = 2000
 
@@ -69,11 +61,11 @@ const initialProperties = {
     isZoomable: true,
 }
 
-const BubbleCanvas = () => {
+const CirclePackingCanvas = () => {
     return (
         <ComponentTemplate
-            name="BubbleCanvas"
-            meta={meta.BubbleCanvas}
+            name="CirclePackingCanvas"
+            meta={meta.CirclePackingCanvas}
             icon="circle-packing"
             flavors={meta.flavors}
             currentFlavor="canvas"
@@ -106,4 +98,4 @@ const BubbleCanvas = () => {
     )
 }
 
-export default BubbleCanvas
+export default CirclePackingCanvas

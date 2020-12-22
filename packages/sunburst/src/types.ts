@@ -42,8 +42,9 @@ export interface ComputedDatum<RawDatum> {
     path: DatumId[]
     value: number
     percentage: number
-    formattedValue: string | number
+    formattedValue: string
     color: string
+    // defined when using patterns or gradients
     fill?: string
     arc: Arc
     // contains the raw node's data

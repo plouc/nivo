@@ -6,6 +6,6 @@ export { default as BubbleCanvas } from './BubbleCanvas'
 export { default as ResponsiveBubbleCanvas } from './ResponsiveBubbleCanvas'
 export * from './props'
 
-export * from './CirclePack'
-export * from './ResponsiveCirclePack'
+export * from './CirclePacking'
+export * from './ResponsiveCirclePacking'
 export * from './types'

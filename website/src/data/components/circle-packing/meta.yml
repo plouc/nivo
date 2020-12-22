@@ -1,14 +1,14 @@
 flavors:
   - flavor: svg
-    path: /bubble/
+    path: /circle-packing/
   - flavor: html
-    path: /bubble/html/
+    path: /circle-packing/html/
   - flavor: canvas
-    path: /bubble/canvas/
+    path: /circle-packing/canvas/
   - flavor: api
-    path: /bubble/api/
+    path: /circle-packing/api/
 
-Bubble:
+CirclePacking:
   package: '@nivo/circle-packing'
   tags:
     - hierarchy
@@ -16,59 +16,59 @@ Bubble:
     - isomorphic
   stories:
     - label: Using formatted values
-      link: bubble--with-formatted-values
+      link: circle-packing--with-formatted-values
     - label: Using custom tooltip
-      link: bubble--custom-tooltip
+      link: circle-packing--custom-tooltip
   description: |
-    Bubble chart using circle packing with zooming ability.
+    CirclePacking chart with zooming ability.
     You can fully customize it using `nodeComponent` property
     to define your own node component,
     if you wish to do so you should have a look at
     [native SVG node component](https://github.com/plouc/nivo/blob/master/src/components/charts/bubble/BubbleNode.js)
     for available properties.
 
-    The responsive alternative of this component is `ResponsiveBubble`.
+    The responsive alternative of this component is `ResponsiveCirclePacking`.
     It also offers various implementations, see
-    [BubbleHtml](self:/bubble/html) and
-    [BubbleCanvas](self:/bubble/canvas).
+    [CirclePackingHtml](self:/circle-packing/html) and
+    [CirclePackingCanvas](self:/circle-packing/canvas).
 
     This component is available in the `@nivo/api`,
-    see [sample](api:/samples/bubble.svg)
-    or [try it using the API client](self:/bubble/api).
+    see [sample](api:/samples/circle-packing.svg)
+    or [try it using the API client](self:/circle-packing/api).
     You can also see more example usages in
-    [the storybook](storybook:bubble--default).
+    [the storybook](storybook:circle-packing--default).
 
-BubbleHtml:
+CirclePackingHtml:
   package: '@nivo/circle-packing'
   tags:
     - hierarchy
     - html
     - isomorphic
   description: |
-    Bubble chart using circle packing with zooming ability.
+    CirclePacking chart with zooming ability.
     You can fully customize it using `nodeComponent` property
     to define your own node component, if you wish to do so you should
     have a look at
     [the native HTML node component](https://github.com/plouc/nivo/blob/master/src/components/charts/bubble/BubbleHtmlNode.js)
     for available properties.
 
-    The responsive alternative of this component is `ResponsiveBubbleHtml`.
+    The responsive alternative of this component is `ResponsiveCirclePackingHtml`.
     It also offers various implementations,
-    see [Bubble](self:/bubble) and [BubbleCanvas](self:/bubble/canvas).
+    see [CirclePacking](self:/circle-packing) and [CirclePackingCanvas](self:/circle-packing/canvas).
 
     You can also see more example usages in
-    [the storybook](storybook:bubblehtml--default).
+    [the storybook](storybook:circlepackinghtml--default).
 
-BubbleCanvas:
+CirclePackingCanvas:
   package: '@nivo/circle-packing'
   tags:
     - hierarchy
     - canvas
   description: |
-    A variation around the [Bubble](self:/bubble) component. Well suited
+    A variation around the [CirclePacking](self:/circle-packing) component. Well suited
     for large data sets as it does not impact DOM tree depth, however
     you'll lose the isomorphic ability and transitions (for now).
 
-    The responsive alternative of this component is `ResponsiveBubbleCanvas`.
+    The responsive alternative of this component is `ResponsiveCirclePackingCanvas`.
     It also offers various implementations, see
-    [Bubble](self:/bubble) and [BubbleHtml](self:/bubble/html).
+    [CirclePacking](self:/circle-packing) and [CirclePackingHtml](self:/circle-packing/html).
