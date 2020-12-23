@@ -37,6 +37,7 @@ const InnerCirclePacking = <RawDatum,>({
         Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>
     >,
     colorBy = defaultProps.colorBy,
+    inheritColorFromParent = defaultProps.inheritColorFromParent,
     childColor = defaultProps.childColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
     borderWidth = defaultProps.borderWidth,
     borderColor = defaultProps.borderColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
@@ -74,6 +75,7 @@ const InnerCirclePacking = <RawDatum,>({
         leavesOnly,
         colors,
         colorBy,
+        inheritColorFromParent,
         childColor,
     })
 
