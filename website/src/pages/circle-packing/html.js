@@ -20,10 +20,6 @@ const initialProperties = {
     valueFormat: { format: '', enabled: false },
     colors: { scheme: 'spectral' },
     colorBy: 'depth',
-    //childColor: {
-    //    from: 'color',
-    //    modifiers: [['darker', 0.3]],
-    //},
     childColor: 'noinherit',
     padding: 2,
     leavesOnly: false,
@@ -40,7 +36,6 @@ const initialProperties = {
     animate: true,
     motionConfig: 'gentle',
     isInteractive: true,
-    isZoomable: true,
 }
 
 const CirclePackingHtml = () => {

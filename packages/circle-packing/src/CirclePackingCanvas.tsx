@@ -35,6 +35,7 @@ const InnerCirclePackingCanvas = <RawDatum,>({
     labelsTextColor = defaultProps.labelsTextColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
     // layers = defaultProps.layers,
     isInteractive,
+    zoomedId,
     role = defaultProps.role,
 }: InnerCirclePackingCanvasProps<RawDatum>) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
@@ -60,7 +61,7 @@ const InnerCirclePackingCanvas = <RawDatum,>({
         childColor,
     })
 
-    const zoomedNodes = useCirclePackingZoom<RawDatum>(nodes, 'node.64', innerWidth, innerHeight)
+    const zoomedNodes = useCirclePackingZoom<RawDatum>(nodes, zoomedId, innerWidth, innerHeight)
 
     const labels = useCirclePackingLabels({
         nodes: zoomedNodes,

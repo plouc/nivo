@@ -333,13 +333,16 @@ const props = [
         required: false,
     },
     {
-        key: 'isZoomable',
-        flavors: ['svg', 'html'],
-        help: `Enable/disable zooming ('isInteractive' must also be 'true').`,
-        type: 'boolean',
+        key: 'zoomedId',
+        flavors: ['svg', 'html', 'canvas'],
+        help: `Zoom on a specific node.`,
+        description: `
+            If provided, zoom on the node having the provided ID,
+            this can be used to build a zoomable circle packing chart
+            when used in conjunction with the \`onClick\` property.  
+        `,
+        type: 'string | null',
         required: false,
-        defaultValue: defaultProps.isZoomable,
-        controlType: 'switch',
         group: 'Interactivity',
     },
     ...motionProperties(['svg', 'html'], defaultProps, 'react-spring'),

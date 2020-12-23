@@ -46,6 +46,7 @@ export const InnerCirclePackingHtml = <RawDatum,>({
     onMouseLeave,
     onClick,
     tooltip = defaultProps.tooltip,
+    zoomedId,
     role = defaultProps.role,
 }: InnerCirclePackingHtmlProps<RawDatum>) => {
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
@@ -68,7 +69,7 @@ export const InnerCirclePackingHtml = <RawDatum,>({
         childColor,
     })
 
-    const zoomedNodes = useCirclePackingZoom<RawDatum>(nodes, 'ppie', innerWidth, innerHeight)
+    const zoomedNodes = useCirclePackingZoom<RawDatum>(nodes, zoomedId, innerWidth, innerHeight)
 
     const layerById: Record<CirclePackingLayerId, ReactNode> = {
         circles: null,
