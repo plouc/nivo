@@ -127,25 +127,3 @@ testCases.forEach(testCase => {
         })
     })
 })
-
-xit(`should send node data to onClick when 'isZoomable' is false`, () => {
-    const onClickHandler = jest.fn(node => node.data)
-    const wrapper = mount(
-        <CirclePackingHtml<SampleDatum>
-            width={600}
-            height={600}
-            data={sampleData}
-            enableLabels={true}
-            labelsSkipRadius={24}
-            onClick={onClickHandler}
-        />
-    )
-
-    wrapper
-        .find('circle')
-        .at(0) //click the first <circle> (the root)
-        .simulate('click')
-
-    expect(onClickHandler.mock.calls.length).toBe(1)
-    expect(onClickHandler.mock.results[0].value).toEqual(sampleData)
-})
