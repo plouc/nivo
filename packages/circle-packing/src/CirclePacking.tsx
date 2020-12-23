@@ -43,8 +43,8 @@ const InnerCirclePacking = <RawDatum,>({
     label = defaultProps.label,
     labelsFilter,
     labelsSkipRadius = defaultProps.labelsSkipRadius,
-    labelsTextColor = defaultProps.labelsTextColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
-    labelsComponent = LabelSvg,
+    labelTextColor = defaultProps.labelTextColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
+    labelComponent = LabelSvg,
     layers = defaultProps.layers,
     isInteractive,
     onMouseEnter,
@@ -106,8 +106,8 @@ const InnerCirclePacking = <RawDatum,>({
                 label={label}
                 filter={labelsFilter}
                 skipRadius={labelsSkipRadius}
-                textColor={labelsTextColor}
-                component={labelsComponent}
+                textColor={labelTextColor}
+                component={labelComponent}
             />
         )
     }
