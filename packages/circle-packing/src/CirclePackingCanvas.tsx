@@ -45,6 +45,7 @@ const InnerCirclePackingCanvas = <RawDatum,>({
     tooltip = defaultProps.tooltip,
     zoomedId,
     role = defaultProps.role,
+    pixelRatio = defaultProps.pixelRatio,
 }: InnerCirclePackingCanvasProps<RawDatum>) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
     const theme = useTheme()
@@ -78,8 +79,6 @@ const InnerCirclePackingCanvas = <RawDatum,>({
         skipRadius: labelsSkipRadius,
         textColor: labelTextColor,
     })
-
-    const pixelRatio = 2
 
     useEffect(() => {
         if (!canvasEl.current) return
