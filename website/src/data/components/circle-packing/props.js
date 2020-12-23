@@ -177,7 +177,7 @@ const props = [
     themeProperty,
     {
         key: 'colors',
-        help: 'Defines how to compute node color.',
+        help: 'Define how to compute node color.',
         description: `
             colors used to colorize the circles,
             [see dedicated documentation](self:/guides/colors).
@@ -187,6 +187,25 @@ const props = [
         defaultValue: { scheme: 'nivo' },
         controlType: 'ordinalColors',
         group: 'Style',
+    },
+    {
+        key: 'colorBy',
+        help: `Define the property to use to assign a color to circles.`,
+        description: `
+            When using \`id\`, each node will get a new color,
+            and when using \`depth\` the nodes' color will depend on their depth.
+        `,
+        type: `'id' | 'depth'`,
+        required: false,
+        defaultValue: defaultProps.colorBy,
+        controlType: 'radio',
+        group: 'Style',
+        controlOptions: {
+            choices: [
+                { label: 'id', value: 'id' },
+                { label: 'depth', value: 'depth' },
+            ],
+        },
     },
     {
         key: 'childColor',
@@ -256,6 +275,23 @@ const props = [
                 })
             ),
         },
+    },
+    {
+        key: 'labelsFilter',
+        help: 'Filter labels using custom conditions.',
+        description: `
+            Can be used to only show labels at a certain depth for example:
+            
+            \`\`\`
+            <CirclePacking
+                labelsFilter={label => label.node.depth == 2}
+                {...props}
+            />
+            \`\`\`
+        `,
+        type: '(label) => boolean',
+        required: false,
+        group: 'Labels',
     },
     {
         key: 'labelsSkipRadius',
