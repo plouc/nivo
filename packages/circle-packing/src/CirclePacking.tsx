@@ -1,4 +1,4 @@
-import React, { createElement, Fragment, ReactNode } from 'react'
+import React, { createElement, Fragment, ReactNode, useMemo } from 'react'
 import {
     // @ts-ignore
     bindDefs,
@@ -42,6 +42,8 @@ const InnerCirclePacking = <RawDatum,>({
     borderWidth = defaultProps.borderWidth,
     borderColor = defaultProps.borderColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
     circleComponent = CircleSvg,
+    defs = defaultProps.defs,
+    fill = defaultProps.fill,
     enableLabels = defaultProps.enableLabels,
     label = defaultProps.label,
     labelsFilter,
@@ -80,6 +82,12 @@ const InnerCirclePacking = <RawDatum,>({
     })
 
     const zoomedNodes = useCirclePackingZoom<RawDatum>(nodes, zoomedId, innerWidth, innerHeight)
+
+    const boundDefs = useMemo(() => bindDefs(defs, zoomedNodes, fill, { targetKey: 'fill' }), [
+        defs,
+        zoomedNodes,
+        fill,
+    ])
 
     const layerById: Record<CirclePackingLayerId, ReactNode> = {
         circles: null,
@@ -127,7 +135,7 @@ const InnerCirclePacking = <RawDatum,>({
             width={outerWidth}
             height={outerHeight}
             margin={margin}
-            //defs={boundDefs}
+            defs={boundDefs}
             role={role}
         >
             {layers.map((layer, i) => {
