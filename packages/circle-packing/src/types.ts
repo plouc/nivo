@@ -86,7 +86,9 @@ export type CirclePackingHtmlProps<RawDatum> = CirclePackingCommonProps<RawDatum
     MouseHandlers<RawDatum>
 
 export type CirclePackingCanvasProps<RawDatum> = CirclePackingCommonProps<RawDatum> &
-    Pick<MouseHandlers<RawDatum>, 'onMouseMove' | 'onClick'>
+    Pick<MouseHandlers<RawDatum>, 'onMouseMove' | 'onClick'> & {
+        pixelRatio: number
+    }
 
 export type CircleProps<RawDatum> = {
     node: ComputedDatum<RawDatum>
