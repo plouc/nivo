@@ -17,9 +17,11 @@ CirclePacking:
     - isomorphic
   stories:
     - label: Using formatted values
-      link: circle-packing--with-formatted-values
+      link: circlepacking--with-formatted-values
+    - label: Zooming on click
+      link: circlepacking--zoom-on-click
     - label: Using custom tooltip
-      link: circle-packing--custom-tooltip
+      link: circlepacking--custom-tooltip
   description: |
     CirclePacking chart with zooming ability.
     You can fully customize it using `nodeComponent` property
@@ -46,6 +48,13 @@ CirclePackingHtml:
     - hierarchy
     - html
     - isomorphic
+  stories:
+    - label: Using formatted values
+      link: circlepackinghtml--with-formatted-values
+    - label: Zooming on click
+      link: circlepackinghtml--zoom-on-click
+    - label: Using custom tooltip
+      link: circlepackinghtml--custom-tooltip
   description: |
     CirclePacking chart with zooming ability.
     You can fully customize it using `nodeComponent` property
