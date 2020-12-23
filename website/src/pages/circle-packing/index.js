@@ -47,7 +47,6 @@ const initialProperties = {
     animate: true,
     motionConfig: 'gentle',
     isInteractive: true,
-    isZoomable: true,
 }
 
 const generateData = () => generateLibTree()

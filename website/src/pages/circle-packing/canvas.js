@@ -48,7 +48,6 @@ const initialProperties = {
         modifiers: [['darker', 0.3]],
     },
     isInteractive: true,
-    isZoomable: true,
 }
 
 const CirclePackingCanvas = () => {

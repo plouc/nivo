@@ -77,6 +77,7 @@ export interface CirclePackingCommonProps<RawDatum> {
     layers: CirclePackingLayer<RawDatum>[]
     isInteractive: boolean
     tooltip: (props: ComputedDatum<RawDatum>) => JSX.Element
+    zoomedId?: string | null
     animate: boolean
     motionConfig: ModernMotionProps['motionConfig']
     role: string

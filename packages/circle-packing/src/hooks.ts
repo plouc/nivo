@@ -105,13 +105,14 @@ export const useCirclePacking = <RawDatum extends DatumWithChildren<RawDatum>>({
 
 export const useCirclePackingZoom = <RawDatum>(
     nodes: ComputedDatum<RawDatum>[],
-    zoomedId: string,
+    zoomedId: CirclePackingCommonProps<RawDatum>['zoomedId'],
     width: number,
     height: number
 ) =>
     useMemo(() => {
-        const zoomedNode = nodes.find(({ id }) => id === zoomedId)
+        if (!zoomedId) return nodes
 
+        const zoomedNode = nodes.find(({ id }) => id === zoomedId)
         if (!zoomedNode) return nodes
 
         const ratio = Math.min(width, height) / (zoomedNode.radius * 2)
