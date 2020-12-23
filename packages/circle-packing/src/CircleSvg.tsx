@@ -1,7 +1,7 @@
 import React from 'react'
 import { animated } from 'react-spring'
 import { CircleProps } from './types'
-import { useBoundMouseHandlers } from './hooks'
+import { useNodeMouseHandlers } from './hooks'
 
 export const CircleSvg = <RawDatum,>({
     node,
@@ -11,7 +11,7 @@ export const CircleSvg = <RawDatum,>({
     onMouseLeave,
     onClick,
 }: CircleProps<RawDatum>) => {
-    const handlers = useBoundMouseHandlers<RawDatum>(node, {
+    const handlers = useNodeMouseHandlers<RawDatum>(node, {
         onMouseEnter,
         onMouseMove,
         onMouseLeave,
