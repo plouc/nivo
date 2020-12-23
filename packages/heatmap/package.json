@@ -1,6 +1,6 @@
 {
   "name": "@bitbloom/nivo-heatmap",
-  "version": "0.62.4",
+  "version": "0.62.5",
   "license": "MIT",
   "author": {
     "name": "Raphaël Benitte",
@@ -23,9 +23,9 @@
     "dist/"
   ],
   "dependencies": {
-    "@bitbloom/nivo-axes": "^0.62.4",
-    "@bitbloom/nivo-colors": "^0.62.4",
-    "@bitbloom/nivo-tooltip": "^0.62.4",
+    "@bitbloom/nivo-axes": "^0.62.5",
+    "@bitbloom/nivo-colors": "^0.62.5",
+    "@bitbloom/nivo-tooltip": "^0.62.5",
     "d3-scale": "^3.0.0",
     "react-spring": "^8.0.27"
   },
