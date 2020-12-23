@@ -8,7 +8,7 @@ import {
 } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { CirclePackingLayerId, CirclePackingSvgProps, ComputedDatum } from './types'
-import { useCirclePacking, useCirclePackingLayerContext } from './hooks'
+import { useCirclePacking, useCirclePackingZoom, useCirclePackingLayerContext } from './hooks'
 import { defaultProps } from './props'
 import { Circles } from './Circles'
 import { CircleSvg } from './CircleSvg'
@@ -74,6 +74,8 @@ const InnerCirclePacking = <RawDatum,>({
         childColor,
     })
 
+    const zoomedNodes = useCirclePackingZoom<RawDatum>(nodes, 'ppie', innerWidth, innerHeight)
+
     const layerById: Record<CirclePackingLayerId, ReactNode> = {
         circles: null,
         labels: null,
@@ -83,7 +85,7 @@ const InnerCirclePacking = <RawDatum,>({
         layerById.circles = (
             <Circles<RawDatum>
                 key="circles"
-                nodes={nodes}
+                nodes={zoomedNodes}
                 isInteractive={isInteractive}
                 onMouseEnter={onMouseEnter}
                 onMouseMove={onMouseMove}
@@ -99,7 +101,7 @@ const InnerCirclePacking = <RawDatum,>({
         layerById.labels = (
             <Labels<RawDatum>
                 key="labels"
-                nodes={nodes}
+                nodes={zoomedNodes}
                 label={label}
                 filter={labelsFilter}
                 skipRadius={labelsSkipRadius}

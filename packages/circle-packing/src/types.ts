@@ -4,9 +4,9 @@ import { Box, ModernMotionProps, Theme, PropertyAccessor, ValueFormat } from '@n
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 
 export interface ComputedDatum<RawDatum> {
-    id: string | number
+    id: string
     // contain own id plus all ancestor ids
-    path: (string | number)[]
+    path: string[]
     value: number
     percentage: number
     formattedValue: string
@@ -47,16 +47,14 @@ export type MouseHandlers<RawDatum> = {
 
 export interface CirclePackingCommonProps<RawDatum> {
     data: RawDatum
-    id: PropertyAccessor<RawDatum, string | number>
+    id: PropertyAccessor<RawDatum, string>
     value: PropertyAccessor<RawDatum, number>
     valueFormat?: ValueFormat<number>
-
     width: number
     height: number
     margin?: Box
     padding: number
     leavesOnly: boolean
-
     theme?: Theme
     colors: OrdinalColorScaleConfig<Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>>
     colorBy: 'id' | 'depth'
@@ -66,22 +64,17 @@ export interface CirclePackingCommonProps<RawDatum> {
     borderWidth: number
     borderColor: InheritedColorConfig<ComputedDatum<RawDatum>>
     circleComponent: CircleComponent<RawDatum>
-
     enableLabels: boolean
-    label: PropertyAccessor<ComputedDatum<RawDatum>, string | number>
+    label: PropertyAccessor<ComputedDatum<RawDatum>, string>
     labelsFilter?: (label: ComputedLabel<RawDatum>) => boolean
     labelsSkipRadius: number
     labelsTextColor: InheritedColorConfig<ComputedDatum<RawDatum>>
     labelsComponent: LabelComponent<RawDatum>
-
     layers: CirclePackingLayer<RawDatum>[]
-
     isInteractive: boolean
     tooltip: (props: ComputedDatum<RawDatum>) => JSX.Element
-
     animate: boolean
     motionConfig: ModernMotionProps['motionConfig']
-
     role: string
 }
 

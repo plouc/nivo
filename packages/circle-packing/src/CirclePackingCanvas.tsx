@@ -3,7 +3,7 @@ import { useDimensions, useTheme, Container } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { CirclePackingCanvasProps, ComputedDatum } from './types'
 import { defaultProps } from './props'
-import { useCirclePacking, useCirclePackingLabels } from './hooks'
+import { useCirclePacking, useCirclePackingZoom, useCirclePackingLabels } from './hooks'
 
 type InnerCirclePackingCanvasProps<RawDatum> = Partial<
     Omit<
@@ -60,8 +60,10 @@ const InnerCirclePackingCanvas = <RawDatum,>({
         childColor,
     })
 
+    const zoomedNodes = useCirclePackingZoom<RawDatum>(nodes, 'node.64', innerWidth, innerHeight)
+
     const labels = useCirclePackingLabels({
-        nodes,
+        nodes: zoomedNodes,
         label,
         filter: labelsFilter,
         skipRadius: labelsSkipRadius,
@@ -86,7 +88,7 @@ const InnerCirclePackingCanvas = <RawDatum,>({
         ctx.save()
         ctx.translate(margin.left, margin.top)
 
-        nodes.forEach(node => {
+        zoomedNodes.forEach(node => {
             //if (borderWidth > 0) {
             //    this.ctx.strokeStyle = getBorderColor(node)
             //    this.ctx.lineWidth = borderWidth
@@ -122,7 +124,7 @@ const InnerCirclePackingCanvas = <RawDatum,>({
         margin.left,
         theme,
         pixelRatio,
-        nodes,
+        zoomedNodes,
         enableLabels,
         labels,
     ])

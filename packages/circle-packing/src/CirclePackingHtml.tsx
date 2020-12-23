@@ -2,7 +2,7 @@ import React, { createElement, Fragment, ReactNode } from 'react'
 import { Container, useDimensions } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { CirclePackingHtmlProps, CirclePackingLayerId, ComputedDatum } from './types'
-import { useCirclePacking, useCirclePackingLayerContext } from './hooks'
+import { useCirclePacking, useCirclePackingLayerContext, useCirclePackingZoom } from './hooks'
 import { Circles } from './Circles'
 import { CircleHtml } from './CircleHtml'
 import { defaultProps } from './props'
@@ -68,6 +68,8 @@ export const InnerCirclePackingHtml = <RawDatum,>({
         childColor,
     })
 
+    const zoomedNodes = useCirclePackingZoom<RawDatum>(nodes, 'ppie', innerWidth, innerHeight)
+
     const layerById: Record<CirclePackingLayerId, ReactNode> = {
         circles: null,
         labels: null,
@@ -77,7 +79,7 @@ export const InnerCirclePackingHtml = <RawDatum,>({
         layerById.circles = (
             <Circles<RawDatum>
                 key="circles"
-                nodes={nodes}
+                nodes={zoomedNodes}
                 isInteractive={isInteractive}
                 onMouseEnter={onMouseEnter}
                 onMouseMove={onMouseMove}
@@ -93,7 +95,7 @@ export const InnerCirclePackingHtml = <RawDatum,>({
         layerById.labels = (
             <Labels<RawDatum>
                 key="labels"
-                nodes={nodes}
+                nodes={zoomedNodes}
                 label={label}
                 filter={labelsFilter}
                 skipRadius={labelsSkipRadius}

@@ -36,9 +36,7 @@ export const useCirclePacking = <RawDatum>({
     colorBy: CirclePackingCommonProps<RawDatum>['colorBy']
     childColor: CirclePackingCommonProps<RawDatum>['childColor']
 }): ComputedDatum<RawDatum>[] => {
-    console.log('compute nodes')
-
-    const getId = usePropertyAccessor<RawDatum, string | number>(id)
+    const getId = usePropertyAccessor<RawDatum, string>(id)
     const getValue = usePropertyAccessor<RawDatum, number>(value)
     const formatValue = useValueFormatter(valueFormat)
 
@@ -106,6 +104,29 @@ export const useCirclePacking = <RawDatum>({
 
     return computedNodes
 }
+
+export const useCirclePackingZoom = <RawDatum>(
+    nodes: ComputedDatum<RawDatum>[],
+    zoomedId: string,
+    width: number,
+    height: number
+) =>
+    useMemo(() => {
+        const zoomedNode = nodes.find(({ id }) => id === zoomedId)
+
+        if (!zoomedNode) return nodes
+
+        const ratio = Math.min(width, height) / (zoomedNode.radius * 2)
+        const offsetX = width / 2 - zoomedNode.x * ratio
+        const offsetY = height / 2 - zoomedNode.y * ratio
+
+        return nodes.map(node => ({
+            ...node,
+            x: node.x * ratio + offsetX,
+            y: node.y * ratio + offsetY,
+            radius: node.radius * ratio,
+        }))
+    }, [nodes, zoomedId, width, height])
 
 export const useCirclePackingLabels = <RawDatum>({
     nodes,
