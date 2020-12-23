@@ -21,12 +21,12 @@
   ],
   "main": "./dist/nivo-voronoi.cjs.js",
   "module": "./dist/nivo-voronoi.es.js",
-  "typings": "./index.d.ts",
+  "typings": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
     "dist/",
-    "index.d.ts"
+    "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
     "d3-delaunay": "^5.1.1",
