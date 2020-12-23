@@ -32,11 +32,13 @@ export const InnerCirclePackingHtml = <RawDatum,>({
     >,
     colorBy = defaultProps.colorBy,
     childColor = defaultProps.childColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
+    circleComponent = CircleHtml,
     enableLabels = defaultProps.enableLabels,
     label = defaultProps.label,
     labelsFilter,
     labelsSkipRadius = defaultProps.labelsSkipRadius,
     labelsTextColor = defaultProps.labelsTextColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
+    labelsComponent = LabelHtml,
     layers = defaultProps.layers,
     isInteractive,
     onMouseEnter,
@@ -81,7 +83,7 @@ export const InnerCirclePackingHtml = <RawDatum,>({
                 onMouseMove={onMouseMove}
                 onMouseLeave={onMouseLeave}
                 onClick={onClick}
-                component={CircleHtml}
+                component={circleComponent}
                 tooltip={tooltip}
             />
         )
@@ -96,7 +98,7 @@ export const InnerCirclePackingHtml = <RawDatum,>({
                 filter={labelsFilter}
                 skipRadius={labelsSkipRadius}
                 textColor={labelsTextColor}
-                component={LabelHtml}
+                component={labelsComponent}
             />
         )
     }

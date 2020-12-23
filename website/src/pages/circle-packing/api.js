@@ -35,6 +35,7 @@ const CirclePackingApi = () => {
                     root: JSON.stringify(root, null, '  '),
                     identity: 'name',
                     value: 'loc',
+                    valueFormat: { format: '', enabled: false },
                     colors: { scheme: 'nivo' },
                     colorBy: 'depth',
                     padding: 1,

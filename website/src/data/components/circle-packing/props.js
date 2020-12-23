@@ -72,6 +72,21 @@ const props = [
         defaultValue: defaultProps.value,
     },
     {
+        key: 'valueFormat',
+        group: 'Base',
+        help: 'Optional formatter for values.',
+        description: `
+            The formatted value can then be used for labels & tooltips.
+
+            Under the hood, nivo uses [d3-format](https://github.com/d3/d3-format),
+            please have a look at it for available formats, you can also pass a function
+            which will receive the raw value and should return the formatted one.
+        `,
+        required: false,
+        type: 'string | (value: number) => string | number',
+        controlType: 'valueFormat',
+    },
+    {
         key: 'padding',
         help: 'Padding between each circle.',
         description: `
@@ -206,6 +221,12 @@ const props = [
     },
     ...defsProperties('Style', ['svg']),
     {
+        key: 'circleComponent',
+        help: 'Custom circle component.',
+        group: 'Style',
+        required: false,
+    },
+    {
         key: 'enableLabels',
         help: 'Enable/disable labels.',
         type: 'boolean',
@@ -228,10 +249,12 @@ const props = [
         controlType: 'choices',
         group: 'Labels',
         controlOptions: {
-            choices: ['id', 'value', `d => \`\${d.id}: \${d.value}\``].map(choice => ({
-                label: choice,
-                value: choice,
-            })),
+            choices: ['id', 'value', 'formattedValue', `d => \`\${d.id}: \${d.value}\``].map(
+                choice => ({
+                    label: choice,
+                    value: choice,
+                })
+            ),
         },
     },
     {
@@ -260,6 +283,12 @@ const props = [
         defaultValue: defaultProps.labelsTextColor,
         controlType: 'inheritedColor',
         group: 'Labels',
+    },
+    {
+        key: 'labelsComponent',
+        help: 'Custom label component.',
+        group: 'Labels',
+        required: false,
     },
     {
         key: 'isInteractive',

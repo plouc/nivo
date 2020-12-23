@@ -30,6 +30,7 @@ const initialProperties = {
         typeof window !== 'undefined' && window.devicePixelRatio ? window.devicePixelRatio : 1,
     id: 'name',
     value: 'value',
+    valueFormat: { format: '', enabled: false },
     colors: { scheme: 'spectral' },
     childColor: 'noinherit',
     padding: 1,
