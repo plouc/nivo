@@ -58,8 +58,8 @@ export interface CirclePackingCommonProps<RawDatum> {
     theme?: Theme
     colors: OrdinalColorScaleConfig<Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>>
     colorBy: 'id' | 'depth'
-    // if specified, will determine the node's color
-    // according to its parent
+    inheritColorFromParent: boolean
+    // used if `inheritColorFromParent` is `true`
     childColor: InheritedColorConfig<ComputedDatum<RawDatum>>
     borderWidth: number
     borderColor: InheritedColorConfig<ComputedDatum<RawDatum>>

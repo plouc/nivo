@@ -19,7 +19,11 @@ const initialProperties = {
     valueFormat: { format: '', enabled: false },
     colors: { scheme: 'nivo' },
     colorBy: 'depth',
-    childColor: 'noinherit',
+    inheritColorFromParent: false,
+    childColor: {
+        from: 'color',
+        modifiers: [['brighter', 0.4]],
+    },
     padding: 4,
     leavesOnly: false,
     enableLabels: true,

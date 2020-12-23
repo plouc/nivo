@@ -10,6 +10,7 @@ export const defaultProps = {
     layers: ['circles', 'labels'] as CirclePackingLayerId[],
     colors: { scheme: 'nivo' } as OrdinalColorScaleConfig,
     colorBy: 'depth' as const,
+    inheritColorFromParent: false,
     childColor: 'noinherit',
     borderWidth: 0,
     borderColor: {

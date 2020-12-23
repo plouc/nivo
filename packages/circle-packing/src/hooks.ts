@@ -28,6 +28,7 @@ export const useCirclePacking = <RawDatum>({
     leavesOnly,
     colors,
     colorBy,
+    inheritColorFromParent,
     childColor,
 }: {
     data: CirclePackingCommonProps<RawDatum>['data']
@@ -40,6 +41,7 @@ export const useCirclePacking = <RawDatum>({
     leavesOnly: CirclePackingCommonProps<RawDatum>['leavesOnly']
     colors: CirclePackingCommonProps<RawDatum>['colors']
     colorBy: CirclePackingCommonProps<RawDatum>['colorBy']
+    inheritColorFromParent: CirclePackingCommonProps<RawDatum>['inheritColorFromParent']
     childColor: CirclePackingCommonProps<RawDatum>['childColor']
 }): ComputedDatum<RawDatum>[] => {
     const getId = usePropertyAccessor<RawDatum, string>(id)
@@ -99,7 +101,7 @@ export const useCirclePacking = <RawDatum>({
             height: descendant.height,
         }
 
-        if (childColor !== 'noinherit' && parent && normalizedNode.depth > 1) {
+        if (inheritColorFromParent && parent && normalizedNode.depth > 1) {
             normalizedNode.color = getChildColor(parent)
         } else {
             normalizedNode.color = getColor(normalizedNode)
