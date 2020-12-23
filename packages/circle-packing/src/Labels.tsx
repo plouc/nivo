@@ -10,7 +10,7 @@ interface CirclesProps<RawDatum> {
     label: CirclePackingCommonProps<RawDatum>['label']
     filter?: CirclePackingCommonProps<RawDatum>['labelsFilter']
     skipRadius: CirclePackingCommonProps<RawDatum>['labelsSkipRadius']
-    textColor: CirclePackingCommonProps<RawDatum>['labelsTextColor']
+    textColor: CirclePackingCommonProps<RawDatum>['labelTextColor']
     component: LabelComponent<RawDatum>
 }
 

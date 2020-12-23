@@ -38,7 +38,7 @@ const initialProperties = {
     enableLabels: true,
     label: 'value',
     labelsSkipRadius: 8,
-    labelsTextColor: {
+    labelTextColor: {
         from: 'color',
         modifiers: [['darker', 2.4]],
     },
@@ -48,6 +48,7 @@ const initialProperties = {
         modifiers: [['darker', 0.3]],
     },
     isInteractive: true,
+    animate: false,
 }
 
 const CirclePackingCanvas = () => {
@@ -71,7 +72,7 @@ const CirclePackingCanvas = () => {
                         data={data}
                         {...properties}
                         theme={theme}
-                        onClick={({ children, parent, ...node }) => {
+                        onClick={node => {
                             logAction({
                                 type: 'click',
                                 label: `${node.id}: ${node.value}`,

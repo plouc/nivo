@@ -354,4 +354,14 @@ declare module '@nivo/core' {
     export function usePropertyAccessor<Datum, Value>(
         accessor: PropertyAccessor<Datum, Value>
     ): (datum: Datum) => Value
+
+    export function getRelativeCursor(element: Element, event: React.MouseEvent): [number, number]
+    export function isCursorInRect(
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        cursorX: number,
+        cursorY: number
+    ): boolean
 }

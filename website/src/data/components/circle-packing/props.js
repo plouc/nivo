@@ -272,7 +272,7 @@ const props = [
         },
     },
     {
-        key: 'labelsTextColor',
+        key: 'labelTextColor',
         help: 'Method to compute label text color.',
         description: `
             how to compute label text color,
@@ -280,12 +280,12 @@ const props = [
         `,
         type: 'string | object | Function',
         required: false,
-        defaultValue: defaultProps.labelsTextColor,
+        defaultValue: defaultProps.labelTextColor,
         controlType: 'inheritedColor',
         group: 'Labels',
     },
     {
-        key: 'labelsComponent',
+        key: 'labelComponent',
         help: 'Custom label component.',
         group: 'Labels',
         required: false,
