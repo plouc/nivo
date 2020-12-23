@@ -32,6 +32,8 @@ export const InnerCirclePackingHtml = <RawDatum,>({
     >,
     colorBy = defaultProps.colorBy,
     childColor = defaultProps.childColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
+    borderWidth = defaultProps.borderWidth,
+    borderColor = defaultProps.borderColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
     circleComponent = CircleHtml,
     enableLabels = defaultProps.enableLabels,
     label = defaultProps.label,
@@ -81,6 +83,8 @@ export const InnerCirclePackingHtml = <RawDatum,>({
             <Circles<RawDatum>
                 key="circles"
                 nodes={zoomedNodes}
+                borderWidth={borderWidth}
+                borderColor={borderColor}
                 isInteractive={isInteractive}
                 onMouseEnter={onMouseEnter}
                 onMouseMove={onMouseMove}

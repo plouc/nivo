@@ -11,6 +11,9 @@ export const interpolatePosition = (
 export const interpolateSize = (radiusValue: Interpolation<number>) =>
     to([radiusValue], radius => radius * 2)
 
+export const interpolateBorderWidth = (borderWidth: number, radiusValue: Interpolation<number>) =>
+    to([radiusValue], radius => Math.min(borderWidth, radius))
+
 export const CircleHtml = <RawDatum,>({
     node,
     style,
@@ -38,6 +41,10 @@ export const CircleHtml = <RawDatum,>({
                 width: size,
                 borderRadius: style.radius,
                 backgroundColor: style.color,
+                borderWidth: interpolateBorderWidth(style.borderWidth, style.radius),
+                borderStyle: 'solid',
+                borderColor: style.borderColor,
+                boxSizing: 'border-box',
             }}
             onMouseEnter={handlers.onMouseEnter}
             onMouseMove={handlers.onMouseMove}

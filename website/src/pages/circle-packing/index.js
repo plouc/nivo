@@ -20,7 +20,7 @@ const initialProperties = {
     colors: { scheme: 'nivo' },
     colorBy: 'depth',
     childColor: 'noinherit',
-    padding: 2,
+    padding: 4,
     leavesOnly: false,
     enableLabels: true,
     label: 'id',
@@ -30,9 +30,10 @@ const initialProperties = {
         from: 'color',
         modifiers: [['darker', 2]],
     },
-    borderWidth: 2,
+    borderWidth: 1,
     borderColor: {
         from: 'color',
+        modifiers: [['darker', 0.5]],
     },
     defs: [
         patternLinesDef('lines', {

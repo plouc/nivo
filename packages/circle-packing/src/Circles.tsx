@@ -1,6 +1,7 @@
 import React, { createElement, useMemo, MouseEvent } from 'react'
 import { useTransition, to, SpringValue } from 'react-spring'
-import { useMotionConfig } from '@nivo/core'
+import { useMotionConfig, useTheme } from '@nivo/core'
+import { useInheritedColor } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
 import { ComputedDatum, CircleComponent, MouseHandlers, CirclePackingCommonProps } from './types'
 
@@ -14,17 +15,22 @@ export const interpolateRadius = (radiusValue: SpringValue<number>) =>
 
 type CirclesProps<RawDatum> = {
     nodes: ComputedDatum<RawDatum>[]
+    borderWidth: CirclePackingCommonProps<RawDatum>['borderWidth']
+    borderColor: CirclePackingCommonProps<RawDatum>['borderColor']
     component: CircleComponent<RawDatum>
     isInteractive: CirclePackingCommonProps<RawDatum>['isInteractive']
     tooltip: CirclePackingCommonProps<RawDatum>['tooltip']
 } & MouseHandlers<RawDatum>
 
-const getTransitionPhases = <RawDatum,>() => ({
+const getTransitionPhases = <RawDatum,>(
+    getBorderColor: (node: ComputedDatum<RawDatum>) => string
+) => ({
     enter: (node: ComputedDatum<RawDatum>) => ({
         x: node.x,
         y: node.y,
         radius: 0,
         color: node.color,
+        borderColor: getBorderColor(node),
         opacity: 0,
     }),
     update: (node: ComputedDatum<RawDatum>) => ({
@@ -32,6 +38,7 @@ const getTransitionPhases = <RawDatum,>() => ({
         y: node.y,
         radius: node.radius,
         color: node.color,
+        borderColor: getBorderColor(node),
         opacity: 1,
     }),
     leave: (node: ComputedDatum<RawDatum>) => ({
@@ -39,12 +46,15 @@ const getTransitionPhases = <RawDatum,>() => ({
         y: node.y,
         radius: 0,
         color: node.color,
+        borderColor: getBorderColor(node),
         opacity: 0,
     }),
 })
 
 export const Circles = <RawDatum,>({
     nodes,
+    borderWidth,
+    borderColor,
     component,
     isInteractive,
     onMouseEnter,
@@ -92,7 +102,12 @@ export const Circles = <RawDatum,>({
 
     const { animate, config: springConfig } = useMotionConfig()
 
-    const transitionPhases = useMemo(() => getTransitionPhases<RawDatum>(), [])
+    const theme = useTheme()
+    const getBorderColor = useInheritedColor<ComputedDatum<RawDatum>>(borderColor, theme)
+
+    const transitionPhases = useMemo(() => getTransitionPhases<RawDatum>(getBorderColor), [
+        getBorderColor,
+    ])
 
     const transition = useTransition<
         ComputedDatum<RawDatum>,
@@ -101,6 +116,7 @@ export const Circles = <RawDatum,>({
             y: number
             radius: number
             color: string
+            borderColor: string
             opacity: number
         }
     >(nodes, {
@@ -123,6 +139,7 @@ export const Circles = <RawDatum,>({
                     style: {
                         ...transitionProps,
                         radius: interpolateRadius(transitionProps.radius),
+                        borderWidth,
                     },
                     onMouseEnter: handleMouseEnter,
                     onMouseMove: handleMouseMove,

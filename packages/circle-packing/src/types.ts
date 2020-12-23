@@ -99,6 +99,8 @@ export type CircleProps<RawDatum> = {
         radius: Interpolation<number>
         color: SpringValue<string>
         opacity: SpringValue<number>
+        borderWidth: number
+        borderColor: SpringValue<string>
     }
 } & MouseHandlers<RawDatum>
 

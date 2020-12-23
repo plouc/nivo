@@ -280,7 +280,10 @@ const props = [
         key: 'labelsFilter',
         help: 'Filter labels using custom conditions.',
         description: `
-            Can be used to only show labels at a certain depth for example:
+            Please note that at this stage, nodes are already excluded
+            according to \`labelsSkipRadius\`.
+            
+            This can be used to only show labels at a certain depth for example:
             
             \`\`\`
             <CirclePacking
