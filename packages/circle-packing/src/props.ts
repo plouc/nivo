@@ -9,7 +9,7 @@ export const defaultProps = {
     leavesOnly: false,
     layers: ['circles', 'labels'] as CirclePackingLayerId[],
     colors: { scheme: 'nivo' } as OrdinalColorScaleConfig,
-    colorBy: 'id' as const,
+    colorBy: 'depth' as const,
     childColor: {
         from: 'color',
         modifiers: [['darker', 0.3]],

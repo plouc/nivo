@@ -6,11 +6,11 @@ import { Bubble } from '../src'
 const commonProperties = {
     width: 900,
     height: 500,
-    root: generateLibTree(),
-    identity: 'name',
+    data: generateLibTree(),
+    id: 'name',
     value: 'loc',
     label: 'name',
-    labelSkipRadius: 16,
+    labelsSkipRadius: 16,
 }
 
 storiesOf('Bubble', module)
