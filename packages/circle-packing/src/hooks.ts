@@ -143,7 +143,7 @@ export const useCirclePackingLabels = <RawDatum>({
     }, [labels, filter])
 }
 
-export const useBoundMouseHandlers = <RawDatum>(
+export const useNodeMouseHandlers = <RawDatum>(
     node: ComputedDatum<RawDatum>,
     { onMouseEnter, onMouseMove, onMouseLeave, onClick }: MouseHandlers<RawDatum>
 ): Partial<
