@@ -17,6 +17,7 @@ const initialProperties = {
     },
     id: 'name',
     value: 'loc',
+    valueFormat: { format: '', enabled: false },
     colors: { scheme: 'spectral' },
     colorBy: 'depth',
     //childColor: {
