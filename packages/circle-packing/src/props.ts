@@ -11,7 +11,10 @@ export const defaultProps = {
     colors: { scheme: 'nivo' } as OrdinalColorScaleConfig,
     colorBy: 'depth' as const,
     inheritColorFromParent: false,
-    childColor: 'noinherit',
+    childColor: {
+        from: 'color',
+        modifiers: [['darker', 0.3]],
+    },
     borderWidth: 0,
     borderColor: {
         from: 'color',
