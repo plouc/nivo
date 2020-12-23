@@ -10,20 +10,17 @@ export const defaultProps = {
     layers: ['circles', 'labels'] as CirclePackingLayerId[],
     colors: { scheme: 'nivo' } as OrdinalColorScaleConfig,
     colorBy: 'depth' as const,
-    childColor: {
-        from: 'color',
-        modifiers: [['darker', 0.3]],
-    },
+    childColor: 'noinherit',
     borderWidth: 0,
     borderColor: {
         from: 'color',
         modifiers: [['darker', 0.3]],
     },
-    enableLabels: true,
+    enableLabels: false,
     label: 'id',
     labelTextColor: {
         from: 'color',
-        modifiers: [['darker', 1]],
+        modifiers: [['darker', 1.6]],
     },
     labelsSkipRadius: 8,
     isInteractive: true,
