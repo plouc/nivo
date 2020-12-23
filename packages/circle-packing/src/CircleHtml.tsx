@@ -1,7 +1,7 @@
 import React from 'react'
 import { animated, to, SpringValue, Interpolation } from 'react-spring'
 import { CircleProps } from './types'
-import { useBoundMouseHandlers } from './hooks'
+import { useNodeMouseHandlers } from './hooks'
 
 export const interpolatePosition = (
     positionValue: SpringValue<number>,
@@ -21,7 +21,7 @@ export const CircleHtml = <RawDatum,>({
 }: CircleProps<RawDatum>) => {
     const size = interpolateSize(style.radius)
 
-    const handlers = useBoundMouseHandlers<RawDatum>(node, {
+    const handlers = useNodeMouseHandlers<RawDatum>(node, {
         onMouseEnter,
         onMouseMove,
         onMouseLeave,
