@@ -78,7 +78,6 @@ export const InnerCirclePackingHtml = <RawDatum,>({
     if (layers.includes('circles')) {
         layerById.circles = (
             <Circles<RawDatum>
-                key="circles"
                 nodes={zoomedNodes}
                 isInteractive={isInteractive}
                 onMouseEnter={onMouseEnter}
@@ -114,23 +113,30 @@ export const InnerCirclePackingHtml = <RawDatum,>({
             role={role}
             style={{
                 position: 'relative',
+                overflow: 'hidden',
                 width: outerWidth,
                 height: outerHeight,
-                marginTop: margin.top,
-                marginLeft: margin.left,
             }}
         >
-            {layers.map((layer, i) => {
-                if (layerById[layer as CirclePackingLayerId] !== undefined) {
-                    return layerById[layer as CirclePackingLayerId]
-                }
+            <div
+                style={{
+                    position: 'absolute',
+                    top: margin.top,
+                    left: margin.left,
+                }}
+            >
+                {layers.map((layer, i) => {
+                    if (layerById[layer as CirclePackingLayerId] !== undefined) {
+                        return layerById[layer as CirclePackingLayerId]
+                    }
 
-                if (typeof layer === 'function') {
-                    return <Fragment key={i}>{createElement(layer, layerContext)}</Fragment>
-                }
+                    if (typeof layer === 'function') {
+                        return <Fragment key={i}>{createElement(layer, layerContext)}</Fragment>
+                    }
 
-                return null
-            })}
+                    return null
+                })}
+            </div>
         </div>
     )
 }
