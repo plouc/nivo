@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, createElement } from 'react'
 import { useDimensions, useTheme, Container } from '@nivo/core'
-import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
+import { InheritedColorConfig, OrdinalColorScaleConfig, useInheritedColor } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
 import { CirclePackingCanvasProps, ComputedDatum } from './types'
 import { defaultProps } from './props'
@@ -34,6 +34,8 @@ const InnerCirclePackingCanvas = <RawDatum,>({
     >,
     colorBy = defaultProps.colorBy,
     childColor = defaultProps.childColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
+    borderWidth = defaultProps.borderWidth,
+    borderColor = defaultProps.borderColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
     enableLabels = defaultProps.enableLabels,
     label = defaultProps.label,
     labelsFilter,
@@ -80,6 +82,8 @@ const InnerCirclePackingCanvas = <RawDatum,>({
         textColor: labelTextColor,
     })
 
+    const getBorderColor = useInheritedColor<ComputedDatum<RawDatum>>(borderColor, theme)
+
     useEffect(() => {
         if (!canvasEl.current) return
 
@@ -97,19 +101,19 @@ const InnerCirclePackingCanvas = <RawDatum,>({
         ctx.translate(margin.left, margin.top)
 
         zoomedNodes.forEach(node => {
-            //if (borderWidth > 0) {
-            //    this.ctx.strokeStyle = getBorderColor(node)
-            //    this.ctx.lineWidth = borderWidth
-            //}
+            if (borderWidth > 0) {
+                ctx.strokeStyle = getBorderColor(node)
+                ctx.lineWidth = borderWidth
+            }
 
             ctx.beginPath()
             ctx.arc(node.x, node.y, node.radius, 0, 2 * Math.PI)
             ctx.fillStyle = node.color
             ctx.fill()
 
-            //if (borderWidth > 0) {
-            //    this.ctx.stroke()
-            //}
+            if (borderWidth > 0) {
+                ctx.stroke()
+            }
         })
 
         if (enableLabels) {
@@ -135,6 +139,8 @@ const InnerCirclePackingCanvas = <RawDatum,>({
         zoomedNodes,
         enableLabels,
         labels,
+        borderWidth,
+        getBorderColor,
     ])
 
     const getNodeFromMouseEvent = useMouseCircleDetection<RawDatum>({

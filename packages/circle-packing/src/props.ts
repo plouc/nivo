@@ -14,6 +14,11 @@ export const defaultProps = {
         from: 'color',
         modifiers: [['darker', 0.3]],
     },
+    borderWidth: 0,
+    borderColor: {
+        from: 'color',
+        modifiers: [['darker', 0.3]],
+    },
     enableLabels: true,
     label: 'id',
     labelTextColor: {
