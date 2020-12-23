@@ -1,6 +1,13 @@
 import * as React from 'react'
 import { Interpolation, SpringValue } from 'react-spring'
-import { Box, ModernMotionProps, Theme, PropertyAccessor, ValueFormat } from '@nivo/core'
+import {
+    Box,
+    ModernMotionProps,
+    Theme,
+    PropertyAccessor,
+    ValueFormat,
+    SvgDefsAndFill,
+} from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 
 export interface ComputedDatum<RawDatum> {
@@ -80,7 +87,8 @@ export interface CirclePackingCommonProps<RawDatum> {
 }
 
 export type CirclePackingSvgProps<RawDatum> = CirclePackingCommonProps<RawDatum> &
-    MouseHandlers<RawDatum>
+    MouseHandlers<RawDatum> &
+    SvgDefsAndFill<ComputedDatum<RawDatum>>
 
 export type CirclePackingHtmlProps<RawDatum> = CirclePackingCommonProps<RawDatum> &
     MouseHandlers<RawDatum>
