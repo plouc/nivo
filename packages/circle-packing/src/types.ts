@@ -71,12 +71,14 @@ export interface CirclePackingCommonProps<RawDatum> {
     childColor: InheritedColorConfig<ComputedDatum<RawDatum>>
     borderWidth: number
     borderColor: InheritedColorConfig<ComputedDatum<RawDatum>>
+    circleComponent: CircleComponent<RawDatum>
 
     enableLabels: boolean
     label: PropertyAccessor<ComputedDatum<RawDatum>, string | number>
     labelsFilter?: (label: ComputedLabel<RawDatum>) => boolean
     labelsSkipRadius: number
     labelsTextColor: InheritedColorConfig<ComputedDatum<RawDatum>>
+    labelsComponent: LabelComponent<RawDatum>
 
     layers: CirclePackingLayer<RawDatum>[]
 

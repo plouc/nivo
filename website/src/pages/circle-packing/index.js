@@ -16,6 +16,7 @@ const initialProperties = {
     },
     id: 'name',
     value: 'loc',
+    valueFormat: { format: '', enabled: false },
     colors: { scheme: 'nivo' },
     colorBy: 'depth',
     childColor: 'noinherit',

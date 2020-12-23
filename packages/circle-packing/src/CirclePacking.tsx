@@ -38,11 +38,13 @@ const InnerCirclePacking = <RawDatum,>({
     >,
     colorBy = defaultProps.colorBy,
     childColor = defaultProps.childColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
+    circleComponent = CircleSvg,
     enableLabels = defaultProps.enableLabels,
     label = defaultProps.label,
     labelsFilter,
     labelsSkipRadius = defaultProps.labelsSkipRadius,
     labelsTextColor = defaultProps.labelsTextColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
+    labelsComponent = LabelSvg,
     layers = defaultProps.layers,
     isInteractive,
     onMouseEnter,
@@ -87,7 +89,7 @@ const InnerCirclePacking = <RawDatum,>({
                 onMouseMove={onMouseMove}
                 onMouseLeave={onMouseLeave}
                 onClick={onClick}
-                component={CircleSvg}
+                component={circleComponent}
                 tooltip={tooltip}
             />
         )
@@ -102,7 +104,7 @@ const InnerCirclePacking = <RawDatum,>({
                 filter={labelsFilter}
                 skipRadius={labelsSkipRadius}
                 textColor={labelsTextColor}
-                component={LabelSvg}
+                component={labelsComponent}
             />
         )
     }
