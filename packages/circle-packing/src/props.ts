@@ -16,7 +16,7 @@ export const defaultProps = {
     },
     enableLabels: true,
     label: 'id',
-    labelsTextColor: {
+    labelTextColor: {
         from: 'color',
         modifiers: [['darker', 1]],
     },

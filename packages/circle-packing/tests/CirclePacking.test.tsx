@@ -118,7 +118,7 @@ testCases.forEach(testCase => {
                         height={600}
                         data={sampleData}
                         enableLabels={true}
-                        labelsComponent={CustomLabel}
+                        labelComponent={CustomLabel}
                     />
                 )
 
@@ -137,7 +137,6 @@ xit(`should send node data to onClick when 'isZoomable' is false`, () => {
             data={sampleData}
             enableLabels={true}
             labelsSkipRadius={24}
-            isZoomable={false}
             onClick={onClickHandler}
         />
     )

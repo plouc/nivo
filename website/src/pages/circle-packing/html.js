@@ -27,7 +27,7 @@ const initialProperties = {
     label: 'id',
     labelsFilter: label => label.node.depth === 2,
     labelsSkipRadius: 10,
-    labelsTextColor: '#000000',
+    labelTextColor: '#000000',
     borderWidth: 0,
     borderColor: {
         from: 'color',
@@ -59,7 +59,7 @@ const CirclePackingHtml = () => {
                         root={data}
                         {...properties}
                         theme={theme}
-                        onClick={({ children, parent, ...node }) => {
+                        onClick={node => {
                             logAction({
                                 type: 'click',
                                 label: `${node.id}: ${node.value}`,

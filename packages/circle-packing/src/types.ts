@@ -72,8 +72,8 @@ export interface CirclePackingCommonProps<RawDatum> {
     label: PropertyAccessor<ComputedDatum<RawDatum>, string>
     labelsFilter?: (label: ComputedLabel<RawDatum>) => boolean
     labelsSkipRadius: number
-    labelsTextColor: InheritedColorConfig<ComputedDatum<RawDatum>>
-    labelsComponent: LabelComponent<RawDatum>
+    labelTextColor: InheritedColorConfig<ComputedDatum<RawDatum>>
+    labelComponent: LabelComponent<RawDatum>
     layers: CirclePackingLayer<RawDatum>[]
     isInteractive: boolean
     tooltip: (props: ComputedDatum<RawDatum>) => JSX.Element
@@ -89,7 +89,8 @@ export type CirclePackingSvgProps<RawDatum> = CirclePackingCommonProps<RawDatum>
 export type CirclePackingHtmlProps<RawDatum> = CirclePackingCommonProps<RawDatum> &
     MouseHandlers<RawDatum>
 
-export type CirclePackingCanvasProps<RawDatum> = CirclePackingCommonProps<RawDatum>
+export type CirclePackingCanvasProps<RawDatum> = CirclePackingCommonProps<RawDatum> &
+    Pick<MouseHandlers<RawDatum>, 'onMouseMove' | 'onClick'>
 
 export type CircleProps<RawDatum> = {
     node: ComputedDatum<RawDatum>

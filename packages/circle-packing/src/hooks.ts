@@ -1,8 +1,14 @@
-import { useMemo, MouseEvent } from 'react'
+import { useMemo, MouseEvent, MutableRefObject, useCallback } from 'react'
 import { pack as d3Pack, hierarchy as d3Hierarchy } from 'd3-hierarchy'
 import cloneDeep from 'lodash/cloneDeep'
 import sortBy from 'lodash/sortBy'
-import { usePropertyAccessor, useValueFormatter, useTheme } from '@nivo/core'
+import {
+    usePropertyAccessor,
+    useValueFormatter,
+    useTheme,
+    getRelativeCursor,
+    getDistance,
+} from '@nivo/core'
 import { useInheritedColor, useOrdinalColorScale } from '@nivo/colors'
 import {
     CirclePackingCommonProps,
@@ -138,7 +144,7 @@ export const useCirclePackingLabels = <RawDatum>({
     label: CirclePackingCommonProps<RawDatum>['label']
     filter: CirclePackingCommonProps<RawDatum>['labelsFilter']
     skipRadius: CirclePackingCommonProps<RawDatum>['labelsSkipRadius']
-    textColor: CirclePackingCommonProps<RawDatum>['labelsTextColor']
+    textColor: CirclePackingCommonProps<RawDatum>['labelTextColor']
 }) => {
     const getLabel = usePropertyAccessor<ComputedDatum<RawDatum>, string | number>(label)
     const theme = useTheme()
@@ -196,6 +202,41 @@ export const useNodeMouseHandlers = <RawDatum>(
         }),
         [node, onMouseEnter, onMouseMove, onMouseLeave, onClick]
     )
+
+export const useMouseCircleDetection = <RawDatum>({
+    nodes,
+    canvasEl,
+    margin,
+}: {
+    nodes: ComputedDatum<RawDatum>[]
+    canvasEl: MutableRefObject<HTMLCanvasElement | null>
+    margin: {
+        top: number
+        left: number
+    }
+}) => {
+    // we need to sort in order to detect higher nodes first
+    const sortedNodes = useMemo(() => sortBy(nodes, 'height'), [nodes])
+
+    return useCallback(
+        (event: MouseEvent) => {
+            if (!canvasEl.current) return null
+
+            const [x, y] = getRelativeCursor(canvasEl.current, event)
+
+            return sortedNodes.find(node => {
+                const distanceFromNode = getDistance(
+                    node.x,
+                    node.y,
+                    x - margin.left,
+                    y - margin.top
+                )
+                return distanceFromNode <= node.radius
+            })
+        },
+        [canvasEl, margin, sortedNodes]
+    )
+}
 
 /**
  * Memoize the context to pass to custom layers.

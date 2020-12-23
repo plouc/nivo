@@ -1,9 +1,15 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef, createElement } from 'react'
 import { useDimensions, useTheme, Container } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
+import { useTooltip } from '@nivo/tooltip'
 import { CirclePackingCanvasProps, ComputedDatum } from './types'
 import { defaultProps } from './props'
-import { useCirclePacking, useCirclePackingZoom, useCirclePackingLabels } from './hooks'
+import {
+    useCirclePacking,
+    useCirclePackingZoom,
+    useCirclePackingLabels,
+    useMouseCircleDetection,
+} from './hooks'
 
 type InnerCirclePackingCanvasProps<RawDatum> = Partial<
     Omit<
@@ -32,9 +38,11 @@ const InnerCirclePackingCanvas = <RawDatum,>({
     label = defaultProps.label,
     labelsFilter,
     labelsSkipRadius = defaultProps.labelsSkipRadius,
-    labelsTextColor = defaultProps.labelsTextColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
-    // layers = defaultProps.layers,
+    labelTextColor = defaultProps.labelTextColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
     isInteractive,
+    onMouseMove,
+    onClick,
+    tooltip = defaultProps.tooltip,
     zoomedId,
     role = defaultProps.role,
 }: InnerCirclePackingCanvasProps<RawDatum>) => {
@@ -68,7 +76,7 @@ const InnerCirclePackingCanvas = <RawDatum,>({
         label,
         filter: labelsFilter,
         skipRadius: labelsSkipRadius,
-        textColor: labelsTextColor,
+        textColor: labelTextColor,
     })
 
     const pixelRatio = 2
@@ -130,6 +138,43 @@ const InnerCirclePackingCanvas = <RawDatum,>({
         labels,
     ])
 
+    const getNodeFromMouseEvent = useMouseCircleDetection<RawDatum>({
+        nodes: zoomedNodes,
+        canvasEl,
+        margin,
+    })
+
+    const { showTooltipFromEvent, hideTooltip } = useTooltip()
+
+    const handleMouseHover = useCallback(
+        (event: React.MouseEvent<HTMLCanvasElement>) => {
+            const node = getNodeFromMouseEvent(event)
+            if (node) {
+                onMouseMove?.(node, event)
+                showTooltipFromEvent(createElement(tooltip, node), event)
+            } else {
+                hideTooltip()
+            }
+        },
+        [getNodeFromMouseEvent, showTooltipFromEvent, tooltip, hideTooltip]
+    )
+
+    const handleMouseLeave = useCallback(() => {
+        hideTooltip()
+    }, [hideTooltip])
+
+    const handleClick = useCallback(
+        (event: React.MouseEvent<HTMLCanvasElement>) => {
+            if (!onClick) return
+
+            const node = getNodeFromMouseEvent(event)
+            if (node) {
+                onClick(node, event)
+            }
+        },
+        [getNodeFromMouseEvent, onClick]
+    )
+
     return (
         <canvas
             ref={canvasEl}
@@ -141,10 +186,10 @@ const InnerCirclePackingCanvas = <RawDatum,>({
                 cursor: isInteractive ? 'auto' : 'normal',
             }}
             role={role}
-            //onMouseEnter={isInteractive ? handleMouseHover : undefined}
-            //onMouseMove={isInteractive ? handleMouseHover : undefined}
-            //onMouseLeave={isInteractive ? handleMouseLeave : undefined}
-            //onClick={isInteractive ? handleClick : undefined}
+            onMouseEnter={isInteractive ? handleMouseHover : undefined}
+            onMouseMove={isInteractive ? handleMouseHover : undefined}
+            onMouseLeave={isInteractive ? handleMouseLeave : undefined}
+            onClick={isInteractive ? handleClick : undefined}
         />
     )
 }
