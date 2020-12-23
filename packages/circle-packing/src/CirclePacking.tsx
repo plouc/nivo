@@ -38,6 +38,8 @@ const InnerCirclePacking = <RawDatum,>({
     >,
     colorBy = defaultProps.colorBy,
     childColor = defaultProps.childColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
+    borderWidth = defaultProps.borderWidth,
+    borderColor = defaultProps.borderColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
     circleComponent = CircleSvg,
     enableLabels = defaultProps.enableLabels,
     label = defaultProps.label,
@@ -87,6 +89,8 @@ const InnerCirclePacking = <RawDatum,>({
             <Circles<RawDatum>
                 key="circles"
                 nodes={zoomedNodes}
+                borderWidth={borderWidth}
+                borderColor={borderColor}
                 isInteractive={isInteractive}
                 onMouseEnter={onMouseEnter}
                 onMouseMove={onMouseMove}
