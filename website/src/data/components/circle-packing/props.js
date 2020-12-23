@@ -208,8 +208,18 @@ const props = [
         },
     },
     {
+        key: 'inheritColorFromParent',
+        help: 'Inherit color from parent node starting from 2nd level.',
+        type: 'boolean',
+        required: false,
+        defaultValue: defaultProps.inheritColorFromParent,
+        controlType: 'switch',
+        group: 'Style',
+    },
+    {
         key: 'childColor',
-        help: 'Defines how to compute child nodes color.',
+        help:
+            'Defines how to compute child nodes color, only used when inheritColorFromParent is enabled.',
         type: 'string | object | Function',
         required: false,
         defaultValue: defaultProps.childColor,

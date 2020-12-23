@@ -33,7 +33,11 @@ const initialProperties = {
     valueFormat: { format: '', enabled: false },
     colors: { scheme: 'spectral' },
     colorBy: 'id',
-    childColor: 'noinherit',
+    inheritColorFromParent: false,
+    childColor: {
+        from: 'color',
+        modifiers: [['brighter', 0.4]],
+    },
     padding: 1,
     leavesOnly: true,
     enableLabels: true,
