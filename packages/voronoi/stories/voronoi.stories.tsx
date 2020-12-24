@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { storiesOf } from '@storybook/react'
 import { line, curveLinearClosed } from 'd3-shape'
-import { Voronoi } from '../src'
+import { Voronoi, VoronoiCustomLayerProps } from '../src'
 
 const stories = storiesOf('Voronoi', module)
 
-const lineGenerator = line().curve(curveLinearClosed)
+const lineGenerator = line<[number, number]>().curve(curveLinearClosed)
 
 const nekoSize = 75
 const nekoHalfSize = nekoSize / 2
 
-const Neko = ({ x, y }) => {
-    const points = [
+const Neko = ({ x, y }: { x: number; y: number }) => {
+    const points: [number, number][] = [
         [x, y - nekoHalfSize + nekoSize * 0.2],
 
         // right ear
@@ -38,7 +38,7 @@ const Neko = ({ x, y }) => {
     return (
         <>
             <path
-                d={lineGenerator(points)}
+                d={lineGenerator(points) ?? undefined}
                 fill="black"
                 stroke="black"
                 strokeWidth={5}
@@ -118,43 +118,34 @@ const Neko = ({ x, y }) => {
     )
 }
 
-const Layer = ({ data, width, height, voronoi, delaunay }) => {
-    const miceIndex = data.findIndex(d => d.id === 'mice')
+const Layer = ({ points, voronoi }: VoronoiCustomLayerProps) => {
+    const width = 500
+    const height = 500
 
-    const points = []
-    for (let i = 0; i < delaunay.points.length; i += 2) {
-        const x = delaunay.points[i]
-        const y = delaunay.points[i + 1]
-        points.push([x, y])
-    }
+    return (
+        <>
+            {points.map((point, i) => {
+                if (point.data.id === 'mice') {
+                    return <circle cx={point.x} cy={point.y} r={10} fill="red" />
+                }
 
-    return data.map((d, i) => {
-        const point = points[i]
+                const poly = Array.from(voronoi.cellPolygon(i)) as [number, number][]
+                const maskId = `${point.data.id}.mask`
 
-        if (d.id === 'mice') {
-            return <circle key={i} cx={point[0]} cy={point[1]} r={10} fill="red" />
-        }
-
-        const poly = voronoi.cellPolygon(i) || []
-        const maskId = `${d.id}.mask`
-
-        return (
-            <g key={d.id}>
-                <mask id={maskId}>
-                    <path d={lineGenerator(poly)} fill="white" />
-                </mask>
-                <g mask={`url(#${maskId})`}>
-                    <rect
-                        width={width}
-                        height={height}
-                        //fill={d.color}
-                        fill="#222"
-                    />
-                    <Neko x={point[0]} y={point[1]} />
-                </g>
-            </g>
-        )
-    })
+                return (
+                    <g key={point.data.id}>
+                        <mask id={maskId}>
+                            <path d={lineGenerator(poly) ?? undefined} fill="white" />
+                        </mask>
+                        <g mask={`url(#${maskId})`}>
+                            <rect width={width} height={height} fill="#222" />
+                            <Neko x={point.x} y={point.y} />
+                        </g>
+                    </g>
+                )
+            })}
+        </>
+    )
 }
 
 const randColor = () => '#' + (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6)
