@@ -5987,6 +5987,11 @@
   resolved "https://registry.yarnpkg.com/@types/d3-format/-/d3-format-1.4.1.tgz#1e657a219e4b1e3931508a610d570bdec8ecdd9d"
   integrity sha512-ss9G2snEKmp2In5Z3T0Jpqv8QaDBc2xHltBw83KjnV5B5w+Iwphbvq5ph/Xnu4d03fmmsdt+o1aWch379rxIbA==
 
+"@types/d3-force@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@types/d3-force/-/d3-force-2.1.0.tgz#6a2210f04d02a0862c6b069de91bad904143e7b5"
+  integrity sha512-LGDtC2YADu8OBniq9EBx/MOsXsMcJbEkmfSpXuz6oVdRamB+3CLCiq5EKFPEILGZQckkilGFq1ZTJ7kc289k+Q==
+
 "@types/d3-hierarchy@^1.1.7":
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/@types/d3-hierarchy/-/d3-hierarchy-1.1.7.tgz#14a57b0539f8929015f8ad96490de50a16211040"

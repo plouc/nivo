@@ -1,0 +1,218 @@
+import { useMemo } from 'react'
+import { ScaleLinear, ScaleOrdinal } from 'd3-scale'
+import { usePropertyAccessor, useValueFormatter } from '@nivo/core'
+import { useOrdinalColorScale } from '@nivo/colors'
+import {
+    computeValueScale,
+    computeOrdinalScale,
+    getSizeGenerator,
+    computeForces,
+    computeNodes,
+} from './compute'
+import { SwarmPlotCommonProps, ComputedDatum, SizeSpec } from './types'
+
+export const useValueScale = <RawDatum>({
+    width,
+    height,
+    axis,
+    getValue,
+    scale,
+    data,
+}: {
+    width: number
+    height: number
+    axis: 'x' | 'y'
+    getValue: (datum: RawDatum) => number
+    scale: any
+    data: RawDatum[]
+}) =>
+    useMemo(
+        () =>
+            computeValueScale<RawDatum>({
+                width,
+                height,
+                axis,
+                getValue,
+                scale,
+                data,
+            }),
+        [width, height, axis, getValue, scale, data]
+    )
+
+export const useOrdinalScale = ({
+    width,
+    height,
+    axis,
+    groups,
+    gap,
+}: {
+    width: number
+    height: number
+    axis: 'x' | 'y'
+    groups: string[]
+    gap: number
+}) =>
+    useMemo(() => computeOrdinalScale({ width, height, axis, groups, gap }), [
+        width,
+        height,
+        axis,
+        groups,
+        gap,
+    ])
+
+const useSize = <RawDatum>(size: SizeSpec<RawDatum>) =>
+    useMemo(() => getSizeGenerator<RawDatum>(size), [size])
+
+export const useForces = <RawDatum>({
+    axis,
+    valueScale,
+    ordinalScale,
+    spacing,
+    forceStrength,
+}: {
+    axis: 'x' | 'y'
+    valueScale: ScaleLinear<number, number>
+    ordinalScale: ScaleOrdinal<string, number>
+    spacing: number
+    forceStrength: number
+}) =>
+    useMemo(
+        () =>
+            computeForces<RawDatum>({
+                axis,
+                valueScale,
+                ordinalScale,
+                spacing,
+                forceStrength,
+            }),
+        [axis, valueScale, ordinalScale, spacing, forceStrength]
+    )
+
+export const useSwarmPlot = <RawDatum>({
+    data,
+    width,
+    height,
+    id,
+    value,
+    valueFormat,
+    valueScale: valueScaleConfig,
+    groups,
+    groupBy,
+    size,
+    spacing,
+    layout,
+    gap,
+    forceStrength,
+    simulationIterations,
+    colors,
+    colorBy,
+}: {
+    data: RawDatum[]
+    width: number
+    height: number
+    id: SwarmPlotCommonProps<RawDatum>['id']
+    value: SwarmPlotCommonProps<RawDatum>['value']
+    valueScale: SwarmPlotCommonProps<RawDatum>['valueScale']
+    valueFormat?: SwarmPlotCommonProps<RawDatum>['valueFormat']
+    groups: SwarmPlotCommonProps<RawDatum>['groups']
+    groupBy: SwarmPlotCommonProps<RawDatum>['groupBy']
+    size: SwarmPlotCommonProps<RawDatum>['size']
+    spacing: SwarmPlotCommonProps<RawDatum>['spacing']
+    layout: SwarmPlotCommonProps<RawDatum>['layout']
+    gap: SwarmPlotCommonProps<RawDatum>['gap']
+    forceStrength: SwarmPlotCommonProps<RawDatum>['forceStrength']
+    simulationIterations: SwarmPlotCommonProps<RawDatum>['simulationIterations']
+    colors: SwarmPlotCommonProps<RawDatum>['colors']
+    colorBy: SwarmPlotCommonProps<RawDatum>['colorBy']
+}) => {
+    const axis = layout === 'horizontal' ? 'x' : 'y'
+
+    const getId = usePropertyAccessor<RawDatum, string>(id)
+    const getValue = usePropertyAccessor<RawDatum, number>(value)
+    const formatValue = useValueFormatter(valueFormat)
+    const getGroup = usePropertyAccessor<RawDatum, string>(groupBy)
+    const getSize = useSize<RawDatum>(size)
+    const getColorId = usePropertyAccessor<Omit<ComputedDatum<RawDatum>, 'color'>, string>(colorBy)
+    const getColor = useOrdinalColorScale<Omit<ComputedDatum<RawDatum>, 'color'>>(
+        colors,
+        getColorId
+    )
+
+    const valueScale = useValueScale({
+        width,
+        height,
+        axis,
+        getValue,
+        scale: valueScaleConfig,
+        data,
+    })
+
+    const ordinalScale = useOrdinalScale({
+        width,
+        height,
+        axis,
+        groups,
+        gap,
+    })
+
+    const forces = useForces<RawDatum>({
+        axis,
+        valueScale,
+        ordinalScale,
+        spacing,
+        forceStrength,
+    })
+
+    const { nodes, xScale, yScale } = useMemo(
+        () =>
+            computeNodes<RawDatum>({
+                data,
+                getId,
+                layout,
+                getValue,
+                valueScale,
+                getGroup,
+                ordinalScale,
+                getSize,
+                forces,
+                simulationIterations,
+                valueScaleConfig,
+            }),
+        [
+            data,
+            getId,
+            layout,
+            getValue,
+            valueScale,
+            getGroup,
+            ordinalScale,
+            getSize,
+            forces,
+            simulationIterations,
+        ]
+    )
+
+    const augmentedNodes = useMemo(
+        () =>
+            nodes.map(node => ({
+                id: node.id,
+                index: node.index,
+                group: node.group,
+                value: node.value,
+                formattedValue: formatValue(node.value),
+                x: node.x,
+                y: node.y,
+                size: node.size,
+                color: getColor(node),
+                data: node.data,
+            })),
+        [nodes, formatValue, getColor]
+    )
+
+    return {
+        nodes: augmentedNodes,
+        xScale,
+        yScale,
+        getColor,
+    }
+}

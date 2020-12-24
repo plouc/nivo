@@ -1,16 +1,8 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
-import { ResponsiveSwarmPlotCanvas, SwarmPlotCanvasDefaultProps } from '@nivo/swarmplot'
+import { ResponsiveSwarmPlotCanvas, defaultProps } from '@nivo/swarmplot'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/swarmplot/meta.yml'
-import mapper from '../../data/components/scatterplot/mapper'
+import mapper from '../../data/components/swarmplot/mapper'
 import { groups } from '../../data/components/swarmplot/props'
 import { generateHeavyDataSet } from '../../data/components/swarmplot/generator'
 
@@ -20,7 +12,7 @@ const initialProperties = Object.freeze({
     groupBy: 'group',
     identity: 'id',
     value: 'price',
-    valueFormat: '$.2f',
+    valueFormat: { format: '$.2f', enabled: true },
     valueScale: {
         type: 'linear',
         min: 0,
@@ -33,8 +25,8 @@ const initialProperties = Object.freeze({
         sizes: [4, 12],
     },
     spacing: 1,
-    layout: SwarmPlotCanvasDefaultProps.layout,
-    gap: SwarmPlotCanvasDefaultProps.gap,
+    layout: defaultProps.layout,
+    gap: defaultProps.gap,
 
     forceStrength: 1,
     simulationIterations: 60,
@@ -110,7 +102,7 @@ const ScatterPlotCanvas = () => {
             currentFlavor="canvas"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={SwarmPlotCanvasDefaultProps}
+            defaultProperties={defaultProps}
             propertiesMapper={mapper}
             codePropertiesMapper={(properties, data) => ({
                 groups: data.groups,
