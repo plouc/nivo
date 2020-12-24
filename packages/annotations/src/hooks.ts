@@ -1,10 +1,21 @@
 import { useMemo } from 'react'
 import { bindAnnotations, computeAnnotation } from './compute'
+import { AnnotationSpec, AnnotationSpecWithMatcher } from './types'
 
-export const useAnnotations = ({ items, annotations, getPosition, getDimensions }) =>
+export const useAnnotations = <Datum>({
+    items,
+    annotations,
+    getPosition,
+    getDimensions,
+}: {
+    items: Datum[]
+    annotations: AnnotationSpecWithMatcher<Datum>
+    getPosition: any
+    getDimensions: any
+}) =>
     useMemo(
         () =>
-            bindAnnotations({
+            bindAnnotations<Datum>({
                 items,
                 annotations,
                 getPosition,
@@ -13,24 +24,20 @@ export const useAnnotations = ({ items, annotations, getPosition, getDimensions 
         [items, annotations, getPosition, getDimensions]
     )
 
-export const useComputedAnnotations = ({ annotations, containerWidth, containerHeight }) =>
+export const useComputedAnnotations = ({ annotations }: { annotations: AnnotationSpec[] }) =>
     useMemo(
         () =>
             annotations.map(annotation => ({
                 ...annotation,
                 computed: computeAnnotation({
-                    containerWidth,
-                    containerHeight,
                     ...annotation,
                 }),
             })),
-        [annotations, containerWidth, containerHeight]
+        [annotations]
     )
 
 export const useComputedAnnotation = ({
     type,
-    containerWidth,
-    containerHeight,
     x,
     y,
     size,
@@ -40,13 +47,11 @@ export const useComputedAnnotation = ({
     noteY,
     noteWidth,
     noteTextOffset,
-}) =>
+}: AnnotationSpec) =>
     useMemo(
         () =>
             computeAnnotation({
                 type,
-                containerWidth,
-                containerHeight,
                 x,
                 y,
                 size,
@@ -57,18 +62,5 @@ export const useComputedAnnotation = ({
                 noteWidth,
                 noteTextOffset,
             }),
-        [
-            type,
-            containerWidth,
-            containerHeight,
-            x,
-            y,
-            size,
-            width,
-            height,
-            noteX,
-            noteY,
-            noteWidth,
-            noteTextOffset,
-        ]
+        [type, x, y, size, width, height, noteX, noteY, noteWidth, noteTextOffset]
     )

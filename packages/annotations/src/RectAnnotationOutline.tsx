@@ -1,9 +1,18 @@
-import React, { memo } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 import { useSpring, animated } from '@react-spring/web'
 import { useMotionConfig, useTheme } from '@nivo/core'
 
-const RectAnnotationOutline = memo(({ x, y, width, height }) => {
+export const RectAnnotationOutline = ({
+    x,
+    y,
+    width,
+    height,
+}: {
+    x: number
+    y: number
+    width: number
+    height: number
+}) => {
     const theme = useTheme()
     const { animate, config: springConfig } = useMotionConfig()
 
@@ -43,14 +52,4 @@ const RectAnnotationOutline = memo(({ x, y, width, height }) => {
             />
         </>
     )
-})
-
-RectAnnotationOutline.displayName = 'RectAnnotationOutline'
-RectAnnotationOutline.propTypes = {
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
 }
-
-export default RectAnnotationOutline

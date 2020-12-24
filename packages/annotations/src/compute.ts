@@ -8,14 +8,20 @@ import {
     positionFromAngle,
 } from '@nivo/core'
 import { defaultProps } from './props'
+import { AnnotationSpec, AnnotationSpecWithMatcher } from './types'
 
 const defaultPositionAccessor = item => ({ x: item.x, y: item.y })
 
-export const bindAnnotations = ({
+export const bindAnnotations = <Datum>({
     items,
     annotations,
     getPosition = defaultPositionAccessor,
     getDimensions,
+}: {
+    items: Datum[]
+    annotations: AnnotationSpecWithMatcher<Datum>[]
+    getPosition: any
+    getDimensions: any
 }) =>
     annotations.reduce((acc, annotation) => {
         filter(items, annotation.match).forEach(item => {
@@ -34,15 +40,19 @@ export const bindAnnotations = ({
         return acc
     }, [])
 
-export const getLinkAngle = (sourceX, sourceY, targetX, targetY) => {
+export const getLinkAngle = (
+    sourceX: number,
+    sourceY: number,
+    targetX: number,
+    targetY: number
+) => {
     const angle = Math.atan2(targetY - sourceY, targetX - sourceX)
+
     return absoluteAngleDegrees(radiansToDegrees(angle))
 }
 
 export const computeAnnotation = ({
     type,
-    // containerWidth,
-    // containerHeight,
     x,
     y,
     size,
@@ -52,7 +62,7 @@ export const computeAnnotation = ({
     noteY,
     noteWidth = defaultProps.noteWidth,
     noteTextOffset = defaultProps.noteTextOffset,
-}) => {
+}: AnnotationSpec) => {
     let computedNoteX
     let computedNoteY
 

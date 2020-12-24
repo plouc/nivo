@@ -1,17 +1,27 @@
-import React, { memo } from 'react'
+import React from 'react'
 import omit from 'lodash/omit'
-import PropTypes from 'prop-types'
 import { useSpring, animated } from '@react-spring/web'
 import { useTheme, useMotionConfig } from '@nivo/core'
 
-const AnnotationNote = memo(({ datum, x, y, note }) => {
+export const AnnotationNote = <Datum,>({
+    datum,
+    x,
+    y,
+    note,
+}: {
+    datum: Datum
+    x: number
+    y: number
+    // PropTypes.oneOfType([PropTypes.node, PropTypes.func]).isRequired
+    note: any
+}) => {
     const theme = useTheme()
-    const { animate, config: springConfiig } = useMotionConfig()
+    const { animate, config: springConfig } = useMotionConfig()
 
     const animatedProps = useSpring({
         x,
         y,
-        config: springConfiig,
+        config: springConfig,
         immediate: !animate,
     })
 
@@ -44,15 +54,4 @@ const AnnotationNote = memo(({ datum, x, y, note }) => {
             </animated.text>
         </>
     )
-})
-
-AnnotationNote.displayName = 'AnnotationNote'
-AnnotationNote.propTypes = {
-    datum: PropTypes.object.isRequired,
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-    note: PropTypes.oneOfType([PropTypes.node, PropTypes.func]).isRequired,
 }
-AnnotationNote.defaultProps = {}
-
-export default AnnotationNote
