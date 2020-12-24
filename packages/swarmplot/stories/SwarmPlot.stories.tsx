@@ -67,7 +67,7 @@ stories.add('using annotations', () => (
     />
 ))
 
-const localeTimeFormat = value => new Date(value).toLocaleString()
+const localeTimeFormat = (value: string) => new Date(value).toLocaleString()
 
 stories.add('using time scale', () => (
     <SwarmPlot

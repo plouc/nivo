@@ -1,20 +1,10 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-import { SwarmPlotDefaultProps } from '@nivo/swarmplot'
+import { defaultProps } from '@nivo/swarmplot'
 import {
     themeProperty,
     motionProperties,
     axesProperties,
     groupProperties,
 } from '../../../lib/componentProperties'
-
-const defaults = SwarmPlotDefaultProps
 
 const props = [
     {
@@ -30,23 +20,7 @@ const props = [
         required: true,
     },
     {
-        key: 'groups',
-        group: 'Base',
-        type: 'string[]',
-        required: true,
-        help: 'Available groups.',
-    },
-    {
-        key: 'groupBy',
-        group: 'Base',
-        type: 'string | Function',
-        required: false,
-        help:
-            'Propety used to group nodes, must return a group which is available in the groups property.',
-        defaultValue: defaults.groupBy,
-    },
-    {
-        key: 'identity',
+        key: 'id',
         group: 'Base',
         type: 'string | Function',
         required: false,
@@ -61,15 +35,7 @@ const props = [
             if a node is a new one or should transition from previous
             to next state.
         `,
-        defaultValue: defaults.identity,
-    },
-    {
-        key: 'label',
-        group: 'Base',
-        type: 'string | Function',
-        required: false,
-        help: `Control node label.`,
-        defaultValue: defaults.label,
+        defaultValue: defaultProps.id,
     },
     {
         key: 'value',
@@ -77,14 +43,46 @@ const props = [
         type: 'string | Function',
         required: false,
         help: `Property used to retrieve the node's value.`,
-        defaultValue: defaults.value,
+        defaultValue: defaultProps.value,
     },
     {
         key: 'valueFormat',
         group: 'Base',
+        help: 'Optional formatter for values.',
+        description: `
+            The formatted value can then be used for labels & tooltips.
+
+            Under the hood, nivo uses [d3-format](https://github.com/d3/d3-format),
+            please have a look at it for available formats, you can also pass a function
+            which will receive the raw value and should return the formatted one.
+        `,
+        required: false,
+        type: 'string | (value: number) => string | number',
+        controlType: 'valueFormat',
+    },
+    {
+        key: 'groups',
+        group: 'Base',
+        type: 'string[]',
+        required: true,
+        help: 'Available groups.',
+    },
+    {
+        key: 'groupBy',
+        group: 'Base',
         type: 'string | Function',
         required: false,
-        help: `Optional value formatter.`,
+        help:
+            'Propety used to group nodes, must return a group which is available in the groups property.',
+        defaultValue: defaultProps.groupBy,
+    },
+    {
+        key: 'label',
+        group: 'Base',
+        type: 'string | Function',
+        required: false,
+        help: `Control node label.`,
+        defaultValue: defaultProps.label,
     },
     {
         key: 'size',
@@ -113,14 +111,14 @@ const props = [
             If you use a **custom function**, it will receive the current
             node and must **return a number**.
         `,
-        defaultValue: defaults.size,
+        defaultValue: defaultProps.size,
     },
     {
         key: 'spacing',
         help: 'Spacing between nodes.',
         type: 'number',
         required: false,
-        defaultValue: defaults.spacing,
+        defaultValue: defaultProps.spacing,
         controlType: 'range',
         group: 'Base',
         controlOptions: {
@@ -154,6 +152,14 @@ const props = [
         required: true,
     },
     {
+        key: 'margin',
+        help: 'Chart margin.',
+        type: 'object',
+        required: false,
+        controlType: 'margin',
+        group: 'Base',
+    },
+    {
         key: 'pixelRatio',
         flavors: ['canvas'],
         help: `Adjust pixel ratio, useful for HiDPI screens.`,
@@ -166,14 +172,6 @@ const props = [
             min: 1,
             max: 2,
         },
-    },
-    {
-        key: 'margin',
-        help: 'Chart margin.',
-        type: 'object',
-        required: false,
-        controlType: 'margin',
-        group: 'Base',
     },
     {
         key: 'forceStrength',
@@ -195,7 +193,7 @@ const props = [
         `,
         type: 'number',
         required: false,
-        defaultValue: defaults.forceStrength,
+        defaultValue: defaultProps.forceStrength,
         controlType: 'range',
         group: 'Simulation',
         controlOptions: {
@@ -213,7 +211,7 @@ const props = [
         `,
         type: 'number',
         required: false,
-        defaultValue: defaults.simulationIterations,
+        defaultValue: defaultProps.simulationIterations,
         controlType: 'range',
         group: 'Simulation',
         controlOptions: {
@@ -226,7 +224,7 @@ const props = [
         help: `Chart layout.`,
         type: 'string',
         required: false,
-        defaultValue: defaults.layout,
+        defaultValue: defaultProps.layout,
         controlType: 'radio',
         group: 'Layout',
         controlOptions: {
@@ -241,7 +239,7 @@ const props = [
         help: 'Gap between each serie.',
         type: 'number',
         required: false,
-        defaultValue: defaults.gap,
+        defaultValue: defaultProps.gap,
         controlType: 'range',
         group: 'Layout',
         controlOptions: {
@@ -285,7 +283,7 @@ const props = [
         `,
         type: `Function | object | string`,
         required: false,
-        defaultValue: defaults.colors,
+        defaultValue: defaultProps.colors,
         controlType: 'ordinalColors',
         group: 'Style',
     },
@@ -306,7 +304,7 @@ const props = [
         `,
         type: `Function | string`,
         required: false,
-        defaultValue: defaults.colorBy,
+        defaultValue: defaultProps.colorBy,
         controlType: 'choices',
         controlOptions: {
             choices: ['group', 'id'].map(key => ({
@@ -320,7 +318,7 @@ const props = [
         help: 'Control node border width.',
         type: 'number | Function',
         required: false,
-        defaultValue: defaults.borderWidth,
+        defaultValue: defaultProps.borderWidth,
         controlType: 'lineWidth',
         group: 'Style',
     },
@@ -329,7 +327,7 @@ const props = [
         help: 'Control node border color.',
         type: 'string | object | Function',
         required: false,
-        defaultValue: defaults.borderColor,
+        defaultValue: defaultProps.borderColor,
         controlType: 'inheritedColor',
         group: 'Style',
     },
@@ -362,51 +360,52 @@ const props = [
         `,
         required: false,
         type: 'Array<string | Function>',
-        defaultValue: defaults.layers,
+        defaultValue: defaultProps.layers,
     },
     {
-        key: 'renderNode',
+        key: 'circleComponent',
         group: 'Customization',
-        help: 'Override default node rendering.',
+        flavors: ['svg'],
+        help: 'Override default circle component for the SVG implementation.',
         description: `
             This property can be used to completely
             customize the way nodes are rendered.
             
-            when using the SVG implementation, you should
-            return a valid SVG node.
+            You should return a valid SVG node.
             
-            When using canvas, the rendering function will
-            receive the canvas 2d context as first argument.
+            You can see a live example of custom node rendering
+            [here](storybook:/swarmplot--custom-node-rendering).
+        `,
+        required: false,
+        type: 'Component',
+    },
+    {
+        key: 'renderCircle',
+        group: 'Customization',
+        flavors: ['canvas'],
+        help: 'Override default circle rendering for the canvas implementation.',
+        description: `
+            This property can be used to completely
+            customize the way nodes are rendered.
+            
+            The rendering function will receive the canvas 2d
+            context as first argument.
 
             Please make sure to use \`context.save()\` and
             \`context.restore()\` if you make some global
             modifications to the 2d context inside this function
             to avoid side effects.
-
-            You can see a live example of custom node rendering
-            [here](storybook:/swarmplot--custom-node-rendering).
         `,
         required: false,
         type: 'Function',
     },
-    /*
-    {
-        key: 'borderColor',
-        help: 'Method to compute border color.',
-        type: 'string | Function',
-        required: false,
-        defaultValue: defaults.borderColor,
-        controlType: 'color',
-        group: 'Style',
-    },
-    */
     {
         key: 'enableGridX',
         group: 'Grid & Axes',
         help: 'Enable/disable x grid.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.enableGridX,
+        defaultValue: defaultProps.enableGridX,
         controlType: 'switch',
     },
     {
@@ -422,7 +421,7 @@ const props = [
         help: 'Enable/disable y grid.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.enableGridY,
+        defaultValue: defaultProps.enableGridY,
         controlType: 'switch',
     },
     {
@@ -438,25 +437,27 @@ const props = [
         help: 'Enable/disable interactivity.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.isInteractive,
+        defaultValue: defaultProps.isInteractive,
         controlType: 'switch',
         group: 'Interactivity',
     },
     {
         key: 'useMesh',
-        help: 'Use a mesh to detect mouse interactions.',
+        help: 'Use a mesh to detect mouse interactions, always true for canvas.',
+        flavors: ['svg'],
         type: 'boolean',
         required: false,
-        defaultValue: defaults.useMesh,
+        defaultValue: defaultProps.useMesh,
         controlType: 'switch',
         group: 'Interactivity',
     },
     {
         key: 'debugMesh',
-        help: 'Display mesh used to detect mouse interactions (voronoi cells).',
+        help:
+            'Display the mesh used to detect mouse interactions (voronoi cells), depends on useMesh.',
         type: 'boolean',
         required: false,
-        defaultValue: defaults.debugMesh,
+        defaultValue: defaultProps.debugMesh,
         controlType: 'switch',
         group: 'Interactivity',
     },
@@ -500,7 +501,7 @@ const props = [
             element and will receive the node's data.
         `,
     },
-    ...motionProperties(['svg'], defaults),
+    ...motionProperties(['svg'], defaultProps, 'react-spring'),
 ]
 
 export const groups = groupProperties(props)

@@ -1,13 +1,5 @@
-/*
- * This file is part of the nivo project.
- *
- * Copyright 2016-present, Raphaël Benitte.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 import React from 'react'
-import { ResponsiveSwarmPlot, SwarmPlotDefaultProps } from '@nivo/swarmplot'
+import { ResponsiveSwarmPlot, defaultProps } from '@nivo/swarmplot'
 import ComponentTemplate from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/swarmplot/meta.yml'
 import mapper from '../../data/components/swarmplot/mapper'
@@ -18,7 +10,7 @@ const initialProperties = Object.freeze({
     groupBy: 'group',
     identity: 'id',
     value: 'price',
-    valueFormat: '$.2f',
+    valueFormat: { format: '$.2f', enabled: true },
     valueScale: {
         type: 'linear',
         min: 0,
@@ -31,13 +23,13 @@ const initialProperties = Object.freeze({
         sizes: [6, 20],
     },
     spacing: 2,
-    layout: SwarmPlotDefaultProps.layout,
-    gap: SwarmPlotDefaultProps.gap,
+    layout: defaultProps.layout,
+    gap: defaultProps.gap,
 
     forceStrength: 4,
     simulationIterations: 100,
 
-    colors: SwarmPlotDefaultProps.colors,
+    colors: defaultProps.colors,
     colorBy: 'group',
     borderWidth: 0,
     borderColor: {
@@ -101,8 +93,7 @@ const initialProperties = Object.freeze({
     debugMesh: false,
 
     animate: true,
-    motionStiffness: 50,
-    motionDamping: 10,
+    motionConfig: 'gentle',
 })
 
 const ScatterPlot = () => {
@@ -115,7 +106,7 @@ const ScatterPlot = () => {
             currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={SwarmPlotDefaultProps}
+            defaultProperties={defaultProps}
             propertiesMapper={mapper}
             codePropertiesMapper={(properties, data) => ({
                 groups: data.groups,

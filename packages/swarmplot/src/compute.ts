@@ -1,0 +1,206 @@
+import isNumber from 'lodash/isNumber'
+import isPlainObject from 'lodash/isPlainObject'
+import isString from 'lodash/isString'
+import get from 'lodash/get'
+import { ScaleLinear, scaleLinear, ScaleOrdinal, scaleOrdinal } from 'd3-scale'
+import { forceSimulation, forceX, forceY, forceCollide, ForceX, ForceY } from 'd3-force'
+// @ts-ignore
+import { computeScale, createDateNormalizer, generateSeriesAxis } from '@nivo/scales'
+import { ComputedDatum, PreSimulationDatum, SizeSpec, SimulationForces } from './types'
+
+export const getParsedValue = scaleSpec => {
+    if (scaleSpec.type === 'linear') {
+        return parseFloat
+    } else if (scaleSpec.type === 'time' && scaleSpec.format !== 'native') {
+        return createDateNormalizer(scaleSpec)
+    } else {
+        return x => x
+    }
+}
+
+export const computeOrdinalScale = ({
+    width,
+    height,
+    axis,
+    groups,
+    gap,
+}: {
+    width: number
+    height: number
+    axis: 'x' | 'y'
+    groups: string[]
+    gap: number
+}) => {
+    if (!Array.isArray(groups) || groups.length === 0) {
+        throw new Error(`'groups' should be an array containing at least one item`)
+    }
+
+    const groupCount = groups.length
+
+    let groupSize: number
+    if (axis === 'x') {
+        groupSize = (height - gap * (groupCount - 1)) / groupCount
+    } else if (axis === 'y') {
+        groupSize = (width - gap * (groupCount - 1)) / groupCount
+    }
+
+    const range = groups.map((_, i) => i * (groupSize + gap) + groupSize / 2)
+
+    return scaleOrdinal(range).domain(groups)
+}
+
+export const computeValueScale = <RawDatum>({
+    width,
+    height,
+    axis,
+    getValue,
+    scale,
+    data,
+}: {
+    width: number
+    height: number
+    axis: 'x' | 'y'
+    getValue: (datum: RawDatum) => number
+    scale: any
+    data: RawDatum[]
+}) => {
+    const values = data.map(getValue)
+
+    if (scale.type === 'time') {
+        const series = [{ data: values.map(p => ({ data: { [axis]: p } })) }]
+        const axes = generateSeriesAxis(series, axis, scale)
+
+        return computeScale({ ...scale, axis }, { [axis]: axes }, width, height)
+    }
+
+    const min = Math.min(...values)
+    const max = Math.max(...values)
+
+    return computeScale({ ...scale, axis }, { [axis]: { min, max } }, width, height)
+}
+
+export const getSizeGenerator = <RawDatum>(size: SizeSpec<RawDatum>) => {
+    // user defined size function
+    if (typeof size === 'function') {
+        return size
+    }
+
+    // static size
+    if (isNumber(size)) {
+        return () => size
+    }
+
+    // dynamic size based on config
+    if (isPlainObject(size)) {
+        if (!isString(size.key)) {
+            throw new Error(
+                'Size is invalid, key should be a string pointing to the property to use to determine node size'
+            )
+        }
+        if (!Array.isArray(size.values) || size.values.length !== 2) {
+            throw new Error(
+                'Size is invalid, values spec should be an array containing two values, min and max'
+            )
+        }
+        if (!Array.isArray(size.sizes) || size.sizes.length !== 2) {
+            throw new Error(
+                'Size is invalid, sizes spec should be an array containing two values, min and max'
+            )
+        }
+
+        const sizeScale = scaleLinear()
+            .domain([size.values[0], size.values[1]])
+            .range([size.sizes[0], size.sizes[1]])
+
+        return (d: RawDatum) => sizeScale(get(d, size.key))
+    }
+
+    throw new Error('Size is invalid, it should be either a function, a number or an object')
+}
+
+export const computeForces = <RawDatum>({
+    axis,
+    valueScale,
+    ordinalScale,
+    spacing,
+    forceStrength,
+}: {
+    axis: 'x' | 'y'
+    valueScale: ScaleLinear<number, number>
+    ordinalScale: ScaleOrdinal<string, number>
+    spacing: number
+    forceStrength: number
+}): SimulationForces<RawDatum> => {
+    const collisionForce = forceCollide<PreSimulationDatum<RawDatum>>(d => d.size / 2 + spacing / 2)
+
+    let xForce: ForceX<PreSimulationDatum<RawDatum>>
+    let yForce: ForceY<PreSimulationDatum<RawDatum>>
+    if (axis === 'x') {
+        xForce = forceX<PreSimulationDatum<RawDatum>>(d => valueScale(d.value)).strength(
+            forceStrength
+        )
+        yForce = forceY<PreSimulationDatum<RawDatum>>(d => ordinalScale(d.group))
+    } else if (axis === 'y') {
+        xForce = forceX<PreSimulationDatum<RawDatum>>(d => ordinalScale(d.group))
+        yForce = forceY<PreSimulationDatum<RawDatum>>(d => valueScale(d.value)).strength(
+            forceStrength
+        )
+    } else {
+        throw new Error(`Invalid axis provided: ${axis}`)
+    }
+
+    return { x: xForce, y: yForce, collision: collisionForce }
+}
+
+export const computeNodes = <RawDatum>({
+    data,
+    getId,
+    layout,
+    getValue,
+    valueScale,
+    getGroup,
+    ordinalScale,
+    getSize,
+    forces,
+    simulationIterations,
+    valueScaleConfig,
+}: {
+    data: RawDatum[]
+    getId: (datum: RawDatum) => string
+    layout: 'vertical' | 'horizontal'
+    getValue: (datum: RawDatum) => number
+    valueScale: ScaleLinear<number, number>
+    getGroup: (datum: RawDatum) => string
+    ordinalScale: ScaleOrdinal<string, number>
+    getSize: (datum: RawDatum) => number
+    forces: SimulationForces<RawDatum>
+    simulationIterations: number
+    valueScaleConfig: any
+}) => {
+    const config = {
+        horizontal: ['x', 'y'],
+        vertical: ['y', 'x'],
+    }
+
+    const simulatedNodes: PreSimulationDatum<RawDatum>[] = data.map(d => ({
+        id: getId(d),
+        group: getGroup(d),
+        value: getParsedValue(valueScaleConfig)(getValue(d)),
+        size: getSize(d),
+        data: { ...d },
+    }))
+
+    const simulation = forceSimulation<PreSimulationDatum<RawDatum>>(simulatedNodes)
+        .force('x', forces.x)
+        .force('y', forces.y)
+        .force('collide', forces.collision)
+        .stop()
+
+    simulation.tick(simulationIterations)
+
+    return {
+        [`${config[layout][0]}Scale`]: valueScale,
+        [`${config[layout][1]}Scale`]: ordinalScale,
+        nodes: simulation.nodes() as ComputedDatum<RawDatum>[],
+    }
+}
