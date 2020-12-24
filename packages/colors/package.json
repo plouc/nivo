@@ -22,7 +22,7 @@
   ],
   "dependencies": {
     "d3-color": "^2.0.0",
-    "d3-scale": "^3.0.0",
+    "d3-scale": "^3.2.3",
     "d3-scale-chromatic": "^2.0.0",
     "lodash": "^4.17.11",
     "react-motion": "^0.5.2"

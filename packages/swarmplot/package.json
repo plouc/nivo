@@ -37,7 +37,7 @@
     "@nivo/tooltip": "0.68.0",
     "@nivo/voronoi": "0.68.0",
     "d3-force": "^2.0.1",
-    "d3-scale": "^3.0.0",
+    "d3-scale": "^3.2.3",
     "lodash": "^4.17.11",
     "react-motion": "^0.5.2"
   },
