@@ -22,11 +22,12 @@
   ],
   "main": "./dist/nivo-swarmplot.cjs.js",
   "module": "./dist/nivo-swarmplot.es.js",
+  "typings": "./dist/types/index.d.ts",
   "files": [
     "README.md",
     "LICENSE.md",
-    "index.d.ts",
-    "dist/"
+    "dist/",
+    "!dist/tsconfig.tsbuildinfo"
   ],
   "dependencies": {
     "@nivo/annotations": "0.70.1",
