@@ -5,6 +5,7 @@
         // { "path": "./packages/core" },
 
         // Shared next because charts need them
+        { "path": "./packages/annotations" },
         { "path": "./packages/axes" },
         { "path": "./packages/colors" },
         { "path": "./packages/legends" },
