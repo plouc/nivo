@@ -1,4 +1,9 @@
-export const renderVoronoiToCanvas = (ctx, voronoi) => {
+import { Delaunay, Voronoi } from 'd3-delaunay'
+
+export const renderVoronoiToCanvas = (
+    ctx: CanvasRenderingContext2D,
+    voronoi: Voronoi<Delaunay.Point>
+) => {
     ctx.save()
 
     ctx.globalAlpha = 0.75
@@ -11,7 +16,11 @@ export const renderVoronoiToCanvas = (ctx, voronoi) => {
     ctx.restore()
 }
 
-export const renderVoronoiCellToCanvas = (ctx, voronoi, index) => {
+export const renderVoronoiCellToCanvas = (
+    ctx: CanvasRenderingContext2D,
+    voronoi: Voronoi<Delaunay.Point>,
+    index: number
+) => {
     ctx.save()
 
     ctx.globalAlpha = 0.35
