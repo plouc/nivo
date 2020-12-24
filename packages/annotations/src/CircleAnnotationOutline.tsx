@@ -1,9 +1,8 @@
-import React, { memo } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 import { useSpring, animated } from '@react-spring/web'
 import { useMotionConfig, useTheme } from '@nivo/core'
 
-const DotAnnotationOutline = memo(({ x, y, size }) => {
+export const CircleAnnotationOutline = ({ x, y, size }: { x: number; y: number; size: number }) => {
     const theme = useTheme()
     const { animate, config: springConfig } = useMotionConfig()
 
@@ -25,7 +24,9 @@ const DotAnnotationOutline = memo(({ x, y, size }) => {
                     style={{
                         ...theme.annotations.outline,
                         fill: 'none',
-                        strokeWidth: theme.annotations.outline.outlineWidth * 2,
+                        strokeWidth:
+                            theme.annotations.outline.strokeWidth +
+                            theme.annotations.outline.outlineWidth * 2,
                         stroke: theme.annotations.outline.outlineColor,
                     }}
                 />
@@ -34,20 +35,8 @@ const DotAnnotationOutline = memo(({ x, y, size }) => {
                 cx={animatedProps.x}
                 cy={animatedProps.y}
                 r={animatedProps.radius}
-                style={theme.annotations.symbol}
+                style={theme.annotations.outline}
             />
         </>
     )
-})
-
-DotAnnotationOutline.displayName = 'DotAnnotationOutline'
-DotAnnotationOutline.propTypes = {
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired,
-    size: PropTypes.number.isRequired,
 }
-DotAnnotationOutline.defaultProps = {
-    size: 4,
-}
-
-export default DotAnnotationOutline

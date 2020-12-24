@@ -1,4 +1,6 @@
-const drawPoints = (ctx, points) => {
+import { CompleteTheme } from '@nivo/core'
+
+const drawPoints = (ctx: CanvasRenderingContext2D, points: [number, number][]) => {
     points.forEach(([x, y], index) => {
         if (index === 0) {
             ctx.moveTo(x, y)
@@ -8,7 +10,16 @@ const drawPoints = (ctx, points) => {
     })
 }
 
-export const renderAnnotationsToCanvas = (ctx, { annotations, theme }) => {
+export const renderAnnotationsToCanvas = (
+    ctx: CanvasRenderingContext2D,
+    {
+        annotations,
+        theme,
+    }: {
+        annotations: any[]
+        theme: CompleteTheme
+    }
+) => {
     if (annotations.length === 0) return
 
     ctx.save()
