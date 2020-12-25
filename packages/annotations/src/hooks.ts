@@ -9,7 +9,7 @@ export const useAnnotations = <Datum>({
     getDimensions,
 }: {
     items: Datum[]
-    annotations: AnnotationSpecWithMatcher<Datum>
+    annotations: AnnotationSpecWithMatcher<Datum>[]
     getPosition: any
     getDimensions: any
 }) =>

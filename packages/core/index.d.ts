@@ -108,10 +108,28 @@ declare module '@nivo/core' {
             tableCellValue: Partial<React.CSSProperties>
         }
         annotations: {
-            text: Partial<React.CSSProperties>
-            link: Partial<React.CSSProperties>
-            outline: Partial<React.CSSProperties>
-            symbol: Partial<React.CSSProperties>
+            text: {
+                fill: string
+                outlineWidth: number
+                outlineColor: string
+            } & Partial<Omit<React.CSSProperties, 'fill'>>
+            link: {
+                stroke: string
+                strokeWidth: number
+                outlineWidth: number
+                outlineColor: string
+            } & Partial<Omit<React.CSSProperties, 'stroke' | 'strokeWidth'>>
+            outline: {
+                stroke: string
+                strokeWidth: number
+                outlineWidth: number
+                outlineColor: string
+            } & Partial<Omit<React.CSSProperties, 'stroke' | 'strokeWidth'>>
+            symbol: {
+                fill: string
+                outlineWidth: number
+                outlineColor: string
+            } & Partial<Omit<React.CSSProperties, 'fill'>>
         }
     }
 
@@ -150,7 +168,12 @@ declare module '@nivo/core' {
                 text: Partial<CompleteTheme['dots']['text']>
             }>
             tooltip: Partial<CompleteTheme['tooltip']>
-            annotations: Partial<CompleteTheme['annotations']>
+            annotations: Partial<{
+                text: Partial<CompleteTheme['annotations']['text']>
+                link: Partial<CompleteTheme['annotations']['link']>
+                outline: Partial<CompleteTheme['annotations']['outline']>
+                symbol: Partial<CompleteTheme['annotations']['symbol']>
+            }>
         }
     >
 
