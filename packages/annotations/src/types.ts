@@ -16,5 +16,6 @@ export interface AnnotationSpec {
 }
 
 export interface AnnotationSpecWithMatcher<Datum> extends AnnotationSpec {
-    match: any
+    match: (datum: Datum) => boolean
+    offset?: number
 }
