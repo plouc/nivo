@@ -8,7 +8,7 @@ import { defaultProps } from './props'
 import { useSwarmPlot } from './hooks'
 import { Circles } from './Circles'
 import { CircleSvg } from './CircleSvg'
-// import SwarmPlotAnnotations from './SwarmPlotAnnotations'
+import { SwarmPlotAnnotations } from './SwarmPlotAnnotations'
 
 type InnerSwarmPlotProps<RawDatum> = Partial<
     Omit<
@@ -55,6 +55,7 @@ const InnerSwarmPlot = <RawDatum,>({
     // onMouseLeave,
     // onClick,
     tooltip = defaultProps.tooltip,
+    annotations = defaultProps.annotations,
     role = defaultProps.role,
 }: InnerSwarmPlotProps<RawDatum>) => {
     const { outerWidth, outerHeight, margin, innerWidth, innerHeight } = useDimensions(
@@ -86,9 +87,9 @@ const InnerSwarmPlot = <RawDatum,>({
     const layerById: Record<SwarmPlotLayerId, ReactNode> = {
         grid: null,
         axes: null,
-        nodes: null,
-        mesh: null,
+        circles: null,
         annotations: null,
+        mesh: null,
     }
 
     if (layers.includes('grid')) {
@@ -97,9 +98,11 @@ const InnerSwarmPlot = <RawDatum,>({
                 key="grid"
                 width={innerWidth}
                 height={innerHeight}
-                xScale={enableGridX ? (xScale as any) : null}
+                // @ts-ignore should be fixed when axes package is migrated to TS
+                xScale={enableGridX ? xScale : null}
                 xValues={gridXValues}
-                yScale={enableGridY ? (yScale as any) : null}
+                // @ts-ignore should be fixed when axes package is migrated to TS
+                yScale={enableGridY ? yScale : null}
                 yValues={gridYValues}
             />
         )
@@ -109,8 +112,10 @@ const InnerSwarmPlot = <RawDatum,>({
         layerById.axes = (
             <Axes
                 key="axes"
-                xScale={xScale as any}
-                yScale={yScale as any}
+                // @ts-ignore should be fixed when axes package is migrated to TS
+                xScale={xScale}
+                // @ts-ignore should be fixed when axes package is migrated to TS
+                yScale={yScale}
                 width={innerWidth}
                 height={innerHeight}
                 top={axisTop ?? undefined}
@@ -121,16 +126,26 @@ const InnerSwarmPlot = <RawDatum,>({
         )
     }
 
-    if (layers.includes('nodes')) {
-        layerById.nodes = (
+    if (layers.includes('circles')) {
+        layerById.circles = (
             <Circles<RawDatum>
-                key="nodes"
+                key="circles"
                 nodes={nodes}
                 borderWidth={0}
                 borderColor={borderColor}
                 isInteractive={isInteractive}
                 tooltip={tooltip}
                 component={circleComponent}
+            />
+        )
+    }
+
+    if (layers.includes('annotations')) {
+        layerById.annotations = (
+            <SwarmPlotAnnotations<RawDatum>
+                key="annotations"
+                nodes={nodes}
+                annotations={annotations}
             />
         )
     }

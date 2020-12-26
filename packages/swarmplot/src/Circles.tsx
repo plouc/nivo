@@ -4,6 +4,7 @@ import { useMotionConfig, useTheme } from '@nivo/core'
 import { useInheritedColor } from '@nivo/colors'
 import { useTooltip } from '@nivo/tooltip'
 import { ComputedDatum, CircleComponent, MouseHandlers, SwarmPlotCommonProps } from './types'
+import { useBorderWidth } from './hooks'
 
 /**
  * A negative radius value is invalid for an SVG circle,
@@ -103,6 +104,7 @@ export const Circles = <RawDatum,>({
     const { animate, config: springConfig } = useMotionConfig()
 
     const theme = useTheme()
+    const getBorderWidth = useBorderWidth<RawDatum>(borderWidth)
     const getBorderColor = useInheritedColor<ComputedDatum<RawDatum>>(borderColor, theme)
 
     const transitionPhases = useMemo(() => getTransitionPhases<RawDatum>(getBorderColor), [
@@ -139,7 +141,7 @@ export const Circles = <RawDatum,>({
                     style: {
                         ...transitionProps,
                         radius: interpolateRadius(transitionProps.radius),
-                        borderWidth,
+                        borderWidth: getBorderWidth(node),
                     },
                     onMouseEnter: handleMouseEnter,
                     onMouseMove: handleMouseMove,

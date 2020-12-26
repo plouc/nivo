@@ -4,17 +4,25 @@ import isString from 'lodash/isString'
 import get from 'lodash/get'
 import { ScaleLinear, scaleLinear, ScaleOrdinal, scaleOrdinal } from 'd3-scale'
 import { forceSimulation, forceX, forceY, forceCollide, ForceX, ForceY } from 'd3-force'
-// @ts-ignore
-import { computeScale, createDateNormalizer, generateSeriesAxis } from '@nivo/scales'
+import {
+    // @ts-ignore
+    computeScale,
+    // @ts-ignore
+    createDateNormalizer,
+    // @ts-ignore
+    generateSeriesAxis,
+    Scale,
+    TimeScaleFormatted,
+} from '@nivo/scales'
 import { ComputedDatum, PreSimulationDatum, SizeSpec, SimulationForces } from './types'
 
-export const getParsedValue = scaleSpec => {
+export const getParsedValue = (scaleSpec: Scale) => {
     if (scaleSpec.type === 'linear') {
         return parseFloat
-    } else if (scaleSpec.type === 'time' && scaleSpec.format !== 'native') {
+    } else if (scaleSpec.type === 'time' && (scaleSpec as TimeScaleFormatted).format !== 'native') {
         return createDateNormalizer(scaleSpec)
     } else {
-        return x => x
+        return (x: number | string | Date) => x
     }
 }
 
@@ -61,7 +69,7 @@ export const computeValueScale = <RawDatum>({
     height: number
     axis: 'x' | 'y'
     getValue: (datum: RawDatum) => number
-    scale: any
+    scale: Scale
     data: RawDatum[]
 }) => {
     const values = data.map(getValue)
@@ -175,7 +183,7 @@ export const computeNodes = <RawDatum>({
     getSize: (datum: RawDatum) => number
     forces: SimulationForces<RawDatum>
     simulationIterations: number
-    valueScaleConfig: any
+    valueScaleConfig: Scale
 }) => {
     const config = {
         horizontal: ['x', 'y'],

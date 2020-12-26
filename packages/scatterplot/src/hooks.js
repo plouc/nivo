@@ -80,10 +80,15 @@ export const useScatterPlot = ({
 
 export const useScatterPlotAnnotations = (items, annotations) =>
     useAnnotations({
-        items,
+        data: items,
         annotations,
+        getPosition: node => ({
+            x: node.x,
+            y: node.y,
+        }),
         getDimensions: (node, offset) => {
             const size = node.size + offset * 2
+
             return { size, width: size, height: size }
         },
     })

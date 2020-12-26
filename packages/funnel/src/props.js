@@ -10,7 +10,6 @@ import PropTypes from 'prop-types'
 import { ordinalColorsPropType, inheritedColorPropType } from '@nivo/colors'
 import { MotionConfigProvider } from '@nivo/core'
 import { motionPropTypes } from '@nivo/core'
-import { annotationSpecPropType } from '@nivo/annotations'
 
 export const FunnelPropTypes = {
     data: PropTypes.arrayOf(
@@ -50,7 +49,7 @@ export const FunnelPropTypes = {
     afterSeparatorLength: PropTypes.number.isRequired,
     afterSeparatorOffset: PropTypes.number.isRequired,
 
-    annotations: PropTypes.arrayOf(annotationSpecPropType).isRequired,
+    annotations: PropTypes.arrayOf(PropTypes.object).isRequired,
 
     isInteractive: PropTypes.bool.isRequired,
     currentPartSizeExtension: PropTypes.number.isRequired,

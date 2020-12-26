@@ -18,8 +18,8 @@ export const renderCircleDefault = <RawDatum,>(
         getBorderColor,
     }: {
         node: ComputedDatum<RawDatum>
-        getBorderWidth: any
-        getBorderColor: any
+        getBorderWidth: (node: ComputedDatum<RawDatum>) => number
+        getBorderColor: (node: ComputedDatum<RawDatum>) => string
     }
 ) => {
     const nodeBorderWidth = getBorderWidth(node)
@@ -181,7 +181,7 @@ export const InnerSwarmPlotCanvas = <RawDatum,>({
                 })
             }
 
-            if (layer === 'nodes') {
+            if (layer === 'circles') {
                 nodes.forEach(node => {
                     renderCircle(ctx, {
                         node,

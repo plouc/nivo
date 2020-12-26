@@ -1,66 +1,53 @@
 import { useMemo } from 'react'
 import { bindAnnotations, computeAnnotation } from './compute'
-import { AnnotationSpec, AnnotationSpecWithMatcher } from './types'
+import {
+    AnnotationDimensionsGetter,
+    AnnotationPositionGetter,
+    AnnotationSpec,
+    AnnotationSpecWithMatcher,
+} from './types'
 
-export const useAnnotations = <Datum>({
-    items,
-    annotations,
-    getPosition,
-    getDimensions,
-}: {
-    items: Datum[]
+export const useAnnotations = <Datum>(params: {
+    data: Datum[]
     annotations: AnnotationSpecWithMatcher<Datum>[]
-    getPosition: any
-    getDimensions: any
+    getPosition: AnnotationPositionGetter<Datum>
+    getDimensions: AnnotationDimensionsGetter<Datum>
 }) =>
-    useMemo(
-        () =>
-            bindAnnotations<Datum>({
-                items,
-                annotations,
-                getPosition,
-                getDimensions,
-            }),
-        [items, annotations, getPosition, getDimensions]
-    )
+    useMemo(() => bindAnnotations<Datum>(params), [
+        params.data,
+        params.annotations,
+        params.getPosition,
+        params.getDimensions,
+    ])
 
-export const useComputedAnnotations = ({ annotations }: { annotations: AnnotationSpec[] }) =>
+export const useComputedAnnotations = <Datum>({
+    annotations,
+}: {
+    annotations: AnnotationSpec<Datum>[]
+}) =>
     useMemo(
         () =>
             annotations.map(annotation => ({
                 ...annotation,
-                computed: computeAnnotation({
+                computed: computeAnnotation<Datum>({
                     ...annotation,
                 }),
             })),
         [annotations]
     )
 
-export const useComputedAnnotation = ({
-    type,
-    x,
-    y,
-    size,
-    width,
-    height,
-    noteX,
-    noteY,
-    noteWidth,
-    noteTextOffset,
-}: AnnotationSpec) =>
-    useMemo(
-        () =>
-            computeAnnotation({
-                type,
-                x,
-                y,
-                size,
-                width,
-                height,
-                noteX,
-                noteY,
-                noteWidth,
-                noteTextOffset,
-            }),
-        [type, x, y, size, width, height, noteX, noteY, noteWidth, noteTextOffset]
-    )
+export const useComputedAnnotation = <Datum>(
+    annotationSpec: Omit<AnnotationSpec<Datum>, 'datum' | 'note'>
+) =>
+    useMemo(() => computeAnnotation<Datum>(annotationSpec), [
+        annotationSpec.type,
+        annotationSpec.x,
+        annotationSpec.y,
+        annotationSpec.size,
+        annotationSpec.width,
+        annotationSpec.height,
+        annotationSpec.noteX,
+        annotationSpec.noteY,
+        annotationSpec.noteWidth,
+        annotationSpec.noteTextOffset,
+    ])

@@ -1,4 +1,11 @@
 import { CompleteTheme } from '@nivo/core'
+import {
+    ComputedAnnotationSpec,
+    isCircleAnnotation,
+    isDotAnnotation,
+    isRectAnnotation,
+    NoteComponent,
+} from './types'
 
 const drawPoints = (ctx: CanvasRenderingContext2D, points: [number, number][]) => {
     points.forEach(([x, y], index) => {
@@ -10,13 +17,15 @@ const drawPoints = (ctx: CanvasRenderingContext2D, points: [number, number][]) =
     })
 }
 
-export const renderAnnotationsToCanvas = (
+export const renderAnnotationsToCanvas = <Datum>(
     ctx: CanvasRenderingContext2D,
     {
         annotations,
         theme,
     }: {
-        annotations: any[]
+        annotations: (Omit<ComputedAnnotationSpec<Datum>, 'note'> & {
+            note: Exclude<ComputedAnnotationSpec<Datum>['note'], NoteComponent>
+        })[]
         theme: CompleteTheme
     }
 ) => {
@@ -35,7 +44,7 @@ export const renderAnnotationsToCanvas = (
             ctx.lineCap = 'butt'
         }
 
-        if (annotation.type === 'circle' && theme.annotations.outline.outlineWidth > 0) {
+        if (isCircleAnnotation(annotation) && theme.annotations.outline.outlineWidth > 0) {
             ctx.strokeStyle = theme.annotations.outline.outlineColor
             ctx.lineWidth =
                 theme.annotations.outline.strokeWidth + theme.annotations.outline.outlineWidth * 2
@@ -43,14 +52,16 @@ export const renderAnnotationsToCanvas = (
             ctx.arc(annotation.x, annotation.y, annotation.size / 2, 0, 2 * Math.PI)
             ctx.stroke()
         }
-        if (annotation.type === 'dot' && theme.annotations.symbol.outlineWidth > 0) {
+
+        if (isDotAnnotation(annotation) && theme.annotations.symbol.outlineWidth > 0) {
             ctx.strokeStyle = theme.annotations.symbol.outlineColor
             ctx.lineWidth = theme.annotations.symbol.outlineWidth * 2
             ctx.beginPath()
             ctx.arc(annotation.x, annotation.y, annotation.size / 2, 0, 2 * Math.PI)
             ctx.stroke()
         }
-        if (annotation.type === 'rect' && theme.annotations.outline.outlineWidth > 0) {
+
+        if (isRectAnnotation(annotation) && theme.annotations.outline.outlineWidth > 0) {
             ctx.strokeStyle = theme.annotations.outline.outlineColor
             ctx.lineWidth =
                 theme.annotations.outline.strokeWidth + theme.annotations.outline.outlineWidth * 2
@@ -70,20 +81,22 @@ export const renderAnnotationsToCanvas = (
         drawPoints(ctx, annotation.computed.points)
         ctx.stroke()
 
-        if (annotation.type === 'circle') {
+        if (isCircleAnnotation(annotation)) {
             ctx.strokeStyle = theme.annotations.outline.stroke
             ctx.lineWidth = theme.annotations.outline.strokeWidth
             ctx.beginPath()
             ctx.arc(annotation.x, annotation.y, annotation.size / 2, 0, 2 * Math.PI)
             ctx.stroke()
         }
-        if (annotation.type === 'dot') {
+
+        if (isDotAnnotation(annotation)) {
             ctx.fillStyle = theme.annotations.symbol.fill
             ctx.beginPath()
             ctx.arc(annotation.x, annotation.y, annotation.size / 2, 0, 2 * Math.PI)
             ctx.fill()
         }
-        if (annotation.type === 'rect') {
+
+        if (isRectAnnotation(annotation)) {
             ctx.strokeStyle = theme.annotations.outline.stroke
             ctx.lineWidth = theme.annotations.outline.strokeWidth
             ctx.beginPath()

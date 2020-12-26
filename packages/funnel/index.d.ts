@@ -9,6 +9,7 @@
 import * as React from 'react'
 import { Dimensions, Box, Theme, MotionProps } from '@nivo/core'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
+import { AnnotationSpecWithMatcher } from '@nivo/annotations'
 
 declare module '@nivo/funnel' {
     export interface Position {
@@ -106,6 +107,8 @@ declare module '@nivo/funnel' {
         afterSeparatorOffset?: number
 
         layers?: Layer[]
+
+        annotations?: AnnotationSpecWithMatcher<FunnelDatum>[]
 
         isInteractive?: boolean
         currentPartSizeExtension?: number

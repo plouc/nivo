@@ -2,6 +2,8 @@ import { useMemo } from 'react'
 import { ScaleLinear, ScaleOrdinal } from 'd3-scale'
 import { usePropertyAccessor, useValueFormatter } from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
+import { AnnotationSpecWithMatcher, useAnnotations } from '@nivo/annotations'
+import { Scale } from '@nivo/scales'
 import {
     computeValueScale,
     computeOrdinalScale,
@@ -23,7 +25,7 @@ export const useValueScale = <RawDatum>({
     height: number
     axis: 'x' | 'y'
     getValue: (datum: RawDatum) => number
-    scale: any
+    scale: Scale
     data: RawDatum[]
 }) =>
     useMemo(
@@ -216,3 +218,33 @@ export const useSwarmPlot = <RawDatum>({
         getColor,
     }
 }
+
+export const useBorderWidth = <RawDatum>(
+    borderWidth: SwarmPlotCommonProps<RawDatum>['borderWidth']
+) =>
+    useMemo(() => {
+        if (typeof borderWidth === 'function') return borderWidth
+        return () => borderWidth
+    }, [borderWidth])
+
+const getNodeAnnotationPosition = (node: ComputedDatum<unknown>) => ({
+    x: node.x,
+    y: node.y,
+})
+
+const getNodeAnnotationDimensions = (node: ComputedDatum<unknown>, offset: number) => {
+    const size = node.size + offset * 2
+
+    return { size, width: size, height: size }
+}
+
+export const useSwarmPlotAnnotations = <RawDatum>(
+    nodes: ComputedDatum<RawDatum>[],
+    annotations: AnnotationSpecWithMatcher<ComputedDatum<RawDatum>>[]
+) =>
+    useAnnotations<ComputedDatum<RawDatum>>({
+        data: nodes,
+        annotations,
+        getPosition: getNodeAnnotationPosition,
+        getDimensions: getNodeAnnotationDimensions,
+    })

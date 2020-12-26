@@ -1,11 +1,12 @@
 import React from 'react'
 import { useSpring, animated } from '@react-spring/web'
 import { useMotionConfig, useTheme } from '@nivo/core'
+import { defaultProps } from './props'
 
 export const DotAnnotationOutline = ({
     x,
     y,
-    size = 4,
+    size = defaultProps.dotSize,
 }: {
     x: number
     y: number
