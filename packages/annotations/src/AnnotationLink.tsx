@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { animated } from '@react-spring/web'
 import { useAnimatedPath, useTheme } from '@nivo/core'
 
@@ -10,12 +10,16 @@ export const AnnotationLink = ({
     isOutline?: boolean
 }) => {
     const theme = useTheme()
-    const [firstPoint, ...otherPoints] = points
 
-    const path = otherPoints.reduce(
-        (acc, [x, y]) => `${acc} L${x},${y}`,
-        `M${firstPoint[0]},${firstPoint[1]}`
-    )
+    const path = useMemo(() => {
+        const [firstPoint, ...otherPoints] = points
+
+        return otherPoints.reduce(
+            (acc, [x, y]) => `${acc} L${x},${y}`,
+            `M${firstPoint[0]},${firstPoint[1]}`
+        )
+    }, [[points]])
+
     const animatedPath = useAnimatedPath(path)
 
     if (isOutline && theme.annotations.link.outlineWidth <= 0) {

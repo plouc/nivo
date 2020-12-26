@@ -4,6 +4,8 @@ import { ForceX, ForceY, ForceCollide } from 'd3-force'
 import { PropertyAccessor, ValueFormat, Theme, ModernMotionProps, Box } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { GridValues, AxisProps } from '@nivo/axes'
+import { Scale } from '@nivo/scales'
+import { AnnotationSpecWithMatcher } from '@nivo/annotations'
 
 export interface ComputedDatum<RawDatum> {
     id: string
@@ -30,10 +32,21 @@ export type SimulationForces<RawDatum> = {
     collision: ForceCollide<PreSimulationDatum<RawDatum>>
 }
 
-export type SwarmPlotLayerId = 'grid' | 'axes' | 'nodes' | 'mesh' | 'annotations'
+export type SwarmPlotLayerId = 'grid' | 'axes' | 'circles' | 'annotations' | 'mesh'
 
 export interface SwarmPlotCustomLayerProps<RawDatum> {
     nodes: ComputedDatum<RawDatum>[]
+    /*
+    xScale: (input: number) => number
+    yScale: (input: number) => number
+    innerWidth: number
+    innerHeight: number
+    outerWidth: number
+    outerHeight: number
+    margin: number
+    getBorderColor: () => string
+    getBorderWidth: () => number
+    */
 }
 
 export type SwarmPlotCustomLayer<RawDatum> = React.FC<SwarmPlotCustomLayerProps<RawDatum>>
@@ -72,7 +85,7 @@ export type SwarmPlotCommonProps<RawDatum> = {
     id: PropertyAccessor<RawDatum, string>
     label: PropertyAccessor<ComputedDatum<RawDatum>, string>
     value: PropertyAccessor<RawDatum, number>
-    valueScale: any
+    valueScale: Scale
     valueFormat: ValueFormat<number>
     groupBy: PropertyAccessor<RawDatum, string>
     size: SizeSpec<RawDatum>
@@ -84,7 +97,7 @@ export type SwarmPlotCommonProps<RawDatum> = {
     theme?: Theme
     colors: OrdinalColorScaleConfig<Omit<ComputedDatum<RawDatum>, 'color'>>
     colorBy: PropertyAccessor<Omit<ComputedDatum<RawDatum>, 'color'>, string>
-    borderWidth: number | PropertyAccessor<ComputedDatum<RawDatum>, number>
+    borderWidth: number | ((node: ComputedDatum<RawDatum>) => number)
     borderColor: InheritedColorConfig<ComputedDatum<RawDatum>>
     enableGridX: boolean
     gridXValues?: GridValues<string | number>
@@ -99,10 +112,10 @@ export type SwarmPlotCommonProps<RawDatum> = {
     debugMesh: boolean
     tooltip: (props: ComputedDatum<RawDatum>) => JSX.Element
     layers: SwarmPlotLayer<RawDatum>[]
+    annotations: AnnotationSpecWithMatcher<ComputedDatum<RawDatum>>[]
     animate: boolean
     motionConfig: ModernMotionProps['motionConfig']
     role: string
-    // annotations: PropTypes.arrayOf(annotationSpecPropType).isRequired,
 }
 
 export type SwarmPlotSvgProps<RawDatum> = SwarmPlotCommonProps<RawDatum> &

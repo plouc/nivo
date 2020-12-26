@@ -1,9 +1,10 @@
 import React, { useMemo, useState } from 'react'
 import { generateSwarmPlotData } from '@nivo/generators'
+// @ts-ignore
 import { PatternLines } from '../../core/src'
 import { SwarmPlot } from '../src'
 
-const backgroundLayer = ({ xScale, innerHeight }) => (
+const BackgroundLayer = ({ xScale, innerHeight }) => (
     <>
         <defs>
             <PatternLines
@@ -130,8 +131,8 @@ const SwarmPlotLayers = () => {
             layers={[
                 'grid',
                 'axes',
-                backgroundLayer,
-                'nodes',
+                BackgroundLayer,
+                'circles',
                 props => <Annotations {...props} currentIndex={currentIndex} />,
             ]}
             theme={{ background: 'rgb(199, 234, 229)' }}

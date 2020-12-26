@@ -323,6 +323,7 @@ declare module '@nivo/core' {
 
     export function degreesToRadians(degrees: number): number
     export function radiansToDegrees(radians: number): number
+    export function absoluteAngleDegrees(degrees: number): number
 
     type Accessor<T extends keyof U, U> = T extends string ? U[T] : never
 

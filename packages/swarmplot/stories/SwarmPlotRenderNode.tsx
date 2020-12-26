@@ -96,7 +96,7 @@ const SwarmPlotRenderNode = () => {
             data={data.data}
             groups={data.groups}
             groupBy="group"
-            identity="id"
+            id="id"
             value="price"
             valueScale={{
                 type: 'linear',
@@ -118,8 +118,8 @@ const SwarmPlotRenderNode = () => {
                 legendPosition: 'middle',
                 legendOffset: 50,
             }}
-            renderNode={props => <CustomNode {...props} />}
-            layers={['grid', 'axes', shadowsLayer, 'nodes']}
+            circleComponent={props => <CustomNode {...props} />}
+            layers={['grid', 'axes', shadowsLayer, 'circles']}
             layout="horizontal"
             theme={theme}
         />

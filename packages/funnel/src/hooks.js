@@ -555,8 +555,12 @@ export const useFunnel = ({
 
 export const useFunnelAnnotations = (parts, annotations) => {
     return useAnnotations({
-        items: parts,
+        data: parts,
         annotations,
+        getPosition: part => ({
+            x: part.x,
+            y: part.y,
+        }),
         getDimensions: (part, offset) => {
             const width = part.width + offset * 2
             const height = part.height + offset * 2

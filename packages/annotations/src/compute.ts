@@ -1,4 +1,4 @@
-import isPlainObject from 'lodash/isPlainObject'
+import isNumber from 'lodash/isNumber'
 import filter from 'lodash/filter'
 import omit from 'lodash/omit'
 import {
@@ -8,32 +8,43 @@ import {
     positionFromAngle,
 } from '@nivo/core'
 import { defaultProps } from './props'
-import { AnnotationSpec, AnnotationSpecWithMatcher } from './types'
+import {
+    AnnotationSpec,
+    AnnotationSpecWithMatcher,
+    isCircleAnnotation,
+    isRectAnnotation,
+    AnnotationPositionGetter,
+    AnnotationDimensionsGetter,
+    ComputedAnnotation,
+} from './types'
 
-const defaultPositionAccessor = item => ({ x: item.x, y: item.y })
-
-export const bindAnnotations = <Datum>({
-    items,
+export const bindAnnotations = <
+    Datum = {
+        x: number
+        y: number
+    }
+>({
+    data,
     annotations,
-    getPosition = defaultPositionAccessor,
+    getPosition,
     getDimensions,
 }: {
-    items: Datum[]
+    data: Datum[]
     annotations: AnnotationSpecWithMatcher<Datum>[]
-    getPosition: any
-    getDimensions: any
-}) =>
-    annotations.reduce((acc, annotation) => {
-        filter(items, annotation.match).forEach(item => {
-            const position = getPosition(item)
-            const dimensions = getDimensions(item, annotation.offset || 0)
+    getPosition: AnnotationPositionGetter<Datum>
+    getDimensions: AnnotationDimensionsGetter<Datum>
+}): AnnotationSpec<Datum>[] =>
+    annotations.reduce((acc: AnnotationSpec<Datum>[], annotation) => {
+        filter<Datum>(data, annotation.match).forEach(datum => {
+            const position = getPosition(datum)
+            const dimensions = getDimensions(datum, annotation.offset || 0)
 
             acc.push({
                 ...omit(annotation, ['match', 'offset']),
                 ...position,
                 ...dimensions,
-                datum: item,
                 size: annotation.size || dimensions.size,
+                datum,
             })
         })
 
@@ -51,35 +62,35 @@ export const getLinkAngle = (
     return absoluteAngleDegrees(radiansToDegrees(angle))
 }
 
-export const computeAnnotation = ({
-    type,
-    x,
-    y,
-    size,
-    width,
-    height,
-    noteX,
-    noteY,
-    noteWidth = defaultProps.noteWidth,
-    noteTextOffset = defaultProps.noteTextOffset,
-}: AnnotationSpec) => {
-    let computedNoteX
-    let computedNoteY
+export const computeAnnotation = <Datum>(
+    annotationSpec: Omit<AnnotationSpec<Datum>, 'datum' | 'note'>
+): ComputedAnnotation => {
+    const {
+        x,
+        y,
+        noteX,
+        noteY,
+        noteWidth = defaultProps.noteWidth,
+        noteTextOffset = defaultProps.noteTextOffset,
+    } = annotationSpec
 
-    if (isPlainObject(noteX)) {
-        if (noteX.abs !== undefined) {
-            computedNoteX = noteX.abs
-        }
-    } else {
+    let computedNoteX: number
+    let computedNoteY: number
+
+    if (isNumber(noteX)) {
         computedNoteX = x + noteX
+    } else if (noteX.abs !== undefined) {
+        computedNoteX = noteX.abs
+    } else {
+        throw new Error(`noteX should be either a number or an object containing an 'abs' property`)
     }
 
-    if (isPlainObject(noteY)) {
-        if (noteY.abs !== undefined) {
-            computedNoteY = noteY.abs
-        }
-    } else {
+    if (isNumber(noteY)) {
         computedNoteY = y + noteY
+    } else if (noteY.abs !== undefined) {
+        computedNoteY = noteY.abs
+    } else {
+        throw new Error(`noteY should be either a number or an object containing an 'abs' property`)
     }
 
     let computedX = x
@@ -87,49 +98,49 @@ export const computeAnnotation = ({
 
     const angle = getLinkAngle(x, y, computedNoteX, computedNoteY)
 
-    if (type === 'circle') {
-        const position = positionFromAngle(degreesToRadians(angle), size / 2)
+    if (isCircleAnnotation<Datum>(annotationSpec)) {
+        const position = positionFromAngle(degreesToRadians(angle), annotationSpec.size / 2)
         computedX += position.x
         computedY += position.y
     }
 
-    if (type === 'rect') {
+    if (isRectAnnotation(annotationSpec)) {
         const eighth = Math.round((angle + 90) / 45) % 8
         if (eighth === 0) {
-            computedY -= height / 2
+            computedY -= annotationSpec.height / 2
         }
         if (eighth === 1) {
-            computedX += width / 2
-            computedY -= height / 2
+            computedX += annotationSpec.width / 2
+            computedY -= annotationSpec.height / 2
         }
         if (eighth === 2) {
-            computedX += width / 2
+            computedX += annotationSpec.width / 2
         }
         if (eighth === 3) {
-            computedX += width / 2
-            computedY += height / 2
+            computedX += annotationSpec.width / 2
+            computedY += annotationSpec.height / 2
         }
         if (eighth === 4) {
-            computedY += height / 2
+            computedY += annotationSpec.height / 2
         }
         if (eighth === 5) {
-            computedX -= width / 2
-            computedY += height / 2
+            computedX -= annotationSpec.width / 2
+            computedY += annotationSpec.height / 2
         }
         if (eighth === 6) {
-            computedX -= width / 2
+            computedX -= annotationSpec.width / 2
         }
         if (eighth === 7) {
-            computedX -= width / 2
-            computedY -= height / 2
+            computedX -= annotationSpec.width / 2
+            computedY -= annotationSpec.height / 2
         }
     }
 
     let textX = computedNoteX
-    let textY = computedNoteY - noteTextOffset
+    const textY = computedNoteY - noteTextOffset
 
     let noteLineX = computedNoteX
-    let noteLineY = computedNoteY
+    const noteLineY = computedNoteY
 
     if ((angle + 90) % 360 > 180) {
         textX -= noteWidth
@@ -143,7 +154,7 @@ export const computeAnnotation = ({
             [computedX, computedY],
             [computedNoteX, computedNoteY],
             [noteLineX, noteLineY],
-        ],
+        ] as [number, number][],
         text: [textX, textY],
         angle: angle + 90,
     }

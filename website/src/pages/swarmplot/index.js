@@ -131,6 +131,32 @@ const ScatterPlot = () => {
                                 data: node,
                             })
                         }}
+                        annotations={[
+                            {
+                                type: 'circle',
+                                match: { index: 40 },
+                                noteX: 40,
+                                noteY: 40,
+                                offset: 4,
+                                note: 'Node at index: 40',
+                            },
+                            {
+                                type: 'rect',
+                                match: { index: 80 },
+                                noteX: -40,
+                                noteY: -40,
+                                offset: 4,
+                                note: 'Node at index: 80',
+                            },
+                            {
+                                type: 'dot',
+                                match: { index: 120 },
+                                noteX: 0,
+                                noteY: { abs: -20 },
+                                size: 6,
+                                note: 'Node at index: 120',
+                            },
+                        ]}
                     />
                 )
             }}

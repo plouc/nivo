@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { createElement } from 'react'
 import omit from 'lodash/omit'
 import { useSpring, animated } from '@react-spring/web'
 import { useTheme, useMotionConfig } from '@nivo/core'
+import { AnnotationSpec, NoteCanvasRenderer } from './types'
 
 export const AnnotationNote = <Datum,>({
     datum,
@@ -12,8 +13,7 @@ export const AnnotationNote = <Datum,>({
     datum: Datum
     x: number
     y: number
-    // PropTypes.oneOfType([PropTypes.node, PropTypes.func]).isRequired
-    note: any
+    note: Exclude<AnnotationSpec<Datum>['note'], NoteCanvasRenderer>
 }) => {
     const theme = useTheme()
     const { animate, config: springConfig } = useMotionConfig()
@@ -26,7 +26,7 @@ export const AnnotationNote = <Datum,>({
     })
 
     if (typeof note === 'function') {
-        return note({ x, y, datum })
+        return createElement(note, { x, y, datum })
     }
 
     return (
