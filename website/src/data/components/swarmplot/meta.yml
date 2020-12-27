@@ -10,8 +10,8 @@ SwarmPlot:
     - svg
     - isomorphic
   stories:
-    - label: Custom node rendering
-      link: swarmplot--custom-node-rendering
+    - label: Custom circle component
+      link: swarmplot--custom-circle-component
     - label: Adding extra layers
       link: swarmplot--extra-layers
     - label: Using annotations

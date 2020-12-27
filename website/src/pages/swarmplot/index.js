@@ -137,7 +137,7 @@ const ScatterPlot = () => {
                                 match: { index: 40 },
                                 noteX: 40,
                                 noteY: 40,
-                                offset: 4,
+                                offset: 6,
                                 note: 'Node at index: 40',
                             },
                             {

@@ -11,7 +11,7 @@ import {
     computeForces,
     computeNodes,
 } from './compute'
-import { SwarmPlotCommonProps, ComputedDatum, SizeSpec } from './types'
+import { SwarmPlotCommonProps, ComputedDatum, SizeSpec, SwarmPlotCustomLayerProps } from './types'
 
 export const useValueScale = <RawDatum>({
     width,
@@ -248,3 +248,27 @@ export const useSwarmPlotAnnotations = <RawDatum>(
         getPosition: getNodeAnnotationPosition,
         getDimensions: getNodeAnnotationDimensions,
     })
+
+export const useSwarmPlotLayerContext = <RawDatum>({
+    nodes,
+    xScale,
+    yScale,
+    innerWidth,
+    innerHeight,
+    outerWidth,
+    outerHeight,
+    margin,
+}: SwarmPlotCustomLayerProps<RawDatum>): SwarmPlotCustomLayerProps<RawDatum> =>
+    useMemo(
+        () => ({
+            nodes,
+            xScale,
+            yScale,
+            innerWidth,
+            innerHeight,
+            outerWidth,
+            outerHeight,
+            margin,
+        }),
+        [nodes, xScale, yScale, innerWidth, innerHeight, outerWidth, outerHeight, margin]
+    )

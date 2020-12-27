@@ -1,11 +1,12 @@
 import * as React from 'react'
 import { Interpolation, SpringValue } from 'react-spring'
 import { ForceX, ForceY, ForceCollide } from 'd3-force'
-import { PropertyAccessor, ValueFormat, Theme, ModernMotionProps, Box } from '@nivo/core'
+import { PropertyAccessor, ValueFormat, Theme, ModernMotionProps, Box, Margin } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { GridValues, AxisProps } from '@nivo/axes'
 import { Scale } from '@nivo/scales'
 import { AnnotationMatcher } from '@nivo/annotations'
+import { ScaleLinear, ScaleOrdinal } from 'd3-scale'
 
 export interface ComputedDatum<RawDatum> {
     id: string
@@ -36,17 +37,13 @@ export type SwarmPlotLayerId = 'grid' | 'axes' | 'circles' | 'annotations' | 'me
 
 export interface SwarmPlotCustomLayerProps<RawDatum> {
     nodes: ComputedDatum<RawDatum>[]
-    /*
-    xScale: (input: number) => number
-    yScale: (input: number) => number
+    xScale: ScaleLinear<number | string | Date, number> | ScaleOrdinal<string, number>
+    yScale: ScaleLinear<number | string | Date, number> | ScaleOrdinal<string, number>
     innerWidth: number
     innerHeight: number
     outerWidth: number
     outerHeight: number
-    margin: number
-    getBorderColor: () => string
-    getBorderWidth: () => number
-    */
+    margin: Margin
 }
 
 export type SwarmPlotCustomLayer<RawDatum> = React.FC<SwarmPlotCustomLayerProps<RawDatum>>
