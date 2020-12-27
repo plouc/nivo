@@ -10,12 +10,13 @@ import {
 import { defaultProps } from './props'
 import {
     AnnotationSpec,
-    AnnotationSpecWithMatcher,
     isCircleAnnotation,
     isRectAnnotation,
     AnnotationPositionGetter,
     AnnotationDimensionsGetter,
-    ComputedAnnotation,
+    BoundAnnotation,
+    AnnotationMatcher,
+    AnnotationInstructions,
 } from './types'
 
 export const bindAnnotations = <
@@ -30,11 +31,11 @@ export const bindAnnotations = <
     getDimensions,
 }: {
     data: Datum[]
-    annotations: AnnotationSpecWithMatcher<Datum>[]
+    annotations: AnnotationMatcher<Datum>[]
     getPosition: AnnotationPositionGetter<Datum>
     getDimensions: AnnotationDimensionsGetter<Datum>
-}): AnnotationSpec<Datum>[] =>
-    annotations.reduce((acc: AnnotationSpec<Datum>[], annotation) => {
+}): BoundAnnotation<Datum>[] =>
+    annotations.reduce((acc: BoundAnnotation<Datum>[], annotation) => {
         filter<Datum>(data, annotation.match).forEach(datum => {
             const position = getPosition(datum)
             const dimensions = getDimensions(datum, annotation.offset || 0)
@@ -63,8 +64,8 @@ export const getLinkAngle = (
 }
 
 export const computeAnnotation = <Datum>(
-    annotationSpec: Omit<AnnotationSpec<Datum>, 'datum' | 'note'>
-): ComputedAnnotation => {
+    annotation: AnnotationSpec<Datum>
+): AnnotationInstructions => {
     const {
         x,
         y,
@@ -72,7 +73,7 @@ export const computeAnnotation = <Datum>(
         noteY,
         noteWidth = defaultProps.noteWidth,
         noteTextOffset = defaultProps.noteTextOffset,
-    } = annotationSpec
+    } = annotation
 
     let computedNoteX: number
     let computedNoteY: number
@@ -98,41 +99,41 @@ export const computeAnnotation = <Datum>(
 
     const angle = getLinkAngle(x, y, computedNoteX, computedNoteY)
 
-    if (isCircleAnnotation<Datum>(annotationSpec)) {
-        const position = positionFromAngle(degreesToRadians(angle), annotationSpec.size / 2)
+    if (isCircleAnnotation<Datum>(annotation)) {
+        const position = positionFromAngle(degreesToRadians(angle), annotation.size / 2)
         computedX += position.x
         computedY += position.y
     }
 
-    if (isRectAnnotation(annotationSpec)) {
+    if (isRectAnnotation<Datum>(annotation)) {
         const eighth = Math.round((angle + 90) / 45) % 8
         if (eighth === 0) {
-            computedY -= annotationSpec.height / 2
+            computedY -= annotation.height / 2
         }
         if (eighth === 1) {
-            computedX += annotationSpec.width / 2
-            computedY -= annotationSpec.height / 2
+            computedX += annotation.width / 2
+            computedY -= annotation.height / 2
         }
         if (eighth === 2) {
-            computedX += annotationSpec.width / 2
+            computedX += annotation.width / 2
         }
         if (eighth === 3) {
-            computedX += annotationSpec.width / 2
-            computedY += annotationSpec.height / 2
+            computedX += annotation.width / 2
+            computedY += annotation.height / 2
         }
         if (eighth === 4) {
-            computedY += annotationSpec.height / 2
+            computedY += annotation.height / 2
         }
         if (eighth === 5) {
-            computedX -= annotationSpec.width / 2
-            computedY += annotationSpec.height / 2
+            computedX -= annotation.width / 2
+            computedY += annotation.height / 2
         }
         if (eighth === 6) {
-            computedX -= annotationSpec.width / 2
+            computedX -= annotation.width / 2
         }
         if (eighth === 7) {
-            computedX -= annotationSpec.width / 2
-            computedY -= annotationSpec.height / 2
+            computedX -= annotation.width / 2
+            computedY -= annotation.height / 2
         }
     }
 

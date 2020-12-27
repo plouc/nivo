@@ -6,37 +6,36 @@ import { CircleAnnotationOutline } from './CircleAnnotationOutline'
 import { DotAnnotationOutline } from './DotAnnotationOutline'
 import { RectAnnotationOutline } from './RectAnnotationOutline'
 import {
-    AnnotationSpec,
+    BoundAnnotation,
     isCircleAnnotation,
     isDotAnnotation,
     isRectAnnotation,
-    NoteCanvasRenderer,
+    isSvgNote,
 } from './types'
 
-export const Annotation = <Datum,>(
-    annotationSpec: Omit<AnnotationSpec<Datum>, 'note'> & {
-        note: Exclude<AnnotationSpec<Datum>['note'], NoteCanvasRenderer>
+export const Annotation = <Datum,>(annotation: BoundAnnotation<Datum>) => {
+    const { datum, x, y, note } = annotation
+    if (!isSvgNote(note)) {
+        throw new Error('note should be a valid react element')
     }
-) => {
-    const { datum, x, y, note } = annotationSpec
 
-    const computed = useComputedAnnotation<Datum>(annotationSpec)
+    const computed = useComputedAnnotation(annotation)
 
     return (
         <>
             <AnnotationLink points={computed.points} isOutline={true} />
-            {isCircleAnnotation(annotationSpec) && (
-                <CircleAnnotationOutline x={x} y={y} size={annotationSpec.size} />
+            {isCircleAnnotation(annotation) && (
+                <CircleAnnotationOutline x={x} y={y} size={annotation.size} />
             )}
-            {isDotAnnotation(annotationSpec) && (
-                <DotAnnotationOutline x={x} y={y} size={annotationSpec.size} />
+            {isDotAnnotation(annotation) && (
+                <DotAnnotationOutline x={x} y={y} size={annotation.size} />
             )}
-            {isRectAnnotation(annotationSpec) && (
+            {isRectAnnotation(annotation) && (
                 <RectAnnotationOutline
                     x={x}
                     y={y}
-                    width={annotationSpec.width}
-                    height={annotationSpec.height}
+                    width={annotation.width}
+                    height={annotation.height}
                 />
             )}
             <AnnotationLink points={computed.points} />

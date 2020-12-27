@@ -2,7 +2,7 @@ import React, { createElement } from 'react'
 import omit from 'lodash/omit'
 import { useSpring, animated } from '@react-spring/web'
 import { useTheme, useMotionConfig } from '@nivo/core'
-import { AnnotationSpec, NoteCanvasRenderer } from './types'
+import { NoteSvg } from './types'
 
 export const AnnotationNote = <Datum,>({
     datum,
@@ -13,7 +13,7 @@ export const AnnotationNote = <Datum,>({
     datum: Datum
     x: number
     y: number
-    note: Exclude<AnnotationSpec<Datum>['note'], NoteCanvasRenderer>
+    note: NoteSvg<Datum>
 }) => {
     const theme = useTheme()
     const { animate, config: springConfig } = useMotionConfig()

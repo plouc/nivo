@@ -2,14 +2,17 @@ import { useMemo } from 'react'
 import { bindAnnotations, computeAnnotation } from './compute'
 import {
     AnnotationDimensionsGetter,
+    AnnotationMatcher,
     AnnotationPositionGetter,
     AnnotationSpec,
-    AnnotationSpecWithMatcher,
 } from './types'
 
+/**
+ * Bind annotations to a dataset.
+ */
 export const useAnnotations = <Datum>(params: {
     data: Datum[]
-    annotations: AnnotationSpecWithMatcher<Datum>[]
+    annotations: AnnotationMatcher<Datum>[]
     getPosition: AnnotationPositionGetter<Datum>
     getDimensions: AnnotationDimensionsGetter<Datum>
 }) =>
@@ -36,9 +39,7 @@ export const useComputedAnnotations = <Datum>({
         [annotations]
     )
 
-export const useComputedAnnotation = <Datum>(
-    annotationSpec: Omit<AnnotationSpec<Datum>, 'datum' | 'note'>
-) =>
+export const useComputedAnnotation = <Datum>(annotationSpec: AnnotationSpec<Datum>) =>
     useMemo(() => computeAnnotation<Datum>(annotationSpec), [
         annotationSpec.type,
         annotationSpec.x,
