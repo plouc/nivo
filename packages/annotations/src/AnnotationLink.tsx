@@ -18,7 +18,7 @@ export const AnnotationLink = ({
             (acc, [x, y]) => `${acc} L${x},${y}`,
             `M${firstPoint[0]},${firstPoint[1]}`
         )
-    }, [[points]])
+    }, [points])
 
     const animatedPath = useAnimatedPath(path)
 

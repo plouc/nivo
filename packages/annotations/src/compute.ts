@@ -36,9 +36,17 @@ export const bindAnnotations = <
     getDimensions: AnnotationDimensionsGetter<Datum>
 }): BoundAnnotation<Datum>[] =>
     annotations.reduce((acc: BoundAnnotation<Datum>[], annotation) => {
+        const offset = annotation.offset || 0
+
         filter<Datum>(data, annotation.match).forEach(datum => {
             const position = getPosition(datum)
-            const dimensions = getDimensions(datum, annotation.offset || 0)
+            const dimensions = getDimensions(datum)
+
+            if (isCircleAnnotation(annotation) || isRectAnnotation(annotation)) {
+                dimensions.size = dimensions.size + offset * 2
+                dimensions.width = dimensions.width + offset * 2
+                dimensions.height = dimensions.height + offset * 2
+            }
 
             acc.push({
                 ...omit(annotation, ['match', 'offset']),
