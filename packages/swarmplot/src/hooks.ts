@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { ScaleLinear, ScaleOrdinal } from 'd3-scale'
 import { usePropertyAccessor, useValueFormatter } from '@nivo/core'
 import { useOrdinalColorScale } from '@nivo/colors'
-import { AnnotationSpecWithMatcher, useAnnotations } from '@nivo/annotations'
+import { AnnotationMatcher, useAnnotations } from '@nivo/annotations'
 import { Scale } from '@nivo/scales'
 import {
     computeValueScale,
@@ -240,7 +240,7 @@ const getNodeAnnotationDimensions = (node: ComputedDatum<unknown>, offset: numbe
 
 export const useSwarmPlotAnnotations = <RawDatum>(
     nodes: ComputedDatum<RawDatum>[],
-    annotations: AnnotationSpecWithMatcher<ComputedDatum<RawDatum>>[]
+    annotations: AnnotationMatcher<ComputedDatum<RawDatum>>[]
 ) =>
     useAnnotations<ComputedDatum<RawDatum>>({
         data: nodes,

@@ -1,10 +1,10 @@
 import { CompleteTheme } from '@nivo/core'
 import {
-    ComputedAnnotationSpec,
+    ComputedAnnotation,
+    isCanvasNote,
     isCircleAnnotation,
     isDotAnnotation,
     isRectAnnotation,
-    NoteComponent,
 } from './types'
 
 const drawPoints = (ctx: CanvasRenderingContext2D, points: [number, number][]) => {
@@ -23,9 +23,7 @@ export const renderAnnotationsToCanvas = <Datum>(
         annotations,
         theme,
     }: {
-        annotations: (Omit<ComputedAnnotationSpec<Datum>, 'note'> & {
-            note: Exclude<ComputedAnnotationSpec<Datum>['note'], NoteComponent>
-        })[]
+        annotations: ComputedAnnotation<Datum>[]
         theme: CompleteTheme
     }
 ) => {
@@ -33,6 +31,10 @@ export const renderAnnotationsToCanvas = <Datum>(
 
     ctx.save()
     annotations.forEach(annotation => {
+        if (!isCanvasNote(annotation.note)) {
+            throw new Error('note is invalid for canvas implementation')
+        }
+
         if (theme.annotations.link.outlineWidth > 0) {
             ctx.lineCap = 'square'
             ctx.strokeStyle = theme.annotations.link.outlineColor

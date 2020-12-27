@@ -5,7 +5,7 @@ import { PropertyAccessor, ValueFormat, Theme, ModernMotionProps, Box } from '@n
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { GridValues, AxisProps } from '@nivo/axes'
 import { Scale } from '@nivo/scales'
-import { AnnotationSpecWithMatcher } from '@nivo/annotations'
+import { AnnotationMatcher } from '@nivo/annotations'
 
 export interface ComputedDatum<RawDatum> {
     id: string
@@ -111,8 +111,8 @@ export type SwarmPlotCommonProps<RawDatum> = {
     useMesh: boolean
     debugMesh: boolean
     tooltip: (props: ComputedDatum<RawDatum>) => JSX.Element
+    annotations: AnnotationMatcher<ComputedDatum<RawDatum>>[]
     layers: SwarmPlotLayer<RawDatum>[]
-    annotations: AnnotationSpecWithMatcher<ComputedDatum<RawDatum>>[]
     animate: boolean
     motionConfig: ModernMotionProps['motionConfig']
     role: string
