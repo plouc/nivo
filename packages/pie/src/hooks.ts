@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
 import { pie as d3Pie } from 'd3-shape'
-import { ArcGenerator, useArcGenerator, computeArcBoundingBox } from '@nivo/arcs'
+import { useArcGenerator, computeArcBoundingBox } from '@nivo/arcs'
 import {
     degreesToRadians,
     radiansToDegrees,
@@ -349,14 +349,7 @@ export const usePieLayerContext = <RawDatum>({
     centerY,
     radius,
     innerRadius,
-}: {
-    dataWithArc: ComputedDatum<RawDatum>[]
-    arcGenerator: ArcGenerator
-    centerX: number
-    centerY: number
-    radius: number
-    innerRadius: number
-}): PieCustomLayerProps<RawDatum> =>
+}: PieCustomLayerProps<RawDatum>): PieCustomLayerProps<RawDatum> =>
     useMemo(
         () => ({
             dataWithArc,

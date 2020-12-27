@@ -2,8 +2,8 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { generateSwarmPlotData } from '@nivo/generators'
 import { SwarmPlot } from '../src'
-import SwarmPlotLayers from './SwarmPlotLayers'
-import SwarmPlotRenderNode from './SwarmPlotRenderNode'
+import { SwarmPlotExtraLayers } from './SwarmPlotExtraLayers'
+import { SwarmPlotCustomCircle } from './SwarmPlotCustomCircle'
 
 const commonProps = {
     width: 700,
@@ -15,7 +15,7 @@ const commonProps = {
         left: 40,
     },
     groupBy: 'group',
-    identity: 'id',
+    id: 'id',
     value: 'price',
     valueScale: {
         type: 'linear',
@@ -30,9 +30,9 @@ const stories = storiesOf('SwarmPlot', module)
 
 stories.add('default', () => <SwarmPlot {...commonProps} />)
 
-stories.add('extra layers', () => <SwarmPlotLayers />)
+stories.add('extra layers', () => <SwarmPlotExtraLayers />)
 
-stories.add('custom node rendering', () => <SwarmPlotRenderNode />)
+stories.add('custom circle component', () => <SwarmPlotCustomCircle />)
 
 stories.add('using annotations', () => (
     <SwarmPlot

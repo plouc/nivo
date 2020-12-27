@@ -1,26 +1,32 @@
 import React, { useMemo } from 'react'
+import { Theme } from '@nivo/core'
 import { generateSwarmPlotData } from '@nivo/generators'
-import { useOrdinalColorScale } from '../../colors/src'
-import { usePie } from '../../pie/src'
-import { SwarmPlot } from '../src'
+import { useOrdinalColorScale } from '@nivo/colors'
+import { usePie } from '@nivo/pie'
+import { SwarmPlot, CircleProps, SwarmPlotCustomLayerProps } from '../src'
 
-const CustomNode = d => {
+const CustomCircle = (d: CircleProps<unknown>) => {
     const getArcColor = useOrdinalColorScale({ scheme: 'purple_orange' }, v => v)
     const { dataWithArc, arcGenerator } = usePie({
         data: d.node.data.categories.map((value, id) => ({ id, value })),
-        radius: d.size / 2,
-        innerRadius: (d.size / 2) * 0.7,
+        radius: d.node.size / 2,
+        innerRadius: (d.node.size / 2) * 0.7,
         sortByValue: true,
     })
 
     return (
-        <g transform={`translate(${d.x},${d.y})`}>
-            <circle r={d.size / 2} stroke="rgb(216, 218, 235)" strokeWidth={12} />
-            <circle r={d.size / 2} fill="rgb(45, 0, 75)" stroke="rgb(45, 0, 75)" strokeWidth={6} />
+        <g transform={`translate(${d.node.x},${d.node.y})`}>
+            <circle r={d.node.size / 2} stroke="rgb(216, 218, 235)" strokeWidth={12} />
+            <circle
+                r={d.node.size / 2}
+                fill="rgb(45, 0, 75)"
+                stroke="rgb(45, 0, 75)"
+                strokeWidth={6}
+            />
             {dataWithArc.map((datum, i) => {
                 return <path key={i} d={arcGenerator(datum.arc)} fill={getArcColor(i)} />
             })}
-            {d.size > 52 && (
+            {d.node.size > 52 && (
                 <text
                     fill="white"
                     textAnchor="middle"
@@ -37,19 +43,21 @@ const CustomNode = d => {
     )
 }
 
-const shadowsLayer = ({ nodes }) => {
-    return nodes.map(node => (
-        <circle
-            key={node.id}
-            cx={node.x}
-            cy={node.y + node.size * 0.4}
-            r={node.size * 0.55}
-            fill="rgba(45, 0, 75, .15)"
-        />
-    ))
-}
+const ShadowsLayer = ({ nodes }: SwarmPlotCustomLayerProps<unknown>) => (
+    <>
+        {nodes.map(node => (
+            <circle
+                key={node.id}
+                cx={node.x}
+                cy={node.y + node.size * 0.2}
+                r={node.size * 0.55}
+                fill="rgba(45, 0, 75, .15)"
+            />
+        ))}
+    </>
+)
 
-const theme = {
+const theme: Theme = {
     background: 'rgb(216, 218, 235)',
     axis: {
         ticks: {
@@ -77,7 +85,7 @@ const theme = {
     },
 }
 
-const SwarmPlotRenderNode = () => {
+export const SwarmPlotCustomCircle = () => {
     const data = useMemo(
         () => generateSwarmPlotData(['group'], { min: 32, max: 32, categoryCount: 9 }),
         []
@@ -118,12 +126,10 @@ const SwarmPlotRenderNode = () => {
                 legendPosition: 'middle',
                 legendOffset: 50,
             }}
-            circleComponent={props => <CustomNode {...props} />}
-            layers={['grid', 'axes', shadowsLayer, 'circles']}
+            circleComponent={CustomCircle}
+            layers={['grid', 'axes', ShadowsLayer, 'circles']}
             layout="horizontal"
             theme={theme}
         />
     )
 }
-
-export default SwarmPlotRenderNode

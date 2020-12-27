@@ -2,9 +2,9 @@ import React, { useMemo, useState } from 'react'
 import { generateSwarmPlotData } from '@nivo/generators'
 // @ts-ignore
 import { PatternLines } from '../../core/src'
-import { SwarmPlot } from '../src'
+import { SwarmPlot, SwarmPlotCustomLayerProps } from '../src'
 
-const BackgroundLayer = ({ xScale, innerHeight }) => (
+const BackgroundLayer = ({ xScale, innerHeight }: SwarmPlotCustomLayerProps<unknown>) => (
     <>
         <defs>
             <PatternLines
@@ -51,54 +51,7 @@ const BackgroundLayer = ({ xScale, innerHeight }) => (
     </>
 )
 
-const Annotations = ({ nodes, margin, innerWidth, currentIndex }) => {
-    const node = nodes[currentIndex]
-    const radius = node.size * 0.6
-    const labelBefore = node.x > innerWidth / 2
-    const labelX = labelBefore ? node.x - 140 : node.x + 140
-    const linePath = `
-        M${node.x},${node.y - radius}
-        L${node.x},${margin.top * -0.5}
-        L${labelX},${margin.top * -0.5}
-    `
-
-    return (
-        <g style={{ pointerEvents: 'none' }}>
-            <circle
-                cx={node.x}
-                cy={node.y}
-                r={radius}
-                fill="none"
-                strokeWidth={6}
-                stroke="rgb(199, 234, 229)"
-            />
-            <path fill="none" strokeWidth={5} stroke="rgb(199, 234, 229)" d={linePath} />
-            <circle
-                cx={node.x}
-                cy={node.y}
-                r={radius}
-                fill="none"
-                strokeWidth={2}
-                stroke="rgb(1, 88, 82)"
-            />
-            <path fill="none" strokeWidth={1} stroke="rgb(1, 88, 82)" d={linePath} />
-            <text
-                x={labelX}
-                y={margin.top * -0.5 - 10}
-                fill="rgb(0, 60, 48)"
-                textAnchor={labelBefore ? 'start' : 'end'}
-                style={{
-                    fontSize: 12,
-                    fontWeight: 600,
-                }}
-            >
-                Annotation
-            </text>
-        </g>
-    )
-}
-
-const SwarmPlotLayers = () => {
+export const SwarmPlotExtraLayers = () => {
     const data = useMemo(() => generateSwarmPlotData(['group'], { min: 60, max: 60 }), [])
     const [currentIndex, setCurrentIndex] = useState(13)
 
@@ -115,7 +68,7 @@ const SwarmPlotLayers = () => {
             data={data.data}
             groups={data.groups}
             groupBy="group"
-            identity="id"
+            id="id"
             value="price"
             valueScale={{
                 type: 'linear',
@@ -133,7 +86,8 @@ const SwarmPlotLayers = () => {
                 'axes',
                 BackgroundLayer,
                 'circles',
-                props => <Annotations {...props} currentIndex={currentIndex} />,
+                'annotations',
+                //props => <Annotations {...props} currentIndex={currentIndex} />,
             ]}
             theme={{ background: 'rgb(199, 234, 229)' }}
             colors={{ scheme: 'brown_blueGreen' }}
@@ -148,5 +102,3 @@ const SwarmPlotLayers = () => {
         />
     )
 }
-
-export default SwarmPlotLayers

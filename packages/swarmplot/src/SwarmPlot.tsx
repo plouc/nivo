@@ -1,11 +1,11 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, Fragment, createElement } from 'react'
 import { Container, SvgWrapper, useDimensions } from '@nivo/core'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import { Axes, Grid } from '@nivo/axes'
 import { Mesh } from '@nivo/voronoi'
 import { ComputedDatum, SwarmPlotLayerId, SwarmPlotSvgProps } from './types'
 import { defaultProps } from './props'
-import { useSwarmPlot } from './hooks'
+import { useSwarmPlot, useSwarmPlotLayerContext } from './hooks'
 import { Circles } from './Circles'
 import { CircleSvg } from './CircleSvg'
 import { SwarmPlotAnnotations } from './SwarmPlotAnnotations'
@@ -25,6 +25,7 @@ const InnerSwarmPlot = <RawDatum,>({
     margin: partialMargin,
     id = defaultProps.id,
     value = defaultProps.value,
+    valueScale = defaultProps.valueScale,
     valueFormat,
     groups,
     groupBy = defaultProps.groupBy,
@@ -41,9 +42,9 @@ const InnerSwarmPlot = <RawDatum,>({
     circleComponent = CircleSvg,
     useMesh = defaultProps.useMesh,
     debugMesh = defaultProps.debugMesh,
-    enableGridX,
+    enableGridX = defaultProps.enableGridX,
     gridXValues,
-    enableGridY,
+    enableGridY = defaultProps.enableGridY,
     gridYValues,
     axisTop = defaultProps.axisTop,
     axisRight = defaultProps.axisRight,
@@ -71,7 +72,7 @@ const InnerSwarmPlot = <RawDatum,>({
         id,
         value,
         valueFormat,
-        valueScale: defaultProps.valueScale,
+        valueScale,
         groups,
         groupBy,
         size,
@@ -166,6 +167,17 @@ const InnerSwarmPlot = <RawDatum,>({
         )
     }
 
+    const layerContext = useSwarmPlotLayerContext({
+        nodes,
+        xScale,
+        yScale,
+        innerWidth,
+        innerHeight,
+        outerWidth,
+        outerHeight,
+        margin,
+    })
+
     return (
         <SvgWrapper
             width={outerWidth}
@@ -174,13 +186,13 @@ const InnerSwarmPlot = <RawDatum,>({
             //defs={boundDefs}
             role={role}
         >
-            {layers.map(layer => {
+            {layers.map((layer, i) => {
                 if (layerById[layer as SwarmPlotLayerId] !== undefined) {
                     return layerById[layer as SwarmPlotLayerId]
                 }
 
                 if (typeof layer === 'function') {
-                    // return <Fragment key={i}>{createElement(layer, layerContext)}</Fragment>
+                    return <Fragment key={i}>{createElement(layer, layerContext)}</Fragment>
                 }
 
                 return null
@@ -208,24 +220,6 @@ export const SwarmPlot = <RawDatum,>({
 )
 
 /*
-const getBorderWidth = useBorderWidth(borderWidth)
-const getBorderColor = useInheritedColor(borderColor, theme)
-
-const layerById = {
-    annotations: (
-        <SwarmPlotAnnotations
-            key="annotations"
-            nodes={nodes}
-            annotations={annotations}
-            innerWidth={innerWidth}
-            innerHeight={innerHeight}
-            animate={animate}
-            motionStiffness={motionStiffness}
-            motionDamping={motionDamping}
-        />
-    ),
-}
-
 const enableNodeInteractivity = isInteractive && !useMesh
 const handlers = useNodeMouseHandlers({
     isEnabled: isInteractive,
@@ -268,21 +262,5 @@ if (animate) {
             onClick={!useMesh ? handlers.onClick : undefined}
         />
     )
-}
-
-const layerContext = {
-    nodes,
-    xScale,
-    yScale,
-    innerWidth,
-    innerHeight,
-    outerWidth,
-    outerHeight,
-    margin,
-    getBorderColor,
-    getBorderWidth,
-    animate,
-    motionStiffness,
-    motionDamping,
 }
 */
