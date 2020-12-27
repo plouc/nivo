@@ -9,7 +9,7 @@
         { "path": "./packages/axes" },
         { "path": "./packages/colors" },
         { "path": "./packages/legends" },
-        // { "path": "./packages/scales" },
+        { "path": "./packages/scales" },
         { "path": "./packages/tooltip" },
         { "path": "./packages/arcs" },
 
