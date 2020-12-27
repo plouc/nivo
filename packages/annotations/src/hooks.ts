@@ -10,18 +10,27 @@ import {
 /**
  * Bind annotations to a dataset.
  */
-export const useAnnotations = <Datum>(params: {
+export const useAnnotations = <Datum>({
+    data,
+    annotations,
+    getPosition,
+    getDimensions,
+}: {
     data: Datum[]
     annotations: AnnotationMatcher<Datum>[]
     getPosition: AnnotationPositionGetter<Datum>
     getDimensions: AnnotationDimensionsGetter<Datum>
 }) =>
-    useMemo(() => bindAnnotations<Datum>(params), [
-        params.data,
-        params.annotations,
-        params.getPosition,
-        params.getDimensions,
-    ])
+    useMemo(
+        () =>
+            bindAnnotations<Datum>({
+                data,
+                annotations,
+                getPosition,
+                getDimensions,
+            }),
+        [data, annotations, getPosition, getDimensions]
+    )
 
 export const useComputedAnnotations = <Datum>({
     annotations,
@@ -39,16 +48,5 @@ export const useComputedAnnotations = <Datum>({
         [annotations]
     )
 
-export const useComputedAnnotation = <Datum>(annotationSpec: AnnotationSpec<Datum>) =>
-    useMemo(() => computeAnnotation<Datum>(annotationSpec), [
-        annotationSpec.type,
-        annotationSpec.x,
-        annotationSpec.y,
-        annotationSpec.size,
-        annotationSpec.width,
-        annotationSpec.height,
-        annotationSpec.noteX,
-        annotationSpec.noteY,
-        annotationSpec.noteWidth,
-        annotationSpec.noteTextOffset,
-    ])
+export const useComputedAnnotation = <Datum>(annotation: AnnotationSpec<Datum>) =>
+    useMemo(() => computeAnnotation<Datum>(annotation), [annotation])

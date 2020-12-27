@@ -232,11 +232,11 @@ const getNodeAnnotationPosition = (node: ComputedDatum<unknown>) => ({
     y: node.y,
 })
 
-const getNodeAnnotationDimensions = (node: ComputedDatum<unknown>, offset: number) => {
-    const size = node.size + offset * 2
-
-    return { size, width: size, height: size }
-}
+const getNodeAnnotationDimensions = (node: ComputedDatum<unknown>) => ({
+    size: node.size,
+    width: node.size,
+    height: node.size,
+})
 
 export const useSwarmPlotAnnotations = <RawDatum>(
     nodes: ComputedDatum<RawDatum>[],

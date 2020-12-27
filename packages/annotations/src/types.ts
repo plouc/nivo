@@ -15,8 +15,7 @@ export type AnnotationPositionGetter<Datum> = (
 }
 
 export type AnnotationDimensionsGetter<Datum> = (
-    datum: Datum,
-    offset: number
+    datum: Datum
 ) => {
     size: number
     width: number
@@ -60,9 +59,11 @@ export const isCanvasNote = <Datum>(note: Note<Datum>): note is NoteCanvas<Datum
 
 // Define the kind of annotation you wish to render
 export interface BaseAnnotationSpec<Datum> {
-    // x coordinate of the annotated element
+    // x coordinate of the annotated element,
+    // referring to the center.
     x: number
-    // y coordinate of the annotated element
+    // y coordinate of the annotated element,
+    // referring to the center.
     y: number
     note: Note<Datum>
     // x coordinate of the note, can be either
@@ -87,6 +88,8 @@ export type CircleAnnotationSpec<Datum> = BaseAnnotationSpec<Datum> & {
     type: 'circle'
     // diameter of the circle
     size: number
+    // add an extra offset around the annotated element
+    offset?: number
 }
 
 export const isCircleAnnotation = <Datum>(
@@ -111,6 +114,8 @@ export type RectAnnotationSpec<Datum> = BaseAnnotationSpec<Datum> & {
     type: 'rect'
     width: number
     height: number
+    // add an extra offset around the annotated element
+    offset?: number
 }
 
 export const isRectAnnotation = <Datum>(
