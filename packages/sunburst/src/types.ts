@@ -104,19 +104,3 @@ export type CompleteSvgProps<RawDatum> = DataProps<RawDatum> &
     MouseEventHandlers<RawDatum, SVGPathElement> &
     ModernMotionProps &
     CommonProps<RawDatum>
-
-export type SunburstArcProps<RawDatum> = Pick<
-    SvgProps<RawDatum>,
-    'onClick' | 'onMouseEnter' | 'onMouseLeave' | 'onMouseMove' | 'borderWidth' | 'borderColor'
-> &
-    Pick<CommonProps<RawDatum>, 'isInteractive' | 'tooltip'> & {
-        arcGenerator: ArcGenerator
-        node: ComputedDatum<RawDatum>
-    }
-
-export type SunburstLabelProps<RawDatum> = {
-    label: CommonProps<RawDatum>['arcLabel']
-    nodes: Array<ComputedDatum<RawDatum>>
-    skipAngle?: number
-    textColor: CommonProps<RawDatum>['arcLabelsTextColor']
-}
