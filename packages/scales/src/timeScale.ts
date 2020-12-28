@@ -1,38 +1,37 @@
 import { scaleTime, scaleUtc } from 'd3-scale'
-import PropTypes from 'prop-types'
-import { createDateNormalizer, timePrecisions, TIME_PRECISION_MILLISECOND } from './timeHelpers'
+import { createDateNormalizer } from './timeHelpers'
+import { ComputedSerieAxis, ScaleTimeSpec } from './types'
 
-export const timeScale = (
+export const createTimeScale = (
     {
-        axis,
         format = 'native',
-        precision = TIME_PRECISION_MILLISECOND,
+        precision = 'millisecond',
         min = 'auto',
         max = 'auto',
         useUTC = true,
         nice = false,
-    },
-    xy,
-    width,
-    height
+    }: ScaleTimeSpec,
+    data: ComputedSerieAxis<string | Date>,
+    size: number
 ) => {
-    const values = xy[axis]
-    const size = axis === 'x' ? width : height
-
     const normalize = createDateNormalizer({ format, precision, useUTC })
 
-    let minValue = min
+    let minValue: Date
     if (min === 'auto') {
-        minValue = values.min
+        minValue = normalize(data.min)
     } else if (format !== 'native') {
         minValue = normalize(min)
+    } else {
+        minValue = min
     }
 
-    let maxValue = max
+    let maxValue: Date
     if (max === 'auto') {
-        maxValue = values.max
+        maxValue = normalize(data.max)
     } else if (format !== 'native') {
         maxValue = normalize(max)
+    } else {
+        maxValue = max
     }
 
     const scale = useUTC ? scaleUtc() : scaleTime()
@@ -44,11 +43,4 @@ export const timeScale = (
     scale.useUTC = useUTC
 
     return scale
-}
-
-export const timeScalePropTypes = {
-    type: PropTypes.oneOf(['time']).isRequired,
-    format: PropTypes.string,
-    precision: PropTypes.oneOf(timePrecisions),
-    nice: PropTypes.oneOfType([PropTypes.bool, PropTypes.number, PropTypes.object]),
 }

@@ -1,7 +1,7 @@
-import { symlogScale } from '../src/symlogScale'
+import { createSymLogScale } from '../src/symlogScale'
 
 it(`should be able to build a symlog scale for x axis`, () => {
-    const scale = symlogScale({ axis: 'x' }, { x: { min: 0, max: 1 } }, 100, 100)
+    const scale = createSymLogScale({ type: 'symlog' }, { all: [], min: 0, max: 1 }, 100, 'x')
 
     expect(scale(0)).toBe(0)
     expect(scale(0.5)).toBe(58)
@@ -9,7 +9,7 @@ it(`should be able to build a symlog scale for x axis`, () => {
 })
 
 it(`should be able to build a symlog scale for y axis`, () => {
-    const scale = symlogScale({ axis: 'y' }, { y: { min: 0, max: 1 } }, 100, 100)
+    const scale = createSymLogScale({ type: 'symlog' }, { all: [], min: 0, max: 1 }, 100, 'y')
 
     expect(scale(0)).toBe(100)
     expect(scale(0.5)).toBe(42)
@@ -17,7 +17,12 @@ it(`should be able to build a symlog scale for y axis`, () => {
 })
 
 it(`should allow to define min value for x axis`, () => {
-    const scale = symlogScale({ axis: 'x', min: 0.5 }, { x: { min: 0, max: 1 } }, 100, 100)
+    const scale = createSymLogScale(
+        { type: 'symlog', min: 0.5 },
+        { all: [], min: 0, max: 1 },
+        100,
+        'x'
+    )
 
     expect(scale.domain()[0]).toBe(0.5)
     expect(scale(0)).toBe(-141)
@@ -26,7 +31,12 @@ it(`should allow to define min value for x axis`, () => {
 })
 
 it(`should allow to define min value for y axis`, () => {
-    const scale = symlogScale({ axis: 'y', min: 0.5 }, { y: { min: 0, max: 1 } }, 100, 100)
+    const scale = createSymLogScale(
+        { type: 'symlog', min: 0.5 },
+        { all: [], min: 0, max: 1 },
+        100,
+        'y'
+    )
 
     expect(scale.domain()[0]).toBe(0.5)
     expect(scale(0)).toBe(241)
@@ -35,7 +45,12 @@ it(`should allow to define min value for y axis`, () => {
 })
 
 it(`should allow to define max value for x axis`, () => {
-    const scale = symlogScale({ axis: 'x', max: 2 }, { x: { min: 0, max: 1 } }, 100, 100)
+    const scale = createSymLogScale(
+        { type: 'symlog', max: 2 },
+        { all: [], min: 0, max: 1 },
+        100,
+        'x'
+    )
 
     expect(scale.domain()[1]).toBe(2)
     expect(scale(0)).toBe(0)
@@ -44,7 +59,12 @@ it(`should allow to define max value for x axis`, () => {
 })
 
 it(`should allow to define max value for y axis`, () => {
-    const scale = symlogScale({ axis: 'y', max: 2 }, { y: { min: 0, max: 1 } }, 100, 100)
+    const scale = createSymLogScale(
+        { type: 'symlog', max: 2 },
+        { all: [], min: 0, max: 1 },
+        100,
+        'y'
+    )
 
     expect(scale.domain()[1]).toBe(2)
     expect(scale(0)).toBe(100)
@@ -53,7 +73,12 @@ it(`should allow to define max value for y axis`, () => {
 })
 
 it(`should allow to reverse domain`, () => {
-    const scale = symlogScale({ axis: 'y', reverse: true }, { y: { min: 0, max: 1 } }, 100, 100)
+    const scale = createSymLogScale(
+        { type: 'symlog', reverse: true },
+        { all: [], min: 0, max: 1 },
+        100,
+        'y'
+    )
 
     expect(scale(0)).toBe(0)
     expect(scale(0.5)).toBe(58)
@@ -61,7 +86,12 @@ it(`should allow to reverse domain`, () => {
 })
 
 it(`should allow to adjust the constant`, () => {
-    const scale = symlogScale({ axis: 'x', constant: 0.1 }, { x: { min: 0, max: 1 } }, 100, 100)
+    const scale = createSymLogScale(
+        { type: 'symlog', constant: 0.1 },
+        { all: [], min: 0, max: 1 },
+        100,
+        'x'
+    )
 
     expect(scale(0)).toBe(0)
     expect(scale(0.5)).toBe(75)

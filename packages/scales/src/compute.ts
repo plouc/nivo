@@ -3,17 +3,20 @@ import uniqBy from 'lodash/uniqBy'
 import sortBy from 'lodash/sortBy'
 import last from 'lodash/last'
 import isDate from 'lodash/isDate'
-import { linearScale } from './linearScale'
-import { logScale } from './logScale'
-import { symlogScale } from './symlogScale'
-import { pointScale } from './pointScale'
-import { timeScale } from './timeScale'
 import { createDateNormalizer } from './timeHelpers'
+import { ScaleAxis, ScaleSpec, Series, ScaleValue, SerieAxis, OtherScaleAxis } from './types'
+import { computeScale } from './computeScale'
 
-export const getOtherAxis = axis => (axis === 'x' ? 'y' : 'x')
+export const getOtherAxis = (axis: ScaleAxis): OtherScaleAxis<typeof axis> =>
+    axis === 'x' ? 'y' : 'x'
 
-export const compareValues = (a, b) => a === b
-export const compareDateValues = (a, b) => a.getTime() === b.getTime()
+const a = getOtherAxis('x')
+if (a === 'x') {
+    console.log('crap')
+}
+
+export const compareValues = (a: string | number, b: string | number) => a === b
+export const compareDateValues = (a: Date, b: Date) => a.getTime() === b.getTime()
 
 export const computeXYScalesForSeries = (_series, xScaleSpec, yScaleSpec, width, height) => {
     const series = _series.map(serie => ({
@@ -29,8 +32,8 @@ export const computeXYScalesForSeries = (_series, xScaleSpec, yScaleSpec, width,
         stackY(xScaleSpec.type, xy, series)
     }
 
-    const xScale = computeScale({ ...xScaleSpec, axis: 'x' }, xy, width, height)
-    const yScale = computeScale({ ...yScaleSpec, axis: 'y' }, xy, width, height)
+    const xScale = computeScale({ ...xScaleSpec, axis: 'x' }, xy.x, width, 'x')
+    const yScale = computeScale({ ...yScaleSpec, axis: 'y' }, xy.y, height, 'y')
 
     series.forEach(serie => {
         serie.data.forEach(d => {
@@ -63,44 +66,49 @@ export const computeXYScalesForSeries = (_series, xScaleSpec, yScaleSpec, width,
     }
 }
 
-export const computeScale = (spec, xy, width, height) => {
-    if (spec.type === 'linear') return linearScale(spec, xy, width, height)
-    else if (spec.type === 'point') return pointScale(spec, xy, width, height)
-    else if (spec.type === 'time') return timeScale(spec, xy, width, height)
-    else if (spec.type === 'log') return logScale(spec, xy, width, height)
-    else if (spec.type === 'symlog') return symlogScale(spec, xy, width, height)
-}
-
-export const generateSeriesXY = (series, xScaleSpec, yScaleSpec) => ({
-    x: generateSeriesAxis(series, 'x', xScaleSpec),
-    y: generateSeriesAxis(series, 'y', yScaleSpec),
+export const generateSeriesXY = <XValue extends ScaleValue, YValue extends ScaleValue>(
+    series: Series<XValue, YValue>,
+    xScaleSpec: ScaleSpec,
+    yScaleSpec: ScaleSpec
+) => ({
+    x: generateSeriesAxis<'x', XValue>(series, 'x', xScaleSpec),
+    y: generateSeriesAxis<'y', YValue>(series, 'y', yScaleSpec),
 })
 
 /**
  * Normalize data according to scale type, (time => Date, linear => Number)
  * compute sorted unique values and min/max.
  */
-export const generateSeriesAxis = (
-    series,
-    axis,
-    scaleSpec,
+export const generateSeriesAxis = <Axis extends ScaleAxis, Value extends ScaleValue>(
+    series: SerieAxis<Axis, Value>,
+    axis: Axis,
+    scaleSpec: ScaleSpec,
     {
         getValue = d => d.data[axis],
         setValue = (d, v) => {
             d.data[axis] = v
         },
+    }: {
+        getValue?: (d: { data: Record<Axis, Value | null> }) => Value | null
+        setValue?: (d: { data: Record<Axis, Value | null> }, v: Value) => void
     } = {}
 ) => {
     if (scaleSpec.type === 'linear') {
         series.forEach(serie => {
             serie.data.forEach(d => {
-                setValue(d, getValue(d) === null ? null : parseFloat(getValue(d)))
+                const value = getValue(d)
+                if (value !== null) {
+                    setValue(d, parseFloat(value))
+                }
             })
         })
     } else if (scaleSpec.type === 'time' && scaleSpec.format !== 'native') {
+        // `native` means we already have Date instances,
+        // otherwise we have to convert the values to Date.
         const parseTime = createDateNormalizer(scaleSpec)
         series.forEach(serie => {
             serie.data.forEach(d => {
+                const value = getValue(d)
                 setValue(d, getValue(d) === null ? null : parseTime(getValue(d)))
             })
         })
@@ -136,7 +144,7 @@ export const generateSeriesAxis = (
     return { all, min, max }
 }
 
-export const stackAxis = (axis, otherType, xy, series) => {
+export const stackAxis = (axis: ScaleAxis, otherType: ScaleAxis, xy: any, series: any) => {
     const otherAxis = getOtherAxis(axis)
 
     let all = []
@@ -169,10 +177,10 @@ export const stackAxis = (axis, otherType, xy, series) => {
     xy[axis].maxStacked = Math.max(...all)
 }
 
-export const stackX = (xy, otherType, series) => stackAxis('x', xy, otherType, series)
-export const stackY = (xy, otherType, series) => stackAxis('y', xy, otherType, series)
+export const stackX = (xy, otherType: ScaleAxis, series) => stackAxis('x', xy, otherType, series)
+export const stackY = (xy, otherType: ScaleAxis, series) => stackAxis('y', xy, otherType, series)
 
-export const computeAxisSlices = (axis, data) => {
+export const computeAxisSlices = (axis: ScaleAxis, data) => {
     const otherAxis = getOtherAxis(axis)
 
     return data[otherAxis].all.map(v => {

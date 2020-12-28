@@ -1,45 +1,42 @@
 import { scaleLinear } from 'd3-scale'
-import PropTypes from 'prop-types'
+import { ScaleLinearSpec, ScaleLinear, ComputedSerieAxis, ScaleAxis } from './types'
 
-export const linearScale = (
-    { axis, min = 0, max = 'auto', stacked = false, reverse = false, clamp = false, nice = false },
-    xy,
-    width,
-    height
+export const createLinearScale = <Output>(
+    { min = 0, max = 'auto', stacked = false, reverse = false, clamp = false, nice = false }: ScaleLinearSpec,
+    data: ComputedSerieAxis<Output>,
+    size: number,
+    axis: ScaleAxis
 ) => {
-    const values = xy[axis]
-    const size = axis === 'x' ? width : height
-
-    let minValue = min
+    let minValue: number
     if (min === 'auto') {
-        minValue = stacked === true ? values.minStacked : values.min
+        minValue = stacked === true ? data.minStacked : data.min
+    } else {
+        minValue = min
     }
-    let maxValue = max
+
+    let maxValue: number
     if (max === 'auto') {
-        maxValue = stacked === true ? values.maxStacked : values.max
+        maxValue = stacked === true ? data.maxStacked : data.max
+    } else {
+        maxValue = max
     }
 
-    const scale = scaleLinear().rangeRound(axis === 'x' ? [0, size] : [size, 0])
-
-    if (reverse === true) scale.domain([maxValue, minValue])
-    else scale.domain([minValue, maxValue])
+    const scale = scaleLinear<number, Output>()
+        .rangeRound(axis === 'x' ? [0, size] : [size, 0])
+        .clamp(clamp)
 
     if (nice === true) scale.nice()
     else if (typeof nice === 'number') scale.nice(nice)
 
-    scale.type = 'linear'
-    scale.stacked = stacked
-    scale.clamp(clamp)
+    if (reverse === true) {
+        scale.domain([maxValue, minValue])
+    } else {
+        scale.domain([minValue, maxValue])
+    }
 
-    return scale
-}
+    const typedScale = scale as ScaleLinear<number>
+    typedScale.type = 'linear'
+    typedScale.stacked = stacked
 
-export const linearScalePropTypes = {
-    type: PropTypes.oneOf(['linear']).isRequired,
-    min: PropTypes.oneOfType([PropTypes.oneOf(['auto']), PropTypes.number]),
-    max: PropTypes.oneOfType([PropTypes.oneOf(['auto']), PropTypes.number]),
-    stacked: PropTypes.bool,
-    reverse: PropTypes.bool,
-    clamp: PropTypes.bool,
-    nice: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
+    return typedScale
 }
