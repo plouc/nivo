@@ -2,7 +2,6 @@ import { Arc, ArcGenerator, ArcLabelsProps, ArcTransitionMode } from '@nivo/arcs
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import {
     Theme,
-    Dimensions,
     Box,
     ValueFormat,
     SvgDefsAndFill,
@@ -54,53 +53,42 @@ export interface ComputedDatum<RawDatum> {
     parent?: ComputedDatum<RawDatum>
 }
 
-export type CommonProps<RawDatum> = {
-    layers: SunburstLayer<RawDatum>[]
-
-    margin: Box
-
+export type SunburstCommonProps<RawDatum> = {
+    data: RawDatum
+    id: PropertyAccessor<RawDatum, DatumId>
+    value: PropertyAccessor<RawDatum, number>
+    valueFormat?: ValueFormat<number>
+    width: number
+    height: number
+    margin?: Box
     cornerRadius: number
-
+    theme: Theme
     colors: OrdinalColorScaleConfig<Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>>
+    childColor: InheritedColorConfig<ComputedDatum<RawDatum>>
     borderWidth: number
     borderColor: string
-
-    childColor: InheritedColorConfig<ComputedDatum<RawDatum>>
-
     enableArcLabels: boolean
-
+    layers: SunburstLayer<RawDatum>[]
     role: string
-
-    theme: Theme
-
     transitionMode: ArcTransitionMode
-
     isInteractive: boolean
     tooltip: (props: ComputedDatum<RawDatum>) => JSX.Element
+    animate: boolean
+    motionConfig: ModernMotionProps['motionConfig']
 } & ArcLabelsProps<ComputedDatum<RawDatum>>
 
-export type MouseEventHandler<RawDatum, ElementType> = (
+export type MouseHandler<RawDatum> = (
     datum: ComputedDatum<RawDatum>,
-    event: React.MouseEvent<ElementType>
+    event: React.MouseEvent
 ) => void
 
-export type MouseEventHandlers<RawDatum, ElementType> = Partial<{
-    onClick: MouseEventHandler<RawDatum, ElementType>
-    onMouseEnter: MouseEventHandler<RawDatum, ElementType>
-    onMouseLeave: MouseEventHandler<RawDatum, ElementType>
-    onMouseMove: MouseEventHandler<RawDatum, ElementType>
+export type MouseHandlers<RawDatum> = Partial<{
+    onClick: MouseHandler<RawDatum>
+    onMouseEnter: MouseHandler<RawDatum>
+    onMouseLeave: MouseHandler<RawDatum>
+    onMouseMove: MouseHandler<RawDatum>
 }>
 
-export type SvgProps<RawDatum> = DataProps<RawDatum> &
-    Dimensions &
+export type SunburstSvgProps<RawDatum> = SunburstCommonProps<RawDatum> &
     SvgDefsAndFill<RawDatum> &
-    MouseEventHandlers<RawDatum, SVGPathElement> &
-    ModernMotionProps &
-    Partial<CommonProps<RawDatum>>
-
-export type CompleteSvgProps<RawDatum> = DataProps<RawDatum> &
-    Dimensions &
-    SvgDefsAndFill<RawDatum> &
-    MouseEventHandlers<RawDatum, SVGPathElement> &
-    ModernMotionProps &
-    CommonProps<RawDatum>
+    MouseHandlers<RawDatum>

@@ -1,21 +1,21 @@
 import React, { createElement, useMemo } from 'react'
 import { ArcGenerator, ArcsLayer } from '@nivo/arcs'
-import { ComputedDatum, CompleteSvgProps } from './types'
+import { ComputedDatum, SunburstCommonProps, MouseHandlers } from './types'
 import { useTooltip } from '@nivo/tooltip'
 
 interface ArcsProps<RawDatum> {
     center: [number, number]
     data: ComputedDatum<RawDatum>[]
     arcGenerator: ArcGenerator
-    borderWidth: CompleteSvgProps<RawDatum>['borderWidth']
-    borderColor: CompleteSvgProps<RawDatum>['borderColor']
-    isInteractive: CompleteSvgProps<RawDatum>['isInteractive']
-    onClick?: CompleteSvgProps<RawDatum>['onClick']
-    onMouseEnter?: CompleteSvgProps<RawDatum>['onMouseEnter']
-    onMouseMove?: CompleteSvgProps<RawDatum>['onMouseMove']
-    onMouseLeave?: CompleteSvgProps<RawDatum>['onMouseLeave']
-    tooltip: CompleteSvgProps<RawDatum>['tooltip']
-    transitionMode: CompleteSvgProps<RawDatum>['transitionMode']
+    borderWidth: SunburstCommonProps<RawDatum>['borderWidth']
+    borderColor: SunburstCommonProps<RawDatum>['borderColor']
+    isInteractive: SunburstCommonProps<RawDatum>['isInteractive']
+    onClick?: MouseHandlers<RawDatum>['onClick']
+    onMouseEnter?: MouseHandlers<RawDatum>['onMouseEnter']
+    onMouseMove?: MouseHandlers<RawDatum>['onMouseMove']
+    onMouseLeave?: MouseHandlers<RawDatum>['onMouseLeave']
+    tooltip: SunburstCommonProps<RawDatum>['tooltip']
+    transitionMode: SunburstCommonProps<RawDatum>['transitionMode']
 }
 
 export const Arcs = <RawDatum,>({

@@ -9,8 +9,16 @@ import {
 import { ArcLabelsLayer } from '@nivo/arcs'
 import { defaultProps } from './props'
 import { useSunburst, useSunburstLayerContext } from './hooks'
-import { SvgProps, SunburstLayerId, SunburstLayer, ComputedDatum } from './types'
+import { SunburstSvgProps, SunburstLayerId, SunburstLayer, ComputedDatum } from './types'
 import { Arcs } from './Arcs'
+
+type InnerSunburstProps<RawDatum> = Partial<
+    Omit<
+        SunburstSvgProps<RawDatum>,
+        'data' | 'width' | 'height' | 'isInteractive' | 'animate' | 'motionConfig'
+    >
+> &
+    Pick<SunburstSvgProps<RawDatum>, 'data' | 'width' | 'height' | 'isInteractive'>
 
 const InnerSunburst = <RawDatum,>({
     data,
@@ -56,7 +64,7 @@ const InnerSunburst = <RawDatum,>({
     onMouseEnter,
     onMouseLeave,
     onMouseMove,
-}: SvgProps<RawDatum>) => {
+}: InnerSunburstProps<RawDatum>) => {
     const { innerHeight, innerWidth, margin, outerHeight, outerWidth } = useDimensions(
         width,
         height,
@@ -164,7 +172,8 @@ export const Sunburst = <RawDatum,>({
     motionConfig = defaultProps.motionConfig,
     theme,
     ...otherProps
-}: SvgProps<RawDatum>) => (
+}: Partial<Omit<SunburstSvgProps<RawDatum>, 'data' | 'width' | 'height'>> &
+    Pick<SunburstSvgProps<RawDatum>, 'data' | 'width' | 'height'>) => (
     <Container {...{ isInteractive, animate, motionConfig, theme }}>
         <InnerSunburst<RawDatum> isInteractive={isInteractive} {...otherProps} />
     </Container>

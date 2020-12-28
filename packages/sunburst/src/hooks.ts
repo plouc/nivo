@@ -5,7 +5,13 @@ import { usePropertyAccessor, useTheme, useValueFormatter } from '@nivo/core'
 import { Arc, useArcGenerator } from '@nivo/arcs'
 import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
 import { partition as d3Partition, hierarchy as d3Hierarchy } from 'd3-hierarchy'
-import { CommonProps, ComputedDatum, DataProps, DatumId, SunburstCustomLayerProps } from './types'
+import {
+    SunburstCommonProps,
+    ComputedDatum,
+    DataProps,
+    DatumId,
+    SunburstCustomLayerProps,
+} from './types'
 import { defaultProps } from './props'
 
 export const useSunburst = <RawDatum>({
@@ -23,9 +29,9 @@ export const useSunburst = <RawDatum>({
     value?: DataProps<RawDatum>['value']
     valueFormat?: DataProps<RawDatum>['valueFormat']
     radius: number
-    cornerRadius?: CommonProps<RawDatum>['cornerRadius']
-    colors?: CommonProps<RawDatum>['colors']
-    childColor?: CommonProps<RawDatum>['childColor']
+    cornerRadius?: SunburstCommonProps<RawDatum>['cornerRadius']
+    colors?: SunburstCommonProps<RawDatum>['colors']
+    childColor?: SunburstCommonProps<RawDatum>['childColor']
 }) => {
     const theme = useTheme()
     const getColor = useOrdinalColorScale<Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>>(
