@@ -2,29 +2,30 @@ import { useMemo } from 'react'
 import sortBy from 'lodash/sortBy'
 import cloneDeep from 'lodash/cloneDeep'
 import { usePropertyAccessor, useTheme, useValueFormatter } from '@nivo/core'
-import { Arc, ArcGenerator, useArcGenerator } from '@nivo/arcs'
+import { Arc, useArcGenerator } from '@nivo/arcs'
 import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
 import { partition as d3Partition, hierarchy as d3Hierarchy } from 'd3-hierarchy'
 import { CommonProps, ComputedDatum, DataProps, DatumId, SunburstCustomLayerProps } from './types'
+import { defaultProps } from './props'
 
 export const useSunburst = <RawDatum>({
-    childColor,
-    colors,
-    cornerRadius,
     data,
-    id,
-    value,
+    id = defaultProps.id,
+    value = defaultProps.value,
     valueFormat,
     radius,
+    cornerRadius = defaultProps.cornerRadius,
+    colors = defaultProps.colors,
+    childColor = defaultProps.childColor,
 }: {
-    childColor: CommonProps<RawDatum>['childColor']
-    colors: CommonProps<RawDatum>['colors']
-    cornerRadius: CommonProps<RawDatum>['cornerRadius']
     data: DataProps<RawDatum>['data']
-    id: NonNullable<DataProps<RawDatum>['id']>
+    id?: DataProps<RawDatum>['id']
+    value?: DataProps<RawDatum>['value']
+    valueFormat?: DataProps<RawDatum>['valueFormat']
     radius: number
-    value: NonNullable<DataProps<RawDatum>['value']>
-    valueFormat: DataProps<RawDatum>['valueFormat']
+    cornerRadius?: CommonProps<RawDatum>['cornerRadius']
+    colors?: CommonProps<RawDatum>['colors']
+    childColor?: CommonProps<RawDatum>['childColor']
 }) => {
     const theme = useTheme()
     const getColor = useOrdinalColorScale<Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>>(
@@ -123,13 +124,7 @@ export const useSunburstLayerContext = <RawDatum>({
     centerX,
     centerY,
     radius,
-}: {
-    nodes: ComputedDatum<RawDatum>[]
-    arcGenerator: ArcGenerator
-    centerX: number
-    centerY: number
-    radius: number
-}): SunburstCustomLayerProps<RawDatum> =>
+}: SunburstCustomLayerProps<RawDatum>): SunburstCustomLayerProps<RawDatum> =>
     useMemo(
         () => ({
             nodes,
