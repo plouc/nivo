@@ -69,7 +69,7 @@ export type SunburstCommonProps<RawDatum> = {
     // used if `inheritColorFromParent` is `true`
     childColor: InheritedColorConfig<ComputedDatum<RawDatum>>
     borderWidth: number
-    borderColor: string
+    borderColor: InheritedColorConfig<ComputedDatum<RawDatum>>
     enableArcLabels: boolean
     layers: SunburstLayer<RawDatum>[]
     role: string
