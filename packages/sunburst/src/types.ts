@@ -64,6 +64,9 @@ export type SunburstCommonProps<RawDatum> = {
     cornerRadius: number
     theme: Theme
     colors: OrdinalColorScaleConfig<Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>>
+    colorBy: 'id' | 'depth'
+    inheritColorFromParent: boolean
+    // used if `inheritColorFromParent` is `true`
     childColor: InheritedColorConfig<ComputedDatum<RawDatum>>
     borderWidth: number
     borderColor: string

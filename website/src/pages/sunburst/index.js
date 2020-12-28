@@ -27,6 +27,8 @@ const initialProperties = {
     borderWidth: 1,
     borderColor: { theme: 'background' },
     colors: { scheme: 'nivo' },
+    colorBy: 'id',
+    inheritColorFromParent: true,
     childColor: {
         from: 'color',
         modifiers: [['brighter', 0.1]],

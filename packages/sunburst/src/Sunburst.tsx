@@ -11,6 +11,7 @@ import { defaultProps } from './props'
 import { useSunburst, useSunburstLayerContext } from './hooks'
 import { SunburstSvgProps, SunburstLayerId, SunburstLayer, ComputedDatum } from './types'
 import { Arcs } from './Arcs'
+import { InheritedColorConfig } from '@nivo/colors'
 
 type InnerSunburstProps<RawDatum> = Partial<
     Omit<
@@ -25,45 +26,33 @@ const InnerSunburst = <RawDatum,>({
     id = defaultProps.id,
     value = defaultProps.value,
     valueFormat,
-
+    cornerRadius = defaultProps.cornerRadius,
     layers = defaultProps.layers as SunburstLayer<RawDatum>[],
-
     colors = defaultProps.colors,
-    childColor = defaultProps.childColor,
-
+    colorBy = defaultProps.colorBy,
+    inheritColorFromParent = defaultProps.inheritColorFromParent,
+    childColor = defaultProps.childColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
+    borderWidth = defaultProps.borderWidth,
+    borderColor = defaultProps.borderColor,
     margin: partialMargin,
     width,
     height,
-
-    cornerRadius = defaultProps.cornerRadius,
-
-    borderWidth = defaultProps.borderWidth,
-    borderColor = defaultProps.borderColor,
-
-    // arc labels
     enableArcLabels = defaultProps.enableArcLabels,
     arcLabel = defaultProps.arcLabel,
     arcLabelsRadiusOffset = defaultProps.arcLabelsRadiusOffset,
     arcLabelsSkipAngle = defaultProps.arcLabelsSkipAngle,
     arcLabelsTextColor = defaultProps.arcLabelsTextColor,
     arcLabelsComponent,
-
     defs = defaultProps.defs,
     fill = defaultProps.fill,
-
-    role = defaultProps.role,
-
     transitionMode = defaultProps.transitionMode,
-
-    // interactivity
     isInteractive = defaultProps.isInteractive,
-    tooltip = defaultProps.tooltip,
-
-    // event handlers
     onClick,
     onMouseEnter,
     onMouseLeave,
     onMouseMove,
+    tooltip = defaultProps.tooltip,
+    role = defaultProps.role,
 }: InnerSunburstProps<RawDatum>) => {
     const { innerHeight, innerWidth, margin, outerHeight, outerWidth } = useDimensions(
         width,
@@ -78,14 +67,16 @@ const InnerSunburst = <RawDatum,>({
     }, [innerHeight, innerWidth])
 
     const { arcGenerator, nodes } = useSunburst({
-        childColor,
-        colors,
-        cornerRadius,
         data,
         id,
-        radius,
         value,
         valueFormat,
+        radius,
+        cornerRadius,
+        colors,
+        colorBy,
+        inheritColorFromParent,
+        childColor,
     })
 
     const boundDefs = bindDefs(defs, nodes, fill, {

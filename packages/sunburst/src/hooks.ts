@@ -3,7 +3,7 @@ import sortBy from 'lodash/sortBy'
 import cloneDeep from 'lodash/cloneDeep'
 import { usePropertyAccessor, useTheme, useValueFormatter } from '@nivo/core'
 import { Arc, useArcGenerator } from '@nivo/arcs'
-import { useOrdinalColorScale, useInheritedColor } from '@nivo/colors'
+import { useOrdinalColorScale, useInheritedColor, InheritedColorConfig } from '@nivo/colors'
 import { partition as d3Partition, hierarchy as d3Hierarchy } from 'd3-hierarchy'
 import {
     SunburstCommonProps,
@@ -22,7 +22,9 @@ export const useSunburst = <RawDatum>({
     radius,
     cornerRadius = defaultProps.cornerRadius,
     colors = defaultProps.colors,
-    childColor = defaultProps.childColor,
+    colorBy = defaultProps.colorBy,
+    inheritColorFromParent = defaultProps.inheritColorFromParent,
+    childColor = defaultProps.childColor as InheritedColorConfig<ComputedDatum<RawDatum>>,
 }: {
     data: DataProps<RawDatum>['data']
     id?: DataProps<RawDatum>['id']
@@ -31,12 +33,14 @@ export const useSunburst = <RawDatum>({
     radius: number
     cornerRadius?: SunburstCommonProps<RawDatum>['cornerRadius']
     colors?: SunburstCommonProps<RawDatum>['colors']
+    colorBy?: SunburstCommonProps<RawDatum>['colorBy']
+    inheritColorFromParent?: SunburstCommonProps<RawDatum>['inheritColorFromParent']
     childColor?: SunburstCommonProps<RawDatum>['childColor']
 }) => {
     const theme = useTheme()
     const getColor = useOrdinalColorScale<Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>>(
         colors,
-        'id'
+        colorBy
     )
     const getChildColor = useInheritedColor<ComputedDatum<RawDatum>>(childColor, theme)
 
@@ -53,12 +57,8 @@ export const useSunburst = <RawDatum>({
         const hierarchy = d3Hierarchy(clonedData).sum(getValue)
 
         const partition = d3Partition<RawDatum>().size([2 * Math.PI, radius * radius])
-        const descendants = partition(hierarchy)
-            .descendants()
-            .filter(descendant => {
-                console.log(descendant.ancestors())
-                return descendant.depth > 0
-            })
+        // exclude root node
+        const descendants = partition(hierarchy).descendants().slice(1)
 
         const total = hierarchy.value ?? 0
 
@@ -107,7 +107,7 @@ export const useSunburst = <RawDatum>({
                 height: descendant.height,
             }
 
-            if (childColor !== 'noinherit' && parent && descendant.depth > 1) {
+            if (inheritColorFromParent && parent && normalizedNode.depth > 1) {
                 normalizedNode.color = getChildColor(parent)
             } else {
                 normalizedNode.color = getColor(normalizedNode)
@@ -122,8 +122,8 @@ export const useSunburst = <RawDatum>({
         getId,
         valueFormat,
         formatValue,
-        childColor,
         getColor,
+        inheritColorFromParent,
         getChildColor,
     ])
 
