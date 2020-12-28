@@ -49,7 +49,7 @@ export const Arcs = <RawDatum,>({
             showTooltipFromEvent(createElement(tooltip, datum), event)
             onMouseEnter?.(datum, event)
         }
-    }, [isInteractive, showTooltipFromEvent, onMouseEnter])
+    }, [isInteractive, showTooltipFromEvent, tooltip, onMouseEnter])
 
     const handleMouseMove = useMemo(() => {
         if (!isInteractive) return undefined
@@ -58,7 +58,7 @@ export const Arcs = <RawDatum,>({
             showTooltipFromEvent(createElement(tooltip, datum), event)
             onMouseMove?.(datum, event)
         }
-    }, [isInteractive, showTooltipFromEvent, onMouseMove])
+    }, [isInteractive, showTooltipFromEvent, tooltip, onMouseMove])
 
     const handleMouseLeave = useMemo(() => {
         if (!isInteractive) return undefined
