@@ -10,7 +10,7 @@ export const defaultProps = {
     layers: ['arcs', 'arcLabels'] as SunburstLayerId[],
     colors: ({ scheme: 'nivo' } as unknown) as OrdinalColorScaleConfig,
     colorBy: 'id' as const,
-    inheritColorFromParent: false,
+    inheritColorFromParent: true,
     childColor: { from: 'color' },
     borderWidth: 1,
     borderColor: 'white',

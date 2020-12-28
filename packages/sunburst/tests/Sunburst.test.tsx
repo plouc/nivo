@@ -278,7 +278,13 @@ describe('Sunburst', () => {
 
         it('should allow to define colors according to depth', () => {
             const wrapper = mount(
-                <Sunburst width={400} height={400} data={sampleData} colorBy="depth" />
+                <Sunburst
+                    width={400}
+                    height={400}
+                    data={sampleData}
+                    colorBy="depth"
+                    inheritColorFromParent={false}
+                />
             )
 
             const arcs = wrapper.find('ArcShape')

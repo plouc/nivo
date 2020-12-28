@@ -6,6 +6,7 @@ import { withKnobs, boolean, select } from '@storybook/addon-knobs'
 import { linearGradientDef, patternDotsDef, useTheme } from '@nivo/core'
 // @ts-ignore
 import { generateLibTree } from '@nivo/generators'
+import { colorSchemes } from '@nivo/colors'
 // @ts-ignore
 import { Sunburst, ComputedDatum, SunburstCustomLayerProps } from '../src'
 
@@ -36,7 +37,7 @@ stories.add('with child color modifier', () => (
 ))
 
 stories.add('with child colors independent of parent', () => (
-    <Sunburst<RawDatum> {...commonProperties} childColor="noinherit" />
+    <Sunburst<RawDatum> {...commonProperties} inheritColorFromParent={false} />
 ))
 
 const customPalette = ['#ffd700', '#ffb14e', '#fa8775', '#ea5f94', '#cd34b5', '#9d02d7', '#0000ff']
@@ -124,6 +125,22 @@ const flatten = data =>
 
 const findObject = (data, name) => data.find(searchedName => searchedName.name === name)
 
+const drillDownColors = colorSchemes.brown_blueGreen[7]
+const drillDownColorMap = {
+    viz: drillDownColors[0],
+    colors: drillDownColors[1],
+    utils: drillDownColors[2],
+    generators: drillDownColors[3],
+    set: drillDownColors[4],
+    text: drillDownColors[5],
+    misc: drillDownColors[6],
+}
+const getDrillDownColor = (node: Omit<ComputedDatum<RawDatum>, 'color' | 'fill'>) => {
+    const category = [...node.path].reverse()[1] as keyof typeof drillDownColorMap
+
+    return drillDownColorMap[category]
+}
+
 stories.add(
     'children drill down',
     () => {
@@ -134,6 +151,13 @@ stories.add(
                 <button onClick={() => setData(commonProperties.data)}>Reset</button>
                 <Sunburst<RawDatum>
                     {...commonProperties}
+                    colors={getDrillDownColor}
+                    inheritColorFromParent={false}
+                    borderWidth={1}
+                    borderColor={{
+                        from: 'color',
+                        modifiers: [['darker', 0.6]],
+                    }}
                     animate={boolean('animate', true)}
                     motionConfig={select(
                         'motion config',
@@ -144,7 +168,7 @@ stories.add(
                     arcLabelsSkipAngle={12}
                     arcLabelsTextColor={{
                         from: 'color',
-                        modifiers: [['darker', 1.6]],
+                        modifiers: [['darker', 3]],
                     }}
                     data={data}
                     transitionMode="pushIn"
