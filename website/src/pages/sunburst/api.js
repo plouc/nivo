@@ -24,25 +24,29 @@ const SunburstApi = () => {
                     width: 600,
                     height: 600,
                     data: JSON.stringify(data, null, '  '),
-
                     margin: {
                         top: 10,
                         right: 10,
                         bottom: 10,
                         left: 10,
                     },
-
-                    identity: 'name',
+                    id: 'name',
                     value: 'loc',
-
+                    valueFormat: { format: '', enabled: false },
                     cornerRadius: 2,
-
                     borderWidth: 1,
                     borderColor: 'white',
-
                     colors: { scheme: 'nivo' },
                     childColor: {
                         from: 'color',
+                    },
+                    enableArcLabels: true,
+                    arcLabel: 'formattedValue',
+                    arcLabelsRadiusOffset: 0.5,
+                    arcLabelsSkipAngle: 10,
+                    arcLabelsTextColor: {
+                        from: 'color',
+                        modifiers: [['darker', 1.4]],
                     },
                 }}
             />

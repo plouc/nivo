@@ -20,21 +20,17 @@ const initialProperties = {
         bottom: 10,
         left: 10,
     },
-
     id: 'name',
     value: 'loc',
-
+    valueFormat: { format: '', enabled: false },
     cornerRadius: 2,
-
     borderWidth: 1,
     borderColor: { theme: 'background' },
-
     colors: { scheme: 'nivo' },
     childColor: {
         from: 'color',
         modifiers: [['brighter', 0.1]],
     },
-
     enableArcLabels: true,
     arcLabel: 'formattedValue',
     arcLabelsRadiusOffset: 0.5,
@@ -43,14 +39,11 @@ const initialProperties = {
         from: 'color',
         modifiers: [['darker', 1.4]],
     },
-
     animate: defaultProps.animate,
     motionConfig: defaultProps.motionConfig,
     transitionMode: defaultProps.transitionMode,
-
     defs: [],
     fill: [],
-
     isInteractive: true,
     'custom tooltip example': false,
     tooltip: null,
@@ -66,6 +59,7 @@ const Sunburst = () => {
             flavors={meta.flavors}
             currentFlavor="svg"
             properties={groups}
+            defaultProperties={defaultProps}
             initialProperties={initialProperties}
             propertiesMapper={mapper}
             generateData={generateData}

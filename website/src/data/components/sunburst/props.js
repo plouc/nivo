@@ -1,6 +1,11 @@
 import { defaultProps } from '@nivo/sunburst'
 import { arcTransitionModes } from '@nivo/arcs'
-import { groupProperties, defsProperties, motionProperties } from '../../../lib/componentProperties'
+import {
+    groupProperties,
+    defsProperties,
+    motionProperties,
+    themeProperty,
+} from '../../../lib/componentProperties'
 
 const props = [
     {
@@ -68,6 +73,36 @@ const props = [
         defaultValue: defaultProps.value,
     },
     {
+        key: 'valueFormat',
+        group: 'Base',
+        help: 'Optional formatter for values.',
+        description: `
+            The formatted value can then be used for labels & tooltips.
+
+            Under the hood, nivo uses [d3-format](https://github.com/d3/d3-format),
+            please have a look at it for available formats, you can also pass a function
+            which will receive the raw value and should return the formatted one.
+        `,
+        required: false,
+        type: 'string | (value: number) => string | number',
+        controlType: 'valueFormat',
+    },
+    {
+        key: 'cornerRadius',
+        help: 'Round node shape.',
+        type: 'number',
+        required: false,
+        defaultValue: defaultProps.cornerRadius,
+        controlType: 'range',
+        group: 'Base',
+        controlOptions: {
+            unit: 'px',
+            min: 0,
+            max: 45,
+            step: 1,
+        },
+    },
+    {
         key: 'width',
         enableControlForFlavors: ['api'],
         description: `
@@ -113,6 +148,7 @@ const props = [
         controlType: 'margin',
         group: 'Base',
     },
+    themeProperty,
     {
         key: 'colors',
         help: 'Defines how to compute node color.',
@@ -120,7 +156,7 @@ const props = [
         defaultValue: defaultProps.colors,
         controlType: 'ordinalColors',
         type: 'string | Function | string[]',
-        group: 'Base',
+        group: 'Style',
     },
     {
         key: 'childColor',
@@ -129,7 +165,7 @@ const props = [
         required: false,
         defaultValue: defaultProps.childColor,
         controlType: 'inheritedColor',
-        group: 'Base',
+        group: 'Style',
     },
     {
         key: 'borderWidth',
@@ -138,7 +174,7 @@ const props = [
         required: false,
         defaultValue: defaultProps.borderWidth,
         controlType: 'lineWidth',
-        group: 'Base',
+        group: 'Style',
     },
     {
         key: 'borderColor',
@@ -147,22 +183,7 @@ const props = [
         required: false,
         defaultValue: defaultProps.borderColor,
         controlType: 'inheritedColor',
-        group: 'Base',
-    },
-    {
-        key: 'cornerRadius',
-        help: 'Round node shape.',
-        type: 'number',
-        required: false,
-        defaultValue: defaultProps.cornerRadius,
-        controlType: 'range',
-        group: 'Base',
-        controlOptions: {
-            unit: 'px',
-            min: 0,
-            max: 45,
-            step: 1,
-        },
+        group: 'Style',
     },
     ...defsProperties('Style', ['svg', 'api']),
     {
