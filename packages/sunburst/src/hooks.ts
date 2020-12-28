@@ -55,7 +55,10 @@ export const useSunburst = <RawDatum>({
         const partition = d3Partition<RawDatum>().size([2 * Math.PI, radius * radius])
         const descendants = partition(hierarchy)
             .descendants()
-            .filter(descendant => descendant.depth > 0)
+            .filter(descendant => {
+                console.log(descendant.ancestors())
+                return descendant.depth > 0
+            })
 
         const total = hierarchy.value ?? 0
 
@@ -67,6 +70,11 @@ export const useSunburst = <RawDatum>({
 
         return sortedNodes.reduce<ComputedDatum<RawDatum>[]>((acc, descendant) => {
             const id = getId(descendant.data)
+            // d3 hierarchy node value is optional by default as it depends on
+            // a call to `count()` or `sum()`, and we previously called `sum()`,
+            // d3 typings could be improved and make it non optional when calling
+            // one of those.
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             const value = descendant.value!
             const percentage = (100 * value) / total
             const path = descendant.ancestors().map(ancestor => getId(ancestor.data))
@@ -80,6 +88,9 @@ export const useSunburst = <RawDatum>({
 
             let parent: ComputedDatum<RawDatum> | undefined
             if (descendant.parent) {
+                // as the parent is defined by the input data, and we sorted the data
+                // by `depth`, we can safely assume it's defined.
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 parent = acc.find(node => node.id === getId(descendant.parent!.data))
             }
 
