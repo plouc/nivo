@@ -10,7 +10,6 @@ import PropTypes from 'prop-types'
 import { lineCurvePropType, blendModePropType, motionPropTypes, defsPropTypes } from '@nivo/core'
 import { ordinalColorsPropType } from '@nivo/colors'
 import { axisPropType } from '@nivo/axes'
-import { scalePropType } from '@nivo/scales'
 import { LegendPropShape } from '@nivo/legends'
 import PointTooltip from './PointTooltip'
 import SliceTooltip from './SliceTooltip'
@@ -36,9 +35,9 @@ const commonPropTypes = {
         })
     ).isRequired,
 
-    xScale: scalePropType.isRequired,
+    xScale: PropTypes.object.isRequired,
     xFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-    yScale: scalePropType.isRequired,
+    yScale: PropTypes.object.isRequired,
     yFormat: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 
     layers: PropTypes.arrayOf(

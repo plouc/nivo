@@ -11,7 +11,6 @@ import { motionPropTypes, blendModePropType } from '@nivo/core'
 import { ordinalColorsPropType } from '@nivo/colors'
 import { axisPropType } from '@nivo/axes'
 import { LegendPropShape } from '@nivo/legends'
-import { scalePropType } from '@nivo/scales'
 import Node from './Node'
 import Tooltip from './Tooltip'
 
@@ -35,9 +34,9 @@ const commonPropTypes = {
             ).isRequired,
         })
     ).isRequired,
-    xScale: scalePropType.isRequired,
+    xScale: PropTypes.object.isRequired,
     xFormat: PropTypes.any,
-    yScale: scalePropType.isRequired,
+    yScale: PropTypes.object.isRequired,
     yFormat: PropTypes.any,
 
     layers: PropTypes.arrayOf(
