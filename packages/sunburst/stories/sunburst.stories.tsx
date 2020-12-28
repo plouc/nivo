@@ -4,7 +4,9 @@ import { action } from '@storybook/addon-actions'
 import { withKnobs, boolean, select } from '@storybook/addon-knobs'
 // @ts-ignore
 import { linearGradientDef, patternDotsDef, useTheme } from '@nivo/core'
+// @ts-ignore
 import { generateLibTree } from '@nivo/generators'
+// @ts-ignore
 import { Sunburst, ComputedDatum, SunburstCustomLayerProps } from '../src'
 
 interface RawDatum {
