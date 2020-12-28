@@ -159,6 +159,34 @@ const props = [
         group: 'Style',
     },
     {
+        key: 'colorBy',
+        help: `Define the property to use to assign a color to arcs.`,
+        description: `
+            When using \`id\`, each node will get a new color,
+            and when using \`depth\` the nodes' color will depend on their depth.
+        `,
+        type: `'id' | 'depth'`,
+        required: false,
+        defaultValue: defaultProps.colorBy,
+        controlType: 'radio',
+        group: 'Style',
+        controlOptions: {
+            choices: [
+                { label: 'id', value: 'id' },
+                { label: 'depth', value: 'depth' },
+            ],
+        },
+    },
+    {
+        key: 'inheritColorFromParent',
+        help: 'Inherit color from parent node starting from 2nd level.',
+        type: 'boolean',
+        required: false,
+        defaultValue: defaultProps.inheritColorFromParent,
+        controlType: 'switch',
+        group: 'Style',
+    },
+    {
         key: 'childColor',
         help: 'Defines how to compute child nodes color.',
         type: 'string | object | Function',

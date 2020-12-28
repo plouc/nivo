@@ -193,6 +193,7 @@ describe('Sunburst', () => {
                     height={400}
                     data={sampleData}
                     colors={{ scheme: 'accent' }}
+                    inheritColorFromParent
                 />
             )
 
@@ -222,6 +223,7 @@ describe('Sunburst', () => {
                     height={400}
                     data={sampleData}
                     colors={{ datum: 'data.color' }}
+                    inheritColorFromParent
                 />
             )
 
@@ -246,7 +248,13 @@ describe('Sunburst', () => {
 
         it('should allow to use colors from data using a function', () => {
             const wrapper = mount(
-                <Sunburst width={400} height={400} data={sampleData} colors={d => d.data.color} />
+                <Sunburst
+                    width={400}
+                    height={400}
+                    data={sampleData}
+                    colors={d => d.data.color}
+                    inheritColorFromParent
+                />
             )
 
             const arcs = wrapper.find('ArcShape')
@@ -266,6 +274,30 @@ describe('Sunburst', () => {
 
             expect(arcs.at(4).prop('datum').id).toEqual('A-1-I')
             expect(arcs.at(4).prop('datum').color).toEqual('#ff5500')
+        })
+
+        it('should allow to define colors according to depth', () => {
+            const wrapper = mount(
+                <Sunburst width={400} height={400} data={sampleData} colorBy="depth" />
+            )
+
+            const arcs = wrapper.find('ArcShape')
+            expect(arcs).toHaveLength(5)
+
+            expect(arcs.at(0).prop('datum').id).toEqual('A')
+            expect(arcs.at(0).prop('datum').color).toEqual('#e8c1a0')
+
+            expect(arcs.at(1).prop('datum').id).toEqual('B')
+            expect(arcs.at(1).prop('datum').color).toEqual('#e8c1a0')
+
+            expect(arcs.at(2).prop('datum').id).toEqual('A-1')
+            expect(arcs.at(2).prop('datum').color).toEqual('#f47560')
+
+            expect(arcs.at(3).prop('datum').id).toEqual('A-2')
+            expect(arcs.at(3).prop('datum').color).toEqual('#f47560')
+
+            expect(arcs.at(4).prop('datum').id).toEqual('A-1-I')
+            expect(arcs.at(4).prop('datum').color).toEqual('#f1e15b')
         })
     })
 
