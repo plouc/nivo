@@ -12,7 +12,7 @@ export const getLegendDataForKeys = (bars, layout, direction, groupMode, reverse
     const data = uniqBy(
         bars.map(bar => ({
             id: bar.data.id,
-            label: bar.data.id,
+            label: bar.data.label || bar.data.id,
             color: bar.color,
             fill: bar.data.fill,
         })),
@@ -36,7 +36,7 @@ export const getLegendDataForIndexes = bars => {
     return uniqBy(
         bars.map(bar => ({
             id: bar.data.indexValue,
-            label: bar.data.indexValue,
+            label: bar.data.label || bar.data.indexValue,
             color: bar.color,
             fill: bar.data.fill,
         })),
