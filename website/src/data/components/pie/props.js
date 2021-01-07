@@ -159,7 +159,7 @@ const props = [
     },
     {
         key: 'fit',
-        help: `If 'true', pie will be omptimized to occupy more space when using partial pie.`,
+        help: `If 'true', pie will be optimized to occupy more space when using partial pie.`,
         type: 'boolean',
         required: false,
         defaultValue: defaultProps.fit,
