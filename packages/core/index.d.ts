@@ -324,9 +324,6 @@ declare module '@nivo/core' {
     export function getDistance(x1: number, y1: number, x2: number, y2: number): number
     export function getAngle(x1: number, y1: number, x2: number, y2: number): number
 
-    export function radiansToDegrees(radians: number): number
-    export function degreesToRadians(degrees: number): number
-
     export function positionFromAngle(
         angle: number,
         distance: number
