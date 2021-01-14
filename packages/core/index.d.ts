@@ -276,7 +276,7 @@ declare module '@nivo/core' {
     export function degreesToRadians(degrees: number): number
     export function radiansToDegrees(radians: number): number
 
-    type Accessor<T, U> = T extends string ? U[T] : never
+    type Accessor<T, U> = T extends keyof U ? U[T] : never
 
     export type DatumPropertyAccessor<RawDatum, T> = (datum: RawDatum) => T
 
