@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { OpaqueInterpolation, SpringConfig } from 'react-spring'
+import { Interpolation, SpringConfig } from 'react-spring'
 
 declare module '@nivo/core' {
     export type DatumValue = string | number | Date
@@ -205,7 +205,7 @@ declare module '@nivo/core' {
         | 'stepAfter'
         | 'stepBefore'
 
-    export function useAnimatedPath(path: string): OpaqueInterpolation<string>
+    export function useAnimatedPath(path: string): Interpolation<string>
 
     export type LinearGradientDef = {
         id: string
