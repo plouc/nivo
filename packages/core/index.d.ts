@@ -251,19 +251,21 @@ declare module '@nivo/core' {
     export const defaultMotionStiffness = 90
     export const defaultMotionDamping = 15
 
-    export const motionDefaultProps = {
-        animate: true,
-        stiffness: 90,
-        damping: 15,
-        config: 'default',
+    type MotionDefaultProps = {
+        animate: true
+        stiffness: 90
+        damping: 15
+        config: 'default'
     }
+    export const motionDefaultProps: MotionDefaultProps
 
-    export const defaultMargin = {
-        top: 0,
-        right: 0,
-        bottom: 0,
-        left: 0,
+    type DefaultMargin = {
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
     }
+    export const defaultMargin: DefaultMargin
 
     export function PatternLines(props: Omit<PatternLinesDef, 'type'>): JSX.Element
     export function PatternSquares(props: Omit<PatternSquaresDef, 'type'>): JSX.Element
@@ -290,7 +292,7 @@ declare module '@nivo/core' {
         outerHeight: number
     }
 
-    export const SvgWrapper = (
+    type SvgWrapperType = (
         props: React.PropsWithChildren<{
             width: number
             height: number
@@ -299,6 +301,7 @@ declare module '@nivo/core' {
             role?: string
         }>
     ) => JSX.Element
+    export const SvgWrapper: SvgWrapperType
 
     interface ContainerProps {
         theme?: Theme
@@ -310,11 +313,13 @@ declare module '@nivo/core' {
         motionConfig?: string | SpringConfig
     }
 
-    export const Container = (props: React.PropsWithChildren<ContainerProps>) => JSX.Element
+    type ContainerType = (props: React.PropsWithChildren<ContainerProps>) => JSX.Element
+    export const Container: ContainerType
 
-    export const ResponsiveWrapper = (props: {
+    type ResponsiveWrapperType = (props: {
         children: (dimensions: { width: number; height: number }) => JSX.Element
     }) => JSX.Element
+    export const ResponsiveWrapper: ResponsiveWrapperType
 
     export function getDistance(x1: number, y1: number, x2: number, y2: number): number
     export function getAngle(x1: number, y1: number, x2: number, y2: number): number
