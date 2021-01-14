@@ -247,18 +247,18 @@ declare module '@nivo/core' {
         defs: Def[]
     }
 
-    export declare const defaultAnimate = true
-    export declare const defaultMotionStiffness = 90
-    export declare const defaultMotionDamping = 15
+    export const defaultAnimate = true
+    export const defaultMotionStiffness = 90
+    export const defaultMotionDamping = 15
 
-    export declare const motionDefaultProps = {
+    export const motionDefaultProps = {
         animate: true,
         stiffness: 90,
         damping: 15,
         config: 'default',
     }
 
-    export declare const defaultMargin = {
+    export const defaultMargin = {
         top: 0,
         right: 0,
         bottom: 0,
