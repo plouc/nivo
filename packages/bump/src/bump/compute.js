@@ -24,6 +24,7 @@ export const computeSeries = ({ width, height, data, xPadding, xOuterPadding, yO
     const yScale = scalePoint()
         .domain(
             data.map(serie => serie.data.map(datum => datum.y))
+                
                 .reduce((flat, y) => flat.concat(y))
                 .filter((value, index, self) => self.indexOf(value) === index && value != null)
                 .map((y, i) => i + 1)
