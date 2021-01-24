@@ -22,7 +22,10 @@ export const computeSeries = ({ width, height, data, xPadding, xOuterPadding, yO
     const xScale = scalePoint().domain(xValues).range([0, width]).padding(xOuterPadding)
 
     const yScale = scalePoint()
-        .domain(data.map((serie, i) => i + 1))
+        .domain(data.map(serie => serie.data.map(datum => datum.y))
+            .reduce((flat,y) => flat.concat(y))
+            .filter((value, index, self) => self.indexOf(value)===index && value!=null)
+            .map((y, i) => i + 1))
         .range([0, height])
         .padding(yOuterPadding)
 
