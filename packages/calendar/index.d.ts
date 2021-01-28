@@ -127,7 +127,7 @@ declare module '@nivo/calendar' {
     export type EnhancedCalendarSvgProps = CalendarData &
         CalendarCommonProps &
         EnhancedCalendarCommonProps &
-        YearLegend &
+        BlockLegend &
         Partial<{
             onClick: (datum: CalendarDayData, event: React.MouseEvent<SVGRectElement>) => void
         }>
