@@ -184,7 +184,7 @@ export const computeCartesianTicks = ({
     }
 
     const ticks = values.map(value => ({
-        key: value,
+        key: typeof value === 'number' || typeof value === 'string' ? value : `${value}`,
         value,
         ...translate(value),
         ...line,
