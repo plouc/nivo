@@ -19,12 +19,12 @@
  * @param {string}  color
  * @param {number}  opacity
  * @param {string}  labelTextColor
- * @param {number}  value
+ * @param {number | string}  label
  */
 export const renderRect = (
     ctx,
     { enableLabels, theme },
-    { x, y, width, height, color, opacity, labelTextColor, value }
+    { x, y, width, height, color, opacity, labelTextColor, label }
 ) => {
     ctx.save()
     ctx.globalAlpha = opacity
@@ -35,7 +35,7 @@ export const renderRect = (
     if (enableLabels === true) {
         ctx.fillStyle = labelTextColor
         ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
-        ctx.fillText(value, x, y)
+        ctx.fillText(label, x, y)
     }
 
     ctx.restore()
@@ -53,12 +53,12 @@ export const renderRect = (
  * @param {string}  color
  * @param {number}  opacity
  * @param {string}  labelTextColor
- * @param {number}  value
+ * @param {number | string}  label
  */
 export const renderCircle = (
     ctx,
     { enableLabels, theme },
-    { x, y, width, height, color, opacity, labelTextColor, value }
+    { x, y, width, height, color, opacity, labelTextColor, label }
 ) => {
     ctx.save()
     ctx.globalAlpha = opacity
@@ -73,7 +73,7 @@ export const renderCircle = (
     if (enableLabels === true) {
         ctx.fillStyle = labelTextColor
         ctx.font = `${theme.labels.text.fontSize}px ${theme.labels.text.fontFamily}`
-        ctx.fillText(value, x, y)
+        ctx.fillText(label, x, y)
     }
 
     ctx.restore()

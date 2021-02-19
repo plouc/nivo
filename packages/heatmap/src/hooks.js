@@ -29,12 +29,14 @@ const computeCells = ({
     cellHeight,
     colorScale,
     nanColor,
+    getLabel,
     getLabelTextColor,
 }) => {
     const cells = []
     data.forEach(datum => {
         keys.forEach(key => {
             const value = datum[key]
+            const label = getLabel(datum, key)
             const index = getIndex(datum)
             const sizeMultiplier = sizeScale ? sizeScale(value) : 1
             const width = sizeMultiplier * cellWidth
@@ -49,6 +51,7 @@ const computeCells = ({
                 width,
                 height,
                 value,
+                label,
                 color: isNaN(value) ? nanColor : colorScale(value),
                 opacity: cellOpacity,
             }
@@ -76,6 +79,7 @@ export const useHeatMap = ({
     nanColor,
     cellOpacity,
     cellBorderColor,
+    getLabel,
     labelTextColor,
     hoverTarget,
     cellHoverOpacity,
@@ -169,6 +173,7 @@ export const useHeatMap = ({
                 cellHeight: layoutConfig.cellHeight,
                 colorScale,
                 nanColor,
+                getLabel,
                 getLabelTextColor,
             }),
         [
@@ -181,6 +186,7 @@ export const useHeatMap = ({
             layoutConfig,
             colorScale,
             nanColor,
+            getLabel,
             getLabelTextColor,
         ]
     )

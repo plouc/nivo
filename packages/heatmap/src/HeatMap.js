@@ -10,6 +10,8 @@ import React, { useCallback } from 'react'
 import { SvgWrapper, withContainer, useDimensions } from '@nivo/core'
 import { Axes, Grid } from '@nivo/axes'
 import { useTooltip } from '@nivo/tooltip'
+import setDisplayName from 'recompose/setDisplayName'
+import enhance from './enhance'
 import { HeatMapSvgPropTypes, HeatMapSvgDefaultProps } from './props'
 import { useHeatMap } from './hooks'
 import HeatMapCells from './HeatMapCells'
@@ -40,6 +42,7 @@ const HeatMap = ({
     enableGridX,
     enableGridY,
     enableLabels,
+    getLabel,
     labelTextColor,
     colors,
     nanColor,
@@ -82,6 +85,7 @@ const HeatMap = ({
         nanColor,
         cellOpacity,
         cellBorderColor,
+        getLabel,
         labelTextColor,
         hoverTarget,
         cellHoverOpacity,
@@ -161,4 +165,4 @@ HeatMap.propTypes = HeatMapSvgPropTypes
 const WrappedHeatMap = withContainer(HeatMap)
 WrappedHeatMap.defaultProps = HeatMapSvgDefaultProps
 
-export default WrappedHeatMap
+export default setDisplayName('WrappedHeatMap')(enhance(WrappedHeatMap))

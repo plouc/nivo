@@ -13,7 +13,7 @@ import { useMotionConfig, useTheme } from '@nivo/core'
 
 const HeatMapCellRect = ({
     data,
-    value,
+    label,
     x,
     y,
     width,
@@ -76,7 +76,7 @@ const HeatMapCellRect = ({
                     }}
                     fillOpacity={animatedProps.opacity}
                 >
-                    {value}
+                    {label}
                 </animated.text>
             )}
         </animated.g>
@@ -85,7 +85,7 @@ const HeatMapCellRect = ({
 
 HeatMapCellRect.propTypes = {
     data: PropTypes.object.isRequired,
-    value: PropTypes.number.isRequired,
+    label: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
     width: PropTypes.number.isRequired,

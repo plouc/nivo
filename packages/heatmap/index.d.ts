@@ -15,6 +15,8 @@ declare module '@nivo/heatmap' {
 
     export type IndexByFunc = (datum: HeatMapDatum) => string | number
 
+    export type LabelFormatter = (datum: HeatMapDatum, key: string) => string | number
+
     export type ValueFormatter = (value: number) => string | number
 
     export interface HeatMapData {
@@ -46,6 +48,7 @@ declare module '@nivo/heatmap' {
             enableGridY: boolean
 
             enableLabels: boolean
+            label: LabelFormatter
             labelTextColor: InheritedColorConfig<HeatMapDatumWithColor>
 
             isInteractive: boolean

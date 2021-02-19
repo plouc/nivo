@@ -16,6 +16,8 @@ import {
 } from '@nivo/core'
 import { renderAxesToCanvas } from '@nivo/axes'
 import { useTooltip } from '@nivo/tooltip'
+import setDisplayName from 'recompose/setDisplayName'
+import enhance from './enhance'
 import { useHeatMap } from './hooks'
 import { HeatMapDefaultProps, HeatMapPropTypes } from './props'
 import { renderRect, renderCircle } from './canvas'
@@ -41,6 +43,7 @@ const HeatMapCanvas = ({
     axisBottom,
     axisLeft,
     enableLabels,
+    getLabel,
     labelTextColor,
     colors,
     nanColor,
@@ -77,6 +80,7 @@ const HeatMapCanvas = ({
             nanColor,
             cellOpacity,
             cellBorderColor,
+            getLabel,
             labelTextColor,
             hoverTarget,
             cellHoverOpacity,
@@ -137,6 +141,8 @@ const HeatMapCanvas = ({
         axisRight,
         axisBottom,
         axisLeft,
+        xScale,
+        yScale,
         theme,
         enableLabels,
         pixelRatio,
@@ -179,6 +185,7 @@ const HeatMapCanvas = ({
             showTooltipFromEvent,
             hideTooltip,
             tooltip,
+            tooltipFormat,
         ]
     )
 
@@ -219,4 +226,4 @@ HeatMapCanvas.propTypes = HeatMapPropTypes
 const WrappedHeatMapCanvas = withContainer(HeatMapCanvas)
 WrappedHeatMapCanvas.defaultProps = HeatMapDefaultProps
 
-export default WrappedHeatMapCanvas
+export default setDisplayName('WrappedHeatMapCanvas')(enhance(WrappedHeatMapCanvas))

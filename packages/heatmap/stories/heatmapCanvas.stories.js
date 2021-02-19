@@ -1,44 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { generateCountriesData } from '@nivo/generators'
-import { HeatMap } from '../src'
-
-const CustomCell = ({
-    value,
-    x,
-    y,
-    width,
-    height,
-    color,
-    opacity,
-    borderWidth,
-    borderColor,
-    textColor,
-}) => (
-    <g transform={`translate(${x}, ${y})`}>
-        <path
-            transform={`rotate(${value < 50 ? 180 : 0})`}
-            fill={color}
-            fillOpacity={opacity}
-            strokeWidth={borderWidth}
-            stroke={borderColor}
-            d={`
-                M0 -${Math.round(height / 2)}
-                L${Math.round(width / 2)} ${Math.round(height / 2)}
-                L-${Math.round(width / 2)} ${Math.round(height / 2)}
-                L0 -${Math.round(height / 2)}
-            `}
-        />
-        <text
-            dominantBaseline="central"
-            textAnchor="middle"
-            style={{ fill: textColor }}
-            dy={value < 50 ? -6 : 6}
-        >
-            {value}
-        </text>
-    </g>
-)
+import { HeatMapCanvas } from '../src'
 
 const keys = [
     'hot dogs',
@@ -63,12 +26,12 @@ const commonProperties = {
     keys,
 }
 
-const stories = storiesOf('HeatMap', module)
+const stories = storiesOf('HeatMapCanvas', module)
 
-stories.add('default', () => <HeatMap {...commonProperties} />)
+stories.add('default', () => <HeatMapCanvas {...commonProperties} />)
 
 stories.add('square cells', () => (
-    <HeatMap
+    <HeatMapCanvas
         {...commonProperties}
         forceSquare={true}
         axisTop={{
@@ -83,13 +46,13 @@ stories.add('square cells', () => (
 ))
 
 stories.add('circle cells', () => (
-    <HeatMap {...commonProperties} cellShape="circle" padding={2} enableGridY={true} />
+    <HeatMapCanvas {...commonProperties} cellShape="circle" padding={2} enableGridY={true} />
 ))
 
-stories.add('alternative colors', () => <HeatMap {...commonProperties} colors="BrBG" />)
+stories.add('alternative colors', () => <HeatMapCanvas {...commonProperties} colors="BrBG" />)
 
 stories.add('variable cell size', () => (
-    <HeatMap
+    <HeatMapCanvas
         {...commonProperties}
         colors="BuPu"
         cellShape="circle"
@@ -100,18 +63,8 @@ stories.add('variable cell size', () => (
     />
 ))
 
-stories.add('Custom cell component', () => (
-    <HeatMap
-        {...commonProperties}
-        cellShape={CustomCell}
-        padding={4}
-        colors="GnBu"
-        labelTextColor="inherit:darker(1.6)"
-    />
-))
-
 stories.add('with formatted values', () => (
-    <HeatMap
+    <HeatMapCanvas
         {...commonProperties}
         tooltipFormat={value =>
             `${Number(value).toLocaleString('ru-RU', {
@@ -122,7 +75,7 @@ stories.add('with formatted values', () => (
 ))
 
 stories.add('with formatted labels', () => (
-    <HeatMap
+    <HeatMapCanvas
         {...commonProperties}
         label={(datum, key) =>
             `${Number(datum[key]).toLocaleString('ru-RU', {
@@ -133,7 +86,7 @@ stories.add('with formatted labels', () => (
 ))
 
 stories.add('custom tooltip', () => (
-    <HeatMap
+    <HeatMapCanvas
         {...commonProperties}
         tooltip={({ xKey, yKey, value, color }) => (
             <strong style={{ color }}>
