@@ -38,5 +38,5 @@ declare module '@nivo/voronoi' {
     }
 
     export class Voronoi extends React.Component<VoronoiProps & Dimensions> {}
-    export class ResponsiveVoroinoi extends React.Component<VoronoiProps> {}
+    export class ResponsiveVoronoi extends React.Component<VoronoiProps> {}
 }
