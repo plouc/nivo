@@ -165,8 +165,10 @@ declare module '@nivo/core' {
 
     export interface CartesianMarkerProps {
         axis: 'x' | 'y'
-        value: string | number | Date
+        value: DatumValue
         legend?: string
+        legendOrientation?: 'horizontal' | 'vertical'
+        legendPosition?: BoxAlign
         lineStyle?: Partial<React.CSSProperties>
         textStyle?: Partial<React.CSSProperties>
     }
