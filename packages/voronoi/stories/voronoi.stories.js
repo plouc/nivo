@@ -132,10 +132,10 @@ const Layer = ({ data, width, height, voronoi, delaunay }) => {
         const point = points[i]
 
         if (d.id === 'mice') {
-            return <circle cx={point[0]} cy={point[1]} r={10} fill="red" />
+            return <circle key={i} cx={point[0]} cy={point[1]} r={10} fill="red" />
         }
 
-        const poly = voronoi.cellPolygon(i)
+        const poly = voronoi.cellPolygon(i) || []
         const maskId = `${d.id}.mask`
 
         return (
