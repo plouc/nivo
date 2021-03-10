@@ -218,6 +218,48 @@ const props: ChartProperty[] = [
         defaultValue: NetworkDefaultProps.layers,
         flavors: ['svg', 'canvas'],
     },
+    {
+        key: 'nodeComponent',
+        group: 'Customization',
+        flavors: ['svg'],
+        help: 'Override default node component for the SVG implementation.',
+        description: `
+            This property can be used to completely
+            customize the way nodes are rendered.
+            You should return a valid SVG node.
+            You can see a live example of custom node component
+            [here](storybook:/network--custom-node).
+        `,
+        required: false,
+        type: 'Component',
+    },
+    {
+        key: 'renderNode',
+        flavors: ['svg'],
+        group: 'Nodes',
+        type: '(node: Node) => svg',
+        help: 'Control node svg format.',
+    },
+    {
+        key: 'renderNode',
+        group: 'Customization',
+        flavors: ['canvas'],
+        help: 'Override default node rendering for the canvas implementation.',
+        description: `
+            This property can be used to completely
+            customize the way nodes are rendered.
+            The rendering function will receive the canvas 2d
+            context as first argument.
+            Please make sure to use \`context.save()\` and
+            \`context.restore()\` if you make some global
+            modifications to the 2d context inside this function
+            to avoid side effects.
+            You can see a live example of custom circle component
+            [here](storybook:/networkcanvas--custom-node).
+        `,
+        required: false,
+        type: 'Function',
+    },
     ...motionProperties(['svg'], NetworkDefaultProps),
 ]
 

@@ -38,6 +38,7 @@ const Network = props => {
         nodeColor,
         nodeBorderWidth,
         nodeBorderColor,
+        nodeComponent,
 
         linkThickness,
         linkColor,
@@ -99,6 +100,7 @@ const Network = props => {
             color: getColor,
             borderWidth: nodeBorderWidth,
             borderColor: getBorderColor,
+            nodeComponent,
             handleNodeClick: isInteractive ? onClick : undefined,
             handleNodeHover: isInteractive ? handleNodeHover : undefined,
             handleNodeLeave: isInteractive ? handleNodeLeave : undefined,

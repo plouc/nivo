@@ -66,6 +66,7 @@ declare module '@nivo/network' {
         layers?: Layer[]
 
         nodeColor: string | NodeAccessor<ComputedNode, string>
+        renderNode: NodeAccessor<ComputedNode, React.ReactNode>
         nodeBorderWidth?: number
         nodeBorderColor?: InheritedColorConfig<ComputedNode>
 

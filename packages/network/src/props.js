@@ -9,6 +9,7 @@
 import PropTypes from 'prop-types'
 import { motionPropTypes } from '@nivo/core'
 import { inheritedColorPropType } from '@nivo/colors'
+import Node from './Node'
 
 const commonPropTypes = {
     nodes: PropTypes.arrayOf(
@@ -48,11 +49,13 @@ const commonPropTypes = {
 export const NetworkPropTypes = {
     ...commonPropTypes,
     role: PropTypes.string.isRequired,
+    nodeComponent: PropTypes.func.isRequired,
     ...motionPropTypes,
 }
 
 export const NetworkCanvasPropTypes = {
     pixelRatio: PropTypes.number.isRequired,
+    renderNode: PropTypes.func.isRequired,
     ...commonPropTypes,
 }
 
@@ -76,13 +79,30 @@ const commonDefaultProps = {
 
 export const NetworkDefaultProps = {
     ...commonDefaultProps,
+    nodeComponent: Node,
     animate: true,
     motionStiffness: 90,
     motionDamping: 15,
     role: 'img',
 }
 
+const renderCanvasNode = (ctx, props) => {
+    const { node, getNodeColor, getBorderColor, nodeBorderWidth } = props
+
+    ctx.fillStyle = getNodeColor(node)
+    ctx.beginPath()
+    ctx.arc(node.x, node.y, node.radius, 0, 2 * Math.PI)
+    ctx.fill()
+
+    if (nodeBorderWidth > 0) {
+        ctx.strokeStyle = getBorderColor(node)
+        ctx.lineWidth = nodeBorderWidth
+        ctx.stroke()
+    }
+}
+
 export const NetworkCanvasDefaultProps = {
     ...commonDefaultProps,
     pixelRatio: typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1,
+    renderNode: renderCanvasNode,
 }

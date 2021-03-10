@@ -1,13 +1,14 @@
 import { action } from '@storybook/addon-actions'
+import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { NetworkDefaultProps } from '../src/props'
+import { NetworkCanvasDefaultProps } from '../src/props'
 import { generateNetworkData } from '@nivo/generators'
 import { NetworkCanvas } from '../src'
 
 const data = generateNetworkData()
 
-const commonProperties = {
-    ...NetworkDefaultProps,
+const commonProps = {
+    ...NetworkCanvasDefaultProps,
     nodes: data.nodes,
     links: data.links,
     width: 900,
@@ -21,11 +22,11 @@ const commonProperties = {
 
 const stories = storiesOf('NetworkCanvas', module)
 
-stories.add('default', () => <NetworkCanvas {...commonProperties} />)
+stories.add('default', () => <NetworkCanvas {...commonProps} />)
 
 stories.add('custom tooltip', () => (
     <NetworkCanvas
-        {...commonProperties}
+        {...commonProps}
         tooltip={node => {
             return (
                 <div>
@@ -43,5 +44,20 @@ stories.add('custom tooltip', () => (
 ))
 
 stories.add('supports onClick for the node', () => (
-    <NetworkCanvas {...commonProperties} onClick={action('onClick')} />
+    <NetworkCanvas {...commonProps} onClick={action('onClick')} />
+))
+
+stories.add('custom node', () => (
+    <NetworkCanvas
+        {...commonProps}
+        renderNode={(ctx, props) => {
+            const { node } = props
+            ctx.fillStyle = 'red'
+            ctx.beginPath()
+            ctx.moveTo(node.x, node.y - node.radius)
+            ctx.lineTo(node.x + node.radius, node.y + node.radius)
+            ctx.lineTo(node.x - node.radius, node.y + node.radius)
+            ctx.fill()
+        }}
+    />
 ))

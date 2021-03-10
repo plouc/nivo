@@ -37,6 +37,7 @@ const NetworkCanvas = props => {
         nodeColor,
         nodeBorderWidth,
         nodeBorderColor,
+        renderNode,
 
         linkThickness,
         linkColor,
@@ -94,16 +95,11 @@ const NetworkCanvas = props => {
                 })
             } else if (layer === 'nodes') {
                 nodes.forEach(node => {
-                    ctx.fillStyle = getNodeColor(node)
-                    ctx.beginPath()
-                    ctx.arc(node.x, node.y, node.radius, 0, 2 * Math.PI)
-                    ctx.fill()
-
-                    if (nodeBorderWidth > 0) {
-                        ctx.strokeStyle = getBorderColor(node)
-                        ctx.lineWidth = nodeBorderWidth
-                        ctx.stroke()
-                    }
+                    renderNode(ctx, {
+                        node,
+                        getNodeColor,
+                        getBorderColor,
+                    })
                 })
             } else if (typeof layer === 'function') {
                 layer(ctx, {
@@ -122,6 +118,7 @@ const NetworkCanvas = props => {
         nodes,
         links,
         getNodeColor,
+        renderNode,
         nodeBorderWidth,
         getBorderColor,
         getLinkThickness,

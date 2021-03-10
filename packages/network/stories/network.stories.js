@@ -6,7 +6,7 @@ import { Network } from '../src'
 
 const data = generateNetworkData()
 
-const commonProperties = {
+const commonProps = {
     ...NetworkDefaultProps,
     nodes: data.nodes,
     links: data.links,
@@ -21,11 +21,11 @@ const commonProperties = {
 
 const stories = storiesOf('Network', module)
 
-stories.add('default', () => <Network {...commonProperties} />)
+stories.add('default', () => <Network {...commonProps} />)
 
 stories.add('custom tooltip', () => (
     <Network
-        {...commonProperties}
+        {...commonProps}
         tooltip={node => {
             return (
                 <div>
@@ -43,5 +43,17 @@ stories.add('custom tooltip', () => (
 ))
 
 stories.add('supports onClick for the node', () => (
-    <Network {...commonProperties} onClick={action('onClick')} />
+    <Network {...commonProps} onClick={action('onClick')} />
+))
+
+stories.add('custom node', () => (
+    <Network
+        {...commonProps}
+        nodeComponent={node => (
+            <g transform={`translate(${node.x - 6},${node.y - 8}) scale(${0.5})`}>
+                <circle cx="12" cy="8" r="5" />
+                <path d="M3,21 h18 C 21,12 3,12 3,21" />
+            </g>
+        )}
+    />
 ))
