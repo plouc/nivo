@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import React, { memo } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
 const Node = ({
@@ -48,4 +48,4 @@ Node.propTypes = {
     handleNodeLeave: PropTypes.func.isRequired,
 }
 
-export default memo(Node)
+export default Node

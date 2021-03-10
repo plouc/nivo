@@ -137,7 +137,7 @@ const props = [
     {
         key: 'nodeBorderWidth',
         group: 'Nodes',
-        type: 'number | (node: Node) => number',
+        type: 'Function',
         help: `Control nodes' border width.`,
         defaultValue: NetworkDefaultProps.nodeBorderWidth,
         controlType: 'lineWidth',
@@ -149,6 +149,12 @@ const props = [
         help: `Control nodes' border color.`,
         defaultValue: NetworkDefaultProps.nodeBorderColor,
         controlType: 'inheritedColor',
+    },
+    {
+        key: 'nodeComponent',
+        group: 'Nodes',
+        type: '(node: Node) => svg',
+        help: 'Control node svg format.',
     },
     {
         key: 'linkThickness',

@@ -9,6 +9,7 @@
 import PropTypes from 'prop-types'
 import { motionPropTypes } from '@nivo/core'
 import { inheritedColorPropType } from '@nivo/colors'
+import Node from './Node'
 
 const commonPropTypes = {
     nodes: PropTypes.arrayOf(
@@ -37,6 +38,7 @@ const commonPropTypes = {
     nodeColor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     nodeBorderWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
     nodeBorderColor: inheritedColorPropType.isRequired,
+    nodeComponent: PropTypes.func.isRequired,
 
     linkThickness: PropTypes.oneOfType([PropTypes.number, PropTypes.func]).isRequired,
     linkColor: inheritedColorPropType.isRequired,
@@ -64,6 +66,7 @@ const commonDefaultProps = {
     distanceMax: Infinity,
     iterations: 90,
 
+    nodeComponent: Node,
     nodeBorderWidth: 0,
     nodeBorderColor: { from: 'color' },
 
