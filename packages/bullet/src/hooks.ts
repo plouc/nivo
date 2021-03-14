@@ -18,7 +18,7 @@ export const useEnhancedData = (
 
                 const max = Math.max(...all)
 
-                const min = Math.min(...all, 0)
+                const min = Math.min(...all)
 
                 const scale = scaleLinear().domain([min, max])
 

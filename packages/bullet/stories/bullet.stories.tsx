@@ -156,3 +156,34 @@ stories.add('custom title', () => (
         }))}
     />
 ))
+
+
+
+const temperatureData = [{
+    "id":"temperature",
+    "ranges":[30,45],
+    "measures":[34,36,40,42],
+    "markers":[37]
+}]
+
+stories.add('temperature (C)', function(){
+    return (
+        <Bullet 
+            width={900}
+            height={120} 
+            margin={{top: 10, right: 30, bottom: 50, left: 110 }}
+            titleOffsetX={-80}
+            data={temperatureData}
+            spacing={80}
+            animate={false}   
+            rangeComponent={CustomRange} 
+            measureColors={['none', 'orange', 'green', 'orange']} 
+            rangeColors={["none", "#cccccc"]} 
+            markerColors={["black"]}
+        />
+    )
+}, {
+    info: {
+        text: `You can customize ranges using the \`rangeComponent\` property.`,
+    }
+})
