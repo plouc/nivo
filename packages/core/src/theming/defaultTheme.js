@@ -72,6 +72,9 @@ export const defaultTheme = {
         tableCell: {
             padding: '3px 5px',
         },
+        tableCellValue: {
+            fontWeight: 'bold',
+        },
     },
     crosshair: {
         line: {
