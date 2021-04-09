@@ -6,6 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+import { CountableTimeInterval } from 'd3-time'
+
 declare module '@nivo/scales' {
     export interface LinearScale {
         type: 'linear'
@@ -14,6 +17,7 @@ declare module '@nivo/scales' {
         stacked?: boolean
         reverse?: boolean
         clamp?: boolean
+        nice?: boolean | number
     }
 
     export interface PointScale {
@@ -35,6 +39,7 @@ declare module '@nivo/scales' {
         useUTC?: boolean
         min?: 'auto' | Date
         max?: 'auto' | Date
+        nice?: boolean | number | CountableTimeInterval
     }
 
     export interface LogScale {
