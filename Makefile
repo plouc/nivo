@@ -207,7 +207,6 @@ website: ##@2 website start website in dev mode
 
 website-build: ##@2 website build website
 	@echo "${YELLOW}Building website${RESET}"
-	@node scripts/patch-react-spring.js
 	@cd website && yarn build
 
 website-serve: ##@2 website build & serve website
