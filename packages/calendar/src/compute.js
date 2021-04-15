@@ -29,7 +29,20 @@ export const computeDomain = (data, minSpec, maxSpec) => {
     return [minValue, maxValue]
 }
 /**
- *  Compute which dates to use for exact calculation or year
+ * Compute date to return, if the from date is not in the same year we
+ * return the calendarDate in exact mode, if not in exact mode we always 
+ * return the calendarDate
+ *
+ * @param {Date} fromDate
+ * @param {Date} calendarDate
+ * @param {boolean} exact
+ * @returns {Date}
+ */
+ const calculateReturnDate = (fromDate, calendarDate, exact) =>
+ (fromDate.getFullYear() === calendarDate.getFullYear() && exact) ? fromDate : calendarDate
+
+/**
+ *  Compute which dates to use for exact calculation for year
  * @param {Date}    fromDate
  * @param {number}  year
  * @param {boolean} exact
@@ -54,6 +67,7 @@ function calculateCurrentRange(fromDate, year, exact, toDate) {
  * @param {number} monthSpacing
  * @param {number} daySpacing
  * @param {number} maxWeeks
+ * @param {number} maxMonth
  * @returns {number}
  */
 const computeCellSize = ({
@@ -65,12 +79,12 @@ const computeCellSize = ({
     monthSpacing,
     daySpacing,
     maxWeeks,
+    maxMonth
 }) => {
     let hCellSize
     let vCellSize
-
     if (direction === 'horizontal') {
-        hCellSize = (width - monthSpacing * 12 - daySpacing * maxWeeks) / maxWeeks
+        hCellSize = ((width - monthSpacing * maxMonth - daySpacing * maxWeeks) / maxWeeks)
         vCellSize =
             (height - (yearRange.length - 1) * yearSpacing - yearRange.length * (8 * daySpacing)) /
             (yearRange.length * 7)
@@ -78,13 +92,12 @@ const computeCellSize = ({
         hCellSize =
             (width - (yearRange.length - 1) * yearSpacing - yearRange.length * (8 * daySpacing)) /
             (yearRange.length * 7)
-        vCellSize = (height - monthSpacing * 12 - daySpacing * maxWeeks) / maxWeeks
+        vCellSize = (height - monthSpacing * maxMonth - daySpacing * maxWeeks) / maxWeeks
     }
 
     return Math.min(hCellSize, vCellSize)
 }
 const getElapsedMonths = (from, to) => {
-    console.log('getElapsedMonths',from.getMonth(), to.getMonth(),  to.getMonth() - from.getMonth());
     return (
         to.getMonth() - from.getMonth() + 12 * (to.getFullYear() - from.getFullYear())
     )
@@ -94,6 +107,7 @@ const getElapsedMonths = (from, to) => {
  *
  * @param {Date}   date
  * @param {Date}   fromDate
+ * @param {Date}   toDate
  * @param {number} cellSize
  * @param {number} yearIndex
  * @param {number} yearSpacing
@@ -115,21 +129,19 @@ const monthPathAndBBox = ({
     originX,
     originY,
     fromDate,
+    toDate,
     exact,
 }) => {
     // first day of next month
     const t1 = new Date(date.getFullYear(), date.getMonth() + 1, 0)
 
     const startDate = calculateReturnDate(fromDate, timeYear(date), exact)
+    const lastDayOfMonth = new Date(toDate.getFullYear(), toDate.getMonth() + 1, 0);
     const lastDate = calculateReturnDate(fromDate, timeYear(t1), exact)
     const elapsedMonths = getElapsedMonths(startDate, date)
     // ranges
     let firstWeek = timeWeek.count(startDate, date)
     const lastWeek = timeWeek.count(lastDate, t1)
-    console.log(firstWeek, lastWeek, originX);
-    // if (firstWeek < 4) {
-    //     firstWeek = 0
-    // }
     const firstDay = date.getDay()
     const lastDay = t1.getDay()
     // offset according to year index and month
@@ -137,7 +149,6 @@ const monthPathAndBBox = ({
     let yO = originY
     const yearOffset = yearIndex * (7 * (cellSize + daySpacing) + yearSpacing)
     const monthOffset = elapsedMonths * monthSpacing
-    console.log(monthOffset, xO + firstWeek * (cellSize + daySpacing));
     if (direction === 'horizontal') {
         yO += yearOffset
         xO += monthOffset
@@ -177,9 +188,17 @@ const monthPathAndBBox = ({
         bbox.width = 7 * (cellSize + daySpacing)
         bbox.height = yO + (lastWeek + 1) * (cellSize + daySpacing) - bbox.y
     }
-    return { path, bbox }
+    const month = { path, bbox }
+    // do not print the path in case we do not have a full month 
+    if (
+        (startDate.getMonth() === date.getMonth() && startDate.getDay() > 1)
+        ||
+        (toDate.getMonth() === date.getMonth() && lastDayOfMonth !== toDate.getDay())
+    ) {
+        delete month.path
+    }
+    return month
 }
-
 /**
  * Creates a memoized version of monthPathAndBBox function.
  */
@@ -196,8 +215,9 @@ const memoMonthPathAndBBox = memoize(
         originX,
         originY,
         fromDate,
+        toDate,
     }) => {
-        return `${date.toString()}.${yearIndex}.${fromDate.toString()}.${cellSize}.${yearSpacing}.${monthSpacing}.${daySpacing}.${direction}.${originX}.${originY}`
+        return `${date.toString()}.${yearIndex}.${fromDate.toString()}.${toDate.toString()}.${cellSize}.${yearSpacing}.${monthSpacing}.${daySpacing}.${direction}.${originX}.${originY}`
     }
 )
 
@@ -223,19 +243,13 @@ const cellPositionHorizontal = (
     return (originX, originY, d, yearIndex) => {
         const startDate = calculateReturnDate(fromDate, timeYear(d), exact)
         const weekOfYear = timeWeek.count(startDate, d)
-
-        // const startDate = calculateReturnDate(fromDate, timeYear(d), exact)
         const elapsedMonths = getElapsedMonths(startDate, d)
-        console.log('666',startDate,d,originX +
-            weekOfYear * (cellSize + daySpacing) +
-            daySpacing / 2 +
-            (exact ? elapsedMonths : d.getMonth()) * monthSpacing, weekOfYear, elapsedMonths, monthSpacing, daySpacing);
         const coordinates = {
             x:
                 originX +
                 weekOfYear * (cellSize + daySpacing) +
                 daySpacing / 2 +
-                (exact ? elapsedMonths : d.getMonth()) * monthSpacing,
+                elapsedMonths * monthSpacing,
 
             y:
                 originY +
@@ -260,8 +274,9 @@ const cellPositionHorizontal = (
  */
 const cellPositionVertical = (cellSize, yearSpacing, monthSpacing, daySpacing, fromDate, exact) => {
     return (originX, originY, d, yearIndex) => {
-        const weekOfYear = timeWeek.count(calculateReturnDate(fromDate, timeYear(d), exact), d)
-
+        const startDate = calculateReturnDate(fromDate, timeYear(d), exact)
+        const weekOfYear = timeWeek.count(startDate, d)
+        const elapsedMonths = getElapsedMonths(startDate, d)
         return {
             x:
                 originX +
@@ -272,27 +287,14 @@ const cellPositionVertical = (cellSize, yearSpacing, monthSpacing, daySpacing, f
                 originY +
                 weekOfYear * (cellSize + daySpacing) +
                 daySpacing / 2 +
-                d.getMonth() * monthSpacing,
+                 elapsedMonths * monthSpacing,
         }
     }
 }
 
 // used for days range and data matching
 const dayFormat = timeFormat('%Y-%m-%d')
-/**
- * Compute date.
- *
- * @param {Date} fromDate
- * @param {Date} calendarDate
- * @param {boolean} exact
- * @returns {Date}
- */
-const calculateReturnDate = (fromDate, calendarDate, exact) => {
-    if (fromDate.getFullYear() === calendarDate.getFullYear() && exact) {
-        return fromDate
-    }
-    return calendarDate
-}
+
 /**
  * Compute base layout, without caring about the current data.
  *
@@ -322,7 +324,7 @@ export const computeLayout = ({
 }) => {
     const fromDate = isDate(from) ? from : new Date(from)
     const toDate = isDate(to) ? to : new Date(to)
-    let yearRange = range(fromDate.getFullYear(), toDate.getFullYear() + 1)
+    const yearRange = range(fromDate.getFullYear(), toDate.getFullYear() + 1)
     // if exact we only count the real weeks between the dates
     const maxWeeks =
         Math.max(
@@ -331,6 +333,14 @@ export const computeLayout = ({
                 return timeWeeks(date[0], date[1]).length
             })
         ) + 1
+    const maxMonth =
+        Math.max(
+            ...yearRange.map(year => {
+                const date = calculateCurrentRange(fromDate, year, exact, toDate)
+                return timeMonths(date[0], date[1]).length
+            })
+        ) + 1
+
     const cellSize = computeCellSize({
         width,
         height,
@@ -340,30 +350,20 @@ export const computeLayout = ({
         monthSpacing,
         daySpacing,
         maxWeeks,
+        maxMonth,
     })
 
-    const monthsSize = cellSize * maxWeeks + daySpacing * maxWeeks + monthSpacing * 12
-    const yearsSize =
-        (cellSize + daySpacing) * 7 * yearRange.length + yearSpacing * (yearRange.length - 1)
-
-    const calendarWidth = direction === 'horizontal' ? monthsSize : yearsSize
-    const calendarHeight = direction === 'horizontal' ? yearsSize : monthsSize
+    const inititialBox = {
+        x: 0,
+        y: 0,
+        width,
+        height,
+    }
     const [originX, originY] = alignBox(
-        {
-            x: 0,
-            y: 0,
-            width: calendarWidth,
-            height: calendarHeight,
-        },
-        {
-            x: 0,
-            y: 0,
-            width,
-            height,
-        },
+        inititialBox,
+        inititialBox,
         align
     )
-    console.log('calendarWidth', maxWeeks, monthsSize, calendarWidth, align, originX);
 
     let cellPosition
     if (direction === 'horizontal') {
@@ -391,30 +391,27 @@ export const computeLayout = ({
 
     yearRange.forEach((year, i) => {
         const date = calculateCurrentRange(fromDate, year, exact, toDate)
-        console.log('xxx ', date[0], timeMonths(new Date(date[0].getFullYear(), date[0].getMonth(), 1), date[1]));
-        const yearMonths = timeMonths(new Date(date[0].getFullYear(), date[0].getMonth(), 1), date[1]).map(monthDate => {
-            return ({
-                firstWeek: timeWeek.count(date[0], monthDate),
+        const monthsLocal = timeMonths(new Date(date[0].getFullYear(), date[0].getMonth(), 1), date[1])
+        const yearMonths = monthsLocal.map(monthDate => ({
+            date: monthDate,
+            year: monthDate.getFullYear(),
+            month: monthDate.getMonth(),
+            ...memoMonthPathAndBBox({
+                originX,
+                originY,
                 date: monthDate,
-                year: monthDate.getFullYear(),
-                month: monthDate.getMonth(),
-                ...memoMonthPathAndBBox({
-                    originX,
-                    originY,
-                    date: monthDate,
-                    direction,
-                    yearIndex: i,
-                    yearSpacing,
-                    monthSpacing,
-                    daySpacing,
-                    cellSize,
-                    fromDate: date[0],
-                    exact,
-                }),
-            })
-        })
+                direction,
+                yearIndex: i,
+                yearSpacing,
+                monthSpacing,
+                daySpacing,
+                cellSize,
+                fromDate: date[0],
+                toDate: date[1],
+                exact,
+            }),
+        }))
 
-        console.log(yearMonths, months, monthSpacing, originX);
         months = months.concat(yearMonths)
         days = days.concat(
             timeDays(date[0], date[1]).map(dayDate => ({
@@ -424,39 +421,26 @@ export const computeLayout = ({
                 ...cellPosition(originX, originY, dayDate, i, date[0], exact),
             }))
         )
-        console.log({
-            year,
-            bbox: {
-                x: yearMonths[0].bbox.x,
-                y: yearMonths[0].bbox.y,
-                width:
-                    yearMonths[yearMonths.length - 1].bbox.x -
-                    yearMonths[0].bbox.x +
-                    yearMonths[yearMonths.length - 1].bbox.width,
-                height:
-                    yearMonths[yearMonths.length - 1].bbox.y -
-                    yearMonths[0].bbox.y +
-                    yearMonths[yearMonths.length - 1].bbox.height,
-            },
-        });
+        const fixedX = years[0] && direction === 'horizontal' ? years[0].bbox.x : yearMonths[0].bbox.x
+        const fixedY = years[0] && direction === 'vertical' ? years[0].bbox.y : yearMonths[0].bbox.y
         years.push({
             year,
             bbox: {
-                x: yearMonths[0].bbox.x,
-                y: yearMonths[0].bbox.y,
+                x: fixedX,
+                y: fixedY,
                 width:
                     yearMonths[yearMonths.length - 1].bbox.x -
-                    yearMonths[0].bbox.x +
+                    fixedX +
                     yearMonths[yearMonths.length - 1].bbox.width,
                 height:
                     yearMonths[yearMonths.length - 1].bbox.y -
-                    yearMonths[0].bbox.y +
+                    fixedY +
                     yearMonths[yearMonths.length - 1].bbox.height,
             },
         })
     })
 
-    return { years, months, days, cellSize, calendarWidth, calendarHeight, originX, originY }
+    return { years, months, days, cellSize, width, height, originX, originY }
 }
 
 /**
@@ -511,7 +495,6 @@ export const computeYearLegendPositions = ({ years, direction, position, offset 
             y,
             rotation,
         }
-        console.log(coordinates);
         return coordinates
     })
 }

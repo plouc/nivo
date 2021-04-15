@@ -7,7 +7,6 @@ const from = new Date(2019, 0, 1) // the month is 0-indexed
 const to = new Date(2019, 5, 31)
 const data = generateDayCounts(from, to)
 const baseProps = {
-    monthSpacing:20,
     width: 900,
     height: 260,
     margin: {
@@ -31,7 +30,7 @@ stories.add('default - half/half of the year', () => <Calendar
         ...baseProps,
         from: new Date(2019, 6, 10).toISOString(),
         to: new Date(2020, 5, 31).toISOString(),
-        data:  generateDayCounts(new Date(2019, 6, 10), new Date(2020, 5, 31))
+        data: generateDayCounts(new Date(2019, 6, 10), new Date(2020, 5, 31))
     }}
 />)
 stories.add('exact - first half of the year', () => <Calendar exact {...commonProps} />)
@@ -40,22 +39,19 @@ stories.add('exact - second half of the year', () => <Calendar
     {...{
         ...baseProps,
         from: new Date(2019, 6, 5).toISOString(),
-        to: new Date(2019, 11, 24).toISOString(),
-        data:  generateDayCounts(new Date(2019, 6, 10), new Date(2019, 11, 31))
+        to: new Date(2019, 11, 25).toISOString(),
+        data: generateDayCounts(new Date(2019, 6, 5), new Date(2019, 11, 24))
     }}
 />)
 stories.add('exact - half/half of the year', () => <Calendar
     exact
     {...{
         ...baseProps,
-        from: new Date(2019, 6, 1).toISOString(),
+        from: new Date(2019, 6, 10).toISOString(),
         to: new Date(2020, 5, 31).toISOString(),
-        data:  generateDayCounts(new Date(2019, 6, 1), new Date(2020, 5, 31))
+        data: generateDayCounts(new Date(2019, 6, 1), new Date(2020, 5, 31))
     }}
 />)
-stories.add('vertical exact calendar', () => (
-    <Calendar exact direction="vertical" {...commonProps} height={600} />
-))
 const japaneseMonths = [
     '一月',
     '二月',
@@ -80,6 +76,35 @@ stories.add('custom colors', () => (
 
 stories.add('vertical calendar', () => (
     <Calendar direction="vertical" {...commonProps} height={600} />
+))
+stories.add('vertical calendar half/half', () => (
+    <Calendar direction="vertical"
+        {...{
+            ...baseProps,
+            from: new Date(2019, 6, 10).toISOString(),
+            to: new Date(2020, 5, 10).toISOString(),
+            data: generateDayCounts(new Date(2019, 6, 1), new Date(2020, 5, 31))
+        }}
+        height={600} 
+        />
+))
+
+stories.add('vertical calendar - exact', () => (
+    <Calendar exact direction="vertical" {...commonProps} height={600} />
+))
+
+stories.add('vertical calemdar - exact half/half', () => (
+    <Calendar
+        exact
+        direction="vertical"
+        {...{
+            ...baseProps,
+            from: new Date(2019, 6, 10).toISOString(),
+            to: new Date(2020, 5, 10).toISOString(),
+            data: generateDayCounts(new Date(2019, 6, 1), new Date(2020, 5, 31))
+        }}
+        height={600} 
+    />
 ))
 
 const CustomTooltip = data => {

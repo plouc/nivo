@@ -9,19 +9,17 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 
-const CalendarMonthPath = memo(({ path, borderWidth, borderColor }) => {
-    return (
-        <path
-            d={path}
-            style={{
-                fill: 'none',
-                strokeWidth: borderWidth,
-                stroke: borderColor,
-                pointerEvents: 'none',
-            }}
-        />
-    )
-})
+const CalendarMonthPath = memo(({ path, borderWidth, borderColor }) => (
+    <path
+        d={path}
+        style={{
+            fill: 'none',
+            strokeWidth: borderWidth,
+            stroke: borderColor,
+            pointerEvents: 'none',
+        }}
+    />
+))
 
 CalendarMonthPath.propTypes = {
     path: PropTypes.string.isRequired,

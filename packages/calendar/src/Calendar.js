@@ -121,7 +121,7 @@ const Calendar = ({
                     formatValue={formatValue}
                 />
             ))}
-            {months.map(m => (
+            {months.map(m => m.path && (
                 <CalendarMonthPath
                     key={m.date.toString()}
                     path={m.path}
