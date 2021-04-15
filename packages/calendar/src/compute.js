@@ -30,7 +30,7 @@ export const computeDomain = (data, minSpec, maxSpec) => {
 }
 /**
  * Compute date to return, if the from date is not in the same year we
- * return the calendarDate in exact mode, if not in exact mode we always 
+ * return the calendarDate in exact mode, if not in exact mode we always
  * return the calendarDate
  *
  * @param {Date} fromDate
@@ -38,8 +38,8 @@ export const computeDomain = (data, minSpec, maxSpec) => {
  * @param {boolean} exact
  * @returns {Date}
  */
- const calculateReturnDate = (fromDate, calendarDate, exact) =>
- (fromDate.getFullYear() === calendarDate.getFullYear() && exact) ? fromDate : calendarDate
+const calculateReturnDate = (fromDate, calendarDate, exact) =>
+    fromDate.getFullYear() === calendarDate.getFullYear() && exact ? fromDate : calendarDate
 
 /**
  *  Compute which dates to use for exact calculation for year
@@ -79,12 +79,12 @@ const computeCellSize = ({
     monthSpacing,
     daySpacing,
     maxWeeks,
-    maxMonth
+    maxMonth,
 }) => {
     let hCellSize
     let vCellSize
     if (direction === 'horizontal') {
-        hCellSize = ((width - monthSpacing * maxMonth - daySpacing * maxWeeks) / maxWeeks)
+        hCellSize = (width - monthSpacing * maxMonth - daySpacing * maxWeeks) / maxWeeks
         vCellSize =
             (height - (yearRange.length - 1) * yearSpacing - yearRange.length * (8 * daySpacing)) /
             (yearRange.length * 7)
@@ -98,9 +98,7 @@ const computeCellSize = ({
     return Math.min(hCellSize, vCellSize)
 }
 const getElapsedMonths = (from, to) => {
-    return (
-        to.getMonth() - from.getMonth() + 12 * (to.getFullYear() - from.getFullYear())
-    )
+    return to.getMonth() - from.getMonth() + 12 * (to.getFullYear() - from.getFullYear())
 }
 /**
  * Computes month path and bounding box.
@@ -136,7 +134,7 @@ const monthPathAndBBox = ({
     const t1 = new Date(date.getFullYear(), date.getMonth() + 1, 0)
 
     const startDate = calculateReturnDate(fromDate, timeYear(date), exact)
-    const lastDayOfMonth = new Date(toDate.getFullYear(), toDate.getMonth() + 1, 0);
+    const lastDayOfMonth = new Date(toDate.getFullYear(), toDate.getMonth() + 1, 0)
     const lastDate = calculateReturnDate(fromDate, timeYear(t1), exact)
     const elapsedMonths = getElapsedMonths(startDate, date)
     // ranges
@@ -161,10 +159,12 @@ const monthPathAndBBox = ({
     let bbox = { x: xO, y: yO, width: 0, height: 0 }
     if (direction === 'horizontal') {
         path = [
-            `M${xO + (firstWeek + 1) * (cellSize + daySpacing)},${yO + firstDay * (cellSize + daySpacing)
+            `M${xO + (firstWeek + 1) * (cellSize + daySpacing)},${
+                yO + firstDay * (cellSize + daySpacing)
             }`,
             `H${xO + firstWeek * (cellSize + daySpacing)}V${yO + 7 * (cellSize + daySpacing)}`,
-            `H${xO + lastWeek * (cellSize + daySpacing)}V${yO + (lastDay + 1) * (cellSize + daySpacing)
+            `H${xO + lastWeek * (cellSize + daySpacing)}V${
+                yO + (lastDay + 1) * (cellSize + daySpacing)
             }`,
             `H${xO + (lastWeek + 1) * (cellSize + daySpacing)}V${yO}`,
             `H${xO + (firstWeek + 1) * (cellSize + daySpacing)}Z`,
@@ -175,10 +175,12 @@ const monthPathAndBBox = ({
         bbox.height = 7 * (cellSize + daySpacing)
     } else {
         path = [
-            `M${xO + firstDay * (cellSize + daySpacing)},${yO + (firstWeek + 1) * (cellSize + daySpacing)
+            `M${xO + firstDay * (cellSize + daySpacing)},${
+                yO + (firstWeek + 1) * (cellSize + daySpacing)
             }`,
             `H${xO}V${yO + (lastWeek + 1) * (cellSize + daySpacing)}`,
-            `H${xO + (lastDay + 1) * (cellSize + daySpacing)}V${yO + lastWeek * (cellSize + daySpacing)
+            `H${xO + (lastDay + 1) * (cellSize + daySpacing)}V${
+                yO + lastWeek * (cellSize + daySpacing)
             }`,
             `H${xO + 7 * (cellSize + daySpacing)}V${yO + firstWeek * (cellSize + daySpacing)}`,
             `H${xO + firstDay * (cellSize + daySpacing)}Z`,
@@ -189,10 +191,9 @@ const monthPathAndBBox = ({
         bbox.height = yO + (lastWeek + 1) * (cellSize + daySpacing) - bbox.y
     }
     const month = { path, bbox }
-    // do not print the path in case we do not have a full month 
+    // do not print the path in case we do not have a full month
     if (
-        (startDate.getMonth() === date.getMonth() && startDate.getDay() > 1)
-        ||
+        (startDate.getMonth() === date.getMonth() && startDate.getDay() > 1) ||
         (toDate.getMonth() === date.getMonth() && lastDayOfMonth !== toDate.getDay())
     ) {
         delete month.path
@@ -287,7 +288,7 @@ const cellPositionVertical = (cellSize, yearSpacing, monthSpacing, daySpacing, f
                 originY +
                 weekOfYear * (cellSize + daySpacing) +
                 daySpacing / 2 +
-                 elapsedMonths * monthSpacing,
+                elapsedMonths * monthSpacing,
         }
     }
 }
@@ -359,11 +360,7 @@ export const computeLayout = ({
         width,
         height,
     }
-    const [originX, originY] = alignBox(
-        inititialBox,
-        inititialBox,
-        align
-    )
+    const [originX, originY] = alignBox(inititialBox, inititialBox, align)
 
     let cellPosition
     if (direction === 'horizontal') {
@@ -391,7 +388,10 @@ export const computeLayout = ({
 
     yearRange.forEach((year, i) => {
         const date = calculateCurrentRange(fromDate, year, exact, toDate)
-        const monthsLocal = timeMonths(new Date(date[0].getFullYear(), date[0].getMonth(), 1), date[1])
+        const monthsLocal = timeMonths(
+            new Date(date[0].getFullYear(), date[0].getMonth(), 1),
+            date[1]
+        )
         const yearMonths = monthsLocal.map(monthDate => ({
             date: monthDate,
             year: monthDate.getFullYear(),
@@ -421,7 +421,8 @@ export const computeLayout = ({
                 ...cellPosition(originX, originY, dayDate, i, date[0], exact),
             }))
         )
-        const fixedX = years[0] && direction === 'horizontal' ? years[0].bbox.x : yearMonths[0].bbox.x
+        const fixedX =
+            years[0] && direction === 'horizontal' ? years[0].bbox.x : yearMonths[0].bbox.x
         const fixedY = years[0] && direction === 'vertical' ? years[0].bbox.y : yearMonths[0].bbox.y
         years.push({
             year,

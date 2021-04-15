@@ -121,14 +121,17 @@ const Calendar = ({
                     formatValue={formatValue}
                 />
             ))}
-            {months.map(m => m.path && (
-                <CalendarMonthPath
-                    key={m.date.toString()}
-                    path={m.path}
-                    borderWidth={monthBorderWidth}
-                    borderColor={monthBorderColor}
-                />
-            ))}
+            {months.map(
+                m =>
+                    m.path && (
+                        <CalendarMonthPath
+                            key={m.date.toString()}
+                            path={m.path}
+                            borderWidth={monthBorderWidth}
+                            borderColor={monthBorderColor}
+                        />
+                    )
+            )}
             <CalendarMonthLegends months={monthLegends} legend={monthLegend} theme={theme} />
             <CalendarYearLegends years={yearLegends} legend={yearLegend} theme={theme} />
             {legends.map((legend, i) => {
