@@ -28,9 +28,9 @@ stories.add('default', () => <Calendar {...commonProps} />)
 stories.add('default - half/half of the year', () => <Calendar
     {...{
         ...baseProps,
-        from: new Date(2019, 6, 1).toISOString(),
+        from: new Date(2019, 6, 10).toISOString(),
         to: new Date(2020, 5, 31).toISOString(),
-        data:  generateDayCounts(new Date(2019, 6, 1), new Date(2020, 5, 31))
+        data:  generateDayCounts(new Date(2019, 6, 10), new Date(2020, 5, 31))
     }}
 />)
 stories.add('exact - first half of the year', () => <Calendar exact {...commonProps} />)

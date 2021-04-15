@@ -53,8 +53,8 @@ export const useColorScale = ({ data, minValue, maxValue, colors, colorScale }) 
         return defaultColorScale
     }, [data, minValue, maxValue, colors, colorScale])
 
-export const useYearLegends = ({ years, direction, yearLegendPosition, yearLegendOffset }) =>{
-        return useMemo(
+export const useYearLegends = ({ years, direction, yearLegendPosition, yearLegendOffset }) => {
+    return useMemo(
         () =>
             computeYearLegendPositions({
                 years,
@@ -63,7 +63,8 @@ export const useYearLegends = ({ years, direction, yearLegendPosition, yearLegen
                 offset: yearLegendOffset,
             }),
         [years, direction, yearLegendPosition, yearLegendOffset]
-    )}
+    )
+}
 
 export const useMonthLegends = ({ months, direction, monthLegendPosition, monthLegendOffset }) =>
     useMemo(
@@ -77,8 +78,7 @@ export const useMonthLegends = ({ months, direction, monthLegendPosition, monthL
         [months, direction, monthLegendPosition, monthLegendOffset]
     )
 
-export const useDays = ({ days, data, colorScale, emptyColor }) =>
-{
+export const useDays = ({ days, data, colorScale, emptyColor }) => {
     return useMemo(
         () =>
             bindDaysData({
@@ -88,4 +88,5 @@ export const useDays = ({ days, data, colorScale, emptyColor }) =>
                 emptyColor,
             }),
         [days, data, colorScale, emptyColor]
-    )}
+    )
+}
