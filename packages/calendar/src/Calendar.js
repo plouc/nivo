@@ -17,6 +17,8 @@ import { useMonthLegends, useYearLegends, useCalendarLayout, useDays, useColorSc
 import CalendarDay from './CalendarDay'
 
 const Calendar = ({
+    exact,
+
     margin: partialMargin,
     width,
     height,
@@ -67,6 +69,7 @@ const Calendar = ({
         partialMargin
     )
     const { months, years, ...rest } = useCalendarLayout({
+        exact,
         width: innerWidth,
         height: innerHeight,
         from,

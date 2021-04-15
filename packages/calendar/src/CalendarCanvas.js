@@ -80,6 +80,7 @@ const CalendarCanvas = memo(
         onMouseMove,
 
         legends,
+        exact,
     }) => {
         const canvasEl = useRef(null)
         const { innerWidth, innerHeight, outerWidth, outerHeight, margin } = useDimensions(
@@ -97,6 +98,7 @@ const CalendarCanvas = memo(
             monthSpacing,
             daySpacing,
             align,
+            exact,
         })
         const colorScaleFn = useColorScale({ data, minValue, maxValue, colors, colorScale })
         const monthLegends = useMonthLegends({

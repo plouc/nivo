@@ -15,6 +15,8 @@ import CalendarTooltip from './CalendarTooltip'
 const monthLabelFormat = timeFormat('%b')
 
 const commonPropTypes = {
+    exact: PropTypes.bool,
+
     from: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]).isRequired,
     to: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]).isRequired,
     data: PropTypes.arrayOf(

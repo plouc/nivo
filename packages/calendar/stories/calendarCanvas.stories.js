@@ -4,7 +4,7 @@ import { generateDayCounts } from '@nivo/generators'
 import { CalendarCanvas } from '../src'
 import { scaleQuantize } from 'd3-scale'
 
-const from = new Date(2013, 0, 1)
+const from = new Date(2013, 6, 1)
 const to = new Date(2019, 11, 31)
 const data = generateDayCounts(from, to)
 
@@ -35,6 +35,8 @@ const CustomTooltip = data => {
 }
 
 stories.add('custom tooltip', () => <CalendarCanvas tooltip={CustomTooltip} {...commonProps} />)
+
+stories.add('exact', () => <CalendarCanvas exact {...commonProps} />)
 
 stories.add('spacing', () => (
     <CalendarCanvas {...commonProps} daySpacing={5} monthSpacing={50} dayBorderWidth={2} />

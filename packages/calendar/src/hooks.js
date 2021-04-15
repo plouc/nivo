@@ -26,6 +26,7 @@ export const useCalendarLayout = ({
     monthSpacing,
     daySpacing,
     align,
+    exact,
 }) =>
     useMemo(
         () =>
@@ -39,8 +40,9 @@ export const useCalendarLayout = ({
                 monthSpacing,
                 daySpacing,
                 align,
+                exact,
             }),
-        [width, height, from, to, direction, yearSpacing, monthSpacing, daySpacing, align]
+        [width, height, from, to, direction, yearSpacing, monthSpacing, daySpacing, align, exact]
     )
 
 export const useColorScale = ({ data, minValue, maxValue, colors, colorScale }) =>
@@ -51,8 +53,8 @@ export const useColorScale = ({ data, minValue, maxValue, colors, colorScale }) 
         return defaultColorScale
     }, [data, minValue, maxValue, colors, colorScale])
 
-export const useYearLegends = ({ years, direction, yearLegendPosition, yearLegendOffset }) =>
-    useMemo(
+export const useYearLegends = ({ years, direction, yearLegendPosition, yearLegendOffset }) =>{
+        return useMemo(
         () =>
             computeYearLegendPositions({
                 years,
@@ -61,7 +63,7 @@ export const useYearLegends = ({ years, direction, yearLegendPosition, yearLegen
                 offset: yearLegendOffset,
             }),
         [years, direction, yearLegendPosition, yearLegendOffset]
-    )
+    )}
 
 export const useMonthLegends = ({ months, direction, monthLegendPosition, monthLegendOffset }) =>
     useMemo(
@@ -76,7 +78,8 @@ export const useMonthLegends = ({ months, direction, monthLegendPosition, monthL
     )
 
 export const useDays = ({ days, data, colorScale, emptyColor }) =>
-    useMemo(
+{
+    return useMemo(
         () =>
             bindDaysData({
                 days,
@@ -85,4 +88,4 @@ export const useDays = ({ days, data, colorScale, emptyColor }) =>
                 emptyColor,
             }),
         [days, data, colorScale, emptyColor]
-    )
+    )}
