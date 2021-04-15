@@ -7,6 +7,7 @@ const from = new Date(2019, 0, 1) // the month is 0-indexed
 const to = new Date(2019, 5, 31)
 const data = generateDayCounts(from, to)
 const baseProps = {
+    monthSpacing:20,
     width: 900,
     height: 260,
     margin: {
@@ -38,9 +39,9 @@ stories.add('exact - second half of the year', () => <Calendar
     exact
     {...{
         ...baseProps,
-        from: new Date(2019, 6, 1).toISOString(),
-        to: new Date(2019, 11, 31).toISOString(),
-        data:  generateDayCounts(new Date(2019, 6, 1), new Date(2019, 11, 31))
+        from: new Date(2019, 6, 5).toISOString(),
+        to: new Date(2019, 11, 24).toISOString(),
+        data:  generateDayCounts(new Date(2019, 6, 10), new Date(2019, 11, 31))
     }}
 />)
 stories.add('exact - half/half of the year', () => <Calendar
