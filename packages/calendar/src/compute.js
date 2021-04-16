@@ -134,14 +134,16 @@ const monthPathAndBBox = ({
     const t1 = new Date(date.getFullYear(), date.getMonth() + 1, 0)
 
     const startDate = calculateReturnDate(fromDate, timeYear(date), exact)
-    const lastDayOfMonth = new Date(toDate.getFullYear(), toDate.getMonth() + 1, 0)
-    const lastDate = calculateReturnDate(fromDate, timeYear(t1), exact)
     const elapsedMonths = getElapsedMonths(startDate, date)
+    const lastDate = calculateReturnDate(fromDate, timeYear(t1), exact)
+    // if the toDate is not the last of the months, we do not need to paint the path
+    const lastDayOfMonth = new Date(toDate.getFullYear(), toDate.getMonth() + 1, 0)
     // ranges
     let firstWeek = timeWeek.count(startDate, date)
     const lastWeek = timeWeek.count(lastDate, t1)
     const firstDay = date.getDay()
     const lastDay = t1.getDay()
+
     // offset according to year index and month
     let xO = originX
     let yO = originY
@@ -193,8 +195,14 @@ const monthPathAndBBox = ({
     const month = { path, bbox }
     // do not print the path in case we do not have a full month
     if (
-        (startDate.getMonth() === date.getMonth() && startDate.getDay() > 1) ||
-        (toDate.getMonth() === date.getMonth() && lastDayOfMonth !== toDate.getDay())
+        (fromDate.getMonth() === date.getMonth() &&
+            fromDate.getYear() === date.getYear() &&
+            fromDate.getUTCDay() > 1 &&
+            exact) ||
+        (toDate.getMonth() === date.getMonth() &&
+            toDate.getYear() === date.getYear() &&
+            lastDayOfMonth !== toDate.getUTCDay() &&
+            exact)
     ) {
         delete month.path
     }
@@ -203,24 +211,7 @@ const monthPathAndBBox = ({
 /**
  * Creates a memoized version of monthPathAndBBox function.
  */
-const memoMonthPathAndBBox = memoize(
-    monthPathAndBBox,
-    ({
-        date,
-        cellSize,
-        yearIndex,
-        yearSpacing,
-        monthSpacing,
-        daySpacing,
-        direction,
-        originX,
-        originY,
-        fromDate,
-        toDate,
-    }) => {
-        return `${date.toString()}.${yearIndex}.${fromDate.toString()}.${toDate.toString()}.${cellSize}.${yearSpacing}.${monthSpacing}.${daySpacing}.${direction}.${originX}.${originY}`
-    }
-)
+const memoMonthPathAndBBox = memoize(monthPathAndBBox, props => Object.values(props).join('.'))
 
 /**
  * Returns a function to Compute day cell position for horizontal layout.
@@ -406,8 +397,8 @@ export const computeLayout = ({
                 monthSpacing,
                 daySpacing,
                 cellSize,
-                fromDate: date[0],
-                toDate: date[1],
+                fromDate,
+                toDate,
                 exact,
             }),
         }))

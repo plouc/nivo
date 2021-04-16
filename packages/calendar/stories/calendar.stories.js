@@ -30,17 +30,17 @@ stories.add('default - half/half of the year', () => <Calendar
         ...baseProps,
         from: new Date(2019, 6, 10).toISOString(),
         to: new Date(2020, 5, 31).toISOString(),
-        data: generateDayCounts(new Date(2019, 6, 10), new Date(2020, 5, 31))
+        data: generateDayCounts(new Date(2019, 6, 1), new Date(2020, 5, 31))
     }}
 />)
 stories.add('exact - first half of the year', () => <Calendar exact {...commonProps} />)
-stories.add('exact - second half of the year', () => <Calendar
+stories.add('exact - starting at 07-05, ending at 12-25 ', () => <Calendar
     exact
     {...{
         ...baseProps,
         from: new Date(2019, 6, 5).toISOString(),
         to: new Date(2019, 11, 25).toISOString(),
-        data: generateDayCounts(new Date(2019, 6, 5), new Date(2019, 11, 24))
+        data: generateDayCounts(new Date(2019, 6, 1), new Date(2019, 11, 30))
     }}
 />)
 stories.add('exact - half/half of the year', () => <Calendar
@@ -67,7 +67,7 @@ const japaneseMonths = [
     '十二月',
 ]
 stories.add('translating months', () => (
-    <Calendar monthLegend={(year, month) => japaneseMonths[month]} {...commonProps} />
+    <Calendar monthLegend={(_year, month) => japaneseMonths[month]} {...commonProps} />
 ))
 
 stories.add('custom colors', () => (
